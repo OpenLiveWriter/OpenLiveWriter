@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.BrowserControl</AssemblyName>
+    <RootNamespace>OpenLiveWriter.BrowserControl</RootNamespace>
+    <ProjectGuid>{A5C213F6-F0C6-4FD6-B496-61FE434621A6}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="OpenLiveWriter.Interop.SHDocVw">
+      <Name>OpenLiveWriter.Interop.SHDocVw</Name>
+      <HintPath>..\OpenLiveWriter.Interop\Com\OpenLiveWriter.Interop.SHDocVw.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
+      <Name>OpenLiveWriter.Interop.Mshtml</Name>
+      <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="AxWebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExplorerBrowserCommands.cs" />
+    <Compile Include="ExplorerBrowserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IBrowserCommand.cs" />
+    <Compile Include="IBrowserControl.cs" />
+    <EmbeddedResource Include="ExplorerBrowserControl.resx">
+      <DependentUpon>ExplorerBrowserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.FileDestinations</AssemblyName>
+    <RootNamespace>OpenLiveWriter.FileDestinations</RootNamespace>
+    <ProjectGuid>{217B1333-654D-4901-807D-6E1A98FF3A4D}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj">
+      <Name>OpenLiveWriter.ApplicationFramework</Name>
+      <Project>{EEEE653A-90CE-44E2-B40E-22F747880CC0}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj">
+      <Name>OpenLiveWriter.Controls</Name>
+      <Project>{D4A39612-3610-458F-83F8-5722D1F51063}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="DestinationProfile.cs" />
+    <Compile Include="DestinationProfileManager.cs" />
+    <Compile Include="DestinationValidator.cs" />
+    <Compile Include="Exceptions\LoginException.cs" />
+    <Compile Include="Exceptions\NoSuchDirectoryException.cs" />
+    <Compile Include="FileDestination.cs" />
+    <Compile Include="FileSystemDestination.cs" />
+    <Compile Include="LocalFileSystemDestination.cs" />
+    <Compile Include="NewFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PublishFolderPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SiteDestinationException.cs" />
+    <Compile Include="WebPublish\WebPublishDestination.cs" />
+    <Compile Include="WebPublish\WebPublishMessage.cs" />
+    <Compile Include="WebPublish\WebPublishSettings.cs" />
+    <Compile Include="WebPublish\WebPublishUtils.cs" />
+    <Compile Include="WinInetFTPFileDestination.cs" />
+    <EmbeddedResource Include="Exceptions.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFolder.resx">
+      <DependentUpon>NewFolder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublishFolderPicker.resx">
+      <DependentUpon>PublishFolderPicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebPublish\WebPublishMessage.resx">
+      <DependentUpon>WebPublishMessage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

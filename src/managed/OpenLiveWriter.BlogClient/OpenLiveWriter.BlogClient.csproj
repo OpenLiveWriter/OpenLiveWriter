@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.BlogClient</AssemblyName>
+    <RootNamespace>OpenLiveWriter.BlogClient</RootNamespace>
+    <ProjectGuid>{B6D10B42-F173-4086-BB81-96B724BA5594}</ProjectGuid>
+    <ProjectGuid>{FE2EA529-26E6-42C3-9F6A-E58966995FFE}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj">
+      <Name>OpenLiveWriter.Api</Name>
+      <Project>{B6D10B42-F173-4086-BB81-96B724BA5594}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj">
+      <Project>{A5C213F6-F0C6-4FD6-B496-61FE434621A6}</Project>
+      <Name>OpenLiveWriter.BrowserControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj">
+      <Name>OpenLiveWriter.Controls</Name>
+      <Project>{D4A39612-3610-458F-83F8-5722D1F51063}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Extensibility\OpenLiveWriter.Extensibility.csproj">
+      <Name>OpenLiveWriter.Extensibility</Name>
+      <Project>{A803C16E-6619-4017-883C-EA73EB947F34}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.FileDestinations\OpenLiveWriter.FileDestinations.csproj">
+      <Name>OpenLiveWriter.FileDestinations</Name>
+      <Project>{217B1333-654D-4901-807D-6E1A98FF3A4D}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
+      <Name>OpenLiveWriter.HtmlParser</Name>
+      <Project>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
+      <Name>OpenLiveWriter.Interop.Mshtml</Name>
+      <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj">
+      <Name>OpenLiveWriter.Mshtml</Name>
+      <Project>{906BA039-467B-41AE-B805-BA1B837AB763}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="Blog.cs" />
+    <Compile Include="BlogClientBase.cs" />
+    <Compile Include="BlogClientHelper.cs" />
+    <Compile Include="BlogClientUIContext.cs" />
+    <Compile Include="BlogDescriptor.cs" />
+    <Compile Include="BlogProviderButtonDescription.cs" />
+    <Compile Include="BlogSettings.cs" />
+    <Compile Include="Clients\AtomClient.cs" />
+    <Compile Include="Clients\AtomContentValue.cs" />
+    <Compile Include="Clients\AtomEntry.cs" />
+    <Compile Include="Clients\AtomMediaUploader.cs" />
+    <Compile Include="Clients\AtomProtocolVersion.cs" />
+    <Compile Include="Clients\BlogClientLoginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Clients\BlogClientLoginDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clients\BlogClientManager.cs" />
+    <Compile Include="Clients\BloggerAtomClient.cs" />
+    <Compile Include="Clients\BloggerCompatibleClient.cs" />
+    <Compile Include="Clients\BlogPostContentFilters.cs" />
+    <Compile Include="Clients\CredentialsHelper.cs" />
+    <Compile Include="Clients\GDataCaptchaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clients\GenericAtomClient.cs" />
+    <Compile Include="Clients\LineBreakInputFormatters.cs" />
+    <Compile Include="Clients\LiveJournalClient.cs" />
+    <Compile Include="Clients\MetaweblogClient.cs" />
+    <Compile Include="Clients\MovableTypeClient.cs" />
+    <Compile Include="Clients\RedirectHelper.cs" />
+    <Compile Include="Clients\SharePointClient.cs" />
+    <Compile Include="Clients\WordPressClient.cs" />
+    <Compile Include="Clients\XmlRestRequestHelper.cs" />
+    <Compile Include="Clients\XmlRpcBlogClient.cs" />
+    <Compile Include="Detection\BackgroundColorDetector.cs" />
+    <Compile Include="Detection\BlogAccountDetector.cs" />
+    <Compile Include="Detection\BlogEditingTemplate.cs" />
+    <Compile Include="Detection\BlogEditingTemplateDetector.cs" />
+    <Compile Include="Detection\BlogEditingTemplateStrategy.cs" />
+    <Compile Include="Detection\BloggerDetectionHelper.cs" />
+    <Compile Include="Detection\BlogPostRegionLocatorStrategy.cs" />
+    <Compile Include="Detection\BlogServiceDetector.cs" />
+    <Compile Include="Detection\BlogSettingsDetector.cs" />
+    <Compile Include="Detection\LazyHomepageDownloader.cs" />
+    <Compile Include="Detection\RsdServiceDetector.cs" />
+    <Compile Include="Detection\WriterEditingManifest.cs" />
+    <Compile Include="IBlogCredentials.cs" />
+    <Compile Include="IBlogSettingsAccessor.cs" />
+    <Compile Include="ICredentialsDomain.cs" />
+    <Compile Include="ImageViewers\DhtmlImageViewers.cs" />
+    <Compile Include="Providers\BlogProvider.cs" />
+    <Compile Include="Providers\BlogProviderFromXml.cs" />
+    <Compile Include="Providers\BlogProviderManager.cs" />
+    <Compile Include="Providers\BlogProviderParameters.cs" />
+    <EmbeddedResource Include="Clients\BlogClientLoginControl.resx">
+      <DependentUpon>BlogClientLoginControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clients\BlogClientLoginDialog.resx">
+      <DependentUpon>BlogClientLoginDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clients\GDataCaptchaForm.resx">
+      <DependentUpon>GDataCaptchaForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clients\PassportSettings.xml" />
+    <EmbeddedResource Include="Images\WordPressFav.ico" />
+    <EmbeddedResource Include="Providers\BlogProvidersB5.xml" />
+    <Content Include="Detection\default.htm" />
+    <Content Include="Detection\defaultstyle.css" />
+    <EmbeddedResource Include="ImageViewers\DhtmlImageViewers.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+  <Target Name="BeforeBuild">
+    <Copy SourceFiles="$(ProjectDir)Detection\default.htm" DestinationFiles="$(OutputPath)\template\default.htm" />
+    <Copy SourceFiles="$(ProjectDir)Detection\defaultstyle.css" DestinationFiles="$(OutputPath)\template\defaultstyle.css" />
+  </Target>
+</Project>

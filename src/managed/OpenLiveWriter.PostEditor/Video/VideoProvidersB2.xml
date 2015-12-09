@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<videoProviders xmlns:xpp="http://writer.live.com/xmlpp/2007">
+  <provider>
+    <id>15190D81-FAF7-4244-A16B-A43AD12C7A7F</id>
+    <serviceName>MTv Music</serviceName>
+    <editorFormat>
+      <![CDATA[
+      <embed src="http://media.mtvnservices.com/mgid:uma:video:mtvmusic.com:{videoId}" wmode="transparent" type="application/x-shockwave-flash" width="{width}" height="{height}" allowFullScreen="true" allowScriptAccess="always"></embed>
+		]]>
+    </editorFormat>
+    <embedFormat>
+      <![CDATA[
+		<embed src="http://media.mtvnservices.com/mgid:uma:video:mtvmusic.com:{videoId}" width="{width}" height="{height}"  type="application/x-shockwave-flash" flashVars="dist=http://www.mtvmusic.com" allowFullScreen="true" AllowScriptAccess="never"></embed> 
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://media.mtvnservices.com/mgid:uma:video:mtvmusic.com:(?<id>[^&]*)
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://www.mtvmusic.com/video/?id={videoId} 
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://www.mtvmusic.com/video/\?id=(?<id>.*)
+		]]>
+    </urlPattern>
+    <size xpp:if="version lt 15.4.3104.0816">
+      <width>320</width>
+      <height>271</height>
+    </size>
+    <size xpp:if="version gte 15.4.3104.0816">
+      <width>448</width>
+      <height>252</height>
+    </size>
+  </provider>
+  <provider>
+    <id>5A8D4FBC-356F-4104-A7EF-2787615D8D62</id>
+    <serviceName>FunnyOrDie</serviceName>
+    <editorFormat>
+      <![CDATA[
+		<embed width="{width}" height="{height}" src="http://player.ordienetworks.com/flash/fodplayer.swf" flashvars="key={videoId}" allowfullscreen="true" allowscriptaccess="always" quality="high"  type="application/x-shockwave-flash" wmode="transparent" name="ordie_player_{videoId}"></embed>
+		]]>
+    </editorFormat>
+    <embedFormat>
+      <![CDATA[
+      <object width="{width}" height="{height}"><param name="movie" value="http://www.funnyordie.com/videos/{videoId}"></param><embed width="{width}" height="{height}" src="http://player.ordienetworks.com/flash/fodplayer.swf" flashvars="key={videoId}" allowfullscreen="true" allowscriptaccess="always" quality="high"  type="application/x-shockwave-flash" wmode="transparent" name="ordie_player_{videoId}"></embed></object>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://www.funnyordie.com/videos/(?<id>[a-zA-z0-9])
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://www.funnyordie.com/videos/{videoId}
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://(.+\.)?funnyordie.com/videos/(?<id>[a-zA-z0-9]*)
+		]]>
+    </urlPattern>
+    <size>
+      <width>512</width>
+      <height>328</height>
+    </size>
+  </provider>
+  <provider>
+    <id>56744E0A-1892-4b56-B7FF-3A2568EE2D27</id>
+    <serviceName>YouTube</serviceName>
+    <editorFormat xpp:if="version lt 15.4.3104.0816">
+      <![CDATA[
+		<embed src="http://www.youtube.com/v/{videoId}" type="application/x-shockwave-flash" wmode="transparent" width="{width}" height="{height}"></embed>
+		]]>
+    </editorFormat>
+    <editorFormat xpp:if="version gte 15.4.3104.0816">
+      <![CDATA[
+		<embed src="http://www.youtube.com/v/{videoId}?hd=1" type="application/x-shockwave-flash" wmode="transparent" width="{width}" height="{height}"></embed>
+		]]>
+    </editorFormat>
+    <embedFormat xpp:if="version lt 15.4.3104.0816">
+      <![CDATA[
+      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/v/{videoId}&hl=en"></param><embed src="http://www.youtube.com/v/{videoId}&hl=en" type="application/x-shockwave-flash" width="{width}" height="{height}"></embed></object>
+		]]>
+    </embedFormat>
+    <embedFormat xpp:if="version gte 15.4.3104.0816">
+      <![CDATA[
+      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/v/{videoId}?hl=en&hd=1"></param><embed src="http://www.youtube.com/v/{videoId}?hl=en&hd=1" type="application/x-shockwave-flash" width="{width}" height="{height}"></embed></object>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://www.youtube.com/v/(?<id>[^&\?]*)
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://www.youtube.com/watch?v={videoId}
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+      (http://www.youtube.com/user/[^#]*[^\n]*/(?<id>[^&]*)|^http://(.+\.)?youtube.com/watch(\?|\#!)v=(?<id>[^&]*))    
+		]]>
+    </urlPattern>
+    <size xpp:if="version lt 15.4.3104.0816">
+      <width>425</width>
+      <height>355</height>
+    </size>
+    <size xpp:if="version gte 15.4.3104.0816">
+      <width>448</width>
+      <height>277</height>
+    </size>
+    <urlAtomPattern>
+      <![CDATA[
+    http://gdata\.youtube\.com/feeds/api/users/[^/]+/uploads/(?<id>[^\?/]+)
+    ]]>
+    </urlAtomPattern>
+    <urlAtomFormat>
+      <![CDATA[
+    http://gdata\.youtube\.com/feeds/api/users/{user}/uploads/{videoId}
+    ]]>
+    </urlAtomFormat>
+  </provider>
+  <provider>
+    <id>6A08E9D2-7CEC-4079-9E2C-DF55290D549E</id>
+    <serviceName>Google Videos</serviceName>
+    <embedFormat>
+      <![CDATA[
+		<embed style="width:{width}px; height:{height}px;" wmode="transparent" id="VideoPlayback" type="application/x-shockwave-flash" src="http://video.google.com/googleplayer.swf?docId={videoId}&hl=en" flashvars=""> </embed>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://video.google.com/googleplayer.swf\?docId=(?<id>[^&]*)
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://video.google.com/videoplay?docid={videoId}
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://video.google.[a-zA-Z\.]+/videoplay\?docid=(?<id>[^&]*)
+		]]>
+    </urlPattern>
+    <size>
+      <width>400</width>
+      <height>326</height>
+    </size>
+  </provider>
+  <provider>
+    <id>8D8C9213-08EE-4e1e-BCAF-75D00C36D313</id>
+    <serviceName>Crackle</serviceName>
+    <embedFormat>
+      <![CDATA[
+      <embed allowFullScreen="true" src="http://crackle.com/p/show/title.swf" width="{width}" height="{height}" quality="high" scale="noScale" FlashVars="id={videoId}&amp;ml=o%3D12%26fpl%3D184495%26fx%3D" wmode="window" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://crackle.com/p/.*\.swf
+			]]>
+      </pattern>
+      <pattern name="flashVars">
+        <![CDATA[
+			.*id=(?<id>[0-9]*)&.*
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://crackle.com/c/category/title/{videoId}
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://crackle.com/c/[^/]*/[^/]*/(?<id>[0-9]*)
+		]]>
+    </urlPattern>
+    <size xpp:if="version lt 15.4.3104.0816">
+      <width>400</width>
+      <height>328</height>
+    </size>
+    <size xpp:if="version gte 15.4.3104.0816">
+      <width>448</width>
+      <height>252</height>
+    </size>
+    <loadedTestColor a="255" r="0" g= "0" b="0" percent=".90"/>
+  </provider>
+  <provider>
+    <id>0C8C65A2-9167-45cc-9BF4-D3C5343D7A73</id>
+    <serviceName>DailyMotion</serviceName>
+    <editorFormat>
+      <![CDATA[
+      <embed src="http://www.dailymotion.com/swf/{videoId}&related=0" wmode="transparent" type="application/x-shockwave-flash" width="{width}" height="{height}" allowFullScreen="true" allowScriptAccess="always"></embed>
+		]]>
+    </editorFormat>
+    <embedFormat>
+      <![CDATA[
+      <object width="{width}" height="{height}"><param name="movie" value="http://www.dailymotion.com/swf/{videoId}&related=0"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed src="http://www.dailymotion.com/swf/{videoId}&related=0" type="application/x-shockwave-flash" width="{width}" height="{height}" allowFullScreen="true" allowScriptAccess="always"></embed></object>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://www.dailymotion.com/swf/(?<id>[^&]*)&.*
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://www.dailymotion.com/video/{videoId}
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://www.dailymotion.com/video/(?<id>[^_]*)
+		]]>
+    </urlPattern>
+    <size xpp:if="version lt 15.4.3104.0816">
+      <width>420</width>
+      <height>257</height>
+    </size>
+    <size xpp:if="version gte 15.4.3104.0816">
+      <width>448</width>
+      <height>252</height>
+    </size>
+    <loadedTestColor a="255" r="0" g= "0" b="0" percent=".90"/>
+  </provider>
+  <provider>
+    <id>B6D96B90-7B09-4dc9-833E-A368913B0E98</id>
+    <serviceName>Spike</serviceName>
+    <embedFormat>
+      <![CDATA[
+      <embed width="{width}" height="{height}" src="http://media.mtvnservices.com/mgid:ifilm:video:spike.com:{videoid}" quality="high" bgcolor="000000" name="efp" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="autoPlay=false" allowfullscreen="true"> </embed>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://www.spike.com/efp
+			]]>
+      </pattern>
+      <pattern name="flashVars">
+        <![CDATA[
+			.*flvbaseclip=(?<id>[0-9]*).*
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://www.spike.com/video/title/{videoId}
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://www.spike.com/video/[^/]*/(?<id>[0-9]*)
+		]]>
+    </urlPattern>
+    <size xpp:if="version lt 15.4.3104.0816">
+      <width>486</width>
+      <height>412</height>
+    </size>
+    <size xpp:if="version gte 15.4.3104.0816">
+      <width>448</width>
+      <height>252</height>
+    </size>
+    <loadedTestColor a="255" r="0" g= "0" b="0" percent=".90"/>
+  </provider>
+  <provider>
+    <id>939FFF66-C87C-4571-A6F1-035900650472</id>
+    <serviceName>MetaCafe</serviceName>
+    <embedFormat>
+      <![CDATA[
+      <embed src="http://www.metacafe.com/fplayer/{videoId}/title.swf" width="{width}" height="{height}" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"> </embed>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://www.metacafe.com/fplayer/(?<id>[0-9]*)
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://www.metacafe.com/watch/{videoId}/title/
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://www.metacafe.com/watch/(?<id>[0-9]*)
+		]]>
+    </urlPattern>
+    <size xpp:if="version lt 15.4.3104.0816">
+      <width>400</width>
+      <height>345</height>
+    </size>
+    <size xpp:if="version gte 15.4.3104.0816">
+      <width>440</width>
+      <height>272</height>
+    </size>
+    <loadedTestColor a="255" r="0" g= "0" b="0" percent=".90"/>
+  </provider>
+  <provider>
+    <id>D0402B9A-7ADC-4dcf-A029-4D3FD0B11362</id>
+    <serviceName>MotionBox</serviceName>
+    <embedFormat>
+      <![CDATA[
+      <embed src="http://www.motionbox.com/external/player/id%3D{videoId}" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" width="{width}" height="{height}" wmode="transparent" ></embed>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://www.motionbox.com/external/player/id%3D(?<id>[^\"]*)
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+		http://www.motionbox.com/videos/{videoId}
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://www.motionbox.com/videos/(?<id>.*)
+		]]>
+    </urlPattern>
+    <size>
+      <width>486</width>
+      <height>412</height>
+    </size>
+    <loadedTestColor a="255" r="0" g= "0" b="0" percent=".90"/>
+  </provider>
+  <provider>
+    <id>7A023A25-097C-4cbe-BF69-7BED05ED212B</id>
+    <serviceName>Veoh</serviceName>
+    <embedFormat>
+      <![CDATA[
+      <embed src="http://www.veoh.com/veohplayer.swf?permalinkId={videoId}&id=anonymous&player=videodetailsembedded&videoAutoPlay=0" allowFullScreen="true" width="{width}" height="{height}" wmode="transparent" bgcolor="#FFFFFF" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>
+		]]>
+    </embedFormat>
+    <embedPatterns>
+      <pattern name="src">
+        <![CDATA[
+			http://www.veoh.com/veohplayer.swf\?permalinkId=(?<id>[^&]*)
+			]]>
+      </pattern>
+    </embedPatterns>
+    <urlFormat>
+      <![CDATA[
+      http://www.veoh.com/videos/{videoId}
+		]]>
+    </urlFormat>
+    <urlPattern>
+      <![CDATA[
+		^http://www.veoh.com/videos/(?<id>[^?]*)
+		]]>
+    </urlPattern>
+    <size>
+      <width>410</width>
+      <height>341</height>
+    </size>
+    <loadedTestColor a="255" r="0" g= "0" b="0" percent=".90"/>
+  </provider>
+  <whitelists>
+    <whitelist blogprovider="556A165F-DA11-463c-BB4A-C77CC9047F22">
+      <allowed providerId="56744E0A-1892-4b56-B7FF-3A2568EE2D27" xpp:if="version lt 15.4.3104.0816">
+        <![CDATA[			
+			[youtube=http://www.youtube.com/watch?v={id}]
+			]]>
+      </allowed>
+      <allowed providerId="56744E0A-1892-4b56-B7FF-3A2568EE2D27" xpp:if="version gte 15.4.3104.0816">
+        <![CDATA[			
+			[youtube=http://www.youtube.com/watch?v={id}&w={width}&h={height}&hd=1]
+			]]>
+      </allowed>
+      <allowed providerId="6A08E9D2-7CEC-4079-9E2C-DF55290D549E">
+        <![CDATA[			
+			[googlevideo=http://video.google.com/videoplay?docid={id}]
+			]]>
+      </allowed>
+    </whitelist>
+  </whitelists>
+</videoProviders>

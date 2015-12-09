@@ -1,0 +1,3066 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutAbout" xml:space="preserve">
+    <value>'も雅About {0}éééé"</value>
+  </data>
+  <data name="AboutCopyright" xml:space="preserve">
+    <value>'も雅Copyright © .NET Foundation. All rights reserved.éééééééééééééééééééééééé"</value>
+  </data>
+  <data name="AboutVersion" xml:space="preserve">
+    <value>'も雅Version {0}ééééé"</value>
+  </data>
+  <data name="AccountPanel" xml:space="preserve">
+    <value>'も雅Accountééé"</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>'も雅A&amp;dd...ééé"</value>
+  </data>
+  <data name="AddButton2" xml:space="preserve">
+    <value>'も雅&amp;Addéé"</value>
+  </data>
+  <data name="AddWeblogAccount" xml:space="preserve">
+    <value>'も雅Add Weblog Accountéééééééé"</value>
+  </data>
+  <data name="AdvancedBlogOverride" xml:space="preserve">
+    <value>'も雅Blog Override Optionsééééééééé"</value>
+  </data>
+  <data name="AdvancedDefault" xml:space="preserve">
+    <value>'も雅Default ({0})éééééé"</value>
+  </data>
+  <data name="AdvancedEmbedTags" xml:space="preserve">
+    <value>'も雅&amp;Embed Tags:ééééé"</value>
+  </data>
+  <data name="AdvancedName" xml:space="preserve">
+    <value>'も雅Advancedéééé"</value>
+  </data>
+  <data name="AdvancedScripts" xml:space="preserve">
+    <value>'も雅&amp;Scripts:éééé"</value>
+  </data>
+  <data name="AdvancedText" xml:space="preserve">
+    <value>'も雅Open Live Writer will use the appropriate default encoding for your posts, usually UTF-8. You can manually override this suggestion by selecting a different encoding below.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="AdvancedTransport" xml:space="preserve">
+    <value>'も雅Character Setéééééé"</value>
+  </data>
+  <data name="AdvancedXHTMLDefault" xml:space="preserve">
+    <value>'も雅Default ({0})éééééé"</value>
+  </data>
+  <data name="AdvancedXHTMLGroupName" xml:space="preserve">
+    <value>'も雅Markup Typeééééé"</value>
+  </data>
+  <data name="AdvancedXHTMLLabel" xml:space="preserve">
+    <value>'も雅If your blog homepage uses XHTML, Writer can generate well-formed markup. Otherwise, Writer generates standard HTML. You can manually override this behavior below.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="AlignMenuItem" xml:space="preserve">
+    <value>'も雅&amp;Alignééé"</value>
+  </data>
+  <data name="AllFilesFilterString" xml:space="preserve">
+    <value>'も雅All Files (*.*)éééééé"</value>
+  </data>
+  <data name="AllowAutoUpdate" xml:space="preserve">
+    <value>'も雅Automatically &amp;update account information (categories, links, capabilities, and provider extensions)éééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="AllowProviderExtensions" xml:space="preserve">
+    <value>'も雅Allow &amp;weblog provider extensions (custom buttons which appear in the sidebar)éééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>'も雅Appearanceéééé"</value>
+  </data>
+  <data name="ApplyButton" xml:space="preserve">
+    <value>'も雅&amp;Applyééé"</value>
+  </data>
+  <data name="BCEAuthenticationMessage" xml:space="preserve">
+    <value>'も雅Please check your username and password.
+
+{0} - {1}éééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCEAuthenticationTitle" xml:space="preserve">
+    <value>'も雅Account Login Failedéééééééé"</value>
+  </data>
+  <data name="BCEConnectionErrorMessage" xml:space="preserve">
+    <value>'も雅Error attempting to connect to weblog at:
+
+{0}
+
+{1}éééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCEConnectionErrorTitle" xml:space="preserve">
+    <value>'も雅Network Connection Erroréééééééééé"</value>
+  </data>
+  <data name="BCEFileIOMessage" xml:space="preserve">
+    <value>'も雅An unexpected error occurred while accessing the file {0}
+
+{1} - {2}éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCEFileIOTitle" xml:space="preserve">
+    <value>'も雅File Access Errorééééééé"</value>
+  </data>
+  <data name="BCEFileTransferConnectingToDestination" xml:space="preserve">
+    <value>'も雅connecting to file destinationéééééééééééé"</value>
+  </data>
+  <data name="BCEFileTransferDisconnectingFromDestination" xml:space="preserve">
+    <value>'も雅disconnecting from file destinationéééééééééééééé"</value>
+  </data>
+  <data name="BCEFileTransferMessage" xml:space="preserve">
+    <value>'も雅Error occurred while {0}
+
+({1}) {2}ééééééééééééééé"</value>
+  </data>
+  <data name="BCEFileTransferTitle" xml:space="preserve">
+    <value>'も雅File Transfer Erroréééééééé"</value>
+  </data>
+  <data name="BCEFileTransferTransferringFile" xml:space="preserve">
+    <value>'も雅transferring file {0}ééééééééé"</value>
+  </data>
+  <data name="BCEFileUploadNotSupportedMessage" xml:space="preserve">
+    <value>'も雅File uploading is not supported by this weblog. Please configure file uploading for this weblog before attempting to publish posts with attached images or files.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCEFileUploadNotSupportedTitle" xml:space="preserve">
+    <value>'も雅File Upload Not Supportedéééééééééé"</value>
+  </data>
+  <data name="BCEHttpErrorMessage" xml:space="preserve">
+    <value>'も雅The server reported an error with the following URL:
+
+{0}
+
+{1}ééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCEHttpErrorTitle" xml:space="preserve">
+    <value>'も雅Server Errorééééé"</value>
+  </data>
+  <data name="BCEInvalidServerResponseMessage" xml:space="preserve">
+    <value>'も雅The response to the {0} method received from the weblog server was invalid:
+
+{1}ééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCEInvalidServerResponseTitle" xml:space="preserve">
+    <value>'も雅Invalid Server Responseéééééééééé"</value>
+  </data>
+  <data name="BCEMethodUnsupportedMessage" xml:space="preserve">
+    <value>'も雅The {0} method is not supported by the weblog service.éééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCEMethodUnsupportedTitle" xml:space="preserve">
+    <value>'も雅Method Unsupportedéééééééé"</value>
+  </data>
+  <data name="BCENetworkIOMessage" xml:space="preserve">
+    <value>'も雅An unexpected data transfer exception occurred while {0}
+
+{1} - {2}éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCENetworkIOTitle" xml:space="preserve">
+    <value>'も雅Data Transfer Exceptionéééééééééé"</value>
+  </data>
+  <data name="BCEOperationCancelledMessage" xml:space="preserve">
+    <value>'も雅The operation was cancelled.éééééééééééé"</value>
+  </data>
+  <data name="BCEOperationCancelledTitle" xml:space="preserve">
+    <value>'も雅Operation Cancelledéééééééé"</value>
+  </data>
+  <data name="BCEPostAsDraftUnsupportedMessage" xml:space="preserve">
+    <value>'も雅This server does not support posting drafts.éééééééééééééééééé"</value>
+  </data>
+  <data name="BCEPostAsDraftUnsupportedTitle" xml:space="preserve">
+    <value>'も雅Post as Draft Not Supportedééééééééééé"</value>
+  </data>
+  <data name="BCEPostUrlNotFoundMessage" xml:space="preserve">
+    <value>'も雅The post URL for the weblog was not found:
+
+{0}
+
+{1}ééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BCEPostUrlNotFoundTitle" xml:space="preserve">
+    <value>'も雅Weblog Post URL Not Foundéééééééééé"</value>
+  </data>
+  <data name="BCEProviderMessage" xml:space="preserve">
+    <value>'も雅Server Error {0} Occurred
+
+{1}ééééééééééééé"</value>
+  </data>
+  <data name="BCEProviderTitle" xml:space="preserve">
+    <value>'も雅Blog Server Errorééééééé"</value>
+  </data>
+  <data name="Beta1DayRemaining" xml:space="preserve">
+    <value>'も雅1 day remainingéééééé"</value>
+  </data>
+  <data name="BetaDaysRemaining" xml:space="preserve">
+    <value>'も雅{0} days remainingéééééééé"</value>
+  </data>
+  <data name="BetaExpiredAskLater" xml:space="preserve">
+    <value>'も雅Ask Me Laterééééé"</value>
+  </data>
+  <data name="BetaExpiredDialogTitle" xml:space="preserve">
+    <value>'も雅Expirationéééé"</value>
+  </data>
+  <data name="BetaExpiredDownloadNow" xml:space="preserve">
+    <value>'も雅Download Nowééééé"</value>
+  </data>
+  <data name="BetaExpiredMessage" xml:space="preserve">
+    <value>'も雅This version of {0} has expired. Please download and install a newer version.ééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BetaExpiredTitle" xml:space="preserve">
+    <value>'も雅Expiredééé"</value>
+  </data>
+  <data name="BetaRemainingMessage" xml:space="preserve">
+    <value>'も雅This version of {0} will expire on {1}. Please download and install a newer version.éééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>'も雅Blogéé"</value>
+  </data>
+  <data name="Blog_Option_Not_Supported" xml:space="preserve">
+    <value>'も雅Not Supportedéééééé"</value>
+  </data>
+  <data name="Blog_Option_Supported" xml:space="preserve">
+    <value>'も雅Supportedéééé"</value>
+  </data>
+  <data name="Blog_Option_Unknown" xml:space="preserve">
+    <value>'も雅Unknownééé"</value>
+  </data>
+  <data name="BlogCategoryNone" xml:space="preserve">
+    <value>'も雅Noneéé"</value>
+  </data>
+  <data name="BloggerAccountDeleted" xml:space="preserve">
+    <value>'も雅The user account has been deleted.éééééééééééééé"</value>
+  </data>
+  <data name="BloggerAccountDisabled" xml:space="preserve">
+    <value>'も雅The user account has been disabled.éééééééééééééé"</value>
+  </data>
+  <data name="BloggerBadAuthentication" xml:space="preserve">
+    <value>'も雅The username or password is not recognized.éééééééééééééééééé"</value>
+  </data>
+  <data name="BloggerGenericError" xml:space="preserve">
+    <value>'も雅An error has occurred: {0}ééééééééééé"</value>
+  </data>
+  <data name="BloggerImageAlbumDescription" xml:space="preserve">
+    <value>'も雅This album is used to store images from blog posts published by Open Live Writer.éééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BloggerNotVerified" xml:space="preserve">
+    <value>'も雅The account email address has not been verified. The user will need to access their Google account directly to resolve the issue before logging in using a non-Google application.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BloggerServiceUnavailable" xml:space="preserve">
+    <value>'も雅The service is not available; try again later.ééééééééééééééééééé"</value>
+  </data>
+  <data name="BloggerTermsNotAgreed" xml:space="preserve">
+    <value>'も雅The user has not agreed to terms. The user will need to access their Google account directly to resolve the issue before logging in using a non-Google application.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BloggerUnknown" xml:space="preserve">
+    <value>'も雅The error is unknown or unspecified; the request contained invalid input or was malformed.éééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisCondInsert" xml:space="preserve">
+    <value>'も雅Insert Co&amp;nditionaléééééééé"</value>
+  </data>
+  <data name="BlogThisDescCol" xml:space="preserve">
+    <value>'も雅Descriptionééééé"</value>
+  </data>
+  <data name="BlogThisExplanation" xml:space="preserve">
+    <value>'も雅{0} can be launched by external applications to create blog posts containing content from the application. For example, a web browser could create a post containing a link to a web page, or a picture management program could create a post containing an image.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisFeedItem" xml:space="preserve">
+    <value>'も雅Feed Iteméééé"</value>
+  </data>
+  <data name="BlogThisHtml" xml:space="preserve">
+    <value>'も雅HTMLéé"</value>
+  </data>
+  <data name="BlogThisImage" xml:space="preserve">
+    <value>'も雅Imageéé"</value>
+  </data>
+  <data name="BlogThisImageList" xml:space="preserve">
+    <value>'も雅Image Listéééé"</value>
+  </data>
+  <data name="BlogThisLink" xml:space="preserve">
+    <value>'も雅Linkéé"</value>
+  </data>
+  <data name="BlogThisName" xml:space="preserve">
+    <value>'も雅Customize HTML Templateéééééééééé"</value>
+  </data>
+  <data name="BlogThisNameCol" xml:space="preserve">
+    <value>'も雅Nameéé"</value>
+  </data>
+  <data name="BlogThisParamAuthor" xml:space="preserve">
+    <value>'も雅The author of this feed item.éééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamAuthorEmail" xml:space="preserve">
+    <value>'も雅The email address for the author of this feed item.ééééééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamComment" xml:space="preserve">
+    <value>'も雅A comment about this item.ééééééééééé"</value>
+  </data>
+  <data name="BlogThisParameters" xml:space="preserve">
+    <value>'も雅&amp;Available template parameters:ééééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamFeedHomepage" xml:space="preserve">
+    <value>'も雅The URL of the homepage for the feed that published this feed item.ééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamFeedName" xml:space="preserve">
+    <value>'も雅The name of the feed that published this feed item.ééééééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamFullContents" xml:space="preserve">
+    <value>'も雅The full contents of the feed item.éééééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamFullHtml" xml:space="preserve">
+    <value>'も雅The full HTML content.ééééééééé"</value>
+  </data>
+  <data name="BlogThisParamFullSnippet" xml:space="preserve">
+    <value>'も雅The full snippet of HTML.éééééééééé"</value>
+  </data>
+  <data name="BlogThisParamImageFilePaths" xml:space="preserve">
+    <value>'も雅The list of image file paths.éééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamImageList" xml:space="preserve">
+    <value>'も雅The list of images.éééééééé"</value>
+  </data>
+  <data name="BlogThisParamInsert" xml:space="preserve">
+    <value>'も雅&amp;Insert Parameterééééééé"</value>
+  </data>
+  <data name="BlogThisParamPreserveImages" xml:space="preserve">
+    <value>'も雅Preserve images in the item contents.ééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamPublishDate" xml:space="preserve">
+    <value>'も雅The date that this feed item was published.éééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamSecureHtml" xml:space="preserve">
+    <value>'も雅The HTML content.ééééééé"</value>
+  </data>
+  <data name="BlogThisParamThinnedContents" xml:space="preserve">
+    <value>'も雅The contents of the feed item.éééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamThinnedSnippet" xml:space="preserve">
+    <value>'も雅The snippet of HTML.éééééééé"</value>
+  </data>
+  <data name="BlogThisParamTitle" xml:space="preserve">
+    <value>'も雅A description of the item.ééééééééééé"</value>
+  </data>
+  <data name="BlogThisParamUrl" xml:space="preserve">
+    <value>'も雅The web link to the item.éééééééééé"</value>
+  </data>
+  <data name="BlogThisPrefBehave" xml:space="preserve">
+    <value>'も雅Behavioréééé"</value>
+  </data>
+  <data name="BlogThisPrefContent" xml:space="preserve">
+    <value>'も雅Select a content type and click the Customize button to edit the HTML template for that type.éééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisPrefContentTitle" xml:space="preserve">
+    <value>'も雅Contentééé"</value>
+  </data>
+  <data name="BlogThisPrefCustom" xml:space="preserve">
+    <value>'も雅C&amp;ustomize...éééééé"</value>
+  </data>
+  <data name="BlogThisPrefDefault" xml:space="preserve">
+    <value>'も雅&amp;Default weblog for Blog This:éééééééééééé"</value>
+  </data>
+  <data name="BlogThisPrefName" xml:space="preserve">
+    <value>'も雅Blog Thiséééé"</value>
+  </data>
+  <data name="BlogThisPrefPrompt" xml:space="preserve">
+    <value>'も雅(Prompt To Choose Weblog)éééééééééé"</value>
+  </data>
+  <data name="BlogThisPrefRecent" xml:space="preserve">
+    <value>'も雅(Use Most Recent Weblog)éééééééééé"</value>
+  </data>
+  <data name="BlogThisPrefType" xml:space="preserve">
+    <value>'も雅Supported &amp;content types:éééééééééé"</value>
+  </data>
+  <data name="BlogThisSelectWeblog" xml:space="preserve">
+    <value>'も雅&amp;Select weblog to publish to:éééééééééééé"</value>
+  </data>
+  <data name="BlogThisSelectWeblogTitle" xml:space="preserve">
+    <value>'も雅Select Destination Weblogéééééééééé"</value>
+  </data>
+  <data name="BlogThisSnippet" xml:space="preserve">
+    <value>'も雅Snippetééé"</value>
+  </data>
+  <data name="BlogThisTemplate" xml:space="preserve">
+    <value>'も雅{0} - &amp;HTML template for Blog This content:éééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisTemplateErrorError" xml:space="preserve">
+    <value>'も雅Error Processing Blog This Templateéééééééééééééé"</value>
+  </data>
+  <data name="BlogThisTemplateErrorExplanation" xml:space="preserve">
+    <value>'も雅The Blog This template has invalid syntax or parameters. The template must be corrected for Blog This to correctly generate content.ééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="BlogThisTemplateErrorLabel" xml:space="preserve">
+    <value>'も雅&amp;Error:ééé"</value>
+  </data>
+  <data name="BlogThisTemplateErrorTemplateLabel" xml:space="preserve">
+    <value>'も雅&amp;Template:éééé"</value>
+  </data>
+  <data name="BlogThisTemplateErrorTitle" xml:space="preserve">
+    <value>'も雅Blog This Template Erroréééééééééé"</value>
+  </data>
+  <data name="BlogThisTooltip" xml:space="preserve">
+    <value>'も雅Blog This: {0}éééééé"</value>
+  </data>
+  <data name="BrightnessAdjust" xml:space="preserve">
+    <value>'も雅Adjust Contrastéééééé"</value>
+  </data>
+  <data name="BrightnessBrightness" xml:space="preserve">
+    <value>'も雅&amp;Brightness:ééééé"</value>
+  </data>
+  <data name="BrightnessContrast" xml:space="preserve">
+    <value>'も雅&amp;Contrast:éééé"</value>
+  </data>
+  <data name="BrowserMiniFormProgress" xml:space="preserve">
+    <value>'も雅Retrieving...éééééé"</value>
+  </data>
+  <data name="BytesFormat" xml:space="preserve">
+    <value>'も雅{0} byteséééé"</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>'も雅Cancelééé"</value>
+  </data>
+  <data name="Canceling" xml:space="preserve">
+    <value>'も雅Cancelling...éééééé"</value>
+  </data>
+  <data name="Capabilities" xml:space="preserve">
+    <value>'も雅&amp;Capabilities:éééééé"</value>
+  </data>
+  <data name="CapabilityAuthor" xml:space="preserve">
+    <value>'も雅Authorééé"</value>
+  </data>
+  <data name="CapabilityAutoUpdate" xml:space="preserve">
+    <value>'も雅Auto-Updateééééé"</value>
+  </data>
+  <data name="CapabilityCategories" xml:space="preserve">
+    <value>'も雅Categorieséééé"</value>
+  </data>
+  <data name="CapabilityCategoriesInline" xml:space="preserve">
+    <value>'も雅Categories Inlineééééééé"</value>
+  </data>
+  <data name="CapabilityCategoryNameLimit" xml:space="preserve">
+    <value>'も雅Category Name Limitéééééééé"</value>
+  </data>
+  <data name="CapabilityCategoryScheme" xml:space="preserve">
+    <value>'も雅Category Schemeéééééé"</value>
+  </data>
+  <data name="CapabilityCharacterSet" xml:space="preserve">
+    <value>'も雅Character Setéééééé"</value>
+  </data>
+  <data name="CapabilityCommentPolicy" xml:space="preserve">
+    <value>'も雅Comment Policyéééééé"</value>
+  </data>
+  <data name="CapabilityCustomPublishDate" xml:space="preserve">
+    <value>'も雅Custom Publish Dateéééééééé"</value>
+  </data>
+  <data name="CapabilityCustomPublishDateUpdate" xml:space="preserve">
+    <value>'も雅Update Publish Dateéééééééé"</value>
+  </data>
+  <data name="CapabilityDefaultView" xml:space="preserve">
+    <value>'も雅Default Viewééééé"</value>
+  </data>
+  <data name="CapabilityEmbeds" xml:space="preserve">
+    <value>'も雅Embedsééé"</value>
+  </data>
+  <data name="CapabilityEmptyTitles" xml:space="preserve">
+    <value>'も雅Empty Titlesééééé"</value>
+  </data>
+  <data name="CapabilityExcerpt" xml:space="preserve">
+    <value>'も雅Excerptééé"</value>
+  </data>
+  <data name="CapabilityExtendedEntries" xml:space="preserve">
+    <value>'も雅Extended Entriesééééééé"</value>
+  </data>
+  <data name="CapabilityFileUpload" xml:space="preserve">
+    <value>'も雅File Uploadééééé"</value>
+  </data>
+  <data name="CapabilityHierarchicalCategories" xml:space="preserve">
+    <value>'も雅Hierarchical Categorieséééééééééé"</value>
+  </data>
+  <data name="CapabilityHtmlTitles" xml:space="preserve">
+    <value>'も雅HTML Titlesééééé"</value>
+  </data>
+  <data name="CapabilityKeywords" xml:space="preserve">
+    <value>'も雅Keywordséééé"</value>
+  </data>
+  <data name="CapabilityMultipleCategories" xml:space="preserve">
+    <value>'も雅Multiple Categorieséééééééé"</value>
+  </data>
+  <data name="CapabilityNewCategories" xml:space="preserve">
+    <value>'も雅New Categorieséééééé"</value>
+  </data>
+  <data name="CapabilityNewCategoriesInline" xml:space="preserve">
+    <value>'も雅New Categories Inlineééééééééé"</value>
+  </data>
+  <data name="CapabilityPageOrder" xml:space="preserve">
+    <value>'も雅Page Orderéééé"</value>
+  </data>
+  <data name="CapabilityPageParent" xml:space="preserve">
+    <value>'も雅Page Parentééééé"</value>
+  </data>
+  <data name="CapabilityPages" xml:space="preserve">
+    <value>'も雅Pageséé"</value>
+  </data>
+  <data name="CapabilityPassword" xml:space="preserve">
+    <value>'も雅Passwordéééé"</value>
+  </data>
+  <data name="CapabilityPostDraftToServer" xml:space="preserve">
+    <value>'も雅Post Draft to Serveréééééééé"</value>
+  </data>
+  <data name="CapabilityRequiresXHTML" xml:space="preserve">
+    <value>'も雅Requires XHTMLéééééé"</value>
+  </data>
+  <data name="CapabilityScripts" xml:space="preserve">
+    <value>'も雅Scriptsééé"</value>
+  </data>
+  <data name="CapabilitySendTrackbacks" xml:space="preserve">
+    <value>'も雅Send Trackbackséééééé"</value>
+  </data>
+  <data name="CapabilitySlug" xml:space="preserve">
+    <value>'も雅Slugéé"</value>
+  </data>
+  <data name="CapabilityTrackbackPolicy" xml:space="preserve">
+    <value>'も雅Trackback Policyééééééé"</value>
+  </data>
+  <data name="CapabilityValueNoLimit" xml:space="preserve">
+    <value>'も雅(No Limit)éééé"</value>
+  </data>
+  <data name="CapabilityValueNormal" xml:space="preserve">
+    <value>'も雅Normalééé"</value>
+  </data>
+  <data name="CapabilityValueWebLayout" xml:space="preserve">
+    <value>'も雅Web Layoutéééé"</value>
+  </data>
+  <data name="CapabilityValueWebPreview" xml:space="preserve">
+    <value>'も雅Web Previewééééé"</value>
+  </data>
+  <data name="CategoryAdd" xml:space="preserve">
+    <value>'も雅Add Categoryééééé"</value>
+  </data>
+  <data name="CategoryControlCategories" xml:space="preserve">
+    <value>'も雅Categories: {0}éééééé"</value>
+  </data>
+  <data name="CategoryControlCategory" xml:space="preserve">
+    <value>'も雅Category: {0}éééééé"</value>
+  </data>
+  <data name="CategoryControlNoCategories" xml:space="preserve">
+    <value>'も雅(none)ééé"</value>
+  </data>
+  <data name="CategoryControlSetCategories" xml:space="preserve">
+    <value>'も雅Set categorieséééééé"</value>
+  </data>
+  <data name="CategoryControlSetCategory" xml:space="preserve">
+    <value>'も雅Set categoryééééé"</value>
+  </data>
+  <data name="CategoryNoParent" xml:space="preserve">
+    <value>'も雅(No parent)ééééé"</value>
+  </data>
+  <data name="CategoryRefreshList" xml:space="preserve">
+    <value>'も雅Refresh Listééééé"</value>
+  </data>
+  <data name="CategoryRefreshListTooltip" xml:space="preserve">
+    <value>'も雅Refreshes the list of categories.éééééééééééééé"</value>
+  </data>
+  <data name="Cell" xml:space="preserve">
+    <value>'も雅Celléé"</value>
+  </data>
+  <data name="CellPropertiesTitle" xml:space="preserve">
+    <value>'も雅Cell Propertieséééééé"</value>
+  </data>
+  <data name="Cells" xml:space="preserve">
+    <value>'も雅Cellséé"</value>
+  </data>
+  <data name="ChangeLiveClipboardHandlerCaption" xml:space="preserve">
+    <value>'も雅Components capable of handling '{0}':ééééééééééééééé"</value>
+  </data>
+  <data name="ChangeLiveClipboardHandlerComponent" xml:space="preserve">
+    <value>'も雅Componentéééé"</value>
+  </data>
+  <data name="ChangeLiveClipboardHandlerTitle" xml:space="preserve">
+    <value>'も雅Change Format Handlerééééééééé"</value>
+  </data>
+  <data name="ChangeTextStyle" xml:space="preserve">
+    <value>'も雅Change Text Styleééééééé"</value>
+  </data>
+  <data name="ClickToViewMap" xml:space="preserve">
+    <value>'も雅Click to view this map on Live.coméééééééééééééé"</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>'も雅&amp;Closeééé"</value>
+  </data>
+  <data name="CloseButtonTooltip" xml:space="preserve">
+    <value>'も雅Closeéé"</value>
+  </data>
+  <data name="ColorPickerDefaultColor" xml:space="preserve">
+    <value>'も雅&amp;Default Coloréééééé"</value>
+  </data>
+  <data name="ColorPickerMoreColors" xml:space="preserve">
+    <value>'も雅&amp;More Colors...éééééé"</value>
+  </data>
+  <data name="ColorTempCooler" xml:space="preserve">
+    <value>'も雅Coolerééé"</value>
+  </data>
+  <data name="ColorTempWarmer" xml:space="preserve">
+    <value>'も雅Warmerééé"</value>
+  </data>
+  <data name="ColumnProperties" xml:space="preserve">
+    <value>'も雅Column Propertiesééééééé"</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>'も雅,é"</value>
+  </data>
+  <data name="CommaSpace" xml:space="preserve">
+    <value>'も雅, é"</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>'も雅Configurationéééééé"</value>
+  </data>
+  <data name="ConfigureProduct" xml:space="preserve">
+    <value>'も雅Configure {0}éééééé"</value>
+  </data>
+  <data name="ConfigWizardBasicInfo" xml:space="preserve">
+    <value>'も雅Weblog Homepage and Loginéééééééééé"</value>
+  </data>
+  <data name="ConfigWizardChooseWeblogType" xml:space="preserve">
+    <value>'も雅Choose Weblog Typeéééééééé"</value>
+  </data>
+  <data name="ConfigWizardComplete" xml:space="preserve">
+    <value>'も雅Weblog Configuration Completeéééééééééééé"</value>
+  </data>
+  <data name="ConfigWizardDetectSettings" xml:space="preserve">
+    <value>'も雅Detecting Weblog Settingséééééééééé"</value>
+  </data>
+  <data name="ConfigWizardSelectImageEndpoint" xml:space="preserve">
+    <value>'も雅Select Image Collectionéééééééééé"</value>
+  </data>
+  <data name="ConfigWizardSelectProvider" xml:space="preserve">
+    <value>'も雅Select Provideréééééé"</value>
+  </data>
+  <data name="ConfigWizardSelectWeblog" xml:space="preserve">
+    <value>'も雅Select Weblogéééééé"</value>
+  </data>
+  <data name="ConfigWizardSharePointHomepage" xml:space="preserve">
+    <value>'も雅SharePoint Weblog Homepageééééééééééé"</value>
+  </data>
+  <data name="ConfigWizardSharePointLogin" xml:space="preserve">
+    <value>'も雅SharePoint Weblog Loginéééééééééé"</value>
+  </data>
+  <data name="ConfigWizardSpacesLogin" xml:space="preserve">
+    <value>'も雅Windows Live Spaces Loginéééééééééé"</value>
+  </data>
+  <data name="ConfigWizardWelcome" xml:space="preserve">
+    <value>'も雅Welcome!éééé"</value>
+  </data>
+  <data name="ConnectionRequired" xml:space="preserve">
+    <value>'も雅Internet Connection Requiredéééééééééééé"</value>
+  </data>
+  <data name="CustomizeMap" xml:space="preserve">
+    <value>'も雅Customize Mapéééééé"</value>
+  </data>
+  <data name="CWBasicCreateAccount" xml:space="preserve">
+    <value>'も雅If you do not already have a {0} account create one now. Click the link below to open the web page that will begin your online registration.éééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWBasicHomepage" xml:space="preserve">
+    <value>'も雅Weblog &amp;Homepage URL:ééééééééé"</value>
+  </data>
+  <data name="CWBasicText" xml:space="preserve">
+    <value>'も雅To use {0} you must already have an account with a weblog service. If you do not already have an account with an existing weblog service, create one now.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWBasicTitle" xml:space="preserve">
+    <value>'も雅Configure {0} to work with {1}éééééééééééé"</value>
+  </data>
+  <data name="CWBasicTitleDefaultService" xml:space="preserve">
+    <value>'も雅your weblogééééé"</value>
+  </data>
+  <data name="CWConfirmEditWeblogSettings" xml:space="preserve">
+    <value>'も雅&amp;Edit Settings...ééééééé"</value>
+  </data>
+  <data name="CWConfirmFTPServer" xml:space="preserve">
+    <value>'も雅FTP Serveréééé"</value>
+  </data>
+  <data name="CWConfirmSwitchToWeblog" xml:space="preserve">
+    <value>'も雅&amp;Switch to this weblog nowééééééééééé"</value>
+  </data>
+  <data name="CWConfirmText" xml:space="preserve">
+    <value>'も雅Please confirm that you would like to save these settings.éééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWConfirmThanks" xml:space="preserve">
+    <value>'も雅Weblog successfully configured!ééééééééééééé"</value>
+  </data>
+  <data name="CWConfirmUploadSettings" xml:space="preserve">
+    <value>'も雅Upload Images To:ééééééé"</value>
+  </data>
+  <data name="CWConfirmWeblogName" xml:space="preserve">
+    <value>'も雅Weblog Nameééééé"</value>
+  </data>
+  <data name="CWLiveIDCreateAccount" xml:space="preserve">
+    <value>'も雅To configure Writer to connect to Windows Live Spaces, enter your Windows Live ID.  Don't have a Windows Live ID? Click the link below to create one.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWLiveIDCreateAccount2" xml:space="preserve">
+    <value>'も雅Create a Windows Live ID...ééééééééééé"</value>
+  </data>
+  <data name="CWSelectBlogText" xml:space="preserve">
+    <value>'も雅More than one weblog was detected. Please select the weblog that you'd like to add from the list below:éééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWSelectImageEndpointText" xml:space="preserve">
+    <value>'も雅Please select the collection that you'd like images to be uploaded to:éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWSelectProviderApiUrl" xml:space="preserve">
+    <value>'も雅Server API URLéééééé"</value>
+  </data>
+  <data name="CWSelectProviderApiUrlLabel" xml:space="preserve">
+    <value>'も雅Remote posting &amp;URL for your weblog:ééééééééééééééé"</value>
+  </data>
+  <data name="CWSelectProviderApiUrlLabel_ServiceDoc" xml:space="preserve">
+    <value>'も雅Service document &amp;URL:ééééééééé"</value>
+  </data>
+  <data name="CWSelectProviderText" xml:space="preserve">
+    <value>'も雅{0} was not able to automatically detect your blog settings. Please select the type of blog that you are using to continue.éééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWSelectProviderWeblogProvider" xml:space="preserve">
+    <value>'も雅Weblog Provideréééééé"</value>
+  </data>
+  <data name="CWSelectProviderWeblogTypeLabel" xml:space="preserve">
+    <value>'も雅&amp;Type of weblog that you are using:éééééééééééééé"</value>
+  </data>
+  <data name="CWSharePointHomepageUrl" xml:space="preserve">
+    <value>'も雅Share&amp;Point Weblog URL:éééééééééé"</value>
+  </data>
+  <data name="CWSharePointText" xml:space="preserve">
+    <value>'も雅To use {0} you must have a SharePoint weblog.éééééééééééééééééé"</value>
+  </data>
+  <data name="CWSharePointText2" xml:space="preserve">
+    <value>'も雅Enter the login required to publish to your SharePoint weblog.ééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWSharePointTitle" xml:space="preserve">
+    <value>'も雅Configure {0} for a SharePoint weblogééééééééééééééé"</value>
+  </data>
+  <data name="CWSharePointTitle2" xml:space="preserve">
+    <value>'も雅Provide SharePoint Weblog Loginééééééééééééé"</value>
+  </data>
+  <data name="CWSharePointUseSystemLogin" xml:space="preserve">
+    <value>'も雅Use my &amp;Windows username and passwordééééééééééééééé"</value>
+  </data>
+  <data name="CWSpacesConfigure" xml:space="preserve">
+    <value>'も雅Configure {0} for Windows Live Spacesééééééééééééééé"</value>
+  </data>
+  <data name="CWSpacesCreateAccount" xml:space="preserve">
+    <value>'も雅To set up your Windows Live Space, enter your Windows Live ID.  Don't have a Windows Live ID? Click the link below to create one.éééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWSpacesCreateAddressLink" xml:space="preserve">
+    <value>'も雅Create a web address for my Spaceéééééééééééééé"</value>
+  </data>
+  <data name="CWSpacesCreateAddressText" xml:space="preserve">
+    <value>'も雅To use Writer with your Space, you must first assign a web address to your Space.  Click the link below to sign in and assign an address to your Space.  
+Once you have created a new address,  return to this wizard and press OK to continue.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWSpacesCreateAddressTitle" xml:space="preserve">
+    <value>'も雅Configure Space Addresséééééééééé"</value>
+  </data>
+  <data name="CWSpacesHomepageUrl" xml:space="preserve">
+    <value>'も雅Spaces &amp;Homepage URL:ééééééééé"</value>
+  </data>
+  <data name="CWSpacesUsername" xml:space="preserve">
+    <value>'も雅&amp;Windows Live ID:ééééééé"</value>
+  </data>
+  <data name="CWSpacesUsernameExample" xml:space="preserve">
+    <value>'も雅(example555@hotmail.com)éééééééééé"</value>
+  </data>
+  <data name="CWTitle" xml:space="preserve">
+    <value>'も雅Add Weblog Wizardééééééé"</value>
+  </data>
+  <data name="CWWelcomeAlreadyHave" xml:space="preserve">
+    <value>'も雅I &amp;already have a weblog set upééééééééééééé"</value>
+  </data>
+  <data name="CWWelcomeCaption" xml:space="preserve">
+    <value>'も雅Welcome to the world of blogging!éééééééééééééé"</value>
+  </data>
+  <data name="CWWelcomeClickNext" xml:space="preserve">
+    <value>'も雅Click Next to continue.éééééééééé"</value>
+  </data>
+  <data name="CWWelcomeText" xml:space="preserve">
+    <value>'も雅{0} is a tool that makes blogging a breeze. It works like a familiar desktop word processor, making it easy to post text and other content on the web. Whether you post regularly or are just getting started, {0} is the tool for you.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWWelcomeText2" xml:space="preserve">
+    <value>'も雅If you do not already have a weblog you can create a Windows Live Spaces account now. Click the link below to open the web page that will begin your online registration.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="CWWelcomeUseSpaces" xml:space="preserve">
+    <value>'も雅&amp;I don't have a weblog, create a new Windows Live Space for meééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>'も雅Dateéé"</value>
+  </data>
+  <data name="DecoratorBlur" xml:space="preserve">
+    <value>'も雅Gaussian Bluréééééé"</value>
+  </data>
+  <data name="DecoratorBW" xml:space="preserve">
+    <value>'も雅Black and Whiteéééééé"</value>
+  </data>
+  <data name="DecoratorColorTemp" xml:space="preserve">
+    <value>'も雅Adjust Temperatureéééééééé"</value>
+  </data>
+  <data name="DecoratorDropShadow" xml:space="preserve">
+    <value>'も雅Drop Shadowééééé"</value>
+  </data>
+  <data name="DecoratorEmboss" xml:space="preserve">
+    <value>'も雅Embossééé"</value>
+  </data>
+  <data name="DecoratorGroupOverlays" xml:space="preserve">
+    <value>'も雅Overlayséééé"</value>
+  </data>
+  <data name="DecoratorGroupTransformations" xml:space="preserve">
+    <value>'も雅Transformationséééééé"</value>
+  </data>
+  <data name="DecoratorInheritBorder" xml:space="preserve">
+    <value>'も雅Inherit from weblogéééééééé"</value>
+  </data>
+  <data name="DecoratorNoBorder" xml:space="preserve">
+    <value>'も雅Noneéé"</value>
+  </data>
+  <data name="DecoratorPhotopaper" xml:space="preserve">
+    <value>'も雅Photopaperéééé"</value>
+  </data>
+  <data name="DecoratorSaturation" xml:space="preserve">
+    <value>'も雅Color Popéééé"</value>
+  </data>
+  <data name="DecoratorSepia" xml:space="preserve">
+    <value>'も雅Sepia Toneéééé"</value>
+  </data>
+  <data name="DecoratorSharpen" xml:space="preserve">
+    <value>'も雅Sharpenééé"</value>
+  </data>
+  <data name="DecoratorWatermark" xml:space="preserve">
+    <value>'も雅Watermarkéééé"</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>'も雅De&amp;lete...éééé"</value>
+  </data>
+  <data name="DeleteSomething" xml:space="preserve">
+    <value>'も雅Delete {0}éééé"</value>
+  </data>
+  <data name="DictionaryLanguageEnglishCanada" xml:space="preserve">
+    <value>'も雅English (Canada)ééééééé"</value>
+  </data>
+  <data name="DictionaryLanguageEnglishUK" xml:space="preserve">
+    <value>'も雅English (United Kingdom)éééééééééé"</value>
+  </data>
+  <data name="DictionaryLanguageEnglishUS" xml:space="preserve">
+    <value>'も雅English (United States)éééééééééé"</value>
+  </data>
+  <data name="DictionaryLanguageFrench" xml:space="preserve">
+    <value>'も雅Frenchééé"</value>
+  </data>
+  <data name="DictionaryLanguageGerman" xml:space="preserve">
+    <value>'も雅Germanééé"</value>
+  </data>
+  <data name="DictionaryLanguageGermanReform" xml:space="preserve">
+    <value>'も雅German (Reform)éééééé"</value>
+  </data>
+  <data name="DictionaryLanguageLabel" xml:space="preserve">
+    <value>'も雅Dictionary &amp;language:ééééééééé"</value>
+  </data>
+  <data name="DictionaryLanguageSpanish" xml:space="preserve">
+    <value>'も雅Spanishééé"</value>
+  </data>
+  <data name="DimensionsFormat" xml:space="preserve">
+    <value>'も雅{0}x{1}ééé"</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>'も雅Disabledéééé"</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>'も雅Don't show this message againéééééééééééé"</value>
+  </data>
+  <data name="DotNet20Required" xml:space="preserve">
+    <value>'も雅This Open Live Writer plug-in requires version 2.0 of the .NET Framework.ééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DotNet20RequiredDetails" xml:space="preserve">
+    <value>'も雅To enable this plug-in, please {{download}} and install the .NET Framework 2.0 and then restart Open Live Writer.ééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DotNet20RequiredDismiss" xml:space="preserve">
+    <value>'も雅&amp;Don't warn me about this plug-in againéééééééééééééééé"</value>
+  </data>
+  <data name="DownloadingWeblogStyle" xml:space="preserve">
+    <value>'も雅Downloading Weblog Styleéééééééééé"</value>
+  </data>
+  <data name="DraftNameFormat" xml:space="preserve">
+    <value>'も雅Draft {0}éééé"</value>
+  </data>
+  <data name="Drafts" xml:space="preserve">
+    <value>'も雅Draftsééé"</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>'も雅&amp;Edit...éééé"</value>
+  </data>
+  <data name="EditImageDecorator" xml:space="preserve">
+    <value>'も雅Edit Image Decoratoréééééééé"</value>
+  </data>
+  <data name="EditingName" xml:space="preserve">
+    <value>'も雅Editingééé"</value>
+  </data>
+  <data name="EditingStyle" xml:space="preserve">
+    <value>'も雅Weblog Styleééééé"</value>
+  </data>
+  <data name="EditingText" xml:space="preserve">
+    <value>'も雅If you have changed the visual style of your weblog you can update your local editing template by using the button below.ééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="EditingUpdate" xml:space="preserve">
+    <value>'も雅&amp;Update Styleéééééé"</value>
+  </data>
+  <data name="EditingUsing" xml:space="preserve">
+    <value>'も雅{0} enables you to edit using the visual style of your weblog. This enables you to see what your posts will look like online while you are editing them.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="EditProxySettings" xml:space="preserve">
+    <value>'も雅Edit Proxy Settings...ééééééééé"</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>'も雅Enabledééé"</value>
+  </data>
+  <data name="ErrorOccurredDeletingDraft" xml:space="preserve">
+    <value>'も雅Error Occurred Deleting Draftéééééééééééé"</value>
+  </data>
+  <data name="ErrorOccurredDeletingDraftDetails" xml:space="preserve">
+    <value>'も雅An unexpected error occurred while attempting to delete the Draft: {0}éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="FileUploadFailedCaption" xml:space="preserve">
+    <value>'も雅The following images cannot be published because the weblog does not support image publishing.éééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="FileUploadFailedException" xml:space="preserve">
+    <value>'も雅File Upload Failedéééééééé"</value>
+  </data>
+  <data name="FileUploadFailedFTP" xml:space="preserve">
+    <value>'も雅Open Live Writer can be configured to publish images to an FTP account.éééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="FileUploadFailedFTP2" xml:space="preserve">
+    <value>'も雅Do you want to configure an FTP account for image publishing now?éééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="FileUploadFailedTitle" xml:space="preserve">
+    <value>'も雅Image Upload Not Supported By Weblogééééééééééééééé"</value>
+  </data>
+  <data name="FileUploadFTPServer" xml:space="preserve">
+    <value>'も雅FTP Serveréééé"</value>
+  </data>
+  <data name="FileUploadNone" xml:space="preserve">
+    <value>'も雅Do not uploadéééééé"</value>
+  </data>
+  <data name="FileUploadUploadToWeblog" xml:space="preserve">
+    <value>'も雅Weblogééé"</value>
+  </data>
+  <data name="FindDirection" xml:space="preserve">
+    <value>'も雅Directionéééé"</value>
+  </data>
+  <data name="FindDirectionDown" xml:space="preserve">
+    <value>'も雅&amp;Downéé"</value>
+  </data>
+  <data name="FindDirectionUp" xml:space="preserve">
+    <value>'も雅&amp;Upéé"</value>
+  </data>
+  <data name="FindNextButton" xml:space="preserve">
+    <value>'も雅&amp;Find Nextéééé"</value>
+  </data>
+  <data name="FindTitle" xml:space="preserve">
+    <value>'も雅Findéé"</value>
+  </data>
+  <data name="FindWhatLabel" xml:space="preserve">
+    <value>'も雅Fi&amp;nd what:ééééé"</value>
+  </data>
+  <data name="FtpFolderPath" xml:space="preserve">
+    <value>'も雅Pu&amp;blish images into this folder:éééééééééééééé"</value>
+  </data>
+  <data name="FtpFolderUrl" xml:space="preserve">
+    <value>'も雅URL of image publishing &amp;folder:ééééééééééééé"</value>
+  </data>
+  <data name="FtpHelp" xml:space="preserve">
+    <value>'も雅Help with configuring FTP settings...ééééééééééééééé"</value>
+  </data>
+  <data name="FtpHostname" xml:space="preserve">
+    <value>'も雅FTP &amp;hostname:éééééé"</value>
+  </data>
+  <data name="FtpLoginDomain" xml:space="preserve">
+    <value>'も雅FTPéé"</value>
+  </data>
+  <data name="FtpPassword" xml:space="preserve">
+    <value>'も雅&amp;Password:éééé"</value>
+  </data>
+  <data name="FtpText" xml:space="preserve">
+    <value>'も雅FTP Server Configurationéééééééééé"</value>
+  </data>
+  <data name="FtpUsername" xml:space="preserve">
+    <value>'も雅&amp;Username:éééé"</value>
+  </data>
+  <data name="FuturePostWarningDontShowAgain" xml:space="preserve">
+    <value>'も雅&amp;Don't confirm future dates prior to publishingééééééééééééééééééé"</value>
+  </data>
+  <data name="FuturePostWarningExplanation" xml:space="preserve">
+    <value>'も雅The publish date you have specified is in the future. While some weblogs wait to publish posts with dates in the future, the current one does not, so this post will be visible immediately on your weblog. Do you still want to publish this post?éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="FuturePostWarningTitle" xml:space="preserve">
+    <value>'も雅Confirm Future Publish Dateééééééééééé"</value>
+  </data>
+  <data name="GDataCaptchaAlternate" xml:space="preserve">
+    <value>'も雅Visually impaired users can access an audio version of the test here.éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="GDataCaptchaPrompt" xml:space="preserve">
+    <value>'も雅Type the characters you see in the picture below.éééééééééééééééééééé"</value>
+  </data>
+  <data name="GDataCaptchaTitle" xml:space="preserve">
+    <value>'も雅Unlock Google Accountééééééééé"</value>
+  </data>
+  <data name="GigabytesFormat" xml:space="preserve">
+    <value>'も雅{0}GBéé"</value>
+  </data>
+  <data name="GlossaryPrefName" xml:space="preserve">
+    <value>'も雅Link Glossaryéééééé"</value>
+  </data>
+  <data name="GlossarySelectLink" xml:space="preserve">
+    <value>'も雅Select Link from Glossaryéééééééééé"</value>
+  </data>
+  <data name="GlossaryTextCol" xml:space="preserve">
+    <value>'も雅Textéé"</value>
+  </data>
+  <data name="GlossaryUrlCol" xml:space="preserve">
+    <value>'も雅URLéé"</value>
+  </data>
+  <data name="Heading1" xml:space="preserve">
+    <value>'も雅Heading 1éééé"</value>
+  </data>
+  <data name="Heading2" xml:space="preserve">
+    <value>'も雅Heading 2éééé"</value>
+  </data>
+  <data name="Heading3" xml:space="preserve">
+    <value>'も雅Heading 3éééé"</value>
+  </data>
+  <data name="Heading4" xml:space="preserve">
+    <value>'も雅Heading 4éééé"</value>
+  </data>
+  <data name="Heading5" xml:space="preserve">
+    <value>'も雅Heading 5éééé"</value>
+  </data>
+  <data name="Heading6" xml:space="preserve">
+    <value>'も雅Heading 6éééé"</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>'も雅Heightééé"</value>
+  </data>
+  <data name="HeightColon" xml:space="preserve">
+    <value>'も雅&amp;Height:éééé"</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>'も雅&amp;Height:éééé"</value>
+  </data>
+  <data name="HelpButton" xml:space="preserve">
+    <value>'も雅&amp;Helpéé"</value>
+  </data>
+  <data name="HideProperties" xml:space="preserve">
+    <value>'も雅Hide Properties ééééééé"</value>
+  </data>
+  <data name="HideSidebar" xml:space="preserve">
+    <value>'も雅Hide Sidebarééééé"</value>
+  </data>
+  <data name="HomepageUrl" xml:space="preserve">
+    <value>'も雅Homepage:éééé"</value>
+  </data>
+  <data name="ImagesBlogOpt" xml:space="preserve">
+    <value>'も雅&amp;Upload images to my weblogééééééééééé"</value>
+  </data>
+  <data name="ImagesFilterString" xml:space="preserve">
+    <value>'も雅Images Files (*.gif, *.jpg, *.jpeg, *.png)ééééééééééééééééé"</value>
+  </data>
+  <data name="ImagesFtpConfig" xml:space="preserve">
+    <value>'も雅&amp;Configure FTPéééééé"</value>
+  </data>
+  <data name="ImagesFtpOpt" xml:space="preserve">
+    <value>'も雅Upload images to an &amp;FTP server:ééééééééééééé"</value>
+  </data>
+  <data name="ImagesNoOpt" xml:space="preserve">
+    <value>'も雅&amp;Do not upload imagesééééééééé"</value>
+  </data>
+  <data name="ImagesPanel" xml:space="preserve">
+    <value>'も雅Imagesééé"</value>
+  </data>
+  <data name="ImagesText" xml:space="preserve">
+    <value>'も雅When you include images in your Weblog entries, they can be automatically uploaded when you post your entry. Please select how images should be uploaded:éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="ImagesUpload" xml:space="preserve">
+    <value>'も雅Uploadééé"</value>
+  </data>
+  <data name="ImgSBActions" xml:space="preserve">
+    <value>'も雅Image actionséééééé"</value>
+  </data>
+  <data name="ImgSBAdvanced" xml:space="preserve">
+    <value>'も雅Advancedéééé"</value>
+  </data>
+  <data name="ImgSBAlignInline" xml:space="preserve">
+    <value>'も雅Inlineééé"</value>
+  </data>
+  <data name="ImgSBAlignLeft" xml:space="preserve">
+    <value>'も雅Leftéé"</value>
+  </data>
+  <data name="ImgSBAlignRight" xml:space="preserve">
+    <value>'も雅Rightéé"</value>
+  </data>
+  <data name="ImgSBAlternateText" xml:space="preserve">
+    <value>'も雅Alternate text:éééééé"</value>
+  </data>
+  <data name="ImgSBAppliedEffects" xml:space="preserve">
+    <value>'も雅Applied effects:ééééééé"</value>
+  </data>
+  <data name="ImgSBBorders" xml:space="preserve">
+    <value>'も雅Bordersééé"</value>
+  </data>
+  <data name="ImgSBBrightness" xml:space="preserve">
+    <value>'も雅Adjust contrast...éééééééé"</value>
+  </data>
+  <data name="ImgSBCustomize" xml:space="preserve">
+    <value>'も雅Customize default image sizeséééééééééééé"</value>
+  </data>
+  <data name="ImgSBDefaultImageSizes" xml:space="preserve">
+    <value>'も雅Default Images Sizeséééééééé"</value>
+  </data>
+  <data name="ImgSBEffect" xml:space="preserve">
+    <value>'も雅Effectééé"</value>
+  </data>
+  <data name="ImgSBEffects" xml:space="preserve">
+    <value>'も雅Effectsééé"</value>
+  </data>
+  <data name="ImgSBEffectsLabel" xml:space="preserve">
+    <value>'も雅Effects:éééé"</value>
+  </data>
+  <data name="ImgSBHeader" xml:space="preserve">
+    <value>'も雅Imageéé"</value>
+  </data>
+  <data name="ImgSBImageEffects" xml:space="preserve">
+    <value>'も雅Image Effectséééééé"</value>
+  </data>
+  <data name="ImgSBImageSize" xml:space="preserve">
+    <value>'も雅Image sizeéééé"</value>
+  </data>
+  <data name="ImgSBImageSizeLabel" xml:space="preserve">
+    <value>'も雅&amp;Size:ééé"</value>
+  </data>
+  <data name="ImgSBLargeImage" xml:space="preserve">
+    <value>'も雅Large image:ééééé"</value>
+  </data>
+  <data name="ImgSBLayout" xml:space="preserve">
+    <value>'も雅Layoutééé"</value>
+  </data>
+  <data name="ImgSBLinkOptions" xml:space="preserve">
+    <value>'も雅Link Optionsééééé"</value>
+  </data>
+  <data name="ImgSBLinkTo" xml:space="preserve">
+    <value>'も雅Link toééé"</value>
+  </data>
+  <data name="ImgSBLocalImage" xml:space="preserve">
+    <value>'も雅Local image: {0}ééééééé"</value>
+  </data>
+  <data name="ImgSBLocalImage2" xml:space="preserve">
+    <value>'も雅Local image: {0}/{1}éééééééé"</value>
+  </data>
+  <data name="ImgSBLockRatio" xml:space="preserve">
+    <value>'も雅Lock &amp;ratioééééé"</value>
+  </data>
+  <data name="ImgSBMarginBottom" xml:space="preserve">
+    <value>'も雅Bottomééé"</value>
+  </data>
+  <data name="ImgSBMarginCustomMargins" xml:space="preserve">
+    <value>'も雅Custom Marginséééééé"</value>
+  </data>
+  <data name="ImgSBMarginLeft" xml:space="preserve">
+    <value>'も雅Leftéé"</value>
+  </data>
+  <data name="ImgSBMarginNoMargins" xml:space="preserve">
+    <value>'も雅No Marginséééé"</value>
+  </data>
+  <data name="ImgSBMarginRight" xml:space="preserve">
+    <value>'も雅Rightéé"</value>
+  </data>
+  <data name="ImgSBMargins" xml:space="preserve">
+    <value>'も雅Margins:éééé"</value>
+  </data>
+  <data name="ImgSBMarginTop" xml:space="preserve">
+    <value>'も雅Topéé"</value>
+  </data>
+  <data name="ImgSBMaximumHeightLabel1" xml:space="preserve">
+    <value>'も雅Maximum &amp;Height:ééééééé"</value>
+  </data>
+  <data name="ImgSBMaximumHeightLabel2" xml:space="preserve">
+    <value>'も雅Maximum H&amp;eight:ééééééé"</value>
+  </data>
+  <data name="ImgSBMaximumHeightLabel3" xml:space="preserve">
+    <value>'も雅Maximum Heigh&amp;t:ééééééé"</value>
+  </data>
+  <data name="ImgSBMaximumWidthLabel1" xml:space="preserve">
+    <value>'も雅Maximum &amp;Width:éééééé"</value>
+  </data>
+  <data name="ImgSBMaximumWidthLabel2" xml:space="preserve">
+    <value>'も雅Maximum W&amp;idth:éééééé"</value>
+  </data>
+  <data name="ImgSBMaximumWidthLabel3" xml:space="preserve">
+    <value>'も雅Maximum Wi&amp;dth:éééééé"</value>
+  </data>
+  <data name="ImgSBMediumImage" xml:space="preserve">
+    <value>'も雅Medium image:éééééé"</value>
+  </data>
+  <data name="ImgSBOpenInNewWindow" xml:space="preserve">
+    <value>'も雅&amp;Open in new windowéééééééé"</value>
+  </data>
+  <data name="ImgSBOther" xml:space="preserve">
+    <value>'も雅Otheréé"</value>
+  </data>
+  <data name="ImgSBRevert" xml:space="preserve">
+    <value>'も雅Revert to default settingsééééééééééé"</value>
+  </data>
+  <data name="ImgSBRotate" xml:space="preserve">
+    <value>'も雅Rotateééé"</value>
+  </data>
+  <data name="ImgSBSave" xml:space="preserve">
+    <value>'も雅Save settings as defaultéééééééééé"</value>
+  </data>
+  <data name="ImgSBSizerLarge" xml:space="preserve">
+    <value>'も雅Largeéé"</value>
+  </data>
+  <data name="ImgSBSizerMedium" xml:space="preserve">
+    <value>'も雅Mediumééé"</value>
+  </data>
+  <data name="ImgSBSizerOriginal" xml:space="preserve">
+    <value>'も雅Originaléééé"</value>
+  </data>
+  <data name="ImgSBSizerSmall" xml:space="preserve">
+    <value>'も雅Smalléé"</value>
+  </data>
+  <data name="ImgSBSizerTooltip" xml:space="preserve">
+    <value>'も雅Click to select a pre-defined image sizeéééééééééééééééé"</value>
+  </data>
+  <data name="ImgSBSizerUnknown" xml:space="preserve">
+    <value>'も雅(Custom)éééé"</value>
+  </data>
+  <data name="ImgSBSmallImage" xml:space="preserve">
+    <value>'も雅Small image:ééééé"</value>
+  </data>
+  <data name="ImgSBTextWrapping" xml:space="preserve">
+    <value>'も雅Text wrapping:éééééé"</value>
+  </data>
+  <data name="ImgSBTitle" xml:space="preserve">
+    <value>'も雅Image Propertiesééééééé"</value>
+  </data>
+  <data name="ImgSBWebImage" xml:space="preserve">
+    <value>'も雅Web imageéééé"</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>'も雅Insertééé"</value>
+  </data>
+  <data name="InsertButton" xml:space="preserve">
+    <value>'も雅&amp;Insertééé"</value>
+  </data>
+  <data name="InsertButtonText" xml:space="preserve">
+    <value>'も雅Insertééé"</value>
+  </data>
+  <data name="InsertImageDimensions" xml:space="preserve">
+    <value>'も雅Dimensions:ééééé"</value>
+  </data>
+  <data name="InsertImageDimensionsFormat" xml:space="preserve">
+    <value>'も雅{0}x{1}ééé"</value>
+  </data>
+  <data name="InsertImageDimensionsFormatScaled" xml:space="preserve">
+    <value>'も雅{0} (scaled to {1} to fit the preview window)éééééééééééééééééé"</value>
+  </data>
+  <data name="InsertImageFileName" xml:space="preserve">
+    <value>'も雅File name:éééé"</value>
+  </data>
+  <data name="InsertImageImageUrl" xml:space="preserve">
+    <value>'も雅Picture &amp;URL:éééééé"</value>
+  </data>
+  <data name="InsertImageInsertFromFile" xml:space="preserve">
+    <value>'も雅Insert Picture from Fileéééééééééé"</value>
+  </data>
+  <data name="InsertImageInsertFromWeb" xml:space="preserve">
+    <value>'も雅Insert Picture from Webéééééééééé"</value>
+  </data>
+  <data name="InsertImageLinkTo" xml:space="preserve">
+    <value>'も雅&amp;Link to:éééé"</value>
+  </data>
+  <data name="InsertImageOpenInNewWindow" xml:space="preserve">
+    <value>'も雅&amp;Open in new windowéééééééé"</value>
+  </data>
+  <data name="InsertImagePreviewButton" xml:space="preserve">
+    <value>'も雅&amp;Previewéééé"</value>
+  </data>
+  <data name="InsertLink" xml:space="preserve">
+    <value>'も雅Insert Hyperlinkééééééé"</value>
+  </data>
+  <data name="InsertLinkDotDotDot" xml:space="preserve">
+    <value>'も雅Insert Hyperlink...éééééééé"</value>
+  </data>
+  <data name="InsertLinkTooltip" xml:space="preserve">
+    <value>'も雅Insert a hyperlink into the current documentéééééééééééééééééé"</value>
+  </data>
+  <data name="InsertMap" xml:space="preserve">
+    <value>'も雅Insert Mapéééé"</value>
+  </data>
+  <data name="InsertPicture" xml:space="preserve">
+    <value>'も雅Insert Pictureéééééé"</value>
+  </data>
+  <data name="InsertPictureDotDotDot" xml:space="preserve">
+    <value>'も雅Insert Picture...ééééééé"</value>
+  </data>
+  <data name="InsertPictureTooltip" xml:space="preserve">
+    <value>'も雅Insert a picture into the current documentééééééééééééééééé"</value>
+  </data>
+  <data name="InsertTable" xml:space="preserve">
+    <value>'も雅Insert Tableééééé"</value>
+  </data>
+  <data name="InsertTableDotDotDot" xml:space="preserve">
+    <value>'も雅Insert Table...éééééé"</value>
+  </data>
+  <data name="InsertTableTooltip" xml:space="preserve">
+    <value>'も雅Insert a table into the current documentéééééééééééééééé"</value>
+  </data>
+  <data name="KilobytesFormat" xml:space="preserve">
+    <value>'も雅{0}KBéé"</value>
+  </data>
+  <data name="LCPrefCaption" xml:space="preserve">
+    <value>'も雅You can paste web content that supports the Live Clipboard format into {0}.éééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="LCPrefChangeButton" xml:space="preserve">
+    <value>'も雅Change...éééé"</value>
+  </data>
+  <data name="LCPrefContentType" xml:space="preserve">
+    <value>'も雅Content type:éééééé"</value>
+  </data>
+  <data name="LCPrefDescription" xml:space="preserve">
+    <value>'も雅Descriptionééééé"</value>
+  </data>
+  <data name="LCPrefDetails" xml:space="preserve">
+    <value>'も雅Detailsééé"</value>
+  </data>
+  <data name="LCPrefDetailsGroupBoxFormat" xml:space="preserve">
+    <value>'も雅Details for '{0}' formatéééééééééé"</value>
+  </data>
+  <data name="LCPrefFormat" xml:space="preserve">
+    <value>'も雅Formatééé"</value>
+  </data>
+  <data name="LCPrefHandledBy" xml:space="preserve">
+    <value>'も雅Handled by:ééééé"</value>
+  </data>
+  <data name="LCPrefMoreAboutLiveClipboard" xml:space="preserve">
+    <value>'も雅More about Live Clipboard...éééééééééééé"</value>
+  </data>
+  <data name="LCPrefNoFormatSelected" xml:space="preserve">
+    <value>'も雅(No format selected)éééééééé"</value>
+  </data>
+  <data name="LCPrefOptionsButton" xml:space="preserve">
+    <value>'も雅Options...éééé"</value>
+  </data>
+  <data name="LCPrefPanelName" xml:space="preserve">
+    <value>'も雅Live Clipboardéééééé"</value>
+  </data>
+  <data name="LCPrefSupportedFormats" xml:space="preserve">
+    <value>'も雅&amp;Supported formats:éééééééé"</value>
+  </data>
+  <data name="LinkAddToGlossary" xml:space="preserve">
+    <value>'も雅A&amp;dd to link glossaryééééééééé"</value>
+  </data>
+  <data name="LinkAdvanced" xml:space="preserve">
+    <value>'も雅&amp;Advanced {0}éééééé"</value>
+  </data>
+  <data name="LinkEditHyperlink" xml:space="preserve">
+    <value>'も雅Edit Hyperlinkéééééé"</value>
+  </data>
+  <data name="LinkFormTitle" xml:space="preserve">
+    <value>'も雅Insert Hyperlinkééééééé"</value>
+  </data>
+  <data name="LinkGlossaryEdit" xml:space="preserve">
+    <value>'も雅Edit Glossary Linkéééééééé"</value>
+  </data>
+  <data name="LinkGlossaryText" xml:space="preserve">
+    <value>'も雅Te&amp;xt:ééé"</value>
+  </data>
+  <data name="LinkGlossaryTitle" xml:space="preserve">
+    <value>'も雅Add Link to Glossaryéééééééé"</value>
+  </data>
+  <data name="LinkGlossaryTitleOptional" xml:space="preserve">
+    <value>'も雅&amp;Title (optional):éééééééé"</value>
+  </data>
+  <data name="LinkGlossaryUrl" xml:space="preserve">
+    <value>'も雅&amp;URL:éé"</value>
+  </data>
+  <data name="LinkLinkTo" xml:space="preserve">
+    <value>'も雅&amp;Link toéééé"</value>
+  </data>
+  <data name="LinkNewWindowLabel" xml:space="preserve">
+    <value>'も雅&amp;Open link in new windowéééééééééé"</value>
+  </data>
+  <data name="LinkOptionsTooltip" xml:space="preserve">
+    <value>'も雅Browse for linkéééééé"</value>
+  </data>
+  <data name="LinkRelLabel" xml:space="preserve">
+    <value>'も雅R&amp;el:éé"</value>
+  </data>
+  <data name="LinkRemoveLink" xml:space="preserve">
+    <value>'も雅&amp;Remove Linkééééé"</value>
+  </data>
+  <data name="LinkSelectionContainsImage" xml:space="preserve">
+    <value>'も雅[selection contains image]ééééééééééé"</value>
+  </data>
+  <data name="LinkTextLabel" xml:space="preserve">
+    <value>'も雅Te&amp;xt to be displayed:ééééééééé"</value>
+  </data>
+  <data name="LinkTitleLabel" xml:space="preserve">
+    <value>'も雅&amp;Title:ééé"</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>'も雅&amp;Link toéééé"</value>
+  </data>
+  <data name="LinkToNone" xml:space="preserve">
+    <value>'も雅Noneéé"</value>
+  </data>
+  <data name="LinkToolTip" xml:space="preserve">
+    <value>'も雅CTRL + click to follow link: {0}ééééééééééééé"</value>
+  </data>
+  <data name="LinkToPost" xml:space="preserve">
+    <value>'も雅Link to Postééééé"</value>
+  </data>
+  <data name="LinkToSource" xml:space="preserve">
+    <value>'も雅Source Pictureéééééé"</value>
+  </data>
+  <data name="LinkToURL" xml:space="preserve">
+    <value>'も雅URLéé"</value>
+  </data>
+  <data name="LinkToWebPageURL" xml:space="preserve">
+    <value>'も雅Link to web page URL:ééééééééé"</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>'も雅Loginéé"</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>'も雅Mapéé"</value>
+  </data>
+  <data name="MapAerial" xml:space="preserve">
+    <value>'も雅Aerialééé"</value>
+  </data>
+  <data name="MapAlignInline" xml:space="preserve">
+    <value>'も雅Inlineééé"</value>
+  </data>
+  <data name="MapAlignLeft" xml:space="preserve">
+    <value>'も雅Leftéé"</value>
+  </data>
+  <data name="MapAlignRight" xml:space="preserve">
+    <value>'も雅Rightéé"</value>
+  </data>
+  <data name="MapBirdseye" xml:space="preserve">
+    <value>'も雅Bird's Eyeéééé"</value>
+  </data>
+  <data name="MapBirdseyeButton" xml:space="preserve">
+    <value>'も雅Toggle Birdseye Viewéééééééé"</value>
+  </data>
+  <data name="MapBirdseyeLabel" xml:space="preserve">
+    <value>'も雅&amp;Birdseyeéééé"</value>
+  </data>
+  <data name="MapCustomMargins" xml:space="preserve">
+    <value>'も雅Custom Marginséééééé"</value>
+  </data>
+  <data name="MapDirectionEast" xml:space="preserve">
+    <value>'も雅Eastéé"</value>
+  </data>
+  <data name="MapDirectionNorth" xml:space="preserve">
+    <value>'も雅Northéé"</value>
+  </data>
+  <data name="MapDirectionSouth" xml:space="preserve">
+    <value>'も雅Southéé"</value>
+  </data>
+  <data name="MapDirectionWest" xml:space="preserve">
+    <value>'も雅Westéé"</value>
+  </data>
+  <data name="MapFindAddress" xml:space="preserve">
+    <value>'も雅&amp;Find location:éééééé"</value>
+  </data>
+  <data name="MapImageAltText" xml:space="preserve">
+    <value>'も雅Map imageéééé"</value>
+  </data>
+  <data name="MapNoMargins" xml:space="preserve">
+    <value>'も雅No Marginséééé"</value>
+  </data>
+  <data name="MapPushpinTip" xml:space="preserve">
+    <value>'も雅Tip: Right-click to add a pushpinéééééééééééééé"</value>
+  </data>
+  <data name="MapRoad" xml:space="preserve">
+    <value>'も雅Roadéé"</value>
+  </data>
+  <data name="MapSBBottom" xml:space="preserve">
+    <value>'も雅Bottomééé"</value>
+  </data>
+  <data name="MapSBCaption" xml:space="preserve">
+    <value>'も雅Caption:éééé"</value>
+  </data>
+  <data name="MapSBCustomize" xml:space="preserve">
+    <value>'も雅Customize Map...ééééééé"</value>
+  </data>
+  <data name="MapSBCustomizeTooltip" xml:space="preserve">
+    <value>'も雅Edit the map location, style, and pushpinsééééééééééééééééé"</value>
+  </data>
+  <data name="MapSBLayoutHeader" xml:space="preserve">
+    <value>'も雅Layoutééé"</value>
+  </data>
+  <data name="MapSBLeft" xml:space="preserve">
+    <value>'も雅Leftéé"</value>
+  </data>
+  <data name="MapSBMapHeader" xml:space="preserve">
+    <value>'も雅Mapéé"</value>
+  </data>
+  <data name="MapSBMargins" xml:space="preserve">
+    <value>'も雅Margins:éééé"</value>
+  </data>
+  <data name="MapSBRight" xml:space="preserve">
+    <value>'も雅Rightéé"</value>
+  </data>
+  <data name="MapSBTop" xml:space="preserve">
+    <value>'も雅Topéé"</value>
+  </data>
+  <data name="MapSBViewMap" xml:space="preserve">
+    <value>'も雅View Map on Live.coméééééééé"</value>
+  </data>
+  <data name="MapSBWrapping" xml:space="preserve">
+    <value>'も雅Text wrapping:éééééé"</value>
+  </data>
+  <data name="MapSearch" xml:space="preserve">
+    <value>'も雅Searchééé"</value>
+  </data>
+  <data name="MapSeeInBirdseye" xml:space="preserve">
+    <value>'も雅See this location in bird's eye viewééééééééééééééé"</value>
+  </data>
+  <data name="MapShowLabel" xml:space="preserve">
+    <value>'も雅Sho&amp;w labelsééééé"</value>
+  </data>
+  <data name="MapStyle" xml:space="preserve">
+    <value>'も雅Map Styleéééé"</value>
+  </data>
+  <data name="MapZoomIn" xml:space="preserve">
+    <value>'も雅Zoom Inééé"</value>
+  </data>
+  <data name="MapZoomOut" xml:space="preserve">
+    <value>'も雅Zoom Outéééé"</value>
+  </data>
+  <data name="MapZoomSlider" xml:space="preserve">
+    <value>'も雅Zoom Sliderééééé"</value>
+  </data>
+  <data name="MarkupTypeHTML" xml:space="preserve">
+    <value>'も雅HTMLéé"</value>
+  </data>
+  <data name="MarkupTypeXHTML" xml:space="preserve">
+    <value>'も雅XHTMLéé"</value>
+  </data>
+  <data name="MaxImgSizeError" xml:space="preserve">
+    <value>'も雅Maximum Image Size Exceededééééééééééé"</value>
+  </data>
+  <data name="MaxImgSizeExplanation" xml:space="preserve">
+    <value>'も雅This image exceeded the maximum size (600x600) allowed by Windows Live Spaces, so the image was automatically resized.éééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="MaxImgSizeImageNameFormat" xml:space="preserve">
+    <value>'も雅Image: {0}éééé"</value>
+  </data>
+  <data name="MaxImgSizeTitle" xml:space="preserve">
+    <value>'も雅Publish Informationéééééééé"</value>
+  </data>
+  <data name="MaximizeButtonTooltip" xml:space="preserve">
+    <value>'も雅Maximizeéééé"</value>
+  </data>
+  <data name="MegabytesFormat" xml:space="preserve">
+    <value>'も雅{0}MBéé"</value>
+  </data>
+  <data name="MinimizeButtonTooltip" xml:space="preserve">
+    <value>'も雅Minimizeéééé"</value>
+  </data>
+  <data name="MissingPostLinkCaption" xml:space="preserve">
+    <value>'も雅No Link Available for {0}éééééééééé"</value>
+  </data>
+  <data name="MissingPostLinkExplanation" xml:space="preserve">
+    <value>'も雅There is no link available for the selected {0}. This may be because your weblog service does not make {0} links available to {1}. You may be able to resolve this problem by redetecting your weblog account configuration using the Accounts panel of the Weblog Settings dialog.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="MissingPostLinkTitle" xml:space="preserve">
+    <value>'も雅No Link Availableééééééé"</value>
+  </data>
+  <data name="MoreDotDotDot" xml:space="preserve">
+    <value>'も雅More...ééé"</value>
+  </data>
+  <data name="MoreDrafts" xml:space="preserve">
+    <value>'も雅More Draftsééééé"</value>
+  </data>
+  <data name="MoreDraftsTooltip" xml:space="preserve">
+    <value>'も雅Open another draft not listed aboveéééééééééééééé"</value>
+  </data>
+  <data name="MorePosts" xml:space="preserve">
+    <value>'も雅More Recent Postsééééééé"</value>
+  </data>
+  <data name="MorePostsTooltip" xml:space="preserve">
+    <value>'も雅Open another post not listed aboveéééééééééééééé"</value>
+  </data>
+  <data name="MoreWeblogs" xml:space="preserve">
+    <value>'も雅M&amp;ore Weblogs...ééééééé"</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>'も雅Nameéé"</value>
+  </data>
+  <data name="NewFolder" xml:space="preserve">
+    <value>'も雅New Folderéééé"</value>
+  </data>
+  <data name="NewFolderPrompt" xml:space="preserve">
+    <value>'も雅New folder name:ééééééé"</value>
+  </data>
+  <data name="NewFolderTitle" xml:space="preserve">
+    <value>'も雅Create New Folderééééééé"</value>
+  </data>
+  <data name="NewFolderTooltip" xml:space="preserve">
+    <value>'も雅Create a new folderéééééééé"</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>'も雅Noé"</value>
+  </data>
+  <data name="NoButton" xml:space="preserve">
+    <value>'も雅&amp;Noéé"</value>
+  </data>
+  <data name="NoFileUploadPrompt" xml:space="preserve">
+    <value>'も雅Would you like to configure the image upload settings for your weblog now?éééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="NoFileUploadText" xml:space="preserve">
+    <value>'も雅The following images cannot be published because image uploading has not been configured for this weblog:éééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="NoFileUploadTitle" xml:space="preserve">
+    <value>'も雅Image Upload Not Configuredééééééééééé"</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>'も雅You must be connected to the Internet to insert and edit maps.ééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="NoThings" xml:space="preserve">
+    <value>'も雅(No {0})éééé"</value>
+  </data>
+  <data name="OKButtonText" xml:space="preserve">
+    <value>'も雅OKé"</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>'も雅Openéé"</value>
+  </data>
+  <data name="OpenPostDelete" xml:space="preserve">
+    <value>'も雅&amp;Deleteééé"</value>
+  </data>
+  <data name="OpenPostItems" xml:space="preserve">
+    <value>'も雅itemséé"</value>
+  </data>
+  <data name="OpenPostNoDraftsAvailable" xml:space="preserve">
+    <value>'も雅No drafts available.éééééééé"</value>
+  </data>
+  <data name="OpenPostNoPagesAvailable" xml:space="preserve">
+    <value>'も雅No pages available.éééééééé"</value>
+  </data>
+  <data name="OpenPostNoPostsAvailable" xml:space="preserve">
+    <value>'も雅No posts available.éééééééé"</value>
+  </data>
+  <data name="OpenPostOpenFrom" xml:space="preserve">
+    <value>'も雅&amp;Open from:ééééé"</value>
+  </data>
+  <data name="OpenPostPages" xml:space="preserve">
+    <value>'も雅P&amp;agesééé"</value>
+  </data>
+  <data name="OpenPostPosts" xml:space="preserve">
+    <value>'も雅&amp;Postsééé"</value>
+  </data>
+  <data name="OpenPostRefresh" xml:space="preserve">
+    <value>'も雅&amp;Refreshéééé"</value>
+  </data>
+  <data name="OpenPostRefreshTooltip" xml:space="preserve">
+    <value>'も雅Refresh Postséééééé"</value>
+  </data>
+  <data name="OpenPostShow" xml:space="preserve">
+    <value>'も雅&amp;Showéé"</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>'も雅Optionsééé"</value>
+  </data>
+  <data name="OptionsButton" xml:space="preserve">
+    <value>'も雅Options...éééé"</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>'も雅Pageéé"</value>
+  </data>
+  <data name="PageLower" xml:space="preserve">
+    <value>'も雅pageéé"</value>
+  </data>
+  <data name="Pages" xml:space="preserve">
+    <value>'も雅Pageséé"</value>
+  </data>
+  <data name="PagesLower" xml:space="preserve">
+    <value>'も雅pageséé"</value>
+  </data>
+  <data name="PanelNameAccounts" xml:space="preserve">
+    <value>'も雅Accountséééé"</value>
+  </data>
+  <data name="Paragraph" xml:space="preserve">
+    <value>'も雅Paragraphéééé"</value>
+  </data>
+  <data name="PassportLoginSignIn" xml:space="preserve">
+    <value>'も雅Sign Inééé"</value>
+  </data>
+  <data name="PassportLoginTitle" xml:space="preserve">
+    <value>'も雅Windows Live IDéééééé"</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>'も雅Password:éééé"</value>
+  </data>
+  <data name="PasswordChar" xml:space="preserve">
+    <value>'も雅0x25CFééé"</value>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>'も雅&amp;Password:éééé"</value>
+  </data>
+  <data name="PasteSpecial" xml:space="preserve">
+    <value>'も雅Paste Specialéééééé"</value>
+  </data>
+  <data name="PasteSpecialHtmlDesc" xml:space="preserve">
+    <value>'も雅Maintains all the formatting, including those which may not display correctly in your blog. For security reasons, scripts are stripped out.éééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PasteSpecialHtmlLabel" xml:space="preserve">
+    <value>'も雅&amp;Keep Formattingééééééé"</value>
+  </data>
+  <data name="PasteSpecialPlaintextDesc" xml:space="preserve">
+    <value>'も雅Removes all formatting except for line breaks. Preserves links and images. Use to copy content only.éééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PasteSpecialPlaintextLabel" xml:space="preserve">
+    <value>'も雅&amp;Remove Formattingéééééééé"</value>
+  </data>
+  <data name="PasteSpecialTextFormatted" xml:space="preserve">
+    <value>'も雅&amp;HTMLéé"</value>
+  </data>
+  <data name="PasteSpecialTextFormattedDesc" xml:space="preserve">
+    <value>'も雅Interprets text as HTML source code. Copied content will appear with formatting. Use for imgs, embeds, etc.ééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PasteSpecialTextPlainText" xml:space="preserve">
+    <value>'も雅&amp;Plain Textééééé"</value>
+  </data>
+  <data name="PasteSpecialTextPlainTextDesc" xml:space="preserve">
+    <value>'も雅Standard plain text paste. Any HTML tags will be escaped.ééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PasteSpecialThinnedDesc" xml:space="preserve">
+    <value>'も雅Removes extra formatting, such as MS Office specific formatting, CSS styles, and tables. Preserves relative heading sizes, basic formatting, and aligns with your blog style.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PasteSpecialThinnedLabel" xml:space="preserve">
+    <value>'も雅&amp;Thinned HTMLéééééé"</value>
+  </data>
+  <data name="PingPrefName" xml:space="preserve">
+    <value>'も雅Ping Serversééééé"</value>
+  </data>
+  <data name="PingPrefUrl" xml:space="preserve">
+    <value>'も雅Send &amp;pings to the URLs below (one URL per line)éééééééééééééééééééé"</value>
+  </data>
+  <data name="pixels" xml:space="preserve">
+    <value>'も雅pixelsééé"</value>
+  </data>
+  <data name="Plugin_Map_InsertableContentSource_MenuText" xml:space="preserve">
+    <value>'も雅&amp;Mapéé"</value>
+  </data>
+  <data name="Plugin_Map_InsertableContentSource_SidebarText" xml:space="preserve">
+    <value>'も雅Mapéé"</value>
+  </data>
+  <data name="Plugin_Map_WriterPlugin_Description" xml:space="preserve">
+    <value>'も雅Embed Live Search Maps in your blog posts.ééééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Map_WriterPlugin_Name" xml:space="preserve">
+    <value>'も雅Live Search Mapsééééééé"</value>
+  </data>
+  <data name="Plugin_Tags_InsertableContentSource_MenuText" xml:space="preserve">
+    <value>'も雅T&amp;agséé"</value>
+  </data>
+  <data name="Plugin_Tags_InsertableContentSource_SidebarText" xml:space="preserve">
+    <value>'も雅Tagséé"</value>
+  </data>
+  <data name="Plugin_Tags_WriterPlugin_Description" xml:space="preserve">
+    <value>'も雅Add tags to your posts using popular tagging sites or using custom HTML.ééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Tags_WriterPlugin_Name" xml:space="preserve">
+    <value>'も雅Tagséé"</value>
+  </data>
+  <data name="Plugin_Video_Alignment_Inline" xml:space="preserve">
+    <value>'も雅Inlineééé"</value>
+  </data>
+  <data name="Plugin_Video_Alignment_Left" xml:space="preserve">
+    <value>'も雅Leftéé"</value>
+  </data>
+  <data name="Plugin_Video_Alignment_Right" xml:space="preserve">
+    <value>'も雅Rightéé"</value>
+  </data>
+  <data name="Plugin_Video_Alt_Text" xml:space="preserve">
+    <value>'も雅Videoéé"</value>
+  </data>
+  <data name="Plugin_Video_Cannot_Parse_Url" xml:space="preserve">
+    <value>'も雅Unable to Parse Video URLéééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Cannot_Parse_Url_Message" xml:space="preserve">
+    <value>'も雅Unknown provider or incomplete URL.éééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Copyright_Notice" xml:space="preserve">
+    <value>'も雅Please respect copyrightéééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Caption" xml:space="preserve">
+    <value>'も雅Caption:éééé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Layout_Header" xml:space="preserve">
+    <value>'も雅Layoutééé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Link_Text" xml:space="preserve">
+    <value>'も雅View this video.ééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margin_Bottom" xml:space="preserve">
+    <value>'も雅Bottomééé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margin_Left" xml:space="preserve">
+    <value>'も雅Leftéé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margin_Right" xml:space="preserve">
+    <value>'も雅Rightéé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margin_Top" xml:space="preserve">
+    <value>'も雅Topéé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margins" xml:space="preserve">
+    <value>'も雅Margins:éééé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Player_Style" xml:space="preserve">
+    <value>'も雅Player style:éééééé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Text_Wrap" xml:space="preserve">
+    <value>'も雅Text wrapping:éééééé"</value>
+  </data>
+  <data name="Plugin_Video_Editor_Title" xml:space="preserve">
+    <value>'も雅{0} Videoéééé"</value>
+  </data>
+  <data name="Plugin_Video_Error_Unexpected_Title" xml:space="preserve">
+    <value>'も雅Unexpected Exceptionéééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Margins_Custom" xml:space="preserve">
+    <value>'も雅Custom Marginséééééé"</value>
+  </data>
+  <data name="Plugin_Video_Margins_None" xml:space="preserve">
+    <value>'も雅No Marginséééé"</value>
+  </data>
+  <data name="Plugin_Video_Player_Automatic" xml:space="preserve">
+    <value>'も雅Automaticéééé"</value>
+  </data>
+  <data name="Plugin_Video_Player_Embed" xml:space="preserve">
+    <value>'も雅Embedded in Pageééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Player_Preview" xml:space="preserve">
+    <value>'も雅Preview with Linkééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Snapshot_Error_Message" xml:space="preserve">
+    <value>'も雅The following error occurred while attempting generate a video snapshot: {0}ééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Snapshot_Error_Title" xml:space="preserve">
+    <value>'も雅Error Retrieving Video Snapshotééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Err_Msg" xml:space="preserve">
+    <value>'も雅Required Value Not Specifiedéééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Favorites" xml:space="preserve">
+    <value>'も雅Favoriteséééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Live_Id_Message" xml:space="preserve">
+    <value>'も雅You must register your Live ID with Soapbox at their website before logging in here.éééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_LoggingIn" xml:space="preserve">
+    <value>'も雅Logging in...éééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Mult_Video" xml:space="preserve">
+    <value>'も雅{0} Videoséééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_My_Uploads" xml:space="preserve">
+    <value>'も雅Uploaded Videoséééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Next_Videos" xml:space="preserve">
+    <value>'も雅Next Pageéééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_No_Id_Msg" xml:space="preserve">
+    <value>'も雅You must enter your Soapbox User ID (can be found on your profile page in Soapbox).éééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_None_Found" xml:space="preserve">
+    <value>'も雅No videos found.ééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Not_Logged_In" xml:space="preserve">
+    <value>'も雅Not logged inéééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_One_Video" xml:space="preserve">
+    <value>'も雅{0} Videoéééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Passport_Default" xml:space="preserve">
+    <value>'も雅&amp;Use as default loginééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Passport_Login" xml:space="preserve">
+    <value>'も雅&amp;Loginééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Passport_Password" xml:space="preserve">
+    <value>'も雅&amp;Password:éééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Passport_Username" xml:space="preserve">
+    <value>'も雅&amp;Windows Live ID:ééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Previous_Videos" xml:space="preserve">
+    <value>'も雅Previous Pageéééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Result_Range" xml:space="preserve">
+    <value>'も雅Videos {0} to {1}ééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Result_Single" xml:space="preserve">
+    <value>'も雅Video {0}éééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Retrieve_Msg" xml:space="preserve">
+    <value>'も雅Retrieving list of videos...éééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Search_Type" xml:space="preserve">
+    <value>'も雅Soapbox Search Typeéééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Soap_Error" xml:space="preserve">
+    <value>'も雅The Soapbox service returned an error.éééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Switch_User" xml:space="preserve">
+    <value>'も雅Switch userééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Tab_Name" xml:space="preserve">
+    <value>'も雅Insert from Soapboxéééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Thumbnail_Downloading" xml:space="preserve">
+    <value>'も雅Downloading Preview...ééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Thumbnail_None" xml:space="preserve">
+    <value>'も雅No Preview Availableéééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Total_Videos" xml:space="preserve">
+    <value>'も雅(of {0})éééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_User_Id" xml:space="preserve">
+    <value>'も雅Soapbox &amp;User ID:ééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Web_Error" xml:space="preserve">
+    <value>'も雅The search request timed out.éééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Unknown_Provider" xml:space="preserve">
+    <value>'も雅Unknown Providerééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Video_Header" xml:space="preserve">
+    <value>'も雅Videoéé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Download_Error" xml:space="preserve">
+    <value>'も雅The selected video could not be accessed from the service\r\ndue to heavy service usage. Please try again.ééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Download_Error_Title" xml:space="preserve">
+    <value>'も雅Video Access Erroréééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Enter_Prompt" xml:space="preserve">
+    <value>'も雅Video &amp;URL or Embed:éééééééé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Preview_Button" xml:space="preserve">
+    <value>'も雅Pre&amp;viewéééé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Provider" xml:space="preserve">
+    <value>'も雅Provider: {0}éééééé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Service_Blank" xml:space="preserve">
+    <value>'も雅Provider:éééé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Size" xml:space="preserve">
+    <value>'も雅Size: {0} x {1}éééééé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Size_Blank" xml:space="preserve">
+    <value>'も雅Size:éé"</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Tab_Name" xml:space="preserve">
+    <value>'も雅Insert from Webéééééé"</value>
+  </data>
+  <data name="Plugin_Video_XML_Error_Embed_Format" xml:space="preserve">
+    <value>'も雅Missing Embed Format parameteréééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_XML_Error_Embed_Pattern" xml:space="preserve">
+    <value>'も雅Missing Embed Pattern parameterééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_XML_Error_Service_Id" xml:space="preserve">
+    <value>'も雅Missing Service Id parameteréééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_XML_Error_Service_Name" xml:space="preserve">
+    <value>'も雅Missing Service Name parameteréééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_XML_Error_Size" xml:space="preserve">
+    <value>'も雅Missing Size parameterééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_XML_Error_Url_Format" xml:space="preserve">
+    <value>'も雅Missing URL Format parameteréééééééééééé"</value>
+  </data>
+  <data name="Plugin_Video_XML_Error_Url_Pattern" xml:space="preserve">
+    <value>'も雅Missing URL Pattern parameteréééééééééééé"</value>
+  </data>
+  <data name="Plugin_Videos_InsertableContentSource_MenuText" xml:space="preserve">
+    <value>'も雅&amp;Videoééé"</value>
+  </data>
+  <data name="Plugin_Videos_InsertableContentSource_SidebarText" xml:space="preserve">
+    <value>'も雅Videoéé"</value>
+  </data>
+  <data name="Plugin_Videos_Load_Error_Message" xml:space="preserve">
+    <value>'も雅Unable to load the video for insertion into the editor due to heavy load on the Video service.éééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Videos_Load_Error_Title" xml:space="preserve">
+    <value>'も雅Unable to Load Videoéééééééé"</value>
+  </data>
+  <data name="Plugin_Videos_Select_Video_Form" xml:space="preserve">
+    <value>'も雅Insert Videoééééé"</value>
+  </data>
+  <data name="Plugin_Videos_Video_Size" xml:space="preserve">
+    <value>'も雅Video Size: {0} x {1}ééééééééé"</value>
+  </data>
+  <data name="Plugin_Videos_WriterPlugin_Description" xml:space="preserve">
+    <value>'も雅Add videos to your posts using popular video providers.éééééééééééééééééééééé"</value>
+  </data>
+  <data name="Plugin_Videos_WriterPlugin_Name" xml:space="preserve">
+    <value>'も雅Videoéé"</value>
+  </data>
+  <data name="PluginInsertSidebarText" xml:space="preserve">
+    <value>'も雅Insert {0}...éééééé"</value>
+  </data>
+  <data name="PluginInsertSidebarTooltip" xml:space="preserve">
+    <value>'も雅Insert a {0} into the current documentéééééééééééééééé"</value>
+  </data>
+  <data name="PluginPrefCaption" xml:space="preserve">
+    <value>'も雅Plug-ins are programs that extend the functionality of {0}. You can enable and disable Plug-ins using this dialog.éééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PluginPrefDetails" xml:space="preserve">
+    <value>'も雅Plug-in detailséééééé"</value>
+  </data>
+  <data name="PluginPrefDisable" xml:space="preserve">
+    <value>'も雅&amp;Disableéééé"</value>
+  </data>
+  <data name="PluginPrefEnable" xml:space="preserve">
+    <value>'も雅&amp;Enableééé"</value>
+  </data>
+  <data name="PluginPrefInstalled" xml:space="preserve">
+    <value>'も雅&amp;Plug-ins currently installed:éééééééééééé"</value>
+  </data>
+  <data name="PluginPrefLink" xml:space="preserve">
+    <value>'も雅Add a Plug-in...ééééééé"</value>
+  </data>
+  <data name="PluginPrefName" xml:space="preserve">
+    <value>'も雅Plug-inséééé"</value>
+  </data>
+  <data name="PluginPrefNameCol" xml:space="preserve">
+    <value>'も雅Plug-inééé"</value>
+  </data>
+  <data name="PluginPrefNone" xml:space="preserve">
+    <value>'も雅(No Plug-in selected)ééééééééé"</value>
+  </data>
+  <data name="PluginPrefStatCol" xml:space="preserve">
+    <value>'も雅Statusééé"</value>
+  </data>
+  <data name="PluginPrefTooltip" xml:space="preserve">
+    <value>'も雅Click here to find out more about this plug-in.ééééééééééééééééééé"</value>
+  </data>
+  <data name="PluginSidebarDisabled" xml:space="preserve">
+    <value>'も雅Selected item plug-in is disabled.éééééééééééééé"</value>
+  </data>
+  <data name="PluginSidebarNotEditable" xml:space="preserve">
+    <value>'も雅Selected item cannot be edited.ééééééééééééé"</value>
+  </data>
+  <data name="PluginSidebarTitle" xml:space="preserve">
+    <value>'も雅{0} Propertieséééééé"</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>'も雅Postéé"</value>
+  </data>
+  <data name="PostEditorBodyRegion" xml:space="preserve">
+    <value>'も雅Post Bodyéééé"</value>
+  </data>
+  <data name="PostEditorPrefAuto" xml:space="preserve">
+    <value>'も雅Automatically save &amp;drafts everyééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefAutoAccName" xml:space="preserve">
+    <value>'も雅Automatically save draftséééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefAutoSaveInterval" xml:space="preserve">
+    <value>'も雅Automatic save intervaléééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefClose" xml:space="preserve">
+    <value>'も雅Close &amp;window after publishing: ééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefEditing" xml:space="preserve">
+    <value>'も雅Editingééé"</value>
+  </data>
+  <data name="PostEditorPrefMinutes" xml:space="preserve">
+    <value>'も雅&amp;minuteséééé"</value>
+  </data>
+  <data name="PostEditorPrefName" xml:space="preserve">
+    <value>'も雅Preferencesééééé"</value>
+  </data>
+  <data name="PostEditorPrefNew" xml:space="preserve">
+    <value>'も雅Open a new window for &amp;each postééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefOpt1" xml:space="preserve">
+    <value>'も雅Alwaysééé"</value>
+  </data>
+  <data name="PostEditorPrefOpt2" xml:space="preserve">
+    <value>'も雅Only for Blog Thiséééééééé"</value>
+  </data>
+  <data name="PostEditorPrefPostWindows" xml:space="preserve">
+    <value>'も雅Post Windowsééééé"</value>
+  </data>
+  <data name="PostEditorPrefPublishing" xml:space="preserve">
+    <value>'も雅Publishingéééé"</value>
+  </data>
+  <data name="PostEditorPrefRemind" xml:space="preserve">
+    <value>'も雅Remind me to add &amp;tags before publishingéééééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefRemindCat" xml:space="preserve">
+    <value>'も雅Remind me to add &amp;categories before publishingééééééééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefSide" xml:space="preserve">
+    <value>'も雅S&amp;how sidebar when editable items are insertedééééééééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefSingle" xml:space="preserve">
+    <value>'も雅Use a &amp;single window for editing all postsééééééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefTitle" xml:space="preserve">
+    <value>'も雅&amp;Remind me to specify a title before publishingééééééééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefUnsave" xml:space="preserve">
+    <value>'も雅Open a new window &amp;only when there are unsaved changes to the current postéééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PostEditorPrefView" xml:space="preserve">
+    <value>'も雅&amp;View post after publishingééééééééééé"</value>
+  </data>
+  <data name="PostEditorStorageExceptionMessage" xml:space="preserve">
+    <value>'も雅Unexpected error occurred while accessing local post ({0})
+
+{1}éééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PostEditorStorageExceptionMessage2" xml:space="preserve">
+    <value>'も雅Unexpected disk access error occurred while accessing local post ({0})
+
+{1}ééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PostEditorStorageExceptionTitle" xml:space="preserve">
+    <value>'も雅Error Accessing Local Postééééééééééé"</value>
+  </data>
+  <data name="PostEditorStorageExceptionTitle2" xml:space="preserve">
+    <value>'も雅Error Accessing Local Postééééééééééé"</value>
+  </data>
+  <data name="PostEditorTitleRegion" xml:space="preserve">
+    <value>'も雅Post Titleéééé"</value>
+  </data>
+  <data name="PostLinkTooltipFormat" xml:space="preserve">
+    <value>'も雅{0}
+{1} ({2})éééééé"</value>
+  </data>
+  <data name="PostLinkTooltipFormatNoBlogTitle" xml:space="preserve">
+    <value>'も雅{0}
+({1})éééé"</value>
+  </data>
+  <data name="PostLower" xml:space="preserve">
+    <value>'も雅postéé"</value>
+  </data>
+  <data name="PostPublishFileUploadErrorCaption1" xml:space="preserve">
+    <value>'も雅The {0} was successfully published however an error occurred while uploading supporting files:éééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PostPublishFileUploadErrorCaption2" xml:space="preserve">
+    <value>'も雅Depending upon the nature of the error, you may be able to successfully publish the supporting files by retrying. Alternatively, you may wish to delete the {0} from your weblog.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="PostPublishFileUploadErrorTitle" xml:space="preserve">
+    <value>'も雅Error Uploading Supporting Filesééééééééééééé"</value>
+  </data>
+  <data name="Posts" xml:space="preserve">
+    <value>'も雅Postséé"</value>
+  </data>
+  <data name="PostsLower" xml:space="preserve">
+    <value>'も雅postséé"</value>
+  </data>
+  <data name="ProductDisplayVersion" xml:space="preserve">
+    <value>'も雅2008 (Build {0})ééééééé"</value>
+  </data>
+  <data name="ProgressAnalyzingHomepage" xml:space="preserve">
+    <value>'も雅Analyzing weblog homepage URL and contents...éééééééééééééééééé"</value>
+  </data>
+  <data name="ProgressAnalyzingInterface" xml:space="preserve">
+    <value>'も雅Analyzing weblog publishing interface...éééééééééééééééé"</value>
+  </data>
+  <data name="ProgressAnalyzingWeblogList" xml:space="preserve">
+    <value>'も雅Analyzing list of weblogs...éééééééééééé"</value>
+  </data>
+  <data name="ProgressCompletedSettingsDetection" xml:space="preserve">
+    <value>'も雅Completed settings detectionéééééééééééé"</value>
+  </data>
+  <data name="ProgressCreatingEditingTemplate" xml:space="preserve">
+    <value>'も雅Creating editing template...éééééééééééé"</value>
+  </data>
+  <data name="ProgressDetectingWeblogCategories" xml:space="preserve">
+    <value>'も雅Detecting weblog categories...éééééééééééé"</value>
+  </data>
+  <data name="ProgressDetectingWeblogCharSet" xml:space="preserve">
+    <value>'も雅Detecting weblog character set...éééééééééééééé"</value>
+  </data>
+  <data name="ProgressDetectingWeblogEditingStyle" xml:space="preserve">
+    <value>'も雅Detecting weblog editing style...éééééééééééééé"</value>
+  </data>
+  <data name="ProgressDetectingWeblogIcon" xml:space="preserve">
+    <value>'も雅Detecting weblog icon...éééééééééé"</value>
+  </data>
+  <data name="ProgressDetectingWeblogSettings" xml:space="preserve">
+    <value>'も雅Detecting weblog settings...éééééééééééé"</value>
+  </data>
+  <data name="ProgressDeterminingType" xml:space="preserve">
+    <value>'も雅Determining type of {0}...ééééééééééé"</value>
+  </data>
+  <data name="ProgressDialogTitle" xml:space="preserve">
+    <value>'も雅Progress Dialogéééééé"</value>
+  </data>
+  <data name="ProgressDownloadFinished" xml:space="preserve">
+    <value>'も雅Download finishedééééééé"</value>
+  </data>
+  <data name="ProgressDownloading" xml:space="preserve">
+    <value>'も雅Downloading {0}...éééééééé"</value>
+  </data>
+  <data name="ProgressDownloadingEditingTemplate" xml:space="preserve">
+    <value>'も雅Downloading editing template...ééééééééééééé"</value>
+  </data>
+  <data name="ProgressDownloadingSupportingFiles" xml:space="preserve">
+    <value>'も雅Downloading supporting files...ééééééééééééé"</value>
+  </data>
+  <data name="ProgressDownloadingWeblogEditingStyle" xml:space="preserve">
+    <value>'も雅Downloading weblog editing style...éééééééééééééé"</value>
+  </data>
+  <data name="ProgressFinalizingEditingTemplateConfig" xml:space="preserve">
+    <value>'も雅Finalizing editing template configuration...éééééééééééééééééé"</value>
+  </data>
+  <data name="ProgressPreparingListOfFiles" xml:space="preserve">
+    <value>'も雅Preparing list of files to download...éééééééééééééééé"</value>
+  </data>
+  <data name="ProgressSaving" xml:space="preserve">
+    <value>'も雅Saving {0}...éééééé"</value>
+  </data>
+  <data name="ProgressStartingDownloadOfReferences" xml:space="preserve">
+    <value>'も雅Starting download of references...éééééééééééééé"</value>
+  </data>
+  <data name="ProgressVerifyingInterface" xml:space="preserve">
+    <value>'も雅Verifying weblog publishing interface...éééééééééééééééé"</value>
+  </data>
+  <data name="PropertiesAuthor" xml:space="preserve">
+    <value>'も雅Author:ééé"</value>
+  </data>
+  <data name="PropertiesAuthorsFetchingText" xml:space="preserve">
+    <value>'も雅list of authorséééééé"</value>
+  </data>
+  <data name="PropertiesCommentPolicyClosed" xml:space="preserve">
+    <value>'も雅Closedééé"</value>
+  </data>
+  <data name="PropertiesCommentPolicyNone" xml:space="preserve">
+    <value>'も雅Noneéé"</value>
+  </data>
+  <data name="PropertiesCommentPolicyOpen" xml:space="preserve">
+    <value>'も雅Openéé"</value>
+  </data>
+  <data name="PropertiesComments" xml:space="preserve">
+    <value>'も雅Comments:éééé"</value>
+  </data>
+  <data name="PropertiesDefault" xml:space="preserve">
+    <value>'も雅(Default)éééé"</value>
+  </data>
+  <data name="PropertiesExcerpt" xml:space="preserve">
+    <value>'も雅Excerpt:éééé"</value>
+  </data>
+  <data name="PropertiesKeywords" xml:space="preserve">
+    <value>'も雅Keywords:éééé"</value>
+  </data>
+  <data name="PropertiesNoPageParent" xml:space="preserve">
+    <value>'も雅Main Page (no parent)ééééééééé"</value>
+  </data>
+  <data name="PropertiesPageOrder" xml:space="preserve">
+    <value>'も雅Page Order:ééééé"</value>
+  </data>
+  <data name="PropertiesPageParent" xml:space="preserve">
+    <value>'も雅Page Parent:ééééé"</value>
+  </data>
+  <data name="PropertiesPanel" xml:space="preserve">
+    <value>'も雅Post Propertieséééééé"</value>
+  </data>
+  <data name="PropertiesPassword" xml:space="preserve">
+    <value>'も雅Password:éééé"</value>
+  </data>
+  <data name="PropertiesPings" xml:space="preserve">
+    <value>'も雅Pings:ééé"</value>
+  </data>
+  <data name="PropertiesPublishDate" xml:space="preserve">
+    <value>'も雅Publish Date:éééééé"</value>
+  </data>
+  <data name="PropertiesShowHide" xml:space="preserve">
+    <value>'も雅Close/Open Properties Panelééééééééééé"</value>
+  </data>
+  <data name="PropertiesSlug" xml:space="preserve">
+    <value>'も雅Slug:éé"</value>
+  </data>
+  <data name="PropertiesTrackbackPolicyAllow" xml:space="preserve">
+    <value>'も雅Allowéé"</value>
+  </data>
+  <data name="PropertiesTrackbackPolicyDeny" xml:space="preserve">
+    <value>'も雅Denyéé"</value>
+  </data>
+  <data name="PropertiesTrackbacks" xml:space="preserve">
+    <value>'も雅Send Trackbacks to the following URLs (separate multiple URLs with commas):éééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="ProxyPrefCustom" xml:space="preserve">
+    <value>'も雅Custom proxy settingsééééééééé"</value>
+  </data>
+  <data name="ProxyPrefEnabled" xml:space="preserve">
+    <value>'も雅&amp;Specify custom proxy server settingsééééééééééééééé"</value>
+  </data>
+  <data name="ProxyPrefName" xml:space="preserve">
+    <value>'も雅Web Proxyéééé"</value>
+  </data>
+  <data name="ProxyPrefPassword" xml:space="preserve">
+    <value>'も雅Pass&amp;word:éééé"</value>
+  </data>
+  <data name="ProxyPrefPort" xml:space="preserve">
+    <value>'も雅&amp;Port:ééé"</value>
+  </data>
+  <data name="ProxyPrefServer" xml:space="preserve">
+    <value>'も雅P&amp;roxy server address:ééééééééé"</value>
+  </data>
+  <data name="ProxyPrefTitle" xml:space="preserve">
+    <value>'も雅Web Proxy Preferencesééééééééé"</value>
+  </data>
+  <data name="ProxyPrefUsername" xml:space="preserve">
+    <value>'も雅User&amp;name:éééé"</value>
+  </data>
+  <data name="PublishDatePrompt" xml:space="preserve">
+    <value>'も雅Set publish dateééééééé"</value>
+  </data>
+  <data name="PublishedNameFormat" xml:space="preserve">
+    <value>'も雅Published {0}éééééé"</value>
+  </data>
+  <data name="PublishFolderPickerCaption" xml:space="preserve">
+    <value>'も雅Select a folder to publish to:éééééééééééé"</value>
+  </data>
+  <data name="PublishFolderPickerTitle" xml:space="preserve">
+    <value>'も雅Browse For Folderééééééé"</value>
+  </data>
+  <data name="PushpinAdd" xml:space="preserve">
+    <value>'も雅Add Pushpinééééé"</value>
+  </data>
+  <data name="PushpinEdit" xml:space="preserve">
+    <value>'も雅Edit Pushpinééééé"</value>
+  </data>
+  <data name="PushpinMoreInfoUrl" xml:space="preserve">
+    <value>'も雅&amp;URL for more info:éééééééé"</value>
+  </data>
+  <data name="PushpinNotes" xml:space="preserve">
+    <value>'も雅&amp;Notes:ééé"</value>
+  </data>
+  <data name="PushpinPhotoUrl" xml:space="preserve">
+    <value>'も雅&amp;Photo URL:ééééé"</value>
+  </data>
+  <data name="PushpinTitle" xml:space="preserve">
+    <value>'も雅&amp;Title:ééé"</value>
+  </data>
+  <data name="PushpinUntitled" xml:space="preserve">
+    <value>'も雅Untitled pushpinééééééé"</value>
+  </data>
+  <data name="PushpinValidationError" xml:space="preserve">
+    <value>'も雅Unable to validate that the pushpin URL you entered points to a valid image file on the web. Note that the URL may be still be correct; however, it could not be located at this time.
+
+Do you still want to set this as your custom pushpin URL?éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="RecentlyPosted" xml:space="preserve">
+    <value>'も雅Recently Postedéééééé"</value>
+  </data>
+  <data name="RecentPostNotSyncCaption" xml:space="preserve">
+    <value>'も雅Unable to Retrieve {0} from Serveréééééééééééééé"</value>
+  </data>
+  <data name="RecentPostNotSyncText" xml:space="preserve">
+    <value>'も雅{0} was unable to retrieve an up-to-date copy of the {1} from the weblog server (an error occurred or the retrieve was cancelled).éééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="RecentPostNotSyncText2" xml:space="preserve">
+    <value>'も雅You may still edit the {0} using the local copy stored on this computer. However, if you have changed the {0} online, the copy you are editing is out of date.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="RecentPostNotSyncTitle" xml:space="preserve">
+    <value>'も雅Unable to Retrieve {0} from Serveréééééééééééééé"</value>
+  </data>
+  <data name="RememberPassword" xml:space="preserve">
+    <value>'も雅&amp;Save my passwordééééééé"</value>
+  </data>
+  <data name="Retrieving" xml:space="preserve">
+    <value>'も雅Retrieving {0}éééééé"</value>
+  </data>
+  <data name="RetrievingFromWeblog" xml:space="preserve">
+    <value>'も雅Retrieving {0} from weblog...éééééééééééé"</value>
+  </data>
+  <data name="RowPropertiesFixedHeight" xml:space="preserve">
+    <value>'も雅&amp;Fixed height:éééééé"</value>
+  </data>
+  <data name="RowPropertiesSizeToContent" xml:space="preserve">
+    <value>'も雅&amp;Automatically size to contentéééééééééééé"</value>
+  </data>
+  <data name="RowPropertiesTitle" xml:space="preserve">
+    <value>'も雅Row Propertieséééééé"</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>'も雅&amp;Saveéé"</value>
+  </data>
+  <data name="SelectWeblogProvider" xml:space="preserve">
+    <value>'も雅(Select Weblog Provider)éééééééééé"</value>
+  </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>'も雅Live Search Mapsééééééé"</value>
+  </data>
+  <data name="ShortcutAlt" xml:space="preserve">
+    <value>'も雅Altéé"</value>
+  </data>
+  <data name="ShortcutCtrl" xml:space="preserve">
+    <value>'も雅Ctrléé"</value>
+  </data>
+  <data name="ShortcutPlus" xml:space="preserve">
+    <value>'も雅+é"</value>
+  </data>
+  <data name="ShortcutShift" xml:space="preserve">
+    <value>'も雅Shiftéé"</value>
+  </data>
+  <data name="ShowAllPosts" xml:space="preserve">
+    <value>'も雅Alléé"</value>
+  </data>
+  <data name="ShowLogFile" xml:space="preserve">
+    <value>'も雅Show log fileéééééé"</value>
+  </data>
+  <data name="ShowProperties" xml:space="preserve">
+    <value>'も雅Show Propertieséééééé"</value>
+  </data>
+  <data name="ShowSidebar" xml:space="preserve">
+    <value>'も雅Show Sidebarééééé"</value>
+  </data>
+  <data name="ShowXPosts" xml:space="preserve">
+    <value>'も雅{0}éé"</value>
+  </data>
+  <data name="SidebarPanel" xml:space="preserve">
+    <value>'も雅Sidebarééé"</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>'も雅Sizeéé"</value>
+  </data>
+  <data name="SpacesBlogCategory10" xml:space="preserve">
+    <value>'も雅News and politicsééééééé"</value>
+  </data>
+  <data name="SpacesBlogCategory11" xml:space="preserve">
+    <value>'も雅Organizationséééééé"</value>
+  </data>
+  <data name="SpacesBlogCategory12" xml:space="preserve">
+    <value>'も雅Travelééé"</value>
+  </data>
+  <data name="SpacesBlogCategory2" xml:space="preserve">
+    <value>'も雅Bookséé"</value>
+  </data>
+  <data name="SpacesBlogCategory3" xml:space="preserve">
+    <value>'も雅Computer and Internetééééééééé"</value>
+  </data>
+  <data name="SpacesBlogCategory4" xml:space="preserve">
+    <value>'も雅Entertainmentéééééé"</value>
+  </data>
+  <data name="SpacesBlogCategory5" xml:space="preserve">
+    <value>'も雅Food and drinkéééééé"</value>
+  </data>
+  <data name="SpacesBlogCategory6" xml:space="preserve">
+    <value>'も雅Gameséé"</value>
+  </data>
+  <data name="SpacesBlogCategory7" xml:space="preserve">
+    <value>'も雅Health and wellnesséééééééé"</value>
+  </data>
+  <data name="SpacesBlogCategory8" xml:space="preserve">
+    <value>'も雅Hobbiesééé"</value>
+  </data>
+  <data name="SpacesBlogCategory9" xml:space="preserve">
+    <value>'も雅Musicéé"</value>
+  </data>
+  <data name="SpellAdd" xml:space="preserve">
+    <value>'も雅A&amp;ddéé"</value>
+  </data>
+  <data name="SpellCaps" xml:space="preserve">
+    <value>'も雅Capitalization:éééééé"</value>
+  </data>
+  <data name="SpellChange" xml:space="preserve">
+    <value>'も雅C&amp;hange to:ééééé"</value>
+  </data>
+  <data name="SpellChangeAll" xml:space="preserve">
+    <value>'も雅Change A&amp;llééééé"</value>
+  </data>
+  <data name="SpellChangeWord" xml:space="preserve">
+    <value>'も雅&amp;Changeééé"</value>
+  </data>
+  <data name="SpellDeleteAll" xml:space="preserve">
+    <value>'も雅&amp;Delete Allééééé"</value>
+  </data>
+  <data name="SpellDeleteWord" xml:space="preserve">
+    <value>'も雅&amp;Deleteééé"</value>
+  </data>
+  <data name="SpellIgnore" xml:space="preserve">
+    <value>'も雅I&amp;gnoreééé"</value>
+  </data>
+  <data name="SpellIgnoreAll" xml:space="preserve">
+    <value>'も雅&amp;Ignore Allééééé"</value>
+  </data>
+  <data name="SpellingPrefAuto" xml:space="preserve">
+    <value>'も雅Use auto&amp;matic correctionéééééééééé"</value>
+  </data>
+  <data name="SpellingPrefGroup" xml:space="preserve">
+    <value>'も雅Spelling form optionsééééééééé"</value>
+  </data>
+  <data name="SpellingPrefName" xml:space="preserve">
+    <value>'も雅Spellingéééé"</value>
+  </data>
+  <data name="SpellingPrefNum" xml:space="preserve">
+    <value>'も雅Ignore words with &amp;numbersééééééééééé"</value>
+  </data>
+  <data name="SpellingPrefOptions" xml:space="preserve">
+    <value>'も雅General optionséééééé"</value>
+  </data>
+  <data name="SpellingPrefPub" xml:space="preserve">
+    <value>'も雅&amp;Check spelling before publishingéééééééééééééé"</value>
+  </data>
+  <data name="SpellingPrefReal" xml:space="preserve">
+    <value>'も雅Use &amp;real-time spell checking (squiggles)ééééééééééééééééé"</value>
+  </data>
+  <data name="SpellingPrefUpper" xml:space="preserve">
+    <value>'も雅Ignore words in &amp;UPPERCASEééééééééééé"</value>
+  </data>
+  <data name="SpellNoSuggest" xml:space="preserve">
+    <value>'も雅{no suggestions}ééééééé"</value>
+  </data>
+  <data name="SpellNotInDict" xml:space="preserve">
+    <value>'も雅&amp;Not in dictionary:éééééééé"</value>
+  </data>
+  <data name="SpellOptions" xml:space="preserve">
+    <value>'も雅S&amp;uggestions:éééééé"</value>
+  </data>
+  <data name="SpellSuggest" xml:space="preserve">
+    <value>'も雅&amp;Suggestéééé"</value>
+  </data>
+  <data name="SpellText" xml:space="preserve">
+    <value>'も雅Check Spellingéééééé"</value>
+  </data>
+  <data name="SplashScreenCopyrightNotice" xml:space="preserve">
+    <value>'も雅Copyright © .NET Foundation. All rights reserved. This program is protected by the U.S. and international copyright laws as described in the Help/About box.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="SplitterMore" xml:space="preserve">
+    <value>'も雅More...ééé"</value>
+  </data>
+  <data name="StatusDraftSaved" xml:space="preserve">
+    <value>'も雅Draft - Saved {0}ééééééé"</value>
+  </data>
+  <data name="StatusDraftUnsaved" xml:space="preserve">
+    <value>'も雅Draft - Unsavedéééééé"</value>
+  </data>
+  <data name="StatusPublished" xml:space="preserve">
+    <value>'も雅Published: {0}éééééé"</value>
+  </data>
+  <data name="StatusWeblogNameFormatter" xml:space="preserve">
+    <value>'も雅{0} ({1})éééé"</value>
+  </data>
+  <data name="SwitchWeblogs" xml:space="preserve">
+    <value>'も雅Switch to Weblogééééééé"</value>
+  </data>
+  <data name="TableAlignHorizontal" xml:space="preserve">
+    <value>'も雅&amp;Horizontal alignment:ééééééééé"</value>
+  </data>
+  <data name="TableAlignHorizontalCenter" xml:space="preserve">
+    <value>'も雅Centerééé"</value>
+  </data>
+  <data name="TableAlignHorizontalLeft" xml:space="preserve">
+    <value>'も雅Leftéé"</value>
+  </data>
+  <data name="TableAlignHorizontalRight" xml:space="preserve">
+    <value>'も雅Rightéé"</value>
+  </data>
+  <data name="TableAlignVertical" xml:space="preserve">
+    <value>'も雅&amp;Vertical alignment:éééééééé"</value>
+  </data>
+  <data name="TableAlignVerticalBottom" xml:space="preserve">
+    <value>'も雅Bottomééé"</value>
+  </data>
+  <data name="TableAlignVerticalMiddle" xml:space="preserve">
+    <value>'も雅Middleééé"</value>
+  </data>
+  <data name="TableAlignVerticalTop" xml:space="preserve">
+    <value>'も雅Topéé"</value>
+  </data>
+  <data name="TableBorder" xml:space="preserve">
+    <value>'も雅Borderééé"</value>
+  </data>
+  <data name="TableCellPadding" xml:space="preserve">
+    <value>'も雅Cell Paddingééééé"</value>
+  </data>
+  <data name="TableCellPaddingLabel" xml:space="preserve">
+    <value>'も雅&amp;Pad cell contents:éééééééé"</value>
+  </data>
+  <data name="TableCellSpacing" xml:space="preserve">
+    <value>'も雅Cell Spacingééééé"</value>
+  </data>
+  <data name="TableCellSpacingLabel" xml:space="preserve">
+    <value>'も雅&amp;Space between cells:ééééééééé"</value>
+  </data>
+  <data name="TableColumns" xml:space="preserve">
+    <value>'も雅Columnsééé"</value>
+  </data>
+  <data name="TableColumnsLabel" xml:space="preserve">
+    <value>'も雅&amp;Columns:éééé"</value>
+  </data>
+  <data name="TableRows" xml:space="preserve">
+    <value>'も雅Rowséé"</value>
+  </data>
+  <data name="TableRowsLabel" xml:space="preserve">
+    <value>'も雅&amp;Rows:ééé"</value>
+  </data>
+  <data name="TableShowBorderLabel" xml:space="preserve">
+    <value>'も雅Show table &amp;border:éééééééé"</value>
+  </data>
+  <data name="TableTableProperties" xml:space="preserve">
+    <value>'も雅Table Propertiesééééééé"</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>'も雅Tagséé"</value>
+  </data>
+  <data name="TagsCaptionFormat" xml:space="preserve">
+    <value>'も雅{0} Tags: {{tag-group}}éééééééééé"</value>
+  </data>
+  <data name="TagsCreateNew" xml:space="preserve">
+    <value>'も雅Create New Tag Provideréééééééééé"</value>
+  </data>
+  <data name="TagsCustomizeProviders" xml:space="preserve">
+    <value>'も雅(Customize Providers...)éééééééééé"</value>
+  </data>
+  <data name="TagsEditPattern" xml:space="preserve">
+    <value>'も雅Edit {0}éééé"</value>
+  </data>
+  <data name="TagsHtmlCaptionHelpString" xml:space="preserve">
+    <value>'も雅The HTML caption that will appear with the HTML generated for the tags. Use {0} where you'd like the HTML generated from the HTML tag template to be placed.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="TagsHtmlCaptionLabel" xml:space="preserve">
+    <value>'も雅HTML &amp;caption for tag list:ééééééééééé"</value>
+  </data>
+  <data name="TagsHtmlDelimiterHelpString" xml:space="preserve">
+    <value>'も雅The separator that should appear between tag HTML. The separator will appear between the HTML that is generated for each tag.éééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="TagsHtmlDelimiterLabel" xml:space="preserve">
+    <value>'も雅&amp;Separate the HTML for each tag using:éééééééééééééééé"</value>
+  </data>
+  <data name="TagsHtmlPreviewHelpString" xml:space="preserve">
+    <value>'も雅A preview of the literal HTML that will be generated for a set of tags.ééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="TagsHtmlPreviewLabel" xml:space="preserve">
+    <value>'も雅HTML preview:éééééé"</value>
+  </data>
+  <data name="TagsHtmlTemplateHelpString" xml:space="preserve">
+    <value>'も雅The HTML template will be used to generate HTML for each tag that is provided. In the HTML template, use {0} where the tag should be placed. Use {1} where the URL encoded tag should be placed.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="TagsHtmlTemplateLabel" xml:space="preserve">
+    <value>'も雅&amp;HTML template for each tag:éééééééééééé"</value>
+  </data>
+  <data name="TagsInsertTags" xml:space="preserve">
+    <value>'も雅Insert Tagsééééé"</value>
+  </data>
+  <data name="TagsProviderDefaultCaption" xml:space="preserve">
+    <value>'も雅{0} Tags: {1}éééééé"</value>
+  </data>
+  <data name="TagsProviderNameHelpString" xml:space="preserve">
+    <value>'も雅The name of the tag provider. This name will be displayed in the tag provider list when inserting tags.éééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="TagsProviderNameLabel" xml:space="preserve">
+    <value>'も雅&amp;Provider name:éééééé"</value>
+  </data>
+  <data name="TagsRestoreDefaults" xml:space="preserve">
+    <value>'も雅&amp;Restore Defaultsééééééé"</value>
+  </data>
+  <data name="TagsTagExample1" xml:space="preserve">
+    <value>'も雅tag 1éé"</value>
+  </data>
+  <data name="TagsTagExample2" xml:space="preserve">
+    <value>'も雅tag 2éé"</value>
+  </data>
+  <data name="TagsTagOptions" xml:space="preserve">
+    <value>'も雅Tag Optionsééééé"</value>
+  </data>
+  <data name="TagsTagProviderLabel" xml:space="preserve">
+    <value>'も雅Tag &amp;Provider:éééééé"</value>
+  </data>
+  <data name="TagsTagProvidersLabel" xml:space="preserve">
+    <value>'も雅&amp;Tag providers:éééééé"</value>
+  </data>
+  <data name="TagsTagsLabel" xml:space="preserve">
+    <value>'も雅&amp;Tags (comma separated):éééééééééé"</value>
+  </data>
+  <data name="TagsXmlParsingError" xml:space="preserve">
+    <value>'も雅Missing {0} parameterééééééééé"</value>
+  </data>
+  <data name="TemporaryPostBody" xml:space="preserve">
+    <value>'も雅This is a temporary post that was not deleted. Please delete this manually. ({0})ééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="TemporaryPostTitle" xml:space="preserve">
+    <value>'も雅Temporary Post Used For Style Detection ({0})éééééééééééééééééé"</value>
+  </data>
+  <data name="TextStyle" xml:space="preserve">
+    <value>'も雅Text Styleéééé"</value>
+  </data>
+  <data name="TitleDefaultText" xml:space="preserve">
+    <value>'も雅Enter {0} Title Hereéééééééé"</value>
+  </data>
+  <data name="TitleRemindDontShowAgain" xml:space="preserve">
+    <value>'も雅Don't remind me about missing titlesééééééééééééééé"</value>
+  </data>
+  <data name="TitleRemindError" xml:space="preserve">
+    <value>'も雅{0} Title Not Specifiedéééééééééé"</value>
+  </data>
+  <data name="TitleRemindExplanation" xml:space="preserve">
+    <value>'も雅You have not specified a title for this {0}. Do you still want to continue with publishing?ééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="TitleRemindTitle" xml:space="preserve">
+    <value>'も雅Title Reminderéééééé"</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>'も雅Todayéé"</value>
+  </data>
+  <data name="ToolbarBoldLetter" xml:space="preserve">
+    <value>'も雅Bé"</value>
+  </data>
+  <data name="ToolbarFontStyleFontFamily" xml:space="preserve">
+    <value>'も雅"</value>
+  </data>
+  <data name="ToolbarItalicLetter" xml:space="preserve">
+    <value>'も雅Ié"</value>
+  </data>
+  <data name="ToolbarStrikethroughLetter" xml:space="preserve">
+    <value>'も雅Aé"</value>
+  </data>
+  <data name="ToolbarUnderlineLetter" xml:space="preserve">
+    <value>'も雅Ué"</value>
+  </data>
+  <data name="TruncatedString" xml:space="preserve">
+    <value>'も雅{0}...ééé"</value>
+  </data>
+  <data name="UnexpectedErrorClickHere" xml:space="preserve">
+    <value>'も雅Click here to see error detailsééééééééééééé"</value>
+  </data>
+  <data name="UnexpectedErrorContinue" xml:space="preserve">
+    <value>'も雅&amp;Continueéééé"</value>
+  </data>
+  <data name="UnexpectedErrorDescription" xml:space="preserve">
+    <value>'も雅We have created an error summary that you can view.ééééééééééééééééééééé"</value>
+  </data>
+  <data name="UnexpectedErrorExit" xml:space="preserve">
+    <value>'も雅Exitéé"</value>
+  </data>
+  <data name="UnexpectedErrorTitle" xml:space="preserve">
+    <value>'も雅Unexpected Errorééééééé"</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>'も雅Unknownééé"</value>
+  </data>
+  <data name="Untitled" xml:space="preserve">
+    <value>'も雅Untitledéééé"</value>
+  </data>
+  <data name="UntitledPage" xml:space="preserve">
+    <value>'も雅(Untitled Page)éééééé"</value>
+  </data>
+  <data name="UntitledPost" xml:space="preserve">
+    <value>'も雅(Untitled Post)éééééé"</value>
+  </data>
+  <data name="UpdateAccountConfiguration" xml:space="preserve">
+    <value>'も雅&amp;Update Account Configuration...ééééééééééééé"</value>
+  </data>
+  <data name="UpdateAccountConfigurationTitle" xml:space="preserve">
+    <value>'も雅Update Account Configurationéééééééééééé"</value>
+  </data>
+  <data name="UpdatesAvailableMessage" xml:space="preserve">
+    <value>'も雅Required updates will be applied next time you start Open Live Writer.éééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="UpdatesBandClose" xml:space="preserve">
+    <value>'も雅Closeéé"</value>
+  </data>
+  <data name="UpdatesInstalling" xml:space="preserve">
+    <value>'も雅Downloading and installing {0} update(s). Please wait...ééééééééééééééééééééééé"</value>
+  </data>
+  <data name="UpdatesPreparing" xml:space="preserve">
+    <value>'も雅Preparing to update Open Live Writer...ééééééééééééééééé"</value>
+  </data>
+  <data name="UpdatesProgressTitle" xml:space="preserve">
+    <value>'も雅Install Updates - Open Live Writerééééééééééééééé"</value>
+  </data>
+  <data name="UpdatesStartingWriter" xml:space="preserve">
+    <value>'も雅Starting updated Open Live Writer...éééééééééééééééé"</value>
+  </data>
+  <data name="UpdateWeblogDraft" xml:space="preserve">
+    <value>'も雅Draftéé"</value>
+  </data>
+  <data name="UpdateWeblogPublish1" xml:space="preserve">
+    <value>'も雅Publishing {0} to Weblogéééééééééé"</value>
+  </data>
+  <data name="UpdateWeblogPublish2" xml:space="preserve">
+    <value>'も雅Publishing {0} to {1}ééééééééé"</value>
+  </data>
+  <data name="UpdateWeblogViewPost" xml:space="preserve">
+    <value>'も雅View in browser after publishingééééééééééééé"</value>
+  </data>
+  <data name="UrlLabel" xml:space="preserve">
+    <value>'も雅&amp;URL:éé"</value>
+  </data>
+  <data name="UrlRetrieveProgressCaption" xml:space="preserve">
+    <value>'も雅Retrieving Dataéééééé"</value>
+  </data>
+  <data name="UrlRetrieveProgressMessage" xml:space="preserve">
+    <value>'も雅Retrieving additional data required for publishing...éééééééééééééééééééééé"</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>'も雅Username:éééé"</value>
+  </data>
+  <data name="UsernameLabel" xml:space="preserve">
+    <value>'も雅&amp;Username:éééé"</value>
+  </data>
+  <data name="ViewButton" xml:space="preserve">
+    <value>'も雅&amp;Viewéé"</value>
+  </data>
+  <data name="ViewMap" xml:space="preserve">
+    <value>'も雅View mapéééé"</value>
+  </data>
+  <data name="ViewWeblog" xml:space="preserve">
+    <value>'も雅View Weblogééééé"</value>
+  </data>
+  <data name="ViewWeblogCapabilities" xml:space="preserve">
+    <value>'も雅View capabilitiesééééééé"</value>
+  </data>
+  <data name="WatermarkAlignBottomLeft" xml:space="preserve">
+    <value>'も雅Bottom Leftééééé"</value>
+  </data>
+  <data name="WatermarkAlignBottomRight" xml:space="preserve">
+    <value>'も雅Bottom Rightééééé"</value>
+  </data>
+  <data name="WatermarkAlignCentered" xml:space="preserve">
+    <value>'も雅Centeredéééé"</value>
+  </data>
+  <data name="WatermarkAlignTopLeft" xml:space="preserve">
+    <value>'も雅Top Leftéééé"</value>
+  </data>
+  <data name="WatermarkAlignTopRight" xml:space="preserve">
+    <value>'も雅Top Rightéééé"</value>
+  </data>
+  <data name="WatermarkAlignUnknown" xml:space="preserve">
+    <value>'も雅Unknownééé"</value>
+  </data>
+  <data name="WatermarkFontFamilyLabel" xml:space="preserve">
+    <value>'も雅Font family:ééééé"</value>
+  </data>
+  <data name="WatermarkPositionLabel" xml:space="preserve">
+    <value>'も雅Position:éééé"</value>
+  </data>
+  <data name="WatermarkSizeLabel" xml:space="preserve">
+    <value>'も雅Size:éé"</value>
+  </data>
+  <data name="WatermarkTextLabel" xml:space="preserve">
+    <value>'も雅Watermark text:éééééé"</value>
+  </data>
+  <data name="WatsonMainIntroBoldFormat" xml:space="preserve">
+    <value>'も雅{0} has encountered a problem: {1}.éééééééééééééé"</value>
+  </data>
+  <data name="WatsonMainIntroRegFormat" xml:space="preserve">
+    <value>'も雅{0} {1}ééé"</value>
+  </data>
+  <data name="WatsonMainPleaBold" xml:space="preserve">
+    <value>'も雅Please tell Microsoft about this problem.ééééééééééééééééé"</value>
+  </data>
+  <data name="WatsonMainPleaReg" xml:space="preserve">
+    <value>'も雅We have created an error report that you can send to help us fix bugs. We will treat this report as confidential and anonymous.ééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="WatsonNoReportButton" xml:space="preserve">
+    <value>'も雅Do Not Send Reportéééééééé"</value>
+  </data>
+  <data name="WatsonReportButton" xml:space="preserve">
+    <value>'も雅Send Reportééééé"</value>
+  </data>
+  <data name="WebLayoutWarning1" xml:space="preserve">
+    <value>'も雅You may have problems with editing content in Web Layout view with the current Weblog (for example, incorrect post layout or problems selecting and resizing content).ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="WebLayoutWarning2" xml:space="preserve">
+    <value>'も雅If you do experience problems you should switch back to the Normal view.ééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="WebLayoutWarningTitle" xml:space="preserve">
+    <value>'も雅Web Layout Viewéééééé"</value>
+  </data>
+  <data name="Weblog" xml:space="preserve">
+    <value>'も雅Weblogééé"</value>
+  </data>
+  <data name="WeblogCapabilitiesCapability" xml:space="preserve">
+    <value>'も雅Capabilityéééé"</value>
+  </data>
+  <data name="WeblogCapabilitiesCaption" xml:space="preserve">
+    <value>'も雅{0} has detected the following capabilities for your weblog:éééééééééééééééééééééééé"</value>
+  </data>
+  <data name="WeblogCapabilitiesTitle" xml:space="preserve">
+    <value>'も雅Weblog Capabilitieséééééééé"</value>
+  </data>
+  <data name="WeblogCapabilitiesValue" xml:space="preserve">
+    <value>'も雅Valueéé"</value>
+  </data>
+  <data name="WeblogName" xml:space="preserve">
+    <value>'も雅&amp;Weblog Nameééééé"</value>
+  </data>
+  <data name="WeblogNameColon" xml:space="preserve">
+    <value>'も雅&amp;Weblog Name:éééééé"</value>
+  </data>
+  <data name="WeblogProvider" xml:space="preserve">
+    <value>'も雅Provider:éééé"</value>
+  </data>
+  <data name="WeblogSettings" xml:space="preserve">
+    <value>'も雅Weblog Settings ({0})ééééééééé"</value>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>'も雅Widthéé"</value>
+  </data>
+  <data name="WidthColon" xml:space="preserve">
+    <value>'も雅&amp;Width:ééé"</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>'も雅&amp;Width:ééé"</value>
+  </data>
+  <data name="WindowTitleFormat" xml:space="preserve">
+    <value>'も雅{0} - {1}éééé"</value>
+  </data>
+  <data name="WithEllipses" xml:space="preserve">
+    <value>'も雅{0}...ééé"</value>
+  </data>
+  <data name="WizardBack" xml:space="preserve">
+    <value>'も雅&lt; &amp;Backééé"</value>
+  </data>
+  <data name="WizardBlogTypeConfigureTo" xml:space="preserve">
+    <value>'も雅Configure {0} to publish to:éééééééééééé"</value>
+  </data>
+  <data name="WizardBlogTypeOther" xml:space="preserve">
+    <value>'も雅&amp;Another weblog serviceéééééééééé"</value>
+  </data>
+  <data name="WizardBlogTypeSharePoint" xml:space="preserve">
+    <value>'も雅&amp;SharePoint weblogéééééééé"</value>
+  </data>
+  <data name="WizardBlogTypeSpaces" xml:space="preserve">
+    <value>'も雅&amp;Windows Live Spaceséééééééé"</value>
+  </data>
+  <data name="WizardBlogTypeWelcome" xml:space="preserve">
+    <value>'も雅{0} can create and post entries on your weblog, and works with a variety of weblog services. Select the type of weblog service to continue.éééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="WizardFinish" xml:space="preserve">
+    <value>'も雅Finishééé"</value>
+  </data>
+  <data name="WizardNext" xml:space="preserve">
+    <value>'も雅&amp;Next &gt;ééé"</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>'も雅Yeséé"</value>
+  </data>
+  <data name="YesButton" xml:space="preserve">
+    <value>'も雅&amp;Yeséé"</value>
+  </data>
+</root>

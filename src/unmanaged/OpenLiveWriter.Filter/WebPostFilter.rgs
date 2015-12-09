@@ -1,0 +1,75 @@
+HKCR
+{
+	OpenLiveWriterFilter.WebPostFilter.1 = s 'WebPostFilter Class'
+	{
+		CLSID = s '{4DFA66FF-1EE1-4BAF-A034-0023FB7372EB}'
+	}
+	OpenLiveWriterFilter.WebPostFilter = s 'WebPostFilter Class'
+	{
+		CLSID = s '{4DFA66FF-1EE1-4BAF-A034-0023FB7372EB}'
+		CurVer = s 'OpenLiveWriterFilter.WebPostFilter.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {4DFA66FF-1EE1-4BAF-A034-0023FB7372EB} = s 'WebPostFilter Class'
+		{
+			ProgID = s 'OpenLiveWriterFilter.WebPostFilter.1'
+			VersionIndependentProgID = s 'OpenLiveWriterFilter.WebPostFilter'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{62B21E27-8299-4A97-9960-E7523F19F937}'
+		}
+	}
+}
+HKCU
+{
+	NoRemove Software
+	{
+		NoRemove Microsoft
+		{
+			NoRemove RSSearch
+			{
+				NoRemove ContentIndexCommon
+				{
+					NoRemove Filters
+					{
+						NoRemove Extension
+						{
+							ForceRemove .wpost = s '{4DFA66FF-1EE1-4BAF-A034-0023FB7372EB}'
+							{
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+HKLM
+{
+	NoRemove Software
+	{
+		NoRemove Microsoft
+		{
+			NoRemove RSSearch
+			{
+				NoRemove ContentIndexCommon
+				{
+					NoRemove Filters
+					{
+						NoRemove Extension
+						{
+							ForceRemove .wpost = s '{4DFA66FF-1EE1-4BAF-A034-0023FB7372EB}'
+							{
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

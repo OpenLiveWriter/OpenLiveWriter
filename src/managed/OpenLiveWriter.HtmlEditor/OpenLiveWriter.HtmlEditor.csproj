@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.HtmlEditor</AssemblyName>
+    <RootNamespace>OpenLiveWriter.HtmlEditor</RootNamespace>
+    <ProjectGuid>{6A6872BC-67EF-4A42-A21A-30ECED376923}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj">
+      <Name>OpenLiveWriter.ApplicationFramework</Name>
+      <Project>{EEEE653A-90CE-44E2-B40E-22F747880CC0}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj">
+      <Name>OpenLiveWriter.Controls</Name>
+      <Project>{D4A39612-3610-458F-83F8-5722D1F51063}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
+      <Name>OpenLiveWriter.HtmlParser</Name>
+      <Project>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
+      <Name>OpenLiveWriter.Interop.Mshtml</Name>
+      <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj">
+      <Name>OpenLiveWriter.Mshtml</Name>
+      <Project>{906BA039-467B-41AE-B805-BA1B837AB763}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="BasicHtmlGenerationService.cs" />
+    <Compile Include="BoldApplier.cs" />
+    <Compile Include="Controls\HtmlStylePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxEditorControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Debugging\StyleDebugger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditorLinkNavigator.cs">
+    </Compile>
+    <Compile Include="HtmlBlockFormatHelper.cs" />
+    <Compile Include="HtmlEditorControl.cs" />
+    <Compile Include="HtmlEditorControlDamageServices.cs" />
+    <Compile Include="HtmlEditorElementBehavior.cs" />
+    <Compile Include="HtmlEditorSelection.cs" />
+    <Compile Include="HtmlSourceEditorControl.cs" />
+    <Compile Include="HtmlSourceEditorFindTextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HtmlStyleHelper.cs" />
+    <Compile Include="IHtmlEditor.cs" />
+    <Compile Include="IHtmlEditorCommandSource.cs" />
+    <Compile Include="IHtmlEditorComponentContext.cs" />
+    <Compile Include="IHTMLEditorDamageServices.cs" />
+    <Compile Include="IHtmlEditorSelection.cs" />
+    <Compile Include="IHtmlGenerationService.cs" />
+    <Compile Include="Linking\AddLinkDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Linking\Commands\CommandGlossary.cs" />
+    <Compile Include="Linking\Commands\LinkingCommand.cs" />
+    <Compile Include="Linking\GlossaryListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Linking\GlossaryManagementControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Linking\GlossaryManager.cs" />
+    <Compile Include="Linking\GlossaryPreferences.cs" />
+    <Compile Include="Linking\GlossaryPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Linking\GlossarySettings.cs" />
+    <Compile Include="Linking\HyperlinkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Linking\LinkOptionsButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Linking\LinkSettings.cs" />
+    <Compile Include="Linking\SelectGlossaryLinkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Marshalling\BackgroundColorTextStyle.cs" />
+    <Compile Include="Marshalling\BodyTagFinder.cs" />
+    <Compile Include="Marshalling\BoldTextStyle.cs" />
+    <Compile Include="Marshalling\IncompleteListFinder.cs" />
+    <Compile Include="Marshalling\FixupSegment.cs" />
+    <Compile Include="Marshalling\FontColorTextStyle.cs" />
+    <Compile Include="Marshalling\FontFamilyTextStyle.cs" />
+    <Compile Include="Marshalling\FontSizeTextStyle.cs" />
+    <Compile Include="Marshalling\KeepSourceFormatting.cs" />
+    <Compile Include="Marshalling\DataFormatHandler.cs" />
+    <Compile Include="Marshalling\DataFormatHandlerRegistry.cs" />
+    <Compile Include="Marshalling\Data_Handlers\FileHandler.cs" />
+    <Compile Include="Marshalling\Data_Handlers\FreeTextHandler.cs" />
+    <Compile Include="Marshalling\Data_Handlers\HtmlHandler.cs" />
+    <Compile Include="Marshalling\Data_Handlers\ImageOnlyHtmlHandler.cs" />
+    <Compile Include="Marshalling\Data_Handlers\PlainTextHandler.cs" />
+    <Compile Include="Marshalling\Data_Handlers\UrlHandler.cs" />
+    <Compile Include="Marshalling\DelegateBasedDataFormatHandlerFactory.cs" />
+    <Compile Include="Marshalling\DragDropTarget.cs" />
+    <Compile Include="Marshalling\HtmlEditorDataFormatHandler.cs" />
+    <Compile Include="Marshalling\HtmlEditorMarshallingHandler.cs" />
+    <Compile Include="Marshalling\IDataFormatHandlerFactory.cs" />
+    <Compile Include="Marshalling\IHtmlMarshallingTarget.cs" />
+    <Compile Include="Marshalling\MshtmlEditorDragAndDropTarget.cs" />
+    <Compile Include="Marshalling\OverlineTextStyle.cs" />
+    <Compile Include="Marshalling\SmallCapsTextStyle.cs" />
+    <Compile Include="Marshalling\StrikeThroughTextStyle.cs" />
+    <Compile Include="Marshalling\SubScriptTextStyle.cs" />
+    <Compile Include="Marshalling\SuperScriptTextStyle.cs" />
+    <Compile Include="Marshalling\TextStyle.cs" />
+    <Compile Include="Marshalling\TextStyles.cs" />
+    <Compile Include="Marshalling\ItalicTextStyle.cs" />
+    <Compile Include="Marshalling\UnderlineTextStyle.cs" />
+    <Compile Include="PasteSpecialForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasteSpecialFormText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RtlAcceleratorTranslator.cs" />
+    <Compile Include="SelectionDebugDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectionDebugDialog.Designer.cs">
+      <DependentUpon>SelectionDebugDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Undo\DamageTrackingOleUndoUnit.cs" />
+    <Compile Include="Undo\OleUndoUnit.cs" />
+    <Compile Include="Undo\SelectionOleUndoUnit.cs" />
+    <Compile Include="WordCountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WordCountForm.Designer.cs">
+      <DependentUpon>WordCountForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Controls\HtmlStylePicker.resx">
+      <DependentUpon>HtmlStylePicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TextBoxEditorControl.resx">
+      <DependentUpon>TextBoxEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugging\StyleDebugger.resx">
+      <DependentUpon>StyleDebugger.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HtmlEditorControl.resx">
+      <DependentUpon>HtmlEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HtmlSourceEditorFindTextForm.resx">
+      <DependentUpon>HtmlSourceEditorFindTextForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\KeepFormattingSample.png" />
+    <EmbeddedResource Include="Images\PlainTextSample.png" />
+    <EmbeddedResource Include="Images\ThinnedHTMLSample.png" />
+    <EmbeddedResource Include="Linking\AddLinkDialog.resx">
+      <DependentUpon>AddLinkDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Linking\GlossaryManagementControl.resx">
+      <DependentUpon>GlossaryManagementControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Linking\GlossaryPreferencesPanel.resx">
+      <DependentUpon>GlossaryPreferencesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Linking\HyperlinkForm.resx">
+      <DependentUpon>HyperlinkForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Linking\Images\GlossarySmall.png" />
+    <EmbeddedResource Include="Linking\Images\OptionsArrow.png" />
+    <EmbeddedResource Include="Linking\Images\URLOptions.png" />
+    <EmbeddedResource Include="Linking\SelectGlossaryLinkForm.resx">
+      <DependentUpon>SelectGlossaryLinkForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasteSpecialForm.resx">
+      <DependentUpon>PasteSpecialForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasteSpecialFormText.resx">
+      <DependentUpon>PasteSpecialFormText.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectionDebugDialog.resx">
+      <DependentUpon>SelectionDebugDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WordCountForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WordCountForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

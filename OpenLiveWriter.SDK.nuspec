@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>OpenLiveWriter.SDK</id>
+        <version>0.5.0.0-beta</version>
+        <authors>OpenLiveWriter</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>The SDK required to create plug-ins for Open Live Writer.</description>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework="net452" />
+			<frameworkAssembly assemblyName="System.Drawing" targetFramework="net452" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="src\managed\bin\Release\i386\Writer\OpenLiveWriter.Api.dll" target="lib\net452\OpenLiveWriter.Api.dll" />
+    </files>
+</package>

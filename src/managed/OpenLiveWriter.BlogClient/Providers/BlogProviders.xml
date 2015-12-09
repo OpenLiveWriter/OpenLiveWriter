@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<providers>
+	<provider>
+		<id>16B3FA3F-DAD7-4c93-A407-81CAE076883E</id>
+		<name>Windows Live Spaces</name>	
+		<description>
+			Create a blog, share photos, go mobile, all using Windows Live Spaces.
+		</description>
+		<link>http://spaces.msn.com/</link>
+		<clientType>WindowsLiveSpaces</clientType>
+		<postApiUrl>
+		<![CDATA[
+		https://storage.msn.com/storageservice/MetaWeblog.rpc
+		]]>
+		</postApiUrl>
+		
+		<rsdEngineNamePattern>(Windows Live Spaces|MSN Spaces)</rsdEngineNamePattern>
+		<rsdClientType>metaweblog</rsdClientType>
+		
+		<homepageUrlPattern>(spaces|spaces-f1)\.(msn|msn\-int|live|live-int)\.com</homepageUrlPattern>
+		<reportingKey>za</reportingKey>	
+		<supportsScripts>No</supportsScripts>	
+		<supportsEmbeds>No</supportsEmbeds>		
+		<defaultView>WebLayout</defaultView>
+	</provider>
+	
+	<provider>
+		<id>556A165F-DA11-463c-BB4A-C77CC9047F22</id>
+		<name>Wordpress.com</name>	
+		<description>
+			WordPress is a state-of-the-art semantic personal publishing platform with a focus on aesthetics, web standards, and usability.
+		</description>	
+		<link>http://www.wordpress.com/</link>
+		<clientType>MovableType</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://<username>.wordpress.com/xmlrpc.php
+		]]>
+		</postApiUrl>						
+		<homepageUrlPattern>\.wordpress\.com</homepageUrlPattern>
+		
+		<rsdHomepageLinkPattern>\.wordpress\.com</rsdHomepageLinkPattern>			
+		<postDateFormat>yyyyMMdd'T'HH':'mm':'ss'Z'</postDateFormat>
+		<reportingKey>zb</reportingKey>		
+		<supportsScripts>No</supportsScripts>
+		<supportsEmbeds>No</supportsEmbeds>
+		<defaultView>WebLayout</defaultView>
+	</provider>
+
+	<provider>
+		<id>3C53BD64-4FA8-4bc7-8CB9-5D3BB58FAD07</id>
+		<name>TypePad</name>
+		<description>
+			You can publish anything instantly. Be the sole author, or share a weblog with friends, family, or colleagues.
+		</description>	
+		<link>http://www.typepad.com</link>	
+		<clientType>MovableType</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://www.typepad.com/t/api
+		]]>
+		</postApiUrl>				
+		<homepageUrlPattern>\.typepad\.com</homepageUrlPattern>
+		<rsdEngineNamePattern>typepad</rsdEngineNamePattern>
+		<reportingKey>zc</reportingKey>	
+		<supportsScripts>Yes</supportsScripts>	
+		<supportsEmbeds>Yes</supportsEmbeds>
+		<defaultView>WebLayout</defaultView>	
+	</provider>
+
+	<provider>
+		<id>B9C51DE3-F2DE-4204-AE7D-F64116429401</id>
+		<name>Blogger</name>	
+		<description>
+			Google's blog service focused on helping people have their own voice on the web.
+		</description>
+		<link>http://www.blogspot.com</link>
+	    <clientType>Blogger2</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://api.blogger.com/api
+		]]>
+		</postApiUrl>
+		<homepageUrlPattern>\.blogspot\.com</homepageUrlPattern>
+		<rsdClientType>blogger</rsdClientType>
+		<rsdEngineNamePattern>blogger</rsdEngineNamePattern>		
+		<reportingKey>zd</reportingKey>		
+		<supportsScripts>Unknown</supportsScripts>	
+		<supportsEmbeds>Yes</supportsEmbeds>
+		<supportsCustomDate>No</supportsCustomDate>
+		<defaultView>WebLayout</defaultView>
+	</provider>
+	
+	<provider>
+		<id>E0500CDC-91C9-4822-855F-CDC6F49B2735</id>
+		<name>LiveJournal</name>	
+		<description>
+			LiveJournal is a simple-to-use communication tool that lets you express yourself and connect with friends online.
+		</description>
+		<link>https://www.livejournal.com</link>
+		<clientType>LiveJournal</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://www.livejournal.com/interface/blogger
+		]]>
+		</postApiUrl>
+		<homepageUrlPattern>\.livejournal\.com</homepageUrlPattern>
+		<reportingKey>ze</reportingKey>			
+		<supportsEmbeds>No</supportsEmbeds>	
+		<defaultView>WebLayout</defaultView>
+	</provider>
+	
+	<provider>
+		<id>CD671F17-1902-46e5-8266-A24D6C602234</id>
+		<name>Movable Type</name>	
+		<description>A powerful weblog publishing system.</description>
+		<clientType>MovableType</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://<hostname>/<mt_path>/mt-xmlrpc.cgi
+		]]>
+		</postApiUrl>
+		<rsdEngineNamePattern>Movable Type</rsdEngineNamePattern>
+		<reportingKey>zf</reportingKey>		
+		<defaultView>WebLayout</defaultView>
+	</provider>
+	
+	<provider>
+		<id>82E6C828-8764-4af1-B289-647FC84E7093</id>
+		<name>WordPress (Custom Installation)</name>	
+		<description>WordPress is a state-of-the-art semantic personal publishing platform with a focus on aesthetics, web standards, and usability.</description>
+		<clientType>MovableType</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://<hostname>/<wp_path>/xmlrpc.php
+		]]>
+		</postApiUrl>
+		<postDateFormat>yyyyMMdd'T'HH':'mm':'ss</postDateFormat>
+		<rsdEngineNamePattern>WordPress</rsdEngineNamePattern>
+		<reportingKey>zn</reportingKey>
+		<defaultView>WebLayout</defaultView>
+	</provider>
+	
+	<provider>
+		<id>494B3F2D-206D-449a-B0FA-A987E57C95D1</id>
+		<name>Radio Userland</name>	
+		<description>A powerful weblog publishing system.</description>
+		<clientType>Metaweblog</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://127.0.0.1:5335/RPC2
+		]]>
+		</postApiUrl>
+		<reportingKey>zg</reportingKey>					
+	</provider>
+
+	<provider>
+		<id>D3405AD6-9E02-43b3-87F4-08F5A5946B40</id>
+		<name>Community Server</name>	
+		<description>The easiest and most powerful way to build and grow a robust online community.</description>
+		<clientType>Metaweblog</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://<hostname>/blogs/metablog.ashx
+		]]>
+		</postApiUrl>
+		<useLocalTime>Yes</useLocalTime>
+		<reportingKey>zh</reportingKey>	
+		<defaultView>WebLayout</defaultView>
+		<postDateFormat>yyyyMMdd'T'HH':'mm':'ss</postDateFormat>
+	</provider>
+	
+	<provider>
+		<id>A82F57E0-41D3-45e9-861E-8C527844BCA6</id>
+		<name>dasBlog</name>	
+		<description>A weblog engine on the .Net platform.</description>
+		<clientType>Metaweblog</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://<hostname>/blog/blogger.aspx
+		]]>
+		</postApiUrl>			
+		<reportingKey>zi</reportingKey>		
+		<defaultView>WebLayout</defaultView>
+	</provider>
+
+	<provider>
+		<id>BAF4FE16-25FB-4a94-90C7-11A1B30CAD61</id>
+		<name>Custom (Metaweblog API)</name>	
+		<clientType>Metaweblog</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://<hostname>/<mw-script>
+		]]>
+		</postApiUrl>			
+		<postDateFormat>yyyyMMdd'T'HH':'mm':'ss</postDateFormat>
+		<reportingKey>zj</reportingKey>		
+	</provider>
+	
+	<provider>
+		<id>7D215B2D-7B57-432a-B382-ED027321C480</id>
+		<name>Custom (Movable Type API)</name>		
+		<clientType>MovableType</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://<hostname>/<mt-script>
+		]]>
+		</postApiUrl>					
+		<reportingKey>zm</reportingKey>				
+	</provider>
+	
+	<provider>
+		<id>4FCDB0E2-66F8-4b4d-828B-B2EED6147789</id>
+		<name>MSDN Blogs</name>	
+		<description>MSDN online community.</description>
+		<clientType>Metaweblog</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://blogs.msdn.com/metablog.ashx
+		]]>
+		</postApiUrl>
+		<homepageUrlPattern>blogs\.msdn\.com</homepageUrlPattern>
+		<reportingKey>zk</reportingKey>	
+		<visible>false</visible>	
+		<defaultView>WebLayout</defaultView>
+		<useLocalTime>Yes</useLocalTime>
+		<postDateFormat>yyyyMMdd'T'HH':'mm':'ss</postDateFormat>
+	</provider>
+	
+	<provider>
+		<id>785D4CDA-602F-481b-ACEA-3B3DB79B0F43</id>
+		<name>TechNet Blogs</name>	
+		<description>TechNet online community.</description>
+		<clientType>Metaweblog</clientType>
+		<postApiUrl>
+		<![CDATA[
+		http://blogs.technet.com/metablog.ashx
+		]]>
+		</postApiUrl>
+		<homepageUrlPattern>blogs\.technet\.com</homepageUrlPattern>
+		<reportingKey>zl</reportingKey>		
+		<visible>false</visible>	
+		<defaultView>WebLayout</defaultView>
+		<useLocalTime>Yes</useLocalTime>
+		<postDateFormat>yyyyMMdd'T'HH':'mm':'ss</postDateFormat>
+	</provider>
+	
+</providers>

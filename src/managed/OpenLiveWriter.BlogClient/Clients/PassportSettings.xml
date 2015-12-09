@@ -1,0 +1,30 @@
+<passport>
+	<environment name="Production">
+		<service name="Storage">
+			<service-target>messenger.msn.com</service-target>
+			<service-policy><![CDATA[?id=507]]></service-policy>
+			<cookie-domain>.msn.com,.live.com</cookie-domain>
+			<storage-url><![CDATA[http://storage.msn.com]]></storage-url>
+			<spaces-postApiUrl>https://storage.msn.com/storageservice/MetaWeblog.rpc</spaces-postApiUrl>
+		</service>
+		<service name="Spaces">
+			<service-target>spaces.live.com</service-target>
+			<service-policy><![CDATA[MBI]]></service-policy>
+			<cookie-domain>.msn.com,.live.com</cookie-domain>
+		</service>
+	</environment>
+	<environment name="int">
+		<service name="Storage">
+			<service-target>messenger.msn-int.com</service-target>
+			<service-policy><![CDATA[?id=730]]></service-policy>
+			<cookie-domain>.live-int.com,.msn-int.com</cookie-domain>
+			<storage-url><![CDATA[http://storage.msn-int.com]]></storage-url>
+			<spaces-postApiUrl>https://storage.msn-int.com/storageservice/MetaWeblog.rpc</spaces-postApiUrl>
+		</service>
+		<service name="Spaces">
+			<service-target>spaces.live-int.com</service-target>
+			<service-policy><![CDATA[MBI]]></service-policy>
+			<cookie-domain>.live-int.com,.msn-int.com</cookie-domain>
+		</service>
+	</environment>
+</passport>

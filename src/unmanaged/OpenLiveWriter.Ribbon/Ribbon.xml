@@ -1,0 +1,1391 @@
+<?xml version="1.0"?><Application xmlns="http://schemas.microsoft.com/windows/2009/Ribbon">
+  <Application.Commands>
+      <!-- Shared range: 1000-1499 -->
+      <!-- Font control commands -->
+      <Command Name="cmdFontGroup" Keytip="ZF" LabelTitle="Font" Symbol="cmdFontGroup" Id="1000" Comment="HomeTab-FontGroup"/>
+      <Command Name="cmdFontFamily" Keytip="FF" LabelTitle="Font family" TooltipDescription="Change the font family." Symbol="cmdFontFamily" Id="1001" Comment="HomeTab-FontGroup-FontFamily"/>
+      <Command Name="cmdFontSize" Keytip="FS" LabelTitle="Font size" TooltipDescription="Change the font size." Symbol="cmdFontSize" Id="1002" Comment="HomeTab-FontGroup-FontSize"/>
+      <Command Name="cmdClearFormatting" Keytip="R" LabelTitle="Clear formatting" TooltipDescription="Change the selection to plain text by clearing all of the formatting." Symbol="cmdClearFormatting" Id="1003" Comment="HomeTab-FontGroup-ClearFormatting"/>
+      <!-- 1004 is available -->
+      <Command Name="cmdSubscript" Keytip="N" LabelTitle="Subscript" TooltipTitle="Subscript (Ctrl+=)" TooltipDescription="Create small letters below the text baseline." Symbol="cmdSubscript" Id="1005" Comment="HomeTab-FontGroup-Subscript"/>
+      <Command Name="cmdSuperscript" Keytip="M" LabelTitle="Superscript" TooltipTitle="Superscript (Ctrl+Shift+=)" TooltipDescription="Create small letters above the line of text." Symbol="cmdSuperscript" Id="1006" Comment="HomeTab-FontGroup-Superscript"/>
+      <Command Name="cmdStrikethrough" Keytip="H" LabelTitle="Strikethrough" TooltipTitle="Strikethrough (Ctrl+H)" TooltipDescription="Draw a line through the middle of the selected text." Symbol="cmdStrikethrough" Id="1007" Comment="HomeTab-FontGroup-Strikethrough"/>
+      <Command Name="cmdUnderline" Keytip="U" LabelTitle="Underline" TooltipTitle="Underline (Ctrl+U)" TooltipDescription="Underline the selected text." Symbol="cmdUnderline" Id="1008" Comment="HomeTab-FontGroup-Underline"/>
+      <Command Name="cmdItalic" Keytip="I" LabelTitle="Italics" TooltipTitle="Italics (Ctrl+I)" TooltipDescription="Italicize the selected text." Symbol="cmdItalic" Id="1009" Comment="HomeTab-FontGroup-Italic"/>
+      <Command Name="cmdBold" Keytip="B" LabelTitle="Bold" TooltipTitle="Bold (Ctrl+B)" TooltipDescription="Make the selected text bold." Symbol="cmdBold" Id="1010" Comment="HomeTab-FontGroup-Bold"/>
+      <!-- 1011 is available -->
+      <!-- 1012 is available -->
+      <Command Name="cmdFontColorPicker" Keytip="FC" LabelTitle="Font color" TooltipDescription="Change the text color." Symbol="cmdFontColorPicker" Id="1013" Comment="HomeTab-FontGroup-FontColorPicker"/>
+      <Command Name="cmdFontBackgroundColor" Keytip="FH" LabelTitle="Text highlight color" TooltipDescription="Make text look like it was marked with a highlighter pen." Symbol="cmdFontBackgroundColor" Id="1025" Comment="HomeTab-FontGroup-FontBackgroundColor"/>
+      <!-- Paragraph editing commands -->
+      <Command Name="cmdBullets" Keytip="L1" LabelTitle="Bullets" TooltipTitle="Bullets (Ctrl+Shift+L)" TooltipDescription="Start a bulleted list." Symbol="cmdBullets" Id="1026" Comment="HomeTab-ParagraphGroup-Bullets"/>
+      <Command Name="cmdNumbers" Keytip="L2" LabelTitle="Numbering" TooltipDescription="Start a numbered list." Symbol="cmdNumbers" Id="1027" Comment="HomeTab-ParagraphGroup-Numbers"/>
+      <Command Name="cmdBlockquote" Keytip="Q" LabelTitle="Block quote" TooltipDescription="Make the selected text into a block quote." Symbol="cmdBlockquote" Id="1028" Comment="HomeTab-ParagraphGroup-Blockquote"/>
+      <Command Name="cmdAlignLeft" Keytip="AL" LabelTitle="AlignLeft" TooltipTitle="Align text left (Ctrl+L)" TooltipDescription="Align text to the left." Symbol="cmdAlignLeft" Id="1029" Comment="HomeTab-ParagraphGroup-AlignLeft"/>
+      <Command Name="cmdAlignRight" Keytip="AR" LabelTitle="AlignRight" TooltipTitle="Align text right (Ctrl+R)" TooltipDescription="Align text to the right." Symbol="cmdAlignRight" Id="1030" Comment="HomeTab-ParagraphGroup-AlignRight"/>
+      <Command Name="cmdAlignCenter" Keytip="AC" LabelTitle="AlignCenter" TooltipTitle="Center text (Ctrl+E)" TooltipDescription="Center text." Symbol="cmdAlignCenter" Id="1031" Comment="HomeTab-ParagraphGroup-AlignCenter"/>
+      <Command Name="cmdJustify" Keytip="AJ" LabelTitle="Justify" TooltipDescription="Align text to both left and right margins, adding extra space between words as necessary." Symbol="cmdJustify" Id="1032" Comment="HomeTab-ParagraphGroup-Justify"/>
+      <Command Name="cmdIndent" Symbol="Indent" Id="1046" Comment="Button to increase the indent level of the paragraph" Keytip="MI" LabelTitle="Increase indent" TooltipTitle="Increase indent (Ctrl+M)" TooltipDescription="Increase the indent level of the paragraph"/>
+      <Command Name="cmdOutdent" Symbol="Outdent" Id="1047" Comment="Button to decrease the indent level of the paragraph" Keytip="MO" LabelTitle="Decrease indent" TooltipTitle="Decrease indent (Ctrl+Shift+M)" TooltipDescription="Decrease the indent level of the paragraph"/>
+      <Command Name="cmdRTLTextBlock" Keytip="R1" LabelTitle="Right-to-Left" TooltipDescription="Makes the direction of the selected text right-to-left." Symbol="cmdRTLTextBlock" Id="1048" Comment="HomeTab-ParagraphGroup-RTLTextBlock"/>
+      <Command Name="cmdLTRTextBlock" Keytip="R2" LabelTitle="Left-to-Right" TooltipDescription="Makes the direction of the selected text left-to-right." Symbol="cmdLTRTextBlock" Id="1049" Comment="HomeTab-ParagraphGroup-LTRTextBlock"/>
+      <!-- Clipboard commands -->
+      <Command Name="cmdPaste" LabelTitle="&amp;Paste" TooltipTitle="Paste (Ctrl+V)" TooltipDescription="Paste the contents of the Clipboard." Symbol="cmdPaste" Id="1033" Comment="HomeTab-ClipboardGroup-PasteSplit-Paste"/>
+      <!-- 1034 is available -->
+      <!-- remove clear icons -->
+      <Command Name="cmdCut" Keytip="X" LabelTitle="Cut" TooltipTitle="Cut (Ctrl+X)" TooltipDescription="Cut the selection from the document and put it on the Clipboard." Symbol="cmdCut" Id="1035" Comment="HomeTab-ClipboardGroup-Cut"/>
+      <Command Name="cmdCopyCommand" Keytip="C" LabelTitle="Copy" TooltipTitle="Copy (Ctrl+C)" TooltipDescription="Copy the selection and put it on the Clipboard." Symbol="cmdCopyCommand" Id="1036" Comment="HomeTab-ClipboardGroup-CopyCommand"/>
+      <Command Name="cmdPasteSpecial" LabelTitle="Paste &amp;special..." TooltipTitle="Paste special (Ctrl+Alt+V)" TooltipDescription="Select to paste with or without formatting." Symbol="cmdPasteSpecial" Id="1037" Comment="HomeTab-ClipboardGroup-PasteSplit-PasteSpecial"/>
+      <!-- Insertion commands -->
+      <Command Name="cmdInsertClearBreak" Keytip="B" LabelTitle="Clear break" TooltipDescription="Insert a break after a picture to prevent text wrapping." Symbol="cmdInsertClearBreak" Id="1039" Comment="InsertTab-BreaksGroup-InsertClearBreak"/>
+      <Command Name="cmdInsertPictureFromFile" LabelTitle="From your &amp;computer..." TooltipTitle="From your computer (Ctrl+J)" TooltipDescription="Choose a picture from your computer to display it in this post." Symbol="cmdInsertPictureFromFile" Id="1040" Comment="InsertTab-MediaGroup-InsertImageSplit-InsertPictureFromFile"/>
+      <Command Name="cmdUndo" LabelTitle="Undo" TooltipTitle="Undo (Ctrl+Z)" Symbol="cmdUndo" Id="1043" Comment="QAT-Undo"/>
+      <Command Name="cmdRedo" LabelTitle="Redo" TooltipTitle="Redo (Ctrl+Y)" Symbol="cmdRedo" Id="1044" Comment="QAT-Redo"/>
+      <!-- Text editing commands -->
+      <Command Name="cmdTextEditingGroup" Keytip="ZE" LabelTitle="Editing" Symbol="cmdTextEditingGroup" Id="1014" Comment="HomeTab-TextEditingGroup"/>
+      <Command Name="cmdCheckSpelling" Keytip="S" LabelTitle="Spelling" TooltipTitle="Spelling (F7)" TooltipDescription="Check the spelling in this post." Symbol="cmdCheckSpelling" Id="1015" Comment="HomeTab-TextEditingGroup-CheckSpelling"/>
+      <Command Name="cmdWordCount" Keytip="W" LabelTitle="Word count" TooltipDescription="Find out the number of words, characters, paragraphs, and lines." Symbol="cmdWordCount" Id="1016" Comment="HomeTab-TextEditingGroup-WordCount"/>
+      <Command Name="cmdFindButton" Keytip="FD" LabelTitle="Find" TooltipTitle="Find (Ctrl+F)" Symbol="cmdFindButton" Id="1017" Comment="HomeTab-TextEditingGroup-FindButton"/>
+      <Command Name="cmdFindAndReplace" Symbol="FindAndReplace" Id="1018" Comment="Button to find and replace text in the post." LabelTitle="FindAndReplace"/>
+      <Command Name="cmdSemanticHtmlGroup" Keytip="ZS" LabelTitle="HTML styles" TooltipDescription="Use the text formatting presets determined by the blog theme." Symbol="cmdSemanticHtmlGroup" Id="1020" Comment="HomeTab-SemanticHtmlGroup"/>
+      <Command Name="cmdSemanticHtmlGallery" Keytip="Y" LabelTitle="HTML styles" TooltipDescription="Use the text formatting presets determined by the blog theme." Symbol="cmdSemanticHtmlGallery" Id="1021" Comment="HomeTab-SemanticHtmlGroup-SemanticHtmlGallery"/>
+      <Command Name="cmdInsertHorizontalLine" Keytip="L" LabelTitle="Horizontal line" TooltipDescription="Insert a horizontal line." Symbol="cmdInsertHorizontalLine" Id="1022" Comment="InsertTab-BreaksGroup-InsertHorizontalLine"/>
+      <Command Name="cmdInsertLink" Keytip="K" LabelTitle="Hyperlink" TooltipTitle="Hyperlink (Ctrl+K)" TooltipDescription="Create a link to a webpage, picture, email address, or program." Symbol="cmdInsertLink" Id="1023" Comment="InsertTab-MediaGroup-InsertLink"/>
+      <Command Name="cmdViewPlainText" Symbol="ViewPlainText" Id="1024" Comment="Command to switch to plain text view." LabelTitle="Plain text"/>
+      <Command Name="cmdSelectAll" Keytip="AS" LabelTitle="Select all" TooltipTitle="Select all (Ctrl+A)" Symbol="cmdSelectAll" Id="1045" Comment="HomeTab-TextEditingGroup-SelectAll"/>
+      <!-- Alignment commands -->
+      <Command Name="cmdAlignmentGroup" Keytip="ZA" LabelTitle="Alignment" Symbol="cmdAlignmentGroup" Id="1050" Comment="MapContextTabGroup-FormatMapTab-AlignmentGroup"/>
+      <Command Name="cmdAlignmentGallery" LabelTitle="Alignment" TooltipDescription="Position the selected object on the page. Text is automatically set to wrap around the object." Symbol="cmdAlignmentGallery" Id="1051" Comment="MapContextTabGroup-FormatMapTab-AlignmentGroup-AlignmentGallery"/>
+      <!-- Margin commands -->
+      <Command Name="cmdMarginsGroup" Keytip="ZM" LabelTitle="Margins" TooltipDescription="Change the margins for the selected object." Symbol="cmdMarginsGroup" Id="1052" Comment="MapContextTabGroup-FormatMapTab-MarginsGroup"/>
+      <Command Name="cmdAdjustTopMargin" LabelTitle="Top" TooltipDescription="Change the margin above this object." Symbol="cmdAdjustTopMargin" Id="1053" Comment="MapContextTabGroup-FormatMapTab-MarginsGroup-AdjustTopMargin"/>
+      <Command Name="cmdAdjustBottomMargin" LabelTitle="Bottom" TooltipDescription="Change the margin below this object." Symbol="cmdAdjustBottomMargin" Id="1054" Comment="MapContextTabGroup-FormatMapTab-MarginsGroup-AdjustBottomMargin"/>
+      <Command Name="cmdAdjustLeftMargin" LabelTitle="Left" TooltipDescription="Change the margin to the left of this object." Symbol="cmdAdjustLeftMargin" Id="1055" Comment="MapContextTabGroup-FormatMapTab-MarginsGroup-AdjustLeftMargin"/>
+      <Command Name="cmdAdjustRightMargin" LabelTitle="Right" TooltipDescription="Change the margin to the right of this object." Symbol="cmdAdjustRightMargin" Id="1056" Comment="MapContextTabGroup-FormatMapTab-MarginsGroup-AdjustRightMargin"/>
+      <!-- Video context commands -->
+      <Command Name="cmdVideoContextTabGroup" LabelTitle="Video Tools" Symbol="cmdVideoContextTabGroup" Id="1057" Comment="VideoContextTabGroup"/>
+      <Command Name="cmdFormatVideoTab" Keytip="V" LabelTitle="Format" Symbol="cmdFormatVideoTab" Id="1058" Comment="VideoContextTabGroup-FormatVideoTab"/>
+      <Command Name="cmdFormatVideoGroup" Keytip="ZV" Symbol="cmdFormatVideoGroup" Id="1059" Comment="VideoContextTabGroup-FormatVideoTab-FormatVideoGroup"/>
+      <Command Name="cmdVideoWebPreview" Keytip="V" LabelTitle="View online" TooltipDescription="View this video online using a web browser." Symbol="cmdVideoWebPreview" Id="1060" Comment="VideoContextTabGroup-FormatVideoTab-FormatVideoGroup-VideoWebPreview"/>
+      <!-- Picture context commands -->
+      <Command Name="cmdImageContextTabGroup" Keytip="IM" LabelTitle="Picture Tools" Symbol="cmdImageContextTabGroup" Id="1073" Comment="ImageContextTabGroup"/>
+      <Command Name="cmdFormatImageTab" Keytip="P" LabelTitle="Format" Symbol="cmdFormatImageTab" Id="1074" Comment="ImageContextTabGroup-FormatImageTab"/>
+      <Command Name="cmdFormatImageSizeGroup" LabelTitle="Size" Symbol="cmdFormatImageSizeGroup" Id="1075" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup"/>
+      <Command Name="cmdImageCrop" Keytip="C" LabelTitle="Crop" TooltipTitle="Crop" TooltipDescription="Crop the picture so it only contains the current selection." Symbol="cmdImageCrop" Id="1076" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-ImageCrop"/>
+      <Command Name="cmdFormatImageAdjustWidth" Keytip="SW" LabelTitle="Width" TooltipTitle="Width" TooltipDescription="Set the picture width." Symbol="cmdFormatImageAdjustWidth" Id="1077" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-FormatImageAdjustWidth"/>
+      <Command Name="cmdFormatImageAdjustHeight" Keytip="SH" LabelTitle="Height" TooltipTitle="Height" TooltipDescription="Set the picture height." Symbol="cmdFormatImageAdjustHeight" Id="1078" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-FormatImageAdjustHeight"/>
+      <Command Name="cmdCustomSizeGallery" Keytip="U" LabelTitle="Custom size" TooltipTitle="Custom size" TooltipDescription="Choose a custom size for this picture." Symbol="cmdCustomSizeGallery" Id="1079" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery"/>
+      <Command Name="cmdSetCustomSizeDefaults" LabelTitle="Set &amp;default sizes..." TooltipTitle="Default picture sizes" TooltipDescription="Change size presets for inline pictures." Symbol="cmdSetCustomSizeDefaults" Id="1080" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery-SetCustomSizeDefaults"/>
+      <Command Name="cmdFormatImageLockAspectRatio" Keytip="L" LabelTitle="Lock aspect ratio" TooltipTitle="Lock aspect ratio" TooltipDescription="Maintain the aspect ratio for this picture." Symbol="cmdFormatImageLockAspectRatio" Id="1081" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-FormatImageLockAspectRatio"/>
+      <Command Name="cmdFormatImageRotateGroup" LabelTitle="Rotate" TooltipTitle="Rotate picture left or right." Symbol="cmdFormatImageRotateGroup" Id="1082" Comment="ImageContextTabGroup-FormatImageTab-FormatImageRotateGroup"/>
+      <Command Name="cmdImageRotateCW" Keytip="RR" LabelTitle="Rotate right" TooltipTitle="Rotate right 90°" TooltipDescription="Rotate this picture to the right 90°." Symbol="cmdImageRotateCW" Id="1083" Comment="ImageContextTabGroup-FormatImageTab-FormatImageRotateGroup-ImageRotateCW"/>
+      <Command Name="cmdImageRotateCCW" Keytip="RL" LabelTitle="Rotate left" TooltipTitle="Rotate left 90°" TooltipDescription="Rotate this picture to the left 90°." Symbol="cmdImageRotateCCW" Id="1084" Comment="ImageContextTabGroup-FormatImageTab-FormatImageRotateGroup-ImageRotateCCW"/>
+      <Command Name="cmdImageTilt" Keytip="RT" LabelTitle="Tilt..." TooltipTitle="Tilt" TooltipDescription="Tilt this picture left or right." Symbol="cmdImageTilt" Id="1085" Comment="ImageContextTabGroup-FormatImageTab-FormatImageRotateGroup-ImageTilt"/>
+      <Command Name="cmdFormatImageStyleGroup" LabelTitle="Picture styles" TooltipTitle="Picture styles" Symbol="cmdFormatImageStyleGroup" Id="1086" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup"/>
+      <Command Name="cmdImageBorderGallery" Keytip="B" LabelTitle="Picture borders" TooltipTitle="Picture borders" TooltipDescription="Apply a border style to this picture." Symbol="cmdImageBorderGallery" Id="1087" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup-ImageBorderGallery"/>
+      <Command Name="cmdImageEffectsGallery" Keytip="E" LabelTitle="Picture effects" TooltipTitle="Picture effects" TooltipDescription="Add an effect to this picture." Symbol="cmdImageEffectsGallery" Id="1088" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup-ImageEffectsGallery"/>
+      <Command Name="cmdImageEffectsRecolorGallery" LabelTitle="&amp;Recolor" TooltipTitle="Color" TooltipDescription="Add a color effect to this picture." Symbol="cmdImageEffectsRecolorGallery" Id="1089" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup-ImageEffectsGallery-ImageEffectsRecolorGallery"/>
+      <Command Name="cmdImageEffectsSharpenGallery" LabelTitle="&amp;Sharpen" TooltipTitle="Sharpen" TooltipDescription="Add a sharpening filter to this picture." Symbol="cmdImageEffectsSharpenGallery" Id="1090" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup-ImageEffectsGallery-ImageEffectsSharpenGallery"/>
+      <Command Name="cmdImageEffectsBlurGallery" LabelTitle="&amp;Blur" TooltipTitle="Blur" TooltipDescription="Add a blur filter to this picture." Symbol="cmdImageEffectsBlurGallery" Id="1091" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup-ImageEffectsGallery-ImageEffectsBlurGallery"/>
+      <Command Name="cmdImageEffectsEmbossGallery" LabelTitle="&amp;Emboss" TooltipTitle="Emboss" TooltipDescription="Add an emboss effect to this picture." Symbol="cmdImageEffectsEmbossGallery" Id="1092" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup-ImageEffectsGallery-ImageEffectsEmbossGallery"/>
+      <Command Name="cmdImageContrast" Keytip="O" LabelTitle="Contrast" TooltipTitle="Contrast" TooltipDescription="Increase or decrease the contrast in this picture." Symbol="cmdImageContrast" Id="1093" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup-ImageContrast"/>
+      <Command Name="cmdWatermark" Keytip="W" LabelTitle="Watermark" TooltipTitle="Watermark" TooltipDescription="Add a watermark to this picture." Symbol="cmdWatermark" Id="1094" Comment="ImageContextTabGroup-FormatImageTab-FormatImageStyleGroup-Watermark"/>
+      <Command Name="cmdFormatImagePropertiesGroup" LabelTitle="Properties" TooltipTitle="Properties" Symbol="cmdFormatImagePropertiesGroup" Id="1095" Comment="ImageContextTabGroup-FormatImageTab-FormatImagePropertiesGroup"/>
+      <Command Name="cmdFormatImageSelectLink" Keytip="KL" LabelTitle="Link to:" TooltipTitle="Link" TooltipDescription="Choose where the link goes to when this picture is clicked." Symbol="cmdFormatImageSelectLink" Id="1096" Comment="ImageContextTabGroup-FormatImageTab-FormatImagePropertiesGroup-FormatImageSelectLink"/>
+      <Command Name="cmdFormatImageLinkOptions" Keytip="KK" LabelTitle="Link options" TooltipTitle="Link options" TooltipDescription="Change options for the link." Symbol="cmdFormatImageLinkOptions" Id="1097" Comment="ImageContextTabGroup-FormatImageTab-FormatImagePropertiesGroup-FormatImageLinkOptions"/>
+      <Command Name="cmdFormatImageAltText" Keytip="T" LabelTitle="Alt text" TooltipTitle="Alternative text" TooltipDescription="Add a title and alternative text for this picture." Symbol="cmdFormatImageAltText" Id="1098" Comment="ImageContextTabGroup-FormatImageTab-FormatImagePropertiesGroup-FormatImageAltText"/>
+      <Command Name="cmdFormatImageSettingsGroup" LabelTitle="Settings" TooltipTitle="Settings" Symbol="cmdFormatImageSettingsGroup" Id="1099" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSettingsGroup"/>
+      <Command Name="cmdFormatImageSaveSettings" Keytip="DS" LabelTitle="Set to default" TooltipTitle="Set to default" TooltipDescription="Set the alignment, margin, picture style, and properties of this picture as the default for other pictures." Symbol="cmdFormatImageSaveSettings" Id="1100" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSettingsGroup-FormatImageSaveSettings"/>
+      <Command Name="cmdFormatImageRevertSettings" Keytip="DR" LabelTitle="Revert to original" TooltipTitle="Revert to original" TooltipDescription="Revert to the original version of this picture." Symbol="cmdFormatImageRevertSettings" Id="1101" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSettingsGroup-FormatImageRevertSettings"/>
+      <Command Name="cmdInsertEmoticon" LabelTitle="Emoticon" TooltipTitle="Emoticon" TooltipDescription="Insert an emoticon." Symbol="cmdInsertEmoticon" Id="1102" Comment="InsertTab-MediaGroup-InsertEmoticon"/>
+      <Command Name="cmdCustomSizeSmall" LabelTitle="&amp;Small" TooltipTitle="Small" Symbol="cmdCustomSizeSmall" Id="1103" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery-CustomSizeSmall"/>
+      <Command Name="cmdCustomSizeMedium" LabelTitle="&amp;Medium" TooltipTitle="Medium" Symbol="cmdCustomSizeMedium" Id="1104" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery-CustomSizeMedium"/>
+      <Command Name="cmdCustomSizeLarge" LabelTitle="&amp;Large" TooltipTitle="Large" Symbol="cmdCustomSizeLarge" Id="1105" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery-CustomSizeLarge"/>
+      <Command Name="cmdCustomSizeOriginal" LabelTitle="&amp;Original" TooltipTitle="Original" Symbol="cmdCustomSizeOriginal" Id="1106" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery-CustomSizeOriginal"/>
+      <Command Name="cmdImageLinkToSource" LabelTitle="&amp;Source picture" TooltipTitle="Go to the web address of the source picture when this picture is clicked." Symbol="cmdImageLinkToSource" Id="1107" Comment="ImageContextTabGroup-FormatImageTab-FormatImagePropertiesGroup-FormatImageSelectLink-ImageLinkToSource"/>
+      <Command Name="cmdImageLinkToUrl" LabelTitle="&amp;Web address..." TooltipTitle="Choose and enter the web address to go to when this picture is clicked." Symbol="cmdImageLinkToUrl" Id="1108" Comment="ImageContextTabGroup-FormatImageTab-FormatImagePropertiesGroup-FormatImageSelectLink-ImageLinkToUrl"/>
+      <Command Name="cmdImageLinkToNone" LabelTitle="&amp;No link" TooltipTitle="No link for this picture." Symbol="cmdImageLinkToNone" Id="1109" Comment="ImageContextTabGroup-FormatImageTab-FormatImagePropertiesGroup-FormatImageSelectLink-ImageLinkToNone"/>
+      <Command Name="cmdParagraphGroup" Keytip="ZP" LabelTitle="Paragraph" Symbol="cmdParagraphGroup" Id="1114" Comment="HomeTab-ParagraphGroup"/>
+      <Command Name="cmdVideoAspectRatioGroup" Keytip="ZR" LabelTitle="Aspect ratio" Symbol="cmdVideoAspectRatioGroup" Id="1115" Comment="VideoContextTabGroup-FormatVideoTab-VideoAspectRatioGroup"/>
+      <Command Name="cmdVideoWidescreenAspectRatio" Keytip="W" LabelTitle="Widescreen (16:9)" TooltipDescription="Use a widescreen aspect ratio for this video." Symbol="cmdVideoWidescreenAspectRatio" Id="1116" Comment="VideoContextTabGroup-FormatVideoTab-VideoAspectRatioGroup-VideoWidescreenAspectRatio"/>
+      <Command Name="cmdVideoStandardAspectRatio" Keytip="S" LabelTitle="Standard (4:3)" TooltipDescription="Use a standard aspect ratio for this video." Symbol="cmdVideoStandardAspectRatio" Id="1117" Comment="VideoContextTabGroup-FormatVideoTab-VideoAspectRatioGroup-VideoStandardAspectRatio"/>
+      <!-- Next available shared command id is 1118. -->
+    <Command Name="cmdHomeTab" Keytip="H" LabelTitle="Home" Symbol="cmdHomeTab" Id="30000" Comment="HomeTab"/>
+    <Command Name="cmdInsertTab" Keytip="I" LabelTitle="Insert" Symbol="cmdInsertTab" Id="30001" Comment="InsertTab"/>
+    <Command Name="cmdBlogProviderTab" Keytip="B" LabelTitle="Blog Account" Symbol="cmdBlogProviderTab" Id="30002" Comment="BlogProviderTab"/>
+    
+    <Command Name="cmdTagContextTabGroup" LabelTitle="Tag Tools" Symbol="cmdTagContextTabGroup" Id="30005" Comment="TagContextTabGroup"/>
+    <Command Name="cmdTableContextTabGroup" LabelTitle="Table Tools" Symbol="cmdTableContextTabGroup" Id="30006" Comment="TableContextTabGroup"/>
+    <Command Name="cmdMapContextTabGroup" LabelTitle="Map Tools" Symbol="cmdMapContextTabGroup" Id="30007" Comment="MapContextTabGroup"/>
+    <!-- Note: The TabGroup title is what gets displayed in color in the title area of the client window.
+         Note: A contextual tab's title is what gets displayed below that.
+    -->
+
+
+    <!-- Note: Group tooltips can show if they become popups. -->    
+    <Command Name="cmdDebugTab" Keytip="D" LabelTitle="Debug" Symbol="cmdDebugTab" Id="30015" Comment="DebugTab"/>
+    <Command Name="cmdPreviewTab" Keytip="R" LabelTitle="Web Preview" Symbol="cmdPreviewTab" Id="30016" Comment="PreviewTab"/>
+
+    <Command Name="cmdFormatMapTab" Keytip="M" LabelTitle="Format" Symbol="cmdFormatMapTab" Id="30017" Comment="MapContextTabGroup-FormatMapTab"/>    
+    <Command Name="cmdFormatTagTab" Keytip="T" LabelTitle="Format" Symbol="cmdFormatTagTab" Id="30019" Comment="TagContextTabGroup-FormatTagTab"/>
+    <Command Name="cmdFormatTableTab" Keytip="T" LabelTitle="Layout" Symbol="cmdFormatTableTab" Id="30020" Comment="TableContextTabGroup-FormatTableTab"/>
+    
+    
+    <Command Name="cmdMediaGroup" Keytip="ZM" LabelTitle="Media" Symbol="cmdMediaGroup" Id="30051" Comment="InsertTab-MediaGroup"/>
+    <Command Name="cmdTablesGroup" Keytip="ZT" Symbol="cmdTablesGroup" Id="30052" Comment="InsertTab-TablesGroup"/>
+    <Command Name="cmdPluginsGroup" Keytip="ZP" LabelTitle="Plug-ins" Symbol="cmdPluginsGroup" Id="30053" Comment="InsertTab-PluginsGroup"/>
+
+    <Command Name="cmdPluginsGallery" Keytip="PP" LabelTitle="Plug-ins" TooltipDescription="Access installed Writer plug-ins." Symbol="cmdPluginsGallery" Id="30056" Comment="InsertTab-PluginsGroup-PluginsGallery"/>    
+    <Command Name="cmdInsertGroup" Keytip="ZI" LabelTitle="Insert" Symbol="cmdInsertGroup" Id="30060" Comment="HomeTab-InsertGroup"/>
+    <Command Name="cmdImageArrangeGallery" Symbol="ImageArrangeGallery" Id="30064" Comment="" LabelTitle="Text wrapping"/>
+
+    <Command Name="cmdPublishGroup" Keytip="ZP1" LabelTitle="Publish" Symbol="cmdPublishGroup" Id="30066" Comment="PreviewTab-PublishGroup"/>
+
+    <Command Name="cmdQAT" Symbol="cmdQAT" Id="50000" Comment="QAT"/>
+    <Command Name="cmdFileMenu" LabelTitle="Live Writer" TooltipDescription="Click here to open, save, print, and see what else you can do with this post." Symbol="cmdFileMenu" Id="23010" Comment="FileMenu"/>
+    <Command Name="cmdClose" LabelTitle="E&amp;xit" TooltipDescription="Close Open Live Writer." Symbol="cmdClose" Id="23020" Comment="FileMenu-Close"/>
+
+
+    <Command Name="cmdImageBrightness" Symbol="ImageBrightness" Id="23031" Comment="" LabelTitle="Contrast (ImageBrightness)"/>    
+    <Command Name="cmdWebImage" LabelTitle="From the &amp;web..." TooltipTitle="From the web (Ctrl+Shift+J)" TooltipDescription="Enter a web address for a picture to display it in this post." Symbol="cmdWebImage" Id="23033" Comment="InsertTab-MediaGroup-InsertImageSplit-WebImage"/>
+    <Command Name="cmdClipboardGroup" Keytip="ZC" LabelTitle="Clipboard" Symbol="cmdClipboardGroup" Id="23040" Comment="HomeTab-ClipboardGroup"/>    
+    <Command Name="cmdAddPlugin" Keytip="PA" LabelTitle="Add plug-in" TooltipDescription="Get more Writer plug-ins online." Symbol="cmdAddPlugin" Id="23046" Comment="InsertTab-PluginsGroup-AddPlugin"/>
+    <Command Name="cmdManagePlugins" Keytip="PM" LabelTitle="Plug-in options" TooltipDescription="Change plug-in options." Symbol="cmdManagePlugins" Id="23047" Comment="InsertTab-PluginsGroup-ManagePlugins"/>
+    <Command Name="cmdPasteSplit" Keytip="V" LabelTitle="Paste" TooltipTitle="Paste" TooltipDescription="Select a paste option." Symbol="cmdPasteSplit" Id="23051" Comment="HomeTab-ClipboardGroup-PasteSplit"/>
+    <Command Name="cmdInsertImageSplit" Keytip="E" LabelTitle="Picture" TooltipTitle="Picture" TooltipDescription="Add a picture to this post from your computer or from online." Symbol="cmdInsertImageSplit" Id="23052" Comment="InsertTab-MediaGroup-InsertImageSplit"/>
+    <Command Name="cmdInsertVideoSplit" Keytip="O" LabelTitle="Video" TooltipDescription="Add a video to this post from your computer or from online." Symbol="cmdInsertVideoSplit" Id="23053" Comment="InsertTab-MediaGroup-InsertVideoSplit"/>
+    <Command Name="cmdOptions" LabelTitle="Opt&amp;ions" TooltipTitle="Options" TooltipDescription="Change options for Open Live Writer." Symbol="cmdOptions" Id="23200" Comment="FileMenu-Options"/>
+      
+    <Command Name="cmdSplitNew" LabelTitle="&amp;F" Symbol="cmdSplitNew" Id="23251" Comment="FileMenu-SplitNew"/>
+    <Command Name="cmdSplitSave" LabelTitle="&amp;V" Symbol="cmdSplitSave" Id="23252" Comment="FileMenu-SplitSave"/>
+    <Command Name="cmdSplitPrint" LabelTitle="&amp;W" Symbol="cmdSplitPrint" Id="23253" Comment="FileMenu-SplitPrint"/>
+    <Command Name="cmdMRUList" LabelTitle="Recent posts and drafts" Symbol="cmdMRUList" Id="23268" Comment="FileMenu-MRUList"/>    
+
+    <Command Name="cmdInsertMap" Keytip="M" LabelTitle="Map" TooltipDescription="Choose and display a location on a Bing Map in this post." Symbol="cmdInsertMap" Id="23273" Comment="InsertTab-MediaGroup-InsertMap"/>
+    <Command Name="cmdInsertTags" Keytip="G" LabelTitle="Post Tags" TooltipDescription="Insert tags for a specified tag provider." Symbol="cmdInsertTags" Id="23274" Comment="InsertTab-MediaGroup-InsertTags"/>
+
+    <Command Name="cmdInsertVideoFromWeb" LabelTitle="From the &amp;web..." TooltipTitle="From the web" TooltipDescription="Enter a web address for a video from the web to display it in this post." Symbol="cmdInsertVideoFromWeb" Id="23275" Comment="InsertTab-MediaGroup-InsertVideoSplit-InsertVideoFromWeb"/>
+    <Command Name="cmdInsertVideoFromFile" LabelTitle="From your &amp;computer..." TooltipTitle="From your computer" TooltipDescription="Choose a video to upload it to an online service to display it in this post." Symbol="cmdInsertVideoFromFile" Id="23276" Comment="InsertTab-MediaGroup-InsertVideoSplit-InsertVideoFromFile"/>
+    <Command Name="cmdInsertVideoFromService" LabelTitle="From video &amp;service..." TooltipTitle="From video service" TooltipDescription="Select a video from an online service to display it in this post." Symbol="cmdInsertVideoFromService" Id="23277" Comment="InsertTab-MediaGroup-InsertVideoSplit-InsertVideoFromService"/>
+
+    <Command Name="cmdInsertTable" Keytip="T" LabelTitle="Table" TooltipDescription="Insert a table in the post." Symbol="cmdInsertTable" Id="23278" Comment="InsertTab-TablesGroup-InsertTable"/>
+        
+    <Command Name="cmdNewPost" LabelDescription="Create a new blog post." LabelTitle="&amp;New post" TooltipTitle="New Post (Ctrl+N)" TooltipDescription="Create a new post." Symbol="cmdNewPost" Id="23295" Comment="QAT-NewPost"/>
+
+    <Command Name="cmdNewPage" LabelDescription="Create a new page." LabelTitle="New pa&amp;ge" TooltipTitle="New page (Ctrl+G)" TooltipDescription="Not supported by all blog service providers." Symbol="cmdNewPage" Id="23296" Comment="FileMenu-SplitNew-NewPost-NewPage"/>
+    <Command Name="cmdSavePost" LabelDescription="Save a local draft of this post." LabelTitle="&amp;Save" TooltipTitle="Save (Ctrl+S)" TooltipDescription="Save a local draft of this post." Symbol="cmdSavePost" Id="23297" Comment="QAT-SavePost"/>
+
+    <Command Name="cmdPostAsDraft" LabelDescription="Send the current post to your blog as a draft that is not viewable by the public." Keytip="D" LabelTitle="Post &amp;draft to blog" TooltipTitle="Post draft to blog (Ctrl+Shift+D)" TooltipDescription="Send the current post to your blog as a draft." Symbol="cmdPostAsDraft" Id="23298" Comment="PreviewTab-PublishGroup-PostAsDraft"/>
+
+    <Command Name="cmdPostAsDraftAndEditOnline" LabelDescription="Send the post to your blog as a draft that is not viewable by the public and open a web browser to edit the draft online." LabelTitle="Post draft and &amp;edit online" TooltipDescription="Send the current post to your blog as a draft and edit online." Symbol="cmdPostAsDraftAndEditOnline" Id="23299" Comment="FileMenu-SplitSave-SavePost-PostAsDraftAndEditOnline"/>
+
+    <Command Name="cmdPrint" LabelDescription="Print this post." LabelTitle="&amp;Print" TooltipTitle="Print (Ctrl+P)" TooltipDescription="Print this post." Symbol="cmdPrint" Id="23300" Comment="QAT-Print"/>
+
+    <Command Name="cmdPrintPreview" LabelDescription="Preview this post." LabelTitle="Print pre&amp;view" TooltipDescription="Preview this post." Symbol="cmdPrintPreview" Id="23301" Comment="QAT-PrintPreview"/>
+
+    <Command Name="cmdPostAndPublish" Keytip="P1" LabelDescription="Publish this post to the selected blog." LabelTitle="Publis&amp;h" TooltipTitle="Publish (Ctrl+Shift+P)" TooltipDescription="Publish this post to your blog." Symbol="cmdPostAndPublish" Id="23302" Comment="QAT-PostAndPublish"/>
+
+    <Command Name="cmdOpenPost" LabelTitle="Open" TooltipTitle="Open (Ctrl+O)" TooltipDescription="Open a draft or recently published post." Symbol="cmdOpenPost" Id="23303" Comment="QAT-OpenPost"/>
+
+    <Command Name="cmdHelp" LabelTitle="Online help (F1)" TooltipDescription="Get help on using Open Live Writer." Symbol="cmdHelp" Id="23304" Comment="Help"/>
+    <Command Name="cmdSelectBlog" Keytip="P2" TooltipTitle="Blog accounts" TooltipDescription="Change, add, and manage a blog account." Symbol="cmdSelectBlog" Id="23305" Comment="PreviewTab-PublishGroup-SelectBlog"/>
+    <Command Name="cmdOpenDraftSplit" LabelTitle="&amp;Open local draft" Keytip="O" TooltipTitle="Open local draft" TooltipDescription="Open a local draft" Symbol="cmdOpenDraftSplit" Id="23306" Comment="FileMenu-OpenDraftSplit"/>
+    <!-- These are the commands corresponding to the recent 10 drafts in the OpenDraft split button command gallery -->
+    <Command Name="cmdOpenDraftMRU0" Symbol="OpenDraftMRU0" Id="23307" Comment="Open draft MRU command 0" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU1" Symbol="OpenDraftMRU1" Id="23308" Comment="Open draft MRU command 1" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU2" Symbol="OpenDraftMRU2" Id="23309" Comment="Open draft MRU command 2" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU3" Symbol="OpenDraftMRU3" Id="23310" Comment="Open draft MRU command 3" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU4" Symbol="OpenDraftMRU4" Id="23311" Comment="Open draft MRU command 4" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU5" Symbol="OpenDraftMRU5" Id="23312" Comment="Open draft MRU command 5" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU6" Symbol="OpenDraftMRU6" Id="23313" Comment="Open draft MRU command 6" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU7" Symbol="OpenDraftMRU7" Id="23314" Comment="Open draft MRU command 7" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU8" Symbol="OpenDraftMRU8" Id="23315" Comment="Open draft MRU command 8" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenDraftMRU9" Symbol="OpenDraftMRU9" Id="23316" Comment="Open draft MRU command 9" LabelTitle="Open Draft"/>
+    <Command Name="cmdOpenPostSplit" LabelTitle="Open &amp;recent post" Keytip="R" TooltipTitle="Open recent posts" TooltipDescription="Open a recently published post" Symbol="cmdOpenPostSplit" Id="23317" Comment="FileMenu-OpenPostSplit"/>
+    <!-- These are the commands corresponding to the recent 10 posts in the OpenPost split button command gallery -->
+    <Command Name="cmdOpenPostMRU0" Symbol="OpenPostMRU0" Id="23318" Comment="Open post MRU command 0" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU1" Symbol="OpenPostMRU1" Id="23319" Comment="Open post MRU command 1" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU2" Symbol="OpenPostMRU2" Id="23320" Comment="Open post MRU command 2" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU3" Symbol="OpenPostMRU3" Id="23321" Comment="Open post MRU command 3" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU4" Symbol="OpenPostMRU4" Id="23322" Comment="Open post MRU command 4" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU5" Symbol="OpenPostMRU5" Id="23323" Comment="Open post MRU command 5" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU6" Symbol="OpenPostMRU6" Id="23324" Comment="Open post MRU command 6" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU7" Symbol="OpenPostMRU7" Id="23325" Comment="Open post MRU command 7" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU8" Symbol="OpenPostMRU8" Id="23326" Comment="Open post MRU command 8" LabelTitle="Open post"/>
+    <Command Name="cmdOpenPostMRU9" Symbol="OpenPostMRU9" Id="23327" Comment="Open post MRU command 9" LabelTitle="Open post"/>
+
+    <Command Name="cmdPreviewGroup" Symbol="cmdPreviewGroup" Id="23332" Comment="PreviewTab-PreviewGroup"/>
+    
+    <Command Name="cmdConfigureWeblog" Keytip="B" LabelTitle="Blog options" TooltipDescription="Change options for this blog account." Symbol="cmdConfigureWeblog" Id="23335" Comment="BlogProviderTab-BlogProviderBlogGroup-ConfigureWeblog"/>    
+    <Command Name="cmdAccounts" LabelTitle="&amp;Manage blog accounts..." TooltipTitle="Manage blog accounts" TooltipDescription="Add, remove, and edit blog accounts." Symbol="cmdAccounts" Id="30022" Comment="PreviewTab-PublishGroup-SelectBlog-Accounts"/>    
+             
+    <Command Name="cmdAddWeblog" LabelTitle="&amp;Add blog account..." TooltipTitle="Add blog account" TooltipDescription="Add a new blog account to Writer." Symbol="cmdAddWeblog" Id="23336" Comment="PreviewTab-PublishGroup-SelectBlog-AddWeblog"/>
+
+    <Command Name="cmdClosePreview" Keytip="C" LabelTitle="Close preview" TooltipDescription="Close web preview and return to editing." Symbol="cmdClosePreview" Id="23339" Comment="PreviewTab-PreviewGroup-ClosePreview"/>
+    <Command Name="cmdUpdateWeblogStyle" Keytip="R" LabelTitle="Update theme" TooltipDescription="Get the latest blog theme for this blog." Symbol="cmdUpdateWeblogStyle" Id="23340" Comment="PreviewTab-BrowserGroup-UpdateWeblogStyle"/>
+    <Command Name="cmdBrowserGroup" Symbol="cmdBrowserGroup" Id="23341" Comment="PreviewTab-BrowserGroup"/>
+
+    <Command Name="cmdViewUseStyles" Keytip="T" LabelTitle="Blog theme" TooltipTitle="Blog theme (Ctrl+F11)" TooltipDescription="Turn on your blog theme while editing this post." Symbol="cmdViewUseStyles" Id="23342" Comment="BlogProviderTab-BlogProviderThemeGroup-ViewUseStyles"/>
+    <Command Name="cmdBlogProviderThemeGroup" Keytip="ZT" LabelTitle="Theme" Symbol="cmdBlogProviderThemeGroup" Id="23343" Comment="BlogProviderTab-BlogProviderThemeGroup"/>
+
+    <Command Name="cmdBlogProviderButtonsGallery" Keytip="S" LabelTitle="Blog shortcuts" TooltipTitle="Blog shortcuts" TooltipDescription="Shortcuts provided by the selected blog service." Symbol="cmdBlogProviderButtonsGallery" Id="23344" Comment="BlogProviderTab-BlogProviderShortcutsGroup-BlogProviderButtonsGallery"/>
+    <Command Name="cmdBlogProviderShortcutsGroup" Keytip="ZS" LabelTitle="Shortcuts" Symbol="cmdBlogProviderShortcutsGroup" Id="23348" Comment="BlogProviderTab-BlogProviderShortcutsGroup"/>
+ 
+    <Command Name="cmdInsertExtendedEntry" Keytip="S" LabelTitle="Split post" TooltipDescription="Insert a break to create a summary of this post. The content before the break will appear as a summary on the main page of this blog." Symbol="cmdInsertExtendedEntry" Id="23349" Comment="InsertTab-BreaksGroup-InsertExtendedEntry"/>    
+
+    <Command Name="cmdBreaksGroup" Keytip="ZB" LabelTitle="Breaks" Symbol="cmdBreaksGroup" Id="23352" Comment="InsertTab-BreaksGroup"/>
+
+    <Command Name="cmdViewWeblog" Symbol="cmdViewWeblog" Id="23353" Comment="" LabelTitle="View blog"/>
+       
+    <Command Name="cmdBlogProviderBlogGroup" Keytip="ZB" Symbol="cmdBlogProviderBlogGroup" Id="23354" Comment="BlogProviderTab-BlogProviderBlogGroup"/>
+
+    <Command Name="cmdFormatTagPropertiesGroup" LabelTitle="Properties" Symbol="cmdFormatTagPropertiesGroup" Id="23369" Comment="TagContextTabGroup-FormatTagTab-FormatTagPropertiesGroup"/>
+    <Command Name="cmdEditTags" LabelTitle="Customize tags" Symbol="cmdEditTags" Id="23370" Comment="TagContextTabGroup-FormatTagTab-FormatTagPropertiesGroup-EditTags"/>
+
+    <Command Name="cmdFormatTableInsertGroup" Keytip="ZI" LabelTitle="Insert" Symbol="cmdFormatTableInsertGroup" Id="23371" Comment="TableContextTabGroup-FormatTableTab-FormatTableInsertGroup"/>
+    <Command Name="cmdFormatTableMoveGroup" Keytip="ZM" LabelTitle="Move" Symbol="cmdFormatTableMoveGroup" Id="23372" Comment="TableContextTabGroup-FormatTableTab-FormatTableMoveGroup"/>
+
+    <Command Name="cmdInsertRowAbove" Keytip="IA" LabelTitle="Insert above" TooltipDescription="Insert a row above the current position." Symbol="cmdInsertRowAbove" Id="23373" Comment="TableContextTabGroup-FormatTableTab-FormatTableInsertGroup-InsertRowAbove"/>
+    <Command Name="cmdInsertRowBelow" Keytip="IB" LabelTitle="Insert below" TooltipDescription="Insert a row below the current position." Symbol="cmdInsertRowBelow" Id="23374" Comment="TableContextTabGroup-FormatTableTab-FormatTableInsertGroup-InsertRowBelow"/>
+    <Command Name="cmdMoveRowUp" Keytip="MA" LabelTitle="Move above" TooltipDescription="Swap the current row with the one above." Symbol="cmdMoveRowUp" Id="23375" Comment="TableContextTabGroup-FormatTableTab-FormatTableMoveGroup-MoveRowUp"/>
+    <Command Name="cmdMoveRowDown" Keytip="MB" LabelTitle="Move below" TooltipDescription="Swap the current row with the one below." Symbol="cmdMoveRowDown" Id="23376" Comment="TableContextTabGroup-FormatTableTab-FormatTableMoveGroup-MoveRowDown"/>
+
+    <Command Name="cmdInsertColumnLeft" Keytip="IL" LabelTitle="Insert left" TooltipDescription="Insert a column to the left of the current position." Symbol="cmdInsertColumnLeft" Id="23377" Comment="TableContextTabGroup-FormatTableTab-FormatTableInsertGroup-InsertColumnLeft"/>
+    <Command Name="cmdInsertColumnRight" Keytip="IR" LabelTitle="Insert right" TooltipDescription="Insert a column to the right of the current position." Symbol="cmdInsertColumnRight" Id="23378" Comment="TableContextTabGroup-FormatTableTab-FormatTableInsertGroup-InsertColumnRight"/>
+    <Command Name="cmdMoveColumnLeft" Keytip="ML" LabelTitle="Move left" TooltipDescription="Swap the selected column with the one to the left." Symbol="cmdMoveColumnLeft" Id="23379" Comment="TableContextTabGroup-FormatTableTab-FormatTableMoveGroup-MoveColumnLeft"/>
+    <Command Name="cmdMoveColumnRight" Keytip="MR" LabelTitle="Move right" TooltipDescription="Swap the selected column with the one to the right." Symbol="cmdMoveColumnRight" Id="23380" Comment="TableContextTabGroup-FormatTableTab-FormatTableMoveGroup-MoveColumnRight"/>
+
+    <Command Name="cmdDeleteRow" Keytip="DR" LabelTitle="Delete row" TooltipDescription="Remove the selected row." Symbol="cmdDeleteRow" Id="23381" Comment="TableContextTabGroup-FormatTableTab-FormatTableEditingGroup-DeleteRow"/>
+    <Command Name="cmdDeleteColumn" Keytip="DC" LabelTitle="Delete column" TooltipDescription="Remove the selected column." Symbol="cmdDeleteColumn" Id="23382" Comment="TableContextTabGroup-FormatTableTab-FormatTableEditingGroup-DeleteColumn"/>
+    <Command Name="cmdDeleteTable" Keytip="DT" LabelTitle="Delete table" TooltipDescription="Delete the table." Symbol="cmdDeleteTable" Id="23383" Comment="TableContextTabGroup-FormatTableTab-FormatTableEditingGroup-DeleteTable"/>
+    <Command Name="cmdFormatTableEditingGroup" Keytip="ZD" LabelTitle="Delete" Symbol="cmdFormatTableEditingGroup" Id="23384" Comment="TableContextTabGroup-FormatTableTab-FormatTableEditingGroup"/>
+
+    <Command Name="cmdFormatTablePropertiesGroup" Keytip="ZP" Symbol="cmdFormatTablePropertiesGroup" Id="23385" Comment="TableContextTabGroup-FormatTableTab-FormatTablePropertiesGroup"/>
+    <Command Name="cmdRowProperties" LabelTitle="&amp;Row..." TooltipTitle="Row" TooltipDescription="Edit row properties." Symbol="cmdRowProperties" Id="23386" Comment="TableContextTabGroup-FormatTableTab-FormatTablePropertiesGroup-FormatTablePropertiesSplit-RowProperties"/>
+    <Command Name="cmdColumnProperties" LabelTitle="&amp;Column..." TooltipTitle="Column" TooltipDescription="Edit column properties." Symbol="cmdColumnProperties" Id="23387" Comment="TableContextTabGroup-FormatTableTab-FormatTablePropertiesGroup-FormatTablePropertiesSplit-ColumnProperties"/>
+    <Command Name="cmdTableProperties" LabelTitle="Customize &amp;table" TooltipDescription="Edit table properties." Symbol="cmdTableProperties" Id="23388" Comment="TableContextTabGroup-FormatTableTab-FormatTablePropertiesGroup-FormatTablePropertiesSplit-TableProperties"/>
+    <Command Name="cmdCellProperties" LabelTitle="C&amp;ell..." TooltipTitle="Cell" TooltipDescription="Edit cell properties." Symbol="cmdCellProperties" Id="23389" Comment="TableContextTabGroup-FormatTableTab-FormatTablePropertiesGroup-FormatTablePropertiesSplit-CellProperties"/>
+    <Command Name="cmdFormatTablePropertiesSplit" Keytip="T" LabelTitle="Customize table" TooltipDescription="Edit table properties." Symbol="cmdFormatTablePropertiesSplit" Id="23390" Comment="TableContextTabGroup-FormatTableTab-FormatTablePropertiesGroup-FormatTablePropertiesSplit"/>
+
+    <Command Name="cmdFormatTagProvidersGroup" LabelTitle="Providers" Symbol="cmdFormatTagProvidersGroup" Id="23392" Comment="TagContextTabGroup-FormatTagTab-FormatTagProvidersGroup"/>
+    <Command Name="cmdAddTagProvider" LabelTitle="Add tag provider" Symbol="cmdAddTagProvider" Id="23393" Comment="TagContextTabGroup-FormatTagTab-FormatTagProvidersGroup-AddTagProvider"/>
+    <Command Name="cmdManageTagProviders" LabelTitle="Manage tag providers" Symbol="cmdManageTagProviders" Id="23394" Comment="TagContextTabGroup-FormatTagTab-FormatTagProvidersGroup-ManageTagProviders"/>
+    <Command Name="cmdAbout" Symbol="cmdAbout" Id="23395" Comment="FileMenu-About"/>
+    <Command Name="cmdClearCell" Keytip="DE" LabelTitle="Clear cell" TooltipDescription="Clear the selected cell." Symbol="cmdClearCell" Id="23397" Comment="TableContextTabGroup-FormatTableTab-FormatTableEditingGroup-ClearCell"/>
+    <Command Name="cmdAlignNone" Symbol="cmdAlignNone" Id="23398" Comment="" Keytip="M" LabelTitle="Inline with text"/>
+
+    <Command Name="cmdFormatMapGroup" Keytip="M" LabelTitle="Map" Symbol="cmdFormatMapGroup" Id="23417" Comment="MapContextTabGroup-FormatMapTab-FormatMapGroup"/>
+    <Command Name="cmdMapWebPreview" Keytip="M" LabelTitle="Web preview" TooltipDescription="View the map online." Symbol="cmdMapWebPreview" Id="23418" Comment="MapContextTabGroup-FormatMapTab-FormatMapGroup-MapWebPreview"/>
+    <Command Name="cmdFormatMapPropertiesGroup" Keytip="M" LabelTitle="Properties" Symbol="cmdFormatMapPropertiesGroup" Id="23419" Comment="MapContextTabGroup-FormatMapTab-FormatMapPropertiesGroup"/>
+    <Command Name="cmdFormatMapEdit" Keytip="M" LabelTitle="Customize map" TooltipDescription="Change the map location." Symbol="cmdFormatMapEdit" Id="23420" Comment="MapContextTabGroup-FormatMapTab-FormatMapPropertiesGroup-FormatMapEdit"/>
+    <Command Name="cmdDeleteDraft" LabelTitle="&amp;Delete local draft" TooltipTitle="Delete local draft" TooltipDescription="Removes the current draft from your computer." Symbol="cmdDeleteDraft" Id="23421" Comment="FileMenu-DeleteDraft"/>
+
+    <Command Name="cmdActivateContexutalTab" Symbol="cmdActivateContextualTab" Id="23422" Comment=""/>
+    
+    <!-- TODO: Review usage of commands above. -->
+    <Command Name="cmdAddDecorator" Symbol="AddDecorator" Id="23424" Comment=""/>
+    <Command Name="cmdAddToDictionary" Symbol="AddToDictionary" Id="23425" Comment=""/>
+    <Command Name="cmdAddToGlossary" Symbol="AddToGlossary" Id="23426" Comment=""/>    
+    <Command Name="cmdApplySemanticHeader1" Symbol="ApplySemanticHeader1" Id="23427" Comment=""/>
+    <Command Name="cmdApplySemanticHeader2" Symbol="ApplySemanticHeader2" Id="23428" Comment=""/>
+    <Command Name="cmdApplySemanticHeader3" Symbol="ApplySemanticHeader3" Id="23429" Comment=""/>
+    <Command Name="cmdApplySemanticHeader4" Symbol="ApplySemanticHeader4" Id="23430" Comment=""/>
+    <Command Name="cmdApplySemanticHeader5" Symbol="ApplySemanticHeader5" Id="23431" Comment=""/>
+    <Command Name="cmdApplySemanticHeader6" Symbol="ApplySemanticHeader6" Id="23432" Comment=""/>    
+    <Command Name="cmdClear" Symbol="Clear" Id="23434" Comment=""/>    
+    <Command Name="cmdColorize" Symbol="Colorize" Id="23435" Comment=""/>
+    <Command Name="cmdDelete" Symbol="Delete" Id="23436" Comment=""/>
+    <Command Name="cmdEditLink" Symbol="EditLink" Id="23437" Comment=""/>
+    <Command Name="cmdFixWordSpelling" Symbol="FixWordSpelling" Id="23438" Comment=""/>
+    <Command Name="cmdFocusNextPane" Symbol="FocusNextPane" Id="23439" Comment=""/>
+    <Command Name="cmdFocusPreviousPane" Symbol="FocusPreviousPane" Id="23440" Comment=""/>
+    <Command Name="cmdFont" Symbol="Font" Id="23441" Comment=""/>
+    <Command Name="cmdFontColor" Symbol="FontColor" Id="23442" Comment=""/>
+    <Command Name="cmdGlossary" Symbol="Glossary" Id="23443" Comment=""/>    
+    <Command Name="cmdIgnoreAll" Symbol="IgnoreAll" Id="23444" Comment=""/>
+    <Command Name="cmdIgnoreOnce" Symbol="IgnoreOnce" Id="23445" Comment=""/>
+    <Command Name="cmdImageDecoratorApply" Symbol="ImageDecoratorApply" Id="23446" Comment=""/>
+    <Command Name="cmdImageEffectBlackAndWhite" Symbol="ImageEffectBlackAndWhite" Id="23447" Comment=""/>
+    <Command Name="cmdImageEffectColorPop" Symbol="ImageEffectColorPop" Id="23448" Comment=""/>
+    <Command Name="cmdImageEffectColorTemperature" Symbol="ImageEffectColorTemperature" Id="23449" Comment=""/>
+    <Command Name="cmdImageEffectEmboss" Symbol="ImageEffectEmboss" Id="23450" Comment=""/>
+    <Command Name="cmdImageEffectGaussianBlur" Symbol="ImageEffectGaussianBlur" Id="23451" Comment=""/>
+    <Command Name="cmdImageEffectSepiaTone" Symbol="ImageEffectSepiaTone" Id="23452" Comment=""/>
+    <Command Name="cmdImageEffectSharpen" Symbol="ImageEffectSharpen" Id="23453" Comment=""/>
+    <Command Name="cmdImageReset" Symbol="ImageReset" Id="23454" Comment=""/>
+    <Command Name="cmdImageRotate" Symbol="ImageRotate" Id="23455" Comment=""/>    
+    <Command Name="cmdInsertMenu" Symbol="InsertMenu" Id="23456" Comment=""/>    
+    <Command Name="cmdInsertTable2" Symbol="InsertTable2" Id="23457" Comment=""/>
+    <Command Name="cmdMapAddPushpin" Symbol="MapAddPushpin" Id="23458" Comment=""/>
+    <Command Name="cmdMapCenterMap" Symbol="MapCenterMap" Id="23459" Comment=""/>
+    <Command Name="cmdMapDeletePushpin" Symbol="MapDeletePushpin" Id="23460" Comment=""/>
+    <Command Name="cmdMapEditPushpin" Symbol="MapEditPushpin" Id="23461" Comment=""/>
+    <Command Name="cmdMapZoomCityLevel" Symbol="MapZoomCityLevel" Id="23462" Comment=""/>
+    <Command Name="cmdMapZoomRegionLevel" Symbol="MapZoomRegionLevel" Id="23463" Comment=""/>
+    <Command Name="cmdMapZoomStreetLevel" Symbol="MapZoomStreetLevel" Id="23464" Comment=""/>    
+    <Command Name="cmdOpenDrafts" Symbol="OpenDrafts" Id="23465" Comment=""/>
+    <Command Name="cmdOpenLink" Symbol="OpenLink" Id="23466" Comment=""/>
+    <Command Name="cmdOpenRecentPosts" Symbol="OpenRecentPosts" Id="23467" Comment=""/>
+    <Command Name="cmdOpenSpellingForm" Symbol="OpenSpellingForm" Id="23468" Comment=""/>    
+    <Command Name="cmdPostProperties" Symbol="PostProperties" Id="23469" Comment=""/>
+    <Command Name="cmdRecentPost" Symbol="RecentPost" Id="23470" Comment=""/>
+    <Command Name="cmdRemoveDecorator" Symbol="RemoveDecorator" Id="23471" Comment=""/>
+    <Command Name="cmdRemoveLink" Symbol="RemoveLink" Id="23472" Comment=""/>
+    <Command Name="cmdRemoveLinkAndClearFormatting" Symbol="RemoveLinkAndClearFormatting" Id="23473" Comment=""/>    
+    <Command Name="cmdShowCategoryPopup" Symbol="ShowCategoryPopup" Id="23474" Comment=""/>
+    <Command Name="cmdShowImageUploadError" Symbol="ShowImageUploadError" Id="23475" Comment=""/>
+    <Command Name="cmdShowMenu" Symbol="ShowMenu" Id="23476" Comment=""/>
+    <Command Name="cmdShowVideoErrorMessage" Symbol="ShowVideoErrorMessage" Id="23477" Comment=""/>
+    <Command Name="cmdStyle" Symbol="Style" Id="23478" Comment=""/>    
+    <Command Name="cmdTableMenu" Symbol="TableMenu" Id="23479" Comment=""/>    
+    <Command Name="cmdToolsMenu" Symbol="ToolsMenu" Id="23480" Comment=""/>    
+    <Command Name="cmdViewCode" Symbol="ViewCode" Id="23481" Comment=""/>
+    <Command Name="cmdViewNormal" Symbol="ViewNormal" Id="23482" Comment=""/>    
+    <Command Name="cmdViewPreview" Symbol="ViewPreview" Id="23483" Comment=""/>    
+    <Command Name="cmdViewSidebar" Symbol="ViewSidebar" Id="23484" Comment=""/>
+    <Command Name="cmdViewWeblogAdmin" Symbol="ViewWeblogAdmin" Id="23485" Comment=""/>
+    <Command Name="cmdWeblogMenu" Symbol="WeblogMenu" Id="23486" Comment=""/>
+    <Command Name="cmdWeblogPicker" Symbol="WeblogPicker" Id="23487" Comment=""/>
+    <Command Name="cmdApplySemanticParagraph" Symbol="ApplySemanticParagraph" Id="23488" Comment=""/>
+    
+    <!-- DEBUG COMMANDS -->
+    <Command Name="cmdGeneralDebugGroup" LabelTitle="General" TooltipTitle="General debugging" Symbol="cmdGeneralDebugGroup" Id="50400" Comment="DebugTab-GeneralDebugGroup"/>
+    <Command Name="cmdDialogDebugGroup" LabelTitle="Dialog" TooltipTitle="Dialog launching" Symbol="cmdDialogDebugGroup" Id="50401" Comment="DebugTab-DialogDebugGroup"/>
+    <Command Name="cmdTextDebugGroup" LabelTitle="Text" TooltipTitle="Text debugging" Symbol="cmdTextDebugGroup" Id="50402" Comment="DebugTab-TextDebugGroup"/>
+    <Command Name="cmdValidateDebugGroup" LabelTitle="Validate" TooltipTitle="Validation" Symbol="cmdValidateDebugGroup" Id="50403" Comment="DebugTab-ValidateDebugGroup"/>
+
+    <Command Name="cmdDiagnosticsConsole" LabelTitle="Diagnostics Console" Symbol="cmdDiagnosticsConsole" Id="50500" Comment="DebugTab-GeneralDebugGroup-DiagnosticsConsole"/>
+    <Command Name="cmdShowBetaExpiredDialogs" LabelTitle="Beta Expired Dialogs" Symbol="cmdShowBetaExpiredDialogs" Id="50502" Comment="DebugTab-DialogDebugGroup-ShowBetaExpiredDialogs"/>
+    <Command Name="cmdShowUpdateMessage" LabelTitle="Update Message" Symbol="cmdShowUpdateMessage" Id="50503" Comment="DebugTab-DialogDebugGroup-ShowUpdateMessage"/>
+    <Command Name="cmdShowWebLayoutWarning" LabelTitle="Web Layout Warning" Symbol="cmdShowWebLayoutWarning" Id="50504" Comment="DebugTab-DialogDebugGroup-ShowWebLayoutWarning"/>
+    <Command Name="cmdShowErrorDialog" LabelTitle="Error Dialog" Symbol="cmdShowErrorDialog" Id="50505" Comment="DebugTab-DialogDebugGroup-ShowErrorDialog"/>
+    <Command Name="cmdBlogClientOptions" LabelTitle="Blog Client Options" Symbol="cmdBlogClientOptions" Id="50506" Comment="DebugTab-GeneralDebugGroup-BlogClientOptions"/>
+    <Command Name="cmdShowDisplayMessageTestForm" LabelTitle="Display Message Test Form" Symbol="cmdShowDisplayMessageTestForm" Id="50507" Comment="DebugTab-DialogDebugGroup-ShowDisplayMessageTestForm"/>
+    <Command Name="cmdShowSupportingFilesForm" LabelTitle="Supporting Files Form" Symbol="cmdShowSupportingFilesForm" Id="50508" Comment="DebugTab-DialogDebugGroup-ShowSupportingFilesForm"/>
+    <Command Name="cmdInsertLoremIpsum" LabelTitle="Lorem Ipsum" Symbol="cmdInsertLoremIpsum" Id="50509" Comment="DebugTab-TextDebugGroup-InsertLoremIpsum"/>
+    <Command Name="cmdValidateHtml" LabelTitle="HTML" Symbol="cmdValidateHtml" Id="50510" Comment="DebugTab-ValidateDebugGroup-ValidateHtml"/>
+    <Command Name="cmdValidateXhtml" LabelTitle="XHTML" Symbol="cmdValidateXhtml" Id="50511" Comment="DebugTab-ValidateDebugGroup-ValidateXhtml"/>
+    <Command Name="cmdValidateLocalizedResources" LabelTitle="Localized Resource" Symbol="cmdValidateLocalizedResources" Id="50512" Comment="DebugTab-ValidateDebugGroup-ValidateLocalizedResources"/>
+
+    <Command Name="cmdShowAtomImageEndpointSelector" LabelTitle="Atom Image Endpoint Selector" Symbol="cmdShowAtomImageEndpointSelector" Id="50513" Comment="DebugTab-DialogDebugGroup-ShowAtomImageEndpointSelector"/>
+    <Command Name="cmdRaiseAssertion" LabelTitle="Assert" Symbol="cmdRaiseAssertion" Id="50514" Comment="DebugTab-GeneralDebugGroup-RaiseAssertion"/>
+    <Command Name="cmdShowGoogleCaptcha" LabelTitle="Google Captcha" Symbol="cmdShowGoogleCaptcha" Id="50515" Comment="DebugTab-DialogDebugGroup-ShowGoogleCaptcha"/>
+    <Command Name="cmdTerminateProcess" LabelTitle="Terminate Process" Symbol="cmdTerminateProcess" Id="50516" Comment="DebugTab-GeneralDebugGroup-TerminateProcess"/>
+    <Command Name="cmdViewSource" LabelTitle="View HTML Source" Symbol="cmdViewSource" Id="50517" Comment="DebugTab-GeneralDebugGroup-ViewSource"/>
+
+  </Application.Commands>
+  <Application.Views>
+    <Ribbon Name="Microsoft.Scenic.Intent.MinimalMarkup">
+      <Ribbon.ApplicationMenu>
+        <!-- OUTSPACE -->
+        <ApplicationMenu CommandName="cmdFileMenu">
+          <ApplicationMenu.RecentItems>
+            <RecentItems CommandName="cmdMRUList" MaxCount="10" EnablePinning="false"/>
+          </ApplicationMenu.RecentItems>
+
+          <!-- ApplicationMode Legend                 
+          0: Normal
+          1: Preview
+          2: LTR
+          3: RTL
+          4: Without plugins gallery
+          5: With plugins gallery
+          31: debug
+          -->
+          <MenuGroup Class="MajorItems">
+            <SplitButton CommandName="cmdSplitNew" ApplicationModes="0,1">
+              <SplitButton.ButtonItem>
+                <Button CommandName="cmdNewPost"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup Class="MajorItems">
+                  <Button CommandName="cmdNewPost"/>
+                  <Button CommandName="cmdNewPage"/>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+              </SplitButton>
+              <SplitButtonGallery CommandName="cmdOpenDraftSplit" ApplicationModes="0,1"/>
+              <SplitButtonGallery CommandName="cmdOpenPostSplit" ApplicationModes="0,1"/>
+              <SplitButton CommandName="cmdSplitSave" ApplicationModes="0,1">
+              <SplitButton.ButtonItem>
+                <Button CommandName="cmdSavePost"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup Class="MajorItems">
+                  <Button CommandName="cmdSavePost"/>
+                  <Button CommandName="cmdPostAsDraft"/>
+                  <Button CommandName="cmdPostAsDraftAndEditOnline"/>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+            </SplitButton>
+            <Button CommandName="cmdDeleteDraft" ApplicationModes="0,1"/>
+            <Button CommandName="cmdPostAndPublish" ApplicationModes="0,1"/>
+            <SplitButton CommandName="cmdSplitPrint" ApplicationModes="0,1">
+              <SplitButton.ButtonItem>
+                <Button CommandName="cmdPrint"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup Class="MajorItems">
+                  <Button CommandName="cmdPrint"/>
+                  <Button CommandName="cmdPrintPreview"/>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+            </SplitButton>
+            <Button CommandName="cmdOptions" ApplicationModes="0,1"/>
+            <Button CommandName="cmdAbout" ApplicationModes="0,1"/>
+            <Button CommandName="cmdClose" ApplicationModes="0,1"/>
+          </MenuGroup>
+        </ApplicationMenu>
+      </Ribbon.ApplicationMenu>
+      <Ribbon.Tabs>
+        <Tab CommandName="cmdHomeTab" ApplicationModes="0">
+          <!-- HOME TAB -->
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="cmdClipboardGroup" Size="Large"/>
+                <Scale Group="cmdPublishGroup" Size="Large"/>
+                <Scale Group="cmdFontGroup" Size="Large"/>
+                <Scale Group="cmdInsertGroup" Size="Large"/>
+                <Scale Group="cmdTextEditingGroup" Size="Medium"/>                
+                <Scale Group="cmdParagraphGroup" Size="Medium"/>
+                <Scale Group="cmdSemanticHtmlGroup" Size="Large"/>
+              </ScalingPolicy.IdealSizes>
+              <Scale Group="cmdClipboardGroup" Size="Medium"/>              
+              <Scale Group="cmdSemanticHtmlGroup" Size="Medium"/>
+              <Scale Group="cmdTextEditingGroup" Size="Small"/>
+              <Scale Group="cmdTextEditingGroup" Size="Popup"/>
+              <Scale Group="cmdClipboardGroup" Size="Popup"/>              
+              <Scale Group="cmdParagraphGroup" Size="Popup"/>              
+              <Scale Group="cmdInsertGroup" Size="Medium"/>
+              <Scale Group="cmdSemanticHtmlGroup" Size="Popup"/>              
+              <Scale Group="cmdFontGroup" Size="Popup"/>              
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+
+          <Group CommandName="cmdClipboardGroup" SizeDefinition="OneBigControlAndTwoSmallControls" ApplicationModes="0">
+            <!-- CLIPBOARD GROUP -->
+            <DropDownButton CommandName="cmdPasteSplit">
+              <MenuGroup>
+                <Button CommandName="cmdPaste"/>
+                <Button CommandName="cmdPasteSpecial"/>
+              </MenuGroup>
+            </DropDownButton>
+            <Button CommandName="cmdCut"/>
+            <Button CommandName="cmdCopyCommand"/>            
+          </Group>
+          <Group CommandName="cmdPublishGroup" SizeDefinition="OneBigButtonOneComboboxAndOneSmallButton" ApplicationModes="0">
+            <Button CommandName="cmdPostAndPublish"/>
+            <DropDownGallery CommandName="cmdSelectBlog" TextPosition="Right" Type="Items" ItemHeight="16" ItemWidth="16">
+              <DropDownGallery.MenuLayout>
+                <VerticalMenuLayout Gripper="None"/>
+              </DropDownGallery.MenuLayout>
+              <DropDownGallery.MenuGroups>
+                <MenuGroup Class="StandardItems">
+                  <Button CommandName="cmdAddWeblog"/>
+                  <Button CommandName="cmdAccounts"/>
+                </MenuGroup>
+              </DropDownGallery.MenuGroups>
+            </DropDownGallery>
+            <Button CommandName="cmdPostAsDraft"/>
+          </Group>
+            <Group CommandName="cmdFontGroup" SizeDefinition="CustomFontControl" ApplicationModes="0">
+                <ComboBox CommandName="cmdFontFamily" IsAutoCompleteEnabled="true" IsEditable="true" ResizeType="VerticalResize"/>
+                <ComboBox CommandName="cmdFontSize" IsAutoCompleteEnabled="true" IsEditable="true" ResizeType="NoResize"/>
+                <Button CommandName="cmdClearFormatting"/>
+                <ToggleButton CommandName="cmdBold"/>
+                <ToggleButton CommandName="cmdItalic"/>
+                <ToggleButton CommandName="cmdUnderline"/>
+                <ToggleButton CommandName="cmdStrikethrough"/>
+                <ToggleButton CommandName="cmdSubscript"/>
+                <ToggleButton CommandName="cmdSuperscript"/>
+                <DropDownColorPicker CommandName="cmdFontBackgroundColor" ChipSize="Large" ColorTemplate="HighlightColors" IsNoColorButtonVisible="true" StandardColorGridRows="6" Columns="5"/>
+                <DropDownColorPicker CommandName="cmdFontColorPicker" ChipSize="Medium" ColorTemplate="StandardColors" IsAutomaticColorButtonVisible="false" IsNoColorButtonVisible="false" StandardColorGridRows="6" Columns="5"/>
+            </Group>
+          <Group CommandName="cmdParagraphGroup" SizeDefinition="SevenSmallButtons" ApplicationModes="2">
+            <ToggleButton CommandName="cmdBullets"/>
+            <ToggleButton CommandName="cmdNumbers"/>
+            <ToggleButton CommandName="cmdBlockquote"/>
+            <ToggleButton CommandName="cmdAlignLeft"/>
+            <ToggleButton CommandName="cmdAlignCenter"/>
+            <ToggleButton CommandName="cmdAlignRight"/>
+            <ToggleButton CommandName="cmdJustify"/>            
+          </Group>          
+          <Group CommandName="cmdParagraphGroup" SizeDefinition="NineSmallButtons" ApplicationModes="3">
+            <ToggleButton CommandName="cmdBullets"/>
+            <ToggleButton CommandName="cmdNumbers"/>
+            <ToggleButton CommandName="cmdBlockquote"/>
+            <ToggleButton CommandName="cmdLTRTextBlock"/>
+            <ToggleButton CommandName="cmdRTLTextBlock"/>
+            <ToggleButton CommandName="cmdAlignLeft"/>
+            <ToggleButton CommandName="cmdAlignCenter"/>
+            <ToggleButton CommandName="cmdAlignRight"/>
+            <ToggleButton CommandName="cmdJustify"/>            
+          </Group>
+            <Group CommandName="cmdSemanticHtmlGroup" SizeDefinition="OneInRibbonGallery" ApplicationModes="0">
+                <InRibbonGallery CommandName="cmdSemanticHtmlGallery" TextPosition="Bottom" Type="Items" MaxColumns="7" ItemHeight="36" ItemWidth="64" MinColumnsMedium="1" MaxColumnsMedium="2" MinColumnsLarge="2" MaxRows="3">
+                    <InRibbonGallery.MenuLayout>
+                        <FlowMenuLayout Columns="1" Gripper="Vertical"/>
+                    </InRibbonGallery.MenuLayout>
+                </InRibbonGallery>
+            </Group>
+          <Group CommandName="cmdInsertGroup" SizeDefinition="ThreeButtons" ApplicationModes="0">
+            <Button CommandName="cmdInsertLink"/>
+            <DropDownButton CommandName="cmdInsertImageSplit">
+              <MenuGroup>              
+                <Button CommandName="cmdInsertPictureFromFile"/>
+                <Button CommandName="cmdWebImage"/>
+              </MenuGroup>
+            </DropDownButton>
+            <DropDownButton CommandName="cmdInsertVideoSplit">
+              <MenuGroup>
+                <Button CommandName="cmdInsertVideoFromWeb"/>
+                <Button CommandName="cmdInsertVideoFromFile"/>
+                <Button CommandName="cmdInsertVideoFromService"/>
+              </MenuGroup>
+            </DropDownButton>
+          </Group>
+            <Group CommandName="cmdTextEditingGroup" SizeDefinition="FourButtons" ApplicationModes="0">
+                <Button CommandName="cmdCheckSpelling"/>
+                <Button CommandName="cmdWordCount"/>
+                <Button CommandName="cmdFindButton"/>
+                <Button CommandName="cmdSelectAll"/>
+            </Group>
+          </Tab>
+        <Tab CommandName="cmdInsertTab" ApplicationModes="0">
+          <!-- INSERT TAB-->
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="cmdBreaksGroup" Size="Medium"/>
+                <Scale Group="cmdPluginsGroup" Size="Large"/>
+                <Scale Group="cmdMediaGroup" Size="Large"/>
+              </ScalingPolicy.IdealSizes>              
+              <Scale Group="cmdBreaksGroup" Size="Popup"/>
+              <Scale Group="cmdMediaGroup" Size="Medium"/>
+              <Scale Group="cmdPluginsGroup" Size="Medium"/>
+              <!--<Scale Group="cmdPluginsGroup" Size="Small"/>-->
+              <Scale Group="cmdMediaGroup" Size="Small"/>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName="cmdBreaksGroup" SizeDefinition="ThreeButtons" ApplicationModes="0">
+            <Button CommandName="cmdInsertHorizontalLine"/>
+            <Button CommandName="cmdInsertClearBreak"/>
+            <Button CommandName="cmdInsertExtendedEntry"/>
+          </Group>
+          <Group CommandName="cmdTablesGroup" SizeDefinition="OneButton" ApplicationModes="0">
+            <Button CommandName="cmdInsertTable"/>
+          </Group>
+          <Group CommandName="cmdMediaGroup" SizeDefinition="SixButtons" ApplicationModes="0">
+            <Button CommandName="cmdInsertLink"/>
+            <DropDownButton CommandName="cmdInsertImageSplit">
+              <MenuGroup>
+                <Button CommandName="cmdInsertPictureFromFile"/>
+                <Button CommandName="cmdWebImage"/>                
+              </MenuGroup>
+            </DropDownButton>
+            <DropDownButton CommandName="cmdInsertVideoSplit">
+              <MenuGroup>
+                <Button CommandName="cmdInsertVideoFromWeb"/>
+                <Button CommandName="cmdInsertVideoFromFile"/>
+                <Button CommandName="cmdInsertVideoFromService"/>
+              </MenuGroup>
+            </DropDownButton>
+            <Button CommandName="cmdInsertMap"/>
+            <Button CommandName="cmdInsertTags"/>
+            <DropDownGallery CommandName="cmdInsertEmoticon" Type="Items" ItemHeight="19" ItemWidth="19" TextPosition="Hide">
+              <DropDownGallery.MenuLayout>
+                <FlowMenuLayout Columns="10" Gripper="None"/>
+              </DropDownGallery.MenuLayout>
+            </DropDownGallery>
+          </Group>
+          <Group CommandName="cmdPluginsGroup" SizeDefinition="TwoButtons" ApplicationModes="4">                        
+            <!-- No plugins gallery if there are no installed plugins. -->
+            <Button CommandName="cmdAddPlugin"/>
+            <Button CommandName="cmdManagePlugins"/>
+          </Group>
+          <Group CommandName="cmdPluginsGroup" SizeDefinition="InRibbonGalleryAndButtons-GalleryScalesFirst" ApplicationModes="5">
+            <InRibbonGallery CommandName="cmdPluginsGallery" Type="Items" TextPosition="Right" ItemHeight="16" ItemWidth="16" MinColumnsMedium="1" MaxColumns="1" MaxRows="3">
+              <InRibbonGallery.MenuLayout>
+                <FlowMenuLayout Columns="1" Gripper="Vertical"/>
+              </InRibbonGallery.MenuLayout>
+            </InRibbonGallery>
+            <Button CommandName="cmdAddPlugin"/>
+            <Button CommandName="cmdManagePlugins"/>
+          </Group>
+        </Tab>
+        <Tab CommandName="cmdBlogProviderTab" ApplicationModes="0">
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="cmdBlogProviderBlogGroup" Size="Large"/>
+                <Scale Group="cmdBlogProviderShortcutsGroup" Size="Large"/>
+                <Scale Group="cmdBlogProviderThemeGroup" Size="Large"/>
+              </ScalingPolicy.IdealSizes>
+              <Scale Group="cmdBlogProviderShortcutsGroup" Size="Medium"/>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName="cmdBlogProviderBlogGroup" ApplicationModes="0" SizeDefinition="OneButton">
+            <Button CommandName="cmdConfigureWeblog"/>            
+          </Group>
+          <Group CommandName="cmdBlogProviderShortcutsGroup" ApplicationModes="0" SizeDefinition="OneInRibbonGallery">
+            <InRibbonGallery CommandName="cmdBlogProviderButtonsGallery" Type="Items" TextPosition="Right" ItemHeight="16" ItemWidth="16" MaxColumns="1" MaxRows="3">
+              <InRibbonGallery.MenuLayout>
+                <FlowMenuLayout Columns="1" Gripper="None"/>                
+              </InRibbonGallery.MenuLayout>
+            </InRibbonGallery>
+          </Group>
+          <Group CommandName="cmdBlogProviderThemeGroup" ApplicationModes="0" SizeDefinition="TwoControls">
+            <ToggleButton CommandName="cmdViewUseStyles"/>
+            <Button CommandName="cmdUpdateWeblogStyle"/>
+          </Group>
+        </Tab>
+        <Tab CommandName="cmdPreviewTab" ApplicationModes="1">
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="cmdPublishGroup" Size="Large"/>
+                <Scale Group="cmdBrowserGroup" Size="Large"/>
+                <Scale Group="cmdPreviewGroup" Size="Large"/>
+              </ScalingPolicy.IdealSizes>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName="cmdPublishGroup" SizeDefinition="OneBigButtonOneComboboxAndOneSmallButton" ApplicationModes="1">
+            <!-- @RIBBON TODO: Consider using RibbonExport and RibbonInclude to include this duplicate markup. -->
+            <Button CommandName="cmdPostAndPublish"/>
+            <DropDownGallery CommandName="cmdSelectBlog" TextPosition="Right" Type="Items" ItemHeight="16" ItemWidth="16">
+              <DropDownGallery.MenuLayout>
+                <VerticalMenuLayout Gripper="None"/>
+              </DropDownGallery.MenuLayout>
+              <DropDownGallery.MenuGroups>
+                <MenuGroup Class="StandardItems">
+                  <Button CommandName="cmdAddWeblog"/>
+                  <Button CommandName="cmdAccounts"/>                  
+                </MenuGroup>
+              </DropDownGallery.MenuGroups>
+            </DropDownGallery>
+            <Button CommandName="cmdPostAsDraft"/>
+          </Group>
+          <Group CommandName="cmdBrowserGroup" SizeDefinition="OneButton" ApplicationModes="1">            
+            <Button CommandName="cmdUpdateWeblogStyle"/>
+          </Group>
+          <Group CommandName="cmdPreviewGroup" SizeDefinition="OneButton" ApplicationModes="1">
+            <Button CommandName="cmdClosePreview"/>
+          </Group>
+        </Tab>
+        <Tab CommandName="cmdDebugTab" ApplicationModes="31">
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="cmdGeneralDebugGroup" Size="Large"/>
+                <Scale Group="cmdDialogDebugGroup" Size="Large"/>
+                <Scale Group="cmdTextDebugGroup" Size="Large"/>
+                <Scale Group="cmdValidateDebugGroup" Size="Large"/>                
+              </ScalingPolicy.IdealSizes>              
+              <Scale Group="cmdValidateDebugGroup" Size="Medium"/>                            
+              <Scale Group="cmdDialogDebugGroup" Size="Medium"/>
+              <Scale Group="cmdGeneralDebugGroup" Size="Medium"/>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName="cmdGeneralDebugGroup" SizeDefinition="FiveButtons" ApplicationModes="31">
+            <Button CommandName="cmdTerminateProcess"/>
+            <Button CommandName="cmdRaiseAssertion"/>
+            <Button CommandName="cmdDiagnosticsConsole"/>
+            <Button CommandName="cmdBlogClientOptions"/>
+            <Button CommandName="cmdViewSource"/>
+          </Group>
+          <Group CommandName="cmdDialogDebugGroup" SizeDefinition="EightButtons" ApplicationModes="31">
+            <Button CommandName="cmdShowBetaExpiredDialogs"/>
+            <Button CommandName="cmdShowUpdateMessage"/>
+            <Button CommandName="cmdShowWebLayoutWarning"/>
+            <Button CommandName="cmdShowErrorDialog"/>
+            <Button CommandName="cmdShowDisplayMessageTestForm"/>
+            <Button CommandName="cmdShowSupportingFilesForm"/>
+            <Button CommandName="cmdShowAtomImageEndpointSelector"/>
+            <Button CommandName="cmdShowGoogleCaptcha"/>
+          </Group>
+          <Group CommandName="cmdTextDebugGroup" SizeDefinition="OneButton" ApplicationModes="31">
+            <Button CommandName="cmdInsertLoremIpsum"/>
+          </Group>
+          <Group CommandName="cmdValidateDebugGroup" SizeDefinition="ThreeButtons" ApplicationModes="31">
+            <Button CommandName="cmdValidateHtml"/>
+            <Button CommandName="cmdValidateXhtml"/>
+            <Button CommandName="cmdValidateLocalizedResources"/>
+          </Group>          
+        </Tab>
+      </Ribbon.Tabs>
+      <Ribbon.SizeDefinitions>
+        <SizeDefinition Name="TwoControls">
+          <ControlNameMap>
+            <ControlNameDefinition Name="control1"/>
+            <ControlNameDefinition Name="control2"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <ControlSizeDefinition ControlName="control1" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="control2" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <ControlSizeDefinition ControlName="control1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="control2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <ControlSizeDefinition ControlName="control1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+            <ControlSizeDefinition ControlName="control2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        <SizeDefinition Name="OneBigControlAndTwoSmallControls">
+          <ControlNameMap>
+            <ControlNameDefinition Name="control1"/>
+            <ControlNameDefinition Name="control2"/>
+            <ControlNameDefinition Name="control3"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <ControlSizeDefinition ControlName="control1" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="control2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="control3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <ControlSizeDefinition ControlName="control1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="control2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+            <ControlSizeDefinition ControlName="control3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <ControlSizeDefinition ControlName="control1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+            <ControlSizeDefinition ControlName="control2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+            <ControlSizeDefinition ControlName="control3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+          <SizeDefinition Name="CustomFontControl">
+              <ControlNameMap>
+                  <ControlNameDefinition Name="FontFamilyControl"/>
+                  <ControlNameDefinition Name="FontSizeControl"/>
+                  <ControlNameDefinition Name="ClearFormattingControl"/>
+                  <ControlNameDefinition Name="BoldControl"/>
+                  <ControlNameDefinition Name="ItalicControl"/>
+                  <ControlNameDefinition Name="UnderlineControl"/>
+                  <ControlNameDefinition Name="StrikethroughControl"/>
+                  <ControlNameDefinition Name="SuperscriptControl"/>
+                  <ControlNameDefinition Name="SubscriptControl"/>
+                  <ControlNameDefinition Name="FontBackgroundColorControl"/>
+                  <ControlNameDefinition Name="FontForegroundColorControl"/>
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large">
+                  <Row>
+                      <ControlSizeDefinition ControlName="FontFamilyControl" IsImageVisible="false" IsLabelVisible="false" ImageSize="Small"/>
+                      <ControlSizeDefinition ControlName="FontSizeControl" IsImageVisible="false" IsLabelVisible="false" ImageSize="Small"/>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="ClearFormattingControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                  </Row>
+                  <Row>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="BoldControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="ItalicControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="UnderlineControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="StrikethroughControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="SuperscriptControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="SubscriptControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="FontBackgroundColorControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="FontForegroundColorControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                  </Row>
+              </GroupSizeDefinition>
+              <GroupSizeDefinition Size="Medium">
+                  <Row>
+                      <ControlSizeDefinition ControlName="FontFamilyControl" IsImageVisible="false" IsLabelVisible="false" ImageSize="Small"/>
+                      <ControlSizeDefinition ControlName="FontSizeControl" IsImageVisible="false" IsLabelVisible="false" ImageSize="Small"/>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="ClearFormattingControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                  </Row>
+                  <Row>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="BoldControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="ItalicControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="UnderlineControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="StrikethroughControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="SuperscriptControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="SubscriptControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="FontBackgroundColorControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="FontForegroundColorControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                  </Row>
+              </GroupSizeDefinition>
+              <GroupSizeDefinition Size="Small">
+                  <Row>
+                      <ControlSizeDefinition ControlName="FontFamilyControl" IsImageVisible="false" IsLabelVisible="false" ImageSize="Small"/>
+                      <ControlSizeDefinition ControlName="FontSizeControl" IsImageVisible="false" IsLabelVisible="false" ImageSize="Small"/>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="ClearFormattingControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                  </Row>
+                  <Row>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="BoldControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="ItalicControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="UnderlineControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="StrikethroughControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="SuperscriptControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="SubscriptControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="FontBackgroundColorControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                          <ControlSizeDefinition ControlName="FontForegroundColorControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                      </ControlGroup>
+                  </Row>
+              </GroupSizeDefinition>
+          </SizeDefinition>
+          <SizeDefinition Name="FourSpinners">
+              <ControlNameMap>
+                  <ControlNameDefinition Name="spn1"/>
+                  <ControlNameDefinition Name="spn2"/>
+                  <ControlNameDefinition Name="spn3"/>
+                  <ControlNameDefinition Name="spn4"/>
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Small">
+                  <ControlSizeDefinition ControlName="spn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ControlSizeDefinition ControlName="spn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ColumnBreak ShowSeparator="false"/>
+                  <ControlSizeDefinition ControlName="spn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ControlSizeDefinition ControlName="spn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </GroupSizeDefinition>
+              <GroupSizeDefinition Size="Medium">
+                  <ControlSizeDefinition ControlName="spn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ControlSizeDefinition ControlName="spn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ColumnBreak ShowSeparator="false"/>
+                  <ControlSizeDefinition ControlName="spn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ControlSizeDefinition ControlName="spn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+              </GroupSizeDefinition>
+              <GroupSizeDefinition Size="Large">
+                  <Row>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="spn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                      </ControlGroup>
+                  </Row>
+                  <Row>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="spn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                      </ControlGroup>
+                  </Row>
+                  <ColumnBreak ShowSeparator="false"/>
+                  <Row>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="spn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                      </ControlGroup>
+                  </Row>
+                  <Row>
+                      <ControlGroup>
+                          <ControlSizeDefinition ControlName="spn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                      </ControlGroup>
+                  </Row>
+              </GroupSizeDefinition>
+          </SizeDefinition>
+          <SizeDefinition Name="OneBigButtonThreeMediumButtonsAndOneToggleButton">
+              <ControlNameMap>
+                  <ControlNameDefinition Name="btn1"/>
+                  <ControlNameDefinition Name="btn2"/>
+                  <ControlNameDefinition Name="btn3"/>
+                  <ControlNameDefinition Name="btn4"/>
+                  <ControlNameDefinition Name="toggle1"/>
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Small">
+                  <ControlSizeDefinition ControlName="btn1" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ColumnBreak ShowSeparator="false"/>
+                  <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ColumnBreak ShowSeparator="true"/>
+                  <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ControlSizeDefinition ControlName="toggle1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+              </GroupSizeDefinition>
+              <GroupSizeDefinition Size="Medium">
+                  <ControlSizeDefinition ControlName="btn1" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ColumnBreak ShowSeparator="false"/>
+                  <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ColumnBreak ShowSeparator="true"/>
+                  <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ControlSizeDefinition ControlName="toggle1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+              </GroupSizeDefinition>
+              <GroupSizeDefinition Size="Large">
+                  <ControlSizeDefinition ControlName="btn1" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ColumnBreak ShowSeparator="false"/>
+                  <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                  <ColumnBreak ShowSeparator="true"/>
+                  <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+                  <ControlSizeDefinition ControlName="toggle1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+              </GroupSizeDefinition>
+          </SizeDefinition>
+        <SizeDefinition Name="SevenSmallButtons">
+          <ControlNameMap>
+            <ControlNameDefinition Name="btn1"/>
+            <ControlNameDefinition Name="btn2"/>
+            <ControlNameDefinition Name="btn3"/>
+            <ControlNameDefinition Name="btn4"/>
+            <ControlNameDefinition Name="btn5"/>
+            <ControlNameDefinition Name="btn6"/>
+            <ControlNameDefinition Name="btn7"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+
+
+        <SizeDefinition Name="NineSmallButtons">
+          <ControlNameMap>
+            <ControlNameDefinition Name="btn1"/>
+            <ControlNameDefinition Name="btn2"/>
+            <ControlNameDefinition Name="btn3"/>
+
+            <ControlNameDefinition Name="ltr"/>
+            <ControlNameDefinition Name="rtl"/>
+            
+            <ControlNameDefinition Name="btn4"/>
+            <ControlNameDefinition Name="btn5"/>
+            <ControlNameDefinition Name="btn6"/>
+            <ControlNameDefinition Name="btn7"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="ltr" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="rtl" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="ltr" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="rtl" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="ltr" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="rtl" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        
+        
+        <SizeDefinition Name="OneBigButtonOneComboboxAndOneSmallButton">
+          <ControlNameMap>
+            <ControlNameDefinition Name="btn1"/>
+            <ControlNameDefinition Name="combo1"/>
+            <ControlNameDefinition Name="btn2"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Small">
+            <ControlSizeDefinition ControlName="btn1" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+            <ColumnBreak ShowSeparator="false"/>
+            <Row>
+              <ControlSizeDefinition ControlName="combo1" IsImageVisible="true" IsLabelVisible="true" ImageSize="Small"/>
+            </Row>
+            <Row>
+              <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <ControlSizeDefinition ControlName="btn1" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+            <ColumnBreak ShowSeparator="false"/>
+            <Row>
+              <ControlSizeDefinition ControlName="combo1" IsImageVisible="true" IsLabelVisible="true" ImageSize="Small"/>
+            </Row>
+            <Row>
+              <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Large">
+            <ControlSizeDefinition ControlName="btn1" ImageSize="Large" IsImageVisible="true" IsLabelVisible="true"/>
+            <ColumnBreak ShowSeparator="false"/>
+            <Row>
+              <ControlSizeDefinition ControlName="combo1" IsImageVisible="true" IsLabelVisible="true" ImageSize="Small"/>
+            </Row>
+            <Row>
+              <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="true"/>
+            </Row>
+          </GroupSizeDefinition>
+        </SizeDefinition>        
+      </Ribbon.SizeDefinitions>
+      <Ribbon.ContextualTabs>
+          <TabGroup CommandName="cmdImageContextTabGroup">
+              <Tab CommandName="cmdFormatImageTab" ApplicationModes="0">
+                  <Tab.ScalingPolicy>
+                      <ScalingPolicy>
+                          <ScalingPolicy.IdealSizes>
+                              <Scale Group="cmdFormatImageSizeGroup" Size="Medium"/>
+                              <Scale Group="cmdAlignmentGroup" Size="Large"/>
+                              <Scale Group="cmdMarginsGroup" Size="Large"/>
+                              <Scale Group="cmdFormatImageRotateGroup" Size="Medium"/>
+                              <Scale Group="cmdFormatImageStyleGroup" Size="Large"/>
+                              <Scale Group="cmdFormatImagePropertiesGroup" Size="Medium"/>
+                              <Scale Group="cmdFormatImageSettingsGroup" Size="Medium"/>
+                          </ScalingPolicy.IdealSizes>
+                          <Scale Group="cmdAlignmentGroup" Size="Medium"/>
+                          <!--<Scale Group="cmdAlignmentGroup" Size="Popup"/>-->
+                          <Scale Group="cmdMarginsGroup" Size="Popup"/>
+                          <Scale Group="cmdFormatImageRotateGroup" Size="Popup"/>
+                          <Scale Group="cmdFormatImageStyleGroup" Size="Medium"/>
+                          <Scale Group="cmdFormatImageSettingsGroup" Size="Popup"/>
+                          <Scale Group="cmdFormatImagePropertiesGroup" Size="Popup"/>
+                          <Scale Group="cmdFormatImageSizeGroup" Size="Popup"/>
+                          <Scale Group="cmdFormatImageStyleGroup" Size="Popup"/>
+                      </ScalingPolicy>
+                  </Tab.ScalingPolicy>
+                  <Group CommandName="cmdFormatImageSizeGroup" SizeDefinition="OneBigButtonThreeMediumButtonsAndOneToggleButton" ApplicationModes="0">
+                      <Button CommandName="cmdImageCrop"/>
+                      <Spinner CommandName="cmdFormatImageAdjustWidth"/>
+                      <Spinner CommandName="cmdFormatImageAdjustHeight"/>
+                      <DropDownButton CommandName="cmdCustomSizeGallery">
+                          <MenuGroup>
+                              <CheckBox CommandName="cmdCustomSizeSmall"/>
+                              <CheckBox CommandName="cmdCustomSizeMedium"/>
+                              <CheckBox CommandName="cmdCustomSizeLarge"/>
+                              <CheckBox CommandName="cmdCustomSizeOriginal"/>
+                          </MenuGroup>
+                          <MenuGroup Class="StandardItems">
+                              <Button CommandName="cmdSetCustomSizeDefaults"/>
+                          </MenuGroup>
+                      </DropDownButton>
+                      <ToggleButton CommandName="cmdFormatImageLockAspectRatio"/>
+                  </Group>
+                  <Group CommandName="cmdFormatImageRotateGroup" SizeDefinition="ThreeButtons" ApplicationModes="0">
+                      <Button CommandName="cmdImageRotateCCW"/>
+                      <Button CommandName="cmdImageRotateCW"/>
+                      <Button CommandName="cmdImageTilt"/>
+                  </Group>
+                  <Group CommandName="cmdFormatImageStyleGroup" SizeDefinition="InRibbonGalleryAndButtons-GalleryScalesFirst" ApplicationModes="0">
+                      <InRibbonGallery CommandName="cmdImageBorderGallery" Type="Items" TextPosition="Hide" ItemWidth="64" ItemHeight="48" MaxColumns="3" MaxRows="3" MinColumnsMedium="1">
+                          <InRibbonGallery.MenuLayout>
+                              <FlowMenuLayout Columns="3" Gripper="Vertical"/>
+                          </InRibbonGallery.MenuLayout>
+                      </InRibbonGallery>
+                      <DropDownButton CommandName="cmdImageEffectsGallery">
+                          <MenuGroup Class="MajorItems">
+                              <DropDownGallery CommandName="cmdImageEffectsRecolorGallery" TextPosition="Hide">
+                                  <DropDownGallery.MenuLayout>
+                                      <FlowMenuLayout Columns="4"/>
+                                  </DropDownGallery.MenuLayout>
+                              </DropDownGallery>
+                              <DropDownGallery CommandName="cmdImageEffectsSharpenGallery" TextPosition="Hide">
+                                  <DropDownGallery.MenuLayout>
+                                      <FlowMenuLayout Columns="1"/>
+                                  </DropDownGallery.MenuLayout>
+                              </DropDownGallery>
+                              <DropDownGallery CommandName="cmdImageEffectsBlurGallery" TextPosition="Hide">
+                                  <DropDownGallery.MenuLayout>
+                                      <FlowMenuLayout Columns="1"/>
+                                  </DropDownGallery.MenuLayout>
+                              </DropDownGallery>
+                              <DropDownGallery CommandName="cmdImageEffectsEmbossGallery" TextPosition="Hide">
+                                  <DropDownGallery.MenuLayout>
+                                      <FlowMenuLayout Columns="1"/>
+                                  </DropDownGallery.MenuLayout>
+                              </DropDownGallery>
+                          </MenuGroup>
+                      </DropDownButton>
+                      <Button CommandName="cmdImageContrast"/>
+                      <Button CommandName="cmdWatermark"/>
+                  </Group>
+                  <Group CommandName="cmdFormatImagePropertiesGroup" SizeDefinition="ThreeButtons" ApplicationModes="0">
+                      <DropDownButton CommandName="cmdFormatImageSelectLink">
+                          <MenuGroup>
+                              
+                                  
+                              <CheckBox CommandName="cmdImageLinkToSource"/>
+                              
+                              
+                              <CheckBox CommandName="cmdImageLinkToUrl"/>
+                              <CheckBox CommandName="cmdImageLinkToNone"/>
+                          </MenuGroup>
+                      </DropDownButton>
+                      <Button CommandName="cmdFormatImageLinkOptions"/>
+                      <Button CommandName="cmdFormatImageAltText"/>
+                  </Group>
+                  <Group CommandName="cmdFormatImageSettingsGroup" SizeDefinition="TwoButtons" ApplicationModes="0">
+                      <Button CommandName="cmdFormatImageRevertSettings"/>
+                      <Button CommandName="cmdFormatImageSaveSettings"/>
+                  </Group>
+                  <Group CommandName="cmdAlignmentGroup" SizeDefinition="OneInRibbonGallery" ApplicationModes="0">
+                      <InRibbonGallery CommandName="cmdAlignmentGallery" Type="Items" ItemWidth="48" ItemHeight="48" MaxColumns="4" TextPosition="Hide" MinColumnsMedium="1">
+                          <InRibbonGallery.MenuLayout>
+                              <FlowMenuLayout Columns="4" Gripper="None"/>
+                          </InRibbonGallery.MenuLayout>
+                      </InRibbonGallery>
+                  </Group>
+                  <Group CommandName="cmdMarginsGroup" SizeDefinition="FourSpinners" ApplicationModes="0">
+                      <Spinner CommandName="cmdAdjustTopMargin"/>
+                      <Spinner CommandName="cmdAdjustBottomMargin"/>
+                      <Spinner CommandName="cmdAdjustRightMargin"/>
+                      <Spinner CommandName="cmdAdjustLeftMargin"/>
+                  </Group>
+              </Tab>
+          </TabGroup>
+          <TabGroup CommandName="cmdVideoContextTabGroup">
+              <Tab CommandName="cmdFormatVideoTab" ApplicationModes="0">
+                  <Tab.ScalingPolicy>
+                      <ScalingPolicy>
+                          <ScalingPolicy.IdealSizes>
+                              <Scale Group="cmdFormatVideoGroup" Size="Large"/>
+                              <Scale Group="cmdVideoAspectRatioGroup" Size="Large"/>
+                              <Scale Group="cmdAlignmentGroup" Size="Large"/>
+                              <Scale Group="cmdMarginsGroup" Size="Large"/>
+                          </ScalingPolicy.IdealSizes>
+                          <Scale Group="cmdAlignmentGroup" Size="Medium"/>
+                          <!--<Scale Group="cmdAlignmentGroup" Size="Popup"/>-->
+                          <Scale Group="cmdMarginsGroup" Size="Popup"/>
+                      </ScalingPolicy>
+                  </Tab.ScalingPolicy>
+                  <Group CommandName="cmdFormatVideoGroup" ApplicationModes="0" SizeDefinition="OneButton">
+                      <Button CommandName="cmdVideoWebPreview"/>
+                  </Group>
+                  <Group CommandName="cmdVideoAspectRatioGroup" ApplicationModes="0" SizeDefinition="TwoButtons">
+                      <ToggleButton CommandName="cmdVideoWidescreenAspectRatio"/>
+                      <ToggleButton CommandName="cmdVideoStandardAspectRatio"/>
+                  </Group>
+                  <Group CommandName="cmdAlignmentGroup" SizeDefinition="OneInRibbonGallery" ApplicationModes="0">
+                      <InRibbonGallery CommandName="cmdAlignmentGallery" Type="Items" ItemWidth="48" ItemHeight="48" MaxColumns="4" TextPosition="Hide" MinColumnsMedium="1">
+                          <InRibbonGallery.MenuLayout>
+                              <FlowMenuLayout Columns="4" Gripper="None"/>
+                          </InRibbonGallery.MenuLayout>
+                      </InRibbonGallery>
+                  </Group>
+                  <Group CommandName="cmdMarginsGroup" SizeDefinition="FourSpinners" ApplicationModes="0">
+                      <Spinner CommandName="cmdAdjustTopMargin"/>
+                      <Spinner CommandName="cmdAdjustBottomMargin"/>
+                      <Spinner CommandName="cmdAdjustRightMargin"/>
+                      <Spinner CommandName="cmdAdjustLeftMargin"/>
+                  </Group>
+              </Tab>
+          </TabGroup>
+        <TabGroup CommandName="cmdMapContextTabGroup">
+          <Tab CommandName="cmdFormatMapTab" ApplicationModes="0">
+            <Tab.ScalingPolicy>
+              <ScalingPolicy>
+                <ScalingPolicy.IdealSizes>
+                  <Scale Group="cmdFormatMapGroup" Size="Large"/>
+                  <Scale Group="cmdFormatMapPropertiesGroup" Size="Large"/>
+                  <Scale Group="cmdAlignmentGroup" Size="Large"/>
+                  <Scale Group="cmdMarginsGroup" Size="Large"/>
+
+                </ScalingPolicy.IdealSizes>
+                <Scale Group="cmdAlignmentGroup" Size="Medium"/>
+                <!--<Scale Group="cmdAlignmentGroup" Size="Popup"/>-->
+                <Scale Group="cmdMarginsGroup" Size="Popup"/>
+
+              </ScalingPolicy>
+            </Tab.ScalingPolicy>
+            <Group CommandName="cmdFormatMapGroup" ApplicationModes="0" SizeDefinition="OneButton">
+              <Button CommandName="cmdMapWebPreview"/>
+            </Group>
+            <Group CommandName="cmdFormatMapPropertiesGroup" ApplicationModes="0" SizeDefinition="OneButton">
+              <Button CommandName="cmdFormatMapEdit"/>
+            </Group>
+            <Group CommandName="cmdAlignmentGroup" SizeDefinition="OneInRibbonGallery" ApplicationModes="0">
+              <InRibbonGallery CommandName="cmdAlignmentGallery" Type="Items" ItemWidth="48" ItemHeight="48" MaxColumns="4" TextPosition="Hide" MinColumnsMedium="1">
+                <InRibbonGallery.MenuLayout>
+                  <FlowMenuLayout Columns="4" Gripper="None"/>
+                </InRibbonGallery.MenuLayout>
+              </InRibbonGallery>
+            </Group>
+              <!--## Start <Include xmlns="http://schemas.microsoft.com/windows/2009/Ribbon" Src="SharedRibbon\MarginsGroup.xml"/> ##-->
+              <Group CommandName="cmdMarginsGroup" SizeDefinition="FourSpinners" ApplicationModes="0">
+                  <Spinner CommandName="cmdAdjustTopMargin"/>
+                  <Spinner CommandName="cmdAdjustBottomMargin"/>
+                  <Spinner CommandName="cmdAdjustRightMargin"/>
+                  <Spinner CommandName="cmdAdjustLeftMargin"/>
+              </Group>
+              <!--## End <Include xmlns="http://schemas.microsoft.com/windows/2009/Ribbon" Src="SharedRibbon\MarginsGroup.xml"/> ##-->
+            </Tab>
+        </TabGroup>
+          <TabGroup CommandName="cmdTableContextTabGroup">
+              <Tab CommandName="cmdFormatTableTab" ApplicationModes="0">
+                  <Tab.ScalingPolicy>
+                      <ScalingPolicy>
+                          <ScalingPolicy.IdealSizes>
+                              <Scale Group="cmdFormatTablePropertiesGroup" Size="Large"/>
+                              <Scale Group="cmdFormatTableInsertGroup" Size="Medium"/>
+                              <Scale Group="cmdFormatTableMoveGroup" Size="Medium"/>
+                              <Scale Group="cmdFormatTableEditingGroup" Size="Medium"/>
+                          </ScalingPolicy.IdealSizes>
+                          <Scale Group="cmdFormatTableEditingGroup" Size="Popup"/>
+                      </ScalingPolicy>
+                  </Tab.ScalingPolicy>
+                  <Group CommandName="cmdFormatTablePropertiesGroup" SizeDefinition="OneButton" ApplicationModes="0">
+                      <DropDownButton CommandName="cmdFormatTablePropertiesSplit">
+                          <MenuGroup>
+                              <Button CommandName="cmdTableProperties"/>
+                              <Button CommandName="cmdRowProperties"/>
+                              <Button CommandName="cmdColumnProperties"/>
+                              <Button CommandName="cmdCellProperties"/>
+                          </MenuGroup>
+                      </DropDownButton>
+                  </Group>
+                  <Group CommandName="cmdFormatTableEditingGroup" SizeDefinition="FourButtons" ApplicationModes="0">
+                      <Button CommandName="cmdDeleteRow"/>
+                      <Button CommandName="cmdDeleteColumn"/>
+                      <Button CommandName="cmdDeleteTable"/>
+                      <Button CommandName="cmdClearCell"/>
+                  </Group>
+                  <Group CommandName="cmdFormatTableInsertGroup" SizeDefinition="FourButtons" ApplicationModes="0">
+                      <Button CommandName="cmdInsertRowAbove"/>
+                      <Button CommandName="cmdInsertRowBelow"/>
+                      <Button CommandName="cmdInsertColumnLeft"/>
+                      <Button CommandName="cmdInsertColumnRight"/>
+                  </Group>
+                  <Group CommandName="cmdFormatTableMoveGroup" SizeDefinition="FourButtons" ApplicationModes="0">
+                      <Button CommandName="cmdMoveRowUp"/>
+                      <Button CommandName="cmdMoveRowDown"/>
+                      <Button CommandName="cmdMoveColumnLeft"/>
+                      <Button CommandName="cmdMoveColumnRight"/>
+                  </Group>
+              </Tab>
+          </TabGroup>
+        <TabGroup CommandName="cmdTagContextTabGroup">
+          <Tab CommandName="cmdFormatTagTab" ApplicationModes="0">
+            <Tab.ScalingPolicy>
+              <ScalingPolicy>
+                <ScalingPolicy.IdealSizes>
+                  <Scale Group="cmdFormatTagPropertiesGroup" Size="Large"/>
+                  <Scale Group="cmdFormatTagProvidersGroup" Size="Large"/>
+                </ScalingPolicy.IdealSizes>
+              </ScalingPolicy>
+            </Tab.ScalingPolicy>
+            <Group CommandName="cmdFormatTagPropertiesGroup" ApplicationModes="0" SizeDefinition="OneButton">
+              <Button CommandName="cmdEditTags"/>
+            </Group>
+            <Group CommandName="cmdFormatTagProvidersGroup" ApplicationModes="0" SizeDefinition="TwoButtons">
+              <Button CommandName="cmdAddTagProvider"/>
+              <Button CommandName="cmdManageTagProviders"/>
+            </Group>
+          </Tab>
+        </TabGroup>
+
+      </Ribbon.ContextualTabs>
+      <Ribbon.QuickAccessToolbar>
+        <QuickAccessToolbar CommandName="cmdQAT">
+          <QuickAccessToolbar.ApplicationDefaults>
+            <Button CommandName="cmdSavePost" ApplicationDefaults.IsChecked="true"/>
+            <Button CommandName="cmdUndo" ApplicationDefaults.IsChecked="true"/>
+            <Button CommandName="cmdRedo" ApplicationDefaults.IsChecked="true"/>
+            <Button CommandName="cmdNewPost" ApplicationDefaults.IsChecked="false"/>
+            <Button CommandName="cmdOpenPost" ApplicationDefaults.IsChecked="false"/>
+            <Button CommandName="cmdPostAndPublish" ApplicationDefaults.IsChecked="false"/>
+            <Button CommandName="cmdPrint" ApplicationDefaults.IsChecked="false"/>
+            <Button CommandName="cmdPrintPreview" ApplicationDefaults.IsChecked="false"/>
+          </QuickAccessToolbar.ApplicationDefaults>
+        </QuickAccessToolbar>
+      </Ribbon.QuickAccessToolbar>
+      <Ribbon.HelpButton>
+        <HelpButton CommandName="cmdHelp"/>
+      </Ribbon.HelpButton>
+    </Ribbon>
+  </Application.Views>
+</Application>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<BlogPersist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BlogPosts>
+    <BlogPost>
+      <Id>467a5c78-c403-43a0-a762-c8b025570059</Id>
+      <Title>First Post</Title>
+      <Description>&lt;p&gt;Here's a picture...&lt;/p&gt; &lt;p&gt;&lt;a href="http://localhost:8080/uploads/b458a371-12b2-4bf9-9eab-dcf788156a75.jpg"&gt;&lt;img style="border-right: 0px; border-top: 0px; border-left: 0px; border-bottom: 0px" height="159" src="http://localhost:8080/uploads/130085d9-b44b-4ee5-9ca5-a4d823e1edcc.jpg" width="240" border="0"&gt;&lt;/a&gt;&lt;/p&gt;</Description>
+      <ExtendedDescription />
+      <Excerpt />
+      <TempDate>2007-02-05T22:54:14.4592868Z</TempDate>
+      <Date>2007-02-05T22:54:14.4592868Z</Date>
+      <AllowComments>0</AllowComments>
+      <AllowPings>0</AllowPings>
+      <Keywords />
+      <PingUrls>
+        <string />
+      </PingUrls>
+      <Categories />
+      <Published>true</Published>
+    </BlogPost>
+  </BlogPosts>
+</BlogPersist>

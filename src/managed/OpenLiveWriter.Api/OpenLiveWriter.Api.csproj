@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.Api</AssemblyName>
+    <RootNamespace>OpenLiveWriter.Api</RootNamespace>
+    <ProjectGuid>{B6D10B42-F173-4086-BB81-96B724BA5594}</ProjectGuid>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj">
+      <Name>OpenLiveWriter.Controls</Name>
+      <Project>{D4A39612-3610-458F-83F8-5722D1F51063}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
+      <Name>OpenLiveWriter.HtmlParser</Name>
+      <Project>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="AdaptiveHtmlObject.cs" />
+    <Compile Include="ContentCreationException.cs" />
+    <Compile Include="ContentSource.cs" />
+    <Compile Include="HeaderFooterSource.cs" />
+    <Compile Include="HtmlScreenCapture.cs" />
+    <Compile Include="HtmlServices.cs" />
+    <Compile Include="IPostInfo.cs" />
+    <Compile Include="InsertableContentSourceAttribute.cs" />
+    <Compile Include="IProperties.cs" />
+    <Compile Include="IPublishingContext.cs" />
+    <Compile Include="ISmartContent.cs" />
+    <Compile Include="ISmartContentEditorSite.cs" />
+    <Compile Include="LiveClipboardContentSourceAttribute.cs" />
+    <Compile Include="PluginDiagnostics.cs" />
+    <Compile Include="PluginHttpRequest.cs" />
+    <Compile Include="PublishNotificationHook.cs" />
+    <Compile Include="SmartContentEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartContentSource.cs" />
+    <Compile Include="TaskServices.cs" />
+    <Compile Include="UrlContentSourceAttribute.cs" />
+    <Compile Include="WriterApplication.cs" />
+    <Compile Include="WriterPlugin.cs" />
+    <Compile Include="WriterPluginAttribute.cs" />
+    <EmbeddedResource Include="SmartContentEditor.resx">
+      <DependentUpon>SmartContentEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

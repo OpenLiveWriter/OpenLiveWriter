@@ -1,0 +1,252 @@
+
+
+	Description of problem:  remove width restriction
+	
+	Description of fix:  remove width restriction
+	
+	Reviewed by:  Unknown
+
+Affected files ...
+
+... //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableAlignmentControl.cs#11 edit
+... //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableColumnSizeEditor.cs#5 edit
+... //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableEditingManager.cs#18 edit
+... //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableEditingSettings.cs#4 edit
+... //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableEditor.cs#7 edit
+... //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableHelper.cs#5 edit
+... //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TablePropertiesForm.cs#11 edit
+... //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/OpenLiveWriter.PostEditor.asmmeta#131 edit
+
+Differences ...
+
+==== //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableAlignmentControl.cs#11 (text) ====
+
+202c202
+< 		private readonly AlignmentOption MixedAlignment = new AlignmentOption("(Mixed)", HorizontalAlignment.Mixed);
+---
+> 		private readonly AlignmentOption MixedAlignment = new AlignmentOption("", HorizontalAlignment.Mixed);
+237c237
+< 		private readonly AlignmentOption MixedAlignment = new AlignmentOption("(Mixed)", VerticalAlignment.Mixed);
+---
+> 		private readonly AlignmentOption MixedAlignment = new AlignmentOption("", VerticalAlignment.Mixed);
+
+==== //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableColumnSizeEditor.cs#5 (text) ====
+
+346,353d345
+< 				
+< 				// if the table is larger than or equal to the containing block size
+< 				// then terminate
+< 				if ( offset > 0 && TableExceedsContainingBlock )
+< 				{
+< 					EndSizing() ;
+< 					return ;
+< 				}
+372,379d363
+< 					
+< 					// if we are doing a right edge sizing operation and the
+< 					// table is larger than the containing block then snap it back
+< 					if ( (_rightColumn == null) && TableExceedsContainingBlock )
+< 					{
+< 						TableHelper.SynchronizeCellAndTableWidths(_table, _containingBlockSize);
+< 					}
+< 					
+415d398
+< 		
+417,426d399
+< 		private bool TableExceedsContainingBlock
+< 		{
+< 			get
+< 			{
+< 				return	TableEditingSettings.RestrictWidthToContainer && 
+< 						(_containingBlockSize != 0) &&
+< 						(TableHelper.GetTableWidth(_table) >= _containingBlockSize) ;
+< 			}
+< 		}
+< 
+
+==== //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableEditingManager.cs#18 (text) ====
+
+20c20,22
+< // TODO: remove restriction of table width to container in single check in (for record)
+---
+> // TODO: support alignment and float for table
+> // TODO: specify custom CSS class for table
+> // TODO: add background color & border to table property dialog
+22c24
+< // TODO: HtmlBlockFormatHelper.ApplyBlockFormat -- doesn't work within table cells whose content is not parented by a block element
+---
+> // TODO: add background color & border (via css inline styles) to all cell/row/column property dialogs
+23a26
+> // TODO: menu icons
+25d27
+< // BUGS:
+27c29
+< // - Spaces templates don't respect cellpadding attribute
+---
+> // FUTURE
+29c31
+< // EXTRAS:
+---
+> // - Handle paste from excel/csv
+31,34c33
+< // - support alignment and float for table
+< // - specify custom CSS class for table
+< // - add background color & border (css vs. html attrib) to table property dialog
+< // - restore ability to do full table selection and resizing (use snaprect) -- implications for TableSelection (assume BeginCell == first cell?)
+---
+> // - "templates" for table borders and background colors
+36,37c35
+< // - add background color & border (via css inline styles) to all cell/row/column property dialogs
+< // - special UI (perhaps just empty?) for "mixed" alignment / color / border states
+---
+> // - inline ui for better discoverability of table editing features
+39c37
+< // - menu icons and ui tart up
+---
+> // - sidebar for better discoverability of table editing features
+41c39
+< // - Handle paste from excel/csv
+---
+> // - handle ROWSPAN/COLSPAN gracefully for resize, props, allow split and merge cells
+43,46d40
+< // - "templates" for table borders and background colors
+< // - inline ui for better discoverability of table editing features
+< // - sidebar for better discoverability of table editing features
+< // - handle ROWSPAN/COLSPAN gracefully for resize, props, allow split and merge cells (NO WAY!)
+47a42
+> // KNOWN ISSUES
+49c44
+< // NOTES:
+---
+> // - Spaces templates don't respect cellpadding attribute
+50a46,47
+> // - HtmlBlockFormatHelper.ApplyBlockFormat -- doesn't work within table cells whose content is not parented by a block element
+> 
+
+==== //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableEditingSettings.cs#4 (text) ====
+
+48,55c48
+< 	
+< 		public static bool RestrictWidthToContainer
+< 		{
+< 			get { return SettingsKey.GetBoolean(RESTRICT_WIDTH_TO_CONTAINER, false); }
+< 			set { SettingsKey.SetBoolean(RESTRICT_WIDTH_TO_CONTAINER, value);}
+< 		}
+< 		private const string RESTRICT_WIDTH_TO_CONTAINER = "RestrictWidth" ;
+< 		
+---
+> 			
+
+==== //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableEditor.cs#7 (text) ====
+
+413,415d412
+< 
+< 					// determine the maximum table width
+< 					int maximumTableWidth = Math.Min(MaximumTableWidth, value.Width) ;
+417c414
+< 					TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table, value.Width);
+---
+> 					TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table);
+606c603
+< 					TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table, MaximumTableWidth);
+---
+> 					TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table);
+620c617
+< 				TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table, MaximumTableWidth);	
+---
+> 				TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table);	
+632c629
+< 				TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table, MaximumTableWidth);
+---
+> 				TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table);
+718c715
+< 				TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table, MaximumTableWidth);
+---
+> 				TableHelper.SynchronizeCellAndTableWidths(TableSelection.Table);
+1129,1147d1125
+< 		private int MaximumTableWidth
+< 		{
+< 			get
+< 			{
+< 				if ( TableEditingSettings.RestrictWidthToContainer )
+< 				{
+< 					MarkupRange tableMarkupRange = _editorContext.MarkupServices.CreateMarkupRange(TableSelection.Table as IHTMLElement) ;
+< 					int containerWidth = TableHelper.GetParentContainerBlockWidth(tableMarkupRange) ;
+< 					if ( containerWidth > 0 )
+< 						return containerWidth ;
+< 					else
+< 						return -1 ;
+< 				}
+< 				else
+< 				{
+< 					return -1 ;
+< 				}
+< 			}
+< 		}
+1149d1126
+< 
+
+==== //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TableHelper.cs#5 (text) ====
+
+172,184d171
+< 			SynchronizeCellAndTableWidths(table, -1) ;
+< 		}
+< 
+< 		public static void SynchronizeCellAndTableWidths(IHTMLTable table, int maximumTableWidth)
+< 		{
+< 			if ( maximumTableWidth > 0 )
+< 			{
+< 				if (GetTableWidth(table) > maximumTableWidth )
+< 				{
+< 					table.width = maximumTableWidth ;
+< 				}
+< 			}
+< 
+
+==== //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/Tables/TablePropertiesForm.cs#11 (text) ====
+
+141,146d140
+< 			if ( EnforceContainerWidth && (columnWidthControl.ColumnWidth > _containerWidth) )
+< 			{
+< 				DisplayMessage.Show(typeof(WidthExceedsMaximumDisplayMessage), this, _containerWidth);
+< 				columnWidthControl.Focus();
+< 				return false ;
+< 			}
+148d141
+< 
+193,196c186
+<             if ( EnforceContainerWidth )
+< 				return Math.Min(TableEditingSettings.DefaultWidth, _containerWidth) ;
+< 			else
+< 				return TableEditingSettings.DefaultWidth ;
+---
+>            return TableEditingSettings.DefaultWidth ;
+199,206d188
+< 		private bool EnforceContainerWidth
+< 		{
+< 			get
+< 			{
+< 				return TableEditingSettings.RestrictWidthToContainer && (_containerWidth > 0) ;
+< 			}
+< 		}
+< 
+
+==== //depot/Writer_Main/private/writer/src/OpenLiveWriter.PostEditor/OpenLiveWriter.PostEditor.asmmeta#131 (text) ====
+
+14102,14111d14101
+<     .method public static hidebysig specialname 
+<       bool 'get_RestrictWidthToContainer'()
+<     {
+<       ret
+<     }
+<     .method public static hidebysig specialname 
+<       void 'set_RestrictWidthToContainer'(bool 'value')
+<     {
+<       ret
+<     }
+14137,14141d14126
+<     .property bool 'RestrictWidthToContainer'()
+<     {
+<       .get bool 'OpenLiveWriter.PostEditor.Tables'.'TableEditingSettings'::'get_RestrictWidthToContainer'()
+<       .set void 'OpenLiveWriter.PostEditor.Tables'.'TableEditingSettings'::'set_RestrictWidthToContainer'(bool)
+<     }

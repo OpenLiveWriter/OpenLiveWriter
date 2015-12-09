@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
+				
+	<weblog>	
+		<imageUrl>SpacesIcon.png</imageUrl>
+		<watermarkImageUrl>SpacesWatermark.png</watermarkImageUrl>
+	</weblog>
+
+	<buttons>	
+		<button>
+			<id>0</id>
+			<text>What's new</text>
+			<imageUrl>SpacesFriends.png</imageUrl>
+			<clickUrl><![CDATA[ 
+				http://spaces.live.com/default.aspx?page=whatsnew
+			]]></clickUrl>
+		</button>	
+		
+		<button>
+			<id>1</id>
+			<text>Statistics</text>
+			<imageUrl>SpacesStats.png</imageUrl>
+			<clickUrl><![CDATA[ 
+				{blog-homepage-url}Settings/Stats/
+			]]></clickUrl>			
+		</button>
+	</buttons>
+	
+</manifest>

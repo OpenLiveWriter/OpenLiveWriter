@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">		
+				
+	<weblog>
+		<serviceName>WordPress.com</serviceName>	
+		<imageUrl>WpIcon.png</imageUrl>
+		<watermarkImageUrl>WpWatermark.png</watermarkImageUrl>			
+		<homepageLinkText>View site</homepageLinkText>				
+		<adminLinkText>Dashboard</adminLinkText>					
+		<adminUrl><![CDATA[ 
+			{blog-postapi-url}/../wp-admin/ 
+		]]>	</adminUrl>						
+		<postEditingUrl><![CDATA[ 
+			{blog-postapi-url}/../wp-admin/post.php?action=edit&post={post-id} 
+		]]></postEditingUrl>				
+	</weblog>	
+	
+		
+	<buttons>	
+		<button>
+			<id>0</id>
+			<text>My Comments</text>
+			<imageUrl>WpComments.png</imageUrl>				
+			<clickUrl><![CDATA[ 
+				{blog-homepage-url}wp-admin/index.php?page=my-comments 
+			]]></clickUrl>			
+		</button>		
+	
+		<button>
+			<id>1</id>
+			<text>Friend Surfer</text>
+			<imageUrl>WpFriends.png</imageUrl>			
+			<clickUrl><![CDATA[ 
+				{blog-homepage-url}wp-admin/index.php?page=friend-surfer 
+			]]>	</clickUrl>			
+		</button>	
+			
+		<button>
+			<id>2</id>
+			<text>Blog Stats</text>
+			<imageUrl>WpStats.png</imageUrl>			
+			<clickUrl><![CDATA[ 
+				{blog-homepage-url}wp-admin/index.php?page=stats 
+			]]></clickUrl>						
+		</button>
+	</buttons>	
+		
+	<views>
+		<default>WebLayout</default>	
+	</views>
+	
+	<options>
+		<clientType>WordPress</clientType>				
+	</options>				
+	
+</manifest>

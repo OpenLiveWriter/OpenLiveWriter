@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>OpenLiveWriter</id>
+        <version>0.0.0.0</version>
+        <authors>Open Live Writer</authors>
+        <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/bringup/license.txt?raw=true</licenseUrl>
+        <iconUrl>http://openlivewriter.github.io/favicon.ico</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>Open Live Writer</description>
+        <summary>Open Live Writer makes it easy to write, preview and post to your blog.</summary>
+    </metadata>
+    <files>
+        <file src="DeltaCompressionDotNet.dll" target="lib\net451\DeltaCompressionDotNet.dll" />
+        <file src="DeltaCompressionDotNet.MsDelta.dll" target="lib\net451\DeltaCompressionDotNet.MsDelta.dll" />
+        <file src="DeltaCompressionDotNet.PatchApi.dll" target="lib\net451\DeltaCompressionDotNet.PatchApi.dll" />
+        <file src="html\map.html" target="lib\net451\html\map.html" />
+        <file src="html\map-preview.html" target="lib\net451\html\map-preview.html" />
+        <file src="ICSharpCode.SharpZipLib.dll" target="lib\net451\ICSharpCode.SharpZipLib.dll" />
+        <file src="ICSharpCode.SharpZipLib.xml" target="lib\net451\ICSharpCode.SharpZipLib.xml" />
+        <file src="Mono.Cecil.dll" target="lib\net451\Mono.Cecil.dll" />
+        <file src="Mono.Cecil.Mdb.dll" target="lib\net451\Mono.Cecil.Mdb.dll" />
+        <file src="Mono.Cecil.Pdb.dll" target="lib\net451\Mono.Cecil.Pdb.dll" />
+        <file src="Mono.Cecil.Rocks.dll" target="lib\net451\Mono.Cecil.Rocks.dll" />
+        <file src="NuGet.Squirrel.dll" target="lib\net451\NuGet.Squirrel.dll" />
+        <file src="OpenLiveWriter.Api.dll" target="lib\net451\OpenLiveWriter.Api.dll" />
+        <file src="OpenLiveWriter.ApplicationFramework.dll" target="lib\net451\OpenLiveWriter.ApplicationFramework.dll" />
+        <file src="OpenLiveWriter.BlogClient.dll" target="lib\net451\OpenLiveWriter.BlogClient.dll" />
+        <file src="OpenLiveWriter.BrowserControl.dll" target="lib\net451\OpenLiveWriter.BrowserControl.dll" />
+        <file src="OpenLiveWriter.Controls.dll" target="lib\net451\OpenLiveWriter.Controls.dll" />
+        <file src="OpenLiveWriter.CoreServices.dll" target="lib\net451\OpenLiveWriter.CoreServices.dll" />
+        <file src="OpenLiveWriter.exe" target="lib\net451\OpenLiveWriter.exe" />
+        <file src="OpenLiveWriter.exe.manifest" target="lib\net451\OpenLiveWriter.exe.manifest" />
+        <file src="OpenLiveWriter.Extensibility.dll" target="lib\net451\OpenLiveWriter.Extensibility.dll" />
+        <file src="OpenLiveWriter.FileDestinations.dll" target="lib\net451\OpenLiveWriter.FileDestinations.dll" />
+        <file src="OpenLiveWriter.HtmlEditor.dll" target="lib\net451\OpenLiveWriter.HtmlEditor.dll" />
+        <file src="OpenLiveWriter.HtmlParser.dll" target="lib\net451\OpenLiveWriter.HtmlParser.dll" />
+        <file src="OpenLiveWriter.InternalWriterPlugin.dll" target="lib\net451\OpenLiveWriter.InternalWriterPlugin.dll" />
+        <file src="OpenLiveWriter.Interop.dll" target="lib\net451\OpenLiveWriter.Interop.dll" />
+        <file src="OpenLiveWriter.Interop.Mshtml.dll" target="lib\net451\OpenLiveWriter.Interop.Mshtml.dll" />
+        <file src="OpenLiveWriter.Interop.SHDocVw.dll" target="lib\net451\OpenLiveWriter.Interop.SHDocVw.dll" />
+        <file src="OpenLiveWriter.Localization.dll" target="lib\net451\OpenLiveWriter.Localization.dll" />
+        <file src="OpenLiveWriter.Mshtml.dll" target="lib\net451\OpenLiveWriter.Mshtml.dll" />
+        <file src="OpenLiveWriter.PostEditor.dll" target="lib\net451\OpenLiveWriter.PostEditor.dll" />
+        <file src="OpenLiveWriter.Ribbon.dll" target="lib\net451\OpenLiveWriter.Ribbon.dll" />
+        <file src="Splat.dll" target="lib\net451\Splat.dll" />
+        <file src="Squirrel.dll" target="lib\net451\Squirrel.dll" />
+        <file src="template\default.htm" target="lib\net451\template\default.htm" />
+        <file src="template\defaultstyle.css" target="lib\net451\template\defaultstyle.css" />
+    </files>
+</package>

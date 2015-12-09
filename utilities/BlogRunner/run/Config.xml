@@ -1,0 +1,140 @@
+<config>
+	<!--
+		available excludes:
+
+		SupportsMultipleCategories
+		SupportsPostAsDraft
+		SupportsFuturePost
+		SupportsEmptyTitles
+		SupportsScripts
+		SupportsEmbeds
+		TitleEncoding
+	-->
+	<providers>
+		<provider>
+			<id>16B3FA3F-DAD7-4c93-A407-81CAE076883E</id>
+			<name>Windows Live Spaces</name>
+		</provider>
+		<provider>
+			<id>4AA58E69-8C24-40b1-BACE-3BB14237E8F9</id>
+			<name>SharePoint weblog</name>
+		</provider>
+		<provider>
+			<id>556A165F-DA11-463c-BB4A-C77CC9047F22</id>
+			<name>WordPress.com</name>
+			<blog>
+				<homepageUrl>http://wlwtest5.wordpress.com</homepageUrl>
+				<username>wlwtest5</username>
+				<password>password</password>
+				<apiUrl>http://wlwtest5.wordpress.com/xmlrpc.php</apiUrl>
+				<blogId>1</blogId>
+			</blog>
+		</provider>
+		<provider>
+			<id>B6F817C3-9D39-45c1-A634-EAC792B8A635</id>
+			<name>Blogger</name>
+			<blog>
+				<homepageUrl>http://onfoliotest.blogspot.com</homepageUrl>
+				<username>onfoliotest</username>
+				<password>*nf*(io$@sting</password>
+				<apiUrl>http://www.blogger.com/feeds/8875640/posts/default</apiUrl>
+				<blogId>http://www.blogger.com/feeds/8875640/posts/default</blogId>
+			</blog>
+		</provider>
+		<provider>
+			<id>D48F1B5A-06E6-4f0f-BD76-74F34F520792</id>
+			<name>Atom Publishing Protocol</name>
+		</provider>
+		<provider>
+			<id>3C53BD64-4FA8-4bc7-8CB9-5D3BB58FAD07</id>
+			<name>TypePad</name>
+		</provider>
+		<provider>
+			<id>B9C51DE3-F2DE-4204-AE7D-F64116429401</id>
+			<name>Blogger (Legacy)</name>
+		</provider>
+		<provider>
+			<id>E0500CDC-91C9-4822-855F-CDC6F49B2735</id>
+			<name>LiveJournal</name>
+			<blog>
+				<homepageUrl>http://unknown.livejournal.com/</homepageUrl>
+				<username></username>
+				<password></password>
+				<apiUrl>http://www.livejournal.com/interface/blogger</apiUrl>
+				<blogId></blogId>
+			</blog>
+			<!-- LJ doesn't support categories -->
+			<exclude>SupportsMultipleCategories</exclude>
+		</provider>
+		<provider>
+			<id>CD671F17-1902-46e5-8266-A24D6C602234</id>
+			<name>Movable Type</name>
+		</provider>
+		<provider>
+			<id>82E6C828-8764-4af1-B289-647FC84E7093</id>
+			<name>WordPress</name>
+			<blog>
+				<homepageUrl>http://unknown.com/wp21test/</homepageUrl>
+				<username>admin</username>
+				<password>password</password>
+				<apiUrl>http://unknown.com/wp21test/xmlrpc.php</apiUrl>
+				<blogId>1</blogId>
+			</blog>
+		</provider>
+		<provider>
+			<id>CAA1EBAA-946E-4143-9733-F01CC8DBE827</id>
+			<name>WordPress 2.2+</name>
+			<blog>
+				<homepageUrl>http://unknown.com/wp23rc1test/</homepageUrl>
+				<username>admin</username>
+				<password>password</password>
+				<apiUrl>http://unknown.com/wp23rc1test/xmlrpc.php</apiUrl>
+				<blogId>1</blogId>
+			</blog>
+		</provider>
+		<provider>
+			<id>D3405AD6-9E02-43b3-87F4-08F5A5946B40</id>
+			<name>Community Server</name>
+			<blog>
+				<homepageUrl>http://206.138.170.138/cs/blogs/menagerie/</homepageUrl>
+				<username>onfoliotest</username>
+				<password>onfoliotest</password>
+				<apiUrl>http://206.138.170.138/cs/blogs/metablog.ashx</apiUrl>
+				<blogId>menagerie</blogId>
+			</blog>
+			<!-- Community Server doesn't return categories at all -->
+			<exclude>SupportsMultipleCategories</exclude>
+		</provider>
+		<provider>
+			<id>A82F57E0-41D3-45e9-861E-8C527844BCA6</id>
+			<name>dasBlog</name>
+			<blog>
+				<homepageUrl>http://206.138.170.138/dasBlog</homepageUrl>
+				<username>menagerie</username>
+				<password>onfoliotest</password>
+				<apiUrl>http://206.138.170.138/DasBlog/blogger.aspx</apiUrl>
+				<blogId>http://206.138.170.138/DasBlog/</blogId>
+			</blog>
+		</provider>
+		<provider>
+			<id>494B3F2D-206D-449a-B0FA-A987E57C95D1</id>
+			<name>Radio Userland</name>
+		</provider>
+		<provider>
+			<id>BAF4FE16-25FB-4a94-90C7-11A1B30CAD61</id>
+			<name>Metaweblog API</name>
+		</provider>
+		<provider>
+			<id>7D215B2D-7B57-432a-B382-ED027321C480</id>
+			<name>Movable Type API</name>
+		</provider>
+		<provider>
+			<id>4FCDB0E2-66F8-4b4d-828B-B2EED6147789</id>
+			<name>MSDN Blogs</name>
+		</provider>
+		<provider>
+			<id>785D4CDA-602F-481b-ACEA-3B3DB79B0F43</id>
+			<name>TechNet Blogs</name>
+		</provider>
+	</providers>
+</config>

@@ -1,0 +1,162 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<title>VE Sample</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="{apiurl}"></script>
+</head>
+<script>
+	var map = null;
+	var mapElement;
+	var mapView;
+	var zoomLevel = 10;
+	var coords = null;
+	function MyOnLoad()
+	{
+		//parse the query string
+		var queryParms = new Array();
+		var query = window.location.search.substring(1);
+		var parms = query.split('&');
+		for (var i=0; i<parms.length; i++) {
+			var pos = parms[i].indexOf('=');
+			if (pos > 0) {
+				var key = parms[i].substring(0,pos);
+				var val = parms[i].substring(pos+1);
+				queryParms[key] = val;
+			}
+		}
+		var where = queryParms["where"];
+		if(queryParms["cp"] != null)
+		{
+			var cp = queryParms["cp"];
+			var pos = cp.indexOf('~');
+			if (pos > 0) {
+				//the coordinate is formatted Latitude~Longitude
+				var coordsString = cp.split('~');			
+				coords = new VELatLong(toNumber(coordsString[0]), toNumber(coordsString[1]));
+			}
+			else
+			{
+				//the coordinate is encrypted (probably an oblique coordinate),
+				//so we need to create the VELatLong in a special way
+				coords = new VELatLong(0, 0);
+				coords.Latitude = null;
+				coords.Longitude = null;
+				coords._reserved = cp;
+			}
+		}
+		
+		zoomLevel = toNumber(queryParms["lvl"]);
+		var mapStyle = queryParms["style"];
+		
+		mapElement = document.getElementById("map");
+		map = new VEMap("map");
+		var sp = queryParms["sp"];
+		map.onLoadMap = function(){
+			map.AttachEvent("onobliquechange", onObliqueChange);			
+			map.HideDashboard(); 		 
+			
+			if(sp != null)
+				addPushPins(sp);		
+		}
+		
+		var scene = queryParms["scene"];
+		if(mapStyle != "o")
+		{
+			map.LoadMap(coords, zoomLevel, mapStyle, false);
+			var timeout = 200;
+			if(sp != null)
+				timeout = 1000; //up the timeout if there are pushpins (bug 407361)
+			setTimeout("setMapLoaded()", timeout);
+		}
+		else
+		{	
+			map.LoadMap();
+			mapElement.runtimeStyle.display = "none";
+			setTimeout("initBirdseyeScene('" + scene + "')", 200);
+		}		
+		
+		if(where != null)
+			map.Find(null, where);
+	}
+	
+	function initBirdseyeScene(sceneId)
+	{
+		map.SetBirdseyeScene(sceneId);
+	}
+	
+	function onObliqueChange()
+	{
+		var birdseyeScene = map.GetBirdseyeScene();
+		/*if(!birdseyeScene.ContainsLatLong(coords))
+		{
+			alert("Error!: coords/scene are mismatched")
+		}*/
+		map.DetachEvent("onobliquechange", onObliqueChange);
+		map.AttachEvent("onchangeview", setBirdeyeMapLoaded);
+		map.SetCenterAndZoom(coords, zoomLevel); //this will trigger setBirdeyeMapLoaded()
+		mapElement.runtimeStyle.display = ""; //HACK: map will not properly center if the element is not displayed here...
+	}
+	
+	function setBirdeyeMapLoaded(){
+		map.DetachEvent("onchangeview", setMapLoaded);
+		mapElement.runtimeStyle.display = "";
+		setMapLoaded();
+	}
+	
+	function setMapLoaded(){
+		mapElement.setAttribute("loaded", "true");
+	}
+	
+	/**
+	 * 
+	 * @param {String} spString
+	 */
+	function addPushPins(spString)
+	{
+		var pinDataList = spString.split("~");
+		for(var i=0; i<pinDataList.length; i++)
+		{
+			var pinData = pinDataList[i].split("_");
+			var lat = pinData[0].substring(3);
+			var lon = pinData[1];
+			var title = pinData[2];
+			var notes = pinData[3];
+			var pin = new VEPushpin(pinID, 
+                        new VELatLong(lat + 0, lon + 0), 
+                        '', 
+                        title, 
+                        notes
+                        );
+            map.AddPushpin(pin);
+			pinID++;
+		}
+	}
+	var pinID = 0;
+		   
+	function handleResize()
+	{
+		var height = document.body.clientHeight;
+		var width = document.body.clientWidth;
+		mapElement.style.height= height;
+		mapElement.style.width= width;
+		if(map != null)
+		{
+			var mapCenter = map.GetCenter();
+			map.Resize(width, height);
+			map.SetCenter(mapCenter);
+		}
+	}
+	
+	function toNumber(obj)
+	{
+		return obj - 0;
+	}
+	
+</script>
+<body onLoad="MyOnLoad()" onresize="handleResize()" style="overflow: hidden; margin: 0px; padding: 0px;">
+
+<div id="map" style="background-color: gray; overflow: hidden; margin: 0px; padding: 0px; width:100%; height: 100%;"></div>
+</body>
+</html>

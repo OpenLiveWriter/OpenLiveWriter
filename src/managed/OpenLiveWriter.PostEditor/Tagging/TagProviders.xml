@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<tagProviders xmlns:xpp="http://writer.live.com/xmlpp/2007">
+	<provider>
+		<id>63DA9645-F182-4da7-88BC-B430ECA1AD75</id>
+		<name>Technorati</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://technorati.com/tags/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>6687e5a4-aa7d-420f-bfd2-530b6b83da01</id>
+		<name>Technorati</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://www.technorati.jp/tag/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>D828D6C6-051C-43e3-9B2A-99B28CED8A28</id>
+		<name>LiveJournal</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://www.livejournal.com/interests.bml?int={tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>33279DBF-A5D8-4095-B60C-E46E0903C459</id>
+		<name>Flickr</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://flickr.com/photos/tags/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>6F76098C-518B-415c-9835-289894122729</id>
+		<name>del.icio.us</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://del.icio.us/popular/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>711ab367-b19d-45e7-979f-6a0da37d59e3</id>
+		<name>Naver</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://tag.blog.naver.com/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+    <encodingName>euc-kr</encodingName>
+	</provider>
+	<provider>
+		<id>0AF393BB-B94E-4ea8-8A6D-315C378819AB</id>
+		<name>Daum</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://ucc.daum.net/du/search/uccList.do?searchTag={tag-encoded}&amp;sId=entire&amp;w=tags" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+  <provider>
+    <id>A3F2B48B-48D4-4067-8A5F-DD04B49C3052</id>
+    <name>Tistory</name>
+    <htmlFormatString>
+      <![CDATA[
+		<a href="http://tistory.com/search/tag/{tag-encoded}?_top_tistory=new_tag" rel="tag">{tag}</a>
+		]]>
+    </htmlFormatString>
+    <separator>, </separator>
+    <encodingName>euc-kr</encodingName>
+  </provider>
+  <provider>
+		<id>8E823E0C-3292-4af8-9E7B-1C52E7FEE8E1</id>
+		<name>udn</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://bookmark.udn.com/tag.jsp?tag={tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>B352CB0C-5A35-4596-8673-17ADAF888CAD</id>
+		<name>HEMiDEMi</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://www.hemidemi.com/bookmark/tag/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>4fd850a3-0925-4f78-8873-4eee8a12d18b</id>
+		<name>Hatena</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://b.hatena.ne.jp/t/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>a96d40a3-8e75-4639-8f85-13ba86832ade</id>
+		<name>YouTube</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://jp.youtube.com/results?search_query={tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>7afc2929-02d1-4703-9ec5-2fdaa67c3432</id>
+		<name>Livedoor</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://clip.livedoor.com/tag/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>72968828-4B98-48e9-A126-F5A41B3FC23A</id>
+		<name>IceRocket</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://blogs.icerocket.com/search?q={tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>DB0F2D96-D92B-4827-A5D0-D4953E5C27B2</id>
+		<name>43 Things</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://www.43things.com/tag/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+	<provider>
+		<id>50127ED3-1D75-4b6f-9717-60C2139BD026</id>
+		<name>BuzzNet</name>
+		<htmlFormatString>
+		<![CDATA[
+		<a href="http://www.buzznet.com/tags/{tag-encoded}" rel="tag">{tag}</a>
+		]]>
+		</htmlFormatString>
+		<separator>, </separator>
+	</provider>
+</tagProviders>

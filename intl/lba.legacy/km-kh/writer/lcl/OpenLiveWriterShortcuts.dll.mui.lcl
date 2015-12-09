@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LCX SchemaVersion="6.0" Name="OpenLiveWriterShortcuts.dll.mui" PsrId="3" FileType="4" SrcCul="en-US" TgtCul="km-KH" xmlns="http://schemas.microsoft.com/locstudio/2006/6/lcx">
+        <Props>
+          <Str Name="CustomName1" Val="Custom 1" />
+          <Str Name="CustomName2" Val="Custom 2" />
+          <Str Name="CustomName3" Val="Custom 3" />
+          <Str Name="CustomName4" Val="Custom 4" />
+          <Str Name="CustomName5" Val="Custom 5" />
+          <Str Name="CustomName6" Val="IQA" />
+        </Props>
+        <OwnedComments>
+          <Cmt Name="Dev" />
+          <Cmt Name="LcxAdmin" />
+          <Cmt Name="Note" />
+          <Cmt Name="Rccx" />
+        </OwnedComments>
+        <Settings Name="@LbaRoot@\km-kh\writer\writer.lsconfig" Type="Config" />
+        <Item ItemId=";String Table" ItemType=";Dummy" PsrId="3" Leaf="false">
+          <Disp Icon="Str" Disp="true" LocTbl="false" />
+          <Modified By="Aishwarya" DateTime="2010-05-13T09:05:47Z" />
+          <Item ItemId="1000" ItemType=";STR" PsrId="3" Leaf="true">
+            <Str Cat="Text">
+              <Val><![CDATA[Blog like a pro, with photos, videos, maps, and more]]></Val>
+              <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="New">
+                <Val><![CDATA[កំណត់ហេតុបណ្តាញដូចជាជាការយល់ឃើញ ជាមួយរូបថត វីដេអូស៍ ផែនទី និងអ្វីៗជាច្រើនទៀត។]]></Val>
+              </Tgt>
+              <Prev Cat="Text">
+                <Val><![CDATA[Makes it easy to publish rich content to your blog.]]></Val>
+              </Prev>
+            </Str>
+            <Disp Icon="Str" />
+            <Modified By="Braahmam1234" DateTime="2010-08-13T06:09:52Z" />
+            <Props>
+              <Str Name="Custom1" Val="Braahmam_Update_6 August" />
+              <Str Name="Custom2" Val="agust 10" />
+            </Props>
+          </Item>
+          <Item ItemId="1001" ItemType=";STR" PsrId="3" Leaf="true">
+            <Str Cat="Text">
+              <Val><![CDATA[Open Live Writer]]></Val>
+              <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+                <Val><![CDATA[Open Live Writer]]></Val>
+              </Tgt>
+            </Str>
+            <Disp Icon="Str" />
+            <Modified By="Dell" DateTime="2010-09-21T12:58:44Z" />
+            <Props>
+              <Str Name="Custom1" Val="Braahmam_Autotranslated" />
+              <Str Name="Custom3" Val="17 Sept" />
+            </Props>
+          </Item>
+          <Item ItemId="1002" ItemType=";STR" PsrId="3" Leaf="true">
+            <Str Cat="Text">
+              <Val><![CDATA[Open Live Writer Beta]]></Val>
+              <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="New">
+                <Val><![CDATA[Open Live Writerបែតា]]></Val>
+              </Tgt>
+            </Str>
+            <Disp Icon="Str" />
+            <Modified By="Raj" DateTime="2010-05-28T14:31:17Z" />
+            <Props>
+              <Str Name="Custom1" Val="Braahmam_Autotranslated" />
+            </Props>
+          </Item>
+          <Item ItemId="1003" ItemType=";STR" PsrId="3" Leaf="true">
+            <Str Cat="Text">
+              <Val><![CDATA[&Blog This in Open Live Writer]]></Val>
+              <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+                <Val><![CDATA[&ប្លុករបស់នេះទៅក្នុង Open Live Writer]]></Val>
+              </Tgt>
+            </Str>
+            <Disp Icon="Str" />
+            <Modified By="Raj" DateTime="2010-05-28T14:31:17Z" />
+            <Props>
+              <Str Name="Custom1" Val="Braahmam_New" />
+            </Props>
+          </Item>
+          <Item ItemId="1004" ItemType=";STR" PsrId="3" Leaf="true">
+            <Str Cat="Text">
+              <Val><![CDATA[Blog This]]></Val>
+              <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="New">
+                <Val><![CDATA[កំណត់ហេតុបណ្តាញវាមួយនេះ]]></Val>
+              </Tgt>
+            </Str>
+            <Disp Icon="Str" />
+            <Modified By="michalv" DateTime="2010-06-03T14:47:40Z" />
+            <Props>
+              <Str Name="Custom1" Val="Braahmam_Autotranslated" />
+            </Props>
+          </Item>
+        </Item>
+        <Item ItemId=";Version" ItemType=";Dummy" PsrId="3" Leaf="false">
+          <Disp Icon="Expand" Expand="true" Disp="true" LocTbl="false" />
+          <Modified By="Aishwarya" DateTime="2010-05-13T09:05:47Z" />
+          <Item ItemId="1" ItemType="16" PsrId="3" Leaf="false">
+            <Disp Icon="Ver" Disp="true" LocTbl="false" />
+            <Modified By="Aishwarya" DateTime="2010-05-13T09:05:47Z" />
+            <Item ItemId=";LT__LANG" ItemType=";VSTAMP" PsrId="3" Leaf="false">
+              <Bin BinId="5">
+                <Val><![CDATA[AAAAAA==]]></Val>
+              </Bin>
+              <Disp LocTbl="false" />
+              <Modified By="Aishwarya" DateTime="2010-05-13T09:05:47Z" />
+              <Item ItemId=";CompanyName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[Open Live Writer]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+                    <Val><![CDATA[Open Live Writer]]></Val>
+                  </Tgt>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="Dell" DateTime="2010-09-21T12:58:44Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_Autotranslated" />
+                  <Str Name="Custom3" Val="17 Sept" />
+                </Props>
+              </Item>
+              <Item ItemId=";FileDescription" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[Open Live Writer]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+                    <Val><![CDATA[Open Live Writer]]></Val>
+                  </Tgt>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="Dell" DateTime="2010-09-21T12:58:44Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_Autotranslated" />
+                  <Str Name="Custom3" Val="17 Sept" />
+                </Props>
+              </Item>
+              <Item ItemId=";FileVersion" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[15.4.0678.0819]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New">
+                    <Val><![CDATA[15.4.0678.0819]]></Val>
+                  </Tgt>
+                  <Prev Cat="Version">
+                    <Val><![CDATA[15.4.0637.0714]]></Val>
+                  </Prev>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="jlamos" DateTime="2010-09-23T19:16:19Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_Updated_16 Sept" />
+                  <Str Name="Custom2" Val="agust 10" />
+                  <Str Name="Custom3" Val="Sep 1" />
+                </Props>
+              </Item>
+              <Item ItemId=";InternalName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+                    <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+                  </Tgt>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="Raj" DateTime="2010-05-28T14:31:04Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_New" />
+                </Props>
+              </Item>
+              <Item ItemId=";LegalCopyright" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[© Open Live Writer. All rights reserved.]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New">
+                    <Val><![CDATA[© Open Live Writer។  រក្សាសិទិ្ធគ្រប់យ៉ាង។]]></Val>
+                  </Tgt>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="michalv" DateTime="2010-11-08T14:16:44Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_Autotranslated" />
+                </Props>
+              </Item>
+              <Item ItemId=";OriginalFilename" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+                    <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+                  </Tgt>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="Raj" DateTime="2010-05-28T14:31:04Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_New" />
+                </Props>
+              </Item>
+              <Item ItemId=";ProductName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[Windows Live]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+                    <Val><![CDATA[Windows Live]]></Val>
+                  </Tgt>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="Dell" DateTime="2010-09-21T12:58:44Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_Autotranslated" />
+                  <Str Name="Custom3" Val="17 Sept" />
+                </Props>
+              </Item>
+              <Item ItemId=";ProductVersion" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[15.4.0678.0819]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New">
+                    <Val><![CDATA[15.4.0678.0819]]></Val>
+                  </Tgt>
+                  <Prev Cat="Version">
+                    <Val><![CDATA[15.4.0637.0714]]></Val>
+                  </Prev>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="dlenc" DateTime="2010-10-11T14:03:02Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_Updated_16 Sept" />
+                  <Str Name="Custom2" Val="agust 10" />
+                  <Str Name="Custom3" Val="Sep 1" />
+                </Props>
+              </Item>
+              <Item ItemId=";SpecialBuild" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+                <Str Cat="Version">
+                  <Val><![CDATA[working.client.writer]]></Val>
+                  <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+                    <Val><![CDATA[working.client.writer]]></Val>
+                  </Tgt>
+                </Str>
+                <Disp Icon="Ver" />
+                <Modified By="Raj" DateTime="2010-05-28T14:31:04Z" />
+                <Props>
+                  <Str Name="Custom1" Val="Braahmam_New" />
+                </Props>
+              </Item>
+            </Item>
+          </Item>
+        </Item>
+      </LCX>

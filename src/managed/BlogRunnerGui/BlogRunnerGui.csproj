@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <ProjectGuid>{2CDA86AA-4264-4175-8A6C-E6AB436255C8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>BlogRunnerGui</RootNamespace>
+    <AssemblyName>BlogRunnerGui</AssemblyName>
+    <CoverageDisabled>true</CoverageDisabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FileInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FileInput.Designer.cs">
+      <DependentUpon>FileInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <EmbeddedResource Include="FileInput.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FileInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Name>OpenLiveWriter.CoreServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlogRunner.Core\BlogRunner.Core.csproj">
+      <Project>{1F76020F-DBB5-4F43-B530-C85EF9461A61}</Project>
+      <Name>BlogRunner.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BlogRunner\BlogRunner.csproj">
+      <Project>{BA726BEA-9A29-4E53-95DF-E478D86D0926}</Project>
+      <Name>BlogRunner</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

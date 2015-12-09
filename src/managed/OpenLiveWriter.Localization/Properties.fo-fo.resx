@@ -1,0 +1,1704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Command.About.MenuText" xml:space="preserve">
+    <value>'も雅&amp;About {0}...éééééé"</value>
+  </data>
+  <data name="Command.About.Text" xml:space="preserve">
+    <value>'も雅Aboutéé"</value>
+  </data>
+  <data name="Command.Accounts.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Accounts...ééééé"</value>
+  </data>
+  <data name="Command.AddDecorator.Text" xml:space="preserve">
+    <value>'も雅Add Effectéééé"</value>
+  </data>
+  <data name="Command.AddPlugin.MenuText" xml:space="preserve">
+    <value>'も雅Add a Plug-in...ééééééé"</value>
+  </data>
+  <data name="Command.AddPlugin.Text" xml:space="preserve">
+    <value>'も雅Add a Plug-in...ééééééé"</value>
+  </data>
+  <data name="Command.AddToDictionary.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Add to Dictionaryéééééééé"</value>
+  </data>
+  <data name="Command.AddToDictionary.Text" xml:space="preserve">
+    <value>'も雅Add this word to the local dictionaryééééééééééééééé"</value>
+  </data>
+  <data name="Command.AddToGlossary.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Add to Glossaryééééééé"</value>
+  </data>
+  <data name="Command.AddToGlossary.Text" xml:space="preserve">
+    <value>'も雅Add To Glossaryéééééé"</value>
+  </data>
+  <data name="Command.AddWeblog.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Add Weblog Account...ééééééééé"</value>
+  </data>
+  <data name="Command.AddWeblog.Text" xml:space="preserve">
+    <value>'も雅Add Weblog Account...ééééééééé"</value>
+  </data>
+  <data name="Command.AlignCenter.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Centerééé"</value>
+  </data>
+  <data name="Command.AlignCenter.Text" xml:space="preserve">
+    <value>'も雅Center Alignééééé"</value>
+  </data>
+  <data name="Command.AlignLeft.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Leftéé"</value>
+  </data>
+  <data name="Command.AlignLeft.Text" xml:space="preserve">
+    <value>'も雅Left Alignéééé"</value>
+  </data>
+  <data name="Command.AlignRight.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Rightééé"</value>
+  </data>
+  <data name="Command.AlignRight.Text" xml:space="preserve">
+    <value>'も雅Right Alignééééé"</value>
+  </data>
+  <data name="Command.Blockquote.MenuText" xml:space="preserve">
+    <value>'も雅Block &amp;Quoteééééé"</value>
+  </data>
+  <data name="Command.Blockquote.Text" xml:space="preserve">
+    <value>'も雅Block Quoteééééé"</value>
+  </data>
+  <data name="Command.BlogClientOptions.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] &amp;Blog Client Optionséééééééééééé"</value>
+  </data>
+  <data name="Command.BlogClientOptions.Text" xml:space="preserve">
+    <value>'も雅Show Blog Client Optionséééééééééé"</value>
+  </data>
+  <data name="Command.Bold.Shortcut" xml:space="preserve">
+    <value>CtrlB</value>
+  </data>
+  <data name="Command.Bold.Text" xml:space="preserve">
+    <value>'も雅Boldéé"</value>
+  </data>
+  <data name="Command.Bullets.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Bulletséééé"</value>
+  </data>
+  <data name="Command.Bullets.Text" xml:space="preserve">
+    <value>'も雅Bulletsééé"</value>
+  </data>
+  <data name="Command.CellProperties.MenuText" xml:space="preserve">
+    <value>'も雅Cell Pr&amp;operties...éééééééé"</value>
+  </data>
+  <data name="Command.CellProperties.Text" xml:space="preserve">
+    <value>'も雅Cell Propertieséééééé"</value>
+  </data>
+  <data name="Command.CheckSpelling.MenuText" xml:space="preserve">
+    <value>'も雅Check &amp;Spellingéééééé"</value>
+  </data>
+  <data name="Command.CheckSpelling.Shortcut" xml:space="preserve">
+    <value>F7</value>
+  </data>
+  <data name="Command.CheckSpelling.Text" xml:space="preserve">
+    <value>'も雅Check Spellingéééééé"</value>
+  </data>
+  <data name="Command.Clear.MenuText" xml:space="preserve">
+    <value>'も雅C&amp;learééé"</value>
+  </data>
+  <data name="Command.Clear.Shortcut" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="Command.Clear.Text" xml:space="preserve">
+    <value>'も雅Clearéé"</value>
+  </data>
+  <data name="Command.ClearCell.MenuText" xml:space="preserve">
+    <value>'も雅Clear Cell(s)éééééé"</value>
+  </data>
+  <data name="Command.ClearCell.Text" xml:space="preserve">
+    <value>'も雅Clear Cell(s)éééééé"</value>
+  </data>
+  <data name="Command.ClipboardMenu.Text" xml:space="preserve">
+    <value>'も雅Clipboardéééé"</value>
+  </data>
+  <data name="Command.Close.AccessibleDescription" xml:space="preserve">
+    <value>'も雅"</value>
+  </data>
+  <data name="Command.Close.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Closeééé"</value>
+  </data>
+  <data name="Command.Close.Shortcut" xml:space="preserve">
+    <value>AltF4</value>
+  </data>
+  <data name="Command.Close.Text" xml:space="preserve">
+    <value>'も雅Closeéé"</value>
+  </data>
+  <data name="Command.Colorize.Description" xml:space="preserve">
+    <value>'も雅Change the color scheme of Open Live Writerééééééééééééééééééé"</value>
+  </data>
+  <data name="Command.Colorize.Text" xml:space="preserve">
+    <value>'も雅Colorizeéééé"</value>
+  </data>
+  <data name="Command.ColumnProperties.MenuText" xml:space="preserve">
+    <value>'も雅Colu&amp;mn Properties...ééééééééé"</value>
+  </data>
+  <data name="Command.ColumnProperties.Text" xml:space="preserve">
+    <value>'も雅Column Propertiesééééééé"</value>
+  </data>
+  <data name="Command.ConfigureWeblog.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Edit Weblog Settings...éééééééééé"</value>
+  </data>
+  <data name="Command.Copy.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Copyéé"</value>
+  </data>
+  <data name="Command.Copy.Shortcut" xml:space="preserve">
+    <value>CtrlC</value>
+  </data>
+  <data name="Command.Copy.Text" xml:space="preserve">
+    <value>'も雅Copyéé"</value>
+  </data>
+  <data name="Command.Cut.MenuText" xml:space="preserve">
+    <value>'も雅Cu&amp;téé"</value>
+  </data>
+  <data name="Command.Cut.Shortcut" xml:space="preserve">
+    <value>CtrlX</value>
+  </data>
+  <data name="Command.Cut.Text" xml:space="preserve">
+    <value>'も雅Cutéé"</value>
+  </data>
+  <data name="Command.Delete.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Deleteééé"</value>
+  </data>
+  <data name="Command.Delete.Shortcut" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="Command.Delete.Text" xml:space="preserve">
+    <value>'も雅Deleteééé"</value>
+  </data>
+  <data name="Command.DeleteColumn.MenuText" xml:space="preserve">
+    <value>'も雅Delete Colum&amp;n(s)ééééééé"</value>
+  </data>
+  <data name="Command.DeleteColumn.Text" xml:space="preserve">
+    <value>'も雅Delete Columnéééééé"</value>
+  </data>
+  <data name="Command.DeleteDraft.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Delete Draftééééé"</value>
+  </data>
+  <data name="Command.DeleteDraft.MenuText" xml:space="preserve">
+    <value>'も雅Dele&amp;te Draft...ééééééé"</value>
+  </data>
+  <data name="Command.DeleteDraft.Text" xml:space="preserve">
+    <value>'も雅Delete Local Draftéééééééé"</value>
+  </data>
+  <data name="Command.DeleteRow.MenuText" xml:space="preserve">
+    <value>'も雅Delete Ro&amp;w(s)éééééé"</value>
+  </data>
+  <data name="Command.DeleteRow.Text" xml:space="preserve">
+    <value>'も雅Delete Rowéééé"</value>
+  </data>
+  <data name="Command.DeleteTable.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Delete Table...ééééééé"</value>
+  </data>
+  <data name="Command.DeleteTable.Text" xml:space="preserve">
+    <value>'も雅Delete Tableééééé"</value>
+  </data>
+  <data name="Command.DiagnosticsConsole.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Show &amp;Diagnostics Consoleéééééééééééééé"</value>
+  </data>
+  <data name="Command.DiagnosticsConsole.Text" xml:space="preserve">
+    <value>'も雅Show &amp;Diagnostics Consoleéééééééééé"</value>
+  </data>
+  <data name="Command.EditLink.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Edit Linkéééé"</value>
+  </data>
+  <data name="Command.EditLink.Text" xml:space="preserve">
+    <value>'も雅Edit Linkéééé"</value>
+  </data>
+  <data name="Command.Find.MenuText" xml:space="preserve">
+    <value>'も雅Fi&amp;nd Text...éééééé"</value>
+  </data>
+  <data name="Command.Find.Shortcut" xml:space="preserve">
+    <value>CtrlF</value>
+  </data>
+  <data name="Command.Find.Text" xml:space="preserve">
+    <value>'も雅Findéé"</value>
+  </data>
+  <data name="Command.FixWordSpelling.MenuText" xml:space="preserve">
+    <value>'も雅(no suggestions)ééééééé"</value>
+  </data>
+  <data name="Command.FixWordSpelling.Text" xml:space="preserve">
+    <value>'も雅(no suggestions)ééééééé"</value>
+  </data>
+  <data name="Command.FocusNextPane.Shortcut" xml:space="preserve">
+    <value>F6</value>
+  </data>
+  <data name="Command.FocusNextPane.Text" xml:space="preserve">
+    <value>'も雅Next Paneéééé"</value>
+  </data>
+  <data name="Command.FocusPreviousPane.Shortcut" xml:space="preserve">
+    <value>ShiftF6</value>
+  </data>
+  <data name="Command.FocusPreviousPane.Text" xml:space="preserve">
+    <value>'も雅Previous Paneéééééé"</value>
+  </data>
+  <data name="Command.Font.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Font...éééé"</value>
+  </data>
+  <data name="Command.Font.Text" xml:space="preserve">
+    <value>'も雅Fontéé"</value>
+  </data>
+  <data name="Command.FontColor.MenuText" xml:space="preserve">
+    <value>'も雅Font &amp;Color...éééééé"</value>
+  </data>
+  <data name="Command.FontColor.Text" xml:space="preserve">
+    <value>'も雅Font Coloréééé"</value>
+  </data>
+  <data name="Command.ForceWatson.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Force &amp;Watsonééééééééé"</value>
+  </data>
+  <data name="Command.ForceWatson.Text" xml:space="preserve">
+    <value>'も雅Force Watsonééééé"</value>
+  </data>
+  <data name="Command.Glossary.MenuText" xml:space="preserve">
+    <value>'も雅Glossary Entry...ééééééé"</value>
+  </data>
+  <data name="Command.Glossary.Text" xml:space="preserve">
+    <value>'も雅Link to an entry in your glossaryéééééééééééééé"</value>
+  </data>
+  <data name="Command.Help.MenuText" xml:space="preserve">
+    <value>'も雅{0} &amp;Helpéééé"</value>
+  </data>
+  <data name="Command.Help.Shortcut" xml:space="preserve">
+    <value>F1</value>
+  </data>
+  <data name="Command.Help.Text" xml:space="preserve">
+    <value>'も雅Helpéé"</value>
+  </data>
+  <data name="Command.HtmlViewMenu.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Viewéé"</value>
+  </data>
+  <data name="Command.HtmlViewMenu.MenuText" xml:space="preserve">
+    <value>'も雅Viewéé"</value>
+  </data>
+  <data name="Command.HtmlViewMenu.Text" xml:space="preserve">
+    <value>'も雅Change View Modeééééééé"</value>
+  </data>
+  <data name="Command.IgnoreAll.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Ignore Allééééé"</value>
+  </data>
+  <data name="Command.IgnoreAll.Text" xml:space="preserve">
+    <value>'も雅Ignore all instances of this wordéééééééééééééé"</value>
+  </data>
+  <data name="Command.ImageBrightness.Text" xml:space="preserve">
+    <value>'も雅Adjust image brightnesséééééééééé"</value>
+  </data>
+  <data name="Command.ImageDecoratorApply.Text" xml:space="preserve">
+    <value>'も雅Apply Effectééééé"</value>
+  </data>
+  <data name="Command.ImageProperties.MenuText" xml:space="preserve">
+    <value>'も雅Show P&amp;ropertiesééééééé"</value>
+  </data>
+  <data name="Command.ImageProperties.Text" xml:space="preserve">
+    <value>'も雅Propertieséééé"</value>
+  </data>
+  <data name="Command.ImageReset.Text" xml:space="preserve">
+    <value>'も雅Reset imageééééé"</value>
+  </data>
+  <data name="Command.ImageRotate.Text" xml:space="preserve">
+    <value>'も雅Rotateééé"</value>
+  </data>
+  <data name="Command.ImageSaveDefaults.Text" xml:space="preserve">
+    <value>'も雅Save image settings as defaultsééééééééééééé"</value>
+  </data>
+  <data name="Command.InsertBlogThisLink.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Insert Linkééééé"</value>
+  </data>
+  <data name="Command.InsertBlogThisLink.Text" xml:space="preserve">
+    <value>'も雅Insert Link to Iteméééééééé"</value>
+  </data>
+  <data name="Command.InsertColumnLeft.MenuText" xml:space="preserve">
+    <value>'も雅Insert Column &amp;Leftéééééééé"</value>
+  </data>
+  <data name="Command.InsertColumnLeft.Text" xml:space="preserve">
+    <value>'も雅Insert Column Leftéééééééé"</value>
+  </data>
+  <data name="Command.InsertColumnRight.MenuText" xml:space="preserve">
+    <value>'も雅Insert Column Ri&amp;ghtéééééééé"</value>
+  </data>
+  <data name="Command.InsertColumnRight.Text" xml:space="preserve">
+    <value>'も雅Insert Column Rightéééééééé"</value>
+  </data>
+  <data name="Command.InsertExtendedEntry.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Split Postééééé"</value>
+  </data>
+  <data name="Command.InsertExtendedEntry.Text" xml:space="preserve">
+    <value>'も雅Split Postéééé"</value>
+  </data>
+  <data name="Command.InsertFile.MenuText" xml:space="preserve">
+    <value>'も雅&amp;File...éééé"</value>
+  </data>
+  <data name="Command.InsertFile.Shortcut" xml:space="preserve">
+    <value>CtrlM</value>
+  </data>
+  <data name="Command.InsertFile.Text" xml:space="preserve">
+    <value>'も雅Insert Fileééééé"</value>
+  </data>
+  <data name="Command.InsertLink.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Hyperlink...éééééé"</value>
+  </data>
+  <data name="Command.InsertLink.Shortcut" xml:space="preserve">
+    <value>CtrlK</value>
+  </data>
+  <data name="Command.InsertLink.Text" xml:space="preserve">
+    <value>'も雅Insert Hyperlinkééééééé"</value>
+  </data>
+  <data name="Command.InsertMenu.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Insertééé"</value>
+  </data>
+  <data name="Command.InsertMenu.Text" xml:space="preserve">
+    <value>'も雅Insertééé"</value>
+  </data>
+  <data name="Command.InsertPicture.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Picture...ééééé"</value>
+  </data>
+  <data name="Command.InsertPicture.Shortcut" xml:space="preserve">
+    <value>CtrlL</value>
+  </data>
+  <data name="Command.InsertPicture.Text" xml:space="preserve">
+    <value>'も雅Insert Pictureéééééé"</value>
+  </data>
+  <data name="Command.InsertPictureUrl.MenuText" xml:space="preserve">
+    <value>'も雅Picture From &amp;Web...éééééééé"</value>
+  </data>
+  <data name="Command.InsertPictureUrl.Text" xml:space="preserve">
+    <value>'も雅Insert Picture From Webéééééééééé"</value>
+  </data>
+  <data name="Command.InsertRowAbove.MenuText" xml:space="preserve">
+    <value>'も雅Insert Row &amp;Aboveééééééé"</value>
+  </data>
+  <data name="Command.InsertRowAbove.Text" xml:space="preserve">
+    <value>'も雅Insert Row Aboveééééééé"</value>
+  </data>
+  <data name="Command.InsertRowBelow.MenuText" xml:space="preserve">
+    <value>'も雅Insert Row &amp;Belowééééééé"</value>
+  </data>
+  <data name="Command.InsertRowBelow.Text" xml:space="preserve">
+    <value>'も雅Insert Row Belowééééééé"</value>
+  </data>
+  <data name="Command.InsertTable.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Insert Table...ééééééé"</value>
+  </data>
+  <data name="Command.InsertTable.Text" xml:space="preserve">
+    <value>'も雅Insert Tableééééé"</value>
+  </data>
+  <data name="Command.InsertTable2.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Table...éééé"</value>
+  </data>
+  <data name="Command.InsertTable2.Text" xml:space="preserve">
+    <value>'も雅Insert Tableééééé"</value>
+  </data>
+  <data name="Command.Italic.Shortcut" xml:space="preserve">
+    <value>CtrlI</value>
+  </data>
+  <data name="Command.Italic.Text" xml:space="preserve">
+    <value>'も雅Italicééé"</value>
+  </data>
+  <data name="Command.Justify.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Justifyéééé"</value>
+  </data>
+  <data name="Command.Justify.Text" xml:space="preserve">
+    <value>'も雅Justifiedéééé"</value>
+  </data>
+  <data name="Command.MapAddPushpin.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Add Pushpin...éééééé"</value>
+  </data>
+  <data name="Command.MapCenterMap.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Center Map Hereééééééé"</value>
+  </data>
+  <data name="Command.MapDeletePushpin.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Delete Pushpinéééééé"</value>
+  </data>
+  <data name="Command.MapEditPushpin.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Edit Pushpin...ééééééé"</value>
+  </data>
+  <data name="Command.MapZoomCityLevel.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Zoom to City Leveléééééééé"</value>
+  </data>
+  <data name="Command.MapZoomRegionLevel.MenuText" xml:space="preserve">
+    <value>'も雅Zoom to &amp;Region Levelééééééééé"</value>
+  </data>
+  <data name="Command.MapZoomStreetLevel.MenuText" xml:space="preserve">
+    <value>'も雅Zoom to &amp;Street Levelééééééééé"</value>
+  </data>
+  <data name="Command.Menu.Text" xml:space="preserve">
+    <value>'も雅Show menuéééé"</value>
+  </data>
+  <data name="Command.MoveColumnLeft.MenuText" xml:space="preserve">
+    <value>'も雅Move Column Le&amp;ftééééééé"</value>
+  </data>
+  <data name="Command.MoveColumnLeft.Text" xml:space="preserve">
+    <value>'も雅Move Column Leftééééééé"</value>
+  </data>
+  <data name="Command.MoveColumnRight.MenuText" xml:space="preserve">
+    <value>'も雅Move Column Rig&amp;htéééééééé"</value>
+  </data>
+  <data name="Command.MoveColumnRight.Text" xml:space="preserve">
+    <value>'も雅Move Column Rightééééééé"</value>
+  </data>
+  <data name="Command.MoveRowDown.MenuText" xml:space="preserve">
+    <value>'も雅Mo&amp;ve Row Downéééééé"</value>
+  </data>
+  <data name="Command.MoveRowDown.Text" xml:space="preserve">
+    <value>'も雅Move Row Downéééééé"</value>
+  </data>
+  <data name="Command.MoveRowUp.MenuText" xml:space="preserve">
+    <value>'も雅Move Row &amp;Upééééé"</value>
+  </data>
+  <data name="Command.MoveRowUp.Text" xml:space="preserve">
+    <value>'も雅Move Row Upééééé"</value>
+  </data>
+  <data name="Command.NewPage.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Newéé"</value>
+  </data>
+  <data name="Command.NewPage.MenuText" xml:space="preserve">
+    <value>'も雅Ne&amp;w Pageéééé"</value>
+  </data>
+  <data name="Command.NewPage.Shortcut" xml:space="preserve">
+    <value>CtrlG</value>
+  </data>
+  <data name="Command.NewPage.Text" xml:space="preserve">
+    <value>'も雅New Pageéééé"</value>
+  </data>
+  <data name="Command.NewPost.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Newéé"</value>
+  </data>
+  <data name="Command.NewPost.MenuText" xml:space="preserve">
+    <value>'も雅&amp;New Postéééé"</value>
+  </data>
+  <data name="Command.NewPost.Shortcut" xml:space="preserve">
+    <value>CtrlN</value>
+  </data>
+  <data name="Command.NewPost.Text" xml:space="preserve">
+    <value>'も雅Newéé"</value>
+  </data>
+  <data name="Command.Numbers.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Numberingéééé"</value>
+  </data>
+  <data name="Command.Numbers.Text" xml:space="preserve">
+    <value>'も雅Numberingéééé"</value>
+  </data>
+  <data name="Command.Open.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Open...éééé"</value>
+  </data>
+  <data name="Command.Open.Text" xml:space="preserve">
+    <value>'も雅Openéé"</value>
+  </data>
+  <data name="Command.OpenLink.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Open Linkéééé"</value>
+  </data>
+  <data name="Command.OpenLink.Text" xml:space="preserve">
+    <value>'も雅Open Linkéééé"</value>
+  </data>
+  <data name="Command.OpenPost.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Openéé"</value>
+  </data>
+  <data name="Command.OpenPost.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Open...éééé"</value>
+  </data>
+  <data name="Command.OpenPost.Shortcut" xml:space="preserve">
+    <value>CtrlO</value>
+  </data>
+  <data name="Command.OpenPost.Text" xml:space="preserve">
+    <value>'も雅Openéé"</value>
+  </data>
+  <data name="Command.OpenSpellingForm.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Open Spelling Dialogééééééééé"</value>
+  </data>
+  <data name="Command.OpenSpellingForm.Text" xml:space="preserve">
+    <value>'も雅Open the spelling dialogéééééééééé"</value>
+  </data>
+  <data name="Command.Options.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Options...ééééé"</value>
+  </data>
+  <data name="Command.Paste.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Pasteééé"</value>
+  </data>
+  <data name="Command.Paste.Shortcut" xml:space="preserve">
+    <value>CtrlV</value>
+  </data>
+  <data name="Command.Paste.Text" xml:space="preserve">
+    <value>'も雅Pasteéé"</value>
+  </data>
+  <data name="Command.PasteSpecial.MenuText" xml:space="preserve">
+    <value>'も雅Paste &amp;Special...ééééééé"</value>
+  </data>
+  <data name="Command.PasteSpecial.Shortcut" xml:space="preserve">
+    <value>CtrlShiftV</value>
+  </data>
+  <data name="Command.PasteSpecial.Text" xml:space="preserve">
+    <value>'も雅Paste Special...ééééééé"</value>
+  </data>
+  <data name="Command.PostAndPublish.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Publishééé"</value>
+  </data>
+  <data name="Command.PostAndPublish.MenuText" xml:space="preserve">
+    <value>'も雅P&amp;ublish to Weblogéééééééé"</value>
+  </data>
+  <data name="Command.PostAndPublish.Shortcut" xml:space="preserve">
+    <value>CtrlShiftP</value>
+  </data>
+  <data name="Command.PostAndPublish.Text" xml:space="preserve">
+    <value>'も雅Publish to Weblogééééééé"</value>
+  </data>
+  <data name="Command.PostAsDraft.MenuText" xml:space="preserve">
+    <value>'も雅Post &amp;Draft to Weblogééééééééé"</value>
+  </data>
+  <data name="Command.PostAsDraft.Text" xml:space="preserve">
+    <value>'も雅Post Draft to Weblogéééééééé"</value>
+  </data>
+  <data name="Command.PostAsDraftAndEditOnline.MenuText" xml:space="preserve">
+    <value>'も雅Post Draft and &amp;Edit Onlineééééééééééé"</value>
+  </data>
+  <data name="Command.PostAsDraftAndEditOnline.Text" xml:space="preserve">
+    <value>'も雅Post Draft and Edit Onlineééééééééééé"</value>
+  </data>
+  <data name="Command.PostProperties.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Propertiesééééé"</value>
+  </data>
+  <data name="Command.PostProperties.Shortcut" xml:space="preserve">
+    <value>F2</value>
+  </data>
+  <data name="Command.PostProperties.Text" xml:space="preserve">
+    <value>'も雅Propertieséééé"</value>
+  </data>
+  <data name="Command.Print.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Printééé"</value>
+  </data>
+  <data name="Command.Print.Shortcut" xml:space="preserve">
+    <value>CtrlP</value>
+  </data>
+  <data name="Command.Print.Text" xml:space="preserve">
+    <value>'も雅Printéé"</value>
+  </data>
+  <data name="Command.PrintPreview.MenuText" xml:space="preserve">
+    <value>'も雅Print Pre&amp;viewéééééé"</value>
+  </data>
+  <data name="Command.PrintPreview.Text" xml:space="preserve">
+    <value>'も雅Print Previewéééééé"</value>
+  </data>
+  <data name="Command.RecentPost.MenuText" xml:space="preserve">
+    <value>'も雅Previous Post...ééééééé"</value>
+  </data>
+  <data name="Command.RecentPost.Text" xml:space="preserve">
+    <value>'も雅Link to a previous blog postéééééééééééé"</value>
+  </data>
+  <data name="Command.Redo.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Redoéé"</value>
+  </data>
+  <data name="Command.Redo.Shortcut" xml:space="preserve">
+    <value>CtrlY</value>
+  </data>
+  <data name="Command.Redo.Text" xml:space="preserve">
+    <value>'も雅Redoéé"</value>
+  </data>
+  <data name="Command.RemoveDecorator.Text" xml:space="preserve">
+    <value>'も雅Remove Effectéééééé"</value>
+  </data>
+  <data name="Command.RemoveLink.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Remove Linkééééé"</value>
+  </data>
+  <data name="Command.RemoveLink.Shortcut" xml:space="preserve">
+    <value>CtrlR</value>
+  </data>
+  <data name="Command.RemoveLink.Text" xml:space="preserve">
+    <value>'も雅Remove Linkééééé"</value>
+  </data>
+  <data name="Command.RowProperties.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Row Properties...éééééééé"</value>
+  </data>
+  <data name="Command.RowProperties.Text" xml:space="preserve">
+    <value>'も雅Row Propertieséééééé"</value>
+  </data>
+  <data name="Command.SavePost.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Save Draftéééé"</value>
+  </data>
+  <data name="Command.SavePost.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Save Local Draftééééééé"</value>
+  </data>
+  <data name="Command.SavePost.Shortcut" xml:space="preserve">
+    <value>CtrlS</value>
+  </data>
+  <data name="Command.SavePost.Text" xml:space="preserve">
+    <value>'も雅Save Local Draftééééééé"</value>
+  </data>
+  <data name="Command.SelectAll.MenuText" xml:space="preserve">
+    <value>'も雅S&amp;elect Allééééé"</value>
+  </data>
+  <data name="Command.SelectAll.Shortcut" xml:space="preserve">
+    <value>CtrlA</value>
+  </data>
+  <data name="Command.SelectAll.Text" xml:space="preserve">
+    <value>'も雅Select Alléééé"</value>
+  </data>
+  <data name="Command.SendFeedback.MenuText" xml:space="preserve">
+    <value>'も雅Send &amp;Feedbackéééééé"</value>
+  </data>
+  <data name="Command.SendFeedback.Text" xml:space="preserve">
+    <value>'も雅Send Feedbackéééééé"</value>
+  </data>
+  <data name="Command.ShowAtomImageEndpointSelector.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Show Atom image endpoint selectorééééééééééééééééé"</value>
+  </data>
+  <data name="Command.ShowBetaExpiredDialogs.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Show Beta Expired Dialogséééééééééééééé"</value>
+  </data>
+  <data name="Command.ShowBetaExpiredDialogs.Text" xml:space="preserve">
+    <value>'も雅Show Beta Expired Dialogséééééééééé"</value>
+  </data>
+  <data name="Command.ShowDisplayMessageTestForm.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Show Display &amp;Messageséééééééééééé"</value>
+  </data>
+  <data name="Command.ShowDisplayMessageTestForm.Text" xml:space="preserve">
+    <value>'も雅Show Display Messagesééééééééé"</value>
+  </data>
+  <data name="Command.ShowDotNetVersionWarningForm.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Show .NET Version Warningéééééééééééééé"</value>
+  </data>
+  <data name="Command.ShowDotNetVersionWarningForm.Text" xml:space="preserve">
+    <value>'も雅Show .NET Version Warningéééééééééé"</value>
+  </data>
+  <data name="Command.ShowErrorDialog.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Show Error &amp;Dialogééééééééééé"</value>
+  </data>
+  <data name="Command.ShowErrorDialog.Text" xml:space="preserve">
+    <value>'も雅Show Error Dialogééééééé"</value>
+  </data>
+  <data name="Command.ShowMenu.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Menu Baréééé"</value>
+  </data>
+  <data name="Command.ShowMenu.Text" xml:space="preserve">
+    <value>'も雅Show the menu barééééééé"</value>
+  </data>
+  <data name="Command.ShowSupportingFilesForm.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Show &amp;Supporting Fileséééééééééééé"</value>
+  </data>
+  <data name="Command.ShowSupportingFilesForm.Text" xml:space="preserve">
+    <value>'も雅Show Supporting Filesééééééééé"</value>
+  </data>
+  <data name="Command.ShowUpdateMessage.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Show &amp;Updates Available Messageéééééééééééééééé"</value>
+  </data>
+  <data name="Command.ShowUpdateMessage.Text" xml:space="preserve">
+    <value>'も雅Show Updates Available Messageéééééééééééé"</value>
+  </data>
+  <data name="Command.Strikethrough.Shortcut" xml:space="preserve">
+    <value>CtrlH</value>
+  </data>
+  <data name="Command.Strikethrough.Text" xml:space="preserve">
+    <value>'も雅Strikethroughéééééé"</value>
+  </data>
+  <data name="Command.Style.Text" xml:space="preserve">
+    <value>'も雅Styleéé"</value>
+  </data>
+  <data name="Command.Support.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Supportéééé"</value>
+  </data>
+  <data name="Command.Support.Text" xml:space="preserve">
+    <value>'も雅Supportééé"</value>
+  </data>
+  <data name="Command.TableMenu.MenuText" xml:space="preserve">
+    <value>'も雅Tableéé"</value>
+  </data>
+  <data name="Command.TableMenu.Text" xml:space="preserve">
+    <value>'も雅Tableéé"</value>
+  </data>
+  <data name="Command.TableProperties.MenuText" xml:space="preserve">
+    <value>'も雅Table Properti&amp;es...éééééééé"</value>
+  </data>
+  <data name="Command.TableProperties.Text" xml:space="preserve">
+    <value>'も雅Table Propertiesééééééé"</value>
+  </data>
+  <data name="Command.TermsOfUse.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Terms of Useéééééé"</value>
+  </data>
+  <data name="Command.TermsOfUse.Text" xml:space="preserve">
+    <value>'も雅Terms of Useééééé"</value>
+  </data>
+  <data name="Command.ToolsMenu.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Toolséé"</value>
+  </data>
+  <data name="Command.ToolsMenu.Text" xml:space="preserve">
+    <value>'も雅Toolséé"</value>
+  </data>
+  <data name="Command.Underline.Shortcut" xml:space="preserve">
+    <value>CtrlU</value>
+  </data>
+  <data name="Command.Underline.Text" xml:space="preserve">
+    <value>'も雅Underlineéééé"</value>
+  </data>
+  <data name="Command.Undo.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Undoéé"</value>
+  </data>
+  <data name="Command.Undo.Shortcut" xml:space="preserve">
+    <value>CtrlZ</value>
+  </data>
+  <data name="Command.Undo.Text" xml:space="preserve">
+    <value>'も雅Undoéé"</value>
+  </data>
+  <data name="Command.UpdateWeblogStyle.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Update Weblog Styleéééééééé"</value>
+  </data>
+  <data name="Command.UseTemplateForEditting.MenuText" xml:space="preserve">
+    <value>'も雅Author in Weblog &amp;Styleéééééééééé"</value>
+  </data>
+  <data name="Command.ValidateHtml.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Validate HTMLééééééééé"</value>
+  </data>
+  <data name="Command.ValidateLocalizedResources.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Validate Localized Resourcesééééééééééééééé"</value>
+  </data>
+  <data name="Command.ValidateXhtml.MenuText" xml:space="preserve">
+    <value>'も雅[Debug] Validate XHTMLééééééééé"</value>
+  </data>
+  <data name="Command.ValidateXhtml.Shortcut" xml:space="preserve">
+    <value>CtrlShiftF7</value>
+  </data>
+  <data name="Command.ViewCode.MenuText" xml:space="preserve">
+    <value>'も雅&amp;HTML Codeéééé"</value>
+  </data>
+  <data name="Command.ViewCode.Shortcut" xml:space="preserve">
+    <value>ShiftF11</value>
+  </data>
+  <data name="Command.ViewCode.Text" xml:space="preserve">
+    <value>'も雅HTML Code Viewéééééé"</value>
+  </data>
+  <data name="Command.ViewNormal.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Normalééé"</value>
+  </data>
+  <data name="Command.ViewNormal.Shortcut" xml:space="preserve">
+    <value>CtrlF11</value>
+  </data>
+  <data name="Command.ViewNormal.Text" xml:space="preserve">
+    <value>'も雅Normal Viewééééé"</value>
+  </data>
+  <data name="Command.ViewPostAfterPublish.MenuText" xml:space="preserve">
+    <value>'も雅&amp;View Post after Publishingééééééééééé"</value>
+  </data>
+  <data name="Command.ViewPostAfterPublish.Text" xml:space="preserve">
+    <value>'も雅View Post after Publishingééééééééééé"</value>
+  </data>
+  <data name="Command.ViewPreview.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Web Previewééééé"</value>
+  </data>
+  <data name="Command.ViewPreview.Shortcut" xml:space="preserve">
+    <value>F12</value>
+  </data>
+  <data name="Command.ViewPreview.Text" xml:space="preserve">
+    <value>'も雅Web Previewééééé"</value>
+  </data>
+  <data name="Command.ViewPrivacyStatement.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Privacy Statementéééééééé"</value>
+  </data>
+  <data name="Command.ViewPrivacyStatement.Text" xml:space="preserve">
+    <value>'も雅View Privacy Statementééééééééé"</value>
+  </data>
+  <data name="Command.ViewSidebar.MenuText" xml:space="preserve">
+    <value>'も雅Side&amp;baréééé"</value>
+  </data>
+  <data name="Command.ViewSidebar.Shortcut" xml:space="preserve">
+    <value>F9</value>
+  </data>
+  <data name="Command.ViewSidebar.Text" xml:space="preserve">
+    <value>'も雅Normal Viewééééé"</value>
+  </data>
+  <data name="Command.ViewWebLayout.MenuText" xml:space="preserve">
+    <value>'も雅Web &amp;Layoutééééé"</value>
+  </data>
+  <data name="Command.ViewWebLayout.Shortcut" xml:space="preserve">
+    <value>F11</value>
+  </data>
+  <data name="Command.ViewWebLayout.Text" xml:space="preserve">
+    <value>'も雅Web Layoutéééé"</value>
+  </data>
+  <data name="Command.ViewWeblog.MenuText" xml:space="preserve">
+    <value>'も雅&amp;View Weblogééééé"</value>
+  </data>
+  <data name="Command.ViewWeblog.Text" xml:space="preserve">
+    <value>'も雅View Weblogééééé"</value>
+  </data>
+  <data name="Command.ViewWeblogAdmin.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Manage Weblogéééééé"</value>
+  </data>
+  <data name="Command.ViewWeblogAdmin.Text" xml:space="preserve">
+    <value>'も雅Manage Weblogéééééé"</value>
+  </data>
+  <data name="Command.WeblogMenu.CommandBarButtonText" xml:space="preserve">
+    <value>'も雅Weblogééé"</value>
+  </data>
+  <data name="Command.WeblogMenu.Text" xml:space="preserve">
+    <value>'も雅Weblogééé"</value>
+  </data>
+  <data name="Command.WeblogPicker.Text" xml:space="preserve">
+    <value>'も雅Weblogééé"</value>
+  </data>
+  <data name="Command.WriterBlog.MenuText" xml:space="preserve">
+    <value>'も雅Writer Team &amp;Blogééééééé"</value>
+  </data>
+  <data name="Command.WriterBlog.Text" xml:space="preserve">
+    <value>'も雅Writer Team Blogééééééé"</value>
+  </data>
+  <data name="Command.WriterDevelopers.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Developersééééé"</value>
+  </data>
+  <data name="Command.WriterDevelopers.Text" xml:space="preserve">
+    <value>'も雅Developerséééé"</value>
+  </data>
+  <data name="Command.WriterForums.MenuText" xml:space="preserve">
+    <value>'も雅&amp;Community Forumsééééééé"</value>
+  </data>
+  <data name="Command.WriterForums.Text" xml:space="preserve">
+    <value>'も雅Community Forumsééééééé"</value>
+  </data>
+  <data name="DisplayMessage.AutoSaveValueInvalid.Text" xml:space="preserve">
+    <value>'も雅Please enter a valid number of minutes.éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.AutoSaveValueInvalid.Title" xml:space="preserve">
+    <value>'も雅Invalid valueéééééé"</value>
+  </data>
+  <data name="DisplayMessage.BloggerError.Text" xml:space="preserve">
+    <value>'も雅Blogger returned the following error:
+
+{0}éééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.CannotInsert.Text" xml:space="preserve">
+    <value>'も雅Cannot insert {0} at the current editing location.éééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.CannotInsert.Title" xml:space="preserve">
+    <value>'も雅Unable to Insertééééééé"</value>
+  </data>
+  <data name="DisplayMessage.CategoryReminder.Text" xml:space="preserve">
+    <value>'も雅You have not specified categories for this post.
+
+Do you still want to continue with publishing?éééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.CategoryReminder.Title" xml:space="preserve">
+    <value>'も雅Category Reminderééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteDraft.Text" xml:space="preserve">
+    <value>'も雅Are you sure you want to delete the draft {0} "{1}"?ééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteDraft.Title" xml:space="preserve">
+    <value>'も雅Confirm Deleteéééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteEntry.Text" xml:space="preserve">
+    <value>'も雅Are you sure that you want to delete the selected glossary entry?éééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteEntry.Title" xml:space="preserve">
+    <value>'も雅Confirm Deleteéééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeletePost.Text" xml:space="preserve">
+    <value>'も雅The {0} will be deleted both from your weblog and from the local machine.
+
+Are you sure you want to delete the {0} "{1}"?éééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeletePost.Title" xml:space="preserve">
+    <value>'も雅Confirm Deleteéééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteTable.Text" xml:space="preserve">
+    <value>'も雅Are you sure you want to delete the table?ééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteTable.Title" xml:space="preserve">
+    <value>'も雅Confirm Deleteéééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmOverwrite.Text" xml:space="preserve">
+    <value>'も雅According to the server, this post has been modified since you started editing it.
+
+Do you want to overwrite those changes with your own?éééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmOverwrite.Title" xml:space="preserve">
+    <value>'も雅Confirm Overwriteééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmRemoveWeblog.Text" xml:space="preserve">
+    <value>'も雅Are you sure that you want to delete the selected weblog?ééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmRemoveWeblog.Title" xml:space="preserve">
+    <value>'も雅Confirm Deleteéééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmReplaceEntry.Text" xml:space="preserve">
+    <value>'も雅Are you sure you want to replace the current entry for that text?éééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConfirmReplaceEntry.Title" xml:space="preserve">
+    <value>'も雅Confirm Replaceéééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConnectionTimeout.Text" xml:space="preserve">
+    <value>'も雅Unable to establish a connection with the FTP server.éééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ConnectionTimeout.Title" xml:space="preserve">
+    <value>'も雅Connection Timed Outéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.EntryFound.Text" xml:space="preserve">
+    <value>'も雅Found a matching entry with link text "{0}" and URL {1}.
+
+Do you want to use this link information?ééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.EntryFound.Title" xml:space="preserve">
+    <value>'も雅Entry Foundééééé"</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnecting.Text" xml:space="preserve">
+    <value>'も雅An error occurred while attempting to connect to the remote server.ééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnecting.Title" xml:space="preserve">
+    <value>'も雅Error Connectingééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnectingPromptContinue.Text" xml:space="preserve">
+    <value>'も雅The remote server could not be contacted to verify the settings. Do you want to continue anyway?ééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnectingPromptContinue.Title" xml:space="preserve">
+    <value>'も雅Error Connectingééééééé"</value>
+  </data>
+  <data name="DisplayMessage.FinishedSearchingDocument.Text" xml:space="preserve">
+    <value>'も雅Finished searching the document.ééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.FinishedSearchingDocument.Title" xml:space="preserve">
+    <value>'も雅Findéé"</value>
+  </data>
+  <data name="DisplayMessage.FtpServerUnavailable.Text" xml:space="preserve">
+    <value>'も雅The specified hostname does not appear to be running an FTP server.ééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.FtpServerUnavailable.Title" xml:space="preserve">
+    <value>'も雅FTP Server Unavailableééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.FtpSettingsRequired.Text" xml:space="preserve">
+    <value>'も雅If you choose to upload images to an FTP server you must specify the settings for the destination server.éééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.FtpSettingsRequired.Title" xml:space="preserve">
+    <value>'も雅FTP Settings Requiredééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.GoogleAuthTokenNotFound.Text" xml:space="preserve">
+    <value>'も雅The server did not respond with the expected authorization token.éééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlInvalid.Text" xml:space="preserve">
+    <value>'も雅Please enter a valid URL for your weblog's homepage to continue.éééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlInvalid.Title" xml:space="preserve">
+    <value>'も雅Homepage URL Invalidéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlRequired.Text" xml:space="preserve">
+    <value>'も雅Please enter your weblog's homepage URL to continue.ééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlRequired.Title" xml:space="preserve">
+    <value>'も雅Homepage URL Requiredééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.HostNameRequired.Text" xml:space="preserve">
+    <value>'も雅Please enter a hostname to continue.ééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.HostNameRequired.Title" xml:space="preserve">
+    <value>'も雅Hostname Requiredééééééé"</value>
+  </data>
+  <data name="DisplayMessage.IncompatiblePostInfoType.Text" xml:space="preserve">
+    <value>'も雅An internal error occurred (incompatible blog post info type). Unable to open the selected post.ééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.IncompatiblePostInfoType.Title" xml:space="preserve">
+    <value>'も雅Internal Erroréééééé"</value>
+  </data>
+  <data name="DisplayMessage.InternetConnectionWarning.Text" xml:space="preserve">
+    <value>'も雅Unable to display content because there is no Internet connection available.ééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.InternetConnectionWarning.Title" xml:space="preserve">
+    <value>'も雅No Internet Connection Availableééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.InvalidHostname.Text" xml:space="preserve">
+    <value>'も雅The specified hostname does not exist.éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.InvalidHostname.Title" xml:space="preserve">
+    <value>'も雅Hostname Not Foundéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.InvalidPingUrl.Text" xml:space="preserve">
+    <value>'も雅The ping URL you entered is not a valid URL.éééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.InvalidWebImage.Text" xml:space="preserve">
+    <value>'も雅Please enter a correctly formatted URL.éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.InvalidWebImage.Title" xml:space="preserve">
+    <value>'も雅Invalid Web Imageééééééé"</value>
+  </data>
+  <data name="DisplayMessage.LocalDeleteConfirmation.Text" xml:space="preserve">
+    <value>'も雅An error occurred while attempting to delete the {0} on your weblog.
+
+ Do you still wish to delete the local copy of the {0}?ééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.LocalDeleteConfirmation.Title" xml:space="preserve">
+    <value>'も雅Delete Local Copy?éééééééé"</value>
+  </data>
+  <data name="DisplayMessage.LoginFailed.Text" xml:space="preserve">
+    <value>'も雅{0} was not able to log in to the remote server using the username and password.
+
+Please check that the information is correct and try again.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.LoginFailed.Title" xml:space="preserve">
+    <value>'も雅Login Failedééééé"</value>
+  </data>
+  <data name="DisplayMessage.MappingVerificationFailed.Text" xml:space="preserve">
+    <value>'も雅The URL mapping could not be verified. Do you want to continue anyway?éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.MappingVerificationFailed.Title" xml:space="preserve">
+    <value>'も雅Mapping Verification Failedééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.MapsNoInternetConnection.Text" xml:space="preserve">
+    <value>'も雅You must be connected to the Internet to insert and edit maps.ééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.MapsNoInternetConnection.Title" xml:space="preserve">
+    <value>'も雅Internet Connection Requiredéééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.MultipleCategoriesNotSupported.Text" xml:space="preserve">
+    <value>'も雅The blog server is not configured to accept multiple post categories.éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.MultipleCategoriesNotSupported.Title" xml:space="preserve">
+    <value>'も雅A Publishing Error Occurredééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.MultipleLinks.Text" xml:space="preserve">
+    <value>'も雅The selection contains multiple links, please select one to edit.éééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.MultipleLinks.Title" xml:space="preserve">
+    <value>'も雅Multiple Linkséééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoImageSelected.Text" xml:space="preserve">
+    <value>'も雅Please select a picture.éééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoImageSelected.Title" xml:space="preserve">
+    <value>'も雅No Picture Selectedéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoLinkTextSpecified.Text" xml:space="preserve">
+    <value>'も雅You must specify the text for the hyperlink.éééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoLinkTextSpecified.Title" xml:space="preserve">
+    <value>'も雅No Link Text Specifiedééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoMapAddressSpecified.Text" xml:space="preserve">
+    <value>'も雅You must specify an address.éééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoMapAddressSpecified.Title" xml:space="preserve">
+    <value>'も雅Invalid Address Specifiedéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NonImageTypeFileSelected.Text" xml:space="preserve">
+    <value>'も雅The file {0} is not an image. Only image file types can be inserted.éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NonImageTypeFileSelected.Title" xml:space="preserve">
+    <value>'も雅File Is Not An Imageéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoPostSelected.Text" xml:space="preserve">
+    <value>'も雅You must select a post to open before proceeding.éééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoPostSelected.Title" xml:space="preserve">
+    <value>'も雅No Post Selectedééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoPreviewAvailable.Text" xml:space="preserve">
+    <value>'も雅Preview is currently unavailable. Please check the entered URL and your network connection.ééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoPreviewAvailable.Title" xml:space="preserve">
+    <value>'も雅Preview Unavailableéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoSoapboxVideoSelected.Text" xml:space="preserve">
+    <value>'も雅Please select a Soapbox video to insert.éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoSoapboxVideoSelected.Title" xml:space="preserve">
+    <value>'も雅No Video Selectedééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoSuchImageFile.Text" xml:space="preserve">
+    <value>'も雅{0} is not a valid URL.éééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoSuchPublishFolder.Text" xml:space="preserve">
+    <value>'も雅The specified publish folder does not exist:
+
+{0}ééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoSuchPublishFolder.Title" xml:space="preserve">
+    <value>'も雅Publish Folder Does Not Existéééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoTitleSpecified.Text" xml:space="preserve">
+    <value>'も雅You must provide a title for the post before publishing it
+(post titles are required by the current weblog).éééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoTitleSpecified.Title" xml:space="preserve">
+    <value>'も雅No Title Specifiedéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NotLinkable.Text" xml:space="preserve">
+    <value>'も雅Your selection cannot be hyperlinked. Please select text, or click on an image.éééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NotLinkable.Title" xml:space="preserve">
+    <value>'も雅Cannot Add Link to Selectionéééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoValidHyperlinkSpecified.Text" xml:space="preserve">
+    <value>'も雅You must specify a valid hyperlink.éééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoValidHyperlinkSpecified.Title" xml:space="preserve">
+    <value>'も雅Hyperlink Not Specifiedéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoVideoFound.Text" xml:space="preserve">
+    <value>'も雅The information entered cannot be matched to a recognized video provider. Please enter a valid URL or embed code.éééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.NoVideoFound.Title" xml:space="preserve">
+    <value>'も雅Cannot Identify Videoééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PassportLoginRequired.Text" xml:space="preserve">
+    <value>'も雅You must sign in with your Windows Live ID to see your Soapbox videos.éééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PassportLoginRequired.Title" xml:space="preserve">
+    <value>'も雅Login Requiredéééééé"</value>
+  </data>
+  <data name="DisplayMessage.PassportUsernameAndPasswordRequired.Text" xml:space="preserve">
+    <value>'も雅Please enter a username and password to continue.éééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PassportUsernameAndPasswordRequired.Title" xml:space="preserve">
+    <value>'も雅Username and Password Requiredéééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PasteSpecialInvalidData.Text" xml:space="preserve">
+    <value>'も雅Paste Special can only be used with HTML and text data.éééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PasteSpecialInvalidData.Title" xml:space="preserve">
+    <value>'も雅Invalid Data Selectionééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PicasawebSignup.Text" xml:space="preserve">
+    <value>'も雅In order to upload images to Blogger blogs, you must go to the Picasa Web Albums homepage, sign in as {0}, and agree to the Terms and Conditions.
+
+Would you like to go to the Picasa Web Albums homepage now?éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PicasawebSignup.Title" xml:space="preserve">
+    <value>'も雅Picasa Web Albumsééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PingUrlRequired.Text" xml:space="preserve">
+    <value>'も雅To enable pings, you must provide at least one valid URL.ééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PluginBitmapLoadError.Text" xml:space="preserve">
+    <value>'も雅Warning: The bitmap for plug-in {0} could not be loaded from the specified path ({1}).
+
+Note: You should ensure that your plug-in class is contained within the default namespace of the assembly.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PluginInvalidAttribute.Text" xml:space="preserve">
+    <value>'も雅Error loading plug-in {0}
+
+{1} - {2}
+
+The plug-in could not be loaded as a result of this error.éééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PluginInvalidAttribute.Title" xml:space="preserve">
+    <value>'も雅Error Loading Plug-in: Invalid Attribute Valueééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PluginStatusChanged.Text" xml:space="preserve">
+    <value>'も雅You have chosen to enable or disable plug-ins. For these changes
+to take effect you need to restart the application.ééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PluginStatusChanged.Title" xml:space="preserve">
+    <value>'も雅Plug-in Statuséééééé"</value>
+  </data>
+  <data name="DisplayMessage.PluginUnexpectedLoadError.Text" xml:space="preserve">
+    <value>'も雅Error loading plug-in {0}
+
+{1}
+
+The plug-in could not be loaded as a result of this error.éééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PluginUnexpectedLoadError.Title" xml:space="preserve">
+    <value>'も雅Error Loading Plug-inééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PostFileInvalid.Text" xml:space="preserve">
+    <value>'も雅The specified post file ({0}) is not a valid weblog post so it could not be opened.éééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PostFileInvalid.Title" xml:space="preserve">
+    <value>'も雅Post File Invalidééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PostFileNoExist.Text" xml:space="preserve">
+    <value>'も雅The specified post file ({0}) does not exist.éééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PostFileNoExist.Title" xml:space="preserve">
+    <value>'も雅Post File Does Not Existéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PublishFailed.Text" xml:space="preserve">
+    <value>'も雅A publishing error occurred: {0}ééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PublishFailed.Title" xml:space="preserve">
+    <value>'も雅Publishing Errorééééééé"</value>
+  </data>
+  <data name="DisplayMessage.PushpinValidationError.Text" xml:space="preserve">
+    <value>'も雅Unable to validate that the pushpin URL you entered points to
+a valid image file on the web. Note that the URL may still be
+correct; however, it could not be located at this time.
+
+Do you still want to set this as your custom pushpin URL?ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.QueryForCreateEditorTemplate.Text" xml:space="preserve">
+    <value>'も雅Would you like to generate an authoring template that matches the style of your blog?éééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.QueryForCreateEditorTemplate.Title" xml:space="preserve">
+    <value>'も雅Generate Authoring Templateééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpostedEntry.Text" xml:space="preserve">
+    <value>'も雅The weblog entry you are editing has not been posted.
+
+Do you want to post a draft of the entry now?ééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpostedEntry.Title" xml:space="preserve">
+    <value>'も雅Post Entry as Draftéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpublishedEntry.Text" xml:space="preserve">
+    <value>'も雅You have posted this weblog entry as a draft.
+
+Do you want to publish it now?éééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpublishedEntry.Title" xml:space="preserve">
+    <value>'も雅Publish Entryéééééé"</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnsavedChanges.Text" xml:space="preserve">
+    <value>'も雅There are unsaved changes to this post.
+
+Do you want to save the changes before proceeding?éééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnsavedChanges.Title" xml:space="preserve">
+    <value>'も雅Save Changesééééé"</value>
+  </data>
+  <data name="DisplayMessage.ReadOnlyPostFile.Text" xml:space="preserve">
+    <value>'も雅The post file "{0}" is marked read-only.
+
+You must save the post file into a writable location prior to opening it.ééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ReadOnlyPostFile.Title" xml:space="preserve">
+    <value>'も雅Unable to Open Post Fileéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.RepublishAsDraftUnsupported.Text" xml:space="preserve">
+    <value>'も雅The current weblog does not support Post as Draft for previously published posts.ééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.RepublishAsDraftUnsupported.Title" xml:space="preserve">
+    <value>'も雅Post as Draft Not Supportedééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.RequiredFieldOmitted.Text" xml:space="preserve">
+    <value>'も雅You must enter a value for the {0} field in order
+to configure weblog publishing.ééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.RequiredFieldOmitted.Title" xml:space="preserve">
+    <value>'も雅Required Field Missingééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SelectEntry.Text" xml:space="preserve">
+    <value>'も雅Please select a link from the glossary.éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SelectEntry.Title" xml:space="preserve">
+    <value>'も雅Select Linkééééé"</value>
+  </data>
+  <data name="DisplayMessage.ServerParameterNotSpecified.Text" xml:space="preserve">
+    <value>'も雅You need to customize the weblog API URL before proceeding.
+The following values were not customized:
+
+{0}
+
+Please change these values to whatever is appropriate for
+your weblog server.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ServerParameterNotSpecified.Title" xml:space="preserve">
+    <value>'も雅Weblog API URL Requires Customizationééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SoapboxLoginError.Text" xml:space="preserve">
+    <value>'も雅{0} encountered an unknown exception during log in: {1}.
+
+Please check that the information is correct and try again.éééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SoapboxLoginError.Title" xml:space="preserve">
+    <value>'も雅Login Failedééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesBlogNotFound.Text" xml:space="preserve">
+    <value>'も雅{0} could not locate a Windows Live Space for this user.
+Please set up a Windows Live Space before continuing.ééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesBlogNotFound.Title" xml:space="preserve">
+    <value>'も雅No Space Foundéééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesHomepageUrlInvalid.Text" xml:space="preserve">
+    <value>'も雅The specified URL does not appear to be valid Spaces homepage.
+Please enter a valid Spaces URL or set up a Windows Live Space before continuing.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesHomepageUrlInvalid.Title" xml:space="preserve">
+    <value>'も雅Invalid Spaces URL Foundéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesHomepageUrlInvalid2.Text" xml:space="preserve">
+    <value>'も雅You have not set-up a web address for your Windows Live Space.
+Please setup your Windows Live Space before continuing.éééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesHomepageUrlInvalid2.Title" xml:space="preserve">
+    <value>'も雅Invalid Spaces URL Foundéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesHomepageUrlInvalid3.Text" xml:space="preserve">
+    <value>'も雅Your Windows Live ID does not appear to have a valid Windows Live Spaces URLééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesHomepageUrlInvalid3.Title" xml:space="preserve">
+    <value>'も雅Invalid Spaces URL Foundéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesHomepageUrlRequired.Text" xml:space="preserve">
+    <value>'も雅Please enter your Spaces' Homepage URL to continue.ééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesHomepageUrlRequired.Title" xml:space="preserve">
+    <value>'も雅Homepage URL Requiredééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesWrongStep.Text" xml:space="preserve">
+    <value>'も雅To configure {0} to publish to Windows Live Spaces, please go back and select Spaces from the list of weblog services in the previous step.éééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpacesWrongStep.Title" xml:space="preserve">
+    <value>'も雅Homepage URL Invalidéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckCancelledStillPost.Text" xml:space="preserve">
+    <value>'も雅The spell check was not completed.
+
+Do you still want to publish this post?ééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckCancelledStillPost.Title" xml:space="preserve">
+    <value>'も雅Spell Check Cancelledééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckComplete.Text" xml:space="preserve">
+    <value>'も雅The spell check is complete.éééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmDeleteProvider.Text" xml:space="preserve">
+    <value>'も雅Are you sure you'd like to delete '{0}'?éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmDeleteProvider.Title" xml:space="preserve">
+    <value>'も雅Confirm Deleteéééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmRestoreProviders.Text" xml:space="preserve">
+    <value>'も雅Are you sure you'd like to restore the default providers?
+
+Restoring will add any missing default providers and will overwrite any changes that you've made to the existing default providers. It will not overwrite or delete any new providers that you've created.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmRestoreProviders.Title" xml:space="preserve">
+    <value>'も雅Confirm Restore Defaultéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagFormatRequired.Text" xml:space="preserve">
+    <value>'も雅Please enter a HTML template for each tag.ééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagMissingToken.Text" xml:space="preserve">
+    <value>'も雅The HTML Caption must contain the token '{0}'.ééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagProviderNameRequired.Text" xml:space="preserve">
+    <value>'も雅Please enter a name for this provider.éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagProviderNameRequired.Title" xml:space="preserve">
+    <value>'も雅Title Requiredéééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagReminder.Text" xml:space="preserve">
+    <value>'も雅You have not added tags to this post.
+
+Do you still want to continue with publishing?ééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagReminder.Title" xml:space="preserve">
+    <value>'も雅Tagging Reminderééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TagSelectProvider.Title" xml:space="preserve">
+    <value>'も雅Please select a tag provider.éééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TemplateDownloadFailed.Text" xml:space="preserve">
+    <value>'も雅The style template used for editing your weblog
+posts could not be downloaded.
+
+You will be able to post to this weblog, but the editor
+will not use your weblog's style.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TemplateDownloadFailed.Title" xml:space="preserve">
+    <value>'も雅Unable To Download Templateééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TempPostDeleteFailed.Text" xml:space="preserve">
+    <value>'も雅The temporary post made to your blog to aid in style detection could not be deleted.
+
+You will need to delete this post manually.éééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TempPostDeleteFailed.Title" xml:space="preserve">
+    <value>'も雅Unable to Delete Style Detection Postééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TempPostPermission.Text" xml:space="preserve">
+    <value>'も雅Would you like to allow Writer to detect the theme of your weblog by publishing a temporary post? The post will be removed immediately.
+
+Allowing this will let you see what your posts will look like online while you are editing.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TempPostPermission.Title" xml:space="preserve">
+    <value>'も雅Allow Writer to Create a Temporary Post?éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TitleNotLinkable.Text" xml:space="preserve">
+    <value>'も雅You cannot insert a hyperlink in the post title.éééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.TitleNotLinkable.Title" xml:space="preserve">
+    <value>'も雅Cannot Link Titleééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UnableToRetrieve.Text" xml:space="preserve">
+    <value>'も雅Unable to retrieve the {0} from the weblog service.
+
+Your weblog service could not process the request due to a network or server error.éééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UnexpectedErrorLogin.Text" xml:space="preserve">
+    <value>'も雅An unexpected error has occurred while attempting to log in:
+
+{0}ééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UnknownLoginError.Text" xml:space="preserve">
+    <value>'も雅An unexpected error occurred while trying to log in to the remote server.
+
+If you have a proxy or firewall configured, please make sure your system
+is properly configured to allow this program to connect to the remote
+server.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UnknownLoginError.Title" xml:space="preserve">
+    <value>'も雅Login Failedééééé"</value>
+  </data>
+  <data name="DisplayMessage.UnspecifiedValue.Text" xml:space="preserve">
+    <value>'も雅You must provide a value for the {0} field.éééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UnspecifiedValue.Title" xml:space="preserve">
+    <value>'も雅Required Value Not Specifiedéééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UrlMappingRequired.Text" xml:space="preserve">
+    <value>'も雅Please enter a URL mapping to continue.éééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UrlMappingRequired.Title" xml:space="preserve">
+    <value>'も雅URL Mapping Requiredéééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UsernameAndPasswordRequired.Text" xml:space="preserve">
+    <value>'も雅Please enter a username and password to continue.éééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.UsernameAndPasswordRequired.Title" xml:space="preserve">
+    <value>'も雅Username and Password Requiredéééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ValueExceedsMaximum.Text" xml:space="preserve">
+    <value>'も雅You must enter a value less than {0} for the {1} field.éééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ValueExceedsMaximum.Title" xml:space="preserve">
+    <value>'も雅Maximum Value Exceededééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ValueLessThanMinimum.Text" xml:space="preserve">
+    <value>'も雅You must enter a value of at least {0} for the {1} field.ééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.ValueLessThanMinimum.Title" xml:space="preserve">
+    <value>'も雅Value Less Than Minimuméééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.VideoAccessError.Text" xml:space="preserve">
+    <value>'も雅The selected video could not be accessed from the service
+due to heavy service usage. Please try again.éééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.VideoAccessError.Title" xml:space="preserve">
+    <value>'も雅Video Access Erroréééééééé"</value>
+  </data>
+  <data name="DisplayMessage.VideoUnexpectedDownloadError.Text" xml:space="preserve">
+    <value>'も雅Error accessing video {0}
+
+The video could not be previewed as a result of this error.éééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.VideoUnexpectedDownloadError.Title" xml:space="preserve">
+    <value>'も雅Error Taking Video Snapshotééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogAuthenticationError.Text" xml:space="preserve">
+    <value>'も雅The weblog account could not be accessed using the specified username and password.
+
+Please ensure that these values are correct before proceeding.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogAuthenticationError.Title" xml:space="preserve">
+    <value>'も雅Invalid Username or Passwordéééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogConnectionError.Text" xml:space="preserve">
+    <value>'も雅An error occurred while attempting to connect to your weblog:
+
+{0}
+
+You must correct this error before proceeding.éééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogConnectionError.Title" xml:space="preserve">
+    <value>'も雅Error Connecting to Weblogééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogDetectionUnexpectedError.Text" xml:space="preserve">
+    <value>'も雅An unexpected error occurred while attempting to detect weblog settings:
+
+{0}éééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogDetectionUnexpectedError.Title" xml:space="preserve">
+    <value>'も雅Unexpected Error Occurredéééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogNoAccountsOnServer.Text" xml:space="preserve">
+    <value>'も雅A successful connection was made to your account however the server
+reported that you do not currently have an active weblog. Please ensure
+that your account with this provider is current before proceeding.éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogNoAccountsOnServer.Title" xml:space="preserve">
+    <value>'も雅No Weblogs Found on Serverééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogUrlNotFound.Text" xml:space="preserve">
+    <value>'も雅The server has reported that the following URL could not be found:
+
+{0}
+
+Please ensure that you have specified a valid and reachable URL.ééééééééééééééééééééééééééééééééééééééééééééééééééééééééé"</value>
+  </data>
+  <data name="DisplayMessage.WeblogUrlNotFound.Title" xml:space="preserve">
+    <value>'も雅Weblog URL Not Foundéééééééé"</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Tahoma</value>
+  </data>
+  <data name="Font.Size.GiantHeading" xml:space="preserve">
+    <value>15.75</value>
+  </data>
+  <data name="Font.Size.Heading" xml:space="preserve">
+    <value>14.25</value>
+  </data>
+  <data name="Font.Size.Large" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="Font.Size.Normal" xml:space="preserve">
+    <value>8.25</value>
+  </data>
+  <data name="Font.Size.PostSplitCaption" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Font.Size.Small" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Font.Size.ToolbarFormatButton" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="Font.Size.XLarge" xml:space="preserve">
+    <value>9.75</value>
+  </data>
+  <data name="Font.Size.XXLarge" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="MainMenu.Align" xml:space="preserve">
+    <value>'も雅&amp;Alignééé"</value>
+  </data>
+  <data name="MainMenu.Edit" xml:space="preserve">
+    <value>'も雅&amp;Editéé"</value>
+  </data>
+  <data name="MainMenu.File" xml:space="preserve">
+    <value>'も雅&amp;Fileéé"</value>
+  </data>
+  <data name="MainMenu.Format" xml:space="preserve">
+    <value>'も雅F&amp;ormatééé"</value>
+  </data>
+  <data name="MainMenu.Help" xml:space="preserve">
+    <value>'も雅&amp;Helpéé"</value>
+  </data>
+  <data name="MainMenu.Insert" xml:space="preserve">
+    <value>'も雅&amp;Insertééé"</value>
+  </data>
+  <data name="MainMenu.Table" xml:space="preserve">
+    <value>'も雅T&amp;ableééé"</value>
+  </data>
+  <data name="MainMenu.Tools" xml:space="preserve">
+    <value>'も雅&amp;Toolsééé"</value>
+  </data>
+  <data name="MainMenu.View" xml:space="preserve">
+    <value>'も雅&amp;Viewéé"</value>
+  </data>
+  <data name="MainMenu.Weblog" xml:space="preserve">
+    <value>'も雅&amp;Weblogééé"</value>
+  </data>
+  <data name="Sidebar.WidthInPixels" xml:space="preserve">
+    <value>225</value>
+  </data>
+</root>

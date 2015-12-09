@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LCX SchemaVersion="6.0" Name="OpenLiveWriterShortcuts.dll.mui" PsrId="3" FileType="4" SrcCul="en-US" TgtCul="th" xmlns="http://schemas.microsoft.com/locstudio/2006/6/lcx">
+  <Props>
+    <Str Name="CustomName1" Val="Custom 1" />
+    <Str Name="CustomName2" Val="Custom 2" />
+    <Str Name="CustomName3" Val="Custom 3" />
+    <Str Name="CustomName4" Val="Custom 4" />
+    <Str Name="CustomName5" Val="Custom 5" />
+    <Str Name="CustomName6" Val="IQA" />
+  </Props>
+  <OwnedComments>
+    <Cmt Name="Dev" />
+    <Cmt Name="LcxAdmin" />
+    <Cmt Name="Note" />
+    <Cmt Name="Rccx" />
+  </OwnedComments>
+  <Settings Name="@LbaRoot@\th\writer\writer.lsconfig" Type="Config" />
+  <Item ItemId=";String Table" ItemType=";Dummy" PsrId="3" Leaf="false">
+    <Disp Icon="Str" Disp="true" LocTbl="false" />
+    <Modified By="nattapornt" DateTime="2010-04-12T03:29:35Z" />
+    <Item ItemId="1000" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[Blog like a pro, with photos, videos, maps, and more]]></Val>
+        <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="New">
+          <Val><![CDATA[จัดทำบล็อกอย่างมืออาชีพด้วยรูปถ่าย วิดีโอ แผนที่ และอื่นๆ]]></Val>
+        </Tgt>
+        <Prev Cat="Text">
+          <Val><![CDATA[Makes it easy to publish rich content to your blog.]]></Val>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Modified By="nattapornt" DateTime="2010-07-02T07:16:06Z" />
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+        <Str Name="Custom4" Val="100702_updated" />
+      </Props>
+    </Item>
+    <Item ItemId="1001" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[Open Live Writer]]></Val>
+        <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+          <Val><![CDATA[Open Live Writer]]></Val>
+        </Tgt>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Modified By="Pik" DateTime="2010-04-17T02:49:13Z" />
+      <Notes>
+        <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+      </Notes>
+      <Props>
+        <Str Name="Custom2" Val="W5M3Mod" />
+        <Str Name="Custom3" Val="pre-Wave5" />
+        <Str Name="Custom4" Val="100412_auto" />
+      </Props>
+    </Item>
+    <Item ItemId="1002" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[Open Live Writer Beta]]></Val>
+        <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+          <Val><![CDATA[Open Live Writer เบต้า]]></Val>
+        </Tgt>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Modified By="nattapornt" DateTime="2010-05-06T03:02:25Z" />
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+        <Str Name="Custom4" Val="100412_new" />
+      </Props>
+    </Item>
+    <Item ItemId="1003" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[&Blog This in Open Live Writer]]></Val>
+        <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+          <Val><![CDATA[&จัดทำบล็อกใน Open Live Writer]]></Val>
+        </Tgt>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Modified By="Pik" DateTime="2010-04-17T03:50:43Z" />
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+        <Str Name="Custom4" Val="100412_new" />
+      </Props>
+    </Item>
+    <Item ItemId="1004" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[Blog This]]></Val>
+        <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+          <Val><![CDATA[จัดทำบล็อก]]></Val>
+        </Tgt>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Modified By="Pik" DateTime="2010-04-17T02:49:13Z" />
+      <Notes>
+        <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+      </Notes>
+      <Props>
+        <Str Name="Custom2" Val="W5M3Mod" />
+        <Str Name="Custom3" Val="pre-Wave5" />
+        <Str Name="Custom4" Val="100412_auto" />
+      </Props>
+    </Item>
+  </Item>
+  <Item ItemId=";Version" ItemType=";Dummy" PsrId="3" Leaf="false">
+    <Disp Icon="Expand" Expand="true" Disp="true" LocTbl="false" />
+    <Modified By="nattapornt" DateTime="2010-04-12T03:29:35Z" />
+    <Item ItemId="1" ItemType="16" PsrId="3" Leaf="false">
+      <Disp Icon="Ver" Disp="true" LocTbl="false" />
+      <Modified By="nattapornt" DateTime="2010-04-12T03:29:35Z" />
+      <Item ItemId=";LT__LANG" ItemType=";VSTAMP" PsrId="3" Leaf="false">
+        <Bin BinId="5">
+          <Val><![CDATA[AAAAAA==]]></Val>
+        </Bin>
+        <Disp LocTbl="false" />
+        <Modified By="nattapornt" DateTime="2010-04-12T03:29:35Z" />
+        <Item ItemId=";CompanyName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[Open Live Writer]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+              <Val><![CDATA[Open Live Writer]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="Pik" DateTime="2010-04-17T02:49:13Z" />
+          <Notes>
+            <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+          </Notes>
+          <Props>
+            <Str Name="Custom2" Val="W5M3Mod" />
+            <Str Name="Custom3" Val="pre-Wave5" />
+            <Str Name="Custom4" Val="100412_auto" />
+          </Props>
+        </Item>
+        <Item ItemId=";FileDescription" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[Open Live Writer]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+              <Val><![CDATA[Open Live Writer]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="Pik" DateTime="2010-04-17T02:49:13Z" />
+          <Notes>
+            <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+          </Notes>
+          <Props>
+            <Str Name="Custom2" Val="W5M3Mod" />
+            <Str Name="Custom3" Val="pre-Wave5" />
+            <Str Name="Custom4" Val="100412_auto" />
+          </Props>
+        </Item>
+        <Item ItemId=";FileVersion" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[16.3.1048.0120]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New">
+              <Val><![CDATA[16.3.1048.0120]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[16.3.1023.1217]]></Val>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="khwanchanit" DateTime="2012-01-23T09:41:56Z" />
+          <Notes>
+            <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;[W5M3Mod]5D;]A;[W5M3Mod]5D;]A;[W5M3Mod]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+          </Notes>
+          <Props>
+            <Str Name="Custom2" Val="W5M3Mod" />
+            <Str Name="Custom3" Val="1023.1217upd" />
+            <Str Name="Custom4" Val="20120123_Update" />
+          </Props>
+        </Item>
+        <Item ItemId=";InternalName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+              <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="Pik" DateTime="2010-04-17T03:50:43Z" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+            <Str Name="Custom4" Val="100412_new" />
+          </Props>
+        </Item>
+        <Item ItemId=";LegalCopyright" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[© Open Live Writer. All rights reserved.]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+              <Val><![CDATA[© Open Live Writer สงวนลิขสิทธิ์]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="Pik" DateTime="2010-04-17T02:49:13Z" />
+          <Notes>
+            <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+          </Notes>
+          <Props>
+            <Str Name="Custom2" Val="W5M3Mod" />
+            <Str Name="Custom3" Val="pre-Wave5" />
+            <Str Name="Custom4" Val="100412_auto" />
+          </Props>
+        </Item>
+        <Item ItemId=";OriginalFilename" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+              <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="Pik" DateTime="2010-04-17T03:50:43Z" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+            <Str Name="Custom4" Val="100412_new" />
+          </Props>
+        </Item>
+        <Item ItemId=";ProductName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[Windows Live]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+              <Val><![CDATA[Windows Live]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="Pik" DateTime="2010-04-17T02:49:13Z" />
+          <Notes>
+            <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+          </Notes>
+          <Props>
+            <Str Name="Custom2" Val="W5M3Mod" />
+            <Str Name="Custom3" Val="pre-Wave5" />
+            <Str Name="Custom4" Val="100412_auto" />
+          </Props>
+        </Item>
+        <Item ItemId=";ProductVersion" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[16.3.1048.0120]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New">
+              <Val><![CDATA[16.3.1048.0120]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[16.3.1023.1217]]></Val>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="khwanchanit" DateTime="2012-01-23T09:41:56Z" />
+          <Notes>
+            <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;[W5M3Mod]5D;]A;[W5M3Mod]5D;]A;[W5M3Mod]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+          </Notes>
+          <Props>
+            <Str Name="Custom2" Val="W5M3Mod" />
+            <Str Name="Custom3" Val="1023.1217upd" />
+            <Str Name="Custom4" Val="20120123_Update" />
+          </Props>
+        </Item>
+        <Item ItemId=";SpecialBuild" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[working.client.writer]]></Val>
+            <Tgt Cat="Version" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+              <Val><![CDATA[working.client.writer]]></Val>
+            </Tgt>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Modified By="Pik" DateTime="2010-04-17T03:50:43Z" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+            <Str Name="Custom4" Val="100412_new" />
+          </Props>
+        </Item>
+      </Item>
+    </Item>
+  </Item>
+</LCX>

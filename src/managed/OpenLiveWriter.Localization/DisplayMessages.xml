@@ -1,0 +1,696 @@
+<Messages xmlns:comment="http://OpenLiveWriter.spaces.live.com/#comment">
+  <Message   
+    Identifier="FileInUse"
+    Title="Open Live Writer"
+    Text="Another program is using {0}.&#xA;&#xA;Please close any programs using this file and try again." 
+    comment:Text="{0} - filename" />
+  <Message 
+    Identifier="NoLinkTextSpecified" 
+    Title="Open Live Writer" 
+    Text="Enter the text to display for the hyperlink." />
+  <Message 
+    Identifier="NoValidHyperlinkSpecified" 
+    Title="Open Live Writer" 
+    Text="Enter a valid hyperlink." />
+  <Message 
+    Identifier="TemplateDownloadFailed" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="The blog theme couldn't be downloaded.&#xA;&#xA;You will be able to post to this blog, but you won't be able to see the blog theme while editing posts." />
+  <Message 
+    Identifier="TempPostDeleteFailed" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="The temporary post that was created to retrieve the theme for your blog wasn't deleted.&#xA;&#xA;Please delete this temporary post from your blog." />
+  <Message 
+    Identifier="TempPostPermission" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Download Blog Theme" 
+    Text="Would you like to download the blog theme by publishing a temporary post? The post will be removed immediately after your theme is retrieved.&#xD;&#xA;&#xD;&#xA;This will let you see what your posts will look like online while you are editing."
+    comment:Text="{0} - Writer" />
+  <Message
+    Identifier="PostTitleTooLong"
+    Type="Warning"
+    Title="Open Live Writer"
+    Text="The title for the post is too long. Please make the title shorter and try publishing the post again."
+    comment:Text="Body of error message that is displayed when post title is too long." />
+  <Message 
+    Identifier="WeblogDetectionUnexpectedError" 
+    Title="Open Live Writer" 
+    Text="A problem occurred while detecting blog settings:&#xD;&#xA;&#xD;&#xA;{0}"
+    comment:Text="{0} - The details of the error" />
+  <Message 
+    Identifier="WeblogAuthenticationError" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="The user name or password is incorrect.&#xD;&#xA;&#xD;&#xA;Please try again." />
+  <Message 
+    Identifier="WeblogConnectionError" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="Can't connect to your blog service:&#xD;&#xA;&#xD;&#xA;{0}&#xD;&#xA;&#xD;&#xA;Please try fixing the problem and then try again."
+    comment:Text="{0} - The details of the error" />
+  <Message 
+    Identifier="WeblogNoAccountsOnServer" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="You signed in successfully with a blog account, but you do not have a blog with this service provider.&#xD;$#xA;Check with the blog service provider and then try again." />
+  <Message 
+    Identifier="WeblogUrlNotFound" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="The following website address could not be found:&#xD;&#xA;&#xD;&#xA;{0}&#xD;&#xA;&#xD;&#xA;Please check the URL and try again."
+    comment:Text="{0} - The URL that was not found" />
+  <Message 
+    Identifier="FinishedSearchingDocument" 
+    Title="Find" 
+    Type="Information"
+    Text="Finished searching the document." />
+  <Message 
+    Identifier="NotLinkable" 
+    Type="Information" 
+    Title="Open Live Writer" 
+    Text="Can't insert a hyperlink for this selection. Select text or click a picture and then try again." />
+  <Message 
+    Identifier="TitleNotLinkable" 
+    Type="Information" 
+    Title="Open Live Writer" 
+    Text="Can't insert a hyperlink in the post title. Select different text and then try again." />
+  <Message 
+    Identifier="PasteSpecialInvalidData" 
+    Type="Information" 
+    Title="Open Live Writer" 
+    Text="Paste special can only be used with HTML and text data. Select different text and then try again" />
+  <Message 
+    Identifier="ConfirmDeleteEntry" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Open Live Writer" 
+    Text="Are you sure that you want to delete this auto-link entry?" />
+  <Message 
+    Identifier="ConfirmDeleteAutoReplaceEntry" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Open Live Writer" 
+    Text="Are you sure that you want to delete this auto-replace entry?" />
+
+  <Message 
+    Identifier="ConfirmReplaceEntry" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Open Live Writer" 
+    Text="Are you sure you want to replace the current entry for that text?" />
+  <Message 
+    Identifier="EntryFound" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Open Live Writer" 
+    Text="Found the same link text &quot;{0}&quot; and URL {1}.&#xD;&#xA;&#xD;&#xA;Do you want to use this link information?"
+    comment:Text="{0} - link text, {1} - URL" />
+  <Message 
+    Identifier="SelectEntry" 
+    Type="Information" 
+    Title="Open Live Writer" 
+    Text="Select a link." />
+  <Message 
+    Identifier="ConfirmRemoveWeblog" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Open Live Writer" 
+    Text="Are you sure you want to remove this blog from Writer?" />
+  <Message 
+    Identifier="FtpSettingsRequired" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="If you choose to upload pictures to an FTP site, specify the settings for the destination server." />
+  <Message 
+    Identifier="ErrorConnecting" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="A problem occurred while trying to connect to the remote server." />
+  <Message 
+    Identifier="ErrorConnectingPromptContinue" 
+    Type="Question" 
+    Buttons="YesNo" 
+    DefaultButton="Button2" 
+    Title="Open Live Writer" 
+    Text="The remote server could not be contacted to verify the settings. Do you want to continue anyway?" />
+  <Message 
+    Identifier="HomepageUrlRequired" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="Enter the web address for your blog home page." />
+  <Message 
+    Identifier="HomepageUrlInvalid" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="Enter a valid web address for your blog home page." />
+  <Message 
+    Identifier="HostNameRequired" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="Enter a host name to continue." />
+  <Message 
+    Identifier="LoginFailed" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="{0} was not able to log in to the remote server using the username and password.&#xD;&#xA;&#xD;&#xA;Please check that the information is correct and try again."
+    comment:Text="{0} - Open Live Writer" />
+  <Message 
+    Identifier="SoapboxLoginError" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="{0} encountered a problem while signing in:&#xD;&#xA;&#xD;&#xA;{1}"
+    comment:Text="{0} - Open Live Writer, {1} error message" />
+  <Message  
+    Identifier="MappingVerificationFailed" 
+    Type="Question" 
+    Buttons="YesNo" 
+    DefaultButton="Button2" 
+    Title="Open Live Writer" 
+    Text="The URL mapping could not be verified. Do you want to continue anyway?" />
+  <Message 
+    Identifier="RequiredFieldOmitted" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="Enter a value for the {0} field in order&#xD;&#xA;to configure blog publishing."
+    comment:Text="{0} - The name of the missing field" />
+  <Message 
+    Identifier="ServerParameterNotSpecified" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="You need to customize the blog API URL before proceeding.&#xD;&#xA;The following values were not customized:&#xD;&#xA;&#xD;&#xA;{0}&#xD;&#xA;&#xD;&#xA;Please change these values to whatever is appropriate for&#xD;&#xA;your blog server."
+    comment:Text="{0} - A space-delimited list of parameters" />
+  <Message 
+    Identifier="UnknownLoginError" 
+    Title="Open Live Writer"
+    Text="An unexpected error occurred while trying to log in to the server.&#xD;&#xA;&#xD;&#xA;If you have a proxy or firewall configured, please make sure your system is properly configured to allow this program to connect to the remote server." />
+  <Message 
+    Identifier="UrlMappingRequired" 
+    Type="Warning" 
+    Title="Open Live Writer"
+    Text="Enter a URL mapping to continue." />
+  <Message 
+    Identifier="UsernameAndPasswordRequired" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="Enter a username and password to continue." />
+  <Message 
+    Identifier="ConfirmDeletePost" 
+    Type="Warning" 
+    Buttons="YesNo" 
+    Title="Confirm Delete" 
+    Text="The {0} will be deleted both from your blog and from the local machine.&#xD;&#xA;&#xD;&#xA;Are you sure you want to delete the {0} &quot;{1}&quot;?"
+    comment:Text="{0} - either post or page, {1} - post/page title" />
+  <Message     
+    Identifier="ConfirmDeleteDraft" 
+    Type="Warning" 
+    Buttons="YesNo" 
+    Title="Confirm Delete" 
+    Text="Are you sure you want to delete the draft {0} &quot;{1}&quot;?"
+    comment:Text="{0} - either post or page, {1} - post/page title" />
+  <Message 
+    Identifier="IncompatiblePostInfoType" 
+    Title="Open Live Writer"
+    Text="An internal error occurred (incompatible blog post info type). Unable to open the selected post." />
+  <Message 
+    Identifier="NonImageTypeFileSelected" 
+    Type="Warning" 
+    Title="Open Live Writer"
+    Text="The file {0} is not recognized as a valid image file."
+    comment:Text="{0} - filename" />
+  <Message 
+    Identifier="NoPostSelected" 
+    Type="Warning" 
+    Title="Open Live Writer"
+    Text="Select a post to open before proceeding." />
+  <Message 
+    Identifier="NoTitleSpecified" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="The posts on this blog must have a title.&#xD;&#xA;Type a title for your post, and try publishing it again." />
+  <Message 
+    Identifier="PluginStatusChanged" 
+    Type="Information" 
+    Title="Plug-in Status" 
+    Text="You have chosen to enable or disable plug-ins. For these changes&#xA;to take effect you need to restart Writer." />
+  <Message 
+    Identifier="PostFileInvalid" 
+    Title="Open Live Writer"
+    Text="The specified post file ({0}) is not a valid blog post so it could not be opened."
+    comment:Text="{0} - post file name" />
+  <Message 
+    Identifier="PostFileNoExist" 
+    Title="Open Live Writer"
+    Text="The specified post file ({0}) does not exist."
+    comment:Text="{0} - post file name" />
+  <Message 
+    Identifier="QueryForCreateEditorTemplate" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Generate Authoring Template" 
+    Text="Would you like to generate an authoring template that matches the theme of your blog?" />
+  <Message 
+    Identifier="QueryForUnpostedEntry" 
+    Type="Question" 
+    Buttons="YesNoCancel" 
+    Title="Post Entry as Draft" 
+    Text="The blog entry you are editing has not been posted.&#xD;&#xA;&#xD;&#xA;Do you want to post a draft of the entry now?" />
+  <Message 
+    Identifier="QueryForUnpublishedEntry" 
+    Type="Question" 
+    Buttons="YesNoCancel" 
+    Title="Publish Entry" 
+    Text="You have posted this blog entry as a draft.&#xD;&#xA;&#xD;&#xA;Do you want to publish it now?" />
+  <Message 
+    Identifier="QueryForUnsavedChanges" 
+    Type="Question" 
+    Buttons="YesNoCancel" 
+    Title="Save Changes" 
+    Text="There are unsaved changes to this post.&#xD;&#xA;&#xD;&#xA;Do you want to save the changes before proceeding?" />
+  <Message 
+    Identifier="SpellCheckCancelledStillPost" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Spell Check Canceled" 
+    Text="The spell check was not completed.&#xD;&#xA;&#xD;&#xA;Do you still want to publish this post?" />
+  <Message
+    Identifier="SpellCheckComplete"
+    Type="Information"
+    Text="The spell check is complete." />
+  <Message 
+    Identifier="TagReminder" 
+    Type="Question" 
+    Buttons="YesNo" 
+    DefaultButton="Button2" 
+    Title="Open Live Writer" 
+    Text="You have not added tags to this post.&#xD;&#xA;&#xD;&#xA;Do you still want to continue with publishing?" />
+  <Message 
+    Identifier="NoImageSelected" 
+    Type="Information" 
+    Title="Open Live Writer"
+    Text="Select a picture." />
+  <Message 
+    Identifier="InvalidWebImage" 
+    Type="Information" 
+    Title="Open Live Writer"
+    Text="Enter a correctly formatted URL." />
+  <Message 
+    Identifier="NoPreviewAvailable" 
+    Type="Information" 
+    Title="Open Live Writer"
+    Text="Preview is currently unavailable. Please check the entered URL and your network connection." />
+  <Message 
+    Identifier="CategoryReminder" 
+    Type="Question" 
+    Buttons="YesNo" 
+    DefaultButton="Button2" 
+    Title="Open Live Writer" 
+    Text="You have not specified categories for this post.&#xD;&#xA;&#xD;&#xA;Do you still want to continue with publishing?" />
+  <Message 
+    Identifier="ConfirmDeleteTable" 
+    Type="Warning" 
+    Buttons="YesNo" 
+    Title="Confirm Delete" 
+    Text="Are you sure you want to delete the table?" />
+  <Message 
+    Identifier="UnspecifiedValue" 
+    Type="Warning" 
+    Title="Open Live Writer"
+    Text="Enter a valid value for the {0} field."
+    comment:Text="{0} - the name of a field" />
+  <Message 
+    Identifier="ValueExceedsMaximum" 
+    Type="Warning" 
+    Title="Open Live Writer"
+    Text="Enter a value less than {0} for the {1} field."
+    comment:Text="{0} - a number, {1} - the name of a field" />
+  <Message 
+    Identifier="ValueLessThanMinimum" 
+    Type="Warning" 
+    Title="Open Live Writer"
+    Text="Enter a value of at least {0} for the {1} field." 
+    comment:Text="{0} - a number, {1} - the name of a field" />
+  <Message 
+    Identifier="ConnectionTimeout" 
+    Title="Open Live Writer"
+    Text="Unable to establish a connection with the FTP server." />
+  <Message 
+    Identifier="FtpServerUnavailable" 
+    Title="Open Live Writer"
+    Text="The specified hostname does not appear to be running an FTP server." />
+  <Message     
+    Identifier="InvalidHostname" 
+    Title="Open Live Writer" 
+    Text="The specified hostname does not exist." />
+  <Message 
+    Identifier="NoSuchPublishFolder" 
+    Title="Open Live Writer"
+    Text="The specified publish folder does not exist:&#xD;&#xA;&#xD;&#xA;{0}"
+    comment:Text="{0} - a folder path"  />
+  <Message 
+    Identifier="PublishFailed" 
+    Title="Open Live Writer"
+    Text="A publishing error occurred: {0}"
+    comment:Text="{0} - an error message" />
+  <Message 
+    Identifier="NoMapAddressSpecified" 
+    Type="Warning" 
+    Title="Open Live Writer"
+    Text="Specify a location." />
+  <Message
+    Identifier="InvalidPingUrl"
+    Type="Warning"
+    Text="The web address you entered to ping is invalid." />
+  <Message
+    Identifier="PingUrlRequired"
+    Type="Warning"
+    Text="To enable pings, provide at least one valid web address." />
+  <Message
+    Identifier="InternetConnectionWarning"
+    Type="Warning"
+    Title="Open Live Writer"
+    Text="Unable to display content because there is no Internet connection available." />
+   <Message
+    Identifier="MultipleCategoriesNotSupported"
+    Type="Warning"
+    Title="Open Live Writer"
+    Text="The blog server is not configured to accept multiple post categories." />
+  <Message
+    Identifier="CannotInsert"
+    Type="Warning"
+    Title="Open Live Writer"
+    Text="Can't insert {0} at this location. Click another location in your post and try inserting it again."
+    comment:Text="{0} - an object to be inserted (image, tags, map, etc.)" />
+  <Message
+    Identifier="PluginBitmapLoadError"
+    Type="Warning"
+    Text="Warning: The bitmap for plug-in {0} could not be loaded from the specified path ({1}).&#xD;&#xA;&#xD;&#xA;Note: You should ensure that your plug-in class is contained within the default namespace of the assembly."
+    comment:Text="{0} - plug-in name, {1} - a resource path (the plug-in author will know what this means, and only plug-in authors should see this error message)"  />
+  <Message
+    Identifier="PluginInvalidAttribute"
+    Title="Open Live Writer"
+    Text="Error loading plug-in {0}&#xD;&#xA;&#xD;&#xA;{1} - {2}&#xD;&#xA;&#xD;&#xA;The plug-in could not be loaded as a result of this error."
+    comment:Text="{0} - plug-in name, {1} - parameter name, {2} - error message"  />
+  <Message
+    Identifier="PluginUnexpectedLoadError"
+    Title="Open Live Writer"
+    Text="Error loading plug-in {0}&#xD;&#xA;&#xD;&#xA;{1}&#xD;&#xA;&#xD;&#xA;The plug-in could not be loaded as a result of this error."
+    comment:Text="{0} - plug-in name, {1} error message" />
+  <Message
+    Identifier="UnableToRetrieve"
+    Text="Unable to retrieve the {0} from the blog service.&#xD;&#xA;&#xD;&#xA;Your blog service could not process the request due to a network or server error."
+    comment:Text="{0} - page or post" />
+  <Message
+    Identifier="TagProviderNameRequired"
+    Type="Warning"
+    Title="Open Live Writer"
+    Text="Enter a name for this provider." />
+  <Message
+    Identifier="TagFormatRequired"
+    Type="Warning"
+    Text="Enter a HTML template for each tag." />
+  <Message
+    Identifier="TagMissingToken"
+    Type="Warning"
+    Text="The HTML Caption must contain the token '{0}'." 
+    comment:Text="{0} - a token name" />
+  <Message
+    Identifier="TagConfirmDeleteProvider"
+    Type="Question"
+    Title="Confirm Delete"
+    Text="Are you sure you'd like to delete '{0}'?"
+    Buttons="YesNo"
+    DefaultButton="Button1"
+    comment:Text="{0} - the name of the provider that is about to be deleted" />
+  <Message
+    Identifier="TagSelectProvider"
+    Title="Open Live Writer"
+    Text="Select a tag provider to continue." />
+  <Message
+    Identifier="TagConfirmRestoreProviders"
+    Type="Question"
+    Text="Are you sure you'd like to restore the default providers?&#xD;&#xA;&#xD;&#xA;Restoring will add any missing default providers and will overwrite any changes that you've made to the existing default providers. It will not overwrite or delete any new providers that you've created."
+    Buttons="YesNo"
+    Title="Confirm Restore Default"
+    DefaultButton="Button1" />
+  <Message
+    Identifier="MapsNoInternetConnection"
+    Type="Warning"
+    Title="Open Live Writer"
+    Text="Connect to the Internet to insert and edit maps." />
+  <Message
+    Identifier="PushpinValidationError"
+    Type="Warning"
+    Text="Unable to validate that the pushpin URL you entered points to&#xD;&#xA;a valid image file on the web. Note that the URL may still be&#xD;&#xA;correct; however, it could not be located at this time.&#xD;&#xA;&#xD;&#xA;Do you still want to set this as your custom pushpin URL?"
+    Buttons="YesNo" />
+  <Message
+    Identifier="ReadOnlyPostFile"
+    Text="The post file &quot;{0}&quot; is marked read-only.&#xD;&#xA;&#xD;&#xA;Save the post file into a writable location prior to opening it."
+    comment:Text="{0} - the file name of the post file"
+    Title="Open Live Writer" />
+  <Message
+    Identifier="GoogleAuthTokenNotFound"
+    Text="The server did not respond with the expected authorization token." />
+  <Message
+    Identifier="BloggerError"
+    Text="Blogger returned the following error:&#xD;&#xA;&#xD;&#xA;{0}"
+    comment:Text="{0} - an error message" />
+  <Message
+    Identifier="UnexpectedErrorLogin"
+    Text="An unexpected error has occurred while attempting to log in:&#xD;&#xA;&#xD;&#xA;{0}" 
+    comment:Text="{0} - an error message" />
+   <Message 
+    Identifier="LocalDeleteConfirmation" 
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Confirm Delete" 
+    Text="An error occurred while attempting to delete the {0} on your blog.&#xD;&#xA;&#xD;&#xA; Do you still wish to delete the local copy of the {0}?"
+    comment:Text="{0} - page or post" />
+  <Message
+    Identifier="NoSuchImageFile"
+    Text="{0} is not a valid URL." 
+    comment:Text="{0} - directory or file path, URL, etc"/>
+   <Message
+    Identifier="RepublishAsDraftUnsupported"  
+    Type="Warning"
+    Title="Open Live Writer"
+    Text="The current blog does not support Post as Draft for previously published posts." />
+  <Message
+    Identifier="NoVideoFound"
+    Type="Information"
+    Title="Open Live Writer"
+    Text="The information entered cannot be matched to a recognized video provider. Please enter a valid URL or embed code."/>
+  <Message
+    Identifier="VideoPublisherFailed"
+    Type="Information"
+    Title="Open Live Writer"
+    Text="The selected video publisher failed for an unknown reason to publish the video."/>
+  <Message
+    Identifier="VideoAccessError"
+    Type="Information"
+    Title="Open Live Writer"
+    Text="The selected video could not be accessed from the service&#xD;&#xA;due to heavy service usage. Please try again."/>
+  <Message
+    Identifier="VideoUnexpectedDownloadError"
+    Title="Open Live Writer"
+    Text="Error accessing video {0}&#xD;&#xA;&#xD;&#xA;The video could not be previewed as a result of this error."
+    comment:Text="{0} error message" />
+  <Message
+    Identifier="NoSoapboxVideoSelected"
+    Title="Open Live Writer"
+    Text="Select a video to insert."/>
+  <Message
+    Identifier="PicasawebSignup"
+    Type="Information"
+    Buttons="YesNo"
+    Title="Picasa Web Albums"
+    Text="In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in as {0}, and agree to the Terms and Conditions.&#xD;&#xA;&#xD;&#xA;Would you like to go to the Picasa Web Albums homepage now?"
+    comment:Text="{0} - username, for example: joe@gmail.com"/>
+  <Message
+    Identifier="YouTubeSignup"
+    Type="Information"
+    Buttons="YesNo"
+    Title="Open Live Writer"
+    Text="To upload videos to YouTube, link a YouTube nickname with the account {0}.&#xD;&#xA;&#xD;&#xA;Would you like launch a browser to link your account now?"
+    comment:Text="{0} - username, for example: joe@gmail.com"/>
+  <Message 
+    Identifier="PassportUsernameAndPasswordRequired" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="Enter a Microsoft Account ID and password to continue." /> 
+  <Message 
+    Identifier="VideoLoginRequired" 
+    Type="Warning" 
+    Title="Open Live Writer" 
+    Text="Sign in and select a video to continue." />     
+  <Message 
+    Identifier="WordpressHomepageWrong"
+    Type="Warning" 
+    Title="Open Live Writer"
+    Text="To configure {0} to publish to WordPress, enter your blog's homepage URL (e.g. http://myblog.wordpress.com)."
+    comment:Text="{0} = will be replaced with Open Live Writer product name" />   
+  <Message 
+    Identifier="MultipleLinks" 
+    Type="Information" 
+    Title="Open Live Writer"
+    Text="The selection contains multiple links, select one to edit." />   
+  <Message
+    Identifier="ConfirmOverwrite"
+    Type="Exclamation"
+    Title="Confirm Overwrite"
+    Text="According to the server, this post has been modified since you started editing it.&#xD;&#xA;&#xD;&#xA;Do you want to overwrite those changes with your own?"
+    Buttons="YesNo" />
+  <Message
+    Identifier="InvalidNumberPositiveOnly"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Enter a number that is greater than zero." />
+  <Message
+    Identifier="InvalidNumberNonNegative"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Enter a number that is zero or greater." />
+  <Message
+    Identifier="NoTags"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Enter at least one tag." />
+  <Message
+    Identifier="AutoreplacePhraseRequired"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Enter a phrase that should be replaced." />
+  <Message
+    Identifier="AutoreplaceReplacementRequired"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Enter a replacement value." />
+  <Message
+    Identifier="AutoreplaceAlreadyExists"
+    Type="Question" 
+    Buttons="YesNo" 
+    Title="Overwrite Existing Phrase"
+    Text="This phrase is already in the Auto Replace list. Would you like to overwrite the existing phrase?" />
+  <Message
+    Identifier="NoUpdateAvailable"
+    Type="Information"
+    Title="Open Live Writer"
+    Text="No updates are currently available." />
+  <Message
+    Identifier="PublishCanceledByPlugin"
+	  Type="Information" 
+    Buttons="OK" 
+    Title="Open Live Writer"
+    Text="Publishing was canceled by the {0} plug-in."
+	comment:Text="{0} - the name of the plug-in" />
+  <Message
+    Identifier="MalformedHtmlIgnored"
+	  Type="Exclamation" 
+    Buttons="OK" 
+    Title="Open Live Writer"
+    Text="The plug-in {0} generated invalid HTML, which will be discarded in order to avoid damaging your post."
+	comment:Text="{0} - the name of the plug-in" />
+  <Message
+    Identifier="ShouldUsePlugin"
+	Type="Question" 
+    Buttons="YesNo" 
+    Title="New Plug-in Detected"
+    Text="Do you want to enable the {0} plug-in for this blog?&#xD;&#xA;&#xD;&#xA;(You can change this setting later; under the Blog menu, click Edit Blog Settings and then Plug-ins.)"
+	comment:Text="{0} - the name of the plug-in" />
+  <Message
+    Identifier="MustAcceptTermsOfUse"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="To publish the video, accept the service Terms of Use and Safety Tips. Follow the links to read them, and check the box if you agree." />
+  <Message
+    Identifier="VideoFailedPublish"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="One or more videos failed to publish. Remove the failed video and try again." />
+  <Message
+    Identifier="VideoRequiredFields"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="All fields are required for video publish. Verify that all fields have been entered." />
+  <Message
+    Identifier="VideoPathInvalid"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="The path to the video file is not valid. Verify the file is present on disk." />
+  <Message
+    Identifier="GuestNotSupported"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Using Open Live Writer from the guest account is not supported." />
+  <Message
+    Identifier="YouTubeError"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="A problem occurred while retrieving videos. Please try again." />
+<Message
+    Identifier="BetaError"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="This account is not part of the Beta program. Try again with an account that has been authorized." />
+  <Message
+    Identifier="FileNotFound"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="{0}&#xD;&#xA;File not found.&#xD;&#xA;Check the file name and try again."
+    comment:Text="{0} - name of a file that could not be found"/>
+  <Message
+    Identifier="InputIsNotUrl"
+    Type="Exclamation"
+    Buttons="YesNo" 
+    Title="Open Live Writer"
+    Text="{0}&#xD;&#xA;Not a valid URL.&#xD;&#xA;Do you want to continue?"
+    comment:Text="{0} - the url that was entered"/>
+	<Message
+	  Identifier="InvalidInsertionPoint"
+	  Type="Warning"
+	  Title="Open Live Writer"
+	  Text="This is not a valid location to insert content" />
+  <Message
+    Identifier="WidthHeightRequired"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Enter a width and height." />
+  <Message
+    Identifier="AutoRecoverPromptDiscardConfirm"
+    Type="Warning"
+    Title="Discard Changes"
+    Text="Are you sure you want to permanently discard the recovered changes?"
+    Buttons="YesNo"/>
+	<Message
+	  Identifier="DirectoryFail"
+	  Type="Exclamation"
+	  Title="Open Live Writer"
+	  Text="Could not access:&#xD;&#xA;{0}"
+	  comment:Text="{0} - the folder path Open Live Writer is trying to access."/>
+	<Message
+	  Identifier="PersonalDirectoryFail"
+	  Type="Exclamation"
+	  Title="Open Live Writer"
+	  Text="Could not access your Documents folder. "
+	  comment:Text="{0} - the folder path Open Live Writer is trying to create."/>
+	  
+<Message
+    Identifier="AddBlogUrlFormatError"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Enter a valid web address for your blog home page ({0} was not recognized as a valid web address.)"/>	  
+    
+<Message
+    Identifier="SpacesPublishingNotEnabled"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Posts can no longer be published to blogs on Windows Live Spaces. Go and sign in to http://spaces.live.com to learn more about how you can move your blog to WordPress.com."/>
+  
+  <Message
+    Identifier="WriterCannotStart"
+    Type="Exclamation"
+    Title="Open Live Writer"
+    Text="Open Live Writer can&apos;t start because a necessary file is missing or corrupt. To fix this problem, in the Control Panel, please go to Programs and Features and repair Open Live Writer."/>
+</Messages>

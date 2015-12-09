@@ -1,0 +1,3 @@
+file-report layout:composite &
+  output-options:html-color &
+  output-to:%3 %1 %2

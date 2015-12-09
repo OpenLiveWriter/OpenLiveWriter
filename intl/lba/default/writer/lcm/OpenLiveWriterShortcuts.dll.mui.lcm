@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LCX SchemaVersion="6.0" Name="OpenLiveWriterShortcuts.dll.mui" PsrId="3" FileType="4" SrcCul="en-US" TgtCul="en-US" xmlns="http://schemas.microsoft.com/locstudio/2006/6/lcx">
+  <Item ItemId=";String Table" ItemType=";Dummy" PsrId="3" Leaf="false">
+    <Disp Icon="Str" Disp="true" LocTbl="false" />
+    <Item ItemId="1000" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[Blog like a pro, with photos, videos, maps, and more]]></Val>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+      </Props>
+    </Item>
+    <Item ItemId="1001" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[Open Live Writer]]></Val>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+      </Props>
+    </Item>
+    <Item ItemId="1002" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[Open Live Writer Beta]]></Val>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+      </Props>
+    </Item>
+    <Item ItemId="1003" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[&Blog This in Open Live Writer]]></Val>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+      </Props>
+    </Item>
+    <Item ItemId="1004" ItemType=";STR" PsrId="3" Leaf="true">
+      <Str Cat="Text">
+        <Val><![CDATA[Blog This]]></Val>
+        <Prev Cat="Text">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" />
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+      </Props>
+    </Item>
+  </Item>
+  <Item ItemId=";Version" ItemType=";Dummy" PsrId="3" Leaf="false">
+    <Disp Icon="Expand" Expand="true" Disp="true" LocTbl="false" />
+    <Item ItemId="1" ItemType="16" PsrId="3" Leaf="false">
+      <Disp Icon="Ver" Disp="true" LocTbl="false" />
+      <Item ItemId=";LT__LANG" ItemType=";VSTAMP" PsrId="3" Leaf="false">
+        <Bin BinId="5">
+          <Val><![CDATA[AAAAAA==]]></Val>
+        </Bin>
+        <Disp LocTbl="false" />
+        <Item ItemId=";CompanyName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[Open Live Writer]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+          </Props>
+        </Item>
+        <Item ItemId=";FileDescription" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[Open Live Writer]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+          </Props>
+        </Item>
+        <Item ItemId=";FileVersion" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[16.3.1068.0210]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[16.3.1018.1212]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="1068.0210upd" />
+          </Props>
+        </Item>
+        <Item ItemId=";InternalName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+          </Props>
+        </Item>
+        <Item ItemId=";LegalCopyright" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[© Open Live Writer. All rights reserved.]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+          </Props>
+        </Item>
+        <Item ItemId=";OriginalFilename" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[OpenLiveWriterShortcuts]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+          </Props>
+        </Item>
+        <Item ItemId=";ProductName" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[Windows Live]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+          </Props>
+        </Item>
+        <Item ItemId=";ProductVersion" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[16.3.1068.0210]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[16.3.1018.1212]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="1068.0210upd" />
+          </Props>
+        </Item>
+        <Item ItemId=";SpecialBuild" ItemType=";VSTAMP" PsrId="3" Leaf="true">
+          <Str Cat="Version">
+            <Val><![CDATA[working.client.writer]]></Val>
+            <Prev Cat="Version">
+              <Val><![CDATA[]]></Val>
+              <Props>
+                <Str Name="ReviewStat" Val="UPDATED" />
+              </Props>
+            </Prev>
+          </Str>
+          <Disp Icon="Ver" />
+          <Props>
+            <Str Name="Custom3" Val="pre-Wave5" />
+          </Props>
+        </Item>
+      </Item>
+    </Item>
+  </Item>
+</LCX>

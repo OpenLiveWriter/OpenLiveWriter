@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<localization>
+    <resources>
+	<win32Resources
+		fileType="Application"
+                ultimateFallbackLocation="internal"
+                ultimateFallbackLanguage="en-us">
+		<neutralResources>
+			<resourceType
+				typeNameId="#16"
+			/>
+			<resourceType
+				typeNameId="#5"
+			/>
+			<resourceType
+				typeNameId="#6"
+			/>
+		</neutralResources>
+	
+		<localizedResources> 
+                        <!-- We don't want the dialog localized, but we have to have at least one entry for #5 in localizedResources -->
+			<resourceType
+				typeNameId="#5"
+			/>
+			<resourceType
+				typeNameId="#6"
+			/>
+			<resourceType
+				typeNameId="#9"
+			/>
+			<resourceType
+				typeNameId="#11"
+			/>
+			<resourceType
+				typeNameId="#16"
+			/>
+		</localizedResources>
+	</win32Resources>
+     </resources>
+</localization>

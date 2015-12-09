@@ -1,0 +1,1614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);CODE_ANALYSIS;WIN32</DefineConstants>
+    <AssemblyName>OpenLiveWriter.PostEditor</AssemblyName>
+    <RootNamespace>OpenLiveWriter.PostEditor</RootNamespace>
+    <ProjectGuid>{D6C9A393-E0B8-4548-B84B-F8B6FE2A5645}</ProjectGuid>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="DeltaCompressionDotNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d14d6e5194e7f4a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeltaCompressionDotNet.1.0.0\lib\net45\DeltaCompressionDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DeltaCompressionDotNet.MsDelta, Version=1.0.0.0, Culture=neutral, PublicKeyToken=46b2138a390abf55, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeltaCompressionDotNet.1.0.0\lib\net45\DeltaCompressionDotNet.MsDelta.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DeltaCompressionDotNet.PatchApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3e8888ee913ed789, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeltaCompressionDotNet.1.0.0\lib\net45\DeltaCompressionDotNet.PatchApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\squirrel.windows.1.2.1\lib\Net45\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Squirrel, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\squirrel.windows.1.2.1\lib\Net45\NuGet.Squirrel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Splat, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Splat.1.6.2\lib\Net45\Splat.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Squirrel, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\squirrel.windows.1.2.1\lib\Net45\Squirrel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="OpenLiveWriter.Interop.SHDocVw">
+      <Name>OpenLiveWriter.Interop.SHDocVw</Name>
+      <HintPath>..\OpenLiveWriter.Interop\Com\OpenLiveWriter.Interop.SHDocVw.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj">
+      <Name>OpenLiveWriter.Api</Name>
+      <Project>{B6D10B42-F173-4086-BB81-96B724BA5594}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj">
+      <Name>OpenLiveWriter.ApplicationFramework</Name>
+      <Project>{EEEE653A-90CE-44E2-B40E-22F747880CC0}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.BlogClient\OpenLiveWriter.BlogClient.csproj">
+      <Name>OpenLiveWriter.BlogClient</Name>
+      <Project>{FE2EA529-26E6-42C3-9F6A-E58966995FFE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj">
+      <Name>OpenLiveWriter.BrowserControl</Name>
+      <Project>{A5C213F6-F0C6-4FD6-B496-61FE434621A6}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj">
+      <Name>OpenLiveWriter.Controls</Name>
+      <Project>{D4A39612-3610-458F-83F8-5722D1F51063}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Extensibility\OpenLiveWriter.Extensibility.csproj">
+      <Name>OpenLiveWriter.Extensibility</Name>
+      <Project>{A803C16E-6619-4017-883C-EA73EB947F34}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.FileDestinations\OpenLiveWriter.FileDestinations.csproj">
+      <Name>OpenLiveWriter.FileDestinations</Name>
+      <Project>{217B1333-654D-4901-807D-6E1A98FF3A4D}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlEditor\OpenLiveWriter.HtmlEditor.csproj">
+      <Name>OpenLiveWriter.HtmlEditor</Name>
+      <Project>{6A6872BC-67EF-4A42-A21A-30ECED376923}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
+      <Name>OpenLiveWriter.HtmlParser</Name>
+      <Project>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
+      <Name>OpenLiveWriter.Interop.Mshtml</Name>
+      <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj">
+      <Name>OpenLiveWriter.Mshtml</Name>
+      <Project>{906BA039-467B-41AE-B805-BA1B837AB763}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.InternalWriterPlugin\OpenLiveWriter.InternalWriterPlugin.csproj">
+      <Name>OpenLiveWriter.WriterPlugin</Name>
+      <Project>{699FB638-CE02-48D7-8078-30A7939C5BCB}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AfterPublishFileUploadFailedForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlignmentMarginContentEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Alignment\HtmlAlignDecoratorSettings.cs" />
+    <Compile Include="Autoreplace\AutoreplaceEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Autoreplace\AutoreplaceEditForm.Designer.cs">
+      <DependentUpon>AutoreplaceEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Autoreplace\AutoreplaceManagementControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Autoreplace\AutoreplaceManagementControl.Designer.cs">
+      <DependentUpon>AutoreplaceManagementControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Autoreplace\AutoreplaceManager.cs" />
+    <Compile Include="Autoreplace\AutoreplacePreferences.cs" />
+    <Compile Include="Autoreplace\AutoreplacePreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Autoreplace\AutoreplaceSettings.cs" />
+    <Compile Include="BlogFileUploader.cs" />
+    <Compile Include="BlogPostEditingManager.cs" />
+    <Compile Include="BlogPostExtensionDataList.cs" />
+    <Compile Include="BlogPostImageData.cs" />
+    <Compile Include="BlogPostSettingsBag.cs" />
+    <Compile Include="BlogPostSupportingFileStorage.cs" />
+    <Compile Include="BlogProviderButtons\BlogProviderButton.cs" />
+    <Compile Include="BlogProviderButtons\BlogProviderButtonManager.cs" />
+    <Compile Include="BlogProviderButtons\BlogProviderButtonNotificationSink.cs" />
+    <Compile Include="Commands\AboutCommand.cs" />
+    <Compile Include="Commands\AlignmentCommand.cs" />
+    <Compile Include="Commands\CommandWeblogPicker.cs" />
+    <Compile Include="Commands\ContextAvailabilityCommand.cs" />
+    <Compile Include="Commands\CustomTooltipWhenDisabledCommand.cs" />
+    <Compile Include="Commands\DynamicCommandGallery.cs" />
+    <Compile Include="Commands\GalleryCommand.cs" />
+    <Compile Include="Commands\GroupCommand.cs" />
+    <Compile Include="Commands\ImageCustomSizeDropdown.cs" />
+    <Compile Include="Commands\ImageLinkTargetDropdown.cs" />
+    <Compile Include="Commands\InsertablePluginsGalleryCommand.cs" />
+    <Compile Include="Commands\MarginCommand.cs" />
+    <Compile Include="Commands\MutuallyExclusiveDropdown.cs" />
+    <Compile Include="Commands\ProxyCommand.cs" />
+    <Compile Include="Commands\RecentItemsCommand.cs" />
+    <Compile Include="Commands\DraftPostItemsGalleryCommand.cs" />
+    <Compile Include="Commands\SelectGalleryCommand.cs" />
+    <Compile Include="Commands\SemanticHtmlGalleryCommand.cs" />
+    <Compile Include="Configuration\Accounts\WeblogAccountListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Configuration\Accounts\WeblogAccountManagementControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Accounts\WeblogAccountPreferences.cs" />
+    <Compile Include="Configuration\Accounts\WeblogAccountPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Settings\AccountPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Settings\AdvancedPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Settings\BlogPluginsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Settings\BlogPluginsPanel.Designer.cs">
+      <DependentUpon>BlogPluginsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\Settings\EditingPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Settings\FTPSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\Settings\ImagesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Settings\WeblogCapabilitiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\Settings\WeblogSettingsManager.cs" />
+    <Compile Include="Configuration\Settings\WeblogSettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\TemporaryBlogSettings.cs" />
+    <Compile Include="Configuration\Wizard\BlogProviderAccountWizard.cs" />
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardController.cs" />
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelAutoDetection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelBasicInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelBlogType.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelConfirmation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelProgress.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelSelectBlog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelSelectProvider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelSharePointAuthentication.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelSharePointBasicInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelWelcome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardSettings.cs" />
+    <Compile Include="Configuration\Wizard\WeblogHomepageUrlControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WizardAutoDetectionOperations.cs" />
+    <Compile Include="Configuration\Wizard\WizardAutoDetectionStep.cs" />
+    <Compile Include="ContentEditor\ContentEditor.cs" />
+    <Compile Include="ContentEditor\ContentEditorAccountAdapter.cs" />
+    <Compile Include="ContentEditor\ContentEditorProxy.cs" />
+    <Compile Include="ContentEditor\ContentEditorSettingException.cs" />
+    <Compile Include="ContentEditor\GlobalEditorOptions.cs" />
+    <Compile Include="ContentEditor\IContentEditor.cs" />
+    <Compile Include="ContentEditor\IContentEditorFactory.cs" />
+    <Compile Include="ContentEditor\IContentEditorSite.cs" />
+    <Compile Include="ContentEditor\IContentTarget.cs" />
+    <Compile Include="ContentEditor\ISettingsProvider.cs" />
+    <Compile Include="ContentEditor\MainFrameWindowAdapter.cs" />
+    <Compile Include="ContentEditor\SharedCanvasImageReferenceFixer.cs" />
+    <Compile Include="ContentEditor\OpenLiveWriterSettingsProvider.cs" />
+    <Compile Include="ContentSources\Common\ContentSourceLayout.cs" />
+    <Compile Include="ContentSources\Common\IAuth.cs" />
+    <Compile Include="ContentSources\Common\IMediaSource.cs" />
+    <Compile Include="ContentSources\Common\MediaSmartContent.cs" />
+    <Compile Include="ContentSources\Common\MediaTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContentSources\Common\MediaTab.Designer.cs">
+      <DependentUpon>MediaTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContentSources\Common\PanelLoginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContentSources\Common\LoginStatusControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContentSources\Common\MediaInsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContentSources\ContentSourceManager.cs" />
+    <Compile Include="ContentSources\IContentUpdateFilter.cs" />
+    <Compile Include="ContentSources\IHandlesMultipleUrls.cs" />
+    <Compile Include="ContentSources\IInternalContent.cs" />
+    <Compile Include="ContentSources\IInternalSmartContentContextSource.cs" />
+    <Compile Include="ContentSources\IInternalSmartContentSource.cs" />
+    <Compile Include="ContentSources\InternalSmartContent.cs" />
+    <Compile Include="ContentSources\InternalSmartContentContext.cs" />
+    <Compile Include="ContentSources\ISupportsDeleteHook.cs" />
+    <Compile Include="ContentSources\ISupportsDragDropFile.cs" />
+    <Compile Include="ContentSources\RefreshableContentManager.cs" />
+    <Compile Include="ContentSources\SmartContent.cs" />
+    <Compile Include="ContentSources\SmartContentInsertionHelper.cs" />
+    <Compile Include="ContentSources\UrlContentRetreivalWithProgress.cs" />
+    <Compile Include="ContentSources\UrlContentRetreivalWithProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditingPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Emoticons\Emoticon.cs" />
+    <Compile Include="Emoticons\EmoticonsGalleryCommand.cs" />
+    <Compile Include="ExpirationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileUploadFailedForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FocusControlManager.cs" />
+    <Compile Include="HtmlDocument2Wrapper.cs" />
+    <Compile Include="IActiveSmartContentEditor.cs" />
+    <Compile Include="IBlogContext.cs" />
+    <Compile Include="IBlogPostContentEditor.cs" />
+    <Compile Include="IBlogPostEditingContext.cs" />
+    <Compile Include="IBlogPostEditingSite.cs" />
+    <Compile Include="IBlogPostEditor.cs" />
+    <Compile Include="IBlogPostPublishingContext.cs" />
+    <Compile Include="IBlogSettingsEditor.cs" />
+    <Compile Include="ImageInsertion\InsertImageDialog.cs" />
+    <Compile Include="ImageInsertion\InsertImageSource.cs" />
+    <Compile Include="ImageInsertion\InsertImageTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageInsertion\TabbingHookProc.cs" />
+    <Compile Include="ImageInsertion\WebImageSource.cs" />
+    <Compile Include="ImageInsertion\WebImages\WebImageContentSource.cs" />
+    <Compile Include="ImageInsertion\WebImages\WebImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageInsertion\WebImages\WebImageForm.Designer.cs">
+      <DependentUpon>WebImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InlineEditField.cs" />
+    <Compile Include="ISupportingFile.cs" />
+    <Compile Include="ISupportingFileService.cs" />
+    <Compile Include="JumpList\IJumpListItem.cs" />
+    <Compile Include="JumpList\JumpList.cs" />
+    <Compile Include="JumpList\JumpListCustomCategory.cs" />
+    <Compile Include="JumpList\JumpListCustomCategoryCollection.cs" />
+    <Compile Include="JumpList\JumpListItem.cs" />
+    <Compile Include="JumpList\JumpListItemCollection.cs" />
+    <Compile Include="JumpList\TaskbarEnums.cs" />
+    <Compile Include="JumpList\TaskbarManager.cs" />
+    <Compile Include="JumpList\WriterJumplist.cs" />
+    <Compile Include="LiveClipboard\LiveClipboardChangeHandlerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LiveClipboard\LiveClipboardManager.cs" />
+    <Compile Include="LiveClipboard\LiveClipboardPreferences.cs" />
+    <Compile Include="LiveClipboard\LiveClipboardPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mail\WindowsLiveMailContentTarget.cs" />
+    <Compile Include="Mail\WindowsLiveMailShim.cs" />
+    <Compile Include="OpenPost\BlogPostListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OpenPost\BlogPostSourceListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OpenPost\CommandRecentPost.cs" />
+    <Compile Include="OpenPost\GetRecentPostsProgressControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OpenPost\OpenPostForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenPost\SelectPostLinkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContentSources\IPublishTimeWorker.cs" />
+    <Compile Include="ContentSources\SmartContentWorker.cs" />
+    <Compile Include="SmartContentPersistedFileList.cs" />
+    <Compile Include="PingPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PluginSettingsAdaptor.cs" />
+    <Compile Include="PluginsPreferences.cs" />
+    <Compile Include="PluginsPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostDeleteHelper.cs" />
+    <Compile Include="PostEditorException.cs" />
+    <Compile Include="PostEditorFile.cs" />
+    <Compile Include="PostEditorFileLookupCache.cs" />
+    <Compile Include="PostEditorFooter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostEditorFooter.Designer.cs">
+      <DependentUpon>PostEditorFooter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostEditorKeyboardHandler.cs" />
+    <Compile Include="PostEditorLifetimeManager.cs" />
+    <Compile Include="PostEditorMainControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostEditorPluginManager.cs" />
+    <Compile Include="PostEditorPostSource.cs" />
+    <Compile Include="PostEditorPreferences.cs" />
+    <Compile Include="PostEditorPreferencesEditor.cs" />
+    <Compile Include="PostEditorPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostEditorSettings.cs" />
+    <Compile Include="PostEditorSettingsM1.cs" />
+    <Compile Include="PostHelper.cs" />
+    <Compile Include="PostHtmlEditing\AnchorContextMenuDefinition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\Behaviors\BehaviorControl.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\BehaviorControlCollection.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\BehaviorDragDropSource.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\BlockquoteEditingElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\DebugBorderControl.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\ElementControlBehavior.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\ElementFocusPainter.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\ExtendedEntrySplitterElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\FocusControl.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\IBehaviorControlContainerControl.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\PropertiesDongleControl.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\ResizableElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\ResizerControl.cs" />
+    <Compile Include="PostHtmlEditing\Behaviors\SidebarDongleController.cs" />
+    <Compile Include="PostHtmlEditing\BlogPostHtmlEditor.cs" />
+    <Compile Include="PostHtmlEditing\BlogPostHtmlEditorControl.cs" />
+    <Compile Include="PostHtmlEditing\BlogPostHtmlSourceEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\DebugElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\DisabledImageElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\DisabledSmartContentElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\EditableRegionElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\EditableSmartContent.cs" />
+    <Compile Include="PostHtmlEditing\EditingTemplateLoader.cs" />
+    <Compile Include="PostHtmlEditing\EditorCommandBarLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ElementBehaviorManager.cs" />
+    <Compile Include="PostHtmlEditing\ExtendedHtmlEditorMashallingHandler.cs" />
+    <Compile Include="PostHtmlEditing\FormattedHtmlPrinter.cs" />
+    <Compile Include="PostHtmlEditing\HtmlEditorSettings.cs" />
+    <Compile Include="PostHtmlEditing\HtmlGenerator.cs" />
+    <Compile Include="PostHtmlEditing\HtmlLinebreakStripper.cs" />
+    <Compile Include="PostHtmlEditing\HtmlPreserver.cs" />
+    <Compile Include="PostHtmlEditing\HtmlSourceEditorSettings.cs" />
+    <Compile Include="PostHtmlEditing\IBlogPostHtmlEditor.cs" />
+    <Compile Include="PostHtmlEditing\IBlogPostImageEditingContext.cs" />
+    <Compile Include="PostHtmlEditing\IBlogPostSidebarContext.cs" />
+    <Compile Include="PostHtmlEditing\ImageContextMenuDefinition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditingElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\BlackandWhiteDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\BlurDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\BrightnessDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\BrightnessEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\CropDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\CropEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\CropEditor.Designer.cs">
+      <DependentUpon>CropEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\DropShadowBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\EmbossDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlAlignDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlAlignEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlAltTextDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlAltTextEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlImageResizeDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlImageResizeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlImageTargetDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlImageTargetEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlMarginDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\HtmlMarginEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\ImageBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\ImageDecoratorUtils.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\ImageSliceBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\LinkToOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\NoBlurDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\NoBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\NoEmbossDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\NoRecolorDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\NoSharpenDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\PhotoBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\PolaroidBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\ReflectionBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\RotationEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\RoundedCornersBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\SaturationDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\SepiaToneDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\SharpenDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\SoftShadowBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\SolidBorderDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\TiltDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\TiltDecoratorEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\TiltDecoratorEditor.Designer.cs">
+      <DependentUpon>TiltDecoratorEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\TiltDecoratorSettings.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\TransformMatrix.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\WarmDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\WatermarkDecorator.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\Decorators\WatermarkEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\DefaultImageSettings.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\EditImageSizesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Emoticons\EmoticonsManager.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ILinkOptions.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ILinkOptionsEditor.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageEffectsBorderGalleryCommand.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageBorderPickerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageDecoratorEditorContextImpl.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageDecoratorEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageDecoratorHelper.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageDecoratorsCommandBarLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageDecoratorsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageDecoratorsList.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageDecoratorsManager.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageEditingPropertyHandler.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageEditingSettings.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageEffectsEmbossGalleryCommand.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageEffectsGalleryCommand.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageEffectsBlurGalleryCommand.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageEffectsRecolorGalleryCommand.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageEffectsSharpenGalleryCommand.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageFilterDecoratorAdapter.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageInsertHandler.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImagePropertiesInfo.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImagePropertiesSidebar.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImagePropertiesSidebarControl.cs">
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImagePropertiesSidebarHostControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageSizeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageSizeHelper.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageSizePickerControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageSizeSpinnerCommand.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageTargetEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageTargetGalleryCommand.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageUrlTargetEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageEditing\ImageUtils.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\LinkOptions.cs" />
+    <Compile Include="PostHtmlEditing\ImageEditing\LinkOptionsEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\ImageInitializationAsyncOperation.cs" />
+    <Compile Include="PostHtmlEditing\ImageInsertionManager.cs" />
+    <Compile Include="PostHtmlEditing\ImageUrlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\NewImageInfo.cs" />
+    <Compile Include="PostHtmlEditing\PostBodyEditingElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\PostHtmlEditingSettings.cs" />
+    <Compile Include="PostHtmlEditing\PostTitleEditingElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\Sidebar\ContentSourceSidebarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\Sidebar\HtmlEditorSidebarHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\Sidebar\HtmlEditorSidebarSettings.cs" />
+    <Compile Include="PostHtmlEditing\Sidebar\HtmlEditorSidebarStatus.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\Sidebar\ISidebar.cs" />
+    <Compile Include="PostHtmlEditing\Sidebar\ISidebarContext.cs" />
+    <Compile Include="PostHtmlEditing\Sidebar\ISmartContentEditorCache.cs" />
+    <Compile Include="PostHtmlEditing\Sidebar\MessageSidebarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\Sidebar\SidebarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\SmartContentContextMenuDefinition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\SmartContentElementBehavior.cs" />
+    <Compile Include="PostHtmlEditing\SmartContentSelection.cs" />
+    <Compile Include="PostHtmlEditing\TextContextMenuDefinition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostHtmlEditing\TitledRegionElementBehavior.cs" />
+    <Compile Include="PostListCache.cs" />
+    <Compile Include="PostPropertyEditing\CategoryControl\CategoryContext.cs" />
+    <Compile Include="PostPropertyEditing\CategoryControl\CategoryDisplayFormW3M1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\CategoryControl\CategoryDisplayFormW3M1.Designer.cs">
+      <DependentUpon>CategoryDisplayFormW3M1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostPropertyEditing\CategoryControl\CategoryDropDownControlM1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\CategoryControl\RadioCategorySelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\CategoryControl\RadioCategorySelector.Designer.cs">
+      <DependentUpon>RadioCategorySelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostPropertyEditing\CategoryControl\TreeCategorySelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\CategoryControl\TreeCategorySelector.Designer.cs">
+      <DependentUpon>TreeCategorySelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostPropertyEditing\FutureDateWarningForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\PageParentComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\PostPropertiesBandControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\PostPropertiesBandControl.Designer.cs">
+      <DependentUpon>PostPropertiesBandControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostPropertyEditing\PostPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\PostPropertiesForm.Designer.cs">
+      <DependentUpon>PostPropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PostPropertyEditing\PublishDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PostPropertyEditing\SharedPropertiesController.cs" />
+    <Compile Include="PreferencesHandler.cs" />
+    <Compile Include="PrivacyPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RecentPostNotSynchronizedWarningForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecentPostProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecentPostSynchronizer.cs" />
+    <Compile Include="RibbonControl.cs" />
+    <Compile Include="ServiceUpdateChecker.cs" />
+    <Compile Include="SupportingFiles\SupportingFileFactory.cs" />
+    <Compile Include="SupportingFiles\SupportingFileReferenceList.cs" />
+    <Compile Include="SupportingFiles\SupportingFileService.cs" />
+    <Compile Include="SupportingFiles\SupportingFilesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tables\CellPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tables\CellPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tables\ColumnPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tables\ColumnWidthControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tables\HTMLTableColumn.cs" />
+    <Compile Include="Tables\RowPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tables\TableAlignmentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tables\TableCellEditingElementBehavior.cs" />
+    <Compile Include="Tables\TableCellSelectionTracker.cs" />
+    <Compile Include="Tables\TableColumnSizeEditor.cs" />
+    <Compile Include="Tables\TableContextMenuDefinition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tables\TableDataFormatHandler.cs" />
+    <Compile Include="Tables\TableEditingContext.cs" />
+    <Compile Include="Tables\TableEditingElementBehavior.cs" />
+    <Compile Include="Tables\TableEditingManager.cs" />
+    <Compile Include="Tables\TableEditingSettings.cs" />
+    <Compile Include="Tables\TableEditor.cs" />
+    <Compile Include="Tables\TableHelper.cs" />
+    <Compile Include="Tables\TableIndentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tables\TablePropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tables\TableSelection.cs" />
+    <Compile Include="Tagging\EditTagForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tagging\ListHelper.cs" />
+    <Compile Include="Tagging\TagContentSource.cs" />
+    <Compile Include="Tagging\TagContext.cs" />
+    <Compile Include="Tagging\TagEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tagging\TagForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tagging\TagOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tagging\TagProvider.cs" />
+    <Compile Include="Tagging\TagProviderComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tagging\TagProviderManager.cs" />
+    <Compile Include="Tagging\TagSmartContentEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tagging\TextBoxWithAutoComplete.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tagging\TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tagging\Utility.cs" />
+    <Compile Include="TextEditingCommandDispatcher.cs" />
+    <Compile Include="TitleReminderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TypographicCharacterHandler.cs" />
+    <Compile Include="Updates\UpdateManager.cs" />
+    <Compile Include="Updates\UpdateSettings.cs" />
+    <Compile Include="UpdateWeblogAsyncOperation.cs" />
+    <Compile Include="UpdateWeblogProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Video\CategoryItem.cs" />
+    <Compile Include="Video\IVideoPublisher.cs" />
+    <Compile Include="Video\Video.cs" />
+    <Compile Include="Video\VideoAspectRatioHelper.cs" />
+    <Compile Include="Video\VideoContentSource.cs" />
+    <Compile Include="Video\VideoContext.cs" />
+    <Compile Include="Video\VideoEditorControl.cs" />
+    <Compile Include="Video\VideoListBox\VideoListBoxControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Video\VideoPluginException.cs" />
+    <Compile Include="Video\VideoProvider.cs" />
+    <Compile Include="Video\VideoProviderHelper.cs" />
+    <Compile Include="Video\VideoProviderManager.cs" />
+    <Compile Include="Video\VideoPublishProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Video\VideoPublishProgressForm.Designer.cs">
+      <DependentUpon>VideoPublishProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Video\VideoPublishSource.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Video\VideoPublishSource.Designer.cs">
+      <DependentUpon>VideoPublishSource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Video\VideoServiceException.cs" />
+    <Compile Include="Video\VideoService\IVideo.cs" />
+    <Compile Include="Video\VideoService\VideoRequestType.cs" />
+    <Compile Include="Video\VideoService\VideoRequestTypeComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Video\VideoService\VideoRequestTypeComboBox.Designer.cs">
+      <DependentUpon>VideoRequestTypeComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Video\VideoService\VideoPagingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Video\VideoService\VideoServiceVideoSource.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Video\VideoSettings.cs" />
+    <Compile Include="Video\VideoSmartContent.cs" />
+    <Compile Include="Video\VideoSource.cs">
+    </Compile>
+    <Compile Include="Video\VideoListBox\VideoThumbnail.cs" />
+    <Compile Include="Video\VideoListBox\VideoThumbnailManager.cs" />
+    <Compile Include="Video\WebVideoSource.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Video\YouTube\YouTubeVideoService.cs" />
+    <Compile Include="Video\YouTube\YouTubeException.cs" />
+    <Compile Include="Video\YouTube\YoutubeVideoPublisher.cs" />
+    <Compile Include="ViewSwitchTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ViewSwitchTabControl.Designer.cs">
+      <DependentUpon>ViewSwitchTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebLayoutViewWarningForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WeblogCommandManager.cs" />
+    <Compile Include="WindowCascadeHelper.cs" />
+    <Compile Include="OpenLiveWriterContentTarget.cs" />
+    <Compile Include="WordCount\WordCountPreferences.cs" />
+    <Compile Include="WordCount\WordCountSettings.cs" />
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AfterPublishFileUploadFailedForm.resx">
+      <DependentUpon>AfterPublishFileUploadFailedForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Autoreplace\AutoreplaceEditForm.resx">
+      <DependentUpon>AutoreplaceEditForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Autoreplace\AutoreplaceManagementControl.resx">
+      <DependentUpon>AutoreplaceManagementControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Autoreplace\AutoreplacePreferencesPanel.resx">
+      <DependentUpon>AutoreplacePreferencesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Commands\CommandWeblogPicker.resx">
+      <DependentUpon>CommandWeblogPicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Accounts\Images\AccountPanelBitmap.png" />
+    <EmbeddedResource Include="Configuration\Accounts\Images\Blog.png" />
+    <EmbeddedResource Include="Configuration\Accounts\WeblogAccountListView.resx">
+      <DependentUpon>WeblogAccountListView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Accounts\WeblogAccountManagementControl.resx">
+      <DependentUpon>WeblogAccountManagementControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Accounts\WeblogAccountPreferencesPanel.resx">
+      <DependentUpon>WeblogAccountPreferencesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Settings\AccountPanel.resx">
+      <DependentUpon>AccountPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Settings\AdvancedPanel.resx">
+      <DependentUpon>AdvancedPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Settings\BlogPluginsPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BlogPluginsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Settings\EditingPanel.resx">
+      <DependentUpon>EditingPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Settings\FTPSettingsForm.resx">
+      <DependentUpon>FTPSettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Settings\ImagesPanel.resx">
+      <DependentUpon>ImagesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Settings\Images\AccountPanelBitmap.png" />
+    <EmbeddedResource Include="Configuration\Settings\Images\AdvancedPanelBitmap.png" />
+    <EmbeddedResource Include="Configuration\Settings\Images\EditingPanelBitmap.png" />
+    <EmbeddedResource Include="Configuration\Settings\Images\ImagesPanelBitmap.png" />
+    <EmbeddedResource Include="Configuration\Settings\WeblogCapabilitiesForm.resx">
+      <DependentUpon>WeblogCapabilitiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Settings\WeblogSettingsPanel.resx">
+      <DependentUpon>WeblogSettingsPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\Images\LiveID16.gif" />
+    <EmbeddedResource Include="Configuration\Wizard\Images\WeblogWizardHeader.png" />
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizard.resx">
+      <DependentUpon>WeblogConfigurationWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardHeader.resx">
+      <DependentUpon>WeblogConfigurationWizardHeader.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanel.resx">
+      <DependentUpon>WeblogConfigurationWizardPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelAutoDetection.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelAutoDetection.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelBasicInfo.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelBasicInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelBlogType.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelBlogType.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelConfirmation.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelConfirmation.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelProgress.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelProgress.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelSelectBlog.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelSelectBlog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelSelectProvider.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelSelectProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelSharePointAuthentication.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelSharePointAuthentication.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelSharePointBasicInfo.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelSharePointBasicInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogHomepageUrlControl.resx">
+      <DependentUpon>WeblogHomepageUrlControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContentSources\Common\MediaTab.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MediaTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContentSources\Common\PanelLoginControl.resx">
+      <DependentUpon>PanelLoginControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContentSources\Common\LoginStatusControl.resx">
+      <DependentUpon>LoginStatusControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContentSources\Common\MediaInsertForm.resx">
+      <DependentUpon>MediaInsertForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContentSources\Images\DefaultPluginImage.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress01.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress02.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress03.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress04.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress05.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress06.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress07.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress08.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress09.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress10.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress11.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress12.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress13.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress14.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress15.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress16.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress17.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress18.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress19.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress20.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress21.png" />
+    <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress22.png" />
+    <EmbeddedResource Include="ContentSources\UrlContentRetreivalWithProgressDialog.resx">
+      <DependentUpon>UrlContentRetreivalWithProgressDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditingPreferencesPanel.resx">
+      <DependentUpon>EditingPreferencesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExpirationForm.resx">
+      <DependentUpon>ExpirationForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileUploadFailedForm.resx">
+      <DependentUpon>FileUploadFailedForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageInsertion\Images\InsertFromWebWatermark.png" />
+    <EmbeddedResource Include="ImageInsertion\Images\TabInsertFromFile.png" />
+    <EmbeddedResource Include="ImageInsertion\Images\TabInsertFromWeb.png" />
+    <EmbeddedResource Include="Images\AddPlugin.png" />
+    <EmbeddedResource Include="Images\BlogPost.ico" />
+    <EmbeddedResource Include="Images\BlogPostDraft.ico" />
+    <EmbeddedResource Include="Images\CloseButtonDisabled.png" />
+    <EmbeddedResource Include="Images\CloseButtonEnabled.png" />
+    <EmbeddedResource Include="Images\CloseButtonPushed.png" />
+    <EmbeddedResource Include="Images\CloseButtonSelected.png" />
+    <EmbeddedResource Include="Images\FtpIcon.png" />
+    <EmbeddedResource Include="Images\PingPreferences.png" />
+    <EmbeddedResource Include="Images\PostEditorSmall.png" />
+    <EmbeddedResource Include="Images\PostPropertiesChevronDownEnabled.gif" />
+    <EmbeddedResource Include="Images\PostPropertiesChevronDownSelected.gif" />
+    <EmbeddedResource Include="Images\PostPropertiesChevronUpEnabled.gif" />
+    <EmbeddedResource Include="Images\PostPropertiesChevronUpSelected.gif" />
+    <EmbeddedResource Include="Images\PreferencesOther.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\BottomBevel.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post01.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post02.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post03.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post04.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post05.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post06.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post07.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post08.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post09.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post10.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post11.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post12.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post13.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post14.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post15.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post16.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post17.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post18.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post19.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post20.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post21.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post22.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post23.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post24.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post25.png" />
+    <EmbeddedResource Include="Images\PublishAnimation\post26.png" />
+    <EmbeddedResource Include="Images\StatusBevel.png" />
+    <EmbeddedResource Include="Images\StatusComposingPost.png" />
+    <EmbeddedResource Include="Images\StatusError.png" />
+    <EmbeddedResource Include="Images\StatusPosted.png" />
+    <EmbeddedResource Include="Images\StatusPublished.png" />
+    <EmbeddedResource Include="Images\StatusWarning.png" />
+    <EmbeddedResource Include="Images\Writer.ico" />
+    <EmbeddedResource Include="LiveClipboard\Images\HandledByOpenLiveWriter.png" />
+    <EmbeddedResource Include="LiveClipboard\Images\LiveClipboardIcon.png" />
+    <EmbeddedResource Include="LiveClipboard\Images\LiveClipboardSmall.png" />
+    <EmbeddedResource Include="LiveClipboard\LiveClipboardChangeHandlerForm.resx">
+      <DependentUpon>LiveClipboardChangeHandlerForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiveClipboard\LiveClipboardPreferencesPanel.resx">
+      <DependentUpon>LiveClipboardPreferencesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenPost\CommandRecentPost.resx">
+      <DependentUpon>CommandRecentPost.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenPost\GetRecentPostsProgressControl.resx">
+      <DependentUpon>GetRecentPostsProgressControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenPost\Images\BlogPost.png" />
+    <EmbeddedResource Include="OpenPost\Images\DeleteDraftPostDisabled.png" />
+    <EmbeddedResource Include="OpenPost\Images\DeleteDraftPostEnabled.png" />
+    <EmbeddedResource Include="OpenPost\Images\DeleteDraftPostSelected.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation00.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation01.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation02.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation03.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation04.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation05.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation06.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation07.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation08.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation09.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation10.png" />
+    <EmbeddedResource Include="OpenPost\Images\GetRecentPostsAnimation\GetRecentPostsAnimation11.png" />
+    <EmbeddedResource Include="OpenPost\Images\RefreshPostListEnabled.png" />
+    <EmbeddedResource Include="OpenPost\Images\SelectDraftPostings.png" />
+    <EmbeddedResource Include="OpenPost\Images\SelectDraftPostingsLarge.png" />
+    <EmbeddedResource Include="OpenPost\Images\SelectRecentPostings.png" />
+    <EmbeddedResource Include="OpenPost\Images\SelectRecentPostingsLarge.png" />
+    <EmbeddedResource Include="OpenPost\Images\SelectWebLogPostings.png" />
+    <EmbeddedResource Include="OpenPost\Images\SelectWebLogPostingsLarge.png" />
+    <EmbeddedResource Include="OpenPost\Images\Separator.png" />
+    <EmbeddedResource Include="OpenPost\OpenPostForm.resx">
+      <DependentUpon>OpenPostForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenPost\SelectPostLinkForm.resx">
+      <DependentUpon>SelectPostLinkForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PingPreferencesPanel.resx">
+      <DependentUpon>PingPreferencesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PluginsPreferencesPanel.resx">
+      <DependentUpon>PluginsPreferencesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostEditorForm.resx">
+      <DependentUpon>PostEditorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostEditorMainControl.resx">
+      <DependentUpon>PostEditorMainControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostEditorPreferencesPanel.resx">
+      <DependentUpon>PostEditorPreferencesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\Behaviors\Images\ActiveHatch.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Behaviors\Images\ExtendedEntrySeparatorTile.png" />
+    <EmbeddedResource Include="PostHtmlEditing\BlogPostHtmlEditorControl.resx">
+      <DependentUpon>BlogPostHtmlEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\BlogPostHtmlSourceEditorControl.resx">
+      <DependentUpon>BlogPostHtmlSourceEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageContextMenuDefinition.resx">
+      <DependentUpon>ImageContextMenuDefinition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\BrightnessEditor.resx">
+      <DependentUpon>BrightnessEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\CropEditor.resx">
+      <DependentUpon>CropEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\HtmlAlignEditor.resx">
+      <DependentUpon>HtmlAlignEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\HtmlAltTextEditor.resx">
+      <DependentUpon>HtmlAltTextEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\HtmlImageResizeEditor.resx">
+      <DependentUpon>HtmlImageResizeEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\HtmlImageTargetEditor.resx">
+      <DependentUpon>HtmlImageTargetEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\HtmlMarginEditor.resx">
+      <DependentUpon>HtmlMarginEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\LinkToOptionsForm.resx">
+      <DependentUpon>LinkToOptionsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\RotationEditor.resx">
+      <DependentUpon>RotationEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\TiltDecoratorEditor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TiltDecoratorEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Decorators\WatermarkEditor.resx">
+      <DependentUpon>WatermarkEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\EditImageSizesDialog.resx">
+      <DependentUpon>EditImageSizesDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImageBorderPickerControl.resx">
+      <DependentUpon>ImageBorderPickerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImageDecoratorEditorForm.resx">
+      <DependentUpon>ImageDecoratorEditorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImageDecoratorsCommandBarLightweightControl.resx">
+      <DependentUpon>ImageDecoratorsCommandBarLightweightControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImageDecoratorsControl.resx">
+      <DependentUpon>ImageDecoratorsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImagePropertiesSidebarControl.resx">
+      <DependentUpon>ImagePropertiesSidebarControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImagePropertiesSidebarHostControl.resx">
+      <DependentUpon>ImagePropertiesSidebarHostControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImageSizeControl.resx">
+      <DependentUpon>ImageSizeControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImageSizePickerControl.resx">
+      <DependentUpon>ImageSizePickerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\CustomizeImageSizeButton.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\WrapTextInlineEnabled.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\WrapTextLeftEnabled.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\WrapTextRightEnabled.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImageTargetEditorControl.resx">
+      <DependentUpon>ImageTargetEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\ImageUrlTargetEditorControl.resx">
+      <DependentUpon>ImageUrlTargetEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\LinkOptionsEditorControl.resx">
+      <DependentUpon>LinkOptionsEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\Images\PropertiesHandleEnabled.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Images\PropertiesHandleSelected.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageUrlForm.resx">
+      <DependentUpon>ImageUrlForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\ContentSourceSidebarControl.resx">
+      <DependentUpon>ContentSourceSidebarControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\HtmlEditorSidebarHost.resx">
+      <DependentUpon>HtmlEditorSidebarHost.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\HtmlEditorSidebarStatus.resx">
+      <DependentUpon>HtmlEditorSidebarStatus.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\ChevronLeft.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\ChevronLeftHover.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\ChevronRight.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\ChevronRightHover.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\DeleteDraftDisabled.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\DeleteDraftEnabled.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\DeleteDraftPushed.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\DeleteDraftSelected.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\InsertLink.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\NewPost.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\OpenPost.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\Images\SectionCorner.png" />
+    <EmbeddedResource Include="PostHtmlEditing\Sidebar\SidebarControl.resx">
+      <DependentUpon>SidebarControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\SmartContentContextMenuDefinition.resx">
+      <DependentUpon>SmartContentContextMenuDefinition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostHtmlEditing\TextContextMenuDefinition.resx">
+      <DependentUpon>TextContextMenuDefinition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostPropertyEditing\CategoryControl\CategoryDisplayFormW3M1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CategoryDisplayFormW3M1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostPropertyEditing\CategoryControl\CategoryDropDownControlM1.resx">
+      <DependentUpon>CategoryDropDownControlM1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostPropertyEditing\CategoryControl\Images\CategoryIcon.png" />
+    <EmbeddedResource Include="PostPropertyEditing\CategoryControl\RadioCategorySelector.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RadioCategorySelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostPropertyEditing\CategoryControl\TreeCategorySelector.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TreeCategorySelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostPropertyEditing\FutureDateWarningForm.resx">
+      <DependentUpon>FutureDateWarningForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostPropertyEditing\Images\Information.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\PostOptionsEnabled.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\PostOptionsSelected.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\StatusComposingPost.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\StatusError.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\StatusPosted.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\StatusPublished.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\StatusWarning.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\UpButtonDisabled.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\UpButtonEnabled.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\UpButtonPushed.png" />
+    <EmbeddedResource Include="PostPropertyEditing\Images\UpButtonSelected.png" />
+    <EmbeddedResource Include="PostPropertyEditing\PageParentComboBox.resx">
+      <DependentUpon>PageParentComboBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrivacyPreferencesPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PrivacyPreferencesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecentPostNotSynchronizedWarningForm.resx">
+      <DependentUpon>RecentPostNotSynchronizedWarningForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecentPostProgressForm.resx">
+      <DependentUpon>RecentPostProgressForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SupportingFiles\SupportingFilesForm.resx">
+      <DependentUpon>SupportingFilesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\CellPropertiesControl.resx">
+      <DependentUpon>CellPropertiesControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\CellPropertiesForm.resx">
+      <DependentUpon>CellPropertiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\ColumnPropertiesForm.resx">
+      <DependentUpon>ColumnPropertiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\ColumnWidthControl.resx">
+      <DependentUpon>ColumnWidthControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\RowPropertiesForm.resx">
+      <DependentUpon>RowPropertiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\TableAlignmentControl.resx">
+      <DependentUpon>TableAlignmentControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\TableContextMenuDefinition.resx">
+      <DependentUpon>TableContextMenuDefinition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\TableIndentControl.resx">
+      <DependentUpon>TableIndentControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tables\TablePropertiesForm.resx">
+      <DependentUpon>TablePropertiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tagging\EditTagForm.resx">
+      <DependentUpon>EditTagForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tagging\Images\HeaderCorner.png" />
+    <EmbeddedResource Include="Tagging\Images\InsertTag.png" />
+    <EmbeddedResource Include="Tagging\Images\TagWatermark.png" />
+    <EmbeddedResource Include="Tagging\TagEditor.resx">
+      <DependentUpon>TagEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tagging\TagForm.resx">
+      <DependentUpon>TagForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tagging\TagOptions.resx">
+      <DependentUpon>TagOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tagging\TagProviderComboBox.resx">
+      <DependentUpon>TagProviderComboBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tagging\TagProviders.xml" />
+    <EmbeddedResource Include="Tagging\TagSmartContentEditor.resx">
+      <DependentUpon>TagSmartContentEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tagging\TextBoxWithAutoComplete.resx">
+      <DependentUpon>TextBoxWithAutoComplete.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TitleReminderForm.resx">
+      <DependentUpon>TitleReminderForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateWeblogProgressForm.resx">
+      <DependentUpon>UpdateWeblogProgressForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Video\Images\AlignmentInline.png" />
+    <EmbeddedResource Include="Video\Images\AlignmentLeft.png" />
+    <EmbeddedResource Include="Video\Images\AlignmentRight.png" />
+    <EmbeddedResource Include="Video\Images\HeaderCorner.png" />
+    <EmbeddedResource Include="Video\Images\InsertVideo.png" />
+    <EmbeddedResource Include="Video\Images\InsertVideoFromWebTabIcon.png" />
+    <EmbeddedResource Include="Video\Images\MockPlayer.png" />
+    <EmbeddedResource Include="Video\Images\PlayerStyleAuto.png" />
+    <EmbeddedResource Include="Video\Images\PlayerStyleAutoSmall.png" />
+    <EmbeddedResource Include="Video\Images\PlayerStyleEmbedded.png" />
+    <EmbeddedResource Include="Video\Images\PlayerStyleEmbedSmall.png" />
+    <EmbeddedResource Include="Video\Images\PlayerStyleLink.png" />
+    <EmbeddedResource Include="Video\Images\PlayerStyleLinkSmall.png" />
+    <EmbeddedResource Include="Video\Images\VideoEmbedIcon.png" />
+    <EmbeddedResource Include="Video\Images\VideoURLIcon.png" />
+    <EmbeddedResource Include="Video\Images\VideoWatermark.png" />
+    <EmbeddedResource Include="Video\VideoListBox\Images\DownloadingThumbnail.png" />
+    <EmbeddedResource Include="Video\VideoListBox\Images\NoAvailableThumbnail.png" />
+    <EmbeddedResource Include="Video\VideoEditorControl.resx">
+      <DependentUpon>VideoEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Video\VideoProvidersB2.xml" />
+    <EmbeddedResource Include="Video\VideoPublishSource.resx">
+      <DependentUpon>VideoPublishSource.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Video\VideoService\VideoPagingControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VideoPagingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Video\VideoService\VideoRequestTypeComboBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VideoRequestTypeComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Video\VideoService\VideoServiceVideoSource.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VideoServiceVideoSource.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Video\WebVideoSource.resx">
+      <DependentUpon>WebVideoSource.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Video\YouTube\Images\Sidebar.png" />
+    <EmbeddedResource Include="WebLayoutViewWarningForm.resx">
+      <DependentUpon>WebLayoutViewWarningForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\PreferencesAutoreplace.png" />
+    <EmbeddedResource Include="PostPropertyEditing\CategoryControl\Images\Search.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\WrapTextCenterEnabled.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\RotateFrame.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\Corner16.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\BorderStyleRoundedCorners.png" />
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\SoftShadowBorder.png" />
+    <EmbeddedResource Include="Images\PreferencesPrivacy.png" />
+    <EmbeddedResource Include="Video\Images\Progress.gif" />
+    <EmbeddedResource Include="Video\Images\CloseEnabled.png" />
+    <EmbeddedResource Include="Video\Images\TabInsertVideoFromFile.png" />
+    <EmbeddedResource Include="Video\Images\Error.gif" />
+    <EmbeddedResource Include="Video\VideoService\Images\NextVideosDisabled.png" />
+    <EmbeddedResource Include="Video\VideoService\Images\NextVideosEnabled.png" />
+    <EmbeddedResource Include="Video\VideoService\Images\PreviousVideosDisabled.png" />
+    <EmbeddedResource Include="Video\VideoService\Images\PreviousVideosEnabled.png" />
+    <EmbeddedResource Include="Video\VideoService\Images\MyFavorites.png" />
+    <EmbeddedResource Include="Video\VideoService\Images\MyVideos.png" />
+    <EmbeddedResource Include="Video\VideoService\Images\VideoServiceTab.png" />
+    <EmbeddedResource Include="Images\PreferencesEditing.png" />
+    <EmbeddedResource Include="Video\YouTube\Images\LoginLogo.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="Video\YouTube\Images\YouTubeTab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Video\Images\AlignmentCenter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PostHtmlEditing\ImageEditing\Images\PolaroidBorder2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OpenPost\Images\Filter.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImageInsertion\WebImages\WebImageForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WebImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\AboutBoxImageSmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelWelcome.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelWelcome.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageInsertion\WebImages\Images\TabInsertFromWeb.png" />
+    <EmbeddedResource Include="Images\PluginsSmall.png" />
+    <EmbeddedResource Include="Images\StatusBackground.png" />
+    <EmbeddedResource Include="PostPropertyEditing\PostPropertiesBandControl.resx">
+      <DependentUpon>PostPropertiesBandControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostPropertyEditing\PostPropertiesForm.resx">
+      <DependentUpon>PostPropertiesForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostEditorFooter.resx">
+      <DependentUpon>PostEditorFooter.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OpenPost\Images\BlogAccount.png" />
+    <Content Include="PostHtmlEditing\Images\loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <RobocopyCompiled Include="$(ProjectDir)PostHtmlEditing\Images\loading.png">
+      <DestinationFolder>$(FullTargetProjectPath)\html</DestinationFolder>
+    </RobocopyCompiled>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+; OpenLiveWriter.Filter.def : Declares the module parameters.
+
+LIBRARY      "OpenLiveWriter.Filter.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE

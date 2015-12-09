@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.Controls</AssemblyName>
+    <RootNamespace>OpenLiveWriter.Controls</RootNamespace>
+    <ProjectGuid>{D4A39612-3610-458F-83F8-5722D1F51063}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj">
+      <Name>OpenLiveWriter.BrowserControl</Name>
+      <Project>{A5C213F6-F0C6-4FD6-B496-61FE434621A6}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
+      <Name>OpenLiveWriter.HtmlParser</Name>
+      <Project>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
+      <Name>OpenLiveWriter.Interop.Mshtml</Name>
+      <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj">
+      <Name>OpenLiveWriter.Mshtml</Name>
+      <Project>{906BA039-467B-41AE-B805-BA1B837AB763}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="AnimatedBitmapControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ApplicationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutoCompleteTextbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AutoCompleteTextbox.Designer.cs">
+      <DependentUpon>AutoCompleteTextbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BitmapButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BrowserMiniForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ButtonBaseLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ChoiceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChoiceDialog.Designer.cs">
+      <DependentUpon>ChoiceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChoiceOption.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ChoiceOption.Designer.cs">
+      <DependentUpon>ChoiceOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComboBoxRel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComboBoxRel.Designer.cs">
+      <DependentUpon>ComboBoxRel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DelayedAnimatedProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DelayedFetchComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DialogHelper.cs" />
+    <Compile Include="DisplayableExceptionDisplayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayMessage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DisplayMessageTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FocusWatchingUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GroupLabelControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IChildFocusWatcher.cs" />
+    <Compile Include="IHelpProviderContext.cs" />
+    <Compile Include="ILightweightControlContainerControl.cs" />
+    <Compile Include="ImageComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImageCropControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageCropControl.Designer.cs">
+      <DependentUpon>ImageCropControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IToolTipDisplay.cs" />
+    <Compile Include="LabelControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LCCCFocusAndAccessibilityController.cs" />
+    <Compile Include="LightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LightweightControlCollection.cs" />
+    <Compile Include="LightweightControlContainerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LightweightControlEventArgs.cs" />
+    <Compile Include="MarginUtil.cs" />
+    <Compile Include="MiniForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewFolderButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PersistentWindowAttribute.cs" />
+    <Compile Include="ProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressHelper.cs" />
+    <Compile Include="ShowContextMenuEventArgs.cs" />
+    <Compile Include="SidebarListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextBoxWithPaste.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolTip2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrackingToolTip.cs" />
+    <Compile Include="Wizard\WizardController.cs" />
+    <Compile Include="Wizard\WizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizard\WizardHeaderBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XPBitmapButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="AnimatedBitmapControl.resx">
+      <DependentUpon>AnimatedBitmapControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationDialog.resx">
+      <DependentUpon>ApplicationDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BitmapButton.resx">
+      <DependentUpon>BitmapButton.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BrowserMiniForm.resx">
+      <DependentUpon>BrowserMiniForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ButtonBaseLightweightControl.resx">
+      <DependentUpon>ButtonBaseLightweightControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChoiceDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ChoiceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChoiceOption.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ChoiceOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DelayedAnimatedProgressDialog.resx">
+      <DependentUpon>DelayedAnimatedProgressDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DelayedFetchComboBox.resx">
+      <DependentUpon>DelayedFetchComboBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayableExceptionDisplayForm.resx">
+      <DependentUpon>DisplayableExceptionDisplayForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayMessage.resx">
+      <DependentUpon>DisplayMessage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayMessageTestForm.resx">
+      <DependentUpon>DisplayMessageTestForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FocusWatchingUserControl.resx">
+      <DependentUpon>FocusWatchingUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupLabelControl.resx">
+      <DependentUpon>GroupLabelControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Application\BitmapButtonFace.png" />
+    <EmbeddedResource Include="Images\Application\BitmapButtonFacePushed.png" />
+    <EmbeddedResource Include="Images\Application\ButtonFace.png" />
+    <EmbeddedResource Include="Images\Application\ButtonFacePushed.png" />
+    <EmbeddedResource Include="Images\Application\CheckCheckedDisabled.png" />
+    <EmbeddedResource Include="Images\Application\CheckCheckedEnabled.png" />
+    <EmbeddedResource Include="Images\Application\CheckCheckedFocused.png" />
+    <EmbeddedResource Include="Images\Application\CheckCheckedPushed.png" />
+    <EmbeddedResource Include="Images\Application\CheckUncheckedDisabled.png" />
+    <EmbeddedResource Include="Images\Application\CheckUncheckedEnabled.png" />
+    <EmbeddedResource Include="Images\Application\CheckUncheckedFocused.png" />
+    <EmbeddedResource Include="Images\Application\CheckUncheckedPushed.png" />
+    <EmbeddedResource Include="Images\Application\EllipsisDisabled.png" />
+    <EmbeddedResource Include="Images\Application\EllipsisEnabled.png" />
+    <EmbeddedResource Include="Images\Application\EllipsisPushed.png" />
+    <EmbeddedResource Include="Images\Application\EllipsisSelected.png" />
+    <EmbeddedResource Include="Images\Application\Error.png" />
+    <EmbeddedResource Include="Images\Application\GroupLabelBevel.png" />
+    <EmbeddedResource Include="Images\Application\Minus.png" />
+    <EmbeddedResource Include="Images\Application\MinusBlue.png" />
+    <EmbeddedResource Include="Images\Application\Plus.png" />
+    <EmbeddedResource Include="Images\Application\PlusBlue.png" />
+    <EmbeddedResource Include="Images\Application\RadioCheckedDisabled.png" />
+    <EmbeddedResource Include="Images\Application\RadioCheckedEnabled.png" />
+    <EmbeddedResource Include="Images\Application\RadioCheckedFocused.png" />
+    <EmbeddedResource Include="Images\Application\RadioCheckedPushed.png" />
+    <EmbeddedResource Include="Images\Application\RadioUncheckedDisabled.png" />
+    <EmbeddedResource Include="Images\Application\RadioUncheckedEnabled.png" />
+    <EmbeddedResource Include="Images\Application\RadioUncheckedFocused.png" />
+    <EmbeddedResource Include="Images\Application\RadioUncheckedPushed.png" />
+    <EmbeddedResource Include="Images\Application\smallerFeedbackGraphic.png" />
+    <EmbeddedResource Include="Images\Application\StatusShelfShadow.png" />
+    <EmbeddedResource Include="Images\Application\ThickButtonFacePushed.png" />
+    <EmbeddedResource Include="Images\Application\ThickButtonFaceSelected.png" />
+    <EmbeddedResource Include="Images\Application\TwistieAnimation30.png" />
+    <EmbeddedResource Include="Images\Application\TwistieAnimation60.png" />
+    <EmbeddedResource Include="Images\Application\TwistieAnimationRollover30.png" />
+    <EmbeddedResource Include="Images\Application\TwistieAnimationRollover60.png" />
+    <EmbeddedResource Include="Images\Application\TwistieCollapsed.png" />
+    <EmbeddedResource Include="Images\Application\TwistieCollapsedRollover.png" />
+    <EmbeddedResource Include="Images\Application\TwistieExpanded.png" />
+    <EmbeddedResource Include="Images\Application\TwistieExpandedRollover.png" />
+    <EmbeddedResource Include="Images\Application\Warning.png" />
+    <EmbeddedResource Include="Images\BallSpinner.gif" />
+    <EmbeddedResource Include="Images\ErrorLogoSmall.png" />
+    <EmbeddedResource Include="Images\HeaderCorner.png" />
+    <EmbeddedResource Include="Images\ProgressBarBar.png" />
+    <EmbeddedResource Include="Images\ProgressBarLeft.png" />
+    <EmbeddedResource Include="Images\ProgressBarMiddle.png" />
+    <EmbeddedResource Include="Images\ProgressBarRight.png" />
+    <EmbeddedResource Include="Images\WizardArrowBody.png" />
+    <EmbeddedResource Include="Images\WizardArrowHead.png" />
+    <EmbeddedResource Include="Images\WizardTopTile.png" />
+    <EmbeddedResource Include="LabelControl.resx">
+      <DependentUpon>LabelControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LightweightControl.resx">
+      <DependentUpon>LightweightControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LightweightControlContainerControl.resx">
+      <DependentUpon>LightweightControlContainerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MiniForm.resx">
+      <DependentUpon>MiniForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewFolderButton.resx">
+      <DependentUpon>NewFolderButton.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumericTextBox.resx">
+      <DependentUpon>NumericTextBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressDialog.resx">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizard\WizardForm.resx">
+      <DependentUpon>WizardForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizard\WizardHeaderBar.resx">
+      <DependentUpon>WizardHeaderBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Images\Application\NewFolderDisabled.png" />
+    <Content Include="Images\Application\NewFolderEnabled.png" />
+    <Content Include="Images\Application\NewFolderSelected.png" />
+    <EmbeddedResource Include="Images\refresh.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\refreshPushed.png" />
+    <EmbeddedResource Include="Images\refreshSelected.png" />
+    <EmbeddedResource Include="Images\ChoiceOptionFocus.png" />
+    <EmbeddedResource Include="Images\arrow_hover.png" />
+    <EmbeddedResource Include="Images\arrow.png" />
+    <EmbeddedResource Include="Images\ChoiceOptionHover.png" />
+    <EmbeddedResource Include="Images\TabCenter-hi.png" />
+    <EmbeddedResource Include="Images\TabCenterSelected-hi.png" />
+    <EmbeddedResource Include="Images\TabLeft-hi.png" />
+    <EmbeddedResource Include="Images\TabLeftSelected-hi.png" />
+    <EmbeddedResource Include="Images\TabRight-hi.png" />
+    <EmbeddedResource Include="Images\TabRightSelected-hi.png" />
+    <EmbeddedResource Include="Images\TabCenter.png" />
+    <EmbeddedResource Include="Images\TabCenterSelected.png" />
+    <EmbeddedResource Include="Images\TabLeft.png" />
+    <EmbeddedResource Include="Images\TabLeftSelected.png" />
+    <EmbeddedResource Include="Images\TabRight.png" />
+    <EmbeddedResource Include="Images\TabRightSelected.png" />
+    <EmbeddedResource Include="Images\ProgressBar.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+</Project>

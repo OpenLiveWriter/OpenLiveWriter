@@ -1,0 +1,19 @@
+<patch baseConfig="config.bscx">
+
+	<!-- insert a trace filter to the beginning of every path -->
+	<delete select="/server/path/filter[@className='BlogServer.RequestFilters.TraceFilter']"/>
+	<insert select="/server/path" position="firstChild">
+		<filter className="BlogServer.RequestFilters.TraceFilter"/>
+	</insert>
+
+	<delete select="/server/path[@value='/']"/>
+	<delete select="/server/path[@value='/rsd']"/>
+
+	<replace select="/server/path[@value='/api']/handler[@className='BlogServer.RequestHandlers.BlogServerHandler']">
+		<handler className="BlogServer.RequestHandlers.XmlRpcProxyHandler" url="http://unknown.wordpress.com/xmlrpc.php" />
+	</replace>
+
+	<!-- change the server port to 7800 -->
+	<merge select="/server" port="7800"/>
+
+</patch>

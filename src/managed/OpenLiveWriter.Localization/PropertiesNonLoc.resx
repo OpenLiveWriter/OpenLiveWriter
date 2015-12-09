@@ -1,0 +1,639 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Command.ApplySemanticHeader1.AdvancedShortcut" xml:space="preserve">
+    <value>D1, Control, Alt</value>
+  </data>
+  <data name="Command.ApplySemanticHeader2.AdvancedShortcut" xml:space="preserve">
+    <value>D2, Control, Alt</value>
+  </data>
+  <data name="Command.ApplySemanticHeader3.AdvancedShortcut" xml:space="preserve">
+    <value>D3, Control, Alt</value>
+  </data>
+  <data name="Command.ApplySemanticHeader4.AdvancedShortcut" xml:space="preserve">
+    <value>D4, Control, Alt</value>
+  </data>
+  <data name="Command.ApplySemanticHeader5.AdvancedShortcut" xml:space="preserve">
+    <value>D5, Control, Alt</value>
+  </data>
+  <data name="Command.ApplySemanticHeader6.AdvancedShortcut" xml:space="preserve">
+    <value>D6, Control, Alt</value>
+  </data>
+  <data name="Command.Blockquote.SuppressMenuBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.Bullets.SuppressMenuBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.FocusNextPane.VisibleOnCommandBar" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Command.FocusNextPane.VisibleOnContextMenu" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Command.FocusPreviousPane.VisibleOnCommandBar" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Command.FocusPreviousPane.VisibleOnContextMenu" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Command.LTRTextBlock.AdvancedShortcut" xml:space="preserve">
+    <value>LShiftKey, Control</value>
+  </data>
+  <data name="Command.NewPost.SuppressCommandBarBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.Numbers.SuppressMenuBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.OpenPost.SuppressCommandBarBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.OpenPostSplit.SuppressCommandBarBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.PasteSpecial.AdvancedShortcut" xml:space="preserve">
+    <value>V, Control, Alt</value>
+  </data>
+  <data name="Command.PostAndPublish.SuppressCommandBarBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.PostProperties.SuppressMenuBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.RemoveLinkAndClearFormatting.AdvancedShortcut" xml:space="preserve">
+    <value>Space, Control</value>
+  </data>
+  <data name="Command.RTLTextBlock.AdvancedShortcut" xml:space="preserve">
+    <value>RShiftKey, Control</value>
+  </data>
+  <data name="Command.SavePost.SuppressCommandBarBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.Style.VisibleOnContextMenu" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Command.Subscript.AdvancedShortcut" xml:space="preserve">
+    <value>Oemplus, Control</value>
+  </data>
+  <data name="Command.Superscript.AdvancedShortcut" xml:space="preserve">
+    <value>Oemplus, Shift, Control</value>
+  </data>
+  <data name="Command.ValidateHtml.AdvancedShortcut" xml:space="preserve">
+    <value>F7, Shift, Control, Alt</value>
+  </data>
+  <data name="Command.ViewCode.SuppressMenuBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.ViewNormal.SuppressMenuBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.ViewPlainText.SuppressMenuBitmap" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Culture.UseItalics" xml:space="preserve">
+    <value>True</value>
+  <comment>Whether or not the language uses italics</comment></data>
+  <data name="DisplayMessage.AddBlogUrlFormatError.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.AutoRecoverPromptDiscardConfirm.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.AutoRecoverPromptDiscardConfirm.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.AutoreplaceAlreadyExists.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.AutoreplaceAlreadyExists.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.AutoreplacePhraseRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.AutoreplaceReplacementRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.BetaError.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.CannotInsert.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.CategoryReminder.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.CategoryReminder.DefaultButton" xml:space="preserve">
+    <value>Button2</value>
+  </data>
+  <data name="DisplayMessage.CategoryReminder.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteAutoReplaceEntry.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteAutoReplaceEntry.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteDraft.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteDraft.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteEntry.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteEntry.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeletePost.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeletePost.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteTable.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteTable.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.ConfirmOverwrite.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ConfirmOverwrite.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.ConfirmRemoveWeblog.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ConfirmRemoveWeblog.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.ConfirmReplaceEntry.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ConfirmReplaceEntry.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.DirectoryFail.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.EntryFound.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.EntryFound.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnecting.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnectingPromptContinue.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnectingPromptContinue.DefaultButton" xml:space="preserve">
+    <value>Button2</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnectingPromptContinue.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.FileNotFound.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.FinishedSearchingDocument.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.FtpSettingsRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.GuestNotSupported.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlInvalid.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.HostNameRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.InputIsNotUrl.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.InputIsNotUrl.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.InternetConnectionWarning.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.InvalidInsertionPoint.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.InvalidNumberNonNegative.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.InvalidNumberPositiveOnly.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.InvalidPingUrl.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.InvalidWebImage.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.LocalDeleteConfirmation.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.LocalDeleteConfirmation.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.LoginFailed.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.MalformedHtmlIgnored.Buttons" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DisplayMessage.MalformedHtmlIgnored.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.MappingVerificationFailed.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.MappingVerificationFailed.DefaultButton" xml:space="preserve">
+    <value>Button2</value>
+  </data>
+  <data name="DisplayMessage.MappingVerificationFailed.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.MapsNoInternetConnection.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.MultipleCategoriesNotSupported.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.MultipleLinks.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.MustAcceptTermsOfUse.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.NoImageSelected.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.NoMapAddressSpecified.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.NonImageTypeFileSelected.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.NoPostSelected.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.NoPreviewAvailable.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.NoTags.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.NoTitleSpecified.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.NotLinkable.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.NoUpdateAvailable.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.NoVideoFound.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.PassportUsernameAndPasswordRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.PasteSpecialInvalidData.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.PersonalDirectoryFail.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.PicasawebSignup.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.PicasawebSignup.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.PingUrlRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.PluginBitmapLoadError.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.PluginStatusChanged.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.PostTitleTooLong.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.PublishCanceledByPlugin.Buttons" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DisplayMessage.PublishCanceledByPlugin.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.PushpinValidationError.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.PushpinValidationError.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.QueryForCreateEditorTemplate.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.QueryForCreateEditorTemplate.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpostedEntry.Buttons" xml:space="preserve">
+    <value>YesNoCancel</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpostedEntry.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpublishedEntry.Buttons" xml:space="preserve">
+    <value>YesNoCancel</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpublishedEntry.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnsavedChanges.Buttons" xml:space="preserve">
+    <value>YesNoCancel</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnsavedChanges.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.RepublishAsDraftUnsupported.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.RequiredFieldOmitted.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.SelectEntry.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.ServerParameterNotSpecified.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.ShouldUsePlugin.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.ShouldUsePlugin.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.SoapboxLoginError.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.SpacesPublishingNotEnabled.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckCancelledStillPost.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckCancelledStillPost.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckComplete.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmDeleteProvider.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmDeleteProvider.DefaultButton" xml:space="preserve">
+    <value>Button1</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmDeleteProvider.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmRestoreProviders.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmRestoreProviders.DefaultButton" xml:space="preserve">
+    <value>Button1</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmRestoreProviders.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.TagFormatRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.TagMissingToken.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.TagProviderNameRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.TagReminder.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.TagReminder.DefaultButton" xml:space="preserve">
+    <value>Button2</value>
+  </data>
+  <data name="DisplayMessage.TagReminder.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.TemplateDownloadFailed.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.TempPostDeleteFailed.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.TempPostPermission.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.TempPostPermission.Type" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="DisplayMessage.TitleNotLinkable.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.UnspecifiedValue.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.UrlMappingRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.UsernameAndPasswordRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.ValueExceedsMaximum.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.ValueLessThanMinimum.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.VideoAccessError.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.VideoFailedPublish.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.VideoLoginRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.VideoPathInvalid.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.VideoPublisherFailed.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+  <data name="DisplayMessage.VideoRequiredFields.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.WeblogAuthenticationError.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.WeblogConnectionError.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.WeblogNoAccountsOnServer.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.WeblogUrlNotFound.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.WidthHeightRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.WordpressHomepageWrong.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.WriterCannotStart.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.YouTubeError.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="DisplayMessage.YouTubeSignup.Buttons" xml:space="preserve">
+    <value>YesNo</value>
+  </data>
+  <data name="DisplayMessage.YouTubeSignup.Type" xml:space="preserve">
+    <value>Asterisk</value>
+  </data>
+</root>

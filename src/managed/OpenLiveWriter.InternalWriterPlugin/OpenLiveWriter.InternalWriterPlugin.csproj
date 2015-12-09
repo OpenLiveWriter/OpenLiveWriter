@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.InternalWriterPlugin</AssemblyName>
+    <RootNamespace>OpenLiveWriter.InternalWriterPlugin</RootNamespace>
+    <ProjectGuid>{699FB638-CE02-48D7-8078-30A7939C5BCB}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj">
+      <Name>OpenLiveWriter.Api</Name>
+      <Project>{B6D10B42-F173-4086-BB81-96B724BA5594}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj">
+      <Name>OpenLiveWriter.ApplicationFramework</Name>
+      <Project>{EEEE653A-90CE-44E2-B40E-22F747880CC0}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj">
+      <Name>OpenLiveWriter.BrowserControl</Name>
+      <Project>{A5C213F6-F0C6-4FD6-B496-61FE434621A6}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj">
+      <Name>OpenLiveWriter.Controls</Name>
+      <Project>{D4A39612-3610-458F-83F8-5722D1F51063}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
+      <Name>OpenLiveWriter.Interop.Mshtml</Name>
+      <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj">
+      <Name>OpenLiveWriter.Mshtml</Name>
+      <Project>{906BA039-467B-41AE-B805-BA1B837AB763}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="Controls\MapBirdsEyeButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapBirdsEyeDirectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapBirdsEyeZoomControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapBitmapButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapContextMenu.cs" />
+    <Compile Include="Controls\MapLogoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapPushpinForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\MapScrollControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapSearchButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapTipControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapViewComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\MapZoomButtons.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="JSMapController.cs" />
+    <Compile Include="MapActiveObject.cs" />
+    <Compile Include="MapContentSource.cs" />
+    <Compile Include="MapControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MapOptions.cs" />
+    <Compile Include="MapOptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MapSettings.cs" />
+    <Compile Include="MapSidebarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MapUrlHelper.cs" />
+    <EmbeddedResource Include="Images\AlignmentCenter.png" />
+    <EmbeddedResource Include="Images\BingLogo.png" />
+    <EmbeddedResource Include="Images\BingSearchButton.gif" />
+    <Content Include="map-preview.html" />
+    <Content Include="map.html" />
+    <EmbeddedResource Include="Controls\MapBirdsEyeDirectionControl.resx">
+      <DependentUpon>MapBirdsEyeDirectionControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MapBirdsEyeZoomControl.resx">
+      <DependentUpon>MapBirdsEyeZoomControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MapLogoControl.resx">
+      <DependentUpon>MapLogoControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MapPushpinForm.resx">
+      <DependentUpon>MapPushpinForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MapScrollControl.resx">
+      <DependentUpon>MapScrollControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MapTipControl.resx">
+      <DependentUpon>MapTipControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MapViewComboBox.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\AerialIcon.png" />
+    <EmbeddedResource Include="Images\AlignmentInline.png" />
+    <EmbeddedResource Include="Images\AlignmentLeft.png" />
+    <EmbeddedResource Include="Images\AlignmentRight.png" />
+    <EmbeddedResource Include="Images\BEVEastEnabled.png" />
+    <EmbeddedResource Include="Images\BEVEastPressed.png" />
+    <EmbeddedResource Include="Images\BEVEastSelected.png" />
+    <EmbeddedResource Include="Images\BEViewIcon.png" />
+    <EmbeddedResource Include="Images\BEVNorthEnabled.png" />
+    <EmbeddedResource Include="Images\BEVNorthPressed.png" />
+    <EmbeddedResource Include="Images\BEVNorthSelected.png" />
+    <EmbeddedResource Include="Images\BEVNSEWFrame.png" />
+    <EmbeddedResource Include="Images\BEVSouthEnabled.png" />
+    <EmbeddedResource Include="Images\BEVSouthPressed.png" />
+    <EmbeddedResource Include="Images\BEVSouthSelected.png" />
+    <EmbeddedResource Include="Images\BEVWestEnabled.png" />
+    <EmbeddedResource Include="Images\BEVWestPressed.png" />
+    <EmbeddedResource Include="Images\BEVWestSelected.png" />
+    <EmbeddedResource Include="Images\BEVZoomFrame.png" />
+    <EmbeddedResource Include="Images\BEVZoomLargeEnabled.png" />
+    <EmbeddedResource Include="Images\BEVZoomLargeSelected.png" />
+    <EmbeddedResource Include="Images\BEVZoomSmallEnabled.png" />
+    <EmbeddedResource Include="Images\BEVZoomSmallSelected.png" />
+    <EmbeddedResource Include="Images\CustomizeMapIcon.png" />
+    <EmbeddedResource Include="Images\EnabledTileFrame.png" />
+    <EmbeddedResource Include="Images\GoBirdsEyeEnabled.png" />
+    <EmbeddedResource Include="Images\GoBirdsEyePressed.png" />
+    <EmbeddedResource Include="Images\GoBirdsEyeSelected.png" />
+    <EmbeddedResource Include="Images\HeaderCorner.png" />
+    <EmbeddedResource Include="Images\InsertMap.png" />
+    <EmbeddedResource Include="Images\LatchedTileFrame.png" />
+    <EmbeddedResource Include="Images\MapWatermark.png" />
+    <EmbeddedResource Include="Images\MenuPushpinEnabled.png" />
+    <EmbeddedResource Include="Images\PointEast.png" />
+    <EmbeddedResource Include="Images\PointNorth.png" />
+    <EmbeddedResource Include="Images\PointSouth.png" />
+    <EmbeddedResource Include="Images\PointWest.png" />
+    <EmbeddedResource Include="Images\RoadEastEnabled.png" />
+    <EmbeddedResource Include="Images\RoadEastPressed.png" />
+    <EmbeddedResource Include="Images\RoadEastSelected.png" />
+    <EmbeddedResource Include="Images\RoadIcon.png" />
+    <EmbeddedResource Include="Images\RoadNorthEnabled.png" />
+    <EmbeddedResource Include="Images\RoadNorthPressed.png" />
+    <EmbeddedResource Include="Images\RoadNorthSelected.png" />
+    <EmbeddedResource Include="Images\RoadNSEWFrame.png" />
+    <EmbeddedResource Include="Images\RoadSouthEnabled.png" />
+    <EmbeddedResource Include="Images\RoadSouthPressed.png" />
+    <EmbeddedResource Include="Images\RoadSouthSelected.png" />
+    <EmbeddedResource Include="Images\RoadWestEnabled.png" />
+    <EmbeddedResource Include="Images\RoadWestPressed.png" />
+    <EmbeddedResource Include="Images\RoadWestSelected.png" />
+    <EmbeddedResource Include="Images\SearchMap.png" />
+    <EmbeddedResource Include="Images\SelectedTileFrame.png" />
+    <EmbeddedResource Include="Images\TipIcon.png" />
+    <EmbeddedResource Include="Images\ViewMapIcon.png" />
+    <EmbeddedResource Include="Images\ZoomMinusEnabled.png" />
+    <EmbeddedResource Include="Images\ZoomMinusPressed.png" />
+    <EmbeddedResource Include="Images\ZoomMinusSelected.png" />
+    <EmbeddedResource Include="Images\ZoomPlusEnabled.png" />
+    <EmbeddedResource Include="Images\ZoomPlusPressed.png" />
+    <EmbeddedResource Include="Images\ZoomPlusSelected.png" />
+    <EmbeddedResource Include="MapControl.resx">
+      <DependentUpon>MapControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapForm.resx">
+      <DependentUpon>MapForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapOptionsDialog.resx">
+      <DependentUpon>MapOptionsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapSidebarControl.resx">
+      <DependentUpon>MapSidebarControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+  <Target Name="BeforeBuild">
+    <Copy SourceFiles="$(ProjectDir)map-preview.html" DestinationFiles="$(OutputPath)html\map-preview.html" />
+    <Copy SourceFiles="$(ProjectDir)map.html" DestinationFiles="$(OutputPath)html\map.html" />
+  </Target>
+</Project>

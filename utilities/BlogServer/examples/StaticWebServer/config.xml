@@ -1,0 +1,9 @@
+<server port="8100">
+  <path pattern=".*">
+    <handler
+        className="BlogServer.RequestHandlers.FilesystemHandler" 
+        basePath="/" 
+        rootDir=".\files"
+        allowDirectoryBrowsing="true"/>
+  </path>
+</server>

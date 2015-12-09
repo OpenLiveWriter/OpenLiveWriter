@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LCX SchemaVersion="6.0" Name="strings.wxl" PsrId="210" FileType="1" SrcCul="en-US" TgtCul="ig-NG" xmlns="http://schemas.microsoft.com/locstudio/2006/6/lcx">
+        <Props>
+          <Str Name="CustomName1" Val="Custom 1" />
+          <Str Name="CustomName2" Val="Custom 2" />
+          <Str Name="CustomName3" Val="Custom 3" />
+          <Str Name="CustomName4" Val="Custom 4" />
+          <Str Name="CustomName5" Val="Custom 5" />
+          <Str Name="CustomName6" Val="IQA" />
+        </Props>
+        <OwnedComments>
+          <Cmt Name="Dev" />
+          <Cmt Name="LcxAdmin" />
+          <Cmt Name="Note" />
+          <Cmt Name="Rccx" />
+        </OwnedComments>
+        <Settings Name="@LbaRoot@\ig-ng\writer\writer.lsconfig" Type="Config" />
+        <Item ItemId=";&lt;String&gt;" ItemType="0" PsrId="210" Leaf="false">
+          <Disp Icon="Str" Disp="true" LocTbl="false" />
+          <Modified By="jlamos" DateTime="2010-08-16T13:49:48Z" />
+          <Item ItemId="0;blogthisbuttontext@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[Blog This]]></Val>
+              <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New">
+                <Val><![CDATA[Blọ̄ọ̄gụ̀ Nke a]]></Val>
+              </Tgt>
+            </Str>
+            <Disp Icon="Str" Order="3" />
+            <Modified By="Lduba" DateTime="2010-11-09T11:59:32Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... [\\[]5D;","]5D;=[\\]5D;]5D;"}" -->Blog This</String>]]></Cmt>
+            </Cmts>
+          </Item>
+          <Item ItemId="0;blogthismenutext@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[&amp;Blog This in [WLW_ProductName]5D;]]></Val>
+              <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New">
+                <Val><![CDATA[&amp;Blọ̄ọ̄gụ̀ Nke a na [WLW_ProductName]5D;]]></Val>
+              </Tgt>
+            </Str>
+            <Disp Icon="Str" Order="1" />
+            <Modified By="JurajM" DateTime="2010-11-26T15:18:49Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... ;Blog This in [WLW_ProductName]5D;</String>]]></Cmt>
+            </Cmts>
+            <Notes>
+              <Note Name="Loc" Order="0"><![CDATA[308651]]></Note>
+            </Notes>
+          </Item>
+          <Item ItemId="0;productdescription@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[Blog like a pro, with photos, videos, maps, and more]]></Val>
+              <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New">
+                <Val><![CDATA[Jiri foto, vìdiò, maapụ na ihe gasi ndị̀ ọzọ dèpụ̀ta blọ̄ọ̄gụ̀ dị ka ọkachamara]]></Val>
+              </Tgt>
+              <Prev Cat="AppData">
+                <Val><![CDATA[Create great-looking blog posts, including photos, videos, maps, events, and tags, and publish them to almost any blog service—Windows Live, WordPress, Blogger, Live Journal, TypePad, and many more.]]></Val>
+              </Prev>
+            </Str>
+            <Disp Icon="Str" Order="5" />
+            <Modified By="JLamos" DateTime="2010-11-29T11:51:56Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... photos, videos, maps, and more</String>]]></Cmt>
+            </Cmts>
+            <Notes>
+              <Note Name="Loc" Order="0"><![CDATA[Quint]]></Note>
+            </Notes>
+          </Item>
+        </Item>
+      </LCX>

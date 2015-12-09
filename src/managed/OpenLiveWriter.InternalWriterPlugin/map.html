@@ -1,0 +1,414 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<title>Open Live Writer Map Control</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="{apiurl}"></script>
+
+</head>
+<script>
+	var map = null;
+	var mapElement;
+	var propertyChangeHandlers = new Object();
+	var minZoom = -1;
+	var birdsEyeLoader = null;
+
+
+	function MyOnLoad()
+	{
+		InitEventHandlers();
+		
+		var mapCenter = jsMapController.GetCenter();
+		var latitude = toNumber(mapCenter.Latitude);
+		var longitude = toNumber(mapCenter.Longitude);
+		var reserved = toString(mapCenter.Reserved);
+		var coords = new VELatLong(latitude, longitude);
+		if(reserved != "" && reserved != null)
+		{
+			//the coordinate is encrypted (probably an oblique coordinate),
+			//so we need to create the VELatLong in a special way
+			coords.Latitude = null;
+			coords.Longitude = null;
+			coords._reserved = reserved;
+		}
+
+		mapElement = document.getElementById("map");
+		map = new VEMap("map");
+		map.onLoadMap = function(){
+			map.AttachEvent("onchangeview", onMapChange);
+			map.AttachEvent("onclick", function(e){if(e.rightMouseButton)onMapContextMenu(e);});
+			map.AttachEvent("onendzoom", onEndZoom);
+			map.AttachEvent("onchangemapstyle", onChangeMapStyle);
+			map.AttachEvent("onobliqueenter", onObliqueEnter);
+			map.AttachEvent("onobliqueleave", onObliqueLeave);
+			map.AttachEvent("onobliquechange", onObliqueChange);
+			
+			//Disable pushpin hover since it shows up off the screen 90% of the time
+			VEPushpin.ShowDetailOnMouseOver = false;
+		
+			map.HideDashboard();
+		}
+		
+		if(jsMapController.MapStyle == "o")
+		{
+			var sceneId = jsMapController.BirdseyeScene.SceneId;			
+			var zoomLevel = jsMapController.ZoomLevel;
+			
+			var sceneLoaded = function()
+			{
+				map.DetachEvent("onobliquechange", sceneLoaded);
+				mapElement.runtimeStyle.display = "";
+				map.SetCenterAndZoom(coords, zoomLevel);
+				birdsEyeLoader = null;
+				map.ShowMiniMap(0, 0);
+				
+				//Birdseye initialization is complete
+				handleInitCompleted();
+			}
+			birdsEyeLoader = new Object();
+			birdsEyeLoader.init = function(){
+				map.AttachEvent("onobliquechange", sceneLoaded);
+				jsMapController.BirdsEyeAvailable = true; //prevents onobliquechange handling bug that causes the map to switch styles while initializing
+				map.SetBirdseyeScene(sceneId); //will trigger sceneLoaded()
+			}		
+			
+			map.LoadMap();
+			mapElement.runtimeStyle.display = "none";
+
+			//Birdseye hack: birdseye doesn't like to be the initially loaded style,
+			//so load the map, and then set the birdseye settings on a delayed callback.
+			setTimeout("birdsEyeLoader.init()", 200);
+		}
+		else
+		{
+			map.LoadMap(coords, jsMapController.ZoomLevel, jsMapController.MapStyle, false);
+			
+			//Arial/Road initialization is complete
+			handleInitCompleted();			
+		}
+	}
+		
+	function InitEventHandlers()
+	{
+		propertyChangeHandlers["zoomLevel"] = function(e) {
+			map.SetZoomLevel(toNumber(e.value));
+		} 		
+		propertyChangeHandlers["mapStyle"] = function(e)
+		{ 
+			map.SetMapStyle(toString(e.value)); 
+		}
+		propertyChangeHandlers["orientation"] = function(e)
+		{
+			var direction;
+			switch(toString(e.value))
+			{
+				case "North":
+					direction = VEOrientation.North;
+					break;
+				case "East":
+					direction = VEOrientation.East;
+					break;
+				case "South":
+					direction = VEOrientation.South;
+					break;
+				case "West":
+					direction = VEOrientation.West;
+					break;
+			}
+			map.SetBirdseyeOrientation(direction);
+		}
+		
+		propertyChangeHandlers["birdseyeScene"] = function(e)
+		{
+			map.SetBirdseyeScene(toString(e.value));
+		}
+		
+		propertyChangeHandlers["center"] = function(e)
+		{ 
+			var coords = new VELatLong(toNumber(e.value.latitude), toNumber(e.value.longitude));
+			var currCenter = _getCenter();
+			if(currCenter.Latitude != coords.Latitude || currCenter.Longitude != coords.Longitude)
+			{
+				//jslog("lastKnownCenter", coords);
+				map.SetCenter(coords);
+			}
+		}
+		
+		propertyChangeHandlers["location"] = function(e)
+		{ 
+			//Birdseye hack: the check for birdseye available requires
+			//a minimum zoom of 12, so force it to be at least 12 when
+			//the found location is changed.
+			if(map.GetMapStyle() != VEMapStyle.Birdseye)
+				minZoom = 12;
+			
+			var loc = toString(e.value);
+			
+			//clean up the location value to avoid errors thrown by the VE SDK			
+			loc = loc.replace(/#/g, ""); //strip # signs - fixes bug 305725
+			map.Find(null, loc);
+		}
+	}
+		
+	/**
+	 * Post-initialization handler for all maps.
+	 */
+	function handleInitCompleted(){
+		//synchronize the map size to match the size of the map DIV.
+		//Note:  this prevents bug where the "select a specific search location" popup shows up off-screen 
+		var height = document.body.clientHeight;
+		var width = document.body.clientWidth;
+		map.Resize(width, height);
+		
+		//initialize the "process events" loop
+		initProcessEventsLoop();
+	}
+	
+	function initProcessEventsLoop()
+	{
+		//process any events already in the queue.  Silently eat the events that may have been added
+		//while initializing the map (other than pushpin events)
+		var e = jsMapController.NextEvent();
+		while(e != null)
+		{
+			if(e.type == 2) 
+				processEvent(e);				
+			e = jsMapController.NextEvent();
+		}
+		
+		//start an event polling callback to respond to events from the .NET host control
+		setInterval("processEvents();", 100);
+	}
+	
+	function processEvents()
+	{
+		var evtCount = 0;
+		var e = jsMapController.NextEvent();
+		while(e != null)
+		{
+			evtCount++;
+			if(evtCount > 25)
+			{
+				alert("Bug alert: recursive event loop: " + e);
+				return;
+			}
+			
+			processEvent(e);				
+			e = jsMapController.NextEvent();
+		}
+	}
+	
+	function processEvent(e)
+	{
+		if(e.type == 1) //propertyChanged
+		{
+			//alert("propertyChanged: " + e.name + " " + e.value);
+			//invoke the handler for the specified property
+			propertyChangeHandlers[e.name](e);
+		}
+		else if(e.type == 2) //pushpin action
+		{
+			if(e.Action == 1) //pushpinAdded
+			{
+				var pushPin = e.Pushpin;
+				var vePushpin = new VEPushpin(
+						pushPin.PinId, 
+						new VELatLong(pushPin.VELatLong.Latitude, pushPin.VELatLong.Longitude),
+						pushPin.ImageFile,
+						pushPin.Title,
+						pushPin.Details
+					);				
+				map.AddPushpin(vePushpin);
+			}
+			else if(e.Action == 2) //pushpin deleted
+			{
+				map.DeletePushpin(e.Pushpin.PinId);
+			}
+			else if(e.Action == 3) //delete all pushpins
+			{
+				map.DeleteAllPushpins();
+			}
+		}
+		else if(e.type == 3) //pushpin action
+		{
+			map.Pan(toNumber(e.DeltaX), toNumber(e.DeltaY));
+		}
+		else if(e.type == 4) //zoom to pixel
+		{
+			var latLong = map.PixelToLatLong(new VEPixel(toNumber(e.X), toNumber(e.Y)), map.GetZoomLevel());
+			map.SetCenterAndZoom(latLong, toNumber(e.ZoomLevel));
+		}
+	}
+	
+	function onMapChange()
+	{		
+		var center = _getCenter();
+		jsMapController.SetCenter(toNumber(center.Latitude), toNumber(center.Longitude), toString(center._reserved));
+		
+		//clear min zoom if we're already zoomed to the right level
+		if(minZoom == map.GetZoomLevel())
+			minZoom = -1;
+	}
+	
+	function onMapContextMenu(e) {
+		if(map.GetMapStyle() != VEMapStyle.Birdseye)
+		{
+			var point = new VEPixel(e.mapX, e.mapY);
+			var pinId = getPushpinIdAtPoint(point.x, point.y);
+			var pinIdStr = pinId != null ? toString(pinId) : ""; // vista requires explicit casts
+			var latlong = map.PixelToLatLong(point);
+			jsMapController.ShowContextMenu(e.clientX, e.clientY, latlong.Latitude, latlong.Longitude, latlong._reserved, pinIdStr);
+		}
+	}
+	
+	function _getCenter(){
+		var center = map.GetCenter();
+		return center;
+	}
+	
+	function onEndZoom()
+	{
+		//notify the active object that the zoom was changed (without refiring a property changed event)
+		//jslog("zoom level: " + map.GetZoomLevel());
+		if(minZoom > -1 && minZoom != map.GetZoomLevel())
+		{
+			//Birdseye hack: the check for birdseye available requires
+			//a minimum zoom of 12, so if a minimum zoom was set, enforce it now.
+			map.SetZoomLevel(minZoom);
+		}
+		else
+		{
+			//clear the minimum zoom (if set)
+			minZoom = -1;
+			//notify the jsMapController that the zoom had changed
+			jsMapController.ZoomLevel = map.GetZoomLevel();
+		}
+	}
+
+	function onChangeMapStyle(e)
+	{
+		var mapStyle = map.GetMapStyle();
+		var mapStyleStr = "r";
+		if(mapStyle == VEMapStyle.Road)
+			mapStyleStr = "r";
+		else if(mapStyle == VEMapStyle.Aerial)
+			mapStyleStr = "a";
+		else if(mapStyle == VEMapStyle.Hybrid)
+			mapStyleStr = "h";
+		else if(mapStyle == VEMapStyle.Birdseye)
+			mapStyleStr = "o";
+
+		if(mapStyleStr != "o")
+			map.HideMiniMap();
+		
+		jsMapController.MapStyle = mapStyleStr;
+	}
+	
+	function onObliqueEnter(e)
+	{
+		jsMapController.BirdsEyeAvailable = true;
+	}	
+	function onObliqueLeave(e)
+	{
+		jsMapController.BirdsEyeAvailable = false;		
+	}
+	function onObliqueChange(e)
+	{
+		if(birdsEyeLoader == null) //don't show minimap while initializing (hack for bug 528105)
+			map.ShowMiniMap(0, 0);
+			
+		var birdseyeScene = map.GetBirdseyeScene();
+		var bScene = birdseyeScene;
+		var orientation = birdseyeScene.GetOrientation();
+		var direction;
+		switch(orientation)
+		{
+			case VEOrientation.North:
+				direction = "North";
+				break;
+			case VEOrientation.East:
+				direction = "East";
+				break;
+			case VEOrientation.South:
+				direction = "South";
+				break;
+			case VEOrientation.West:
+				direction = "West";
+				break;
+		}
+		jsMapController.JSUpdateBirdsEye(birdseyeScene.GetID(), direction, birdseyeScene.GetThumbnailFilename());
+		
+		//force the map to persist its new lat/long		
+		onMapChange();
+	}	
+	   
+	function handleResize()
+	{
+		var height = document.body.clientHeight;
+		var width = document.body.clientWidth;
+		mapElement.style.height= height;
+		mapElement.style.width= width;
+		if(map != null)
+		{
+			var mapCenter = map.GetCenter();
+			if(width > 175) //avoids bug 398629 which triggers an out of memory error in the VE control
+			{
+				map.Resize(width, height);
+				map.SetCenter(mapCenter);
+			}
+		}
+	}
+	
+	/**
+	 * Calculates ID of the pushpin at the specified location
+	 * @param {Object} x
+	 * @param {Object} y
+	 * @return the pushpin ID or null if none exists at the specified location.
+	 */
+	function getPushpinIdAtPoint(x, y)
+	{
+		var element = document.elementFromPoint(x, y);
+		while(element != null)
+		{
+			//Look for the element with the pushpin classname
+			//Warning! This is an undocumented and unsupported way to access the pushpin  
+			if(element.className == "VEAPI_Pushpin")
+			{
+				var pushpin = element.getAttribute("vePushpin");
+				return pushpin.id; 
+			}
+			element = element.parentElement;
+		}
+		return null;
+	}
+	
+	/**
+	 * Converts an non-string native object to a string.
+	 * This is often useful for converting ComVisible .NET events objects to native JS objects.
+	 * @param {Object} obj
+	 * @return {String} the converted string
+	 */
+	function toString(obj)
+	{
+		if(obj == null)
+			return ""
+		return obj + "";
+	}
+	
+	/**
+	 * Converts an non-string native object to a number.
+	 * This is often useful for converting ComVisible .NET events objects to native JS objects.
+	 * @param {Object} obj
+	 * @return {Number} the converted number
+	 */
+	function toNumber(obj)
+	{
+		return obj - 0;
+	}
+</script>
+<body onLoad="MyOnLoad()" onresize="handleResize()" style="overflow: hidden; margin: 0px; padding: 0px;">
+<div id="map" style="background-color: gray; overflow: hidden; margin: 0px; padding: 0px; width:100%; height: 100%;"><div valign="center" align="center" style="height: 100%; width: 100%; background-color=white; font-size: .8em; color: gray;">Loading Bing Map...</div></div>
+
+</body>
+</html>

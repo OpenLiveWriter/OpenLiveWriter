@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xpp[
+  <!ENTITY wave2mship "12.0.1292.0815">
+]>
+<providers xmlns:xpp="http://writer.live.com/xmlpp/2007" xmlns:blogrunner="http://writer.live.com/blogrunner/2007">
+  <provider>
+    <id>4AA58E69-8C24-40b1-BACE-3BB14237E8F9</id>
+    <name>SharePoint weblog</name>
+    <description>Publish to a Sharepoint blog.</description>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/_layouts/metaweblog.aspx?blog=<blog_path>
+		]]>
+    </postApiUrl>
+    <clientType>SharePoint</clientType>
+    <visible>false</visible>
+    <options>
+      <supportsNewCategories>Yes</supportsNewCategories>
+      <maxCategoryNameLength>255</maxCategoryNameLength>
+      <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+      <serviceName>Weblog</serviceName>
+      <defaultView>WebLayout</defaultView>
+      <postDateFormat>yyyyMMdd'T'HH':'mm':'ss'Z'</postDateFormat>
+      <futurePublishDateWarning>Yes</futurePublishDateWarning>
+      <invalidPostIdFaultCodePattern>^2041$</invalidPostIdFaultCodePattern>
+      <requiresHtmlTitles>false</requiresHtmlTitles>
+      <fileUploadNameFormat>{AsciiFileNameWithoutExtension}{FileNameConflictToken:_?}_{Randomizer}{FileExtension}</fileUploadNameFormat>
+    </options>
+  </provider>
+  <provider>
+    <id>556A165F-DA11-463c-BB4A-C77CC9047F22</id>
+    <name>WordPress.com</name>
+    <description>
+      WordPress is a state-of-the-art semantic personal publishing platform with a focus on aesthetics, web standards, and usability.
+    </description>
+    <link>http://www.wordpress.com/</link>
+    <clientType>WordPress</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<blogname>.wordpress.com/xmlrpc.php
+		]]>
+    </postApiUrl>
+    <homepageUrlPattern>\.wordpress\.com</homepageUrlPattern>
+    <rsdHomepageLinkPattern>\.wordpress\.com</rsdHomepageLinkPattern>
+    <appid>1073746946</appid>
+    <rsdClientTypeMappings>
+      <mapping rsdClientType="wordpress" clientType="WordPress" />
+      <mapping rsdClientType="movabletype" clientType="MovableType" />
+    </rsdClientTypeMappings>
+    <options>
+      <supportsHttps>Yes</supportsHttps>
+      <supportsScripts>No</supportsScripts>
+      <supportsEmbeds>No</supportsEmbeds>
+      <commentPolicyAsBoolean>Yes</commentPolicyAsBoolean>
+      <trackbackDelimiter>Space</trackbackDelimiter>
+      <contentFilter>WordPress</contentFilter>
+      <defaultView>WebLayout</defaultView>
+      <adminUrl>
+        <![CDATA[ 
+			{blog-postapi-url}/../wp-admin/ 
+			]]>
+      </adminUrl>
+      <postEditingUrl>
+        <![CDATA[ 
+			{blog-postapi-url}/../wp-admin/post.php?action=edit&post={post-id} 
+			]]>
+      </postEditingUrl>
+      <maxCategoryNameLength>55</maxCategoryNameLength>
+      <fileUploadNameFormat xpp:if="version gte 12.0.1489.0207">{AsciiFileName}</fileUploadNameFormat>
+      <fileUploadNameFormat xpp:if="version lt 12.0.1489.0207">{FileName}</fileUploadNameFormat>
+      <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
+      <postDateFormat>yyyyMMdd'T'HH':'mm':'ss'Z'</postDateFormat>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsPostAsDraft>Yes</supportsPostAsDraft>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <keywordsAsTags>Yes</keywordsAsTags>
+    </options>
+  </provider>
+  <provider>
+    <id>B6F817C3-9D39-45c1-A634-EAC792B8A635</id>
+    <name>Blogger</name>
+    <description>
+      Google's blog service focused on helping people have their own voice on the web. Atom 1.0 implementation.
+    </description>
+    <link>http://www.blogger.com</link>
+    <clientType>BloggerAtom</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://www.blogger.com/feeds/default/blogs
+		]]>
+    </postApiUrl>
+    <options>
+      <serviceName>Blogger</serviceName>
+      <supportsScripts>Yes</supportsScripts>
+      <supportsEmbeds>Yes</supportsEmbeds>
+      <supportsCustomDate>Yes</supportsCustomDate>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
+      <maxCategoryNameLength>200</maxCategoryNameLength>
+      <!-- Bug in MShip prevents drafts from working on Blogger -->
+      <supportsPostAsDraft xpp:if="version gte &wave2mship; and version lte 12.0.1366.1026">No</supportsPostAsDraft>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <usePicasaImgMaxAlways>Yes</usePicasaImgMaxAlways>
+      <usePicasaS1600h>Yes</usePicasaS1600h>
+    </options>
+  </provider>
+  <provider xpp:if="version gte &wave2mship;">
+    <id>D48F1B5A-06E6-4f0f-BD76-74F34F520792</id>
+    <name>Atom Publishing Protocol</name>
+    <link>http://bitworking.org/projects/atom/</link>
+    <clientType>Atom</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<atom-service-doc>
+		]]>
+    </postApiUrl>
+    <postApiUrlLabel>ServiceDoc</postApiUrlLabel>
+    <reportingKey>zr</reportingKey>
+    <options>
+      <supportsScripts>Unknown</supportsScripts>
+      <supportsEmbeds>Unknown</supportsEmbeds>
+      <supportsCustomDate>Yes</supportsCustomDate>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
+      <maxCategoryNameLength>200</maxCategoryNameLength>
+      <visible>true</visible>
+    </options>
+  </provider>
+  <provider>
+    <id>3C53BD64-4FA8-4bc7-8CB9-5D3BB58FAD07</id>
+    <name>TypePad</name>
+    <description>
+      You can publish anything instantly. Be the sole author, or share a weblog with friends, family, or colleagues.
+    </description>
+    <link>http://www.typepad.com</link>
+    <clientType>MovableType</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://www.typepad.com/t/api
+		]]>
+    </postApiUrl>
+    <homepageUrlPattern>\.typepad\.com</homepageUrlPattern>
+    <rsdHomepageLinkPattern>\.typepad\.com</rsdHomepageLinkPattern>
+    <rsdEngineNamePattern>typepad</rsdEngineNamePattern>
+    <futurePublishDateWarning>Yes</futurePublishDateWarning>
+    <options>
+      <supportsScripts>Yes</supportsScripts>
+      <supportsEmbeds>Yes</supportsEmbeds>
+      <defaultView>WebLayout</defaultView>
+      <adminUrl>
+        <![CDATA[
+			http://www.typepad.com/t/app/weblog/manage?blog_id={blog-id}
+			]]>
+      </adminUrl>
+      <postEditingUrl>
+        <![CDATA[
+			http://www.typepad.com/site/blogs/{blog-id}/post/{post-id}/edit
+			]]>
+      </postEditingUrl>
+      <fileUploadNameFormat>{OpenLiveWriter}/{FileName}</fileUploadNameFormat>
+      <invalidPostIdFaultStringPattern>invalid entry id</invalidPostIdFaultStringPattern>      
+    </options>
+  </provider>
+  <provider>
+    <id>E0500CDC-91C9-4822-855F-CDC6F49B2735</id>
+    <name>LiveJournal</name>
+    <description>
+      LiveJournal is a simple-to-use communication tool that lets you express yourself and connect with friends online.
+    </description>
+    <link>https://www.livejournal.com</link>
+    <clientType>LiveJournal</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://www.livejournal.com/interface/blogger
+		]]>
+    </postApiUrl>
+    <homepageUrlPattern>\.livejournal\.com</homepageUrlPattern>
+    <options>
+      <supportsPostAsDraft>No</supportsPostAsDraft>
+      <supportsEmbeds>No</supportsEmbeds>
+      <defaultView>WebLayout</defaultView>
+      <contentFilter>LineBreak2BR</contentFilter>
+      <invalidPostIdFaultCodePattern>^302$</invalidPostIdFaultCodePattern>
+      <futurePublishDateWarning>Yes</futurePublishDateWarning>
+      <fileUploadNameFormat xpp:if="version gte 12.0.1489.0207">{AsciiFileName}</fileUploadNameFormat>
+      <fileUploadNameFormat xpp:if="version lt 12.0.1489.0207">{FileName}</fileUploadNameFormat>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <supportsScripts>No</supportsScripts>
+    </options>
+  </provider>
+  <provider>
+    <id>CD671F17-1902-46e5-8266-A24D6C602234</id>
+    <name>Movable Type</name>
+    <description>A powerful weblog publishing system.</description>
+    <clientType>MovableType</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/<mt_path>/mt-xmlrpc.cgi
+		]]>
+    </postApiUrl>
+    <rsdEngineNamePattern>Movable Type</rsdEngineNamePattern>
+    <rsdClientTypeMappings>
+      <mapping rsdClientType="metaweblog" clientType="MovableType" />
+    </rsdClientTypeMappings>
+    <options>
+      <defaultView>WebLayout</defaultView>
+      <supportsPostAsDraft>No</supportsPostAsDraft>
+      <contentFilter>LineBreak2PBR</contentFilter>
+      <postDateFormat>yyyyMMdd'T'HH':'mm':'ss'Z'</postDateFormat>
+      <invalidPostIdFaultStringPattern>invalid entry id</invalidPostIdFaultStringPattern>
+      <futurePublishDateWarning>Yes</futurePublishDateWarning>
+    </options>
+  </provider>
+  <provider>
+    <id>82E6C828-8764-4af1-B289-647FC84E7093</id>
+    <name>WordPress</name>
+    <description>WordPress is a state-of-the-art semantic personal publishing platform with a focus on aesthetics, web standards, and usability.</description>
+    <clientType>MovableType</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/<wp_path>/xmlrpc.php
+		]]>
+    </postApiUrl>
+    <appid>1073746946</appid>
+    <rsdEngineNamePattern>WordPress</rsdEngineNamePattern>
+    <rsdClientTypeMappings>
+      <mapping rsdClientType="wordpress" clientType="WordPress" />
+      <mapping rsdClientType="movabletype" clientType="MovableType" />
+    </rsdClientTypeMappings>
+    <options>
+      <serviceName>WordPress</serviceName>
+      <commentPolicyAsBoolean>Yes</commentPolicyAsBoolean>
+      <trackbackDelimiter>Space</trackbackDelimiter>
+      <contentFilter>WordPress</contentFilter>
+      <defaultView>WebLayout</defaultView>
+      <adminUrl>
+        <![CDATA[ 
+			{blog-postapi-url}/../wp-admin/ 
+			]]>
+      </adminUrl>
+      <postEditingUrl>
+        <![CDATA[ 
+			{blog-postapi-url}/../wp-admin/post.php?action=edit&post={post-id} 
+			]]>
+      </postEditingUrl>
+      <maxCategoryNameLength>55</maxCategoryNameLength>
+      <fileUploadNameFormat xpp:if="version gte 12.0.1489.0207">{AsciiFileName}</fileUploadNameFormat>
+      <fileUploadNameFormat xpp:if="version lt 12.0.1489.0207">{FileName}</fileUploadNameFormat>
+      <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
+      <postDateFormat>yyyyMMdd'T'HH':'mm':'ss'Z'</postDateFormat>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsPostAsDraft>Yes</supportsPostAsDraft>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <supportsEmbeds>Yes</supportsEmbeds>
+      <supportsScripts>Unknown</supportsScripts>
+      <keywordsAsTags>Yes</keywordsAsTags>
+    </options>
+  </provider>
+  <!--
+	   
+	   I think WordPress 2.2+ is here so it can appear in the drop-down list.
+	   I don't think it is ever used when RSD detection succeeds.
+	-->
+  <provider>
+    <id>CAA1EBAA-946E-4143-9733-F01CC8DBE827</id>
+    <name>WordPress 2.2+</name>
+    <description>WordPress is a state-of-the-art semantic personal publishing platform with a focus on aesthetics, web standards, and usability.</description>
+    <clientType>WordPress</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/<wp_path>/xmlrpc.php
+		]]>
+    </postApiUrl>
+    <options>
+      <serviceName>WordPress</serviceName>
+      <commentPolicyAsBoolean>Yes</commentPolicyAsBoolean>
+      <trackbackDelimiter>Space</trackbackDelimiter>
+      <contentFilter>WordPress</contentFilter>
+      <defaultView>WebLayout</defaultView>
+      <adminUrl>
+        <![CDATA[ 
+			{blog-postapi-url}/../wp-admin/ 
+			]]>
+      </adminUrl>
+      <postEditingUrl>
+        <![CDATA[ 
+			{blog-postapi-url}/../wp-admin/post.php?action=edit&post={post-id} 
+			]]>
+      </postEditingUrl>
+      <maxCategoryNameLength>55</maxCategoryNameLength>
+      <fileUploadNameFormat xpp:if="version gte 12.0.1489.0207">{AsciiFileName}</fileUploadNameFormat>
+      <fileUploadNameFormat xpp:if="version lt 12.0.1489.0207">{FileName}</fileUploadNameFormat>
+      <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
+      <postDateFormat>yyyyMMdd'T'HH':'mm':'ss'Z'</postDateFormat>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsPostAsDraft>Yes</supportsPostAsDraft>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <supportsEmbeds>Yes</supportsEmbeds>
+      <supportsScripts>Yes</supportsScripts>
+    </options>
+  </provider>
+  <provider>
+    <id>D3405AD6-9E02-43b3-87F4-08F5A5946B40</id>
+    <name>Community Server</name>
+    <description>The easiest and most powerful way to build and grow a robust online community.</description>
+    <clientType>Metaweblog</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/blogs/metablog.ashx
+		]]>
+    </postApiUrl>
+    <rsdEngineNamePattern>Community Server</rsdEngineNamePattern>
+    <options>
+      <supportsNewCategories>Yes</supportsNewCategories>
+      <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+      <useLocalTime>Yes</useLocalTime>
+      <requiresHtmlTitles>No</requiresHtmlTitles>
+      <returnsHtmlTitlesOnGet>Yes</returnsHtmlTitlesOnGet>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^0$</invalidPostIdFaultCodePattern>
+      <invalidPostIdFaultStringPattern>object reference not set to an instance of an object</invalidPostIdFaultStringPattern>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsPostAsDraft>Yes</supportsPostAsDraft>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <supportsEmbeds>No</supportsEmbeds>
+      <supportsScripts>No</supportsScripts>
+      <fileUploadNameFormat>{AsciiFileNameWithoutExtension}_{Randomizer}{FileExtension}</fileUploadNameFormat>
+      <keywordsAsTags>Yes</keywordsAsTags>
+    </options>
+  </provider>
+  <provider>
+    <id>A82F57E0-41D3-45e9-861E-8C527844BCA6</id>
+    <name>dasBlog</name>
+    <description>A weblog engine on the .Net platform.</description>
+    <clientType>Metaweblog</clientType>
+    <rsdEngineNamePattern>dasBlog</rsdEngineNamePattern>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/blog/blogger.aspx
+		]]>
+    </postApiUrl>
+    <options>
+      <defaultView>WebLayout</defaultView>
+      <adminUrl>
+        <![CDATA[
+			{blog-homepage-url}login.aspx
+			]]>
+      </adminUrl>
+      <postEditingUrl>
+        <![CDATA[
+			{blog-homepage-url}EditEntry.aspx?guid={post-id}
+			]]>
+      </postEditingUrl>
+      <supportsNewCategories>Yes</supportsNewCategories>
+      <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+      <invalidPostIdFaultCodePattern>^0$</invalidPostIdFaultCodePattern>
+      <invalidPostIdFaultStringPattern>object reference not set to an instance of an object</invalidPostIdFaultStringPattern>
+      <!-- dasBlog 1.9 and earlier doesn't return categories correctly -->
+      <supportsMultipleCategories blogrunner:readonly="1">Yes</supportsMultipleCategories>
+      <!-- dasBlog 1.9 and earlier doesn't support drafts -->
+      <supportsPostAsDraft blogrunner:readonly="1">No</supportsPostAsDraft>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <supportsEmbeds>Yes</supportsEmbeds>
+      <supportsScripts>Yes</supportsScripts>
+    </options>
+  </provider>
+  <provider>
+    <id>99F71FCF-CE2D-4a6d-AB9B-FBDD453B4D97</id>
+    <name>BlogEngine\.NET</name>
+    <description>A weblog engine on the .Net platform.</description>
+    <clientType>Metaweblog</clientType>
+    <rsdEngineNamePattern>BlogEngine.NET</rsdEngineNamePattern>
+    <postApiUrl>
+      <![CDATA[
+      http://<hostname>/metaweblog.axd
+		]]>
+    </postApiUrl>
+    <options>
+      <defaultView>WebLayout</defaultView>
+      <adminUrl>
+        <![CDATA[
+			{blog-homepage-url}login.aspx
+			]]>
+      </adminUrl>
+      <fileUploadNameFormat xpp:if="version gte 12.0.1489.0207">{OpenLiveWriter}/{PostTitle}/{Randomizer}/{AsciiFileName}</fileUploadNameFormat>
+      <fileUploadNameFormat xpp:if="version lt 12.0.1489.0207">{OpenLiveWriter}/{PostTitle}/{Randomizer}/{FileName}</fileUploadNameFormat>
+    </options>
+  </provider>
+  <provider>
+    <id>17EFA050-15A4-41a8-A117-9EDF8C95A469</id>
+    <name>SquareSpace.com</name>
+    <link>http://www.squarespace.com</link>
+    <description>The secret behind exceptional websites.</description>
+    <clientType>Metaweblog</clientType>
+    <homepageUrlPattern>\.squarespace\.com</homepageUrlPattern>
+    <rsdHomepageLinkPattern>\.squarespace\.com</rsdHomepageLinkPattern>
+    <visible>false</visible>
+    <postApiUrl>
+      <![CDATA[
+    http://www.squarespace.com/process/service/PostInterceptor
+    ]]>
+    </postApiUrl>
+    <rsdClientTypeMappings>
+      <mapping rsdClientType="metaweblog" clientType="Metaweblog" />
+    </rsdClientTypeMappings>
+    <options>
+      <postDateFormat>yyyy-MM-ddTHH:mm:ss</postDateFormat>      
+    </options>
+  </provider>
+  <provider>
+    <id>494B3F2D-206D-449a-B0FA-A987E57C95D1</id>
+    <name>Radio Userland</name>
+    <description>A powerful weblog publishing system.</description>
+    <clientType>Metaweblog</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://127.0.0.1:5335/RPC2
+		]]>
+    </postApiUrl>
+    <options>
+    </options>
+  </provider>
+  <provider>
+    <id>BAF4FE16-25FB-4a94-90C7-11A1B30CAD61</id>
+    <name>Metaweblog API</name>
+    <clientType>Metaweblog</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/<mw-script>
+		]]>
+    </postApiUrl>
+    <appid>1140855815</appid>
+    <options>
+      <serviceName>Weblog</serviceName>
+    </options>
+  </provider>
+  <provider>
+    <id>7D215B2D-7B57-432a-B382-ED027321C480</id>
+    <name>Movable Type API</name>
+    <clientType>MovableType</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/<mt-script>
+		]]>
+    </postApiUrl>
+    <options>
+      <serviceName>Weblog</serviceName>
+      <fileUploadNameFormat xpp:if="version gte 12.0.1489.0207">{AsciiFileName}</fileUploadNameFormat>
+      <fileUploadNameFormat xpp:if="version lt 12.0.1489.0207">{FileName}</fileUploadNameFormat>
+    </options>
+  </provider>
+  <provider>
+    <id>4FCDB0E2-66F8-4b4d-828B-B2EED6147789</id>
+    <name>MSDN Blogs</name>
+    <description>MSDN online community.</description>
+    <clientType>Metaweblog</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://blogs.msdn.com/metablog.ashx
+		]]>
+    </postApiUrl>
+    <homepageUrlPattern>blogs\.msdn\.com</homepageUrlPattern>
+    <visible>false</visible>
+    <options>
+      <supportsNewCategories>Yes</supportsNewCategories>
+      <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+      <useLocalTime>Yes</useLocalTime>
+      <requiresHtmlTitles>No</requiresHtmlTitles>
+      <returnsHtmlTitlesOnGet>Yes</returnsHtmlTitlesOnGet>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^0$</invalidPostIdFaultCodePattern>
+      <invalidPostIdFaultStringPattern>object reference not set to an instance of an object</invalidPostIdFaultStringPattern>
+    </options>
+  </provider>
+  <provider>
+    <id>785D4CDA-602F-481b-ACEA-3B3DB79B0F43</id>
+    <name>TechNet Blogs</name>
+    <description>TechNet online community.</description>
+    <clientType>Metaweblog</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://blogs.technet.com/metablog.ashx
+		]]>
+    </postApiUrl>
+    <homepageUrlPattern>blogs\.technet\.com</homepageUrlPattern>
+    <visible>false</visible>
+    <options>
+      <supportsNewCategories>Yes</supportsNewCategories>
+      <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+      <useLocalTime>Yes</useLocalTime>
+      <requiresHtmlTitles>No</requiresHtmlTitles>
+      <returnsHtmlTitlesOnGet>Yes</returnsHtmlTitlesOnGet>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^0$</invalidPostIdFaultCodePattern>
+      <invalidPostIdFaultStringPattern>object reference not set to an instance of an object</invalidPostIdFaultStringPattern>
+      <keywordsAsTags>Yes</keywordsAsTags>
+    </options>
+  </provider>
+  <provider>
+    <id>0E9A877D-113B-4c12-99F0-4DC09DD973D6</id>
+    <name>-</name>
+    <appid>~</appid>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/<mw-script>
+		]]>
+    </postApiUrl>
+    <clientType>WordPress</clientType>
+    <visible>false</visible>
+    <rsdEngineNamePattern xpp:if="version gte 14.0.5025.904">.*</rsdEngineNamePattern>
+    <rsdClientTypeMappings>
+      <mapping rsdClientType="wordpress" clientType="WordPress" />
+      <mapping rsdClientType="movabletype" clientType="MovableType" />
+      <mapping rsdClientType="metaweblog" clientType="Metaweblog" />
+    </rsdClientTypeMappings>
+    <options></options>
+  </provider>
+  <provider>
+    <id>1AAFB2D8-F974-413A-9DBB-9C826CCDA7BC</id>
+    <name>OverBlog</name>
+    <postApiUrl>
+      <![CDATA[
+		http://api.over-blog.com/mw
+		]]>
+    </postApiUrl>
+    <clientType>Metaweblog</clientType>
+    <options>
+      <futurePublishDateWarning>Yes</futurePublishDateWarning>
+      <maxPostTitleLength>200</maxPostTitleLength>
+      <supportsEmbeds>Yes</supportsEmbeds>
+      <supportsEmptyTitles>No</supportsEmptyTitles>
+      <supportsPostAsDraft>No</supportsPostAsDraft>
+      <supportsScripts>Yes</supportsScripts>
+    </options>
+  </provider>
+</providers>

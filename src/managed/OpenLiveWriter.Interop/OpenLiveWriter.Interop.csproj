@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <ProjectGuid>{0937EF37-EB01-48E2-885B-991044877712}</ProjectGuid>
+    <AssemblyName>OpenLiveWriter.Interop</AssemblyName>
+    <RootNamespace>OpenLiveWriter.Interop</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="Com\ActiveDocuments\IAdviseSink.cs" />
+    <Compile Include="Com\ActiveDocuments\IEnumOleDocumentViews.cs" />
+    <Compile Include="Com\ActiveDocuments\IEnumOLEVERB.cs" />
+    <Compile Include="Com\ActiveDocuments\IEnumSTATDATA.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleClientSite.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleContainer.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleDocument.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleDocumentSite.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleDocumentView.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleInPlaceActiveObject.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleInPlaceFrame.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleInPlaceObject.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleInPlaceSite.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleInPlaceUIWindow.cs" />
+    <Compile Include="Com\ActiveDocuments\IOleObject.cs" />
+    <Compile Include="Com\ComHelper.cs" />
+    <Compile Include="Com\ComStream.cs" />
+    <Compile Include="Com\ComTypes.cs" />
+    <Compile Include="Com\IAuthenticate.cs" />
+    <Compile Include="Com\IBindStatusCallback.cs" />
+    <Compile Include="Com\ICatRegister.cs" />
+    <Compile Include="Com\IClassFactory.cs" />
+    <Compile Include="Com\IconReference.cs" />
+    <Compile Include="Com\ICustomDestinationList.cs" />
+    <Compile Include="Com\IDeskBand.cs" />
+    <Compile Include="Com\IDispatchEx.cs" />
+    <Compile Include="Com\IDockingWindow.cs" />
+    <Compile Include="Com\IDropSource.cs" />
+    <Compile Include="Com\IDropTarget.cs" />
+    <Compile Include="Com\IEnumFORMATETC.cs" />
+    <Compile Include="Com\IEnumOleUndoUnits.cs" />
+    <Compile Include="Com\IEnumUnknown.cs" />
+    <Compile Include="Com\IExtractImage.cs" />
+    <Compile Include="Com\IHttpNegotiate.cs" />
+    <Compile Include="Com\IHttpSecurity.cs" />
+    <Compile Include="Com\IInputObject.cs" />
+    <Compile Include="Com\IInputObjectSite.cs" />
+    <Compile Include="Com\IInternetProtocol.cs" />
+    <Compile Include="Com\IMalloc.cs" />
+    <Compile Include="Com\IObjectArray.cs" />
+    <Compile Include="Com\IObjectCollection.cs" />
+    <Compile Include="Com\IObjectSafety.cs" />
+    <Compile Include="Com\IObjectWithSite.cs" />
+    <Compile Include="Com\IObjectWithSiteImpl.cs" />
+    <Compile Include="Com\IOleCommandTarget.cs" />
+    <Compile Include="Com\IOleControl.cs" />
+    <Compile Include="Com\IOleDataObject.cs" />
+    <Compile Include="Com\IOleUndoManager.cs" />
+    <Compile Include="Com\IOleUndoUnit.cs" />
+    <Compile Include="Com\IOleWindow.cs" />
+    <Compile Include="Com\IPersist.cs" />
+    <Compile Include="Com\IPersistFile.cs" />
+    <Compile Include="Com\IPersistMoniker.cs" />
+    <Compile Include="Com\IPersistStorage.cs" />
+    <Compile Include="Com\IPersistStream.cs" />
+    <Compile Include="Com\IPersistStreamInit.cs" />
+    <Compile Include="Com\IPropertyStore.cs" />
+    <Compile Include="Com\IServiceProvider.cs" />
+    <Compile Include="Com\IShellFolder.cs" />
+    <Compile Include="Com\IShellItem.cs" />
+    <Compile Include="Com\IShellItem2.cs" />
+    <Compile Include="Com\IShellLink.cs" />
+    <Compile Include="Com\IShellLinkW.cs" />
+    <Compile Include="Com\IWebBrowser2.cs" />
+    <Compile Include="Com\IWindowForBindingUI.cs" />
+    <Compile Include="Com\MshtmlAmbientProperties.cs" />
+    <Compile Include="Com\Ole32.cs" />
+    <Compile Include="Com\PropertyKey.cs" />
+    <Compile Include="Com\PropVariant.cs" />
+    <Compile Include="Com\Ribbon\BasicCollection.cs" />
+    <Compile Include="Com\Ribbon\EnumUnknown.cs" />
+    <Compile Include="Com\Ribbon\ImageLoader.cs" />
+    <Compile Include="Com\Ribbon\IUICommandHandlerOverride.cs" />
+    <Compile Include="Com\Ribbon\PropertyKeys.cs" />
+    <Compile Include="Com\Ribbon\SimplePropertySet.cs" />
+    <Compile Include="Com\Ribbon\UIRibbon.cs" />
+    <Compile Include="Com\StreamMarshaler.cs" />
+    <Compile Include="Com\StructuredStorage\ILockBytes.cs" />
+    <Compile Include="Com\StructuredStorage\IStorage.cs" />
+    <Compile Include="Com\StructuredStorage\IStorageOpener.cs" />
+    <Compile Include="Com\StructuredStorage\Ole32Storage.cs" />
+    <Compile Include="Com\StructuredStorage\Storage.cs" />
+    <Compile Include="Com\StructuredStorage\StorageErrors.cs" />
+    <Compile Include="Com\StructuredStorage\StorageException.cs" />
+    <Compile Include="Windows\Advapi32.cs" />
+    <Compile Include="Windows\ComCtl32.cs" />
+    <Compile Include="Windows\Crypt32.cs" />
+    <Compile Include="Windows\DbgHelp.cs" />
+    <Compile Include="Windows\Errors.cs" />
+    <Compile Include="Windows\Gdi32.cs" />
+    <Compile Include="Windows\GdiPlus.cs" />
+    <Compile Include="Windows\Kernel32.cs" />
+    <Compile Include="Windows\MessageHelper.cs" />
+    <Compile Include="Windows\OleAut32.cs" />
+    <Compile Include="Windows\Propsys.cs" />
+    <Compile Include="Windows\Psapi.cs" />
+    <Compile Include="Windows\Shell32.cs" />
+    <Compile Include="Windows\Shlwapi.cs" />
+    <Compile Include="Windows\TaskDialog\TaskDialog.cs" />
+    <Compile Include="Windows\TaskDialog\TaskDialogMarshallers.cs" />
+    <Compile Include="Windows\TaskDialog\TaskDialogNative.cs" />
+    <Compile Include="Windows\UrlMon.cs" />
+    <Compile Include="Windows\User32.cs" />
+    <Compile Include="Windows\Uxtheme.cs" />
+    <Compile Include="Windows\WinInet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <RobocopyCompiled Include="$(ProjectDir)Com\OpenLiveWriter.Interop.SHDocVw.dll">
+      <DestinationFolder>$(FullTargetProjectPath)</DestinationFolder>
+    </RobocopyCompiled>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

@@ -1,0 +1,147 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+      <Project>Writer</Project>
+      <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+      <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+      <SrcManagedRoot>$(RepoRoot)\src\managed</SrcManagedRoot>
+      <SolutionDir Condition="'$(SolutionDir)'==''">$(SrcManagedRoot)</SolutionDir>
+    </PropertyGroup>
+    
+    <!-- ********************************************************************************************* -->
+    <!-- * Build Environment settings  -->
+    <!-- ********************************************************************************************* -->
+    <PropertyGroup>        
+        <BuildPathEnvironment>$(BUILD_PATH)</BuildPathEnvironment>
+      
+        <!-- ManagedToolPath only needs to really have the installed 2.0 path for parity with BUILD.EXE -->
+        <ManagedToolPathEnvironment>$(URTTARGET_2_0)</ManagedToolPathEnvironment>
+      
+        <!-- This is the Path during the build, that will be set by SetEnvironment,
+             and is different from the path in the command window -->
+        <Path>$(ManagedToolPathEnvironment);$(BuildPathEnvironment);</Path>
+
+        <!-- Prevent accidental pickup of local-machine scripts -->
+        <MSBuildExtensionsPath>$(MSBuildToolsPath)\MsBuildExtensions</MSBuildExtensionsPath>
+        <MSBuildExtensionsPath32>$(MsBuildExtensionsPath)</MSBuildExtensionsPath32>
+
+        <DirectorySuffix Condition="'$(BUILD_ALT_DIR)'!=''">$(BUILD_ALT_DIR)</DirectorySuffix>
+
+    </PropertyGroup>
+    
+    <!-- ********************************************************************************************* -->
+    <!-- *** Configurations, Platforms, Architectures Defaults -->
+    <!-- ********************************************************************************************* -->
+    <PropertyGroup>
+        <Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
+        <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
+
+        <!-- Processor Architecture -->
+        <!-- Currently building from anything other than i386 window isn't supported -->
+        <ProcessorArchitecture Condition="'$(ProcessorArchitecture)' == ''">$(PROCESSOR_ARCHITECTURE)</ProcessorArchitecture>
+
+        <!-- Build Architectures -->
+        <DefaultBuildArchitecture Condition="'$(_defaultBuildArch)'!=''">$(_defaultBuildArch)</DefaultBuildArchitecture>
+        <DefaultBuildArchitecture Condition="'$(DefaultBuildArchitecture)'==''">i386</DefaultBuildArchitecture>
+
+        <!-- TODO: We need to make sure we are setting _BUILDARCH correctly based on ProcessorArchitecture -->
+        <!-- Do not use $(386) - msbuild ignores properties with periods or starting with numbers so it will never be set -->
+        <BuildArchitecture Condition="'$(ia64)' == '1'">ia64</BuildArchitecture>
+        <BuildArchitecture Condition="'$(amd64)' == '1'">amd64</BuildArchitecture>
+        <BuildArchitecture Condition="'$(_BuildArch)' == 'x86'">i386</BuildArchitecture>
+        <BuildArchitecture Condition="'$(arm)' == '1'">arm</BuildArchitecture>
+
+        <BuildArchitecture Condition="'$(BuildArchitecture)' == ''">$(DefaultBuildArchitecture)</BuildArchitecture>
+        <BuildArchitecture Condition="'$(BuildArchitecture)' == 'x86'">i386</BuildArchitecture>
+    </PropertyGroup>
+        
+    <!-- ********************************************************************************************* -->
+    <!-- *** Settings to allow Platform specific assemblies -->
+    <!-- ********************************************************************************************* -->
+    <PropertyGroup Condition="'$(PlatformSpecificBuild)' == 'true'">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <PlatformTarget Condition="'$(BuildArchitecture)' == 'ia64'">Itanium</PlatformTarget>
+        <PlatformTarget Condition="'$(BuildArchitecture)' == 'amd64'">x64</PlatformTarget>
+        <PlatformTarget Condition="'$(BuildArchitecture)' == 'i386'">x86</PlatformTarget>
+    </PropertyGroup>
+    
+    <!-- ********************************************************************************************* -->
+    <!-- *** Compile defaults -->
+    <!-- ********************************************************************************************* -->           
+    <PropertyGroup>
+        <OutputType Condition="$(OutputType)==''">Library</OutputType>
+        <NoLogo Condition="'$(NoLogo)' == ''">true</NoLogo>
+        <CheckForOverflowUnderflow Condition="'$(CheckForOverflowUnderflow)' == ''">false</CheckForOverflowUnderflow>
+        <GenerateFullPaths Condition="'$(GenerateFullPaths)' == ''">true</GenerateFullPaths>        
+        <TreatWarningsAsErrors Condition="'$(TreatWarningsAsErrors)' == ''">true</TreatWarningsAsErrors>
+        <WarningLevel Condition="'$(WarningLevel)' == ''">4</WarningLevel> <!-- 0-4 -->
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <ErrorReport>prompt</ErrorReport>
+        <SignAssembly Condition="'$(SignAssembly)' == ''">false</SignAssembly>
+        <DefineConstants Condition="'$(SignAssembly)' == 'true'">$(DefineConstants);SIGN;</DefineConstants>
+        <DelaySign Condition="'$(DelaySign)' == ''">false</DelaySign>
+        <AssemblyOriginatorKeyFile Condition="'$(AssemblyOriginatorKeyFile)' == ''">$(RepoRoot)\key.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <!-- ********************************************************************************************* -->
+    <!-- *** Assembly Attributes generation Defaults -->
+    <!-- ********************************************************************************************* -->
+    <PropertyGroup>        
+        <GenerateAssemblyAttribute Condition="'$(GenerateAssemblyAttribute)' == ''">true</GenerateAssemblyAttribute>
+        <AssemblyAttributeComVisible Condition="'$(AssemblyAttributeComVisible)' == ''">false</AssemblyAttributeComVisible>
+        <AssemblyAttributeClsCompliant Condition="'$(AssemblyAttributeClsCompliant)' == ''">false</AssemblyAttributeClsCompliant>
+    </PropertyGroup>
+    
+    <!-- ********************************************************************************************* -->
+    <!-- *** Other Defaults -->
+    <!-- ********************************************************************************************* -->
+    <PropertyGroup>    
+        <!-- The default target that should be built when P2P references are followed -->
+        <ProjectReferenceBuildTargets>Build</ProjectReferenceBuildTargets>    
+        <UseHostCompilerIfAvailable Condition=" '$(UseHostCompilerIfAvailable)' == ''">false</UseHostCompilerIfAvailable>        
+        <OverwriteReadOnlyFiles>true</OverwriteReadOnlyFiles>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <!-- 
+          * This only catches settings before our import and not settings made in the project files themselves. 
+          * We want OutDir==OutputPath, but setting this in the targets file is difficult because of include
+          * order and missed dependencies.  Instead, we will error out during execution if OutDir!=OutputPath
+        --> 
+        <OutputPath Condition="'$(OutputPath)' != '$(OutDir)' AND '$(OutDir)' != ''">$(OutDir)</OutputPath>
+        <OutputPath Condition="'$(OutputPath)' == ''">$(SolutionDir)\bin\$(Configuration)\$(BuildArchitecture)</OutputPath>
+        <OutputPath Condition="'$(OutputPath)' != '' and !HasTrailingSlash('$(OutputPath)')">$(OutputPath)\</OutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <IntermediateOutputRoot>$(SrcManagedRoot)\obj\</IntermediateOutputRoot>
+      <IntermediateOutputPath>$(IntermediateOutputRoot)\$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <ProductName>Open Live Writer</ProductName>
+      <Title>Open Live Writer</Title>
+      <CopyrightText>Copyright (c) Open Live Writer. All rights reserved.</CopyrightText>
+      <OutputPath>$(OutputPath)$(Project)\</OutputPath>
+      <OutDir>$(OutputPath)</OutDir>
+      <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+	
+    <PropertyGroup>
+        <AssemblyVersionName>corext</AssemblyVersionName>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+        <Optimize>false</Optimize>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <DebugType>pdbonly</DebugType>
+        <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
+        <Optimize>true</Optimize>
+    </PropertyGroup>
+
+</Project>

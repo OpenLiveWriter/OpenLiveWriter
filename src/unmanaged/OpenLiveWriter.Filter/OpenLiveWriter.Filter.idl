@@ -1,0 +1,53 @@
+// OpenLiveWriter.Filter.idl : IDL source for OpenLiveWriter.Filter
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (OpenLiveWriter.Filter.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(BF0F718D-C89B-4C92-86CE-21C9AFFEEE9A),
+	dual,
+	nonextensible,
+	helpstring("IWebPostFilter Interface"),
+	pointer_default(unique)
+]
+interface IWebPostFilter : IDispatch{
+};
+[
+	object,
+	uuid(37686701-018E-49E1-877D-DBABBB3E2AEF),
+	helpstring("IStreamLockBytes Interface"),
+	pointer_default(unique)
+]
+interface IStreamLockBytes : IUnknown{
+	HRESULT Init(IStream* pStream);
+};
+[
+	uuid(62B21E27-8299-4A97-9960-E7523F19F937),
+	version(1.0),
+	helpstring("OpenLiveWriterFilter 1.0 Type Library")
+]
+library OpenLiveWriterFilterLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(4DFA66FF-1EE1-4BAF-A034-0023FB7372EB),
+		helpstring("WebPostFilter Class")
+	]
+	coclass WebPostFilter
+	{
+		[default] interface IWebPostFilter;
+	};
+	[
+		uuid(F3E06854-6A6D-46F3-B5FA-7BC919BD6302),
+		helpstring("StreamLockBytes Class")
+	]
+	coclass StreamLockBytes
+	{
+		[default] interface IStreamLockBytes;
+	};
+};

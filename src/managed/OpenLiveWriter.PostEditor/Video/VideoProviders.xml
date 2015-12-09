@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<videoProviders>
+	<provider>
+		<id>56744E0A-1892-4b56-B7FF-3A2568EE2D27</id>
+		<serviceName>YouTube</serviceName>
+		<embedFormat>
+		<![CDATA[
+		<object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/v/{videoId}"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/{videoId}" type="application/x-shockwave-flash" wmode="transparent" width="{width}" height="{height}"></embed></object>
+		]]>
+		</embedFormat>
+		<embedPatterns>
+			<pattern name="src">
+			<![CDATA[
+			http://www.youtube.com/v/(?<id>.*)
+			]]>
+			</pattern>
+		</embedPatterns>
+		<urlFormat>
+		<![CDATA[
+		http://www.youtube.com/watch?v={videoId}
+		]]>
+		</urlFormat>
+		<urlPattern>
+		<![CDATA[
+		^http://(www.)?youtube.com/watch\?v=(?<id>.*)
+		]]>
+		</urlPattern>
+		<size>
+			<width>425</width>
+			<height>350</height>
+		</size>
+		<loadedTestColor a="255" r="0" g= "0" b="0" percent=".80"/> 
+	</provider>
+	<provider>
+		<id>A64F0391-DC63-46cc-B106-D1E6B4EFA9EB</id>
+		<serviceName>Soapbox</serviceName>
+		<embedFormat>
+		<![CDATA[
+		<embed src="http://images.video.msn.com/flash/soapbox1_1.swf" quality="high" width="{width}" height="{height}" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://macromedia.com/go/getflashplayer" flashvars="c=v&v={videoId}&from=writer" ></embed>
+		]]>
+		</embedFormat>
+		<embedPatterns>
+			<pattern name="src">
+			<![CDATA[
+			http://images.video.msn.com/flash/soapbox1_1.swf
+			]]>
+			</pattern>
+			<pattern name="flashvars">
+			<![CDATA[c=v&v=(?<id>.*)]]>
+			</pattern>
+		</embedPatterns>		
+		<urlFormat>
+		<![CDATA[
+		http://video.msn.com/video.aspx?vid={videoId}&from=writer
+		]]>
+		</urlFormat>		
+		<urlPattern>
+		<![CDATA[
+		^http://video.msn.com/video.aspx\?vid=(?<id>.*)
+		]]>
+		</urlPattern>
+		<size>
+			<width>432</width>
+			<height>364</height>
+		</size>
+		<loadedTestColor a="255" r="0" g= "0" b="0" percent=".80"/> 
+		<backgroundColor>black</backgroundColor>
+	</provider>
+	<provider>
+		<id>6A08E9D2-7CEC-4079-9E2C-DF55290D549E</id>
+		<serviceName>Google Videos</serviceName>
+		<embedFormat>
+		<![CDATA[
+		<embed style="width:{width}px; height:{height}px;" id="VideoPlayback" type="application/x-shockwave-flash" src="http://video.google.com/googleplayer.swf?docId={videoId}&hl=en" flashvars=""> </embed>
+		]]>
+		</embedFormat>
+		<embedPatterns>
+			<pattern name="src">
+			<![CDATA[
+			http://video.google.com/googleplayer.swf\?docId=(?<id>[^&]*)
+			]]>
+			</pattern>
+		</embedPatterns>
+		<urlFormat>
+		<![CDATA[
+		http://video.google.com/videoplay?docid={videoId}
+		]]>
+		</urlFormat>
+		<urlPattern>
+		<![CDATA[
+		^http://video.google.com/videoplay\?docid=(?<id>[^&]*)
+		]]>
+		</urlPattern>
+		<size>
+			<width>400</width>
+			<height>326</height>
+		</size>
+		<loadedTestColor a="255" r="0" g= "0" b="0" percent=".80"/> 
+	</provider>
+	<provider>
+		<id>24BA2B58-5604-4d34-87CE-4F21F0D08DBD</id>
+		<serviceName>Odeo</serviceName>
+		<embedFormat>
+		<![CDATA[
+		<embed src="http://odeo.com/flash/odeo_podcast_player.swf" quality="high" bgcolor="#ffffff" width="{width}" height="{height}" name="podcast_player_fullsize" align="middle" allowScriptAccess="always" wmode="transparent" flashvars="type=channel&player_id=d41d8cd98f00b204e9800998ecf8427e&id={videoId}&play_first=recent&auto_play=false&color1=16724889&color2=7796080&color3=13421772&color4=16777215&color5=0&color6=0" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>
+		]]>
+		</embedFormat>
+		<embedPatterns>
+			<pattern name="src">
+			<![CDATA[
+			http://odeo.com/flash/odeo_podcast_player.swf
+			]]>
+			</pattern>
+			<pattern name="flashVars">
+			<![CDATA[
+			.*&id=(?<id>.*)&.*
+			]]>
+			</pattern>
+		</embedPatterns>
+		<urlFormat>
+		<![CDATA[
+		http://odeo.com/channel/{videoId}/view 
+		]]>
+		</urlFormat>
+		<urlPattern>
+		<![CDATA[
+		^http://odeo.com/channel/(?<id>.*)/view 
+		]]>
+		</urlPattern>
+		<size>
+			<width>178</width>
+			<height>400</height>
+		</size>
+	</provider>
+	<provider>
+		<id>39C04FEF-3837-4ba2-ABA4-A52C69B58061</id>
+		<serviceName>Grouper</serviceName>
+		<embedFormat>
+		<![CDATA[
+		<embed allowScriptAccess="never" allowFullScreen="true" src="http://grouper.com/mtg/mtgPlayer.swf?v=1.7" width="{width}" height="{height}" quality="high" scale="noScale" FlashVars="ap=0&mu=0&rf=-1&vfver=8&extid=-1&extsite=-1&{videoId}" wmode="window" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash"></embed> 
+		]]>
+		</embedFormat>
+		<embedPatterns>
+			<pattern name="src">
+			<![CDATA[
+			http://grouper.com/mtg/mtgPlayer.swf\?v=1.7
+			]]>
+			</pattern>
+			<pattern name="flashVars">
+			<![CDATA[
+			.*(?<id>id=.*&ml=.*)
+			]]>
+			</pattern>
+		</embedPatterns>
+		<urlFormat>
+		<![CDATA[
+		http://grouper.com/video/MediaDetails.aspx?{videoId}
+		]]>
+		</urlFormat>
+		<urlPattern>
+		<![CDATA[
+		^http://grouper.com/video/MediaDetails.aspx\?(?<id>id=.*&ml=.*)
+		]]>
+		</urlPattern>
+		<size>
+			<width>400</width>
+			<height>325</height>
+		</size>
+	</provider>		
+	<provider>
+		<id>13C0A225-9842-441b-AE4D-103A23C70EA5</id>
+		<serviceName>Splashcast</serviceName>
+		<embedFormat>
+		<![CDATA[
+		<embed src="http://web.splashcast.net/go/so/1/p/{videoId}" wmode="transparent" width="{width}" height="{height}" type="application/x-shockwave-flash" /> 
+		]]>
+		</embedFormat>
+		<embedPatterns>
+			<pattern name="src">
+			<![CDATA[
+			http://web.splashcast.net/go/so/1/p/(?<id>.*) 
+			]]>
+			</pattern>
+		</embedPatterns>
+		<urlFormat>
+		<![CDATA[
+		http://web.splashcast.net/go/so/1/p/{videoId}
+		]]>
+		</urlFormat>
+		<urlPattern>
+		<![CDATA[
+		^http://web.splashcast.net/go/so/1/p/(?<id>.*)
+		]]>
+		</urlPattern>
+		<size>
+			<width>400</width>
+			<height>300</height>
+		</size>
+		<loadedTestColor a="255" r="255" g= "255" b="255" percent=".80"/> 
+	</provider>	
+	<whitelists>
+		<whitelist blogprovider="556A165F-DA11-463c-BB4A-C77CC9047F22">
+			<allowed providerId="56744E0A-1892-4b56-B7FF-3A2568EE2D27">
+			<![CDATA[			
+			[youtube=http://www.youtube.com/watch?v={id}]
+			]]>
+			</allowed>
+			<allowed providerId="6A08E9D2-7CEC-4079-9E2C-DF55290D549E">
+			<![CDATA[			
+			[googlevideo=http://video.google.com/videoplay?docid={id}]
+			]]>
+			</allowed>
+			<allowed providerId="24BA2B58-5604-4d34-87CE-4F21F0D08DBD">
+			<![CDATA[			
+			[odeo=http://odeo.com/audio/{id}/view]
+			]]>
+			</allowed>
+			<allowed providerId="13C0A225-9842-441b-AE4D-103A23C70EA5">
+			<![CDATA[			
+			[splashcast {id}]
+			]]>
+			</allowed>
+		</whitelist>
+	</whitelists>	
+</videoProviders>

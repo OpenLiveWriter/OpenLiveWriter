@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<server port="8080">
+
+	<property name="baseUrl" value="http://localhost:8080/" />
+
+	<property name="blog" className="BlogServer.BlogConfig">
+		<path>.\unknown.xml</path>
+		<id>100</id>
+		<displayName>My Blog</displayName>
+		<homepageUrl>${baseUrl}</homepageUrl>
+		<username>unknown</username>
+		<password>password</password>
+		<uploadPath>${baseUrl}uploads/</uploadPath>
+		<uploadDir>.\uploads</uploadDir>
+ 	</property>
+ 	
+ 	<path pattern="^/static/.+">
+ 		<handler className="BlogServer.RequestHandlers.FilesystemHandler" basePath="/static/" rootDir=".\static" />
+ 	</path>
+
+ 	<path pattern="^/uploads/.+">
+ 		<handler className="BlogServer.RequestHandlers.FilesystemHandler" basePath="/uploads/" rootDir=".\uploads" />
+ 	</path>
+
+	<path value="/api">
+		<filter className="BlogServer.RequestFilters.TraceFilter" />
+		<handler className="BlogServer.RequestHandlers.BlogServerHandler" blogProperty="blog" />
+		<!--<handler className="BlogServer.RequestHandlers.XmlRpcProxyHandler" url="http://unknown.wordpress.com/xmlrpc.php" />-->
+	</path>
+
+	<path value="/">
+		<handler className="BlogServer.RequestHandlers.BlogHomepageHandler" blogProperty="blog"><![CDATA[
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+			<html xmlns="http://www.w3.org/1999/xhtml">
+
+			<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<title><%= HtmlEncode(blogConfig.BlogName) %></title>
+			<link rel="EditURI" type="application/rsd+xml" title="RSD" href="${baseUrl}rsd" />
+			<link rel="stylesheet" type="text/css" href="/static/styles.css" />
+			</head>
+			
+			<body>
+				<h1><%= HtmlEncode(blogConfig.BlogName) %></h1>
+				<div class="posts">
+					<% foreach (BlogPost post in blogConfig.Blog.GetRecentPublishedPosts(20)) { %>
+					<div class="post">
+						<div class="post_date"><%= HtmlEncode(post.Date.ToLocalTime().ToString()) %></div>
+						<h3><%= HtmlEncode(post.Title) %></h3>
+						<p class="post_body">
+						<%= post.Description %>
+						</p>
+					</div>
+					<% } %>
+				</div>
+			</body>
+			</html>
+		]]></handler>
+	</path>
+
+	<path value="/rsd">
+		<handler className="BlogServer.RequestHandlers.StringHandler" contentType="application/rsd+xml"><![CDATA[
+			<rsd version="1.0" xmlns="http://archipelago.phrasewise.com/rsd">
+				<service>
+					<engineName>Yet Another Servlet Engine</engineName>
+					<engineLink>http://www.contoso.com/</engineLink>
+					<homePageLink>${baseUrl}</homePageLink>
+					<apis>
+						<api name="WordPress" blogID="100" preferred="false" apiLink="${baseUrl}api" />
+						<api name="Movable Type" blogID="100" preferred="true" apiLink="${baseUrl}api" />
+					</apis>
+				</service>
+			</rsd>
+		]]></handler>
+	</path>
+	
+</server>

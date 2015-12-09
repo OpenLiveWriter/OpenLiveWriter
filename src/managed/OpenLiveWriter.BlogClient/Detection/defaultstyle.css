@@ -1,0 +1,65 @@
+html
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+h1, h2, h3, h4, h5, h6, p, ol, ul, pre, blockquote
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+/* page layout */
+
+body
+{
+	font-family: {body-font};
+	font-size: 11pt;
+}
+
+a { color: #696; font-weight: normal; }
+a:visited { color: #696; }
+a:hover { color: #acb613; }
+
+ul ul
+{
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+blockquote
+{
+	margin-top: 19px;
+	margin-bottom: 19px;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+/*blockquote p { padding: 0px; }*/
+
+/* the post */
+.post
+{
+}
+
+/* title section of the post */
+.title
+{
+	margin: 7px 5px 10px 5px;
+	font-family: {title-font};
+	font-size: 14pt;
+}
+
+/* content section of the post */
+.body
+{
+	margin: 5px 5px 5px 5px;
+}

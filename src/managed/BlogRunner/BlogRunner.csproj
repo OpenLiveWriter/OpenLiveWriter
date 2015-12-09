@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>BlogRunner</AssemblyName>
+    <RootNamespace>BlogRunner</RootNamespace>
+    <ProjectGuid>{BA726BEA-9A29-4E53-95DF-E478D86D0926}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <CoverageDisabled>true</CoverageDisabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BlogRunner.Core\BlogRunner.Core.csproj">
+      <Project>{1F76020F-DBB5-4F43-B530-C85EF9461A61}</Project>
+      <Name>BlogRunner.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Name>OpenLiveWriter.CoreServices</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

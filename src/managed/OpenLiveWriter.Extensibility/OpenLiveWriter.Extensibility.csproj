@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.Extensibility</AssemblyName>
+    <RootNamespace>OpenLiveWriter.Extensibility</RootNamespace>
+    <ProjectGuid>{A803C16E-6619-4017-883C-EA73EB947F34}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj">
+      <Name>OpenLiveWriter.Api</Name>
+      <Project>{B6D10B42-F173-4086-BB81-96B724BA5594}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj">
+      <Name>OpenLiveWriter.ApplicationFramework</Name>
+      <Project>{EEEE653A-90CE-44E2-B40E-22F747880CC0}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
+      <Project>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</Project>
+      <Name>OpenLiveWriter.HtmlParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
+      <Name>OpenLiveWriter.Interop.Mshtml</Name>
+      <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="BlogClient\BlogAccount.cs" />
+    <Compile Include="BlogClient\BlogClientException.cs" />
+    <Compile Include="BlogClient\BlogInfo.cs" />
+    <Compile Include="BlogClient\BlogPost.cs" />
+    <Compile Include="BlogClient\BlogPostCategory.cs" />
+    <Compile Include="BlogClient\BlogPostKeyword.cs" />
+    <Compile Include="BlogClient\IBlogClient.cs" />
+    <Compile Include="BlogClient\IBlogPostContentFilter.cs" />
+    <Compile Include="BlogClient\IBlogProvider.cs" />
+    <Compile Include="BlogClient\IBlogProviderButtonDescription.cs" />
+    <Compile Include="BlogClient\RsdServiceDescription.cs" />
+    <Compile Include="ImageEditing\IImageDecorator.cs" />
+    <Compile Include="ImageEditing\IImageDecoratorDefaultSettingsCustomizer.cs" />
+    <Compile Include="ImageEditing\IImageDecoratorIcons.cs" />
+    <Compile Include="ImageEditing\IImageDecoratorUndoUnit.cs" />
+    <Compile Include="ImageEditing\IImageTargetEditor.cs" />
+    <Compile Include="ImageEditing\ImageDecoratorContext.cs" />
+    <Compile Include="ImageEditing\ImageDecoratorEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageEditing\ImageDecoratorEditorContext.cs" />
+    <EmbeddedResource Include="ImageEditing\ImageDecoratorEditor.resx">
+      <DependentUpon>ImageDecoratorEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

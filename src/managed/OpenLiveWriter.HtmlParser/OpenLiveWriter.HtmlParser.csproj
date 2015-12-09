@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.HtmlParser</AssemblyName>
+    <RootNamespace>OpenLiveWriter.HtmlParser</RootNamespace>
+    <ProjectGuid>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="FormAgent\Checkbox.cs" />
+    <Compile Include="FormAgent\FormData.cs" />
+    <Compile Include="FormAgent\FormElement.cs" />
+    <Compile Include="FormAgent\FormElementWithValue.cs" />
+    <Compile Include="FormAgent\FormFactory.cs" />
+    <Compile Include="FormAgent\Hidden.cs" />
+    <Compile Include="FormAgent\HtmlForm.cs" />
+    <Compile Include="FormAgent\ImageButton.cs" />
+    <Compile Include="FormAgent\Option.cs" />
+    <Compile Include="FormAgent\OptionInfo.cs" />
+    <Compile Include="FormAgent\Radio.cs" />
+    <Compile Include="FormAgent\Select.cs" />
+    <Compile Include="FormAgent\SubmitButton.cs" />
+    <Compile Include="FormAgent\Textarea.cs" />
+    <Compile Include="FormAgent\Textbox.cs" />
+    <Compile Include="Parser\CssParser.cs" />
+    <Compile Include="Parser\Element.cs" />
+    <Compile Include="Parser\HtmlExtractor.cs" />
+    <Compile Include="Parser\HtmlUtils.cs" />
+    <Compile Include="Parser\IElementSource.cs" />
+    <Compile Include="Parser\JavascriptParser.cs" />
+    <Compile Include="Parser\LiteralElementMethods.cs" />
+    <Compile Include="Parser\ParseMethods.cs" />
+    <Compile Include="Parser\ReplaceOperation.cs" />
+    <Compile Include="Parser\SimpleHtmlParser.cs" />
+    <Content Include="FormAgent\test1.htm" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>

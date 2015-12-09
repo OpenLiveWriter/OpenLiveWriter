@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'OpenLiveWriterFilter'
+		'OpenLiveWriterFilter.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}

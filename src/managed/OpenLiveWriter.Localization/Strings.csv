@@ -1,0 +1,1358 @@
+Name,Value,Comment
+Name,Blog,
+WeblogName,&Blog name:,
+Configuration,Configuration,
+WeblogProvider,Blog service:,
+HomepageUrl,Website address:,
+Username,User name:,
+Password,Password:,
+Capabilities,Blog Service &capabilities:,
+ViewWeblogCapabilities,See blog capabilities,
+UpdateAccountConfiguration,&Update account information...,
+PostEditorTitleRegion,Post Title,
+PostEditorBodyRegion,Post Body,
+ClickToViewMap,Click to view this map on Live.com,
+ViewMap,View map,
+NotConnected,You must be connected to the Internet to insert and edit maps.,
+ConnectionRequired,Internet Connection Required,
+InsertMap,Insert Map,
+CustomizeMap,Customize Map,
+InsertButtonText,Insert,
+MapImageAltText,Map picture,
+OKButtonText,OK,
+PushpinValidationError,"Couldn't find the location for the pin that you entered at this time.
+
+Do you still want to set this web address as your custom pin?",
+ServiceName,Live Search Maps,
+Map,Map,
+MapAlignInline,Inline,
+MapAlignLeft,Left,
+MapAlignRight,Right,
+MapAlignCenter,Center,
+MapNoMargins,No Margins,
+MapCustomMargins,Custom Margins,
+MapStyle,Map Style,
+MapDirectionNorth,North,
+MapDirectionEast,East,
+MapDirectionSouth,South,
+MapDirectionWest,West,
+MapZoomIn,Zoom In,
+MapZoomOut,Zoom Out,
+MapZoomSlider,Zoom Slider,
+MapSearch,Search,
+MapBirdseyeButton,Toggle Bird's eye View,
+MapSeeInBirdseye,See the Bird's eye view of this location,
+MapFindAddress,&Find location:,
+MapBirdseyeLabel,&Bird's eye,
+MapShowLabel,Sho&w labels,
+MapPushpinTip,Tip: Right-click the map to add a pin,
+MapRoad,Road,
+MapAerial,Aerial,
+MapBirdseye,Bird's eye,
+SemanticHtmlPreviewText,AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz, Sample text rendered to give the user an idea what each style in the HTML styles gallery looks like,
+AddButton,A&dd...,"Add new blog, add to link glossary, etc."
+EditButton,&Edit...,"Edit blog, glossary entry, etc."
+DeleteButton,Re&move...,"Delete blog, glossary entry, etc."
+ViewButton,&View,View blog
+ConfigureProduct,Configure {0},"{0} - Product name, i.e. ""Open Live Writer"""
+WizardBlogTypeWelcome,"Many popular blog services work with {0}.","{0} - Long product name, i.e. ""Open Live Writer"""
+WizardBlogTypeWhatBlogType,What blog service do you use?,
+WizardBlogTypeConfigureTo,Configure {0} to publish to:,"{0} - Long product name, i.e. ""Open Live Writer""; followed by a choice of two options: ""SharePoint blog"" or ""Another blog service"""
+WizardBlogTypeSharePoint,&SharePoint,
+WizardBlogTypeOther,&Other services,
+Options,Options,
+AllowAutoUpdate,"Automatically &update account information (categories, links, capabilities, and provider extensions)",
+AllowProviderExtensions,Allow &blog provider extensions (buttons added to the Shortcuts group on the Accounts tab in the ribbon),
+PanelNameAccounts,Accounts,"As in, Blog Accounts"
+PostEditorPrefEditing,Editing,
+PostEditorPrefPostWindows,Post window,
+PostEditorPrefPublishing,Publishing,
+PostEditorPrefRemind,Remind me to add &tags before publishing,
+PostEditorPrefRemindCat,Remind me to add &categories before publishing,
+PostEditorPrefClose,Close &window after publishing,
+PostEditorPrefView,&View post after publishing,
+PostEditorPrefAuto,Save A&utoRecover information periodically,
+PostEditorPrefSide,S&how taskpane when editable items are inserted,
+PostEditorPrefUnsave,Open a new window &only when there are unsaved changes to the current post,
+PostEditorPrefSingle,Use a &single window for editing all posts,
+PostEditorPrefNew,Open a new window for &each post,
+PostEditorPrefTitle,&Remind me to type a title before publishing,
+PostEditorPrefName,Preferences,
+PostEditorPrefGeneral,General options,
+SpellingPrefOptions,General options,
+SpellingPrefReal,Use &real-time spell checking (squiggles),
+SpellingPrefNum,Ignore words with &numbers,
+SpellingPrefUpper,Ignore words in &UPPERCASE,
+SpellingPrefAuto,Automatically &correct common capitalization and spelling mistakes,
+SpellingPrefGroup,Spelling form options,
+SpellingPrefPub,Check spelling before &publishing,
+SpellingPrefName,Spelling,
+GlossaryPrefName,Automatic Linking,
+ProxyPrefTitle,Web Proxy Preferences,
+ProxyPrefCustom,Custom proxy settings,
+ProxyPrefPassword,Pass&word:,
+ProxyPrefUsername,User &name:,
+ProxyPrefPort,&Port:,
+ProxyPrefServer,P&roxy server address:,
+ProxyPrefEnabled,&Manually configure settings,
+ProxyPrefName,Web Proxy,
+PingPrefUrl,&Ping the following web addresses (one web address for each line),
+PingPrefName,Ping Servers,
+SaveButton,&Save,
+CancelButton,Cancel,does not get an accelerator
+HelpButton,&Help,
+PluginPrefNameCol,Plug-in,
+PluginPrefStatCol,Status,
+PluginPrefInstalled,Currently installed &plug-ins:,
+PluginPrefDetails,Plug-in details,
+OptionsButton,Options...,
+PluginPrefTooltip,Click here to find out more about this plug-in.,
+PluginPrefDisable,O&ff,
+PluginPrefEnable,O&n,
+PluginPrefNone,(No Plug-in selected),
+PluginPrefLink,Get plug-ins online...,
+PluginPrefCaption,Turn plug-ins on and off to extend how you use {0}.,{0} - Open Live Writer
+PluginPrefName,Plug-ins,
+PluginPublishProgress,Executing plug-in: {0},{0} - the name of a plugin
+GlossaryTextCol,Term,for a link in the glossary--the link text
+GlossaryUrlCol,Web address,for a link in the glossary--the link URL
+AccountPanel,Account,
+ImagesUpload,Upload,
+ImagesText,"When you add pictures to your blog post, do you want them uploaded to this blog service or to an FTP site?",
+ImagesFtpOpt,&FTP site:,
+ImagesBlogOpt,&Blog service,
+ImagesFtpConfig,&Change FTP settings...,
+FtpUsername,&User name:,
+FtpPassword,&Password:,
+ImagesPanel,Pictures,
+EditingStyle,Blog theme,
+EditingText,After you make changes to your theme online, click Update theme to see the latest.,
+EditingUsing,Use your blog theme to see what your post will look like online while you are editing it.,{0} - Open Live Writer
+EditingUpdate,&Update theme,
+EditingName,Editing,
+EditingRTLName,Text direction,
+EditingRTLYes,Right to Left,
+EditingRTLNo,Left to Right,
+EditingRTLDefault,Default ({0}), {0} - EditingRTLYes or EditingRTLNo
+EditingRTLExplanation,Change the reading direction of your blog posts.,Explanation for the right-to-left setting
+EditingRTLUse,&Enter text Right to Left in Edit view.
+AdvancedTransport,Character set,
+AdvancedText,"Select another encoding type for your blog posts. By default, it's UTF-8.",
+AdvancedName,Advanced,
+AdvancedDefault,Default ({0}),"{0} - default encoding web name (e.g. ""UTF-8"")"
+AdvancedXHTMLGroupName,Markup language,
+AdvancedXHTMLLabel,"Select HTML or XHTML for your markup language type. By default, it's HTML.",
+AdvancedXHTMLDefault,Default ({0}),{0} - yes or no
+FtpHelp,How do I configure an FTP site?,
+FtpFolderUrl,&Web address of the publishing folder:,
+FtpFolderPath,&Path of the publishing folder:,
+FtpHostname,&Host name:,
+FtpText,FTP Settings,
+FtpLoginDomain,FTP,
+SpellNotInDict,&Not in dictionary:,
+SpellAdd,A&dd,"Add misspelled word to dictionary"
+SpellChange,C&hange to:,
+SpellOptions,S&uggestions:,
+SpellIgnore,I&gnore,
+SpellIgnoreAll,&Ignore All,
+SpellChangeAll,Change A&ll,
+SpellChangeWord,&Change,
+SpellSuggest,&Suggest,
+SpellText,Check Spelling,
+SpellCaps,Capitalization:,
+SpellNoSuggest,(No suggestions),Used with punctuation to indicate that no alternate spellings were returned
+Weblog,Blog,
+Open,Open,
+Drafts,Drafts,
+RecentlyPosted,Recently posted,
+MoreDotDotDot,More...,
+MoreDrafts,More Drafts,
+MoreDraftsTooltip,Open another draft not listed above,
+MorePosts,More Recent Posts,
+MorePostsTooltip,Open another post not listed above,
+Insert,Insert,
+InsertLinkDotDotDot,Hyperlink...,
+InsertLink,Insert Hyperlink,
+InsertLinkTooltip,Insert a hyperlink into the current document,
+InsertPictureDotDotDot,Picture...,
+InsertPicture,Insert Picture,
+InsertPictureTooltip,Insert a picture into the current document,
+InsertTableDotDotDot,Table...,
+InsertTable,Insert Table,
+InsertTableTooltip,Insert a table into the current document,
+EmoticonsGalleryRecent,Recent,This is a category header that appears above the last 10 recently used emoticons,
+EmoticonsGalleryPopular,All,This is a category header that appears above all the available emoticons,
+EmoticonsTooltipOneAutoReplace,{0}  {1}, "{0} - description of emoticon, {1} - text form of emoticon e.g. :-)"
+EmoticonsTooltipTwoAutoReplace,{0}  {1} or {2}, "{0} - description of emoticon, {1} - 1st text form of emoticon e.g. :-), {2} - 2nd text form of emoticon e.g. :)"
+EmoticonSmile,Smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSurprisedSmile,Surprised smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonWinkingSmile,Winking smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonBeRightBack,Be right back,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonConfusedSmile,Confused smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonAnnoyed,Annoyed,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonCryingFace,Crying face,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonHotSmile,Hot smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonAngel,Angel,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonDontTellAnyoneSmile,Don't tell anyone smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonShifty,Shifty,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonNerdSmile,Nerd smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonJustKidding,Just kidding,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSecretTellingSmile,Secret telling smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonIDontKnowSmile,I don't know smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonPartySmile,Party smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSleepySmile,Sleepy smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonThumbsUp,Thumbs up,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonMug,Mug,Alternate text for a beer mug emoticon. The emoticon has CHANGED from Messenger so DON'T use Messenger's localization.
+EmoticonGirl,Girl,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonLeftHug,Left hug,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonVampireBat,Vampire bat,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonOpenMouthedSmile,Open-mouthed smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSmileWithTongueOut,Smile with tongue out,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSadSmile,Sad smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonDisappointedSmile,Disappointed smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonEmbarrassedSmile,Embarrassed smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonAngrySmile,Angry smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonDevil,Devil,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonBaringTeethSmile,Baring teeth smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSarcasticSmile,Sarcastic smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSickSmile,Sick smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonThinkingSmile,Thinking smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonEyeRollingSmile,Eye rolling smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonNinja,Ninja,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonGreenWithEnvy,Green with envy,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonLaughingOutLoud,Laughing out loud,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonRollingOnTheFloorLaughing,Rolling on the floor laughing,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonNyahNyah,Nyah-Nyah,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonAlien,Alien,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonFlirtFemale,Flirt female,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonFlirtMale,Flirt male,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonFreezing,Freezing,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonInLove,In love,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonPrincess,Princess,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonGhost,Ghost,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonPunch,Punch,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonPunk,Punk,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSteamingMad,Steaming mad,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonWhoMe,Who me?,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSendAKiss,Send a kiss,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonCoffeeCup,Coffee cup,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonThumbsDown,Thumbs down,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonMartiniGlass,Martini glass,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonBoy,Boy,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonRightHug,Right hug,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonBirthdayCake,Birthday cake,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonRedHeart,Red heart,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonRedLips,Red lips,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonRedRose,Red rose,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonCamera,Camera,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonCatFace,Cat face,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonTelephoneReceiver,Telephone receiver,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonNote,Note,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonStar,Star,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonClock,Clock,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSnail,Snail,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonPlate,Plate,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonPizza,Pizza,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonAuto,Auto,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonUmbrella,Umbrella,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonComputer,Computer,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonStormCloud,Storm cloud,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonMoney,Money,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonBrokenHeart,Broken heart,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonGiftWithABow,Gift with a bow,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonWiltedRose,Wilted rose,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonFilmstrip,Filmstrip,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonDogFace,Dog face,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonLightBulb,Light bulb,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSleepingHalfMoon,Sleeping half-moon,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonEmail,Email,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonMessenger,Messenger,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonBlackSheep,Black Sheep,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonBowl,Bowl,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSoccerBall,Soccer ball,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonAirplane,Airplane,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonIslandWithAPalmTree,Island with a palm tree,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonMobilePhone,Mobile phone,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonLightning,Lightning,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonGoat,Goat,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSun,Sun,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonRainbow,Rainbow,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonTurtle,Turtle,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonCallMe,Call me,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonPointingUp,Pointing up,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonFingersCrossed,Fingers crossed,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonHighFive,High five,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonWork,Work,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonBunny,Bunny,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSchoolBus,School bus,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonPeace,Peace,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonSchool,School,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+EmoticonXbox,Xbox,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
+PublishDatePrompt,Set post date,No apostrophes (') allowed in this message
+PublishDateTooltip,Post date,
+PropertiesPanel,Post Properties,This is an accessibility name and should be localized.
+PropertiesCategories,&Categories:,
+PropertiesPageOrder,Page &Order:,For specifying the order in which Pages appear on WordPress. The value will be an integer
+PropertiesPageParent,Page &Parent:,For specifying the parent Page of a Page for WordPress.
+PropertiesSlug,&Slug:,A slug describes a post or page in a few words. Used by WordPress to form a permalink URL for the post. See this link for details: http://codex.wordpress.org/Glossary#Slug
+PropertiesComments,Co&mments:,
+PropertiesPings,P&ings:,This refers to sending an HTTP request to notify servers that a blog has been updated. For more info
+PropertiesKeywords,&Keywords:,
+PropertiesTags,&Tags:,This replaces Keywords for (currently) WordPress blogs only
+PropertiesAuthor,&Author:,
+PropertiesPassword,Pass&word:,
+PropertiesTrackbacks,T&rackback URLs:,
+PropertiesCommaSeparated,(comma separated),Used inside the Trackback URLs control in the post property dialog
+PropertiesExcerpt,&Excerpt:,
+PropertiesPublishDate,P&ublish Date:,
+PropertiesDefault,(Default),"Default option for author, comment policy, etc."
+PropertiesNoPageParent,(No parent),
+PropertiesCommentPolicyNone,None,Comments are not allowed on the post
+PropertiesCommentPolicyOpen,Open,Comments are allowed on the post
+PropertiesCommentPolicyClosed,Closed,No new comments are allowed on the post
+PropertiesTrackbackPolicyAllow,Allow,
+PropertiesTrackbackPolicyDeny,Deny,
+PropertiesAuthorsFetchingText,list of authors,
+PropertiesShowHide,Close/Open Properties Panel,This is an accessibility name and should be localized.
+CategoryControlSetCategories,Set categories,
+CategoryControlSetCategory,Set category,
+CategoryControlCategories,Categories: {0},{0} - comma-delimited list of categories
+CategoryControlCategory,Category: {0},{0} - the single category that is selected
+CategoryControlNoCategories,(none),
+CategoryControlNoCategories2,(No categories),
+DynamicCommandMenuMore,Mo&re...,If all the options can't be shown in one menu then this is the last option in a menu and it launches a form that shows all the options,
+DynamicCommandMenuInsert,Insert,
+TagControlSetTags,Set tags (comma separated),
+AlignMenuItem,&Align,From the context menu when right-clicking on text in the editor.
+PluginInsertSidebarText,{0}...,{0} will be the name provided by the plug-in.
+PluginInsertSidebarTooltip,Insert a {0} into the current document,{0} will be the name provided by the plug-in (e.g. Video
+TruncatedString,{0}...,{0} - a string that is being truncated
+WithEllipses,{0}...,"{0} - a command name that needs to be followed with ellipses, in accordance with Windows UI guidelines"
+BrowserMiniFormProgress,Retrieving...,
+ConfigWizardWelcome,Welcome!,
+ConfigWizardLearnMore,Learn more about {0},{0} - Open Live Writer
+ConfigWizardChooseWeblogType,Choose Blog Type,"The header for the screen for choosing blog type (Spaces, SharePoint, or Other)."
+ConfigWizardBasicInfo,Blog Homepage and Login,The header for the screen that prompts for homepage and login.
+ConfigWizardSharePointHomepage,SharePoint Blog Homepage,
+ConfigWizardComplete,Blog Configuration Complete,
+ConfigWizardSharePointLogin,SharePoint blog login,
+ConfigWizardSelectProvider,Select blog type,
+ConfigWizardSelectWeblog,Select blog,
+ConfigWizardSelectImageEndpoint,Select image collection,
+ConfigWizardDetectSettings,Detecting Blog Settings,
+CWBasicText,"To use {0} you must already have an account with a blog service. If you do not already have an account with an existing blog service, create one now.",{0} - Writer
+CWBasicTitle,Configure {0} to work with {1},"{0} - Writer, {1} - ""your blog"" or name of blog service"
+CWBasicTitleDefaultService,your blog,See CWBasicTitle
+EditProxySettings,Set proxy...,
+PasswordLabel,&Password:,
+UsernameLabel,&User name:,
+CWBasicHeader,Add a blog account,
+CWBasicHomepage,Web &address of your blog:,
+CWBasicHomepage2,This is the web address that visitors use to read your blog.,
+CWBasicCreateAccount,If you do not already have a {0} account create one now. Click the link below to open the web page that will begin your online registration.,{0} - Microsoft Account
+CWSelectBlogText,More than one blog was detected. Please select the blog that you'd like to add from the list below:,
+CWSelectImageEndpointText,Please select the collection that you'd like images to be uploaded to:,
+PasswordChar,0x25CF,The hex value of the single character that will be used to represent each character in a password field.
+ViewWeblog,View Blog,
+CWSpacesUsername,&Microsoft Account ID:,
+CWLiveIDCreateAccount,"If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account ID.",
+RememberPassword,&Remember my password,
+CWSpacesUsernameExample,(example555@hotmail.com),Example of Microsoft Account ID
+CWLiveIDCreateAccount2,Don't have a Microsoft Account ID?,
+CWSharePointText,To use {0} you must have a SharePoint blog.,{0} - Open Live Writer
+CWSharePointHomepageUrl,Share&Point blog web address:,
+CWSharePointTitle,Configure {0} for a SharePoint blog,{0} - Writer
+CWSharePointTitle2,Provide SharePoint Blog Login,
+CWSharePointText2,Enter the login required to publish to your SharePoint blog.,
+CWSharePointUseSystemLogin,Use my &Windows user name and password,
+CWTitle,Add Blog Wizard,Caption of the Add Blog Wizard window.
+CWProgressHeader,Setting up your blog account,
+ProgressDownloadingEditingTemplate,Downloading editing template...,
+ProgressDetectingWeblogEditingStyle,Detecting blog editing theme...,
+ProgressDetectingWeblogSettings,Detecting blog settings...,
+ProgressDetectingWeblogCharSet,Detecting blog character set...,
+ProgressDetectingWeblogCategories,Detecting blog categories...,
+ProgressDetectingWeblogIcon,Detecting blog icon...,
+ProgressCompletedSettingsDetection,Completed settings detection,
+ProgressDownloadingWeblogEditingStyle,Downloading blog editing theme...,
+ProgressSaving,Saving {0}...,{0} - a filename
+ProgressDownloadFinished,Download finished,
+ProgressDownloading,Downloading {0}...,{0} - a URL
+ProgressCreatingEditingTemplate,Creating editing template...,
+ProgressDownloadingSupportingFiles,Downloading supporting files...,
+ProgressFinalizingEditingTemplateConfig,Finalizing editing template configuration...,
+ProgressPreparingListOfFiles,Preparing list of files to download...,
+ProgressStartingDownloadOfReferences,Starting download of references...,
+ProgressDeterminingType,Determining type of {0}...,{0} - a URL
+WizardBack,< &Back,
+WizardNext,&Next >,
+WizardFinish,Finish,
+ProgressAnalyzingHomepage,Analyzing blog homepage web address and contents...,
+ProgressAnalyzingWeblogList,Analyzing list of blogs...,
+ProgressVerifyingInterface,Verifying blog publishing interface...,
+ProgressAnalyzingInterface,Analyzing blog publishing interface...,
+CWConfirmWeblogName,Blog Name,
+CWConfirmSwitchToWeblog,&Switch to this blog now,
+CWConfirmFTPServer,FTP Server,
+CWConfirmUploadSettings,Upload Pictures To:,
+CWConfirmText,"Please confirm that you would like to save this blog.",
+CWConfirmText2,"Writer will periodically check for, and download, new configuration information for your blog.",
+WeblogNameColon,Blog &nickname:,
+CWConfirmThanks,Your blog has been set up,
+CWConfirmEditWeblogSettings,&Edit Settings...,
+CWWelcomeClickNext,Click Next to continue.,
+CWWelcomeCaption,Welcome to the world of blogging!,
+CWWelcomeAlreadyHave,I &already have a blog set up,
+CWWelcomeText,"Use {0} to blog about whatever interests you. Add photos and videos, and then publish to popular blogging services, including WordPress, Blogger, and TypePad.",{0} - Open Live Writer
+CWWelcomeCreate,"&Create a new blog",
+CWWelcomeWP,"&WordPress",
+OpenPostOpenFrom,&Open from:,
+OpenPostItems,items,
+OpenPostRefresh,&Refresh,
+OpenPostRefreshTooltip,Refresh Posts,
+OpenPostRefreshTooltipPages,Refresh Pages,
+OpenPostDelete,&Delete,
+OpenPostShow,&Show:,
+OpenPostPages,P&ages,
+OpenPostPosts,&Posts,
+PageLower,page,
+PostLower,post,
+PagesLower,pages,
+PostsLower,posts,
+AboutAbout,Abou&t {0},{0} - Open Live Writer Beta
+AboutVersion,{0},"{0} - version number, e.g. 2.0.1"
+AboutCopyright,© 2015 .NET Foundation. All rights reserved.,
+AboutConfigurationVersion,Configuration Version: {0},Displays the version of Writer's configuration file in the about dialog,
+ProductDisplayVersion,Build {0},{0}- the build number like 12.00.1234.1234.
+ProductNameVersioned,Open Live Writer,Versioned product name for about dialog.
+LinkEditHyperlink,Edit Hyperlink,
+LinkSelectionContainsImage,[selection contains image],
+LinkAdvanced,&Advanced {0},"{0} - double chevron pointing left or right, depending on whether the advanced properties are showing or not"
+LinkLinkTo,&Link to,
+UrlLabel,&Web address:,
+LinkTextLabel,Te&xt to be displayed:,
+LinkTitleLabel,&Title:,
+LinkRelLabel,R&el:,
+LinkNewWindowLabel,&Open link in new window,
+LinkOptionsTooltip,Browse for link,
+LinkRemoveLink,&Remove Hyperlink,
+LinkAddToGlossary,Auto&matically link to this text,
+LinkFormTitle,Insert Hyperlink,
+BytesFormat,{0} bytes,{0} - a number (integer)
+KilobytesFormat,{0}KB,{0} - a number (with or without decimals)
+MegabytesFormat,{0}MB,{0} - a number (with or without decimals)
+GigabytesFormat,{0}GB,{0} - a number (with or without decimals)
+ImgSBHeader,Picture,
+ImgSBLocalImage,Local: {0},"{0} - a file size (e.g. localized equivalents of ""10.2MB"", ""108 bytes"", etc.)"
+ImgSBLocalImage2,Local: {0}/{1},"{0}, {1} - file size (e.g. localized equivalents of ""10.2MB"", ""108 bytes"", etc.). The {0} value will be for the inline image, the {1} value will be for the ""View Larger"" image."
+Post,Post,
+Posts,&Posts,
+RecentPosts,Recent posts, Category description for recent posts that appears in Writer's taskbar jumplist.
+RecentDrafts,Recent drafts, Category description for recent drafts that appears in Writer's taskbar jumplist.
+Page,Page,
+Pages,P&ages,
+Blog,Blog,
+Date,Date,
+OpenPostNoDraftsAvailable, No drafts available.,
+OpenPostNoPostsAvailable,No posts available.,
+OpenPostNoPagesAvailable,No pages available.,
+ShowAllPosts,All,
+ShowXPosts,{0},{0} - a number
+InsertImageInsertFromFile,From File,
+InsertImageInsertFromWeb,From Web,
+InsertImageLinkTo,&Link to:,
+InsertImageOpenInNewWindow,&Open in new window,
+LinkToSource,Source picture,Navigate to the source picture when the selected image is clicked.,
+LinkToSourceLabelTitle,Link to: Source picture,Shows the user that the selected image links to the original image,
+LinkToSourceDescription,Navigate to the source picture when the selected image is clicked.,
+LinkToURL,Web address,Choose the location to go to when the selected image is clicked.,
+LinkToURLLabelTitle,Link to: Web address,Shows the user that the selected image links to a URL,
+LinkToURLDescription,Choose the location to go to when the selected image is clicked.,
+LinkToNone,None,Make the selected image not be a link.,
+LinkToNoneLabelTitle,Link to: None,Shows the user that the selected image is not a link,
+LinkToNoneDescription,Make the image not be a link.,
+ImagesFilterString,"All pictures (*.gif, *.jpg, *.jpeg, *.png)",
+AllFilesFilterString,All files (*.*),
+InsertImageImageUrl,Picture &web address:,
+InsertImagePreviewButton,&Preview,
+InsertImageSize,Size:,"The size, in pixels, of the selected image"
+InsertImageFileName,File name:,
+TableTableProperties,Table Properties,
+TableRows,Rows,
+TableColumns,Columns,
+TableBorder,Border,
+TableCellPadding,Cell Padding,
+TableCellSpacing,Cell Spacing,
+Size,Size,
+TableRowsLabel,&Rows:,
+TableColumnsLabel,&Columns:,
+Appearance,Appearance,
+pixels,pixels,
+TableShowBorderLabel,Show table &border:,
+TableCellSpacingLabel,&Space between cells:,
+TableCellPaddingLabel,&Pad cell contents:,
+Width,Width,
+WidthLabel,&Width:,
+WidthColon,&Width:,
+ImgSBLayout,Layout,
+ImgSBBorders,Borders,
+ImgSBActions,Actions,
+ImgSBTextWrapping,Text wrapping:,
+ImgSBMargins,Margins:,
+ImgSBRotate,Rotate,
+ImgSBBrightness,Contrast...,
+ImgSBCrop,Crop...,
+ImgSBTilt,Tilt...,
+ImgSBRevert,Revert to default settings,
+ImgSBSave,Save settings as default,
+ImgSBMarginTop,Top:,
+ImgSBMarginRight,Right:,
+ImgSBMarginLeft,Left:,
+ImgSBMarginBottom,Bottom:,
+ImgSBMarginNoMargins,None,
+ImgSBMarginCustomMargins,Custom,
+ImgSBAlignInline,Inline,
+ImgSBAlignLeft,Left,
+ImgSBAlignRight,Right,
+ImgSBAlignCenter,Center,
+ImgSBLinkTo,Link to,
+ImgSBImageSize,Size,
+ImgSBAdvanced,Advanced,
+Height,Height,
+HeightColon,&Height:,
+HeightLabel,&Height:,
+ImgSBLockRatio,Lock &ratio,
+ImgSBCustomize,Customize default picture sizes,
+ImgSBSizerCustom,Custom,
+ImgSBSizerSmall,Small,
+ImgSBSizerMedium,Medium,
+ImgSBSizerLarge,Large,
+ImgSBSizerOriginal,Original,
+ImgSBSizerUnknown,(Custom),
+DimensionsFormat,{0}x{1},"{0} - width, {1} - height"
+ImgAltTextAlternateText,&Alternate text:,
+ImgAltTextTitle,&Title:,
+ImgAltTextPicture,Picture:,
+ImgSBEffects,Effects,
+ImgSBImageEffects,Effects,
+ImgSBEffect,Effect,
+ImgSBEffectsLabel,Effects:,
+ImgSBAppliedEffects,Applied effects:,
+ImgSBImageSizeLabel,&Size:,
+ImgSBLinkOptions,Source Picture Options,
+ImgSBLinkOptionsDisabledTooltip,This command is disabled for web images and some image types.,
+ImgSBOpenInNewWindow,&Open in new window,
+ImgSBOther,Other,
+ImageEffectsNoRecolorCategory,No recolor,
+ImageEffectsColorModesCategory,Color modes,
+ImageEffectsColorTemperatureCategory,Color temperature,
+ImageEffectsNoSharpenCategory,No sharpen,
+ImageEffectsSharpenCategory,Sharpen
+ImageEffectsNoBlurCategory,No blur,
+ImageEffectsGaussianCategory,Gaussian blur,
+ImageEffectsNoEmbossCategory,No emboss,
+ImageEffectsEmbossCategory,Emboss,
+DecoratorDropShadow,Drop shadow,
+DecoratorPhotopaper,Photopaper,
+DecoratorReflection,Reflection,
+DecoratorRoundedCorners,Rounded corners,
+DecoratorInstantPhoto,Instant photo,
+DecoratorSolid1px,"Solid, 1 pixel",
+DecoratorSolid3px,"Solid, 3 pixels",
+DecoratorInheritBorder,Inherit from blog,
+DecoratorNoBorder,None,
+DecoratorGroupOverlays,Overlays,
+DecoratorWatermark,Watermark...,
+DecoratorGroupTransformations,Transformations,
+DecoratorNoRecolorLabel,No recolor,Remove any black and white or sepia applied on the selected image.,
+DecoratorNoRecolorDescription,Remove recolor effects applied on the selected image.,
+DecoratorBWLabel,Black and white,Apply a black and white filter on the selected image.,
+DecoratorBWDescription,Black and white,
+DecoratorSepiaLabel,Sepia tone,Apply a sepia filter on the selected image.,
+DecoratorSepiaDescription,Sepia,
+DecoratorCoolestTemperatureLabel,Coolest,Dark blue temperature effect available to apply to the selected image.
+DecoratorCoolTemperatureLabel,Cool,Blue temperature effect available to apply to the selected image.
+DecoratorWarmTemperatureLabel,Warm,Yellow temperature effect available to apply to the selected image.
+DecoratorWarmestTemperatureLabel,Warmest,Orange temperature effect available to apply to the selected image.
+DecoratorTemperatureDescription,Change the warmth of the colors in the selected image.,
+DecoratorSaturationLabel,Color pop,Make the colors in the selected image vivid.,
+DecoratorSaturationDescription,Make the colors in the selected image vivid.,
+DecoratorSharpenLabel,Sharpen,Apply a sharpening filter on the selected image.,
+DecoratorSharpenDescription,Apply a sharpening filter on the selected image.,
+DecoratorNoSharpenLabel,No sharpen,Remove the sharpening filter on the selected image.,
+DecoratorNoSharpenDescription,Remove the sharpening filter on the selected image.,
+DecoratorGaussianBlurLabel,Gaussian blur,Apply a Gaussian blur filter on the selected image.,
+DecoratorGaussianBlurDescription,Apply a Gaussian blur filter on the selected image.,
+DecoratorNoBlurLabel,No blur,Remove the blur filter on the selected image.,
+DecoratorNoBlurDescription,Remove the blur filter on the selected image.,
+DecoratorEmbossLabel,Emboss,Apply an emboss effect on the selected image.,
+DecoratorEmbossDescription,Apply an emboss effect on the selected image.,
+DecoratorNoEmbossLabel,No emboss,Remove the emboss effect on the selected image.,
+DecoratorNoEmbossDescription,Remove the emboss effect on the selected image.,
+ImgSBMaximumWidthLabel1,Maximum &Width:,
+ImgSBMaximumHeightLabel1,Maximum &Height:,
+ImgSBMaximumWidthLabel2,Maximum W&idth:,
+ImgSBMaximumHeightLabel2,Maximum H&eight:,
+ImgSBMaximumWidthLabel3,Maximum Wi&dth:,
+ImgSBMaximumHeightLabel3,Maximum Heigh&t:,
+ImgSBLargeImage,Large:,
+ImgSBMediumImage,Medium:,
+ImgSBSmallImage,Small:,
+ImgSBDefaultImageSizes,Default Picture Sizes,
+WatermarkAlignBottomLeft,Bottom Left,
+WatermarkAlignBottomRight,Bottom Right,
+WatermarkAlignCentered,Centered,
+WatermarkAlignTopLeft,Top Left,
+WatermarkAlignTopRight,Top Right,
+WatermarkAlignUnknown,Unknown,
+WatermarkTextLabel,&Watermark text:,
+WatermarkFontFamilyLabel,&Font family:,
+WatermarkSizeLabel,&Size:,
+WatermarkPositionLabel,&Position:,
+BrightnessBrightness,&Brightness:,
+BrightnessContrast,&Contrast:,
+BrightnessAdjust,Contrast,
+ColorTempWarmer,Warmer,This is displayed on the Color Temperature adjustment control (available by adding the Color Temperature effect from the image sidebar Effects tab) where you can specify whether to make an image warmer or cooler.
+ColorTempCooler,Cooler,This is displayed on the Color Temperature adjustment control (available by adding the Color Temperature effect from the image sidebar Effects tab) where you can specify whether to make an image warmer or cooler.
+LinkTo,&Link to,
+InsertButton,&Insert,
+InsertImageButton,In&sert,This is required since the image dialog has a mnemonic for 'i' which can't be changed.
+TagsInsertTags,Insert Tags,
+TagsCustomizeProviders,(Customize Providers...),
+TagsTagsLabel,&Tags (comma separated):,
+TagsTagProviderLabel,Tag &Provider:,
+TagsXmlParsingError,Missing {0} parameter,Exception when parsing tag providers xml file. {0} replaced by tag name that is missing.
+CloseButton,&Close,
+CloseButtonNoMnemonic,Close,
+TagsTagProvidersLabel,&Tag providers:,
+TagsRestoreDefaults,&Restore Defaults,
+TagsTagOptions,Tag Options,
+TagsTagExample1,tag 1,
+TagsTagExample2,tag 2,
+TagsEditPattern,Edit {0},{0} - Name of tag provider that is being edited
+TagsHtmlTemplateLabel,&HTML template for each tag:,
+TagsHtmlTemplateHelpString,"The HTML template will be used to generate HTML for each tag that is provided. In the HTML template, use {0} where the tag should be placed. Use {1} where the URL encoded tag should be placed.","{0} - ""{tag}"", {1} - ""{tag-encoded}"""
+TagsHtmlDelimiterLabel,&Separate the HTML for each tag using:,
+TagsHtmlDelimiterHelpString,The separator that should appear between tag HTML. The separator will appear between the HTML that is generated for each tag.,
+TagsProviderNameLabel,&Provider name:,
+TagsProviderNameHelpString,The name of the tag provider. This name will be displayed in the tag provider list when inserting tags.,
+TagsHtmlCaptionLabel,HTML &caption for tag list:,
+TagsHtmlCaptionHelpString,The HTML caption that will appear with the HTML generated for the tags. Use {0} where you'd like the HTML generated from the HTML tag template to be placed.,"{0} - ""{tag-group}"""
+TagsHtmlPreviewLabel,HTML preview:,
+TagsHtmlPreviewHelpString,A preview of the literal HTML that will be generated for a set of tags.,
+TagsCreateNew,Create New Tag Provider,
+TagsProviderDefaultCaption,{0} Tags: {1},"{0} - the name of a tag provider, {1} - tags provided by tag provider {0}"
+TagsCaptionFormat,{0} Tags: {{tag-group}},{0} - the name of a tag provider. {{tag-group}} must NOT be translated!
+Tags,Tags,
+TitleDefaultText,Enter a {0} title,{0} - Post or Page
+SpinnerPixelRepresentativeString,999 px,The Ribbon uses the width of this string to decide how wide the spinner should be displayed,
+SpinnerPixelFormatString," px",Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners,
+MapSBCaption,Caption:,
+MapSBMapHeader,Map,
+MapSBMargins,Margins:,
+MapSBLayoutHeader,Layout,
+MapSBTop,Top,
+MapSBLeft,Left,
+MapSBRight,Right,
+MapSBBottom,Bottom,
+MapSBWrapping,Text wrapping:,
+MapSBViewMap,View Map on Live.com,
+MapSBCustomize,Customize Map...,
+MapSBCustomizeTooltip,"Edit the map location, style, and pins",
+DownloadingWeblogStyle,Downloading Blog Theme,
+
+PasteSpecialPlaintextLabel,&Remove Formatting,
+PasteSpecialPlaintextDesc,Removes all formatting except for line breaks. Preserves links and pictures. Use to copy content only.,
+PasteSpecialThinnedLabel,&Thinned HTML,
+PasteSpecialThinnedDesc,"Removes extra formatting, such as MS Office specific formatting, CSS styles, and tables. Preserves relative heading sizes, basic formatting, and aligns with your blog theme.",
+PasteSpecialHtmlLabel,&Keep Formatting,
+PasteSpecialHtmlDesc,"Maintains all the formatting, including those which may not display correctly in your blog. For security reasons, scripts are stripped out.",
+PasteSpecial,Paste Special,
+PushpinUntitled,Enter a name for this pin,
+PushpinAdd,Add pin,
+PushpinEdit,Edit Pin,
+PushpinTitle,&Title:,
+PushpinNotes,&Notes:,
+PushpinPhotoUrl,&Photo web address:,
+PushpinMoreInfoUrl,&Web address for more information:,
+Plugin_Map_InsertableContentSource_MenuText,&Map,
+Plugin_Map_InsertableContentSource_SidebarText,Map,
+Plugin_Map_WriterPlugin_Name,Live Search Maps,
+Plugin_Map_WriterPlugin_Description,Embed Live Search Maps in your blog posts.,
+Plugin_Tags_InsertableContentSource_MenuText,Tag&s,
+Plugin_Tags_InsertableContentSource_SidebarText,Tags,
+Plugin_Tags_WriterPlugin_Name,Tags,
+Plugin_Tags_WriterPlugin_Description,Add tags to your posts using popular tagging sites or using custom HTML.,
+Plugin_WebImage_Title,Insert Web Image,
+Plugin_WebImage_WriterPlugin_Description,Add images from the web to your post.,
+RowPropertiesFixedHeight,&Fixed height:,
+RowPropertiesSizeToContent,&Automatically size to content,
+RowPropertiesTitle,Row Properties,
+LCPrefDetailsGroupBoxFormat,Details for '{0}' format,"{0} - the name of the selected microformat, e.g. hCalendar"
+LCPrefDetails,Details,
+LCPrefFormat,Format,
+LCPrefDescription,Description,
+LCPrefSupportedFormats,&Supported formats:,
+LCPrefHandledBy,Handled by:,"Followed by the name of a plug-in that can handle this format. You can think of it in the context of, ""The vCalendar microformat will be HANDLED BY the Google Calendar plug-in"""
+LCPrefChangeButton,Change...,
+LCPrefOptionsButton,Options...,
+LCPrefContentType,Content type:,
+LCPrefNoFormatSelected,(No format selected),
+LCPrefMoreAboutLiveClipboard,More about Live Clipboard...,"'(In English)' should be added at the end of local string for non-en language, because the link goes to EN webpage for all markets"
+LCPrefCaption,Paste web content that supports the Live Clipboard format into {0}.,{0} - Open Live Writer
+LCPrefPanelName,Live Clipboard,
+Enabled,Enabled,
+Disabled,Disabled,
+ApplyButton,&Apply,
+WeblogCapabilitiesCapability,Capability,
+WeblogCapabilitiesValue,Value,
+WeblogCapabilitiesCaption,{0} has detected the following capabilities for your blog:,{0} - Open Live Writer
+WeblogCapabilitiesTitle,Blog Capabilities,
+PublishFolderPickerCaption,Select a folder to publish to:,
+NewFolder,New Folder,
+NewFolderTooltip,Create a new folder,
+PublishFolderPickerTitle,Browse For Folder,
+PublishFolderPickerToolTip,Browse for folder,
+LinkGlossaryEdit,Edit Automatic Link,
+LinkGlossaryText,Te&xt:,
+LinkGlossaryUrl,&Web address:,
+LinkGlossaryTitleOptional,&Title (optional):,
+LinkGlossaryRelOptional,&Rel (optional):,
+LinkGlossaryTitle,Add Automatic Link,
+CategoryAdd,Add Category,
+CategoryNoParent,(No parent),Indicates that a category does not have a parent category.
+AddButton2,&Add,
+CategoryRefreshList,Refresh List,
+CategoryRefreshListTooltip,Refreshes the list of categories.,
+CategoryCategoryName,Category Name,The 'cue banner' for the textbox in the category popup, where you type in a new category name.
+ColorPickerDefaultColor,&Default Color,
+ColorPickerMoreColors,&More Colors...,
+ColorWhite,White,
+ColorLightGray,Light gray,
+ColorMediumGray,Medium gray,
+ColorDarkGray,Dark gray,
+ColorCharcoal,Charcoal,
+ColorBlack,Black,
+ColorVibrantRed,Vibrant red,
+ColorVibrantOrange,Vibrant orange,
+ColorVibrantYellow,Vibrant yellow,
+ColorVibrantGreen,Vibrant green,
+ColorVibrantBlue,Vibrant blue,
+ColorVibrantPurple,Vibrant purple,
+ColorProfessionalRed,Professional red,
+ColorProfessionalOrange,Professional orange,
+ColorProfessionalAqua,Professional aqua,
+ColorProfessionalGreen,Professional green,
+ColorProfessionalBlue,Professional blue,
+ColorProfessionalPurple,Professional purple,
+ColorEarthyRed,Earthy red,
+ColorEarthyOrange,Earthy orange,
+ColorEarthyYellow,Earthy yellow,
+ColorEarthyGreen,Earthy green,
+ColorEarthyBlue,Earthy blue,
+ColorEarthyBrown,Earthy brown,
+ColorPastelRed,Pastel red,
+ColorPastelOrange,Pastel orange,
+ColorPastelYellow,Pastel yellow,
+ColorPastelGreen,Pastel green,
+ColorPastelBlue,Pastel blue,
+ColorPastelPurple,Pastel purple,                                       
+Untitled,Untitled,
+WindowTitleFormat,{0} - {1},"{0} - post title, {1} - ""Open Live Writer"""
+StatusDraftUnsaved,Draft - Unsaved,
+StatusDraftSaved,Draft - Saved {0},{0} - saved date
+StatusAutoSaving,Autosaving...,This message is shown in the status bar while Writer saves the current post in the background,
+StatusPublished,Published: {0},{0} - publish date
+StatusWeblogNameFormatter,{0} ({1}),"{0} - status message, {1} - blog name"
+ChangeLiveClipboardHandlerComponent,Component,
+ChangeLiveClipboardHandlerCaption,Components capable of handling '{0}':,{0} - a live clipboard format name
+ChangeLiveClipboardHandlerTitle,Change Format Handler,
+BloggerBadAuthentication,The user name or password is not recognized.,
+BloggerNotVerified,The account email address has not been verified. The user will need to access their Google account directly to resolve the issue before logging in using a non-Google application.,
+BloggerTermsNotAgreed,The user has not agreed to terms. The user will need to access their Google account directly to resolve the issue before logging in using a non-Google application.,
+BloggerUnknown,The error is unknown or unspecified; the request contained invalid input or was malformed.,
+BloggerAccountDeleted,The user account has been deleted.,
+BloggerAccountDisabled,The user account has been disabled.,
+BloggerServiceUnavailable,The service is not available; try again later.,
+BloggerGenericError,An error has occurred: {0},{0} - an error message
+YouTubeNoAccount,There is no YouTube account associated with this Google Account.,
+BCEPostUrlNotFoundTitle,Blog Post Web Address Not Found,
+BCEPostUrlNotFoundMessage,"The post web address for the blog was not found:
+
+{0}
+
+{1}","{0} - URL, {1} - error message"
+BCEHttpErrorTitle,Server Error,
+BCEHttpErrorMessage,"The server reported an error with the following web address:
+
+{0}
+
+{1}","{0} - URL, {1} - error message"
+BCEConnectionErrorTitle,Network Connection Error,
+BCEConnectionErrorMessage,"Error attempting to connect to blog at:
+
+{0}
+
+{1}","{0} - URL, {1} - error message"
+BCEInvalidServerResponseTitle,Invalid Server Response,
+BCEInvalidServerResponseMessage,"The response to the {0} method received from the blog server was invalid:
+
+{1}","{0} - XML-RPC method name, {1} - error message"
+BCEFileTransferTitle,File Transfer Error,
+BCEFileTransferMessage,"Error occurred while {0}
+
+({1}) {2}","{0} - an action, {1} - error code, {2} - error message"
+BCEFileTransferTransferringFile,transferring file {0},{0} - file name. This string will be embedded in BCEFileTransferMessage.
+BCEFileTransferConnectingToDestination,connecting to file destination,This string will be embedded in BCEFileTransferMessage
+BCEFileTransferDisconnectingFromDestination,disconnecting from file destination,This string will be embedded in BCEFileTransferMessage
+BCEFileUploadNotSupportedTitle,File Upload Not Supported,
+BCEFileUploadNotSupportedMessage,File uploading is not supported by this blog. Please configure file uploading for this blog before attempting to publish posts with attached pictures or files.,
+BCEProviderTitle,Problem with the blog server,
+BCEProviderMessage,"Server Error {0} Occurred
+
+{1}","{0} - error code, {1} - error message"
+BCEAuthenticationTitle,Account Login Failed,
+BCEAuthenticationMessage,"Please check your user name and password.
+
+{0} - {1}","{0} - type of error (e.g. ArgumentException), {1} - error message"
+BCENetworkIOTitle,Data Transfer Exception,
+BCENetworkIOMessage,"An unexpected data transfer exception occurred while {0}
+
+{1} - {2}","{0} - some operation (e.g. ""transferring file""), {1} - type of exception, {2} - error message"
+BCEFileIOTitle,File Access Error,
+BCEFileIOMessage,"An unexpected error occurred while accessing the file {0}
+
+{1} - {2}","{0} - filename, {1} - type of exception (e.g. ArgumentException), {2} - error message"
+BCEOperationCancelledTitle,Operation Cancelled,
+BCEOperationCancelledMessage,The operation was cancelled.,
+BCEMethodUnsupportedTitle,Method Unsupported,
+BCEMethodUnsupportedMessage,The {0} method is not supported by the blog service.,"{0} - an XML-RPC method name, e.g. ""metaWeblog.deletePost"""
+BCEPostAsDraftUnsupportedTitle,Post as Draft Not Supported,
+BCEPostAsDraftUnsupportedMessage,This server does not support posting drafts.,
+PostEditorStorageExceptionTitle,Error Accessing Local Post,
+PostEditorStorageExceptionMessage,"Unexpected error occurred while accessing local post ({0})
+
+{1}","{0} - error code, {1} - error message"
+PostEditorDiskSpaceExceptionMessage,"No more space is available on disk."
+PostEditorStorageExceptionTitle2,Error Accessing Local Post,
+PostEditorStorageExceptionMessage2,"Unexpected disk access error occurred while accessing local post ({0})
+
+{1}","{0} - type of error (e.g. ArgumentException), {1} - error message"
+ErrorOccurredDeletingDraft,Error Occurred Deleting Draft,
+ErrorOccurredDeletingDraftDetails,An unexpected error occurred while attempting to delete the Draft: {0},{0} - Error message
+UnexpectedErrorExit,Exit,
+UnexpectedErrorContinue,&Continue,
+UnexpectedErrorClickHere,Click here to see error details,
+UnexpectedErrorDescription,We have created an error summary that you can view.,
+UnexpectedErrorTitle,Unexpected Error,
+UnexpectedErrorPluginTitle,Plug-in Error Occurred,
+UnexpectedErrorPluginDescription,"An error occurred in the {0} plug-in:
+
+{1}","{0} - plug-in name, {1} - error description"
+UnhandledExceptionErrorMessage,An unexpected error has occurred within the application.,
+UnhandledExceptionErrorTitle,Unexpected Error Occurred,
+PassportLoginSignIn,Sign in,
+PassportLoginTitle,Sign in to Microsoft Account,
+PassportLoginNoUserPass,Please enter a Microsoft Account ID and password to continue.,
+PassportLoginNoUserPassTitle,Microsoft Account ID and Password Required
+MinimizeButtonTooltip,Minimize,
+MaximizeButtonTooltip,Maximize,
+CloseButtonTooltip,Close,In the sense of closing a window.
+Login,Sign in,
+GDataCaptchaPrompt,Type the characters you see in the picture below.,
+GDataCaptchaAlternate,Visually impaired users can access an audio version of the test here.,
+GDataCaptchaTitle,Unlock Google Account,
+DontShowAgain,&Don't show this message again,
+ProgressDialogTitle,Progress Dialog,
+Canceling,Cancelling...,
+NewFolderPrompt,New folder name:,
+NewFolderTitle,Create New Folder,
+Heading1,Heading 1,HTML style: heading 1
+Heading2,Heading 2,HTML style: heading 2
+Heading3,Heading 3,HTML style: heading 3
+Heading4,Heading 4,HTML style: heading 4
+Heading5,Heading 5,HTML style: heading 5
+Heading6,Heading 6,HTML style: heading 6
+Paragraph,Paragraph,HTML style: paragraph
+TextStyle,Text Style,This is an accessibility name and should be localized.
+FindWhatLabel,Fi&nd what:,
+FindNextButton,&Find Next,
+FindDirection,Direction,
+FindDirectionUp,&Up,
+FindDirectionDown,&Down,
+FindTitle,Find,
+GlossarySelectLink,Select Link,
+Cells,Cells,Table cells
+TableAlignVertical,&Vertical alignment:,
+TableAlignVerticalTop,Top,
+TableAlignVerticalMiddle,Middle,
+TableAlignVerticalBottom,Bottom,
+TableAlignHorizontal,&Horizontal alignment:,
+TableAlignHorizontalLeft,Left,
+TableAlignHorizontalCenter,Center,
+TableAlignHorizontalRight,Right,
+Cell,Cell,Table cell
+CellPropertiesTitle,Cell Properties,
+ColumnProperties,Column Properties,
+TitleRemindDontShowAgain,&Don't remind me about missing titles,
+TitleRemindExplanation,You have not specified a title for this {0}. Do you still want to continue with publishing?,{0} - Page or Post
+TitleRemindError,{0} Title Not Specified,{0} - Page or Post
+TitleRemindTitle,Title Reminder,
+Yes,Yes,
+No,No,
+Unknown,Unknown,Used when the value is not known.
+WebLayoutWarning1,"You may have problems with editing content using the theme for the current blog (for example, incorrect post layout or problems selecting and resizing content).",
+WebLayoutWarning2,If you do experience problems you should switch back to editing without the theme.,
+WebLayoutWarningTitle,Web Layout View,
+PasteSpecialTextPlainText,&Plain Text,
+PasteSpecialTextPlainTextDesc,Standard plain text paste. Any HTML tags will be escaped.,
+PasteSpecialTextFormatted,&HTML,
+PasteSpecialTextFormattedDesc,"Interprets text as HTML source code. Copied content will appear with formatting. Use for imgs, embeds, etc.",
+UrlRetrieveProgressCaption,Retrieving Data,
+UrlRetrieveProgressMessage,Retrieving additional data required for publishing...,
+YesButton,&Yes,
+NoButton,&No,
+FileUploadFailedCaption,The following pictures cannot be published because the blog does not support picture publishing.,
+FileUploadFailedFTP,Open Live Writer can be configured to publish pictures to an FTP account.,
+FileUploadFailedFTP2,Do you want to configure an FTP account for picture publishing now?,
+FileUploadFailedTitle,Picture Upload Not Supported By Blog,
+FileUploadFailedException,Can't publish files,
+RetrievingFromWeblog,Retrieving {0} from blog...,{0} - post/page
+MissingPostLinkCaption,No Link Available for {0},{0} - Post/Page
+MissingPostLinkExplanation,There is no link available for the selected {0}. This may be because your blog service does not make {0} links available to {1}. You may be able to resolve this problem by redetecting your blog account configuration using the Accounts panel of the Blog Settings dialog.,{0} - post/page. {1} - Open Live Writer.
+MissingPostLinkTitle,No Link Available,
+LinkToPost,Link to Post,
+LinkToWebPageURL,Link to web address:,
+RecentPostNotSyncText,{0} was unable to retrieve an up-to-date copy of the {1} from the blog server (an error occurred or the retrieve was cancelled).,"{0} - Open Live Writer, {1} - post/page"
+RecentPostNotSyncCaption,Unable to Retrieve {0} from Server,{0} - Post/Page
+RecentPostNotSyncText2,"You may still edit the {0} using the local copy stored on this computer. However, if you have changed the {0} online, the copy you are editing is out of date.",{0} - post/page
+RecentPostNotSyncTitle,Unable to Retrieve {0} from Server,{0} - Post/Page
+Retrieving,Retrieving {0},{0} - Post/Page
+UpdateWeblogPublish1,Publishing your {0},{0} - Post/Page/Draft
+UpdateWeblogDraft,Draft,
+UpdateWeblogPublish2,Publishing {0} to {1},"{0} - Post/Page/Draft, {1} - blog name"
+UpdateWeblogViewPost,Open my blog in the browser after publishing,
+UpdateAccountConfigurationTitle,Update Account Configuration,
+FileUploadFTPServer,FTP Server,
+FileUploadUploadToWeblog,Blog,
+FileUploadNone,Do not upload,
+WeblogSettings,Blog Options - {0},{0} - Name of blog
+Today,Today,
+SidebarPanel,Taskpane,This is an accessibility name and should be localized.
+PluginSidebarNotEditable,Selected item cannot be edited.,
+PluginSidebarDisabled,Selected item plug-in is disabled.,
+PublishNow,"Publish now",
+FuturePostWarningDialogTitle,"Open Live Writer",
+FuturePostWarningDontShowAgain,&Always publish immediately without asking again,
+FuturePostWarningExplanation,"This blog service can't delay publishing for the date that you set. Would you like to publish it now?",
+FuturePostWarningTitle,Can't set a future date for publishing,
+LinkToolTip,CTRL + click to follow link: {0},Used when hovering over a link in the editor. {0} - the hyperlink to follow
+SplashScreenCopyrightNotice,© 2015 .NET Foundation. All rights reserved.,
+BlogCategoryNone,None,Allows the user to specify that the blog post has no categories assigned to it.
+CWSelectProviderWeblogProvider,Blog Provider,
+CWSelectProviderApiUrl,Server API web address,
+CWSelectProviderWeblogTypeLabel,&Type of blog that you are using:,
+CWSelectProviderApiUrlLabel,Remote posting &web address for your blog:,
+CWSelectProviderApiUrlLabel_ServiceDoc,Service document &web address:,
+CWSelectProviderText,{0} was not able to automatically detect your blog settings. Please select the type of blog that you are using to continue.,{0} - Open Live Writer
+DeleteSomething,Delete {0},"{0} can be Post, Page, Draft, Published"
+NoThings,(No {0}),"{0} can be ""Drafts"", ""Recently Posted"""
+PostLinkTooltipFormat,"{0}
+{1} ({2})","{0} - title of post, {1} - title of blog, {2} - date/time of post"
+PostLinkTooltipFormatNoBlogTitle,"{0}
+({1})","{0} - title of post, {1} - date/time of post"
+DraftNameFormat,Draft {0},"{0} - Post or Page. ""Draft"" is an adjective in this context"
+PublishedNameFormat,Published {0},{0} - Post or Page
+PostPublishFileUploadErrorTitle,Error Uploading Supporting Files,
+PostPublishFileUploadErrorCaption1,The {0} was successfully published however an error occurred while uploading supporting files:,{0} - Post or Page
+PostPublishFileUploadErrorCaption2,"Depending upon the nature of the error, you may be able to successfully publish the supporting files by retrying. Alternatively, you may wish to delete the {0} from your blog.",{0} - Post or Page
+UntitledPost,(Untitled Post),"When a title needs to be displayed and a post doesn't have a title, this string will be used instead."
+UntitledPage,(Untitled Page),"When a title needs to be displayed and a page doesn't have a title, this string will be used instead."
+WatsonMainIntroBoldFormat,{0} has encountered a problem: {1}.,"{0} - Open Live Writer, {1} - error message"
+WatsonMainIntroRegFormat,{0} {1},"{0} - error title, {1} - error message"
+WatsonMainPleaBold,Please tell Microsoft about this problem.,
+WatsonMainPleaReg,We have created an error report that you can send to help us fix bugs. We will treat this report as confidential and anonymous.,
+WatsonReportButton,Send Report,The report in question is the error report from Watson.
+WatsonNoReportButton,Do Not Send Report,The report in question is the error report from Watson.
+ShowProperties,Show Properties,Show the post properties tray.
+HideProperties,Hide Properties ,Show the post properties tray.
+CapabilityPostDraftToServer,Post Draft to Server,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityFileUpload,File Upload,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityExtendedEntries,Extended Entries,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityCustomPublishDate,Custom Publish Date,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityCustomPublishDateUpdate,Update Publish Date,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityCategories,Categories,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityCategoriesInline,Categories Inline,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityMultipleCategories,Multiple Categories,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityHierarchicalCategories,Hierarchical Categories,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityNewCategories,New Categories,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityNewCategoriesInline,New Categories Inline,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityKeywords,Keywords,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityKeywordRetrieval,Keyword Retrieval,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityCommentPolicy,Comment Policy,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityTrackbackPolicy,Trackback Policy,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityAuthor,Author,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilitySlug,Slug,This is used in the Blog Options | Blog Capabilities dialog. It indicates whether or not the API used by the blog provider is able to edit blog post slugs.
+CapabilityPassword,Password,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityExcerpt,Excerpt,This is used in the Blog Options | Blog Capabilities dialog. It indicates whether or not the API used by the blog provider is able to edit blog post excerpts.
+CapabilitySendTrackbacks,Send Trackbacks,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityPages,Pages,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityPageParent,Page Parent,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityPageOrder,Page Order,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityHtmlTitles,HTML Titles,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityEmptyTitles,Empty Titles,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityScripts,Scripts,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityEmbeds,Embeds,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityDefaultView,Default View,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityCharacterSet,Encoding,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityRequiresXHTML,Requires XHTML,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityTemplateIsRTL,Template is Right-to-Left,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityCategoryNameLimit,Category Name Limit,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityPostTitleLengthLimit,Title Length Limit,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityAutoUpdate,Auto-Update,This is used in the Blog Options | Blog Capabilities dialog.
+CapabilityValueNormal,Normal,"This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for ""Default View""."
+CapabilityValueWebLayout,Web Layout,"This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for ""Default View""."
+CapabilityValueWebPreview,Web Preview,"This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for ""Default View""."
+CapabilityValueNoLimit,(No Limit),Specifies that there is no limit to the number of characters in a category name.
+SelectWeblogProvider,(Select Blog Provider),"This appears in the drop-down list with blog providers, hence the parentheses."
+Comma,",","The comma character for this language. (e.g., U+FF0C for Chinese)"
+CommaSpace,", ","The comma character, formatted the way it would appear in a list. In English, list elements are separated by a comma plus a space. (This MUST be the same as the Comma string plus whitespace if applicable.)"
+Beta,Beta,Suffix for qualified product name (e.g. Window Live Writer Beta)
+BetaExpiredDialogTitle,Expiration,The title displayed in the expiration dialog's border
+BetaExpiredTitle,Expired,Title of dialog displayed when the beta version of Writer has expired.
+BetaExpiredMessage,This version of {0} has expired. Please download and install a newer version.,Message displayed when the beta version of writer has expired. {0} will be replaced with the product name
+BetaDaysRemaining,{0} days remaining,Title of dialog displayed when there are only a few days remaining before the beta expires. {0} will be replaced with the number of days remaining (always more than 1)
+Beta1DayRemaining,1 day remaining,Title of dialog displayed when there is only 1 day remaining before the beta expires.
+BetaRemainingMessage,This version of {0} will expire on {1}. Please download and install a newer version.,"Message displayed when the beta version of writer has only a few days remaining before the beta expires. {0} will be replaced with the product name, {1} will be replaced with the expiration date."
+BetaExpiredDownloadNow,&Download Now,Text displayed on download button of beta expiration warning dialog
+BetaExpiredAskLater,&Ask Me Later,Text displayed on ask me later button of beta expiration warning dialog
+UpdatesAvailableMessage,Required updates will be applied next time you start Open Live Writer.,Message shown to user when updates are found.
+UpdatesBandClose,Close,Used to hide the updates available message
+UpdatesPreparing,Preparing to update Open Live Writer…,Message to user while updates are getting downloaded.
+UpdatesInstalling,Downloading and installing {0} update(s). Please wait...,{0} is number of updates
+UpdatesStartingWriter,Starting updated Open Live Writer...,Message after updates are installed and before writer starts.
+BloggerImageAlbumDescription,This album is used to store pictures from blog posts published by Open Live Writer.,
+UpdatesProgressTitle,Install Updates - Open Live Writer,Dialog box title for installing update progress dialog.
+MarkupTypeHTML,HTML,Used in the Advanced settings for a blog.
+MarkupTypeXHTML,XHTML,Used in the Advanced settings for a blog.
+Plugin_Videos_InsertableContentSource_MenuText,&Video,
+Plugin_Videos_InsertableContentSource_SidebarText,Video,
+Plugin_Videos_WriterPlugin_Name,Video,
+Plugin_Videos_WriterPlugin_Description,Add videos to your posts using popular video providers.,
+Plugin_Videos_Select_Video_Form,Insert Video,Title (across top) of inserting video dialog
+Plugin_Videos_Load_Error_Title,Unable to Load Video,
+Plugin_Videos_Load_Error_Message,Unable to load the video for insertion into the editor due to heavy load on the Video service.,
+Plugin_Videos_Video_Size,Video Size: {0} x {1},{0} is width and {1} is height
+Plugin_Video_Player_Automatic,Automatic,Player type: player is selected for you
+Plugin_Video_Player_Preview,Preview with Link,"Player type: An image is shown of the player,  and it is linked to the video provider website"
+Plugin_Video_Player_Embed,Embedded in Page,Player type: An embed tag is in the html code--the player will appear and play inline
+Plugin_Video_Alignment_Inline,Inline,Player alignment in post
+Plugin_Video_Alignment_Left,Left,Player alignment in post
+Plugin_Video_Alignment_Right,Right,Player alignment in post
+Plugin_Video_Margins_None,No Margins,Player padding in post (none)
+Plugin_Video_Margins_Custom,Custom Margins,Player padding in post (user sets)
+Plugin_Video_Editor_Title,{0} Video,"{0} is name of video provider (YouTube, etc)"
+Plugin_Video_Editor_Link_Text,View this video,Link to see video on web
+Plugin_Video_Editor_Margins,Margins:,
+Plugin_Video_Editor_Cancel,Cancel Publishing,
+Plugin_Video_Editor_Layout_Header,Layout,
+Plugin_Video_Video_Header,Video,
+Plugin_Video_Editor_Margin_Top,Top,
+Plugin_Video_Editor_Margin_Right,Right,
+Plugin_Video_Editor_Margin_Left,Left,
+Plugin_Video_Editor_Margin_Bottom,Bottom,
+Plugin_Video_Editor_Text_Wrap,Text wrapping:,
+Plugin_Video_Editor_Player_Style,Player style:,
+Plugin_Video_Snapshot_Error_Title,Error Retrieving Video Snapshot,
+Plugin_Video_Snapshot_Error_Message,The following error occurred while attempting generate a video snapshot: {0},{0} is the error stack trace
+Plugin_Video_Error_Unexpected_Title,Unexpected Exception,
+Plugin_Video_XML_Error_Service_Name,Missing Service Name parameter,Exception when parsing video providers xml file
+Plugin_Video_XML_Error_Service_Id,Missing Service Id parameter,Exception when parsing video providers xml file
+Plugin_Video_XML_Error_Embed_Format,Missing Embed Format parameter,Exception when parsing video providers xml file
+Plugin_Video_XML_Error_Embed_Pattern,Missing Embed Pattern parameter,Exception when parsing video providers xml file
+Plugin_Video_XML_Error_Url_Format,Missing Web Address Format parameter,Exception when parsing video providers xml file
+Plugin_Video_XML_Error_Url_Pattern,Missing Web Address Pattern parameter,Exception when parsing video providers xml file
+Plugin_Video_XML_Error_Size,Missing Size parameter,Exception when parsing video providers xml file
+Plugin_Video_Unknown_Provider,Unknown Provider,string for provider that isn't in our xml file
+Plugin_Video_Web_Video_Tab_Name,From Web,
+Plugin_Video_Web_Video_Preview_Button,Pre&view,Preview button text
+Plugin_Video_Web_Video_Size_Blank,Size:,
+Plugin_Video_Web_Video_Service_Blank,Provider:,
+Plugin_Video_Web_Video_Download_Error,The selected video could not be accessed from the service\r\ndue to heavy service usage. Please try again.,
+Plugin_Video_Web_Video_Download_Error_Title,Video Access Error,
+Plugin_Video_Web_Video_Size,Size: {0} x {1},{0} is width and {1} is height
+Plugin_Video_Web_Video_Provider,Provider: {0},{0} is video provider name
+Plugin_Video_Web_Video_Enter_Prompt,Video &web address or Embed:,
+Plugin_Video_Cannot_Parse_Url,Unable to Parse Video web address,Exception title for problems getting video from URL
+Plugin_Video_Cannot_Parse_Url_Message,Unknown provider or incomplete web address.,
+Plugin_Video_Soapbox_Result_Range,Videos {0} to {1},used when showing a list of videos ({0} and {1] are begin and end indices)
+Plugin_Video_Soapbox_Result_Single,Video {0},used when showing just one video ({0} is index)
+Plugin_Video_Soapbox_Retrieve_Msg,Retrieving list of videos...,Shown while query is running to access soapbox videos
+Plugin_Video_Soapbox_None_Found,No videos found.,Search didn't find any videos.
+Plugin_Video_Soapbox_Web_Error,The search request timed out.,Web error while searching for videos.
+Plugin_Video_Soapbox_Soap_Error,The Soapbox service returned an error.,Message when query against soapbox errors.
+Plugin_Video_Soapbox_Thumbnail_Downloading,Downloading Preview...,Message shown for each video while thumbnail is getting generated.
+Plugin_Video_Soapbox_Thumbnail_None,No Preview Available,Message shown for each video that doesn't have a thumbnail.
+YouTubeInvalidResult,An unexpected response from YouTube was received.,
+YouTubecopyright,The video commits a copyright infringement.
+YouTubeinappropriate,The video contains inappropriate content.
+YouTubeduplicate,The video is a duplicate of another uploaded video.
+YouTubetermsOfUse,The video commits a terms of use violation.
+YouTubesuspended,The account associated with the video has been suspended.
+YouTubetooLong,The video exceeds the maximum duration of 10 minutes.
+YouTubeblocked,The video has been blocked by the content owner.
+YouTubecantProcess,YouTube is unable to convert the video file.
+YouTubeinvalidFormat,The uploaded video is in an invalid file format.
+YouTubeunsupportedCodec,The video uses an unsupported codec.
+YouTubeempty,The uploaded file is empty.
+YouTubetooSmall,The uploaded file is too small.
+YouTubeVideoError,There was an unexpected error while uploading the video.,
+VideoGetVideosError,There was an error getting the list of videos.,
+VideoNetworkError,There was an error with the network connection.,
+VideoLoading,Loading...,
+VideoLocalProcessing,Uploading Video...,
+VideoRemoteProcessing,"{0} is processing your uploaded video.
+This might take a while.",{0} - Soapbox or Youtube
+VideoUrlConvertError,This video does not contain the video ID.  Please enter the embed for the video.,
+InsertImageDimensionsFormat,{0}x{1},"{0} - width, {1} - height.  Example: 800x600"
+InsertImageDimensionsFormatScaled,{0} (resized for preview in this window),"{0} - original dimensions"
+TemporaryPostTitle,Temporary Post Used For Theme Detection ({0} - {1}),"{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E"
+TemporaryPostBody,This is a temporary post that was not deleted. Please delete this manually. ({0} - {1}),"{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E"
+Plugin_Video_Soapbox_Not_Logged_In,Not signed in,Shown when user is not currently logged in to Passport.
+Plugin_Video_Soapbox_Switch_User,Switch user,shown when user is logged into passport and wants to switch their login
+Plugin_Video_Soapbox_Passport_Username,&Microsoft Account ID:,Passport user name for signing in
+Plugin_Video_Soapbox_Passport_Password,&Password:,Passport password for logging in
+Plugin_Video_Soapbox_Passport_Login,&Sign in,Button text for logging in to passport
+ToolbarBoldLetter,B,The letter that should be used for the Bold button on the editing toolbar
+ToolbarItalicLetter,I,The letter that should be used for the Italic button on the editing toolbar
+ToolbarUnderlineLetter,U,The letter that should be used for the Underline button on the editing toolbar
+ToolbarStrikethroughLetter,A,The letter that should be used for the Strikethrough button on the editing toolbar
+ToolbarFontStyleFontFamily,,The typeface that should be used to render the Bold
+Plugin_Video_Publish_Message,Waiting for videos to finish publishing,
+VideoError,Error Publishing Video,
+VideoErrorTryAgain,Please remove the video and try to publish again.,
+Plugin_Video_Publish_Filename_Seperator,_,In English people often use _ to separate words in a file name.  For example I might name a video file My_Birthday_Party.wmv.  We will use this string to replace the char with a space.  If this can't be applied to a certain language, then simple make it an empty string and it will be ignored.
+Plugin_Video_Soapbox_Publish_Video_Open_File,Open Video File,
+Plugin_Video_Soapbox_Publish_Video_File,Video &File:,
+Plugin_Video_Soapbox_Publish_Title,&Title:,
+Plugin_Video_Soapbox_Publish_Description,&Description:,
+Plugin_Video_Soapbox_Publish_Tags,Ta&gs:,
+Plugin_Video_Soapbox_Publish_Categories,&Categories:,
+Plugin_Video_Soapbox_Publish_Permissions,P&ermissions:,
+Plugin_Video_YouTube_Publish_Terms_Agree,"Yes, I agree to the YouTube Terms of Use and that I own all copyrights in this video or have authorization to upload it. Do not upload any TV shows, music videos, music concerts, or commercials without permission unless they consist entirely of content you created yourself. ",
+Plugin_Video_Publish_Terms_View,View Terms of Use,
+Plugin_Video_Publish_Safety_View,View Safety Tips,
+Plugin_Video_Soapbox_Publish_Permissions_Public,Public,
+Plugin_Video_Soapbox_Publish_Permissions_Hidden,Hidden,
+Plugin_Video_Soapbox_Publish_Video_File_Open,...,
+Plugin_Video_YouTube_Publish_Video_File_Open_Filter_Ext,"All Video Files (*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4;*.mov;*)|*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4,*.mov;|All Files (*.*)|*.*",The filter shown in file open dialog when selecting a movie file.
+Plugin_Video_Publish_Categories_Animals,Animals,
+Plugin_Video_Publish_Categories_Animation,Animation,
+Plugin_Video_Publish_Categories_Autos,Autos,
+Plugin_Video_Publish_Categories_Blogs,Blogs,
+Plugin_Video_Publish_Categories_Comedy,Comedy,
+Plugin_Video_Publish_Categories_Commercials,Commercials,
+Plugin_Video_Publish_Categories_Entertainment,Entertainment,
+Plugin_Video_Publish_Categories_Games,Games,
+Plugin_Video_Publish_Categories_Movies,Movies,
+Plugin_Video_Publish_Categories_Music,Music,
+Plugin_Video_Publish_Categories_People,People,
+Plugin_Video_Publish_Categories_Politics,Politics,
+Plugin_Video_Publish_Categories_Screencast,Screencast,
+Plugin_Video_Publish_Categories_Sports,Sports,
+Plugin_Video_Publish_Categories_Technology,Technology,
+Plugin_Video_Publish_Categories_Travel,Travel,
+Plugin_Video_Publish_Categories_Film,Film,
+Plugin_Video_Publish_Categories_News,News & Politics,
+Plugin_Video_Publish_Categories_Education,Education,
+Plugin_Video_Publish_Categories_How_To,How To & Style,
+Plugin_Video_Publish_Categories_Non_Profit,Non Profit & Activism,
+Plugin_Video_Soapbox_Publish_Login,Sign in,
+Plugin_Video_Soapbox_Publish_Tab_Title,From File,
+Plugin_Video_Youtube_Publish_Name,YouTube,
+Blog_Option_Not_Supported,Not Supported,Feature is not supported
+Blog_Option_Supported,Supported,Feature is supported
+Blog_Option_Unknown,Unknown,Support for feature is unknown
+AdvancedBlogOverride,Other blog settings,Names a group of options for overriding some blog settings
+AdvancedEmbedTags,&Embed tags:,"A blog feature, whether the blog supports <embed>"
+AdvancedScripts,&Scripts:,"A blog feature, whether the blog supports <script>"
+ShowLogFile,Show log file,Appears in Help | About dialog
+ChangeTextStyle,Change Text Style,Tooltip for style switcher in editing toolbar
+Plugin_Video_Soapbox_LoggingIn,Signing in...,Status message shown during login process
+Plugin_Video_Alt_Text,Video,Alt text in image tag when inserting a video
+Plugin_Video_Soapbox_Total_Videos,(of {0}),"used in pagination ie ""Videos 1 - 10 (of 12)"" this is the part in the paren. With the {0} being the number of videos."
+Plugin_Video_Editor_Caption,Caption:,Caption for video
+Plugin_Video_Caption_Size,.8em,"The size of the font used for the video caption feature. Only localize if the font size must be changed. Use format number.em (i.e. 1em, .9em, etc..)"
+SplitterMore,More...,
+Plugin_Video_Provider_Select,Select Video Provider,Accessible name for video provider service (Soapbox or YouTube Videos)
+DictionaryLanguageLabel,Dictionary &language:,
+DictionaryLanguageNone,(None),
+DictionaryLanguageEnglishUS,English (United States),
+DictionaryLanguageEnglishUK,English (United Kingdom),
+DictionaryLanguageEnglishCanada,English (Canada),
+DictionaryLanguageEnglishAustralia,English (Australia),
+DictionaryLanguageSpanish,Spanish,
+DictionaryLanguageGerman,German,
+DictionaryLanguageGermanReform,German (Reform),
+DictionaryLanguageFrench,French,
+DictionaryLanguageKorean,Korean,
+DictionaryLanguageItalian,Italian,
+DictionaryLanguageDutch,Dutch,
+DictionaryLanguagePortugueseBrazil,Portuguese (Brazil),
+DictionaryLanguageTurkish,Turkish,
+DictionaryLanguageArabic,Arabic,
+DictionaryLanguageBulgarian,Bulgarian,
+DictionaryLanguageCatalan,Catalan,
+DictionaryLanguageCzech,Czech,
+DictionaryLanguageGreek,Greek,
+DictionaryLanguageEstonian,Estonian,
+DictionaryLanguageBasque,Basque,
+DictionaryLanguageFinnish,Finnish,
+DictionaryLanguageHebrew,Hebrew,
+DictionaryLanguageCroatian,Croatian,
+DictionaryLanguageHungarian,Hungarian,
+DictionaryLanguageIndonesian,Indonesian,
+DictionaryLanguageLithuanian,Lithuanian,
+DictionaryLanguageLatvian,Latvian,
+DictionaryLanguageMalay,Malay,
+DictionaryLanguagePolish,Polish,
+DictionaryLanguagePortuguese,Portuguese,
+DictionaryLanguageRomanian,Romanian,
+DictionaryLanguageRussian,Russian,
+DictionaryLanguageSlovak,Slovak,
+DictionaryLanguageSlovenian,Slovenian,
+DictionaryLanguageSerbianLatin,Serbian (Latin),
+DictionaryLanguageSerbianCyrillic,Serbian (Cyrillic),
+DictionaryLanguageSwedish,Swedish,
+DictionaryLanguageUkrainian,Ukrainian,
+CapabilityCategoryScheme,Category Scheme,
+Plugin_Video_Copyright_Notice,Please respect copyright,"Text shown on insert video dialog to remind users of copyright responsibilities. For some markets, will be linked."
+SwitchWeblogs,Switch to Blog,
+MoreWeblogs,M&ore Blogs...,
+ShortcutCtrl,Ctrl,The Ctrl in Ctrl+Shift+Alt+F5
+ShortcutAlt,Alt,The Alt in Ctrl+Shift+Alt+F5
+ShortcutShift,Shift,The Shift in Ctrl+Shift+Alt+F5
+ShortcutPlus,+,The + in Ctrl+Shift+Alt+F5
+PageProperties,Page Properties,
+PostProperties,Post Properties,
+SendingPing,Sending ping,
+SendingPings,Sending pings,
+GlossaryAutomaticallyLink,A&utomatically link matched terms,
+GlossaryAutomaticallyLinkFirstTime,Li&nk to each term only once per post,
+GlossaryAutomaticLinkOptions,"Automatic linking options",
+GlossaryExampleTitle,"Open Live Writer site",This is used in the link glossary as the title of our example link- may not need to be localized
+AutoreplaceTypographic,Replace h&yphens (--) with dash (—),
+AutoreplacePrefererencesPanel,Auto Replace,"Currently not in use- do not localize"
+AutoreplaceSmartQuotes,Replace "straight quotes" with “smart &quotes”,
+AutoreplaceOtherChars,Re&place other special characters,
+AutoreplaceFormTitle,Auto Replace,"Currently not in use- do not localize"
+AutoreplaceWordorPhrase,Word or phrase:,"Currently not in use- do not localize"
+AutoreplaceReplacementValue,Replacement value:,'"Currently not in use- do not localize"
+AutoreplaceEmoticons,Replace text &emoticons with emoticon graphics,
+WordCount,Words,{0} - The number of words in any given text.
+CharCount,Characters (with spaces),{0} - The number of characters in a given text.
+CharNoSpacesCount,Characters (no spaces),{0} - The number of characters in text minus spaces/tabs/new lines
+WordCountTitle,Word Count,The text shown on the dialog that gives word count
+Statistics,Statistics,Header of the table that shows word and character count
+StatisticsSelection,Selection Statistics,Header of the table that shows word and character count when only looking at the currently selected text
+Paragraphs,Paragraphs,
+Words,Words: {0},{0} - number of words in the document
+ShowRealTimeWordCount,Show real-time word count in status &bar,
+CropAspectOriginal,Original,
+CropAspectCustom,Custom,
+CropAspect16x9,16x9,
+CropAspect85x11,8.5x11,
+CropAspect8x10,8x10,
+CropAspect5x7,5x7,
+CropAspect4x6,4x6,
+CropAspect4x3,4x3,
+CropAspect35x5,3.5x5,
+CropAspectSquare,Square,
+CropDialogTitle,Crop,
+WatermarkDialogTitle,Watermark,
+AltTextEditorTitle,Alt-text,Title of the HTML image alternate text dialog,
+CropAspectRatioLabel,&Proportion:,
+CropRotateFrame,Rotate &Frame,Command to rotate by 90 degrees the frame that indicates the cropping area
+CropRemoveCrop,&Remove Crop,Remove the crop that is currently applied to the image
+CropShowGridlines,Show &Grid,Checkbox to show two horizontal and two vertical lines within the cropping rectangle
+ImageViewerDisplayFormatSingle,Using {0},"{0} - the name of the image viewer (e.g. Lightbox)"
+ImageViewerDisplayFormatGroup,Using {0} [{1}],"{0} - the name of the image viewer (e.g. Lightbox), {1} - the name of the group. For example, ""Lightbox [Ski Trip]""."
+ImageViewerLabel,&Enable {0},{0} - the name of the image viewer (e.g. Lightbox)
+ImageViewerGroupLabel,&Group (optional):,A Group is a label that allows multiple images to be grouped into a set
+PrivacyPreferencesPanelName,Trust Center,
+PrivacyPreferencesPrivacyExplanation,"Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:","Three links follow the colon: Microsoft Privacy statement, Microsoft service agreement and Code of Conduct",
+PrivacyPreferencesPrivacyStatement,".NET Foundation Privacy Policy",
+PrivacyPreferencesCodeOfConduct,".NET Foundation Contributor Code of Conduct",
+TiltEditorTitle,"Tilt",
+TiltEditorLabel,"&Tilt:",
+MethodNotImplemented,"Method Not Implemented",Title of plug-in error dialog
+MethodNotImplementedDetail,"An installed plugin is incorrectly implemented and has caused an error. You may be able to contact the plugin's publisher below to resolve this issue. Alternatively, you may avoid this error in the future by uninstalling the plugin mentioned below.
+Name: {0}
+
+Publisher: {1}
+
+Unimplemented Method: {2}",More detailed header in plug-in error dialog
+UpdatesAvailableTitle,"New Version Available",
+UpdatesAvailableTitlePrerelease,"New Pre-Release Version Available",
+UpdatesAvailableMessagePrerelease,"A new pre-release version of {0} is now available. Click the download now button to download and install the update.",{0} will be replaced with the product name (i.e. Open Live Writer)
+UpdatesAvailableMessageFull,"A new version of {0} is now available. Click the download now button to download and install the update.",{0} will be replaced with the product name (i.e. Open Live Writer)
+UpdatesAvailableLink,"More information",
+UpdatesAvailableNotify,"&Automatically check for updates",
+UpdatesAvailableNofifyBeta,"Also check for pre-release (beta) &versions",
+UpdatesAvailableDownloadButton,&Download Now,Text displayed on download button
+UpdatesAvailableAskLaterButton,A&sk Me Later,Text displayed on ask me later button
+UpdatesAvailableNoUpdateTitle,No Updates Available,
+UpdatesAvailableChecking,Checking for updates,Displayed in progress dialog while user manually checks for updates
+UpdatesAvailableNoUpdateText,There are no updates available. You are running the latest version of {0}.,"{0} will be replaced with the product name"
+BlogPluginsDescription,"Select which plug-ins you want to use, and change the order in which they start.",From the Weblog | Edit Weblog Settings | Plugins preferences panel
+MoveUp,Move &Up,From the Weblog | Edit Blog Settings | Plugins preferences panel
+MoveDown,Move &Down,From the Weblog | Edit Blog Settings | Plugins preferences panel
+PPCRL_E_AUTH_SERVICE_UNAVAILABLE,Cannot connect to authentication service.,
+PPCRL_REQUEST_E_INVALID_MEMBER_NAME,The user name is not recognized.,
+PPCRL_REQUEST_E_BAD_MEMBER_NAME_OR_PASSWORD,User name or password not recognized.,
+PPCRL_AUTHSTATE_E_EXPIRED,Authentication expired.,
+PPCRL_REQUEST_E_PASSWORD_LOCKED_OUT,The user account has been blocked.,
+PPCRL_REQUEST_E_CLIENT_DEPRECATED,The client issuing this request is no longer supported by the login server. Please upgrade to a newer version.,
+PPCRL_REQUEST_E_CANCELLED,The request was cancelled.,
+PPCRL_REQUEST_E_FORCE_SIGNIN,The authentication token has expired.,
+WatermarkDefaultFont,Arial,"The default font that should be selected in the watermark editor"
+DefaultTemplateBodyFont,"Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif",The font used for the post body when editing using no theme. Should be a comma separated list of HTML supported font names, e.g. Tahoma, Arial, Times New Roman.
+DefaultTemplateTitleFont,"Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif",The font used for the post title when editing using no theme. Should be a comma separated list of HTML supported font names, e.g. Tahoma, Arial, Times New Roman.
+VideoFromVideoService,From Video Service,The name of the tab in the insert video dialog that allows users to insert soapbox or youtube videos.
+VideoCaptionMaxCharactersAccepted,245,The maximum number of characters allowed in the video caption edit field - Cannot be greater than 245
+VideoCaptionDefaultText,Enter video caption here,
+MyVideos,My Videos,Videos uploaded by current user
+MyFavorites,My Favorites,Videos marked as favorites by current user
+ManageWeblog,Manage Blog,Displayed in the header of the default sidebar
+PhotoPreview,Inline Photo Previewer,
+PostPageFilter,Filter {0}, {0} - Posts or Pages
+LiveIDPrivacy,Privacy policy,
+ForgotMyPassword,Forgot my password,
+BrowseForFile,Browse for file,Tooltip over the button in the insert video from file dialog that opens an Open File Dialog when clicked,
+BlogServiceNames,"Blogger, TypePad, and more",
+FindCategory,Find category,
+Alignment,Alignment,Tooltip for image alignment dropdown,
+CropPane,Image crop pane,
+PostCountAccessible,Number of posts,Accessible name for a combo box in the Open Post form that lets the user filter how many posts they want to show up in the search,
+ColorPickerColor,Color,
+CategoryParentAccessible,Category parent,Accessible name for a combo box that lets you choose the parent category for a new blog category,
+MaxSmHeight,Maximum small height,
+MaxMdHeight,Maximum medium height,
+MaxLgHeight,Maximum large height,
+MaxSmWidth,Maximum small width,
+MaxMdWidth,Maximum medium width,
+MaxLgWidth,Maximum large width,
+WatermarkDefaultText,© {0:yyyy},{0} - Year.  This string can be blank.  THis is the default text in the watermark textbox when the image has no watermark
+AutoRecoverDialogInstruction,Recover unsaved changes?,
+AutoRecoverDialogContent,"{0} did not shut down properly the last time you used it. Unsaved changes are available for recovery. Would you like to recover these changes now?",{0} - Open Live Writer
+AutoRecoverDialogButtonRecover,&Recover changes now (recommended),
+AutoRecoverDialogButtonDiscard,&Discard changes permanently,
+AutoRecoverDialogButtonAskLater,&Ask me later,
+Selected,Selected,Used for the Accessible Value of the currently selected view switching tab (Edit | Preview | Source).
+CopyrightInformation,Copyright Information,This is the string that will be read by screen reader to announce the copyright legal information on the about dialog.
+ViewAll,View all,shows the full list of options
+SeeSolutionOnline,See the solution online,Dialog box that gives an error while signing in to Live ID. This string prompts user to go online to resolve the problem.
+CantSignIn,Can't sign in because an error occurred
+TheErrorOccuredBecause,The error occurred for the following reason:
+RetrySignin,"After you go through the solution, try signing in again."
+GenericLoginError,Unable to login to Live ID.

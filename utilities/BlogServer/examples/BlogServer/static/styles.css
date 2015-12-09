@@ -1,0 +1,26 @@
+body {
+	background-color: #444444;
+}
+.posts {
+	font-family: Tahoma;
+	font-size: 10pt;
+	background-color: white;
+	padding: 10px;
+	width: 600px;
+	border: 1px black solid;
+}
+.post {
+	margin-bottom: 20px;
+}
+.post_date {
+	color: gray;
+	font-size: 8pt;
+}
+h1 {
+	color: white;
+	font-family: "Lucida Bright";
+}
+h3 {
+	margin: 0;
+	margin-bottom: 3pt;
+}

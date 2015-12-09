@@ -1,0 +1,593 @@
+<Commands xmlns:comment="http://OpenLiveWriter.spaces.live.com/#comment">
+  <Command
+    Identifier="AlignCenter"
+    Shortcut="CtrlE"
+    MenuText="&amp;Center"
+    Text="Center align"/>
+  <Command
+    Identifier="AlignLeft"
+    Shortcut="CtrlL"
+    MenuText="&amp;Left"
+    Text="Left align" />
+  <Command
+    Identifier="AlignRight"
+    Shortcut="CtrlR"
+    MenuText="&amp;Right"
+    Text="Right align" />
+  <Command
+    Identifier="Justify"
+    MenuText="&amp;Justify"
+    Text="Justified" />
+  <Command
+    Identifier="Blockquote"
+    MenuText="Block &amp;quote"
+    SuppressMenuBitmap="True"
+    Text="Block quote" />
+  <Command
+    Identifier="LTRTextBlock"
+    MenuText="&amp;Left to right Block"
+    Text="Left to right block"
+    AdvancedShortcut="Control,LShiftKey" />
+  <Command
+    Identifier="RTLTextBlock"
+    MenuText="&amp;Right to left Block"
+    Text="Right to left block"
+    AdvancedShortcut="Control,RShiftKey" />
+  <Command
+    Identifier="Bold"
+    Shortcut="CtrlB"
+    Text="Bold" />
+  <Command
+    Identifier="Bullets"
+    Shortcut="CtrlShiftL"
+    MenuText="&amp;Bullets"
+    SuppressMenuBitmap="True"
+    Text="Bullets" />
+  <Command
+    Identifier="CheckSpelling"
+    Shortcut="F7"
+    MenuText="Check &amp;spelling..."
+    Text="Check spelling..." />
+  <Command
+    Identifier="Clear"
+    Shortcut="Del"
+    MenuText="C&amp;lear"
+    Text="Clear" />
+  <Command
+    Identifier="Close"
+    Shortcut="AltF4"
+    MenuText="&amp;Close"
+    Text="Close" />
+  <Command
+    Identifier="CopyCommand"
+    Shortcut="CtrlC"
+    MenuText="&amp;Copy"
+    Text="Copy"
+    comment:Text="As in the Copy clipboard operation." />
+  <Command
+    Identifier="Cut"
+    Shortcut="CtrlX"
+    MenuText="Cu&amp;t"
+    Text="Cut"
+    comment:Text="As in the Cut clipboard operation." />
+  <Command
+    Identifier="Delete"
+    Shortcut="Del"
+    MenuText="&amp;Delete"
+    Text="Delete" />
+  <Command
+    Identifier="FindButton"
+    Shortcut="CtrlF"
+    MenuText="Fi&amp;nd text..."
+    Text="Find" />
+  <Command
+    Identifier="Font"
+    MenuText="&amp;Font..."
+    Text="Font" />
+  <Command
+    Identifier="FontColor"
+    MenuText="Font &amp;color..."
+    Text="Font color" />
+  <Command
+    Identifier="Help"
+    Shortcut="F1"
+    MenuText="{0} &amp;Help"
+    comment:MenuText="{0} - Open Live Writer"
+    Text="Help" />
+  <Command Identifier="ApplySemanticParagraph"
+    Shortcut="CtrlShiftN"
+   />
+  <Command Identifier="ApplySemanticHeader1"
+    AdvancedShortcut="Control,Alt,D1"
+   />
+  <Command Identifier="ApplySemanticHeader2"
+    AdvancedShortcut="Control,Alt,D2"
+   />
+  <Command Identifier="ApplySemanticHeader3"
+    AdvancedShortcut="Control,Alt,D3"
+   />
+  <Command Identifier="ApplySemanticHeader4"
+    AdvancedShortcut="Control,Alt,D4"
+   />
+  <Command Identifier="ApplySemanticHeader5"
+    AdvancedShortcut="Control,Alt,D5"
+   />
+  <Command Identifier="ApplySemanticHeader6"
+    AdvancedShortcut="Control,Alt,D6"
+   />
+  <Command
+    Identifier="Indent"
+    Shortcut="CtrlM"
+    MenuText="&amp;Increase indent"
+    Text="Increase indent" />
+  <Command
+    Identifier="InsertLink"
+    Shortcut="CtrlK"
+    MenuText="&amp;Hyperlink..."
+    Text="Insert hyperlink" />
+  <Command
+    Identifier="Italic"
+    Shortcut="CtrlI"
+    Text="Italic" />
+  <Command
+    Identifier="Subscript"
+    AdvancedShortcut="Control,Oemplus"
+    Text="Subscript" />
+  <Command
+    Identifier="Superscript"
+    AdvancedShortcut="Control,Shift,Oemplus"
+    Text="Superscript" />
+  <Command
+    Identifier="Numbers"
+    MenuText="&amp;Numbering"
+    SuppressMenuBitmap="True"
+    Text="Numbering" />
+  <Command
+    Identifier="Outdent"
+    Shortcut="CtrlShiftM"
+    MenuText="&amp;Decrease Indent"
+    Text="Decrease Indent" />
+  <Command
+    Identifier="Paste"
+    Shortcut="CtrlV"
+    MenuText="&amp;Paste"
+    Text="Paste"
+    comment:Text="As in the Paste clipboard operation." />
+  <Command
+    Identifier="PasteSpecial"
+    AdvancedShortcut="Control,Alt,V"
+    MenuText="Paste &amp;special..."
+    Text="Paste special..." />
+  <Command
+    Identifier="Print"
+    Shortcut="CtrlP"
+    Text="Print..."
+    MenuText="&amp;Print..." />
+  <Command
+    Identifier="PrintPreview"
+    Text="Print preview..."
+    MenuText="Print pre&amp;view..." />
+  <Command
+    Identifier="Redo"
+    Shortcut="CtrlY"
+    MenuText="&amp;Redo"
+    Text="Redo" />
+  <Command
+    Identifier="SelectAll"
+    Shortcut="CtrlA"
+    MenuText="S&amp;elect all"
+    Text="Select all" />
+  <Command
+    Identifier="ShowMenu"
+    MenuText="&amp;Menu bar"
+    Text="Show the menu bar" />
+  <Command
+    Identifier="Strikethrough"
+    Shortcut="CtrlH"
+    Text="Strikethrough" />
+  <Command
+    Identifier="Style"
+    VisibleOnContextMenu="False"
+    Text="Style" />
+  <Command
+    Identifier="Underline"
+    Shortcut="CtrlU"
+    Text="Underline" />
+  <Command
+    Identifier="Undo"
+    Shortcut="CtrlZ"
+    MenuText="&amp;Undo"
+    Text="Undo" />
+  <Command
+    Identifier="AddToGlossary"
+    MenuText="Add to auto lin&amp;k list"
+    Text="Add to auto link list" />
+  <Command
+    Identifier="AddWeblog"
+    MenuText="&amp;Add blog account..."
+    Text="Add blog account..." />
+  <Command
+    Identifier="ConfigureWeblog"
+    MenuText="&amp;Edit blog settings..." />
+  <Command
+    Identifier="DeleteDraft"
+    MenuText="Dele&amp;te draft..."
+    CommandBarButtonText="Delete draft"
+    Text="Delete local draft" />
+  <Command
+    Identifier="InsertMenu"
+    CommandBarButtonText="Insert"
+    Text="Insert" />
+  <Command
+    Identifier="AddPlugin"
+    MenuText="Add a plug-in..."
+    Text="Add a plug-in..." />
+  <Command
+    Identifier="NewPage"
+    Shortcut="CtrlG"
+    MenuText="Ne&amp;w page"
+    CommandBarButtonText="New"
+    Text="New Page" />
+  <Command
+    Identifier="NewPost"
+    Shortcut="CtrlN"
+    MenuText="&amp;New post"
+    CommandBarButtonText="New"
+    SuppressCommandBarBitmap="True"
+    Text="New" />
+  <Command
+    Identifier="OpenDrafts" />
+  <Command
+    Identifier="OpenPost"
+    MenuText="&amp;Open..."
+    CommandBarButtonText="Open"
+    SuppressCommandBarBitmap="True"
+    Text="Open" />
+  <Command
+    Identifier="OpenPostSplit"
+    Shortcut="CtrlO"
+    MenuText="Open &amp;recent post"
+    CommandBarButtonText="Open recent post"
+    SuppressCommandBarBitmap="True"
+    Text="Open recent post" />
+  <Command
+    Identifier="OpenRecentPosts" />
+  <Command
+    Identifier="PostAndPublish"
+    Shortcut="CtrlShiftP"
+    MenuText="P&amp;ublish to blog"
+    CommandBarButtonText="Publish"
+    SuppressCommandBarBitmap="True"
+    Text="Publish to blog" />
+  <Command
+    Identifier="PostAsDraft"
+    Shortcut="CtrlShiftD"
+    MenuText="Post &amp;draft to blog"
+    Text="Post draft to blog" />
+  <Command
+    Identifier="PostAsDraftAndEditOnline"
+    MenuText="Post draft and &amp;edit online"
+    Text="Post draft and edit online" />
+  <Command
+    Identifier="PostProperties"
+    Shortcut="F2"
+    MenuText="Pr&amp;operties"
+    SuppressMenuBitmap="True"
+    Text="Properties" />
+  <Command
+    Identifier="Accounts"
+    MenuText="&amp;Accounts..." />
+  <Command
+    Identifier="Options"
+    MenuText="&amp;Options..." />
+  <Command
+    Identifier="SavePost"
+    Shortcut="CtrlS"
+    MenuText="&amp;Save local draft"
+    CommandBarButtonText="Save draft"
+    SuppressCommandBarBitmap="True"
+    Text="Save local draft" />
+  <Command
+    Identifier="UpdateWeblogStyle"
+    MenuText="&amp;Refresh theme" />
+  <Command
+    Identifier="ViewWeblog"
+    MenuText="&amp;View blog"
+    Text="View blog" />
+  <Command
+    Identifier="ViewWeblogAdmin"
+    MenuText="&amp;Manage blog"
+    Text="Manage blog" />
+  <Command
+    Identifier="WeblogMenu"
+    CommandBarButtonText="Weblog"
+    Text="Blog" />
+  <Command
+    Identifier="InsertExtendedEntry"
+    MenuText="&amp;Split post"
+    Text="Split post"
+    comment:MenuText="Some blogs let you show the first part of the post on the blog homepage and then add a link that says 'Continue Reading' which takes you to a page with the rest of the article. This command lets you indicate where you want that split to occur."
+    comment:Text="Some blogs let you show the first part of the post on the blog homepage and then add a link that says 'Continue Reading' which takes you to a page with the rest of the article. This command lets you indicate where you want that split to occur." />
+  <Command
+    Identifier="InsertPictureFromFile"
+    Shortcut="CtrlJ"
+    MenuText="&amp;Picture..."
+    Text="Insert picture from file" />
+  <Command
+    Identifier="OpenLink"
+    MenuText="&amp;Open hyperlink"
+    Text="Open link" />
+  <Command
+    Identifier="RemoveLinkAndClearFormatting"
+    AdvancedShortcut="Control,Space" />
+  <Command
+    Identifier="RemoveLink"
+    MenuText="&amp;Remove hyperlink"
+    Text="Remove link" />
+  <Command
+    Identifier="ViewCode"
+    Shortcut="ShiftF11"
+    MenuText="&amp;Source"
+    SuppressMenuBitmap="True"
+    Text="Source"
+	comment:Text="Displayed in the view switching tabs at the bottom of the editor." />
+  <Command
+	  Identifier="ViewPlainText"
+	  SuppressMenuBitmap="True"
+	  MenuText="Plain Text Mode" />
+  <Command
+    Identifier="ViewNormal"
+    Shortcut="F11"
+    MenuText="&amp;Edit"
+    SuppressMenuBitmap="True"
+    Text="Edit"
+	comment:Text="Displayed in the view switching tabs at the bottom of the editor." />
+  <Command
+    Identifier="ViewSidebar"
+    Shortcut="F9"
+    MenuText="T&amp;askpane" />
+  <Command
+    Identifier="ViewUseStyles"
+    Shortcut="CtrlF11"
+    MenuText="Edit using &amp;theme" />
+  <Command
+    Identifier="ViewPreview"
+    Shortcut="F12"
+    MenuText="&amp;Preview"
+    Text="Preview"
+	comment:Text="Displayed in the view switching tabs at the bottom of the editor." />
+  <Command
+    Identifier="CellProperties"
+    MenuText="Cell pr&amp;operties..."
+    Text="Cell properties" />
+  <Command
+    Identifier="ClearCell"
+    MenuText="Clear cell(s)"
+    Text="Clear cell(s)" />
+  <Command
+    Identifier="ColumnProperties"
+    MenuText="Colu&amp;mn properties..."
+    Text="Column properties" />
+  <Command
+    Identifier="DeleteColumn"
+    MenuText="Delete colum&amp;n(s)"
+    Text="Delete column" />
+  <Command
+    Identifier="DeleteRow"
+    MenuText="Delete ro&amp;w(s)"
+    Text="Delete row" />
+  <Command
+    Identifier="DeleteTable"
+    MenuText="&amp;Delete table..."
+    Text="Delete table" />
+  <Command
+    Identifier="InsertColumnLeft"
+    MenuText="Insert column &amp;left"
+    Text="Insert column left" />
+  <Command
+    Identifier="InsertColumnRight"
+    MenuText="Insert column ri&amp;ght"
+    Text="Insert column right" />
+  <Command
+    Identifier="InsertRowAbove"
+    MenuText="Insert row &amp;above"
+    Text="Insert row above" />
+  <Command
+    Identifier="InsertRowBelow"
+    MenuText="Insert row &amp;below"
+    Text="Insert row below" />
+  <Command
+    Identifier="InsertTable"
+    MenuText="&amp;Insert table..."
+    Text="Insert table" />
+  <Command
+    Identifier="InsertTable2"
+    MenuText="&amp;Table..."
+    Text="Insert table" />
+  <Command
+    Identifier="MoveColumnLeft"
+    MenuText="Move column le&amp;ft"
+    Text="Move column left" />
+  <Command
+    Identifier="MoveColumnRight"
+    MenuText="Move column rig&amp;ht"
+    Text="Move column right" />
+  <Command
+    Identifier="MoveRowDown"
+    MenuText="Mo&amp;ve row down"
+    Text="Move row down" />
+  <Command
+    Identifier="MoveRowUp"
+    MenuText="Move row &amp;up"
+    Text="Move row up" />
+  <Command
+    Identifier="RowProperties"
+    MenuText="&amp;Row properties..."
+    Text="Row properties" />
+  <Command
+    Identifier="TableMenu"
+    MenuText="Table"
+    Text="Table" />
+  <Command
+    Identifier="TableProperties"
+    MenuText="Table properti&amp;es..."
+    Text="Table properties" />
+  <Command
+    Identifier="AddToDictionary"
+    MenuText="&amp;Add to dictionary"
+    Text="Add this word to the local dictionary" />
+  <Command
+    Identifier="FixWordSpelling"
+    Text="(no suggestions)"
+    MenuText="(no suggestions)" />
+  <Command
+    Identifier="IgnoreAll"
+    MenuText="&amp;Ignore all"
+    Text="Ignore all instances of this word" />
+  <Command
+    Identifier="IgnoreOnce"
+    MenuText="Ignore &amp;once" />
+  <Command
+    
+    Identifier="OpenSpellingForm"
+    MenuText="Open spelling &amp;dialog"
+    Text="Open the spelling dialog" />
+  <Command
+    Identifier="RecentPost"
+    MenuText="&amp;Previous post..."
+    Text="Link to a previous blog post" />
+  <Command
+    Identifier="Glossary"
+    MenuText="Auto link &amp;entry..."
+    Text="Auto link entry..." />
+  <Command
+    Identifier="WeblogPicker"
+    Text="Blog" />
+  <Command
+    Identifier="MapAddPushpin"
+    MenuText="&amp;Add pushpin..." />
+  <Command
+    Identifier="MapZoomStreetLevel"
+    MenuText="Zoom to &amp;street level" />
+  <Command
+    Identifier="MapZoomCityLevel"
+    MenuText="&amp;Zoom to city level" />
+  <Command
+    Identifier="MapZoomRegionLevel"
+    MenuText="Zoom to &amp;region level" />
+  <Command
+    Identifier="MapCenterMap"
+    MenuText="&amp;Center map here" />
+  <Command
+    Identifier="MapEditPushpin"
+    MenuText="&amp;Edit pushpin..." />
+  <Command
+    Identifier="MapDeletePushpin"
+    MenuText="&amp;Delete pushpin" />
+  <Command
+    Identifier="FocusPreviousPane"
+    Shortcut="ShiftF6"
+    Text="Previous pane"
+    VisibleOnCommandBar="false"
+    VisibleOnContextMenu="false" />
+  <Command
+    Identifier="FocusNextPane"
+    Shortcut="F6"
+    Text="Next pane"
+    VisibleOnCommandBar="false"
+    VisibleOnContextMenu="false" />
+  <Command
+    Identifier="ShowCategoryPopup"
+    MenuText="C&amp;ategories"
+    Shortcut="CtrlShiftC" />
+  <Command
+    DebugOnly="true"
+    Identifier="DiagnosticsConsole"
+    MenuText="[Debug] Show &amp;Diagnostics Console" />
+  <Command
+    DebugOnly="true"
+    Identifier="ForceWatson"
+    MenuText="[Debug] Force &amp;Watson" />
+  <Command
+    DebugOnly="true"
+    Identifier="ShowUpdateMessage"
+    MenuText="[Debug] Show &amp;Updates Available Message" />
+  <Command
+    DebugOnly="true"
+    Identifier="ShowErrorDialog"
+    MenuText="[Debug] Show Error &amp;Dialog" />
+  <Command
+    DebugOnly="true"
+    Identifier="BlogClientOptions"
+    MenuText="[Debug] &amp;Blog Client Options" />
+  <Command
+    DebugOnly="true"
+    Identifier="ShowDisplayMessageTestForm"
+    MenuText="[Debug] Show Display &amp;Messages" />
+  <Command
+    DebugOnly="true"
+    Identifier="ShowSupportingFilesForm"
+    MenuText="[Debug] Show &amp;Supporting Files" />
+  <Command
+    DebugOnly="true"
+	  Identifier="ShowBetaExpiredDialogs"
+	  MenuText="[Debug] Show Expired Dialogs" />
+  <Command
+    DebugOnly="true"
+	  Identifier="ShowWebLayoutWarning"
+	  MenuText="[Debug] Show Web Layout Warning" />
+  <Command
+    DebugOnly="true"
+    Identifier="InsertLoremIpsum"
+    MenuText="[Debug] Insert Lorem Ipsum"
+    Shortcut="CtrlShiftF6" />
+  <Command
+    DebugOnly="true"
+    Identifier="ValidateXhtml"
+    MenuText="[Debug] Validate XHTML"
+    Shortcut="CtrlShiftF7" />
+  <Command
+    DebugOnly="true"
+    Identifier="ValidateHtml"
+    MenuText="[Debug] Validate HTML"    
+    AdvancedShortcut="Control,Alt,Shift,F7" />
+  <Command
+    DebugOnly="true"
+    Identifier="ValidateLocalizedResources"
+    MenuText="[Debug] Validate Localized Resources" />
+  <Command
+    DebugOnly="true"
+    Identifier="ShowAtomImageEndpointSelector"
+    MenuText="[Debug] Show Atom image endpoint selector" />
+  <Command
+    DebugOnly="true"
+    Identifier="ShowVideoErrorMessage"
+    MenuText="[Debug] Show Video Publish Error Message" />
+  <Command
+    DebugOnly="true"
+    Identifier="ShowImageUploadError"
+    MenuText="[Debug] Show Image Upload Error Message" />
+  <Command
+    DebugOnly="true"
+    Identifier="ShowGoogleCaptcha"
+    MenuText="[Debug] Show Unlock Google Account Dialog" />
+  <Command
+    DebugOnly="true"
+    Identifier="RaiseAssertion"
+    MenuText="[Debug] Force Assertion" />
+  <Command
+    DebugOnly="true"
+    Identifier="TerminateProcess"
+    MenuText="[Debug] Terminate Process" />
+  <Command
+    DebugOnly="true"
+    Identifier="ViewSource"
+    Shortcut="CtrlF3" />
+  <Command
+    Identifier="WordCount"
+    MenuText="&amp;Word count" />
+  <Command
+    Identifier="WebImage"
+    MenuText="&amp;Web image..."
+    Shortcut="CtrlShiftJ" />
+</Commands>

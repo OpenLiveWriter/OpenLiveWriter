@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LCX SchemaVersion="6.0" Name="strings.wxl" PsrId="210" FileType="1" SrcCul="en-US" TgtCul="si-LK" xmlns="http://schemas.microsoft.com/locstudio/2006/6/lcx">
+        <Props>
+          <Str Name="CustomName1" Val="Custom 1" />
+          <Str Name="CustomName2" Val="Custom 2" />
+          <Str Name="CustomName3" Val="Custom 3" />
+          <Str Name="CustomName4" Val="Custom 4" />
+          <Str Name="CustomName5" Val="Custom 5" />
+          <Str Name="CustomName6" Val="IQA" />
+        </Props>
+        <OwnedComments>
+          <Cmt Name="Dev" />
+          <Cmt Name="LcxAdmin" />
+          <Cmt Name="Note" />
+          <Cmt Name="Rccx" />
+        </OwnedComments>
+        <Settings Name="@LbaRoot@\si-lk\writer\writer.lsconfig" Type="Config" />
+        <Item ItemId=";&lt;String&gt;" ItemType="0" PsrId="210" Leaf="false">
+          <Disp Icon="Str" Disp="true" LocTbl="false" />
+          <Modified By="bnspl15" DateTime="2010-05-03T12:45:16Z" />
+          <Item ItemId="0;blogthisbuttontext@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[Blog This]]></Val>
+              <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+                <Val><![CDATA[මෙය බ්ලොග් කරන්න]]></Val>
+              </Tgt>
+            </Str>
+            <Disp Icon="Str" Order="3" />
+            <Modified By="Aishwarya" DateTime="2010-05-12T13:29:44Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... [\\[]5D;","]5D;=[\\]5D;]5D;"}" -->Blog This</String>]]></Cmt>
+            </Cmts>
+            <Props>
+              <Str Name="Custom1" Val="Braahmam_Autotranslated" />
+            </Props>
+          </Item>
+          <Item ItemId="0;blogthismenutext@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[&amp;Blog This in [WLW_ProductName]5D;]]></Val>
+              <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New" AutoAppr="N/A">
+                <Val><![CDATA[ [WLW_ProductName]5D; හි මෙය බ්ලොග් කරන්න(&amp;B)]]></Val>
+              </Tgt>
+            </Str>
+            <Disp Icon="Str" Order="1" />
+            <Modified By="Lduba" DateTime="2010-11-05T13:29:47Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... ;Blog This in [WLW_ProductName]5D;</String>]]></Cmt>
+            </Cmts>
+            <Props>
+              <Str Name="Custom1" Val="Braahmam_New" />
+            </Props>
+            <Notes>
+              <Note Name="Loc" Order="0"><![CDATA[Si_HK_Fix]]></Note>
+            </Notes>
+          </Item>
+          <Item ItemId="0;productdescription@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[Blog like a pro, with photos, videos, maps, and more]]></Val>
+              <Tgt Cat="Text" Stat="Loc" Appr="PreApproved" Orig="New">
+                <Val><![CDATA[ඡායාරූප, වීඩියෝ, සිතියම්, සහ තවත් දේ සමගින් ප්‍රෝ එකක් මෙන් බ්ලොග් කරන්න]]></Val>
+              </Tgt>
+              <Prev Cat="Text">
+                <Val><![CDATA[Create great-looking blog posts, including photos, videos, maps, events, and tags, and publish them to almost any blog service—Windows Live, WordPress, Blogger, Live Journal, TypePad, and many more.]]></Val>
+              </Prev>
+            </Str>
+            <Disp Icon="Str" Order="5" />
+            <Modified By="lp-pc1" DateTime="2010-08-13T14:43:52Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... photos, videos, maps, and more</String>]]></Cmt>
+            </Cmts>
+            <Props>
+              <Str Name="Custom1" Val="Braahmam_Update_6 August" />
+              <Str Name="Custom2" Val="agust 10" />
+            </Props>
+          </Item>
+        </Item>
+      </LCX>

@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.CoreServices</AssemblyName>
+    <RootNamespace>OpenLiveWriter.CoreServices</RootNamespace>
+    <ProjectGuid>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</ProjectGuid>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="OpenLiveWriter.Interop.SHDocVw">
+      <Name>OpenLiveWriter.Interop.SHDocVw</Name>
+      <HintPath>..\OpenLiveWriter.Interop\Com\OpenLiveWriter.Interop.SHDocVw.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\MarketXmlGenerator\MarketXmlGenerator.csproj">
+      <Project>{d286c651-2ae7-447e-bbd8-b82f1c542667}</Project>
+      <Name>MarketXmlGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj">
+      <Name>OpenLiveWriter.BrowserControl</Name>
+      <Project>{A5C213F6-F0C6-4FD6-B496-61FE434621A6}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
+      <Name>OpenLiveWriter.HtmlParser</Name>
+      <Project>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
+      <Name>OpenLiveWriter.Interop.Mshtml</Name>
+      <Project>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="ApplicationConstants.cs" />
+    <Compile Include="ApplicationEnvironment.cs" />
+    <Compile Include="ArrayHelper.cs" />
+    <Compile Include="AsyncOperation.cs" />
+    <Compile Include="BackgroundWorkerQueue.cs" />
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BrowserHelper.cs" />
+    <Compile Include="BrowserOperationInvoker.cs" />
+    <Compile Include="CabinetFileExtractor.cs" />
+    <Compile Include="CancelableStream.cs" />
+    <Compile Include="ConditionVariable.cs" />
+    <Compile Include="CryptHelper.cs" />
+    <Compile Include="DelayUpdateHelper.cs" />
+    <Compile Include="ColorHelper.cs" />
+    <Compile Include="CommandLineHelper.cs" />
+    <Compile Include="CommandLineOptions.cs" />
+    <Compile Include="ControlHelper.cs" />
+    <Compile Include="DataObject\BrowserData.cs" />
+    <Compile Include="DataObject\DataFormatsEx.cs" />
+    <Compile Include="DataObject\DataObjectBase.cs" />
+    <Compile Include="DataObject\DataObjectMeister.cs" />
+    <Compile Include="DataObject\DIBHelper.cs" />
+    <Compile Include="DataObject\FileContentsHelper.cs" />
+    <Compile Include="DataObject\FileData.cs" />
+    <Compile Include="DataObject\FileItemFromFileContents.cs" />
+    <Compile Include="DataObject\FileItemFromFileDrop.cs" />
+    <Compile Include="DataObject\FileItemFromFileItem.cs" />
+    <Compile Include="DataObject\HTMLData.cs" />
+    <Compile Include="DataObject\HTMLDataObject.cs" />
+    <Compile Include="DataObject\IFileItemFormat.cs" />
+    <Compile Include="DataObject\ImageData.cs" />
+    <Compile Include="DataObject\LightWeightHTMLDataObject.cs" />
+    <Compile Include="DataObject\LightWeightHTMLDocumentData.cs" />
+    <Compile Include="DataObject\LightWeightHTMLToPlainText.cs" />
+    <Compile Include="DataObject\LiveClipboardData.cs" />
+    <Compile Include="DataObject\OleDataObject.cs" />
+    <Compile Include="DataObject\OleDataObjectHelper.cs" />
+    <Compile Include="DataObject\OleDataObjectImpl.cs" />
+    <Compile Include="DataObject\OleStgMedium.cs" />
+    <Compile Include="DataObject\TextData.cs" />
+    <Compile Include="DataObject\URLData.cs" />
+    <Compile Include="DateTimeHelper.cs" />
+    <Compile Include="DefaultHashtable.cs" />
+    <Compile Include="DelayedCancellableSignal.cs" />
+    <Compile Include="DelegateDisposable.cs" />
+    <Compile Include="Diagnostics\ApplicationDiagnostics.cs" />
+    <Compile Include="Diagnostics\ApplicationPerformance.cs" />
+    <Compile Include="Diagnostics\BufferingTraceListener.cs" />
+    <Compile Include="Diagnostics\BufferingTraceListenerEntry.cs" />
+    <Compile Include="Diagnostics\FileLogger.cs" />
+    <Compile Include="Diagnostics\DiagnosticsConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\DynamicExceptionMessageRegistry.cs" />
+    <Compile Include="Diagnostics\EmptyComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\ExceptionMessage.cs" />
+    <Compile Include="Diagnostics\HockeyAppProxy.cs" />
+    <Compile Include="Diagnostics\IDynamicExceptionMessage.cs" />
+    <Compile Include="Diagnostics\LogFileTraceListener.cs" />
+    <Compile Include="Diagnostics\OpenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\UnexpectedErrorDelegate.cs" />
+    <Compile Include="Diagnostics\UnexpectedErrorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\UnexpectedErrorMessage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Diagnostics\UnhandledExceptionErrorMessage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="DisplayableException.cs" />
+    <Compile Include="DisplayHelper.cs" />
+    <Compile Include="DisposableCursor.cs" />
+    <Compile Include="DragDropHelper.cs" />
+    <Compile Include="EventCounter.cs" />
+    <Compile Include="ExifMetadata.cs" />
+    <Compile Include="FileHelper.cs" />
+    <Compile Include="FileItem.cs" />
+    <Compile Include="FileItemFromFile.cs" />
+    <Compile Include="FontHelper.cs" />
+    <Compile Include="GLink.cs" />
+    <Compile Include="GraphicsHelper.cs" />
+    <Compile Include="GuidHelper.cs" />
+    <Compile Include="HashSet.cs" />
+    <Compile Include="HtmlScreenCaptureCore.cs" />
+    <Compile Include="HTML\DefaultBlockElement.cs" />
+    <Compile Include="HTML\ExternalHtmlReferenceFixer.cs" />
+    <Compile Include="HTML\IImageReferenceFixer.cs" />
+    <Compile Include="HTML\VersionHostServiceProvider.cs" />
+    <Compile Include="HTML\DisableVmlVersionHost.cs" />
+    <Compile Include="HTML\DivDefaultBlockElement.cs" />
+    <Compile Include="HTML\DocumentVisitor.cs" />
+    <Compile Include="HTML\HTMLBalancer.cs" />
+    <Compile Include="HTML\HTMLBalancerCostFilter.cs" />
+    <Compile Include="HTML\HtmlCleaner.cs" />
+    <Compile Include="HTML\HTMLColorHelper.cs" />
+    <Compile Include="HTML\HTMLCombiner.cs" />
+    <Compile Include="HTML\HTMLDocumentHelper.cs" />
+    <Compile Include="HTML\HTMLElementHelper.cs" />
+    <Compile Include="HTML\HTMLMetaData.cs" />
+    <Compile Include="HTML\HTMLMetaDataRequest.cs" />
+    <Compile Include="HTML\HtmlReferenceFixer.cs" />
+    <Compile Include="HTML\HTMLSelectionHelper.cs" />
+    <Compile Include="HTML\HTMLTokens.cs" />
+    <Compile Include="HTML\HTMLTrimmer.cs" />
+    <Compile Include="HTML\LightweightCSSIterator.cs" />
+    <Compile Include="HTML\LightWeightCSSReplacer.cs" />
+    <Compile Include="HTML\LightWeightHTMLDocument.cs" />
+    <Compile Include="HTML\LightWeightHTMLDocumentIterator.cs" />
+    <Compile Include="HTML\LightWeightHTMLMetaData.cs" />
+    <Compile Include="HTML\LightWeightHTMLReplacer.cs" />
+    <Compile Include="HTML\LightWeightHTMLThinner2.cs" />
+    <Compile Include="HTML\LightWeightHTMLUrlToAbsolute.cs" />
+    <Compile Include="HTML\ParagraphDefaultBlockElement.cs" />
+    <Compile Include="HTML\UnsafeHtmlFragmentHelper.cs" />
+    <Compile Include="ImageCache.cs" />
+    <Compile Include="ImageHelper.cs" />
+    <Compile Include="ImageHelper2.cs" />
+    <Compile Include="InvokeInUIThreadDelegate.cs" />
+    <Compile Include="IProgressProvider.cs" />
+    <Compile Include="ISet.cs" />
+    <Compile Include="KeyboardHelper.cs" />
+    <Compile Include="KeyboardHook.cs" />
+    <Compile Include="Layout\AlignHelper.cs" />
+    <Compile Include="Layout\AutoGrow.cs" />
+    <Compile Include="Layout\ControlAdapter.cs" />
+    <Compile Include="Layout\GdiTextHelper.cs" />
+    <Compile Include="Layout\LayoutHelper.cs" />
+    <Compile Include="LazyLoader.cs" />
+    <Compile Include="LineEndingHelper.cs" />
+    <Compile Include="LinkedList.cs" />
+    <Compile Include="Marketization\MarketizationOptions.cs" />
+    <Compile Include="MatchFinder.cs" />
+    <Compile Include="MathHelper.cs" />
+    <Compile Include="MetaLock.cs" />
+    <Compile Include="Mime\MimeHelper.cs" />
+    <Compile Include="Mime\MimeHelperException.cs" />
+    <Compile Include="NumberHelper.cs" />
+    <Compile Include="OctreeQuantizer.cs" />
+    <Compile Include="PaddedWaitCursor.cs" />
+    <Compile Include="PathHelper.cs" />
+    <Compile Include="PerformanceTimer.cs" />
+    <Compile Include="PlatformHelper.cs" />
+    <Compile Include="PluginLoader.cs" />
+    <Compile Include="ProcessHelper.cs" />
+    <Compile Include="ProcessKeepalive.cs" />
+    <Compile Include="Progress\CancelOnlyProgressHost.cs" />
+    <Compile Include="Progress\DebugWritingProgressHost.cs" />
+    <Compile Include="Progress\IProgressCategoryProvider.cs" />
+    <Compile Include="Progress\IProgressHost.cs" />
+    <Compile Include="Progress\JointProgressHosts.cs" />
+    <Compile Include="Progress\MultipartAsyncOperation.cs" />
+    <Compile Include="Progress\OperationCancelledException.cs" />
+    <Compile Include="Progress\ProgressHostFilter.cs" />
+    <Compile Include="Progress\ProgressTick.cs" />
+    <Compile Include="Progress\ProgressWorker.cs" />
+    <Compile Include="Progress\ProgressWorkerHostAsyncOperation.cs" />
+    <Compile Include="Progress\SilentProgressHost.cs" />
+    <Compile Include="Progress\TickableProgressTick.cs" />
+    <Compile Include="Quantizer.cs" />
+    <Compile Include="QuickTimer.cs" />
+    <Compile Include="QuickTimer_Release.cs" />
+    <Compile Include="RectangleHelper.cs" />
+    <Compile Include="RegistryHelper.cs" />
+    <Compile Include="RegistryMonitor.cs" />
+    <Compile Include="ResourceDownloading\CabbedXmlResourceFileDownloader.cs" />
+    <Compile Include="ResourceDownloading\XPPResourceFileProcessor.cs" />
+    <Compile Include="ResourcedPropertyLoader.cs" />
+    <Compile Include="ResourceFileDownloader.cs" />
+    <Compile Include="ResourceFileException.cs" />
+    <Compile Include="ResourceHelper.cs" />
+    <Compile Include="RestoreValue.cs" />
+    <Compile Include="RunningObjectTable.cs" />
+    <Compile Include="SameThreadSimpleInvokeTarget.cs" />
+    <Compile Include="Settings\ISettingsPersister.cs" />
+    <Compile Include="Settings\MemorySettingsPersister.cs" />
+    <Compile Include="Settings\RegistryCodec.cs" />
+    <Compile Include="Settings\RegistrySettingsPersister.cs" />
+    <Compile Include="Settings\SettingsPersisterHelper.cs" />
+    <Compile Include="Settings\XmlSettingsPersister.cs" />
+    <Compile Include="ShellHelper.cs" />
+    <Compile Include="SimpleHeap.cs" />
+    <Compile Include="SingleInstanceApplicationManager.cs" />
+    <Compile Include="SiteStorage\FileBasedSiteStorage.cs" />
+    <Compile Include="SiteStorage\ISiteStorage.cs" />
+    <Compile Include="SiteStorage\MemoryBasedSiteStorage.cs" />
+    <Compile Include="SiteStorage\SiteStorageBase.cs" />
+    <Compile Include="SiteStorage\SiteStorageException.cs" />
+    <Compile Include="SiteStorage\TempFileSiteStorage.cs" />
+    <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StreamHelper.cs" />
+    <Compile Include="StringHelper.cs" />
+    <Compile Include="SystemProperties.cs" />
+    <Compile Include="Trie.cs" />
+    <Compile Include="TempFileManager.cs" />
+    <Compile Include="TextHelper.cs" />
+    <Compile Include="Threading\ParallelExecution.cs" />
+    <Compile Include="Threading\ParkingWindow.cs" />
+    <Compile Include="Threading\ProcessingQueue.cs" />
+    <Compile Include="Threading\ThreadHelper.cs" />
+    <Compile Include="Threading\ThreadStartWithParams.cs" />
+    <Compile Include="ThreadSafeQueue.cs" />
+    <Compile Include="TimerHelper.cs" />
+    <Compile Include="TransientDirectory.cs" />
+    <Compile Include="TransientFile.cs" />
+    <Compile Include="TransientFileSystemItem.cs" />
+    <Compile Include="TreeSet.cs" />
+    <Compile Include="TypeHelper.cs" />
+    <Compile Include="UI\BorderPaint.cs" />
+    <Compile Include="UI\ControlUITheme.cs" />
+    <Compile Include="UI\RelativePoint.cs" />
+    <Compile Include="UI\SizeBorderHitTester.cs" />
+    <Compile Include="UI\UIPaint.cs" />
+    <Compile Include="UI\VirtualTransparency.cs" />
+    <Compile Include="UserPreferencesMonitor.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="WebRequest\BrowserBasedWebRequestLocator.cs" />
+    <Compile Include="WebRequest\CloseTrackingHttpWebRequest.cs" />
+    <Compile Include="WebRequest\ContentTypeHelper.cs" />
+    <Compile Include="WebRequest\HTMLDocumentDownloader.cs" />
+    <Compile Include="WebRequest\HttpRequestHelper.cs" />
+    <Compile Include="WebRequest\IBrowserBasedWebRequest.cs" />
+    <Compile Include="WebRequest\PageAndReferenceDownloader.cs" />
+    <Compile Include="WebRequest\PageDownloadContext.cs" />
+    <Compile Include="WebRequest\PageToDownload.cs" />
+    <Compile Include="WebRequest\PageToDownloadFactory.cs" />
+    <Compile Include="WebRequest\ReferenceToDownload.cs" />
+    <Compile Include="WebRequest\ResponseHeaderHelper.cs" />
+    <Compile Include="WebRequest\UrlDownloadToFile.cs" />
+    <Compile Include="WebRequest\UrlHelper.cs" />
+    <Compile Include="WebRequest\WebPageDownloader.cs" />
+    <Compile Include="WebRequest\WebProxySettings.cs" />
+    <Compile Include="WebRequest\WebRequestWithCache.cs" />
+    <Compile Include="WebRequest\WsseAuthenticationModule.cs" />
+    <Compile Include="Win32WindowImpl.cs" />
+    <Compile Include="WindowSubClasser.cs" />
+    <Compile Include="XmlCharacterHelper.cs" />
+    <Compile Include="XmlHelper.cs" />
+    <Compile Include="XmlPreprocessor.cs" />
+    <Compile Include="XmlRpcClient.cs" />
+    <Compile Include="XmpMetadata.cs" />
+    <EmbeddedResource Include="Diagnostics\DiagnosticsConsole.resx">
+      <DependentUpon>DiagnosticsConsole.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diagnostics\EmptyComponent.resx">
+      <DependentUpon>EmptyComponent.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diagnostics\Images\ErrorLogoSmall.png" />
+    <EmbeddedResource Include="Diagnostics\OpenForm.resx">
+      <DependentUpon>OpenForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diagnostics\UnexpectedErrorDialog.resx">
+      <DependentUpon>UnexpectedErrorDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Diagnostics\UnexpectedErrorMessage.resx">
+      <DependentUpon>UnexpectedErrorMessage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exceptions.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\ApplicationIcon.ico" />
+    <EmbeddedResource Include="Images\SplashScreen.png" />
+    <EmbeddedResource Include="Marketization\Markets.xml" />
+    <EmbeddedResource Include="Marketization\Master.xml" />
+    <EmbeddedResource Include="SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BinplaceCompiled Include="$(OutputPath)$(TargetFileName)">
+      <DestinationFolder>$(TargetProjectPath)</DestinationFolder>
+    </BinplaceCompiled>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\SplashScreenLogo.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+  <PropertyGroup>
+    <MasterXmlPath>$(MSBuildProjectDirectory)\..\..\..\intl\markets\Master.xml</MasterXmlPath>
+    <MasterXmlOutput>$(MSBuildProjectDirectory)\Marketization\Master.xml</MasterXmlOutput>
+  </PropertyGroup>
+  <Target Name="GenerateMarketXml" DependsOnTargets="ResolveProjectReferences" BeforeTargets="CoreCompile">
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Marketization" />
+    <Copy SourceFiles="$(MasterXmlPath)" DestinationFiles="$(MasterXmlOutput)" />
+    <Exec Command="&quot;$(OutDir)MarketXmlGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\..\..\..\intl\markets&quot; &quot;$(MSBuildProjectDirectory)\Marketization\Markets.xml&quot;" />
+  </Target>
+  <Target Name="_CopyFilesMarkedCopyLocal" />
+</Project>

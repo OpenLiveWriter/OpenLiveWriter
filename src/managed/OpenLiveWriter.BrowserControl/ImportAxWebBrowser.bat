@@ -1,0 +1,1 @@
+"C:\Program Files\Microsoft Visual Studio .NET 2003\SDK\v1.1\Bin\aximp.exe" ..\OpenLiveWriter.Interop\Com\SHDocVw.dll /source 

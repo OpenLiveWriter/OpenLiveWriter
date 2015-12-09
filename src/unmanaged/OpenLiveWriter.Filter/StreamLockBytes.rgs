@@ -1,0 +1,26 @@
+HKCR
+{
+	OpenLiveWriterFilter.StreamLockByt.1 = s 'StreamLockBytes Class'
+	{
+		CLSID = s '{F3E06854-6A6D-46F3-B5FA-7BC919BD6302}'
+	}
+	OpenLiveWriterFilter.StreamLockBytes = s 'StreamLockBytes Class'
+	{
+		CLSID = s '{F3E06854-6A6D-46F3-B5FA-7BC919BD6302}'
+		CurVer = s 'OpenLiveWriterFilter.StreamLockByt.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {F3E06854-6A6D-46F3-B5FA-7BC919BD6302} = s 'StreamLockBytes Class'
+		{
+			ProgID = s 'OpenLiveWriterFilter.StreamLockByt.1'
+			VersionIndependentProgID = s 'OpenLiveWriterFilter.StreamLockBytes'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Both'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{62B21E27-8299-4A97-9960-E7523F19F937}'
+		}
+	}
+}

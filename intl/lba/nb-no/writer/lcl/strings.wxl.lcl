@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LCX SchemaVersion="6.0" Name="strings.wxl" PsrId="210" FileType="1" SrcCul="en-US" TgtCul="nb-NO" xmlns="http://schemas.microsoft.com/locstudio/2006/6/lcx">
+        <Props>
+          <Str Name="CustomName1" Val="Custom 1" />
+          <Str Name="CustomName2" Val="Custom 2" />
+          <Str Name="CustomName3" Val="Custom 3" />
+          <Str Name="CustomName4" Val="Custom 4" />
+          <Str Name="CustomName5" Val="Custom 5" />
+          <Str Name="CustomName6" Val="IQA" />
+        </Props>
+        <OwnedComments>
+          <Cmt Name="Dev" />
+          <Cmt Name="LcxAdmin" />
+          <Cmt Name="Note" />
+          <Cmt Name="Rccx" />
+        </OwnedComments>
+        <Settings Name="@LbaRoot@\nb-no\writer\writer.lsconfig" Type="Config" />
+        <Item ItemId=";&lt;String&gt;" ItemType="0" PsrId="210" Leaf="false">
+          <Disp Icon="Str" Disp="true" LocTbl="false" />
+          <Modified By="BTSA010" DateTime="2007-06-01T14:04:30Z" />
+          <Item ItemId="0;blogthisbuttontext@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[Blog This]]></Val>
+              <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New" Confidence="100">
+                <Val><![CDATA[Blogg dette]]></Val>
+              </Tgt>
+              <Prev Cat="AppData">
+                <Val><![CDATA[]]></Val>
+                <Props>
+                  <XStr Name="Cmts">
+                    <Cmts xmlns="">
+                      <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... [\\[]","]=[\\]]"}" -->Blog This</String>]]></Cmt>
+                    </Cmts>
+                  </XStr>
+                  <Str Name="ReviewStat" Val="UPDATED" />
+                </Props>
+              </Prev>
+            </Str>
+            <Disp Icon="Str" Order="3" />
+            <Modified By="BTSA010" DateTime="2009-08-18T23:49:42Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... [\\[]5D;","]5D;=[\\]5D;]5D;"}" -->Blog This</String>]]></Cmt>
+            </Cmts>
+            <Props>
+              <Str Name="Custom3" Val="pre-Wave5" />
+            </Props>
+          </Item>
+          <Item ItemId="0;blogthismenutext@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[&amp;Blog This in [WLW_ProductName]5D;]]></Val>
+              <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New" Confidence="100">
+                <Val><![CDATA[&amp;Blogg dette i [WLW_ProductName]5D;]]></Val>
+              </Tgt>
+              <Prev Cat="AppData">
+                <Val><![CDATA[]]></Val>
+                <Props>
+                  <XStr Name="Cmts">
+                    <Cmts xmlns="">
+                      <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... ;Blog This in [WLW_ProductName]</String>]]></Cmt>
+                    </Cmts>
+                  </XStr>
+                  <Str Name="ReviewStat" Val="UPDATED" />
+                </Props>
+              </Prev>
+            </Str>
+            <Disp Icon="Str" Order="1" />
+            <Modified By="karen_j" DateTime="2007-06-20T12:21:23Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... ;Blog This in [WLW_ProductName]5D;</String>]]></Cmt>
+            </Cmts>
+            <Props>
+              <Str Name="Custom3" Val="pre-Wave5" />
+            </Props>
+          </Item>
+          <Item ItemId="0;productdescription@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+            <Str Cat="AppData">
+              <Val><![CDATA[Blog like a pro, with photos, videos, maps, and more]]></Val>
+              <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New">
+                <Val><![CDATA[Opprett blogginnlegg med bilder, videoer, kart og mye mer]]></Val>
+              </Tgt>
+              <Prev Cat="AppData">
+                <Val><![CDATA[Create great-looking blog posts, including photos, videos, maps, events, and tags, and publish them to almost any blog service—Windows Live, WordPress, Blogger, Live Journal, TypePad, and many more.]]></Val>
+              </Prev>
+            </Str>
+            <Disp Icon="Str" Order="5" />
+            <Modified By="Isabel Guijarro" DateTime="2010-08-31T10:34:10Z" />
+            <Cmts>
+              <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... photos, videos, maps, and more</String>]]></Cmt>
+            </Cmts>
+            <Props>
+              <Str Name="Custom3" Val="pre-Wave5" />
+            </Props>
+          </Item>
+        </Item>
+      </LCX>

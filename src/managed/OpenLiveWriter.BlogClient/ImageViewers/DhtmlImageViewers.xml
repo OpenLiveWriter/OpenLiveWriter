@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<viewers>
+	<viewer>
+		<name>Lightbox 2</name>
+		<filePattern>(^|/)lightbox\.js$</filePattern>
+		<single><a rel="lightbox" /></single>
+		<group><a rel="lightbox[{group-name}]" /></group>
+	</viewer>
+	<!--
+	<viewer>
+		<name>Lightbox JS</name>
+		<filePattern>(^|/)lightbox\.js$</filePattern>
+		<single><a rel="lightbox" /></single>
+	</viewer>
+	-->
+	<viewer>
+		<name>Slimbox</name>
+		<filePattern>(^|/)slimbox\.js$</filePattern>
+		<single><a rel="lightbox" /></single>
+		<group><a rel="lightbox[{group-name}]" /></group>
+	</viewer>
+	<viewer>
+		<name>Smoothbox</name>
+		<filePattern>(^|/)smoothbox\.js$</filePattern>
+		<single><a class="smoothbox" /></single>
+		<group><a class="smoothbox" rel="{group-name}" /></group>
+	</viewer>
+	<viewer>
+		<name>Shadowbox</name>
+		<filePattern>(^|/)shadowbox\.js$</filePattern>
+		<single><a rel="shadowbox" /></single>
+		<group><a rel="shadowbox[{group-name}]" /></group>
+	</viewer>
+	<viewer>
+		<name>Lightview</name>
+		<filePattern>(^|/)lightview\.js$</filePattern>
+		<single><a rel="lightview" /></single>
+		<group><a rel="lightview[{group-name}]" /></group>
+	</viewer>
+	<viewer>
+		<name>iBox</name>
+		<filePattern>(^|/)ibox\.js$</filePattern>
+		<single><a rel="ibox" /></single>
+		<group><a rel="ibox[{group-name}]" /></group>
+	</viewer>
+	<viewer>
+		<name>Highslide JS</name>
+		<filePattern>\bhighslide\.js\.php\b</filePattern>
+		<single><a class="highslide" rel="highslide" onclick="return hs.expand(this)" /></single>
+	</viewer>
+	<viewer>
+		<name>Image Thumbnail Viewer</name>
+		<filePattern>(^|/)thumbnailviewer\.js$</filePattern>
+		<single><a rel="thumbnail" /></single>
+	</viewer>
+	<viewer>
+		<name>ThickBox</name>
+		<filePattern>(^|/)thickbox(-compressed)?\.js$</filePattern>
+		<single><a class="thickbox" /></single>
+		<group><a class="thickbox" rel="{group-name}" /></group>
+	</viewer>
+</viewers>

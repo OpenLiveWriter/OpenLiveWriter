@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LCX SchemaVersion="6.0" Name="strings.wxl" PsrId="210" FileType="1" SrcCul="en-US" TgtCul="ar" xmlns="http://schemas.microsoft.com/locstudio/2006/6/lcx">
+  <Props>
+    <Str Name="CustomName1" Val="Custom 1" />
+    <Str Name="CustomName2" Val="Custom 2" />
+    <Str Name="CustomName3" Val="Custom 3" />
+    <Str Name="CustomName4" Val="Custom 4" />
+    <Str Name="CustomName5" Val="Custom 5" />
+    <Str Name="CustomName6" Val="IQA" />
+  </Props>
+  <OwnedComments>
+    <Cmt Name="Dev" />
+    <Cmt Name="LcxAdmin" />
+    <Cmt Name="Note" />
+    <Cmt Name="Rccx" />
+  </OwnedComments>
+  <Settings Name="@LbaRoot@\ar\writer\writer.lsconfig" Type="Config" />
+  <Item ItemId=";&lt;String&gt;" ItemType="0" PsrId="210" Leaf="false">
+    <Disp Icon="Str" Disp="true" LocTbl="false" />
+    <Modified By="BTSA010" DateTime="2008-05-26T08:01:25Z" />
+    <Item ItemId="0;blogthisbuttontext@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+      <Str Cat="AppData">
+        <Val><![CDATA[Blog This]]></Val>
+        <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="Auto" Confidence="100">
+          <Val><![CDATA[تدوين هذا في المدونة]]></Val>
+        </Tgt>
+        <Prev Cat="AppData">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <XStr Name="Cmts">
+              <Cmts xmlns="">
+                <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... [\\[]","]=[\\]]"}" -->Blog This</String>]]></Cmt>
+              </Cmts>
+            </XStr>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" Order="3" />
+      <Modified By="BTSA010" DateTime="2009-08-19T00:07:40Z" />
+      <Cmts>
+        <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... [\\[]5D;","]5D;=[\\]5D;]5D;"}" -->Blog This</String>]]></Cmt>
+      </Cmts>
+      <Notes>
+        <Note Name="Loc" Order="0"><![CDATA[<WindowsLive>]A;<CF2>]A;[]5D;]A;[W5M3Mod]5D;]A;</CF2>]A;</WindowsLive>]]></Note>
+      </Notes>
+      <Props>
+        <Str Name="Custom2" Val="W5M3Mod" />
+        <Str Name="Custom3" Val="pre-Wave5" />
+      </Props>
+    </Item>
+    <Item ItemId="0;blogthismenutext@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+      <Str Cat="AppData">
+        <Val><![CDATA[&amp;Blog This in [WLW_ProductName]5D;]]></Val>
+        <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New">
+          <Val><![CDATA[&amp;تدوين هذا في [WLW_ProductName]5D;]]></Val>
+        </Tgt>
+        <Prev Cat="AppData">
+          <Val><![CDATA[]]></Val>
+          <Props>
+            <XStr Name="Cmts">
+              <Cmts xmlns="">
+                <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... ;Blog This in [WLW_ProductName]</String>]]></Cmt>
+              </Cmts>
+            </XStr>
+            <Str Name="ReviewStat" Val="UPDATED" />
+          </Props>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" Order="1" />
+      <Modified By="sherif.nabil" DateTime="2008-06-04T05:53:09Z" />
+      <Cmts>
+        <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... ;Blog This in [WLW_ProductName]5D;</String>]]></Cmt>
+      </Cmts>
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+      </Props>
+    </Item>
+    <Item ItemId="0;productdescription@String" ItemType="42;XML:Text" PsrId="210" InstFlg="true" Leaf="true">
+      <Str Cat="AppData">
+        <Val><![CDATA[Blog like a pro, with photos, videos, maps, and more]]></Val>
+        <Tgt Cat="AppData" Stat="Loc" Appr="PreApproved" Orig="New">
+          <Val><![CDATA[قم بإنشاء مدونة كمحترف متضمنة صور وملفات فيديو وخرائط والمزيد]]></Val>
+        </Tgt>
+        <Prev Cat="AppData">
+          <Val><![CDATA[Create great-looking blog posts, including photos, videos, maps, events, and tags, and publish them to almost any blog service—Windows Live, WordPress, Blogger, Live Journal, TypePad, and many more.]]></Val>
+        </Prev>
+      </Str>
+      <Disp Icon="Str" Order="5" />
+      <Modified By="administrator" DateTime="2010-07-04T15:15:47Z" />
+      <Cmts>
+        <Cmt Name="Dev"><![CDATA[<String xmlns="http://schemas.microsoft. ... photos, videos, maps, and more</String>]]></Cmt>
+      </Cmts>
+      <Props>
+        <Str Name="Custom3" Val="pre-Wave5" />
+      </Props>
+    </Item>
+  </Item>
+</LCX>

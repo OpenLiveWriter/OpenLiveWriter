@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\writer.build.settings" />
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.ApplicationFramework</AssemblyName>
+    <RootNamespace>OpenLiveWriter.ApplicationFramework</RootNamespace>
+    <ProjectGuid>{EEEE653A-90CE-44E2-B40E-22F747880CC0}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj">
+      <Name>OpenLiveWriter.Controls</Name>
+      <Project>{D4A39612-3610-458F-83F8-5722D1F51063}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Name>OpenLiveWriter.CoreServices</Name>
+      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
+      <Name>OpenLiveWriter.Interop</Name>
+      <Project>{0937EF37-EB01-48E2-885B-991044877712}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
+      <Name>OpenLiveWriter.Localization</Name>
+      <Project>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="ApplicationCommandBarLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ApplicationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplicationManager.cs" />
+    <Compile Include="ApplicationStyle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ApplicationStyles\ApplicationStyleSkyBlue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BorderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorDefaultColorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorDialogLauncherControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorPickerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColorPopup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorPresetControl.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="CommandBarButtonEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarButtonLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarContainerLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandBarControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarControlLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarDefinition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarEntryCollection.cs" />
+    <Compile Include="CommandBarEntryCollectionEditor.cs" />
+    <Compile Include="CommandBarLabelEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarLabelLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarLightweightControlEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarSeparatorEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarSeparatorLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarSpacerEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBarSpacerLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandCollection.cs" />
+    <Compile Include="CommandCollectionEditor.cs" />
+    <Compile Include="CommandContextManager.cs" />
+    <Compile Include="CommandContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandContextMenuDefinition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandContextMenuMiniForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommandLoader.cs" />
+    <Compile Include="CommandManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandMenuBuilder.cs" />
+    <Compile Include="CommandMenuBuilderEntry.cs" />
+    <Compile Include="CommandOwnerDrawMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandResourceLoader.cs" />
+    <Compile Include="ContainedTextBoxCommandSource.cs" />
+    <Compile Include="DispatchingCommand.cs" />
+    <Compile Include="DynamicCommandMenu.cs" />
+    <Compile Include="DynamicCommandMenuOverflowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericCommandHandler.cs" />
+    <Compile Include="IColorPickerCommand.cs" />
+    <Compile Include="ICommandContextMenuControlHandler.cs" />
+    <Compile Include="IFontControlCommand.cs" />
+    <Compile Include="IMainFrameWindow.cs" />
+    <Compile Include="ISessionHandler.cs" />
+    <Compile Include="ISimpleTextEditorCommandSource.cs" />
+    <Compile Include="LightweightSplitterEventArgs.cs" />
+    <Compile Include="MenuBuilder.cs" />
+    <Compile Include="MenuDefinitionEntry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MenuDefinitionEntryCollection.cs" />
+    <Compile Include="MenuDefinitionEntryCollectionEditor.cs" />
+    <Compile Include="MenuDefinitionEntryCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MenuDefinitionEntryPlaceholder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MiniTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MiniTabsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MinMaxClose.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OverridableCommand.cs" />
+    <Compile Include="OwnerDrawMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Preferences\Preferences.cs" />
+    <Compile Include="Preferences\PreferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preferences\PreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Preferences\WebProxyPreferences.cs" />
+    <Compile Include="Preferences\WebProxyPreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PrimaryWorkspaceCommandBarLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PrimaryWorkspaceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RibbonHelper.cs" />
+    <Compile Include="SatelliteApplicationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SatelliteApplicationFormWorkspace.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SectionHeaderControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SeparatorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SeparatorControl.Designer.cs">
+      <DependentUpon>SeparatorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SideBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SidebarHeaderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SidebarHeaderControl.Designer.cs">
+      <DependentUpon>SidebarHeaderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Skinning\ColorizedResources.cs" />
+    <Compile Include="SpinnerCommand.cs" />
+    <Compile Include="SplitterLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemButtonHelper.cs" />
+    <Compile Include="TabEntry.cs" />
+    <Compile Include="TabLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TabPageContainerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TabScrollerButtonLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TabSelectorLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TransparentCommandBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkspaceColumnLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkspaceColumnPaneLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkspaceCommandBarLightweightControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkspaceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="ApplicationForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationManager.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationStyle.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationStyles\ApplicationStyleSkyBlue.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationStyles\Images\ApplicationStyleSmall.png" />
+    <EmbeddedResource Include="ApplicationStyles\Images\Lavender.png" />
+    <EmbeddedResource Include="ApplicationStyles\Images\Sienna.png" />
+    <EmbeddedResource Include="ApplicationStyles\Images\SkyBlue.png" />
+    <EmbeddedResource Include="ApplicationStyles\Images\Sterling.png" />
+    <EmbeddedResource Include="ApplicationStyles\Images\Wintergreen.png" />
+    <EmbeddedResource Include="BorderControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorDefaultColorControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorDialogLauncherControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorPickerForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorPopup.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorPresetControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Command.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarButtonEntry.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarButtonLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarContainerLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarControlEntry.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarControlLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarDefinition.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarEntry.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarLabelEntry.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarLabelLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarLightweightControlEntry.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarSeparatorEntry.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarSeparatorLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandContextMenu.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandContextMenuDefinition.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandContextMenuMiniForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandManager.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandOwnerDrawMenuItem.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DynamicCommandMenuOverflowForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Application\CommandMenuBitmapLatchedEnabled.png" />
+    <EmbeddedResource Include="Images\Application\CommandMenuBitmapLatchedSelected.png" />
+    <EmbeddedResource Include="Images\Application\DialogBodyBackground.png" />
+    <EmbeddedResource Include="Images\CommandBar\ButtonFace.png" />
+    <EmbeddedResource Include="Images\CommandBar\ButtonFacePushed.png" />
+    <EmbeddedResource Include="Images\CommandBar\ContextMenuArrow.png" />
+    <EmbeddedResource Include="Images\CommandBar\ContextMenuArrowDisabled.png" />
+    <EmbeddedResource Include="Images\CommandBar\MiniFormBevel.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderButtonFaceDropDownEnabled.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderButtonFaceDropDownPressed.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderButtonFaceEnabled.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderButtonFaceLeftEnabled.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderButtonFaceLeftPressed.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderButtonFacePressed.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderButtonFaceRightEnabled.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderButtonFaceRightPressed.png" />
+    <EmbeddedResource Include="Images\CommandBar\ProviderDownArrow.png" />
+    <EmbeddedResource Include="Images\DockableForm\CloseDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\CloseEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\ClosePushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\CloseSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockBottomDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockBottomEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockBottomPushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockBottomSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockLeftDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockLeftEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockLeftPushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockLeftSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockRightDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockRightEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockRightPushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockRightSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockTopDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockTopEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockTopPushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\DockTopSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\FloatDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\FloatEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\FloatPushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\FloatSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\MaximizeDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\MaximizeEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\MaximizePushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\MaximizeSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\MinimizeDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\MinimizeEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\MinimizePushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\MinimizeSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\Onfolio.png" />
+    <EmbeddedResource Include="Images\DockableForm\RestoreDisabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\RestoreEnabled.png" />
+    <EmbeddedResource Include="Images\DockableForm\RestorePushed.png" />
+    <EmbeddedResource Include="Images\DockableForm\RestoreSelected.png" />
+    <EmbeddedResource Include="Images\DockableForm\TitleBarLogo.png" />
+    <EmbeddedResource Include="Images\HIG\AppBodyFrame.png" />
+    <EmbeddedResource Include="Images\HIG\AppFrameBackgroundHeader.png" />
+    <EmbeddedResource Include="Images\HIG\AppFrameOutline.png" />
+    <EmbeddedResource Include="Images\HIG\AppVapor.png" />
+    <EmbeddedResource Include="Images\HIG\AppVaporFaded.png" />
+    <EmbeddedResource Include="Images\HIG\BlackDropArrow.png" />
+    <EmbeddedResource Include="Images\HIG\CloseDisabled.png" />
+    <EmbeddedResource Include="Images\HIG\CloseEnabled.png" />
+    <EmbeddedResource Include="Images\HIG\CloseHover.png" />
+    <EmbeddedResource Include="Images\HIG\ClosePushed.png" />
+    <EmbeddedResource Include="Images\HIG\HideFrame.png" />
+    <EmbeddedResource Include="Images\HIG\logo.png" />
+    <EmbeddedResource Include="Images\HIG\MaximizeDisabled.png" />
+    <EmbeddedResource Include="Images\HIG\MaximizeEnabled.png" />
+    <EmbeddedResource Include="Images\HIG\MaximizeHover.png" />
+    <EmbeddedResource Include="Images\HIG\MaximizePushed.png" />
+    <EmbeddedResource Include="Images\HIG\MinimizeDisabled.png" />
+    <EmbeddedResource Include="Images\HIG\MinimizeEnabled.png" />
+    <EmbeddedResource Include="Images\HIG\MinimizeHover.png" />
+    <EmbeddedResource Include="Images\HIG\MinimizePushed.png" />
+    <EmbeddedResource Include="Images\HIG\Search.png" />
+    <EmbeddedResource Include="Images\HIG\SizeGripper.png" />
+    <EmbeddedResource Include="Images\HIG\Toolbar.png" />
+    <EmbeddedResource Include="Images\HIG\ToolbarButtonHover.png" />
+    <EmbeddedResource Include="Images\HIG\ToolbarButtonHoverLarge.png" />
+    <EmbeddedResource Include="Images\HIG\ToolbarButtonPressed.png" />
+    <EmbeddedResource Include="Images\HIG\ToolbarButtonPressedLarge.png" />
+    <EmbeddedResource Include="Images\HIG\WhiteDropArrow.png" />
+    <EmbeddedResource Include="Images\HIG\XPActionBarBottom.png" />
+    <EmbeddedResource Include="MenuDefinitionEntry.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuDefinitionEntryCommand.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuDefinitionEntryPlaceholder.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MinMaxClose.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OwnerDrawMenuItem.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preferences\Images\WebProxyPanelBitmap.png" />
+    <EmbeddedResource Include="Preferences\PreferencesForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preferences\PreferencesPanel.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preferences\WebProxyPreferencesPanel.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrimaryWorkspaceCommandBarLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrimaryWorkspaceControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SatelliteApplicationForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SatelliteApplicationFormWorkspace.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SectionHeaderControl.resx">
+      <DependentUpon>SectionHeaderControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeparatorControl.resx">
+      <DependentUpon>SeparatorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SideBarControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SidebarHeaderControl.resx">
+      <DependentUpon>SidebarHeaderControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplitterLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPageContainerControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPageControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabScrollerButtonLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabSelectorLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkspaceColumnLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkspaceColumnPaneLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkspaceCommandBarLightweightControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkspaceControl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Images\Application\ErrorLogoSmall.png" />
+    <Content Include="Images\Application\FeedbackLogoSmall.png" />
+    <Content Include="Images\Application\QuestionLogoSmall.png" />
+    <Content Include="Images\Application\UnderConstruction.gif" />
+    <Content Include="Images\Application\WarningLogoSmall.png" />
+    <EmbeddedResource Include="Images\HIG\FooterBackgroundBW.png" />
+    <EmbeddedResource Include="Images\HIG\DropShadow.png" />
+    <EmbeddedResource Include="Images\HIG\DropShadowTop.png" />
+    <EmbeddedResource Include="Images\HIG\TabSelected.png" />
+    <EmbeddedResource Include="Images\HIG\TabUnselected.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(RepoRoot)\writer.build.targets" />
+</Project>
