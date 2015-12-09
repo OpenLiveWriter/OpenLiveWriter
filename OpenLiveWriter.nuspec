@@ -4,7 +4,7 @@
         <id>OpenLiveWriter</id>
         <version>0.0.0.0</version>
         <authors>Open Live Writer</authors>
-        <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/bringup/license.txt?raw=true</licenseUrl>
+        <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt?raw=true</licenseUrl>
         <iconUrl>http://openlivewriter.github.io/favicon.ico</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>Open Live Writer</description>
