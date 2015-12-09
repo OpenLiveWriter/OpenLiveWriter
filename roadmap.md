@@ -46,6 +46,6 @@ First release after v1.0 that includes new features
 * Additional publishing targets
   * Facebook status update
   * Twitter status
-* Support for Markdown editing and previes
+* Support for Markdown editing and previews
 
 ## v2.0 - Major New Features
