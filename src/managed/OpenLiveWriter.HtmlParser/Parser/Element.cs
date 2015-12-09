@@ -329,8 +329,8 @@ namespace OpenLiveWriter.HtmlParser.Parser
         }
 
         /// <summary>
-        /// The name of the tag.  Case is identical to what 
-        /// was used in the HTML (for case-insensitive equality 
+        /// The name of the tag.  Case is identical to what
+        /// was used in the HTML (for case-insensitive equality
         /// testing, use the NameEquals method).
         /// </summary>
         public string Name
@@ -408,7 +408,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
 
         /// <summary>
         /// Inexpensively determine whether this tag has residue. This
-        /// property is only beneficial if you only want to know if 
+        /// property is only beneficial if you only want to know if
         /// residue is present, and are not planning on retrieving the
         /// value of the residue.
         /// </summary>
@@ -418,7 +418,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
         }
 
         /// <summary>
-        /// Any junk between the end of the last syntactically valid 
+        /// Any junk between the end of the last syntactically valid
         /// attribute and the end of the tag.
         /// </summary>
         public string Residue
@@ -536,10 +536,10 @@ namespace OpenLiveWriter.HtmlParser.Parser
     /// <summary>
     /// An end tag. Example:
     /// </a>
-    /// 
+    ///
     /// If Implicit is true, then it came from a "complete" tag:
     /// <br />
-    /// 
+    ///
     /// </summary>
     public class EndTag : Tag
     {

@@ -18,7 +18,7 @@ namespace OpenLiveWriter.ApplicationFramework
     {
         #region Private Member Variables
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -50,7 +50,7 @@ namespace OpenLiveWriter.ApplicationFramework
             InitializeObject();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -68,8 +68,8 @@ namespace OpenLiveWriter.ApplicationFramework
         #endregion Class Initialization & Termination
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -142,7 +142,6 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         private int _offSetSpacing = 0;
-
 
         #endregion Public Properties
 
@@ -223,7 +222,6 @@ namespace OpenLiveWriter.ApplicationFramework
                     xOffset += commandBarLightweightControl.SeparatorLayoutMargin;
                     previous = Previous.Separator;
                 }
-
 
                 if (lightweightControl is CommandBarButtonLightweightControl)
                 {

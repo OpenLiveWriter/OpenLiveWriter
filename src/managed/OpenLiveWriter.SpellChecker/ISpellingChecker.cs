@@ -10,17 +10,17 @@ namespace OpenLiveWriter.SpellChecker
 	/// Generic interface implemented by spell checking engines
 	/// </summary>
 	public interface ISpellingChecker : IDisposable
-	{		
+	{
 		/// <summary>
 		/// Notify the spell checker that we are going to start checking a document
 		/// and that we would like the user's Ignore All and Replace All commands
 		/// to be persisted in a context-bound dictionary
 		/// </summary>
-		/// <param name="contextDictionaryLocation">directory where the 
+		/// <param name="contextDictionaryLocation">directory where the
 		/// spell checker can write a context-bound dictionary (null to not
 		/// use a context-dictionary)</param>
 		void StartChecking( string contextDictionaryLocation ) ;
-			
+
 
 		/// <summary>
 		/// Notify the spell checker that we have stopped checking the document
@@ -46,7 +46,7 @@ namespace OpenLiveWriter.SpellChecker
 		/// <param name="depth">depth of search -- 0 to 100 where larger values
 		/// indicated a deeper (and longer) search</param>
 		/// <returns>array of spelling suggestions (up to maxSuggestions long)</returns>
-		SpellingSuggestion[] Suggest(string word, short maxSuggestions, short depth ) ;		
+		SpellingSuggestion[] Suggest(string word, short maxSuggestions, short depth ) ;
 
 		/// <summary>
 		/// Add a word to the permenant user-dictionary
@@ -61,7 +61,7 @@ namespace OpenLiveWriter.SpellChecker
 		/// </summary>
 		/// <param name="word">word to ignore</param>
 		void IgnoreAll( string word ) ;
-		
+
 		event EventHandler WordIgnored;
 
 		/// <summary>
@@ -120,7 +120,7 @@ namespace OpenLiveWriter.SpellChecker
         Ukrainian,
 	}
 
-	
+
 
 	/// <summary>
 	/// Possible result codes from check-word call
@@ -130,18 +130,18 @@ namespace OpenLiveWriter.SpellChecker
 		/// <summary>
 		/// Word is correctly spelled
 		/// </summary>
-		Correct,			
+		Correct,
 
 		/// <summary>
 		/// Word has an auto-replace value (value returned in otherWord parameter)
 		/// </summary>
-		AutoReplace,		
+		AutoReplace,
 
 		/// <summary>
 		/// Word has a conditional-replace value (value returned in otherWord parameter)
 		/// </summary>
 		ConditionalReplace,
-		
+
 		/// <summary>
 		/// Word is incorrectly capitalized
 		/// </summary>
@@ -152,7 +152,6 @@ namespace OpenLiveWriter.SpellChecker
 		/// </summary>
 		Misspelled
 	}
-
 
 	/// <summary>
 	/// Suggestion for a misspelled word
@@ -181,12 +180,11 @@ namespace OpenLiveWriter.SpellChecker
 		public readonly short Score ;
 	}
 
-
 	/// <summary>
 	/// Exception that occurs during spell checking
 	/// </summary>
 	public class SpellingCheckerException : ApplicationException
-	{		
+	{
 		/// <summary>
 		/// Initialize with just an error message
 		/// </summary>
@@ -211,7 +209,6 @@ namespace OpenLiveWriter.SpellChecker
 		/// Underlying error code from native implementation
 		/// </summary>
 		public int NativeError { get { return nativeError; } }
-
 
 		/// <summary>
 		/// Underlying native error code

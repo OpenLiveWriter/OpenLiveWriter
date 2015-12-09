@@ -108,7 +108,6 @@ namespace OpenLiveWriter.BlogClient.Detection
                 if (encoding == null)
                     encoding = new UTF8Encoding(false, false);
 
-
                 return encoding.GetString(RawBytes);
             }
         }

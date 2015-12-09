@@ -7,7 +7,6 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
@@ -37,7 +36,7 @@ namespace OpenLiveWriter.CoreServices
                 Debug.Fail(e.ToString());
             }
 
-            // Validate required format           
+            // Validate required format
             // WinLive Bug 182698: Assert when pasting a hyperlink from IE
             if (canGetDataPresentDirectlyFromIDataObject &&
                 OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormatsEx.URLFormat) &&
@@ -103,7 +102,6 @@ namespace OpenLiveWriter.CoreServices
 
         private DateTime _dateModified;
 
-
         /// <summary>
         /// Gets the title of a URL by inspecting the accompanying file drop
         /// </summary>
@@ -131,7 +129,7 @@ namespace OpenLiveWriter.CoreServices
                     char currentChar;
                     StringBuilder sBuilder = new StringBuilder();
 
-                    // Read character by character into a string 
+                    // Read character by character into a string
                     int i = FILENAME_OFFSET;
                     currentChar = BitConverter.ToChar(memoryStreamBytes, i);
                     while (currentChar != (char)0)
@@ -148,7 +146,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private string m_title;
-
 
         /// <summary>
         /// Constructor for URLData

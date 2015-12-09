@@ -9,7 +9,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     {
 
 
-
         internal static SettingsPersisterHelper SettingsKey = PostEditorSettings.SettingsKey.GetSubSettings("HtmlSourceEditor");
     }
 }

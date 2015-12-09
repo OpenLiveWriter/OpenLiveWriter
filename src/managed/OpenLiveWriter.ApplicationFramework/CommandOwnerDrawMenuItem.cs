@@ -121,7 +121,7 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        ///	Menu text method.  Returns the text to draw for the owner draw menu item. 
+        ///	Menu text method.  Returns the text to draw for the owner draw menu item.
         /// </summary>
         /// <returns>Text to draw.</returns>
         protected override string MenuText()
@@ -222,7 +222,6 @@ namespace OpenLiveWriter.ApplicationFramework
             if (MenuType == MenuType.Main)
                 Visible = command.VisibleOnMainMenu;
         }
-
 
     }
 }

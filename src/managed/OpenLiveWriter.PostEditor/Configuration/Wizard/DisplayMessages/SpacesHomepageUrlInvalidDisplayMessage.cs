@@ -6,7 +6,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 {
-	
+
 	public class SpacesHomepageUrlInvalidDisplayMessage : DisplayMessage
 	{
 		/// <summary>
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -48,7 +48,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -56,9 +55,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// SpacesHomepageUrlInvalidDisplayMessage
-			// 
+			//
 			this.Text = "The specified URL does not appear to be valid Spaces homepage.\r\nPlease enter a va" +
 				"lid Spaces URL or set up a Windows Live Space before continuing.";
 			this.Title = "Invalid Spaces URL Found";

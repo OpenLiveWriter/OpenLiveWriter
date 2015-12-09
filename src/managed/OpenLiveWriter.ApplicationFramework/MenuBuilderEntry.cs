@@ -17,12 +17,12 @@ namespace Project31.ApplicationFramework
 		/// The MenuBuilder for this MenuBuilderEntry.
 		/// </summary>
 		private MenuBuilder menuBuilder;
-	
+
 		/// <summary>
 		///	Merge menu entry level.
 		/// </summary>
 		private int level;
-		
+
 		/// <summary>
 		/// Gets the merge menu entry level.
 		/// </summary>
@@ -38,7 +38,7 @@ namespace Project31.ApplicationFramework
 		///	Merge menu entry position.
 		/// </summary>
 		private int position;
-		
+
 		/// <summary>
 		/// Gets the merge menu entry position.
 		/// </summary>
@@ -95,7 +95,7 @@ namespace Project31.ApplicationFramework
 			this.menuBuilder = menuBuilder;
 			this.level = -1;
 		}
-				
+
 		/// <summary>
 		/// Initializes a new instance of the MenuBuilderEntry class.  This constructor is used for
 		/// top level and "container" menu items.
@@ -128,12 +128,12 @@ namespace Project31.ApplicationFramework
 		/// </summary>
 		public MenuBuilderEntry this [int position, string text]
 		{
-			get 
+			get
 			{
 				string key = String.Format("{0}-{1}", position.ToString("D3"), text);
 				return (MenuBuilderEntry)childMergeMenuEntries[key];
 			}
-			set 
+			set
 			{
 				string key = String.Format("{0}-{1}", position.ToString("D3"), text);
 				childMergeMenuEntries[key] = value;

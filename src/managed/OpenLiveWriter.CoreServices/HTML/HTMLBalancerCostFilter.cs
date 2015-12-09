@@ -20,7 +20,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Truncate text.  maxCost is the cost available for the
         /// string you need to return.
-        /// 
+        ///
         /// The default implementation uses CharCount() to calculate
         /// where to split, then attempts to split at a space if
         /// possible.

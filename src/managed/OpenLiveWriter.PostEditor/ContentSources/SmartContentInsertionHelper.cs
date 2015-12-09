@@ -63,7 +63,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                             }
                         }
 
-
                         idAttr.Value = ContentSourceManager.MakeContainingElementId(contentSourceId, newId);
                     }
                     else
@@ -138,12 +137,11 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             MarkupPointer sc2 = MarkupServices.CreateMarkupPointer();
 
             //Create a temporary document from the html and set the start/end pointers to the
-            //start and end of the document.  
+            //start and end of the document.
             MarkupServices.ParseString(content, sc1, sc2);
             IHTMLDocument2 doc = sc1.GetDocument();
             MarkupRange stagingRange = MarkupServices.CreateMarkupRange(sc1, sc2);
             stagingRange.MoveToElement(doc.body, false);
-
 
 
             //IE7 hack: fixes bug 305512.  Note that this will destroy the inner content of the element,

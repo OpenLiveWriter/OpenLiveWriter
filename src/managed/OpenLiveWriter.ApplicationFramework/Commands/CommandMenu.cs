@@ -39,7 +39,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -47,9 +46,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandMenu
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.Commands.Menu";
 			this.Text = "Show menu";
 

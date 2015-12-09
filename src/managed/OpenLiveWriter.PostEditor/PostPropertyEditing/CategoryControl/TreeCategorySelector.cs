@@ -110,7 +110,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             BlogPostCategory category = (BlogPostCategory)(realTreeNode.Tag);
             if (e.Node.Checked)
             {
-                // Fix bug 587012: Category control can display one category repeatedly if 
+                // Fix bug 587012: Category control can display one category repeatedly if
                 // checked category is added from search box after refresh
                 categories.Remove(category);
                 categories.Add(category);

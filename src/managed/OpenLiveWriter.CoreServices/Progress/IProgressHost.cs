@@ -11,7 +11,7 @@ namespace OpenLiveWriter.CoreServices.Progress
         /// <summary>
         /// Notifies the host that progess has been made.
         /// </summary>
-        /// <param name="complete">a number indicating what fraction of the total expected progress has been made 
+        /// <param name="complete">a number indicating what fraction of the total expected progress has been made
         /// (note: this number should always be less than the total)</param>
         /// <param name="total">the total expected progress that the operation will perform.</param>
         /// <param name="message">a message describing the current progress</param>

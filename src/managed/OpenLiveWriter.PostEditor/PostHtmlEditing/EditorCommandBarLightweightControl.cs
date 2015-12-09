@@ -121,7 +121,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -135,7 +134,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             r.Height = shadowHeight;
 
             GraphicsHelper.TileFillScaledImageHorizontally(g, _dropShadowTop, r);
-
 
             shadowHeight = ColorizedResources.Instance.DropShadowBitmap.Height;
 

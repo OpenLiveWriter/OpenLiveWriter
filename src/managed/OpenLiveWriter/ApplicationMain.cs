@@ -110,8 +110,6 @@ namespace OpenLiveWriter
         }
 
 
-
-
         private static void LoadCulture(string cultureName)
         {
             try
@@ -233,7 +231,7 @@ namespace OpenLiveWriter
                 {
                     initComplete = true;
 
-                    // launch blogging form 
+                    // launch blogging form
                     ApplicationLauncher.LaunchBloggingForm(args, splashScreen, true);
                 }
 

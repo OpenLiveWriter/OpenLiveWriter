@@ -239,7 +239,6 @@ namespace OpenLiveWriter.Mshtml
             MarkupServices.EndUndoUnit();
         }
 
-
         /// <summary>
         /// Creates an instance of the IMarkupPointer object with an initial position
         /// adjacent to the specified HTML element.

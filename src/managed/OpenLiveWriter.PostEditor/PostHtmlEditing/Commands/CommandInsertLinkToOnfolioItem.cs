@@ -35,7 +35,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -58,9 +57,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandInsertLinkToOnfolioItem
-			// 
+			//
 			this.ContextMenuPath = "";
 			this.Identifier = "OpenLiveWriter.PostEditor.PostHtmlEditing.Commands.InsertLinkToOnfolioItem";
 			this.MainMenuPath = "&Insert@4/Link to &Onfolio Item...@200";

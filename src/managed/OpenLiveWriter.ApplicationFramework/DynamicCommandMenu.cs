@@ -19,10 +19,9 @@ namespace OpenLiveWriter.ApplicationFramework
             // save reference to command list context
             _context = context;
 
-            // initialize commands 
+            // initialize commands
             InitializeCommands();
         }
-
 
         /// <summary>
         /// Get the underlying command identifiers managed by this dynamic command menu
@@ -42,7 +41,6 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
 
-
         // <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -58,12 +56,11 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
 
-
         private void InitializeCommands()
         {
             Context.CommandManager.BeginUpdate();
 
-            // add commands 
+            // add commands
             for (int i = 0; i < Context.Options.MaxCommandsShownOnMenu; i++)
             {
                 // create the command
@@ -79,7 +76,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
                 string separator = i == 0 && Context.Options.SeparatorBegin ? "-" : "";
 
-                // define menu paths	
+                // define menu paths
                 string menuMergeText = (Context.Options.MenuMergeOffset + i).ToString(CultureInfo.InvariantCulture);
                 command.MenuText = (Context.Options.UseNumericMnemonics ? "&" + (i + 1).ToString(CultureInfo.InvariantCulture) + " {0}" : "{0}");
                 command.MainMenuPath = Context.Options.MainMenuBasePath + "/" + separator + command.MenuText + "@" + menuMergeText;
@@ -109,7 +106,6 @@ namespace OpenLiveWriter.ApplicationFramework
 
             Context.CommandManager.EndUpdate();
         }
-
 
         /// <summary>
         /// BeforeShowInMenu to dynamically update the contents of the window menu
@@ -142,13 +138,13 @@ namespace OpenLiveWriter.ApplicationFramework
                 }
                 else
                 {
-                    //	Turn the command on 					
+                    //	Turn the command on
                     command.VisibleOnContextMenu = true;
                     command.VisibleOnMainMenu = true;
                     command.Enabled = menuCommandObjects[i].Enabled;
                     command.Latched = menuCommandObjects[i].Latched;
 
-                    //	Update the command.		
+                    //	Update the command.
                     command.CommandBarButtonBitmapEnabled = menuCommandObjects[i].Image;
                     command.MenuFormatArgs = new object[] { menuCommandObjects[i].Caption };
                     command.Tag = menuCommandObjects[i];
@@ -166,13 +162,11 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
 
-
         private void command_Execute(object sender, EventArgs ea)
         {
             // notify context
             Context.CommandExecuted((sender as Command).Tag as IMenuCommandObject);
         }
-
 
         private void commandMore_Execute(object sender, EventArgs ea)
         {
@@ -191,13 +185,11 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         private IDynamicCommandMenuContext Context
         {
             get { return _context; }
         }
         private IDynamicCommandMenuContext _context;
-
 
         private ArrayList _commands = new ArrayList();
 
@@ -206,8 +198,6 @@ namespace OpenLiveWriter.ApplicationFramework
         private Container components = new Container();
 
     }
-
-
 
 
     public interface IDynamicCommandMenuContext
@@ -235,7 +225,6 @@ namespace OpenLiveWriter.ApplicationFramework
         void CommandExecuted(IMenuCommandObject menuCommandObject);
     }
 
-
     public interface IMenuCommandObject
     {
         Bitmap Image { get; }
@@ -245,14 +234,12 @@ namespace OpenLiveWriter.ApplicationFramework
         string CaptionNoMnemonic { get; }
     }
 
-
     public class DynamicCommandMenuOptions
     {
         public DynamicCommandMenuOptions(string mainMenuBasePath, int menuMergeOffset)
             : this(mainMenuBasePath, menuMergeOffset, null, null)
         {
         }
-
 
         public DynamicCommandMenuOptions(
             string mainMenuBasePath, int menuMergeOffset,
@@ -281,7 +268,6 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         public readonly int MenuMergeOffset;
 
-
         /// <summary>
         /// Menu caption to be used if more commands are available than are displayable on the menu
         /// (you can display up to 9 on the menu). If null then no 'More' option is provided.
@@ -292,7 +278,6 @@ namespace OpenLiveWriter.ApplicationFramework
         /// Dialog title to be used when showing the more dialog
         /// </summary>
         public readonly string MoreCommandsDialogTitle;
-
 
         /// <summary>
         /// Maximum number of commands to show on the menu (must be from 1 to 9)
@@ -313,7 +298,6 @@ namespace OpenLiveWriter.ApplicationFramework
         }
         private int _maxCommandsShownOnMenu;
 
-
         /// <summary>
         /// Should we add numeric Mnemonics to the commands
         /// </summary>
@@ -324,8 +308,6 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         public bool SeparatorBegin;
     }
-
-
 
 
 }

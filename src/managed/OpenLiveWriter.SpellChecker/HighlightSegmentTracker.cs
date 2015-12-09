@@ -29,9 +29,9 @@ namespace OpenLiveWriter.SpellChecker
 				endPtr = end;
 				word = wd;
 			}
-			
+
 		}
-		
+
 		public class MatchingSegment
 		{
 			public IHighlightSegmentRaw _segment;
@@ -40,15 +40,15 @@ namespace OpenLiveWriter.SpellChecker
 			{
 				_segment = seg;
 				_pointer = pointer;
-			}			
+			}
 		}
-		
+
 		//this needs to be on a post by post basis
 		public HighlightSegmentTracker()
 		{
 			list = new SortedList(new MarkupPointerComparer());
 		}
-				
+
 		//adds a segment to the list
 		//used when a misspelled word is found
 		public void AddSegment(IHighlightSegmentRaw segment, string wordHere, IMarkupServicesRaw markupServices)
@@ -60,7 +60,7 @@ namespace OpenLiveWriter.SpellChecker
 			if (!list.ContainsKey(start))
 				list.Add(start, new SegmentDef(segment, start, end, wordHere));
 		}
-		
+
 		//find all the segments in a specific range
 		//used to clear out a section when it is getting rechecked
 		//need to expand selection from these bounds out around full words
@@ -92,14 +92,14 @@ namespace OpenLiveWriter.SpellChecker
 			} while (test);
 			return Subarray(firstSegmentInd, lastSegmentInd);
 		}
-		
+
 		public IHighlightSegmentRaw[] ClearAllSegments()
 		{
 			return Subarray(0, list.Count - 1);
 		}
-		
+
 		public delegate bool CheckWordSpelling(string word);
-		
+
 		//find all the segments with a specific misspelled word
 		//used to clear for ignore all, add to dictionary
 		public MatchingSegment[] GetSegments(string word, CheckWordSpelling checkSpelling)
@@ -112,7 +112,7 @@ namespace OpenLiveWriter.SpellChecker
 				if (0 == String.Compare(word, x.word, true, CultureInfo.InvariantCulture))
 				{
 					//check spelling--capitalized word may be ok, but not mixed case, etc.
-					if (!checkSpelling(x.word)) 
+					if (!checkSpelling(x.word))
 					{
 						segments.Add(new MatchingSegment(x.segment, x.startPtr));
 					}
@@ -120,12 +120,12 @@ namespace OpenLiveWriter.SpellChecker
 			}
 			return (MatchingSegment[])segments.ToArray(typeof (MatchingSegment));
 		}
-		
+
 		public void RemoveSegment(IMarkupPointerRaw pointer)
 		{
 			list.Remove(pointer);
 		}
-		
+
 		public MisspelledWordInfo FindSegment(MshtmlMarkupServices markupServices, IMarkupPointerRaw current)
 		{
 			//binary search
@@ -165,7 +165,7 @@ namespace OpenLiveWriter.SpellChecker
 			}
 			return null;
 		}
-		
+
 		private int Middle(int start, int end)
 		{
 			if (start <= end)
@@ -174,25 +174,25 @@ namespace OpenLiveWriter.SpellChecker
 			}
 			return -1;
 		}
-		
+
 		private IHighlightSegmentRaw[] Subarray(int start, int end)
 		{
 			int count = end - start + 1;
 			IHighlightSegmentRaw[] segments = new IHighlightSegmentRaw[count];
-			//fill in array by removing from the list starting at the end, so that 
+			//fill in array by removing from the list starting at the end, so that
 			// deleting from the list doesn't change the other indices
 			for (int i = end; i >= start; i--)
 			{
 				segments[--count] = ((SegmentDef) list.GetByIndex(i)).segment;
 				list.RemoveAt(i);
-			}	
+			}
 			return segments;
 		}
-		
+
 		public void Clear()
 		{
 			list.Clear();
-		}		
+		}
 	}
 
 	internal class MarkupPointerComparer : IComparer, System.Collections.Generic.IComparer<IMarkupPointerRaw>

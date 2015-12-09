@@ -11,7 +11,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
 {
     /// <summary>
     /// Parser that is suitable for parsing HTML.
-    /// 
+    ///
     /// The HTML does not need to be well-formed XML (i.e. mismatched tags are fine)
     /// or even well-formed HTML. In all but the most pathological cases, the parser
     /// will behave in a reasonable way that is similar to IE and Firefox.
@@ -63,7 +63,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
             unquotedAttrValueMatcher = new StatefulMatcher(data, unquotedAttrValue);
             endBeginTagMatcher = new StatefulMatcher(data, endBeginTag);
         }
-
 
         public int Position
         {
@@ -119,7 +118,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
 
                 return null;
             }
-
 
             // None of the special cases are true.  Start consuming characters
 
@@ -419,7 +417,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
 
             int end = match.Success ? match.Index : data.Length;
 
-
             // HACK: this code should not be aware of parser types
             IElementSource source = (stopAt == endScript) ? (IElementSource)new JavascriptParser(data, offset, end - offset) : (IElementSource)new CssParser(data, offset, end - offset);
             Stack stack = new Stack();
@@ -462,7 +459,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
             public Match Match(int pos)
             {
                 /* We need to reexecute the search under any of these three conditions:
-				 * 
+				 *
 				 * 1) The search has never been run
 				 * 2) The last search successfully matched before it got to the desired position
 				 * 3) The last search was started past the desired position
@@ -491,7 +488,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
                 lastMatch = regex.Match(input, pos);
             }
         }
-
 
         public static void Create()
         {

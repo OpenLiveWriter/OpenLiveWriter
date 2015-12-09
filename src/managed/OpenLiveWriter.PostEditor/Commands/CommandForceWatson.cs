@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,11 +37,11 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.PostEditor.Commands
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -64,9 +63,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandForceWatson
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.PostEditor.Commands.ForceWatson";
 			this.MenuText = "Force Watson";
 			this.Text = "Force Watson";

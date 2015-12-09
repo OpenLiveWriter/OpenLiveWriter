@@ -13,7 +13,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
         {
         }
 
-
         protected override void LoadPreferences()
         {
 
@@ -23,7 +22,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
         {
 
         }
-
 
 
     }

@@ -32,7 +32,6 @@ using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.PostEditor.PostHtmlEditing;
 using IDropTarget = OpenLiveWriter.Interop.Com.IDropTarget;
 
-
 namespace OpenLiveWriter.PostEditor
 {
     [ClassInterface(ClassInterfaceType.None)]
@@ -150,7 +149,6 @@ namespace OpenLiveWriter.PostEditor
 
         #region IContentEditorFactory Members
 
-
         public void DoPreloadWork()
         {
             ContentEditorProxy.ApplyInstalledCulture();
@@ -206,7 +204,7 @@ namespace OpenLiveWriter.PostEditor
             catch (Exception)
             {
                 // TODO: Explore our options here.
-                // IContentEditorLogger should not be throwing exceptions, but in the case that it does we do not want 
+                // IContentEditorLogger should not be throwing exceptions, but in the case that it does we do not want
                 // to make another Debug or Trace call because it could cause an infinite loop/stack overflow.
             }
         }
@@ -262,7 +260,6 @@ namespace OpenLiveWriter.PostEditor
 
             ContentEditorProxyCore(factory, contentEditorSite, internetSecurityManager, wysiwygHTML, null, editingContext, new ContentEditorTemplateStrategy(), dlControlFlags, color);
 
-
         }
 
         private class DelayedInsert
@@ -290,9 +287,9 @@ namespace OpenLiveWriter.PostEditor
         /// <param name="newEditingContext"></param>
         /// <param name="templateStrategy"></param>
         /// <param name="dlControlFlags">
-        /// For Mail, these flags should always include DLCTL_DLIMAGES | DLCTL_VIDEOS | DLCTL_BGSOUNDS so that local 
-        /// images, videos and sounds are loaded. To block external content, it should also include 
-        /// DLCTL_PRAGMA_NO_CACHE | DLCTL_FORCEOFFLINE | DLCTL_NO_CLIENTPULL so that external images are not loaded 
+        /// For Mail, these flags should always include DLCTL_DLIMAGES | DLCTL_VIDEOS | DLCTL_BGSOUNDS so that local
+        /// images, videos and sounds are loaded. To block external content, it should also include
+        /// DLCTL_PRAGMA_NO_CACHE | DLCTL_FORCEOFFLINE | DLCTL_NO_CLIENTPULL so that external images are not loaded
         /// and are displayed as a red X instead.
         /// </param>
         /// <param name="color"></param>
@@ -437,7 +434,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         public void SetSize(int width, int height)
         {
             panel.Size = new Size(width, height);
@@ -573,7 +569,6 @@ namespace OpenLiveWriter.PostEditor
                 throw;
             }
 
-
             Debug.Fail("Unknown value for editingView: " + editingMode.ToString() + "\r\nAccepted values Wysiwyg, Source, Preview, PlainText");
 
         }
@@ -669,9 +664,7 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         #region IContentEditor Members
-
 
         public bool GetDirtyState()
         {

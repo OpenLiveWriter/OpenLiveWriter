@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -194,11 +194,11 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         private void flowLayoutPanel_ClientSizeChanged(object sender, EventArgs e)
         {
-            // panel1 is used to make all the other controls stretch to fill the width of the flowLayoutPanel.  See  
-            // the MSDN article "How to: Anchor and Dock Child Controls in a FlowLayoutPanel Control" at 
+            // panel1 is used to make all the other controls stretch to fill the width of the flowLayoutPanel.  See
+            // the MSDN article "How to: Anchor and Dock Child Controls in a FlowLayoutPanel Control" at
             // http://msdn.microsoft.com/en-us/library/ms171633(VS.80).aspx
             if (flowLayoutPanel.VerticalScroll.Visible)
-                // The DisplayHelper.ScaleX(12) call is used to add horizontal padding between the controls in the  
+                // The DisplayHelper.ScaleX(12) call is used to add horizontal padding between the controls in the
                 // flowLayoutPanel and the vertical scroll bar.
                 panel1.Width = flowLayoutPanel.ClientSize.Width - Convert.ToInt32(DisplayHelper.ScaleX(12));
             else
@@ -352,7 +352,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         }
 
         #endregion
-
 
         #region Implementation of INewCategoryContext
 

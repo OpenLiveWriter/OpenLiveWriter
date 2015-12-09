@@ -10,7 +10,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 {
-	
+
 	public class RequiredFieldOmittedDisplayMessage :  DisplayMessage
 	{
 		/// <summary>
@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -58,7 +58,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -66,9 +65,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// RequiredFieldOmittedDisplayMessage
-			// 
+			//
 			this.Text = "You must enter a value for the {0} field in order{1}to configure weblog publishin" +
 				"g.";
 			this.Title = "Required Field Missing";

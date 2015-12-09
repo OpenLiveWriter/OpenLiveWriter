@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,10 +37,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -50,9 +49,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandViewSidebar
-			// 
+			//
 			this.ContextMenuPath = "Side&bar@100";
 			this.Identifier = "OpenLiveWriter.PostEditor.PostHtmlEditing.Commands.ViewSidebar";
 			this.MainMenuPath = "&View@2/Side&bar@140";

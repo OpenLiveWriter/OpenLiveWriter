@@ -39,7 +39,6 @@ namespace OpenLiveWriter.CoreServices.HTML
             return htmlWriter.ToString();
         }
 
-
         public static string FixLocalFileReferences(string html, ReferenceFixer fixer)
         {
             return FixLocalFileReferences(html, fixer, null);
@@ -50,12 +49,10 @@ namespace OpenLiveWriter.CoreServices.HTML
             return FixReferences(html, new ReferenceFixer(new LocalFileReferenceFixupFilter(fixer).FixReferences), referenceFixed);
         }
 
-
         protected override void DefaultAction(Element el)
         {
             _output.Write(el.ToString());
         }
-
 
         protected override void OnBeginTag(BeginTag tag)
         {
@@ -80,7 +77,6 @@ namespace OpenLiveWriter.CoreServices.HTML
         private TextWriter _output;
         private ReferenceFixer _referenceFixer;
         private ReferenceFixedCallback _referenceFixed;
-
 
         private class LocalFileReferenceFixupFilter
         {

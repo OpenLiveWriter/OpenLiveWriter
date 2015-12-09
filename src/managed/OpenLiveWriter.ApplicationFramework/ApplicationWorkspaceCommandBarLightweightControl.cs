@@ -17,7 +17,7 @@ namespace Project31.ApplicationFramework
 	/// </summary>
 	public class ApplicationWorkspaceCommandBarLightweightControl : CommandBarLightweightControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
@@ -44,7 +44,7 @@ namespace Project31.ApplicationFramework
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -60,8 +60,8 @@ namespace Project31.ApplicationFramework
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -87,7 +87,7 @@ namespace Project31.ApplicationFramework
 			//	Draw the first line of the top bevel.
 			using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.ApplicationWorkspaceCommandBarTopBevelFirstLineColor))
 				e.Graphics.FillRectangle(solidBrush, 0, 0, VirtualWidth, 1);
-			
+
 			//	Draw the second line of the top bevel.
 			using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.ApplicationWorkspaceCommandBarTopBevelSecondLineColor))
 				e.Graphics.FillRectangle(solidBrush, 0, 1, VirtualWidth, 1);
@@ -95,7 +95,7 @@ namespace Project31.ApplicationFramework
 			//	Draw the first line of the bottom bevel.
 			using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.ApplicationWorkspaceCommandBarBottomBevelFirstLineColor))
 				e.Graphics.FillRectangle(solidBrush, 0, VirtualHeight-2, VirtualWidth, 1);
-			
+
 			//	Draw the first line of the bottom bevel.
 			using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.ApplicationWorkspaceCommandBarBottomBevelSecondLineColor))
 				e.Graphics.FillRectangle(solidBrush, 0, VirtualHeight-1, VirtualWidth, 1);
@@ -103,7 +103,6 @@ namespace Project31.ApplicationFramework
 			//	Call the base class's method so that registered delegates receive the event.
 			base.OnPaint(e);
 		}
-
 
 	}
 }

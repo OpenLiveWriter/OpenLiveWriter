@@ -231,7 +231,7 @@ namespace OpenLiveWriter.ApplicationFramework
             return _accessibleObject;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -254,9 +254,9 @@ namespace OpenLiveWriter.ApplicationFramework
         private void InitializeComponent()
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // TabSelectorLightweightControl
-            // 
+            //
             this.AllowDrop = true;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -487,7 +487,6 @@ namespace OpenLiveWriter.ApplicationFramework
                                                     virtualClientRectangle.Y + 1,
                                                     virtualClientRectangle.Width - 2,
                                                     virtualClientRectangle.Height - (tabEntry.IsSelected ? 1 : 2));
-
 
             //	Fill face of the tab.
             Color topColor, bottomColor;

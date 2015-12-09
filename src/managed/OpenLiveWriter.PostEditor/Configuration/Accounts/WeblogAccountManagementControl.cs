@@ -63,7 +63,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         }
         private IBlogPostEditingSite _editingSite;
 
-
         private void listViewWeblogs_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateButtonEnabledStates();
@@ -77,7 +76,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             buttonView.Enabled = weblogSelected;
             buttonDelete.Enabled = weblogSelected && DeleteCommandEnabled;
         }
-
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -103,7 +101,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
                     }
                     return;
 
-
                 }
             }
             catch (Exception ex)
@@ -121,7 +118,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         {
             EditSelectedWeblog();
         }
-
 
 
         private void buttonView_Click(object sender, EventArgs e)
@@ -142,12 +138,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             get { return listViewWeblogs.Items.Count > 1; }
         }
 
-
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             DeleteSelectedWeblog();
         }
-
 
         /// <summary>
         /// Process keyboard accelerators
@@ -183,7 +177,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
                     // refresh contents of list-view item
                     listViewWeblogs.EditWeblogItem(listViewWeblogs.SelectedItems[0], SelectedWeblog);
 
-                    // set focus to the list							
+                    // set focus to the list
                     listViewWeblogs.Focus();
 
                     // if we have an editing site then notify it that we
@@ -201,7 +195,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         }
 
 
-
         private void DeleteSelectedWeblog()
         {
             if (SelectedWeblog == null)
@@ -214,7 +207,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
                     // delete the weblog
                     listViewWeblogs.DeleteSelectedWeblog();
 
-                    // set focus to the list					
+                    // set focus to the list
                     listViewWeblogs.Focus();
 
                     // update button enabled states
@@ -228,8 +221,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         }
 
 
-
-
         private BlogSettings SelectedWeblog
         {
             get
@@ -238,8 +229,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             }
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -268,8 +258,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         private IBlogSettingsEditor[] _blogSettingsEditors;
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -281,9 +271,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonView = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // listViewWeblogs
-            // 
+            //
             this.listViewWeblogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -299,9 +289,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.listViewWeblogs.View = System.Windows.Forms.View.Details;
             this.listViewWeblogs.DoubleClick += new System.EventHandler(this.listViewWeblogs_DoubleClick);
             this.listViewWeblogs.SelectedIndexChanged += new System.EventHandler(this.listViewWeblogs_SelectedIndexChanged);
-            // 
+            //
             // buttonAdd
-            // 
+            //
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonAdd.Location = new System.Drawing.Point(261, 0);
@@ -310,9 +300,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "&Add...";
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
+            //
             // buttonEdit
-            // 
+            //
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonEdit.Location = new System.Drawing.Point(261, 30);
@@ -321,9 +311,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.buttonEdit.TabIndex = 2;
             this.buttonEdit.Text = "&Edit...";
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
-            // 
+            //
             // buttonDelete
-            // 
+            //
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonDelete.Location = new System.Drawing.Point(261, 90);
@@ -332,9 +322,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.buttonDelete.TabIndex = 4;
             this.buttonDelete.Text = "&Delete";
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
+            //
             // buttonView
-            // 
+            //
             this.buttonView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonView.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonView.Location = new System.Drawing.Point(261, 60);
@@ -343,9 +333,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.buttonView.TabIndex = 3;
             this.buttonView.Text = "&View";
             this.buttonView.Click += new System.EventHandler(this.buttonView_Click);
-            // 
+            //
             // WeblogAccountManagementControl
-            // 
+            //
             this.Controls.Add(this.buttonView);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonEdit);
@@ -359,11 +349,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         #endregion
 
 
-
         /// <summary>
         /// Hook that allows for processing just after a new blog has been created.
         /// </summary>
-
 
     }
 }

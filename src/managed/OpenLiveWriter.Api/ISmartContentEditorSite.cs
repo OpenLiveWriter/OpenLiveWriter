@@ -32,7 +32,6 @@ namespace OpenLiveWriter.Api
         void UpdateStatusBar(Image image, string statusText);
     }
 
-
     /// <summary>
     /// Event handler that is fired when a content is resized.
     /// </summary>

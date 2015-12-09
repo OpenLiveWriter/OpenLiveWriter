@@ -271,7 +271,6 @@ namespace OpenLiveWriter.CoreServices
 
         #endregion
 
-
         #region Internal data structures
         [Serializable]
         private class Node

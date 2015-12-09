@@ -57,7 +57,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
         private const string DISPLAY_WEB_LAYOUT_WARNING = "DisplayWebLayoutWarning";
 
-
         public BlogEditingTemplateFile[] EditorTemplateHtmlFiles
         {
             get
@@ -206,7 +205,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     Trace.Assert(length > 0);
                     string supportingFilePath = templateContents.Substring(endPathRefIndex, length);
 
-                    // delete the supporting file directory 
+                    // delete the supporting file directory
                     Directory.Delete(Path.Combine(templateDirectory, supportingFilePath), true);
                 }
 

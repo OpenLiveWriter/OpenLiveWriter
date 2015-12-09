@@ -8,8 +8,8 @@ namespace OpenLiveWriter.FileDestinations
 	/// </summary>
 	public class ConnectionTimeoutWebPublishMessage : WebPublishMessage
 	{
-		
-		
+
+
 
 		public ConnectionTimeoutWebPublishMessage(params object[] textFormatArgs)
 		{
@@ -23,7 +23,6 @@ namespace OpenLiveWriter.FileDestinations
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -31,9 +30,9 @@ namespace OpenLiveWriter.FileDestinations
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// ConnectionTimeoutWebPublishMessage
-			// 
+			//
 			this.Text = "Unable to establish a connection with the FTP server.";
 			this.Title = "Connection Timed Out";
 

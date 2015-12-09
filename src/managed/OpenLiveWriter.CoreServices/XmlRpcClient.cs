@@ -83,7 +83,7 @@ namespace OpenLiveWriter.CoreServices
                 throw;
             }
 
-            // WinLive 616: The response encoding may not necessarily be the same as our request encoding. Attempt to 
+            // WinLive 616: The response encoding may not necessarily be the same as our request encoding. Attempt to
             // use the encoding specified in the HTTP header.
             string characterSet;
             if (TryGetCharacterSet(response, out characterSet))
@@ -127,8 +127,8 @@ namespace OpenLiveWriter.CoreServices
         /// Gets the character set associated with the WebResponse.
         /// </summary>
         /// <param name="response">The WebResponse to inspect for a character set.</param>
-        /// <param name="characterSet">When this method returns, contains the character set associated with the 
-        /// WebResponse if the character set is explicitly specified; otherwise, null. This parameter is passed 
+        /// <param name="characterSet">When this method returns, contains the character set associated with the
+        /// WebResponse if the character set is explicitly specified; otherwise, null. This parameter is passed
         /// uninitialized.</param>
         /// <returns>true if the WebResponse explicitly specifies a character set; otherwise, false.</returns>
         private bool TryGetCharacterSet(HttpWebResponse response, out string characterSet)
@@ -136,17 +136,17 @@ namespace OpenLiveWriter.CoreServices
             // A very applicable comment from MSDN on why not to use the HttpWebResponse.CharacterSet property:
             // http://msdn.microsoft.com/en-us/library/system.net.httpwebresponse.characterset(v=VS.80).aspx
             //
-            // "As stated in a previous comment, many web servers are poorly configured and don't include the charset 
-            // in their content type header, e. g. they just return "text/html". In theory, user agents should treat 
-            // it as ISO-8859-1, as recommended by W3C. This is what the CharacterSet property actually does: It 
-            // always returns ISO-8859-1 if the charset it not specified, although often the content has a different 
+            // "As stated in a previous comment, many web servers are poorly configured and don't include the charset
+            // in their content type header, e. g. they just return "text/html". In theory, user agents should treat
+            // it as ISO-8859-1, as recommended by W3C. This is what the CharacterSet property actually does: It
+            // always returns ISO-8859-1 if the charset it not specified, although often the content has a different
             // encoding (which of course HttpWebResponse cannot know).
-            // In real life however, in case of a missing charset definition in the HTTP header user agents look into 
-            // the markup, and usully a meta tag can be found that contains the correct encoding, like "utf-8". To 
-            // implement this pragmatic approach, it would IMHO be much more convenient if the CharacterSet would 
-            // default to an empty string, then you know, that the encoding is not specified and you need a workaround 
+            // In real life however, in case of a missing charset definition in the HTTP header user agents look into
+            // the markup, and usully a meta tag can be found that contains the correct encoding, like "utf-8". To
+            // implement this pragmatic approach, it would IMHO be much more convenient if the CharacterSet would
+            // default to an empty string, then you know, that the encoding is not specified and you need a workaround
             // to determine the correct encoding to use.
-            // The only workaround that I could find for me was to parse ContentType myself to extract the character 
+            // The only workaround that I could find for me was to parse ContentType myself to extract the character
             // set, and ignore ContentEncoding and CharacterSet because they are useless."
 
             string contentType = response.ContentType;
@@ -216,15 +216,12 @@ namespace OpenLiveWriter.CoreServices
             return request.ToArray();
         }
 
-
         //private Encoding _utf8EncodingNoBOM = new UTF8Encoding(false) ;
         private string _hostname;
         private string _userAgent;
         private HttpRequestFilter _requestFilter;
         private string _transportEncoding;
     }
-
-
 
 
     public abstract class XmlRpcValue
@@ -284,7 +281,6 @@ namespace OpenLiveWriter.CoreServices
                 writer.WriteString(value as string);
         }
     }
-
 
     public class XmlRpcBase64 : XmlRpcValue
     {
@@ -386,7 +382,6 @@ namespace OpenLiveWriter.CoreServices
         }
     }
 
-
     public class XmlRpcArray : XmlRpcValue
     {
         public XmlRpcArray(XmlRpcValue[] values)
@@ -409,7 +404,6 @@ namespace OpenLiveWriter.CoreServices
             Trace.Fail("This should never be called");
         }
     }
-
 
 
     public class XmlRpcStruct : XmlRpcValue
@@ -445,7 +439,6 @@ namespace OpenLiveWriter.CoreServices
         }
     }
 
-
     public class XmlRpcMember
     {
         public XmlRpcMember(string name, string value)
@@ -473,7 +466,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         public XmlRpcMember(string name, XmlRpcValue value)
         {
             Name = name;
@@ -490,7 +482,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private readonly XmlRpcValue _value;
     }
-
 
     public class XmlRpcMethodResponse
     {
@@ -527,7 +518,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         public XmlNode Response
         {
             get
@@ -536,7 +526,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private XmlNode _response = null;
-
 
         public bool FaultOccurred
         {
@@ -567,7 +556,6 @@ namespace OpenLiveWriter.CoreServices
 
     }
 
-
     public class XmlRpcClientInvalidResponseException : ApplicationException
     {
         public XmlRpcClientInvalidResponseException(string response, Exception innerException)
@@ -578,8 +566,6 @@ namespace OpenLiveWriter.CoreServices
 
         public readonly string Response;
     }
-
-
 
 
     /// <summary>

@@ -49,8 +49,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                          new ImageDecorator(PolaroidBorderDecorator.Id, Res.Get(StringId.DecoratorInstantPhoto), typeof(PolaroidBorderDecorator), BORDER_GROUP, true, false, true, false),
                                          new ImageDecorator(PhotoBorderDecorator.Id, Res.Get(StringId.DecoratorPhotopaper), typeof(PhotoBorderDecorator), BORDER_GROUP, true, false, true, false),
                                          new ImageDecorator(ReflectionBorderDecorator.Id, Res.Get(StringId.DecoratorReflection), typeof(ReflectionBorderDecorator), BORDER_GROUP, true, false, true, false),
-                                         new ImageDecorator(RoundedCornersBorderDecorator.Id, Res.Get(StringId.DecoratorRoundedCorners), typeof(RoundedCornersBorderDecorator), BORDER_GROUP, true, false, true, false), 
-										 //new ImageDecorator(SoftShadowBorderDecorator.Id, "Soft Shadow", typeof(SoftShadowBorderDecorator), true, false, true, false), 
+                                         new ImageDecorator(RoundedCornersBorderDecorator.Id, Res.Get(StringId.DecoratorRoundedCorners), typeof(RoundedCornersBorderDecorator), BORDER_GROUP, true, false, true, false),
+										 //new ImageDecorator(SoftShadowBorderDecorator.Id, "Soft Shadow", typeof(SoftShadowBorderDecorator), true, false, true, false),
 										 new ImageDecorator(ThinSolidBorderDecorator.Id, Res.Get(StringId.DecoratorSolid1px), typeof(ThinSolidBorderDecorator), BORDER_GROUP, true, false, true, false),
                                          new ImageDecorator(ThickSolidBorderDecorator.Id, Res.Get(StringId.DecoratorSolid3px), typeof(ThickSolidBorderDecorator), BORDER_GROUP, true, false, true, false),
             });
@@ -68,7 +68,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                          new ImageDecorator(HtmlImageResizeDecorator.Id, "Embedded Size", typeof(HtmlImageResizeDecorator), HTML_GROUP, true, true, true, true),
                                          new ImageDecorator(HtmlImageTargetDecorator.Id, "Image Target", typeof(HtmlImageTargetDecorator), HTML_GROUP, true, true, true, true),
             });
-
 
             ImageDecoratorGroup recolor = new ImageDecoratorGroup(RECOLOR_GROUP, true,
                 new ImageDecorator[] {
@@ -177,8 +176,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 					AddDecorator(
 						decAttr.Group != null ? decAttr.Group : DefaultGroupName,
 						new ImageDecorator(
-						decAttr.Id != null ? decAttr.Id : pluginImplType.FullName, 
-						decAttr.Name, 
+						decAttr.Id != null ? decAttr.Id : pluginImplType.FullName,
+						decAttr.Name,
 						pluginImplType, false));
 				}
 				else
@@ -288,7 +287,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         Command _command;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="decoratorId">The unique decorator id.</param>
         /// <param name="decoratorName">The user-visible name of the decorator.</param>

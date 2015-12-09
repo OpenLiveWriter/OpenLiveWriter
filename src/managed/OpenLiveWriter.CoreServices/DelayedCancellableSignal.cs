@@ -107,7 +107,7 @@ namespace OpenLiveWriter.CoreServices
 			timers.Add(t);
 		}
 
-		public void SignalNow() 
+		public void SignalNow()
 		{
 			MaybeSignal(DateTime.Now);
 		}

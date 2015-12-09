@@ -25,14 +25,13 @@ namespace OpenLiveWriter.FileDestinations
             m_retryPause = 1000;
         }
 
-
         /// <summary>
         /// File Destination constructor
         /// </summary>
         /// <param name="path">The path to the destination</param>
         /// <param name="retryCount">The number of times to retry a file transfer that has
         /// suffered a non fatal error</param>
-        /// <param name="retryPause">The amount of time, in milliseconds, to wait between 
+        /// <param name="retryPause">The amount of time, in milliseconds, to wait between
         /// retries</param>
         protected FileDestination(string path, int retryCount, int retryPause)
         {
@@ -51,7 +50,7 @@ namespace OpenLiveWriter.FileDestinations
             if (path == String.Empty)
                 return;
 
-            // keep a hashtable of all the directories we've created, if we haven't 
+            // keep a hashtable of all the directories we've created, if we haven't
             // already created this one
             if (!m_createdDirectories.ContainsKey(path))
             {
@@ -65,14 +64,13 @@ namespace OpenLiveWriter.FileDestinations
 
         }
 
-
         /// <summary>
         /// Transfers the file from a path to a destination
         /// </summary>
         /// <param name="fromPath">The path from which to transfer the file</param>
         /// <param name="toPath">The path to which to transfer the file</param>
         /// <param name="overWrite">Whether or not to overwrite already existing files</param>
-        /// <param name="retryCount">How many times to retry the transfer of an individual 
+        /// <param name="retryCount">How many times to retry the transfer of an individual
         /// file</param>
         /// <param name="retryPause">How long to pause between retry attempts</param>
         /// <param name="status">An IPublisherStatus for status updates</param>
@@ -94,8 +92,7 @@ namespace OpenLiveWriter.FileDestinations
                     break;
 
 
-
-                // Wait and then retry copyfile					
+                // Wait and then retry copyfile
                 attempts++;
 
                 // NOTE: This is not CPU optimized- need to optimize
@@ -117,7 +114,6 @@ namespace OpenLiveWriter.FileDestinations
                     0);
 
         }
-
 
 
         /// <summary>
@@ -172,10 +168,9 @@ namespace OpenLiveWriter.FileDestinations
         /// <returns>True indicates success, False indicates a non fatal error</returns>
         abstract public bool CopyFile(string FromPath, string ToPath, bool overWriteFiles);
 
-
         /// <summary>
         /// This method is called to determine whether a directory exists.  This is used to
-        /// determine whether to create a new directory or not. 
+        /// determine whether to create a new directory or not.
         /// </summary>
         /// <param name="Path">The directory</param>
         /// <returns>true indicates the directory exists, false indicates it doesn't</returns>
@@ -203,9 +198,8 @@ namespace OpenLiveWriter.FileDestinations
         /// <returns>true indicates the file was successfully transferred</returns>
         abstract public bool GetFile(String RemotePath, string LocalFile, bool isBinary);
 
-
         /// <summary>
-        /// Creates a directory based upon a path, not just a directory name. 
+        /// Creates a directory based upon a path, not just a directory name.
         /// </summary>
         /// <param name="path">The path to create</param>
         abstract public void CreateDirectory(string path);

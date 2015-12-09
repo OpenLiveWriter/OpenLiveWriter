@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using OpenLiveWriter.Interop.Com;
 
-
 namespace OpenLiveWriter.Interop.Windows
 {
     /// <summary>
@@ -19,7 +18,6 @@ namespace OpenLiveWriter.Interop.Windows
             [In] IntPtr pBC,
             [In] string szURL,
             [In] Int32 dxReserved);
-
 
         [DllImport("urlmon.dll")]
         public static extern int CreateURLMoniker(

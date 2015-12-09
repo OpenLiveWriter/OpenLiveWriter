@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 namespace OpenLiveWriter.PostEditor.Video
@@ -43,12 +43,12 @@ namespace OpenLiveWriter.PostEditor.Video
         public const float WidescreenAspectRatio = 16f / 9f;
 
         /// <summary>
-        /// Computes a new size by keeping the width the same and resizing the height to fit the provided aspect ratio 
+        /// Computes a new size by keeping the width the same and resizing the height to fit the provided aspect ratio
         /// type.
         /// </summary>
         /// <param name="videoAspectRatioType">The aspect ratio type that bounds the height.</param>
         /// <param name="currentSize">The current size of the video.</param>
-        /// <returns>A new size with the same width but a new height that conforms to the provided aspect 
+        /// <returns>A new size with the same width but a new height that conforms to the provided aspect
         /// ratio type.</returns>
         public static Size ResizeHeightToAspectRatio(VideoAspectRatioType videoAspectRatioType, Size currentSize)
         {
@@ -67,7 +67,7 @@ namespace OpenLiveWriter.PostEditor.Video
         /// </summary>
         /// <param name="newAspectRatio">The aspect ratio that bounds the height.</param>
         /// <param name="currentSize">The current size of the video.</param>
-        /// <returns>A new size with the same width but a new height that conforms to the provided aspect 
+        /// <returns>A new size with the same width but a new height that conforms to the provided aspect
         /// ratio.</returns>
         public static Size ResizeHeightToAspectRatio(float newAspectRatio, Size currentSize)
         {

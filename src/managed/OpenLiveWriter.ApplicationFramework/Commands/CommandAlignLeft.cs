@@ -19,7 +19,7 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -31,10 +31,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -44,9 +43,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandAlignLeft
-			// 
+			//
 			this.ContextMenuPath = "";
 			this.Identifier = "MindShare.ApplicationCore.Commands.AlignLeft";
 			this.MainMenuPath = "F&ormat@5/-&Align@300/&Left@100";

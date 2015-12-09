@@ -35,8 +35,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             LayoutHelper.FixupOKCancel(btnSelect, btnCancel);
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -52,8 +51,8 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -63,9 +62,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // listViewGlossary
-            // 
+            //
             this.listViewGlossary.AutoArrange = false;
             this.listViewGlossary.FullRowSelect = true;
             this.listViewGlossary.HideSelection = false;
@@ -77,27 +76,27 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.listViewGlossary.TabIndex = 0;
             this.listViewGlossary.View = System.Windows.Forms.View.Details;
             this.listViewGlossary.DoubleClick += new System.EventHandler(this.listViewGlossary_DoubleClick);
-            // 
+            //
             // btnSelect
-            // 
+            //
             this.btnSelect.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSelect.Location = new System.Drawing.Point(191, 295);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.TabIndex = 1;
             this.btnSelect.Text = "OK";
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCancel.Location = new System.Drawing.Point(274, 295);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // SelectGlossaryLinkForm
-            // 
+            //
             this.AcceptButton = this.btnSelect;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.btnCancel;
@@ -129,7 +128,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         {
             DialogResult = DialogResult.OK;
         }
-
 
         public GlossaryLinkItem SelectedEntry
         {

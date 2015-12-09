@@ -6,7 +6,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Settings.DisplayMessages
 {
-	
+
 	public class FtpSettingsRequiredDisplayMessage : DisplayMessage
 	{
 		/// <summary>
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings.DisplayMessages
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -47,7 +47,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings.DisplayMessages
 			}
 			base.Dispose( disposing );
 		}
-
 
 		#region Component Designer generated code
 		/// <summary>

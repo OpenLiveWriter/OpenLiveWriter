@@ -18,7 +18,7 @@ namespace Project31.CoreServices
 	public class AsyncPageDownload : AsyncOperation
 	{
 
-		
+
 		/// <summary>
 		/// Downloads a page and all its references into a Site Storage
 		/// </summary>
@@ -30,13 +30,12 @@ namespace Project31.CoreServices
 		/// through this target, ensuring that they are delivered to the
 		/// correct thread.</param>
 		public AsyncPageDownload(
-			string url, 
-			ISiteStorage storage, 
+			string url,
+			ISiteStorage storage,
 			string rootFileName,
 			ISynchronizeInvoke target) : this (url, storage, rootFileName, "", target)
 		{
 		}
-
 
 		/// <summary>
 		/// Downloads a page and all its references into a Site Storage
@@ -48,12 +47,11 @@ namespace Project31.CoreServices
 		/// ISynchronizeInvoke interface.  All events will be delivered
 		/// through this target, ensuring that they are delivered to the
 		/// correct thread.</param>
-		public AsyncPageDownload(IHTMLDocument2 document, 
+		public AsyncPageDownload(IHTMLDocument2 document,
 			ISiteStorage storage, string rootFileName, ISynchronizeInvoke target) :
 			this (document, storage, rootFileName, "", target)
 		{
 		}
-
 
 		/// <summary>
 		/// Actually downloads the files (note that it is synchronous)
@@ -69,7 +67,7 @@ namespace Project31.CoreServices
 			// If the base document hasn't been populated, go get it
 			if (m_htmlDocument == null)
 				m_htmlDocument = HTMLDocumentHelper.GetHTMLDocFromURL(m_url);
-						
+
 			if (CancelRequested)
 			{
 				AcknowledgeCancel();
@@ -78,25 +76,25 @@ namespace Project31.CoreServices
 
 			// Get a list of referenced URLs from the document
 			Hashtable urlList = HTMLDocumentHelper.GetResourceUrlsFromDocument(m_htmlDocument);
-						
+
 			if (CancelRequested)
 			{
 				AcknowledgeCancel();
 				return;
 			}
-			
+
 			// Get the HTML from this document- we'll use this as the base HTML and replace
 			// paths inside of it.
 			string finalHTML = HTMLDocumentHelper.HTMLDocToString(m_htmlDocument);
-			
+
 			IEnumerator urlEnum = urlList.GetEnumerator();
 			while (urlEnum.MoveNext())
 			{
 				DictionaryEntry element = (DictionaryEntry) urlEnum.Current;
 				string url = (string)element.Key;
 				string urlType = (string)element.Value;
-				
-				
+
+
 				string fullUrl = HTMLDocumentHelper.EscapeRelativeURL(m_url, url);
 				string fileName = FileHelper.GetValidFileName(Path.GetFileName(new Uri(fullUrl).AbsolutePath));
 				string relativePath;
@@ -107,14 +105,14 @@ namespace Project31.CoreServices
 					{
 						relativePath = "referencedFiles/" + fileName;
 						WebRequestWithCache request = new WebRequestWithCache(fullUrl);
-							
+
 						// Add the html document to the site Storage.
 						using (Stream requestStream = request.GetResponseStream())
 						{
 							if (requestStream != null)
 							{
-								using (Stream fileStream = 
-											m_siteStorage.Open(m_rootPath + relativePath, AccessMode.Write)) 
+								using (Stream fileStream =
+											m_siteStorage.Open(m_rootPath + relativePath, AccessMode.Write))
 								{
 									StreamHelper.Transfer(requestStream, fileStream, 8192, true);
 								}
@@ -125,17 +123,17 @@ namespace Project31.CoreServices
 					{
 						fileName = Path.GetFileNameWithoutExtension(fileName) + ".htm";
 						relativePath = "referencedFiles/" + fileName;
-						
-						AsyncPageDownload frameDownload = 
-							new AsyncPageDownload(fullUrl, 
-									m_siteStorage,						
+
+						AsyncPageDownload frameDownload =
+							new AsyncPageDownload(fullUrl,
+									m_siteStorage,
 									fileName,
 									m_rootPath + "referencedFiles/",
 									this.Target);
 						frameDownload.Start();
-						frameDownload.WaitUntilDone();							
-						
-						// Regular expressions would allow more flexibility here, but note that 
+						frameDownload.WaitUntilDone();
+
+						// Regular expressions would allow more flexibility here, but note that
 						// characters like ? / & have meaning in regular expressions and so need
 						// to be escaped
 					}
@@ -147,20 +145,19 @@ namespace Project31.CoreServices
 					return;
 				}
 			}
-			
+
 			// Escape any high ascii characters
 			finalHTML = HTMLDocumentHelper.EscapeHighAscii(finalHTML.ToCharArray());
-			
+
 			// Add the html document to the site Storage.
 			Stream  htmlStream = m_siteStorage.Open(m_rootPath + m_rootFile, AccessMode.Write);
-			
+
 			using (StreamWriter writer = new StreamWriter(htmlStream, Encoding.UTF8))
 			{
 				writer.Write(finalHTML);
 			}
 			m_siteStorage.RootFile = m_rootFile;
 		}
-
 
 		/// <summary>
 		/// Downloads a page and all its references into a Site Storage
@@ -174,10 +171,10 @@ namespace Project31.CoreServices
 		/// through this target, ensuring that they are delivered to the
 		/// correct thread.</param>
 		private AsyncPageDownload(
-			string url, 
-			ISiteStorage storage, 
+			string url,
+			ISiteStorage storage,
 			string rootFileName,
-			string storageRootPath, 
+			string storageRootPath,
 			ISynchronizeInvoke target) : base (target)
 		{
 			m_url = url;
@@ -186,8 +183,8 @@ namespace Project31.CoreServices
 			m_rootPath = storageRootPath;
 		}
 
-		
-		
+
+
 		/// <summary>
 		/// Downloads a page and all its references into a Site Storage
 		/// </summary>
@@ -199,7 +196,7 @@ namespace Project31.CoreServices
 		/// ISynchronizeInvoke interface.  All events will be delivered
 		/// through this target, ensuring that they are delivered to the
 		/// correct thread.</param>
-		private AsyncPageDownload(IHTMLDocument2 document, 
+		private AsyncPageDownload(IHTMLDocument2 document,
 			ISiteStorage storage, string rootFileName, string storageRootPath, ISynchronizeInvoke target) :
 			base (target)
 		{
@@ -209,7 +206,6 @@ namespace Project31.CoreServices
 			m_rootFile = rootFileName;
 			m_rootPath = storageRootPath;
 		}
-
 
 		/// <summary>
 		/// The base IHTMLDocument2

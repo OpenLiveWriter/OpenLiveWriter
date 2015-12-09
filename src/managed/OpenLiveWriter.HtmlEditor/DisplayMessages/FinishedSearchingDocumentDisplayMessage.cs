@@ -8,7 +8,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.HtmlEditor.DisplayMessages
 {
-	
+
 	public class FinishedSearchingDocumentDisplayMessage : DisplayMessage
 	{
 		/// <summary>
@@ -31,11 +31,11 @@ namespace OpenLiveWriter.HtmlEditor.DisplayMessages
 			///
 			/// Required for Windows.Forms Class Composition Designer support
 			///
-			InitializeComponent();	
+			InitializeComponent();
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.HtmlEditor.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -58,9 +57,9 @@ namespace OpenLiveWriter.HtmlEditor.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// FinishedSearchingDocumentDisplayMessage
-			// 
+			//
 			this.Text = "Finished searching the document.";
 			this.Title = "Find";
 

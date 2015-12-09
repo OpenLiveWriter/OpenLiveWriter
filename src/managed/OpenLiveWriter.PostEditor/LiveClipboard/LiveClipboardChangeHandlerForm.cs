@@ -121,9 +121,9 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.labelFormatName = new System.Windows.Forms.Label();
             this.pictureBoxFormatIcon = new System.Windows.Forms.PictureBox();
             this.SuspendLayout();
-            // 
+            //
             // listViewComponents
-            // 
+            //
             this.listViewComponents.AutoArrange = false;
             this.listViewComponents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
                                                                                                  this.columnHeaderHandler});
@@ -138,73 +138,73 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.listViewComponents.SmallImageList = this.imageListComponents;
             this.listViewComponents.TabIndex = 3;
             this.listViewComponents.View = System.Windows.Forms.View.Details;
-            // 
+            //
             // columnHeaderHandler
-            // 
+            //
             this.columnHeaderHandler.Text = "Component";
             this.columnHeaderHandler.Width = 275;
-            // 
+            //
             // imageListComponents
-            // 
+            //
             this.imageListComponents.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imageListComponents.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListComponents.TransparentColor = System.Drawing.Color.Transparent;
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(153, 215);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.TabIndex = 4;
             this.buttonOK.Text = "OK";
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonCancel.Location = new System.Drawing.Point(233, 215);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // labelCaption
-            // 
+            //
             this.labelCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCaption.Location = new System.Drawing.Point(9, 50);
             this.labelCaption.Name = "labelCaption";
             this.labelCaption.Size = new System.Drawing.Size(292, 16);
             this.labelCaption.TabIndex = 2;
             this.labelCaption.Text = "Components capable of handling \'{0}\':";
-            // 
+            //
             // labelContentType
-            // 
+            //
             this.labelContentType.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelContentType.Location = new System.Drawing.Point(33, 27);
             this.labelContentType.Name = "labelContentType";
             this.labelContentType.Size = new System.Drawing.Size(270, 16);
             this.labelContentType.TabIndex = 1;
             this.labelContentType.Text = "vcalendar (application/xhtml+xml)";
-            // 
+            //
             // labelFormatName
-            // 
+            //
             this.labelFormatName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelFormatName.Location = new System.Drawing.Point(33, 7);
             this.labelFormatName.Name = "labelFormatName";
             this.labelFormatName.Size = new System.Drawing.Size(267, 15);
             this.labelFormatName.TabIndex = 0;
             this.labelFormatName.Text = "iCalendar";
-            // 
+            //
             // pictureBoxFormatIcon
-            // 
+            //
             this.pictureBoxFormatIcon.Location = new System.Drawing.Point(7, 5);
             this.pictureBoxFormatIcon.Name = "pictureBoxFormatIcon";
             this.pictureBoxFormatIcon.Size = new System.Drawing.Size(20, 18);
             this.pictureBoxFormatIcon.TabIndex = 9;
             this.pictureBoxFormatIcon.TabStop = false;
-            // 
+            //
             // LiveClipboardChangeHandlerForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;

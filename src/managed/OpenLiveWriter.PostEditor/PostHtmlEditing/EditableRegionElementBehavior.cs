@@ -77,7 +77,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             Invalidate();
         }
 
-
         public virtual string GetEditedHtml(bool useXhtml, bool doCleanup)
         {
             try
@@ -136,7 +135,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                             needsCleanup = true;
                             continue;
                         }
-
 
                         output.Append("<");
                         output.Append(bt.Name.ToLower(CultureInfo.InvariantCulture));
@@ -628,7 +626,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
 
-
         /// <summary>
         /// Returns the bounds of line that the pointer is positioned within in client-based coordinates.
         /// </summary>
@@ -644,7 +641,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             //in to each element declared on the line.
 
             IDisplayServicesRaw displayServices = (IDisplayServicesRaw)HTMLElement.document;
-
 
             //position a display pointer on the same line as the markup pointer
             IDisplayPointerRaw displayPointer;
@@ -680,7 +676,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     {
                         // http://msdn.microsoft.com/en-us/library/aa752674(VS.85).aspx
                         // IDisplayPointer::MoveToMarkupPointer will return an error (CTL_E_INVALIDLINE),
-                        // if the markup pointer is in a line whose nearest layout element *is not a flow layout element*.                        
+                        // if the markup pointer is in a line whose nearest layout element *is not a flow layout element*.
                         dpLineRect = GetLineRect(pLineStart.CurrentScope);
 
                         // We also want to skip past the entire current scope...
@@ -698,7 +694,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 {
                     lineRect.Height += dpLineRect.Bottom - lineRect.Bottom;
                 }
-
 
                 pLineStart.Right(true);
             }

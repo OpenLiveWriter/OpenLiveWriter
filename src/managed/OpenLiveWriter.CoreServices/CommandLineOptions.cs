@@ -361,9 +361,9 @@ namespace OpenLiveWriter.CoreServices
 
     /// <summary>
     /// Describes a named argument--its name, options, and description.
-    /// 
+    ///
     /// Examples:
-    /// 
+    ///
     /// /foo
     /// /bar:10
     /// /baz:C30BD034

@@ -29,7 +29,7 @@ namespace OpenLiveWriter.InternalWriterPlugin
         public static int MAX_ZOOM = 19;
 
         private ExplorerBrowserControl explorerBrowserControl;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -47,7 +47,7 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.RightToLeft = RightToLeft.No;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -73,17 +73,17 @@ namespace OpenLiveWriter.InternalWriterPlugin
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.explorerBrowserControl = new OpenLiveWriter.BrowserControl.ExplorerBrowserControl();
             this.SuspendLayout();
-            // 
+            //
             // explorerBrowserControl
-            // 
+            //
             this.explorerBrowserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.explorerBrowserControl.Location = new System.Drawing.Point(1, 1);
             this.explorerBrowserControl.Name = "explorerBrowserControl";
@@ -92,9 +92,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.explorerBrowserControl.TabIndex = 0;
             this.explorerBrowserControl.TextSize = OpenLiveWriter.BrowserControl.TextSize.Medium;
             this.explorerBrowserControl.WorkOffline = false;
-            // 
+            //
             // MapControl
-            // 
+            //
             this.Controls.Add(this.explorerBrowserControl);
             this.DockPadding.All = 1;
             this.Name = "MapControl";
@@ -158,12 +158,11 @@ namespace OpenLiveWriter.InternalWriterPlugin
         }
         #endregion
 
-
         private void explorerBrowserControl_DocumentComplete(object sender, BrowserDocumentEventArgs e)
         {
             IHTMLDocument2 document = (IHTMLDocument2)explorerBrowserControl.Document;
 
-            // turn off borders 
+            // turn off borders
             (document.body as IHTMLElement).style.borderStyle = "none";
 
             //MapActiveObject.ClearEvents();

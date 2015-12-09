@@ -61,14 +61,14 @@ namespace Project31.ApplicationFramework
 				menuType = value;
 			}
 		}
-		
+
 		/// <summary>
 		/// Initializes a new instance of the MergeMenu class.
-		/// </summary>		
+		/// </summary>
 		public MergeMenu()
 		{
 		}
-			
+
 		/// <summary>
 		/// Creates and returns a set of menu items for the commands that have been merged.
 		/// </summary>
@@ -94,7 +94,7 @@ namespace Project31.ApplicationFramework
 
 			//	Parse the menu path into an array of menu path entries.
 			string[] menuPathEntries = menuPath.Split(new char[] {'/'});
-			
+
 			//	Build the menu structure for this command from the array of menu path entries.  For
 			//	example, &File@1/&Close@2 specifies that this command represents the Close command
 			//	of the File menu.  It specifies that the Close MenuItem should appear at merge
@@ -135,7 +135,7 @@ namespace Project31.ApplicationFramework
 		/// <summary>
 		/// Helper to parse a menu path entry describing a menu item in the form:
 		///		[-]text@position
-		///		
+		///
 		///	'-'			Optional.  Specifies that a separator menu item should be inserted before the
 		///				menu item item.
 		///	text		Menu item text (i.e. &File)

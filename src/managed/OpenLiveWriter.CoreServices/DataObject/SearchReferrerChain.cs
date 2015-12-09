@@ -6,7 +6,6 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
 
-
 namespace Project31.CoreServices
 {
 
@@ -44,7 +43,7 @@ namespace Project31.CoreServices
 		private static ExplorerUrlTracker explorerUrlTracker = new ExplorerUrlTracker();
 
 		/// <summary>
-		/// Adds an entry to the referrerChain.  Note that entries are only added to the referrer chain 
+		/// Adds an entry to the referrerChain.  Note that entries are only added to the referrer chain
 		/// if they are either a search or parented by something already in the referrer chain.
 		/// </summary>
 		/// <param name="url">The url to add</param>
@@ -69,7 +68,7 @@ namespace Project31.CoreServices
 		public SearchSpec FindSearchSpec(string url)
 		{
 			string parent = FindParent(url, m_urlList.Length - 1);
-			
+
 			// Only return a search spec if the url isn't itself a search
 			if (parent != url)
 				return GetSearchSpec(parent);
@@ -78,9 +77,8 @@ namespace Project31.CoreServices
 		}
 
 
-
 		/// <summary>
-		/// Tests the url against the system provided search descriptors and returns the first matching 
+		/// Tests the url against the system provided search descriptors and returns the first matching
 		/// search spec (if any).
 		/// </summary>
 		/// <param name="url">The url to test</param>
@@ -93,18 +91,17 @@ namespace Project31.CoreServices
 				if (IsSearchUrl(url, searchDescriptor))
 				{
 					string keywords = (string)UrlHelper.GetQueryParams(url)[searchDescriptor.KeyWordQueryParam];
-																								
+
 					searchSpec = new SearchSpec();
 					searchSpec.SearchProviderName = searchDescriptor.SearchProviderName;
 					searchSpec.SearchUrl = url;
 					searchSpec.Keywords = keywords.Split('+');
 					break;
 				}
-				
+
 			}
 			return searchSpec;
 		}
-
 
 		/// <summary>
 		/// Determines if the url is a search url
@@ -119,7 +116,7 @@ namespace Project31.CoreServices
 				return false;
 		}
 
-		
+
 		/// <summary>
 		/// Determines if a search url is a specific search
 		/// </summary>
@@ -175,7 +172,7 @@ namespace Project31.CoreServices
 					urlIndex = i;
 					break;
 				}
-				
+
 			}
 			return urlIndex;
 		}
@@ -198,7 +195,6 @@ namespace Project31.CoreServices
 			}
 			return containsReferrer;
 		}
-
 
 		/// <summary>
 		/// The list of referrers
@@ -231,7 +227,7 @@ namespace Project31.CoreServices
 		/// <returns></returns>
 		private SearchDescriptor[] GetSearchDescriptors()
 		{
-			return new SearchDescriptor[] 
+			return new SearchDescriptor[]
 						{
 							new SearchDescriptor("Google", @"google.com", @"q"),
 							new SearchDescriptor("Teoma", @"teoma.com/search", @"q"),
@@ -246,7 +242,6 @@ namespace Project31.CoreServices
 		}
 	}
 
-
 	/// <summary>
 	/// A Search Descriptor provides the information to process
 	/// a url and determine whether it is a search (and parse keywords)
@@ -258,7 +253,7 @@ namespace Project31.CoreServices
 		/// constructs a new search descriptor
 		/// </summary>
 		/// <param name="name">The human readable name of the search engine</param>
-		/// <param name="baseUrlMatch">The portion of the url that will determine a 
+		/// <param name="baseUrlMatch">The portion of the url that will determine a
 		/// match (in combination with the keywordqueryparam)</param>
 		/// <param name="keyWordQueryParam">The queryparam that holds the keywords</param>
 		public SearchDescriptor(string name, string baseUrlMatch, string keyWordQueryParam)
@@ -281,7 +276,7 @@ namespace Project31.CoreServices
 		private string m_searchProviderName;
 
 		/// <summary>
-		/// The portion of the url that will determine a 
+		/// The portion of the url that will determine a
 		/// match (in combination with the keywordqueryparam)
 		/// </summary>
 		public string BaseUrlMatch

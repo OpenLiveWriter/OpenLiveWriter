@@ -64,7 +64,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
             }
         }
 
-
         private bool IsSuppressed(TagProvider provider)
         {
             return _properties.GetSubProperties(SUPPRESSED).GetBoolean(provider.Id, false);
@@ -74,7 +73,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
         {
             _properties.GetSubProperties(SUPPRESSED).SetBoolean(provider.Id, true);
         }
-
 
         public void RestoreDefaults()
         {
@@ -131,7 +129,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
             }
         }
         private static TagProvider[] _tagProviders;
-
 
         private static TagProvider[] LoadXmlTagProviders(bool allowDownload)
         {
@@ -193,7 +190,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
             else
                 return String.Empty;
         }
-
 
         private const string ID = "id";
         private const string CAPTION = "caption";

@@ -25,7 +25,7 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,11 +37,11 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -64,9 +63,9 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// WeblogNoAccountsOnServerDisplayMessage
-			// 
+			//
 			this.Text = "A successful connection was made to your account however the server{0}reported th" +
 				"at you do not currently have an active weblog. Please ensure{0}that your account" +
 				" with this provider is current before proceeding.";

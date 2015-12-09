@@ -70,7 +70,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         public static bool SafeDeleteLocalPost(string blogId, string postId)
         {
             try

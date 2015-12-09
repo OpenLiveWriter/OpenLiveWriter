@@ -40,8 +40,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
     }
 
 
-
-
     public interface IBlogClient
     {
         string ProtocolName { get; }
@@ -162,7 +160,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         private string _parentId;
     }
 
-
     public class AuthorInfo : ICloneable
     {
         public AuthorInfo(string id, string name)
@@ -178,7 +175,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
 
         public string Name { get { return _name; } }
 
-
         public object Clone()
         {
             return new AuthorInfo(Id, Name);
@@ -186,8 +182,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
 
         private string _id;
         private string _name;
-
-
 
 
     }

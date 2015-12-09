@@ -16,15 +16,15 @@ namespace OpenLiveWriter.CoreServices
 		public static string DropFirstArg(string cmdLine, out string firstArg)
 		{
 			char[] ws = {' ', '\t'};
-		
+
 			cmdLine = cmdLine.TrimStart(ws);
-		
+
 			const int STATE_BEGIN = 0;
 			const int STATE_INARG = 1;
 			const int STATE_INQARG = 2;
-		
+
 			int state = STATE_BEGIN;
-		
+
 			for (int i = 0; i < cmdLine.Length; i++)
 			{
 				char c = cmdLine[i];

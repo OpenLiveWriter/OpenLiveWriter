@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code

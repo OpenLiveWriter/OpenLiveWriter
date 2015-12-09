@@ -22,7 +22,7 @@ namespace OpenLiveWriter.PostEditor.Tables.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -34,11 +34,11 @@ namespace OpenLiveWriter.PostEditor.Tables.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -53,7 +53,6 @@ namespace OpenLiveWriter.PostEditor.Tables.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -61,9 +60,9 @@ namespace OpenLiveWriter.PostEditor.Tables.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// ConfirmDeletePostDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
 			this.Text = "Are you sure you want to delete the table?";
 			this.Title = "Confirm Delete";

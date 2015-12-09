@@ -26,7 +26,6 @@ namespace OpenLiveWriter.Mshtml
             out IntPtr ppElement);
     }
 
-
     /// <summary>
     /// Enum for flags returned from GetEventInfoFlags
     /// </summary>

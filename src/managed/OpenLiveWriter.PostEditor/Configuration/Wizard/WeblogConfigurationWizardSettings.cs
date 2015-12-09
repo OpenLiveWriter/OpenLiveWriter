@@ -6,7 +6,6 @@ using OpenLiveWriter.CoreServices.Settings;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.PostEditor.BlogProviderButtons;
 
-
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
     public sealed class WeblogConfigurationWizardSettings

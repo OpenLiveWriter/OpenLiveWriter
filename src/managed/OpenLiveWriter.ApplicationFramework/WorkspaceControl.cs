@@ -306,9 +306,9 @@ namespace OpenLiveWriter.ApplicationFramework
             ((System.ComponentModel.ISupportInitialize)(this.centerColumn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightColumn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // leftColumn
-            // 
+            //
             this.leftColumn.HorizontalSplitterHeight = 4;
             this.leftColumn.LightweightControlContainerControl = this;
             this.leftColumn.MinimumColumnWidth = 30;
@@ -317,17 +317,17 @@ namespace OpenLiveWriter.ApplicationFramework
             this.leftColumn.MaximumColumnWidthChanged += new System.EventHandler(this.leftColumn_MaximumColumnWidthChanged);
             this.leftColumn.PreferredColumnWidthChanged += new System.EventHandler(this.leftColumn_PreferredColumnWidthChanged);
             this.leftColumn.MinimumColumnWidthChanged += new System.EventHandler(this.leftColumn_MinimumColumnWidthChanged);
-            // 
+            //
             // centerColumn
-            // 
+            //
             this.centerColumn.HorizontalSplitterHeight = 4;
             this.centerColumn.LightweightControlContainerControl = this;
             this.centerColumn.MinimumColumnWidth = 30;
             this.centerColumn.PreferredColumnWidth = 30;
             this.centerColumn.VerticalSplitterWidth = 4;
-            // 
+            //
             // rightColumn
-            // 
+            //
             this.rightColumn.HorizontalSplitterHeight = 4;
             this.rightColumn.LightweightControlContainerControl = this;
             this.rightColumn.MinimumColumnWidth = 30;
@@ -336,9 +336,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.rightColumn.MaximumColumnWidthChanged += new System.EventHandler(this.rightColumn_MaximumColumnWidthChanged);
             this.rightColumn.PreferredColumnWidthChanged += new System.EventHandler(this.rightColumn_PreferredColumnWidthChanged);
             this.rightColumn.MinimumColumnWidthChanged += new System.EventHandler(this.rightColumn_MinimumColumnWidthChanged);
-            // 
+            //
             // WorkspaceControl
-            // 
+            //
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Name = "WorkspaceControl";
             this.Size = new System.Drawing.Size(294, 286);
@@ -689,7 +689,6 @@ namespace OpenLiveWriter.ApplicationFramework
                     FirstCommandBarLightweightControl.VirtualBounds = Rectangle.Empty;
                 }
             }
-
 
             //	If we have a "second" command bar lightweight control, lay it out.
             if (SecondCommandBarLightweightControl != null)

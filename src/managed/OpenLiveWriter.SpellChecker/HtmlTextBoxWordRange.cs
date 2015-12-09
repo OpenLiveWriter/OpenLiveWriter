@@ -12,7 +12,7 @@ namespace OpenLiveWriter.SpellChecker
 {
 	/// <summary>
 	/// Some test cases:
-	/// 
+	///
 	/// [empty string]
 	/// all correct words
 	/// mzispalled wordz
@@ -22,7 +22,7 @@ namespace OpenLiveWriter.SpellChecker
 	/// numb3rs
 	/// 1312
 	/// &#x47;ood
-	/// 
+	///
 	/// Limitations:
 	/// Doesn't handle mid-word markup (e.g. t<i>e</i>st)
 	/// Doesn't correct ALT attributes
@@ -148,12 +148,12 @@ namespace OpenLiveWriter.SpellChecker
 		private class WordSource
 		{
 			[Flags]
-			private enum CharClass 
+			private enum CharClass
 			{
-				Break = 1, 
+				Break = 1,
 				BoundaryBreak = 2, // only counts as break if at start or end of word
 				LetterOrNumber = 4,
-				Letter = LetterOrNumber | 8, 
+				Letter = LetterOrNumber | 8,
 				Number = LetterOrNumber | 0x10,
                 IncludedBreakChar = 0x20 // counts as a break, but is also included in the word
 			}
@@ -264,7 +264,7 @@ namespace OpenLiveWriter.SpellChecker
 					char.IsLetter(currChar)		? CharClass.Letter :
 					char.IsNumber(currChar)		? CharClass.Number :
 					currChar == '\''			? CharClass.BoundaryBreak :
-					currChar == '’'				? CharClass.BoundaryBreak :
+					currChar == 'â€™'				? CharClass.BoundaryBreak :
 					currChar == '.'				? CharClass.IncludedBreakChar :
 					CharClass.Break;
 			}

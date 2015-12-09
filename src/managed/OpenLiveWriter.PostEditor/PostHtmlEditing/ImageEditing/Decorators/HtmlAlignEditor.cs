@@ -66,9 +66,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.imagePickerAlign.ItemHeight = 29;
             this.imagePickerAlign.SelectedIndexChanged += new EventHandler(imagePickerAlign_SelectedIndexChanged);
 
-            // 
+            //
             // HtmlAlignEditor
-            // 
+            //
             this.Controls.Add(this.imagePickerAlign);
             this.Name = "HtmlAlignEditor";
             this.Size = new System.Drawing.Size(208, 35);
@@ -84,7 +84,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             Alignment = HtmlAlignSettings.Alignment;
         }
         private HtmlAlignDecoratorSettings HtmlAlignSettings;
-
 
         public override Size GetPreferredSize()
         {

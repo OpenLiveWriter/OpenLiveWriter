@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		private Label label2;
 		private Label label1;
 		private TextBox textBoxTemplate;
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
@@ -31,10 +31,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
 
-
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,8 +49,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -61,9 +60,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			this.label1 = new System.Windows.Forms.Label();
 			this.textBoxTemplate = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
-			// 
+			//
 			// buttonLoadTemplate
-			// 
+			//
 			this.buttonLoadTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonLoadTemplate.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.buttonLoadTemplate.Location = new System.Drawing.Point(232, 196);
@@ -72,19 +71,19 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			this.buttonLoadTemplate.TabIndex = 19;
 			this.buttonLoadTemplate.Text = "Download template";
 			this.buttonLoadTemplate.Click += new System.EventHandler(this.buttonLoadTemplate_Click);
-			// 
+			//
 			// label2
-			// 
+			//
 			this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.label2.Location = new System.Drawing.Point(0, 0);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(104, 16);
 			this.label2.TabIndex = 20;
 			this.label2.Text = "Template:";
-			// 
+			//
 			// label1
-			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.Location = new System.Drawing.Point(0, 160);
 			this.label1.Name = "label1";
@@ -93,10 +92,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			this.label1.Text = "Download an editing template based on your weblog.  This will post a temporary it" +
 				"em to your blog that can be used to detect the editing styles for items posted t" +
 				"o your blog.";
-			// 
+			//
 			// textBoxTemplate
-			// 
-			this.textBoxTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.textBoxTemplate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.textBoxTemplate.Location = new System.Drawing.Point(0, 16);
 			this.textBoxTemplate.Multiline = true;
@@ -106,9 +105,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			this.textBoxTemplate.TabIndex = 24;
 			this.textBoxTemplate.Text = "";
 			this.textBoxTemplate.TextChanged += new System.EventHandler(this.textBoxTemplate_TextChanged);
-			// 
+			//
 			// BlogPostHtmlEditorSettingsEditorControl
-			// 
+			//
 			this.Controls.Add(this.textBoxTemplate);
 			this.Controls.Add(this.buttonLoadTemplate);
 			this.Controls.Add(this.label2);
@@ -169,14 +168,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			{
 				MessageBox.Show("Error: " + ex.Message ) ;
 			}
-			
+
 		}
 
 		private void textBoxTemplate_TextChanged(object sender, EventArgs e)
 		{
 			OnSettingsChanged(EventArgs.Empty) ;
 		}
- 
+
 		private void cbAllowMaximizedEditing_CheckedChanged(object sender, EventArgs e)
 		{
 			OnSettingsChanged(EventArgs.Empty) ;

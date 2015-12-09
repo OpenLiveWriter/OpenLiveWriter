@@ -78,14 +78,12 @@ namespace OpenLiveWriter.Controls
             _explorerBrowserControl.Navigate("about:blank");
         }
 
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
             NavigateToProgressPage();
         }
-
 
         private void NavigateToProgressPage()
         {
@@ -101,7 +99,7 @@ namespace OpenLiveWriter.Controls
                     if (!Directory.Exists(progressPageDirectory))
                         Directory.CreateDirectory(progressPageDirectory);
 
-                    // write the animation 
+                    // write the animation
                     string animationGifName = "BallSpinner.gif";
                     string animationGifPath = Path.Combine(progressPageDirectory, animationGifName);
                     ResourceHelper.SaveAssemblyResourceToFile("Images." + animationGifName, animationGifPath);
@@ -117,13 +115,13 @@ namespace OpenLiveWriter.Controls
 								<head></head>
 								<body>
 									<div style=""height={0}px;"">
-									<div style=""position: absolute; top: {1}; width: 100%; text-align: center"" >									
+									<div style=""position: absolute; top: {1}; width: 100%; text-align: center"" >
 									<img src=""{2}""></img>
 									<p>
 										<font size=""2"" face=""Tahoma, Arial"" color=""rgb(190,200,210)"">
 											<b>{3}</b>
 										</font>
-									</p>								
+									</p>
 									</div>
 									</div>
 								</body>
@@ -164,7 +162,6 @@ namespace OpenLiveWriter.Controls
             _explorerBrowserControl.Navigate(_url);
         }
 
-
         private void _explorerBrowserControl_AboutBlankDocumentComplete(object sender, BrowserDocumentEventArgs e)
         {
             try
@@ -195,7 +192,6 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -213,7 +209,6 @@ namespace OpenLiveWriter.Controls
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -243,16 +238,13 @@ namespace OpenLiveWriter.Controls
                 return HRESULT.S_OK;
             }
 
-
             public override void GetHostInfo(ref DOCHOSTUIINFO pInfo)
             {
                 // NOTE: this does not seem to be working for web pages we navigate to by url
                 pInfo.dwFlags |= (DOCHOSTUIFLAG.NO3DBORDER | DOCHOSTUIFLAG.NO3DOUTERBORDER);
             }
 
-
         }
-
 
     }
 }

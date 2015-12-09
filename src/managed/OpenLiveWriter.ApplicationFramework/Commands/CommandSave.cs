@@ -19,7 +19,7 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -31,10 +31,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -44,9 +43,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandSave
-			// 
+			//
 			this.Identifier = "MindShare.ApplicationCore.Commands.Save";
 			this.MainMenuPath = "&File@0/&Save@10";
 			this.Shortcut = System.Windows.Forms.Shortcut.CtrlS;

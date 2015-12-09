@@ -72,7 +72,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         /// <summary>
         /// For a file extension (with leading period) and a verb (or null for default
         /// verb), returns the (full?) path to the executable file that is assigned to
@@ -141,7 +140,6 @@ namespace OpenLiveWriter.CoreServices
             else
                 return extension.TrimStart('.').ToUpper(CultureInfo.InvariantCulture) + " File";
         }
-
 
         public struct ExecuteFileResult
         {
@@ -264,7 +262,7 @@ namespace OpenLiveWriter.CoreServices
             ArrayList fileListArray = new ArrayList();
             int currentLoc = 0;
 
-            // scan for file entries			
+            // scan for file entries
             while (currentLoc < fileList.Length)
             {
                 // file entry
@@ -314,7 +312,6 @@ namespace OpenLiveWriter.CoreServices
                         break; // at the end
                 }
 
-
                 // add the file to our list
                 fileListArray.Add(file.Trim());
             }
@@ -322,7 +319,6 @@ namespace OpenLiveWriter.CoreServices
             // return the list
             return (string[])fileListArray.ToArray(typeof(string));
         }
-
 
         /// <summary>
         /// Determine if there is a custom icon handler for the specified file extension
@@ -373,7 +369,6 @@ namespace OpenLiveWriter.CoreServices
             return GetIconForFile(filePath, SHGFI.LARGEICON);
         }
 
-
         /// <summary>
         /// Get the icon for the specified file
         /// </summary>
@@ -413,7 +408,6 @@ namespace OpenLiveWriter.CoreServices
             return GetIconForExtension(extension, SHGFI.SMALLICON | SHGFI.LINKOVERLAY);
         }
 
-
         /// <summary>
         /// Get the small icon for the specified file extension
         /// </summary
@@ -437,7 +431,6 @@ namespace OpenLiveWriter.CoreServices
         {
             return GetIconForExtension(extension, SHGFI.SMALLICON);
         }
-
 
         /// <summary>
         /// Get the large icon for the specified file extension
@@ -498,7 +491,6 @@ namespace OpenLiveWriter.CoreServices
             return new IconHandle(fileInfo.hIcon);
         }
 
-
         /// <summary>
         /// Extension used for shortcuts
         /// </summary>
@@ -549,7 +541,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
     }
-
 
     /// <summary>
     /// Class that encapsulates a Win32 Icon Handle. The class can be implicitly
@@ -610,6 +601,5 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         private Icon icon = null;
     }
-
 
 }

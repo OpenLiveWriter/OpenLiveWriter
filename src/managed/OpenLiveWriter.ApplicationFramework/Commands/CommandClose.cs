@@ -36,7 +36,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -44,9 +43,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandClose
-			// 
+			//
 			this.AccessibleDescription = "";
 			this.ContextMenuPath = "-Close@20";
 			this.Identifier = "OpenLiveWriter.ApplicationFramework.CommandClose";

@@ -30,7 +30,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -38,9 +37,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandPageSetup
-			// 
+			//
 			this.Identifier = "MindShare.ApplicationCore.Commands.PageSetup";
 			this.MainMenuPath = "&File@0/-Page Set&up...@120";
 			this.Text = "Page Setup";

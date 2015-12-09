@@ -17,7 +17,6 @@ namespace OpenLiveWriter.Test
         private readonly ContentEditorFactory factory;
         private readonly IContentEditor editor;
 
-
         public CanvasForm()
         {
             InitializeComponent();
@@ -117,7 +116,7 @@ namespace OpenLiveWriter.Test
 
             public void WriteEvent(string eventName)
             {
-            
+
             }
 
             public void OnKeyboardLanguageChanged()
@@ -130,11 +129,11 @@ namespace OpenLiveWriter.Test
             }
 
             public void OnGotFocus()
-            {                
+            {
             }
 
             public void OnLostFocus()
-            {                
+            {
             }
 
             public void OnIsPhotoMailChanged(bool fNewIsPhotoMailValue)
@@ -212,7 +211,7 @@ namespace OpenLiveWriter.Test
 
             public void DragLeave()
             {
-  
+
             }
 
             public void DragOver(OpenLiveWriter.Interop.Windows.MK grfKeyState, OpenLiveWriter.Interop.Windows.POINT pt, ref OpenLiveWriter.Interop.Com.DROPEFFECT pdwEffect)
@@ -247,8 +246,6 @@ namespace OpenLiveWriter.Test
         {
             editor.ChangeView(EditingMode.PlainText);
         }
-
-
 
 
     [DllImport("KERNEL32.DLL", CharSet=CharSet.Auto, EntryPoint="LoadLibrary")]

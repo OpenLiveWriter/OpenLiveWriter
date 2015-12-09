@@ -2,15 +2,15 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using OpenLiveWriter.PostEditor.ContentSources; 
+using OpenLiveWriter.PostEditor.ContentSources;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
+
 	public sealed class PostEditorInitializer
 	{
 		/// <summary>
-		/// global initializaiton which may show error dialogs or cause 
+		/// global initializaiton which may show error dialogs or cause
 		/// failure of the entire product to load
 		/// </summary>
 		public static bool Initialize()

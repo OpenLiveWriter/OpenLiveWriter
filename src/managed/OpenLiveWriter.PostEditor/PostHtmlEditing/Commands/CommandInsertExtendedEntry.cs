@@ -34,7 +34,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -42,9 +41,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandInsertExtendedEntry
-			// 
+			//
 			this.ContextMenuPath = "";
 			this.Identifier = "OpenLiveWriter.PostEditor.Commands.PostHtmlEditing.InsertExtendedEntry";
 			this.MainMenuPath = "F&ormat@5/-&Split Post@600";
@@ -53,6 +52,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 
 		}
 		#endregion
-	
+
 	}
 }

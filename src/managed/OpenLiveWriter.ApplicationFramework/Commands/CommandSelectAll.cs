@@ -19,7 +19,7 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -31,10 +31,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -44,9 +43,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandSelectAll
-			// 
+			//
 			this.ContextMenuPath = "-Select &All@501";
 			this.Identifier = "MindShare.ApplicationCore.Commands.SelectAll";
 			this.MainMenuPath = "&Edit@2/-Select &All@501";

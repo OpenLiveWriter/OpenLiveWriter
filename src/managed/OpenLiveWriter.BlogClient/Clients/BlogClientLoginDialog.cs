@@ -64,9 +64,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.buttonCancel = new System.Windows.Forms.Button();
             this.blogClientLoginControl = new OpenLiveWriter.BlogClient.Clients.BlogClientLoginControl();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -74,9 +74,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.TabIndex = 1;
             this.buttonOK.Text = "OK";
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -84,9 +84,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // blogClientLoginControl
-            // 
+            //
             this.blogClientLoginControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | AnchorStyles.Right)));
             this.blogClientLoginControl.Domain = null;
             this.blogClientLoginControl.Location = new System.Drawing.Point(8, 8);
@@ -96,9 +96,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.blogClientLoginControl.Size = new System.Drawing.Size(253, 165);
             this.blogClientLoginControl.TabIndex = 0;
             this.blogClientLoginControl.UserName = "";
-            // 
+            //
             // BlogClientLoginDialog
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;

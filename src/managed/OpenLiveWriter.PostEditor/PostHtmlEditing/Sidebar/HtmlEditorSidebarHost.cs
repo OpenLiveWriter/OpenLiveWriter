@@ -120,7 +120,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             UpdateSidebarState();
         }
 
-
         private void _editorContext_SelectionChanged(object sender, EventArgs e)
         {
             UpdateSidebarState();
@@ -167,7 +166,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                 if (_activeSidebarControl != null)
                 {
                     _activeSidebarControl.UpdateView(_editorContext.Selection, force);
-                    //_title.UpdateTitle(_activeSidebarControl.Text) ;                    
+                    //_title.UpdateTitle(_activeSidebarControl.Text) ;
                 }
 
                 UpdateVisibility(false);
@@ -179,13 +178,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             UpdateSidebarState(true);
         }
 
-
         private void UpdateActiveSidebarControl()
         {
             if (GlobalEditorOptions.SupportsFeature(ContentEditorFeature.EnableSidebar))
                 ActiveSidebarControl = GetSidebarForCurrentSelection(_editorContext.Selection);
         }
-
 
         internal SidebarControl ActiveSidebarControl
         {
@@ -205,7 +202,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
                     bool sidebarFocused = false; //used to restore focus when switching sidebars
 
-                    // first hide the currently active sidebar 
+                    // first hide the currently active sidebar
                     if (_activeSidebarControl != null)
                     {
                         sidebarFocused = _activeSidebarControl.ContainsFocus;
@@ -341,7 +338,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         {
             Visible = false;
         }
-
 
         private const int TOP_INSET = 0;
         private const int LEFT_INSET = 1;

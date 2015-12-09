@@ -55,7 +55,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         private const int WS_EX_TOOLWINDOW = 0x00000080;
         private const int WS_EX_APPWINDOW = 0x00040000;
         private const int WS_EX_LAYERED = 0x00080000;
@@ -197,7 +196,6 @@ namespace OpenLiveWriter.CoreServices
             return bitmap;
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -220,9 +218,9 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // SplashScreen
-            // 
+            //
             this.AutoScaleMode = AutoScaleMode.None;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(380, 235);
@@ -236,7 +234,6 @@ namespace OpenLiveWriter.CoreServices
         }
         #endregion
     }
-
 
     /// <summary>
     /// Implementation of a splash screen connected to a form

@@ -54,7 +54,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             return GenerateHtml(content, false, publishingContext.AccountId);
         }
 
-
         public override DialogResult CreateContent(IWin32Window dialogOwner, ISmartContent content)
         {
             using (new WaitCursor())
@@ -81,7 +80,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
                 }
             }
         }
-
 
 
         private string GenerateHtml(ISmartContent content, bool editor, string blogId)

@@ -59,7 +59,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
 
         public const int NO_ERROR_CODE = 0;
 
-
         /// <summary>
         /// Deserialization constructor.
         /// </summary>
@@ -81,7 +80,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             base.GetObjectData(info, context);
         }
     }
-
 
     /// <summary>
     /// An invalid operation (typically caused by programming error).
@@ -261,7 +259,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         }
     }
 
-
     /// <summary>
     /// The storage path is not found.
     /// </summary>
@@ -426,7 +423,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             : base(message, innerException)
         { }
 
-
         /// <summary>
         /// Deserialization constructor.
         /// </summary>
@@ -450,7 +446,7 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
     }
 
     /// <summary>
-    /// The storage is no longer current (storage has been updated since opened - 
+    /// The storage is no longer current (storage has been updated since opened -
     /// transaction related)
     /// </summary>
     [Serializable]
@@ -462,7 +458,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             : base(message, innerException)
         { }
 
-
         /// <summary>
         /// Deserialization constructor.
         /// </summary>
@@ -471,7 +466,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         protected StorageNotCurrentException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-
 
         /// <summary>
         /// Populates a SerializationInfo with the data needed to serialize this ObjectStoreFileException.

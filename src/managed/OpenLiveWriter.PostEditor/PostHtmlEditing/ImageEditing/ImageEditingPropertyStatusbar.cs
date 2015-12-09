@@ -17,7 +17,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 	/// </summary>
 	internal class ImageEditingPropertyStatusbar : UserControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
@@ -46,7 +46,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			ApplicationStyleManager.ApplicationStyleChanged += new EventHandler(ApplicationManager_ApplicationStyleChanged);
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -62,8 +62,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -82,10 +82,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 
 		protected override void OnLayout(LayoutEventArgs levent)
-		{		
+		{
 			base.OnLayout (levent);
 
-			// calculate the rectangle we will paint within			
+			// calculate the rectangle we will paint within
 			_controlRectangle = new Rectangle(0,0,Width, Height) ;
 
 			_image = localImage;
@@ -97,7 +97,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			int TEXT_TOP_OFFSET = TOP_OFFSET+2 ;
 			int TEXT_LEFT_MARGIN = 0 ;
 			int TEXT_LEFT_OFFSET = _imageRectangle.Right + TEXT_LEFT_MARGIN ;
-			
+
 			_textRectangle = new Rectangle(TEXT_LEFT_OFFSET, TEXT_TOP_OFFSET, _controlRectangle.Width-TEXT_LEFT_OFFSET,_controlRectangle.Height-TEXT_TOP_OFFSET);
 
 			// make sure the control is repainted
@@ -105,13 +105,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
-		{	
-			
+		{
+
 			Color backgroundColor = ApplicationManager.ApplicationStyle.ActiveTabBottomColor ;
 			using ( Brush brush = new SolidBrush(backgroundColor) )
 				e.Graphics.FillRectangle( brush, _controlRectangle ) ;
 
-			// draw the border 				
+			// draw the border
 			using ( Pen pen = new Pen(ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarBottomBevelFirstLineColor) )
 			{
 				e.Graphics.DrawLine(pen, _controlRectangle.Left, _controlRectangle.Top, _controlRectangle.Width, _controlRectangle.Top);
@@ -124,7 +124,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 			// draw the text
 			using ( Brush brush = new SolidBrush(ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarTextColor) )
-				e.Graphics.DrawString( _statusText ,ApplicationManager.ApplicationStyle.NormalApplicationFont, brush, 
+				e.Graphics.DrawString( _statusText ,ApplicationManager.ApplicationStyle.NormalApplicationFont, brush,
 					new RectangleF(_textRectangle.X, _textRectangle.Y, _textRectangle.Width, _textRectangle.Height),
 				                       _stringFormat);
 		}
@@ -142,7 +142,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		private Bitmap webImage = ResourceHelper.LoadAssemblyResourceBitmap( IMAGE_PATH + "WebImage.png") ;
 
 		private void UpdateAppearance()
-		{		
+		{
 			PerformLayout();
 			Invalidate();
 		}

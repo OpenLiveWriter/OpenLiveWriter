@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -19,7 +19,7 @@ namespace OpenLiveWriter.Mshtml
                 if (markupPointer == null)
                     throw new ArgumentException("Unexpected null markup pointer.");
 
-                //position a display pointer on the same line as the markup pointer                
+                //position a display pointer on the same line as the markup pointer
                 displayPointer.MoveToMarkupPointer(markupPointer.PointerRaw, null);
             }
             catch (Exception e)

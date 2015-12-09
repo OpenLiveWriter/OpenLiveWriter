@@ -62,7 +62,7 @@ namespace OpenLiveWriter.CoreServices
 			int startPos = buffer.Length;
 			int currLen = 0;
 			int depth = 0;
-			
+
 			StringBuilder maxChildPath = new StringBuilder();
 			StringBuilder currChildPath = new StringBuilder();
 			foreach (TransientFileSystemItem child in children)

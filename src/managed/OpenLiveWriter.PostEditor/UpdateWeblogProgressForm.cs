@@ -153,7 +153,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         protected override CreateParams CreateParams
         {
             get
@@ -178,7 +177,7 @@ namespace OpenLiveWriter.PostEditor
                 LayoutHelper.NaturalizeHeight(checkBoxViewPost);
             }
 
-            // position form 
+            // position form
             RECT parentRect = new RECT();
             User32.GetWindowRect(_parentFrame.Handle, ref parentRect);
             Rectangle parentBounds = RectangleHelper.Convert(parentRect);
@@ -186,18 +185,15 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         private string FormatFormCaption(string entityName, bool publish)
         {
             return String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.UpdateWeblogPublish1), publish ? entityName : Res.Get(StringId.UpdateWeblogDraft));
         }
 
-
         private string FormatPublishingToCaption(string destinationName, string entityName, bool publish)
         {
             return String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.UpdateWeblogPublish2), publish ? entityName : Res.Get(StringId.UpdateWeblogDraft), destinationName);
         }
-
 
         private void _updateWeblogAsyncOperation_Completed(object sender, EventArgs ea)
         {
@@ -224,7 +220,6 @@ namespace OpenLiveWriter.PostEditor
             SetDialogResult(DialogResult.OK);
         }
 
-
         private void _updateWeblogAsyncOperation_Failed(object sender, ThreadExceptionEventArgs e)
         {
             Debug.Assert(!InvokeRequired);
@@ -237,7 +232,6 @@ namespace OpenLiveWriter.PostEditor
             DialogResult = result;
         }
         private bool _okToClose = false;
-
 
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -253,7 +247,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         /// <summary>
         /// Override out Activated event to allow parent form to retains its 'activated'
         /// look (caption bar color, etc.) even when we are active
@@ -261,12 +254,11 @@ namespace OpenLiveWriter.PostEditor
         /// <param name="e"></param>
         protected override void OnActivated(EventArgs e)
         {
-            // start the animation if necessary (don't start until we are activated so that the 
+            // start the animation if necessary (don't start until we are activated so that the
             // loading of the form is not delayed)
             if (!progressAnimatedBitmap.Running)
                 progressAnimatedBitmap.Start();
         }
-
 
 
         private void checkBoxViewPost_CheckedChanged(object sender, EventArgs e)
@@ -296,7 +288,6 @@ namespace OpenLiveWriter.PostEditor
         private Bitmap bottomBevelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PublishAnimation.BottomBevel.png");
 
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -324,9 +315,9 @@ namespace OpenLiveWriter.PostEditor
             this.progressAnimatedBitmap = new OpenLiveWriter.Controls.AnimatedBitmapControl();
             this.labelPublishingTo = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // checkBoxViewPost
-            // 
+            //
             this.checkBoxViewPost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxViewPost.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxViewPost.Location = new System.Drawing.Point(19, 136);
@@ -335,9 +326,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxViewPost.TabIndex = 1;
             this.checkBoxViewPost.Text = "View in browser after publishing";
             this.checkBoxViewPost.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // progressAnimatedBitmap
-            // 
+            //
             this.progressAnimatedBitmap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.progressAnimatedBitmap.Bitmaps = null;
@@ -348,9 +339,9 @@ namespace OpenLiveWriter.PostEditor
             this.progressAnimatedBitmap.Size = new System.Drawing.Size(321, 71);
             this.progressAnimatedBitmap.TabIndex = 2;
             this.progressAnimatedBitmap.UseVirtualTransparency = false;
-            // 
+            //
             // labelPublishingTo
-            // 
+            //
             this.labelPublishingTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPublishingTo.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -361,9 +352,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelPublishingTo.Text = "Publishing to: My Random Ramblings";
             this.labelPublishingTo.UseMnemonic = false;
             this.labelPublishingTo.Visible = false;
-            // 
+            //
             // UpdateWeblogProgressForm
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(360, 164);
             this.ControlBox = false;

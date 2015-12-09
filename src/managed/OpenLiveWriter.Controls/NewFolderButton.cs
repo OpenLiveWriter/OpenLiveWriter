@@ -48,9 +48,9 @@ namespace OpenLiveWriter.Controls
         private void InitializeComponent()
         {
             System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(NewFolderButton));
-            // 
+            //
             // NewFolderButton
-            // 
+            //
             // this.AutoSizeHeight = true;
             // this.AutoSizeWidth = true;
             this.BitmapDisabled = ((System.Drawing.Bitmap)(resources.GetObject("$this.BitmapDisabled")));

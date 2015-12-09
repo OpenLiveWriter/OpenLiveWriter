@@ -42,7 +42,6 @@ namespace OpenLiveWriter.CoreServices
                 pos = 1 + FindLastVisibleElementAndRemoveWhitespace(els);
             }
 
-
             // pos now points to the index where whitespace cleanup should begin
 
             // Remove empty pairs of invisible tags, e.g. <b></b>.  Each time
@@ -288,12 +287,12 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Determine whether a node can be considered whitespace.
-        /// 
+        ///
         /// A node can be whitespace if:
         /// - It is a text node that does not contain non-whitespace chars
-        /// - It is a tag that, if empty, is invisible; and does not 
+        /// - It is a tag that, if empty, is invisible; and does not
         ///   have a class, style, or id
-        /// 
+        ///
         /// But not if:
         /// - It is a tag that has children
         /// </summary>

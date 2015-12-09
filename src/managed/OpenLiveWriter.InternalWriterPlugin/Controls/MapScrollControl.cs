@@ -17,7 +17,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
     public class MapScrollControl : System.Windows.Forms.UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -45,7 +45,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
         private SouthButton _southButton = new SouthButton();
         private EastButton _eastButton = new EastButton();
         private WestButton _westButton = new WestButton();
-
 
         public MapScrollControl()
         {
@@ -128,7 +127,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
                 DirectionalButtonClicked(this, ea);
         }
 
-
         protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
         {
             Size preferredSize = GetPreferredSize();
@@ -147,8 +145,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             OnDirectionalButtonClicked(new DirectionalButtonClickedEventArgs((sender as DirectionalButton).Direction));
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -164,8 +161,8 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -174,7 +171,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             this.RightToLeft = RightToLeft.No;
         }
         #endregion
-
 
     }
 

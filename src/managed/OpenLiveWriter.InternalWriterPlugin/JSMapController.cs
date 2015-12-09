@@ -211,7 +211,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
         #endregion
     }
 
-
     [ComVisible(true)]
     public class VEBirdseyeScene
     {

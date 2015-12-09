@@ -35,9 +35,9 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 		/// The ApplicationStyle Type.
 		/// </summary>
 		private Type applicationStyleType;
-	
+
 		#endregion
-	
+
 		#region Class Initialization & Termination
 
 		/// <summary>
@@ -89,12 +89,12 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 		{
 			//	Obtain the type name of the application style.  If it's null, use SkyBlue.
 			string name = SettingsPersisterHelper.GetString(APPLICATION_STYLE_TYPE_NAME, "ApplicationStyleSkyBlue");
-			
+
 			// strip "AplicationStyle" preface (for legacy settings format support)
 			const string APPLICATION_STYLE = "ApplicationStyle";
 			if ( name.StartsWith(APPLICATION_STYLE) )
 				name = name.Substring(APPLICATION_STYLE.Length) ;
-			
+
 			switch(name)
 			{
 				case "SkyBlue":

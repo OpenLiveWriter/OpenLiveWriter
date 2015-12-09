@@ -35,7 +35,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.ApplicationFramework
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -58,9 +57,9 @@ namespace OpenLiveWriter.ApplicationFramework
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// NoLinkTextSpecifiedDisplayMessage
-			// 
+			//
 			this.Text = "You must specify the text for the hyperlink.";
 			this.Title = "No Link Text Specified";
 

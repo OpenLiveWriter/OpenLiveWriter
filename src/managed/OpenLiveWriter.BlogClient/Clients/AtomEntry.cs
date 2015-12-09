@@ -140,7 +140,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="entryEl"></param>
         /// <param name="nsMgr"></param>

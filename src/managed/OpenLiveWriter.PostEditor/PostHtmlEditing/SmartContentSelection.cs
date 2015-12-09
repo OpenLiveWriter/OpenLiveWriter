@@ -15,8 +15,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     /// <summary>
     /// The editor selection for a structured content block.
     /// </summary>
-    /// 
-    /// 
+    ///
+    ///
 
     public class PreserveContentSelection : ContentSelection
     {
@@ -62,7 +62,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             SmartContentSelection selection = (SmartContentSelection)SelectElementCore(editorComponentContext, e, new SmartContentSelection(editorComponentContext, e, contentState));
             return selection;
         }
-
 
     }
 
@@ -226,7 +225,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return null;
             }
         }
-
 
         public IHTMLElement SelectedControl
         {

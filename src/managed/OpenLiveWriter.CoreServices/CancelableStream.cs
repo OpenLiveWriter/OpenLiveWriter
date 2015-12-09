@@ -21,7 +21,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         public override bool CanRead
         {
             get

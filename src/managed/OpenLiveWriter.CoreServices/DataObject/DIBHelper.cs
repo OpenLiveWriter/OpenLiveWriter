@@ -74,7 +74,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Returns a codec for a given file extension.  Note that this requires that the
         /// extension include the '.'
@@ -96,7 +95,6 @@ namespace OpenLiveWriter.CoreServices
             }
             return clsid;
         }
-
 
         /// <summary>
         /// Gets a bitmapheaderinfo struct from a stream containing a dib

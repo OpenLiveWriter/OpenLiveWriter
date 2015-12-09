@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,11 +37,11 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -64,9 +63,9 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// QueryForUnsavedChangesDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
 			this.Text = "The spell check was cancelled.{0}Do you still want to publish this post?";
 			this.Title = "Spell Check Cancelled";

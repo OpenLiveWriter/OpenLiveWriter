@@ -25,7 +25,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,10 +37,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -50,9 +49,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandAddToGlossary
-			// 
+			//
 			this.ContextMenuPath = "&Add to Glossary@104";
 			this.Identifier = "OpenLiveWriter.HtmlEditor.Linking.Commands.CommandAddToGlossary";
 			this.Text = "Add To Glossary";

@@ -42,7 +42,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
 
         /// <summary>
         /// Grabs HTML copied in the clipboard and pastes it into the document (pulls in a copy of embedded content too)
-        /// </summary>		
+        /// </summary>
         protected override bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end)
         {
             using (new WaitCursor())
@@ -60,11 +60,11 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                     {
                         using (IUndoUnit undoUnit = EditorContext.CreateInvisibleUndoUnit())
                         {
-                            // Create a new MarkupContainer off of EditorContext's document that contains the source HTML 
+                            // Create a new MarkupContainer off of EditorContext's document that contains the source HTML
                             // with comments marking the start and end selection.
                             MarkupContainer sourceContainer = EditorContext.MarkupServices.ParseString(DataMeister.HTMLData.HTMLWithMarkers);
 
-                            // MSHTML's ParseString implementation clears all the attributes on the <body> element, so we 
+                            // MSHTML's ParseString implementation clears all the attributes on the <body> element, so we
                             // have to manually add them back in.
                             CopyBodyAttributes(DataMeister.HTMLData.HTMLWithMarkers, sourceContainer.Document.body);
 
@@ -73,7 +73,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                             MshtmlMarkupServices sourceContainerMarkupServices =
                                 new MshtmlMarkupServices((IMarkupServicesRaw)sourceContainer.Document);
 
-                            // Some applications may not add the correct fragment markers (e.g. copying from Fiddler from 
+                            // Some applications may not add the correct fragment markers (e.g. copying from Fiddler from
                             // the Web Sessions view). We'll just select the entire <body> of the clipboard in this case.
                             if (sourceRange == null)
                             {
@@ -81,7 +81,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                             }
                             else
                             {
-                                // Make sure that we don't try to copy just parts of a table/list. We need to include the 
+                                // Make sure that we don't try to copy just parts of a table/list. We need to include the
                                 // parent table/list.
                                 if (!EditorContext.CleanHtmlOnPaste)
                                 {
@@ -94,7 +94,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                             {
                                 if (!EditorContext.CleanHtmlOnPaste)
                                 {
-                                    // WinLive 273280: Alignment on a table acts like a float, which can throw off the layout of the rest of 
+                                    // WinLive 273280: Alignment on a table acts like a float, which can throw off the layout of the rest of
                                     // the document. If there is nothing before or after the table, then we can safely remove the alignment.
                                     RemoveAlignmentIfSingleTable(sourceRange);
 
@@ -205,13 +205,13 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         }
 
         /// <summary>
-        /// Searches through the provided document for a start and end comment marker and then returns the fragment as 
+        /// Searches through the provided document for a start and end comment marker and then returns the fragment as
         /// a MarkupRange.
         /// </summary>
         /// <param name="document">The document to search.</param>
-        /// <param name="startMarker">The comment text that marks the start of the fragment 
+        /// <param name="startMarker">The comment text that marks the start of the fragment
         /// (e.g. &lt;!--StartFragment--&gt; ).</param>
-        /// <param name="endMarker">The comment text that marks the end of the fragment 
+        /// <param name="endMarker">The comment text that marks the end of the fragment
         /// (e.g. &lt;!--EndFragment--&gt; ).</param>
         /// <returns>The fragment as a MarkupRange or null if no valid fragment was found.</returns>
         private MarkupRange FindMarkedFragment(IHTMLDocument2 document, string startMarker, string endMarker)
@@ -243,9 +243,9 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
             // WinLive 251786: IE (and most other browsers) allow HTML like the following:
             //  <p>This is a paragraph[cursor]
             //  <p>This is a paragraph
-            // However, when we use MarkupPointers to walk through this HTML, IE pretends there is a </p> at the end 
-            // of each of the above lines. This can cause issues when we copy part of this HTML somewhere else (e.g 
-            // everything after the [cursor]) and attempt to walk through both copies (e.g. during paste with keep 
+            // However, when we use MarkupPointers to walk through this HTML, IE pretends there is a </p> at the end
+            // of each of the above lines. This can cause issues when we copy part of this HTML somewhere else (e.g
+            // everything after the [cursor]) and attempt to walk through both copies (e.g. during paste with keep
             // source formatting) at the same time. This holds true for some other elements, such as <li>s and <td>s.
             MarkupContext startContext = startFragment.Right(false);
             if (startFragment.IsLeftOf(endFragment) &&
@@ -263,12 +263,12 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         }
 
         /// <summary>
-        /// Takes the source HTML and makes necessary modifications to keep the source formatting as if it were to be 
+        /// Takes the source HTML and makes necessary modifications to keep the source formatting as if it were to be
         /// pasted into the destination range.
         /// </summary>
         /// <param name="sourceRange">The range containing the HTML that is being copied.</param>
         /// <param name="destinationRange">The range that the source HTML will be copied to.</param>
-        /// <returns>A serialized string of the source HTML with necessary modifications to keep the source formatting 
+        /// <returns>A serialized string of the source HTML with necessary modifications to keep the source formatting
         /// or null if unsuccessful.</returns>
         private string KeepSourceFormatting(MarkupRange sourceRange, MarkupRange destinationRange)
         {
@@ -285,13 +285,13 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                 IHTMLDocument2 destinationDocument = destinationRange.Start.Container.Document;
                 MshtmlMarkupServices destinationMarkupServices = new MshtmlMarkupServices((IMarkupServicesRaw)destinationDocument);
 
-                // However, we'll use a temp destination because we don't want to paste anything into the real 
+                // However, we'll use a temp destination because we don't want to paste anything into the real
                 // document yet as it could fail, it would fire events, images would start loading, etc.
                 MarkupContainer temporaryDestinationContainer = destinationMarkupServices.CreateMarkupContainer();
                 MarkupPointer temporaryDestinationPointer = destinationMarkupServices.CreateMarkupPointer();
                 temporaryDestinationPointer.MoveToContainer(temporaryDestinationContainer, true);
 
-                // We add in comments to the destination document so that when we copy this range over to the fake 
+                // We add in comments to the destination document so that when we copy this range over to the fake
                 // destination we'll be able to find the range again.
                 destinationRange.Start.Gravity = _POINTER_GRAVITY.POINTER_GRAVITY_Left;
                 destinationRange.End.Gravity = _POINTER_GRAVITY.POINTER_GRAVITY_Right;
@@ -325,7 +325,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                 }
                 finally
                 {
-                    // WinLive 249077: Clear the temporary destination container, otherwise behaviors may  
+                    // WinLive 249077: Clear the temporary destination container, otherwise behaviors may
                     // inadvertently attach to elements in the MarkupContainer.
                     temporaryDestinationContainer.Document.body.innerHTML = String.Empty;
                 }
@@ -453,13 +453,13 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         }
 
         /// <summary>
-        /// If this element is a table, and there's nothing else before or after it and it's aligned left or right 
+        /// If this element is a table, and there's nothing else before or after it and it's aligned left or right
         /// then removes the alignment.
         /// </summary>
         /// <param name="range">The original source range.</param>
         private void RemoveAlignmentIfSingleTable(MarkupRange range)
         {
-            // WinLive 273280: Alignment on a table acts like a float, which can throw off the layout of the rest of 
+            // WinLive 273280: Alignment on a table acts like a float, which can throw off the layout of the rest of
             // the document. If there is nothing before or after the table, then we can safely remove the alignment.
             IHTMLElement[] topLevelElements = range.GetTopLevelElements(e => !(e is IHTMLCommentElement));
             if (topLevelElements.Length == 1 &&

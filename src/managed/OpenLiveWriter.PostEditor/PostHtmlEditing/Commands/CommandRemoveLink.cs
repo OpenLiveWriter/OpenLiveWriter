@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandRemoveLink
-			// 
+			//
 			this.ContextMenuPath = "&Remove Link@102";
 			this.Identifier = "OpenLiveWriter.PostEditor.Commands.PostHtmlEditing.CommandRemoveLink";
 			this.MainMenuPath = "&Insert@4/&Remove Link-@300";

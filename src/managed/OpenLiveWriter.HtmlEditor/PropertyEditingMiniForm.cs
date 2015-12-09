@@ -15,7 +15,6 @@ using Project31.ApplicationFramework;
 namespace Onfolio.Core.HtmlEditor
 {
 
-
 	public class PropertyEditingMiniForm : MiniForm
 	{
 		/// <summary>
@@ -50,14 +49,14 @@ namespace Onfolio.Core.HtmlEditor
 			_closeButton.BitmapDisabled = _closeButtonDisabled ;
 			_closeButton.BitmapEnabled = _closeButtonEnabled ;
 			_closeButton.BitmapPushed = _closeButtonPushed ;
-			_closeButton.BitmapSelected = _closeButtonSelected ;				
+			_closeButton.BitmapSelected = _closeButtonSelected ;
 			_closeButton.ButtonStyle = ButtonStyle.Bitmap ;
-			_closeButton.ToolTip = "Close" ;						
+			_closeButton.ToolTip = "Close" ;
 			_closeButton.Width = _closeButtonEnabled.Width ;
 			_closeButton.Height = _closeButtonEnabled.Height;
 			_closeButton.Top = 2 ;
-			_closeButton.Left = Width - _closeButton.Width - 1 ;						
-			_closeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right ;            
+			_closeButton.Left = Width - _closeButton.Width - 1 ;
+			_closeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right ;
 			_closeButton.Click +=new EventHandler(_closeButton_Click);
 			Controls.Add(_closeButton) ;
 
@@ -66,14 +65,14 @@ namespace Onfolio.Core.HtmlEditor
 
 			// update appearance
 			SyncAppearanceToApplicationStyle() ;
-		}	
-	
+		}
+
 		private void _closeButton_Click( object sender, EventArgs ea )
 		{
 			Close() ;
 		}
-	
-	
+
+
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint (e);
@@ -90,10 +89,10 @@ namespace Onfolio.Core.HtmlEditor
 			// draw the title area
 			e.Graphics.FillRectangle( _titleBarBrush, new Rectangle( 1, 1, Width-2, titleHeight ) );
 
-			// draw the border 				
-			e.Graphics.DrawRectangle( _borderPen, new Rectangle(0,0, Width-1, Height-1) ) ;		
+			// draw the border
+			e.Graphics.DrawRectangle( _borderPen, new Rectangle(0,0, Width-1, Height-1) ) ;
 			e.Graphics.DrawLine( _borderPen, 1, titleHeight + 1, Width-2, titleHeight + 1  );
-			
+
 			// draw the text
 			e.Graphics.DrawString( Text, ApplicationManager.ApplicationStyle.NormalApplicationFont, _textBrush, new PointF(TEXT_LEFT_OFFSET,TEXT_TOP_OFFSET) ) ;
 		}
@@ -108,19 +107,19 @@ namespace Onfolio.Core.HtmlEditor
 		private void SyncAppearanceToApplicationStyle()
 		{
 			_closeButton.BackColor = ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarBottomColor;
-			
+
 			if ( _backgroundBrush != null )
 				_backgroundBrush.Dispose();
 			_backgroundBrush = new SolidBrush(Color.FromArgb(246,243,240)) ;
-			
+
 			if ( _titleBarBrush != null )
 				_titleBarBrush.Dispose();
 			_titleBarBrush = new SolidBrush(ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarBottomColor) ;
-			
+
 			if ( _borderPen != null )
 				_borderPen.Dispose();
 			_borderPen = new Pen(ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarBottomBevelFirstLineColor) ;
-			
+
 			if ( _textBrush != null )
 				_textBrush.Dispose();
 			_textBrush = new SolidBrush(ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarTextColor) ;
@@ -129,7 +128,6 @@ namespace Onfolio.Core.HtmlEditor
 		private Brush _titleBarBrush ;
 		private Pen _borderPen ;
 		private Brush _textBrush ;
-
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -155,7 +153,6 @@ namespace Onfolio.Core.HtmlEditor
 			base.Dispose( disposing );
 		}
 
-
 		/*
 		private class ParentFrameEventMonitor : NativeWindow, IDisposable
 		{
@@ -163,7 +160,7 @@ namespace Onfolio.Core.HtmlEditor
 			{
 				AssignHandle(parentWindow.Handle);
 			}
-			
+
 			public void Dispose()
 			{
 				ReleaseHandle() ;
@@ -176,19 +173,18 @@ namespace Onfolio.Core.HtmlEditor
 
 				if ( m.Msg == WM.ACTIVATE )
 				{
-					
+
 					// detect switching between the two forms
 					if ( lParam == Handle )
 						switchedBetweenForms = true ;
-					else 
+					else
 						switchedBetweenForms = false ;
-					
+
 				}
-				
+
 			}
 		}
 		*/
-
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -203,6 +199,6 @@ namespace Onfolio.Core.HtmlEditor
 		}
 		#endregion
 
-		
+
 	}
 }

@@ -3,7 +3,6 @@
 
 using OpenLiveWriter.ApplicationFramework.Preferences;
 
-
 namespace OpenLiveWriter.PostEditor
 {
     public class WeblogAccountPreferences : Preferences
@@ -19,14 +18,12 @@ namespace OpenLiveWriter.PostEditor
         }
         private bool _allowSettingsAutoUpdate;
 
-
         public bool AllowProviderButtons
         {
             get { return _allowProviderButtons; }
             set { _allowProviderButtons = value; Modified(); }
         }
         private bool _allowProviderButtons;
-
 
         protected override void LoadPreferences()
         {

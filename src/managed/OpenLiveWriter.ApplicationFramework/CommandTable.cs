@@ -127,7 +127,7 @@ namespace Project31.ApplicationFramework
 				foreach (Command command in this)
 					AddShortcut(command);
 			}
-			
+
 			//	Return the command with the specified shortcut.
 			return (Command)shortcutTable[shortcut];
 		}

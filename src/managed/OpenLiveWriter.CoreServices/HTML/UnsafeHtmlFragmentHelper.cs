@@ -101,7 +101,6 @@ namespace OpenLiveWriter.CoreServices
                 Emit(el.ToString());
         }
 
-
         protected override void OnBeginTag(BeginTag tag)
         {
             if (FlagIsSet(Flag.RemovePartialTags) && tag.Unterminated)
@@ -393,7 +392,6 @@ namespace OpenLiveWriter.CoreServices
         private string ILLEGAL_ATTR_NAMES = "^(([^x][^m][^l].*|.?.?):.*)"; //Matches all strings with a colon that do not start with "xml"
         private string ILLEGAL_STYLE_ATTR_NAMES = "font|class|style|face";
         private string ILLEGAL_SCRIPT_ATTR_NAMES = "onload|onclick|onblur|onchange|onerror|onfocus|onmouseout|onmouseover|onreset|onsubmit|onselect|onunload";
-
 
         /// <summary>
         /// Pushes the specified tagname onto the stack, and returns the number of tags with the same name now on the stack.

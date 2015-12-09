@@ -30,7 +30,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -38,9 +37,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandPrintPreview
-			// 
+			//
 			this.Identifier = "MindShare.ApplicationCore.Commands.PrintPreview";
 			this.MainMenuPath = "&File@0/Print Pre&view...-@122";
 			this.Text = "Print Preview";

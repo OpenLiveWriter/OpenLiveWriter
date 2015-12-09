@@ -61,7 +61,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
             //html = Regex.Replace(html, @"<div(\s[^>]*)?id(\s*)?=(\s*)?""scid:([^""]*)?""([^>]*)?>(?>(?!<div|</div>).|<div(?<Depth>)|</div>(?<-Depth>))*(?(Depth)(?!))</div>", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Singleline);
             html = Regex.Replace(html, @"<div(\s[^>]*)?id(\s*)?=(\s*)?[""]?scid:([^""]*)?[""]?([^>]*)?>(?>(?!<div|<(/|\\/)div>).|<div(?<Depth>)|<(/|\\/)div>(?<-Depth>))*(?(Depth)(?!))</div>", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
-
             // turn heading tags into <p>
             html = Regex.Replace(html, @"<(/?)h[1-7](\s[^>]*)?>", "<$1p>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
             // turn ul/ol tags into <p>
@@ -112,12 +111,10 @@ namespace OpenLiveWriter.HtmlParser.Parser
             return html;
         }
 
-
         public static string EscapeEntity(char c)
         {
             return EntityEscaper.Char(c);
         }
-
 
         /// <summary>
         /// In general you can't put named entities directly in XML PCDATA.
@@ -247,10 +244,10 @@ namespace OpenLiveWriter.HtmlParser.Parser
         /// matching of "basic" entities, like IE does on non-markup HTML text.
         /// However we can't do this kind of matching for attributes, since it
         /// breaks URLs.  When in doubt, use false.
-        /// 
+        ///
         /// Example:
-        /// 
-        /// UnEscapeEntities("&pounda", true) => "£a"
+        ///
+        /// UnEscapeEntities("&pounda", true) => "Â£a"
         /// UnEscapeEntities("&pounda", false) => "&pounda"
         /// </summary>
         public static string UnEscapeEntities(string html, UnEscapeMode unEscapeMode)

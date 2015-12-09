@@ -22,7 +22,7 @@ namespace Project31.ApplicationFramework
 		///	Merge menu entry position.
 		/// </summary>
 		private int position;
-		
+
 		/// <summary>
 		/// Gets the merge menu entry position.
 		/// </summary>
@@ -77,7 +77,7 @@ namespace Project31.ApplicationFramework
 		public MergeMenuEntry()
 		{
 		}
-				
+
 		/// <summary>
 		/// Initializes a new instance of the MergeMenuEntry class.  This constructor is used for
 		/// top level and "container" menu items.
@@ -110,12 +110,12 @@ namespace Project31.ApplicationFramework
 		/// </summary>
 		public MergeMenuEntry this [int position, string text]
 		{
-			get 
+			get
 			{
 				string key = String.Format("{0}-{1}", position.ToString("D3"), text);
 				return (MergeMenuEntry)childMergeMenuEntries[key];
 			}
-			set 
+			set
 			{
 				string key = String.Format("{0}-{1}", position.ToString("D3"), text);
 				childMergeMenuEntries[key] = value;
@@ -133,7 +133,7 @@ namespace Project31.ApplicationFramework
 			return CreateMenuItems(mainMenu);
 		}
 #endif
-	
+
 		/// <summary>
 		/// Creates and returns a set of menu items from the child merge menu entries in this merge
 		/// menu entry.

@@ -79,7 +79,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
         }
 
 
-
         public void Save(BlogSettings settings)
         {
             settings.HostBlogId = this.HostBlogId;
@@ -208,7 +207,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
             _categories = new BlogPostCategory[0];
         }
 
-
         public string Id
         {
             get
@@ -269,7 +267,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
             }
         }
 
-
         public string BlogName
         {
             get
@@ -317,7 +314,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
                 _manifestDownloadInfo = value;
             }
         }
-
 
         public IDictionary OptionOverrides
         {
@@ -378,7 +374,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
         }
 
 
-
         public string ProviderId
         {
             get { return _providerId; }
@@ -399,7 +394,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
         {
             get { return _postApiUrl; }
         }
-
 
         IBlogCredentialsAccessor IBlogSettingsAccessor.Credentials
         {
@@ -440,7 +434,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
                 _lastPublishFailed = value;
             }
         }
-
 
 
         public BlogPostCategory[] Categories
@@ -554,7 +547,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
             get { return new BlogPublishingPluginSettings(_pluginSettings); }
         }
 
-
         public BlogEditingTemplateFile[] TemplateFiles
         {
             get
@@ -578,7 +570,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
             get { return _switchToWeblog; }
             set { _switchToWeblog = value; }
         }
-
 
         public BlogInfo[] HostBlogs
         {
@@ -609,7 +600,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
             get { return _availableImageEndpoints; }
             set { _availableImageEndpoints = value; }
         }
-
 
         //
         // IMPORTANT NOTE: When adding member variables you MUST update the CopyFrom() implementation below!!!!
@@ -703,7 +693,7 @@ namespace OpenLiveWriter.PostEditor.Configuration
             // credentials
             BlogCredentialsHelper.Copy(sourceSettings._credentials, _credentials);
 
-            // template files            
+            // template files
             _templateFiles = new BlogEditingTemplateFile[sourceSettings._templateFiles.Length];
             for (int i = 0; i < sourceSettings._templateFiles.Length; i++)
             {
@@ -780,7 +770,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
                 _buttonDescriptions = null;
             }
 
-
             // favicon
             _favIcon = sourceSettings._favIcon;
 
@@ -810,7 +799,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
             return newSettings;
         }
 
-
     }
 
     public class TemporaryBlogCredentials : IBlogCredentials
@@ -822,14 +810,12 @@ namespace OpenLiveWriter.PostEditor.Configuration
         }
         private string _username = String.Empty;
 
-
         public string Password
         {
             get { return _password; }
             set { _password = value; }
         }
         private string _password = String.Empty;
-
 
         public string[] CustomValues
         {
@@ -877,7 +863,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
 
     }
 
-
     public class TemporaryFileUploadSettings : IBlogFileUploadSettings, ICloneable
     {
         public TemporaryFileUploadSettings()
@@ -914,7 +899,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
         private Hashtable _values = new Hashtable();
 
 
-
         public object Clone()
         {
             TemporaryFileUploadSettings newSettings = new TemporaryFileUploadSettings();
@@ -925,11 +909,8 @@ namespace OpenLiveWriter.PostEditor.Configuration
             return newSettings;
         }
 
-
     }
 
 }
-
-
 
 

@@ -28,7 +28,7 @@ namespace Project31.ApplicationFramework
 		{
 			if( disposing )
 			{
-				if (components != null) 
+				if (components != null)
 				{
 					components.Dispose();
 				}

@@ -91,7 +91,6 @@ namespace OpenLiveWriter.PostEditor
         }
     }
 
-
     /// <summary>
 	/// This class is a dummy that is put into the list of editors so that when a change is made
 	/// external to any editor inside the manager, the manager has an editor to put the dirty flag to
@@ -139,14 +138,12 @@ namespace OpenLiveWriter.PostEditor
         {
         }
 
-
         public void ForceDirty()
         {
             _isDirty = true;
         }
 
         private bool _isDirty = false;
-
 
         public void OnClosing(CancelEventArgs e)
         {

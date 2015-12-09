@@ -32,7 +32,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private System.Windows.Forms.Label labelHomepageUrl;
         private System.Windows.Forms.Label labelHomepageUrl2;
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -148,7 +148,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-
         public override bool ValidatePanel()
         {
             string homepageUrl = HomepageUrl;
@@ -202,8 +201,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -219,8 +217,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -243,9 +241,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             panelMain.Controls.Add(labelPassword);
             panelMain.Controls.Add(textBoxPassword);
             panelMain.Controls.Add(checkBoxSavePassword);
-            // 
+            //
             // checkBoxSavePassword
-            // 
+            //
             this.checkBoxSavePassword.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxSavePassword.Location = new System.Drawing.Point(20, 98);
             this.checkBoxSavePassword.Name = "checkBoxSavePassword";
@@ -253,9 +251,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.checkBoxSavePassword.TabIndex = 5;
             this.checkBoxSavePassword.Text = "&Remember my password";
             this.checkBoxSavePassword.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // labelPassword
-            // 
+            //
             this.labelPassword.AutoSize = true;
             this.labelPassword.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPassword.Location = new System.Drawing.Point(20, 57);
@@ -263,53 +261,53 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelPassword.Size = new System.Drawing.Size(73, 17);
             this.labelPassword.TabIndex = 3;
             this.labelPassword.Text = "&Password:";
-            // 
+            //
             // textBoxPassword
-            // 
+            //
             this.textBoxPassword.Location = new System.Drawing.Point(20, 74);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(208, 22);
             this.textBoxPassword.TabIndex = 4;
             this.textBoxPassword.Enter += new System.EventHandler(this.textBoxPassword_Enter);
-            // 
+            //
             // textBoxUsername
-            // 
+            //
             this.textBoxUsername.Location = new System.Drawing.Point(20, 74);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(208, 22);
             this.textBoxUsername.TabIndex = 2;
             this.textBoxUsername.Enter += new System.EventHandler(this.textBoxUsername_Enter);
-            // 
+            //
             // labelUsername
-            // 
+            //
             this.labelUsername.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelUsername.Location = new System.Drawing.Point(20, 57);
             this.labelUsername.Name = "labelUsername";
             this.labelUsername.Size = new System.Drawing.Size(167, 13);
             this.labelUsername.TabIndex = 1;
             this.labelUsername.Text = "&Username:";
-            // 
+            //
             // textBoxHomepageUrl
-            // 
+            //
             this.textBoxHomepageUrl.Location = new System.Drawing.Point(20, 74);
             this.textBoxHomepageUrl.Name = "textBoxHomepageUrl";
             this.textBoxHomepageUrl.Size = new System.Drawing.Size(275, 22);
             this.textBoxHomepageUrl.TabIndex = 2;
             this.textBoxHomepageUrl.Enter += new System.EventHandler(this.textBoxHomepageUrl_Enter);
             this.textBoxHomepageUrl.Leave += new System.EventHandler(this.textBoxHomepageUrl_Leave);
-            // 
+            //
             // labelHomepageUrl
-            // 
+            //
             this.labelHomepageUrl.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelHomepageUrl.Location = new System.Drawing.Point(20, 0);
             this.labelHomepageUrl.Name = "labelHomepageUrl";
             this.labelHomepageUrl.Size = new System.Drawing.Size(167, 13);
             this.labelHomepageUrl.TabIndex = 1;
             this.labelHomepageUrl.Text = "Web &address of your blog:";
-            // 
+            //
             // labelHomepageUrl2
-            // 
+            //
             this.labelHomepageUrl2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelHomepageUrl2.ForeColor = SystemColors.GrayText;
             this.labelHomepageUrl2.Location = new System.Drawing.Point(20, 57);
@@ -317,9 +315,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelHomepageUrl2.Size = new System.Drawing.Size(167, 13);
             this.labelHomepageUrl2.TabIndex = 1;
             this.labelHomepageUrl2.Text = "This is the URL that visitors use to read your blog";
-            // 
+            //
             // WeblogConfigurationWizardPanelBasicInfo
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelBasicInfo";
             this.Size = new System.Drawing.Size(432, 244);
             this.panelMain.ResumeLayout(false);
@@ -348,9 +346,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             textBoxPassword.SelectAll();
         }
-
-
-
 
 
 

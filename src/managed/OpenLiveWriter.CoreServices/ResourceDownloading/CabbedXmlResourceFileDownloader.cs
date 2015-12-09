@@ -42,7 +42,7 @@ namespace OpenLiveWriter.CoreServices.ResourceDownloading
         private static object ProcessAssemblyResource(Assembly assembly, string name, XmlResourceFileProcessor processor)
         {
 
-            // calculate the full resource path name 	
+            // calculate the full resource path name
             string assemblyResourcePath =
                 String.Format(CultureInfo.InvariantCulture, "{0}.{1}", assembly.GetName().Name, name);
 

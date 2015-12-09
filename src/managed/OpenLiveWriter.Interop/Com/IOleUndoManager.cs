@@ -30,41 +30,41 @@ namespace OpenLiveWriter.Interop.Com
         void GetLastRedoDescription();
         void Enable();
 
-        //	virtual HRESULT STDMETHODCALLTYPE Open( 
+        //	virtual HRESULT STDMETHODCALLTYPE Open(
         //	/* [in] */ IOleParentUndoUnit *pPUU) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE Close( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE Close(
         //	/* [in] */ IOleParentUndoUnit *pPUU,
         //	/* [in] */ BOOL fCommit) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE Add( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE Add(
         //	/* [in] */ IOleUndoUnit *pUU) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE GetOpenParentState( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE GetOpenParentState(
         //	/* [out] */ DWORD *pdwState) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE DiscardFrom( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE DiscardFrom(
         //	/* [in] */ IOleUndoUnit *pUU) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE UndoTo( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE UndoTo(
         //	/* [in] */ IOleUndoUnit *pUU) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE RedoTo( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE RedoTo(
         //	/* [in] */ IOleUndoUnit *pUU) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE EnumUndoable( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE EnumUndoable(
         //	/* [out] */ IEnumOleUndoUnits **ppEnum) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE EnumRedoable( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE EnumRedoable(
         //	/* [out] */ IEnumOleUndoUnits **ppEnum) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE GetLastUndoDescription( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE GetLastUndoDescription(
         //	/* [out] */ BSTR *pBstr) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE GetLastRedoDescription( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE GetLastRedoDescription(
         //	/* [out] */ BSTR *pBstr) = 0;
-        //        
-        //	virtual HRESULT STDMETHODCALLTYPE Enable( 
+        //
+        //	virtual HRESULT STDMETHODCALLTYPE Enable(
         //	/* [in] */ BOOL fEnable) = 0;
 
     }

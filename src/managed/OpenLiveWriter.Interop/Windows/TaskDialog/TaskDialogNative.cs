@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -11,33 +11,33 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
     internal static class TaskDialogNative
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pTaskConfig">Pointer to a TASKDIALOGCONFIG structure that contains information used to display the task dialog.</param>
-        /// <param name="pnButton">Address of a variable that receives either: 
+        /// <param name="pnButton">Address of a variable that receives either:
         ///   - one of the button IDs specified in the pButtons member of the pTaskConfig parameter
         ///   - one of the following values:
-        ///         Value       Description 
+        ///         Value       Description
         ///         0           Function call failed. Refer to return value for more information.
         ///         IDCANCEL    Cancel button was selected, Alt-F4 was pressed, Escape was pressed or the user clicked on the close window button.
-        ///         IDNO        No button was selected. 
-        ///         IDOK        OK button was selected. 
-        ///         IDRETRY     Retry button was selected. 
+        ///         IDNO        No button was selected.
+        ///         IDOK        OK button was selected.
+        ///         IDRETRY     Retry button was selected.
         ///         IDYES       Yes button was selected.
-        ///         
+        ///
         /// If this parameter is NULL, no value is returned.</param>
         /// <param name="pnRadioButton">Address of a variable that receives one of the button IDs specified in the pRadioButtons member of the pTaskConfig parameter. If this parameter is NULL, no value is returned.</param>
         /// <param name="pfVerificationFlagChecked">Address of a variable that receives one of the following values:
-        ///         Value       Description 
-        ///         TRUE        The verification checkbox was checked when the dialog was dismissed. 
-        ///         FALSE       The verification checkbox was not checked when the dialog was dismissed. 
-        /// 
+        ///         Value       Description
+        ///         TRUE        The verification checkbox was checked when the dialog was dismissed.
+        ///         FALSE       The verification checkbox was not checked when the dialog was dismissed.
+        ///
         /// If this parameter is NULL, the verification checkbox is disabled.</param>
         /// <returns>Returns one of the following values.
         ///         S_OK            The operation completed successfully.
-        ///         E_OUTOFMEMORY   There is insufficient memory to complete the operation. 
-        ///         E_INVALIDARG    One or more arguments are not valid. 
-        ///         E_FAIL          The operation failed. 
+        ///         E_OUTOFMEMORY   There is insufficient memory to complete the operation.
+        ///         E_INVALIDARG    One or more arguments are not valid.
+        ///         E_FAIL          The operation failed.
         /// </returns>
         [DllImport("comctl32.dll", CharSet = CharSet.Unicode)]
         public static extern int TaskDialogIndirect(

@@ -21,13 +21,11 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 		/// </summary>
 		private System.ComponentModel.Container components = new Container();
 
-
 		private IHtmlEditorComponentContext _editorContext ;
 		private IBlogPostImageDataContext _imageDataContext;
 		private Onfolio.Writer.PostEditor.PostHtmlEditing.ImagePropertyEditorControl imagePropertyEditorControl1;
 		private Onfolio.Writer.PostEditor.PostHtmlEditing.ImageEditingPropertyStatusbar imageEditingPropertyStatusbar1;
 		private CreateFileCallback _createFileCallback ;
-
 
 
 		#region Initialization/Singleton
@@ -53,14 +51,12 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 		[ThreadStatic]
 		private static ImageEditingPropertyForm _imagePropertyForm ;
 
-
 		public ImageEditingPropertyForm()
 		{
 			InitializeComponent() ;
 		}
 
 		#endregion
-
 
 		#region Interaction with base (MainFrameSatelliteWindow)
 
@@ -73,10 +69,9 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 			_createFileCallback = callback ;
 
 			this.imagePropertyEditorControl1.Init(dataContext);
-			
+
 			base.Init(editorContext.MainFrameWindow, typeof(CommandViewImageProperties)) ;
 		}
-
 
 		protected override void OnBeforeShow()
 		{
@@ -88,7 +83,6 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 		{
 			get { return ImageEditingSettings.AutoSavePropertiesActivationState  ; }
 		}
-
 
 		protected override bool ShowWhenEditContextActivated
 		{
@@ -102,9 +96,7 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 			set { ImageEditingSettings.PropertiesMainFrameTopRightOffset = value ; }
 		}
 
-
 		#endregion
-
 
 		private ImageEditingTabPageControl[] TabPages
 		{
@@ -118,13 +110,13 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 		{
 			RefreshImage();
 		}
-		
+
 		public IHTMLImgElement SelectedImage
 		{
 			get { return _selectedImage; }
 		}
 		private IHTMLImgElement _selectedImage ;
-	
+
 		private bool SelectionIsImage
 		{
 			get
@@ -175,8 +167,8 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 					tabPage.ImagePropertyChanged += new ImagePropertyEventHandler(tabPage_ImagePropertyChanged);
 				imagePropertyEditorControl1.ImagePropertyChanged += new ImagePropertyEventHandler(tabPage_ImagePropertyChanged);
 
-				imageEditingPropertyStatusbar1.SetImageStatus(_imageInfo.ImageSourceUri.ToString(), 
-					_imageInfo.ImageSourceUri.IsFile ? ImageEditingPropertyStatusbar.IMAGE_TYPE.LOCAL_IMAGE : 
+				imageEditingPropertyStatusbar1.SetImageStatus(_imageInfo.ImageSourceUri.ToString(),
+					_imageInfo.ImageSourceUri.IsFile ? ImageEditingPropertyStatusbar.IMAGE_TYPE.LOCAL_IMAGE :
 					ImageEditingPropertyStatusbar.IMAGE_TYPE.WEB_IMAGE
 					);
 
@@ -267,7 +259,7 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 			{
 				//refresh the ImagePropertiesInfo object since it doesn't get refreshed automatically when
 				//the form is hidden.
-				ImagePropertyHandler.RefreshView(); 
+				ImagePropertyHandler.RefreshView();
 			}
 
 			ImagePropertiesInfo.InlineImageSize = newSize;
@@ -289,22 +281,22 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 			}
 			base.Dispose( disposing );
 		}
-				
+
 		#region Designer Generated Code
-		
+
 		private void InitializeComponent()
 		{
 			this.imagePropertyEditorControl1 = new Onfolio.Writer.PostEditor.PostHtmlEditing.ImagePropertyEditorControl();
 			this.imageEditingPropertyStatusbar1 = new Onfolio.Writer.PostEditor.PostHtmlEditing.ImageEditingPropertyStatusbar();
 			((System.ComponentModel.ISupportInitialize)(this.imagePropertyEditorControl1)).BeginInit();
 			this.SuspendLayout();
-			// 
+			//
 			// imagePropertyEditorControl1
-			// 
+			//
 			this.imagePropertyEditorControl1.AllowDragDropAutoScroll = false;
 			this.imagePropertyEditorControl1.AllPaintingInWmPaint = true;
-			this.imagePropertyEditorControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
+			this.imagePropertyEditorControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+				| System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.imagePropertyEditorControl1.BackColor = System.Drawing.SystemColors.Control;
 			this.imagePropertyEditorControl1.ImageInfo = null;
@@ -313,18 +305,18 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 			this.imagePropertyEditorControl1.Size = new System.Drawing.Size(236, 335);
 			this.imagePropertyEditorControl1.TabIndex = 0;
 			this.imagePropertyEditorControl1.TopLayoutMargin = 2;
-			// 
+			//
 			// imageEditingPropertyStatusbar1
-			// 
+			//
 			this.imageEditingPropertyStatusbar1.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.imageEditingPropertyStatusbar1.Location = new System.Drawing.Point(0, 334);
 			this.imageEditingPropertyStatusbar1.Name = "imageEditingPropertyStatusbar1";
 			this.imageEditingPropertyStatusbar1.Size = new System.Drawing.Size(236, 24);
 			this.imageEditingPropertyStatusbar1.TabIndex = 1;
 			this.imageEditingPropertyStatusbar1.TabStop = false;
-			// 
+			//
 			// ImageEditingPropertyForm
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
 			this.ClientSize = new System.Drawing.Size(236, 358);
 			this.Controls.Add(this.imageEditingPropertyStatusbar1);

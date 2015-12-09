@@ -196,13 +196,12 @@ namespace OpenLiveWriter.CoreServices
             return newPath;
         }
 
-
         /// <summary>
         /// Creates a new file based on a pattern, dealing with
         /// name collisions by using an incrementing number as
-        /// part of the file name.  The pattern should be the 
+        /// part of the file name.  The pattern should be the
         /// filename you are trying to match.
-        /// 
+        ///
         /// For example, the pattern "my file.txt" might result in
         /// "my file.txt", "my file[1].txt", or "my file[23].txt".
         /// </summary>

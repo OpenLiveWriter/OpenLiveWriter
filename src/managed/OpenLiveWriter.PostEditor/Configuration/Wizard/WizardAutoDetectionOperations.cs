@@ -40,7 +40,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         void ShowNonFatalErrors(IWin32Window owner);
     }
 
-
     internal class WizardWeblogAndSettingsAutoDetectionOperation : IWizardAutoDetectionOperation
     {
         public WizardWeblogAndSettingsAutoDetectionOperation(WizardStep editWithStyleStep)
@@ -100,7 +99,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _blogServiceDetector.ShowLastError(owner);
         }
 
-
         public bool WasCancelled
         {
             get
@@ -140,7 +138,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 _temporarySettings.OptionOverrides = _blogServiceDetector.OptionOverrides;
             if (_blogServiceDetector.HomePageOverrides != null)
                 _temporarySettings.HomePageOverrides = _blogServiceDetector.HomePageOverrides;
-
 
             if (_blogServiceDetector.ButtonDescriptions != null)
                 _temporarySettings.ButtonDescriptions = _blogServiceDetector.ButtonDescriptions;
@@ -273,7 +270,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 catch (BlogClientOperationCancelledException)
                 {
                     _hostOperation.Cancel();
-                    // WasCancelled == true 
+                    // WasCancelled == true
                 }
                 catch (Exception ex)
                 {
@@ -290,8 +287,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         WizardStep _editWithStyleStep;
 
     }
-
-
 
 
 }

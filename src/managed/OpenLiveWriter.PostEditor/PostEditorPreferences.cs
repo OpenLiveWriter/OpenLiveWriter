@@ -67,7 +67,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private int _autoSaveMinutes;
 
-
         protected override void LoadPreferences()
         {
             PostWindowBehavior = PostEditorSettings.PostWindowBehavior;

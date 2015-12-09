@@ -31,7 +31,7 @@ namespace OpenLiveWriter.ApplicationFramework
         #region Private Member Variables & Declarations
 
         /// <summary>
-        /// The minimum horizontal splitter position. 
+        /// The minimum horizontal splitter position.
         /// </summary>
         private static readonly double MINIMUM_HORIZONTAL_SPLITTER_POSITION = 0.20;
 
@@ -182,7 +182,6 @@ namespace OpenLiveWriter.ApplicationFramework
         ]
         public event EventHandler HorizontalSplitterMoving;
 
-
         /// <summary>
         /// Occurs when the vertical splitter begins moving.
         /// </summary>
@@ -269,24 +268,24 @@ namespace OpenLiveWriter.ApplicationFramework
             ((System.ComponentModel.ISupportInitialize)(this.workspaceColumnPaneUpper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.workspaceColumnPaneLower)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // splitterLightweightControlVertical
-            // 
+            //
             this.splitterLightweightControlVertical.LightweightControlContainerControl = this;
             this.splitterLightweightControlVertical.Orientation = OpenLiveWriter.ApplicationFramework.SplitterLightweightControl.SplitterOrientation.Vertical;
             this.splitterLightweightControlVertical.SplitterEndMove += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlVertical_SplitterEndMove);
             this.splitterLightweightControlVertical.SplitterBeginMove += new System.EventHandler(this.splitterLightweightControlVertical_SplitterBeginMove);
             this.splitterLightweightControlVertical.SplitterMoving += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlVertical_SplitterMoving);
-            // 
+            //
             // splitterLightweightControlHorizontal
-            // 
+            //
             this.splitterLightweightControlHorizontal.LightweightControlContainerControl = this;
             this.splitterLightweightControlHorizontal.SplitterEndMove += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlHorizontal_SplitterEndMove);
             this.splitterLightweightControlHorizontal.SplitterBeginMove += new System.EventHandler(this.splitterLightweightControlHorizontal_SplitterBeginMove);
             this.splitterLightweightControlHorizontal.SplitterMoving += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlHorizontal_SplitterMoving);
-            // 
+            //
             // workspaceColumnPaneUpper
-            // 
+            //
             this.workspaceColumnPaneUpper.Border = false;
             this.workspaceColumnPaneUpper.Control = null;
             this.workspaceColumnPaneUpper.FixedHeight = 0;
@@ -295,9 +294,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.workspaceColumnPaneUpper.LightweightControlContainerControl = this;
             this.workspaceColumnPaneUpper.Visible = false;
             this.workspaceColumnPaneUpper.VisibleChanged += new System.EventHandler(this.workspaceColumnPaneUpper_VisibleChanged);
-            // 
+            //
             // workspaceColumnPaneLower
-            // 
+            //
             this.workspaceColumnPaneLower.Border = false;
             this.workspaceColumnPaneLower.Control = null;
             this.workspaceColumnPaneLower.FixedHeight = 0;
@@ -306,9 +305,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.workspaceColumnPaneLower.LightweightControlContainerControl = this;
             this.workspaceColumnPaneLower.Visible = false;
             this.workspaceColumnPaneLower.VisibleChanged += new System.EventHandler(this.workspaceColumnPaneLower_VisibleChanged);
-            // 
+            //
             // WorkspaceColumnLightweightControl
-            // 
+            //
             this.AllowDrop = true;
             ((System.ComponentModel.ISupportInitialize)(this.splitterLightweightControlVertical)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitterLightweightControlHorizontal)).EndInit();
@@ -663,7 +662,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 HorizontalSplitterMoving(this, e);
         }
 
-
         /// <summary>
         /// Raises the VerticalSplitterBeginMove event.
         /// </summary>
@@ -693,7 +691,6 @@ namespace OpenLiveWriter.ApplicationFramework
             if (VerticalSplitterMoving != null)
                 VerticalSplitterMoving(this, e);
         }
-
 
         #endregion Protected Events
 

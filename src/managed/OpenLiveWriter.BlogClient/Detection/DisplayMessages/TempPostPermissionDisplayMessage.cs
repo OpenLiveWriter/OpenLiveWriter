@@ -25,7 +25,7 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,11 +37,11 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -64,9 +63,9 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// TempPostPermissionDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
 			this.Text = @"{0} allows you to edit using the visual style of your
 weblog. This lets you see what your posts will look like online

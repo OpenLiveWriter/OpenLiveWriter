@@ -102,7 +102,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         }
 
 
-
         private string[] CollectionToSortedStringArray(ICollection foo)
         {
             string[] names = new string[data.Count];

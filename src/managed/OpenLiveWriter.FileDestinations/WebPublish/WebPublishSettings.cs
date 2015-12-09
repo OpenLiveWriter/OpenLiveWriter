@@ -22,7 +22,6 @@ namespace OpenLiveWriter.FileDestinations
             PublishPath = publishPath;
         }
 
-
         /// <summary>
         /// Unique-id for the destination
         /// </summary>
@@ -46,7 +45,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
         private WebPublishDestination webPublishDestination = new WebPublishDestination(null);
-
 
 
         /// <summary>
@@ -75,7 +73,6 @@ namespace OpenLiveWriter.FileDestinations
         private string publishPath = String.Empty;
 
 
-
         public string FullPublishPath
         {
             get
@@ -85,7 +82,6 @@ namespace OpenLiveWriter.FileDestinations
                 return cleanPath;
             }
         }
-
 
         public string PublishRootPath
         {
@@ -111,7 +107,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         public string PublishUrl
         {
             get
@@ -124,22 +119,16 @@ namespace OpenLiveWriter.FileDestinations
         }
 
 
-
-
         /// <summary>
         /// Notify users that the publishing destination has changed
         /// </summary>
         public event EventHandler DestinationChanged;
 
 
-
         /// <summary>
         /// Notify users that the publish folder has changed
         /// </summary>
         public event EventHandler PublishPathChanged;
-
-
-
 
 
 
@@ -178,7 +167,6 @@ namespace OpenLiveWriter.FileDestinations
                 prefix = "\\";
                 path = path.Substring(1);
             }
-
 
             //strip any double or file separators
             string cleanPath = path;

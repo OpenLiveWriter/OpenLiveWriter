@@ -12,7 +12,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 	/// </summary>
 	internal class CategorySeparatorControl : UserControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			e.Graphics.DrawLine(new Pen(SystemBrushes.ControlDarkDark, 1), 0, 0, Width - 8, 0 );
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -47,15 +47,15 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CategorySeparatorControl
-			// 
+			//
 			this.Name = "CategorySeparatorControl";
 			this.Size = new System.Drawing.Size(100, 5);
 

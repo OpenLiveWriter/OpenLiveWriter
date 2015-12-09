@@ -90,7 +90,6 @@ namespace OpenLiveWriter.Mshtml
         private readonly IHTMLEventObj _htmlEvt;
         private readonly IHTMLEventObj2 _htmlEvt2;
 
-
         public HtmlEventArgs(IHTMLEventObj evt)
         {
             _htmlEvt = evt;
@@ -136,14 +135,12 @@ namespace OpenLiveWriter.Mshtml
         }
         private bool _wasCancelled = false;
 
-
     }
 
-
     /// <summary>
-    /// Class which implements HTMLDocumentEvents2 to provide an event repeater to 
-    /// .NET clients. This enables .NET to directly sink to the events of an 
-    /// existing IHTMLDocument2 instance (i.e. one that was not created as part 
+    /// Class which implements HTMLDocumentEvents2 to provide an event repeater to
+    /// .NET clients. This enables .NET to directly sink to the events of an
+    /// existing IHTMLDocument2 instance (i.e. one that was not created as part
     /// of an ActiveX control and therefore doesn't have built in .NET event
     /// handling). Note that we are only implementing repeaters as needed so many
     /// of these event handlers are simply no-ops.
@@ -168,7 +165,6 @@ namespace OpenLiveWriter.Mshtml
             Attach(document);
         }
 
-
         /// <summary>
         /// Attach the event repeater to the specified document instance. Call Detach
         /// when you no longer want to receive events from the document.
@@ -183,7 +179,7 @@ namespace OpenLiveWriter.Mshtml
             // query for the IConnectionPointContainer interface
             IConnectionPointContainer cpContainer = (IConnectionPointContainer)document;
 
-            // find the HTMLDocumentEvents2 connection point			
+            // find the HTMLDocumentEvents2 connection point
             cpContainer.FindConnectionPoint(ref iidHTMLDocumentEvents2, out connectionPoint);
 
             // attach to the event interface
@@ -194,7 +190,6 @@ namespace OpenLiveWriter.Mshtml
 
             _eventCounter.Reset();
         }
-
 
         /// <summary>
         /// Detach the event repeater from the document instance
@@ -230,7 +225,6 @@ namespace OpenLiveWriter.Mshtml
         }
         private event HtmlEventHandler ClickEventHandler;
 
-
         /// <summary>
         /// Event raised when the mouse is double clicked.
         /// </summary>
@@ -248,7 +242,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
         private event HtmlEventHandler DoubleClickEventHandler;
-
 
 
         /// <summary>
@@ -361,7 +354,6 @@ namespace OpenLiveWriter.Mshtml
         }
         private event HtmlEventHandler KeyUpEventHandler;
 
-
         /// <summary>
         /// Event raised when a property on the page changes
         /// </summary>
@@ -398,7 +390,6 @@ namespace OpenLiveWriter.Mshtml
         }
         private event EventHandler ReadyStateChangedEventHandler;
 
-
         /// <summary>
         /// Event raised when the document gets focus
         /// </summary>
@@ -416,7 +407,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
         private event EventHandler GotFocusEventHandler;
-
 
         /// <summary>
         /// Event raised when the document loses focus
@@ -436,18 +426,16 @@ namespace OpenLiveWriter.Mshtml
         }
         private event EventHandler LostFocusEventHandler;
 
-
         /////////////////////////////////////////////////////////////////////////////////
         // HTMLDocumentEvents2 implemented event handlers -- These event handlers are
         // used to 'repeat' events to outside listeners.
-        //		
+        //
 
         void HTMLDocumentEvents2.onselectionchange(IHTMLEventObj pEvtObj)
         {
             if (SelectionChangedEventHandler != null)
                 SelectionChangedEventHandler(this, new HtmlEventArgs(pEvtObj));
         }
-
 
         void HTMLDocumentEvents2.onreadystatechange(IHTMLEventObj pEvtObj)
         {
@@ -463,7 +451,6 @@ namespace OpenLiveWriter.Mshtml
             return !pEvtObj.cancelBubble;
         }
 
-
         void HTMLDocumentEvents2.onfocusin(IHTMLEventObj pEvtObj)
         {
             if (GotFocusEventHandler != null)
@@ -477,13 +464,12 @@ namespace OpenLiveWriter.Mshtml
         }
 
 
-
         /////////////////////////////////////////////////////////////////////////////////
         // HTMLDocumentEvents2 no-op event handlers -- As we need to handle the various
         // events we will fill in the implementations. NOTE that even though the MSDN
         // documentation asserts that we should return FALSE from these event handlers
-        // to allow event bubbling the reverse of this is in fact in the case. You 
-        // actually must return TRUE to allow events to propagate. See the extended 
+        // to allow event bubbling the reverse of this is in fact in the case. You
+        // actually must return TRUE to allow events to propagate. See the extended
         // comment at the bottom of this file for more info.
         //
 
@@ -596,7 +582,6 @@ namespace OpenLiveWriter.Mshtml
         void HTMLDocumentEvents2.onrowsdelete(IHTMLEventObj pEvtObj)
         {
         }
-
 
         void HTMLDocumentEvents2.onmousemove(IHTMLEventObj pEvtObj)
         {
@@ -731,7 +716,7 @@ URL for newsgroup posting on workaround:
 http://groups.google.com/groups?q=DotNet+HTMLDocumentEvents2&hl=en&lr=&ie=UTF-8&oe=UTF-8&selm=9YiIa.12479%24Xj1.5184%40fe04.atl2.webusenet.com&rnum=2
 
 Contents on newsgroup posting:
- 
+
 Okay, now that we've all felt the pain of watching "+=" event handler
 registration kill all OTHER (default/existing) event handling in our
 MSHTML-related code, here's a workaround of sorts.  I say "of sorts",
@@ -758,7 +743,6 @@ implemented by your class]
 advisory notifications
   private Int32 m_ConnectionPointCookie = -1;  // the cookie val that idents
 the connection instance
-
 
 3) Implement all the members of that interface, coding your
 "specializations" where desired:
@@ -956,7 +940,6 @@ state is "Ready"),
     icpc.FindConnectionPoint(ref guid, out m_ConnectionPoint);
     m_ConnectionPoint.Advise(this, out m_ConnectionPointCookie);
 
-
 5) Unregister your event sink in your BeforeNavigate2 handler (or other
 point where you will no longer want to receive HTMLDocumentEvents2
 notifications):
@@ -965,8 +948,7 @@ notifications):
 
 BOL
 
-
--- 
+--
 Regards,
 
 Jim Allison

@@ -78,7 +78,6 @@ namespace OpenLiveWriter.ApplicationFramework
             return command;
         }
 
-
         /// <summary>
         /// Shows a CommandContextMenu modally.
         /// </summary>
@@ -308,7 +307,6 @@ namespace OpenLiveWriter.ApplicationFramework
                     commandMenuBuilder.MergeCommand(command);
             MenuItems.AddRange(commandMenuBuilder.CreateMenuItems());
         }
-
 
 
         /// <summary>

@@ -9,11 +9,11 @@ using Microsoft.Win32;
 
 namespace OpenLiveWriter.CoreServices
 {
-	
+
 	//usage:
 	//Instrumentor.IncrementCounter(Instrumentor.COUNTERNAME);
 	//handles creating the registry keys and opt in stuff, so you don't have to
-	
+
 	/// <summary>
 	/// Summary description for Intrumentor.
 	/// </summary>
@@ -32,9 +32,9 @@ namespace OpenLiveWriter.CoreServices
 
 		private const string ALWAYS_SEND = "n";
 		private const string OPT_IN_ONLY = "o";
-		
+
 		private readonly static string instrumentationReportKey;
-		
+
 		private static bool SearchLoggerWorks = false;
 
 		static Instrumentor()
@@ -69,13 +69,13 @@ namespace OpenLiveWriter.CoreServices
 				{
 					instrumentationReportKey = null;
 				}
-			} 
+			}
 			catch (Exception ex)
 			{
 				Trace.Fail("Exception while writing instrumentation values to registry: " + ex.ToString());
-			}		
+			}
 		}
-		
+
 		public static void IncrementCounter(string keyName)
 		{
 			string regKey = GetKeyName(keyName);
@@ -101,7 +101,7 @@ namespace OpenLiveWriter.CoreServices
 						}
 					}
 				}
-			} 
+			}
 			catch (Exception ex)
 			{
 				Trace.Fail("Exception while writing instrumentation values to registry: " + ex.ToString());
@@ -130,7 +130,7 @@ namespace OpenLiveWriter.CoreServices
 						}
 					}
 				}
-			} 
+			}
 			catch (Exception ex)
 			{
 				Trace.Fail("Exception while writing instrumentation values to registry: " + ex.ToString());
@@ -155,14 +155,14 @@ namespace OpenLiveWriter.CoreServices
 							String currentVal = (String)reportingKey.GetValue(regKey, "");
 							if (currentVal != "")
 							{
-								//add this item if it isn't in the list							
+								//add this item if it isn't in the list
 								if (currentVal.IndexOf(newVal) < 0)
 								{
 									currentVal += "," + newVal;
 								}
 							}
 							else
-							{							
+							{
 								//new list, set to item
 								currentVal = newVal;
 							}
@@ -174,7 +174,7 @@ namespace OpenLiveWriter.CoreServices
 						}
 					}
 				}
-			} 
+			}
 			catch (Exception ex)
 			{
 				Trace.Fail("Exception while writing instrumentation values to registry: " + ex.ToString());
@@ -183,7 +183,7 @@ namespace OpenLiveWriter.CoreServices
 
 		private static string GetKeyName(string keyName)
 		{
-			string regKey = keyName;		
+			string regKey = keyName;
 			//the final letter of the key name determines whether it is opt-in only or not
 			//right now everything is opt in only
 			regKey += OPT_IN_ONLY;
@@ -203,6 +203,5 @@ namespace OpenLiveWriter.CoreServices
 		}
 	}
 }
-
 
 

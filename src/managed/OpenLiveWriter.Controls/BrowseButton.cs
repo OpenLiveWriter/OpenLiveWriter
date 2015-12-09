@@ -33,7 +33,7 @@ namespace OpenLiveWriter.Controls
 		{
 			if( disposing )
 			{
-				if (components != null) 
+				if (components != null)
 				{
 					components.Dispose();
 				}
@@ -48,9 +48,9 @@ namespace OpenLiveWriter.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// BrowseButton
-			// 
+			//
 			this.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.Size = new System.Drawing.Size(22, 21);
 			this.Text = "...";

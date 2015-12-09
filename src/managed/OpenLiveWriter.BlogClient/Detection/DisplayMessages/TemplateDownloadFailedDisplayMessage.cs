@@ -25,7 +25,7 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,11 +37,11 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -64,9 +63,9 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// WeblogAuthenticationErrorDisplayMessage
-			// 
+			//
 			this.Text = "The style template used for editing your weblog\nposts could not be downloaded.\n\n" +
 				"You will be able to post to this Weblog, but the editor\nwill not use your blog's style.";
 			this.Title = "Unable to Download Template";

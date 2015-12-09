@@ -45,7 +45,6 @@ namespace OpenLiveWriter.Localization.Bidi
         {
         }
 
-
         public Graphics Graphics
         {
             get { return g; }

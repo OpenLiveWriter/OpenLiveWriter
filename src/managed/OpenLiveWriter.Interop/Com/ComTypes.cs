@@ -50,7 +50,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         public const int E_INVALIDARG = unchecked((int)0x80070057L);
 
-
         /// <summary>
         /// E_ACCESSDENIED return code
         /// </summary>
@@ -61,8 +60,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         public const int E_POINTER = unchecked((int)0x80004003);
     }
-
-
 
 
     /// <summary>
@@ -76,10 +73,9 @@ namespace OpenLiveWriter.Interop.Com
         public const int ADVISENOTSUPPORTED = unchecked((int)0x80040003L);
     }
 
-
     public struct CTL_E
     {
-        public const int ILLEGALFUNCTIONCALL = unchecked((int)0x800A0005L); // STD_CTL_SCODE(5)        
+        public const int ILLEGALFUNCTIONCALL = unchecked((int)0x800A0005L); // STD_CTL_SCODE(5)
         public const int OVERFLOW = unchecked((int)0x800A0006L); // STD_CTL_SCODE(6)
         public const int OUTOFMEMORY = unchecked((int)0x800A0007L); // STD_CTL_SCODE(7)
         public const int DIVISIONBYZERO = unchecked((int)0x800A000BL); // STD_CTL_SCODE(11)
@@ -124,20 +120,19 @@ namespace OpenLiveWriter.Interop.Com
     // COMExceptions thrown by IE calls may have error codes like these
     public struct IE_CTL_E
     {
-        // Based on http://sharepoint/sites/IE/Teams/Dev/Shared%20Documents/Documentation/diagrams/doxygen_03_24_2007/html/cdutil_8hxx-source.html#l00392       
+        // Based on http://sharepoint/sites/IE/Teams/Dev/Shared%20Documents/Documentation/diagrams/doxygen_03_24_2007/html/cdutil_8hxx-source.html#l00392
         public const int METHODNOTAPPLICABLE = unchecked((int)0x800A01BCL); // STD_CTL_SCODE(444)
         public const int CANTMOVEFOCUSTOCTRL = unchecked((int)0x800A083EL); // STD_CTL_SCODE(2110)
         public const int CONTROLNEEDSFOCUS = unchecked((int)0x800A0889L); // STD_CTL_SCODE(2185)
         public const int INVALIDPICTURETYPE = unchecked((int)0x800A01E5L); // STD_CTL_SCODE(485)
         public const int INVALIDPASTETARGET = unchecked((int)0x800A0258L); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 0 )
         public const int INVALIDPASTESOURCE = unchecked((int)0x800A0259L); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 1 )
-        public const int MISMATCHEDTAG = unchecked((int)0x800A025AL); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 2 )        
+        public const int MISMATCHEDTAG = unchecked((int)0x800A025AL); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 2 )
         public const int INCOMPATIBLEPOINTERS = unchecked((int)0x800A025BL); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 3 )
         public const int UNPOSITIONEDPOINTER = unchecked((int)0x800A025CL); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 4 )
         public const int UNPOSITIONEDELEMENT = unchecked((int)0x800A025DL); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 5 )
-        public const int INVALIDLINE = unchecked((int)0x800A025EL); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 6 )     
+        public const int INVALIDLINE = unchecked((int)0x800A025EL); // CUSTOM_CTL_SCODE( CUSTOM_FIRST + 6 )
     }
-
 
     /// <summary>
     /// Commonly used interface IDs
@@ -156,7 +151,6 @@ namespace OpenLiveWriter.Interop.Com
         public static readonly Guid IWebBrowserApp =
             new Guid("{0002DF05-0000-0000-C000-000000000046}");
     }
-
 
     /// <summary>
     /// Commonly used category IDs

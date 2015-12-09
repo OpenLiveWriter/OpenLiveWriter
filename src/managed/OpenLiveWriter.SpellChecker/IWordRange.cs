@@ -7,7 +7,7 @@ using OpenLiveWriter.Mshtml;
 
 namespace OpenLiveWriter.SpellChecker
 {
-	
+
 	/// <summary>
 	/// Interface representing a word-range to be spell checked
 	/// </summary>
@@ -25,35 +25,35 @@ namespace OpenLiveWriter.SpellChecker
 		/// <summary>
 		/// Advance to the next word in the range
 		/// </summary>
-		void Next() ;		
+		void Next() ;
 
 		/// <summary>
-		/// Get the current word 
+		/// Get the current word
 		/// </summary>
-		string CurrentWord { get; }	
-		
+		string CurrentWord { get; }
+
 		/// <summary>
-		/// Place the cursor 
+		/// Place the cursor
 		/// </summary>
 		void PlaceCursor() ;
-		
+
 		/// <summary>
 		/// Highlight the current word, adjusted by the offset and length.
 		/// The offset and length do not change the current word,
 		/// they just affect the application of the highlight.
 		/// </summary>
 		void Highlight(int offset, int length) ;
-		
+
 		/// <summary>
 		/// Remove highlighting from the range
 		/// </summary>
 		void RemoveHighlight() ;
-		
+
 		/// <summary>
 		/// Replace the current word
 		/// </summary>
 		void Replace(int offset, int length, string newText) ;
-		
+
 		/// <summary>
 		/// Tests the current word to determine if it is part of a URL sequence.
 		/// </summary>

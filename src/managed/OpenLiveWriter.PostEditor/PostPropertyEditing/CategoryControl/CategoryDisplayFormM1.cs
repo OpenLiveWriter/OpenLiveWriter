@@ -38,8 +38,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			// standard designer stuff
 			InitializeComponent();
 
-			this.buttonAdd.Text = Res.Get(StringId.AddButton2); 
-			
+			this.buttonAdd.Text = Res.Get(StringId.AddButton2);
+
 			// mini form behavior
 			DismissOnDeactivate = true;
 
@@ -90,16 +90,16 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		private int _maxDropDownWidth = 260;
 		private int _minDropDownWidth = 104;
 
-	
+
 
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-			
+
 			RefreshParentCombo();
 
-			
-			
+
+
 			if (panelAddCategory.Visible)
 			{
 				if (comboBoxParent.Visible)
@@ -108,7 +108,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 					using (new AutoGrow(this, AnchorStyles.Bottom | AnchorStyles.Right, false))
 					{
 						textBoxAddCategory.Width = buttonAdd.Right - textBoxAddCategory.Left;
-						
+
 						DisplayHelper.AutoFitSystemCombo(comboBoxParent, 0, int.MaxValue, true);
 						comboBoxParent.Left = textBoxAddCategory.Left;
 						comboBoxParent.Top = textBoxAddCategory.Bottom + ScaleY(3);
@@ -128,7 +128,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 							buttonAdd.Left = textBoxAddCategory.Right - buttonAdd.Width;
 							comboBoxParent.Width = buttonAdd.Left - comboBoxParent.Left - ScaleX(3);
 						}
-						
+
 						int deltaY = comboBoxParent.Bottom - textBoxAddCategory.Bottom;
 						panelAddCategory.Height += deltaY;
 						categoryContainerControl.Top += deltaY;
@@ -141,7 +141,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 					{
 						int deltaX = -buttonAdd.Width + DisplayHelper.AutoFitSystemButton(buttonAdd);
 						textBoxAddCategory.Width -= deltaX;
-						
+
 						int desiredWidth = DisplayHelper.MeasureString(textBoxAddCategory, textBoxAddCategory.Text).Width + (int)DisplayHelper.ScaleX(10);
 						deltaX += desiredWidth - textBoxAddCategory.Width;
 						if (deltaX > 0)
@@ -155,7 +155,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 						}
 					}
 				}
-				
+
 				/*using (LayoutHelper.SuspendAnchoring(comboBoxParent, buttonAdd, textBoxAddCategory, panelAddCategory, categoryContainerControl))
 				{
 					if (comboBoxParent.Visible)
@@ -163,18 +163,18 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 						deltaW = -comboBoxParent.Width + DisplayHelper.AutoFitSystemCombo(comboBoxParent, 0, int.MaxValue, true);
 						buttonAdd.Left += deltaW;
 					}
-					
+
 					int oldWidth = buttonAdd.Width;
 					DisplayHelper.AutoFitSystemButton(buttonAdd);
 					buttonAdd.Width += (int)DisplayHelper.ScaleX(6); // add some more "air" in the Add button
 					deltaW += buttonAdd.Width - oldWidth;
-					
+
 					panelAddCategory.Width += deltaW;
 					categoryContainerControl.Width += deltaW;
 					Width += deltaW;
 				}*/
 			}
-			
+
 			// use design time defaults to drive dynamic layout
 			_topMargin = categoryContainerControl.Top ;
 			_bottomMargin = Bottom - categoryContainerControl.Bottom ;
@@ -186,7 +186,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			BidiHelper.RtlLayoutFixup(this);
 		}
 
-		
+
 
 		private System.Windows.Forms.Panel panelAddCategory;
 		private System.Windows.Forms.TextBox textBoxAddCategory;
@@ -194,7 +194,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		private OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl.CategoryRefreshControl categoryRefreshControl;
 		private ParentCategoryComboBox comboBoxParent;
 
-		
+
 		protected override CreateParams CreateParams
 		{
 			get
@@ -204,13 +204,13 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				// Borderless windows show in the alt+tab window, so this fakes
 				// out windows into thinking its a tool window (which doesn't
 				// show up in the alt+tab window).
-				createParams.ExStyle |= 0x00000080; // WS_EX_TOOLWINDOW 
+				createParams.ExStyle |= 0x00000080; // WS_EX_TOOLWINDOW
 
 				return createParams;
 			}
 		}
-	
-		
+
+
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
@@ -231,8 +231,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 					return false ;
 				}
 			}
-			
-			else if (keyData == Keys.Escape ) 
+
+			else if (keyData == Keys.Escape )
 			{
 				Close();
 				return true;
@@ -241,7 +241,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 
-		
+
 		protected override void OnPaintBackground(PaintEventArgs e)
 		{
 			base.OnPaintBackground(e);
@@ -265,7 +265,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			}
 		}
 
-		
+
 
 		private int _topMargin ;
 		private int _bottomMargin  ;
@@ -295,7 +295,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				BlogPostCategoryListItem[] categoryListItems = BlogPostCategoryListItem.BuildList(categoryContext.Categories, true) ;
 				foreach(BlogPostCategoryListItem categoryListItem in categoryListItems)
 					AddCategoryControl(categoryListItem, positionManager) ;
-				
+
 				if ( sizeForm )
 					PositionAndSizeForm(positionManager);
 			}
@@ -303,14 +303,14 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				BidiHelper.RtlLayoutFixup(categoryContainerControl);
 			ResumeLayout();
 		}
-		
+
 		private BlogPostCategory[] GetCategories(CategoryContext context)
 		{
 			ArrayList categories = new ArrayList(context.Categories);
 			categories.Sort();
 
-			
-			
+
+
 			return (BlogPostCategory[]) categories.ToArray(typeof (BlogPostCategory));
 		}
 
@@ -332,11 +332,11 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			catSelector.SelectedChanged += new EventHandler(catSelector_SelectedChanged);
 
 			catSelector.Control.Scale(new SizeF(scale.X, scale.Y));
-			
+
 			positionManager.PositionControl(catSelector.Control, categoryListItem.IndentLevel);
 
 			categoryContainerControl.Controls.Add(catSelector.Control);
-			
+
 			_categoryControls.Add(catSelector.Control);
 		}
 
@@ -345,13 +345,13 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			// determine height based on position manager calculations
 			categoryContainerControl.Height = manager.Height;
 			Height = manager.Height + ScaleY(_topMargin) + ScaleY(_bottomMargin) ;
-			
+
 
 			Point bottomRightCorner =
 				_parentControl.PointToScreen(new Point(_parentControl.Width - Width, -Height));
 			Location = bottomRightCorner;
 		}
-		
+
 		#region High DPI Scaling
         protected override void ScaleControl(SizeF factor, BoundsSpecified specified)
         {
@@ -368,7 +368,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 	    private void SaveScaleState(float dx, float dy)
 	    {
 	        scale = new PointF(scale.X*dx, scale.Y*dy);
-			
+
 	        //synchronize the comboBoxParent item height so it matches the scaled control height.
 	        //Note: ScaleY(3) is padding to deal with mismatches in the way the ItemHeight scales versus its peer controls...
 	        //comboBoxParent.ItemHeight = (int) (comboBoxParent.ItemHeight*dy) + ScaleY(3);
@@ -376,12 +376,12 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 	    }
 
 	    private PointF scale = new PointF(1f, 1f);
-		
+
 		protected int ScaleX(int x)
 		{
 			return (int) (x*scale.X);
 		}
-		
+
 		protected int ScaleY(int y)
 		{
 			return (int) (y*scale.Y);
@@ -451,7 +451,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				foreach (BlogPostCategory c in selectedCategories)
 					foreach (ICategorySelectorControl sc in _categoryControls)
 					{
-						if (c.Id.ToLower(CultureInfo.CurrentCulture) == sc.Category.Id.ToLower(CultureInfo.CurrentCulture) || 
+						if (c.Id.ToLower(CultureInfo.CurrentCulture) == sc.Category.Id.ToLower(CultureInfo.CurrentCulture) ||
 							c.Name.ToLower(CultureInfo.CurrentCulture) == sc.Category.Name.ToLower(CultureInfo.CurrentCulture) )
 						{
 							sc.Selected = true;
@@ -473,7 +473,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			}
 		}
 
-		
+
 		private void textBoxAddCategory_Enter(object sender, System.EventArgs e)
 		{
 			if ( textBoxAddCategory.Text == Res.Get(StringId.CategoryAdd) )
@@ -482,10 +482,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
 		private void textBoxAddCategory_Leave(object sender, System.EventArgs e)
 		{
-			if ( textBoxAddCategory.Text.Trim() == String.Empty )		
+			if ( textBoxAddCategory.Text.Trim() == String.Empty )
 				ClearAddTextBox() ;
 		}
-
 
 		private void ClearAddTextBox()
 		{
@@ -513,7 +512,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			if ( newCategory != null )
 			{
 				ICategorySelectorControl selectorControl = GetCategorySelectorControl(newCategory) ;
-				
+
 				// if there is no existing selector control then add the category
 				if ( selectorControl == null )
 					_categoryContext.AddNewCategory(newCategory);
@@ -543,7 +542,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			}
 		}
 
-		
+
 		private BlogPostCategory GetNewCategory()
 		{
 			if ( textBoxAddCategory.ForeColor == SystemColors.ControlText )
@@ -569,7 +568,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			}
 		}
 
-
 		private ICategorySelectorControl GetCategorySelectorControl(BlogPostCategory category)
 		{
 			// scan for control
@@ -579,7 +577,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 					 selectorControl.Category.Name.ToLower(CultureInfo.CurrentCulture) == category.Name.ToLower(CultureInfo.CurrentCulture) )
 				{
 					return selectorControl ;
-				} 
+				}
 			}
 
 			// didn't find it
@@ -603,20 +601,20 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			this.categoryRefreshControl = new OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl.CategoryRefreshControl();
 			this.panelAddCategory.SuspendLayout();
 			this.SuspendLayout();
-			// 
+			//
 			// categoryContainerControl
-			// 
-			this.categoryContainerControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.categoryContainerControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.categoryContainerControl.AutoScroll = true;
 			this.categoryContainerControl.Location = new System.Drawing.Point(7, 33);
 			this.categoryContainerControl.Name = "categoryContainerControl";
 			this.categoryContainerControl.Size = new System.Drawing.Size(189, 72);
 			this.categoryContainerControl.TabIndex = 0;
-			// 
+			//
 			// panelAddCategory
-			// 
-			this.panelAddCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.panelAddCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.panelAddCategory.Controls.Add(this.comboBoxParent);
 			this.panelAddCategory.Controls.Add(this.buttonAdd);
@@ -625,9 +623,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			this.panelAddCategory.Name = "panelAddCategory";
 			this.panelAddCategory.Size = new System.Drawing.Size(194, 25);
 			this.panelAddCategory.TabIndex = 1;
-			// 
+			//
 			// comboBoxParent
-			// 
+			//
 			this.comboBoxParent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.comboBoxParent.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.comboBoxParent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -641,9 +639,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			this.comboBoxParent.TabIndex = 1;
 			this.comboBoxParent.Leave += new System.EventHandler(this.comboBoxParent_Leave);
 			this.comboBoxParent.Enter += new System.EventHandler(this.comboBoxParent_Enter);
-			// 
+			//
 			// buttonAdd
-			// 
+			//
 			this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.buttonAdd.Location = new System.Drawing.Point(134, 0);
@@ -652,10 +650,10 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			this.buttonAdd.TabIndex = 2;
 			this.buttonAdd.Text = "&Add";
 			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-			// 
+			//
 			// textBoxAddCategory
-			// 
-			this.textBoxAddCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.textBoxAddCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.textBoxAddCategory.AutoSize = false;
 			this.textBoxAddCategory.Location = new System.Drawing.Point(0, 1);
@@ -665,19 +663,19 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			this.textBoxAddCategory.Text = "";
 			this.textBoxAddCategory.Leave += new System.EventHandler(this.textBoxAddCategory_Leave);
 			this.textBoxAddCategory.Enter += new System.EventHandler(this.textBoxAddCategory_Enter);
-			// 
+			//
 			// categoryRefreshControl
-			// 
-			this.categoryRefreshControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.categoryRefreshControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.categoryRefreshControl.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.categoryRefreshControl.Location = new System.Drawing.Point(6, 111);
 			this.categoryRefreshControl.Name = "categoryRefreshControl";
 			this.categoryRefreshControl.Size = new System.Drawing.Size(193, 23);
 			this.categoryRefreshControl.TabIndex = 2;
-			// 
+			//
 			// CategoryDisplayFormM1
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
 			this.AutoScrollMargin = new System.Drawing.Size(2, 2);
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -724,7 +722,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		{
 			CommitSelection();
 		}
-		
+
 		private void _categoryContext_Changed(object sender, CategoryContext.CategoryChangedEventArgs e)
 		{
 			if (e.ChangeType == CategoryContext.ChangeType.Category || e.ChangeType == CategoryContext.ChangeType.SelectionMode)
@@ -752,7 +750,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			else
 				comboBoxParent.SelectedIndex = 0 ;
 		}
-	
+
 		private BlogPostCategory GetParentCategory()
 		{
 			ParentCategoryComboItem parentComboItem = comboBoxParent.SelectedItem as ParentCategoryComboItem ;
@@ -829,7 +827,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			private int _indentLevel ;
 			private ComboBox _parentCombo ;
 
-
 		}
 
 		private class ParentCategoryComboBox : ComboBox
@@ -838,7 +835,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			{
 				// prevent editing and showing of drop down
 				DropDownStyle = ComboBoxStyle.DropDownList ;
-
 
 				// fully cusotm painting
 				DrawMode = DrawMode.OwnerDrawFixed ;
@@ -865,7 +861,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				}
 			}
 		}
-		
+
 		private class ParentCategoryComboItemNone : ParentCategoryComboItem
 		{
 			public ParentCategoryComboItemNone(ComboBox parentCombo)
@@ -878,8 +874,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				return Res.Get(StringId.CategoryNoParent) ;
 			}
 		}
-		
-		
+
+
 		private class PositionManager : IDisposable
 		{
 			private int _top;
@@ -907,7 +903,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				_format.Trimming = StringTrimming.EllipsisCharacter;
 			}
 
-
 			public void PositionControl(Control c, int indentLevel)
 			{
 				int INDENT_MARGIN = ScaleX(16) ;
@@ -920,9 +915,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 					int maxWidth = _maxWidth - SystemInformation.VerticalScrollBarWidth - c.Left - _left;
 					c.Width = maxWidth;
 					if (c is CheckBox)
-						DisplayHelper.AutoFitSystemCheckBox((CheckBox)c, 0, maxWidth);	
+						DisplayHelper.AutoFitSystemCheckBox((CheckBox)c, 0, maxWidth);
 					else if (c is RadioButton)
-						DisplayHelper.AutoFitSystemRadioButton((RadioButton)c, 0, maxWidth);	
+						DisplayHelper.AutoFitSystemRadioButton((RadioButton)c, 0, maxWidth);
 					else
 						Debug.Fail("Being asked to position a control that isn't a radiobutton or checkbox");
 					LayoutHelper.NaturalizeHeight(c);
@@ -935,7 +930,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				_controls.Add(c);
 
 				_top = _top + c.Height + _margin;
-				
+
 				// enforce max height if necessary
 				if ( _enforcedMaxHeight == -1 && _top > _maxHeight )
 					_enforcedMaxHeight = _top  ;
@@ -961,12 +956,12 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			{
 				return (int) (x*_autoScaleSize.X);
 			}
-		
+
 			protected int ScaleY(int y)
 			{
 				return (int) (y*_autoScaleSize.Y);
 			}
-			
+
 			#region IDisposable Members
 
 			public void Dispose()
@@ -975,7 +970,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
 			#endregion
 		}
-
 
 
 	}

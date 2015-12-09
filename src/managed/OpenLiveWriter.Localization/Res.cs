@@ -288,7 +288,7 @@ namespace OpenLiveWriter.Localization
 
         /// <summary>
         /// Toolbar font size **IN PIXELS**!
-        /// This is the size of the font used to draw B(old), 
+        /// This is the size of the font used to draw B(old),
         /// I(talic), U(nderline), S(trikethrough) buttons.
         /// </summary>
         public static float ToolbarFormatButtonFontSize

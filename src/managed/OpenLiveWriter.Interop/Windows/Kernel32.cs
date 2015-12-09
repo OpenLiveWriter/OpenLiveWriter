@@ -53,14 +53,12 @@ namespace OpenLiveWriter.Interop.Windows
             IntPtr lpModuleName
             );
 
-
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern uint GetModuleFileName(
             IntPtr hModule,
             [MarshalAs(UnmanagedType.LPTStr)] StringBuilder lpFilename,
             uint nSize
             );
-
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool SetProcessWorkingSetSize(
@@ -70,10 +68,8 @@ namespace OpenLiveWriter.Interop.Windows
             );
 
 
-
         [DllImport("kernel32.dll")]
         public static extern bool Beep(int frequency, int duration);
-
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
         private static extern int GetLongPathName(
@@ -175,7 +171,6 @@ namespace OpenLiveWriter.Interop.Windows
             [In] uint dwProcessId,
             [Out] out uint pSessionId);
 
-
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr CreateFileMapping(
             IntPtr hFile,
@@ -202,7 +197,6 @@ namespace OpenLiveWriter.Interop.Windows
         public static extern int UnmapViewOfFile(
             IntPtr lpBaseAddress);
 
-
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool ReplaceFile(
             [MarshalAs(UnmanagedType.LPTStr)] string lpReplacedFileName,
@@ -211,7 +205,6 @@ namespace OpenLiveWriter.Interop.Windows
             uint dwReplaceFlags,
             IntPtr lpExclude,
             IntPtr lpReserved);
-
 
 
         /// <summary>
@@ -223,7 +216,7 @@ namespace OpenLiveWriter.Interop.Windows
         public static extern uint GetLastError();
 
         /// <summary>
-        /// Locks a global memory object and returns a pointer to the first byte 
+        /// Locks a global memory object and returns a pointer to the first byte
         /// of the object's memory block.
         /// </summary>
         [DllImport("Kernel32.dll", SetLastError = true)]
@@ -244,7 +237,6 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("Kernel32.dll", EntryPoint = "RtlMoveMemory", SetLastError = true)]
         public static extern void CopyMemory(IntPtr Destination, IntPtr Source, UIntPtr Length);
 
-
         [DllImport("Kernel32.dll", SetLastError = true)]
         public static extern IntPtr CreateMutex(
             IntPtr lpMutexAttributes,
@@ -256,7 +248,6 @@ namespace OpenLiveWriter.Interop.Windows
         public static extern int ReleaseMutex(
             IntPtr hMutex
             );
-
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr CreateEvent(
@@ -283,12 +274,10 @@ namespace OpenLiveWriter.Interop.Windows
             uint dwMilliseconds
             );
 
-
         [DllImport("Kernel32.dll", SetLastError = true)]
         public static extern int CloseHandle(
             IntPtr hObject
             );
-
 
         [DllImport("Kernel32.dll", SetLastError = true)]
         public static extern uint WaitForMultipleObjects(
@@ -297,7 +286,6 @@ namespace OpenLiveWriter.Interop.Windows
             bool bWaitAll,
             uint dwMilliseconds
             );
-
 
         /// <summary>
         /// Get the drive type for a particular drive.
@@ -316,7 +304,6 @@ namespace OpenLiveWriter.Interop.Windows
             StringBuilder sbout,
             int nsize,
             string lpFileName);
-
 
         /// <summary>
         /// The drive types returned by GetDriveType
@@ -350,7 +337,6 @@ namespace OpenLiveWriter.Interop.Windows
             Int32 uUnique,
             StringBuilder lpTempFileName);
 
-
         [DllImport("Kernel32.dll", SetLastError = true)]
         public static extern bool WriteFile(
             SafeFileHandle hFile, IntPtr lpBuffer,
@@ -375,12 +361,12 @@ namespace OpenLiveWriter.Interop.Windows
         public static extern bool QueryPerformanceFrequency(ref long frequency);
 
         /// <summary>
-        /// The GetTickCount function retrieves the number of milliseconds that have elapsed since the 
-        /// system was started. It is limited to the resolution of the system timer. To obtain the system 
+        /// The GetTickCount function retrieves the number of milliseconds that have elapsed since the
+        /// system was started. It is limited to the resolution of the system timer. To obtain the system
         /// timer resolution, use the GetSystemTimeAdjustment function.
         /// </summary>
         /// <remarks>
-        /// The elapsed time is stored as a DWORD value. Therefore, the time will wrap around to zero if 
+        /// The elapsed time is stored as a DWORD value. Therefore, the time will wrap around to zero if
         /// the system is run continuously for 49.7 days.
         /// </remarks>
         [DllImport("kernel32.dll")]
@@ -400,7 +386,6 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true)]
         public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
     }
-
 
     public class GlobalMemoryStatus
     {
@@ -439,9 +424,8 @@ namespace OpenLiveWriter.Interop.Windows
         private MEMORYSTATUSEX _memoryStatus = new MEMORYSTATUSEX();
     }
 
-
     /// <summary>
-    /// Disposable wrapper class for getting access to the contents of an HGLOBAL 
+    /// Disposable wrapper class for getting access to the contents of an HGLOBAL
     /// </summary>
     public class HGlobalLock : IDisposable
     {
@@ -455,7 +439,6 @@ namespace OpenLiveWriter.Interop.Windows
             Lock();
         }
 
-
         /// <summary>
         /// Unlock on dispose
         /// </summary>
@@ -463,7 +446,6 @@ namespace OpenLiveWriter.Interop.Windows
         {
             Unlock();
         }
-
 
         /// <summary>
         /// Underlying memory pointed to by the hGlobal
@@ -557,7 +539,6 @@ namespace OpenLiveWriter.Interop.Windows
         private IntPtr pData = IntPtr.Zero;
     }
 
-
     /// <summary>
     /// SetErrorMode flags
     /// </summary>
@@ -578,7 +559,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint IGNORE_MERGE_ERRORS = 0x00000002;
     }
 
-
     /// <summary>
     /// Thread priority constants
     /// </summary>
@@ -586,7 +566,6 @@ namespace OpenLiveWriter.Interop.Windows
     {
         public const int NORMAL = 0;
     }
-
 
     public struct GMEM
     {
@@ -618,7 +597,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint READ = 0x0004;
     }
 
-
     public struct FILE_ATTRIBUTE
     {
         public const uint READONLY = 0x00000001;
@@ -640,26 +618,25 @@ namespace OpenLiveWriter.Interop.Windows
     {
         /// <summary>
         /// Specifies the size, in bytes, of this structure. Set this value to
-        /// the size of the SECURITY_ATTRIBUTES structure. 
+        /// the size of the SECURITY_ATTRIBUTES structure.
         /// </summary>
         public uint nLength;
 
         /// <summary>
         /// Pointer to a security descriptor for the object that controls the
         /// sharing of it. If NULL is specified for this member, the object
-        /// is assigned the default security descriptor of the calling process. 
+        /// is assigned the default security descriptor of the calling process.
         /// </summary>
         public IntPtr lpSecurityDescriptor;
 
         /// <summary>
         /// Specifies whether the returned handle is inherited when a new
         /// process is created. If this member is TRUE, the new process inherits
-        /// the handle. 
+        /// the handle.
         /// </summary>
         [MarshalAs(UnmanagedType.Bool)]
         public bool bInheritHandle;
     }
-
 
     /// <summary>
     /// Wait constants used in synchronization functions

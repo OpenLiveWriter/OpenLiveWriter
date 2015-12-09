@@ -32,11 +32,11 @@ namespace OpenLiveWriter.BlogClient
 
         /// <summary>
         /// Transient credentials (credentials that the user has instructed
-        /// us not to save but which we nevertheless need in-memory access to). 
-        /// This object can be of any type and provides unique, process-wide 
-        /// storage for each configured account in the system. 
-        /// The most common application of this property would be to store a 
-        /// password that the user  has provided for future use within the 
+        /// us not to save but which we nevertheless need in-memory access to).
+        /// This object can be of any type and provides unique, process-wide
+        /// storage for each configured account in the system.
+        /// The most common application of this property would be to store a
+        /// password that the user  has provided for future use within the
         /// lifetime of the process. Note that because these credentials are
         /// shared process-wide the underlying object must be threadsafe.
         /// </summary>
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.BlogClient
             _accountId = accountId;
             _credentials = credentials;
         }
-
 
         public string Username
         {
@@ -170,7 +169,6 @@ namespace OpenLiveWriter.BlogClient
 
             destCredentials.Domain = sourceCredentials.Domain;
         }
-
 
         public static bool CredentialsAreEqual(IBlogCredentials c1, IBlogCredentials c2)
         {

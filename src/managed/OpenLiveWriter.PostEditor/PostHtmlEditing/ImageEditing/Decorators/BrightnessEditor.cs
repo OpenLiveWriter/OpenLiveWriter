@@ -29,7 +29,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         private int _originalContrast;
         private Size _originalSize;
 
-
         private IContainer components = null;
 
         public BrightnessEditor()
@@ -85,9 +84,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBrightness)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // textBoxBrightness
-            // 
+            //
             this.textBoxBrightness.AcceptsReturn = true;
             this.textBoxBrightness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxBrightness.Location = new System.Drawing.Point(228, 28);
@@ -99,9 +98,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.textBoxBrightness.TextChanged += new System.EventHandler(this.textBoxBrightness_TextChanged);
             this.textBoxBrightness.Leave += new System.EventHandler(this.trackBarTextBox_Leave);
             this.textBoxBrightness.Enter += new System.EventHandler(this.textBox_Enter);
-            // 
+            //
             // trackBarBrightness
-            // 
+            //
             this.trackBarBrightness.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarBrightness.Location = new System.Drawing.Point(8, 24);
@@ -114,18 +113,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.trackBarBrightness.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBar_KeyUp);
             this.trackBarBrightness.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_MouseUp);
             this.trackBarBrightness.ValueChanged += new System.EventHandler(this.trackBarBrightness_ValueChanged);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(8, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(200, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Brightness:";
-            // 
+            //
             // textBoxContrast
-            // 
+            //
             this.textBoxContrast.AcceptsReturn = true;
             this.textBoxContrast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxContrast.Location = new System.Drawing.Point(228, 92);
@@ -137,9 +136,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.textBoxContrast.TextChanged += new System.EventHandler(this.textBoxContrast_TextChanged);
             this.textBoxContrast.Leave += new System.EventHandler(this.trackBarTextBox_Leave);
             this.textBoxContrast.Enter += new System.EventHandler(this.textBox_Enter);
-            // 
+            //
             // trackBarContrast
-            // 
+            //
             this.trackBarContrast.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarContrast.Location = new System.Drawing.Point(8, 88);
@@ -152,27 +151,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.trackBarContrast.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBar_KeyUp);
             this.trackBarContrast.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_MouseUp);
             this.trackBarContrast.ValueChanged += new System.EventHandler(this.trackBarContrast_ValueChanged);
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.FlatStyle = FlatStyle.System;
             this.label2.Location = new System.Drawing.Point(8, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(200, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Contrast:";
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCancel.Location = new System.Drawing.Point(186, 148);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // btnOK
-            // 
+            //
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnOK.Location = new System.Drawing.Point(105, 148);
@@ -180,9 +179,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.btnOK.TabIndex = 6;
             this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
+            //
             // BrightnessEditor
-            // 
+            //
             this.Controls.Add(this.textBoxContrast);
             this.Controls.Add(this.trackBarContrast);
             this.Controls.Add(this.label2);
@@ -237,7 +236,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 SaveSettingsAndApplyDecorator();
             }
         }
-
 
         public override Size GetPreferredSize()
         {

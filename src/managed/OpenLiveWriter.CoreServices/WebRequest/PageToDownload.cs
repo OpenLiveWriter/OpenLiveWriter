@@ -117,7 +117,7 @@ namespace OpenLiveWriter.CoreServices
         private string _anchor = null;
 
         /// <summary>
-        /// The relative url, including file name, that should be used to refer to the 
+        /// The relative url, including file name, that should be used to refer to the
         /// file stored in the relative path
         /// </summary>
         public string RelativeUrl
@@ -223,7 +223,7 @@ namespace OpenLiveWriter.CoreServices
                     // referenced files.  This will help later when trying to make sure
                     // paths can be escaped (GUIDs will be safe to replace).
                     //
-                    // Subframes get just the last group of digits from the guids.  This 
+                    // Subframes get just the last group of digits from the guids.  This
                     // doesn't guarantee their uniqueness, but since they are all namespaced
                     // by folders, thats ok.  This is provide some protection in the event
                     // that the sub frames are flattened downstream.
@@ -268,9 +268,8 @@ namespace OpenLiveWriter.CoreServices
         private LightWeightHTMLDocument _lightweightHTMLDocument = null;
 
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reference"></param>
         public void AddReference(ReferenceToDownload reference)
@@ -292,7 +291,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private ArrayList _explicitReferences = new ArrayList();
-
 
         /// <summary>
         /// The list of references that should be downloaded and escaped for this page.
@@ -341,7 +339,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private ReferenceToDownload[] _referencesToDownload = null;
-
 
     }
 }

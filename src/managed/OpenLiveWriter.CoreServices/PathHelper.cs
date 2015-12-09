@@ -17,7 +17,7 @@ namespace OpenLiveWriter.CoreServices
     public class PathHelper
     {
         /// <summary>
-        /// Determines whether a path is a path to a directory 
+        /// Determines whether a path is a path to a directory
         /// </summary>
         /// <param name="path">The path to check</param>
         /// <returns>true if the path is a directory, otherwise false</returns>
@@ -41,15 +41,15 @@ namespace OpenLiveWriter.CoreServices
 			string prettyPath = path ;
 
 			if ( prettyPath.ToLower().StartsWith(myDocumentsPath) )
-				prettyPath = "My Documents\\" + prettyPath.Substring( myDocumentsPath.Length ) ;		
+				prettyPath = "My Documents\\" + prettyPath.Substring( myDocumentsPath.Length ) ;
 
 				// also check for the desktop
 			else if ( prettyPath.ToLower().StartsWith(desktopPath) )
-				prettyPath = "Desktop\\" + prettyPath.Substring( desktopPath.Length ) ;		
+				prettyPath = "Desktop\\" + prettyPath.Substring( desktopPath.Length ) ;
 
 			// if we should hide the extension, do so.
 			if (hideExtensionsForKnowTypes)
-				prettyPath = Path.Combine(Path.GetDirectoryName(prettyPath), Path.GetFileNameWithoutExtension(prettyPath));						
+				prettyPath = Path.Combine(Path.GetDirectoryName(prettyPath), Path.GetFileNameWithoutExtension(prettyPath));
 
 			// return the pretty path
 			return prettyPath ;
@@ -165,7 +165,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Creates a path that will no overwrite any files that already exist at
         /// that location.
-        /// 
+        ///
         /// To ensure this, a zero-length file is created and its full path is returned.
         /// </summary>
         /// <param name="path">The path requested</param>
@@ -195,7 +195,6 @@ namespace OpenLiveWriter.CoreServices
             [MarshalAs(UnmanagedType.LPTStr)]   string pszSource,
             [MarshalAs(UnmanagedType.U4)]       int cchMax,
             [MarshalAs(UnmanagedType.U4)]       int dwReserved);
-
 
         /// <summary>
         /// Normalizes the capitalization for the given path, if
@@ -260,7 +259,6 @@ namespace OpenLiveWriter.CoreServices
             result.Reverse();
             return (FileSystemInfo[])result.ToArray(typeof(FileSystemInfo));
         }
-
 
         public static bool IsPathVideo(string path)
         {

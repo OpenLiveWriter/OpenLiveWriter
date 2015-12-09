@@ -17,7 +17,7 @@ namespace Project31.ApplicationFramework
 	/// </summary>
 	public class TabPageCommandBarLightweightControl : CommandBarLightweightControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
@@ -44,7 +44,7 @@ namespace Project31.ApplicationFramework
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -60,8 +60,8 @@ namespace Project31.ApplicationFramework
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -91,7 +91,7 @@ namespace Project31.ApplicationFramework
 			//	Draw the bottom line lowlight color.
 			using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.TabPageCommandBarLowlightColor))
 				e.Graphics.FillRectangle(solidBrush, 0, VirtualHeight-2, VirtualWidth, 1);
-			
+
 			//	Draw the bottom line highlight color.
 			using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.TabPageCommandBarHighlightColor))
 				e.Graphics.FillRectangle(solidBrush, 0, VirtualHeight-1, VirtualWidth, 1);

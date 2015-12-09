@@ -27,7 +27,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         private System.Windows.Forms.CheckBox checkBoxSavePassword;
         private System.Windows.Forms.Label textboxLoginDomain;
         private System.Windows.Forms.Label textboxLoginDomainDescription;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -50,7 +50,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -71,8 +71,8 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -85,9 +85,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.textboxLoginDomain = new System.Windows.Forms.Label();
             this.textboxLoginDomainDescription = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(24, 40);
             this.label1.Name = "label1";
@@ -95,9 +95,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.label1.TabIndex = 0;
             this.label1.Text = "&Username:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label2.Location = new System.Drawing.Point(24, 80);
             this.label2.Name = "label2";
@@ -105,18 +105,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.label2.TabIndex = 2;
             this.label2.Text = "&Password:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // textBoxEmail
-            // 
+            //
             this.textBoxEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxEmail.Location = new System.Drawing.Point(24, 56);
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(189, 20);
             this.textBoxEmail.TabIndex = 1;
-            // 
+            //
             // textBoxPassword
-            // 
+            //
             this.textBoxPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPassword.Location = new System.Drawing.Point(24, 96);
@@ -124,9 +124,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(189, 20);
             this.textBoxPassword.TabIndex = 3;
-            // 
+            //
             // checkBoxSavePassword
-            // 
+            //
             this.checkBoxSavePassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxSavePassword.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -136,9 +136,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.checkBoxSavePassword.TabIndex = 4;
             this.checkBoxSavePassword.Text = "&Remember my password";
             this.checkBoxSavePassword.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // textboxLoginDomain
-            // 
+            //
             this.textboxLoginDomain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxLoginDomain.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -147,9 +147,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.textboxLoginDomain.Size = new System.Drawing.Size(189, 16);
             this.textboxLoginDomain.TabIndex = 4;
             this.textboxLoginDomain.Text = "Blog Service";
-            // 
+            //
             // textboxLoginDomainDescription
-            // 
+            //
             this.textboxLoginDomainDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxLoginDomainDescription.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -159,9 +159,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.textboxLoginDomainDescription.Size = new System.Drawing.Size(189, 24);
             this.textboxLoginDomainDescription.TabIndex = 5;
             this.textboxLoginDomainDescription.Text = "(Blog Title)";
-            // 
+            //
             // BlogClientLoginControl
-            // 
+            //
             this.Controls.Add(this.textboxLoginDomainDescription);
             this.Controls.Add(this.textboxLoginDomain);
             this.Controls.Add(this.checkBoxSavePassword);
@@ -210,7 +210,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             get { return checkBoxSavePassword.Checked; }
             set { checkBoxSavePassword.Checked = value; }
         }
-
 
 
         public ICredentialsDomain Domain

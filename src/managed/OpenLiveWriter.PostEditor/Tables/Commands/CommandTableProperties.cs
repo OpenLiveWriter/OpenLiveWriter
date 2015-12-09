@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandFont
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.PostEditor.Tables.Commands.TableProperties";
 			this.MainMenuPath = "T&able@6/&Table Properties...@105";
 			this.MenuText = "&Table Properties...";

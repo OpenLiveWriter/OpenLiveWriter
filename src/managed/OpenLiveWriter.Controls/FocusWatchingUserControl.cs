@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Controls
     {
         #region Private Member Variables
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.Controls
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -51,8 +51,8 @@ namespace OpenLiveWriter.Controls
         #endregion Class Initialization & Termination
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()

@@ -29,7 +29,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
         DeletePushpin
     }
 
-
     internal class MapContextMenu
     {
         internal static MapContextCommand ShowMapContextMenu(Control parent, Point location, MapContextCommand[] hideCommands, CommandManager commandManager)
@@ -104,7 +103,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
                 return new ArrayList(_pushpinCommandIds.Keys).ToArray(typeof(CommandId)) as CommandId[];
             }
         }
-
 
         static MapContextMenu()
         {

@@ -120,7 +120,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			<STYLE>
 				img { behavior: url(#default#IMG_BEHAVIOR) }
 			</STYLE>
-		
+
 			<object id="IMG_BEHAVIOR" clsid="clsid:3C0C37AD-21B5-41f4-A25E-59259B0ED874" style="visibility: hidden" width="0px" height="0px"> </object>
 		*/
 
@@ -184,8 +184,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         internal bool ContainsBehavior(string behaviorClassname)
         {
-            // Look through all the behaviors to see if any match the same 
-            // behavior that we are looking for.  
+            // Look through all the behaviors to see if any match the same
+            // behavior that we are looking for.
             foreach (ElementBehaviorDefinition registeredBehavior in _behaviorDefinitions)
             {
                 if (behaviorClassname == "#default#" + registeredBehavior.HtmlId)
@@ -197,7 +197,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public void DisposeCreatedBehaviors()
         {
-            // Make a copy of the List<T> because calling Dispose on the behavior will modify the List<T> 
+            // Make a copy of the List<T> because calling Dispose on the behavior will modify the List<T>
             // through the behavior_Disposed event handler.
             MshtmlElementBehavior[] behaviors = _behaviors.ToArray();
 

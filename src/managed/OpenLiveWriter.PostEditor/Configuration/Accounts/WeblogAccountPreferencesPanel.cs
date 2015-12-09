@@ -17,7 +17,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
     public class WeblogAccountPreferencesPanel : PreferencesPanel, IBlogPostEditingSitePreferences
     {
         private OpenLiveWriter.PostEditor.Configuration.Accounts.WeblogAccountManagementControl weblogAccountManagementControl1;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -49,7 +49,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             checkBoxAllowProviderButtons.Checked = _weblogAccountPreferences.AllowProviderButtons;
             checkBoxAllowProviderButtons.CheckedChanged += new EventHandler(checkBoxAllowProviderButtons_CheckedChanged);
 
-
         }
 
         protected override void OnLoad(EventArgs e)
@@ -64,12 +63,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             }
         }
 
-
         private void checkBoxAllowAutoUpdate_CheckedChanged(object sender, EventArgs e)
         {
             _weblogAccountPreferences.AllowSettingsAutoUpdate = checkBoxAllowAutoUpdate.Checked;
         }
-
 
         private void checkBoxAllowProviderButtons_CheckedChanged(object sender, EventArgs e)
         {
@@ -92,7 +89,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             OnModified(EventArgs.Empty);
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -109,8 +106,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -121,18 +118,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.checkBoxAllowProviderButtons = new System.Windows.Forms.CheckBox();
             this.groupBoxOptions.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // weblogAccountManagementControl1
-            // 
+            //
             this.weblogAccountManagementControl1.BlogSettingsEditors = null;
             this.weblogAccountManagementControl1.EditingSite = null;
             this.weblogAccountManagementControl1.Location = new System.Drawing.Point(8, 32);
             this.weblogAccountManagementControl1.Name = "weblogAccountManagementControl1";
             this.weblogAccountManagementControl1.Size = new System.Drawing.Size(345, 214);
             this.weblogAccountManagementControl1.TabIndex = 1;
-            // 
+            //
             // groupBoxOptions
-            // 
+            //
             this.groupBoxOptions.Controls.Add(this.checkBoxAllowAutoUpdate);
             this.groupBoxOptions.Controls.Add(this.checkBoxAllowProviderButtons);
             this.groupBoxOptions.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -142,9 +139,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.groupBoxOptions.TabIndex = 2;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
-            // 
+            //
             // checkBoxAllowAutoUpdate
-            // 
+            //
             this.checkBoxAllowAutoUpdate.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxAllowAutoUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxAllowAutoUpdate.Location = new System.Drawing.Point(16, 24);
@@ -154,9 +151,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.checkBoxAllowAutoUpdate.Text = "Automatically &update account information (categories, links, capabilities, and p" +
                 "rovider extensions)";
             this.checkBoxAllowAutoUpdate.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // checkBoxAllowProviderButtons
-            // 
+            //
             this.checkBoxAllowProviderButtons.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxAllowProviderButtons.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxAllowProviderButtons.Location = new System.Drawing.Point(16, 56);
@@ -165,9 +162,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.checkBoxAllowProviderButtons.TabIndex = 3;
             this.checkBoxAllowProviderButtons.Text = "Allow &weblog provider extensions (custom buttons which appear in the sidebar)";
             this.checkBoxAllowProviderButtons.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // WeblogAccountPreferencesPanel
-            // 
+            //
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.weblogAccountManagementControl1);
             this.Name = "WeblogAccountPreferencesPanel";
@@ -179,7 +176,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
 
         }
         #endregion
-
 
 
         #region IBlogPostEditingSitePreferences Members
@@ -200,7 +196,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         private IBlogPostEditingSite _editingSite;
 
         #endregion
-
 
     }
 }

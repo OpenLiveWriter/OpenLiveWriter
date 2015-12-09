@@ -61,7 +61,6 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
     }
 
 
-
     /// <summary>
     /// The OLEMENUGROUPWIDTHS structure is the mechanism for building a shared menu.
     /// It indicates the number of menu items in each of the six menu groups of a menu

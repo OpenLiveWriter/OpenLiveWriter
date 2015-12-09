@@ -34,9 +34,9 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// The parameters parameter should be an even number of strings, where each odd element is
         /// a param name and each following even element is the corresponding param value.  For example,
         /// to retrieve http://www.vox.com/atom?svc=post&id=100, you would say:
-        /// 
+        ///
         /// Get("http://www.vox.com/atom", "svc", "post", "id", "100");
-        /// 
+        ///
         /// If a param value is null or empty string, that param will not be included in the final URL
         /// (i.e. the corresponding param name will also be dropped).
         /// </summary>
@@ -115,7 +115,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             return Send("POST", ref uri, null, filter, contentType, doc, encoding, null, false, out responseHeaders);
         }
-
 
         /// <summary>
         /// Performs a multipart MIME HTTP POST with the specified XML document as the request body and filename as the payload.
@@ -238,7 +237,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 if (xmlRequest == null)
                     throw new ArgumentNullException();
 
-                // Add boundary to params                
+                // Add boundary to params
                 _filename = filename;
                 _xmlDoc = xmlRequest;
                 _filter = filter;

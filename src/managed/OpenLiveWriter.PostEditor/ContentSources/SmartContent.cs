@@ -96,7 +96,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             get { return this; }
         }
 
-
         public string[] SupportingFileIds
         {
             get { return (this as ISupportingFiles).Filenames; }
@@ -106,7 +105,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         {
             return (this as ISupportingFiles).Open(fileId);
         }
-
 
         Stream ISupportingFiles.Open(string fileName)
         {
@@ -126,7 +124,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             return _extensionData.GetFileStream(fileName);
         }
 
-
         void ISupportingFiles.AddFile(string fileName, string sourceFilePath)
         {
             //Writer Beta1 has a bug that will cause AddFile to overwrite the source file with a zero byte file.
@@ -140,7 +137,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             using (FileStream fileStream = new FileStream(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 _extensionData.AddFile(fileName, fileStream);
         }
-
 
         void ISupportingFiles.AddImage(string fileName, Image image, ImageFormat imageFormat)
         {

@@ -147,7 +147,6 @@ namespace OpenLiveWriter.SpellChecker
         private const string CHECK_SPELLING_BEFORE_PUBLISH = "CheckSpellingBeforePublish";
         private const bool CHECK_SPELLING_BEFORE_PUBLISH_DEFAULT = false;
 
-
         /// <summary>
         /// Ignore words in upper-case
         /// </summary>
@@ -158,7 +157,6 @@ namespace OpenLiveWriter.SpellChecker
         }
         private const string IGNORE_UPPERCASE = "IgnoreUppercase";
         private const bool IGNORE_UPPERCASE_DEFAULT = true;
-
 
 
         /// <summary>
@@ -172,7 +170,6 @@ namespace OpenLiveWriter.SpellChecker
         private const string IGNORE_NUMBERS = "IgnoreNumbers";
         private const bool IGNORE_NUMBERS_DEFAULT = true;
 
-
         /// <summary>
         /// Enable AutoCorrect
         /// </summary>
@@ -183,7 +180,6 @@ namespace OpenLiveWriter.SpellChecker
         }
         private const string AUTOCORRECT = "AutoCorrectEnabled";
         private const bool AUTOCORRECT_DEFAULT = true;
-
 
         /// <summary>
         /// Main language for spell checking

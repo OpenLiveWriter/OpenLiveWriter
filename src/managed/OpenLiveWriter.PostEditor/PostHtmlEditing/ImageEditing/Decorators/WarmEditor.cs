@@ -18,7 +18,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 		private Label label1;
 		private Label label2;
 
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
@@ -41,7 +41,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 		    trackBarWarmth.SmallChange = trackBarWarmth.Maximum/20;
             trackBarWarmth.LargeChange = trackBarWarmth.Maximum / 5;
 
-            
+
             BidiHelper.RtlLayoutFixup(this);
 
 		    label1.Top = label2.Top = trackBarWarmth.Bottom ;
@@ -49,9 +49,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 		    trackBarWarmth.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.DecoratorColorTemp));
 		}
 
-
 		private WarmDecorator.WarmDecoratorSettings WarmSettings;
-		
+
 		protected override void OnSaveSettings()
 		{
 			base.OnSaveSettings();
@@ -59,10 +58,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 			if(WarmSettings.WarmthPosition != newWarmth)
 			{
 				WarmSettings.WarmthPosition = newWarmth;
-			}		
+			}
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -89,10 +88,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 			this.label2 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarWarmth)).BeginInit();
 			this.SuspendLayout();
-			// 
+			//
 			// trackBarWarmth
-			// 
-			this.trackBarWarmth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.trackBarWarmth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.trackBarWarmth.Location = new System.Drawing.Point(0, 16);
 			this.trackBarWarmth.Maximum = 100;
@@ -103,17 +102,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 			this.trackBarWarmth.TickFrequency = 50;
             this.trackBarWarmth.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarWarmth_KeyUp);
 			this.trackBarWarmth.ValueChanged += new System.EventHandler(this.trackBarWarmth_ValueChanged);
-			// 
+			//
 			// label1
-			// 
+			//
 			this.label1.Location = new System.Drawing.Point(0, 61);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(100, 43);
 			this.label1.TabIndex = 2;
 			this.label1.Text = "Cooler";
-			// 
+			//
 			// label2
-			// 
+			//
 			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label2.Location = new System.Drawing.Point(120, 61);
 			this.label2.Name = "label2";
@@ -121,9 +120,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 			this.label2.TabIndex = 3;
 			this.label2.Text = "Warmer";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
-			// 
+			//
 			// WarmEditor
-			// 
+			//
 			this.Controls.Add(this.trackBarWarmth);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.label2);
@@ -135,7 +134,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
 		}
 		#endregion
-
 
 		private void trackBarWarmth_KeyUp(object sender, KeyEventArgs e)
 		{

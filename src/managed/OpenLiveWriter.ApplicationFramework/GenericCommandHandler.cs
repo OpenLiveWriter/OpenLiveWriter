@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -162,7 +162,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 }
                 else if (key == PropertyKeys.ItemsSource)
                 {
-                    // This should only be necessary if you have created a gallery in the ribbon markup that you have not yet put into the command manager.                
+                    // This should only be necessary if you have created a gallery in the ribbon markup that you have not yet put into the command manager.
                     List<IUISimplePropertySet> list = new List<IUISimplePropertySet>();
 
                     OpenLiveWriter.Interop.Com.Ribbon.IEnumUnknown enumUnk = new BasicCollection(list);

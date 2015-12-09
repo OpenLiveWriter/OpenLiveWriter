@@ -79,7 +79,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         public enum DownloadActions
         {
             GET,
@@ -135,7 +134,6 @@ namespace OpenLiveWriter.CoreServices
         private int _timeoutMs = NO_TIMEOUT;
         private const int NO_TIMEOUT = -1;
 
-
         public WinInetCredentialsContext CredentialsContext
         {
             set
@@ -152,7 +150,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private NetworkCredential _networkCredential = null;
         private string _cookieString = null;
-
 
 
         public DownloadActions DownloadAction
@@ -241,7 +238,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         private void SetCookies()
         {
             if (_cookieString != null)
@@ -288,7 +284,6 @@ namespace OpenLiveWriter.CoreServices
         private static string[] DownloadableSchemes = new string[] { Uri.UriSchemeFile, Uri.UriSchemeHttp, Uri.UriSchemeHttps };
         private IProgressHost ProgressHost;
 
-
         #region IBindStatusCallback Members
 
         /// <summary>
@@ -300,7 +295,6 @@ namespace OpenLiveWriter.CoreServices
             {
                 grfBINDF |= (uint)BINDF.FORMS_SUBMIT;
                 grfBINDF |= (uint)BINDF.IGNORESECURITYPROBLEM;
-
 
                 pbindinfo.dwBindVerb = BINDVERB.POST;
 
@@ -315,7 +309,6 @@ namespace OpenLiveWriter.CoreServices
             LOG("IBindStatusCallback", "GetBindInfo");
         }
 
-
         /// <summary>
         /// Notifies the client about the callback methods it is registered to receive.
         /// </summary>
@@ -324,13 +317,12 @@ namespace OpenLiveWriter.CoreServices
             LOG("IBindStatusCallback", "OnStartBinding");
         }
 
-
         /// <summary>
-        /// The moniker calls this method repeatedly to indicate the current progress of the bind 
+        /// The moniker calls this method repeatedly to indicate the current progress of the bind
         /// operation, typically at reasonable intervals during a lengthy operation.
-        /// 
-        /// The client can use the progress notification to provide progress information to the 
-        /// user from the ulProgress, ulProgressMax, and szStatusText parameters, or to make 
+        ///
+        /// The client can use the progress notification to provide progress information to the
+        /// user from the ulProgress, ulProgressMax, and szStatusText parameters, or to make
         /// programmatic decisions based on the ulStatusCode parameter.
         /// </summary>
         int IBindStatusCallback.OnProgress(uint ulProgress, uint ulProgressMax, BINDSTATUS ulStatusCode, string szStatusText)
@@ -414,16 +406,14 @@ namespace OpenLiveWriter.CoreServices
             LOG_UN("IBindStatusCallback", "OnObjectAvailable");
         }
 
-
         #endregion
-
 
         #region IHttpNegotiate Members
 
         /// <summary>
-        /// The URL moniker calls this method before sending an HTTP request. 
-        /// It notifies the client of the URL being bound to at the beginning 
-        /// of the HTTP transaction. It also allows the client to add 
+        /// The URL moniker calls this method before sending an HTTP request.
+        /// It notifies the client of the URL being bound to at the beginning
+        /// of the HTTP transaction. It also allows the client to add
         /// additional headers, such as Accept-Language, to the request.
         /// </summary>
         public int BeginningTransaction(string szURL, string szHeaders, uint dwReserved, out IntPtr pszAdditionalHeaders)
@@ -447,10 +437,10 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// The URL moniker calls this method when it receives a response to an 
-        /// HTTP request. If dwResponseCode indicates a success, the client can 
-        /// examine the response headers and can optionally abort the bind operation. 
-        /// If dwResponseCode indicates a failure, the client can add HTTP headers 
+        /// The URL moniker calls this method when it receives a response to an
+        /// HTTP request. If dwResponseCode indicates a success, the client can
+        /// examine the response headers and can optionally abort the bind operation.
+        /// If dwResponseCode indicates a failure, the client can add HTTP headers
         /// to the request before it is sent again.
         /// </summary>
         public int OnResponse(uint dwResponseCode, string szResponseHeaders, string szRequestHeaders, out IntPtr pszAdditionalRequestHeaders)
@@ -460,19 +450,18 @@ namespace OpenLiveWriter.CoreServices
 
             // NOTE: use Marshal.StringToCoTaskMemUni if you want to add additional
             // headers, e.g. pszAdditionalHeaders = Marshal.StringToCoTakMemUni("headers")
-            // They presumably free this memory -- the documentation doesn't specify			
+            // They presumably free this memory -- the documentation doesn't specify
             pszAdditionalRequestHeaders = IntPtr.Zero;
             return HRESULT.S_OK;
         }
 
         #endregion
 
-
         #region IAuthenticate Members
 
         /// <summary>
         /// Supplies authentication support to a URL moniker from a client application.
-        /// 
+        ///
         /// If we need to support automatically logging users in to download files, we
         /// should implement a response here (the operation should call this in order
         /// to get the authentication information to send with the request).  The
@@ -501,13 +490,12 @@ namespace OpenLiveWriter.CoreServices
 
         #endregion
 
-
         #region IWindowForBindingUI
 
         /// <summary>
-        /// This interface allows clients of URL monikers to display information 
+        /// This interface allows clients of URL monikers to display information
         /// in the client's user interface when necessary.
-        /// 
+        ///
         /// We always request silent, so this should never be called.
         /// </summary>
         [PreserveSig]
@@ -520,7 +508,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
         #endregion
-
 
         #region IHttpSecurity Members
 
@@ -538,7 +525,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Notifies the client application about an authentication problem.
-        /// 
+        ///
         /// We are requesting to ignore these problems, so this should never get called.
         /// </summary>
         int IHttpSecurity.OnSecurityProblem(uint dwProblem)
@@ -551,7 +538,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
         #endregion
-
 
         #region Debug helpers
 
@@ -582,9 +568,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         #endregion
-
 
     }
 

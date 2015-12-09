@@ -10,9 +10,9 @@ namespace OpenLiveWriter.Interop.Com
 
 	/// <summary>
 	/// Generic COM/OLE command dispatching interface
-	/// </summary>   
+	/// </summary>
 	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)] 
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[Guid("b722bccb-4e68-101b-a2bc-00aa00404770")]
 	public interface IOleCommandTargetTest
 	{
@@ -25,55 +25,53 @@ namespace OpenLiveWriter.Interop.Com
 		/// command. Implementations should ASSERT that cCmds is 1
 		/// </summary>
 		/// <param name="pguidCmdGroup"> Unique identifier of the command group; can be NULL to
-		/// specify the standard group. All the commands that are passed in the prgCmds 
+		/// specify the standard group. All the commands that are passed in the prgCmds
 		/// array must belong to the group specified by pguidCmdGroup</param>
 		/// <param name="cCmds">The number of commands in the prgCmds array. For this
 		/// interface declaration (which doesn't support arrays of OLECMD) this value
 		/// MUST always be 1.</param>
 		/// <param name="prgCmds">Reference to the command that is being queried for
-		/// its status -- this parameter should be filled in with the appropriate 
+		/// its status -- this parameter should be filled in with the appropriate
 		/// values.</param>
-		/// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return 
-		/// name and/or status information of a single command. Can be NULL to indicate 
-		/// that the caller does not need this information. Note that because of 
+		/// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return
+		/// name and/or status information of a single command. Can be NULL to indicate
+		/// that the caller does not need this information. Note that because of
 		/// marshalling issues w/ the OLECMDTEXT structure (can't figure out how to
 		/// marshall it correctly) we required that this parameter be NULL (implementations
 		/// should Assert on this). Note that IE currently passes NULL for this parameter
 		/// for custom toolbar button implementations.</param>
-		void QueryStatus( 
-			IntPtr pguidCmdGroup, 
+		void QueryStatus(
+			IntPtr pguidCmdGroup,
 			uint cCmds,
 			IntPtr prgCmds,
 			IntPtr pCmdText);
-
 
 		/// <summary>
 		/// Executes a specified command or displays help for a command
 		/// </summary>
 		/// <param name="pguidCmdGroup">Pointer to unique identifier of the command group; can be
 		/// NULL to specify the standard group</param>
-		/// <param name="nCmdID">The command to be executed. This command must belong to the 
+		/// <param name="nCmdID">The command to be executed. This command must belong to the
 		/// group specified with pguidCmdGroup</param>
 		/// <param name="nCmdexecopt">Values taken from the OLECMDEXECOPT enumeration, which
 		/// describe how the object should execute the command</param>
-		/// <param name="pvaIn">Pointer to a VARIANTARG structure containing input arguments. 
+		/// <param name="pvaIn">Pointer to a VARIANTARG structure containing input arguments.
 		/// Can be NULL</param>
-		/// <param name="pvaOut">Pointer to a VARIANTARG structure to receive command output. 
+		/// <param name="pvaOut">Pointer to a VARIANTARG structure to receive command output.
 		/// Can be NULL.</param>
-		void Exec( 
-			IntPtr pguidCmdGroup,	
-			uint nCmdID, 
+		void Exec(
+			IntPtr pguidCmdGroup,
+			uint nCmdID,
 			OLECMDEXECOPT nCmdexecopt,
 			IntPtr pvaIn,
-			IntPtr pvaOut ) ;					
+			IntPtr pvaOut ) ;
 	}
 	*/
 
 
-
     /// <summary>
     /// Generic COM/OLE command dispatching interface
-    /// </summary>   
+    /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("b722bccb-4e68-101b-a2bc-00aa00404770")]
@@ -84,15 +82,15 @@ namespace OpenLiveWriter.Interop.Com
         /// interface events.
         /// </summary>
         /// <param name="pguidCmdGroup"> Unique identifier of the command group; can be NULL to
-        /// specify the standard group. All the commands that are passed in the prgCmds 
+        /// specify the standard group. All the commands that are passed in the prgCmds
         /// array must belong to the group specified by pguidCmdGroup</param>
         /// <param name="cCmds">The number of commands in the prgCmds array.</param>
         /// <param name="prgCmds">Reference to the command that is being queried for
-        /// its status -- this parameter should be filled in with the appropriate 
+        /// its status -- this parameter should be filled in with the appropriate
         /// values.</param>
-        /// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return 
-        /// name and/or status information of a single command. Can be NULL to indicate 
-        /// that the caller does not need this information. Note that because of 
+        /// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return
+        /// name and/or status information of a single command. Can be NULL to indicate
+        /// that the caller does not need this information. Note that because of
         /// marshalling issues w/ the OLECMDTEXT structure (can't figure out how to
         /// marshall it correctly) we required that this parameter be NULL (implementations
         /// should Assert on this). Note that IE currently passes NULL for this parameter
@@ -104,19 +102,18 @@ namespace OpenLiveWriter.Interop.Com
             [In, Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] OLECMD[] prgCmds,
             [In, Out] IntPtr pCmdText);
 
-
         /// <summary>
         /// Executes a specified command or displays help for a command
         /// </summary>
         /// <param name="pguidCmdGroup">Pointer to unique identifier of the command group; can be
         /// NULL to specify the standard group</param>
-        /// <param name="nCmdID">The command to be executed. This command must belong to the 
+        /// <param name="nCmdID">The command to be executed. This command must belong to the
         /// group specified with pguidCmdGroup</param>
         /// <param name="nCmdexecopt">Values taken from the OLECMDEXECOPT enumeration, which
         /// describe how the object should execute the command</param>
-        /// <param name="pvaIn">Pointer to a VARIANTARG structure containing input arguments. 
+        /// <param name="pvaIn">Pointer to a VARIANTARG structure containing input arguments.
         /// Can be NULL</param>
-        /// <param name="pvaOut">Pointer to a VARIANTARG structure to receive command output. 
+        /// <param name="pvaOut">Pointer to a VARIANTARG structure to receive command output.
         /// Can be NULL.</param>
         [PreserveSig]
         int Exec(
@@ -130,12 +127,12 @@ namespace OpenLiveWriter.Interop.Com
     /// <summary>
     /// Generic COM/OLE command dispatching interface. This version of the declaration
     /// declares the two optional Exec parameters as ref object to allow for passing
-    /// parameters to the Exec method. The reason we need to do this is that these 
+    /// parameters to the Exec method. The reason we need to do this is that these
     /// parameters are defined as VARIANTARG* however the value passed can be NULL. If
     /// we declare them as object and the caller passes NULL then the runtime blows up.
     /// We therefore need two separate declarations for the interface depending upon
     /// its use.
-    /// </summary>   
+    /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("b722bccb-4e68-101b-a2bc-00aa00404770")]
@@ -150,17 +147,17 @@ namespace OpenLiveWriter.Interop.Com
         /// command. Implementations should ASSERT that cCmds is 1
         /// </summary>
         /// <param name="pguidCmdGroup"> Unique identifier of the command group; can be NULL to
-        /// specify the standard group. All the commands that are passed in the prgCmds 
+        /// specify the standard group. All the commands that are passed in the prgCmds
         /// array must belong to the group specified by pguidCmdGroup</param>
         /// <param name="cCmds">The number of commands in the prgCmds array. For this
         /// interface declaration (which doesn't support arrays of OLECMD) this value
         /// MUST always be 1.</param>
         /// <param name="prgCmds">Reference to the command that is being queried for
-        /// its status -- this parameter should be filled in with the appropriate 
+        /// its status -- this parameter should be filled in with the appropriate
         /// values.</param>
-        /// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return 
-        /// name and/or status information of a single command. Can be NULL to indicate 
-        /// that the caller does not need this information. Note that because of 
+        /// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return
+        /// name and/or status information of a single command. Can be NULL to indicate
+        /// that the caller does not need this information. Note that because of
         /// marshalling issues w/ the OLECMDTEXT structure (can't figure out how to
         /// marshall it correctly) we required that this parameter be NULL (implementations
         /// should Assert on this). Note that IE currently passes NULL for this parameter
@@ -171,13 +168,12 @@ namespace OpenLiveWriter.Interop.Com
             [In, Out] ref OLECMD prgCmds,
             [In, Out] IntPtr pCmdText);
 
-
         /// <summary>
         /// Executes a specified command or displays help for a command
         /// </summary>
         /// <param name="pguidCmdGroup">Pointer to unique identifier of the command group; can be
         /// NULL to specify the standard group</param>
-        /// <param name="nCmdID">The command to be executed. This command must belong to the 
+        /// <param name="nCmdID">The command to be executed. This command must belong to the
         /// group specified with pguidCmdGroup</param>
         /// <param name="nCmdexecopt">Values taken from the OLECMDEXECOPT enumeration, which
         /// describe how the object should execute the command</param>
@@ -192,14 +188,12 @@ namespace OpenLiveWriter.Interop.Com
     }
 
 
-
-
     /// <summary>
     /// Generic COM/OLE command dispatching interface. This version of the declaration
-    /// allows for the passing of NULL for the input parmaeter and object for the 
+    /// allows for the passing of NULL for the input parmaeter and object for the
     /// output parameter, thereby making it compatible with implementations that expect
     /// a NULL input parameter as an indicator that a command value request is occurring.
-    /// </summary>   
+    /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("b722bccb-4e68-101b-a2bc-00aa00404770")]
@@ -214,17 +208,17 @@ namespace OpenLiveWriter.Interop.Com
         /// command. Implementations should ASSERT that cCmds is 1
         /// </summary>
         /// <param name="pguidCmdGroup"> Unique identifier of the command group; can be NULL to
-        /// specify the standard group. All the commands that are passed in the prgCmds 
+        /// specify the standard group. All the commands that are passed in the prgCmds
         /// array must belong to the group specified by pguidCmdGroup</param>
         /// <param name="cCmds">The number of commands in the prgCmds array. For this
         /// interface declaration (which doesn't support arrays of OLECMD) this value
         /// MUST always be 1.</param>
         /// <param name="prgCmds">Reference to the command that is being queried for
-        /// its status -- this parameter should be filled in with the appropriate 
+        /// its status -- this parameter should be filled in with the appropriate
         /// values.</param>
-        /// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return 
-        /// name and/or status information of a single command. Can be NULL to indicate 
-        /// that the caller does not need this information. Note that because of 
+        /// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return
+        /// name and/or status information of a single command. Can be NULL to indicate
+        /// that the caller does not need this information. Note that because of
         /// marshalling issues w/ the OLECMDTEXT structure (can't figure out how to
         /// marshall it correctly) we required that this parameter be NULL (implementations
         /// should Assert on this). Note that IE currently passes NULL for this parameter
@@ -235,13 +229,12 @@ namespace OpenLiveWriter.Interop.Com
             [In, Out] ref OLECMD prgCmds,
             [In, Out] IntPtr pCmdText);
 
-
         /// <summary>
         /// Executes a specified command or displays help for a command
         /// </summary>
         /// <param name="pguidCmdGroup">Pointer to unique identifier of the command group; can be
         /// NULL to specify the standard group</param>
-        /// <param name="nCmdID">The command to be executed. This command must belong to the 
+        /// <param name="nCmdID">The command to be executed. This command must belong to the
         /// group specified with pguidCmdGroup</param>
         /// <param name="nCmdexecopt">Values taken from the OLECMDEXECOPT enumeration, which
         /// describe how the object should execute the command</param>
@@ -255,13 +248,12 @@ namespace OpenLiveWriter.Interop.Com
             [In, Out] ref object pvaOut);
     }
 
-
     /// <summary>
     /// Generic COM/OLE command dispatching interface. This version of the declaration
-    /// allows for the passing of NULL for the input parmaeter and object for the 
+    /// allows for the passing of NULL for the input parmaeter and object for the
     /// output parameter, thereby making it compatible with implementations that expect
     /// a NULL input parameter as an indicator that a command value request is occurring.
-    /// </summary>   
+    /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("b722bccb-4e68-101b-a2bc-00aa00404770")]
@@ -276,17 +268,17 @@ namespace OpenLiveWriter.Interop.Com
         /// command. Implementations should ASSERT that cCmds is 1
         /// </summary>
         /// <param name="pguidCmdGroup"> Unique identifier of the command group; can be NULL to
-        /// specify the standard group. All the commands that are passed in the prgCmds 
+        /// specify the standard group. All the commands that are passed in the prgCmds
         /// array must belong to the group specified by pguidCmdGroup</param>
         /// <param name="cCmds">The number of commands in the prgCmds array. For this
         /// interface declaration (which doesn't support arrays of OLECMD) this value
         /// MUST always be 1.</param>
         /// <param name="prgCmds">Reference to the command that is being queried for
-        /// its status -- this parameter should be filled in with the appropriate 
+        /// its status -- this parameter should be filled in with the appropriate
         /// values.</param>
-        /// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return 
-        /// name and/or status information of a single command. Can be NULL to indicate 
-        /// that the caller does not need this information. Note that because of 
+        /// <param name="pCmdText">Pointer to an OLECMDTEXT structure in which to return
+        /// name and/or status information of a single command. Can be NULL to indicate
+        /// that the caller does not need this information. Note that because of
         /// marshalling issues w/ the OLECMDTEXT structure (can't figure out how to
         /// marshall it correctly) we required that this parameter be NULL (implementations
         /// should Assert on this). Note that IE currently passes NULL for this parameter
@@ -297,13 +289,12 @@ namespace OpenLiveWriter.Interop.Com
             [In, Out] ref OLECMD prgCmds,
             [In, Out] IntPtr pCmdText);
 
-
         /// <summary>
         /// Executes a specified command or displays help for a command
         /// </summary>
         /// <param name="pguidCmdGroup">Pointer to unique identifier of the command group; can be
         /// NULL to specify the standard group</param>
-        /// <param name="nCmdID">The command to be executed. This command must belong to the 
+        /// <param name="nCmdID">The command to be executed. This command must belong to the
         /// group specified with pguidCmdGroup</param>
         /// <param name="nCmdexecopt">Values taken from the OLECMDEXECOPT enumeration, which
         /// describe how the object should execute the command</param>
@@ -317,9 +308,8 @@ namespace OpenLiveWriter.Interop.Com
             [In, Out] IntPtr pvaOut);
     }
 
-
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum OLECMDF : uint
     {
@@ -346,9 +336,8 @@ namespace OpenLiveWriter.Interop.Com
         NINCHED = 8
     }
 
-
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum OLECMDTEXTF : uint
     {
@@ -358,7 +347,7 @@ namespace OpenLiveWriter.Interop.Com
         NONE = 0,
 
         /// <summary>
-        /// The object should provide the localized name of the command 
+        /// The object should provide the localized name of the command
         /// </summary>
         NAME = 1,
 
@@ -369,7 +358,7 @@ namespace OpenLiveWriter.Interop.Com
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum OLECMDEXECOPT : uint
     {
@@ -384,7 +373,7 @@ namespace OpenLiveWriter.Interop.Com
         PROMPTUSER = 1,
 
         /// <summary>
-        /// Execute the command without prompting the user. For example, clicking the Print 
+        /// Execute the command without prompting the user. For example, clicking the Print
         /// toolbar button causes a document to be immediately printed without user input
         /// </summary>
         DONTPROMPTUSER = 2,
@@ -396,7 +385,7 @@ namespace OpenLiveWriter.Interop.Com
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct OLECMD
@@ -483,13 +472,13 @@ namespace OpenLiveWriter.Interop.Com
     public struct OLECMDTEXT
     {
         /// <summary>
-        /// A value from the OLECMDTEXTF enumeration describing whether the rgwz parameter 
+        /// A value from the OLECMDTEXTF enumeration describing whether the rgwz parameter
         /// contains a command name or status text
         /// </summary>
         public OLECMDTEXTF cmdtextf;
 
         /// <summary>
-        /// The number of characters actually written into the rgwz buffer before QueryStatus 
+        /// The number of characters actually written into the rgwz buffer before QueryStatus
         /// returns
         /// </summary>
         public uint cwActual;
@@ -500,7 +489,7 @@ namespace OpenLiveWriter.Interop.Com
         public uint cwBuf;
 
         /// <summary>
-        /// A caller-allocated array of wide characters to receive the command name or 
+        /// A caller-allocated array of wide characters to receive the command name or
         /// status text
         /// </summary>
         public char[] rgwz;

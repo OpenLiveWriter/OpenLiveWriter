@@ -356,7 +356,7 @@ namespace Project31.ApplicationFramework
 		Description("Occurs when the command is executed.")
 		]
 		public event EventHandler Execute;
-		
+
 		/// <summary>
 		/// Occurs when the command's enabled state changes.
 		/// </summary>

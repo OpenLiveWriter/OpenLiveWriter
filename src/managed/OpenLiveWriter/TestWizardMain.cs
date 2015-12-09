@@ -13,7 +13,6 @@ using OpenLiveWriter.Api.BlogClient;
 using OpenLiveWriter.PostEditor.Configuration.Wizard ;
 
 
-
 namespace OpenLiveWriter
 {
 	/// <summary>
@@ -23,16 +22,15 @@ namespace OpenLiveWriter
 	{
 		private class TestForm : Form
 		{
-			
+
 			protected override void OnLoad(EventArgs e)
 			{
 				base.OnLoad(e);
 
 
-				
 
 			}
-			
+
 			protected override void OnClick(EventArgs e)
 			{
 				base.OnClick (e);
@@ -43,7 +41,7 @@ namespace OpenLiveWriter
 					detector.SetContext( "http://localhost/test/editingTemplate.htm", @"C:\Program Files\Apache Group\Apache\htdocs\test\blogtemplates" );
 					detector.DetectTemplate(SilentProgressHost.Instance) ;
 
-					Trace.WriteLine(detector.BlogTemplateFile); 
+					Trace.WriteLine(detector.BlogTemplateFile);
 				}
 				catch(Exception ex)
 				{
@@ -56,13 +54,13 @@ namespace OpenLiveWriter
 		public static void Main(string[] args)
 		{
 			try
-			{		
+			{
 				// initialize application environment
 				ApplicationEnvironment.Initialize();
 
 				//RsdServiceDescription rsdService = RsdServiceDetector.DetectFromRsdUrl("http://localhost/test/foo.rsd", 10000);
 				//Trace.WriteLine(rsdService.EditingTemplateLink);
-			
+
 				Application.Run(new TestForm());
 
 				// launch blogging form
@@ -70,7 +68,7 @@ namespace OpenLiveWriter
 				//WeblogConfigurationWizardController.Edit(Win32WindowImpl.DesktopWin32Window, BlogSettings.DefaultBlogId);
 			}
 			catch( Exception ex )
-			{		
+			{
 				UnexpectedErrorMessage.Show( ex ) ;
 			}
 		}

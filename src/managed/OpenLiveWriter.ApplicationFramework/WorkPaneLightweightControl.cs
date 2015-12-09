@@ -123,13 +123,13 @@ namespace Project31.ApplicationFramework
 		{
 			this.components = new System.ComponentModel.Container();
 			this.commandBarLightweightControl = new Project31.ApplicationFramework.CommandBarLightweightControl(this.components);
-			// 
+			//
 			// commandBarLightweightControl
-			// 
+			//
 			this.commandBarLightweightControl.LightweightControlContainerControl = this;
 
 		}
-		
+
 		/// <summary>
 		/// Gets the command bar rectangle.
 		/// </summary>
@@ -190,7 +190,7 @@ namespace Project31.ApplicationFramework
 		{
 			//	Create a rectangle representing the header area to be filled.
 			Rectangle headerRectangle = new Rectangle(	0,
-				0, 
+				0,
 				VirtualWidth-(topLeftBitmap.Width+topRightBitmap.Width),
 				topLeftBitmap.Height-1);
 
@@ -208,21 +208,21 @@ namespace Project31.ApplicationFramework
 				bitmapGraphics.Dispose();
 				e.Graphics.DrawImageUnscaled(bitmap, topLeftBitmap.Width, 1);
 			}
-			
-			//	Fill in the client rectangle.			
+
+			//	Fill in the client rectangle.
 			Rectangle clientArea = new Rectangle(	leftBitmap.Width-1,
 				topLeftBitmap.Height,
 				VirtualWidth-((leftBitmap.Width-1)+rightBitmap.Width),
 				VirtualHeight-(topLeftBitmap.Height+bottomBitmap.Height));
 			e.Graphics.FillRectangle(System.Drawing.Brushes.White, clientArea);
-			
+
 			//	Draw the border.
 			DrawBorder(e.Graphics);
 
 			//	Call the base class's method so that registered delegates receive the event.
 			base.OnPaint(e);
 		}
-		
+
 		/// <summary>
 		/// Helper to draw the work pane border.
 		/// </summary>
@@ -232,11 +232,11 @@ namespace Project31.ApplicationFramework
 			//	Draw the top left corner of the border.
 			if (topLeftBitmap != null)
 				graphics.DrawImageUnscaled(topLeftBitmap, 0, 0);
-	
+
 			//	Draw the top right corner of the border.
 			if (topRightBitmap != null)
 				graphics.DrawImageUnscaled(topRightBitmap, VirtualWidth-topRightBitmap.Width, 0);
-			
+
 			//	Draw the bottom left corner of the border.
 			if (bottomLeftBitmap != null)
 				graphics.DrawImageUnscaled(bottomLeftBitmap, 0, VirtualHeight-bottomLeftBitmap.Height);
@@ -249,17 +249,16 @@ namespace Project31.ApplicationFramework
 			if (topBitmap != null)
 			{
 				Rectangle fillRectangle = new Rectangle(topLeftBitmap.Width,
-					0, 
+					0,
 					VirtualWidth-(topLeftBitmap.Width+topRightBitmap.Width),
 					topBitmap.Height);
 				GraphicsHelper.TileFillUnscaledImageHorizontally(graphics, topBitmap, fillRectangle);
 			}
 
-
 			//	Fill the left.
 			if (leftBitmap != null)
 			{
-				Rectangle fillRectangle = new Rectangle(0, 
+				Rectangle fillRectangle = new Rectangle(0,
 					topLeftBitmap.Height,
 					leftBitmap.Width,
 					VirtualHeight-(topLeftBitmap.Height+bottomLeftBitmap.Height));
@@ -269,7 +268,7 @@ namespace Project31.ApplicationFramework
 			//	Fill the right.
 			if (rightBitmap != null)
 			{
-				Rectangle fillRectangle = new Rectangle(VirtualWidth-rightBitmap.Width, 
+				Rectangle fillRectangle = new Rectangle(VirtualWidth-rightBitmap.Width,
 					topRightBitmap.Height,
 					rightBitmap.Width,
 					VirtualHeight-(topRightBitmap.Height+bottomRightBitmap.Height));

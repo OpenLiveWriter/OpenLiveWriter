@@ -86,7 +86,7 @@ namespace OpenLiveWriter.CoreServices
         public bool RemoveHostIfTimeout = true;
 
         /// <summary>
-        /// Indicates whether the downloader should obey robots.txt and robots meta tags.  Obeying them could cause the 
+        /// Indicates whether the downloader should obey robots.txt and robots meta tags.  Obeying them could cause the
         /// downloader to not download all pages.  Disobeying them is a bit rude.
         /// </summary>
         public bool ObeyRobotsExclusion = true;
@@ -101,7 +101,6 @@ namespace OpenLiveWriter.CoreServices
         /// Indicates how the downloader should behave with respect to files
         /// </summary>
         public SiteCaptureDownloadFilter DownloadFilter = SiteCaptureDownloadFilter.AllFiles;
-
 
         public bool ShouldDownloadThisUrl(UrlContentTypeInfo info)
         {
@@ -161,7 +160,6 @@ namespace OpenLiveWriter.CoreServices
             return (TimedOutHosts.Contains(UrlHelper.GetHostName(url)) && RemoveHostIfTimeout);
         }
 
-
         public void AddPageToDownload(string url, PageToDownload pageToDownload, bool countAsPageDownload)
         {
             if (countAsPageDownload)
@@ -178,14 +176,12 @@ namespace OpenLiveWriter.CoreServices
             return CreatedPageToDownloadTable.ContainsKey(url);
         }
 
-
         public void AddTimedOutUrl(string url)
         {
             if (!TimedOutHosts.Contains(url))
                 TimedOutHosts.Add(UrlHelper.GetHostName(url));
         }
         private ArrayList TimedOutHosts = new ArrayList();
-
 
         public static PageDownloadContext OnlyThisPage
         {

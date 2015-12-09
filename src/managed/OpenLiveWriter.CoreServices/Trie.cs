@@ -10,7 +10,6 @@ namespace OpenLiveWriter.CoreServices
 
     public delegate bool CanMatch(string text, int charactersMatched);
 
-
     public class Trie<T> where T : class
     {
         public void Add(string text, T value)
@@ -66,7 +65,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         public T Find(string text, CanMatch canMatch, out int length)
         {
             return Find(text, 0, canMatch, out length);
@@ -108,7 +106,6 @@ namespace OpenLiveWriter.CoreServices
                 _children = new HybridDictionary();
             }
 
-
             Trie<T> childNode = (Trie<T>)_children[letter];
             if (childNode == null && add)
             {
@@ -121,7 +118,6 @@ namespace OpenLiveWriter.CoreServices
 
         private T _value;
     }
-
 
 
 }

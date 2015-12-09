@@ -12,7 +12,7 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// General purpose implementation of an Ole DataObject that accepts arbirary
-    /// binary data (the .NET IDataObject implementation does not allow you to pass 
+    /// binary data (the .NET IDataObject implementation does not allow you to pass
     /// arbitrary binary data so if you want to do this you need a class like this).
     /// This implementation does not support advise sinks.
     /// </summary>
@@ -24,7 +24,6 @@ namespace OpenLiveWriter.CoreServices
         public OleDataObjectImpl()
         {
         }
-
 
         /// <summary>
         /// Dispose the data object
@@ -39,7 +38,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Verify the user called Dispose at garbage collection time
         /// </summary>
@@ -47,7 +45,6 @@ namespace OpenLiveWriter.CoreServices
         {
             Debug.Assert(oleDataEntries == null, "You must call Dispose on OleDataObjectImpl when finished using it!");
         }
-
 
         /// <summary>
         /// Renders the data described in a FORMATETC structure and transfers it
@@ -57,7 +54,7 @@ namespace OpenLiveWriter.CoreServices
         /// the format, medium, and target device to use when passing the data. It is
         /// possible to specify more than one medium by using the Boolean OR operator,
         /// allowing the method to choose the best medium among those specified</param>
-        /// <param name="pMedium">Pointer to the STGMEDIUM structure that indicates 
+        /// <param name="pMedium">Pointer to the STGMEDIUM structure that indicates
         /// the storage medium containing the returned data through its tymed member,
         /// and the responsibility for releasing the medium through the value of its
         /// pUnkForRelease member. If pUnkForRelease is NULL, the receiver of the medium
@@ -80,7 +77,7 @@ namespace OpenLiveWriter.CoreServices
                 // clone the storage and return
                 return CloneStgMedium(dataEntry.stgm, ref pMedium);
             }
-            // don't have the data, return the error code passed back to us 
+            // don't have the data, return the error code passed back to us
             // from FindDataFormat
             else
             {
@@ -88,18 +85,17 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Renders the data described in a FORMATETC structure and transfers it
         /// through the STGMEDIUM structure allocated by the caller.
-        /// </summary>				
+        /// </summary>
         /// <param name="pFormatEtc">Pointer to the FORMATETC structure that defines
         /// the format, medium, and target device to use when passing the data. It is
         /// possible to specify more than one medium by using the Boolean OR operator,
         /// allowing the method to choose the best medium among those specified</param>
         /// <param name="pMedium">Pointer to the STGMEDIUM structure that defines the
         /// storage medium containing the data being transferred. The medium must be
-        /// allocated by the caller and filled in by IDataObject::GetDataHere. The 
+        /// allocated by the caller and filled in by IDataObject::GetDataHere. The
         /// caller must also free the medium. The implementation of this method must
         /// always supply a value of NULL for the punkForRelease member of the
         /// STGMEDIUM structure to which this parameter points</param>
@@ -112,11 +108,10 @@ namespace OpenLiveWriter.CoreServices
             return HRESULT.E_NOTIMPL;
         }
 
-
         /// <summary>
         /// Determines whether the data object is capable of rendering the data
         /// described in the FORMATETC structure.
-        /// </summary>	
+        /// </summary>
         /// <param name="pFormatEtc">Pointer to the FORMATETC structure defining
         /// the format, medium, and target device to use for the query</param>
         public int QueryGetData(ref FORMATETC pFormatEtc)
@@ -125,16 +120,15 @@ namespace OpenLiveWriter.CoreServices
             return FindDataFormat(ref pFormatEtc, out dataFormatIndex);
         }
 
-
         /// <summary>
         /// Provides a standard FORMATETC structure that is logically equivalent
         /// to one that is more complex. You use this method to determine whether
         /// two different FORMATETC structures would return the same data, removing
         /// the need for duplicate rendering
         /// </summary>
-        /// <param name="pFormatEtcIn">Pointer to the FORMATETC structure that 
+        /// <param name="pFormatEtcIn">Pointer to the FORMATETC structure that
         /// defines the format, medium, and target device that the caller would
-        /// like to use to retrieve data in a subsequent call such as 
+        /// like to use to retrieve data in a subsequent call such as
         /// IDataObject::GetData. The TYMED member is not significant in this case
         /// and should be ignored</param>
         /// <param name="pFormatEtcOut">Pointer to a FORMATETC structure that contains
@@ -145,14 +139,13 @@ namespace OpenLiveWriter.CoreServices
         /// caller uses the supplied value of pFormatetcOut, unless the value supplied
         /// is NULL. This value is NULL if the method returns DATA_S_SAMEFORMATETC.
         /// The TYMED member is not significant in this case and should be ignored</param>
-        /// <returns>S_OK if the logically equivilant structure was provided, 
+        /// <returns>S_OK if the logically equivilant structure was provided,
         /// otherwise returns DATA_S_SAMEFORMATETC indicating the structures
         /// are the same (in this case pFormatEtcOut is NULL)</returns>
         public int GetCanonicalFormatEtc(ref FORMATETC pFormatEtcIn, ref FORMATETC pFormatEtcOut)
         {
             return DATA_S.SAMEFORMATETC;
         }
-
 
 
         /// <summary>
@@ -185,7 +178,7 @@ namespace OpenLiveWriter.CoreServices
                 oleDataEntries.RemoveAt(dataFormatIndex);
             }
 
-            // create an entry to add to our internal list 
+            // create an entry to add to our internal list
             OleDataEntry dataEntry;
 
             // if the caller is releasing the data that is being set then just
@@ -198,7 +191,7 @@ namespace OpenLiveWriter.CoreServices
             // if the caller is not releasing the data object to us then
             // we only get to use it for the duration of the call -- we need
             // to therefore clone the storage so that we have our own
-            // copy/reference		
+            // copy/reference
             else
             {
                 // attempt to clone the storage medium
@@ -218,11 +211,10 @@ namespace OpenLiveWriter.CoreServices
             return HRESULT.S_OK;
         }
 
-
         /// <summary>
         /// Creates and returns a pointer to an object to enumerate the FORMATETC
         /// supported by the data object
-        /// </summary>		
+        /// </summary>
         /// <param name="dwDirection">Direction of the data through a value from
         /// the enumeration DATADIR</param>
         /// <param name="ppEnumFormatEtc">Address of IEnumFORMATETC* pointer variable
@@ -242,7 +234,6 @@ namespace OpenLiveWriter.CoreServices
             ppEnumFormatEtc = enumerator;
             return HRESULT.S_OK;
         }
-
 
         /// <summary>
         /// Creates a connection between a data object and an advise sink so the
@@ -264,38 +255,35 @@ namespace OpenLiveWriter.CoreServices
         /// <param name="pdwConnection">Pointer to a DWORD token that identifies this
         /// connection. You can use this token later to delete the advisory connection
         /// (by passing it to IDataObject::DUnadvise). If this value is zero, the
-        /// connection was not established</param>	
+        /// connection was not established</param>
         public int DAdvise(ref FORMATETC pFormatEtc, uint advf, IntPtr pAdvSink, ref uint pdwConnection)
         {
             return OLE_E.ADVISENOTSUPPORTED;
         }
 
-
         /// <summary>
         /// Destroys a notification previously set up with the DAdvise method
-        /// </summary>	
+        /// </summary>
         /// <param name="dwConnection">DWORD token that specifies the connection to remove.
         /// Use the value returned by IDataObject::DAdvise when the connection was originally
-        /// established</param>	
+        /// established</param>
         public int DUnadvise(uint dwConnection)
         {
             return OLE_E.ADVISENOTSUPPORTED;
         }
 
-
         /// <summary>
         /// Creates and returns a pointer to an object to enumerate the current
         /// advisory connections
-        /// </summary>	
+        /// </summary>
         /// <param name="ppEnumAdvise">Address of IEnumSTATDATA* pointer variable that
         /// receives the interface pointer to the new enumerator object. If the
         /// implementation sets *ppenumAdvise to NULL, there are no connections to
-        /// advise sinks at this time</param>	
+        /// advise sinks at this time</param>
         public int EnumDAdvise(ref IntPtr ppEnumAdvise)
         {
             return OLE_E.ADVISENOTSUPPORTED;
         }
-
 
 
         /// <summary>
@@ -341,7 +329,6 @@ namespace OpenLiveWriter.CoreServices
             // no matching format found
             return DV_E.FORMATETC;
         }
-
 
         /// <summary>
         /// Create a cloned copy of the the passed storage medium. This method works via
@@ -391,7 +378,6 @@ namespace OpenLiveWriter.CoreServices
             return HRESULT.S_OK;
         }
 
-
         /// <summary>
         /// Data entries contained within the data object
         /// </summary>
@@ -399,12 +385,11 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Track the enumerators that we have returned so that a .NET reference
-        /// is maintained to them 
+        /// is maintained to them
         /// </summary>
         private ArrayList enumerators = new ArrayList();
 
     }
-
 
 
     /// <summary>
@@ -422,7 +407,6 @@ namespace OpenLiveWriter.CoreServices
     }
 
 
-
     /// <summary>
     /// Implementation of IEnumFORMATETC for OleDataEntry list
     /// </summary>
@@ -436,7 +420,6 @@ namespace OpenLiveWriter.CoreServices
         {
             oleDataEntries = entries;
         }
-
 
         /// <summary>
         /// Get the next celt entries from the enumeration
@@ -462,14 +445,13 @@ namespace OpenLiveWriter.CoreServices
             if (pceltFetched != IntPtr.Zero)
                 Marshal.WriteInt32(pceltFetched, itemsToReturn);
 
-            // return the correct status code depending upon whether we 
+            // return the correct status code depending upon whether we
             // returned all of the items requested
             if (itemsToReturn == itemsRequested)
                 return HRESULT.S_OK;
             else
                 return HRESULT.S_FALSE;
         }
-
 
 
         /// <summary>
@@ -485,7 +467,6 @@ namespace OpenLiveWriter.CoreServices
             else
                 return HRESULT.S_FALSE;
         }
-
 
         /// <summary>
         /// Reset to the beginning of the enumeration
@@ -507,12 +488,10 @@ namespace OpenLiveWriter.CoreServices
             ppenum = clone;
         }
 
-
         /// <summary>
         /// List of data entries we are enumerating
         /// </summary>
         private ArrayList oleDataEntries;
-
 
         /// <summary>
         /// Item are enumerator is currently positioned over
@@ -520,10 +499,7 @@ namespace OpenLiveWriter.CoreServices
         private int currentItem = -1;
 
 
-
-
     }
 
 }
-
 

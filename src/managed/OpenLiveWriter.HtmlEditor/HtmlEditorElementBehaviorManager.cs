@@ -110,7 +110,7 @@ namespace Onfolio.Core.HtmlEditor
 			}
 		}
 
-		
+
 		private void _editorContext_SelectionChanged(object sender, EventArgs e)
 		{
 			// update 'active' state of behaviors based on whether they contain the selection

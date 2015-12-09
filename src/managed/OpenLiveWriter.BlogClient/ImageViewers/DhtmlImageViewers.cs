@@ -64,7 +64,7 @@ namespace OpenLiveWriter.BlogClient
                     Uri srcUri = new Uri(src);
                     if (srcUri.IsAbsoluteUri)
                     {
-                        // WinLive 248276: We want just the path portion since there could be an additional query or 
+                        // WinLive 248276: We want just the path portion since there could be an additional query or
                         // fragment on the URL that our regexs can't handle.
                         src = srcUri.GetLeftPart(UriPartial.Path);
                     }

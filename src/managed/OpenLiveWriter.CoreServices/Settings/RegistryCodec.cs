@@ -69,7 +69,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         private Hashtable codecCache = new Hashtable();
 
 
-
         /// <summary>
         /// Take a native value and return a registry-ready representation.
         /// </summary>
@@ -85,7 +84,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         {
             return GetCodec(desiredType).Decode(val);
         }
-
 
         protected Codec GetCodec(Type type)
         {
@@ -112,7 +110,6 @@ namespace OpenLiveWriter.CoreServices.Settings
             return null;
         }
 
-
         /// <summary>
         /// Basic interface for encoding/decoding values to/from registry.
         /// Any concrete impl of this interface must be threadsafe and
@@ -136,24 +133,24 @@ namespace OpenLiveWriter.CoreServices.Settings
 
             /// <summary>
             /// Convert a native object into a symmetrically persistable type (see below).
-            /// 
+            ///
             /// This method will only be called if the type of the "val" parameter
             /// caused CanHandle to return true.  A properly written subclass will
             /// never throw ClassCastException on this method.
-            /// 
+            ///
             /// The type returned by this method must be something that can
             /// be symmetrically persisted into the registry; i.e., when RegistryKey.GetValue
             /// is called, the value returned must be equal to the value that was
             /// previously passed in to RegistryKey.SetValue.  Types that are OK
             /// include strings, ints, longs, and byte arrays.  Types that are not OK
-            /// include floating point values (which can be stored, but come back as 
+            /// include floating point values (which can be stored, but come back as
             /// strings).
             /// </summary>
             public abstract object Encode(object val);
 
             /// <summary>
             /// Convert a symetrically persistable type back into a native object.
-            /// 
+            ///
             /// The return value should be of the same type as Encode() expects
             /// to receive.  The val parameter can reasonably expected to be of
             /// the same type as Encode() returns.  However, if someone goes into
@@ -248,7 +245,6 @@ namespace OpenLiveWriter.CoreServices.Settings
                 return (int)val == 1;
             }
         }
-
 
         #region Integral datatypes
         class SByteCodec : IntifyCodec
@@ -397,7 +393,6 @@ namespace OpenLiveWriter.CoreServices.Settings
                 }
             }
 
-
         }
 
         /// <summary>
@@ -433,7 +428,6 @@ namespace OpenLiveWriter.CoreServices.Settings
                     return null;
                 }
             }
-
 
         }
 
@@ -471,7 +465,6 @@ namespace OpenLiveWriter.CoreServices.Settings
                 }
             }
 
-
         }
 
         /// <summary>
@@ -508,9 +501,7 @@ namespace OpenLiveWriter.CoreServices.Settings
                 }
             }
 
-
         }
-
 
         /// <summary>
         /// Handles any ISerializable type by converting to/from byte array.

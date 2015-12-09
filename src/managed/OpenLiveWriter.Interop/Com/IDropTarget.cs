@@ -18,7 +18,6 @@ namespace OpenLiveWriter.Interop.Com
             [In] POINT pt,
             [Out, In] ref DROPEFFECT pdwEffect);
 
-
         void DragOver(
             [In] MK grfKeyState,
             [In] POINT pt,
@@ -64,7 +63,7 @@ namespace OpenLiveWriter.Interop.Com
         LINK = 4,
 
         /// <summary>
-        /// Scrolling is about to start or is currently occurring in the target. 
+        /// Scrolling is about to start or is currently occurring in the target.
         /// This value is used in addition to the other values.
         /// </summary>
         SCROLL = 0x80000000

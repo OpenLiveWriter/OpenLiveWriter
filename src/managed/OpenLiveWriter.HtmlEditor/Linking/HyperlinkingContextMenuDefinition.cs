@@ -15,9 +15,8 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 	{
 		private MenuDefinitionEntryCommand menuDefinitionEntryCommandRecentPost;
 		private MenuDefinitionEntryCommand menuDefinitionEntryCommandGlossary;
-		
-		private IContainer components;
 
+		private IContainer components;
 
 		public HyperlinkingContextMenuDefinition(IContainer container)
 		{
@@ -36,7 +35,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,7 +49,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 			}
 			base.Dispose( disposing );
 		}
-		
+
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -59,28 +58,28 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-						
+
 			this.menuDefinitionEntryCommandRecentPost = new OpenLiveWriter.ApplicationFramework.MenuDefinitionEntryCommand(this.components);
 			this.menuDefinitionEntryCommandGlossary = new OpenLiveWriter.ApplicationFramework.MenuDefinitionEntryCommand(this.components);
-			// 
+			//
 			// menuDefinitionEntryCommandRecentPost
-			// 
+			//
 			this.menuDefinitionEntryCommandRecentPost.CommandIdentifier = "OpenLiveWriter.PostEditor.OpenPost.CommandRecentPost";
 			this.menuDefinitionEntryCommandRecentPost.SeparatorAfter = false;
-			this.menuDefinitionEntryCommandRecentPost.SeparatorBefore = false;			
-			// 
+			this.menuDefinitionEntryCommandRecentPost.SeparatorBefore = false;
+			//
 			// menuDefinitionEntryCommandGlossary
-			// 
+			//
 			this.menuDefinitionEntryCommandGlossary.CommandIdentifier = "OpenLiveWriter.HtmlEditor.Linking.Commands.CommandGlossary";
 			this.menuDefinitionEntryCommandGlossary.SeparatorAfter = false;
-			this.menuDefinitionEntryCommandGlossary.SeparatorBefore = false;	
-			// 
+			this.menuDefinitionEntryCommandGlossary.SeparatorBefore = false;
+			//
 			// LinkingContextMenuDefinition
-			// 
+			//
 			this.Entries.AddRange(new OpenLiveWriter.ApplicationFramework.MenuDefinitionEntry[] {
 																										this.menuDefinitionEntryCommandRecentPost,
 			                                                                                        	this.menuDefinitionEntryCommandGlossary});
 		}
-		#endregion		
+		#endregion
 	}
 }

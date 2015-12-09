@@ -6,7 +6,7 @@ using OpenLiveWriter.ApplicationFramework;
 
 namespace OpenLiveWriter.PostEditor.Commands
 {
-	
+
 	public class CommandPreferences : Command
 	{
 		/// <summary>
@@ -22,7 +22,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -34,10 +34,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -47,9 +46,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandConfigureWeblog
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.PostEditor.Commands.Preferences";
 			this.MainMenuPath = "&Tools@7/-&Preferences...@900";
 			this.MenuText = "&Preferences...";

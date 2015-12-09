@@ -30,7 +30,6 @@ namespace OpenLiveWriter.CoreServices.Progress
         {
         }
 
-
         public ProgressWorker(ProgressOperation method, ProgressCategory category, ProgressOperationCompleted completedMethod, int progressSize, int progressTotal, IProgressHost progress)
         {
             WorkerMethod = method;

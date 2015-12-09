@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -46,7 +46,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
 
         /// <summary>
         /// Category name
-        /// </summary>        
+        /// </summary>
         public string Name
         {
             get { return name; }
@@ -58,7 +58,6 @@ namespace OpenLiveWriter.PostEditor.JumpList
                 }
             }
         }
-
 
 
         /// <summary>

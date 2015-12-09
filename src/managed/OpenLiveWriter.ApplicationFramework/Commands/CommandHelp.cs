@@ -37,7 +37,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -45,9 +44,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandHelp
-			// 
+			//
 			this.CommandBarButtonText = "";
 			this.ContextMenuPath = "{0} &Help-@101";
 			this.Identifier = "OpenLiveWriter.Commands.Help";

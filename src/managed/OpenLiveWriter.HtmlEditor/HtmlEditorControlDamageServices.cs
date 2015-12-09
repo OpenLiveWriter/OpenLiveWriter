@@ -154,7 +154,6 @@ namespace OpenLiveWriter.HtmlEditor
             wordRangeDamager.OnKeyPress(e);
             _commitStrategy.OnKeyPress(e);
 
-
         }
 
         public void AddDamage(MarkupRange range)
@@ -350,7 +349,6 @@ namespace OpenLiveWriter.HtmlEditor
         }
     }
 
-
     public class DamageTracer
     {
         private void DumpDamagedRegions(MarkupRange[] damagedRegions)
@@ -482,7 +480,7 @@ namespace OpenLiveWriter.HtmlEditor
             MarkupRange nextWordRange = damageRange.Clone();
             nextWordRange.End.MoveUnit(_MOVEUNIT_ACTION.MOVEUNIT_NEXTWORDEND);
 
-            // If we were already at the last word in the document, moving to the next word would have put the 
+            // If we were already at the last word in the document, moving to the next word would have put the
             // MarkupPointer outside the body element.
             if (nextWordRange.End.GetParentElement(ElementFilters.BODY_ELEMENT) != null)
             {
@@ -500,7 +498,7 @@ namespace OpenLiveWriter.HtmlEditor
             MarkupRange previousWordRange = damageRange.Clone();
             previousWordRange.Start.MoveUnit(_MOVEUNIT_ACTION.MOVEUNIT_PREVWORDBEGIN);
 
-            // If we were already at the first word in the document, moving to the previous word would have put the 
+            // If we were already at the first word in the document, moving to the previous word would have put the
             // MarkupPointer outside the body element.
             if (previousWordRange.Start.GetParentElement(ElementFilters.BODY_ELEMENT) != null)
             {
@@ -682,7 +680,7 @@ namespace OpenLiveWriter.HtmlEditor
                 _p2.MoveToPointer(p);
                 _p.MoveUnit(_MOVEUNIT_ACTION.MOVEUNIT_NEXTWORDBEGIN);
                 _p2.MoveUnit(_MOVEUNIT_ACTION.MOVEUNIT_NEXTWORDEND);
-                // If CurrentScope is null, this means we have walked off the end of the 
+                // If CurrentScope is null, this means we have walked off the end of the
                 // document, in that case we don't want to move the pointer, at is already
                 // at the end of word.
                 if (_p2.IsLeftOfOrEqualTo(_p) && _p.CurrentScope != null)

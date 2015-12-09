@@ -167,7 +167,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             if (element.style.marginLeft != null)
                 currentLeftMargin = element.style.marginLeft.ToString();
 
-
             // This is because margins and centering images can conflict with eachother
             if (margin.Right == 0 && currentRightMargin == "auto" &&
                 margin.Left == 0 && currentLeftMargin == "auto")
@@ -180,7 +179,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 // The user is breaking their centered image by setting a L/R margin
                 element.style.display = "inline";
             }
-
 
             string marginString = String.Format(CultureInfo.InvariantCulture, "{0}{4} {1} {2}{4} {3}",
                 margin.Top, marginRight, margin.Bottom, marginLeft, unitSize);

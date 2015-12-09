@@ -53,7 +53,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
                 DeleteProvider();
         }
 
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -88,7 +87,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
         }
         private TagContext _context;
 
-
         private void RefreshProviders(bool defaultSelect)
         {
             if (listBoxOptions != null)
@@ -102,7 +100,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
                 buttonDelete.Enabled = listBoxOptions.Items.Count > 1;
             }
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -134,16 +131,16 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.labelTagProviders = new System.Windows.Forms.Label();
             this.buttonRestoreDefaults = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // listBoxOptions
-            // 
+            //
             this.listBoxOptions.Location = new System.Drawing.Point(8, 24);
             this.listBoxOptions.Name = "listBoxOptions";
             this.listBoxOptions.Size = new System.Drawing.Size(200, 134);
             this.listBoxOptions.TabIndex = 4;
-            // 
+            //
             // buttonClose
-            // 
+            //
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonClose.Location = new System.Drawing.Point(216, 176);
@@ -151,45 +148,45 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.buttonClose.TabIndex = 6;
             this.buttonClose.Text = "&Close";
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
+            //
             // buttonAdd
-            // 
+            //
             this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonAdd.Location = new System.Drawing.Point(216, 24);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.TabIndex = 0;
             this.buttonAdd.Text = "A&dd...";
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
+            //
             // buttonEdit
-            // 
+            //
             this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonEdit.Location = new System.Drawing.Point(216, 56);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.TabIndex = 1;
             this.buttonEdit.Text = "&Edit...";
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
-            // 
+            //
             // buttonDelete
-            // 
+            //
             this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonDelete.Location = new System.Drawing.Point(216, 136);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.TabIndex = 2;
             this.buttonDelete.Text = "&Delete";
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
+            //
             // labelTagProviders
-            // 
+            //
             this.labelTagProviders.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelTagProviders.Location = new System.Drawing.Point(8, 8);
             this.labelTagProviders.Name = "labelTagProviders";
             this.labelTagProviders.Size = new System.Drawing.Size(224, 16);
             this.labelTagProviders.TabIndex = 3;
             this.labelTagProviders.Text = "&Tag providers:";
-            // 
+            //
             // buttonRestoreDefaults
-            // 
+            //
             this.buttonRestoreDefaults.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonRestoreDefaults.Location = new System.Drawing.Point(8, 176);
             this.buttonRestoreDefaults.Name = "buttonRestoreDefaults";
@@ -197,9 +194,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.buttonRestoreDefaults.TabIndex = 5;
             this.buttonRestoreDefaults.Text = "&Restore Defaults";
             this.buttonRestoreDefaults.Click += new System.EventHandler(this.buttonRestoreDefaults_Click);
-            // 
+            //
             // TagOptions
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(299, 214);

@@ -35,7 +35,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking.DisplayMessages
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -58,9 +57,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// SelectEntryDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.OK;
 			this.Text = "Please select a link from the glossary.";
 			this.Title = "Select Link";

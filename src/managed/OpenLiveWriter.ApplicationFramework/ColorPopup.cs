@@ -23,7 +23,7 @@ namespace OpenLiveWriter.ApplicationFramework
         private bool m_hover = false;
         private bool m_pressed = false;
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -64,7 +64,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         public event ColorSelectedEventHandler ColorSelected;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -80,15 +80,15 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // ColorPopup
-            // 
+            //
             this.Name = "ColorPopup";
             this.Size = new System.Drawing.Size(150, 40);
             this.Text = "&Color Scheme";
@@ -127,7 +127,6 @@ namespace OpenLiveWriter.ApplicationFramework
             m_hover = false;
             Invalidate();
         }
-
 
 
         const int PADDING = 6;

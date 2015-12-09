@@ -35,7 +35,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
         private string _postLink = String.Empty;
 
-
         public string PostTitle
         {
             get { return _postTitle; }
@@ -86,7 +85,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
 
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -109,9 +107,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // SelectPostLinkForm
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(619, 458);
             this.Name = "SelectPostLinkForm";
@@ -119,7 +117,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 
         }
         #endregion
-
 
     }
 }

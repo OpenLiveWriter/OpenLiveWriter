@@ -35,7 +35,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking.DisplayMessages
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -58,9 +57,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// EntryFoundDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
 			this.Text = "Found a matching entry with link text {0} and URL {1}. \r\n\r\nDo you want to use this link information?";
 			this.Title = "Entry Found";

@@ -9,7 +9,7 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.Interop.Com.ActiveDocuments
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -106,7 +106,6 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
             [In] ref LOGPALETTE pLogpal);
     }
 
-
     /// <summary>
     /// The OLEVERB structure defines a verb that an object supports.
     /// The IOleObject::EnumVerbs method creates an enumerator that can enumerate
@@ -121,7 +120,6 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         public uint fuFlags;
         public OLEVERBATTRIB grfAttribs;
     };
-
 
     /// <summary>
     /// Identifiers for DoVerb OLEVERBS
@@ -139,9 +137,9 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
 
     /// <summary>
     /// The OLEVERBATTRIB enumeration constants are used in the OLEVERB structure
-    /// to describe the attributes of a specified verb for an object. Values are 
+    /// to describe the attributes of a specified verb for an object. Values are
     /// used in the enumerator (which supports the IEnumOLEVERB interface) that is
-    /// created by a call to IOleObject::EnumVerbs. 
+    /// created by a call to IOleObject::EnumVerbs.
     /// </summary>
     [Flags]
     public enum OLEVERBATTRIB : uint
@@ -150,11 +148,10 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         ONCONTAINERMENU = 2
     };
 
-
     /// <summary>
     /// The STATDATA structure is the data structure used to specify each advisory
     /// connection. It is used for enumerating current advisory connections. It holds
-    /// data returned by the IEnumSTATDATA enumerator. This enumerator interface is 
+    /// data returned by the IEnumSTATDATA enumerator. This enumerator interface is
     /// returned by IDataObject:DAdvise. Each advisory connection is specified by a
     /// unique STATDATA structure.
     /// </summary>
@@ -165,7 +162,6 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         public IAdviseSink pAdvSink;
         public uint dwConnection;
     };
-
 
     /// <summary>
     /// The ADVF enumeration values are flags used by a container object to specify
@@ -186,9 +182,8 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         DATAONSTOP = 64
     };
 
-
     /// <summary>
-    /// The OLECLOSE enumeration constants are used in the IOleObject::Close method to 
+    /// The OLECLOSE enumeration constants are used in the IOleObject::Close method to
     /// determine whether the object should be saved before closing
     /// </summary>
     public enum OLECLOSE : uint
@@ -198,10 +193,9 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         PROMPTSAVE = 2
     };
 
-
     /// <summary>
     /// The OLEWHICHMK enumeration constants indicate which part of an object's moniker
-    /// is being set or retrieved. These constants are used in the IOleObject and 
+    /// is being set or retrieved. These constants are used in the IOleObject and
     /// IOleClientSite interfaces.
     /// </summary>
     public enum OLEWHICHMK : uint
@@ -224,11 +218,10 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         TEMPFORUSER = 4
     };
 
-
     /// <summary>
     /// The USERCLASSTYPE enumeration constants indicate the different variants of
     /// the display name associated with a class of objects. They are used in the
-    /// IOleObject::GetUserType method and the OleRegGetUserType function. 
+    /// IOleObject::GetUserType method and the OleRegGetUserType function.
     /// </summary>
     public enum USERCLASSTYPE : uint
     {
@@ -237,9 +230,8 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         APPNAME = 3,
     };
 
-
     /// <summary>
-    /// The LOGPALETTE structure defines a logical palette. 
+    /// The LOGPALETTE structure defines a logical palette.
     /// </summary>
     public struct LOGPALETTE
     {

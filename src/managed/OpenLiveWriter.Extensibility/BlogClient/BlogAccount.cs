@@ -5,7 +5,6 @@ using System;
 using System.Diagnostics;
 using OpenLiveWriter.CoreServices;
 
-
 namespace OpenLiveWriter.Extensibility.BlogClient
 {
 
@@ -20,7 +19,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         {
         }
 
-
         protected void Init(string serviceName, string clientType, string postApiUrl, string blogId)
         {
             _serviceName = serviceName;
@@ -29,20 +27,17 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             _blogId = blogId;
         }
 
-
         public string ServiceName
         {
             get { return _serviceName; }
         }
         private string _serviceName;
 
-
         public string ClientType
         {
             get { return _clientType; }
         }
         private string _clientType;
-
 
         public string PostApiUrl
         {

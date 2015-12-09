@@ -81,9 +81,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBoxPushpins.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.AccessibleDescription = resources.GetString("buttonOK.AccessibleDescription");
             this.buttonOK.AccessibleName = resources.GetString("buttonOK.AccessibleName");
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("buttonOK.Anchor")));
@@ -105,9 +105,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.buttonOK.TextAlign = ((System.Drawing.ContentAlignment)(resources.GetObject("buttonOK.TextAlign")));
             this.buttonOK.Visible = ((bool)(resources.GetObject("buttonOK.Visible")));
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.AccessibleDescription = resources.GetString("buttonCancel.AccessibleDescription");
             this.buttonCancel.AccessibleName = resources.GetString("buttonCancel.AccessibleName");
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("buttonCancel.Anchor")));
@@ -129,9 +129,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.buttonCancel.Text = resources.GetString("buttonCancel.Text");
             this.buttonCancel.TextAlign = ((System.Drawing.ContentAlignment)(resources.GetObject("buttonCancel.TextAlign")));
             this.buttonCancel.Visible = ((bool)(resources.GetObject("buttonCancel.Visible")));
-            // 
+            //
             // groupBoxPushpins
-            // 
+            //
             this.groupBoxPushpins.AccessibleDescription = resources.GetString("groupBoxPushpins.AccessibleDescription");
             this.groupBoxPushpins.AccessibleName = resources.GetString("groupBoxPushpins.AccessibleName");
             this.groupBoxPushpins.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("groupBoxPushpins.Anchor")));
@@ -154,9 +154,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.groupBoxPushpins.TabStop = false;
             this.groupBoxPushpins.Text = resources.GetString("groupBoxPushpins.Text");
             this.groupBoxPushpins.Visible = ((bool)(resources.GetObject("groupBoxPushpins.Visible")));
-            // 
+            //
             // linkLabelViewPushpin
-            // 
+            //
             this.linkLabelViewPushpin.AccessibleDescription = resources.GetString("linkLabelViewPushpin.AccessibleDescription");
             this.linkLabelViewPushpin.AccessibleName = resources.GetString("linkLabelViewPushpin.AccessibleName");
             this.linkLabelViewPushpin.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("linkLabelViewPushpin.Anchor")));
@@ -182,9 +182,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.linkLabelViewPushpin.Visible = ((bool)(resources.GetObject("linkLabelViewPushpin.Visible")));
             this.linkLabelViewPushpin.LinkColor = SystemColors.HotTrack;
             this.linkLabelViewPushpin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelViewPushpin_LinkClicked);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AccessibleDescription = resources.GetString("label1.AccessibleDescription");
             this.label1.AccessibleName = resources.GetString("label1.AccessibleName");
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("label1.Anchor")));
@@ -205,9 +205,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.label1.Text = resources.GetString("label1.Text");
             this.label1.TextAlign = ((System.Drawing.ContentAlignment)(resources.GetObject("label1.TextAlign")));
             this.label1.Visible = ((bool)(resources.GetObject("label1.Visible")));
-            // 
+            //
             // labelPushpinUrl
-            // 
+            //
             this.labelPushpinUrl.AccessibleDescription = resources.GetString("labelPushpinUrl.AccessibleDescription");
             this.labelPushpinUrl.AccessibleName = resources.GetString("labelPushpinUrl.AccessibleName");
             this.labelPushpinUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("labelPushpinUrl.Anchor")));
@@ -228,9 +228,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.labelPushpinUrl.Text = resources.GetString("labelPushpinUrl.Text");
             this.labelPushpinUrl.TextAlign = ((System.Drawing.ContentAlignment)(resources.GetObject("labelPushpinUrl.TextAlign")));
             this.labelPushpinUrl.Visible = ((bool)(resources.GetObject("labelPushpinUrl.Visible")));
-            // 
+            //
             // textBoxPushpinUrl
-            // 
+            //
             this.textBoxPushpinUrl.AccessibleDescription = resources.GetString("textBoxPushpinUrl.AccessibleDescription");
             this.textBoxPushpinUrl.AccessibleName = resources.GetString("textBoxPushpinUrl.AccessibleName");
             this.textBoxPushpinUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("textBoxPushpinUrl.Anchor")));
@@ -253,9 +253,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.textBoxPushpinUrl.TextAlign = ((System.Windows.Forms.HorizontalAlignment)(resources.GetObject("textBoxPushpinUrl.TextAlign")));
             this.textBoxPushpinUrl.Visible = ((bool)(resources.GetObject("textBoxPushpinUrl.Visible")));
             this.textBoxPushpinUrl.WordWrap = ((bool)(resources.GetObject("textBoxPushpinUrl.WordWrap")));
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.AccessibleDescription = resources.GetString("pictureBox1.AccessibleDescription");
             this.pictureBox1.AccessibleName = resources.GetString("pictureBox1.AccessibleName");
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("pictureBox1.Anchor")));
@@ -274,9 +274,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Text = resources.GetString("pictureBox1.Text");
             this.pictureBox1.Visible = ((bool)(resources.GetObject("pictureBox1.Visible")));
-            // 
+            //
             // MapOptionsDialog
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AccessibleDescription = resources.GetString("$this.AccessibleDescription");
             this.AccessibleName = resources.GetString("$this.AccessibleName");

@@ -47,7 +47,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 Height = Convert.ToInt32(g.MeasureString(HeaderText, _font).Height);
         }
 
-
         protected override void OnPaint(PaintEventArgs e)
         {
             BidiGraphics g = new BidiGraphics(e.Graphics, ClientRectangle);

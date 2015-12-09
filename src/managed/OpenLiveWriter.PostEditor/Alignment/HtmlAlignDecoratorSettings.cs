@@ -80,7 +80,7 @@ namespace OpenLiveWriter.PostEditor
             {
                 case ImgAlignment.NONE:
                     // If we removed the centering node, we need to reselect the image since the selection
-                    // is invalidated/changed as a result of removing the node. 
+                    // is invalidated/changed as a result of removing the node.
                     needToSelectImage = RemoveCenteringNode();
 
                     _element.removeAttribute("align", 0);
@@ -96,7 +96,7 @@ namespace OpenLiveWriter.PostEditor
                 case ImgAlignment.LEFT:
                 case ImgAlignment.RIGHT:
                     // If we removed the centering node, we need to reselect the image since the selection
-                    // is invalidated/changed as a result of removing the node. 
+                    // is invalidated/changed as a result of removing the node.
                     needToSelectImage = RemoveCenteringNode();
 
                     _element.style.display = "inline";
@@ -144,7 +144,7 @@ namespace OpenLiveWriter.PostEditor
 
             if (needToSelectImage)
             {
-                // If we need to reselect the image, do it after we have set the right 
+                // If we need to reselect the image, do it after we have set the right
                 // alignment in the element above so that when the selection change event
                 // refreshes the ribbon commands using the html doc, it sees the new values.
                 SelectImage();
@@ -252,7 +252,7 @@ namespace OpenLiveWriter.PostEditor
             // Create a pointer and move it to before the begining of its opening tag
             MarkupPointer start = MarkupServices.CreateMarkupPointer();
             start.MoveAdjacentToElement(_element, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
-            // Find the block parent of this node.  
+            // Find the block parent of this node.
             IHTMLElement blockParent = start.CurrentBlockScope();
 
             // Check to see if the block parent is actually a centering node.
@@ -321,7 +321,7 @@ namespace OpenLiveWriter.PostEditor
             // If its parent is also the div that is around the post
             // we need to actually create a new div and just put it around the element
 
-            // If it is splittable block, split it 
+            // If it is splittable block, split it
             // e.g "<DIV>Blah<IMG/>Blah</DIV>" => "<DIV>Blah</DIV><DIV><IMG/></DIV><DIV>Blah</DIV>"
             if (!IsBodyElement(currentBlockScope))
             {
@@ -341,7 +341,6 @@ namespace OpenLiveWriter.PostEditor
             return centeringElement;
         }
 
-
         internal bool RemoveCenteringNode()
         {
             MshtmlMarkupServices MarkupServices = new MshtmlMarkupServices(_element.document as IMarkupServicesRaw);
@@ -349,7 +348,6 @@ namespace OpenLiveWriter.PostEditor
 
             // We couldnt find a parent, so nothing to remove
             if (element == null) return false;
-
 
             MarkupPointer start = MarkupServices.CreateMarkupPointer();
             MarkupPointer end = MarkupServices.CreateMarkupPointer();

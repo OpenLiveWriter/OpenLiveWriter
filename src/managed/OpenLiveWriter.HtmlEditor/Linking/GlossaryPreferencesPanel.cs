@@ -22,11 +22,10 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         private GroupBox groupboxAutoLink;
         private CheckBox checkBoxOnlyOnce;
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
-
 
         public GlossaryPreferencesPanel()
         {
@@ -67,8 +66,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             base.Save();
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -85,8 +83,8 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -97,16 +95,16 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.checkBoxOnlyOnce = new System.Windows.Forms.CheckBox();
             this.groupboxAutoLink.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // glossaryManagementControl1
-            // 
+            //
             this.glossaryManagementControl1.Location = new System.Drawing.Point(8, 32);
             this.glossaryManagementControl1.Name = "glossaryManagementControl1";
             this.glossaryManagementControl1.Size = new System.Drawing.Size(345, 224);
             this.glossaryManagementControl1.TabIndex = 1;
-            // 
+            //
             // checkBoxAutoLink
-            // 
+            //
             this.checkBoxAutoLink.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxAutoLink.Location = new System.Drawing.Point(16, 24);
             this.checkBoxAutoLink.Name = "checkBoxAutoLink";
@@ -116,9 +114,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.checkBoxAutoLink.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxAutoLink.UseVisualStyleBackColor = true;
             this.checkBoxAutoLink.CheckedChanged += new System.EventHandler(this.checkBoxAutoLink_CheckedChanged);
-            // 
+            //
             // groupboxAutoLink
-            // 
+            //
             this.groupboxAutoLink.Controls.Add(this.checkBoxOnlyOnce);
             this.groupboxAutoLink.Controls.Add(this.checkBoxAutoLink);
             this.groupboxAutoLink.Location = new System.Drawing.Point(8, 262);
@@ -127,9 +125,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.groupboxAutoLink.TabIndex = 3;
             this.groupboxAutoLink.TabStop = false;
             this.groupboxAutoLink.Text = "Automatic Link Options";
-            // 
+            //
             // checkBoxOnlyOnce
-            // 
+            //
             this.checkBoxOnlyOnce.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxOnlyOnce.Location = new System.Drawing.Point(32, 48);
             this.checkBoxOnlyOnce.Name = "checkBoxOnlyOnce";
@@ -139,9 +137,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.checkBoxOnlyOnce.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxOnlyOnce.UseVisualStyleBackColor = true;
             this.checkBoxOnlyOnce.CheckedChanged += new System.EventHandler(this.checkBoxOnlyOnce_CheckedChanged);
-            // 
+            //
             // GlossaryPreferencesPanel
-            // 
+            //
             this.AccessibleName = "Link Glossary";
             this.Controls.Add(this.groupboxAutoLink);
             this.Controls.Add(this.glossaryManagementControl1);
@@ -161,7 +159,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             OnModified(EventArgs.Empty);
         }
 
-
         private void checkBoxOnlyOnce_CheckedChanged(object sender, EventArgs e)
         {
             _glossaryPreferences.AutoLinkTermsOnlyOnce = checkBoxOnlyOnce.Checked;
@@ -170,5 +167,4 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 
     }
 }
-
 

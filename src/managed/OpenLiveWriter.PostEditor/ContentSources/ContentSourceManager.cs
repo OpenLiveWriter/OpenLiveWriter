@@ -52,7 +52,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         void InsertContent(string contentSourceId, string content, IExtensionData extensionData, HtmlInsertionOptions insertionOptions);
 
         /// <summary>
-        /// Given a list of contentIds the IContentSourceSite will find the Ids still in use and 
+        /// Given a list of contentIds the IContentSourceSite will find the Ids still in use and
         /// tell the SmartContentSource to update those smart content elements in the post.
         /// </summary>
         /// <param name="extensionDataList">List of contentIds that will be updated, this list can contain nulls</param>
@@ -83,7 +83,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         private string _contentBlockId;
         private SmartContent _smartContent;
     }
-
 
     public class ContentSourceInfo
     {
@@ -146,7 +145,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             // Explicit dispose of managed objects not necessary from finalizer
             // try { _settings.Dispose(); }catch{}
         }
-
 
         // plugin type
         public Type Type { get { return _pluginType; } }
@@ -328,7 +326,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             return this.Id.GetHashCode();
         }
 
-
         internal class LastUseComparer : IComparer
         {
             public int Compare(object x, object y)
@@ -347,7 +344,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
         internal const int IMAGE_WIDTH = 16;
         internal const int IMAGE_HEIGHT = 16;
-
 
 
         private string VerifyAttributeValue(Type pluginType, object attribute, string attributeField, string attributeValue)
@@ -527,7 +523,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             RefreshContentSourceLists(false);
         }
 
-
         public static IDynamicCommandMenuContext CreateDynamicCommandMenuContext(DynamicCommandMenuOptions options, CommandManager commandManager, IContentSourceSite sourceSite)
         {
             return new ContentSourceCommandMenuContext(options, commandManager, sourceSite);
@@ -692,7 +687,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
         }
 
-
         public static ContentSourceInfo FindContentSource(string contentSourceId)
         {
             lock (_contentSourceListLock)
@@ -724,7 +718,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
         }
 
-
         public static bool ContentSourceIsPlugin(string contentSourceId)
         {
             lock (_contentSourceListLock)
@@ -738,7 +731,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                 return false;
             }
         }
-
 
 
         public static string MakeContainingElementId(string sourceId, string contentBlockId)
@@ -812,7 +804,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                 else if (contentSource.Instance is ContentSource)
                 {
                     ContentSource sSource = (ContentSource)contentSource.Instance;
-                    string newContent = String.Empty; // default 
+                    string newContent = String.Empty; // default
                     try { if (sourceSite.SelectedHtml != null) newContent = sourceSite.SelectedHtml; }
                     catch { } // safely try to provide selected html
                     if (sSource.CreateContent(sourceSite.DialogOwner, ref newContent) == DialogResult.OK)
@@ -829,7 +821,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         }
 
 
-
         /// <summary>
         /// Returns true if the element className is a structured block.
         /// </summary>
@@ -843,7 +834,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
             return false;
         }
-
 
         /// <summary>
         /// Returns true if the element exists in a structured block.
@@ -1090,7 +1080,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         }
     }
 
-
     internal class ContentSourceCommand : Command, IMenuCommandObject
     {
         public ContentSourceCommand(IContentSourceSite sourceSite, ContentSourceInfo contentSourceInfo, bool isBuiltInPlugin)
@@ -1101,7 +1090,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
             // tie this command to the content-source for execution
             // (we don't initialize other properties b/c this Command
-            // is only use for decoupled lookup & execution not for 
+            // is only use for decoupled lookup & execution not for
             // UI display. If we actually want to display this command
             // on a command bar, etc. we should fill in the other properties.
             this.Identifier = contentSourceInfo.Id;
@@ -1202,10 +1191,8 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             (menuCommandObject as ContentSourceCommand).PerformExecute();
         }
 
-
         private IContentSourceSite _insertionSite;
     }
-
 
     internal class PluginAttributeException : ApplicationException
     {
@@ -1244,7 +1231,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         protected Type _pluginType;
         protected string _imageResourcePath;
     }
-
 
     internal class PluginAttributeImageResourceMissingException : PluginAttributeImageResourceException
     {

@@ -46,18 +46,18 @@ namespace OpenLiveWriter.PostEditor
             this._linkLabelPrivacyStatement = new System.Windows.Forms.LinkLabel();
             this._linkLabelCodeOfConduct = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
-            // 
+            //
             // _labelPrivacyExplanation
-            // 
+            //
             this._labelPrivacyExplanation.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this._labelPrivacyExplanation.Location = new System.Drawing.Point(8, 32);
             this._labelPrivacyExplanation.Name = "_labelPrivacyExplanation";
             this._labelPrivacyExplanation.Size = new System.Drawing.Size(343, 57);
             this._labelPrivacyExplanation.TabIndex = 1;
             this._labelPrivacyExplanation.Text = "Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:";
-            // 
+            //
             // _linkLabelPrivacyStatement
-            // 
+            //
             this._linkLabelPrivacyStatement.Location = new System.Drawing.Point(32, 32);
             this._linkLabelPrivacyStatement.Name = "_linkLabelPrivacyStatement";
             this._linkLabelPrivacyStatement.Size = new System.Drawing.Size(319, 15);
@@ -67,9 +67,9 @@ namespace OpenLiveWriter.PostEditor
             this._linkLabelPrivacyStatement.LinkBehavior = LinkBehavior.HoverUnderline;
             this._linkLabelPrivacyStatement.LinkColor = SystemColors.HotTrack;
             this._linkLabelPrivacyStatement.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(linkLabelPrivacyStatement_LinkClicked);
-            // 
+            //
             // _linkLabelCodeOfConduct
-            // 
+            //
             this._linkLabelCodeOfConduct.Location = new System.Drawing.Point(32, 32);
             this._linkLabelCodeOfConduct.Name = "_linkLabelCodeOfConduct";
             this._linkLabelCodeOfConduct.Size = new System.Drawing.Size(319, 15);
@@ -79,9 +79,9 @@ namespace OpenLiveWriter.PostEditor
             this._linkLabelCodeOfConduct.LinkBehavior = LinkBehavior.HoverUnderline;
             this._linkLabelCodeOfConduct.LinkColor = SystemColors.HotTrack;
             this._linkLabelCodeOfConduct.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(linkLabelCodeOfConduct_LinkClicked);
-            // 
+            //
             // PrivacyPreferencesPanel
-            // 
+            //
             this.Controls.Add(this._labelPrivacyExplanation);
             this.Controls.Add(this._linkLabelPrivacyStatement);
             this.Controls.Add(this._linkLabelCodeOfConduct);

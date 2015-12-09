@@ -13,7 +13,7 @@ using OpenLiveWriter.ApplicationFramework;
 namespace OpenLiveWriter
 {
 
-	
+
 
 	/// <summary>
 	/// Summary description for PaintingTestForm.
@@ -31,10 +31,9 @@ namespace OpenLiveWriter
 				Cursor = Cursors.Hand ;
 				LinkBehavior = LinkBehavior.HoverUnderline ;
 			}
-		
+
 
 		}
-
 
 		class TransparentLabel : Label
 		{
@@ -43,7 +42,7 @@ namespace OpenLiveWriter
 				SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 				BackColor = Color.Transparent ;
 			}
-		
+
 
 		}
 
@@ -60,7 +59,6 @@ namespace OpenLiveWriter
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-
 		public static void Main(string[] args)
 		{
 			Application.Run(new PaintingTestForm());
@@ -73,8 +71,8 @@ namespace OpenLiveWriter
 			//
 			InitializeComponent();
 
-				
-			
+
+
 			//	Turn off CS_CLIPCHILDREN.
 			//User32.SetWindowLong(Handle, GWL.STYLE, User32.GetWindowLong(Handle, GWL.STYLE) & ~WS.CLIPCHILDREN);
 
@@ -91,15 +89,14 @@ namespace OpenLiveWriter
 			Invalidate();
 		}
 
-
 		/*
 		protected override void OnPaintBackground(PaintEventArgs pevent)
 		{
-			
+
 		}
 		*/
 
-		
+
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
@@ -116,10 +113,7 @@ namespace OpenLiveWriter
 			}
 
 
-
-
 		}
-
 
 
 		/// <summary>
@@ -153,9 +147,9 @@ namespace OpenLiveWriter
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.SuspendLayout();
-			// 
+			//
 			// linkLabel1
-			// 
+			//
 			this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
 			this.linkLabel1.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.linkLabel1.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -166,9 +160,9 @@ namespace OpenLiveWriter
 			this.linkLabel1.TabIndex = 0;
 			this.linkLabel1.TabStop = true;
 			this.linkLabel1.Text = "linkLabel1";
-			// 
+			//
 			// transparentLinkLabel1
-			// 
+			//
 			this.transparentLinkLabel1.BackColor = System.Drawing.Color.Transparent;
 			this.transparentLinkLabel1.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.transparentLinkLabel1.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -179,9 +173,9 @@ namespace OpenLiveWriter
 			this.transparentLinkLabel1.TabIndex = 1;
 			this.transparentLinkLabel1.TabStop = true;
 			this.transparentLinkLabel1.Text = "transparentLinkLabel1";
-			// 
+			//
 			// transparentLinkLabel2
-			// 
+			//
 			this.transparentLinkLabel2.BackColor = System.Drawing.Color.Transparent;
 			this.transparentLinkLabel2.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.transparentLinkLabel2.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -191,9 +185,9 @@ namespace OpenLiveWriter
 			this.transparentLinkLabel2.TabIndex = 0;
 			this.transparentLinkLabel2.TabStop = true;
 			this.transparentLinkLabel2.Text = "last label";
-			// 
+			//
 			// transparentLinkLabel3
-			// 
+			//
 			this.transparentLinkLabel3.BackColor = System.Drawing.Color.Transparent;
 			this.transparentLinkLabel3.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.transparentLinkLabel3.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -203,9 +197,9 @@ namespace OpenLiveWriter
 			this.transparentLinkLabel3.TabIndex = 3;
 			this.transparentLinkLabel3.TabStop = true;
 			this.transparentLinkLabel3.Text = "last label";
-			// 
+			//
 			// transparentLinkLabel4
-			// 
+			//
 			this.transparentLinkLabel4.BackColor = System.Drawing.Color.Transparent;
 			this.transparentLinkLabel4.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.transparentLinkLabel4.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -216,9 +210,9 @@ namespace OpenLiveWriter
 			this.transparentLinkLabel4.TabIndex = 4;
 			this.transparentLinkLabel4.TabStop = true;
 			this.transparentLinkLabel4.Text = "transparentLinkLabel4";
-			// 
+			//
 			// transparentLinkLabel5
-			// 
+			//
 			this.transparentLinkLabel5.BackColor = System.Drawing.Color.Transparent;
 			this.transparentLinkLabel5.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.transparentLinkLabel5.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -228,25 +222,25 @@ namespace OpenLiveWriter
 			this.transparentLinkLabel5.TabIndex = 5;
 			this.transparentLinkLabel5.TabStop = true;
 			this.transparentLinkLabel5.Text = "label5";
-			// 
+			//
 			// button1
-			// 
+			//
 			this.button1.Location = new System.Drawing.Point(216, 96);
 			this.button1.Name = "button1";
 			this.button1.TabIndex = 6;
 			this.button1.Text = "Show";
 			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
+			//
 			// button2
-			// 
+			//
 			this.button2.Location = new System.Drawing.Point(216, 128);
 			this.button2.Name = "button2";
 			this.button2.TabIndex = 7;
 			this.button2.Text = "Hide";
 			this.button2.Click += new System.EventHandler(this.button2_Click);
-			// 
+			//
 			// PaintingTestForm
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(304, 266);
 			this.Controls.Add(this.button2);
@@ -277,7 +271,7 @@ namespace OpenLiveWriter
 
 		private void button2_Click(object sender, System.EventArgs e)
 		{
-			
+
 			transparentLinkLabel1.Visible = false ;
 			transparentLinkLabel2.Top -= transparentLinkLabel1.Height ;
 			transparentLinkLabel3.Top -= transparentLinkLabel1.Height ;

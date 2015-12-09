@@ -23,7 +23,6 @@ namespace OpenLiveWriter.CoreServices
             m_dataObject = ido;
         }
 
-
         /// <summary>
         /// Dip directly in and grab the underlying data object (provided so we can
         /// the Meister into a method that needs both its high-level data parsing
@@ -36,7 +35,6 @@ namespace OpenLiveWriter.CoreServices
                 return m_dataObject;
             }
         }
-
 
         public BrowserData BrowserData
         {
@@ -52,7 +50,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private BrowserData m_browserData;
         private bool haveAttemptedBrowserCreate = false;
-
 
         /// <summary>
         /// The html data associated with the IDataObject.  This property will be
@@ -74,7 +71,6 @@ namespace OpenLiveWriter.CoreServices
         private HTMLData m_htmlData;
         private bool haveAttemptedHTMLCreate = false;
 
-
         /// <summary>
         /// The file data associated with the IDataObject.  This property will be
         /// null if there is no file data associated with the IDataObject.
@@ -93,7 +89,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private FileData m_fileData;
         private bool haveAttemptedFileCreate = false;
-
 
         /// <summary>
         /// The url data associated with the IDataObject.  This property will be
@@ -164,7 +159,6 @@ namespace OpenLiveWriter.CoreServices
         private Hashtable m_metaData = new Hashtable();
 
 
-
         public LightWeightHTMLDocumentData LightWeightHTMLDocumentData
         {
             get
@@ -180,7 +174,6 @@ namespace OpenLiveWriter.CoreServices
         private LightWeightHTMLDocumentData m_lightWeightHTMLDocumentData;
         private bool haveAttemptedLightWeightCreate = false;
 
-
         public LiveClipboardData LiveClipboardData
         {
             get
@@ -195,7 +188,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private LiveClipboardData _liveClipboardData;
         private bool haveAttemptedLiveClipboardCreate = false;
-
 
         /// <summary>
         /// The DataObjectMeister's underlying IDataObject.

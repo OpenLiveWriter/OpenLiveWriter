@@ -47,7 +47,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         // Formatting bar
         //private CommandBarControl _commandBarControl;
-        //private EditorCommandBarLightweightControl _editorCommandBar = new EditorCommandBarLightweightControl();        
+        //private EditorCommandBarLightweightControl _editorCommandBar = new EditorCommandBarLightweightControl();
         private Command commandInsertExtendedEntry;
         private Command commandViewUseStyles;
 
@@ -214,10 +214,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return true;
         }
 
-
         public override void OnPublishSucceeded(BlogPost blogPost, PostResult postResult)
         {
-            // delegate to property editor 
+            // delegate to property editor
             _postPropertyEditor.OnPublishSucceeded(blogPost, postResult);
             IsDirty = false;
         }
@@ -362,7 +361,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-
         public static BlogPostHtmlEditor Create(IMainFrameWindow mainFrameWindow, Control editorContainer, IBlogPostEditingSite postEditingSite)
         {
             Panel panelBase = new Panel();
@@ -429,7 +427,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // QAT
             CommandManager.Add(new GalleryCommand<CommandId>(CommandId.QAT));
 
-            // Outspace            
+            // Outspace
             CommandManager.Add(new RecentItemsCommand(_postEditingSite));
 
             CommandManager.Add(new GroupCommand(CommandId.InsertImageSplit, CommandManager.Get(CommandId.InsertPictureFromFile)));
@@ -458,7 +456,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         private Command _commandClosePreview;
-
 
 
         protected override void ManageCommandsForEditingMode()
@@ -571,7 +568,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         {
             using (PostHtmlEditingSettings editSettings = new PostHtmlEditingSettings(_currentBlog.Id))
             {
-                // initialize the editing template based on the last used view 
+                // initialize the editing template based on the last used view
                 bool useStyles = EditUsingWebLayout(editSettings);
                 commandViewUseStyles.Latched = useStyles;
             }
@@ -584,7 +581,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             return editSettings.EditUsingBlogStyles;
         }
-
 
         private void ShowWebLayoutWarningIfNecessary()
         {

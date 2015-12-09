@@ -10,17 +10,17 @@ namespace OpenLiveWriter.CoreServices
     /// <summary>
     /// A data structure representing a set of unique objects, as
     /// determined by a specified <c>IComparer</c>.
-    /// 
+    ///
     /// Implemented by a plain unbalanced binary search tree.
     /// </summary>
     /// <remarks>
-    /// Most operations happen in O(log n) time on average, O(n) 
+    /// Most operations happen in O(log n) time on average, O(n)
     /// in the worst case (if the tree is completely unbalanced).
-    /// 
+    ///
     /// <p>This implementation does no automatic balancing whatsoever.
     /// If you have many non-random items to store and performance
     /// is critical, maybe you don't want to use this implementation.</p>
-    /// 
+    ///
     /// <p>This TreeSet always uses the comparer to determine equality.
     /// Therefore, if Equals() is not consistent with 0 == comparer(o1, o2),
     /// you may get unexpected results.</p>
@@ -104,9 +104,9 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Returns true if the object was in the set before 
+        /// Returns true if the object was in the set before
         /// the remove operation.
-        /// 
+        ///
         /// (After the call returns, the object will not be
         /// in the set, regardless of the return value.)
         /// </summary>
@@ -118,7 +118,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Removes all the elements of the given tree
         /// from this tree, if they are present.
-        /// 
+        ///
         /// Returns the number of items actually found
         /// and removed.
         /// </summary>
@@ -167,7 +167,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Returns the contents of the set as an ArrayList, 
+        /// Returns the contents of the set as an ArrayList,
         /// in sorted order.
         /// </summary>
         public ArrayList ToArrayList()
@@ -365,7 +365,7 @@ namespace OpenLiveWriter.CoreServices
         /// Deletes a value from the subtree of node, and returns
         /// a (possibly new) subtree that the caller should use to
         /// replace node. The new subtree may be null.
-        /// 
+        ///
         /// Iif the value was found and deleted, the out parameter
         /// "found" will be true.
         /// </summary>
@@ -444,10 +444,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         #endregion
-
-
-
-
 
 
 

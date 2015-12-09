@@ -152,13 +152,13 @@ namespace OpenLiveWriter.ApplicationFramework
             ((System.ComponentModel.ISupportInitialize)(this.leftContainer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightContainer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // leftContainer
-            // 
+            //
             this.leftContainer.LightweightControlContainerControl = this;
-            // 
+            //
             // rightContainer
-            // 
+            //
             this.rightContainer.LightweightControlContainerControl = this;
             ((System.ComponentModel.ISupportInitialize)(this.leftContainer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rightContainer)).EndInit();
@@ -221,7 +221,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// <summary>
         /// Gets or sets the bottom bevel style.
         /// </summary>
-        /// 		
+        ///
         [
             Category("Appearance"),
                 DefaultValue(BevelStyle.DoubleLine),
@@ -409,7 +409,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 rightContainer.OffsetSpacing = value;
             }
         }
-
 
         protected bool UseHighContrastMode
         {

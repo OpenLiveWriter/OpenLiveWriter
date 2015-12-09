@@ -146,7 +146,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             throw new BlogClientMethodUnsupportedException("GetAuthors");
         }
 
-
         public abstract string DoBeforePublishUploadWork(IFileUploadContext uploadContext);
 
         public virtual void DoAfterPublishUploadWork(IFileUploadContext uploadContext)
@@ -183,7 +182,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
 
-
         public virtual BlogPostCategory[] SuggestCategories(string blogId, string partialCategoryName)
         {
             throw new BlogClientMethodUnsupportedException("SuggestCategories");
@@ -206,10 +204,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             get { return Login().Password; }
         }
 
-
         /// <summary>
         /// Call a method and return the XML result. Will throw an exception of type BlogClientException
-        /// if an error occurs. 
+        /// if an error occurs.
         /// </summary>
         /// <param name="postUrl"></param>
         /// <param name="methodName"></param>
@@ -248,7 +245,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     if (exception == null) // if it couldn't just go generic
                         exception = new BlogClientProviderException(response.FaultCode, response.FaultString);
 
-                    // throw the exception 
+                    // throw the exception
                     throw exception;
                 }
             }
@@ -284,7 +281,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         protected abstract BlogClientProviderException ExceptionForFault(string faultCode, string faultString);
 
 
-
         protected XmlRpcArray ArrayFromStrings(string[] strings)
         {
             ArrayList stringValues = new ArrayList();
@@ -292,7 +288,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 stringValues.Add(new XmlRpcString(str));
             return new XmlRpcArray((XmlRpcValue[])stringValues.ToArray(typeof(XmlRpcValue)));
         }
-
 
         protected static string NodeText(XmlNode node)
         {
@@ -303,12 +298,11 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
 
-
         /// <summary>
         /// Parse a date returned from a weblog. Returns the parsed date as a UTC DateTime value.
         /// If the date does not have a timezone designator then it will be presumed to be in the
         /// local time zone of this PC. This method is virtual so that for weblogs that produce
-        /// undesignated date/time strings in some other timezone (like the timezone of the 
+        /// undesignated date/time strings in some other timezone (like the timezone of the
         /// hosting providor) subclasses can do whatever offset is appropriate.
         /// </summary>
         /// <param name="xmlNode"></param>
@@ -371,7 +365,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 return HtmlUtils.EscapeEntities(post.Title);
         }
 
-
         /// <summary>
         /// Convert a blog date to a UTC date/time
         /// </summary>
@@ -390,13 +383,12 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 //Now try the W3C UTC date formats
                 //Since .NET doesn't realize the the 'Z' is an indicator of the GMT timezone,
-                //ParseExact will return the date exactly as parsed (no shift for GMT) 
+                //ParseExact will return the date exactly as parsed (no shift for GMT)
                 return DateTime.ParseExact(date, DATE_FORMATS_UTC, culture, DateTimeStyles.AllowWhiteSpaces);
             }
         }
         private static readonly string[] DATE_FORMATS = new string[] { "yyyy'-'MM'-'dd'T'HH':'mm':'sszzz", "yyyyMMdd'T'HH':'mm':'ss", "yyyy-MM-ddTHH:mm:ss" };
         private static readonly string[] DATE_FORMATS_UTC = new string[] { "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'", "yyyy'-'MM'-'dd'T'HH':'mm'Z'", "yyyyMMdd'T'HH':'mm':'ss'Z'" };
-
 
         private readonly string _postApiUrl;
         private IBlogClientOptions _clientOptions;

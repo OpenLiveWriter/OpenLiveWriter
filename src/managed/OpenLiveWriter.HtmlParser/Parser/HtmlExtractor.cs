@@ -73,7 +73,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
         /// </summary>
         /// <returns>Returns this. This allows chaining together of calls,
         /// like this:
-        /// 
+        ///
         /// if (ex.Seek(...).Success || ex.Reset().Seek(...).Success) { ... }
         /// </returns>
 		public HtmlExtractor Reset()
@@ -112,25 +112,25 @@ namespace OpenLiveWriter.HtmlParser.Parser
 
         /// <summary>
         /// Seeks forward from the current position for the criterion.
-        /// 
+        ///
         /// If the seek fails, the parser will be positioned at the end of the file--all
 		/// future seeks will also fail (until Reset() is called).
         /// </summary>
 		/// <param name="criterion">
 		/// Can be either a begin tag or end tag, or a run of text, or a comment.
-		/// 
+		///
 		/// Examples of start tags:
 		/// <a> (any anchor tag)
 		/// <a name> (any anchor tag that has at least one "name" attribute (with or without value)
 		/// <a name='title'> (any anchor tag that has a name attribute whose value is "title")
-		/// 
+		///
 		/// Example of end tag:
 		/// </a> (any end anchor tag)
-		/// 
+		///
 		/// Examples of invalid criteria:
 		/// <a></a> (only one criterion allowed per seek; chain Seek() calls if necessary)
 		/// foo (only begin tags and end tags are allowed)
-		/// 
+		///
 		/// TODO: Allow regular expression matching on attribute values, e.g. <a class=/^heading.*$/>
 		/// </param>
 		public HtmlExtractor Seek(string criterion)
@@ -178,7 +178,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
             MatchNext(Parse(criterion), ignoreWhitespace);
             return this;
         }
-
 
         /// <summary>
         /// Does tag balancing.  Pass just the tag *name*, not
@@ -504,7 +503,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
                 return type.IsInstanceOfType(e);
         }
     }
-
 
     public class RequiredAttribute
     {

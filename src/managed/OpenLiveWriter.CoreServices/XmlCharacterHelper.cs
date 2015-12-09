@@ -74,7 +74,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// A text reader that replaces invalid characters reader from the underlying 
+        /// A text reader that replaces invalid characters reader from the underlying
         /// text reader with whitespace.
         /// </summary>
         private class SafeXmlTextReader : TextReader

@@ -8,7 +8,7 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.Interop.Com.ActiveDocuments
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

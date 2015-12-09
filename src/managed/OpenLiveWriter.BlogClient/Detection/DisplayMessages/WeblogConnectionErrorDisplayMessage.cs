@@ -25,7 +25,7 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,11 +37,11 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -64,9 +63,9 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// WeblogConnectionErrorDisplayMessage
-			// 
+			//
 			this.DefaultButton = System.Windows.Forms.MessageBoxDefaultButton.Button2;
 			this.Text = "An error occured while attempting to connect to your weblog:{0}{1}{0}You must cor" +
 				"rect this error before proceeding.";

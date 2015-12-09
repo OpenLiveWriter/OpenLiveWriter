@@ -23,7 +23,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			base.OnElementAttached ();
 		}
 
-
 		protected override void OnElementDetached()
 		{
 			base.OnElementDetached ();
@@ -41,7 +40,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			//g.DrawRectangle(new Pen(Color.Orange, 1), GetPaintRectangle(GetClientRectangle(ELEMENT_REGION.BORDER), rcBounds));
 			//g.DrawRectangle(new Pen(Color.Blue, 1), GetPaintRectangle(GetClientRectangle(ELEMENT_REGION.PADDING), rcBounds));
 			//g.DrawRectangle(new Pen(Color.Gold, 1), GetPaintRectangle(GetClientRectangle(ELEMENT_REGION.MARGIN), rcBounds));
-
 
 			//highlight the line that the caret is currently placed on.
 			//Rectangle lineRect = GetPaintRectangle(GetLineClientRectangle(EditorContext.SelectedMarkupRange.Start), rcBounds);

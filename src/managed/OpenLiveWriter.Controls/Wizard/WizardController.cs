@@ -27,7 +27,6 @@ namespace OpenLiveWriter.Controls.Wizard
         public event CancelEventHandler NextCalled;
         public event CancelEventHandler BackCalled;
 
-
         public WizardController()
         {
             wizardSteps = new ArrayList();
@@ -49,7 +48,6 @@ namespace OpenLiveWriter.Controls.Wizard
         {
             DisplayWizardStep();
         }
-
 
         /// <summary>
         /// Displays the current wizard step.
@@ -198,7 +196,7 @@ namespace OpenLiveWriter.Controls.Wizard
 
         /// <summary>
         /// Adds a step to the wizard.
-        /// 
+        ///
         /// </summary>
         /// <param name="step">The new wizard step</param>
         public void addWizardStep(WizardStep step)
@@ -374,7 +372,6 @@ namespace OpenLiveWriter.Controls.Wizard
                 BackHandler(Control);
         }
 
-
         public WizardController Wizard
         {
             get
@@ -386,7 +383,6 @@ namespace OpenLiveWriter.Controls.Wizard
                 wizard = value;
             }
         }
-
 
 
         private string nextButtonLabel;

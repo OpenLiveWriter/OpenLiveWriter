@@ -78,7 +78,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         }
 
 
-
     }
 
 }

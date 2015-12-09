@@ -36,7 +36,6 @@ namespace OpenLiveWriter.Localization.Bidi
             }
         }
 
-
         public static MessageBoxOptions RTLMBOptions
         {
             get
@@ -76,9 +75,8 @@ namespace OpenLiveWriter.Localization.Bidi
             RtlLayoutFixup(control, recursive, forceAutoLayout, ToArray(childControls));
         }
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="control">The control to fixup.</param>
         /// <param name="recursive">Whether or not to fixup child controls as well.</param>
@@ -96,7 +94,6 @@ namespace OpenLiveWriter.Localization.Bidi
                 {
                     bool isMirroredForm = control is Form
                                           && ((Form)control).RightToLeftLayout;
-
 
                     foreach (Control childControl in childControls)
                     {
@@ -174,8 +171,6 @@ namespace OpenLiveWriter.Localization.Bidi
             mirrored.RotateFlip(RotateFlipType.RotateNoneFlipX);
             return mirrored;
         }
-
-
 
 
     }

@@ -197,12 +197,10 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             }
         }
 
-
         public Bitmap Image
         {
             get { throw new Exception("The method or operation is not implemented."); }
         }
-
 
 
         public void Dispose()
@@ -225,7 +223,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
 
         // this is the url to the feed which contains the status for the video
         private volatile string _updateUrl;
-
 
         private volatile string _message;
         private volatile VideoPublishStatus _status;
@@ -302,14 +299,12 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 req.GetResponse().Close();
             }
 
-
         }
 
         public void Dispose()
         {
             Debug.Assert(_stream == null, "Failed to close file stream for YouTubeVideoPublisher.");
         }
-
 
         private string Upload()
         {
@@ -335,8 +330,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             }
 
 
-
-
             string result;
             using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
             {
@@ -345,7 +338,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                     result = responseReader.ReadToEnd();
                 }
             }
-
 
             return result;
         }
@@ -547,7 +539,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
 
         private UTF8Encoding _utf8NoBOMEncoding = new UTF8Encoding(false);
 
-
         internal YouTubeUploadRequestHelper(HttpWebRequest request)
         {
             _boundary = "--------------------------" + Guid.NewGuid().ToString().Replace("-", "");
@@ -627,7 +618,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             xmlWriter.Flush();
             xmlMemoryStream.Position = 0;
 
-
             StreamReader sr = new StreamReader(xmlMemoryStream);
             string newXML = sr.ReadToEnd();
             Write(newXML + Environment.NewLine, _requestBodyTop);
@@ -641,13 +631,11 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             Write(Environment.NewLine, _requestBodyBottom);
         }
 
-
         private void Write(String s, MemoryStream stream)
         {
             byte[] newText = _utf8NoBOMEncoding.GetBytes(s);
             stream.Write(newText, 0, newText.Length);
         }
-
 
         internal void SendRequest(CancelableStream stream)
         {

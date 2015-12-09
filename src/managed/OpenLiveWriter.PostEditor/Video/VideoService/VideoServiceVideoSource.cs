@@ -79,7 +79,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             return controls;
         }
 
-
         void _sidebarService_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_sidebarService.SelectedValue != CurrentService)
@@ -155,7 +154,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
 
         private readonly static int MARGIN_X = (int)DisplayHelper.ScaleX(8);
         private readonly static int LISTBOX_PADDING = 2;
-
 
         private IVideoService CurrentService
         {
@@ -283,8 +281,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             }
 
 
-
-
             serviceSettings.SelectedRequestType = _videoRequestComboBox.SelectedRequestType.TypeName;
             serviceSettings.Username = CurrentService.Auth.Username;
 
@@ -333,9 +329,9 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
+            //
             // VideoServiceVideoSource
-            // 
+            //
             this.Name = "VideoServiceVideoSource";
             this.ResumeLayout(false);
 

@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandInsertTable
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.PostEditor.Tables.Commands.InsertTable2";
 			this.MainMenuPath = "&Insert@4/&Table...@200";
 			this.MenuText = "&Table...";

@@ -30,7 +30,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         private AutoreplaceManagementControl autoreplaceManagementControl1;
         private readonly AutoreplacePreferences _autoreplacePreferences = new AutoreplacePreferences();
 
-
         public override bool PrepareSave(SwitchToPanel switchToPanel)
         {
             return true;
@@ -46,17 +45,17 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         {
             this.autoreplaceManagementControl1 = new OpenLiveWriter.PostEditor.Autoreplace.AutoreplaceManagementControl();
             this.SuspendLayout();
-            // 
+            //
             // autoreplaceManagementControl1
-            // 
+            //
             this.autoreplaceManagementControl1.Location = new System.Drawing.Point(8, 32);
             this.autoreplaceManagementControl1.Name = "autoreplaceManagementControl1";
             this.autoreplaceManagementControl1.Preferences = null;
             this.autoreplaceManagementControl1.Size = new System.Drawing.Size(345, 245);
             this.autoreplaceManagementControl1.TabIndex = 1;
-            // 
+            //
             // AutoreplacePreferencesPanel
-            // 
+            //
             this.Controls.Add(this.autoreplaceManagementControl1);
             this.Name = "AutoreplacePreferencesPanel";
             this.Controls.SetChildIndex(this.autoreplaceManagementControl1, 0);

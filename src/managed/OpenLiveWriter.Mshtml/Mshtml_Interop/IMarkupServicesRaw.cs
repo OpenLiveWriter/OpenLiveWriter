@@ -52,7 +52,6 @@ namespace OpenLiveWriter.Mshtml
             [In] IMarkupPointerRaw pPointerSourceFinish,
             [In] IMarkupPointerRaw pPointerTarget);
 
-
         void InsertText(
             [In, MarshalAs(UnmanagedType.LPWStr)] string pchText,
             [In] int cch,
@@ -86,8 +85,8 @@ namespace OpenLiveWriter.Mshtml
 
         /// <summary>
         /// Note: use Marshal.PtrToStringBSTR to convert the returned IntPtr into
-        /// a .NET string variable. 
-        /// </summary>		
+        /// a .NET string variable.
+        /// </summary>
         void GetNameForTagID(
             [In] _ELEMENT_TAG_ID tagId,
             [Out] out IntPtr pbstrName);

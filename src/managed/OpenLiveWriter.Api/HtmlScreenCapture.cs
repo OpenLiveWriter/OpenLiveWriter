@@ -9,7 +9,7 @@ using OpenLiveWriter.CoreServices;
 namespace OpenLiveWriter.Api
 {
     /// <summary>
-    /// Provides the ability to capture HTML content into a Bitmap. 
+    /// Provides the ability to capture HTML content into a Bitmap.
     /// </summary>
     public class HtmlScreenCapture
     {
@@ -53,7 +53,7 @@ namespace OpenLiveWriter.Api
         public event HtmlDocumentAvailableHandler HtmlDocumentAvailable;
 
         /// <summary>
-        /// Indicates that a a candidate screen capture is available. This event 
+        /// Indicates that a a candidate screen capture is available. This event
         /// allows subscribers to examine the screen captue bitmap in order to determine
         /// whether the page is fully loaded and ready for capture.
         /// </summary>
@@ -98,7 +98,6 @@ namespace OpenLiveWriter.Api
         private HtmlScreenCaptureCore _htmlScreenCapture;
     }
 
-
     /// <summary>
     /// Provides data for the HtmlScreenCaptureAvailable event.
     /// </summary>
@@ -123,8 +122,8 @@ namespace OpenLiveWriter.Api
         private Bitmap _bitmap;
 
         /// <summary>
-        /// Value indicating whether the screen capture has been completed. Set this value to 
-        /// false to indicate that the screen capture is not yet completed. This property is useful 
+        /// Value indicating whether the screen capture has been completed. Set this value to
+        /// false to indicate that the screen capture is not yet completed. This property is useful
         /// in the case where the content to be captured has a secondary loading step (such as
         /// a media player loading a video) which must occur before the screen capture is completed.
         /// </summary>
@@ -159,10 +158,10 @@ namespace OpenLiveWriter.Api
         }
         private object _document;
 
-        /// <summary> 
-        /// Value indicating whether the document is ready for a screen capture. Set this value 
-        /// to false to indicate that the document is not yet ready. This is useful for HTML 
-        /// documents that load in stages, such as documents that use embedded JavaScript to 
+        /// <summary>
+        /// Value indicating whether the document is ready for a screen capture. Set this value
+        /// to false to indicate that the document is not yet ready. This is useful for HTML
+        /// documents that load in stages, such as documents that use embedded JavaScript to
         /// fetch and render additional content after the main document has loaded.
         /// </summary>
         public bool DocumentReady
@@ -183,6 +182,5 @@ namespace OpenLiveWriter.Api
     /// Represents the method that will handle the HtmlDocumentAvailable event of the HtmlScreenCapture class.
     /// </summary>
     public delegate void HtmlDocumentAvailableHandler(object sender, HtmlDocumentAvailableEventArgs e);
-
 
 }

@@ -88,7 +88,5 @@ namespace OpenLiveWriter.PostEditor.Tagging
         }
 
 
-
-
     }
 }

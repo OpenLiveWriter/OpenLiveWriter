@@ -13,7 +13,7 @@ namespace OpenLiveWriter.Mshtml
 {
 
     /// <summary>
-    /// Delegate used to filter element scanning operations. If this operation returns true, then the 
+    /// Delegate used to filter element scanning operations. If this operation returns true, then the
     /// scanning operation will consider the element as relevant to the scan.
     /// </summary>
     public delegate bool IHTMLElementFilter(IHTMLElement e);
@@ -62,7 +62,6 @@ namespace OpenLiveWriter.Mshtml
                 }
             }
         }
-
 
         /// <summary>
         /// Returns the text (stripped of HTML elements) contained in this MarkupRange.
@@ -796,7 +795,7 @@ namespace OpenLiveWriter.Mshtml
         /// <summary>
         /// Returns true if this range is composes entirely of non-visible elements.
         /// </summary>
-        /// <param name="inScopeContextsOnly">flag to ignore out of scope element 
+        /// <param name="inScopeContextsOnly">flag to ignore out of scope element
         /// (use false unless you absolutely want to ignore visible content in cases like
         ///  [start]&lt;p&gt;[end]&lt;/p&gt;)</param>
         /// <returns></returns>
@@ -927,13 +926,11 @@ namespace OpenLiveWriter.Mshtml
             return !range.IsEmptyOfContent(false);
         }
 
-
         private bool HasTextBetween(MarkupPointer start, MarkupPointer end)
         {
             MarkupRange range = MarkupServices.CreateMarkupRange(start, end);
             return !range.IsEmptyOfText(false);
         }
-
 
         /// <summary>
         /// Retrieve the parent of a child element that is closest to an outer parent element.
@@ -1056,8 +1053,8 @@ namespace OpenLiveWriter.Mshtml
 
         /// <summary>
         /// Determines if a range has a particular _ELEMENT_TAG_ID applied.
-        /// </summary>        
-        /// <param name="tagId"></param>        
+        /// </summary>
+        /// <param name="tagId"></param>
         /// <param name="partially">If true, then IsTagId will return true if any part of it is contained within a tagId element.
         ///                         If false, then IsTagId will return true only if the range is entirely contained within a tagId element.</param>
         /// <returns></returns>
@@ -1174,13 +1171,12 @@ namespace OpenLiveWriter.Mshtml
             return firstTextPoint;
         }
 
-
         /// <summary>
         /// Shrinks the range until further shrinking would exclude text that is currently in the range.
-        /// </summary>        
+        /// </summary>
         public void SelectInner()
         {
-            // Without this check, the start pointer can move outside 
+            // Without this check, the start pointer can move outside
             // of the current container tag (e.g. ...text...|</p> => </p>|)
             if (IsEmpty())
                 return;

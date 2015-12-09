@@ -8,8 +8,8 @@ namespace OpenLiveWriter.FileDestinations
 	/// </summary>
 	public class FtpServerUnavailableWebPublishMessage : WebPublishMessage
 	{
-		
-		
+
+
 
 		public FtpServerUnavailableWebPublishMessage(params object[] textFormatArgs)
 		{
@@ -23,7 +23,6 @@ namespace OpenLiveWriter.FileDestinations
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -31,9 +30,9 @@ namespace OpenLiveWriter.FileDestinations
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// FtpServerUnavailableWebPublishMessage
-			// 
+			//
 			this.Text = "The specified hostname does not appear to be running an FTP server";
 			this.Title = "FTP Server Unavailable";
 

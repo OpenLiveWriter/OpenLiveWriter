@@ -35,7 +35,6 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         /// </summary>
         private ArrayList preferencesPanelList = new ArrayList();
 
-
         /// <summary>
         /// A value which indicates whether the form is initialized.
         /// </summary>
@@ -55,7 +54,6 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         #endregion Windows Form Designer generated code
 
         #region Class Initialization & Termination
-
 
         public PreferencesForm()
         {
@@ -117,9 +115,9 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.panelPreferences = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(288, 568);
@@ -128,9 +126,9 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -140,9 +138,9 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
+            //
             // buttonApply
-            // 
+            //
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApply.Enabled = false;
             this.buttonApply.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -152,25 +150,25 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             this.buttonApply.TabIndex = 4;
             this.buttonApply.Text = "&Apply";
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
-            // 
+            //
             // imageList
-            // 
+            //
             this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imageList.ImageSize = new System.Drawing.Size(32, 32);
             this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
             this.imageList.TransparentColor = System.Drawing.Color.White;
-            // 
+            //
             // panelPreferences
-            // 
+            //
             this.panelPreferences.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panelPreferences.BackColor = System.Drawing.SystemColors.Control;
             this.panelPreferences.Location = new System.Drawing.Point(162, 0);
             this.panelPreferences.Name = "panelPreferences";
             this.panelPreferences.Size = new System.Drawing.Size(370, 567);
             this.panelPreferences.TabIndex = 1;
-            // 
+            //
             // PreferencesForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;
@@ -226,7 +224,6 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             }
         }
 
-
         public IWin32Window Win32Owner
         {
             get
@@ -246,7 +243,6 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         #endregion Public Properties
 
         #region Public Methods
-
 
         public void HideApplyButton()
         {
@@ -560,7 +556,6 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         {
             SavePreferences();
         }
-
 
         #endregion Event Handlers
     }

@@ -43,7 +43,7 @@ namespace OpenLiveWriter.BlogClient.Providers
             // visibiilty flag
             bool visible = BlogClientOptions.ReadBool(NodeText(providerNode.SelectSingleNode("visible")), true); ;
 
-            // auto-detection 
+            // auto-detection
             string homepageUrlPattern = NodeText(providerNode.SelectSingleNode("homepageUrlPattern"));
             string homepageContentPattern = NodeText(providerNode.SelectSingleNode("homepageContentPattern"));
             string rsdEngineNamePattern = NodeText(providerNode.SelectSingleNode("rsdEngineNamePattern"));
@@ -71,7 +71,6 @@ namespace OpenLiveWriter.BlogClient.Providers
                 if (messageId != String.Empty)
                     providerFaults.Add(new ProviderFault(codePattern, stringPattern, messageId));
             }
-
 
             // parse options (create generic options object to populate defaults)
             XmlNode optionsNode = providerNode.SelectSingleNode("options");
@@ -114,7 +113,6 @@ namespace OpenLiveWriter.BlogClient.Providers
                  visible);
         }
 
-
         public override IBlogClientOptions ConstructBlogOptions(IBlogClientOptions defaultOptions)
         {
             return BlogClientOptions.ApplyOptionOverrides(new OptionReader(ReadProviderOption), defaultOptions);
@@ -128,7 +126,6 @@ namespace OpenLiveWriter.BlogClient.Providers
         private Hashtable _options = new Hashtable();
 
 
-
         private static string NodeText(XmlNode node)
         {
             if (node != null)
@@ -136,7 +133,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             else
                 return String.Empty;
         }
-
 
     }
 }

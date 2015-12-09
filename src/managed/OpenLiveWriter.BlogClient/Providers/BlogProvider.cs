@@ -104,7 +104,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             set { _supportsTrackbacks = value; }
         }
 
-
         public bool SupportsKeywords
         {
             get { return _supportsKeywords; }
@@ -363,7 +362,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             set { _templateIsRTL = value; }
         }
 
-
         public string DefaultView
         {
             get { return _defaultView; }
@@ -411,7 +409,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             get { return _serviceName; }
             set { _serviceName = value; }
         }
-
 
         public string InvalidPostIdFaultCodePattern
         {
@@ -579,7 +576,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             Process.Start(clientOptionsFile);
         }
 
-
         private class OptionStreamWriter : DisplayableBlogClientOptionWriter
         {
             public OptionStreamWriter(StreamWriter output)
@@ -596,7 +592,6 @@ namespace OpenLiveWriter.BlogClient.Providers
         }
 
 
-
         private static string ReadText(string textValue, string defaultValue)
         {
             if (textValue != null)
@@ -607,7 +602,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             else
                 return defaultValue;
         }
-
 
         internal static bool ReadBool(string boolValue, bool defaultValue)
         {
@@ -668,7 +662,6 @@ namespace OpenLiveWriter.BlogClient.Providers
                 return defaultValue;
             }
         }
-
 
         private bool _supportsHttps = false;
         private bool _supportsCategories = false;
@@ -831,7 +824,6 @@ namespace OpenLiveWriter.BlogClient.Providers
     }
 
 
-
     public class BlogProviderDescription : IBlogProviderDescription
     {
         public BlogProviderDescription(
@@ -839,7 +831,6 @@ namespace OpenLiveWriter.BlogClient.Providers
         {
             Init(id, name, description, link, clientType, postApiUrl, postApiUrlDescription, appid);
         }
-
 
         protected BlogProviderDescription()
         {
@@ -907,7 +898,6 @@ namespace OpenLiveWriter.BlogClient.Providers
         private StringId _postApiUrlLabel;
         private string _appid;
     }
-
 
     public class BlogProvider : BlogProviderDescription, IBlogProvider
     {
@@ -1010,8 +1000,6 @@ namespace OpenLiveWriter.BlogClient.Providers
         }
 
 
-
-
         public virtual IBlogClientOptions ConstructBlogOptions(IBlogClientOptions defaultOptions)
         {
             return defaultOptions;
@@ -1024,7 +1012,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             else
                 return regex.IsMatch(inputText);
         }
-
 
         private Regex HompepageUrlRegex
         {
@@ -1061,7 +1048,6 @@ namespace OpenLiveWriter.BlogClient.Providers
                         Trace.Fail("Invalid regular expression: " + _homepageContentPattern);
                     }
                 }
-
 
                 return _homepageContentRegex;
             }
@@ -1107,7 +1093,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             }
         }
 
-
         private bool _visible;
         private RsdClientTypeMapping[] _rsdClientTypeMappings;
         private string _rsdEngineNamePattern;
@@ -1134,7 +1119,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             public readonly string ClientType;
 
         }
-
 
         protected class ProviderFault
         {

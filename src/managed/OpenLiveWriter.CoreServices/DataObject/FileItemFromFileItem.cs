@@ -47,7 +47,6 @@ namespace OpenLiveWriter.CoreServices
             return (FileItem[])dataObject.GetData(typeof(FileItem[]));
         }
 
-
         /// <summary>
         /// Initialize with a full physical path
         /// </summary>
@@ -59,7 +58,6 @@ namespace OpenLiveWriter.CoreServices
             this.fileItem = fileItem;
         }
 
-
         /// <summary>
         /// Determines whether this file is a directory
         /// </summary>
@@ -67,7 +65,6 @@ namespace OpenLiveWriter.CoreServices
         {
             get { return fileItem.IsDirectory; }
         }
-
 
         /// <summary>
         /// If this file is a directory, the children contained in the directory
@@ -78,7 +75,6 @@ namespace OpenLiveWriter.CoreServices
             get { return fileItem.Children; }
         }
 
-
         /// <summary>
         /// Path where the contents of the file can be found
         /// </summary>
@@ -87,12 +83,10 @@ namespace OpenLiveWriter.CoreServices
             get { return fileItem.ContentsPath; }
         }
 
-
         /// <summary>
         /// FileItem we are enclosing/delegating to
         /// </summary>
         private FileItem fileItem = null;
     }
 }
-
 

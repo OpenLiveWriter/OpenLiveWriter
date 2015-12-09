@@ -62,8 +62,7 @@ namespace OpenLiveWriter.Controls
             SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -87,21 +86,21 @@ namespace OpenLiveWriter.Controls
         #endregion Class Initialization & Termination
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.timerAnimation = new System.Windows.Forms.Timer(this.components);
-            // 
+            //
             // timerAnimation
-            // 
+            //
             this.timerAnimation.Tick += new System.EventHandler(this.timerAnimation_Tick);
-            // 
+            //
             // AnimatedBitmapControl
-            // 
+            //
             this.Name = "AnimatedBitmapControl";
             this.Size = new System.Drawing.Size(64, 48);
 
@@ -111,7 +110,7 @@ namespace OpenLiveWriter.Controls
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the animation 
+        /// Gets or sets the animation
         /// </summary>
         public int Interval
         {
@@ -134,7 +133,7 @@ namespace OpenLiveWriter.Controls
         }
 
         /// <summary>
-        /// Gets or sets the bitmaps. 
+        /// Gets or sets the bitmaps.
         /// </summary>
         public Bitmap[] Bitmaps
         {

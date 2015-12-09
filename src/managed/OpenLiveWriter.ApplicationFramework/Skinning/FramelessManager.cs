@@ -16,25 +16,24 @@ using OpenLiveWriter.Interop.Windows;
 using Timer=System.Windows.Forms.Timer;
 
 
-
 namespace OpenLiveWriter.ApplicationFramework.Skinning
 {
     [Obsolete("not needed", true)]
 	public class FramelessManager : IFrameManager
 	{
-		
+
 
 		private static event EventHandler AlwaysShowFrameChanged;
-		
+
 		private SatelliteApplicationForm _form;
 		private UITheme _uiTheme;
 		private MinMaxClose minMaxClose;
 		private SizeBorderHitTester _sizeBorderHitTester = new SizeBorderHitTester(new Size(15, 15), new Size(16,16));
 		private ColorizedResources res = ColorizedResources.Instance;
 		private Timer _mouseFrameTimer;
-		
+
 		private int _activationCount = 0;
-		
+
 		private bool _inMenuLoop;
 		private bool _forceFrame = false;
 		private bool _alwaysShowFrame;
@@ -53,25 +52,25 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 		public FramelessManager(SatelliteApplicationForm form)
 		{
 			_alwaysShowFrame = AlwaysShowFrame;
-			
+
 			_form = form;
 
 			minMaxClose = new MinMaxClose();
 			minMaxClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			_form.Controls.Add(minMaxClose);
-			
+
 			_mouseFrameTimer = new Timer();
 			_mouseFrameTimer.Interval = 100;
 			_mouseFrameTimer.Tick += new EventHandler(_mouseFrameTimer_Tick);
-			
+
 			_commandShowMenu = new Command(CommandId.ShowMenu);
 			_commandShowMenu.Latched = AlwaysShowFrame;
 			_commandShowMenu.Execute += new EventHandler(commandShowMenu_Execute);
 			// JJA: no longer provide a frameless option
 			//ApplicationManager.CommandManager.Add(_commandShowMenu);
-			
+
 			ColorizedResources.GlobalColorizationChanged += new EventHandler(ColorizedResources_GlobalColorizationChanged);
-			
+
 			_form.Layout += new LayoutEventHandler(_form_Layout);
 			_form.Activated += new EventHandler(_form_Activated);
 			_form.Deactivate += new EventHandler(_form_Deactivate);
@@ -79,9 +78,9 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			_form.MouseDown +=new MouseEventHandler(_form_MouseDown);
 			_form.DoubleClick +=new EventHandler(_form_DoubleClick);
 			_form.Disposed += new EventHandler(_form_Disposed);
-			
+
 			AlwaysShowFrameChanged += new EventHandler(FramelessManager_AlwaysShowFrameChanged);
-			
+
 			_uiTheme = new UITheme(form);
 		}
 
@@ -127,13 +126,13 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 						// areas of the client region behave as elements of the
 						// non-client region. For example, the edges of the form
 						// can act as sizers.
-				
+
 						Point p = _form.PointToClient(new Point(m.LParam.ToInt32()));
-			
+
 						if (_form.ClientRectangle.Contains(p))
 						{
 							// only override the behavior if the mouse is within the client area
-					
+
 							if (Frameless)
 							{
 								int result = _sizeBorderHitTester.Test(_form.ClientSize, p);
@@ -143,7 +142,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 									return true;
 								}
 							}
-				
+
 							if ( !PointInSystemIcon(p) )
 							{
 								// The rest of the visible areas of the form act like
@@ -155,7 +154,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 						}
 						break;
 					}
-				
+
 				case WM.ENTERMENULOOP:
 					if ( Control.MouseButtons == MouseButtons.None )
 					{
@@ -173,7 +172,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 							_mouseFrameTimer.Start();
 					}
 					break;
-				
+
 			}
 			return false;
 		}
@@ -183,7 +182,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 		    return false;
 			//return new Rectangle(SYSICON_LEFT, SYSICON_TOP, res.LogoImage.Width, res.LogoImage.Height).Contains(clientPoint) ;
 		}
-		
+
 		private bool ForceFrame
 		{
 			get { return _forceFrame; }
@@ -197,7 +196,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				}
 			}
 		}
-		
+
 		public static bool AlwaysShowFrame
 		{
 			// JJA: no longer provide a frameless option
@@ -210,7 +209,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 					AlwaysShowFrameChanged(null, EventArgs.Empty);
 			}
 		}
-		
+
 		public bool Frameless
 		{
 			// JJA: no longer provide a frameless option
@@ -225,11 +224,11 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			minMaxClose.Left = _form.ClientSize.Width - minMaxClose.Width - 6;
 			minMaxClose.Top = 0;
 		}
-		
+
 		private void UpdateFrame()
 		{
 			minMaxClose.Visible = Frameless;
-		
+
 			if (Frameless)
 			{
 				SetRoundedRegion(_form, _overrideSize);
@@ -269,14 +268,14 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			r.Union(new Rectangle(2, 1, width - 4, height - 2));
 			r.Union(new Rectangle(1, 2, width - 2, height - 4));
 			r.Union(new Rectangle(0, 3, width, height - 6));
-			
+
 			RECT rect = new RECT();
 			User32.GetWindowRect(form.Handle, ref rect);
 			Point windowScreenPos = RectangleHelper.Convert(rect).Location;
 			Point clientScreenPos = form.PointToScreen(new Point(0, 0));
-			
+
 			r.Translate(clientScreenPos.X - windowScreenPos.X, clientScreenPos.Y - windowScreenPos.Y);
-			
+
 			form.Region = r;
 		}
 
@@ -311,20 +310,20 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				if (e.ClipRectangle.IntersectsWith(footerRect))
                     res.AppFooterBackground.DrawBorder(g, footerRect);
                     //GraphicsHelper.TileFillUnscaledImageHorizontally(g, res.FooterBackground, footerRect);
-				
+
 				Rectangle toolbarRect = new Rectangle(
 					_form.DockPadding.Left,
 					_form.DockPadding.Top,
 					_form.ClientSize.Width - _form.DockPadding.Left - _form.DockPadding.Right,
 					res.ToolbarBorder.MinimumHeight
 					);
-				
-                
+
+
                 if (e.ClipRectangle.IntersectsWith(toolbarRect))
 				{
                     res.ToolbarBorder.DrawBorder(g, toolbarRect);
 				}
-                
+
                 // draw vapor
 #if VAPOR
 				Rectangle appVapor = AppVaporRectangle;
@@ -343,7 +342,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				}
 #endif
 
-				
+
 				g.CompositingQuality = CompositingQuality.HighQuality;
 
                 /*
@@ -351,7 +350,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				{
 					// gripper
 					g.DrawImage(res.GripperImage, width - 15, height - 15, res.GripperImage.Width, res.GripperImage.Height);
-					
+
 					// draw window caption
 					//g.DrawIcon(ApplicationEnvironment.ProductIconSmall, 5, 6);
 					g.DrawImage(res.LogoImage, SYSICON_LEFT, SYSICON_TOP, res.LogoImage.Width, res.LogoImage.Height);
@@ -361,19 +360,19 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 					metrics.cbSize = Marshal.SizeOf(metrics);
 					User32.SystemParametersInfo(SPI.GETNONCLIENTMETRICS, 0, ref metrics, 0);
 					using ( Font font = new Font(
-								metrics.lfCaptionFont.lfFaceName, 
-								Math.Min(-metrics.lfCaptionFont.lfHeight, 13), 
+								metrics.lfCaptionFont.lfFaceName,
+								Math.Min(-metrics.lfCaptionFont.lfHeight, 13),
 								(metrics.lfCaptionFont.lfItalic > 0 ? FontStyle.Italic : FontStyle.Regular) |
-								(metrics.lfCaptionFont.lfWeight >= 700 ? FontStyle.Bold : FontStyle.Regular), 
+								(metrics.lfCaptionFont.lfWeight >= 700 ? FontStyle.Bold : FontStyle.Regular),
 								GraphicsUnit.World))
 					{
 						using ( Brush brush = new SolidBrush(!minMaxClose.Faded ? Color.White : Color.FromArgb(140, Color.White)) )
 						{
 							// draw caption
 							g.DrawString(
-								ApplicationEnvironment.ProductName, 
-								font, 
-								brush, 
+								ApplicationEnvironment.ProductName,
+								font,
+								brush,
 								22, 5 );
 						}
 					}
@@ -415,7 +414,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 
 		private bool IsMouseInFrame()
 		{
-			
+
 			return false;
 			/*
 			RECT rect = new RECT();
@@ -446,7 +445,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				Trace.Fail(ex.ToString());
 			}
 		}
-		
+
 		private void RefreshColors()
 		{
 			ColorizedResources colRes = ColorizedResources.Instance;
@@ -462,14 +461,14 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			ColorizedResources.GlobalColorizationChanged -= new EventHandler(ColorizedResources_GlobalColorizationChanged);
 			AlwaysShowFrameChanged -= new EventHandler(FramelessManager_AlwaysShowFrameChanged);
 		}
-		
+
 		private void FramelessManager_AlwaysShowFrameChanged(object sender, EventArgs e)
 		{
 			if (_form.IsDisposed)
 			{
 				return;
 			}
-			
+
 			if (_form.InvokeRequired)
 			{
 				_form.BeginInvoke(new EventHandler(FramelessManager_AlwaysShowFrameChanged), new object[] {sender, e});
@@ -494,7 +493,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 		/// <summary>
 		/// Prevents the vapor from appearing faded while the mini form is visible.
 		/// This should only be used if the mini form will disappear when it loses
-		/// focus (deactivated), otherwise the main form will be painted as activated 
+		/// focus (deactivated), otherwise the main form will be painted as activated
 		/// even when it may not be.
 		/// </summary>
 		public void AddOwnedForm(Form f)
@@ -509,7 +508,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 		{
 			_form_Deactivate(this, EventArgs.Empty);
 		}
-		
+
 
 		private void _form_MouseDown(object sender, MouseEventArgs e)
 		{
@@ -519,7 +518,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			 * (for what it is worth, Windows Media Player also supports ONLY double-click
 			 * and not single-click). If we want to support both it is probably possible
 			 * however it will take some WndProc hacking.
-			 * 
+			 *
 			if ( PointInSystemIcon( _form.PointToClient(Control.MousePosition) ) )
 			{
 				// handle single-click
@@ -539,7 +538,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			if ( PointInSystemIcon( _form.PointToClient(Control.MousePosition) ) )
 				_form.Close() ;
 		}
-		
+
 		private class UITheme : ControlUITheme
 		{
 			public bool ForceShowFrame;
@@ -563,6 +562,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			}
 		}
 	}
-	
+
 }
 

@@ -38,7 +38,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             get { return testMode; }
             set
             {
-#if !SIGNED                
+#if !SIGNED
                 if (testMode != value)
                 {
                     testMode = value;

@@ -46,7 +46,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         }
     }
 
-
     public class SimpleDynamicExceptionMessage : UnwindingDynamicExceptionMessage
     {
         protected readonly Type exceptionType;

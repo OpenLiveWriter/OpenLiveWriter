@@ -227,24 +227,24 @@ namespace OpenLiveWriter.Mshtml.Mshtml_Interop
     IInternetSecurityManager : public IUnknown
     {
     public:
-        virtual HRESULT STDMETHODCALLTYPE SetSecuritySite( 
+        virtual HRESULT STDMETHODCALLTYPE SetSecuritySite(
             /* [unique][in] */ IInternetSecurityMgrSite *pSite) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE GetSecuritySite( 
+
+        virtual HRESULT STDMETHODCALLTYPE GetSecuritySite(
             /* [out] */ IInternetSecurityMgrSite **ppSite) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE MapUrlToZone( 
+
+        virtual HRESULT STDMETHODCALLTYPE MapUrlToZone(
             /* [in] */ LPCWSTR pwszUrl,
             /* [out] */ DWORD *pdwZone,
             /* [in] */ DWORD dwFlags) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE GetSecurityId( 
+
+        virtual HRESULT STDMETHODCALLTYPE GetSecurityId(
             /* [in] */ LPCWSTR pwszUrl,
             /* [size_is][out] */ BYTE *pbSecurityId,
             /* [out][in] */ DWORD *pcbSecurityId,
             /* [in] */ DWORD_PTR dwReserved) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE ProcessUrlAction( 
+
+        virtual HRESULT STDMETHODCALLTYPE ProcessUrlAction(
             /* [in] */ LPCWSTR pwszUrl,
             /* [in] */ DWORD dwAction,
             /* [size_is][out] */ BYTE *pPolicy,
@@ -253,8 +253,8 @@ namespace OpenLiveWriter.Mshtml.Mshtml_Interop
             /* [in] */ DWORD cbContext,
             /* [in] */ DWORD dwFlags,
             /* [in] */ DWORD dwReserved) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE QueryCustomPolicy( 
+
+        virtual HRESULT STDMETHODCALLTYPE QueryCustomPolicy(
             /* [in] */ LPCWSTR pwszUrl,
             /* [in] */ REFGUID guidKey,
             /* [size_is][size_is][out] */ BYTE **ppPolicy,
@@ -262,17 +262,17 @@ namespace OpenLiveWriter.Mshtml.Mshtml_Interop
             /* [in] */ BYTE *pContext,
             /* [in] */ DWORD cbContext,
             /* [in] */ DWORD dwReserved) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE SetZoneMapping( 
+
+        virtual HRESULT STDMETHODCALLTYPE SetZoneMapping(
             /* [in] */ DWORD dwZone,
             /* [in] */ LPCWSTR lpszPattern,
             /* [in] */ DWORD dwFlags) = 0;
-        
-        virtual HRESULT STDMETHODCALLTYPE GetZoneMappings( 
+
+        virtual HRESULT STDMETHODCALLTYPE GetZoneMappings(
             /* [in] */ DWORD dwZone,
             /* [out] */ IEnumString **ppenumString,
             /* [in] */ DWORD dwFlags) = 0;
-        
-    };  
+
+    };
 #endif
 }

@@ -28,7 +28,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -36,9 +35,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandInsertLink
-			// 
+			//
 			this.ContextMenuPath = "-&Hyperlink...@130";
 			this.Identifier = "OpenLiveWriter.ApplicationFramework.Commands.InsertLink";
 			this.MainMenuPath = "&Insert@4/&Hyperlink...@100";

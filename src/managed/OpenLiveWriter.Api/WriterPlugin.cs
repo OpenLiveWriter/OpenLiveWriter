@@ -13,7 +13,7 @@ namespace OpenLiveWriter.Api
     {
         /// <summary>
         /// Initialize the plugin. Default implementation saves a reference to the global pluginOptions
-        /// which may be subsequently accessed using the Options property. If subclasses override this 
+        /// which may be subsequently accessed using the Options property. If subclasses override this
         /// method they must call the base implementation to ensure that this reference is saved.
         /// </summary>
         /// <param name="pluginOptions">Plugin options.</param>
@@ -23,7 +23,7 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Edit the plugins global options. This method can be called if the value of the 
+        /// Edit the plugins global options. This method can be called if the value of the
         /// HasEditableOptions property WriterPluginAttribute is true (default is false).
         /// </summary>
         /// <param name="dialogOwner">Owner for the options dialog.</param>

@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -37,11 +37,10 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         public string TextValue
         {
             // The innerText may contain a shortened form of the title
-            // This field should only return the full title.            
+            // This field should only return the full title.
             get
             {
                 return _element.innerText;
@@ -153,7 +152,6 @@ namespace OpenLiveWriter.PostEditor
                         sidebarProperties.SetString("wlPropertyPath", pathElements[i]);
                     }
 
-
                     // Save to smart content in canvas
                     smartContentProperties[pathElements[i]] = TextValue;
                     smartContentProperties.SetString("wlPropertyPath", pathElements[i]);
@@ -170,7 +168,7 @@ namespace OpenLiveWriter.PostEditor
         public void SetDefaultText()
         {
             Debug.Assert(_undoRedoCheck != null, "Setting default text on an unmanaged inline edit field");
-            // WinLive 210281: Don't update the default text unless really necessary. If an undo forces this function 
+            // WinLive 210281: Don't update the default text unless really necessary. If an undo forces this function
             // to run, then creating a new undo unit will clear the redo stack.
             if (String.IsNullOrEmpty(_element.innerText) && (!_undoRedoCheck.UndoRedoExecuting()))
             {

@@ -76,7 +76,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             }
         }
 
-
         public bool SupportsClick
         {
             get
@@ -148,8 +147,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         }
 
 
-
-
         public Size ContentDisplaySize
         {
             get
@@ -164,7 +161,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         private const string CONTENT_DISPLAY_SIZE = "ContentDisplaySize";
         private readonly Size DefaultContentSize = new Size(300, 350);
 
-
         public void RecordButtonClicked()
         {
             if (ClearNotificationOnClick)
@@ -177,7 +173,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 BlogProviderButtonNotificationSink.FireNotificationEvent(BlogId, Id);
             }
         }
-
 
         public void CheckForNotification()
         {
@@ -206,7 +201,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                             // update clear notification flag
                             ClearNotificationOnClick = buttonNotification.ClearNotificationOnClick;
 
-                            // set next polling time 
+                            // set next polling time
                             UpdateNotificationPollingTime(buttonNotification.PollingInterval);
                         }
                         else
@@ -226,7 +221,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         }
 
 
-
         private string NotificationUrl
         {
             get
@@ -234,7 +228,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 return FormatUrl(_buttonDescription.NotificationUrl);
             }
         }
-
 
         private IBlogProviderButtonNotification GetButtonNotification()
         {
@@ -254,7 +247,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 using (Blog blog = new Blog(_blogId))
                     response = blog.SendAuthenticatedHttpRequest(notificationUrl, 10000);
 
-                // parse the results                
+                // parse the results
                 xmlDocument.Load(response.GetResponseStream());
             }
             catch (Exception)
@@ -333,7 +326,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         // supports polling for a notification image
         private bool SupportsNotification { get { return _buttonDescription.SupportsNotification; } }
 
-
         private DateTime NotificationPollingTime
         {
             get { return _settingsKey.GetDateTime(NOTIFICATION_POLLING_TIME, DateTimeHelper.UtcNow); }
@@ -381,7 +373,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             }
         }
 
-
         private string NotificationText
         {
             get { return _settingsKey.GetString(NOTIFICATION_TEXT, String.Empty); }
@@ -408,7 +399,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             set { _settingsKey.SetBoolean(CLEAR_NOTIFICATION_ON_CLICK, value); }
         }
         private const string CLEAR_NOTIFICATION_ON_CLICK = "ClearNotificationOnClick";
-
 
         internal string FormatUrl(string url)
         {

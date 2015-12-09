@@ -9,7 +9,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 {
 	public class ApplicationStyleSterling : ApplicationStyle
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
@@ -20,7 +20,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -36,15 +36,15 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// ApplicationStyleSterling
-			// 
+			//
 			this.ActiveSelectionColor = System.Drawing.Color.FromArgb(((System.Byte)(146)), ((System.Byte)(155)), ((System.Byte)(174)));
 			this.ActiveTabBottomColor = System.Drawing.Color.FromArgb(((System.Byte)(219)), ((System.Byte)(224)), ((System.Byte)(229)));
 			this.ActiveTabHighlightColor = System.Drawing.Color.FromArgb(((System.Byte)(243)), ((System.Byte)(243)), ((System.Byte)(243)));

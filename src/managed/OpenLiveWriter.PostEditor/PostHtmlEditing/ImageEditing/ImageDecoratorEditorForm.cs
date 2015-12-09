@@ -65,9 +65,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         {
             this.panelEditor = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
+            //
             // panelEditor
-            // 
+            //
             this.panelEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -75,9 +75,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.panelEditor.Name = "panelEditor";
             this.panelEditor.Size = new System.Drawing.Size(284, 252);
             this.panelEditor.TabIndex = 0;
-            // 
+            //
             // ImageDecoratorEditorForm
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(292, 266);
             this.Controls.Add(this.panelEditor);
@@ -138,36 +138,36 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			this.Location = new Point(owner.Location.X + 100, owner.Location.Y + 100);
 			(owner as MainFrameSatelliteWindow).LocationFixed +=new EventHandler(Owner_LocationChanged);
 			(owner as MainFrameSatelliteWindow).CloseFixed +=new EventHandler(Owner_Closed);
-		}		
+		}
 
-		
+
 		protected override void OnLocationChanged(EventArgs e)
 		{
 			// update frame offset
 			Point frameTopRight = GetFrameTopRight() ;
 			offsetFromOwner = new Size(Left - frameTopRight.X, Top - frameTopRight.Y );
 		}
-		
+
 		private Point GetFrameTopRight()
 		{
 			Point frameTopRight = this.Owner.Location ;
 			frameTopRight.Offset(this.Owner.Size.Width,0) ;
 			return frameTopRight ;
 		}
-		
+
 		private void Owner_Closed(object sender, EventArgs e)
 		{
 			this.Close();
 		}
-		
+
 		private void Owner_LocationChanged(object sender, EventArgs e)
 		{
 			Point location = GetFrameTopRight() ;
 			Size frameOffset = offsetFromOwner ;
 			location.Offset(frameOffset.Width, frameOffset.Height);
 
-			Location = EnsureOnScreen(location) ;	
-		}		
+			Location = EnsureOnScreen(location) ;
+		}
 
 		private Point EnsureOnScreen(Point location)
 		{
@@ -179,12 +179,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 				left = Math.Min(left, currentScreenBounds.Left);
 				right = Math.Max(right, currentScreenBounds.Right);
 			}
-			
+
 			if (location.X > right)
 				location.X = right - Width;
 			else if (location.X < left)
 				location.X = left;
-		
+
 			return location;
 		}
 		*/

@@ -26,7 +26,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 			: base(	new BlogProviderButtonCommandBarLightweightControl(), CommandBarDefinition.Create(_providerCommandIds.ToArray()))
 		{
 		}
-		
+
 		protected override void OnPaintBackground(System.Windows.Forms.PaintEventArgs pevent)
 		{
 			base.OnPaintBackground (pevent);
@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 			Graphics g = pevent.Graphics;
 			g.ResetClip();
 			g.ResetTransform();
-			
+
 			if(!ColorizedResources.UseSystemColors)
 			{
 				using (Brush b = new SolidBrush(Color.FromArgb(64, Color.White)))
@@ -42,12 +42,11 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 			}
 		}
 
-
 		public Size DesiredSize
 		{
 			get
 			{
-				return _commandBar.DefaultVirtualSize ; 
+				return _commandBar.DefaultVirtualSize ;
 			}
 		}
 
@@ -60,8 +59,8 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 			}
 		}
 
-	
-	
+
+
 		static BlogProviderButtonCommandBarControl()
 		{
 			for (int i=0; i<BlogProviderButtonCommandBarInfo.MaximumProviderCommands; i++ )
@@ -81,7 +80,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 			{
 				get
 				{
-					// reflection is so light that we count this as our 
+					// reflection is so light that we count this as our
 					// bottom layout margin
 					return 0;
 				}

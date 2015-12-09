@@ -16,10 +16,8 @@ using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.PostEditor.PostHtmlEditing;
 using mshtml;
 
-
 namespace OpenLiveWriter.PostEditor.Tables
 {
-
 
     internal class TableDataFormatHandler : HtmlHandler
     {
@@ -35,7 +33,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             return IsPasteFromSharedCanvas(data) && (GetSourceTable(data) != null);
         }
 
-
         protected override bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end)
         {
             // get the table and its cells
@@ -50,7 +47,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
             else
             {
-                // if we are inside a table 
+                // if we are inside a table
                 TableSelection tableSelection = new TableSelection(EditorContext.MarkupServices.CreateMarkupRange(begin, end));
                 if (tableSelection.Table != null)
                 {
@@ -114,7 +111,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 }
             }
 
-
             // perform the paste
             using (IUndoUnit undoUnit = EditorContext.CreateUndoUnit())
             {
@@ -153,7 +149,6 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         }
 
-
         private static IHTMLTable GetSourceTable(DataObjectMeister dataMeister)
         {
             // find our post body div
@@ -175,7 +170,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                     }
                 }
             }
-
 
             // didn't find a single table
             return null;
@@ -203,8 +197,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             // didn't find it
             return null;
         }
-
-
 
 
     }

@@ -94,7 +94,6 @@ namespace OpenLiveWriter.PostEditor.Video
             return controls;
         }
 
-
         void videoLoginStatusControl_LoginClicked(object sender, EventArgs e)
         {
             _currentPublisher.Auth.Login(true, FindForm());
@@ -138,7 +137,6 @@ namespace OpenLiveWriter.PostEditor.Video
                 comboBoxPermissions.Items.Add(new SecurityItem("0", Res.Get(StringId.Plugin_Video_Soapbox_Publish_Permissions_Public)));
                 comboBoxPermissions.SelectedIndex = 0;
             }
-
 
             // Add the categories for the publisher
             List<CategoryItem> categoryList = _currentPublisher.Categories;
@@ -254,7 +252,6 @@ namespace OpenLiveWriter.PostEditor.Video
             txtFile.Width += (newGutter - gutter);
         }
 
-
         #region VideoSource Members
 
         public override bool ValidateSelection()
@@ -265,7 +262,7 @@ namespace OpenLiveWriter.PostEditor.Video
             string description = txtDescription.Text.Trim();
             string filePath = txtFile.Text.Trim();
 
-            // Make sure they filled in all the feilds 
+            // Make sure they filled in all the feilds
             if (((CategoryItem)comboBoxCategory.SelectedItem).CategoryId == Guid.Empty.ToString() ||
                 title == String.Empty ||
                 description == String.Empty ||
@@ -295,7 +292,6 @@ namespace OpenLiveWriter.PostEditor.Video
                     return false;
                 }
             }
-
 
             if (!PathHelper.IsPathVideo(filePath))
             {

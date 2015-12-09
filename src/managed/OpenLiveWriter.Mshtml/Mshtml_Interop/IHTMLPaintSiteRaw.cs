@@ -40,7 +40,6 @@ namespace OpenLiveWriter.Mshtml
          ref int plCookie);
     }
 
-
     /// <summary>
     /// Interface used for querying the paint site of a rendering behavior.
     /// This is a special delcaration of the interface that allows the passing

@@ -39,7 +39,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -47,9 +46,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandShowMenu
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.Commands.ShowMenu";
 			this.MainMenuPath = "&View@2/&Menu Bar@130";
 			this.MenuText = "Menu Bar";

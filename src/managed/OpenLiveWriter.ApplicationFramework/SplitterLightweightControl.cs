@@ -58,7 +58,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         /// <summary>
         /// A value indicating whether the SplitterLightweightControl is enabled.
-        /// </summary>		
+        /// </summary>
         private bool enabled = true;
 
         /// <summary>

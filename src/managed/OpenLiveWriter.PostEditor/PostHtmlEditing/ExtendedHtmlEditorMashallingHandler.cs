@@ -61,7 +61,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
 
-
         protected override IDataFormatHandlerFactory[] CreateDataFormatFactories()
         {
             if (IsPlainTextOnly)
@@ -166,7 +165,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return new EmbedFormatHandler(dataMeister, handlerContext, EditorContext, _insertionSite);
         }
 
-
         protected virtual bool CanCreateTableDataFormatHandler(DataObjectMeister dataObject)
         {
             return EditorContext.MarshalHtmlSupported && TableDataFormatHandler.CanCreateFrom(dataObject);
@@ -212,7 +210,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private DROPEFFECT _effect;
         private POINT _point;
         private IOleDataObject _oleDataObject;
-
 
         public UnhandledDropTarget(DataObjectMeister dataObject, DataFormatHandlerContext handlerContext, OpenLiveWriter.Interop.Com.IDropTarget unhandledDropTarget)
             : base(dataObject, handlerContext)
@@ -421,7 +418,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
     }
 
-
     internal class LiveClipboardHtmlFormatHandler : LiveClipboardDataFormatHandler
     {
         IContentSourceSite _contentSourceSite;
@@ -461,7 +457,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
     }
-
 
 
     internal class InternalSmartContentFormatHandler : FreeTextHandler
@@ -605,7 +600,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-
         protected override bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end)
         {
             // lookup the content-source
@@ -648,7 +642,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return false;
             }
         }
-
 
         private bool InsertSimpleContentFromUrl(ContentSourceInfo contentSource, string url)
         {
@@ -891,10 +884,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return data.ImageData != null && (data.ImageData.Bitmap != null || data.ImageData.Dib != null || data.ImageData.GIF != null);
         }
 
-
         /// <summary>
         /// Instruct the handler to insert data into the presentation editor
-        /// </summary>		
+        /// </summary>
         protected override bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end)
         {
             string imagePath = SaveImageDataToTempFile(DataMeister.ImageData);
@@ -986,11 +978,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     {
         // TODO: This really needs to insert a snapshot of the embed and then publish the embed to the blog
         //       correctly at publish time -- this is so that:
-        //         (1) We don't have to deal with embeds that steal mouse clicks (need it to be 
+        //         (1) We don't have to deal with embeds that steal mouse clicks (need it to be
         //             selectable and moveable like any other content)
         ///        (2) We can implement a custom sidebar and other custom behavior like snapshotting
         ///        (3) We don't have to chase down bizzaro editor edge cases caused by complex or misbehaving embeds
-        ///       
+        ///
         IContentSourceSite _contentSourceSite;
 
         public EmbedFormatHandler(DataObjectMeister dataObject, DataFormatHandlerContext handlerContext, IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite)
@@ -1109,6 +1101,5 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
     }
-
 
 }

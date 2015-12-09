@@ -110,7 +110,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         private class EqualElementFilter
         {
             private IHTMLElement _element;
@@ -220,7 +219,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Returns true if this is an element that triggers a paragraph break.
         /// </summary>
@@ -302,7 +300,6 @@ namespace OpenLiveWriter.Mshtml
             return (e is IHTMLTableCell);
         }
         public static IHTMLElementFilter TABLE_CELL_ELEMENT = new IHTMLElementFilter(IsTableCellElement);
-
 
         public static bool IsInlineElement(IHTMLElement e)
         {
@@ -407,7 +404,7 @@ namespace OpenLiveWriter.Mshtml
         public static IHTMLElementFilter END_TAG_REQUIRED = new IHTMLElementFilter(RequiresEndTag);
 
         /// <summary>
-        /// Returns true if this element is supposed to have an end tag, but IE will still render it correctly 
+        /// Returns true if this element is supposed to have an end tag, but IE will still render it correctly
         /// without one.
         /// </summary>
         public static bool IsEndTagOptional(IHTMLElement e)
@@ -445,7 +442,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
         private static Hashtable _tableTagNames;
-
 
         /// <summary>
         /// Look up table holding the names of all block-formatted tags.
@@ -562,7 +558,7 @@ namespace OpenLiveWriter.Mshtml
         private static Hashtable _headerTagNames;
 
         /// <summary>
-        /// Look up table holding the names of all tags that render correctly in IE even if they don't have a 
+        /// Look up table holding the names of all tags that render correctly in IE even if they don't have a
         /// corresponding end tag.
         /// </summary>
         private static Hashtable EndTagOptionalNames

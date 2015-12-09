@@ -14,7 +14,7 @@ namespace OpenLiveWriter.CoreServices
 		/// <summary>
 		/// Creates a new fileDataObject based upon a string array of paths
 		/// </summary>
-		/// <param name="paths">The paths to the files from which to 
+		/// <param name="paths">The paths to the files from which to
 		/// construct the file data object.</param>
 		public FileDataObject(string[] paths)
 		{

@@ -59,7 +59,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             this.labelPanelName.Font = Res.GetFont(FontSize.XXLarge, FontStyle.Regular);
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -77,17 +77,17 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         #endregion Class Initialization & Termination
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.labelPanelName = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // labelPanelName
-            // 
+            //
             this.labelPanelName.BackColor = System.Drawing.SystemColors.Control;
             this.labelPanelName.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.labelPanelName.Font = Res.GetFont(FontSize.XXLarge, FontStyle.Regular);
@@ -96,9 +96,9 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             this.labelPanelName.Size = new System.Drawing.Size(354, 23);
             this.labelPanelName.TabIndex = 0;
             this.labelPanelName.Text = "Options";
-            // 
+            //
             // PreferencesPanel
-            // 
+            //
             this.Controls.Add(this.labelPanelName);
             this.Name = "PreferencesPanel";
             this.Size = new System.Drawing.Size(370, 370);
@@ -160,10 +160,10 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         /// Tells the preferences panel to prepare for save.
         /// Any values should be validated, and an error message
         /// displayed to the user if necessary.
-        /// 
-        /// The SwitchToPanel delegate can be called to force 
+        ///
+        /// The SwitchToPanel delegate can be called to force
         /// the containing control to display the panel.
-        /// 
+        ///
         /// Returns true if validation was successful, false if
         /// not (i.e. the save operation should be aborted).
         /// </summary>

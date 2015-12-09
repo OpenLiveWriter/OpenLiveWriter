@@ -87,27 +87,27 @@ namespace OpenLiveWriter.PostEditor
             this.labelCaption1 = new System.Windows.Forms.Label();
             this.labelCaption2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(116, 152);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
-            // 
+            //
             // checkBoxDontShowMessageAgain
-            // 
+            //
             this.checkBoxDontShowMessageAgain.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxDontShowMessageAgain.Location = new System.Drawing.Point(56, 112);
             this.checkBoxDontShowMessageAgain.Name = "checkBoxDontShowMessageAgain";
             this.checkBoxDontShowMessageAgain.Size = new System.Drawing.Size(240, 24);
             this.checkBoxDontShowMessageAgain.TabIndex = 1;
             this.checkBoxDontShowMessageAgain.Text = "Don\'t show this message again";
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(8, 8);
             this.pictureBox1.Name = "pictureBox1";
@@ -115,9 +115,9 @@ namespace OpenLiveWriter.PostEditor
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // labelCaption1
-            // 
+            //
             this.labelCaption1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCaption1.Location = new System.Drawing.Point(56, 8);
             this.labelCaption1.Name = "labelCaption1";
@@ -126,18 +126,18 @@ namespace OpenLiveWriter.PostEditor
             this.labelCaption1.Text = "You may have problems with editing content in Web Layout view with the current We" +
                 "blog (for example, incorrect post layout or problems selecting and resi" +
                 "zing content).";
-            // 
+            //
             // labelCaption2
-            // 
+            //
             this.labelCaption2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCaption2.Location = new System.Drawing.Point(56, 72);
             this.labelCaption2.Name = "labelCaption2";
             this.labelCaption2.Size = new System.Drawing.Size(240, 24);
             this.labelCaption2.TabIndex = 4;
             this.labelCaption2.Text = "If you do experience problems you should switch back to the Normal view.";
-            // 
+            //
             // WebLayoutViewWarningForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(306, 184);

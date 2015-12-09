@@ -118,9 +118,9 @@ namespace OpenLiveWriter.Controls
             this.btnClose = new System.Windows.Forms.Button();
             this.grpInfo.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // lstDisplayMessages
-            // 
+            //
             this.lstDisplayMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -130,9 +130,9 @@ namespace OpenLiveWriter.Controls
             this.lstDisplayMessages.TabIndex = 0;
             this.lstDisplayMessages.DoubleClick += new System.EventHandler(this.lstDisplayMessages_DoubleClick);
             this.lstDisplayMessages.SelectedIndexChanged += new System.EventHandler(this.lstDisplayMessages_SelectedIndexChanged);
-            // 
+            //
             // grpInfo
-            // 
+            //
             this.grpInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.grpInfo.Controls.Add(this.btnShow);
@@ -146,9 +146,9 @@ namespace OpenLiveWriter.Controls
             this.grpInfo.Size = new System.Drawing.Size(376, 192);
             this.grpInfo.TabIndex = 1;
             this.grpInfo.TabStop = false;
-            // 
+            //
             // btnShow
-            // 
+            //
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnShow.Location = new System.Drawing.Point(8, 160);
             this.btnShow.Name = "btnShow";
@@ -156,9 +156,9 @@ namespace OpenLiveWriter.Controls
             this.btnShow.TabIndex = 4;
             this.btnShow.Text = "&Show";
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
-            // 
+            //
             // txtMessage
-            // 
+            //
             this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -170,17 +170,17 @@ namespace OpenLiveWriter.Controls
             this.txtMessage.Size = new System.Drawing.Size(360, 72);
             this.txtMessage.TabIndex = 3;
             this.txtMessage.Text = "";
-            // 
+            //
             // lblMessage
-            // 
+            //
             this.lblMessage.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblMessage.Location = new System.Drawing.Point(8, 64);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.TabIndex = 2;
             this.lblMessage.Text = "Message";
-            // 
+            //
             // txtCaption
-            // 
+            //
             this.txtCaption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCaption.Location = new System.Drawing.Point(8, 32);
@@ -189,17 +189,17 @@ namespace OpenLiveWriter.Controls
             this.txtCaption.Size = new System.Drawing.Size(360, 20);
             this.txtCaption.TabIndex = 1;
             this.txtCaption.Text = "";
-            // 
+            //
             // lblCaption
-            // 
+            //
             this.lblCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblCaption.Location = new System.Drawing.Point(8, 16);
             this.lblCaption.Name = "lblCaption";
             this.lblCaption.TabIndex = 0;
             this.lblCaption.Text = "Caption";
-            // 
+            //
             // btnClose
-            // 
+            //
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -209,9 +209,9 @@ namespace OpenLiveWriter.Controls
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "&Close";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
+            //
             // DisplayMessageTestForm
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(392, 452);

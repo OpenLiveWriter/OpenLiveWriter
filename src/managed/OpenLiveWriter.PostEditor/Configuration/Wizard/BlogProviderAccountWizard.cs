@@ -15,7 +15,6 @@ using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.Extensibility.BlogClient;
 
-
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
 
@@ -42,7 +41,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
         private static IBlogProviderAccountWizardDescription[] _installedAccountWizards;
-
 
         private static ArrayList LoadAccountWizardsFromXml()
         {
@@ -81,7 +79,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-
         private static readonly object _classLock = new object();
     }
 
@@ -110,7 +107,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         string Url { get; }
     }
 
-
     internal class BlogProviderAccountWizardDescription : IBlogProviderAccountWizardDescription
     {
         protected BlogProviderAccountWizardDescription()
@@ -127,7 +123,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _accountCreationLink = accountCreationLink;
         }
 
-
         public string ServiceName
         {
             get
@@ -137,7 +132,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
         private string _serviceName;
 
-
         public IBlogProviderWelcomePage WelcomePage
         {
             get
@@ -146,7 +140,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
         private IBlogProviderWelcomePage _welcomePage;
-
 
         public IBlogProviderAccountCreationLink AccountCreationLink
         {
@@ -158,7 +151,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private IBlogProviderAccountCreationLink _accountCreationLink;
 
     }
-
 
     internal class BlogProviderWelcomePage : IBlogProviderWelcomePage
     {
@@ -218,7 +210,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
         private string _url;
     }
-
 
     internal class BlogProviderAccountCreationLinkFromResource : BlogProviderAccountCreationLink
     {
@@ -317,7 +308,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             Init(serviceName, welcomePage, accountCreationLink);
         }
 
-
         private string NodeText(XmlNode node)
         {
             if (node != null)
@@ -326,8 +316,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 return String.Empty;
         }
     }
-
-
 
 
 }

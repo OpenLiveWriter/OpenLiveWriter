@@ -67,7 +67,6 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         protected virtual Uri FeedServiceUrl { get { return _feedServiceUrl; } }
 
-
         public IBlogClientOptions Options
         {
             get
@@ -183,7 +182,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 containerNode.AppendChild(containerNode.OwnerDocument.ImportNode(categoriesNode, true));
             }
         }
-
 
         protected virtual HttpRequestFilter RequestFilter
         {
@@ -447,7 +445,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 if (!AttemptEditPostRecover(e, blogId, post, newCategoryContext, publish, out etag, out remotePost))
                 {
-                    // convert to a provider exception if this is a 404 (allow us to 
+                    // convert to a provider exception if this is a 404 (allow us to
                     // catch this case explicitly and attempt a new post to recover)
                     if (e is WebException)
                     {

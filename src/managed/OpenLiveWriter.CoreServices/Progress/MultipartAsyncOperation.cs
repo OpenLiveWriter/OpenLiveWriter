@@ -8,7 +8,6 @@ using System.ComponentModel;
 namespace OpenLiveWriter.CoreServices.Progress
 {
 
-
     /// <summary>
     /// An AsyncOperation that serially executes a set of ProgressOperations.
     /// </summary>
@@ -50,7 +49,6 @@ namespace OpenLiveWriter.CoreServices.Progress
             AddProgressOperation(operation, progressCategory, null, tickSize);
         }
 
-
         /// <summary>
         /// Adds a new ProgressOperation to the list of work to perform and assigns the operation
         /// the number of ticks that it should take up in the overall operation.
@@ -58,15 +56,13 @@ namespace OpenLiveWriter.CoreServices.Progress
         /// <param name="operation">the progress-compatible method that will do some work</param>
         /// <param name="completed">method called when the operation is completed</param>
         /// <param name="tickSize">an arbitrary number that should reflect the percentage of the work that will be done by this operation.
-        /// Note: longer running operations should have a larger tick count than fast executing operations.</param>	
+        /// Note: longer running operations should have a larger tick count than fast executing operations.</param>
         public void AddProgressOperation(ProgressOperation operation, ProgressOperationCompleted completed, int tickSize)
         {
             AddProgressOperation(operation, null, completed, tickSize);
         }
 
 
-
-
         /// <summary>
         /// Adds a new ProgressOperation to the list of work to perform and assigns the operation
         /// the number of ticks that it should take up in the overall operation.
@@ -74,7 +70,7 @@ namespace OpenLiveWriter.CoreServices.Progress
         /// <param name="operation">the progress-compatible method that will do some work</param>
         /// <param name="completed">method called when the operation is completed</param>
         /// <param name="tickSize">an arbitrary number that should reflect the percentage of the work that will be done by this operation.
-        /// Note: longer running operations should have a larger tick count than fast executing operations.</param>	
+        /// Note: longer running operations should have a larger tick count than fast executing operations.</param>
         public void AddProgressOperation(ProgressOperation operation, ProgressCategory category, ProgressOperationCompleted completed, int tickSize)
         {
             // if a category is being specified then the connected UI should know that
@@ -91,7 +87,6 @@ namespace OpenLiveWriter.CoreServices.Progress
             //add the ticks assigned to this task to the overall tick count
             totalProgressTicks += tickSize;
         }
-
 
         /// <summary>
         /// How many operations are being managed by the multipart async-op
@@ -122,13 +117,12 @@ namespace OpenLiveWriter.CoreServices.Progress
             }
         }
 
-
         protected override void DoWork()
         {
             try
             {
                 //loop over all of the progress operations and execute them
-                //since each operation reports its own progress, 
+                //since each operation reports its own progress,
                 foreach (ProgressWorker worker in workers)
                 {
                     //update the worker's total progress tick so that progress will
@@ -153,7 +147,6 @@ namespace OpenLiveWriter.CoreServices.Progress
             }
         }
 
-
         #region IProgressCategoryProvider implementation
 
         /// <summary>
@@ -172,7 +165,6 @@ namespace OpenLiveWriter.CoreServices.Progress
         }
         private bool showCategories = false;
 
-
         /// <summary>
         /// The name of the current category (optional)
         /// </summary>
@@ -184,7 +176,6 @@ namespace OpenLiveWriter.CoreServices.Progress
             }
         }
         private ProgressCategory progressCategory;
-
 
         /// <summary>
         /// The category being worked on by the operation changed

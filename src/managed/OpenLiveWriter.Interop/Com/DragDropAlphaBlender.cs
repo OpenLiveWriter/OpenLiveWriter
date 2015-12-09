@@ -8,17 +8,16 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.Interop.Com
 {
 	/// <summary>
-	/// Helper class that implements the IDropSourceHelper and IDropTargetHelper 
+	/// Helper class that implements the IDropSourceHelper and IDropTargetHelper
 	/// interfaces (cast the DragDropAlphaBlender) to these interfaces to get access
 	/// to them). Note that this class is only useful when working with native Ole
 	/// data objects (which .NET does not) so by and large it won't help us unless
-	/// we bypass all of .NET's data objects and work 100% with native Ole data 
+	/// we bypass all of .NET's data objects and work 100% with native Ole data
 	/// objects.
 	/// </summary>
 	[ComImport]
 	[Guid("4657278A-411B-11d2-839A-00C04FD918D0")]
 	public class DragDropAlphaBlender {}  // implements IDropSourceHelper and IDropTargetHelper
-
 
 	/// <summary>
 	/// This interface allows drop targets to display a drag image while the image
@@ -29,7 +28,7 @@ namespace OpenLiveWriter.Interop.Com
 	/// NOTE: Minimum OS requirements for this feature are Win2K and WinME.
 	/// </summary>
 	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)] 
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[Guid("4657278B-411B-11d2-839A-00C04FD918D0")]
 	public interface IDropTargetHelper
 	{
@@ -44,12 +43,11 @@ namespace OpenLiveWriter.Interop.Com
 		/// IDropTarget::DragEnter method's pt parameter</param>
 		/// <param name="dwEffect">[in] Value pointed to by the IDropTarget::DragEnter
 		/// method's pdwEffect parameter.</param>
-		void DragEnter( 
-			[In] IntPtr hwndTarget, 
+		void DragEnter(
+			[In] IntPtr hwndTarget,
 			[In, MarshalAs(UnmanagedType.IUnknown)] object pDataObject,
 			[In] ref POINT ppt,
 			[In] DROPEFFECT dwEffect ) ;
-
 
 		/// <summary>
 		/// Notifies the drag-image manager that the drop target's
@@ -65,10 +63,9 @@ namespace OpenLiveWriter.Interop.Com
 		/// IDropTarget::DragOver method's pt parameter.</param>
 		/// <param name="dwEffect">[in] Value pointed to by the IDropTarget::DragOver
 		/// method's pdwEffect parameter.</param>
-		void DragOver( 
+		void DragOver(
 			[In] ref POINT ppt,
 			[In] DROPEFFECT dwEffect );
-
 
 		/// <summary>
 		/// Notifies the drag-image manager that the drop target's IDropTarget::Drop
@@ -89,16 +86,15 @@ namespace OpenLiveWriter.Interop.Com
 		/// Notifies the drag-image manager to show or hide the drag image.
 		/// This method is provided for showing/hiding the Drag image in low color
 		/// depth video modes. When painting to a window that is currently being
-		/// dragged over (i.e. For indicating a selection) you need to hide the 
+		/// dragged over (i.e. For indicating a selection) you need to hide the
 		/// drag image by calling this method passing FALSE. After the window is
-		/// done painting, Show the image again by passing TRUE.		/// 
+		/// done painting, Show the image again by passing TRUE.		///
 		/// </summary>
 		/// <param name="fShow">[in] Boolean value that is set to TRUE to show the
 		/// drag image, and FALSE to hide it.</param>
-		void Show( 
-			[In, MarshalAs(UnmanagedType.Bool)] bool fShow ) ;		
+		void Show(
+			[In, MarshalAs(UnmanagedType.Bool)] bool fShow ) ;
 	}
-
 
 	/// <summary>
 	/// This interface is exposed by the Shell to allow an application to specify
@@ -106,7 +102,7 @@ namespace OpenLiveWriter.Interop.Com
 	/// This interface is implemented by DragDropHelper.
 	/// </summary>
 	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)] 
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	[Guid("DE5BF786-477A-11d2-839D-00C04FD918D0")]
 	public interface IDragSourceHelper
 	{
@@ -117,17 +113,17 @@ namespace OpenLiveWriter.Interop.Com
 		/// about the bitmap.</param>
 		/// <param name="pDataObject">[in] Pointer to the data object's IDataObject
 		/// interface.</param>
-		void InitializeFromBitmap(   
+		void InitializeFromBitmap(
 			[In] ref SHDRAGIMAGE pshdi,
 			[In, MarshalAs(UnmanagedType.IUnknown)] object pDataObject );
-	
+
 
 		/// <summary>
-		/// Initializes the drag-image manager for a control with a window. 
+		/// Initializes the drag-image manager for a control with a window.
 		/// DragDropHelper will send a DI_GETDRAGIMAGE message to the specified
 		/// window. DI_GETDRAGIMAGE is defined in DI.GETDRAGIMAGE and must be
-		/// registered with RegisterWindowMessage. When the window specified 
-		/// by hwnd receives the DI_GETDRAGIMAGE message, the lParam value 
+		/// registered with RegisterWindowMessage. When the window specified
+		/// by hwnd receives the DI_GETDRAGIMAGE message, the lParam value
 		/// will hold a pointer to an SHDRAGIMAGE structure. The handler should
 		/// fill the structure with the drag image bitmap information.
 		/// </summary>
@@ -146,12 +142,11 @@ namespace OpenLiveWriter.Interop.Com
 	}
 
 
-	
 
 	/// <summary>
 	/// Structure used to define a drag image
 	/// </summary>
-	[StructLayout(LayoutKind.Sequential, Pack=8)] // corresponds to #include <pshpack8.h> in ShObj.h												
+	[StructLayout(LayoutKind.Sequential, Pack=8)] // corresponds to #include <pshpack8.h> in ShObj.h
 	public struct SHDRAGIMAGE
 	{
 		SIZE sizeDragImage; // OUT - The length and Width of the rendered image
@@ -159,20 +154,19 @@ namespace OpenLiveWriter.Interop.Com
 		IntPtr hbmpDragImage; // OUT - The Bitmap containing the rendered drag images
 		uint crColorKey;  // OUT - The COLORREF that has been blitted to the background of the images
 	} ;
-	
+
 
 	/// <summary>
 	/// Drag Image related window messages
 	/// </summary>
 	public struct DI
-	{		
+	{
 		/// <summary>
-		/// This is sent to a window to get the rendered images to a bitmap (used 
+		/// This is sent to a window to get the rendered images to a bitmap (used
 		/// with IDragSourceHelper.InitializeFromWindow). Call RegisterWindowMessage
 		/// to get the ID
 		/// </summary>
 		public const string GETDRAGIMAGE = "ShellGetDragImage" ;
 	}
 }
-
 

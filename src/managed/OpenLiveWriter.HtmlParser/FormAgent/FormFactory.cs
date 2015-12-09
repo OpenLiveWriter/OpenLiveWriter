@@ -125,7 +125,6 @@ namespace OpenLiveWriter.HtmlParser.Parser.FormAgent
             }
         }
 
-
         private void HandleSelect(HtmlForm parentForm, BeginTag selectTag)
         {
             string name = selectTag.GetAttributeValue("name");
