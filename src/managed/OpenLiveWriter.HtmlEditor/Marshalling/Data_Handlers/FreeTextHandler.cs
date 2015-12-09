@@ -58,14 +58,14 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                     return DragDropEffects.None;
             }
             catch (Exception ex)
-            {                
+            {
                 if (ex is COMException)
                 {
-                    int errorCode = ((COMException) ex).ErrorCode;
-                    if (errorCode == IE_CTL_E.INVALIDLINE || errorCode == IE_CTL_E.UNPOSITIONEDELEMENT || errorCode == IE_CTL_E.UNPOSITIONEDPOINTER)                                   
+                    int errorCode = ((COMException)ex).ErrorCode;
+                    if (errorCode == IE_CTL_E.INVALIDLINE || errorCode == IE_CTL_E.UNPOSITIONEDELEMENT || errorCode == IE_CTL_E.UNPOSITIONEDPOINTER)
                         return DragDropEffects.None;
-                }             
-                
+                }
+
                 Trace.Fail("Exception thrown while providing drag feedback: " + ex);
 
                 //bug fix 1115: eat the exception if one is thrown while placing the caret.
@@ -154,7 +154,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         /// <summary>
         /// The type of drag we are processing
         /// </summary>
-        private enum DragType { ExternalHtml } ;
+        private enum DragType { ExternalHtml };
         private DragType dragType;
 
 

@@ -32,7 +32,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         public static void ApplyResources(Command command)
         {
-            _resourcedPropertyLoader.ApplyResources(command, command.Identifier);            
+            _resourcedPropertyLoader.ApplyResources(command, command.Identifier);
         }
 
         public static Bitmap MissingLarge
@@ -44,9 +44,9 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             get { return LoadCommandBitmap("Missing", "SmallImage"); }
         }
-        
+
         public static Bitmap LoadCommandBitmap(string commandId, string bitmapType)
-        {                                
+        {
             return ResourceHelper.LoadBitmap(commandId + "_" + bitmapType);
         }
 

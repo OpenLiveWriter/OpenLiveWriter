@@ -20,7 +20,7 @@ namespace OpenLiveWriter.Controls
             if (!DesignMode)
             {
                 Items.Clear();
-                Items.AddRange(new object[] {"", "tag", "enclosure", "license", "nofollow"});
+                Items.AddRange(new object[] { "", "tag", "enclosure", "license", "nofollow" });
             }
         }
 

@@ -62,7 +62,7 @@ namespace OpenLiveWriter.CoreServices
             HttpWebResponse response;
             try
             {
-                response = HttpRequestHelper.SendRequest(_hostname, delegate(HttpWebRequest request)
+                response = HttpRequestHelper.SendRequest(_hostname, delegate (HttpWebRequest request)
                 {
                     request.Method = "POST";
                     request.AllowAutoRedirect = false;

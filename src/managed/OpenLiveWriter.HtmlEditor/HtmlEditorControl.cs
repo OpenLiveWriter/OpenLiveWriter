@@ -677,7 +677,7 @@ namespace OpenLiveWriter.HtmlEditor
             MarkupRange postBodyRange = MarkupServices.CreateMarkupRange(PostBodyElement, false);
             postBodyRange.Start.MoveToPointer(SelectedMarkupRange.Start);
             postBodyRange.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                 {
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text ||
                         context.Element == null)
@@ -704,7 +704,7 @@ namespace OpenLiveWriter.HtmlEditor
                     }
 
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_EnterScope)
-                    {                        
+                    {
                         if (context.Element is IHTMLTable)
                         {
                             if (StopTryMoveIntoNextTable(context.Element))
@@ -1075,7 +1075,7 @@ namespace OpenLiveWriter.HtmlEditor
             // of this element. Instead, we walk the range to ensure we account for all elements.
             MarkupRange elementRange = MarkupServices.CreateMarkupRange(element, false);
             elementRange.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                 {
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_EnterScope)
                     {
@@ -2815,7 +2815,7 @@ namespace OpenLiveWriter.HtmlEditor
         protected virtual bool ShouldAllowNewLineInsert(string html)
         {
             SimpleHtmlParser p = new SimpleHtmlParser(html);
-            for (Element el; null != (el = p.Next()); )
+            for (Element el; null != (el = p.Next());)
             {
                 if (el is BeginTag && (((BeginTag)el).NameEquals("div") || ((BeginTag)el).NameEquals("img")))
                 {
@@ -3506,7 +3506,7 @@ namespace OpenLiveWriter.HtmlEditor
                 // save the current selection because it will be lost during spell checking
                 MarkupRange previousMarkupRange = null;
                 bool previousMarkupRangeCollapsed = true;
-                
+
                 if (SelectedMarkupRange != null)
                 {
                     previousMarkupRange = SelectedMarkupRange.Clone();
@@ -3530,34 +3530,34 @@ namespace OpenLiveWriter.HtmlEditor
                 //ToDo: OLW Spell Checker
                 //using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), ignoreOnceSupported))
                 //{
-                    //  center the spell-checking form over the document body
-                    //spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
+                //  center the spell-checking form over the document body
+                //spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
 
-                    // determine whether we are checking a selection or the whole document
-                    // get selection
-                    IHTMLSelectionObject selection = HTMLDocument.selection;
-                    bool checkSelection = (selection != null) && (selection.type.ToLower(CultureInfo.InvariantCulture) == "text");
+                // determine whether we are checking a selection or the whole document
+                // get selection
+                IHTMLSelectionObject selection = HTMLDocument.selection;
+                bool checkSelection = (selection != null) && (selection.type.ToLower(CultureInfo.InvariantCulture) == "text");
 
-                    // get the word range to check
-                    // MshtmlWordRange wordRange = new MshtmlWordRange(HTMLDocument, checkSelection, IgnoreRangeForSpellChecking, new DamageFunction(_damageServices.AddDamage));
+                // get the word range to check
+                // MshtmlWordRange wordRange = new MshtmlWordRange(HTMLDocument, checkSelection, IgnoreRangeForSpellChecking, new DamageFunction(_damageServices.AddDamage));
 
-                    //spellCheckerForm.WordIgnored += (sender, args) => OnSpellCheckWordIgnored(wordRange.CurrentWordRange);
+                //spellCheckerForm.WordIgnored += (sender, args) => OnSpellCheckWordIgnored(wordRange.CurrentWordRange);
 
-                    // check spelling
-                    using (undoUnit)
-                    {
-                        //spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
-                        undoUnit.Commit();
-                    }
+                // check spelling
+                using (undoUnit)
+                {
+                    //spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
+                    undoUnit.Commit();
+                }
 
-                    // reselect what was selected previous to spell-checking
-                    if (previousMarkupRange != null)
-                    {
-                        if (previousMarkupRangeCollapsed)
-                            previousMarkupRange.Collapse(true);
+                // reselect what was selected previous to spell-checking
+                if (previousMarkupRange != null)
+                {
+                    if (previousMarkupRangeCollapsed)
+                        previousMarkupRange.Collapse(true);
 
-                        previousMarkupRange.ToTextRange().select();
-                    }
+                    previousMarkupRange.ToTextRange().select();
+                }
 
                 // return completed status
                 fCompleted = true; // spellCheckerForm.Completed;
@@ -3590,7 +3590,7 @@ namespace OpenLiveWriter.HtmlEditor
             finally
             {
                 _isSpellChecking = false;
-            }            
+            }
         }
 
         protected abstract void OnSpellCheckWordIgnored(MarkupRange range);
@@ -3744,7 +3744,7 @@ namespace OpenLiveWriter.HtmlEditor
 
                         // Otherwise, the selection contains text and we'll need to walk through it.
                         selection.WalkRange(
-                            delegate(MarkupRange currentRange, MarkupContext context, string text)
+                            delegate (MarkupRange currentRange, MarkupContext context, string text)
                             {
                                 text = text ?? string.Empty;
                                 if (String.IsNullOrEmpty(text.Trim()))
@@ -3820,7 +3820,7 @@ namespace OpenLiveWriter.HtmlEditor
                                                         MarkupPointerAdjacency.BeforeVisible, PostBodyElement);
 
                 selection.WalkRange(
-                    delegate(MarkupRange currentRange, MarkupContext context, string text)
+                    delegate (MarkupRange currentRange, MarkupContext context, string text)
                     {
                         IHTMLElement currentElement = context.Element;
                         if (currentElement != null && context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_EnterScope)
@@ -3995,7 +3995,7 @@ namespace OpenLiveWriter.HtmlEditor
                                                                                       _ELEMENT_TAG_ID.TAGID_H3,
                                                                                       _ELEMENT_TAG_ID.TAGID_H4,
                                                                                       _ELEMENT_TAG_ID.TAGID_H5,
-                                                                                      _ELEMENT_TAG_ID.TAGID_H6,                            
+                                                                                      _ELEMENT_TAG_ID.TAGID_H6,
                                                                                     };
                                 if (!IsEditFieldSelected)
                                 {
@@ -5140,10 +5140,10 @@ namespace OpenLiveWriter.HtmlEditor
             MarkupPointer beginDamagePointer = startPointer.Clone();
             MarkupPointer endDamagePointer = endPointer.Clone();
             int idx;
-            
+
             MarkupRange bodyRange = MarkupServices.CreateMarkupRange(startPointer, endPointer);
             bodyRange.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                 {
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text &&
                         !String.IsNullOrEmpty(text))
@@ -5183,7 +5183,7 @@ namespace OpenLiveWriter.HtmlEditor
             {
                 bodyRange = MarkupServices.CreateMarkupRange(beginDamagePointer, endPointer);
                 bodyRange.WalkRangeReverse(
-                    delegate(MarkupRange currentRange, MarkupContext context, string text)
+                    delegate (MarkupRange currentRange, MarkupContext context, string text)
                     {
                         if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text &&
                         !String.IsNullOrEmpty(text))

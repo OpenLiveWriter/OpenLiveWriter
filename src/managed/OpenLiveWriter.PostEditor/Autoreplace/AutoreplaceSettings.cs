@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
                 return EnableHyphenReplacement || EnableSmartQuotes || EnableSpecialCharacterReplacement || EnableEmoticonsReplacement;
             }
         }
-        
+
         public static bool EnableHyphenReplacement
         {
             get
@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
 
                 return _enableHyphenReplacement.Value;
             }
-            set 
+            set
             {
                 Settings.SetBoolean(TYPO, value);
                 OnSettingsChanged();

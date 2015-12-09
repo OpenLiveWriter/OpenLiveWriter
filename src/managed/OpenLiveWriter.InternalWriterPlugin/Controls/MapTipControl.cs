@@ -9,95 +9,95 @@ using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.InternalWriterPlugin.Controls
 {
-	internal class MapTipControl : UserControl
-	{
-		private Bitmap _tipIcon ;
+    internal class MapTipControl : UserControl
+    {
+        private Bitmap _tipIcon;
 
-		public MapTipControl()
-		{
-			_tipIcon = ResourceHelper.LoadAssemblyResourceBitmap("Images.TipIcon.png") ;
+        public MapTipControl()
+        {
+            _tipIcon = ResourceHelper.LoadAssemblyResourceBitmap("Images.TipIcon.png");
 
-			//	Turn on double buffered painting.
-			SetStyle(ControlStyles.UserPaint, true);
-			SetStyle(ControlStyles.DoubleBuffer, true);
-			SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-		}
-
-		
-		public string TipText
-		{
-			get
-			{
-				return _tipText;
-			}
-			set
-			{
-				_tipText = value ;
-				Invalidate() ;
-			}
-		}
-		private string _tipText = String.Empty ;
-
-		public bool ShowIcon
-		{
-			get
-			{
-				return _showIcon;
-			}
-			set
-			{
-				_showIcon = value ;
-				Invalidate() ;
-			}
-		}
-		private bool _showIcon = true ;
-
-		public int TextOpacityPct
-		{
-			get
-			{
-				return _textOpacityPct ;
-			}
-			set
-			{
-				_textOpacityPct = value ;
-				Invalidate();
-			}
-		}
-		private int _textOpacityPct = 70 ;
+            //	Turn on double buffered painting.
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+        }
 
 
-		protected override void OnSizeChanged(EventArgs e)
-		{
-			base.OnSizeChanged (e);
+        public string TipText
+        {
+            get
+            {
+                return _tipText;
+            }
+            set
+            {
+                _tipText = value;
+                Invalidate();
+            }
+        }
+        private string _tipText = String.Empty;
 
-			Invalidate();
-		}
+        public bool ShowIcon
+        {
+            get
+            {
+                return _showIcon;
+            }
+            set
+            {
+                _showIcon = value;
+                Invalidate();
+            }
+        }
+        private bool _showIcon = true;
 
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			base.OnPaint (e);
+        public int TextOpacityPct
+        {
+            get
+            {
+                return _textOpacityPct;
+            }
+            set
+            {
+                _textOpacityPct = value;
+                Invalidate();
+            }
+        }
+        private int _textOpacityPct = 70;
 
-			BidiGraphics g = new BidiGraphics(e.Graphics, ClientRectangle) ;
 
-			int textX = 0 ;
-			if ( ShowIcon )
-			{
-				g.DrawImage(false, _tipIcon, new Point(0, (Height/2)-(_tipIcon.Height/2)) );			
-				textX = _tipIcon.Width + 2 ;
-			}
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
 
-			if ( TipText != null )
-			{
-			    TextFormatFlags flags = TextFormatFlags.WordBreak | TextFormatFlags.EndEllipsis;
+            Invalidate();
+        }
 
-				// setup text rect
-				Rectangle textRectangle = new Rectangle(textX, 0, Width-textX-3, Height);
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
 
-				// draw string
-				g.DrawText(TipText, Font, textRectangle, Color.FromArgb(GraphicsHelper.Opacity(TextOpacityPct), ForeColor), flags );	
-			}
+            BidiGraphics g = new BidiGraphics(e.Graphics, ClientRectangle);
 
-		}
-	}
+            int textX = 0;
+            if (ShowIcon)
+            {
+                g.DrawImage(false, _tipIcon, new Point(0, (Height / 2) - (_tipIcon.Height / 2)));
+                textX = _tipIcon.Width + 2;
+            }
+
+            if (TipText != null)
+            {
+                TextFormatFlags flags = TextFormatFlags.WordBreak | TextFormatFlags.EndEllipsis;
+
+                // setup text rect
+                Rectangle textRectangle = new Rectangle(textX, 0, Width - textX - 3, Height);
+
+                // draw string
+                g.DrawText(TipText, Font, textRectangle, Color.FromArgb(GraphicsHelper.Opacity(TextOpacityPct), ForeColor), flags);
+            }
+
+        }
+    }
 }

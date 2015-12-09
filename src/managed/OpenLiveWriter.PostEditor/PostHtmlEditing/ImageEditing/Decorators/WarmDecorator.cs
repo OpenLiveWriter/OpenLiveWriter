@@ -11,37 +11,37 @@ using OpenLiveWriter.Extensibility.ImageEditing;
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
 
-	public abstract class TemperatureDecorator : IImageDecorator
-	{
+    public abstract class TemperatureDecorator : IImageDecorator
+    {
         private readonly float _temperature;
 
         protected TemperatureDecorator(float temperature)
-		{
+        {
             _temperature = temperature;
-		}
+        }
 
-		public void Decorate(ImageDecoratorContext context)
-		{
-			context.Image = Warm(context.Image, _temperature);
-		}
+        public void Decorate(ImageDecoratorContext context)
+        {
+            context.Image = Warm(context.Image, _temperature);
+        }
 
-		protected Bitmap Warm(Bitmap bitmap, float val)
-		{
-			ColorMatrix cm =  new ColorMatrix(new float[][]{
-															   new float[] {1, 0, 0, 0, 0},
-															   new float[] {0, 1, 0, 0, 0},
-															   new float[] {0, 0, 1, 0, 0},
-															   new float[] {0, 0, 0, 1, 0},
-															   new float[] {val, 0, -val, 0, 1}
-														   });
-		    return ImageHelper.ApplyColorMatrix(bitmap, cm);
-		}
+        protected Bitmap Warm(Bitmap bitmap, float val)
+        {
+            ColorMatrix cm = new ColorMatrix(new float[][]{
+                                                               new float[] {1, 0, 0, 0, 0},
+                                                               new float[] {0, 1, 0, 0, 0},
+                                                               new float[] {0, 0, 1, 0, 0},
+                                                               new float[] {0, 0, 0, 1, 0},
+                                                               new float[] {val, 0, -val, 0, 1}
+                                                           });
+            return ImageHelper.ApplyColorMatrix(bitmap, cm);
+        }
 
-		public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
-		{
-			return null;
-		}
-	}
+        public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        {
+            return null;
+        }
+    }
 
     public class CoolestDecorator : TemperatureDecorator
     {

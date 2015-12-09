@@ -6,56 +6,56 @@ using System.Drawing;
 
 namespace OpenLiveWriter.Api
 {
-	/// <summary>
-	/// Specifies whether a feature is supported by a publishing context.
-	/// </summary>
-	public enum SupportsFeature
-	{
-		/// <summary>
-		/// Support for the feature is unknown.
-		/// </summary>
-		Unknown, 
+    /// <summary>
+    /// Specifies whether a feature is supported by a publishing context.
+    /// </summary>
+    public enum SupportsFeature
+    {
+        /// <summary>
+        /// Support for the feature is unknown.
+        /// </summary>
+        Unknown,
 
-		/// <summary>
-		/// The feature is suported.
-		/// </summary>
-		Yes,
- 
-		/// <summary>
-		/// The feature is not supported.
-		/// </summary>
-		No
-	}
-	
-	/// <summary>
-	/// Publishing context for HTML generation.
-	/// </summary>
-	public interface IPublishingContext
-	{
-		/// <summary>
-		/// Unique identifier for account configured for use with Open Live Writer.
-		/// </summary>
-		string AccountId { get; }
-		
-		/// <summary>
-		/// Name of current publishing service (e.g. "WordPress.com")
-		/// </summary>
-		string ServiceName { get; }
-		
-		/// <summary>
-		/// Value indicating whether image uploading is supported by the current publishing context.
-		/// </summary>
-		SupportsFeature SupportsImageUpload { get; } 
-		
-		/// <summary>
-		/// Value indicating whether scripts are supported by the current publishing context.
-		/// </summary>
-		SupportsFeature SupportsScripts { get; }
-		
-		/// <summary>
-		/// Value indicating whether embeds are supported by the current publishing context.
-		/// </summary>
-		SupportsFeature SupportsEmbeds { get; }
+        /// <summary>
+        /// The feature is suported.
+        /// </summary>
+        Yes,
+
+        /// <summary>
+        /// The feature is not supported.
+        /// </summary>
+        No
+    }
+
+    /// <summary>
+    /// Publishing context for HTML generation.
+    /// </summary>
+    public interface IPublishingContext
+    {
+        /// <summary>
+        /// Unique identifier for account configured for use with Open Live Writer.
+        /// </summary>
+        string AccountId { get; }
+
+        /// <summary>
+        /// Name of current publishing service (e.g. "WordPress.com")
+        /// </summary>
+        string ServiceName { get; }
+
+        /// <summary>
+        /// Value indicating whether image uploading is supported by the current publishing context.
+        /// </summary>
+        SupportsFeature SupportsImageUpload { get; }
+
+        /// <summary>
+        /// Value indicating whether scripts are supported by the current publishing context.
+        /// </summary>
+        SupportsFeature SupportsScripts { get; }
+
+        /// <summary>
+        /// Value indicating whether embeds are supported by the current publishing context.
+        /// </summary>
+        SupportsFeature SupportsEmbeds { get; }
 
         /// <summary>
         /// Name of the current publishing account, as entered by the user.
@@ -81,8 +81,8 @@ namespace OpenLiveWriter.Api
         /// The post that is to be published.
         /// </summary>
         IPostInfo PostInfo { get; }
-	}
-	
+    }
+
 
 }
 

@@ -65,7 +65,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             List<ContentSourceInfo> plugins = new List<ContentSourceInfo>(
                 Join(ContentSourceManager.EnabledPublishNotificationPlugins, ContentSourceManager.EnabledHeaderFooterPlugins));
             plugins.Sort(ContentSourceManager.CreateComparison(settings));
-            
+
             listViewPlugins.BeginUpdate();
             try
             {

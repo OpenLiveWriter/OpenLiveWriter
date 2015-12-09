@@ -190,11 +190,11 @@ namespace OpenLiveWriter.PostEditor
                         // Don't include the decimal places if it's just going add ".0";
                         // We allow for up to 1 decimal place, but we don't want to show it
                         // if it is just a zero.                       
-                        double rounded = Math.Round(_currentFontSize, 1, MidpointRounding.AwayFromZero);                        
+                        double rounded = Math.Round(_currentFontSize, 1, MidpointRounding.AwayFromZero);
                         string format = (Math.Truncate(rounded) == rounded) ? "F0" : "F1";
-                        
+
                         return rounded.ToString(format, CultureInfo.InvariantCulture);
-                    }                        
+                    }
 
                     return String.Empty;
                 }
@@ -288,14 +288,14 @@ namespace OpenLiveWriter.PostEditor
                                                                  new ColorPickerColor(Color.FromArgb(255, 0,   0), StringId.ColorVibrantRed),
                                                                  new ColorPickerColor(Color.FromArgb(192, 80,  77), StringId.ColorProfessionalRed),
                                                                  new ColorPickerColor(Color.FromArgb(209, 99,  73), StringId.ColorEarthyRed),
-                                                                 new ColorPickerColor(Color.FromArgb(221, 132, 132), StringId.ColorPastelRed),                                                                 
+                                                                 new ColorPickerColor(Color.FromArgb(221, 132, 132), StringId.ColorPastelRed),
 
                                                                  new ColorPickerColor(Color.FromArgb(204, 204, 204), StringId.ColorLightGray),
                                                                  new ColorPickerColor(Color.FromArgb(255, 192, 0), StringId.ColorVibrantOrange),
-                                                                 new ColorPickerColor(Color.FromArgb(247, 150, 70), StringId.ColorProfessionalOrange),                                                                 
-                                                                 new ColorPickerColor(Color.FromArgb(209, 144, 73), StringId.ColorEarthyOrange),                                                                 
-                                                                 new ColorPickerColor(Color.FromArgb(243, 164, 71), StringId.ColorPastelOrange),                                                                 
-                                                                 
+                                                                 new ColorPickerColor(Color.FromArgb(247, 150, 70), StringId.ColorProfessionalOrange),
+                                                                 new ColorPickerColor(Color.FromArgb(209, 144, 73), StringId.ColorEarthyOrange),
+                                                                 new ColorPickerColor(Color.FromArgb(243, 164, 71), StringId.ColorPastelOrange),
+
                                                                  new ColorPickerColor(Color.FromArgb(165, 165, 165), StringId.ColorMediumGray),
                                                                  new ColorPickerColor(Color.FromArgb(255, 255, 0), StringId.ColorVibrantYellow),
                                                                  new ColorPickerColor(Color.FromArgb(155, 187, 89), StringId.ColorProfessionalGreen),
@@ -600,7 +600,7 @@ namespace OpenLiveWriter.PostEditor
             InitializeCommand(new LTRTextBlockCommand());
             InitializeCommand(new RTLTextBlockCommand());
             InitializeCommand(new InsertLinkCommand());
-            InitializeCommand(new FindCommand());            
+            InitializeCommand(new FindCommand());
             InitializeCommand(new CheckSpellingCommand(_spellingContextDirSource));
             InitializeCommand(new EditLinkCommand());
             InitializeCommand(new RemoveLinkCommand());
@@ -1482,7 +1482,7 @@ namespace OpenLiveWriter.PostEditor
                 get
                 {
                     return Res.Get(StringId.LinkEditHyperlink);
-                }                
+                }
             }
         }
 
@@ -1573,7 +1573,7 @@ namespace OpenLiveWriter.PostEditor
                 Enabled = PostEditor.CanFind;
             }
         }
-        
+
         private class CheckSpellingCommand : TextEditingCommand
         {
             private bool _isExecuting;
@@ -1610,13 +1610,13 @@ namespace OpenLiveWriter.PostEditor
                         {
                             DisplayMessage.Show(MessageId.SpellCheckComplete, Owner);
                         }
-                    }    
+                    }
                 }
                 finally
                 {
                     _isExecuting = false;
                 }
-                                               
+
             }
 
             public override void Manage()

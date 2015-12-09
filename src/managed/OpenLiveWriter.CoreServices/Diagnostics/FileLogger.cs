@@ -101,7 +101,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         {
             FileInfo fileInfo = new FileInfo(logFileName);
 
-            for (; ; )
+            for (;;)
             {
                 LogEntry localHead;
 

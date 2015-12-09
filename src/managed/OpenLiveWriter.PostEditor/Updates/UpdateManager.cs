@@ -15,13 +15,13 @@ using System.Xml;
 namespace OpenLiveWriter.PostEditor.Updates
 {
     public class UpdateManager
-    {       
+    {
         public static DateTime Expires = DateTime.MaxValue;
 
         public static void CheckforUpdates(bool forceCheck = false)
         {
             var checkNow = forceCheck || UpdateSettings.AutoUpdate;
-            var downloadUrl = UpdateSettings.CheckForBetaUpdates ? 
+            var downloadUrl = UpdateSettings.CheckForBetaUpdates ?
                 UpdateSettings.BetaUpdateDownloadUrl : UpdateSettings.UpdateDownloadUrl;
 
             // Schedule Open Live Writer 10 seconds after the launch

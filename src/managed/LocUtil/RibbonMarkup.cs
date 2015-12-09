@@ -4,7 +4,7 @@
 namespace LocUtil
 {
     public static class RibbonMarkup
-    {        
+    {
         public const string XPathPrefix = "ribbon";
         public const string NamespaceUri = "http://schemas.microsoft.com/windows/2009/Ribbon";
         public static class Command

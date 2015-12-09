@@ -5,15 +5,15 @@ using System;
 
 namespace OpenLiveWriter.PostEditor.ContentSources
 {
-	/// <summary>
-	/// Summary description for IHandlesMultipleUrls.
-	/// 
-	/// unpublished interface for internal plugins that can have multiple changing URL Regex's that they match
-	/// 
-	/// object must be quick to instantiate and test
-	/// </summary>
-	public interface IHandlesMultipleUrls
-	{
-		bool HasUrlMatch(string url) ;
-	}
+    /// <summary>
+    /// Summary description for IHandlesMultipleUrls.
+    /// 
+    /// unpublished interface for internal plugins that can have multiple changing URL Regex's that they match
+    /// 
+    /// object must be quick to instantiate and test
+    /// </summary>
+    public interface IHandlesMultipleUrls
+    {
+        bool HasUrlMatch(string url);
+    }
 }

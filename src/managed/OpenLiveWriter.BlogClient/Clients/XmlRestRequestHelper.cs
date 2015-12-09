@@ -257,7 +257,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
 
             public HttpWebRequest Create(string uri)
-            {                                
+            {
                 HttpWebRequest req = HttpRequestHelper.CreateHttpWebRequest(uri, true);
                 _multipartMimeRequestHelper.Init(req);
 
@@ -268,7 +268,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 _multipartMimeRequestHelper.AddXmlRequest(_xmlDoc);
                 _multipartMimeRequestHelper.AddFile(_filename);
                 _multipartMimeRequestHelper.Close();
-                
+
                 using (CancelableStream stream = new CancelableStream(new FileStream(_filename, FileMode.Open, FileAccess.Read, FileShare.Read)))
                 {
                     return _multipartMimeRequestHelper.SendRequest(stream);

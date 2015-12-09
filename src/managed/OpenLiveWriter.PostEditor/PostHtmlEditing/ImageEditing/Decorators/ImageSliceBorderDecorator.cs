@@ -20,8 +20,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
             Rectangle adjustment = AdjustImagePositionAndSize(context);
             Bitmap bitmap = new Bitmap(
-                context.Image.Width + adjustment.Width, 
-                context.Image.Height + adjustment.Height, 
+                context.Image.Width + adjustment.Width,
+                context.Image.Height + adjustment.Height,
                 PixelFormat.Format32bppArgb);
 
             using (Graphics g = Graphics.FromImage(bitmap))

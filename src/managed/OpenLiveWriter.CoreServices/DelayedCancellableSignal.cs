@@ -7,87 +7,87 @@ using System.Threading;
 
 namespace OpenLiveWriter.CoreServices
 {
-	/// <summary>
-	/// Summary description for DelayedCancellableSignal.
-	/// </summary>
-	public class DelayedCancellableSignal
-	{
-		private object lockObj = new object();
-		private long signalTime = long.MaxValue;
-		private double delay;
+    /// <summary>
+    /// Summary description for DelayedCancellableSignal.
+    /// </summary>
+    public class DelayedCancellableSignal
+    {
+        private object lockObj = new object();
+        private long signalTime = long.MaxValue;
+        private double delay;
 
-		public DelayedCancellableSignal(double millisecondsDelayed)
-		{
-			this.delay = millisecondsDelayed;
-		}
+        public DelayedCancellableSignal(double millisecondsDelayed)
+        {
+            this.delay = millisecondsDelayed;
+        }
 
-		public void WaitForQuit()
-		{
-			lock(lockObj)
-			{
-				long nowTicks;
-				while (signalTime - (nowTicks = DateTime.Now.Ticks) > 0)
-				{
-					Trace.Assert(signalTime - nowTicks > 0, "Surprising...");
-					// time to wait
-					long millisToWait = (this.signalTime - nowTicks) / 10000L;
-					millisToWait = Math.Min(millisToWait, (long)Int32.MaxValue);
-					Trace.Assert(millisToWait >= 0, "It couldn't possibly!");
+        public void WaitForQuit()
+        {
+            lock (lockObj)
+            {
+                long nowTicks;
+                while (signalTime - (nowTicks = DateTime.Now.Ticks) > 0)
+                {
+                    Trace.Assert(signalTime - nowTicks > 0, "Surprising...");
+                    // time to wait
+                    long millisToWait = (this.signalTime - nowTicks) / 10000L;
+                    millisToWait = Math.Min(millisToWait, (long)Int32.MaxValue);
+                    Trace.Assert(millisToWait >= 0, "It couldn't possibly!");
 
-					Monitor.Wait(lockObj,  checked((int)millisToWait));
-				}
-			}
-		}
+                    Monitor.Wait(lockObj, checked((int)millisToWait));
+                }
+            }
+        }
 
-		/// <summary>
-		/// Returns how much time remains before the next signal.
-		/// If this value is less than or equal to 0, the signal
-		/// time has passed.
-		/// </summary>
-		public long TimeToWait
-		{
-			get
-			{
-				lock(lockObj)
-				{
-					return signalTime - DateTime.Now.Ticks;
-				}
-			}
-		}
+        /// <summary>
+        /// Returns how much time remains before the next signal.
+        /// If this value is less than or equal to 0, the signal
+        /// time has passed.
+        /// </summary>
+        public long TimeToWait
+        {
+            get
+            {
+                lock (lockObj)
+                {
+                    return signalTime - DateTime.Now.Ticks;
+                }
+            }
+        }
 
-		protected void DoSignal(double delay)
-		{
-			lock(lockObj)
-			{
-				this.signalTime = DateTime.Now.AddMilliseconds(delay).Ticks;
-				Monitor.PulseAll(lockObj);
-			}
-		}
+        protected void DoSignal(double delay)
+        {
+            lock (lockObj)
+            {
+                this.signalTime = DateTime.Now.AddMilliseconds(delay).Ticks;
+                Monitor.PulseAll(lockObj);
+            }
+        }
 
-		public void SignalLater()
-		{
-			Trace.WriteLine("Process Management: Will shut down in " + (new TimeSpan((long)(delay * 10000)).ToString()) + " unless new clients arrive");
-			this.DoSignal(this.delay);
-		}
+        public void SignalLater()
+        {
+            Trace.WriteLine("Process Management: Will shut down in " + (new TimeSpan((long)(delay * 10000)).ToString()) + " unless new clients arrive");
+            this.DoSignal(this.delay);
+        }
 
-		public void SignalNow()
-		{
-			Trace.WriteLine("Shutting down immediately");
-			this.DoSignal(0.0);
-		}
+        public void SignalNow()
+        {
+            Trace.WriteLine("Shutting down immediately");
+            this.DoSignal(0.0);
+        }
 
-		public void CancelAllSignals()
-		{
-			lock(lockObj)
-			{
-				
-				Trace.WriteLine( "New client arrived");
-				this.signalTime = long.MaxValue;
-			}
-		}
+        public void CancelAllSignals()
+        {
+            lock (lockObj)
+            {
 
-		#region deprecated
-		/*
+                Trace.WriteLine("New client arrived");
+                this.signalTime = long.MaxValue;
+            }
+        }
+
+        #region deprecated
+        /*
 		private DateTime lastCancellation = DateTime.MinValue;
 		private ManualResetEvent theLock = new ManualResetEvent(false);
 		private LinkedList timers = new LinkedList();
@@ -130,6 +130,6 @@ namespace OpenLiveWriter.CoreServices
 			lastCancellation = DateTime.Now;
 		}
 		*/
-		#endregion
-	}
+        #endregion
+    }
 }

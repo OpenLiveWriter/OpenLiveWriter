@@ -66,16 +66,16 @@ namespace OpenLiveWriter.Interop.Com
         #region public Methods
 
         private void ZeroOut()
-        {                  
+        {
             valueType = (ushort)VarEnum.VT_EMPTY;
             wReserved1 = wReserved2 = wReserved3 = 0;
             valueData = IntPtr.Zero;
-            valueDataExt = 0;            
+            valueDataExt = 0;
         }
 
         public PropVariant(uint value) : this()
         {
-            ZeroOut();           
+            ZeroOut();
             SetUInt(value);
         }
 
@@ -559,7 +559,7 @@ namespace OpenLiveWriter.Interop.Com
             valueType = (ushort)VarEnum.VT_UI4;
             valueData = (IntPtr)(int)value;
         }
-        
+
         /// <summary>
         /// Set a decimal  value
         /// </summary>

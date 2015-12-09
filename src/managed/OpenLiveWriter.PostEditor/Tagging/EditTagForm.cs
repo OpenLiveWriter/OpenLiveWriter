@@ -14,69 +14,69 @@ using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.PostEditor.Tagging
 {
-	/// <summary>
-	/// Summary description for CreateTagForm.
-	/// </summary>
-	public class EditTagForm : BaseForm
-	{
-		public TagProvider Provider
-		{
-			get
-			{
-				TagProvider provider;
-				if (_id != null)
-					provider = new TagProvider(_id);
-				else
-					provider = new TagProvider();
+    /// <summary>
+    /// Summary description for CreateTagForm.
+    /// </summary>
+    public class EditTagForm : BaseForm
+    {
+        public TagProvider Provider
+        {
+            get
+            {
+                TagProvider provider;
+                if (_id != null)
+                    provider = new TagProvider(_id);
+                else
+                    provider = new TagProvider();
 
-				provider.Name = textBoxName.Text;
-				provider.HtmlFormat = textBoxHtmlFormat.Text;
-				provider.Caption = textBoxCaption.Text;
-				provider.Separator = textBoxSeparator.Text;
-				return provider;
-			}
-			set
-			{
-				_id = value.Id;
-				textBoxName.Text = value.Name;
-				if (value.Name != null && value.Name != string.Empty)
-					Text = string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.TagsEditPattern), value.Name);
-				textBoxCaption.Text = value.Caption;
-				textBoxHtmlFormat.Text = value.HtmlFormat;
-				textBoxSeparator.Text = value.Separator;
-				if (!value.New)
-					_captionDirty = true;
-			}
-		}
+                provider.Name = textBoxName.Text;
+                provider.HtmlFormat = textBoxHtmlFormat.Text;
+                provider.Caption = textBoxCaption.Text;
+                provider.Separator = textBoxSeparator.Text;
+                return provider;
+            }
+            set
+            {
+                _id = value.Id;
+                textBoxName.Text = value.Name;
+                if (value.Name != null && value.Name != string.Empty)
+                    Text = string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.TagsEditPattern), value.Name);
+                textBoxCaption.Text = value.Caption;
+                textBoxHtmlFormat.Text = value.HtmlFormat;
+                textBoxSeparator.Text = value.Separator;
+                if (!value.New)
+                    _captionDirty = true;
+            }
+        }
 
-		private Button buttonOk;
-		private Button buttonCancel;
-		private Label label1;
-		private Label label5;
-		private TextBox textBoxSeparator;
-		private Label labelName;
-		private TextBox textBoxName;
-		private TextBox textBoxHtmlFormat;
-		private Label label4;
-		private TextBox textBoxCaption;
-		private TextBox textBoxPreview;
-		private Label label2;
-		private PictureBox pictureBox1;
-		private HelpProvider helpProviderCreateTag;
-		private string _id;
-		private Panel panelDetails;
+        private Button buttonOk;
+        private Button buttonCancel;
+        private Label label1;
+        private Label label5;
+        private TextBox textBoxSeparator;
+        private Label labelName;
+        private TextBox textBoxName;
+        private TextBox textBoxHtmlFormat;
+        private Label label4;
+        private TextBox textBoxCaption;
+        private TextBox textBoxPreview;
+        private Label label2;
+        private PictureBox pictureBox1;
+        private HelpProvider helpProviderCreateTag;
+        private string _id;
+        private Panel panelDetails;
 
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
-		public EditTagForm()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public EditTagForm()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
             textBoxHtmlFormat.RightToLeft = RightToLeft.No;
             textBoxSeparator.RightToLeft = RightToLeft.No;
@@ -89,34 +89,34 @@ namespace OpenLiveWriter.PostEditor.Tagging
                     textBoxCaption.TextAlign = textBoxPreview.TextAlign = HorizontalAlignment.Right;
             }
 
-			buttonOk.Text = Res.Get(StringId.OKButtonText);
-			buttonCancel.Text = Res.Get(StringId.CancelButton);
-			label1.Text = Res.Get(StringId.TagsHtmlTemplateLabel);
-			helpProviderCreateTag.SetHelpString(textBoxHtmlFormat,
+            buttonOk.Text = Res.Get(StringId.OKButtonText);
+            buttonCancel.Text = Res.Get(StringId.CancelButton);
+            label1.Text = Res.Get(StringId.TagsHtmlTemplateLabel);
+            helpProviderCreateTag.SetHelpString(textBoxHtmlFormat,
                                                 string.Format(CultureInfo.InvariantCulture, Res.Get(StringId.TagsHtmlTemplateHelpString), "{tag}",
-			                                                  "{tag-encoded}"));
-			label5.Text = Res.Get(StringId.TagsHtmlDelimiterLabel);
-			helpProviderCreateTag.SetHelpString(textBoxSeparator, Res.Get(StringId.TagsHtmlDelimiterHelpString));
-			labelName.Text = Res.Get(StringId.TagsProviderNameLabel);
-			helpProviderCreateTag.SetHelpString(textBoxName, Res.Get(StringId.TagsProviderNameHelpString));
-			label4.Text = Res.Get(StringId.TagsHtmlCaptionLabel);
-			helpProviderCreateTag.SetHelpString(textBoxCaption,
+                                                              "{tag-encoded}"));
+            label5.Text = Res.Get(StringId.TagsHtmlDelimiterLabel);
+            helpProviderCreateTag.SetHelpString(textBoxSeparator, Res.Get(StringId.TagsHtmlDelimiterHelpString));
+            labelName.Text = Res.Get(StringId.TagsProviderNameLabel);
+            helpProviderCreateTag.SetHelpString(textBoxName, Res.Get(StringId.TagsProviderNameHelpString));
+            label4.Text = Res.Get(StringId.TagsHtmlCaptionLabel);
+            helpProviderCreateTag.SetHelpString(textBoxCaption,
                                                 string.Format(CultureInfo.InvariantCulture, Res.Get(StringId.TagsHtmlCaptionHelpString), "{tag-group}"));
-			label2.Text = Res.Get(StringId.TagsHtmlPreviewLabel);
-			helpProviderCreateTag.SetHelpString(textBoxPreview, Res.Get(StringId.TagsHtmlPreviewHelpString));
-			Text = Res.Get(StringId.TagsCreateNew);
+            label2.Text = Res.Get(StringId.TagsHtmlPreviewLabel);
+            helpProviderCreateTag.SetHelpString(textBoxPreview, Res.Get(StringId.TagsHtmlPreviewHelpString));
+            Text = Res.Get(StringId.TagsCreateNew);
 
-			LayoutHelper.FixupOKCancel(buttonOk, buttonCancel);
-			SinkEvents();
+            LayoutHelper.FixupOKCancel(buttonOk, buttonCancel);
+            SinkEvents();
 
-		    
-		}
-		
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
 
-		    int origHeight = panelDetails.Height;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            int origHeight = panelDetails.Height;
             using (new AutoGrow(panelDetails, AnchorStyles.Bottom, true))
             {
                 LayoutHelper.NaturalizeHeightAndDistribute(8, panelDetails.Controls);
@@ -135,38 +135,38 @@ namespace OpenLiveWriter.PostEditor.Tagging
 
                 LayoutHelper.NaturalizeHeightAndDistribute(2, label2, textBoxPreview);
             }
-		    Height += panelDetails.Height - origHeight;
-                
+            Height += panelDetails.Height - origHeight;
+
             LayoutHelper.FixupOKCancel(buttonOk, buttonCancel);
-            
-			
-		}
 
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose(bool disposing)
-		{
-			UnSinkEvents();
-			if (disposing)
-			{
-				if (components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose(disposing);
-		}
+        }
 
-		#region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            UnSinkEvents();
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTagForm));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -369,94 +369,94 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.panelDetails.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private bool Valid()
-		{
-			if (textBoxName.Text.Trim() == string.Empty)
-			{
-				DisplayMessage.Show(MessageId.TagProviderNameRequired);
-				textBoxName.Focus();
-				return false;
-			}
+        private bool Valid()
+        {
+            if (textBoxName.Text.Trim() == string.Empty)
+            {
+                DisplayMessage.Show(MessageId.TagProviderNameRequired);
+                textBoxName.Focus();
+                return false;
+            }
 
-			if (textBoxHtmlFormat.Text == string.Empty)
-			{
-				DisplayMessage.Show(MessageId.TagFormatRequired);
-				textBoxHtmlFormat.Focus();
-				return false;
-			}
+            if (textBoxHtmlFormat.Text == string.Empty)
+            {
+                DisplayMessage.Show(MessageId.TagFormatRequired);
+                textBoxHtmlFormat.Focus();
+                return false;
+            }
 
-			if (textBoxCaption.Text.IndexOf(TagProvider.TAG_GROUP_TOKEN) < 0)
-			{
-				DisplayMessage.Show(MessageId.TagMissingToken, TagProvider.TAG_GROUP_TOKEN);
-				textBoxCaption.Focus();
-				return false;
-			}
+            if (textBoxCaption.Text.IndexOf(TagProvider.TAG_GROUP_TOKEN) < 0)
+            {
+                DisplayMessage.Show(MessageId.TagMissingToken, TagProvider.TAG_GROUP_TOKEN);
+                textBoxCaption.Focus();
+                return false;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		private void buttonOk_Click(object sender, EventArgs e)
-		{
-			if (Valid())
-				DialogResult = DialogResult.OK;
-		}
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            if (Valid())
+                DialogResult = DialogResult.OK;
+        }
 
-		private void buttonCancel_Click(object sender, EventArgs e)
-		{
-			DialogResult = DialogResult.Cancel;
-		}
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
 
-		private void SinkEvents()
-		{
-			textBoxCaption.TextChanged += new EventHandler(This_TextChanged);
-			textBoxHtmlFormat.TextChanged += new EventHandler(This_TextChanged);
-			textBoxName.TextChanged += new EventHandler(TextBoxName_TextChanged);
-			textBoxSeparator.TextChanged += new EventHandler(This_TextChanged);
-			textBoxCaption.KeyDown += new KeyEventHandler(textBoxCaption_KeyDown);
-		}
+        private void SinkEvents()
+        {
+            textBoxCaption.TextChanged += new EventHandler(This_TextChanged);
+            textBoxHtmlFormat.TextChanged += new EventHandler(This_TextChanged);
+            textBoxName.TextChanged += new EventHandler(TextBoxName_TextChanged);
+            textBoxSeparator.TextChanged += new EventHandler(This_TextChanged);
+            textBoxCaption.KeyDown += new KeyEventHandler(textBoxCaption_KeyDown);
+        }
 
-		private void UnSinkEvents()
-		{
-			textBoxCaption.TextChanged -= new EventHandler(This_TextChanged);
-			textBoxHtmlFormat.TextChanged -= new EventHandler(This_TextChanged);
-			textBoxName.TextChanged -= new EventHandler(TextBoxName_TextChanged);
-			textBoxSeparator.TextChanged -= new EventHandler(This_TextChanged);
-			textBoxCaption.KeyDown -= new KeyEventHandler(textBoxCaption_KeyDown);
-		}
+        private void UnSinkEvents()
+        {
+            textBoxCaption.TextChanged -= new EventHandler(This_TextChanged);
+            textBoxHtmlFormat.TextChanged -= new EventHandler(This_TextChanged);
+            textBoxName.TextChanged -= new EventHandler(TextBoxName_TextChanged);
+            textBoxSeparator.TextChanged -= new EventHandler(This_TextChanged);
+            textBoxCaption.KeyDown -= new KeyEventHandler(textBoxCaption_KeyDown);
+        }
 
 
-		private void GeneratePreview()
-		{
-			textBoxPreview.Text =
-				Provider.GenerateHtmlForTags(new string[] {Res.Get(StringId.TagsTagExample1), Res.Get(StringId.TagsTagExample2)});
-		}
+        private void GeneratePreview()
+        {
+            textBoxPreview.Text =
+                Provider.GenerateHtmlForTags(new string[] { Res.Get(StringId.TagsTagExample1), Res.Get(StringId.TagsTagExample2) });
+        }
 
-		private void TextBoxName_TextChanged(object sender, EventArgs e)
-		{
-			if (!_captionDirty)
-			{
-				if (_captionText == null)
-					_captionText = textBoxCaption.Text;
-				textBoxCaption.Text = textBoxName.Text + " " + _captionText;
-			}
-			GeneratePreview();
-		}
+        private void TextBoxName_TextChanged(object sender, EventArgs e)
+        {
+            if (!_captionDirty)
+            {
+                if (_captionText == null)
+                    _captionText = textBoxCaption.Text;
+                textBoxCaption.Text = textBoxName.Text + " " + _captionText;
+            }
+            GeneratePreview();
+        }
 
-		private void This_TextChanged(object sender, EventArgs e)
-		{
-			GeneratePreview();
-		}
+        private void This_TextChanged(object sender, EventArgs e)
+        {
+            GeneratePreview();
+        }
 
-		private bool _captionDirty = false;
-		private string _captionText = null;
+        private bool _captionDirty = false;
+        private string _captionText = null;
 
-		private void textBoxCaption_KeyDown(object sender, KeyEventArgs e)
-		{
-			_captionDirty = true;
-		}
-	}
+        private void textBoxCaption_KeyDown(object sender, KeyEventArgs e)
+        {
+            _captionDirty = true;
+        }
+    }
 }

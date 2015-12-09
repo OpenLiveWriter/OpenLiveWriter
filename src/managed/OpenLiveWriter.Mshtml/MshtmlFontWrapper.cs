@@ -47,7 +47,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         public string ApplyFont(string text)
-        {           
+        {
             if (ValidFont)
                 return string.Format(CultureInfo.InvariantCulture, HtmlWrap, text);
             else
@@ -63,7 +63,7 @@ namespace OpenLiveWriter.Mshtml
 
         public string ApplyFontToBody(string bodyInnerHtml)
         {
-            return String.Format(CultureInfo.InvariantCulture, @"<div style=""font-family:'{0}';font-size:{1}pt;color:{2};"">{3}</div>", 
+            return String.Format(CultureInfo.InvariantCulture, @"<div style=""font-family:'{0}';font-size:{1}pt;color:{2};"">{3}</div>",
                 FontFamily,     // {0}
                 FontPointSize,  // {1}
                 FontColor,      // {2}
@@ -87,7 +87,7 @@ namespace OpenLiveWriter.Mshtml
                 ValidFont = false;
                 return;
             }
-          
+
             start.Append("<DIV STYLE=\"");
             end.Insert(0, "</DIV>");
 
@@ -127,7 +127,7 @@ namespace OpenLiveWriter.Mshtml
                     start.Append("color:");
                     start.Append(FontColor);
                     start.Append(";");
-                    
+
                 }
                 catch (ArgumentException e) // Invalid color
                 {

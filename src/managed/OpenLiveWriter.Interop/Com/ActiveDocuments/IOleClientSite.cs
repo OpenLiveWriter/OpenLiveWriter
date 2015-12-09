@@ -6,32 +6,32 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace OpenLiveWriter.Interop.Com.ActiveDocuments
 {
-	/// <summary>
-	///
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("00000118-0000-0000-C000-000000000046")] 
-	public interface IOleClientSite
-	{		
-		void SaveObject();
+    /// <summary>
+    ///
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("00000118-0000-0000-C000-000000000046")]
+    public interface IOleClientSite
+    {
+        void SaveObject();
 
-		[PreserveSig]
-		int GetMoniker(
-			[In] OLEGETMONIKER dwAssign, 
-			[In] OLEWHICHMK dwWhichMoniker, 
-			[Out] out IMoniker ppmk);
+        [PreserveSig]
+        int GetMoniker(
+            [In] OLEGETMONIKER dwAssign,
+            [In] OLEWHICHMK dwWhichMoniker,
+            [Out] out IMoniker ppmk);
 
-		[PreserveSig]
-		int GetContainer(
-			[Out] out IOleContainer ppContainer);
+        [PreserveSig]
+        int GetContainer(
+            [Out] out IOleContainer ppContainer);
 
-		void ShowObject();
+        void ShowObject();
 
-		void OnShowWindow(
-			[In, MarshalAs(UnmanagedType.Bool)] bool fShow);
+        void OnShowWindow(
+            [In, MarshalAs(UnmanagedType.Bool)] bool fShow);
 
-		[PreserveSig]
-		int RequestNewObjectLayout();
-	}
+        [PreserveSig]
+        int RequestNewObjectLayout();
+    }
 }

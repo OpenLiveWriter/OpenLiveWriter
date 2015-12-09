@@ -331,7 +331,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // 
             // panelRadioButtons
             // 
-            this.panelRadioButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelRadioButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRadioButtons.Controls.Add(this.radioButtonWordpress);
             this.panelRadioButtons.Controls.Add(this.radioButtonSharePoint);
@@ -388,7 +388,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // 
             // comboBoxSelectWeblogType
             // 
-            this.comboBoxSelectWeblogType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxSelectWeblogType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSelectWeblogType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectWeblogType.Location = new System.Drawing.Point(0, 0);

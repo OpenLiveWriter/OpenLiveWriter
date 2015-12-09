@@ -4,7 +4,7 @@
 using System;
 using System.Drawing.Imaging;
 using System.Globalization;
-using System.Threading ;
+using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
 using OpenLiveWriter.Interop.Windows;
@@ -13,37 +13,37 @@ using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.CoreServices
 {
-	/// <summary>
-	/// Summary description for SplashScreen.
-	/// </summary>
-	public class SplashScreen : BaseForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for SplashScreen.
+    /// </summary>
+    public class SplashScreen : BaseForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		/// <summary>
-		/// Background image
-		/// </summary>
-		private Bitmap _backgroundImage ;
-		private Bitmap _logoImage ;
+        /// <summary>
+        /// Background image
+        /// </summary>
+        private Bitmap _backgroundImage;
+        private Bitmap _logoImage;
 
-		public SplashScreen()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public SplashScreen()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			//	Turn off CS_CLIPCHILDREN.
-			User32.SetWindowLong(Handle, GWL.STYLE, User32.GetWindowLong(Handle, GWL.STYLE) & ~WS.CLIPCHILDREN);
+            //	Turn off CS_CLIPCHILDREN.
+            User32.SetWindowLong(Handle, GWL.STYLE, User32.GetWindowLong(Handle, GWL.STYLE) & ~WS.CLIPCHILDREN);
 
-			//	Turn on double buffered painting.
-			SetStyle(ControlStyles.UserPaint, true);
-			SetStyle(ControlStyles.DoubleBuffer, true);
+            //	Turn on double buffered painting.
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
             if (!BidiHelper.IsRightToLeft)
-			    SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+                SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
             _backgroundImage = new Bitmap(this.GetType(), "Images.SplashScreen.png");
             _logoImage = new Bitmap(this.GetType(), "Images.SplashScreenLogo.jpg");
@@ -53,23 +53,23 @@ namespace OpenLiveWriter.CoreServices
                 ImageHelper.ConvertToHighContrast(_backgroundImage);
                 ImageHelper.ConvertToHighContrast(_logoImage);
             }
-		}
+        }
 
 
-		private const int WS_EX_TOOLWINDOW= 0x00000080; 
-		private const int WS_EX_APPWINDOW=0x00040000; 
-		private const int WS_EX_LAYERED=0x00080000; 
-		protected override CreateParams CreateParams 
-		{ 
-			get 
-			{ 
-				CreateParams cp=base.CreateParams;
-			    cp.ExStyle &= ~WS_EX_APPWINDOW; 
-				cp.ExStyle |= WS_EX_TOOLWINDOW;
-			    cp.ExStyle |= WS_EX_LAYERED;
-				return cp; 
-			} 
-		}
+        private const int WS_EX_TOOLWINDOW = 0x00000080;
+        private const int WS_EX_APPWINDOW = 0x00040000;
+        private const int WS_EX_LAYERED = 0x00080000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle &= ~WS_EX_APPWINDOW;
+                cp.ExStyle |= WS_EX_TOOLWINDOW;
+                cp.ExStyle |= WS_EX_LAYERED;
+                return cp;
+            }
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -135,8 +135,8 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-		private Bitmap CreateBitmap()
-		{
+        private Bitmap CreateBitmap()
+        {
             Bitmap bitmap = new Bitmap(_backgroundImage.Width, _backgroundImage.Height, PixelFormat.Format32bppArgb);
             using (Graphics graphics = Graphics.FromImage(bitmap))
             {
@@ -159,7 +159,7 @@ namespace OpenLiveWriter.CoreServices
                 {
                     const int TEXT_PADDING_H = 36;
                     const int TEXT_PADDING_V = 26;
-                    int textWidth = Size.Width - 2*TEXT_PADDING_H;
+                    int textWidth = Size.Width - 2 * TEXT_PADDING_H;
                     int textHeight =
                         Convert.ToInt32(
                             g.MeasureText(splashText, font, new Size(textWidth, 0), TextFormatFlags.WordBreak).Height,
@@ -194,95 +194,95 @@ namespace OpenLiveWriter.CoreServices
                     }
                 }
             }
-		    return bitmap;
-		}
+            return bitmap;
+        }
 
-	
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			// 
-			// SplashScreen
-			// 
-		    this.AutoScaleMode = AutoScaleMode.None;
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
-			this.ClientSize = new System.Drawing.Size(380, 235);
-			this.Cursor = Cursors.AppStarting;
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			this.Name = "SplashScreen";
-		    //if this inherits Yes from the parent the screenshot of the background is reversed
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            // 
+            // SplashScreen
+            // 
+            this.AutoScaleMode = AutoScaleMode.None;
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
+            this.ClientSize = new System.Drawing.Size(380, 235);
+            this.Cursor = Cursors.AppStarting;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "SplashScreen";
+            //if this inherits Yes from the parent the screenshot of the background is reversed
             this.RightToLeftLayout = false;
             this.ShowInTaskbar = false;
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-		}
-		#endregion
-	}
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+        }
+        #endregion
+    }
 
-	
-	/// <summary>
-	/// Implementation of a splash screen connected to a form
-	/// </summary>
-	public class FormSplashScreen : IDisposable
-	{
-		public FormSplashScreen(Form form)
-		{
-			this.form = form;
-		}
 
-		public Form Form
-		{
-			get { return form; }
-		}
+    /// <summary>
+    /// Implementation of a splash screen connected to a form
+    /// </summary>
+    public class FormSplashScreen : IDisposable
+    {
+        public FormSplashScreen(Form form)
+        {
+            this.form = form;
+        }
 
-		/// <summary>
-		/// Close the form (do it only once and defend against exceptions
-		/// occuring during close/dispose)
-		/// </summary>
-		public void Dispose()
-		{
-			if ( form != null )
-			{
-				if (form.InvokeRequired)
-				{
-					form.BeginInvoke(new ThreadStart(Dispose));
-				}
-				else
-				{
-					try
-					{
-						form.Close();
-						form.Dispose();
-					}
-					finally
-					{
-						form = null;
-					}
-				}
-			}
-		}
+        public Form Form
+        {
+            get { return form; }
+        }
 
-		/// <summary>
-		/// Form instance
-		/// </summary>
-		private Form form ;
-	}
+        /// <summary>
+        /// Close the form (do it only once and defend against exceptions
+        /// occuring during close/dispose)
+        /// </summary>
+        public void Dispose()
+        {
+            if (form != null)
+            {
+                if (form.InvokeRequired)
+                {
+                    form.BeginInvoke(new ThreadStart(Dispose));
+                }
+                else
+                {
+                    try
+                    {
+                        form.Close();
+                        form.Dispose();
+                    }
+                    finally
+                    {
+                        form = null;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Form instance
+        /// </summary>
+        private Form form;
+    }
 }

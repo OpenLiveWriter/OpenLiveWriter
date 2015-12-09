@@ -3,12 +3,12 @@
 
 using System.Text;
 using System.Text.RegularExpressions;
-using mshtml ;
+using mshtml;
 using OpenLiveWriter.HtmlParser.Parser;
 
 namespace OpenLiveWriter.CoreServices.HTML
 {
-	/*
+    /*
 		HTML enters the PostEditor "from the wild" in 4 ways:
 		
 		- HTML marshalling (HtmlHandler.DoInsertData). This entry point calls the HtmlGenerationService
@@ -27,62 +27,62 @@ namespace OpenLiveWriter.CoreServices.HTML
 		  that they retreive "from the wild".
 	*/
 
-	public class HtmlCleaner
-	{
+    public class HtmlCleaner
+    {
 
-		public static string RemoveScripts(string html)
-		{
-			return UnsafeHtmlFragmentHelper.SterilizeHtml(html, UnsafeHtmlFragmentHelper.Flag.RemoveDocumentTags | UnsafeHtmlFragmentHelper.Flag.RemoveScriptTags | UnsafeHtmlFragmentHelper.Flag.RemoveScriptAttributes );
-		}
+        public static string RemoveScripts(string html)
+        {
+            return UnsafeHtmlFragmentHelper.SterilizeHtml(html, UnsafeHtmlFragmentHelper.Flag.RemoveDocumentTags | UnsafeHtmlFragmentHelper.Flag.RemoveScriptTags | UnsafeHtmlFragmentHelper.Flag.RemoveScriptAttributes);
+        }
 
-		/// <summary>
-		/// Standard HTML cleanup for inbound HTML to the post editor
-		/// </summary>
-		/// <param name="html"></param>
-		/// <returns></returns>
-		public static string CleanupHtml(string html, string baseUrl, bool preserveImages, bool preserveTables)
-		{
+        /// <summary>
+        /// Standard HTML cleanup for inbound HTML to the post editor
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static string CleanupHtml(string html, string baseUrl, bool preserveImages, bool preserveTables)
+        {
             return CleanupHtml(html, baseUrl, preserveImages, false, preserveTables);
-		}
-		
-		public static string CleanupHtml(string html, string baseUrl, bool preserveImages, bool strip, bool preserveTables)
-		{
-			// sterilize the HTML 
-			html = UnsafeHtmlFragmentHelper.SterilizeHtml(html, UnsafeHtmlFragmentHelper.Flag.AllFlags ^ UnsafeHtmlFragmentHelper.Flag.RemoveStyles);
+        }
 
-			html = StripNamespacedTags(html);
+        public static string CleanupHtml(string html, string baseUrl, bool preserveImages, bool strip, bool preserveTables)
+        {
+            // sterilize the HTML 
+            html = UnsafeHtmlFragmentHelper.SterilizeHtml(html, UnsafeHtmlFragmentHelper.Flag.AllFlags ^ UnsafeHtmlFragmentHelper.Flag.RemoveStyles);
 
-			// get the text into a DOM to ensure tags are balanced
-			IHTMLDocument2 document = HTMLDocumentHelper.StringToHTMLDoc( html, null, false ) ;		
-		  
-			if (document.body == null)
-				return string.Empty;
+            html = StripNamespacedTags(html);
 
-			// thin it
-		    if (preserveTables)
-		        html = LightWeightHTMLThinner2.Thin(document.body.innerHTML, preserveImages, strip, LightWeightHTMLThinner2.PreserveTables);
-		    else
-		        html = LightWeightHTMLThinner2.Thin(document.body.innerHTML, preserveImages, strip);
-		    html = LightWeightHTMLUrlToAbsolute.ConvertToAbsolute(html, baseUrl, false, true, true);
-				
-		    // balance it
-		    string balancedHtml = HTMLBalancer.Balance(html);
+            // get the text into a DOM to ensure tags are balanced
+            IHTMLDocument2 document = HTMLDocumentHelper.StringToHTMLDoc(html, null, false);
 
-		    // return 
-		    return balancedHtml ;
-		}
+            if (document.body == null)
+                return string.Empty;
 
-	    public static string PreserveFormatting(string html, string baseUrl)
-	    {
-	        UnsafeHtmlFragmentHelper.Flag flags = UnsafeHtmlFragmentHelper.Flag.RemoveDocumentTags |
-	                                              UnsafeHtmlFragmentHelper.Flag.RemoveScriptTags |
-	                                              UnsafeHtmlFragmentHelper.Flag.RemoveScriptAttributes |
-	                                              UnsafeHtmlFragmentHelper.Flag.RemoveMarkupDirectives |
-	                                              UnsafeHtmlFragmentHelper.Flag.RemoveComments;
-	        html = UnsafeHtmlFragmentHelper.SterilizeHtml(html, flags);
-	        html = LightWeightHTMLUrlToAbsolute.ConvertToAbsolute(html, baseUrl, false, true, true);
-	        return html;
-	    }
+            // thin it
+            if (preserveTables)
+                html = LightWeightHTMLThinner2.Thin(document.body.innerHTML, preserveImages, strip, LightWeightHTMLThinner2.PreserveTables);
+            else
+                html = LightWeightHTMLThinner2.Thin(document.body.innerHTML, preserveImages, strip);
+            html = LightWeightHTMLUrlToAbsolute.ConvertToAbsolute(html, baseUrl, false, true, true);
+
+            // balance it
+            string balancedHtml = HTMLBalancer.Balance(html);
+
+            // return 
+            return balancedHtml;
+        }
+
+        public static string PreserveFormatting(string html, string baseUrl)
+        {
+            UnsafeHtmlFragmentHelper.Flag flags = UnsafeHtmlFragmentHelper.Flag.RemoveDocumentTags |
+                                                  UnsafeHtmlFragmentHelper.Flag.RemoveScriptTags |
+                                                  UnsafeHtmlFragmentHelper.Flag.RemoveScriptAttributes |
+                                                  UnsafeHtmlFragmentHelper.Flag.RemoveMarkupDirectives |
+                                                  UnsafeHtmlFragmentHelper.Flag.RemoveComments;
+            html = UnsafeHtmlFragmentHelper.SterilizeHtml(html, flags);
+            html = LightWeightHTMLUrlToAbsolute.ConvertToAbsolute(html, baseUrl, false, true, true);
+            return html;
+        }
 
         /// <summary>
         /// Namespaced tags come with Office 2007 clipboard data and result in weird
@@ -92,7 +92,7 @@ namespace OpenLiveWriter.CoreServices.HTML
         {
             StringBuilder output = new StringBuilder(html.Length);
             SimpleHtmlParser parser = new SimpleHtmlParser(html);
-            for (Element el; null != (el = parser.Next()); )
+            for (Element el; null != (el = parser.Next());)
             {
                 if (el is Tag && ((Tag)el).Name.IndexOf(':') >= 0)
                     continue;
@@ -110,7 +110,7 @@ namespace OpenLiveWriter.CoreServices.HTML
         {
             StringBuilder output = new StringBuilder(html.Length);
             SimpleHtmlParser parser = new SimpleHtmlParser(html);
-            for (Element el; null != (el = parser.Next()); )
+            for (Element el; null != (el = parser.Next());)
             {
                 if (el is Tag && ((Tag)el).Name.IndexOf(':') >= 0)
                     continue;

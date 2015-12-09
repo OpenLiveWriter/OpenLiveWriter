@@ -17,5 +17,5 @@ namespace OpenLiveWriter.ApplicationFramework
         //FontPropertiesVerticalPositioning
         int ForegroundColor { get; }
         int BackgroundColor { get; }
-    }      
+    }
 }

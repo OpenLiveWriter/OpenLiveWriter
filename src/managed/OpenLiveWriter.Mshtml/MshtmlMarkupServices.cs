@@ -363,7 +363,7 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="p"></param>
         public void MoveDisplayPointerToMarkupPointer(IDisplayPointerRaw displayPointer, MarkupPointer p)
         {
-            DisplayServices.TraceMoveToMarkupPointer(displayPointer, p);            
+            DisplayServices.TraceMoveToMarkupPointer(displayPointer, p);
         }
 
         /// <summary>

@@ -46,28 +46,28 @@ namespace OpenLiveWriter.CoreServices
         public static bool IsErrorCodeNetworkRelated(int hresult)
         {
             int[] NET_CODES =
-				{
-					0x0040, // network name no longer available
+                {
+                    0x0040, // network name no longer available
 					0x0035, // bad net path
 					0x0033, // ERROR_REM_NOT_LIST
 					0x0036, // network busy
 					0x0037, // DEV_NOT_EXIST
 					// see http://msdn.microsoft.com/library/en-us/debug/base/system_error_codes__1000-1299_.asp
 					1203,
-					1222,
-					1225,
-					1226,
-					1227,
-					1228,
-					1229,
-					1230,
-					1231,
-					1232,
-					1233,
-					1234,
-					1235,
-					1236,
-				};
+                    1222,
+                    1225,
+                    1226,
+                    1227,
+                    1228,
+                    1229,
+                    1230,
+                    1231,
+                    1232,
+                    1233,
+                    1234,
+                    1235,
+                    1236,
+                };
 
             foreach (int code in NET_CODES)
             {
@@ -767,7 +767,7 @@ namespace OpenLiveWriter.CoreServices
             //then just generate a guid.
             // WinLive 272918: Make sure there is at least one alphanumeric character.
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            if (fileNameWithoutExtension == String.Empty || 
+            if (fileNameWithoutExtension == String.Empty ||
                 !ArrayHelper.Any(fileNameWithoutExtension.ToCharArray(), c => Char.IsLetterOrDigit(c)))
             {
                 string ext = Path.GetExtension(fileName);

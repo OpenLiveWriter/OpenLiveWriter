@@ -28,5 +28,5 @@ namespace OpenLiveWriter.Interop.Com
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         int Commit();
-    }       
+    }
 }

@@ -21,9 +21,9 @@ namespace OpenLiveWriter.PostEditor
         /// </summary>
         /// <param name="commandManager"></param>
         protected void InitializeAlignmentMarginCommands(CommandManager commandManager)
-        {            
-            _marginCommand = (MarginCommand)commandManager.Get(CommandId.MarginsGroup);                        
-            _alignmentCommand = (AlignmentCommand)commandManager.Get(CommandId.AlignmentGallery);                        
+        {
+            _marginCommand = (MarginCommand)commandManager.Get(CommandId.MarginsGroup);
+            _alignmentCommand = (AlignmentCommand)commandManager.Get(CommandId.AlignmentGallery);
         }
 
         protected override void OnSelectedContentChanged()
@@ -34,9 +34,9 @@ namespace OpenLiveWriter.PostEditor
         }
 
         public override void UnloadEditor()
-        {            
+        {
             _marginCommand.MarginChanged -= OnMarginChanged;
-            _alignmentCommand.AlignmentChanged -= OnAlignmentChanged;    
+            _alignmentCommand.AlignmentChanged -= OnAlignmentChanged;
             base.UnloadEditor();
         }
 
@@ -53,7 +53,7 @@ namespace OpenLiveWriter.PostEditor
         {
             _marginCommand.SetMargin(margin);
             _alignmentCommand.SetAlignment(alignment);
-        }        
+        }
 
         /// <summary>
         /// Implemented by inheriting classes to be notified of margin changes
@@ -64,7 +64,7 @@ namespace OpenLiveWriter.PostEditor
         {
             // Changing the right or left margins on center aligned smart content resets the alignment.
             if ((_marginCommand.Right > 0 || _marginCommand.Left > 0) && this._alignmentCommand.SelectedItem == Alignment.Center)
-                _alignmentCommand.SelectedItem = Alignment.None;           
+                _alignmentCommand.SelectedItem = Alignment.None;
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace OpenLiveWriter.PostEditor
             set
             {
                 base.ContentEnabled = value;
-                _marginCommand.Enabled = value;                                
+                _marginCommand.Enabled = value;
                 _alignmentCommand.Enabled = value;
                 if (value)
                 {
@@ -95,11 +95,11 @@ namespace OpenLiveWriter.PostEditor
                     _alignmentCommand.AlignmentChanged += OnAlignmentChanged;
                 }
             }
-        }        
+        }
     }
 
     public class EnableableSmartContentEditor : SmartContentEditor
-    {        
+    {
         private bool _contentEnabled = false;
 
         public virtual bool ContentEnabled

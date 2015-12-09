@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         protected override int[] SliceLines
         {
-            get { return new int[] {45, 57, 45, 53}; }
+            get { return new int[] { 45, 57, 45, 53 }; }
         }
 
         protected override Rectangle AdjustImagePositionAndSize(ImageDecoratorContext context)

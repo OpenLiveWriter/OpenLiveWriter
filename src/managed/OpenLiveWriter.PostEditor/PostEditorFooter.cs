@@ -135,7 +135,7 @@ namespace OpenLiveWriter.PostEditor
             if (!((ViewSwitchTabControl)sender).Selected)
                 return;
 
-            int selectedIndex = tabs.IndexOf((ViewSwitchTabControl) sender);
+            int selectedIndex = tabs.IndexOf((ViewSwitchTabControl)sender);
 
             for (int i = 0; i < tabs.Count; i++)
             {
@@ -150,7 +150,7 @@ namespace OpenLiveWriter.PostEditor
 
         void tab_Click(object sender, EventArgs e)
         {
-            int index = tabs.IndexOf((ViewSwitchTabControl) sender);
+            int index = tabs.IndexOf((ViewSwitchTabControl)sender);
             SelectTab(index);
         }
 

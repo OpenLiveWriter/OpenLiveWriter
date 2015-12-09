@@ -17,59 +17,59 @@ using System.Text;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	public class AboutForm : ApplicationDialog
-	{
-		/// <summary>
-		/// Form fields.
-		/// </summary>
-		private Label labelCopyright;
-		private Button buttonOK;
-		private PictureBox pictureBoxLogo;
-		private Label labelProduct;
-		private Label labelVersion;
-		private System.Windows.Forms.LinkLabel lnkShowLogFile;
-		private Label labelConfigVersion;
-		private TextBox copyrightTextbox;
 
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+    public class AboutForm : ApplicationDialog
+    {
+        /// <summary>
+        /// Form fields.
+        /// </summary>
+        private Label labelCopyright;
+        private Button buttonOK;
+        private PictureBox pictureBoxLogo;
+        private Label labelProduct;
+        private Label labelVersion;
+        private System.Windows.Forms.LinkLabel lnkShowLogFile;
+        private Label labelConfigVersion;
+        private TextBox copyrightTextbox;
 
-		// Copyright notices are not to be localized.
-		string[] credits = {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+
+        // Copyright notices are not to be localized.
+        string[] credits = {
 			/* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
 			/* Brian Lambert */ "Portions Copyright © 2003 Brian Lambert, used with permission of the author under the MIT License.",
         };
 
-		public AboutForm()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
-			
-			labelProduct.Font = Res.GetFont(FontSize.XXLarge, FontStyle.Regular);
-			buttonOK.Text = Res.Get(StringId.OKButtonText);
-			labelVersion.Text = Res.Get(StringId.AboutVersion);
+        public AboutForm()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			labelCopyright.Text = Res.Get(StringId.AboutCopyright);
-			
-			lnkShowLogFile.Text = Res.Get(StringId.ShowLogFile);
-			lnkShowLogFile.Refresh();
-			
-			//	Piece of crap designer.
-			Bitmap aboutBoxImage = ResourceHelper.LoadAssemblyResourceBitmap("Images.AboutBoxImageSmall.png");
-			pictureBoxLogo = new PictureBox();
-			pictureBoxLogo.Bounds = new Rectangle(7, 16, aboutBoxImage.Width, aboutBoxImage.Height);
-			pictureBoxLogo.Image = aboutBoxImage;
-		    pictureBoxLogo.RightToLeft = RightToLeft.No;
-			Controls.Add(pictureBoxLogo);
-			
-            
-			//	Set the dialog text.
-			Text = TextHelper.StripHotkey(String.Format( CultureInfo.CurrentCulture, Res.Get(StringId.AboutAbout), ApplicationEnvironment.ProductNameQualified ));
+            labelProduct.Font = Res.GetFont(FontSize.XXLarge, FontStyle.Regular);
+            buttonOK.Text = Res.Get(StringId.OKButtonText);
+            labelVersion.Text = Res.Get(StringId.AboutVersion);
+
+            labelCopyright.Text = Res.Get(StringId.AboutCopyright);
+
+            lnkShowLogFile.Text = Res.Get(StringId.ShowLogFile);
+            lnkShowLogFile.Refresh();
+
+            //	Piece of crap designer.
+            Bitmap aboutBoxImage = ResourceHelper.LoadAssemblyResourceBitmap("Images.AboutBoxImageSmall.png");
+            pictureBoxLogo = new PictureBox();
+            pictureBoxLogo.Bounds = new Rectangle(7, 16, aboutBoxImage.Width, aboutBoxImage.Height);
+            pictureBoxLogo.Image = aboutBoxImage;
+            pictureBoxLogo.RightToLeft = RightToLeft.No;
+            Controls.Add(pictureBoxLogo);
+
+
+            //	Set the dialog text.
+            Text = TextHelper.StripHotkey(String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.AboutAbout), ApplicationEnvironment.ProductNameQualified));
 #if DEBUG
             string displayVersion = ApplicationEnvironment.ProductDisplayVersion + " " + CultureInfo.CurrentUICulture;
 #else
@@ -77,29 +77,29 @@ namespace OpenLiveWriter.PostEditor
 #endif
 
             labelProduct.Text = ApplicationEnvironment.ProductNameVersioned;
-			labelVersion.Text = String.Format( CultureInfo.CurrentCulture, labelVersion.Text, displayVersion);
+            labelVersion.Text = String.Format(CultureInfo.CurrentCulture, labelVersion.Text, displayVersion);
 
-		    Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
             labelConfigVersion.Text = String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.AboutConfigurationVersion), version);
-		    labelConfigVersion.Visible = false;
-		    
-			copyrightTextbox.Font = Res.GetFont(FontSize.Small, FontStyle.Regular);
-			StringBuilder strCredits = new StringBuilder();
-			
-			foreach (string str in credits)
-			{
-                strCredits.AppendFormat("{0}\r\n\r\n", str);
-			}			
-			copyrightTextbox.Text = strCredits.ToString().TrimEnd();
-		    copyrightTextbox.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.CopyrightInformation));
+            labelConfigVersion.Visible = false;
 
-			//	Drive focus down to the OK button.
-			buttonOK.Focus();
-		}
-		
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
+            copyrightTextbox.Font = Res.GetFont(FontSize.Small, FontStyle.Regular);
+            StringBuilder strCredits = new StringBuilder();
+
+            foreach (string str in credits)
+            {
+                strCredits.AppendFormat("{0}\r\n\r\n", str);
+            }
+            copyrightTextbox.Text = strCredits.ToString().TrimEnd();
+            copyrightTextbox.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.CopyrightInformation));
+
+            //	Drive focus down to the OK button.
+            buttonOK.Focus();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             using (new AutoGrow(this, AnchorStyles.Bottom | AnchorStyles.Right, true))
             {
@@ -107,7 +107,7 @@ namespace OpenLiveWriter.PostEditor
                 labelProduct.Left = pictureBoxLogo.Right + 10;
                 labelVersion.Left = pictureBoxLogo.Right + 10;
                 LayoutHelper.NaturalizeHeight(labelProduct);
-                labelProduct.Top = pictureBoxLogo.Top + (pictureBoxLogo.Height/2) - labelProduct.Height;
+                labelProduct.Top = pictureBoxLogo.Top + (pictureBoxLogo.Height / 2) - labelProduct.Height;
                 LayoutHelper.DistributeVertically(15, false, labelProduct, labelVersion);
                 LayoutHelper.NaturalizeHeightAndDistribute(8, labelVersion, labelCopyright);
 
@@ -115,32 +115,32 @@ namespace OpenLiveWriter.PostEditor
 
                 DisplayHelper.AutoFitSystemButton(buttonOK, buttonOK.Width, int.MaxValue);
             }
-		}
+        }
 
-		
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.labelProduct = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
@@ -252,35 +252,35 @@ namespace OpenLiveWriter.PostEditor
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		/// <summary>
-		/// Shows the AboutForm.
-		/// </summary>
-		/// <returns>The DialogResult.</returns>
-		public static DialogResult DisplayDialog()
-		{
-			using ( new WaitCursor() )
-			{
-				using (AboutForm aboutForm = new AboutForm())
-					return aboutForm.ShowDialog(Win32WindowImpl.ForegroundWin32Window);
-			}
-		}
+        /// <summary>
+        /// Shows the AboutForm.
+        /// </summary>
+        /// <returns>The DialogResult.</returns>
+        public static DialogResult DisplayDialog()
+        {
+            using (new WaitCursor())
+            {
+                using (AboutForm aboutForm = new AboutForm())
+                    return aboutForm.ShowDialog(Win32WindowImpl.ForegroundWin32Window);
+            }
+        }
 
-		/// <summary>
-		/// buttonOK_Click event handler.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">An EventArgs that contains the event data.</param>
-		private void buttonOK_Click(object sender, EventArgs e)
-		{
-			DialogResult = DialogResult.OK;
-		}
+        /// <summary>
+        /// buttonOK_Click event handler.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+        }
 
-		private void lnkShowLogFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
+        private void lnkShowLogFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
             Process.Start("explorer.exe", string.Format(CultureInfo.InvariantCulture, "/select,\"{0}\"", ApplicationEnvironment.LogFilePath));
-		}
+        }
     }
 }

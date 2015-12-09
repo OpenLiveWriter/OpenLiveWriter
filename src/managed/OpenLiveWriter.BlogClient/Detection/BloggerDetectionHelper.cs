@@ -31,7 +31,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             HtmlExtractor ex = new HtmlExtractor(html);
             while (ex.Seek("<link href rel='service.post' type='application/atom+xml'>").Success)
             {
-                BeginTag bt = (BeginTag) ex.Element;
+                BeginTag bt = (BeginTag)ex.Element;
                 string atomHref = bt.GetAttributeValue("href");
 
                 // these obsolete Blogger atom links can't be used, but are

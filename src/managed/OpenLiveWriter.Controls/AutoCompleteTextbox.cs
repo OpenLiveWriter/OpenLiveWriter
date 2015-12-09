@@ -83,7 +83,7 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-        public  bool ShowButton
+        public bool ShowButton
         {
             get
             {
@@ -91,7 +91,7 @@ namespace OpenLiveWriter.Controls
             }
             set
             {
-                button.Visible = value; 
+                button.Visible = value;
             }
         }
         private const int BUTTON_WIDTH = 16;
@@ -100,7 +100,7 @@ namespace OpenLiveWriter.Controls
         {
             button = new BitmapButton();
             button.BitmapEnabled = ResourceHelper.LoadAssemblyResourceBitmap("Images.refresh.png");
-            button.BitmapPushed= ResourceHelper.LoadAssemblyResourceBitmap("Images.refreshPushed.png");
+            button.BitmapPushed = ResourceHelper.LoadAssemblyResourceBitmap("Images.refreshPushed.png");
             button.BitmapSelected = ResourceHelper.LoadAssemblyResourceBitmap("Images.refreshSelected.png");
             button.Anchor = AnchorStyles.Right;
             button.Height = 16;
@@ -124,7 +124,7 @@ namespace OpenLiveWriter.Controls
             {
                 _defaultText = value;
                 AccessibleName = _defaultText;
-                if(!_isDirty)
+                if (!_isDirty)
                 {
                     SetDefaultText();
                 }
@@ -156,7 +156,7 @@ namespace OpenLiveWriter.Controls
                     ClearTextbox();
                     return;
                 }
-                
+
                 _isDirty = true;
                 ForeColor = SystemColors.WindowText;
                 Font = normalFont;
@@ -278,7 +278,7 @@ namespace OpenLiveWriter.Controls
 
                 IntPtr p = User32.SendMessage(Handle, WM.EM_POSFROMCHAR, new IntPtr(pos), IntPtr.Zero);
                 int x = p.ToInt32() & 0xFFFF;
-                tagSuggestForm.Origin = PointToScreen(new Point(x, ClientSize.Height-2));
+                tagSuggestForm.Origin = PointToScreen(new Point(x, ClientSize.Height - 2));
                 tagSuggestForm.SetSuggestions(FindForm(), listChoices);
             }
         }
@@ -308,7 +308,7 @@ namespace OpenLiveWriter.Controls
                 case Keys.Enter:
                 case Keys.Tab:
                     if (tagSuggestForm.CanAcceptSelection)
-                    { 
+                    {
                         tagSuggestForm.AcceptSelection();
                         return true;
                     }
@@ -330,12 +330,12 @@ namespace OpenLiveWriter.Controls
 
             if (e.KeyChar == ',')
             {
-//                if (tagSuggestForm.CanAcceptSelection)
-//                {
-//                    tagSuggestForm.AcceptSelection();
-//                    SelectedText = ", ";
-//                    e.Handled = true;
-//                }
+                //                if (tagSuggestForm.CanAcceptSelection)
+                //                {
+                //                    tagSuggestForm.AcceptSelection();
+                //                    SelectedText = ", ";
+                //                    e.Handled = true;
+                //                }
                 tagSuggestForm.Dismissed = false;
             }
         }
@@ -386,7 +386,7 @@ namespace OpenLiveWriter.Controls
                 if (str.ToLower(CultureInfo.CurrentUICulture).StartsWith(prefix, StringComparison.CurrentCulture))
                     tagList.Add(str);
             }
-            
+
         }
 
     }

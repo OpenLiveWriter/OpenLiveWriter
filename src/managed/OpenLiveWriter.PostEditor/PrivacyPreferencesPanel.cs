@@ -26,7 +26,7 @@ namespace OpenLiveWriter.PostEditor
 
             _loading = false;
         }
-        
+
         private System.Windows.Forms.Label _labelPrivacyExplanation;
         private System.Windows.Forms.LinkLabel _linkLabelPrivacyStatement;
         private System.Windows.Forms.LinkLabel _linkLabelCodeOfConduct;
@@ -102,7 +102,7 @@ namespace OpenLiveWriter.PostEditor
             if (!_loading)
                 OnModified(EventArgs.Empty);
         }
-        
+
         private static void linkLabelPrivacyStatement_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
             ShellHelper.LaunchUrl("http://www.dotnetfoundation.org/privacy-policy");

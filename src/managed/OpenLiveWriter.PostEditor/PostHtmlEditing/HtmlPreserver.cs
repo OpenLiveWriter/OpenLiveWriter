@@ -60,9 +60,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     }
                 }
 
-                if (!(bt.NameEquals("object") 
-                    || bt.NameEquals("embed") 
-                    || bt.NameEquals("noembed") 
+                if (!(bt.NameEquals("object")
+                    || bt.NameEquals("embed")
+                    || bt.NameEquals("noembed")
                     || bt.NameEquals("script")))
                 {
                     sb.Append(html, e.Offset, e.Length);

@@ -11,46 +11,46 @@ using OpenLiveWriter.CoreServices.Diagnostics;
 using OpenLiveWriter.Extensibility.BlogClient;
 
 namespace OpenLiveWriter.PostEditor
-{	
-	public interface IBlogPostEditor 
-	{
-		/// <summary>
-		/// Initialize the editor with the passed post and supporting files storage
-		/// </summary>
-		/// <param name="post">post</param>
-		void Initialize(IBlogPostEditingContext editorContext, IBlogClientOptions clientOptions) ;
+{
+    public interface IBlogPostEditor
+    {
+        /// <summary>
+        /// Initialize the editor with the passed post and supporting files storage
+        /// </summary>
+        /// <param name="post">post</param>
+        void Initialize(IBlogPostEditingContext editorContext, IBlogClientOptions clientOptions);
 
-		/// <summary>
-		/// Notification that the target weblog changed (adapt to capabilities, etc.)
-		/// </summary>
-		/// <param name="blog"></param>
-		void OnBlogChanged( Blog newBlog ) ;
+        /// <summary>
+        /// Notification that the target weblog changed (adapt to capabilities, etc.)
+        /// </summary>
+        /// <param name="blog"></param>
+        void OnBlogChanged(Blog newBlog);
 
-		/// <summary>
-		/// Notification that the blog settings changed
-		/// </summary>
-		void OnBlogSettingsChanged(bool templateChanged) ;
+        /// <summary>
+        /// Notification that the blog settings changed
+        /// </summary>
+        void OnBlogSettingsChanged(bool templateChanged);
 
-		/// <summary>
-		/// Have there been any user edits since the last load or save?
-		/// </summary>
-		bool IsDirty { get; }	
+        /// <summary>
+        /// Have there been any user edits since the last load or save?
+        /// </summary>
+        bool IsDirty { get; }
 
-		/// <summary>
-		/// Save the current contents of the editor to the specified post
-		/// </summary>
-		void SaveChanges( BlogPost post, BlogPostSaveOptions options ) ;
-		
-		/// <summary>
-		/// Validate the editor's content for publishing
-		/// </summary>
-		/// <returns></returns>
-		bool ValidatePublish() ;
+        /// <summary>
+        /// Save the current contents of the editor to the specified post
+        /// </summary>
+        void SaveChanges(BlogPost post, BlogPostSaveOptions options);
 
-		/// <summary>
-		/// Notificaiton that a publish succeeded
-		/// </summary>
-		void OnPublishSucceeded(BlogPost blogPost, PostResult postResult) ;
+        /// <summary>
+        /// Validate the editor's content for publishing
+        /// </summary>
+        /// <returns></returns>
+        bool ValidatePublish();
+
+        /// <summary>
+        /// Notificaiton that a publish succeeded
+        /// </summary>
+        void OnPublishSucceeded(BlogPost blogPost, PostResult postResult);
 
         /// <summary>
         /// Notificaiton that the application is about to close
@@ -73,7 +73,7 @@ namespace OpenLiveWriter.PostEditor
         /// Notification that current blog post is closed
         /// </summary>
 	    void OnPostClosed();
-	}
+    }
 
     public class BlogPostSaveOptions
     {
@@ -98,54 +98,54 @@ namespace OpenLiveWriter.PostEditor
 	/// true.
 	/// </summary>
 	internal class ForceDirtyPostEditor : IBlogPostEditor
-	{
-		void IBlogPostEditor.Initialize(IBlogPostEditingContext editingContext, IBlogClientOptions clientOptions)
-		{
+    {
+        void IBlogPostEditor.Initialize(IBlogPostEditingContext editingContext, IBlogClientOptions clientOptions)
+        {
             _isDirty = false;
-		}
+        }
 
-		void IBlogPostEditor.SaveChanges(BlogPost post, BlogPostSaveOptions options)
-		{
-			_isDirty = false ;
-		}
-
-		bool IBlogPostEditor.ValidatePublish()
-		{
-			return true ;
-		}
-
-		void IBlogPostEditor.OnPublishSucceeded(BlogPost blogPost, PostResult postResult)
-		{
+        void IBlogPostEditor.SaveChanges(BlogPost post, BlogPostSaveOptions options)
+        {
             _isDirty = false;
-		}
+        }
 
-		bool IBlogPostEditor.IsDirty
-		{
-			get
-			{
+        bool IBlogPostEditor.ValidatePublish()
+        {
+            return true;
+        }
+
+        void IBlogPostEditor.OnPublishSucceeded(BlogPost blogPost, PostResult postResult)
+        {
+            _isDirty = false;
+        }
+
+        bool IBlogPostEditor.IsDirty
+        {
+            get
+            {
                 if ((ApplicationDiagnostics.AutomationMode || ApplicationDiagnostics.TestMode) && _isDirty)
                 {
                     Trace.WriteLine(String.Format(CultureInfo.InvariantCulture, "ForceDirtyPostEditor Dirty Values {0}", _isDirty));
                 }
-				return _isDirty;
-			}
-		}
+                return _isDirty;
+            }
+        }
 
-		void IBlogPostEditor.OnBlogChanged(Blog newBlog)
-		{				
-		}
+        void IBlogPostEditor.OnBlogChanged(Blog newBlog)
+        {
+        }
 
-		public void OnBlogSettingsChanged(bool templateChanged)
-		{
-		}
+        public void OnBlogSettingsChanged(bool templateChanged)
+        {
+        }
 
 
-		public void ForceDirty()
-		{
-			_isDirty = true ;				
-		}
+        public void ForceDirty()
+        {
+            _isDirty = true;
+        }
 
-		private bool _isDirty = false ;
+        private bool _isDirty = false;
 
 
         public void OnClosing(CancelEventArgs e)
@@ -156,7 +156,7 @@ namespace OpenLiveWriter.PostEditor
         {
         }
 
-	    public void OnClosed() {}
-	    public void OnPostClosed() {}
-	}
+        public void OnClosed() { }
+        public void OnPostClosed() { }
+    }
 }

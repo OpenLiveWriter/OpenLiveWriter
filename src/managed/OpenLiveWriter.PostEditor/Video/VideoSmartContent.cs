@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.Video
         public VideoSmartContent(ISmartContent content)
             : base(content)
         {
-            MinSize = new Size(1,1);
+            MinSize = new Size(1, 1);
         }
 
         public void Initialize(Video video, string blogID)
@@ -192,7 +192,7 @@ namespace OpenLiveWriter.PostEditor.Video
             {
                 VideoAspectRatioType aspectRatioType = VideoAspectRatioType.Unknown;
                 string aspectRatioString = _content.Properties.GetString(VIDEO_ASPECT_RATIO, String.Empty);
-                
+
                 if (Enum.IsDefined(typeof(VideoAspectRatioType), aspectRatioString))
                 {
                     aspectRatioType = (VideoAspectRatioType)Enum.Parse(typeof(VideoAspectRatioType), aspectRatioString);
@@ -476,15 +476,15 @@ namespace OpenLiveWriter.PostEditor.Video
 
             if (Caption.Trim() != String.Empty)
             {
-                metadataHtml.Append(string.Format(CultureInfo.InvariantCulture, "<div style=\"width:{0}px;clear:both;font-size:{1}\"{2}>", HtmlSize.Width, Res.Get(StringId.Plugin_Video_Caption_Size), editMode ? editModeAttributes : string.Empty));                
+                metadataHtml.Append(string.Format(CultureInfo.InvariantCulture, "<div style=\"width:{0}px;clear:both;font-size:{1}\"{2}>", HtmlSize.Width, Res.Get(StringId.Plugin_Video_Caption_Size), editMode ? editModeAttributes : string.Empty));
                 metadataHtml.Append(Caption.Trim());
-                metadataHtml.Append("</div>");               
+                metadataHtml.Append("</div>");
 
                 return metadataHtml.ToString();
             }
 
             if (editMode)
-            {                
+            {
                 metadataHtml.Append(string.Format(CultureInfo.InvariantCulture, "<div style=\"width:{0}px;clear:both;font-size:{1};\"{2}></div>", HtmlSize.Width, Res.Get(StringId.Plugin_Video_Caption_Size), editModeAttributes));
             }
 

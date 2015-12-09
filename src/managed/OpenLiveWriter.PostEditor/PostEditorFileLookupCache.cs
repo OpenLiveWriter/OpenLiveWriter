@@ -207,7 +207,7 @@ namespace OpenLiveWriter.PostEditor
 
             public override int GetHashCode()
             {
-                return (blogId != null ? blogId.GetHashCode() : 0) + 29*(postId != null ? postId.GetHashCode() : 0);
+                return (blogId != null ? blogId.GetHashCode() : 0) + 29 * (postId != null ? postId.GetHashCode() : 0);
             }
         }
 
@@ -264,8 +264,8 @@ namespace OpenLiveWriter.PostEditor
             public override int GetHashCode()
             {
                 int result = filename.GetHashCode();
-                result = 29*result + lastModified.GetHashCode();
-                result = 29*result + (int) size;
+                result = 29 * result + lastModified.GetHashCode();
+                result = 29 * result + (int)size;
                 return result;
             }
         }

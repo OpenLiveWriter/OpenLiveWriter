@@ -793,7 +793,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// <param name="bodyElement">the element in the document that surrounds the post body text</param>
         /// <returns></returns>
         protected internal override BlogEditingTemplate GenerateBlogTemplate(IHTMLDocument3 doc, IHTMLElement titleElement, IHTMLElement[] allTitleElements, IHTMLElement bodyElement)
-        {            
+        {
             // if title is containing with a link then strip the link
             CleanupContainingAnchorTag(titleElement);
 
@@ -813,9 +813,9 @@ namespace OpenLiveWriter.BlogClient.Detection
             currElement = titleElement;
             IHTMLElement2 currElement2 = (IHTMLElement2)currElement;
             while (currElement != null && currElement.sourceIndex != stopElement.sourceIndex)
-            {                
+            {
                 titleTemplateText = WriteStartTag(currElement, null) + titleTemplateText + WriteEndTag(currElement);
-               
+
                 currElement2 = (IHTMLElement2)currElement;
                 string styleFloat = currElement2.currentStyle.styleFloat;
                 if (!String.IsNullOrEmpty(styleFloat) && !String.IsNullOrEmpty((string)currElement2.currentStyle.width))
@@ -823,10 +823,10 @@ namespace OpenLiveWriter.BlogClient.Detection
                     if (String.Compare(styleFloat, "LEFT", StringComparison.OrdinalIgnoreCase) == 0 ||
                         String.Compare(styleFloat, "RIGHT", StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        preserveClear = true;                        
+                        preserveClear = true;
                     }
                 }
-                
+
                 currElement = currElement.parentElement;
             }
 
@@ -841,7 +841,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 IHTMLElement parentElement = currElement.parentElement;
                 if (preserveClear && parentElement != null)
                 {
-                    IHTMLElementCollection siblings = (IHTMLElementCollection) parentElement.children;
+                    IHTMLElementCollection siblings = (IHTMLElementCollection)parentElement.children;
                     foreach (IHTMLElement sibling in siblings)
                     {
                         if (sibling.sourceIndex == currElement.sourceIndex)
@@ -853,7 +853,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                         currElementRange.MoveToElement(currElement, true);
                         if (siblingPointer.IsLeftOfOrEqualTo(currElementRange.Start))
                         {
-                            IHTMLElement2 sibling2 = (IHTMLElement2) sibling;
+                            IHTMLElement2 sibling2 = (IHTMLElement2)sibling;
                             string styleClear = sibling2.currentStyle.clear;
                             if (!String.IsNullOrEmpty(styleClear) && String.Compare(styleClear, "NONE", StringComparison.OrdinalIgnoreCase) != 0)
                             {

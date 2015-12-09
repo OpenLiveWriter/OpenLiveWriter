@@ -84,7 +84,7 @@ namespace OpenLiveWriter.Mshtml
 
             public bool Filter(IHTMLElement e)
             {
-                return String.Compare(e.tagName, _tagId, StringComparison.OrdinalIgnoreCase) == 0;                
+                return String.Compare(e.tagName, _tagId, StringComparison.OrdinalIgnoreCase) == 0;
             }
         }
 
@@ -292,16 +292,16 @@ namespace OpenLiveWriter.Mshtml
         }
 
         public static bool IsBlockQuoteElement(IHTMLElement e)
-		{
-			return e.tagName.ToUpperInvariant() == "BLOCKQUOTE" ;
-		}
-		public static IHTMLElementFilter BLOCKQUOTE_ELEMENT = new IHTMLElementFilter(IsBlockQuoteElement);
-	
-		public static bool IsTableCellElement(IHTMLElement e)
-		{
-			return (e is IHTMLTableCell) ;
-		}
-		public static IHTMLElementFilter TABLE_CELL_ELEMENT = new IHTMLElementFilter(IsTableCellElement);
+        {
+            return e.tagName.ToUpperInvariant() == "BLOCKQUOTE";
+        }
+        public static IHTMLElementFilter BLOCKQUOTE_ELEMENT = new IHTMLElementFilter(IsBlockQuoteElement);
+
+        public static bool IsTableCellElement(IHTMLElement e)
+        {
+            return (e is IHTMLTableCell);
+        }
+        public static IHTMLElementFilter TABLE_CELL_ELEMENT = new IHTMLElementFilter(IsTableCellElement);
 
 
         public static bool IsInlineElement(IHTMLElement e)

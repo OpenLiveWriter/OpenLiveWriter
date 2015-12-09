@@ -7,26 +7,26 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.CoreServices
 {
-	public class PaddedWaitCursor : IDisposable
-	{
-		public PaddedWaitCursor( int msPadding )
-		{
-			_targetEndTime = DateTime.Now.AddMilliseconds(msPadding) ;
-			_previousCursor = Cursor.Current ;
-			Cursor.Current = Cursors.WaitCursor ;
-		}
+    public class PaddedWaitCursor : IDisposable
+    {
+        public PaddedWaitCursor(int msPadding)
+        {
+            _targetEndTime = DateTime.Now.AddMilliseconds(msPadding);
+            _previousCursor = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
+        }
 
-		public void Dispose()
-		{
-			// sleep if necessary
-			TimeSpan padTime = _targetEndTime.Subtract( DateTime.Now ) ;
-			if ( padTime.Milliseconds > 0 )
-				Thread.Sleep( padTime ) ;
+        public void Dispose()
+        {
+            // sleep if necessary
+            TimeSpan padTime = _targetEndTime.Subtract(DateTime.Now);
+            if (padTime.Milliseconds > 0)
+                Thread.Sleep(padTime);
 
-			Cursor.Current = _previousCursor ;				
-		}	
-		
-		Cursor _previousCursor;
-		DateTime _targetEndTime ;
-	}
+            Cursor.Current = _previousCursor;
+        }
+
+        Cursor _previousCursor;
+        DateTime _targetEndTime;
+    }
 }

@@ -29,12 +29,12 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
         public virtual void SaveContent(MediaSmartContent content)
         {
-            
+
         }
 
         public virtual void TabSelected()
         {
-            
+
         }
 
         protected string _blogId;

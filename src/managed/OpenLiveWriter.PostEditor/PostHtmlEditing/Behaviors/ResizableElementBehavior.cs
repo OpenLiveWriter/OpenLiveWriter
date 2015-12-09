@@ -15,26 +15,26 @@ using OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors;
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
 {
     public class ResizableElementBehavior : ElementControlBehavior
-	{
-		private BehaviorControl _dragBufferControl;
-		private ResizerControl _resizerControl;
-		BehaviorDragAndDropSource _dragDropController;
-		public ResizableElementBehavior(IHtmlEditorComponentContext editorContext)
-			: base(editorContext)
-		{
-			_dragBufferControl = new BehaviorControl();
-			_dragBufferControl.Visible = false;
-			
-			_resizerControl = new ResizerControl();
-			_resizerControl.SizerModeChanged += new SizerModeEventHandler(resizerControl_SizerModeChanged);
-			_resizerControl.Resized += new EventHandler(resizerControl_Resized);
-			_resizerControl.Visible = false;
-						
-			Controls.Add(_dragBufferControl);
-			Controls.Add(_resizerControl);
-			
-			_dragDropController = new SmartContentDragAndDropSource(editorContext);
-		
+    {
+        private BehaviorControl _dragBufferControl;
+        private ResizerControl _resizerControl;
+        BehaviorDragAndDropSource _dragDropController;
+        public ResizableElementBehavior(IHtmlEditorComponentContext editorContext)
+            : base(editorContext)
+        {
+            _dragBufferControl = new BehaviorControl();
+            _dragBufferControl.Visible = false;
+
+            _resizerControl = new ResizerControl();
+            _resizerControl.SizerModeChanged += new SizerModeEventHandler(resizerControl_SizerModeChanged);
+            _resizerControl.Resized += new EventHandler(resizerControl_Resized);
+            _resizerControl.Visible = false;
+
+            Controls.Add(_dragBufferControl);
+            Controls.Add(_resizerControl);
+
+            _dragDropController = new SmartContentDragAndDropSource(editorContext);
+
         }
 
         protected override void OnElementAttached()
@@ -91,7 +91,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             MarkupRange range = EditorContext.MarkupServices.CreateMarkupRange(HTMLElement);
             range.Start.MoveAdjacentToElement(HTMLElement, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
             range.Collapse(true);
-            range.ToTextRange().select();           
+            range.ToTextRange().select();
         }
 
         protected override bool QueryElementSelected()
@@ -143,7 +143,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                     leftMouseDown = (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left;
 
                     if (!Selected && HTMLElementHelper.IsChildOrSameElement(HTMLElement, pIEventObj.srcElement))
-                    {                        
+                    {
                         return HandlePreHandleEventLeftMouseButtonDown(inEvtDispId, pIEventObj);
                     }
 
@@ -222,7 +222,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                 //cancel the event so that the editor doesn't try to do anything funny (like placing a caret at the click)
                 return HRESULT.S_OK;
             }
-            
+
             // The user clicked a knob, let the resize handles know.  This prevents bugs where
             // it takes 2 clicks to catch a knob to resize
             _resizerControl.RaiseMouseDown(new MouseEventArgs(MouseButtons.Left, 1, p.X, p.Y, 0));

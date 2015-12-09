@@ -57,7 +57,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     e.htmlEvt.cancelBubble = true;
                     return;
                 }
-            }           
+            }
 
             base.OnKeyDown(o, e);
 
@@ -204,7 +204,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 StringBuilder output = new StringBuilder(html.Length);
                 SimpleHtmlParser parser = new SimpleHtmlParser(html);
                 SmartPredicate splitDiv = new SmartPredicate(String.Format(CultureInfo.InvariantCulture, "<div id='{0}'>", EXTENDED_ENTRY_ID));
-                for (Element el; null != (el = parser.Next()); )
+                for (Element el; null != (el = parser.Next());)
                 {
                     if (splitDiv.IsMatch(el))
                     {
@@ -222,7 +222,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 args.Html = output.ToString();
             }
         }
-        
+
         /// <summary>
         /// Inserts the extended entry break into the editor.
         /// </summary>

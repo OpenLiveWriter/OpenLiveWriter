@@ -15,47 +15,47 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
-	/// <summary>
-	/// Summary description for WeblogConfigurationWizardPanelEditingWithStyle.
-	/// </summary>
-	public class WeblogConfigurationWizardPanelWelcome : WeblogConfigurationWizardPanel
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
-		private System.Windows.Forms.Label labelWelcomeText;
-	    private LinkLabel linkLabelLearnMore;
+    /// <summary>
+    /// Summary description for WeblogConfigurationWizardPanelEditingWithStyle.
+    /// </summary>
+    public class WeblogConfigurationWizardPanelWelcome : WeblogConfigurationWizardPanel
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+        private System.Windows.Forms.Label labelWelcomeText;
+        private LinkLabel linkLabelLearnMore;
 
-		public WeblogConfigurationWizardPanelWelcome()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        public WeblogConfigurationWizardPanelWelcome()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
             this.labelHeader.Text = string.Format(CultureInfo.InvariantCulture, Res.Get(StringId.ConfigureProduct), ApplicationEnvironment.ProductNameQualified);
-			this.labelWelcomeText.Text = Res.Get(StringId.CWWelcomeText);
-			this.linkLabelLearnMore.Text = Res.Get(StringId.ConfigWizardLearnMore);
+            this.labelWelcomeText.Text = Res.Get(StringId.CWWelcomeText);
+            this.linkLabelLearnMore.Text = Res.Get(StringId.ConfigWizardLearnMore);
             this.linkLabelLearnMore.LinkClicked += new LinkLabelLinkClickedEventHandler(linkLabelLearnMore_Click);
             this.linkLabelLearnMore.LinkColor = SystemInformation.HighContrast ? SystemColors.HotTrack : Color.FromArgb(0, 102, 204);
-			
-			if ( !DesignMode )
-			{
-				// customize default provider text
-				labelWelcomeText.Text = String.Format(CultureInfo.CurrentCulture, labelWelcomeText.Text, ApplicationEnvironment.ProductNameQualified) ;
+
+            if (!DesignMode)
+            {
+                // customize default provider text
+                labelWelcomeText.Text = String.Format(CultureInfo.CurrentCulture, labelWelcomeText.Text, ApplicationEnvironment.ProductNameQualified);
                 linkLabelLearnMore.Text = String.Format(CultureInfo.CurrentCulture, linkLabelLearnMore.Text, ApplicationEnvironment.ProductNameQualified);
 
-				// is there a custom account wizard with a welcome page installed?
-				IBlogProviderAccountWizardDescription providerAccountWizard = null ;
-				foreach ( IBlogProviderAccountWizardDescription wizard in BlogProviderAccountWizard.InstalledAccountWizards )
-				{
-					if ( wizard.WelcomePage != null )
-					{
-						providerAccountWizard = wizard ;
-						break;
-					}
-				}	
-			}
-		}
+                // is there a custom account wizard with a welcome page installed?
+                IBlogProviderAccountWizardDescription providerAccountWizard = null;
+                foreach (IBlogProviderAccountWizardDescription wizard in BlogProviderAccountWizard.InstalledAccountWizards)
+                {
+                    if (wizard.WelcomePage != null)
+                    {
+                        providerAccountWizard = wizard;
+                        break;
+                    }
+                }
+            }
+        }
 
         void linkLabelLearnMore_Click(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -66,7 +66,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             get { return ConfigPanelId.Welcome; }
         }
-		
+
         public override void NaturalizeLayout()
         {
             if (!DesignMode)
@@ -77,31 +77,31 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeblogConfigurationWizardPanelWelcome));
             this.labelWelcomeText = new System.Windows.Forms.Label();
-		    this.linkLabelLearnMore = new LinkLabel();
+            this.linkLabelLearnMore = new LinkLabel();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,11 +131,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
 
-		
-		
-	}
+
+
+    }
 }

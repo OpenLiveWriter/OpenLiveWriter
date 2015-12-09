@@ -5,13 +5,13 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.Controls
 {
-	/// <summary>
-	/// Interface implemented by a ContainerControl that wishes to be notified when one of its
-	/// child controls gains or loses focus.
-	/// </summary>
-	public interface IChildFocusWatcher
-	{
-		void ChildGotFocus(Control control);
-		void ChildLostFocus(Control control);
-	}
+    /// <summary>
+    /// Interface implemented by a ContainerControl that wishes to be notified when one of its
+    /// child controls gains or loses focus.
+    /// </summary>
+    public interface IChildFocusWatcher
+    {
+        void ChildGotFocus(Control control);
+        void ChildLostFocus(Control control);
+    }
 }

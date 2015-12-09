@@ -675,11 +675,11 @@ namespace OpenLiveWriter.BlogClient.Clients
                                              new XmlRpcString(Username),
                                              new XmlRpcString(Password, true),
                                              new XmlRpcStruct(new XmlRpcMember[]
-				                                               	{
-				                                               		new XmlRpcMember( "name", uploadFileName ), 	
-				                                               		new XmlRpcMember( "type", MimeHelper.GetContentType(Path.GetExtension(uploadContext.PreferredFileName),MimeHelper.APP_OCTET_STREAM )), 
-				                                               		new XmlRpcMember( "bits", new XmlRpcBase64( StreamHelper.AsBytes(fileContents) ) ), 
-				                                               	}
+                                                                   {
+                                                                       new XmlRpcMember( "name", uploadFileName ),
+                                                                       new XmlRpcMember( "type", MimeHelper.GetContentType(Path.GetExtension(uploadContext.PreferredFileName),MimeHelper.APP_OCTET_STREAM )),
+                                                                       new XmlRpcMember( "bits", new XmlRpcBase64( StreamHelper.AsBytes(fileContents) ) ),
+                                                                   }
                                                 ));
             }
 
@@ -709,10 +709,10 @@ namespace OpenLiveWriter.BlogClient.Clients
                 new XmlRpcString(Username),
                 new XmlRpcString(Password, true),
                 new XmlRpcStruct(new XmlRpcMember[]
-						{
-							new XmlRpcMember("name", category.Name), 
-							new XmlRpcMember("parent_id", ParseCategoryParent(category.Parent) ), 
-						})
+                        {
+                            new XmlRpcMember("name", category.Name),
+                            new XmlRpcMember("parent_id", ParseCategoryParent(category.Parent) ),
+                        })
                 );
 
             // return the category id
@@ -950,10 +950,10 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 // create the struct for the category
                 XmlRpcStruct categoryStruct = new XmlRpcStruct(new XmlRpcMember[]
-					{
-						new XmlRpcMember( "description", category.Name ),
-						new XmlRpcMember( "parent", category.Parent)
-					});
+                    {
+                        new XmlRpcMember( "description", category.Name ),
+                        new XmlRpcMember( "parent", category.Parent)
+                    });
 
                 // add it to the list
                 categoryValues.Add(categoryStruct);

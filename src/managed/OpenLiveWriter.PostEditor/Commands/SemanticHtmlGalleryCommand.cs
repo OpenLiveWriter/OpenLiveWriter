@@ -23,7 +23,7 @@ using AsyncOperation = OpenLiveWriter.CoreServices.AsyncOperation;
 namespace OpenLiveWriter.PostEditor.Commands
 {
     public delegate string TemplateHtmlDelegate();
-           
+
     /// <summary>
     /// Asynchronously fetches gallery preview images for a particular blog and set of class ids
     /// </summary>
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.Commands
         private readonly int _previewImageWidth;
         private readonly int _previewImageHeight;
         private HtmlScreenCaptureCore _screenCapture;
-        private readonly IBlogPostEditingSite _editingSite;        
+        private readonly IBlogPostEditingSite _editingSite;
 
         internal string BlogId { get { return _blogId; } }
         private object _previewLock;
@@ -47,13 +47,13 @@ namespace OpenLiveWriter.PostEditor.Commands
             _blogId = blogId;
             _elementIds = elementIds;
             _isRtl = isRtl;
-                        
+
             _html = templateHtml.Replace(BlogEditingTemplate.POST_BODY_MARKER, postBodyHtml);
 
             _previewLock = previewLock;
             _previewImageWidth = previewImageWidth;
             _previewImageHeight = previewImageHeight;
-            _editingSite = editingSite;            
+            _editingSite = editingSite;
         }
 
         #region Overrides of AsyncOperation
@@ -61,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.Commands
         protected override void DoWork()
         {
             Trace.WriteLine("UpdateSemanticHtmlPreviewAsyncOperation started for blog(" + BlogId + ")");
-            
+
             Size newSize = new Size(1500, 1000);
             _screenCapture = new HtmlScreenCaptureCore(_html, newSize.Width);
             _screenCapture.Ids = _elementIds;
@@ -87,8 +87,8 @@ namespace OpenLiveWriter.PostEditor.Commands
                 catch (Exception ex)
                 {
                     Trace.Fail(ex.ToString());
-                    return;                   
-                }                
+                    return;
+                }
 
                 // Now we should have all of the element images
                 foreach (string elementId in _screenCapture.Ids)
@@ -97,18 +97,18 @@ namespace OpenLiveWriter.PostEditor.Commands
                     {
                         // Warning. elementBitmap may be null.
                         string path = SemanticHtmlPreviewManager.GetPreviewBitmapPath(_blogId, elementId);
-                        
+
                         try
                         {
                             // We take the lock here to ensure that we don't try to read a halfway-written file on the UI thread.
-                            lock(_previewLock)
+                            lock (_previewLock)
                             {
                                 ElementCaptureProperties properties = _screenCapture.GetElementCaptureProperties(elementId);
                                 using (Bitmap previewBitmap = GetGalleryPreviewImageFromElementImage(elementBitmap, _previewImageWidth, _previewImageHeight, properties.BackgroundColor, properties.Padding, _isRtl))
-                                {            
+                                {
                                     previewBitmap.Save(path);
                                 }
-                            }                                                           
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -125,44 +125,44 @@ namespace OpenLiveWriter.PostEditor.Commands
                         }
                     }
                 }
-                                
+
                 try
                 {
                     _editingSite.FrameWindow.Invoke(new ThreadStart(() => _editingSite.CommandManager.Invalidate(
                                                                               CommandId.SemanticHtmlGallery)), null);
 
-                    
+
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine("NotifyWeblogStylePreviewChanged failed: " + ex.Message);                    
-                }                
+                    Trace.WriteLine("NotifyWeblogStylePreviewChanged failed: " + ex.Message);
+                }
             }
         }
 
         private static Bitmap GetGalleryPreviewImageFromElementImage(Bitmap elementBitmap, int width, int height, Color background, Padding padding, bool isRtl)
         {
-            Bitmap previewBitmap = null;            
+            Bitmap previewBitmap = null;
             try
-            {                                
+            {
                 previewBitmap = new Bitmap((int)DisplayHelper.ScaleX(width), (int)DisplayHelper.ScaleY(height));
                 using (Graphics g = Graphics.FromImage(previewBitmap))
                 {
-                    int left = isRtl ? previewBitmap.Width - elementBitmap.Width: 0;
-                    
-                    g.Clear(background);                    
+                    int left = isRtl ? previewBitmap.Width - elementBitmap.Width : 0;
+
+                    g.Clear(background);
                     if (elementBitmap != null)
                         g.DrawImageUnscaled(elementBitmap, left, (previewBitmap.Height - elementBitmap.Height - padding.Vertical + 1) / 2);
-                    return previewBitmap;                    
-                }                
+                    return previewBitmap;
+                }
             }
             catch (Exception)
             {
                 if (previewBitmap != null)
-                    previewBitmap.Dispose();                
+                    previewBitmap.Dispose();
                 throw;
             }
-        }        
+        }
     }
 
     internal class SemanticHtmlPreviewManager
@@ -176,7 +176,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 
 
         internal class BlogPreviewInfo
-        {            
+        {
             [ThreadStatic]
             private Dictionary<string, Bitmap> _bitmaps;
 
@@ -184,29 +184,29 @@ namespace OpenLiveWriter.PostEditor.Commands
             {
                 IsRtl = isRtl;
                 _blogId = blogId;
-                _elementIds = elementIds;                
+                _elementIds = elementIds;
                 _templateHtmlLazyLoader = new LazyLoader<string>(delegate
                                                                      {
                                                                          return templateHtmlDelegate();
                                                                      });
-                
-                string style = isRtl ? "dir=\"rtl\" style=\"direction: rtl; text-align: right" : "dir=\"ltr\" style=\"direction: ltr; text-align: left";     
-                style += "; width: 500px; text-indent: 0px; margin: 0px; overflow: visible; vertical-align: baseline; white-space: nowrap; line-height: normal; position: static\"";                
+
+                string style = isRtl ? "dir=\"rtl\" style=\"direction: rtl; text-align: right" : "dir=\"ltr\" style=\"direction: ltr; text-align: left";
+                style += "; width: 500px; text-indent: 0px; margin: 0px; overflow: visible; vertical-align: baseline; white-space: nowrap; line-height: normal; position: static\"";
                 _postBodyHtml = postBodyHtml.Replace("{style}", style);
 
                 _bitmaps = new Dictionary<string, Bitmap>(elementIds.Length);
             }
 
             ~BlogPreviewInfo()
-            {                
+            {
                 foreach (Bitmap bitmap in _bitmaps.Values)
                 {
                     bitmap.Dispose();
-                }                                
+                }
             }
 
             public void SetBitmap(string elementId, Bitmap bitmap)
-            {               
+            {
                 if (_bitmaps.ContainsKey(elementId))
                 {
                     Bitmap oldBitmap = _bitmaps[elementId];
@@ -214,17 +214,17 @@ namespace OpenLiveWriter.PostEditor.Commands
                     _bitmaps.Remove(elementId);
                 }
 
-                _bitmaps.Add(elementId, bitmap);                               
+                _bitmaps.Add(elementId, bitmap);
             }
 
             public Bitmap GetBitmap(string elementId)
-            {                
+            {
                 Bitmap bitmap = _bitmaps[elementId];
                 if (bitmap != null)
                 {
                     return bitmap.Clone() as Bitmap;
                 }
-                return null;                
+                return null;
             }
 
             public void Clear()
@@ -237,29 +237,29 @@ namespace OpenLiveWriter.PostEditor.Commands
                         if (_bitmaps[elementId] != null)
                             _bitmaps[elementId].Dispose();
                         _bitmaps.Remove(elementId);
-                    }                                        
-                    
+                    }
+
                     // Remove from disk
                     string path = GetPreviewBitmapPath(_blogId, elementId);
-                    File.Delete(path);                                                
-                }                
+                    File.Delete(path);
+                }
             }
 
             public bool BitmapCached(string elementId)
             {
                 return _bitmaps.ContainsKey(elementId);
             }
-            
+
             private readonly LazyLoader<string> _templateHtmlLazyLoader;
             public string[] ElementIds { get { return _elementIds; } }
             public string TemplateHtml { get { return _templateHtmlLazyLoader.Value; } }
             public string PostBodyHtml { get { return _postBodyHtml; } }
 
             public bool IsRtl { get; set; }
-            private readonly string _blogId;            
+            private readonly string _blogId;
             private readonly string _postBodyHtml;
             private readonly string[] _elementIds;
-        }        
+        }
 
         internal SemanticHtmlPreviewManager(IBlogPostEditingSite editingSite, TemplateHtmlDelegate templateHtmlDelegate, int width, int height)
         {
@@ -281,10 +281,10 @@ namespace OpenLiveWriter.PostEditor.Commands
                  <h6 {style} id=" + PreviewId_H6 + @">" + previewText + @"</h6>
                  <p  {style} id=" + PreviewId_P + @">" + previewText + @"</p>";
         }
-               
-        private Dictionary<string, UpdateSemanticHtmlPreviewAsyncOperation> _asyncOps = new Dictionary<string, UpdateSemanticHtmlPreviewAsyncOperation>();        
+
+        private Dictionary<string, UpdateSemanticHtmlPreviewAsyncOperation> _asyncOps = new Dictionary<string, UpdateSemanticHtmlPreviewAsyncOperation>();
         private Dictionary<string, BlogPreviewInfo> _blogPreviewInfo = new Dictionary<string, BlogPreviewInfo>();
-        
+
         internal Bitmap GetPreviewBitmap(string blogId, string elementId)
         {
             Debug.Assert(_blogPreviewInfo.ContainsKey(blogId), "Need to register blog for preview");
@@ -293,8 +293,8 @@ namespace OpenLiveWriter.PostEditor.Commands
             string path = GetPreviewBitmapPath(blogId, elementId);
 
             try
-            {                                               
-                lock(Lock)
+            {
+                lock (Lock)
                 {
                     BlogPreviewInfo info = _blogPreviewInfo[blogId];
 
@@ -307,14 +307,14 @@ namespace OpenLiveWriter.PostEditor.Commands
                         MemoryStream ms;
                         using (FileStream fs = File.OpenRead(path))
                         {
-                            ms = new MemoryStream((int) fs.Length);
+                            ms = new MemoryStream((int)fs.Length);
                             StreamHelper.Transfer(fs, ms);
                             ms.Seek(0, SeekOrigin.Begin);
                         }
                         info.SetBitmap(elementId, new Bitmap(ms));
                         return info.GetBitmap(elementId);
                     }
-                    
+
                     if (!_asyncOps.ContainsKey(blogId))
                     {
                         // Fetch asynchronously                        
@@ -326,7 +326,7 @@ namespace OpenLiveWriter.PostEditor.Commands
                         asyncOperation.Start();
                     }
                     // else we're already fetching                                                             
-                }               
+                }
             }
             catch (Exception ex)
             {
@@ -338,7 +338,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 
         void asyncOperation_Completed(object sender, EventArgs e)
         {
-            UpdateSemanticHtmlPreviewAsyncOperation asyncOperation = (UpdateSemanticHtmlPreviewAsyncOperation) sender;
+            UpdateSemanticHtmlPreviewAsyncOperation asyncOperation = (UpdateSemanticHtmlPreviewAsyncOperation)sender;
             lock (Lock)
             {
                 _asyncOps.Remove(asyncOperation.BlogId);
@@ -347,14 +347,14 @@ namespace OpenLiveWriter.PostEditor.Commands
 
         void asyncOperation_Failed(object sender, ThreadExceptionEventArgs e)
         {
-            UpdateSemanticHtmlPreviewAsyncOperation asyncOperation = (UpdateSemanticHtmlPreviewAsyncOperation) sender;
+            UpdateSemanticHtmlPreviewAsyncOperation asyncOperation = (UpdateSemanticHtmlPreviewAsyncOperation)sender;
             Trace.WriteLine("UpdateSemanticHtmlPreviewAsyncOperation failed for blog(" + asyncOperation.BlogId + "): " + e.Exception);
 
             // Note: We intentionally do not remove this async op from asyncOps in order to prevent an infinite loop of failures.
         }
 
         public static string GetPreviewBitmapPath(string blogId, string elementId)
-        {            
+        {
             string blogTemplateDir = BlogEditingTemplate.GetBlogTemplateDir(blogId);
             string previewBitmapFilename = elementId.Replace(PreviewGuid, ".bmp");
             return Path.Combine(blogTemplateDir, previewBitmapFilename);
@@ -367,10 +367,10 @@ namespace OpenLiveWriter.PostEditor.Commands
         public const string PreviewId_H4 = "H4" + PreviewGuid;
         public const string PreviewId_H5 = "H5" + PreviewGuid;
         public const string PreviewId_H6 = "H6" + PreviewGuid;
-        public const string PreviewId_P  = "P"  + PreviewGuid;
+        public const string PreviewId_P = "P" + PreviewGuid;
 
         private string _postBodyHtml;
-        
+
         private readonly TemplateHtmlDelegate _templateHtmlDelegate;
 
         /// <summary>
@@ -380,17 +380,17 @@ namespace OpenLiveWriter.PostEditor.Commands
         /// <param name="elementIds"></param>        
         public void RegisterBlog(string blogId, string[] elementIds, bool isRtl)
         {
-            if (!_blogPreviewInfo.ContainsKey(blogId))            
-                _blogPreviewInfo.Add(blogId, new BlogPreviewInfo(blogId, elementIds, isRtl, _templateHtmlDelegate, _postBodyHtml));            
+            if (!_blogPreviewInfo.ContainsKey(blogId))
+                _blogPreviewInfo.Add(blogId, new BlogPreviewInfo(blogId, elementIds, isRtl, _templateHtmlDelegate, _postBodyHtml));
         }
-        
+
         public void UnregisterBlog(string blogId)
         {
 
             try
             {
                 lock (Lock)
-                {                   
+                {
                     if (_blogPreviewInfo.ContainsKey(blogId))
                     {
                         _blogPreviewInfo[blogId].Clear();
@@ -400,15 +400,15 @@ namespace OpenLiveWriter.PostEditor.Commands
             }
             catch (Exception ex)
             {
-                Trace.Fail("Failed to unregister blog: " + ex);                
-            }                                      
+                Trace.Fail("Failed to unregister blog: " + ex);
+            }
         }
     }
 
     public class SemanticHtmlGalleryCommand : GalleryCommand<string>
     {
         private string[] _ids;
-        private IBlogPostEditingSite _editingSite;        
+        private IBlogPostEditingSite _editingSite;
         private List<SemanticHtmlElementInfo> _elements;
         private SemanticHtmlPreviewManager _previewManager;
         private IHtmlEditorComponentContext _componentContext;
@@ -418,7 +418,7 @@ namespace OpenLiveWriter.PostEditor.Commands
         {
             _editingSite = editingSite;
             _componentContext = componentContext;
-           
+
 
             _elements = new List<SemanticHtmlElementInfo>(7);
             _elements.Add(new SemanticHtmlElementInfo("p", _ELEMENT_TAG_ID.TAGID_P, Res.Get(StringId.Paragraph), SemanticHtmlPreviewManager.PreviewId_P, CommandId.ApplySemanticParagraph));
@@ -428,7 +428,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             _elements.Add(new SemanticHtmlElementInfo("h4", _ELEMENT_TAG_ID.TAGID_H4, Res.Get(StringId.Heading4), SemanticHtmlPreviewManager.PreviewId_H4, CommandId.ApplySemanticHeader4));
             _elements.Add(new SemanticHtmlElementInfo("h5", _ELEMENT_TAG_ID.TAGID_H5, Res.Get(StringId.Heading5), SemanticHtmlPreviewManager.PreviewId_H5, CommandId.ApplySemanticHeader5));
             _elements.Add(new SemanticHtmlElementInfo("h6", _ELEMENT_TAG_ID.TAGID_H6, Res.Get(StringId.Heading6), SemanticHtmlPreviewManager.PreviewId_H6, CommandId.ApplySemanticHeader6));
-            
+
             _previewManager = new SemanticHtmlPreviewManager(_editingSite, templateHtmlDelegate, RibbonHelper.InGalleryImageWidth, RibbonHelper.InGalleryImageHeightWithoutLabel);
 
             _ids = new string[_elements.Count];
@@ -438,9 +438,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 
                 int index = i;
                 OverridableCommand command = new OverridableCommand(_elements[i].CommandId);
-                command.Execute += (sender, e) => SelectedIndex = index;               
-                commandManager.Add(command);                
-            }            
+                command.Execute += (sender, e) => SelectedIndex = index;
+                commandManager.Add(command);
+            }
         }
 
         public override int OverrideProperty(ref PropertyKey key, PropVariantRef overrideValue)
@@ -452,8 +452,8 @@ namespace OpenLiveWriter.PostEditor.Commands
             {
                 _editingSite.CommandManager.OverrideProperty((uint)v.CommandId, ref key, overrideValue);
             }
-            
-            return base.OverrideProperty(ref key, overrideValue);                        
+
+            return base.OverrideProperty(ref key, overrideValue);
         }
 
         public override int CancelOverride(ref PropertyKey key)
@@ -467,10 +467,10 @@ namespace OpenLiveWriter.PostEditor.Commands
             }
 
             return base.CancelOverride(ref key);
-        }        
+        }
 
         public override bool Enabled
-        {            
+        {
             set
             {
                 base.Enabled = value;
@@ -582,7 +582,7 @@ namespace OpenLiveWriter.PostEditor.Commands
         }
 
         public override void LoadItems()
-        {            
+        {
             if (items.Count == 0)
             {
                 items.Clear();
@@ -595,8 +595,8 @@ namespace OpenLiveWriter.PostEditor.Commands
 
                 base.LoadItems();
 
-                OnStateChanged(EventArgs.Empty);                
-            }            
-        }                
+                OnStateChanged(EventArgs.Empty);
+            }
+        }
     }
 }

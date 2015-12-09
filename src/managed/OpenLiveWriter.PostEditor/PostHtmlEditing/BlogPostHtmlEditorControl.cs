@@ -1929,15 +1929,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     //}
                     //else
                     //{
-                        if (_tableEditingManager.ShowTableContextMenuForElement(element))
-                        {
-                            return MergeContextMenuDefinitions(
-                                _tableEditingManager.CreateTableContextMenuDefinition(), new TextContextMenuDefinition(true));
-                        }
-                        else
-                        {
-                            return new TextContextMenuDefinition();
-                        }
+                    if (_tableEditingManager.ShowTableContextMenuForElement(element))
+                    {
+                        return MergeContextMenuDefinitions(
+                            _tableEditingManager.CreateTableContextMenuDefinition(), new TextContextMenuDefinition(true));
+                    }
+                    else
+                    {
+                        return new TextContextMenuDefinition();
+                    }
                     //}
                 }
             }

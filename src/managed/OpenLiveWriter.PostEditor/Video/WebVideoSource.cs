@@ -22,52 +22,52 @@ using mshtml;
 
 namespace OpenLiveWriter.PostEditor.Video
 {
-	/// <summary>
-	/// Summary description for WebVideoSource.
-	/// </summary>
+    /// <summary>
+    /// Summary description for WebVideoSource.
+    /// </summary>
     public class WebVideoSource : MediaTab, IRtlAware
-	{
-		private Video _video = null;
-		private bool firstRun = true;
+    {
+        private Video _video = null;
+        private bool firstRun = true;
         private string htmlPath = null;
 
         private TextBoxWithPaste videoCode;
-		private BorderControl pictureBorder;
+        private BorderControl pictureBorder;
         private WebBrowser previewBox;
-		private Button previewButton;
-		private Label lblSize;
-		private Label lblService;
-		private System.Windows.Forms.Label lblVideoCode;
+        private Button previewButton;
+        private Label lblSize;
+        private Label lblService;
+        private System.Windows.Forms.Label lblVideoCode;
 
 
-		public WebVideoSource()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        public WebVideoSource()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
-			previewButton.Text = Res.Get(StringId.Plugin_Video_Web_Video_Preview_Button);
-			lblSize.Text = Res.Get(StringId.Plugin_Video_Web_Video_Size_Blank);
-			lblService.Text = Res.Get(StringId.Plugin_Video_Web_Video_Service_Blank);
-			lblVideoCode.Text = Res.Get(StringId.Plugin_Video_Web_Video_Enter_Prompt);
-			
-			videoCode.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.Plugin_Video_Web_Video_Enter_Prompt)); 
-			
-			this.TabText = Res.Get(StringId.Plugin_Video_Web_Video_Tab_Name);
-			this.TabBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Video.Images.InsertVideoFromWebTabIcon.png", false);
-			this.BackColor = SystemColors.Control;
+            previewButton.Text = Res.Get(StringId.Plugin_Video_Web_Video_Preview_Button);
+            lblSize.Text = Res.Get(StringId.Plugin_Video_Web_Video_Size_Blank);
+            lblService.Text = Res.Get(StringId.Plugin_Video_Web_Video_Service_Blank);
+            lblVideoCode.Text = Res.Get(StringId.Plugin_Video_Web_Video_Enter_Prompt);
 
-		    previewBox.ScriptErrorsSuppressed = true;
-		    previewBox.ScrollBarsEnabled = false;
-		    previewBox.IsWebBrowserContextMenuEnabled = false;
-		    previewBox.WebBrowserShortcutsEnabled = false;
+            videoCode.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.Plugin_Video_Web_Video_Enter_Prompt));
 
-		}
-		
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
-			int delta = -previewButton.Width + DisplayHelper.AutoFitSystemButton(previewButton, previewButton.Width, int.MaxValue);
-			videoCode.Width -= delta;
+            this.TabText = Res.Get(StringId.Plugin_Video_Web_Video_Tab_Name);
+            this.TabBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Video.Images.InsertVideoFromWebTabIcon.png", false);
+            this.BackColor = SystemColors.Control;
+
+            previewBox.ScriptErrorsSuppressed = true;
+            previewBox.ScrollBarsEnabled = false;
+            previewBox.IsWebBrowserContextMenuEnabled = false;
+            previewBox.WebBrowserShortcutsEnabled = false;
+
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            int delta = -previewButton.Width + DisplayHelper.AutoFitSystemButton(previewButton, previewButton.Width, int.MaxValue);
+            videoCode.Width -= delta;
             videoCode.RightToLeft = System.Windows.Forms.RightToLeft.No;
 
             if (BidiHelper.IsRightToLeft)
@@ -78,12 +78,12 @@ namespace OpenLiveWriter.PostEditor.Video
             else
                 lblSize.SizeChanged += new EventHandler(lblSize_SizeChanged);
 
-		    int oldTop = pictureBorder.Top;
-		    pictureBorder.Top = videoCode.Bottom + 6;
-		    pictureBorder.Height -= pictureBorder.Top - oldTop;
+            int oldTop = pictureBorder.Top;
+            pictureBorder.Top = videoCode.Bottom + 6;
+            pictureBorder.Height -= pictureBorder.Top - oldTop;
 
             BidiHelper.RtlLayoutFixup(this, true, true, Controls);
-		}
+        }
 
         public override List<Control> GetAccessibleControls()
         {
@@ -94,13 +94,13 @@ namespace OpenLiveWriter.PostEditor.Video
             return controls;
         }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.videoCode = new OpenLiveWriter.Controls.TextBoxWithPaste();
             this.previewButton = new System.Windows.Forms.Button();
             this.previewBox = new System.Windows.Forms.WebBrowser();
@@ -205,57 +205,57 @@ namespace OpenLiveWriter.PostEditor.Video
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
-		
+        }
+        #endregion
 
-		public void Reset()
-		{			
-			videoCode.Text = String.Empty;
-			lblSize.Text = Res.Get(StringId.Plugin_Video_Web_Video_Size_Blank);
-			lblService.Text = Res.Get(StringId.Plugin_Video_Web_Video_Service_Blank);
-			videoCode.Focus();
-			_video = null;
-			firstRun = false;
+
+        public void Reset()
+        {
+            videoCode.Text = String.Empty;
+            lblSize.Text = Res.Get(StringId.Plugin_Video_Web_Video_Size_Blank);
+            lblService.Text = Res.Get(StringId.Plugin_Video_Web_Video_Service_Blank);
+            videoCode.Focus();
+            _video = null;
+            firstRun = false;
             previewBox.Navigate("about:blank");
-		}
+        }
 
-		private void videoCode_TextChanged(object sender, EventArgs e)
-		{
+        private void videoCode_TextChanged(object sender, EventArgs e)
+        {
             PopulatePreviewBox();
-		}
+        }
 
-		public override void TabSelected()
-		{
-			if (firstRun)
-				Reset();
+        public override void TabSelected()
+        {
+            if (firstRun)
+                Reset();
             videoCode.Select();
-		}
+        }
 
 
-		public override bool ValidateSelection()
-		{
-			if (_video == null)
-			{
+        public override bool ValidateSelection()
+        {
+            if (_video == null)
+            {
                 string input = videoCode.Text.Trim();
-                try 
+                try
                 {
                     _video = VideoProviderManager.FindVideo(input);
                 }
-                catch(VideoUrlConvertException)
-		        {
+                catch (VideoUrlConvertException)
+                {
                     DisplayHtml(Res.Get(StringId.VideoUrlConvertError), CreateErrorHtml);
-		            return false;
-		        }
+                    return false;
+                }
 
                 if (_video == null)
                 {
                     DisplayHtml(Res.Get(StringId.Plugin_Video_Cannot_Parse_Url_Message), CreateErrorHtml);
                     return false;
-				}
-			}
+                }
+            }
 
-		    IViewObject element = GetIViewObjectElement(previewBox.Document.Body);
+            IViewObject element = GetIViewObjectElement(previewBox.Document.Body);
 
             // The object doesnt cant have a snapshot taken of it, but we should still allow it to
             // be inserted, though on some providers this means it might be stripped.
@@ -276,8 +276,8 @@ namespace OpenLiveWriter.PostEditor.Video
                 _video.Snapshot = null;
             }
 
-			return true;
-		}
+            return true;
+        }
 
         private static IViewObject GetIViewObjectElement(HtmlElement htmlElement)
         {
@@ -303,49 +303,49 @@ namespace OpenLiveWriter.PostEditor.Video
 
             return null;
         }
-		
-		private void _previewButton_Click(object sender, EventArgs e)
-		{
+
+        private void _previewButton_Click(object sender, EventArgs e)
+        {
             previewBox.Refresh(WebBrowserRefreshOption.Completely);
-		}
+        }
 
         public override void SaveContent(MediaSmartContent content)
         {
             ((VideoSmartContent)content).Initialize(_video, _blogId);
         }
-	    
-		private void PopulatePreviewBox()
-		{
-			_video = null;
-			string input = videoCode.Text.Trim();
+
+        private void PopulatePreviewBox()
+        {
+            _video = null;
+            string input = videoCode.Text.Trim();
 
             try
             {
-                _video = VideoProviderManager.FindVideo(input); 
+                _video = VideoProviderManager.FindVideo(input);
             }
-            catch(VideoUrlConvertException)
-		    {
+            catch (VideoUrlConvertException)
+            {
                 DisplayHtml(Res.Get(StringId.VideoUrlConvertError), CreateErrorHtml);
-		        return;
-		    }
-			
-			if (_video != null)
-			{
+                return;
+            }
+
+            if (_video != null)
+            {
                 lblSize.Text = String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.Plugin_Video_Web_Video_Size), _video.Width, _video.Height);
                 lblService.Text = String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.Plugin_Video_Web_Video_Provider),
                                                 _video.Provider != null ? _video.Provider.ServiceName : Res.Get(StringId.Plugin_Video_Unknown_Provider));
 
-			    DisplayHtml(
-			        VideoProvider.GenerateEmbedHtml(_video.EditorFormat, _video.Id,
+                DisplayHtml(
+                    VideoProvider.GenerateEmbedHtml(_video.EditorFormat, _video.Id,
                                                     new Size(_video.Width, _video.Height)), CreateEmbedHtml);
-			}
-			else
-			{
+            }
+            else
+            {
                 DisplayHtml(Res.Get(StringId.Plugin_Video_Cannot_Parse_Url_Message), CreateErrorHtml);
                 lblSize.Text = Res.Get(StringId.Plugin_Video_Web_Video_Size_Blank);
                 lblService.Text = Res.Get(StringId.Plugin_Video_Web_Video_Service_Blank);
-			}
-		}
+            }
+        }
 
         private void DisplayHtml(string html, Formatter formatter)
         {
@@ -353,7 +353,7 @@ namespace OpenLiveWriter.PostEditor.Video
                 htmlPath = TempFileManager.Instance.CreateTempFile("video.html");
 
             html = formatter(html);
-            
+
             html = HTMLDocumentHelper.AddMarkOfTheWeb(html, "about:internet");
 
             FileHelper.WriteFile(htmlPath, html, false, Encoding.UTF8);
@@ -361,7 +361,7 @@ namespace OpenLiveWriter.PostEditor.Video
             previewBox.Navigate(htmlPath);
         }
 
-	    private delegate string Formatter(string t);
+        private delegate string Formatter(string t);
 
         private string CreateErrorHtml(string text)
         {
@@ -386,22 +386,22 @@ namespace OpenLiveWriter.PostEditor.Video
         private void lblService_SizeChanged(object sender, EventArgs e)
         {
             lblSize.Left = Right - (int)DisplayHelper.ScaleX(8) - lblSize.Width;
-            lblService.Left = lblSize.Left - (int) DisplayHelper.ScaleX(8) - lblService.Width;
+            lblService.Left = lblSize.Left - (int)DisplayHelper.ScaleX(8) - lblService.Width;
         }
 
         private void lblSize_SizeChanged(object sender, EventArgs e)
-		{
-           lblService.Left = lblSize.Right + (int)DisplayHelper.ScaleX(8);
-		}
+        {
+            lblService.Left = lblSize.Right + (int)DisplayHelper.ScaleX(8);
+        }
 
-		private void VideoCode_Enter(object sender, EventArgs e)
-		{
-			videoCode.SelectAll();
-		}
+        private void VideoCode_Enter(object sender, EventArgs e)
+        {
+            videoCode.SelectAll();
+        }
 
-	    void IRtlAware.Layout()
-	    {
-	    }
-	}
+        void IRtlAware.Layout()
+        {
+        }
+    }
 }
 

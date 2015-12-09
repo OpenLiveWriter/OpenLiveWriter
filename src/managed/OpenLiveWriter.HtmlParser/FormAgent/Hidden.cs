@@ -3,15 +3,15 @@
 
 namespace OpenLiveWriter.HtmlParser.Parser.FormAgent
 {
-	public class Hidden : FormElementWithValue
-	{
-		public Hidden(HtmlForm parentForm, string name, string value) : base(parentForm, name, value)
-		{
-		}
+    public class Hidden : FormElementWithValue
+    {
+        public Hidden(HtmlForm parentForm, string name, string value) : base(parentForm, name, value)
+        {
+        }
 
-		public override bool IsSuccessful
-		{
-			get { return true; }
-		}
-	}
+        public override bool IsSuccessful
+        {
+            get { return true; }
+        }
+    }
 }

@@ -145,37 +145,37 @@ namespace OpenLiveWriter
                     // TODO:OLW
                     // using (WindowsLiveSetup windowsLiveSetup = new WindowsLiveSetup())
                     // {
-                        try
+                    try
+                    {
+                        // TODO:OLW
+                        // Load the culture.
+                        LoadCulture("en");
+
+                        // Apply any culture overrides.
+                        WriterCommandLineOptions opts = WriterCommandLineOptions.Create(args);
+                        if (!String.IsNullOrEmpty(opts.CultureOverride))
                         {
-                            // TODO:OLW
-                            // Load the culture.
-                            LoadCulture("en");
-
-                            // Apply any culture overrides.
-                            WriterCommandLineOptions opts = WriterCommandLineOptions.Create(args);
-                            if (!String.IsNullOrEmpty(opts.CultureOverride))
-                            {
-                                LoadCulture(opts.CultureOverride);
-                            }
-
-                            // Save the current culture for other instances.
-                            currentUICulture = CultureInfo.CurrentUICulture;
-
-                            // show splash screen
-                            IDisposable splashScreen = null;
-                            //	Show the splash screen.
-                            SplashScreen splashScreenForm = new SplashScreen();
-                            splashScreenForm.Show();
-                            splashScreenForm.Update();
-                            splashScreen = new FormSplashScreen(splashScreenForm);
-
-                            LaunchFirstInstance(splashScreen, args);
+                            LoadCulture(opts.CultureOverride);
                         }
-                        finally
-                        {
-                            // TODO:OLW
-                            // windowsLiveSetup.ClearThreadUILanguages();
-                        }
+
+                        // Save the current culture for other instances.
+                        currentUICulture = CultureInfo.CurrentUICulture;
+
+                        // show splash screen
+                        IDisposable splashScreen = null;
+                        //	Show the splash screen.
+                        SplashScreen splashScreenForm = new SplashScreen();
+                        splashScreenForm.Show();
+                        splashScreenForm.Update();
+                        splashScreen = new FormSplashScreen(splashScreenForm);
+
+                        LaunchFirstInstance(splashScreen, args);
+                    }
+                    finally
+                    {
+                        // TODO:OLW
+                        // windowsLiveSetup.ClearThreadUILanguages();
+                    }
                     // }
                 }
                 catch (Exception)
@@ -194,7 +194,7 @@ namespace OpenLiveWriter
         }
 
         private static void InitializeApplicationEnvironment()
-        {            
+        {
             // initialize application environment
             ApplicationEnvironment.Initialize();
             ApplicationEnvironment.ProductName_Short = "Writer";
@@ -203,7 +203,7 @@ namespace OpenLiveWriter
                 Res.Get(StringId.ProductDisplayVersion),
                 ApplicationEnvironment.ProductVersion
                 );
-           
+
             if (PlatformHelper.RunningOnWin7OrHigher())
                 TaskbarManager.Instance.ApplicationId = ApplicationEnvironment.TaskbarApplicationId;
         }
@@ -349,7 +349,7 @@ namespace OpenLiveWriter
             }
 
             return true;
-        }        
+        }
 
         private static void MaybeMigrateSettings()
         {

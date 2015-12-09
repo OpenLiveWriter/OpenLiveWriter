@@ -26,54 +26,54 @@ namespace OpenLiveWriter.ApplicationFramework
         public OverridableCommand(CommandId commandId)
             : base(commandId)
         {
-        }        
+        }
 
         public virtual int OverrideProperty(ref PropertyKey key, PropVariantRef overrideValue)
         {
             if (key == PropertyKeys.Enabled)
             {
                 bool currentValue = Enabled;
-                _overrides[key] = overrideValue.PropVariant;               
+                _overrides[key] = overrideValue.PropVariant;
                 UpdateInvalidationStateAndNotifyIfDifferent(ref key, Convert.ToBoolean(overrideValue.PropVariant.Value, CultureInfo.InvariantCulture), () => currentValue);
                 return HRESULT.S_OK;
             }
             else if (key == PropertyKeys.ContextAvailable)
             {
-                uint currentValue = (uint) ContextAvailability;
+                uint currentValue = (uint)ContextAvailability;
                 _overrides[key] = overrideValue.PropVariant;
                 UpdateInvalidationStateAndNotifyIfDifferent(ref key, Convert.ToUInt32(overrideValue.PropVariant.Value, CultureInfo.InvariantCulture), () => currentValue);
                 return HRESULT.S_OK;
             }
 
             return HRESULT.E_INVALIDARG;
-        }                
+        }
 
         protected int RemoveOverride(ref PropertyKey key, IComparableDelegate currentValueDelegate)
         {
-            PropVariant overrideValue;            
+            PropVariant overrideValue;
             if (_overrides.TryGetValue(key, out overrideValue))
             {
-                _overrides.Remove(key);                
+                _overrides.Remove(key);
                 UpdateInvalidationStateAndNotifyIfDifferent(ref key, (IComparable)overrideValue.Value, currentValueDelegate);
                 return HRESULT.S_OK;
             }
 
-            return HRESULT.S_FALSE;            
+            return HRESULT.S_FALSE;
         }
-       
+
         public virtual int CancelOverride(ref PropertyKey key)
-        {            
+        {
             if (key == PropertyKeys.Enabled)
             {
-                return RemoveOverride(ref key, () => Enabled);                               
+                return RemoveOverride(ref key, () => Enabled);
             }
             if (key == PropertyKeys.ContextAvailable)
-            {                                                
-                return RemoveOverride(ref key, () => (uint) ContextAvailability);                
+            {
+                return RemoveOverride(ref key, () => (uint)ContextAvailability);
             }
 
             return HRESULT.E_INVALIDARG;
-        }                
+        }
 
         protected object GetOverride(ref PropertyKey key, object defaultValue)
         {
@@ -95,8 +95,8 @@ namespace OpenLiveWriter.ApplicationFramework
                 UpdateInvalidationState(key, InvalidationState.Pending);
                 OnStateChanged(EventArgs.Empty);
             }
-        }      
-     
+        }
+
         #region Implementation of IOverridableCommand
 
         public virtual ContextAvailability ContextAvailability
@@ -104,7 +104,7 @@ namespace OpenLiveWriter.ApplicationFramework
             get { throw new System.NotImplementedException(); }
             set { throw new NotImplementedException(); }
         }
-        
+
         public override bool Enabled
         {
             get

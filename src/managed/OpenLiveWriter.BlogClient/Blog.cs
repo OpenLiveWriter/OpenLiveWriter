@@ -449,7 +449,7 @@ namespace OpenLiveWriter.BlogClient
             {
                 AuthorInfo[] authors = _settings.Authors;
                 if (authors != null)
-                    Array.Sort(authors, new Comparison<AuthorInfo>(delegate(AuthorInfo a, AuthorInfo b)
+                    Array.Sort(authors, new Comparison<AuthorInfo>(delegate (AuthorInfo a, AuthorInfo b)
                                             {
                                                 if (a == null ^ b == null)
                                                     return (a == null) ? -1 : 1;

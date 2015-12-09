@@ -318,22 +318,22 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             ImgElement = imgElement;
         }
 
-		public Size ImageSize
-		{
-			get
-			{
-				ImageBorderMargin borderMargin = BorderMargin;
-				Size imageSizeWithBorder = ImageSizeWithBorder;
-				int width = imageSizeWithBorder.Width - borderMargin.Width;
-				int height = imageSizeWithBorder.Height - borderMargin.Height;
+        public Size ImageSize
+        {
+            get
+            {
+                ImageBorderMargin borderMargin = BorderMargin;
+                Size imageSizeWithBorder = ImageSizeWithBorder;
+                int width = imageSizeWithBorder.Width - borderMargin.Width;
+                int height = imageSizeWithBorder.Height - borderMargin.Height;
                 Size size = new Size(width, height);
                 //Initialize the saved aspect ratio if it has no value
                 if (TargetAspectRatioSize.Width == -1)
                     TargetAspectRatioSize = size;
                 return size;
-			    //return borderMargin.ReverseCalculateImageSize(imageSizeWithBorder);
-			}
-		}
+                //return borderMargin.ReverseCalculateImageSize(imageSizeWithBorder);
+            }
+        }
 
 
         public Size ImageSizeWithBorder
@@ -388,12 +388,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             {
                 TargetAspectRatioSize = size;
             }
-		}
-		
-		public ImageBorderMargin BorderMargin
-		{
-			get
-			{
+        }
+
+        public ImageBorderMargin BorderMargin
+        {
+            get
+            {
 
                 if (Settings.ContainsSubProperties(BORDER_INFO))
                 {

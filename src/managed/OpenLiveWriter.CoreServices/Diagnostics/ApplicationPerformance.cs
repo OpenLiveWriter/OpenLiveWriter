@@ -31,7 +31,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         {
             get
             {
-                if(openEvents == null)
+                if (openEvents == null)
                     openEvents = new Dictionary<string, IDisposable>();
 
                 return openEvents;
@@ -99,7 +99,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 
         public static void StartEvent(string name)
         {
-            if(IsEnabled)
+            if (IsEnabled)
             {
                 // Commented out because it breaks automation
                 //Debug.Assert(!OpenEvents.ContainsKey(name), "2 open events with the same name.");

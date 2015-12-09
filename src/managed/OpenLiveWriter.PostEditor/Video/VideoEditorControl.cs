@@ -55,19 +55,19 @@ namespace OpenLiveWriter.PostEditor.Video
             get
             {
                 return _publishCompleted ? base.TooltipDescription : String.Empty;
-            }            
+            }
         }
         // @RIBBON TODO: Other overrides for image/string props.
         // Have cancel publish use a placeholder icon for now.
     }
-    
+
     internal class VideoEditorControl : AlignmentMarginContentEditor
     {
         private System.ComponentModel.IContainer components;
 
         private VideoSmartContent _VideoContent;
         private ISmartContentEditorSite _contentEditorSite;
-              
+
         public VideoEditorControl(ISmartContentEditorSite contentEditorSite)
         {
             // This call is required by the Windows.Forms Form Designer.
@@ -86,7 +86,7 @@ namespace OpenLiveWriter.PostEditor.Video
 
         protected void InitializeCommands()
         {
-            CommandManager cm = ((ICommandManagerHost) _contentEditorSite).CommandManager;
+            CommandManager cm = ((ICommandManagerHost)_contentEditorSite).CommandManager;
 
             commandVideoWebPreview = new VideoWebPreviewCommand();
             commandVideoWebPreview.Execute += VideoWebPreview_Execute;
@@ -154,8 +154,8 @@ namespace OpenLiveWriter.PostEditor.Video
             // make connection to settings and elements
             _VideoContent = new VideoSmartContent(SelectedContent);
 
-            base.OnSelectedContentChanged();                                      
-            
+            base.OnSelectedContentChanged();
+
             // update the settings UI
             InitializeSettingsUI();
 
@@ -184,7 +184,7 @@ namespace OpenLiveWriter.PostEditor.Video
                     commandVideoStandardAspectRatio.Latched = false;
                 }
             }
-        }        
+        }
 
         private void UpdateVideoSizeDisplay()
         {
@@ -224,37 +224,37 @@ namespace OpenLiveWriter.PostEditor.Video
 
 
         private void InitializeSettingsUI()
-        {            
+        {
             Padding margin = new Padding(_VideoContent.LayoutStyle.LeftMargin,
                                                _VideoContent.LayoutStyle.TopMargin,
                                                _VideoContent.LayoutStyle.RightMargin,
                                                _VideoContent.LayoutStyle.BottomMargin);
 
-            SetAlignmentMargin(margin, _VideoContent.LayoutStyle.Alignment);           
+            SetAlignmentMargin(margin, _VideoContent.LayoutStyle.Alignment);
 
             // video size in status-bar
             UpdateVideoSizeDisplay();
 
             IStatusWatcher statusWatcher = ((IInternalContent)_VideoContent.SmartContent).ObjectState as IStatusWatcher;
             if (statusWatcher != null && statusWatcher.IsCancelable)
-            {               
+            {
                 commandVideoWebPreview.PublishCompleted = false;
             }
             else
-            {                
+            {
                 commandVideoWebPreview.PublishCompleted = true;
             }
         }
 
         protected override void OnMarginChanged(object sender, EventArgs e)
-        {            
+        {
             UpdatePadding();
-            base.OnMarginChanged(sender, e);         
+            base.OnMarginChanged(sender, e);
             OnContentEdited();
         }
 
         protected override void OnAlignmentChanged(object sender, EventArgs e)
-        {            
+        {
             _VideoContent.LayoutStyle.Alignment = ContentAlignment;
             base.OnAlignmentChanged(sender, e);
             OnContentEdited();
@@ -274,14 +274,14 @@ namespace OpenLiveWriter.PostEditor.Video
             }
             base.Dispose(disposing);
         }
-        
+
         #region Component Designer generated code
         /// <summary> 
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
-        {            
+        {
         }
 
         #endregion         

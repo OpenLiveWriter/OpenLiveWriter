@@ -80,13 +80,13 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                 selectorControl = new RadioCategorySelector(ctx);
             else if (ctx.SelectionMode == CategoryContext.SelectionModes.MultiSelect)
                 selectorControl = new TreeCategorySelector(ctx);
-            else 
+            else
                 throw new ArgumentException("Unexpected selection mode: " + ctx.SelectionMode);
 
             lblNone.BringToFront();
             lblNone.Visible = ctx.Categories.Length == 0;
 
-            selector = (ICategorySelector) selectorControl;
+            selector = (ICategorySelector)selectorControl;
             AdaptAddCategories();
             ctx.Changed += ctx_Changed;
             Disposed += delegate { ctx.Changed -= ctx_Changed; };
@@ -147,8 +147,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                     // Fix bug 611888: Funny grey box in category control when adding a category to an empty category list
                     // Yes, this does need to happen in a BeginInvoke--invalidating doesn't work
                     // properly until some other (unknown) message gets consumed
-                    BeginInvoke(new System.Threading.ThreadStart(delegate { ((Control) selector).Invalidate(true); }));
-                    
+                    BeginInvoke(new System.Threading.ThreadStart(delegate { ((Control)selector).Invalidate(true); }));
+
                     break;
                 case CategoryContext.ChangeType.SelectionMode:
                     Close();
@@ -220,9 +220,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             if (anchor != null)
             {
                 if (RightToLeft == RightToLeft.Yes)
-                    Location = (Point) anchor;
+                    Location = (Point)anchor;
                 else
-                    Location = (Point) anchor - new Size(Width, 0);
+                    Location = (Point)anchor - new Size(Width, 0);
             }
         }
 
@@ -240,8 +240,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
             // draw border around filter textbox
             Rectangle filterRect = new Rectangle(
-                selectorContainer.Left, 
-                txtFilter.Top - ScaleY(3), 
+                selectorContainer.Left,
+                txtFilter.Top - ScaleY(3),
                 selectorContainer.Width - btnRefresh.Width - ScaleX(4),
                 txtFilter.Height + ScaleY(5)
                 );
@@ -258,12 +258,12 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         int ScaleX(int x)
         {
-            return (int) Math.Round(DisplayHelper.ScaleX(x));
+            return (int)Math.Round(DisplayHelper.ScaleX(x));
         }
 
         int ScaleY(int y)
         {
-            return (int) Math.Round(DisplayHelper.ScaleY(y));
+            return (int)Math.Round(DisplayHelper.ScaleY(y));
         }
 
         protected override void OnClosed(EventArgs e)
@@ -505,7 +505,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
 
         }
-        
+
         private class ParentCategoryComboItemNone : ParentCategoryComboItem
         {
             public ParentCategoryComboItemNone(ComboBox parentCombo)

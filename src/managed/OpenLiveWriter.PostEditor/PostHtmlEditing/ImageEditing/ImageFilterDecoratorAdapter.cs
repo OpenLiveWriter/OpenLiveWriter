@@ -16,49 +16,49 @@ using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Implements an ImageFilter
-	/// </summary>
-	internal class ImageFilterDecoratorAdapter : ImageDecoratorContext
-	{
-		Bitmap _originalImage;
-		Bitmap _currImage;
-		IProperties _currSettings;
-		ImagePropertiesInfo _imageInfo;
-		ImageDecoratorsList _decoratorsList;
-		ImageEmbedType _embedType;
+    /// <summary>
+    /// Implements an ImageFilter
+    /// </summary>
+    internal class ImageFilterDecoratorAdapter : ImageDecoratorContext
+    {
+        Bitmap _originalImage;
+        Bitmap _currImage;
+        IProperties _currSettings;
+        ImagePropertiesInfo _imageInfo;
+        ImageDecoratorsList _decoratorsList;
+        ImageEmbedType _embedType;
         IEditorOptions _editorOptions;
 
-		private ImageFilterDecoratorAdapter(ImagePropertiesInfo imageInfo, ImageEmbedType embedType, ImageDecoratorInvocationSource invocationSource, IEditorOptions editorOptions)
-		{
-			_decoratorsList = imageInfo.ImageDecorators;
-			_imageInfo = imageInfo;
-			_embedType = embedType;
-			_invocationSource = invocationSource;
+        private ImageFilterDecoratorAdapter(ImagePropertiesInfo imageInfo, ImageEmbedType embedType, ImageDecoratorInvocationSource invocationSource, IEditorOptions editorOptions)
+        {
+            _decoratorsList = imageInfo.ImageDecorators;
+            _imageInfo = imageInfo;
+            _embedType = embedType;
+            _invocationSource = invocationSource;
             _editorOptions = editorOptions;
-		}
+        }
 
-		public static ImageFilter CreateImageDecoratorsFilter(ImagePropertiesInfo imageInfo, ImageEmbedType embedType, ImageDecoratorInvocationSource invocationSource, IEditorOptions editorOptions)
-		{
+        public static ImageFilter CreateImageDecoratorsFilter(ImagePropertiesInfo imageInfo, ImageEmbedType embedType, ImageDecoratorInvocationSource invocationSource, IEditorOptions editorOptions)
+        {
             return new ImageFilter(new ImageFilterDecoratorAdapter(imageInfo, embedType, invocationSource, editorOptions).ApplyImageDecorators);
-		}
+        }
 
-		public Bitmap ApplyImageDecorators(Bitmap bitmap)
-		{
-			_currImage = bitmap;
-			_originalImage = bitmap;
+        public Bitmap ApplyImageDecorators(Bitmap bitmap)
+        {
+            _currImage = bitmap;
+            _originalImage = bitmap;
 
-		    bool borderNeedsReset = true;
+            bool borderNeedsReset = true;
             foreach (ImageDecorator decorator in _decoratorsList)
             {
                 ApplyImageDecorator(decorator, _currImage, ref borderNeedsReset);
             }
 
-		    //update the rotation and size info in the image properties
-			if(_embedType == ImageEmbedType.Embedded)
-			{
-//                if (borderNeedsReset)
-//                    BorderMargin = ImageBorderMargin.Empty;
+            //update the rotation and size info in the image properties
+            if (_embedType == ImageEmbedType.Embedded)
+            {
+                //                if (borderNeedsReset)
+                //                    BorderMargin = ImageBorderMargin.Empty;
 
                 if (!ImageHelper2.IsAnimated(_currImage))
                 {
@@ -71,25 +71,25 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                         currImageSize.Height - borderMargin.Height);
                     _imageInfo.InlineImageSize = borderlessImageSize;
                 }
-			}
-			else
-			{
-				_imageInfo.LinkTargetImageSize = _currImage.Size;
-			}
+            }
+            else
+            {
+                _imageInfo.LinkTargetImageSize = _currImage.Size;
+            }
 
-			_originalImage = null;
-			return _currImage;
-		}
+            _originalImage = null;
+            return _currImage;
+        }
 
-		private void ApplyImageDecorator(ImageDecorator decorator, Bitmap bitmap, ref bool borderNeedsReset)
-		{
+        private void ApplyImageDecorator(ImageDecorator decorator, Bitmap bitmap, ref bool borderNeedsReset)
+        {
             if (_embedType != ImageEmbedType.Embedded
                 && (decorator.IsBorderDecorator || decorator.Id == TiltDecorator.Id))
             {
                 return;
             }
 
-            if (borderNeedsReset 
+            if (borderNeedsReset
                 && _embedType == ImageEmbedType.Embedded
                 && (decorator.IsBorderDecorator || decorator.Id == TiltDecorator.Id))
             {
@@ -97,27 +97,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 //BorderMargin = ImageBorderMargin.Empty;
             }
 
-		    try
-			{
+            try
+            {
                 using (ApplicationPerformance.LogEvent("ApplyDecorator: " + decorator.DecoratorName))
-				using (new WaitCursor())
-				{
-					_currImage = bitmap;
-					_currSettings = _decoratorsList.GetImageDecoratorSettings(decorator);
-					decorator.Decorate(this);
-				}
-			}
-			catch(Exception e)
-			{
-				Trace.Fail(String.Format(CultureInfo.InvariantCulture, "Failed to apply image decorator [{0}]: {1}", decorator.DecoratorName, e.ToString()));
-			}
-		}
+                using (new WaitCursor())
+                {
+                    _currImage = bitmap;
+                    _currSettings = _decoratorsList.GetImageDecoratorSettings(decorator);
+                    decorator.Decorate(this);
+                }
+            }
+            catch (Exception e)
+            {
+                Trace.Fail(String.Format(CultureInfo.InvariantCulture, "Failed to apply image decorator [{0}]: {1}", decorator.DecoratorName, e.ToString()));
+            }
+        }
 
-		public Bitmap Image
-		{
-			get { return _currImage; }
-			set
-			{
+        public Bitmap Image
+        {
+            get { return _currImage; }
+            set
+            {
                 if (!ReferenceEquals(_currImage, value))
                 {
                     if (_originalImage != _currImage)
@@ -128,57 +128,57 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     }
                     _currImage = value;
                 }
-			}
-		}
+            }
+        }
 
-		public IProperties Settings
-		{
-			get { return _currSettings; }
-		}
+        public IProperties Settings
+        {
+            get { return _currSettings; }
+        }
 
-	    public IEditorOptions EditorOptions
-	    {
+        public IEditorOptions EditorOptions
+        {
             get { return _editorOptions; }
-	    }
+        }
 
-	    public ImageEmbedType ImageEmbedType
-		{
-			get{ return _embedType;}
-		}
+        public ImageEmbedType ImageEmbedType
+        {
+            get { return _embedType; }
+        }
 
-		public IHTMLElement ImgElement
-		{
-			get { return _imageInfo.ImgElement; }
-		}
+        public IHTMLElement ImgElement
+        {
+            get { return _imageInfo.ImgElement; }
+        }
 
-		public ImageDecoratorInvocationSource InvocationSource
-		{
-			get { return _invocationSource; }
-		}
-		private ImageDecoratorInvocationSource _invocationSource;
+        public ImageDecoratorInvocationSource InvocationSource
+        {
+            get { return _invocationSource; }
+        }
+        private ImageDecoratorInvocationSource _invocationSource;
 
-	    public RotateFlipType ImageRotation
-		{
-			get
-			{
-				return _imageInfo.ImageRotation;
-			}
-		}
+        public RotateFlipType ImageRotation
+        {
+            get
+            {
+                return _imageInfo.ImageRotation;
+            }
+        }
 
-		public Uri SourceImageUri
-		{
-			get { return _imageInfo.ImageSourceUri; }
-		}
+        public Uri SourceImageUri
+        {
+            get { return _imageInfo.ImageSourceUri; }
+        }
 
-	    public float? EnforcedAspectRatio
-	    {
+        public float? EnforcedAspectRatio
+        {
             get { return _decoratorsList.EnforcedAspectRatio; }
-	    }
+        }
 
-	    public ImageBorderMargin BorderMargin
-		{
-			get { return _imageInfo.InlineImageBorderMargin; }
-			set { _imageInfo.InlineImageBorderMargin = value; }
-		}
-	}
+        public ImageBorderMargin BorderMargin
+        {
+            get { return _imageInfo.InlineImageBorderMargin; }
+            set { _imageInfo.InlineImageBorderMargin = value; }
+        }
+    }
 }

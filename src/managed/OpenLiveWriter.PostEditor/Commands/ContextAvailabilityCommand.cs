@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             }
         }
         public override ContextAvailability ContextAvailability
-        {            
+        {
             get
             {
                 return (ContextAvailability)Convert.ToUInt32(GetOverride(ref PropertyKeys.ContextAvailable, (uint)_contextAvailability), CultureInfo.InvariantCulture);
@@ -45,11 +45,11 @@ namespace OpenLiveWriter.PostEditor.Commands
             {
                 if (ContextAvailability != value)
                 {
-                    _contextAvailability = value;                                     
+                    _contextAvailability = value;
                     UpdateInvalidationState(PropertyKeys.ContextAvailable, InvalidationState.Pending);
                     OnStateChanged(EventArgs.Empty);
                 }
             }
-        }        
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
 
         public override void LoadItems()
         {
-            if(Categories.Count == 0)
+            if (Categories.Count == 0)
             {
                 Categories.AddRange(new GalleryItem[] {
                     new GalleryItem(Res.Get(StringId.EmoticonsGalleryRecent), RecentIndex),

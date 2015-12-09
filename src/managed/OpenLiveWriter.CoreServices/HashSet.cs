@@ -6,144 +6,144 @@ using System.Collections;
 
 namespace OpenLiveWriter.CoreServices
 {
-	/// <summary>
-	/// Summary description for HashSet.
-	/// </summary>
-	public class HashSet : ISet
-	{
-		private readonly Hashtable ht;
+    /// <summary>
+    /// Summary description for HashSet.
+    /// </summary>
+    public class HashSet : ISet
+    {
+        private readonly Hashtable ht;
 
-		public HashSet()
-		{
-			this.ht = new Hashtable();
-		}
+        public HashSet()
+        {
+            this.ht = new Hashtable();
+        }
 
-		public HashSet(int capacity)
-		{
-			this.ht = new Hashtable(capacity);
-		}
+        public HashSet(int capacity)
+        {
+            this.ht = new Hashtable(capacity);
+        }
 
-		public HashSet(Hashtable ht)
-		{
-			this.ht = (Hashtable)ht.Clone();
-		}
+        public HashSet(Hashtable ht)
+        {
+            this.ht = (Hashtable)ht.Clone();
+        }
 
-		public bool IsSynchronized
-		{
-			get { return false; }
-		}
+        public bool IsSynchronized
+        {
+            get { return false; }
+        }
 
-		public object SyncRoot
-		{
-			get { return ht.SyncRoot; }
-		}
+        public object SyncRoot
+        {
+            get { return ht.SyncRoot; }
+        }
 
-		public bool Add(object o)
-		{
-			if (!ht.ContainsKey(o))
-			{
-				ht.Add(o, null);
-				return true;
-			}
-			else
-				return false;
+        public bool Add(object o)
+        {
+            if (!ht.ContainsKey(o))
+            {
+                ht.Add(o, null);
+                return true;
+            }
+            else
+                return false;
 
-		}
+        }
 
-		public int AddAll(IEnumerable col)
-		{
-			int count = 0;
-			
-			foreach (object o in col)
-				if (Add(o))
-					count++;
+        public int AddAll(IEnumerable col)
+        {
+            int count = 0;
 
-			return count;
-		}
+            foreach (object o in col)
+                if (Add(o))
+                    count++;
 
-		public bool Remove(object o)
-		{
-			if (ht.ContainsKey(o))
-			{
-				ht.Remove(o);
-				return true;
-			}
-			else
-				return false;
-		}
+            return count;
+        }
 
-		public int RemoveAll(IEnumerable col)
-		{
-			int count = 0;
-			
-			foreach (object o in col)
-				if (Remove(o))
-					count++;
+        public bool Remove(object o)
+        {
+            if (ht.ContainsKey(o))
+            {
+                ht.Remove(o);
+                return true;
+            }
+            else
+                return false;
+        }
 
-			return count;
-		}
+        public int RemoveAll(IEnumerable col)
+        {
+            int count = 0;
 
-		public void Clear()
-		{
-			ht.Clear();
-		}
+            foreach (object o in col)
+                if (Remove(o))
+                    count++;
 
-		public bool Contains(object o)
-		{
-			return ht.Contains(o);
-		}
+            return count;
+        }
 
-		public bool IsEmpty
-		{
-			get
-			{
-				return ht.Count <= 0;
-			}
-		}
+        public void Clear()
+        {
+            ht.Clear();
+        }
 
-		public int Count
-		{
-			get
-			{
-				return ht.Count;
-			}
-		}
+        public bool Contains(object o)
+        {
+            return ht.Contains(o);
+        }
 
-		public ArrayList ToArrayList()
-		{
-			return new ArrayList(ht.Keys);
-		}
+        public bool IsEmpty
+        {
+            get
+            {
+                return ht.Count <= 0;
+            }
+        }
 
-		public object[] ToArray()
-		{
-			return ToArrayList().ToArray();
-		}
+        public int Count
+        {
+            get
+            {
+                return ht.Count;
+            }
+        }
 
-		public void CopyTo(Array array, int index)
-		{
-			if (array == null)
-				throw new ArgumentNullException("array");
-			if (array.Rank != 1)
-				throw new ArgumentException("Array is multidimensional.");
-			if (index < 0)
-				throw new ArgumentOutOfRangeException("index");
-			if (index >= array.Length)
-				throw new ArgumentException("Invalid value for index.");
-			if ((index + Count) > array.Length)
-				throw new ArgumentException("Array too small.");
+        public ArrayList ToArrayList()
+        {
+            return new ArrayList(ht.Keys);
+        }
 
-			foreach (object o in this)
-				array.SetValue(o, index++);
-		}
+        public object[] ToArray()
+        {
+            return ToArrayList().ToArray();
+        }
 
-		public Array ToArray(Type type)
-		{
-			return ToArrayList().ToArray(type);
-		}
+        public void CopyTo(Array array, int index)
+        {
+            if (array == null)
+                throw new ArgumentNullException("array");
+            if (array.Rank != 1)
+                throw new ArgumentException("Array is multidimensional.");
+            if (index < 0)
+                throw new ArgumentOutOfRangeException("index");
+            if (index >= array.Length)
+                throw new ArgumentException("Invalid value for index.");
+            if ((index + Count) > array.Length)
+                throw new ArgumentException("Array too small.");
 
-		public IEnumerator GetEnumerator()
-		{
-			return ht.Keys.GetEnumerator();
-		}
-	}
+            foreach (object o in this)
+                array.SetValue(o, index++);
+        }
+
+        public Array ToArray(Type type)
+        {
+            return ToArrayList().ToArray(type);
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return ht.Keys.GetEnumerator();
+        }
+    }
 }

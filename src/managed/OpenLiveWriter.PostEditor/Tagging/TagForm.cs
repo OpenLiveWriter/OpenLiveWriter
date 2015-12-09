@@ -12,68 +12,68 @@ using OpenLiveWriter.Localization;
 namespace OpenLiveWriter.PostEditor.Tagging
 {
 
-	public class TagForm : BaseForm
-	{
-		public TagForm(TagContext context) : base()
-		{
-			InitializeComponent();
-			
-			this.buttonInsert.Text = Res.Get(StringId.InsertButton);
-			this.buttonCancel.Text = Res.Get(StringId.CancelButton);
-			this.Text = Res.Get(StringId.TagsInsertTags);
-			
-			tagEditor.Tags = context.Tags;
-			tagEditor.SetTagProviders(context);
-			tagEditor.TagProvider = context.CurrentProvider;
-			tagEditor.PreviouslyUsedTags = context. PreviouslyUsedTags;
-		}
+    public class TagForm : BaseForm
+    {
+        public TagForm(TagContext context) : base()
+        {
+            InitializeComponent();
 
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
+            this.buttonInsert.Text = Res.Get(StringId.InsertButton);
+            this.buttonCancel.Text = Res.Get(StringId.CancelButton);
+            this.Text = Res.Get(StringId.TagsInsertTags);
+
+            tagEditor.Tags = context.Tags;
+            tagEditor.SetTagProviders(context);
+            tagEditor.TagProvider = context.CurrentProvider;
+            tagEditor.PreviouslyUsedTags = context.PreviouslyUsedTags;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             using (new AutoGrow(this, AnchorStyles.Bottom, false))
             {
                 tagEditor.NaturalizeLayout();
                 LayoutHelper.FixupOKCancel(buttonInsert, buttonCancel);
             }
-		}
+        }
 
-	
-		public string[] Tags
-		{
-			get
-			{ 
-				return tagEditor.Tags;
-			}
-		}
 
-		public TagProvider TagProvider
-		{
-			get
-			{
-				return tagEditor.TagProvider;
-			}
-		}
-		
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        public string[] Tags
+        {
+            get
+            {
+                return tagEditor.Tags;
+            }
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        public TagProvider TagProvider
+        {
+            get
+            {
+                return tagEditor.TagProvider;
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.buttonInsert = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tagEditor = new OpenLiveWriter.PostEditor.Tagging.TagEditor();
@@ -131,31 +131,31 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.Text = "Insert Tags";
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		private Button buttonInsert;
-		private Button buttonCancel;
+        private Button buttonInsert;
+        private Button buttonCancel;
         private Container components = null;
-		private TagEditor tagEditor;
+        private TagEditor tagEditor;
 
-		
-		private void buttonInsert_Click(object sender, EventArgs e)
-		{
+
+        private void buttonInsert_Click(object sender, EventArgs e)
+        {
             if (tagEditor.Tags.Length == 0)
             {
                 DisplayMessage.Show(MessageId.NoTags, this);
                 return;
             }
-			DialogResult = DialogResult.OK;
-		}
+            DialogResult = DialogResult.OK;
+        }
 
-		private void buttonCancel_Click(object sender, EventArgs e)
-		{
-			DialogResult = DialogResult.Cancel;
-		}
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
 
 
 
-	}
+    }
 }

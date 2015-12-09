@@ -48,6 +48,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 
         private bool _autoLinkEnabled = true;
         private bool _autoLinkTermsOnlyOnce = true;
-        
+
     }
 }

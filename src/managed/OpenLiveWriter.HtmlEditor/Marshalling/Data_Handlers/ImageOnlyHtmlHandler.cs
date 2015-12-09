@@ -31,8 +31,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                                  RegexOptions.CultureInvariant | RegexOptions.Compiled |
                                  RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
-            return rxImg.Replace(html, new MatchEvaluator(match => 
-                rxSrc.Replace(match.Value, new MatchEvaluator(match2 => 
+            return rxImg.Replace(html, new MatchEvaluator(match =>
+                rxSrc.Replace(match.Value, new MatchEvaluator(match2 =>
                     string.Format(CultureInfo.InvariantCulture, " src=\"{0}\" wlCopySrcUrl=\"{0}\" ", match2.Groups[2].Value)))));
         }
     }

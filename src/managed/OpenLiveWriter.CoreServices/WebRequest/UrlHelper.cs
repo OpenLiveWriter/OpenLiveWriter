@@ -395,9 +395,9 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// The list of well known schemes
         /// </summary>
-        private static string[] KnownSchemes = new string[] {	Uri.UriSchemeFile, Uri.UriSchemeFtp, Uri.UriSchemeGopher,
-																Uri.UriSchemeHttp, Uri.UriSchemeHttps, Uri.UriSchemeMailto,
-																Uri.UriSchemeNews, Uri.UriSchemeNntp, "telnet", "wais", "ldap" };        
+        private static string[] KnownSchemes = new string[] {   Uri.UriSchemeFile, Uri.UriSchemeFtp, Uri.UriSchemeGopher,
+                                                                Uri.UriSchemeHttp, Uri.UriSchemeHttps, Uri.UriSchemeMailto,
+                                                                Uri.UriSchemeNews, Uri.UriSchemeNntp, "telnet", "wais", "ldap" };
 
         /// <summary>
         /// Gets the file extension for a url (including ignoring query strings and the like)
@@ -684,7 +684,7 @@ namespace OpenLiveWriter.CoreServices
                 throw new ArgumentException("Invalid url.");
 
             if (String.IsNullOrEmpty(paramName))
-                throw new ArgumentException("Invalid parameter name.");            
+                throw new ArgumentException("Invalid parameter name.");
 
             Hashtable queryParams = GetQueryParams(url);
             if (queryParams.ContainsKey(paramName))
@@ -692,9 +692,9 @@ namespace OpenLiveWriter.CoreServices
                 if (((ArrayList)queryParams[paramName]).Count == 0)
                 {
                     Debug.Fail("The implementation of GetQueryParams changed, breaking this!");
-                    return null;                    
+                    return null;
                 }
-                
+
                 return (string)((ArrayList)queryParams[paramName])[0];
             }
 

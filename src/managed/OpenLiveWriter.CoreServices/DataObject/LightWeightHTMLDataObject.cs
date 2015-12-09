@@ -5,17 +5,17 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.CoreServices
 {
-	/// <summary>
-	/// Summary description for LightWeightHTMLDataObject.
-	/// </summary>
-	public class LightWeightHTMLDataObject : DataObjectBase
-	{
-		public LightWeightHTMLDataObject(LightWeightHTMLDocument lightWeightDocument)
-		{
-			IDataObject = new DataObject(LIGHTWEIGHTHTMLDOCUMENTFORMAT, lightWeightDocument);
-		}
+    /// <summary>
+    /// Summary description for LightWeightHTMLDataObject.
+    /// </summary>
+    public class LightWeightHTMLDataObject : DataObjectBase
+    {
+        public LightWeightHTMLDataObject(LightWeightHTMLDocument lightWeightDocument)
+        {
+            IDataObject = new DataObject(LIGHTWEIGHTHTMLDOCUMENTFORMAT, lightWeightDocument);
+        }
 
-		public static string LIGHTWEIGHTHTMLDOCUMENTFORMAT = "Format_LightWeightHTMLDocument";
+        public static string LIGHTWEIGHTHTMLDOCUMENTFORMAT = "Format_LightWeightHTMLDocument";
 
-	}
+    }
 }

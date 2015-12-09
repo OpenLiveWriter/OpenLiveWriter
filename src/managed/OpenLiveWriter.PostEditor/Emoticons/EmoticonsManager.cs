@@ -163,23 +163,23 @@ namespace OpenLiveWriter.PostEditor.Emoticons
         public static bool IsAutoReplaceEndingCharacter(char c)
         {
             char cLower = char.ToLowerInvariant(c);
-            return (cLower == 's' || 
-                cLower == 'o' || 
-                cLower == 'd' || 
+            return (cLower == 's' ||
+                cLower == 'o' ||
+                cLower == 'd' ||
                 cLower == 'p' ||
                 cLower == 'l' ||
-                cLower == 'b' || 
-                c == ')' || 
-                c == '(' || 
-                c == '|' || 
-                c == '*' || 
-                c == '[' || 
-                c == '$' || 
-                c == '#' || 
-                c == '@' || 
-                c == '\\' || 
-                c == '>' || 
-                c == '<' || 
+                cLower == 'b' ||
+                c == ')' ||
+                c == '(' ||
+                c == '|' ||
+                c == '*' ||
+                c == '[' ||
+                c == '$' ||
+                c == '#' ||
+                c == '@' ||
+                c == '\\' ||
+                c == '>' ||
+                c == '<' ||
                 c == '}' ||
                 c == ']');
         }
@@ -198,7 +198,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
             _recentEmoticons.Remove(emoticon);
             _recentEmoticons.Insert(0, emoticon);
 
-            if(_recentEmoticons.Count > MAX_RECENT_EMOTICONS)
+            if (_recentEmoticons.Count > MAX_RECENT_EMOTICONS)
             {
                 int numOver = _recentEmoticons.Count - MAX_RECENT_EMOTICONS;
                 _recentEmoticons.RemoveRange(_recentEmoticons.Count - numOver, numOver);
@@ -284,7 +284,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
         public Uri GetInlineImageUri(Emoticon emoticon)
         {
             Uri inlineImageUri;
-            if(!_inlineImageUriTable.TryGetValue(emoticon, out inlineImageUri))
+            if (!_inlineImageUriTable.TryGetValue(emoticon, out inlineImageUri))
             {
                 inlineImageUri = CreateInlineImage(emoticon);
             }
@@ -352,9 +352,9 @@ namespace OpenLiveWriter.PostEditor.Emoticons
             Hashtable autoReplaceHashtable = new Hashtable();
             Hashtable idHashtable = new Hashtable();
 
-            foreach(Emoticon emoticon in _emoticons)
+            foreach (Emoticon emoticon in _emoticons)
             {
-                foreach(string autoReplaceString in emoticon.AutoReplaceText)
+                foreach (string autoReplaceString in emoticon.AutoReplaceText)
                 {
                     // Assert all the AutoReplace strings are unique.
                     Debug.Assert(!autoReplaceHashtable.ContainsKey(autoReplaceString), emoticon.AltText + " emoticon auto-replace string is non-unique!");

@@ -11,112 +11,112 @@ using OpenLiveWriter.Extensibility.BlogClient;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
-	public enum CredentialsPromptResult { Cancel, Abort, SaveUsername, SaveUsernameAndPassword };
-	public class CredentialsHelper
-	{
-		public static IDisposable ShowWaitCursor()
-		{
-			IBlogClientUIContext uiContext = BlogClientUIContext.ContextForCurrentThread;
-			if(uiContext != null && !uiContext.InvokeRequired)
-				return new WaitCursor();
-			else
-				return null;
-		}
-		public static CredentialsPromptResult PromptForCredentials(ref string username, ref string password, ICredentialsDomain domain)
-		{
-			CredentialsPromptResult result;
-			
-			if ( BlogClientUIContext.SilentModeForCurrentThread )
-				return CredentialsPromptResult.Abort ;
-			
-			IBlogClientUIContext uiContext = BlogClientUIContext.ContextForCurrentThread;
-			if(uiContext != null)
-			{
-				PromptHelper promptHelper = new PromptHelper(uiContext, username, password, domain);
-				if(uiContext.InvokeRequired)
-					uiContext.Invoke(new InvokeInUIThreadDelegate(promptHelper.ShowPrompt), new object[0]);
-				else
-				{
-					promptHelper.ShowPrompt();
-					
-					//force a UI loop so that the dialog closes without hanging while post-dialog logic executes
-					Application.DoEvents();
-				}
-				
-				result = promptHelper.Result;
-				if(result != CredentialsPromptResult.Cancel)
-				{
-					username = promptHelper.Username;
-					password = promptHelper.Password;
-				}				
-			}
-			else
-			{
-				result = CredentialsPromptResult.Abort;
-			}
-			return result;
-		}
-		
-		private class PromptHelper
-		{
-			private IWin32Window _owner;
-			private string _username;
-			private string _password;
-			private CredentialsPromptResult _result;
-			private ICredentialsDomain _domain;
-			public PromptHelper(IWin32Window owner, string username, string password, ICredentialsDomain domain)
-			{
-				_owner = owner;
-				_username = username;
-				_password = password;
-				_domain = domain;
-			}
-			
-			public void ShowPrompt()
-			{
-				using (BlogClientLoginDialog form = new BlogClientLoginDialog())
-				{
-					if(_username != null)
-						form.UserName = _username;
-					if(_password != null)
-						form.Password = _password;
-					if(_domain != null)
-					{
-						form.Domain = _domain;
-						form.Text = form.Text + " - " + _domain.Name;
-					}
-		
-					DialogResult dialogResult = form.ShowDialog(_owner) ;
-					if (dialogResult == DialogResult.OK)
-					{
-						_username = form.UserName;
-						_password = form.Password;
-						_result = form.SavePassword
-							        ? CredentialsPromptResult.SaveUsernameAndPassword
-							        : CredentialsPromptResult.SaveUsername;
-					}
-					else
-						_result = CredentialsPromptResult.Cancel;					
-				}
-			}
+    public enum CredentialsPromptResult { Cancel, Abort, SaveUsername, SaveUsernameAndPassword };
+    public class CredentialsHelper
+    {
+        public static IDisposable ShowWaitCursor()
+        {
+            IBlogClientUIContext uiContext = BlogClientUIContext.ContextForCurrentThread;
+            if (uiContext != null && !uiContext.InvokeRequired)
+                return new WaitCursor();
+            else
+                return null;
+        }
+        public static CredentialsPromptResult PromptForCredentials(ref string username, ref string password, ICredentialsDomain domain)
+        {
+            CredentialsPromptResult result;
 
-			public string Username
-			{
-				get { return _username; }
-			}
+            if (BlogClientUIContext.SilentModeForCurrentThread)
+                return CredentialsPromptResult.Abort;
 
-			public string Password
-			{
-				get { return _password; }
-			}
+            IBlogClientUIContext uiContext = BlogClientUIContext.ContextForCurrentThread;
+            if (uiContext != null)
+            {
+                PromptHelper promptHelper = new PromptHelper(uiContext, username, password, domain);
+                if (uiContext.InvokeRequired)
+                    uiContext.Invoke(new InvokeInUIThreadDelegate(promptHelper.ShowPrompt), new object[0]);
+                else
+                {
+                    promptHelper.ShowPrompt();
 
-			public CredentialsPromptResult Result
-			{
-				get { return _result; }
-			}
-		}
-	}
-	
+                    //force a UI loop so that the dialog closes without hanging while post-dialog logic executes
+                    Application.DoEvents();
+                }
+
+                result = promptHelper.Result;
+                if (result != CredentialsPromptResult.Cancel)
+                {
+                    username = promptHelper.Username;
+                    password = promptHelper.Password;
+                }
+            }
+            else
+            {
+                result = CredentialsPromptResult.Abort;
+            }
+            return result;
+        }
+
+        private class PromptHelper
+        {
+            private IWin32Window _owner;
+            private string _username;
+            private string _password;
+            private CredentialsPromptResult _result;
+            private ICredentialsDomain _domain;
+            public PromptHelper(IWin32Window owner, string username, string password, ICredentialsDomain domain)
+            {
+                _owner = owner;
+                _username = username;
+                _password = password;
+                _domain = domain;
+            }
+
+            public void ShowPrompt()
+            {
+                using (BlogClientLoginDialog form = new BlogClientLoginDialog())
+                {
+                    if (_username != null)
+                        form.UserName = _username;
+                    if (_password != null)
+                        form.Password = _password;
+                    if (_domain != null)
+                    {
+                        form.Domain = _domain;
+                        form.Text = form.Text + " - " + _domain.Name;
+                    }
+
+                    DialogResult dialogResult = form.ShowDialog(_owner);
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        _username = form.UserName;
+                        _password = form.Password;
+                        _result = form.SavePassword
+                                    ? CredentialsPromptResult.SaveUsernameAndPassword
+                                    : CredentialsPromptResult.SaveUsername;
+                    }
+                    else
+                        _result = CredentialsPromptResult.Cancel;
+                }
+            }
+
+            public string Username
+            {
+                get { return _username; }
+            }
+
+            public string Password
+            {
+                get { return _password; }
+            }
+
+            public CredentialsPromptResult Result
+            {
+                get { return _result; }
+            }
+        }
+    }
+
 #if false
 	/// <summary>
 	/// Summary description for CredentialsHelper.

@@ -6,12 +6,12 @@ using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.HtmlEditor.Marshalling
 {
-	/// <summary>
-	/// Factory interface for managing the creation of DataFormatHandlers.
-	/// </summary>
-	public interface IDataFormatHandlerFactory : IDisposable
-	{
-		bool CanCreateFrom(DataObjectMeister data);
-		DataFormatHandler CreateFrom(DataObjectMeister dataMeister, DataFormatHandlerContext handlerContext);
-	}
+    /// <summary>
+    /// Factory interface for managing the creation of DataFormatHandlers.
+    /// </summary>
+    public interface IDataFormatHandlerFactory : IDisposable
+    {
+        bool CanCreateFrom(DataObjectMeister data);
+        DataFormatHandler CreateFrom(DataObjectMeister dataMeister, DataFormatHandlerContext handlerContext);
+    }
 }

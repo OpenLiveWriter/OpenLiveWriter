@@ -24,12 +24,12 @@ namespace OpenLiveWriter.CoreServices.Marketization
         public enum Feature
         {
             Maps,
-            TeamBlog,            
+            TeamBlog,
             TermsOfUse,
             Privacy,
             Help,
             FTPHelp,
-            WLGallery,            
+            WLGallery,
             LiveClipboard,
             BlogProviders,
             VideoProviders,
@@ -138,7 +138,7 @@ namespace OpenLiveWriter.CoreServices.Marketization
                 case "Privacy": thisFeature = Feature.Privacy; break;
                 case "Help": thisFeature = Feature.Help; break;
                 case "FTP Help": thisFeature = Feature.FTPHelp; break;
-                case "Gallery": thisFeature = Feature.WLGallery; break;                
+                case "Gallery": thisFeature = Feature.WLGallery; break;
                 case "Live Clipboard": thisFeature = Feature.LiveClipboard; break;
                 case "Blog Providers": thisFeature = Feature.BlogProviders; break;
                 case "Insert Video": thisFeature = Feature.VideoProviders; break;

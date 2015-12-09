@@ -15,27 +15,27 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
-	/// <summary>
-	/// Summary description for WelcomeToBlogControl.
-	/// </summary>
-	internal class WeblogConfigurationWizardPanelSharePointBasicInfo : WeblogConfigurationWizardPanel, IAccountBasicInfoProvider
-	{
-	    private TextBox textBoxHomepageUrl;
-	    private Label labelHomepageUrl;
+    /// <summary>
+    /// Summary description for WelcomeToBlogControl.
+    /// </summary>
+    internal class WeblogConfigurationWizardPanelSharePointBasicInfo : WeblogConfigurationWizardPanel, IAccountBasicInfoProvider
+    {
+        private TextBox textBoxHomepageUrl;
+        private Label labelHomepageUrl;
 
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
-		public WeblogConfigurationWizardPanelSharePointBasicInfo() 
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        public WeblogConfigurationWizardPanelSharePointBasicInfo()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
             labelHeader.Text = Res.Get(StringId.CWBasicHeader);
-		    labelHomepageUrl.Text = Res.Get(StringId.CWSharePointHomepageUrl);
-		}
+            labelHomepageUrl.Text = Res.Get(StringId.CWSharePointHomepageUrl);
+        }
 
         public override bool ShowProxySettingsLink
         {
@@ -56,108 +56,108 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-		public IBlogProviderAccountWizardDescription ProviderAccountWizard
-		{
-			set
-			{
-			}
-		}
-	
-		public string AccountId
-		{
-			set
-			{
-			}
-		}
+        public IBlogProviderAccountWizardDescription ProviderAccountWizard
+        {
+            set
+            {
+            }
+        }
 
-		public string HomepageUrl
-		{
-			get { return UrlHelper.FixUpUrl(textBoxHomepageUrl.Text); }
-			set { textBoxHomepageUrl.Text = value; }
-		}
+        public string AccountId
+        {
+            set
+            {
+            }
+        }
 
-		public bool SavePassword
-		{
-			get { return false; }
-			set {  }
-		}
+        public string HomepageUrl
+        {
+            get { return UrlHelper.FixUpUrl(textBoxHomepageUrl.Text); }
+            set { textBoxHomepageUrl.Text = value; }
+        }
 
-		public bool ForceManualConfiguration
-		{
-			get { return false; }
-			set { }
-		}
+        public bool SavePassword
+        {
+            get { return false; }
+            set { }
+        }
 
-		public IBlogCredentials Credentials
-		{
-			get
-			{
-				if(credentials == null)
-				{
-					credentials = new TemporaryBlogCredentials();
-					credentials.Username = "" ;
-					credentials.Password = "" ;
-				}
-				return credentials ;
-			}
-			set
-			{
-				credentials = new TemporaryBlogCredentials();
-				credentials.Username = value.Username;
-				credentials.Password = value.Password;
-			}
-		}
-		private TemporaryBlogCredentials credentials;
-		
-		public bool IsDirty(TemporaryBlogSettings settings)
-		{
-			return 
-				!UrlHelper.UrlsAreEqual(HomepageUrl, settings.HomepageUrl) ||
-				!BlogCredentialsHelper.CredentialsAreEqual(Credentials, settings.Credentials) ;
-		}
-		
-		public BlogInfo BlogAccount
-		{
-			get
-			{
-				return null;
-			}
-		}
-	
-		
-		public override bool ValidatePanel()
-		{
-			if (HomepageUrl == String.Empty)
-			{
-				ShowValidationError( textBoxHomepageUrl, MessageId.HomepageUrlRequired ) ;
-				return false;
-			}
-			return true ;
-		}
+        public bool ForceManualConfiguration
+        {
+            get { return false; }
+            set { }
+        }
 
-	
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        public IBlogCredentials Credentials
+        {
+            get
+            {
+                if (credentials == null)
+                {
+                    credentials = new TemporaryBlogCredentials();
+                    credentials.Username = "";
+                    credentials.Password = "";
+                }
+                return credentials;
+            }
+            set
+            {
+                credentials = new TemporaryBlogCredentials();
+                credentials.Username = value.Username;
+                credentials.Password = value.Password;
+            }
+        }
+        private TemporaryBlogCredentials credentials;
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        public bool IsDirty(TemporaryBlogSettings settings)
+        {
+            return
+                !UrlHelper.UrlsAreEqual(HomepageUrl, settings.HomepageUrl) ||
+                !BlogCredentialsHelper.CredentialsAreEqual(Credentials, settings.Credentials);
+        }
+
+        public BlogInfo BlogAccount
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+
+        public override bool ValidatePanel()
+        {
+            if (HomepageUrl == String.Empty)
+            {
+                ShowValidationError(textBoxHomepageUrl, MessageId.HomepageUrlRequired);
+                return false;
+            }
+            return true;
+        }
+
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.labelHomepageUrl = new Label();
             this.textBoxHomepageUrl = new TextBox();
             this.panelMain.SuspendLayout();
@@ -195,8 +195,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
         private void textBoxHomepageUrl_Enter(object sender, EventArgs e)
         {
