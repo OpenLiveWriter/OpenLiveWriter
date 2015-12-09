@@ -44,7 +44,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         public void RefreshLayout()
         {
-            ((IRtlAware) this).Layout();
+            ((IRtlAware)this).Layout();
         }
 
 
@@ -96,7 +96,7 @@ namespace OpenLiveWriter.ApplicationFramework
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
         ]
-		public string HeaderText
+        public string HeaderText
         {
             get
             {
@@ -116,7 +116,7 @@ namespace OpenLiveWriter.ApplicationFramework
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
         ]
-		public string LinkText
+        public string LinkText
         {
             get
             {
@@ -133,7 +133,7 @@ namespace OpenLiveWriter.ApplicationFramework
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
         ]
-		public string SecondLinkText
+        public string SecondLinkText
         {
             get
             {
@@ -168,7 +168,7 @@ namespace OpenLiveWriter.ApplicationFramework
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
         ]
-		public string SecondLinkUrl
+        public string SecondLinkUrl
         {
             get
             {

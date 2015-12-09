@@ -73,23 +73,23 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
 		private bool defaultable;
 	}
 #endif
-	
-	/// <summary>
-	/// Interace implemented by classes that want to add behaviors or effects to embedded images.
-	/// </summary>
-	public interface IImageDecorator
-	{
-		/// <summary>
-		/// Apply the image decorator.
-		/// </summary>
-		/// <param name="context"></param>
-		void Decorate(ImageDecoratorContext context);
 
-		/// <summary>
-		/// Create an editor for customizing the decorator settings.
-		/// </summary>
-		/// <returns></returns>
-		ImageDecoratorEditor CreateEditor(CommandManager commandManager);
+    /// <summary>
+    /// Interace implemented by classes that want to add behaviors or effects to embedded images.
+    /// </summary>
+    public interface IImageDecorator
+    {
+        /// <summary>
+        /// Apply the image decorator.
+        /// </summary>
+        /// <param name="context"></param>
+        void Decorate(ImageDecoratorContext context);
+
+        /// <summary>
+        /// Create an editor for customizing the decorator settings.
+        /// </summary>
+        /// <returns></returns>
+        ImageDecoratorEditor CreateEditor(CommandManager commandManager);
     }
 
     public interface IImageDecoratorOriginalSizeAdjuster : IImageDecorator
@@ -99,5 +99,5 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
         /// of the image. This is needed for crop support.
         /// </summary>
         void AdjustOriginalSize(IProperties properties, ref Size size);
-	}
+    }
 }

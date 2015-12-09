@@ -8,26 +8,26 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.FileDestinations
 {
-	public class WebPublishMessage
-	{
-		private DisplayMessage _displayMessage;
-		private object[] _textFormatArgs;
-		
-		public WebPublishMessage(MessageId messageId, params object[] textFormatArgs)
-		{
-			_displayMessage = new DisplayMessage(messageId);
-			_textFormatArgs = textFormatArgs;
-		}
+    public class WebPublishMessage
+    {
+        private DisplayMessage _displayMessage;
+        private object[] _textFormatArgs;
+
+        public WebPublishMessage(MessageId messageId, params object[] textFormatArgs)
+        {
+            _displayMessage = new DisplayMessage(messageId);
+            _textFormatArgs = textFormatArgs;
+        }
 
 
-		public string Title
-		{
-			get { return _displayMessage.Title; }
-		}
-		
-		public string Text
-		{
-			get { return string.Format(CultureInfo.CurrentCulture, _displayMessage.Text, _textFormatArgs); }
-		}
-	}
+        public string Title
+        {
+            get { return _displayMessage.Title; }
+        }
+
+        public string Text
+        {
+            get { return string.Format(CultureInfo.CurrentCulture, _displayMessage.Text, _textFormatArgs); }
+        }
+    }
 }

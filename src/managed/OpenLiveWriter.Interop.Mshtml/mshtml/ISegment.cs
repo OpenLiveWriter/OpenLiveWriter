@@ -7,10 +7,10 @@ namespace mshtml
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
 
-    [ComImport, InterfaceType((short) 1), Guid("3050F683-98B5-11CF-BB82-00AA00BDCE0B")]
+    [ComImport, InterfaceType((short)1), Guid("3050F683-98B5-11CF-BB82-00AA00BDCE0B")]
     public interface ISegment
     {
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime)]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetPointers([In, MarshalAs(UnmanagedType.Interface)] IMarkupPointer pIStart, [In, MarshalAs(UnmanagedType.Interface)] IMarkupPointer pIEnd);
     }
 }

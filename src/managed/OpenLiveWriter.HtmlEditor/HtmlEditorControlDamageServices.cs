@@ -538,7 +538,7 @@ namespace OpenLiveWriter.HtmlEditor
             {
                 damageQueue.EnqueueDamage(range);
                 //Debug.WriteLine("Word Damage:" + _currentSelectionDamage.Text);
-                
+
                 _mshtmlEditor.BeginInvoke(new ThreadStart(FireDamageOccurred));
             }
         }
@@ -590,7 +590,7 @@ namespace OpenLiveWriter.HtmlEditor
         public MarkupRange[] GetDamagedRegions()
         {
             lock (damageQueue)
-            {                
+            {
                 MarkupRange[] damage = damageQueue.DequeueDamage();
 
                 //reset the current selection damage

@@ -22,7 +22,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
         public WebImageForm()
         {
             InitializeComponent();
-            
+
             _source.Init(panelLayout.Width, panelLayout.Height);
             UserControl uc = _source.ImageSelectionControls;
             panelLayout.Controls.Add(uc);

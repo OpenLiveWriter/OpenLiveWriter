@@ -19,7 +19,7 @@ namespace OpenLiveWriter.PostEditor.Tables
     {
         public TableColumnSizeEditor(IHTMLTable table, IHtmlEditorComponentContext editorContext, IHTMLPaintSiteRaw paintSite)
         {
-            Debug.Assert(((IHTMLElement) table).offsetHeight > 0 && ((IHTMLElement) table).offsetWidth > 0,
+            Debug.Assert(((IHTMLElement)table).offsetHeight > 0 && ((IHTMLElement)table).offsetWidth > 0,
                          "TableColumnSizeEditor unexpectedly attached to a table with no height and/or width!");
 
             // save references

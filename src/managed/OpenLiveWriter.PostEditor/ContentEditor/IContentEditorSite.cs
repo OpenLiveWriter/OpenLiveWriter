@@ -40,8 +40,8 @@ namespace OpenLiveWriter.PostEditor
         /// This is the number of words in the post if real 
         /// time word count is turned on
         /// </param>
-        void SetStatusBarMessage(string message, string wordCountValue); 
-        
+        void SetStatusBarMessage(string message, string wordCountValue);
+
         /// <summary>
         /// This is called back once the document that has been 
         /// loaded into the editor has finished loading.
@@ -54,7 +54,7 @@ namespace OpenLiveWriter.PostEditor
         // Focus event callbacks
         void OnGotFocus();
         void OnLostFocus();
-        
+
         /// <summary>
         /// Callback that occurs when the keyboard's language changes.
         /// </summary>

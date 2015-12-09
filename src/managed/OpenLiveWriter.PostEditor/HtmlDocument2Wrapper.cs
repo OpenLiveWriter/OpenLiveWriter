@@ -10,10 +10,10 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Interop.Com;
 using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar;
-using DATADIR=System.Runtime.InteropServices.ComTypes.DATADIR;
-using FORMATETC=System.Runtime.InteropServices.ComTypes.FORMATETC;
-using IEnumFORMATETC=System.Runtime.InteropServices.ComTypes.IEnumFORMATETC;
-using STGMEDIUM=System.Runtime.InteropServices.ComTypes.STGMEDIUM;
+using DATADIR = System.Runtime.InteropServices.ComTypes.DATADIR;
+using FORMATETC = System.Runtime.InteropServices.ComTypes.FORMATETC;
+using IEnumFORMATETC = System.Runtime.InteropServices.ComTypes.IEnumFORMATETC;
+using STGMEDIUM = System.Runtime.InteropServices.ComTypes.STGMEDIUM;
 
 namespace OpenLiveWriter.PostEditor
 {

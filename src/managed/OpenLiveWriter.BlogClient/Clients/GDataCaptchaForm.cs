@@ -15,36 +15,36 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
-	/// <summary>
-	/// Summary description for GDataCaptchaForm.
-	/// </summary>
-	public class GDataCaptchaForm : BaseForm
-	{
-		private System.Windows.Forms.TextBox txtCaptcha;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.Button btnOK;
-		private System.Windows.Forms.PictureBox picCaptcha;
-		private System.Windows.Forms.LinkLabel linkLabel1;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for GDataCaptchaForm.
+    /// </summary>
+    public class GDataCaptchaForm : BaseForm
+    {
+        private System.Windows.Forms.TextBox txtCaptcha;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.PictureBox picCaptcha;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		public GDataCaptchaForm()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public GDataCaptchaForm()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			this.label1.Text = Res.Get(StringId.GDataCaptchaPrompt);
-			this.btnCancel.Text = Res.Get(StringId.CancelButton);
-			this.btnOK.Text = Res.Get(StringId.OKButtonText);
-			this.linkLabel1.Text = Res.Get(StringId.GDataCaptchaAlternate);
-			this.Text = Res.Get(StringId.GDataCaptchaTitle);
+            this.label1.Text = Res.Get(StringId.GDataCaptchaPrompt);
+            this.btnCancel.Text = Res.Get(StringId.CancelButton);
+            this.btnOK.Text = Res.Get(StringId.OKButtonText);
+            this.linkLabel1.Text = Res.Get(StringId.GDataCaptchaAlternate);
+            this.Text = Res.Get(StringId.GDataCaptchaTitle);
 
-		}
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -60,35 +60,35 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
         }
 
-		public string Reply { get {	return txtCaptcha.Text; } }
+        public string Reply { get { return txtCaptcha.Text; } }
 
-		public void SetImage(Image img)
-		{
-			picCaptcha.Image = img;
-		}
+        public void SetImage(Image img)
+        {
+            picCaptcha.Image = img;
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.picCaptcha = new System.Windows.Forms.PictureBox();
             this.txtCaptcha = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -176,51 +176,51 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			Process.Start("https://www.google.com/accounts/DisplayUnlockCaptcha?service=blogger");
-			DialogResult = DialogResult.Cancel;
-		}
-	}
+        private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://www.google.com/accounts/DisplayUnlockCaptcha?service=blogger");
+            DialogResult = DialogResult.Cancel;
+        }
+    }
 
-	internal class GDataCaptchaHelper
-	{
-		private readonly IWin32Window _owner;
-		private readonly string _imageUrl;
-		private DialogResult _dialogResult;
-		private string _reply;
+    internal class GDataCaptchaHelper
+    {
+        private readonly IWin32Window _owner;
+        private readonly string _imageUrl;
+        private DialogResult _dialogResult;
+        private string _reply;
 
-		public GDataCaptchaHelper(IWin32Window owner, string imageUrl)
-		{
-			_owner = owner;
-			_imageUrl = UrlHelper.UrlCombineIfRelative("http://www.google.com/accounts/", imageUrl);
-		}
+        public GDataCaptchaHelper(IWin32Window owner, string imageUrl)
+        {
+            _owner = owner;
+            _imageUrl = UrlHelper.UrlCombineIfRelative("http://www.google.com/accounts/", imageUrl);
+        }
 
-		public DialogResult DialogResult { get { return _dialogResult; } }
-		public string Reply { get { return _reply; } }
+        public DialogResult DialogResult { get { return _dialogResult; } }
+        public string Reply { get { return _reply; } }
 
-		public void ShowCaptcha()
-		{
-			HttpWebResponse response = HttpRequestHelper.SendRequest(_imageUrl);
-			Image image;
-			using (Stream s = response.GetResponseStream())
-			{
-				image = Bitmap.FromStream(new MemoryStream(StreamHelper.AsBytes(s)));
-			}
+        public void ShowCaptcha()
+        {
+            HttpWebResponse response = HttpRequestHelper.SendRequest(_imageUrl);
+            Image image;
+            using (Stream s = response.GetResponseStream())
+            {
+                image = Bitmap.FromStream(new MemoryStream(StreamHelper.AsBytes(s)));
+            }
 
-			using (image)
-			{
-				using (GDataCaptchaForm form = new GDataCaptchaForm())
-				{
-					form.SetImage(image);
-					_dialogResult = form.ShowDialog(_owner);
-					if (_dialogResult == DialogResult.OK)
-						_reply = form.Reply;
-				}
-			}
-		}
-	}
+            using (image)
+            {
+                using (GDataCaptchaForm form = new GDataCaptchaForm())
+                {
+                    form.SetImage(image);
+                    _dialogResult = form.ShowDialog(_owner);
+                    if (_dialogResult == DialogResult.OK)
+                        _reply = form.Reply;
+                }
+            }
+        }
+    }
 }

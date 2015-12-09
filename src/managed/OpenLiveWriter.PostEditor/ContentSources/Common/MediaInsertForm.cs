@@ -20,99 +20,99 @@ using System.Collections.Generic;
 
 namespace OpenLiveWriter.PostEditor.ContentSources.Common
 {
-	/// <summary>
-	/// Summary description for VideoBrowserForm.
-	/// </summary>
-	public class MediaInsertForm : ApplicationDialog, IRtlAware
-	{
-		private IContainer components = null;
+    /// <summary>
+    /// Summary description for VideoBrowserForm.
+    /// </summary>
+    public class MediaInsertForm : ApplicationDialog, IRtlAware
+    {
+        private IContainer components = null;
 
-		//top tab control
-		private LightweightControlContainerControl mainTabControl;		
-		private TabLightweightControl tabs;
+        //top tab control
+        private LightweightControlContainerControl mainTabControl;
+        private TabLightweightControl tabs;
 
-		
-		private List<MediaTab> _sources;
-		private MediaTab activeSource = null;
 
-		private Button buttonInsert;
-		private LinkLabel copyrightLinkLabel;
-		private Button btnCancel;
+        private List<MediaTab> _sources;
+        private MediaTab activeSource = null;
+
+        private Button buttonInsert;
+        private LinkLabel copyrightLinkLabel;
+        private Button btnCancel;
 
         public const string EventName = "Inserting Media";
 
 
 
-                public MediaInsertForm(List<MediaTab> sources, string blogID, int selectedTab, MediaSmartContent content, string title, bool showCopyright) : 
-            this(sources, blogID, selectedTab, content, title, showCopyright, false)
+        public MediaInsertForm(List<MediaTab> sources, string blogID, int selectedTab, MediaSmartContent content, string title, bool showCopyright) :
+    this(sources, blogID, selectedTab, content, title, showCopyright, false)
         {
         }
 
         public MediaInsertForm(List<MediaTab> sources, string blogID, int selectedTab, MediaSmartContent content, string title, bool showCopyright, bool isEdit)
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			_sources = sources;
-			
-			//set strings
+            _sources = sources;
+
+            //set strings
             btnCancel.Text = Res.Get(StringId.CancelButton);
             if (!isEdit)
-			    buttonInsert.Text = Res.Get(StringId.InsertButtonText);
+                buttonInsert.Text = Res.Get(StringId.InsertButtonText);
             else
                 buttonInsert.Text = Res.Get(StringId.OKButtonText);
 
             Text = title;
-			
-			if (!showCopyright || !MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.VideoCopyright))
-			{
-				copyrightLinkLabel.Visible = false;
-			}
-			else
-			{
-				copyrightLinkLabel.Font = Res.GetFont(FontSize.Small, FontStyle.Regular);
-				copyrightLinkLabel.Text = Res.Get(StringId.Plugin_Video_Copyright_Notice);
-				string link = MarketizationOptions.GetFeatureParameter(MarketizationOptions.Feature.VideoCopyright, "Glink");
-				if (link == null || link == String.Empty)
-					copyrightLinkLabel.LinkArea = new LinkArea(0,0);
-				else
-					copyrightLinkLabel.LinkClicked += copyrightLinkLabel_LinkClicked;
-			}
+
+            if (!showCopyright || !MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.VideoCopyright))
+            {
+                copyrightLinkLabel.Visible = false;
+            }
+            else
+            {
+                copyrightLinkLabel.Font = Res.GetFont(FontSize.Small, FontStyle.Regular);
+                copyrightLinkLabel.Text = Res.Get(StringId.Plugin_Video_Copyright_Notice);
+                string link = MarketizationOptions.GetFeatureParameter(MarketizationOptions.Feature.VideoCopyright, "Glink");
+                if (link == null || link == String.Empty)
+                    copyrightLinkLabel.LinkArea = new LinkArea(0, 0);
+                else
+                    copyrightLinkLabel.LinkClicked += copyrightLinkLabel_LinkClicked;
+            }
 
             copyrightLinkLabel.LinkColor = SystemColors.HotTrack;
 
 
-			// 
-			// tabs
-			// 
-			tabs = new TabLightweightControl();
-			tabs.VirtualBounds = new Rectangle(0, 5, 450, 485);
-			tabs.LightweightControlContainerControl = mainTabControl;
-			tabs.DrawSideAndBottomTabPageBorders = false;
+            // 
+            // tabs
+            // 
+            tabs = new TabLightweightControl();
+            tabs.VirtualBounds = new Rectangle(0, 5, 450, 485);
+            tabs.LightweightControlContainerControl = mainTabControl;
+            tabs.DrawSideAndBottomTabPageBorders = false;
             tabs.ColorizeBorder = false;
-			
-			int i = 0;
-			foreach (MediaTab mediaSource in _sources)
-			{
+
+            int i = 0;
+            foreach (MediaTab mediaSource in _sources)
+            {
                 mediaSource.MediaSelected += videoSource_MediaSelected;
                 TabPageControl tab = mediaSource;
-				tab.TabStop = false;
-				Controls.Add(tab);
-				tabs.SetTab(i++, tab);
-			}
+                tab.TabStop = false;
+                Controls.Add(tab);
+                tabs.SetTab(i++, tab);
+            }
 
-			// initial appearance of editor
+            // initial appearance of editor
 
-			if ( !DesignMode )
-				Icon = ApplicationEnvironment.ProductIcon ;
+            if (!DesignMode)
+                Icon = ApplicationEnvironment.ProductIcon;
 
-			tabs.VirtualLocation = new Point(0, 5);
-			tabs.VirtualSize = Size;
+            tabs.VirtualLocation = new Point(0, 5);
+            tabs.VirtualSize = Size;
 
             Width = 510;
-            Height = 570; 
+            Height = 570;
 
             foreach (MediaTab videoSource in _sources)
                 videoSource.Init(content, blogID);
@@ -124,7 +124,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
             Closing += new CancelEventHandler(MediaInsertForm_Closing);
 
-        
+
         }
 
         void MediaInsertForm_Closing(object sender, CancelEventArgs e)
@@ -135,7 +135,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 {
                     ApplicationPerformance.StartEvent(EventName);
                     DialogResult = DialogResult.OK;
-                } 
+                }
                 else
                 {
                     DialogResult = DialogResult.Abort;
@@ -149,35 +149,35 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             DialogResult = DialogResult.OK;
             Close();
         }
-		
-		protected override void OnLayout(LayoutEventArgs levent)
-		{
-			base.OnLayout (levent);
 
-			if (tabs != null && mainTabControl != null)
-				tabs.VirtualSize = new Size(mainTabControl.Width, mainTabControl.Height - 5);
-		}
+        protected override void OnLayout(LayoutEventArgs levent)
+        {
+            base.OnLayout(levent);
 
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
-			LayoutHelper.FixupOKCancel(buttonInsert, btnCancel);
-		}
+            if (tabs != null && mainTabControl != null)
+                tabs.VirtualSize = new Size(mainTabControl.Width, mainTabControl.Height - 5);
+        }
 
-		
-		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-		{
-			tabs.CheckForTabSwitch(keyData);			
-			return base.ProcessCmdKey(ref msg, keyData);
-		}
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            LayoutHelper.FixupOKCancel(buttonInsert, btnCancel);
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            tabs.CheckForTabSwitch(keyData);
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
 
                 copyrightLinkLabel.LinkClicked -= copyrightLinkLabel_LinkClicked;
                 foreach (MediaTab videoSource in _sources)
@@ -185,25 +185,25 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 tabs.SelectedTabNumberChanged -= tabs_SelectedTabNumberChanged;
                 Closing -= MediaInsertForm_Closing;
 
-				if(components != null)
-				{
-					components.Dispose();
-				}
-                foreach(MediaTab source in _sources)
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+                foreach (MediaTab source in _sources)
                 {
                     source.Dispose();
                 }
-			}
-			base.Dispose( disposing );
-		}
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.mainTabControl = new OpenLiveWriter.Controls.LightweightControlContainerControl();
             this.buttonInsert = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -277,53 +277,53 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
-		
-		private void SetActiveTab(int num)
-		{
+        }
+        #endregion
+
+        private void SetActiveTab(int num)
+        {
             activeSource = _sources[num];
-			activeSource.TabSelected();
+            activeSource.TabSelected();
 
             mainTabControl.InitFocusManager(true);
             mainTabControl.AddFocusableControls(tabs.GetAccessibleControls());
             mainTabControl.AddFocusableControls(activeSource.GetAccessibleControls());
             mainTabControl.AddFocusableControl(copyrightLinkLabel);
             mainTabControl.AddFocusableControl(buttonInsert);
-            mainTabControl.AddFocusableControl(btnCancel);  
-		}
+            mainTabControl.AddFocusableControl(btnCancel);
+        }
 
-		private void tabs_SelectedTabNumberChanged(object sender, EventArgs e)
-		{
-			int tabChosen = ((TabLightweightControl)sender).SelectedTabNumber;
+        private void tabs_SelectedTabNumberChanged(object sender, EventArgs e)
+        {
+            int tabChosen = ((TabLightweightControl)sender).SelectedTabNumber;
             tabs.Update();
-			SetActiveTab(tabChosen);
-		}
+            SetActiveTab(tabChosen);
+        }
 
         public void SaveContent(MediaSmartContent content)
         {
             activeSource.SaveContent(content);
         }
 
-		private void copyrightLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			string link = MarketizationOptions.GetFeatureParameter(MarketizationOptions.Feature.VideoCopyright, "Glink");
-			if (link != null && link != String.Empty)
-			{
-				try
-				{
-					ShellHelper.LaunchUrl( link );
-				}
-				catch( Exception ex ) 
-				{
-					Trace.Fail( "Unexpected exception navigating to copyright page: " + link + ", " + ex.ToString() ) ;
-				}
-			}
-		}
+        private void copyrightLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string link = MarketizationOptions.GetFeatureParameter(MarketizationOptions.Feature.VideoCopyright, "Glink");
+            if (link != null && link != String.Empty)
+            {
+                try
+                {
+                    ShellHelper.LaunchUrl(link);
+                }
+                catch (Exception ex)
+                {
+                    Trace.Fail("Unexpected exception navigating to copyright page: " + link + ", " + ex.ToString());
+                }
+            }
+        }
 
-	    void IRtlAware.Layout()
-	    {
-	        BidiHelper.RtlLayoutFixup(this, true, true, Controls);
-	    }
-	}
+        void IRtlAware.Layout()
+        {
+            BidiHelper.RtlLayoutFixup(this, true, true, Controls);
+        }
+    }
 }

@@ -14,49 +14,49 @@ using System.Security.Permissions;
 
 namespace OpenLiveWriter.ApplicationFramework
 {
-	/// <summary>
-	/// Summary description for ColorDefaultColorControl.
-	/// </summary>
-	public class ColorDefaultColorControl : IColorPickerSubControl
-	{				
-		private bool selected = false;		
+    /// <summary>
+    /// Summary description for ColorDefaultColorControl.
+    /// </summary>
+    public class ColorDefaultColorControl : IColorPickerSubControl
+    {
+        private bool selected = false;
 
-		public ColorDefaultColorControl(ColorSelectedEventHandler colorSelected, NavigateEventHandler navigate) : base(colorSelected, navigate)
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();											
-			this.Text = Res.Get(StringId.ColorPickerDefaultColor);
+        public ColorDefaultColorControl(ColorSelectedEventHandler colorSelected, NavigateEventHandler navigate) : base(colorSelected, navigate)
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
+            this.Text = Res.Get(StringId.ColorPickerDefaultColor);
             Color = Color.Empty;
-		}        						
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			// 
-			// ColorDefaultColorControl
-			// 
-			this.Name = "ColorDefaultColorControl";
-			this.Size = new System.Drawing.Size(108, 24);			
-		}
-		
-		#endregion		        
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            // 
+            // ColorDefaultColorControl
+            // 
+            this.Name = "ColorDefaultColorControl";
+            this.Size = new System.Drawing.Size(108, 24);
+        }
 
-		public override Color Color
-		{            
+        #endregion
+
+        public override Color Color
+        {
             get
             {
                 return Color.Empty;
             }
-        
+
             set
             {
-			    selected = (value == Color.Empty);
+                selected = (value == Color.Empty);
             }
-		}
+        }
 
-	}
+    }
 }

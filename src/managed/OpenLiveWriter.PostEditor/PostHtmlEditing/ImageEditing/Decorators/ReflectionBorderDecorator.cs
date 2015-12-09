@@ -17,14 +17,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
     public class ReflectionBorderDecorator : ImageBorderDecorator
     {
-		public readonly static string Id = "ReflectionBorder";
+        public readonly static string Id = "ReflectionBorder";
 
-		public override void Decorate(ImageDecoratorContext context)
-		{
+        public override void Decorate(ImageDecoratorContext context)
+        {
             DropShadowBorderDecoratorSettings settings = new DropShadowBorderDecoratorSettings(context);
-            
+
             Bitmap original = context.Image;
-		    
+
             int reflectionHeight = original.Height / 3;
 
             Bitmap bitmap = new Bitmap(original.Width, original.Height + reflectionHeight);
@@ -69,10 +69,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                                     ia);
                     }
 #else
-                    Point upperLeft = new Point(0, original.Height*2);
-                    Point upperRight = new Point(original.Width, original.Height*2);
+                    Point upperLeft = new Point(0, original.Height * 2);
+                    Point upperRight = new Point(original.Width, original.Height * 2);
                     Point lowerLeft = new Point(0, original.Height);
-                    g.DrawImage(original, new Point[] {upperLeft, upperRight, lowerLeft});
+                    g.DrawImage(original, new Point[] { upperLeft, upperRight, lowerLeft });
                     using (
                         Brush b =
                             new LinearGradientBrush(reflectionRect, Color.FromArgb(128, settings.BackgroundColor),
@@ -82,21 +82,21 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 }
             }
 
-		    context.Image = bitmap;
+            context.Image = bitmap;
             //update the margin value to reflect the border added by this decorator.
-		    context.BorderMargin = new ImageBorderMargin(0, reflectionHeight, new BorderCalculation(1f, 1 + (1/3f)));
-			
-			HideHtmlBorder(context);
-		}
+            context.BorderMargin = new ImageBorderMargin(0, reflectionHeight, new BorderCalculation(1f, 1 + (1 / 3f)));
 
-		public override ImageDecoratorEditor CreateEditor(CommandManager commandManager)
-		{
-			return null;
-		}
+            HideHtmlBorder(context);
+        }
 
-		public override Bitmap BitmapLarge
-		{
-			get { return Images.Photo_Border_Reflection; }
-		}
+        public override ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        {
+            return null;
+        }
+
+        public override Bitmap BitmapLarge
+        {
+            get { return Images.Photo_Border_Reflection; }
+        }
     }
 }

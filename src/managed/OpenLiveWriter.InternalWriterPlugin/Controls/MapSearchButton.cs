@@ -8,17 +8,17 @@ using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.InternalWriterPlugin.Controls
 {
-	internal class MapSearchButton : BitmapButton
-	{
-		public MapSearchButton()
-		{
-			Bitmap buttonFace = ResourceHelper.LoadAssemblyResourceBitmap("Images.BingSearchButton.gif") ;
-		    this.BitmapEnabled = buttonFace;
-		    this.BitmapSelected = buttonFace;
-		    this.BitmapPushed = buttonFace;
+    internal class MapSearchButton : BitmapButton
+    {
+        public MapSearchButton()
+        {
+            Bitmap buttonFace = ResourceHelper.LoadAssemblyResourceBitmap("Images.BingSearchButton.gif");
+            this.BitmapEnabled = buttonFace;
+            this.BitmapSelected = buttonFace;
+            this.BitmapPushed = buttonFace;
             this.ButtonStyle = ButtonStyle.Bitmap;
             this.Cursor = Cursors.Hand;
-		}
-	}
+        }
+    }
 
 }

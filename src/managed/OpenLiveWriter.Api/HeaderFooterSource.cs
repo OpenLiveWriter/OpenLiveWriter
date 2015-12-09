@@ -63,7 +63,7 @@ namespace OpenLiveWriter.Api
         /// <returns>The HTML that should appear at the end of the blog post.</returns>
         public abstract string GeneratePreviewHtml(
             ISmartContent smartContent,
-            IPublishingContext publishingContext, 
+            IPublishingContext publishingContext,
             out Position position);
 
         /// <summary>

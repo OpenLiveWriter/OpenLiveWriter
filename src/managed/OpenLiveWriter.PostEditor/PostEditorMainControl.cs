@@ -58,7 +58,7 @@ namespace OpenLiveWriter.PostEditor
         LTR = 2,
         RTL = 3,
         NoPlugins = 4,
-        HasPlugins = 5,        
+        HasPlugins = 5,
         Test = 31
     }
 
@@ -74,9 +74,9 @@ namespace OpenLiveWriter.PostEditor
         private Command commandSavePost;
         private Command commandDeleteDraft;
         private Command commandPostAsDraft;
-        private Command commandPostAsDraftAndEditOnline;        
+        private Command commandPostAsDraftAndEditOnline;
 
-        private Command commandColorize;        
+        private Command commandColorize;
         private CommandContextMenuDefinition _newPostContextMenuDefinition;
         private CommandContextMenuDefinition _savePostContextMenuDefinition;
 
@@ -87,9 +87,9 @@ namespace OpenLiveWriter.PostEditor
         private PostEditorPreferencesEditor _optionsEditor;
         private WeblogCommandManager _weblogCommandManager;
 
-//        private Bitmap statusNewPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusComposingPost.png");
-//        private Bitmap statusDraftPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusPosted.png");
-//        private Bitmap statusPublishedPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusPublished.png");
+        //        private Bitmap statusNewPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusComposingPost.png");
+        //        private Bitmap statusDraftPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusPosted.png");
+        //        private Bitmap statusPublishedPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusPublished.png");
 
         private System.Windows.Forms.Timer _autoSaveTimer;
         private System.Windows.Forms.Timer _autoSaveMessageDismissTimer;
@@ -163,7 +163,7 @@ namespace OpenLiveWriter.PostEditor
                 _htmlEditor
                 );
 
-            commandPluginsGallery = (GalleryCommand<string>) CommandManager.Get(CommandId.PluginsGallery);
+            commandPluginsGallery = (GalleryCommand<string>)CommandManager.Get(CommandId.PluginsGallery);
             commandPluginsGallery.StateChanged += new EventHandler(commandPluginsGallery_StateChanged);
             _editingManager.BlogChanged += new EventHandler(_editingManager_BlogChanged);
             _editingManager.BlogSettingsChanged += new WeblogSettingsChangedHandler(_editingManager_BlogSettingsChanged);
@@ -185,7 +185,7 @@ namespace OpenLiveWriter.PostEditor
         void commandPluginsGallery_StateChanged(object sender, EventArgs e)
         {
             UpdateRibbonMode();
-        }        
+        }
 
         private void InitializeCommands()
         {
@@ -222,10 +222,10 @@ namespace OpenLiveWriter.PostEditor
             _savePostContextMenuDefinition.Entries.Add(CommandId.SavePost, false, true);
             _savePostContextMenuDefinition.Entries.Add(CommandId.PostAsDraft, false, false);
             _savePostContextMenuDefinition.Entries.Add(CommandId.PostAsDraftAndEditOnline, false, false);
-            commandSavePost.CommandBarButtonContextMenuDropDown = true;            
+            commandSavePost.CommandBarButtonContextMenuDropDown = true;
 
             if (ApplicationDiagnostics.TestMode)
-            {                
+            {
                 _htmlEditor.CommandManager.Add(CommandId.DiagnosticsConsole, new EventHandler(commandDiagnosticsConsole_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ShowBetaExpiredDialogs, new EventHandler(commandShowBetaExpiredDialogs_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ShowWebLayoutWarning, delegate { new WebLayoutViewWarningForm().ShowDialog(this); });
@@ -240,13 +240,13 @@ namespace OpenLiveWriter.PostEditor
                 _htmlEditor.CommandManager.Add(CommandId.ShowAtomImageEndpointSelector, new EventHandler(commandShowAtomImageEndpointSelector_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.RaiseAssertion, delegate { Trace.Fail("You asked for it"); });
                 _htmlEditor.CommandManager.Add(CommandId.ShowGoogleCaptcha, delegate { new GDataCaptchaForm().ShowDialog(this); });
-                _htmlEditor.CommandManager.Add(CommandId.TerminateProcess, delegate { Process.GetCurrentProcess().Kill(); });               
+                _htmlEditor.CommandManager.Add(CommandId.TerminateProcess, delegate { Process.GetCurrentProcess().Kill(); });
             }
-           
+
             commandColorize = new Command(CommandId.Colorize);
             commandColorize.CommandBarButtonContextMenuHandler = new CommandBarButtonContextMenuHandler(new ColorizationContextHelper().Handler);
             _htmlEditor.CommandManager.Add(commandColorize);
-                       
+
             _htmlEditor.CommandManager.EndUpdate();
 
             // initialize the weblog menu commands
@@ -407,7 +407,7 @@ namespace OpenLiveWriter.PostEditor
                 mode |= ToAppMode(ApplicationMode.LTR);
                 mode &= ~ToAppMode(ApplicationMode.RTL);
             }
-                        
+
             if (commandPluginsGallery.Items.Count > 0)
             {
                 mode |= ToAppMode(ApplicationMode.HasPlugins);
@@ -417,18 +417,18 @@ namespace OpenLiveWriter.PostEditor
             {
                 mode |= ToAppMode(ApplicationMode.NoPlugins);
                 mode &= ~ToAppMode(ApplicationMode.HasPlugins);
-            }                           
+            }
 
             if (_framework != null)
             {
-                _framework.SetModes(mode);              
+                _framework.SetModes(mode);
             }
         }
 
         private void InvalidateCommand(CommandId commandId)
         {
             Command command = CommandManager.Get(commandId);
-            if(command != null)
+            if (command != null)
             {
                 command.Invalidate();
             }
@@ -458,28 +458,28 @@ namespace OpenLiveWriter.PostEditor
         private IUIFramework _framework;
         private IUIRibbon ribbon;
         private void InitializeRibbon()
-        {          
-  
-            IUIFramework framework = (IUIFramework)Activator.CreateInstance<Framework>();            
+        {
+
+            IUIFramework framework = (IUIFramework)Activator.CreateInstance<Framework>();
 
             Trace.Assert(framework != null, "Failed to create IUIFramework.");
 
-            ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);            
-            
-            int initializeResult = framework.Initialize(_mainFrameWindow.Handle, this);            
+            ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);
+
+            int initializeResult = framework.Initialize(_mainFrameWindow.Handle, this);
             Trace.Assert(initializeResult == HRESULT.S_OK, "Ribbon framework failed to initialize: " + initializeResult);
 
             _framework = framework;
 
             string nativeResourceDLL = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\OpenLiveWriter.Ribbon.dll";
             IntPtr hMod = Kernel32.LoadLibrary(nativeResourceDLL);
-            
+
             using (new QuickTimer("IUIRibbonFramework::LoadUI"))
-            {                
-                int loadResult = _framework.LoadUI(hMod, "RIBBON_RIBBON");                
-                Trace.Assert(loadResult == HRESULT.S_OK, "Ribbon failed to load: " + loadResult);                
-            }            
-            
+            {
+                int loadResult = _framework.LoadUI(hMod, "RIBBON_RIBBON");
+                Trace.Assert(loadResult == HRESULT.S_OK, "Ribbon failed to load: " + loadResult);
+            }
+
             _framework.SetModes(mode);
 
             CommandManager.Invalidate(CommandId.MRUList);
@@ -487,9 +487,9 @@ namespace OpenLiveWriter.PostEditor
             CommandManager.Invalidate(CommandId.OpenPostSplit);
 
             ApplicationDiagnostics.TestModeChanged += OnTestModeChanged;
-            TestMode = ApplicationDiagnostics.TestMode;            
-        }            
-    
+            TestMode = ApplicationDiagnostics.TestMode;
+        }
+
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
@@ -516,16 +516,16 @@ namespace OpenLiveWriter.PostEditor
             _htmlEditor.TitleFocusChanged += new EventHandler(htmlEditor_TitleFocusChanged);
             _htmlEditor.Dirty += new EventHandler(htmlEditor_Dirty);
             _htmlEditor.EditorLoaded += new EventHandler(_htmlEditor_EditingModeChanged);
-            _htmlEditor.DocumentComplete += new EventHandler(_htmlEditor_DocumentComplete);            
+            _htmlEditor.DocumentComplete += new EventHandler(_htmlEditor_DocumentComplete);
         }
-        
+
         void _htmlEditor_DocumentComplete(object sender, EventArgs e)
         {
             _htmlEditor.FocusBody();
         }
 
         public void OnKeyboardLanguageChanged()
-        {            
+        {
             //// Sync dictionary language with keyboard language (if enabled)            
             //ushort currentLangId = (ushort) (User32.GetKeyboardLayout(0) & 0xFFFF);            
             //SpellingLanguageEntry[] langs = SpellingSettings.GetInstalledLanguages();
@@ -1287,10 +1287,10 @@ namespace OpenLiveWriter.PostEditor
                 bool switchToWeblog;
                 string newBlogId = WeblogConfigurationWizardController.Add(this, true, out switchToWeblog);
                 if (newBlogId != null)
-                {                    
+                {
                     (this as IBlogPostEditingSite).NotifyWeblogAccountListEdited();
                     if (switchToWeblog)
-                    {                        
+                    {
                         _editingManager.SwitchBlog(newBlogId);
                     }
                 }
@@ -1432,13 +1432,13 @@ namespace OpenLiveWriter.PostEditor
                 lock (_postListChangedListeners)
                 {
                     // first refresh the post-list cache for high-performance refresh
-                    PostListCache.Update();                    
+                    PostListCache.Update();
                     WriterJumpList.Invalidate(Handle);
-                    
+
                     CommandManager.Invalidate(CommandId.MRUList);
                     CommandManager.Invalidate(CommandId.OpenDraftSplit);
                     CommandManager.Invalidate(CommandId.OpenPostSplit);
-                    
+
 
                     // now notify all of the listeners asynchronously
                     foreach (DictionaryEntry listener in _postListChangedListeners)
@@ -1672,9 +1672,9 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
         }
-        
+
         public void SaveRibbonSettings()
-        {            
+        {
             lock (_ribbonSettingsLock)
             {
                 try
@@ -1768,13 +1768,13 @@ namespace OpenLiveWriter.PostEditor
                     mode |= STGM.CREATE;
                 const int FILE_ATTRIBUTE_NORMAL = 0x00000080;
                 IStream stream;
-                int hr = Shlwapi.SHCreateStreamOnFileEx(filename, (int) mode, FILE_ATTRIBUTE_NORMAL, create, IntPtr.Zero, out stream);
+                int hr = Shlwapi.SHCreateStreamOnFileEx(filename, (int)mode, FILE_ATTRIBUTE_NORMAL, create, IntPtr.Zero, out stream);
                 if (hr != HRESULT.S_OK)
                 {
                     Trace.WriteLine("Failed to create ribbon stream for " + filename + ": hr = " + hr.ToString("X8", CultureInfo.InvariantCulture));
                     return null;
                 }
-                               
+
                 return stream;
             }
             catch (Exception e)
@@ -1798,7 +1798,7 @@ namespace OpenLiveWriter.PostEditor
         #region Implementation of ISessionHandler
 
         public void OnEndSession()
-        {            
+        {
             _autoSaveTimer_Tick(null, EventArgs.Empty);
         }
 

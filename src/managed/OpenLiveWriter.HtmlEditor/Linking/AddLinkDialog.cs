@@ -21,45 +21,45 @@ using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.HtmlEditor.Linking
 {
-	public class AddLinkDialog : OpenLiveWriter.Controls.ApplicationDialog
-	{
+    public class AddLinkDialog : OpenLiveWriter.Controls.ApplicationDialog
+    {
         private readonly ICollection currentEntryKeys;
-	    private System.Windows.Forms.Button btnOK;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Button btnCancel;
-		private System.Windows.Forms.TextBox txtText;
-		private System.Windows.Forms.TextBox txtURL;
-		private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox txtText;
+        private System.Windows.Forms.TextBox txtURL;
+        private System.Windows.Forms.TextBox txtTitle;
         private CheckBox checkBoxNewWindow;
         private Button buttonAdvanced;
         private GroupLabelControl groupBoxSeparator;
         private ComboBoxRel comboBoxRel;
         private Label labelRel;
         private Panel panelAdvanced;
-		private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
-		public AddLinkDialog(ICollection currentEntryKeys)
-		{
-		    this.currentEntryKeys = currentEntryKeys;
-		    // This call is required by the Windows Form Designer.
-			InitializeComponent();
+        public AddLinkDialog(ICollection currentEntryKeys)
+        {
+            this.currentEntryKeys = currentEntryKeys;
+            // This call is required by the Windows Form Designer.
+            InitializeComponent();
 
-			this.btnOK.Text = Res.Get(StringId.OKButtonText);
-			this.btnCancel.Text = Res.Get(StringId.CancelButton);
-			this.label1.Text = Res.Get(StringId.LinkGlossaryText);
-			this.label2.Text = Res.Get(StringId.LinkGlossaryUrl);
-			this.label3.Text = Res.Get(StringId.LinkGlossaryTitleOptional);
-			this.Text = Res.Get(StringId.LinkGlossaryTitle);
-		    this.labelRel.Text = Res.Get(StringId.LinkGlossaryRelOptional);
-		    checkBoxNewWindow.Text = Res.Get(StringId.LinkNewWindowLabel);
-		    RefreshAdvancedState(false);
+            this.btnOK.Text = Res.Get(StringId.OKButtonText);
+            this.btnCancel.Text = Res.Get(StringId.CancelButton);
+            this.label1.Text = Res.Get(StringId.LinkGlossaryText);
+            this.label2.Text = Res.Get(StringId.LinkGlossaryUrl);
+            this.label3.Text = Res.Get(StringId.LinkGlossaryTitleOptional);
+            this.Text = Res.Get(StringId.LinkGlossaryTitle);
+            this.labelRel.Text = Res.Get(StringId.LinkGlossaryRelOptional);
+            checkBoxNewWindow.Text = Res.Get(StringId.LinkNewWindowLabel);
+            RefreshAdvancedState(false);
 
-		    txtURL.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            txtURL.RightToLeft = System.Windows.Forms.RightToLeft.No;
             if (BidiHelper.IsRightToLeft)
                 txtURL.TextAlign = HorizontalAlignment.Right;
-		}
+        }
 
 
         private void RefreshAdvancedState(bool showAdvanced)
@@ -80,134 +80,134 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         }
         private bool _advancedPanelIsShowing = false;
 
-		protected override void OnLoad(EventArgs e)
-		{
-			// call base
-			base.OnLoad (e);
+        protected override void OnLoad(EventArgs e)
+        {
+            // call base
+            base.OnLoad(e);
 
-			using (new AutoGrow(this, AnchorStyles.Right, true))
-			{
+            using (new AutoGrow(this, AnchorStyles.Right, true))
+            {
                 LayoutHelper.EqualizeButtonWidthsVert(AnchorStyles.Left, btnOK.Width, int.MaxValue, btnOK, btnCancel, buttonAdvanced);
-			}
-			
-			// install auto-complete on the address text box
-			int result = Shlwapi.SHAutoComplete( txtURL.Handle,
-				SHACF.URLALL | SHACF.AUTOSUGGEST_FORCE_ON ) ;
+            }
 
-			// ensure we installed it successfully (if we didn't, no biggie -- the user will
-			// just not get autocomplete support)
-			Debug.Assert( result == HRESULT.S_OK, "Unexpected failure to install AutoComplete" ) ;
+            // install auto-complete on the address text box
+            int result = Shlwapi.SHAutoComplete(txtURL.Handle,
+                SHACF.URLALL | SHACF.AUTOSUGGEST_FORCE_ON);
 
-			// prepopulate the text box w/ http prefix and move the cursor to the end
-			if ( txtURL.Text == String.Empty )
-			{
-				txtURL.Text = HTTP_PREFIX ;
-			}
-			txtText.Focus();
+            // ensure we installed it successfully (if we didn't, no biggie -- the user will
+            // just not get autocomplete support)
+            Debug.Assert(result == HRESULT.S_OK, "Unexpected failure to install AutoComplete");
+
+            // prepopulate the text box w/ http prefix and move the cursor to the end
+            if (txtURL.Text == String.Empty)
+            {
+                txtURL.Text = HTTP_PREFIX;
+            }
+            txtText.Focus();
 
             if (!string.IsNullOrEmpty(comboBoxRel.Rel) || !string.IsNullOrEmpty(txtTitle.Text))
                 RefreshAdvancedState(true);
-		}
-		
-		private const string HTTP_PREFIX = "http://";
-		
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-		
-		
-		public bool Edit
-		{
-			set
-			{
-			    _edit = value;
-				if (value)
-				{
-					Text = Res.Get(StringId.LinkGlossaryEdit);
-				}
-			}
-		}
+        }
 
-	    private bool _edit;
-		
-		public string LinkText
-		{
-			get
-			{
-				return txtText.Text.Trim();
-			}
-			set
-			{
-				txtText.Text = value.Trim();
-			}
-		}
-		
-		public string Url
-		{
-			get
-			{
-				return txtURL.Text.Trim();
-			}
-			set
-			{
-				txtURL.Text = value.Trim();
-			}
-		}
-		
-		public string Title
-		{
-			get
-			{ 
-				return txtTitle.Text.Trim();
-			}
-			set
-			{
-				txtTitle.Text = value.Trim();
-			}
-		}
+        private const string HTTP_PREFIX = "http://";
 
-	    public string Rel
-	    {
-	        get
-	        {
-	            return comboBoxRel.Rel;
-	        }
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+
+        public bool Edit
+        {
+            set
+            {
+                _edit = value;
+                if (value)
+                {
+                    Text = Res.Get(StringId.LinkGlossaryEdit);
+                }
+            }
+        }
+
+        private bool _edit;
+
+        public string LinkText
+        {
+            get
+            {
+                return txtText.Text.Trim();
+            }
+            set
+            {
+                txtText.Text = value.Trim();
+            }
+        }
+
+        public string Url
+        {
+            get
+            {
+                return txtURL.Text.Trim();
+            }
+            set
+            {
+                txtURL.Text = value.Trim();
+            }
+        }
+
+        public string Title
+        {
+            get
+            {
+                return txtTitle.Text.Trim();
+            }
+            set
+            {
+                txtTitle.Text = value.Trim();
+            }
+        }
+
+        public string Rel
+        {
+            get
+            {
+                return comboBoxRel.Rel;
+            }
             set
             {
                 comboBoxRel.Rel = value;
             }
-	    }
+        }
 
-	    public bool OpenInNewWindow
-	    {
-	        get
-	        {
-	            return checkBoxNewWindow.Checked;   
-	        }
+        public bool OpenInNewWindow
+        {
+            get
+            {
+                return checkBoxNewWindow.Checked;
+            }
             set
             {
                 checkBoxNewWindow.Checked = value;
             }
-	    }
+        }
 
-		#region Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -389,35 +389,35 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		private void btnOK_Click(object sender, System.EventArgs e)
-		{
-			if ( LinkText == String.Empty )
-			{
-				DisplayMessage.Show(MessageId.NoLinkTextSpecified, this ) ;
-				txtText.Focus();
-			}
+        private void btnOK_Click(object sender, System.EventArgs e)
+        {
+            if (LinkText == String.Empty)
+            {
+                DisplayMessage.Show(MessageId.NoLinkTextSpecified, this);
+                txtText.Focus();
+            }
             else if (Url.Trim() == String.Empty || Url.Trim() == HTTP_PREFIX)
-			{
-				DisplayMessage.Show(MessageId.NoValidHyperlinkSpecified, this ) ;
-			}
+            {
+                DisplayMessage.Show(MessageId.NoValidHyperlinkSpecified, this);
+            }
             else if (!_edit && IsAlreadyInGlossary(LinkText.Trim()))
-			{
+            {
                 if (DisplayMessage.Show(MessageId.ConfirmReplaceEntry) == DialogResult.Yes)
                     DialogResult = DialogResult.OK;
-			}
-			else
-			{
-                DialogResult = DialogResult.OK ;
-			}		
-		}
+            }
+            else
+            {
+                DialogResult = DialogResult.OK;
+            }
+        }
 
 
         private bool IsAlreadyInGlossary(string entry)
         {
-            foreach(string str in currentEntryKeys)
+            foreach (string str in currentEntryKeys)
                 if (str == entry)
                     return true;
             return false;
@@ -427,6 +427,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         {
             RefreshAdvancedState(!_advancedPanelIsShowing);
         }
-	}
+    }
 }
 

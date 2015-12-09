@@ -12,7 +12,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
 {
     class AutoreplacePreferencesPanel : PreferencesPanel
     {
-        
+
         public AutoreplacePreferencesPanel()
         {
             InitializeComponent();

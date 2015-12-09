@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// <param name="path">The path to the jump list item.</param>
         /// <remarks>The file type should associate the given file  
         /// with the calling application.</remarks>
-        public JumpListItem(string path)            
+        public JumpListItem(string path)
         {
             // Get the absolute path
             string absPath = ShellHelper.GetAbsolutePath(path);
@@ -150,15 +150,15 @@ namespace OpenLiveWriter.PostEditor.JumpList
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
-            {               
-                internalParsingName = null;                                
+            {
+                internalParsingName = null;
             }
-           
+
             if (nativeShellItem != null)
             {
                 Marshal.ReleaseComObject(nativeShellItem);
                 nativeShellItem = null;
-            }            
+            }
         }
 
         /// <summary>

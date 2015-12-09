@@ -352,7 +352,7 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public TaskDialogCommonButtons CommonButtons
         {
-            get { return (TaskDialogCommonButtons) config.dwCommonButtons; }
+            get { return (TaskDialogCommonButtons)config.dwCommonButtons; }
             set
             {
                 EnsureNotShowing();
@@ -581,12 +581,12 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
                     if (HyperlinkClicked != null)
                         HyperlinkClicked(this, new TaskDialogHyperlinkEventArgs(driver, Marshal.PtrToStringUni(lParam)));
                     break;
-                    /*
-                case (uint)TASKDIALOG_NOTIFICATIONS.TDN_NAVIGATED:
-                    if (Navigated != null)
-                        Navigated(this, new TaskDialogEventArgs(driver));
-                    break;
-                     */
+                /*
+            case (uint)TASKDIALOG_NOTIFICATIONS.TDN_NAVIGATED:
+                if (Navigated != null)
+                    Navigated(this, new TaskDialogEventArgs(driver));
+                break;
+                 */
                 case (uint)TASKDIALOG_NOTIFICATIONS.TDN_RADIO_BUTTON_CLICKED:
                     if (RadioButtonClicked != null)
                         RadioButtonClicked(this, new TaskDialogButtonEventArgs(driver, wParam.ToInt32()));
@@ -675,14 +675,14 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private extern static bool DestroyIcon(IntPtr handle);
 
-        public static TaskDialogIcon None           { get { return new TaskDialogIcon(0); } }
-        public static TaskDialogIcon Warning        { get { return new TaskDialogIcon(-1 & 0xFFFF); } }
-        public static TaskDialogIcon Error          { get { return new TaskDialogIcon(-2 & 0xFFFF); } }
-        public static TaskDialogIcon Information    { get { return new TaskDialogIcon(-3 & 0xFFFF); } }
-        public static TaskDialogIcon SecurityWarning    { get { return new TaskDialogIcon(0xFFFF - 5); } }
-        public static TaskDialogIcon SecurityError      { get { return new TaskDialogIcon(0xFFFF - 6); } }
-        public static TaskDialogIcon SecuritySuccess    { get { return new TaskDialogIcon(0xFFFF - 7); } }
-        public static TaskDialogIcon SecurityShield     { get { return new TaskDialogIcon(0xFFFF - 3); } }
+        public static TaskDialogIcon None { get { return new TaskDialogIcon(0); } }
+        public static TaskDialogIcon Warning { get { return new TaskDialogIcon(-1 & 0xFFFF); } }
+        public static TaskDialogIcon Error { get { return new TaskDialogIcon(-2 & 0xFFFF); } }
+        public static TaskDialogIcon Information { get { return new TaskDialogIcon(-3 & 0xFFFF); } }
+        public static TaskDialogIcon SecurityWarning { get { return new TaskDialogIcon(0xFFFF - 5); } }
+        public static TaskDialogIcon SecurityError { get { return new TaskDialogIcon(0xFFFF - 6); } }
+        public static TaskDialogIcon SecuritySuccess { get { return new TaskDialogIcon(0xFFFF - 7); } }
+        public static TaskDialogIcon SecurityShield { get { return new TaskDialogIcon(0xFFFF - 3); } }
         public static TaskDialogIcon SecurityShieldBlue { get { return new TaskDialogIcon(0xFFFF - 4); } }
         public static TaskDialogIcon SecurityShieldGray { get { return new TaskDialogIcon(0xFFFF - 8); } }
     }
@@ -896,13 +896,13 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
     [Flags]
     public enum TaskDialogCommonButtons
     {
-        None          = 0,
-        OK            = 0x0001,
-        Yes           = 0x0002,
-        No            = 0x0004,
-        Cancel        = 0x0008,
-        Retry         = 0x0010,
-        Close         = 0x0020
+        None = 0,
+        OK = 0x0001,
+        Yes = 0x0002,
+        No = 0x0004,
+        Cancel = 0x0008,
+        Retry = 0x0010,
+        Close = 0x0020
     }
 
     public static class TaskDialogCommonButtonIds

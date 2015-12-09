@@ -7,17 +7,17 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Summary description for TextContextMenuDefinition.
-	/// </summary>
-	public class ImageContextMenuDefinition : CommandContextMenuDefinition
-	{
-		public ImageContextMenuDefinition()
-		{
-			Entries.Add(CommandId.Cut, false, false);
-			Entries.Add(CommandId.CopyCommand, false, false);
-			Entries.Add(CommandId.Paste, false, false);
-			Entries.Add(CommandId.InsertLink, true, false) ;
-		}
-	}
+    /// <summary>
+    /// Summary description for TextContextMenuDefinition.
+    /// </summary>
+    public class ImageContextMenuDefinition : CommandContextMenuDefinition
+    {
+        public ImageContextMenuDefinition()
+        {
+            Entries.Add(CommandId.Cut, false, false);
+            Entries.Add(CommandId.CopyCommand, false, false);
+            Entries.Add(CommandId.Paste, false, false);
+            Entries.Add(CommandId.InsertLink, true, false);
+        }
+    }
 }

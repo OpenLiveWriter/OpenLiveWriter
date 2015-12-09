@@ -387,24 +387,24 @@ namespace OpenLiveWriter.CoreServices
                 }
 
                 return new int[]
-						{
-							(0 | 0 << 8 | 0 << 16),
-							(64 | 64 << 8 | 64 << 16),
-							(128 | 128 << 8 | 128 << 16),
-							(255 | 255 << 8 | 255 << 16),
-							(0 | 0 << 8 | 128 << 16),
-							(0 | 128 << 8 | 0 << 16),
-							(0 | 128 << 8 | 128 << 16),
-							(128 | 0 << 8 | 0 << 16),
-							(128 | 0 << 8 | 128 << 16),
-							(128 | 128 << 8 | 0 << 16),
-							(0 | 0 << 8 | 255 << 16),
-							(0 | 255 << 8 | 0 << 16),
-							(0 | 255 << 8 | 255 << 16),
-							(255 | 0 << 8 | 0 << 16),
-							(255 | 0 << 8 | 255 << 16),
-							(255 | 255 << 8 | 0 << 16)
-						};
+                        {
+                            (0 | 0 << 8 | 0 << 16),
+                            (64 | 64 << 8 | 64 << 16),
+                            (128 | 128 << 8 | 128 << 16),
+                            (255 | 255 << 8 | 255 << 16),
+                            (0 | 0 << 8 | 128 << 16),
+                            (0 | 128 << 8 | 0 << 16),
+                            (0 | 128 << 8 | 128 << 16),
+                            (128 | 0 << 8 | 0 << 16),
+                            (128 | 0 << 8 | 128 << 16),
+                            (128 | 128 << 8 | 0 << 16),
+                            (0 | 0 << 8 | 255 << 16),
+                            (0 | 255 << 8 | 0 << 16),
+                            (0 | 255 << 8 | 255 << 16),
+                            (255 | 0 << 8 | 0 << 16),
+                            (255 | 0 << 8 | 255 << 16),
+                            (255 | 255 << 8 | 0 << 16)
+                        };
             }
             set
             {
@@ -565,12 +565,12 @@ namespace OpenLiveWriter.CoreServices
         {
             get
             {
-                using(SettingsPersisterHelper settings = UserSettingsRoot.GetSubSettings("Preferences\\PostEditor"))
+                using (SettingsPersisterHelper settings = UserSettingsRoot.GetSubSettings("Preferences\\PostEditor"))
                 {
                     string insertImageDirectory = settings.GetString("ImageInsertDir", null);
                     if (string.IsNullOrEmpty(insertImageDirectory) || !Directory.Exists(insertImageDirectory))
                         insertImageDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-                    return insertImageDirectory; 
+                    return insertImageDirectory;
                 }
             }
             set

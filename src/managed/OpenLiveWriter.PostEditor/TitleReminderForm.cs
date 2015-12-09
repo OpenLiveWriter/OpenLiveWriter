@@ -14,87 +14,87 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor
 {
-	/// <summary>
-	/// Summary description for TitleReminderForm.
-	/// </summary>
-	public class TitleReminderForm : ApplicationDialog
-	{
-		private System.Windows.Forms.CheckBox cbDontShowAgain;
-		private System.Windows.Forms.Label labelExplanation;
-		private System.Windows.Forms.Label labelError;
-		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Button buttonYes;
-		private System.Windows.Forms.Button buttonNo;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for TitleReminderForm.
+    /// </summary>
+    public class TitleReminderForm : ApplicationDialog
+    {
+        private System.Windows.Forms.CheckBox cbDontShowAgain;
+        private System.Windows.Forms.Label labelExplanation;
+        private System.Windows.Forms.Label labelError;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button buttonYes;
+        private System.Windows.Forms.Button buttonNo;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		public TitleReminderForm(bool isPage)
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public TitleReminderForm(bool isPage)
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			this.cbDontShowAgain.Text = Res.Get(StringId.TitleRemindDontShowAgain);
-			this.labelExplanation.Text = Res.Get(StringId.TitleRemindExplanation);
-			this.labelError.Text = Res.Get(StringId.TitleRemindError);
-			this.buttonYes.Text = Res.Get(StringId.Yes);
-			this.buttonNo.Text = Res.Get(StringId.No);
-			this.Text = Res.Get(StringId.TitleRemindTitle);
+            this.cbDontShowAgain.Text = Res.Get(StringId.TitleRemindDontShowAgain);
+            this.labelExplanation.Text = Res.Get(StringId.TitleRemindExplanation);
+            this.labelError.Text = Res.Get(StringId.TitleRemindError);
+            this.buttonYes.Text = Res.Get(StringId.Yes);
+            this.buttonNo.Text = Res.Get(StringId.No);
+            this.Text = Res.Get(StringId.TitleRemindTitle);
 
-			this.labelError.Font = Res.GetFont(FontSize.XLarge, FontStyle.Bold);
+            this.labelError.Font = Res.GetFont(FontSize.XLarge, FontStyle.Bold);
             labelError.Text = String.Format(CultureInfo.CurrentCulture, labelError.Text, isPage ? Res.Get(StringId.Page) : Res.Get(StringId.Post));
             labelExplanation.Text = String.Format(CultureInfo.CurrentCulture, labelExplanation.Text, isPage ? Res.Get(StringId.PageLower) : Res.Get(StringId.PostLower));
-		}
-		
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
-			
-			using (new AutoGrow(this, AnchorStyles.Bottom, false))
-			{
-				LayoutHelper.NaturalizeHeightAndDistribute(12,
-					labelError,
-					labelExplanation,
-					new ControlGroup(buttonYes, buttonNo),
-					cbDontShowAgain);
-			}
-		}
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            using (new AutoGrow(this, AnchorStyles.Bottom, false))
+            {
+                LayoutHelper.NaturalizeHeightAndDistribute(12,
+                    labelError,
+                    labelExplanation,
+                    new ControlGroup(buttonYes, buttonNo),
+                    cbDontShowAgain);
+            }
+        }
 
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		protected override void OnClosed(EventArgs e)
-		{
-			base.OnClosed (e);
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
 
-			if ( DialogResult != DialogResult.Cancel )
-				PostEditorSettings.TitleReminder = !cbDontShowAgain.Checked ;
-		}
+            if (DialogResult != DialogResult.Cancel)
+                PostEditorSettings.TitleReminder = !cbDontShowAgain.Checked;
+        }
 
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TitleReminderForm));
             this.cbDontShowAgain = new System.Windows.Forms.CheckBox();
             this.labelExplanation = new System.Windows.Forms.Label();
@@ -191,8 +191,8 @@ namespace OpenLiveWriter.PostEditor
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-	}
+    }
 }

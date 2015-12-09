@@ -66,7 +66,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
 
                 LayoutHelper.FixupGroupBox(groupBoxWeblogStyle);
                 LayoutHelper.FixupGroupBox(groupBoxRTL);
-                
+
                 LayoutHelper.DistributeVertically(8, groupBoxWeblogStyle, groupBoxRTL);
 
                 int maxWidth = groupBoxRTL.Width - comboBoxRTL.Left - 8;
@@ -98,14 +98,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             comboBoxRTL.Items.Add(Res.Get(StringId.EditingRTLYes));
             comboBoxRTL.Items.Add(Res.Get(StringId.EditingRTLNo));
 
-            
+
             // Though the value of the combo box can come from homepage/manifest/user options
-            if(TemporaryBlogSettings.UserOptionOverrides.Contains(BlogClientOptions.TEMPLATE_IS_RTL))
+            if (TemporaryBlogSettings.UserOptionOverrides.Contains(BlogClientOptions.TEMPLATE_IS_RTL))
             {
                 // Select the correct option from the combobox
                 if (StringHelper.ToBool(TemporaryBlogSettings.UserOptionOverrides[BlogClientOptions.TEMPLATE_IS_RTL].ToString(), false))
                     comboBoxRTL.SelectedIndex = 1;
-                else 
+                else
                     comboBoxRTL.SelectedIndex = 2;
             }
             else

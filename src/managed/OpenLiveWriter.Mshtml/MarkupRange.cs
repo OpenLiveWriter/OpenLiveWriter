@@ -543,8 +543,8 @@ namespace OpenLiveWriter.Mshtml
                 return false;
             }
         }
-                
-        public delegate bool RangeFilter(MarkupPointer start, MarkupPointer end);        
+
+        public delegate bool RangeFilter(MarkupPointer start, MarkupPointer end);
 
         public bool MoveOutwardIfNoText()
         {
@@ -560,7 +560,7 @@ namespace OpenLiveWriter.Mshtml
         {
             return MoveOutwardIfNo(HasContentBetween);
         }
-      
+
         /// <summary>
         /// Expands this range out to the next parent shared by the start and end points
         /// if there there are no non-empty text elements between them.
@@ -773,7 +773,7 @@ namespace OpenLiveWriter.Mshtml
 
                 p1.MoveToPointer(p2);
             }
-        }        
+        }
 
         /// <summary>
         /// Returns true if the start and end points of the range are equal.
@@ -807,7 +807,7 @@ namespace OpenLiveWriter.Mshtml
                 bool isEmptyOfContent = true;
 
                 WalkRange(
-                    delegate(MarkupRange currentRange, MarkupContext context, string text)
+                    delegate (MarkupRange currentRange, MarkupContext context, string text)
                         {
                             text = text ?? string.Empty;
                             if (!String.IsNullOrEmpty(text.Trim()))
@@ -842,7 +842,7 @@ namespace OpenLiveWriter.Mshtml
                 bool isEmptyOfText = true;
 
                 WalkRange(
-                    delegate(MarkupRange currentRange, MarkupContext context, string text)
+                    delegate (MarkupRange currentRange, MarkupContext context, string text)
                         {
                             text = text ?? string.Empty;
                             if (!String.IsNullOrEmpty(text.Trim()))
@@ -888,7 +888,7 @@ namespace OpenLiveWriter.Mshtml
         {
             IHTMLElement startCurrentScope = start.CurrentScope;
             IHTMLElement endCurrentScope = end.CurrentScope;
-            
+
             if (startCurrentScope == endCurrentScope)
             {
                 //the start/end points share the same current scope, so return that element as the parent.
@@ -1048,10 +1048,10 @@ namespace OpenLiveWriter.Mshtml
                     Start.MoveToPointer(range.Start);
 
                 if (range.End.IsRightOf(End))
-                    End.MoveToPointer(range.End);                
+                    End.MoveToPointer(range.End);
             }
             else
-                MoveToRange(range);            
+                MoveToRange(range);
         }
 
         /// <summary>
@@ -1081,8 +1081,8 @@ namespace OpenLiveWriter.Mshtml
             }
 
             return false;
-        }               
-      
+        }
+
         public void RemoveElementsByTagId(_ELEMENT_TAG_ID tagId, bool onlyIfNoAttributes)
         {
             if (tagId == _ELEMENT_TAG_ID.TAGID_NULL)
@@ -1091,7 +1091,7 @@ namespace OpenLiveWriter.Mshtml
             // Remove the tagId up the parent chain
             IHTMLElement currentElement = ParentElement();
             while (currentElement != null)
-            {                
+            {
                 if (MarkupServices.GetElementTagId(currentElement) == tagId &&
                     (!onlyIfNoAttributes || !HTMLElementHelper.HasMeaningfulAttributes(currentElement)))
                 {
@@ -1099,7 +1099,7 @@ namespace OpenLiveWriter.Mshtml
                     {
                         MarkupServices.RemoveElement(currentElement);
                     }
-                    catch(COMException e)
+                    catch (COMException e)
                     {
                         Trace.Fail(String.Format("Failed to remove element ({0}) with error: {1}",
                             currentElement.outerHTML,   // {0}
@@ -1108,8 +1108,8 @@ namespace OpenLiveWriter.Mshtml
                     }
                 }
                 currentElement = currentElement.parentElement;
-            }            
-            
+            }
+
             // Remove any other instances
             IHTMLElement[] elements =
                 GetElements(ElementFilters.CreateTagIdFilter(MarkupServices.GetNameForTagId(tagId)), false);
@@ -1193,6 +1193,6 @@ namespace OpenLiveWriter.Mshtml
 
             Start = innerStart;
             End = innerEnd;
-        }        
+        }
     }
 }

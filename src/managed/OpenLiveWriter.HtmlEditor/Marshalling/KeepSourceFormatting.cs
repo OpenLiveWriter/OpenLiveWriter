@@ -97,7 +97,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             var elementsToReplace = new Dictionary<IHTMLElement, _ELEMENT_TAG_ID>();
 
             sourceRange.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                     {
                         if (IsBeginTag(context))
                         {
@@ -274,7 +274,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                              "Mismatched tags!");
 
                 // If it is an image, add attribute marker to suppress applying default values for image decorators
-                if (sourceContext.Element != null && destinationContext.Element != null && 
+                if (sourceContext.Element != null && destinationContext.Element != null &&
                     string.Compare(sourceContext.Element.tagName, "IMG", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     destinationContext.Element.setAttribute("wlNoDefaultDecorator", "true", 0);
@@ -538,7 +538,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
             if (IsEms(sourceCascadedStyle.borderBottomWidth as string))
             {
-                int borderBottomInPixels = (int)HTMLElementHelper.CSSUnitStringToPixelSize(HTMLElementHelper.CSSUnitStringBorderBottom, sourceElement, 
+                int borderBottomInPixels = (int)HTMLElementHelper.CSSUnitStringToPixelSize(HTMLElementHelper.CSSUnitStringBorderBottom, sourceElement,
                     HTMLElementHelper.LastChanceBorderWidthPointSize, true);
                 destinationInlineStyle.borderBottomWidth = String.Format(CultureInfo.InvariantCulture, "{0}px", borderBottomInPixels);
             }
@@ -1493,7 +1493,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 String.Compare(((IHTMLElement2)element).scopeName, html, StringComparison.OrdinalIgnoreCase) != 0)
             {
                 // This is a custom element (e.g. <o:p></o:p> from Word), so check if its set to display inline.
-                return String.Compare(((IHTMLElement2)element).currentStyle.display, inline, 
+                return String.Compare(((IHTMLElement2)element).currentStyle.display, inline,
                     StringComparison.OrdinalIgnoreCase) == 0;
             }
 
@@ -1544,7 +1544,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // command set that they can execute against.
             IOleCommandTargetWithExecParams target = (IOleCommandTargetWithExecParams)textRange;
             MshtmlCoreCommandSet commands = new MshtmlCoreCommandSet(target);
-            
+
             foreach (FixupSegment fixupSegment in registeredFixupSegments)
             {
                 destinationMarkupServices.MoveRangeToPointers(fixupSegment.RangeToFixup.Start, fixupSegment.RangeToFixup.End, textRange);

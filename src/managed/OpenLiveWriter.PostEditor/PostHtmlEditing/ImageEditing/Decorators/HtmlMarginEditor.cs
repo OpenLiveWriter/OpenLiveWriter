@@ -14,7 +14,7 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.Commands;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
-{   
+{
 
     public class HtmlMarginEditor : ImageDecoratorEditor
     {
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             // This call is required by the Windows Form Designer.
             InitializeComponent();
-            
+
             marginCommand = (MarginCommand)commandManager.Get(CommandId.MarginsGroup);
 
             this.label3.Text = Res.Get(StringId.ImgSBMarginTop);
@@ -47,10 +47,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             comboBoxMargins.Initialize();
             comboBoxMargins.SelectedIndexChanged += new EventHandler(comboBoxMargins_SelectedIndexChanged);
             comboBoxMargins.SelectedIndex = 0;
-            panelCustomMargin.VisibleChanged += new EventHandler(panelCustomMargin_VisibleChanged);          
+            panelCustomMargin.VisibleChanged += new EventHandler(panelCustomMargin_VisibleChanged);
 
             comboBoxMargins.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.ImgSBMargins));
-            
+
             marginCommand.MarginChanged += new EventHandler(marginCommand_MarginChanged);
         }
 

@@ -111,10 +111,10 @@ namespace OpenLiveWriter.Localization
             {
                 if (!UseItalics)
                     return DefaultFont;
-                
+
                 if (italicFont == null)
                     italicFont = new Font(defaultFont, FontStyle.Italic);
-                return (Font) italicFont.Clone();
+                return (Font)italicFont.Clone();
             }
         }
 
@@ -189,7 +189,7 @@ namespace OpenLiveWriter.Localization
                 if (defaultFont == null)
                 {
                     string fontName = propResMan.GetString("Font") ?? DefaultFontName;
-                    
+
                     float fontSize;
                     if (!float.TryParse(propResMan.GetString("Font.Size.Normal"), NumberStyles.Float, CultureInfo.InvariantCulture, out fontSize))
                         fontSize = DefaultNormalFontSize;
@@ -336,9 +336,9 @@ namespace OpenLiveWriter.Localization
                     case "PMINGLIU":
                     case "MS SANS SERIF":
                     case "SEGOE UI":
-                        // These fonts are known good, but they can return localized names
-                        // under localized Windows versions
-                        // except Segoe UI, which is only on Vista (though the suite installer installs it on XP)
+                    // These fonts are known good, but they can return localized names
+                    // under localized Windows versions
+                    // except Segoe UI, which is only on Vista (though the suite installer installs it on XP)
                     case "MICROSOFT YAHEI":
                         // this one is OK only for Vista
                         break;

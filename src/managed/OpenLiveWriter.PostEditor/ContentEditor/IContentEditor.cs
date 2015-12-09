@@ -156,7 +156,7 @@ namespace OpenLiveWriter.PostEditor
         /// </summary>
         void AutoreplaceEmoticons(bool enabled);
     }
-    
+
     /// <summary>
     /// Each time the content editor publishes the html, the hosting application will have to provide
     /// one of these which it will use to display information to the user as well as change 

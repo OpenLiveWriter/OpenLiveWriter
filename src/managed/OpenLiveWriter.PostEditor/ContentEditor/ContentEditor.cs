@@ -645,7 +645,7 @@ namespace OpenLiveWriter.PostEditor
 
             foreach (string commandId in contentSourceList.CommandIdentifiers)
                 if (WebImageContentSource.ID != commandId)
-                    insertMenuDefinition.Entries.Add(commandId, false, false);            
+                    insertMenuDefinition.Entries.Add(commandId, false, false);
         }
 
         private void UpdateContentSourceCommands()
@@ -1851,7 +1851,7 @@ namespace OpenLiveWriter.PostEditor
             }
 
             bool inSourceOrWysiwygModeAndEditFieldNotSelected = InSourceOrWysiwygModeAndEditFieldIsNotSelected();
-            
+
             commandInsertPicture.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertEmoticon.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertTable.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;

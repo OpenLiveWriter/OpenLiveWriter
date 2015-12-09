@@ -56,7 +56,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 _tableEditingInitialized = true;
             }
         }
-       
+
         protected void HookEvents()
         {
             // subscribe to events
@@ -248,7 +248,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             {
                 StringBuilder output = new StringBuilder(html.Length);
                 SimpleHtmlParser parser = new SimpleHtmlParser(html);
-                for (Element el; null != (el = parser.Next()); )
+                for (Element el; null != (el = parser.Next());)
                 {
                     output.Append(html, el.Offset, el.Length);
                     if (el is BeginTag &&
@@ -355,7 +355,7 @@ namespace OpenLiveWriter.PostEditor.Tables
         private bool _drawSelectionBorder = false;
 
         protected override void Dispose(bool disposeManagedResources)
-        {           
+        {
             if (!_disposed)
             {
                 if (disposeManagedResources)

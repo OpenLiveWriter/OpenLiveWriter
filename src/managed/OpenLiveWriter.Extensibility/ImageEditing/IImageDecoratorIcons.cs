@@ -5,14 +5,14 @@ using System.Drawing;
 
 namespace OpenLiveWriter.Extensibility.ImageEditing
 {
-	/// <summary>
-	/// Summary description for IImageDecoratorIcon.
-	/// </summary>
-	public interface IImageDecoratorIcons
-	{
-		/// <summary>
-		/// The large icon for an image decorator (expected size: 40x27)
-		/// </summary>
-		Bitmap BitmapLarge { get; }
-	}
+    /// <summary>
+    /// Summary description for IImageDecoratorIcon.
+    /// </summary>
+    public interface IImageDecoratorIcons
+    {
+        /// <summary>
+        /// The large icon for an image decorator (expected size: 40x27)
+        /// </summary>
+        Bitmap BitmapLarge { get; }
+    }
 }

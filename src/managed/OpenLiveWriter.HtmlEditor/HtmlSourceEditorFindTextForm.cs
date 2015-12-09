@@ -16,138 +16,138 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.HtmlEditor
 {
-	/// <summary>
-	/// Summary description for HtmlSourceEditorFindTextForm.
-	/// </summary>
-	public class HtmlSourceEditorFindTextForm : ApplicationDialog
-	{
-		private System.Windows.Forms.Label labelFindWhat;
-		private System.Windows.Forms.TextBox textBoxFindWhat;
-		private System.Windows.Forms.Button buttonFindNext;
-		private System.Windows.Forms.Button buttonClose;
-		private System.Windows.Forms.GroupBox groupBoxDirection;
-		private System.Windows.Forms.RadioButton radioButtonUp;
-		private System.Windows.Forms.RadioButton radioButtonDown;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for HtmlSourceEditorFindTextForm.
+    /// </summary>
+    public class HtmlSourceEditorFindTextForm : ApplicationDialog
+    {
+        private System.Windows.Forms.Label labelFindWhat;
+        private System.Windows.Forms.TextBox textBoxFindWhat;
+        private System.Windows.Forms.Button buttonFindNext;
+        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.GroupBox groupBoxDirection;
+        private System.Windows.Forms.RadioButton radioButtonUp;
+        private System.Windows.Forms.RadioButton radioButtonDown;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		private TextBox _targetTextBox ;
+        private TextBox _targetTextBox;
 
-		public HtmlSourceEditorFindTextForm(TextBox targetTextBox)
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public HtmlSourceEditorFindTextForm(TextBox targetTextBox)
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			this.labelFindWhat.Text = Res.Get(StringId.FindWhatLabel);
-			this.buttonFindNext.Text = Res.Get(StringId.FindNextButton);
-			this.buttonClose.Text = Res.Get(StringId.CloseButton);
-			this.groupBoxDirection.Text = Res.Get(StringId.FindDirection);
-			this.radioButtonDown.Text = Res.Get(StringId.FindDirectionDown);
-			this.radioButtonUp.Text = Res.Get(StringId.FindDirectionUp);
-			this.Text = Res.Get(StringId.FindTitle);
+            this.labelFindWhat.Text = Res.Get(StringId.FindWhatLabel);
+            this.buttonFindNext.Text = Res.Get(StringId.FindNextButton);
+            this.buttonClose.Text = Res.Get(StringId.CloseButton);
+            this.groupBoxDirection.Text = Res.Get(StringId.FindDirection);
+            this.radioButtonDown.Text = Res.Get(StringId.FindDirectionDown);
+            this.radioButtonUp.Text = Res.Get(StringId.FindDirectionUp);
+            this.Text = Res.Get(StringId.FindTitle);
 
-		    buttonFindNext.Enabled = false;
+            buttonFindNext.Enabled = false;
 
-			// save referenced to text text box
-			_targetTextBox = targetTextBox ;
+            // save referenced to text text box
+            _targetTextBox = targetTextBox;
 
-			// initialize search text
-			textBoxFindWhat.Text = targetTextBox.SelectedText ;
-	
-			// initialize direction
-			radioButtonDown.Checked = targetTextBox.SelectionStart < (targetTextBox.Text.Length/2) ;
-		}
+            // initialize search text
+            textBoxFindWhat.Text = targetTextBox.SelectedText;
 
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
+            // initialize direction
+            radioButtonDown.Checked = targetTextBox.SelectionStart < (targetTextBox.Text.Length / 2);
+        }
 
-			int distance = radioButtonDown.Left - radioButtonUp.Right;
-			DisplayHelper.AutoFitSystemRadioButton(radioButtonDown, 0, int.MaxValue);
-			DisplayHelper.AutoFitSystemRadioButton(radioButtonUp, 0, int.MaxValue);
-			radioButtonDown.Left = radioButtonUp.Right + distance;
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            int distance = radioButtonDown.Left - radioButtonUp.Right;
+            DisplayHelper.AutoFitSystemRadioButton(radioButtonDown, 0, int.MaxValue);
+            DisplayHelper.AutoFitSystemRadioButton(radioButtonUp, 0, int.MaxValue);
+            radioButtonDown.Left = radioButtonUp.Right + distance;
 
 
 
             using (new AutoGrow(this, AnchorStyles.Bottom | AnchorStyles.Right, false))
-			{
+            {
                 int oldTop = radioButtonDown.Top;
                 radioButtonDown.Top = radioButtonUp.Top = Res.DefaultFont.Height + 3;
-                groupBoxDirection.Height += Math.Max(radioButtonDown.Top - oldTop,0);
-				LayoutHelper.EqualizeButtonWidthsVert(AnchorStyles.Left, buttonClose.Width, int.MaxValue, buttonFindNext, buttonClose);
-			}
-		}
+                groupBoxDirection.Height += Math.Max(radioButtonDown.Top - oldTop, 0);
+                LayoutHelper.EqualizeButtonWidthsVert(AnchorStyles.Left, buttonClose.Width, int.MaxValue, buttonFindNext, buttonClose);
+            }
+        }
 
 
         /// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-	
+		protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
 
-		private void textBoxFindWhat_TextChanged(object sender, System.EventArgs e)
-		{
-			buttonFindNext.Enabled = textBoxFindWhat.Text.Length != 0 ;
-		}
 
-		private void buttonFindNext_Click(object sender, System.EventArgs e)
-		{
-			try
-			{
-				string findText = textBoxFindWhat.Text.Trim();
-				int nextOccurance = -1 ;
-				if ( radioButtonDown.Checked )
-				{
-					nextOccurance = _targetTextBox.Text.IndexOf( findText,
-						_targetTextBox.SelectionStart + _targetTextBox.SelectionLength);
-				}
-				else
-				{
-					int start = _targetTextBox.SelectionStart;
-					if (_targetTextBox.SelectionLength == 1 && start > 0)
-						start = start - 1;
-					nextOccurance = _targetTextBox.Text.LastIndexOf(findText, start);
-				}
+        private void textBoxFindWhat_TextChanged(object sender, System.EventArgs e)
+        {
+            buttonFindNext.Enabled = textBoxFindWhat.Text.Length != 0;
+        }
 
-				if ( nextOccurance != -1 )
-				{
-					_targetTextBox.Select(nextOccurance, findText.Length) ;
-					_targetTextBox.ScrollToCaret();
-				}
-				else
-				{
-					DisplayMessage.Show(MessageId.FinishedSearchingDocument, this );
-				}
-			}
-			catch(Exception ex)
-			{
-				UnexpectedErrorMessage.Show(this, ex);
-			}
-		}
+        private void buttonFindNext_Click(object sender, System.EventArgs e)
+        {
+            try
+            {
+                string findText = textBoxFindWhat.Text.Trim();
+                int nextOccurance = -1;
+                if (radioButtonDown.Checked)
+                {
+                    nextOccurance = _targetTextBox.Text.IndexOf(findText,
+                        _targetTextBox.SelectionStart + _targetTextBox.SelectionLength);
+                }
+                else
+                {
+                    int start = _targetTextBox.SelectionStart;
+                    if (_targetTextBox.SelectionLength == 1 && start > 0)
+                        start = start - 1;
+                    nextOccurance = _targetTextBox.Text.LastIndexOf(findText, start);
+                }
+
+                if (nextOccurance != -1)
+                {
+                    _targetTextBox.Select(nextOccurance, findText.Length);
+                    _targetTextBox.ScrollToCaret();
+                }
+                else
+                {
+                    DisplayMessage.Show(MessageId.FinishedSearchingDocument, this);
+                }
+            }
+            catch (Exception ex)
+            {
+                UnexpectedErrorMessage.Show(this, ex);
+            }
+        }
 
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.labelFindWhat = new System.Windows.Forms.Label();
             this.textBoxFindWhat = new System.Windows.Forms.TextBox();
             this.buttonFindNext = new System.Windows.Forms.Button();
@@ -246,10 +246,10 @@ namespace OpenLiveWriter.HtmlEditor
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
-	
+        }
+        #endregion
 
-	
-	}
+
+
+    }
 }

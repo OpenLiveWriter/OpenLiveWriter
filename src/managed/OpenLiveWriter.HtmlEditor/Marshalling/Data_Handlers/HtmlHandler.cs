@@ -233,7 +233,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                 }
             }
 
-            if (startFragment == null || endFragment == null || !startFragment.Positioned || !endFragment.Positioned || 
+            if (startFragment == null || endFragment == null || !startFragment.Positioned || !endFragment.Positioned ||
                 startFragment.IsRightOf(endFragment))
             {
                 Trace.WriteLine("Unable to find fragment or invalid fragment!");
@@ -252,8 +252,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                 startContext.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_ExitScope &&
                 startContext.Element != null &&
                 ElementFilters.IsEndTagOptional(startContext.Element) &&
-                !Regex.IsMatch(startContext.Element.outerHTML, 
-                               String.Format(CultureInfo.InvariantCulture, @"</{0}(\s[^>]*)?>\s*$", startContext.Element.tagName), 
+                !Regex.IsMatch(startContext.Element.outerHTML,
+                               String.Format(CultureInfo.InvariantCulture, @"</{0}(\s[^>]*)?>\s*$", startContext.Element.tagName),
                                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
             {
                 startFragment.Right(true);
@@ -299,7 +299,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                 string startMarker = string.Format(CultureInfo.InvariantCulture, "<!--{0}-->", Guid.NewGuid());
                 destinationMarkupServices.InsertHtml(startMarker, destinationRange.Start);
                 startComment = destinationRange.Start.Right(false).Element;
-                
+
                 string endMarker = string.Format(CultureInfo.InvariantCulture, "<!--{0}-->", Guid.NewGuid());
                 destinationMarkupServices.InsertHtml(endMarker, destinationRange.End);
                 endComment = destinationRange.End.Left(false).Element;
@@ -423,7 +423,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         private void ExpandToIncludeLists(MarkupRange range, MshtmlMarkupServices markupServices)
         {
             MarkupPointer pointer = markupServices.CreateMarkupPointer();
-            IHTMLElementFilter listFilter = 
+            IHTMLElementFilter listFilter =
                 ElementFilters.CreateCompoundElementFilter(ElementFilters.LIST_ELEMENTS, ElementFilters.LIST_ITEM_ELEMENTS);
 
             IHTMLElement[] listElements = range.GetElements(listFilter, false);

@@ -73,7 +73,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
         void lblEmailExample_SizeChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         protected override void ScaleControl(SizeF factor, BoundsSpecified specified)
@@ -114,8 +114,8 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             if (pictureBoxLogo.Image != null)
                 pictureBoxLogo.Size = pictureBoxLogo.Image.Size;
             else
-                pictureBoxLogo.Size = new Size(0,0);
-            
+                pictureBoxLogo.Size = new Size(0, 0);
+
             RefreshLayout();
         }
 
@@ -132,8 +132,8 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             ckBoxSavePassword.Width = Width - ckBoxSavePassword.Left - 10;
             linkLabelCreateMicrosoftAccountID.Width = Width - linkLabelCreateMicrosoftAccountID.Left - 10;
             LayoutHelper.NaturalizeHeight(pictureBoxLogo, lblUsername, txtUsername, lblEmailExample, lblPassword, txtPassword, ckBoxSavePassword, linkLabelCreateMicrosoftAccountID, linkLabelPrivacy, btnLogin);
-            
-            if(ShowCreateMicrosoftAccountID)
+
+            if (ShowCreateMicrosoftAccountID)
                 LayoutHelper.DistributeVertically(4, false, pictureBoxLogo, lblUsername, txtUsername, lblEmailExample, lblPassword, txtPassword, ckBoxSavePassword, linkLabelCreateMicrosoftAccountID, linkLabelPrivacy, btnLogin);
             else
                 LayoutHelper.DistributeVertically(4, false, pictureBoxLogo, lblUsername, txtUsername, lblEmailExample, lblPassword, txtPassword, ckBoxSavePassword, btnLogin);
@@ -144,14 +144,14 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 lblPassword.Width = lblEmailExample.Width = txtUsername.Width;
             lblUsername.Left =
                 lblPassword.Left = lblEmailExample.Left = txtUsername.Left;
-            
+
             if (BidiHelper.IsRightToLeft)
                 pictureBoxLogo.Left = txtUsername.Right - pictureBoxLogo.Width;
             else
-                pictureBoxLogo.Left = txtUsername.Left; 
+                pictureBoxLogo.Left = txtUsername.Left;
 
             Controls.Remove(lblStatus);
-            
+
             DisplayHelper.AutoFitSystemButton(btnLogin, btnLogin.Width, int.MaxValue);
             LayoutHelper.FitControlsBelow(10, pictureBoxLogo);
 
@@ -167,7 +167,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 LayoutHelper.NaturalizeHeightAndDistribute(3, lblPassword, txtPassword, ckBoxSavePassword);
                 LayoutHelper.NaturalizeHeightAndDistribute(15, ckBoxSavePassword, btnLogin);
             }
-                
+
 
 
             if (BidiHelper.IsRightToLeft)
@@ -289,7 +289,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             // 
             // ckBoxSavePassword
             // 
-            ckBoxSavePassword.Anchor = ((AnchorStyles) (((AnchorStyles.Top | AnchorStyles.Left)
+            ckBoxSavePassword.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
                                                          )));
             ckBoxSavePassword.FlatStyle = FlatStyle.System;
             ckBoxSavePassword.Location = new Point(50, 232);
@@ -300,7 +300,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             // 
             // lblEmailExample
             // 
-            lblEmailExample.Anchor = ((AnchorStyles) (((AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right)
+            lblEmailExample.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right)
                                                        )));
             lblEmailExample.ForeColor = SystemColors.ControlDarkDark;
             lblEmailExample.FlatStyle = FlatStyle.System;
@@ -316,7 +316,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             lblStatus.TextAlign = ContentAlignment.MiddleCenter;
             lblStatus.Size = new Size(309, 56);
             lblStatus.Location = new Point(3, 165);
-            
+
             // 
             // SoapboxLoginControl
             // 
@@ -373,7 +373,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
         static void linkLabelCreateMicrosoftAccountID_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try 
+            try
             {
                 ShellHelper.LaunchUrl(GLink.Instance.CreateMicrosoftAccountID);
             }
@@ -434,13 +434,13 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             lblStatus.AutoSize = true;
             lblStatus.Text = Res.Get(StringId.Plugin_Video_Soapbox_LoggingIn); ;
             lblStatus.Visible = loggingIn;
-            lblStatus.Top = Height/2;
-            lblStatus.Left = Width/2 - lblStatus.Width/2;
+            lblStatus.Top = Height / 2;
+            lblStatus.Left = Width / 2 - lblStatus.Width / 2;
             lblStatus.BringToFront();
 
-            txtUsername.Visible = txtPassword.Visible = pictureBoxLogo.Visible = btnLogin.Visible 
+            txtUsername.Visible = txtPassword.Visible = pictureBoxLogo.Visible = btnLogin.Visible
                 = lblUsername.Visible = lblPassword.Visible = lblEmailExample.Visible = !loggingIn;
-            linkLabelPrivacy.Visible = linkLabelCreateMicrosoftAccountID.Visible 
+            linkLabelPrivacy.Visible = linkLabelCreateMicrosoftAccountID.Visible
                 = !loggingIn && ShowCreateMicrosoftAccountID;
             ckBoxSavePassword.Visible = (!loggingIn && _auth.AllowSavePassword);
 
@@ -492,7 +492,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
         void IRtlAware.Layout()
         {
-            
+
         }
     }
 
@@ -551,7 +551,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             }
             set
             {
-                (UseComboBox ? (Control) comboBox : textBox).Text = value;
+                (UseComboBox ? (Control)comboBox : textBox).Text = value;
             }
         }
 

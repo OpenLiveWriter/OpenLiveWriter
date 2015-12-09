@@ -139,7 +139,7 @@ namespace OpenLiveWriter.Localization.Bidi
         {
             if (!RTL)
                 return value;
-            
+
             if ((value & AnchorStyles.Left) == AnchorStyles.Left
                 ^ (value & AnchorStyles.Right) == AnchorStyles.Right)
             {

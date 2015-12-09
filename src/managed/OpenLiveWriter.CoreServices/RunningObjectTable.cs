@@ -133,7 +133,7 @@ namespace OpenLiveWriter.CoreServices
             // ROTFLAGS_ALLOWANYCLIENT flag.
             var exeRegistrySettings = new RegistrySettingsPersister(Registry.CurrentUser, EXE_REGISTRY_PATH);
             bool allowAnyClient = (bool)exeRegistrySettings.Get(ALLOW_ANY_CLIENT, typeof(bool), false);
-            int rotRegistrationFlags = allowAnyClient ? 
+            int rotRegistrationFlags = allowAnyClient ?
                 (int)(RunningObjectTableFlags.RegistrationKeepsAlive | RunningObjectTableFlags.AllowAnyClient) :
                 (int)(RunningObjectTableFlags.RegistrationKeepsAlive);
 
@@ -186,9 +186,9 @@ namespace OpenLiveWriter.CoreServices
             {
                 if (e.ErrorCode == RPC_E.CALL_FAILED_DNE)
                     return null;
-                
+
                 throw;
-            }                        
+            }
         }
 
         private void Revoke(int registration)

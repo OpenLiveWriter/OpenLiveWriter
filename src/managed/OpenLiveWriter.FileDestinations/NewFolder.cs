@@ -11,24 +11,24 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.FileDestinations
 {
-	public class NewFolder : ApplicationDialog
-	{
-		private Button buttonOK;
-		private Button buttonCancel;
-		private TextBox newFolderName;
-		private Label label1;
-		private IContainer components = null;
+    public class NewFolder : ApplicationDialog
+    {
+        private Button buttonOK;
+        private Button buttonCancel;
+        private TextBox newFolderName;
+        private Label label1;
+        private IContainer components = null;
 
-		public NewFolder()
-		{
-			// This call is required by the Windows Form Designer.
-			InitializeComponent();
+        public NewFolder()
+        {
+            // This call is required by the Windows Form Designer.
+            InitializeComponent();
 
-			this.buttonOK.Text = Res.Get(StringId.OKButtonText);
-			this.buttonCancel.Text = Res.Get(StringId.CancelButton);
-			this.label1.Text = Res.Get(StringId.NewFolderPrompt);
-			this.Text = Res.Get(StringId.NewFolderTitle);
-		}
+            this.buttonOK.Text = Res.Get(StringId.OKButtonText);
+            this.buttonCancel.Text = Res.Get(StringId.CancelButton);
+            this.label1.Text = Res.Get(StringId.NewFolderPrompt);
+            this.Text = Res.Get(StringId.NewFolderTitle);
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -42,28 +42,28 @@ namespace OpenLiveWriter.FileDestinations
             base.OnLoad(e);
         }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.newFolderName = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -128,26 +128,26 @@ namespace OpenLiveWriter.FileDestinations
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		private void buttonOK_Click(object sender, EventArgs e)
-		{
-			this.DialogResult = DialogResult.OK;
-		}
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+        }
 
-		private void buttonCancel_Click(object sender, EventArgs e)
-		{
-			this.DialogResult = DialogResult.Cancel;
-		}
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
 
-		public string NewFolderName
-		{
-			get
-			{
-				return this.newFolderName.Text;
-			}
-		}
-	}
+        public string NewFolderName
+        {
+            get
+            {
+                return this.newFolderName.Text;
+            }
+        }
+    }
 }
 

@@ -54,7 +54,7 @@ namespace OpenLiveWriter.PostEditor
 
             _imageEditingContext = imageEditingContext;
             _editingModeContext = editingModeContext;
-            
+
             _autoreplaceManager = new AutoreplaceManager();
             AutoreplaceSettings.SettingsChanged += AutoreplaceSettings_SettingsChanged;
 
@@ -159,7 +159,7 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return _editingModeContext.CurrentEditingMode == EditingMode.Wysiwyg && 
+                return _editingModeContext.CurrentEditingMode == EditingMode.Wysiwyg &&
                     AutoreplaceSettings.AnyReplaceEnabled;
             }
         }
@@ -211,7 +211,7 @@ namespace OpenLiveWriter.PostEditor
                 if (Debugger.IsAttached)
                 {
                     Debug.Assert(_delayedAutoReplaceAction == null, "Delayed autoreplace operation wasn't null!");
-                    Debug.Assert(_typographicCharacterHandler == null,"Delayed typographic character operation wasn't null!");
+                    Debug.Assert(_typographicCharacterHandler == null, "Delayed typographic character operation wasn't null!");
                 }
                 _delayedAutoReplaceAction = null;
                 _typographicCharacterHandler = null;
@@ -280,12 +280,12 @@ namespace OpenLiveWriter.PostEditor
                 throw;
             }
             return handled;
-        }        
+        }
 
         private TypographicCharacterHandler _typographicCharacterHandler;
 
         private bool DoHandleKey(char c, bool whiteSpaceOrPunctuation)
-        {            
+        {
             MarkupPointer blockBoundary;
             string htmlText = GetHtmlText(out blockBoundary);
 
@@ -304,7 +304,7 @@ namespace OpenLiveWriter.PostEditor
             if (whiteSpaceOrPunctuation && AutoLinkEnabled)
                 MatchUrl(htmlText, InsertSuggestedUrl);
 
-            _linkIgnoreWord = null;            
+            _linkIgnoreWord = null;
             return false;
         }
 
@@ -314,7 +314,7 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return (!_haltAutoReplace && 
+                return (!_haltAutoReplace &&
                     (AutoReplaceEnabled || AutoLinkEnabled || TypographicReplacementEnabled));
             }
         }
@@ -343,7 +343,7 @@ namespace OpenLiveWriter.PostEditor
                 //_blogPostHtmlEditorControl.InsertHtml(insertMarkupRange.Start, insertMarkupRange.End, replaceHtml);
                 handled = true;
                 _lastActionWasReplace++;
-                    
+
             }
             return handled;
         }
@@ -353,14 +353,14 @@ namespace OpenLiveWriter.PostEditor
         /// typed after a single "i".
         /// </summary>
         private bool ShouldAutoCorrect(string htmlText, char key, string replaceHtml)
-        {                        
+        {
             // WinLive 259680: Auto-replace should not work within URLs
             htmlText = StringHelper.GetLastWord(htmlText);
             if (UrlHelper.StartsWithKnownScheme(htmlText) ||
                 htmlText.StartsWith("www.") ||
                 htmlText.StartsWith(@"\\") ||
                 htmlText.StartsWith("skype:"))
-                return false;                        
+                return false;
 
             if (replaceHtml == "I")
             {
@@ -395,7 +395,7 @@ namespace OpenLiveWriter.PostEditor
         /// the keypress, i.e. typographic substitution happens. In this case we need to make sure we
         /// still do the autoreplace operation even though the PostEditorEvent will not get fired.
         /// </summary>
-        private AutoReplaceAction _delayedAutoReplaceAction;        
+        private AutoReplaceAction _delayedAutoReplaceAction;
 
         /// <summary>
         /// Stores all the info we need to perform an autoreplace operation later.
@@ -476,7 +476,7 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
             return false;
-        
+
         }
 
         private void InsertSuggestedUrl(string matchText, GlossaryLinkItem linkItem, MarkupRange markupRange)
@@ -521,8 +521,8 @@ namespace OpenLiveWriter.PostEditor
             MarkupRange blockRange = _blogPostHtmlEditorControl.SelectedMarkupRange.Clone();
             MarkupRange textRange = blockRange.Clone();
             IHTMLElement ele = blockRange.ParentElement(ElementFilters.IsBlockOrTableCellOrBodyElement);
-            
-            if(ele == null)
+
+            if (ele == null)
             {
                 blockBoundary = null;
                 return String.Empty;
@@ -574,7 +574,7 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return Math.Max(GlossaryManager.Instance.MaxLengthHint, TypographicCharacterHandler.MaxLengthHint); 
+                return Math.Max(GlossaryManager.Instance.MaxLengthHint, TypographicCharacterHandler.MaxLengthHint);
             }
         }
 

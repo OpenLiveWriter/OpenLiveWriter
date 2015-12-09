@@ -7,71 +7,71 @@ using OpenLiveWriter.Interop.Windows;
 
 namespace OpenLiveWriter.Interop.Com.ActiveDocuments
 {
-	/// <summary>
-	///
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("00000116-0000-0000-C000-000000000046")] 
-	public interface IOleInPlaceFrame
-	{
-		void GetWindow(
-			[Out] out IntPtr phwnd);   
-		
-		void ContextSensitiveHelp(
-			[In, MarshalAs(UnmanagedType.Bool)] bool fEnterMode);
+    /// <summary>
+    ///
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("00000116-0000-0000-C000-000000000046")]
+    public interface IOleInPlaceFrame
+    {
+        void GetWindow(
+            [Out] out IntPtr phwnd);
 
-		[PreserveSig]
-		int GetBorder( 
-			[Out] out RECT lprectBorder) ;
+        void ContextSensitiveHelp(
+            [In, MarshalAs(UnmanagedType.Bool)] bool fEnterMode);
 
-		[PreserveSig]
-		int RequestBorderSpace( 
-			[In] ref RECT pborderwidths);
-		
-		void SetBorderSpace( 
-			[In] ref RECT pborderwidths) ;
+        [PreserveSig]
+        int GetBorder(
+            [Out] out RECT lprectBorder);
 
-		void SetActiveObject( 
-			[In] IOleInPlaceActiveObject pActiveObject,
-			[In, MarshalAs(UnmanagedType.LPWStr)] string pszObjName);
+        [PreserveSig]
+        int RequestBorderSpace(
+            [In] ref RECT pborderwidths);
 
-		void InsertMenus( 
-			[In] IntPtr  hmenuShared,
-			[In,Out] ref OLEMENUGROUPWIDTHS lpMenuWidths) ;
+        void SetBorderSpace(
+            [In] ref RECT pborderwidths);
 
-		void SetMenu( 
-			[In] IntPtr hmenuShared,
-			[In] IntPtr holemenu,
-			[In] IntPtr hwndActiveObject) ;
+        void SetActiveObject(
+            [In] IOleInPlaceActiveObject pActiveObject,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pszObjName);
 
-		void RemoveMenus( 
-			[In] IntPtr hmenuShared) ;
+        void InsertMenus(
+            [In] IntPtr hmenuShared,
+            [In, Out] ref OLEMENUGROUPWIDTHS lpMenuWidths);
 
-        void SetStatusText( 
-			[In, MarshalAs(UnmanagedType.LPWStr)] string pszStatusText) ;
+        void SetMenu(
+            [In] IntPtr hmenuShared,
+            [In] IntPtr holemenu,
+            [In] IntPtr hwndActiveObject);
 
-		void EnableModeless( 
-			[In, MarshalAs(UnmanagedType.Bool)] bool fEnable) ;
+        void RemoveMenus(
+            [In] IntPtr hmenuShared);
 
-		[PreserveSig]
-		int TranslateAccelerator( 
-			[In] ref MSG lpmsg,
-			[In] UInt16 wID )  ;
-	}
+        void SetStatusText(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pszStatusText);
+
+        void EnableModeless(
+            [In, MarshalAs(UnmanagedType.Bool)] bool fEnable);
+
+        [PreserveSig]
+        int TranslateAccelerator(
+            [In] ref MSG lpmsg,
+            [In] UInt16 wID);
+    }
 
 
 
-	/// <summary>
-	/// The OLEMENUGROUPWIDTHS structure is the mechanism for building a shared menu.
-	/// It indicates the number of menu items in each of the six menu groups of a menu
-	/// shared between a container and an object server during an in-place editing session.
-	/// </summary>
-	public struct OLEMENUGROUPWIDTHS 
-	{ 
-		[MarshalAs(UnmanagedType.ByValArray,SizeConst=6)]
-		public int[] width; 
-	}
-	
+    /// <summary>
+    /// The OLEMENUGROUPWIDTHS structure is the mechanism for building a shared menu.
+    /// It indicates the number of menu items in each of the six menu groups of a menu
+    /// shared between a container and an object server during an in-place editing session.
+    /// </summary>
+    public struct OLEMENUGROUPWIDTHS
+    {
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)]
+        public int[] width;
+    }
+
 }
-			
+

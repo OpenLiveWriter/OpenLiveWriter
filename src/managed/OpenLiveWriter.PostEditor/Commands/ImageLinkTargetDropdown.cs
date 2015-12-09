@@ -13,7 +13,7 @@ namespace OpenLiveWriter.PostEditor.Commands
     {
         public ImageLinkTargetDropdown(Command dropDownCommand, Command[] commands, EventHandler executeHandler)
             : base(dropDownCommand, commands, executeHandler)
-        {            
+        {
         }
 
         private CommandId _lastSelectedCommandId = CommandId.None;
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             _lastSelectedCommandId = commandId;
             base.SelectCommand(commandId);
         }
-        
+
         public override void UpdateDropdown(Command selectedCommand)
         {
             Debug.Assert(selectedCommand.Tag is LinkTargetType);

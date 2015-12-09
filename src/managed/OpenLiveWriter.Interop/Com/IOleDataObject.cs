@@ -188,7 +188,7 @@ namespace OpenLiveWriter.Interop.Com
     {
         GET = 1,
         SET = 2,
-    } ;
+    };
 
 
     /// <summary>

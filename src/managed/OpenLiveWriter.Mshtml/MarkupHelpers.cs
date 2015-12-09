@@ -9,23 +9,23 @@ using mshtml;
 
 namespace OpenLiveWriter.Mshtml
 {
-	public class MarkupHelpers
-	{
+    public class MarkupHelpers
+    {
         public static bool AdjustMarkupRange(MarkupRange range, int offset, int length)
         {
             IHTMLTxtRange stagingTextRange = range.ToTextRange();
             return AdjustMarkupRange(ref stagingTextRange, range, offset, length);
         }
 
-	    /// <summary>
+        /// <summary>
         /// Adjust the start and end of the range to match the offset/length, in characters.
         /// if the offset/length adjustment fails to produce the expected value,
         /// then the adjustment is cancelled and false is returned.
         /// </summary>
         public static bool AdjustMarkupRange(ref IHTMLTxtRange stagingTextRange, MarkupRange range, int offset, int length)
         {
-	        string currentText = GetRangeTextFast(range) ?? "";
-                
+            string currentText = GetRangeTextFast(range) ?? "";
+
             if (offset == 0 && length == currentText.Length)
                 return true;
 
@@ -48,18 +48,18 @@ namespace OpenLiveWriter.Mshtml
             return true;
         }
 
-	    private static void AdjustMarkupRangeCore(MarkupRange range, int offset, int length, string currentText)
-	    {
-	        MarkupPointer start = range.Start;
-	        MarkupPointer end = range.End;
+        private static void AdjustMarkupRangeCore(MarkupRange range, int offset, int length, string currentText)
+        {
+            MarkupPointer start = range.Start;
+            MarkupPointer end = range.End;
 
-	        if (offset > 0)
-	            start.MoveToMarkupPosition(start.Container, start.MarkupPosition + offset);
-	        if (length < (offset + currentText.Length))
-	            end.MoveToMarkupPosition(start.Container, start.MarkupPosition + length);
-	    }
+            if (offset > 0)
+                start.MoveToMarkupPosition(start.Container, start.MarkupPosition + offset);
+            if (length < (offset + currentText.Length))
+                end.MoveToMarkupPosition(start.Container, start.MarkupPosition + length);
+        }
 
-	    public static MarkupRange GetEditableRange(IHTMLElement e, MshtmlMarkupServices markupServices)
+        public static MarkupRange GetEditableRange(IHTMLElement e, MshtmlMarkupServices markupServices)
         {
             IHTMLElement3 editableElement = null;
             while (e != null)
@@ -83,44 +83,44 @@ namespace OpenLiveWriter.Mshtml
                 return null;
         }
 
-		public static void SplitBlockForInsertionOrBreakout(MshtmlMarkupServices markupServices, MarkupRange bounds, MarkupPointer insertAt)
-		{
-			IHTMLElement currentBlock = insertAt.GetParentElement(ElementFilters.BLOCK_OR_TABLE_CELL_ELEMENTS);
-			if (currentBlock == null)
-				return;
+        public static void SplitBlockForInsertionOrBreakout(MshtmlMarkupServices markupServices, MarkupRange bounds, MarkupPointer insertAt)
+        {
+            IHTMLElement currentBlock = insertAt.GetParentElement(ElementFilters.BLOCK_OR_TABLE_CELL_ELEMENTS);
+            if (currentBlock == null)
+                return;
 
-			if (ElementFilters.IsBlockQuoteElement(currentBlock) || ElementFilters.IsTableCellElement(currentBlock))
-				return ;
-			
-			
-			MarkupPointer blockStart = markupServices.CreateMarkupPointer(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
-			MarkupPointer blockEnd = markupServices.CreateMarkupPointer(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterEnd);
+            if (ElementFilters.IsBlockQuoteElement(currentBlock) || ElementFilters.IsTableCellElement(currentBlock))
+                return;
 
-			if (bounds != null && (blockStart.IsLeftOf(bounds.Start) || blockEnd.IsRightOf(bounds.End)))
-				return;
 
-			// Don't split if at the beginning or end of the visible content in the block.
-			// Instead just move the insertion point outside the block.
-			MarkupRange testRange = markupServices.CreateMarkupRange();
-			testRange.Start.MoveToPointer(insertAt);
-			testRange.End.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeEnd);
-			if (testRange.IsEmptyOfContent())
-			{
-				insertAt.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterEnd);
-				return;
-			}
-			testRange.Start.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterBegin);
-			testRange.End.MoveToPointer(insertAt);
-			if (testRange.IsEmptyOfContent())
-			{
-				insertAt.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
-				return;
-			}
-			
-			MarkupPointer moveTarget = markupServices.CreateMarkupPointer(blockEnd);
-			markupServices.Move(insertAt, blockEnd, moveTarget);
-			insertAt.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterEnd);
-		}
+            MarkupPointer blockStart = markupServices.CreateMarkupPointer(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
+            MarkupPointer blockEnd = markupServices.CreateMarkupPointer(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterEnd);
+
+            if (bounds != null && (blockStart.IsLeftOf(bounds.Start) || blockEnd.IsRightOf(bounds.End)))
+                return;
+
+            // Don't split if at the beginning or end of the visible content in the block.
+            // Instead just move the insertion point outside the block.
+            MarkupRange testRange = markupServices.CreateMarkupRange();
+            testRange.Start.MoveToPointer(insertAt);
+            testRange.End.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeEnd);
+            if (testRange.IsEmptyOfContent())
+            {
+                insertAt.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterEnd);
+                return;
+            }
+            testRange.Start.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterBegin);
+            testRange.End.MoveToPointer(insertAt);
+            if (testRange.IsEmptyOfContent())
+            {
+                insertAt.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
+                return;
+            }
+
+            MarkupPointer moveTarget = markupServices.CreateMarkupPointer(blockEnd);
+            markupServices.Move(insertAt, blockEnd, moveTarget);
+            insertAt.MoveAdjacentToElement(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterEnd);
+        }
 
         public delegate TResult TextRangeFunc<TResult>(IHTMLTxtRange rng);
 
@@ -164,7 +164,7 @@ namespace OpenLiveWriter.Mshtml
             IHTMLTxtRangePool.RelinquishTxtRange(stagingTextRange, range);
             return returnValue;
         }
-	}
+    }
 
     internal static class IHTMLTxtRangePool
     {
@@ -200,14 +200,14 @@ namespace OpenLiveWriter.Mshtml
                         {
                             lock (queue.SyncRoot)
                             {
-                                returnRange = (IHTMLTxtRange) queue.Dequeue();
+                                returnRange = (IHTMLTxtRange)queue.Dequeue();
                             }
                         }
                         else
                         {
                             returnRange = range.ToTextRange();
                         }
-                        
+
                     }
 
                     return returnRange;
@@ -239,7 +239,7 @@ namespace OpenLiveWriter.Mshtml
             {
                 lock (cache.SyncRoot)
                 {
-                    Queue queue = (Queue) cache[GetDocumentKey(range.MarkupServices.MarkupServicesRaw)];
+                    Queue queue = (Queue)cache[GetDocumentKey(range.MarkupServices.MarkupServicesRaw)];
 
                     if (queue != null)
                     {
@@ -260,7 +260,7 @@ namespace OpenLiveWriter.Mshtml
 
         internal static void Clear(IMarkupServicesRaw markupServices)
         {
-            if(cache == null)
+            if (cache == null)
                 return;
 
             try
@@ -276,7 +276,7 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-        private  static int GetDocumentKey(IMarkupServicesRaw markupServices)
+        private static int GetDocumentKey(IMarkupServicesRaw markupServices)
         {
             return markupServices.GetHashCode();
         }

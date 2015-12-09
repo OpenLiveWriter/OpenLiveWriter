@@ -14,7 +14,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public const string URLFormat = "UniformResourceLocator";
         public const string FileGroupDescriptorWFormat = "FileGroupDescriptorW";
-        public const string FileGroupDescriptorFormat= "FileGroupDescriptor" ; 
-        public const string FileContentsFormat = "FileContents" ; 
+        public const string FileGroupDescriptorFormat = "FileGroupDescriptor";
+        public const string FileContentsFormat = "FileContents";
     }
 }

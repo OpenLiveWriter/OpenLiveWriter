@@ -140,7 +140,7 @@ namespace OpenLiveWriter.PostEditor.Video
                 _isSuccessful = true;
                 return true;
             }
-                
+
 
             return false;
 

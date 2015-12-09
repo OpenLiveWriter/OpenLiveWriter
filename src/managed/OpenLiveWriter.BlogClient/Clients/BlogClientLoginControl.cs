@@ -15,68 +15,68 @@ using OpenLiveWriter.CoreServices.Layout;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
-	/// <summary>
-	/// Summary description for PassportLoginControl.
-	/// </summary>
-	public class BlogClientLoginControl : System.Windows.Forms.UserControl
-	{
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox textBoxEmail;
-		private System.Windows.Forms.TextBox textBoxPassword;
-		private System.Windows.Forms.CheckBox checkBoxSavePassword;
-		private System.Windows.Forms.Label textboxLoginDomain;
-		private System.Windows.Forms.Label textboxLoginDomainDescription;
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for PassportLoginControl.
+    /// </summary>
+    public class BlogClientLoginControl : System.Windows.Forms.UserControl
+    {
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.CheckBox checkBoxSavePassword;
+        private System.Windows.Forms.Label textboxLoginDomain;
+        private System.Windows.Forms.Label textboxLoginDomainDescription;
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		public BlogClientLoginControl()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        public BlogClientLoginControl()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
-			textBoxPassword.PasswordChar = Res.PasswordChar;
+            textBoxPassword.PasswordChar = Res.PasswordChar;
 
-			label1.Text = Res.Get(StringId.UsernameLabel);
-			label2.Text = Res.Get(StringId.PasswordLabel);
-			checkBoxSavePassword.Text = Res.Get(StringId.RememberPassword);
-			
-			if ( !DesignMode )
-			{
-				textboxLoginDomain.Text = String.Empty;
-				textboxLoginDomainDescription.Text = String.Empty;
-			}
-		}
+            label1.Text = Res.Get(StringId.UsernameLabel);
+            label2.Text = Res.Get(StringId.PasswordLabel);
+            checkBoxSavePassword.Text = Res.Get(StringId.RememberPassword);
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-				
-				if(_domainIcon != null)
-					_domainIcon.Dispose();
-				if(_domainImage != null)
-					_domainImage.Dispose();
-			}
-			base.Dispose( disposing );
-		}
+            if (!DesignMode)
+            {
+                textboxLoginDomain.Text = String.Empty;
+                textboxLoginDomainDescription.Text = String.Empty;
+            }
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+
+                if (_domainIcon != null)
+                    _domainIcon.Dispose();
+                if (_domainImage != null)
+                    _domainImage.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
@@ -174,14 +174,14 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad(e);
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
-            using(new AutoGrow(this, AnchorStyles.Bottom, false))
+            using (new AutoGrow(this, AnchorStyles.Bottom, false))
             {
                 LayoutHelper.NaturalizeHeightAndDistribute(3, label1, textBoxEmail);
                 LayoutHelper.NaturalizeHeightAndDistribute(3, label2, textBoxPassword, checkBoxSavePassword);
@@ -189,108 +189,108 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
 
             //force the initial focus to the password control if there is already a user name
-            if(!string.IsNullOrEmpty(textBoxEmail.Text))
-			    textBoxPassword.Select();
-		}
+            if (!string.IsNullOrEmpty(textBoxEmail.Text))
+                textBoxPassword.Select();
+        }
 
-		public string UserName
-		{
-			get { return textBoxEmail.Text; }
-			set { textBoxEmail.Text = value; }
-		}
+        public string UserName
+        {
+            get { return textBoxEmail.Text; }
+            set { textBoxEmail.Text = value; }
+        }
 
-		public string Password
-		{
-			get { return textBoxPassword.Text; }
-			set { textBoxPassword.Text = value; }
-		}
-		
-		public bool SavePassword
-		{
-			get { return checkBoxSavePassword.Checked; }
-			set { checkBoxSavePassword.Checked = value; }
-		}
-		
-		
-		
-		public ICredentialsDomain Domain
-		{
-			get { return _domain; }
-			set
-			{
-				_domain = value;
-				if(_domainIcon != null)
-					_domainIcon.Dispose();
-				_domainIcon = null;
-				
-				if(_domainImage != null)
-					_domainImage.Dispose();
-				_domainImage = null;
-				
-				if(_domain != null)
-				{
-					textboxLoginDomain.Text = _domain.Name != null ? _domain.Name : String.Empty;
-					textboxLoginDomainDescription.Text = _domain.Description != null ?_domain.Description : String.Empty ;
-				}
-			}
-		}
-		private ICredentialsDomain _domain;
-		private Icon _domainIcon;
-		private Image _domainImage;
-		
-		protected override void OnLayout(LayoutEventArgs levent)
-		{
-			base.OnLayout(levent);
-			
-			_domainImageSize = new Size((int)(16*scale.X), (int)(16*scale.Y));
-			
-			if(_domain != null)
-			{
+        public string Password
+        {
+            get { return textBoxPassword.Text; }
+            set { textBoxPassword.Text = value; }
+        }
+
+        public bool SavePassword
+        {
+            get { return checkBoxSavePassword.Checked; }
+            set { checkBoxSavePassword.Checked = value; }
+        }
+
+
+
+        public ICredentialsDomain Domain
+        {
+            get { return _domain; }
+            set
+            {
+                _domain = value;
+                if (_domainIcon != null)
+                    _domainIcon.Dispose();
+                _domainIcon = null;
+
+                if (_domainImage != null)
+                    _domainImage.Dispose();
+                _domainImage = null;
+
+                if (_domain != null)
+                {
+                    textboxLoginDomain.Text = _domain.Name != null ? _domain.Name : String.Empty;
+                    textboxLoginDomainDescription.Text = _domain.Description != null ? _domain.Description : String.Empty;
+                }
+            }
+        }
+        private ICredentialsDomain _domain;
+        private Icon _domainIcon;
+        private Image _domainImage;
+
+        protected override void OnLayout(LayoutEventArgs levent)
+        {
+            base.OnLayout(levent);
+
+            _domainImageSize = new Size((int)(16 * scale.X), (int)(16 * scale.Y));
+
+            if (_domain != null)
+            {
                 checkBoxSavePassword.Visible = _domain.AllowsSavePassword;
 
-				if(_domainImage == null && _domainIcon == null)
-				{
-					try
-					{
-						if(_domain.Image != null)
-						{
-							_domainImage = new Bitmap(new MemoryStream(_domain.Image));
-						}
-						else if(_domain.Icon != null)
-						{
-							_domainIcon = new Icon(new MemoryStream(_domain.Icon), _domainImageSize.Width, _domainImageSize.Height);
-						}
-						else
-						{
-							Icon ico = ApplicationEnvironment.ProductIconSmall;
-							_domainIcon = new Icon(ico, ico.Size);
-						}
-					}
-					catch(Exception)
-					{
-					}
-				}
-			}
-			
-			if(_domainImage == null && _domainIcon == null)
-			{
-				Icon appIcon = ApplicationEnvironment.ProductIconSmall;
-				_domainIcon = new Icon(appIcon, appIcon.Width, appIcon.Height);
-			}
-		}
-		private Size _domainImageSize;
+                if (_domainImage == null && _domainIcon == null)
+                {
+                    try
+                    {
+                        if (_domain.Image != null)
+                        {
+                            _domainImage = new Bitmap(new MemoryStream(_domain.Image));
+                        }
+                        else if (_domain.Icon != null)
+                        {
+                            _domainIcon = new Icon(new MemoryStream(_domain.Icon), _domainImageSize.Width, _domainImageSize.Height);
+                        }
+                        else
+                        {
+                            Icon ico = ApplicationEnvironment.ProductIconSmall;
+                            _domainIcon = new Icon(ico, ico.Size);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+            }
 
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			base.OnPaint(e);
+            if (_domainImage == null && _domainIcon == null)
+            {
+                Icon appIcon = ApplicationEnvironment.ProductIconSmall;
+                _domainIcon = new Icon(appIcon, appIcon.Width, appIcon.Height);
+            }
+        }
+        private Size _domainImageSize;
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
 
             BidiGraphics g = new BidiGraphics(e.Graphics, ClientRectangle);
-			// draw icon
-			if ( _domainImage != null )
+            // draw icon
+            if (_domainImage != null)
                 g.DrawImage(false, _domainImage, new Rectangle(0, 0, _domainImageSize.Width, _domainImageSize.Height));
-			else if ( _domainIcon != null )
+            else if (_domainIcon != null)
                 g.DrawIcon(false, _domainIcon, new Rectangle(0, 0, _domainImageSize.Width, _domainImageSize.Height));
-		}
+        }
 
         protected override void ScaleControl(SizeF factor, BoundsSpecified specified)
         {
@@ -308,8 +308,8 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             scale = new PointF(scale.X * dx, scale.Y * dy);
         }
-        
+
         private PointF scale = new PointF(1f, 1f);
-		
-	}
+
+    }
 }

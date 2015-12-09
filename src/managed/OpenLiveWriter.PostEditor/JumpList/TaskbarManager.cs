@@ -70,7 +70,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
                     ApplicationIdSetProcessWide = true;
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// Sets the application user model id for an individual window
@@ -83,7 +83,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         public void SetApplicationIdForSpecificWindow(IntPtr windowHandle, string appId)
         {
             ShellHelper.SetWindowAppId(windowHandle, appId);
-        }        
+        }
 
         /// <summary>
         /// Sets the current process' explicit application user model id.

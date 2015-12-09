@@ -11,48 +11,48 @@ using OpenLiveWriter.CoreServices.Layout;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Summary description for ImageTargetEditorControl.
-	/// </summary>
-	public class ImageTargetEditorControl : UserControl, ILinkOptionsEditor
-	{
-		private ImageSizeControl imageSizeControl1;
-		private LinkOptionsEditorControl linkOptionsControl1;
-		private Label label1;
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+    /// <summary>
+    /// Summary description for ImageTargetEditorControl.
+    /// </summary>
+    public class ImageTargetEditorControl : UserControl, ILinkOptionsEditor
+    {
+        private ImageSizeControl imageSizeControl1;
+        private LinkOptionsEditorControl linkOptionsControl1;
+        private Label label1;
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
-		public ImageTargetEditorControl()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
-			this.label1.Text = Res.Get(StringId.ImgSBImageSizeLabel);
-		}
+        public ImageTargetEditorControl()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
+            this.label1.Text = Res.Get(StringId.ImgSBImageSizeLabel);
+        }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.imageSizeControl1 = new OpenLiveWriter.PostEditor.PostHtmlEditing.ImageSizeControl();
             this.linkOptionsControl1 = new OpenLiveWriter.PostEditor.PostHtmlEditing.LinkOptionsEditorControl();
             this.label1 = new System.Windows.Forms.Label();
@@ -96,12 +96,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.Size = new System.Drawing.Size(248, 190);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
         protected override void OnLoad(EventArgs e)
         {
-            using(new AutoGrow(this, AnchorStyles.Bottom, false))
+            using (new AutoGrow(this, AnchorStyles.Bottom, false))
             {
                 base.OnLoad(e);
                 imageSizeControl1.Height = imageSizeControl1.GetPreferredSize(new Size(imageSizeControl1.Width, Int32.MaxValue)).Height;
@@ -110,52 +110,52 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         }
 
-		private void linkOptionsControl1_LinkOptionsChanged(object sender, EventArgs e)
-		{
-			OnImageOptionsChanged(EventArgs.Empty);
-		}
+        private void linkOptionsControl1_LinkOptionsChanged(object sender, EventArgs e)
+        {
+            OnImageOptionsChanged(EventArgs.Empty);
+        }
 
-		private void imageSizeControl1_ImageSizeChanged(object sender, EventArgs e)
-		{
-			OnImageOptionsChanged(EventArgs.Empty);
-		}
-		public event EventHandler ImageOptionsChanged;
-		protected virtual void OnImageOptionsChanged(EventArgs evt)
-		{
-			if(ImageOptionsChanged != null)
-				ImageOptionsChanged(this, evt);
-		}
+        private void imageSizeControl1_ImageSizeChanged(object sender, EventArgs e)
+        {
+            OnImageOptionsChanged(EventArgs.Empty);
+        }
+        public event EventHandler ImageOptionsChanged;
+        protected virtual void OnImageOptionsChanged(EventArgs evt)
+        {
+            if (ImageOptionsChanged != null)
+                ImageOptionsChanged(this, evt);
+        }
 
-		internal void LoadImageSize(Size imageSize, Size fullImageSize, RotateFlipType rotation)
-		{
-			this.imageSizeControl1.LoadImageSize(imageSize, fullImageSize, rotation);
-		}
+        internal void LoadImageSize(Size imageSize, Size fullImageSize, RotateFlipType rotation)
+        {
+            this.imageSizeControl1.LoadImageSize(imageSize, fullImageSize, rotation);
+        }
 
-		public Size ImageSize
-		{
-			get
-			{
-				return imageSizeControl1.ImageSize;
-			}
-		}
+        public Size ImageSize
+        {
+            get
+            {
+                return imageSizeControl1.ImageSize;
+            }
+        }
 
-		public ImageSizeName ImageBoundsSize
-		{
-			get
-			{
-				return imageSizeControl1.ImageBoundsSize;
-			}
-		}
+        public ImageSizeName ImageBoundsSize
+        {
+            get
+            {
+                return imageSizeControl1.ImageBoundsSize;
+            }
+        }
 
-		public ILinkOptions LinkOptions
-		{
-			get { return linkOptionsControl1.LinkOptions; }
-			set { linkOptionsControl1.LinkOptions = value; }
-		}
+        public ILinkOptions LinkOptions
+        {
+            get { return linkOptionsControl1.LinkOptions; }
+            set { linkOptionsControl1.LinkOptions = value; }
+        }
 
         public IEditorOptions EditorOptions
-	    {
+        {
             set { linkOptionsControl1.EditorOptions = value; }
-	    }
-	}
+        }
+    }
 }

@@ -41,9 +41,9 @@ namespace BlogRunner
         private static Test CreateCompositePostTest(TestFilter filter, params PostTest[] tests)
         {
             return new CompositePostTest(
-                (PostTest[]) ArrayHelper.Narrow(
+                (PostTest[])ArrayHelper.Narrow(
                                  filter(tests),
-                                 typeof (PostTest)));
+                                 typeof(PostTest)));
         }
 
         static int Main(string[] args)
@@ -122,7 +122,7 @@ namespace BlogRunner
                                                         }
                                                     }
 
-                                                    return (Test[]) ArrayHelper.Compact(testArr);
+                                                    return (Test[])ArrayHelper.Compact(testArr);
                                                 });
                             TestRunner tr = new TestRunner(tests);
                             tr.RunTests(p, b, provider);

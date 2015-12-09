@@ -59,5 +59,5 @@ namespace OpenLiveWriter.Interop.Com
     [ComImport,
     Guid(Shell32.CShellLink),
     ClassInterface(ClassInterfaceType.None)]
-    public class CShellLink { }   
+    public class CShellLink { }
 }

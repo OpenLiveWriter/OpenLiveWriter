@@ -126,8 +126,8 @@ namespace OpenLiveWriter.PostEditor
         }
         private const string POST_EDITOR_WINDOW_MAXIMIZED = "MainWindowMaximized";
 
-		public static Rectangle PostEditorWindowBounds
-		{
+        public static Rectangle PostEditorWindowBounds
+        {
             get { return SettingsKey.GetRectangle(POST_EDITOR_WINDOW_BOUNDS, DefaultWindowBounds); }
             set { SettingsKey.SetRectangle(POST_EDITOR_WINDOW_BOUNDS, value); }
         }
@@ -174,7 +174,7 @@ namespace OpenLiveWriter.PostEditor
             get { return SettingsKey.GetBoolean(AUTOMATION_MODE, false); }
             set { SettingsKey.SetBoolean(AUTOMATION_MODE, value); }
         }
-        private const string AUTOMATION_MODE = "AutomationMode";       
+        private const string AUTOMATION_MODE = "AutomationMode";
 
         internal static SettingsPersisterHelper SettingsKey = ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("PostEditor");
         public static SettingsPersisterHelper RecentEmoticonsKey = SettingsKey.GetSubSettings("RecentEmoticons");

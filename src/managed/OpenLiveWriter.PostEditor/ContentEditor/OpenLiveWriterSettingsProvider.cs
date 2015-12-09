@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor
     {
         public ManagedPropVariant GetSetting(ContentEditorSetting setting)
         {
-            switch(setting)
+            switch (setting)
             {
                 case ContentEditorSetting.MshtmlOptionKeyPath:
                     return ManagedPropVariant.FromPropVariant(GetMshtmlOptionKeyPath());

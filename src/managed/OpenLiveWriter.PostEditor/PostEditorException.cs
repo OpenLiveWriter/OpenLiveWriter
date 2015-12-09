@@ -9,17 +9,17 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	public class PostEditorException : DisplayableException
-	{
-		protected PostEditorException(StringId titleFormat, StringId textFormat, params object[] textFormatArgs)
-			: base( titleFormat, textFormat, textFormatArgs )
-		{
-		}
-	}
 
-	public class PostEditorStorageException : PostEditorException
-	{
+    public class PostEditorException : DisplayableException
+    {
+        protected PostEditorException(StringId titleFormat, StringId textFormat, params object[] textFormatArgs)
+            : base(titleFormat, textFormat, textFormatArgs)
+        {
+        }
+    }
+
+    public class PostEditorStorageException : PostEditorException
+    {
         private PostEditorStorageException(StorageNoDiskSpaceException ex)
             : base(StringId.PostEditorStorageExceptionTitle,
             StringId.PostEditorDiskSpaceExceptionMessage,
@@ -29,32 +29,32 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private PostEditorStorageException(StorageException ex)
-			: base( StringId.PostEditorStorageExceptionTitle,
-			StringId.PostEditorStorageExceptionMessage,
-			ex.NativeErrorCode, 
-			ex.Message )
-		{
-		}
+            : base(StringId.PostEditorStorageExceptionTitle,
+            StringId.PostEditorStorageExceptionMessage,
+            ex.NativeErrorCode,
+            ex.Message)
+        {
+        }
 
         private PostEditorStorageException(IOException ex)
-			: base( StringId.PostEditorStorageExceptionTitle2,
-			StringId.PostEditorStorageExceptionMessage2,
-			ex.GetType().Name,
-			ex.Message )
-		{
-		}
+            : base(StringId.PostEditorStorageExceptionTitle2,
+            StringId.PostEditorStorageExceptionMessage2,
+            ex.GetType().Name,
+            ex.Message)
+        {
+        }
 
-		private PostEditorStorageException( Exception ex )
-			: base( StringId.PostEditorStorageExceptionTitle,
-			StringId.PostEditorStorageExceptionMessage,
-			ex.GetType().Name,
-			ex.Message )
-		{
-		}
+        private PostEditorStorageException(Exception ex)
+            : base(StringId.PostEditorStorageExceptionTitle,
+            StringId.PostEditorStorageExceptionMessage,
+            ex.GetType().Name,
+            ex.Message)
+        {
+        }
 
         public static PostEditorStorageException Create(Exception ex)
         {
-            if(ex is StorageNoDiskSpaceException)
+            if (ex is StorageNoDiskSpaceException)
                 return new PostEditorStorageException((StorageNoDiskSpaceException)ex);
 
             if (ex is IOException)
@@ -66,6 +66,6 @@ namespace OpenLiveWriter.PostEditor
 
             return new PostEditorStorageException(ex);
         }
-	}
-	
+    }
+
 }

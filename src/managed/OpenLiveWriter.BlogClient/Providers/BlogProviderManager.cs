@@ -11,106 +11,106 @@ using OpenLiveWriter.Extensibility.BlogClient;
 
 namespace OpenLiveWriter.BlogClient.Providers
 {
-	public class BlogProviderManager
-	{
+    public class BlogProviderManager
+    {
 
-		public static IList Providers
-		{
-			get
-			{
-				lock(_classLock)
-				{
-					if ( _providerTypes == null )
-					{	
-						_providerTypes = new ArrayList() ;
-					
-						// add xml-based provider definitions
-						_providerTypes.AddRange( GetXmlBlogProviders() ) ;
+        public static IList Providers
+        {
+            get
+            {
+                lock (_classLock)
+                {
+                    if (_providerTypes == null)
+                    {
+                        _providerTypes = new ArrayList();
 
-						// add static providers (compiled in)
+                        // add xml-based provider definitions
+                        _providerTypes.AddRange(GetXmlBlogProviders());
 
-						// add provider plugins (XML and C#)
+                        // add static providers (compiled in)
 
-
-					}
-					return _providerTypes ;
-				}
-			}
-		}
-		private static ArrayList _providerTypes ;
-		private static object _classLock = new object();
+                        // add provider plugins (XML and C#)
 
 
-		public static IBlogProvider FindProvider(string providerId)
-		{
-			lock(_classLock)
-			{
-				if (providerId == null || providerId == String.Empty)
-					return null ;
+                    }
+                    return _providerTypes;
+                }
+            }
+        }
+        private static ArrayList _providerTypes;
+        private static object _classLock = new object();
 
-				// try to find the provider
-				foreach (IBlogProvider provider in Providers)
-					if ( provider.Id == providerId )
-						return provider ;
 
-				// not found
-				return null ;
-			}
-		}
+        public static IBlogProvider FindProvider(string providerId)
+        {
+            lock (_classLock)
+            {
+                if (providerId == null || providerId == String.Empty)
+                    return null;
 
-		public static IBlogProvider FindProviderByName(string providerName)
-		{
-			lock(_classLock)
-			{
-				// try to find the provider
-				foreach (IBlogProvider provider in Providers)
-					if ( provider.Name == providerName )
-						return provider ;
+                // try to find the provider
+                foreach (IBlogProvider provider in Providers)
+                    if (provider.Id == providerId)
+                        return provider;
 
-				// not found
-				return null ;
-			}
-		}
+                // not found
+                return null;
+            }
+        }
 
-		
-		/// Reads the blog providers
-		/// </summary>
-		/// <returns>The blog providers</returns>
-		private static IBlogProvider[] GetXmlBlogProviders()
-		{
-		    return
-		        CabbedXmlResourceFileDownloader.Instance.ProcessLocalResource(Assembly.GetExecutingAssembly(),
-		                                                                                "Providers.BlogProvidersB5.xml",
-		                                                                                ReadXmlBlogProviders) as
-		        IBlogProvider[];
-		}
+        public static IBlogProvider FindProviderByName(string providerName)
+        {
+            lock (_classLock)
+            {
+                // try to find the provider
+                foreach (IBlogProvider provider in Providers)
+                    if (provider.Name == providerName)
+                        return provider;
 
-		/// <summary>
-		/// Generic processing method used for reading blog providers
-		/// </summary>
-		/// <param name="searchProviders">stream containing blog provider document</param>
-		/// <returns>array of providers (BlogProvider[]) </returns>
+                // not found
+                return null;
+            }
+        }
+
+
+        /// Reads the blog providers
+        /// </summary>
+        /// <returns>The blog providers</returns>
+        private static IBlogProvider[] GetXmlBlogProviders()
+        {
+            return
+                CabbedXmlResourceFileDownloader.Instance.ProcessLocalResource(Assembly.GetExecutingAssembly(),
+                                                                                        "Providers.BlogProvidersB5.xml",
+                                                                                        ReadXmlBlogProviders) as
+                IBlogProvider[];
+        }
+
+        /// <summary>
+        /// Generic processing method used for reading blog providers
+        /// </summary>
+        /// <param name="searchProviders">stream containing blog provider document</param>
+        /// <returns>array of providers (BlogProvider[]) </returns>
         private static object ReadXmlBlogProviders(XmlDocument providersDocument)
-		{
-			//pre-verify the XML actually contains the list of providers (fixes bug 309968)
-			XmlNode providersNode = providersDocument.SelectSingleNode( "//providers" ) ;			
-			if(providersNode == null)
-				throw new Exception("Invalid blogProviders.xml file detected");
-			
-			// get the list of providers from the xml
-			ArrayList providers = new ArrayList() ;
+        {
+            //pre-verify the XML actually contains the list of providers (fixes bug 309968)
+            XmlNode providersNode = providersDocument.SelectSingleNode("//providers");
+            if (providersNode == null)
+                throw new Exception("Invalid blogProviders.xml file detected");
 
-			XmlNodeList providerNodes = providersDocument.SelectNodes( "//providers/provider" ) ;
-			foreach ( XmlNode providerNode in providerNodes )
-			{
-				providers.Add( new BlogProviderFromXml(providerNode) ) ;
-			}
-		
+            // get the list of providers from the xml
+            ArrayList providers = new ArrayList();
 
-			// return list of providers
-			return providers.ToArray(typeof(BlogProvider)) ;
-		}
+            XmlNodeList providerNodes = providersDocument.SelectNodes("//providers/provider");
+            foreach (XmlNode providerNode in providerNodes)
+            {
+                providers.Add(new BlogProviderFromXml(providerNode));
+            }
 
-	}
-	
+
+            // return list of providers
+            return providers.ToArray(typeof(BlogProvider));
+        }
+
+    }
+
 }

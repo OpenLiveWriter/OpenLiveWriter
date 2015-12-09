@@ -7,8 +7,8 @@ using System.Collections.Specialized;
 
 namespace OpenLiveWriter.CoreServices
 {
-	
-	public delegate bool CanMatch(string text, int charactersMatched);
+
+    public delegate bool CanMatch(string text, int charactersMatched);
 
 
     public class Trie<T> where T : class
@@ -30,7 +30,7 @@ namespace OpenLiveWriter.CoreServices
             Trie<T> currentNode = GetChildNode(letter, true);
             currentNode.Add(text, value, position + 1);
         }
-        
+
         public void AddReverse(string reverseText, T value)
         {
             AddReverse(reverseText, value, reverseText.Length - 1);
@@ -104,7 +104,7 @@ namespace OpenLiveWriter.CoreServices
             {
                 if (!add)
                     return null;
-                
+
                 _children = new HybridDictionary();
             }
 
@@ -122,6 +122,6 @@ namespace OpenLiveWriter.CoreServices
         private T _value;
     }
 
-    
+
 
 }

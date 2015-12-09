@@ -18,7 +18,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
         private Bitmap _bitmapCached = null;
 
         public Emoticon(List<string> autoReplaceText, string altText, Bitmap bitmapStrip, int index, string id, string fileExtension)
-        {            
+        {
             AutoReplaceText = autoReplaceText;
             AltText = altText;
             _bitmapStrip = bitmapStrip;
@@ -42,8 +42,8 @@ namespace OpenLiveWriter.PostEditor.Emoticons
                     lock (_bitmapStrip)
                     {
                         int emoSize = _bitmapStrip.Height;
-                        _bitmapCached = _bitmapStrip.Clone(new Rectangle(_index * emoSize, 0, emoSize, emoSize), _bitmapStrip.PixelFormat);                        
-                    }                    
+                        _bitmapCached = _bitmapStrip.Clone(new Rectangle(_index * emoSize, 0, emoSize, emoSize), _bitmapStrip.PixelFormat);
+                    }
                 }
 
                 return _bitmapCached;
@@ -57,7 +57,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
             get
             {
                 Debug.Assert(AutoReplaceText.Count > 0, AltText + " emoticon is missing auto-replace text!");
-                
+
                 if (AutoReplaceText.Count == 1)
                     return String.Format(CultureInfo.InvariantCulture, Res.Get(StringId.EmoticonsTooltipOneAutoReplace), AltText, AutoReplaceText[0]);
                 else

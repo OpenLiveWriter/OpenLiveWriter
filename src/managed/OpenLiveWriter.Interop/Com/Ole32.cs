@@ -8,7 +8,7 @@ using System.Runtime.InteropServices.ComTypes;
 namespace OpenLiveWriter.Interop.Com
 {
     public class Ole32
-    {        
+    {
         [DllImport("Ole32.dll")]
         public static extern int OleInitialize(IntPtr pvReserved);
 

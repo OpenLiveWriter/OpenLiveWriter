@@ -6,63 +6,63 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
 using OpenLiveWriter.Interop.Windows;
-using OpenLiveWriter.CoreServices ;
+using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.Controls
 {
-	public class NumericTextBox : TextBox
-	{
-		const int ES_NUMBER = 0x2000; 
-		
-		
-		protected override CreateParams CreateParams 
-		{ 
-			[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
-			get 
-			{ 
-				CreateParams createParams = base.CreateParams; 
-				createParams.Style |= ES_NUMBER; 
-				return createParams; 
-			} 
-		} 
+    public class NumericTextBox : TextBox
+    {
+        const int ES_NUMBER = 0x2000;
 
-		[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
-		protected override void WndProc(ref Message m)
-		{
-			if ( m.Msg == WM.PASTE )
-			{
-				try
-				{
-					IDataObject dataObject = Clipboard.GetDataObject() ;
-					if (dataObject != null)
-					{
-						DataObjectMeister meister = new DataObjectMeister(Clipboard.GetDataObject());
-					
-						// if there is no text data then surpress paste
-						if ( meister.TextData == null )
-							return ;
 
-						// if the text-data can't be parsed into an integer then supress paste
-						try
-						{
+        protected override CreateParams CreateParams
+        {
+            [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+            get
+            {
+                CreateParams createParams = base.CreateParams;
+                createParams.Style |= ES_NUMBER;
+                return createParams;
+            }
+        }
+
+        [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM.PASTE)
+            {
+                try
+                {
+                    IDataObject dataObject = Clipboard.GetDataObject();
+                    if (dataObject != null)
+                    {
+                        DataObjectMeister meister = new DataObjectMeister(Clipboard.GetDataObject());
+
+                        // if there is no text data then surpress paste
+                        if (meister.TextData == null)
+                            return;
+
+                        // if the text-data can't be parsed into an integer then supress paste
+                        try
+                        {
                             int.Parse(meister.TextData.Text, CultureInfo.InvariantCulture);
-						}
-						catch
-						{
-							return ;
-						}
-					}
-				}
-				catch(Exception ex)
-				{
-					Trace.Fail("Unexpected exception filtering WM_PASTE: " + ex.ToString()) ;
-					return ;
-				}
-			}
+                        }
+                        catch
+                        {
+                            return;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.Fail("Unexpected exception filtering WM_PASTE: " + ex.ToString());
+                    return;
+                }
+            }
 
-			// default processing
-			base.WndProc (ref m);
-		}
+            // default processing
+            base.WndProc(ref m);
+        }
 
-	}
+    }
 }

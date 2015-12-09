@@ -28,15 +28,15 @@ namespace OpenLiveWriter.Localization.Bidi
             isRTL = isRtl;
         }
 
-		public BidiGraphics(Graphics g, Rectangle containerBounds, RightToLeft rtl) : this(g, containerBounds, rtl == RightToLeft.Yes && BidiHelper.IsRightToLeft)
-		{
-		}
+        public BidiGraphics(Graphics g, Rectangle containerBounds, RightToLeft rtl) : this(g, containerBounds, rtl == RightToLeft.Yes && BidiHelper.IsRightToLeft)
+        {
+        }
 
-    	public BidiGraphics(Graphics g, Rectangle containerBounds) : this(g, containerBounds, BidiHelper.IsRightToLeft)
-		{
-		}
+        public BidiGraphics(Graphics g, Rectangle containerBounds) : this(g, containerBounds, BidiHelper.IsRightToLeft)
+        {
+        }
 
-    	public BidiGraphics(Graphics g, Size containerSize) : this(g, new Rectangle(Point.Empty, containerSize))
+        public BidiGraphics(Graphics g, Size containerSize) : this(g, new Rectangle(Point.Empty, containerSize))
         {
         }
 
@@ -63,18 +63,18 @@ namespace OpenLiveWriter.Localization.Bidi
         }
 
         private Rectangle TranslateImageRectangle(Rectangle orig, bool allowMirroring)
-		{
-			if (!isRTL)
-				return orig;
+        {
+            if (!isRTL)
+                return orig;
 
-			Rectangle rect = TranslateRectangle(orig);
-			if (allowMirroring)
-			{
-				rect.X += rect.Width;
-				rect.Width *= -1;
-			}
-			return rect;
-		}
+            Rectangle rect = TranslateRectangle(orig);
+            if (allowMirroring)
+            {
+                rect.X += rect.Width;
+                rect.Width *= -1;
+            }
+            return rect;
+        }
 
         public Rectangle TranslateRectangle(Rectangle orig)
         {
@@ -102,53 +102,53 @@ namespace OpenLiveWriter.Localization.Bidi
 
         public void DrawImage(bool allowMirroring, Image image, int x, int y)
         {
-			//TODO: measure image to get width for high DPI
-			Rectangle rect = new Rectangle(x, y, image.Width, image.Height);
-			rect = TranslateImageRectangle(rect, allowMirroring);
-			g.DrawImage(image, rect);
+            //TODO: measure image to get width for high DPI
+            Rectangle rect = new Rectangle(x, y, image.Width, image.Height);
+            rect = TranslateImageRectangle(rect, allowMirroring);
+            g.DrawImage(image, rect);
         }
 
-		public void DrawImage(bool allowMirroring, Image image, Point point)
+        public void DrawImage(bool allowMirroring, Image image, Point point)
         {
-			//TODO: measure image to get width for high DPI
+            //TODO: measure image to get width for high DPI
             Rectangle rect = new Rectangle(point.X, point.Y, image.Width, image.Height);
             rect = TranslateImageRectangle(rect, allowMirroring);
             g.DrawImage(image, rect);
         }
 
-		public void DrawImage(bool allowMirroring, Image image, Rectangle rect)
+        public void DrawImage(bool allowMirroring, Image image, Rectangle rect)
         {
-			rect = TranslateImageRectangle(rect, allowMirroring);
+            rect = TranslateImageRectangle(rect, allowMirroring);
             g.DrawImage(image, rect);
         }
 
-		public void DrawImage(bool allowMirroring, Image image, Rectangle destRect, int srcX, int srcY, int srcWidth, int srcHeight, GraphicsUnit srcUnit)
-		{
-			//TODO: source coordinates need to deal with mirroring
-			Debug.Assert(srcUnit == GraphicsUnit.Pixel, "BidiGraphics does not support non-Pixel units");
-			g.DrawImage(image,
-				TranslateImageRectangle(destRect, allowMirroring), 
-				srcX, srcY, srcWidth, srcHeight, srcUnit);
-		}
+        public void DrawImage(bool allowMirroring, Image image, Rectangle destRect, int srcX, int srcY, int srcWidth, int srcHeight, GraphicsUnit srcUnit)
+        {
+            //TODO: source coordinates need to deal with mirroring
+            Debug.Assert(srcUnit == GraphicsUnit.Pixel, "BidiGraphics does not support non-Pixel units");
+            g.DrawImage(image,
+                TranslateImageRectangle(destRect, allowMirroring),
+                srcX, srcY, srcWidth, srcHeight, srcUnit);
+        }
 
-		public void DrawImage(bool allowMirroring, Image image, Rectangle destRect, Rectangle srcRect, GraphicsUnit srcUnit)
-		{
-			//TODO: source coordinates need to deal with mirroring
-			Debug.Assert(srcUnit == GraphicsUnit.Pixel, "BidiGraphics does not support non-Pixel units");
-			g.DrawImage(image,
-				TranslateImageRectangle(destRect, allowMirroring),
-				srcRect, srcUnit);
-		}
+        public void DrawImage(bool allowMirroring, Image image, Rectangle destRect, Rectangle srcRect, GraphicsUnit srcUnit)
+        {
+            //TODO: source coordinates need to deal with mirroring
+            Debug.Assert(srcUnit == GraphicsUnit.Pixel, "BidiGraphics does not support non-Pixel units");
+            g.DrawImage(image,
+                TranslateImageRectangle(destRect, allowMirroring),
+                srcRect, srcUnit);
+        }
 
-		public void DrawImage(bool allowMirroring, Image image, Rectangle destRect, int srcX, int srcY, int srcWidth, int srcHeight, GraphicsUnit srcUnit, ImageAttributes imageAttributes)
-		{
-			//TODO: source coordinates need to deal with mirroring
-			Debug.Assert(srcUnit == GraphicsUnit.Pixel, "BidiGraphics does not support non-Pixel units");
-			g.DrawImage(image, 
-				TranslateImageRectangle(destRect, allowMirroring),
-				srcX, srcY, srcWidth, srcHeight, srcUnit, 
-				imageAttributes);
-		}
+        public void DrawImage(bool allowMirroring, Image image, Rectangle destRect, int srcX, int srcY, int srcWidth, int srcHeight, GraphicsUnit srcUnit, ImageAttributes imageAttributes)
+        {
+            //TODO: source coordinates need to deal with mirroring
+            Debug.Assert(srcUnit == GraphicsUnit.Pixel, "BidiGraphics does not support non-Pixel units");
+            g.DrawImage(image,
+                TranslateImageRectangle(destRect, allowMirroring),
+                srcX, srcY, srcWidth, srcHeight, srcUnit,
+                imageAttributes);
+        }
 
         public void DrawIcon(bool allowMirroring, Icon icon, int x, int y)
         {
@@ -253,27 +253,27 @@ namespace OpenLiveWriter.Localization.Bidi
             return new LinearGradientBrush(bounds, color, color1, mode);
         }
 
-    	public void DrawFocusRectangle(Rectangle rect)
-    	{
-    		ControlPaint.DrawFocusRectangle(g, TranslateRectangle(rect));
-    	}
+        public void DrawFocusRectangle(Rectangle rect)
+        {
+            ControlPaint.DrawFocusRectangle(g, TranslateRectangle(rect));
+        }
 
-    	public void DrawFocusRectangle(Rectangle rect, Color foreColor, Color backColor)
-    	{
-    		ControlPaint.DrawFocusRectangle(g, TranslateRectangle(rect), foreColor, backColor);
-    	}
+        public void DrawFocusRectangle(Rectangle rect, Color foreColor, Color backColor)
+        {
+            ControlPaint.DrawFocusRectangle(g, TranslateRectangle(rect), foreColor, backColor);
+        }
 
-    	public IDisposable Container(int xOffset, int yOffset)
-    	{
-    		GraphicsContainer gc = g.BeginContainer();
-			g.TranslateTransform(xOffset, yOffset);
-    		return new GraphicsContainerDisposer(g, gc);
-    	}
+        public IDisposable Container(int xOffset, int yOffset)
+        {
+            GraphicsContainer gc = g.BeginContainer();
+            g.TranslateTransform(xOffset, yOffset);
+            return new GraphicsContainerDisposer(g, gc);
+        }
 
-    	public Size MeasureText(string text, Font font)
-    	{
-    		return TextRenderer.MeasureText(g, text, font, Size.Empty, FixupTextFormatFlags(0));
-    	}
+        public Size MeasureText(string text, Font font)
+        {
+            return TextRenderer.MeasureText(g, text, font, Size.Empty, FixupTextFormatFlags(0));
+        }
 
         public Size MeasureText(string text, Font font, Size size, TextFormatFlags flags)
         {
@@ -318,21 +318,21 @@ namespace OpenLiveWriter.Localization.Bidi
                 );
         }
 
-    	public void DrawText(string text, Font font, Rectangle bounds, Color textColor)
-    	{
+        public void DrawText(string text, Font font, Rectangle bounds, Color textColor)
+        {
             TextFormatFlags textFormatFlags = 0;
             if (isRTL)
             {
                 textFormatFlags |= TextFormatFlags.Right | TextFormatFlags.RightToLeft;
             }
-    	    TextRenderer.DrawText(
-				g,
-				text,
-				font,
-				TranslateRectangle(bounds),
-				textColor,
+            TextRenderer.DrawText(
+                g,
+                text,
+                font,
+                TranslateRectangle(bounds),
+                textColor,
                 textFormatFlags);
-    	}
+        }
 
         public const int DI_MASK = 0x0001;
         public const int DI_IMAGE = 0x0002;
@@ -361,25 +361,25 @@ namespace OpenLiveWriter.Localization.Bidi
         }
     }
 
-	internal class GraphicsContainerDisposer : IDisposable
-	{
-		private readonly Graphics g;
-		private readonly GraphicsContainer gc;
-		private bool disposed = false;
+    internal class GraphicsContainerDisposer : IDisposable
+    {
+        private readonly Graphics g;
+        private readonly GraphicsContainer gc;
+        private bool disposed = false;
 
-		public GraphicsContainerDisposer(Graphics g, GraphicsContainer gc)
-		{
-			this.g = g;
-			this.gc = gc;
-		}
+        public GraphicsContainerDisposer(Graphics g, GraphicsContainer gc)
+        {
+            this.g = g;
+            this.gc = gc;
+        }
 
-		public void Dispose()
-		{
-			if (!disposed)
-			{
-				disposed = true;
-				g.EndContainer(gc);
-			}
-		}
-	}
+        public void Dispose()
+        {
+            if (!disposed)
+            {
+                disposed = true;
+                g.EndContainer(gc);
+            }
+        }
+    }
 }

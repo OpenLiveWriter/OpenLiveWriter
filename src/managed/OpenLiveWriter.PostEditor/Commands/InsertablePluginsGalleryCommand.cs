@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 
         public override void LoadItems()
         {
-            items.Clear();            
+            items.Clear();
             foreach (var v in ContentSourceManager.PluginInsertableContentSources)
             {
                 string clippedName = TextHelper.GetTitleFromText(v.Name, RibbonHelper.GalleryItemTextMaxChars, TextHelper.Units.Characters);
@@ -32,14 +32,14 @@ namespace OpenLiveWriter.PostEditor.Commands
                 if (bitmap != null &&
                     Convert.ToBoolean(bitmap.Flags & (int)ImageFlags.ReadOnly))
                 {
-                    bitmap = v.Image.Clone(new Rectangle(0, 0, v.Image.Width, v.Image.Height), PixelFormat.Format32bppArgb);                                        
-                }                
+                    bitmap = v.Image.Clone(new Rectangle(0, 0, v.Image.Width, v.Image.Height), PixelFormat.Format32bppArgb);
+                }
 
                 items.Add(new GalleryItem(clippedName, bitmap, v.Id));
-            }       
+            }
 
             base.LoadItems();
-        }  
-    }    
+        }
+    }
 
 }

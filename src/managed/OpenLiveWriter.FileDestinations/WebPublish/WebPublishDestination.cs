@@ -3,111 +3,111 @@
 
 namespace OpenLiveWriter.FileDestinations
 {
-	
-	/// <summary>
-	/// Web publish destination
-	/// </summary>
-	public class WebPublishDestination
-	{
-		/// <summary>
-		/// Initialize web-publish destination w/ the id
-		/// </summary>
-		/// <param name="id"></param>
-		public WebPublishDestination( string id )
-		{
-			this.id = id ;
-		}
 
-		/// <summary>
-		/// Destination-id
-		/// </summary>
-		public string Id
-		{
-			get
-			{
-				return id ;
-			}
-		}
-		private string id ;
+    /// <summary>
+    /// Web publish destination
+    /// </summary>
+    public class WebPublishDestination
+    {
+        /// <summary>
+        /// Initialize web-publish destination w/ the id
+        /// </summary>
+        /// <param name="id"></param>
+        public WebPublishDestination(string id)
+        {
+            this.id = id;
+        }
 
-
-		/// <summary>
-		/// Is the destination valid?
-		/// </summary>
-		public bool IsValid
-		{
-			get
-			{
-				if ( Id != null )
-				{					
-					return DestinationProfileManager.HasProfile(Id) ;
-				}
-				else
-				{
-					return false ;
-				}
-			}		
-		}		
+        /// <summary>
+        /// Destination-id
+        /// </summary>
+        public string Id
+        {
+            get
+            {
+                return id;
+            }
+        }
+        private string id;
 
 
-		/// <summary>
-		/// Name of the destination
-		/// </summary>
-		public string Name
-		{
-			get
-			{
-				const string UNKNOWN = "(Unknown)" ; 
-				if ( Profile != null )
-					return Profile.Name != null ? Profile.Name : UNKNOWN ;		
-				else
-					return UNKNOWN ;				
-			}			
-		}
+        /// <summary>
+        /// Is the destination valid?
+        /// </summary>
+        public bool IsValid
+        {
+            get
+            {
+                if (Id != null)
+                {
+                    return DestinationProfileManager.HasProfile(Id);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
 
-		/// <summary>
-		/// Profile information for the destination (returns null if destination is invalid)
-		/// </summary>
-		public DestinationProfile Profile
-		{
-			get
-			{
-				// update cached destination profile if none exists
-				if ( destinationProfile == null )
-				{
-					if ( IsValid )					
-						destinationProfile = DestinationProfileManager.loadProfile( Id ) ;						
-					
-				}
-				return destinationProfile ;				
-			}			
-		}
-		private DestinationProfile destinationProfile = null;		
+        /// <summary>
+        /// Name of the destination
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                const string UNKNOWN = "(Unknown)";
+                if (Profile != null)
+                    return Profile.Name != null ? Profile.Name : UNKNOWN;
+                else
+                    return UNKNOWN;
+            }
+        }
 
 
-		/// <summary>
-		/// Refresh the cached destination profile
-		/// </summary>
-		public void RefreshProfile()
-		{
-			destinationProfile = null ;
-		}
+        /// <summary>
+        /// Profile information for the destination (returns null if destination is invalid)
+        /// </summary>
+        public DestinationProfile Profile
+        {
+            get
+            {
+                // update cached destination profile if none exists
+                if (destinationProfile == null)
+                {
+                    if (IsValid)
+                        destinationProfile = DestinationProfileManager.loadProfile(Id);
+
+                }
+                return destinationProfile;
+            }
+        }
+        private DestinationProfile destinationProfile = null;
 
 
-		/// <summary>
-		/// Helper to get a destination profile manager
-		/// </summary>
-		private DestinationProfileManager DestinationProfileManager
-		{
-			get
-			{
-				if ( destinationProfileManager == null )
-					destinationProfileManager = new DestinationProfileManager() ;
-				return destinationProfileManager ;
-			}
-		}
-		private DestinationProfileManager destinationProfileManager ;
+        /// <summary>
+        /// Refresh the cached destination profile
+        /// </summary>
+        public void RefreshProfile()
+        {
+            destinationProfile = null;
+        }
 
-	}
+
+        /// <summary>
+        /// Helper to get a destination profile manager
+        /// </summary>
+        private DestinationProfileManager DestinationProfileManager
+        {
+            get
+            {
+                if (destinationProfileManager == null)
+                    destinationProfileManager = new DestinationProfileManager();
+                return destinationProfileManager;
+            }
+        }
+        private DestinationProfileManager destinationProfileManager;
+
+    }
 }

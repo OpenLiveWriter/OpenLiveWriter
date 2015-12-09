@@ -58,7 +58,7 @@ namespace OpenLiveWriter.PostEditor.Video
             }
 
             return ResizeHeightToAspectRatio(
-                videoAspectRatioType == VideoAspectRatioType.Standard ? StandardAspectRatio : WidescreenAspectRatio, 
+                videoAspectRatioType == VideoAspectRatioType.Standard ? StandardAspectRatio : WidescreenAspectRatio,
                 currentSize);
         }
 

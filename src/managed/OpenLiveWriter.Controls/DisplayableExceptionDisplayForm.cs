@@ -14,100 +14,100 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.Controls
 {
-	public class DisplayableExceptionDisplayForm : BaseForm
-	{
-		private Bitmap errorBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.ErrorLogoSmall.png") ;
+    public class DisplayableExceptionDisplayForm : BaseForm
+    {
+        private Bitmap errorBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.ErrorLogoSmall.png");
 
-		private PictureBox pictureBoxIcon;
-		private Label labelMessage;
-		private TextBox textBoxDetails;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
-		private Button buttonOK;
+        private PictureBox pictureBoxIcon;
+        private Label labelMessage;
+        private TextBox textBoxDetails;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+        private Button buttonOK;
 
-		/// <summary>
-		/// Initialize w/ required values
-		/// </summary>		
-		public DisplayableExceptionDisplayForm( Exception exception )			
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();	
+        /// <summary>
+        /// Initialize w/ required values
+        /// </summary>		
+        public DisplayableExceptionDisplayForm(Exception exception)
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			this.labelMessage.Font = Res.GetFont(FontSize.Large, FontStyle.Bold);
+            this.labelMessage.Font = Res.GetFont(FontSize.Large, FontStyle.Bold);
             this.buttonOK.Text = Res.Get(StringId.OKButtonText);
 
-			// initialize controls
-			Icon = ApplicationEnvironment.ProductIcon ;
-			pictureBoxIcon.Image = errorBitmap ;
+            // initialize controls
+            Icon = ApplicationEnvironment.ProductIcon;
+            pictureBoxIcon.Image = errorBitmap;
 
-			DisplayableException displayableException = exception as DisplayableException ;
-			if ( displayableException != null )
-			{
-				Text = EnsureStringValueProvided(displayableException.Title) ;
+            DisplayableException displayableException = exception as DisplayableException;
+            if (displayableException != null)
+            {
+                Text = EnsureStringValueProvided(displayableException.Title);
                 labelMessage.Text = EnsureStringValueProvided(displayableException.Title);
-				textBoxDetails.Text = EnsureStringValueProvided(displayableException.Text) ;	
+                textBoxDetails.Text = EnsureStringValueProvided(displayableException.Text);
 
-				// log the error
-				Trace.WriteLine(String.Format(CultureInfo.InvariantCulture, "DisplayableException occurred: {0}", displayableException.ToString()) );
-			}
-			else
-			{
-				// log error
-				Trace.WriteLine("Non DisplayableException-derived exception thrown. Subsystems need to handle these exceptions and convert them to WriterExceptions:\r\n" + exception.ToString());
-				
-				// give the user a full data dump
-				Text = Res.Get(StringId.UnexpectedErrorTitle);
-				labelMessage.Text = exception.GetType().Name ;
-				textBoxDetails.Text = exception.ToString() ;
-			}
-        }				
+                // log the error
+                Trace.WriteLine(String.Format(CultureInfo.InvariantCulture, "DisplayableException occurred: {0}", displayableException.ToString()));
+            }
+            else
+            {
+                // log error
+                Trace.WriteLine("Non DisplayableException-derived exception thrown. Subsystems need to handle these exceptions and convert them to WriterExceptions:\r\n" + exception.ToString());
 
-
-		public static void Show( IWin32Window owner, Exception ex )
-		{
-			using ( DisplayableExceptionDisplayForm form = new DisplayableExceptionDisplayForm(ex) )
-				form.ShowDialog(owner) ;
-		}
-
-		
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+                // give the user a full data dump
+                Text = Res.Get(StringId.UnexpectedErrorTitle);
+                labelMessage.Text = exception.GetType().Name;
+                textBoxDetails.Text = exception.ToString();
+            }
+        }
 
 
-		/// <summary>
-		/// Ensure that we are warned in debug mode if a string value is not provided but
-		/// fail gracefully in release mode
-		/// </summary>
-		/// <param name="value"></param>
-		/// <returns></returns>
-		private string EnsureStringValueProvided( string value )
-		{
-			if ( value == null || value.Length == 0 )
-			{
-				Debug.Fail( "Required string value not passed to DisplayableExceptionDisplayForm constructor" ) ;
-				return String.Empty ;
-			}
-			else
-			{
-				return value ;
-			}
-		}
+        public static void Show(IWin32Window owner, Exception ex)
+        {
+            using (DisplayableExceptionDisplayForm form = new DisplayableExceptionDisplayForm(ex))
+                form.ShowDialog(owner);
+        }
+
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+
+        /// <summary>
+        /// Ensure that we are warned in debug mode if a string value is not provided but
+        /// fail gracefully in release mode
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private string EnsureStringValueProvided(string value)
+        {
+            if (value == null || value.Length == 0)
+            {
+                Debug.Fail("Required string value not passed to DisplayableExceptionDisplayForm constructor");
+                return String.Empty;
+            }
+            else
+            {
+                return value;
+            }
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -118,17 +118,17 @@ namespace OpenLiveWriter.Controls
                 DisplayHelper.AutoFitSystemButton(buttonOK, buttonOK.Width, Int32.MaxValue);
                 buttonOK.Left = (Width / 2) - (buttonOK.Width / 2);
             }
-            
+
         }
 
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
             this.labelMessage = new System.Windows.Forms.Label();
             this.textBoxDetails = new System.Windows.Forms.TextBox();
@@ -195,7 +195,7 @@ namespace OpenLiveWriter.Controls
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
-	}
+        }
+        #endregion
+    }
 }

@@ -94,7 +94,7 @@ namespace OpenLiveWriter.Interop.Windows
         public static extern bool InvalidateRect(
             IntPtr hWnd,           // handle to window
             ref RECT lpRect,  // rectangle coordinates
-            //IntPtr lpRect,
+                              //IntPtr lpRect,
             bool bErase          // erase state
             );
 
@@ -775,7 +775,7 @@ namespace OpenLiveWriter.Interop.Windows
         public POINT ptMinPosition;
         public POINT ptMaxPosition;
         public RECT rcNormalPosition;
-    } ;
+    };
 
 
     [Flags]

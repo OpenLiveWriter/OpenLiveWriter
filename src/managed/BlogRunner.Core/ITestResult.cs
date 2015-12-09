@@ -38,7 +38,7 @@ namespace BlogRunner.Core
 
         public void Dump(TextWriter output)
         {
-            ForEach(delegate(string key, string value)
+            ForEach(delegate (string key, string value)
             {
                 output.WriteLine(string.Format(CultureInfo.InvariantCulture, "{0}: {1}", key, value));
             });

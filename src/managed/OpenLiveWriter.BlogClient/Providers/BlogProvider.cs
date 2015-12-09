@@ -765,8 +765,8 @@ namespace OpenLiveWriter.BlogClient.Providers
             WriteOption(Res.Get(StringId.CapabilityKeywordRetrieval), clientOptions.SupportsGetKeywords);
             WriteOption(Res.Get(StringId.CapabilityCommentPolicy), clientOptions.SupportsCommentPolicy);
             WriteOption(Res.Get(StringId.CapabilityTrackbackPolicy), clientOptions.SupportsPingPolicy);
-            WriteOption(Res.Get(StringId.CapabilityAuthor), clientOptions.SupportsAuthor);            
-            WriteOption(Res.Get(StringId.CapabilitySlug), clientOptions.SupportsSlug);            
+            WriteOption(Res.Get(StringId.CapabilityAuthor), clientOptions.SupportsAuthor);
+            WriteOption(Res.Get(StringId.CapabilitySlug), clientOptions.SupportsSlug);
             WriteOption(Res.Get(StringId.CapabilityPassword), clientOptions.SupportsPassword);
             WriteOption(Res.Get(StringId.CapabilityExcerpt), clientOptions.SupportsExcerpt);
             WriteOption(Res.Get(StringId.CapabilitySendTrackbacks), clientOptions.SupportsTrackbacks);

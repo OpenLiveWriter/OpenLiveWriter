@@ -9,34 +9,34 @@ using System.Net;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
-using OpenLiveWriter.BlogClient.Providers; 
+using OpenLiveWriter.BlogClient.Providers;
 
 namespace OpenLiveWriter.BlogClient.Clients
-{	
-	[BlogClient("MovableType", "Movable Type")]
-	public class MovableTypeClient : MetaweblogClient
-	{
-		public MovableTypeClient(Uri postApiUrl, IBlogCredentialsAccessor credentials )
-			: base(postApiUrl, credentials)
-		{	
-		}
+{
+    [BlogClient("MovableType", "Movable Type")]
+    public class MovableTypeClient : MetaweblogClient
+    {
+        public MovableTypeClient(Uri postApiUrl, IBlogCredentialsAccessor credentials)
+            : base(postApiUrl, credentials)
+        {
+        }
 
-		protected override void ConfigureClientOptions(BlogClientOptions clientOptions)
-		{
-			clientOptions.SupportsCategories = true ;
-			clientOptions.SupportsMultipleCategories = true ;
-			clientOptions.SupportsCategoryIds = true ;
-			clientOptions.SupportsCategoriesInline = false ;
-			clientOptions.SupportsFileUpload = true ;
-			clientOptions.SupportsCommentPolicy = true ;
-			clientOptions.SupportsPingPolicy = true ;
-			clientOptions.SupportsTrackbacks = true ;
-			clientOptions.SupportsKeywords = true ;
-			clientOptions.SupportsExcerpt = true ;
-			clientOptions.SupportsExtendedEntries = true ;
-		}
-		
-	}
+        protected override void ConfigureClientOptions(BlogClientOptions clientOptions)
+        {
+            clientOptions.SupportsCategories = true;
+            clientOptions.SupportsMultipleCategories = true;
+            clientOptions.SupportsCategoryIds = true;
+            clientOptions.SupportsCategoriesInline = false;
+            clientOptions.SupportsFileUpload = true;
+            clientOptions.SupportsCommentPolicy = true;
+            clientOptions.SupportsPingPolicy = true;
+            clientOptions.SupportsTrackbacks = true;
+            clientOptions.SupportsKeywords = true;
+            clientOptions.SupportsExcerpt = true;
+            clientOptions.SupportsExtendedEntries = true;
+        }
+
+    }
 }
 
 

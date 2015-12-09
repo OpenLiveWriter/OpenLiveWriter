@@ -40,8 +40,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     editorForm.ImageDecoratorEditor = editor;
 
                     // for automation
-                    editorForm.Name = imageDecorator.Id + "EditorForm";                    
-                    return editorForm.ShowDialog();                    
+                    editorForm.Name = imageDecorator.Id + "EditorForm";
+                    return editorForm.ShowDialog();
                 }
             }
             return DialogResult.Abort;

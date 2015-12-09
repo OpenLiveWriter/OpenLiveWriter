@@ -108,7 +108,7 @@ namespace OpenLiveWriter.HtmlEditor
 
             KeyEventArgs e = new KeyEventArgs(keysPressed);
 
-            if(keysPressed == Keys.None)
+            if (keysPressed == Keys.None)
             {
                 e.SuppressKeyPress = true;
             }
