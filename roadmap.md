@@ -10,7 +10,7 @@ First public release of Open Live Writer
 
 #### Specific features:
 * Update copyright statements
-* Remove code for wlw: protocol aluncher
+* Remove code for wlw: protocol launcher
 * Verify and test existing error and crash reporting
 
 
