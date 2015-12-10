@@ -210,7 +210,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                                      "UploadPic.Meta.Filename", uploadContext.FormatFileName(uploadContext.PreferredFileName),
                                      "UploadPic.Gallery._size", "1",
                                      "UploadPic.Gallery.0.GalName", ApplicationEnvironment.ProductName,
-                                     "UploadPic.Gallery.0.GalSec", "0");
+                                     "UploadPic.Gallery.0.GalSec", "255");
             }
 
             XmlNode picUrlNode = doc.SelectSingleNode("/FBResponse/UploadPicResponse/URL");
