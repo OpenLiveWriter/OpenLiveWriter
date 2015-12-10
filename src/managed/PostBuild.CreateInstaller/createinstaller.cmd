@@ -21,5 +21,9 @@ ECHO Created Writer NuGet package.
 .\src\managed\packages\squirrel.windows.1.2.1\tools\Squirrel.exe -i .\src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico %OLW_SIGN% --no-msi --releasify .\OpenLiveWriter.%dottedVersion%.nupkg 
 ECHO Created Open Live Writer setup file.
 
+%LocalAppData%\Nuget\Nuget.exe pack .\OpenLiveWriter.Install.nuspec -version %dottedVersion% -basepath Releases
+ECHO Created Writer Chocolatey Package
+
 :end
+
 POPD

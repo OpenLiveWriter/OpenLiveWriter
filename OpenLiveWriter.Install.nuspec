@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>openlivewriter.install</id>
+        <version>0.0.0.0</version>
+        <title>Open Live Writer</title>
+        <authors>Open Live Writer</authors>
+        <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt?raw=true</licenseUrl>
+        <iconUrl>http://openlivewriter.github.io/favicon.ico</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>Open Live Writer makes it easy to write, preview and post to your blog.</description>
+        <summary>Open Live Writer</summary>
+        <tags>Blog WindowsLiveWriter Open Live Writer</tags>
+        <releaseNotes>https://github.com/OpenLiveWriter/OpenLiveWriter/releases</releaseNotes>
+    </metadata>
+    <files>
+        <file src="Setup.exe" target="tools" />
+        <file src="..\choco\chocolateyInstall.ps1" target="tools"/>
+    </files>
+</package>
