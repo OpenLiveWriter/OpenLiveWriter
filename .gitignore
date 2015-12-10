@@ -198,3 +198,6 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+#Visual Studio specific files
+*.VC.opendb
