@@ -13,7 +13,7 @@ using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.Mshtml;
 
 namespace OpenLiveWriter.HtmlEditor
-{    
+{
     /// <summary>
     /// IHtmlEditorSelection wrapper for a basic MSHTML Selection object.
     /// </summary>
@@ -52,7 +52,7 @@ namespace OpenLiveWriter.HtmlEditor
             {
                 return _editor.HasContiguousSelection;
             }
-        }               
+        }
 
         public void ExecuteSelectionOperation(HtmlEditorSelectionOperation op)
         {
@@ -138,7 +138,6 @@ namespace OpenLiveWriter.HtmlEditor
                 return null;
             }
         }
-
 
         public IHTMLTable SelectedTable
         {
@@ -229,7 +228,7 @@ namespace OpenLiveWriter.HtmlEditor
                         Debug.Fail("Length of control range not equal to 1 (value was " + controlRange.length.ToString(CultureInfo.InvariantCulture));
                         return null;
                     }
-                    
+
                     //bug fix 1793: use markup services to select the range of markup because the
                     //IHTMLTxtRange.moveToElementText() operation doesn't create a reasonable
                     //selection range for <img> selections within an anchor (thumbnails, etc)

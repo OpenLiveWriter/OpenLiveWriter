@@ -36,7 +36,6 @@ namespace OpenLiveWriter.Localization.Bidi
             }
         }
 
-
         public static MessageBoxOptions RTLMBOptions
         {
             get
@@ -62,29 +61,28 @@ namespace OpenLiveWriter.Localization.Bidi
         {
             Control[] childControls = new Control[controls.Count];
             for (int i = 0; i < childControls.Length; i++)
-                childControls[i] = (Control) controls[i];
+                childControls[i] = (Control)controls[i];
             return childControls;
         }
 
         public static void RtlLayoutFixup(Control control, bool recursive, params Control[] childControls)
         {
-        	RtlLayoutFixup(control, recursive, false, childControls);
+            RtlLayoutFixup(control, recursive, false, childControls);
         }
 
-    	public static void RtlLayoutFixup(Control control, bool recursive, bool forceAutoLayout, IList childControls)
-    	{
-    	    RtlLayoutFixup(control, recursive, forceAutoLayout, ToArray(childControls));
-    	}
+        public static void RtlLayoutFixup(Control control, bool recursive, bool forceAutoLayout, IList childControls)
+        {
+            RtlLayoutFixup(control, recursive, forceAutoLayout, ToArray(childControls));
+        }
 
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="control">The control to fixup.</param>
-		/// <param name="recursive">Whether or not to fixup child controls as well.</param>
-		/// <param name="forceAutoLayout">If true, ignores IRtlAware interface on the control param and lays out as normal. (IRtlAware will be used for children of control, regardless of this setting.)</param>
-		/// <param name="childControls">The child controls to reposition (doesn't have to include all the children of control).</param>
-    	public static void RtlLayoutFixup(Control control, bool recursive, bool forceAutoLayout, params Control[] childControls)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="control">The control to fixup.</param>
+        /// <param name="recursive">Whether or not to fixup child controls as well.</param>
+        /// <param name="forceAutoLayout">If true, ignores IRtlAware interface on the control param and lays out as normal. (IRtlAware will be used for children of control, regardless of this setting.)</param>
+        /// <param name="childControls">The child controls to reposition (doesn't have to include all the children of control).</param>
+        public static void RtlLayoutFixup(Control control, bool recursive, bool forceAutoLayout, params Control[] childControls)
         {
             if (IsRightToLeft && control.RightToLeft != RightToLeft.No)
             {
@@ -95,8 +93,7 @@ namespace OpenLiveWriter.Localization.Bidi
                 else
                 {
                     bool isMirroredForm = control is Form
-                                          && ((Form) control).RightToLeftLayout;
-
+                                          && ((Form)control).RightToLeftLayout;
 
                     foreach (Control childControl in childControls)
                     {
@@ -166,17 +163,14 @@ namespace OpenLiveWriter.Localization.Bidi
             }
         }
 
-    	public static Bitmap Mirror(Bitmap bitmap)
-    	{
-			if (!IsRightToLeft)
-				return bitmap;
-			Bitmap mirrored = new Bitmap(bitmap);
-			mirrored.RotateFlip(RotateFlipType.RotateNoneFlipX);
-    		return mirrored;
-    	}
-
-
-
+        public static Bitmap Mirror(Bitmap bitmap)
+        {
+            if (!IsRightToLeft)
+                return bitmap;
+            Bitmap mirrored = new Bitmap(bitmap);
+            mirrored.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            return mirrored;
+        }
 
     }
 }

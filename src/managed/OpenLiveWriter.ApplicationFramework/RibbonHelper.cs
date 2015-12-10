@@ -37,13 +37,13 @@ namespace OpenLiveWriter.ApplicationFramework
 
                 // Note that the missing image is a 32x32 png.
                 if (image == null)
-                    image = Images.Missing_LargeImage;                    
+                    image = Images.Missing_LargeImage;
 
                 pv.SetIUnknown(CreateImage(((Bitmap)image).GetHbitmap(), ImageCreationOptions.Transfer));
             }
             catch (Exception ex)
             {
-                Trace.Fail("Failed to create image PropVariant: " + ex);                
+                Trace.Fail("Failed to create image PropVariant: " + ex);
                 pv = new PropVariant();
             }
         }
@@ -56,7 +56,7 @@ namespace OpenLiveWriter.ApplicationFramework
                     key == PropertyKeys.TooltipTitle ||
                     key == PropertyKeys.TooltipDescription);
         }
-        
+
         public static Bitmap GetGalleryItemImageFromCommand(CommandManager commandManager, CommandId commandId)
         {
             // @RIBBON TODO: Deal with high constrast appropriately
@@ -64,7 +64,7 @@ namespace OpenLiveWriter.ApplicationFramework
             if (command != null)
                 return command.LargeImage;
 
-            return Images.Missing_LargeImage;            
+            return Images.Missing_LargeImage;
         }
     }
 }

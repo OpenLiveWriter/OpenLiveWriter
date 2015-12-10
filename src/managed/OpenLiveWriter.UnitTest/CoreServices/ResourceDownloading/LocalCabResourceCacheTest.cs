@@ -17,11 +17,10 @@ namespace OpenLiveWriter.UnitTest.CoreServices.ResourceDownloading
     public class LocalCabResourceCacheTest
     {
 
-
         [SetUp]
         public void SetUp()
         {
-            
+
         }
 
         private static string GetSupportingCab(string cabName)
@@ -86,7 +85,7 @@ namespace OpenLiveWriter.UnitTest.CoreServices.ResourceDownloading
             SetEnforceSigning(cache, true);
 
             cache.Refresh(10000, false);
-            
+
             if (cache.RecentlyRefreshed)
                 throw new Exception("Signing wasn't enforced!");
         }
@@ -105,7 +104,6 @@ namespace OpenLiveWriter.UnitTest.CoreServices.ResourceDownloading
                                           UrlHelper.CreateUrlFromPath(@"c:\foo.cab"), true);
             cache.Refresh(10000, false);
         }
-
 
         [TearDown]
         public void TearDown()

@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing
 
         public override void LoadItems()
         {
-            if(Items.Count == 0)
+            if (Items.Count == 0)
             {
                 Categories.AddRange(new GalleryItem[] {
                     new GalleryItem(Res.Get(StringId.ImageEffectsNoRecolorCategory), NoRecolorIndex),

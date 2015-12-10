@@ -77,7 +77,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             Invalidate();
         }
 
-
         public virtual string GetEditedHtml(bool useXhtml, bool doCleanup)
         {
             try
@@ -123,7 +122,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 needsCleanup = false;
                 StringBuilder output = new StringBuilder(html.Length);
                 SimpleHtmlParser htmlParser = new SimpleHtmlParser(html);
-                for (Element el; null != (el = htmlParser.Next()); )
+                for (Element el; null != (el = htmlParser.Next());)
                 {
                     if (el is BeginTag)
                     {
@@ -136,7 +135,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                             needsCleanup = true;
                             continue;
                         }
-
 
                         output.Append("<");
                         output.Append(bt.Name.ToLower(CultureInfo.InvariantCulture));
@@ -249,7 +247,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         {
             StringBuilder output = new StringBuilder();
             CssParser parser = new CssParser(val);
-            for (StyleElement el; null != (el = parser.Next()); )
+            for (StyleElement el; null != (el = parser.Next());)
             {
                 if (el is StyleText)
                     output.Append(el.RawText.ToLower(CultureInfo.InvariantCulture));
@@ -553,7 +551,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
                 DisplayServices.TraceMoveToMarkupPointer(displayPointer, mp);
                 try
-                {                    
+                {
                     caret.MoveCaretToPointer(displayPointer, true, _CARET_DIRECTION.CARET_DIRECTION_SAME);
                     if (preserveXLocation)
                     {
@@ -577,7 +575,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
             return false;
         }
-        private enum MOVE_DIRECTION { UP, DOWN, LEFT, RIGHT };           
+        private enum MOVE_DIRECTION { UP, DOWN, LEFT, RIGHT };
 
         /// <summary>
         /// Returns true if the caret is currently positioned at the specified line position.
@@ -627,8 +625,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return GetLineClientRectangle(pointer);
         }
 
-        
-
         /// <summary>
         /// Returns the bounds of line that the pointer is positioned within in client-based coordinates.
         /// </summary>
@@ -645,10 +641,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             IDisplayServicesRaw displayServices = (IDisplayServicesRaw)HTMLElement.document;
 
-            
             //position a display pointer on the same line as the markup pointer
             IDisplayPointerRaw displayPointer;
-            displayServices.CreateDisplayPointer(out displayPointer);            
+            displayServices.CreateDisplayPointer(out displayPointer);
             DisplayServices.TraceMoveToMarkupPointer(displayPointer, pointer);
 
             //position a markup pointer at the end of the line
@@ -668,7 +663,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             pLineStart.Right(true);
             while (pLineStart.IsLeftOfOrEqualTo(pLineEnd))
             {
-                Rectangle dpLineRect;                
+                Rectangle dpLineRect;
                 try
                 {
                     displayPointer.MoveToMarkupPointer(pLineStart.PointerRaw, null);
@@ -680,7 +675,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     {
                         // http://msdn.microsoft.com/en-us/library/aa752674(VS.85).aspx
                         // IDisplayPointer::MoveToMarkupPointer will return an error (CTL_E_INVALIDLINE),
-                        // if the markup pointer is in a line whose nearest layout element *is not a flow layout element*.                        
+                        // if the markup pointer is in a line whose nearest layout element *is not a flow layout element*.
                         dpLineRect = GetLineRect(pLineStart.CurrentScope);
 
                         // We also want to skip past the entire current scope...
@@ -699,7 +694,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     lineRect.Height += dpLineRect.Bottom - lineRect.Bottom;
                 }
 
-
                 pLineStart.Right(true);
             }
 
@@ -709,10 +703,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         // But we need a rectangle based on an element
         private Rectangle GetLineRect(IHTMLElement nonFlowElement)
-        {            
+        {
             Rectangle elementRect = GetClientRectangle();
             return new Rectangle(elementRect.X, elementRect.Y - nonFlowElement.offsetHeight, elementRect.Width, nonFlowElement.offsetHeight);
-        }       
+        }
 
         /// <summary>
         /// Returns the bounds of the element in client-based coordinatates.
@@ -721,7 +715,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// <returns></returns>
         protected Rectangle GetClientRectangle()
         {
-            return HTMLElementHelper.GetClientRectangle(HTMLElement);            
+            return HTMLElementHelper.GetClientRectangle(HTMLElement);
         }
 
         protected enum ELEMENT_REGION { CONTENT, PADDING, BORDER, MARGIN };

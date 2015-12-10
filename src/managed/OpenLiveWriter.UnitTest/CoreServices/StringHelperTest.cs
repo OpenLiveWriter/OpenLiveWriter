@@ -45,7 +45,6 @@ namespace OpenLiveWriter.UnitTest.CoreServices
                 throw new Exception("GetHashCodeStable failed");
         }
 
-
         [TearDown]
         public void TearDown()
         {

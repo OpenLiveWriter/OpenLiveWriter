@@ -67,7 +67,6 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         protected virtual Uri FeedServiceUrl { get { return _feedServiceUrl; } }
 
-
         public IBlogClientOptions Options
         {
             get
@@ -184,7 +183,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
         }
 
-
         protected virtual HttpRequestFilter RequestFilter
         {
             get
@@ -243,7 +241,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         protected virtual bool AttemptDeletePostRecover(Exception e, string blogId, string postId, bool publish)
         {
             return false;
-        }        
+        }
 
         public virtual BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
         {
@@ -447,7 +445,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 if (!AttemptEditPostRecover(e, blogId, post, newCategoryContext, publish, out etag, out remotePost))
                 {
-                    // convert to a provider exception if this is a 404 (allow us to 
+                    // convert to a provider exception if this is a 404 (allow us to
                     // catch this case explicitly and attempt a new post to recover)
                     if (e is WebException)
                     {

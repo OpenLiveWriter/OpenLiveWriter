@@ -7,18 +7,18 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.HtmlEditor.Linking.Commands
 {
-	/// <summary>
-	/// Summary description for LinkingCommand.
-	/// </summary>
-	public class LinkingCommand : Command
-	{
-		public LinkingCommand(CommandId commandId) : base(commandId)
-		{
-		}
+    /// <summary>
+    /// Summary description for LinkingCommand.
+    /// </summary>
+    public class LinkingCommand : Command
+    {
+        public LinkingCommand(CommandId commandId) : base(commandId)
+        {
+        }
 
-		public virtual bool FindLink(string linkText, HyperlinkForm caller)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        public virtual bool FindLink(string linkText, HyperlinkForm caller)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

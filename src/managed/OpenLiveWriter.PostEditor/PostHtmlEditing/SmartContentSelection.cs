@@ -15,8 +15,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     /// <summary>
     /// The editor selection for a structured content block.
     /// </summary>
-    /// 
-    /// 
+    ///
+    ///
 
     public class PreserveContentSelection : ContentSelection
     {
@@ -45,7 +45,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         public static SmartContentSelection SelectIfSmartContentElement(IHtmlEditorComponentContext editorComponentContext, IHTMLElement e, SmartContentState contentState)
-        {            
+        {
             if (e != null)
             {
                 IHTMLElement smartContent = ContentSourceManager.GetContainingSmartContent(e);
@@ -63,7 +63,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return selection;
         }
 
-
     }
 
     public class DisabledImageSelection : ContentSelection
@@ -79,13 +78,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
     }
 
-	public class ContentSelection : IHtmlEditorSelection
-	{
-		private IHTMLElement _element;
-		private SmartContentState _contentState;
-		private MshtmlMarkupServices _markupServices;
-		private MarkupRange _markupRange;
-		private IHtmlEditorComponentContext _editorComponentContext;
+    public class ContentSelection : IHtmlEditorSelection
+    {
+        private IHTMLElement _element;
+        private SmartContentState _contentState;
+        private MshtmlMarkupServices _markupServices;
+        private MarkupRange _markupRange;
+        private IHtmlEditorComponentContext _editorComponentContext;
 
         protected ContentSelection(IHtmlEditorComponentContext editorComponentContext, IHTMLElement element, SmartContentState contentState)
         {
@@ -126,7 +125,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 return true;
             }
-        }        
+        }
 
         public bool IsEditField
         {
@@ -227,7 +226,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-
         public IHTMLElement SelectedControl
         {
             get { return null; }
@@ -252,7 +250,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 {
                     //clear the DOM selection so that whatever is currently selected gets unselected.
                     editorComponentContext.EmptySelection();
-                    
+
                     //select the newly smart content element
                     editorComponentContext.Selection = smartContentSelection;
                     return smartContentSelection;

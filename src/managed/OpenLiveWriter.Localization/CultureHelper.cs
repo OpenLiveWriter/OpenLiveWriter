@@ -13,39 +13,37 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.Localization
 {
-	public class CultureHelper
-	{
-		public static bool GdiPlusLineCenteringBroken
-		{
-			get
-			{
-				return _gdiPlusLineCenteringBroken;
-			}
-		}
-		private static bool _gdiPlusLineCenteringBroken = false;
-
+    public class CultureHelper
+    {
+        public static bool GdiPlusLineCenteringBroken
+        {
+            get
+            {
+                return _gdiPlusLineCenteringBroken;
+            }
+        }
+        private static bool _gdiPlusLineCenteringBroken = false;
 
         /// <summary>
         /// Applies the given culture name to the current thread.
         /// </summary>
         /// <param name="cultureName"></param>
-		public static void ApplyUICulture(string cultureName)
-		{
-			if (cultureName == null)
-			{
-			    throw new ArgumentNullException("cultureName");
-			}
+        public static void ApplyUICulture(string cultureName)
+        {
+            if (cultureName == null)
+            {
+                throw new ArgumentNullException("cultureName");
+            }
 
-			CultureInfo culture = GetBestCulture(cultureName);
+            CultureInfo culture = GetBestCulture(cultureName);
 
-			Thread.CurrentThread.CurrentUICulture = culture;
-			_gdiPlusLineCenteringBroken = CultureInfo.CurrentUICulture.ThreeLetterWindowsLanguageName == "CHT";
+            Thread.CurrentThread.CurrentUICulture = culture;
+            _gdiPlusLineCenteringBroken = CultureInfo.CurrentUICulture.ThreeLetterWindowsLanguageName == "CHT";
 
             FixupDateTimeFormat();
-		}
+        }
 
-
-        private static void  FixupDateTimeFormat()
+        private static void FixupDateTimeFormat()
         {
             if (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToUpperInvariant() == "AR")
             {
@@ -54,20 +52,19 @@ namespace OpenLiveWriter.Localization
                 ci.DateTimeFormat.ShortDatePattern = Regex.Replace(ci.DateTimeFormat.ShortDatePattern, "[Mdy]+", "\u200F$0");
                 Thread.CurrentThread.CurrentCulture = ci;
 
-
             }
         }
 
-		public static CultureInfo GetBestCulture(string cultureName)
-		{
+        public static CultureInfo GetBestCulture(string cultureName)
+        {
             try
-			{
+            {
                 // Dotnet won't load 'ml'
                 switch (cultureName.ToUpperInvariant())
                 {
-                    case("ML"):
+                    case ("ML"):
                         return CultureInfo.CreateSpecificCulture("ml-in");
-                    case("PT"):
+                    case ("PT"):
                         return CultureInfo.CreateSpecificCulture("pt-pt");
                     case ("SR-CYRL"):
                         return CultureInfo.CreateSpecificCulture("sr-cyrl-CS");
@@ -83,27 +80,26 @@ namespace OpenLiveWriter.Localization
                     default:
                         return CultureInfo.CreateSpecificCulture(cultureName);
                 }
-			}
-			catch (ArgumentException)
-			{
-				// Specific culture didn't succeed, see if we can make
-				// a culture-neutral language identifier
-				int dashAt = cultureName.IndexOf('-');
-				if (dashAt >= 0)
-				{
-					try
-					{
-						return CultureInfo.CreateSpecificCulture(cultureName.Substring(0, dashAt));
-					}
-					catch (ArgumentException)
-					{
-					}
-				}
+            }
+            catch (ArgumentException)
+            {
+                // Specific culture didn't succeed, see if we can make
+                // a culture-neutral language identifier
+                int dashAt = cultureName.IndexOf('-');
+                if (dashAt >= 0)
+                {
+                    try
+                    {
+                        return CultureInfo.CreateSpecificCulture(cultureName.Substring(0, dashAt));
+                    }
+                    catch (ArgumentException)
+                    {
+                    }
+                }
 
-				throw;
-			}
-		}
-
+                throw;
+            }
+        }
 
         public static void FixupTextboxForNumber(TextBox textBox)
         {
@@ -128,7 +124,7 @@ namespace OpenLiveWriter.Localization
             }
         }
 
-        public static string  GetShortDateTimePatternForDateTimePicker()
+        public static string GetShortDateTimePatternForDateTimePicker()
         {
             // DateTimPicker controls have a problem with RTL and custom formats.  To get around this we hardcore the time in the reverse order.
             if (Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant() == "AR"
@@ -140,7 +136,7 @@ namespace OpenLiveWriter.Localization
             {
                 return CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern;
             }
-            
+
         }
 
         [Obsolete("NOT FULLY TESTED")]
@@ -166,14 +162,13 @@ namespace OpenLiveWriter.Localization
 
                 return isActive;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.Fail("Failed to check if IME is active: " + ex);
                 return isActive;
             }
 
         }
-
 
         [Obsolete("NOT FULLY TESTED")]
         public static class Imm32
@@ -190,7 +185,7 @@ namespace OpenLiveWriter.Localization
 
         public static bool IsRtlCodepage(uint codepage)
         {
-            switch(codepage)
+            switch (codepage)
             {
                 case 708:
                 case 720:

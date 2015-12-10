@@ -21,30 +21,30 @@ namespace OpenLiveWriter.Mshtml
 {
     /// <summary>
     /// MshtmlControl provides an HTML viewing and editing control. It does this by
-    /// hosting the MSHTML ActiveDocument server (the core underlying component 
+    /// hosting the MSHTML ActiveDocument server (the core underlying component
     /// used by Internet Explorer to implement web browsing). Hosting an ActiveDocument
-    /// is a painfully overcomplicated and underdocumented chore. Our implementation of 
+    /// is a painfully overcomplicated and underdocumented chore. Our implementation of
     /// ActiveDocument hosting is based on the best example of it we could find which
-    /// was the Microsoft FramerEx sample ("SAMPLE: FramerEx.exe Is an MDI ActiveX 
+    /// was the Microsoft FramerEx sample ("SAMPLE: FramerEx.exe Is an MDI ActiveX
     /// Document Container Sample Written in Visual C++"). This sample is described
     /// in MSFT KB Article 268470 at:
     ///   http://support.microsoft.com/default.aspx?scid=kb;EN-US;268470
-    /// 
+    ///
     /// Another more elemental sample of an ActiveDocument container implementation
     /// is the "Framer" sample from MSDN. You can download this sample at:
     ///   http://msdn.microsoft.com/downloads/samples/internet/default.asp?url=/downloads/samples/internet/components/framer/default.asp
-    /// 
+    ///
     /// Other documentation on ActiveDocument containers can be found in the MSFT
     /// Visual C++ documentation article "ActiveDocument Containers" at:
     ///   http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/_core_activex_document_containers.asp
-    ///  
+    ///
     /// Kraig Brockschmidt's "Inside OLE" book is another good source of information
-    /// on creating OLE containers. 
-    /// 
-    /// Implementations of methods within MshtmlControl that are based heavily upon the 
+    /// on creating OLE containers.
+    ///
+    /// Implementations of methods within MshtmlControl that are based heavily upon the
     /// FramerEx sample will be called out within inline comments so that the process of
     /// troubleshooting them can make reference to the original implementation.
-    /// </summary>	
+    /// </summary>
     [ComVisible(true)]
     public class MshtmlControl : UserControl,
         IOleDocumentSite,
@@ -66,7 +66,7 @@ namespace OpenLiveWriter.Mshtml
         ///		    as you expect!)
         ///		(4) Init
         ///		(5) SetEditMode
-        ///		(6) Hook DocumentEvents.ReadyStateChanged so you can watch for 
+        ///		(6) Hook DocumentEvents.ReadyStateChanged so you can watch for
         ///		    DocumentIsComplete == true after calling LoadFrom asynch-method
         ///		(7) LoadFromXXX (Url, File, or String)
         /// </summary>
@@ -84,17 +84,16 @@ namespace OpenLiveWriter.Mshtml
         public void SetServiceProvider(IServiceProviderRaw serviceProvider)
         {
             // Everytime we switch the service provider we need to clear out who
-            // the editor thinks it's site is.  This will force it to ask for the 
-            // the service provider again.  If you don't do this, any editor that is reused for 
+            // the editor thinks it's site is.  This will force it to ask for the
+            // the service provider again.  If you don't do this, any editor that is reused for
             // multiple windows in Mail will contain a stale pointer to objects that were
             // quired through the service provider.  The most obvious being behaviors won't work
-            // because it has cached behavior manager will not have access to the new editor resulting 
+            // because it has cached behavior manager will not have access to the new editor resulting
             // in smart content not bring selected correctly or images not being resamples when resized.
             _serviceProvider = serviceProvider;
             oleObject.SetClientSite(null);
             oleObject.SetClientSite((IOleClientSite)this);
         }
-
 
         /// <summary>
         /// Install a custom IDocHostUIHandler
@@ -113,7 +112,6 @@ namespace OpenLiveWriter.Mshtml
             docHostUIHandler = new IDocHostUIHandlerBaseImpl();
         }
 
-
         /// <summary>
         /// Install a custom IDocHostShowUIHandler
         /// </summary>
@@ -122,7 +120,6 @@ namespace OpenLiveWriter.Mshtml
         {
             showUIHandler = handler;
         }
-
 
         /// <summary>
         /// Set flags used to control downloading
@@ -140,7 +137,6 @@ namespace OpenLiveWriter.Mshtml
             OnDLControlFlagsChanged(EventArgs.Empty);
         }
 
-
         /// <summary>
         /// Call this method after you have installed handlers, configured behavior, etc.
         /// </summary>
@@ -151,9 +147,8 @@ namespace OpenLiveWriter.Mshtml
             _eventCounter.Reset();
         }
 
-
         /// <summary>
-        /// Indicate whether the mshtml control should be in edit mode. You may 
+        /// Indicate whether the mshtml control should be in edit mode. You may
         /// only call this method after you have called Init()
         /// </summary>
         /// <param name="editMode"></param>
@@ -169,10 +164,8 @@ namespace OpenLiveWriter.Mshtml
             _editMode = editMode;
         }
 
-
-
         /// <summary>
-        /// Load the contents of the Mshtml control from a URL 
+        /// Load the contents of the Mshtml control from a URL
         /// </summary>
         /// <param name="url">url to load from</param>
         public void LoadFromUrl(string url)
@@ -183,7 +176,7 @@ namespace OpenLiveWriter.Mshtml
             if (hr != HRESULT.S_OK)
                 throw new COMException("Error creating url moniker for " + url, hr);
 
-            // create a binding context 
+            // create a binding context
             IBindCtx bindCtx;
             hr = Ole32.CreateBindCtx(0, out bindCtx);
             if (hr != HRESULT.S_OK)
@@ -194,7 +187,6 @@ namespace OpenLiveWriter.Mshtml
             persistMoniker.Load(false, urlMoniker, bindCtx, STGM.READ);
         }
 
-
         /// <summary>
         /// Load the contents of the Mshtml control from a file
         /// </summary>
@@ -204,7 +196,6 @@ namespace OpenLiveWriter.Mshtml
             IPersistFile persistFile = (IPersistFile)htmlDocument;
             persistFile.Load(filePath, STGM.READWRITE);
         }
-
 
         /// <summary>
         /// Saves the the file from which the control was loaded from. Note that
@@ -223,7 +214,6 @@ namespace OpenLiveWriter.Mshtml
             persistFile.SaveCompleted(fileName);
         }
 
-
         /// <summary>
         /// Load the HTML document from a string
         /// </summary>
@@ -239,7 +229,7 @@ namespace OpenLiveWriter.Mshtml
                 // copy the string to an unmanaged global memory block
                 hHTML = Marshal.StringToHGlobalUni(html);
 
-                // get a stream interface to the unmanged memory block			
+                // get a stream interface to the unmanged memory block
                 int result = Ole32Storage.CreateStreamOnHGlobal(hHTML, 0, out stream);
                 if (result != HRESULT.S_OK)
                     throw new COMException("Unexpected failure to create html stream", result);
@@ -262,8 +252,7 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Dispose the MSHTML control
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -276,15 +265,13 @@ namespace OpenLiveWriter.Mshtml
                 _eventCounter.AssertAllEventsAreUnhooked();
             }
 
-            // allow base to dispose 
+            // allow base to dispose
             base.Dispose(disposing);
         }
 
         #endregion
 
-
         #region Propreties
-
 
         /// <summary>
         /// Window handle for the underlying MSHTML window
@@ -303,10 +290,9 @@ namespace OpenLiveWriter.Mshtml
         }
         private IntPtr hWnd = IntPtr.Zero;
 
-
         /// <summary>
         /// Indicates whether design mode is on
-        /// </summary>				
+        /// </summary>
         public bool EditMode
         {
             get
@@ -315,8 +301,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
         bool _editMode = false;
-
-
 
         /// <summary>
         /// Get or set the HTML text contents of the control
@@ -329,7 +313,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Get the DOM for the contents of the control
         /// </summary>
@@ -341,7 +324,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Checks whether the document has completely loaded
         /// </summary>
@@ -352,7 +334,6 @@ namespace OpenLiveWriter.Mshtml
                 return htmlDocument.readyState == "complete";
             }
         }
-
 
         /// <summary>
         /// Get the commands exposed by the MSHTML editor (a dictionary w/
@@ -366,9 +347,8 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
-        /// Get the events 
+        /// Get the events
         /// </summary>
         public IMshtmlDocumentEvents DocumentEvents
         {
@@ -377,7 +357,6 @@ namespace OpenLiveWriter.Mshtml
                 return documentEventRepeater;
             }
         }
-
 
         /// <summary>
         /// Get a reference to the IHTMLEditServices interface used to add
@@ -410,7 +389,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Selection services for document (must wait until document IsComplete to get this)
         /// </summary>
@@ -426,7 +404,6 @@ namespace OpenLiveWriter.Mshtml
                 return selectionServices;
             }
         }
-
 
         /// <summary>
         /// Markup services for document (must wait until document IsComplete to get this)
@@ -470,7 +447,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Markup container for document (must wait until document IsComplete to get this)
         /// </summary>
@@ -485,7 +461,6 @@ namespace OpenLiveWriter.Mshtml
                 return markupContainer;
             }
         }
-
 
         /// <summary>
         /// Hightlight rendering services for document ((must wait until document IsComplete to get this)
@@ -534,7 +509,6 @@ namespace OpenLiveWriter.Mshtml
                             else
                                 return true;
 
-
                         case "CONTROL":
                             return true;
 
@@ -557,9 +531,7 @@ namespace OpenLiveWriter.Mshtml
         public bool ProtectFocus { get; set; }
         #endregion
 
-
         #region Events
-
 
         /// <summary>
         /// Help requested via the F1 key
@@ -608,11 +580,7 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
-
         #region Command Execution
-
-
 
         /// <summary>
         /// Execute an MSHTML command
@@ -622,7 +590,6 @@ namespace OpenLiveWriter.Mshtml
         {
             ExecuteCommand(cmdID, null);
         }
-
 
         /// <summary>
         /// Execute an MSHTML command
@@ -634,7 +601,6 @@ namespace OpenLiveWriter.Mshtml
             object output = null;
             ExecuteCommand(cmdID, input, ref output);
         }
-
 
         /// <summary>
         /// Execute an MSHTML command
@@ -655,25 +621,20 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
-
         #endregion
-
-
 
         #region Helpers for Initialization and Release of MSHTML
 
-
         /// <summary>
-        /// Initialize MSHTML by creating a new MSHTML instance, running it, and 
+        /// Initialize MSHTML by creating a new MSHTML instance, running it, and
         /// in-place activating it. The call to IOleObject.DoVerb will result in
         /// a call to our IOleDocumentSite.ActivateMe method where we will conclude
         /// the initialization sequence.
-        /// 
-        /// This method is based on the CFramerDocument::CreateNewDocObject method 
-        /// from the FramerEx sample (referenced above in the class comment). 
+        ///
+        /// This method is based on the CFramerDocument::CreateNewDocObject method
+        /// from the FramerEx sample (referenced above in the class comment).
         /// Differences in our implementation include the fact that we don't use
-        /// IPersistStorage or IPersistFile to load  the contents of the document, 
+        /// IPersistStorage or IPersistFile to load  the contents of the document,
         /// we don't call IOleObject.SetHostNames, and we don't call IOleObject.Advise
         /// to set up an IAdviseSink (not necessary since we don't need notifications
         /// of changes to the data or view).
@@ -703,13 +664,13 @@ namespace OpenLiveWriter.Mshtml
             RECT containerRect;
             GetContainerRect(out containerRect);
 
-            // In-Place Activate the MSHTML ActiveDocument (will result in a call to 
+            // In-Place Activate the MSHTML ActiveDocument (will result in a call to
             // IOleDocumentSite.ActivateMe where initialization will continue)
             result = oleObject.DoVerb(
                 OLEIVERB.INPLACEACTIVATE,	// request in-place activation
                 IntPtr.Zero,				// MSG for event that invoked the verb (none)
                 (IOleClientSite)(this),		// client site for activation
-                0,							// reserved (must be 0) 
+                0,							// reserved (must be 0)
                 this.Handle,				// parent-window for active object
                 ref containerRect);		// bounding rectangle in parent window
 
@@ -720,7 +681,7 @@ namespace OpenLiveWriter.Mshtml
             // hookup to document events
             documentEventRepeater = new HtmlDocumentEventRepeater(htmlDocument);
 
-            // If FindForm() is null, this editor is not hosted in a 
+            // If FindForm() is null, this editor is not hosted in a
             // managed window, thus, we must subclass the window to wait for
             // control key press to push through to PreProcessMessage
             // that would normally come through the managed message pump
@@ -748,12 +709,11 @@ namespace OpenLiveWriter.Mshtml
             return windowSubClasser.CallBaseWindowProc(hWnd, uMsg, wParam, lParam);
         }
 
-
         /// <summary>
         /// Asks a document site to activate the document making the call as a
         /// document object rather than an in-place-active object and, optionally,
         /// specifies which view of the object document to activate. This is based
-        /// on the CFramerDocument::ActivateMe method from the FramerEx sample 
+        /// on the CFramerDocument::ActivateMe method from the FramerEx sample
         /// (referenced above in the class comment). The only difference is that
         /// we don't call IOleDocumentView.SetRect after the call to UIActivate
         /// since we don't allow additional of toolbars, etc. to the container.
@@ -793,10 +753,9 @@ namespace OpenLiveWriter.Mshtml
             oleDocumentView.Show(true);
         }
 
-
         /// <summary>
         /// Helper method to close / release MSHTML. This method is based on the
-        /// CFramerDocument::CloseDocWindow method from the FramerEx sample 
+        /// CFramerDocument::CloseDocWindow method from the FramerEx sample
         /// (referenced above in the class comment). Differences include the fact
         /// that we don't call IOleObject.Unadvise (since we don't call Advise
         /// during initialization) and we don't release storage or moniker interfaces
@@ -842,9 +801,9 @@ namespace OpenLiveWriter.Mshtml
 
                 // Sever any remaining connections to our site. Note that we probabaly
                 // don't need to call this since it designed to sever out-of-process
-                // connections to our site -- typically the way we would get these is 
-                // if MSHTML embedded an OLE object implemented as an out-of-process 
-                // server and this out-of-process then got a reference to our 
+                // connections to our site -- typically the way we would get these is
+                // if MSHTML embedded an OLE object implemented as an out-of-process
+                // server and this out-of-process then got a reference to our
                 // IOleClientSite. I can't see how this would happen but if it ever
                 // does it is nice to know that we will cleanly disconnect!
                 Ole32.CoDisconnectObject((IOleClientSite)this, 0);
@@ -852,7 +811,6 @@ namespace OpenLiveWriter.Mshtml
         }
 
         #endregion
-
 
         #region Download Control Ambient Property
 
@@ -871,7 +829,6 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region IOleInPlaceSite Members
 
         /// <summary>
@@ -887,7 +844,6 @@ namespace OpenLiveWriter.Mshtml
             phwnd = this.Handle;
         }
 
-
         /// <summary>
         /// Request to enter context sensitive help mode (not implemented)
         /// </summary>
@@ -901,7 +857,6 @@ namespace OpenLiveWriter.Mshtml
             ComHelper.Return(HRESULT.E_NOTIMPL);
         }
 
-
         /// <summary>
         /// Determines whether or not the container can activate the object in place.
         /// </summary>
@@ -914,7 +869,6 @@ namespace OpenLiveWriter.Mshtml
             // in-place activation supported
             return HRESULT.S_OK;
         }
-
 
         /// <summary>
         /// Notifies us that the object is in place activated. At this point
@@ -931,12 +885,11 @@ namespace OpenLiveWriter.Mshtml
             // no-op, see above comment
         }
 
-
         /// <summary>
         /// Notifies the container that the object is about to be activated in
         /// place and that the object is going to replace the container's main
         /// menu with an in-place composite menu. Since MSHTML won't actually
-        /// do any of this we don't need this notification to 'get ready' 
+        /// do any of this we don't need this notification to 'get ready'
         /// for UI activation so we do nothing
         /// </summary>
         public void OnUIActivate()
@@ -946,7 +899,6 @@ namespace OpenLiveWriter.Mshtml
 
             // no-op, see above comment
         }
-
 
         /// <summary>
         /// Enables the in-place object to retrieve the window interfaces that form
@@ -980,7 +932,7 @@ namespace OpenLiveWriter.Mshtml
             // Set clipping rectangle (allow painting in entire container)
             lprcClipRect = containerRect;
 
-            // Set frame info (no accelerator table provided, we don't need to 
+            // Set frame info (no accelerator table provided, we don't need to
             // since MSHTML is an in-process server we will get first crack at
             // all acclerators).
             lpFrameInfo.cb = (uint)Marshal.SizeOf(typeof(OLEINPLACEFRAMEINFO));
@@ -990,10 +942,9 @@ namespace OpenLiveWriter.Mshtml
             lpFrameInfo.cAccelEntries = 0;
         }
 
-
         /// <summary>
         /// Requests that the container scroll to get the object in view (will never
-        /// be called for a Document Object / MSHTML since by definition document 
+        /// be called for a Document Object / MSHTML since by definition document
         /// object's take up the entire container window)
         /// </summary>
         /// <param name="scrollExtant"></param>
@@ -1005,7 +956,6 @@ namespace OpenLiveWriter.Mshtml
             // not-implemented
             ComHelper.Return(HRESULT.E_NOTIMPL);
         }
-
 
         /// <summary>
         /// Notification that the object is deactivating. Will occur during our
@@ -1020,7 +970,6 @@ namespace OpenLiveWriter.Mshtml
             // take no special action
         }
 
-
         /// <summary>
         /// Notifies the container that the object is no longer active in place.
         /// Will occur during our implmentation of Dispose.
@@ -1033,7 +982,6 @@ namespace OpenLiveWriter.Mshtml
             // take no special action
         }
 
-
         /// <summary>
         /// DiscardUndoState -- No-op since undo notifications not supported by MSHTML.
         /// </summary>
@@ -1045,7 +993,6 @@ namespace OpenLiveWriter.Mshtml
             // no-op (undo not supported)
         }
 
-
         /// <summary>
         /// DeactivateAndUndo -- No-op since undo notifications not supported by MSHTML.
         /// </summary>
@@ -1056,7 +1003,6 @@ namespace OpenLiveWriter.Mshtml
 
             // no-op (undo not supported)
         }
-
 
         /// <summary>
         /// Not used by document objects (thier RECT always occupies the whole window)
@@ -1073,7 +1019,6 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region IOleInPlaceFrame Members
 
         /// <summary>
@@ -1089,7 +1034,6 @@ namespace OpenLiveWriter.Mshtml
             phwnd = this.Handle;
         }
 
-
         /// <summary>
         /// Request to enter context sensitive help mode( not implemented)
         /// </summary>
@@ -1102,7 +1046,6 @@ namespace OpenLiveWriter.Mshtml
             // not-implemented
             ComHelper.Return(HRESULT.E_NOTIMPL);
         }
-
 
         /// <summary>
         /// Returns a RECT structure in which the object can put toolbars and similar
@@ -1126,7 +1069,6 @@ namespace OpenLiveWriter.Mshtml
             return HRESULT.E_NOTOOLSPACE;
         }
 
-
         /// <summary>
         /// Determines if there is available space for tools to be installed around the
         /// object's window frame while the object is active in place. We don't support
@@ -1143,9 +1085,8 @@ namespace OpenLiveWriter.Mshtml
             return HRESULT.E_NOTOOLSPACE;
         }
 
-
         /// <summary>
-        /// Allocates space for the border requested in the call to IOleInPlaceUIWindow 
+        /// Allocates space for the border requested in the call to IOleInPlaceUIWindow
         /// RequestBorderSpace. No-op since we don't support toolbars.
         /// </summary>
         /// <param name="pborderwidths">border space to use for tools</param>
@@ -1155,10 +1096,9 @@ namespace OpenLiveWriter.Mshtml
             // log access to method
             LOG("IOleInPlaceFrame", "SetBorderSpace");
 
-            // no-op (see above, toolbars not supported)	
+            // no-op (see above, toolbars not supported)
             // (MSHTML calls this but passes NULL to indicate no border space)
         }
-
 
         /// <summary>
         /// In-place object notification that it is going active or inactive (opportunity for
@@ -1185,9 +1125,8 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
-        /// Allows the container to insert its menu groups into the composite menu to be used 
+        /// Allows the container to insert its menu groups into the composite menu to be used
         /// during the in-place session (not supported, return E_NOTIMPL)
         /// </summary>
         /// <param name="hmenuShared"></param>
@@ -1217,7 +1156,6 @@ namespace OpenLiveWriter.Mshtml
             ComHelper.Return(HRESULT.E_NOTIMPL);
         }
 
-
         /// <summary>
         /// Gives the container a chance to remove its menu elements from the in-place
         /// composite menu. (not supported, return E_NOTIMPL).
@@ -1232,8 +1170,6 @@ namespace OpenLiveWriter.Mshtml
             ComHelper.Return(HRESULT.E_NOTIMPL);
         }
 
-
-
         /// <summary>
         /// Sets and displays status text about the in-place object in the container's
         /// frame window status line.
@@ -1246,15 +1182,14 @@ namespace OpenLiveWriter.Mshtml
 
             // Currently we ignore this notification since our use of MSHTML
             // is to embed it as a UI component (rather than as the entire UI)
-            // In this case there is no reason to disaply it's status text. 
+            // In this case there is no reason to disaply it's status text.
             // In the future we could expose a StatusText property and StatusTextChanged
             // event if users of the control wanted access to this.
         }
 
-
         /// <summary>
         /// Notifies us that the object is about to display modal UI so that we can
-        /// disable any modeless UI we have. We ignore this notification (see 
+        /// disable any modeless UI we have. We ignore this notification (see
         /// comment below for reasons why)
         /// </summary>
         public void EnableModeless(bool fEnable)
@@ -1264,17 +1199,16 @@ namespace OpenLiveWriter.Mshtml
 
             // Currently we ignore this notification because we always host
             // MSHTML in-process (i.e. we share a message pump). As a result
-            // it's modal UI effectively precludes access to any of our 
-            // modeless UI -- so there isn't really anything to do in 
+            // it's modal UI effectively precludes access to any of our
+            // modeless UI -- so there isn't really anything to do in
             // response to this message
         }
 
-
         /// <summary>
-        /// Translates accelerator keystrokes intended for the container's frame 
+        /// Translates accelerator keystrokes intended for the container's frame
         /// while an object is active in place. Since MSHTML is an in-process
         /// object this method should never be called.
-        /// </summary>		
+        /// </summary>
         public int TranslateAccelerator(ref MSG lpmsg, ushort wID)
         {
             // log access to method
@@ -1284,15 +1218,13 @@ namespace OpenLiveWriter.Mshtml
             return HRESULT.S_FALSE;
         }
 
-
         #endregion
-
 
         #region IOleClientSite Members
 
         /// <summary>
         /// Request by the embedded object to be saved (results from the user
-        /// choosing the 'save' menu within the embedded object editing session). 
+        /// choosing the 'save' menu within the embedded object editing session).
         /// We ignore this because we manage all user-interaction related to saving.
         /// </summary>
         public void SaveObject()
@@ -1303,11 +1235,10 @@ namespace OpenLiveWriter.Mshtml
             // no-op (see above, MSHTML does not initiate save requests)
         }
 
-
         /// <summary>
         /// Returns a moniker to an object's client site. Used for OLE linking
         /// so we don't support it since MSHTML will not initiate any OLE linking
-        /// </summary>		
+        /// </summary>
         public int GetMoniker(OLEGETMONIKER dwAssign, OLEWHICHMK dwWhichMoniker, out IMoniker ppmk)
         {
             // log access to method
@@ -1317,12 +1248,11 @@ namespace OpenLiveWriter.Mshtml
             return HRESULT.E_NOTIMPL;
         }
 
-
         /// <summary>
         /// Returns a pointer to the container's IOleContainer interface. Used
-        /// primarily for OLE linking so we don't support it since MSHTML will 
+        /// primarily for OLE linking so we don't support it since MSHTML will
         /// not initiate any OLE linking.
-        /// </summary>		
+        /// </summary>
         public int GetContainer(out IOleContainer ppContainer)
         {
             // log access to method
@@ -1331,7 +1261,6 @@ namespace OpenLiveWriter.Mshtml
             ppContainer = null;
             return HRESULT.E_NOINTERFACE;
         }
-
 
         /// <summary>
         /// Request to make the embedded object's presentation area visible
@@ -1346,20 +1275,19 @@ namespace OpenLiveWriter.Mshtml
             // no-op, see above
         }
 
-
         /// <summary>
         /// Notifies us that an embedded object's UI has become visible. Normally
         /// this applies to opening embedded object's in their own application --
         /// this notification is then used to draw a hatched/shaded look around
         /// the embedded object. Again, this doesn't apply to our use of MSHTML
         /// so we ignore it.
-        /// </summary>	
+        /// </summary>
         public void OnShowWindow(bool fShow)
         {
             // log access to method
             LOG_UN("IOleClientSite", "OnShowWindow");
 
-            // no-op, see above			
+            // no-op, see above
         }
 
         /// <summary>
@@ -1376,12 +1304,11 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region IDocHostUIHandler Members
 
         ///////////////////////////////////////////////////////////////////////////
-        /// Delegate to embedded IDocHostUIHandler implementation 
-        /// 
+        /// Delegate to embedded IDocHostUIHandler implementation
+        ///
 
         public void GetOptionKeyPath(out IntPtr pchKey, uint dwReserved)
         {
@@ -1510,13 +1437,11 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region IDocHostShowUI Members
 
-
         ///////////////////////////////////////////////////////////////////////////
-        /// Delegate to embedded IDocHostShowUI implementation 
-        /// 
+        /// Delegate to embedded IDocHostShowUI implementation
+        ///
 
         public int ShowHelp(IntPtr hwnd, string lpstrHelpFile, uint uCommand, uint dwData, POINT ptMouse, IntPtr pDispatchObjectHit)
         {
@@ -1560,9 +1485,7 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region Control Overrides / Event Handlers
-
 
         /// <summary>
         /// Pre-process messages to allow MSHTML to translate/handle accelerator keys
@@ -1593,7 +1516,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Override IsInputKey to allow MSHTML to get access to the enter key
         /// </summary>
@@ -1612,8 +1534,6 @@ namespace OpenLiveWriter.Mshtml
             }
 
         }
-
-
 
         /// <summary>
         /// Handle OnGotFocus so that when the parent UserControl receives
@@ -1634,7 +1554,7 @@ namespace OpenLiveWriter.Mshtml
             {
                 IntPtr hWndActiveObject;
 
-                // if we are exiting the application sometimes this method 
+                // if we are exiting the application sometimes this method
                 // returns a COM error, in this case punt
                 try { oleInPlaceActiveObject.GetWindow(out hWndActiveObject); }
                 catch (COMException) { return; }
@@ -1682,7 +1602,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Handle OnSizeChanged by updating the OleDocumentView
         /// </summary>
@@ -1710,7 +1629,6 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region Private Helper Methods
 
         /// <summary>
@@ -1727,7 +1645,6 @@ namespace OpenLiveWriter.Mshtml
         }
 
         #endregion
-
 
         #region Debug / Logging Utility Methods
 
@@ -1759,7 +1676,6 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region Private member variables
 
         /// <summary>
@@ -1783,7 +1699,7 @@ namespace OpenLiveWriter.Mshtml
         private IOleCommandTargetWithExecParams oleCommandTarget = null;
 
         /// <summary>
-        /// Standard MSHTML command set 
+        /// Standard MSHTML command set
         /// </summary>
         private MshtmlCoreCommandSet standardCommandSet = null;
 
@@ -1792,12 +1708,10 @@ namespace OpenLiveWriter.Mshtml
         /// </summary>
         private IOleInPlaceActiveObject oleInPlaceActiveObject = null;
 
-
         /// <summary>
         /// Service provider that we delegate to
         /// </summary>
         private IServiceProviderRaw _serviceProvider;
-
 
         /// <summary>
         /// Advisory connection for sinking to HTML document events
@@ -1806,16 +1720,15 @@ namespace OpenLiveWriter.Mshtml
 
         /// <summary>
         /// Optional IDocHostUIHandler that we delegate to for UI customizations
-        /// of MSHTML. Set using the constructor. 
+        /// of MSHTML. Set using the constructor.
         /// </summary>
         private IDocHostUIHandler2 docHostUIHandler = new IDocHostUIHandlerBaseImpl();
 
         /// <summary>
         /// Optional IDocHostShowUI that we delegate to for UI customizations
-        /// of MSHTML. Set using the constructor. 
+        /// of MSHTML. Set using the constructor.
         /// </summary>
         private IDocHostShowUI showUIHandler = new IDocHostShowUIBaseImpl();
-
 
         /// <summary>
         /// Download control flags (from DLCTL enumeration)
@@ -1849,7 +1762,6 @@ namespace OpenLiveWriter.Mshtml
         /// </summary>
         private IHighlightRenderingServicesRaw highlightRenderingServices;
 
-
         /// <summary>
         /// Reference to IMarkupServices for the document
         /// </summary>
@@ -1867,9 +1779,7 @@ namespace OpenLiveWriter.Mshtml
 
         private WindowSubClasser windowSubClasser;
 
-
         #endregion
-
 
         #region Private Static Constants
 
@@ -1882,7 +1792,7 @@ namespace OpenLiveWriter.Mshtml
         {
             for (int i = 0; i < prgCmds.Length; i++)
             {
-                // These command IDs don't ever get passed in to 
+                // These command IDs don't ever get passed in to
                 // QueryStatus, as far as I can see, but better safe than sorry.
                 if (prgCmds[i].cmdID == OLECMDID.SHOWSCRIPTERROR || prgCmds[i].cmdID == OLECMDID.SHOWMESSAGE)
                     prgCmds[i].cmdf = OLECMDF.SUPPORTED;

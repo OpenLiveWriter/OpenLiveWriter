@@ -7,34 +7,34 @@ using OpenLiveWriter.Interop.Com.StructuredStorage;
 
 namespace OpenLiveWriter.Interop.Com
 {
-	/// <summary>
-	///
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("0000010b-0000-0000-C000-000000000046")] 
-	public interface IPersistFile
-	{
-		[PreserveSig]
-		int GetClassID( 
-			[Out] out Guid pClassID ) ;
+    /// <summary>
+    ///
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("0000010b-0000-0000-C000-000000000046")]
+    public interface IPersistFile
+    {
+        [PreserveSig]
+        int GetClassID(
+            [Out] out Guid pClassID);
 
-		[PreserveSig]
-		int IsDirty() ;
+        [PreserveSig]
+        int IsDirty();
 
-		void Load(
-			[In, MarshalAs(UnmanagedType.LPWStr)] string pszFileName,
-			[In] STGM dwMode ) ;
+        void Load(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pszFileName,
+            [In] STGM dwMode);
 
-		void Save(
-			[In, MarshalAs(UnmanagedType.LPWStr)] string pszFileName,
-			[In, MarshalAs(UnmanagedType.Bool)] bool fRemember ) ;
+        void Save(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pszFileName,
+            [In, MarshalAs(UnmanagedType.Bool)] bool fRemember);
 
-		void SaveCompleted(
-			[In, MarshalAs(UnmanagedType.LPWStr)] string pszFileName ) ;
+        void SaveCompleted(
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pszFileName);
 
-		 void GetCurFile(
-			 [Out] out IntPtr ppszFileName  /* (LPOLESTR*) */ ) ;
-	}
+        void GetCurFile(
+            [Out] out IntPtr ppszFileName  /* (LPOLESTR*) */ );
+    }
 }
-		
+

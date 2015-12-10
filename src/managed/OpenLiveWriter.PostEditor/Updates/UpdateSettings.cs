@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor.Updates
             get { return settings.GetString(CHECKBETAUPDATESURL, BETAUPDATEDOWNLOADURL); }
             set { settings.SetString(CHECKBETAUPDATESURL, value); }
         }
-        
+
         private const string AUTOUPDATE = "AutoUpdate";
         private const string CHECKFORBETAUPDATES = "CheckForBetaUpdates";
 

@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
                 return EnableHyphenReplacement || EnableSmartQuotes || EnableSpecialCharacterReplacement || EnableEmoticonsReplacement;
             }
         }
-        
+
         public static bool EnableHyphenReplacement
         {
             get
@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
 
                 return _enableHyphenReplacement.Value;
             }
-            set 
+            set
             {
                 Settings.SetBoolean(TYPO, value);
                 OnSettingsChanged();
@@ -134,7 +134,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             }
         }
 
-
         protected static void OnSettingsChanged()
         {
             if (SettingsChanged != null)
@@ -155,8 +154,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         private const string SPECIAL = "OtherSpecialCharacters";
         private const string EMOTICONS = "Emoticons";
     }
-
-
 
     public class AutoreplacePhrase
     {

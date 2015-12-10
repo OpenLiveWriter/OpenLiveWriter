@@ -32,11 +32,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private System.Windows.Forms.ComboBox comboBoxSelectWeblogType;
         private LinkLabel privacyPolicyLabel;
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-
 
         public WeblogConfigurationWizardPanelBlogType()
         {
@@ -55,7 +54,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             labelWelcomeText.Text = string.Format(CultureInfo.CurrentCulture, labelWelcomeText.Text, ApplicationEnvironment.ProductNameQualified);
 
-            // is there at least one provider wizard definition? 
+            // is there at least one provider wizard definition?
             // (if so then we override the choose account ui to bury the ms-specific blog providers)
             if (BlogProviderAccountWizard.InstalledAccountWizards.Length > 0)
             {
@@ -191,7 +190,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _userChangedSelection = true;
         }
 
-
         private bool SelectWeblogComboContainsServiceName(string serviceName)
         {
             // scan for service name
@@ -202,7 +200,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // didn't find it
             return false;
         }
-
 
         private void SelectServiceName(string serviceName)
         {
@@ -215,8 +212,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 }
             }
         }
-
-
 
         private class WeblogType
         {
@@ -237,12 +232,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 _name = name;
             }
 
-
             public string ServiceName
             {
                 get
                 {
-                    // remove numonics 
+                    // remove numonics
                     return _name;
                 }
             }
@@ -268,15 +262,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 }
             }
 
-
             private string _name;
             private RadioButton _radioButton;
             private IBlogProviderAccountWizardDescription _providerAccountWizard;
         }
 
-
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -292,8 +283,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -311,16 +302,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelRadioButtons.SuspendLayout();
             this.panelComboBox.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.privacyPolicyLabel);
             this.panelMain.Controls.Add(this.panelRadioButtons);
             this.panelMain.Controls.Add(this.labelWelcomeText);
             this.panelMain.Controls.Add(this.panelComboBox);
-            // 
+            //
             // labelWelcomeText
-            // 
+            //
             this.labelWelcomeText.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelWelcomeText.Location = new System.Drawing.Point(20, 0);
             this.labelWelcomeText.Name = "labelWelcomeText";
@@ -328,10 +319,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelWelcomeText.TabIndex = 2;
             this.labelWelcomeText.Text = "{0} can create and post entries on your blog, and works with a wide variety of we" +
     "blog services. Select the type of weblog service to continue.";
-            // 
+            //
             // panelRadioButtons
-            // 
-            this.panelRadioButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.panelRadioButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRadioButtons.Controls.Add(this.radioButtonWordpress);
             this.panelRadioButtons.Controls.Add(this.radioButtonSharePoint);
@@ -341,34 +332,34 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelRadioButtons.Name = "panelRadioButtons";
             this.panelRadioButtons.Size = new System.Drawing.Size(388, 72);
             this.panelRadioButtons.TabIndex = 4;
-            // 
+            //
             // radioButtonWordpress
-            // 
+            //
             this.radioButtonWordpress.Location = new System.Drawing.Point(0, 0);
             this.radioButtonWordpress.Name = "radioButtonWordpress";
             this.radioButtonWordpress.Size = new System.Drawing.Size(104, 24);
             this.radioButtonWordpress.TabIndex = 1;
             this.radioButtonWordpress.TabStop = true;
             this.radioButtonWordpress.Text = "Wordpress";
-            // 
+            //
             // radioButtonSharePoint
-            // 
+            //
             this.radioButtonSharePoint.Location = new System.Drawing.Point(0, 24);
             this.radioButtonSharePoint.Name = "radioButtonSharePoint";
             this.radioButtonSharePoint.Size = new System.Drawing.Size(104, 24);
             this.radioButtonSharePoint.TabIndex = 2;
             this.radioButtonSharePoint.Text = "Share&Point weblog";
-            // 
+            //
             // radioButtonOther
-            // 
+            //
             this.radioButtonOther.Location = new System.Drawing.Point(0, 48);
             this.radioButtonOther.Name = "radioButtonOther";
             this.radioButtonOther.Size = new System.Drawing.Size(104, 24);
             this.radioButtonOther.TabIndex = 4;
             this.radioButtonOther.Text = "Another &weblog service";
-            // 
+            //
             // labelOtherDesc
-            // 
+            //
             this.labelOtherDesc.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelOtherDesc.ForeColor = System.Drawing.SystemColors.GrayText;
             this.labelOtherDesc.Location = new System.Drawing.Point(18, 0);
@@ -376,28 +367,28 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelOtherDesc.Size = new System.Drawing.Size(332, 40);
             this.labelOtherDesc.TabIndex = 5;
             this.labelOtherDesc.Text = "Blogger, WordPress, TypePad, all others";
-            // 
+            //
             // panelComboBox
-            // 
+            //
             this.panelComboBox.Controls.Add(this.comboBoxSelectWeblogType);
             this.panelComboBox.Location = new System.Drawing.Point(20, 88);
             this.panelComboBox.Name = "panelComboBox";
             this.panelComboBox.Size = new System.Drawing.Size(328, 21);
             this.panelComboBox.TabIndex = 5;
             this.panelComboBox.Visible = false;
-            // 
+            //
             // comboBoxSelectWeblogType
-            // 
-            this.comboBoxSelectWeblogType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.comboBoxSelectWeblogType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSelectWeblogType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectWeblogType.Location = new System.Drawing.Point(0, 0);
             this.comboBoxSelectWeblogType.Name = "comboBoxSelectWeblogType";
             this.comboBoxSelectWeblogType.Size = new System.Drawing.Size(328, 21);
             this.comboBoxSelectWeblogType.TabIndex = 0;
-            // 
+            //
             // privacyPolicyLabel
-            // 
+            //
             this.privacyPolicyLabel.AutoSize = true;
             this.privacyPolicyLabel.Location = new System.Drawing.Point(23, 167);
             this.privacyPolicyLabel.Name = "privacyPolicyLabel";
@@ -406,9 +397,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.privacyPolicyLabel.TabStop = true;
             this.privacyPolicyLabel.Text = "We follow the privacy policy of the .NET Foundation.";
             this.privacyPolicyLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.privacyPolicyLabel_LinkClicked);
-            // 
+            //
             // WeblogConfigurationWizardPanelBlogType
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelBlogType";
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();

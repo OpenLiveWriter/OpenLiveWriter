@@ -5,18 +5,18 @@ using System;
 
 namespace OpenLiveWriter.Interop.Com
 {
-	/// <summary>
-	/// Enumeration of values that can be passed as flags to Navigate
-	/// </summary>
-	[Flags]
-	public enum BrowserNavConstants 
-	{
-		navOpenInNewWindow = 0x1,
-		navNoHistory = 0x2,
-		navNoReadFromCache = 0x4,
-		navNoWriteToCache = 0x8,
-		navAllowAutosearch = 0x10,
-		navBrowserBar = 0x20,
-		navHyperlink = 0x40
-	}   
+    /// <summary>
+    /// Enumeration of values that can be passed as flags to Navigate
+    /// </summary>
+    [Flags]
+    public enum BrowserNavConstants
+    {
+        navOpenInNewWindow = 0x1,
+        navNoHistory = 0x2,
+        navNoReadFromCache = 0x4,
+        navNoWriteToCache = 0x8,
+        navAllowAutosearch = 0x10,
+        navBrowserBar = 0x20,
+        navHyperlink = 0x40
+    }
 }

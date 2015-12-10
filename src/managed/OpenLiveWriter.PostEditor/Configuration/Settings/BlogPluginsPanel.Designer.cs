@@ -2,12 +2,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
 {
     partial class BlogPluginsPanel
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -22,8 +22,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -37,9 +37,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.button2 = new System.Windows.Forms.Button();
             this.lblDescription = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // listViewPlugins
-            // 
+            //
             this.listViewPlugins.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewPlugins.CheckBoxes = true;
@@ -59,20 +59,20 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.listViewPlugins.UseCompatibleStateImageBehavior = false;
             this.listViewPlugins.View = System.Windows.Forms.View.Details;
             this.listViewPlugins.SelectedIndexChanged += new System.EventHandler(this.listViewPlugins_SelectedIndexChanged);
-            // 
+            //
             // colName
-            // 
+            //
             this.colName.Text = "Plug-in";
             this.colName.Width = 246;
-            // 
+            //
             // imgListPlugins
-            // 
+            //
             this.imgListPlugins.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imgListPlugins.ImageSize = new System.Drawing.Size(16, 16);
             this.imgListPlugins.TransparentColor = System.Drawing.Color.Transparent;
-            // 
+            //
             // button1
-            // 
+            //
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(276, 62);
             this.button1.Name = "button1";
@@ -81,9 +81,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.button1.Text = "Move &Up";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
+            //
             // button2
-            // 
+            //
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(276, 91);
             this.button2.Name = "button2";
@@ -92,9 +92,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.button2.Text = "Move &Down";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
+            //
             // lblDescription
-            // 
+            //
             this.lblDescription.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblDescription.Location = new System.Drawing.Point(12, 32);
             this.lblDescription.Name = "lblDescription";
@@ -102,9 +102,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.lblDescription.TabIndex = 4;
             this.lblDescription.Text = "Check the plug-ins you would like to use with this blog, and change the order in " +
                 "which they are invoked.";
-            // 
+            //
             // BlogPluginsPanel
-            // 
+            //
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.listViewPlugins);
             this.Controls.Add(this.button1);

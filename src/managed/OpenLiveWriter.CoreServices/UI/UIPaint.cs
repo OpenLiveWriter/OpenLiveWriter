@@ -6,27 +6,27 @@ using System.Drawing;
 
 namespace OpenLiveWriter.CoreServices.UI
 {
-	/// <summary>
-	/// Summary description for UIPaint.
-	/// </summary>
-	public class UIPaint
-	{
-		private static readonly UIPaint _instance = new UIPaint();
-		public static UIPaint Instance
-		{
-			get
-			{
-				return _instance;
-			}
-		}
-		
-		private UIPaint()
-		{
-		}
+    /// <summary>
+    /// Summary description for UIPaint.
+    /// </summary>
+    public class UIPaint
+    {
+        private static readonly UIPaint _instance = new UIPaint();
+        public static UIPaint Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
 
-		public Color FrameGradientLight
-		{
-			get { return Color.FromArgb(236, 246, 250); }
-		}
-	}
+        private UIPaint()
+        {
+        }
+
+        public Color FrameGradientLight
+        {
+            get { return Color.FromArgb(236, 246, 250); }
+        }
+    }
 }

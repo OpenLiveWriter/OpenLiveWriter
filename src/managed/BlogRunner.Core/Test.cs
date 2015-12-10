@@ -29,26 +29,27 @@ namespace BlogRunner.Core
         {
             TestResultImpl results = new TestResultImpl();
             DoTest(blog, blogClient, results);
-            results.ForEach(delegate(string key, string value) {
-                    XmlElement optionsEl = (XmlElement) providerEl.SelectSingleNode("options");
-                    if (optionsEl == null)
-                    {
-                        optionsEl = providerEl.OwnerDocument.CreateElement("options");
-                        providerEl.AppendChild(optionsEl);
-                    }
+            results.ForEach(delegate (string key, string value)
+            {
+                XmlElement optionsEl = (XmlElement)providerEl.SelectSingleNode("options");
+                if (optionsEl == null)
+                {
+                    optionsEl = providerEl.OwnerDocument.CreateElement("options");
+                    providerEl.AppendChild(optionsEl);
+                }
 
-                    XmlElement el = (XmlElement) optionsEl.SelectSingleNode(key);
-                    if (el == null)
-                    {
-                        el = providerEl.OwnerDocument.CreateElement(key);
-                        optionsEl.AppendChild(el);
-                    }
+                XmlElement el = (XmlElement)optionsEl.SelectSingleNode(key);
+                if (el == null)
+                {
+                    el = providerEl.OwnerDocument.CreateElement(key);
+                    optionsEl.AppendChild(el);
+                }
 
-                    if (!el.HasAttribute("readonly", NAMESPACE_BLOGRUNNER))
-                    {
-                        el.InnerText = value;
-                    }
-                });
+                if (!el.HasAttribute("readonly", NAMESPACE_BLOGRUNNER))
+                {
+                    el.InnerText = value;
+                }
+            });
         }
 
         static Test()
@@ -109,7 +110,8 @@ namespace BlogRunner.Core
 
             try
             {
-                RetryUntilTimeout(TimeoutDuration, delegate {
+                RetryUntilTimeout(TimeoutDuration, delegate
+                {
                     using (HttpWebResponse response = HttpRequestHelper.SendRequest(blog.HomepageUrl))
                     {
                         using (Stream stream = response.GetResponseStream())

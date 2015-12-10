@@ -118,9 +118,9 @@ namespace OpenLiveWriter.ApplicationFramework
         /// consulted. The two things that affect the state here are 1) the set of commands that
         /// are loaded (whether enabled or disabled), and 2) the shortcuts/advanced shortcuts of
         /// those commands. If either changes then this flag needs to be set to true.
-        /// 
+        ///
         /// The reason this is important is because otherwise the commandShortcutTable will be
-        /// fully rebuilt on every keypress in the editor (actually it currently happens twice), 
+        /// fully rebuilt on every keypress in the editor (actually it currently happens twice),
         /// which is enough to make typing feel sluggish.
         /// </summary>
         private bool commandShortcutTableIsStale = true;
@@ -201,7 +201,7 @@ namespace OpenLiveWriter.ApplicationFramework
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -286,7 +286,7 @@ namespace OpenLiveWriter.ApplicationFramework
                     if (pendingChange || forceUpdate)
                     {
                         pendingChange = false;
-                        
+
                         foreach (var entry in batchedCommands)
                         {
                             if (CommandStateChanged != null)
@@ -308,14 +308,14 @@ namespace OpenLiveWriter.ApplicationFramework
             foreach (Command command in commands)
             {
                 AddCommand(command);
-                command.StateChanged += OnCommandStateChanged;                
+                command.StateChanged += OnCommandStateChanged;
                 OnCommandStateChanged(command, EventArgs.Empty);
             }
 
             OnChanged(EventArgs.Empty);
         }
 
-        private const int MAX_BATCHED_INVALIDATIONS = 90;        
+        private const int MAX_BATCHED_INVALIDATIONS = 90;
         private Dictionary<object, EventArgs> batchedCommands = new Dictionary<object, EventArgs>(MAX_BATCHED_INVALIDATIONS);
 
         private void OnCommandStateChanged(object sender, EventArgs e)
@@ -327,17 +327,17 @@ namespace OpenLiveWriter.ApplicationFramework
                 {
                     pendingChange = true;
                     batchedCommands.Add(sender, e);
-                }                    
-                
+                }
+
                 Debug.Assert(batchedCommands.Count <= MAX_BATCHED_INVALIDATIONS, "Need to increase the size of MAX_BATCHED_INVALIDATIONS.");
             }
             else
             {
                 // Send notification directly
                 if (CommandStateChanged != null)
-                    CommandStateChanged(sender, e);                
+                    CommandStateChanged(sender, e);
             }
-            
+
         }
 
         public Command Add(CommandId commandId, EventHandler handler)
@@ -422,7 +422,7 @@ namespace OpenLiveWriter.ApplicationFramework
                         return false;
 
                     //	Execute the command.
-                    ExecuteCommandAndFireEvents(command);                                        
+                    ExecuteCommandAndFireEvents(command);
                     return true;
                 }
             }
@@ -508,9 +508,9 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        /// Instructs the command manager to ignore the shortcut until 
+        /// Instructs the command manager to ignore the shortcut until
         /// UnignoreShortcut is called.
-        /// 
+        ///
         /// LIMITATION: You cannot currently ignore an AdvancedShortcut
         /// (i.e. one based on Keys instead of Shortcut).
         /// </summary>
@@ -595,7 +595,6 @@ namespace OpenLiveWriter.ApplicationFramework
             Command command = (Command)commandShortcutTable[commandShortcut];
             if (command != null)
                 return command;
-                
 
             Shortcut shortcut = KeyboardHelper.MapToShortcut(commandShortcut);
             if (shortcut != Shortcut.None && !ShouldIgnore(shortcut))
@@ -811,9 +810,9 @@ namespace OpenLiveWriter.ApplicationFramework
 
         #endregion Private Methods
 
-        private static PropertyKey[] ImageKeys = new [] {PropertyKeys.SmallImage, PropertyKeys.SmallHighContrastImage, PropertyKeys.LargeImage, PropertyKeys.LargeHighContrastImage};
+        private static PropertyKey[] ImageKeys = new[] { PropertyKeys.SmallImage, PropertyKeys.SmallHighContrastImage, PropertyKeys.LargeImage, PropertyKeys.LargeHighContrastImage };
         public void InvalidateAllImages()
-        {            
+        {
             foreach (CommandInstanceManager commandInstanceManager in commandTable.Values)
             {
                 if (commandInstanceManager.ActiveCommandInstance != null)
@@ -852,24 +851,24 @@ namespace OpenLiveWriter.ApplicationFramework
 
         private void ExecuteCommandAndFireEvents(Command command)
         {
-            FireBeforeExecute(command.CommandId);            
+            FireBeforeExecute(command.CommandId);
             try
             {
-                command.PerformExecute();                
+                command.PerformExecute();
             }
             finally
             {
                 FireAfterExecute(command.CommandId);
-            }                        
+            }
         }
 
         #region Implementation of IUICommandHandler
 
         public int Execute(uint commandId, CommandExecutionVerb verb, PropertyKeyRef key, PropVariantRef currentValue, IUISimplePropertySet commandExecutionProperties)
-        {            
+        {
             try
             {
-                Command command = Get((CommandId)commandId);                
+                Command command = Get((CommandId)commandId);
 
                 if (verb != CommandExecutionVerb.Execute)
                     return HRESULT.S_OK;
@@ -898,7 +897,7 @@ namespace OpenLiveWriter.ApplicationFramework
         public event CommandManagerExecuteEventHandler BeforeExecute;
         protected void FireBeforeExecute(CommandId commandId)
         {
-            if(BeforeExecute != null)
+            if (BeforeExecute != null)
             {
                 BeforeExecute(this, new CommandManagerExecuteEventArgs(commandId));
             }
@@ -912,25 +911,25 @@ namespace OpenLiveWriter.ApplicationFramework
                 AfterExecute(this, new CommandManagerExecuteEventArgs(commandId));
             }
         }
-        
+
         public int UpdateProperty(uint commandId, ref PropertyKey key, PropVariantRef currentValue, out PropVariant newValue)
         {
             try
             {
                 Command command = Get((CommandId)commandId);
                 if (command == null)
-                {                    
+                {
                     return genericCommandHandler.NullCommandUpdateProperty(commandId, ref key, currentValue, out newValue);
-                }                
-                
-                return command.UpdateProperty(ref key, currentValue, out newValue);                               
+                }
+
+                return command.UpdateProperty(ref key, currentValue, out newValue);
             }
             catch (Exception ex)
             {
                 Debug.Fail("Exception throw in CommandManager.UpdateProperty: " + ex + "\r\n\r\nCommand: " + commandId + " Key: " + PropertyKeys.GetName(key));
                 throw;
-            }            
-        }        
+            }
+        }
 
         #endregion
 
@@ -939,7 +938,7 @@ namespace OpenLiveWriter.ApplicationFramework
         public int OverrideProperty(uint commandId, ref PropertyKey key, PropVariantRef overrideValue)
         {
             try
-            {                                
+            {
                 IOverridableCommand overridableCommand = Get((CommandId)commandId) as IOverridableCommand;
                 if (overridableCommand == null)
                     return HRESULT.E_INVALIDARG;
@@ -956,7 +955,7 @@ namespace OpenLiveWriter.ApplicationFramework
         public int CancelOverride(uint commandId, ref PropertyKey key)
         {
             try
-            {               
+            {
                 IOverridableCommand overridableCommand = Get((CommandId)commandId) as IOverridableCommand;
                 if (overridableCommand == null)
                     return HRESULT.E_INVALIDARG;
@@ -979,10 +978,10 @@ namespace OpenLiveWriter.ApplicationFramework
     {
         public CommandId CommandId { get; set; }
 
-        public CommandManagerExecuteEventArgs(CommandId commandId)            
+        public CommandManagerExecuteEventArgs(CommandId commandId)
         {
             CommandId = commandId;
-        }        
+        }
     }
 
     public interface ICommandManagerHost

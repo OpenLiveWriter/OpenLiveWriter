@@ -26,7 +26,7 @@ namespace OpenLiveWriter.SpellChecker
         private CheckBox _checkBoxIgnoreNumbers;
         //private PictureBox pictureBoxInternationalDictionaries;
         //private Label labelDictionary;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.SpellChecker
             _checkBoxCheckBeforePublish.Text = Res.Get(StringId.SpellingPrefPub);
             _checkBoxAutoCorrect.Text = Res.Get(StringId.SpellingPrefAuto);
             PanelName = Res.Get(StringId.SpellingPrefName);
-
 
             // set panel bitmap
             PanelBitmap = _spellingPanelBitmap;
@@ -145,8 +144,6 @@ namespace OpenLiveWriter.SpellChecker
             LayoutHelper.FixupGroupBox(8, _groupBoxGeneralOptions);
         }
 
-
-
         /// <summary>
         /// Save data
         /// </summary>
@@ -155,7 +152,6 @@ namespace OpenLiveWriter.SpellChecker
             if (spellingPreferences.IsModified())
                 spellingPreferences.Save();
         }
-
 
         /// <summary>
         /// flagsPreferences_PreferencesModified event handler.
@@ -167,8 +163,7 @@ namespace OpenLiveWriter.SpellChecker
             OnModified(EventArgs.Empty);
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -187,10 +182,9 @@ namespace OpenLiveWriter.SpellChecker
         //private Bitmap spellingDictionariesBitmap = ResourceHelper.LoadAssemblyResourceBitmap( SPELLING_IMAGE_PATH + "SpellingDictionaries.png") ;
         private readonly Bitmap _spellingPanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap(SPELLING_IMAGE_PATH + "SpellingPanelBitmapSmall.png");
 
-
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -205,9 +199,9 @@ namespace OpenLiveWriter.SpellChecker
             this._checkBoxAutoCorrect = new System.Windows.Forms.CheckBox();
             this._groupBoxGeneralOptions.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // _groupBoxGeneralOptions
-            // 
+            //
             this._groupBoxGeneralOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._groupBoxGeneralOptions.Controls.Add(this._comboBoxLanguage);
@@ -224,17 +218,17 @@ namespace OpenLiveWriter.SpellChecker
             this._groupBoxGeneralOptions.TabIndex = 1;
             this._groupBoxGeneralOptions.TabStop = false;
             this._groupBoxGeneralOptions.Text = "General options";
-            // 
+            //
             // _comboBoxLanguage
-            // 
+            //
             this._comboBoxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._comboBoxLanguage.Location = new System.Drawing.Point(48, 37);
             this._comboBoxLanguage.Name = "_comboBoxLanguage";
             this._comboBoxLanguage.Size = new System.Drawing.Size(195, 21);
             this._comboBoxLanguage.TabIndex = 1;
-            // 
+            //
             // _labelDictionaryLanguage
-            // 
+            //
             this._labelDictionaryLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._labelDictionaryLanguage.AutoSize = true;
@@ -244,36 +238,36 @@ namespace OpenLiveWriter.SpellChecker
             this._labelDictionaryLanguage.Size = new System.Drawing.Size(106, 13);
             this._labelDictionaryLanguage.TabIndex = 0;
             this._labelDictionaryLanguage.Text = "Dictionary &language:";
-            // 
+            //
             // _checkBoxRealTimeChecking
-            // 
+            //
             this._checkBoxRealTimeChecking.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this._checkBoxRealTimeChecking.Location = new System.Drawing.Point(16, 65);
             this._checkBoxRealTimeChecking.Name = "_checkBoxRealTimeChecking";
             this._checkBoxRealTimeChecking.Size = new System.Drawing.Size(323, 18);
             this._checkBoxRealTimeChecking.TabIndex = 2;
             this._checkBoxRealTimeChecking.Text = "Use &real time spell checking (squiggles)";
-            // 
+            //
             // _checkBoxIgnoreNumbers
-            // 
+            //
             this._checkBoxIgnoreNumbers.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this._checkBoxIgnoreNumbers.Location = new System.Drawing.Point(16, 111);
             this._checkBoxIgnoreNumbers.Name = "_checkBoxIgnoreNumbers";
             this._checkBoxIgnoreNumbers.Size = new System.Drawing.Size(323, 18);
             this._checkBoxIgnoreNumbers.TabIndex = 4;
             this._checkBoxIgnoreNumbers.Text = "Ignore words with &numbers";
-            // 
+            //
             // _checkBoxIgnoreUppercase
-            // 
+            //
             this._checkBoxIgnoreUppercase.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this._checkBoxIgnoreUppercase.Location = new System.Drawing.Point(16, 88);
             this._checkBoxIgnoreUppercase.Name = "_checkBoxIgnoreUppercase";
             this._checkBoxIgnoreUppercase.Size = new System.Drawing.Size(323, 18);
             this._checkBoxIgnoreUppercase.TabIndex = 3;
             this._checkBoxIgnoreUppercase.Text = "Ignore words in &UPPERCASE";
-            // 
+            //
             // _checkBoxCheckBeforePublish
-            // 
+            //
             this._checkBoxCheckBeforePublish.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this._checkBoxCheckBeforePublish.Location = new System.Drawing.Point(16, 134);
             this._checkBoxCheckBeforePublish.Name = "_checkBoxCheckBeforePublish";
@@ -289,9 +283,9 @@ namespace OpenLiveWriter.SpellChecker
             this._checkBoxAutoCorrect.Size = new System.Drawing.Size(323, 18);
             this._checkBoxAutoCorrect.TabIndex = 6;
             this._checkBoxAutoCorrect.Text = "Automatically &correct common capitalization and spelling mistakes";
-            // 
+            //
             // SpellingPreferencesPanel
-            // 
+            //
             this.AccessibleName = "Spelling";
             this.Controls.Add(this._groupBoxGeneralOptions);
             this.Name = "SpellingPreferencesPanel";
@@ -303,7 +297,6 @@ namespace OpenLiveWriter.SpellChecker
 
         }
         #endregion
-
 
         private void checkBoxIgnoreUppercase_CheckedChanged(object sender, EventArgs e)
         {

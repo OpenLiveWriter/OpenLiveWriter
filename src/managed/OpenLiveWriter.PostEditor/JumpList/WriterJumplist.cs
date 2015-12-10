@@ -87,7 +87,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         private void PopulateCategory(JumpListCustomCategory category, PostInfo[] postInfo)
         {
             foreach (PostInfo post in postInfo)
-            {                
+            {
                 if (!category.AddJumpListItem(new JumpListItem(post.Id)))
                     return;
             }

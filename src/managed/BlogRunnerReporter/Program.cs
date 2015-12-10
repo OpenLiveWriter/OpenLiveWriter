@@ -46,7 +46,7 @@ namespace BlogRunnerReporter
                     else
                     {
                         string diffCommandArgs = string.Format(
-                            CultureInfo.InvariantCulture, 
+                            CultureInfo.InvariantCulture,
                             @"/silent @bcscript.txt ""{0}"" ""{1}"" ""{2}""",
                             input,
                             output,

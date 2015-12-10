@@ -6,111 +6,111 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.Controls
 {
-	/// <summary>
-	/// Provides data for the ShowContextMenu events.
-	/// </summary>
-	public class ShowContextMenuEventArgs : EventArgs
-	{
-		#region Private Member Variables
-		
-		/// <summary>
-		/// The context menu being shown.
-		/// </summary>
-		private ContextMenu contextMenu;
+    /// <summary>
+    /// Provides data for the ShowContextMenu events.
+    /// </summary>
+    public class ShowContextMenuEventArgs : EventArgs
+    {
+        #region Private Member Variables
 
-		/// <summary>
-		/// The horizontal position of the context menu, in screen coordinates.
-		/// </summary>
-		private int x;
+        /// <summary>
+        /// The context menu being shown.
+        /// </summary>
+        private ContextMenu contextMenu;
 
-		/// <summary>
-		/// The vertical position of the context menu, in screen coordinates.
-		/// </summary>
-		private int y;
+        /// <summary>
+        /// The horizontal position of the context menu, in screen coordinates.
+        /// </summary>
+        private int x;
 
-		/// <summary>
-		/// A value indicating whether the event was handled.
-		/// </summary>
-		private bool handled;
+        /// <summary>
+        /// The vertical position of the context menu, in screen coordinates.
+        /// </summary>
+        private int y;
 
-		#endregion Private Member Variables
+        /// <summary>
+        /// A value indicating whether the event was handled.
+        /// </summary>
+        private bool handled;
 
-		#region Public Properties
+        #endregion Private Member Variables
 
-		/// <summary>
-		/// Gets or sets the context menu being shown.
-		/// </summary>
-		public ContextMenu ContextMenu
-		{
-			get
-			{
-				return contextMenu;
-			}
-			set
-			{
-				contextMenu = value;
-			}
-		}
+        #region Public Properties
 
-		/// <summary>
-		/// Gets or sets the horizontal position of the context menu, in screen coordinates.
-		/// </summary>
-		public int X
-		{
-			get
-			{
-				return x;
-			}
-			set
-			{
-				x = value;
-			}
-		}
+        /// <summary>
+        /// Gets or sets the context menu being shown.
+        /// </summary>
+        public ContextMenu ContextMenu
+        {
+            get
+            {
+                return contextMenu;
+            }
+            set
+            {
+                contextMenu = value;
+            }
+        }
 
-		/// <summary>
-		/// Gets or sets the vertical position of the context menu, in screen coordinates.
-		/// </summary>
-		public int Y
-		{
-			get
-			{
-				return y;
-			}
-			set
-			{
-				y = value;
-			}
-		}
+        /// <summary>
+        /// Gets or sets the horizontal position of the context menu, in screen coordinates.
+        /// </summary>
+        public int X
+        {
+            get
+            {
+                return x;
+            }
+            set
+            {
+                x = value;
+            }
+        }
 
-		/// <summary>
-		/// Gets or sets a value indicating whether the event was handled.
-		/// </summary>
-		public bool Handled
-		{
-			get
-			{
-				return handled;
-			}
-			set
-			{
-				handled = value;
-			}
-		}
+        /// <summary>
+        /// Gets or sets the vertical position of the context menu, in screen coordinates.
+        /// </summary>
+        public int Y
+        {
+            get
+            {
+                return y;
+            }
+            set
+            {
+                y = value;
+            }
+        }
 
-		#endregion Public Properties
+        /// <summary>
+        /// Gets or sets a value indicating whether the event was handled.
+        /// </summary>
+        public bool Handled
+        {
+            get
+            {
+                return handled;
+            }
+            set
+            {
+                handled = value;
+            }
+        }
 
-		#region Class Initialization
+        #endregion Public Properties
 
-		/// <summary>
-		/// Initializes a new instance of the ShowContextMenuEventArgs class.
-		/// </summary>
-		public ShowContextMenuEventArgs(int x, int y, ContextMenu contextMenu)
-		{
-			this.x = x;
-			this.y = y;
-			this.contextMenu = contextMenu;
-		}
+        #region Class Initialization
 
-		#endregion Class Initialization
-	}
+        /// <summary>
+        /// Initializes a new instance of the ShowContextMenuEventArgs class.
+        /// </summary>
+        public ShowContextMenuEventArgs(int x, int y, ContextMenu contextMenu)
+        {
+            this.x = x;
+            this.y = y;
+            this.contextMenu = contextMenu;
+        }
+
+        #endregion Class Initialization
+    }
 }

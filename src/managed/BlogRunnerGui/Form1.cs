@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -45,7 +45,7 @@ namespace BlogRunnerGui
             {
                 return;
             }
-            
+
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(configPath);
             foreach (XmlElement providerEl in xmlDoc.SelectNodes("/config/providers/provider/blog/.."))
@@ -80,7 +80,7 @@ namespace BlogRunnerGui
         {
             List<BlogProviderItem> checkedItems = new List<BlogProviderItem>(SelectedProviders);
 
-            BlogProviderItem currentItem = (BlogProviderItem) listProviders.Items[e.Index];
+            BlogProviderItem currentItem = (BlogProviderItem)listProviders.Items[e.Index];
             if (e.NewValue == CheckState.Checked)
                 checkedItems.Add(currentItem);
             else
@@ -114,14 +114,14 @@ namespace BlogRunnerGui
         {
             for (int i = 0; i < listProviders.Items.Count; i++)
             {
-                if (Array.IndexOf(providerIds, ((BlogProviderItem) listProviders.Items[i]).Id) >= 0)
+                if (Array.IndexOf(providerIds, ((BlogProviderItem)listProviders.Items[i]).Id) >= 0)
                     listProviders.SetItemChecked(i, true);
             }
         }
 
         private void UpdateCommand(IEnumerable<BlogProviderItem> providers)
         {
-            List<string> ids = new List<BlogProviderItem>(providers).ConvertAll<string>(delegate(BlogProviderItem item) { return item.Id; });
+            List<string> ids = new List<BlogProviderItem>(providers).ConvertAll<string>(delegate (BlogProviderItem item) { return item.Id; });
             if (ids.Count == listProviders.Items.Count)
                 ids.Clear();
 
@@ -139,7 +139,7 @@ namespace BlogRunnerGui
             args.Add("/" + BlogRunnerCommandLineOptions.OPTION_PAUSE);
 
             args.AddRange(ids);
-            args = args.ConvertAll<string>(delegate(string str) { return MaybeQuote(str); });
+            args = args.ConvertAll<string>(delegate (string str) { return MaybeQuote(str); });
             textBox1.Text = string.Join(" ", args.ToArray());
         }
 
@@ -180,9 +180,9 @@ namespace BlogRunnerGui
         {
             BlogRunnerCommandLineOptions options = new BlogRunnerCommandLineOptions();
             options.Parse(Environment.GetCommandLineArgs(), false);
-            fileBlogProviders.Path = (string) options.GetValue(BlogRunnerCommandLineOptions.OPTION_PROVIDERS, "");
-            fileConfig.Path = (string) options.GetValue(BlogRunnerCommandLineOptions.OPTION_CONFIG, "");
-            fileOutput.Path = (string) options.GetValue(BlogRunnerCommandLineOptions.OPTION_OUTPUT, "");
+            fileBlogProviders.Path = (string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_PROVIDERS, "");
+            fileConfig.Path = (string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_CONFIG, "");
+            fileOutput.Path = (string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_OUTPUT, "");
             chkVerbose.Checked = options.GetFlagValue(BlogRunnerCommandLineOptions.OPTION_VERBOSE, false);
             SetSelectedProviderIds(options.UnnamedArgs);
         }
@@ -191,7 +191,6 @@ namespace BlogRunnerGui
         const string SETTING_CONFIG = "config";
         const string SETTING_OUTPUT = "output";
         const string SETTING_PROVIDER = "provider";
-
 
         class BlogProviderItem
         {

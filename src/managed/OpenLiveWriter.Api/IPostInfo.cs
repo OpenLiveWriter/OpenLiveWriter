@@ -14,7 +14,7 @@ namespace OpenLiveWriter.Api
     {
         /// <summary>
         /// Gets the ID of the post, as assigned by the server. For
-        /// new posts that have never been successfully posted to a 
+        /// new posts that have never been successfully posted to a
         /// server, the value will be null.
         /// </summary>
         string Id { get; }
@@ -40,12 +40,12 @@ namespace OpenLiveWriter.Api
         /// URL-encoded before using as part of a URL.
         /// </remarks>
         string Title { get; }
-        
+
         /// <summary>
         /// Gets the contents of the post in HTML format.
         /// </summary>
         string Contents { get; }
-        
+
         /// <summary>
         /// Gets the keywords that were set by the author. Delimiting
         /// behavior is determined by the server (comma-delimited is

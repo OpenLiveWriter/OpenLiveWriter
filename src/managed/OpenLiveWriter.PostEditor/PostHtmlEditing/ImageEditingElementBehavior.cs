@@ -28,7 +28,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             EditorContext.DocumentEvents.DoubleClick += new HtmlEventHandler(EditorContext_DoubleClick);
         }
 
-
         protected override void OnSelectedChanged()
         {
         }

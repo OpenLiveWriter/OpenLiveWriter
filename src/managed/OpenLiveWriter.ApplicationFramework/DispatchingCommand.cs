@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// <summary>
         /// Associates a commandid with the property key.
         /// </summary>
-        /// <param name="key"></param>                        
+        /// <param name="key"></param>
         /// <param name="executeWithArgsDelegate"></param>
         public void AddCommand(PropertyKey key, ExecuteWithArgsDelegate executeWithArgsDelegate)
         {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -41,7 +41,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         private bool isDirty;
 
         /// <summary>
-        /// When non-zero, suppress marking ourselves dirty and syncing 
+        /// When non-zero, suppress marking ourselves dirty and syncing
         /// with the "other" controller.
         /// </summary>
         private int suspendCount = 0;
@@ -59,7 +59,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         private readonly PublishDateTimePicker datePublishDate;
         private readonly List<PropertyField> fields;
 
-        public SharedPropertiesController(IWin32Window parentFrame, Label labelCategory, CategoryDropDownControlM1 categoryDropDown, Label labelTags, AutoCompleteTextbox textTags, 
+        public SharedPropertiesController(IWin32Window parentFrame, Label labelCategory, CategoryDropDownControlM1 categoryDropDown, Label labelTags, AutoCompleteTextbox textTags,
             Label labelPageOrder, NumericTextBox textPageOrder, Label labelPageParent, PageParentComboBox comboPageParent, Label labelPublishDate, PublishDateTimePicker datePublishDate, List<PropertyField> fields,
             CategoryContext categoryContext)
         {
@@ -225,13 +225,13 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         private void RegisterField(PropertyType type, Control label, Control editor, PropertyField.ShouldShow shouldShow, PropertyField.Populate populate, PropertyField.Save save)
         {
-            PropertyField field = new PropertyField(type, new [] {label, editor}, shouldShow, populate, save);
+            PropertyField field = new PropertyField(type, new[] { label, editor }, shouldShow, populate, save);
             fields.Add(field);
         }
 
         private void RegisterField2(PropertyType type, Control label, Control editor, PropertyField.ShouldShow shouldShow, PropertyField.PopulateFull populate, PropertyField.Save save)
         {
-            PropertyField field = new PropertyField(type, new [] {label, editor}, shouldShow, populate, save);
+            PropertyField field = new PropertyField(type, new[] { label, editor }, shouldShow, populate, save);
             fields.Add(field);
         }
 
@@ -267,7 +267,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                 using (Blog blog = new Blog(context.BlogId))
                     UpdateFieldsForBlog(blog);
 
-                ((IBlogPostEditor) categoryDropDown).Initialize(context, clientOptions);
+                ((IBlogPostEditor)categoryDropDown).Initialize(context, clientOptions);
 
                 foreach (PropertyField field in fields)
                     field.Initialize(context, clientOptions);
@@ -284,7 +284,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                 _targetBlog = newBlog;
                 _clientOptions = newBlog.ClientOptions;
 
-                ((IBlogPostEditor) categoryDropDown).OnBlogChanged(newBlog);
+                ((IBlogPostEditor)categoryDropDown).OnBlogChanged(newBlog);
                 UpdateFieldsForBlog(newBlog);
 
                 // Tag stuff
@@ -310,7 +310,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         {
             using (SuspendLogic())
             {
-                ((IBlogPostEditor) categoryDropDown).OnBlogSettingsChanged(templateChanged);
+                ((IBlogPostEditor)categoryDropDown).OnBlogSettingsChanged(templateChanged);
                 if (editorContext != null)
                     using (Blog blog = new Blog(_blogId))
                         UpdateFieldsForBlog(blog);
@@ -331,7 +331,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         public IDisposable SuspendLogic()
         {
             suspendCount++;
-            return new Unsuspender {Parent=this};
+            return new Unsuspender { Parent = this };
         }
         private class Unsuspender : IDisposable
         {
@@ -343,7 +343,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         {
             using (SuspendLogic())
             {
-                ((IBlogPostEditor) categoryDropDown).SaveChanges(post, options);
+                ((IBlogPostEditor)categoryDropDown).SaveChanges(post, options);
 
                 foreach (PropertyField field in fields)
                     field.SaveChanges(post);
@@ -392,7 +392,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             set
             {
                 datePublishDate.Tag = true; // Signal the datetime picker has a value
-                // Set the datetime and checked state without triggering the PublishDateTimePicker.ValueChanged2 event 
+                // Set the datetime and checked state without triggering the PublishDateTimePicker.ValueChanged2 event
                 datePublishDate.SetDateTimeAndChecked(datePublishDate.Checked, DateTimeHelper.UtcToLocal(value));
             }
         }
@@ -418,7 +418,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         }
 
         private Font defaultFont = Res.DefaultFont;
-        
+
         public void OnPublishSucceeded(BlogPost blogPost, PostResult postResult)
         {
             ((IBlogPostEditor)categoryDropDown).OnPublishSucceeded(blogPost, postResult);

@@ -11,40 +11,39 @@ using OpenLiveWriter.PostEditor.Configuration.Accounts;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	public class PostEditorPreferencesEditor : IDisposable
-	{
-		public PostEditorPreferencesEditor(IWin32Window owner, IBlogPostEditingSite editingSite)
-		{
-			// save reference to owner
-			_owner = owner ;
-			_editingSite = editingSite ;
 
-			// initialize commands 
-			InitializeCommands();
-		}
+    public class PostEditorPreferencesEditor : IDisposable
+    {
+        public PostEditorPreferencesEditor(IWin32Window owner, IBlogPostEditingSite editingSite)
+        {
+            // save reference to owner
+            _owner = owner;
+            _editingSite = editingSite;
 
-		public void Dispose()
-		{
-		}
+            // initialize commands
+            InitializeCommands();
+        }
 
-		
-		/// <summary>
-		/// Show the preferences form
-		/// </summary>
-		public void EditPreferences()
-		{
-			PreferencesHandler.Instance.ShowPreferences(_owner, _editingSite, (Type)null );
-		}
-		
-		/// <summary>
-		/// Show the preferences form
-		/// </summary>
-		public void EditAccounts()
-		{
-			PreferencesHandler.Instance.ShowPreferences(_owner, _editingSite, typeof(WeblogAccountPreferencesPanel) );
-		}
-        
+        public void Dispose()
+        {
+        }
+
+        /// <summary>
+        /// Show the preferences form
+        /// </summary>
+        public void EditPreferences()
+        {
+            PreferencesHandler.Instance.ShowPreferences(_owner, _editingSite, (Type)null);
+        }
+
+        /// <summary>
+        /// Show the preferences form
+        /// </summary>
+        public void EditAccounts()
+        {
+            PreferencesHandler.Instance.ShowPreferences(_owner, _editingSite, typeof(WeblogAccountPreferencesPanel));
+        }
+
         /// <summary>
         /// Show the preferences form
         /// </summary>
@@ -53,41 +52,39 @@ namespace OpenLiveWriter.PostEditor
             PreferencesHandler.Instance.ShowPreferences(_owner, _editingSite, typeof(PluginsPreferencesPanel));
         }
 
+        private void InitializeCommands()
+        {
+            // initialize commands
+            _editingSite.CommandManager.BeginUpdate();
 
-		private void InitializeCommands()
-		{
-			// initialize commands
-			_editingSite.CommandManager.BeginUpdate();
-	
-			// command accounts			
+            // command accounts
             _editingSite.CommandManager.Add(CommandId.Accounts, _commandAccounts_Execute);
 
-
-			// command options			
+            // command options
             _editingSite.CommandManager.Add(CommandId.Options, _commandPreferences_Execute);
 
-		    _editingSite.CommandManager.Add(CommandId.ManagePlugins, commandManagePluginsDialog_Execute);
-	
-			_editingSite.CommandManager.EndUpdate();
-		}
+            _editingSite.CommandManager.Add(CommandId.ManagePlugins, commandManagePluginsDialog_Execute);
+
+            _editingSite.CommandManager.EndUpdate();
+        }
 
         void commandManagePluginsDialog_Execute(object sender, EventArgs e)
         {
             EditPluginsPreferences();
         }
-        
-		private void _commandPreferences_Execute(object sender, EventArgs e)
-		{
-			EditPreferences() ;
-		}
 
-		private void _commandAccounts_Execute(object sender, EventArgs e)
-		{
-			EditAccounts() ;
-		}
-		
-		private IWin32Window _owner ;
-		private IBlogPostEditingSite _editingSite ;
-		
-	}
+        private void _commandPreferences_Execute(object sender, EventArgs e)
+        {
+            EditPreferences();
+        }
+
+        private void _commandAccounts_Execute(object sender, EventArgs e)
+        {
+            EditAccounts();
+        }
+
+        private IWin32Window _owner;
+        private IBlogPostEditingSite _editingSite;
+
+    }
 }

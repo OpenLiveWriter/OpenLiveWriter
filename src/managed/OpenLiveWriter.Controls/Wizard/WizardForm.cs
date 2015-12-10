@@ -111,7 +111,6 @@ namespace OpenLiveWriter.Controls.Wizard
                                                    buttonBack, buttonNext, buttonCancel);
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -154,9 +153,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.panelFooter.Size = new System.Drawing.Size(390, 47);
             this.panelFooter.TabIndex = 10;
             this.panelFooter.Paint += new System.Windows.Forms.PaintEventHandler(this.panelFooter_Paint);
-            // 
+            //
             // buttonBack
-            // 
+            //
             this.buttonBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBack.Enabled = false;
             this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -167,9 +166,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.buttonBack.Text = "< &Back";
             this.buttonBack.Visible = false;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -178,9 +177,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // buttonNext
-            // 
+            //
             this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNext.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonNext.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -189,9 +188,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.buttonNext.TabIndex = 2;
             this.buttonNext.Text = "&Next >";
             this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
-            // 
+            //
             // wizardBody
-            // 
+            //
             this.wizardBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -200,18 +199,18 @@ namespace OpenLiveWriter.Controls.Wizard
             this.wizardBody.Name = "wizardBody";
             this.wizardBody.Size = new System.Drawing.Size(376, 270);
             this.wizardBody.TabIndex = 0;
-            // 
+            //
             // panelHeader
-            // 
+            //
             this.panelHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
             this.panelHeader.Size = new System.Drawing.Size(400, 40);
             this.panelHeader.TabIndex = 4;
-            // 
+            //
             // WizardForm
-            // 
+            //
             this.AcceptButton = this.buttonNext;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;
@@ -286,7 +285,6 @@ namespace OpenLiveWriter.Controls.Wizard
         {
             wizardBody.Controls.Clear();
             wizardBody.Controls.Add(control);
-
 
             control.Location = new Point(0, 0);
             control.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
@@ -441,7 +439,6 @@ namespace OpenLiveWriter.Controls.Wizard
         {
             this.DialogResult = DialogResult.OK;
         }
-
 
     }
 }

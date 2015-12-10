@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -61,7 +61,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public void OnKeyboardLanguageChanged()
         {
             _contentEditorSite.OnKeyboardLanguageChanged();
@@ -79,7 +78,7 @@ namespace OpenLiveWriter.PostEditor
         //{
         //    ((IWordRangeProvider)_contentEditorSite).CloseSubjectSpellcheckWordRange();
         //}
-        
+
         #endregion
 
         #region IMainFrameWindow Members
@@ -88,7 +87,7 @@ namespace OpenLiveWriter.PostEditor
         {
             set
             {
-                
+
             }
         }
 
@@ -255,7 +254,7 @@ namespace OpenLiveWriter.PostEditor
         public string CurrentAccountId
         {
             get { return null; }
-            set {  }
+            set { }
         }
 
         #endregion
@@ -420,7 +419,7 @@ namespace OpenLiveWriter.PostEditor
 
             public void SelectStyleByElementName(string p)
             {
-                
+
             }
 
             #endregion
@@ -437,7 +436,7 @@ namespace OpenLiveWriter.PostEditor
 
         public void DragOver(MK grfKeyState, POINT pt, ref OpenLiveWriter.Interop.Com.DROPEFFECT pdwEffect)
         {
-            _contentEditorSite.DragOver( grfKeyState, pt, ref pdwEffect);
+            _contentEditorSite.DragOver(grfKeyState, pt, ref pdwEffect);
         }
 
         public void DragLeave()
@@ -453,7 +452,6 @@ namespace OpenLiveWriter.PostEditor
         #endregion
 
         #region IBlogPostEditingSite Members
-
 
         public CommandManager CommandManager
         {

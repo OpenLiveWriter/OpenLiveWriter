@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -13,7 +13,7 @@ namespace OpenLiveWriter.CoreServices
 
         public UserPreferencesMonitor()
         {
-            SystemEvents.UserPreferenceChanged += new UserPreferenceChangedEventHandler(SystemEvents_UserPreferenceChanged);            
+            SystemEvents.UserPreferenceChanged += new UserPreferenceChangedEventHandler(SystemEvents_UserPreferenceChanged);
         }
 
         ~UserPreferencesMonitor()
@@ -21,7 +21,6 @@ namespace OpenLiveWriter.CoreServices
             Trace.Fail("Failed to dispose of UserPreferencesMonitor");
             Dispose();
         }
-
 
         void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
         {
@@ -31,14 +30,14 @@ namespace OpenLiveWriter.CoreServices
                 OnAccessibilityUserPreferencesChanged();
             }
         }
-        
+
         private void OnAccessibilityUserPreferencesChanged()
         {
             if (AccessibilityUserPreferencesChanged != null)
                 AccessibilityUserPreferencesChanged(this, EventArgs.Empty);
         }
 
-        private bool _disposed;       
+        private bool _disposed;
         public void Dispose()
         {
             if (!_disposed)

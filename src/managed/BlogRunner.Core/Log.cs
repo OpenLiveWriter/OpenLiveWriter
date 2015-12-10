@@ -12,7 +12,8 @@ namespace BlogRunner.Core
     {
         public delegate void Action();
 
-        [ThreadStatic] private static int indentLevel;
+        [ThreadStatic]
+        private static int indentLevel;
 
         public static void WriteLine(string message)
         {

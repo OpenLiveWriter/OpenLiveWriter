@@ -11,105 +11,105 @@ using OpenLiveWriter.HtmlEditor;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	internal delegate void ApplyDecoratorCallback();
-	internal class ImageDecoratorEditorContextImpl : ImageDecoratorEditorContext
-	{
-		ApplyDecoratorCallback _applyDecoratorCallback;
-		IProperties _settings;
-		ImagePropertiesInfo _imageProperties;
-		IUndoUnitFactory _undoHost;
-		public ImageDecoratorEditorContextImpl(IProperties settings, ApplyDecoratorCallback applyDecoratorCallback, ImagePropertiesInfo imageProperties, IUndoUnitFactory undoHost, CommandManager commandManager)
-		{
-			_applyDecoratorCallback = applyDecoratorCallback;
-			_settings = settings;
-			_imageProperties = imageProperties;
-			_undoHost = undoHost;
-		    _commandManager = commandManager;
-		}
-		public void ApplyDecorator()
-		{
-			_applyDecoratorCallback();
-		}
+    internal delegate void ApplyDecoratorCallback();
+    internal class ImageDecoratorEditorContextImpl : ImageDecoratorEditorContext
+    {
+        ApplyDecoratorCallback _applyDecoratorCallback;
+        IProperties _settings;
+        ImagePropertiesInfo _imageProperties;
+        IUndoUnitFactory _undoHost;
+        public ImageDecoratorEditorContextImpl(IProperties settings, ApplyDecoratorCallback applyDecoratorCallback, ImagePropertiesInfo imageProperties, IUndoUnitFactory undoHost, CommandManager commandManager)
+        {
+            _applyDecoratorCallback = applyDecoratorCallback;
+            _settings = settings;
+            _imageProperties = imageProperties;
+            _undoHost = undoHost;
+            _commandManager = commandManager;
+        }
+        public void ApplyDecorator()
+        {
+            _applyDecoratorCallback();
+        }
 
-		public IProperties Settings
-		{
-			get { return _settings; }
-		}
+        public IProperties Settings
+        {
+            get { return _settings; }
+        }
 
-		public Size SourceImageSize
-		{
-			get { return ImageInfo.ImageSourceSize; }
-		}
+        public Size SourceImageSize
+        {
+            get { return ImageInfo.ImageSourceSize; }
+        }
 
-		public Uri SourceImageUri
-		{
-			get
-			{
-				return ImageInfo.ImageSourceUri;
-			}
-		}
+        public Uri SourceImageUri
+        {
+            get
+            {
+                return ImageInfo.ImageSourceUri;
+            }
+        }
 
-		private ImagePropertiesInfo ImageInfo
-		{
-			get
-			{
-				return _imageProperties;
-			}
-		}
+        private ImagePropertiesInfo ImageInfo
+        {
+            get
+            {
+                return _imageProperties;
+            }
+        }
 
-		public IHTMLElement ImgElement
-		{
-			get { return ImageInfo.ImgElement; }
-		}
+        public IHTMLElement ImgElement
+        {
+            get { return ImageInfo.ImgElement; }
+        }
 
-	    public float? EnforcedAspectRatio
-	    {
+        public float? EnforcedAspectRatio
+        {
             get { return _imageProperties.EnforcedAspectRatio; }
-	    }
+        }
 
-	    public RotateFlipType ImageRotation
-		{
-			get
-			{
-				return ImageInfo.ImageRotation;
-			}
-			set
-			{
-				ImageInfo.ImageRotation = value;
-			}
-		}
+        public RotateFlipType ImageRotation
+        {
+            get
+            {
+                return ImageInfo.ImageRotation;
+            }
+            set
+            {
+                ImageInfo.ImageRotation = value;
+            }
+        }
 
-		public IImageDecoratorUndoUnit CreateUndoUnit()
-		{
-			return new ImageDecoratorUndoUnitAdapter(_undoHost.CreateUndoUnit());
-		}
-		
-		internal class ImageDecoratorUndoUnitAdapter : IUndoUnit, IImageDecoratorUndoUnit
-		{
-			private IUndoUnit _undo;
-			public ImageDecoratorUndoUnitAdapter(IUndoUnit undo)
-			{
-				_undo = undo;
-			}
+        public IImageDecoratorUndoUnit CreateUndoUnit()
+        {
+            return new ImageDecoratorUndoUnitAdapter(_undoHost.CreateUndoUnit());
+        }
 
-			public void Commit()
-			{
-				_undo.Commit();
-			}
+        internal class ImageDecoratorUndoUnitAdapter : IUndoUnit, IImageDecoratorUndoUnit
+        {
+            private IUndoUnit _undo;
+            public ImageDecoratorUndoUnitAdapter(IUndoUnit undo)
+            {
+                _undo = undo;
+            }
 
-			public void Dispose()
-			{
-				_undo.Dispose();
-			}
-		}
+            public void Commit()
+            {
+                _undo.Commit();
+            }
 
-	    private CommandManager _commandManager;
-	    public CommandManager CommandManager
-	    {
-	        get
-	        {
-	            return _commandManager;
-	        }
-	    }
-	}
+            public void Dispose()
+            {
+                _undo.Dispose();
+            }
+        }
+
+        private CommandManager _commandManager;
+        public CommandManager CommandManager
+        {
+            get
+            {
+                return _commandManager;
+            }
+        }
+    }
 }

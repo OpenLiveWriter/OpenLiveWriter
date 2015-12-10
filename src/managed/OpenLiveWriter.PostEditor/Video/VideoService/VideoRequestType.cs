@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
 
         public Image Image
         {
-            get { return _bitMap;  }
+            get { return _bitMap; }
         }
 
         public override string ToString()

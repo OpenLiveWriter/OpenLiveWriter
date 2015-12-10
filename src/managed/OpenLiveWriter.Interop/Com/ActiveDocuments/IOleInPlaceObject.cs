@@ -7,30 +7,30 @@ using OpenLiveWriter.Interop.Windows;
 
 namespace OpenLiveWriter.Interop.Com.ActiveDocuments
 {
-	/// <summary>
-	///
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("00000113-0000-0000-C000-000000000046")] 
-	public interface IOleInPlaceObject
-	{
-		void GetWindow(
-			[Out] out IntPtr phwnd);   
-		
-		void ContextSensitiveHelp(
-			[In, MarshalAs(UnmanagedType.Bool)] bool fEnterMode);
-				
-		void InPlaceDeactivate() ;
-        
-		void UIDeactivate() ;
-        
-		void SetObjectRects( 
-			[In] ref RECT lprcPosRect,
-			[In] ref RECT lprcClipRect)  ;
-        
-		[PreserveSig]
-		int ReactivateAndUndo() ;
-	}
+    /// <summary>
+    ///
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("00000113-0000-0000-C000-000000000046")]
+    public interface IOleInPlaceObject
+    {
+        void GetWindow(
+            [Out] out IntPtr phwnd);
+
+        void ContextSensitiveHelp(
+            [In, MarshalAs(UnmanagedType.Bool)] bool fEnterMode);
+
+        void InPlaceDeactivate();
+
+        void UIDeactivate();
+
+        void SetObjectRects(
+            [In] ref RECT lprcPosRect,
+            [In] ref RECT lprcClipRect);
+
+        [PreserveSig]
+        int ReactivateAndUndo();
+    }
 }
 

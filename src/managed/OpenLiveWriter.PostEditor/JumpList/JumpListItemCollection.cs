@@ -13,7 +13,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
     internal class JumpListItemCollection<T> : ICollection<T>
     {
         private List<T> items = new List<T>();
-       
+
         /// <summary>
         /// Gets or sets a value that determines if this collection is read-only.
         /// </summary>
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// <param name="item">The item to add.</param>
         public void Add(T item)
         {
-            items.Add(item);           
+            items.Add(item);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// <param name="item">The item to insert.</param>
         public void Insert(int index, T item)
         {
-            items.Insert(index, item);           
+            items.Insert(index, item);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// </summary>
         public void Clear()
         {
-            items.Clear();            
+            items.Clear();
         }
 
         /// <summary>

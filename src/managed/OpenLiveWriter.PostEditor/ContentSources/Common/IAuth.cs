@@ -38,7 +38,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         string LoginSavePasswordText { get; }
         string ServiceUrl { get; }
 
-
     }
 
     #region YouTubeAuth : IAuth
@@ -141,21 +140,21 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
             BlogClientLoginDialog d = new BlogClientLoginDialog();
             d.Domain = new CredentialsDomain(Res.Get(StringId.Plugin_Video_Youtube_Publish_Name), String.Empty, null, ImageHelper.GetBitmapBytes(ResourceHelper.LoadAssemblyResourceBitmap("Video.YouTube.Images.YouTubeTab.png")), false);
-            d.Closing += delegate(object sender, CancelEventArgs e)
+            d.Closing += delegate (object sender, CancelEventArgs e)
                              {
                                  if (d.DialogResult == DialogResult.OK)
                                  {
-                                     if(string.IsNullOrEmpty(d.UserName) || string.IsNullOrEmpty(d.Password))
+                                     if (string.IsNullOrEmpty(d.UserName) || string.IsNullOrEmpty(d.Password))
                                      {
                                          DisplayMessage.Show(MessageId.UsernameAndPasswordRequired, this, null);
                                          e.Cancel = true;
                                      }
-                                     else if(!Login(d.UserName, d.Password))
+                                     else if (!Login(d.UserName, d.Password))
                                      {
                                          e.Cancel = true;
                                      }
                                  }
-                                     
+
                              };
 
             d.ShowDialog(parent);

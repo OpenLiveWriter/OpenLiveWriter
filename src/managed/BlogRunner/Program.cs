@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -41,9 +41,9 @@ namespace BlogRunner
         private static Test CreateCompositePostTest(TestFilter filter, params PostTest[] tests)
         {
             return new CompositePostTest(
-                (PostTest[]) ArrayHelper.Narrow(
+                (PostTest[])ArrayHelper.Narrow(
                                  filter(tests),
-                                 typeof (PostTest)));
+                                 typeof(PostTest)));
         }
 
         static int Main(string[] args)
@@ -81,7 +81,6 @@ namespace BlogRunner
                     Config config = Config.Load(configPath, providersPath);
                     XmlDocument providers = new XmlDocument();
                     providers.Load(providersPath);
-
 
                     foreach (XmlElement provider in providers.SelectNodes("/providers/provider"))
                     {
@@ -122,7 +121,7 @@ namespace BlogRunner
                                                         }
                                                     }
 
-                                                    return (Test[]) ArrayHelper.Compact(testArr);
+                                                    return (Test[])ArrayHelper.Compact(testArr);
                                                 });
                             TestRunner tr = new TestRunner(tests);
                             tr.RunTests(p, b, provider);

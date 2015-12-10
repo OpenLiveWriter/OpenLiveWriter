@@ -8,9 +8,9 @@ using System.Windows.Forms;
 namespace OpenLiveWriter.Localization.Bidi
 {
     /// <summary>
-    /// BidiLayout is sort of like BidiGraphics but for laying out 
+    /// BidiLayout is sort of like BidiGraphics but for laying out
     /// controls relative to their parents (or other bounding box).
-    /// 
+    ///
     /// Usually we just lay things out as left-to-right and then
     /// if we're in RTL, recursively flip everything around using
     /// BidiHelper.RtlLayoutFixup. However, when laying out controls
@@ -139,7 +139,7 @@ namespace OpenLiveWriter.Localization.Bidi
         {
             if (!RTL)
                 return value;
-            
+
             if ((value & AnchorStyles.Left) == AnchorStyles.Left
                 ^ (value & AnchorStyles.Right) == AnchorStyles.Right)
             {

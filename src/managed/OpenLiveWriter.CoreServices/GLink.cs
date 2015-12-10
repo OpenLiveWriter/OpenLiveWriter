@@ -29,7 +29,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static readonly GLink _instance;
 
-
         static GLink()
         {
             _instance = new GLink();
@@ -38,7 +37,6 @@ namespace OpenLiveWriter.CoreServices
         private GLink()
         {
         }
-
 
         public string CreateMicrosoftAccountID
         {
@@ -216,10 +214,10 @@ namespace OpenLiveWriter.CoreServices
 
         private string FixUpGLink(string glink, string queryString)
         {
-            queryString = string.Format(CultureInfo.InvariantCulture, "{0}Version={1}&Build={2}&Market={3}", 
+            queryString = string.Format(CultureInfo.InvariantCulture, "{0}Version={1}&Build={2}&Market={3}",
                 queryString != null ? queryString : "?",
                 ApplicationEnvironment.ProductVersionMajor,
-                ApplicationEnvironment.ProductVersionMinor, 
+                ApplicationEnvironment.ProductVersionMinor,
                 CultureInfo.CurrentUICulture.Name);
 
             return glink + queryString;
@@ -227,6 +225,5 @@ namespace OpenLiveWriter.CoreServices
 
         private readonly SettingsPersisterHelper _settings = ApplicationEnvironment.UserSettingsRoot.GetSubSettings("glinks");
     }
-
 
 }

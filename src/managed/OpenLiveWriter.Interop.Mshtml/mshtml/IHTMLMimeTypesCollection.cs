@@ -7,11 +7,11 @@ namespace mshtml
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
 
-    [ComImport, Guid("3050F3FC-98B5-11CF-BB82-00AA00BDCE0B"), TypeLibType((short) 0x1040)]
+    [ComImport, Guid("3050F3FC-98B5-11CF-BB82-00AA00BDCE0B"), TypeLibType((short)0x1040)]
     public interface IHTMLMimeTypesCollection
     {
         [DispId(1)]
-        int length { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime), DispId(1)] get; }
+        int length {[MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(1)] get; }
     }
 }
 

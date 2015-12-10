@@ -11,54 +11,53 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.BlogClient.Detection
 {
-	public class BlogEditingTemplate
-	{
+    public class BlogEditingTemplate
+    {
         public static bool ValidateTemplate(string template)
         {
             return ValidateTemplate(template, true);
         }
 
-	    public static bool ValidateTemplate(string template, bool containsTitle)
-		{
+        public static bool ValidateTemplate(string template, bool containsTitle)
+        {
             return (template != null && (containsTitle == (template.IndexOf(POST_TITLE_MARKER, StringComparison.OrdinalIgnoreCase) != -1)) && template.IndexOf(POST_BODY_MARKER, StringComparison.OrdinalIgnoreCase) != -1);
-		}
+        }
 
-		public BlogEditingTemplate(bool containsTitle)
+        public BlogEditingTemplate(bool containsTitle)
             : this(GetDefaultTemplateHtml(containsTitle), containsTitle)
-		{
-		}
+        {
+        }
 
         public BlogEditingTemplate(string template)
             : this(template, true)
         {
         }
 
-	    public readonly bool ContainsTitle;
+        public readonly bool ContainsTitle;
 
-
-		public BlogEditingTemplate( string template, bool containsTitle )
-		{
-		    ContainsTitle = containsTitle;
+        public BlogEditingTemplate(string template, bool containsTitle)
+        {
+            ContainsTitle = containsTitle;
             if (!ValidateTemplate(template, ContainsTitle))
-			{
-				Trace.WriteLine("Invalid editing template detected");
+            {
+                Trace.WriteLine("Invalid editing template detected");
                 template = GetDefaultTemplateHtml(containsTitle);
-			}
-			
-			//sandbox the template in the Internet Security zone
-			template = HTMLDocumentHelper.AddMarkOfTheWeb(template, "about:internet");
-			Template = template;
-		}
-		public readonly string Template ;
+            }
 
-		public string ApplyTemplateToPostHtml(string titleText, string titleHtml, string postBody)
-		{
-			string templateHtml = Template.Replace(POST_TITLE_MARKER, titleHtml).Replace(POST_BODY_MARKER, postBody).Replace(POST_TITLE_READONLY_MARKER, titleText);
-			return templateHtml;
-		}
-		public static readonly string POST_TITLE_MARKER = "{post-title}";
-		public static readonly string POST_TITLE_READONLY_MARKER = "{post-titleReadOnly}";
-		public static readonly string POST_BODY_MARKER = "{post-body}";
+            //sandbox the template in the Internet Security zone
+            template = HTMLDocumentHelper.AddMarkOfTheWeb(template, "about:internet");
+            Template = template;
+        }
+        public readonly string Template;
+
+        public string ApplyTemplateToPostHtml(string titleText, string titleHtml, string postBody)
+        {
+            string templateHtml = Template.Replace(POST_TITLE_MARKER, titleHtml).Replace(POST_BODY_MARKER, postBody).Replace(POST_TITLE_READONLY_MARKER, titleText);
+            return templateHtml;
+        }
+        public static readonly string POST_TITLE_MARKER = "{post-title}";
+        public static readonly string POST_TITLE_READONLY_MARKER = "{post-titleReadOnly}";
+        public static readonly string POST_BODY_MARKER = "{post-body}";
 
         public static string GetDefaultTemplateHtml(bool containsTitle)
         {
@@ -66,14 +65,14 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
 
         public static string GetDefaultTemplateHtml(bool forceRTL, bool containsTitle)
-		{
-			string path = Path.Combine(ApplicationEnvironment.InstallationDirectory, @"template");
+        {
+            string path = Path.Combine(ApplicationEnvironment.InstallationDirectory, @"template");
 
-			//read in the html
-			string htmlFile = Path.Combine(path, "default.htm");
-			string template;
-			using(StreamReader reader = new StreamReader(htmlFile, Encoding.UTF8))
-				template =  reader.ReadToEnd();
+            //read in the html
+            string htmlFile = Path.Combine(path, "default.htm");
+            string template;
+            using (StreamReader reader = new StreamReader(htmlFile, Encoding.UTF8))
+                template = reader.ReadToEnd();
             if (forceRTL)
                 template = AddRTL(template);
 
@@ -91,7 +90,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 writer.Write(css);
 
             return String.Format(CultureInfo.InvariantCulture, defaultDocType + "\r\n" + template, cssPath, containsTitle ? POST_TITLE_MARKER : "", POST_BODY_MARKER);
-		}
+        }
 
         internal static string AddRTL(string html)
         {
@@ -99,18 +98,17 @@ namespace OpenLiveWriter.BlogClient.Detection
             return html.Replace("<HTML>", "<HTML dir=\"rtl\">");
         }
 
+        public static string GetBlogTemplateDir(string blogId)
+        {
+            if (blogId == null || blogId == String.Empty)
+                throw new ArgumentException("Must specify a blogId for GetBlogTemplateDir", "blogId");
 
-		public static string GetBlogTemplateDir(string blogId)
-		{
-			if ( blogId == null || blogId == String.Empty )
-				throw new ArgumentException("Must specify a blogId for GetBlogTemplateDir", "blogId") ;
+            string blogTemplateDir = Path.Combine(ApplicationEnvironment.ApplicationDataDirectory, "blogtemplates");
+            blogTemplateDir = Path.Combine(blogTemplateDir, blogId);
+            return blogTemplateDir;
+        }
 
-			string blogTemplateDir = Path.Combine(ApplicationEnvironment.ApplicationDataDirectory, "blogtemplates");
-			blogTemplateDir = Path.Combine(blogTemplateDir, blogId);
-			return blogTemplateDir;
-		}
+        private static string defaultDocType = "";
 
-		private static string defaultDocType = "";
-
-	}
+    }
 }

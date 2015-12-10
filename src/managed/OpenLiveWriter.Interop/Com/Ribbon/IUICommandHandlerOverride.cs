@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 namespace OpenLiveWriter.Interop.Com.Ribbon
 {
     /// <summary>
-    /// Allows Mail to override shared canvas ribbon properties    
-    /// </summary>    
+    /// Allows Mail to override shared canvas ribbon properties
+    /// </summary>
     [Guid("6CB2B077-C85A-46dc-AF61-D5842F799F0E")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [ComVisible(true)]

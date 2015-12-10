@@ -16,17 +16,17 @@ namespace OpenLiveWriter.UnitTest.CoreServices
         public void InsertionSortTest()
         {
             VerifyInsertionSort(
-                new int[] {3, 1, 2, 4, 5}, 
+                new int[] {3, 1, 2, 4, 5},
                 Comparer<int>.Default.Compare,
                 new int[] {1, 2, 3, 4, 5});
 
             VerifyInsertionSort(
-                new int[] {1, 1, 2, 5, 4}, 
+                new int[] {1, 1, 2, 5, 4},
                 Comparer<int>.Default.Compare,
                 new int[] {1, 1, 2, 4, 5});
 
             VerifyInsertionSort(
-                new int[] {}, 
+                new int[] {},
                 Comparer<int>.Default.Compare,
                 new int[] {});
 

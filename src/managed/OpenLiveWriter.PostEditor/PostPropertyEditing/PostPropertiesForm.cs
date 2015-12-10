@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -30,7 +30,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         private string _blogId;
         private List<PropertyField> fields = new List<PropertyField>();
-        
+
         private readonly CommandManager commandManager;
 
         internal PostPropertiesForm(CommandManager commandManager, CategoryContext categoryContext)
@@ -68,7 +68,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                 new CommentComboItem(BlogCommentPolicy.Open),
                 new CommentComboItem(BlogCommentPolicy.Closed),
             });
-            
+
             comboPings.Items.AddRange(new[] {
                 new TrackbackComboItem(BlogTrackbackPolicy.Unspecified),
                 new TrackbackComboItem(BlogTrackbackPolicy.Allow),
@@ -76,9 +76,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             });
 
             InitializePropertyFields();
-           
+
             controller = new SharedPropertiesController(
-                this, labelCategories, categoryDropDown, labelTags, textTags, labelPageOrder, textPageOrder, 
+                this, labelCategories, categoryDropDown, labelTags, textTags, labelPageOrder, textPageOrder,
                 labelPageParent, comboPageParent, labelPublishDate, datePublishDate, fields, categoryContext);
 
             this.comboComments.SelectedIndexChanged += controller.MakeDirty;
@@ -86,17 +86,17 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.textSlug.TextChanged += controller.MakeDirty;
             this.textPassword.TextChanged += controller.MakeDirty;
             this.textExcerpt.TextChanged += controller.MakeDirty;
-            this.textTrackbacks.TextChanged += controller.MakeDirty;        
+            this.textTrackbacks.TextChanged += controller.MakeDirty;
 
             SimpleTextEditorCommandHelper.UseNativeBehaviors(commandManager,
-                                                             textExcerpt, textPageOrder, textPassword, 
-                                                             textSlug, textTags, textTrackbacks);            
+                                                             textExcerpt, textPageOrder, textPassword,
+                                                             textSlug, textTags, textTrackbacks);
         }
 
         public void DisplayCategoryForm()
-        {            
+        {
             categoryDropDown.DisplayCategoryForm();
-        }       
+        }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -112,7 +112,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
             // WinLive 53092: Avoid horizontal scrolling for languages with long label names.
             int maxLabelWidth = panel1.Width;
-            foreach(Control control in flowLayoutPanel.Controls)
+            foreach (Control control in flowLayoutPanel.Controls)
             {
                 maxLabelWidth = Math.Max(maxLabelWidth, control.PreferredSize.Width);
             }
@@ -148,7 +148,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             RegisterField(PropertyType.Both, labelAuthor, panelComboAuthorIsolate,
                           opts => opts.SupportsAuthor,
                           post => SetAuthor(post.Author),
-                          post => post.Author = (PostIdAndNameField) comboAuthor.SelectedItem);
+                          post => post.Author = (PostIdAndNameField)comboAuthor.SelectedItem);
 
             RegisterField(PropertyType.Both, labelSlug, textSlug,
                           opts => opts.SupportsSlug,
@@ -194,11 +194,11 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         private void flowLayoutPanel_ClientSizeChanged(object sender, EventArgs e)
         {
-            // panel1 is used to make all the other controls stretch to fill the width of the flowLayoutPanel.  See  
-            // the MSDN article "How to: Anchor and Dock Child Controls in a FlowLayoutPanel Control" at 
+            // panel1 is used to make all the other controls stretch to fill the width of the flowLayoutPanel.  See
+            // the MSDN article "How to: Anchor and Dock Child Controls in a FlowLayoutPanel Control" at
             // http://msdn.microsoft.com/en-us/library/ms171633(VS.80).aspx
             if (flowLayoutPanel.VerticalScroll.Visible)
-                // The DisplayHelper.ScaleX(12) call is used to add horizontal padding between the controls in the  
+                // The DisplayHelper.ScaleX(12) call is used to add horizontal padding between the controls in the
                 // flowLayoutPanel and the vertical scroll bar.
                 panel1.Width = flowLayoutPanel.ClientSize.Width - Convert.ToInt32(DisplayHelper.ScaleX(12));
             else
@@ -207,7 +207,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         private void RegisterField(PropertyType type, Control label, Control editor, PropertyField.ShouldShow shouldShow, PropertyField.Populate populate, PropertyField.Save save)
         {
-            PropertyField field = new PropertyField(type, new [] {label, editor}, shouldShow, populate, save);
+            PropertyField field = new PropertyField(type, new[] { label, editor }, shouldShow, populate, save);
             fields.Add(field);
         }
 
@@ -262,7 +262,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         }
 
         void IBlogPostEditor.OnBlogChanged(Blog newBlog)
-        {            
+        {
             // preserve dirty state
             using (controller.SuspendLogic())
             {
@@ -275,7 +275,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                 // Comment policy hackery
                 BlogCommentPolicy? commentPolicy = null;
                 if (comboComments.SelectedIndex >= 0)
-                    commentPolicy = ((CommentComboItem) comboComments.SelectedItem).Value;
+                    commentPolicy = ((CommentComboItem)comboComments.SelectedItem).Value;
                 comboComments.Items.Remove(new CommentComboItem(BlogCommentPolicy.None));
                 if (!newBlog.ClientOptions.CommentPolicyAsBoolean)
                     comboComments.Items.Insert(1, new CommentComboItem(BlogCommentPolicy.None));
@@ -353,7 +353,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         #endregion
 
-
         #region Implementation of INewCategoryContext
 
         public void NewCategoryAdded(BlogPostCategory category)
@@ -394,7 +393,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             if (ReferenceEquals(this, obj)) return true;
 
             if (obj.GetType() != GetType()) return false;
-            return value.Equals(((EnumComboItem<TEnum>) obj).value);
+            return value.Equals(((EnumComboItem<TEnum>)obj).value);
         }
 
         public override int GetHashCode()

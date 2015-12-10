@@ -13,36 +13,36 @@ using OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Host control for Sidebar which allows us to derive from SidebarControl but still
-	/// use a PrimaryWorkspaceControl to inherit UI framework functionality
-	/// </summary>
-	public class ImagePropertiesSidebarHostControl : SidebarControl
-	{
-		public ImagePropertiesSidebarHostControl(
-			ISidebarContext sidebarContext,
-			IHtmlEditorComponentContext editorContext,
-			IBlogPostImageEditingContext imageEditingContext,
-			CreateFileCallback createFileCallback )
-		{
-			// Instead of creating the image sidebar, we now create the manager for ribbon commands releated to image editing.
-			_pictureEditingManager = new PictureEditingManager(editorContext, imageEditingContext, createFileCallback);
-		}
+    /// <summary>
+    /// Host control for Sidebar which allows us to derive from SidebarControl but still
+    /// use a PrimaryWorkspaceControl to inherit UI framework functionality
+    /// </summary>
+    public class ImagePropertiesSidebarHostControl : SidebarControl
+    {
+        public ImagePropertiesSidebarHostControl(
+            ISidebarContext sidebarContext,
+            IHtmlEditorComponentContext editorContext,
+            IBlogPostImageEditingContext imageEditingContext,
+            CreateFileCallback createFileCallback)
+        {
+            // Instead of creating the image sidebar, we now create the manager for ribbon commands releated to image editing.
+            _pictureEditingManager = new PictureEditingManager(editorContext, imageEditingContext, createFileCallback);
+        }
 
-		public PictureEditingManager PictureEditingManager
-		{
-			get
-			{
-				return _pictureEditingManager;
-			}
-		}
-		
-		private readonly PictureEditingManager _pictureEditingManager ;
+        public PictureEditingManager PictureEditingManager
+        {
+            get
+            {
+                return _pictureEditingManager;
+            }
+        }
 
-		public override void UpdateView(object htmlSelection, bool force)
-		{
-			// delegate UpdateView
-			PictureEditingManager.UpdateView(htmlSelection);
-		}
-	}
+        private readonly PictureEditingManager _pictureEditingManager;
+
+        public override void UpdateView(object htmlSelection, bool force)
+        {
+            // delegate UpdateView
+            PictureEditingManager.UpdateView(htmlSelection);
+        }
+    }
 }
