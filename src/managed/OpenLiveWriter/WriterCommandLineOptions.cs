@@ -61,22 +61,22 @@ namespace OpenLiveWriter
 
 #if DEBUG
                 if (_options.IsArgPresent(TESTMODE))
-                    ApplicationDiagnostics.TestMode = _options.GetFlagValue(TESTMODE, ApplicationDiagnostics.TestMode);
+                    ApplicationDiagnostics.TestMode = _options.GetValue(TESTMODE, ApplicationDiagnostics.TestMode);
 
                 if (_options.IsArgPresent(VERBOSELOGGING))
-                    ApplicationDiagnostics.VerboseLogging = _options.GetFlagValue(VERBOSELOGGING, ApplicationDiagnostics.VerboseLogging);
+                    ApplicationDiagnostics.VerboseLogging = _options.GetValue(VERBOSELOGGING, ApplicationDiagnostics.VerboseLogging);
 
                 if (_options.IsArgPresent(ALLOWUNSAFECERTIFICATES))
-                    ApplicationDiagnostics.AllowUnsafeCertificates = _options.GetFlagValue(ALLOWUNSAFECERTIFICATES, ApplicationDiagnostics.AllowUnsafeCertificates);
+                    ApplicationDiagnostics.AllowUnsafeCertificates = _options.GetValue(ALLOWUNSAFECERTIFICATES, ApplicationDiagnostics.AllowUnsafeCertificates);
 
                 if (_options.IsArgPresent(PREFERATOM))
-                    ApplicationDiagnostics.PreferAtom = _options.GetFlagValue(PREFERATOM, ApplicationDiagnostics.PreferAtom);
+                    ApplicationDiagnostics.PreferAtom = _options.GetValue(PREFERATOM, ApplicationDiagnostics.PreferAtom);
 
                 if (_options.IsArgPresent(SUPPRESSBACKGROUNDREQUESTS))
-                    ApplicationDiagnostics.SuppressBackgroundRequests = _options.GetFlagValue(SUPPRESSBACKGROUNDREQUESTS, ApplicationDiagnostics.SuppressBackgroundRequests);
+                    ApplicationDiagnostics.SuppressBackgroundRequests = _options.GetValue(SUPPRESSBACKGROUNDREQUESTS, ApplicationDiagnostics.SuppressBackgroundRequests);
 
                 if (_options.IsArgPresent(PROXY))
-                    ApplicationDiagnostics.ProxySettingsOverride = _options.GetValue<string>(PROXY, ApplicationDiagnostics.ProxySettingsOverride);
+                    ApplicationDiagnostics.ProxySettingsOverride = _options.GetValue(PROXY, ApplicationDiagnostics.ProxySettingsOverride);
 
                 if (_options.IsArgPresent(PERFLOG))
                     ApplicationPerformance.SetLogFilePath(_options.GetValue<string>(PERFLOG, null));

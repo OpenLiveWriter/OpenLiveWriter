@@ -180,10 +180,10 @@ namespace BlogRunnerGui
         {
             BlogRunnerCommandLineOptions options = new BlogRunnerCommandLineOptions();
             options.Parse(Environment.GetCommandLineArgs(), false);
-            fileBlogProviders.Path = (string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_PROVIDERS, "");
-            fileConfig.Path = (string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_CONFIG, "");
-            fileOutput.Path = (string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_OUTPUT, "");
-            chkVerbose.Checked = options.GetFlagValue(BlogRunnerCommandLineOptions.OPTION_VERBOSE, false);
+            fileBlogProviders.Path = options.GetValue(BlogRunnerCommandLineOptions.OPTION_PROVIDERS, "");
+            fileConfig.Path = options.GetValue(BlogRunnerCommandLineOptions.OPTION_CONFIG, "");
+            fileOutput.Path = options.GetValue(BlogRunnerCommandLineOptions.OPTION_OUTPUT, "");
+            chkVerbose.Checked = options.GetValue(BlogRunnerCommandLineOptions.OPTION_VERBOSE, false);
             SetSelectedProviderIds(options.UnnamedArgs);
         }
 

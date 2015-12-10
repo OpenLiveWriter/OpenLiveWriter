@@ -59,16 +59,6 @@ namespace OpenLiveWriter.CoreServices
             return _values.ContainsKey(name);
         }
 
-        public bool GetFlagValue(string name, bool defaultValue)
-        {
-            return (bool)GetValue(name, defaultValue);
-        }
-
-        public long GetIntegerValue(string name, int defaultValue)
-        {
-            return (long)GetValue(name, defaultValue);
-        }
-
         public object[] GetValues(string name)
         {
             NormalizeName(ref name);
@@ -76,7 +66,7 @@ namespace OpenLiveWriter.CoreServices
             Type t = argSpec.IsInteger ? typeof(long) :
                 argSpec.IsHexNumber ? typeof(long) :
                 typeof(string);
-            return (object[])((ArrayList)GetValue(name, new ArrayList())).ToArray(t);
+            return (object[])GetValue(name, new ArrayList()).ToArray(t);
         }
 
         public T GetValue<T>(string name, T defaultValue)
@@ -355,7 +345,6 @@ namespace OpenLiveWriter.CoreServices
             {
                 return Message;
             }
-
         }
     }
 

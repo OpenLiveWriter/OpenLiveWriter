@@ -58,7 +58,7 @@ namespace BlogRunner
                 try
                 {
 
-                    if (options.GetFlagValue(BlogRunnerCommandLineOptions.OPTION_VERBOSE, false))
+                    if (options.GetValue(BlogRunnerCommandLineOptions.OPTION_VERBOSE, false))
                         Debug.Listeners.Add(new ConsoleTraceListener(true));
 
                     string providersPath = Path.GetFullPath(options.GetValue<string>(BlogRunnerCommandLineOptions.OPTION_PROVIDERS, null));
@@ -144,7 +144,7 @@ namespace BlogRunner
                 }
                 finally
                 {
-                    if (options.GetFlagValue(BlogRunnerCommandLineOptions.OPTION_PAUSE, false))
+                    if (options.GetValue(BlogRunnerCommandLineOptions.OPTION_PAUSE, false))
                     {
                         Console.WriteLine();
                         Console.WriteLine();
