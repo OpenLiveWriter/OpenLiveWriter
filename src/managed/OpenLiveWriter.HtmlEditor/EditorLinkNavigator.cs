@@ -192,7 +192,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Handle TranslateAccelerator to update feedback on cursor and to clear the
         /// tooltip for ALT-TAB, CTL-HOME, etc.
@@ -268,7 +267,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Clear any existing link feedback
         /// </summary>
@@ -293,7 +291,6 @@ namespace OpenLiveWriter.HtmlEditor
             // update the cursor
             UpdateCursor();
         }
-
 
         /// <summary>
         /// Update the status bar
@@ -415,7 +412,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Gets the parent link element (if any) for the passed element
         /// </summary>
@@ -469,7 +465,6 @@ namespace OpenLiveWriter.HtmlEditor
 
             public readonly IHTMLElement DelayElement;
         }
-
 
         /// <summary>
         /// editor context we are attached to

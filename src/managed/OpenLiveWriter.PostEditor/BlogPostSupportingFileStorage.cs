@@ -146,5 +146,4 @@ namespace OpenLiveWriter.PostEditor
         private DirectoryInfo _storageDirectory;
     }
 
-
 }

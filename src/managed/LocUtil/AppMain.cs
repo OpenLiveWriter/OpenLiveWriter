@@ -301,11 +301,11 @@ namespace LocUtil
         {
             const string TEMPLATE = @"namespace OpenLiveWriter.Localization
                             {{
-	                            public enum {0}
-	                            {{
-		                            None,
-		                            {1}
-	                            }}
+                                public enum {0}
+                                {{
+                                    None,
+                                    {1}
+                                }}
                             }}
                             ";
 
@@ -367,9 +367,9 @@ namespace LocUtil
                 else if (values == null)
                 {
                     const string DESC_TEMPLATE = @"/// <summary>
-		                                            /// {0}
-		                                            /// </summary>
-		                                            {1}";
+                                                    /// {0}
+                                                    /// </summary>
+                                                    {1}";
                     ArrayList descs = new ArrayList();
                     foreach (string command in commandList.ToArray())
                     {

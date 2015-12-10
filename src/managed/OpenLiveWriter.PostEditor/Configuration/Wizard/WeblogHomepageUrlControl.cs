@@ -85,7 +85,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         public event EventHandler Changed;
 
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>

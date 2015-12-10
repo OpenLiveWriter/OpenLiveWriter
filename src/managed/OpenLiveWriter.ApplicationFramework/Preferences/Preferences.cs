@@ -18,7 +18,6 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
     {
         #region Static & Constant Declarations
 
-
         #endregion Static & Constant Declarations
 
         #region Private Member Variables

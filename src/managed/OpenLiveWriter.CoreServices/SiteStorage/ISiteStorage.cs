@@ -61,5 +61,4 @@ namespace OpenLiveWriter.CoreServices
         Write
     };
 
-
 }

@@ -78,7 +78,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
             }
         }
 
-
         public void Save(BlogSettings settings)
         {
             settings.HostBlogId = this.HostBlogId;
@@ -373,7 +372,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
             }
         }
 
-
         public string ProviderId
         {
             get { return _providerId; }
@@ -434,7 +432,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
                 _lastPublishFailed = value;
             }
         }
-
 
         public BlogPostCategory[] Categories
         {
@@ -898,7 +895,6 @@ namespace OpenLiveWriter.PostEditor.Configuration
 
         private Hashtable _values = new Hashtable();
 
-
         public object Clone()
         {
             TemporaryFileUploadSettings newSettings = new TemporaryFileUploadSettings();
@@ -912,5 +908,4 @@ namespace OpenLiveWriter.PostEditor.Configuration
     }
 
 }
-
 

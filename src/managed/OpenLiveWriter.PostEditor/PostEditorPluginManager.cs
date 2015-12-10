@@ -25,8 +25,8 @@ namespace OpenLiveWriter.PostEditor
         /// </summary>
         private Type[] SupportedPluginTypes = new Type[]
         {
-			//  Note to developers: add a type here for each plugin interface type supported.
-			typeof(WriterPlugin)
+            //  Note to developers: add a type here for each plugin interface type supported.
+            typeof(WriterPlugin)
         };
 
         #region Public Methods

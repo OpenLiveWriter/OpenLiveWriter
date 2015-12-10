@@ -60,7 +60,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _unhandledDropTarget = unhandledDropTarget;
         }
 
-
         protected override IDataFormatHandlerFactory[] CreateDataFormatFactories()
         {
             if (IsPlainTextOnly)
@@ -69,7 +68,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 new DelegateBasedDataFormatHandlerFactory(CreateInternalSmartContentFormatHandler, InternalSmartContentFormatHandler.CanCreateFrom),
                 new DelegateBasedDataFormatHandlerFactory(CreateTextDataFormatHandler, CanCreateFromTextFilter),
                 new DelegateBasedDataFormatHandlerFactory(CreateUnhandledFormatHandler, UnhandledDropTarget.CanCreateFrom) // This always needs to be the last handler
-			};
+            };
 
             return new IDataFormatHandlerFactory[]{
                 new DelegateBasedDataFormatHandlerFactory(CreateEmlMessageFormatHandler, EmlMessageHandler.CanCreateFrom),
@@ -82,16 +81,16 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 new DelegateBasedDataFormatHandlerFactory(CreateImageFileFormatHandler, data => !_blogEditor.ShouldComposeHostHandlePhotos() && ImageFileFormatHandler.CanCreateFrom(data)),
                 new DelegateBasedDataFormatHandlerFactory(CreateTableDataFormatHandler, CanCreateTableDataFormatHandler),
 #if SUPPORT_FILES
-			    new DelegateBasedDataFormatHandlerFactory(CreateFileDataFormatHandler, new DataObjectFilter(CanCreateFileFormatHandler)),
+                new DelegateBasedDataFormatHandlerFactory(CreateFileDataFormatHandler, new DataObjectFilter(CanCreateFileFormatHandler)),
 #endif
-			    new DelegateBasedDataFormatHandlerFactory(CreateHtmlDataFormatHandler, CanCreateHtmlFormatHandler),
+                new DelegateBasedDataFormatHandlerFactory(CreateHtmlDataFormatHandler, CanCreateHtmlFormatHandler),
                 new DelegateBasedDataFormatHandlerFactory(CreateImageClipboardFormatHandler, CanCreateImageDataFormatHandler),
                 new DelegateBasedDataFormatHandlerFactory(CreateEmbedDataFormatHandler, CanCreateEmbedFormatHandler ),
                 new DelegateBasedDataFormatHandlerFactory(CreateVideoFileFormatHandler, VideoFileFormatHandler.CanCreateFrom),
                 new DelegateBasedDataFormatHandlerFactory(CreateImageFolderFormatHandler, data => !_blogEditor.ShouldComposeHostHandlePhotos() && ImageFolderFormatHandler.CanCreateFrom(data)),
                 new DelegateBasedDataFormatHandlerFactory(CreateTextDataFormatHandler, CanCreateFromTextFilter),
                 new DelegateBasedDataFormatHandlerFactory(CreateUnhandledFormatHandler, UnhandledDropTarget.CanCreateFrom) // This always needs to be the last handler
-		    };
+            };
         }
 
         // special text filter that screens out LiveClipboard data
@@ -457,7 +456,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
     }
-
 
     internal class InternalSmartContentFormatHandler : FreeTextHandler
     {

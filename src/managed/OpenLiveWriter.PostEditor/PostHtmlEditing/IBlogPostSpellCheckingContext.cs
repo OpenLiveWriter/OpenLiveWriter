@@ -5,11 +5,11 @@ using System;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Spelling checking services for the HTML Editor.
-	/// </summary>
-	public interface IBlogPostSpellCheckingContext
-	{
-		string PostSpellingContextDirectory { get; }
-	}
+    /// <summary>
+    /// Spelling checking services for the HTML Editor.
+    /// </summary>
+    public interface IBlogPostSpellCheckingContext
+    {
+        string PostSpellingContextDirectory { get; }
+    }
 }

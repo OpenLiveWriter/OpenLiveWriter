@@ -206,7 +206,6 @@ namespace OpenLiveWriter.PostEditor
 
         #region Initialization Helpers
 
-
         private PostEditorFile(DirectoryInfo targetDirectory)
         {
             TargetDirectory = targetDirectory;
@@ -617,7 +616,6 @@ namespace OpenLiveWriter.PostEditor
                 return TargetFile.GetHashCode();
         }
 
-
         #endregion
 
         #region Helpers for managing post file names, etc.
@@ -912,7 +910,6 @@ namespace OpenLiveWriter.PostEditor
                     return BlogTrackbackPolicy.Unspecified;
             }
         }
-
 
         private void WritePingUrls(XmlTextWriter writer, object pingUrls)
         {
@@ -1641,7 +1638,6 @@ namespace OpenLiveWriter.PostEditor
                 Debug.Assert(depth == 0 && reader.LocalName == ATTACHED_FILE_VERSION_ELEMENT, "Xmlreader is unexpectedly positioned (probably read to far!)");
             }
         }
-
 
         private static void WriteBlogPostSettingsBag(XmlTextWriter writer, BlogPostSettingsBag settings, string name)
         {

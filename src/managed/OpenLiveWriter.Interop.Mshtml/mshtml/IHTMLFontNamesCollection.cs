@@ -8,7 +8,7 @@ namespace mshtml
     using System.Reflection;
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
-	using System.Runtime.InteropServices.CustomMarshalers;
+    using System.Runtime.InteropServices.CustomMarshalers;
 
     [ComImport, DefaultMember("item"), TypeLibType((short) 0x1040), Guid("3050F376-98B5-11CF-BB82-00AA00BDCE0B")]
     public interface IHTMLFontNamesCollection : IEnumerable

@@ -9,50 +9,49 @@ using OpenLiveWriter.ApplicationFramework;
 
 namespace OpenLiveWriter.PostEditor.Commands
 {
-	/// <summary>
-	/// Summary description for CommandOpenDrafts.
-	/// </summary>
-	public class CommandOpenDrafts : Command
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for CommandOpenDrafts.
+    /// </summary>
+    public class CommandOpenDrafts : Command
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		public CommandOpenDrafts(System.ComponentModel.IContainer container)
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandOpenDrafts(System.ComponentModel.IContainer container)
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
-		public CommandOpenDrafts()
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandOpenDrafts()
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
-
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this.Identifier = "OpenLiveWriter.PostEditor.OpenDrafts";
-		}
-		#endregion
-	}
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.Identifier = "OpenLiveWriter.PostEditor.OpenDrafts";
+        }
+        #endregion
+    }
 }

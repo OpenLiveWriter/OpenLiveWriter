@@ -134,6 +134,5 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
         #endregion
 
-
     }
 }

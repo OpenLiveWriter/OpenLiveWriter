@@ -6,57 +6,56 @@ using OpenLiveWriter.ApplicationFramework ;
 
 namespace OpenLiveWriter.PostEditor.Tables.Commands
 {
-	/// <summary>
-	/// Summary description for CommandCopy.
-	/// </summary>
-	public class CommandInsertRowBelow : Command
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+    /// <summary>
+    /// Summary description for CommandCopy.
+    /// </summary>
+    public class CommandInsertRowBelow : Command
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
-		public CommandInsertRowBelow(IContainer container)
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandInsertRowBelow(IContainer container)
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			//
-			//
-		}
+            //
+            //
+            //
+        }
 
-		public CommandInsertRowBelow()
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandInsertRowBelow()
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			//
-			//
-		}
+            //
+            //
+            //
+        }
 
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            //
+            // CommandFont
+            //
+            this.Identifier = "OpenLiveWriter.PostEditor.Tables.Commands.InsertRowBelow";
+            this.MainMenuPath = "T&able@6/Insert Row &Below@205";
+            this.MenuText = "Insert Row &Below" ;
+            this.Text = "Insert Row Below";
 
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			//
-			// CommandFont
-			//
-			this.Identifier = "OpenLiveWriter.PostEditor.Tables.Commands.InsertRowBelow";
-			this.MainMenuPath = "T&able@6/Insert Row &Below@205";
-			this.MenuText = "Insert Row &Below" ;
-			this.Text = "Insert Row Below";
-
-		}
-		#endregion
-	}
+        }
+        #endregion
+    }
 }

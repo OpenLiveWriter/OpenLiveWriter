@@ -223,7 +223,6 @@ namespace OpenLiveWriter.Interop.Com
         void UnlockRequest();
     }
 
-
     /// <summary>
     /// This interface receives the reports and binding data from the asynchronous
     /// pluggable protocol. It is a free-threaded interface and can be called from
@@ -283,7 +282,6 @@ namespace OpenLiveWriter.Interop.Com
             uint dwError,
             [In, MarshalAs(UnmanagedType.LPWStr)] string szStatusText);
     }
-
 
     /// <summary>
     /// This interface is implemented by the system and provides data that the protocol
@@ -417,7 +415,6 @@ namespace OpenLiveWriter.Interop.Com
             [In] uint dwReserved);
     }
 
-
     /// <summary>
     /// Contains state information about the protocol that is transparent to the
     /// transaction handler.
@@ -444,7 +441,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         public uint cbData;
     }
-
 
     /// <summary>
     /// Contains additional information on the requested binding operation. The
@@ -553,7 +549,6 @@ namespace OpenLiveWriter.Interop.Com
         public uint dwReserved;
     }
 
-
     /// <summary>
     /// Contains values that determine the use of URL encoding during the binding
     /// operation.
@@ -572,7 +567,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         URLENCODEDEXTRAINFO = 0x00000002
     };
-
 
     /// <summary>
     /// Contains values that specify an action, such as an HTTP request, to be
@@ -702,7 +696,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         PTR_BIND_CONTEXT
     }
-
 
     /// <summary>
     /// Contains the flags that control the asynchronous pluggable protocol handler.

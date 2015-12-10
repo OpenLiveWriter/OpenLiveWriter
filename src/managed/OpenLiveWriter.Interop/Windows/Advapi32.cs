@@ -24,7 +24,6 @@ namespace OpenLiveWriter.Interop.Windows
             UIntPtr hKey
             );
 
-
         [DllImport("Advapi32.dll", SetLastError = true)]
         public static extern int RegNotifyChangeKeyValue(
             UIntPtr hKey,

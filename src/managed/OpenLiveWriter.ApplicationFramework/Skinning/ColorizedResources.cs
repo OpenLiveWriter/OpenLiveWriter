@@ -222,21 +222,20 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
                 _sidebarLinkColor = SystemInformation.HighContrast ? SystemColors.HotTrack : Color.FromArgb(0, 134, 198);
 
                 /*
-				SwapAndDispose(ref _imgAppVapor,
-					ColorizeBitmap(ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.AppVapor.png")));
+                SwapAndDispose(ref _imgAppVapor,
+                    ColorizeBitmap(ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.AppVapor.png")));
 
-				if (_hbAppVapor != IntPtr.Zero)
-					Gdi32.DeleteObject(_hbAppVapor);
-				_hbAppVapor = _imgAppVapor.GetHbitmap();
+                if (_hbAppVapor != IntPtr.Zero)
+                    Gdi32.DeleteObject(_hbAppVapor);
+                _hbAppVapor = _imgAppVapor.GetHbitmap();
 
+                SwapAndDispose(ref _imgAppVaporFaded,
+                    ColorizeBitmap(ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.AppVaporFaded.png")));
 
-				SwapAndDispose(ref _imgAppVaporFaded,
-					ColorizeBitmap(ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.AppVaporFaded.png")));
-
-				if (_hbAppVaporFaded != IntPtr.Zero)
-					Gdi32.DeleteObject(_hbAppVaporFaded);
-				_hbAppVaporFaded = _imgAppVaporFaded.GetHbitmap();
-				*/
+                if (_hbAppVaporFaded != IntPtr.Zero)
+                    Gdi32.DeleteObject(_hbAppVaporFaded);
+                _hbAppVaporFaded = _imgAppVaporFaded.GetHbitmap();
+                */
             }
         }
 
@@ -466,7 +465,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
             return Colorizer.ColorizeBitmap(bmp, _colorizeColor, _colorizeScale);
         }
 
-
         public delegate void ControlUpdater<TControl>(ColorizedResources cr, TControl c) where TControl : Control;
         public void RegisterControlForUpdates<TControl>(TControl control, ControlUpdater<TControl> updater) where TControl : Control
         {
@@ -523,11 +521,11 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
         {
             // Convert special COL_GrayText value to the system's graytext color.
             /*
-			if (crColorize == COL_GrayText)
-			{
-				crColorize = ::GetSysColor(COLOR_GRAYTEXT);
-			}
-			*/
+            if (crColorize == COL_GrayText)
+            {
+                crColorize = ::GetSysColor(COLOR_GRAYTEXT);
+            }
+            */
 
             // Is the colorize value a flag?
             if (Color.Empty == crColorize)

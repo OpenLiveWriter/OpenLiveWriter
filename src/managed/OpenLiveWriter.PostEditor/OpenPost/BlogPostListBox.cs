@@ -116,7 +116,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
         private bool _showPages = false;
 
-
         public PostInfo SelectedPost
         {
             get

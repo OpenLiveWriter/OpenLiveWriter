@@ -39,7 +39,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         private readonly string _protocolName;
     }
 
-
     public interface IBlogClient
     {
         string ProtocolName { get; }
@@ -182,7 +181,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
 
         private string _id;
         private string _name;
-
 
     }
 }

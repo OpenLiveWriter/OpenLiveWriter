@@ -88,7 +88,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
         #endregion
 
-
         #region Drag and Drop Event Handlers
 
         /// <summary>
@@ -125,7 +124,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // document will be auto-scrolled if required
             CallMshtmlDragEnter(e, false, false);
         }
-
 
         /// <summary>
         /// Handle the DragOver event for the presentation editor
@@ -189,7 +187,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         #endregion
-
 
         #region Delegation of Drag and Drop Events to MSHTML
 
@@ -283,7 +280,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             }
         }
 
-
         /// <summary>
         /// Helper to cal the Mshtml DragDrop routine using .NET DragEventArgs
         /// </summary>
@@ -342,7 +338,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             return oleDataObject ?? emptyDataObject;
         }
 
-
         /// <summary>
         /// Helper to provide drop feedback
         /// </summary>
@@ -357,7 +352,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             else
                 return DragDropEffects.None;
         }
-
 
         /// <summary>
         /// Helper to convert .NET drop-effect into Win32 drop effect
@@ -421,7 +415,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         #endregion
-
 
         #region Implementation of IDropTarget
 

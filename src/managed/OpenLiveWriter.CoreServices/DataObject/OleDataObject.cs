@@ -213,7 +213,6 @@ namespace OpenLiveWriter.CoreServices
                 return null;
         }
 
-
         /// <summary>
         /// Converter helper function to extract a field from an object
         /// This code Asserts the ReflectionPermission so that it can reflect over

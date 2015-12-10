@@ -133,7 +133,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 new XmlRpcBoolean(publish));
         }
 
-
         protected const string APP_KEY = "0123456789ABCDEF";
     }
 }

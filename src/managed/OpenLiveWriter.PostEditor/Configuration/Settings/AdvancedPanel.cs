@@ -116,7 +116,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             string userOverride = (string)TemporaryBlogSettings.UserOptionOverrides[BlogClientOptions.CHARACTER_SET];
             string homepageOverride = (string)TemporaryBlogSettings.HomePageOverrides[BlogClientOptions.CHARACTER_SET];
 
-
             if (!String.IsNullOrEmpty(blogOverride))
                 defaultEncoding = String.Format(CultureInfo.CurrentCulture, defaultEncoding, blogOverride);
             else if (!String.IsNullOrEmpty(homepageOverride))
@@ -224,7 +223,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             optionOverride = TemporaryBlogSettings.OptionOverrides.Contains(BlogClientOptions.REQUIRES_XHTML)
                                 ? StringHelper.ToBool(TemporaryBlogSettings.OptionOverrides[BlogClientOptions.REQUIRES_XHTML].ToString(), optionOverride)
                                 : optionOverride;
-
 
             int currentOption = 0; // default: unspecified, use OptionOverride
             if (TemporaryBlogSettings.UserOptionOverrides.Contains(BlogClientOptions.REQUIRES_XHTML))

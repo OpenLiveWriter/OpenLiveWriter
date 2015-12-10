@@ -7,69 +7,69 @@ using OpenLiveWriter.Controls;
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 {
 
-	public class UnknownLoginErrrorDisplayMessage : DisplayMessage
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+    public class UnknownLoginErrrorDisplayMessage : DisplayMessage
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
-		public UnknownLoginErrrorDisplayMessage(IContainer container)
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			container.Add(this);
-			InitializeComponent();
+        public UnknownLoginErrrorDisplayMessage(IContainer container)
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            container.Add(this);
+            InitializeComponent();
 
-			InitMessage();
-		}
+            InitMessage();
+        }
 
-		public UnknownLoginErrrorDisplayMessage()
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public UnknownLoginErrrorDisplayMessage()
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			InitMessage();
-		}
+            InitMessage();
+        }
 
-		private void InitMessage()
-		{
-			Text =
-				"An unexpected error occurred while trying to login to the remote server.\r\n\r\nIf you have a proxy or firewall configured, please make sure your system\r\nis properly configured to allow this program to connect to the remote\r\nserver.";
-		}
+        private void InitMessage()
+        {
+            Text =
+                "An unexpected error occurred while trying to login to the remote server.\r\n\r\nIf you have a proxy or firewall configured, please make sure your system\r\nis properly configured to allow this program to connect to the remote\r\nserver.";
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose( bool disposing )
+        {
+            if( disposing )
+            {
+                if(components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose( disposing );
+        }
 
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			//
-			// UnknownLoginErrrorDisplayMessage
-			//
-			this.Text = "";
-			this.Title = "Login Failed";
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            //
+            // UnknownLoginErrrorDisplayMessage
+            //
+            this.Text = "";
+            this.Title = "Login Failed";
 
-		}
-		#endregion
-	}
+        }
+        #endregion
+    }
 }

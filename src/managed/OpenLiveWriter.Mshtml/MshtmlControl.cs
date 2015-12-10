@@ -164,7 +164,6 @@ namespace OpenLiveWriter.Mshtml
             _editMode = editMode;
         }
 
-
         /// <summary>
         /// Load the contents of the Mshtml control from a URL
         /// </summary>
@@ -302,7 +301,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
         bool _editMode = false;
-
 
         /// <summary>
         /// Get or set the HTML text contents of the control
@@ -582,9 +580,7 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region Command Execution
-
 
         /// <summary>
         /// Execute an MSHTML command
@@ -625,9 +621,7 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         #endregion
-
 
         #region Helpers for Initialization and Release of MSHTML
 
@@ -1176,7 +1170,6 @@ namespace OpenLiveWriter.Mshtml
             ComHelper.Return(HRESULT.E_NOTIMPL);
         }
 
-
         /// <summary>
         /// Sets and displays status text about the in-place object in the container's
         /// frame window status line.
@@ -1541,7 +1534,6 @@ namespace OpenLiveWriter.Mshtml
             }
 
         }
-
 
         /// <summary>
         /// Handle OnGotFocus so that when the parent UserControl receives

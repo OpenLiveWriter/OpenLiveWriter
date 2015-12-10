@@ -207,12 +207,10 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         private void linkLabelOptional_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LaunchUrl(_secondUrl);
         }
-
 
     }
 }

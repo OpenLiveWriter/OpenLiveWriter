@@ -955,7 +955,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                                 ShowError(MessageId.BloggerError, TranslateError(error));
                             }
 
-
                         }
                         throw new BlogClientAuthenticationException(error, TranslateError(error));
                     }

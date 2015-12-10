@@ -28,7 +28,6 @@ namespace OpenLiveWriter.FileDestinations
 
         #region Destination Settings Management
 
-
         public bool HasProfile(string key)
         {
             if (key == string.Empty)
@@ -154,7 +153,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         /// <summary>
         /// Returns the registry subtree for a specified profile.
         /// </summary>
@@ -168,7 +166,6 @@ namespace OpenLiveWriter.FileDestinations
         }
 
         #endregion
-
 
         #region Class Configuration (location of settings, etc)
 
@@ -187,7 +184,6 @@ namespace OpenLiveWriter.FileDestinations
         private string _destinationKey;
 
         #endregion
-
 
         #region Constants
 

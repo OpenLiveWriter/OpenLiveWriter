@@ -308,7 +308,6 @@ namespace OpenLiveWriter.ApplicationFramework
             MenuItems.AddRange(commandMenuBuilder.CreateMenuItems());
         }
 
-
         /// <summary>
         /// Displays the CommandContextMenu at the specified location and returns the command that
         /// was selected by the user.

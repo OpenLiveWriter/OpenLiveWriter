@@ -113,7 +113,6 @@ namespace OpenLiveWriter.Interop.Com
         public Int32 crBkgnd;
     };
 
-
     /// <summary>
     /// Mask which determines which DESKBANDINFO fields are being requested
     /// </summary>
@@ -182,7 +181,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         TRANSPARENT = 0x0004
     }
-
 
     /// <summary>
     /// Mode of operation for a band object

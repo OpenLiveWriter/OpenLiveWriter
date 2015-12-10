@@ -1585,14 +1585,14 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Raises the DragEnter event.
-		/// </summary>
-		/// <param name="e">A DragEventArgs that contains the event data.</param>
-		internal void RaiseDragEnter(DragEventArgs e)
-		{
-			OnDragEnter(e);
-		}
+        /// <summary>
+        /// Raises the DragEnter event.
+        /// </summary>
+        /// <param name="e">A DragEventArgs that contains the event data.</param>
+        internal void RaiseDragEnter(DragEventArgs e)
+        {
+            OnDragEnter(e);
+        }
 #endif
 
         /// <summary>
@@ -1605,14 +1605,14 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Raises the DragLeave event.
-		/// </summary>
-		/// <param name="e">An EventArgs that contains the event data.</param>
-		internal void RaiseDragLeave(EventArgs e)
-		{
-			OnDragLeave(e);
-		}
+        /// <summary>
+        /// Raises the DragLeave event.
+        /// </summary>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        internal void RaiseDragLeave(EventArgs e)
+        {
+            OnDragLeave(e);
+        }
 #endif
 
         /// <summary>
@@ -1851,14 +1851,14 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Raises the DragEnter event.
-		/// </summary>
-		/// <param name="e">A DragEventArgs that contains the event data.</param>
-		protected virtual void OnDragEnter(DragEventArgs e)
-		{
-			RaiseEvent(DragEnterEventKey, e);
-		}
+        /// <summary>
+        /// Raises the DragEnter event.
+        /// </summary>
+        /// <param name="e">A DragEventArgs that contains the event data.</param>
+        protected virtual void OnDragEnter(DragEventArgs e)
+        {
+            RaiseEvent(DragEnterEventKey, e);
+        }
 #endif
 
         /// <summary>
@@ -1871,14 +1871,14 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Raises the DragLeave event.
-		/// </summary>
-		/// <param name="e">An EventArgs that contains the event data.</param>
-		protected virtual void OnDragLeave(EventArgs e)
-		{
-			RaiseEvent(DragLeaveEventKey, e);
-		}
+        /// <summary>
+        /// Raises the DragLeave event.
+        /// </summary>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        protected virtual void OnDragLeave(EventArgs e)
+        {
+            RaiseEvent(DragLeaveEventKey, e);
+        }
 #endif
 
         /// <summary>
@@ -2064,8 +2064,8 @@ namespace OpenLiveWriter.Controls
                     //	causes anything applied to the lightweight control's virtual client
                     //	rectangle to be mapped to the lightweight control's on-screen bounds.
                     GraphicsContainer graphicsContainer = e.Graphics.BeginContainer(/*lightweightControl.VirtualBounds,
-																					lightweightControlVirtualClientRectangle,
-																					GraphicsUnit.Pixel*/);
+                                                                                    lightweightControlVirtualClientRectangle,
+                                                                                    GraphicsUnit.Pixel*/);
                     e.Graphics.TranslateTransform(lightweightControl.VirtualBounds.Location.X, lightweightControl.VirtualBounds.Location.Y);
 
                     //	Clip the graphics context to prevent the lightweight control from drawing
@@ -2364,12 +2364,12 @@ namespace OpenLiveWriter.Controls
                 get
                 {
                     /*ILightweightControlContainerControl parent = _control.lightweightControlContainerControl;
-					if(parent is Control)
-						return ((Control) parent).AccessibilityObject;
-					else if(parent is LightweightControl)
-						return ((LightweightControl) parent).AccessibilityObject;
-					else
-						return null;*/
+                    if(parent is Control)
+                        return ((Control) parent).AccessibilityObject;
+                    else if(parent is LightweightControl)
+                        return ((LightweightControl) parent).AccessibilityObject;
+                    else
+                        return null;*/
 
                     Control parent = _control.Parent;
                     if (parent != null)

@@ -267,7 +267,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private LightWeightHTMLDocument _lightweightHTMLDocument = null;
 
-
         /// <summary>
         ///
         /// </summary>

@@ -6,57 +6,56 @@ using OpenLiveWriter.ApplicationFramework;
 
 namespace OpenLiveWriter.PostEditor.Commands
 {
-	/// <summary>
-	/// Summary description for CommandClose.
-	/// </summary>
-	public class CommandDeleteDraft : Command
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+    /// <summary>
+    /// Summary description for CommandClose.
+    /// </summary>
+    public class CommandDeleteDraft : Command
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
-		public CommandDeleteDraft(IContainer container)
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandDeleteDraft(IContainer container)
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			//
-			//
-		}
+            //
+            //
+            //
+        }
 
-		public CommandDeleteDraft()
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandDeleteDraft()
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			//
-			//
-		}
+            //
+            //
+            //
+        }
 
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            //
+            // CommandSavePost
+            //
+            this.CommandBarButtonText = "Delete Draft";
+            this.Identifier = "OpenLiveWriter.PostEditor.DeleteDraft";
+            this.MainMenuPath = "&File@0/-Dele&te Draft...@40";
+            this.Text = "Delete Local Draft";
 
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			//
-			// CommandSavePost
-			//
-			this.CommandBarButtonText = "Delete Draft";
-			this.Identifier = "OpenLiveWriter.PostEditor.DeleteDraft";
-			this.MainMenuPath = "&File@0/-Dele&te Draft...@40";
-			this.Text = "Delete Local Draft";
-
-		}
-		#endregion
-	}
+        }
+        #endregion
+    }
 }

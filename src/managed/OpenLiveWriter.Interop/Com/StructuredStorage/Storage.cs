@@ -394,13 +394,13 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         }
 
 #if FALSE
-		/// <summary>
-		/// Storage finalizer
-		/// </summary>
-		~Storage()
-		{
-			//Debug.Assert(storage == null, "Object not disposed properly - Use Close or Dispose!");
-		}
+        /// <summary>
+        /// Storage finalizer
+        /// </summary>
+        ~Storage()
+        {
+            //Debug.Assert(storage == null, "Object not disposed properly - Use Close or Dispose!");
+        }
 #endif
 
         /// <summary>
@@ -674,7 +674,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             }
         }
 
-
         /// <summary>
         /// The storage's IStorage
         /// </summary>
@@ -779,10 +778,8 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             return true;
         }
 
-
         private IStorage storage;
     }
-
 
     /// <summary>
     /// The IStorageOpener for compound files
@@ -898,7 +895,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             return true;
         }
     }
-
 
     /// <summary>
     /// The StorageModes used when getting Storage and streams.

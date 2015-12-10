@@ -25,8 +25,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// </summary>
         private Container components = null;
         /*
-		private Size offsetFromOwner;
-		*/
+        private Size offsetFromOwner;
+        */
 
         public ImageDecoratorEditorForm()
         {
@@ -49,9 +49,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 }
 
                 /*
-				(this.Owner as MainFrameSatelliteWindow).LocationFixed -=new EventHandler(Owner_LocationChanged);
-				(this.Owner as MainFrameSatelliteWindow).CloseFixed -=new EventHandler(Owner_Closed);
-				*/
+                (this.Owner as MainFrameSatelliteWindow).LocationFixed -=new EventHandler(Owner_LocationChanged);
+                (this.Owner as MainFrameSatelliteWindow).CloseFixed -=new EventHandler(Owner_Closed);
+                */
             }
             base.Dispose(disposing);
         }
@@ -132,61 +132,60 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /*
-		public void SetOwner(Form owner)
-		{
-			this.Owner = owner;
-			this.Location = new Point(owner.Location.X + 100, owner.Location.Y + 100);
-			(owner as MainFrameSatelliteWindow).LocationFixed +=new EventHandler(Owner_LocationChanged);
-			(owner as MainFrameSatelliteWindow).CloseFixed +=new EventHandler(Owner_Closed);
-		}
+        public void SetOwner(Form owner)
+        {
+            this.Owner = owner;
+            this.Location = new Point(owner.Location.X + 100, owner.Location.Y + 100);
+            (owner as MainFrameSatelliteWindow).LocationFixed +=new EventHandler(Owner_LocationChanged);
+            (owner as MainFrameSatelliteWindow).CloseFixed +=new EventHandler(Owner_Closed);
+        }
 
+        protected override void OnLocationChanged(EventArgs e)
+        {
+            // update frame offset
+            Point frameTopRight = GetFrameTopRight() ;
+            offsetFromOwner = new Size(Left - frameTopRight.X, Top - frameTopRight.Y );
+        }
 
-		protected override void OnLocationChanged(EventArgs e)
-		{
-			// update frame offset
-			Point frameTopRight = GetFrameTopRight() ;
-			offsetFromOwner = new Size(Left - frameTopRight.X, Top - frameTopRight.Y );
-		}
+        private Point GetFrameTopRight()
+        {
+            Point frameTopRight = this.Owner.Location ;
+            frameTopRight.Offset(this.Owner.Size.Width,0) ;
+            return frameTopRight ;
+        }
 
-		private Point GetFrameTopRight()
-		{
-			Point frameTopRight = this.Owner.Location ;
-			frameTopRight.Offset(this.Owner.Size.Width,0) ;
-			return frameTopRight ;
-		}
+        private void Owner_Closed(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-		private void Owner_Closed(object sender, EventArgs e)
-		{
-			this.Close();
-		}
+        private void Owner_LocationChanged(object sender, EventArgs e)
+        {
+            Point location = GetFrameTopRight() ;
+            Size frameOffset = offsetFromOwner ;
+            location.Offset(frameOffset.Width, frameOffset.Height);
 
-		private void Owner_LocationChanged(object sender, EventArgs e)
-		{
-			Point location = GetFrameTopRight() ;
-			Size frameOffset = offsetFromOwner ;
-			location.Offset(frameOffset.Width, frameOffset.Height);
+            Location = EnsureOnScreen(location) ;
+        }
 
-			Location = EnsureOnScreen(location) ;
-		}
+        private Point EnsureOnScreen(Point location)
+        {
+            int left = 0;
+            int right = 0;
+            foreach (Screen currentScreen in Screen.AllScreens)
+            {
+                Rectangle currentScreenBounds = currentScreen.Bounds;
+                left = Math.Min(left, currentScreenBounds.Left);
+                right = Math.Max(right, currentScreenBounds.Right);
+            }
 
-		private Point EnsureOnScreen(Point location)
-		{
-			int left = 0;
-			int right = 0;
-			foreach (Screen currentScreen in Screen.AllScreens)
-			{
-				Rectangle currentScreenBounds = currentScreen.Bounds;
-				left = Math.Min(left, currentScreenBounds.Left);
-				right = Math.Max(right, currentScreenBounds.Right);
-			}
+            if (location.X > right)
+                location.X = right - Width;
+            else if (location.X < left)
+                location.X = left;
 
-			if (location.X > right)
-				location.X = right - Width;
-			else if (location.X < left)
-				location.X = left;
-
-			return location;
-		}
-		*/
+            return location;
+        }
+        */
     }
 }

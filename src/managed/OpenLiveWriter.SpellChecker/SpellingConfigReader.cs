@@ -14,39 +14,38 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.SpellChecker
 {
-	internal class SpellingConfigReader
-	{
-		private static readonly SpellingLanguageEntry[] languages;
-		private static readonly SpellingCheckerLanguage defaultLanguage;
+    internal class SpellingConfigReader
+    {
+        private static readonly SpellingLanguageEntry[] languages;
+        private static readonly SpellingCheckerLanguage defaultLanguage;
 
-		public static SpellingLanguageEntry[] Languages
-		{
-			get { return languages; }
-		}
+        public static SpellingLanguageEntry[] Languages
+        {
+            get { return languages; }
+        }
 
-		public static SpellingCheckerLanguage DefaultLanguage
-		{
-			get { return defaultLanguage; }
-		}
+        public static SpellingCheckerLanguage DefaultLanguage
+        {
+            get { return defaultLanguage; }
+        }
 
 
-
-		static SpellingConfigReader()
-		{
+        static SpellingConfigReader()
+        {
             // TODO:OLW
-			if (languages == null)
-			{
-				languages = new SpellingLanguageEntry[]
-					{
-						CreateNullDictionaryLanguage()
-					};
-			}
-			defaultLanguage = SpellingCheckerLanguage.None;
-		}
+            if (languages == null)
+            {
+                languages = new SpellingLanguageEntry[]
+                    {
+                        CreateNullDictionaryLanguage()
+                    };
+            }
+            defaultLanguage = SpellingCheckerLanguage.None;
+        }
 
-		private static SpellingLanguageEntry CreateNullDictionaryLanguage()
-		{
-			return new SpellingLanguageEntry(SpellingCheckerLanguage.None, 0xFFFF, null, new string[0], "", Res.Get(StringId.DictionaryLanguageNone));
-		}
-	}
+        private static SpellingLanguageEntry CreateNullDictionaryLanguage()
+        {
+            return new SpellingLanguageEntry(SpellingCheckerLanguage.None, 0xFFFF, null, new string[0], "", Res.Get(StringId.DictionaryLanguageNone));
+        }
+    }
 }

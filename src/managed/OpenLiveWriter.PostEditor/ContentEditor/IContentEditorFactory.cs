@@ -130,7 +130,6 @@ namespace OpenLiveWriter.PostEditor
         PlainText = 8
     }
 
-
     [Flags]
     [Guid("ac667254-1b9d-4db8-83da-b026c730eff2")]
     [ComVisible(true)]

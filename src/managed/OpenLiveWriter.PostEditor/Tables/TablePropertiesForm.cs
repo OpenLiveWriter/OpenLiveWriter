@@ -170,7 +170,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
 
-
         private void InitializeFormProperties(TableProperties properties)
         {
             BorderSize = properties.BorderSize;
@@ -218,7 +217,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 ManageUIState();
             }
         }
-
 
         private void buttonOK_Click(object sender, System.EventArgs e)
         {
@@ -298,7 +296,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             // got this far, we are ok
             return true;
         }
-
 
         private bool ValidateTextBoxInteger(string name, TextBox textBox, int maxValue)
         {
@@ -397,7 +394,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             TableEditingSettings.DefaultBorderSize = parameters.Properties.BorderSize;
             TableEditingSettings.DefaultWidth = parameters.Properties.Width;
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -660,7 +656,6 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         }
         #endregion
-
 
 
     }

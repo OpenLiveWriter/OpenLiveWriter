@@ -203,6 +203,5 @@ namespace OpenLiveWriter.PostEditor
         }
         #endregion
 
-
     }
 }

@@ -40,7 +40,6 @@ namespace OpenLiveWriter.BlogClient
         private ISynchronizeInvoke _invokeTarget;
     }
 
-
     /// <summary>
     /// Class used to install and remove (on dispose) the UI context for the currently
     /// running thread. To enforce the idiom of install/remove this is the ONLY
@@ -86,7 +85,6 @@ namespace OpenLiveWriter.BlogClient
 
         private bool _previousSilentMode;
     }
-
 
 
     /// <summary>

@@ -51,7 +51,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             UpdateAppearance();
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>

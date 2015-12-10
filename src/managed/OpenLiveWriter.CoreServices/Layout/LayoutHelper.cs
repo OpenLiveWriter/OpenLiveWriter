@@ -50,7 +50,7 @@ namespace OpenLiveWriter.CoreServices.Layout
         /// <summary>
         /// Naturalizes height, then distributes vertically ACCORDING TO THE ORDER YOU PASSED THEM IN
         /// </summary>
-	    public static void NaturalizeHeightAndDistribute(int pixelsBetween, params object[] controls)
+        public static void NaturalizeHeightAndDistribute(int pixelsBetween, params object[] controls)
         {
             NaturalizeHeight(controls);
             DistributeVertically(pixelsBetween, false, controls);

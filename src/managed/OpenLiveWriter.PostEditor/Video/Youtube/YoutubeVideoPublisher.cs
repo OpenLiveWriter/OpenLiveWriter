@@ -202,7 +202,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             get { throw new Exception("The method or operation is not implemented."); }
         }
 
-
         public void Dispose()
         {
 
@@ -328,7 +327,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             {
                 _stream = null;
             }
-
 
             string result;
             using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())

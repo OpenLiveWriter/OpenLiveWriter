@@ -177,7 +177,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         }
         #endregion
 
-
         #region IBlogPostEditingSitePreferences Members
 
         public IBlogPostEditingSite EditingSite

@@ -32,7 +32,6 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         string Title { get; }
 
-
         /// <summary>
         /// StatusText (normally displayed in status bar). You should retreive/update
         /// this value whenever the StatusTextChanged event is fired.
@@ -94,14 +93,12 @@ namespace OpenLiveWriter.BrowserControl
         /// <param name="url">URL to navigate to</param>
         void Navigate(string url);
 
-
         /// <summary>
         /// Navigate to the specified URL using the specified options
         /// </summary>
         /// <param name="url">url to navigate to</param>
         /// <param name="newWindow">navigate using new top level window</param>
         void Navigate(string url, bool newWindow);
-
 
         /// <summary>
         /// Determine if a command is enabled
@@ -110,13 +107,11 @@ namespace OpenLiveWriter.BrowserControl
         /// <returns>true if the command is enabled, otherwise false</returns>
         bool IsEnabled(BrowserCommand command);
 
-
         /// <summary>
         /// Execute a command
         /// </summary>
         /// <param name="command">unique ID of command</param>
         void Execute(BrowserCommand command);
-
 
         /// <summary>
         /// Force refresh of the state of the browser commands
@@ -217,7 +212,6 @@ namespace OpenLiveWriter.BrowserControl
         Larger = 3,
         Largest = 4
     }
-
 
     /// <summary>
     /// Event arguments for events that communicate state about browser documents

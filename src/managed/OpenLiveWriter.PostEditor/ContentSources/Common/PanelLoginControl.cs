@@ -166,7 +166,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 LayoutHelper.NaturalizeHeightAndDistribute(15, ckBoxSavePassword, btnLogin);
             }
 
-
             if (BidiHelper.IsRightToLeft)
             {
                 btnLogin.Left = txtPassword.Left;
@@ -441,7 +440,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
             Refresh();
         }
-
 
         private void Login()
         {

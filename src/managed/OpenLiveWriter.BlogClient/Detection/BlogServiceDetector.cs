@@ -576,9 +576,9 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
 
         /*private string DiscoverPostApiUrl(string baseUrl, string blogPath)
-		{
+        {
 
-		}*/
+        }*/
 
         /// <summary>
         /// Verifies the user credentials and determines whether SharePoint is configure to use HTTP or MetaWeblog authentication

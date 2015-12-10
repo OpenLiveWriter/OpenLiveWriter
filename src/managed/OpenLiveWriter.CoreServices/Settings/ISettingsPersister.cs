@@ -71,8 +71,7 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// </example>
         /// <returns>An IDisposable that should be disposed when
         /// the batch operation completes, OR NULL.</returns>
-	    IDisposable BatchUpdate();
-
+        IDisposable BatchUpdate();
 
         /// <summary>
         /// Determine whether the specified sub-settings exists

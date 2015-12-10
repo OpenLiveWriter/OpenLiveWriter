@@ -6,8 +6,8 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.Api
 {
-	public interface ILiveClipboardOptionsEditor
-	{
-		void EditLiveClipboardOptions(IWin32Window dialogOwner) ;
-	}
+    public interface ILiveClipboardOptionsEditor
+    {
+        void EditLiveClipboardOptions(IWin32Window dialogOwner) ;
+    }
 }

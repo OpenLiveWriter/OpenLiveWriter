@@ -14,7 +14,6 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using mshtml;
 
-
 namespace OpenLiveWriter.BlogClient.Detection
 {
 
@@ -210,7 +209,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             // couldn't find one
             return String.Empty;
         }
-
 
         public WriterEditingManifestDownloadInfo DownloadInfo
         {
@@ -472,7 +470,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
             return imageBytes;
         }
-
 
         private Bitmap DownloadImage(string imageUrl, string basePath)
         {

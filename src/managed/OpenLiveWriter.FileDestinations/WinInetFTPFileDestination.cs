@@ -51,7 +51,6 @@ namespace OpenLiveWriter.FileDestinations
         {
         }
 
-
         /// <summary>
         /// FTP Destination constructor, specify FTP port.
         /// </summary>
@@ -72,7 +71,6 @@ namespace OpenLiveWriter.FileDestinations
             m_ftpAddress = ftpAddress;
             m_ftpPort = ftpPort;
         }
-
 
         /// <summary>
         /// FTP Destination constructor, specify FTP port.
@@ -498,7 +496,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         /// <summary>
         /// Disconnect from the FTP Server
         /// </summary>
@@ -588,7 +585,6 @@ namespace OpenLiveWriter.FileDestinations
                 ThrowDestinationException(Marshal.GetLastWin32Error());
             }
         }
-
 
         /// <summary>
         /// Throws the correct Site Destination exception for a given WinInet Error Code.

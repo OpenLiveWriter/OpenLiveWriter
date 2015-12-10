@@ -415,7 +415,6 @@ namespace OpenLiveWriter.PostEditor
             CommandManager.Add(commandInsertFile);
 #endif
 
-
             CommandManager.Add(new CommandRecentPost());
             CommandManager.Add(CommandId.WordCount, new EventHandler(WordCount_Execute));
             if (ApplicationDiagnostics.TestMode)
@@ -955,7 +954,6 @@ namespace OpenLiveWriter.PostEditor
         private void _currentEditor_EditableRegionFocusChanged(object sender, EventArgs e)
         {
             FixCommands((e as EditableRegionFocusChangedEventArgs).IsFullyEditable);
-
 
             Debug.Assert(_textEditingCommandDispatcher != null, "ContentEditor was not setup correctly, an editor got focus before command were created.");
 
@@ -1586,7 +1584,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public void InsertLink(string url, string linkText, string linkTitle, string rel, bool newWindow)
         {
             _currentEditor.InsertLink(url, linkText, linkTitle, rel, newWindow);
@@ -2194,7 +2191,6 @@ namespace OpenLiveWriter.PostEditor
                     _insertImageDialogWin7.InitialDirectory = null;
                 }
 
-
                 // Check to see if the user actually selected anything
                 if (imageFiles != null && imageFiles.Length > 0)
                 {
@@ -2284,7 +2280,6 @@ namespace OpenLiveWriter.PostEditor
             ShellHelper.LaunchUrl(GLink.Instance.DownloadPlugins);
         }
 
-
         private void _normalHtmlContentEditor_HelpRequest(object sender, EventArgs e)
         {
             // execute the system help command
@@ -2354,7 +2349,6 @@ namespace OpenLiveWriter.PostEditor
             if (FixCommandEvent != null)
                 FixCommandEvent(fullyEditableActive);
         }
-
 
         public bool FullyEditableRegionActive
         {
@@ -2897,12 +2891,10 @@ namespace OpenLiveWriter.PostEditor
         private Panel _editorContainer;
         private bool _focusedRegionSupportsFormattingCommands;
 
-
         private IContainer components = new Container();
         private Timer wordCountTimer;
 
         private RefreshableContentManager _refreshSmartContentManager;
-
 
         private BlogEditingTemplate GetSurroundingContent()
         {
@@ -3206,7 +3198,6 @@ namespace OpenLiveWriter.PostEditor
                 Trace.WriteLine("Failed to detect alignment: " + ex);
                 element = null;
             }
-
 
             // If we found an image or smart content, try to get the alignment off of it
             if (element != null)

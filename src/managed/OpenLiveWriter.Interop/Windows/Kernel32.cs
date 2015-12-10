@@ -67,7 +67,6 @@ namespace OpenLiveWriter.Interop.Windows
             int dwMaximumWorkingSetSize
             );
 
-
         [DllImport("kernel32.dll")]
         public static extern bool Beep(int frequency, int duration);
 
@@ -205,7 +204,6 @@ namespace OpenLiveWriter.Interop.Windows
             uint dwReplaceFlags,
             IntPtr lpExclude,
             IntPtr lpReserved);
-
 
         /// <summary>
         /// Get an error code for the last error on this thread.

@@ -581,16 +581,16 @@ namespace OpenLiveWriter.CoreServices
                     }
 
                     /*
-				    ColorPalette p = bitmap.Palette;
-					bool seenTransparent = false;
-					foreach (Color c in p.Entries)
-					{
-						if (c.A == 0)
-						{
-							Trace.Assert(!seenTransparent);
-							seenTransparent = true;
-						}
-					}
+                    ColorPalette p = bitmap.Palette;
+                    bool seenTransparent = false;
+                    foreach (Color c in p.Entries)
+                    {
+                        if (c.A == 0)
+                        {
+                            Trace.Assert(!seenTransparent);
+                            seenTransparent = true;
+                        }
+                    }
                     */
                 }
 

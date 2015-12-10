@@ -27,7 +27,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         /// </summary>
         private System.ComponentModel.Container components = null;
 
-
         public UrlContentRetreivalWithProgressDialog(ContentSourceInfo contentSourceInfo)
         {
             //
@@ -87,7 +86,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         {
             Close();
         }
-
 
         protected override void OnActivated(EventArgs e)
         {

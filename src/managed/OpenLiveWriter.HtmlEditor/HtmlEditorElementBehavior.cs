@@ -39,7 +39,6 @@ namespace OpenLiveWriter.HtmlEditor
             UpdateSelectionState();
         }
 
-
         public bool Selected
         {
             get

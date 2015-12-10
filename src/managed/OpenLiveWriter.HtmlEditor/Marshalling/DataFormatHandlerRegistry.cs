@@ -78,13 +78,13 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /*public void Register( Type dataFormatHandlerType, DataObjectFilter filter )
-		{
-			// register the data format handler
-			lock(dataFormatHandlerFactories)
-			{
-				dataFormatHandlerFactories.Add(new DataObjectFilterFormatFactory(filter, dataFormatHandlerType));
-			}
-		}*/
+        {
+            // register the data format handler
+            lock(dataFormatHandlerFactories)
+            {
+                dataFormatHandlerFactories.Add(new DataObjectFilterFormatFactory(filter, dataFormatHandlerType));
+            }
+        }*/
 
         public void Register(params IDataFormatHandlerFactory[] dataFormatFactories)
         {

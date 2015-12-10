@@ -89,7 +89,6 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         }
 
-
         private IBlogClientUIContext _uiContext;
 
         public BlogEditingTemplateDetector(IBlogClientUIContext uiContext, Control parentControl, IBlogSettingsAccessor blogSettings, bool probeForManifest)
@@ -671,7 +670,6 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
 
         BlogEditingTemplateStrategy templateStrategy = BlogEditingTemplateStrategies.GetTemplateStrategy(BlogEditingTemplateStrategies.StrategyType.FramedWysiwyg);
-
 
         // execution context
         private Control _parentControl;

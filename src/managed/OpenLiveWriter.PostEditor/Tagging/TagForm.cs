@@ -153,6 +153,5 @@ namespace OpenLiveWriter.PostEditor.Tagging
             DialogResult = DialogResult.Cancel;
         }
 
-
     }
 }

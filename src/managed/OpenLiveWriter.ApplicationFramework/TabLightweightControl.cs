@@ -1154,7 +1154,6 @@ namespace OpenLiveWriter.ApplicationFramework
 
         #endregion Private Methods & Properties
 
-
         #region Accessibility
         protected override void AddAccessibleControlsToList(ArrayList list)
         {

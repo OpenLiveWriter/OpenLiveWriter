@@ -184,7 +184,6 @@ namespace OpenLiveWriter.PostEditor
             Location = new Point(parentBounds.Left + ((parentBounds.Width - Width) / 2), parentBounds.Top + (int)(1.5 * Height));
         }
 
-
         private string FormatFormCaption(string entityName, bool publish)
         {
             return String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.UpdateWeblogPublish1), publish ? entityName : Res.Get(StringId.UpdateWeblogDraft));
@@ -260,7 +259,6 @@ namespace OpenLiveWriter.PostEditor
                 progressAnimatedBitmap.Start();
         }
 
-
         private void checkBoxViewPost_CheckedChanged(object sender, EventArgs e)
         {
             PostEditorSettings.ViewPostAfterPublish = checkBoxViewPost.Checked;
@@ -286,7 +284,6 @@ namespace OpenLiveWriter.PostEditor
         private Bitmap[] _animationBitmaps;
 
         private Bitmap bottomBevelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PublishAnimation.BottomBevel.png");
-
 
         /// <summary>
         /// Clean up any resources being used.

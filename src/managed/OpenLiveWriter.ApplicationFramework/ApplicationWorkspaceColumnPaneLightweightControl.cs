@@ -12,118 +12,118 @@ using Project31.Controls;
 
 namespace Project31.ApplicationFramework
 {
-	/// <summary>
-	/// ApplicationWorkspaceColumnPaneLightweightControl.  Internal helper class used by
-	/// ApplicationWorkspaceColumnLightweightControl.
-	/// </summary>
-	internal class ApplicationWorkspaceColumnPaneLightweightControl : LightweightControl
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// ApplicationWorkspaceColumnPaneLightweightControl.  Internal helper class used by
+    /// ApplicationWorkspaceColumnLightweightControl.
+    /// </summary>
+    internal class ApplicationWorkspaceColumnPaneLightweightControl : LightweightControl
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		/// <summary>
-		/// The control.
-		/// </summary>
-		private Control control;
+        /// <summary>
+        /// The control.
+        /// </summary>
+        private Control control;
 
-		/// <summary>
-		/// Gets or sets the control.
-		/// </summary>
-		public Control Control
-		{
-			get
-			{
-				return control;
-			}
-			set
-			{
-				if (control != value)
-				{
-					if (control != null)
-						control.Parent = null;
+        /// <summary>
+        /// Gets or sets the control.
+        /// </summary>
+        public Control Control
+        {
+            get
+            {
+                return control;
+            }
+            set
+            {
+                if (control != value)
+                {
+                    if (control != null)
+                        control.Parent = null;
 
-					control = value;
+                    control = value;
 
-					PerformLayout();
-					Invalidate();
-				}
-			}
-		}
+                    PerformLayout();
+                    Invalidate();
+                }
+            }
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the DummyPaneLightweightControl class.
-		/// </summary>
-		/// <param name="container"></param>
-		public ApplicationWorkspaceColumnPaneLightweightControl(System.ComponentModel.IContainer container)
-		{
-			/// <summary>
-			/// Required for Windows.Forms Class Composition Designer support
-			/// </summary>
-			container.Add(this);
-			InitializeComponent();
-		}
+        /// <summary>
+        /// Initializes a new instance of the DummyPaneLightweightControl class.
+        /// </summary>
+        /// <param name="container"></param>
+        public ApplicationWorkspaceColumnPaneLightweightControl(System.ComponentModel.IContainer container)
+        {
+            /// <summary>
+            /// Required for Windows.Forms Class Composition Designer support
+            /// </summary>
+            container.Add(this);
+            InitializeComponent();
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the DummyPaneLightweightControl class.
-		/// </summary>
-		public ApplicationWorkspaceColumnPaneLightweightControl()
-		{
-			/// <summary>
-			/// Required for Windows.Forms Class Composition Designer support
-			/// </summary>
-			InitializeComponent();
-		}
+        /// <summary>
+        /// Initializes a new instance of the DummyPaneLightweightControl class.
+        /// </summary>
+        public ApplicationWorkspaceColumnPaneLightweightControl()
+        {
+            /// <summary>
+            /// Required for Windows.Forms Class Composition Designer support
+            /// </summary>
+            InitializeComponent();
+        }
 
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-			//
-			// ApplicationWorkspaceColumnPaneLightweightControl
-			//
-			this.Visible = false;
-			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            //
+            // ApplicationWorkspaceColumnPaneLightweightControl
+            //
+            this.Visible = false;
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		protected override void OnLayout(EventArgs e)
-		{
-			//	Call the base class's method so that registered delegates receive the event.
-			base.OnLayout(e);
+        protected override void OnLayout(EventArgs e)
+        {
+            //	Call the base class's method so that registered delegates receive the event.
+            base.OnLayout(e);
 
-			//	Layout the control.
-			if (control != null)
-			{
-				//
-				if (control.Parent != Parent)
-					control.Parent = Parent;
+            //	Layout the control.
+            if (control != null)
+            {
+                //
+                if (control.Parent != Parent)
+                    control.Parent = Parent;
 
-				//
-				Rectangle layoutRectangle = VirtualClientRectangle;
-				layoutRectangle.Inflate(-1, -1);
-				control.Bounds = VirtualClientRectangleToParent(layoutRectangle);
-			}
-		}
+                //
+                Rectangle layoutRectangle = VirtualClientRectangle;
+                layoutRectangle.Inflate(-1, -1);
+                control.Bounds = VirtualClientRectangleToParent(layoutRectangle);
+            }
+        }
 
-		/// <summary>
-		/// Raises the Paint event.
-		/// </summary>
-		/// <param name="e">A PaintEventArgs that contains the event data.</param>
-		protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
-		{
-			//	Call the base class's method so that registered delegates receive the event.
-			base.OnPaint(e);
+        /// <summary>
+        /// Raises the Paint event.
+        /// </summary>
+        /// <param name="e">A PaintEventArgs that contains the event data.</param>
+        protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
+        {
+            //	Call the base class's method so that registered delegates receive the event.
+            base.OnPaint(e);
 
-			//	Solid background color.
-			using (SolidBrush backgroundBrush = new SolidBrush(ApplicationManager.ApplicationStyle.BorderColor))
-				e.Graphics.FillRectangle(backgroundBrush, VirtualClientRectangle);
-		}
-	}
+            //	Solid background color.
+            using (SolidBrush backgroundBrush = new SolidBrush(ApplicationManager.ApplicationStyle.BorderColor))
+                e.Graphics.FillRectangle(backgroundBrush, VirtualClientRectangle);
+        }
+    }
 }

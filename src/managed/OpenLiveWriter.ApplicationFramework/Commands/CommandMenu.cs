@@ -8,51 +8,50 @@ using System.Diagnostics;
 
 namespace OpenLiveWriter.ApplicationFramework.Commands
 {
-	/// <summary>
-	/// Summary description for CommandMenu.
-	/// </summary>
-	public class CommandMenu : Command
-	{
+    /// <summary>
+    /// Summary description for CommandMenu.
+    /// </summary>
+    public class CommandMenu : Command
+    {
 
-		public CommandMenu(System.ComponentModel.IContainer container)
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandMenu(System.ComponentModel.IContainer container)
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
-		public CommandMenu()
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandMenu()
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            //
+            // CommandMenu
+            //
+            this.Identifier = "OpenLiveWriter.Commands.Menu";
+            this.Text = "Show menu";
 
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			//
-			// CommandMenu
-			//
-			this.Identifier = "OpenLiveWriter.Commands.Menu";
-			this.Text = "Show menu";
-
-		}
-		#endregion
-	}
+        }
+        #endregion
+    }
 }

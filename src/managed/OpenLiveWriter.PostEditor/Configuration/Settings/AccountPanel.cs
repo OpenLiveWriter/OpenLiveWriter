@@ -102,7 +102,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             textBoxPassword.Text = TemporaryBlogSettings.Credentials.Password;
         }
 
-
         public override bool PrepareSave(SwitchToPanel switchToPanel)
         {
             // validate that we have a post api url

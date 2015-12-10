@@ -277,7 +277,6 @@ namespace OpenLiveWriter.BrowserControl
             set { WinInet.WorkOffline = value; }
         }
 
-
         /// <summary>
         /// Navigate to the specified URL
         /// </summary>
@@ -523,7 +522,6 @@ namespace OpenLiveWriter.BrowserControl
                 StatusTextChanged(this, e);
         }
 
-
         /// <summary>
         /// Event that fires when the EncryptionLevel property changes
         /// </summary>
@@ -572,7 +570,6 @@ namespace OpenLiveWriter.BrowserControl
                 NewWindow2(this, e);
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -585,7 +582,6 @@ namespace OpenLiveWriter.BrowserControl
             }
             base.Dispose(disposing);
         }
-
 
         /// <summary>
         /// Helper function to initialize the browser and add it to the
@@ -853,7 +849,6 @@ namespace OpenLiveWriter.BrowserControl
             // fire event
             OnEncryptionLevelChanged(EventArgs.Empty);
         }
-
 
         /// <summary>
         /// Event handler for CommandStateChange -- update our internal command states

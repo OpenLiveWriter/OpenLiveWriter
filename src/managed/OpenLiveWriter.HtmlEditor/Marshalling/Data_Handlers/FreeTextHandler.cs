@@ -88,7 +88,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
             }
         }
 
-
         /// <summary>
         /// Release any reference to HTML Caret
         /// </summary>
@@ -96,7 +95,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         {
             currentCaretLocation = null;
         }
-
 
         /// <summary>
         /// Notify the data format handler that data was dropped and should be inserted into

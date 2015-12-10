@@ -63,7 +63,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 borderImage = comboItem.Image;
             }
 
-
             // determine state
             bool selected = (e.State & DrawItemState.Selected) > 0;
 

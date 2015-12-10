@@ -108,7 +108,7 @@ namespace OpenLiveWriter.Mshtml
         /// that methods that may be called after a behavior has been detached (i.e. event handlers) check to make
         /// sure the behavior is still attached and the associated HTMLElement is not null before executing.
         /// </summary>
-	    public bool Attached
+        public bool Attached
         {
             get
             {

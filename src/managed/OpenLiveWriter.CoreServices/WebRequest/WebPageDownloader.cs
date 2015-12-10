@@ -217,7 +217,6 @@ namespace OpenLiveWriter.CoreServices
             OnDownloadComplete(e);
         }
 
-
         /// <summary>
         /// Handle new window event (prevent all pop-up windows from displaying)
         /// </summary>
@@ -435,7 +434,6 @@ namespace OpenLiveWriter.CoreServices
 
         #endregion
 
-
         public class WebPageDownloaderResult
         {
             public static WebPageDownloaderResult Ok = new WebPageDownloaderResult(-1);
@@ -498,7 +496,6 @@ namespace OpenLiveWriter.CoreServices
 
     }
 
-
     public class WebPageDownloaderException : Exception
     {
         public WebPageDownloaderException(string message, string finalUrl) : this(-1, message, finalUrl)
@@ -530,6 +527,5 @@ namespace OpenLiveWriter.CoreServices
             }
         }
     }
-
 
 }

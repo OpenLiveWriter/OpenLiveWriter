@@ -46,7 +46,6 @@ namespace OpenLiveWriter.FileDestinations
         }
         private WebPublishDestination webPublishDestination = new WebPublishDestination(null);
 
-
         /// <summary>
         /// Publish path
         /// </summary>
@@ -71,7 +70,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
         private string publishPath = String.Empty;
-
 
         public string FullPublishPath
         {
@@ -118,18 +116,15 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         /// <summary>
         /// Notify users that the publishing destination has changed
         /// </summary>
         public event EventHandler DestinationChanged;
 
-
         /// <summary>
         /// Notify users that the publish folder has changed
         /// </summary>
         public event EventHandler PublishPathChanged;
-
 
 
         /// <summary>

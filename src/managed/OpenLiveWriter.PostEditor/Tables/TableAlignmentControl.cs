@@ -89,7 +89,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 comboBoxValue.Items.Remove(option);
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -156,7 +155,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             {
                 _value = value;
             }
-
 
             public string Caption { get { return _caption; } }
             public object Value { get { return _value; } }

@@ -33,7 +33,6 @@ namespace OpenLiveWriter.CoreServices
             return GetContentType(fileExtension, null);
         }
 
-
         /// <summary>
         /// This sets the content type value in the registry for a given file
         /// extension
@@ -59,7 +58,6 @@ namespace OpenLiveWriter.CoreServices
             }
 
         }
-
 
         /// <summary>
         /// Application/octet-stream content type, a good default for
@@ -508,41 +506,41 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         private static int[,,] QPStateTable =
             {
-				// SCANNING
-				{
+                // SCANNING
+                {
                     {OUTPUT,PENDING},			// Legal Ascii
-					{OUTPUT_ESCAPED,PENDING},	// Illegal Ascii
-					{OUTPUT,PENDING},			// WriteSpace
-					{NONE,LOOK_FOR_LF},		// CarriageReturn
-					{OUTPUT_CRLF, SCANNING}		// Linefeed
-				},
+                    {OUTPUT_ESCAPED,PENDING},	// Illegal Ascii
+                    {OUTPUT,PENDING},			// WriteSpace
+                    {NONE,LOOK_FOR_LF},		// CarriageReturn
+                    {OUTPUT_CRLF, SCANNING}		// Linefeed
+                },
 
-				// LOOK_FOR_LF
-				{
+                // LOOK_FOR_LF
+                {
                     {CRLF_AND_PUTBACK, SCANNING},	// Legal Ascii
-					{CRLF_AND_PUTBACK, SCANNING},	// Illegal Ascii
-					{CRLF_AND_PUTBACK, SCANNING},	// WhiteSpace
-					{CRLF_AND_PUTBACK, SCANNING},	// CarriageReturn
-					{OUTPUT_CRLF, SCANNING}			// Linefeed
-				},
+                    {CRLF_AND_PUTBACK, SCANNING},	// Illegal Ascii
+                    {CRLF_AND_PUTBACK, SCANNING},	// WhiteSpace
+                    {CRLF_AND_PUTBACK, SCANNING},	// CarriageReturn
+                    {OUTPUT_CRLF, SCANNING}			// Linefeed
+                },
 
-				// REDZONE
-				{
+                // REDZONE
+                {
                     {OUTPUT, END_OF_LINE},			// Legal Ascii
-					{OUTPUT_ESCAPED, END_OF_LINE},	// Illegal Ascii
-					{OUTPUT_ESCAPED, END_OF_LINE},	// WhiteSpace
-					{NONE, LOOK_FOR_LF},			// CarriageReturn
-					{OUTPUT_CRLF, SCANNING}			// Linefeed
-				},
+                    {OUTPUT_ESCAPED, END_OF_LINE},	// Illegal Ascii
+                    {OUTPUT_ESCAPED, END_OF_LINE},	// WhiteSpace
+                    {NONE, LOOK_FOR_LF},			// CarriageReturn
+                    {OUTPUT_CRLF, SCANNING}			// Linefeed
+                },
 
-				// END_OF_LINE
-				{
+                // END_OF_LINE
+                {
                     {SOFT_CRLF_AND_PUTBACK, SCANNING},	// Legal Ascii
-					{SOFT_CRLF_AND_PUTBACK, SCANNING},	// Illegal Ascii
-					{SOFT_CRLF_AND_PUTBACK, SCANNING},	// WhiteSpace
-					{NONE, LOOK_FOR_LF},				// CarriageReturn
-					{OUTPUT_CRLF, SCANNING}				// Linefeed
-				}
+                    {SOFT_CRLF_AND_PUTBACK, SCANNING},	// Illegal Ascii
+                    {SOFT_CRLF_AND_PUTBACK, SCANNING},	// WhiteSpace
+                    {NONE, LOOK_FOR_LF},				// CarriageReturn
+                    {OUTPUT_CRLF, SCANNING}				// Linefeed
+                }
             };
         #endregion
 

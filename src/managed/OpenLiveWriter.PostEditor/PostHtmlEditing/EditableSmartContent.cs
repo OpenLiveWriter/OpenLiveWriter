@@ -87,7 +87,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _smartContentElement.id = ContentSourceManager.MakeContainingElementId(_contentSourceId, _smartContentId);
             SmartContentInsertionHelper.InsertEditorHtmlIntoElement(_contentSourceContext, _contentSource, _smartContent, _smartContentElement);
 
-
             //reinit the smart content so it is re-cloned
             MakeSmartContentEditable();
         }

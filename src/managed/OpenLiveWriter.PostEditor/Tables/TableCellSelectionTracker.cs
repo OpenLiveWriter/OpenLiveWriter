@@ -64,6 +64,5 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         private ArrayList _lastSelectedCells = new ArrayList();
 
-
     }
 }

@@ -70,7 +70,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private int HandleMouseEvent(int inEvtDispId, IHTMLEventObj pIEventObj)
         {
             // WinLive 160252: MSHTML throws a COMException with HRESULT 0x8000FFFF (E_UNEXPECTED) when calling
@@ -175,7 +174,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
 
         }
-
 
         private void OnMouseMove(TableColumnMouseEventArgs ea)
         {
@@ -386,7 +384,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             ShowSizingCursor();
         }
 
-
         public void EndSizing()
         {
             try
@@ -431,7 +428,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         {
             get { return _sizingUndoUnit != null; }
         }
-
 
         public void ShowCursor(Cursor cursor)
         {
@@ -511,7 +507,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         private HTMLTableColumn _leftColumn = null;
         private HTMLTableColumn _rightColumn = null;
         private bool _cellWidthsFixed = true;
-
 
     }
 

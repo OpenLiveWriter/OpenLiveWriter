@@ -100,7 +100,6 @@ namespace OpenLiveWriter.PostEditor
         private Container components = new Container();
         #endregion
 
-
         #region Initialization/Disposal
 
         public PostEditorMainControl(IMainFrameWindow mainFrameWindow, IBlogPostEditingContext editingContext)
@@ -571,7 +570,6 @@ namespace OpenLiveWriter.PostEditor
             public void InsertLink(string url, string linkText, string linkTitle, string rel, bool newWindow) { _parent._htmlEditor.InsertLink(url, linkText, linkTitle, rel, newWindow); }
             private PostEditorMainControl _parent;
         }
-
 
         private void InitializePostPropertyEditors()
         {
@@ -1203,7 +1201,6 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
         }
-
 
         void IBlogPostEditingSite.ConfigureWeblogFtpUpload(string blogId)
         {

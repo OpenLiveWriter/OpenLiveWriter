@@ -248,7 +248,6 @@ namespace OpenLiveWriter.CoreServices
             File.Copy(srcFileName, destFileName);
         }
 
-
         /// <summary>
         /// Copy a global memory block into a file
         /// </summary>

@@ -87,7 +87,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         private bool haveLoggedFailedDefault = false;
         private bool haveLoggedFailedGetKey = false;
 
-
         /// <summary>
         /// Low-level get (returns null if the value doesn't exist).
         /// </summary>

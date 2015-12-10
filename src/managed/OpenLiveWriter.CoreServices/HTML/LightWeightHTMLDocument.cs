@@ -683,7 +683,6 @@ namespace OpenLiveWriter.CoreServices
             base.OnEndTag(tag);
         }
 
-
         protected override void OnText(Text text)
         {
             if (_nextTextIsTitleText)

@@ -16,7 +16,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         /// </summary>
         private System.ComponentModel.Container components = null;
 
-
         private TemporaryBlogSettings _targetBlogSettings;
         private TemporaryBlogSettings _editableBlogSettings;
 
@@ -67,7 +66,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
 
         }
         private bool _settingsModified = false;
-
 
         /// <summary>
         /// Clean up any resources being used.

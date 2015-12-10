@@ -87,7 +87,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-
         public event EventHandler TitleChanged;
         protected virtual void OnTitleChanged(EventArgs evt)
         {

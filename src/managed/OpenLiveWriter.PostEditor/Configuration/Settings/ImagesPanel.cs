@@ -115,7 +115,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         }
 
 
-
         private FileUploadSupport FileUploadSupport
         {
             get
@@ -262,7 +261,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
 
         }
         #endregion
-
 
     }
 }

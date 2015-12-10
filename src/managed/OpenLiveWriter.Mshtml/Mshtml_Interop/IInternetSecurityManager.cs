@@ -223,7 +223,7 @@ namespace OpenLiveWriter.Mshtml.Mshtml_Interop
     #endregion
 
 #if false
-	MIDL_INTERFACE("79eac9ee-baf9-11ce-8c82-00aa004ba90b")
+    MIDL_INTERFACE("79eac9ee-baf9-11ce-8c82-00aa004ba90b")
     IInternetSecurityManager : public IUnknown
     {
     public:

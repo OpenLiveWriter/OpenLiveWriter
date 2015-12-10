@@ -147,7 +147,6 @@ namespace OpenLiveWriter.CoreServices
             return DATA_S.SAMEFORMATETC;
         }
 
-
         /// <summary>
         /// Provides the source data object with data described by a FORMATETC
         /// structure and an STGMEDIUM structure
@@ -285,7 +284,6 @@ namespace OpenLiveWriter.CoreServices
             return OLE_E.ADVISENOTSUPPORTED;
         }
 
-
         /// <summary>
         /// Private helper method to find an existing data format
         /// </summary>
@@ -391,7 +389,6 @@ namespace OpenLiveWriter.CoreServices
 
     }
 
-
     /// <summary>
     /// Class which represents a data entry being managed by this class
     /// </summary>
@@ -405,7 +402,6 @@ namespace OpenLiveWriter.CoreServices
         public FORMATETC format = new FORMATETC();
         public STGMEDIUM stgm = new STGMEDIUM();
     }
-
 
     /// <summary>
     /// Implementation of IEnumFORMATETC for OleDataEntry list
@@ -453,7 +449,6 @@ namespace OpenLiveWriter.CoreServices
                 return HRESULT.S_FALSE;
         }
 
-
         /// <summary>
         /// Skip the next celt entries
         /// </summary>
@@ -497,7 +492,6 @@ namespace OpenLiveWriter.CoreServices
         /// Item are enumerator is currently positioned over
         /// </summary>
         private int currentItem = -1;
-
 
     }
 

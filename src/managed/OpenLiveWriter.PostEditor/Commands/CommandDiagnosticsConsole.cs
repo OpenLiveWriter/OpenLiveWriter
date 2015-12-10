@@ -6,71 +6,71 @@ using System.ComponentModel;
 
 namespace OpenLiveWriter.PostEditor.Commands
 {
-	/// <summary>
-	/// Summary description for CommandDiagnosticsConsole.
-	/// </summary>
-	public class CommandDiagnosticsConsole : Command
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+    /// <summary>
+    /// Summary description for CommandDiagnosticsConsole.
+    /// </summary>
+    public class CommandDiagnosticsConsole : Command
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
-		public CommandDiagnosticsConsole(IContainer container)
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			container.Add(this);
-			InitializeComponent();
+        public CommandDiagnosticsConsole(IContainer container)
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            container.Add(this);
+            InitializeComponent();
 
-			//
-			//
-			//
-		}
+            //
+            //
+            //
+        }
 
-		public CommandDiagnosticsConsole()
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandDiagnosticsConsole()
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			//
-			//
-		}
+            //
+            //
+            //
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose( bool disposing )
+        {
+            if( disposing )
+            {
+                if(components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose( disposing );
+        }
 
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			//
-			// CommandDiagnosticsConsole
-			//
-			this.Identifier = "OpenLiveWriter.PostEditor.Commands.DiagnosticsConsole";
-			this.MenuText = "Show Diagnostics Console";
-			this.Text = "Show Diagnostics Console";
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            //
+            // CommandDiagnosticsConsole
+            //
+            this.Identifier = "OpenLiveWriter.PostEditor.Commands.DiagnosticsConsole";
+            this.MenuText = "Show Diagnostics Console";
+            this.Text = "Show Diagnostics Console";
 
-		}
-		#endregion
-	}
+        }
+        #endregion
+    }
 }

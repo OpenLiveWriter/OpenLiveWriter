@@ -20,12 +20,12 @@ namespace OpenLiveWriter.Interop.Com
             IntPtr pceltFetched);
 
         /*
-		[PreserveSig]
-		int Next(
-			uint celt,
-			IntPtr rgelt,
-			IntPtr pceltFetched);
-		*/
+        [PreserveSig]
+        int Next(
+            uint celt,
+            IntPtr rgelt,
+            IntPtr pceltFetched);
+        */
 
         [PreserveSig]
         int Skip(uint celt);
@@ -36,5 +36,4 @@ namespace OpenLiveWriter.Interop.Com
     }
 
 }
-
 

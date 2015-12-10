@@ -313,7 +313,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         }
         private string m_diagnosticsFilePath = null;
 
-
         private static void WriteMemoryStatus(TextWriter writer)
         {
             try
@@ -360,6 +359,5 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 
         private readonly Exception m_rootCause;
     }
-
 
 }

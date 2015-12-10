@@ -260,7 +260,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 
         }
 
-
         private void DeleteSelectedEntry()
         {
             if (SelectedEntry == null)

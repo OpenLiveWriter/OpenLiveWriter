@@ -28,7 +28,7 @@ namespace OpenLiveWriter.Localization
         /// Applies the given culture name to the current thread.
         /// </summary>
         /// <param name="cultureName"></param>
-		public static void ApplyUICulture(string cultureName)
+        public static void ApplyUICulture(string cultureName)
         {
             if (cultureName == null)
             {

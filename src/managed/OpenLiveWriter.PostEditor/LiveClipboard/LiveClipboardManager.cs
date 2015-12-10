@@ -219,7 +219,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             }
         }
 
-
         public static ContentSourceInfo[] GetContentSourcesForFormat(LiveClipboardFormat format)
         {
             ArrayList contentSources = new ArrayList();

@@ -195,7 +195,6 @@ namespace OpenLiveWriter.PostEditor
         }
     }
 
-
     public class RemoteWeblogBlogPostSource : IPostEditorPostSource
     {
         public RemoteWeblogBlogPostSource(string blogId)
@@ -247,7 +246,6 @@ namespace OpenLiveWriter.PostEditor
                 return false;
             }
         }
-
 
         public bool SupportsDelete
         {
@@ -421,7 +419,6 @@ namespace OpenLiveWriter.PostEditor
         private bool _supportsPages;
         private BlogPost[] _blogPosts;
     }
-
 
     /// <summary>
     /// Chooser source for local blog storage
@@ -649,7 +646,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private static readonly RecentPostRequest _all = new RecentPostRequest(ALL_POSTS);
 
-
         public string DisplayName
         {
             get { return _displayName; }
@@ -685,6 +681,5 @@ namespace OpenLiveWriter.PostEditor
         private int _numberOfPosts;
         public const int ALL_POSTS = Int32.MaxValue;
     }
-
 
 }

@@ -54,44 +54,44 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /*
-		public int MaxChildPath(StringBuilder buffer)
-		{
-			buffer.Append(Path.DirectorySeparatorChar);
-			buffer.Append(name);
+        public int MaxChildPath(StringBuilder buffer)
+        {
+            buffer.Append(Path.DirectorySeparatorChar);
+            buffer.Append(name);
 
-			int startPos = buffer.Length;
-			int currLen = 0;
-			int depth = 0;
+            int startPos = buffer.Length;
+            int currLen = 0;
+            int depth = 0;
 
-			StringBuilder maxChildPath = new StringBuilder();
-			StringBuilder currChildPath = new StringBuilder();
-			foreach (TransientFileSystemItem child in children)
-			{
-				int tmpDepth = child.MaxChildPath(currChildPath);
-				if (currChildPath.Length > currLen && tmpDepth > depth)
-				{
-					if (currLen != 0)
-					{
-						buffer.Remove(startPos, currLen);
-					}
-					buffer.Append(currChildPath.ToString());
-					currLen = currChildPath.Length;
-					depth = tmpDepth;
-				}
-				else
-				{
-					currChildPath.Remove(0, currChildPath.Length);
-				}
-				Debug.Assert(currChildPath.Length == 0, "Programming error: currChildPath != 0");
-			}
-			if (maxChildPath.Length > 0)
-			{
-				buffer.Append(maxChildPath.ToString());
-			}
+            StringBuilder maxChildPath = new StringBuilder();
+            StringBuilder currChildPath = new StringBuilder();
+            foreach (TransientFileSystemItem child in children)
+            {
+                int tmpDepth = child.MaxChildPath(currChildPath);
+                if (currChildPath.Length > currLen && tmpDepth > depth)
+                {
+                    if (currLen != 0)
+                    {
+                        buffer.Remove(startPos, currLen);
+                    }
+                    buffer.Append(currChildPath.ToString());
+                    currLen = currChildPath.Length;
+                    depth = tmpDepth;
+                }
+                else
+                {
+                    currChildPath.Remove(0, currChildPath.Length);
+                }
+                Debug.Assert(currChildPath.Length == 0, "Programming error: currChildPath != 0");
+            }
+            if (maxChildPath.Length > 0)
+            {
+                buffer.Append(maxChildPath.ToString());
+            }
 
-			return ++depth;
-		}
-		*/
+            return ++depth;
+        }
+        */
 
         public FileSystemInfo Create(DirectoryInfo destination)
         {
