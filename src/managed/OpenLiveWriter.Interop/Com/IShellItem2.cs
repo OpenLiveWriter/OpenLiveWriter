@@ -13,7 +13,7 @@ namespace OpenLiveWriter.Interop.Com
     Guid(Shell32.IShellItem2),
     InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IShellItem2 : IShellItem
-    {       
+    {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void Compare(
             [In, MarshalAs(UnmanagedType.Interface)] IShellItem psi,

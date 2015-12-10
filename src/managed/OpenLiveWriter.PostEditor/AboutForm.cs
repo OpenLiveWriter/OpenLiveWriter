@@ -39,12 +39,12 @@ namespace OpenLiveWriter.PostEditor
 
 		// Copyright notices are not to be localized.
 		string[] credits = {
-            "DeltaCompressionDotNet (MS-PL) Copyright © Todd Aspeotis 2013 \nhttps://github.com/taspeotis/DeltaCompressionDotNet",
-            "Mono.Cecil (MIT) Copyright © 2008 - 2015 Jb Evain Copyright © 2008 - 2011 Novell, Inc \nhttps://github.com/jbevain/cecil",
-            "Splat (MIT) Copyright © 2013 Paul Betts \nhttps://github.com/paulcbetts/splat/",
-            "Squirrel.Windows (MIT) Copyright © 2012 GitHub, Inc. \n https://github.com/squirrel/squirrel.windows",
-			/* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine \n Creative Commons Attribution 3.0 Unported License.",
-			/* Brian Lambert */ "Portions Copyright © 2003 Brian Lambert, used with permission of the author under the MIT License.",
+            "DeltaCompressionDotNet (MS-PL) Copyright Â© Todd Aspeotis 2013 \nhttps://github.com/taspeotis/DeltaCompressionDotNet",
+            "Mono.Cecil (MIT) Copyright Â© 2008 - 2015 Jb Evain Copyright Â© 2008 - 2011 Novell, Inc \nhttps://github.com/jbevain/cecil",
+            "Splat (MIT) Copyright Â© 2013 Paul Betts \nhttps://github.com/paulcbetts/splat/",
+            "Squirrel.Windows (MIT) Copyright Â© 2012 GitHub, Inc. \n https://github.com/squirrel/squirrel.windows",
+			/* XmpMetadata.cs */ "Portions Copyright Â© 2011 Omar Shahine \n Creative Commons Attribution 3.0 Unported License.",
+			/* Brian Lambert */ "Portions Copyright Â© 2003 Brian Lambert, used with permission of the author under the MIT License.",
         };
 
 		public AboutForm()
@@ -71,9 +71,8 @@ namespace OpenLiveWriter.PostEditor
 		    pictureBoxLogo.RightToLeft = RightToLeft.No;
 			Controls.Add(pictureBoxLogo);
 			
-            
 			//	Set the dialog text.
-			Text = TextHelper.StripHotkey(String.Format( CultureInfo.CurrentCulture, Res.Get(StringId.AboutAbout), ApplicationEnvironment.ProductNameQualified ));
+            Text = TextHelper.StripHotkey(String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.AboutAbout), ApplicationEnvironment.ProductNameQualified));
 #if DEBUG
             string displayVersion = ApplicationEnvironment.ProductDisplayVersion + " " + CultureInfo.CurrentUICulture;
 #else
@@ -81,7 +80,7 @@ namespace OpenLiveWriter.PostEditor
 #endif
 
             labelProduct.Text = ApplicationEnvironment.ProductNameVersioned;
-			labelVersion.Text = String.Format( CultureInfo.CurrentCulture, labelVersion.Text, displayVersion);
+            labelVersion.Text = String.Format(CultureInfo.CurrentCulture, labelVersion.Text, displayVersion);
 
 		    Version version = Assembly.GetExecutingAssembly().GetName().Version;
             labelConfigVersion.Text = String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.AboutConfigurationVersion), version);
@@ -103,7 +102,7 @@ namespace OpenLiveWriter.PostEditor
 		
 		protected override void OnLoad(EventArgs e)
 		{
-			base.OnLoad (e);
+            base.OnLoad(e);
 
             using (new AutoGrow(this, AnchorStyles.Bottom | AnchorStyles.Right, true))
             {
@@ -111,7 +110,7 @@ namespace OpenLiveWriter.PostEditor
                 labelProduct.Left = pictureBoxLogo.Right + 10;
                 labelVersion.Left = pictureBoxLogo.Right + 10;
                 LayoutHelper.NaturalizeHeight(labelProduct);
-                labelProduct.Top = pictureBoxLogo.Top + (pictureBoxLogo.Height/2) - labelProduct.Height;
+                labelProduct.Top = pictureBoxLogo.Top + (pictureBoxLogo.Height / 2) - labelProduct.Height;
                 LayoutHelper.DistributeVertically(15, false, labelProduct, labelVersion);
                 LayoutHelper.NaturalizeHeightAndDistribute(8, labelVersion, labelCopyright);
 
@@ -121,21 +120,19 @@ namespace OpenLiveWriter.PostEditor
             }
 		}
 
-		
-
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+        protected override void Dispose(bool disposing)
 		{
-			if( disposing )
+            if (disposing)
 			{
-				if(components != null)
+                if (components != null)
 				{
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
+            base.Dispose(disposing);
 		}
 
 		#region Windows Form Designer generated code
@@ -173,7 +170,7 @@ namespace OpenLiveWriter.PostEditor
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(284, 30);
             this.labelCopyright.TabIndex = 1;
-            this.labelCopyright.Text = "© 2015 .NET Foundation. All rights reserved.";
+            this.labelCopyright.Text = "Â© 2015 .NET Foundation. All rights reserved.";
             // 
             // buttonOK
             // 
@@ -265,7 +262,7 @@ namespace OpenLiveWriter.PostEditor
 		/// <returns>The DialogResult.</returns>
 		public static DialogResult DisplayDialog()
 		{
-			using ( new WaitCursor() )
+            using (new WaitCursor())
 			{
 				using (AboutForm aboutForm = new AboutForm())
 					return aboutForm.ShowDialog(Win32WindowImpl.ForegroundWin32Window);

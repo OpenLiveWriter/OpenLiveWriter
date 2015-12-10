@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -73,7 +73,7 @@ namespace OpenLiveWriter.HtmlEditor
                     currentRange.End.MoveToPointer(currentRange.Start);
                 }
             }
-            
+
             if (elementEndHeader != null && !HTMLElementHelper.ElementsAreEqual(elementStartHeader, elementEndHeader))
             {
                 // Takes care of the following case:
@@ -131,7 +131,7 @@ namespace OpenLiveWriter.HtmlEditor
             // Walks in-scope elements and clears out any elements or styles that might affect the bold formatting.
             var elementsToRemove = new List<IHTMLElement>();
             expandedRange.WalkRange(
-                delegate(MarkupRange currentexpandedRange, MarkupContext context, string text)
+                delegate (MarkupRange currentexpandedRange, MarkupContext context, string text)
                 {
                     IHTMLElement currentElement = context.Element;
                     if (currentElement != null && context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_EnterScope)
@@ -155,7 +155,7 @@ namespace OpenLiveWriter.HtmlEditor
             // Walks the range to find any segments of text that need to be fixed up.
             var rangesToWrap = new List<MarkupRange>();
             range.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                 {
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text)
                     {
@@ -179,7 +179,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// </summary>
         private void WrapRangeInFontIfNecessary(MarkupRange currentRange, bool turnBold)
         {
-            // Check if there is an existing font/span tag that completely wraps this range, 
+            // Check if there is an existing font/span tag that completely wraps this range,
             // we can just use that instead of inserting a new one
             MarkupContext workingContext = new MarkupContext();
             bool wrapFont = true;

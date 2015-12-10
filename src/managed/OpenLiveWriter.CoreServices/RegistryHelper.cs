@@ -25,7 +25,6 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public static readonly string INPROC_SERVER_32 = "InprocServer32";
 
-
         /// <summary>
         /// Return the passed guid as a string in registry format (i.e. w/ {})
         /// </summary>
@@ -44,7 +43,7 @@ namespace OpenLiveWriter.CoreServices
         /// <param name="subKey">Name of key to delete</param>
         public static void DeleteSubKeyTree(RegistryKey root, string subKey)
         {
-            // delete the specified sub-key if if exists (swallow the error if the 
+            // delete the specified sub-key if if exists (swallow the error if the
             // sub-key does not exist)
             try { root.DeleteSubKeyTree(subKey); }
             catch (ArgumentException) { }

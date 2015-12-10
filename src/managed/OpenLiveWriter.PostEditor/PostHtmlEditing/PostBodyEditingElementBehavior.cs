@@ -49,7 +49,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             if (e.htmlEvt.altKey)
             {
                 Keys keys = (Keys)e.htmlEvt.keyCode;
-                //alt+Left/Right is the control navigation shortcut 
+                //alt+Left/Right is the control navigation shortcut
                 if (keys == Keys.Right || keys == Keys.Left)
                 {
                     bool forward = keys == Keys.Right;
@@ -57,7 +57,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     e.htmlEvt.cancelBubble = true;
                     return;
                 }
-            }           
+            }
 
             base.OnKeyDown(o, e);
 
@@ -204,7 +204,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 StringBuilder output = new StringBuilder(html.Length);
                 SimpleHtmlParser parser = new SimpleHtmlParser(html);
                 SmartPredicate splitDiv = new SmartPredicate(String.Format(CultureInfo.InvariantCulture, "<div id='{0}'>", EXTENDED_ENTRY_ID));
-                for (Element el; null != (el = parser.Next()); )
+                for (Element el; null != (el = parser.Next());)
                 {
                     if (splitDiv.IsMatch(el))
                     {
@@ -222,7 +222,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 args.Html = output.ToString();
             }
         }
-        
+
         /// <summary>
         /// Inserts the extended entry break into the editor.
         /// </summary>
@@ -271,7 +271,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             insertionPoint.PushGravity(_POINTER_GRAVITY.POINTER_GRAVITY_Right);
             try
             {
-                //insert the entryBreak DIV into the beginning of the post body				
+                //insert the entryBreak DIV into the beginning of the post body
                 entryBreakDiv.id = EXTENDED_ENTRY_ID;
                 entryBreakDiv.setAttribute("name", EXTENDED_ENTRY_ID, 0);
 

@@ -20,21 +20,21 @@ namespace OpenLiveWriter.CoreServices
         /// When set, indicates a strong registration for the object.
         /// </summary>
         /// <remarks>
-        /// When an object is registered, the ROT always calls AddRef on the object. For a weak registration 
-        /// (ROTFLAGS_REGISTRATIONKEEPSALIVE not set), the ROT will release the object whenever the last strong 
-        /// reference to the object is released. For a strong registration (ROTFLAGS_REGISTRATIONKEEPSALIVE set), the 
+        /// When an object is registered, the ROT always calls AddRef on the object. For a weak registration
+        /// (ROTFLAGS_REGISTRATIONKEEPSALIVE not set), the ROT will release the object whenever the last strong
+        /// reference to the object is released. For a strong registration (ROTFLAGS_REGISTRATIONKEEPSALIVE set), the
         /// ROT prevents the object from being destroyed until the object's registration is explicitly revoked.
         /// </remarks>
         RegistrationKeepsAlive = 0x1,
 
         /// <summary>
-        /// When set, any client can connect to the running object through its entry in the ROT. When not set, only 
+        /// When set, any client can connect to the running object through its entry in the ROT. When not set, only
         /// clients in the window station that registered the object can connect to it.
         /// </summary>
         /// <remarks>
-        /// A server registered as either LocalService or RunAs can set the ROTFLAGS_ALLOWANYCLIENT flag in its call 
-        /// to Register to allow any client to connect to it. A server setting this bit must have its executable name 
-        /// in the AppID section of the registry that refers to the AppID for the executable. An "activate as 
+        /// A server registered as either LocalService or RunAs can set the ROTFLAGS_ALLOWANYCLIENT flag in its call
+        /// to Register to allow any client to connect to it. A server setting this bit must have its executable name
+        /// in the AppID section of the registry that refers to the AppID for the executable. An "activate as
         /// activator" server (not registered as LocalService or RunAs) must not set this flag in its call to Register.
         /// </remarks>
         AllowAnyClient = 0x2,
@@ -58,12 +58,12 @@ namespace OpenLiveWriter.CoreServices
 
             try
             {
-                // A client calling IRunningObjectTable::Register with the ROTFLAGS_ALLOWANYCLIENT bit must have its 
+                // A client calling IRunningObjectTable::Register with the ROTFLAGS_ALLOWANYCLIENT bit must have its
                 // executable name in the AppID section of the registry that refers to the AppID for the executable.
                 var exeRegistrySettings = new RegistrySettingsPersister(rootKey, EXE_REGISTRY_PATH);
                 exeRegistrySettings.Set("AppID", APP_ID);
 
-                // A RunAs entry must be present because the system prohibits "activate as activator" processes from registering in 
+                // A RunAs entry must be present because the system prohibits "activate as activator" processes from registering in
                 // the ROT with ROTFLAGS_ALLOWANYCLIENT.This is done for security reasons.
                 var appIdRegistrySettings = new RegistrySettingsPersister(rootKey, APP_ID_REGISTRY_PATH);
                 appIdRegistrySettings.Set("", "OpenLiveWriter.exe");
@@ -71,8 +71,8 @@ namespace OpenLiveWriter.CoreServices
 
                 if (IsInAdministratorRole)
                 {
-                    // If we wrote to HKLM, even medium integrity processes can now use ROTFLAGS_ALLOWANYCLIENT. 
-                    // However, medium integrity processes can't read from HKLM to see if it's set or not, so we 
+                    // If we wrote to HKLM, even medium integrity processes can now use ROTFLAGS_ALLOWANYCLIENT.
+                    // However, medium integrity processes can't read from HKLM to see if it's set or not, so we
                     // need a duplicate setting to store this information.
                     exeRegistrySettings = new RegistrySettingsPersister(Registry.CurrentUser, EXE_REGISTRY_PATH);
                     exeRegistrySettings.Set("AllowAnyClient", true);
@@ -128,12 +128,12 @@ namespace OpenLiveWriter.CoreServices
         {
             IMoniker mk = CreateMoniker(itemName);
 
-            // The ALLOW_ANY_CLIENT setting will be set to true if we've been launched via 'Run as administrator' at 
-            // least once because this means we wrote the HKLM registry entries to allow passing the 
+            // The ALLOW_ANY_CLIENT setting will be set to true if we've been launched via 'Run as administrator' at
+            // least once because this means we wrote the HKLM registry entries to allow passing the
             // ROTFLAGS_ALLOWANYCLIENT flag.
             var exeRegistrySettings = new RegistrySettingsPersister(Registry.CurrentUser, EXE_REGISTRY_PATH);
             bool allowAnyClient = (bool)exeRegistrySettings.Get(ALLOW_ANY_CLIENT, typeof(bool), false);
-            int rotRegistrationFlags = allowAnyClient ? 
+            int rotRegistrationFlags = allowAnyClient ?
                 (int)(RunningObjectTableFlags.RegistrationKeepsAlive | RunningObjectTableFlags.AllowAnyClient) :
                 (int)(RunningObjectTableFlags.RegistrationKeepsAlive);
 
@@ -186,9 +186,9 @@ namespace OpenLiveWriter.CoreServices
             {
                 if (e.ErrorCode == RPC_E.CALL_FAILED_DNE)
                     return null;
-                
+
                 throw;
-            }                        
+            }
         }
 
         private void Revoke(int registration)

@@ -11,32 +11,32 @@ using OpenLiveWriter.Extensibility.BlogClient;
 
 namespace OpenLiveWriter.BlogClient.Detection
 {
-	internal delegate HttpWebResponse HttpRequestHandler( string requestUri, int timeoutMs, HttpRequestFilter filter ) ;
+    internal delegate HttpWebResponse HttpRequestHandler(string requestUri, int timeoutMs, HttpRequestFilter filter);
 
-	/// <summary>
-	/// Summary description for LazyHomepageDownloader.
-	/// </summary>
-	internal class LazyHomepageDownloader
-	{
-		LightWeightHTMLDocument _htmlDocument;
-		bool _homepageDownloadAttempted = false;
-		string _homepageUrl;
-		HttpRequestHandler _requestHandler ;
-	    byte[] _rawBytes;
-		
-		public LazyHomepageDownloader(string homepageUrl, HttpRequestHandler requestHandler)
-		{
-			_homepageUrl = homepageUrl;
-			_requestHandler = requestHandler ;
-		}
+    /// <summary>
+    /// Summary description for LazyHomepageDownloader.
+    /// </summary>
+    internal class LazyHomepageDownloader
+    {
+        LightWeightHTMLDocument _htmlDocument;
+        bool _homepageDownloadAttempted = false;
+        string _homepageUrl;
+        HttpRequestHandler _requestHandler;
+        byte[] _rawBytes;
 
-		public LightWeightHTMLDocument HtmlDocument
-		{
-			get
-			{
-				// download the homepage to look for the link tag
-				if (_htmlDocument == null && RawBytes != null)
-				{
+        public LazyHomepageDownloader(string homepageUrl, HttpRequestHandler requestHandler)
+        {
+            _homepageUrl = homepageUrl;
+            _requestHandler = requestHandler;
+        }
+
+        public LightWeightHTMLDocument HtmlDocument
+        {
+            get
+            {
+                // download the homepage to look for the link tag
+                if (_htmlDocument == null && RawBytes != null)
+                {
                     try
                     {
                         using (Stream homepageStream = StreamHelper.AsStream(RawBytes))
@@ -46,17 +46,17 @@ namespace OpenLiveWriter.BlogClient.Detection
                     {
                         Trace.Fail(e.ToString());
                     }
-				}
-				return _htmlDocument;
-			}
-		}
+                }
+                return _htmlDocument;
+            }
+        }
 
-	    public byte[] RawBytes
-	    {
-	        get
-	        {
-	            if (_rawBytes == null && !_homepageDownloadAttempted)
-	            {
+        public byte[] RawBytes
+        {
+            get
+            {
+                if (_rawBytes == null && !_homepageDownloadAttempted)
+                {
                     try
                     {
                         using (Stream homepageStream = _requestHandler(_homepageUrl, 5000, null).GetResponseStream())
@@ -84,19 +84,19 @@ namespace OpenLiveWriter.BlogClient.Detection
                     {
                         _homepageDownloadAttempted = true;
                     }
-	            }
-	            return _rawBytes;
-	        }
-	    }
+                }
+                return _rawBytes;
+            }
+        }
 
         /// <summary>
         /// The homepage HTML without sanitization or relative URL escaping applied.
         /// </summary>
-	    public string OriginalHtml
-	    {
-	        get
-	        {
-	            Encoding encoding = null;
+        public string OriginalHtml
+        {
+            get
+            {
+                Encoding encoding = null;
                 try
                 {
                     if (HtmlDocument.MetaData != null && HtmlDocument.MetaData.Charset != null)
@@ -108,9 +108,8 @@ namespace OpenLiveWriter.BlogClient.Detection
                 if (encoding == null)
                     encoding = new UTF8Encoding(false, false);
 
-
-	            return encoding.GetString(RawBytes);
-	        }
-	    }
-	}
+                return encoding.GetString(RawBytes);
+            }
+        }
+    }
 }

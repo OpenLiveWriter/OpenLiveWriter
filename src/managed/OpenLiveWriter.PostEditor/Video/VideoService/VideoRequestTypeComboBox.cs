@@ -15,7 +15,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
 {
     public partial class VideoRequestTypeComboBox : ImageComboBox
     {
-        public VideoRequestTypeComboBox() : base(new Size(20,18))
+        public VideoRequestTypeComboBox() : base(new Size(20, 18))
         {
             InitializeComponent();
             DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         public void SetEntries(IVideoRequestType[] requestTypes)
         {
             Items.Clear();
-            foreach(IVideoRequestType requestType in requestTypes)
+            foreach (IVideoRequestType requestType in requestTypes)
                 Items.Add(requestType);
         }
 
@@ -33,13 +33,13 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         {
             for (int i = 0; i < Items.Count; i++)
             {
-                IVideoRequestType requestType = (IVideoRequestType) Items[i];
+                IVideoRequestType requestType = (IVideoRequestType)Items[i];
                 if (requestType.TypeName == typeName)
                 {
                     SelectedIndex = i;
                     return;
                 }
-            }      
+            }
         }
 
         protected override void OnSelectionChangeCommitted(EventArgs e)
@@ -52,7 +52,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         {
             get
             {
-                return (IVideoRequestType) SelectedItem;
+                return (IVideoRequestType)SelectedItem;
             }
             set
             {
@@ -76,8 +76,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             if (SelectedRequestTypeChanged != null)
                 SelectedRequestTypeChanged(this, EventArgs.Empty);
         }
-
-
 
     }
 

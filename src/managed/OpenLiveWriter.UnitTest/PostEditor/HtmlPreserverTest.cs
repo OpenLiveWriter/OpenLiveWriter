@@ -18,7 +18,7 @@ namespace OpenLiveWriter.UnitTest.PostEditor
             "<div class=\"wlWriterSmartContent\">" + OBJECT_WITH_EMBED + "</div>";
 
         private const string SCRIPT = "<script language=\"JavaScript\">document.write('foo');</script>";
-        
+
         [Test]
         public void Test1()
         {

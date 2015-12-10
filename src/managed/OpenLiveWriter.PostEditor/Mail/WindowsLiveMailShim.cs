@@ -46,13 +46,13 @@ namespace OpenLiveWriter.Mail
             return sb.ToString();
         }
 
-        internal static ExternalReferenceFixer ExternalReferenceFixer = 
-            delegate(BeginTag tag, string reference, string sourceUrl)
+        internal static ExternalReferenceFixer ExternalReferenceFixer =
+            delegate (BeginTag tag, string reference, string sourceUrl)
             {
-               if (reference.StartsWith("cid:", StringComparison.OrdinalIgnoreCase))
-                   return sourceUrl + "!" + reference;
+                if (reference.StartsWith("cid:", StringComparison.OrdinalIgnoreCase))
+                    return sourceUrl + "!" + reference;
 
-               return reference;
+                return reference;
             };
     }
 }

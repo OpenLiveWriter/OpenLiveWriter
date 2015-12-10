@@ -123,24 +123,23 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
             uploadContext.Settings.SetString(EDIT_MEDIA_LINK, editUri);
 
-
             PicasaRefererBlockingWorkaround(uploadContext.BlogId, uploadContext.Role, ref srcUrl);
 
             return srcUrl;
         }
 
         /// <summary>
-        /// "It looks like the problem with the inline image is due to referrer checking.  
-        /// The thumbnail image being used is protected for display only on certain domains.  
-        /// These domains include *.blogspot.com and *.google.com.  This user is using a 
-        /// feature in Blogger which allows him to display his blog directly on his own 
-        /// domain, which will not pass the referrer checking. 
-        /// 
-        /// "The maximum size of a thumbnail image that can be displayed on non-*.blogspot.com 
-        /// domains is 800px. (blogs don't actually appear at *.google.com).  However, if you 
-        /// request a 800px thumbnail, and the image is less than 800px for the maximum 
-        /// dimension, then the original image will be returned without the referrer 
-        /// restrictions.  That sounds like it will work for you, so feel free to give it a 
+        /// "It looks like the problem with the inline image is due to referrer checking.
+        /// The thumbnail image being used is protected for display only on certain domains.
+        /// These domains include *.blogspot.com and *.google.com.  This user is using a
+        /// feature in Blogger which allows him to display his blog directly on his own
+        /// domain, which will not pass the referrer checking.
+        ///
+        /// "The maximum size of a thumbnail image that can be displayed on non-*.blogspot.com
+        /// domains is 800px. (blogs don't actually appear at *.google.com).  However, if you
+        /// request a 800px thumbnail, and the image is less than 800px for the maximum
+        /// dimension, then the original image will be returned without the referrer
+        /// restrictions.  That sounds like it will work for you, so feel free to give it a
         /// shot and let me know if you have any further questions or problems."
         ///   -- Anonymous Google Employee
         /// </summary>
@@ -170,7 +169,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 if (!Options.UsePicasaImgMaxAlways)
                 {
-                    // This class doesn't have access to the homePageUrl, so this is a workaround to 
+                    // This class doesn't have access to the homePageUrl, so this is a workaround to
                     // to get the homePageUrl while minimizing the amount of code we have to change (we're at MShip/ZBB)
                     foreach (string id in BlogSettings.GetBlogIds())
                     {
@@ -354,11 +353,11 @@ namespace OpenLiveWriter.BlogClient.Clients
                 if (response != null)
                 {
                     /* We have two separate problems to deal with here.
-                     * 
+                     *
                      * For New Blogger blogs, passing orderby=published to www.blogger.com
                      * will currently result in a 400 (Bad Request). We need to do the same
                      * request to www2.blogger.com.
-                     * 
+                     *
                      * For Old Blogger blogs, passing orderby=published is going to fail no
                      * matter what. However, we don't know in advance whether this blog is
                      * Old Blogger or New Blogger. So we assume we are New Blogger, retry
@@ -423,7 +422,6 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             return hasSuffix ? prefix : "";
         }
-
 
         private static bool IsBadRequestError(Exception e)
         {
@@ -678,7 +676,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             Uri metafeed = new Uri("http://www.blogger.com/feeds/default/blogs");
             XmlDocument xmlDoc = xmlRestRequestHelper.Get(ref metafeed, RequestFilter);
-
 
             ArrayList blogInfos = new ArrayList();
             foreach (XmlElement entryEl in xmlDoc.SelectNodes(@"atom:feed/atom:entry", _nsMgr))
@@ -957,8 +954,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                             {
                                 ShowError(MessageId.BloggerError, TranslateError(error));
                             }
-
-
 
                         }
                         throw new BlogClientAuthenticationException(error, TranslateError(error));

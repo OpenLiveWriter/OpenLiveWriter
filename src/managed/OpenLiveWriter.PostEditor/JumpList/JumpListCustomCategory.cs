@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         {
             Name = categoryName;
 
-            JumpListItems = new JumpListItemCollection<IJumpListItem>();            
+            JumpListItems = new JumpListItemCollection<IJumpListItem>();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
 
         /// <summary>
         /// Category name
-        /// </summary>        
+        /// </summary>
         public string Name
         {
             get { return name; }
@@ -54,12 +54,10 @@ namespace OpenLiveWriter.PostEditor.JumpList
             {
                 if (String.Compare(name, value, false, CultureInfo.CurrentUICulture) != 0)
                 {
-                    name = value;                    
+                    name = value;
                 }
             }
         }
-
-
 
         /// <summary>
         /// Add JumpList items for this category
@@ -100,11 +98,11 @@ namespace OpenLiveWriter.PostEditor.JumpList
             RemoveJumpListItem(item.Path);
 
             if (MaxItems > 0 && JumpListItems.Count >= MaxItems)
-                JumpListItems.Remove(JumpListItems[JumpListItems.Count - 1]);                
+                JumpListItems.Remove(JumpListItems[JumpListItems.Count - 1]);
 
             JumpListItems.Insert(0, item);
-        }     
-        
+        }
+
         internal void RemoveJumpListItem(string path)
         {
             List<IJumpListItem> itemsToRemove = new List<IJumpListItem>();

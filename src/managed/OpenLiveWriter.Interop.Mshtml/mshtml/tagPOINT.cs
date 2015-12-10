@@ -6,7 +6,7 @@ namespace mshtml
     using System;
     using System.Runtime.InteropServices;
 
-    [StructLayout(LayoutKind.Sequential, Pack=4)]
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct tagPOINT
     {
         public int x;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -98,9 +98,9 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         #region Option properties
 
         /// <summary>
-        /// Enables hyperlink processing for the strings specified in the pszContent, 
-        /// pszExpandedInformation and pszFooter members. When enabled, these members 
-        /// may point to strings that contain hyperlinks in the following form: 
+        /// Enables hyperlink processing for the strings specified in the pszContent,
+        /// pszExpandedInformation and pszFooter members. When enabled, these members
+        /// may point to strings that contain hyperlinks in the following form:
         /// &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;
         /// </summary>
         /// <remarks>
@@ -114,8 +114,8 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Indicates that the dialog should be able to be closed using Alt-F4, 
-        /// Escape, and the title bar's close button even if no cancel button is 
+        /// Indicates that the dialog should be able to be closed using Alt-F4,
+        /// Escape, and the title bar's close button even if no cancel button is
         /// specified in either the dwCommonButtons or pButtons members.
         /// </summary>
         public bool AllowDialogCancellation
@@ -125,11 +125,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Indicates that the buttons specified in the Buttons property are to be 
-        /// displayed as command links (using a standard task dialog glyph) instead 
-        /// of push buttons. When using command links, all characters up to the 
-        /// first new line character in the Text property will be treated as 
-        /// the command link's main text, and the remainder will be treated as the 
+        /// Indicates that the buttons specified in the Buttons property are to be
+        /// displayed as command links (using a standard task dialog glyph) instead
+        /// of push buttons. When using command links, all characters up to the
+        /// first new line character in the Text property will be treated as
+        /// the command link's main text, and the remainder will be treated as the
         /// command link's note.
         /// </summary>
         public bool UseCommandLinks
@@ -139,11 +139,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Indicates that the buttons specified in the Buttons property are to be 
-        /// displayed as command links (without a glyph) instead of push buttons. 
-        /// When using command links, all characters up to the first new line 
-        /// character in the Text property will be treated as the command 
-        /// link's main text, and the remainder will be treated as the command 
+        /// Indicates that the buttons specified in the Buttons property are to be
+        /// displayed as command links (without a glyph) instead of push buttons.
+        /// When using command links, all characters up to the first new line
+        /// character in the Text property will be treated as the command
+        /// link's main text, and the remainder will be treated as the command
         /// link's note.
         /// </summary>
         public bool UseCommandLinksNoIcon
@@ -153,9 +153,9 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Indicates that the string specified by the ExpandedInformation property 
-        /// is displayed at the bottom of the dialog's footer area instead of 
-        /// immediately after the dialog's content. This flag is ignored if the 
+        /// Indicates that the string specified by the ExpandedInformation property
+        /// is displayed at the bottom of the dialog's footer area instead of
+        /// immediately after the dialog's content. This flag is ignored if the
         /// ExpandedInformation property is null.
         /// </summary>
         public bool ExpandFooterArea
@@ -166,7 +166,7 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
 
         /// <summary>
         /// Indicates that the string specified by the ExpandedInformation property
-        /// is displayed when the dialog is initially displayed. This flag is 
+        /// is displayed when the dialog is initially displayed. This flag is
         /// ignored if the ExpandedInformation property is null.
         /// </summary>
         public bool ExpandedByDefault
@@ -176,8 +176,8 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Indicates that the verification checkbox in the dialog is checked 
-        /// when the dialog is initially displayed. This flag is ignored if the 
+        /// Indicates that the verification checkbox in the dialog is checked
+        /// when the dialog is initially displayed. This flag is ignored if the
         /// VerificationText property is null.
         /// </summary>
         public bool VerificationFlagChecked
@@ -205,7 +205,7 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Indicates that the task dialog's TimerTicked event is to be 
+        /// Indicates that the task dialog's TimerTicked event is to be
         /// fired approximately every 200 milliseconds.
         /// </summary>
         public bool CallbackTimer
@@ -215,9 +215,9 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Indicates that the task dialog is positioned (centered) relative 
-        /// to the parent window. If the flag is not supplied (or no parent 
-        /// is specified), the task dialog is positioned (centered) relative 
+        /// Indicates that the task dialog is positioned (centered) relative
+        /// to the parent window. If the flag is not supplied (or no parent
+        /// is specified), the task dialog is positioned (centered) relative
         /// to the monitor.
         /// </summary>
         public bool PositionRelativeToWindow
@@ -255,13 +255,13 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
 
         /*
         /// <summary>
-        /// Version 6.00 and Windows 7. Indicates that the width of the task dialog 
-        /// is determined by the width of its content area. This flag is ignored if 
-        /// cxWidth is not set to 0. 
-        /// 
-        /// Note: This flag may not be supported in future versions of Comctl32.dll. 
-        /// Also, this flag is not defined in commctrl.h. To use it, add the 
-        /// following definition to the source files of your application: 
+        /// Version 6.00 and Windows 7. Indicates that the width of the task dialog
+        /// is determined by the width of its content area. This flag is ignored if
+        /// cxWidth is not set to 0.
+        ///
+        /// Note: This flag may not be supported in future versions of Comctl32.dll.
+        /// Also, this flag is not defined in commctrl.h. To use it, add the
+        /// following definition to the source files of your application:
         /// #define TDIF_SIZE_TO_CONTENT 0x1000000.
         /// </summary>
         public bool SizeToContent
@@ -331,7 +331,7 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
 
         /// <summary>
         /// String to be used for the dialog's primary content.
-        /// If the EnableHyperlinks property is set to true, then this string may 
+        /// If the EnableHyperlinks property is set to true, then this string may
         /// contain hyperlinks in the form:
         /// &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;.
         /// </summary>
@@ -346,13 +346,13 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Specifies the push buttons displayed in the task dialog. If no common 
-        /// buttons are specified and no custom buttons are specified using the 
+        /// Specifies the push buttons displayed in the task dialog. If no common
+        /// buttons are specified and no custom buttons are specified using the
         /// Buttons property, the task dialog will contain the OK button by default.
         /// </summary>
         public TaskDialogCommonButtons CommonButtons
         {
-            get { return (TaskDialogCommonButtons) config.dwCommonButtons; }
+            get { return (TaskDialogCommonButtons)config.dwCommonButtons; }
             set
             {
                 EnsureNotShowing();
@@ -390,8 +390,8 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// The button ID of the radio button that is selected by default. If 
-        /// this value does not correspond to a button ID, the first button in 
+        /// The button ID of the radio button that is selected by default. If
+        /// this value does not correspond to a button ID, the first button in
         /// the array is selected by default.
         /// </summary>
         public int DefaultRadioButtonId
@@ -406,7 +406,7 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
 
         /// <summary>
         /// String to be used to label the verification checkbox.
-        /// If this parameter is null, the verification checkbox is not displayed 
+        /// If this parameter is null, the verification checkbox is not displayed
         /// in the task dialog.
         /// </summary>
         public string VerificationText
@@ -421,10 +421,10 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
 
         /// <summary>
         /// String to be used for displaying additional information.
-        /// The additional information is displayed either immediately below the 
-        /// content or below the footer text depending on whether the 
+        /// The additional information is displayed either immediately below the
+        /// content or below the footer text depending on whether the
         /// ExpandFooterArea property is true.
-        /// If the EnableHyperlinks property is set to true, then this string may 
+        /// If the EnableHyperlinks property is set to true, then this string may
         /// contain hyperlinks in the form:
         /// &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;.
         /// </summary>
@@ -440,8 +440,8 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
 
         /// <summary>
         /// String to be used to label the button for collapsing the expandable
-        /// information. If this member is null and CollapsedControlText is 
-        /// specified, then the CollapsedControlText value will be used for this 
+        /// information. If this member is null and CollapsedControlText is
+        /// specified, then the CollapsedControlText value will be used for this
         /// property as well.
         /// </summary>
         public string ExpandedControlText
@@ -456,8 +456,8 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
 
         /// <summary>
         /// String to be used to label the button for expanding the expandable
-        /// information. If this member is null and ExpandedControlText is 
-        /// specified, then the ExpandedControlText value will be used for this 
+        /// information. If this member is null and ExpandedControlText is
+        /// specified, then the ExpandedControlText value will be used for this
         /// property as well.
         /// </summary>
         public string CollapsedControlText
@@ -471,7 +471,7 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         }
 
         /// <summary>
-        /// Icon that is to be displayed in the footer of the task dialog, or 
+        /// Icon that is to be displayed in the footer of the task dialog, or
         /// null for none.
         /// </summary>
         public TaskDialogIcon FooterIcon
@@ -486,7 +486,7 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
 
         /// <summary>
         /// String to be used in the footer area of the task dialog.
-        /// If the EnableHyperlinks property is set to true, then this string may 
+        /// If the EnableHyperlinks property is set to true, then this string may
         /// contain hyperlinks in the form:
         /// &lt;A HREF="executablestring"&gt;Hyperlink Text&lt;/A&gt;.
         /// </summary>
@@ -581,12 +581,12 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
                     if (HyperlinkClicked != null)
                         HyperlinkClicked(this, new TaskDialogHyperlinkEventArgs(driver, Marshal.PtrToStringUni(lParam)));
                     break;
-                    /*
-                case (uint)TASKDIALOG_NOTIFICATIONS.TDN_NAVIGATED:
-                    if (Navigated != null)
-                        Navigated(this, new TaskDialogEventArgs(driver));
-                    break;
-                     */
+                /*
+            case (uint)TASKDIALOG_NOTIFICATIONS.TDN_NAVIGATED:
+                if (Navigated != null)
+                    Navigated(this, new TaskDialogEventArgs(driver));
+                break;
+                 */
                 case (uint)TASKDIALOG_NOTIFICATIONS.TDN_RADIO_BUTTON_CLICKED:
                     if (RadioButtonClicked != null)
                         RadioButtonClicked(this, new TaskDialogButtonEventArgs(driver, wParam.ToInt32()));
@@ -675,14 +675,14 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private extern static bool DestroyIcon(IntPtr handle);
 
-        public static TaskDialogIcon None           { get { return new TaskDialogIcon(0); } }
-        public static TaskDialogIcon Warning        { get { return new TaskDialogIcon(-1 & 0xFFFF); } }
-        public static TaskDialogIcon Error          { get { return new TaskDialogIcon(-2 & 0xFFFF); } }
-        public static TaskDialogIcon Information    { get { return new TaskDialogIcon(-3 & 0xFFFF); } }
-        public static TaskDialogIcon SecurityWarning    { get { return new TaskDialogIcon(0xFFFF - 5); } }
-        public static TaskDialogIcon SecurityError      { get { return new TaskDialogIcon(0xFFFF - 6); } }
-        public static TaskDialogIcon SecuritySuccess    { get { return new TaskDialogIcon(0xFFFF - 7); } }
-        public static TaskDialogIcon SecurityShield     { get { return new TaskDialogIcon(0xFFFF - 3); } }
+        public static TaskDialogIcon None { get { return new TaskDialogIcon(0); } }
+        public static TaskDialogIcon Warning { get { return new TaskDialogIcon(-1 & 0xFFFF); } }
+        public static TaskDialogIcon Error { get { return new TaskDialogIcon(-2 & 0xFFFF); } }
+        public static TaskDialogIcon Information { get { return new TaskDialogIcon(-3 & 0xFFFF); } }
+        public static TaskDialogIcon SecurityWarning { get { return new TaskDialogIcon(0xFFFF - 5); } }
+        public static TaskDialogIcon SecurityError { get { return new TaskDialogIcon(0xFFFF - 6); } }
+        public static TaskDialogIcon SecuritySuccess { get { return new TaskDialogIcon(0xFFFF - 7); } }
+        public static TaskDialogIcon SecurityShield { get { return new TaskDialogIcon(0xFFFF - 3); } }
         public static TaskDialogIcon SecurityShieldBlue { get { return new TaskDialogIcon(0xFFFF - 4); } }
         public static TaskDialogIcon SecurityShieldGray { get { return new TaskDialogIcon(0xFFFF - 8); } }
     }
@@ -896,13 +896,13 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
     [Flags]
     public enum TaskDialogCommonButtons
     {
-        None          = 0,
-        OK            = 0x0001,
-        Yes           = 0x0002,
-        No            = 0x0004,
-        Cancel        = 0x0008,
-        Retry         = 0x0010,
-        Close         = 0x0020
+        None = 0,
+        OK = 0x0001,
+        Yes = 0x0002,
+        No = 0x0004,
+        Cancel = 0x0008,
+        Retry = 0x0010,
+        Close = 0x0020
     }
 
     public static class TaskDialogCommonButtonIds

@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                         context.BorderMargin,
                         newSize.Width - oldSize.Width,
                         newSize.Height - oldSize.Height,
-                        new BorderCalculation(newSize.Width/(float) oldSize.Width, newSize.Height/(float) oldSize.Height));
+                        new BorderCalculation(newSize.Width / (float)oldSize.Width, newSize.Height / (float)oldSize.Height));
                 }
             }
         }

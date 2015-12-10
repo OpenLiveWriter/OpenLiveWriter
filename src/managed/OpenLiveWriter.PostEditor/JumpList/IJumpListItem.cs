@@ -12,5 +12,5 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// Gets or sets this item's path
         /// </summary>
         string Path { get; set; }
-    }  
+    }
 }

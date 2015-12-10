@@ -4,9 +4,9 @@
 using System;
 
 namespace OpenLiveWriter.CoreServices
-{	
-	public sealed class PlatformHelper
-	{						
+{
+    public sealed class PlatformHelper
+    {
         /// <summary>
         /// Determines if the application is running on Windows 7
         /// </summary>
@@ -25,7 +25,7 @@ namespace OpenLiveWriter.CoreServices
             {
                 throw new PlatformNotSupportedException("Only supported on Windows 7 or newer.");
             }
-        }       
-	}
+        }
+    }
 
 }

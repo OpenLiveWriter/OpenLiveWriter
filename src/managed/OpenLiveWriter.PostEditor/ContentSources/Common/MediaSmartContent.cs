@@ -11,18 +11,18 @@ using OpenLiveWriter.Api;
 using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.PostEditor.ContentSources.Common
-{            
+{
     public abstract class MediaSmartContent : ForceInvalidateSmartContent
     {
         protected ISmartContent _content;
         protected MediaSmartContent(ISmartContent content) : base(content)
         {
             _content = content;
-        }        
+        }
 
         /// <summary>
         /// This is the ID that Writer is using internally to identify the smart content
-        /// This ID will change over time, so therefore should not be used for anything 
+        /// This ID will change over time, so therefore should not be used for anything
         /// other then linking this smart content to the extension data list.  If you keep this
         /// value around for other things like hashing the smart content the value might change
         /// and you will now have a stale value.
@@ -34,9 +34,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 return ((IInternalContent)_content).Id;
             }
         }
-        
+
         protected const int DEFAULT_WIDTH = 340;
-        protected const int DEFAULT_HEIGHT = 280;        
+        protected const int DEFAULT_HEIGHT = 280;
         protected const string HTML_WIDTH = "MediaSmartContent.HtmlSize.Width";
         protected const string HTML_HEIGHT = "MediaSmartContent.HtmlSize.Height";
         protected Size _minSize = new Size(DEFAULT_WIDTH, DEFAULT_HEIGHT);

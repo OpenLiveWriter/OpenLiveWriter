@@ -21,9 +21,9 @@ namespace OpenLiveWriter.PostEditor
 
     /// <summary>
     /// This class / thread static event is here to allow the typographic handling to execute even
-    /// when behaviors or others actually handle and suppress keys (for example, 
+    /// when behaviors or others actually handle and suppress keys (for example,
     /// the table editing behavior
-    /// handles enter and tab). Classes should call OnBeforeKeyHandled when they are going to use e.Cancel() to 
+    /// handles enter and tab). Classes should call OnBeforeKeyHandled when they are going to use e.Cancel() to
     /// cancel the key event and prevent its propagation.
     /// </summary>
     class LastChanceKeyboardHook
@@ -36,7 +36,6 @@ namespace OpenLiveWriter.PostEditor
         [ThreadStatic]
         public static KeyEventHandler BeforeKeyHandled;
     }
-
 
     class PostEditorKeyboardHandler : IDisposable
     {
@@ -54,7 +53,7 @@ namespace OpenLiveWriter.PostEditor
 
             _imageEditingContext = imageEditingContext;
             _editingModeContext = editingModeContext;
-            
+
             _autoreplaceManager = new AutoreplaceManager();
             AutoreplaceSettings.SettingsChanged += AutoreplaceSettings_SettingsChanged;
 
@@ -119,7 +118,7 @@ namespace OpenLiveWriter.PostEditor
             // value. This is because it's possible for a single keystroke to cause both
             // an autoreplace operation and a typographic character replacement to occur.
             // For example, try typing "teh'" (minus the double quotes). The apostrophe
-            // keystroke will cause both teh=>the and '=>’ at once, and hitting backspace
+            // keystroke will cause both teh=>the and '=>â€™ at once, and hitting backspace
             // twice should cause first one then the other to be undone.
 
             if (_ignoreNextSelectionChange)
@@ -130,7 +129,7 @@ namespace OpenLiveWriter.PostEditor
 
         void _keyHandled(object sender, KeyEventArgs e)
         {
-            // This is special handling so that when the user tabs or presses enter in the title, we'll still try to 
+            // This is special handling so that when the user tabs or presses enter in the title, we'll still try to
             // handle replaces
             if (e.KeyCode == Keys.Enter)
                 MaybeHandleKey('\r');
@@ -159,7 +158,7 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return _editingModeContext.CurrentEditingMode == EditingMode.Wysiwyg && 
+                return _editingModeContext.CurrentEditingMode == EditingMode.Wysiwyg &&
                     AutoreplaceSettings.AnyReplaceEnabled;
             }
         }
@@ -211,7 +210,7 @@ namespace OpenLiveWriter.PostEditor
                 if (Debugger.IsAttached)
                 {
                     Debug.Assert(_delayedAutoReplaceAction == null, "Delayed autoreplace operation wasn't null!");
-                    Debug.Assert(_typographicCharacterHandler == null,"Delayed typographic character operation wasn't null!");
+                    Debug.Assert(_typographicCharacterHandler == null, "Delayed typographic character operation wasn't null!");
                 }
                 _delayedAutoReplaceAction = null;
                 _typographicCharacterHandler = null;
@@ -280,12 +279,12 @@ namespace OpenLiveWriter.PostEditor
                 throw;
             }
             return handled;
-        }        
+        }
 
         private TypographicCharacterHandler _typographicCharacterHandler;
 
         private bool DoHandleKey(char c, bool whiteSpaceOrPunctuation)
-        {            
+        {
             MarkupPointer blockBoundary;
             string htmlText = GetHtmlText(out blockBoundary);
 
@@ -304,7 +303,7 @@ namespace OpenLiveWriter.PostEditor
             if (whiteSpaceOrPunctuation && AutoLinkEnabled)
                 MatchUrl(htmlText, InsertSuggestedUrl);
 
-            _linkIgnoreWord = null;            
+            _linkIgnoreWord = null;
             return false;
         }
 
@@ -314,7 +313,7 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return (!_haltAutoReplace && 
+                return (!_haltAutoReplace &&
                     (AutoReplaceEnabled || AutoLinkEnabled || TypographicReplacementEnabled));
             }
         }
@@ -343,24 +342,24 @@ namespace OpenLiveWriter.PostEditor
                 //_blogPostHtmlEditorControl.InsertHtml(insertMarkupRange.Start, insertMarkupRange.End, replaceHtml);
                 handled = true;
                 _lastActionWasReplace++;
-                    
+
             }
             return handled;
         }
 
         /// <summary>
-        /// WinLive 27883: There a few cases of autocorrect that we don't want to do, mainly involving punctuation 
+        /// WinLive 27883: There a few cases of autocorrect that we don't want to do, mainly involving punctuation
         /// typed after a single "i".
         /// </summary>
         private bool ShouldAutoCorrect(string htmlText, char key, string replaceHtml)
-        {                        
+        {
             // WinLive 259680: Auto-replace should not work within URLs
             htmlText = StringHelper.GetLastWord(htmlText);
             if (UrlHelper.StartsWithKnownScheme(htmlText) ||
                 htmlText.StartsWith("www.") ||
                 htmlText.StartsWith(@"\\") ||
                 htmlText.StartsWith("skype:"))
-                return false;                        
+                return false;
 
             if (replaceHtml == "I")
             {
@@ -382,7 +381,7 @@ namespace OpenLiveWriter.PostEditor
         /// character, so hitting Ctrl+Z after autoreplace causes just the autoreplace to be undone.
         /// In Wave 3 and earlier, in contrast, Ctrl+Z would undo the keypress first; this behavior
         /// is different than both Word and Windows Live Mail.
-        /// 
+        ///
         /// In the common case, MSHTML handles the keypress, and we do the autoreplace in PostEditorEvent
         /// (in this case, "Post" meaning "after"). It's hard to execute all of the autoreplace logic
         /// here, though, in the case that the user hits Enter--it's annoying to try to figure out
@@ -390,12 +389,12 @@ namespace OpenLiveWriter.PostEditor
         /// we figure out what autoreplace work should be done and where we should do it, and in the
         /// post event handler we actually do the work, thus giving it the proper position on the undo
         /// stack.
-        /// 
+        ///
         /// The only time this doesn't work is when our pre event handler stops MSHTML from handling
         /// the keypress, i.e. typographic substitution happens. In this case we need to make sure we
         /// still do the autoreplace operation even though the PostEditorEvent will not get fired.
         /// </summary>
-        private AutoReplaceAction _delayedAutoReplaceAction;        
+        private AutoReplaceAction _delayedAutoReplaceAction;
 
         /// <summary>
         /// Stores all the info we need to perform an autoreplace operation later.
@@ -476,7 +475,7 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
             return false;
-        
+
         }
 
         private void InsertSuggestedUrl(string matchText, GlossaryLinkItem linkItem, MarkupRange markupRange)
@@ -521,8 +520,8 @@ namespace OpenLiveWriter.PostEditor
             MarkupRange blockRange = _blogPostHtmlEditorControl.SelectedMarkupRange.Clone();
             MarkupRange textRange = blockRange.Clone();
             IHTMLElement ele = blockRange.ParentElement(ElementFilters.IsBlockOrTableCellOrBodyElement);
-            
-            if(ele == null)
+
+            if (ele == null)
             {
                 blockBoundary = null;
                 return String.Empty;
@@ -531,8 +530,8 @@ namespace OpenLiveWriter.PostEditor
             blockRange.MoveToElement(ele, false);
             blockBoundary = blockRange.Start;
 
-            //   Fix Bug 616152 - We want the start and end pointer to match so 
-            //  we can look back from the start of the insertion point (not the end, 
+            //   Fix Bug 616152 - We want the start and end pointer to match so
+            //  we can look back from the start of the insertion point (not the end,
             //  which would include the selection that is going to be overwritten)
             textRange.Collapse(true);
 
@@ -574,7 +573,7 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return Math.Max(GlossaryManager.Instance.MaxLengthHint, TypographicCharacterHandler.MaxLengthHint); 
+                return Math.Max(GlossaryManager.Instance.MaxLengthHint, TypographicCharacterHandler.MaxLengthHint);
             }
         }
 

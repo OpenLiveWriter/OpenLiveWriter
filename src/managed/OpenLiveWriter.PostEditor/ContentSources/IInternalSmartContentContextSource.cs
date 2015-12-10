@@ -13,5 +13,5 @@ namespace OpenLiveWriter.PostEditor.ContentSources
     public interface IInternalSmartContentContextSource : ISmartContentEditorCache
     {
         Size BodySize { get; }
-    }   
+    }
 }

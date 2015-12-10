@@ -8,65 +8,64 @@ using System.Drawing.Imaging;
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
 
-	public class TransformMatrix 
-	{
+    public class TransformMatrix
+    {
         private const int RED_OFFSET = 2;
         private const int GREEN_OFFSET = 1;
         private const int BLUE_OFFSET = 0;
-		private int TopLeft, TopMid, TopRight;
-		private int MidLeft, Pixel, MidRight;
-		private int BottomLeft, BottomMid, BottomRight;
-		private int Factor, Offset;
+        private int TopLeft, TopMid, TopRight;
+        private int MidLeft, Pixel, MidRight;
+        private int BottomLeft, BottomMid, BottomRight;
+        private int Factor, Offset;
 
-		//standard identity matrix values
-		public TransformMatrix()
-		{
-			TopLeft = TopMid = TopRight = MidLeft = 0;
-			Pixel = 1;
-			MidRight = BottomLeft = BottomMid = BottomRight = 0;
-			Factor = 1;
-			Offset = 0;		
-		}
+        //standard identity matrix values
+        public TransformMatrix()
+        {
+            TopLeft = TopMid = TopRight = MidLeft = 0;
+            Pixel = 1;
+            MidRight = BottomLeft = BottomMid = BottomRight = 0;
+            Factor = 1;
+            Offset = 0;
+        }
 
-
-		public TransformMatrix(int topLeft, int topMid, int topRight, int midLeft, int pixel, int midRight, int bottomLeft, int bottomMid, int bottomRight, int factor, int offset)
-		{
+        public TransformMatrix(int topLeft, int topMid, int topRight, int midLeft, int pixel, int midRight, int bottomLeft, int bottomMid, int bottomRight, int factor, int offset)
+        {
             if (factor == 0)
                 throw new ArgumentException("Factor cannot be zero", "factor");
-			
+
             TopLeft = topLeft;
-			TopMid = topMid;
-			TopRight = topRight;
-			MidLeft = midLeft;
-			Pixel = pixel;
-			MidRight = midRight;
-			BottomLeft = bottomLeft; 
-			BottomMid = bottomMid;
-			BottomRight = bottomRight;
-			Factor = factor;
-			Offset = offset;
-		}
+            TopMid = topMid;
+            TopRight = topRight;
+            MidLeft = midLeft;
+            Pixel = pixel;
+            MidRight = midRight;
+            BottomLeft = bottomLeft;
+            BottomMid = bottomMid;
+            BottomRight = bottomRight;
+            Factor = factor;
+            Offset = offset;
+        }
 
-		public TransformMatrix(int corner, int edge, int middle, int factor, int offset)
-		{
+        public TransformMatrix(int corner, int edge, int middle, int factor, int offset)
+        {
             if (factor == 0)
                 throw new ArgumentException("Factor cannot be zero", "factor");
-            
-            TopLeft = TopRight = BottomLeft = BottomRight = corner;
-			TopMid = MidLeft = MidRight = BottomMid = edge;
-			Pixel = middle;
-			Factor = factor;
-			Offset = offset;		
-		}
-	
-		public Bitmap Conv3x3(Bitmap image)
-		{
-			//check for error condition--will lead to divide by 0
-			if (0 == Factor)
-				throw new InvalidOperationException("Factor cannot be zero");
 
-			// NOTE: GDI returns BGR, NOT RGB. 
-			//make image with 1 pixel border
+            TopLeft = TopRight = BottomLeft = BottomRight = corner;
+            TopMid = MidLeft = MidRight = BottomMid = edge;
+            Pixel = middle;
+            Factor = factor;
+            Offset = offset;
+        }
+
+        public Bitmap Conv3x3(Bitmap image)
+        {
+            //check for error condition--will lead to divide by 0
+            if (0 == Factor)
+                throw new InvalidOperationException("Factor cannot be zero");
+
+            // NOTE: GDI returns BGR, NOT RGB.
+            //make image with 1 pixel border
             using (Bitmap source = new Bitmap(image.Width + 2, image.Height + 2))
             {
                 using (Graphics g = Graphics.FromImage(source))
@@ -105,7 +104,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
                         System.IntPtr Scan0 = bmTransformed.Scan0;
                         System.IntPtr SrcScan0 = bmSource.Scan0;
-
 
                         unsafe
                         {
@@ -188,6 +186,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 }
                 return transformed;
             }
-		}
-	}
+        }
+    }
 }

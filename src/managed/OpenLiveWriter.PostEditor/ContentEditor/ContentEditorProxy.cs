@@ -32,7 +32,6 @@ using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.PostEditor.PostHtmlEditing;
 using IDropTarget = OpenLiveWriter.Interop.Com.IDropTarget;
 
-
 namespace OpenLiveWriter.PostEditor
 {
     [ClassInterface(ClassInterfaceType.None)]
@@ -150,7 +149,6 @@ namespace OpenLiveWriter.PostEditor
 
         #region IContentEditorFactory Members
 
-
         public void DoPreloadWork()
         {
             ContentEditorProxy.ApplyInstalledCulture();
@@ -193,7 +191,7 @@ namespace OpenLiveWriter.PostEditor
         public override void WriteLine(string message, string category)
         {
             try
-            {                
+            {
                 if (category == ErrText.FailText)
                 {
                     _logger.WriteLine(message, (int)ContentEditorLoggingLevel.Log_Error);
@@ -206,7 +204,7 @@ namespace OpenLiveWriter.PostEditor
             catch (Exception)
             {
                 // TODO: Explore our options here.
-                // IContentEditorLogger should not be throwing exceptions, but in the case that it does we do not want 
+                // IContentEditorLogger should not be throwing exceptions, but in the case that it does we do not want
                 // to make another Debug or Trace call because it could cause an infinite loop/stack overflow.
             }
         }
@@ -224,7 +222,7 @@ namespace OpenLiveWriter.PostEditor
         private IBlogPostEditingContext context;
         private Panel panel;
         private ContentEditorAccountAdapter accountAdapter;
-        private IContentEditorSite _contentEditorSite;        
+        private IContentEditorSite _contentEditorSite;
 
         public ContentEditorProxy(ContentEditorFactory factory, IContentEditorSite contentEditorSite, IInternetSecurityManager internetSecurityManager, string wysiwygHTML, string previewHTML, int dlControlFlags)
         {
@@ -262,7 +260,6 @@ namespace OpenLiveWriter.PostEditor
 
             ContentEditorProxyCore(factory, contentEditorSite, internetSecurityManager, wysiwygHTML, null, editingContext, new ContentEditorTemplateStrategy(), dlControlFlags, color);
 
-
         }
 
         private class DelayedInsert
@@ -290,9 +287,9 @@ namespace OpenLiveWriter.PostEditor
         /// <param name="newEditingContext"></param>
         /// <param name="templateStrategy"></param>
         /// <param name="dlControlFlags">
-        /// For Mail, these flags should always include DLCTL_DLIMAGES | DLCTL_VIDEOS | DLCTL_BGSOUNDS so that local 
-        /// images, videos and sounds are loaded. To block external content, it should also include 
-        /// DLCTL_PRAGMA_NO_CACHE | DLCTL_FORCEOFFLINE | DLCTL_NO_CLIENTPULL so that external images are not loaded 
+        /// For Mail, these flags should always include DLCTL_DLIMAGES | DLCTL_VIDEOS | DLCTL_BGSOUNDS so that local
+        /// images, videos and sounds are loaded. To block external content, it should also include
+        /// DLCTL_PRAGMA_NO_CACHE | DLCTL_FORCEOFFLINE | DLCTL_NO_CLIENTPULL so that external images are not loaded
         /// and are displayed as a red X instead.
         /// </param>
         /// <param name="color"></param>
@@ -309,7 +306,7 @@ namespace OpenLiveWriter.PostEditor
 
                 _wysiwygHTML = wysiwygHTML;
                 _previewHTML = previewHTML;
-                _contentEditorSite = contentEditorSite;                
+                _contentEditorSite = contentEditorSite;
 
                 IntPtr p = _contentEditorSite.GetWindowHandle();
                 WINDOWINFO info = new WINDOWINFO();
@@ -406,7 +403,7 @@ namespace OpenLiveWriter.PostEditor
         {
             return contentEditor.Publish(imageConverter);
         }
-       
+
         public IHTMLDocument2 GetPublishDocument()
         {
             string body = contentEditor.Publish(null);
@@ -433,10 +430,8 @@ namespace OpenLiveWriter.PostEditor
             // email as a whole is determined by the direction defined in the body
             publishDocument.body.setAttribute("dir", dir, 1);
 
-            return publishDocument;                        
+            return publishDocument;
         }
-
-
 
         public void SetSize(int width, int height)
         {
@@ -519,7 +514,7 @@ namespace OpenLiveWriter.PostEditor
         #region IDisposable Members
 
         public void Dispose()
-        {            
+        {
             factory.GlobalSpellingOptionsChanged -= GlobalSpellingOptionsChangedHandler;
 
             contentEditor.DocumentComplete -= new EventHandler(blogPostHtmlEditor_DocumentComplete);
@@ -532,7 +527,7 @@ namespace OpenLiveWriter.PostEditor
             mainFrame.Dispose();
 
             Marshal.ReleaseComObject(_contentEditorSite);
-            _contentEditorSite = null;            
+            _contentEditorSite = null;
             accountAdapter = null;
             contentEditor = null;
             panel = null;
@@ -572,7 +567,6 @@ namespace OpenLiveWriter.PostEditor
                 Debug.Fail(ex.ToString());
                 throw;
             }
-
 
             Debug.Fail("Unknown value for editingView: " + editingMode.ToString() + "\r\nAccepted values Wysiwyg, Source, Preview, PlainText");
 
@@ -669,9 +663,7 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         #region IContentEditor Members
-
 
         public bool GetDirtyState()
         {
@@ -689,7 +681,7 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #endregion
-        
+
     }
 
 }

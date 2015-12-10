@@ -5,17 +5,17 @@ using System;
 
 namespace OpenLiveWriter.CoreServices
 {
-	/// <summary>
-	/// Math helper class.
-	/// </summary>
-	public class MathHelper
-	{
-		/// <summary>
-		/// Initializes a new instance of the MathHelper class.
-		/// </summary>
-		private MathHelper()
-		{
-		}
+    /// <summary>
+    /// Math helper class.
+    /// </summary>
+    public class MathHelper
+    {
+        /// <summary>
+        /// Initializes a new instance of the MathHelper class.
+        /// </summary>
+        private MathHelper()
+        {
+        }
 
         public static int HexToInt(char h)
         {
@@ -34,24 +34,24 @@ namespace OpenLiveWriter.CoreServices
             return -1;
         }
 
-		/// <summary>
-		/// Limits a value to be within a specified range.  If value is less than minimumValue,
-		/// minimumValue will returned.  If value is greater than maximumValue, maximumValue will
-		/// be returned.  Otherwise, value will be returned.
-		/// </summary>
-		/// <param name="value">The value to compare.</param>
-		/// <param name="minimumValue">The minimum value to return.</param>
-		/// <param name="maximumValue">The maximum value to return.</param>
-		/// <returns></returns>
-		public static int Clip(int value, int minimumValue, int maximumValue)
-		{
-			if (value < minimumValue)
-				return minimumValue;
-			else if (value > maximumValue)
-				return maximumValue;
-			else
-				return value;
-		}
+        /// <summary>
+        /// Limits a value to be within a specified range.  If value is less than minimumValue,
+        /// minimumValue will returned.  If value is greater than maximumValue, maximumValue will
+        /// be returned.  Otherwise, value will be returned.
+        /// </summary>
+        /// <param name="value">The value to compare.</param>
+        /// <param name="minimumValue">The minimum value to return.</param>
+        /// <param name="maximumValue">The maximum value to return.</param>
+        /// <returns></returns>
+        public static int Clip(int value, int minimumValue, int maximumValue)
+        {
+            if (value < minimumValue)
+                return minimumValue;
+            else if (value > maximumValue)
+                return maximumValue;
+            else
+                return value;
+        }
 
         public static int Max(params int[] values)
         {

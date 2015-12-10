@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             DropShadowBorderDecoratorSettings settings = new DropShadowBorderDecoratorSettings(context);
 
-            Bitmap bitmap = new Bitmap(context.Image.Width + borderWidth*2, context.Image.Height + borderWidth*2);
+            Bitmap bitmap = new Bitmap(context.Image.Width + borderWidth * 2, context.Image.Height + borderWidth * 2);
             using (Graphics g = Graphics.FromImage(bitmap))
             {
                 using (Brush b = new SolidBrush(settings.ShadowColor))
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     g.FillRectangle(b, 0, 0, bitmap.Width, borderWidth);
                     g.FillRectangle(b, 0, borderWidth, borderWidth, bitmap.Height);
                     g.FillRectangle(b, borderWidth, bitmap.Height - borderWidth, bitmap.Width - borderWidth, borderWidth);
-                    g.FillRectangle(b, bitmap.Width - borderWidth, borderWidth, borderWidth, bitmap.Height - borderWidth*2);
+                    g.FillRectangle(b, bitmap.Width - borderWidth, borderWidth, borderWidth, bitmap.Height - borderWidth * 2);
                 }
                 g.DrawImage(context.Image, borderWidth, borderWidth, context.Image.Width, context.Image.Height);
             }
@@ -57,7 +57,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         public ThinSolidBorderDecorator() : base(1)
         {
         }
-
 
         public override Bitmap BitmapLarge
         {

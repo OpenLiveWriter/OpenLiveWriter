@@ -17,7 +17,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         public Color Color;
         public StringId StringId;
-    }    
+    }
 
     public interface IColorPickerCommand
     {

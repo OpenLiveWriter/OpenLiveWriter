@@ -22,52 +22,52 @@ using OpenLiveWriter.PostEditor.PostHtmlEditing;
 
 namespace OpenLiveWriter.PostEditor.ImageInsertion
 {
-	/// <summary>
-	/// Summary description for WebImageControl.
-	/// </summary>
-	public class WebImageSource : InsertImageSource
-	{
-		private Label _labelOne;
-		private TextBoxWithPaste _webImageUrl;
-		private BorderControl _pictureBorder;
-		private PictureBox _previewBox;
-		private Button _previewButton;
-		private Label _labelSize;
-		private Label _fileSize;
-		private bool _selected = false;
-		UserControl _control;
-		private int _width;
-		private int _height;
+    /// <summary>
+    /// Summary description for WebImageControl.
+    /// </summary>
+    public class WebImageSource : InsertImageSource
+    {
+        private Label _labelOne;
+        private TextBoxWithPaste _webImageUrl;
+        private BorderControl _pictureBorder;
+        private PictureBox _previewBox;
+        private Button _previewButton;
+        private Label _labelSize;
+        private Label _fileSize;
+        private bool _selected = false;
+        UserControl _control;
+        private int _width;
+        private int _height;
 
         private const int WebImageUrlPadding = 6;
         private const int SizeLabelPadding = 6;
 
-		public void Init(int width, int height)
-		{
-			_width = width;
-			_height = height;
-		}
-		
-		public string TabName
-		{
-			get
-			{
-				return Res.Get(StringId.InsertImageInsertFromWeb);
-			}
-		}
-		
-		public Bitmap TabBitmap
-		{
-			get
-			{
-				return ResourceHelper.LoadAssemblyResourceBitmap("ImageInsertion.Images.TabInsertFromWeb.png");
-			}
-		}
+        public void Init(int width, int height)
+        {
+            _width = width;
+            _height = height;
+        }
 
-		public UserControl ImageSelectionControls
-		{
-			get 
-			{
+        public string TabName
+        {
+            get
+            {
+                return Res.Get(StringId.InsertImageInsertFromWeb);
+            }
+        }
+
+        public Bitmap TabBitmap
+        {
+            get
+            {
+                return ResourceHelper.LoadAssemblyResourceBitmap("ImageInsertion.Images.TabInsertFromWeb.png");
+            }
+        }
+
+        public UserControl ImageSelectionControls
+        {
+            get
+            {
                 if (_control == null)
                 {
                     _control = new UserControl();
@@ -76,7 +76,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
                     _control.Load += new EventHandler(_control_Load);
                     _control.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
                     _control.Font = Res.DefaultFont;
-                    
+
                     _labelOne = new Label();
                     _labelOne.FlatStyle = FlatStyle.System;
                     _labelOne.Text = Res.Get(StringId.InsertImageImageUrl);
@@ -139,14 +139,14 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
                     _control.Name = "WebImageSource";
                     _control.RightToLeft = BidiHelper.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
                 }
-			    return _control;
-			}
-		}
+                return _control;
+            }
+        }
 
-		private void _control_Load(object sender, EventArgs e)
-		{
+        private void _control_Load(object sender, EventArgs e)
+        {
             LayoutHelper.AutoFitLabels(_labelSize);
-            
+
             DisplayHelper.AutoFitSystemLabel(_labelOne, _labelOne.Width, int.MaxValue);
             DisplayHelper.AutoFitSystemButton(_previewButton, 0, int.MaxValue);
 
@@ -167,217 +167,216 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
                 _fileSize.Width = _pictureBorder.Right - _fileSize.Left;
             }
 
-		    BidiHelper.RtlLayoutFixup(_control);
+            BidiHelper.RtlLayoutFixup(_control);
 
             _webImageUrl.Select();
-		}
+        }
 
-		private void _imageUrl_Paste(object sender, TextBoxWithPaste.PasteEventArgs eventArgs)
-		{
-			//special case...image on clipboard
-			if (_webImageUrl.Text.Trim() == String.Empty)
-			{
-				DataObjectMeister dataObject = new DataObjectMeister(Clipboard.GetDataObject());
+        private void _imageUrl_Paste(object sender, TextBoxWithPaste.PasteEventArgs eventArgs)
+        {
+            //special case...image on clipboard
+            if (_webImageUrl.Text.Trim() == String.Empty)
+            {
+                DataObjectMeister dataObject = new DataObjectMeister(Clipboard.GetDataObject());
                 if (dataObject.HTMLData != null && dataObject.HTMLData.OnlyImagePath != null)
-				{
-						_webImageUrl.Text = dataObject.HTMLData.OnlyImagePath;
-				}
-			}
-			PopulatePreviewBox();
-			_webImageUrl.SelectAll();
-		}
+                {
+                    _webImageUrl.Text = dataObject.HTMLData.OnlyImagePath;
+                }
+            }
+            PopulatePreviewBox();
+            _webImageUrl.SelectAll();
+        }
 
+        public void Repaint(Size newSize)
+        {
+            _control.Size = newSize;
 
-		public void Repaint(Size newSize)
-		{
-			_control.Size = newSize;
+        }
 
-		}
+        public string SourceImageLink
+        {
+            get { return FileName; }
+        }
 
-		public string SourceImageLink
-		{
-			get { return FileName; }
-		}
+        public void TabSelected()
+        {
+            _webImageUrl.Focus();
+        }
 
-		public void TabSelected()
-		{
-			_webImageUrl.Focus();
-		}
+        public event EventHandler OnSelectionMade;
 
-		public event EventHandler OnSelectionMade;
+        public string FileName
+        {
+            get
+            {
+                return UrlHelper.FixUpUrl(_webImageUrl.Text);
+            }
+        }
 
-		public string FileName
-		{
-			get
-			{
-				return UrlHelper.FixUpUrl(_webImageUrl.Text);
-			}
-		}
+        public bool ValidateSelection()
+        {
+            if (!UrlHelper.IsUrl(UrlHelper.FixUpUrl(_webImageUrl.Text)))
+            {
+                DisplayMessage.Show(MessageId.InvalidWebImage);
+                _webImageUrl.Focus();
+                return false;
+            }
+            return true;
+        }
 
-		public bool ValidateSelection()
-		{
-			if (!UrlHelper.IsUrl(UrlHelper.FixUpUrl(_webImageUrl.Text)))
-			{
-				DisplayMessage.Show(MessageId.InvalidWebImage);
-				_webImageUrl.Focus();
-				return false;
-			}
-			return true;
-		}
+        public bool HandleEnter(int cmdId)
+        {
+            int previewButtonId = (int)User32.GetDlgCtrlID(_previewButton.Handle) & 0xFFFF;
+            if (previewButtonId == cmdId)
+            {
+                _previewButton.PerformClick();
+                return true;
+            }
+            return false;
+        }
 
-		public bool HandleEnter(int cmdId)
-		{
-			int previewButtonId = (int)User32.GetDlgCtrlID(_previewButton.Handle) & 0xFFFF;
-			if (previewButtonId == cmdId)
-			{
-				_previewButton.PerformClick();
-				return true;
-			}
-			return false;
-		}
+        public bool Selected
+        {
+            get
+            {
+                return _selected;
+            }
+            set
+            {
+                _selected = value;
+            }
+        }
 
-		public bool Selected
-		{
-			get
-			{
-				return _selected;
-			}
-			set
-			{
-				_selected = value;
-			}
-		}
-		
-		private void _previewButton_Click(object sender, EventArgs e)
-		{
-			PopulatePreviewBox();
-		}
-		
-		private void PopulatePreviewBox()
-		{
-			string imageUrl = _webImageUrl.Text.Trim();
-			if (imageUrl != String.Empty && UrlHelper.IsUrl(imageUrl))
-			{
-				using (new WaitCursor())
-				{
-					try
-					{
-						HttpWebResponse response = HttpRequestHelper.SendRequest(UrlHelper.FixUpUrl(imageUrl)) ;
-						Bitmap webImage;
-						using (Stream responseStream = response.GetResponseStream())
-							webImage = new Bitmap(StreamHelper.CopyToMemoryStream(responseStream)); 
+        private void _previewButton_Click(object sender, EventArgs e)
+        {
+            PopulatePreviewBox();
+        }
 
-						SetPreviewPicture(webImage, imageUrl);
-						
-						if (OnSelectionMade != null)
-							OnSelectionMade(this, new EventArgs());
+        private void PopulatePreviewBox()
+        {
+            string imageUrl = _webImageUrl.Text.Trim();
+            if (imageUrl != String.Empty && UrlHelper.IsUrl(imageUrl))
+            {
+                using (new WaitCursor())
+                {
+                    try
+                    {
+                        HttpWebResponse response = HttpRequestHelper.SendRequest(UrlHelper.FixUpUrl(imageUrl));
+                        Bitmap webImage;
+                        using (Stream responseStream = response.GetResponseStream())
+                            webImage = new Bitmap(StreamHelper.CopyToMemoryStream(responseStream));
 
-					}
-					catch (Exception)
-					{
-						_previewBox.Image = null;
-						DisplayMessage.Show(MessageId.NoPreviewAvailable);
-						_webImageUrl.Focus();
-					}
-				}
-			}
-			else
-			{
-				_previewBox.Image = null;
-				DisplayMessage.Show(MessageId.NoPreviewAvailable);
-				_webImageUrl.Focus();
-			}
-		}
+                        SetPreviewPicture(webImage, imageUrl);
 
-		private void SetPreviewPicture(Bitmap image, string filename)
-		{
-			int maxWidth = _previewBox.Width - 2;
-			int maxHeight = _previewBox.Height - 2;
-			bool scaled = true;
-			int currentWidth = image.Width;
-			int currentHeight = image.Height;
-			double ratio = 1.00;
-			//if height and width are too big
-			if (currentWidth > maxWidth && currentHeight > maxHeight)
-			{
-				//size according to the one that is more off of the available area
-				if ( (maxWidth/currentWidth) < (maxHeight/currentHeight))
-				{
-					ratio = (double)maxWidth/(double)currentWidth;
-				}
-				else
-				{
-					ratio = (double)maxHeight/(double)currentHeight;
-				}
-			}
-			//if just width
-			else if (currentWidth > maxWidth)
-			{
-				ratio = (double)maxWidth/(double)currentWidth;
-			}
-			//if just height
-			else if (currentHeight > maxHeight)
-			{
-				ratio = (double)maxHeight/(double)currentHeight;
-			}
-			//else fine
-			else
-			{
-				scaled = false;
-			}
-			
-			ImageFormat format;
-			string fileExt;
-			ImageHelper2.GetImageFormat(filename, out fileExt, out format);					
-			int newWidth = (int) (currentWidth*ratio);
-			int newHeight = (int) (currentHeight*ratio);
-				
-			Bitmap newImage = ImageHelper2.CreateResizedBitmap(image, newWidth, newHeight, format);
-			
-			//if image is small enough, add border
-			if (newWidth <= maxWidth && newHeight <= maxHeight)
-			{
-				Bitmap borderPic = new Bitmap(newWidth + 2, newHeight + 2);
-				//Get a graphics object for it
-				using(Graphics g=Graphics.FromImage(borderPic))
-				{
-					g.TextRenderingHint=TextRenderingHint.AntiAlias;
+                        if (OnSelectionMade != null)
+                            OnSelectionMade(this, new EventArgs());
 
-					int R = SystemColors.Control.R;
-					int G = SystemColors.Control.G;
-					int B = SystemColors.Control.B;
-					Color dark = Color.FromArgb((int)(R * 0.9), (int)(G * 0.9), (int)(B * 0.9));
-					//draw the border
-					g.FillRectangle(new SolidBrush(dark), new Rectangle(0, 0, borderPic.Width, 1));
-					g.FillRectangle(new SolidBrush(dark), new Rectangle(0, borderPic.Height - 1, borderPic.Width, 1));
-					g.FillRectangle(new SolidBrush(dark), new Rectangle(0, 0, 1, borderPic.Height));
-					g.FillRectangle(new SolidBrush(dark), new Rectangle(borderPic.Width - 1, 0, 1, borderPic.Height));
+                    }
+                    catch (Exception)
+                    {
+                        _previewBox.Image = null;
+                        DisplayMessage.Show(MessageId.NoPreviewAvailable);
+                        _webImageUrl.Focus();
+                    }
+                }
+            }
+            else
+            {
+                _previewBox.Image = null;
+                DisplayMessage.Show(MessageId.NoPreviewAvailable);
+                _webImageUrl.Focus();
+            }
+        }
 
-					//draw our image back in the middle
-					g.DrawImage(newImage, new Rectangle(1, 1, newWidth, newHeight), 0, 0, newWidth, newHeight, GraphicsUnit.Pixel);
-				}				
-				_previewBox.Image = borderPic;
-			}
-			else
-			{
-				_previewBox.Image = newImage;
-			}
-			
-			string picsize;
-			if (!scaled)
-				picsize = MakeDimensions(currentWidth, currentHeight);
-			else
-			{
-				picsize = string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.InsertImageDimensionsFormatScaled),
-					              MakeDimensions(currentWidth, currentHeight));
-			}
-			_fileSize.Text = picsize;            
-		}
-		
-		private static string MakeDimensions(int width, int height)
-		{
-			return string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.InsertImageDimensionsFormat), width, height);
-		}
-	}
+        private void SetPreviewPicture(Bitmap image, string filename)
+        {
+            int maxWidth = _previewBox.Width - 2;
+            int maxHeight = _previewBox.Height - 2;
+            bool scaled = true;
+            int currentWidth = image.Width;
+            int currentHeight = image.Height;
+            double ratio = 1.00;
+            //if height and width are too big
+            if (currentWidth > maxWidth && currentHeight > maxHeight)
+            {
+                //size according to the one that is more off of the available area
+                if ((maxWidth / currentWidth) < (maxHeight / currentHeight))
+                {
+                    ratio = (double)maxWidth / (double)currentWidth;
+                }
+                else
+                {
+                    ratio = (double)maxHeight / (double)currentHeight;
+                }
+            }
+            //if just width
+            else if (currentWidth > maxWidth)
+            {
+                ratio = (double)maxWidth / (double)currentWidth;
+            }
+            //if just height
+            else if (currentHeight > maxHeight)
+            {
+                ratio = (double)maxHeight / (double)currentHeight;
+            }
+            //else fine
+            else
+            {
+                scaled = false;
+            }
+
+            ImageFormat format;
+            string fileExt;
+            ImageHelper2.GetImageFormat(filename, out fileExt, out format);
+            int newWidth = (int)(currentWidth * ratio);
+            int newHeight = (int)(currentHeight * ratio);
+
+            Bitmap newImage = ImageHelper2.CreateResizedBitmap(image, newWidth, newHeight, format);
+
+            //if image is small enough, add border
+            if (newWidth <= maxWidth && newHeight <= maxHeight)
+            {
+                Bitmap borderPic = new Bitmap(newWidth + 2, newHeight + 2);
+                //Get a graphics object for it
+                using (Graphics g = Graphics.FromImage(borderPic))
+                {
+                    g.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+                    int R = SystemColors.Control.R;
+                    int G = SystemColors.Control.G;
+                    int B = SystemColors.Control.B;
+                    Color dark = Color.FromArgb((int)(R * 0.9), (int)(G * 0.9), (int)(B * 0.9));
+                    //draw the border
+                    g.FillRectangle(new SolidBrush(dark), new Rectangle(0, 0, borderPic.Width, 1));
+                    g.FillRectangle(new SolidBrush(dark), new Rectangle(0, borderPic.Height - 1, borderPic.Width, 1));
+                    g.FillRectangle(new SolidBrush(dark), new Rectangle(0, 0, 1, borderPic.Height));
+                    g.FillRectangle(new SolidBrush(dark), new Rectangle(borderPic.Width - 1, 0, 1, borderPic.Height));
+
+                    //draw our image back in the middle
+                    g.DrawImage(newImage, new Rectangle(1, 1, newWidth, newHeight), 0, 0, newWidth, newHeight, GraphicsUnit.Pixel);
+                }
+                _previewBox.Image = borderPic;
+            }
+            else
+            {
+                _previewBox.Image = newImage;
+            }
+
+            string picsize;
+            if (!scaled)
+                picsize = MakeDimensions(currentWidth, currentHeight);
+            else
+            {
+                picsize = string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.InsertImageDimensionsFormatScaled),
+                                  MakeDimensions(currentWidth, currentHeight));
+            }
+            _fileSize.Text = picsize;
+        }
+
+        private static string MakeDimensions(int width, int height)
+        {
+            return string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.InsertImageDimensionsFormat), width, height);
+        }
+    }
 }
 

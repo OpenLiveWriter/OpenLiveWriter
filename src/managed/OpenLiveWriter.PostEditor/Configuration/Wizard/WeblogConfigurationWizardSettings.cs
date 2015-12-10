@@ -3,41 +3,40 @@
 
 using System;
 using OpenLiveWriter.CoreServices.Settings;
-using OpenLiveWriter.PostEditor ;
-using OpenLiveWriter.PostEditor.BlogProviderButtons; 
-
+using OpenLiveWriter.PostEditor;
+using OpenLiveWriter.PostEditor.BlogProviderButtons;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
-	public sealed class WeblogConfigurationWizardSettings
-	{
+    public sealed class WeblogConfigurationWizardSettings
+    {
 
-		public static string LastServiceName
-		{
-			get
-			{
-				return SettingsKey.GetString(LAST_SERVICE_NAME, String.Empty);
-			}
-			set
-			{
-				// record the service name and add it to our list
-				SettingsKey.SetString(LAST_SERVICE_NAME, value );
-				_serviceNames.SetString(value, String.Empty );
-			}
-			
-		}
-		private const string LAST_SERVICE_NAME = "LastServiceName" ;
+        public static string LastServiceName
+        {
+            get
+            {
+                return SettingsKey.GetString(LAST_SERVICE_NAME, String.Empty);
+            }
+            set
+            {
+                // record the service name and add it to our list
+                SettingsKey.SetString(LAST_SERVICE_NAME, value);
+                _serviceNames.SetString(value, String.Empty);
+            }
 
-		public static string[] ServiceNamesUsed
-		{
-			get
-			{
-				return _serviceNames.SettingsPersister.GetNames() ;
-			}
-		}
+        }
+        private const string LAST_SERVICE_NAME = "LastServiceName";
 
-		internal static SettingsPersisterHelper SettingsKey = PostEditorSettings.SettingsKey.GetSubSettings("ConfigurationWizard") ;
-		private static readonly SettingsPersisterHelper _serviceNames = SettingsKey.GetSubSettings("ServiceNames") ;
+        public static string[] ServiceNamesUsed
+        {
+            get
+            {
+                return _serviceNames.SettingsPersister.GetNames();
+            }
+        }
 
-	}
+        internal static SettingsPersisterHelper SettingsKey = PostEditorSettings.SettingsKey.GetSubSettings("ConfigurationWizard");
+        private static readonly SettingsPersisterHelper _serviceNames = SettingsKey.GetSubSettings("ServiceNames");
+
+    }
 }

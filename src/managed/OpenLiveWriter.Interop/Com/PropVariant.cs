@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -16,7 +16,7 @@ namespace OpenLiveWriter.Interop.Com
     /// a VT_UNKNOWN prop, an implicit AddRef is called, thus your reference will
     /// be active even after the PropVariant struct is cleared.
     /// Correct usage:
-    /// 
+    ///
     ///     PropVariant propVar;
     ///     GetProp(out propVar);
     ///     try
@@ -24,7 +24,7 @@ namespace OpenLiveWriter.Interop.Com
     ///         object value = propVar.Value;
     ///     }
     ///     finally { propVar.Clear(); }
-    ///     
+    ///
     /// Originally sourced from http://blogs.msdn.com/adamroot/pages/interop-with-propvariants-in-net.aspx
     /// and modified to support additional types including vectors and ability to set values
     /// </remarks>
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.Interop.Com
         ushort wReserved2;
         ushort wReserved3;
 
-
         // In order to allow x64 compat, we need to allow for
         // expansion of the IntPtr. However, the BLOB struct
         // uses a 4-byte int, followed by an IntPtr, so
@@ -66,16 +65,16 @@ namespace OpenLiveWriter.Interop.Com
         #region public Methods
 
         private void ZeroOut()
-        {                  
+        {
             valueType = (ushort)VarEnum.VT_EMPTY;
             wReserved1 = wReserved2 = wReserved3 = 0;
             valueData = IntPtr.Zero;
-            valueDataExt = 0;            
+            valueDataExt = 0;
         }
 
         public PropVariant(uint value) : this()
         {
-            ZeroOut();           
+            ZeroOut();
             SetUInt(value);
         }
 
@@ -286,7 +285,6 @@ namespace OpenLiveWriter.Interop.Com
         {
             return (VarType == VarEnum.VT_ERROR);
         }
-
 
         /// <summary>
         /// Called to clear the PropVariant's referenced and local memory.
@@ -559,7 +557,7 @@ namespace OpenLiveWriter.Interop.Com
             valueType = (ushort)VarEnum.VT_UI4;
             valueData = (IntPtr)(int)value;
         }
-        
+
         /// <summary>
         /// Set a decimal  value
         /// </summary>
@@ -934,7 +932,6 @@ namespace OpenLiveWriter.Interop.Com
                     Propsys.PropVariantGetFileTimeElem(ref this, i, out val);
 
                     long fileTime = FileTimeToDateTime(ref val);
-
 
                     arr.SetValue(DateTime.FromFileTime(fileTime), i);
                 }

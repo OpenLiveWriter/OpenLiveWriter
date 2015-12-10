@@ -25,29 +25,29 @@ namespace OpenLiveWriter.HtmlEditor
         AllowBlockBreakout = 2048
     }
 
-	public interface IHtmlEditor : IDisposable
-	{
-		Control EditorControl { get; }
-	
-		void LoadHtmlFile( string filePath ) ;
+    public interface IHtmlEditor : IDisposable
+    {
+        Control EditorControl { get; }
 
-		string GetEditedHtml(bool preferWellFormed) ;
+        void LoadHtmlFile(string filePath);
+
+        string GetEditedHtml(bool preferWellFormed);
         string GetEditedHtmlFast();
-	
-		string SelectedText { get; }
 
-		string SelectedHtml { get; }
+        string SelectedText { get; }
 
-		void EmptySelection() ;
+        string SelectedHtml { get; }
 
-		void InsertHtml(string content, bool moveSelectionRight) ;
-		void InsertHtml(string content, HtmlInsertionOptions options) ;
+        void EmptySelection();
 
-		void InsertLink(string url, string linkText, string linkTitle, string rel, bool newWindow) ;
+        void InsertHtml(string content, bool moveSelectionRight);
+        void InsertHtml(string content, HtmlInsertionOptions options);
 
-		bool IsDirty { get; set;  }
+        void InsertLink(string url, string linkText, string linkTitle, string rel, bool newWindow);
 
-		IHtmlEditorCommandSource CommandSource { get; }
+        bool IsDirty { get; set; }
+
+        IHtmlEditorCommandSource CommandSource { get; }
 
         event EventHandler IsDirtyEvent;
 
@@ -57,6 +57,6 @@ namespace OpenLiveWriter.HtmlEditor
         /// will be tried again later.
         /// </summary>
         bool SuspendAutoSave { get; }
-	}
+    }
 
 }

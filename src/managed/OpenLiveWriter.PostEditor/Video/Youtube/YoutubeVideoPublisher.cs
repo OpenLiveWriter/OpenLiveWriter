@@ -75,7 +75,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         {
             return StringHelper.Join(rawTags.Trim().Split(new char[] { ',', ' ' }), ", ", true);
         }
-        
+
         public Video GetVideo(string title, string description, string tags, string categoryId, string categoryString, string permissionValue, string permissionString)
         {
             // Make the video by the ID that we got back form soapbox
@@ -94,7 +94,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         {
             get
             {
-                if(_categories == null)
+                if (_categories == null)
                 {
                     _categories = new List<CategoryItem>();
                     _categories.Add(new CategoryItem("Film", Res.Get(StringId.Plugin_Video_Publish_Categories_Film)));
@@ -129,7 +129,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 string filter = Res.Get(StringId.Plugin_Video_YouTube_Publish_Video_File_Open_Filter_Ext);
                 string[] parts = StringHelper.Split(filter, "|");
                 parts[1] = "*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4;*.mov;";
-                return StringHelper.Join(parts,"|");
+                return StringHelper.Join(parts, "|");
             }
         }
 
@@ -159,10 +159,10 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
 
         public IStatusWatcher CreateStatusWatcher(Video video)
         {
-            if(YouTubeAuth.Instance.IsLoggedIn)
+            if (YouTubeAuth.Instance.IsLoggedIn)
             {
                 YouTubeVideoUploader uploader = new YouTubeVideoUploader(YouTubeAuth.Instance.Username, YouTubeAuth.Instance.AuthToken, video.Id, _youTubeVideoProvider.UrlAtomFormat);
-                uploader.Start(); 
+                uploader.Start();
                 return uploader;
             }
             return null;
@@ -197,13 +197,10 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             }
         }
 
-
         public Bitmap Image
         {
             get { throw new Exception("The method or operation is not implemented."); }
         }
-
-
 
         public void Dispose()
         {
@@ -224,8 +221,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         private readonly string _urlAtomPattern;
 
         // this is the url to the feed which contains the status for the video
-        private volatile string _updateUrl; 
-
+        private volatile string _updateUrl;
 
         private volatile string _message;
         private volatile VideoPublishStatus _status;
@@ -289,12 +285,12 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                     _stream = null;
                 }
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
-                
+
             }
 
-            if(!string.IsNullOrEmpty(_updateUrl))
+            if (!string.IsNullOrEmpty(_updateUrl))
             {
                 HttpWebRequest req = HttpRequestHelper.CreateHttpWebRequest(_updateUrl, true, -1, -1);
                 YouTubeUploadRequestHelper.AddSimpleHeader(req, _authToken);
@@ -302,7 +298,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 req.GetResponse().Close();
             }
 
-            
         }
 
         public void Dispose()
@@ -310,10 +305,9 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             Debug.Assert(_stream == null, "Failed to close file stream for YouTubeVideoPublisher.");
         }
 
-        
         private string Upload()
         {
-            HttpWebRequest req = HttpRequestHelper.CreateHttpWebRequest("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads",true, -1, -1);
+            HttpWebRequest req = HttpRequestHelper.CreateHttpWebRequest("http://uploads.gdata.youtube.com/feeds/api/users/default/uploads", true, -1, -1);
 
             YouTubeUploadRequestHelper uploader = new YouTubeUploadRequestHelper(req);
             uploader.AddHeader(_authToken, Path.GetFileName(Path.GetFileName(_filePath)));
@@ -334,18 +328,14 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 _stream = null;
             }
 
-            
-            
-
             string result;
             using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
-			{
-				using (StreamReader responseReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-				{
+            {
+                using (StreamReader responseReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                {
                     result = responseReader.ReadToEnd();
                 }
             }
-            
 
             return result;
         }
@@ -379,7 +369,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
 
             try
             {
-                if(string.IsNullOrEmpty(_updateUrl))
+                if (string.IsNullOrEmpty(_updateUrl))
                 {
 
                     _message = Res.Get("Video" + _status);
@@ -411,7 +401,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 // Check to see if this video has been canceled already or is completed
                 while (_status != VideoPublishStatus.Completed && !CancelRequested)
                 {
-                    try 
+                    try
                     {
                         // Check to see if the video has finished
                         if (IsVideoComepleted())
@@ -530,7 +520,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             // Read the ID from the url
             Match m = Regex.Match(_updateUrl, _urlAtomPattern);
 
-            if(!m.Success)
+            if (!m.Success)
                 throw new Exception(Res.Get(StringId.YouTubeInvalidResult));
 
             return m.Groups["id"].Value;
@@ -546,7 +536,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         private MemoryStream _requestBodyBottom = new MemoryStream();
 
         private UTF8Encoding _utf8NoBOMEncoding = new UTF8Encoding(false);
-
 
         internal YouTubeUploadRequestHelper(HttpWebRequest request)
         {
@@ -627,7 +616,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             xmlWriter.Flush();
             xmlMemoryStream.Position = 0;
 
-
             StreamReader sr = new StreamReader(xmlMemoryStream);
             string newXML = sr.ReadToEnd();
             Write(newXML + Environment.NewLine, _requestBodyTop);
@@ -641,14 +629,12 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             Write(Environment.NewLine, _requestBodyBottom);
         }
 
-        
         private void Write(String s, MemoryStream stream)
         {
             byte[] newText = _utf8NoBOMEncoding.GetBytes(s);
             stream.Write(newText, 0, newText.Length);
         }
 
-        
         internal void SendRequest(CancelableStream stream)
         {
             _request.ContentLength = _requestBodyTop.Length + stream.Length + _requestBodyBottom.Length;

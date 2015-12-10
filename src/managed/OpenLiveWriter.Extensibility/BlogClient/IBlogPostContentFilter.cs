@@ -5,39 +5,39 @@ using System;
 
 namespace OpenLiveWriter.Extensibility.BlogClient
 {
-	/// <summary>
-	/// Summary description for IBlogPostContentFilter.
-	/// </summary>
-	public interface IBlogPostContentFilter
-	{
-		/// <summary>
-		/// Filter content being read from a remote blog server.
-		/// </summary>
-		/// <param name="content"></param>
-		/// <returns></returns>
-		string OpenFilter(string content);
-		
-		/// <summary>
-		/// Filter content being published to a remote blog server.
-		/// </summary>
-		/// <param name="content"></param>
-		/// <returns></returns>
-		string PublishFilter(string content);
-	}
-	
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple=false, Inherited=false)]
-	public class BlogPostContentFilterAttribute : Attribute
-	{
-		public BlogPostContentFilterAttribute( string typeName )
-		{
-			_typeName = typeName ;
-		}
+    /// <summary>
+    /// Summary description for IBlogPostContentFilter.
+    /// </summary>
+    public interface IBlogPostContentFilter
+    {
+        /// <summary>
+        /// Filter content being read from a remote blog server.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        string OpenFilter(string content);
 
-		public string TypeName
-		{
-			get { return _typeName; }
-		}
+        /// <summary>
+        /// Filter content being published to a remote blog server.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        string PublishFilter(string content);
+    }
 
-		private string _typeName ;
-	}
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    public class BlogPostContentFilterAttribute : Attribute
+    {
+        public BlogPostContentFilterAttribute(string typeName)
+        {
+            _typeName = typeName;
+        }
+
+        public string TypeName
+        {
+            get { return _typeName; }
+        }
+
+        private string _typeName;
+    }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -53,7 +53,6 @@ namespace OpenLiveWriter.PostEditor.Commands
                 return null;
             }
         }
-
 
         public override Bitmap SmallImage
         {

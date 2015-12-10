@@ -31,16 +31,16 @@ namespace OpenLiveWriter.PostEditor.Video
             InitializeComponent();
             _selectedPermission = selectedPermission;
             llTerms.FlatStyle = FlatStyle.System;
-            llSafety.FlatStyle = FlatStyle.System; 
+            llSafety.FlatStyle = FlatStyle.System;
 
-            llSafety.LinkColor = SystemColors.HotTrack; 
+            llSafety.LinkColor = SystemColors.HotTrack;
             llTerms.LinkColor = SystemColors.HotTrack;
 
             lblCategory.Text = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Categories);
             lblDescription.Text = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Description);
             lblPermissions.Text = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Permissions);
             lblTags.Text = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Tags);
-            lblTitle.Text = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Title); 
+            lblTitle.Text = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Title);
             lblVideos.Text = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Video_File);
             btnFileOpen.Text = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Video_File_Open);
             btnFileOpen.AccessibleName = Res.Get(StringId.Plugin_Video_Soapbox_Publish_Video_Open_File);
@@ -65,7 +65,7 @@ namespace OpenLiveWriter.PostEditor.Video
 
             videoLoginStatusControl.Top = ContentSourceLayout.Y_MARGIN;
             videoLoginStatusControl.Left = 8;
-            
+
             videoLoginStatusControl.LoginClicked += new EventHandler(videoLoginStatusControl_LoginClicked);
             videoLoginStatusControl.SwitchUserClicked += new EventHandler(videoLoginStatusControl_LoginClicked);
 
@@ -94,7 +94,6 @@ namespace OpenLiveWriter.PostEditor.Video
             return controls;
         }
 
-
         void videoLoginStatusControl_LoginClicked(object sender, EventArgs e)
         {
             _currentPublisher.Auth.Login(true, FindForm());
@@ -119,7 +118,7 @@ namespace OpenLiveWriter.PostEditor.Video
             llSafety.Text = _currentPublisher.SafetyTipTitle;
 
             txtAcceptTerms.Text = _currentPublisher.AcceptanceText;
-            
+
             cbAcceptTerms.Width = txtTags.Width;
             cbAcceptTerms.Left = txtTags.Left;
 
@@ -138,7 +137,6 @@ namespace OpenLiveWriter.PostEditor.Video
                 comboBoxPermissions.Items.Add(new SecurityItem("0", Res.Get(StringId.Plugin_Video_Soapbox_Publish_Permissions_Public)));
                 comboBoxPermissions.SelectedIndex = 0;
             }
-
 
             // Add the categories for the publisher
             List<CategoryItem> categoryList = _currentPublisher.Categories;
@@ -211,14 +209,14 @@ namespace OpenLiveWriter.PostEditor.Video
             set
             {
                 FileInfo fi = new FileInfo(value);
-                if(fi.Exists)
+                if (fi.Exists)
                 {
                     txtFile.Text = value;
                     string baseWords = Path.GetFileNameWithoutExtension(value);
                     string seperator = Res.Get(StringId.Plugin_Video_Publish_Filename_Seperator);
 
                     // Try to fill in as many fields as we can
-                    if(!String.IsNullOrEmpty(seperator))
+                    if (!String.IsNullOrEmpty(seperator))
                     {
                         if (txtTitle.Text == String.Empty || !_isUserDirty)
                             txtTitle.Text = baseWords.Replace(seperator, " ");
@@ -236,9 +234,9 @@ namespace OpenLiveWriter.PostEditor.Video
                         if (txtTags.Text == String.Empty || !_isUserDirty)
                             txtTags.Text = baseWords;
                     }
-                    
+
                 }
-                
+
             }
         }
 
@@ -253,7 +251,6 @@ namespace OpenLiveWriter.PostEditor.Video
             int newGutter = btnFileOpen.Left - txtFile.Right;
             txtFile.Width += (newGutter - gutter);
         }
-                
 
         #region VideoSource Members
 
@@ -265,7 +262,7 @@ namespace OpenLiveWriter.PostEditor.Video
             string description = txtDescription.Text.Trim();
             string filePath = txtFile.Text.Trim();
 
-            // Make sure they filled in all the feilds 
+            // Make sure they filled in all the feilds
             if (((CategoryItem)comboBoxCategory.SelectedItem).CategoryId == Guid.Empty.ToString() ||
                 title == String.Empty ||
                 description == String.Empty ||
@@ -277,7 +274,7 @@ namespace OpenLiveWriter.PostEditor.Video
             }
 
             // Make sure they agreed to the terms of use
-            if(!cbAcceptTerms.Checked)
+            if (!cbAcceptTerms.Checked)
             {
                 DisplayMessage.Show(MessageId.MustAcceptTermsOfUse, ParentForm, ApplicationEnvironment.ProductNameQualified);
                 return false;
@@ -288,14 +285,13 @@ namespace OpenLiveWriter.PostEditor.Video
             {
                 if (_currentPublisher.Auth.Login(true, FindForm()))
                 {
-                   videoLoginStatusControl.UpdateStatus();
+                    videoLoginStatusControl.UpdateStatus();
                 }
                 else
                 {
                     return false;
                 }
             }
-                
 
             if (!PathHelper.IsPathVideo(filePath))
             {
@@ -308,18 +304,18 @@ namespace OpenLiveWriter.PostEditor.Video
                 // Try to make a video
                 _video = _currentPublisher.GetVideo(title, description, tags, ((CategoryItem)comboBoxCategory.SelectedItem).CategoryId, ((CategoryItem)comboBoxCategory.SelectedItem).CategoryName, ((SecurityItem)comboBoxPermissions.SelectedItem).SecurityId, ((SecurityItem)comboBoxPermissions.SelectedItem).SecurityName);
 
-                if(_video == null)
+                if (_video == null)
                     return false;
 
             }
-            catch(WebException ex)
+            catch (WebException ex)
             {
                 Trace.WriteLine("Failed to start video publish: " + ex);
                 DisplayMessage message = new DisplayMessage(Res.Get(StringId.VideoNetworkError), Res.Get(StringId.VideoError));
                 message.Show(ParentForm, ApplicationEnvironment.ProductNameQualified);
                 return false;
             }
-            catch(VideoPublishException ex)
+            catch (VideoPublishException ex)
             {
                 DisplayMessage message = new DisplayMessage(ex.Message, Res.Get(StringId.VideoError));
                 message.Show(ParentForm, ApplicationEnvironment.ProductNameQualified);
@@ -338,7 +334,7 @@ namespace OpenLiveWriter.PostEditor.Video
             // Start to actually publish the video
             _video.StatusWatcher = _currentPublisher.Publish(txtTitle.Text, txtDescription.Text, txtTags.Text, ((CategoryItem)comboBoxCategory.SelectedItem).CategoryId, ((CategoryItem)comboBoxCategory.SelectedItem).CategoryName, ((SecurityItem)comboBoxPermissions.SelectedItem).SecurityId, ((SecurityItem)comboBoxPermissions.SelectedItem).SecurityName, txtFile.Text);
             ((VideoSmartContent)content).Initialize(_video, _blogId);
-            
+
         }
 
         public override void TabSelected()
@@ -384,5 +380,5 @@ namespace OpenLiveWriter.PostEditor.Video
             txtTags.Text = _currentPublisher.FormatTags(txtTags.Text);
         }
     }
-    
+
 }

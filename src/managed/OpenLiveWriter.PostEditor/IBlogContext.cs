@@ -5,8 +5,8 @@ using System;
 
 namespace OpenLiveWriter.PostEditor
 {
-	internal interface IBlogContext
-	{
-		string CurrentAccountId{ get ;}
-	}
+    internal interface IBlogContext
+    {
+        string CurrentAccountId { get; }
+    }
 }

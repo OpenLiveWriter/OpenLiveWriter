@@ -8,19 +8,19 @@ using OpenLiveWriter.PostEditor.Emoticons;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Interface for managing post-related image data.
-	/// </summary>
+    /// <summary>
+    /// Interface for managing post-related image data.
+    /// </summary>
     public interface IBlogPostImageEditingContext : IImageTargetEditor
-	{
-		string CurrentAccountId { get; }
-		string ImageServiceId { get; }
+    {
+        string CurrentAccountId { get; }
+        string ImageServiceId { get; }
         IEditorOptions EditorOptions { get; }
-		BlogPostImageDataList ImageList { get; }
-		ImageDecoratorsManager DecoratorsManager { get; }
+        BlogPostImageDataList ImageList { get; }
+        ImageDecoratorsManager DecoratorsManager { get; }
         EmoticonsManager EmoticonsManager { get; }
-		ISupportingFileService SupportingFileService { get; }
+        ISupportingFileService SupportingFileService { get; }
         void ActivateDecoratorsManager();
         void DeactivateDecoratorsManager();
-	}
+    }
 }

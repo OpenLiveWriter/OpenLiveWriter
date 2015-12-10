@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor
     public struct ManagedPropVariant
     {
         // This struct is just a barebones PropVariant so that .NET can marshal it correctly. We use this instead of a
-        // OpenLiveWriter.Interop.Com.Ribbon.PropVariant so that when we export to TLB, we don't have to add an 
+        // OpenLiveWriter.Interop.Com.Ribbon.PropVariant so that when we export to TLB, we don't have to add an
         // additional reference to OpenLiveWriter.Interop.tlb.
         private ushort vt;
         private ushort wReserved1;
@@ -82,13 +82,13 @@ namespace OpenLiveWriter.PostEditor
     public enum ContentEditorSetting
     {
         /// <summary>
-        /// A registry path for MSHTML to look for default options. Should return a string (VT_BSTR, VT_LPWSTR or 
+        /// A registry path for MSHTML to look for default options. Should return a string (VT_BSTR, VT_LPWSTR or
         /// VT_LPSTR).
         /// </summary>
         MshtmlOptionKeyPath = 4,
 
         /// <summary>
-        /// The default size of an inline image. Should return a string (VT_BSTR, VT_LPWSTR or VT_LPSTR). Return one of 
+        /// The default size of an inline image. Should return a string (VT_BSTR, VT_LPWSTR or VT_LPSTR). Return one of
         /// the following: "Small", "Medium", "Large" or "Full".
         /// </summary>
         ImageDefaultSize = 6,

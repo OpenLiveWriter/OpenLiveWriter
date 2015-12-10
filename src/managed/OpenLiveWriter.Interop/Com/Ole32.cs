@@ -8,7 +8,7 @@ using System.Runtime.InteropServices.ComTypes;
 namespace OpenLiveWriter.Interop.Com
 {
     public class Ole32
-    {        
+    {
         [DllImport("Ole32.dll")]
         public static extern int OleInitialize(IntPtr pvReserved);
 
@@ -55,7 +55,6 @@ namespace OpenLiveWriter.Interop.Com
         [DllImport("Ole32.dll")]
         public static extern IntPtr CoTaskMemAlloc(uint cb);
 
-
         [DllImport("Ole32.dll")]
         public static extern int CreateBindCtx(
             [In] uint reserved,
@@ -76,7 +75,7 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Initiate a drag and drop operation
-        /// </summary>		
+        /// </summary>
         [DllImport("Ole32.dll")]
         public static extern int DoDragDrop(
             IOleDataObject pDataObject,  // Pointer to the data object
@@ -85,7 +84,6 @@ namespace OpenLiveWriter.Interop.Com
             ref DROPEFFECT pdwEffect    // Pointer to effects on the source
             );
 
-
         [DllImport("Ole32.dll")]
         public static extern int RegisterDragDrop(
             IntPtr hwnd,  //Handle to a window that can accept drops
@@ -93,18 +91,15 @@ namespace OpenLiveWriter.Interop.Com
             //Pointer to object that is to be target of drop
             );
 
-
         [DllImport("Ole32.dll")]
         public static extern int RevokeDragDrop(
             IntPtr hwnd  //Handle to a window that can accept drops
             );
 
-
         [DllImport("Ole32.dll")]
         public static extern IntPtr OleGetIconOfFile(
             [MarshalAs(UnmanagedType.LPWStr)] string lpszPath,
             [MarshalAs(UnmanagedType.Bool)] bool fUseFileAsLabel);
-
 
         [DllImport("Ole32.dll", PreserveSig = false)] // returns hresult
         public extern static void PropVariantCopy([Out] out PropVariant pDst, [In] ref PropVariant pSrc);
@@ -135,6 +130,5 @@ namespace OpenLiveWriter.Interop.Com
         ENABLE_AAA = 0x10000,
         FROM_DEFAULT_CONTEXT = 0x20000
     };
-
 
 }

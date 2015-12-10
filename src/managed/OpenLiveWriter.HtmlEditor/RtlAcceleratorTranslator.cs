@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 namespace OpenLiveWriter.HtmlEditor
@@ -8,11 +8,11 @@ namespace OpenLiveWriter.HtmlEditor
     using Mshtml;
 
     /// <summary>
-    /// Handles the Ctrl+LShift or Ctrl+RShift shortcuts, which is the shortcut to toggle the current paragraph 
-    /// between RTL and LTR. By default, MSHTML will pick up this keystroke and render the paragraph correctly but it 
-    /// won't actually add any markup. This doesn't provide a good WYSIWYG experience because the published HTML won't 
-    /// match the compose experience, so we hide this key combination from MSHTML and implement this functionality 
-    /// ourselves instead. Our normal shortcut code path doesn't have support for differentiating between LShift and 
+    /// Handles the Ctrl+LShift or Ctrl+RShift shortcuts, which is the shortcut to toggle the current paragraph
+    /// between RTL and LTR. By default, MSHTML will pick up this keystroke and render the paragraph correctly but it
+    /// won't actually add any markup. This doesn't provide a good WYSIWYG experience because the published HTML won't
+    /// match the compose experience, so we hide this key combination from MSHTML and implement this functionality
+    /// ourselves instead. Our normal shortcut code path doesn't have support for differentiating between LShift and
     /// RShift, so we do it manually instead.
     /// </summary>
     internal class RtlAcceleratorTranslator
@@ -63,7 +63,7 @@ namespace OpenLiveWriter.HtmlEditor
                 }
                 else
                 {
-                    // If any other keystrokes beside CTRL and SHIFT are pressed, stop tracking the keystrokes we've 
+                    // If any other keystrokes beside CTRL and SHIFT are pressed, stop tracking the keystrokes we've
                     // seen. For example, a user might hit CTRL+SHIFT+LEFT to start highlighting a word and we don't
                     // want that to trigger the RTL/LTR command.
                     this.Reset();
@@ -71,7 +71,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
             else if (inEvtDispId == DISPID_HTMLELEMENTEVENTS2.ONKEYUP)
             {
-                // We always want to fire an event if CTRL goes up with SHIFT still pressed or vice-versa so that 
+                // We always want to fire an event if CTRL goes up with SHIFT still pressed or vice-versa so that
                 // MSHTML doesn't attempt to handle the keystrokes.
                 if ((currentKey == Keys.ControlKey && pIEventObj.shiftKey) || (currentKey == Keys.ShiftKey && pIEventObj.ctrlKey))
                 {
@@ -108,7 +108,7 @@ namespace OpenLiveWriter.HtmlEditor
 
             KeyEventArgs e = new KeyEventArgs(keysPressed);
 
-            if(keysPressed == Keys.None)
+            if (keysPressed == Keys.None)
             {
                 e.SuppressKeyPress = true;
             }

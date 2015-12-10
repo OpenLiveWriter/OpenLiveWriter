@@ -14,7 +14,7 @@ namespace OpenLiveWriter.CoreServices
         // Adapted from: http://stackoverflow.com/questions/457676/
         public static bool IsInstanceOfGeneric(Type generic, Type toCheck)
         {
-            while (toCheck != typeof (object))
+            while (toCheck != typeof(object))
             {
                 var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
                 if (generic == cur)

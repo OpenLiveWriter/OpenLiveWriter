@@ -32,7 +32,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             {
                 // WinLive 96840 - Copying and pasting images within shared canvas should persist source
                 // decorator settings.
-                // If ImageSizeName is set, then use that instead of default values 
+                // If ImageSizeName is set, then use that instead of default values
                 if (settings.IsImageSizeNameSet && context.InvocationSource == ImageDecoratorInvocationSource.InitialInsert)
                 {
                     // We must be copying settings from another instance of the same image
@@ -159,7 +159,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
             else
             {
-                // If custom size, but we know the base size, preserve 
+                // If custom size, but we know the base size, preserve
                 // the aspect ratio "skew" (difference in x and y DPI)
                 // and pixel area
 
@@ -167,8 +167,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 // Need to get the image size to the non-rotated angle,
                 // because s.BaseSize dimensions are always pre-rotation.
                 // Although ImageSize has not been fully updated for this
-                // decorator yet (that's what we're trying to do here), 
-                // the width/height gets flipped immediately when a 
+                // decorator yet (that's what we're trying to do here),
+                // the width/height gets flipped immediately when a
                 // rotation is applied, so rotation is already taken
                 // into account.
                 if (ImageUtils.IsRotated90(rotation))
@@ -259,7 +259,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             HtmlImageResizeDecoratorSettings defaultResizeSettings = new HtmlImageResizeDecoratorSettings(defaultSettings, context.ImgElement);
             HtmlImageResizeDecoratorSettings resizeSettings = new HtmlImageResizeDecoratorSettings(context.Settings, context.ImgElement);
 
-            //explicitly save the settings we want to support defaulting for.			
+            //explicitly save the settings we want to support defaulting for.
             defaultResizeSettings.DefaultBoundsSizeName = resizeSettings.ImageSizeName;
             if (resizeSettings.ImageSizeName == ImageSizeName.Custom)
             {
@@ -318,23 +318,22 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             ImgElement = imgElement;
         }
 
-		public Size ImageSize
-		{
-			get
-			{
-				ImageBorderMargin borderMargin = BorderMargin;
-				Size imageSizeWithBorder = ImageSizeWithBorder;
-				int width = imageSizeWithBorder.Width - borderMargin.Width;
-				int height = imageSizeWithBorder.Height - borderMargin.Height;
+        public Size ImageSize
+        {
+            get
+            {
+                ImageBorderMargin borderMargin = BorderMargin;
+                Size imageSizeWithBorder = ImageSizeWithBorder;
+                int width = imageSizeWithBorder.Width - borderMargin.Width;
+                int height = imageSizeWithBorder.Height - borderMargin.Height;
                 Size size = new Size(width, height);
                 //Initialize the saved aspect ratio if it has no value
                 if (TargetAspectRatioSize.Width == -1)
                     TargetAspectRatioSize = size;
                 return size;
-			    //return borderMargin.ReverseCalculateImageSize(imageSizeWithBorder);
-			}
-		}
-
+                //return borderMargin.ReverseCalculateImageSize(imageSizeWithBorder);
+            }
+        }
 
         public Size ImageSizeWithBorder
         {
@@ -388,12 +387,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             {
                 TargetAspectRatioSize = size;
             }
-		}
-		
-		public ImageBorderMargin BorderMargin
-		{
-			get
-			{
+        }
+
+        public ImageBorderMargin BorderMargin
+        {
+            get
+            {
 
                 if (Settings.ContainsSubProperties(BORDER_INFO))
                 {
@@ -558,7 +557,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             set { Settings.SetString(ROTATION, value.ToString()); }
         }
 
-        // The base size is used to quickly determine whether the image has 
+        // The base size is used to quickly determine whether the image has
         // been cropped since the last time the default bounds were calculated.
         public Size? BaseSize
         {

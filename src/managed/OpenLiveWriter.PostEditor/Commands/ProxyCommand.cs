@@ -123,6 +123,6 @@ namespace OpenLiveWriter.PostEditor.Commands
         public override int UpdateProperty(ref PropertyKey key, PropVariantRef currentValue, out PropVariant newValue)
         {
             return _command.UpdateProperty(ref key, currentValue, out newValue);
-        }               
+        }
     }
 }

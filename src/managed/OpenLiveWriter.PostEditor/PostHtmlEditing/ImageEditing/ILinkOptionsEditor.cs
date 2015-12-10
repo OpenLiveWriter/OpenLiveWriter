@@ -3,11 +3,11 @@
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Summary description for ILinkOptionsEditor.
-	/// </summary>
-	public interface ILinkOptionsEditor
-	{
-		ILinkOptions LinkOptions { get; set; }
-	}
+    /// <summary>
+    /// Summary description for ILinkOptionsEditor.
+    /// </summary>
+    public interface ILinkOptionsEditor
+    {
+        ILinkOptions LinkOptions { get; set; }
+    }
 }

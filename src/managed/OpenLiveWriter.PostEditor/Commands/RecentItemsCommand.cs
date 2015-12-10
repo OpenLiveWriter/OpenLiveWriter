@@ -26,13 +26,13 @@ namespace OpenLiveWriter.PostEditor.Commands
         }
 
         void RecentItemsCommand_ExecuteWithArgs(object sender, ExecuteEventHandlerArgs args)
-        {            
+        {
             selectedIndex = args.GetInt(CommandId.ToString());
             if (selectedIndex != INVALID_INDEX && selectedIndex < postInfo.Count)
             {
                 WindowCascadeHelper.SetNextOpenedLocation(postEditingSite.FrameWindow.Location);
-                postEditingSite.OpenLocalPost(postInfo[selectedIndex]);               
-            }  
+                postEditingSite.OpenLocalPost(postInfo[selectedIndex]);
+            }
         }
 
         public override void LoadItems()
@@ -81,9 +81,9 @@ namespace OpenLiveWriter.PostEditor.Commands
             {
                 items.Add(new TooltippedGalleryItem(v.Title, v.BlogName, null, v.BlogPostId));
             }
-            
-            base.LoadItems();           
-        }        
+
+            base.LoadItems();
+        }
 
         public override int UpdateProperty(ref PropertyKey key, PropVariantRef currentValue, out PropVariant newValue)
         {
@@ -120,7 +120,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 
                 newValue = new PropVariant();
                 newValue.SetSafeArray(currColl);
-                return HRESULT.S_OK;   
+                return HRESULT.S_OK;
             }
 
             return base.UpdateProperty(ref key, currentValue, out newValue);

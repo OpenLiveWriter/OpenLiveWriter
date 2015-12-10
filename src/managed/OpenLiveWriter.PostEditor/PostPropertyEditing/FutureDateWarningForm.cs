@@ -13,90 +13,88 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 {
-	/// <summary>
-	/// Summary description for TitleReminderForm.
-	/// </summary>
-	public class FutureDateWarningForm : ApplicationDialog
-	{
-		private System.Windows.Forms.CheckBox cbDontShowAgain;
-		private System.Windows.Forms.Label labelExplanation;
-		private System.Windows.Forms.Label labelError;
-		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Button buttonYes;
-		private System.Windows.Forms.Button buttonNo;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for TitleReminderForm.
+    /// </summary>
+    public class FutureDateWarningForm : ApplicationDialog
+    {
+        private System.Windows.Forms.CheckBox cbDontShowAgain;
+        private System.Windows.Forms.Label labelExplanation;
+        private System.Windows.Forms.Label labelError;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button buttonYes;
+        private System.Windows.Forms.Button buttonNo;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		public FutureDateWarningForm()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public FutureDateWarningForm()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			this.cbDontShowAgain.Text = Res.Get(StringId.FuturePostWarningDontShowAgain);
-			this.labelExplanation.Text = Res.Get(StringId.FuturePostWarningExplanation);
-			this.labelError.Text = Res.Get(StringId.FuturePostWarningTitle);
-			this.buttonYes.Text = Res.Get(StringId.PublishNow);
-			this.buttonNo.Text = Res.Get(StringId.CancelButton);
-			this.Text = Res.Get(StringId.FuturePostWarningDialogTitle);
+            this.cbDontShowAgain.Text = Res.Get(StringId.FuturePostWarningDontShowAgain);
+            this.labelExplanation.Text = Res.Get(StringId.FuturePostWarningExplanation);
+            this.labelError.Text = Res.Get(StringId.FuturePostWarningTitle);
+            this.buttonYes.Text = Res.Get(StringId.PublishNow);
+            this.buttonNo.Text = Res.Get(StringId.CancelButton);
+            this.Text = Res.Get(StringId.FuturePostWarningDialogTitle);
 
-			this.labelError.Font = Res.GetFont(FontSize.XLarge, FontStyle.Bold);
-		}
-		
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
-			
-			using (new AutoGrow(this, AnchorStyles.Bottom, true))
-			{
-			    DisplayHelper.AutoFitSystemButton(buttonYes, buttonYes.Width, int.MaxValue);
+            this.labelError.Font = Res.GetFont(FontSize.XLarge, FontStyle.Bold);
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            using (new AutoGrow(this, AnchorStyles.Bottom, true))
+            {
+                DisplayHelper.AutoFitSystemButton(buttonYes, buttonYes.Width, int.MaxValue);
                 DisplayHelper.AutoFitSystemButton(buttonNo, buttonNo.Width, int.MaxValue);
                 LayoutHelper.DistributeHorizontally(8, buttonYes, buttonNo);
                 LayoutHelper.NaturalizeHeight(labelError, labelExplanation, cbDontShowAgain);
-				LayoutHelper.DistributeVertically(12,
-					labelError,
-					labelExplanation,
-					new ControlGroup(buttonYes, buttonNo),
-					cbDontShowAgain);
-			    cbDontShowAgain.Left = labelError.Left;
-			}
-		}
+                LayoutHelper.DistributeVertically(12,
+                    labelError,
+                    labelExplanation,
+                    new ControlGroup(buttonYes, buttonNo),
+                    cbDontShowAgain);
+                cbDontShowAgain.Left = labelError.Left;
+            }
+        }
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
 
-		protected override void OnClosed(EventArgs e)
-		{
-			base.OnClosed (e);
+            if (DialogResult != DialogResult.Cancel)
+                PostEditorSettings.FuturePublishDateWarning = !cbDontShowAgain.Checked;
+        }
 
-			if ( DialogResult != DialogResult.Cancel )
-				PostEditorSettings.FuturePublishDateWarning = !cbDontShowAgain.Checked ;
-		}
-
-
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FutureDateWarningForm));
             this.cbDontShowAgain = new System.Windows.Forms.CheckBox();
             this.labelExplanation = new System.Windows.Forms.Label();
@@ -106,9 +104,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.buttonNo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // cbDontShowAgain
-            // 
+            //
             this.cbDontShowAgain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDontShowAgain.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cbDontShowAgain.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -118,9 +116,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.cbDontShowAgain.TabIndex = 4;
             this.cbDontShowAgain.Text = "&Don\'t confirm future dates prior to publishing";
             this.cbDontShowAgain.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // labelExplanation
-            // 
+            //
             this.labelExplanation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))));
             this.labelExplanation.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelExplanation.Location = new System.Drawing.Point(86, 55);
@@ -128,9 +126,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.labelExplanation.Size = new System.Drawing.Size(244, 80);
             this.labelExplanation.TabIndex = 1;
             this.labelExplanation.Text = resources.GetString("labelExplanation.Text");
-            // 
+            //
             // labelError
-            // 
+            //
             this.labelError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         )));
             this.labelError.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -140,9 +138,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.labelError.Size = new System.Drawing.Size(244, 27);
             this.labelError.TabIndex = 0;
             this.labelError.Text = "Confirm Future Publish Date";
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(10, 9);
             this.pictureBox1.Name = "pictureBox1";
@@ -150,9 +148,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // buttonYes
-            // 
+            //
             this.buttonYes.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.buttonYes.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonYes.Location = new System.Drawing.Point(85, 151);
@@ -160,9 +158,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.buttonYes.Size = new System.Drawing.Size(90, 26);
             this.buttonYes.TabIndex = 3;
             this.buttonYes.Text = "Yes";
-            // 
+            //
             // buttonNo
-            // 
+            //
             this.buttonNo.DialogResult = System.Windows.Forms.DialogResult.No;
             this.buttonNo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonNo.Location = new System.Drawing.Point(181, 151);
@@ -170,9 +168,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.buttonNo.Size = new System.Drawing.Size(90, 26);
             this.buttonNo.TabIndex = 2;
             this.buttonNo.Text = "No";
-            // 
+            //
             // FutureDateWarningForm
-            // 
+            //
             this.AcceptButton = this.buttonNo;
             this.CancelButton = this.buttonNo;
             this.ClientSize = new System.Drawing.Size(361, 215);
@@ -190,8 +188,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
-		
-	}
+        }
+        #endregion
+
+    }
 }

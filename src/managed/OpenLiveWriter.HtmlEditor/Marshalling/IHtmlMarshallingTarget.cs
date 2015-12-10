@@ -14,40 +14,40 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
     public interface IDropFeedback
     {
         bool CanDrop(IHTMLElement scope, DataObjectMeister meister);
-        bool ShouldMoveDropLocationRight(MarkupPointer dropLocation);        
+        bool ShouldMoveDropLocationRight(MarkupPointer dropLocation);
     }
 
-	/// <summary>
-	/// Interface methods required to support marshalling of clipboard data into a HTML Editor control.
-	/// </summary>
-	public interface IHtmlMarshallingTarget : IDropFeedback, IImageReferenceFixer
-	{
-		/// <summary>
-		/// Control used as the parent for when showing modal dialogs.
-		/// </summary>
-		IWin32Window FrameWindow { get; }
+    /// <summary>
+    /// Interface methods required to support marshalling of clipboard data into a HTML Editor control.
+    /// </summary>
+    public interface IHtmlMarshallingTarget : IDropFeedback, IImageReferenceFixer
+    {
+        /// <summary>
+        /// Control used as the parent for when showing modal dialogs.
+        /// </summary>
+        IWin32Window FrameWindow { get; }
 
-		IHTMLDocument2 HtmlDocument { get; }
-		bool IsEditable { get; }
+        IHTMLDocument2 HtmlDocument { get; }
+        bool IsEditable { get; }
 
-		MshtmlMarkupServices MarkupServices { get; }
-		IHTMLCaretRaw MoveCaretToScreenPoint( Point screenPoint) ;
-		void InsertPlainText(MarkupPointer start, MarkupPointer end, string text);
-		void InsertHtml( MarkupPointer start, MarkupPointer end, string html, string sourceUrl );
-		IHtmlGenerationService HtmlGenerationService { get; }
+        MshtmlMarkupServices MarkupServices { get; }
+        IHTMLCaretRaw MoveCaretToScreenPoint(Point screenPoint);
+        void InsertPlainText(MarkupPointer start, MarkupPointer end, string text);
+        void InsertHtml(MarkupPointer start, MarkupPointer end, string html, string sourceUrl);
+        IHtmlGenerationService HtmlGenerationService { get; }
         MarkupRange SelectedMarkupRange { get; }
         bool SelectionIsInvalid { get; }
 
-		string EditorId { get; }
-	
-		IUndoUnit CreateUndoUnit() ;
-		IUndoUnit CreateInvisibleUndoUnit() ;
-        
-		bool MarshalImagesSupported { get; }
-		bool MarshalFilesSupported { get; }
-		bool MarshalHtmlSupported { get; }
-		bool MarshalTextSupported { get; }
-		bool MarshalUrlSupported { get; }
+        string EditorId { get; }
+
+        IUndoUnit CreateUndoUnit();
+        IUndoUnit CreateInvisibleUndoUnit();
+
+        bool MarshalImagesSupported { get; }
+        bool MarshalFilesSupported { get; }
+        bool MarshalHtmlSupported { get; }
+        bool MarshalTextSupported { get; }
+        bool MarshalUrlSupported { get; }
 
         void Invoke(ThreadStart func);
 

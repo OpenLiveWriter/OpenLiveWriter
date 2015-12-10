@@ -15,35 +15,34 @@ using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	public class BlogPostImagePropertiesInfo : ImagePropertiesInfo
-	{
-		private BlogPostImageData _imageData;
-		public BlogPostImagePropertiesInfo(BlogPostImageData imageData, ImageDecoratorsList decorators)
-		{
-			_imageData = imageData;
-			ImageFileData sourceFile = imageData.GetImageSourceFile();
-			Init(sourceFile.Uri, new Size(sourceFile.Width, sourceFile.Height), decorators);
-		}
+    public class BlogPostImagePropertiesInfo : ImagePropertiesInfo
+    {
+        private BlogPostImageData _imageData;
+        public BlogPostImagePropertiesInfo(BlogPostImageData imageData, ImageDecoratorsList decorators)
+        {
+            _imageData = imageData;
+            ImageFileData sourceFile = imageData.GetImageSourceFile();
+            Init(sourceFile.Uri, new Size(sourceFile.Width, sourceFile.Height), decorators);
+        }
 
+        public override Uri ImageSourceUri
+        {
+            get { return _imageData.GetImageSourceFile().Uri; }
+        }
 
-		public override Uri ImageSourceUri
-		{
-			get { return _imageData.GetImageSourceFile().Uri; }
-		}
+        public override Size ImageSourceSize
+        {
+            get
+            {
+                ImageFileData sourceFile = _imageData.GetImageSourceFile();
+                return ImageDecorators.GetAdjustedOriginalSize(new Size(sourceFile.Width, sourceFile.Height));
+            }
+        }
 
-		public override Size ImageSourceSize
-		{
-			get
-			{
-				ImageFileData sourceFile = _imageData.GetImageSourceFile();
-				return ImageDecorators.GetAdjustedOriginalSize(new Size(sourceFile.Width, sourceFile.Height));
-			}
-		}
-		
-		public override bool IsEmbeddedImage()
-		{
-			return true;
-		}
+        public override bool IsEmbeddedImage()
+        {
+            return true;
+        }
 
         public override bool IsEditableEmbeddedImage()
         {
@@ -57,48 +56,48 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return !ImageHelper2.IsMetafile(path);
         }
     }
-	
-	public class ImagePropertiesInfo
-	{
-		public ImagePropertiesInfo(Uri sourceUri, Size size, ImageDecoratorsList decorators)
-		{
-			Init(sourceUri, new Size(size.Width, size.Height), decorators);
-		}
-		
-		protected ImagePropertiesInfo()
-		{
-		}
-		
-		protected void Init(Uri sourceUri, Size size, ImageDecoratorsList decorators)
-		{
-			_imageSourceUri = sourceUri;
-			_size = size;
-			ImageDecorators = decorators;
-		}
-		
-		public virtual bool IsEmbeddedImage()
-		{
-			return false;
-		}
+
+    public class ImagePropertiesInfo
+    {
+        public ImagePropertiesInfo(Uri sourceUri, Size size, ImageDecoratorsList decorators)
+        {
+            Init(sourceUri, new Size(size.Width, size.Height), decorators);
+        }
+
+        protected ImagePropertiesInfo()
+        {
+        }
+
+        protected void Init(Uri sourceUri, Size size, ImageDecoratorsList decorators)
+        {
+            _imageSourceUri = sourceUri;
+            _size = size;
+            ImageDecorators = decorators;
+        }
+
+        public virtual bool IsEmbeddedImage()
+        {
+            return false;
+        }
 
         public virtual bool IsEditableEmbeddedImage()
         {
             return false;
         }
 
-		public virtual Uri ImageSourceUri
-		{
-			get
-			{
-				return _imageSourceUri;
-			}
-		}
-		private Uri _imageSourceUri;
+        public virtual Uri ImageSourceUri
+        {
+            get
+            {
+                return _imageSourceUri;
+            }
+        }
+        private Uri _imageSourceUri;
 
-		public virtual Size ImageSourceSize
-		{
-			get
-			{
+        public virtual Size ImageSourceSize
+        {
+            get
+            {
                 if (_size == new Size(int.MaxValue, int.MaxValue))
                     return _size;
                 else
@@ -106,12 +105,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     // adjusts for cropping
                     return ImageDecorators.GetAdjustedOriginalSize(_size);
                 }
-			}
-		}
-		Size _size = new Size(Int32.MaxValue, Int32.MaxValue);
+            }
+        }
+        Size _size = new Size(Int32.MaxValue, Int32.MaxValue);
 
         /// <summary>
-        /// If true, forces any change in the width or height of the inline image to maintain the inline image aspect 
+        /// If true, forces any change in the width or height of the inline image to maintain the inline image aspect
         /// ratio.
         /// </summary>
         public bool InlineImageAspectRatioLocked
@@ -127,7 +126,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// Changing this width while InlineImageAspectRatioLocked is true will also change the height in order to 
+        /// Changing this width while InlineImageAspectRatioLocked is true will also change the height in order to
         /// maintain the inline image aspect ratio.
         /// </summary>
         public int InlineImageWidth
@@ -144,7 +143,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// Changing this height while InlineImageAspectRatioLocked is true will also change the width in order to 
+        /// Changing this height while InlineImageAspectRatioLocked is true will also change the width in order to
         /// maintain the inline image aspect ratio.
         /// </summary>
         public int InlineImageHeight
@@ -175,19 +174,19 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-		/// <summary>
-		/// The size of the image that should be inserted directly into the document.
-		/// </summary>
-		public Size InlineImageSize
-		{
-			get
-			{
-				return InlineImageSettings.ImageSize;
-			}
-			set
-			{
+        /// <summary>
+        /// The size of the image that should be inserted directly into the document.
+        /// </summary>
+        public Size InlineImageSize
+        {
+            get
+            {
+                return InlineImageSettings.ImageSize;
+            }
+            set
+            {
                 // Keep the ImageSizeName in sync with any changes to the inline image size.
-			    ImageSizeName newImageSizeName = ImageSizeName.Custom;
+                ImageSizeName newImageSizeName = ImageSizeName.Custom;
                 if (value == ImageUtils.ScaleImageSizeName(ImageSizeName.Full, ImageSourceSize, ImageRotation))
                     newImageSizeName = ImageSizeName.Full;
                 else if (value == ImageUtils.ScaleImageSizeName(ImageSizeName.Large, ImageSourceSize, ImageRotation))
@@ -198,14 +197,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     newImageSizeName = ImageSizeName.Small;
 
                 InlineImageSettings.SetImageSize(value, newImageSizeName);
-			}
-		}
+            }
+        }
 
-	    public ImageSizeName InlineImageSizeName
-	    {
+        public ImageSizeName InlineImageSizeName
+        {
             get { return InlineImageSettings.ImageSizeName; }
-	        set
-	        {
+            set
+            {
                 if (value != ImageSizeName.Custom)
                 {
                     // Keep the inline image size in sync with any changes to the inline ImageSizeName.
@@ -216,34 +215,34 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 {
                     InlineImageSettings.ImageSizeName = value;
                 }
-	        }
-	    }
-		
-		/// <summary>
-		/// The size of the image excluding margins added by the image border.
-		/// </summary>
-		public Size InlineImageSizeWithBorder
-		{
-			get
-			{
-				return InlineImageSettings.ImageSizeWithBorder;
-			}
-		}
-		
-		/// <summary>
-		/// The size of the image that should be inserted directly into the document.
-		/// </summary>
-		public ImageBorderMargin InlineImageBorderMargin
-		{
-			get
-			{
-				return InlineImageSettings.BorderMargin;
-			}
-			set
-			{
-				InlineImageSettings.BorderMargin = value;
-			}
-		}
+            }
+        }
+
+        /// <summary>
+        /// The size of the image excluding margins added by the image border.
+        /// </summary>
+        public Size InlineImageSizeWithBorder
+        {
+            get
+            {
+                return InlineImageSettings.ImageSizeWithBorder;
+            }
+        }
+
+        /// <summary>
+        /// The size of the image that should be inserted directly into the document.
+        /// </summary>
+        public ImageBorderMargin InlineImageBorderMargin
+        {
+            get
+            {
+                return InlineImageSettings.BorderMargin;
+            }
+            set
+            {
+                InlineImageSettings.BorderMargin = value;
+            }
+        }
 
         /// <summary>
         /// The alignment of the image that should be inserted directly into the document.
@@ -253,7 +252,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             get
             {
                 Alignment alignment = Alignment.None;
-                switch(InlineAlignmentSettings.Alignment)
+                switch (InlineAlignmentSettings.Alignment)
                 {
                     case ImgAlignment.NONE:
                         alignment = Alignment.None;
@@ -315,93 +314,93 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-		/// <summary>
-		/// The url of the image that should be inserted directly into the document.
-		/// </summary>
-		public string InlineImageUrl
-		{
-			get
-			{
-				return InlineImageSettings.ImageUrl;
-			}
-			set
-			{
-				InlineImageSettings.ImageUrl = value;
-			}
-		}
+        /// <summary>
+        /// The url of the image that should be inserted directly into the document.
+        /// </summary>
+        public string InlineImageUrl
+        {
+            get
+            {
+                return InlineImageSettings.ImageUrl;
+            }
+            set
+            {
+                InlineImageSettings.ImageUrl = value;
+            }
+        }
 
-		/// <summary>
-		/// Defines the type of target for the image.
-		/// </summary>
-		public LinkTargetType LinkTarget
-		{
-			get
-			{
-				return ImageTargetSettings.LinkTarget;
-			}
-			set
-			{
-				ImageTargetSettings.LinkTarget = value;
-			}
-		}
-		
-		/// <summary>
-		/// Defines the default type of target for the image.
-		/// </summary>
-		public LinkTargetType DefaultLinkTarget
-		{
-			get
-			{
-				return ImageTargetSettings.DefaultLinkTarget;
-			}
+        /// <summary>
+        /// Defines the type of target for the image.
+        /// </summary>
+        public LinkTargetType LinkTarget
+        {
+            get
+            {
+                return ImageTargetSettings.LinkTarget;
+            }
+            set
+            {
+                ImageTargetSettings.LinkTarget = value;
+            }
+        }
+
+        /// <summary>
+        /// Defines the default type of target for the image.
+        /// </summary>
+        public LinkTargetType DefaultLinkTarget
+        {
+            get
+            {
+                return ImageTargetSettings.DefaultLinkTarget;
+            }
             set
             {
                 ImageTargetSettings.DefaultLinkTarget = value;
             }
-		}
-		
-		/// <summary>
-		/// Defines the default link options the image.
-		/// </summary>
-		public ILinkOptions DefaultLinkOptions
-		{
-			get
-			{
-				return ImageTargetSettings.DefaultLinkOptions;
-			}
-		}
-		
-		/// <summary>
-		/// Defines the link options for the image.
-		/// </summary>
-		public ILinkOptions LinkOptions
-		{
-			get
-			{
-				return ImageTargetSettings.LinkOptions;
-			}
+        }
+
+        /// <summary>
+        /// Defines the default link options the image.
+        /// </summary>
+        public ILinkOptions DefaultLinkOptions
+        {
+            get
+            {
+                return ImageTargetSettings.DefaultLinkOptions;
+            }
+        }
+
+        /// <summary>
+        /// Defines the link options for the image.
+        /// </summary>
+        public ILinkOptions LinkOptions
+        {
+            get
+            {
+                return ImageTargetSettings.LinkOptions;
+            }
             set
             {
                 ImageTargetSettings.LinkOptions = value;
             }
-		}
+        }
 
-		/// <summary>
-		/// Get/Set the url for URL-based link targets.
-		/// </summary>
-		public string LinkTargetUrl
-		{
-			get
-			{
-				//if(LinkTarget != LinkTargetType.URL)
-				//	throw new Exception("LinkTargetUrl property not supported for link targets with type: " + LinkTarget.ToString());
-				return ImageTargetSettings.LinkTargetUrl;
-			}
-			set
-			{
-				ImageTargetSettings.LinkTargetUrl = value;
-			}
-		}
+        /// <summary>
+        /// Get/Set the url for URL-based link targets.
+        /// </summary>
+        public string LinkTargetUrl
+        {
+            get
+            {
+                //if(LinkTarget != LinkTargetType.URL)
+                //	throw new Exception("LinkTargetUrl property not supported for link targets with type: " + LinkTarget.ToString());
+                return ImageTargetSettings.LinkTargetUrl;
+            }
+            set
+            {
+                ImageTargetSettings.LinkTargetUrl = value;
+            }
+        }
 
         /// <summary>
         /// Get/Set the ImageSizeName for the image-based link targets.
@@ -439,98 +438,98 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return ImageTargetSettings.LinkRel;
             }
         }
-		
-		public void UpdateImageLinkOptions(string title, string rel, bool newWindow)
-		{
-			ImageTargetSettings.UpdateImageLinkOptions(title, rel, newWindow);
-		}
-		
-		/// <summary>
-		/// Returns the size of the linked image for IMAGE-based link targets
-		/// </summary>
-		public Size LinkTargetImageSize
-		{
-			get
-			{
-				//if(LinkTarget != LinkTargetType.IMAGE)
-				//	throw new Exception("LinkTargetUrl property not supported for link targets with type: " + LinkTarget.ToString());
-				return ImageTargetSettings.ImageSize;
-			}
-			set
-			{
-				ImageTargetSettings.ImageSize = value;
-			}
-		}
 
-	    public string DhtmlImageViewer
-	    {
+        public void UpdateImageLinkOptions(string title, string rel, bool newWindow)
+        {
+            ImageTargetSettings.UpdateImageLinkOptions(title, rel, newWindow);
+        }
+
+        /// <summary>
+        /// Returns the size of the linked image for IMAGE-based link targets
+        /// </summary>
+        public Size LinkTargetImageSize
+        {
+            get
+            {
+                //if(LinkTarget != LinkTargetType.IMAGE)
+                //	throw new Exception("LinkTargetUrl property not supported for link targets with type: " + LinkTarget.ToString());
+                return ImageTargetSettings.ImageSize;
+            }
+            set
+            {
+                ImageTargetSettings.ImageSize = value;
+            }
+        }
+
+        public string DhtmlImageViewer
+        {
             get { return ImageTargetSettings.DhtmlImageViewer; }
             set { ImageTargetSettings.DhtmlImageViewer = value; }
-	    }
+        }
 
-		public string UploadServiceId
-		{
-			get
-			{
-				return uploadServiceId;
-			}
-			set
-			{
-				uploadServiceId = value;
-			}
-		}
-		string uploadServiceId;
+        public string UploadServiceId
+        {
+            get
+            {
+                return uploadServiceId;
+            }
+            set
+            {
+                uploadServiceId = value;
+            }
+        }
+        string uploadServiceId;
 
-		public BlogPostSettingsBag UploadSettings
-		{
-			get
-			{
-				return uploadSettings;
-			}
-			set
-			{
-				uploadSettings = value;
-			}
-		}
-		BlogPostSettingsBag uploadSettings;
+        public BlogPostSettingsBag UploadSettings
+        {
+            get
+            {
+                return uploadSettings;
+            }
+            set
+            {
+                uploadSettings = value;
+            }
+        }
+        BlogPostSettingsBag uploadSettings;
 
-		public ImageDecoratorsList ImageDecorators
-		{
-			get{ return imageDecorators; }
-			set
-			{
-				imageDecorators = value; 
-				targetDecoratorSettings = null;
-				_inlineImageSettings = null;
-			}
-		}
-		private ImageDecoratorsList imageDecorators;
+        public ImageDecoratorsList ImageDecorators
+        {
+            get { return imageDecorators; }
+            set
+            {
+                imageDecorators = value;
+                targetDecoratorSettings = null;
+                _inlineImageSettings = null;
+            }
+        }
+        private ImageDecoratorsList imageDecorators;
 
-		private HtmlImageTargetDecoratorSettings ImageTargetSettings
-		{
-			get
-			{
-				if(targetDecoratorSettings == null)
-				{
-					targetDecoratorSettings = new HtmlImageTargetDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageTargetDecorator.Id), _imgElement);
-				}
-				return targetDecoratorSettings;
-			}
-		}
-		private HtmlImageTargetDecoratorSettings targetDecoratorSettings;
+        private HtmlImageTargetDecoratorSettings ImageTargetSettings
+        {
+            get
+            {
+                if (targetDecoratorSettings == null)
+                {
+                    targetDecoratorSettings = new HtmlImageTargetDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageTargetDecorator.Id), _imgElement);
+                }
+                return targetDecoratorSettings;
+            }
+        }
+        private HtmlImageTargetDecoratorSettings targetDecoratorSettings;
 
-		private HtmlImageResizeDecoratorSettings InlineImageSettings
-		{
-			get
-			{
-				if(_inlineImageSettings == null)
-				{
-					_inlineImageSettings = new HtmlImageResizeDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageResizeDecorator.Id), _imgElement);
-				}
-				return _inlineImageSettings;
-			}
-		}
-		private HtmlImageResizeDecoratorSettings _inlineImageSettings;
+        private HtmlImageResizeDecoratorSettings InlineImageSettings
+        {
+            get
+            {
+                if (_inlineImageSettings == null)
+                {
+                    _inlineImageSettings = new HtmlImageResizeDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageResizeDecorator.Id), _imgElement);
+                }
+                return _inlineImageSettings;
+            }
+        }
+        private HtmlImageResizeDecoratorSettings _inlineImageSettings;
 
         private HtmlAlignDecoratorSettings InlineAlignmentSettings
         {
@@ -558,63 +557,63 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
         private HtmlMarginDecoratorSettings _inlineMarginSettings;
 
-		public IHTMLElement ImgElement
-		{
-			get{ return _imgElement; }
-			set{ _imgElement = value; }
-		}
-		private IHTMLElement _imgElement;
+        public IHTMLElement ImgElement
+        {
+            get { return _imgElement; }
+            set { _imgElement = value; }
+        }
+        private IHTMLElement _imgElement;
 
-		public RotateFlipType ImageRotation
-		{
-			get{ return InlineImageSettings.Rotation; }
-			set
-			{
-				bool oldRotated90 = ImageUtils.IsRotated90(InlineImageSettings.Rotation);
-				bool newRotated90 = ImageUtils.IsRotated90(value);
-				InlineImageSettings.Rotation = value;
-				if(oldRotated90 != newRotated90)
-				{
-					//then the image axis is turned 90 degrees, so reverse the image width/height settings
-					Size oldInlineSize = InlineImageSize;
-					InlineImageSize = new Size(oldInlineSize.Height, oldInlineSize.Width);
-					Size oldLinkedSize = LinkTargetImageSize;
-					LinkTargetImageSize = new Size(oldLinkedSize.Height, oldLinkedSize.Width);
-				}
-			}
-		}
+        public RotateFlipType ImageRotation
+        {
+            get { return InlineImageSettings.Rotation; }
+            set
+            {
+                bool oldRotated90 = ImageUtils.IsRotated90(InlineImageSettings.Rotation);
+                bool newRotated90 = ImageUtils.IsRotated90(value);
+                InlineImageSettings.Rotation = value;
+                if (oldRotated90 != newRotated90)
+                {
+                    //then the image axis is turned 90 degrees, so reverse the image width/height settings
+                    Size oldInlineSize = InlineImageSize;
+                    InlineImageSize = new Size(oldInlineSize.Height, oldInlineSize.Width);
+                    Size oldLinkedSize = LinkTargetImageSize;
+                    LinkTargetImageSize = new Size(oldLinkedSize.Height, oldLinkedSize.Width);
+                }
+            }
+        }
 
-	    public Bitmap Image
-	    {
-            get { return (Bitmap) Bitmap.FromFile(this.ImageSourceUri.LocalPath); }
-	    }
+        public Bitmap Image
+        {
+            get { return (Bitmap)Bitmap.FromFile(this.ImageSourceUri.LocalPath); }
+        }
 
-	    public float? EnforcedAspectRatio
-	    {
+        public float? EnforcedAspectRatio
+        {
             get { return imageDecorators.EnforcedAspectRatio; }
-	    }
+        }
 
-	    /// <summary>
-		/// Resets the image decorators back to their defaults.
-		/// </summary>
-		public void ResetImageSettings(ImageDecoratorsList defaultDecorators)
-		{
-			//preserve the HTML rotation setting
-			RotateFlipType oldRotation = ImageRotation;
+        /// <summary>
+        /// Resets the image decorators back to their defaults.
+        /// </summary>
+        public void ResetImageSettings(ImageDecoratorsList defaultDecorators)
+        {
+            //preserve the HTML rotation setting
+            RotateFlipType oldRotation = ImageRotation;
 
-			//reset the image decorators
-			ImageDecorators = defaultDecorators;
-			targetDecoratorSettings = null;
-			_inlineImageSettings = null;
+            //reset the image decorators
+            ImageDecorators = defaultDecorators;
+            targetDecoratorSettings = null;
+            _inlineImageSettings = null;
 
-			//restore the image rotation setting.
-			InlineImageSettings.Rotation = oldRotation;
-		}
+            //restore the image rotation setting.
+            InlineImageSettings.Rotation = oldRotation;
+        }
 
         internal void RemoveLinkTarget()
         {
             ImageTargetSettings.RemoveImageLink();
         }
     }
-	public enum LinkTargetType { NONE, IMAGE, URL};
+    public enum LinkTargetType { NONE, IMAGE, URL };
 }

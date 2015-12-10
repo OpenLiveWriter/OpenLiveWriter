@@ -9,64 +9,64 @@ using System.Text;
 
 namespace OpenLiveWriter.CoreServices
 {
-	public class WsseAuthenticationModule : IAuthenticationModule
-	{
-		public Authorization Authenticate(string challenge, WebRequest request, ICredentials credentials)
-		{
-			if (!challenge.StartsWith(AuthenticationType + " ", StringComparison.OrdinalIgnoreCase))
-				return null;
-			return PreAuthenticate(request, credentials);
-		}
+    public class WsseAuthenticationModule : IAuthenticationModule
+    {
+        public Authorization Authenticate(string challenge, WebRequest request, ICredentials credentials)
+        {
+            if (!challenge.StartsWith(AuthenticationType + " ", StringComparison.OrdinalIgnoreCase))
+                return null;
+            return PreAuthenticate(request, credentials);
+        }
 
-		public Authorization PreAuthenticate(WebRequest request, ICredentials credentials)
-		{
-			NetworkCredential credential = credentials.GetCredential(request.RequestUri, AuthenticationType);
-			string username = credential.UserName;
-			string password = credential.Password;
+        public Authorization PreAuthenticate(WebRequest request, ICredentials credentials)
+        {
+            NetworkCredential credential = credentials.GetCredential(request.RequestUri, AuthenticationType);
+            string username = credential.UserName;
+            string password = credential.Password;
 
-			string created, nonce;
-			string passwordDigest = GeneratePasswordDigest(password, out created, out nonce);
+            string created, nonce;
+            string passwordDigest = GeneratePasswordDigest(password, out created, out nonce);
 
-			request.Headers.Add("X-WSSE", string.Format(
-			                              	CultureInfo.InvariantCulture,
-			                              	"UsernameToken Username=\"{0}\", PasswordDigest=\"{1}\", Created=\"{2}\", Nonce=\"{3}\"",
-			                              	username,
-			                              	passwordDigest,
-			                              	created,
-			                              	nonce));
+            request.Headers.Add("X-WSSE", string.Format(
+                                              CultureInfo.InvariantCulture,
+                                              "UsernameToken Username=\"{0}\", PasswordDigest=\"{1}\", Created=\"{2}\", Nonce=\"{3}\"",
+                                              username,
+                                              passwordDigest,
+                                              created,
+                                              nonce));
 
-			return new Authorization("WSSE profile=\"UsernameToken\"", true);
-		}
+            return new Authorization("WSSE profile=\"UsernameToken\"", true);
+        }
 
-		public bool CanPreAuthenticate
-		{
-			get { return true; }
-		}
+        public bool CanPreAuthenticate
+        {
+            get { return true; }
+        }
 
-		public string AuthenticationType
-		{
-			get { return "WSSE"; }
-		}
+        public string AuthenticationType
+        {
+            get { return "WSSE"; }
+        }
 
-		private static string GeneratePasswordDigest(string password, out string created, out string nonce)
-		{
-			byte[] nonceBytes = new byte[30];
-			lock (rng)
-			{
-				rng.GetBytes(nonceBytes);
-			}
-			nonce = Convert.ToBase64String(nonceBytes);
+        private static string GeneratePasswordDigest(string password, out string created, out string nonce)
+        {
+            byte[] nonceBytes = new byte[30];
+            lock (rng)
+            {
+                rng.GetBytes(nonceBytes);
+            }
+            nonce = Convert.ToBase64String(nonceBytes);
             created = DateTimeHelper.UtcNow.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", CultureInfo.InvariantCulture);
 
-			byte[] hashBytes;
-			lock (sha1)
-			{
-				hashBytes = sha1.ComputeHash(Encoding.UTF8.GetBytes(nonce + created + password));
-			}
-			return Convert.ToBase64String(hashBytes);
-		}
+            byte[] hashBytes;
+            lock (sha1)
+            {
+                hashBytes = sha1.ComputeHash(Encoding.UTF8.GetBytes(nonce + created + password));
+            }
+            return Convert.ToBase64String(hashBytes);
+        }
 
-		private static RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-		private static SHA1Managed sha1 = new SHA1Managed();
-	}
+        private static RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+        private static SHA1Managed sha1 = new SHA1Managed();
+    }
 }

@@ -82,7 +82,7 @@ namespace OpenLiveWriter.HtmlEditor
         {
             if (e.Button == MouseButtons.Left)
                 OnCommandStateChanged();
-        }     
+        }
 
         void _textBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -318,7 +318,7 @@ namespace OpenLiveWriter.HtmlEditor
         #region IHtmlEditorCommandSource Members
 
         public void ViewSource()
-        {            
+        {
         }
 
         void IHtmlEditorCommandSource.ClearFormatting()
@@ -357,7 +357,7 @@ namespace OpenLiveWriter.HtmlEditor
             if (color.HasValue)
             {
                 _textBox.Paste("<font style=\"background-color:" + ColorHelper.ColorToString(Color.FromArgb(color.Value)) + "\">" + selectedText + "</font>");
-            }            
+            }
         }
 
         void IHtmlEditorCommandSource.ApplyFontFamily(string fontFamily)
@@ -823,7 +823,6 @@ namespace OpenLiveWriter.HtmlEditor
                 AggressiveCommandStateChanged(this, EventArgs.Empty);
         }
 
-
         #endregion
 
         #region IDisposable Members
@@ -857,7 +856,6 @@ namespace OpenLiveWriter.HtmlEditor
         #endregion
 
         #region Syntax Edit event handlers
-
 
         private void _textBox_TextChanged(object sender, EventArgs e)
         {
@@ -905,9 +903,8 @@ namespace OpenLiveWriter.HtmlEditor
             if (attributes != null)
                 _textBox.Paste(String.Format(CultureInfo.InvariantCulture, "<{0} {1}>{2}</{0}>", tagName, attributes, _textBox.SelectedText));
             else
-                _textBox.Paste(String.Format(CultureInfo.InvariantCulture, "<{0}>{1}</{0}>", tagName, _textBox.SelectedText));            
+                _textBox.Paste(String.Format(CultureInfo.InvariantCulture, "<{0}>{1}</{0}>", tagName, _textBox.SelectedText));
         }
-
 
         private void InsertList(string listTag)
         {
@@ -918,7 +915,6 @@ namespace OpenLiveWriter.HtmlEditor
         #endregion
 
         #region UI Management Helpers
-
 
         private IWin32Window Owner
         {

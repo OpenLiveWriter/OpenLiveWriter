@@ -5,9 +5,9 @@ using System;
 
 namespace OpenLiveWriter.CoreServices
 {
-	
-	public sealed class ApplicationConstants
-	{
-		public const string PREFERENCES_SUB_KEY = "Preferences";
-	}
+
+    public sealed class ApplicationConstants
+    {
+        public const string PREFERENCES_SUB_KEY = "Preferences";
+    }
 }

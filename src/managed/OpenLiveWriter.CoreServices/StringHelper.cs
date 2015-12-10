@@ -28,7 +28,7 @@ namespace OpenLiveWriter.CoreServices
                     {
                         return Encoding.GetEncoding(charset);
                     }
-                    catch(ArgumentException e)
+                    catch (ArgumentException e)
                     {
                         Debug.WriteLine("BUG: Failed getting encoding for charset " + charset + "with error: " + e);
                     }
@@ -159,7 +159,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Splits a string at a specified delimiter, with escape logic.  For example:
-        /// 
+        ///
         /// SplitWithEscape("one/two/three", '/', '_') => ["one", "two", "three"]
         /// SplitWithEscape("one_/two/three_/four", '/', '_') => ["one/two", "three/four"]
         /// SplitWithEscape("one__two/three", '/', '_') => ["one_two", "three"]
@@ -180,7 +180,7 @@ namespace OpenLiveWriter.CoreServices
             {
                 if (escaped)
                 {
-                    // the last character was the escape char; this char 
+                    // the last character was the escape char; this char
                     // should not be evaluated, just written
 
                     buffer[pos++] = thisChar;
@@ -190,7 +190,7 @@ namespace OpenLiveWriter.CoreServices
                 {
                     if (thisChar == escapeChar)
                     {
-                        // encountering escape char; do nothing, just make 
+                        // encountering escape char; do nothing, just make
                         // sure next character is written
 
                         escaped = true;
@@ -289,7 +289,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Format a bytecount in a nice, pretty way.  Similar to the
         /// way Windows Explorer displays sizes.
-        /// 
+        ///
         /// 1) Decide what the units will be.
         /// 2) Scale the bytecount to the chosen unit, as a double.
         /// 3) Format the double, to a relatively high degree of precision.
@@ -459,7 +459,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Gets a hashcode for a string that is stable across multiple versions of .NET
         /// This implementation was taken from .NET 2.0
-        /// http://msdn.microsoft.com/en-us/library/system.string.gethashcode.aspx 
+        /// http://msdn.microsoft.com/en-us/library/system.string.gethashcode.aspx
         /// </summary>
         public static unsafe int GetHashCodeStable(String stringToHash)
         {
