@@ -129,17 +129,17 @@ namespace LocUtil
             if (!ParseCommandXml(dialogFiles, pairsLoc, pairsNonLoc, typeof(DisplayMessage), "/Messages/Message", "DisplayMessage.{0}.{1}", out dialogIds))
                 return 1;
 
-            string propsFile = (string)clo.GetValue("props", null);
+            string propsFile = clo.GetValue<string>("props", null);
             Console.WriteLine("Writing localizable resources to " + propsFile);
             WritePairs(pairsLoc, propsFile, true);
 
-            string propsNonLocFile = (string)clo.GetValue("propsnonloc", null);
+            string propsNonLocFile = clo.GetValue<string>("propsnonloc", null);
             Console.WriteLine("Writing non-localizable resources to " + propsNonLocFile);
             WritePairs(pairsNonLoc, propsNonLocFile, false);
 
             if (clo.IsArgPresent("cenum"))
             {
-                string cenum = (string)clo.GetValue("cenum", null);
+                string cenum = clo.GetValue<string>("cenum", null);
                 Console.WriteLine("Generating CommandId enum file " + cenum);
 
                 // commandId:    command name
@@ -150,7 +150,7 @@ namespace LocUtil
             }
             if (clo.IsArgPresent("denum"))
             {
-                string denum = (string)clo.GetValue("denum", null);
+                string denum = clo.GetValue<string>("denum", null);
                 Console.WriteLine("Generating MessageId enum file " + denum);
                 if (!GenerateEnum(dialogIds, "MessageId", denum, null, null))
                     return 1;
@@ -176,14 +176,14 @@ namespace LocUtil
 
                 if (clo.IsArgPresent("senum"))
                 {
-                    string senum = (string)clo.GetValue("senum", null);
+                    string senum = clo.GetValue<string>("senum", null);
                     Console.WriteLine("Writing StringId enum file " + senum);
                     if (!GenerateEnum(new HashSet(pairs), "StringId", senum, pairs, null))
                         return 1;
                 }
                 if (clo.IsArgPresent("strings"))
                 {
-                    string stringsResx = (string)clo.GetValue("strings", null);
+                    string stringsResx = clo.GetValue<string>("strings", null);
                     Console.WriteLine("Writing " + pairs.Count + " localizable strings to " + stringsResx);
                     WritePairs(pairs, stringsResx, false);
                 }

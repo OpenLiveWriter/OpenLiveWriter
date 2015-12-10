@@ -61,11 +61,11 @@ namespace BlogRunner
                     if (options.GetFlagValue(BlogRunnerCommandLineOptions.OPTION_VERBOSE, false))
                         Debug.Listeners.Add(new ConsoleTraceListener(true));
 
-                    string providersPath = Path.GetFullPath((string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_PROVIDERS, null));
-                    string configPath = Path.GetFullPath((string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_CONFIG, null));
-                    string outputPath = Path.GetFullPath((string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_OUTPUT, providersPath));
+                    string providersPath = Path.GetFullPath(options.GetValue<string>(BlogRunnerCommandLineOptions.OPTION_PROVIDERS, null));
+                    string configPath = Path.GetFullPath(options.GetValue<string>(BlogRunnerCommandLineOptions.OPTION_CONFIG, null));
+                    string outputPath = Path.GetFullPath(options.GetValue(BlogRunnerCommandLineOptions.OPTION_OUTPUT, providersPath));
                     List<string> providerIds = new List<string>(options.UnnamedArgs);
-                    string errorLogPath = (string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_ERRORLOG, null);
+                    string errorLogPath = options.GetValue<string>(BlogRunnerCommandLineOptions.OPTION_ERRORLOG, null);
                     if (errorLogPath != null)
                     {
                         errorLogPath = Path.GetFullPath(errorLogPath);

@@ -79,13 +79,13 @@ namespace OpenLiveWriter.CoreServices
             return (object[])((ArrayList)GetValue(name, new ArrayList())).ToArray(t);
         }
 
-        public object GetValue(string name, object defaultValue)
+        public T GetValue<T>(string name, T defaultValue)
         {
             NormalizeName(ref name);
             if (!_values.ContainsKey(name))
                 return defaultValue;
-            else
-                return _values[name];
+
+            return (T)Convert.ChangeType(_values[name], typeof(T));
         }
 
         public string[] UnnamedArgs

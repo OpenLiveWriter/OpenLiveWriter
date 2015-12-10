@@ -52,8 +52,8 @@ namespace OpenLiveWriter
 
                 if (_options.IsArgPresent(CULTURE))
                 {
-                    string culture = _options.GetValue(CULTURE, null) as string;
-                    if (culture != null)
+                    string culture = _options.GetValue<string>(CULTURE, null);
+                    if (!string.IsNullOrWhiteSpace(culture))
                     {
                         CultureHelper.ApplyUICulture(culture);
                     }
@@ -76,10 +76,10 @@ namespace OpenLiveWriter
                     ApplicationDiagnostics.SuppressBackgroundRequests = _options.GetFlagValue(SUPPRESSBACKGROUNDREQUESTS, ApplicationDiagnostics.SuppressBackgroundRequests);
 
                 if (_options.IsArgPresent(PROXY))
-                    ApplicationDiagnostics.ProxySettingsOverride = (string)_options.GetValue(PROXY, ApplicationDiagnostics.ProxySettingsOverride);
+                    ApplicationDiagnostics.ProxySettingsOverride = _options.GetValue<string>(PROXY, ApplicationDiagnostics.ProxySettingsOverride);
 
                 if (_options.IsArgPresent(PERFLOG))
-                    ApplicationPerformance.SetLogFilePath((string)_options.GetValue(PERFLOG, null));
+                    ApplicationPerformance.SetLogFilePath(_options.GetValue<string>(PERFLOG, null));
 
                 if (_options.IsArgPresent(AUTOMATIONMODE))
                     ApplicationDiagnostics.AutomationMode = true;
@@ -88,7 +88,7 @@ namespace OpenLiveWriter
                     ApplicationDiagnostics.SimulateFirstRun = true;
 
                 if (_options.IsArgPresent(INTAPIHOST))
-                    ApplicationDiagnostics.IntServerOverride = (string)_options.GetValue(INTAPIHOST, null);
+                    ApplicationDiagnostics.IntServerOverride = _options.GetValue<string>(INTAPIHOST, null);
 #endif
 
 #if !SIGNED
@@ -141,7 +141,7 @@ namespace OpenLiveWriter
 
         public string PreferencesPage
         {
-            get { return (string)_options.GetValue(OPTIONS, null); }
+            get { return _options.GetValue<string>(OPTIONS, null); }
         }
 
         public bool IsOpenPost
@@ -165,7 +165,7 @@ namespace OpenLiveWriter
 
         public string CultureOverride
         {
-            get { return _options.GetValue(CULTURE, null) as string; }
+            get { return _options.GetValue<string>(CULTURE, null); }
         }
 
         public bool AddBlogFlagPresent
@@ -175,7 +175,7 @@ namespace OpenLiveWriter
 
         public string AddBlog
         {
-            get { return _options.GetValue(ADDBLOG, null) as string; }
+            get { return _options.GetValue<string>(ADDBLOG, null); }
         }
     }
 }
