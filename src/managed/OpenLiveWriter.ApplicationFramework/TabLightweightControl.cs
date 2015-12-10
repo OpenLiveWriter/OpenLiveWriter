@@ -1058,7 +1058,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 return;
 
             //	Ensure that the sender is who we think it is.
-            Debug.Assert(sender is TabSelectorLightweightControl, "Doh!", "Bad event wiring is the leading cause of code decay.  Call Brian.");
+            Debug.Assert(sender is TabSelectorLightweightControl, "Doh!", "Bad event wiring is the leading cause of code decay.");
             if (sender is TabSelectorLightweightControl)
             {
 
@@ -1077,7 +1077,7 @@ namespace OpenLiveWriter.ApplicationFramework
         private void TabSelectorLightweightControl_Selected(object sender, EventArgs e)
         {
             //	Ensure that the sender is who we think it is.
-            Debug.Assert(sender is TabSelectorLightweightControl, "Doh!", "Bad event wiring is the leading cause of code decay.  Call Brian.");
+            Debug.Assert(sender is TabSelectorLightweightControl, "Doh!", "Bad event wiring is the leading cause of code decay.");
             if (sender is TabSelectorLightweightControl)
             {
                 //	Set the selected tab entry.
