@@ -80,7 +80,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
 
-
         private WeblogConfigurationWizardController(TemporaryBlogSettings settings)
             : base()
         {
@@ -230,7 +229,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
 
-
         private void AddConfirmationStep()
         {
             addWizardStep(
@@ -242,7 +240,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 null,
                 null));
         }
-
 
         private DialogResult ShowDialog(IWin32Window owner, string title)
         {
@@ -396,7 +393,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private void OnBasicInfoAndAuthenticationCompleted(IAccountBasicInfoProvider basicInfo, PerformBlogAutoDetection performBlogAutoDetection)
         {
-            // copy the settings 
+            // copy the settings
             _temporarySettings.HomepageUrl = basicInfo.HomepageUrl;
             _temporarySettings.ForceManualConfig = basicInfo.ForceManualConfiguration;
             _temporarySettings.Credentials = basicInfo.Credentials;
@@ -469,11 +466,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private WizardWeblogAndSettingsAutoDetectionOperation _detectionOperation;
 
-
         private void PerformSharePointAutoDetectionSubStep()
         {
             // Clear the provider so the user will be forced to do autodetection
-            // until we have successfully configured a publishing interface								
+            // until we have successfully configured a publishing interface
             _temporarySettings.ClearProvider();
 
             AddAutoDetectionStep();
@@ -563,7 +559,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-
         #endregion
 
         #region Select Provider Panel
@@ -594,13 +589,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
 
-
         void OnSelectProviderCompleted(Object stepControl)
         {
             // get reference to panel
             WeblogConfigurationWizardPanelSelectProvider panelSelectProvider = stepControl as WeblogConfigurationWizardPanelSelectProvider;
 
-            // record the provider and blog info 
+            // record the provider and blog info
             IBlogProviderDescription provider = panelSelectProvider.SelectedBlogProvider;
             _temporarySettings.SetProvider(provider.Id, provider.Name, provider.PostApiUrl, provider.ClientType);
             _temporarySettings.HostBlogId = String.Empty;
@@ -608,8 +602,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 _temporarySettings.SetBlogInfo(panelSelectProvider.TargetBlog);
             _temporarySettings.HostBlogs = panelSelectProvider.UsersBlogs;
 
-            // If we don't yet have a HostBlogId then the user needs to choose from 
-            // among available weblogs 
+            // If we don't yet have a HostBlogId then the user needs to choose from
+            // among available weblogs
             if (_temporarySettings.HostBlogId == String.Empty)
             {
                 PerformSelectBlogSubStep();
@@ -621,7 +615,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 PerformSettingsAutoDetectionSubStepIfNecessary();
             }
         }
-
 
 
         #endregion
@@ -662,7 +655,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             PerformSettingsAutoDetectionSubStepIfNecessary();
         }
 
-
         #endregion
 
         #region Select Image Endpoint Panel
@@ -700,7 +692,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             optionOverrides[BlogClientOptions.IMAGE_ENDPOINT] = panelSelectBlog.SelectedBlog.Id;
             _temporarySettings.HomePageOverrides = optionOverrides;
         }
-
 
         #endregion
 
@@ -771,7 +762,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #endregion
-
 
         #region Private Members
 

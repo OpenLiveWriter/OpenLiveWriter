@@ -17,32 +17,32 @@ namespace OpenLiveWriter.ApplicationFramework
     internal class CommandContextMenuMiniForm : BaseForm
     {
         /* NOTE: When being shown in the context of the browser (or any non .NET
-		 * application) this form will not handle any dialog level keyboard 
+		 * application) this form will not handle any dialog level keyboard
 		 * commands (tab, enter, escape, alt-mnenonics, etc.). This is because
 		 * it is a modeless form that does not have its own thread/message-loop.
 		 * Because the form was created by our .NET code the main IE frame that
 		 * has the message loop has no idea it needs to route keyboard events'
 		 * to us. There are several possible workarounds:
-		 * 
-		 *    (1) Create and show this form on its own thread with its own 
+		 *
+		 *    (1) Create and show this form on its own thread with its own
 		 *        message loop. In this case all calls from the form back
 		 *        to the main UI thread would need to be marshalled.
-		 * 
-		 *    (2) Manually process keyboard events in the low-level 
+		 *
+		 *    (2) Manually process keyboard events in the low-level
 		 *        ProcessKeyPreview override (see commented out method below)
-		 * 
+		 *
 		 *    (3) Change the implementation of the mini-form to be a modal
 		 *        dialog. The only problem here is we would need to capture
 		 *        mouse input so that clicks outside of the modal dialog onto
 		 *        the IE window result in the window being dismissed. We were
 		 *        not able to get this to work (couldn't capture the mouse)
 		 *        in experimenting with this implementation.
-		 * 
+		 *
 		 * Our judgement was to leave it as-is for now as it is unlikely that
-		 * keyboard input into a mini-form will be a big deal (the only way 
+		 * keyboard input into a mini-form will be a big deal (the only way
 		 * to access the mini-form is with a mouse gesture on the toolbar so
-		 * the user is still in "mouse-mode" when the form pops up. 
-		 *  
+		 * the user is still in "mouse-mode" when the form pops up.
+		 *
 		 */
 
         public CommandContextMenuMiniForm(IWin32Window parentFrame, Command command)
@@ -69,7 +69,7 @@ namespace OpenLiveWriter.ApplicationFramework
             SetStyle(ControlStyles.DoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
-            // create and initialize the context menu control			
+            // create and initialize the context menu control
             Control commandContextMenuControl = _contextMenuControlHandler.CreateControl();
             commandContextMenuControl.TabIndex = 0;
             commandContextMenuControl.BackColor = BACKGROUND_COLOR;
@@ -92,7 +92,7 @@ namespace OpenLiveWriter.ApplicationFramework
             _actionButton.ToolTip = _contextMenuControlHandler.ButtonText;
             _actionButton.AutoSizeWidth = true;
             _actionButton.AutoSizeHeight = true;
-            _actionButton.Size = new Size(0, 0); // dummy call to force auto-size	
+            _actionButton.Size = new Size(0, 0); // dummy call to force auto-size
 
             // size the form based on the size of the context menu control and button
             Width = HORIZONTAL_INSET + commandContextMenuControl.Width + HORIZONTAL_INSET;
@@ -103,7 +103,6 @@ namespace OpenLiveWriter.ApplicationFramework
             _actionButton.Left = HORIZONTAL_INSET - 4;
             Controls.Add(_actionButton);
         }
-
 
         /// <summary>
         /// Override out Activated event to allow parent form to retains its 'activated'
@@ -116,10 +115,9 @@ namespace OpenLiveWriter.ApplicationFramework
             base.OnActivated(e);
 
             // send the parent form a WM_NCACTIVATE message to cause it to to retain it's
-            // activated title bar appearance			
+            // activated title bar appearance
             User32.SendMessage(_parentFrame.Handle, WM.NCACTIVATE, new UIntPtr(1), IntPtr.Zero);
         }
-
 
 
         /// <summary>
@@ -133,7 +131,7 @@ namespace OpenLiveWriter.ApplicationFramework
             // set a timer that will result in the closing of the form
             // (we do this because if actually call Close right here it
             // will prevent the mouse event that resulted in the deactivation
-            // of the form from actually triggering in the new target 
+            // of the form from actually triggering in the new target
             // winodw -- this allows the mouse event to trigger and the
             // form to go away almost instantly
             Timer closeDelayTimer = new Timer();
@@ -157,7 +155,6 @@ namespace OpenLiveWriter.ApplicationFramework
             // cancel the form
             Cancel();
         }
-
 
         // handle painting
         protected override void OnPaint(PaintEventArgs e)
@@ -197,7 +194,6 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
 
-
         /// <summary>
         /// Prevent background painting (supports double-buffering)
         /// </summary>
@@ -208,18 +204,16 @@ namespace OpenLiveWriter.ApplicationFramework
 
 
 
-
-
         /*
 		protected override bool ProcessKeyPreview(ref Message m)
 		{
-			// NOTE: this is the only keyboard "event" which appears 
+			// NOTE: this is the only keyboard "event" which appears
 			// to get called when our form is shown in the browser.
 			// if we want to support tab, esc, enter, mnemonics, etc.
 			// without creating a new thread/message-loop for this
-			// form (see comment at the top) then this is where we 
+			// form (see comment at the top) then this is where we
 			// would do the manual processing
-			
+
 			return base.ProcessKeyPreview (ref m);
 		}
 		*/
@@ -234,7 +228,6 @@ namespace OpenLiveWriter.ApplicationFramework
             Execute();
         }
 
-
         /// <summary>
         /// Cancel the mini-form
         /// </summary>
@@ -242,7 +235,6 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             Close();
         }
-
 
         /// <summary>
         /// Execute the command
@@ -259,7 +251,6 @@ namespace OpenLiveWriter.ApplicationFramework
             _contextMenuControlHandler.Execute(userInput);
         }
 
-
         /// <summary>
         /// Handle to parent frame window
         /// </summary>
@@ -274,7 +265,6 @@ namespace OpenLiveWriter.ApplicationFramework
         /// Context menu control handler
         /// </summary>
         private ICommandContextMenuControlHandler _contextMenuControlHandler;
-
 
         /// <summary>
         /// Button user clicks to take action
@@ -292,7 +282,6 @@ namespace OpenLiveWriter.ApplicationFramework
         private const int HORIZONTAL_INSET = 10;
         private const int BUTTON_VERTICAL_PAD = 3;
         private static readonly Color BACKGROUND_COLOR = Color.FromArgb(244, 243, 238);
-
 
     }
 }

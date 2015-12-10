@@ -106,8 +106,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
-
         /// <summary>
         /// Walks a tree of controls, executing the provided delegate on
         /// each control it encounters.

@@ -23,7 +23,6 @@ namespace OpenLiveWriter.HtmlEditor
     public partial class WordCountForm : ApplicationDialog
     {
 
-
         public WordCountForm(string words, bool bOnlySelectedText)
         {
             InitializeComponent();
@@ -56,7 +55,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
 
 
-
         }
 
         protected override void OnLoad(EventArgs e)
@@ -78,7 +76,6 @@ namespace OpenLiveWriter.HtmlEditor
 
             DisplayHelper.AutoFitSystemButton(buttonClose, buttonClose.Width, int.MaxValue);
         }
-
 
 
         private void btnClose_Click(object sender, EventArgs e)

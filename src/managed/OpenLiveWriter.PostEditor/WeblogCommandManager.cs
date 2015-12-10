@@ -159,7 +159,7 @@ namespace OpenLiveWriter.PostEditor
 
         private void InitializeUI()
         {
-            // hookup menu definition to command bar button			
+            // hookup menu definition to command bar button
             commandWeblogPicker.CommandBarButtonContextMenuDefinition = GetWeblogContextMenuDefinition(false);
         }
 
@@ -184,7 +184,6 @@ namespace OpenLiveWriter.PostEditor
             return weblogContextMenuDefinition;
         }
 
-
         private void _editingManager_BlogChanged(object sender, EventArgs e)
         {
             commandSelectBlog.Invalidate();
@@ -206,7 +205,7 @@ namespace OpenLiveWriter.PostEditor
                 }
                 else
                 {
-                    // WinLive 43696: The blog settings have changed, but the UI doesn't need to be refreshed. In 
+                    // WinLive 43696: The blog settings have changed, but the UI doesn't need to be refreshed. In
                     // order to avoid "Windows 8 Bugs" 43242, we don't want to do a full reload.
                     commandSelectBlog.Invalidate();
                 }
@@ -237,7 +236,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         private void commandAddWeblog_Execute(object sender, EventArgs e)
         {
             _editingSite.AddWeblog();
@@ -260,8 +258,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
-
         public CommandManager CommandManager
         {
             get
@@ -269,7 +265,6 @@ namespace OpenLiveWriter.PostEditor
                 return _editingSite.CommandManager;
             }
         }
-
 
         DynamicCommandMenuOptions IDynamicCommandMenuContext.Options
         {
@@ -290,8 +285,6 @@ namespace OpenLiveWriter.PostEditor
 
 
 
-
-
         IMenuCommandObject[] IDynamicCommandMenuContext.GetMenuCommandObjects()
         {
             // generate an array of command objects for the current list of weblogs
@@ -300,7 +293,6 @@ namespace OpenLiveWriter.PostEditor
                 menuCommands.Add(new SwitchWeblogMenuCommand(blog.Id, blog.Id == _editingManager.BlogId));
             return (IMenuCommandObject[])menuCommands.ToArray(typeof(IMenuCommandObject));
         }
-
 
         void IDynamicCommandMenuContext.CommandExecuted(IMenuCommandObject menuCommandObject)
         {
@@ -311,7 +303,6 @@ namespace OpenLiveWriter.PostEditor
             if (WeblogSelected != null)
                 WeblogSelected(menuCommand.BlogId);
         }
-
 
         private DynamicCommandMenu _switchWeblogCommandMenu;
 
@@ -324,7 +315,6 @@ namespace OpenLiveWriter.PostEditor
         private Command commandAddWeblog;
 
         private IContainer components = new Container();
-
 
         private class SwitchWeblogMenuCommand : IMenuCommandObject
         {
@@ -339,7 +329,6 @@ namespace OpenLiveWriter.PostEditor
             public string BlogId { get { return _blogId; } }
             private string _blogId;
 
-
             Bitmap IMenuCommandObject.Image { get { return null; } }
 
             string IMenuCommandObject.Caption { get { return _caption; } }
@@ -347,13 +336,11 @@ namespace OpenLiveWriter.PostEditor
             private string _caption;
 
 
-
             bool IMenuCommandObject.Latched { get { return _latched; } }
             private bool _latched;
 
             bool IMenuCommandObject.Enabled { get { return true; } }
         }
-
 
     }
 }

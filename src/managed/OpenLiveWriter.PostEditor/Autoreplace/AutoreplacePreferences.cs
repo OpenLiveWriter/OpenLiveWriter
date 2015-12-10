@@ -28,7 +28,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         }
         private bool _enableSmartQuotes;
 
-
         public bool EnableTypographicReplacement
         {
             get { return _enableTypographicReplacement; }
@@ -99,8 +98,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             AutoreplaceSettings.EnableSpecialCharacterReplacement = EnableSpecialCharacterReplacement;
             AutoreplaceSettings.EnableEmoticonsReplacement = EnableEmoticonsReplacement;
         }
-
-
 
 
     }

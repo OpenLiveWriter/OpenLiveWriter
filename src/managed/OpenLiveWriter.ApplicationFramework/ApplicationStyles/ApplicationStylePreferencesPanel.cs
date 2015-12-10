@@ -19,7 +19,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 		/// <summary>
 		///	The types of ApplicationStyle objects provided by the system.
 		/// </summary>
-		private Type[] applicationStyleTypes = new Type[] 
+		private Type[] applicationStyleTypes = new Type[]
 		{
 			typeof(ApplicationStyleSkyBlue),
 		};
@@ -34,7 +34,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 		private ApplicationStylePreferences applicationStylePreferences;
 
 		#endregion Private Member Variables
-		
+
 		#region Windows Form Designer generated code
 
 		private System.Windows.Forms.FontDialog fontDialog;
@@ -72,7 +72,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 			InitializeApplicationStyles();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -90,8 +90,8 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 		#endregion Class Initialization & Termination
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -104,9 +104,9 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 			this.fontDialog = new System.Windows.Forms.FontDialog();
 			this.groupBoxTheme.SuspendLayout();
 			this.SuspendLayout();
-			// 
+			//
 			// groupBoxTheme
-			// 
+			//
 			this.groupBoxTheme.Controls.Add(this.label1);
 			this.groupBoxTheme.Controls.Add(this.pictureBoxPreview);
 			this.groupBoxTheme.Controls.Add(this.labelFolderNameFont);
@@ -118,9 +118,9 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 			this.groupBoxTheme.TabIndex = 1;
 			this.groupBoxTheme.TabStop = false;
 			this.groupBoxTheme.Text = "Color";
-			// 
+			//
 			// label1
-			// 
+			//
 			this.label1.BackColor = System.Drawing.SystemColors.Control;
 			this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.label1.Location = new System.Drawing.Point(150, 18);
@@ -128,18 +128,18 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 			this.label1.Size = new System.Drawing.Size(132, 18);
 			this.label1.TabIndex = 2;
 			this.label1.Text = "Preview:";
-			// 
+			//
 			// pictureBoxPreview
-			// 
+			//
 			this.pictureBoxPreview.BackColor = System.Drawing.SystemColors.Control;
 			this.pictureBoxPreview.Location = new System.Drawing.Point(150, 36);
 			this.pictureBoxPreview.Name = "pictureBoxPreview";
 			this.pictureBoxPreview.Size = new System.Drawing.Size(192, 235);
 			this.pictureBoxPreview.TabIndex = 2;
 			this.pictureBoxPreview.TabStop = false;
-			// 
+			//
 			// labelFolderNameFont
-			// 
+			//
 			this.labelFolderNameFont.BackColor = System.Drawing.SystemColors.Control;
 			this.labelFolderNameFont.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.labelFolderNameFont.Location = new System.Drawing.Point(10, 18);
@@ -147,9 +147,9 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 			this.labelFolderNameFont.Size = new System.Drawing.Size(132, 18);
 			this.labelFolderNameFont.TabIndex = 0;
 			this.labelFolderNameFont.Text = "&Color scheme:";
-			// 
+			//
 			// listBoxApplicationStyles
-			// 
+			//
 			this.listBoxApplicationStyles.DisplayMember = "DisplayName";
 			this.listBoxApplicationStyles.IntegralHeight = false;
 			this.listBoxApplicationStyles.Location = new System.Drawing.Point(10, 36);
@@ -157,18 +157,18 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 			this.listBoxApplicationStyles.Size = new System.Drawing.Size(130, 235);
 			this.listBoxApplicationStyles.TabIndex = 1;
 			this.listBoxApplicationStyles.SelectedIndexChanged += new System.EventHandler(this.listBoxApplicationStyles_SelectedIndexChanged);
-			// 
+			//
 			// fontDialog
-			// 
+			//
 			this.fontDialog.AllowScriptChange = false;
 			this.fontDialog.AllowVerticalFonts = false;
 			this.fontDialog.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.fontDialog.FontMustExist = true;
 			this.fontDialog.ScriptsOnly = true;
 			this.fontDialog.ShowEffects = false;
-			// 
+			//
 			// AppearancePreferencesPanel
-			// 
+			//
 			this.Controls.Add(this.groupBoxTheme);
 			this.Name = "AppearancePreferencesPanel";
 			this.PanelName = "Appearance";

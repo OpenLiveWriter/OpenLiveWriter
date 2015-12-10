@@ -304,11 +304,11 @@ namespace OpenLiveWriter.CoreServices
 		{
 			Verify(Balance("<a href=foo>test</a>", 13), "");
 			Verify(Balance("<a href=foo>test", 13), "");
-			
+
 			Verify(Balance("<a href=foo>test</a>", 100), "<a href=foo>test</a>");
 			Verify(Balance("<a href=foo>test", 100), "<a href=foo>test</a>");
 			Verify(Balance("<b><a href=foo>test</b>", 100), "<b><a href=foo>test</b></a>");
-			
+
 			Verify(Balance("<b><a href=foo>test</b>", 10), "<b></b>");
 			Verify(Balance("<B><a href=foo>test</b>", 10), "<B></B>");
 			Verify(Balance("abcd&blacksquare;efghijklmnop", 7), "abcd");

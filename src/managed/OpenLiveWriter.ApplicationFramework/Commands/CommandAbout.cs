@@ -30,10 +30,10 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			/// Required for Windows.Forms Class Composition Designer support
 			///
 			InitializeComponent();
-			
+
 
 		}
-		
+
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -41,9 +41,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandAbout
-			// 
+			//
 			this.ContextMenuPath = "-&About {0}...@401";
 			this.Identifier = "WindowsLive.ApplicationFramework.Commands.About";
 			this.MainMenuPath = "&Help@500/-&About {0}...@401";

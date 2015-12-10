@@ -24,7 +24,7 @@ namespace OpenLiveWriter.SpellChecker
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.SpellChecker
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.SpellChecker
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandAddToDictionary
-			// 
+			//
 			this.CommandBarButtonText = "";
 			this.Identifier = "OpenLiveWriter.SpellChecker.CommandAddToDictionary";
 			this.MenuText = "&Add to Dictionary";

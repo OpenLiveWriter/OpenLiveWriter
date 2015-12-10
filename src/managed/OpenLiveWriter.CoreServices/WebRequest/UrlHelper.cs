@@ -24,16 +24,16 @@ namespace OpenLiveWriter.CoreServices
     {
         /// <summary>
         /// ALWAYS use this instead of Uri.AbsoluteUri!
-        /// 
+        ///
         /// The Uri.AbsoluteUri property does escaping of non-ASCII
         /// characters. When done to file URIs, this results in URIs
         /// that MSHTML does not know how to resolve, as it doesn't
         /// know how to interpret the Uri class's UTF-8 encoding
         /// scheme.
-        /// 
+        ///
         /// We work around this by un-escaping the escaped high
         /// characters, but leave reserved URI characters alone.
-        /// 
+        ///
         /// Fixes bug 741447 - Images loaded from a wpost, when the %TEMP% path contains a char needing html escaping, appear as a red X.
         /// Set %TEMP% to contain a char that requires html escaping.
         /// Open Writer
@@ -119,27 +119,27 @@ namespace OpenLiveWriter.CoreServices
         {
             return SafeToAbsoluteUri(new Uri(path));
 #if FALSE
-            // This is the old implementation which exposes problems with URL encoded characters in paths. 
+            // This is the old implementation which exposes problems with URL encoded characters in paths.
             //  (such as c:\temp\232323232%7Ffp%3A%3C%3Dot%3E2378%3D664%3D88%3B%3DXROQDF%3E2323%3A77%3B9%3B537ot1lsi.gif)
             //
             // It was replaced with the above implementation to address this type of bug, (bug #608613)
             // The only downside of using the Uri above is that it doesn't handle UNC paths of the form:
             // \\?\UNC\...
-            
+
 		    // allocate buffer to hold url
 			uint bufferSize = 4096 ;
 			StringBuilder buffer = new StringBuilder(Convert.ToInt32(bufferSize)) ;
 
 			// normalize the url
 			int result = Shlwapi.UrlCreateFromPath( path, buffer, ref bufferSize, 0 ) ;
-            
+
 			// successfully converted
 			if ( result == HRESULT.S_OK )
 			{
 				// return URL converted to a .NET URL encoded value
 				string url = buffer.ToString();
-				url = ShlwapiFileUrlToDotnetEncodedUrl(url); //fixes bug 47859	
-				
+				url = ShlwapiFileUrlToDotnetEncodedUrl(url); //fixes bug 47859
+
 				try
 				{
 					if(new FileInfo(path).FullName != new FileInfo(new Uri(url).LocalPath).FullName)
@@ -157,9 +157,8 @@ namespace OpenLiveWriter.CoreServices
 				// didn't need conversion
 			else if ( result == HRESULT.S_FALSE )
 
-
 			{
-				// docs say that even if we don't need conversion it will 
+				// docs say that even if we don't need conversion it will
 				// copy the buffer we passed it to the result
 				Debug.Assert( path.Equals(buffer.ToString()) );
 
@@ -167,10 +166,10 @@ namespace OpenLiveWriter.CoreServices
 				return path ;
 			}
 				// unxpected error occurred!
-			else  
+			else
 			{
-				throw new 
-					COMException( "Error calling UrlCreateFromPath for path " + path, result ) ;			
+				throw new
+					COMException( "Error calling UrlCreateFromPath for path " + path, result ) ;
 			}
 #endif
         }
@@ -234,7 +233,7 @@ namespace OpenLiveWriter.CoreServices
             return encodedUrl;
         }
         private const string FILE_SCHEME = "file:";
-        private static char[] UNSAFE_URL_CHARS = new char[] { '#' }; //chars not escaped by UrlPathEncode that need to be encoded in the URL				
+        private static char[] UNSAFE_URL_CHARS = new char[] { '#' }; //chars not escaped by UrlPathEncode that need to be encoded in the URL
 
         /// <summary>
         /// Gets the host name portion of a url, not including the 'www'
@@ -295,12 +294,10 @@ namespace OpenLiveWriter.CoreServices
             return anchor;
         }
 
-
         public static string GetPrettyUrl(string url, int length)
         {
             if (!IsUrl(url))
                 return null;
-
 
             if (url.Length > length)
                 return url.Substring(0, length - 3) + Res.Get(StringId.WithEllipses);
@@ -356,10 +353,9 @@ namespace OpenLiveWriter.CoreServices
 #endif
         }
 
-
         /// <summary>
         /// Indicates whether the scheme of the current Url is a well known scheme.  This is helpful
-        /// since certain urls (like outlook urls of the format outbind://173-000000007A8E4513E635304C91A43CFC57ADB0BA04F52700/) 
+        /// since certain urls (like outlook urls of the format outbind://173-000000007A8E4513E635304C91A43CFC57ADB0BA04F52700/)
         /// will validate as legal Uris, yet for many applications will not be useful.
         /// </summary>
         /// <param name="url">The url for which to validate the scheme</param>
@@ -447,7 +443,6 @@ namespace OpenLiveWriter.CoreServices
             return Path.GetFileName(url);
         }
 
-
         /// <summary>
         /// Gets the content type for a given url
         /// </summary>
@@ -490,7 +485,6 @@ namespace OpenLiveWriter.CoreServices
                 return url == secondUrl;
         }
 
-
         /// <summary>
         /// Escapes a relative URL against a HTML document contained in an IDataObject
         /// </summary>
@@ -523,7 +517,6 @@ namespace OpenLiveWriter.CoreServices
 
             return relativeUrl;
         }
-
 
         /// <summary>
         /// Returns url with appended query string
@@ -560,12 +553,11 @@ namespace OpenLiveWriter.CoreServices
             return appendedUrl;
         }
 
-
         /// <summary>
         /// Gets the base Url from a full Url
         /// The baseUrl is considered the scheme+hostname with only the root path.
         /// Use GetBasePathUrl if you want the base directory of a file URL.
-        /// 
+        ///
         /// </summary>
         /// <param name="url">The url</param>
         /// <returns>The base url</returns>
@@ -647,7 +639,6 @@ namespace OpenLiveWriter.CoreServices
             return url;
         }
 
-
         /// <summary>
         /// Returns a hashtable of the query parameters parsed from a URL
         /// </summary>
@@ -703,7 +694,7 @@ namespace OpenLiveWriter.CoreServices
 
         public static byte[] GetShortcutFileBytesForUrl(string url)
         {
-            // TODO: make this use the URL creation API instead of hacking together the file contents			
+            // TODO: make this use the URL creation API instead of hacking together the file contents
             string urlFile = "[DEFAULT]\nBASEURL=" + url + "\n[InternetShortcut]\nURL=" + url + "\nModified=1";
             char[] chars = urlFile.ToCharArray();
             byte[] bytes = new byte[urlFile.Length];
@@ -714,7 +705,6 @@ namespace OpenLiveWriter.CoreServices
             return bytes;
         }
 
-
         public static string GenerateShortcutFileForUrl(string fileName, string url)
         {
             byte[] shortcutFileBytes = GetShortcutFileBytesForUrl(url);
@@ -724,10 +714,9 @@ namespace OpenLiveWriter.CoreServices
             return shortcutFile;
         }
 
-
         public static string GetLocalFileUrl(string filePath)
         {
-            // Set dontEscape flag to true so that we prevent URI escaping from 
+            // Set dontEscape flag to true so that we prevent URI escaping from
             // replacing high ascii or unicode characters which can make the path be invalid
 
             // We've been running on .Net 2.0 for some time in the field without error
@@ -769,7 +758,7 @@ namespace OpenLiveWriter.CoreServices
             //bug fix: Shlwapi.UrlCombine() fails with combining paths for mhtml:file:// URLs
             if (!baseUrl.StartsWith("mhtml:file://", StringComparison.OrdinalIgnoreCase))
             {
-                // UrlCombine is escaping the urls, which means if the URL is already escaped, it is being 
+                // UrlCombine is escaping the urls, which means if the URL is already escaped, it is being
                 // double escaped.
                 if (IsUrl(baseUrl))
                     baseUrl = HttpUtility.UrlDecode(baseUrl);
@@ -801,12 +790,10 @@ namespace OpenLiveWriter.CoreServices
                 return UrlCombine(baseUrl, relativeUrl);
         }
 
-
         public static string GetSavedFromString(string url)
         {
             return string.Format(CultureInfo.InvariantCulture, "<!-- saved from url=({0:0000}){1} -->\r\n", url.Length, url);
         }
-
 
 
         public static bool IsUrlLinkable(string url)
@@ -822,7 +809,6 @@ namespace OpenLiveWriter.CoreServices
             return true;
         }
         private static string[] NonlinkableSchemes = new string[] { Uri.UriSchemeFile };
-
 
         public static bool IsUrlDownloadable(string url)
         {

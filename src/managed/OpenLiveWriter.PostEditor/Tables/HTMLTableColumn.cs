@@ -62,7 +62,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         public HorizontalAlignment HorizontalAlignment
         {
             get
@@ -170,7 +169,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 }
                 // for subsequent cells, if any of them differ from the first cell
                 // then the alignment is mixed
-                else if (_verticalAlignment != VerticalAlignment.Mixed) // optimize 
+                else if (_verticalAlignment != VerticalAlignment.Mixed) // optimize
                 {
                     if (_verticalAlignment != TableHelper.GetVAlignmentForHtmlAlignment(cell.vAlign))
                         _verticalAlignment = VerticalAlignment.Mixed;
@@ -185,7 +184,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 }
             }
         }
-
 
         private class CellBackgroundColorWriter : IColumnCellProcessor
         {
@@ -208,7 +206,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 }
             }
         }
-
 
         private class CellAlignmentWriter : IColumnCellProcessor
         {
@@ -246,7 +243,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private class CellWidthProcessor : IColumnCellProcessor
         {
             private int _width;
@@ -264,7 +260,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 }
             }
         }
-
 
         private interface IColumnCellProcessor
         {
@@ -284,11 +279,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private IHTMLTable _table;
         private IHTMLTableCell _baseCell;
         private int _index;
     }
-
 
 }

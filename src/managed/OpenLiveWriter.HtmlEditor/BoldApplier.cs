@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -179,7 +179,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// </summary>
         private void WrapRangeInFontIfNecessary(MarkupRange currentRange, bool turnBold)
         {
-            // Check if there is an existing font/span tag that completely wraps this range, 
+            // Check if there is an existing font/span tag that completely wraps this range,
             // we can just use that instead of inserting a new one
             MarkupContext workingContext = new MarkupContext();
             bool wrapFont = true;

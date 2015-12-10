@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandViewWeblog
-			// 
+			//
 			this.ContextMenuPath = "&Add Weblog Account...@2000";
 			this.Identifier = "OpenLiveWriter.PostEditor.Commands.AddWeblog";
 			this.MainMenuPath = "&Weblog@7/-&Add Weblog Account...@2000";

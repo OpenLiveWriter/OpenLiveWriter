@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandFont
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.PostEditor.Tables.Commands.MoveColumnLeft";
 			this.MainMenuPath = "T&able@6/Move Column Le&ft@260";
 			this.MenuText = "Move Column Le&ft" ;

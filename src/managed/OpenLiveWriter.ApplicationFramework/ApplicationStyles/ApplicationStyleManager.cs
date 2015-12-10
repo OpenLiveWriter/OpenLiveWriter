@@ -10,7 +10,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 	/// Provides application management service.
 	/// </summary>
 	public sealed class ApplicationStyleManager
-	{	
+	{
 
 		/// <summary>
 		/// Gets or sets the ApplicationStyle object
@@ -43,7 +43,6 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 		}
 
 
-	
 		/// Get the ApplicationStylePreferences instance for the current thread
 		/// </summary>
 		private static ApplicationStylePreferences ApplicationStylePreferences
@@ -60,10 +59,10 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 		[ThreadStatic]
 		private static ApplicationStylePreferences _applicationStylePreferences ;
 
-	
-		
+
+
 
 		#endregion
-	
+
 	}
 }

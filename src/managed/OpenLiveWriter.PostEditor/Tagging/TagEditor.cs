@@ -146,8 +146,8 @@ namespace OpenLiveWriter.PostEditor.Tagging
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -157,9 +157,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.labelTag = new System.Windows.Forms.Label();
             this.tagProviderComboBox = new OpenLiveWriter.PostEditor.Tagging.TagProviderComboBox();
             this.SuspendLayout();
-            // 
+            //
             // textBoxTags
-            // 
+            //
             this.textBoxTags.AcceptsReturn = true;
             this.textBoxTags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
@@ -170,9 +170,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.textBoxTags.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxTags.Size = new System.Drawing.Size(320, 140);
             this.textBoxTags.TabIndex = 5;
-            // 
+            //
             // labelTechTags
-            // 
+            //
             this.labelTechTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTechTags.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -181,9 +181,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.labelTechTags.Size = new System.Drawing.Size(319, 13);
             this.labelTechTags.TabIndex = 0;
             this.labelTechTags.Text = "&Tags (comma separated):";
-            // 
+            //
             // labelTag
-            // 
+            //
             this.labelTag.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTag.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -192,9 +192,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.labelTag.Size = new System.Drawing.Size(319, 13);
             this.labelTag.TabIndex = 10;
             this.labelTag.Text = "Tag &Provider:";
-            // 
+            //
             // tagProviderComboBox
-            // 
+            //
             this.tagProviderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tagProviderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -203,9 +203,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.tagProviderComboBox.SelectedTagProvider = null;
             this.tagProviderComboBox.Size = new System.Drawing.Size(320, 21);
             this.tagProviderComboBox.TabIndex = 15;
-            // 
+            //
             // TagEditor
-            // 
+            //
             this.Controls.Add(this.tagProviderComboBox);
             this.Controls.Add(this.labelTag);
             this.Controls.Add(this.labelTechTags);

@@ -7,8 +7,8 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Represents information about a file received in a FileDrop or FileContents
-    /// data transfer operation. This file should be construed as a "logical" 
-    /// file where the file's name is represented by the Name property and the 
+    /// data transfer operation. This file should be construed as a "logical"
+    /// file where the file's name is represented by the Name property and the
     /// files contents are represented by the ContentsPath property.
     /// </summary>
     public abstract class FileItem
@@ -22,7 +22,6 @@ namespace OpenLiveWriter.CoreServices
             this.name = name;
         }
 
-
         /// <summary>
         /// Name of the file
         /// </summary>
@@ -32,7 +31,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string name = null;
 
-
         /// <summary>
         /// Clsid of the file (defines the type of the file)
         /// </summary>
@@ -40,7 +38,6 @@ namespace OpenLiveWriter.CoreServices
         {
             get { return Guid.Empty; }
         }
-
 
         /// <summary>
         /// Determines whether this file is a directory
@@ -74,5 +71,4 @@ namespace OpenLiveWriter.CoreServices
         protected internal static FileItem[] _noChildren = new FileItem[0];
     }
 }
-
 

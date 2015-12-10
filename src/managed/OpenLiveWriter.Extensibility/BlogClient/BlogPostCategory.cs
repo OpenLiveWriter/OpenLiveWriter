@@ -59,7 +59,7 @@ namespace OpenLiveWriter.Extensibility.BlogClient
 
             // WordPress uses the string "0" to indicate no parent.
             // It's hard to tell by looking at this, but the fact that
-            // HasParent takes this into account means we get the 
+            // HasParent takes this into account means we get the
             // correct behavior.
             if ((x.HasParent || y.HasParent) && x.Parent != y.Parent)
                 return false;
@@ -90,7 +90,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             return 0;
         }
 
-
         public int CompareTo(object obj)
         {
             BlogPostCategory category = obj as BlogPostCategory;
@@ -111,12 +110,10 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         }
 
 
-
         public object Clone()
         {
             return new BlogPostCategory(Id, Name, Parent);
         }
-
 
     }
 

@@ -77,7 +77,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         public abstract XmlElement HtmlToTextNode(XmlDocument ownerDoc, string html);
         public abstract XmlElement PlaintextToTextNode(XmlDocument ownerDoc, string text);
 
-
         private class Atom03ProtocolVersion : AtomProtocolVersion
         {
             private const string DC_URI = "http://purl.org/dc/elements/1.1/";
@@ -103,7 +102,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 while (null != (category = node.SelectSingleNode("dc:subject", nsMgr)))
                     category.ParentNode.RemoveChild(category);
             }
-
 
             public override string TextNodeToHtml(XmlElement node)
             {

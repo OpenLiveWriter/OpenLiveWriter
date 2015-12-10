@@ -139,7 +139,6 @@ namespace OpenLiveWriter.CoreServices
             return new Rectangle(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
         }
 
-
         /// <summary>
         /// Convert a .NET rectangle structure into a Win32 RECT structure
         /// </summary>

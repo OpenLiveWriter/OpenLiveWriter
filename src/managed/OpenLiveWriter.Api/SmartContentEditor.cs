@@ -12,7 +12,7 @@ namespace OpenLiveWriter.Api
     /// <summary>
     /// <para>Sidebar editor for SmartContent</para>
     /// <para>There is a single instance of a given SmartContentEditor created for each Open Live Writer
-    /// post editor window. The implementation of SmartContentEditor objects must therefore be 
+    /// post editor window. The implementation of SmartContentEditor objects must therefore be
     /// stateless and assume that they will be the editor for mutliple distince SmartContent objects.</para>
     /// </summary>
     public class SmartContentEditor : UserControl
@@ -45,7 +45,6 @@ namespace OpenLiveWriter.Api
             }
         }
         private ISmartContent _selectedContent;
-
 
         /// <summary>
         /// Notification that the currently selected SmartContent object
@@ -81,12 +80,11 @@ namespace OpenLiveWriter.Api
                 ContentEdited(this, EventArgs.Empty);
         }
 
-
         private void InitializeComponent()
         {
-            // 
+            //
             // SmartContentEditor
-            // 
+            //
             this.Name = "SmartContentEditor";
             this.Size = new System.Drawing.Size(200, 500);
 

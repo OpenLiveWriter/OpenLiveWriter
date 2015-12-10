@@ -9,7 +9,7 @@ namespace OpenLiveWriter.PostEditor
 	public class PostEditorFormCommandBarDefinition : CommandBarDefinition
 	{
 		public PostEditorFormCommandBarDefinition()
-			
+
 		{
 			// required for designer support
 			InitializeComponent() ;
@@ -24,7 +24,6 @@ namespace OpenLiveWriter.PostEditor
 		private CommandBarSeparatorEntry commandBarSeparatorEntry4;
 		private OpenLiveWriter.ApplicationFramework.CommandBarButtonEntry commandBarButtonEntryHtmlView;
 
-
 		private IContainer components;
 
 		private void InitializeComponent()
@@ -38,33 +37,33 @@ namespace OpenLiveWriter.PostEditor
 			this.commandBarSeparatorEntry3 = new OpenLiveWriter.ApplicationFramework.CommandBarSeparatorEntry(this.components);
 			this.commandBarSeparatorEntry4 = new OpenLiveWriter.ApplicationFramework.CommandBarSeparatorEntry(this.components);
 			this.commandBarButtonEntryHtmlView = new OpenLiveWriter.ApplicationFramework.CommandBarButtonEntry(this.components);
-			// 
+			//
 			// commandBarButtonEntryPostAndPublish
-			// 
+			//
 			this.commandBarButtonEntryPostAndPublish.CommandIdentifier = "OpenLiveWriter.PostAndPublish";
-			// 
+			//
 			// commandBarButtonEntrySavePost
-			// 
+			//
 			this.commandBarButtonEntrySavePost.CommandIdentifier = "OpenLiveWriter.PostEditor.SavePost";
-			// 
+			//
 			// commandBarButtonEntryNewPost
-			// 
+			//
 			this.commandBarButtonEntryNewPost.CommandIdentifier = "OpenLiveWriter.PostEditor.NewPost";
-			// 
+			//
 			// commandBarButtonEntryOpenPost
-			// 
+			//
 			this.commandBarButtonEntryOpenPost.CommandIdentifier = "OpenLiveWriter.PostEditor.OpenPost";
-			// 
+			//
 			// commandBarButtonEntryWeblogMenu
-			// 
+			//
 			this.commandBarButtonEntryWeblogMenu.CommandIdentifier = "OpenLiveWriter.PostEditor.Commands.WeblogMenu";
-			// 
+			//
 			// commandBarButtonEntryHtmlView
-			// 
+			//
 			this.commandBarButtonEntryHtmlView.CommandIdentifier = "OpenLiveWriter.PostEditor.Commands.PostHtmlEditing.HtmlViewMenu";
-			// 
+			//
 			// PostEditorFormCommandBarDefinition
-			// 
+			//
 			this.LeftCommandBarEntries.AddRange(new OpenLiveWriter.ApplicationFramework.CommandBarEntry[] {
 																												  this.commandBarButtonEntryNewPost,
 																												  //this.commandBarSeparatorEntry1,
@@ -79,6 +78,6 @@ namespace OpenLiveWriter.PostEditor
 																												   this.commandBarButtonEntryWeblogMenu});
 
 		}
-	
+
 	}
 }

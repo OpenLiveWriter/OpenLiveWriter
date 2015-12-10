@@ -23,14 +23,12 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
         }
 
-
         protected override void ConfigureClientOptions(BlogClientOptions clientOptions)
         {
             clientOptions.SupportsCategories = true;
             clientOptions.SupportsMultipleCategories = true;
             clientOptions.SupportsFileUpload = true;
         }
-
 
         public override BlogPostCategory[] GetCategories(string blogId)
         {
@@ -100,7 +98,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 new XmlRpcString(Username),
                 new XmlRpcString(Password, true));
 
-            // parse the results	
+            // parse the results
             return ParseCategories(result, "metaWeblog.getCategories");
         }
 
@@ -122,7 +120,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 new XmlRpcString(Username),
                 new XmlRpcString(Password, true));
 
-            // parse the results			
+            // parse the results
             ArrayList categories = new ArrayList();
             try
             {
@@ -154,7 +152,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             // return list of categories
             return (BlogPostCategory[])categories.ToArray(typeof(BlogPostCategory));
         }
-
 
         public virtual BlogPostCategory ParseCategory(XmlNode categoryNode)
         {
@@ -201,7 +198,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 parent = String.Empty;
 
             // validate (a null category name downstream will result in unexpected error
-            // dialogs -- better to show the user an error here indicating that the 
+            // dialogs -- better to show the user an error here indicating that the
             // response was malformed)
             if (catName == null)
                 throw new ArgumentException("Category Name Not Specified");
@@ -219,10 +216,9 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
 
-
         public override BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
         {
-            // call the method	
+            // call the method
             XmlNode result = CallMethod("metaWeblog.getRecentPosts",
                 new XmlRpcString(blogId),
                 new XmlRpcString(Username),
@@ -232,7 +228,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             // parse results
             return ParsePosts(result, "metaWeblog.getRecentPosts", includeCategories, now);
         }
-
 
         public override string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish)
         {
@@ -347,7 +342,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             Trace.Assert(result.InnerText == "1", "Unexpected error return value from mt.setPostCategories");
         }
 
-
         private XmlRpcArray GetCategoriesArray(BlogPostCategory[] categories)
         {
             ArrayList categoryValues = new ArrayList();
@@ -365,7 +359,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new XmlRpcArray((XmlRpcValue[])categoryValues.ToArray(typeof(XmlRpcValue)));
         }
 
-
         /// <summary>
         /// Edit an existing entry
         /// </summary>
@@ -382,7 +375,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Trace.Fail("Post to draft not supported on this provider");
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
-
 
             bool addCategoriesOutOfBand = AddCategoriesIfNecessary(blogId, post, newCategoryContext);
 
@@ -431,7 +423,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
 
-
         public override BlogPost GetPost(string blogId, string postId)
         {
             // call method
@@ -439,7 +430,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 new XmlRpcString(postId),
                 new XmlRpcString(Username),
                 new XmlRpcString(Password, true));
-
 
             // try get return the post struct
             XmlNode postStruct = result.SelectSingleNode("struct");
@@ -486,7 +476,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             if (Options.SupportsPages)
             {
-                // call the method	
+                // call the method
                 XmlNode result = CallMethod("wp.getPages",
                     new XmlRpcString(blogId),
                     new XmlRpcString(Username),
@@ -512,7 +502,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     new XmlRpcString(Username),
                     new XmlRpcString(Password, true));
 
-                // parse the results			
+                // parse the results
                 ArrayList pages = new ArrayList();
                 try
                 {
@@ -625,7 +615,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     new XmlRpcString(Username),
                     new XmlRpcString(Password, true));
 
-                // parse the results			
+                // parse the results
                 ArrayList authors = new ArrayList();
                 try
                 {
@@ -745,11 +735,9 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
 
-
-
         private BlogPostCategory[] ParseCategories(XmlNode result, string methodName)
         {
-            // parse the results			
+            // parse the results
             ArrayList categories = new ArrayList();
             try
             {
@@ -767,7 +755,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             // return list of categories
             return (BlogPostCategory[])categories.ToArray(typeof(BlogPostCategory));
         }
-
 
         protected virtual XmlRpcStruct GeneratePostStruct(string blogId, BlogPost post, bool publish)
         {
@@ -792,7 +779,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                     contents += post.ExtendedContents;
                 members.Add(new XmlRpcMember("description", new XmlRpcString(contents)));
             }
-
 
             // allow comments field
             if (Options.SupportsCommentPolicy)
@@ -888,7 +874,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             // fields that don't apply to pages
             else
             {
-                // generate categories for the post 
+                // generate categories for the post
                 XmlRpcArray categories = GenerateCategoriesForPost(post);
                 if (categories != null)
                     members.Add(new XmlRpcMember("categories", categories));
@@ -963,7 +949,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new XmlRpcArray((XmlRpcValue[])categoryValues.ToArray(typeof(XmlRpcValue)));
         }
 
-
         protected override BlogClientProviderException ExceptionForFault(string faultCode, string faultString)
         {
             if (faultCode.IndexOf("403", StringComparison.OrdinalIgnoreCase) != -1)
@@ -1003,10 +988,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             return (BlogPost[])posts.ToArray(typeof(BlogPost));
         }
 
-
         private BlogPost ParseBlogPost(XmlNode postNode, bool includeCategories)
         {
-            // create blog post 
+            // create blog post
             BlogPost blogPost = new BlogPost();
 
             // get node values
@@ -1057,7 +1041,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                     }
                 }
             }
-
 
             // extract trackback field
             if (Options.SupportsPingPolicy)
@@ -1137,7 +1120,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             if (Options.SupportsPageParent)
             {
                 string pageParentId = NodeText(postNode.SelectSingleNode("member[name='wp_page_parent_id']/value"));
-                // convert 0 to empty string for parent-id 
+                // convert 0 to empty string for parent-id
                 if (pageParentId == "0")
                     pageParentId = String.Empty;
 
@@ -1197,7 +1180,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 new XmlRpcString(Username),
                 new XmlRpcString(Password, true));
 
-            // parse out the data			
+            // parse out the data
             ArrayList categories = new ArrayList();
             XmlNodeList categoryNodes = result.SelectNodes("array/data/value/struct");
             if (categoryNodes != null)
@@ -1219,8 +1202,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientInvalidServerResponseException("mt.getPostCategories", "No categories returned from server", result.OuterXml);
             }
         }
-
-
 
 
 

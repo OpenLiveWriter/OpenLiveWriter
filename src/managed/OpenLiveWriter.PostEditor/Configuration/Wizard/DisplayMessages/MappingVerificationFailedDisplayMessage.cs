@@ -6,7 +6,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 {
-	
+
 	public class MappingVerificationFailedDisplayMessage : DisplayMessage
 	{
 		/// <summary>
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -48,7 +48,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -56,9 +55,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// MappingVerificationFailedDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
 			this.DefaultButton = System.Windows.Forms.MessageBoxDefaultButton.Button2;
 			this.Text = "The URL mapping could not be verified. Do you want to continue anyway?";

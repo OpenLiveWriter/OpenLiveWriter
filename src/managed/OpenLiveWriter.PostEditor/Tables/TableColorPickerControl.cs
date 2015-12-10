@@ -17,7 +17,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 	public class TableColorPickerControl : System.Windows.Forms.UserControl
 	{
 		private System.Windows.Forms.Button buttonBrowseColor;
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
@@ -26,7 +26,6 @@ namespace OpenLiveWriter.PostEditor.Tables
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-
 
 		}
 
@@ -50,17 +49,17 @@ namespace OpenLiveWriter.PostEditor.Tables
 		}
 		private CellColor _cellColor = new CellColor();
 
-		
+
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			base.OnPaint(e);	
+			base.OnPaint(e);
 
 			Graphics g = e.Graphics ;
 
 			// calculate rectangle for color display
 			Rectangle rectColorDisplay = new Rectangle(0,0, Width-buttonBrowseColor.Width-5, Height-1 ) ;
-			
+
 			// draw color
 			if ( CellColor.IsMixed )
 			{
@@ -72,7 +71,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 				using ( Brush brush = new SolidBrush(Color.Red) )
 					g.FillRectangle(brush, rectColorDisplay);
 			}
-			else 
+			else
 			{
 				using ( Brush brush = new SolidBrush(CellColor.Color) )
 					g.FillRectangle(brush, rectColorDisplay);
@@ -83,8 +82,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 				g.DrawRectangle(pen, rectColorDisplay) ;
 		}
 
-
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -100,17 +98,17 @@ namespace OpenLiveWriter.PostEditor.Tables
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
 			this.buttonBrowseColor = new System.Windows.Forms.Button();
 			this.SuspendLayout();
-			// 
+			//
 			// buttonBrowseColor
-			// 
+			//
 			this.buttonBrowseColor.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.buttonBrowseColor.Location = new System.Drawing.Point(50, 0);
 			this.buttonBrowseColor.Name = "buttonBrowseColor";
@@ -118,9 +116,9 @@ namespace OpenLiveWriter.PostEditor.Tables
 			this.buttonBrowseColor.TabIndex = 1;
 			this.buttonBrowseColor.Text = "...";
 			this.buttonBrowseColor.Click += new System.EventHandler(this.buttonBrowseColor_Click);
-			// 
+			//
 			// TableColorPickerControl
-			// 
+			//
 			this.Controls.Add(this.buttonBrowseColor);
 			this.Name = "TableColorPickerControl";
 			this.Size = new System.Drawing.Size(73, 21);
@@ -143,7 +141,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 				{
 					if ( colorDialog.ShowDialog(FindForm()) == DialogResult.OK )
 					{
-						// update color 
+						// update color
 						CellColor = new CellColor(colorDialog.Color) ;
 					}
 				}

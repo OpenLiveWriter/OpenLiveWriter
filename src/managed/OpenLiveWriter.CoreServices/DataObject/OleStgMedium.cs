@@ -18,7 +18,7 @@ namespace OpenLiveWriter.CoreServices
     /// so callers can release the underlying storage medium when they are
     /// finished with it. Callers MUST call either Release or Dispose when
     /// finished with the object because timely release of STGMEDIUM objects
-    /// is critical --- this requirement is validated via an assertion in 
+    /// is critical --- this requirement is validated via an assertion in
     /// the destructor.
     /// </summary>
     public abstract class OleStgMedium : IDisposable
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Destructor uses an assertion to verify that the user called 
+        /// Destructor uses an assertion to verify that the user called
         /// Release() or Dispose() when they are finished using the object
         /// </summary>
         ~OleStgMedium()
@@ -63,7 +63,6 @@ namespace OpenLiveWriter.CoreServices
             Release();
         }
 
-
         /// <summary>
         /// Helper function used by subclasses to validate that the type
         /// of the storage medium passed to them matches their type
@@ -84,7 +83,6 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         private STGMEDIUM m_stg;
     }
-
 
     /// <summary>
     /// Abstract base class for OleStgMedium types that are represented
@@ -111,7 +109,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private IntPtr m_handle;
     }
-
 
     /// <summary>
     /// OleStgMedium that contains an HGLOBAL
@@ -177,7 +174,6 @@ namespace OpenLiveWriter.CoreServices
         }
     }
 
-
     /// <summary>
     /// OleStgMedium that contains a file path
     /// </summary>
@@ -207,7 +203,6 @@ namespace OpenLiveWriter.CoreServices
         private string m_path;
     }
 
-
     /// <summary>
     /// Base class for OleStgMedium instances that are com objects
     /// </summary>
@@ -231,7 +226,6 @@ namespace OpenLiveWriter.CoreServices
         protected object m_comObject;
     }
 
-
     /// <summary>
     /// OleStgMedium that contains a stream
     /// </summary>
@@ -251,7 +245,6 @@ namespace OpenLiveWriter.CoreServices
             m_stream = new ComStream((IStream)m_comObject);
         }
 
-
         /// <summary>
         /// Release the underlying STGMEDIUM (override)
         /// </summary>
@@ -264,7 +257,6 @@ namespace OpenLiveWriter.CoreServices
             base.Release();
         }
 
-
         /// <summary>
         /// Get the underlying stream as a .NET stream. The lifetime of the stream
         /// is tied to the lifetime of the OleStgMediumISTORAGE (it will be automatically
@@ -276,7 +268,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private Stream m_stream = null;
     }
-
 
     /// <summary>
     /// OleStgMedium that contains a storage
@@ -311,7 +302,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Get the underlying storage as a .NET storage. The lifetime of the storage
-        /// is tied to the lifetime of the OleStgMediumISTORAGE (it will be 
+        /// is tied to the lifetime of the OleStgMediumISTORAGE (it will be
         /// automatically disposed when the stg medium is disposed)
         /// </summary>
         public Storage Storage
@@ -320,7 +311,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private Storage m_storage = null;
     }
-
 
 
 }

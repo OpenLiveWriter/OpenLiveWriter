@@ -26,14 +26,13 @@ namespace OpenLiveWriter.Mshtml
     /// <summary>
     /// Interactive editor used for creating and publishing MHT-based reports. Embeds and customizes
     /// extensively the MSHTML editing engine.
-    /// 
+    ///
     /// </summary>
     public class MshtmlEditor : UserControl, IDocHostUIHandler2, IHTMLChangeSink, IHTMLEditDesignerRaw
     {
         private readonly EventCounter _eventCounter = new EventCounter();
 
         #region Initialization/Disposal
-
 
         /// <summary>
         /// Construction. Some initialization is done here, the rest of the initialiation is
@@ -49,7 +48,7 @@ namespace OpenLiveWriter.Mshtml
 
             _active = true;
 
-            // watch for ReadyState == "complete" so we can finish initialization once 
+            // watch for ReadyState == "complete" so we can finish initialization once
             // the document is loaded
             mshtmlControl.DocumentEvents.ReadyStateChanged += new EventHandler(ReadyStateChangedHandler);
         }
@@ -92,7 +91,7 @@ namespace OpenLiveWriter.Mshtml
                         mshtmlControl.MarkupContainer.UnRegisterForDirtyRange(_changeSinkCookie);
                 }
 
-                // AddEditDesigner is automatically called when the document loads, 
+                // AddEditDesigner is automatically called when the document loads,
                 // but we need to manually remove ourselves when we become inactive.
                 RemoveEditDesigner();
 
@@ -100,12 +99,10 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         public void SetServiceProvider(IServiceProviderRaw serviceProvider)
         {
             mshtmlControl.SetServiceProvider(serviceProvider);
         }
-
 
         /// <summary>
         /// Create the MSHTML control and add it to our client area
@@ -158,10 +155,9 @@ namespace OpenLiveWriter.Mshtml
         }
 
 
-
         /// <summary>
-        /// Watch for document being complete to do the remainder of our 
-        /// initialization (some initialization can only be done once the 
+        /// Watch for document being complete to do the remainder of our
+        /// initialization (some initialization can only be done once the
         /// document has loaded)
         /// </summary>
         /// <param name="sender">sender</param>
@@ -179,7 +175,7 @@ namespace OpenLiveWriter.Mshtml
                     {
                         // update flag indicating DocumentComplete ReadyState has been called
                         // (used as a sanity check (see immediately above) on our assumpton that
-                        // this is called only once)			
+                        // this is called only once)
                         _documentCompleteReadyStateFired = true;
 
                         mshtmlControl.ExecuteCommand(IDM.HTMLEDITMODE, true);
@@ -189,7 +185,7 @@ namespace OpenLiveWriter.Mshtml
                         InitializeDocumentEditingOptions(true);
                     }
 
-                    // add our custom edit designer		
+                    // add our custom edit designer
                     AddEditDesigner();
 
                     // register for dirty range
@@ -249,7 +245,6 @@ namespace OpenLiveWriter.Mshtml
                 DocumentCompleteEventHandler(this, EventArgs.Empty);
         }
 
-
         /// <summary>
         ///  Initialize miscelleneous document editing options
         /// </summary>
@@ -272,7 +267,7 @@ namespace OpenLiveWriter.Mshtml
                 }
                 catch (COMException ex)
                 {
-                    // There is a bug in IE where the HR is incorrectly set for RESPECTVISIBILITY_INDESIGN, but 
+                    // There is a bug in IE where the HR is incorrectly set for RESPECTVISIBILITY_INDESIGN, but
                     // the value is correctly set.  It is targetted to be fixed in IE9
                     const int E_NOTSUPPORTED = unchecked((int)0x80040100);
                     if (ex.ErrorCode == E_NOTSUPPORTED && (uint)editingOption.Key == IDM.RESPECTVISIBILITY_INDESIGN)
@@ -289,12 +284,9 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             mshtmlControl.SetDLControlFlags(_mshtmlOptions.DLCTLOptions);
         }
 
-
         #endregion
 
-
         #region Public Methods
-
 
         /// <summary>
         /// Load the document from the specified file name
@@ -321,7 +313,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             }
         }
 
-
         /// <summary>
         /// Save the document to the file it was loaded from
         /// </summary>
@@ -340,7 +331,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             mshtmlControl.SaveToFile(fileName, false);
             IsDirty = false;
         }
-
 
 
         #endregion
@@ -417,7 +407,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             }
         }
 
-
         /// <summary>
         /// Get the commands exposed by the MSHTML editor (a dictionary w/
         /// keys of type MshtmlCommand and values of type IMshtmlCommand)
@@ -430,9 +419,8 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             }
         }
 
-
         /// <summary>
-        /// Get the events 
+        /// Get the events
         /// </summary>
         public IMshtmlDocumentEvents DocumentEvents
         {
@@ -441,7 +429,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 return mshtmlControl.DocumentEvents;
             }
         }
-
 
         /// <summary>
         /// Underlying mshtml control
@@ -473,7 +460,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         private DropTargetUIHandler _dropTargetHandler;
         public delegate int DropTargetUIHandler(OpenLiveWriter.Interop.Com.IDropTarget pDropTarget, out OpenLiveWriter.Interop.Com.IDropTarget ppDropTarget);
 
-
         /// <summary>
         /// Register a context menu handler
         /// </summary>
@@ -488,9 +474,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             _contextMenuHandlers.Clear();
         }
 
-
         #endregion
-
 
         #region Public Events
 
@@ -657,9 +641,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
 
         #endregion
 
-
         #region Implementation of IDocHostUIHandler
-
 
         /// <summary>
         /// Override the MHTML context menu
@@ -668,7 +650,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         /// <param name="ppt">point where the context click occurred</param>
         /// <param name="pcmdtReserved">reserved</param>
         /// <param name="pdispReserved">reserved</param>
-        /// <returns>S_OK to indicate context menu overridden, otherwise S_FALSE</returns>	
+        /// <returns>S_OK to indicate context menu overridden, otherwise S_FALSE</returns>
         int IDocHostUIHandler2.ShowContextMenu(int dwID, ref POINT ppt, object pcmdtReserved, object pdispReserved)
         {
             try
@@ -711,10 +693,10 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 if (BeforeShowContextMenuEventHandler != null)
                     BeforeShowContextMenuEventHandler(this, EventArgs.Empty);
 
-                // NOTE: The Supressing of UpdateUI notifications during display of the context menu was 
+                // NOTE: The Supressing of UpdateUI notifications during display of the context menu was
                 // necessary to fix Bug# 244853. The main editor hooks these notifications in order to
                 // update command states. Unfortunately this notification is called quite eagerly by the
-                // editor (mouse move causes it to fire), so command management was actually occuring 
+                // editor (mouse move causes it to fire), so command management was actually occuring
                 // while the context menu was being created and shown. In some cases this caused the context
                 // menu to flash in and out of view (still not 100% clear on why). In any event, supressing
                 // UpdateUI (and therefore command management) during the showing of context menus reliably
@@ -728,7 +710,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                     if (contextMenuHandler(element, screenPoint))
                         return true;
 
-                // no custom handler took it, show default 
+                // no custom handler took it, show default
                 return false;
             }
             finally
@@ -736,7 +718,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 SuppressUpdateUI = false;
             }
         }
-
 
         /// <summary>
         /// Called by MSHTML to retrieve the user interface (UI) capabilities of the application that is hosting MSHTML
@@ -750,12 +731,11 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             if (_mshtmlOptions.UseDivForCarriageReturn)
             {
                 pInfo.dwFlags |=
-                    // MSHTML inserts the div tag if a return is entered in edit mode. Without this flag, 
+                    // MSHTML inserts the div tag if a return is entered in edit mode. Without this flag,
                     // MSHTML will use the p tag.
                     DOCHOSTUIFLAG.DIV_BLOCKDEFAULT;
             }
         }
-
 
         /// <summary>
         /// Called by MSHTML to enable the host to replace MSHTML menus and toolbars
@@ -769,10 +749,9 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         /// S_FALSE -- Host did not display its own UI. MSHTML will display its UI</returns>
         int IDocHostUIHandler2.ShowUI(DOCHOSTUITYPE dwID, IOleInPlaceActiveObject pActiveObject, IOleCommandTarget pCommandTarget, IOleInPlaceFrame pFrame, IOleInPlaceUIWindow pDoc)
         {
-            // Host did not display any UI. MSHTML will display its UI. 
+            // Host did not display any UI. MSHTML will display its UI.
             return HRESULT.S_FALSE;
         }
-
 
         /// <summary>
         /// Called when MSHTML removes its menus and toolbars
@@ -780,7 +759,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         void IDocHostUIHandler2.HideUI()
         {
         }
-
 
         /// <summary>
         /// Called by MSHTML to notify the host that the command state has changed
@@ -810,7 +788,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 {
                     _suppressUpdateUI = value;
 
-                    // if we are re-enabling UpdateUI then automatically 
+                    // if we are re-enabling UpdateUI then automatically
                     // call UpdateUI for a refresh
                     if (!_suppressUpdateUI)
                         ((IDocHostUIHandler2)this).UpdateUI();
@@ -818,7 +796,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             }
         }
         private bool _suppressUpdateUI = false;
-
 
         /// <summary>
         /// Called by the MSHTML implementation of IOleInPlaceActiveObject::EnableModeless. Also called when MSHTML displays a modal UI
@@ -828,7 +805,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         {
         }
 
-
         /// <summary>
         /// Called by the MSHTML implementation of IOleInPlaceActiveObject::OnDocWindowActivate
         /// </summary>
@@ -837,7 +813,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         {
         }
 
-
         /// <summary>
         /// Called by the MSHTML implementation of IOleInPlaceActiveObject::OnFrameWindowActivate
         /// </summary>
@@ -845,7 +820,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         void IDocHostUIHandler2.OnFrameWindowActivate(bool fActivate)
         {
         }
-
 
         /// <summary>
         /// Called by the MSHTML implementation of IOleInPlaceActiveObject::ResizeBorder
@@ -889,10 +863,10 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                     }
                     else if (Control.ModifierKeys == Keys.None)
                     {
-                        // WinLive 219280: A WM_CHAR message is posted when a WM_KEYDOWN message is translated. The 
-                        // WM_CHAR message contains the character code of the key that was pressed. If we already 
-                        // handled the key in the WM_KEYDOWN message, we don't want to handle it again (or let MSHTML 
-                        // handle it). Modifier keys can cause the WM_CHAR keycode to differ from the WM_KEYDOWN 
+                        // WinLive 219280: A WM_CHAR message is posted when a WM_KEYDOWN message is translated. The
+                        // WM_CHAR message contains the character code of the key that was pressed. If we already
+                        // handled the key in the WM_KEYDOWN message, we don't want to handle it again (or let MSHTML
+                        // handle it). Modifier keys can cause the WM_CHAR keycode to differ from the WM_KEYDOWN
                         // keycode, so we only do the comparison if no modifier keys are being held down.
                         if (lastKeyEventArgs != null && lastKeyEventArgs.Handled && lastKeyEventArgs.KeyCode == currentKeyCode)
                         {
@@ -904,7 +878,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 return HRESULT.S_FALSE;
             }
 
-            // convert the wParam into a .Net Keys value 
+            // convert the wParam into a .Net Keys value
             Keys key = (Keys)(int)lpMsg.wParam & Keys.KeyCode;
 
             // Convert the wParam into a .Net Keys value and combine it with
@@ -923,7 +897,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             //	If the key was handled, return S_OK.  Otherwise, return S_FALSE.
             if (keyEventArgs.Handled)
             {
-                //translated accellerator 
+                //translated accellerator
                 return HRESULT.S_OK;
             }
             else
@@ -933,9 +907,8 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             }
         }
 
-
         /// <summary>
-        /// Called by the WebBrowser Control to retrieve a registry subkey path that changes the location of the default Microsoft® Internet Explorer registry settings
+        /// Called by the WebBrowser Control to retrieve a registry subkey path that changes the location of the default MicrosoftÂ® Internet Explorer registry settings
         /// (typically found at HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer)
         /// </summary>
         /// <param name="pchKey">Pointer to an LPOLESTR that receives the registry subkey string where the host stores its registry settings</param>
@@ -950,7 +923,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         }
 
         /// <summary>
-        /// Called by the WebBrowser Control to retrieve a registry subkey path that overrides the settings found in the default Microsoft® Internet Explorer registry settings
+        /// Called by the WebBrowser Control to retrieve a registry subkey path that overrides the settings found in the default MicrosoftÂ® Internet Explorer registry settings
         /// </summary>
         /// <param name="pchKey"></param>
         /// <param name="dwReserved"></param>
@@ -972,7 +945,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             // no external dispatch implementaiton available
             ppDispatch = IntPtr.Zero;
         }
-
 
 
         /// <summary>
@@ -1008,7 +980,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             return HRESULT.S_FALSE;
         }
 
-
         /// <summary>
         /// Called by MSHTML to allow the host to replace the MSHTML data object
         /// </summary>
@@ -1023,9 +994,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         }
 
 
-
         #endregion
-
 
         #region Implementation of IHTMLEditDesigner
 
@@ -1056,7 +1025,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                             return HRESULT.S_OK;
                     }
                 }
-
 
                 return HRESULT.S_FALSE;
             }
@@ -1091,9 +1059,8 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         }
 
 
-
         /// <summary>
-        /// Custom processing for keyboard input 
+        /// Custom processing for keyboard input
         /// </summary>
         /// <param name="inEvtDispId">keyboard event</param>
         /// <param name="pIEventObj">event object</param>
@@ -1126,7 +1093,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 return HRESULT.S_FALSE;
             }
         }
-
 
         /// <summary>
         /// Notification that an event has already occurred
@@ -1230,7 +1196,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
 
         #endregion
 
-
         #region Implemetation if IHTMLChangeSink
 
         /// <summary>
@@ -1247,12 +1212,10 @@ editingOption.Key, editingOption.Value, ex.ToString()));
 
         #endregion
 
-
         #region Event Handlers
 
-
         /// <summary>
-        /// Notify form that ActiveControl has changed so that Enter and 
+        /// Notify form that ActiveControl has changed so that Enter and
         /// Leave events are fired correctly for other controls
         /// </summary>
         /// <param name="sender">sender</param>
@@ -1264,9 +1227,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 form.ActiveControl = this;
         }
 
-
         #endregion
-
 
         #region General Purpose Private Helpers
 
@@ -1290,7 +1251,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             markupServicesRaw.BeginUndoUnit(Guid.NewGuid().ToString());
         }
 
-
         /// <summary>
         /// Complete logically grouped set of undoable operations
         /// </summary>
@@ -1307,7 +1267,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             mshtmlControl.ExecuteCommand(IDM.UNDO);
         }
 
-
         /// <summary>
         /// Execute a Redo
         /// </summary>
@@ -1315,7 +1274,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         {
             mshtmlControl.ExecuteCommand(IDM.REDO);
         }
-
 
         /// <summary>
         /// Handle an uncaught exception (used within COM interop interface implementations
@@ -1343,7 +1301,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         }
 
         /// <summary>
-        /// Check to see if the specified point is directly over the document (client rectangle 
+        /// Check to see if the specified point is directly over the document (client rectangle
         /// excluding scrollbars if they are visible)
         /// </summary>
         /// <param name="x">x-coordinate</param>
@@ -1364,7 +1322,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         }
 
         #endregion
-
 
         #region Private Member Variables
 
@@ -1435,14 +1392,12 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         private IHTMLElement element;
     }
 
-
     public delegate bool ShowContextMenuHandler(IHTMLElement element, Point screenPoint);
 
     /// <summary>
     /// Delegate used for handling html document events
     /// </summary>
     public delegate int HtmlEditDesignerEventHandler(int inEvtDispId, IHTMLEventObj pIEventObj);
-
 
     public class MshtmlOptions
     {
@@ -1484,7 +1439,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         private ListDictionary _editingOptions = new ListDictionary();
 
         /// <summary>
-        /// Base registry key path that used to override the IE settings found in 
+        /// Base registry key path that used to override the IE settings found in
         /// HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer
         /// </summary>
         public String DocHostUIOverrideKeyPath
@@ -1495,7 +1450,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         private String _docHostUIOverrideKeyPath = null;
 
         /// <summary>
-        /// Base registry key path that used to override the IE settings found in 
+        /// Base registry key path that used to override the IE settings found in
         /// HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer
         /// </summary>
         public String DocHostUIOptionKeyPath

@@ -29,7 +29,7 @@ namespace OpenLiveWriter.Controls
 
         /// <summary>
         /// Initialize w/ required values
-        /// </summary>		
+        /// </summary>
         public DisplayableExceptionDisplayForm(Exception exception)
         {
             //
@@ -66,13 +66,11 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         public static void Show(IWin32Window owner, Exception ex)
         {
             using (DisplayableExceptionDisplayForm form = new DisplayableExceptionDisplayForm(ex))
                 form.ShowDialog(owner);
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -88,7 +86,6 @@ namespace OpenLiveWriter.Controls
             }
             base.Dispose(disposing);
         }
-
 
         /// <summary>
         /// Ensure that we are warned in debug mode if a string value is not provided but
@@ -121,7 +118,6 @@ namespace OpenLiveWriter.Controls
 
         }
 
-
         #region Windows Form Designer generated code
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -135,18 +131,18 @@ namespace OpenLiveWriter.Controls
             this.buttonOK = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // pictureBoxIcon
-            // 
+            //
             this.pictureBoxIcon.Location = new System.Drawing.Point(9, 9);
             this.pictureBoxIcon.Name = "pictureBoxIcon";
             this.pictureBoxIcon.Size = new System.Drawing.Size(39, 40);
             this.pictureBoxIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxIcon.TabIndex = 0;
             this.pictureBoxIcon.TabStop = false;
-            // 
+            //
             // labelMessage
-            // 
+            //
             this.labelMessage.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelMessage.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.labelMessage.Location = new System.Drawing.Point(55, 19);
@@ -154,9 +150,9 @@ namespace OpenLiveWriter.Controls
             this.labelMessage.Size = new System.Drawing.Size(258, 28);
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "Unable to connect to FTP server";
-            // 
+            //
             // textBoxDetails
-            // 
+            //
             this.textBoxDetails.Location = new System.Drawing.Point(55, 50);
             this.textBoxDetails.Multiline = true;
             this.textBoxDetails.Name = "textBoxDetails";
@@ -164,9 +160,9 @@ namespace OpenLiveWriter.Controls
             this.textBoxDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxDetails.Size = new System.Drawing.Size(277, 115);
             this.textBoxDetails.TabIndex = 2;
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(135, 180);
@@ -174,9 +170,9 @@ namespace OpenLiveWriter.Controls
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
-            // 
+            //
             // DisplayableExceptionDisplayForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.CancelButton = this.buttonOK;
             this.ClientSize = new System.Drawing.Size(349, 214);

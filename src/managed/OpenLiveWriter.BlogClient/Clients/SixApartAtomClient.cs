@@ -15,14 +15,14 @@ namespace OpenLiveWriter.BlogClient.Clients
 	[BlogClient("SixApartAtom")]
 	public class SixApartAtomClient : AtomClient
 	{
-		public SixApartAtomClient(Uri postApiUrl, IBlogCredentialsAccessor credentials, PostFormatOptions postFormatOptions) 
+		public SixApartAtomClient(Uri postApiUrl, IBlogCredentialsAccessor credentials, PostFormatOptions postFormatOptions)
 			: base(AtomProtocolVersion.V03, postApiUrl, credentials, postFormatOptions)
 		{
 		}
 
 		public override bool VerifyCredentials()
 		{
-			// TODO 
+			// TODO
 			return true;
 		}
 
@@ -37,7 +37,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 			throw new NotImplementedException();
 		}
 
-		protected override HttpRequestFilter RequestFilter 
+		protected override HttpRequestFilter RequestFilter
 		{
 			get
 			{

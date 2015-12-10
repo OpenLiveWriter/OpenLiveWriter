@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Video
 		private Color testColor;
 		private double testPct;
 	    private RectTest rectTest;
-		
+
 		public static string GenerateEmbedHtml(string embedFormat, Size size)
 		{
 			string pattern = embedFormat.Replace(WIDTH, "{0}").Replace(HEIGHT, "{1}");
@@ -39,7 +39,7 @@ namespace OpenLiveWriter.PostEditor.Video
 				if (provider != null && provider.UseBackgroundColor != String.Empty)
 				{
 					videoHtml = String.Format(CultureInfo.InvariantCulture, "<div style=\"background-color:{0};\">{1}</div>", provider.UseBackgroundColor, videoHtml);
-				}					
+				}
 				HtmlScreenCapture htmlScreenCapture = new HtmlScreenCapture(videoHtml, videoSize.Width);
 
                 if (provider != null && provider.RectangleTest != null)
@@ -58,12 +58,12 @@ namespace OpenLiveWriter.PostEditor.Video
 					testBitmap = null;
 					htmlScreenCapture.HtmlScreenCaptureAvailable +=new HtmlScreenCaptureAvailableHandler(htmlScreenCapture_HtmlScreenCaptureAvailable_ChangeTest);
 				}
-				
+
 				htmlScreenCapture.MaximumHeight = videoSize.Height;
 				//we set our own limit to ensure a snapshot is always getting returned
                 SetTimeout(DEFAULT_TIMEOUT_MS);
                 Bitmap videoSnapshot = htmlScreenCapture.CaptureHtml(2 * DEFAULT_TIMEOUT_MS);
-				
+
 				// return the video
 				return videoSnapshot ;
 			}
@@ -87,16 +87,16 @@ namespace OpenLiveWriter.PostEditor.Video
                 {
                     Color color = bitmap.GetPixel(x, y);
                     if (color.A != rectTest.Color.A ||
-                        color.R != rectTest.Color.R || 
-                        color.G != rectTest.Color.G || 
+                        color.R != rectTest.Color.R ||
+                        color.G != rectTest.Color.G ||
                         color.B != rectTest.Color.B)
                         nonMatchingPixelCount++;
                 }
             }
             e.CaptureCompleted = nonMatchingPixelCount == 0 || TimedOut;
         }
-		
-		private DateTime _timeoutTime ;	
+
+		private DateTime _timeoutTime ;
 		private void SetTimeout(int ms)
 		{
 			_timeoutTime = DateTime.Now.AddMilliseconds(ms) ;
@@ -109,13 +109,13 @@ namespace OpenLiveWriter.PostEditor.Video
 				return DateTime.Now > _timeoutTime;
 			}
 		}
-		
+
 		private void htmlScreenCapture_HtmlScreenCaptureAvailable_ColorTest(object sender, HtmlScreenCaptureAvailableEventArgs e)
 		{
 			const int PLAYER_CONTROL_OFFSET = 30;
 			// get the bitmap
 			Bitmap bitmap = e.Bitmap ;
-			
+
 			int pixelCount = 0;
 			for (int x=0; x<bitmap.Width; x++)
 			{
@@ -140,7 +140,7 @@ namespace OpenLiveWriter.PostEditor.Video
 			int totalPixels = 0;
 			if (testBitmap == null)
 				testBitmap = (Bitmap)e.Bitmap.Clone();
-			
+
 			int countPixels = 0 ;
 			//only doing some pixels to speed this up!
 			for (int x=0; x<bitmap.Width; x+=8)
@@ -187,7 +187,6 @@ namespace OpenLiveWriter.PostEditor.Video
             //    }
             //}
             //long videoSnapshotAverage = Math.Abs(pixelValueTotal / pixelCount);
-
 
             //pixelCount = 0;
             //pixelValueTotal = 0;

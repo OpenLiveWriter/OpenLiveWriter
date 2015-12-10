@@ -6,12 +6,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
     partial class CropEditor
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -26,8 +26,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -43,9 +43,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.imageCropControl = new OpenLiveWriter.Controls.ImageCropControl();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(372, 290);
@@ -54,9 +54,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonOK.TabIndex = 3;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(453, 290);
@@ -65,9 +65,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
+            //
             // lblAspectRatio
-            // 
+            //
             this.lblAspectRatio.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblAspectRatio.Location = new System.Drawing.Point(7, 10);
             this.lblAspectRatio.Name = "lblAspectRatio";
@@ -75,9 +75,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.lblAspectRatio.TabIndex = 0;
             this.lblAspectRatio.Text = "&Proportion:";
             this.lblAspectRatio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // cbAspectRatio
-            // 
+            //
             this.cbAspectRatio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAspectRatio.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbAspectRatio.FormattingEnabled = true;
@@ -86,9 +86,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.cbAspectRatio.Size = new System.Drawing.Size(122, 21);
             this.cbAspectRatio.TabIndex = 1;
             this.cbAspectRatio.SelectedIndexChanged += new System.EventHandler(this.cbAspectRatio_SelectedIndexChanged);
-            // 
+            //
             // panel1
-            // 
+            //
             this.panel1.Controls.Add(this.chkGrid);
             this.panel1.Controls.Add(this.lblAspectRatio);
             this.panel1.Controls.Add(this.buttonRotate);
@@ -98,9 +98,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(536, 32);
             this.panel1.TabIndex = 99;
-            // 
+            //
             // chkGrid
-            // 
+            //
             this.chkGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkGrid.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.chkGrid.Location = new System.Drawing.Point(458, 8);
@@ -110,9 +110,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.chkGrid.Text = "Show &Grid";
             this.chkGrid.UseVisualStyleBackColor = true;
             this.chkGrid.CheckedChanged += new System.EventHandler(this.chkGrid_CheckedChanged);
-            // 
+            //
             // buttonRotate
-            // 
+            //
             this.buttonRotate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonRotate.Location = new System.Drawing.Point(266, 5);
             this.buttonRotate.Name = "buttonRotate";
@@ -122,9 +122,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonRotate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRotate.UseVisualStyleBackColor = true;
             this.buttonRotate.Click += new System.EventHandler(this.buttonRotate_Click);
-            // 
+            //
             // btnRemoveCrop
-            // 
+            //
             this.btnRemoveCrop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRemoveCrop.AutoSize = true;
             this.btnRemoveCrop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -136,9 +136,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.btnRemoveCrop.Text = "&Remove Crop";
             this.btnRemoveCrop.UseVisualStyleBackColor = true;
             this.btnRemoveCrop.Click += new System.EventHandler(this.btnRemoveCrop_Click);
-            // 
+            //
             // imageCropControl
-            // 
+            //
             this.imageCropControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -150,9 +150,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.imageCropControl.Name = "imageCropControl";
             this.imageCropControl.Size = new System.Drawing.Size(536, 243);
             this.imageCropControl.TabIndex = 1;
-            // 
+            //
             // CropEditor
-            // 
+            //
             this.Controls.Add(this.btnRemoveCrop);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonCancel);

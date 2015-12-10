@@ -263,7 +263,6 @@ namespace OpenLiveWriter.CoreServices
             float requestedWidth;
             float requestedHeight;
 
-
             if (imageRatio >= maxRatio)
             {
                 // the image's width is the determinant in scaling, scale based upon that
@@ -542,12 +541,12 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Utility class for managing image manipulation.
-        /// 
+        ///
         ///Based on code obtained from:
         /// http://www.c-sharpcorner.com/Code/2003/March/ThumbnailImages.asp
-        /// 
+        ///
         /// LICENSE: http://www.c-sharpcorner.com/terms.asp
-        /// 
+        ///
         /// </summary>
         internal class ImageSaver
         {
@@ -624,12 +623,12 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Utility class for managing image manipulation.
-        /// 
+        ///
         /// Code obtained from:
         /// http://www.c-sharpcorner.com/Code/2003/March/ThumbnailImages.asp
-        /// 
+        ///
         /// LICENSE: http://www.c-sharpcorner.com/terms.asp
-        /// 
+        ///
         /// </summary>
         internal class ThumbMaker
         {

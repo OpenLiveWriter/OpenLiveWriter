@@ -43,7 +43,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private static PostEditorPluginManager _instance;
 
-
         internal static void Init()
         {
             _instance = new PostEditorPluginManager();
@@ -67,7 +66,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public event EventHandler PluginListChanged;
 
         private void OnPluginListChanged()
@@ -75,7 +73,6 @@ namespace OpenLiveWriter.PostEditor
             if (PluginListChanged != null)
                 PluginListChanged(this, EventArgs.Empty);
         }
-
 
         #endregion
 
@@ -94,7 +91,7 @@ namespace OpenLiveWriter.PostEditor
                     fileWatcher.Deleted += new FileSystemEventHandler(OnPluginDirectoryChanged);
                     fileWatcher.EnableRaisingEvents = true;
 
-                    // We used to hard code our install path to program files/Open Live Writer 
+                    // We used to hard code our install path to program files/Open Live Writer
                     // (and we documented that in our SDK in 1.0 Beta 1)
                     // so continue to scan there even if the plugin directory is somewhere different
                     if (PluginDirectory != PluginDirectoryLegacy)
@@ -122,7 +119,6 @@ namespace OpenLiveWriter.PostEditor
             }
 
             // watch registry for new plugins
-
 
             // HKCU
             RegistryMonitor.Instance.AddRegistryChangeListener(HKEY.CURRENT_USER, _pluginsKey, new RegistryKeyEventHandler(OnPluginRegistryKeyChanged), true);
@@ -171,7 +167,6 @@ namespace OpenLiveWriter.PostEditor
             LoadPluginTypes(false);
         }
 
-
         private string PluginDirectory
         {
             get
@@ -192,7 +187,6 @@ namespace OpenLiveWriter.PostEditor
                 return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"Open Live Writer\Plugins");
             }
         }
-
 
         private Hashtable _pluginTypesTable = new Hashtable();
         private void LoadPluginTypes(bool showErrors)

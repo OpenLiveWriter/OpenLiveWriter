@@ -84,18 +84,18 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonClose = new System.Windows.Forms.Button();
             this.richTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
+            //
             // buttonClose
-            // 
+            //
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.Location = new System.Drawing.Point(708, 544);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.TabIndex = 1;
             this.buttonClose.Text = "Close";
-            // 
+            //
             // richTextBox
-            // 
+            //
             this.richTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -108,9 +108,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.richTextBox.Text = "";
             this.richTextBox.WordWrap = false;
             this.richTextBox.TextChanged += new System.EventHandler(this.richTextBox_TextChanged);
-            // 
+            //
             // OpenForm
-            // 
+            //
             this.AcceptButton = this.buttonClose;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonClose;

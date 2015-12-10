@@ -234,10 +234,8 @@ namespace OpenLiveWriter.PostEditor.Video
                 Trace.Fail("Exception thrown while trying to find video size: " + ex);
             }
 
-
             return size;
         }
-
 
         public Video VideoFromId(string id)
         {

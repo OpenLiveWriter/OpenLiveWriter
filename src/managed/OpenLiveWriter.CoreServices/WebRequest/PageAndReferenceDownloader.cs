@@ -49,7 +49,6 @@ namespace OpenLiveWriter.CoreServices
             _throwOnFailure = throwOnFailure;
         }
 
-
         /// <summary>
         /// The name of the subdirectory that contains any referenced files
         /// </summary>
@@ -267,7 +266,6 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
 
-
             string downloadUrl = reference.AbsoluteUrl;
             if (UrlHelper.IsFileUrl(downloadUrl))
                 downloadUrl = HttpUtility.UrlDecode(downloadUrl);
@@ -350,7 +348,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Used to actually commit the HTML to disk
-        /// </summary>	
+        /// </summary>
         /// <param name="pageInfo">The PageToDownload to write</param>
         /// <param name="downloadedReferences">A hashtable of download references</param>
         /// <param name="storage">The storage to write the file into</param>
@@ -374,7 +372,6 @@ namespace OpenLiveWriter.CoreServices
                 string path = downloadedReference.GetRelativeUrlForReference(pageInfo);
                 pageInfo.LightWeightHTMLDocument.AddUrlToEscape(new UrlToReplace(referenceToDownload.AbsoluteUrl, path));
             }
-
 
             html = pageInfo.LightWeightHTMLDocument.GenerateHtml();
 

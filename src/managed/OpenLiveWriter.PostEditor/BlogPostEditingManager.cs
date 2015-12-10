@@ -67,14 +67,12 @@ namespace OpenLiveWriter.PostEditor
             GC.SuppressFinalize(this);
         }
 
-
         ~BlogPostEditingManager()
         {
             Trace.Fail("Did not dispose BlogPostEditingManager!");
         }
 
         #endregion
-
 
         #region Explicit Implementation of IBlogPostEditingContext
 
@@ -90,7 +88,6 @@ namespace OpenLiveWriter.PostEditor
                 return SupportingFileStorage;
             }
         }
-
 
         string IBlogPostEditingContext.ServerSupportingFileDirectory
         {
@@ -276,7 +273,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public void SwitchBlog(string blogId)
         {
             Trace.Assert(_blog != null, "Can only call SwitchBlog after initialization!");
@@ -313,7 +309,6 @@ namespace OpenLiveWriter.PostEditor
 
         public event WeblogSettingsChangedHandler BlogSettingsChanged;
 
-
         #endregion
 
         #region Public Interface: Current Post Properties
@@ -335,7 +330,6 @@ namespace OpenLiveWriter.PostEditor
                     }
 
                 }
-
 
                 // none dirty, return false
                 return false;
@@ -388,7 +382,6 @@ namespace OpenLiveWriter.PostEditor
             get { return BlogPost.Id; }
         }
 
-
         public string GetPostSpellingContextDirectory()
         {
             return SupportingFileStorage.SpellingContextDirectory;
@@ -396,18 +389,15 @@ namespace OpenLiveWriter.PostEditor
 
         public event EventHandler EditingStatusChanged;
 
-
         #endregion
 
         #region Public Interface: Post Operations (New, Open, Edit, Save, Publish, View etc.)
-
 
         public void NewPost()
         {
             // do the edit
             DispatchEditPost(new BlogPost());
         }
-
 
         public void NewPage()
         {
@@ -423,7 +413,6 @@ namespace OpenLiveWriter.PostEditor
             // edit the post
             DispatchEditPost(blogPost);
         }
-
 
         public void OpenPost(OpenPostForm.OpenMode openMode)
         {
@@ -441,7 +430,6 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
         }
-
 
         public void OpenLocalPost(PostInfo postInfo)
         {
@@ -478,7 +466,6 @@ namespace OpenLiveWriter.PostEditor
                 DispatchEditPost(editingContext, false);
             }
         }
-
 
         public void EditPost(IBlogPostEditingContext editingContext)
         {
@@ -522,7 +509,7 @@ namespace OpenLiveWriter.PostEditor
             if (resetPostId)
                 BlogPost.ResetPostForNewBlog(Blog.ClientOptions);
 
-            // only fire events after we are fully initialized (event handlers call back into 
+            // only fire events after we are fully initialized (event handlers call back into
             // this object and expect everything to be initialized)
             OnBlogChanged();
             OnBlogPostChanged();
@@ -647,7 +634,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public bool PublishAsDraft()
         {
             if (ValidatePublish())
@@ -656,7 +642,6 @@ namespace OpenLiveWriter.PostEditor
                 return false;
         }
 
-
         public bool Publish()
         {
             if (ValidatePublish())
@@ -664,7 +649,6 @@ namespace OpenLiveWriter.PostEditor
             else
                 return false;
         }
-
 
         public void ViewPost()
         {
@@ -696,7 +680,6 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Public Interface: Events
 
         public event EventHandler UserSavedPost;
@@ -707,9 +690,7 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Private Helpers
-
 
 
         private void DispatchEditPost(BlogPost blogPost)
@@ -719,7 +700,7 @@ namespace OpenLiveWriter.PostEditor
 
         /// <summary>
         /// Dispatches an edit post request to either the current editor window
-        /// or to a new editor form depending upon the user's preferences and 
+        /// or to a new editor form depending upon the user's preferences and
         /// the current editing state
         /// </summary>
         /// <param name="editingContext">editing conext</param>
@@ -730,7 +711,7 @@ namespace OpenLiveWriter.PostEditor
                 ((BlogPost != null) && BlogPost.IsNew && (BlogPost.Contents == null || BlogPost.Contents == String.Empty)) &&
                  !LocalFile.IsSaved && !PostIsDirty;
 
-            // edge case: current post is empty and unsaved and this is a new post, 
+            // edge case: current post is empty and unsaved and this is a new post,
             // re-using the window in this case will just make the New button appear
             // to not work at all, therefore we force a new window. We make an exception
             // for creation of new pages, as firing up a new writer instance and then
@@ -790,7 +771,7 @@ namespace OpenLiveWriter.PostEditor
 
                 case PostWindowBehavior.OpenNewWindow:
 
-                    // special case: if the current frame contains an empty, unsaved 
+                    // special case: if the current frame contains an empty, unsaved
                     // post then replace it (covers the case of the user opening
                     // writer in order to edit an existing post -- in this case they
                     // should never have to deal with managing two windows
@@ -833,7 +814,6 @@ namespace OpenLiveWriter.PostEditor
             }
             EditPost(blogPostEditingContext);
         }
-
 
         private DialogResult PromptToSaveChanges()
         {
@@ -920,7 +900,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private void openPostForm_UserDeletedPost(PostInfo deletedPost)
         {
             // See if the file currently being edited was deleted. In this case
@@ -983,7 +962,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private bool PostToWeblog(bool publish)
         {
             try
@@ -1001,16 +979,15 @@ namespace OpenLiveWriter.PostEditor
                 if (!VerifyBlogCredentials())
                     return false;
 
-
                 // try to update the weblog
                 bool isNewPost = BlogPost.IsNew;
                 if (UpdateWeblog(publish))
                 {
                     // save a copy to recent posts (note: we used to only save to recent
                     // posts only if a publish occurred, however we now do this always
-                    // because we want the post to participate in syncing to online 
-                    // changes AND we don't want the post "trapped" in drafts if the 
-                    // user intends to edit and publish over the web. 
+                    // because we want the post to participate in syncing to online
+                    // changes AND we don't want the post "trapped" in drafts if the
+                    // user intends to edit and publish over the web.
                     // NOTE: if we want to make this behavior conditional then the logic is:
                     //    if (published) SaveToRecentPosts(); else SaveToDrafts();
                     SaveToRecentPosts();
@@ -1147,7 +1124,7 @@ namespace OpenLiveWriter.PostEditor
                 {
                     try
                     {
-                        // For each piece of IPublishTimeWorker smart content we find we need to ask if it has 
+                        // For each piece of IPublishTimeWorker smart content we find we need to ask if it has
                         // work to do while publishing.  We pass null as the external context because that object
                         // is only for use when providing external code a chance to interact with the publish.
                         content = ((IPublishTimeWorker)source).DoPublishWork(_form, sContent, _blog.Id, site, null);
@@ -1180,7 +1157,6 @@ namespace OpenLiveWriter.PostEditor
 
         }
 
-
         private void PrePublishHooks(object sender, UpdateWeblogProgressForm.PublishEventArgs args)
         {
             Debug.Assert(!_mainFrameWindow.InvokeRequired, "PrePublishHooks invoked on non-UI thread");
@@ -1191,7 +1167,6 @@ namespace OpenLiveWriter.PostEditor
             // Let built in plugins do any extra processing they need to do during publish time
             PublishOperationManager publishOperationManager = new PublishOperationManager(form, Blog);
             string contents = SmartContentWorker.PerformOperation(_publishingContext.PostInfo.Contents, publishOperationManager.DoPublishWork, true, (IContentSourceSidebarContext)_publishingContext, false);
-
 
             // One of the built in plugins threw an exception and we must cancel publish
             if (publishOperationManager.Exception != null)
@@ -1206,10 +1181,9 @@ namespace OpenLiveWriter.PostEditor
                 return;
             }
 
-            // We only save the new html if there was no exception while creating it.  
+            // We only save the new html if there was no exception while creating it.
             BlogPost.Contents = contents;
             LocalFile.SaveBlogPost(this as IBlogPostEditingContext);
-
 
             foreach (ContentSourceInfo csi in ContentSourceManager.GetActivePublishNotificationPlugins(form, Blog.Id))
             {
@@ -1389,7 +1363,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         private bool ValidateSupportingFileUsage()
         {
             if (Blog.SupportsImageUpload == SupportsFeature.No)
@@ -1410,7 +1383,6 @@ namespace OpenLiveWriter.PostEditor
             return true;
         }
 
-
         private void DisplayAfterPublishFileUploadFailedWarningIfNecessary()
         {
             if (_lastPublishingResult != null && _lastPublishingResult.AfterPublishFileUploadException != null)
@@ -1419,7 +1391,6 @@ namespace OpenLiveWriter.PostEditor
                     uploadFailedForm.ShowDialog(_mainFrameWindow);
             }
         }
-
 
         private string[] GetUniqueImagesInPost()
         {
@@ -1451,9 +1422,7 @@ namespace OpenLiveWriter.PostEditor
             _forceDirtyPostEditor.ForceDirty();
         }
 
-
         #endregion
-
 
         #region Private Event Handlers (Weblog Settings Edited, etc.
 
@@ -1481,9 +1450,7 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Private Manipulation of Internal State (Current Blog, Current Post, LocalFile, etc.)
-
 
         public Blog Blog
         {
@@ -1517,7 +1484,6 @@ namespace OpenLiveWriter.PostEditor
             BlogSettings.DefaultBlogId = blogId;
         }
 
-
         private void DisposeCurrentBlog()
         {
             if (_blog != null)
@@ -1526,7 +1492,6 @@ namespace OpenLiveWriter.PostEditor
                 _blog = null;
             }
         }
-
 
         private BlogPost BlogPost
         {
@@ -1541,7 +1506,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private void OnBlogPostChanged()
         {
             if (_initialized)
@@ -1551,7 +1515,6 @@ namespace OpenLiveWriter.PostEditor
                     postEditor.Initialize(this, Blog.ClientOptions);
             }
         }
-
 
         private BlogPostSupportingFileStorage SupportingFileStorage
         {
@@ -1564,7 +1527,6 @@ namespace OpenLiveWriter.PostEditor
                 _supportingFileStorage = value;
             }
         }
-
 
         private string ServerSupportingFileDirectory
         {
@@ -1590,7 +1552,6 @@ namespace OpenLiveWriter.PostEditor
 
             }
         }
-
 
         private BlogPostImageDataList ImageDataList
         {
@@ -1659,7 +1620,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #endregion
-
 
         #region Private Members
 

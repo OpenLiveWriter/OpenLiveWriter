@@ -55,20 +55,20 @@ namespace Project31.ApplicationFramework
 		private int newRightSplitterPosition = -1;
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		private Project31.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlLeft;
-		
+
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		private Project31.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlCenter;
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		private Project31.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlRight;
-		
+
 		/// <summary>
 		/// The left splitter lightweight control.
 		/// </summary>
@@ -191,37 +191,37 @@ namespace Project31.ApplicationFramework
 			this.workPaneLightweightControlLeft = new Project31.ApplicationFramework.WorkPaneLightweightControl(this.components);
 			this.workPaneLightweightControlCenter = new Project31.ApplicationFramework.WorkPaneLightweightControl(this.components);
 			this.workPaneLightweightControlRight = new Project31.ApplicationFramework.WorkPaneLightweightControl(this.components);
-			// 
+			//
 			// leftSplitter
-			// 
+			//
 			this.leftSplitter.LightweightControlContainerControl = this;
 			this.leftSplitter.SplitterEndMove += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.leftSplitter_SplitterEndMove);
 			this.leftSplitter.SplitterBeginMove += new System.EventHandler(this.leftSplitter_SplitterBeginMove);
 			this.leftSplitter.SplitterMoving += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.leftSplitter_SplitterMoving);
-			// 
+			//
 			// rightSplitter
-			// 
+			//
 			this.rightSplitter.LightweightControlContainerControl = this;
 			this.rightSplitter.SplitterEndMove += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.rightSplitter_SplitterEndMove);
 			this.rightSplitter.SplitterBeginMove += new System.EventHandler(this.rightSplitter_SplitterBeginMove);
 			this.rightSplitter.SplitterMoving += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.rightSplitter_SplitterMoving);
-			// 
+			//
 			// gutter
-			// 
+			//
 			this.gutter.LightweightControlContainerControl = this;
-			// 
+			//
 			// workPaneLightweightControlLeft
-			// 
+			//
 			this.workPaneLightweightControlLeft.Control = null;
 			this.workPaneLightweightControlLeft.LightweightControlContainerControl = this;
-			// 
+			//
 			// workPaneLightweightControlCenter
-			// 
+			//
 			this.workPaneLightweightControlCenter.Control = null;
 			this.workPaneLightweightControlCenter.LightweightControlContainerControl = this;
-			// 
+			//
 			// workPaneLightweightControlRight
-			// 
+			//
 			this.workPaneLightweightControlRight.Control = null;
 			this.workPaneLightweightControlRight.LightweightControlContainerControl = this;
 
@@ -229,7 +229,7 @@ namespace Project31.ApplicationFramework
 		#endregion
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -260,7 +260,7 @@ namespace Project31.ApplicationFramework
 
 			//	Layout the center pane lightweight control.
 			workPaneLightweightControlCenter.VirtualBounds = CalculateCenterPaneLightweightControlBounds();
-			
+
 			//	Layout the right splitter.
 			rightSplitter.VirtualBounds = new Rectangle(VirtualWidth-rightSplitterPosition,
 														0,
@@ -270,9 +270,9 @@ namespace Project31.ApplicationFramework
 			//	Layout the right pane lightweight control.
 			workPaneLightweightControlRight.VirtualBounds = CalculateRightPaneControlBounds();
 		}
-		
+
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -288,15 +288,15 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		private void InitializeLeftSplitterPosition()
 		{
 			leftSplitterPosition = 260;//Math.Max(MinimumLeftSplitterPosition(), VirtualWidth/5);
 		}
-			
+
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		private void InitializeRightSplitterPosition()
 		{
@@ -304,7 +304,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="position"></param>
 		/// <returns></returns>
@@ -317,7 +317,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <returns></returns>
 		private Rectangle CalculateNewLeftSplitterBounds()
@@ -329,7 +329,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <returns></returns>
 		private Rectangle CalculateLeftSplitterBounds()
@@ -339,7 +339,7 @@ namespace Project31.ApplicationFramework
 									SPLITTER_WIDTH,
 									VirtualHeight-GUTTER_HEIGHT);
 		}
-		
+
 		/// <summary>
 		/// Calculates the bounds of the gutter control.
 		/// </summary>
@@ -353,7 +353,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <returns></returns>
 		private Rectangle CalculateLeftPaneControlBounds()
@@ -365,7 +365,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <returns></returns>
 		private Rectangle CalculateCenterPaneLightweightControlBounds()
@@ -377,7 +377,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <returns></returns>
 		private Rectangle CalculateRightPaneControlBounds()
@@ -390,14 +390,14 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <returns></returns>
 		private int PaneHeight()
 		{
 			return VirtualHeight-GUTTER_HEIGHT-(BORDER_SIZE*2);
 		}
-		
+
 		/// <summary>
 		/// Calculates the minimum left splitter position.
 		/// </summary>
@@ -406,7 +406,7 @@ namespace Project31.ApplicationFramework
 		{
 			return 0;
 		}
-		
+
 		/// <summary>
 		/// Calculates the maximum left splitter position.
 		/// </summary>
@@ -435,7 +435,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -448,7 +448,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -461,7 +461,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -473,7 +473,7 @@ namespace Project31.ApplicationFramework
 
 			//	Calculate the new left splitter position.
 			newLeftSplitterPosition = leftSplitterPosition+e.Position;
-			
+
 			//	Validate the new left splitter position.  Adjust it as needed.
 			if (newLeftSplitterPosition < minimumLeftSplitterPosition)
 				newLeftSplitterPosition = minimumLeftSplitterPosition;
@@ -488,7 +488,7 @@ namespace Project31.ApplicationFramework
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -497,24 +497,24 @@ namespace Project31.ApplicationFramework
 			//	Calculate.
 			Rectangle trackingIndicatorRectangle = CalculateVerticalTrackingIndicatorRectangle(VirtualWidth-rightSplitterPosition);
 
-			verticalTrackingIdicator.Begin(Parent, VirtualClientRectangleToParent(trackingIndicatorRectangle));		
+			verticalTrackingIdicator.Begin(Parent, VirtualClientRectangleToParent(trackingIndicatorRectangle));
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void rightSplitter_SplitterEndMove(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
 		{
-			verticalTrackingIdicator.End();		
+			verticalTrackingIdicator.End();
 			rightSplitterPosition = newRightSplitterPosition;
 			PerformLayout();
 			Invalidate();
 		}
 
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -526,7 +526,7 @@ namespace Project31.ApplicationFramework
 
 			//	Calculate the new right splitter position.
 			newRightSplitterPosition = rightSplitterPosition-e.Position;
-			
+
 			//	Validate the new right splitter position.  Adjust it as needed.
 			if (newRightSplitterPosition < minimumRightSplitterPosition)
 				newRightSplitterPosition = minimumRightSplitterPosition;
@@ -537,7 +537,7 @@ namespace Project31.ApplicationFramework
 			Rectangle trackingIndicatorRectangle = CalculateVerticalTrackingIndicatorRectangle(VirtualWidth-newRightSplitterPosition);
 
 			//	Set the new right splitter position, if it has changed.
-			verticalTrackingIdicator.Update(VirtualClientRectangleToParent(trackingIndicatorRectangle).Location);		
+			verticalTrackingIdicator.Update(VirtualClientRectangleToParent(trackingIndicatorRectangle).Location);
 		}
 	}
 }

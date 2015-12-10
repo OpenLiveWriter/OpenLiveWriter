@@ -39,7 +39,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -47,9 +46,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandColorize
-			// 
+			//
 			this.Description = "Change the color scheme of Open Live Writer";
 			this.Identifier = "OpenLiveWriter.Commands.Colorize";
 			this.Text = "Colorize";

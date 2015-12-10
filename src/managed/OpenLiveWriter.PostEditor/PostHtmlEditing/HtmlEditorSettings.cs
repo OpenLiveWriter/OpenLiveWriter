@@ -30,7 +30,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         // If IE7 Beta 2 Preview is installed, the editor runs into problems
         // updating the display of title text and the first line of body text.
-        // 
+        //
         // This flag indicates that we should use invalidate to workaround this issue.
         public static bool AggressivelyInvalidate
         {
@@ -40,7 +40,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
         //private static bool _aggressivelyInvalidate = true;
-
 
         internal static SettingsPersisterHelper SettingsKey = PostEditorSettings.SettingsKey.GetSubSettings("HtmlEditor");
     }

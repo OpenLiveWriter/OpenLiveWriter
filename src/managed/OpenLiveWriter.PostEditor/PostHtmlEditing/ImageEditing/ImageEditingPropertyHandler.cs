@@ -20,7 +20,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         ImagePropertiesInfo ImagePropertiesInfo { get; set; }
     }
 
-
     /// <summary>
     /// Summary description for ImagePropertiesHandler.
     /// </summary>
@@ -37,7 +36,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _editorContext = imageEditingContext;
         }
 
-
         public void RefreshView()
         {
             _propertyEditingContext.ImagePropertyChanged -= new ImagePropertyEventHandler(imageProperties_ImagePropertyChanged);
@@ -50,7 +48,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             _propertyEditingContext.ImagePropertyChanged += new ImagePropertyEventHandler(imageProperties_ImagePropertyChanged);
         }
-
 
         public static ImagePropertiesInfo GetImagePropertiesInfo(IHTMLImgElement imgElement, IBlogPostImageEditingContext editorContext)
         {
@@ -139,8 +136,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
 
-
-
         private IHTMLElement ImgElement
         {
             get
@@ -192,7 +187,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
                         //initialize some handlers for creating files based on the image's existing ISupportingFile objects
                         //This is necessary so that the new image files are recognized as being updates to an existing image
-                        //which allows the updates to be re-uploaded back to the same location. 
+                        //which allows the updates to be re-uploaded back to the same location.
                         CreateImageFileHandler inlineFileCreator = new CreateImageFileHandler(editorContext.SupportingFileService,
                                                                                               newImageData.InlineImageFile != null ? newImageData.InlineImageFile.SupportingFile : null);
                         CreateImageFileHandler linkedFileCreator = new CreateImageFileHandler(editorContext.SupportingFileService,
@@ -274,7 +269,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
         private readonly ImagePropertiesInfo _imageProperties;
-
 
         public readonly ImagePropertyType PropertyType;
         public readonly ImageDecoratorInvocationSource InvocationSource;

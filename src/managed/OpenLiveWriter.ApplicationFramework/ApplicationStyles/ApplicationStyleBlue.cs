@@ -12,7 +12,7 @@ namespace Project31.ApplicationFramework.ApplicationStyles
 {
 	public class ApplicationStyleBlue : ApplicationStyle
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
@@ -23,7 +23,7 @@ namespace Project31.ApplicationFramework.ApplicationStyles
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -39,15 +39,15 @@ namespace Project31.ApplicationFramework.ApplicationStyles
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// ApplicationStyleBlue
-			// 
+			//
 			this.ActiveSelectionColor = System.Drawing.Color.FromArgb(((System.Byte)(117)), ((System.Byte)(135)), ((System.Byte)(179)));
 			this.ActiveTabBottomColor = System.Drawing.Color.FromArgb(((System.Byte)(183)), ((System.Byte)(203)), ((System.Byte)(245)));
 			this.ActiveTabHighlightColor = System.Drawing.Color.FromArgb(((System.Byte)(243)), ((System.Byte)(243)), ((System.Byte)(243)));

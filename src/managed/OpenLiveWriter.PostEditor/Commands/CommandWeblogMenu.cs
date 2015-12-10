@@ -14,7 +14,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 	/// <summary>
 	/// Summary description for CommandClose.
 	/// </summary>
-	public class CommandWeblogMenu : Command 
+	public class CommandWeblogMenu : Command
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -29,7 +29,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -41,10 +41,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -54,9 +53,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandWeblogMenu
-			// 
+			//
 			this.CommandBarButtonText = "Weblog";
 			this.Identifier = "OpenLiveWriter.PostEditor.Commands.WeblogMenu";
 			this.MenuText = "";
@@ -65,7 +64,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 		}
 		#endregion
 
-		
-		
+
+
 	}
 }

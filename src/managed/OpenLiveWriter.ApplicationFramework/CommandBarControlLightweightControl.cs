@@ -122,13 +122,13 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             // Fix bug 722229: paragraph button doesn't show in the right place for RTL builds
             // We used to do SyncControlLocation() in OnLayout. The problem is that OnLayout
-            // only occurs when this lightweight control is moved relative to its immediate 
+            // only occurs when this lightweight control is moved relative to its immediate
             // parent--it doesn't get called when its parent is moved relative to the grandparent.
             // Since layout happens from the bottom of the hierarchy up, and the heavyweight
             // control's coordinate system is relative to the parent heavyweight control, the
             // two coordinate systems would get out of sync.
             //
-            // By moving the call to OnPaint we can be confident that the heavyweight control 
+            // By moving the call to OnPaint we can be confident that the heavyweight control
             // will be moved after all layout has completed.
             SyncControlLocation();
 
@@ -144,7 +144,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Call the base class's method so that registered delegates receive the event.
             base.OnLightweightControlContainerControlChanged(e);
 
-            //	
+            //
             if (control.Parent != Parent)
                 control.Parent = Parent;
 

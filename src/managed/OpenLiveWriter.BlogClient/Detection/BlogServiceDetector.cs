@@ -36,7 +36,6 @@ namespace OpenLiveWriter.BlogClient.Detection
         {
         }
 
-
         protected override object DetectBlogService(IProgressHost progressHost)
         {
             using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //supress prompting for credentials
@@ -107,7 +106,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 catch (BlogClientOperationCancelledException)
                 {
                     Cancel();
-                    // WasCancelled == true 
+                    // WasCancelled == true
                 }
                 catch (BlogAccountDetectorException ex)
                 {
@@ -119,7 +118,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 }
                 catch (Exception ex)
                 {
-                    // ErrorOccurred == true 
+                    // ErrorOccurred == true
                     Trace.Fail(ex.Message, ex.ToString());
                     ReportError(MessageId.WeblogDetectionUnexpectedError, ex.Message);
                 }
@@ -313,7 +312,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 }
             }
 
-            // No provider associated with the RSD file, try to gin one up (will only 
+            // No provider associated with the RSD file, try to gin one up (will only
             // work if the RSD file contains an API for one of our supported client types)
             if (blogAccount == null)
             {
@@ -321,7 +320,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 blogAccount = BlogAccountFromRsdServiceDescription.Create(rsdServiceDescription);
             }
 
-            // if we have an rsd-detected weblog 
+            // if we have an rsd-detected weblog
             if (blogAccount != null)
             {
                 // confirm that the credentials are OK
@@ -338,7 +337,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                     _hostBlogId = blogAccount.BlogId;
                     _postApiUrl = blogAccount.PostApiUrl;
 
-                    // see if we can improve on the blog name guess we already 
+                    // see if we can improve on the blog name guess we already
                     // have from the <title> element of the homepage
                     BlogInfo blogInfo = blogAccountDetector.DetectAccount(_homepageUrl, _hostBlogId);
                     if (blogInfo != null)
@@ -438,7 +437,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
         }
 
-
         private class BlogAccountFromRsdServiceDescription : BlogAccount
         {
             public static BlogAccount Create(RsdServiceDescription rsdServiceDescription)
@@ -469,11 +467,10 @@ namespace OpenLiveWriter.BlogClient.Detection
                 }
                 else
                 {
-                    // couldn't find a supported api type so we fall through to here 
+                    // couldn't find a supported api type so we fall through to here
                     throw new NoSupportedRsdClientTypeException();
                 }
             }
-
 
         }
 
@@ -558,7 +555,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 catch (BlogClientOperationCancelledException)
                 {
                     Cancel();
-                    // WasCancelled == true 
+                    // WasCancelled == true
                 }
                 catch (BlogAccountDetectorException)
                 {
@@ -571,7 +568,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 }
                 catch (Exception ex)
                 {
-                    // ErrorOccurred == true 
+                    // ErrorOccurred == true
                     ReportError(MessageId.WeblogDetectionUnexpectedError, ex.Message);
                 }
             }
@@ -580,7 +577,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         /*private string DiscoverPostApiUrl(string baseUrl, string blogPath)
 		{
-			
+
 		}*/
 
         /// <summary>
@@ -622,7 +619,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 new ProgressOperationCompleted(DetectWeblogSettingsCompleted),
                 30);
 
-            // add template downloading (note: this operation will be a no-op in the 
+            // add template downloading (note: this operation will be a no-op in the
             // case where we don't successfully detect a weblog)
             _blogEditingTemplateDetector = new BlogEditingTemplateDetector(uiContext, hiddenBrowserParentControl);
             AddProgressOperation(
@@ -644,7 +641,6 @@ namespace OpenLiveWriter.BlogClient.Detection
         {
             get { return _serviceName; }
         }
-
 
         public string ClientType
         {
@@ -819,7 +815,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             set { availableImageEndpoints = value; }
         }
 
-
         public void ShowLastError(IWin32Window owner)
         {
             if (ErrorOccurred)
@@ -883,7 +878,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
         }
 
-
         protected IHTMLDocument2 GetWeblogHomepageDOM(IProgressHost progressHost)
         {
             // try download the weblog home page
@@ -923,12 +917,10 @@ namespace OpenLiveWriter.BlogClient.Detection
             _postApiUrl = ProcessPostUrlMacros(blogAccountProvider.PostApiUrl);
         }
 
-
         private string ProcessPostUrlMacros(string postApiUrl)
         {
             return postApiUrl.Replace("<username>", _credentials.Username);
         }
-
 
         private object DetectWeblogSettings(IProgressHost progressHost)
         {
@@ -976,7 +968,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             _blogEditingTemplateDetector.SetContext(blogAccount, _credentials, _homepageUrl, blogTemplateDir, _manifestDownloadInfo, false, _providerId, _optionOverrides, null, _homePageOverrides);
 
         }
-
 
         protected void UpdateProgress(IProgressHost progressHost, int percent, string message)
         {

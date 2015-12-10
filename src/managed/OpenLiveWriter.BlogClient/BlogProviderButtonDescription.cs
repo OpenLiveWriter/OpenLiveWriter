@@ -10,7 +10,6 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Settings;
 using OpenLiveWriter.Extensibility.BlogClient;
 
-
 namespace OpenLiveWriter.BlogClient
 {
 
@@ -50,7 +49,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
         private string _id;
-
 
         public string ImageUrl
         {
@@ -190,7 +188,7 @@ namespace OpenLiveWriter.BlogClient
             // tool-tip text
             string description = settingsKey.GetString(DESCRIPTION, String.Empty);
 
-            // click-url 
+            // click-url
             string clickUrl = settingsKey.GetString(CLICK_URL, String.Empty);
 
             // has content
@@ -216,7 +214,6 @@ namespace OpenLiveWriter.BlogClient
             settingsKey.SetString(NOTIFICATION_URL, button.NotificationUrl);
         }
     }
-
 
 
     public class BlogProviderButtonNotification : IBlogProviderButtonNotification

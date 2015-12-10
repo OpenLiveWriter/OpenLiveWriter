@@ -16,8 +16,8 @@ namespace Project31.CoreServices
 		/// </summary>
 		private BitmapHelper()
 		{
-		}			
-			
+		}
+
 		/// <summary>
 		/// Converts the input bitmap into a grayscale bitmap.  The input bitmap is not modified.
 		/// </summary>
@@ -28,7 +28,7 @@ namespace Project31.CoreServices
 			//	Create the output bitmap.
 			Bitmap output = new Bitmap(input.Width, input.Height);
 
-			//	Convert the pixels.			
+			//	Convert the pixels.
 			for (int x = 0; x < output.Width; x++)
 				for (int y = 0; y < output.Height; y++)
 				{

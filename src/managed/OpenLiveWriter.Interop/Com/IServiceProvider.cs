@@ -20,14 +20,13 @@ namespace OpenLiveWriter.Interop.Com
         /// <param name="guid"> Unique identifier of the service (an SID)</param>
         /// <param name="riid">Unique identifier of the interface the caller wishes to receive
         /// for the service</param>
-        /// <param name="Obj">Address of the caller-allocated variable to receive the 
+        /// <param name="Obj">Address of the caller-allocated variable to receive the
         /// interface pointer of the service</param>
         void QueryService(
             [In] ref Guid guid,
             [In] ref Guid riid,
             [Out, MarshalAs(UnmanagedType.Interface)] out Object Obj);
     }
-
 
 
     /// <summary>
@@ -44,7 +43,7 @@ namespace OpenLiveWriter.Interop.Com
         /// <param name="guid"> Unique identifier of the service (an SID)</param>
         /// <param name="riid">Unique identifier of the interface the caller wishes to receive
         /// for the service</param>
-        /// <param name="Obj">Address of the caller-allocated variable to receive the 
+        /// <param name="Obj">Address of the caller-allocated variable to receive the
         /// interface pointer of the service</param>
         [PreserveSig]
         int QueryService(

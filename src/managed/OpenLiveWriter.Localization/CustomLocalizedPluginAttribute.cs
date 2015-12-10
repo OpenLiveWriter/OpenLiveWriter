@@ -12,9 +12,9 @@ namespace OpenLiveWriter.Localization
     /// allows us to localize built-in plugins (like Maps and
     /// Tags) without building separate satellite assemblies
     /// for them.
-    /// 
+    ///
     /// The strings should be named with e.g. the following format:
-    /// 
+    ///
     /// Plugin_[Name]_WriterPlugin_Description
     /// Plugin_[Name]_InsertableContentSource_MenuText
     /// </summary>

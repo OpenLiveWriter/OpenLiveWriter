@@ -58,7 +58,6 @@ namespace OpenLiveWriter.BlogClient
             Trace.Fail("Failed to dispose Blog object");
         }
 
-
         public string Id
         {
             get
@@ -174,7 +173,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
 
-
         public string HostBlogId
         {
             get
@@ -182,7 +180,6 @@ namespace OpenLiveWriter.BlogClient
                 return _settings.HostBlogId;
             }
         }
-
 
         public string HomepageUrl
         {
@@ -261,7 +258,6 @@ namespace OpenLiveWriter.BlogClient
             return BlogClientHelper.FormatUrl(url, _settings.HomepageUrl, _settings.PostApiUrl, _settings.HostBlogId, postId);
         }
 
-
         public string ServiceName
         {
             get
@@ -297,7 +293,6 @@ namespace OpenLiveWriter.BlogClient
                 return (IEditorOptions)BlogClient.Options;
             }
         }
-
 
         public void DisplayException(IWin32Window owner, Exception ex)
         {
@@ -342,7 +337,6 @@ namespace OpenLiveWriter.BlogClient
             DisplayableExceptionDisplayForm.Show(owner, ex);
         }
 
-
         public bool IsSpacesBlog
         {
             get { return _settings.IsSpacesBlog; }
@@ -378,7 +372,6 @@ namespace OpenLiveWriter.BlogClient
         {
             return BlogClient.VerifyCredentials();
         }
-
 
         public BlogPostCategory[] Categories
         {
@@ -425,8 +418,6 @@ namespace OpenLiveWriter.BlogClient
         }
 
 
-
-
         public BlogPost[] GetRecentPosts(int maxPosts, bool includeCategories)
         {
             BlogPost[] recentPosts = BlogClient.GetRecentPosts(_settings.HostBlogId, maxPosts, includeCategories, null);
@@ -438,7 +429,6 @@ namespace OpenLiveWriter.BlogClient
                 // if there is no permalink then attempt to construct one
                 EnsurePermalink(blogPost);
             }
-
 
             return recentPosts;
         }
@@ -500,7 +490,6 @@ namespace OpenLiveWriter.BlogClient
             return pageList.ToArray(typeof(BlogPost)) as BlogPost[];
         }
 
-
         public PostResult NewPost(BlogPost post, INewCategoryContext newCategoryContext, bool publish)
         {
             // initialize result
@@ -535,7 +524,6 @@ namespace OpenLiveWriter.BlogClient
             // return result
             return result;
         }
-
 
         public PostResult EditPost(BlogPost post, INewCategoryContext newCategoryContext, bool publish)
         {
@@ -579,7 +567,6 @@ namespace OpenLiveWriter.BlogClient
             return result;
         }
 
-
         /// <summary>
         /// Get the version of the post currently residing on the server
         /// </summary>
@@ -611,7 +598,6 @@ namespace OpenLiveWriter.BlogClient
             // return the blog post
             return blogPost;
         }
-
 
 
         public void DeletePost(string postId, bool isPage, bool publish)
@@ -655,7 +641,6 @@ namespace OpenLiveWriter.BlogClient
 
         private IBlogSettingsAccessor _settings;
 
-
         private bool ErrorIsInvalidPostId(BlogClientProviderException ex)
         {
             string faultCodePattern = BlogClient.Options.InvalidPostIdFaultCodePattern;
@@ -679,7 +664,6 @@ namespace OpenLiveWriter.BlogClient
                 return false;
             }
         }
-
 
         private bool FaultCodeMatchesInvalidPostId(string faultCode, string pattern)
         {
@@ -737,7 +721,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
 
-
         /// <summary>
         /// Weblog client
         /// </summary>
@@ -752,7 +735,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
         private IBlogClient _blogClient;
-
 
         private enum ContentFilterMode { Open, Publish };
         private class ContentFilterApplier : IDisposable

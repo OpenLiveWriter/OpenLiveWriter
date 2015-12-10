@@ -13,7 +13,7 @@ namespace OpenLiveWriter.Controls
 	/// </summary>
 	public class LineBevelControl : UserControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
@@ -27,7 +27,7 @@ namespace OpenLiveWriter.Controls
 			TabStop = false;
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -43,15 +43,15 @@ namespace OpenLiveWriter.Controls
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// LineBevelControl
-			// 
+			//
 			this.Name = "LineBevelControl";
 			this.Size = new System.Drawing.Size(150, 12);
 

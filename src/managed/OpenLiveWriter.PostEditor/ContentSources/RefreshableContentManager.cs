@@ -25,7 +25,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         public const int INTERVAL_TICK = 3000;
         private readonly List<IExtensionData> _missedCallbackExtensionData;
 
-
         //
         // IMPORTANT: Make sure that you add the content source id of any source that has content with callbacks, otherwise
         //            there might be problems when copy/cut/PasteSpecialForm where the content will no longer get call backs

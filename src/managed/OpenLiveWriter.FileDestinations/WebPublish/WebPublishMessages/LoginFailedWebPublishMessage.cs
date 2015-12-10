@@ -8,8 +8,8 @@ namespace OpenLiveWriter.FileDestinations
 	/// </summary>
 	public class LoginFailedWebPublishMessage : WebPublishMessage
 	{
-		
-		
+
+
 
 		public LoginFailedWebPublishMessage(params object[] textFormatArgs)
 		{
@@ -23,7 +23,6 @@ namespace OpenLiveWriter.FileDestinations
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -31,9 +30,9 @@ namespace OpenLiveWriter.FileDestinations
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// LoginFailedWebPublishMessage
-			// 
+			//
 			this.Text = "Login failed. Please check your username and password.";
 			this.Title = "Login Failed";
 

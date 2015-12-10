@@ -89,7 +89,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             }
         }
 
-
         /// <summary>
         /// Might this be a drag begin>
         /// </summary>
@@ -105,7 +104,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             else
                 return false;
         }
-
 
 
         // <summary>
@@ -180,7 +178,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             }
         }
 
-
         /// <summary>
         /// Editor context
         /// </summary>
@@ -210,11 +207,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             if (smartSelection == null)
                 return;
 
-            // allow each of the drop source format handlers a chance to create the 
-            // drop-source data object					
+            // allow each of the drop source format handlers a chance to create the
+            // drop-source data object
             IDataObject dataObject = SmartContentDataObject.CreateFrom(smartSelection.HTMLElement, EditorContext.EditorId);
 
-            // do the drag and drop 
+            // do the drag and drop
             using (new Undo(EditorContext))
             {
                 EditorContext.DoDragDrop(dataObject, DragDropEffects.Move);
@@ -257,7 +254,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
 
             IDataObject dataObject = SmartContentDataObject.CreateFrom(element, EditorContext.EditorId);
 
-            // do the drag and drop 
+            // do the drag and drop
             using (new Undo(EditorContext))
             {
                 EditorContext.DoDragDrop(dataObject, DragDropEffects.Move);
@@ -271,7 +268,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
     public class SmartContentDataObject
     {
         /// <summary>
-        /// Attempt to create a smart content data object from the selection. 
+        /// Attempt to create a smart content data object from the selection.
         /// </summary>
         /// <returns>data object (if could be created), otherwise null</returns>
         public static IDataObject CreateFrom(IHTMLElement element, string editorId)
@@ -289,7 +286,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             // return the data object
             return dataObject;
         }
-
 
         public static bool IsContainedIn(IDataObject dataObject)
         {

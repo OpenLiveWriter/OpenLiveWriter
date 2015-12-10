@@ -19,7 +19,7 @@ namespace OpenLiveWriter.CoreServices.Progress
         private double lastCompletionPercentage; //the %complete of this tick.
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="progress">the parent progress host that this tick is nested within</param>
         /// <param name="tickAllocation">the number of ticks allocated for use by this object</param>

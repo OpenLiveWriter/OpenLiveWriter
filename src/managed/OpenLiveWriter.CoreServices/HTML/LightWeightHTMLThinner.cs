@@ -38,7 +38,7 @@ namespace OpenLiveWriter.CoreServices
 
 		public static string ThinHTML(string html, string url, ThinnerBehavior behavior)
 		{
-			LightWeightHTMLThinner thinner = new LightWeightHTMLThinner(html, url, behavior);			
+			LightWeightHTMLThinner thinner = new LightWeightHTMLThinner(html, url, behavior);
 			return thinner.DoReplace();
 		}
 
@@ -57,7 +57,7 @@ namespace OpenLiveWriter.CoreServices
 					if ((_behavior & ThinnerBehavior.ThinForPage) == ThinnerBehavior.ThinForPage)
 						_tagsToPreserve = (ArrayList)PreserveTagsForPage.Clone();
 					else
-						_tagsToPreserve = (ArrayList)PreserveTagsForSnippets.Clone();					
+						_tagsToPreserve = (ArrayList)PreserveTagsForSnippets.Clone();
 
 					if ((_behavior & ThinnerBehavior.PreserveImages) == ThinnerBehavior.PreserveImages)
 						_tagsToPreserve = IncludeImages(_tagsToPreserve);
@@ -112,7 +112,7 @@ namespace OpenLiveWriter.CoreServices
 		protected override void OnEndTag(EndTag tag)
 		{
 			if (tag.Implicit)
-				return; 
+				return;
 			if (tag.NameEquals(HTMLTokens.Title))
 				_inTitle = false;
 
@@ -136,7 +136,7 @@ namespace OpenLiveWriter.CoreServices
 		protected override void OnScriptComment(ScriptComment scriptComment)
 		{
 		}
-		
+
 		protected override void OnScriptLiteral(ScriptLiteral literal)
 		{
 		}
@@ -158,7 +158,7 @@ namespace OpenLiveWriter.CoreServices
 		}
 
 		protected override void OnDocumentBegin()
-		{	
+		{
 		}
 
 		protected override void OnDocumentEnd()
@@ -179,9 +179,9 @@ namespace OpenLiveWriter.CoreServices
 
 		protected override void OnStyleImport(StyleImport styleImport)
 		{
-			
+
 		}
-	
+
 		/// <summary>
 		/// A table of tags and their replacements when thinning
 		/// </summary>
@@ -208,7 +208,7 @@ namespace OpenLiveWriter.CoreServices
 					m_replaceTags.Add(HTMLTokens.Dir, HTMLTokens.P);
 					m_replaceTags.Add(HTMLTokens.Dl, HTMLTokens.P);
 					m_replaceTags.Add(HTMLTokens.Blockquote, HTMLTokens.P);
-					
+
 				}
 				return m_replaceTags;
 			}
@@ -260,7 +260,7 @@ namespace OpenLiveWriter.CoreServices
 			}
 		}
 		private static ArrayList _preserverTagsForPage;
-		
+
 		/// <summary>
 		/// The list of tags that will be preserved when the HTML is thinned.
 		/// </summary>

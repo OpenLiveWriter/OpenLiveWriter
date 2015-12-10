@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandPostAsDraft
-			// 
+			//
 			this.ContextMenuPath = "Post Draft and &Edit Online@102";
 			this.Identifier = "OpenLiveWriter.PostAsDraftAndEditOnline";
 			this.MainMenuPath = "&File@0/Post &Draft and &Edit Online@36";

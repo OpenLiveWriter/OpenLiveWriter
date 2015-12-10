@@ -29,7 +29,6 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
             [Out] out IOleDocumentView ppView);
     }
 
-
     [Flags]
     public enum DOCMISC : uint
     {
@@ -38,6 +37,5 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         CANTOPENEDIT = 4,
         NOFILESUPPORT = 8
     };
-
 
 }

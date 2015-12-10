@@ -13,7 +13,7 @@ namespace OpenLiveWriter.CoreServices
 
 	public class WebPageCapture
 	{
-		
+
 		public WebPageCapture(string targetUrl, string destinationPath)
 		{
 			_targetUrl = targetUrl ;
@@ -26,14 +26,13 @@ namespace OpenLiveWriter.CoreServices
 		}
 		private string _targetUrl ;
 
-
 		public string DestinationPath
 		{
 			get { return _destinationPath; }
 		}
 		private string _destinationPath ;
-		
-	
+
+
 		public string Capture(int timeoutMs)
 		{
 			// flag indicating whether we should continue with the capture
@@ -44,10 +43,10 @@ namespace OpenLiveWriter.CoreServices
 			OnHeadersReceived(response.Headers, ref continueCapture) ;
 			if ( !continueCapture )
 				throw new OperationCancelledException() ;
-		
+
 			// transfer it to a stream
 			MemoryStream pageStream = new MemoryStream();
-			using ( Stream responseStream = response.GetResponseStream() )  
+			using ( Stream responseStream = response.GetResponseStream() )
 				StreamHelper.Transfer(responseStream, pageStream);
 			pageStream.Seek(0, SeekOrigin.Begin) ;
 
@@ -62,10 +61,10 @@ namespace OpenLiveWriter.CoreServices
 			// above the docType (bug 289357)
 			IHTMLDocument2 doc = HTMLDocumentHelper.StreamToHTMLDoc(pageStream, TargetUrl, false);
 			LightWeightHTMLDocument ldoc = LightWeightHTMLDocument.FromIHTMLDocument2(doc, TargetUrl, true);
-		
+
 			// download references
-			FileBasedSiteStorage siteStorage = new FileBasedSiteStorage(DestinationPath, "index.htm");	 
-			PageToDownload page = new PageToDownload(ldoc, TargetUrl, siteStorage.RootFile); 
+			FileBasedSiteStorage siteStorage = new FileBasedSiteStorage(DestinationPath, "index.htm");
+			PageToDownload page = new PageToDownload(ldoc, TargetUrl, siteStorage.RootFile);
 			PageAndReferenceDownloader downloader = new PageAndReferenceDownloader(new PageToDownload[]{page}, siteStorage) ;
 			downloader.Download(new TimeoutProgressHost(timeoutMs)) ;
 
@@ -73,7 +72,7 @@ namespace OpenLiveWriter.CoreServices
 			return Path.Combine(DestinationPath, siteStorage.RootFile) ;
 		}
 
-			
+
 		public string SafeCapture(int timeoutMs)
 		{
 			try
@@ -85,7 +84,6 @@ namespace OpenLiveWriter.CoreServices
 				return null ;
 			}
 		}
-
 
 		protected virtual void OnHeadersReceived(WebHeaderCollection headers, ref bool continueCapture)
 		{
@@ -107,7 +105,6 @@ namespace OpenLiveWriter.CoreServices
 				throw new OperationTimedOutException() ;
 			}
 		}
-
 
 		private class TimeoutProgressHost : IProgressHost
 		{

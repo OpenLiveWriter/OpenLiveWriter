@@ -19,7 +19,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 	/// </summary>
 	public class ImagePropertyEditorControl : PrimaryWorkspaceControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
@@ -46,14 +46,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			// initialize tab lightweight control
 			tabLightweightControl = new TabLightweightControl(this.components) ;
 			tabLightweightControl.DrawSideAndBottomTabPageBorders = false ;
-			tabLightweightControl.SmallTabs = true ;		
+			tabLightweightControl.SmallTabs = true ;
 		}
 
 		public void Init(IBlogPostImageDataContext dataContext)
 		{
 
 			_imageDataContext = dataContext;
-			// initialization constants 
+			// initialization constants
 			const int TOP_INSET = 2;
 
 			imageTabPageImage = new ImageTabPageImageControl() ;
@@ -67,11 +67,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 				ImageEditingTabPageControl tabPage = _tabPages[i];
 				tabPage.DecoratorsManager = dataContext.DecoratorsManager;
 				tabPage.TabStop = false ;
-				tabPage.TabIndex = i ;	
+				tabPage.TabIndex = i ;
 				Controls.Add( tabPage ) ;
-				tabLightweightControl.SetTab( i, tabPage ) ;		
+				tabLightweightControl.SetTab( i, tabPage ) ;
 			}
-			
+
 			// initial appearance of editor
 			tabLightweightControl.SelectedTabNumber = 0 ;
 
@@ -80,8 +80,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 			_imageDataContext.DecoratorsManager.GetImageDecorator(BrightnessDecorator.Id).Command.StateChanged += new EventHandler(Command_StateChanged);
 
-			// configure primary workspace 
-			// configure primary workspace 
+			// configure primary workspace
+			// configure primary workspace
 			SuspendLayout() ;
 			TopLayoutMargin = TOP_INSET;
 			LeftColumn.UpperPane.LightweightControl = tabLightweightControl;
@@ -91,12 +91,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 		IBlogPostImageDataContext _imageDataContext;
 
-		
+
 		private void InitializeCommands()
 		{
 			commandContextManager = new CommandContextManager(ApplicationManager.CommandManager);
 			commandContextManager.BeginUpdate() ;
-			
+
 			commandImageBrightness = new CommandImageBrightness(components) ;
 			commandImageBrightness.Tag = _imageDataContext.DecoratorsManager.GetImageDecorator(BrightnessDecorator.Id);
 			commandImageBrightness.Execute += new EventHandler(commandImageDecorator_Execute);
@@ -129,7 +129,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 			CommandBarButtonEntry commandBarButtonEntryImageRotate = new CommandBarButtonEntry(components) ;
 			commandBarButtonEntryImageRotate.CommandIdentifier = commandImageRotate.Identifier ;
-			
+
 			CommandBarButtonEntry commandBarButtonEntryImageReset = new CommandBarButtonEntry(components) ;
 			commandBarButtonEntryImageReset.CommandIdentifier = commandImageReset.Identifier ;
 
@@ -157,7 +157,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 				return commandBarLightweightControl;
 			}
 		}
-
 
 		public event EventHandler SaveDefaultsRequested;
 		public event EventHandler ResetToDefaultsRequested;
@@ -195,7 +194,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 		public ImagePropertiesInfo imageInfo;
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -213,8 +212,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -233,7 +232,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		private ImageEditingTabPageControl[] _tabPages = new ImageEditingTabPageControl[0];
 
 		private void UpdateAppearance()
-		{		
+		{
 			PerformLayout();
 			Invalidate();
 		}
@@ -262,7 +261,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			imageDecorator.Command.PerformExecute();
 
 			//since this command was invoked explicitly via a command button, display the editor dialog.
-			ImageDecoratorHelper.ShowImageDecoratorEditorDialog( FindForm(), imageDecorator, ImageInfo, new ApplyDecoratorCallback(ApplyImageDecorations) );			
+			ImageDecoratorHelper.ShowImageDecoratorEditorDialog( FindForm(), imageDecorator, ImageInfo, new ApplyDecoratorCallback(ApplyImageDecorations) );
 		}
 
 		private void commandImageRotate_Execute(object sender, EventArgs e)

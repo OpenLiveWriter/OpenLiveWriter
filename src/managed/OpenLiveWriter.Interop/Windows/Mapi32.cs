@@ -12,7 +12,7 @@ namespace OpenLiveWriter.Interop.Windows
 	public class Mapi32
 	{
 		// Mapi functions, structures, and constants (based on declarations found
-		// in Microsoft Knowledge Base Article Q315653, SAMPLE: SimpleMAPIAssembly 
+		// in Microsoft Knowledge Base Article Q315653, SAMPLE: SimpleMAPIAssembly
 		// Demonstrates Use of Simple MAPI from a .NET Application at:
 		//	http://support.microsoft.com/default.aspx?scid=kb;EN-US;Q315653
 
@@ -20,7 +20,7 @@ namespace OpenLiveWriter.Interop.Windows
 		/// DLL to load MAPI entry points from
 		/// </summary>
 		private const string MAPIDLL = "mapi32.dll";
-				
+
 		/// <summary>
 		/// Begins a Simple MAPI session, loading the default message store provider
 		/// </summary>
@@ -33,15 +33,14 @@ namespace OpenLiveWriter.Interop.Windows
 			int ulReserved,
 			out int lplhSession);
 
-
 		/// <summary>
 		/// Ends a session with the messaging system.
 		/// </summary>
 		[DllImport(MAPIDLL, CharSet=CharSet.Ansi)]
 		public static extern int MAPILogoff(
-			int lhSession, 
-			int ulUIParam, 
-			int flFlags, 
+			int lhSession,
+			int ulUIParam,
+			int flFlags,
 			int ulReserved);
 
 		/// <summary>
@@ -49,34 +48,33 @@ namespace OpenLiveWriter.Interop.Windows
 		/// </summary>
 		[DllImport(MAPIDLL, CharSet=CharSet.Ansi)]
 		public static extern int MAPISendMail(
-			int lhSession, 
-			int ulUIParam, 
-			IntPtr /*MapiMessage*/ lpMessage, 
-			int flFlags, 
+			int lhSession,
+			int ulUIParam,
+			IntPtr /*MapiMessage*/ lpMessage,
+			int flFlags,
 			int ulReserved);
 
 	}
 
 	/// <summary>
 	/// Structure that contains information about a MAPI mail messsage
-	/// </summary> 
+	/// </summary>
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
 	public struct MapiMessage
 	{
-		public int ulReserved;     
-		public String lpszSubject;    
-		public String lpszNoteText;   
-		public String lpszMessageType;   
-		public String lpszDateReceived;    
-		public String lpszConversationID;   
-		public int flFlags;  
-		public IntPtr lpOriginator; 
-		public int nRecipCount;   
-		public IntPtr lpRecips;   
-		public int nFileCount;   
-		public IntPtr /*MapiFileDesc[]*/ lpFiles;    
+		public int ulReserved;
+		public String lpszSubject;
+		public String lpszNoteText;
+		public String lpszMessageType;
+		public String lpszDateReceived;
+		public String lpszConversationID;
+		public int flFlags;
+		public IntPtr lpOriginator;
+		public int nRecipCount;
+		public IntPtr lpRecips;
+		public int nFileCount;
+		public IntPtr /*MapiFileDesc[]*/ lpFiles;
 	};
-
 
 	/// <summary>
 	/// Structure that contains the MAPI recipient descriptor
@@ -94,17 +92,17 @@ namespace OpenLiveWriter.Interop.Windows
 
 	/// <summary>
 	/// Structure that contains MAPI file attachment descriptor
-	/// </summary> 
+	/// </summary>
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
 	public struct MapiFileDesc
 	{
-		public int ulReserved;          
-		public int flFlags;                                        
-		public int nPosition;         
-		public String lpszPathName;    
-		public String lpszFileName;      
-		public IntPtr /*MapiFileTagExt*/ lpFileType;  
-	};	
+		public int ulReserved;
+		public int flFlags;
+		public int nPosition;
+		public String lpszPathName;
+		public String lpszFileName;
+		public IntPtr /*MapiFileTagExt*/ lpFileType;
+	};
 
 	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
 	public struct MapiFileTagExt
@@ -115,7 +113,7 @@ namespace OpenLiveWriter.Interop.Windows
 		public int cbEncoding;		/* Size (in bytes) of                       */
 		public String szEncoding;	/* X.400 OID for this attachment's encoding */
 	};
-	
+
 	/// <summary>
 	/// Structure containing MAPI error constants
 	/// </summary>
@@ -147,25 +145,24 @@ namespace OpenLiveWriter.Interop.Windows
 		public const int E_NETWORK_FAILURE = 23;
 		public const int E_INVALID_EDITFIELDS = 24;
 		public const int E_INVALID_RECIPS = 25;
-		public const int E_NOT_SUPPORTED = 26;	
+		public const int E_NOT_SUPPORTED = 26;
 		public const int E_NO_LIBRARY = 999;
 		public const int E_INVALID_PARAMETER = 998;
-
 
 		public const int ORIG = 0;
 		public const int TO = 1;
 		public const int CC = 2;
 		public const int BCC = 3;
-		
-		
+
+
 		public const int UNREAD = 1;
 		public const int RECEIPT_REQUESTED = 2;
 		public const int SENT = 4;
-	
+
 		public const int LOGON_UI = 0x1;
 		public const int NEW_SESSION = 0x2;
 		public const int DIALOG = 0x8;
-		
+
 		public const int UNREAD_ONLY = 0x20;
 		public const int EXTENDED = 0x20;
 		public const int ENVELOPE_ONLY = 0x40;
@@ -180,5 +177,5 @@ namespace OpenLiveWriter.Interop.Windows
 
 		public const int OLE = 0x1;
 		public const int OLE_STATIC = 0x2;
-	}					
+	}
 }

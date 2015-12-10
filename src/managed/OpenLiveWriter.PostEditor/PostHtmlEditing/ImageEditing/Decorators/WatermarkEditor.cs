@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         private Label labelPosition;
         private Button buttonOK;
         private Button buttonCancel;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -89,7 +89,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             _textOriginal = WatermarkSettings.Text;
 
             textBoxText.Text = string.IsNullOrEmpty(WatermarkSettings.Text) ? String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.WatermarkDefaultText), DateTime.Now) : WatermarkSettings.Text;
-
 
             SelectInCombo(comboBoxSize, WatermarkSettings.FontSize.ToString(CultureInfo.CurrentCulture));
             SelectInCombo(comboBoxPosition, GetPrettyName(WatermarkSettings.Position));
@@ -200,7 +199,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             return this.Size;
         }
 
-
         protected override void OnSaveSettings()
         {
             base.OnSaveSettings();
@@ -210,7 +208,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             WatermarkSettings.FontFamily = comboBoxFontFamily.GetItemText(comboBoxFontFamily.SelectedItem);
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -228,8 +226,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -245,27 +243,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // labelText
-            // 
+            //
             this.labelText.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelText.Location = new System.Drawing.Point(8, 2);
             this.labelText.Name = "labelText";
             this.labelText.Size = new System.Drawing.Size(193, 13);
             this.labelText.TabIndex = 0;
             this.labelText.Text = "&Watermark text:";
-            // 
+            //
             // textBoxText
-            // 
+            //
             this.textBoxText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxText.Location = new System.Drawing.Point(8, 20);
             this.textBoxText.Name = "textBoxText";
             this.textBoxText.Size = new System.Drawing.Size(193, 20);
             this.textBoxText.TabIndex = 5;
-            // 
+            //
             // comboBoxFontFamily
-            // 
+            //
             this.comboBoxFontFamily.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFontFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -274,27 +272,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.comboBoxFontFamily.Size = new System.Drawing.Size(193, 21);
             this.comboBoxFontFamily.TabIndex = 8;
             this.comboBoxFontFamily.SelectedIndexChanged += new System.EventHandler(this.comboBoxFontFamily_SelectedIndexChanged);
-            // 
+            //
             // labelFontFamily
-            // 
+            //
             this.labelFontFamily.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelFontFamily.Location = new System.Drawing.Point(8, 51);
             this.labelFontFamily.Name = "labelFontFamily";
             this.labelFontFamily.Size = new System.Drawing.Size(204, 16);
             this.labelFontFamily.TabIndex = 7;
             this.labelFontFamily.Text = "&Font family:";
-            // 
+            //
             // comboBoxSize
-            // 
+            //
             this.comboBoxSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSize.Location = new System.Drawing.Point(8, 121);
             this.comboBoxSize.Name = "comboBoxSize";
             this.comboBoxSize.Size = new System.Drawing.Size(50, 21);
             this.comboBoxSize.TabIndex = 12;
             this.comboBoxSize.SelectedIndexChanged += new System.EventHandler(this.comboBoxSize_SelectedIndexChanged);
-            // 
+            //
             // comboBoxPosition
-            // 
+            //
             this.comboBoxPosition.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -303,27 +301,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.comboBoxPosition.Size = new System.Drawing.Size(193, 21);
             this.comboBoxPosition.TabIndex = 15;
             this.comboBoxPosition.SelectedIndexChanged += new System.EventHandler(this.comboBoxPosition_SelectedIndexChanged);
-            // 
+            //
             // labelSize
-            // 
+            //
             this.labelSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelSize.Location = new System.Drawing.Point(8, 103);
             this.labelSize.Name = "labelSize";
             this.labelSize.Size = new System.Drawing.Size(193, 13);
             this.labelSize.TabIndex = 11;
             this.labelSize.Text = "&Size:";
-            // 
+            //
             // labelPosition
-            // 
+            //
             this.labelPosition.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPosition.Location = new System.Drawing.Point(8, 153);
             this.labelPosition.Name = "labelPosition";
             this.labelPosition.Size = new System.Drawing.Size(193, 13);
             this.labelPosition.TabIndex = 13;
             this.labelPosition.Text = "&Position:";
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(47, 208);
@@ -332,9 +330,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonOK.TabIndex = 16;
             this.buttonOK.Text = "button1";
             this.buttonOK.UseVisualStyleBackColor = true;
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(126, 208);
@@ -343,9 +341,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonCancel.TabIndex = 17;
             this.buttonCancel.Text = "button2";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
+            //
             // WatermarkEditor
-            // 
+            //
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labelPosition);

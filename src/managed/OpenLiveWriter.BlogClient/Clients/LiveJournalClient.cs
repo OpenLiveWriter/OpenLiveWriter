@@ -28,7 +28,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
 
-
         protected override void ConfigureClientOptions(BlogClientOptions clientOptions)
         {
             clientOptions.SupportsFileUpload = true;
@@ -66,10 +65,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new BlogPostKeyword[] { };
         }
 
-
         public override BlogPost GetPost(string blogId, string postId)
         {
-            // query for post 
+            // query for post
             XmlNode postResult = CallMethod("blogger.getPost",
                 new XmlRpcString(APP_KEY),
                 new XmlRpcString(postId),
@@ -118,7 +116,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 XmlNodeList postNodes = result.SelectNodes("array/data/value/struct");
                 foreach (XmlNode postNode in postNodes)
                 {
-                    // create blog post 
+                    // create blog post
                     BlogPost blogPost = new BlogPost();
 
                     ExtractStandardPostFields(postNode, blogPost);
@@ -135,12 +133,9 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientInvalidServerResponseException("blogger.getRecentPosts", ex.Message, response);
             }
 
-
             // return list of posts
             return (BlogPost[])posts.ToArray(typeof(BlogPost));
         }
-
-
 
 
         public override string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish)
@@ -163,7 +158,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             // return the blog-id
             return result.InnerText;
         }
-
 
 
         public override bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish)
@@ -245,7 +239,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
         }
 
-
         private void ExtractStandardPostFields(XmlNode postNode, BlogPost blogPost)
         {
             // post id
@@ -291,9 +284,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     blogPost.Contents = content;
             }
 
-
         }
-
 
         private XmlRpcValue FormatBlogPost(BlogPost post)
         {
@@ -304,7 +295,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new XmlRpcBase64(_utf8EncodingNoBOM.GetBytes(blogPostBody));
         }
         private Encoding _utf8EncodingNoBOM = new UTF8Encoding(false);
-
 
         private class FotobilderRequestManager
         {
@@ -396,7 +386,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     101	No user specified
                     102	Invalid user
                     103	Unknown user
-					
+
                     2xx: Client Errors
                     200	Client error
                     201	Invalid request
@@ -406,19 +396,19 @@ namespace OpenLiveWriter.BlogClient.Clients
                     211	Invalid argument
                     212	Missing required argument
                     213	Invalid image for upload
-					
+
                     3xx: Access Errors
                     300	Access error
                     301	No auth specified
                     302	Invalid auth
                     303	Account status does not allow upload
-					
+
                     4xx: Limit Errors
                     400	Limit error
                     401	No disk space remaining
                     402	Insufficient disk space remaining
                     403	File upload limit exceeded
-					
+
                     5xx: Server Errors
                     500	Internal Server Error
                     501	Cannot connect to database

@@ -23,7 +23,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private Label labeHomepageURL;
         private LinkLabel linkLabelViewWeblog;
         private HelpProvider helpProvider;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -47,7 +47,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             linkLabelViewWeblog.UseCompatibleTextRendering = false;
         }
 
-
         public string HomepageUrl
         {
             get
@@ -59,7 +58,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 textBoxHomepageUrl.Text = value;
             }
         }
-
 
         private void textBoxHomepageUrl_TextChanged(object sender, EventArgs e)
         {
@@ -88,9 +86,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
 
 
-
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -106,8 +102,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -117,9 +113,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.linkLabelViewWeblog = new System.Windows.Forms.LinkLabel();
             this.helpProvider = new System.Windows.Forms.HelpProvider();
             this.SuspendLayout();
-            // 
+            //
             // textBoxHomepageUrl
-            // 
+            //
             this.textBoxHomepageUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.helpProvider.SetHelpString(this.textBoxHomepageUrl, "The URL for the homepage of your weblog");
@@ -130,9 +126,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxHomepageUrl.TabIndex = 1;
             this.textBoxHomepageUrl.Text = "";
             this.textBoxHomepageUrl.TextChanged += new System.EventHandler(this.textBoxHomepageUrl_TextChanged);
-            // 
+            //
             // labeHomepageURL
-            // 
+            //
             this.labeHomepageURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 )));
             this.labeHomepageURL.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -141,9 +137,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labeHomepageURL.Size = new System.Drawing.Size(311, 17);
             this.labeHomepageURL.TabIndex = 0;
             this.labeHomepageURL.Text = "Weblog &Homepage URL:";
-            // 
+            //
             // linkLabelViewWeblog
-            // 
+            //
             this.linkLabelViewWeblog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelViewWeblog.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.helpProvider.SetHelpString(this.linkLabelViewWeblog, "View the weblog in a browser");
@@ -158,9 +154,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.linkLabelViewWeblog.LinkBehavior = LinkBehavior.HoverUnderline;
             this.linkLabelViewWeblog.LinkColor = SystemColors.HotTrack;
             this.linkLabelViewWeblog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelViewWeblog_LinkClicked);
-            // 
+            //
             // WeblogHomepageUrlControl
-            // 
+            //
             this.Controls.Add(this.textBoxHomepageUrl);
             this.Controls.Add(this.labeHomepageURL);
             this.Controls.Add(this.linkLabelViewWeblog);
@@ -198,7 +194,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
 
         }
-
 
     }
 }

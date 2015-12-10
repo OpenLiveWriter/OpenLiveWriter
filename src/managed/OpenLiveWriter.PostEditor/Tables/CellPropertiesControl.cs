@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor.Tables
         private System.Windows.Forms.GroupBox groupBoxCells;
         private OpenLiveWriter.PostEditor.Tables.VerticalAlignmentControl verticalAlignmentControl;
         private OpenLiveWriter.PostEditor.Tables.HorizontalAlignmentControl horizontalAlignmentControl;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -58,7 +58,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         public CellProperties CellProperties
         {
             get
@@ -82,13 +81,12 @@ namespace OpenLiveWriter.PostEditor.Tables
                 verticalAlignmentControl.VerticalAlignment = cellProperties.VerticalAlignment;
             }
         }
-        // NOTE: right now we don't support editing of cell color so we just have a member 
+        // NOTE: right now we don't support editing of cell color so we just have a member
         // variable that tracks the value which was set -- we simply return this same
         // value when the caller does a get
         private CellColor _cellColor;
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -104,8 +102,8 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -115,9 +113,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.horizontalAlignmentControl = new OpenLiveWriter.PostEditor.Tables.HorizontalAlignmentControl();
             this.groupBoxCells.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // groupBoxCells
-            // 
+            //
             this.groupBoxCells.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -130,9 +128,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.groupBoxCells.TabIndex = 2;
             this.groupBoxCells.TabStop = false;
             this.groupBoxCells.Text = "Cells";
-            // 
+            //
             // verticalAlignmentControl
-            // 
+            //
             this.verticalAlignmentControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.verticalAlignmentControl.Location = new System.Drawing.Point(15, 56);
@@ -140,9 +138,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.verticalAlignmentControl.Size = new System.Drawing.Size(283, 21);
             this.verticalAlignmentControl.TabIndex = 1;
             this.verticalAlignmentControl.VerticalAlignment = OpenLiveWriter.PostEditor.Tables.VerticalAlignment.Middle;
-            // 
+            //
             // horizontalAlignmentControl
-            // 
+            //
             this.horizontalAlignmentControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.horizontalAlignmentControl.HorizontalAlignment = OpenLiveWriter.PostEditor.Tables.HorizontalAlignment.Left;
@@ -150,9 +148,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.horizontalAlignmentControl.Name = "horizontalAlignmentControl";
             this.horizontalAlignmentControl.Size = new System.Drawing.Size(283, 21);
             this.horizontalAlignmentControl.TabIndex = 0;
-            // 
+            //
             // CellPropertiesControl
-            // 
+            //
             this.Controls.Add(this.groupBoxCells);
             this.Name = "CellPropertiesControl";
             this.Size = new System.Drawing.Size(304, 136);

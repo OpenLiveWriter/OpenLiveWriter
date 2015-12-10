@@ -38,7 +38,6 @@ namespace OpenLiveWriter.Mshtml
             [Out] out ISelectionServicesListener ppISelectionServicesListener);
     }
 
-
     /// <summary>
     /// Enumeration that describes the selection type
     /// </summary>

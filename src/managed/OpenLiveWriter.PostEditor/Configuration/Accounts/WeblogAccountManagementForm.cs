@@ -58,9 +58,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
 			this.buttonClose = new System.Windows.Forms.Button();
 			this.weblogAccountManagementControl1 = new OpenLiveWriter.PostEditor.Configuration.Accounts.WeblogAccountManagementControl();
 			this.SuspendLayout();
-			// 
+			//
 			// buttonClose
-			// 
+			//
 			this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -68,9 +68,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
 			this.buttonClose.Name = "buttonClose";
 			this.buttonClose.TabIndex = 1;
 			this.buttonClose.Text = "Close";
-			// 
+			//
 			// weblogAccountManagementControl1
-			// 
+			//
 			this.weblogAccountManagementControl1.BlogSettingsEditors = null;
 			this.weblogAccountManagementControl1.EditingSite = null;
 			this.weblogAccountManagementControl1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
@@ -78,9 +78,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
 			this.weblogAccountManagementControl1.Name = "weblogAccountManagementControl1";
 			this.weblogAccountManagementControl1.Size = new System.Drawing.Size(345, 245);
 			this.weblogAccountManagementControl1.TabIndex = 0;
-			// 
+			//
 			// WeblogAccountManagementForm
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
 			this.CancelButton = this.buttonClose;
 			this.ClientSize = new System.Drawing.Size(362, 294);

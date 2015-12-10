@@ -18,12 +18,12 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 	public class HiddenMenuFrameManager : IFrameManager
 	{
 		private static event EventHandler AlwaysShowMenuChanged;
-		
+
 		private SatelliteApplicationForm _form;
 		private ColorizedResources res = ColorizedResources.Instance;
 		private Timer _mouseFrameTimer;
-		
-		
+
+
 		private bool _inMenuLoop;
 		private bool _forceMenu = false;
 		private bool _alwaysShowMenu;
@@ -38,22 +38,22 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 		public HiddenMenuFrameManager(SatelliteApplicationForm form)
 		{
 			_alwaysShowMenu = AlwaysShowMenu;
-			
+
 			_form = form;
 			_form.Load +=new EventHandler(_form_Load);
-			
+
 			_mouseFrameTimer = new Timer();
 			_mouseFrameTimer.Interval = 100;
 			_mouseFrameTimer.Tick += new EventHandler(_mouseFrameTimer_Tick);
-			
+
 			_commandShowMenu = new Command(CommandId.ShowMenu);
 			_commandShowMenu.Latched = AlwaysShowMenu;
 			_commandShowMenu.Execute += new EventHandler(commandShowMenu_Execute);
 			ApplicationManager.CommandManager.Add(_commandShowMenu);
-			
+
 			ColorizedResources.GlobalColorizationChanged += new EventHandler(ColorizedResources_GlobalColorizationChanged);
 			_form.Disposed += new EventHandler(_form_Disposed);
-			
+
 			AlwaysShowMenuChanged += new EventHandler(HiddenMenuFrameManager_AlwaysShowMenuChanged);
 		}
 
@@ -69,7 +69,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				case WM.NCHITTEST:
 				{
 					Point p = _form.PointToClient(new Point(m.LParam.ToInt32()));
-			
+
 					if (_form.ClientRectangle.Contains(p))
 					{
 						// gripper
@@ -84,10 +84,10 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 							return true ;
 						}
 					}
-					
+
 					break;
 				}
-				
+
 				case WM.ENTERMENULOOP:
 					_inMenuLoop = true;
 					ForceMenu = true;
@@ -102,7 +102,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			}
 			return false;
 		}
-		
+
 		private bool ForceMenu
 		{
 			get { return _forceMenu; }
@@ -112,22 +112,22 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				{
 					// set value
 					_forceMenu = value;
-				
+
 					// update appearance
 					UpdateMenuVisibility();
-			
+
 					// attempt to force accelerators (this isn't working!)
 					/*
 					int stateChange = _forceFrame ? UIS.CLEAR : UIS.SET ;
 					User32.SendMessage(_form.Handle, WM.CHANGEUISTATE, new UIntPtr(Convert.ToUInt32(
-						MessageHelper.MAKELONG(stateChange, UISF.HIDEACCEL).ToInt32())), IntPtr.Zero);					
+						MessageHelper.MAKELONG(stateChange, UISF.HIDEACCEL).ToInt32())), IntPtr.Zero);
 					//_form.Update();
 					*/
 				}
 			}
 		}
 
-		
+
 		public static bool AlwaysShowMenu
 		{
 			get { return ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("Appearance").GetBoolean(SatelliteApplicationForm.SHOW_FRAME_KEY, false); }
@@ -138,14 +138,14 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 					AlwaysShowMenuChanged(null, EventArgs.Empty);
 			}
 		}
-		
-	
-		
+
+
+
 		private void UpdateMenuVisibility()
 		{
 			//_form.ShowMainMenu =  _alwaysShowMenu || _forceMenu ;
 		}
-		
+
 
 		public void PaintBackground(PaintEventArgs e)
 		{
@@ -158,15 +158,15 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			int width = _form.ClientSize.Width;
 			int height = _form.ClientSize.Height;
 
-			
+
 			using (Brush b = new SolidBrush(light))
 				g.FillRectangle(b, 0, 0, width, height);
-			
-	
+
+
 			g.CompositingMode = CompositingMode.SourceOver;
 			g.CompositingQuality = CompositingQuality.HighSpeed;
 
-			
+
 			Rectangle bodyFrameRect = new Rectangle(
 				_form.DockPadding.Left - 5,
 				_form.DockPadding.Top,
@@ -174,8 +174,8 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				_form.ClientSize.Height - _form.DockPadding.Top - _form.DockPadding.Bottom + 7);
 			if (e.ClipRectangle.IntersectsWith(bodyFrameRect))
 				res.AppBodyFrameBorder.DrawBorder(g, bodyFrameRect);
-			
-				
+
+
 			Rectangle toolbarRect = new Rectangle(
 				_form.DockPadding.Left - 1,
 				_form.DockPadding.Top,
@@ -185,15 +185,15 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			if (e.ClipRectangle.IntersectsWith(toolbarRect))
 				res.ToolbarBorder.DrawBorder(g, toolbarRect);
 
-				
+
 			g.CompositingQuality = CompositingQuality.HighQuality;
 
 			// gripper
 			g.DrawImage(res.GripperImage, width - 15, height - 15, res.GripperImage.Width, res.GripperImage.Height);
-			
+
 		}
 
-		
+
 		private void _mouseFrameTimer_Tick(object sender, EventArgs e)
 		{
 			if (_inMenuLoop)
@@ -217,7 +217,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				!_form.ClientRectangle.Contains(_form.PointToClient(Control.MousePosition));
 		}
 
-
 		private void ColorizedResources_GlobalColorizationChanged(object sender, EventArgs e)
 		{
 			try
@@ -232,7 +231,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				Trace.Fail(ex.ToString());
 			}
 		}
-		
+
 		private void RefreshColors()
 		{
 			ColorizedResources colRes = ColorizedResources.Instance;
@@ -253,14 +252,14 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 			AlwaysShowMenuChanged -= new EventHandler(HiddenMenuFrameManager_AlwaysShowMenuChanged);
 		}
 
-		
+
 		private void HiddenMenuFrameManager_AlwaysShowMenuChanged(object sender, EventArgs e)
 		{
 			if (_form.IsDisposed)
 			{
 				return;
 			}
-			
+
 			if (_form.InvokeRequired)
 			{
 				_form.BeginInvoke(new EventHandler(HiddenMenuFrameManager_AlwaysShowMenuChanged), new object[] {sender, e});
@@ -277,7 +276,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 				commandMenu.On = !_alwaysShowMenu;
 		}
 
-		
+
 		public void AddOwnedForm(Form f)
 		{
 			User32.SendMessage(_form.Handle, WM.ACTIVATE, new UIntPtr(1), IntPtr.Zero ) ;
@@ -289,6 +288,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
 		public void RemoveOwnedForm(Form f)
 		{
 		}
-		
+
 	}
 }

@@ -19,7 +19,6 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         #region Static & Constant Declarations
 
 
-
         #endregion Static & Constant Declarations
 
         #region Private Member Variables
@@ -47,7 +46,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         private ManualResetEvent settingsChangedEvent = null;
 
         /// <summary>
-        /// State variable that indicates we have disabled change monitoring 
+        /// State variable that indicates we have disabled change monitoring
         /// (normally because a very unexpected error has occurred during change
         /// monitoring initialization)
         /// </summary>
@@ -201,7 +200,6 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
 
         #region Private Methods
 
-
         /// <summary>
         /// Configure change monitoring for this prefs object
         /// </summary>
@@ -235,20 +233,19 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             catch (Exception e)
             {
                 // Just being super-paranoid here because this code is likely be called during
-                // application initialization -- if ANY type of error occurs then we disable 
+                // application initialization -- if ANY type of error occurs then we disable
                 // change monitoring for the life of this object
                 Trace.WriteLine("Unexpected error occurred during change monitor configuration: " + e.Message + "\r\n" + e.StackTrace);
                 changeMonitoringDisabled = true;
             }
         }
 
-
         /// <summary>
         /// Monitor changes in the registry key for this prefs object
         /// </summary>
         private void MonitorChanges()
         {
-            // reset the settings changed event so it will not be signaled until 
+            // reset the settings changed event so it will not be signaled until
             // a change is made to the specified key
             settingsChangedEvent.Reset();
 
@@ -281,7 +278,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             // check to see whether any changes have occurred
             try
             {
-                // if the settings changed event is signaled then reload preferences 
+                // if the settings changed event is signaled then reload preferences
                 if (settingsChangedEvent.WaitOne(0, false))
                 {
                     //	Reload.

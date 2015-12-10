@@ -48,7 +48,6 @@ namespace OpenLiveWriter.CoreServices.Layout
             get { return c.Visible; }
         }
 
-
         public override int Bottom
         {
             get { return c.Bottom; }
@@ -106,7 +105,6 @@ namespace OpenLiveWriter.CoreServices.Layout
         {
             get { return true; }
         }
-
 
         public override int Bottom
         {

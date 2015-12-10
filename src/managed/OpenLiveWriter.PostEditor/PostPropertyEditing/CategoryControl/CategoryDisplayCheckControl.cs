@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
 	internal class CategorySelectorControlFactory
 	{
-		
+
 		private static CategorySelectorControlFactory _categorySelectionControlFactory;
 
 		public static CategorySelectorControlFactory Instance
@@ -63,7 +63,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			FlatStyle = FlatStyle.System;
 			_category = category;
 		}
-		
+
 		protected override void OnCreateControl()
 		{
 			base.OnCreateControl();
@@ -73,7 +73,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			using ( Graphics g = CreateGraphics() )
 				Height = Math.Max((int)Math.Ceiling(DisplayHelper.ScaleY(18)), Convert.ToInt32(Font.GetHeight(g)));
 		}
-		
+
 		#region ICategorySelectorControl Members
 
 		public BlogPostCategory Category
@@ -116,7 +116,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		#endregion
 
 	}
-
 
 	internal class CategoryCheckSelectorControl : CheckBox, ICategorySelectorControl
 	{
@@ -124,9 +123,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		{
 			FlatStyle = FlatStyle.System;
 			_category = category;
-			
+
 		}
-		
+
 		protected override void OnCreateControl()
 		{
 			base.OnCreateControl();
@@ -136,7 +135,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			using ( Graphics g = CreateGraphics() )
 				Height = Math.Max((int)Math.Ceiling(DisplayHelper.ScaleY(18)), Convert.ToInt32(Font.GetHeight(g)));
 		}
-
 
 		#region ICategorySelectorControl Members
 
@@ -160,7 +158,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				Checked = value;
 			}
 		}
-		
+
 		public Control Control
 		{
 			get
@@ -178,9 +176,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		}
 
 
-
 		#endregion
 	}
-
 
 }

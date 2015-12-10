@@ -204,7 +204,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 
         }
 
-
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
@@ -413,7 +412,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         private const string HTTP_PREFIX = "http://";
 
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -456,9 +454,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.btnOptionsToolTip = new ToolTip2(components);
             this.ckBoxGlossary = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
-            // 
+            //
             // buttonInsert
-            // 
+            //
             this.buttonInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInsert.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonInsert.Location = new System.Drawing.Point(370, 10);
@@ -467,9 +465,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.buttonInsert.TabIndex = 12;
             this.buttonInsert.Text = "OK";
             this.buttonInsert.Click += new System.EventHandler(this.buttonOk_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -478,9 +476,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 13;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // bevel
-            // 
+            //
             this.bevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.bevel.Location = new System.Drawing.Point(6, 191);
@@ -488,9 +486,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.bevel.Name = "bevel";
             this.bevel.Size = new System.Drawing.Size(435, 4);
             this.bevel.TabIndex = 0;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -499,9 +497,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.label1.Size = new System.Drawing.Size(312, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "&URL:";
-            // 
+            //
             // textBoxAddress
-            // 
+            //
             this.textBoxAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAddress.Location = new System.Drawing.Point(10, 28);
@@ -509,9 +507,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.textBoxAddress.Size = new System.Drawing.Size(258, 21);
             this.textBoxAddress.TabIndex = 2;
             this.textBoxAddress.TextChanged += new System.EventHandler(this.textBoxAddress_TextChanged);
-            // 
+            //
             // labelLinkText
-            // 
+            //
             this.labelLinkText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelLinkText.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -520,9 +518,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.labelLinkText.Size = new System.Drawing.Size(312, 15);
             this.labelLinkText.TabIndex = 4;
             this.labelLinkText.Text = "Te&xt:";
-            // 
+            //
             // textBoxLinkText
-            // 
+            //
             this.textBoxLinkText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxLinkText.Location = new System.Drawing.Point(10, 73);
@@ -530,9 +528,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.textBoxLinkText.Size = new System.Drawing.Size(351, 21);
             this.textBoxLinkText.TabIndex = 5;
             this.textBoxLinkText.TextChanged += new System.EventHandler(this.textBoxLinkText_TextChanged);
-            // 
+            //
             // labelTitle
-            // 
+            //
             this.labelTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -541,9 +539,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.labelTitle.Size = new System.Drawing.Size(341, 15);
             this.labelTitle.TabIndex = 8;
             this.labelTitle.Text = "&Title:";
-            // 
+            //
             // textBoxTitle
-            // 
+            //
             this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTitle.Location = new System.Drawing.Point(10, 223);
@@ -551,9 +549,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.textBoxTitle.Size = new System.Drawing.Size(351, 21);
             this.textBoxTitle.TabIndex = 9;
             this.textBoxTitle.TextChanged += new System.EventHandler(this.textBoxTitle_TextChanged);
-            // 
+            //
             // labelRel
-            // 
+            //
             this.labelRel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelRel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -562,9 +560,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.labelRel.Size = new System.Drawing.Size(341, 15);
             this.labelRel.TabIndex = 10;
             this.labelRel.Text = "R&el:";
-            // 
+            //
             // comboBoxRel
-            // 
+            //
             this.comboBoxRel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxRel.Location = new System.Drawing.Point(10, 268);
@@ -572,9 +570,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.comboBoxRel.Rel = "";
             this.comboBoxRel.Size = new System.Drawing.Size(351, 21);
             this.comboBoxRel.TabIndex = 11;
-            // 
+            //
             // ckboxNewWindow
-            // 
+            //
             this.ckboxNewWindow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ckboxNewWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -583,9 +581,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.ckboxNewWindow.Size = new System.Drawing.Size(430, 22);
             this.ckboxNewWindow.TabIndex = 6;
             this.ckboxNewWindow.Text = "&Open link in new window";
-            // 
+            //
             // btnOptions
-            // 
+            //
             this.btnOptions.AccessibleName = "&Link to";
             this.btnOptions.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
             this.btnOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -599,20 +597,20 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.btnOptions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOptionsToolTip.SetToolTip(this.btnOptions, "Browse for link");
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
-            // 
+            //
             // btnAdvanced
-            // 
+            //
             this.btnAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnAdvanced.Location = new System.Drawing.Point(331, 159);
             this.btnAdvanced.Name = "btnAdvanced";
             this.btnAdvanced.Size = new System.Drawing.Size(114, 23);
             this.btnAdvanced.TabIndex = 15;
-            this.btnAdvanced.Text = "&Advanced »";
+            this.btnAdvanced.Text = "&Advanced Â»";
             this.btnAdvanced.Click += new System.EventHandler(this.btnAdvanced_Click);
-            // 
+            //
             // btnRemove
-            // 
+            //
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemove.DialogResult = System.Windows.Forms.DialogResult.No;
             this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -621,9 +619,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.btnRemove.Size = new System.Drawing.Size(114, 23);
             this.btnRemove.TabIndex = 14;
             this.btnRemove.Text = "&Remove Link";
-            // 
+            //
             // ckBoxGlossary
-            // 
+            //
             this.ckBoxGlossary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ckBoxGlossary.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -632,9 +630,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.ckBoxGlossary.Size = new System.Drawing.Size(430, 22);
             this.ckBoxGlossary.TabIndex = 7;
             this.ckBoxGlossary.Text = " ";
-            // 
+            //
             // HyperlinkForm
-            // 
+            //
             this.AcceptButton = this.buttonInsert;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(452, 300);

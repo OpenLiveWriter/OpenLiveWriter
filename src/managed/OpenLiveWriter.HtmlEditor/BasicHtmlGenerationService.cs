@@ -85,7 +85,6 @@ namespace OpenLiveWriter.HtmlEditor
             return html;
         }
 
-
         public virtual string GenerateHtmlFromPlainText(string text)
         {
             return TextHelper.GetHTMLFromText(text, true, _defaultBlockElement);
@@ -124,7 +123,6 @@ namespace OpenLiveWriter.HtmlEditor
             {
                 Emit(el.ToString());
             }
-
 
             protected override void OnBeginTag(BeginTag tag)
             {

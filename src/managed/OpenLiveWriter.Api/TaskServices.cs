@@ -19,7 +19,7 @@ namespace OpenLiveWriter.Api
     public delegate TResult Task<TParam, TResult>(TParam arg);
 
     /// <summary>
-    /// Encapsulates a method that takes no parameters and does not 
+    /// Encapsulates a method that takes no parameters and does not
     /// directly return a value.
     /// </summary>
     public delegate void Task();
@@ -32,12 +32,12 @@ namespace OpenLiveWriter.Api
         /// <summary>
         /// Executes a potentially long-running task on a background thread
         /// while keeping the UI thread running responsively. This method
-        /// does not return until the task has completed executing. Any 
-        /// exception thrown by the task will be re-thrown on the calling 
+        /// does not return until the task has completed executing. Any
+        /// exception thrown by the task will be re-thrown on the calling
         /// thread.
         /// </summary>
         /// <remarks>
-        /// This method is designed to keep message loops running 
+        /// This method is designed to keep message loops running
         /// responsively. If the current thread does not have an active
         /// message loop, the task is simply executed on the current thread.
         /// </remarks>
@@ -54,15 +54,15 @@ namespace OpenLiveWriter.Api
         /// <summary>
         /// <para>Executes a potentially long-running task on a background thread
         /// while keeping the UI thread running responsively. This method
-        /// does not return until the task has completed executing. Any 
-        /// exception thrown by the task will be re-thrown on the calling 
-        /// thread.</para> 
+        /// does not return until the task has completed executing. Any
+        /// exception thrown by the task will be re-thrown on the calling
+        /// thread.</para>
         /// <para>This overload takes an argument and returns a result.
         /// The argument is passed to the task, and the value returned
         /// by the task is returned by this method.</para>
         /// </summary>
         /// <remarks>
-        /// This method is designed to keep message loops running 
+        /// This method is designed to keep message loops running
         /// responsively. If the current thread does not have an active
         /// message loop, the task is simply executed on the current thread.
         /// </remarks>
@@ -78,7 +78,6 @@ namespace OpenLiveWriter.Api
         public static TResult ExecuteWithResponsiveUI<TParam, TResult>(TParam arg, Task<TParam, TResult> task)
         {
             TResult result = default(TResult);
-
 
             if (Application.MessageLoop)
             {

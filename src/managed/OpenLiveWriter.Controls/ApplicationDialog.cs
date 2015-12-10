@@ -53,7 +53,6 @@ namespace OpenLiveWriter.Controls
         }
 
 
-
         /// <summary>
         /// Handle OnLoad -- set standard icon
         /// </summary>
@@ -70,7 +69,6 @@ namespace OpenLiveWriter.Controls
             if (owner != null)
                 this.TopMost = owner.TopMost;
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -94,9 +92,9 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // ApplicationDialog
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(292, 286);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

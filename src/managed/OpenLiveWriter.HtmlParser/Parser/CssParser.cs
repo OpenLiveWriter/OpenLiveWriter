@@ -102,7 +102,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
                         if (ParseMethods.SubstringMatchIgnoreCase(data, pos - 1, end, IMPORT))
                         {
                             // We play a little fast and loose with CSS here.  Technically
-                            // it's possible for "@import" to be immediately followed by 
+                            // it's possible for "@import" to be immediately followed by
                             // something besides a whitespace char and still be valid, but
                             // we will not recognize those cases as @import statements,
                             // except when the following char is a quote.

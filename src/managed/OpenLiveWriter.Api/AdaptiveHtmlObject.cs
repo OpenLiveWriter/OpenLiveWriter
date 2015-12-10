@@ -12,7 +12,7 @@ namespace OpenLiveWriter.Api
 {
     /// <summary>
     /// <para>
-    /// Generates HTML for an object tag which will be included on the page only if 
+    /// Generates HTML for an object tag which will be included on the page only if
     /// script is enabled in the environment where the page is rendered. If script is
     /// not enabled then a preview image which links to an external web-page is included
     /// on the page.
@@ -22,7 +22,7 @@ namespace OpenLiveWriter.Api
     /// target publishing environment or if you expect the content to be viewed in
     /// more than one environment (e.g. weblog article within the browser and RSS
     /// feed item within a feed reader).
-    /// </para> 
+    /// </para>
     /// </summary>
     public class AdaptiveHtmlObject
     {
@@ -72,8 +72,8 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// <para>Size which the preview-image should be rendered at.</para>
-        /// <para>This property should only be specified if you wish to render the image at 
-        /// size different from its actual size (the image will be scaled by the browser to 
+        /// <para>This property should only be specified if you wish to render the image at
+        /// size different from its actual size (the image will be scaled by the browser to
         /// the specified size.</para>
         /// </summary>
         public Size PreviewImageSize
@@ -132,7 +132,7 @@ namespace OpenLiveWriter.Api
             onLoadScript = HtmlServices.HtmlEncode(onLoadScript);
             string onLoadAttribute = String.Format(CultureInfo.InvariantCulture, "onload=\"{0}\"", onLoadScript);
 
-            // generate the upgradable image html 
+            // generate the upgradable image html
             StringBuilder downgradableHtml = new StringBuilder();
             downgradableHtml.AppendFormat(CultureInfo.InvariantCulture, "<div id=\"{0}\" style=\"margin: 0px; padding: 0px; display: inline;\">", containerId);
             downgradableHtml.Append(GenerateHtml(onLoadAttribute));
@@ -183,5 +183,4 @@ namespace OpenLiveWriter.Api
         AdaptiveHtml
     }
 }
-
 

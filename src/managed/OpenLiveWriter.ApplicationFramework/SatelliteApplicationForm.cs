@@ -26,13 +26,13 @@ namespace OpenLiveWriter.ApplicationFramework
         //protected IFrameManager _framelessManager;
 
         /// <summary>
-        /// Pixel inset for workspace (allow derived classes to do custom layout within 
+        /// Pixel inset for workspace (allow derived classes to do custom layout within
         /// their workspace with knowledge of the border width)
         /// </summary>
         public static readonly int WorkspaceInset = 0;
 
         /// <summary>
-        /// Create and open a satellite application form 
+        /// Create and open a satellite application form
         /// </summary>
         /// <param name="applicationFormType"></param>
         /// <param name="parameters"></param>
@@ -41,7 +41,6 @@ namespace OpenLiveWriter.ApplicationFramework
             Launcher launcher = new Launcher(applicationFormType, parameters);
             launcher.OpenForm();
         }
-
 
         public SatelliteApplicationForm()
         {
@@ -114,8 +113,8 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             // WinLive 40828: Writer window's height keeps growing when each time Writer window is restored.
             // This is a hack.
-            // For some unknown reason after we have the ribbon hooked up, the height parameter passed to this 
-            // method when the form is restored from a minimized/maximized state is ~30px too large (depending   
+            // For some unknown reason after we have the ribbon hooked up, the height parameter passed to this
+            // method when the form is restored from a minimized/maximized state is ~30px too large (depending
             // on DPI). However, the this.Height property is correct, so we can just use it instead.
             int newHeight = (ribbonLoaded && restoring) ? this.Height : height;
             base.SetBoundsCore(x, y, width, newHeight, specified);
@@ -123,14 +122,14 @@ namespace OpenLiveWriter.ApplicationFramework
 
         /// <summary>
         /// Initialize the state of the workspace -- only override this for advanced
-        /// customization of the workspace. The default implementation queries the  
-        /// the subclass for the UI to initialize with via the FirstCommandBarDefinition, 
+        /// customization of the workspace. The default implementation queries the
+        /// the subclass for the UI to initialize with via the FirstCommandBarDefinition,
         /// SecondCommandBarDefinition, and PrimaryControl properties
         /// </summary>
         protected virtual void OnInitializeWorkspace()
         {
             // Hmm.  How to do this?
-            // 
+            //
             _mainControl = CreateMainControl();
 
             //CommandBarLightweightControl commandBar = new ApplicationCommandBarLightweightControl();
@@ -142,9 +141,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
             //_commandBarControl.Dock = DockStyle.Top;
 
-
             PositionMainControl();
-
 
             //Controls.Add(_commandBarControl);
             Controls.Add(_mainControl);
@@ -162,7 +159,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 SIDE_PADDING = 0;
                 BOTTOM_PADDING = ScaleY(0);//25) ;
             }
-
 
             DockPadding.Top = TOP_PADDING;
             DockPadding.Left = SIDE_PADDING;
@@ -267,7 +263,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         // overrideable methods used to customize the UI of the satellite form
         //protected virtual CommandBarDefinition FirstCommandBarDefinition { get { return null; }	}
 
@@ -280,7 +275,6 @@ namespace OpenLiveWriter.ApplicationFramework
         //{
         //    get{ return _commandBarControl; }
         //}
-
 
         // overrieable processing methods
         protected virtual void OnBackgroundTimerTick() { }
@@ -329,7 +323,6 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
 
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -356,7 +349,7 @@ namespace OpenLiveWriter.ApplicationFramework
         //private TransparentCommandBarControl _commandBarControl;
 
         /// <summary>
-        /// Helper class which manages creating a new thread for the form and 
+        /// Helper class which manages creating a new thread for the form and
         /// creating and running the form on that thread
         /// </summary>
         private class Launcher
@@ -366,7 +359,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 _formType = formType;
                 _parameters = parameters;
             }
-
 
             public void OpenForm()
             {
@@ -393,7 +385,6 @@ namespace OpenLiveWriter.ApplicationFramework
                     }
                 }
             }
-
 
             [STAThread]
             private void ThreadMain(object[] parameters)

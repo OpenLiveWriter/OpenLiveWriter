@@ -37,9 +37,9 @@ namespace OpenLiveWriter.Controls
             this.labelSubheading = new System.Windows.Forms.Label();
             this.panelBackground.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = FlatStyle.System;
@@ -49,9 +49,9 @@ namespace OpenLiveWriter.Controls
             this.buttonCancel.TabIndex = 0;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
+            //
             // labelHeading
-            // 
+            //
             this.labelHeading.AutoSize = true;
             this.labelHeading.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelHeading.Location = new System.Drawing.Point(20, 19);
@@ -59,9 +59,9 @@ namespace OpenLiveWriter.Controls
             this.labelHeading.Size = new System.Drawing.Size(38, 15);
             this.labelHeading.TabIndex = 0;
             this.labelHeading.Text = "label1";
-            // 
+            //
             // panelBackground
-            // 
+            //
             this.panelBackground.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -74,16 +74,16 @@ namespace OpenLiveWriter.Controls
             this.panelBackground.Name = "panelBackground";
             this.panelBackground.Size = new System.Drawing.Size(410, 230);
             this.panelBackground.TabIndex = 4;
-            // 
+            //
             // panelOptions
-            // 
+            //
             this.panelOptions.Location = new System.Drawing.Point(35, 67);
             this.panelOptions.Name = "panelOptions";
             this.panelOptions.Size = new System.Drawing.Size(239, 135);
             this.panelOptions.TabIndex = 2;
-            // 
+            //
             // labelSubheading
-            // 
+            //
             this.labelSubheading.AutoSize = true;
             this.labelSubheading.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelSubheading.Location = new System.Drawing.Point(22, 34);
@@ -91,9 +91,9 @@ namespace OpenLiveWriter.Controls
             this.labelSubheading.Size = new System.Drawing.Size(38, 15);
             this.labelSubheading.TabIndex = 1;
             this.labelSubheading.Text = "label2";
-            // 
+            //
             // ChoiceDialog
-            // 
+            //
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(406, 272);
             this.Controls.Add(this.buttonCancel);

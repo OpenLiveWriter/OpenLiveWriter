@@ -81,7 +81,7 @@ namespace OpenLiveWriter.ApplicationFramework
             Visible = false;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -99,16 +99,16 @@ namespace OpenLiveWriter.ApplicationFramework
         #endregion Class Initialization & Termination
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            // 
+            //
             // TabPageControl
-            // 
+            //
             this.Name = "TabPageControl";
             this.Size = new System.Drawing.Size(268, 298);
 

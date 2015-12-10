@@ -38,7 +38,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         string LoginSavePasswordText { get; }
         string ServiceUrl { get; }
 
-
     }
 
     #region YouTubeAuth : IAuth

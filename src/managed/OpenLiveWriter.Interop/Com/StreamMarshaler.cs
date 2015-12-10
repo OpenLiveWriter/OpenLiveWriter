@@ -12,7 +12,7 @@ namespace OpenLiveWriter.Interop.Com
     /// Provides a custom marshaller for working with .NET stream and COM IStreams.
     /// For a detailed explanation of the methods, see the documentation
     /// for ICustomerMarshaler.
-    /// 
+    ///
     /// Based upon the StreamMarshaler implementation example found in
     /// Adam Nathan's ".NET and COM: The Complete Iteroperability Guide" Page 901.
     /// </summary>
@@ -32,7 +32,6 @@ namespace OpenLiveWriter.Interop.Com
             return marshaler;
         }
         static StreamMarshaler marshaler = null;
-
 
         // Marshal Native to Managed
         /// <summary>
@@ -68,7 +67,6 @@ namespace OpenLiveWriter.Interop.Com
         {
             return -1;
         }
-
 
 
         // Marshal Managed to Native

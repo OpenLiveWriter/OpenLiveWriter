@@ -22,7 +22,7 @@ namespace OpenLiveWriter.FileDestinations
 
         /// <summary>
         /// Determines whether file transfer operations should retry
-        /// given an exception. 
+        /// given an exception.
         /// </summary>
         /// <param name="e">The exception that has occurred</param>
         /// <returns>True indicates to retry operation, otherwise false</returns>

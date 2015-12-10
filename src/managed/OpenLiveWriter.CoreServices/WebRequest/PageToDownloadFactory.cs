@@ -106,7 +106,6 @@ namespace OpenLiveWriter.CoreServices
             if (progress.CancelRequested)
                 throw new OperationCancelledException();
 
-
             _currentDepth++;
             ArrayList downloadedPages = new ArrayList();
 
@@ -138,7 +137,6 @@ namespace OpenLiveWriter.CoreServices
                 }
                 _headerInfo.Add(safeUrl, headerInfo);
             }
-
 
             // If this is a web page and we should download it, do it!
             if ((lightWeightDocument != null && IsDownloadablePageResource(headerInfo)) ||
@@ -197,7 +195,6 @@ namespace OpenLiveWriter.CoreServices
                         else
                             thisPageToDownload = (PageToDownload)_context.CreatedPageToDownloadTable[safeUrl];
 
-
                         // If we're downloading a site, add a second copy of the root page in the references subdir
                         // This was, if the root page gets renamed, links back to it will still work correctly
                         // This is a bit of a hack, but otherwise, we'll need to escape urls whenever we output
@@ -208,13 +205,11 @@ namespace OpenLiveWriter.CoreServices
                             downloadedPages.Add(copyOfThisPageToDownload);
                         }
 
-
                         // enumerate the frames of this page and add them to the list of pages
                         PageToDownload[] subFramesToDownload = GetFramePagesToDownload(thisPageToDownload);
                         downloadedPages.AddRange(subFramesToDownload);
                         foreach (PageToDownload pageToDownload in subFramesToDownload)
                             _context.AddPageToDownload(pageToDownload.AbsoluteUrl, pageToDownload, false);
-
 
                         // Now drill down based upon the depth configuration
                         if (_context.ShouldContinue(_currentDepth))
@@ -426,7 +421,6 @@ namespace OpenLiveWriter.CoreServices
             else
                 Errors.Add(e);
         }
-
 
         #region IDisposable Members
 

@@ -71,7 +71,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
         }
         private BlogPostCategory[] _selectedCategories = new BlogPostCategory[0];
 
-
         public BlogPostCategory[] BlogCategories
         {
             get { return _blogCategories.ToArray(typeof(BlogPostCategory)) as BlogPostCategory[]; }
@@ -141,7 +140,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             // notify of change
             DoChange(ChangeType.Category);
         }
-
 
         public string Text
         {
@@ -239,7 +237,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
         }
         private IBlogCategorySettings _blogCategorySettings;
 
-
         public event CategoryChangedEventHandler Changed;
         protected virtual void OnChanged(object sender, CategoryChangedEventArgs e)
         {
@@ -252,7 +249,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             ArrayList updatedCategoryList = new ArrayList();
 
             // for each potential selection, validate that there is an existing category
-            // with the same id or name and "match" it by adding the category to our 
+            // with the same id or name and "match" it by adding the category to our
             // list of selected categories
             foreach (BlogPostCategory selectedCategory in selectedCategories)
             {
@@ -337,7 +334,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             return new BlogPostCategoryListItem(Category, IndentLevel, Children.Clone() as ArrayList);
         }
 
-
         public static BlogPostCategoryListItem[] BuildList(BlogPostCategory[] categories, bool flatten)
         {
             // acculate available parents
@@ -414,6 +410,5 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
         }
 
     }
-
 
 }

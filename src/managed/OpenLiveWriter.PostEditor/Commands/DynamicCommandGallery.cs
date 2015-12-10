@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -16,7 +16,7 @@ namespace OpenLiveWriter.PostEditor.Commands
     /// This is a specific type of GalleryCommand that is equivalent to 'command' type galleries in ribbon
     /// as opposed to 'item' type gallery that GalleryCommand implements
     /// Each item in this gallery command has a corresponding Command with a valid .CommandId
-    /// Note: This is a simplistic implementation of 'command gallery' with-in the current CommandManager 
+    /// Note: This is a simplistic implementation of 'command gallery' with-in the current CommandManager
     /// architecture. A true command gallery in ribbon supports dynamic commands, but to support such a system
     /// CommandManager needs to be updated to support the concept of dynamic commandId, a potential MQ work item.
     /// </summary>

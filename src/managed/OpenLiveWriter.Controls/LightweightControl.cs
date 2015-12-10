@@ -820,7 +820,7 @@ namespace OpenLiveWriter.Controls
 
         #endregion Class Initialization & Termination
 
-        #region Public Properties		
+        #region Public Properties
         /// <summary>
         /// Gets or sets a value indicating whether the lightweight control is a tab stop.
         /// </summary>
@@ -1813,7 +1813,7 @@ namespace OpenLiveWriter.Controls
             //	Raise the event.
             OnVirtualLocationChanged(e);
 
-            //	Raise the LightweightControlContainerControlVirtualLocationChanged event on each 
+            //	Raise the LightweightControlContainerControlVirtualLocationChanged event on each
             //	child control.
             foreach (LightweightControl lightweightControl in lightweightControls)
                 lightweightControl.OnLightweightControlContainerControlVirtualLocationChanged(e);
@@ -2112,7 +2112,6 @@ namespace OpenLiveWriter.Controls
             RaiseEvent(VisibleChangedEventKey, e);
         }
 
-
         /// <summary>
         /// Raises the VirtualSizeChanged event.
         /// </summary>
@@ -2131,7 +2130,7 @@ namespace OpenLiveWriter.Controls
             //	Raise the event.
             RaiseEvent(VirtualLocationChangedEventKey, e);
 
-            //	Raise the LightweightControlContainerControlVirtualLocationChanged event on each 
+            //	Raise the LightweightControlContainerControlVirtualLocationChanged event on each
             //	child control.
             foreach (LightweightControl lightweightControl in lightweightControls)
                 lightweightControl.OnLightweightControlContainerControlVirtualLocationChanged(e);
@@ -2149,7 +2148,6 @@ namespace OpenLiveWriter.Controls
             }
             return focusedControl;
         }
-
 
         private bool _focused;
         public bool Focused
@@ -2218,7 +2216,6 @@ namespace OpenLiveWriter.Controls
             return false;
         }
 
-
         protected string AccessibleDefaultAction
         {
             get { return accessibleDefaultAction; }
@@ -2232,7 +2229,6 @@ namespace OpenLiveWriter.Controls
             set { _accessibleName = value; }
         }
         private string _accessibleName;
-
 
         protected AccessibleRole AccessibleRole
         {
@@ -2328,7 +2324,6 @@ namespace OpenLiveWriter.Controls
                     AccessibleStates states = AccessibleStates.Focusable;
                     if (_control.Focused)
                         states = states | AccessibleStates.Focused;
-
 
                     if (!IsControlVisible(_control))
                         states = states | AccessibleStates.Invisible;
@@ -2525,7 +2520,6 @@ namespace OpenLiveWriter.Controls
             if (showContextEventHandler != null)
                 showContextEventHandler(this, e);
         }
-
 
         #endregion Private Methods
     }

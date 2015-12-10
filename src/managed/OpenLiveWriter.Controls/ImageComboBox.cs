@@ -11,7 +11,7 @@ namespace OpenLiveWriter.Controls
 {
     public class ImageComboBox : ComboBox
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -37,7 +37,7 @@ namespace OpenLiveWriter.Controls
 
         private bool _allowMirroring = true;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -126,13 +126,11 @@ namespace OpenLiveWriter.Controls
                 BOTTOM_INSET;                                   // air at bottom
         }
 
-
         // item metrics
         private const int TOP_INSET = 2;
         private const int BOTTOM_INSET = 2;
         private const int IMAGE_INSET = 3;
         private const int TEXT_INSET = 5;
-
 
         public interface IComboItem
         {

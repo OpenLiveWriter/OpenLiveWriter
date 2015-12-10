@@ -87,7 +87,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public string Title
         {
             get
@@ -141,9 +140,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // pictureBox
-            // 
+            //
             this.pictureBox.Location = new System.Drawing.Point(16, 22);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(48, 51);
@@ -151,18 +150,18 @@ namespace OpenLiveWriter.PostEditor
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             this.pictureBox.RightToLeft = RightToLeft.No;
-            // 
+            //
             // labelTitle
-            // 
+            //
             this.labelTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelTitle.Location = new System.Drawing.Point(72, 17);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(264, 35);
             this.labelTitle.TabIndex = 1;
             this.labelTitle.Text = "Beta Expires in 4 weeks.";
-            // 
+            //
             // labelBody
-            // 
+            //
             this.labelBody.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelBody.Location = new System.Drawing.Point(72, 43);
             this.labelBody.Name = "labelBody";
@@ -170,9 +169,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelBody.TabIndex = 2;
             this.labelBody.Text = "The current beta version of Open Live Writer will expire on <date>. Please dow" +
                 "nload and install a newer version.";
-            // 
+            //
             // buttonOk
-            // 
+            //
             this.buttonOk.BackColor = System.Drawing.SystemColors.Control;
             this.buttonOk.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOk.Location = new System.Drawing.Point(72, 120);
@@ -181,9 +180,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonOk.TabIndex = 3;
             this.buttonOk.Text = "Download Now";
             this.buttonOk.Click += new System.EventHandler(this.ButtonOk_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.BackColor = System.Drawing.SystemColors.Control;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -193,9 +192,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Ask Me Later";
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
-            // 
+            //
             // ExpirationForm
-            // 
+            //
             this.AcceptButton = this.buttonOk;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;

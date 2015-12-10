@@ -30,7 +30,6 @@ namespace OpenLiveWriter.PostEditor
             get { return _storageDirectory.FullName; }
         }
 
-
         /// <summary>
         /// add a file to the list (managing filename uniqueness) and return a file
         /// URI to the full path of the added file
@@ -61,7 +60,6 @@ namespace OpenLiveWriter.PostEditor
             string fileName = TempFileManager.CreateNewFile(_storageDirectory.FullName, requestedFileName, false);
             return fileName;
         }
-
 
         public bool ContainsFile(string filePath)
         {
@@ -95,7 +93,6 @@ namespace OpenLiveWriter.PostEditor
             return reference;
         }
         private ArrayList _supportingFileScratchList = new ArrayList();
-
 
         public string CleanPathForServer(string path)
         {
@@ -148,8 +145,6 @@ namespace OpenLiveWriter.PostEditor
 
         private DirectoryInfo _storageDirectory;
     }
-
-
 
 
 }

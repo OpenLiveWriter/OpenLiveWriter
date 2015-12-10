@@ -66,7 +66,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             if (credentialsProvider != null)
                 credentialsProvider.ApplyCredentials(request);
 
-            // WinLive 2734: The word "Mozilla" in our normal UserAgent was triggering ISA/TMG to think we are a web 
+            // WinLive 2734: The word "Mozilla" in our normal UserAgent was triggering ISA/TMG to think we are a web
             // browser and therefore sending us off to Html Forms Authentication when we really wanted to use Basic Auth.
             request.UserAgent = USER_AGENT;
 
@@ -247,8 +247,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         private void CalculateUploadVariables(string fileName, FileAttachSettings attachSettings)
         {
             fileName = FileHelper.GetValidAnsiFileName(fileName, fileName.Length);
-
-
 
 
 

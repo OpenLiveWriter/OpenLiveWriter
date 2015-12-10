@@ -13,7 +13,7 @@ namespace OpenLiveWriter.Controls
     public class DialogHelper
     {
         /// <summary>
-        /// Enumerate windows by calling the specified callback proc for each top-level 
+        /// Enumerate windows by calling the specified callback proc for each top-level
         /// window in the system. If a custom object is specified this object will
         /// also be passed to the callback proc (allows the callback proc to modify
         /// state, build a list, etc.)
@@ -72,7 +72,6 @@ namespace OpenLiveWriter.Controls
             public readonly object CustomParam;
         }
 
-
         /// <summary>
         /// Callback for EnumWindows
         /// </summary>
@@ -88,7 +87,7 @@ namespace OpenLiveWriter.Controls
             if (param.VisibleOnly && ((User32.GetWindowLong(hWnd, GWL.STYLE) & WS.VISIBLE) == 0))
                 return true;
 
-            // call the underlying delegate 
+            // call the underlying delegate
             return param.EnumDelegate(hWnd, param.CustomParam);
         }
 

@@ -54,7 +54,7 @@ namespace OpenLiveWriter.PostEditor
 
         private Dictionary<FileIdentity, PostKey> GetCache()
         {
-            // Ensure that the cache is fully up to date with respect to 
+            // Ensure that the cache is fully up to date with respect to
             // what's actually on disk.
 
             Dictionary<FileIdentity, PostKey> filesInCache = LoadCache();

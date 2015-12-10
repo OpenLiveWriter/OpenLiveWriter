@@ -18,7 +18,7 @@ namespace OpenLiveWriter.SpellChecker
 	/// 2. static menu with ignore all, add to dictionary (which take word as argument)
 	/// 3. launch spelling dialog ??
 	/// 4. static menu with cut/copy/paste
-	///	
+	///
 	/// </summary>
 	public class SpellCheckingContextMenuDefinition : CommandContextMenuDefinition
 	{
@@ -38,7 +38,7 @@ namespace OpenLiveWriter.SpellChecker
 		}
 
 		private string _currentWord;
-		private SpellingManager _spellingManager;		
+		private SpellingManager _spellingManager;
 
 		private MenuDefinitionEntryCollection GetSpellingSuggestions()
 		{
@@ -48,7 +48,7 @@ namespace OpenLiveWriter.SpellChecker
             commandManager.BeginUpdate();
 			try
 			{
-				// provide suggestions			
+				// provide suggestions
 				SpellingSuggestion[] suggestions = _spellingManager.SpellingChecker.Suggest(_currentWord, DEFAULT_MAX_SUGGESTIONS, SUGGESTION_DEPTH ) ;
 				bool foundSuggestion = false;
 				if ( suggestions.Length > 0 )
@@ -70,7 +70,7 @@ namespace OpenLiveWriter.SpellChecker
 							FixSpellingCommand.Execute += new EventHandler(_spellingManager.fixSpellingApplyCommand_Execute);
 							FixSpellingCommand.Tag = suggestion.Suggestion;
                             commandManager.Add(FixSpellingCommand);
-						
+
 							listOfSuggestions.Add(FixSpellingCommand.Identifier, false, i == suggestions.Length - 1);
 							foundSuggestion = true;
 						}
@@ -98,7 +98,7 @@ namespace OpenLiveWriter.SpellChecker
 			return listOfSuggestions;
 		}
 
-	
+
 		/// <summary>
 		/// Default maximum suggestions to return
 		/// </summary>
@@ -113,6 +113,6 @@ namespace OpenLiveWriter.SpellChecker
 		/// <summary>
 		/// Suggestion depth for searching (100 is the maximum)
 		/// </summary>
-		private const short SUGGESTION_DEPTH = 80 ;	
+		private const short SUGGESTION_DEPTH = 80 ;
 	}
 }

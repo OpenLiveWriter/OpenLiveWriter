@@ -64,7 +64,6 @@ namespace OpenLiveWriter.Mshtml
             MoveUnitBounded(p, direction, stopRule, pBoundary);
         }
 
-
         private static void MoveUnitBounded(MarkupPointer p, MoveDirection direction, MoveContextFilter continueFilter, MarkupPointer boundary)
         {
             MarkupPointer p1 = p.Clone();
@@ -237,7 +236,6 @@ namespace OpenLiveWriter.Mshtml
 
             return Direction.None;
 
-
         }
 
         /// <summary>
@@ -276,7 +274,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Find the most logic direction to move to visible location that is where it appears to the user. 
+        /// Find the most logic direction to move to visible location that is where it appears to the user.
         /// And then moves it to that location.  Returns true if it moved the pointer.
         /// </summary>
         /// <param name="Selection"></param>

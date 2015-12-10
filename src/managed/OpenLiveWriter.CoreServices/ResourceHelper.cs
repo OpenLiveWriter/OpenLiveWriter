@@ -63,7 +63,6 @@ namespace OpenLiveWriter.CoreServices
             return LoadAssemblyResourceBitmap(Assembly.GetCallingAssembly(), path, resource, false);
         }
 
-
         /// <summary>
         /// Loads a Bitmap from an Assembly's resource stream.
         /// </summary>
@@ -73,7 +72,6 @@ namespace OpenLiveWriter.CoreServices
         {
             return LoadAssemblyResourceBitmap(assembly, null, resource, false);
         }
-
 
         /// <summary>
         /// Loads a Bitmap from an Assembly's resource stream.
@@ -192,11 +190,11 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Loads an icon from an assembly resource.
         /// </summary>
-        /// <param name="path">icon path.</param>		
+        /// <param name="path">icon path.</param>
         /// <returns>Icon, or null if the icon could not be found.</returns>
         private static Icon LoadAssemblyResourceIcon(Assembly callingAssembly, string path, int desiredWidth, int desiredHeight)
         {
-            //	Get the calling assembly and its name.			
+            //	Get the calling assembly and its name.
             AssemblyName callingAssemblyName = callingAssembly.GetName();
 
             //	Format the schema resource name that we will load from the calling assembly.
@@ -239,7 +237,6 @@ namespace OpenLiveWriter.CoreServices
             return icon;
         }
 
-
         /// <summary>
         /// Saves an assembly resource to a file
         /// </summary>
@@ -261,7 +258,6 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
         }
-
 
         /// <summary>
         /// Saves an assembly resource to a stream

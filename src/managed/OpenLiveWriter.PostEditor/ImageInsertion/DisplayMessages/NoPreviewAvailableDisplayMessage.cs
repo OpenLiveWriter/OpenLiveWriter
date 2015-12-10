@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.DisplayMessages
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -49,7 +49,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -57,9 +56,9 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// NoPreviewAvailableDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.OK;
 			this.Text = "Preview is currently unavailable. Please check the entered URL and your network connection.";
 			this.Title = "Preview Unavailable";

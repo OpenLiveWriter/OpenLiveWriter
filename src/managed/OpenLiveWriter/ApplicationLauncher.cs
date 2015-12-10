@@ -175,7 +175,6 @@ namespace OpenLiveWriter
             }
         }
 
-
         private static bool NeedsExpirationWarning()
         {
             if (DateTime.Now > ExpirationSettings.Expires)
@@ -198,7 +197,6 @@ namespace OpenLiveWriter
             }
             return false;
         }
-
 
         private static void ExecuteShowPreferences(string panelName)
         {

@@ -14,7 +14,6 @@ using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization.Bidi;
 
-
 namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
@@ -71,7 +70,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         /// <summary>
         /// The offset at which to paint the context menu arrow.
-        /// </summary>		
+        /// </summary>
         private const int CONTEXT_MENU_ARROW_OFFSET = 3;
 
         /// <summary>
@@ -180,7 +179,7 @@ namespace OpenLiveWriter.ApplicationFramework
             UpdateCommand();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -204,9 +203,9 @@ namespace OpenLiveWriter.ApplicationFramework
         private void InitializeComponent()
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // CommandBarButtonLightweightControl
-            // 
+            //
             this.Visible = false;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -399,7 +398,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 return 0;
             }
         }
-
 
         private int SnapButtonHeight(int height)
         {
@@ -1054,7 +1052,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Locate the command.
             Command updateCommand = commandBarLightweightControl.CommandManager.Get(commandIdentifier);
 
-            //	Set the command.	
+            //	Set the command.
             Command = updateCommand;
         }
 
@@ -1091,7 +1089,7 @@ namespace OpenLiveWriter.ApplicationFramework
                     //	Note that the context menu is showing.
                     StartShowContextMenu();
 
-                    // create the mini-form 
+                    // create the mini-form
                     CommandContextMenuMiniForm miniForm = new CommandContextMenuMiniForm(Win32WindowImpl.ForegroundWin32Window, Command);
 
                     miniForm.Location = PositionMenu(menuLocation, alternativeLocation, miniForm.Size);
@@ -1159,7 +1157,6 @@ namespace OpenLiveWriter.ApplicationFramework
             EndShowContextMenu();
         }
 
-
         /// <summary>
         /// Initialize state/UI for context menu
         /// </summary>
@@ -1177,7 +1174,7 @@ namespace OpenLiveWriter.ApplicationFramework
             ContextMenuShowing = false;
             MouseInside = false;
 
-            // if requested, invalidate the parent so that the command bar repaints 
+            // if requested, invalidate the parent so that the command bar repaints
             // correctly (this is necessary for the IE ToolBand which won't paint
             // its background correctly unless the entire control is invalidated)
             if (Command != null)
@@ -1200,7 +1197,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
         private static ColorMatrix _highContrastColorMatrix;
-
 
         #endregion Private Methods
 
@@ -1255,7 +1251,7 @@ namespace OpenLiveWriter.ApplicationFramework
         #endregion Private Event Handlers
 
         /// <summary>
-        /// Commands can implement this interface to provide 
+        /// Commands can implement this interface to provide
         /// dynamic command bar button images.
         /// </summary>
         public interface ICustomButtonBitmapPaint
@@ -1264,7 +1260,6 @@ namespace OpenLiveWriter.ApplicationFramework
             int Height { get; }
             void Paint(BidiGraphics g, Rectangle bounds, DrawState drawState);
         }
-
 
 
         public override bool DoDefaultAction()

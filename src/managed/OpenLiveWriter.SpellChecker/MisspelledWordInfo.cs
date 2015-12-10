@@ -13,24 +13,24 @@ namespace OpenLiveWriter.SpellChecker
 	{
 		private MarkupRange _range;
 		private string _word;
-		
+
 		public MisspelledWordInfo(MarkupRange range, string word)
 		{
 			_range = range;
 			_word = word;
 		}
-		
+
 		public MarkupRange WordRange
 		{
-			get 
+			get
 			{
 				return _range;
 			}
 		}
-		
+
 		public string Word
 		{
-			get 
+			get
 			{
 				return _word;
 			}

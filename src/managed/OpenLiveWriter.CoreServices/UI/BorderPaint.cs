@@ -13,10 +13,10 @@ namespace OpenLiveWriter.CoreServices.UI
 {
     /// <summary>
     /// Paints borders made from slices of a bitmap.
-    /// 
+    ///
     /// The following illustration shows what slice index
     /// corresponds to what part of the border.
-    /// 
+    ///
     /// 0111112
     /// 3     4
     /// 3     4
@@ -375,7 +375,7 @@ namespace OpenLiveWriter.CoreServices.UI
 
         /// <summary>
         /// Uses GDI. Reasonable setup time and very
-        /// fast draw performance, but no alpha support 
+        /// fast draw performance, but no alpha support
         /// and DOESN'T RESPECT GDI+ transformations!
         /// </summary>
         GDI = 2,

@@ -122,7 +122,6 @@ namespace OpenLiveWriter.CoreServices
                     continue;
                 }
 
-
                 if (currentElement == null)
                 {
                     OnDocumentEnd();
@@ -208,6 +207,5 @@ namespace OpenLiveWriter.CoreServices
             DefaultAction(styleComment);
         }
     }
-
 
 }

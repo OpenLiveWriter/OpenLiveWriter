@@ -131,7 +131,6 @@ namespace OpenLiveWriter.CoreServices
                 b1 << 4 | b2);
         }
 
-
         private static Dictionary<string, string> colorTable;
         private static void EnsureColorTable()
         {
@@ -338,7 +337,7 @@ namespace OpenLiveWriter.CoreServices
                 {
                     try
                     {
-                        // color: rgb(r, g, b)                    
+                        // color: rgb(r, g, b)
                         string[] rgb = colorTableString.Substring(4).Split(new[] { ' ', ')' },
                                                                            StringSplitOptions.RemoveEmptyEntries);
                         if (rgb.Length == 3)
@@ -462,7 +461,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         /// <summary>
         /// Helper method to remove an element from a document
         /// </summary>
@@ -472,7 +470,6 @@ namespace OpenLiveWriter.CoreServices
             IHTMLDOMNode elementNode = (IHTMLDOMNode)element;
             elementNode.removeNode(true);
         }
-
 
         /// <summary>
         /// Make a clone of the passed html element
@@ -484,7 +481,6 @@ namespace OpenLiveWriter.CoreServices
             IHTMLDOMNode elementNode = (IHTMLDOMNode)element;
             return (IHTMLElement)elementNode.cloneNode(true);
         }
-
 
         static public void SwapElements(IHTMLElement source, IHTMLElement destination)
         {
@@ -532,7 +528,6 @@ namespace OpenLiveWriter.CoreServices
             return top;
         }
 
-
         /// <summary>
         /// Get the left of the element relative to the window client area
         /// </summary>
@@ -574,7 +569,6 @@ namespace OpenLiveWriter.CoreServices
             return left;
         }
 
-
         /// <summary>
         /// Get the top of the element relative to the body
         /// </summary>
@@ -598,7 +592,6 @@ namespace OpenLiveWriter.CoreServices
             // return the top
             return top;
         }
-
 
         /// <summary>
         /// Get the left of the elment relative to the body
@@ -643,7 +636,6 @@ namespace OpenLiveWriter.CoreServices
             return array;
         }
 
-
         /// <summary>
         /// Finds the image whose center is nearest to the center of the element passed in
         /// </summary>
@@ -676,7 +668,6 @@ namespace OpenLiveWriter.CoreServices
             }
             return (IHTMLImgElement)imageElement;
         }
-
 
         /// <summary>
         /// Gets the parent link element (if any) for the passed element
@@ -712,7 +703,6 @@ namespace OpenLiveWriter.CoreServices
                 return element1.sourceIndex == element2.sourceIndex;
         }
 
-
         /// <summary>
         /// Warning: This will clear the "id" attribute from the source element since ids must be unique!
         /// </summary>
@@ -740,7 +730,7 @@ namespace OpenLiveWriter.CoreServices
             }
 
             // If we get here then, size is the only attribute which could have been specified.
-            // Note that size="+0" is not a meaningful attribute           
+            // Note that size="+0" is not a meaningful attribute
             string sizeAttribute = element.getAttribute("size", 2) as string;
             if (sizeAttribute == null || String.Compare(sizeAttribute, "+0", StringComparison.OrdinalIgnoreCase) == 0)
                 return false;
@@ -872,9 +862,9 @@ namespace OpenLiveWriter.CoreServices
                         return 0;
                     }
 
-                    // In the case of percentages, each CSS property defines what the percentage refers to. There are 
-                    // more cases than just the following (see the Percentages column at http://www.w3.org/TR/CSS21/propidx.html 
-                    // for a full list) so if percentages are not working correctly you may need to add additional cases. 
+                    // In the case of percentages, each CSS property defines what the percentage refers to. There are
+                    // more cases than just the following (see the Percentages column at http://www.w3.org/TR/CSS21/propidx.html
+                    // for a full list) so if percentages are not working correctly you may need to add additional cases.
                     // Right now, this should be the only case that we hit.
                     if (cssUnitStringDelegate == CSSUnitStringLineHeight)
                     {
@@ -945,7 +935,7 @@ namespace OpenLiveWriter.CoreServices
                 i = cssUnits.IndexOf("EX", StringComparison.OrdinalIgnoreCase);
                 if (i > 0)
                 {
-                    //Debug.Assert(false, "IMPLEMENT EX");                    
+                    //Debug.Assert(false, "IMPLEMENT EX");
                     return 0;
                 }
 
@@ -1140,8 +1130,8 @@ namespace OpenLiveWriter.CoreServices
                 {
                     spacing = spacing.Trim();
 
-                    // The borderSpacing property can return one or two length values. If one length is specified, it 
-                    // represents both the horizontal and vertical spacing. If two are specified, the first represents the 
+                    // The borderSpacing property can return one or two length values. If one length is specified, it
+                    // represents both the horizontal and vertical spacing. If two are specified, the first represents the
                     // horizontal spacing, the second the vertical spacing.
                     int firstSpace = spacing.IndexOf(' ');
                     if (firstSpace > 0)
@@ -1309,7 +1299,7 @@ namespace OpenLiveWriter.CoreServices
     public class HTMLElementLocation
     {
         /// <summary>
-        /// Initialize with only a container (since there is no adjacent element, the 'position' 
+        /// Initialize with only a container (since there is no adjacent element, the 'position'
         /// implied by this is that of the sole element in a container)
         /// </summary>
         /// <param name="container">container</param>
@@ -1372,7 +1362,6 @@ namespace OpenLiveWriter.CoreServices
         public readonly HTMLElementRelativePosition Position = HTMLElementRelativePosition.None;
 
     }
-
 
     /// <summary>
     /// Relative position for html element

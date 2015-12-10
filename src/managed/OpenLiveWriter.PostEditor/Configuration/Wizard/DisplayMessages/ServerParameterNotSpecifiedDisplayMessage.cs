@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -49,7 +49,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -57,9 +56,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// ServerParameterNotSpecifiedDisplayMessage
-			// 
+			//
 			this.Text = "You need to customize the Weblog API URL before proceeding.{0}The following value" +
 				"s were not customized:{0}{0}{1}{0}{0}Please change these values to whatever is a" +
 				"ppropriate for{0}your weblog server.";

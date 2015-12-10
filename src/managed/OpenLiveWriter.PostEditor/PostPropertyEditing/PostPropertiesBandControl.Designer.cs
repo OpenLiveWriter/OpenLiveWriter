@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl;
@@ -7,12 +7,12 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 {
     partial class PostPropertiesBandControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -27,8 +27,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -45,9 +45,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.linkViewAll = new System.Windows.Forms.LinkLabel();
             this.table.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // table
-            // 
+            //
             this.table.BackColor = System.Drawing.Color.Transparent;
             this.table.ColumnCount = 9;
             this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -75,9 +75,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.table.Size = new System.Drawing.Size(1090, 41);
             this.table.TabIndex = 0;
-            // 
+            //
             // labelPageOrder
-            // 
+            //
             this.labelPageOrder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPageOrder.AutoSize = true;
             this.labelPageOrder.Location = new System.Drawing.Point(753, 14);
@@ -86,9 +86,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.labelPageOrder.Size = new System.Drawing.Size(62, 13);
             this.labelPageOrder.TabIndex = 5;
             this.labelPageOrder.Text = "Page order:";
-            // 
+            //
             // categoryDropDown
-            // 
+            //
             this.categoryDropDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.categoryDropDown.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.categoryDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -103,9 +103,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.categoryDropDown.Name = "categoryDropDown";
             this.categoryDropDown.Size = new System.Drawing.Size(144, 21);
             this.categoryDropDown.TabIndex = 0;
-            // 
+            //
             // textTags
-            // 
+            //
             this.textTags.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textTags.DefaultText = null;
             this.textTags.ForeColor = System.Drawing.SystemColors.GrayText;
@@ -115,9 +115,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.textTags.ShowButton = true;
             this.textTags.Size = new System.Drawing.Size(198, 20);
             this.textTags.TabIndex = 1;
-            // 
+            //
             // datePublishDate
-            // 
+            //
             this.datePublishDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.datePublishDate.Format = DateTimePickerFormat.Custom;
             this.datePublishDate.Location = new System.Drawing.Point(366, 10);
@@ -127,9 +127,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.datePublishDate.ShowCheckBox = true;
             this.datePublishDate.Size = new System.Drawing.Size(182, 20);
             this.datePublishDate.TabIndex = 2;
-            // 
+            //
             // labelPageParent
-            // 
+            //
             this.labelPageParent.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPageParent.AutoSize = true;
             this.labelPageParent.Location = new System.Drawing.Point(556, 14);
@@ -138,9 +138,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.labelPageParent.Size = new System.Drawing.Size(68, 13);
             this.labelPageParent.TabIndex = 3;
             this.labelPageParent.Text = "Page parent:";
-            // 
+            //
             // comboPageParent
-            // 
+            //
             this.comboPageParent.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboPageParent.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboPageParent.FormattingEnabled = true;
@@ -150,27 +150,27 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.comboPageParent.Name = "comboPageParent";
             this.comboPageParent.Size = new System.Drawing.Size(121, 20);
             this.comboPageParent.TabIndex = 4;
-            // 
+            //
             // textPageOrder
-            // 
+            //
             this.textPageOrder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textPageOrder.Location = new System.Drawing.Point(815, 10);
             this.textPageOrder.Margin = new System.Windows.Forms.Padding(0, 0, 8, 0);
             this.textPageOrder.Name = "textPageOrder";
             this.textPageOrder.Size = new System.Drawing.Size(63, 20);
             this.textPageOrder.TabIndex = 6;
-            // 
+            //
             // panelShadow
-            // 
+            //
             this.panelShadow.BackColor = System.Drawing.Color.Transparent;
             this.panelShadow.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelShadow.Location = new System.Drawing.Point(0, 41);
             this.panelShadow.Name = "panelShadow";
             this.panelShadow.Size = new System.Drawing.Size(1090, 4);
             this.panelShadow.TabIndex = 1;
-            // 
+            //
             // linkViewAll
-            // 
+            //
             this.linkViewAll.ActiveLinkColor = Color.FromArgb(85, 142, 213);
             this.linkViewAll.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.linkViewAll.AutoSize = true;
@@ -185,9 +185,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.linkViewAll.Text = "View all";
             this.linkViewAll.VisitedLinkColor = Color.FromArgb(85, 142, 213);
             this.linkViewAll.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkViewAll_LinkClicked);
-            // 
+            //
             // PostPropertiesBandControl
-            // 
+            //
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.table);

@@ -177,7 +177,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string _docType = null;
 
-
         public string SavedFrom
         {
             get { return _savedFrom; }
@@ -185,7 +184,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
         private string _savedFrom = null;
-
 
         /// <summary>
         /// Copyright information for the page.
@@ -280,7 +278,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string m_charset;
 
-
         /// <summary>
         /// The underlying IHTMLDocument2
         /// </summary>
@@ -307,7 +304,6 @@ namespace OpenLiveWriter.CoreServices
             else
                 return null;
         }
-
 
         private Hashtable MetaTags
         {
@@ -347,7 +343,6 @@ namespace OpenLiveWriter.CoreServices
         private static string[] NAME_ATTRIBUTES = { "NAME", "HTTP-EQUIV" };
 
         private static readonly Regex multiSpaces = new Regex("[ \t]+");
-
 
         private string[] GetKeywordsFromString(string keywords)
         {

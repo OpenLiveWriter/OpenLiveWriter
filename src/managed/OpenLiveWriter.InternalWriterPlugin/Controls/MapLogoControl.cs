@@ -17,11 +17,10 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
     /// </summary>
     public class MapLogoControl : System.Windows.Forms.UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-
 
         private Bitmap _bingLogoBitmap;
 
@@ -57,7 +56,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             Invalidate();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -73,15 +72,15 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // MapLogoControl
-            // 
+            //
             this.Name = "MapLogoControl";
             this.Size = new System.Drawing.Size(200, 47);
 

@@ -64,7 +64,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         private string websiteURL = "";
         /// <summary>
         /// The base URL of this mapping
@@ -80,8 +79,6 @@ namespace OpenLiveWriter.FileDestinations
                 websiteURL = value;
             }
         }
-
-
 
 
         private string ftpServer = "";
@@ -163,7 +160,6 @@ namespace OpenLiveWriter.FileDestinations
                 ftpPublishPath = value;
             }
         }
-
 
 
         public override string ToString()

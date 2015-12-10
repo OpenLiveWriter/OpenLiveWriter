@@ -235,14 +235,11 @@ namespace OpenLiveWriter.ApplicationFramework
                 Layout(this, ea);
         }
 
-
         public void OnKeyboardLanguageChanged()
         {
         }
     }
 }
-
-
 
 
 

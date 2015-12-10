@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 
         /// <summary>
         /// Knows how to draw the weblog picker.
-        /// 
+        ///
         /// This is not a control--it has no behavior. All it does is
         /// perform layout and paint.
         /// </summary>
@@ -78,7 +78,6 @@ namespace OpenLiveWriter.PostEditor.Commands
                 _providerName = providerName;
                 _blogName = blogName;
             }
-
 
             public int Width
             {
@@ -130,7 +129,6 @@ namespace OpenLiveWriter.PostEditor.Commands
                 {
                     g.Graphics.CompositingMode = CompositingMode.SourceOver;
                     g.Graphics.CompositingQuality = CompositingQuality.HighQuality;
-
 
                     using (Font boldFont = new Font(_font, FontStyle.Bold))
                     {

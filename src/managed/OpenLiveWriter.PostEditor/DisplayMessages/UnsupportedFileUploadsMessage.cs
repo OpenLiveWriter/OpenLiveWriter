@@ -61,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-		
+
 
 		#region Windows Form Designer generated code
 		/// <summary>
@@ -79,19 +79,19 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			this.buttonOK = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
-			// 
+			//
 			// pictureBox1
-			// 
+			//
 			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
 			this.pictureBox1.Location = new System.Drawing.Point(8, 12);
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size(44, 40);
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
-			// 
+			//
 			// label1
-			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.label1.Location = new System.Drawing.Point(52, 16);
@@ -100,11 +100,11 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			this.label1.TabIndex = 1;
 			this.label1.Text = "The following images cannot be published because image uploading has not been con" +
 				"figured for this weblog:";
-			// 
+			//
 			// listViewFiles
-			// 
-			this.listViewFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.listViewFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+				| System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																							this.columnHeaderFile});
@@ -115,14 +115,14 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			this.listViewFiles.Size = new System.Drawing.Size(286, 120);
 			this.listViewFiles.TabIndex = 2;
 			this.listViewFiles.View = System.Windows.Forms.View.List;
-			// 
+			//
 			// columnHeaderFile
-			// 
+			//
 			this.columnHeaderFile.Text = "";
 			this.columnHeaderFile.Width = 328;
-			// 
+			//
 			// buttonCancel
-			// 
+			//
 			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -130,9 +130,9 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.TabIndex = 4;
 			this.buttonCancel.Text = "No";
-			// 
+			//
 			// buttonOK
-			// 
+			//
 			this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -140,10 +140,10 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.TabIndex = 3;
 			this.buttonOK.Text = "Yes";
-			// 
+			//
 			// label2
-			// 
-			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.label2.Location = new System.Drawing.Point(52, 182);
@@ -151,9 +151,9 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			this.label2.Size = new System.Drawing.Size(282, 28);
 			this.label2.TabIndex = 5;
 			this.label2.Text = "Would you like to configure the image upload settings for your weblog now?";
-			// 
+			//
 			// UnsupportedFileUploadsMessage
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
 			this.ClientSize = new System.Drawing.Size(346, 244);
 			this.Controls.Add(this.label2);
@@ -174,8 +174,8 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 		}
 		#endregion
 
-		
 
-		
+
+
 	}
 }

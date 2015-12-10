@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.Tables.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandDeleteRow
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.PostEditor.Tables.Commands.DeleteRow";
 			this.MainMenuPath = "T&able@6/Delete Ro&w{0}@305";
 			this.MenuText = "Delete Ro&w{0}";

@@ -14,26 +14,26 @@ namespace OpenLiveWriter.CoreServices
 	/// </summary>
 	public class IconHelper
 	{
-		public static Bitmap GetBitmapForIcon(Icon icon) 
-		{ 
+		public static Bitmap GetBitmapForIcon(Icon icon)
+		{
 			using (IconInfo iconInfo = new IconInfo(icon))
 			{
 				if (!iconInfo.Info.fIcon)
 					return null; // this is a cursor!
 
-				if (iconInfo.BitmapStruct.bmBitsPixel!=32) 
+				if (iconInfo.BitmapStruct.bmBitsPixel!=32)
 					return Bitmap.FromHicon(icon.Handle);  // no alpha blending, so use regular .Net
 
-				Bitmap iconBitmap = Bitmap.FromHbitmap(iconInfo.Info.hbmColor); 
+				Bitmap iconBitmap = Bitmap.FromHbitmap(iconInfo.Info.hbmColor);
 
-				// get broken bitmap (broken - pixelformat doesn't specify alpha channel, even though the alpha data is there), 
+				// get broken bitmap (broken - pixelformat doesn't specify alpha channel, even though the alpha data is there),
 				// copy to a new bitmap with a healthy (includes the alpha channel) pixelformat
 				Bitmap transparentBitmap;
 				using (LockedBitMap lockedBitmap = new LockedBitMap(iconBitmap))
 				{
-					transparentBitmap = new Bitmap(lockedBitmap.Data.Width, lockedBitmap.Data.Height, lockedBitmap.Data.Stride, PixelFormat.Format32bppArgb, lockedBitmap.Data.Scan0); 	
+					transparentBitmap = new Bitmap(lockedBitmap.Data.Width, lockedBitmap.Data.Height, lockedBitmap.Data.Stride, PixelFormat.Format32bppArgb, lockedBitmap.Data.Scan0);
 				}
-				return transparentBitmap; 
+				return transparentBitmap;
 			}
 		}
 
@@ -42,9 +42,9 @@ namespace OpenLiveWriter.CoreServices
 			public LockedBitMap(Bitmap bitmapToLock)
 			{
 				_bitmapToLock = bitmapToLock;
-				_bitmapData = bitmapToLock.LockBits(new Rectangle(0, 0, bitmapToLock.Width, bitmapToLock.Height), 
-					ImageLockMode.ReadOnly, bitmapToLock.PixelFormat); 
-				
+				_bitmapData = bitmapToLock.LockBits(new Rectangle(0, 0, bitmapToLock.Width, bitmapToLock.Height),
+					ImageLockMode.ReadOnly, bitmapToLock.PixelFormat);
+
 			}
 			private BitmapData _bitmapData;
 			private Bitmap _bitmapToLock;
@@ -62,7 +62,7 @@ namespace OpenLiveWriter.CoreServices
 				_bitmapToLock.UnlockBits(_bitmapData);
 			}
 
-			
+
 		}
 
 		private class IconInfo : IDisposable
@@ -72,11 +72,11 @@ namespace OpenLiveWriter.CoreServices
 				User32.GetIconInfo(icon.Handle, out _iconInfo);
 
 				int size = Marshal.SizeOf(typeof(BITMAP));
-				
+
 				IntPtr ptr = Marshal.AllocCoTaskMem(size);
 				try
 				{
-					Gdi32.GetObject(Info.hbmColor, size , ptr); 
+					Gdi32.GetObject(Info.hbmColor, size , ptr);
 					_bitmapStruct = (BITMAP)Marshal.PtrToStructure(ptr, typeof(BITMAP));
 				}
 				finally
@@ -101,7 +101,7 @@ namespace OpenLiveWriter.CoreServices
 				}
 			}
 			private BITMAP _bitmapStruct;
-			
+
 
 			public void Dispose()
 			{
@@ -110,7 +110,6 @@ namespace OpenLiveWriter.CoreServices
 			}
 
 			private User32.ICONINFO _iconInfo;
-
 
 		}
 	}

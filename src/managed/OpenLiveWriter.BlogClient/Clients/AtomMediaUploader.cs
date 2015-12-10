@@ -124,7 +124,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
         }
 
-
         public virtual void PostNewImage(string path, bool allowWriteStreamBuffering, out string srcUrl, out string editMediaUri, out string editEntryUri)
         {
             string mediaCollectionUri = _collectionUri;
@@ -146,7 +145,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             catch (WebException we)
             {
                 // The error may have been due to the server requiring stream buffering (WinLive 114314, 252175)
-                // Try again with stream buffering.                    
+                // Try again with stream buffering.
                 if (we.Status == WebExceptionStatus.ProtocolError && !allowWriteStreamBuffering)
                 {
                     PostNewImage(path, true, out srcUrl, out editMediaUri, out editEntryUri);
@@ -247,7 +246,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     else if (!allowWriteStreamBuffering)
                     {
                         // The error may have been due to the server requiring stream buffering (WinLive 114314, 252175)
-                        // Try again with stream buffering.                                            
+                        // Try again with stream buffering.
                         UpdateImage(true, ref editMediaUri, path, editEntryUri, etag, getEditInfo, out srcUrl, out thumbnailSmall, out thumbnailLarge);
                         recovered = true;
                     }
@@ -256,7 +255,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     throw;
             }
 
-            // Check to see if we are going to get the src url and the etag, in most cases we will want to get this 
+            // Check to see if we are going to get the src url and the etag, in most cases we will want to get this
             // information, but in the case of a photo album, since we never edit the image or link directly to them
             // we don't need the information and it can saves an http request.
             if (getEditInfo)

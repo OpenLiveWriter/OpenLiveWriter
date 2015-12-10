@@ -5,7 +5,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.PostEditor.DisplayMessages
 {
-	
+
 	public class NonImageTypeFileSelectedDisplayMessage :  DisplayMessage
 	{
 		/// <summary>
@@ -38,7 +38,7 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -53,7 +53,6 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -61,9 +60,9 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// NonImageTypeFileSelectedDisplayMessage
-			// 
+			//
 			this.Text = "The file {0} is not an image. Only image file types can be inserted.";
 			this.Title = "File Is Not An Image";
 			this.Type = DisplayMessageType.Warning;

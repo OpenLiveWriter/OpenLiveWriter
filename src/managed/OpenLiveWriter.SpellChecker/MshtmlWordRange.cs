@@ -28,9 +28,9 @@ namespace OpenLiveWriter.SpellChecker
 		/// Initialize word range for the entire body of the document
 		/// </summary>
 		/// <param name="mshtml">mshtml control</param>
-		public MshtmlWordRange(MshtmlControl mshtmlControl) : 
+		public MshtmlWordRange(MshtmlControl mshtmlControl) :
 			this(mshtmlControl.HTMLDocument, false, null, null)
-		{			
+		{
 		}
 
 		/// <summary>
@@ -53,7 +53,7 @@ namespace OpenLiveWriter.SpellChecker
 
 		    Init(document, markupServices, markupRange, filter, damageFunction, useDocumentSelectionRange);
 		}
-		
+
 		/// <summary>
 		/// Initialize word range for the specified markup-range within the document
 		/// </summary>
@@ -178,7 +178,7 @@ namespace OpenLiveWriter.SpellChecker
 					currentWordRange.Start.MoveUnit(_MOVEUNIT_ACTION.MOVEUNIT_PREVWORDBEGIN);
 				}
 
-			} while( MarkupHelpers.GetRangeTextFast(currentWordRange) == null && 
+			} while( MarkupHelpers.GetRangeTextFast(currentWordRange) == null &&
 					 currentWordRange.End.IsLeftOf(selectionRange.End));
 
             currentVirtualPosition.MoveToPointer(currentWordRange.End);
@@ -202,7 +202,7 @@ namespace OpenLiveWriter.SpellChecker
 
         private bool IsRangeInUrl(MarkupRange range)
 		{
-			//must have this range cloned, otherwise in some cases IsInsideURL call 
+			//must have this range cloned, otherwise in some cases IsInsideURL call
 			// was MOVING the current word range! if "www.foo.com" was in the editor,
 			// when the final "\"" was the current word, this call MOVED the current
 			// word range BACK to www.foo.com, then nextWord would get "\"" and a loop
@@ -213,7 +213,7 @@ namespace OpenLiveWriter.SpellChecker
 			p2StartRaw.IsInsideURL(range.End.PointerRaw, out insideUrl);
 			return insideUrl;
 		}
-		
+
 		/// <summary>
 		/// Get the text of the current word
 		/// </summary>
@@ -230,7 +230,6 @@ namespace OpenLiveWriter.SpellChecker
 			currentWordRange.Collapse(false);
 			currentWordRange.ToTextRange().select();
 		}
-
 
 		/// <summary>
 		/// Highlight the current word
@@ -252,7 +251,6 @@ namespace OpenLiveWriter.SpellChecker
                     throw;
             }
 		}
-
 
 		/// <summary>
 		/// Remove highlighting from the document
@@ -282,7 +280,6 @@ namespace OpenLiveWriter.SpellChecker
             damageFunction(origRange);
 		}
 
-
 		/// <summary>
 		/// Markup services for mshtml control
 		/// </summary>
@@ -290,7 +287,7 @@ namespace OpenLiveWriter.SpellChecker
 		{
 			get { return markupServices; }
 		}
-		
+
 		/// <summary>
 		/// Control we are providing a word range for
 		/// </summary>
@@ -302,7 +299,7 @@ namespace OpenLiveWriter.SpellChecker
 		/// Range over which we are iterating
 		/// </summary>
 		private MarkupRange selectionRange;
-		
+
 		public MarkupRange SelectionRange
 		{
 			get

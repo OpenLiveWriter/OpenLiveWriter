@@ -26,13 +26,12 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
 
-
         protected override void OnElementAttached()
         {
             base.OnElementAttached();
 
             // If this is a "rectangular" table then automatically add the "unselectable"
-            // attribute to it because we know we can support editing of it without 
+            // attribute to it because we know we can support editing of it without
             // erratic behavior
             TableHelper.MakeTableWriterEditableIfRectangular(HTMLElement as IHTMLTable);
 
@@ -156,7 +155,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private void EditorContext_KeyDown(object o, HtmlEventArgs e)
         {
             if (Selected)
@@ -240,7 +238,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private static void EditorContext_PerformTemporaryFixupsToEditedHtml(TemporaryFixupArgs args)
         {
             string html = args.Html;
@@ -293,7 +290,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private bool MultipleCellsSelected
         {
             get
@@ -320,7 +316,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
         private TableEditingContext _tableEditingContext;
-
 
 
         private void SelectEntireTable()
@@ -393,7 +388,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         private TableEditingManager _tableEditingManager;
 
     }
-
 
 
 }

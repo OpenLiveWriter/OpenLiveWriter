@@ -8,9 +8,9 @@ using System.Threading;
 namespace OpenLiveWriter.CoreServices.Threading
 {
     /// <summary>
-    /// Delegate for the logic that needs to be executed at a 
+    /// Delegate for the logic that needs to be executed at a
     /// specified time.
-    /// 
+    ///
     /// Note to implementers:
     /// if the job needs to be run repeatedly, you are responsible
     /// for scheduling the next run on the queue.  Be careful
@@ -22,7 +22,7 @@ namespace OpenLiveWriter.CoreServices.Threading
 
     /// <summary>
     /// Schedule jobs for future execution.
-    /// 
+    ///
     /// Each ProcessingQueue wraps a single Thread.  All jobs will
     /// execute on this thread.
     /// </summary>

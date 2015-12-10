@@ -45,7 +45,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 					return weakReference.Target;
 				}
 			}
-			
+
 			public StackTrace StackTrace
 			{
 				get
@@ -88,7 +88,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 						objectList = new ArrayList();
 				}
 			}
-			
+
 			lock(objectList)
 				objectList.Add(new RegisteredObject(value));
 #endif
@@ -103,7 +103,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 			GC.WaitForPendingFinalizers();
 			GC.Collect();
 
-			//	Get a stream writer on the file.					
+			//	Get a stream writer on the file.
 			bool firstLeak = true;
 			string leaksFile = String.Format(CultureInfo.InvariantCulture, "c:\\{0} Leaks.log", ApplicationEnvironment.ProductName);
 			if (File.Exists(leaksFile))
@@ -119,7 +119,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 							streamWriter.WriteLine("Memory Leak Report");
 							firstLeak = false;
 						}
-					
+
 						streamWriter.WriteLine("Leak Detected");
 						streamWriter.WriteLine("Type:  "+registeredObject.Value.GetType().ToString());
 						streamWriter.WriteLine("Value: "+registeredObject.Value.ToString());

@@ -92,7 +92,6 @@ namespace OpenLiveWriter.Mshtml
             if (ElementFilters.IsBlockQuoteElement(currentBlock) || ElementFilters.IsTableCellElement(currentBlock))
                 return;
 
-
             MarkupPointer blockStart = markupServices.CreateMarkupPointer(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
             MarkupPointer blockEnd = markupServices.CreateMarkupPointer(currentBlock, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterEnd);
 

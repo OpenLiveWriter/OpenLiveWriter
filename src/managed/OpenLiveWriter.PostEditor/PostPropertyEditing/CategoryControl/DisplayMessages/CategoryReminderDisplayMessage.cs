@@ -7,7 +7,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl.DisplayMessages
 {
-	
+
 	public class CategoryReminderDisplayMessage : DisplayMessage
 	{
 		/// <summary>
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl.DisplayM
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -48,7 +48,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl.DisplayM
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -56,9 +55,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl.DisplayM
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// ConfirmDeleteEntryDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
 			this.DefaultButton = System.Windows.Forms.MessageBoxDefaultButton.Button2 ;
 			this.Text = "You have not specified categories for this post.{0}Do you still want to continue with publishing?";

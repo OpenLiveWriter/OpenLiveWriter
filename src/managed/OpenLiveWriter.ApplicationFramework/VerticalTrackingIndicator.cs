@@ -60,7 +60,7 @@ namespace Project31.ApplicationFramework
 		/// Last capture location where the tracking indicator was drawn.
 		/// </summary>
 		private Point lastCaptureLocation;
-		
+
 		/// <summary>
 		/// The tracking indicator bitmap.
 		/// </summary>
@@ -140,7 +140,7 @@ namespace Project31.ApplicationFramework
 			//	Valid now.
 			valid = true;
 		}
-		
+
 		/// <summary>
 		/// Update the location of the tracking indicator.
 		/// </summary>
@@ -158,7 +158,7 @@ namespace Project31.ApplicationFramework
 			//	Draw the new tracking indicator.
 			DrawTrackingIndicator(location);
 		}
-			
+
 		/// <summary>
 		/// End the tracking indicator.
 		/// </summary>
@@ -171,7 +171,7 @@ namespace Project31.ApplicationFramework
 
 			//	Undraw the last tracking indicator.
 			UndrawLastTrackingIndicator();
-			
+
 			//	Cleanup the capture bitmap.
 			captureBitmap.Dispose();
 

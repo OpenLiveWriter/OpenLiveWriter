@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Extensibility.ImageServices
 	/// </summary>
 	public class ImageFileUploadSettingsEditor : UserControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private Container components = null;
@@ -30,7 +30,7 @@ namespace OpenLiveWriter.Extensibility.ImageServices
 			ApplicationStyleManager.ApplicationStyleChanged += new EventHandler(ApplicationManager_ApplicationStyleChanged);
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -47,8 +47,8 @@ namespace OpenLiveWriter.Extensibility.ImageServices
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -82,7 +82,7 @@ namespace OpenLiveWriter.Extensibility.ImageServices
 		public void LoadEditor(IImageUploadSettingsEditorContext context)
 		{
 			_loadedState = ControlState.Loading;
-			_context = context;		
+			_context = context;
 			LoadEditor();
 			_loadedState = ControlState.Loaded;
 		}
@@ -92,7 +92,7 @@ namespace OpenLiveWriter.Extensibility.ImageServices
 		/// </summary>
 		protected virtual void LoadEditor()
 		{
-			
+
 		}
 
 		internal protected IImageUploadSettingsEditorContext EditorContext

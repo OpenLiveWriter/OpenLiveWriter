@@ -14,10 +14,9 @@ namespace OpenLiveWriter.CoreServices
 {
 
 
-
     /// <summary>
-    /// Gets HTMLDocuments for a given URL.  It gets two versions of the Document, 
-    /// one that can be used to get a list of references in the Document and one that 
+    /// Gets HTMLDocuments for a given URL.  It gets two versions of the Document,
+    /// one that can be used to get a list of references in the Document and one that
     /// can used to extract the literal HTML that should be used when saving or dealing
     /// with the HTML directly.
     /// </summary>
@@ -39,7 +38,6 @@ namespace OpenLiveWriter.CoreServices
         {
 
         }
-
 
         /// <summary>
         /// Creates a new HTMLDocumentDownloader
@@ -262,8 +260,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
-
         #region IDisposable Members
 
         /// <summary>
@@ -305,7 +301,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string _cookieString = null;
     }
-
 
     public class OperationTimedOutException : Exception
     {

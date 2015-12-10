@@ -37,7 +37,7 @@ namespace OpenLiveWriter.HtmlEditor.Controls
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -51,7 +51,6 @@ namespace OpenLiveWriter.HtmlEditor.Controls
 			}
 			base.Dispose( disposing );
 		}
-
 
 		#region Component Designer generated code
 		/// <summary>
@@ -67,39 +66,39 @@ namespace OpenLiveWriter.HtmlEditor.Controls
 			this.menuDefinitionEntryCommandPasteSpecial = new OpenLiveWriter.ApplicationFramework.MenuDefinitionEntryCommand(this.components);
 			this.menuDefinitionEntryCommandSelectAll = new OpenLiveWriter.ApplicationFramework.MenuDefinitionEntryCommand(this.components);
 			this.menuDefinitionEntryCommandInsertLink = new OpenLiveWriter.ApplicationFramework.MenuDefinitionEntryCommand(this.components);
-			// 
+			//
 			// menuDefinitionEntryCommandCut
-			// 
+			//
 			this.menuDefinitionEntryCommandCut.CommandIdentifier = "MindShare.ApplicationCore.Commands.Cut";
 			this.menuDefinitionEntryCommandCut.SeparatorAfter = false;
 			this.menuDefinitionEntryCommandCut.SeparatorBefore = false;
-			// 
+			//
 			// menuDefinitionEntryCommandCopy
-			// 
+			//
 			this.menuDefinitionEntryCommandCopy.CommandIdentifier = "MindShare.ApplicationCore.Commands.Copy";
 			this.menuDefinitionEntryCommandCopy.SeparatorAfter = false;
 			this.menuDefinitionEntryCommandCopy.SeparatorBefore = false;
-			// 
+			//
 			// menuDefinitionEntryCommandPaste
-			// 
+			//
 			this.menuDefinitionEntryCommandPaste.CommandIdentifier = "MindShare.ApplicationCore.Commands.Paste";
 			this.menuDefinitionEntryCommandPaste.SeparatorAfter = false;
 			this.menuDefinitionEntryCommandPaste.SeparatorBefore = false;
-			// 
+			//
 			// menuDefinitionEntryCommandPasteSpecial
-			// 
+			//
 			this.menuDefinitionEntryCommandPasteSpecial.CommandIdentifier = "MindShare.ApplicationCore.Commands.PasteSpecial";
 			this.menuDefinitionEntryCommandPasteSpecial.SeparatorAfter = false;
 			this.menuDefinitionEntryCommandPasteSpecial.SeparatorBefore = false;
-			// 
+			//
 			// menuDefinitionEntryCommandSelectAll
-			// 
+			//
 			this.menuDefinitionEntryCommandSelectAll.CommandIdentifier = "MindShare.ApplicationCore.Commands.SelectAll";
 			this.menuDefinitionEntryCommandSelectAll.SeparatorAfter = true;
 			this.menuDefinitionEntryCommandSelectAll.SeparatorBefore = true;
-			// 
+			//
 			// menuDefinitionEntryCommandInsertLink
-			// 
+			//
 			this.menuDefinitionEntryCommandInsertLink.CommandIdentifier = "OpenLiveWriter.ApplicationFramework.Commands.InsertLink";
 			this.menuDefinitionEntryCommandInsertLink.SeparatorAfter = true;
 			this.menuDefinitionEntryCommandInsertLink.SeparatorBefore = true;

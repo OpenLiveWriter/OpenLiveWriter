@@ -78,6 +78,5 @@ namespace OpenLiveWriter.CoreServices
                 _cssBuilder.Append(styleElement.ToString());
         }
 
-
     }
 }

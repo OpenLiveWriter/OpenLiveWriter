@@ -13,7 +13,7 @@ namespace OpenLiveWriter.Interop.Com
     /// <summary>
     /// Adapter class that exposes COM IStreams as .NET streams.  For detailed documentation
     /// on each method and property, see documentation on stream.
-    /// 
+    ///
     /// Based upon the ComStream implementation example found in
     /// Adam Nathan's ".NET and COM: The Complete Iteroperability Guide" Page 883.
     /// </summary>
@@ -66,7 +66,7 @@ namespace OpenLiveWriter.Interop.Com
         }
 
         /// <summary>
-        /// Reads a sequence of bytes from the current stream and advances the 
+        /// Reads a sequence of bytes from the current stream and advances the
         /// current position within the stream by the number of bytes read
         /// </summary>
         public unsafe override int Read(byte[] buffer, int offset, int count)
@@ -215,7 +215,6 @@ namespace OpenLiveWriter.Interop.Com
         // The com stream being wrapped
         private IStream m_comStream;
 
-
         /// <summary>
         /// Helper that validates that the COM stream is available (throws
         /// exception if the stream isn't available).
@@ -229,7 +228,7 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Helper the validates that the offset is a valid value (current
-        /// implementation requires a zero offset).  Throws a NotSupportedException if 
+        /// implementation requires a zero offset).  Throws a NotSupportedException if
         /// the offset is invalid.
         /// </summary>
         /// <param name="offset">The offset to validate.</param>

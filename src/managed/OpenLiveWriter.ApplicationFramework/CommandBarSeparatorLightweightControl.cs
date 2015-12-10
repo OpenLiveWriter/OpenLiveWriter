@@ -107,7 +107,6 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Call the base class's method so that registered delegates receive the event.
             base.OnPaint(e);
 
-
             //	Paint the left line.
             using (SolidBrush solidBrush = new SolidBrush(Color.FromArgb(64, 0, 0, 0)))
                 e.Graphics.FillRectangle(solidBrush, VirtualClientRectangle.X, VirtualClientRectangle.Y + 1, VirtualClientRectangle.Width / 2, VirtualClientRectangle.Height);

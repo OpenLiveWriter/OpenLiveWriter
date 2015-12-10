@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
-    /// Helpers for managing drag operations 
+    /// Helpers for managing drag operations
     /// </summary>
     public class DragDropHelper
     {

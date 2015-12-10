@@ -113,7 +113,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             }
         }
 
-
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             using (AutoreplaceEditForm form = new AutoreplaceEditForm(_preferences))

@@ -53,7 +53,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         public bool HasContiguousSelection
         {
             get { return _hasContiguousSelection; }
@@ -84,13 +83,11 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
         private IHTMLTableCell _endCell;
 
-
         public ArrayList SelectedCells
         {
             get { return _selectedCells; }
         }
         private ArrayList _selectedCells = new ArrayList();
-
 
         public bool SelectionSpansAllCells
         {
@@ -179,10 +176,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private IHTMLElement GetSelectedTable(IHTMLTableCell beginCell, IHTMLTableCell endCell, MarkupRange selectionMarkupRange)
         {
-            // screen null cases 
+            // screen null cases
             if (beginCell == null || endCell == null)
                 return null;
 
@@ -245,7 +241,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             else
             {
                 MarkupRange selectionMarkupRange2 = selectionMarkupRange.Clone();
-                // is the selection bounded by the table 
+                // is the selection bounded by the table
                 IHTMLElement beginParentTable = selectionMarkupRange2.Start.SeekElementLeft(ElementFilters.CreateEqualFilter(tableElement));
                 IHTMLElement endParentTable = selectionMarkupRange2.End.SeekElementRight(ElementFilters.CreateEqualFilter(tableElement));
                 return beginParentTable != null && endParentTable != null;

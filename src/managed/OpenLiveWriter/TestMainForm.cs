@@ -70,13 +70,13 @@ namespace OpenLiveWriter
 		public static void Main(string[] args)
 		{
 			try
-			{		
+			{
 				// initialize application environment
 				ApplicationEnvironment.Initialize();
 
 				//RsdServiceDescription rsdService = RsdServiceDetector.DetectFromRsdUrl("http://localhost/test/foo.rsd", 10000);
 				//Trace.WriteLine(rsdService.EditingTemplateLink);
-			
+
 				Application.Run(new TestMainForm());
 
 				// launch blogging form
@@ -84,7 +84,7 @@ namespace OpenLiveWriter
 				//WeblogConfigurationWizardController.Edit(Win32WindowImpl.DesktopWin32Window, BlogSettings.DefaultBlogId);
 			}
 			catch( Exception ex )
-			{		
+			{
 				UnexpectedErrorMessage.Show( ex ) ;
 			}
 		}

@@ -81,14 +81,12 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                         return DragDropEffects.None;
 
                     // for external html provide move and copy (prefer move -- this allows
-                    // us to smoothly handle the moving of images around the document)                    
+                    // us to smoothly handle the moving of images around the document)
                     return ProvideMoveAsDefaultWithCopyOverride(keyState, supportedEffects);
                 default:
                     return DragDropEffects.None;
             }
         }
-
-
 
 
         /// <summary>
@@ -98,7 +96,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         {
             currentCaretLocation = null;
         }
-
 
 
         /// <summary>
@@ -117,7 +114,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
             EditorContext.MarkupServices.MoveMarkupPointerToCaret(currentCaretLocation, begin);
             MarkupPointerMoveHelper.PerformImageBreakout(begin);
 
-            //optimize the drop location to keep it from being in an unexpected location (fixes bug 395224) 
+            //optimize the drop location to keep it from being in an unexpected location (fixes bug 395224)
             if (EditorContext.ShouldMoveDropLocationRight(begin))
                 begin.Right(true);
 
@@ -134,7 +131,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
             }
 
             // Forces a SelectionChanged event so that the correct behaviors around the drop location are activated.
-            // For example, one side effect of this call is that the OnEditableRegionFocusChanged event is fired, which 
+            // For example, one side effect of this call is that the OnEditableRegionFocusChanged event is fired, which
             // sets whether the current drop location in the canvas supports images, html and/or text.
             MarkupRange dropRange = EditorContext.MarkupServices.CreateMarkupRange(begin, end);
             dropRange.ToTextRange().select();
@@ -156,7 +153,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         /// </summary>
         private enum DragType { ExternalHtml };
         private DragType dragType;
-
 
         /// <summary>
         /// Track the current caret location

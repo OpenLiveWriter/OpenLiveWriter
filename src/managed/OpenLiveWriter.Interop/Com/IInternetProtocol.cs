@@ -9,15 +9,14 @@ namespace OpenLiveWriter.Interop.Com
 {
 
     /// <summary>
-    /// This interface provides an implementation of the IUnknown interface, which allows 
-    /// client programs to determine if asynchronous pluggable protocols are supported. 
+    /// This interface provides an implementation of the IUnknown interface, which allows
+    /// client programs to determine if asynchronous pluggable protocols are supported.
     /// No additional methods are supported by this interface.
     /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     [Guid("79eac9e0-baf9-11ce-8c82-00aa004ba90b")]
     public interface IInternet { }
-
 
     /// <summary>
     /// This interface is used to control the operation of an asynchronous pluggable protocol handler.
@@ -36,10 +35,10 @@ namespace OpenLiveWriter.Interop.Com
         /// <param name="grfPI">[in] Unsigned long integer value that contains the flags that determine if the method only parses or if it parses and downloads the URL. This can be one of the PI_FLAGS values.</param>
         /// <param name="dwReserved">[in] For pluggable MIME filters, contains the address of a PROTOCOLFILTERDATA structure. Otherwise, it is reserved and must be set to NULL</param>
         /// <returns>Returns one of the following values:
-        ///		S_OK -- Success. 
-        ///		E_PENDING -- The operation started and will complete asynchronously. 
+        ///		S_OK -- Success.
+        ///		E_PENDING -- The operation started and will complete asynchronously.
         ///		INET_E_USE_DEFAULT_PROTOCOLHANDLER -- The handler cannot handle this URL, so the default handler should be used.
-        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions. 
+        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions.
         ///	</returns>																																																										   </returns>
         [PreserveSig]
         int Start(
@@ -50,18 +49,17 @@ namespace OpenLiveWriter.Interop.Com
             [In] IntPtr dwReserved);
 
         /// <summary>
-        /// Allows the pluggable protocol handler to continue processing data on the apartment thread. 
+        /// Allows the pluggable protocol handler to continue processing data on the apartment thread.
         /// </summary>
         /// <param name="pProtocolData">[in] Address of the PROTOCOLDATA structure data passed to IInternetProtocolSink::Switch.</param>
         /// <returns>Returns one of the following values:
-        ///		S_OK -- Success. 
-        ///		E_PENDING -- The next state will complete asynchronously. 
-        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions. 
+        ///		S_OK -- Success.
+        ///		E_PENDING -- The next state will complete asynchronously.
+        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions.
         /// </returns>																																				</returns>
         [PreserveSig]
         int Continue(
             [In, Out] ref PROTOCOLDATA pProtocolData);
-
 
         /// <summary>
         /// Cancels an operation that is in progress.
@@ -69,22 +67,21 @@ namespace OpenLiveWriter.Interop.Com
         /// <param name="hrReason">[in] HRESULT value that contains the reason for canceling the operation. This is the HRESULT that is reported by the pluggable protocol if it successfully canceled the binding. The pluggable protocol passes this HRESULT to urlmon.dll using the IInternetProtocolSink::ReportResult method. Urlmon.dll then passes this HRESULT to the host using IBindStatusCallback::OnStopBinding.</param>
         /// <param name="dwOptions">[in] Reserved. Must be set to 0.</param>
         /// <returns>Returns one of the following values:
-        ///		S_OK -- Success. 
-        ///		E_PENDING -- The operation started and is completed asynchronously. 
-        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions. 
-        /// </returns>		
+        ///		S_OK -- Success.
+        ///		E_PENDING -- The operation started and is completed asynchronously.
+        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions.
+        /// </returns>
         [PreserveSig]
         int Abort(
             [In] int hrReason,
             [In] uint dwOptions);
 
         /// <summary>
-        /// Releases the resources used by the pluggable protocol handler. 
+        /// Releases the resources used by the pluggable protocol handler.
         /// </summary>
         /// <param name="dwOptions">[in] Reserved. Must be set to 0.</param>
         void Terminate(
             [In] uint dwOptions);
-
 
         /// <summary>
         /// Not currently implemented
@@ -101,11 +98,10 @@ namespace OpenLiveWriter.Interop.Com
         int Resume();
     }
 
-
     /// <summary>
-    /// This is the main interface exposed by an asynchronous pluggable protocol. 
+    /// This is the main interface exposed by an asynchronous pluggable protocol.
     /// This interface and the IInternetProtocolSink interface communicate with each
-    /// other very closely during download operations. 
+    /// other very closely during download operations.
     /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -121,10 +117,10 @@ namespace OpenLiveWriter.Interop.Com
         /// <param name="grfPI">[in] Unsigned long integer value that contains the flags that determine if the method only parses or if it parses and downloads the URL. This can be one of the PI_FLAGS values.</param>
         /// <param name="dwReserved">[in] For pluggable MIME filters, contains the address of a PROTOCOLFILTERDATA structure. Otherwise, it is reserved and must be set to NULL</param>
         /// <returns>Returns one of the following values:
-        ///		S_OK -- Success. 
-        ///		E_PENDING -- The operation started and will complete asynchronously. 
+        ///		S_OK -- Success.
+        ///		E_PENDING -- The operation started and will complete asynchronously.
         ///		INET_E_USE_DEFAULT_PROTOCOLHANDLER -- The handler cannot handle this URL, so the default handler should be used.
-        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions. 
+        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions.
         ///	</returns>																																																										   </returns>
         [PreserveSig]
         int Start(
@@ -135,18 +131,17 @@ namespace OpenLiveWriter.Interop.Com
             [In] IntPtr dwReserved);
 
         /// <summary>
-        /// Allows the pluggable protocol handler to continue processing data on the apartment thread. 
+        /// Allows the pluggable protocol handler to continue processing data on the apartment thread.
         /// </summary>
         /// <param name="pProtocolData">[in] Address of the PROTOCOLDATA structure data passed to IInternetProtocolSink::Switch.</param>
         /// <returns>Returns one of the following values:
-        ///		S_OK -- Success. 
-        ///		E_PENDING -- The next state will complete asynchronously. 
-        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions. 
+        ///		S_OK -- Success.
+        ///		E_PENDING -- The next state will complete asynchronously.
+        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions.
         /// </returns>																																				</returns>
         [PreserveSig]
         int Continue(
             [In, Out] ref PROTOCOLDATA pProtocolData);
-
 
         /// <summary>
         /// Cancels an operation that is in progress.
@@ -154,18 +149,17 @@ namespace OpenLiveWriter.Interop.Com
         /// <param name="hrReason">[in] HRESULT value that contains the reason for canceling the operation. This is the HRESULT that is reported by the pluggable protocol if it successfully canceled the binding. The pluggable protocol passes this HRESULT to urlmon.dll using the IInternetProtocolSink::ReportResult method. Urlmon.dll then passes this HRESULT to the host using IBindStatusCallback::OnStopBinding.</param>
         /// <param name="dwOptions">[in] Reserved. Must be set to 0.</param>
         /// <returns>Returns one of the following values:
-        ///		S_OK -- Success. 
-        ///		E_PENDING -- The operation started and is completed asynchronously. 
-        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions. 
-        /// </returns>		
+        ///		S_OK -- Success.
+        ///		E_PENDING -- The operation started and is completed asynchronously.
+        ///		INET_E_xxx -- Internet-specific errors. For additional information, see the URL Moniker Error Codes definitions.
+        /// </returns>
         [PreserveSig]
         int Abort(
             [In] int hrReason,
             [In] uint dwOptions);
 
-
         /// <summary>
-        /// Releases the resources used by the pluggable protocol handler. 
+        /// Releases the resources used by the pluggable protocol handler.
         /// </summary>
         /// <param name="dwOptions">[in] Reserved. Must be set to 0.</param>
         void Terminate(
@@ -186,16 +180,16 @@ namespace OpenLiveWriter.Interop.Com
         int Resume();
 
         /// <summary>
-        /// Reads data retrieved by the pluggable protocol handler. 
+        /// Reads data retrieved by the pluggable protocol handler.
         /// </summary>
         /// <param name="pv">[in] Address of the buffer where the information should be stored.</param>
         /// <param name="cb">[in] ULONG value that indicates the size of the buffer.</param>
         /// <param name="pcbRead">[out] Address of a ULONG value that indicates the amount of data stored in the buffer. </param>
         /// <returns>Returns one of the following values:
-        ///		INET_E_DATA_NOT_AVAILABLE -- There is no more data available from the server, but more data was expected. 
-        ///		INET_E_DOWNLOAD_FAILURE -- The read failed. 
-        ///		E_PENDING -- The read operation is pending. 
-        ///		S_OK -- The read was successful, but there is still additional data available. 
+        ///		INET_E_DATA_NOT_AVAILABLE -- There is no more data available from the server, but more data was expected.
+        ///		INET_E_DOWNLOAD_FAILURE -- The read failed.
+        ///		E_PENDING -- The read operation is pending.
+        ///		S_OK -- The read was successful, but there is still additional data available.
         ///		S_FALSE -- All of the data has been completely downloaded.</returns>
         [PreserveSig]
         int Read(
@@ -203,14 +197,13 @@ namespace OpenLiveWriter.Interop.Com
             [In] uint cb,
             [Out] out uint pcbRead);
 
-
         /// <summary>
         /// Moves the current seek offset.
         /// </summary>
         /// <param name="dlibMove">[in] Large integer value that indicates how far to move the offset.</param>
         /// <param name="dwOrigin">[in] Enumerated DWORD value that indicates where the move should begin.</param>
         /// <param name="plibNewPosition">[out] Address of an unsigned long integer value that indicates the new offset.</param>
-        /// <returns>Returns S_OK if successful, or E_FAIL if the protocol does not 
+        /// <returns>Returns S_OK if successful, or E_FAIL if the protocol does not
         /// support seekable data retrieval.</returns>
         int Seek(
             [In] Int64 dlibMove,
@@ -218,24 +211,23 @@ namespace OpenLiveWriter.Interop.Com
             [Out] out UInt64 plibNewPosition);
 
         /// <summary>
-        /// Locks the requested resource so that the IInternetProtocolRoot::Terminate method can be called and the remaining data can be read. 
+        /// Locks the requested resource so that the IInternetProtocolRoot::Terminate method can be called and the remaining data can be read.
         /// </summary>
         /// <param name="dwOptions">[in] Reserved. Must be set to 0.</param>
         void LockRequest(
             [In] uint dwOptions);
 
         /// <summary>
-        /// Frees any resources associated with a lock. 
+        /// Frees any resources associated with a lock.
         /// </summary>
         void UnlockRequest();
     }
 
 
-
     /// <summary>
-    /// This interface receives the reports and binding data from the asynchronous 
+    /// This interface receives the reports and binding data from the asynchronous
     /// pluggable protocol. It is a free-threaded interface and can be called from
-    /// any thread. 
+    /// any thread.
     /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -252,7 +244,7 @@ namespace OpenLiveWriter.Interop.Com
             [In] ref PROTOCOLDATA pProtocolData);
 
         /// <summary>
-        /// Reports progress made during a state operation. 
+        /// Reports progress made during a state operation.
         /// </summary>
         /// <param name="ulStatusCode">[in] BINDSTATUS value that indicates the status of the state operation.</param>
         /// <param name="szStatusText">[in] String value that describes the status of the state operation.</param>
@@ -263,10 +255,10 @@ namespace OpenLiveWriter.Interop.Com
             [In, MarshalAs(UnmanagedType.LPWStr)] string szStatusText);
 
         /// <summary>
-        /// Reports the amount of data that is available on the thread. 
+        /// Reports the amount of data that is available on the thread.
         /// </summary>
         /// <param name="grfBSCF">[in] DWORD value that evaluates to a BSCF value
-        /// that indicates the type of data available. BSCF_LASTDATANOTIFICATION 
+        /// that indicates the type of data available. BSCF_LASTDATANOTIFICATION
         /// indicates that all available data has been reported.</param>
         /// <param name="ulProgress">[in] Unsigned long integer value that indicates the progress made so far.</param>
         /// <param name="ulProgressMax">[in] Unsigned long integer value that indicates the total amount of work to be done.</param>
@@ -279,7 +271,7 @@ namespace OpenLiveWriter.Interop.Com
             [In] uint ulProgressMax);
 
         /// <summary>
-        /// Reports the result of the operation when called on any thread. 
+        /// Reports the result of the operation when called on any thread.
         /// </summary>
         /// <param name="hrResult">[in] HRESULT value that indicates the result returned by the operation.</param>
         /// <param name="dwError">[in] Unsigned long integer value that is a protocol-specific code.</param>
@@ -293,10 +285,9 @@ namespace OpenLiveWriter.Interop.Com
     }
 
 
-
     /// <summary>
     /// This interface is implemented by the system and provides data that the protocol
-    /// might need to bind successfully. 
+    /// might need to bind successfully.
     /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -304,20 +295,19 @@ namespace OpenLiveWriter.Interop.Com
     public interface IInternetBindInfo
     {
         /// <summary>
-        /// Gets the BINDINFO structure associated with the binding operation. 
+        /// Gets the BINDINFO structure associated with the binding operation.
         /// </summary>
-        /// <param name="grfBINDF">[out] Address of a value taken from the BINDF 
-        /// enumeration indicating whether the bind should proceed synchronously 
+        /// <param name="grfBINDF">[out] Address of a value taken from the BINDF
+        /// enumeration indicating whether the bind should proceed synchronously
         /// or asynchronously.</param>
-        /// <param name="pbindinfo">[in, out] Address of the BINDINFO structure, 
+        /// <param name="pbindinfo">[in, out] Address of the BINDINFO structure,
         /// which describes how the client wants the binding to occur.</param>
         void GetBindInfo(
             [Out] out BINDF grfBINDF,
             [In, Out] ref BINDINFO pbindinfo);
 
-
         /// <summary>
-        /// Retrieves the strings needed by the protocol for its operation. 
+        /// Retrieves the strings needed by the protocol for its operation.
         /// This method is used if the protocol requires any additional information,
         /// such as a user name or password needed to access a URL.
         /// </summary>
@@ -332,10 +322,9 @@ namespace OpenLiveWriter.Interop.Com
             [In, Out] ref uint pcElFetched);
     }
 
-
     /// <summary>
     /// This interface provides information about the URL being handled by the
-    /// protocol handler. The interface is optional for implementors of 
+    /// protocol handler. The interface is optional for implementors of
     /// IInternetProtocol.
     /// </summary>
     [ComImport]
@@ -344,7 +333,7 @@ namespace OpenLiveWriter.Interop.Com
     public interface IInternetProtocolInfo
     {
         /// <summary>
-        /// Parses a URL. 
+        /// Parses a URL.
         /// </summary>
         /// <param name="pwzUrl">[in] String value that contains the URL to parse.</param>
         /// <param name="ParseAction">[in] PARSEACTION value that determines the information to be parsed from the URL. </param>
@@ -354,9 +343,9 @@ namespace OpenLiveWriter.Interop.Com
         /// <param name="pcchResult">[out] Pointer to an unsigned long integer value that contains the size of the information stored in the buffer. </param>
         /// <param name="dwReserved">[in] Reserved. Must be set to 0.</param>
         /// <returns>Returns one of the following values.
-        ///		S_OK -- Success. 
-        ///		S_FALSE -- The buffer was too small to contain the resulting URL. 
-        ///		INET_E_DEFAULT_ACTION -- Use the default action. 
+        ///		S_OK -- Success.
+        ///		S_FALSE -- The buffer was too small to contain the resulting URL.
+        ///		INET_E_DEFAULT_ACTION -- Use the default action.
         /// </returns>
         [PreserveSig]
         int ParseUrl(
@@ -368,9 +357,8 @@ namespace OpenLiveWriter.Interop.Com
             [Out] out uint pcchResult,
             [In] uint dwReserved);
 
-
         /// <summary>
-        /// Combines a base and relative URL into a full URL. 
+        /// Combines a base and relative URL into a full URL.
         /// </summary>
         /// <param name="pwzBaseUrl">[in] String value containing the base URL. </param>
         /// <param name="pwzRelatuveUrl">[in] String value containing the relative URL. </param>
@@ -391,9 +379,8 @@ namespace OpenLiveWriter.Interop.Com
             [Out] out uint pcchResult,
             [In] uint dwReserved);
 
-
         /// <summary>
-        /// Compares two URLs and determines if they are equal. 
+        /// Compares two URLs and determines if they are equal.
         /// </summary>
         /// <param name="pwzUrl1">[in] String value that contains the first URL. </param>
         /// <param name="pwzUrl2">in] String value that contains the second URL. </param>
@@ -404,9 +391,8 @@ namespace OpenLiveWriter.Interop.Com
             [In, MarshalAs(UnmanagedType.LPWStr)] string pwzUrl2,
             [In] uint dwCompareFlags);
 
-
         /// <summary>
-        /// Retrieves information related to the specified URL. 
+        /// Retrieves information related to the specified URL.
         /// </summary>
         /// <param name="pwzUrl">[in] String value that contains the URL. </param>
         /// <param name="QueryOption">[in] QUERYOPTION value that indicates what option to query. </param>
@@ -416,9 +402,9 @@ namespace OpenLiveWriter.Interop.Com
         /// <param name="pcbBuf">[in, out] Pointer to an unsigned long integer variable to store the size of the requested information. </param>
         /// <param name="dwReserved">[in] Reserved. Must be set to 0.</param>
         /// <returns>Returns one of the following values.
-        ///		S_OK -- Success. 
-        ///		S_FALSE --  The buffer was too small to store the information. 
-        ///		INET_E_QUERYOPTION_UNKNOWN --  The option requested is unknown. 
+        ///		S_OK -- Success.
+        ///		S_FALSE --  The buffer was too small to store the information.
+        ///		INET_E_QUERYOPTION_UNKNOWN --  The option requested is unknown.
         /// </returns>
         [PreserveSig]
         int QueryInfo(
@@ -432,35 +418,32 @@ namespace OpenLiveWriter.Interop.Com
     }
 
 
-
     /// <summary>
     /// Contains state information about the protocol that is transparent to the
-    /// transaction handler. 
+    /// transaction handler.
     /// </summary>
     public struct PROTOCOLDATA
     {
         /// <summary>
-        /// Unsigned long integer value that contains the flags. 
+        /// Unsigned long integer value that contains the flags.
         /// </summary>
         public uint grfFlags;
 
         /// <summary>
-        /// Unsigned long integer value that contains the state of the protocol handler. 
+        /// Unsigned long integer value that contains the state of the protocol handler.
         /// </summary>
         public uint dwState;
 
         /// <summary>
-        /// Address of the data buffer. 
+        /// Address of the data buffer.
         /// </summary>
         public IntPtr pData;
 
         /// <summary>
-        /// Unsigned long integer value that contains the size of the data buffer. 
+        /// Unsigned long integer value that contains the size of the data buffer.
         /// </summary>
         public uint cbData;
     }
-
-
 
 
     /// <summary>
@@ -476,43 +459,43 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Behavior of this field is moniker-specific. For URL monikers, this
-        /// string is appended to the URL when the bind operation is started. 
+        /// string is appended to the URL when the bind operation is started.
         /// Like other OLE strings, this value is a Unicode string that the
         /// client should allocate using CoTaskMemAlloc. The URL moniker frees
-        /// the memory later. 
+        /// the memory later.
         /// </summary>
         [MarshalAs(UnmanagedType.LPWStr)]
         public string szExtraInfo;
 
         /// <summary>
         /// Data to be used in a PUT or POST operation specified by the
-        /// dwBindVerb member. 
+        /// dwBindVerb member.
         /// </summary>
         public STGMEDIUM stgmedData;
 
         /// <summary>
         /// Flag from the BINDINFOF enumeration that determines the use of URL
         /// encoding during the binding operation. This member is specific to
-        /// URL monikers. 
+        /// URL monikers.
         /// </summary>
         public BINDINFOF grfBindInfoF;
 
         /// <summary>
         /// Value from the BINDVERB enumeration specifying an action to be
-        /// performed during the bind operation. 
+        /// performed during the bind operation.
         /// </summary>
         public BINDVERB dwBindVerb;
 
         /// <summary>
         /// BSTR specifying a protocol-specific custom action to be performed
         /// during the bind operation (only if dwBindVerb is set to
-        /// BINDVERB_CUSTOM). 
+        /// BINDVERB_CUSTOM).
         /// </summary>
         [MarshalAs(UnmanagedType.LPWStr)]
         public string szCustomVerb;
 
         /// <summary>
-        /// Size of the data provided in the stgmedData member. 
+        /// Size of the data provided in the stgmedData member.
         /// </summary>
         public uint cbstgmedData;
 
@@ -549,17 +532,17 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// SECURITY_ATTRIBUTES structure that contains the descriptor for the
         /// object being bound to and indicates whether the handle retrieved by
-        /// specifying this structure is inheritable. 
+        /// specifying this structure is inheritable.
         /// </summary>
         public SECURITY_ATTRIBUTES securityAttributes;
 
         /// <summary>
-        /// Interface identifier of the IUnknown interface referred to by pUnk. 
-        /// </summary>		
+        /// Interface identifier of the IUnknown interface referred to by pUnk.
+        /// </summary>
         public Guid iid;
 
         /// <summary>
-        /// Pointer to the IUnknown interface. 
+        /// Pointer to the IUnknown interface.
         /// </summary>
         [MarshalAs(UnmanagedType.IUnknown)]
         public object punk;
@@ -571,8 +554,6 @@ namespace OpenLiveWriter.Interop.Com
     }
 
 
-
-
     /// <summary>
     /// Contains values that determine the use of URL encoding during the binding
     /// operation.
@@ -581,17 +562,16 @@ namespace OpenLiveWriter.Interop.Com
     {
         /// <summary>
         /// Use URL encoding to pass in the data provided in the stgmedData member
-        /// of the BINDINFO structure for PUT and POST operations. 
+        /// of the BINDINFO structure for PUT and POST operations.
         /// </summary>
         URLENCODESTGMEDDATA = 0x00000001,
 
         /// <summary>
         /// Use URL encoding to pass in the data provided in the szExtraInfo
-        /// member of the BINDINFO structure. 
+        /// member of the BINDINFO structure.
         /// </summary>
         URLENCODEDEXTRAINFO = 0x00000002
     };
-
 
 
     /// <summary>
@@ -603,19 +583,19 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// Perform an HTTP GET operation, the default operation. The stgmedData
         /// member of the BINDINFO structure should be set to TYMED_NULL for the
-        /// GET operation. 
+        /// GET operation.
         /// </summary>
         GET = 0x00000000,
 
         /// <summary>
         /// Perform an HTTP POST operation. The data to be posted should be
-        /// specified in the stgmedData member of the BINDINFO structure. 
+        /// specified in the stgmedData member of the BINDINFO structure.
         /// </summary>
         POST = 0x00000001,
 
         /// <summary>
         /// Perform an HTTP PUT operation. The data to put should be specified
-        /// in the stgmedData member of the BINDINFO structure. 
+        /// in the stgmedData member of the BINDINFO structure.
         /// </summary>
         PUT = 0x00000002,
 
@@ -623,11 +603,10 @@ namespace OpenLiveWriter.Interop.Com
         /// Perform a custom operation that is protocol-specific. See the
         /// szCustomVerb member of the BINDINFO structure. The data to be used
         /// in the custom operation should be specified in the stgmedData
-        /// structure. 
+        /// structure.
         /// </summary>
         CUSTOM = 0x00000003
     }
-
 
     /// <summary>
     /// Contains the values for the bind string types available for
@@ -636,95 +615,93 @@ namespace OpenLiveWriter.Interop.Com
     public enum BINDSTRING : uint
     {
         /// <summary>
-        /// Retrieve the headers associated with the request. 
+        /// Retrieve the headers associated with the request.
         /// </summary>
         HEADERS = 1,
 
         /// <summary>
-        /// Retrieve the accepted MIME types. 
+        /// Retrieve the accepted MIME types.
         /// </summary>
         ACCEPT_MIMES,
 
         /// <summary>
-        /// Not currently supported. 
+        /// Not currently supported.
         /// </summary>
         EXTRA_URL,
 
         /// <summary>
-        /// Retrieve the language types accepted. 
+        /// Retrieve the language types accepted.
         /// </summary>
         LANGUAGE,
 
         /// <summary>
-        /// Retrieve the user name sent with the request. 
+        /// Retrieve the user name sent with the request.
         /// </summary>
         USERNAME,
 
         /// <summary>
-        /// Retrieve the password sent with the request. 
-        /// </summary>	
+        /// Retrieve the password sent with the request.
+        /// </summary>
         PASSWORD,
 
         /// <summary>
-        /// Not currently supported. 
+        /// Not currently supported.
         /// </summary>
         UA_PIXELS,
 
         /// <summary>
-        /// Not currently supported. 
+        /// Not currently supported.
         /// </summary>
         UA_COLOR,
 
         /// <summary>
-        /// Retrieve the server's operating system. 
+        /// Retrieve the server's operating system.
         /// </summary>
         OS,
 
         /// <summary>
-        /// Retrieve the user agent string used. 
+        /// Retrieve the user agent string used.
         /// </summary>
         USER_AGENT,
 
         /// <summary>
-        /// Retrieve the encoding types accepted. 
+        /// Retrieve the encoding types accepted.
         /// </summary>
         ACCEPT_ENCODINGS,
 
         /// <summary>
-        /// Retrieve the posted cookie. 
-        /// </summary>	 
+        /// Retrieve the posted cookie.
+        /// </summary>
         POST_COOKIE,
 
         /// <summary>
-        /// Retrieve the MIME type of the posted data. 
+        /// Retrieve the MIME type of the posted data.
         /// </summary>
         POST_DATA_MIME,
 
         /// <summary>
-        /// Retrieve the URL. 
+        /// Retrieve the URL.
         /// </summary>
         URL,
 
         /// <summary>
         /// Retrieve the CLSID of the resource. This value was added for Microsoft
-        /// Internet Explorer 5. 
+        /// Internet Explorer 5.
         /// </summary>
         IID,
 
         /// <summary>
         /// Retrieve a string that indicates if the protocol handler is binding to
-        /// an object. This value was added for Internet Explorer 5. 
+        /// an object. This value was added for Internet Explorer 5.
         /// </summary>
         FLAG_BIND_TO_OBJECT,
 
         /// <summary>
         /// Retrieve the address of the IBindCtx interface. This value was added
-        /// for Internet Explorer 5. 
+        /// for Internet Explorer 5.
         /// </summary>
         PTR_BIND_CONTEXT
     }
-
-
 
 
     /// <summary>
@@ -735,7 +712,7 @@ namespace OpenLiveWriter.Interop.Com
     {
         /// <summary>
         /// Asynchronous pluggable protocol should parse the URL and return S_OK if
-        /// the URL is syntactically correct; otherwise S_FALSE. 
+        /// the URL is syntactically correct; otherwise S_FALSE.
         /// </summary>
         PI_PARSE_URL = 0x00000001,
 
@@ -743,26 +720,26 @@ namespace OpenLiveWriter.Interop.Com
         /// Asynchronous pluggable protocol handler should be running in filter mode
         /// and data will come in through the IInternetProtocolSink interface it
         /// exposes. The QueryInterface method will be called on the protocol handler
-        /// for its IInternetProtocolSink interface. 
+        /// for its IInternetProtocolSink interface.
         /// </summary>
         PI_FILTER_MODE = 0x00000002,
 
         /// <summary>
         /// Asynchronous pluggable protocol handler should do as little work as possible
         /// on the apartment (or user interface) thread and continue on a worker thread
-        /// as soon as possible. 
+        /// as soon as possible.
         /// </summary>
         PI_FORCE_ASYNC = 0x00000004,
 
         /// <summary>
         /// Asynchronous pluggable protocol handler should use worker threads and not
-        /// use the apartment thread. 
+        /// use the apartment thread.
         /// </summary>
         PI_USE_WORKERTHREAD = 0x00000008,
 
         /// <summary>
         /// Asynchronous pluggable protocol handler should verify and report the
-        /// MIME type. 
+        /// MIME type.
         /// </summary>
         PI_MIMEVERIFICATION = 0x00000010,
 
@@ -773,24 +750,24 @@ namespace OpenLiveWriter.Interop.Com
         PI_CLSIDLOOKUP = 0x00000020,
 
         /// <summary>
-        /// Asynchronous pluggable protocol handler should report its progress. 
+        /// Asynchronous pluggable protocol handler should report its progress.
         /// </summary>
         PI_DATAPROGRESS = 0x00000040,
 
         /// <summary>
-        /// Asynchronous pluggable protocol handler should work synchronously. 
+        /// Asynchronous pluggable protocol handler should work synchronously.
         /// </summary>
         PI_SYNCHRONOUS = 0x00000080,
 
         /// <summary>
         /// Asynchronous pluggable protocol handler should use the apartment
-        /// (or user interface) thread only. 
+        /// (or user interface) thread only.
         /// </summary>
         PI_APARTMENTTHREADED = 0x00000100,
 
         /// <summary>
         /// Asynchronous pluggable protocol handler should install the class if the
-        /// class is not found. 
+        /// class is not found.
         /// </summary>
         PI_CLASSINSTALL = 0x00000200,
 
@@ -802,28 +779,27 @@ namespace OpenLiveWriter.Interop.Com
         PI_PASSONBINDCTX = 0x00002000,
 
         /// <summary>
-        /// Asynchronous pluggable protocol handler should disable MIME filters. 
+        /// Asynchronous pluggable protocol handler should disable MIME filters.
         /// </summary>
         PI_NOMIMEHANDLER = 0x00008000,
 
         /// <summary>
-        /// Asynchronous pluggable protocol handler should load the application directly. 
+        /// Asynchronous pluggable protocol handler should load the application directly.
         /// </summary>
         PI_LOADAPPDIRECT = 0x00004000,
 
         /// <summary>
         /// Asynchronous pluggable protocol handler should switch to the apartment thread,
-        /// even if it does not need to. 
+        /// even if it does not need to.
         /// </summary>
         PD_FORCE_SWITCH = 0x00010000,
 
         /// <summary>
         /// Asynchronous pluggable protocol handler should choose the default handler over
-        /// a custom handler. 
+        /// a custom handler.
         /// </summary>
         PI_PREFERDEFAULTHANDLER = 0x00020000
     }
-
 
     /// <summary>
     /// Contains values that are passed to the client application's implementation of the
@@ -842,9 +818,9 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// Notifies the client application that the bind operation is connecting to
         /// the resource that holds the object or storage being bound to. The
-        /// szStatusText parameter to the IBindStatusCallback::OnProgress method 
+        /// szStatusText parameter to the IBindStatusCallback::OnProgress method
         /// provides the display name of the resource being connected to (for example,
-        /// an IP address). 
+        /// an IP address).
         /// </summary>
         CONNECTING,
 
@@ -852,7 +828,7 @@ namespace OpenLiveWriter.Interop.Com
         /// Notifies the client application that the bind operation has been
         /// redirected to a different data location. The szStatusText parameter
         /// to the IBindStatusCallback::OnProgress method provides the display
-        /// name of the new data location. 
+        /// name of the new data location.
         /// </summary>
         REDIRECTING,
 
@@ -860,15 +836,15 @@ namespace OpenLiveWriter.Interop.Com
         /// Notifies the client application that the bind operation has begun
         /// receiving the object or storage being bound to. The szStatusText
         /// parameter to the IBindStatusCallback::OnProgress method provides the
-        /// display name of the data location. 
+        /// display name of the data location.
         /// </summary>
         BEGINDOWNLOADDATA,
 
         /// <summary>
         /// Notifies the client application that the bind operation has begun
-        /// receiving the object or storage being bound to. The szStatusText 
+        /// receiving the object or storage being bound to. The szStatusText
         /// parameter to the IBindStatusCallback::OnProgress method provides
-        /// the display name of the data location. 
+        /// the display name of the data location.
         /// </summary>
         DOWNLOADINGDATA,
 
@@ -876,32 +852,32 @@ namespace OpenLiveWriter.Interop.Com
         /// Notifies the client application that the bind operation has finished
         /// receiving the object or storage being bound to. The szStatusText
         /// parameter to the IBindStatusCallback::OnProgress method provides
-        /// the display name of the data location. 
+        /// the display name of the data location.
         /// </summary>
         ENDDOWNLOADDATA,
 
         /// <summary>
         /// Notifies the client application that the bind operation is beginning
-        /// to download the component. 
+        /// to download the component.
         /// </summary>
         BEGINDOWNLOADCOMPONENTS,
 
         /// <summary>
         /// Notifies the client application that the bind operation is installing
-        /// the component. 
+        /// the component.
         /// </summary>
         INSTALLINGCOMPONENTS,
 
         /// <summary>
         /// Notifies the client application that the bind operation has finished
-        /// downloading the component. 
+        /// downloading the component.
         /// </summary>
         ENDDOWNLOADCOMPONENTS,
 
         /// <summary>
         /// Notifies the client application that the bind operation is retrieving
         /// the requested object or storage from a cached copy. The szStatusText
-        /// parameter to the IBindStatusCallback::OnProgress method is NULL. 
+        /// parameter to the IBindStatusCallback::OnProgress method is NULL.
         /// </summary>
         USINGCACHEDCOPY,
 
@@ -909,7 +885,7 @@ namespace OpenLiveWriter.Interop.Com
         /// Notifies the client application that the bind operation is requesting
         /// the object or storage being bound to. The szStatusText parameter to the
         /// IBindStatusCallback::OnProgress method provides the display name of the
-        /// object (for example, a file name). 
+        /// object (for example, a file name).
         /// </summary>
         SENDINGREQUEST,
 
@@ -920,7 +896,7 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Notifies the client application that the MIME type of the resource is
-        /// available. 
+        /// available.
         /// </summary>
         MIMETYPEAVAILABLE,
 
@@ -928,73 +904,73 @@ namespace OpenLiveWriter.Interop.Com
         /// Notifies the client application that the temporary or cache file name
         /// of the resource is available. The temporary file name might be returned
         /// if BINDF_NOWRITECACHE is called. The temporary file will be deleted once
-        /// the storage is released. 
+        /// the storage is released.
         /// </summary>
         CACHEFILENAMEAVAILABLE,
 
         /// <summary>
-        /// Notifies the client application that a synchronous operation has started. 
+        /// Notifies the client application that a synchronous operation has started.
         /// </summary>
         BEGINSYNCOPERATION,
 
         /// <summary>
-        /// Notifies the client application that the synchronous operation has completed. 
+        /// Notifies the client application that the synchronous operation has completed.
         /// </summary>
         ENDSYNCOPERATION,
 
         /// <summary>
-        /// Notifies the client application that the file upload has started. 
+        /// Notifies the client application that the file upload has started.
         /// </summary>
         BEGINUPLOADDATA,
 
         /// <summary>
-        /// Notifies the client application that the file upload is in progress. 
+        /// Notifies the client application that the file upload is in progress.
         /// </summary>
         UPLOADINGDATA,
 
         /// <summary>
-        /// Notifies the client application that the file upload has completed. 
+        /// Notifies the client application that the file upload has completed.
         /// </summary>
         ENDUPLOADDATA,
 
         /// <summary>
         /// Notifies the client application that the CLSID of the protocol
-        /// handler being used is available. 
+        /// handler being used is available.
         /// </summary>
         PROTOCOLCLASSID,
 
         /// <summary>
-        /// Notifies the client application that the Urlmon.dll is encoding data. 
+        /// Notifies the client application that the Urlmon.dll is encoding data.
         /// </summary>
         ENCODING,
 
         /// <summary>
-        /// Notifies the client application that the verified MIME type is available. 		
+        /// Notifies the client application that the verified MIME type is available.
         /// </summary>
         VERIFIEDMIMETYPEAVAILABLE,
 
         /// <summary>
-        /// Notifies the client application that the class install location is available. 
+        /// Notifies the client application that the class install location is available.
         /// </summary>
         CLASSINSTALLLOCATION,
 
         /// <summary>
-        /// Notifies the client application that the bind operation is decoding data. 
+        /// Notifies the client application that the bind operation is decoding data.
         /// </summary>
         DECODING,
 
         /// <summary>
         /// Notifies the client application that a pluggable MIME handler is being loaded.
-        /// This value was added for Microsoft® Internet Explorer 5. 
+        /// This value was added for MicrosoftÂ® Internet Explorer 5.
         /// </summary>
         LOADINGMIMEHANDLER,
 
         /// <summary>
-        /// Notifies the client application that this resource contained a 
-        /// Content-Disposition header that indicates that this resource is an 
-        /// attachment. The content of this resource should not be automatically 
+        /// Notifies the client application that this resource contained a
+        /// Content-Disposition header that indicates that this resource is an
+        /// attachment. The content of this resource should not be automatically
         /// displayed. Client applications should request permission from the user.
-        /// This value was added for Internet Explorer 5. 
+        /// This value was added for Internet Explorer 5.
         /// </summary>
         CONTENTDISPOSITIONATTACH,
 
@@ -1002,119 +978,118 @@ namespace OpenLiveWriter.Interop.Com
         /// Notifies the client application of the new MIME type of the resource.
         /// This is used by a pluggable MIME filter to report a change in the MIME
         /// type after it has processed the resource. This value was added for
-        /// Internet Explorer 5. 
+        /// Internet Explorer 5.
         /// </summary>
         FILTERREPORTMIMETYPE,
 
         /// <summary>
         /// Notifies the Urlmon.dll that this CLSID is for the class the Urlmon.dll
         /// should return to the client on a call to IMoniker::BindToObject. This
-        /// value was added for Internet Explorer 5. 
+        /// value was added for Internet Explorer 5.
         /// </summary>
         CLSIDCANINSTANTIATE,
 
         /// <summary>
         /// Reports that the IUnknown interface has been released. This value was
-        /// added for Internet Explorer 5. 
+        /// added for Internet Explorer 5.
         /// </summary>
         IUNKNOWNAVAILABLE,
 
         /// <summary>
         /// Reports whether or not the client application is connected directly to
         /// the pluggable protocol handler. This value was added for Internet
-        /// Explorer 5. 
+        /// Explorer 5.
         /// </summary>
         DIRECTBIND,
 
         /// <summary>
         /// Reports the MIME type of the resource, before any code sniffing is done.
-        /// This value was added for Internet Explorer 5. 
+        /// This value was added for Internet Explorer 5.
         /// </summary>
         RAWMIMETYPE,
 
         /// <summary>
         /// Reports that a proxy server has been detected. This value was added
-        /// for Internet Explorer 5. 
+        /// for Internet Explorer 5.
         /// </summary>
         PROXYDETECTING,
 
         /// <summary>
         /// Reports the valid types of range requests for a resource. This value
-        /// was added for Internet Explorer 5. 
+        /// was added for Internet Explorer 5.
         /// </summary>
         ACCEPTRANGES,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COOKIE_SENT,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COMPACT_POLICY_RECEIVED,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COOKIE_SUPPRESSED,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COOKIE_STATE_UNKNOWN,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COOKIE_STATE_ACCEPT,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COOKIE_STATE_REJECT,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COOKIE_STATE_PROMPT,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COOKIE_STATE_LEASH,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         COOKIE_STATE_DOWNGRADE,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         POLICY_HREF,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         P3P_HEADER,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SESSION_COOKIE_RECEIVED,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         PERSISTENT_COOKIE_RECEIVED,
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         SESSION_COOKIES_ALLOWED
     }
-
 
     /// <summary>
     /// Contains the values that determine how a resource should be bound to a moniker.
@@ -1127,60 +1102,60 @@ namespace OpenLiveWriter.Interop.Com
         /// IMoniker::BindToStorage or IMoniker::BindToObject. The actual result
         /// of the bind to an object or the bind to storage arrives asynchronously.
         /// The client is notified through calls to its IBindStatusCallback -
-        /// OnDataAvailable or IBindStatusCallback - OnObjectAvailable method. 
+        /// OnDataAvailable or IBindStatusCallback - OnObjectAvailable method.
         /// If the client does not specify this flag, the bind operation will be
         /// synchronous, and the client will not receive any data from the bind
         /// operation until the IMoniker::BindToStorage or IMoniker::BindToObject
-        /// call returns. 
+        /// call returns.
         /// </summary>
         ASYNCHRONOUS = 0x00000001,
 
         /// <summary>
-        /// Value that indicates the client application calling the IMoniker - 
-        /// BindToStorage method prefers that the storage and stream objects 
+        /// Value that indicates the client application calling the IMoniker -
+        /// BindToStorage method prefers that the storage and stream objects
         /// returned in IBindStatusCallback::OnDataAvailable return E_PENDING
         /// when they reference data not yet available through their read methods,
         /// rather than blocking until the data becomes available. This flag
         /// applies only to BINDF_ASYNCHRONOUS operations. Note that asynchronous
         /// stream objects return E_PENDING while data is still downloading and
-        /// return S_FALSE for the end of the file. 
+        /// return S_FALSE for the end of the file.
         /// </summary>
         ASYNCSTORAGE = 0x00000002,
 
         /// <summary>
-        /// Value that indicates that progressive rendering should not be allowed. 
+        /// Value that indicates that progressive rendering should not be allowed.
         /// </summary>
         NOPROGRESSIVERENDERING = 0x00000004,
 
         /// <summary>
         /// Value that indicates that the moniker should be bound to the cached
-        /// version of the resource. 
+        /// version of the resource.
         /// </summary>
         OFFLINEOPERATION = 0x00000008,
 
         /// <summary>
         /// Value that indicates the bind operation should retrieve the newest version
         /// of the data/object possible. For URL monikers, this flag maps to the
-        /// Microsoft® Win32® Internet (WinInet) flag, INTERNET_FLAG_RELOAD, which
-        /// forces a download of the requested resource. 
+        /// MicrosoftÂ® Win32Â® Internet (WinInet) flag, INTERNET_FLAG_RELOAD, which
+        /// forces a download of the requested resource.
         /// </summary>
         GETNEWESTVERSION = 0x00000010,
 
         /// <summary>
         /// Value that indicates the bind operation should not store retrieved data
         /// in the disk cache. BINDF_PULLDATA must also be specified to turn off the
-        /// cache file generation when using the IMoniker::BindToStorage method. 
+        /// cache file generation when using the IMoniker::BindToStorage method.
         /// </summary>
         NOWRITECACHE = 0x00000020,
 
         /// <summary>
         /// Value that indicates the downloaded resource must be saved in the
-        /// cache or a local file. 
+        /// cache or a local file.
         /// </summary>
         NEEDFILE = 0x00000040,
 
         /// <summary>
-        /// Value that indicates the asynchronous moniker allows the client of 
+        /// Value that indicates the asynchronous moniker allows the client of
         /// IMoniker::BindToStorage to drive the bind operation by pulling the
         /// data, rather than having the moniker drive the operation by pushing
         /// the data to the client. When this flag is specified, new data is
@@ -1190,9 +1165,9 @@ namespace OpenLiveWriter.Interop.Com
         /// blocks or returns E_PENDING. When the client specifies this flag, it
         /// must be sure to read all the data it can, even data that is not
         /// necessarily available yet. When this flag is not specified, the
-        /// moniker continues downloading data and calls the client with 
+        /// moniker continues downloading data and calls the client with
         /// IBindStatusCallback::OnDataAvailable whenever new data is available.
-        ///  This flag applies only to BINDF_ASYNCHRONOUS bind operations. 
+        ///  This flag applies only to BINDF_ASYNCHRONOUS bind operations.
         /// </summary>
         PULLDATA = 0x00000080,
 
@@ -1208,36 +1183,36 @@ namespace OpenLiveWriter.Interop.Com
         /// this flag maps to the WinInet flag, INTERNET_FLAG_RESYNCHRONIZE, which
         /// reloads an HTTP resource if the resource has been modified since the last
         /// time it was downloaded. All File Transfer Protocol (FTP) and Gopher
-        /// resources are reloaded. 
+        /// resources are reloaded.
         /// </summary>
         RESYNCHRONIZE = 0x00000200,
 
         /// <summary>
-        /// Value that indicates hyperlinks are allowed. 
+        /// Value that indicates hyperlinks are allowed.
         /// </summary>
         HYPERLINK = 0x00000400,
 
         /// <summary>
         /// Value that indicates that the bind operation should not display any user
-        /// interfaces. 
+        /// interfaces.
         /// </summary>
         NO_UI = 0x00000800,
 
         /// <summary>
         /// Value that indicates the bind operation should be completed silently.
-        /// No user interface or user notification should occur. 
+        /// No user interface or user notification should occur.
         /// </summary>
         SILENTOPERATION = 0x00001000,
 
         /// <summary>
         /// Value that indicates that the resource should not be stored in the
-        /// Internet cache. 
+        /// Internet cache.
         /// </summary>
         PRAGMA_NO_CACHE = 0x00002000,
 
         /// <summary>
         /// Value that indicates that the class object should be retrieved.
-        /// Normally the class instance is retrieved. 
+        /// Normally the class instance is retrieved.
         /// </summary>
         GETCLASSOBJECT = 0x00004000,
 
@@ -1253,36 +1228,36 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Value that indicates that the client application does not need to know
-        /// the exact size of the data available, so the information is read 
-        /// directly from the source. 
+        /// the exact size of the data available, so the information is read
+        /// directly from the source.
         /// </summary>
         DIRECT_READ = 0x00020000,
 
         /// <summary>
-        /// Value that indicates that this transaction should be handled as a 
-        /// forms submittal. 
+        /// Value that indicates that this transaction should be handled as a
+        /// forms submittal.
         /// </summary>
         FORMS_SUBMIT = 0x00040000,
 
         /// <summary>
-        /// Value that indicates the resource should be retrieved from the 
-        /// cache if the attempt to download the resource from the network fails. 
+        /// Value that indicates the resource should be retrieved from the
+        /// cache if the attempt to download the resource from the network fails.
         /// </summary>
         GETFROMCACHE_IF_NET_FAIL = 0x00080000,
 
         /// <summary>
         /// Value that indicates the binding is from a URL moniker. This value
-        /// was added for Internet Explorer 5. 
+        /// was added for Internet Explorer 5.
         /// </summary>
         FROMURLMON = 0x00100000,
 
         /// <summary>
         /// Value that indicates that the moniker should bind to the copy of the
-        /// resource that is currently in the Internet cache. If the requested 
+        /// resource that is currently in the Internet cache. If the requested
         /// item is not found in the Internet cache, the system will attempt to
         /// locate the resource on the network. This value maps to the Win32
-        /// Internet application programming interface (API) flag, 
-        /// INTERNET_FLAG_USE_CACHED_COPY. 
+        /// Internet application programming interface (API) flag,
+        /// INTERNET_FLAG_USE_CACHED_COPY.
         /// </summary>
         FWD_BACK = 0x00200000,
 
@@ -1291,7 +1266,7 @@ namespace OpenLiveWriter.Interop.Com
         /// before it uses the default registered handler for particular protocols.
         /// This value changes this behavior by allowing the moniker client to
         /// specify that Urlmon.dll should look for and use the default system
-        /// protocol first. 
+        /// protocol first.
         /// </summary>
         PREFERDEFAULTHANDLER = 0x00400000,
 
@@ -1301,7 +1276,6 @@ namespace OpenLiveWriter.Interop.Com
         ENFORCERESTRICTED = 0x00800000
     }
 
-
     /// <summary>
     /// Values from the BSCF enumeration are passed to ReportData to indicate the type
     /// of data that is available.
@@ -1310,22 +1284,22 @@ namespace OpenLiveWriter.Interop.Com
     public enum BSCF : uint
     {
         /// <summary>
-        /// Identify the first call to ReportData for a given bind operation. 
+        /// Identify the first call to ReportData for a given bind operation.
         /// </summary>
         FIRSTDATANOTIFICATION = 0x00000001,
 
         /// <summary>
-        /// Identify an intermediate call to ReportData for a bind operation. 
+        /// Identify an intermediate call to ReportData for a bind operation.
         /// </summary>
         INTERMEDIATEDATANOTIFICATION = 0x00000002,
 
         /// <summary>
-        /// Identify the last call to ReportData for a bind operation. 
+        /// Identify the last call to ReportData for a bind operation.
         /// </summary>
         LASTDATANOTIFICATION = 0x00000004,
 
         /// <summary>
-        /// All of the requested data is available. 
+        /// All of the requested data is available.
         /// </summary>
         DATAFULLYAVAILABLE = 0x00000008,
 
@@ -1341,12 +1315,12 @@ namespace OpenLiveWriter.Interop.Com
     public enum PARSEACTION
     {
         /// <summary>
-        /// Canonicalize the URL. 
+        /// Canonicalize the URL.
         /// </summary>
         PARSE_CANONICALIZE = 1,
 
         /// <summary>
-        /// Retrieve the user-friendly name for the URL. 
+        /// Retrieve the user-friendly name for the URL.
         /// </summary>
         PARSE_FRIENDLY,
 
@@ -1354,12 +1328,12 @@ namespace OpenLiveWriter.Interop.Com
         /// Retrieve the URL that should be used by the security manager
         /// to make security decisions. The returned URL should either
         /// return just the namespace of the protocol or map the protocol
-        /// to a known protocol (such as HTTP). 
+        /// to a known protocol (such as HTTP).
         /// </summary>
         PARSE_SECURITY_URL,
 
         /// <summary>
-        /// Return the URL of the root document for this site. 
+        /// Return the URL of the root document for this site.
         /// </summary>
         PARSE_ROOTDOCUMENT,
 
@@ -1369,7 +1343,7 @@ namespace OpenLiveWriter.Interop.Com
         PARSE_DOCUMENT,
 
         /// <summary>
-        /// Remove everything from the URL before the anchor (#). 
+        /// Remove everything from the URL before the anchor (#).
         /// </summary>
         PARSE_ANCHOR,
 
@@ -1385,7 +1359,7 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Get the path from the URL, if available.
-        /// </summary>		
+        /// </summary>
         PARSE_PATH_FROM_URL,
 
         /// <summary>
@@ -1440,7 +1414,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         PARSE_UNESCAPE
     }
-
 
     /// <summary>
     /// Contains the available query options.
@@ -1499,7 +1472,7 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Check if this resource is stored in the cache or if it is
-        /// on a mapped drive (in a cache container). 
+        /// on a mapped drive (in a cache container).
         /// </summary>
         QUERY_IS_CACHED_OR_MAPPED,
 
@@ -1510,7 +1483,7 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Check if the protocol is encrypted
-        /// </summary>		
+        /// </summary>
         QUERY_IS_SECURE,
 
         /// <summary>
@@ -1518,7 +1491,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         QUERY_IS_SAFE,
     }
-
 
 }
 

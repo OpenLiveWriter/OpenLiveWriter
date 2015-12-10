@@ -39,8 +39,8 @@ namespace OpenLiveWriter.PostEditor
 
         // Copyright notices are not to be localized.
         string[] credits = {
-			/* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
-			/* Brian Lambert */ "Portions Copyright © 2003 Brian Lambert, used with permission of the author under the MIT License.",
+			/* XmpMetadata.cs */ "Portions Copyright Â© 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
+			/* Brian Lambert */ "Portions Copyright Â© 2003 Brian Lambert, used with permission of the author under the MIT License.",
         };
 
         public AboutForm()
@@ -66,7 +66,6 @@ namespace OpenLiveWriter.PostEditor
             pictureBoxLogo.Image = aboutBoxImage;
             pictureBoxLogo.RightToLeft = RightToLeft.No;
             Controls.Add(pictureBoxLogo);
-
 
             //	Set the dialog text.
             Text = TextHelper.StripHotkey(String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.AboutAbout), ApplicationEnvironment.ProductNameQualified));
@@ -118,7 +117,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -149,9 +147,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelConfigVersion = new System.Windows.Forms.Label();
             this.copyrightTextbox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
+            //
             // labelProduct
-            // 
+            //
             this.labelProduct.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelProduct.Font = new System.Drawing.Font("Tahoma", 12F);
             this.labelProduct.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -160,19 +158,19 @@ namespace OpenLiveWriter.PostEditor
             this.labelProduct.Size = new System.Drawing.Size(287, 24);
             this.labelProduct.TabIndex = 0;
             this.labelProduct.Text = "Open Live Writer";
-            // 
+            //
             // labelCopyright
-            // 
+            //
             this.labelCopyright.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCopyright.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelCopyright.Location = new System.Drawing.Point(22, 100);
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(284, 30);
             this.labelCopyright.TabIndex = 1;
-            this.labelCopyright.Text = "© 2015 .NET Foundation. All rights reserved.";
-            // 
+            this.labelCopyright.Text = "Â© 2015 .NET Foundation. All rights reserved.";
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -183,9 +181,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonOK.TabIndex = 7;
             this.buttonOK.Text = "OK";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // labelVersion
-            // 
+            //
             this.labelVersion.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelVersion.Location = new System.Drawing.Point(22, 55);
@@ -193,9 +191,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelVersion.Size = new System.Drawing.Size(287, 20);
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Build xxx.xxxx.xxxx";
-            // 
+            //
             // lnkShowLogFile
-            // 
+            //
             this.lnkShowLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lnkShowLogFile.AutoSize = true;
             this.lnkShowLogFile.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -209,9 +207,9 @@ namespace OpenLiveWriter.PostEditor
             this.lnkShowLogFile.Text = "Show log file";
             this.lnkShowLogFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lnkShowLogFile.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkShowLogFile_LinkClicked);
-            // 
+            //
             // labelConfigVersion
-            // 
+            //
             this.labelConfigVersion.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelConfigVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelConfigVersion.Location = new System.Drawing.Point(22, 75);
@@ -219,9 +217,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelConfigVersion.Size = new System.Drawing.Size(284, 18);
             this.labelConfigVersion.TabIndex = 9;
             this.labelConfigVersion.Text = "Configuration Version 12.0.2342.0324";
-            // 
+            //
             // copyrightTextbox
-            // 
+            //
             this.copyrightTextbox.AcceptsReturn = true;
             this.copyrightTextbox.Location = new System.Drawing.Point(12, 123);
             this.copyrightTextbox.Multiline = true;
@@ -230,9 +228,9 @@ namespace OpenLiveWriter.PostEditor
             this.copyrightTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.copyrightTextbox.Size = new System.Drawing.Size(410, 151);
             this.copyrightTextbox.TabIndex = 12;
-            // 
+            //
             // AboutForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonOK;

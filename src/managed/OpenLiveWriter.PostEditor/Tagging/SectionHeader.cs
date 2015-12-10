@@ -32,7 +32,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
 			// supress background painting to avoid flicker
 		}
 
-
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			// draw background
@@ -55,7 +54,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
 			Invalidate();
 		}
 
-
 		private static Bitmap HeaderCornerImage
 		{
 			get
@@ -63,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.Tagging
 				return ResourceHelper.LoadAssemblyResourceBitmap("Tagging.Images.HeaderCorner.png") ;
 			}
 		}
-		
+
 		private UITheme _uiTheme;
 		private class UITheme : ControlUITheme
 		{
@@ -71,7 +69,7 @@ namespace OpenLiveWriter.PostEditor.Tagging
 			public Color BackgroundColor;
 			public bool DrawImages;
 			public UITheme(Control c) : base(c, true)
-			{				
+			{
 			}
 
 			protected override void ApplyTheme(bool highContrast)

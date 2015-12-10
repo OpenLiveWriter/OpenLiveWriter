@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.Tables.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -37,11 +37,11 @@ namespace OpenLiveWriter.PostEditor.Tables.DisplayMessages
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -55,7 +55,6 @@ namespace OpenLiveWriter.PostEditor.Tables.DisplayMessages
 			}
 			base.Dispose( disposing );
 		}
-
 
 		#region Component Designer generated code
 		/// <summary>

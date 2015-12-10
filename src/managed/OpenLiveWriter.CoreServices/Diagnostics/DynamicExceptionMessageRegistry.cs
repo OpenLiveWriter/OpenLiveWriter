@@ -52,7 +52,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             return false;
         }
 
-
         static DynamicExceptionMessageRegistry()
         {
             DynamicExceptionMessageRegistry.Instance.AddMessage(

@@ -16,18 +16,18 @@ namespace OpenLiveWriter.SpellChecker
 {
 	public class SpellingHighlighter : IDisposable
 	{
-		
+
 		static int TIMER_INTERVAL = 10;
 		static int NUMBER_OF_WORDS_TO_CHECK = 30;
-		
-		private ISpellingChecker _spellingChecker ;	
-		
+
+		private ISpellingChecker _spellingChecker ;
+
 		private IHighlightRenderingServicesRaw _highlightRenderingServices;
-		
+
 		private IDisplayServicesRaw _displayServices;
-		
+
 		private IMarkupServicesRaw _markupServicesRaw;
-		
+
 		private MshtmlMarkupServices _markupServices;
 
 		private IHTMLDocument4 _htmlDocument;
@@ -35,12 +35,12 @@ namespace OpenLiveWriter.SpellChecker
 	    private HighlightSegmentTracker _tracker;
 
 		private Queue _workerQueue;
-		
+
 		private SpellingTimer _timer;
-		
+
 		private bool _fatalSpellingError = false ;
-	
-		public SpellingHighlighter(ISpellingChecker spellingChecker, IHighlightRenderingServicesRaw highlightRenderingServices, 
+
+		public SpellingHighlighter(ISpellingChecker spellingChecker, IHighlightRenderingServicesRaw highlightRenderingServices,
 		                           IDisplayServicesRaw displayServices, IMarkupServicesRaw markupServices, IHTMLDocument4 htmlDocument)
 		{
 			_spellingChecker = spellingChecker;
@@ -56,7 +56,7 @@ namespace OpenLiveWriter.SpellChecker
 			_timer.Tick += new EventHandler(_timer_Tick);
 			_workerQueue = new Queue();
         }
-		
+
 		/// <summary>
 		/// Check spelling--called by the damage handler
 		/// </summary>
@@ -109,7 +109,7 @@ namespace OpenLiveWriter.SpellChecker
 			}
 		}
 
-		
+
 		//manages the queue during work
 		private void DoWork()
 		{
@@ -119,7 +119,7 @@ namespace OpenLiveWriter.SpellChecker
 					_workerQueue.Dequeue();
 			}
 		}
-		
+
 		//iterates through a word range checking for spelling errors
 		//return: whether the word range is finished (true) or not
 		private bool ProcessWordRange(MshtmlWordRange wordRange)
@@ -130,11 +130,11 @@ namespace OpenLiveWriter.SpellChecker
 				MarkupPointer start = _markupServices.CreateMarkupPointer();
 				start.MoveToPointer(wordRange.CurrentWordRange.End);
 				ArrayList highlightwords = new ArrayList(NUMBER_OF_WORDS_TO_CHECK);
-			
+
 				int i = 0;
 				//to do....the word range is losing its place when it stays in the queue
 				while (wordRange.HasNext() && i < NUMBER_OF_WORDS_TO_CHECK )
-				{				
+				{
 					// advance to the next word
 					wordRange.Next() ;
 					// check the spelling
@@ -147,23 +147,23 @@ namespace OpenLiveWriter.SpellChecker
                         //note: cannot just push the current word range here, as it moves before we get to the highlighting step
 						highlightwords.Add(highlightRange);
 					}
-					i++;										
+					i++;
 				}
 				MarkupPointer end = wordRange.CurrentWordRange.End;
-			
+
 				//got our words, clear the checked range and then add the misspellings
 				ClearRange(start, end);
 				foreach (MarkupRange word in highlightwords)
 				{
 					HighlightWordRange(word);
 				}
-			
+
 				return !wordRange.HasNext();
-			} 
+			}
 			else
 				return true;
 		}
-		
+
 		//takes one the first word on the range, and checks it for spelling errors
 		//***returns true if word is misspelled***
 		private bool ProcessWord(MshtmlWordRange word, out int offset, out int length)
@@ -178,17 +178,17 @@ namespace OpenLiveWriter.SpellChecker
 				result = _spellingChecker.CheckWord( currentWord, out otherWord, out offset, out length ) ;
 			else
 				result = SpellCheckResult.Correct;
-	
+
 			if (result != SpellCheckResult.Correct)
 			{
-				//note: currently using this to not show any errors in smart content, since the fix isn't 
+				//note: currently using this to not show any errors in smart content, since the fix isn't
 				// propogated to the underlying data structure
 				if (!word.FilterApplies())
 				{
 					return true;
 				}
 			}
-			return false; 
+			return false;
 		}
 
 		private bool ProcessWord(string word)
@@ -207,7 +207,7 @@ namespace OpenLiveWriter.SpellChecker
 	    /// <summary>
 	    /// Highlight the current word range
 	    /// </summary>
-	    /// 
+	    ///
 	    private IHTMLRenderStyle _highlightWordStyle;
 	    IHTMLRenderStyle HighlightWordStyle
 	    {
@@ -235,12 +235,12 @@ namespace OpenLiveWriter.SpellChecker
                 IDisplayPointerRaw start;
                 IDisplayPointerRaw end;
                 _displayServices.CreateDisplayPointer(out start);
-                _displayServices.CreateDisplayPointer(out end);                
+                _displayServices.CreateDisplayPointer(out end);
                 DisplayServices.TraceMoveToMarkupPointer(start, word.Start);
-                DisplayServices.TraceMoveToMarkupPointer(end, word.End);                
+                DisplayServices.TraceMoveToMarkupPointer(end, word.End);
 
                 _highlightRenderingServices.AddSegment(start, end, HighlightWordStyle, out segment);
-                _tracker.AddSegment(segment, 
+                _tracker.AddSegment(segment,
                     MarkupHelpers.UseStagingTextRange(ref stagingTextRange, word, rng => rng.text),
                     _markupServicesRaw);
             }
@@ -253,8 +253,8 @@ namespace OpenLiveWriter.SpellChecker
 		}
 
 	    private IHTMLTxtRange stagingTextRange;
-			
-		//remove any covered segments from the tracker and clear their highlights	
+
+		//remove any covered segments from the tracker and clear their highlights
 		public void ClearRange(MarkupPointer start, MarkupPointer end)
 		{
 			IHighlightSegmentRaw[] segments =
@@ -267,7 +267,7 @@ namespace OpenLiveWriter.SpellChecker
 				}
 			}
 		}
-		
+
 		//remove all misspellings from tracker and clear their highlights
 		//used when turning spell checking on and off
 		public void Reset()
@@ -281,7 +281,7 @@ namespace OpenLiveWriter.SpellChecker
 				_highlightRenderingServices.RemoveSegment(allWords[i]);
 			}
 		}
-		
+
 		//used for ignore all, add to dictionary to remove highlights from new word
 		public void UnhighlightWord(string word)
 		{
@@ -293,12 +293,12 @@ namespace OpenLiveWriter.SpellChecker
 				_tracker.RemoveSegment(segment._pointer);
 			}
 		}
-		
+
 		public MisspelledWordInfo FindMisspelling(MarkupPointer markupPointer)
 		{
 			return _tracker.FindSegment(_markupServices, markupPointer.PointerRaw);
 		}
-		
+
 		#region IDisposable Members
 
 		public void Dispose()

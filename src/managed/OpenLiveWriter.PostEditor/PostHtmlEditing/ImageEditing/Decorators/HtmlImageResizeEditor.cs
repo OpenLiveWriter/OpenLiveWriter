@@ -40,7 +40,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     new SpinnerCommand(_widthId, MinSize.Width, MaxSize.Width, width, Increment, DecimalPlaces, RepresentativeString, FormatString),
                     command_ExecuteWithArgs);
 
-
                 commandManager.Add(
                     new SpinnerCommand(_heightId, MinSize.Height, MaxSize.Height, height, Increment, DecimalPlaces, RepresentativeString, FormatString),
                     command_ExecuteWithArgs);
@@ -135,9 +134,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             this.imageSizeControl = new OpenLiveWriter.PostEditor.PostHtmlEditing.ImageSizeControl();
             this.SuspendLayout();
-            // 
+            //
             // imageSizeControl
-            // 
+            //
             this.imageSizeControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imageSizeControl.Location = new System.Drawing.Point(0, 0);
             this.imageSizeControl.Name = "imageSizeControl";
@@ -147,9 +146,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             // @RIBBON TODO: Use the logic that actually does the resizing in ImageSizeControl
 
             this.imageSizeControl.ImageSizeChanged += new System.EventHandler(this.imageSizeControl_ImageSizeChanged);
-            // 
+            //
             // HtmlImageResizeEditor
-            // 
+            //
             this.Controls.Add(this.imageSizeControl);
             this.Name = "HtmlImageResizeEditor";
             this.Size = new System.Drawing.Size(244, 100);
@@ -194,7 +193,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             base.OnEnabledChanged(e);
         }
-
 
         internal HtmlImageResizeDecoratorSettings ImageResizeSettings;
 

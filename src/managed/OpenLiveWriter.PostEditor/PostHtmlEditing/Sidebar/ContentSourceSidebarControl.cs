@@ -16,7 +16,6 @@ using OpenLiveWriter.PostEditor.ContentSources;
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 {
 
-
     internal class ContentSourceSidebarControl : SidebarControl, ISmartContentEditorSite, ICommandManagerHost, ISmartContentEditorCache
     {
         /// <summary>
@@ -58,7 +57,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         }
 
 
-
         public override void UpdateView(object htmlSelection, bool force)
         {
             if (htmlSelection == null) //true when the a non-smartcontent element is selected
@@ -72,7 +70,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
             Debug.Assert(htmlSelection is SmartContentSelection || (htmlSelection is IHtmlEditorSelection && InlineEditField.IsEditField(htmlSelection)));
 
-
             IHTMLElement selectedElement = null;
             SmartContentSelection smartContentSelection = htmlSelection as SmartContentSelection;
             if (smartContentSelection != null && smartContentSelection.ContentState == SmartContentState.Enabled)
@@ -84,7 +81,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                 selectedElement = ContentSourceManager.GetContainingSmartContent(
                     ((IHtmlEditorSelection)(htmlSelection)).SelectedMarkupRange.ParentElement());
             }
-
 
             _currentSelection = htmlSelection;
             if (selectedElement != null)
@@ -268,7 +264,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -290,9 +286,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // ContentSourceSidebarControl
-            // 
+            //
             this.Name = "ContentSourceSidebarControl";
             this.Size = new System.Drawing.Size(200, 288);
 
@@ -333,7 +329,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
             if (smartContentEditor == null)
                 smartContentEditor = CreateSmartContentEditor(contentSourceId);
-
 
             return smartContentEditor;
         }

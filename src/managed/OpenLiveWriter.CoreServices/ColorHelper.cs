@@ -22,7 +22,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         public static int GetLuminosity(Color c)
         {
             return (c.R + c.G + c.B) / 3;
@@ -30,7 +29,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public static Color GetThemeBorderColor(Color substituteColor)
@@ -50,9 +49,6 @@ namespace OpenLiveWriter.CoreServices
             }
             return color == 0 ? substituteColor : ColorTranslator.FromWin32(color);
         }
-
-
-
 
 
 
@@ -181,7 +177,6 @@ namespace OpenLiveWriter.CoreServices
         {
             return String.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
         }
-
 
         /// <summary>
         /// Color space conversion from a .NET Color structure to AHSB.

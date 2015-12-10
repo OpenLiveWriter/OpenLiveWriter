@@ -25,10 +25,10 @@ namespace OpenLiveWriter.Interop.Windows
 		public static extern void PlaySound(
 							string pszSound, uint hmod, uint fdwSound);
 
-		
+
 		/// <summary>
 		/// Enumeration of internet states
-		/// </summary>	
+		/// </summary>
 		public struct SND
 		{
 			public const uint SYNC			= 0x0000;  /* play synchronously (default) */

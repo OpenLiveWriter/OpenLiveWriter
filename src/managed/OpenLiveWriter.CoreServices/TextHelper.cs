@@ -32,7 +32,7 @@ namespace OpenLiveWriter.CoreServices
         private const string Ellipsis = "\u2026";
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="html"></param>
         /// <param name="maxLength">The maximum number of visible text characters.  HTML tags are not part of this total.  Thus, the string returned may be longer than maxLength.</param>
@@ -49,7 +49,7 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>A shortened string</returns>
         public static string GetTitleFromText(string text, int maxLength, Units units)
         {
-            // Get Rid of any whitespace 
+            // Get Rid of any whitespace
             text = text.Trim();
 
             string title = string.Empty;
@@ -84,7 +84,7 @@ namespace OpenLiveWriter.CoreServices
                     break;
                 case Units.Pixels:
                     {
-                        // Measure the text.  
+                        // Measure the text.
                         title = text;
                         Size measuredSize = TextRenderer.MeasureText(title, Res.DefaultFont);
 
@@ -100,7 +100,7 @@ namespace OpenLiveWriter.CoreServices
                         }
                         else
                         {
-                            // If it is too small, then cut back  
+                            // If it is too small, then cut back
                             while (measuredSize.Width >= maxLength && title.Length > 1)
                             {
                                 // Shave off a character
@@ -126,7 +126,7 @@ namespace OpenLiveWriter.CoreServices
             return text.Replace("&", "&&");
         }
 
-        /// <summary>       
+        /// <summary>
         /// "\\r\\n" --> "\r\n"
         /// </summary>
         /// <param name="text"></param>
@@ -173,7 +173,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Escapes HTML entities and optionally replaces any plain-text HTTP, HTTPS and FTP URLs with a HTML link to 
+        /// Escapes HTML entities and optionally replaces any plain-text HTTP, HTTPS and FTP URLs with a HTML link to
         /// that URL. These must be done at the same time to avoid escaping URL characters.
         /// </summary>
         private static string EscapeHtmlEntitiesAndAddLinks(string text, bool addLinks)
@@ -186,7 +186,6 @@ namespace OpenLiveWriter.CoreServices
                 // Links start with http://, https://, or ftp:// at a word break, and continue until < or > is encountered, or whitespace.
                 // If whitespace, then a single "." or "," character may also be removed from the link.
                 Match match = Regex.Match(text, @"\b(http://|https://|ftp://).+?(?=[\<\>]|(([.,])?[\s$]))", RegexOptions.IgnoreCase);
-
 
                 for (; match.Success; match = match.NextMatch())
                 {
@@ -245,7 +244,7 @@ namespace OpenLiveWriter.CoreServices
             bool insideBlockElement = false;
             bool blockElementIsEmpty = true;
 
-            // Replace each occurrence of a sequence of non-CRLF characters followed by 0 or more CRLFs with the 
+            // Replace each occurrence of a sequence of non-CRLF characters followed by 0 or more CRLFs with the
             // non-CRLF characters wrapped in an HTML block element:
             //      line1\r\nline2\r\n\r\nline3 => <p>line1<br />line2</p><p>line3</p>
             //      (the <br /> is added because ParagraphDefaultBlockElement.NumberOfNewLinesToReplace == 2)
@@ -431,7 +430,6 @@ namespace OpenLiveWriter.CoreServices
                 return @"\u" + (int)c + "?";
         }
 
-
         /// <summary>
         /// Helper method to replace a simple text string within a file (creates or uses
         /// a destination file and leaves the original file untouched)
@@ -461,7 +459,7 @@ namespace OpenLiveWriter.CoreServices
                         potentialMatch[++matchPosition] = readBuff[0];
                         int matchedChars = matchPosition + 1;
 
-                        // see if we have a full or partial match						
+                        // see if we have a full or partial match
                         if (CompareCharArrays(potentialMatch, sourceBuffer, matchedChars))
                         {
                             // if this is a full match, output destText and reset buffer
@@ -485,7 +483,6 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
         }
-
 
         /// <summary>
         /// Compare the first 'charsToCompare' characters of the two passed character arrays.

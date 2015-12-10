@@ -24,7 +24,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
     /// </summary>
     public class MapBirdsEyeZoomControl : System.Windows.Forms.UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -58,10 +58,9 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             _largeZoomBounds = new Rectangle(
                 new Point(_smallZoomBounds.Right, 1), _largeZoomBitmap.Size);
 
-            // force initial paint 
+            // force initial paint
             _zoomLevel = BirdsEyeZoomLevel.Small;
         }
-
 
         public BirdsEyeZoomLevel ZoomLevel
         {
@@ -118,7 +117,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
                 ZoomLevel = BirdsEyeZoomLevel.Large;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -134,8 +133,8 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -143,7 +142,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             components = new System.ComponentModel.Container();
         }
         #endregion
-
 
         #region High DPI Scaling
         protected override void ScaleControl(SizeF factor, BoundsSpecified specified)
@@ -193,7 +191,5 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
         #endregion
     }
 }
-
-
 
 

@@ -16,7 +16,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         #region Initialization/Disposal
 
         /// <summary>
-        /// Initialize the drag and drop manager with its context. Note that this object 
+        /// Initialize the drag and drop manager with its context. Note that this object
         /// is initialized in the 3 stages: construction, replacement of MSHTML DropTarget
         /// implementation, and finally installation of drag and drop event handlers for
         /// the drag target control. The 3-step initialization is required because MSHTML
@@ -28,19 +28,18 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             dataFormatFactory = dataFormats;
         }
 
-
         /// <summary>
-        /// Disable the MSHTML drop target and enable this control as a drop target. In theory 
-        /// we don't need to do this as IDocHostUIHandler.GetDropTarget should allow us to 
-        /// fully replace their implementation with our own (delegating back to MSHTML as 
+        /// Disable the MSHTML drop target and enable this control as a drop target. In theory
+        /// we don't need to do this as IDocHostUIHandler.GetDropTarget should allow us to
+        /// fully replace their implementation with our own (delegating back to MSHTML as
         /// necessary). Alas, this works fine in most scenarios except when a .NET data object
         /// is being dragged over us from within the current process (as in the case of the
-        /// MicroView) the .NET object is not marshalled to an OLE IDataObject so MSHTML 
+        /// MicroView) the .NET object is not marshalled to an OLE IDataObject so MSHTML
         /// doesn't see it and doesn't call us. For this case we need inbound IDataObject
         /// processing to be .NET based, thus the need to disable the MSHTML drop target
         /// </summary>
         /// <param name="dragTargetControl">Control that will be used as the target
-        /// for drag and drop operations (passed to us so we can subscribe to it's 
+        /// for drag and drop operations (passed to us so we can subscribe to it's
         /// drag and drop events)</param>
         public virtual void Initialize(Control dragTargetControl)
         {
@@ -54,7 +53,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             dragTargetControl.DragLeave += new EventHandler(DragLeave);
             dragTargetControl.DragDrop += new DragEventHandler(DragDrop);
         }
-
 
         /// <summary>
         /// Dispose embedded resources
@@ -101,7 +99,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         {
             try
             {
-                // see if we can get a data format handler for the dragged data	
+                // see if we can get a data format handler for the dragged data
                 dataFormatHandler = dataFormatFactory.CreateFrom(new DataObjectMeister(e.Data), DataFormatHandlerContext.DragAndDrop);
                 if (dataFormatHandler != null)
                 {
@@ -126,7 +124,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         {
 
         }
-
 
 
         /// <summary>
@@ -157,7 +154,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             }
         }
 
-
         /// <summary>
         /// Handle the DragLeave event for the presentation editor
         /// </summary>
@@ -168,7 +164,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // reset data format handler
             ResetDataFormatHandler();
         }
-
 
         /// <summary>
         /// Handle the DragDrop event for the presentation editor
@@ -208,12 +203,9 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
 
-
-
         #endregion
 
         #region Private Helper Methods
-
 
         /// <summary>
         /// Reset the state of the data format handler
@@ -227,7 +219,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 dataFormatHandler = null;
             }
         }
-
 
         /// <summary>
         /// Get the data action associated with the passed DragDropEffects
@@ -252,7 +243,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // return the action
             return dataAction;
         }
-
 
         #endregion
 

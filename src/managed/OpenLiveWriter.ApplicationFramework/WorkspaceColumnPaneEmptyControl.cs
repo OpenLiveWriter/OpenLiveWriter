@@ -15,7 +15,7 @@ namespace Project31.ApplicationFramework
 	/// </summary>
 	public class WorkspaceColumnPaneEmptyControl : System.Windows.Forms.UserControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
@@ -29,7 +29,7 @@ namespace Project31.ApplicationFramework
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -45,15 +45,15 @@ namespace Project31.ApplicationFramework
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// WorkspaceColumnPaneEmptyControl
-			// 
+			//
 			this.BackColor = System.Drawing.SystemColors.Window;
 			this.Name = "WorkspaceColumnPaneEmptyControl";
 

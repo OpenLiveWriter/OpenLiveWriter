@@ -102,7 +102,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 
         }
 
-
         #region Public Methods
         /// <summary>
         /// Returns the singleton plugin manager instance.
@@ -206,7 +205,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             }
         }
 
-
         public GlossaryLinkItem FindEntry(string text)
         {
             lock (_lock)
@@ -272,7 +270,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         #endregion
 
         #region private
-
 
         private void RemoveEntry(string text)
         {
@@ -495,7 +492,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         #endregion
     }
 
-
     public class GlossaryUrlSuggester
     {
         public void Add(string text, GlossaryLinkItem value)
@@ -532,7 +528,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             return (charactersMatched >= text.Length || !char.IsLetterOrDigit(text[charactersMatched]));
         }
     }
-
 
 
 }

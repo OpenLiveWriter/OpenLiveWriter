@@ -41,6 +41,5 @@ namespace OpenLiveWriter.Controls
         }
 
 
-
     }
 }

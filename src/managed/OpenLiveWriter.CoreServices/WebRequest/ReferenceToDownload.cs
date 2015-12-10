@@ -45,7 +45,6 @@ namespace OpenLiveWriter.CoreServices
                         if (leftPart.IndexOfAny(Path.GetInvalidPathChars()) == -1)
                             m_fileName = FileHelper.GetValidFileName(Path.GetFileName(leftPart), 30);
 
-
                         // If we still can't get a good filename, just
                         // grab the url and make it a file name
                         if (m_fileName == string.Empty || m_fileName == null)
@@ -107,7 +106,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private string m_absoluteUrl = null;
-
 
         public string GetRelativeUrlForReference(PageToDownload referencingPage)
         {

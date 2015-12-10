@@ -10,14 +10,14 @@ using OpenLiveWriter.Interop.Windows;
 
 namespace OpenLiveWriter.PostEditor.OpenPost
 {
-	
+
 	public class BlogPostSourceListView : ListView
 	{
 		public BlogPostSourceListView()
 		{
 		}
 
-	
+
 		// separate initialize to prevent this code from executing in the designer
 		public void Initialize()
 		{
@@ -26,7 +26,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 			HideSelection = false ;
 			LabelEdit = false ;
 			LabelWrap = true ;
-			
+
 			_imageList = new ImageList();
 			_imageList.ImageSize = new Size(IMAGE_HEIGHT,IMAGE_WIDTH);
 			_imageList.ColorDepth = ColorDepth.Depth32Bit ;
@@ -40,14 +40,14 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 
 			AddPostSource( new LocalDraftsPostSource(), DRAFT_IMAGE_INDEX ) ;
 			AddPostSource( new LocalRecentPostsPostSource(), RECENT_POSTS_IMAGE_INDEX ) ;
-			
-			foreach ( string blogId in BlogSettings.GetBlogIds() ) 
+
+			foreach ( string blogId in BlogSettings.GetBlogIds() )
 				AddPostSource( new RemoteWeblogBlogPostSource(blogId), WEBLOG_IMAGE_INDEX ) ;
 
 			// call again to reflect scrollbars that may now exist
 			UpdateIconSize() ;
 		}
-	
+
 
 		protected override void OnSizeChanged(EventArgs e)
 		{
@@ -55,7 +55,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 			UpdateIconSize() ;
 		}
 
-		
+
 		private void UpdateIconSize()
 		{
 			int width = Width - 8 ; // prevent horizontal scrollbar
@@ -69,7 +69,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 			const uint LVM_SETICONSPACING = (LVM_FIRST + 53) ;
 			User32.SendMessage( Handle, LVM_SETICONSPACING, UIntPtr.Zero, MessageHelper.MAKELONG(width,height) ) ;
 		}
-		
+
 
 		protected override void Dispose(bool disposing)
 		{
@@ -80,7 +80,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 			}
 			base.Dispose (disposing);
 		}
-			
+
 
 		public void SelectDrafts()
 		{

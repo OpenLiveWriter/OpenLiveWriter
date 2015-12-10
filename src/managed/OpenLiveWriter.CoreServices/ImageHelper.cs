@@ -52,7 +52,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         public static Bitmap DownloadBitmap(string bitmapUrl)
         {
             return DownloadBitmap(bitmapUrl, null);
@@ -60,7 +59,7 @@ namespace OpenLiveWriter.CoreServices
 
         public static Bitmap DownloadBitmap(string bitmapUrl, WinInetCredentialsContext credentialsContext)
         {
-            // download the image 
+            // download the image
             try
             {
                 string fileName = UrlDownloadToFile.Download(bitmapUrl, credentialsContext);
@@ -73,7 +72,6 @@ namespace OpenLiveWriter.CoreServices
                     String.Format(CultureInfo.CurrentCulture, "Error attempting to download bitmap from url {0}: {1}", bitmapUrl, ex.Message), ex);
             }
         }
-
 
         /// <summary>
         /// Creates a "disabled" version of the given bitmap.
@@ -314,7 +312,6 @@ namespace OpenLiveWriter.CoreServices
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-
                 if (bgColor != null && bgColor != Color.Transparent)
                 {
                     using (Brush b = new SolidBrush(bgColor.Value))
@@ -343,7 +340,7 @@ namespace OpenLiveWriter.CoreServices
             return newBitmap;
         }
 
-        // Inspects the EXIF orientation of originalImage and performs the same rotation on originalImage 
+        // Inspects the EXIF orientation of originalImage and performs the same rotation on originalImage
         public static void AutoRotateFromExifOrientation(Image originalImage)
         {
             ExifMetadata exif = ExifMetadata.FromImage(originalImage);

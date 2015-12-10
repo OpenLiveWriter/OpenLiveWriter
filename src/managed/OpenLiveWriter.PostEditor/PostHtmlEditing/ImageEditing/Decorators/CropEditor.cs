@@ -129,13 +129,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             LayoutHelper.FixupOKCancel(buttonOK, buttonCancel);
             chkGrid.Left = buttonCancel.Right - chkGrid.Width;
 
-
             panel1.Height = Math.Max(buttonRotate.Bottom, cbAspectRatio.Bottom) + 3;
             imageCropControl.Top = panel1.Bottom;
 
             imageCropControl.Select();
-
-
 
 
             //int minWidth = buttonRotate.Right + width + (form.ClientSize.Width - buttonOK.Left) + SystemInformation.FrameBorderSize.Width * 2;
@@ -190,7 +187,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     {
                         if (item.Id == savedAspectRatioId)
                         {
-                            // doubles can't be accurately compared after they've been round-tripped 
+                            // doubles can't be accurately compared after they've been round-tripped
                             // to strings, due to lossy conversion to/from strings.
                             if ((float)(item.AspectRatio ?? 0.0) != (float)(savedAspectRatio ?? 0.0))
                             {

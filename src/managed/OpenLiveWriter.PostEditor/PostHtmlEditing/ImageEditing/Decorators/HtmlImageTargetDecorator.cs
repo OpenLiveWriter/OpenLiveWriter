@@ -125,7 +125,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         //  because ti is being synced with a posted edited outside of writer.
         public static readonly string[] ImageReferenceFixedStaleProperties = new string[1] { TARGET_TYPE };
 
-
         private readonly IProperties Settings;
         private readonly IHTMLElement ImgElement;
         public HtmlImageTargetDecoratorSettings(IProperties settings, IHTMLElement imgElement)
@@ -190,7 +189,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 else
                 {
                     //The link target type is completely uninitialized (no one has set it, and no image decorator defaults have been saved).
-                    //Examine the link values from the DOM to figure out the correct value for this property. 
+                    //Examine the link values from the DOM to figure out the correct value for this property.
                     //If the image is surrounded by an anchor to a remote image, then set the target type to link.
                     //If the image is not surrounded by an anchor then set the target type to None.
                     //Else leave as the default (which is a local image).
@@ -266,7 +265,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 Settings.SetString(DEFAULT_TARGET_SIZE_NAME, value.ToString());
             }
         }
-
 
         Size IResizeDecoratorSettings.DefaultBoundsSize
         {
@@ -366,7 +364,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
         }
 
-
         public ILinkOptions LinkOptions
         {
             get
@@ -433,7 +430,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
         }
 
-        // The base size is used to quickly determine whether the image has 
+        // The base size is used to quickly determine whether the image has
         // been cropped since the last time the default bounds were calculated.
         public Size? BaseSize
         {

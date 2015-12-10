@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
             get
             {
                 // WinLive 276619: Watson: System.InvalidOperationException: Object is currently in use elsewhere.
-                // We must protect against the Bitmap being referenced by multiple threads simultaneously.                
+                // We must protect against the Bitmap being referenced by multiple threads simultaneously.
                 if (_bitmapCached == null && _bitmapStrip != null && _index >= 0)
                 {
                     // Create a square bitmap out of the strip at location specified by _index

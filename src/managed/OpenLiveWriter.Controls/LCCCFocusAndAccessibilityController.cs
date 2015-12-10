@@ -211,7 +211,6 @@ namespace OpenLiveWriter.Controls
                 if (wrap)
                     nextIndex = (nextIndex + _controls.Count) % _controls.Count;
 
-
                 if (nextIndex < 0 || nextIndex >= _controls.Count)
                 {
                     return -1;
@@ -224,7 +223,6 @@ namespace OpenLiveWriter.Controls
 
                     continue;
                 }
-
 
                 return nextIndex;
             }
@@ -277,7 +275,6 @@ namespace OpenLiveWriter.Controls
             }
             return FocusNextControl(forward);
         }
-
 
         /// <summary>
         /// Returns the inner most focused control.

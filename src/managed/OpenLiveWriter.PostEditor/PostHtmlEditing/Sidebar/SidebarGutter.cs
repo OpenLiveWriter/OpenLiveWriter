@@ -21,13 +21,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 	public class SidebarGutter : System.Windows.Forms.UserControl
 	{
 		const int BLOCK_HEIGHT = 30;
-			
+
 		private Bitmap bitmapChevronLeft = ResourceHelper.LoadAssemblyResourceBitmap("PostHtmlEditing.Sidebar.Images.ChevronLeft.png");
 		private Bitmap bitmapChevronLeftHover = ResourceHelper.LoadAssemblyResourceBitmap("PostHtmlEditing.Sidebar.Images.ChevronLeftHover.png");
-		
+
 		private BitmapButton buttonChevron;
-		
-		/// <summary> 
+
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
@@ -64,8 +64,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			Invalidate();
 		}
 
-		
-		/// <summary> 
+
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -82,22 +82,22 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
 			this.components = new Container();
-			// 
+			//
 			// SidebarGutter
-			// 
+			//
 			this.Name = "SidebarGutter";
 			this.Size = new System.Drawing.Size(12, 150);
 
 		}
 		#endregion
-		
+
 		protected override void OnPaintBackground(PaintEventArgs e)
 		{
 			ColorizedResources colRes = ColorizedResources.Instance;

@@ -10,7 +10,6 @@ using OpenLiveWriter.Controls;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.BlogClient;
 
-
 namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 {
     internal class PageParentComboBox : DelayedFetchComboBox
@@ -129,7 +128,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             // flatten list  and return
             return FlattenList(pageListItems).ToArray();
         }
-
 
         private ArrayList ExtractChildItemsOfParent(ArrayList sourcePages, string parentId, int indentLevel)
         {

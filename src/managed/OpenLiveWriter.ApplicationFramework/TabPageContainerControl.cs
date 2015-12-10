@@ -14,7 +14,7 @@ namespace OpenLiveWriter.ApplicationFramework
     /// </summary>
     public class TabPageContainerControl : UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.ApplicationFramework
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -44,8 +44,8 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()

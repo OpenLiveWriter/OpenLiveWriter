@@ -60,9 +60,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
 		void IBlogPostEditor.OnPublishSucceeded(BlogPost blogPost, PostResult postResult)
 		{
-			
-		}
 
+		}
 
 		bool IBlogPostEditor.IsDirty
 		{
@@ -81,13 +80,13 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 				CategoryContext.SelectionMode = CategoryContext.SelectionModes.MultiSelect;
 			else
 				CategoryContext.SelectionMode = CategoryContext.SelectionModes.SingleSelect;
-		
+
 			CategoryContext.SetBlogCategories(_targetBlog.Categories);
 			CategoryContext.SelectedCategories = new BlogPostCategory[0];
 		}
 		private Blog _targetBlog ;
-		
-		
+
+
 
 		void IBlogPostEditor.OnBlogSettingsChanged(bool templateChanged)
 		{
@@ -97,12 +96,11 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
 		#endregion
 
-
 		public CategoryDropDownControl() : base()
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-			
+
 			// prevent editing and showing of drop down
 			DropDownStyle = ComboBoxStyle.DropDownList ;
 
@@ -111,16 +109,16 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			DrawMode = DrawMode.OwnerDrawFixed ;
 			Items.Add(String.Empty) ;
 
-			_categoryContext = new CategoryContext();	
+			_categoryContext = new CategoryContext();
 		}
-	
+
 		public void Initialize(IWin32Window parentFrame)
 		{
 			_parentFrame = parentFrame ;
 			_categoryContext.BlogCategorySettings = this;
 			_categoryContext.Changed += new CategoryContext.CategoryChangedEventHandler(_categoryContext_Changed);
 		}
-		
+
 
 		// replace standard drop down behavior with category form
 		protected override void WndProc(ref Message m)
@@ -141,7 +139,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			// determine the text color based on whether we have categories
 			bool hasCategories = _categoryContext.SelectedCategories.Length > 0 ;
 			Color textColor = hasCategories ? SystemColors.ControlText : SystemColors.GrayText;
-			
+
 			// draw the text
 			const int HORIZONTAL_MARGIN = 2 ;
 			const int VERTICAL_MARGIN = 1 ;
@@ -149,7 +147,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			using (Brush textBrush = new SolidBrush(textColor))
 			{
 				e.Graphics.DrawString(
-					_categoryContext.Text, 
+					_categoryContext.Text,
 					Font, textBrush, textRegion, DisplayFormat );
 			}
 
@@ -157,7 +155,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			e.DrawFocusRectangle();
 		}
 		private const int MARGIN = 1;
-
 
 		BlogPostCategory[] IBlogCategorySettings.RefreshCategories(bool ignoreErrors)
 		{
@@ -192,15 +189,14 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			}
 		}
 
-
 		private void DisplayCategoryForm()
 		{
 			// If we just dismissed the form, don't display it
 			if (_recentlyClosedForm)
 				return;
-		
+
 			Focus();
-		
+
 			_categoryDisplayForm = new CategoryDisplayForm(this, _categoryContext);
 			//_categoryDisplayForm.MinDropDownWidth = 0;
 			IMiniFormOwner miniFormOwner = FindForm() as IMiniFormOwner;
@@ -222,7 +218,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
 		private void _categoryDisplayForm_Closed(object sender, EventArgs e)
 		{
-			// This timer makes it so when you click the control to dismiss the form, 
+			// This timer makes it so when you click the control to dismiss the form,
 			// we don't instantly redisplay the form (same goes for hitting enter)
 			_recentlyClosedForm = true;
 			Timer t = new Timer();
@@ -233,7 +229,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			_categoryDisplayForm.Closed -= new EventHandler(_categoryDisplayForm_Closed);
 			Invalidate();
 		}
-		
+
 		private void t_Tick(object sender, EventArgs e)
 		{
 			_recentlyClosedForm = false;
@@ -242,7 +238,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			t.Tick -= new EventHandler(t_Tick);
 			t.Dispose();
 		}
-		
+
 		private StringFormat DisplayFormat
 		{
 			get
@@ -254,7 +250,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 					_displayFormat.Alignment = StringAlignment.Near;
 					_displayFormat.LineAlignment = StringAlignment.Center;
 					_displayFormat.FormatFlags = StringFormatFlags.FitBlackBox | StringFormatFlags.LineLimit;
-					
+
 				}
 				return _displayFormat;
 			}
@@ -264,19 +260,19 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		private bool IsDropDownMessage(Message m)
 		{
 			// Left Mouse Button
-			if ( m.Msg == WM.LBUTTONDOWN || m.Msg == WM.LBUTTONDBLCLK )   
+			if ( m.Msg == WM.LBUTTONDOWN || m.Msg == WM.LBUTTONDBLCLK )
 			{
 				return true ;
 			}
- 
+
 				// F4
 			else if ( m.Msg == WM.KEYDOWN )
 			{
-				Keys keyCombo = (Keys)(int)m.WParam & Keys.KeyCode ; 
+				Keys keyCombo = (Keys)(int)m.WParam & Keys.KeyCode ;
 
 				if ( keyCombo == Keys.F4 )
 					return true ;
-				else 
+				else
 					return false ;
 			}
 
@@ -304,7 +300,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			}
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -319,32 +315,29 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
 			this.toolTipCategories = new System.Windows.Forms.ToolTip(this.components);
-			// 
+			//
 			// CategoryDropDownControl
-			// 
+			//
 			this.Size = new System.Drawing.Size(138, 48);
 
 		}
 		#endregion
-
 
 		private IWin32Window _parentFrame;
 		private bool _recentlyClosedForm = false;
 		private System.ComponentModel.IContainer components;
 		private CategoryContext _categoryContext;
 
-	
-	}
 
+	}
 
 }

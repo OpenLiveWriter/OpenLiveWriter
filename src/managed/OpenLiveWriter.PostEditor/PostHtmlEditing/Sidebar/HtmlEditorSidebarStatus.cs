@@ -19,7 +19,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
     /// </summary>
     internal class HtmlEditorSidebarStatus : Panel
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -52,9 +52,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         }
 
 
-
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -70,8 +68,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -80,12 +78,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         }
         #endregion
 
-
         protected override void OnLayout(LayoutEventArgs levent)
         {
             base.OnLayout(levent);
 
-            // calculate the rectangle we will paint within			
+            // calculate the rectangle we will paint within
             _controlRectangle = new Rectangle(0, 1, Width, Height - 1);
 
             // calculate the image rectanagle (if we have an image)
@@ -118,7 +115,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
             if (!(_image == null && (Text == null || Text == string.Empty)))
             {
-                // draw the border 				
+                // draw the border
                 using (Pen pen = new Pen(ColorizedResources.Instance.BorderLightColor))
                 {
                     g.DrawLine(pen, _controlRectangle.Left, _controlRectangle.Top, _controlRectangle.Width, _controlRectangle.Top);
@@ -142,7 +139,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         private Rectangle _textRectangle;
         private Image _image;
         private static readonly int TOP_OFFSET = SatelliteApplicationForm.WorkspaceInset;
-
 
         private void UpdateAppearance()
         {

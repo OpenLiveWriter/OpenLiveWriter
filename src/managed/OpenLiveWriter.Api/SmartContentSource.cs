@@ -10,20 +10,20 @@ namespace OpenLiveWriter.Api
 {
     /// <summary>
     /// <para>Base class for plugins that wish to enable the insertion of smart, two-way editable HTML content
-    /// into posts. The source of content to be inserted can any or all of the following: an Insert dialog, 
+    /// into posts. The source of content to be inserted can any or all of the following: an Insert dialog,
     /// a URL, or LiveClipboard data.</para>
-    /// <para>Implementors of this class should override the CreateContent method(s) corresponding to 
+    /// <para>Implementors of this class should override the CreateContent method(s) corresponding to
     /// the content-sources they wish to support. Note also that each of the CreateContent methods
-    /// has a corresponding class-level attribute that must be specified along with the override.</para> 
+    /// has a corresponding class-level attribute that must be specified along with the override.</para>
     /// <para>There is a single instance of a given SmartContentSource created for each Open Live Writer
-    /// process. The implementation of SmartContentSource objects must therefore be stateless (the 
+    /// process. The implementation of SmartContentSource objects must therefore be stateless (the
     /// context required to carry out the responsibilities of the various methods are passed as parameters to
     /// the respective methods).</para>
     /// </summary>
     public abstract class SmartContentSource : WriterPlugin
     {
         /// <summary>
-        /// Create content using an Insert dialog. Plugin classes which override this method must 
+        /// Create content using an Insert dialog. Plugin classes which override this method must
         /// also be declared with the InsertableContentSourceAttribute.
         /// </summary>
         /// <param name="dialogOwner">Owner for any dialogs shown.</param>
@@ -53,8 +53,8 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Create content based on a URL. The source of this URL can either be the page the user was
-        /// navigated to when they pressed the "Blog This" button or a URL that is pasted or dragged 
-        /// into the editor. Plugin classes which override this method must also be declared with the 
+        /// navigated to when they pressed the "Blog This" button or a URL that is pasted or dragged
+        /// into the editor. Plugin classes which override this method must also be declared with the
         /// UrlContentSourceAttribute.
         /// </summary>
         /// <param name="url">Url to create content from.</param>
@@ -66,10 +66,9 @@ namespace OpenLiveWriter.Api
             throw new NotImplementedException("SmartContentSource.CreateContentFromUrl");
         }
 
-
         /// <summary>
         /// Generate the HTML content which is used to represent the SmartContent item within
-        /// the post editor. The default behavior for this method if it is not overridden is to 
+        /// the post editor. The default behavior for this method if it is not overridden is to
         /// call GeneratePublishHtml.
         /// </summary>
         /// <param name="content">SmartContent object to generate HTML for.</param>
@@ -119,7 +118,7 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Notification of realtime resizing of the object (this will only be called if the 
+        /// Notification of realtime resizing of the object (this will only be called if the
         /// ResizeCapabilities include RealtimeResizing). The implementation of this method
         /// should update the ISmartContent object as appropriate based on the new size.
         /// The editor will first call this method and then call the GenerateEditorHtml
@@ -132,7 +131,7 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Notification that the sizing of an object is complete. The  implementation of 
+        /// Notification that the sizing of an object is complete. The  implementation of
         /// this method should update the ISmartContent object as approriate based on the
         /// new size. The editor will first call this method and then call the GenerateEditorHtml
         /// method to update the display based on the new size.
@@ -171,7 +170,7 @@ namespace OpenLiveWriter.Api
         PreserveAspectRatio = 2,
 
         /// <summary>
-        /// Update the appearance of the smart content object in realtime as the user resizes the object. If this 
+        /// Update the appearance of the smart content object in realtime as the user resizes the object. If this
         /// flag is specified then the OnResizing method should be overriden to update the state of the ISmartContent
         /// object as resizing occurs. The editor will first call this method and then call the GenerateEditorHtml
         /// method to update the display as the user resizes.
@@ -185,7 +184,7 @@ namespace OpenLiveWriter.Api
     public class ResizeOptions
     {
         /// <summary>
-        /// Specify the ID of an HTML element that should be used as the "target" for resizing. This is useful 
+        /// Specify the ID of an HTML element that should be used as the "target" for resizing. This is useful
         /// in the case where the ISmartContent object is principly represented by a single element (such as an image)
         /// but which also contains other elements (such as an image caption line). In this case proportional sizing
         /// should apply to the image rather than the entire object's HTML. If a ResizableElementId is specified then
@@ -200,9 +199,9 @@ namespace OpenLiveWriter.Api
         private string _resizableElementId = null;
 
         /// <summary>
-        /// Aspect ratio to be enforced if the ResizeCapabilties.PreserveAspectRatio flag is specified. If the 
+        /// Aspect ratio to be enforced if the ResizeCapabilties.PreserveAspectRatio flag is specified. If the
         /// desired aspect ratio is staticly known it is highly recommended that this ratio be specified within
-        /// the OnResizeStart method (will eliminate the problem of "creeping" change to the aspect ratios with continued resizing). 
+        /// the OnResizeStart method (will eliminate the problem of "creeping" change to the aspect ratios with continued resizing).
         /// </summary>
         public double AspectRatio
         {

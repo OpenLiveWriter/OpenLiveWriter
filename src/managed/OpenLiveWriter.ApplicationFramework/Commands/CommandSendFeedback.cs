@@ -40,7 +40,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -48,9 +47,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandSendFeedback
-			// 
+			//
 			this.ContextMenuPath = "Send &Feedback@305";
 			this.Identifier = "OpenLiveWriter.Commands.SendFeedback";
 			this.MainMenuPath = "&Help@500/Send &Feedback@305";

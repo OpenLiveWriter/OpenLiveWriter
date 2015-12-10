@@ -28,7 +28,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             Offset = 0;
         }
 
-
         public TransformMatrix(int topLeft, int topMid, int topRight, int midLeft, int pixel, int midRight, int bottomLeft, int bottomMid, int bottomRight, int factor, int offset)
         {
             if (factor == 0)
@@ -65,7 +64,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             if (0 == Factor)
                 throw new InvalidOperationException("Factor cannot be zero");
 
-            // NOTE: GDI returns BGR, NOT RGB. 
+            // NOTE: GDI returns BGR, NOT RGB.
             //make image with 1 pixel border
             using (Bitmap source = new Bitmap(image.Width + 2, image.Height + 2))
             {
@@ -105,7 +104,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
                         System.IntPtr Scan0 = bmTransformed.Scan0;
                         System.IntPtr SrcScan0 = bmSource.Scan0;
-
 
                         unsafe
                         {

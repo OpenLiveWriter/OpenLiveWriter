@@ -25,7 +25,6 @@ namespace OpenLiveWriter.PostEditor
 
         #region Static Interface
 
-
         public static PostEditorFile CreateNew(DirectoryInfo targetDirectory)
         {
             return new PostEditorFile(targetDirectory);
@@ -76,7 +75,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private static readonly DirectoryInfo _mMyWeblogPostsFolder = new DirectoryInfo(ApplicationEnvironment.MyWeblogPostsFolder);
 
-
         public static DirectoryInfo DraftsFolder
         {
             get
@@ -94,7 +92,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
         private static readonly DirectoryInfo _recentPostsFolder = new DirectoryInfo(Path.Combine(MyWeblogPostsFolder.FullName, "Recent Posts"));
-
 
         public static PostInfo[] GetRecentPosts(DirectoryInfo directory, RecentPostRequest request)
         {
@@ -157,7 +154,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public static bool IsValid(string filePath)
         {
             try
@@ -206,12 +202,9 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         #endregion
 
-
         #region Initialization Helpers
-
 
 
         private PostEditorFile(DirectoryInfo targetDirectory)
@@ -250,12 +243,9 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         #endregion
 
-
         #region File Properties
-
 
         public bool IsSaved
         {
@@ -302,7 +292,6 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Loading/Saving/Deleting
 
         public IBlogPostEditingContext Load()
@@ -320,7 +309,6 @@ namespace OpenLiveWriter.PostEditor
                 // add to shell recent documents
                 if (addToRecentDocs)
                     Shell32.SHAddToRecentDocs(SHARD.PATHW, TargetFile.FullName);
-
 
                 using (Storage postStorage = new Storage(TargetFile.FullName, StorageMode.Open, false))
                 {
@@ -440,7 +428,7 @@ namespace OpenLiveWriter.PostEditor
         /// but not saved to autoSaveSourceFile.
         /// </summary>
         /// <param name="editingContext"></param>
-        /// <param name="autoSaveSourceFile">The original blog post file that 
+        /// <param name="autoSaveSourceFile">The original blog post file that
         /// this AutoSave operation is storing changes for.</param>
         public void AutoSave(IBlogPostEditingContext editingContext, PostEditorFile autoSaveSourceFile)
         {
@@ -480,7 +468,7 @@ namespace OpenLiveWriter.PostEditor
                         // file-format clsid
                         postStorage.Clsid = Version2FormatCLSID;
 
-                        // meta-data 
+                        // meta-data
                         WriteString(postStorage, DESTINATION_BLOG_ID, editingContext.BlogId);
                         WriteString(postStorage, SERVER_SUPPORTING_FILE_DIR, editingContext.ServerSupportingFileDirectory);
 
@@ -608,7 +596,6 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Identity
 
         public override bool Equals(object obj)
@@ -631,9 +618,7 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         #endregion
-
 
         #region Helpers for managing post file names, etc.
 
@@ -723,9 +708,7 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         #endregion
-
 
         #region Helpers for reading and writing data
 
@@ -851,7 +834,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private void WriteCommentPolicy(Storage postStorage, BlogCommentPolicy commentPolicy)
         {
             switch (commentPolicy)
@@ -875,7 +857,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private BlogCommentPolicy ReadCommentPolicy(Storage postStorage)
         {
             string commentPolicy = ReadString(postStorage, POST_COMMENT_POLICY);
@@ -894,7 +875,6 @@ namespace OpenLiveWriter.PostEditor
                     return BlogCommentPolicy.Unspecified;
             }
         }
-
 
         private void WriteTrackbackPolicy(Storage postStorage, BlogTrackbackPolicy trackbackPolicy)
         {
@@ -916,7 +896,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private BlogTrackbackPolicy ReadTrackbackPolicy(Storage postStorage)
         {
             string trackbackPolicy = ReadString(postStorage, POST_TRACKBACK_POLICY);
@@ -935,7 +914,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         private void WritePingUrls(XmlTextWriter writer, object pingUrls)
         {
             writer.WriteStartElement(PING_URLS_ELEMENT);
@@ -948,7 +926,6 @@ namespace OpenLiveWriter.PostEditor
             writer.WriteEndElement();
         }
 
-
         private object ReadPingUrls(XmlTextReader reader)
         {
             ArrayList pingUrls = new ArrayList();
@@ -959,7 +936,6 @@ namespace OpenLiveWriter.PostEditor
             }
             return pingUrls.ToArray(typeof(string)) as string[];
         }
-
 
         private void WriteCategories(XmlTextWriter writer, object categories)
         {
@@ -1343,7 +1319,7 @@ namespace OpenLiveWriter.PostEditor
                                 ISupportingFile supportingFile;
                                 if (supportingFileId == null) //BACKWARDS_COMPATABILITY: required for pre-beta2 Writer files
                                 {
-                                    //required 
+                                    //required
                                     string storagePath = reader.GetAttribute(EXTENSION_DATA_FILE_PATH_ATTRIBUTE);
 
                                     //fixup the reference path
@@ -1566,7 +1542,6 @@ namespace OpenLiveWriter.PostEditor
                 if (uploadVersionString != null)
                     uploadVersion = Int32.Parse(uploadVersionString, CultureInfo.InvariantCulture);
 
-
                 //fixup the reference path
                 BlogPostSettingsBag settings = new BlogPostSettingsBag();
                 if (!reader.IsEmptyElement)
@@ -1614,7 +1589,7 @@ namespace OpenLiveWriter.PostEditor
                 string fileName = reader.GetAttribute(ATTACHED_FILE_NAME);
 
                 string fileNameUniqueToken = reader.GetAttribute(ATTACHED_FILE_NAME_UNIQUETOKEN);
-                if (fileNameUniqueToken == null) //necessary for interim Wave2 M1 builds 
+                if (fileNameUniqueToken == null) //necessary for interim Wave2 M1 builds
                     fileNameUniqueToken = _fileService.CreateUniqueFileNameToken(fileName);
 
                 string fileVersionString = reader.GetAttribute(ATTACHED_FILE_VERSION_ATTRIBUTE);
@@ -1666,7 +1641,6 @@ namespace OpenLiveWriter.PostEditor
                 Debug.Assert(depth == 0 && reader.LocalName == ATTACHED_FILE_VERSION_ELEMENT, "Xmlreader is unexpectedly positioned (probably read to far!)");
             }
         }
-
 
 
         private static void WriteBlogPostSettingsBag(XmlTextWriter writer, BlogPostSettingsBag settings, string name)
@@ -1919,7 +1893,7 @@ namespace OpenLiveWriter.PostEditor
             /// Side effects:
             ///		1) A substorage is made that is named after the GUID in the output URI.
             ///		2) Two streams are written to the substorage: SupportingFileName and SupportingFileContents
-            /// 
+            ///
             /// If the reference has already been seen, the side effects do not occur and an existing SupportingFileReference URI is returned.
             /// </summary>
             private string SaveToStorageReferenceFixer(string reference)
@@ -1992,14 +1966,12 @@ namespace OpenLiveWriter.PostEditor
             private Storage _fileSubStorage;
             private BlogPostSupportingFileStorage _supportingFileStorage;
 
-
             public const string SUPPORTING_FILE_PREFIX = "SupportingFileReference://";
             private const string SUPPORTING_FILE_NAME = "SupportingFileName";
             private const string SUPPORTING_FILE_CONTENTS = "SupportingFileContents";
         }
 
         #endregion
-
 
         #region Private Data
 
@@ -2019,7 +1991,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private FileInfo _targetFile = null;
 
-
         private DirectoryInfo TargetDirectory
         {
             get
@@ -2033,7 +2004,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private DirectoryInfo _targetDirectory = null;
-
 
         internal const string Extension = ".wpost";
         private static readonly Guid Version1FormatCLSID = new Guid("20EBD150-5362-417a-8221-84331F79D41D");

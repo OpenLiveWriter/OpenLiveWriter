@@ -125,7 +125,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             DisposeOldAuth();
         }
 
-
         public void UpdateStatus()
         {
             if (_auth == null)
@@ -147,7 +146,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 linkLabelAction.Visible = ShowLoginButton;
             }
 
-            // Changing the width of the label in RTL mode after its already been  
+            // Changing the width of the label in RTL mode after its already been
             // laid out causes UI issues, so we'll only do this in automation mode.
             if (ApplicationDiagnostics.AutomationMode)
             {
@@ -161,9 +160,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.labelStatus = new System.Windows.Forms.Label();
             this.linkLabelAction = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
-            // 
+            //
             // labelStatus
-            // 
+            //
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStatus.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -172,9 +171,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.labelStatus.Size = new System.Drawing.Size(154, 16);
             this.labelStatus.TabIndex = 0;
             this.labelStatus.Text = "Not Logged In";
-            // 
+            //
             // linkLabelAction
-            // 
+            //
             this.linkLabelAction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelAction.Location = new System.Drawing.Point(0, 16);
@@ -186,9 +185,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.linkLabelAction.LinkBehavior = LinkBehavior.HoverUnderline;
             this.linkLabelAction.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAction_LinkClicked);
             this.linkLabelAction.UseCompatibleTextRendering = false;
-            // 
+            //
             // LoginStatusControl
-            // 
+            //
             this.Controls.Add(this.linkLabelAction);
             this.Controls.Add(this.labelStatus);
             this.Name = "LoginStatusControl";

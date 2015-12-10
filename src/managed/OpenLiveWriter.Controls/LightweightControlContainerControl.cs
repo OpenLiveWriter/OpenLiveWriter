@@ -381,7 +381,7 @@ namespace OpenLiveWriter.Controls
             SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -400,21 +400,21 @@ namespace OpenLiveWriter.Controls
         #endregion Class Initialization & Termination
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.toolTip = new ToolTip2(this.components);
-            // 
+            //
             // toolTip
-            // 
+            //
             this.toolTip.ShowAlways = true;
-            // 
+            //
             // LightweightControlContainerControl
-            // 
+            //
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Name = "LightweightControlContainerControl";
             this.Size = new System.Drawing.Size(216, 224);
@@ -948,7 +948,7 @@ namespace OpenLiveWriter.Controls
             //	Update the drag-and-drop lightweight control.
             UpdateDragDropLightweightControl(e);
 
-            //	If we have a drag-and-drop lightweight control, raise its DragOver event. 
+            //	If we have a drag-and-drop lightweight control, raise its DragOver event.
             //	Otherwise, call the base class's method to raise the DragOver event on this
             //	control.
             if (dragDropLightweightControl != null)
@@ -1158,7 +1158,7 @@ namespace OpenLiveWriter.Controls
         /// <summary>
         /// Forces control of the control focus to be managed by the focus manager (tabIndex will be ignored!).
         /// </summary>
-        /// 
+        ///
         public void InitFocusManager(bool wrap)
         {
             _focusAndAccessibilityController = new LCCCFocusAndAccessibilityController(this, wrap);
@@ -1579,9 +1579,8 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         /// <summary>
-        /// Gets the bottom drag-and-drop auto-scroll rectangle.  This is the rectangle at the 
+        /// Gets the bottom drag-and-drop auto-scroll rectangle.  This is the rectangle at the
         /// bottom  of the ClientRectangle where a drag-and-drop operation will initiate
         /// drag-and-drop auto-scroll in the down direction
         /// </summary>

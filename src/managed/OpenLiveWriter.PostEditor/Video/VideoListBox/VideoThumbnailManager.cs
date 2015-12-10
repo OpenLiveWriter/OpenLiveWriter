@@ -88,7 +88,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
         /// </summary>
         public event VideoThumbnailDownloadCompleteHandler ThumbnailDownloadCompleted;
 
-
         /// <summary>
         /// Dispose the thumbnail manager -- terminate the thread-pool and discard
         /// all of the thumbnail bitmaps and their underlying streams
@@ -138,7 +137,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             }
         }
 
-
         /// <summary>
         /// Download the thumbnail -- return null if any error (connection, r/w, timeout, etc.) occurs
         /// </summary>
@@ -172,9 +170,8 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             }
         }
 
-
         /// <summary>
-        /// Callback method invoked from worker threads to indicate that another 
+        /// Callback method invoked from worker threads to indicate that another
         /// thumbnail has been downloaded
         /// </summary>
         private void ProcessCompletedDownload(IVideo iVideo, VideoThumbnail thumbnail)

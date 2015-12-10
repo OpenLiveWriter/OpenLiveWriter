@@ -65,7 +65,6 @@ namespace OpenLiveWriter.PostEditor.Video
             return CreateContentForm(dialogOwner, content, videoSources, 0);
         }
 
-
         public override void CreateContentFromUrl(string url, ref string title, ISmartContent content)
         {
             try
@@ -95,7 +94,6 @@ namespace OpenLiveWriter.PostEditor.Video
                 throw new ContentCreationException(exception.Title, exception.Description);
             }
         }
-
 
         public void CreateContentFromEmbed(string embed, ISmartContent content)
         {
@@ -139,7 +137,6 @@ namespace OpenLiveWriter.PostEditor.Video
             VideoSmartContent VideoContent = new VideoSmartContent(content);
             return VideoContent.GeneratePublishHtml(publishingContext);
         }
-
 
         public override ResizeCapabilities ResizeCapabilities
         {
@@ -238,7 +235,6 @@ namespace OpenLiveWriter.PostEditor.Video
             return CreateContentForm(dialogOwner, content, videoSources, selectedTab);
         }
 
-
         #endregion
 
         private DialogResult CreateContentForm(IWin32Window dialogOwner, ISmartContent content, List<MediaTab> videoSources, int selectedTab)
@@ -265,7 +261,6 @@ namespace OpenLiveWriter.PostEditor.Video
                 }
             }
         }
-
 
 
         #region IContentUpdateFilter Members

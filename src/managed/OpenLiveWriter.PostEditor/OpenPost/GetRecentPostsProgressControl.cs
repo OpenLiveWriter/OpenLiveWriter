@@ -17,7 +17,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
     public class GetRecentPostsProgressControl : UserControl
     {
         private Label labelCaption;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -51,7 +51,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             // ensure centering
             CenterControlInControlBehavior centerControl = new CenterControlInControlBehavior(this, _parentControl);
         }
-
 
         public void Start(bool getPages)
         {
@@ -96,8 +95,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
         private Bitmap[] _animationBitmaps;
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -113,8 +111,8 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -122,9 +120,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.labelCaption = new System.Windows.Forms.Label();
             this.progressAnimatedBitmap = new OpenLiveWriter.Controls.AnimatedBitmapControl();
             this.SuspendLayout();
-            // 
+            //
             // labelCaption
-            // 
+            //
             this.labelCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCaption.Location = new System.Drawing.Point(0, 86);
             this.labelCaption.Name = "labelCaption";
@@ -132,9 +130,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.labelCaption.TabIndex = 0;
             this.labelCaption.Text = "Retrieving posts from weblog...";
             this.labelCaption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+            //
             // progressAnimatedBitmap
-            // 
+            //
             this.progressAnimatedBitmap.Bitmaps = null;
             this.progressAnimatedBitmap.Interval = 100;
             this.progressAnimatedBitmap.Location = new System.Drawing.Point(0, 0);
@@ -142,9 +140,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.progressAnimatedBitmap.Running = false;
             this.progressAnimatedBitmap.Size = new System.Drawing.Size(240, 72);
             this.progressAnimatedBitmap.TabIndex = 3;
-            // 
+            //
             // GetRecentPostsProgressControl
-            // 
+            //
             this.Controls.Add(this.progressAnimatedBitmap);
             this.Controls.Add(this.labelCaption);
             this.Name = "GetRecentPostsProgressControl";

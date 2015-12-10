@@ -35,7 +35,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -43,9 +42,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandImageBrightness
-			// 
+			//
 			this.ContextMenuPath = "";
 			this.Identifier = "OpenLiveWriter.PostEditor.Commands.PostHtmlEditing.ImageBrightness";
 			this.MainMenuPath = "";

@@ -95,8 +95,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -112,8 +111,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -129,9 +128,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.buttonCustomize = new OpenLiveWriter.PostEditor.PostHtmlEditing.CustomizeButton();
             this.toolTip = new OpenLiveWriter.Controls.ToolTip2(this.components);
             this.SuspendLayout();
-            // 
+            //
             // textBoxWidth
-            // 
+            //
             this.textBoxWidth.Location = new System.Drawing.Point(0, 48);
             this.textBoxWidth.Name = "textBoxWidth";
             this.textBoxWidth.Size = new System.Drawing.Size(67, 20);
@@ -139,9 +138,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.textBoxWidth.TextChanged += new System.EventHandler(this.textBoxWidth_TextChanged);
             this.textBoxWidth.Leave += new EventHandler(textBoxWidth_Leave);
             this.textBoxWidth.KeyDown += new KeyEventHandler(textBoxWidthHeight_KeyDown);
-            // 
+            //
             // textBoxHeight
-            // 
+            //
             this.textBoxHeight.Location = new System.Drawing.Point(81, 48);
             this.textBoxHeight.Name = "textBoxHeight";
             this.textBoxHeight.Size = new System.Drawing.Size(67, 20);
@@ -149,9 +148,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.textBoxHeight.TextChanged += new System.EventHandler(this.textBoxHeight_TextChanged);
             this.textBoxHeight.Leave += new EventHandler(textBoxHeight_Leave);
             this.textBoxHeight.KeyDown += new KeyEventHandler(textBoxWidthHeight_KeyDown);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Location = new System.Drawing.Point(0, 30);
@@ -159,9 +158,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.label1.Size = new System.Drawing.Size(71, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "&Width:";
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label2.Location = new System.Drawing.Point(81, 30);
@@ -169,9 +168,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.label2.Size = new System.Drawing.Size(73, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "&Height:";
-            // 
+            //
             // cbConstrainRatio
-            // 
+            //
             this.cbConstrainRatio.Checked = false;
             this.cbConstrainRatio.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbConstrainRatio.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -181,9 +180,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.cbConstrainRatio.TabIndex = 6;
             this.cbConstrainRatio.Text = "Lock &ratio";
             this.cbConstrainRatio.CheckedChanged += new System.EventHandler(this.cbConstrainRatio_CheckedChanged);
-            // 
+            //
             // imageSizePickerControl1
-            // 
+            //
             this.imageSizePickerControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.imageSizePickerControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("imageSizePickerControl1.BackgroundImage")));
@@ -194,9 +193,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.imageSizePickerControl1.Size = new System.Drawing.Size(216, 21);
             this.imageSizePickerControl1.TabIndex = 0;
             this.imageSizePickerControl1.SelectedImageSizeChanged += new System.EventHandler(this.imageSizePickerControl1_SelectedImageSizeChanged);
-            // 
+            //
             // buttonCustomize
-            // 
+            //
             this.buttonCustomize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCustomize.Image = ((System.Drawing.Image)(resources.GetObject("buttonCustomize.Image")));
             this.buttonCustomize.Location = new System.Drawing.Point(219, 4);
@@ -204,9 +203,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.buttonCustomize.Size = new System.Drawing.Size(28, 23);
             this.buttonCustomize.TabIndex = 1;
             this.buttonCustomize.Click += new System.EventHandler(this.buttonCustomize_Click);
-            // 
+            //
             // ImageSizeControl
-            // 
+            //
             this.Controls.Add(this.buttonCustomize);
             this.Controls.Add(this.imageSizePickerControl1);
             this.Controls.Add(this.cbConstrainRatio);
@@ -417,7 +416,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
             return scaledImageSize;
         }
-
 
         private ImageSizeName ConvertToImageSizeName(ImageSize size)
         {

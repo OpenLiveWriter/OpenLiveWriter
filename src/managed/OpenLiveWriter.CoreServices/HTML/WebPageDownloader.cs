@@ -16,16 +16,15 @@ using Project31.BrowserControl ;
 using mshtml ;
 
 
-
 namespace Project31.CoreServices
 {
 	public class WebPageDownloader : IDisposable, IOleClientSite
-	{		
+	{
 		/// <summary>
 		/// Initialize the downloader
 		/// </summary>
 		public WebPageDownloader()
-		{	
+		{
 			// create the undelrying control
 			browserControl = new ExplorerBrowserControl() ;
 
@@ -37,36 +36,35 @@ namespace Project31.CoreServices
 
 			// configure options
 			browserControl.Browser.Silent = true ;
-					
+
 			// subscribe to events
 			browserControl.ProgressChange +=new BrowserProgressChangeEventHandler(browserControl_ProgressChange);
 			browserControl.DocumentComplete +=new BrowserDocumentEventHandler(browserControl_DocumentComplete);
 			browserControl.NewWindow2 +=new Project31.BrowserControl.DWebBrowserEvents2_NewWindow2EventHandler(browserControl_NewWindow2);
 		}
-		
+
 
 		/// <summary>
 		/// Download from the specified URL
 		/// </summary>
 		/// <param name="url"></param>
 		public void DownloadFromUrl( string url )
-		{		
-			browserControl.Navigate( url, false ) ;							
+		{
+			browserControl.Navigate( url, false ) ;
 		}
 
-		
+
 
 		/// <summary>
 		/// Event which indicates that the download is complete
 		/// </summary>
 		public event EventHandler DownloadComplete ;
-		
+
 
 		/// <summary>
 		/// Event which fires when total download progress is updated
 		/// </summary>
 		public event ProgressUpdatedEventHandler ProgressUpdated ;
-
 
 		/// <summary>
 		/// Get the underlying document that the control has downloaded (only
@@ -77,7 +75,7 @@ namespace Project31.CoreServices
 			get { return (IHTMLDocument2)browserControl.Document; }
 
 		}
-		
+
 		/// <summary>
 		/// Cleanup resources
 		/// </summary>
@@ -86,7 +84,7 @@ namespace Project31.CoreServices
 			if ( browserControl != null )
 				browserControl.Dispose() ;
 		}
-		
+
 
 		/// <summary>
 		/// Respond to the AMBIENT_DLCONTROL disp-id by returning our download-control flags
@@ -95,11 +93,11 @@ namespace Project31.CoreServices
 		[DispId(MSHTML_DISPID.AMBIENT_DLCONTROL)]
 		public int AmbientDLControl()
 		{
-			return	DLCTL.DOWNLOADONLY | DLCTL.NO_CLIENTPULL | 
-					DLCTL.NO_JAVA | DLCTL.NO_DLACTIVEXCTLS | 
+			return	DLCTL.DOWNLOADONLY | DLCTL.NO_CLIENTPULL |
+					DLCTL.NO_JAVA | DLCTL.NO_DLACTIVEXCTLS |
 					DLCTL.NO_RUNACTIVEXCTLS | DLCTL.SILENT ;
-		}		
-	
+		}
+
 
 		/// <summary>
 		/// Handle document complete event
@@ -107,15 +105,14 @@ namespace Project31.CoreServices
 		/// <param name="sender">sender</param>
 		/// <param name="e">event args</param>
 		private void browserControl_DocumentComplete(object sender, BrowserDocumentEventArgs e)
-		{		
+		{
 			// verify ready-state complete
 			Debug.Assert( browserControl.Browser.ReadyState == tagREADYSTATE.READYSTATE_COMPLETE ) ;
-			
+
 			// propagate event
 			if ( DownloadComplete != null )
 				DownloadComplete( this, EventArgs.Empty ) ;
 		}
-
 
 		/// <summary>
 		/// Handle new window event (prevent all pop-up windows from displaying)
@@ -127,7 +124,6 @@ namespace Project31.CoreServices
 			// prevent pop-ups!
 			e.cancel = true ;
 		}
-
 
 		/// <summary>
 		/// Handle progress changed event
@@ -144,15 +140,15 @@ namespace Project31.CoreServices
 			}
 		}
 
-	
+
 		#region IOleClientSite Members
-		
+
 		void IOleClientSite.SaveObject()
 		{
 		}
 
 		int IOleClientSite.GetMoniker(OLEGETMONIKER dwAssign, OLEWHICHMK dwWhichMoniker, out UCOMIMoniker ppmk)
-		{			
+		{
 			ppmk = null;
 			return HRESULT.E_NOTIMPL ;
 		}
@@ -160,25 +156,23 @@ namespace Project31.CoreServices
 		int IOleClientSite.GetContainer(out IOleContainer ppContainer)
 		{
 			ppContainer = null ;
-			return HRESULT.E_NOINTERFACE;			
+			return HRESULT.E_NOINTERFACE;
 		}
 
 		void IOleClientSite.ShowObject()
 		{
 		}
 
-
 		void IOleClientSite.OnShowWindow(bool fShow)
 		{
 		}
 
 		int IOleClientSite.RequestNewObjectLayout()
-		{	
+		{
 			return HRESULT.E_NOTIMPL ;
 		}
-			
-		#endregion
 
+		#endregion
 
 		/// <summary>
 		/// Embedded web browser
@@ -186,5 +180,4 @@ namespace Project31.CoreServices
 		private ExplorerBrowserControl browserControl = null ;
 	}
 
-
-}		
+}

@@ -25,16 +25,14 @@ using OpenLiveWriter.PostEditor.BlogProviderButtons;
 using OpenLiveWriter.PostEditor.PhotoAlbums;
 using OpenLiveWriter.PostEditor.ImageInsertion.WebImages;
 
-
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 {
 	public class DefaultSidebarControl : SidebarControl
 	{
-		/// <summary> 
+		/// <summary>
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
-
 
 		public DefaultSidebarControl(ISidebarContext sidebarContext, IBlogPostEditingSite postEditingSite)
 		{
@@ -43,7 +41,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
 			// record the post management context and subscribe to the post list changed event
 			_postEditingSite = postEditingSite ;
-			
+
 			// subscribe to changes that require us to re-layout the sidebar
 			_postEditingSite.WeblogChanged +=new WeblogHandler(_postEditingSite_WeblogChanged);
 			_postEditingSite.WeblogSettingsChanged +=new WeblogSettingsChangedHandler(_postEditingSite_WeblogSettingsChanged);
@@ -54,7 +52,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			// add the tooltip
 			_toolTip = new ToolTip2(components);
 			_toolTip.InitialDelay = 750 ;
-		    
+
 			// set the caption
 			Text = ApplicationEnvironment.ProductName;
 			AccessibleName = Res.Get(StringId.SidebarPanel) ;
@@ -65,7 +63,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
 			// initialize components
-			//_weblogPanelHeader = new PanelHeader(this, WEBLOG_PANEL_CAPTION);	
+			//_weblogPanelHeader = new PanelHeader(this, WEBLOG_PANEL_CAPTION);
 			// _weblogPanelBody = new PanelBody();
 			// _weblogHeader = new WeblogHeader(this, _weblogPanelBody) ;
 			// _viewWeblogCommand = new LinkCommand(this, _toolTip, CommandId.ViewWeblog.ToString());
@@ -116,13 +114,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             _insertTableCommand = new LinkCommand(this, "Tables.Commands.Images.CommandInsertTableCommandBarButtonBitmapEnabled.png", INSERT_TABLE_CAPTION, INSERT_TABLE_ACCNAME, _toolTip, INSERT_TABLE_TOOLTIP, CommandId.InsertTable.ToString());
 			_contentInsertCommands = new ContentInsertCommands(this, _toolTip, LINK_COMMAND_PADDING, int.MaxValue);
 		    _separator2 = new SeparatorControl();
-            		    
+
             Controls.Add(_separator2);
 		    Controls.Add(_headerControl);
 
 			UpdatePostLists() ;
 		}
-		
+
 		public override bool HasStatusBar
 		{
 			get
@@ -137,7 +135,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             RefreshLayout();
         }
 
-
         private void RefreshLayout()
         {
             RefreshLayout(false);
@@ -150,7 +147,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                 RefreshLayout();
         }
 
-        
+
         private void RefreshLayout(bool blogChanged)
 	    {
             // no-op if we do not have an active weblog
@@ -258,14 +255,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             Refresh();
 	    }
 
-
 	    protected override void OnPaint(PaintEventArgs e)
 		{
 			try
 			{
 				// alias graphics object
 				BidiGraphics g = new BidiGraphics(e.Graphics, ClientRectangle) ;
-                
+
 				_openPanelHeader.Paint(g);
 				_openPanelBody.Paint(g);
 
@@ -278,7 +274,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				_recentPostList.Paint(g);
 				if (ShouldShowMoreRecentPosts)
 					_openPostCommand.Paint(g);
-				
+
 				_insertPanelHeader.Paint(g);
 				_insertPanelBody.Paint(g);
 
@@ -298,7 +294,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			}
 		}
 
-	
+
 		private void _postEditingSite_WeblogChanged(string blogId)
 		{
 		    RefreshLayout(true);
@@ -308,7 +304,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		{
 			RefreshLayout(true);
 		}
-		
+
 
 		private void _postEditingSite_PostListChanged(object sender, EventArgs e)
 		{
@@ -333,7 +329,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			_postEditingSite.OpenLocalPost(post);
 		}
 
-
 		private void _draftsPostList_PostDeleteRequested(PostInfo post)
 		{
 			_postEditingSite.DeleteLocalPost(post) ;
@@ -343,7 +338,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         private void FrameWindow_Layout(object sender, EventArgs e)
         {
         }
-
 
 	    private void _recentPostList_PostSelected(PostInfo post)
 		{
@@ -363,7 +357,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
 		private bool _shouldShowMoreDrafts;
 		private bool _shouldShowMoreRecentPosts;
-		
+
 		private bool ShouldShowMoreRecentPosts
 		{
 			get { return _shouldShowMoreRecentPosts; }
@@ -398,7 +392,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         private LinkCommand _insertWebImage;
 		private ContentInsertCommands _contentInsertCommands ;
         private SeparatorControl _separator2;
-		
+
 		private ToolTip2 _toolTip ;
 		private IBlogPostEditingSite _postEditingSite ;
 
@@ -413,7 +407,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 	    private const int SECTION_SPACING = 8;
 	    private const int SECONDARY_HEADER_INSET = 3;
 	    private const int TERTIARY_INSET = 3;
-		
+
 
 		private string WEBLOG_PANEL_CAPTION = Res.Get(StringId.Weblog) ;
 		private string OPEN_PANEL_CAPTION = Res.Get(StringId.Open) ;
@@ -436,7 +430,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		private string INSERT_TABLE_ACCNAME = Res.Get(StringId.InsertTable) ;
 		private string INSERT_TABLE_TOOLTIP = Res.Get(StringId.InsertTableTooltip) ;
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -453,17 +447,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				_postEditingSite.FrameWindow.Layout -= new LayoutEventHandler(FrameWindow_Layout);
 				_postEditingSite.PostListChanged -= new EventHandler(_postEditingSite_PostListChanged);
 				ContentSourceManager.GlobalContentSourceListChanged -= new EventHandler(ContentSourceManager_GlobalContentSourceListChanged);
-			
+
 				_openPanelHeader.Dispose();
 				_insertPanelHeader.Dispose();
 			}
 			base.Dispose( disposing );
 		}
-	
-		
+
+
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -472,12 +466,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		}
 		#endregion
 
-		
+
 	}
 
 	internal class ContentInsertCommands
 	{
-
 
 		public ContentInsertCommands(Control parent, ToolTip parentToolTip, int linkCommandPadding, int maxCommands)
 		{
@@ -490,7 +483,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			// update list of content-source commands
 			RefreshContentSourceCommands() ;
 		}
-	
+
 		public void RefreshContentSourceCommands()
 		{
 			_parent.SuspendLayout() ;
@@ -500,13 +493,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				foreach ( LinkCommand linkCommand in _contentSourceCommands )
 					linkCommand.Dispose() ;
 				_contentSourceCommands.Clear();
-				
+
 				if ( _addPluginCommand != null )
 				{
 					_addPluginCommand.Dispose();
 					_addPluginCommand = null ;
 				}
-			
+
 				// get the commands
 				ContentSourceInfo[] contentSources = GetSidebarContentSources(_maxCommands) ;
 
@@ -517,12 +510,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                         continue;
 
 					LinkCommand linkCommand = new LinkCommand(
-						_parent, 
+						_parent,
 						contentSourceInfo.Image,
 						String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.PluginInsertSidebarText), contentSourceInfo.InsertableContentSourceSidebarText),
 						String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.PluginInsertSidebarText), contentSourceInfo.InsertableContentSourceSidebarText),
 						_parentToolTip,
-						null, //String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.PluginInsertSidebarTooltip), contentSourceInfo.InsertableContentSourceMenuText), 
+						null, //String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.PluginInsertSidebarTooltip), contentSourceInfo.InsertableContentSourceMenuText),
 						contentSourceInfo.Id ) ;
 
 					_contentSourceCommands.Add(linkCommand) ;
@@ -562,7 +555,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				}
 
 				_laidOutContentCommands = true ;
-				
+
 				linkCommand.Visible = true;
 				// layout the link command
 				linkCommand.Layout(startLocation);
@@ -585,7 +578,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		private const int ADD_PLUGIN_PAD = 3 ;
 		private bool _laidOutContentCommands = false ;
 
-
 		public void Paint(BidiGraphics g)
 		{
 			foreach ( LinkCommand linkCommand in _contentSourceCommands )
@@ -594,17 +586,16 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			if (MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.WLGallery))
 			{
 				int y = _addPluginCommand.Bounds.Y - ADD_PLUGIN_PAD ;
-				using ( Pen pen = PanelBody.CreateBorderPen() ) 
+				using ( Pen pen = PanelBody.CreateBorderPen() )
 					g.DrawLine(pen, _addPluginCommand.Bounds.X, y, _parent.Right - _addPluginCommand.Bounds.X, y);
 
 				_addPluginCommand.Paint(g);
 			}
 		}
 
-
 		private ContentSourceInfo[] GetSidebarContentSources(int maxSources)
 		{
-			ArrayList sidebarContentSources = new ArrayList(); 
+			ArrayList sidebarContentSources = new ArrayList();
 			if ( maxSources <= ContentSourceManager.BuiltInInsertableContentSources.Length )
 			{
 				// clip the list of standard spources if necessary
@@ -649,7 +640,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
 	}
 
-
 	internal class SidebarLinkLabel : LinkLabel
 	{
 		UITheme _uiTheme;
@@ -663,10 +653,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		    AutoEllipsis = true ;
 		    LinkColor = SystemColors.HotTrack;
 		    ActiveLinkColor = SystemColors.HotTrack;
-			
+
 			_uiTheme = new UITheme(this);
 		}
-		
+
 
 		class UITheme : ControlUITheme
 		{
@@ -678,15 +668,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			}
 
 			protected override void ApplyTheme(bool highContrast)
-			{			
+			{
 				_linkLabel.LinkColor = !highContrast ? SystemColors.HotTrack : SystemColors.ControlText;
 				_linkLabel.LinkBehavior = !highContrast ? LinkBehavior.HoverUnderline : LinkBehavior.SystemDefault;
 				base.ApplyTheme(highContrast);
 			}
-		}	
+		}
 	}
 
-	internal class Header 
+	internal class Header
 	{
 		protected Header(Control parent)
 		{
@@ -735,11 +725,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		public void Layout(Point startLocation)
 		{
 			InitFont();
-			
+
 			using ( Graphics g = Parent.CreateGraphics() )
 			{
 				// deterine room occcupied by icon
-				const int ICON_PADDING = 2 ; 
+				const int ICON_PADDING = 2 ;
 				int iconWidth = 0 ;
 				if ( Image != null )
 					iconWidth = Image.Width + ICON_PADDING ;
@@ -754,16 +744,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                 BidiGraphics bg = new BidiGraphics(g, Size.Empty);
 				Size captionSize = bg.MeasureText(Caption, _captionFont, new Size(textWidth, 0), 0);
 				int textHeight = Convert.ToInt32(Math.Min(captionSize.Height, _captionFont.GetHeight() * 3)) ;
-				
+
 				Point captionLocation = new Point(startLocation.X + iconWidth, startLocation.Y+1) ;
 
 				CaptionBounds = new Rectangle(captionLocation, new Size(textWidth, textHeight));
-				
+
 				Bounds = new Rectangle(startLocation, new Size(width, CaptionBounds.Height + (SectionHeader.SECTION_CAPTION_TOP_INSET+SectionHeader.SECTION_CAPTION_BOTTOM_INSET)));
-	
+
 			}
 		}
-
 
 
 		public void Paint(BidiGraphics g)
@@ -773,7 +762,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				g.DrawImage(false, Image, Bounds.X, Bounds.Y) ;
 			else if ( Icon != null )
 				g.DrawIcon(false, Icon, Bounds.X, Bounds.Y);
-			
+
 			// draw text
 			g.DrawText(Caption, _captionFont, new Rectangle(CaptionBounds.X, CaptionBounds.Y, CaptionBounds.Width, CaptionBounds.Height), SystemColors.ControlText, TextFormatFlags.WordEllipsis );
 		}
@@ -783,9 +772,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			// draw watermark if we have one
 			if ( WatermarkImage != null && !SystemInformation.HighContrast)
 			{
-			
+
 				Point watermarkLocation = new Point(_weblogPanelBody.Bounds.Right - WatermarkImage.Width  , _weblogPanelBody.Bounds.Top  ) ;
-				
+
 				GraphicsContainer gc = g.Graphics.BeginContainer() ;
 				try
 				{
@@ -799,7 +788,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				{
 					g.Graphics.EndContainer(gc);
 				}
-				
+
 			}
 		}
 
@@ -808,7 +797,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			if ( _captionFont != null )
 				_captionFont.Dispose();
 		}
-			
+
 		private void InitFont()
 		{
 			if ( _captionFont == null )
@@ -817,9 +806,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
 		private Font _captionFont ;
 		private PanelBody _weblogPanelBody ;
-		
-	}
 
+	}
 
 	internal class PanelHeader : Header, IDisposable
 	{
@@ -855,7 +843,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			if ( _captionFont != null )
 				_captionFont.Dispose();
 		}
-			
+
 		private void InitFont()
 		{
 			if ( _captionFont == null )
@@ -872,7 +860,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
 	internal class PanelBody
 	{
-		public Rectangle Bounds ;	
+		public Rectangle Bounds ;
 
 		public void Layout(Rectangle headerRect, int bottom)
 		{
@@ -882,7 +870,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		public void Paint(BidiGraphics g)
 		{
 			ColorizedResources colRes = ColorizedResources.Instance;
-			
+
 			if(!ColorizedResources.UseSystemColors)
 			{
 				using (Brush b = new SolidBrush(Color.FromArgb(64, Color.White)))
@@ -901,8 +889,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		{
 			return new Pen(Color.FromArgb(128, ColorizedResources.Instance.SidebarHeaderBackgroundColor), 1f);
 		}
-		
-	
+
+
 		private const int BODY_BOTTOM_PAD = 8 ;
 	}
 
@@ -935,7 +923,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			Rectangle rectangle = CaptionBounds;
             g.DrawText(Caption, _font, rectangle, SystemColors.ControlText, TextFormatFlags.VerticalCenter);
 		}
-		
+
 		private class UITheme : ControlUITheme
 		{
 			private Color _defaultEndColor;
@@ -978,7 +966,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		internal const int SECTION_CAPTION_BOTTOM_INSET = 0 ;
 	}
 
-	
 
 
 	internal class LinkCommand
@@ -992,11 +979,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		{
 			_parent = parent ;
 			_parentToolTip = parentToolTip ;
-		
+
 			Image = image ;
 			Caption = caption ;
 			TooltipText = toolTipText ;
-		
+
 			_linkLabel.LinkClicked +=new LinkLabelLinkClickedEventHandler(_linkLabel_LinkClicked);
 			_commandIdentifier = commandIdentifier ;
             if (accName != null)
@@ -1014,7 +1001,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		{
 		}
 
-		
+
 		public void Dispose()
 		{
 			_linkLabel.AccessibleName = null ;
@@ -1027,8 +1014,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			Visible = false ;
 			_linkLabel.Dispose();
 		}
-		
-	
+
+
 		public Rectangle Bounds = new Rectangle();
 
 	    public string Name
@@ -1036,7 +1023,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             get { return _linkLabel.Name; }
             set { _linkLabel.Name = value; }
 	    }
-        
+
         public bool ShowImage
 		{
 			get { return _showImage; }
@@ -1055,7 +1042,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			get { return _linkLabel.Text; }
 			set { _linkLabel.Text = value; }
 		}
-		
+
 
 		public void UseCommandText()
 		{
@@ -1078,7 +1065,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				Bounds.Size = Size.Empty;
 				return;
 			}
-			
+
 			// ensure the link label is added to the parent
 			if ( _linkLabel.Parent == null )
 			{
@@ -1092,7 +1079,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				UseCommandText() ;
 
 			int xOffset = ShowImage ? IMAGE_WIDTH + LINK_LEFT_INSET : 0 ;
-			
+
 			// see how wide the label needs to be
 			int labelWidth ;
 			int labelHeight;
@@ -1103,13 +1090,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				labelWidth = Math.Min(labelWidth, _parent.Width - startLocation.X - xOffset - LINK_LABEL_RIGHT_INSET ) ;
 				labelHeight = textSize.Height;
 			}
-			
+
 			labelHeight = Math.Max(IMAGE_HEIGHT, labelHeight);
 
 			// calculate the bounds
 			Bounds.Location = startLocation ;
 			Bounds.Size = new Size(xOffset + labelWidth, labelHeight) ;
-			
+
 
 			// position the link-label
 			_linkLabel.Location = new Point(startLocation.X + xOffset, startLocation.Y + LINK_TOP_INSET);
@@ -1127,10 +1114,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				    int y = (_linkLabel.Location.Y + _linkLabel.Height/2) - (_image.Height/2);
 					g.DrawImage(false, _image, Bounds.Location.X, y );
 				}
-				
+
 			}
 		}
-		
+
 		private bool _visible = true;
 		public bool Visible
 		{
@@ -1142,7 +1129,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			{
 				_visible = value;
 				_linkLabel.Visible = _visible;
-				
+
 			}
 		}
 
@@ -1183,8 +1170,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
 	internal delegate void PostEventHandler(PostInfo post) ;
 
-    
-	internal abstract class PostList 
+
+	internal abstract class PostList
 	{
 		public PostList(Control parent, ToolTip toolTip, string title)
 		{
@@ -1192,7 +1179,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			_toolTip = toolTip ;
 			_title = title ;
 		}
-		
+
 		public void SetPosts(PostInfo[] posts)
 		{
 			// copy posts into link labels
@@ -1203,7 +1190,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 					string postType = posts[i].IsPage ? Res.Get(StringId.Page) : Res.Get(StringId.Post);
 					LinkLabels[i].AccessibleName = string.Format(CultureInfo.CurrentCulture, AccessibilityNameFormat, postType);
 					DeleteButtons[i].AccessibleName = string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.DeleteSomething), LinkLabels[i].AccessibleName);
-					
+
 					LinkLabels[i].Text = posts[i].Title ;
 					string tooltipText = FormatToolTipText(posts[i]);
 					LinkLabels[i].AccessibleDescription = tooltipText;
@@ -1220,7 +1207,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				{
 					LinkLabels[i].Text = String.Empty ;
 					LinkLabels[i].Tag = null ;
-					LinkLabels[i].Visible = false ;	
+					LinkLabels[i].Visible = false ;
 					DeleteButtons[i].Tag = null ;
 					DeleteButtons[i].Visible = false ;
 				}
@@ -1260,7 +1247,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                         linkLabel.Location = new Point(startLocation.X + POSTLIST_INDENT, currentLocationY);
 						linkLabel.Width = _parent.Width - linkLabel.Left - LinkLabelRightInset ;
 
-						// see how much space the text will take up and size the link-label 
+						// see how much space the text will take up and size the link-label
 						// accordingly
 						using ( Graphics g = _parent.CreateGraphics() )
 						{
@@ -1276,7 +1263,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 							deleteButton.Top = linkLabel.Top + DELETE_TOP_PADDING ;
 							deleteButton.Left = _parent.Width - LinkLabelRightInset ;
 						}
-					
+
 						// increment Y-axis
 						currentLocationY += (linkLabel.Height+LINK_TEXT_PADDING) ;
 
@@ -1309,7 +1296,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                     ColorizedResources.Instance.SidebarDisabledTextColor);
 			}
 		}
-	
+
 
 		private void Init()
 		{
@@ -1352,15 +1339,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			{
 				return String.Empty ;
 			}
-			
+
 		}
-		
+
 		protected virtual bool SupportsDelete { get { return false; } }
 
 		protected virtual string DeleteButtonToolTip { get { return string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.DeleteSomething), Res.Get(StringId.Post)); } }
-		
+
 		protected abstract string AccessibilityNameFormat { get; }
-	
+
 
 		private SidebarLinkLabel[] LinkLabels
 		{
@@ -1386,7 +1373,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			{
 				if ( _deleteButtons == null )
 				{
-					_deleteButtons = new DeleteButton[MAX_POSTS];	
+					_deleteButtons = new DeleteButton[MAX_POSTS];
 					for ( int i=0; i<MAX_POSTS; i++)
 					{
 						_deleteButtons[i] = new DeleteButton();
@@ -1394,12 +1381,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 						_deleteButtons[i].Click +=new EventHandler(DeleteButton_Click);
 					}
 
-
 				}
 				return _deleteButtons ;
 			}
 		}
-		
 
 
 		private void PostList_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1466,14 +1451,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				return base.IsPushKey (key) || (key == Keys.Enter) ;
 			}
 
-
 			private const string DELETE_DRAFT = "DeleteDraft" ;
 		}
 
-		
+
 	}
 
-	
+
 
 	internal class DraftPostList : PostList
 	{
@@ -1516,13 +1500,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			get { return Res.Get(StringId.PublishedNameFormat); }
 		}
 	}
-	
+
 
 	internal class SidebarColors
 	{
 		[Obsolete("Use ColorizedResources.Instance.SidebarTextColor", true)]
 		public static readonly Color TextColor = Color.Red;
-		
+
 		public static readonly Color BorderLineColor = Color.FromArgb(216, 227, 254);
 		public static readonly Color PanelHeaderTopColor = Color.FromArgb(199,217,254);
 		public static readonly Color PanelHeaderBottomColor = Color.FromArgb(110, 149, 216) ;
@@ -1532,7 +1516,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		public static readonly Color FirstSectionBottomColor = Color.FromArgb(208, 222, 251) ;
 		public static readonly Color SecondSectionBottomColor = Color.FromArgb(198, 214, 249);
 	}
-
 
 
 	internal class DefaultSidebar : ISidebar

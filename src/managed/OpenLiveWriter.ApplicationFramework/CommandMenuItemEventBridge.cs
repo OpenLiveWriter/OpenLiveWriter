@@ -11,7 +11,7 @@ namespace Project31.ApplicationFramework
 	/// <summary>
 	/// Provides "event bridging" between MenuItem objects and Command objects.
 	/// </summary>
-	internal class CommandMenuItemEventBridge 
+	internal class CommandMenuItemEventBridge
 	{
 		#region Private Member Variables & Properties
 		/// <summary>
@@ -62,7 +62,7 @@ namespace Project31.ApplicationFramework
 			menuItem.Click -= new EventHandler(menuItem_Click);
 		}
 		#endregion
-			
+
 		#region Event Handlers
 		/// <summary>
 		/// The enabled property of the command changed.

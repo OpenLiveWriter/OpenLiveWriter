@@ -26,11 +26,11 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>true if the data object has the format, otherwise false</returns>
         public bool CanCreateFrom(IDataObject dataObject)
         {
-            // GetDataPresent is not always a reliable indicator of what data is 
-            // actually available. For Outlook Express, if you call GetDataPresent on 
+            // GetDataPresent is not always a reliable indicator of what data is
+            // actually available. For Outlook Express, if you call GetDataPresent on
             // FileGroupDescriptor it returns false however if you actually call GetData
-            // you will get the FileGroupDescriptor! Therefore, we are going to 
-            // enumerate the available formats and check that list rather than 
+            // you will get the FileGroupDescriptor! Therefore, we are going to
+            // enumerate the available formats and check that list rather than
             // checking GetDataPresent
             ArrayList formats = new ArrayList(dataObject.GetFormats());
 
@@ -83,7 +83,7 @@ namespace OpenLiveWriter.CoreServices
                 // allocate a FileItem object for each descriptor
                 FileItem[] fileItems = new FileItem[fileDescriptors.Length];
 
-                // initialize the file items 
+                // initialize the file items
                 for (int i = 0; i < fileDescriptors.Length; i++)
                 {
                     fileItems[i] = new FileItemFromFileContents(
@@ -95,7 +95,7 @@ namespace OpenLiveWriter.CoreServices
             }
             // this is a sketchy operation involving all kinds of interop voodoo,
             // if we fail in release mode it is likely due to a drop source giving
-            // us invalid or unexpected data -- handle this gracefully while 
+            // us invalid or unexpected data -- handle this gracefully while
             // logging the error
             catch (Exception e)
             {
@@ -104,9 +104,8 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
-        /// Initialize using file meta-info and the OleDataObject from which 
+        /// Initialize using file meta-info and the OleDataObject from which
         /// to fetch the file contents when it is time to write them
         /// </summary>
         /// <param name="fileDescriptor"></param>
@@ -121,7 +120,6 @@ namespace OpenLiveWriter.CoreServices
             this.fileIndex = fileIndex;
         }
 
-
         /// <summary>
         /// Determines whether this file is a directory. FileContents does not
         /// support directories so this always returns false.
@@ -130,7 +128,6 @@ namespace OpenLiveWriter.CoreServices
         {
             get { return false; }
         }
-
 
         /// <summary>
         /// Path where the contents of the file can be found
@@ -150,7 +147,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string contentsPath = null;
 
-
         /// <summary>
         /// Write the file contents to the specified path
         /// </summary>
@@ -169,7 +165,7 @@ namespace OpenLiveWriter.CoreServices
                     "FileContents used unexpected storage type");
             }
 
-            // copy the data to a file (implemented differently for each storage type)			
+            // copy the data to a file (implemented differently for each storage type)
             using (storage)
             {
                 // structured storage
@@ -222,7 +218,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Copy a stream into a file
         /// </summary>
@@ -243,7 +238,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Copy a file into another file
         /// </summary>
@@ -253,7 +247,6 @@ namespace OpenLiveWriter.CoreServices
         {
             File.Copy(srcFileName, destFileName);
         }
-
 
 
         /// <summary>
@@ -272,7 +265,7 @@ namespace OpenLiveWriter.CoreServices
                 {
                     // use Win32 WriteFile so we can blast the entire unamanged memory
                     // block in a single call (if we wanted to use managed file io
-                    // methods we would have to copy the entire memory block into 
+                    // methods we would have to copy the entire memory block into
                     // unmanaged memory first)
                     uint bytesWritten;
                     bool success = Kernel32.WriteFile(
@@ -287,7 +280,6 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
         }
-
 
         /// <summary>
         /// Structure that contains meta-data about the file contents

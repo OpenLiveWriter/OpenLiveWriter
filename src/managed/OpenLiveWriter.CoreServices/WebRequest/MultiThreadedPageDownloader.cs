@@ -46,7 +46,7 @@ namespace Project31.CoreServices
 
 		public MultiThreadedPageDownloader(IProgressHost progressHost) : this(2, progressHost)
 		{
-			
+
 		}
 
 		public MultiThreadedPageDownloader(int threadCount, IProgressHost progressHost)
@@ -60,7 +60,7 @@ namespace Project31.CoreServices
 
 		public void AddUrl(string url, int timeout)
 		{
-			if (!_urlsToDownload.ContainsKey(url))	
+			if (!_urlsToDownload.ContainsKey(url))
 				_urlsToDownload.Add(url, timeout);
 		}
 
@@ -69,7 +69,7 @@ namespace Project31.CoreServices
 		public DownloadResults Download()
 		{
 			TickableProgressTick tickableProgress = new TickableProgressTick(_progressHost, _urlsToDownload.Count);
-			
+
 			Hashtable workItems = new Hashtable();
 			foreach (string url in _urlsToDownload.Keys)
 			{
@@ -77,7 +77,7 @@ namespace Project31.CoreServices
 				workItems.Add(url, workItem);
 				_downloadQueue.Enqueue(workItem);
 			}
-			
+
 			ParallelExecution execution = new
 				ParallelExecution(new ThreadStart(DoWork), _threadCount);
 			execution.Execute();
@@ -89,7 +89,7 @@ namespace Project31.CoreServices
 			}
 			return results;
 		}
-		
+
 		private void DoWork()
 		{
 			while (true)
@@ -114,7 +114,6 @@ namespace Project31.CoreServices
 			}
 		}
 
-
 		private class DownloadWorkItem
 		{
 			public DownloadWorkItem(string url, int timeout,
@@ -133,7 +132,7 @@ namespace Project31.CoreServices
 				_tickableProgress.Message("Indexing " + _url);
 				string filePath = TempFileManager.Instance.CreateTempFile();
 				WebRequestWithCache request = new WebRequestWithCache(_url);
-				
+
 				Stream response = request.GetResponseStream(WebRequestWithCache.CacheSettings.CHECKCACHE,_timeout);
 				FileStream fileStream = new FileStream(filePath, FileMode.Open);
 				using (response)
@@ -141,7 +140,7 @@ namespace Project31.CoreServices
 						StreamHelper.Transfer(response, fileStream);
 
 				_filePath = filePath;
-			
+
 				_tickableProgress.Tick();
 			}
 
@@ -154,7 +153,6 @@ namespace Project31.CoreServices
 			}
 			private string _filePath = null;
 		}
-
 
 	}
 }

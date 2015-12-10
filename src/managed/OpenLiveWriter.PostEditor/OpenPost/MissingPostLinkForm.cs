@@ -48,18 +48,17 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 			labelTitle.Text = String.Format(CultureInfo.CurrentCulture, labelTitle.Text, entityName ) ;
 			labelExplanation.Text = String.Format(CultureInfo.CurrentCulture, labelExplanation.Text, entityNameLower, ApplicationEnvironment.ProductName) ;
 		}
-		
+
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad (e);
-			
+
 			using (new AutoGrow(this, AnchorStyles.Bottom, true))
 			{
 				LayoutHelper.NaturalizeHeightAndDistribute(8, labelTitle, labelExplanation);
 				LayoutHelper.FitControlsBelow(12, labelExplanation);
 			}
 		}
-
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -89,9 +88,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 			this.labelTitle = new System.Windows.Forms.Label();
 			this.labelExplanation = new System.Windows.Forms.Label();
 			this.SuspendLayout();
-			// 
+			//
 			// buttonOK
-			// 
+			//
 			this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -99,9 +98,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.TabIndex = 4;
 			this.buttonOK.Text = "OK";
-			// 
+			//
 			// pictureBoxError
-			// 
+			//
 			this.pictureBoxError.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxError.Image")));
 			this.pictureBoxError.Location = new System.Drawing.Point(10, 10);
 			this.pictureBoxError.Name = "pictureBoxError";
@@ -109,26 +108,26 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 			this.pictureBoxError.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
 			this.pictureBoxError.TabIndex = 5;
 			this.pictureBoxError.TabStop = false;
-			// 
+			//
 			// labelTitle
-			// 
+			//
 			this.labelTitle.Font = Res.GetFont(FontSize.XLarge, FontStyle.Bold);
 			this.labelTitle.Location = new System.Drawing.Point(61, 21);
 			this.labelTitle.Name = "labelTitle";
 			this.labelTitle.Size = new System.Drawing.Size(237, 23);
 			this.labelTitle.TabIndex = 6;
 			this.labelTitle.Text = "No Link Available for {0}";
-			// 
+			//
 			// labelExplanation
-			// 
+			//
 			this.labelExplanation.Location = new System.Drawing.Point(61, 48);
 			this.labelExplanation.Name = "labelExplanation";
 			this.labelExplanation.Size = new System.Drawing.Size(260, 96);
 			this.labelExplanation.TabIndex = 7;
 			this.labelExplanation.Text = @"There is no link available for the selected {0}. This may be because your weblog service does not make {0} links available to {1}. You may be able to resolve this problem by redetecting your weblog account configuration using the Accounts panel of the Weblog Settings dialog.";
-			// 
+			//
 			// MissingPostLinkForm
-			// 
+			//
 			this.AcceptButton = this.buttonOK;
 			this.CancelButton = this.buttonOK;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);

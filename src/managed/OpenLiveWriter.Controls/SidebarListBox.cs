@@ -34,7 +34,6 @@ namespace OpenLiveWriter.Controls
             ItemHeight = CalculateItemHeight();
         }
 
-
         public void SetEntry(T item, Bitmap image, string text)
         {
             Items.Add(new ListBoxEntryItem(text, item, image, this));
@@ -53,7 +52,6 @@ namespace OpenLiveWriter.Controls
             }
             return false;
         }
-
 
         public new T SelectedValue
         {
@@ -122,7 +120,6 @@ namespace OpenLiveWriter.Controls
             int imageTop = e.Bounds.Top + ScaleY(LARGE_TOP_INSET);
             g.DrawImage(false, postSourceImage, new Rectangle(imageLeft, imageTop, ScaleX(postSourceImage.Width), ScaleY(postSourceImage.Height)));
 
-
             // calculate standard text drawing metrics
             float leftMargin = ScaleX(ELEMENT_PADDING);
             float topMargin = imageTop + ScaleY(postSourceImage.Height) + ScaleY(ELEMENT_PADDING);
@@ -138,7 +135,6 @@ namespace OpenLiveWriter.Controls
 
             // draw caption
             g.DrawText(item.Name, e.Font, layoutRectangle, textColor, TextFormatFlags.EndEllipsis | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordBreak);
-
 
 
             // draw focus rectange if necessary
@@ -174,14 +170,12 @@ namespace OpenLiveWriter.Controls
         }
         private ControlTheme _theme;
 
-
         private int CalculateItemHeight()
         {
             int textHeight = Convert.ToInt32(Font.GetHeight() * TITLE_LINES);
 
             return ScaleY(LARGE_TOP_INSET) + ScaleY(40) + ScaleY(ELEMENT_PADDING) + textHeight + ScaleY(LARGE_BOTTOM_INSET);
         }
-
 
 
         #endregion

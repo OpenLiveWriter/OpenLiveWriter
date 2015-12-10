@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace OpenLiveWriter.Interop.Com
 {
     /// <summary>
-    /// Generic implementation of IObjectWithSite (interface for communication 
+    /// Generic implementation of IObjectWithSite (interface for communication
     /// between an object and its site in a container).
     /// </summary>
     public class IObjectWithSiteImpl : IObjectWithSite
@@ -20,7 +20,6 @@ namespace OpenLiveWriter.Interop.Com
             get { return m_IUnkSite; }
         }
         private object m_IUnkSite = null;
-
 
         /// <summary>
         /// Provides the IUnknown site pointer (save for returning in GetSite)

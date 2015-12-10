@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		private BitmapButton buttonRefresh;
 		private IContainer components;
 		private CategoryContext _categoryContext;
-		
+
 		public CategoryRefreshControl()
 		{
 			// This call is required by the Windows.Forms Form Designer.
@@ -28,8 +28,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			buttonRefresh.ButtonText = Res.Get(StringId.CategoryRefreshList);
 			this.buttonRefresh.ToolTip = Res.Get(StringId.CategoryRefreshListTooltip);
 		}
-		
-		
+
+
 		public void Initialize(CategoryContext context)
 		{
 			SuspendLayout();
@@ -42,12 +42,12 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			buttonRefresh.ButtonText = Res.Get(StringId.CategoryRefreshList);
 			this.buttonRefresh.Size = new Size(94, 22);
 			buttonRefresh.Click += new EventHandler(buttonRefresh_Click);
-			
+
 			ResumeLayout(false);
 			_categoryContext = context;
-		
+
 		}
-	
+
 		private void RequestRefresh()
 		{
 			_refreshing = true;
@@ -56,7 +56,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			_refreshing = false;
 		}
 		private bool _refreshing = false;
-		
+
 
 		protected override void OnMouseUp(MouseEventArgs e)
 		{
@@ -86,8 +86,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			return base.ProcessCmdKey (ref msg, keyData);
 		}
 
-
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -103,8 +102,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		}
 
 		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
+		/// <summary>
+		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
@@ -112,9 +111,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			this.components = new System.ComponentModel.Container();
 			this.buttonRefresh = new OpenLiveWriter.Controls.BitmapButton(this.components);
 			this.SuspendLayout();
-			// 
+			//
 			// buttonRefresh
-			// 
+			//
 			this.buttonRefresh.AutoSizeWidth = true;
 			this.buttonRefresh.ButtonText = "Refresh List";
 			this.buttonRefresh.Location = new System.Drawing.Point(0, 0);
@@ -122,9 +121,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 			this.buttonRefresh.Size = new System.Drawing.Size(94, 29);
 			this.buttonRefresh.TabIndex = 0;
 			this.buttonRefresh.ToolTip = "Refreshes the list of categories.";
-			// 
+			//
 			// CategoryRefreshControl
-			// 
+			//
 			this.BackColor = System.Drawing.SystemColors.ControlLightLight;
 			this.Controls.Add(this.buttonRefresh);
 			this.Name = "CategoryRefreshControl";
@@ -138,7 +137,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 		{
 			RequestRefresh();
 		}
-
 
 	}
 }

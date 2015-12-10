@@ -6,7 +6,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 {
-	
+
 	public class UnknownLoginErrrorDisplayMessage : DisplayMessage
 	{
 		/// <summary>
@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			///
 			container.Add(this);
 			InitializeComponent();
-			
+
 			InitMessage();
 		}
 
@@ -34,14 +34,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 
 			InitMessage();
 		}
-		
+
 		private void InitMessage()
 		{
 			Text =
 				"An unexpected error occurred while trying to login to the remote server.\r\n\r\nIf you have a proxy or firewall configured, please make sure your system\r\nis properly configured to allow this program to connect to the remote\r\nserver.";
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -64,9 +63,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// UnknownLoginErrrorDisplayMessage
-			// 
+			//
 			this.Text = "";
 			this.Title = "Login Failed";
 

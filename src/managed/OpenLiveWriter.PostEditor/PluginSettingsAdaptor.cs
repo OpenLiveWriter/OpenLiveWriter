@@ -96,7 +96,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
 
-
         public string[] Names
         {
             get { return SettingsHelper.GetNames(); }
@@ -114,7 +113,6 @@ namespace OpenLiveWriter.PostEditor
                 return SettingsHelper.GetSubSettingNames();
             }
         }
-
 
 
         public IProperties GetSubProperties(string key)

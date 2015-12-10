@@ -45,7 +45,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-
         internal static void CleanupUnusedTemplates()
         {
             try
@@ -61,7 +60,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 Trace.Fail("Unexpected exception occurred cleaning up unused templates: " + ex.ToString());
             }
         }
-
 
         /// <summary>
         /// Returns the processed template HTML.

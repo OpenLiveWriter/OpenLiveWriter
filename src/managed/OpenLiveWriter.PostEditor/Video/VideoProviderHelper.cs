@@ -50,7 +50,6 @@ namespace OpenLiveWriter.PostEditor.Video
                 return null;
             }
 
-
         }
 
         private static object ReadXmlVideoProviders(XmlDocument providersDocument)
@@ -143,12 +142,10 @@ namespace OpenLiveWriter.PostEditor.Video
             if (urlAtomPatternNode != null)
                 urlAtomPattern = NodeText(urlAtomPatternNode);
 
-
             XmlNode urlAtomFormatNode = providerNode.SelectSingleNode("urlAtomFormat");
             string urlAtomFormat = String.Empty;
             if (urlAtomFormatNode != null)
                 urlAtomFormat = NodeText(urlAtomFormatNode);
-
 
             XmlNode appIdNode = providerNode.SelectSingleNode("appServiceId");
             string appId = NodeText(appIdNode);
@@ -232,7 +229,6 @@ namespace OpenLiveWriter.PostEditor.Video
 
             return new WhiteList(blogProviderId, mappings);
         }
-
 
     }
 

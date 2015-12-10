@@ -18,18 +18,18 @@ namespace OpenLiveWriter.SpellChecker
 	{
 		private static readonly SpellingLanguageEntry[] languages;
 		private static readonly SpellingCheckerLanguage defaultLanguage;
-		
+
 		public static SpellingLanguageEntry[] Languages
 		{
 			get { return languages; }
 		}
-		
+
 		public static SpellingCheckerLanguage DefaultLanguage
 		{
 			get { return defaultLanguage; }
 		}
-		
-        
+
+
 
 		static SpellingConfigReader()
 		{

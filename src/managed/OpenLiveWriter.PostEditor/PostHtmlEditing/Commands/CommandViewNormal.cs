@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,13 +48,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandViewNormal
-			// 
+			//
 			this.ContextMenuPath = "&Normal@100";
 			this.Identifier = "OpenLiveWriter.PostEditor.PostHtmlEditing.Commands.ViewNormal";
 			this.MainMenuPath = "&View@2/&Normal@100";
-			this.MenuText = "&Normal";			
+			this.MenuText = "&Normal";
 			this.Shortcut = System.Windows.Forms.Shortcut.CtrlF11 ;
 			this.Text = "Normal View";
 			this.SuppressMenuBitmap = true;

@@ -24,10 +24,8 @@ namespace OpenLiveWriter.Mshtml.Mshtml_Interop
             [In, MarshalAs(UnmanagedType.IUnknown)] object pcmdtReserved,
             [In, MarshalAs(UnmanagedType.IDispatch)] object pdispReserved);
 
-
         void GetHostInfo(
             [Out][In] ref DOCHOSTUIINFO pInfo);
-
 
         [PreserveSig]
         int ShowUI(
@@ -44,20 +42,16 @@ namespace OpenLiveWriter.Mshtml.Mshtml_Interop
         void EnableModeless(
             [In, MarshalAs(UnmanagedType.Bool)] bool fEnable);
 
-
         void OnDocWindowActivate(
             [In, MarshalAs(UnmanagedType.Bool)] bool fActivate);
 
-
         void OnFrameWindowActivate(
             [In, MarshalAs(UnmanagedType.Bool)] bool fActivate);
-
 
         void ResizeBorder(
             [In] ref RECT prcBorder,
             [In] IOleInPlaceUIWindow pUIWindow,
             [In, MarshalAs(UnmanagedType.Bool)] bool frameWindow);
-
 
         [PreserveSig]
         int TranslateAccelerator(
@@ -65,21 +59,17 @@ namespace OpenLiveWriter.Mshtml.Mshtml_Interop
             [In] ref Guid pguidCmdGroup,
             [In] uint nCmdID);
 
-
         void GetOptionKeyPath(
             [Out] out IntPtr pchKey,
             [In] uint dwReserved);
-
 
         [PreserveSig]
         int GetDropTarget(
             [In] IDropTarget pDropTarget,
             [Out] out IDropTarget ppDropTarget);
 
-
         void GetExternal(
             [Out] out IntPtr ppDispatch);
-
 
         [PreserveSig]
         int TranslateUrl(
@@ -87,12 +77,10 @@ namespace OpenLiveWriter.Mshtml.Mshtml_Interop
             [In] IntPtr pchURLIn,
             [Out] out IntPtr ppchURLOut);
 
-
         [PreserveSig]
         int FilterDataObject(
             [In] IOleDataObject pDO,
             [Out] out IOleDataObject ppDORet);
-
 
         void GetOverrideKeyPath(
             [Out] out IntPtr pchKey,

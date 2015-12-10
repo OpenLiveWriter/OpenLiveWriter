@@ -21,10 +21,8 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private Container components = null;
 
-
         private OpenLiveWriter.CoreServices.AsyncOperation _asyncOperation;
         private AnimatedBitmapControl _animatedBitmapControl;
-
 
         public DelayedAnimatedProgressDialog()
         {
@@ -36,7 +34,6 @@ namespace OpenLiveWriter.Controls
             this.Text = Res.Get(StringId.ProgressDialogTitle);
             Icon = ApplicationEnvironment.ProductIcon;
         }
-
 
         public void ShowDialogWithDelay(IWin32Window owner, OpenLiveWriter.CoreServices.AsyncOperation asyncOperation, int delayMs)
         {
@@ -117,7 +114,6 @@ namespace OpenLiveWriter.Controls
             Close();
         }
 
-
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
@@ -127,7 +123,6 @@ namespace OpenLiveWriter.Controls
             if (!_animatedBitmapControl.Running)
                 _animatedBitmapControl.Start();
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -163,9 +158,9 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // DelayedAnimatedProgressDialog
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(264, 141);
             this.Location = new System.Drawing.Point(0, 0);
@@ -176,7 +171,6 @@ namespace OpenLiveWriter.Controls
 
         }
         #endregion
-
 
     }
 }

@@ -108,7 +108,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             else
                 postSourceImage = _showLargeIcons ? _weblogImageLarge : _weblogImage;
 
-
             // determine state
             bool selected = (e.State & DrawItemState.Selected) > 0;
 
@@ -226,7 +225,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
         private ControlTheme _theme;
 
-
         private int CalculateItemHeight(bool showLargeIcons)
         {
             int textHeight = Convert.ToInt32(Font.GetHeight() * TITLE_LINES);
@@ -240,7 +238,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 return ScaleY(SMALL_TOP_INSET) + textHeight + ScaleY(SMALL_BOTTOM_INSET);
             }
         }
-
 
 
         #endregion
@@ -413,7 +410,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         private const int LARGE_BOTTOM_INSET = 4;
         private const int ELEMENT_PADDING = 3;
         private const int TITLE_LINES = 2;
-
 
 
         // view mode

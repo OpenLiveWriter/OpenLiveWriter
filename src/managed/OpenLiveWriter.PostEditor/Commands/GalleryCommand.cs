@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -83,7 +83,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 
             LoadItems();
 
-            // selectedIndex should correspond to the selectedItem            
+            // selectedIndex should correspond to the selectedItem
             this.selectedIndex = INVALID_INDEX;
             for (int i = 0; i < items.Count; i++)
             {
@@ -529,7 +529,7 @@ namespace OpenLiveWriter.PostEditor.Commands
                 {
                     undoUnit.Commit();
                     // If we commit, then applying h1 can leave text split apart.
-                    // If we don't commit, then we end up with the Redo stack changing.                    
+                    // If we don't commit, then we end up with the Redo stack changing.
                     undoUnit.Dispose();
                     undoUnit = null;
                 }

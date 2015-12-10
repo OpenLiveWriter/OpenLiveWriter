@@ -10,7 +10,6 @@ namespace mshtml
     using System.Runtime.InteropServices;
 	using System.Runtime.InteropServices.CustomMarshalers;
 
-
     [ComImport, TypeLibType((short) 0x1010), InterfaceType((short) 2), DefaultMember("item"), Guid("3050F531-98B5-11CF-BB82-00AA00BDCE0B")]
     public interface DispHTMLSelectElement
     {

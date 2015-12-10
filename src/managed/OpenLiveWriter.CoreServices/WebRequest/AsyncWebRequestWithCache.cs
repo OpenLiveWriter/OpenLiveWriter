@@ -64,7 +64,7 @@ namespace OpenLiveWriter.CoreServices
 		public void StartRequest(CacheSettings cacheSettings, int timeOut)
 		{
 			requestRunning = true;
-			
+
 			// Check the cache
 			if (cacheSettings != CacheSettings.NOCACHE)
 			{
@@ -89,7 +89,7 @@ namespace OpenLiveWriter.CoreServices
                 }
 
                 m_webRequest.Timeout = timeOut;
-                
+
                 m_webRequest.BeginGetResponse(new AsyncCallback(RequestCompleteHandler), new object());
 			}
 		}

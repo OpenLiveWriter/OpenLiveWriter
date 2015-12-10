@@ -55,7 +55,7 @@ namespace OpenLiveWriter.Api
                 /// <param name="operation">An operation that transforms text.</param>
                 /// <returns>The transformed HTML.</returns>
                 /// <example>This example replaces the word "foo" with the word "bar".
-                /// 
+                ///
                 /// <code>string newHtml = TransformHtmlText(html, true,
                 ///     (text) => { Regex.Replace(text, @"\bfoo\b", "bar") });</code>
                 /// </example>

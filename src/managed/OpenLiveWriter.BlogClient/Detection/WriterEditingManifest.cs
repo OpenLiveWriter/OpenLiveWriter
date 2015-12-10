@@ -15,7 +15,6 @@ using OpenLiveWriter.Extensibility.BlogClient;
 using mshtml;
 
 
-
 namespace OpenLiveWriter.BlogClient.Detection
 {
 
@@ -62,7 +61,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             // return whatever editing manifest we found
             return editingManifest;
         }
-
 
         public static WriterEditingManifest FromUrl(Uri manifestUri, IBlogClient blogClient, IBlogCredentialsAccessor credentials, bool expectedAvailable)
         {
@@ -111,7 +109,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 DateTime lastModified = response.LastModified;
                 string eTag = HttpRequestHelper.GetETagHeader(response);
 
-                // read document 
+                // read document
                 using (Stream stream = response.GetResponseStream())
                 {
                     XmlDocument manifestXmlDocument = new XmlDocument();
@@ -153,7 +151,6 @@ namespace OpenLiveWriter.BlogClient.Detection
                     contentRequest.Headers.Add("If-None-Match", _previousDownloadInfo.ETag);
             }
         }
-
 
         public static WriterEditingManifest FromResource(string resourcePath)
         {
@@ -213,7 +210,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             // couldn't find one
             return String.Empty;
         }
-
 
 
         public WriterEditingManifestDownloadInfo DownloadInfo
@@ -344,7 +340,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                         if (imageUrl == String.Empty)
                             throw new ArgumentException("Missing imageUrl field");
 
-                        // download the image 
+                        // download the image
                         Bitmap image = DownloadImage(imageUrl, downloadInfo.SourceUrl);
 
                         // clickUrl
@@ -476,7 +472,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
             return imageBytes;
         }
-
 
 
         private Bitmap DownloadImage(string imageUrl, string basePath)

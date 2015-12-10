@@ -21,14 +21,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		/// </summary>
 		private Container components = new Container();
 
-
 		private IHtmlEditorComponentContext _editorContext ;
 		private IBlogPostImageDataContext _imageDataContext;
 		private ImageEditingPropertyTitlebar imageEditingPropertyTitlebar;
 		private ImagePropertyEditorControl imagePropertyEditorControl;
 		private ImageEditingPropertyStatusbar imageEditingPropertyStatusbar;
 		private CreateFileCallback _createFileCallback ;
-
 
 		#region Initialization/Singleton
 
@@ -52,7 +50,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 		[ThreadStatic]
 		private static ImageEditingPropertySidebar _imagePropertySidebar ;
-
 
 		public ImageEditingPropertySidebar()
 		{
@@ -88,7 +85,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			imageEditingPropertyStatusbar.Size = new Size(236, 24);
 			imageEditingPropertyStatusbar.TabIndex = 2;
 			imageEditingPropertyStatusbar.TabStop = false;
-	
+
 			Controls.Add(imagePropertyEditorControl);
 			Controls.Add(imageEditingPropertyTitlebar);
 			Controls.Add(imageEditingPropertyStatusbar);
@@ -96,10 +93,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			ResumeLayout(false);
 		}
 
-	
+
 
 		#endregion
-
 
 		#region Public Interface
 
@@ -116,11 +112,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 			if ( !Visible )
 			{
-				// show the form 
+				// show the form
 				Show() ;
 			}
 		}
-	
+
 		private void _editorContext_SelectionChanged(object sender, EventArgs e)
 		{
 			RefreshImage();
@@ -138,7 +134,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			ResumeLayout(true) ;
 		}
 
-		
+
 		public void HideSidebar()
 		{
 			Visible = false ;
@@ -149,9 +145,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			HideSidebar() ;
 		}
 
-
 		#endregion
-
 
 		private void Init(IHtmlEditorComponentContext editorContext, IBlogPostImageDataContext dataContext, CreateFileCallback callback)
 		{
@@ -163,7 +157,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 			this.imagePropertyEditorControl.Init(dataContext);
 		}
-	
+
 
 		private ImageEditingTabPageControl[] TabPages
 		{
@@ -172,16 +166,16 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 				return this.imagePropertyEditorControl.TabPages;
 			}
 		}
-	
 
-	
-		
+
+
+
 		IHTMLImgElement IImagePropertyEditingContext.SelectedImage
 		{
 			get { return _selectedImage; }
 		}
 		private IHTMLImgElement _selectedImage ;
-	
+
 		private bool SelectionIsImage
 		{
 			get
@@ -232,8 +226,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 					tabPage.ImagePropertyChanged += new ImagePropertyEventHandler(tabPage_ImagePropertyChanged);
 				imagePropertyEditorControl.ImagePropertyChanged += new ImagePropertyEventHandler(tabPage_ImagePropertyChanged);
 
-				imageEditingPropertyStatusbar.SetImageStatus(_imageInfo.ImageSourceUri.ToString(), 
-					_imageInfo.ImageSourceUri.IsFile ? ImageEditingPropertyStatusbar.IMAGE_TYPE.LOCAL_IMAGE : 
+				imageEditingPropertyStatusbar.SetImageStatus(_imageInfo.ImageSourceUri.ToString(),
+					_imageInfo.ImageSourceUri.IsFile ? ImageEditingPropertyStatusbar.IMAGE_TYPE.LOCAL_IMAGE :
 						ImageEditingPropertyStatusbar.IMAGE_TYPE.WEB_IMAGE
 					);
 
@@ -327,7 +321,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			RefreshImage();
 		}
 
-
 		private const int TOP_INSET = 1 ;
 		private const int LEFT_INSET = 5 ;
 		private const int RIGHT_INSET = 1 ;
@@ -345,14 +338,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		{
 			base.OnPaint (e);
 
-			// draw the border 				
+			// draw the border
 			Rectangle borderRectangle = new Rectangle(
 					ClientRectangle.Left + LEFT_INSET - 1,
 					ClientRectangle.Top + TOP_INSET - 1,
 					ClientRectangle.Width - LEFT_INSET - RIGHT_INSET + 1,
 					ClientRectangle.Height - TOP_INSET - BOTTOM_INSET + 1) ;
 			using ( Pen pen = new Pen(ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarBottomBevelFirstLineColor) )
-				e.Graphics.DrawRectangle( pen, borderRectangle ) ;			
+				e.Graphics.DrawRectangle( pen, borderRectangle ) ;
 
 			// draw the no image selected message
 			Font textFont = ApplicationManager.ApplicationStyle.NormalApplicationFont ;
@@ -363,7 +356,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 				e.Graphics.DrawString( "No image selected", textFont, brush, new PointF((Width/2)-(textSize.Width/2),100));
 		}
 
-
 		private void AdjustLayoutForLargeFonts()
 		{
 			// see if we need to adjust our width for non-standard DPI (large fonts)
@@ -373,11 +365,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			{
 				// adjust scale ration for percentage of toolbar containing text
 				const double TEXT_PERCENT = 0.0 ;  // currently has no text
-				double scaleRatio = (1-TEXT_PERCENT) + ((TEXT_PERCENT*dpiX)/DESIGNTIME_DPI) ;				  				
+				double scaleRatio = (1-TEXT_PERCENT) + ((TEXT_PERCENT*dpiX)/DESIGNTIME_DPI) ;
 
 				// change width as appropriate
-				Width = Convert.ToInt32( Convert.ToDouble(Width) * scaleRatio ) ;			
-			}	
+				Width = Convert.ToInt32( Convert.ToDouble(Width) * scaleRatio ) ;
+			}
 		}
 
 		/// <summary>
@@ -395,6 +387,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			base.Dispose( disposing );
 		}
 
-		
+
 	}
 }

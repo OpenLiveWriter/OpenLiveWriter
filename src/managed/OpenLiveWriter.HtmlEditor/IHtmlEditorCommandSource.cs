@@ -101,7 +101,6 @@ namespace OpenLiveWriter.HtmlEditor
         CommandManager CommandManager { get; }
     }
 
-
     public class LinkInfo
     {
         private string _anchorText;

@@ -21,7 +21,6 @@ namespace OpenLiveWriter.Interop.Windows
             int dyButton, int dxBitmap, int dyBitmap, UIntPtr uStructSize);
     }
 
-
     /// <summary>
     /// Constants for toolbar styles
     /// </summary>
@@ -42,7 +41,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint BOTTOM = 3;
         public const uint CENTER = 4;       // Doesn't draw text
     }
-
 
     /// <summary>
     /// Constants for common control styles

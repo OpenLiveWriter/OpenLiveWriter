@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts.DisplayMessages
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -49,7 +49,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -57,9 +56,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// ConfirmRemoveWeblogDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
 			this.Text = "Are you sure that you want to delete the selected weblog?";
 			this.Title = "Confirm Delete";

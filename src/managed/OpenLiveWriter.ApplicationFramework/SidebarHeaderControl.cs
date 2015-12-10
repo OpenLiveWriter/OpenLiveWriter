@@ -47,7 +47,6 @@ namespace OpenLiveWriter.ApplicationFramework
             ((IRtlAware)this).Layout();
         }
 
-
         private bool _doingLayout = false;
         void IRtlAware.Layout()
         {
@@ -146,7 +145,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         [
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
@@ -210,12 +208,10 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
 
-
         private void linkLabelOptional_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LaunchUrl(_secondUrl);
         }
-
 
 
     }

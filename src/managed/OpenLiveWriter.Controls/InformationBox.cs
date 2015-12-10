@@ -29,17 +29,17 @@ namespace Project31.Controls
 		public enum InformationBoxType
 		{
 			/// <summary>
-			/// 
+			///
 			/// </summary>
 			Information,
-			
+
 			/// <summary>
-			/// 
+			///
 			/// </summary>
 			Warning,
-			
+
 			/// <summary>
-			/// 
+			///
 			/// </summary>
 			Error
 		}
@@ -68,7 +68,7 @@ namespace Project31.Controls
 		/// The information box type.
 		/// </summary>
 		private InformationBoxType type;
-			
+
 		/// <summary>
 		/// Gets or sets the information box type.
 		/// </summary>
@@ -88,12 +88,12 @@ namespace Project31.Controls
 				type = value;
 			}
 		}
-		
+
 		/// <summary>
 		/// The information box buttons.
 		/// </summary>
 		private MessageBoxButtons buttons;
-			
+
 		/// <summary>
 		/// Gets or sets the information box buttons.
 		/// </summary>
@@ -138,7 +138,7 @@ namespace Project31.Controls
 				informationBoxTitle = value;
 			}
 		}
-		
+
 		/// <summary>
 		/// The text to display in the information box.
 		/// </summary>
@@ -227,9 +227,9 @@ namespace Project31.Controls
 			this.buttonIgnore = new System.Windows.Forms.Button();
 			this.pictureBoxWarning = new System.Windows.Forms.PictureBox();
 			this.SuspendLayout();
-			// 
+			//
 			// buttonOK
-			// 
+			//
 			this.buttonOK.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
 			this.buttonOK.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.buttonOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -238,9 +238,9 @@ namespace Project31.Controls
 			this.buttonOK.TabIndex = 0;
 			this.buttonOK.Text = "&OK";
 			this.buttonOK.Visible = false;
-			// 
+			//
 			// pictureBoxError
-			// 
+			//
 			this.pictureBoxError.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxError.Image")));
 			this.pictureBoxError.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.pictureBoxError.Location = new System.Drawing.Point(12, 12);
@@ -248,9 +248,9 @@ namespace Project31.Controls
 			this.pictureBoxError.Size = new System.Drawing.Size(39, 40);
 			this.pictureBoxError.TabIndex = 2;
 			this.pictureBoxError.TabStop = false;
-			// 
+			//
 			// labelControlText
-			// 
+			//
 			this.labelControlText.BackColor = System.Drawing.Color.Transparent;
 			this.labelControlText.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.labelControlText.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -260,9 +260,9 @@ namespace Project31.Controls
 			this.labelControlText.TabIndex = 3;
 			this.labelControlText.Text = "Text.";
 			this.labelControlText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
+			//
 			// buttonCancel
-			// 
+			//
 			this.buttonCancel.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
 			this.buttonCancel.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.buttonCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -271,18 +271,18 @@ namespace Project31.Controls
 			this.buttonCancel.TabIndex = 5;
 			this.buttonCancel.Text = "&Cancel";
 			this.buttonCancel.Visible = false;
-			// 
+			//
 			// checkBoxControlAgain
-			// 
+			//
 			this.checkBoxControlAgain.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.checkBoxControlAgain.Location = new System.Drawing.Point(57, 62);
 			this.checkBoxControlAgain.Name = "checkBoxControlAgain";
 			this.checkBoxControlAgain.Size = new System.Drawing.Size(288, 18);
 			this.checkBoxControlAgain.TabIndex = 4;
 			this.checkBoxControlAgain.Text = "Again.";
-			// 
+			//
 			// buttonYes
-			// 
+			//
 			this.buttonYes.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
 			this.buttonYes.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.buttonYes.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -291,9 +291,9 @@ namespace Project31.Controls
 			this.buttonYes.TabIndex = 6;
 			this.buttonYes.Text = "&Yes";
 			this.buttonYes.Visible = false;
-			// 
+			//
 			// buttonNo
-			// 
+			//
 			this.buttonNo.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
 			this.buttonNo.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.buttonNo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -302,9 +302,9 @@ namespace Project31.Controls
 			this.buttonNo.TabIndex = 7;
 			this.buttonNo.Text = "&No";
 			this.buttonNo.Visible = false;
-			// 
+			//
 			// buttonAbort
-			// 
+			//
 			this.buttonAbort.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
 			this.buttonAbort.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.buttonAbort.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -313,9 +313,9 @@ namespace Project31.Controls
 			this.buttonAbort.TabIndex = 8;
 			this.buttonAbort.Text = "&Abort";
 			this.buttonAbort.Visible = false;
-			// 
+			//
 			// buttonRetry
-			// 
+			//
 			this.buttonRetry.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
 			this.buttonRetry.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.buttonRetry.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -324,9 +324,9 @@ namespace Project31.Controls
 			this.buttonRetry.TabIndex = 9;
 			this.buttonRetry.Text = "&Retry";
 			this.buttonRetry.Visible = false;
-			// 
+			//
 			// buttonIgnore
-			// 
+			//
 			this.buttonIgnore.Anchor = (System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left);
 			this.buttonIgnore.Font = new System.Drawing.Font("Verdana", 8.25F);
 			this.buttonIgnore.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -335,9 +335,9 @@ namespace Project31.Controls
 			this.buttonIgnore.TabIndex = 10;
 			this.buttonIgnore.Text = "&Ignore";
 			this.buttonIgnore.Visible = false;
-			// 
+			//
 			// pictureBoxWarning
-			// 
+			//
 			this.pictureBoxWarning.Image = ((System.Drawing.Bitmap)(resources.GetObject("pictureBoxWarning.Image")));
 			this.pictureBoxWarning.ImeMode = System.Windows.Forms.ImeMode.NoControl;
 			this.pictureBoxWarning.Location = new System.Drawing.Point(12, 12);
@@ -345,9 +345,9 @@ namespace Project31.Controls
 			this.pictureBoxWarning.Size = new System.Drawing.Size(39, 40);
 			this.pictureBoxWarning.TabIndex = 11;
 			this.pictureBoxWarning.TabStop = false;
-			// 
+			//
 			// InformationBox
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
 			this.ClientSize = new System.Drawing.Size(394, 164);
 			this.Controls.AddRange(new System.Windows.Forms.Control[] {
@@ -400,7 +400,7 @@ namespace Project31.Controls
 			//	Show the dialog.
 			return base.ShowDialog(owner);
 		}
-		
+
 		/// <summary>
 		/// Raises the PaintBackground event.
 		/// </summary>
@@ -410,7 +410,7 @@ namespace Project31.Controls
 			base.OnPaintBackground(e);
 
 			//	Fill the dialog body.
-			GraphicsHelper.TileFillScaledImageHorizontally(	e.Graphics, 
+			GraphicsHelper.TileFillScaledImageHorizontally(	e.Graphics,
 															bodyBackgroundBitmap,
 															ClientRectangle);
 		}

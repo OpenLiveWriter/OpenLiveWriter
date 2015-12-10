@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -60,7 +60,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// Wraps the range from startPointer to endPointer with the given element (as long as the range is non-empty) 
+        /// Wraps the range from startPointer to endPointer with the given element (as long as the range is non-empty)
         /// and then moves the pointers past the inserted element.
         /// </summary>
         /// <param name="element">The element to wrap the range in.</param>

@@ -40,7 +40,6 @@ namespace OpenLiveWriter.CoreServices
             return GetMetaData(WebRequestWithCache.CacheSettings.CHECKCACHE);
         }
 
-
         /// <summary>
         /// Fetches the HTMLMetaData
         /// </summary>

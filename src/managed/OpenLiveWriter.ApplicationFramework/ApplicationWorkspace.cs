@@ -17,7 +17,7 @@ namespace Project31.ApplicationFramework
 	/// The ApplicationWorkspace control provides a multi-pane workspace.
 	/// </summary>
 	public class ApplicationWorkspace : Project31.Controls.LightweightControlContainerControl
-	{	
+	{
 		/// <summary>
 		/// The default left column preferred width.
 		/// </summary>
@@ -94,7 +94,7 @@ namespace Project31.ApplicationFramework
 				Invalidate();
 			}
 		}
-		
+
 		/// <summary>
 		/// The application workspace command bar lightweight control.
 		/// </summary>
@@ -136,7 +136,7 @@ namespace Project31.ApplicationFramework
 		/// The right ApplicationWorkspaceColumnLightweightControl.
 		/// </summary>
 		private Project31.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl rightColumn;
-		
+
 		/// <summary>
 		/// Gets the right ApplicationWorkspaceColumnLightweightControl.
 		/// </summary>
@@ -169,7 +169,7 @@ namespace Project31.ApplicationFramework
 		{
 			if( disposing )
 			{
-				if (components != null) 
+				if (components != null)
 				{
 					components.Dispose();
 				}
@@ -194,39 +194,39 @@ namespace Project31.ApplicationFramework
 			((System.ComponentModel.ISupportInitialize)(this.centerColumn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.rightColumn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-			// 
+			//
 			// applicationCommandBarLightweightControl
-			// 
+			//
 			this.applicationCommandBarLightweightControl.LayoutMargin = new System.Drawing.Size(2, 2);
 			this.applicationCommandBarLightweightControl.LightweightControlContainerControl = this;
 			this.applicationCommandBarLightweightControl.Visible = false;
-			// 
+			//
 			// leftColumn
-			// 
+			//
 			this.leftColumn.LightweightControlContainerControl = this;
 			this.leftColumn.MinimumColumnWidth = 30;
 			this.leftColumn.PreferredColumnWidth = 150;
 			this.leftColumn.MaximumColumnWidthChanged += new System.EventHandler(this.leftColumn_MaximumColumnWidthChanged);
 			this.leftColumn.PreferredColumnWidthChanged += new System.EventHandler(this.leftColumn_PreferredColumnWidthChanged);
 			this.leftColumn.MinimumColumnWidthChanged += new System.EventHandler(this.leftColumn_MinimumColumnWidthChanged);
-			// 
+			//
 			// centerColumn
-			// 
+			//
 			this.centerColumn.LightweightControlContainerControl = this;
 			this.centerColumn.MinimumColumnWidth = 30;
 			this.centerColumn.PreferredColumnWidth = 30;
-			// 
+			//
 			// rightColumn
-			// 
+			//
 			this.rightColumn.LightweightControlContainerControl = this;
 			this.rightColumn.MinimumColumnWidth = 30;
 			this.rightColumn.PreferredColumnWidth = 150;
 			this.rightColumn.MaximumColumnWidthChanged += new System.EventHandler(this.rightColumn_MaximumColumnWidthChanged);
 			this.rightColumn.PreferredColumnWidthChanged += new System.EventHandler(this.rightColumn_PreferredColumnWidthChanged);
 			this.rightColumn.MinimumColumnWidthChanged += new System.EventHandler(this.rightColumn_MinimumColumnWidthChanged);
-			// 
+			//
 			// ApplicationWorkspace
-			// 
+			//
 			this.BackColor = System.Drawing.SystemColors.Control;
 			this.Name = "ApplicationWorkspace";
 			this.Size = new System.Drawing.Size(294, 286);
@@ -238,7 +238,7 @@ namespace Project31.ApplicationFramework
 
 		}
 		#endregion
-	
+
 		/// <summary>
 		/// Raises the Layout event.
 		/// </summary>
@@ -268,7 +268,7 @@ namespace Project31.ApplicationFramework
 				{
 					//	Calculate the relative width of the left column.
 					double leftColumnRelativeWidth = ((double)leftColumnWidth)/(leftColumnWidth+rightColumnWidth);
-					
+
 					//	Adjust the left and right column widths.
 					leftColumnWidth = Math.Max((int)(leftColumnRelativeWidth*availableWidth), LeftColumnMinimumWidth);
 					rightColumnWidth = Math.Max(availableWidth-leftColumnWidth, RightColumnMinimumWidth);
@@ -357,7 +357,7 @@ namespace Project31.ApplicationFramework
 				{
 					//	Turn on the right column's vertical splitter on the left side.
 					rightColumn.VerticalSplitter = VerticalSplitterStyle.Left;
-					
+
 					//	Set the right column's maximum width.
 					rightColumn.MaximumColumnWidth =	columnLayoutRectangle.Width-
 														(LeftColumnPreferredWidth+CenterColumnMinimumWidth);
@@ -391,7 +391,7 @@ namespace Project31.ApplicationFramework
 				return leftColumn != null && leftColumn.Visible;
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets a value indicating whether the center column is visible.
 		/// </summary>
@@ -431,7 +431,7 @@ namespace Project31.ApplicationFramework
 				}
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets the preferred width of the center column.
 		/// </summary>
@@ -485,7 +485,7 @@ namespace Project31.ApplicationFramework
 				}
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets the minimum width of the center column.
 		/// </summary>
@@ -540,7 +540,7 @@ namespace Project31.ApplicationFramework
 				{
 					//	Set the application command bar height.
 					applicationCommandBarHeight = applicationCommandBarLightweightControl.DefaultVirtualSize.Height;
-					
+
 					//	Layout the application command bar lightweight control.
 					applicationCommandBarLightweightControl.Visible = true;
 					applicationCommandBarLightweightControl.VirtualBounds = new Rectangle(0, 0, Width, applicationCommandBarHeight);
@@ -568,7 +568,7 @@ namespace Project31.ApplicationFramework
 		private void leftColumn_MaximumColumnWidthChanged(object sender, System.EventArgs e)
 		{
 			PerformLayout();
-			Invalidate();		
+			Invalidate();
 		}
 
 		/// <summary>
@@ -601,7 +601,7 @@ namespace Project31.ApplicationFramework
 		private void rightColumn_MaximumColumnWidthChanged(object sender, System.EventArgs e)
 		{
 			PerformLayout();
-			Invalidate();		
+			Invalidate();
 		}
 
 		/// <summary>
@@ -612,7 +612,7 @@ namespace Project31.ApplicationFramework
 		private void rightColumn_MinimumColumnWidthChanged(object sender, System.EventArgs e)
 		{
 			PerformLayout();
-			Invalidate();				
+			Invalidate();
 		}
 
 		/// <summary>
@@ -623,7 +623,7 @@ namespace Project31.ApplicationFramework
 		private void rightColumn_PreferredColumnWidthChanged(object sender, System.EventArgs e)
 		{
 			PerformLayout();
-			Invalidate();		
+			Invalidate();
 		}
 	}
 }

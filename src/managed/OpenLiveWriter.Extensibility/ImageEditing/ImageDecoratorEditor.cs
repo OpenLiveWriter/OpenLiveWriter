@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
     /// </summary>
     public class ImageDecoratorEditor : UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -44,8 +44,8 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()

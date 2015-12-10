@@ -11,8 +11,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 {
 
     /// <summary>
-    /// Interface implemented to allow the presentation editor to accept dropped items 
-    /// from a variety of inbound formats.  
+    /// Interface implemented to allow the presentation editor to accept dropped items
+    /// from a variety of inbound formats.
     /// </summary>
     public abstract class DataFormatHandler : IDisposable
     {
@@ -36,8 +36,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
 
 
-
-
         /// <summary>
         /// Optional notification that we are beginning a drag operation
         /// </summary>
@@ -52,12 +50,10 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// <returns>actual effect</returns>
         public abstract DragDropEffects ProvideDragFeedback(Point screenPoint, int keyState, DragDropEffects supportedEffects);
 
-
         /// <summary>
         /// Optional notification that we are ending a drag operation
         /// </summary>
         public abstract void EndDrag();
-
 
         /// <summary>
         /// Notify the data format handler that data was dropped and should be inserted into
@@ -68,7 +64,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
         /// <summary>
         /// Instruct the handler to insert data.
-        /// </summary>		
+        /// </summary>
         public abstract bool InsertData(DataAction action, params object[] args);
 
         /// <summary>
@@ -85,7 +81,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 return DragDropEffects.None;
         }
 
-
         /// <summary>
         /// Support only move
         /// </summary>
@@ -99,7 +94,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             else
                 return DragDropEffects.None;
         }
-
 
 
         /// <summary>
@@ -127,7 +121,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // return effects
             return effects;
         }
-
 
 
         /// <summary>
@@ -176,7 +169,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
     }
 
-
     /// <summary>
     /// Action taken on data
     /// </summary>
@@ -185,7 +177,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         Copy,
         Move
     }
-
 
     /// <summary>
     /// Context in which the data format handler is being invoked

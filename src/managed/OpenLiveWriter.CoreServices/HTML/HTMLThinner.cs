@@ -32,7 +32,6 @@ namespace OpenLiveWriter.CoreServices
 		}
 
 
-
 		public static string Thin(IHTMLElement startElement)
 		{
 			return Thin(startElement, false, SilentProgressHost.Instance);
@@ -47,7 +46,7 @@ namespace OpenLiveWriter.CoreServices
 		{
 			return Thin(startElement, preserveImages, SilentProgressHost.Instance);
 		}
-		
+
 		public static string Thin(IHTMLElement startElement, bool preserveImages, IProgressHost progressHost)
 		{
 			StringBuilder escapedText = new StringBuilder();
@@ -67,8 +66,8 @@ namespace OpenLiveWriter.CoreServices
 		/// <param name="node">The node whose children should be stripped</param>
 		/// <returns>An HTML string with the DOMNodes cleaned out</returns>
 		private static void StripChildNodes(IHTMLDOMNode node, StringBuilder escapedText, bool preserveImages, TickableProgressTick progress)
-		{		
-			
+		{
+
 			// is this a text node?  If so, just get the text and return it
 			if (node.nodeType == HTMLDocumentHelper.HTMLDOMNodeTypes.TextNode)
 				escapedText.Append(HttpUtility.HtmlEncode(node.nodeValue.ToString()));
@@ -115,22 +114,22 @@ namespace OpenLiveWriter.CoreServices
 					{
 						if (!IsChildlessTag((string)ReplaceTags[node.nodeName]))
 						{
-							escapedText.Append("<" + (string)ReplaceTags[node.nodeName] + ">");	
+							escapedText.Append("<" + (string)ReplaceTags[node.nodeName] + ">");
 						}
 						// Since there are children, we're going to emit the replacement
-						// tag at the end of this node			
+						// tag at the end of this node
 						tagStillOpen = true;
 					}
 				}
-			
+
 				if (node.firstChild != null)
 				{
 					StripChildNodes(node.firstChild, escapedText, preserveImages, progress);
 				}
-				
+
 				// put a closing tag in for the current element (because we left it open in case of children)
 				if (tagStillOpen)
-				{	
+				{
 					if (PreserveTags.Contains(node.nodeName))
 						escapedText.Append("</" + node.nodeName + ">");
 					else if (ReplaceTags.Contains(node.nodeName))
@@ -149,7 +148,6 @@ namespace OpenLiveWriter.CoreServices
 			}
 		}
 
-
 		/// <summary>
 		/// Remove any extraneous attributes from an Attribute Collection
 		/// </summary>
@@ -159,7 +157,7 @@ namespace OpenLiveWriter.CoreServices
 		{
 			foreach (string attr in PreserveAttributes)
 			{
-				
+
 				object attrObject = element.getAttribute(attr, 2); //note: use 2 as param to get pure attr value
 				string attrValue = null;
 				if (attrObject != null)
@@ -176,7 +174,6 @@ namespace OpenLiveWriter.CoreServices
 		{
 			return tagName == HTMLTokens.Br;
 		}
-
 
 
 		/// <summary>
@@ -251,7 +248,7 @@ namespace OpenLiveWriter.CoreServices
 					m_replaceTags.Add(HTMLTokens.Dir, HTMLTokens.P);
 					m_replaceTags.Add(HTMLTokens.Dl, HTMLTokens.P);
 					m_replaceTags.Add(HTMLTokens.Blockquote, HTMLTokens.P);
-					
+
 				}
 				return m_replaceTags;
 			}
@@ -278,6 +275,5 @@ namespace OpenLiveWriter.CoreServices
 		private static ArrayList m_preserveAttributes;
 
 
-		
 	}
 }

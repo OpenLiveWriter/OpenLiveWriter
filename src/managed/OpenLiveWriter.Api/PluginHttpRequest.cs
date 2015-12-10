@@ -12,7 +12,6 @@ using System.Runtime.InteropServices;
 using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.CoreServices;
 
-
 namespace OpenLiveWriter.Api
 {
     /// <summary>
@@ -28,7 +27,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Read from the Internet cache if possible, otherwise retreive
-        /// from the network. If the request is successful then write the 
+        /// from the network. If the request is successful then write the
         /// response to the Internet cache.
         /// </summary>
         CacheIfAvailable,
@@ -45,7 +44,6 @@ namespace OpenLiveWriter.Api
         /// </summary>
         Reload
     }
-
 
     /// <summary>
     /// Provides the ability to execute Http requests that utilize the (optional) Web Proxy
@@ -148,7 +146,7 @@ namespace OpenLiveWriter.Api
         /// Retreive the resource (with no timeout).
         /// </summary>
         /// <returns>A stream representing the requested resource. Can return null
-        /// if the CacheLevel is CacheOnly and the resource could not be found 
+        /// if the CacheLevel is CacheOnly and the resource could not be found
         /// in the cache.</returns>
         public Stream GetResponse()
         {
@@ -156,11 +154,11 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Retrieve the resource with the specified timeout (in ms). 
+        /// Retrieve the resource with the specified timeout (in ms).
         /// </summary>
         /// <param name="timeoutMs">Timeout (in ms) for the request.</param>
         /// <returns>A stream representing the requested resource. Can return null
-        /// if the CacheLevel is CacheOnly and the resource could not be found 
+        /// if the CacheLevel is CacheOnly and the resource could not be found
         /// in the cache.</returns>
         public Stream GetResponse(int timeoutMs)
         {

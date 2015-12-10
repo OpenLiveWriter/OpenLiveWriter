@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
-    /// Invoke target used to just callback on the same thread 
+    /// Invoke target used to just callback on the same thread
     /// </summary>
     public class SameThreadSimpleInvokeTarget : ISynchronizeInvoke
     {

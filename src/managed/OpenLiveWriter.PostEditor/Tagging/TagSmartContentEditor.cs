@@ -56,9 +56,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.sidebarHeader = new OpenLiveWriter.ApplicationFramework.SidebarHeaderControl();
             this.tagEditor = new OpenLiveWriter.PostEditor.Tagging.TagEditor();
             this.SuspendLayout();
-            // 
+            //
             // header
-            // 
+            //
             this.header.AccessibleName = "Options";
             this.header.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
             this.header.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -69,18 +69,18 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.header.Size = new System.Drawing.Size(184, 14);
             this.header.TabIndex = 4;
             this.header.TabStop = false;
-            // 
+            //
             // sidebarHeader
-            // 
+            //
             this.sidebarHeader.AccessibleName = "SidebarHeader";
             this.sidebarHeader.Location = new System.Drawing.Point(10, 2);
             this.sidebarHeader.Name = "sidebarHeader";
             this.sidebarHeader.Size = new System.Drawing.Size(184, 89);
             this.sidebarHeader.TabIndex = 5;
             this.sidebarHeader.TabStop = false;
-            // 
+            //
             // tagEditor
-            // 
+            //
             this.tagEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tagEditor.Location = new System.Drawing.Point(10, 112);
@@ -89,9 +89,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.tagEditor.TabIndex = 0;
             this.tagEditor.TagProvider = null;
             this.tagEditor.Tags = new string[0];
-            // 
+            //
             // TagSmartContentEditor
-            // 
+            //
             this.Controls.Add(this.tagEditor);
             this.Controls.Add(this.header);
             this.Controls.Add(this.sidebarHeader);
@@ -115,7 +115,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
             VirtualTransparency.VirtualPaint(this, pevent);
         }
 
-
         private void TagEditor_Changed(object sender, EventArgs e)
         {
             _context.Tags = tagEditor.Tags;
@@ -135,7 +134,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
             sidebarHeader.RefreshLayout();
             LayoutHelper.FitControlsBelow(0, sidebarHeader);
         }
-
 
         public override ISmartContent SelectedContent
         {

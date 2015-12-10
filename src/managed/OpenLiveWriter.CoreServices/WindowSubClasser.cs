@@ -9,12 +9,11 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.CoreServices
 {
 
-
     /// <summary>
-    /// Class that interacts with the Windows API to enable the 
+    /// Class that interacts with the Windows API to enable the
     /// subclassing (interception of window messages) of a Win32
-    /// Window. 
-    /// </summary>	
+    /// Window.
+    /// </summary>
     public class WindowSubClasser
     {
 
@@ -31,9 +30,8 @@ namespace OpenLiveWriter.CoreServices
             m_baseWndProc = IntPtr.Zero;
         }
 
-
         /// <summary>
-        /// Install the subclass hook so window messages are sent to the 
+        /// Install the subclass hook so window messages are sent to the
         /// external delegate
         /// </summary>
         public void Install()
@@ -50,7 +48,6 @@ namespace OpenLiveWriter.CoreServices
             m_baseWndProc = new IntPtr(baseProc);
         }
 
-
         /// <summary>
         /// Remove the subclass hook
         /// </summary>
@@ -65,10 +62,9 @@ namespace OpenLiveWriter.CoreServices
             m_baseWndProc = IntPtr.Zero;
         }
 
-
         /// <summary>
         /// Call the underlying window procedure of the Control that
-        /// has been subclasssed. Note that you must call this for 
+        /// has been subclasssed. Note that you must call this for
         /// every message except those that you want to hide from
         /// the underlying Control.
         /// </summary>
@@ -77,7 +73,6 @@ namespace OpenLiveWriter.CoreServices
         {
             return User32.CallWindowProc(m_baseWndProc, hWnd, uMsg, wParam, lParam);
         }
-
 
 
         // implementation data

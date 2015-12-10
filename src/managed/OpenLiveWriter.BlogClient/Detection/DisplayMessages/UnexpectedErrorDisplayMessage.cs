@@ -35,7 +35,7 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -58,9 +57,9 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// UnexpectedErrorDisplayMessage
-			// 
+			//
 			this.Text = "An unexpected error occurred while attempting to detect weblog settings:{0}{1}";
 			this.Title = "Unexpected Error Occurred";
 

@@ -49,7 +49,7 @@ namespace OpenLiveWriter.PostEditor
         {
             using (new BlogClientUIContextScope(_uiContext))
             {
-                // NOTE: LocalSupportingFileUploader temporarily modifies the contents of the BlogPost.Contents to 
+                // NOTE: LocalSupportingFileUploader temporarily modifies the contents of the BlogPost.Contents to
                 // have the correct remote references to embedded images, etc. When it is disposed it returns the
                 // value of BlogPost.Contents to its original value.
                 using (LocalSupportingFileUploader supportingFileUploader = new LocalSupportingFileUploader(_publishingContext))
@@ -91,7 +91,7 @@ namespace OpenLiveWriter.PostEditor
 
                         BlogPostPublishingResult publishingResult = new BlogPostPublishingResult();
 
-                        // Hook to publish files after the post is published (note that if this 
+                        // Hook to publish files after the post is published (note that if this
                         // fails it is not a fatal error since the publish itself already
                         // succeeded. In the case of a failure note the exception so that the
                         // UI layer can inform/prompt the user as appropriate
@@ -181,7 +181,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private IBlogPostPublishingContext _publishingContext;
         private bool _publish;
 
@@ -250,7 +249,6 @@ namespace OpenLiveWriter.PostEditor
                 GC.SuppressFinalize(this);
             }
 
-
             ~LocalSupportingFileUploader()
             {
                 Debug.Fail("Failed to dispose LocalSupportingFileUploader");
@@ -305,7 +303,7 @@ namespace OpenLiveWriter.PostEditor
                      * If we need to drop a hint to the photo uploader about
                      * whether Lightbox-like preview is enabled, so that we know to link to
                      * the image itself rather than the photo "self" page on photos.live.com;
-                     * this is where we would figure that out (by looking at the tag) and 
+                     * this is where we would figure that out (by looking at the tag) and
                      * pass that info through to the DoUploadWork call.
                      */
                     bool isLightboxCloneEnabled = false;
@@ -367,7 +365,7 @@ namespace OpenLiveWriter.PostEditor
             }
             public void DoUploadWork(string fileReference, BlogFileUploader fileUploader, bool isLightboxCloneEnabled)
             {
-                // Get both strings into the same state which is unescaped 
+                // Get both strings into the same state which is unescaped
                 string unescapedFileReference = new Uri(fileReference).ToString();
                 ISupportingFile file = null;
                 foreach (ISupportingFile supportingFile in _fileList)
@@ -389,7 +387,6 @@ namespace OpenLiveWriter.PostEditor
                     Trace.Fail(String.Format(CultureInfo.InvariantCulture, "Reference found to file that does not exist in SupportingFileService \r\nfileReference: {0}\r\n_fileList:\r\n{1}", fileReference, listString));
                     return;
                 }
-
 
                 string uploadContext = fileUploader.DestinationContext;
 

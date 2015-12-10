@@ -10,8 +10,8 @@ namespace Project31.CoreServices
 	/// <summary>
 	/// InternetShortcut is a class for generating and manipulating internet shortcut files
 	/// </summary>
-	public class InternetShortcut	
-	{	
+	public class InternetShortcut
+	{
 		/// <summary>
 		/// Constructs a new instance of internetshortcut
 		/// </summary>

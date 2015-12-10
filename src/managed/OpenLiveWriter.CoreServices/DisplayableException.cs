@@ -22,7 +22,6 @@ namespace OpenLiveWriter.CoreServices
             _textFormatArgs = textFormatArgs;
         }
 
-
         public string Title
         {
             get
@@ -38,7 +37,6 @@ namespace OpenLiveWriter.CoreServices
                 return FormatString(_textFormat, _textFormatArgs);
             }
         }
-
 
         private static string FormatMessage(string titleFormat, string textFormat, params object[] textFormatArgs)
         {

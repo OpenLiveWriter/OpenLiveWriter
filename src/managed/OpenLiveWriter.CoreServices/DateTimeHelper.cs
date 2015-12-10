@@ -32,7 +32,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         private const long BASETICKS = 504911232000000000; //new DateTime(1601, 1, 1).Ticks;
 
         /// <summary>
@@ -117,7 +116,6 @@ namespace OpenLiveWriter.CoreServices
             DateTime utc = LocalToUtc(forLocalTime);
             return forLocalTime - utc;
         }
-
 
         /// <summary>
         /// Gets the start and end dates for "this week" date-range, relative to a specified date.
@@ -234,9 +232,9 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Strips Whidbey dates of their high byte information (which distinguishes 
+        /// Strips Whidbey dates of their high byte information (which distinguishes
         /// UTC times from local times, or "Unspecified").
-        /// 
+        ///
         /// If the high byte information is allowed to remain in the object, we get
         /// big problems trying to deserialize these values from .NET 1.1 processes.
         /// </summary>

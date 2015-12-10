@@ -18,7 +18,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         #region Initialization/Disposal
 
         /// <summary>
-        /// Initialize the drag and drop manager with its context. Note that this object 
+        /// Initialize the drag and drop manager with its context. Note that this object
         /// is initialized in the 3 stages: construction, replacement of MSHTML DropTarget
         /// implementation, and finally installation of drag and drop event handlers for
         /// the drag target control. The 3-step initialization is required because MSHTML
@@ -31,16 +31,15 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             htmlMarshallingTarget = context;
         }
 
-
         /// <summary>
-        /// Method that is delegated to by the presentation editor's implementation of 
+        /// Method that is delegated to by the presentation editor's implementation of
         /// IDocHostCustomUI.GetDropTarget. Replaces the default drop target implementation
         /// with our own. Note that the main purpose of this method for us is to get a reference
         /// to the MSHTML drop target implementaiton. While in this method we do in fact replace
-        /// thier implementation with our own, this is probabaly redundant as we also disable 
+        /// thier implementation with our own, this is probabaly redundant as we also disable
         /// their drop target (see below comment on Initialize). We replace their implementation
         /// in any case just so that if they have any internal state or behavior that depends
-        /// upon knowing whether their drop target implementation is active then it can be 
+        /// upon knowing whether their drop target implementation is active then it can be
         /// set correctly.
         /// </summary>
         /// <param name="pDropTarget">default implementation</param>
@@ -60,19 +59,18 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             return HRESULT.S_OK;
         }
 
-
         /// <summary>
-        /// Disable the MSHTML drop target and enable this control as a drop target. In theory 
-        /// we don't need to do this as IDocHostUIHandler.GetDropTarget should allow us to 
-        /// fully replace their implementation with our own (delegating back to MSHTML as 
+        /// Disable the MSHTML drop target and enable this control as a drop target. In theory
+        /// we don't need to do this as IDocHostUIHandler.GetDropTarget should allow us to
+        /// fully replace their implementation with our own (delegating back to MSHTML as
         /// necessary). Alas, this works fine in most scenarios except when a .NET data object
         /// is being dragged over us from within the current process (as in the case of the
-        /// MicroView) the .NET object is not marshalled to an OLE IDataObject so MSHTML 
+        /// MicroView) the .NET object is not marshalled to an OLE IDataObject so MSHTML
         /// doesn't see it and doesn't call us. For this case we need inbound IDataObject
         /// processing to be .NET based, thus the need to disable the MSHTML drop target
         /// </summary>
         /// <param name="dragTargetControl">Control that will be used as the target
-        /// for drag and drop operations (passed to us so we can subscribe to it's 
+        /// for drag and drop operations (passed to us so we can subscribe to it's
         /// drag and drop events)</param>
         public override void Initialize(Control dragTargetControl)
         {
@@ -89,7 +87,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         #endregion
-
 
 
         #region Drag and Drop Event Handlers
@@ -124,12 +121,10 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // set focus to ourselves to provide good drag feedback
             (htmlMarshallingTarget.HtmlDocument.body as IHTMLElement2).focus();
 
-            // call mshtml DragEnter (suppressing feedback) so that the 
+            // call mshtml DragEnter (suppressing feedback) so that the
             // document will be auto-scrolled if required
             CallMshtmlDragEnter(e, false, false);
         }
-
-
 
 
         /// <summary>
@@ -142,13 +137,12 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // provide feedback if this is our drag/drop
             if (ActiveDataFormatHandler != null)
             {
-                // call mshtml DragOver (suppressing feedback) so that the 
+                // call mshtml DragOver (suppressing feedback) so that the
                 // document will be auto-scrolled if required
                 CallMshtmlDragOver(e, false, false);
             }
             base.DragOver(sender, e);
         }
-
 
         /// <summary>
         /// Handle the DragLeave event for the presentation editor
@@ -175,7 +169,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             base.Dispose();
         }
 
-
         /// <summary>
         /// Handle the DragDrop event for the presentation editor
         /// </summary>
@@ -187,7 +180,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             {
                 // call mshtml DragLeave to correctly maintain its internal state
                 // this essentially notifies him that the drag is "cancelled" which
-                // is true from his point of view but not from ours. (we also call 
+                // is true from his point of view but not from ours. (we also call
                 // him on DragEnter and DragOver so that he performs auto-scrolling
                 // on our behalf)
                 CallMshtmlDragLeave(false);
@@ -196,7 +189,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         #endregion
-
 
 
         #region Delegation of Drag and Drop Events to MSHTML
@@ -237,7 +229,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             }
         }
 
-
         /// <summary>
         /// Helper method to call the Mshtml DragOver routine using .NET DragEventArgs
         /// </summary>
@@ -261,7 +252,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 // call mshtml
                 mshtmlDropTargetImpl.DragOver(keyState, pt, ref dropEffect);
 
-                // copy any changes to the dropEffect back into the event args		
+                // copy any changes to the dropEffect back into the event args
                 e.Effect = ConvertDropEffect(dropEffect);
             }
             catch (Exception)
@@ -270,7 +261,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                     throw;
             }
         }
-
 
         /// <summary>
         /// Helper method to call the Mshtml DragLeave routine using .NET DragEventArgs
@@ -292,7 +282,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                     throw;
             }
         }
-
 
 
         /// <summary>
@@ -327,7 +316,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             }
         }
 
-
         /// <summary>
         /// See if we can extract an IOleDataObject from the .NET data object
         /// if we can't we are basically screwed (no way to get the data to
@@ -335,7 +323,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// return an empty data object
         /// </summary>
         /// <param name="dataObject">data object</param>
-        /// <returns>Either the IOleDataObject extracted from the passed 
+        /// <returns>Either the IOleDataObject extracted from the passed
         /// IDataObject or a special 'empty' IOleDataObject</returns>
         public static IOleDataObject ExtractOleDataObject(IDataObject dataObject)
         {
@@ -355,7 +343,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
 
-
         /// <summary>
         /// Helper to provide drop feedback
         /// </summary>
@@ -370,7 +357,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             else
                 return DragDropEffects.None;
         }
-
 
 
         /// <summary>
@@ -392,7 +378,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             return targetDropEffect;
         }
 
-
         /// <summary>
         /// Helper to convert Win32 drop effect into .NET drop effect
         /// </summary>
@@ -411,7 +396,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 targetDropEffect |= DragDropEffects.Scroll;
             return targetDropEffect;
         }
-
 
         /// <summary>
         /// Helper to convert .NET key state into Win32 key state
@@ -439,14 +423,12 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         #endregion
 
 
-
         #region Implementation of IDropTarget
-
 
         // NOTE: while we do technically replace the MSHTML IDropTarget interface with our own,
         // this is not truly the mechanism employed to take over drag and drop (see comments
         // on initialization of this class for more). These implementations should not to our
-        // knowledge be called so we simply assert and pass them through (as a failsafe) if 
+        // knowledge be called so we simply assert and pass them through (as a failsafe) if
         // they do happen to get called.
 
         /// <summary>
@@ -482,7 +464,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             }
         }
 
-
         /// <summary>
         /// Removes target feedback and releases the data object
         /// </summary>
@@ -514,7 +495,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         #endregion
-
 
         #region Private Member Variables
 

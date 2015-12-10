@@ -11,7 +11,7 @@ namespace OpenLiveWriter.Extensibility.ImageServices
 		{
 			_imageUrl = imageUrl;
 		}
-		
+
 		public string ImageUrl
 		{
 			get

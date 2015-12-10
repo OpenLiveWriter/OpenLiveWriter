@@ -17,7 +17,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// </summary>
     public class WeblogConfigurationWizardPanelAutoDetection : WeblogConfigurationWizardPanelProgress
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -64,8 +64,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
         private Bitmap[] _animationBitmaps;
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -81,8 +80,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -90,24 +89,24 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelBrowserParent = new System.Windows.Forms.Panel();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.panelBrowserParent);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(368, 232);
             this.panelMain.Controls.SetChildIndex(this.panelBrowserParent, 0);
-            // 
+            //
             // panelBrowserParent
-            // 
+            //
             this.panelBrowserParent.Location = new System.Drawing.Point(72, 200);
             this.panelBrowserParent.Name = "panelBrowserParent";
             this.panelBrowserParent.Size = new System.Drawing.Size(200, 24);
             this.panelBrowserParent.TabIndex = 6;
             this.panelBrowserParent.Visible = false;
-            // 
+            //
             // WeblogConfigurationWizardPanelAutoDetection
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelAutoDetection";
             this.Size = new System.Drawing.Size(432, 264);
             this.panelMain.ResumeLayout(false);

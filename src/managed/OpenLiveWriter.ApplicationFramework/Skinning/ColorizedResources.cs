@@ -135,7 +135,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
             }
         }
 
-
         private void ReplaceWithEmptyBitmap(Bitmap b, Color c)
         {
             using (Graphics g = Graphics.FromImage(b))
@@ -161,7 +160,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
             }
             return b;
         }
-
 
         private void RefreshImages()
         {
@@ -203,7 +201,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
                                new BorderPaint(_imgFooterBackground, false, BorderPaintMode.GDI,
                                                0, _imgFooterBackground.Width, _imgFooterBackground.Height, _imgFooterBackground.Height));
 
-
                 if (DisplayHelper.IsCompositionEnabled(false))
                 {
                     SwapAndDispose(ref _borderToolbar, new BorderPaint(
@@ -225,17 +222,17 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
                 _sidebarLinkColor = SystemInformation.HighContrast ? SystemColors.HotTrack : Color.FromArgb(0, 134, 198);
 
                 /*
-				SwapAndDispose(ref _imgAppVapor, 
+				SwapAndDispose(ref _imgAppVapor,
 					ColorizeBitmap(ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.AppVapor.png")));
-				
+
 				if (_hbAppVapor != IntPtr.Zero)
 					Gdi32.DeleteObject(_hbAppVapor);
 				_hbAppVapor = _imgAppVapor.GetHbitmap();
-				
 
-				SwapAndDispose(ref _imgAppVaporFaded, 
+
+				SwapAndDispose(ref _imgAppVaporFaded,
 					ColorizeBitmap(ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.AppVaporFaded.png")));
-					
+
 				if (_hbAppVaporFaded != IntPtr.Zero)
 					Gdi32.DeleteObject(_hbAppVaporFaded);
 				_hbAppVaporFaded = _imgAppVaporFaded.GetHbitmap();
@@ -427,7 +424,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
             }
         }
 
-
         public Color MainMenuGradientBottomColor
         {
             get
@@ -460,7 +456,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
             }
         }
 
-
         public Color Colorize(Color color)
         {
             return Colorizer.ColorizeARGB(color, _colorizeColor, _colorizeScale);
@@ -470,7 +465,6 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
         {
             return Colorizer.ColorizeBitmap(bmp, _colorizeColor, _colorizeScale);
         }
-
 
 
         public delegate void ControlUpdater<TControl>(ColorizedResources cr, TControl c) where TControl : Control;
@@ -531,7 +525,7 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
             /*
 			if (crColorize == COL_GrayText)
 			{
-				crColorize = ::GetSysColor(COLOR_GRAYTEXT); 
+				crColorize = ::GetSysColor(COLOR_GRAYTEXT);
 			}
 			*/
 

@@ -19,7 +19,7 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -31,10 +31,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -44,9 +43,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandPasteWithoutFormatting
-			// 
+			//
 			this.ContextMenuPath = "Paste &Without Formatting@105";
 			this.Identifier = "MindShare.ApplicationCore.Commands.PasteWithoutFormatting";
 			this.MainMenuPath = "&Edit@2/Paste &Without Formatting@105";

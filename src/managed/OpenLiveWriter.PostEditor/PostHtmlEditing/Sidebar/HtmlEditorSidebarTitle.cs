@@ -17,9 +17,9 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
-{	
+{
 	internal class HtmlEditorSidebarTitle : Panel
-	{     			
+	{
 		private const int TOP_INSET = 2;
 
 		private BitmapButton buttonChevron;
@@ -46,12 +46,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		    buttonChevron.AllowMirroring = true;
 			Controls.Add(buttonChevron);
 
-			
+
 			Click += new EventHandler(ClickHandler);
-			
+
 			//create the UI theme
 			_uiTheme = new SidebarTitleUITheme(this);
-			
+
 			buttonChevron.Bounds =
 				RectangleHelper.Center(_uiTheme.bmpChevronRight.Size, new Rectangle(0, 0, 20, ClientSize.Height), false);
 		}
@@ -67,20 +67,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			BidiGraphics g = new BidiGraphics(e.Graphics, ClientRectangle);
             using (Brush b = new SolidBrush(ColorizedResources.Instance.BorderDarkColor))
 				g.FillRectangle(b, ClientRectangle);
-			
+
 			TextFormatFlags tf = TextFormatFlags.VerticalCenter;
 		    int width = g.MeasureText(Text, Font).Width;
             g.DrawText(Text, Font, new Rectangle(20, -1, width, ClientSize.Height), _uiTheme.TextColor, tf);
 		}
 
 
-
 		/// <summary>
-		/// Close event (indicates that the user has hit the close button and wants 
+		/// Close event (indicates that the user has hit the close button and wants
 		/// the tray hidden)
 		/// </summary>
 		public event EventHandler HideTitleBarClicked ;
-
 
 
 		/// <summary>
@@ -93,7 +91,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				HideTitleBarClicked( this, ea ) ;
 		}
 
-
 		/// <summary>
 		/// Handle close button click event
 		/// </summary>
@@ -102,9 +99,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 		private void ClickHandler(object sender, EventArgs e)
 		{
 			OnHideTitleBarClicked( EventArgs.Empty ) ;
-		}	
+		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -118,7 +115,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			}
 			base.Dispose( disposing );
 		}
-		
+
 		private class SidebarTitleUITheme : ControlUITheme
 		{
 			private Bitmap bmpChevronRightBase = ResourceHelper.LoadAssemblyResourceBitmap("PostHtmlEditing.Sidebar.Images.ChevronRight.png");
@@ -133,7 +130,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 				ApplyTheme();
 			}
 
-
 			protected override void Dispose()
 			{
 				ColorizedResources.Instance.ColorizationChanged -= new EventHandler(ColorizationChanged);
@@ -143,12 +139,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 			{
 				if(bmpChevronRight != null && bmpChevronRight != bmpChevronRightBase)
 					bmpChevronRight.Dispose();
-				
+
 				if(highContrast)
 				{
 					_textColor = SystemColors.ControlText;
 					_sidebarTitleControl.buttonChevron.BackColor = SystemColors.Control;
-					
+
 					//convert the chevon's White color to the Window Text color (fixes bug 437444)
 					bmpChevronRight = new Bitmap(bmpChevronRightBase);
 					ColorMap colorMap = new ColorMap();
@@ -162,27 +158,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 					_sidebarTitleControl.buttonChevron.BackColor = ColorizedResources.Instance.SidebarHeaderBackgroundColor;
 					bmpChevronRight = bmpChevronRightBase;
 				}
-				
+
 				_sidebarTitleControl.buttonChevron.BackColor = ColorizedResources.Instance.SidebarHeaderBackgroundColor;
 				_sidebarTitleControl.buttonChevron.BitmapEnabled = bmpChevronRight;
 				_sidebarTitleControl.buttonChevron.BitmapSelected = bmpChevronRightHover;
 				_sidebarTitleControl.buttonChevron.BitmapPushed = bmpChevronRightHover;
 			}
-			
+
 			private void ColorizationChanged(object sender, EventArgs e)
 			{
 				_sidebarTitleControl.buttonChevron.BackColor = ColorizedResources.Instance.SidebarHeaderBackgroundColor;
 			}
-			
+
 			public Color TextColor { get { return _textColor; }}
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Embedded components
 		/// </summary>
-		private Container components = new Container();	
+		private Container components = new Container();
 
-		// close button images	
+		// close button images
 		private const string IMAGE_RESOURCE_PATH = "Images." ;
 		private Bitmap closeButtonDisabled = ResourceHelper.LoadAssemblyResourceBitmap( IMAGE_RESOURCE_PATH + "CloseButtonDisabled.png") ;
 		private Bitmap closeButtonEnabled = ResourceHelper.LoadAssemblyResourceBitmap( IMAGE_RESOURCE_PATH + "CloseButtonEnabled.png") ;

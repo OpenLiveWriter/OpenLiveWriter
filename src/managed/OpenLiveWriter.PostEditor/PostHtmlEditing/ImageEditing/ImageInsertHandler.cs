@@ -35,7 +35,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
     }
 
-
     /// <summary>
     /// Summary description for ImageInsertHandler.
     /// </summary>

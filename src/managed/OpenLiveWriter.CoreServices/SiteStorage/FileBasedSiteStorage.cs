@@ -12,7 +12,7 @@ namespace OpenLiveWriter.CoreServices
 {
 
     /// <summary>
-    /// Implementation of ISiteStorage that uses the file system as a backing store. 
+    /// Implementation of ISiteStorage that uses the file system as a backing store.
     /// </summary>
     public class FileBasedSiteStorage : SiteStorageBase
     {
@@ -27,7 +27,6 @@ namespace OpenLiveWriter.CoreServices
             m_basePath = basePath;
         }
 
-
         /// <summary>
         /// Initialize with the specified BasePath and RootFile
         /// </summary>
@@ -39,7 +38,6 @@ namespace OpenLiveWriter.CoreServices
             m_basePath = basePath;
         }
 
-
         /// <summary>
         /// Initialize using the file system path that contains the site. RootFile
         /// must also be specified once it is known.
@@ -50,7 +48,6 @@ namespace OpenLiveWriter.CoreServices
         {
             fileFilter = filter;
         }
-
 
         /// <summary>
         /// Initialize with the specified BasePath and RootFile
@@ -64,12 +61,10 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         /// <summary>
         /// File system path that contains the site.
         /// </summary>
         public string BasePath { get { return m_basePath; } }
-
 
 
         /// <summary>
@@ -99,7 +94,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         /// <summary>
         /// Test to see whether the specified file already exists
         /// </summary>
@@ -113,16 +107,15 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         /// <summary>
-        /// Retrieve a Stream for the given path (Read or Write access can be specified). 
+        /// Retrieve a Stream for the given path (Read or Write access can be specified).
         /// Stream.Close() should be called when you are finished using the Stream.
         /// </summary>
         /// <param name="file">Heirarchical path designating stream location (uses "/" as
         /// path designator)</param>
-        /// <param name="mode">Read or Write. Write will overwrite any exising path of the 
+        /// <param name="mode">Read or Write. Write will overwrite any exising path of the
         /// same name.</param>
-        /// <returns>Stream that can be used to access the path (Stream.Close() should be 
+        /// <returns>Stream that can be used to access the path (Stream.Close() should be
         /// called when you are finished using the Stream).</returns>
         public override Stream Open(string file, AccessMode mode)
         {
@@ -176,7 +169,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Convert our path separator to the os-specific one
         /// </summary>
@@ -184,18 +176,16 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>normalized path</returns>
         private string NormalizePath(string path)
         {
-            // convert all separators to the OS-specific one 
+            // convert all separators to the OS-specific one
             string osPath = path.Replace('/', Path.DirectorySeparatorChar);
             return osPath.Replace('\\', Path.DirectorySeparatorChar);
         }
-
 
         // open a read-only stream to the file at the specified path
         private Stream OpenFileStreamForRead(string path)
         {
             return OpenFileStream(path, FileMode.Open, FileAccess.Read);
         }
-
 
         // open a read/write stream to the file at the specified path
         private Stream OpenFileStreamForWrite(string path)
@@ -214,11 +204,9 @@ namespace OpenLiveWriter.CoreServices
                     Path.Combine(BasePath, path));
             }
 
-
-            // open the file and return its stream			
+            // open the file and return its stream
             return OpenFileStream(path, FileMode.Create, FileAccess.Write);
         }
-
 
         // core function for opening a file and checking for errors, etc.
         private Stream OpenFileStream(string path, FileMode mode, FileAccess access)
@@ -226,7 +214,7 @@ namespace OpenLiveWriter.CoreServices
             // create a fully qualified path to the file
             string fullPath = Path.Combine(m_basePath, path);
 
-            // try to open the file 
+            // try to open the file
             try
             {
                 return new FileStream(fullPath, mode, access);

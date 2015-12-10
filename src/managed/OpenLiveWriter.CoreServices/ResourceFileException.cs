@@ -11,12 +11,12 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Generic exception class for Writer -- implements the storage
-    /// of exception messages (with optional arguments) in a resource file. 
+    /// of exception messages (with optional arguments) in a resource file.
     /// </summary>
     public class ResourceFileException : ApplicationException
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="type">Exception type (drawn from a class level string constant)</param>
         /// <param name="innerException">Exception that preceded this one</param>
@@ -26,9 +26,8 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
-        /// This is a thread safe method that retrieves a resource manager for 
+        /// This is a thread safe method that retrieves a resource manager for
         /// a given type.
         /// </summary>
         /// <param name="t">The type for which you'd like a resource manager</param>
@@ -40,7 +39,7 @@ namespace OpenLiveWriter.CoreServices
             lock (typeof(ResourceFileException))
             {
                 // This uses a hashtable to keep the resource managers that
-                // it has already retrieved.  
+                // it has already retrieved.
                 if (!m_resourceManagers.ContainsKey(assemblyName))  // Check if its not in the hashtable
                 {
                     // get a new resource manager for this type
@@ -69,7 +68,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         /// <param name="type">exception type (this value must be in the resource file)</param>
         /// <param name="arguments">optional array of arguments</param>
-        /// <returns>the formatted message</returns>		
+        /// <returns>the formatted message</returns>
         private static string GetExceptionMessage(
             ResourceManager resourceManager,
             Type type,
@@ -91,8 +90,8 @@ namespace OpenLiveWriter.CoreServices
             if (arguments != null && arguments.GetLength(0) > 0)
             {
                 // try to format the message -- if we pass an incorrect format
-                // string or number of arguments then Assert if we are in debug 
-                // mode, otherwise handle the error gracefully by returning 
+                // string or number of arguments then Assert if we are in debug
+                // mode, otherwise handle the error gracefully by returning
                 // the 'unformatted' message
                 try
                 {

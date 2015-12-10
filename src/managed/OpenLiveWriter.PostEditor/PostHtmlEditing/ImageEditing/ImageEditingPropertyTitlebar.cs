@@ -11,11 +11,10 @@ using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
-{	
+{
 	public class ImageEditingPropertyTitlebar : Panel
-	{     			
+	{
 		private const int TOP_INSET = 2;
-
 
 		public ImageEditingPropertyTitlebar()
 		{
@@ -32,37 +31,37 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			closeButton.BitmapDisabled = closeButtonDisabled ;
 			closeButton.BitmapEnabled = closeButtonEnabled ;
 			closeButton.BitmapPushed = closeButtonPushed ;
-			closeButton.BitmapSelected = closeButtonSelected ;				
+			closeButton.BitmapSelected = closeButtonSelected ;
 			closeButton.ButtonStyle = ButtonStyle.Bitmap ;
-			closeButton.ToolTip = "Hide Image Properties" ;						
+			closeButton.ToolTip = "Hide Image Properties" ;
 			closeButton.Width = closeButtonEnabled.Width ;
 			closeButton.Height = closeButtonEnabled.Height;
 			closeButton.Top = TOP_INSET - 1;
-			closeButton.Left = Width - closeButton.Width - TOP_INSET ;						
-			closeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right ;            
+			closeButton.Left = Width - closeButton.Width - TOP_INSET ;
+			closeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right ;
 			closeButton.Click +=new EventHandler(closeButton_Click);
 			Controls.Add(closeButton) ;
-				
+
 			// manage appearance
 			ApplicationStyleManager.ApplicationStyleChanged += new EventHandler(ApplicationManager_ApplicationStyleChanged);
 			UpdateAppearance() ;
-		}	
+		}
 
 		private void UpdateAppearance()
-		{		
+		{
 			closeButton.BackColor = ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarBottomColor ;
-			
+
 			PerformLayout();
 			Invalidate();
 		}
-		
+
 		/*
 		protected override void OnPaintBackground(PaintEventArgs pevent)
 		{
-		
+
 		}
 		*/
-			
+
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
@@ -84,13 +83,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 
 
-
 		/// <summary>
-		/// Close event (indicates that the user has hit the close button and wants 
+		/// Close event (indicates that the user has hit the close button and wants
 		/// the tray hidden)
 		/// </summary>
 		public event EventHandler HideTitleBarClicked ;
-
 
 
 		/// <summary>
@@ -103,7 +100,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 				HideTitleBarClicked( this, ea ) ;
 		}
 
-
 		/// <summary>
 		/// Handle close button click event
 		/// </summary>
@@ -112,7 +108,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		private void closeButton_Click(object sender, EventArgs e)
 		{
 			OnHideTitleBarClicked( EventArgs.Empty ) ;
-		}	
+		}
 
 		/// <summary>
 		/// Handle appearance preference changes.
@@ -124,8 +120,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			UpdateAppearance() ;
 		}
 
-
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -140,17 +135,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			}
 			base.Dispose( disposing );
 		}
-	
 
-		// tray compontents		
+
+		// tray compontents
 		private BitmapButton closeButton ;
-	
-		/// <summary> 
+
+		/// <summary>
 		/// Embedded components
 		/// </summary>
-		private Container components = new Container();		
+		private Container components = new Container();
 
-		// close button images	
+		// close button images
 		private const string TRAY_IMAGE_PATH = "Images." ;
 		private Bitmap closeButtonDisabled = ResourceHelper.LoadAssemblyResourceBitmap( TRAY_IMAGE_PATH + "CloseButtonDisabled.png") ;
 		private Bitmap closeButtonEnabled = ResourceHelper.LoadAssemblyResourceBitmap( TRAY_IMAGE_PATH + "CloseButtonEnabled.png") ;

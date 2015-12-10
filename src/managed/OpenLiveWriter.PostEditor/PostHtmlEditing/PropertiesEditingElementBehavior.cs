@@ -19,7 +19,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 		public PropertiesEditingElementBehavior(IHtmlEditorComponentContext editorContext)
 			: base(editorContext)
-		{			
+		{
 		}
 
 		protected override void OnElementAttached()
@@ -28,7 +28,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 			EditorContext.PreHandleEvent +=new HtmlEditDesignerEventHandler(EditorContext_PreHandleEvent);
 		}
-
 
 		protected override void OnSelectedChanged()
 		{
@@ -49,7 +48,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			pInfo.rcExpand.right = _widgetEnabled.Width - WIDGET_HORIZONTAL_OVERLAY ;
 		}
 
-
 		protected virtual bool WidgetActive
 		{
 			get
@@ -58,7 +56,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			}
 		}
 
-		
+
 		private int EditorContext_PreHandleEvent(int inEvtDispId, IHTMLEventObj pIEventObj)
 		{
 			if ( Selected )
@@ -83,13 +81,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
 			return HRESULT.S_FALSE;
 		}
-	
+
 
 		protected virtual void ShowProperties()
 		{
 			Invalidate(_widgetArea);
 		}
-
 
 		private Rectangle CalculateWidgetScreenBounds()
 		{
@@ -129,7 +126,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 		}
 		private bool _mouseInWidget ;
 
-		
+
 		private bool ClientPointInWidget( int x, int y )
 		{
 			// calculate mouse position in local coordinates
@@ -143,12 +140,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			return _widgetArea.Contains( localMouseLocation.x, localMouseLocation.y ) ;
 		}
 
-		
+
 		public override void OnResize(SIZE size)
 		{
 			_elementSize = new Size(size.cx, size.cy) ;
 			_widgetLocation = new Point(_elementSize.Width - _widgetEnabled.Width, WIDGET_VERTICAL_OFFSET) ;
-			_widgetArea = new Rectangle( _widgetLocation, _widgetEnabled.Size ); 
+			_widgetArea = new Rectangle( _widgetLocation, _widgetEnabled.Size );
 		}
 
 		public override void Draw(RECT rcBounds, RECT rcUpdate, int lDrawFlags, IntPtr hdc, IntPtr pvDrawObject)
@@ -157,7 +154,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 			{
 				using ( Graphics g = Graphics.FromHdc(hdc) )
 				{
-					g.DrawImage( MouseInWidget ? _widgetSelected : _widgetEnabled, 
+					g.DrawImage( MouseInWidget ? _widgetSelected : _widgetEnabled,
 					             rcBounds.right-_widgetEnabled.Width, rcBounds.top + WIDGET_VERTICAL_OFFSET );
 				}
 			}
@@ -183,7 +180,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             base.Dispose(disposeManagedResources);
         }
-		
+
 		private Size _elementSize ;
 		private Point _widgetLocation ;
 		private Rectangle _widgetArea ;

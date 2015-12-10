@@ -33,7 +33,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _contentSource = contentSource;
             _smartContentElement = smartContentElement;
 
-
             ContentSourceManager.ParseContainingElementId(_smartContentElement.id, out _contentSourceId, out _smartContentId);
 
             _smartContent = _contentSourceContext.FindSmartContent(_smartContentId);
@@ -87,8 +86,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             //update the element ID with the new smart content id (this preserves undo-ability)
             _smartContentElement.id = ContentSourceManager.MakeContainingElementId(_contentSourceId, _smartContentId);
             SmartContentInsertionHelper.InsertEditorHtmlIntoElement(_contentSourceContext, _contentSource, _smartContent, _smartContentElement);
-
-
 
 
             //reinit the smart content so it is re-cloned

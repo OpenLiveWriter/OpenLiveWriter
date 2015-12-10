@@ -59,7 +59,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
             catch (Exception ex)
             {
-                // log error 
+                // log error
                 Trace.Fail("Unexpected error during TableColumnSizeEditor PreHandleEvent: " + ex.ToString());
 
                 // reset state
@@ -71,10 +71,9 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
 
-
         private int HandleMouseEvent(int inEvtDispId, IHTMLEventObj pIEventObj)
         {
-            // WinLive 160252: MSHTML throws a COMException with HRESULT 0x8000FFFF (E_UNEXPECTED) when calling 
+            // WinLive 160252: MSHTML throws a COMException with HRESULT 0x8000FFFF (E_UNEXPECTED) when calling
             // IHTMLPaintSite.TransformGlobalToLocal if the table has no height.
             IHTMLElement tableElement = (IHTMLElement)_table;
             if (tableElement.offsetHeight <= 0 || tableElement.offsetWidth <= 0)
@@ -144,7 +143,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             // to become the target cell (necessary for sizing the table larger)
             Point xTargetPoint = new Point(targetPoint.X, targetPoint.Y);
             IHTMLTableCell targetCell = null;
-            while (targetCell == null && xTargetPoint.X >= (targetPoint.X - maxScanningRange))   // 0 ) 
+            while (targetCell == null && xTargetPoint.X >= (targetPoint.X - maxScanningRange))   // 0 )
             {
                 // determine the cell we are over
                 targetCell = _editorContext.ElementFromClientPoint(xTargetPoint) as IHTMLTableCell;
@@ -157,7 +156,6 @@ namespace OpenLiveWriter.PostEditor.Tables
 
                 xTargetPoint.X--;
             }
-
 
             // if we got a target cell then ensure that the point is over the document area
             if (targetCell != null)
@@ -179,7 +177,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
 
-
         private void OnMouseMove(TableColumnMouseEventArgs ea)
         {
             if (_sizingOperation.InProgress)
@@ -195,7 +192,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private void OnMouseDown(TableColumnMouseEventArgs ea)
         {
             if (_sizingOperation.Pending)
@@ -205,7 +201,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 ea.Handled = true;
             }
         }
-
 
         private void OnMouseUp(TableColumnMouseEventArgs ea)
         {
@@ -219,7 +214,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         private void HandleMouseMove(TableColumnMouseEventArgs ea)
         {
-            // cell element we are over 
+            // cell element we are over
             IHTMLElement targetCell = GetTargetCell(ea.ClientPoint);
 
             // if there is no element then we are done
@@ -283,13 +278,11 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private bool MouseNearCellEdge(int mouseX, int cellEdgeX, int cellSpacing)
         {
             int hotRegion = Math.Max(cellSpacing / 2, 2);
             return Math.Abs(mouseX - cellEdgeX) <= hotRegion;
         }
-
 
         private IHTMLTable _table;
         private IHtmlEditorComponentContext _editorContext;
@@ -297,10 +290,8 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         private IHTMLPaintSiteRaw _paintSite;
 
-
         private SizingOperation _sizingOperation;
     }
-
 
     internal class SizingOperation
     {
@@ -309,7 +300,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             _editorContext = editorContext;
             _table = table;
         }
-
 
         public void TrackPending(int clientX, int leftColumnIndex, int rightColumnIndex)
         {
@@ -352,7 +342,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             ShowSizingCursor();
         }
 
-
         public void ContinueSizing(int clientX)
         {
             // calculate offset
@@ -364,7 +353,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 
             if (!_cellWidthsFixed)
             {
-                // do fixups once during each size operation 
+                // do fixups once during each size operation
                 // This actually causes the cells to change size in many cases, which is incredibly annoying.
                 // TableHelper.SynchronizeCellWidthsForEditing(_table);
                 _cellWidthsFixed = true;
@@ -390,14 +379,12 @@ namespace OpenLiveWriter.PostEditor.Tables
                 TableHelper.SynchronizeTableWidthForEditing(_table);
             }
 
-
             // update last client x
             _lastClientX = clientX;
 
             // make sure we continue showing the sizing cursor
             ShowSizingCursor();
         }
-
 
 
         public void EndSizing()
@@ -446,7 +433,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
 
-
         public void ShowCursor(Cursor cursor)
         {
             _editorContext.OverrideCursor = true;
@@ -457,7 +443,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         {
             ShowCursor(Cursors.VSplit);
         }
-
 
         public void ShowDefaultCursor()
         {
@@ -471,7 +456,6 @@ namespace OpenLiveWriter.PostEditor.Tables
 
             _editorContext.OverrideCursor = false;
         }
-
 
         private void InitializeSizingContext(IHTMLTableCell targetCell)
         {
@@ -490,12 +474,11 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
 
             // force a fixup of cell widths on the next call to ContinueSizing
-            // (we do this during ContinueSizing so that table column borders don't 
+            // (we do this during ContinueSizing so that table column borders don't
             // visible "jump" on MouseDown)
 
             _cellWidthsFixed = false;
         }
-
 
         private bool AbortOnMinimumColumnWidth(int offset)
         {
@@ -516,7 +499,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
         private const int MINIMUM_COLUMN_WIDTH = 10;
 
-
         private IHTMLTable _table;
         private IHtmlEditorComponentContext _editorContext;
 
@@ -525,12 +507,10 @@ namespace OpenLiveWriter.PostEditor.Tables
         private int _pendingLeftColumnIndex;
         private int _pendingRightColumnIndex;
 
-
         private IUndoUnit _sizingUndoUnit = null;
         private HTMLTableColumn _leftColumn = null;
         private HTMLTableColumn _rightColumn = null;
         private bool _cellWidthsFixed = true;
-
 
 
     }

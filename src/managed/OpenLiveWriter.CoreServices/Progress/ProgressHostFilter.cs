@@ -73,6 +73,5 @@ namespace OpenLiveWriter.CoreServices.Progress
             return (filtered & messageType) == 0;
         }
 
-
     }
 }

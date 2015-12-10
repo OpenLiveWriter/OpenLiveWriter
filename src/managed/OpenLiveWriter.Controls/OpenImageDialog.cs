@@ -59,29 +59,29 @@ namespace OpenLiveWriter.Controls
 			// show the dialog (customizations happen in the DialogCreated event handler)
 			using (OpenFileDialogCreationListener creationListener = new OpenFileDialogCreationListener(parent) )
 			{
-				// listen for creation of the dialog, when this happens we customize the 
+				// listen for creation of the dialog, when this happens we customize the
 				// appearance and behavior of the dialog as desired
 				creationListener.DialogCreated +=new EventHandler(creationListener_DialogCreated);
-					
+
 				// show the dialog and return the result
 				return _openFileDialog.ShowDialog(parent) ;
 			}
 		}
 
-	
+
 		private void creationListener_DialogCreated(object sender, EventArgs e)
 		{
 			// get the dialog's handle
 			IntPtr hDialog = (sender as OpenFileDialogCreationListener).DialogHandle ;
-			
+
 			// switch to thumbnail view
 			SwitchToThumbnailView( hDialog ) ;
 
 			// make the dialog larger so it shows 3 rows of thumbnails
 			PositionDialog( hDialog ) ;
-		}	
+		}
 
-		
+
 		private void SwitchToThumbnailView( IntPtr hDialog )
 		{
 			// This hack is based on the knowledge that within the standard open file dialog
@@ -101,7 +101,7 @@ namespace OpenLiveWriter.Controls
 
 			// NOTE: there is at least one report from a developer of this technique not working
 			// (see comments at http://www.thecodeproject.com/cs/miscctrl/FileDialogExtender.asp).
-			// it is very likely that this technique is fragile accross OS version and/or 
+			// it is very likely that this technique is fragile accross OS version and/or
 			// installed shell customizations.
 		}
 
@@ -110,16 +110,16 @@ namespace OpenLiveWriter.Controls
 			// desired dialog dimensions
 			const int DIALOG_HEIGHT = 565 ;
 			const int DIALOG_WIDTH = 650 ;
-		
+
 			// get existing dimensions
 			RECT dialogRect = new RECT();
 			User32.GetWindowRect(hDialog, ref dialogRect ) ;
 
 			// grow window size (note: will result in slightly off-center window however
 			// if we try to center the window it will flash/flicker while being moved)
-			User32.MoveWindow(hDialog, dialogRect.left, dialogRect.top, 
+			User32.MoveWindow(hDialog, dialogRect.left, dialogRect.top,
 				DIALOG_WIDTH,
-				DIALOG_HEIGHT, 
+				DIALOG_HEIGHT,
 				true ) ;
 		}
 
@@ -139,11 +139,10 @@ namespace OpenLiveWriter.Controls
 			public static readonly UIntPtr TILE = new UIntPtr(0x702E) ;
 		}
 
-		
 
 
 		/// <summary>
-		/// Hook to detect the creation and window handle of the dialog. 
+		/// Hook to detect the creation and window handle of the dialog.
 		/// </summary>
 		private class OpenFileDialogCreationListener : IDisposable
 		{
@@ -162,7 +161,7 @@ namespace OpenLiveWriter.Controls
 					if ( _dialogHandle == IntPtr.Zero )
 					{
 						_dialogHandle = lParam ;
-						
+
 						if ( DialogCreated != null )
 							DialogCreated( this, EventArgs.Empty ) ;
 					}
@@ -171,9 +170,8 @@ namespace OpenLiveWriter.Controls
 				return _subClasser.CallBaseWindowProc(hWnd, uMsg, wParam, lParam);
 			}
 
-
 			private WindowSubClasser _subClasser;
-			
+
 			public void Dispose()
 			{
 				_subClasser.Remove();
@@ -194,6 +192,6 @@ namespace OpenLiveWriter.Controls
 			private static readonly UIntPtr MSGF_DIALOGBOX = UIntPtr.Zero ;
 		}
 
-		
+
 	}
 }

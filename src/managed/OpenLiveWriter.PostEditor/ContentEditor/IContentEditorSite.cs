@@ -12,10 +12,10 @@ using OpenLiveWriter.Interop.Com.Ribbon;
 namespace OpenLiveWriter.PostEditor
 {
     /// <summary>
-    /// IContentEditorSite should be implemented by the window 
+    /// IContentEditorSite should be implemented by the window
     /// that is hosting a ContentEditor.
     /// IMPORTANT: IContentEditorSite must also implement IUIFramework: http://msdn.microsoft.com/en-us/library/dd371467(VS.85).aspx
-    /// IMPORTANT: IContentEditorSite must also implement IDropTarget, so if something is dragged into the 
+    /// IMPORTANT: IContentEditorSite must also implement IDropTarget, so if something is dragged into the
     ///            editor that it cannot handle, it cna pass it to the the hosting window
     /// </summary>
     [Guid("086D5E46-28DF-48bf-8973-3E66CB1C5C13")]
@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor
     public interface IContentEditorSite : IUIFramework, IDropTarget, IETWProvider
     {
         /// <summary>
-        /// Gets the handle for the window that will be 
+        /// Gets the handle for the window that will be
         /// the parent of the ContentEditor
         /// </summary>
         /// <returns></returns>
@@ -37,19 +37,18 @@ namespace OpenLiveWriter.PostEditor
         /// This is a message the user should be shown
         /// </param>
         /// <param name="message">
-        /// This is the number of words in the post if real 
+        /// This is the number of words in the post if real
         /// time word count is turned on
         /// </param>
         void SetStatusBarMessage(string message, string wordCountValue);
 
         /// <summary>
-        /// This is called back once the document that has been 
+        /// This is called back once the document that has been
         /// loaded into the editor has finished loading.
-        /// THis would be a good time for the window to start loading 
+        /// THis would be a good time for the window to start loading
         /// anything it has delayed.
         /// </summary>
         void OnDocumentComplete();
-
 
         // Focus event callbacks
         void OnGotFocus();
@@ -61,7 +60,7 @@ namespace OpenLiveWriter.PostEditor
         void OnKeyboardLanguageChanged();
 
         /// <summary>
-        /// Gets the subject of the email that the user has entered.  
+        /// Gets the subject of the email that the user has entered.
         /// </summary>
         string GetDocumentTitle();
     }

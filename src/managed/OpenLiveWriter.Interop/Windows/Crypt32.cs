@@ -75,7 +75,6 @@ namespace OpenLiveWriter.Interop.Windows
             }
         }
 
-
         /// <summary>
         /// Decrypt a string previously encrtyped into a byte array with CryptProtectString.
         /// This method provides a high-level wrapper for the use of CryptUnprotectData.
@@ -141,7 +140,6 @@ namespace OpenLiveWriter.Interop.Windows
         }
 
 
-
         [DllImport("Crypt32.dll", SetLastError = true)]
         public static extern bool CryptProtectData(
             ref DATA_BLOB pDataIn,
@@ -163,7 +161,6 @@ namespace OpenLiveWriter.Interop.Windows
             uint dwFlags,
             ref DATA_BLOB pDataOut
             );
-
 
         // <summary>
         /// Unit test for cryto utility methods
@@ -187,7 +184,6 @@ namespace OpenLiveWriter.Interop.Windows
             Debug.Assert(data == decryptedData);
         }
     }
-
 
     /// <summary>
     /// Crypto constants

@@ -106,7 +106,7 @@ namespace OpenLiveWriter.ApplicationFramework
             if (entered)
                 Leave();
 
-            //	If activated, deactivate.		
+            //	If activated, deactivate.
             if (activated)
                 Deactivate();
 
@@ -248,7 +248,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         /// <summary>
         /// Clears the "Activated" state of the CommandContextManager.
         /// </summary>
@@ -269,7 +268,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 return entered;
             }
         }
-
 
         /// <summary>
         /// Set the "Entered" state of the CommandContextManager.

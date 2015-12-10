@@ -75,9 +75,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.components = new System.ComponentModel.Container();
             this.timerAutoScroll = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // timerAutoScroll
-            // 
+            //
             this.timerAutoScroll.Tick += new System.EventHandler(this.timerAutoScroll_Tick);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 

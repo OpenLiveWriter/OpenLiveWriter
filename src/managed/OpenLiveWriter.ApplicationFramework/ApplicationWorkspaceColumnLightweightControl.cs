@@ -23,7 +23,7 @@ namespace Project31.ApplicationFramework
 	}
 
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	public class ApplicationWorkspaceColumnLightweightControl : Project31.Controls.LightweightControl
 	{
@@ -41,7 +41,7 @@ namespace Project31.ApplicationFramework
 		/// Required designer cruft.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-		
+
 		/// <summary>
 		/// The vertical splitter lightweight control.
 		/// </summary>
@@ -160,7 +160,7 @@ namespace Project31.ApplicationFramework
 		/// The vertical splitter style.
 		/// </summary>
 		private VerticalSplitterStyle verticalSplitterStyle = VerticalSplitterStyle.None;
-		
+
 		/// <summary>
 		/// Gets or sets the vertical splitter style.
 		/// </summary>
@@ -412,7 +412,7 @@ namespace Project31.ApplicationFramework
 		{
 			if( disposing )
 			{
-				if (components != null) 
+				if (components != null)
 				{
 					components.Dispose();
 				}
@@ -430,16 +430,16 @@ namespace Project31.ApplicationFramework
 			this.components = new System.ComponentModel.Container();
 			this.splitterLightweightControlVertical = new Project31.ApplicationFramework.SplitterLightweightControl(this.components);
 			this.splitterLightweightControlHorizontal = new Project31.ApplicationFramework.SplitterLightweightControl(this.components);
-			// 
+			//
 			// splitterLightweightControlVertical
-			// 
+			//
 			this.splitterLightweightControlVertical.LightweightControlContainerControl = this;
 			this.splitterLightweightControlVertical.Orientation = Project31.ApplicationFramework.SplitterLightweightControl.SplitterOrientation.Vertical;
 			this.splitterLightweightControlVertical.SplitterEndMove += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlVertical_SplitterEndMove);
 			this.splitterLightweightControlVertical.SplitterMoving += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlVertical_SplitterMoving);
-			// 
+			//
 			// splitterLightweightControlHorizontal
-			// 
+			//
 			this.splitterLightweightControlHorizontal.LightweightControlContainerControl = this;
 			this.splitterLightweightControlHorizontal.Orientation = Project31.ApplicationFramework.SplitterLightweightControl.SplitterOrientation.Horizontal;
 			this.splitterLightweightControlHorizontal.SplitterEndMove += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlHorizontal_SplitterEndMove);
@@ -466,7 +466,7 @@ namespace Project31.ApplicationFramework
 			if (MinimumColumnWidthChanged != null)
 				MinimumColumnWidthChanged(this, e);
 		}
-		
+
 		/// <summary>
 		/// Raises the PreferredColumnWidthChanged event.
 		/// </summary>
@@ -495,10 +495,10 @@ namespace Project31.ApplicationFramework
 		{
 			//	Call the base class's method so that registered delegates receive the event.
 			base.OnLayout(e);
-			
+
 			//	Obtain the layout rectangle.
 			Rectangle layoutRectangle = VirtualClientRectangle;
-			
+
 			//	Layout the vertical splitter lightweight control and adjust the layout rectangle.
 			if (verticalSplitterStyle == VerticalSplitterStyle.None)
 			{
@@ -527,7 +527,7 @@ namespace Project31.ApplicationFramework
 																					layoutRectangle.Height);
 				layoutRectangle.Width -= verticalSplitterWidth;
 			}
-			
+
 			//	Layout the upper and lower pane lightweight controls.
 			if (upperPaneLightweightControl != null && upperPaneLightweightControl.Visible &&
 				lowerPaneLightweightControl != null && lowerPaneLightweightControl.Visible)
@@ -544,7 +544,7 @@ namespace Project31.ApplicationFramework
 					//	Only the upper pane lightweight control is visible.
 					upperPaneLightweightControl.VirtualBounds = layoutRectangle;
 					lowerPaneLightweightControl.VirtualBounds = Rectangle.Empty;
-					splitterLightweightControlHorizontal.Visible = false;					
+					splitterLightweightControlHorizontal.Visible = false;
 					splitterLightweightControlHorizontal.VirtualBounds = Rectangle.Empty;
 				}
 				else
@@ -557,9 +557,9 @@ namespace Project31.ApplicationFramework
 																				layoutRectangle.Y,
 																				layoutRectangle.Width,
 																				horizontalSplitterLayoutPosition);
-				
+
 					//	Layout the horizontal splitter lightweight control.
-					splitterLightweightControlHorizontal.Visible = true;					
+					splitterLightweightControlHorizontal.Visible = true;
 					splitterLightweightControlHorizontal.VirtualBounds = new Rectangle(	layoutRectangle.X,
 																						upperPaneLightweightControl.VirtualBounds.Bottom,
 																						layoutRectangle.Width,
@@ -656,7 +656,7 @@ namespace Project31.ApplicationFramework
 				return (int)(PaneLayoutHeight*horizontalSplitterPosition);
 			}
 		}
-		
+
 		/// <summary>
 		/// Gets the minimum layout position of the horizontal splitter.
 		/// </summary>
@@ -736,8 +736,8 @@ namespace Project31.ApplicationFramework
 				if (HorizontalSplitterLayoutPosition+e.Position > MaximumHorizontalSplitterLayoutPosition)
 					e.Position = MaximumHorizontalSplitterLayoutPosition-horizontalSplitterLayoutPosition;
 			}
-		}	
-			
+		}
+
 		/// <summary>
 		/// splitterLightweightControlVertical_SplitterEndMove event handler.
 		/// </summary>
@@ -830,5 +830,4 @@ namespace Project31.ApplicationFramework
 		}
 	}
 }
-
 

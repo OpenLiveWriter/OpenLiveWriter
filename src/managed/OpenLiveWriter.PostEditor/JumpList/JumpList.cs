@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -70,7 +70,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
 
         private int knownCategoryOrdinalPosition = 0;
         /// <summary>
-        /// Gets or sets the value for the known category location relative to the 
+        /// Gets or sets the value for the known category location relative to the
         /// custom category collection.
         /// </summary>
         public int KnownCategoryOrdinalPosition
@@ -91,10 +91,10 @@ namespace OpenLiveWriter.PostEditor.JumpList
 
         /// <summary>
         /// Gets or sets the application ID to use for this jump list.
-        /// </summary>       
+        /// </summary>
         private string ApplicationId { get; set; }
 
-        #endregion        
+        #endregion
 
         /// <summary>
         /// Creates a new instance of the JumpList class with the specified
@@ -195,7 +195,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
                         JumpListItem item = (JumpListItem)link;
                         Trace.WriteLine("JumpListItem: " + item.ParsingName + " with path: " + item.Path);
 
-                        // Verify the file registration for this file type.                        
+                        // Verify the file registration for this file type.
                         if (!fileTypes.ContainsKey(extension))
                         {
                             Trace.WriteLine("Dumping file registration for extension: " + extension);
@@ -299,7 +299,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
                             // custom categories or items to an existing category cannot be added.
                             // The recent documents tracking can be changed via:
                             //      1. Group Policy “Do not keep history of recently opened documents”.
-                            //      2. Via the user setting “Store and display recently opened items in 
+                            //      2. Via the user setting “Store and display recently opened items in
                             //         the Start menu and the taskbar” in the Start menu property dialog.
                             //
                             throw new UnauthorizedAccessException("Custom categories cannot be added while recent documents tracking is turned off.");

@@ -44,7 +44,6 @@ namespace OpenLiveWriter.PostEditor.Commands
 		}
 
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -52,9 +51,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandInsertMenu
-			// 
+			//
 			this.CommandBarButtonText = "Insert";
 			this.Identifier = "OpenLiveWriter.PostEditor.Commands.InsertMenu";
 			this.Text = "Insert";

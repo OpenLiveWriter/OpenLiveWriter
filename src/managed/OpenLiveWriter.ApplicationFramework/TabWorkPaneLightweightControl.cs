@@ -15,7 +15,7 @@ using Project31.CoreServices;
 namespace Project31.ApplicationFramework
 {
 	/// <summary>
-	/// 
+	///
 	/// </summary>
 	internal class TabWorkPaneLightweightControl : LightweightControl
 	{
@@ -26,7 +26,7 @@ namespace Project31.ApplicationFramework
 
 		//	The control list.
 		private ArrayList tabControls = new ArrayList();
-		
+
 		/// <summary>
 		/// Initializes a new instance of the TabWorkPaneLightweightControl class.
 		/// </summary>
@@ -49,7 +49,7 @@ namespace Project31.ApplicationFramework
 			/// </summary>
 			InitializeComponent();
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
@@ -59,9 +59,9 @@ namespace Project31.ApplicationFramework
 			this.components = new System.ComponentModel.Container();
 
 		}
-		
+
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="tabNumber">The tab number.</param>
 		/// <param name="control">The control for the tab number.</param>
@@ -92,7 +92,7 @@ namespace Project31.ApplicationFramework
 		public void SetActiveTab(int tab)
 		{
 		}
-	
+
 		/// <summary>
 		/// Gets the command bar rectangle.
 		/// </summary>
@@ -132,7 +132,6 @@ namespace Project31.ApplicationFramework
 
 			//	Set the bounds of the command bar lightweight control.
 			//commandBarLightweightControl.VirtualBounds = CommandBarRectangle;
-
 
 #if false
 			//

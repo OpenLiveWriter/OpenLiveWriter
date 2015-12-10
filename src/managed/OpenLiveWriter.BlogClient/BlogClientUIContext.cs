@@ -24,7 +24,7 @@ namespace OpenLiveWriter.BlogClient
     }
 
     /// <summary>
-    /// Convenience implementation of IBlogClientUIContext 
+    /// Convenience implementation of IBlogClientUIContext
     /// </summary>
     public class BlogClientUIContextImpl : IBlogClientUIContext
     {
@@ -41,13 +41,11 @@ namespace OpenLiveWriter.BlogClient
     }
 
 
-
-
     /// <summary>
-    /// Class used to install and remove (on dispose) the UI context for the currently 
+    /// Class used to install and remove (on dispose) the UI context for the currently
     /// running thread. To enforce the idiom of install/remove this is the ONLY
-    /// suppported mechanism for manipulating the UI context. This class should be 
-    /// instantiated under a "using" statement on every thread that will call 
+    /// suppported mechanism for manipulating the UI context. This class should be
+    /// instantiated under a "using" statement on every thread that will call
     /// BlogClient code. Further, every time a new dialog box which may call blog
     /// client code (e.g. OpenPost, UpdateTemplate, etc.) should also construct
     /// and instance of this class around the showing of the dialog.
@@ -91,11 +89,9 @@ namespace OpenLiveWriter.BlogClient
 
 
 
-
-
     /// <summary>
     /// Class which allows blog-client code at any level in the stack and on
-    /// any thread to show a modal dialog on the main UI thread. In order to 
+    /// any thread to show a modal dialog on the main UI thread. In order to
     /// use this class a BlogClientUIContextScope must have been created (and
     /// not yet disposed) on the currently executing thread.
     /// </summary>
@@ -176,7 +172,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
 
-
         internal static IBlogClientUIContext ContextForCurrentThread
         {
             get { return _uiContext; }
@@ -206,7 +201,6 @@ namespace OpenLiveWriter.BlogClient
             // center the form on that point
             form.Location = new Point(centerPoint.X - (form.Width / 2), centerPoint.Y - (form.Height / 2));
         }
-
 
         [ThreadStatic]
         private static IBlogClientUIContext _uiContext;

@@ -24,7 +24,7 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,11 +36,11 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -55,7 +55,6 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -63,9 +62,9 @@ namespace OpenLiveWriter.ApplicationFramework.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandFocusNextPane
-			// 
+			//
 			this.Identifier = "MindShare.ApplicationCore.Commands.FocusNextPane";
 			this.Shortcut = System.Windows.Forms.Shortcut.F6;
 			this.Text = "Next Pane";

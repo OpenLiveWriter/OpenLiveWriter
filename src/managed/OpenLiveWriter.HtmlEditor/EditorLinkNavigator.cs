@@ -21,13 +21,13 @@ namespace OpenLiveWriter.HtmlEditor
     public class EditorLinkNavigator : IDisposable
     {
         /// <summary>
-        /// Link navigator used for navigating to links from within 
+        /// Link navigator used for navigating to links from within
         /// an editing session
         /// </summary>
         /// <param name="editorControl">presentation editor context</param>
         public EditorLinkNavigator(HtmlEditorControl editorControl, IMainFrameWindow editorFrame, IStatusBar statusBar, IMshtmlDocumentEvents events)
         {
-            // save references 
+            // save references
             _htmlEditorContext = editorControl as IHtmlEditorComponentContext;
             _htmlEditorControl = editorControl;
             _editorFrame = editorFrame;
@@ -40,7 +40,6 @@ namespace OpenLiveWriter.HtmlEditor
             _htmlEditorContext.TranslateAccelerator += new HtmlEditDesignerEventHandler(presentationEditor_TranslateAccelerator);
             _documentEvents.LostFocus += new EventHandler(_documentEvents_LostFocus);
         }
-
 
         public bool SuppressForImages
         {
@@ -86,7 +85,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Handle editor events to do link navigation (including tooltips)
         /// </summary>
@@ -106,11 +104,10 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Handle mouse over event
         /// </summary>
-        /// <param name="pIEventObj">event object</param>		
+        /// <param name="pIEventObj">event object</param>
         private int HandleMouseOver(IHTMLEventObj pIEventObj)
         {
             // see if we are over a link element
@@ -126,12 +123,12 @@ namespace OpenLiveWriter.HtmlEditor
                 // reset navigated flag
                 navigatedToCurrentLinkElement = false;
 
-                // update feedback		
+                // update feedback
                 UpdateFeedback();
             }
 
             // just to be paranoid, if there is no current link element we should
-            // always update feedback (to make sure that an edge case doesn't 
+            // always update feedback (to make sure that an edge case doesn't
             // cause us to keep feedback around when it shouldn't be)
             if (currentLinkElement == null)
                 UpdateFeedback();
@@ -140,11 +137,10 @@ namespace OpenLiveWriter.HtmlEditor
             return HRESULT.S_FALSE;
         }
 
-
         /// <summary>
         /// Handle mouse down event
         /// </summary>
-        /// <param name="pIEventObj">event object</param>		
+        /// <param name="pIEventObj">event object</param>
         private int HandleMouseDown(IHTMLEventObj pIEventObj)
         {
             // if the control key is down
@@ -197,9 +193,8 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
 
-
         /// <summary>
-        /// Handle TranslateAccelerator to update feedback on cursor and to clear the 
+        /// Handle TranslateAccelerator to update feedback on cursor and to clear the
         /// tooltip for ALT-TAB, CTL-HOME, etc.
         /// </summary>
         /// <param name="inEvtDispId"></param>
@@ -222,7 +217,6 @@ namespace OpenLiveWriter.HtmlEditor
             return HRESULT.S_FALSE;
         }
 
-
         /// <summary>
         /// Always clear link feedback when the document loses focus
         /// </summary>
@@ -233,7 +227,6 @@ namespace OpenLiveWriter.HtmlEditor
             ClearLinkFeedback();
         }
 
-
         /// <summary>
         /// Always clear link feedback when the frame is deactivated
         /// </summary>
@@ -243,7 +236,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
             ClearLinkFeedback();
         }
-
 
         /// <summary>
         /// Monitors whether the frame is currently active and remove the tooltip
@@ -277,8 +269,6 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
 
-
-
         /// <summary>
         /// Clear any existing link feedback
         /// </summary>
@@ -288,7 +278,6 @@ namespace OpenLiveWriter.HtmlEditor
             navigatedToCurrentLinkElement = false;
             UpdateFeedback();
         }
-
 
         /// <summary>
         /// Update all forms of feedback (status bar, tooltip, cursor)
@@ -304,7 +293,6 @@ namespace OpenLiveWriter.HtmlEditor
             // update the cursor
             UpdateCursor();
         }
-
 
 
         /// <summary>
@@ -334,7 +322,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Update the tooltip
         /// </summary>
@@ -354,7 +341,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Delayed processing for showing tooltips (only show them if the user hovers
         /// over a link for more than a specified period of time)
@@ -373,12 +359,12 @@ namespace OpenLiveWriter.HtmlEditor
                 toolTipDelayTimer.Stop();
                 toolTipDelayTimer.Dispose();
 
-                // determine the link element the mouse is currently over and check to  see 
+                // determine the link element the mouse is currently over and check to  see
                 // if the delay element is the same as the current element -- if so, show the tooltip
                 IHTMLElement mouseOverElement = _htmlEditorControl.ElementAtPoint(Control.MousePosition);
                 if (mouseOverElement != null && (GetLinkElement(mouseOverElement) == delayElement) && !navigatedToCurrentLinkElement && currentLinkElement != null)
                 {
-                    // calculate the screen coordinate of the top of the current link element		
+                    // calculate the screen coordinate of the top of the current link element
                     int elementClientY = HTMLElementHelper.GetTopRelativeToClient(mouseOverElement);
                     Point elementScreenPt = _htmlEditorControl.ClientPointToScreenPoint(new Point(0, elementClientY));
 
@@ -391,7 +377,7 @@ namespace OpenLiveWriter.HtmlEditor
                     toolTip.SetToolTip(String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.LinkToolTip), href));
 
                     // start timer which monitors whether the main frame is still active and
-                    // hides the tooltip if it does not										
+                    // hides the tooltip if it does not
                     _frameActiveTimer = new Timer();
                     _frameActiveTimer.Interval = 100;
                     _frameActiveTimer.Tick += new EventHandler(frameActiveTimer_Tick);
@@ -406,7 +392,6 @@ namespace OpenLiveWriter.HtmlEditor
                 Debug.Fail("Unexpected error during tool tip delay timer: " + ex.ToString());
             }
         }
-
 
         /// <summary>
         /// Update the state of the cursor
@@ -429,7 +414,6 @@ namespace OpenLiveWriter.HtmlEditor
                     Cursor.Current = Cursors.IBeam;
             }
         }
-
 
 
         /// <summary>
@@ -472,7 +456,6 @@ namespace OpenLiveWriter.HtmlEditor
             return null;
         }
 
-
         /// <summary>
         /// Helper class used to create a delay for showing tooltips
         /// </summary>
@@ -486,7 +469,6 @@ namespace OpenLiveWriter.HtmlEditor
 
             public readonly IHTMLElement DelayElement;
         }
-
 
 
         /// <summary>

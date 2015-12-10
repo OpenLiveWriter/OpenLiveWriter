@@ -20,7 +20,7 @@ namespace OpenLiveWriter.Controls.Wizard
         private LabelControl labelDescriptionText;
         private LabelControl labelTitleText;
         private PictureBox pictureBoxTitleBar;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -35,7 +35,7 @@ namespace OpenLiveWriter.Controls.Wizard
             _uiTheme = new HeaderBarUITheme(this);
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -51,8 +51,8 @@ namespace OpenLiveWriter.Controls.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -64,9 +64,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.pictureBoxTitleBar = new System.Windows.Forms.PictureBox();
             this.titleBarPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // titleBarPanel
-            // 
+            //
             this.titleBarPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -77,9 +77,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.titleBarPanel.Name = "titleBarPanel";
             this.titleBarPanel.Size = new System.Drawing.Size(392, 64);
             this.titleBarPanel.TabIndex = 1;
-            // 
+            //
             // labelDescriptionText
-            // 
+            //
             this.labelDescriptionText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -93,9 +93,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.labelDescriptionText.TabIndex = 13;
             this.labelDescriptionText.Text = "A brief description of what this wizard does. djhdkjsdfhsd dfsdfsdf sdfsdf sdfsdf" +
                 "";
-            // 
+            //
             // labelTitleText
-            // 
+            //
             this.labelTitleText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTitleText.BackColor = System.Drawing.Color.Transparent;
@@ -108,9 +108,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.labelTitleText.Size = new System.Drawing.Size(312, 23);
             this.labelTitleText.TabIndex = 12;
             this.labelTitleText.Text = "Wizard Title";
-            // 
+            //
             // pictureBoxTitleBar
-            // 
+            //
             this.pictureBoxTitleBar.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxTitleBar.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxTitleBar.Image")));
             this.pictureBoxTitleBar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -119,9 +119,9 @@ namespace OpenLiveWriter.Controls.Wizard
             this.pictureBoxTitleBar.Size = new System.Drawing.Size(72, 40);
             this.pictureBoxTitleBar.TabIndex = 11;
             this.pictureBoxTitleBar.TabStop = false;
-            // 
+            //
             // WizardHeaderBar
-            // 
+            //
             this.Controls.Add(this.titleBarPanel);
             this.Name = "WizardHeaderBar";
             this.Size = new System.Drawing.Size(392, 64);
@@ -145,7 +145,6 @@ namespace OpenLiveWriter.Controls.Wizard
             get { return pictureBoxTitleBar.Image; }
             set { pictureBoxTitleBar.Image = value; }
         }
-
 
         /// <summary>
         /// Gets or sets the title of the wizard.

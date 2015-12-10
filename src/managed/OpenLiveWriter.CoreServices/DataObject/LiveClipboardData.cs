@@ -10,7 +10,6 @@ using System.Collections;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-
 namespace OpenLiveWriter.CoreServices
 {
 
@@ -63,7 +62,6 @@ namespace OpenLiveWriter.CoreServices
         }
     }
 
-
     public class LiveClipboardData
     {
         public static LiveClipboardData Create(IDataObject iDataObject)
@@ -105,7 +103,6 @@ namespace OpenLiveWriter.CoreServices
         private bool _attemptedFormats = false;
         private LiveClipboardFormat[] _formats;
 
-
         public string HtmlPresentation
         {
             get
@@ -120,7 +117,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private bool _attemptedCreateHtmlPresentation;
         private string _htmlPresentation = null;
-
 
         private LiveClipboardFormat[] ExtractFormats()
         {
@@ -161,7 +157,6 @@ namespace OpenLiveWriter.CoreServices
             // return the formats
             return formats.ToArray(typeof(LiveClipboardFormat)) as LiveClipboardFormat[];
         }
-
 
         private string ExtractHtmlPresentation()
         {
@@ -208,7 +203,6 @@ namespace OpenLiveWriter.CoreServices
         private const string TEXT_PLAIN = "text/plain";
         private const string APPLICATION_XHTML = "application/xhtml+xml";
         private string[] _textFormats = new string[] { TEXT_HTML, APPLICATION_XHTML, TEXT_PLAIN };
-
 
         private static XmlDocument ExtractLiveClipboardData(string clipboardText)
         {

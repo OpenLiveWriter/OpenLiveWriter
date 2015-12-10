@@ -10,7 +10,7 @@ using OpenLiveWriter.Mshtml.Mshtml_Interop;
 namespace OpenLiveWriter.Mshtml
 {
     /// <summary>
-    /// Base implemetnation of interface used for customizing the UI of MSHTML. 
+    /// Base implemetnation of interface used for customizing the UI of MSHTML.
     /// Provides correct default behavior for all methods and allows selective
     /// overrides for targeted customization.
     /// </summary>
@@ -18,7 +18,7 @@ namespace OpenLiveWriter.Mshtml
     {
         public virtual int ShowContextMenu(int dwID, ref POINT ppt, object pcmdtReserved, object pdispReserved)
         {
-            // Host did not display any UI. MSHTML will display its UI. 
+            // Host did not display any UI. MSHTML will display its UI.
             return HRESULT.S_FALSE;
         }
 
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.Mshtml
 
         public virtual int ShowUI(DOCHOSTUITYPE dwID, IOleInPlaceActiveObject pActiveObject, IOleCommandTarget pCommandTarget, IOleInPlaceFrame pFrame, IOleInPlaceUIWindow pDoc)
         {
-            // Host did not display any UI. MSHTML will display its UI. 
+            // Host did not display any UI. MSHTML will display its UI.
             return HRESULT.S_FALSE;
         }
 

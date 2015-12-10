@@ -58,7 +58,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             base.Display();
 
-
             // create and start the operation
             _asyncOperation = _autoDetectionOperation.CreateOperation(
                 _uiContext,
@@ -75,7 +74,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // start the operation
             _asyncOperation.Start();
         }
-
 
         public override void Back()
         {
@@ -157,7 +155,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             ExitAsyncOperation();
         }
 
-
         private void ExitAsyncOperation()
         {
             Wizard.NextEnabled = true;
@@ -170,7 +167,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 _asyncOperation = null;
             }
         }
-
 
         private IWin32Window DialogOwner
         {
@@ -186,7 +182,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         protected TemporaryBlogSettings _temporarySettings;
         private IWizardAutoDetectionOperation _autoDetectionOperation;
         private AsyncOperation _asyncOperation;
-
 
     }
 }

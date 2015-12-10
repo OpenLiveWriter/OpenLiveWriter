@@ -126,16 +126,16 @@ namespace OpenLiveWriter.BlogClient.Clients
 		private CredentialsHelper()
 		{
 		}
-		
+
 		public static BlogCredentialsRefreshCallback GetRefreshCallback()
 		{
 			return new BlogCredentialsRefreshCallback(RefreshCredentials);
 		}
-		
+
 		private static BlogCredentialsRefreshResult RefreshCredentials(IBlogClientUIContext owner, ref string username, ref string password, ref object authToken)
 		{
 			BlogCredentialsRefreshResult refreshResult;
-			if(authToken != null || 
+			if(authToken != null ||
 				(username != String.Empty && username != null && password != String.Empty && password != null))
 			{
 				refreshResult = BlogCredentialsRefreshResult.OK;
@@ -153,13 +153,13 @@ namespace OpenLiveWriter.BlogClient.Clients
 						owner.Invoke(new InvokeInUIThreadDelegate(promptHelper.ShowPrompt), new object[0]);
 					else
 						promptHelper.ShowPrompt();
-					
+
 					username = promptHelper.Username;
 					password = promptHelper.Password;
 					refreshResult = promptHelper.Result;
 				}
 			}
-			
+
 			if(refreshResult != BlogCredentialsRefreshResult.Cancel && refreshResult != BlogCredentialsRefreshResult.Abort)
 			{
 				//save the login time in the authtoken
@@ -180,7 +180,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 				_username = username;
 				_password = password;
 			}
-			
+
 			public void ShowPrompt()
 			{
 				BlogCredentialsRefreshResult refreshResult;
@@ -190,7 +190,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 						form.UserName = _username;
 					if(_password != null)
 						form.Password = _password;
-			
+
 					DialogResult dialogResult = form.ShowDialog(owner) ;
 					if (dialogResult == DialogResult.OK)
 					{

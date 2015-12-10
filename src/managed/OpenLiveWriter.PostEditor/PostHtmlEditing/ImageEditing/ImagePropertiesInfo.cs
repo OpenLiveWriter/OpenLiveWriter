@@ -25,7 +25,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             Init(sourceFile.Uri, new Size(sourceFile.Width, sourceFile.Height), decorators);
         }
 
-
         public override Uri ImageSourceUri
         {
             get { return _imageData.GetImageSourceFile().Uri; }
@@ -111,7 +110,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         Size _size = new Size(Int32.MaxValue, Int32.MaxValue);
 
         /// <summary>
-        /// If true, forces any change in the width or height of the inline image to maintain the inline image aspect 
+        /// If true, forces any change in the width or height of the inline image to maintain the inline image aspect
         /// ratio.
         /// </summary>
         public bool InlineImageAspectRatioLocked
@@ -127,7 +126,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// Changing this width while InlineImageAspectRatioLocked is true will also change the height in order to 
+        /// Changing this width while InlineImageAspectRatioLocked is true will also change the height in order to
         /// maintain the inline image aspect ratio.
         /// </summary>
         public int InlineImageWidth
@@ -144,7 +143,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// Changing this height while InlineImageAspectRatioLocked is true will also change the width in order to 
+        /// Changing this height while InlineImageAspectRatioLocked is true will also change the width in order to
         /// maintain the inline image aspect ratio.
         /// </summary>
         public int InlineImageHeight

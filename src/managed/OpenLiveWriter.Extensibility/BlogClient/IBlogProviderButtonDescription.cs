@@ -40,7 +40,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         string NotificationUrl { get; }
     }
 
-
     public interface IBlogProviderButtonNotification
     {
         // interval until next notification check
@@ -55,6 +54,5 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         // clear notification image on click?
         bool ClearNotificationOnClick { get; }
     }
-
 
 }

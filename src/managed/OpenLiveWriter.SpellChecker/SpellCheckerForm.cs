@@ -93,7 +93,6 @@ namespace OpenLiveWriter.SpellChecker
             this.owner = owner;
         }
 
-
         /// <summary>
         /// Check spelling
         /// </summary>
@@ -102,12 +101,11 @@ namespace OpenLiveWriter.SpellChecker
             CheckSpelling(range, null);
         }
 
-
         /// <summary>
-        /// Check spelling 
+        /// Check spelling
         /// </summary>
         /// <param name="range">word range to check</param>
-        /// <param name="contextDictionaryLocation">directory where the 
+        /// <param name="contextDictionaryLocation">directory where the
         /// spell checker can write a context-bound dictionary (null to not
         /// use a context-dictionary)</param>
         public void CheckSpelling(IWordRange range, string contextDictionaryLocation)
@@ -123,7 +121,6 @@ namespace OpenLiveWriter.SpellChecker
             // then the form will never show)
             ContinueSpellCheck();
         }
-
 
         /// <summary>
         /// Was the spell check completed?
@@ -154,18 +151,18 @@ namespace OpenLiveWriter.SpellChecker
                 Trace.Fail("Spellchecker was uninitialized in the middle of spellchecking after removing highlight.");
                 return;
             }
-                
+
 
             using (new WaitCursor())
             {
-                // loop through all of the words in the word-range			
+                // loop through all of the words in the word-range
                 bool currentWordMisspelled = false;
                 while (wordRange.HasNext())
                 {
                     // advance to the next word
                     wordRange.Next();
 
-                    // check the spelling				
+                    // check the spelling
                     string otherWord = null;
                     offset = 0;
                     length = wordRange.CurrentWord.Length;
@@ -177,7 +174,7 @@ namespace OpenLiveWriter.SpellChecker
                     else
                         result = SpellCheckResult.Correct;
 
-                    //note: currently using this to not show any errors in smart content, since the fix isn't 
+                    //note: currently using this to not show any errors in smart content, since the fix isn't
                     // propogated to the underlying data structure
                     if (result != SpellCheckResult.Correct && !wordRange.FilterAppliesRanged(offset, length))
                     {
@@ -249,7 +246,6 @@ namespace OpenLiveWriter.SpellChecker
             }
         }
 
-
         /// <summary>
         /// Fina!
         /// </summary>
@@ -266,7 +262,6 @@ namespace OpenLiveWriter.SpellChecker
                 ResetSpellingState();
             }
         }
-
 
         /// <summary>
         /// Cleanup when the form closes
@@ -303,10 +298,9 @@ namespace OpenLiveWriter.SpellChecker
         private void ResetSpellingState()
         {
             // remove feedback from the document
-            RemoveHighlight();            
+            RemoveHighlight();
             spellingChecker.Reset();
         }
-
 
 
         /// <summary>
@@ -318,7 +312,6 @@ namespace OpenLiveWriter.SpellChecker
             ProvideSuggestions(word, DEFAULT_MAX_SUGGESTIONS);
         }
 
-
         /// <summary>
         /// Provide suggestions for the current misspelled word
         /// </summary>
@@ -326,14 +319,14 @@ namespace OpenLiveWriter.SpellChecker
         /// <param name="maxSuggestions">maximum number of suggestions to provide</param>
         private void ProvideSuggestions(string word, short maxSuggestions)
         {
-            // clear the existing suggestions			
+            // clear the existing suggestions
             listBoxSuggestions.Items.Clear();
             textBoxChangeTo.Clear();
 
             // retrieve suggestions
             SpellingSuggestion[] suggestions = spellingChecker.Suggest(word, maxSuggestions, SUGGESTION_DEPTH);
 
-            // provide suggestions			
+            // provide suggestions
             if (suggestions.Length > 0)
             {
                 // add suggestions to list (stop adding when the quality of scores
@@ -368,11 +361,10 @@ namespace OpenLiveWriter.SpellChecker
 
             }
 
-            // select and focus change-to				
+            // select and focus change-to
             textBoxChangeTo.SelectAll();
             textBoxChangeTo.Focus();
         }
-
 
         /// <summary>
         /// Provide a suggestion containing a single word
@@ -390,7 +382,6 @@ namespace OpenLiveWriter.SpellChecker
             textBoxChangeTo.Focus();
         }
 
-
         /// <summary>
         /// Handle Ignore button
         /// </summary>
@@ -403,7 +394,6 @@ namespace OpenLiveWriter.SpellChecker
             // continue spell checking
             ContinueSpellCheck();
         }
-
 
         /// <summary>
         /// Handle Ignore All button
@@ -418,7 +408,6 @@ namespace OpenLiveWriter.SpellChecker
             // continue spell checking
             ContinueSpellCheck();
         }
-
 
         /// <summary>
         /// Handle Change button
@@ -440,13 +429,12 @@ namespace OpenLiveWriter.SpellChecker
             // replace the word
             wordRange.Replace(offset, length, textBoxChangeTo.Text);
 
-            // notify spell checker that we want to replace all instances of this word            
+            // notify spell checker that we want to replace all instances of this word
             spellingChecker.ReplaceAll(labelWord.Text, textBoxChangeTo.Text);
 
             // continue spell checking
             ContinueSpellCheck();
         }
-
 
         /// <summary>
         /// Handle Add button
@@ -461,7 +449,6 @@ namespace OpenLiveWriter.SpellChecker
             // continue spell checking
             ContinueSpellCheck();
         }
-
 
 
         /// <summary>
@@ -483,7 +470,6 @@ namespace OpenLiveWriter.SpellChecker
             }
         }
 
-
         /// <summary>
         /// Update ChangeTo text box when the selection changes
         /// </summary>
@@ -491,13 +477,12 @@ namespace OpenLiveWriter.SpellChecker
         /// <param name="e"></param>
         private void listBoxSuggestions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // update contents of change to text box 
+            // update contents of change to text box
             if (listBoxSuggestions.SelectedIndex != -1)
                 textBoxChangeTo.Text = listBoxSuggestions.SelectedItem as string;
             else
                 textBoxChangeTo.Text = String.Empty;
         }
-
 
 
         /// <summary>
@@ -514,7 +499,6 @@ namespace OpenLiveWriter.SpellChecker
             DoChange();
         }
 
-
         /// <summary>
         /// Handle Done button
         /// </summary>
@@ -524,7 +508,6 @@ namespace OpenLiveWriter.SpellChecker
         {
             EndSpellCheck();
         }
-
 
         /// <summary>
         /// Handle Options button
@@ -536,9 +519,8 @@ namespace OpenLiveWriter.SpellChecker
 
         }
 
-
         /// <summary>
-        /// Execute the change 
+        /// Execute the change
         /// </summary>
         private void DoChange()
         {
@@ -548,7 +530,6 @@ namespace OpenLiveWriter.SpellChecker
             // continue spell checking
             ContinueSpellCheck();
         }
-
 
         /// <summary>
         /// Highlight the current word range (delays the highlight if the form is not yet visible)
@@ -562,7 +543,6 @@ namespace OpenLiveWriter.SpellChecker
         }
 
 
-
         /// <summary>
         /// Ensure the form is loaded
         /// </summary>
@@ -571,7 +551,6 @@ namespace OpenLiveWriter.SpellChecker
             if (!Visible)
                 ShowDialog(owner);
         }
-
 
         /// <summary>
         /// Override on-load
@@ -635,7 +614,6 @@ namespace OpenLiveWriter.SpellChecker
             base.Dispose(disposing);
         }
 
-
         /// <summary>
         /// Word range to check
         /// </summary>
@@ -646,14 +624,13 @@ namespace OpenLiveWriter.SpellChecker
         /// </summary>
         private ISpellingChecker spellingChecker;
 
-
         /// <summary>
         /// Is there a word-range highlight pending the showing of the form?
         /// </summary>
         private bool wordRangeHighlightPending = false;
 
         /// <summary>
-        /// Indicates whether the spell-check was completed 
+        /// Indicates whether the spell-check was completed
         /// </summary>
         private bool completed = false;
 
@@ -674,11 +651,10 @@ namespace OpenLiveWriter.SpellChecker
         private const short SUGGESTION_DEPTH = 80;
 
         /// <summary>
-        /// Spelling prompts 
+        /// Spelling prompts
         /// </summary>
         private readonly string NOT_IN_DICTIONARY = Res.Get(StringId.SpellNotInDict);
         private readonly string CAPITALIZATION = Res.Get(StringId.SpellCaps);
-
 
         #region Windows Form Designer generated code
         /// <summary>
@@ -700,9 +676,9 @@ namespace OpenLiveWriter.SpellChecker
             this.buttonAdd = new System.Windows.Forms.Button();
             this.labelWord = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // labelNotInDictionary
-            // 
+            //
             this.labelNotInDictionary.AutoSize = true;
             this.labelNotInDictionary.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelNotInDictionary.Location = new System.Drawing.Point(8, 12);
@@ -710,9 +686,9 @@ namespace OpenLiveWriter.SpellChecker
             this.labelNotInDictionary.Size = new System.Drawing.Size(90, 17);
             this.labelNotInDictionary.TabIndex = 0;
             this.labelNotInDictionary.Text = "&Not in dictionary:";
-            // 
+            //
             // labelChangeTo
-            // 
+            //
             this.labelChangeTo.AutoSize = true;
             this.labelChangeTo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelChangeTo.Location = new System.Drawing.Point(8, 55);
@@ -720,9 +696,9 @@ namespace OpenLiveWriter.SpellChecker
             this.labelChangeTo.Size = new System.Drawing.Size(59, 17);
             this.labelChangeTo.TabIndex = 2;
             this.labelChangeTo.Text = "C&hange to:";
-            // 
+            //
             // textBoxChangeTo
-            // 
+            //
             this.textBoxChangeTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxChangeTo.Location = new System.Drawing.Point(8, 71);
@@ -732,9 +708,9 @@ namespace OpenLiveWriter.SpellChecker
             this.textBoxChangeTo.TabIndex = 3;
             this.textBoxChangeTo.Text = "";
             this.textBoxChangeTo.TextChanged += new System.EventHandler(this.textBoxChangeTo_TextChanged);
-            // 
+            //
             // labelSuggestions
-            // 
+            //
             this.labelSuggestions.AutoSize = true;
             this.labelSuggestions.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelSuggestions.Location = new System.Drawing.Point(9, 99);
@@ -742,9 +718,9 @@ namespace OpenLiveWriter.SpellChecker
             this.labelSuggestions.Size = new System.Drawing.Size(68, 17);
             this.labelSuggestions.TabIndex = 4;
             this.labelSuggestions.Text = "S&uggestions:";
-            // 
+            //
             // listBoxSuggestions
-            // 
+            //
             this.listBoxSuggestions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxSuggestions.IntegralHeight = false;
@@ -754,9 +730,9 @@ namespace OpenLiveWriter.SpellChecker
             this.listBoxSuggestions.TabIndex = 5;
             this.listBoxSuggestions.DoubleClick += new System.EventHandler(this.listBoxSuggestions_DoubleClick);
             this.listBoxSuggestions.SelectedIndexChanged += new System.EventHandler(this.listBoxSuggestions_SelectedIndexChanged);
-            // 
+            //
             // buttonIgnore
-            // 
+            //
             this.buttonIgnore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIgnore.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonIgnore.Location = new System.Drawing.Point(298, 27);
@@ -764,9 +740,9 @@ namespace OpenLiveWriter.SpellChecker
             this.buttonIgnore.TabIndex = 6;
             this.buttonIgnore.Text = "I&gnore";
             this.buttonIgnore.Click += new System.EventHandler(this.buttonIgnore_Click);
-            // 
+            //
             // buttonIgnoreAll
-            // 
+            //
             this.buttonIgnoreAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonIgnoreAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonIgnoreAll.Location = new System.Drawing.Point(298, 54);
@@ -774,9 +750,9 @@ namespace OpenLiveWriter.SpellChecker
             this.buttonIgnoreAll.TabIndex = 7;
             this.buttonIgnoreAll.Text = "&Ignore All";
             this.buttonIgnoreAll.Click += new System.EventHandler(this.buttonIgnoreAll_Click);
-            // 
+            //
             // buttonChangeAll
-            // 
+            //
             this.buttonChangeAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonChangeAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonChangeAll.Location = new System.Drawing.Point(298, 115);
@@ -784,9 +760,9 @@ namespace OpenLiveWriter.SpellChecker
             this.buttonChangeAll.TabIndex = 9;
             this.buttonChangeAll.Text = "Change A&ll";
             this.buttonChangeAll.Click += new System.EventHandler(this.buttonChangeAll_Click);
-            // 
+            //
             // buttonChange
-            // 
+            //
             this.buttonChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonChange.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonChange.Location = new System.Drawing.Point(298, 88);
@@ -794,9 +770,9 @@ namespace OpenLiveWriter.SpellChecker
             this.buttonChange.TabIndex = 8;
             this.buttonChange.Text = "&Change";
             this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -805,9 +781,9 @@ namespace OpenLiveWriter.SpellChecker
             this.buttonCancel.TabIndex = 12;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
+            //
             // buttonAdd
-            // 
+            //
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonAdd.Location = new System.Drawing.Point(298, 149);
@@ -815,9 +791,9 @@ namespace OpenLiveWriter.SpellChecker
             this.buttonAdd.TabIndex = 10;
             this.buttonAdd.Text = "&Add";
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
+            //
             // labelWord
-            // 
+            //
             this.labelWord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -826,9 +802,9 @@ namespace OpenLiveWriter.SpellChecker
             this.labelWord.Size = new System.Drawing.Size(282, 21);
             this.labelWord.TabIndex = 1;
             this.labelWord.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
+            //
             // SpellCheckerForm
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(383, 271);
@@ -855,7 +831,6 @@ namespace OpenLiveWriter.SpellChecker
 
         }
         #endregion
-
 
     }
 }

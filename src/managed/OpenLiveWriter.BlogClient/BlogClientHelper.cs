@@ -109,7 +109,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
 
-
         public static WinInetCredentialsContext GetCredentialsContext(string blogId, string url)
         {
             using (BlogSettings blogSettings = BlogSettings.ForBlogId(blogId))

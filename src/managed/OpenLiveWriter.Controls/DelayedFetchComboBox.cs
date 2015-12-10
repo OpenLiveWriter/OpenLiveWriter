@@ -25,7 +25,6 @@ namespace OpenLiveWriter.Controls
         private IDelayedFetchHandler _fetchHandler;
         private DropDownNotifier _dropDownNotifier;
 
-
         public DelayedFetchComboBox(System.ComponentModel.IContainer container)
         {
             ///
@@ -60,7 +59,6 @@ namespace OpenLiveWriter.Controls
             _fetchHandler = fetchHandler;
         }
 
-
         /// <summary>
         /// Notification that the combo is dropping down.
         /// </summary>
@@ -89,7 +87,6 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
@@ -113,8 +110,7 @@ namespace OpenLiveWriter.Controls
             InstallDropDownNotifier();
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -173,17 +169,14 @@ namespace OpenLiveWriter.Controls
                 base.WndProc(ref m);
             }
 
-
             public void Dispose()
             {
                 ReleaseHandle();
             }
 
-
             private DelayedFetchComboBox _delayedFetchCombo;
 
         }
-
 
         #region Component Designer generated code
         /// <summary>
@@ -192,14 +185,12 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // DelayedFetchComboBox
-            // 
-
+            //
 
         }
         #endregion
-
 
     }
 

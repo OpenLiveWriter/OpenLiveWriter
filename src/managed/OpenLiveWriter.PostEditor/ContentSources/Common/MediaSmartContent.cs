@@ -22,7 +22,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
         /// <summary>
         /// This is the ID that Writer is using internally to identify the smart content
-        /// This ID will change over time, so therefore should not be used for anything 
+        /// This ID will change over time, so therefore should not be used for anything
         /// other then linking this smart content to the extension data list.  If you keep this
         /// value around for other things like hashing the smart content the value might change
         /// and you will now have a stale value.

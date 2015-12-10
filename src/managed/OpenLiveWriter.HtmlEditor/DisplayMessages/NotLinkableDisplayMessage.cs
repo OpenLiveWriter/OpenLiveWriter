@@ -9,7 +9,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.HtmlEditor.DisplayMessages
 {
-	
+
 	public class NotLinkableDisplayMessage : DisplayMessage
 	{
 		/// <summary>
@@ -32,11 +32,11 @@ namespace OpenLiveWriter.HtmlEditor.DisplayMessages
 			///
 			/// Required for Windows.Forms Class Composition Designer support
 			///
-			InitializeComponent();	
+			InitializeComponent();
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -51,7 +51,6 @@ namespace OpenLiveWriter.HtmlEditor.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -59,9 +58,9 @@ namespace OpenLiveWriter.HtmlEditor.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// NotLinkableDisplayMessage
-			// 
+			//
 			this.Type = DisplayMessageType.Information;
 			this.Buttons = MessageBoxButtons.OK;
 			this.Text = "Your selection cannot be hyperlinked. Please select text, or click on an image.";

@@ -7,7 +7,7 @@ using System.Globalization;
 namespace OpenLiveWriter.Api
 {
     /// <summary>
-    /// Attribute which should be applied to all classes derived from WriterPlugin. 
+    /// Attribute which should be applied to all classes derived from WriterPlugin.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class WriterPluginAttribute : Attribute
@@ -37,7 +37,6 @@ namespace OpenLiveWriter.Api
             Name = name;
             ImagePath = imagePath;
         }
-
 
         /// <summary>
         /// Unique ID for the plugin (should be a GUID without leading and trailing braces)
@@ -82,13 +81,13 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Path to embedded image resource used to represent this plugin within the
-        /// Open Live Writer UI (menu bitmap, sidebar bitmap, etc.). The size of 
+        /// Open Live Writer UI (menu bitmap, sidebar bitmap, etc.). The size of
         /// the embedded image must be 20x18 or 16x16 pixels.
         /// </summary>
         /// <remarks>
         /// Early Beta versions of Open Live Writer required icons to be 20x18, but
         /// later versions prefer 16x16. Later versions of Writer will scale 20x18 images
-        /// to 16x16, or, if only the center 16x16 pixels of the 20x18 are non-transparent, 
+        /// to 16x16, or, if only the center 16x16 pixels of the 20x18 are non-transparent,
         /// the image will simply be cropped to 16x16.
         /// </remarks>
         public string ImagePath
@@ -159,7 +158,6 @@ namespace OpenLiveWriter.Api
             }
         }
         private bool _hasEditableOptions = false;
-
 
         private bool ValidateGuid(string id)
         {

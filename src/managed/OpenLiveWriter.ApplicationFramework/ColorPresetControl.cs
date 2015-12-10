@@ -352,23 +352,23 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // ColorPresetControl
-            // 
+            //
             this.Name = "ColorPresetControl";
             this.Size = new System.Drawing.Size(96, 72);
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
 
-            // 
+            //
             // tableLayout
-            // 			
+            //
             this.tableLayout.RowCount = 3;
             this.tableLayout.ColumnCount = 4;
             this.tableLayout.Location = new System.Drawing.Point(0, 0);

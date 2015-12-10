@@ -70,81 +70,81 @@ namespace OpenLiveWriter.PostEditor
 //			this.commandBarSeparatorEntry6 = new OpenLiveWriter.ApplicationFramework.CommandBarSeparatorEntry(this.components);
 			this.commandBarButtonEntryTableMenu = new OpenLiveWriter.ApplicationFramework.CommandBarButtonEntry(this.components);
 			this.commandBarSeparatorEntry7 = new OpenLiveWriter.ApplicationFramework.CommandBarSeparatorEntry(this.components);
-			// 
+			//
 			// commandBarButtonEntryBold
-			// 
+			//
 			this.commandBarButtonEntryBold.CommandIdentifier = "MindShare.ApplicationCore.Commands.Bold";
-			// 
+			//
 			// commandBarButtonEntryItalic
-			// 
+			//
 			this.commandBarButtonEntryItalic.CommandIdentifier = "MindShare.ApplicationCore.Commands.Italic";
-			// 
+			//
 			// commandBarButtonEntryUnderline
-			// 
+			//
 			this.commandBarButtonEntryUnderline.CommandIdentifier = "MindShare.ApplicationCore.Commands.Underline";
-			// 
+			//
 			// commandBarButtonEntryBullets
-			// 
+			//
 			this.commandBarButtonEntryBullets.CommandIdentifier = "MindShare.ApplicationCore.Commands.Bullets";
-			// 
+			//
 			// commandBarButtonEntryNumbers
-			// 
+			//
 			this.commandBarButtonEntryNumbers.CommandIdentifier = "MindShare.ApplicationCore.Commands.Numbers";
-			// 
+			//
 			// commandBarButtonEntryBlockquote
-			// 
+			//
 			this.commandBarButtonEntryBlockquote.CommandIdentifier = "MindShare.ApplicationCore.Commands.Blockquote";
-			// 
+			//
 			// commandBarButtonEntryFontColor
-			// 
+			//
 //			this.commandBarButtonEntryFontColor.CommandIdentifier = "MindShare.ApplicationCore.Commands.FontColor";
-			// 
+			//
 			// commandBarButtonEntryInsertLink
-			// 
+			//
 			this.commandBarButtonEntryInsertLink.CommandIdentifier = "OpenLiveWriter.ApplicationFramework.Commands.InsertLink";
-			// 
+			//
 			// commandBarButtonEntryNormalView
-			// 
+			//
 			this.commandBarButtonEntryNormalView.CommandIdentifier = "OpenLiveWriter.PostEditor.PostHtmlEditing.Commands.ViewNormal";
-			// 
+			//
 			// commandBarButtonEntryCodeView
-			// 
+			//
 			this.commandBarButtonEntryCodeView.CommandIdentifier = "OpenLiveWriter.PostEditor.PostHtmlEditing.Commands.ViewCode";
-			// 
+			//
 			// commandBarButtonEntryPostProperties
-			// 
+			//
 //			this.commandBarButtonEntryPostProperties.CommandIdentifier = "OpenLiveWriter.PostEditor.Commands.PostProperties";
-			// 
+			//
 			// commandBarControlEntryCategories
-			// 
+			//
 //			this.commandBarControlEntryCategories.Control = null;
-			// 
+			//
 			// commandBarControlEntryStyle
-			// 
+			//
 			this.commandBarControlEntryStyle.Control = null;
-			// 
+			//
 			// commandBarButtonEntryInsertPicture
-			// 
+			//
 //			this.commandBarButtonEntryInsertPicture.CommandIdentifier = "OpenLiveWriter.PostEditor.Commands.PostHtmlEditing.InsertPicture";
-			// 
+			//
 			// commandBarButtonEntryStrikethrough
-			// 
+			//
 			this.commandBarButtonEntryStrikethrough.CommandIdentifier = "MindShare.ApplicationCore.Commands.Strikethrough";
-			// 
+			//
 			// commandBarButtonEntryRemoveLink
-			// 
+			//
 			this.commandBarButtonEntryRemoveLink.CommandIdentifier = "OpenLiveWriter.PostEditor.Commands.PostHtmlEditing.CommandRemoveLink";
-			// 
+			//
 			// commandBarButtonEntrySpellCheck
-			// 
+			//
 			this.commandBarButtonEntrySpellCheck.CommandIdentifier = "MindShare.ApplicationCore.Commands.CheckSpelling";
-			// 
+			//
 			// commandBarButtonEntryTableMenu
-			// 
+			//
 			this.commandBarButtonEntryTableMenu.CommandIdentifier = "OpenLiveWriter.PostEditor.Tables.Commands.TableMenu";
-			// 
+			//
 			// PostEditorFormCommandBarDefinition2
-			// 
+			//
 			this.LeftCommandBarEntries.AddRange(new OpenLiveWriter.ApplicationFramework.CommandBarEntry[] {
 																												  this.commandBarControlEntryStyle,
 																												  this.commandBarButtonEntryBold,
@@ -174,8 +174,8 @@ namespace OpenLiveWriter.PostEditor
 */
 
 		}
-	
-		
-	
+
+
+
 	}
 }

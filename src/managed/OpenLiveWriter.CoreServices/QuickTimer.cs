@@ -8,18 +8,17 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Easy way to slap a timer around a block of code.  Example:
-    /// 
+    ///
     /// using (new QuickTimer("Long running operation"))
     /// {
     ///	// do long running operation
     /// }
-    /// 
-    /// When the using block is exited, timing info will be written 
+    ///
+    /// When the using block is exited, timing info will be written
     /// to the Debug output.
     /// </summary>
     public struct QuickTimer : IDisposable
     {
-
 
         private readonly string label;
 #if DEBUG

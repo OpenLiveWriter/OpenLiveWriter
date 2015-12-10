@@ -80,7 +80,6 @@ namespace OpenLiveWriter.CoreServices
         #region Class Configuration (location of settings, etc)
 
 
-
         private static SettingsPersisterHelper WriteSettingsKey
         {
             get
@@ -135,12 +134,8 @@ namespace OpenLiveWriter.CoreServices
                 _readSettingsKey = _settingsKey;
         }
 
-
         #endregion
     }
-
-
-
 
 
 

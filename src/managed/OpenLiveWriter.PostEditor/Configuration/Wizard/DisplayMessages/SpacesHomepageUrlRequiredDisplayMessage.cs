@@ -35,7 +35,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -58,9 +57,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// SpacesHomepageUrlRequiredDisplayMessage
-			// 
+			//
 			this.Text = "Please enter your Spaces\' Homepage URL to continue.";
 			this.Title = "Homepage Url Required";
 			this.Type = OpenLiveWriter.Controls.DisplayMessageType.Warning;

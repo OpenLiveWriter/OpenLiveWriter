@@ -41,7 +41,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         private System.Windows.Forms.Label labelBorderPixels;
         private System.Windows.Forms.Label label3;
 
-
         public TablePropertiesForm()
         {
             //
@@ -114,7 +113,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             LayoutHelper.FixupOKCancel(buttonOK, buttonCancel);
         }
 
-
         public TableCreationParameters CreateTable(IWin32Window owner)
         {
             // populate the form
@@ -145,7 +143,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         public TableProperties EditTable(IWin32Window owner, TableProperties properties)
         {
             // update UI for edit scenario
@@ -171,8 +168,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 return null;
             }
         }
-
-
 
 
 
@@ -225,7 +220,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
 
-
         private void buttonOK_Click(object sender, System.EventArgs e)
         {
             if (ValidateInput())
@@ -271,7 +265,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             if (!columnWidthControl.ValidateInput(1000))
                 return false;
 
-
             if (checkBoxShowBorder.Checked)
             {
                 if (!ValidateTextBoxInteger(Res.Get(StringId.TableBorder), numericTextBoxBorder, 100))
@@ -305,7 +298,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             // got this far, we are ok
             return true;
         }
-
 
 
         private bool ValidateTextBoxInteger(string name, TextBox textBox, int maxValue)
@@ -407,8 +399,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
 
-
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -454,9 +444,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.panelRowsAndColumns.SuspendLayout();
             this.groupBoxAppearance.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(139, 247);
@@ -465,9 +455,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -476,9 +466,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // groupBoxSize
-            // 
+            //
             this.groupBoxSize.Controls.Add(this.columnWidthControl);
             this.groupBoxSize.Controls.Add(this.panelRowsAndColumns);
             this.groupBoxSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -488,9 +478,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.groupBoxSize.TabIndex = 0;
             this.groupBoxSize.TabStop = false;
             this.groupBoxSize.Text = "Size";
-            // 
+            //
             // columnWidthControl
-            // 
+            //
             this.columnWidthControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.columnWidthControl.ColumnWidth = 0;
@@ -499,9 +489,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.columnWidthControl.Name = "columnWidthControl";
             this.columnWidthControl.Size = new System.Drawing.Size(254, 23);
             this.columnWidthControl.TabIndex = 1;
-            // 
+            //
             // panelRowsAndColumns
-            // 
+            //
             this.panelRowsAndColumns.Controls.Add(this.numericTextBoxColumns);
             this.panelRowsAndColumns.Controls.Add(this.numericTextBoxRows);
             this.panelRowsAndColumns.Controls.Add(this.labelRows);
@@ -510,45 +500,45 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.panelRowsAndColumns.Name = "panelRowsAndColumns";
             this.panelRowsAndColumns.Size = new System.Drawing.Size(227, 23);
             this.panelRowsAndColumns.TabIndex = 0;
-            // 
+            //
             // numericTextBoxColumns
-            // 
+            //
             this.numericTextBoxColumns.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericTextBoxColumns.Location = new System.Drawing.Point(155, 0);
             this.numericTextBoxColumns.MaxLength = 9;
             this.numericTextBoxColumns.Name = "numericTextBoxColumns";
             this.numericTextBoxColumns.Size = new System.Drawing.Size(46, 21);
             this.numericTextBoxColumns.TabIndex = 3;
-            // 
+            //
             // numericTextBoxRows
-            // 
+            //
             this.numericTextBoxRows.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericTextBoxRows.Location = new System.Drawing.Point(43, 0);
             this.numericTextBoxRows.MaxLength = 9;
             this.numericTextBoxRows.Name = "numericTextBoxRows";
             this.numericTextBoxRows.Size = new System.Drawing.Size(46, 21);
             this.numericTextBoxRows.TabIndex = 1;
-            // 
+            //
             // labelRows
-            // 
+            //
             this.labelRows.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelRows.Location = new System.Drawing.Point(0, 3);
             this.labelRows.Name = "labelRows";
             this.labelRows.Size = new System.Drawing.Size(37, 15);
             this.labelRows.TabIndex = 0;
             this.labelRows.Text = "&Rows:";
-            // 
+            //
             // labelColumns
-            // 
+            //
             this.labelColumns.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelColumns.Location = new System.Drawing.Point(104, 3);
             this.labelColumns.Name = "labelColumns";
             this.labelColumns.Size = new System.Drawing.Size(49, 15);
             this.labelColumns.TabIndex = 2;
             this.labelColumns.Text = "&Columns:";
-            // 
+            //
             // groupBoxAppearance
-            // 
+            //
             this.groupBoxAppearance.Controls.Add(this.labelSpacingPixels);
             this.groupBoxAppearance.Controls.Add(this.labelPaddingPixels);
             this.groupBoxAppearance.Controls.Add(this.labelBorderPixels);
@@ -565,36 +555,36 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.groupBoxAppearance.TabIndex = 1;
             this.groupBoxAppearance.TabStop = false;
             this.groupBoxAppearance.Text = "Appearance";
-            // 
+            //
             // labelSpacingPixels
-            // 
+            //
             this.labelSpacingPixels.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelSpacingPixels.Location = new System.Drawing.Point(206, 94);
             this.labelSpacingPixels.Name = "labelSpacingPixels";
             this.labelSpacingPixels.Size = new System.Drawing.Size(64, 15);
             this.labelSpacingPixels.TabIndex = 9;
             this.labelSpacingPixels.Text = "pixels";
-            // 
+            //
             // labelPaddingPixels
-            // 
+            //
             this.labelPaddingPixels.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPaddingPixels.Location = new System.Drawing.Point(206, 65);
             this.labelPaddingPixels.Name = "labelPaddingPixels";
             this.labelPaddingPixels.Size = new System.Drawing.Size(64, 15);
             this.labelPaddingPixels.TabIndex = 8;
             this.labelPaddingPixels.Text = "pixels";
-            // 
+            //
             // labelBorderPixels
-            // 
+            //
             this.labelBorderPixels.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelBorderPixels.Location = new System.Drawing.Point(206, 29);
             this.labelBorderPixels.Name = "labelBorderPixels";
             this.labelBorderPixels.Size = new System.Drawing.Size(64, 16);
             this.labelBorderPixels.TabIndex = 7;
             this.labelBorderPixels.Text = "pixels";
-            // 
+            //
             // checkBoxShowBorder
-            // 
+            //
             this.checkBoxShowBorder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxShowBorder.Location = new System.Drawing.Point(16, 24);
             this.checkBoxShowBorder.Name = "checkBoxShowBorder";
@@ -602,54 +592,54 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.checkBoxShowBorder.TabIndex = 0;
             this.checkBoxShowBorder.Text = "Show table &border:";
             this.checkBoxShowBorder.CheckedChanged += new System.EventHandler(this.checkBoxShowBorder_CheckedChanged);
-            // 
+            //
             // numericTextBoxCellSpacing
-            // 
+            //
             this.numericTextBoxCellSpacing.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericTextBoxCellSpacing.Location = new System.Drawing.Point(166, 91);
             this.numericTextBoxCellSpacing.MaxLength = 9;
             this.numericTextBoxCellSpacing.Name = "numericTextBoxCellSpacing";
             this.numericTextBoxCellSpacing.Size = new System.Drawing.Size(35, 21);
             this.numericTextBoxCellSpacing.TabIndex = 6;
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label3.Location = new System.Drawing.Point(16, 94);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(139, 15);
             this.label3.TabIndex = 5;
             this.label3.Text = "&Space between cells:";
-            // 
+            //
             // numericTextBoxBorder
-            // 
+            //
             this.numericTextBoxBorder.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericTextBoxBorder.Location = new System.Drawing.Point(166, 26);
             this.numericTextBoxBorder.MaxLength = 9;
             this.numericTextBoxBorder.Name = "numericTextBoxBorder";
             this.numericTextBoxBorder.Size = new System.Drawing.Size(35, 21);
             this.numericTextBoxBorder.TabIndex = 2;
-            // 
+            //
             // numericTextBoxCellPadding
-            // 
+            //
             this.numericTextBoxCellPadding.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.numericTextBoxCellPadding.Location = new System.Drawing.Point(166, 61);
             this.numericTextBoxCellPadding.MaxLength = 9;
             this.numericTextBoxCellPadding.Name = "numericTextBoxCellPadding";
             this.numericTextBoxCellPadding.Size = new System.Drawing.Size(35, 21);
             this.numericTextBoxCellPadding.TabIndex = 4;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(16, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(140, 15);
             this.label1.TabIndex = 3;
             this.label1.Text = "&Pad cell contents:";
-            // 
+            //
             // TablePropertiesForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(305, 277);
@@ -670,9 +660,6 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         }
         #endregion
-
-
-
 
 
 

@@ -32,7 +32,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private Command commandAddMenu;
         private Command commandImageRemove;
 
-
         private ImageDecoratorsCommandBarLightweightControl commandBarLightweightControl;
         private CommandBarDefinition commandBarDefinition;
         private ImageDecoratorsManager _decoratorsManager;
@@ -86,7 +85,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -103,8 +102,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -115,9 +114,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.commandBarButtonEntryAdd = new OpenLiveWriter.ApplicationFramework.CommandBarButtonEntry(this.components);
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // listViewDecoratorsTable
-            // 
+            //
             this.listViewDecoratorsTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewDecoratorsTable.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -133,18 +132,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.listViewDecoratorsTable.View = System.Windows.Forms.View.Details;
             this.listViewDecoratorsTable.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewDecoratorsTable_KeyDown);
             this.listViewDecoratorsTable.SelectedIndexChanged += new System.EventHandler(this.listViewDecoratorsTable_SelectedIndexChanged);
-            // 
+            //
             // columnHeaderDecorators
-            // 
+            //
             this.columnHeaderDecorators.Text = "Effect";
             this.columnHeaderDecorators.Width = 135;
-            // 
+            //
             // commandBarButtonEntryAdd
-            // 
+            //
             this.commandBarButtonEntryAdd.CommandIdentifier = "AddDecorator";
-            // 
+            //
             // ImageDecoratorsControl
-            // 
+            //
             this.Controls.Add(this.listViewDecoratorsTable);
             this.Name = "ImageDecoratorsControl";
             this.Size = new System.Drawing.Size(156, 108);
@@ -318,7 +317,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 ImageDecoratorsList.AddDecorator(decoratorId);
             }
             ReloadImageDecorators();
-
 
             SelectedImageDecorator = _decoratorsManager.GetImageDecorator(decoratorId);
 

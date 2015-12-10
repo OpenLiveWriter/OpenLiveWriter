@@ -66,7 +66,7 @@ namespace OpenLiveWriter.Controls
         }
 
         /// <summary>
-        /// Adds a <see cref='OpenLiveWriter.Controls.LightweightControl'/> with the specified value to the 
+        /// Adds a <see cref='OpenLiveWriter.Controls.LightweightControl'/> with the specified value to the
         /// <see cref='OpenLiveWriter.Controls.LightweightControlCollection'/> .
         /// </summary>
         /// <param name='value'>The <see cref='OpenLiveWriter.Controls.LightweightControl'/> to add.</param>

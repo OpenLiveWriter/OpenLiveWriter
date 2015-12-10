@@ -13,7 +13,7 @@ using Project31.Controls;
 namespace Project31.ApplicationFramework
 {
 	/// <summary>
-	/// ApplicationWorkspaceColumnPaneLightweightControl.  Internal helper class used by 
+	/// ApplicationWorkspaceColumnPaneLightweightControl.  Internal helper class used by
 	/// ApplicationWorkspaceColumnLightweightControl.
 	/// </summary>
 	internal class ApplicationWorkspaceColumnPaneLightweightControl : LightweightControl
@@ -84,9 +84,9 @@ namespace Project31.ApplicationFramework
 		private void InitializeComponent()
 		{
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-			// 
+			//
 			// ApplicationWorkspaceColumnPaneLightweightControl
-			// 
+			//
 			this.Visible = false;
 			((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -101,17 +101,17 @@ namespace Project31.ApplicationFramework
 			//	Layout the control.
 			if (control != null)
 			{
-				//	
+				//
 				if (control.Parent != Parent)
 					control.Parent = Parent;
 
-				//	
+				//
 				Rectangle layoutRectangle = VirtualClientRectangle;
 				layoutRectangle.Inflate(-1, -1);
 				control.Bounds = VirtualClientRectangleToParent(layoutRectangle);
 			}
 		}
-		
+
 		/// <summary>
 		/// Raises the Paint event.
 		/// </summary>

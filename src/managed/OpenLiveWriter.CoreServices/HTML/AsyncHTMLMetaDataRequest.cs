@@ -87,7 +87,6 @@ namespace OpenLiveWriter.CoreServices
 			isRunning = false;
 		}
 
-
 		private bool isRunning = false;
 		private AsyncWebRequestWithCache m_webRequest;
 		private string m_url;

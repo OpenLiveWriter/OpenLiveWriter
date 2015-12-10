@@ -124,7 +124,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             // to "flash" back to the default cursor constantly during sizing. To repro, just
             // take out the if statement below (call UpdateCursor always) and note that if you have
             // two SmartContent objects on the page then the cursor flashes when sizing.
-            // I would have removed this call entirely b/c it seems string that UpdateCursor 
+            // I would have removed this call entirely b/c it seems string that UpdateCursor
             // needs to be call from a paint event but I didn't want to disrupt whatever original
             // purpose this had. If we believe this call is not necessary we should definiely
             // remove it so it doesn't cause any more mischief!
@@ -157,7 +157,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                 }
 
                 int controlResult = base.HandlePreHandleEvent(inEvtDispId, pIEventObj);
-
 
                 UpdateCursor(Selected, inEvtDispId, pIEventObj);
 
@@ -195,7 +194,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             return HRESULT.S_FALSE;
         }
 
-
         protected bool leftMouseDown;
         protected bool rightMouseDown;
 
@@ -211,7 +209,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             Point p = TranslateClientPointToBounds(new Point(pIEventObj.clientX, pIEventObj.clientY));
             p = _resizerControl.PointToVirtualClient(p);
             bool closeToHandle = _resizerControl.GetHandleForPoint(p) != SizerHandle.None;
-
 
             //notify the drag drop controller about the mouse down so that drag can be initiated
             //on the first click that selects this element. (Fixes bug that required 2 clicks to

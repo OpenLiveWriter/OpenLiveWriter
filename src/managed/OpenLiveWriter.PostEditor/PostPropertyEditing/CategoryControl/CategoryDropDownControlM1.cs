@@ -84,7 +84,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             _isDirty = false;
         }
 
-
         bool IBlogPostEditor.IsDirty
         {
             get
@@ -113,7 +112,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             _isDirty = isDirty;
         }
         private Blog _targetBlog;
-
 
         void IBlogPostEditor.OnBlogSettingsChanged(bool templateChanged)
         {
@@ -147,7 +145,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         #endregion
 
-
         public CategoryDropDownControlM1() : base()
         {
             if (DesignMode)
@@ -173,7 +170,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             _categoryContext.Changed += new CategoryContext.CategoryChangedEventHandler(_categoryContext_Changed);
         }
 
-
         // replace standard drop down behavior with category form
         protected override void WndProc(ref Message m)
         {
@@ -189,7 +185,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                 base.WndProc(ref m);
             }
         }
-
 
         // replace standard painting behavior
         protected override void OnDrawItem(DrawItemEventArgs evt)
@@ -261,7 +256,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             }
         }
 
-
         public void DisplayCategoryForm()
         {
             Focus();
@@ -329,7 +323,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
         }
 
 
-
         private TextFormatFlags DisplayFormat
         {
             get { return TextFormatFlags.EndEllipsis | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPrefix; }
@@ -378,7 +371,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -393,19 +386,18 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             base.Dispose(disposing);
         }
 
-
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.toolTipCategories = new ToolTip2(this.components);
-            // 
+            //
             // CategoryDropDownControlM1
-            // 
+            //
             this.Size = new System.Drawing.Size(138, 48);
 
         }
@@ -445,7 +437,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
         private System.ComponentModel.IContainer components;
         private CategoryContext _categoryContext;
         private Bitmap _icon = null;
-
 
         public void OnClosed() { }
         public void OnPostClosed() { }

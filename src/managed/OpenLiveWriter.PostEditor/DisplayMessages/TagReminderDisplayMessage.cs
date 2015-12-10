@@ -7,7 +7,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.PostEditor.DisplayMessages
 {
-	
+
 	public class TagReminderDisplayMessage : DisplayMessage
 	{
 		/// <summary>
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			InitializeComponent();
 		}
 
-		/// <summary> 
+		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
 		protected override void Dispose( bool disposing )
@@ -48,7 +48,6 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 			base.Dispose( disposing );
 		}
 
-
 		#region Component Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
@@ -56,9 +55,9 @@ namespace OpenLiveWriter.PostEditor.DisplayMessages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// ConfirmDeleteEntryDisplayMessage
-			// 
+			//
 			this.Buttons = System.Windows.Forms.MessageBoxButtons.YesNo;
 			this.DefaultButton = System.Windows.Forms.MessageBoxDefaultButton.Button2 ;
 			this.Text = "You have not added tags to this post.{0}Do you still want to continue with publishing?";

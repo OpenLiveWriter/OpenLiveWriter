@@ -15,7 +15,6 @@ using OpenLiveWriter.Extensibility.BlogClient;
 namespace OpenLiveWriter.BlogClient.Clients
 {
 
-
     public sealed class BlogClientManager
     {
         public static bool IsValidClientType(string typeName)
@@ -52,7 +51,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 }
             }
 
-            // didn't find a match! 
+            // didn't find a match!
             throw new ArgumentException(
                 String.Format(CultureInfo.CurrentCulture, "Client type {0} not found.", clientType));
         }
@@ -83,7 +82,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 blogClient.OverrideOptions(homepageOptions);
             }
 
-            // if there are manifest overrides then apply them 
+            // if there are manifest overrides then apply them
             if (optionOverrides != null)
             {
                 OptionOverrideReader manifestOptionsReader = new OptionOverrideReader(optionOverrides);
@@ -91,7 +90,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 blogClient.OverrideOptions(manifestOptions);
             }
 
-            // if there are user overrides then apply them 
+            // if there are user overrides then apply them
             if (userOptionOverrides != null)
             {
                 OptionOverrideReader userOptionsReader = new OptionOverrideReader(userOptionOverrides);
@@ -100,11 +99,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
 
 
-
             // return the blog client
             return blogClient;
         }
-
 
 
         private class OptionOverrideReader
@@ -146,7 +143,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         private static IList _clientTypes;
         private static object _classLock = new object();
 
-
         private static void AddClientType(Type clientType)
         {
             try
@@ -163,7 +159,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             public ClientTypeDefinition(Type clientType)
             {
-                // determine the name from the custom attribute 
+                // determine the name from the custom attribute
                 BlogClientAttribute[] blogClientAttributes = clientType.GetCustomAttributes(typeof(BlogClientAttribute), false) as BlogClientAttribute[];
                 if (blogClientAttributes.Length != 1)
                     throw new ArgumentException("You must provide a single BlogClientAttribute for all registered blog client types.");
@@ -197,6 +193,5 @@ namespace OpenLiveWriter.BlogClient.Clients
             private Type _type;
         }
     }
-
 
 }

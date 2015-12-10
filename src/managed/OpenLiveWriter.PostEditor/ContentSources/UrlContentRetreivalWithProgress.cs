@@ -65,7 +65,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
         }
 
-
         public static bool ExecuteSmartContentRetreival(
             IWin32Window dialogOwner, ContentSourceInfo contentSourceInfo, string url, ref string title, ISmartContent newContent)
         {
@@ -112,7 +111,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
         }
 
-
         private static bool ExecuteWithProgress(
             IWin32Window dialogOwner,
             UrlContentRetreivalWithProgressDialog progressDialog,
@@ -150,9 +148,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
         }
 
-
     }
-
 
     internal abstract class UrlContentRetreivalAsyncOperation : OpenLiveWriter.CoreServices.AsyncOperation
     {
@@ -200,7 +196,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
             catch (OperationCancelledException)
             {
-                // WasCancelled = true 
+                // WasCancelled = true
             }
             catch (Exception ex)
             {
@@ -252,7 +248,5 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         private ISmartContent _newContent;
     }
 }
-
-
 
 

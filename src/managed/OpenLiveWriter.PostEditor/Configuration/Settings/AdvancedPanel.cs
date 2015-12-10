@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBoxTransportEncoding;
         private System.Windows.Forms.ComboBox comboEncoding;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -49,7 +49,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         private SupportsFeature clientSupportsScripts;
         private SupportsFeature clientSupportsEmbeds;
 
-
         public AdvancedPanel()
         {
             // This call is required by the Windows.Forms Form Designer.
@@ -65,7 +64,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             InitializeComponent();
             UpdateStrings();
             PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Configuration.Settings.Images.AdvancedPanelBitmap.png");
-
 
             //gets all the system encodings
             m_codePageDelegate = new Kernel32.CodePageDelegate(this.CodePageProc);
@@ -92,7 +90,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             }
         }
 
-
         private void UpdateStrings()
         {
             groupBoxTransportEncoding.Text = Res.Get(StringId.AdvancedTransport);
@@ -118,7 +115,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             string blogOverride = (string)TemporaryBlogSettings.OptionOverrides[BlogClientOptions.CHARACTER_SET];
             string userOverride = (string)TemporaryBlogSettings.UserOptionOverrides[BlogClientOptions.CHARACTER_SET];
             string homepageOverride = (string)TemporaryBlogSettings.HomePageOverrides[BlogClientOptions.CHARACTER_SET];
-
 
 
             if (!String.IsNullOrEmpty(blogOverride))
@@ -230,8 +226,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
                                 : optionOverride;
 
 
-
-
             int currentOption = 0; // default: unspecified, use OptionOverride
             if (TemporaryBlogSettings.UserOptionOverrides.Contains(BlogClientOptions.REQUIRES_XHTML))
             {
@@ -266,7 +260,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             return true;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -282,8 +276,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -303,9 +297,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxOptions.SuspendLayout();
             this.groupBoxXHTML.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // groupBoxTransportEncoding
-            // 
+            //
             this.groupBoxTransportEncoding.Controls.Add(this.comboEncoding);
             this.groupBoxTransportEncoding.Controls.Add(this.label1);
             this.groupBoxTransportEncoding.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -315,18 +309,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxTransportEncoding.TabIndex = 1;
             this.groupBoxTransportEncoding.TabStop = false;
             this.groupBoxTransportEncoding.Text = "Transport Encoding";
-            // 
+            //
             // comboEncoding
-            // 
+            //
             this.comboEncoding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEncoding.Location = new System.Drawing.Point(16, 80);
             this.comboEncoding.Name = "comboEncoding";
             this.comboEncoding.Size = new System.Drawing.Size(320, 21);
             this.comboEncoding.TabIndex = 6;
             this.comboEncoding.SelectedIndexChanged += new System.EventHandler(this.comboEncoding_SelectedIndexChanged);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(16, 24);
             this.label1.Name = "label1";
@@ -335,9 +329,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.label1.Text = "Open Live Writer will use the appropriate default encoding for your posts, usu" +
                 "ally UTF-8. You can manually override this suggestion by selecting a different e" +
                 "ncoding below.";
-            // 
+            //
             // groupBoxOptions
-            // 
+            //
             this.groupBoxOptions.Controls.Add(this.comboEmbeds);
             this.groupBoxOptions.Controls.Add(this.comboScripts);
             this.groupBoxOptions.Controls.Add(this.lblEmbeds);
@@ -349,45 +343,45 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxOptions.TabIndex = 2;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Blog Override Options";
-            // 
+            //
             // comboEmbeds
-            // 
+            //
             this.comboEmbeds.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboEmbeds.Location = new System.Drawing.Point(104, 48);
             this.comboEmbeds.Name = "comboEmbeds";
             this.comboEmbeds.Size = new System.Drawing.Size(232, 21);
             this.comboEmbeds.TabIndex = 3;
             this.comboEmbeds.SelectedIndexChanged += new System.EventHandler(this.comboEmbeds_SelectedIndexChanged);
-            // 
+            //
             // comboScripts
-            // 
+            //
             this.comboScripts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboScripts.Location = new System.Drawing.Point(104, 24);
             this.comboScripts.Name = "comboScripts";
             this.comboScripts.Size = new System.Drawing.Size(232, 21);
             this.comboScripts.TabIndex = 1;
             this.comboScripts.SelectedIndexChanged += new System.EventHandler(this.comboScripts_SelectedIndexChanged);
-            // 
+            //
             // lblEmbeds
-            // 
+            //
             this.lblEmbeds.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblEmbeds.Location = new System.Drawing.Point(16, 51);
             this.lblEmbeds.Name = "lblEmbeds";
             this.lblEmbeds.Size = new System.Drawing.Size(80, 23);
             this.lblEmbeds.TabIndex = 2;
             this.lblEmbeds.Text = "Embed Tags:";
-            // 
+            //
             // lblScripts
-            // 
+            //
             this.lblScripts.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lblScripts.Location = new System.Drawing.Point(16, 27);
             this.lblScripts.Name = "lblScripts";
             this.lblScripts.Size = new System.Drawing.Size(80, 23);
             this.lblScripts.TabIndex = 0;
             this.lblScripts.Text = "Scripts:";
-            // 
+            //
             // groupBoxXHTML
-            // 
+            //
             this.groupBoxXHTML.Controls.Add(this.comboXHTML);
             this.groupBoxXHTML.Controls.Add(this.labelXHTML);
             this.groupBoxXHTML.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -397,18 +391,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxXHTML.TabIndex = 2;
             this.groupBoxXHTML.TabStop = false;
             this.groupBoxXHTML.Text = "Markup Type";
-            // 
+            //
             // comboXHTML
-            // 
+            //
             this.comboXHTML.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboXHTML.Location = new System.Drawing.Point(16, 72);
             this.comboXHTML.Name = "comboXHTML";
             this.comboXHTML.Size = new System.Drawing.Size(320, 21);
             this.comboXHTML.TabIndex = 1;
             this.comboXHTML.SelectedIndexChanged += new System.EventHandler(this.comboXHTML_SelectedIndexChanged);
-            // 
+            //
             // labelXHTML
-            // 
+            //
             this.labelXHTML.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelXHTML.Location = new System.Drawing.Point(16, 24);
             this.labelXHTML.Name = "labelXHTML";
@@ -416,9 +410,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.labelXHTML.TabIndex = 0;
             this.labelXHTML.Text = "If your blog homepage uses XHTML, Writer can generate well-formed markup. If you " +
                 "prefer standard HTML, you can manually override this behavior below.";
-            // 
+            //
             // AdvancedPanel
-            // 
+            //
             this.Controls.Add(this.groupBoxXHTML);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.groupBoxTransportEncoding);

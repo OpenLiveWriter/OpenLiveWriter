@@ -4,7 +4,7 @@
 using System.ComponentModel;
 using OpenLiveWriter.ApplicationFramework;
 
-namespace OpenLiveWriter.PostEditor.Commands 
+namespace OpenLiveWriter.PostEditor.Commands
 {
 	/// <summary>
 	/// Summary description for CommandClose.
@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
 
@@ -36,10 +36,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 			InitializeComponent();
 
 			//
-			// 
+			//
 			//
 		}
-
 
 
 		#region Component Designer generated code
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.Commands
 		/// </summary>
 		private void InitializeComponent()
 		{
-			// 
+			//
 			// CommandPostAndPublish
-			// 
+			//
 			this.Identifier = "OpenLiveWriter.ViewPostAfterPublish";
 			this.MenuText = "&View Post After Publishing";
 			this.Text = "View Post After Publishing";

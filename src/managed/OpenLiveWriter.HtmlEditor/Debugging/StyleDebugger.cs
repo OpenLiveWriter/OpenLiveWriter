@@ -12,7 +12,6 @@ using OpenLiveWriter.Mshtml;
 namespace OpenLiveWriter.HtmlEditor.Debugging
 {
 
-
     /// <summary>
     /// Summary description for StyleDebugger.
     /// </summary>
@@ -38,7 +37,7 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 		/*public StyleDebugger(IWin32Window parentFrame) : base(parentFrame)
 		{
 			Init();
-			
+
 		}*/
 
 		private void Init()
@@ -94,7 +93,7 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 		}
 
         #endregion
-		
+
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -123,11 +122,11 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			this.columnHeaderStyleValue = new System.Windows.Forms.ColumnHeader();
 			this.buttonLoad = new System.Windows.Forms.Button();
 			this.SuspendLayout();
-			// 
+			//
 			// listViewStyle
-			// 
-			this.listViewStyle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
+			//
+			this.listViewStyle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+				| System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.listViewStyle.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 																							this.columnHeaderStyleName,
@@ -137,19 +136,19 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			this.listViewStyle.Size = new System.Drawing.Size(284, 332);
 			this.listViewStyle.TabIndex = 0;
 			this.listViewStyle.View = System.Windows.Forms.View.Details;
-			// 
+			//
 			// columnHeaderStyleName
-			// 
+			//
 			this.columnHeaderStyleName.Text = "Attribute";
 			this.columnHeaderStyleName.Width = 98;
-			// 
+			//
 			// columnHeaderStyleValue
-			// 
+			//
 			this.columnHeaderStyleValue.Text = "Value";
 			this.columnHeaderStyleValue.Width = 149;
-			// 
+			//
 			// buttonLoad
-			// 
+			//
 			this.buttonLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonLoad.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.buttonLoad.Location = new System.Drawing.Point(204, 344);
@@ -157,9 +156,9 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			this.buttonLoad.TabIndex = 1;
 			this.buttonLoad.Text = "Load Style";
 			this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
-			// 
+			//
 			// StyleDebugger
-			// 
+			//
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
 			this.ClientSize = new System.Drawing.Size(292, 374);
 			this.Controls.Add(this.buttonLoad);
@@ -212,22 +211,21 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			}
 		}
 
-
 		/// <summary>
 		/// Get current selection pointers
 		/// </summary>
 		/// <returns>selection pointers</returns>
 		public MarkupRange GetSelectedMarkupRange()
-		{	
-			return MarkupServices.CreateMarkupRange( SelectedRange ) ;			
+		{
+			return MarkupServices.CreateMarkupRange( SelectedRange ) ;
 		}
 
-		
+
 		/// <summary>
 		/// Currently selected range (null if there is no selection)
 		/// </summary>
-		private IHTMLTxtRange SelectedRange 
-		{ 
+		private IHTMLTxtRange SelectedRange
+		{
 			get
 			{
 				// get hte selection

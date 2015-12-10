@@ -52,7 +52,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 if (!typeof(IBlogPostContentFilter).IsAssignableFrom(filterType))
                     throw new ArgumentException("ContentFilters must implement IBlogPostContentFilter.");
 
-                // determine the name from the custom attribute 
+                // determine the name from the custom attribute
                 BlogPostContentFilterAttribute[] blogClientAttributes = (BlogPostContentFilterAttribute[])filterType.GetCustomAttributes(typeof(BlogPostContentFilterAttribute), false);
                 if (blogClientAttributes.Length != 1)
                     throw new ArgumentException("You must provide a single BlogPostContentFilterAttribute for all registered blog post content filter types.");

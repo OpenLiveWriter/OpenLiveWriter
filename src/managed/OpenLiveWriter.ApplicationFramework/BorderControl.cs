@@ -23,7 +23,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         private const int BORDER_SIZE = 1;
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -45,7 +45,7 @@ namespace OpenLiveWriter.ApplicationFramework
         private Control control;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private bool themeBorder = false;
 
@@ -96,7 +96,7 @@ namespace OpenLiveWriter.ApplicationFramework
             themeBorderColor = SystemColors.ControlDark;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -114,17 +114,17 @@ namespace OpenLiveWriter.ApplicationFramework
         #endregion Class Initialization & Termination
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.focusWatchingUserControl = new OpenLiveWriter.Controls.FocusWatchingUserControl();
             this.SuspendLayout();
-            // 
+            //
             // focusWatchingUserControl
-            // 
+            //
             this.focusWatchingUserControl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.focusWatchingUserControl.BackColor = System.Drawing.SystemColors.Window;
             this.focusWatchingUserControl.Location = new System.Drawing.Point(1, 1);
@@ -132,9 +132,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.focusWatchingUserControl.Size = new System.Drawing.Size(148, 148);
             this.focusWatchingUserControl.TabStop = false;
             //this.focusWatchingUserControl.TabIndex = 0;
-            // 
+            //
             // BorderControl
-            // 
+            //
             this.Controls.Add(this.focusWatchingUserControl);
             this.Name = "BorderControl";
             this.ResumeLayout(false);
@@ -145,7 +145,7 @@ namespace OpenLiveWriter.ApplicationFramework
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets 
+        /// Gets or sets
         /// </summary>
         public Control Control
         {
@@ -316,7 +316,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 focusWatchingUserControl.BackColor = BackColor;
             }
         }
-
 
         #endregion Public Properties
 

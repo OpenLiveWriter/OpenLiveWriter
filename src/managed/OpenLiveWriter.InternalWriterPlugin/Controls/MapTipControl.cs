@@ -23,7 +23,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
 
-
         public string TipText
         {
             get
@@ -65,7 +64,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             }
         }
         private int _textOpacityPct = 70;
-
 
         protected override void OnSizeChanged(EventArgs e)
         {

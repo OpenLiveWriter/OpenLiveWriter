@@ -67,7 +67,7 @@ namespace OpenLiveWriter.SpellChecker
 		}
 
 		/// <summary>
-		/// Get the current word 
+		/// Get the current word
 		/// </summary>
 		public string CurrentWord
 		{
@@ -108,7 +108,7 @@ namespace OpenLiveWriter.SpellChecker
 		public void Replace(int offset, int length, string newText )
 		{
 			text = text.Substring(0, startPos) + StringHelper.Replace(CurrentWord, offset, length, newText) + text.Substring(endPos);
-			
+
 			int delta = newText.Length - (endPos - startPos);
 			limit += delta;
 			endPos += delta;
@@ -166,7 +166,7 @@ namespace OpenLiveWriter.SpellChecker
 				return -1;
 
 			Trace.Assert(IsWordChar(text[startIndex]), "Asked to find end of word starting from invalid char " + text[startIndex]);
-            
+
 			for (int i = startIndex + 1; i < text.Length; i++)
 			{
 				if (!IsWordChar(text[i]))

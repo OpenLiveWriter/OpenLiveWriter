@@ -110,7 +110,6 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private static readonly Color faceColor = Color.FromArgb(GraphicsHelper.Opacity(66), 246, 246, 246);
 
-
         [ThreadStatic]
         private static BorderPaint buttonFaceBorder;
         [ThreadStatic]
@@ -251,7 +250,7 @@ namespace OpenLiveWriter.Controls
             container.Add(this);
             InitializeComponent();
 
-            //	Do common initialization.			
+            //	Do common initialization.
             InitializeObject();
         }
 
@@ -265,7 +264,7 @@ namespace OpenLiveWriter.Controls
             /// </summary>
             InitializeComponent();
 
-            //	Do common initialization.			
+            //	Do common initialization.
             InitializeObject();
         }
 
@@ -288,7 +287,7 @@ namespace OpenLiveWriter.Controls
             AccessibleRole = AccessibleRole.PushButton;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -313,9 +312,9 @@ namespace OpenLiveWriter.Controls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            // 
+            //
             // BitmapButton
-            // 
+            //
             this.Name = "BitmapButton";
             this.Size = new System.Drawing.Size(72, 64);
 
@@ -661,7 +660,6 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         #endregion
 
         #region Protected Event Overrides
@@ -895,7 +893,6 @@ namespace OpenLiveWriter.Controls
             base.OnPaintBackground(pevent);
         }
 
-
         /// <summary>
         /// Raises the Paint event.
         /// </summary>
@@ -1002,7 +999,6 @@ namespace OpenLiveWriter.Controls
                 drawTextRectangle.Offset(HORIZONTAL_TEXT_PAD, VERTICAL_TEXT_PAD);
                 if (drawState == DrawState.Pushed)
                     drawTextRectangle.Offset(ScaleX(PUSHED_OFFSET), ScaleY(PUSHED_OFFSET));
-
 
                 TextFormatFlags textFormat;
                 if (ShowKeyboardCues)

@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using Project31.CoreServices;
 using Project31.Interop.Windows;
 
-
 // NOTE: This code removed from the CoreServices project because it is obsoleted by
 // ShellHelper.GetSmallIconForExtension and ShellHelper.GetLargeIconForExtension
 
@@ -31,7 +30,7 @@ namespace Project31.CoreServices
 			if (progId == null || !m_icons.ContainsKey(progId))
 			{
 				IntPtr hInstance = Marshal.GetHINSTANCE(typeof(AppIconCache).Module);
-							
+
 				string IconPath = GetDefaultIconPath(progId);
 				if (IconPath != null)
 				{
@@ -78,12 +77,12 @@ namespace Project31.CoreServices
 					iconPath = (string) openKey.GetValue(null);
 			}
 			return iconPath;
-		}	
+		}
 
 		/// <summary>
 		/// Cached set of application icons
 		/// </summary>
 		private static Hashtable m_icons = Hashtable.Synchronized(new Hashtable());
 	}
-	
+
 }

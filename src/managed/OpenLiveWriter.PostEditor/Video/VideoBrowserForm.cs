@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Video
 		private IContainer components = null;
 
 		//top tab control
-		private LightweightControlContainerControl mainTabControl;		
+		private LightweightControlContainerControl mainTabControl;
 		private TabLightweightControl tabs;
 
 		//video source info for non local file images
@@ -43,12 +43,12 @@ namespace OpenLiveWriter.PostEditor.Video
 			InitializeComponent();
 
 			_videoSources = videoSources;
-			
+
 			//set strings
 			btnInsert.Text = Res.Get(StringId.InsertButtonText);
 			btnCancel.Text = Res.Get(StringId.CancelButton);
 			Text = Res.Get(StringId.Plugin_Videos_Select_Video_Form);
-			
+
 			if (!MarketizationOptions.IsFeatureEnabled(MarketizationOptions.Feature.VideoCopyright))
 			{
 				copyrightLinkLabel.Visible = false;
@@ -66,16 +66,15 @@ namespace OpenLiveWriter.PostEditor.Video
 
             copyrightLinkLabel.LinkColor = SystemColors.HotTrack;
 
-
-			// 
+			//
 			// tabs
-			// 
+			//
 			tabs = new TabLightweightControl();
 			tabs.VirtualBounds = new Rectangle(0, 5, 450, 485);
 			tabs.LightweightControlContainerControl = mainTabControl;
 			tabs.DrawSideAndBottomTabPageBorders = false;
             tabs.ColorizeBorder = false;
-			
+
 			int i = 0;
 			foreach (VideoSource videoSource in _videoSources)
 			{
@@ -102,9 +101,9 @@ namespace OpenLiveWriter.PostEditor.Video
 			tabs.VirtualSize = Size;
 
             Width = 510;
-            Height = 570; 
+            Height = 570;
 		}
-		
+
 		protected override void OnLayout(LayoutEventArgs levent)
 		{
 			base.OnLayout (levent);
@@ -119,10 +118,10 @@ namespace OpenLiveWriter.PostEditor.Video
 			LayoutHelper.FixupOKCancel(btnInsert, btnCancel);
 		}
 
-		
+
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
 		{
-			tabs.CheckForTabSwitch(keyData);			
+			tabs.CheckForTabSwitch(keyData);
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 
@@ -159,22 +158,22 @@ namespace OpenLiveWriter.PostEditor.Video
 			this.copyrightLinkLabel = new System.Windows.Forms.LinkLabel();
 			((System.ComponentModel.ISupportInitialize)(this.mainTabControl)).BeginInit();
 			this.SuspendLayout();
-			// 
+			//
 			// mainTabControl
-			// 
+			//
 			this.mainTabControl.AllowDragDropAutoScroll = false;
 			this.mainTabControl.AllPaintingInWmPaint = true;
-			this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
+			this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+				| System.Windows.Forms.AnchorStyles.Left)
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.mainTabControl.BackColor = System.Drawing.SystemColors.Control;
 			this.mainTabControl.Location = new System.Drawing.Point(0, 0);
 			this.mainTabControl.Name = "mainTabControl";
 			this.mainTabControl.Size = new System.Drawing.Size(450, 485);
 			this.mainTabControl.TabIndex = 14;
-			// 
+			//
 			// btnInsert
-			// 
+			//
 			this.btnInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnInsert.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.btnInsert.Location = new System.Drawing.Point(288, 490);
@@ -182,9 +181,9 @@ namespace OpenLiveWriter.PostEditor.Video
 			this.btnInsert.TabIndex = 20;
 			this.btnInsert.Text = "Insert";
 			this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
-			// 
+			//
 			// btnCancel
-			// 
+			//
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -192,9 +191,9 @@ namespace OpenLiveWriter.PostEditor.Video
 			this.btnCancel.Name = "buttonCancel";
 			this.btnCancel.TabIndex = 21;
 			this.btnCancel.Text = "Cancel";
-			// 
+			//
 			// copyrightLinkLabel
-			// 
+			//
 			this.copyrightLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.copyrightLinkLabel.AutoSize = true;
 			this.copyrightLinkLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -204,9 +203,9 @@ namespace OpenLiveWriter.PostEditor.Video
 			this.copyrightLinkLabel.TabIndex = 19;
 			this.copyrightLinkLabel.TabStop = true;
 			this.copyrightLinkLabel.Text = "Please Respect Copyright";
-			// 
+			//
 			// VideoBrowserForm
-			// 
+			//
 			this.AcceptButton = this.btnInsert;
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
 			this.CancelButton = this.btnCancel;
@@ -225,7 +224,7 @@ namespace OpenLiveWriter.PostEditor.Video
 
 		}
 		#endregion
-		
+
 		private void SetActiveTab(int num)
 		{
 			activeVideoSource = (VideoSource)_videoSources[num];
@@ -271,7 +270,7 @@ namespace OpenLiveWriter.PostEditor.Video
 				{
 					ShellHelper.LaunchUrl( link );
 				}
-				catch( Exception ex ) 
+				catch( Exception ex )
 				{
 					Trace.Fail( "Unexpected exception navigating to copyright page: " + link + ", " + ex.ToString() ) ;
 				}

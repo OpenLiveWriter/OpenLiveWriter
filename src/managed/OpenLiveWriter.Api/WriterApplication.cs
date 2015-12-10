@@ -9,7 +9,7 @@ using Microsoft.Win32;
 namespace OpenLiveWriter.Api
 {
     /// <summary>
-    /// Provides the abilty to launch the Writer application either to create a new post, open an existing post, or Blog This 
+    /// Provides the abilty to launch the Writer application either to create a new post, open an existing post, or Blog This
     /// for a Link, Snippet, Image, or Feed Item.
     /// </summary>
     public sealed class WriterApplication
@@ -62,7 +62,6 @@ namespace OpenLiveWriter.Api
         {
             _application.ShowOptions(optionsPage);
         }
-
 
         [ComImport]
         [Guid("366FF6CE-CA04-433D-8522-741094458839")]
