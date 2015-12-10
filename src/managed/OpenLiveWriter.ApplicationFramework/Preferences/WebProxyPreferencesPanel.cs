@@ -324,6 +324,5 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         }
         #endregion
 
-
     }
 }

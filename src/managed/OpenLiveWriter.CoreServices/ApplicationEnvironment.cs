@@ -434,7 +434,7 @@ namespace OpenLiveWriter.CoreServices
 #if DEBUG
             _logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #else
-			_logFilePath = LocalApplicationDataDirectory ;
+            _logFilePath = LocalApplicationDataDirectory ;
 #endif
             _logFilePath = Path.Combine(_logFilePath, String.Format(CultureInfo.InvariantCulture, "{0}.log", ProductName));
 

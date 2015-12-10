@@ -60,12 +60,10 @@ namespace OpenLiveWriter.CoreServices
             fileFilter = filter;
         }
 
-
         /// <summary>
         /// File system path that contains the site.
         /// </summary>
         public string BasePath { get { return m_basePath; } }
-
 
         /// <summary>
         /// Method called by base class SupportingFiles implementation
@@ -93,7 +91,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Test to see whether the specified file already exists
         /// </summary>
@@ -105,7 +102,6 @@ namespace OpenLiveWriter.CoreServices
             string fullPath = Path.Combine(m_basePath, osPath);
             return File.Exists(fullPath);
         }
-
 
         /// <summary>
         /// Retrieve a Stream for the given path (Read or Write access can be specified).

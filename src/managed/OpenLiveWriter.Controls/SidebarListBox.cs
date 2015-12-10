@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Controls
     /// Type T is the type of the objects each entry in the list will hold.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-	public class SidebarListBox<T> : ListBox
+    public class SidebarListBox<T> : ListBox
     {
         #region Initialization and Cleanup
 
@@ -136,7 +136,6 @@ namespace OpenLiveWriter.Controls
             // draw caption
             g.DrawText(item.Name, e.Font, layoutRectangle, textColor, TextFormatFlags.EndEllipsis | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordBreak);
 
-
             // draw focus rectange if necessary
             e.DrawFocusRectangle();
         }
@@ -176,7 +175,6 @@ namespace OpenLiveWriter.Controls
 
             return ScaleY(LARGE_TOP_INSET) + ScaleY(40) + ScaleY(ELEMENT_PADDING) + textHeight + ScaleY(LARGE_BOTTOM_INSET);
         }
-
 
         #endregion
 

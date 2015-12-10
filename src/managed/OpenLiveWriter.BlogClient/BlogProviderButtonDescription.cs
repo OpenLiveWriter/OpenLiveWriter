@@ -215,7 +215,6 @@ namespace OpenLiveWriter.BlogClient
         }
     }
 
-
     public class BlogProviderButtonNotification : IBlogProviderButtonNotification
     {
         public BlogProviderButtonNotification(TimeSpan pollingInterval, string notificationText, Bitmap notificationImage, bool clearNotificationOnClick)

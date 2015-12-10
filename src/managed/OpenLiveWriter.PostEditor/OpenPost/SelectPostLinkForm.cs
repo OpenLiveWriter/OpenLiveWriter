@@ -84,7 +84,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             }
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>

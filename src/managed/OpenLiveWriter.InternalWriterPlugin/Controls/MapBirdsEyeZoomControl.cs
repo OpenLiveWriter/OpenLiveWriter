@@ -192,4 +192,3 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
     }
 }
 
-

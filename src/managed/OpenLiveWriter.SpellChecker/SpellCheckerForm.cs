@@ -152,7 +152,6 @@ namespace OpenLiveWriter.SpellChecker
                 return;
             }
 
-
             using (new WaitCursor())
             {
                 // loop through all of the words in the word-range
@@ -302,7 +301,6 @@ namespace OpenLiveWriter.SpellChecker
             spellingChecker.Reset();
         }
 
-
         /// <summary>
         /// Provide suggestions for the current misspelled word
         /// </summary>
@@ -450,7 +448,6 @@ namespace OpenLiveWriter.SpellChecker
             ContinueSpellCheck();
         }
 
-
         /// <summary>
         /// Handle TextChanged event to update state of buttons
         /// </summary>
@@ -483,7 +480,6 @@ namespace OpenLiveWriter.SpellChecker
             else
                 textBoxChangeTo.Text = String.Empty;
         }
-
 
         /// <summary>
         /// Double-click of a word in suggestions results in auto-replacement
@@ -542,7 +538,6 @@ namespace OpenLiveWriter.SpellChecker
                 wordRangeHighlightPending = true;
         }
 
-
         /// <summary>
         /// Ensure the form is loaded
         /// </summary>
@@ -580,13 +575,13 @@ namespace OpenLiveWriter.SpellChecker
             }
 
             Button[] buttons = {
-								   buttonIgnore,
-								   buttonIgnoreAll,
-								   buttonChange,
-								   buttonChangeAll,
-								   buttonAdd,
-								   buttonCancel
-							   };
+                                   buttonIgnore,
+                                   buttonIgnoreAll,
+                                   buttonChange,
+                                   buttonChangeAll,
+                                   buttonAdd,
+                                   buttonCancel
+                               };
 
             using (new AutoGrow(this, AnchorStyles.Right, true))
             {

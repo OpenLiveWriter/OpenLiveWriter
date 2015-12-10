@@ -75,7 +75,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// Recursively delete all files contained in the temporary directory
         /// </summary>
@@ -106,7 +105,6 @@ namespace OpenLiveWriter.CoreServices
                     e, SiteStorageException.UnableToDeleteSite, path);
             }
         }
-
 
         // Helper function to generate a temporary site path name
         private static string GetTemporarySitePath(string prefix, string tempDirectory)

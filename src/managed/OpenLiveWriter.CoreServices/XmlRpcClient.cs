@@ -223,7 +223,6 @@ namespace OpenLiveWriter.CoreServices
         private string _transportEncoding;
     }
 
-
     public abstract class XmlRpcValue
     {
         protected XmlRpcValue(object value)
@@ -405,7 +404,6 @@ namespace OpenLiveWriter.CoreServices
         }
     }
 
-
     public class XmlRpcStruct : XmlRpcValue
     {
         /// <summary>
@@ -566,7 +564,6 @@ namespace OpenLiveWriter.CoreServices
 
         public readonly string Response;
     }
-
 
     /// <summary>
     /// Utility class used to write elements

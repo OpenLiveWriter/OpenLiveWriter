@@ -291,7 +291,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// Raised by a subcontrol to inform ColorPickerForm that it should navigate
         /// (either for forward or backward) to the next control.
         /// </summary>
-		public event NavigateEventHandler _Navigate;
+        public event NavigateEventHandler _Navigate;
 
         /// <summary>
         /// Called by a subcontrol (derived class of IColorPickerSubControl) to raise the _Navigate event

@@ -59,7 +59,6 @@ namespace OpenLiveWriter.PostEditor.JumpList
             }
         }
 
-
         /// <summary>
         /// Add JumpList items for this category
         /// </summary>

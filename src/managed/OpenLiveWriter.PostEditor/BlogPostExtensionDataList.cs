@@ -114,12 +114,10 @@ namespace OpenLiveWriter.PostEditor
                 RemoveExtensionData(removeId);
         }
 
-
         public IExtensionData GetOrCreateExtensionData(string id)
         {
             return GetExtensionData(id) ?? CreateExtensionData(id);
         }
-
 
         public int Count
         {
@@ -148,7 +146,6 @@ namespace OpenLiveWriter.PostEditor
             return minCallBackExtensionData;
         }
     }
-
 
     public interface IExtensionData
     {

@@ -529,5 +529,4 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         }
     }
 
-
 }

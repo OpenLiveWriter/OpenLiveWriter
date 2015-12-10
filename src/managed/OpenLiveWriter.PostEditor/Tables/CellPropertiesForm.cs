@@ -66,7 +66,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 DialogResult = DialogResult.OK;
         }
 
-
         private bool ValidateInput()
         {
             return true;
@@ -145,7 +144,6 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         }
         #endregion
-
 
     }
 }

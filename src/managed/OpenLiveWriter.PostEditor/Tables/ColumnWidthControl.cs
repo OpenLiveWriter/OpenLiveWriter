@@ -17,16 +17,16 @@ namespace OpenLiveWriter.PostEditor.Tables
 {
 
     /* Why is percent based column sizing not allowed? We want to in all cases let the
-	 * table flow to occupy the width of its container. This provides for both robust
-	 * behavior accross blogs/templates/normal mode and also allows the browser table
-	 * rendering logic to automatically "balance" columns based on their content and
-	 * preferred widths. Percent mode requires that the table be given a fixed width
-	 * (otherwise you end up with a table of essentially zero size). Note that users
-	 * are essentially able to do percent based sizing by providing a set of
-	 * preferred widths to their columns (if the preferred widths exceed the available
-	 * width in the table's parent block then they become relative guidelines for
-	 * sizing the columns).
-	 */
+     * table flow to occupy the width of its container. This provides for both robust
+     * behavior accross blogs/templates/normal mode and also allows the browser table
+     * rendering logic to automatically "balance" columns based on their content and
+     * preferred widths. Percent mode requires that the table be given a fixed width
+     * (otherwise you end up with a table of essentially zero size). Note that users
+     * are essentially able to do percent based sizing by providing a set of
+     * preferred widths to their columns (if the preferred widths exceed the available
+     * width in the table's parent block then they become relative guidelines for
+     * sizing the columns).
+     */
 
     public class ColumnWidthControl : System.Windows.Forms.UserControl
     {
@@ -37,7 +37,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-
 
         public ColumnWidthControl()
         {
@@ -58,7 +57,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 LayoutHelper.DistributeHorizontally(8, labelWidth, textBoxWidth, labelPixels);
             }
         }
-
 
         public int ColumnWidth
         {
@@ -185,9 +183,7 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
         #endregion
 
-
     }
-
 
 
 }

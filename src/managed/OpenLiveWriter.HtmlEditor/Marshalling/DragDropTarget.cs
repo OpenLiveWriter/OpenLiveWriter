@@ -125,7 +125,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
         }
 
-
         /// <summary>
         /// Handle the DragOver event for the presentation editor
         /// </summary>
@@ -201,7 +200,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 ResetDataFormatHandler();
             }
         }
-
 
         #endregion
 

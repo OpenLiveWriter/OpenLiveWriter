@@ -61,7 +61,6 @@ namespace OpenLiveWriter.CoreServices
             return true;
         }
 
-
         public static void TrackResponseClosing(ref HttpWebRequest req)
         {
             CloseTrackingHttpWebRequest.Wrap(ref req);

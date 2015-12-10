@@ -39,8 +39,8 @@ namespace OpenLiveWriter.PostEditor
 
         // Copyright notices are not to be localized.
         string[] credits = {
-			/* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
-			/* Brian Lambert */ "Portions Copyright © 2003 Brian Lambert, used with permission of the author under the MIT License.",
+            /* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
+            /* Brian Lambert */ "Portions Copyright © 2003 Brian Lambert, used with permission of the author under the MIT License.",
         };
 
         public AboutForm()
@@ -115,7 +115,6 @@ namespace OpenLiveWriter.PostEditor
                 DisplayHelper.AutoFitSystemButton(buttonOK, buttonOK.Width, int.MaxValue);
             }
         }
-
 
         /// <summary>
         /// Clean up any resources being used.

@@ -139,7 +139,6 @@ namespace OpenLiveWriter.Interop.Windows
             }
         }
 
-
         [DllImport("Crypt32.dll", SetLastError = true)]
         public static extern bool CryptProtectData(
             ref DATA_BLOB pDataIn,

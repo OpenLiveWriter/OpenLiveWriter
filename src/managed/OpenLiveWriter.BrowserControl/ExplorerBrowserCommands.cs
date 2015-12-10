@@ -279,7 +279,6 @@ namespace OpenLiveWriter.BrowserControl
         }
     }
 
-
     /// <summary>
     /// Command for Add Favorites...
     /// </summary>
@@ -364,7 +363,6 @@ namespace OpenLiveWriter.BrowserControl
         }
     }
 
-
     /// <summary>
     /// Implementation of BrowserCommand for commands that can be accessed
     /// using IWebBrowser2.ExecWB.
@@ -425,7 +423,6 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         private OLECMDID m_cmdID;
     }
-
 
     /// <summary>
     /// Implementation of BrowserCommand for command that can be accessed through the
@@ -569,7 +566,6 @@ namespace OpenLiveWriter.BrowserControl
                 return null;
             }
         }
-
 
         /// <summary>
         /// ID of private command

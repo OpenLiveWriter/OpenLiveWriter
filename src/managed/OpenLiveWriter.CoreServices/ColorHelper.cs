@@ -51,7 +51,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         /// <summary>
         /// Adjusts the brightness of the specified color.  Works like the Photoshop Hue/Saturation
         /// dialog box.

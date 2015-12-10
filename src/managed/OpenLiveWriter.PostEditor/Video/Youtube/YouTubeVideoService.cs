@@ -313,7 +313,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         private readonly Bitmap _sidebarIcon = ResourceHelper.LoadAssemblyResourceBitmap("Video.YouTube.Images.Sidebar.png");
         private readonly IAuth _videoAuth = YouTubeAuth.Instance;
 
-
         #region IMediaSource Members
 
         public string Id
@@ -471,6 +470,5 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         private bool _isPublished = true;
 
     }
-
 
 }

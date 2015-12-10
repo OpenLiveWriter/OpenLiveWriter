@@ -211,7 +211,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             set { checkBoxSavePassword.Checked = value; }
         }
 
-
         public ICredentialsDomain Domain
         {
             get { return _domain; }

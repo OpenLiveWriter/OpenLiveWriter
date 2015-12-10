@@ -5,24 +5,24 @@ using OpenLiveWriter.Extensibility.ImageServices;
 
 namespace OpenLiveWriter.Extensibility.ImageServices
 {
-	public class ImageUploadResult : IImageUploadResult
-	{
-		public ImageUploadResult(string imageUrl)
-		{
-			_imageUrl = imageUrl;
-		}
+    public class ImageUploadResult : IImageUploadResult
+    {
+        public ImageUploadResult(string imageUrl)
+        {
+            _imageUrl = imageUrl;
+        }
 
-		public string ImageUrl
-		{
-			get
-			{
-				return _imageUrl;
-			}
-			set
-			{
-				_imageUrl = value;
-			}
-		}
-		private string _imageUrl;
-	}
+        public string ImageUrl
+        {
+            get
+            {
+                return _imageUrl;
+            }
+            set
+            {
+                _imageUrl = value;
+            }
+        }
+        private string _imageUrl;
+    }
 }

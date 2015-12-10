@@ -7,18 +7,18 @@ using OpenLiveWriter.PostEditor.ContentSources;
 namespace OpenLiveWriter.PostEditor
 {
 
-	public sealed class PostEditorInitializer
-	{
-		/// <summary>
-		/// global initializaiton which may show error dialogs or cause
-		/// failure of the entire product to load
-		/// </summary>
-		public static bool Initialize()
-		{
-			// can show error dialog if plugin has missing or incorrect attributes
-			ContentSourceManager.Initialize();
+    public sealed class PostEditorInitializer
+    {
+        /// <summary>
+        /// global initializaiton which may show error dialogs or cause
+        /// failure of the entire product to load
+        /// </summary>
+        public static bool Initialize()
+        {
+            // can show error dialog if plugin has missing or incorrect attributes
+            ContentSourceManager.Initialize();
 
-			return true ;
-		}
-	}
+            return true ;
+        }
+    }
 }

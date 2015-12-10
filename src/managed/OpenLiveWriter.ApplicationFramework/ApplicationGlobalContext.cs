@@ -5,16 +5,16 @@ using System;
 
 namespace Project31.ApplicationFramework
 {
-	/// <summary>
-	/// ApplicationGlobalContext for for the ApplicationFramework.
-	/// </summary>
-	public class ApplicationGlobalContext
-	{
-		/// <summary>
-		/// Initializes a new instance of the ApplicationGlobalContext class.
-		/// </summary>
-		private ApplicationGlobalContext()
-		{
-		}
-	}
+    /// <summary>
+    /// ApplicationGlobalContext for for the ApplicationFramework.
+    /// </summary>
+    public class ApplicationGlobalContext
+    {
+        /// <summary>
+        /// Initializes a new instance of the ApplicationGlobalContext class.
+        /// </summary>
+        private ApplicationGlobalContext()
+        {
+        }
+    }
 }

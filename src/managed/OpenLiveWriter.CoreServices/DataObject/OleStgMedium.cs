@@ -312,5 +312,4 @@ namespace OpenLiveWriter.CoreServices
         private Storage m_storage = null;
     }
 
-
 }

@@ -249,4 +249,3 @@ namespace OpenLiveWriter.PostEditor.ContentSources
     }
 }
 
-

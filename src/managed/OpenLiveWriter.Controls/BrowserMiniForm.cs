@@ -111,22 +111,22 @@ namespace OpenLiveWriter.Controls
                     using (StreamWriter writer = new StreamWriter(progressPagePath, false, Encoding.UTF8))
                     {
                         writer.Write(@"
-							<html>
-								<head></head>
-								<body>
-									<div style=""height={0}px;"">
-									<div style=""position: absolute; top: {1}; width: 100%; text-align: center"" >
-									<img src=""{2}""></img>
-									<p>
-										<font size=""2"" face=""Tahoma, Arial"" color=""rgb(190,200,210)"">
-											<b>{3}</b>
-										</font>
-									</p>
-									</div>
-									</div>
-								</body>
-							</html>
-						", bodyHeight, progressTop, animationGifName, HtmlUtils.EscapeEntities(progressText));
+                            <html>
+                                <head></head>
+                                <body>
+                                    <div style=""height={0}px;"">
+                                    <div style=""position: absolute; top: {1}; width: 100%; text-align: center"" >
+                                    <img src=""{2}""></img>
+                                    <p>
+                                        <font size=""2"" face=""Tahoma, Arial"" color=""rgb(190,200,210)"">
+                                            <b>{3}</b>
+                                        </font>
+                                    </p>
+                                    </div>
+                                    </div>
+                                </body>
+                            </html>
+                        ", bodyHeight, progressTop, animationGifName, HtmlUtils.EscapeEntities(progressText));
                     }
                 }
 

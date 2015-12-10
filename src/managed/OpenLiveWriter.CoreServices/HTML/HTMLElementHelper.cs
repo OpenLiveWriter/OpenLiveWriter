@@ -460,7 +460,6 @@ namespace OpenLiveWriter.CoreServices
             return newElement;
         }
 
-
         /// <summary>
         /// Helper method to remove an element from a document
         /// </summary>

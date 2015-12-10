@@ -433,7 +433,6 @@ namespace OpenLiveWriter.PostEditor
             return publishDocument;
         }
 
-
         public void SetSize(int width, int height)
         {
             panel.Size = new Size(width, height);

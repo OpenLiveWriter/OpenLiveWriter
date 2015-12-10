@@ -71,7 +71,6 @@ namespace OpenLiveWriter.HtmlEditor
             DisplayHelper.AutoFitSystemRadioButton(radioButtonUp, 0, int.MaxValue);
             radioButtonDown.Left = radioButtonUp.Right + distance;
 
-
             using (new AutoGrow(this, AnchorStyles.Bottom | AnchorStyles.Right, false))
             {
                 int oldTop = radioButtonDown.Top;
@@ -82,9 +81,9 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose(bool disposing)
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -95,7 +94,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
             base.Dispose(disposing);
         }
-
 
         private void textBoxFindWhat_TextChanged(object sender, System.EventArgs e)
         {
@@ -244,7 +242,6 @@ namespace OpenLiveWriter.HtmlEditor
 
         }
         #endregion
-
 
     }
 }

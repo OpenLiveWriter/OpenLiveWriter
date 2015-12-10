@@ -385,13 +385,13 @@ namespace OpenLiveWriter.CoreServices
         }
 
 #if FALSE
-		public string String
-		{
-			get
-			{
-				return this.ToString();
-			}
-		}
+        public string String
+        {
+            get
+            {
+                return this.ToString();
+            }
+        }
 #endif
     }
 }

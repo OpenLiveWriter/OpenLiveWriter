@@ -46,7 +46,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             out ComStream ppstm
             );
 
-
         /// <summary>
         /// Opens an existing stream object within this storage object in the specified access mode.
         /// </summary>

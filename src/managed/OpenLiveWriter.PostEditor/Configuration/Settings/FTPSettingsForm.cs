@@ -87,7 +87,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             // save reference to settings
             _ftpSettings = ftpSettings;
 
-
             // populate controls
             _originalHostname = ftpSettings.FtpServer;
             textBoxHostName.Text = ftpSettings.FtpServer;

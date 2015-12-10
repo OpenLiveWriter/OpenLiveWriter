@@ -123,7 +123,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         }
         #endregion
 
-
         /// <summary>
         /// Show with just an exception
         /// </summary>

@@ -109,7 +109,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             return String.Compare(Name, category.Name, StringComparison.Ordinal);
         }
 
-
         public object Clone()
         {
             return new BlogPostCategory(Id, Name, Parent);

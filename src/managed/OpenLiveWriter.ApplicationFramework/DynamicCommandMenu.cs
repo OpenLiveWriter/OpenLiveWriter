@@ -40,7 +40,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         // <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -54,7 +53,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 components.Dispose();
             }
         }
-
 
         private void InitializeCommands()
         {
@@ -161,7 +159,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         private void command_Execute(object sender, EventArgs ea)
         {
             // notify context
@@ -198,7 +195,6 @@ namespace OpenLiveWriter.ApplicationFramework
         private Container components = new Container();
 
     }
-
 
     public interface IDynamicCommandMenuContext
     {
@@ -308,7 +304,6 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         public bool SeparatorBegin;
     }
-
 
 }
 

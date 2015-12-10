@@ -134,7 +134,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
             imageCropControl.Select();
 
-
             //int minWidth = buttonRotate.Right + width + (form.ClientSize.Width - buttonOK.Left) + SystemInformation.FrameBorderSize.Width * 2;
             //form.MinimumSize = new Size(minWidth, form.MinimumSize.Height);
         }

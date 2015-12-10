@@ -54,7 +54,6 @@ namespace OpenLiveWriter.HtmlEditor
                 gbTableHeader.Text = Res.Get(StringId.Statistics);
             }
 
-
         }
 
         protected override void OnLoad(EventArgs e)
@@ -76,7 +75,6 @@ namespace OpenLiveWriter.HtmlEditor
 
             DisplayHelper.AutoFitSystemButton(buttonClose, buttonClose.Width, int.MaxValue);
         }
-
 
         private void btnClose_Click(object sender, EventArgs e)
         {

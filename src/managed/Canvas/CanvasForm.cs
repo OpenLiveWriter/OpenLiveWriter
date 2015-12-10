@@ -247,7 +247,6 @@ namespace OpenLiveWriter.Test
             editor.ChangeView(EditingMode.PlainText);
         }
 
-
     [DllImport("KERNEL32.DLL", CharSet=CharSet.Auto, EntryPoint="LoadLibrary")]
     public static extern IntPtr LoadLibrary(String lpFileName);
     }

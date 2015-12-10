@@ -179,7 +179,6 @@ namespace OpenLiveWriter.ApplicationFramework
             PerformLayout();
             Invalidate();
 
-
             if (selectedIndex >= 0 && SelectedTabChanged != null)
                 SelectedTabChanged(this, new SelectedTabChangedEventArgs(selectedIndex));
         }

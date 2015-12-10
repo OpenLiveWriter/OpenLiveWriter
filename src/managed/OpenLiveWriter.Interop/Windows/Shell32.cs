@@ -102,7 +102,6 @@ namespace OpenLiveWriter.Interop.Windows
         public static extern void GetCurrentProcessExplicitAppUserModelID(
             [Out(), MarshalAs(UnmanagedType.LPWStr)] out string AppID);
 
-
         [DllImport("shell32.dll")]
         public static extern int SHGetPropertyStoreForWindow(
             IntPtr hwnd,

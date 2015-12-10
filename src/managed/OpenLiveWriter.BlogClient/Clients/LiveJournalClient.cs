@@ -27,7 +27,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
         }
 
-
         protected override void ConfigureClientOptions(BlogClientOptions clientOptions)
         {
             clientOptions.SupportsFileUpload = true;
@@ -137,7 +136,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             return (BlogPost[])posts.ToArray(typeof(BlogPost));
         }
 
-
         public override string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish)
         {
             if (!publish && !Options.SupportsPostAsDraft)
@@ -158,7 +156,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             // return the blog-id
             return result.InnerText;
         }
-
 
         public override bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish)
         {

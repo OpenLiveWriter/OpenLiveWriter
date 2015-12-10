@@ -198,6 +198,5 @@ namespace OpenLiveWriter.PostEditor.Tables
             return null;
         }
 
-
     }
 }

@@ -144,7 +144,6 @@ namespace OpenLiveWriter.SpellChecker
             LayoutHelper.FixupGroupBox(8, _groupBoxGeneralOptions);
         }
 
-
         /// <summary>
         /// Save data
         /// </summary>

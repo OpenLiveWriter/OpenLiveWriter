@@ -480,20 +480,20 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Gets or sets the shortcut menu associated with the control.
-		/// </summary>
-		public override ContextMenu ContextMenu
-		{
-			get
-			{
-				return base.ContextMenu;
-			}
-			set
-			{
-				base.ContextMenu = contextMenu = value;
-			}
-		}
+        /// <summary>
+        /// Gets or sets the shortcut menu associated with the control.
+        /// </summary>
+        public override ContextMenu ContextMenu
+        {
+            get
+            {
+                return base.ContextMenu;
+            }
+            set
+            {
+                base.ContextMenu = contextMenu = value;
+            }
+        }
 #endif
 
         /// <summary>
@@ -1545,11 +1545,11 @@ namespace OpenLiveWriter.Controls
                 //	Set the mouse lightweight control.
                 mouseLightweightControl = value;
 #if false
-				//	The mouse lightweight control's context menu becomes this control's context menu.
-				if (mouseLightweightControl != null && mouseLightweightControl.ContextMenu != null)
-					base.ContextMenu = mouseLightweightControl.ContextMenu;
-				else
-					base.ContextMenu = contextMenu;
+                //	The mouse lightweight control's context menu becomes this control's context menu.
+                if (mouseLightweightControl != null && mouseLightweightControl.ContextMenu != null)
+                    base.ContextMenu = mouseLightweightControl.ContextMenu;
+                else
+                    base.ContextMenu = contextMenu;
 #endif
             }
         }

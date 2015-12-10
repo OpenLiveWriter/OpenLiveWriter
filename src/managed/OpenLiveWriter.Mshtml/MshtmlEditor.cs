@@ -154,7 +154,6 @@ namespace OpenLiveWriter.Mshtml
             base.Dispose(disposing);
         }
 
-
         /// <summary>
         /// Watch for document being complete to do the remainder of our
         /// initialization (some initialization can only be done once the
@@ -331,7 +330,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             mshtmlControl.SaveToFile(fileName, false);
             IsDirty = false;
         }
-
 
         #endregion
 
@@ -946,7 +944,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             ppDispatch = IntPtr.Zero;
         }
 
-
         /// <summary>
         /// Delegate to DragAndDropManager for GetDropTarget
         /// </summary>
@@ -992,7 +989,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             ppDORet = pDO;
             return HRESULT.S_FALSE;
         }
-
 
         #endregion
 
@@ -1057,7 +1053,6 @@ editingOption.Key, editingOption.Value, ex.ToString()));
 
             return false;
         }
-
 
         /// <summary>
         /// Custom processing for keyboard input

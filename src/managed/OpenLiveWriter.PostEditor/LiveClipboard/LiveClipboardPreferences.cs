@@ -23,6 +23,5 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
 
         }
 
-
     }
 }

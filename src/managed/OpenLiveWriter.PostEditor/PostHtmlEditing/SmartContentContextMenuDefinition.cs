@@ -18,10 +18,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             Entries.Add(CommandId.CopyCommand, false, false);
             Entries.Add(CommandId.Paste, false, true);
             /*
-			Entries.Add(CommandId.AlignLeft, false, false);
-			Entries.Add(CommandId.AlignCenter, false, false);
-			Entries.Add(CommandId.AlignRight, false, false);
-			*/
+            Entries.Add(CommandId.AlignLeft, false, false);
+            Entries.Add(CommandId.AlignCenter, false, false);
+            Entries.Add(CommandId.AlignRight, false, false);
+            */
         }
     }
 }

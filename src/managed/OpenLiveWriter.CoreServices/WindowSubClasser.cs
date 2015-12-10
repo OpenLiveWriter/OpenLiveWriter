@@ -74,7 +74,6 @@ namespace OpenLiveWriter.CoreServices
             return User32.CallWindowProc(m_baseWndProc, hWnd, uMsg, wParam, lParam);
         }
 
-
         // implementation data
         private IWin32Window _window;
         private WndProcDelegate m_wndProcDelegate;

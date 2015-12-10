@@ -99,6 +99,5 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             AutoreplaceSettings.EnableEmoticonsReplacement = EnableEmoticonsReplacement;
         }
 
-
     }
 }

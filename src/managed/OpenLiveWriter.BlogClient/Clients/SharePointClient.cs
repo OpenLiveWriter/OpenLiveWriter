@@ -249,7 +249,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             fileName = FileHelper.GetValidAnsiFileName(fileName, fileName.Length);
 
 
-
             //calculate the ListService endpoint based on the API URL.  Note that the postAPI URL format
             //changed between M1 and M2, so we need try to calculate the API URL using both formats.
             //TODO: Once we ship final and the M1 timebomb expires, we should drop the M1 check.

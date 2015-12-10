@@ -247,11 +247,11 @@ namespace OpenLiveWriter.BlogClient.Clients
             private bool SchemesEqual(string scheme1, string scheme2)
             {
                 /*
-				if (scheme1 == null)
-					scheme1 = "";
-				if (scheme2 == null)
-					scheme2 = "";
-				*/
+                if (scheme1 == null)
+                    scheme1 = "";
+                if (scheme2 == null)
+                    scheme2 = "";
+                */
                 return string.Equals(scheme1, scheme2);
             }
 

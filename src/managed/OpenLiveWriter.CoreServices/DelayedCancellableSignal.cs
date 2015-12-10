@@ -88,48 +88,48 @@ namespace OpenLiveWriter.CoreServices
 
         #region deprecated
         /*
-		private DateTime lastCancellation = DateTime.MinValue;
-		private ManualResetEvent theLock = new ManualResetEvent(false);
-		private LinkedList timers = new LinkedList();
+        private DateTime lastCancellation = DateTime.MinValue;
+        private ManualResetEvent theLock = new ManualResetEvent(false);
+        private LinkedList timers = new LinkedList();
 
-		public DelayedCancellableSignal()
-		{
-		}
+        public DelayedCancellableSignal()
+        {
+        }
 
-		public void Wait()
-		{
-			theLock.WaitOne();
-		}
+        public void Wait()
+        {
+            theLock.WaitOne();
+        }
 
-		public void SignalLater(int milliseconds)
-		{
-			Timer t = new Timer(new TimerCallback(MaybeSignal), DateTime.Now, milliseconds, -1);
-			timers.Add(t);
-		}
+        public void SignalLater(int milliseconds)
+        {
+            Timer t = new Timer(new TimerCallback(MaybeSignal), DateTime.Now, milliseconds, -1);
+            timers.Add(t);
+        }
 
-		public void SignalNow()
-		{
-			MaybeSignal(DateTime.Now);
-		}
+        public void SignalNow()
+        {
+            MaybeSignal(DateTime.Now);
+        }
 
-		private void MaybeSignal(object state)
-		{
-			Timer t = (Timer)state;
-			DateTime dateTimeOriginated = (DateTime)state;
-			if (dateTimeOriginated.CompareTo(lastCancellation) > 0)
-				DoSignal();
-		}
+        private void MaybeSignal(object state)
+        {
+            Timer t = (Timer)state;
+            DateTime dateTimeOriginated = (DateTime)state;
+            if (dateTimeOriginated.CompareTo(lastCancellation) > 0)
+                DoSignal();
+        }
 
-		private void DoSignal()
-		{
-			theLock.Set();
-		}
+        private void DoSignal()
+        {
+            theLock.Set();
+        }
 
-		public void CancelAllSignals()
-		{
-			lastCancellation = DateTime.Now;
-		}
-		*/
+        public void CancelAllSignals()
+        {
+            lastCancellation = DateTime.Now;
+        }
+        */
         #endregion
     }
 }

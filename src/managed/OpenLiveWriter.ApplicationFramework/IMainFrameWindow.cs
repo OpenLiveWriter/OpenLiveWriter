@@ -242,4 +242,3 @@ namespace OpenLiveWriter.ApplicationFramework
 }
 
 
-

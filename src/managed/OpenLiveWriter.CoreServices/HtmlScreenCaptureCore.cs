@@ -141,7 +141,6 @@ namespace OpenLiveWriter.CoreServices
             return bitmap;
         }
 
-
         [STAThread]
         private void ThreadMain(ConditionVariable signal, string[] ids)
         {
@@ -551,7 +550,6 @@ namespace OpenLiveWriter.CoreServices
                     _browserControl.Width = originalWidth;
                     _browserControl.Height = originalHeight;
                 }
-
 
                 // fire event to see if the Bitmap is ready
                 using (Bitmap bitmap = HtmlScreenCaptureCore.TakeSnapshot((IViewObject)_browserControl.Document, _browserControl.Width, _browserControl.Height))

@@ -692,7 +692,6 @@ namespace OpenLiveWriter.PostEditor
 
         #region Private Helpers
 
-
         private void DispatchEditPost(BlogPost blogPost)
         {
             DispatchEditPost(new BlogPostEditingContext(BlogId, blogPost), true);
@@ -1361,7 +1360,6 @@ namespace OpenLiveWriter.PostEditor
                 Trace.Fail("Unexpected exception saving recent post: " + ex.ToString());
             }
         }
-
 
         private bool ValidateSupportingFileUsage()
         {

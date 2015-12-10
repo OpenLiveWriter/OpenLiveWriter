@@ -316,7 +316,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
         #endregion
 
-
         private class BlogProviderDescriptionProxy : IBlogProviderDescription
         {
             public BlogProviderDescriptionProxy(IBlogProviderDescription provider)
@@ -422,7 +421,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
 
         }
-
 
     }
 

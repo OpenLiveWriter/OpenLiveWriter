@@ -243,7 +243,6 @@ namespace OpenLiveWriter.Controls
                 GC.KeepAlive(this);
             }
 
-
             /// <summary>
             /// Dispose the tool
             /// </summary>
@@ -289,7 +288,6 @@ namespace OpenLiveWriter.Controls
             private Point location;
         }
     }
-
 
 }
 

@@ -68,7 +68,6 @@ namespace OpenLiveWriter.Interop.Com
             return -1;
         }
 
-
         // Marshal Managed to Native
         /// <summary>
         /// Marshals managed data to native

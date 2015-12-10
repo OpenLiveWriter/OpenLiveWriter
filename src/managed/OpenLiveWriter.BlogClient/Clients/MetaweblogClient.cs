@@ -215,7 +215,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             return null;
         }
 
-
         public override BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
         {
             // call the method
@@ -421,7 +420,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             // call the base to do the rest of the edit
             return MetaweblogEditPost(blogId, post, publish);
         }
-
 
         public override BlogPost GetPost(string blogId, string postId)
         {
@@ -733,7 +731,6 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             return ParseCategories(result, "wp.suggestCategories");
         }
-
 
         private BlogPostCategory[] ParseCategories(XmlNode result, string methodName)
         {
@@ -1202,7 +1199,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientInvalidServerResponseException("mt.getPostCategories", "No categories returned from server", result.OuterXml);
             }
         }
-
 
 
         protected virtual void BlogPostReadFilter(BlogPost blogPost)

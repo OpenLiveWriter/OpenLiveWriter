@@ -54,7 +54,6 @@ namespace OpenLiveWriter.FileDestinations
             return dest;
         }
 
-
         /// <summary>
         /// Translate an exception into an error message
         /// </summary>

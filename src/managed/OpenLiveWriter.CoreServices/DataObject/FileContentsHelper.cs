@@ -108,7 +108,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// TYMEDs supported by CF_FILECONTENTS
         /// </summary>

@@ -625,7 +625,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return GetLineClientRectangle(pointer);
         }
 
-
         /// <summary>
         /// Returns the bounds of line that the pointer is positioned within in client-based coordinates.
         /// </summary>

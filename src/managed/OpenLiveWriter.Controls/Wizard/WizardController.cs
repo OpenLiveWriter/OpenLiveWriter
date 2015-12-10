@@ -384,7 +384,6 @@ namespace OpenLiveWriter.Controls.Wizard
             }
         }
 
-
         private string nextButtonLabel;
         /// <summary>
         /// Sets the text on the Next Button.

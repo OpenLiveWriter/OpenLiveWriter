@@ -229,7 +229,6 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public event ProgressUpdatedEventHandler ProgressUpdated;
 
-
         /// <summary>
         /// The ISynchronizeTarget supplied during construction - this can
         /// be used by deriving classes which wish to add their own events.
@@ -422,7 +421,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         // Utility function for firing an event through the target.
         // It uses C#'s variable length parameter list support
         // to build the parameter list.
@@ -465,7 +463,6 @@ namespace OpenLiveWriter.CoreServices
             base("Asynchronous operation already running")
         { }
     }
-
 
     /// <summary>
     /// Delegeate for handling Progress notification

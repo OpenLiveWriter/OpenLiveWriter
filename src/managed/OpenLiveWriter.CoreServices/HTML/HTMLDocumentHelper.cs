@@ -68,11 +68,11 @@ namespace OpenLiveWriter.CoreServices
             html = html.Replace("url(" + UrlHelper.CleanUpUrl(url) + ")", "Url(" + newUrl + ")");    // url(_)
             html = html.Replace("url( " + UrlHelper.CleanUpUrl(url) + " )", "Url(" + newUrl + ")");  // url( _ )
 #else
-			string pattern1 = @"(=?\s*(?:'|"")?)(" + Regex.Escape(cleanedUpUrl) + @")((?:""|')?\s*>?)";
-			html = Regex.Replace(html, pattern1, new MatchEvaluator(helper.MatchEvaluator1));
+            string pattern1 = @"(=?\s*(?:'|"")?)(" + Regex.Escape(cleanedUpUrl) + @")((?:""|')?\s*>?)";
+            html = Regex.Replace(html, pattern1, new MatchEvaluator(helper.MatchEvaluator1));
 
-			string pattern2 = @"url\(\s*" + Regex.Escape(cleanedUpUrl) + @"\s*\)";
-			html = Regex.Replace(html, pattern2, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
+            string pattern2 = @"url\(\s*" + Regex.Escape(cleanedUpUrl) + @"\s*\)";
+            html = Regex.Replace(html, pattern2, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
 #endif
 
             // HACK: Bug 1380. Be careful, because there can be some crazy things, like escaped tabs in URLs!
@@ -91,13 +91,13 @@ namespace OpenLiveWriter.CoreServices
             html = html.Replace("url(" + HttpUtility.UrlDecode(UrlHelper.CleanUpUrl(url)) + ")", "Url(" + newUrl + ")");
             html = html.Replace("url( " + HttpUtility.UrlDecode(UrlHelper.CleanUpUrl(url)) + " )", "Url(" + newUrl + ")");
 #else
-			string decodedUrl = HttpUtility.UrlDecode(cleanedUpUrl);
+            string decodedUrl = HttpUtility.UrlDecode(cleanedUpUrl);
 
-			string pattern3 = @"(=?\s*(?:'|"")?)(" + Regex.Escape(decodedUrl) + @")((?:""|')?\s*>?)";
-			html = Regex.Replace(html, pattern3, new MatchEvaluator(helper.MatchEvaluator1));
+            string pattern3 = @"(=?\s*(?:'|"")?)(" + Regex.Escape(decodedUrl) + @")((?:""|')?\s*>?)";
+            html = Regex.Replace(html, pattern3, new MatchEvaluator(helper.MatchEvaluator1));
 
-			string pattern4 = @"url\(\s*" + Regex.Escape(decodedUrl) + @"\s*\)";
-			html = Regex.Replace(html, pattern4, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
+            string pattern4 = @"url\(\s*" + Regex.Escape(decodedUrl) + @"\s*\)";
+            html = Regex.Replace(html, pattern4, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
 #endif
 
             // When an absolute path doesn't end with a file or a slash (i.e. http://www.realultimatepower.net)
@@ -323,7 +323,6 @@ namespace OpenLiveWriter.CoreServices
             return htmlText;
         }
 
-
         /// <summary>
         /// Gets the body text for a given url
         /// </summary>
@@ -348,7 +347,6 @@ namespace OpenLiveWriter.CoreServices
             // return the html document
             return GetHTMLDocumentFromStream(wr.GetResponseStream(WebRequestWithCache.CacheSettings.CHECKCACHE, timeout), url);
         }
-
 
 
         /// <summary>
@@ -509,7 +507,6 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
         /// <summary>
         /// Converts an HTML string into an IHTMLDocument2
         /// </summary>
@@ -663,7 +660,6 @@ namespace OpenLiveWriter.CoreServices
             }
             return url;
         }
-
 
         /// <summary>
         /// Structure of special headers that may begin the HTML at the beginning of an
@@ -1385,7 +1381,6 @@ namespace OpenLiveWriter.CoreServices
                 resources.Add(info);
             }
         }
-
 
         private static string GetParamValue(IHTMLElement param, string[] attributesToSearch)
         {

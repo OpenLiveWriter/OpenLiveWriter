@@ -523,7 +523,6 @@ namespace OpenLiveWriter.Interop.Windows
     }
 
 
-
     /// <summary>
     /// Enumeration of WinInet option flags
     /// </summary>
@@ -868,7 +867,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const int GOPHER = 2;
         public const int HTTP = 3;
     }
-
 
     /// <summary>
     /// Error codes that can be returned for WinInet Errors.

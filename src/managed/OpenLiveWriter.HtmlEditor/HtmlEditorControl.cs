@@ -439,7 +439,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Returns the Html generation service.
         /// </summary>
@@ -1034,7 +1033,6 @@ namespace OpenLiveWriter.HtmlEditor
 
         # region Command Initialization
 
-
         private IMshtmlCommand GetMshtmlCommand(uint key)
         {
             return _mshtmlEditor.Commands[key] as IMshtmlCommand;
@@ -1164,7 +1162,7 @@ namespace OpenLiveWriter.HtmlEditor
                 mshtmlEditorDragAndDropTarget.Initialize(EditorControl);
 
 #if DEBUG_STYLES
-				// StyleDebugger.ShowDebugger(_mainFrameWindow, MshtmlEditor);
+                // StyleDebugger.ShowDebugger(_mainFrameWindow, MshtmlEditor);
 #endif
                 // one-time init
                 _initialDocumentLoaded = true;
@@ -1280,9 +1278,8 @@ namespace OpenLiveWriter.HtmlEditor
             // global processing for Mouse Up (none for the time being )
         }
 
-
 #if SELECTION_DEBUG
-	    private SelectionDebugDialog SelectionDebugDialog;
+        private SelectionDebugDialog SelectionDebugDialog;
 #endif
         private void DocumentEvents_SelectionChanged(object sender, EventArgs e)
         {
@@ -1482,9 +1479,7 @@ namespace OpenLiveWriter.HtmlEditor
                             ele.innerHTML = CurrentDefaultFont.ApplyFont("");
                     }
 
-
                     IHTMLElement finalElement = FindFontElement(true);
-
 
                     if (finalElement == null)
                     {
@@ -1579,7 +1574,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
             OnCommandKey(e);
         }
-
 
 
         #endregion
@@ -1692,7 +1686,6 @@ namespace OpenLiveWriter.HtmlEditor
                 return _mshtmlEditor.MshtmlControl.OleUndoManager;
             }
         }
-
 
         protected MarkupRange CleanUpRange()
         {
@@ -2650,7 +2643,6 @@ namespace OpenLiveWriter.HtmlEditor
                             start.PopGravity();
                         }
 
-
                         if (allowNewLineInsert && TidyWhitespace)
                         {
                             try
@@ -3230,7 +3222,6 @@ namespace OpenLiveWriter.HtmlEditor
                 }
             }
         }
-
 
         public virtual void EmptySelection()
         {
@@ -4795,7 +4786,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         MshtmlMarkupServices IHtmlEditorComponentContext.MarkupServices
         {
             get
@@ -5040,7 +5030,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         public void Undo()
         {
             try
@@ -5254,7 +5243,6 @@ namespace OpenLiveWriter.HtmlEditor
             if (!ea.Handled)
                 GetMshtmlCommand(IDM.COPY).Execute();
         }
-
 
         private static bool ClipboardHasData
         {

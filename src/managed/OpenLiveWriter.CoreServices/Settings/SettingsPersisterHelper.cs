@@ -80,7 +80,6 @@ namespace OpenLiveWriter.CoreServices.Settings
             }
         }
 
-
         /// <summary>
         /// Get the names of available settings.
         /// </summary>
@@ -626,7 +625,6 @@ namespace OpenLiveWriter.CoreServices.Settings
             if (settingsPersister.HasSubSettings(name))
                 settingsPersister.UnsetSubSettingsTree(name);
         }
-
 
         /// <summary>
         /// Returns a SettingsPersisterHelper for the first RegistryKeySpec that exists

@@ -135,7 +135,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return info;
         }
 
-
         private IHTMLElement ImgElement
         {
             get

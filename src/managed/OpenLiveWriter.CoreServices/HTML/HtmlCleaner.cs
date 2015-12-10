@@ -9,23 +9,22 @@ using OpenLiveWriter.HtmlParser.Parser;
 namespace OpenLiveWriter.CoreServices.HTML
 {
     /*
-		HTML enters the PostEditor "from the wild" in 4 ways:
+        HTML enters the PostEditor "from the wild" in 4 ways:
 
-		- HTML marshalling (HtmlHandler.DoInsertData). This entry point calls the HtmlGenerationService
-		  CleanupHtml method the PostEditor implementation of which calls PostEditorHtmlCleaner.CleanupHtml
+        - HTML marshalling (HtmlHandler.DoInsertData). This entry point calls the HtmlGenerationService
+          CleanupHtml method the PostEditor implementation of which calls PostEditorHtmlCleaner.CleanupHtml
 
-		- LC marshalling (LiveClipboardHtmlFormatHandler.DoInsertData). This entry point calls
-		  PostEditorHtmlCleaner.RemoveScripts to remove only scripts, the assumption being that
-		  LC presentations only need security transformations not formatting transformations.
+        - LC marshalling (LiveClipboardHtmlFormatHandler.DoInsertData). This entry point calls
+          PostEditorHtmlCleaner.RemoveScripts to remove only scripts, the assumption being that
+          LC presentations only need security transformations not formatting transformations.
 
-
-		- Plugins can insert HTML in two places. Simple content sources (ultimately) go through
-		  BlogPostHtmlEditor.InsertHtml, which ultimately calls HtmlEditorControl.InsertContent.
-		  Smart content sources call SmartContentInsertionHelper to do their insertion. Both of
-		  these paths allow "raw" access to HTML insertion. We will ultimately need to provide a
-		  service to plugins to do security and formatting oriented transformations of HTML
-		  that they retreive "from the wild".
-	*/
+        - Plugins can insert HTML in two places. Simple content sources (ultimately) go through
+          BlogPostHtmlEditor.InsertHtml, which ultimately calls HtmlEditorControl.InsertContent.
+          Smart content sources call SmartContentInsertionHelper to do their insertion. Both of
+          these paths allow "raw" access to HTML insertion. We will ultimately need to provide a
+          service to plugins to do security and formatting oriented transformations of HTML
+          that they retreive "from the wild".
+    */
 
     public class HtmlCleaner
     {

@@ -160,7 +160,6 @@ namespace OpenLiveWriter.Interop.Com
         int EnumDAdvise(ref IntPtr ppEnumAdvise);
     }
 
-
     /// <summary>
     /// Clipboard format strings
     /// </summary>
@@ -173,7 +172,6 @@ namespace OpenLiveWriter.Interop.Com
         public const short TEXT = 1;
         public const short UNICODETEXT = 13;
     }
-
 
     /// <summary>
     /// EnumFormatEtc data-direction enumeration
@@ -195,7 +193,6 @@ namespace OpenLiveWriter.Interop.Com
         public const int SAMEFORMATETC = unchecked((int)0x00040130L);
     }
 
-
     /// <summary>
     /// Error codes returned by IDataObject methods
     /// </summary>
@@ -213,7 +210,6 @@ namespace OpenLiveWriter.Interop.Com
 
         public const int TYMED = unchecked((int)0x80040069);
     }
-
 
     /// <summary>
     /// The FORMATETC structure is a generalized Clipboard format. It is enhanced to
@@ -267,7 +263,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         public TYMED tymed;
     }
-
 
     /// <summary>
     /// This structure is a generalized global memory handle used for data transfer

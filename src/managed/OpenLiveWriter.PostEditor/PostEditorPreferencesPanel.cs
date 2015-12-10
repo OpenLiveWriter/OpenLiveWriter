@@ -138,7 +138,6 @@ namespace OpenLiveWriter.PostEditor
                 _wordCountPreferences.Save();
         }
 
-
         private void checkBoxViewWeblog_CheckedChanged(object sender, EventArgs e)
         {
             _postEditorPreferences.ViewPostAfterPublish = checkBoxViewWeblog.Checked;
@@ -403,7 +402,6 @@ namespace OpenLiveWriter.PostEditor
 
         }
         #endregion
-
 
     }
 }

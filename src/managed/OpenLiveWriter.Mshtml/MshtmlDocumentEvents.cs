@@ -243,7 +243,6 @@ namespace OpenLiveWriter.Mshtml
         }
         private event HtmlEventHandler DoubleClickEventHandler;
 
-
         /// <summary>
         /// Event raised when the mouse is pressed down.
         /// </summary>
@@ -462,7 +461,6 @@ namespace OpenLiveWriter.Mshtml
             if (LostFocusEventHandler != null)
                 LostFocusEventHandler(this, EventArgs.Empty);
         }
-
 
         /////////////////////////////////////////////////////////////////////////////////
         // HTMLDocumentEvents2 no-op event handlers -- As we need to handle the various

@@ -92,7 +92,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Initialize the downloader with the appropriate paths and options
         /// </summary>
@@ -118,7 +117,6 @@ namespace OpenLiveWriter.CoreServices
         {
             return GetResource(Assembly.GetCallingAssembly(), name, resourceUrl, contentType, requiredFreshnessDays, timeoutMs);
         }
-
 
         /// <summary>
         /// Get and process a resource (see comment on GetResource for more info on resources)
@@ -281,7 +279,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Get the specified resource from the local cache
         /// </summary>
@@ -300,7 +297,6 @@ namespace OpenLiveWriter.CoreServices
             // return the resource stream
             return assembly.GetManifestResourceStream(assemblyResourcePath);
         }
-
 
 
         private void SafeDeleteLocalCacheFile(Assembly assembly, string resourceName)

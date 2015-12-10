@@ -40,7 +40,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
         public const string EventName = "Inserting Media";
 
-
         public MediaInsertForm(List<MediaTab> sources, string blogID, int selectedTab, MediaSmartContent content, string title, bool showCopyright) :
     this(sources, blogID, selectedTab, content, title, showCopyright, false)
         {

@@ -11,7 +11,6 @@ using OpenLiveWriter.Localization;
 namespace OpenLiveWriter.PostEditor.Tagging
 {
 
-
     public class TagProvider : IComparable
     {
         private const string DEFAULT_FORMAT = "<a href=\"{0}\" rel=\"tag\">{1}</a>";

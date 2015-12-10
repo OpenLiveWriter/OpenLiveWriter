@@ -235,7 +235,6 @@ namespace OpenLiveWriter.PostEditor
             _editingSite.ConfigureWeblog(_editingManager.BlogId, typeof(AccountPanel));
         }
 
-
         private void commandAddWeblog_Execute(object sender, EventArgs e)
         {
             _editingSite.AddWeblog();
@@ -256,7 +255,6 @@ namespace OpenLiveWriter.PostEditor
             if (components != null)
                 components.Dispose();
         }
-
 
         public CommandManager CommandManager
         {
@@ -282,7 +280,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
         private DynamicCommandMenuOptions _options;
-
 
 
         IMenuCommandObject[] IDynamicCommandMenuContext.GetMenuCommandObjects()
@@ -334,7 +331,6 @@ namespace OpenLiveWriter.PostEditor
             string IMenuCommandObject.Caption { get { return _caption; } }
             string IMenuCommandObject.CaptionNoMnemonic { get { return _caption; } }
             private string _caption;
-
 
             bool IMenuCommandObject.Latched { get { return _latched; } }
             private bool _latched;

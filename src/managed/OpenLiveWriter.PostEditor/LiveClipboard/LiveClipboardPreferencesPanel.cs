@@ -485,6 +485,5 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
         }
         #endregion
 
-
     }
 }

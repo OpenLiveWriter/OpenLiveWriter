@@ -71,7 +71,6 @@ namespace OpenLiveWriter.CoreServices
             return propStore;
         }
 
-
         /// <summary>
         /// For a file extension (with leading period) and a verb (or null for default
         /// verb), returns the (full?) path to the executable file that is assigned to

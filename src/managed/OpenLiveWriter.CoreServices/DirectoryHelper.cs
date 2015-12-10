@@ -50,7 +50,6 @@ namespace OpenLiveWriter.CoreServices
             return lister.GetFiles();
         }
 
-
         /// <summary>
         /// Recursively copy the contents of one directory to another. Note  that this method
         /// provides a thin-layer over file system calls -- low-level file system exceptions
@@ -85,7 +84,6 @@ namespace OpenLiveWriter.CoreServices
                 new DirectoryCopier(sourcePath, destinationPath, overwrite, recursive);
             copier.Copy();
         }
-
 
         /// <summary>
         /// Determine whether a path is a network volume or not.  Note that non network

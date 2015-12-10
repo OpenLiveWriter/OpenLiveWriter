@@ -125,7 +125,6 @@ namespace OpenLiveWriter.BlogClient.Providers
 
         private Hashtable _options = new Hashtable();
 
-
         private static string NodeText(XmlNode node)
         {
             if (node != null)

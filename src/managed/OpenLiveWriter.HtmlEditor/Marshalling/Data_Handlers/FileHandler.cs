@@ -44,7 +44,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
             }
         }
 
-
         /// <summary>
         /// Grabs HTML copied in the clipboard and pastes it into the document (pulls in a copy of embedded content too)
         /// </summary>

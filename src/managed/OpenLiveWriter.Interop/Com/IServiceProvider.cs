@@ -28,7 +28,6 @@ namespace OpenLiveWriter.Interop.Com
             [Out, MarshalAs(UnmanagedType.Interface)] out Object Obj);
     }
 
-
     /// <summary>
     /// Generic access mechanism to locate a GUID identified service.
     /// </summary>

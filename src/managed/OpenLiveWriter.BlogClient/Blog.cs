@@ -417,7 +417,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
 
-
         public BlogPost[] GetRecentPosts(int maxPosts, bool includeCategories)
         {
             BlogPost[] recentPosts = BlogClient.GetRecentPosts(_settings.HostBlogId, maxPosts, includeCategories, null);
@@ -598,7 +597,6 @@ namespace OpenLiveWriter.BlogClient
             // return the blog post
             return blogPost;
         }
-
 
         public void DeletePost(string postId, bool isPage, bool publish)
         {

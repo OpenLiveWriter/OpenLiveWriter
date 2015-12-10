@@ -256,7 +256,5 @@ namespace OpenLiveWriter.HtmlEditor
 
     public delegate void HtmlEditorSelectionOperationEventHandler(HtmlEditorSelectionOperationEventArgs ea);
 
-
 }
-
 

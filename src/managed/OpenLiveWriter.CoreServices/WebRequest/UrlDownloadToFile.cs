@@ -78,7 +78,6 @@ namespace OpenLiveWriter.CoreServices
             return urlDownloadToFile.FilePath;
         }
 
-
         public enum DownloadActions
         {
             GET,
@@ -150,7 +149,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private NetworkCredential _networkCredential = null;
         private string _cookieString = null;
-
 
         public DownloadActions DownloadAction
         {
@@ -566,7 +564,6 @@ namespace OpenLiveWriter.CoreServices
                 String.Format(CultureInfo.InvariantCulture, "Unexpected call to {0}.{1}", iface, method));
             LOG(iface, method);
         }
-
 
         #endregion
 

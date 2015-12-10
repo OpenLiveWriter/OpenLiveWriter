@@ -98,11 +98,9 @@ namespace OpenLiveWriter.BlogClient.Clients
                 blogClient.OverrideOptions(userOptions);
             }
 
-
             // return the blog client
             return blogClient;
         }
-
 
         private class OptionOverrideReader
         {
