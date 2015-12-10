@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Api
     /// <param name="arg">The parameter of the method that this delegate encapsulates.</param>
     /// <returns>The return value of the method that this delegate encapsulates.</returns>
     public delegate TResult Task<TParam, TResult>(TParam arg);
-    
+
     /// <summary>
     /// Encapsulates a method that takes no parameters and does not 
     /// directly return a value.

@@ -73,7 +73,7 @@ namespace OpenLiveWriter.Interop.Com
         {
             this.formatId = new Guid(index, 0x7363, 0x696e, new byte[] { 0x84, 0x41, 0x79, 0x8a, 0xcf, 0x5a, 0xeb, 0xb7 });
             this.propertyId = Convert.ToInt32(id);
-        }    
+        }
 
         #endregion
 

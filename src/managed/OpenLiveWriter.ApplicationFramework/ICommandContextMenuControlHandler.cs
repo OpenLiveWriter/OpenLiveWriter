@@ -4,17 +4,17 @@
 using System.Windows.Forms;
 
 namespace OpenLiveWriter.ApplicationFramework
-{	
-	/// <summary>
-	/// Interface implemented to create and respond to user execute request
-	/// for context menu controls
-	/// </summary>
-	public interface ICommandContextMenuControlHandler
-	{
-		Control CreateControl() ;
-		string CaptionText { get; }		
-		string ButtonText { get; }
-		object GetUserInput() ;
-		void Execute(object userInput) ;
-	}
+{
+    /// <summary>
+    /// Interface implemented to create and respond to user execute request
+    /// for context menu controls
+    /// </summary>
+    public interface ICommandContextMenuControlHandler
+    {
+        Control CreateControl();
+        string CaptionText { get; }
+        string ButtonText { get; }
+        object GetUserInput();
+        void Execute(object userInput);
+    }
 }

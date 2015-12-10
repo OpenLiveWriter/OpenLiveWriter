@@ -5,8 +5,8 @@ using System;
 
 namespace OpenLiveWriter.Extensibility.ImageEditing
 {
-	public interface IImageDecoratorUndoUnit : IDisposable
-	{
-		void Commit();
-	}
+    public interface IImageDecoratorUndoUnit : IDisposable
+    {
+        void Commit();
+    }
 }

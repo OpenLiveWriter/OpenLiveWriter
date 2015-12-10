@@ -13,37 +13,37 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.Controls
 {
-	
-	public class DelayedAnimatedProgressDialog : ApplicationDialog
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
 
-		
-		private OpenLiveWriter.CoreServices.AsyncOperation _asyncOperation ;
-		private AnimatedBitmapControl _animatedBitmapControl;
+    public class DelayedAnimatedProgressDialog : ApplicationDialog
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
 
-		public DelayedAnimatedProgressDialog()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        private OpenLiveWriter.CoreServices.AsyncOperation _asyncOperation;
+        private AnimatedBitmapControl _animatedBitmapControl;
 
-			this.Text = Res.Get(StringId.ProgressDialogTitle);
-			Icon = ApplicationEnvironment.ProductIcon;
-		}
+
+        public DelayedAnimatedProgressDialog()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
+
+            this.Text = Res.Get(StringId.ProgressDialogTitle);
+            Icon = ApplicationEnvironment.ProductIcon;
+        }
 
 
         public void ShowDialogWithDelay(IWin32Window owner, OpenLiveWriter.CoreServices.AsyncOperation asyncOperation, int delayMs)
-		{
-			// JJA: THIS TECHNIQUE DOES NOT WORK AND CAUSES ALL KINDS OF PROBLEMS! WE NEED A DIFFERENT
-			// TECHNIQUE THAT DOES NOT STARVE THE UI THREAD. DO NOT UNDER ANY CONDITIONS RESTORE
-			// THIS CODE!!!!!!
-			/*
+        {
+            // JJA: THIS TECHNIQUE DOES NOT WORK AND CAUSES ALL KINDS OF PROBLEMS! WE NEED A DIFFERENT
+            // TECHNIQUE THAT DOES NOT STARVE THE UI THREAD. DO NOT UNDER ANY CONDITIONS RESTORE
+            // THIS CODE!!!!!!
+            /*
 			// start out by polling the get post operation for completion for the delay interval
 			using ( new WaitCursor() )
 			{
@@ -64,15 +64,15 @@ namespace OpenLiveWriter.Controls
 			}
 			*/
 
-			// got past the delay interval, need to signup for events and show the dialog
-			_asyncOperation = asyncOperation ;
+            // got past the delay interval, need to signup for events and show the dialog
+            _asyncOperation = asyncOperation;
 
             if (_asyncOperation.IsDone)
                 return;
-			
-			// show the dialog
-			ShowDialog(owner) ;
-		}
+
+            // show the dialog
+            ShowDialog(owner);
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -81,102 +81,102 @@ namespace OpenLiveWriter.Controls
             _asyncOperation.Completed += new EventHandler(_asyncOperation_Completed);
             _asyncOperation.Cancelled += new EventHandler(_asyncOperation_Cancelled);
             _asyncOperation.Failed += new ThreadExceptionEventHandler(_asyncOperation_Failed);
-            
+
             if (_asyncOperation.IsDone)
                 Close();
         }
 
-		protected void SetAnimatatedBitmapControl(AnimatedBitmapControl animatedBitmapControl)
-		{
-			_animatedBitmapControl = animatedBitmapControl ;
-		}
+        protected void SetAnimatatedBitmapControl(AnimatedBitmapControl animatedBitmapControl)
+        {
+            _animatedBitmapControl = animatedBitmapControl;
+        }
 
-		protected void Cancel()
-		{
-		    CancelWithoutClose();
-			Close();
-		}
+        protected void Cancel()
+        {
+            CancelWithoutClose();
+            Close();
+        }
 
         protected void CancelWithoutClose()
         {
             _asyncOperation.Cancel();
         }
 
-		private void _asyncOperation_Failed(object sender, ThreadExceptionEventArgs e)
-		{
-			Close();
-		}
+        private void _asyncOperation_Failed(object sender, ThreadExceptionEventArgs e)
+        {
+            Close();
+        }
 
-		private void _asyncOperation_Completed(object sender, EventArgs e)
-		{
-			Close();
-		}
+        private void _asyncOperation_Completed(object sender, EventArgs e)
+        {
+            Close();
+        }
 
-		private void _asyncOperation_Cancelled(object sender, EventArgs e)
-		{
-			Close();
-		}
-	
+        private void _asyncOperation_Cancelled(object sender, EventArgs e)
+        {
+            Close();
+        }
 
-		protected override void OnActivated(EventArgs e)
-		{
-			base.OnActivated (e);
 
-			Debug.Assert(_animatedBitmapControl != null);
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
 
-			if ( !_animatedBitmapControl.Running )
-				_animatedBitmapControl.Start();
-		}
-	
+            Debug.Assert(_animatedBitmapControl != null);
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
+            if (!_animatedBitmapControl.Running)
+                _animatedBitmapControl.Start();
+        }
+
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
                 if (!_animatedBitmapControl.IsDisposed && _animatedBitmapControl.Running)
                 {
                     _animatedBitmapControl.Stop();
                 }
 
-			    if ( _asyncOperation != null )
-				{
-					_asyncOperation.Completed -=new EventHandler(_asyncOperation_Completed);
-					_asyncOperation.Cancelled -=new EventHandler(_asyncOperation_Cancelled);
-					_asyncOperation.Failed -=new ThreadExceptionEventHandler(_asyncOperation_Failed);
-				}
-			
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+                if (_asyncOperation != null)
+                {
+                    _asyncOperation.Completed -= new EventHandler(_asyncOperation_Completed);
+                    _asyncOperation.Cancelled -= new EventHandler(_asyncOperation_Cancelled);
+                    _asyncOperation.Failed -= new ThreadExceptionEventHandler(_asyncOperation_Failed);
+                }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			// 
-			// DelayedAnimatedProgressDialog
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
-			this.ClientSize = new System.Drawing.Size(264, 141);
-			this.Location = new System.Drawing.Point(0, 0);
-			this.MaximizeBox = false;
-			this.MinimizeBox = false;
-			this.Name = "DelayedAnimatedProgressDialog";
-			this.Text = "Progress Dialog";
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		}
-		#endregion
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            // 
+            // DelayedAnimatedProgressDialog
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
+            this.ClientSize = new System.Drawing.Size(264, 141);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "DelayedAnimatedProgressDialog";
+            this.Text = "Progress Dialog";
 
-		
-	}
+        }
+        #endregion
+
+
+    }
 }

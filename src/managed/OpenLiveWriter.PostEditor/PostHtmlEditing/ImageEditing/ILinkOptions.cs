@@ -3,13 +3,13 @@
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Summary description for ILinkOptions.
-	/// </summary>
-	public interface ILinkOptions
-	{
-		bool ShowInNewWindow { get; set; }
+    /// <summary>
+    /// Summary description for ILinkOptions.
+    /// </summary>
+    public interface ILinkOptions
+    {
+        bool ShowInNewWindow { get; set; }
         bool UseImageViewer { get; set; }
         string ImageViewerGroupName { get; set; }
-	}
+    }
 }

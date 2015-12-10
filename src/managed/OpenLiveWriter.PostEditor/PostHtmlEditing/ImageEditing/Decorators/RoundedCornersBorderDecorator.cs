@@ -37,21 +37,21 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     Bitmap corner =
                         ResourceHelper.LoadAssemblyResourceBitmap("PostHtmlEditing.ImageEditing.Images.Corner16.png");
 
-                    g.DrawImage(corner, 
-                                new Rectangle(0, 0, corner.Width, corner.Height), 
-                                0, 0, corner.Width, corner.Height, 
+                    g.DrawImage(corner,
+                                new Rectangle(0, 0, corner.Width, corner.Height),
+                                0, 0, corner.Width, corner.Height,
                                 GraphicsUnit.Pixel, ia);
-                    g.DrawImage(corner, 
+                    g.DrawImage(corner,
                                 MakePoints(bitmap.Width, 0, bitmap.Width, corner.Width, bitmap.Width - corner.Height, 0),
-                                new Rectangle(0, 0, corner.Width, corner.Height), 
+                                new Rectangle(0, 0, corner.Width, corner.Height),
                                 GraphicsUnit.Pixel, ia);
-                    g.DrawImage(corner, 
+                    g.DrawImage(corner,
                                 MakePoints(bitmap.Width, bitmap.Height, bitmap.Width - corner.Width, bitmap.Height, bitmap.Width, bitmap.Height - corner.Height),
-                                new Rectangle(0, 0, corner.Width, corner.Height), 
+                                new Rectangle(0, 0, corner.Width, corner.Height),
                                 GraphicsUnit.Pixel, ia);
-                    g.DrawImage(corner, 
+                    g.DrawImage(corner,
                                 MakePoints(0, bitmap.Height, 0, bitmap.Height - corner.Width, corner.Width, bitmap.Height),
-                                new Rectangle(0, 0, corner.Width, corner.Height), 
+                                new Rectangle(0, 0, corner.Width, corner.Height),
                                 GraphicsUnit.Pixel, ia);
                 }
             }

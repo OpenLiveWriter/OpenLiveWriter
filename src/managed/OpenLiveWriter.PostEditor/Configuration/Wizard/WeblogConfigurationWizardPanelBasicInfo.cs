@@ -15,56 +15,56 @@ using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
-using OpenLiveWriter.PostEditor.BlogProviderButtons; 
+using OpenLiveWriter.PostEditor.BlogProviderButtons;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
-	/// <summary>
-	/// Summary description for WelcomeToBlogControl.
-	/// </summary>
-	internal class WeblogConfigurationWizardPanelBasicInfo : WeblogConfigurationWizardPanel, IAccountBasicInfoProvider
-	{
-		private System.Windows.Forms.Label labelPassword;
-		private System.Windows.Forms.TextBox textBoxPassword;
-		private System.Windows.Forms.TextBox textBoxUsername;
-		private System.Windows.Forms.Label labelUsername;
-		private System.Windows.Forms.TextBox textBoxHomepageUrl;
-		private System.Windows.Forms.Label labelHomepageUrl;
-		private System.Windows.Forms.Label labelHomepageUrl2;
-		
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+    /// <summary>
+    /// Summary description for WelcomeToBlogControl.
+    /// </summary>
+    internal class WeblogConfigurationWizardPanelBasicInfo : WeblogConfigurationWizardPanel, IAccountBasicInfoProvider
+    {
+        private System.Windows.Forms.Label labelPassword;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.TextBox textBoxUsername;
+        private System.Windows.Forms.Label labelUsername;
+        private System.Windows.Forms.TextBox textBoxHomepageUrl;
+        private System.Windows.Forms.Label labelHomepageUrl;
+        private System.Windows.Forms.Label labelHomepageUrl2;
 
-		private System.Windows.Forms.CheckBox checkBoxSavePassword;
-		
-		public WeblogConfigurationWizardPanelBasicInfo() 
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+
+        private System.Windows.Forms.CheckBox checkBoxSavePassword;
+
+        public WeblogConfigurationWizardPanelBasicInfo()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
             this.textBoxHomepageUrl.RightToLeft = RightToLeft.No;
             if (BidiHelper.IsRightToLeft)
                 textBoxHomepageUrl.TextAlign = HorizontalAlignment.Right;
 
-		    this.labelHeader.Text = Res.Get(StringId.CWBasicHeader);
+            this.labelHeader.Text = Res.Get(StringId.CWBasicHeader);
             this.labelHomepageUrl.Text = Res.Get(StringId.CWBasicHomepage);
-		    this.labelHomepageUrl2.Text = Res.Get(StringId.CWBasicHomepage2);
-			this.labelUsername.Text = Res.Get(StringId.UsernameLabel);
-			this.labelPassword.Text = Res.Get(StringId.PasswordLabel);
-			this.textBoxPassword.PasswordChar = Res.PasswordChar;
-			this.checkBoxSavePassword.Text = Res.Get(StringId.RememberPassword);
+            this.labelHomepageUrl2.Text = Res.Get(StringId.CWBasicHomepage2);
+            this.labelUsername.Text = Res.Get(StringId.UsernameLabel);
+            this.labelPassword.Text = Res.Get(StringId.PasswordLabel);
+            this.textBoxPassword.PasswordChar = Res.PasswordChar;
+            this.checkBoxSavePassword.Text = Res.Get(StringId.RememberPassword);
 
-			textBoxPassword.PasswordChar = Res.PasswordChar;
+            textBoxPassword.PasswordChar = Res.PasswordChar;
 
             textBoxHomepageUrl.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.CWBasicHomepage));
-		}
+        }
 
         public override void NaturalizeLayout()
         {
-			if (!DesignMode)
-			{
+            if (!DesignMode)
+            {
                 MaximizeWidth(labelHomepageUrl);
                 MaximizeWidth(labelHomepageUrl2);
                 MaximizeWidth(checkBoxSavePassword);
@@ -77,7 +77,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                     new ControlGroup(labelPassword, textBoxPassword, checkBoxSavePassword)
                     );
             }
-		}
+        }
 
         public override ConfigPanelId? PanelId
         {
@@ -89,93 +89,93 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             get { return true; }
         }
 
-	    public IBlogProviderAccountWizardDescription ProviderAccountWizard
-	    {
-	        set {  }
-	    }
+        public IBlogProviderAccountWizardDescription ProviderAccountWizard
+        {
+            set { }
+        }
 
-	    public string AccountId
-	    {
-	        set {  }
-	    }
+        public string AccountId
+        {
+            set { }
+        }
 
-	    public string HomepageUrl
-		{
-			get { return UrlHelper.FixUpUrl(textBoxHomepageUrl.Text); }
-			set { textBoxHomepageUrl.Text = value; }
-		}
+        public string HomepageUrl
+        {
+            get { return UrlHelper.FixUpUrl(textBoxHomepageUrl.Text); }
+            set { textBoxHomepageUrl.Text = value; }
+        }
 
-		public bool SavePassword
-		{
-			get { return checkBoxSavePassword.Checked; }
-			set { checkBoxSavePassword.Checked = value; }
-		}
+        public bool SavePassword
+        {
+            get { return checkBoxSavePassword.Checked; }
+            set { checkBoxSavePassword.Checked = value; }
+        }
 
-		public bool ForceManualConfiguration
-		{
-			get { return false; }
-			set { }
-		}
+        public bool ForceManualConfiguration
+        {
+            get { return false; }
+            set { }
+        }
 
-		public IBlogCredentials Credentials
-		{
-			get
-			{
-				TemporaryBlogCredentials credentials = new TemporaryBlogCredentials();
-				credentials.Username = textBoxUsername.Text.Trim() ;
-				credentials.Password = textBoxPassword.Text.Trim() ;
-				return credentials ;
-			}
-			set
-			{
-				textBoxUsername.Text = value.Username ;
-				textBoxPassword.Text = value.Password ;
-			}
-		}
-		
-		public bool IsDirty(TemporaryBlogSettings settings)
-		{
-			return 
-				!UrlHelper.UrlsAreEqual(HomepageUrl, settings.HomepageUrl) ||
-				!BlogCredentialsHelper.CredentialsAreEqual(Credentials, settings.Credentials) ;
-		}
-		
-		public BlogInfo BlogAccount
-		{
-			get
-			{
-				return null;
-			}
-		}
-	
-		
-		public override bool ValidatePanel()
-		{
-		    string homepageUrl = HomepageUrl;
-		    
+        public IBlogCredentials Credentials
+        {
+            get
+            {
+                TemporaryBlogCredentials credentials = new TemporaryBlogCredentials();
+                credentials.Username = textBoxUsername.Text.Trim();
+                credentials.Password = textBoxPassword.Text.Trim();
+                return credentials;
+            }
+            set
+            {
+                textBoxUsername.Text = value.Username;
+                textBoxPassword.Text = value.Password;
+            }
+        }
+
+        public bool IsDirty(TemporaryBlogSettings settings)
+        {
+            return
+                !UrlHelper.UrlsAreEqual(HomepageUrl, settings.HomepageUrl) ||
+                !BlogCredentialsHelper.CredentialsAreEqual(Credentials, settings.Credentials);
+        }
+
+        public BlogInfo BlogAccount
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+
+        public override bool ValidatePanel()
+        {
+            string homepageUrl = HomepageUrl;
+
             if (homepageUrl == String.Empty)
-			{
+            {
                 ShowValidationError(textBoxHomepageUrl, MessageId.HomepageUrlRequired);
-				return false;
-			}
-			
-			if (!UrlHelper.IsUrl(homepageUrl))
-			{
+                return false;
+            }
+
+            if (!UrlHelper.IsUrl(homepageUrl))
+            {
                 ShowValidationError(textBoxHomepageUrl, MessageId.HomepageUrlInvalid);
-				return false;
-			}
-			
-			if (textBoxUsername.Text.Trim() == String.Empty )
-			{
-				ShowValidationError( textBoxUsername, MessageId.UsernameAndPasswordRequired) ;
-				return false ;
-			}
-                
-			if (textBoxPassword.Text.Trim() == String.Empty )
-			{
-				ShowValidationError( textBoxPassword, MessageId.UsernameAndPasswordRequired) ;
-				return false ;
-			}
+                return false;
+            }
+
+            if (textBoxUsername.Text.Trim() == String.Empty)
+            {
+                ShowValidationError(textBoxUsername, MessageId.UsernameAndPasswordRequired);
+                return false;
+            }
+
+            if (textBoxPassword.Text.Trim() == String.Empty)
+            {
+                ShowValidationError(textBoxPassword, MessageId.UsernameAndPasswordRequired);
+                return false;
+            }
 
             if (IsWordPress(homepageUrl))
             {
@@ -183,48 +183,48 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 return false;
             }
 
-			return true ;
-		}
+            return true;
+        }
 
-	    private static bool IsWordPress(string url)
-	    {
-	        try
-	        {
-	            return Regex.IsMatch(
-	                new Uri(url).Host,
-	                @"^(www\.)?wordpress\.com$",
-	                RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
-	        }
+        private static bool IsWordPress(string url)
+        {
+            try
+            {
+                return Regex.IsMatch(
+                    new Uri(url).Host,
+                    @"^(www\.)?wordpress\.com$",
+                    RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
+            }
             catch (Exception e)
             {
                 Trace.Fail(e.ToString());
                 return false;
             }
-	    }
+        }
 
 
-	    /// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.checkBoxSavePassword = new System.Windows.Forms.CheckBox();
             this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
@@ -297,7 +297,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxHomepageUrl.Size = new System.Drawing.Size(275, 22);
             this.textBoxHomepageUrl.TabIndex = 2;
             this.textBoxHomepageUrl.Enter += new System.EventHandler(this.textBoxHomepageUrl_Enter);
-		    this.textBoxHomepageUrl.Leave += new System.EventHandler(this.textBoxHomepageUrl_Leave);
+            this.textBoxHomepageUrl.Leave += new System.EventHandler(this.textBoxHomepageUrl_Leave);
             // 
             // labelHomepageUrl
             // 
@@ -311,7 +311,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // labelHomepageUrl2
             // 
             this.labelHomepageUrl2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-		    this.labelHomepageUrl2.ForeColor = SystemColors.GrayText;
+            this.labelHomepageUrl2.ForeColor = SystemColors.GrayText;
             this.labelHomepageUrl2.Location = new System.Drawing.Point(20, 57);
             this.labelHomepageUrl2.Name = "labelHomepageUrl2";
             this.labelHomepageUrl2.Size = new System.Drawing.Size(167, 13);
@@ -325,8 +325,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
         private void textBoxHomepageUrl_Enter(object sender, EventArgs e)
         {
@@ -349,11 +349,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             textBoxPassword.SelectAll();
         }
 
- 
 
 
 
-		
-	}
-	
+
+
+    }
+
 }

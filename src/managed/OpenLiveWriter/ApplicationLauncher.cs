@@ -48,7 +48,7 @@ namespace OpenLiveWriter
                             ExecuteShowPreferences(options.PreferencesPage);
                         }
 
-                            // check for an open-post request
+                        // check for an open-post request
                         else if (options.IsOpenPost)
                         {
                             if (splashScreen != null)
@@ -57,19 +57,19 @@ namespace OpenLiveWriter
                             ExecuteOpenPost();
                         }
 
-                            // check for opening an existing post via the shell file association
+                        // check for opening an existing post via the shell file association
                         else if (options.IsPostEditorFile)
                         {
                             ExecutePostEditorFile(options.PostEditorFileName, splashScreen);
                         }
 
-                            // check for recovered posts
+                        // check for recovered posts
                         else if (isFirstInstance && RecoverPosts(splashScreen))
                         {
                             return;
                         }
 
-                            // launch with an new empty post
+                        // launch with an new empty post
                         else
                         {
                             ExecuteNewPost(splashScreen, null);

@@ -719,7 +719,7 @@ namespace OpenLiveWriter.CoreServices
         public static void CopyAttributes(IHTMLElement sourceElement, IHTMLElement targetElement)
         {
             (targetElement as IHTMLElement2).mergeAttributes(sourceElement);
-            
+
             // MSHTML doesn't copy over the "id" attribute, so we manually copy it over.
             string sourceId = sourceElement.id;
             if (!String.IsNullOrEmpty(sourceId))
@@ -1243,7 +1243,7 @@ namespace OpenLiveWriter.CoreServices
                 {
                     return currentStyle5.outlineWidth as string;
                 }
-                catch(COMException e)
+                catch (COMException e)
                 {
                     if (e.ErrorCode == HRESULT.E_FAILED)
                     {

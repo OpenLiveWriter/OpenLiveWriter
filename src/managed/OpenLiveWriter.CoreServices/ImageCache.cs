@@ -23,7 +23,7 @@ namespace OpenLiveWriter.CoreServices
 
         public Bitmap Load(string path, Size size)
         {
-            if(path == null)
+            if (path == null)
                 return null;
 
             if (UrlHelper.IsUrl(path))
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.CoreServices
 
             using (Image img = ImageHelper2.SafeGetEmbeddedThumbnail(path) ?? ImageHelper2.SafeFromFile(path))
             {
-                if(img == null)
+                if (img == null)
                 {
                     imageCache.Add(path, null);
                 }

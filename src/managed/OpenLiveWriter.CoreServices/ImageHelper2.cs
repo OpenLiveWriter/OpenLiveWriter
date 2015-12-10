@@ -439,11 +439,11 @@ namespace OpenLiveWriter.CoreServices
 
                     using (new QuickTimer("Resize"))
                         g.DrawImage(bitmap, new PointF[]
-						                    	{
-						                    		new PointF(destRect.Left, destRect.Top),
-						                    		new PointF(destRect.Right, destRect.Top),
-						                    		new PointF(destRect.Left, destRect.Bottom),
-						                    	}, srcRect, GraphicsUnit.Pixel, ia);
+                                                {
+                                                    new PointF(destRect.Left, destRect.Top),
+                                                    new PointF(destRect.Right, destRect.Top),
+                                                    new PointF(destRect.Left, destRect.Bottom),
+                                                }, srcRect, GraphicsUnit.Pixel, ia);
                 }
                 return scaledBitmap;
             }
@@ -819,5 +819,5 @@ namespace OpenLiveWriter.CoreServices
         Normal = 0,
         TransparentGif = 1,
         AnimatedGif = 2
-    } ;
+    };
 }

@@ -304,7 +304,7 @@ namespace OpenLiveWriter.CoreServices
                             if (!Char.IsWhiteSpace(fileList[endEntry]))
                                 endEntry++;
                             else
-                                break;			
+                                break;
 
                         // get the value for the entry
                         file = fileList.Substring(currentLoc, endEntry - currentLoc);
@@ -392,8 +392,8 @@ namespace OpenLiveWriter.CoreServices
                 (uint)Marshal.SizeOf(fileInfo), SHGFI.ICON | iconType);
             if (result == IntPtr.Zero)
             {
-                Debug.Fail( "Error getting icon for file: " + Marshal.GetLastWin32Error() ) ;
-				return null ;
+                Debug.Fail("Error getting icon for file: " + Marshal.GetLastWin32Error());
+                return null;
 
             }
 
@@ -490,7 +490,7 @@ namespace OpenLiveWriter.CoreServices
                 (uint)Marshal.SizeOf(fileInfo), SHGFI.ICON | flags | SHGFI.USEFILEATTRIBUTES);
             if (result == IntPtr.Zero)
             {
-                Debug.Fail( "Error getting icon for file: " + Marshal.GetLastWin32Error() ) ;
+                Debug.Fail("Error getting icon for file: " + Marshal.GetLastWin32Error());
                 return null;
             }
 

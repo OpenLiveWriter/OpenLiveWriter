@@ -6,7 +6,7 @@ namespace mshtml
     using System;
     using System.Runtime.InteropServices;
 
-    [ComImport, Guid("3050F3F3-98B5-11CF-BB82-00AA00BDCE0B"), TypeLibType((short) 0x1040)]
+    [ComImport, Guid("3050F3F3-98B5-11CF-BB82-00AA00BDCE0B"), TypeLibType((short)0x1040)]
     public interface IHTMLSpanElement
     {
     }

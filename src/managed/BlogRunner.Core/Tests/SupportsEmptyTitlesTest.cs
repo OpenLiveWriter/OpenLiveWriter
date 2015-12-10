@@ -23,7 +23,7 @@ namespace BlogRunner.Core.Tests
             {
                 string newPostId = blogClient.NewPost(blog.BlogId, post, null, true, out etag, out remotePost);
                 results.AddResult("supportsEmptyTitles", YES);
-                
+
                 if (CleanUpPosts)
                     blogClient.DeletePost(blog.BlogId, newPostId, true);
             }

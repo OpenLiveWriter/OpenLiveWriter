@@ -7,14 +7,14 @@ using OpenLiveWriter.CoreServices.Settings;
 
 namespace OpenLiveWriter.PostEditor
 {
-	/// <summary>
-	/// Summary description for PostEditorSettingsM1.
-	/// </summary>
-	internal sealed class PostEditorSettingsM1
-	{
-		
+    /// <summary>
+    /// Summary description for PostEditorSettingsM1.
+    /// </summary>
+    internal sealed class PostEditorSettingsM1
+    {
 
-		internal static SettingsPersisterHelper SettingsKey = ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("PostEditor") ;
-	
-	}
+
+        internal static SettingsPersisterHelper SettingsKey = ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("PostEditor");
+
+    }
 }

@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 {
                     // The time-consuming initialization is done in a background thread.
                     ImageInitializationAsyncOperation imageInitializer = new ImageInitializationAsyncOperation(newImages, fileService, owner);
-                    imageInitializer.Completed += new EventHandler((sender, e) => 
+                    imageInitializer.Completed += new EventHandler((sender, e) =>
                         ProcessInitializedImages(newImages, currentEditor, editor, owner, selectLastImage));
 
                     editor.DisposeOnEditorChange(imageInitializer);
@@ -113,7 +113,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                             {
                                 BlogPostImageData imageData = BlogPostImageDataList.LookupImageDataByInlineUri(editor.ImageList, imageSrcUri);
                                 Emoticon emoticon = EmoticonsManager.GetEmoticon(imgElement);
-                                if(imageData == null && emoticon != null)
+                                if (imageData == null && emoticon != null)
                                 {
                                     // This is usually an emoticon copy/paste and needs to be cleaned up.
                                     Uri inlineImageUri = editor.EmoticonsManager.GetInlineImageUri(emoticon);
@@ -131,7 +131,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                     Size sourceImageSize = ImageUtils.GetImageSize(imageSrcUri.LocalPath);
                                     ImagePropertiesInfo imageInfo = new ImagePropertiesInfo(imageSrcUri, sourceImageSize, new ImageDecoratorsList(editor.DecoratorsManager, new BlogPostSettingsBag()));
                                     DefaultImageSettings defaultImageSettings = new DefaultImageSettings(editorAccount.Id, editor.DecoratorsManager);
-                                    
+
                                     // Make sure this is set because some imageInfo properties depend on it.
                                     imageInfo.ImgElement = imgElement;
 
@@ -241,7 +241,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                     if (emoticon != null)
                                         editor.EmoticonsManager.SetInlineImageUri(emoticon, imageData.InlineImageFile.Uri);
                                 }
-                            }                            
+                            }
                             catch (ArgumentException e)
                             {
                                 Trace.WriteLine("Could not initialize image: " + imageSrc);
@@ -257,8 +257,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                             }
                             catch (IOException e)
                             {
-                                Debug.WriteLine("Image file cannot be read: " + imageSrc + " " + e);                                
-                                DisplayMessage.Show(MessageId.FileInUse, imageSrc);                                
+                                Debug.WriteLine("Image file cannot be read: " + imageSrc + " " + e);
+                                DisplayMessage.Show(MessageId.FileInUse, imageSrc);
                             }
                         }
                     }
@@ -306,7 +306,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     // It's also possible that the picture has already been updated if a user undoes and redoes the 
                     // initial insertion multiple times.
                     IHTMLDocument2 doc = (IHTMLDocument2)info.Element.document;
-                    if (doc == null || doc.readyState.Equals("uninitialized", StringComparison.OrdinalIgnoreCase) || 
+                    if (doc == null || doc.readyState.Equals("uninitialized", StringComparison.OrdinalIgnoreCase) ||
                         BlogPostImageDataList.LookupImageDataByInlineUri(editor.ImageList, info.ImageData.InlineImageFile.Uri) != null)
                     {
                         info.DisabledImageBehavior.DetachFromElement();
@@ -374,7 +374,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         internal static void InsertImagesCore(IBlogPostHtmlEditor currentEditor, ISupportingFileService fileService, IEditorAccount editorAccount, OpenLiveWriter.PostEditor.ContentEditor editor, string[] imagePaths)
         {
             using (OpenLiveWriter.PostEditor.ContentEditor.EditorUndoUnit undo = new OpenLiveWriter.PostEditor.ContentEditor.EditorUndoUnit(currentEditor))
-            {                
+            {
                 StringBuilder htmlBuilder = new StringBuilder();
 
                 //calculate the size for inserted images (based on the user's saved default for this blog)
@@ -399,7 +399,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     else
                         imgUri = new Uri(UrlHelper.CreateUrlFromPath(imagePath));
 
-                    Size imageSize = new Size(1,1);
+                    Size imageSize = new Size(1, 1);
                     if (imgUri.IsFile && File.Exists(imagePath))
                     {
                         if (!File.Exists(imgUri.LocalPath))
@@ -427,7 +427,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     // until we generate an inline image and apply decorators.
                     Stream embeddedThumbnailStream = ImageHelper2.GetEmbeddedThumbnailStream(imagePath);
 
-                    if(embeddedThumbnailStream != null)
+                    if (embeddedThumbnailStream != null)
                     {
                         // Save thumbnail to disk.
                         ISupportingFile imageFileEmbeddedThumbnail = fileService.CreateSupportingFile(Path.GetFileName(imagePath), Guid.NewGuid().ToString(), embeddedThumbnailStream);
@@ -465,7 +465,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 undo.Commit();
             }
         }
-        
+
         private static void HandleNewImage(BlogPostHtmlEditorControl currentEditor, Control owner, IHTMLElement imageElement, bool select)
         {
             // If the selection has changed since we first inserted the img tag, don't force a new selection.
@@ -478,7 +478,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 currentEditor.EmptySelection();
                 // programmatically select the image
                 currentEditor.SelectImage(imageElement);
-                currentEditor.Focus();                                    
+                currentEditor.Focus();
             }
             catch (Exception ex)
             {
@@ -503,7 +503,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             if (imageData == null)
             {
-                if(BlogPostImageDataList.LookupImageDataByLinkedUri(editor.ImageList, uri) != null)
+                if (BlogPostImageDataList.LookupImageDataByLinkedUri(editor.ImageList, uri) != null)
                     return null;
 
                 return reference;

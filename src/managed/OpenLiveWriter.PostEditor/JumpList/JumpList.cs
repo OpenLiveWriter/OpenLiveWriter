@@ -19,7 +19,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
     /// Represents an instance of a Taskbar button jump list.
     /// </summary>
     public class JumpList
-    {        
+    {
         /// <summary>
         /// Create a JumpList for the application's taskbar button.
         /// </summary>
@@ -177,27 +177,27 @@ namespace OpenLiveWriter.PostEditor.JumpList
 
             if (!ComHelper.SUCCEEDED(hr))
                 Marshal.ThrowExceptionForHR(hr);
-        }               
+        }
 
         private static void DumpFileRegistration(JumpListCustomCategory category)
-        {            
+        {
             try
             {
-                Trace.WriteLine("Dumping file registration for category " + category.Name + " in response to jumplist error:");            
+                Trace.WriteLine("Dumping file registration for category " + category.Name + " in response to jumplist error:");
 
-                Dictionary<string, bool> fileTypes = new Dictionary<string, bool>();                 
+                Dictionary<string, bool> fileTypes = new Dictionary<string, bool>();
                 foreach (IJumpListItem link in category.JumpListItems)
                 {
                     bool error = false;
                     string extension = Path.GetExtension(link.Path);
                     if (link is JumpListItem)
                     {
-                        JumpListItem item = (JumpListItem) link;
-                        Trace.WriteLine("JumpListItem: " + item.ParsingName + " with path: " + item.Path);                            
+                        JumpListItem item = (JumpListItem)link;
+                        Trace.WriteLine("JumpListItem: " + item.ParsingName + " with path: " + item.Path);
 
                         // Verify the file registration for this file type.                        
                         if (!fileTypes.ContainsKey(extension))
-                        {                                   
+                        {
                             Trace.WriteLine("Dumping file registration for extension: " + extension);
                             RegistryHelper.DumpKey(Registry.LocalMachine, @"SOFTWARE\Classes\" + extension);
 
@@ -209,22 +209,22 @@ namespace OpenLiveWriter.PostEditor.JumpList
                                 Trace.Fail("ERROR: ProgId missing for extension: " + extension);
                             }
                             else
-                            {                                
-                                RegistryHelper.DumpKey(Registry.LocalMachine, @"SOFTWARE\Classes\" + progId);                                                                
+                            {
+                                RegistryHelper.DumpKey(Registry.LocalMachine, @"SOFTWARE\Classes\" + progId);
 
                                 // Detect the UserAppModelId
                                 string appUserModelID = RegistryHelper.GetAppUserModelID(progId);
                                 if (String.IsNullOrEmpty(appUserModelID))
                                 {
                                     error = true;
-                                    Trace.Fail("ERROR: Missing AppUserModelID for " + progId);                                    
+                                    Trace.Fail("ERROR: Missing AppUserModelID for " + progId);
                                 }
-                                else if (!appUserModelID.Equals(TaskbarManager.Instance.ApplicationId, StringComparison.Ordinal))                                
+                                else if (!appUserModelID.Equals(TaskbarManager.Instance.ApplicationId, StringComparison.Ordinal))
                                 {
                                     error = true;
                                     Trace.Fail("ERROR: Incorrect AppUserModelID for " + progId + ": " + appUserModelID);
                                 }
-                            }                                                                                    
+                            }
                         }
                         // else already verified/dumped
                     }
@@ -236,8 +236,8 @@ namespace OpenLiveWriter.PostEditor.JumpList
 
                     if (!fileTypes.ContainsKey(extension))
                         fileTypes.Add(extension, error);
-                }                   
-           
+                }
+
             }
             catch (Exception ex)
             {
@@ -278,8 +278,8 @@ namespace OpenLiveWriter.PostEditor.JumpList
                     foreach (IJumpListItem link in category.JumpListItems)
                     {
                         if (link is JumpListItem)
-                            categoryContent.AddObject(((JumpListItem)link).NativeShellItem);                        
-                    }                    
+                            categoryContent.AddObject(((JumpListItem)link).NativeShellItem);
+                    }
 
                     // Add current category to destination list
                     int hr = customDestinationList.AppendCategory(
@@ -289,10 +289,10 @@ namespace OpenLiveWriter.PostEditor.JumpList
                     if (!ComHelper.SUCCEEDED(hr))
                     {
                         if ((uint)hr == 0x80040F03)
-                        {                            
+                        {
                             DumpFileRegistration(category);
                             throw new InvalidOperationException("The file type is not registered with this application.");
-                        }                            
+                        }
                         else if ((uint)hr == 0x80070005 /*E_ACCESSDENIED*/)
                         {
                             // If the recent documents tracking is turned off by the user,

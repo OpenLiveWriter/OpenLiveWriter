@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// <param name="category">Category to add</param>
         public void Add(JumpListCustomCategory category)
         {
-            categories.Add(category);                     
+            categories.Add(category);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// <returns>True if item was removed.</returns>
         public bool Remove(JumpListCustomCategory category)
         {
-            return categories.Remove(category);           
+            return categories.Remove(category);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// </summary>
         public void Clear()
         {
-            categories.Clear();           
+            categories.Clear();
         }
 
         /// <summary>

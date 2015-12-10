@@ -28,7 +28,7 @@ namespace OpenLiveWriter.CoreServices
                     {
                         return Encoding.GetEncoding(charset);
                     }
-                    catch(ArgumentException e)
+                    catch (ArgumentException e)
                     {
                         Debug.WriteLine("BUG: Failed getting encoding for charset " + charset + "with error: " + e);
                     }

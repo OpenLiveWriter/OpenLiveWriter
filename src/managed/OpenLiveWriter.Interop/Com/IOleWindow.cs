@@ -8,27 +8,27 @@ using OpenLiveWriter.Interop.Windows;
 
 namespace OpenLiveWriter.Interop.Com
 {
-	/// <summary>
-	/// COM interface to a window
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("00000114-0000-0000-C000-000000000046")] 
-	public interface IOleWindow
-	{
-		/// <summary>
-		/// Return the window handle of the object implementing the DeskBand
-		/// </summary>
-		/// <param name="phwnd">Out parameter for window handle</param>
-		void GetWindow(out IntPtr phwnd);   
+    /// <summary>
+    /// COM interface to a window
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("00000114-0000-0000-C000-000000000046")]
+    public interface IOleWindow
+    {
+        /// <summary>
+        /// Return the window handle of the object implementing the DeskBand
+        /// </summary>
+        /// <param name="phwnd">Out parameter for window handle</param>
+        void GetWindow(out IntPtr phwnd);
 
-		/// <summary>
-		/// Activate or de-activate context-sensitive help -- this
-		/// method is NOT required for DeskBand implementations
-		/// </summary>
-		/// <param name="fEnterMode">Enter or exit help mode</param>
-		void ContextSensitiveHelp([In] bool fEnterMode);	
-	}
+        /// <summary>
+        /// Activate or de-activate context-sensitive help -- this
+        /// method is NOT required for DeskBand implementations
+        /// </summary>
+        /// <param name="fEnterMode">Enter or exit help mode</param>
+        void ContextSensitiveHelp([In] bool fEnterMode);
+    }
 
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -53,8 +53,8 @@ namespace OpenLiveWriter.Interop.Com
     public interface DispHTMLEmbed
     {
         [DispId(-2147412996)]
-        object readyState { [return: MarshalAs(UnmanagedType.Struct)] [PreserveSig, MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(-2147412996)] get; }
+        object readyState {[return: MarshalAs(UnmanagedType.Struct)] [PreserveSig, MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(-2147412996)] get; }
     }
 
 }
-		
+

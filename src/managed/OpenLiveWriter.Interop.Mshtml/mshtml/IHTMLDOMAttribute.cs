@@ -7,15 +7,15 @@ namespace mshtml
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
 
-    [ComImport, TypeLibType((short) 0x1040), Guid("3050F4B0-98B5-11CF-BB82-00AA00BDCE0B")]
+    [ComImport, TypeLibType((short)0x1040), Guid("3050F4B0-98B5-11CF-BB82-00AA00BDCE0B")]
     public interface IHTMLDOMAttribute
     {
         [DispId(0x3e8)]
-        string nodeName { [return: MarshalAs(UnmanagedType.BStr)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime), DispId(0x3e8)] get; }
+        string nodeName {[return: MarshalAs(UnmanagedType.BStr)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(0x3e8)] get; }
         [DispId(0x3ea)]
-        object nodeValue { [param: In, MarshalAs(UnmanagedType.Struct)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime), DispId(0x3ea)] set; [return: MarshalAs(UnmanagedType.Struct)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime), DispId(0x3ea)] get; }
+        object nodeValue {[param: In, MarshalAs(UnmanagedType.Struct)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(0x3ea)] set;[return: MarshalAs(UnmanagedType.Struct)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(0x3ea)] get; }
         [DispId(0x3e9)]
-        bool specified { [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime), DispId(0x3e9)] get; }
+        bool specified {[MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(0x3e9)] get; }
     }
 }
 

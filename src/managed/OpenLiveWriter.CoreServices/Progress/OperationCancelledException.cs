@@ -6,23 +6,23 @@ using OpenLiveWriter.CoreServices.Diagnostics;
 
 namespace OpenLiveWriter.CoreServices.Progress
 {
-	/// <summary>
-	/// Exception for interrupting control flow when the the operation is cancelled.
-	/// </summary>
-	public class OperationCancelledException : Exception
-	{
-		static OperationCancelledException()
-		{
-			DynamicExceptionMessageRegistry.Instance.AddMessage(
-				new SimpleDynamicExceptionMessage(typeof(OperationCancelledException), null, true));
-		}
+    /// <summary>
+    /// Exception for interrupting control flow when the the operation is cancelled.
+    /// </summary>
+    public class OperationCancelledException : Exception
+    {
+        static OperationCancelledException()
+        {
+            DynamicExceptionMessageRegistry.Instance.AddMessage(
+                new SimpleDynamicExceptionMessage(typeof(OperationCancelledException), null, true));
+        }
 
-		public OperationCancelledException() : base("")
-		{
-		}
+        public OperationCancelledException() : base("")
+        {
+        }
 
-		public OperationCancelledException(string message) : base(message)
-		{
-		}
-	}
+        public OperationCancelledException(string message) : base(message)
+        {
+        }
+    }
 }

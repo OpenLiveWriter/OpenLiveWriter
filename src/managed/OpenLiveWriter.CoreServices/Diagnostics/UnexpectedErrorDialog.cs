@@ -16,18 +16,18 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.CoreServices.Diagnostics
 {
-	/// <summary>
-	/// Dialog that is displayed when an unhandled exception occurs
-	/// </summary>
-	public class UnexpectedErrorDialog : BaseForm
-	{
-		private Panel panel1;
-		private Label labelTitle;
-		private Label labelMessage;
-		private LinkLabel labelClickHere;
-		private Button buttonExit;
-		private Button buttonContinue;
-		private System.Windows.Forms.Label labelDescription;
+    /// <summary>
+    /// Dialog that is displayed when an unhandled exception occurs
+    /// </summary>
+    public class UnexpectedErrorDialog : BaseForm
+    {
+        private Panel panel1;
+        private Label labelTitle;
+        private Label labelMessage;
+        private LinkLabel labelClickHere;
+        private Button buttonExit;
+        private Button buttonContinue;
+        private System.Windows.Forms.Label labelDescription;
         private Button buttonSendError;
 
         /// <summary>
@@ -35,73 +35,73 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         /// </summary>
         private readonly Container components = null;
 
-		public UnexpectedErrorDialog()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public UnexpectedErrorDialog()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-		    labelTitle.Font = Res.GetFont(FontSize.Large, FontStyle.Bold);
-		    buttonExit.Text = Res.Get(StringId.UnexpectedErrorExit);
-		    buttonContinue.Text = Res.Get(StringId.UnexpectedErrorContinue);
+            labelTitle.Font = Res.GetFont(FontSize.Large, FontStyle.Bold);
+            buttonExit.Text = Res.Get(StringId.UnexpectedErrorExit);
+            buttonContinue.Text = Res.Get(StringId.UnexpectedErrorContinue);
             buttonSendError.Text = Res.Get(StringId.UnexpectedErrorSendError);
-		    labelClickHere.Text = Res.Get(StringId.UnexpectedErrorClickHere);
-		    labelDescription.Text = Res.Get(StringId.UnexpectedErrorDescription);
-		    Text = Res.Get(StringId.UnexpectedErrorTitle);
+            labelClickHere.Text = Res.Get(StringId.UnexpectedErrorClickHere);
+            labelDescription.Text = Res.Get(StringId.UnexpectedErrorDescription);
+            Text = Res.Get(StringId.UnexpectedErrorTitle);
 
-			Icon = ApplicationEnvironment.ProductIcon;
-		}
+            Icon = ApplicationEnvironment.ProductIcon;
+        }
 
-		protected override void OnLoad(EventArgs e)
-		{
-			Form owner = this.Owner;
-			if (owner != null)
-				this.TopMost = owner.TopMost;
+        protected override void OnLoad(EventArgs e)
+        {
+            Form owner = this.Owner;
+            if (owner != null)
+                this.TopMost = owner.TopMost;
 
-			base.OnLoad (e);
-			
-			DisplayHelper.AutoFitSystemButton(buttonContinue, buttonContinue.Width, int.MaxValue);
-			DisplayHelper.AutoFitSystemButton(buttonExit, buttonExit.Width, int.MaxValue);
-		}
+            base.OnLoad(e);
+
+            DisplayHelper.AutoFitSystemButton(buttonContinue, buttonContinue.Width, int.MaxValue);
+            DisplayHelper.AutoFitSystemButton(buttonExit, buttonExit.Width, int.MaxValue);
+        }
 
 
-		/// <summary>
-		/// Creates a new dialog
-		/// </summary>
-		/// <param name="title">The title to display</param>
-		/// <param name="text">The text to display</param>
-		/// <param name="rootCause">The Exception that is the root cause</param>
-		public UnexpectedErrorDialog(string title, string text, Exception rootCause) : this()
-		{
-			labelTitle.Text = title;
-			labelMessage.Text = text;
-			
-			m_rootCause = rootCause;
-		}
+        /// <summary>
+        /// Creates a new dialog
+        /// </summary>
+        /// <param name="title">The title to display</param>
+        /// <param name="text">The text to display</param>
+        /// <param name="rootCause">The Exception that is the root cause</param>
+        public UnexpectedErrorDialog(string title, string text, Exception rootCause) : this()
+        {
+            labelTitle.Text = title;
+            labelMessage.Text = text;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+            m_rootCause = rootCause;
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
@@ -115,7 +115,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -138,8 +138,8 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             // 
             // labelMessage
             // 
-            this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMessage.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelMessage.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -237,19 +237,19 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		
-		private void buttonExit_Click(object sender, EventArgs e)
-		{
-			Process.GetCurrentProcess().Kill();
-		}
 
-		private void buttonContinue_Click(object sender, EventArgs e)
-		{
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Process.GetCurrentProcess().Kill();
+        }
+
+        private void buttonContinue_Click(object sender, EventArgs e)
+        {
             Close();
-		}
+        }
 
         private void buttonSendError_Click(object sender, EventArgs e)
         {
@@ -259,116 +259,116 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 
 
         private void labelClickHere_Click(object sender, EventArgs e)
-		{
-			try
-			{
+        {
+            try
+            {
                 Process p = new Process();
-				ProcessStartInfo psi = new ProcessStartInfo(DiagnosticsFilePath);
-				psi.UseShellExecute = true;
-				p.StartInfo = psi;
-				p.Start();
+                ProcessStartInfo psi = new ProcessStartInfo(DiagnosticsFilePath);
+                psi.UseShellExecute = true;
+                p.StartInfo = psi;
+                p.Start();
             }
             catch (Exception ex)
-			{
-				Trace.Fail("Unable to report error.\r\n\r\n" + ex.Message);
-			}
-		}
+            {
+                Trace.Fail("Unable to report error.\r\n\r\n" + ex.Message);
+            }
+        }
 
 
-		private string DiagnosticsFilePath
-		{
-			get
-			{
-				if (m_diagnosticsFilePath == null)
-				{
-					string fileName = "ErrorReport.txt";
-					string filePath = Path.Combine(Path.GetTempPath(), fileName);
-					int i = 1;
-					while (File.Exists(filePath))
-					{
-						string newfileName = Path.GetFileNameWithoutExtension(fileName) + i + Path.GetExtension(fileName);
-						filePath = Path.Combine(Path.GetTempPath(), newfileName);
-						i++;
-					}
-					m_diagnosticsFilePath = filePath;
-	
-					using (StreamWriter writer = new StreamWriter(File.Create(m_diagnosticsFilePath)))
-					{
-						writer.WriteLine(DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString());
-						writer.WriteLine();
-						writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Version: {0}", ApplicationEnvironment.ProductVersion)) ;
-						writer.WriteLine();
-						writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "OS Version: {0}", Environment.OSVersion));
-						writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Runtime version: {0}", Environment.Version));
-						writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Shutdown started: {0}", Environment.HasShutdownStarted));
-						writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Program: {0}", ReadExecutable()));
-						writer.WriteLine() ;
-						WriteMemoryStatus(writer) ;
-						writer.WriteLine();
-						writer.WriteLine(labelTitle.Text);
-						writer.WriteLine(labelMessage.Text);
-						writer.WriteLine();
-						WriteException(m_rootCause, writer);		
-					}					
-				}
-				return m_diagnosticsFilePath;
-				
-			}
-		}
-		private string m_diagnosticsFilePath = null;
+        private string DiagnosticsFilePath
+        {
+            get
+            {
+                if (m_diagnosticsFilePath == null)
+                {
+                    string fileName = "ErrorReport.txt";
+                    string filePath = Path.Combine(Path.GetTempPath(), fileName);
+                    int i = 1;
+                    while (File.Exists(filePath))
+                    {
+                        string newfileName = Path.GetFileNameWithoutExtension(fileName) + i + Path.GetExtension(fileName);
+                        filePath = Path.Combine(Path.GetTempPath(), newfileName);
+                        i++;
+                    }
+                    m_diagnosticsFilePath = filePath;
+
+                    using (StreamWriter writer = new StreamWriter(File.Create(m_diagnosticsFilePath)))
+                    {
+                        writer.WriteLine(DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString());
+                        writer.WriteLine();
+                        writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Version: {0}", ApplicationEnvironment.ProductVersion));
+                        writer.WriteLine();
+                        writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "OS Version: {0}", Environment.OSVersion));
+                        writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Runtime version: {0}", Environment.Version));
+                        writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Shutdown started: {0}", Environment.HasShutdownStarted));
+                        writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Program: {0}", ReadExecutable()));
+                        writer.WriteLine();
+                        WriteMemoryStatus(writer);
+                        writer.WriteLine();
+                        writer.WriteLine(labelTitle.Text);
+                        writer.WriteLine(labelMessage.Text);
+                        writer.WriteLine();
+                        WriteException(m_rootCause, writer);
+                    }
+                }
+                return m_diagnosticsFilePath;
+
+            }
+        }
+        private string m_diagnosticsFilePath = null;
 
 
 
-		private static void WriteMemoryStatus(TextWriter writer)
-		{
-			try
-			{
-				GlobalMemoryStatus memoryStatus = new GlobalMemoryStatus() ;	
-				writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Memory Load: {0}%", memoryStatus.MemoryLoad ));
-				writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Total Physical: {0} MB", (memoryStatus.TotalPhysical/1048576) ));
-				writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Physical: {0} MB", (memoryStatus.AvailablePhysical/1048576) ));
-				writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Total Page File: {0} MB", (memoryStatus.TotalPageFile/1048576) ));
-				writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Page File: {0} MB", (memoryStatus.AvailablePageFile/1048576) ));
-				writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Total Virtual: {0} MB", (memoryStatus.TotalVirtual/1048576) ));
-				writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Virtual: {0} MB", (memoryStatus.AvailableVirtual/1048576) ));
-				writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Extented Virtual: {0} MB", (memoryStatus.AvailableExtendedVirtual/1048576) ));
-			}
-			catch(Exception ex)
-			{
-				Debug.Write("Unexpected exception attempting to get global memory status: " + ex.ToString()) ;
-			}
-		}
-
-		
-		private static string ReadExecutable()
-		{
-			string executable = string.Empty;
-			try
-			{
-				executable = Environment.CommandLine;
-			}
-			catch{}
-			return executable;
-		}
+        private static void WriteMemoryStatus(TextWriter writer)
+        {
+            try
+            {
+                GlobalMemoryStatus memoryStatus = new GlobalMemoryStatus();
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Memory Load: {0}%", memoryStatus.MemoryLoad));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Total Physical: {0} MB", (memoryStatus.TotalPhysical / 1048576)));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Physical: {0} MB", (memoryStatus.AvailablePhysical / 1048576)));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Total Page File: {0} MB", (memoryStatus.TotalPageFile / 1048576)));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Page File: {0} MB", (memoryStatus.AvailablePageFile / 1048576)));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Total Virtual: {0} MB", (memoryStatus.TotalVirtual / 1048576)));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Virtual: {0} MB", (memoryStatus.AvailableVirtual / 1048576)));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Extented Virtual: {0} MB", (memoryStatus.AvailableExtendedVirtual / 1048576)));
+            }
+            catch (Exception ex)
+            {
+                Debug.Write("Unexpected exception attempting to get global memory status: " + ex.ToString());
+            }
+        }
 
 
-		private void WriteException(Exception ex, StreamWriter writer)
-		{
-			writer.WriteLine();
-			writer.WriteLine(ex.ToString());
-
-			if (ex.InnerException != null && (m_exceptionDepth++ < MAX_EXCEPTION_DEPTH))
-			{
-				WriteException(ex.InnerException, writer);
-			}
-		}
-		private int m_exceptionDepth = 0;
-		private static readonly int MAX_EXCEPTION_DEPTH = 25;
+        private static string ReadExecutable()
+        {
+            string executable = string.Empty;
+            try
+            {
+                executable = Environment.CommandLine;
+            }
+            catch { }
+            return executable;
+        }
 
 
-		private readonly Exception m_rootCause;
+        private void WriteException(Exception ex, StreamWriter writer)
+        {
+            writer.WriteLine();
+            writer.WriteLine(ex.ToString());
+
+            if (ex.InnerException != null && (m_exceptionDepth++ < MAX_EXCEPTION_DEPTH))
+            {
+                WriteException(ex.InnerException, writer);
+            }
+        }
+        private int m_exceptionDepth = 0;
+        private static readonly int MAX_EXCEPTION_DEPTH = 25;
+
+
+        private readonly Exception m_rootCause;
     }
 
 
-	
+
 }

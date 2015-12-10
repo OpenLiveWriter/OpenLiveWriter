@@ -7,12 +7,12 @@ using OpenLiveWriter.Interop.Windows;
 
 namespace OpenLiveWriter.Mshtml
 {
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("3050f6a0-98b5-11cf-bb82-00aa00bdce0b")]
-	public interface IHTMLEditHostRaw
-	{
-		[PreserveSig]	
-		int SnapRect( IHTMLElement pIElement, ref RECT prcNEW, _ELEMENT_CORNER elementCorner ) ;
-	}
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("3050f6a0-98b5-11cf-bb82-00aa00bdce0b")]
+    public interface IHTMLEditHostRaw
+    {
+        [PreserveSig]
+        int SnapRect(IHTMLElement pIElement, ref RECT prcNEW, _ELEMENT_CORNER elementCorner);
+    }
 }

@@ -20,34 +20,34 @@ using OpenLiveWriter.PostEditor.WordCount;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	public class PostEditorPreferencesPanel : PreferencesPanel
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
-		private GroupBox groupBoxPublishing;
+
+    public class PostEditorPreferencesPanel : PreferencesPanel
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+        private GroupBox groupBoxPublishing;
         private CheckBox checkBoxViewWeblog;
 
         private PostEditorPreferences _postEditorPreferences;
-		private System.Windows.Forms.CheckBox checkBoxCloseWindow;
-		private System.Windows.Forms.GroupBox groupBoxPostWindows;
-		private System.Windows.Forms.RadioButton radioButtonOpenNewWindowIfDirty;
-		private System.Windows.Forms.RadioButton radioButtonUseSameWindow;
-		private System.Windows.Forms.RadioButton radioButtonOpenNewWindow;
-		private System.Windows.Forms.CheckBox checkBoxCategoryReminder;
-		private System.Windows.Forms.CheckBox checkBoxTagReminder;
+        private System.Windows.Forms.CheckBox checkBoxCloseWindow;
+        private System.Windows.Forms.GroupBox groupBoxPostWindows;
+        private System.Windows.Forms.RadioButton radioButtonOpenNewWindowIfDirty;
+        private System.Windows.Forms.RadioButton radioButtonUseSameWindow;
+        private System.Windows.Forms.RadioButton radioButtonOpenNewWindow;
+        private System.Windows.Forms.CheckBox checkBoxCategoryReminder;
+        private System.Windows.Forms.CheckBox checkBoxTagReminder;
         private System.Windows.Forms.CheckBox checkBoxTitleReminder;
         private System.Windows.Forms.CheckBox checkBoxAutoSaveDrafts;
         private System.Windows.Forms.GroupBox groupBoxGeneral;
         private System.Windows.Forms.CheckBox checkBoxWordCount;
         private WordCountPreferences _wordCountPreferences;
 
-	    public PostEditorPreferencesPanel()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        public PostEditorPreferencesPanel()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
             if (!DesignMode)
             {
@@ -68,31 +68,31 @@ namespace OpenLiveWriter.PostEditor
             }
 
 
-	        PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PreferencesOther.png") ;
+            PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PreferencesOther.png");
 
-			_postEditorPreferences = new PostEditorPreferences() ;
-			_postEditorPreferences.PreferencesModified +=_writerPreferences_PreferencesModified;
+            _postEditorPreferences = new PostEditorPreferences();
+            _postEditorPreferences.PreferencesModified += _writerPreferences_PreferencesModified;
 
-			switch (_postEditorPreferences.PostWindowBehavior )
-			{
-				case PostWindowBehavior.UseSameWindow:
-					radioButtonUseSameWindow.Checked = true ;
-					break;
-				case PostWindowBehavior.OpenNewWindow:
-					radioButtonOpenNewWindow.Checked = true ;
-					break;
-				case PostWindowBehavior.OpenNewWindowIfDirty:
-					this.radioButtonOpenNewWindowIfDirty.Checked = true ;
-					break;
-			}
+            switch (_postEditorPreferences.PostWindowBehavior)
+            {
+                case PostWindowBehavior.UseSameWindow:
+                    radioButtonUseSameWindow.Checked = true;
+                    break;
+                case PostWindowBehavior.OpenNewWindow:
+                    radioButtonOpenNewWindow.Checked = true;
+                    break;
+                case PostWindowBehavior.OpenNewWindowIfDirty:
+                    this.radioButtonOpenNewWindowIfDirty.Checked = true;
+                    break;
+            }
 
-			checkBoxViewWeblog.Checked = _postEditorPreferences.ViewPostAfterPublish ;
+            checkBoxViewWeblog.Checked = _postEditorPreferences.ViewPostAfterPublish;
 
             checkBoxCloseWindow.Checked = _postEditorPreferences.CloseWindowOnPublish;
 
-			checkBoxTitleReminder.Checked = _postEditorPreferences.TitleReminder;
-			checkBoxCategoryReminder.Checked = _postEditorPreferences.CategoryReminder ;
-			checkBoxTagReminder.Checked = _postEditorPreferences.TagReminder ;
+            checkBoxTitleReminder.Checked = _postEditorPreferences.TitleReminder;
+            checkBoxCategoryReminder.Checked = _postEditorPreferences.CategoryReminder;
+            checkBoxTagReminder.Checked = _postEditorPreferences.TagReminder;
 
             checkBoxAutoSaveDrafts.Checked = _postEditorPreferences.AutoSaveDrafts;
             checkBoxAutoSaveDrafts.CheckedChanged += new EventHandler(checkBoxAutoSaveDrafts_CheckedChanged);
@@ -102,93 +102,93 @@ namespace OpenLiveWriter.PostEditor
             checkBoxWordCount.Checked = _wordCountPreferences.EnableRealTimeWordCount;
             checkBoxWordCount.CheckedChanged += new EventHandler(checkBoxWordCount_CheckedChanged);
 
-	        radioButtonUseSameWindow.CheckedChanged +=new EventHandler(radioButtonPostWindowBehavior_CheckedChanged);
-			radioButtonOpenNewWindow.CheckedChanged +=new EventHandler(radioButtonPostWindowBehavior_CheckedChanged);
-			radioButtonOpenNewWindowIfDirty.CheckedChanged +=new EventHandler(radioButtonPostWindowBehavior_CheckedChanged);
+            radioButtonUseSameWindow.CheckedChanged += new EventHandler(radioButtonPostWindowBehavior_CheckedChanged);
+            radioButtonOpenNewWindow.CheckedChanged += new EventHandler(radioButtonPostWindowBehavior_CheckedChanged);
+            radioButtonOpenNewWindowIfDirty.CheckedChanged += new EventHandler(radioButtonPostWindowBehavior_CheckedChanged);
 
-			
-			checkBoxViewWeblog.CheckedChanged +=new EventHandler(checkBoxViewWeblog_CheckedChanged);
-			checkBoxCloseWindow.CheckedChanged += new EventHandler(checkBoxCloseWindow_CheckedChanged);
 
-			checkBoxTitleReminder.CheckedChanged +=new EventHandler(checkBoxTitleReminder_CheckedChanged);
-			checkBoxCategoryReminder.CheckedChanged +=new EventHandler(checkBoxCategoryReminder_CheckedChanged);
-			checkBoxTagReminder.CheckedChanged +=new EventHandler(checkBoxTagReminder_CheckedChanged);
-			
-		}
+            checkBoxViewWeblog.CheckedChanged += new EventHandler(checkBoxViewWeblog_CheckedChanged);
+            checkBoxCloseWindow.CheckedChanged += new EventHandler(checkBoxCloseWindow_CheckedChanged);
 
-        
-	    private bool _layedOut = false;
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
+            checkBoxTitleReminder.CheckedChanged += new EventHandler(checkBoxTitleReminder_CheckedChanged);
+            checkBoxCategoryReminder.CheckedChanged += new EventHandler(checkBoxCategoryReminder_CheckedChanged);
+            checkBoxTagReminder.CheckedChanged += new EventHandler(checkBoxTagReminder_CheckedChanged);
+
+        }
+
+
+        private bool _layedOut = false;
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             if (!DesignMode && !_layedOut)
-			{
+            {
                 LayoutHelper.FixupGroupBox(this.groupBoxPostWindows);
-				LayoutHelper.FixupGroupBox(this.groupBoxPublishing);
+                LayoutHelper.FixupGroupBox(this.groupBoxPublishing);
                 LayoutHelper.FixupGroupBox(this.groupBoxGeneral);
                 LayoutHelper.NaturalizeHeightAndDistribute(8, groupBoxPostWindows, groupBoxPublishing, groupBoxGeneral);
                 _layedOut = true;
-			}
-		}
+            }
+        }
 
 
-		public override void Save()
-		{
-			if ( _postEditorPreferences.IsModified() )
-				_postEditorPreferences.Save();
+        public override void Save()
+        {
+            if (_postEditorPreferences.IsModified())
+                _postEditorPreferences.Save();
 
             if (_wordCountPreferences.IsModified())
                 _wordCountPreferences.Save();
-		}
+        }
 
-	
 
-		private void checkBoxViewWeblog_CheckedChanged(object sender, EventArgs e)
-		{
-			_postEditorPreferences.ViewPostAfterPublish = checkBoxViewWeblog.Checked ;
-		}
-	
-		
-		private void radioButtonPostWindowBehavior_CheckedChanged(object sender, EventArgs e)
-		{
-			if ( radioButtonUseSameWindow.Checked )
-				_postEditorPreferences.PostWindowBehavior = PostWindowBehavior.UseSameWindow ;
-			else if ( radioButtonOpenNewWindow.Checked )
-				_postEditorPreferences.PostWindowBehavior = PostWindowBehavior.OpenNewWindow ;
-			else if ( radioButtonOpenNewWindowIfDirty.Checked )
-				_postEditorPreferences.PostWindowBehavior = PostWindowBehavior.OpenNewWindowIfDirty ;
-		}
 
-		private void checkBoxCloseWindow_CheckedChanged(object sender, EventArgs e)
-		{
-			UpdateClosePreferences() ;
-		}
+        private void checkBoxViewWeblog_CheckedChanged(object sender, EventArgs e)
+        {
+            _postEditorPreferences.ViewPostAfterPublish = checkBoxViewWeblog.Checked;
+        }
 
-		private void UpdateClosePreferences()
-		{
+
+        private void radioButtonPostWindowBehavior_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonUseSameWindow.Checked)
+                _postEditorPreferences.PostWindowBehavior = PostWindowBehavior.UseSameWindow;
+            else if (radioButtonOpenNewWindow.Checked)
+                _postEditorPreferences.PostWindowBehavior = PostWindowBehavior.OpenNewWindow;
+            else if (radioButtonOpenNewWindowIfDirty.Checked)
+                _postEditorPreferences.PostWindowBehavior = PostWindowBehavior.OpenNewWindowIfDirty;
+        }
+
+        private void checkBoxCloseWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateClosePreferences();
+        }
+
+        private void UpdateClosePreferences()
+        {
             _postEditorPreferences.CloseWindowOnPublish = checkBoxCloseWindow.Checked;
-		}
+        }
 
-		private void _writerPreferences_PreferencesModified(object sender, EventArgs e)
-		{
-			OnModified(EventArgs.Empty) ;
-		}
-        
-		private void checkBoxTitleReminder_CheckedChanged(object sender, EventArgs e)
-		{
-			_postEditorPreferences.TitleReminder = checkBoxTitleReminder.Checked ;
-		}
+        private void _writerPreferences_PreferencesModified(object sender, EventArgs e)
+        {
+            OnModified(EventArgs.Empty);
+        }
 
-		private void checkBoxCategoryReminder_CheckedChanged(object sender, EventArgs e)
-		{
-			_postEditorPreferences.CategoryReminder = checkBoxCategoryReminder.Checked ;
-		}
+        private void checkBoxTitleReminder_CheckedChanged(object sender, EventArgs e)
+        {
+            _postEditorPreferences.TitleReminder = checkBoxTitleReminder.Checked;
+        }
 
-		private void checkBoxTagReminder_CheckedChanged(object sender, EventArgs e)
-		{
-			_postEditorPreferences.TagReminder = checkBoxTagReminder.Checked ;
-		}
+        private void checkBoxCategoryReminder_CheckedChanged(object sender, EventArgs e)
+        {
+            _postEditorPreferences.CategoryReminder = checkBoxCategoryReminder.Checked;
+        }
+
+        private void checkBoxTagReminder_CheckedChanged(object sender, EventArgs e)
+        {
+            _postEditorPreferences.TagReminder = checkBoxTagReminder.Checked;
+        }
 
         private void checkBoxAutoSaveDrafts_CheckedChanged(object sender, EventArgs e)
         {
@@ -205,30 +205,30 @@ namespace OpenLiveWriter.PostEditor
             _wordCountPreferences.EnableRealTimeWordCount = checkBoxWordCount.Checked;
         }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				_postEditorPreferences.PreferencesModified -= new EventHandler(_writerPreferences_PreferencesModified);
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _postEditorPreferences.PreferencesModified -= new EventHandler(_writerPreferences_PreferencesModified);
 
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.groupBoxPublishing = new System.Windows.Forms.GroupBox();
             this.checkBoxTitleReminder = new System.Windows.Forms.CheckBox();
             this.checkBoxTagReminder = new System.Windows.Forms.CheckBox();
@@ -407,10 +407,10 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxGeneral.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
 
 
-	}
+    }
 }

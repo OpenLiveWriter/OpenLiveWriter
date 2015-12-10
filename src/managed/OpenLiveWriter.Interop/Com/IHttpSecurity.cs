@@ -23,8 +23,8 @@ namespace OpenLiveWriter.Interop.Com
 
     public struct RPC_E
     {
-        public const int RETRY              = unchecked((int)(0x80010109));
-        public const int CALL_FAILED_DNE    = unchecked((int)(0x800706BF));
+        public const int RETRY = unchecked((int)(0x80010109));
+        public const int CALL_FAILED_DNE = unchecked((int)(0x800706BF));
 
     }
 }

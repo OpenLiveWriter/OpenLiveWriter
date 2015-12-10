@@ -37,7 +37,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 // If the hosting control doesnt have an IAuth, we should hide ourselves
                 // because there is no way to manage authenication.  This will happen when
                 // we Mail is using the photo album feature and authenication is controlled by Mail
-                if(_auth == null)
+                if (_auth == null)
                 {
                     this.Visible = false;
                     return;
@@ -47,7 +47,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                     Visible = true;
                 }
 
-                _auth.LoginStatusChanged += _videoAuth_LoginStatusChanged;   
+                _auth.LoginStatusChanged += _videoAuth_LoginStatusChanged;
                 UpdateStatus();
 
                 if (!_auth.IsLoggedIn)
@@ -88,7 +88,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 _auth.LoginStatusChanged -= _videoAuth_LoginStatusChanged;
                 _auth = null;
             }
-            
+
         }
 
         public event EventHandler LoginStatusChanged;

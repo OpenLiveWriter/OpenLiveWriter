@@ -6,55 +6,55 @@ using System.Drawing;
 
 namespace OpenLiveWriter.Extensibility.BlogClient
 {
-	public interface IBlogProviderButtonDescription 
-	{
-		// id (scoped to blog)
-		string Id { get; }
+    public interface IBlogProviderButtonDescription
+    {
+        // id (scoped to blog)
+        string Id { get; }
 
-		// tooltip text
-		string Description { get; }		
+        // tooltip text
+        string Description { get; }
 
-		// icons
-		string ImageUrl { get; }
-		Bitmap Image { get; }
+        // icons
+        string ImageUrl { get; }
+        Bitmap Image { get; }
 
-		// supports simple click gesture
-		bool SupportsClick { get; }
-	
-		// url to navigate to when clicking the button
-		string ClickUrl { get; }
-		
-		// supports display of content from a drop-down
-		bool SupportsContent { get; }
+        // supports simple click gesture
+        bool SupportsClick { get; }
 
-		// url to poll for new content
-		string ContentUrl { get; }
+        // url to navigate to when clicking the button
+        string ClickUrl { get; }
 
-		// size for content window
-		Size ContentDisplaySize { get; }
-		
-		// supports polling for a notification image
-		bool SupportsNotification { get; }
+        // supports display of content from a drop-down
+        bool SupportsContent { get; }
 
-		// url to poll for notifications
-		string NotificationUrl { get; }
-	}
-	
+        // url to poll for new content
+        string ContentUrl { get; }
 
-	public interface IBlogProviderButtonNotification
-	{
-		// interval until next notification check
-		TimeSpan PollingInterval { get; }
+        // size for content window
+        Size ContentDisplaySize { get; }
 
-		// url for custom button image
-		Bitmap NotificationImage { get; }
+        // supports polling for a notification image
+        bool SupportsNotification { get; }
 
-		// text to use in tooltip
-		string NotificationText { get; }
+        // url to poll for notifications
+        string NotificationUrl { get; }
+    }
 
-		// clear notification image on click?
-		bool ClearNotificationOnClick { get; }
-	}
 
-	
+    public interface IBlogProviderButtonNotification
+    {
+        // interval until next notification check
+        TimeSpan PollingInterval { get; }
+
+        // url for custom button image
+        Bitmap NotificationImage { get; }
+
+        // text to use in tooltip
+        string NotificationText { get; }
+
+        // clear notification image on click?
+        bool ClearNotificationOnClick { get; }
+    }
+
+
 }

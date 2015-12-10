@@ -45,9 +45,9 @@ namespace OpenLiveWriter.PostEditor
             get
             {
                 return _element.innerText;
-            }            
+            }
         }
-        
+
         public bool ContentEditable
         {
             get
@@ -75,14 +75,14 @@ namespace OpenLiveWriter.PostEditor
         public string DefaultText
         {
             get { return _element.getAttribute("defaultText", 2) as string; }
-        }        
+        }
 
         public bool IsDefaultText
         {
             get { return _element.getAttribute("isDefaultText", 2) as string != null; }
             set
             {
-                if(value)
+                if (value)
                 {
                     _element.setAttribute("isDefaultText", "true", 0);
                 }
@@ -91,7 +91,7 @@ namespace OpenLiveWriter.PostEditor
                     _element.removeAttribute("isDefaultText", 0);
                 }
             }
-        }        
+        }
 
         public string DefaultTextColor
         {
@@ -118,23 +118,23 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
         }
-        
+
         /// <summary>
         /// This writes into the currentEditor's SelectedContent properties.
         /// Be sure that only the edit field associated with the *selected* content gets persisted there.
         /// </summary>
         public void PersistFieldValueToContent(bool persistToEditorContent)
-        {           
+        {
             SmartContentEditor currentEditor = ((IBlogPostHtmlEditor)_editorContext).CurrentEditor;
 
             if (currentEditor == null || currentEditor.SelectedContent == null || IsDefaultText)
                 return;
 
-            string propertyPath = PropertyPath;            
+            string propertyPath = PropertyPath;
             IProperties sidebarProperties = currentEditor.SelectedContent.Properties;
             IProperties smartContentProperties = _smartContent.Properties;
-                        
-            string[] pathElements = (PropertyPath ?? "").Split('\\');                        
+
+            string[] pathElements = (PropertyPath ?? "").Split('\\');
             for (int i = 0; i < pathElements.Length; i++)
             {
                 if (string.IsNullOrEmpty(pathElements[i]))
@@ -150,23 +150,23 @@ namespace OpenLiveWriter.PostEditor
                     {
                         // Save to smart content in sidebar contextual editor
                         sidebarProperties[pathElements[i]] = TextValue;
-                        sidebarProperties.SetString("wlPropertyPath", pathElements[i]);                                  
-                    }                    
+                        sidebarProperties.SetString("wlPropertyPath", pathElements[i]);
+                    }
 
 
                     // Save to smart content in canvas
                     smartContentProperties[pathElements[i]] = TextValue;
-                    smartContentProperties.SetString("wlPropertyPath", pathElements[i]);                    
+                    smartContentProperties.SetString("wlPropertyPath", pathElements[i]);
                     return;
                 }
                 else
-                {                    
+                {
                     sidebarProperties = sidebarProperties.GetSubProperties(pathElements[i]);
                     smartContentProperties = smartContentProperties.GetSubProperties(pathElements[i]);
                 }
             }
-        }               
- 
+        }
+
         public void SetDefaultText()
         {
             Debug.Assert(_undoRedoCheck != null, "Setting default text on an unmanaged inline edit field");
@@ -202,7 +202,7 @@ namespace OpenLiveWriter.PostEditor
             IHtmlEditorSelection htmlSelection = selection as IHtmlEditorSelection;
             if (htmlSelection != null)
                 return IsEditField(htmlSelection.SelectedMarkupRange.ParentElement());
-            else if(selection is IHTMLElement)
+            else if (selection is IHTMLElement)
             {
                 return IsEditField((IHTMLElement)selection);
             }
@@ -241,9 +241,9 @@ namespace OpenLiveWriter.PostEditor
 
             string[] formats = clipboard.GetFormats();
 
-            foreach(string format in formats)
+            foreach (string format in formats)
             {
-                switch(format)
+                switch (format)
                 {
                     case "HTML Format":
                     case "System.String":
@@ -261,6 +261,6 @@ namespace OpenLiveWriter.PostEditor
             {
                 return EditFieldAcceptsData();
             }
-        }       
+        }
     }
 }

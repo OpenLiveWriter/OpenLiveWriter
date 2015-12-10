@@ -7,11 +7,11 @@ namespace mshtml
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
 
-    [ComImport, Guid("3050F1F0-98B5-11CF-BB82-00AA00BDCE0B"), TypeLibType((short) 0x1040)]
+    [ComImport, Guid("3050F1F0-98B5-11CF-BB82-00AA00BDCE0B"), TypeLibType((short)0x1040)]
     public interface IHTMLBRElement
     {
         [DispId(-2147413096)]
-        string clear { [param: In, MarshalAs(UnmanagedType.BStr)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime), TypeLibFunc((short) 20), DispId(-2147413096)] set; [return: MarshalAs(UnmanagedType.BStr)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime), TypeLibFunc((short) 20), DispId(-2147413096)] get; }
+        string clear {[param: In, MarshalAs(UnmanagedType.BStr)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), TypeLibFunc((short)20), DispId(-2147413096)] set;[return: MarshalAs(UnmanagedType.BStr)] [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), TypeLibFunc((short)20), DispId(-2147413096)] get; }
     }
 }
 

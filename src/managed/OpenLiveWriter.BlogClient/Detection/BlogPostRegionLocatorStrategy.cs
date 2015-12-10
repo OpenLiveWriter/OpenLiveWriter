@@ -348,12 +348,12 @@ namespace OpenLiveWriter.BlogClient.Detection
         {
             blogHomepageContents.Seek(0, SeekOrigin.Begin);
             IHTMLDocument2 doc2 = HTMLDocumentHelper.GetHTMLDocumentFromStream(blogHomepageContents, _blogHomepageUrl);
-                        
+
             // Ensure that the document is fully loaded.            
             // If it is not fully loaded, then viewing its current style is non-deterministic.
             DateTime startedDoingEvents = DateTime.Now;
             while (!progress.CancelRequested && !HTMLDocumentHelper.IsReady(doc2))
-            {                
+            {
                 if (DateTime.Now.Subtract(startedDoingEvents).TotalMilliseconds > 10000)
                 {
                     // Timing out here is not fatal.
@@ -361,8 +361,8 @@ namespace OpenLiveWriter.BlogClient.Detection
                     break;
                 }
 
-                Application.DoEvents();               
-            }            
+                Application.DoEvents();
+            }
 
             IHTMLElement[] titles = FindText(_titleText, doc2.body);
             IHTMLElement[] bodies = FindText(_bodyText, doc2.body);

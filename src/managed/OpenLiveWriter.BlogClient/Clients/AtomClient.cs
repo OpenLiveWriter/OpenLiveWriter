@@ -243,7 +243,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         protected virtual bool AttemptDeletePostRecover(Exception e, string blogId, string postId, bool publish)
         {
             return false;
-        }        
+        }
 
         public virtual BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
         {

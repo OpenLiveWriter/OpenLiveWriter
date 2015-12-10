@@ -59,7 +59,7 @@ namespace OpenLiveWriter.CoreServices
                 {
                     clearBytes = ProtectedData.Unprotect(val, null, DataProtectionScope.CurrentUser);
                     if (clearBytes.Length < 2
-                        || (clearBytes.Length%2) != 0
+                        || (clearBytes.Length % 2) != 0
                         || clearBytes[clearBytes.Length - 1] != 0
                         || clearBytes[clearBytes.Length - 2] != 0)
                     {

@@ -81,7 +81,7 @@ namespace OpenLiveWriter.Interop.Windows
             string lpIconPath,
             ref short lpiIcon
             );
-        
+
         /// <summary>
         /// Retrieves an icon from an icon, exe, or dll file by index
         /// </summary>
@@ -530,7 +530,7 @@ namespace OpenLiveWriter.Interop.Windows
         public bool fNC;
         [MarshalAs(UnmanagedType.Bool)]
         public bool fWide;
-    } ;
+    };
 
     // ShellExecute and FindExecutable error codes
     public struct SE_ERR

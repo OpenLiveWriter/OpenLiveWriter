@@ -10,7 +10,7 @@ using OpenLiveWriter.Localization;
 namespace OpenLiveWriter.PostEditor.Commands
 {
     class GroupCommand : Command
-    {        
+    {
         private Command _representativeCommand;
         public GroupCommand(CommandId commandId, Command representativeCommand) : base(commandId)
         {
@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor.Commands
         public override Bitmap LargeHighContrastImage
         {
             get { return _representativeCommand.LargeHighContrastImage; }
-            set { Debug.Fail("Setting properties on GroupCommand is not supported.");}
+            set { Debug.Fail("Setting properties on GroupCommand is not supported."); }
         }
     }
 }

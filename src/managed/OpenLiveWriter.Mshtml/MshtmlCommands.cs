@@ -125,8 +125,8 @@ namespace OpenLiveWriter.Mshtml
             AddCommand(IDM.GETFRAMEZONE);
             AddCommand(IDM.HORIZONTALLINE);
             AddCommand(IDM.HTMLEDITMODE);
-            AddCommand(IDM.HYPERLINK);            
-            AddCommand(IDM.IFRAME);                        
+            AddCommand(IDM.HYPERLINK);
+            AddCommand(IDM.IFRAME);
             AddCommand(IDM.IMAGE);
             AddCommand(IDM.IME_ENABLE_RECONVERSION, true);
             AddCommand(IDM.INDENT);
@@ -335,7 +335,7 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="input">input parameter</param>
         /// <param name="output">output parameter</param>
         public virtual void Execute(OLECMDEXECOPT execOption, object input, ref object output)
-        {    
+        {
             if (UseNullOutputParam)
             {
                 ((IOleCommandTargetNullOutputParam)commandTarget).Exec(CGID.MSHTML, commandID, execOption, ref input, IntPtr.Zero);
@@ -802,7 +802,7 @@ namespace OpenLiveWriter.Mshtml
         //		public const uint UPDATEPAGESTATUS =       2408 ;
 
         // IME Reconversion 
-        public const uint IME_ENABLE_RECONVERSION =	2409;
+        public const uint IME_ENABLE_RECONVERSION = 2409;
 
         public const uint KEEPSELECTION = 2410;
 

@@ -88,11 +88,11 @@ namespace OpenLiveWriter.Controls
 
             // Draw the green arrow
             Image arrow;
-            if(IsHovered)
+            if (IsHovered)
                 arrow = ResourceHelper.LoadAssemblyResourceBitmap("Images.arrow_hover.png");
             else
                 arrow = ResourceHelper.LoadAssemblyResourceBitmap("Images.arrow.png");
-            if(g != null)
+            if (g != null)
                 g.DrawImage(true, arrow, origin.X, origin.Y + 3);
             origin.Offset(arrow.Width + HORIZONTAL_PADDING, 0);
 
@@ -111,7 +111,7 @@ namespace OpenLiveWriter.Controls
             }
             origin.Offset(0, headingSize.Height + INSIDE_VERTICAL_PADDING);
             maxWidth = headingSize.Width;
-                
+
             // Draw the subheading
             if (!string.IsNullOrEmpty(SubHeading))
             {
@@ -119,16 +119,16 @@ namespace OpenLiveWriter.Controls
                 {
                     subHeadingSize = TextRenderer.MeasureText(SubHeading, Res.DefaultFont,
                          new Size(width - origin.X - HORIZONTAL_PADDING, height - origin.Y), textFormatFlags | TextFormatFlags.NoPrefix);
-                    
-                    
+
+
                 }
                 else
                 {
-                    g.DrawText(SubHeading, Res.DefaultFont, new Rectangle(origin.X, origin.Y, width - origin.X - HORIZONTAL_PADDING, height - origin.Y), ChoiceDialog.BlueText, textFormatFlags | TextFormatFlags.NoPrefix); 
+                    g.DrawText(SubHeading, Res.DefaultFont, new Rectangle(origin.X, origin.Y, width - origin.X - HORIZONTAL_PADDING, height - origin.Y), ChoiceDialog.BlueText, textFormatFlags | TextFormatFlags.NoPrefix);
                 }
                 maxWidth = Math.Max(subHeadingSize.Width, maxWidth);
-                origin.Offset(0, subHeadingSize.Height + INSIDE_VERTICAL_PADDING);    
-                
+                origin.Offset(0, subHeadingSize.Height + INSIDE_VERTICAL_PADDING);
+
             }
 
             // Draw the image

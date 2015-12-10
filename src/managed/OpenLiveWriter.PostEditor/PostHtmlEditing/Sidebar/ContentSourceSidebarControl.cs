@@ -108,7 +108,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                 ContentSourceManager.ParseContainingElementId(_selectedElement.id, out _contentSourceId, out _contentItemId);
 
                 SmartContentEditor editor = (SmartContentEditor)_contentSourceControls[_contentSourceId];
-                ContentSourceInfo contentSource = _contentSourceContext.FindContentSource(_contentSourceId);                
+                ContentSourceInfo contentSource = _contentSourceContext.FindContentSource(_contentSourceId);
                 if (contentSource != null && contentSource.Instance is SmartContentSource)
                 {
                     _contentSource = (SmartContentSource)contentSource.Instance;

@@ -193,7 +193,7 @@ namespace OpenLiveWriter.PostEditor
         public override void WriteLine(string message, string category)
         {
             try
-            {                
+            {
                 if (category == ErrText.FailText)
                 {
                     _logger.WriteLine(message, (int)ContentEditorLoggingLevel.Log_Error);
@@ -224,7 +224,7 @@ namespace OpenLiveWriter.PostEditor
         private IBlogPostEditingContext context;
         private Panel panel;
         private ContentEditorAccountAdapter accountAdapter;
-        private IContentEditorSite _contentEditorSite;        
+        private IContentEditorSite _contentEditorSite;
 
         public ContentEditorProxy(ContentEditorFactory factory, IContentEditorSite contentEditorSite, IInternetSecurityManager internetSecurityManager, string wysiwygHTML, string previewHTML, int dlControlFlags)
         {
@@ -309,7 +309,7 @@ namespace OpenLiveWriter.PostEditor
 
                 _wysiwygHTML = wysiwygHTML;
                 _previewHTML = previewHTML;
-                _contentEditorSite = contentEditorSite;                
+                _contentEditorSite = contentEditorSite;
 
                 IntPtr p = _contentEditorSite.GetWindowHandle();
                 WINDOWINFO info = new WINDOWINFO();
@@ -406,7 +406,7 @@ namespace OpenLiveWriter.PostEditor
         {
             return contentEditor.Publish(imageConverter);
         }
-       
+
         public IHTMLDocument2 GetPublishDocument()
         {
             string body = contentEditor.Publish(null);
@@ -433,7 +433,7 @@ namespace OpenLiveWriter.PostEditor
             // email as a whole is determined by the direction defined in the body
             publishDocument.body.setAttribute("dir", dir, 1);
 
-            return publishDocument;                        
+            return publishDocument;
         }
 
 
@@ -519,7 +519,7 @@ namespace OpenLiveWriter.PostEditor
         #region IDisposable Members
 
         public void Dispose()
-        {            
+        {
             factory.GlobalSpellingOptionsChanged -= GlobalSpellingOptionsChangedHandler;
 
             contentEditor.DocumentComplete -= new EventHandler(blogPostHtmlEditor_DocumentComplete);
@@ -532,7 +532,7 @@ namespace OpenLiveWriter.PostEditor
             mainFrame.Dispose();
 
             Marshal.ReleaseComObject(_contentEditorSite);
-            _contentEditorSite = null;            
+            _contentEditorSite = null;
             accountAdapter = null;
             contentEditor = null;
             panel = null;
@@ -689,7 +689,7 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #endregion
-        
+
     }
 
 }

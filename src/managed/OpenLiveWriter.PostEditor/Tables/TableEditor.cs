@@ -106,7 +106,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                         SelectCell(editorContext, cells[0] as IHTMLTableCell);
                     }
                 }
-            }            
+            }
         }
 
         public static TableProperties GetTableProperties(IHtmlEditorComponentContext editorContext)
@@ -499,7 +499,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 _editorContext.FireSelectionChanged();
                 undoUnit.Commit();
             }
-        }        
+        }
 
         #endregion
 
@@ -833,7 +833,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
 
             using (IUndoUnit undoUnit = _editorContext.CreateUndoUnit())
-            {               
+            {
                 // The selection gets into a very bad state if we allow HTMLElementHelper.RemoveElement below
                 // to remove the element(s) that are selected.
                 // To avoid this, we move the selection before deleting the columns.
@@ -849,15 +849,15 @@ namespace OpenLiveWriter.PostEditor.Tables
                     // Move selection into next column                
                     int nextColumnIndex = endColumnIndex + 1;
                     newSelection = _editorContext.MarkupServices.CreateMarkupRange((IHTMLElement)TableSelection.EndRow.cells.item(nextColumnIndex, nextColumnIndex), false);
-                    newSelection.Collapse(true);                                  
-                }            
+                    newSelection.Collapse(true);
+                }
 
                 newSelection.ToTextRange().select();
 
                 // delete each cell
                 foreach (IHTMLTableCell cell in columnCells)
                     HTMLElementHelper.RemoveElement(cell as IHTMLElement);
-                
+
                 TableHelper.SynchronizeCellAndTableWidthsForEditing(TableSelection.Table);
 
                 DeleteTableIfEmpty();
@@ -1274,11 +1274,11 @@ namespace OpenLiveWriter.PostEditor.Tables
             IHTMLElement tableElement = TableSelection.Table as IHTMLElement;
             MarkupRange tableMarkupRange = _editorContext.MarkupServices.CreateMarkupRange(tableElement);
             if (tableMarkupRange.GetElements(ElementFilters.TABLE_CELL_ELEMENT, true).Length == 0)
-            {                
+            {
                 HTMLElementHelper.RemoveElement(tableElement);
                 _editorContext.FireSelectionChanged();
             }
-            
+
         }
 
 
@@ -1346,9 +1346,12 @@ namespace OpenLiveWriter.PostEditor.Tables
             _properties = properties;
         }
 
-        public int Rows { get { return _rows; } } private int _rows;
-        public int Columns { get { return _columns; } } private int _columns;
-        public TableProperties Properties { get { return _properties; } } private TableProperties _properties;
+        public int Rows { get { return _rows; } }
+        private int _rows;
+        public int Columns { get { return _columns; } }
+        private int _columns;
+        public TableProperties Properties { get { return _properties; } }
+        private TableProperties _properties;
 
     }
 

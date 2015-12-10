@@ -6,49 +6,49 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.ApplicationFramework
 {
-	public interface ISimpleTextEditorCommandSource
-	{
-		bool HasFocus { get; }
+    public interface ISimpleTextEditorCommandSource
+    {
+        bool HasFocus { get; }
 
-		bool CanUndo { get; }
-		void Undo() ;
+        bool CanUndo { get; }
+        void Undo();
 
-		bool CanRedo { get; }
-		void Redo() ;
+        bool CanRedo { get; }
+        void Redo();
 
-		bool CanCut { get; }
-		void Cut() ;
+        bool CanCut { get; }
+        void Cut();
 
-		bool CanCopy { get; }
-		void Copy() ;
+        bool CanCopy { get; }
+        void Copy();
 
-		bool CanPaste { get; }
-		void Paste() ;
+        bool CanPaste { get; }
+        void Paste();
 
-		bool CanClear { get; }
-		void Clear() ;
+        bool CanClear { get; }
+        void Clear();
 
-		void SelectAll() ;
-		void InsertEuroSymbol();
-		
-		bool ReadOnly { get; }
+        void SelectAll();
+        void InsertEuroSymbol();
 
-		event EventHandler CommandStateChanged ;
-		event EventHandler AggressiveCommandStateChanged ;
-	}
+        bool ReadOnly { get; }
 
-	public class SimpleTextEditorCommandHelper
-	{
-		/// <summary>
-		/// Call this method to ensure that the passed control
-		/// gets to handle cut, copy, paste, undo, redo, and del
-		/// natively instead of through the SimpleTextEditorCommand
-		/// system.
-		/// </summary>
-		public static IDisposable UseNativeBehaviors(CommandManager commandManager, params Control[] controls)
-		{
+        event EventHandler CommandStateChanged;
+        event EventHandler AggressiveCommandStateChanged;
+    }
+
+    public class SimpleTextEditorCommandHelper
+    {
+        /// <summary>
+        /// Call this method to ensure that the passed control
+        /// gets to handle cut, copy, paste, undo, redo, and del
+        /// natively instead of through the SimpleTextEditorCommand
+        /// system.
+        /// </summary>
+        public static IDisposable UseNativeBehaviors(CommandManager commandManager, params Control[] controls)
+        {
             return new NativeBehaviors(commandManager, controls);
-		}
+        }
 
         public class NativeBehaviors : IDisposable
         {
@@ -59,7 +59,7 @@ namespace OpenLiveWriter.ApplicationFramework
             {
                 Controls = controls;
                 CommandManager = commandManager;
-                foreach(Control c in Controls)
+                foreach (Control c in Controls)
                 {
                     c.GotFocus += new EventHandler(c_GotFocus);
                     c.LostFocus += new EventHandler(c_LostFocus);
@@ -103,5 +103,5 @@ namespace OpenLiveWriter.ApplicationFramework
 
         }
 
-	}
+    }
 }

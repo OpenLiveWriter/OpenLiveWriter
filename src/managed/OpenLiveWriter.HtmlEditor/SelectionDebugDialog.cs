@@ -21,7 +21,7 @@ namespace OpenLiveWriter.HtmlEditor
 
         internal void Add(OpenLiveWriter.Mshtml.MarkupRange SelectedMarkupRange)
         {
-            listBoxSelection.Items.Insert(0,new SelectionItem(SelectedMarkupRange));
+            listBoxSelection.Items.Insert(0, new SelectionItem(SelectedMarkupRange));
         }
 
         public class SelectionItem
@@ -41,7 +41,7 @@ namespace OpenLiveWriter.HtmlEditor
         private void listBoxSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectionItem item = listBoxSelection.SelectedItem as SelectionItem;
-            if(item != null)
+            if (item != null)
             {
                 MessageBox.Show(item.Range.Start.GetDocument().body.outerHTML);
             }

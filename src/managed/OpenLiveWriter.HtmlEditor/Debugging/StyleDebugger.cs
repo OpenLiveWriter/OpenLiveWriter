@@ -12,14 +12,14 @@ using OpenLiveWriter.Mshtml;
 namespace OpenLiveWriter.HtmlEditor.Debugging
 {
 
-    
-    /// <summary>
-	/// Summary description for StyleDebugger.
-	/// </summary>
-	public class StyleDebugger : Form
-	{
 
-        #if DEBUG_STYLES
+    /// <summary>
+    /// Summary description for StyleDebugger.
+    /// </summary>
+    public class StyleDebugger : Form
+    {
+
+#if DEBUG_STYLES
 
 		private ColumnHeader columnHeaderStyleName;
 		private ColumnHeader columnHeaderStyleValue;
@@ -56,7 +56,7 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			styleDebugger.BringToFront();
 		}
 
-		#region Style list items
+        #region Style list items
 		private void InitStyleItems()
 		{
 			//load the style list items
@@ -93,7 +93,7 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			//listViewStyle.EndUpdate();
 		}
 
-		#endregion
+        #endregion
 		
 
 		/// <summary>
@@ -111,7 +111,7 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			base.Dispose( disposing );
 		}
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
@@ -170,7 +170,7 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			this.ResumeLayout(false);
 
 		}
-		#endregion
+        #endregion
 
 		public MshtmlEditorEx MshtmlEditor
 		{
@@ -297,7 +297,7 @@ namespace OpenLiveWriter.HtmlEditor.Debugging
 			}
 		}
 
-        #endif
+#endif
     }
 
 }

@@ -73,7 +73,7 @@ namespace OpenLiveWriter.HtmlEditor
                     currentRange.End.MoveToPointer(currentRange.Start);
                 }
             }
-            
+
             if (elementEndHeader != null && !HTMLElementHelper.ElementsAreEqual(elementStartHeader, elementEndHeader))
             {
                 // Takes care of the following case:
@@ -131,7 +131,7 @@ namespace OpenLiveWriter.HtmlEditor
             // Walks in-scope elements and clears out any elements or styles that might affect the bold formatting.
             var elementsToRemove = new List<IHTMLElement>();
             expandedRange.WalkRange(
-                delegate(MarkupRange currentexpandedRange, MarkupContext context, string text)
+                delegate (MarkupRange currentexpandedRange, MarkupContext context, string text)
                 {
                     IHTMLElement currentElement = context.Element;
                     if (currentElement != null && context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_EnterScope)
@@ -155,7 +155,7 @@ namespace OpenLiveWriter.HtmlEditor
             // Walks the range to find any segments of text that need to be fixed up.
             var rangesToWrap = new List<MarkupRange>();
             range.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                 {
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text)
                     {

@@ -55,8 +55,8 @@ namespace OpenLiveWriter.HtmlEditor
                 gbTableHeader.Text = Res.Get(StringId.Statistics);
             }
 
-            
-            
+
+
         }
 
         protected override void OnLoad(EventArgs e)
@@ -72,14 +72,14 @@ namespace OpenLiveWriter.HtmlEditor
                     labelChars.AutoSize = true;
                     labelParagraphs.AutoSize = true;
 
-                    LayoutHelper.AutoFitLabels(labelWordCountValue, labelCharsNoSpacesValue, labelCharsValue, labelParagraphsValue);                    
+                    LayoutHelper.AutoFitLabels(labelWordCountValue, labelCharsNoSpacesValue, labelCharsValue, labelParagraphsValue);
                 }
             }
-            
+
             DisplayHelper.AutoFitSystemButton(buttonClose, buttonClose.Width, int.MaxValue);
         }
 
-        
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {

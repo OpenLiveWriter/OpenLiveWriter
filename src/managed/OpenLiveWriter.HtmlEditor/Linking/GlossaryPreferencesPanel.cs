@@ -11,34 +11,34 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.HtmlEditor.Linking
 {
-	/// <summary>
-	/// Summary description for GlossaryPreferencesPanel.
-	/// </summary>
-	public class GlossaryPreferencesPanel : PreferencesPanel
-	{
-		private GlossaryManagementControl glossaryManagementControl1;
+    /// <summary>
+    /// Summary description for GlossaryPreferencesPanel.
+    /// </summary>
+    public class GlossaryPreferencesPanel : PreferencesPanel
+    {
+        private GlossaryManagementControl glossaryManagementControl1;
         private CheckBox checkBoxAutoLink;
-	    private readonly GlossaryPreferences _glossaryPreferences;
+        private readonly GlossaryPreferences _glossaryPreferences;
         private GroupBox groupboxAutoLink;
         private CheckBox checkBoxOnlyOnce;
 
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
 
-		public GlossaryPreferencesPanel()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        public GlossaryPreferencesPanel()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
-			PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Linking.Images.GlossarySmall.png") ;
+            PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Linking.Images.GlossarySmall.png");
 
             _glossaryPreferences = new GlossaryPreferences();
-		    checkBoxAutoLink.Checked = _glossaryPreferences.AutoLinkEnabled;
-		    checkBoxOnlyOnce.Checked = _glossaryPreferences.AutoLinkTermsOnlyOnce;
-		    checkBoxOnlyOnce.Enabled = _glossaryPreferences.AutoLinkEnabled;
+            checkBoxAutoLink.Checked = _glossaryPreferences.AutoLinkEnabled;
+            checkBoxOnlyOnce.Checked = _glossaryPreferences.AutoLinkTermsOnlyOnce;
+            checkBoxOnlyOnce.Enabled = _glossaryPreferences.AutoLinkEnabled;
 
             if (!DesignMode)
             {
@@ -47,12 +47,12 @@ namespace OpenLiveWriter.HtmlEditor.Linking
                 checkBoxAutoLink.Text = Res.Get(StringId.GlossaryAutomaticallyLink);
                 groupboxAutoLink.Text = Res.Get(StringId.GlossaryAutomaticLinkOptions);
             }
-		}
+        }
 
         protected override void OnLoad(EventArgs e)
         {
             LayoutHelper.FixupGroupBox(groupboxAutoLink);
-            
+
             base.OnLoad(e);
         }
 
@@ -60,7 +60,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         {
             return true;
         }
-        
+
         public override void Save()
         {
             _glossaryPreferences.Save();
@@ -68,29 +68,29 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         }
 
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
 
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.glossaryManagementControl1 = new OpenLiveWriter.HtmlEditor.Linking.GlossaryManagementControl();
             this.checkBoxAutoLink = new System.Windows.Forms.CheckBox();
             this.groupboxAutoLink = new System.Windows.Forms.GroupBox();
@@ -152,8 +152,8 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.groupboxAutoLink.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
         private void checkBoxAutoLink_CheckedChanged(object sender, EventArgs e)
         {
@@ -168,7 +168,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             OnModified(EventArgs.Empty);
         }
 
-	}
+    }
 }
 
 

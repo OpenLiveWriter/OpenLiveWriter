@@ -68,29 +68,29 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return new IDataFormatHandlerFactory[]{
                 new DelegateBasedDataFormatHandlerFactory(CreateEmlMessageFormatHandler, EmlMessageHandler.CanCreateFrom),
                 new DelegateBasedDataFormatHandlerFactory(CreateInternalSmartContentFormatHandler, InternalSmartContentFormatHandler.CanCreateFrom),
-                new DelegateBasedDataFormatHandlerFactory(CreateTextDataFormatHandler, CanCreateFromTextFilter),               
+                new DelegateBasedDataFormatHandlerFactory(CreateTextDataFormatHandler, CanCreateFromTextFilter),
                 new DelegateBasedDataFormatHandlerFactory(CreateUnhandledFormatHandler, UnhandledDropTarget.CanCreateFrom) // This always needs to be the last handler
 			};
 
             return new IDataFormatHandlerFactory[]{
                 new DelegateBasedDataFormatHandlerFactory(CreateEmlMessageFormatHandler, EmlMessageHandler.CanCreateFrom),
-           	    new DelegateBasedDataFormatHandlerFactory(CreateInternalSmartContentFormatHandler, InternalSmartContentFormatHandler.CanCreateFrom ),
-		        new DelegateBasedDataFormatHandlerFactory(CreateLiveClipboardContentSourceFormatHandler, LiveClipboardContentSourceFormatHandler.CanCreateFrom ),
-			    new DelegateBasedDataFormatHandlerFactory(CreateLiveClipboardHtmlFormatHandler, LiveClipboardHtmlFormatHandler.CanCreateFrom ),
-			    new DelegateBasedDataFormatHandlerFactory(CreateContentSourceUrlFormatHandler, UrlContentSourcelFormatHandler.CanCreateFrom),
-			    new DelegateBasedDataFormatHandlerFactory(CreateUrlDataFormatHandler, CanCreateUrlFormatHandler),
-			    new DelegateBasedDataFormatHandlerFactory(CreateImageOnlyHtmlDataFormatHandler, CanCreateImageOnlyHtmlFormatHandler),
-			    new DelegateBasedDataFormatHandlerFactory(CreateImageFileFormatHandler, data => !_blogEditor.ShouldComposeHostHandlePhotos() && ImageFileFormatHandler.CanCreateFrom(data)),
-			    new DelegateBasedDataFormatHandlerFactory(CreateTableDataFormatHandler, CanCreateTableDataFormatHandler),
+                   new DelegateBasedDataFormatHandlerFactory(CreateInternalSmartContentFormatHandler, InternalSmartContentFormatHandler.CanCreateFrom ),
+                new DelegateBasedDataFormatHandlerFactory(CreateLiveClipboardContentSourceFormatHandler, LiveClipboardContentSourceFormatHandler.CanCreateFrom ),
+                new DelegateBasedDataFormatHandlerFactory(CreateLiveClipboardHtmlFormatHandler, LiveClipboardHtmlFormatHandler.CanCreateFrom ),
+                new DelegateBasedDataFormatHandlerFactory(CreateContentSourceUrlFormatHandler, UrlContentSourcelFormatHandler.CanCreateFrom),
+                new DelegateBasedDataFormatHandlerFactory(CreateUrlDataFormatHandler, CanCreateUrlFormatHandler),
+                new DelegateBasedDataFormatHandlerFactory(CreateImageOnlyHtmlDataFormatHandler, CanCreateImageOnlyHtmlFormatHandler),
+                new DelegateBasedDataFormatHandlerFactory(CreateImageFileFormatHandler, data => !_blogEditor.ShouldComposeHostHandlePhotos() && ImageFileFormatHandler.CanCreateFrom(data)),
+                new DelegateBasedDataFormatHandlerFactory(CreateTableDataFormatHandler, CanCreateTableDataFormatHandler),
 #if SUPPORT_FILES
 			    new DelegateBasedDataFormatHandlerFactory(CreateFileDataFormatHandler, new DataObjectFilter(CanCreateFileFormatHandler)),
 #endif
 			    new DelegateBasedDataFormatHandlerFactory(CreateHtmlDataFormatHandler, CanCreateHtmlFormatHandler),
-			    new DelegateBasedDataFormatHandlerFactory(CreateImageClipboardFormatHandler, CanCreateImageDataFormatHandler),
-		        new DelegateBasedDataFormatHandlerFactory(CreateEmbedDataFormatHandler, CanCreateEmbedFormatHandler ),
+                new DelegateBasedDataFormatHandlerFactory(CreateImageClipboardFormatHandler, CanCreateImageDataFormatHandler),
+                new DelegateBasedDataFormatHandlerFactory(CreateEmbedDataFormatHandler, CanCreateEmbedFormatHandler ),
                 new DelegateBasedDataFormatHandlerFactory(CreateVideoFileFormatHandler, VideoFileFormatHandler.CanCreateFrom),
                 new DelegateBasedDataFormatHandlerFactory(CreateImageFolderFormatHandler, data => !_blogEditor.ShouldComposeHostHandlePhotos() && ImageFolderFormatHandler.CanCreateFrom(data)),
-			    new DelegateBasedDataFormatHandlerFactory(CreateTextDataFormatHandler, CanCreateFromTextFilter),
+                new DelegateBasedDataFormatHandlerFactory(CreateTextDataFormatHandler, CanCreateFromTextFilter),
                 new DelegateBasedDataFormatHandlerFactory(CreateUnhandledFormatHandler, UnhandledDropTarget.CanCreateFrom) // This always needs to be the last handler
 		    };
         }
@@ -496,7 +496,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return ProvideMove(keyState, supportedEffects);
             else
                 return effects;
-        }       
+        }
 
         protected override bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end)
         {
@@ -777,7 +777,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             : base(dataObject, handlerContext, editorContext, blogEditor)
         {
 
-        }        
+        }
 
         public static bool CanCreateFrom(DataObjectMeister data)
         {
@@ -785,7 +785,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             FileData fileData = data.FileData;
             if (fileData != null && fileData.Files.Length == 1 && fileData.Files[0].IsDirectory)
             {
-                DirectoryLister lister = new DirectoryLister(fileData.Files[0].ContentsPath, false, true);                
+                DirectoryLister lister = new DirectoryLister(fileData.Files[0].ContentsPath, false, true);
                 foreach (string file in lister.GetFiles())
                 {
                     if (PathHelper.IsPathImage(file))
@@ -804,8 +804,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             EditorContext.MarkupServices.CreateMarkupRange(begin, end).ToTextRange().select();
 
             List<string> files = new List<string>();
-            
-            DirectoryLister lister = new DirectoryLister(DataMeister.FileData.Files[0].ContentsPath, false, true);            
+
+            DirectoryLister lister = new DirectoryLister(DataMeister.FileData.Files[0].ContentsPath, false, true);
             foreach (string file in lister.GetFiles())
             {
                 if (PathHelper.IsPathImage(file))

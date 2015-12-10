@@ -12,8 +12,8 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
-	public class HtmlImageResizeEditor : ImageDecoratorEditor
-	{
+    public class HtmlImageResizeEditor : ImageDecoratorEditor
+    {
         public class SizeCommand
         {
             private CommandId _widthId;
@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
                 sizeValue = new Size(width, height);
 
-                commandManager.BeginUpdate();                
+                commandManager.BeginUpdate();
 
                 commandManager.Add(
                     new SpinnerCommand(_widthId, MinSize.Width, MaxSize.Width, width, Increment, DecimalPlaces, RepresentativeString, FormatString),
@@ -85,23 +85,23 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
         }
 
-	    private SizeCommand sizeCommand;
-		private IContainer components = null;
-		protected ImageSizeControl imageSizeControl;
+        private SizeCommand sizeCommand;
+        private IContainer components = null;
+        protected ImageSizeControl imageSizeControl;
 
-		public HtmlImageResizeEditor(CommandManager commandManager)
-		{            
-		    sizeCommand = new SizeCommand(commandManager, CommandId.FormatImageAdjustWidth, CommandId.FormatImageAdjustHeight, 1, 1);
+        public HtmlImageResizeEditor(CommandManager commandManager)
+        {
+            sizeCommand = new SizeCommand(commandManager, CommandId.FormatImageAdjustWidth, CommandId.FormatImageAdjustHeight, 1, 1);
             sizeCommand.SizeChanged += new EventHandler(imageSizeControl_ImageSizeChanged);
 
-			// This call is required by the Windows Form Designer.
-			InitializeComponent();
-			
-			//mnemonics are not supported in the sidebar (since they interfere
-			//with typing in the editor when displayed, or with the main menu if they
-			//conflict.
-			imageSizeControl.RemoveMnemonics();
-		}
+            // This call is required by the Windows Form Designer.
+            InitializeComponent();
+
+            //mnemonics are not supported in the sidebar (since they interfere
+            //with typing in the editor when displayed, or with the main menu if they
+            //conflict.
+            imageSizeControl.RemoveMnemonics();
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -109,109 +109,109 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             Height = imageSizeControl.PreferredHeight;
         }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
 
                 sizeCommand.SizeChanged -= new EventHandler(imageSizeControl_ImageSizeChanged);
-			}
-			base.Dispose( disposing );
-		}
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this.imageSizeControl = new OpenLiveWriter.PostEditor.PostHtmlEditing.ImageSizeControl();
-			this.SuspendLayout();
-			// 
-			// imageSizeControl
-			// 
-			this.imageSizeControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.imageSizeControl.Location = new System.Drawing.Point(0, 0);
-			this.imageSizeControl.Name = "imageSizeControl";
-			this.imageSizeControl.Size = new System.Drawing.Size(244, 100);
-			this.imageSizeControl.TabIndex = 1;
+        #region Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.imageSizeControl = new OpenLiveWriter.PostEditor.PostHtmlEditing.ImageSizeControl();
+            this.SuspendLayout();
+            // 
+            // imageSizeControl
+            // 
+            this.imageSizeControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageSizeControl.Location = new System.Drawing.Point(0, 0);
+            this.imageSizeControl.Name = "imageSizeControl";
+            this.imageSizeControl.Size = new System.Drawing.Size(244, 100);
+            this.imageSizeControl.TabIndex = 1;
 
             // @RIBBON TODO: Use the logic that actually does the resizing in ImageSizeControl
 
-			this.imageSizeControl.ImageSizeChanged += new System.EventHandler(this.imageSizeControl_ImageSizeChanged);
-			// 
-			// HtmlImageResizeEditor
-			// 
-			this.Controls.Add(this.imageSizeControl);
-			this.Name = "HtmlImageResizeEditor";
-			this.Size = new System.Drawing.Size(244, 100);
-			this.ResumeLayout(false);
+            this.imageSizeControl.ImageSizeChanged += new System.EventHandler(this.imageSizeControl_ImageSizeChanged);
+            // 
+            // HtmlImageResizeEditor
+            // 
+            this.Controls.Add(this.imageSizeControl);
+            this.Name = "HtmlImageResizeEditor";
+            this.Size = new System.Drawing.Size(244, 100);
+            this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		protected override void LoadEditor()
-		{
-			base.LoadEditor ();
+        protected override void LoadEditor()
+        {
+            base.LoadEditor();
 
-			ImageResizeSettings = new HtmlImageResizeDecoratorSettings(Settings, EditorContext.ImgElement);				
-			Size imageSize = ImageResizeSettings.ImageSize;
+            ImageResizeSettings = new HtmlImageResizeDecoratorSettings(Settings, EditorContext.ImgElement);
+            Size imageSize = ImageResizeSettings.ImageSize;
 
-		    sizeCommand.Value = imageSize;
+            sizeCommand.Value = imageSize;
 
-			if(EditorContext.SourceImageSize == new Size(Int32.MaxValue, Int32.MaxValue))
-			{
-				//The source image size is unknown, so calculate the actual image size by removing
-				//the size attributes, checking the size, and then placing the size attributes back
-				object oldHeight = EditorContext.ImgElement.getAttribute("height", 2);
-				object oldWidth = EditorContext.ImgElement.getAttribute("width", 2);
-				EditorContext.ImgElement.removeAttribute("width", 0);
-				EditorContext.ImgElement.removeAttribute("height", 0);
-				int width = ((IHTMLImgElement)EditorContext.ImgElement).width;
-				int height = ((IHTMLImgElement)EditorContext.ImgElement).height;
+            if (EditorContext.SourceImageSize == new Size(Int32.MaxValue, Int32.MaxValue))
+            {
+                //The source image size is unknown, so calculate the actual image size by removing
+                //the size attributes, checking the size, and then placing the size attributes back
+                object oldHeight = EditorContext.ImgElement.getAttribute("height", 2);
+                object oldWidth = EditorContext.ImgElement.getAttribute("width", 2);
+                EditorContext.ImgElement.removeAttribute("width", 0);
+                EditorContext.ImgElement.removeAttribute("height", 0);
+                int width = ((IHTMLImgElement)EditorContext.ImgElement).width;
+                int height = ((IHTMLImgElement)EditorContext.ImgElement).height;
 
-				if(oldHeight != null)
-					EditorContext.ImgElement.setAttribute("height", oldHeight, 0);
-				if(oldWidth != null)
-					EditorContext.ImgElement.setAttribute("width", oldWidth, 0);
-				imageSizeControl.LoadImageSize(imageSize, new Size(width, height), EditorContext.ImageRotation);
-			}
-			else
-			{
-				imageSizeControl.LoadImageSize(imageSize, EditorContext.SourceImageSize, EditorContext.ImageRotation);
-			}
-		}
+                if (oldHeight != null)
+                    EditorContext.ImgElement.setAttribute("height", oldHeight, 0);
+                if (oldWidth != null)
+                    EditorContext.ImgElement.setAttribute("width", oldWidth, 0);
+                imageSizeControl.LoadImageSize(imageSize, new Size(width, height), EditorContext.ImageRotation);
+            }
+            else
+            {
+                imageSizeControl.LoadImageSize(imageSize, EditorContext.SourceImageSize, EditorContext.ImageRotation);
+            }
+        }
 
-		protected override void OnEnabledChanged(EventArgs e)
-		{
-			base.OnEnabledChanged (e);
-		}
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+        }
 
 
-		internal HtmlImageResizeDecoratorSettings ImageResizeSettings;
+        internal HtmlImageResizeDecoratorSettings ImageResizeSettings;
 
-		public override Size GetPreferredSize()
-		{
-			return new Size(244, 76);
-		}
+        public override Size GetPreferredSize()
+        {
+            return new Size(244, 76);
+        }
 
-		protected override void OnSaveSettings()
-		{
-			ImageResizeSettings.SetImageSize(imageSizeControl.ImageSize, imageSizeControl.ImageBoundsSize);
-		}
+        protected override void OnSaveSettings()
+        {
+            ImageResizeSettings.SetImageSize(imageSizeControl.ImageSize, imageSizeControl.ImageBoundsSize);
+        }
 
-		private void imageSizeControl_ImageSizeChanged(object sender, EventArgs e)
-		{
-			SaveSettingsAndApplyDecorator();
-		}
-	}
+        private void imageSizeControl_ImageSizeChanged(object sender, EventArgs e)
+        {
+            SaveSettingsAndApplyDecorator();
+        }
+    }
 }
 

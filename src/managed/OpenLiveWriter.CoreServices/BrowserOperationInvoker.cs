@@ -58,7 +58,7 @@ namespace OpenLiveWriter.CoreServices
                 this.browserWidth = browserWidth;
             }
 
-            public TResult Result { get { return result; }}
+            public TResult Result { get { return result; } }
 
             public void Execute()
             {

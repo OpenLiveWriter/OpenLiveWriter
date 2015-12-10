@@ -25,7 +25,7 @@ namespace OpenLiveWriter.HtmlEditor
         void ApplyFontForeColor(int color);
 
         int SelectionBackColor { get; }
-        void ApplyFontBackColor(int? color);        
+        void ApplyFontBackColor(int? color);
 
         string SelectionStyleName { get; }
         void ApplyHtmlFormattingStyle(IHtmlFormattingStyle style);
@@ -83,7 +83,7 @@ namespace OpenLiveWriter.HtmlEditor
 
         bool CanPasteSpecial { get; }
         bool AllowPasteSpecial { get; }
-        void PasteSpecial();		      
+        void PasteSpecial();
 
         bool CanFind { get; }
         void Find();

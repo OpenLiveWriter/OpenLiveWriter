@@ -392,7 +392,7 @@ namespace OpenLiveWriter.CoreServices
 
         public static bool IsCtrlRightAlt(Keys keys)
         {
-            return (((keys & Keys.Control) != 0) && 
+            return (((keys & Keys.Control) != 0) &&
                     ((keys & Keys.Alt) != 0) &&
                     (User32.GetKeyState(VK.RMENU) < 0));
         }

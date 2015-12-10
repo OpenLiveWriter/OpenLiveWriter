@@ -14,14 +14,14 @@ using OpenLiveWriter.CoreServices.Layout;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
-	public class HtmlAltTextEditor : ImageDecoratorEditor
-	{
-		private IContainer components = null;
+    public class HtmlAltTextEditor : ImageDecoratorEditor
+    {
+        private IContainer components = null;
 
-		public HtmlAltTextEditor()
-		{
-			// This call is required by the Windows Form Designer.
-			InitializeComponent();
+        public HtmlAltTextEditor()
+        {
+            // This call is required by the Windows Form Designer.
+            InitializeComponent();
 
             labelPicture.Text = Res.Get(StringId.ImgAltTextPicture);
             labelAltText.Text = Res.Get(StringId.ImgAltTextAlternateText);
@@ -32,30 +32,30 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             Text = Res.Get(StringId.AltTextEditorTitle);
 
             buttonOK.Click += new EventHandler(buttonOK_Click);
-		}
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.labelPicture = new System.Windows.Forms.Label();
             this.labelFilename = new System.Windows.Forms.Label();
             this.labelSize = new System.Windows.Forms.Label();
@@ -195,18 +195,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		protected override void LoadEditor()
-		{
-			base.LoadEditor ();
-			HtmlAltTextSettings = new HtmlAltTextDecoratorSettings(EditorContext.ImgElement);
+        protected override void LoadEditor()
+        {
+            base.LoadEditor();
+            HtmlAltTextSettings = new HtmlAltTextDecoratorSettings(EditorContext.ImgElement);
             labelFilename.Text = HttpUtility.UrlDecode(UrlHelper.GetFileNameForUrl(UrlHelper.SafeToAbsoluteUri(EditorContext.SourceImageUri)));
             labelSize.Text = String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.DimensionsFormat), EditorContext.SourceImageSize.Width, EditorContext.SourceImageSize.Height);
-			textBoxAltText.Text = HtmlAltTextSettings.AltText;
+            textBoxAltText.Text = HtmlAltTextSettings.AltText;
             textBoxTitle.Text = HtmlAltTextSettings.Title;
-		}
+        }
         private Label labelPicture;
         private Label labelFilename;
         private Label labelSize;
@@ -217,19 +217,19 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         private TextBox textBoxTitle;
         private Button buttonOK;
         private Button buttonCancel;
-		private HtmlAltTextDecoratorSettings HtmlAltTextSettings;
+        private HtmlAltTextDecoratorSettings HtmlAltTextSettings;
 
-		public override Size GetPreferredSize()
-		{
+        public override Size GetPreferredSize()
+        {
             return new Size(300, 200);
-		}
+        }
 
-		protected override void OnSaveSettings()
-		{
-			base.OnSaveSettings ();			
-			HtmlAltTextSettings.AltText = textBoxAltText.Text;
+        protected override void OnSaveSettings()
+        {
+            base.OnSaveSettings();
+            HtmlAltTextSettings.AltText = textBoxAltText.Text;
             HtmlAltTextSettings.Title = textBoxTitle.Text;
-		}
+        }
 
         void buttonOK_Click(object sender, EventArgs e)
         {
@@ -256,6 +256,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
             LayoutHelper.FixupOKCancel(buttonOK, buttonCancel);
         }
-	}
+    }
 }
 

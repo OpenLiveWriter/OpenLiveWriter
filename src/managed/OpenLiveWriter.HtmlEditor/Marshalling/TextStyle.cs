@@ -30,7 +30,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// <param name="markupRange">The range to wrap.</param>
         protected void WrapInElement(ElementFactory elementFactory, MshtmlMarkupServices markupServices, MarkupRange markupRange)
         {
-            Debug.Assert(markupRange.GetElements(ElementFilters.BLOCK_ELEMENTS, false).Length == 0, 
+            Debug.Assert(markupRange.GetElements(ElementFilters.BLOCK_ELEMENTS, false).Length == 0,
                 "Did not expect MarkupRange to contain block elements");
 
             MarkupPointer startPointer = markupRange.Start.Clone();
@@ -67,11 +67,11 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// <param name="markupServices">The MarkupServices for the start and end pointers.</param>
         /// <param name="startPointer">Pointer to place the beginning of the element.</param>
         /// <param name="endPointer">Pointer to place the end of the element.</param>
-        private void InsertElement(IHTMLElement element, MshtmlMarkupServices markupServices, 
+        private void InsertElement(IHTMLElement element, MshtmlMarkupServices markupServices,
             MarkupPointer startPointer, MarkupPointer endPointer)
         {
             Debug.Assert(startPointer.IsLeftOfOrEqualTo(endPointer), "Expected start to be left of or equal to end!");
-            Debug.Assert(HTMLElementHelper.ElementsAreEqual(startPointer.CurrentScope, endPointer.CurrentScope), 
+            Debug.Assert(HTMLElementHelper.ElementsAreEqual(startPointer.CurrentScope, endPointer.CurrentScope),
                 "Expected start and end to be in the same scope, otherwise resulting HTML will be invalid!");
 
             if (startPointer.IsLeftOf(endPointer))

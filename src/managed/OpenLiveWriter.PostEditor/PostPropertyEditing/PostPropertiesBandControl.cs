@@ -46,7 +46,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
      * Should properties dialog scroll state be remembered between views?
      */
     public partial class PostPropertiesBandControl : UserControl, IBlogPostEditor, IRtlAware, INewCategoryContext
-    {        
+    {
         private Blog _targetBlog;
         private IBlogClientOptions _clientOptions;
 
@@ -76,18 +76,18 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
             categoryContext = new CategoryContext();
 
-            controller = new SharedPropertiesController(this, null, categoryDropDown, 
+            controller = new SharedPropertiesController(this, null, categoryDropDown,
                 null, textTags, labelPageOrder, textPageOrder, labelPageParent, comboPageParent, null,
                 datePublishDate, fields, categoryContext);
 
-            SimpleTextEditorCommandHelper.UseNativeBehaviors(commandManager, 
+            SimpleTextEditorCommandHelper.UseNativeBehaviors(commandManager,
                 textTags, textPageOrder);
 
             postPropertiesForm = new PostPropertiesForm(commandManager, categoryContext);
             if (components == null)
                 components = new Container();
             components.Add(postPropertiesForm);
-            
+
             postPropertiesForm.Synchronize(controller);
 
             commandManager.Add(CommandId.PostProperties, PostProperties_Execute);
@@ -111,7 +111,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         }
 
         private void ShowCategoryPopup_Execute(object sender, EventArgs e)
-        {            
+        {
             if (postPropertiesForm.Visible)
                 postPropertiesForm.DisplayCategoryForm();
             else
@@ -121,7 +121,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         protected override void OnLoad(EventArgs args)
         {
             base.OnLoad(args);
-            
+
             FixCategoryDropDown();
         }
 
@@ -213,11 +213,11 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         private IBlogPostEditingContext _editorContext;
         public void Initialize(IBlogPostEditingContext editorContext, IBlogClientOptions clientOptions)
         {
-            _editorContext = editorContext;            
+            _editorContext = editorContext;
             _clientOptions = clientOptions;
 
             controller.Initialize(editorContext, clientOptions);
-            ((IBlogPostEditor) postPropertiesForm).Initialize(editorContext, clientOptions);
+            ((IBlogPostEditor)postPropertiesForm).Initialize(editorContext, clientOptions);
 
             ManageLayout();
         }
@@ -229,10 +229,10 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         }
 
         public void OnBlogChanged(Blog newBlog)
-        {            
+        {
             _clientOptions = newBlog.ClientOptions;
             _targetBlog = newBlog;
-            
+
             controller.OnBlogChanged(newBlog);
             ((IBlogPostEditor)postPropertiesForm).OnBlogChanged(newBlog);
 
@@ -286,7 +286,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         public bool IsDirty
         {
-            get { return controller.IsDirty || ((IBlogPostEditor) postPropertiesForm).IsDirty; }
+            get { return controller.IsDirty || ((IBlogPostEditor)postPropertiesForm).IsDirty; }
         }
 
         public bool HasKeywords
@@ -307,7 +307,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         public void OnPublishSucceeded(BlogPost blogPost, PostResult postResult)
         {
             controller.OnPublishSucceeded(blogPost, postResult);
-            ((IBlogPostEditor) postPropertiesForm).OnPublishSucceeded(blogPost, postResult);
+            ((IBlogPostEditor)postPropertiesForm).OnPublishSucceeded(blogPost, postResult);
         }
 
         public void OnClosing(CancelEventArgs e)

@@ -12,28 +12,28 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.OpenPost
 {
-	/// <summary>
-	/// Summary description for CommandRecentPost.
-	/// </summary>
-	public class CommandRecentPost : LinkingCommand
-	{
-		public CommandRecentPost() : base(CommandId.RecentPost)
-		{
-		}
+    /// <summary>
+    /// Summary description for CommandRecentPost.
+    /// </summary>
+    public class CommandRecentPost : LinkingCommand
+    {
+        public CommandRecentPost() : base(CommandId.RecentPost)
+        {
+        }
 
-		public override bool FindLink(string linkText, HyperlinkForm caller)
-		{
-			using ( SelectPostLinkForm openPostForm = new SelectPostLinkForm() )
-			{
-				if ( openPostForm.ShowDialog(Win32WindowImpl.ForegroundWin32Window) == DialogResult.OK )
-				{
-					if ( String.Empty == caller.LinkText.Trim())
+        public override bool FindLink(string linkText, HyperlinkForm caller)
+        {
+            using (SelectPostLinkForm openPostForm = new SelectPostLinkForm())
+            {
+                if (openPostForm.ShowDialog(Win32WindowImpl.ForegroundWin32Window) == DialogResult.OK)
+                {
+                    if (String.Empty == caller.LinkText.Trim())
                         caller.LinkText = openPostForm.PostTitle;
-					caller.Hyperlink = openPostForm.PostLink;
-					return true;
-				}
-			}
-			return false;
-		}
-	}
+                    caller.Hyperlink = openPostForm.PostLink;
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 }

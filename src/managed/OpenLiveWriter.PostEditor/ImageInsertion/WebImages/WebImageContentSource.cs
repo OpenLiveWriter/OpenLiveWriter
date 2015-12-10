@@ -9,7 +9,7 @@ using OpenLiveWriter.Api;
 using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
-{        
+{
     [WriterPlugin(WebImageContentSource.ID, "Web Image",
     ImagePath = "Images.TabInsertFromWeb.png",
      PublisherUrl = "http://local.live.com",
@@ -20,11 +20,11 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
     [CustomLocalizedPlugin("WebImage")]
     public class WebImageContentSource : ContentSource
     {
-        public const string ID = "78047914-B039-4B15-B2FA-90D4DBDF7C51";        
+        public const string ID = "78047914-B039-4B15-B2FA-90D4DBDF7C51";
 
         public override System.Windows.Forms.DialogResult CreateContent(System.Windows.Forms.IWin32Window dialogOwner, ref string content)
         {
-            using(WebImageForm form = new WebImageForm())
+            using (WebImageForm form = new WebImageForm())
             {
                 if (form.ShowDialog() == DialogResult.OK && !String.IsNullOrEmpty(form.ImageUrl))
                 {
@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
 
                 return form.DialogResult;
             }
-            
+
         }
 
     }

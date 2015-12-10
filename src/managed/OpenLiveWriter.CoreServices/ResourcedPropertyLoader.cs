@@ -14,67 +14,67 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.CoreServices
 {
-	public class ResourcedPropertyLoader
-	{
-		private readonly Type _type;
-		private readonly ArrayList _localizedProperties = new ArrayList();
-		private readonly ArrayList _invariantProperties = new ArrayList();
-		private ResourceManager _localizedResourceManager;
-		private ResourceManager _invariantResourceManager;
+    public class ResourcedPropertyLoader
+    {
+        private readonly Type _type;
+        private readonly ArrayList _localizedProperties = new ArrayList();
+        private readonly ArrayList _invariantProperties = new ArrayList();
+        private ResourceManager _localizedResourceManager;
+        private ResourceManager _invariantResourceManager;
 
-		public ResourcedPropertyLoader(Type type, ResourceManager localizedResourceManager, ResourceManager invariantResourceManager)
-		{
-			_type = type;
-			_localizedResourceManager = localizedResourceManager;
-			_invariantResourceManager = invariantResourceManager;
-			
-			foreach (PropertyInfo prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty))
-			{
-				object[] attributes = prop.GetCustomAttributes(typeof (LocalizableAttribute), false);
-				
-				if (prop.PropertyType.IsEnum || prop.PropertyType.IsPrimitive || prop.PropertyType == typeof(string))
-				{
-					if (attributes.Length == 0 || !((LocalizableAttribute)attributes[0]).IsLocalizable)
-						_invariantProperties.Add(prop);
-					else
-						_localizedProperties.Add(prop);
-				}
-			}
-		}
-		
-		public ResourceManager LocalizedResources
-		{
-			get { return _localizedResourceManager; }
-		}
-		public ResourceManager NonLocalizedResources
-		{
-			get { return _invariantResourceManager; }
-		}
-		
-		public void ApplyResources(object obj, string id)
-		{
-			if (obj == null)
-			{
-				Debug.Fail("Can't apply resources to a null value");
-				throw new ArgumentNullException("obj", "Can't apply resources to a null value");
-			}
-			if (!_type.IsInstanceOfType(obj))
-			{
-				Debug.Fail("Can't apply resources to an object of type " + obj.GetType().Name);
-				throw new ArgumentException("obj", "Can't apply resources to an object of type " + obj.GetType().Name);
-			}
-			
-			Apply(_localizedResourceManager, _localizedProperties, obj, id, true);
-			Apply(_invariantResourceManager, _invariantProperties, obj, id, false);
-		}
-		List<string> props = new List<string>();
-		private void Apply(ResourceManager rm, ArrayList properties, object obj, string id, bool localized)
-		{
-			foreach (PropertyInfo prop in properties)
-			{
+        public ResourcedPropertyLoader(Type type, ResourceManager localizedResourceManager, ResourceManager invariantResourceManager)
+        {
+            _type = type;
+            _localizedResourceManager = localizedResourceManager;
+            _invariantResourceManager = invariantResourceManager;
+
+            foreach (PropertyInfo prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty))
+            {
+                object[] attributes = prop.GetCustomAttributes(typeof(LocalizableAttribute), false);
+
+                if (prop.PropertyType.IsEnum || prop.PropertyType.IsPrimitive || prop.PropertyType == typeof(string))
+                {
+                    if (attributes.Length == 0 || !((LocalizableAttribute)attributes[0]).IsLocalizable)
+                        _invariantProperties.Add(prop);
+                    else
+                        _localizedProperties.Add(prop);
+                }
+            }
+        }
+
+        public ResourceManager LocalizedResources
+        {
+            get { return _localizedResourceManager; }
+        }
+        public ResourceManager NonLocalizedResources
+        {
+            get { return _invariantResourceManager; }
+        }
+
+        public void ApplyResources(object obj, string id)
+        {
+            if (obj == null)
+            {
+                Debug.Fail("Can't apply resources to a null value");
+                throw new ArgumentNullException("obj", "Can't apply resources to a null value");
+            }
+            if (!_type.IsInstanceOfType(obj))
+            {
+                Debug.Fail("Can't apply resources to an object of type " + obj.GetType().Name);
+                throw new ArgumentException("obj", "Can't apply resources to an object of type " + obj.GetType().Name);
+            }
+
+            Apply(_localizedResourceManager, _localizedProperties, obj, id, true);
+            Apply(_invariantResourceManager, _invariantProperties, obj, id, false);
+        }
+        List<string> props = new List<string>();
+        private void Apply(ResourceManager rm, ArrayList properties, object obj, string id, bool localized)
+        {
+            foreach (PropertyInfo prop in properties)
+            {
                 // rm.GetObject is the most costly operation in this function.  Protect it against
                 // by only letting properties through that we know might have a string associated with them
-                switch(prop.Name)
+                switch (prop.Name)
                 {
                     case "Text":
                     case "MenuText":
@@ -114,7 +114,7 @@ namespace OpenLiveWriter.CoreServices
                     case "Enabled":
                     case "Latched":
 #if DEBUG
-    				    string strTest = (string) rm.GetObject(_type.Name + "." + id + "." + prop.Name);
+                        string strTest = (string)rm.GetObject(_type.Name + "." + id + "." + prop.Name);
                         if (strTest != null)
                         {
                             Debug.Fail("Skipping property even though it has a value: " + prop.Name);
@@ -127,12 +127,12 @@ namespace OpenLiveWriter.CoreServices
 
                 }
 
-				string str = (string) rm.GetObject(_type.Name + "." + id + "." + prop.Name);
-				if (str != null)
-				{
-					try
-					{
-						object o;
+                string str = (string)rm.GetObject(_type.Name + "." + id + "." + prop.Name);
+                if (str != null)
+                {
+                    try
+                    {
+                        object o;
                         if (prop.PropertyType == typeof(string))
                         {
                             o = str;
@@ -155,17 +155,17 @@ namespace OpenLiveWriter.CoreServices
                         }
                         else
                             throw new ArgumentException("Unexpected type " + prop.PropertyType.FullName);
-						
-						prop.SetValue(obj, o, null);
-					}
-					catch (Exception e)
-					{
-						Trace.Fail("Error setting property " + _type.Name + ":\r\n" + e.ToString());
-						throw;
-					}
-				}
-			}
-		}
 
-	}
+                        prop.SetValue(obj, o, null);
+                    }
+                    catch (Exception e)
+                    {
+                        Trace.Fail("Error setting property " + _type.Name + ":\r\n" + e.ToString());
+                        throw;
+                    }
+                }
+            }
+        }
+
+    }
 }

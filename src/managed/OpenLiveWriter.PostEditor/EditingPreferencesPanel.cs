@@ -17,25 +17,25 @@ using OpenLiveWriter.PostEditor.WordCount;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	public class EditingPreferencesPanel : PreferencesPanel
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+
+    public class EditingPreferencesPanel : PreferencesPanel
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
         private GroupBox groupBoxEditing;
         private CheckBox checkBoxTypographic;
-	    private AutoreplacePreferences _autoReplacePreferences;
+        private AutoreplacePreferences _autoReplacePreferences;
         private CheckBox checkBoxSmartQuotes;
         private CheckBox checkBoxSpecialChars;
         private CheckBox checkBoxEmoticons;
 
         public EditingPreferencesPanel()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
             if (!DesignMode)
             {
@@ -47,41 +47,41 @@ namespace OpenLiveWriter.PostEditor
                 checkBoxEmoticons.Text = Res.Get(StringId.AutoreplaceEmoticons);
             }
 
-	        PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Configuration.Settings.Images.EditingPanelBitmap.png") ;
+            PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Configuration.Settings.Images.EditingPanelBitmap.png");
 
-		    _autoReplacePreferences = new AutoreplacePreferences();
+            _autoReplacePreferences = new AutoreplacePreferences();
             _autoReplacePreferences.PreferencesModified += _autoReplacePreferences_PreferencesModified;
 
-	        checkBoxTypographic.Checked = _autoReplacePreferences.EnableTypographicReplacement;
+            checkBoxTypographic.Checked = _autoReplacePreferences.EnableTypographicReplacement;
             checkBoxTypographic.CheckedChanged += new EventHandler(checkBoxTypographic_CheckedChanged);
 
-	        checkBoxSmartQuotes.Checked = _autoReplacePreferences.EnableSmartQuotes;
-	        checkBoxSmartQuotes.Visible = !BidiHelper.IsRightToLeft;
+            checkBoxSmartQuotes.Checked = _autoReplacePreferences.EnableSmartQuotes;
+            checkBoxSmartQuotes.Visible = !BidiHelper.IsRightToLeft;
 
-	        checkBoxSpecialChars.Checked = _autoReplacePreferences.EnableSpecialCharacterReplacement;
+            checkBoxSpecialChars.Checked = _autoReplacePreferences.EnableSpecialCharacterReplacement;
             checkBoxSpecialChars.CheckedChanged += new EventHandler(checkBoxSpecialChars_CheckedChanged);
 
             checkBoxEmoticons.Checked = _autoReplacePreferences.EnableEmoticonsReplacement;
             checkBoxEmoticons.CheckedChanged += new EventHandler(checkBoxEmoticons_CheckedChanged);
-		}
-        
-	    private bool _layedOut = false;
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
+        }
+
+        private bool _layedOut = false;
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             if (!DesignMode && !_layedOut)
-			{
+            {
                 LayoutHelper.FixupGroupBox(groupBoxEditing);
                 _layedOut = true;
-			}
-		}
+            }
+        }
 
-		public override void Save()
-		{
+        public override void Save()
+        {
             if (_autoReplacePreferences.IsModified())
                 _autoReplacePreferences.Save();
-		}
+        }
 
         void checkBoxTypographic_CheckedChanged(object sender, EventArgs e)
         {
@@ -108,28 +108,28 @@ namespace OpenLiveWriter.PostEditor
             OnModified(EventArgs.Empty);
         }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.groupBoxEditing = new System.Windows.Forms.GroupBox();
             this.checkBoxSpecialChars = new System.Windows.Forms.CheckBox();
             this.checkBoxSmartQuotes = new System.Windows.Forms.CheckBox();
@@ -212,9 +212,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxEditing.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
 
-	}
+    }
 }

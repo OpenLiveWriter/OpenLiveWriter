@@ -79,7 +79,7 @@ namespace OpenLiveWriter.PostEditor
         //{
         //    ((IWordRangeProvider)_contentEditorSite).CloseSubjectSpellcheckWordRange();
         //}
-        
+
         #endregion
 
         #region IMainFrameWindow Members
@@ -88,7 +88,7 @@ namespace OpenLiveWriter.PostEditor
         {
             set
             {
-                
+
             }
         }
 
@@ -255,7 +255,7 @@ namespace OpenLiveWriter.PostEditor
         public string CurrentAccountId
         {
             get { return null; }
-            set {  }
+            set { }
         }
 
         #endregion
@@ -420,7 +420,7 @@ namespace OpenLiveWriter.PostEditor
 
             public void SelectStyleByElementName(string p)
             {
-                
+
             }
 
             #endregion
@@ -437,7 +437,7 @@ namespace OpenLiveWriter.PostEditor
 
         public void DragOver(MK grfKeyState, POINT pt, ref OpenLiveWriter.Interop.Com.DROPEFFECT pdwEffect)
         {
-            _contentEditorSite.DragOver( grfKeyState, pt, ref pdwEffect);
+            _contentEditorSite.DragOver(grfKeyState, pt, ref pdwEffect);
         }
 
         public void DragLeave()

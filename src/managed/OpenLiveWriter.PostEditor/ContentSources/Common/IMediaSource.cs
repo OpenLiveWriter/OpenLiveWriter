@@ -26,7 +26,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         /// <summary>
         /// An ID that can be used to identifiy the service.
         /// </summary>
-        string Id { get;}
+        string Id { get; }
         /// <summary>
         /// Initilizes the source with the current blog, a dialog it can use when it displays UI, and smart content
         /// that is used to when editing the cotnent

@@ -621,7 +621,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
         public static Comparison<ContentSourceInfo> CreateComparison(BlogPublishingPluginSettings settings)
         {
-            return delegate(ContentSourceInfo a, ContentSourceInfo b)
+            return delegate (ContentSourceInfo a, ContentSourceInfo b)
                        {
                            int orderA = settings.GetOrder(a.Id) ?? 100000;
                            int orderB = settings.GetOrder(b.Id) ?? 100000;
@@ -657,7 +657,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             // Filter out plugins that aren't enabled for this blog.
             // Do this after sorting, so that if we need to prompt, we
             // will persist the correct order
-            pluginList = pluginList.FindAll(delegate(ContentSourceInfo csi) { return PluginIsEnabled(owner, settings, csi, defaultEnabled); });
+            pluginList = pluginList.FindAll(delegate (ContentSourceInfo csi) { return PluginIsEnabled(owner, settings, csi, defaultEnabled); });
 
             return pluginList;
         }
@@ -769,7 +769,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             {
                 throw new ArgumentException("Invalid containing element id: " + containingElementId);
             }
-        }        
+        }
 
         public static void PerformInsertion(IContentSourceSite sourceSite, ContentSourceInfo contentSource)
         {
@@ -793,8 +793,8 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                     }
                     else
                     {
-                        sContent = new SmartContent(extensionData);   
-                    }                                       
+                        sContent = new SmartContent(extensionData);
+                    }
 
                     if (scSource.CreateContent(sourceSite.DialogOwner, sContent) == DialogResult.OK)
                     {
@@ -885,7 +885,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                 return false;
 
             return IsSmartContentClass(element.className);
-        }        
+        }
 
         public static IHTMLElement GetContainingSmartContentElement(MarkupRange range)
         {

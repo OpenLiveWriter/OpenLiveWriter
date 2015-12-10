@@ -17,35 +17,35 @@ using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.PostEditor.ContentSources
 {
-	
-	class SmartContentInsertionHelper
-	{
-		private SmartContentInsertionHelper()
-		{
-		}
-		
-		/// <summary>
-		/// Clones active smart content contained in the provided HTML, and disables unknown smart content.
-		/// </summary>
-		public static string PrepareSmartContentHtmlForEditorInsertion(string html, IContentSourceSidebarContext sourceContext)
-		{
-			StringBuilder output = new StringBuilder();
-			ContentSourceManager.SmartContentPredicate predicate = new ContentSourceManager.SmartContentPredicate();
-			SimpleHtmlParser p = new SimpleHtmlParser(html);
-			for (Element el; null != (el = p.Next());)
-			{
-				if (predicate.IsMatch(el))
-				{
-					BeginTag bt = el as BeginTag;
-					Attr idAttr = bt.GetAttribute("id");
-					
-					String contentSourceId, contentItemId;
-					ContentSourceManager.ParseContainingElementId(idAttr.Value, out contentSourceId, out contentItemId);						
-					ISmartContent smartContent = sourceContext.FindSmartContent(contentItemId);
-					if(smartContent != null)
-					{
-						String newId = Guid.NewGuid().ToString();
-						sourceContext.CloneSmartContent(contentItemId, newId);
+
+    class SmartContentInsertionHelper
+    {
+        private SmartContentInsertionHelper()
+        {
+        }
+
+        /// <summary>
+        /// Clones active smart content contained in the provided HTML, and disables unknown smart content.
+        /// </summary>
+        public static string PrepareSmartContentHtmlForEditorInsertion(string html, IContentSourceSidebarContext sourceContext)
+        {
+            StringBuilder output = new StringBuilder();
+            ContentSourceManager.SmartContentPredicate predicate = new ContentSourceManager.SmartContentPredicate();
+            SimpleHtmlParser p = new SimpleHtmlParser(html);
+            for (Element el; null != (el = p.Next());)
+            {
+                if (predicate.IsMatch(el))
+                {
+                    BeginTag bt = el as BeginTag;
+                    Attr idAttr = bt.GetAttribute("id");
+
+                    String contentSourceId, contentItemId;
+                    ContentSourceManager.ParseContainingElementId(idAttr.Value, out contentSourceId, out contentItemId);
+                    ISmartContent smartContent = sourceContext.FindSmartContent(contentItemId);
+                    if (smartContent != null)
+                    {
+                        String newId = Guid.NewGuid().ToString();
+                        sourceContext.CloneSmartContent(contentItemId, newId);
 
                         if (RefreshableContentManager.ContentSourcesWithRefreshableContent.Contains(contentSourceId))
                         {
@@ -64,46 +64,46 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                         }
 
 
-						idAttr.Value = ContentSourceManager.MakeContainingElementId(contentSourceId,newId);
-					}
-					else
-					{
+                        idAttr.Value = ContentSourceManager.MakeContainingElementId(contentSourceId, newId);
+                    }
+                    else
+                    {
                         ContentSourceManager.RemoveSmartContentAttributes(bt);
-					}
-				}
-				output.Append(el.ToString());
-			}
-			return output.ToString();
-		}
+                    }
+                }
+                output.Append(el.ToString());
+            }
+            return output.ToString();
+        }
 
         public static void InsertEditorHtmlIntoElement(IContentSourceSidebarContext contentSourceContext, SmartContentSource source, ISmartContent sContent, IHTMLElement element)
-		{
-			string content = source.GenerateEditorHtml(sContent, contentSourceContext);
+        {
+            string content = source.GenerateEditorHtml(sContent, contentSourceContext);
 
             // If the plugin returned null has the HTML it would like to insert, remove the element from the editor
-            if(content == null)
+            if (content == null)
                 HTMLElementHelper.RemoveElement(element);
             else
-			    InsertContentIntoElement(content, sContent, contentSourceContext, element);
-		}
+                InsertContentIntoElement(content, sContent, contentSourceContext, element);
+        }
 
-		public static void InsertContentIntoElement(string content, ISmartContent sContent, IContentSourceSidebarContext contentSourceContext, IHTMLElement element)
-		{
-			MshtmlMarkupServices MarkupServices = new MshtmlMarkupServices((IMarkupServicesRaw)element.document);
-						
+        public static void InsertContentIntoElement(string content, ISmartContent sContent, IContentSourceSidebarContext contentSourceContext, IHTMLElement element)
+        {
+            MshtmlMarkupServices MarkupServices = new MshtmlMarkupServices((IMarkupServicesRaw)element.document);
+
             //Note: undo/redo disabled for smart content since undo causes the HTML to get out of sync
             //with the inserter's settings state, so undo changes will be blown away the next time the
             //the inserter's HTML is regenerated.  Also note that making this insertion without wrapping it
             //in an undo clears the undo/redo stack, which is what we want for beta.
             //string undoId = Guid.NewGuid().ToString();
-			
+
             MarkupRange htmlRange = MarkupServices.CreateMarkupRange(element, false);
             htmlRange.Start.PushCling(true);
             htmlRange.End.PushCling(true);
             MarkupServices.Remove(htmlRange.Start, htmlRange.End);
             htmlRange.Start.PopCling();
             htmlRange.End.PopCling();
-		
+
             element.style.padding = ToPaddingString(sContent.Layout);
 
             if (sContent.Layout.Alignment == Alignment.None
@@ -125,7 +125,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
             // Clear out any width on the overall smart content block, if the element is centered, we will add the width back in later
             // after we calcuate it from the childern, the current width value is stale.
-		    element.style.width = "";
+            element.style.width = "";
 
             //Note: we use MarkupServices to insert the content so that IE doesn't try to fix up URLs.
             //Element.insertAdjacentHTML() is a no-no because it rewrites relaive URLs to include
@@ -165,41 +165,41 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                     maxWidth = Math.Max(maxWidth, child.offsetWidth);
 
                 if (maxWidth != 0)
-                    mc.Element.style.width = maxWidth; 
+                    mc.Element.style.width = maxWidth;
             }
 
             // Let the context provider know the smart content was edited.
             string contentSourceId, contentId;
             ContentSourceManager.ParseContainingElementId(element.id, out contentSourceId, out contentId);
             contentSourceContext.OnSmartContentEdited(contentId);
-		}
-		
-		public static string GenerateContentBlock(string contentSourceId, string blockId, string content, IExtensionData exData)
-		{
-			return SmartContentInsertionHelper.GenerateContentBlock(contentSourceId, blockId, content, (ISmartContent) new SmartContent(exData), null);
-		}
+        }
+
+        public static string GenerateContentBlock(string contentSourceId, string blockId, string content, IExtensionData exData)
+        {
+            return SmartContentInsertionHelper.GenerateContentBlock(contentSourceId, blockId, content, (ISmartContent)new SmartContent(exData), null);
+        }
         public static string GenerateContentBlock(string contentSourceId, string blockId, string content, ISmartContent sContent)
         {
             return SmartContentInsertionHelper.GenerateContentBlock(contentSourceId, blockId, content, sContent, null);
         }
-		public static string GenerateContentBlock(string contentSourceId, string blockId, string content, ISmartContent sContent, IHTMLElement element)
-		{
+        public static string GenerateContentBlock(string contentSourceId, string blockId, string content, ISmartContent sContent, IHTMLElement element)
+        {
             string className = ContentSourceManager.EDITABLE_SMART_CONTENT;
             string elementId = ContentSourceManager.MakeContainingElementId(contentSourceId, blockId);
-		    bool inline = true;
+            bool inline = true;
 
             return GenerateBlock(className, elementId, sContent, inline, content, false, element);
-		}
+        }
 
         public static string GenerateBlock(string className, string elementId, ISmartContent sContent, bool displayInline, string content, bool noFloat, IHTMLElement element)
-	    {
+        {
             if (string.IsNullOrEmpty(content))
                 return "";
 
             // generate the html to insert
-	        StringBuilder htmlBuilder = new StringBuilder();
+            StringBuilder htmlBuilder = new StringBuilder();
 
-	        htmlBuilder.AppendFormat("<div class=\"{0}\"", className);
+            htmlBuilder.AppendFormat("<div class=\"{0}\"", className);
             if (!string.IsNullOrEmpty(elementId))
                 htmlBuilder.AppendFormat(" id=\"{0}\"", elementId);
 
@@ -212,21 +212,21 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                     htmlBuilder.AppendFormat(" dir=\"{0}\"", currentDirection);
                 }
             }
-			
-	        StringBuilder styleBuilder = new StringBuilder();
-            
-	        if(sContent.Layout.Alignment == Alignment.None
-	           || sContent.Layout.Alignment == Alignment.Right
-	           || sContent.Layout.Alignment == Alignment.Left)
-	        {
-	            // If the smart content is none/right/left we just use float
+
+            StringBuilder styleBuilder = new StringBuilder();
+
+            if (sContent.Layout.Alignment == Alignment.None
+               || sContent.Layout.Alignment == Alignment.Right
+               || sContent.Layout.Alignment == Alignment.Left)
+            {
+                // If the smart content is none/right/left we just use float
                 if (!noFloat || sContent.Layout.Alignment != Alignment.None)
                 {
                     AppendStyle(noFloat ? "text-align" : "float",
                                 sContent.Layout.Alignment.ToString().ToLower(CultureInfo.InvariantCulture),
                                 styleBuilder);
                 }
-	        }
+            }
             else if (element != null && sContent.Layout.Alignment == Alignment.Center)
             {
                 // If the alignment is centered then it needs to make sure float is set to none
@@ -238,26 +238,26 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
 
             if (displayInline && sContent.Layout.Alignment != Alignment.Center)
-	            AppendStyle("display", "inline", styleBuilder);
+                AppendStyle("display", "inline", styleBuilder);
 
             if (sContent.Layout.Alignment != Alignment.Center)
                 AppendStyle("margin", "0px", styleBuilder);
-			
-	        AppendStyle("padding", ToPaddingString(sContent.Layout), styleBuilder);
-			
-	        if(styleBuilder.Length > 0)
-	            htmlBuilder.AppendFormat(" style=\"{0}\"", styleBuilder.ToString());
 
-	        htmlBuilder.AppendFormat(">{0}</div>", content ) ;
+            AppendStyle("padding", ToPaddingString(sContent.Layout), styleBuilder);
 
-	        return htmlBuilder.ToString();
-	    }
+            if (styleBuilder.Length > 0)
+                htmlBuilder.AppendFormat(" style=\"{0}\"", styleBuilder.ToString());
+
+            htmlBuilder.AppendFormat(">{0}</div>", content);
+
+            return htmlBuilder.ToString();
+        }
 
         public static bool ContainsUnbalancedDivs(string html)
         {
             int tags = 0;
             SimpleHtmlParser p = new SimpleHtmlParser(html);
-            for (Element e; (e = p.Next()) != null; )
+            for (Element e; (e = p.Next()) != null;)
             {
                 if (e is Tag && ((Tag)e).NameEquals("div"))
                 {
@@ -272,36 +272,36 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         }
 
         private static string ToPaddingString(ILayoutStyle layoutStyle)
-		{
-			return String.Format(CultureInfo.InvariantCulture, 
-			                     "{0}px {1}px {2}px {3}px",
-			                     layoutStyle.TopMargin,
-			                     layoutStyle.RightMargin,
-			                     layoutStyle.BottomMargin,
-			                     layoutStyle.LeftMargin);
-		}
-		
-		private static void AppendStyle(string name, string val, StringBuilder sb)
-		{
-			if(sb.Length > 0)
-				sb.Append(" ");
-			sb.AppendFormat("{0}:{1};", name, val);
-		}
+        {
+            return String.Format(CultureInfo.InvariantCulture,
+                                 "{0}px {1}px {2}px {3}px",
+                                 layoutStyle.TopMargin,
+                                 layoutStyle.RightMargin,
+                                 layoutStyle.BottomMargin,
+                                 layoutStyle.LeftMargin);
+        }
 
-		/// <summary>
-		/// Forces IE 7 to redraw the new contents of the element.
-		/// </summary>
-		/// <param name="e"></param>
-		private static void BeforeInsertInvalidateHackForIE7(IHTMLElement e)
-		{
-			//Fixes bug 305512.
-			//IE 7 (beta3) has a bad habit of not redrawing the updated HTML if the width
-			//of the content box has increased while the editor is not focused. Investigation
-			//has found that setting the innerText is at least one way to force the editor
-			//to refresh the painting of the element.
-			//TODO: after IE7 goes final, check to see if this hack is still necessary.
-			e.innerText = "";
-		}
+        private static void AppendStyle(string name, string val, StringBuilder sb)
+        {
+            if (sb.Length > 0)
+                sb.Append(" ");
+            sb.AppendFormat("{0}:{1};", name, val);
+        }
+
+        /// <summary>
+        /// Forces IE 7 to redraw the new contents of the element.
+        /// </summary>
+        /// <param name="e"></param>
+        private static void BeforeInsertInvalidateHackForIE7(IHTMLElement e)
+        {
+            //Fixes bug 305512.
+            //IE 7 (beta3) has a bad habit of not redrawing the updated HTML if the width
+            //of the content box has increased while the editor is not focused. Investigation
+            //has found that setting the innerText is at least one way to force the editor
+            //to refresh the painting of the element.
+            //TODO: after IE7 goes final, check to see if this hack is still necessary.
+            e.innerText = "";
+        }
 
         // Warning: Does not deal with escaping properly. This is fine as long as
         // we're only using it for content we generate and there are no security

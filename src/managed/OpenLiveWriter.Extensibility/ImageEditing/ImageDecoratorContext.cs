@@ -11,63 +11,63 @@ using OpenLiveWriter.Extensibility.BlogClient;
 
 namespace OpenLiveWriter.Extensibility.ImageEditing
 {
-	public enum ImageDecoratorInvocationSource { Unknown, InitialInsert, Resize, Reset, ImagePropertiesEditor, Command, TiltPreview };
+    public enum ImageDecoratorInvocationSource { Unknown, InitialInsert, Resize, Reset, ImagePropertiesEditor, Command, TiltPreview };
 
-	public enum ImageEmbedType { Embedded, Linked };
+    public enum ImageEmbedType { Embedded, Linked };
 
-	/// <summary>
-	/// Provides runtime context information and callbacks related to the image that a decorator is modifying.
-	/// </summary>
-	public interface ImageDecoratorContext
-	{
-		/// <summary>
-		/// The raw image that is being decorated.
-		/// </summary>
-		Bitmap Image { get; set; }
-		
-		/// <summary>
-		/// The size of the border margins applied to the image.
-		/// </summary>
-		ImageBorderMargin BorderMargin { get; set; }
+    /// <summary>
+    /// Provides runtime context information and callbacks related to the image that a decorator is modifying.
+    /// </summary>
+    public interface ImageDecoratorContext
+    {
+        /// <summary>
+        /// The raw image that is being decorated.
+        /// </summary>
+        Bitmap Image { get; set; }
 
-		/// <summary>
-		/// The settings for the decorator.
-		/// </summary>
-		IProperties Settings { get; }
+        /// <summary>
+        /// The size of the border margins applied to the image.
+        /// </summary>
+        ImageBorderMargin BorderMargin { get; set; }
+
+        /// <summary>
+        /// The settings for the decorator.
+        /// </summary>
+        IProperties Settings { get; }
 
         /// <summary>
         /// The options for the current blog client
         /// </summary>
         IEditorOptions EditorOptions { get; }
 
-		/// <summary>
-		/// Returns the manner in which the current image is embedded into the post document.
-		/// </summary>
-		ImageEmbedType ImageEmbedType { get; }
+        /// <summary>
+        /// Returns the manner in which the current image is embedded into the post document.
+        /// </summary>
+        ImageEmbedType ImageEmbedType { get; }
 
-		/// <summary>
-		/// The img HTML element associated with the image being decorated.
-		/// </summary>
-		IHTMLElement ImgElement { get; }
+        /// <summary>
+        /// The img HTML element associated with the image being decorated.
+        /// </summary>
+        IHTMLElement ImgElement { get; }
 
-		/// <summary>
-		/// Returns a hint about the reason the image decoration was triggered.
-		/// </summary>
-		ImageDecoratorInvocationSource InvocationSource { get; }
+        /// <summary>
+        /// Returns a hint about the reason the image decoration was triggered.
+        /// </summary>
+        ImageDecoratorInvocationSource InvocationSource { get; }
 
-		/// <summary>
-		/// The rotation of the image with respect to the original source image.
-		/// </summary>
-		RotateFlipType ImageRotation { get; }
-		
-		/// <summary>
-		/// The URI of the original source image.
-		/// </summary>
-		Uri SourceImageUri { get; }
+        /// <summary>
+        /// The rotation of the image with respect to the original source image.
+        /// </summary>
+        RotateFlipType ImageRotation { get; }
 
-	    float? EnforcedAspectRatio { get; }
-	}
-	
+        /// <summary>
+        /// The URI of the original source image.
+        /// </summary>
+        Uri SourceImageUri { get; }
+
+        float? EnforcedAspectRatio { get; }
+    }
+
     /// <summary>
     /// An ImageBorderMargin serves two purposes. It notes the current
     /// amount of margin that has actually been applied to an image, and
@@ -76,20 +76,20 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
     /// determine how much border margin would be applied to the same image
     /// at other sizes.
     /// </summary>
-	public class ImageBorderMargin
-	{
-		private readonly int _width;
+    public class ImageBorderMargin
+    {
+        private readonly int _width;
         private readonly int _height;
 
-	    private readonly List<BorderCalculation> _calculations;
+        private readonly List<BorderCalculation> _calculations;
 
-		public ImageBorderMargin(int width, int height, BorderCalculation calculation)
-		{
-		    _width = width;
-		    _height = height;
+        public ImageBorderMargin(int width, int height, BorderCalculation calculation)
+        {
+            _width = width;
+            _height = height;
             _calculations = new List<BorderCalculation>();
             _calculations.Add(calculation);
-		}
+        }
 
         public ImageBorderMargin(ImageBorderMargin existingBorder, int width, int height, BorderCalculation calculation)
         {
@@ -101,13 +101,13 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
 
         #region Property names
         private const string WIDTH = "Width";
-	    private const string HEIGHT = "Height";
-	    private const string COUNT = "CalcCount";
-	    private const string CALC = "Calc";
-	    private const string WIDTH_ADD = "WidthAdd";
-	    private const string HEIGHT_ADD = "HeightAdd";
-	    private const string WIDTH_FACTOR = "WidthFactor";
-	    private const string HEIGHT_FACTOR = "HeightFactor";
+        private const string HEIGHT = "Height";
+        private const string COUNT = "CalcCount";
+        private const string CALC = "Calc";
+        private const string WIDTH_ADD = "WidthAdd";
+        private const string HEIGHT_ADD = "HeightAdd";
+        private const string WIDTH_FACTOR = "WidthFactor";
+        private const string HEIGHT_FACTOR = "HeightFactor";
         #endregion
 
         public ImageBorderMargin(IProperties properties)
@@ -158,9 +158,9 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
         /// Create a blank ImageBorderMargin.
         /// </summary>
         public static ImageBorderMargin Empty
-	    {
-	        get { return new ImageBorderMargin(0, 0, new BorderCalculation(0, 0, 1f, 1f)); }
-	    }
+        {
+            get { return new ImageBorderMargin(0, 0, new BorderCalculation(0, 0, 1f, 1f)); }
+        }
 
         public Size CalculateImageSize(Size imageSize)
         {
@@ -229,20 +229,20 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
         public Size ForwardCalculation(Size size)
         {
             size.Width += _widthAdd;
-            size.Width = (int) (Math.Round(size.Width*_widthFactor));
+            size.Width = (int)(Math.Round(size.Width * _widthFactor));
 
             size.Height += _heightAdd;
-            size.Height = (int) (Math.Round(size.Height*_heightFactor));
+            size.Height = (int)(Math.Round(size.Height * _heightFactor));
 
             return size;
         }
 
         public Size ReverseCalculation(Size size)
         {
-            size.Width = (int) (Math.Round(size.Width/_widthFactor));
+            size.Width = (int)(Math.Round(size.Width / _widthFactor));
             size.Width -= _widthAdd;
 
-            size.Height = (int) (Math.Round(size.Height/_heightFactor));
+            size.Height = (int)(Math.Round(size.Height / _heightFactor));
             size.Height -= _heightAdd;
 
             return size;

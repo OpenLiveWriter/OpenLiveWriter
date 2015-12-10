@@ -7,10 +7,10 @@ namespace mshtml
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
 
-    [ComImport, InterfaceType((short) 1), Guid("3050F64A-98B5-11CF-BB82-00AA00BDCE0B")]
+    [ComImport, InterfaceType((short)1), Guid("3050F64A-98B5-11CF-BB82-00AA00BDCE0B")]
     public interface IHTMLChangeSink
     {
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime)]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void Notify();
     }
 }

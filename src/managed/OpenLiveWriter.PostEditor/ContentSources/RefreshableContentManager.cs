@@ -30,7 +30,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         // IMPORTANT: Make sure that you add the content source id of any source that has content with callbacks, otherwise
         //            there might be problems when copy/cut/PasteSpecialForm where the content will no longer get call backs
         //
-        internal readonly static List<string> ContentSourcesWithRefreshableContent = new List<string>(new string[]{ Video.VideoContentSource.ID });
+        internal readonly static List<string> ContentSourcesWithRefreshableContent = new List<string>(new string[] { Video.VideoContentSource.ID });
 
         internal RefreshableContentManager(BlogPostExtensionDataList extensionDataList, OpenLiveWriter.PostEditor.ContentEditor editor)
         {
@@ -61,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         void _extensionDataList_RefreshableCallbackTriggered(object sender, EventArgs e)
         {
             _refreshableContentTimer.Stop();
-            
+
             IExtensionData extensionData = _extensionDataList.GetExtensionDataWithMinCallback();
 
             if (extensionData == null)
@@ -92,7 +92,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                 Trace.Fail("RefreshableContentManager tick without any extensionData with a callback.");
                 return;
             }
-            
+
             Debug.Assert(extensionData.RefreshCallBack != null, "GetExtensionDataWithMinCallback returned an extensionData without a callback time");
 
             extensionData.RefreshCallBack = null;

@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 namespace OpenLiveWriter.Interop.Com.Ribbon
 {
     public static class PropertyKeys
-    {        
+    {
         // Core command properties
         public static PropertyKey Enabled; // bool
         public static PropertyKey LabelDescription; // string
@@ -55,7 +55,7 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
         public static PropertyKey FontProperties_ForegroundColorType;
         public static PropertyKey FontProperties_BackgroundColorType;
         public static PropertyKey FontProperties_ChangedProperties;
-        public static PropertyKey FontProperties_DeltaSize;        
+        public static PropertyKey FontProperties_DeltaSize;
 
         // Application menu properties
         public static PropertyKey RecentItems; // SafeArray<IUISimplePropertySet>
@@ -93,7 +93,7 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
         // Initialization
 
         static PropertyKeys()
-        {            
+        {
             // Core command properties
             Enabled = new PropertyKey(1, VarEnum.VT_BOOL);
             LabelDescription = new PropertyKey(2, VarEnum.VT_LPWSTR);
@@ -140,7 +140,7 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
             FontProperties_ForegroundColorType = new PropertyKey(310, VarEnum.VT_UI4);
             FontProperties_BackgroundColorType = new PropertyKey(311, VarEnum.VT_UI4);
             FontProperties_ChangedProperties = new PropertyKey(312, VarEnum.VT_UNKNOWN);
-            FontProperties_DeltaSize = new PropertyKey(313, VarEnum.VT_UI4);            
+            FontProperties_DeltaSize = new PropertyKey(313, VarEnum.VT_UI4);
 
             // Application menu properties
             RecentItems = new PropertyKey(350, VarEnum.VT_ARRAY | VarEnum.VT_UNKNOWN);
@@ -202,7 +202,7 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
             else if (key == SmallHighContrastImage)
                 return "UI_PKEY_SmallImageLowColor";
 
-                // Collections properties
+            // Collections properties
             else if (key == CommandId)
                 return "UI_PKEY_CommandId";
             else if (key == ItemsSource)
@@ -218,7 +218,7 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
             else if (key == ItemImage)
                 return "UI_PKEY_ItemImage";
 
-                // Control properties
+            // Control properties
             else if (key == BooleanValue)
                 return "UI_PKEY_BooleanValue";
             else if (key == DecimalValue)
@@ -238,7 +238,7 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
             else if (key == RepresentativeString)
                 return "UI_PKEY_RepresentativeString";
 
-                // Font control properties
+            // Font control properties
             else if (key == FontProperties)
                 return "UI_PKEY_FontProperties";
             else if (key == FontProperties_Family)
@@ -264,13 +264,13 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
             else if (key == FontProperties_DeltaSize)
                 return "UI_PKEY_FontProperties_DeltaSize";
 
-                // Application menu properties
+            // Application menu properties
             else if (key == RecentItems)
                 return "UI_PKEY_RecentItems";
             else if (key == Pinned)
                 return "UI_PKEY_Pinned";
 
-                // Color picker properties
+            // Color picker properties
             else if (key == Color)
                 return "UI_PKEY_Color";
             else if (key == ColorType)
@@ -296,7 +296,7 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
             else if (key == StandardColorsTooltips)
                 return "UI_PKEY_StandardColorsTooltips";
 
-                // Ribbon properties
+            // Ribbon properties
             else if (key == Viewable)
                 return "UI_PKEY_Viewable";
             else if (key == Minimized)
@@ -304,11 +304,11 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
             else if (key == QuickAccessToolbarDock)
                 return "UI_PKEY_QuickAccessToolbarDock";
 
-                // Contextual tabset properties
+            // Contextual tabset properties
             else if (key == ContextAvailable)
                 return "UI_PKEY_ContextAvailable";
 
-                // Global properties
+            // Global properties
             else if (key == GlobalBackgroundColor)
                 return "UI_PKEY_GlobalBackgroundColor";
             else if (key == GlobalHighlightColor)

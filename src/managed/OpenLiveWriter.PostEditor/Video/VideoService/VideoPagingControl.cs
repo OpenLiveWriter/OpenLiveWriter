@@ -45,10 +45,10 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+
             // We do this just to reverse the anchor directions of the children
             BidiHelper.RtlLayoutFixup(this, true, true, Controls);
-            
+
             UpdateQueryStatus();
         }
 
@@ -159,16 +159,16 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 buttonNextPage.Left = 0;
                 buttonPreviousPage.Left = buttonNextPage.Right + PADDING_X;
                 labelQueryStatus.Left = buttonPreviousPage.Right + PADDING_X;
-                
+
             }
             else
             {
                 buttonNextPage.Left = Width - buttonNextPage.Width;
                 buttonPreviousPage.Left = buttonNextPage.Left - buttonPreviousPage.Width - PADDING_X;
                 labelQueryStatus.Left = buttonPreviousPage.Left - labelQueryStatus.Width - PADDING_X;
-                labelQueryStatus.TextAlign = ContentAlignment.MiddleRight;    
+                labelQueryStatus.TextAlign = ContentAlignment.MiddleRight;
             }
-            
+
         }
 
         private static readonly int PADDING_X = 2;

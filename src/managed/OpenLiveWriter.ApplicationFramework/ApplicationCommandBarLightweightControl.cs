@@ -9,27 +9,27 @@ using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.ApplicationFramework
 {
-	/// <summary>
-	/// A command bar styled for the top of the app.
-	/// </summary>
-	public class ApplicationCommandBarLightweightControl : CommandBarLightweightControl
-	{
-		private Bitmap _contextMenuArrowBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.WhiteDropArrow.png");
-		private Bitmap _contextMenuArrowBitmapDisabled = ImageHelper.MakeDisabled(ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.WhiteDropArrow.png"));
+    /// <summary>
+    /// A command bar styled for the top of the app.
+    /// </summary>
+    public class ApplicationCommandBarLightweightControl : CommandBarLightweightControl
+    {
+        private Bitmap _contextMenuArrowBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.WhiteDropArrow.png");
+        private Bitmap _contextMenuArrowBitmapDisabled = ImageHelper.MakeDisabled(ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.WhiteDropArrow.png"));
 
-		public ApplicationCommandBarLightweightControl(IContainer container) : base(container)
-		{
-		}
+        public ApplicationCommandBarLightweightControl(IContainer container) : base(container)
+        {
+        }
 
-		public ApplicationCommandBarLightweightControl()
-		{
-		}
-		
-		public ApplicationCommandBarLightweightControl(CommandManager commandManager)
-			: this()
-		{
-			CommandManager = commandManager ;
-		}
+        public ApplicationCommandBarLightweightControl()
+        {
+        }
+
+        public ApplicationCommandBarLightweightControl(CommandManager commandManager)
+            : this()
+        {
+            CommandManager = commandManager;
+        }
 
         public override ButtonMargins? GetButtonMargins(ButtonFeatures features, bool rightAligned)
         {
@@ -69,74 +69,74 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-		public override Color TextColor
-		{
-			get
-			{
+        public override Color TextColor
+        {
+            get
+            {
                 return !UseHighContrastMode ? Color.FromArgb(53, 90, 136) : SystemColors.ControlText;
-			}
-		}
-		
-		public override int LeftLayoutMargin
-		{
-			get
-			{
-				return 0;
-			}
-		}
-		
-		public override int RightLayoutMargin
-		{
-			get
-			{
-				return 3;
-			}
-		}
+            }
+        }
 
-		public override Color TopBevelFirstLineColor
-		{
-			get { return Color.Transparent; }
-		}
+        public override int LeftLayoutMargin
+        {
+            get
+            {
+                return 0;
+            }
+        }
 
-		public override Color TopBevelSecondLineColor
-		{
-			get { return Color.Transparent; }
-		}
+        public override int RightLayoutMargin
+        {
+            get
+            {
+                return 3;
+            }
+        }
 
-		public override Color TopColor
-		{
-			get { return Color.Transparent; }
-		}
+        public override Color TopBevelFirstLineColor
+        {
+            get { return Color.Transparent; }
+        }
 
-		public override Color BottomColor
-		{
-			get { return Color.Transparent; }
-		}
-		
-		public override Color BottomBevelFirstLineColor
-		{
-			get
-			{
-				return Color.Transparent;
-			}
-		}
-		
-		public override Color BottomBevelSecondLineColor
-		{
-			get
-			{
-				return Color.Transparent;
-			}
-		}
+        public override Color TopBevelSecondLineColor
+        {
+            get { return Color.Transparent; }
+        }
 
-		public override Bitmap ContextMenuArrowBitmap
-		{
-			get { return _contextMenuArrowBitmap; }
-		}
-		
-		public override Bitmap ContextMenuArrowBitmapDisabled
-		{
-			get { return _contextMenuArrowBitmapDisabled; }
-		}
-	}
+        public override Color TopColor
+        {
+            get { return Color.Transparent; }
+        }
+
+        public override Color BottomColor
+        {
+            get { return Color.Transparent; }
+        }
+
+        public override Color BottomBevelFirstLineColor
+        {
+            get
+            {
+                return Color.Transparent;
+            }
+        }
+
+        public override Color BottomBevelSecondLineColor
+        {
+            get
+            {
+                return Color.Transparent;
+            }
+        }
+
+        public override Bitmap ContextMenuArrowBitmap
+        {
+            get { return _contextMenuArrowBitmap; }
+        }
+
+        public override Bitmap ContextMenuArrowBitmapDisabled
+        {
+            get { return _contextMenuArrowBitmapDisabled; }
+        }
+    }
 }

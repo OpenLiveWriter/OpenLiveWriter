@@ -10,7 +10,7 @@ namespace OpenLiveWriter.Mshtml
     public class DisplayServices
     {
         public static void TraceMoveToMarkupPointer(IDisplayPointerRaw displayPointer, MarkupPointer markupPointer)
-        {            
+        {
             try
             {
                 if (displayPointer == null)
@@ -23,10 +23,10 @@ namespace OpenLiveWriter.Mshtml
                 displayPointer.MoveToMarkupPointer(markupPointer.PointerRaw, null);
             }
             catch (Exception e)
-            {                
-                Trace.Fail("Unexpected exception in TraceMoveToMarkupPointer: " + e.ToString());                
+            {
+                Trace.Fail("Unexpected exception in TraceMoveToMarkupPointer: " + e.ToString());
                 throw;
-            }            
+            }
         }
     }
 }

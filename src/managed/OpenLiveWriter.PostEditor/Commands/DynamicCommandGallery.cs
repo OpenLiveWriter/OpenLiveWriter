@@ -39,7 +39,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 
         private bool LoadCommandSimplePropertySet(GalleryItem item, out SimplePropertySet sps)
         {
-            Debug.Assert(item.Cookie != null && item.Cookie.CommandId != CommandId.None, 
+            Debug.Assert(item.Cookie != null && item.Cookie.CommandId != CommandId.None,
                 "Command gallery item without a valid Command or Command.CommandId!");
             sps = null;
             if (item.Cookie != null && item.Cookie.CommandId != CommandId.None)
@@ -60,9 +60,9 @@ namespace OpenLiveWriter.PostEditor.Commands
                 }
 
                 // Command type items require CommandId, CommandType and CategoryId
-                UInt32 cmdId = (uint) (item.Cookie.CommandId);
+                UInt32 cmdId = (uint)(item.Cookie.CommandId);
                 sps.Add(PropertyKeys.CommandId, new PropVariant(cmdId));
-                sps.Add(PropertyKeys.CommandType, new PropVariant((uint) CommandTypeID.UI_COMMANDTYPE_ACTION));
+                sps.Add(PropertyKeys.CommandType, new PropVariant((uint)CommandTypeID.UI_COMMANDTYPE_ACTION));
                 sps.Add(PropertyKeys.CategoryId, new PropVariant(item.CategoryIndex));
                 return true;
             }

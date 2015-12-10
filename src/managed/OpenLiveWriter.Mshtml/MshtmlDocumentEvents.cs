@@ -648,7 +648,7 @@ namespace OpenLiveWriter.Mshtml
                 ClickEventHandler(this, new HtmlEventArgs(pEvtObj));
 
             return !pEvtObj.cancelBubble;
-        }        
+        }
 
         // interface id for document events
         private Guid iidHTMLDocumentEvents2 = typeof(HTMLDocumentEvents2).GUID;
