@@ -449,7 +449,7 @@ namespace OpenLiveWriter.PostEditor
         private void SaveCore(IBlogPostEditingContext editingContext, PostEditorFile autoSaveSourceFile, string filePath)
         {
             // did this file exist prior to the attempt to save (if no, we need to delete
-            // it if an exceptoin occurs -- otherwise we leave a "zombie" post file with
+            // it if an exception occurs -- otherwise we leave a "zombie" post file with
             // no available streams
             bool isPreviouslyUnsaved = !IsSaved;
 
