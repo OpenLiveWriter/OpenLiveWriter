@@ -180,7 +180,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             // Some weblog providers (such as Drupal) actually return the mt category struct for
             // metaWeblog.getCategories. In this case the parsing above would have failed to
-            // extract either a name or an id. Parse out the values here if necesssary
+            // extract either a name or an id. Parse out the values here if necessary
 
             // populate the name field if we haven't gotten it another way
             if (catName == null)
