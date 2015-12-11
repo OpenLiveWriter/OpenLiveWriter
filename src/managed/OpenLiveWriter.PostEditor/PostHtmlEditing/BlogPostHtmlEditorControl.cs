@@ -1325,7 +1325,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // Hack: put some padding at the bottom of the div so that the bottom line of text does not get
             // cutoff if it extends below the baseline (p's and g's sometimes cause issues)
 
-            //put an ID'd span around the title so that editing behaviors can be attachd to it.
+            //put an ID'd span around the title so that editing behaviors can be attached to it.
             //Note: use a span instead of a DIV as since DIVs can't be nested inside inline elements, so if
             //the title text was surrounded by inline tags (like font, or bold, etc) then the DIV would
             //break the rendering of the surrounding inline styles.
