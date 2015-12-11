@@ -111,7 +111,7 @@ namespace OpenLiveWriter.Interop.Com
             // implementor. Why don't we use this? First, it is incompatible
             // with Win95 and NT prior to SP3. Second, when trying to use it
             // to unregister a category we got a mysterious FileNotFound exception
-            // that the ICatManager documentattion implies should never happen.
+            // that the ICatManager documentation implies should never happen.
             // This was enough to scare us off of the bus.....
             //
             ICatRegister cr = (ICatRegister) new StdComponentCategoriesMgr();
