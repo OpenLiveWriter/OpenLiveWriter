@@ -127,7 +127,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             element.style.width = "";
 
             //Note: we use MarkupServices to insert the content so that IE doesn't try to fix up URLs.
-            //Element.insertAdjacentHTML() is a no-no because it rewrites relaive URLs to include
+            //Element.insertAdjacentHTML() is a no-no because it rewrites relative URLs to include
             //the fullpath from the local filesytem.
 
             //MarkupServices.ParseString() doesn't attempt to fix up URLs, so its safe to use.
