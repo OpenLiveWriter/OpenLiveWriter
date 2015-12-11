@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     /// <summary>
     /// Handles marshalling for the RichHtmlContentEditor.
     /// </summary>
-    internal class ExtendedHtmlEditorMashallingHandler : HtmlEditorMarshallingHandler
+    internal class ExtendedHtmlEditorMarshallingHandler : HtmlEditorMarshallingHandler
     {
         IHtmlEditorHost _blogEditor;
         IContentSourceSite _insertionSite;
@@ -52,7 +52,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-        internal ExtendedHtmlEditorMashallingHandler(IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite, IHtmlEditorHost blogEditor, OpenLiveWriter.Interop.Com.IDropTarget unhandledDropTarget)
+        internal ExtendedHtmlEditorMarshallingHandler(IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite, IHtmlEditorHost blogEditor, OpenLiveWriter.Interop.Com.IDropTarget unhandledDropTarget)
             : base(editorContext)
         {
             _insertionSite = sourceSite;

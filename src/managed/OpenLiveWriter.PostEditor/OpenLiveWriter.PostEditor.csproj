@@ -478,7 +478,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PostHtmlEditing\ElementBehaviorManager.cs" />
-    <Compile Include="PostHtmlEditing\ExtendedHtmlEditorMashallingHandler.cs" />
+    <Compile Include="PostHtmlEditing\ExtendedHtmlEditorMarshallingHandler.cs" />
     <Compile Include="PostHtmlEditing\FormattedHtmlPrinter.cs" />
     <Compile Include="PostHtmlEditing\HtmlEditorSettings.cs" />
     <Compile Include="PostHtmlEditing\HtmlGenerator.cs" />

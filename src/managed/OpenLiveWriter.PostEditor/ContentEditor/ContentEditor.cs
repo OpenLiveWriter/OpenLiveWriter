@@ -150,7 +150,7 @@ namespace OpenLiveWriter.PostEditor
             _normalHtmlContentEditor.PostBodyInlineStyle = GetPostBodyInlineStyleOverrides();
             // hookup services and events
             _normalHtmlContentEditor.HtmlGenerationService = new HtmlGenerator(this);
-            _normalHtmlContentEditor.DataFormatHandlerFactory = new ExtendedHtmlEditorMashallingHandler(_normalHtmlContentEditor, this, this, postEditingSite as IDropTarget);
+            _normalHtmlContentEditor.DataFormatHandlerFactory = new ExtendedHtmlEditorMarshallingHandler(_normalHtmlContentEditor, this, this, postEditingSite as IDropTarget);
             _normalHtmlContentEditor.DocumentComplete += new EventHandler(htmlEditor_DocumentComplete);
             _normalHtmlContentEditor.GotFocus += htmlEditor_GotFocus;
             _normalHtmlContentEditor.LostFocus += htmlEditor_LostFocus;
@@ -2389,7 +2389,7 @@ namespace OpenLiveWriter.PostEditor
             commandInsertVideoFromWeb.Enabled = allowInsertCommands;
 
             // Toggle the drop handlers for plain text mode
-            ((ExtendedHtmlEditorMashallingHandler)_normalHtmlContentEditor.DataFormatHandlerFactory).IsPlainTextOnly = !allowInsertCommands;
+            ((ExtendedHtmlEditorMarshallingHandler)_normalHtmlContentEditor.DataFormatHandlerFactory).IsPlainTextOnly = !allowInsertCommands;
 
         }
 

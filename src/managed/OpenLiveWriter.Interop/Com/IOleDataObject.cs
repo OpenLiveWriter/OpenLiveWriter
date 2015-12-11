@@ -272,7 +272,7 @@ namespace OpenLiveWriter.Interop.Com
     public struct STGMEDIUM
     {
         /// <summary>
-        /// Type of storage medium. The marshaling and unmarshaling routines use this
+        /// Type of storage medium. The marshaling and unmarshalling routines use this
         /// value to determine which union member was used.
         /// </summary>
         public TYMED tymed;
