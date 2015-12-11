@@ -302,7 +302,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
         // Warning: Does not deal with escaping properly. This is fine as long as
         // we're only using it for content we generate and there are no security
-        // impliciations.
+        // implications.
         public static string StripDivsWithClass(string html, string cssClass)
         {
             if (html.IndexOf(cssClass) < 0)
