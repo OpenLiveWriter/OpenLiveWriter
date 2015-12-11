@@ -150,7 +150,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         private Command commandViewWeblogAdmin;
 
         /// <summary>
-        /// Must be called under the proection of _commandsLock.
+        /// Must be called under the protection of _commandsLock.
         /// </summary>
         /// <param name="blog"></param>
         private void ConnectToBlog(Blog blog)
