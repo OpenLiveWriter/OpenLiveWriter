@@ -52,7 +52,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         /// <param name="file">Heirarchical path designating stream location (uses "/" as
         /// path designator)</param>
-        /// <param name="mode">Read or Write. Write will overwrite any exising path of
+        /// <param name="mode">Read or Write. Write will overwrite any existing path of
         /// the same name.</param>
         /// <returns>Stream that can be used to access the path (Stream.Close() must be
         /// called when you are finished using the Stream).</returns>
