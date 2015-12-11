@@ -431,7 +431,7 @@ namespace OpenLiveWriter.CoreServices
                             "text/plain"};
 
         /// <summary>
-        /// Returns the quoted printable character type for a given chacacter
+        /// Returns the quoted printable character type for a given character
         /// </summary>
         /// <param name="ascii">the character to determine type</param>
         /// <returns>the character type</returns>
