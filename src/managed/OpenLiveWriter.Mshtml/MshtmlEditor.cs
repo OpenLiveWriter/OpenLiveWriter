@@ -1347,7 +1347,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         private bool _isDirty = false;
 
         /// <summary>
-        /// Flag indicating we have recieved the event for the DocumentComplete ReadyState
+        /// Flag indicating we have received the event for the DocumentComplete ReadyState
         /// </summary>
         private bool _documentCompleteReadyStateFired = false;
 
