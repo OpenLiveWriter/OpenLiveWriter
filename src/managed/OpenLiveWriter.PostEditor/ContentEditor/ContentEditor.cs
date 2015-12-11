@@ -3318,7 +3318,7 @@ namespace OpenLiveWriter.PostEditor
                     return;
                 }
 
-                // Check to see what is selectedi smart content
+                // Check to see what is selected smart content
                 IHTMLElement[] elements =
                     editorIHtmlEditorComponentContext.Selection.SelectedMarkupRange.GetTopLevelElements(
                         MarkupRange.FilterNone);
