@@ -199,7 +199,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         /// <summary>
         /// Utility for properly printing the start tag for an element.
-        /// This utility takes care of including/suppresing attributes and namespaces properly.
+        /// This utility takes care of including/suppressing attributes and namespaces properly.
         /// </summary>
         /// <param name="writer"></param>
         /// <param name="element"></param>
