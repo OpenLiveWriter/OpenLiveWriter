@@ -63,7 +63,7 @@ namespace OpenLiveWriter.CoreServices.Settings
                                  };
 
         /// <summary>
-        /// A cache of previously matchd type/codec pairs.
+        /// A cache of previously matched type/codec pairs.
         /// Keys are <c>Types</c>, values are <c>Codecs</c>.
         /// </summary>
         private Hashtable codecCache = new Hashtable();
