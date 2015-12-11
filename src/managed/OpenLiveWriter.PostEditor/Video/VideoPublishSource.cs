@@ -106,7 +106,7 @@ namespace OpenLiveWriter.PostEditor.Video
 
         private void UpdateSelectedPublisher()
         {
-            // We get the new publisher, we alwasy trust that _currentPublisher is not null
+            // We get the new publisher, we always trust that _currentPublisher is not null
             _currentPublisher = sideBarControl.SelectedValue;
 
             videoLoginStatusControl.Auth = _currentPublisher.Auth;
