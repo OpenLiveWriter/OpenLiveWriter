@@ -934,7 +934,7 @@ namespace OpenLiveWriter.Mshtml
 
             // Set frame info (no accelerator table provided, we don't need to
             // since MSHTML is an in-process server we will get first crack at
-            // all acclerators).
+            // all accelerators).
             lpFrameInfo.cb = (uint)Marshal.SizeOf(typeof(OLEINPLACEFRAMEINFO));
             lpFrameInfo.fMDIApp = false;
             lpFrameInfo.hwndFrame = this.Handle;
