@@ -33,7 +33,7 @@ namespace OpenLiveWriter.Interop.Com
         public const uint ASPECT = 0x0004;      // passed to the extractor to beg it to render to the aspect ratio of the supplied rect
         public const uint OFFLINE = 0x0008;      // if the extractor shouldn't hit the net to get any content neede for the rendering
         public const uint GLEAM = 0x0010;      // does the image have a gleam ? this will be returned if it does
-        public const uint SCREEN = 0x0020;      // render as if for the screen  (this is exlusive with IEIFLAG_ASPECT )
+        public const uint SCREEN = 0x0020;      // render as if for the screen  (this is exclusive with IEIFLAG_ASPECT )
         public const uint ORIGSIZE = 0x0040;      // render to the approx size passed, but crop if neccessary
         public const uint NOSTAMP = 0x0080;      // returned from the extractor if it does NOT want an icon stamp on the thumbnail
         public const uint NOBORDER = 0x0100;      // returned from the extractor if it does NOT want an a border around the thumbnail
