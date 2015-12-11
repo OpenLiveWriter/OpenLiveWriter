@@ -463,7 +463,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Hightlight rendering services for document ((must wait until document IsComplete to get this)
+        /// Highlight rendering services for document ((must wait until document IsComplete to get this)
         /// </summary>
         public IHighlightRenderingServicesRaw HighlightRenderingServices
         {
@@ -1758,7 +1758,7 @@ namespace OpenLiveWriter.Mshtml
         private ISelectionServicesRaw selectionServices;
 
         /// <summary>
-        /// Reference to IHightlightRenderingServices for the document
+        /// Reference to IHighlightRenderingServices for the document
         /// </summary>
         private IHighlightRenderingServicesRaw highlightRenderingServices;
 
