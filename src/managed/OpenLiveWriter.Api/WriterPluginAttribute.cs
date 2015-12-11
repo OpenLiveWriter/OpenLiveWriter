@@ -53,7 +53,7 @@ namespace OpenLiveWriter.Api
                     throw new ArgumentNullException("WriterPlugin.Id");
 
                 if (!ValidateGuid(value))
-                    throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, "The value specifed ({0}) was not a GUID", value), "WriterPlugin.Id");
+                    throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, "The value specified ({0}) was not a GUID", value), "WriterPlugin.Id");
 
                 _id = value;
             }
