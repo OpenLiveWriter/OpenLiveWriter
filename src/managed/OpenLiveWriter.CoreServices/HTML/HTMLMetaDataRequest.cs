@@ -15,7 +15,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Constructs a new HTMLMetaDataRequest
         /// </summary>
-        /// <param name="url">The URL from which to get the HTML Metadat</param>
+        /// <param name="url">The URL from which to get the HTML Metadata</param>
         public HTMLMetaDataRequest(string url)
         {
             m_url = url;
