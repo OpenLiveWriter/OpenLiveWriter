@@ -376,8 +376,8 @@ namespace OpenLiveWriter.CoreServices
 
     /// <summary>
     /// Class which recursively copies the contents of one directory to another. Note
-    /// that this class provides a thin-layer over file system calls -- low-level files
-    /// ystem exceptions may be thrown from this class and they should be caught and
+    /// that this class provides a thin-layer over file system calls -- low-level file
+    /// system exceptions may be thrown from this class and they should be caught and
     /// handled appropriately.
     /// </summary>
     public class DirectoryCopier : DirectoryIterator

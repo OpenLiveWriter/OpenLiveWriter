@@ -128,7 +128,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
             //Note: we use MarkupServices to insert the content so that IE doesn't try to fix up URLs.
             //Element.insertAdjacentHTML() is a no-no because it rewrites relative URLs to include
-            //the fullpath from the local filesytem.
+            //the fullpath from the local filesystem.
 
             //MarkupServices.ParseString() doesn't attempt to fix up URLs, so its safe to use.
             //We will now stage the new content into a MarkupContainer, and then move it into

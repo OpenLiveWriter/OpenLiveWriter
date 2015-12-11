@@ -149,7 +149,7 @@ namespace OpenLiveWriter.FileDestinations
         }
 
         /// <summary>
-        /// Deletes a file from the filesysytem.
+        /// Deletes a file from the filesystem.
         /// </summary>
         /// <param name="path">The file</param>
         public override void DeleteFile(string path)
