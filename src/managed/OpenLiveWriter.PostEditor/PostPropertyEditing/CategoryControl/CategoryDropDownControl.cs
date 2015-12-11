@@ -103,7 +103,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             // prevent editing and showing of drop down
             DropDownStyle = ComboBoxStyle.DropDownList ;
 
-            // fully cusotm painting
+            // fully custom painting
             IntegralHeight = false ;
             DrawMode = DrawMode.OwnerDrawFixed ;
             Items.Add(String.Empty) ;
