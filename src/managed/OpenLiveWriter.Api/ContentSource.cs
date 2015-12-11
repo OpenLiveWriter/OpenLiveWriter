@@ -36,7 +36,7 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Create content using the contents of a LiveClipboad Xml document. Plugin classes which override
+        /// Create content using the contents of a LiveClipboard Xml document. Plugin classes which override
         /// this method must also be declared with the LiveClipboardContentSourceAttribute.
         /// </summary>
         /// <param name="dialogOwner">Owner for any dialogs shown.</param>
