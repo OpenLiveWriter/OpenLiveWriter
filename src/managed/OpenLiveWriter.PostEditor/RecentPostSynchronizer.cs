@@ -421,7 +421,7 @@ namespace OpenLiveWriter.PostEditor
                     Uri fixedImageUri = (Uri)urlFixupTable[new Uri(reference)];
                     if (fixedImageUri != null)
                     {
-                        Debug.WriteLine(String.Format(CultureInfo.InvariantCulture, "RecentPostSyncrhonizer: converting remote image reference [{0}] to local reference", reference));
+                        Debug.WriteLine(String.Format(CultureInfo.InvariantCulture, "RecentPostSynchronizer: converting remote image reference [{0}] to local reference", reference));
                         reference = fixedImageUri.ToString();
                     }
                 }
