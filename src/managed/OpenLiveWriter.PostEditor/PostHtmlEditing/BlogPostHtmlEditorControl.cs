@@ -2078,7 +2078,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         protected override bool ContentIsDeletableForInsert(MarkupPointer start, MarkupPointer end)
         {
-            // if a table element is contained within the selection then it is not deleteable for insert
+            // if a table element is contained within the selection then it is not deletable for insert
             TableSelection tableSelection = new TableSelection(MarkupServices.CreateMarkupRange(start, end));
             bool contentIsDeletableForInsert = !tableSelection.HasContiguousSelection;
 

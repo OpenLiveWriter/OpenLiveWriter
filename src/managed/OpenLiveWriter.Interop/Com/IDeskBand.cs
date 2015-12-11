@@ -212,7 +212,7 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// Undocumented
         /// </summary>
-        UNDELETEABLE = 0x0010,
+        UNDELETABLE = 0x0010,
 
         /// <summary>
         /// The band object will be displayed with a sunken look
