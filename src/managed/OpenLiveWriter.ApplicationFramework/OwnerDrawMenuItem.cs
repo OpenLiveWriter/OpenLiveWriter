@@ -337,7 +337,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 Size textSize = MeasureMenuItemText(e.Graphics, MenuText());
 
                 //	Determine the size of the shortcut.  If this item does not show a shortcut,
-                //	measure a defauly shortcut so it aligns with other menu entries.
+                //	measure a default shortcut so it aligns with other menu entries.
                 Size shortcutSize;
                 if (ShowShortcut && Shortcut != Shortcut.None)
                     shortcutSize = MeasureShortcutMenuItemText(e.Graphics, FormatShortcutString(Shortcut));
