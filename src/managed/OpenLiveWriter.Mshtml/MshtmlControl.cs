@@ -799,7 +799,7 @@ namespace OpenLiveWriter.Mshtml
                 if (htmlDocument != null)
                     Marshal.ReleaseComObject(htmlDocument);
 
-                // Sever any remaining connections to our site. Note that we probabaly
+                // Sever any remaining connections to our site. Note that we probably
                 // don't need to call this since it designed to sever out-of-process
                 // connections to our site -- typically the way we would get these is
                 // if MSHTML embedded an OLE object implemented as an out-of-process

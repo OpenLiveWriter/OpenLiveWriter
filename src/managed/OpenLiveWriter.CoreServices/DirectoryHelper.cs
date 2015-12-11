@@ -28,7 +28,7 @@ namespace OpenLiveWriter.CoreServices
         /// </returns>
         public static ArrayList ListRecursive(string path)
         {
-            // enumerate directories (use file system standard separator, probabaly backslash)
+            // enumerate directories (use file system standard separator, probably backslash)
             return ListRecursive(path, false);
         }
 

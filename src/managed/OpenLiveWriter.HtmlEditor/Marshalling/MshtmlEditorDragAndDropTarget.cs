@@ -36,7 +36,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// IDocHostCustomUI.GetDropTarget. Replaces the default drop target implementation
         /// with our own. Note that the main purpose of this method for us is to get a reference
         /// to the MSHTML drop target implementation. While in this method we do in fact replace
-        /// thier implementation with our own, this is probabaly redundant as we also disable
+        /// thier implementation with our own, this is probably redundant as we also disable
         /// their drop target (see below comment on Initialize). We replace their implementation
         /// in any case just so that if they have any internal state or behavior that depends
         /// upon knowing whether their drop target implementation is active then it can be
