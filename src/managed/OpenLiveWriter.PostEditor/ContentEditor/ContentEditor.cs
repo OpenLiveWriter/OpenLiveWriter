@@ -2255,7 +2255,7 @@ namespace OpenLiveWriter.PostEditor
                         IHtmlEditorComponentContext editorContext = _currentEditor as IHtmlEditorComponentContext;
                         if (editorContext != null)
                         {
-                            // check for a discontigous selection of cells within an existing table and
+                            // check for a discontiguous selection of cells within an existing table and
                             // "fix" the selection accordingly so the editor doesn't barf on it
                             TableSelection tableSelection = new TableSelection(editorContext.Selection.SelectedMarkupRange);
                             if (tableSelection.HasContiguousSelection && !tableSelection.EntireTableSelected)
