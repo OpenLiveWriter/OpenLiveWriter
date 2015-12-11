@@ -156,7 +156,7 @@ namespace OpenLiveWriter.CoreServices
         /// preferred storage representation and client code will need to use
         /// the 'is' operator to determine what type was returned.
         /// </summary>
-        /// <param name="lindex">Index of item to retreive</param>
+        /// <param name="lindex">Index of item to retrieve</param>
         /// <param name="clipFormat">Name of clipboard format requested</param>
         /// <param name="types">type(s) requested</param>
         /// <returns>OleStgMedium instance if format and requested storage type
@@ -233,7 +233,7 @@ namespace OpenLiveWriter.CoreServices
                 BindingFlags.Public | BindingFlags.NonPublic |
                 BindingFlags.Instance);
 
-            // retreive and return the value
+            // retrieve and return the value
             if (fld != null)
                 return fld.GetValue(source);
             else

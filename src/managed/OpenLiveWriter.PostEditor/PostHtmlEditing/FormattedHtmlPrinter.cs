@@ -301,7 +301,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                     }
                                 }
                             }
-                            Debug.WriteLineIf(attrValue != null && attrName != "id", String.Format(CultureInfo.InvariantCulture, "{0}.{1} attribute value not retreived", tagName, attrName), element.outerHTML);
+                            Debug.WriteLineIf(attrValue != null && attrName != "id", String.Format(CultureInfo.InvariantCulture, "{0}.{1} attribute value not retrieved", tagName, attrName), element.outerHTML);
                         }
 
                         // Minimized attributes are not allowed, according

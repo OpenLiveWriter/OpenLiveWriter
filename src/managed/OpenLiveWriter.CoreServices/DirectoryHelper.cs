@@ -211,7 +211,7 @@ namespace OpenLiveWriter.CoreServices
             // determine the absolute path of this directory
             string absolutePath = Path.Combine(RootPath, relativePath);
 
-            // retreive a list of the files and sort them
+            // retrieve a list of the files and sort them
             string[] files;
             try
             {
@@ -243,7 +243,7 @@ namespace OpenLiveWriter.CoreServices
 
             if (m_includeSubfolders)
             {
-                // retreive a list of the sub-directories and sort them
+                // retrieve a list of the sub-directories and sort them
                 string[] directories;
                 try
                 {
@@ -336,7 +336,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Retreive an alphabetically sorted list of all the files contained within
+        /// Retrieve an alphabetically sorted list of all the files contained within
         /// the directory and its sub-directories
         /// </summary>
         /// <returns>An ArrayList of file names (represented as string objects)</returns>

@@ -27,13 +27,13 @@ namespace OpenLiveWriter.BrowserControl
 
         /// <summary>
         /// Title of current document (normally use for window caption display).
-        /// You should retreive/update this value whenever the TitleChanged
+        /// You should retrieve/update this value whenever the TitleChanged
         /// event is fired.
         /// </summary>
         string Title { get; }
 
         /// <summary>
-        /// StatusText (normally displayed in status bar). You should retreive/update
+        /// StatusText (normally displayed in status bar). You should retrieve/update
         /// this value whenever the StatusTextChanged event is fired.
         /// </summary>
         string StatusText { get; }

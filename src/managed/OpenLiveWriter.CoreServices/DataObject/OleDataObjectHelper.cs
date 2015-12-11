@@ -30,7 +30,7 @@ namespace OpenLiveWriter.CoreServices
         /// Helper function to populate the contents of a FORMATETC structure
         /// using the passed clipboard format and type(s).
         /// </summary>
-        /// <param name="lindex">Index of item to retreive</param>
+        /// <param name="lindex">Index of item to retrieve</param>
         /// <param name="clipFormat">Name of clipboard format requested</param>
         /// <param name="types">type(s) requested</param>
         /// <param name="formatEtc">FORMATETC structure to be populated</param>

@@ -26,7 +26,7 @@ namespace OpenLiveWriter.Api
         BypassCache,
 
         /// <summary>
-        /// Read from the Internet cache if possible, otherwise retreive
+        /// Read from the Internet cache if possible, otherwise retrieve
         /// from the network. If the request is successful then write the
         /// response to the Internet cache.
         /// </summary>
@@ -34,12 +34,12 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Attempt to read the requested resource from the Internet cache
-        /// (in no case attempt to retreive the resource from the network).
+        /// (in no case attempt to retrieve the resource from the network).
         /// </summary>
         CacheOnly,
 
         /// <summary>
-        /// Attempt to retreive the requested resource from the network. If
+        /// Attempt to retrieve the requested resource from the network. If
         /// the request is successful then write the response to the Internet cache.
         /// </summary>
         Reload
@@ -143,7 +143,7 @@ namespace OpenLiveWriter.Api
         private byte[] _postData;
 
         /// <summary>
-        /// Retreive the resource (with no timeout).
+        /// Retrieve the resource (with no timeout).
         /// </summary>
         /// <returns>A stream representing the requested resource. Can return null
         /// if the CacheLevel is CacheOnly and the resource could not be found

@@ -203,7 +203,7 @@ namespace OpenLiveWriter.CoreServices
             return GetRegistryKeyMonitor(hkey, key, false);
         }
         /// <summary>
-        /// Retreives the RegistryKeyMonitor associated with the specified registry key
+        /// Retrieves the RegistryKeyMonitor associated with the specified registry key
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>

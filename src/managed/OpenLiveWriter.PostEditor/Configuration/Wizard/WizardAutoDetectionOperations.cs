@@ -120,7 +120,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _temporarySettings.ManifestDownloadInfo = _blogServiceDetector.ManifestDownloadInfo;
             _temporarySettings.ClientType = _blogServiceDetector.ClientType;
 
-            // values that the service detector attempts to retreive -- if the attempt fails
+            // values that the service detector attempts to retrieve -- if the attempt fails
             // for any reason then don't update the value (i.e. a failed attempt to get the
             // list of categories should not be construed as "there are no categories")
             if (_blogServiceDetector.Categories != null)

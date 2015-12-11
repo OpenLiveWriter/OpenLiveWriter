@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                     progressDialog.CreateControl();
                     SimpleUrlContentRetrievalAsyncOperation asyncOperation = new SimpleUrlContentRetrievalAsyncOperation(progressDialog, contentSourceInfo.Instance as ContentSource, url, title);
 
-                    // execute and retreive results
+                    // execute and retrieve results
                     if (ExecuteWithProgress(dialogOwner, progressDialog, asyncOperation, contentSourceInfo))
                     {
                         title = asyncOperation.Title;
@@ -78,7 +78,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
                     SmartUrlContentRetrievalAsyncOperation asyncOperation = new SmartUrlContentRetrievalAsyncOperation(progressDialog, contentSourceInfo.Instance as SmartContentSource, url, title, newContent);
 
-                    // execute and retreive results
+                    // execute and retrieve results
                     if (ExecuteWithProgress(dialogOwner, progressDialog, asyncOperation, contentSourceInfo))
                     {
                         title = asyncOperation.Title;
@@ -186,13 +186,13 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             get { return _contentSource; }
         }
 
-        protected abstract void RetreiveContent(ref string title);
+        protected abstract void RetrieveContent(ref string title);
 
         protected override void DoWork()
         {
             try
             {
-                RetreiveContent(ref _title);
+                RetrieveContent(ref _title);
             }
             catch (OperationCancelledException)
             {
@@ -223,7 +223,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             get { return _newContent; }
         }
 
-        protected override void RetreiveContent(ref string title)
+        protected override void RetrieveContent(ref string title)
         {
             (ContentSource as ContentSource).CreateContentFromUrl(Url, ref title, ref _newContent);
         }
@@ -240,7 +240,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             _newContent = newContent;
         }
 
-        protected override void RetreiveContent(ref string title)
+        protected override void RetrieveContent(ref string title)
         {
             (ContentSource as SmartContentSource).CreateContentFromUrl(Url, ref title, _newContent);
         }
