@@ -271,7 +271,7 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-        #region Propreties
+        #region Properties
 
         /// <summary>
         /// Window handle for the underlying MSHTML window
