@@ -1291,7 +1291,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _templateContainsTitle = editingTemplate.ContainsTitle;
 
             //if any manually attached behaviors are attached, remove them.
-            //Note: this is necessary to prevent errors from occuring when switching between wysiwyg and code view
+            //Note: this is necessary to prevent errors from occurring when switching between wysiwyg and code view
             //to quickly.
             DetachBehaviors();
 

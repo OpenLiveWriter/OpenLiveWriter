@@ -252,7 +252,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Close the form (do it only once and defend against exceptions
-        /// occuring during close/dispose)
+        /// occurring during close/dispose)
         /// </summary>
         public void Dispose()
         {

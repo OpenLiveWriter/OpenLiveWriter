@@ -694,7 +694,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 // NOTE: The Supressing of UpdateUI notifications during display of the context menu was
                 // necessary to fix Bug# 244853. The main editor hooks these notifications in order to
                 // update command states. Unfortunately this notification is called quite eagerly by the
-                // editor (mouse move causes it to fire), so command management was actually occuring
+                // editor (mouse move causes it to fire), so command management was actually occurring
                 // while the context menu was being created and shown. In some cases this caused the context
                 // menu to flash in and out of view (still not 100% clear on why). In any event, supressing
                 // UpdateUI (and therefore command management) during the showing of context menus reliably

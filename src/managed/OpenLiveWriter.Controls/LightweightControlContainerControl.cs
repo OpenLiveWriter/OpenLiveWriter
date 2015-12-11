@@ -57,12 +57,12 @@ namespace OpenLiveWriter.Controls
             Off,
 
             /// <summary>
-            /// Drag-and-drop auto-scroll is occuring in the up direction.
+            /// Drag-and-drop auto-scroll is occurring in the up direction.
             /// </summary>
             Up,
 
             /// <summary>
-            /// Drag-and-drop auto-scroll is occuring in the down direction.
+            /// Drag-and-drop auto-scroll is occurring in the down direction.
             /// </summary>
             Down
         }
