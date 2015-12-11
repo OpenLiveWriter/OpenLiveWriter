@@ -105,10 +105,10 @@ namespace OpenLiveWriter.HtmlEditor
             try
             {
                 string findText = textBoxFindWhat.Text.Trim();
-                int nextOccurance = -1;
+                int nextOccurrence = -1;
                 if (radioButtonDown.Checked)
                 {
-                    nextOccurance = _targetTextBox.Text.IndexOf(findText,
+                    nextOccurrence = _targetTextBox.Text.IndexOf(findText,
                         _targetTextBox.SelectionStart + _targetTextBox.SelectionLength);
                 }
                 else
@@ -116,12 +116,12 @@ namespace OpenLiveWriter.HtmlEditor
                     int start = _targetTextBox.SelectionStart;
                     if (_targetTextBox.SelectionLength == 1 && start > 0)
                         start = start - 1;
-                    nextOccurance = _targetTextBox.Text.LastIndexOf(findText, start);
+                    nextOccurrence = _targetTextBox.Text.LastIndexOf(findText, start);
                 }
 
-                if (nextOccurance != -1)
+                if (nextOccurrence != -1)
                 {
-                    _targetTextBox.Select(nextOccurance, findText.Length);
+                    _targetTextBox.Select(nextOccurrence, findText.Length);
                     _targetTextBox.ScrollToCaret();
                 }
                 else
