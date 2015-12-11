@@ -2191,7 +2191,7 @@ namespace OpenLiveWriter.Controls
 
         #region Accessibility
         /// <summary>
-        /// Returns a list of all the accessible controls contained in this control (includes decendents).
+        /// Returns a list of all the accessible controls contained in this control (includes decedents).
         /// </summary>
         /// <returns></returns>
         public LightweightControl[] GetAccessibleControls()
