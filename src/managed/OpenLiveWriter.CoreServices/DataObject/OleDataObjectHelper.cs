@@ -69,7 +69,7 @@ namespace OpenLiveWriter.CoreServices
         {
             // asking for .NET object types in GetDataPresent when the drag source is
             // another .NET application can result in an exception related to the
-            // convertion of System.__ComObject to System.Type (no idea why).
+            // conversion of System.__ComObject to System.Type (no idea why).
             try
             {
                 if (obj == null)

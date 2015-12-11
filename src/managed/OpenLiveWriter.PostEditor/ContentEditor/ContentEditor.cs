@@ -1017,7 +1017,7 @@ namespace OpenLiveWriter.PostEditor
 
         public virtual void SaveChanges(BlogPost post, BlogPostSaveOptions options)
         {
-            // get the title (remove linebreaks to prevent auto-convertion to P or BR)
+            // get the title (remove linebreaks to prevent auto-conversion to P or BR)
             string postTitle = _currentEditor.GetEditedTitleHtml();
             post.Title = HtmlLinebreakStripper.RemoveLinebreaks(postTitle);
 
@@ -1028,7 +1028,7 @@ namespace OpenLiveWriter.PostEditor
             //replace the structured content with the publish HTML.
             postContents = SmartContentWorker.PerformOperation(postContents, GetStructuredPublishHtml, false, this, true);
 
-            // remove linebreaks to prevent auto-convertion to P or BR
+            // remove linebreaks to prevent auto-conversion to P or BR
             postContents = HtmlLinebreakStripper.RemoveLinebreaks(postContents);
 
             post.Contents = postContents;
