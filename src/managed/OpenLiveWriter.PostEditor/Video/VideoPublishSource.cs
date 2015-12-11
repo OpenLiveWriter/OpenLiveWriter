@@ -262,7 +262,7 @@ namespace OpenLiveWriter.PostEditor.Video
             string description = txtDescription.Text.Trim();
             string filePath = txtFile.Text.Trim();
 
-            // Make sure they filled in all the feilds
+            // Make sure they filled in all the fields
             if (((CategoryItem)comboBoxCategory.SelectedItem).CategoryId == Guid.Empty.ToString() ||
                 title == String.Empty ||
                 description == String.Empty ||
