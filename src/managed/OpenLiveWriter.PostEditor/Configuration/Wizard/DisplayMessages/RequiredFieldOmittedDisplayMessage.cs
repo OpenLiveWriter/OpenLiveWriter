@@ -68,8 +68,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
             //
             // RequiredFieldOmittedDisplayMessage
             //
-            this.Text = "You must enter a value for the {0} field in order{1}to configure weblog publishin" +
-                "g.";
+            this.Text = "You must enter a value for the {0} field in order{1}to configure weblog " +
+                "publishing.";
             this.Title = "Required Field Missing";
             this.Type = DisplayMessageType.Warning;
 
