@@ -5612,7 +5612,7 @@ namespace OpenLiveWriter.HtmlEditor
 
         #region IServiceProviderRaw Members
 
-        // make virtual as escpae hatch for derived classes to implement other services
+        // make virtual as escape hatch for derived classes to implement other services
         int IServiceProviderRaw.QueryService(ref Guid guid, ref Guid riid, out IntPtr service)
         {
             return OnQueryService(ref guid, ref riid, out service);
