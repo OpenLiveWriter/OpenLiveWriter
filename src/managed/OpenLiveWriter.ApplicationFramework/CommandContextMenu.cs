@@ -71,7 +71,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Restore our parent window's context menu.
             parentWindow.ContextMenu = parentContextMenu;
 
-            //	Dipose of the context menu.
+            //	Dispose of the context menu.
             commandContextMenu.Dispose();
 
             //	Return the selected command.
@@ -123,7 +123,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Restore our parent window's context menu.
             parentWindow.ContextMenu = parentContextMenu;
 
-            //	Dipose of the context menu.
+            //	Dispose of the context menu.
             commandContextMenu.Dispose();
 
             //	Return the selected command.
@@ -162,7 +162,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Restore our parent window's context menu.
             parentWindow.ContextMenu = parentContextMenu;
 
-            //	Dipose of the context menu.
+            //	Dispose of the context menu.
             commandContextMenu.Dispose();
 
             //	Return the selected command.
