@@ -880,7 +880,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
         }
 
         /// <summary>
-        /// Free any unamanged memory used by this instance of OpenFileDialog
+        /// Free any unmanaged memory used by this instance of OpenFileDialog
         /// </summary>
         /// <param name="disposing">true if called by Dispose, false otherwise</param>
         public void Dispose(bool disposing)
