@@ -1907,7 +1907,7 @@ namespace OpenLiveWriter.HtmlEditor
                         }
                         catch (Exception e)
                         {
-                            //MHTML occasionally throws a "catastropic" error while undoing an operation
+                            //MHTML occasionally throws a "catastrophic" error while undoing an operation
                             //that went wrong.  Log the error instead of scaring the crap out of the
                             //user when this occurs.
                             Trace.Fail("Undo error occurred: " + e.Message, e.StackTrace);
