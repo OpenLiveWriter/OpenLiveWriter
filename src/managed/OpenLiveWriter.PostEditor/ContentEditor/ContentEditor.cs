@@ -769,7 +769,7 @@ namespace OpenLiveWriter.PostEditor
                 editingManager.UserPublishedPost += new EventHandler(editingManager_UserPublishedPost);
             }
 
-            // save whethere we are editing a page
+            // save whether we are editing a page
             _isPage = editingContext.BlogPost.IsPage;
 
             // save a reference to the supporting files

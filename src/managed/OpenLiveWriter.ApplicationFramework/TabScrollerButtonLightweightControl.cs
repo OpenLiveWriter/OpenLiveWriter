@@ -27,7 +27,7 @@ namespace OpenLiveWriter.ApplicationFramework
         private Timer timerAutoScroll;
 
         /// <summary>
-        /// A value indicating wheter auto-scroll occurred.  This value is used to suppress the
+        /// A value indicating whether auto-scroll occurred.  This value is used to suppress the
         /// Scroll event, which we do not want to fire if we auto-scrolled.
         /// </summary>
         private bool autoScrollOccurred = false;
