@@ -41,7 +41,7 @@ namespace OpenLiveWriter.BrowserControl
         /// <summary>
         /// Property indicating the encryption level of the currently displayed document.
         /// The EncryptionLevelChanged event will be fired whenever this property
-        /// changes valiue.
+        /// changes value.
         /// </summary>
         EncryptionLevel EncryptionLevel { get; }
 
