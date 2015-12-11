@@ -339,7 +339,7 @@ namespace OpenLiveWriter.CoreServices
             using (Stream stream = assembly.GetManifestResourceStream(assemblyResourcePath))
             {
                 if (stream == null)
-                    Debug.Fail("Resource requested from ResourceFileDownloader not included in calling asssembly! (" + assemblyResourcePath + ")");
+                    Debug.Fail("Resource requested from ResourceFileDownloader not included in calling assembly! (" + assemblyResourcePath + ")");
             }
 #endif
         }
