@@ -1520,7 +1520,7 @@ namespace OpenLiveWriter.Controls
         #region Protected Methods
         /// <summary>
         /// Fires a click event so that subscribers to the LightweightContainerControl.Click event will receive it
-        /// (reguardless of whether there is a mouseLightweightControl active)
+        /// (regardless of whether there is a mouseLightweightControl active)
         /// </summary>
         /// <param name="evt"></param>
         protected void OnLightweightContainerControlClick(EventArgs evt)
