@@ -164,7 +164,7 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// <summary>
         /// Abstract impl of codec for values that can be stored "as-is" in the registry.
         /// </summary>
-        abstract class PassthoughCodec : Codec
+        abstract class PassthroughCodec : Codec
         {
             public override object Encode(object val)
             {
@@ -209,7 +209,7 @@ namespace OpenLiveWriter.CoreServices.Settings
             }
         }
 
-        class StringCodec : PassthoughCodec
+        class StringCodec : PassthroughCodec
         {
             protected override Type Type()
             {
@@ -217,7 +217,7 @@ namespace OpenLiveWriter.CoreServices.Settings
             }
         }
 
-        class MultiStringCodec : PassthoughCodec
+        class MultiStringCodec : PassthroughCodec
         {
             protected override Type Type()
             {
@@ -276,7 +276,7 @@ namespace OpenLiveWriter.CoreServices.Settings
             public override object Decode(object val) { return (ushort)val; }
         }
 
-        class Int32Codec : PassthoughCodec
+        class Int32Codec : PassthroughCodec
         {
             protected override Type Type() { return typeof(int); }
         }
