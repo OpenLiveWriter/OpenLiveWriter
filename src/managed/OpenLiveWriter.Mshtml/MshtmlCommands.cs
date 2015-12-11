@@ -828,7 +828,7 @@ namespace OpenLiveWriter.Mshtml
         //		public const uint NEW_TOPLEVELWINDOW =     7050 ;
 
         //
-        // Undo persistence comands
+        // Undo persistence commands
         //
         //		public const uint PRESERVEUNDOALWAYS =     6049 ;
         //		public const uint PERSISTDEFAULTVALUES =   7100 ;
