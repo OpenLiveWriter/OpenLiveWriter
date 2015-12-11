@@ -35,7 +35,7 @@ namespace OpenLiveWriter.Controls
             cp.ClassName = WINDOW_CLASS.TOOLTIPS;
             cp.Style = unchecked((int)(WS.POPUP | TTS.ALWAYSTIP | TTS.NOPREFIX));
 
-            // create the winow
+            // create the window
             CreateHandle(cp);
         }
 

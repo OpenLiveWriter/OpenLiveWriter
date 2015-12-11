@@ -131,7 +131,7 @@ namespace OpenLiveWriter.ApplicationFramework
             // (we do this because if actually call Close right here it
             // will prevent the mouse event that resulted in the deactivation
             // of the form from actually triggering in the new target
-            // winodw -- this allows the mouse event to trigger and the
+            // window -- this allows the mouse event to trigger and the
             // form to go away almost instantly
             Timer closeDelayTimer = new Timer();
             closeDelayTimer.Tick += new EventHandler(closeDelayTimer_Tick);
