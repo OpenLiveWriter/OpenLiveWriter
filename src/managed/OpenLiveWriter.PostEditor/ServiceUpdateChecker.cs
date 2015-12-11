@@ -409,7 +409,7 @@ namespace OpenLiveWriter.PostEditor
 
             if (watermarkImage != null && watermarkImage.Length > 0)
             {
-                settingsContents.Append("WatemarkImage:");
+                settingsContents.Append("WatermarkImage:");
                 foreach (byte watermarkImageByte in watermarkImage)
                     settingsContents.Append(watermarkImageByte);
             }
