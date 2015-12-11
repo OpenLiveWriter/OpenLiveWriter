@@ -343,7 +343,7 @@ namespace OpenLiveWriter.Mshtml
         private IHTMLElement _htmlElement;
 
         /// <summary>
-        /// Flag used to track whether this elment behavior is currently attached.
+        /// Flag used to track whether this element behavior is currently attached.
         /// </summary>
         private bool _attached;
 

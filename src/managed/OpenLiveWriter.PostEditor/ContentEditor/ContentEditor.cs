@@ -2736,16 +2736,16 @@ namespace OpenLiveWriter.PostEditor
 
         private IHTMLElement FindSmartContentElementByContentId(string searchContentId)
         {
-            return FindSmartContentElemenCore((csid, cid) => cid == searchContentId);
+            return FindSmartContentElementCore((csid, cid) => cid == searchContentId);
         }
 
         private IHTMLElement FindSmartContentElementByContentSourceId(string searchContentSourceId)
         {
-            return FindSmartContentElemenCore((csid, cid) => csid == searchContentSourceId && _extensionDataList.GetExtensionData(cid) != null /* if you are replying to an email that was a photomail, that does not implicitly make this a photomail */);
+            return FindSmartContentElementCore((csid, cid) => csid == searchContentSourceId && _extensionDataList.GetExtensionData(cid) != null /* if you are replying to an email that was a photomail, that does not implicitly make this a photomail */);
         }
 
-        private delegate bool FindSmartContentElemenFilter(string contentSourceId, string contentId);
-        private IHTMLElement FindSmartContentElemenCore(FindSmartContentElemenFilter filter)
+        private delegate bool FindSmartContentElementFilter(string contentSourceId, string contentId);
+        private IHTMLElement FindSmartContentElementCore(FindSmartContentElementFilter filter)
         {
             IHTMLElement2 postBodyElement = (IHTMLElement2)_normalHtmlContentEditor.PostBodyElement;
             if (postBodyElement != null)

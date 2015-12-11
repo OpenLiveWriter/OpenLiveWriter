@@ -79,7 +79,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 // be zero. So in this case we use scrollWidth which should be a proxy except in the case where
                 // the parent element has a horizontal scroll bar (in which case we may insert a table which
                 // is worst case too narrow). What we "should" do is insert and remove some bogus content
-                // within the block elemet to force its clientWidth to the right value.
+                // within the block element to force its clientWidth to the right value.
                 int blockWidth = parentBlock.clientWidth;
 
                 if (blockWidth == 0)

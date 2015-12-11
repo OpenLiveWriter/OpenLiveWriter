@@ -593,7 +593,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Get the left of the elment relative to the body
+        /// Get the left of the element relative to the body
         /// </summary>
         /// <param name="element">element to get left of</param>
         /// <returns>left of element relative to the body</returns>

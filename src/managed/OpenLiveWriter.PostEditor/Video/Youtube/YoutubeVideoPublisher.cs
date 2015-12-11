@@ -466,7 +466,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 }
             }
 
-            // Find the status elemnt
+            // Find the status element
             XmlDocument xmlDoc = new XmlDocument(NamespaceManager.NameTable);
             xmlDoc.LoadXml(innerResult);
             XmlNode stateNode = xmlDoc.SelectSingleNode("//atom:entry/app:control/yt:state", NamespaceManager);
