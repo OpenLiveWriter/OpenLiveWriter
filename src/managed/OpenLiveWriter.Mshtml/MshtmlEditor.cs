@@ -173,7 +173,7 @@ namespace OpenLiveWriter.Mshtml
                     if (!_documentCompleteReadyStateFired)
                     {
                         // update flag indicating DocumentComplete ReadyState has been called
-                        // (used as a sanity check (see immediately above) on our assumpton that
+                        // (used as a sanity check (see immediately above) on our assumption that
                         // this is called only once)
                         _documentCompleteReadyStateFired = true;
 

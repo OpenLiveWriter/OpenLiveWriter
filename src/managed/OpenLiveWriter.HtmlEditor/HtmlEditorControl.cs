@@ -2008,7 +2008,7 @@ namespace OpenLiveWriter.HtmlEditor
                 IOleUndoUnit targetRedoUnit = activeRedoUnits[0] as IOleUndoUnit;
 
                 // we assume the first item in the list is visible b/c invisible undos
-                // should always be chained with a visible one. check this assumptoin
+                // should always be chained with a visible one. check this assumption
                 Trace.Assert(!InvisibleUndoUnit.UnitIsInvisible(GetUndoUnitDescription(targetRedoUnit)));
 
                 // scan the list for 'invisible' undos that are logically part of
