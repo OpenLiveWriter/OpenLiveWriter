@@ -54,7 +54,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Indicates that a a candidate screen capture is available. This event
-        /// allows subscribers to examine the screen captue bitmap in order to determine
+        /// allows subscribers to examine the screen capture bitmap in order to determine
         /// whether the page is fully loaded and ready for capture.
         /// </summary>
         public event HtmlScreenCaptureAvailableHandler HtmlScreenCaptureAvailable;
