@@ -304,7 +304,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             }
             catch (Exception)
             {
-                //eat error that occurs occassionally in drag/drop so it doesn't scare users
+                //eat error that occurs occasionally in drag/drop so it doesn't scare users
                 //   (System.Runtime.InteropServices.COMException (0x8000FFFF): Catastrophic failure)
                 //Debug.Fail("Unexpected error in point translation", e.ToString());
                 return false;

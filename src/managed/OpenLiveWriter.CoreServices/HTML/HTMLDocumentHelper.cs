@@ -49,7 +49,7 @@ namespace OpenLiveWriter.CoreServices
             //	<a href=news.html>
             //	<a href= news.html>
             //
-            // If we don't require the quoting or equals sign, we'll occassionally hose absolute paths like:
+            // If we don't require the quoting or equals sign, we'll occasionally hose absolute paths like:
             //				http://www.goo.com/hello/world/index.html
             //				when we're replacing a relative path like: index.html
             // see: http://www.cs.tut.fi/~jkorpela/html/iframe.html for an example
