@@ -528,7 +528,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 //	Fill the menu item with the system-defined menu color.
                 g.FillRectangle(SystemBrushes.Menu, bounds);
 
-                //	Fill the bitmap area with the system-defind control color.
+                //	Fill the bitmap area with the system-defined control color.
                 Rectangle bitmapAreaRectangle = new Rectangle(bounds.X,
                                                                 bounds.Y,
                                                                 STANDARD_BITMAP_AREA_WIDTH,
