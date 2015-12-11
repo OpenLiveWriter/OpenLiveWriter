@@ -915,7 +915,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         #endregion Private Properties
 
-        #region Private Metods
+        #region Private Methods
 
         /// <summary>
         /// Helper that performs layout logic for the vertical splitter.
@@ -1032,7 +1032,7 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-        #endregion Private Metods
+        #endregion Private Methods
 
         #region Private Event Handler
 
