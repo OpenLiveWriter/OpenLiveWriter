@@ -900,7 +900,7 @@ namespace OpenLiveWriter.Interop.Windows
         public IntPtr lpData;
     }
 
-    // delegate signagure for EnumWindows callback
+    // delegate signature for EnumWindows callback
     public delegate bool EnumWindowsDelegate(IntPtr hwnd, GCHandle lParam);
 
     /// <summary>
