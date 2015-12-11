@@ -58,7 +58,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
                         StreamHelper.Transfer(cachedStream, memoryStream);
                         _thumbnails[video] = new VideoThumbnail(memoryStream);
                     }
-                    // otherwise mark it as 'downloading' and enque the download
+                    // otherwise mark it as 'downloading' and enqueque the download
                     else
                     {
                         _thumbnails[video] = new DownloadingVideoThumbnail();
