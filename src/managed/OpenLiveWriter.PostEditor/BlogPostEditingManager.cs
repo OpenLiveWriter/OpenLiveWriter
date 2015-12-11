@@ -714,7 +714,7 @@ namespace OpenLiveWriter.PostEditor
             // re-using the window in this case will just make the New button appear
             // to not work at all, therefore we force a new window. We make an exception
             // for creation of new pages, as firing up a new writer instance and then
-            // switching into "page authoring" mode is a natual thing to do (and shouldn't
+            // switching into "page authoring" mode is a natural thing to do (and shouldn't
             // result in a new window for no apparent reason). In this case the user will
             // get "feedback" by seeing the default title change to "Enter Page Title Here"
             // as well as the contents of the property tray changing.
