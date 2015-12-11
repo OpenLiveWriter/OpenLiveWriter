@@ -401,14 +401,14 @@ namespace OpenLiveWriter.PostEditor.Video
                 }
 
                 // If the publisher couldnt make a new status watcher
-                // we just try to take a snap shot and then pretend it is comepleted
+                // we just try to take a snap shot and then pretend it is completed
                 if (publisher == null)
                 {
                     StopProgress(false);
                     return VideoPublishStatus.Completed.ToString();
                 }
 
-                // Check to see the status and if it is comepleted we can stop tracking the progress
+                // Check to see the status and if it is completed we can stop tracking the progress
                 PublishStatus publishStatus = publisher.Status;
 
                 Id = publishStatus.Id;

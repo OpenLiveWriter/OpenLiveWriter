@@ -404,7 +404,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                     try
                     {
                         // Check to see if the video has finished
-                        if (IsVideoComepleted())
+                        if (IsVideoCompleted())
                         {
                             _status = VideoPublishStatus.Completed;
                             _message = Res.Get("Video" + _status);
@@ -452,7 +452,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 _message = Res.Get(StringId.YouTubeVideoError) + Environment.NewLine + Res.Get(StringId.VideoErrorTryAgain);
         }
 
-        private bool IsVideoComepleted()
+        private bool IsVideoCompleted()
         {
             // Send a request to get the status
             HttpWebRequest req = HttpRequestHelper.CreateHttpWebRequest(_updateUrl, true, -1, -1);
