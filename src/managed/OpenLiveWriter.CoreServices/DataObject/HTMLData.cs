@@ -16,7 +16,7 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
-    /// HTMLData is a Mindshare Data Object that conatins HTML text fragments.
+    /// HTMLData is a Mindshare Data Object that contains HTML text fragments.
     /// It includes an html document based upon the HTML DOM (IHTMLDocument2) as well
     /// as various properties derived from the HTML fragment contained in the IDataObject.
     /// </summary>
