@@ -388,7 +388,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                     blogTemplateFiles = GetBlogTemplateFiles(progress, regionLocatorStrategy, templateStrategies, targetTemplateTypes);
                     progress.UpdateProgress(100, 100);
 
-                    //if any exception occured along the way, clear them since one of the template strategies
+                    //if any exception occurred along the way, clear them since one of the template strategies
                     //was successful.
                     _exception = null;
                 }

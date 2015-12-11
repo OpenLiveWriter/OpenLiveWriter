@@ -273,7 +273,7 @@ namespace OpenLiveWriter.CoreServices
                     if (!success)
                     {
                         throw new Win32Exception(Marshal.GetLastWin32Error(),
-                                                  "Error occured attempting to write file: "
+                                                  "Error occurred attempting to write file: "
                                                   + destination.Name);
                     }
                 }

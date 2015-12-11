@@ -415,7 +415,7 @@ namespace OpenLiveWriter.CoreServices
                                                         Kernel32.INFINITE);
                     if (result >= 0 && result < FIXED_MONITOR_EVENTS.Length)
                     {
-                        //a FIXED_MONITOR_EVENT occured, so handle it.
+                        //a FIXED_MONITOR_EVENT occurred, so handle it.
                         if (result == MONITOR_HANDLES_UPDATED_INDEX)
                         {
                             //the monitorHandlesUpdatedEvent was signalled, so reset it and re-loop
@@ -441,7 +441,7 @@ namespace OpenLiveWriter.CoreServices
                         while ((result >= WAIT.OBJECT_0 && result <= (WAIT.OBJECT_0 + monitorHandles.Length - 1))
                                && !(result >= 0 && result < FIXED_MONITOR_EVENTS.Length))
                         {
-                            //a registry change event occured, so add the monitor to the notification list.
+                            //a registry change event occurred, so add the monitor to the notification list.
                             RegistryKeyMonitor keyMonitor = monitors[result - FIXED_MONITOR_EVENTS.Length];
                             regChangeList[keyMonitor.FullKey] = keyMonitor;
 

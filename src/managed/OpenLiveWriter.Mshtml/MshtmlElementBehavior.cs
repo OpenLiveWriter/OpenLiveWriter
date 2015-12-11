@@ -148,7 +148,7 @@ namespace OpenLiveWriter.Mshtml
                 //TODO: An exception gets thrown here when dragging or deleting images
                 //and causes the image behavior to completely break. Is this exception OK to ignore, or
                 //is there some protection logic we can put here?
-                //Debug.Fail("An exception occured during invalidate", e.ToString());
+                //Debug.Fail("An exception occurred during invalidate", e.ToString());
             }
         }
 

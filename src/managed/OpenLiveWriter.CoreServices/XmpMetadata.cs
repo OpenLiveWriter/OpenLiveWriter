@@ -137,7 +137,7 @@ namespace OpenLiveWriter.CoreServices
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("An error occured while loading XML metadata from image. The error was: " + ex.Message);
+                throw new ApplicationException("An error occurred while loading XML metadata from image. The error was: " + ex.Message);
             }
         }
 

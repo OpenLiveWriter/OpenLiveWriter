@@ -649,7 +649,7 @@ namespace OpenLiveWriter.Mshtml
 
         /// <summary>
         /// Internal utility for providing IE6-compatible focus events on IE 5.5.
-        /// his method keeps track of focus states and fires focus events if a focus change has occured.
+        /// his method keeps track of focus states and fires focus events if a focus change has occurred.
         /// </summary>
         internal void NotifyDocumentDisplayChanged()
         {

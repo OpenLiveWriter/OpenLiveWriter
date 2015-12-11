@@ -67,7 +67,7 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
             // WeblogConnectionErrorDisplayMessage
             //
             this.DefaultButton = System.Windows.Forms.MessageBoxDefaultButton.Button2;
-            this.Text = "An error occured while attempting to connect to your weblog:{0}{1}{0}You must cor" +
+            this.Text = "An error occurred while attempting to connect to your weblog:{0}{1}{0}You must cor" +
                 "rect this error before proceeding.";
             this.Title = "Error Connecting to Weblog";
             this.Type = DisplayMessageType.Warning;

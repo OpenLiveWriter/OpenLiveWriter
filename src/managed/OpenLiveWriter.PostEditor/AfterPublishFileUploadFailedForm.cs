@@ -90,7 +90,7 @@ namespace OpenLiveWriter.PostEditor
             this.labelCaption1.Name = "labelCaption1";
             this.labelCaption1.Size = new System.Drawing.Size(288, 40);
             this.labelCaption1.TabIndex = 1;
-            this.labelCaption1.Text = "The post was successfully published however an error occured while uploading supp" +
+            this.labelCaption1.Text = "The post was successfully published however an error occurred while uploading supp" +
                 "orting files:";
             //
             // pictureBox1

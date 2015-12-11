@@ -1353,6 +1353,6 @@ CopyrightInformation,Copyright Information,This is the string that will be read 
 ViewAll,View all,shows the full list of options
 SeeSolutionOnline,See the solution online,Dialog box that gives an error while signing in to Live ID. This string prompts user to go online to resolve the problem.
 CantSignIn,Can't sign in because an error occurred
-TheErrorOccuredBecause,The error occurred for the following reason:
+TheErrorOccurredBecause,The error occurred for the following reason:
 RetrySignin,"After you go through the solution, try signing in again."
 GenericLoginError,Unable to login to Live ID.

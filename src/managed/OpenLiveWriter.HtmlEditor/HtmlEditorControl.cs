@@ -361,7 +361,7 @@ namespace OpenLiveWriter.HtmlEditor
         private void InitDamageServices()
         {
             _damageServices = new HtmlEditorControlDamageServices(this, MshtmlEditor, CreateDamageCommitStrategy());
-            //_damageServices.DamageOccured += new DamageListener(new DamageTracer().HandleDamageOccured);
+            //_damageServices.DamageOccurred += new DamageListener(new DamageTracer().HandleDamageOccurred);
         }
 
         protected virtual DamageCommitStrategy CreateDamageCommitStrategy()
@@ -908,10 +908,10 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        public event DamageListener DamageOccured
+        public event DamageListener DamageOccurred
         {
-            add { _damageServices.DamageOccured += value; }
-            remove { _damageServices.DamageOccured -= value; }
+            add { _damageServices.DamageOccurred += value; }
+            remove { _damageServices.DamageOccurred -= value; }
         }
 
         /// <summary>
