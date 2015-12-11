@@ -109,8 +109,8 @@ namespace OpenLiveWriter.PostEditor
             this.labelCaption2.Name = "labelCaption2";
             this.labelCaption2.Size = new System.Drawing.Size(288, 64);
             this.labelCaption2.TabIndex = 3;
-            this.labelCaption2.Text = "Depending upon the nature of the error, you may be able to successfully publish t" +
-                "he supporting files by retrying. Alternatively, you may wish to delete the post " +
+            this.labelCaption2.Text = "Depending upon the nature of the error, you may be able to successfully publish " +
+                "the supporting files by retrying. Alternatively, you may wish to delete the post " +
                 "from your weblog.";
             //
             // textBoxDetails

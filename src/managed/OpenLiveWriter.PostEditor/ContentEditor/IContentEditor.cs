@@ -65,7 +65,7 @@ namespace OpenLiveWriter.PostEditor
         /// can later be passed into Load() to bring up the saved item
         /// </param>
         /// <param name="preserveDirty">
-        /// True if thethe dirty start should be saved(autosave), false
+        /// True if the dirty start should be saved(autosave), false
         /// if the dirty state should be set to false(normal save).
         /// </param>
         /// <returns>true if success</returns>
