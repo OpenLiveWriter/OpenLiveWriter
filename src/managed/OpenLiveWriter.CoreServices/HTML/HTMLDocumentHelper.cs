@@ -1483,7 +1483,7 @@ namespace OpenLiveWriter.CoreServices
 #endif
 
         /// <summary>
-        /// Flags that control how tag attribute mataching is performed when using getAttribute on an HTMLDOMNode
+        /// Flags that control how tag attribute matching is performed when using getAttribute on an HTMLDOMNode
         /// </summary>
         public struct HTMLAttributeFlags
         {
