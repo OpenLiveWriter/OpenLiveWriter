@@ -226,8 +226,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.labelDesc.Name = "labelDesc";
             this.labelDesc.Size = new System.Drawing.Size(320, 48);
             this.labelDesc.TabIndex = 4;
-            this.labelDesc.Text = "When you include images in your Weblog entries, they can be automatically uploade" +
-                "d when you post your entry. Please select how images should be uploaded:";
+            this.labelDesc.Text = "When you include images in your Weblog entries, they can be automatically " +
+                "uploaded when you post your entry. Please select how images should be uploaded:";
             //
             // radioButtonWeblog
             //
