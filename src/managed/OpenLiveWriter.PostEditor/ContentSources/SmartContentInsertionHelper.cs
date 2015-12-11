@@ -49,7 +49,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
                         if (RefreshableContentManager.ContentSourcesWithRefreshableContent.Contains(contentSourceId))
                         {
-                            IExtensionData extensionData = sourceContext.FindExtentsionData(newId);
+                            IExtensionData extensionData = sourceContext.FindExtensionData(newId);
                             Debug.Assert(extensionData != null);
 
                             // Since we just made a new id for the smart content just about to be inserted

@@ -3704,7 +3704,7 @@ namespace OpenLiveWriter.PostEditor
             return null;
         }
 
-        IExtensionData IContentSourceSidebarContext.FindExtentsionData(string contentId)
+        IExtensionData IContentSourceSidebarContext.FindExtensionData(string contentId)
         {
             return _extensionDataList.GetExtensionData(contentId);
         }

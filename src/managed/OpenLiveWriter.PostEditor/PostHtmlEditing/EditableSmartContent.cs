@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             ContentSourceManager.ParseContainingElementId(_smartContentElement.id, out _contentSourceId, out _smartContentId);
 
             _smartContent = _contentSourceContext.FindSmartContent(_smartContentId);
-            _extensionData = _contentSourceContext.FindExtentsionData(_smartContentId);
+            _extensionData = _contentSourceContext.FindExtensionData(_smartContentId);
 
             _properties = new EditableRootProperties();
             _layout = new EditableLayoutStyle();
