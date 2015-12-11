@@ -191,7 +191,7 @@ namespace OpenLiveWriter.Api
         /// the Size parameters passed to the OnResize methods refer to the size of this element rather than to
         /// the size of the entire SmartContent object.
         /// </summary>
-        public string ResizeableElementId
+        public string ResizableElementId
         {
             get { return _resizableElementId; }
             set { _resizableElementId = value; }

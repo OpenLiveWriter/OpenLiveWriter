@@ -626,7 +626,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _contentSource.OnResizeStart(content, resizeOptions);
 
             // determine the target size
-            IHTMLElement targetSizeElement = GetResizeTargetElement(resizeOptions.ResizeableElementId);
+            IHTMLElement targetSizeElement = GetResizeTargetElement(resizeOptions.ResizableElementId);
             _initialTargetSize = new Size(targetSizeElement.offsetWidth, targetSizeElement.offsetHeight);
             // Account for areas of the smart content that are not being scaled when preserving aspect ratio.
             // For example, in YouTube plugin, label text below the image.
