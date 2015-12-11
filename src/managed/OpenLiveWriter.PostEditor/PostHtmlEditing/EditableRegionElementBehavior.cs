@@ -768,7 +768,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     offsetBottom = marginBottom;
                 }
                 else
-                    throw new ArgumentException("Unnsupported ELEMENT_REGION: " + outerBoundary.ToString());
+                    throw new ArgumentException("Unsupported ELEMENT_REGION: " + outerBoundary.ToString());
 
                 Rectangle rect = new Rectangle(elementBounds.Location, elementBounds.Size);
                 rect.X += offsetX;
