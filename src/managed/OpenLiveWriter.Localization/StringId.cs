@@ -4904,7 +4904,7 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// Also check for pre-release (beta) &versions
         /// </summary>
-        UpdatesAvailableNofifyBeta,
+        UpdatesAvailableNotifyBeta,
         /// <summary>
         /// &Automatically check for updates
         /// </summary>

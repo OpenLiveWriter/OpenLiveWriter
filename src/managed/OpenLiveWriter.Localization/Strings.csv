@@ -1298,7 +1298,7 @@ UpdatesAvailableMessagePrerelease,"A new pre-release version of {0} is now avail
 UpdatesAvailableMessageFull,"A new version of {0} is now available. Click the download now button to download and install the update.",{0} will be replaced with the product name (i.e. Open Live Writer)
 UpdatesAvailableLink,"More information",
 UpdatesAvailableNotify,"&Automatically check for updates",
-UpdatesAvailableNofifyBeta,"Also check for pre-release (beta) &versions",
+UpdatesAvailableNotifyBeta,"Also check for pre-release (beta) &versions",
 UpdatesAvailableDownloadButton,&Download Now,Text displayed on download button
 UpdatesAvailableAskLaterButton,A&sk Me Later,Text displayed on ask me later button
 UpdatesAvailableNoUpdateTitle,No Updates Available,
