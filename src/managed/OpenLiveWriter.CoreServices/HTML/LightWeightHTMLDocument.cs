@@ -594,7 +594,7 @@ namespace OpenLiveWriter.CoreServices
         }
         private string _url;
 
-        public void AddSubstitionUrl(UrlToReplace urlToReplace)
+        public void AddSubstitutionUrl(UrlToReplace urlToReplace)
         {
             Generator.AddUrlToReplace(urlToReplace);
         }
@@ -630,7 +630,7 @@ namespace OpenLiveWriter.CoreServices
                         {
                             Attr src = tag.GetAttribute(HTMLTokens.Src);
                             if (src != null && src.Value != frameDoc.Url)
-                                Generator.AddSubstitionUrl(new UrlToReplace(src.Value, frameDoc.Url));
+                                Generator.AddSubstitutionUrl(new UrlToReplace(src.Value, frameDoc.Url));
                         }
                     }
                 }
