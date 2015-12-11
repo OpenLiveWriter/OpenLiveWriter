@@ -300,7 +300,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// If the date does not have a timezone designator then it will be presumed to be in the
         /// local time zone of this PC. This method is virtual so that for weblogs that produce
         /// undesignated date/time strings in some other timezone (like the timezone of the
-        /// hosting providor) subclasses can do whatever offset is appropriate.
+        /// hosting provider) subclasses can do whatever offset is appropriate.
         /// </summary>
         /// <param name="xmlNode"></param>
         /// <returns></returns>

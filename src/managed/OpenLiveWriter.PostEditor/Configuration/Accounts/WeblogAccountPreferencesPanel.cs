@@ -148,8 +148,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             this.checkBoxAllowAutoUpdate.Name = "checkBoxAllowAutoUpdate";
             this.checkBoxAllowAutoUpdate.Size = new System.Drawing.Size(320, 32);
             this.checkBoxAllowAutoUpdate.TabIndex = 0;
-            this.checkBoxAllowAutoUpdate.Text = "Automatically &update account information (categories, links, capabilities, and p" +
-                "rovider extensions)";
+            this.checkBoxAllowAutoUpdate.Text = "Automatically &update account information (categories, links, capabilities, and " +
+                "provider extensions)";
             this.checkBoxAllowAutoUpdate.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             //
             // checkBoxAllowProviderButtons
