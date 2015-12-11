@@ -432,7 +432,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             CommandManager.Add(new GroupCommand(CommandId.InsertImageSplit, CommandManager.Get(CommandId.InsertPictureFromFile)));
 
-            // WinLive 181138 - A targetted fix to ensure the InsertVideoSplit command is disabled if we don't support InsertVideo (e.g zh-CN doesn't support video)
+            // WinLive 181138 - A targeted fix to ensure the InsertVideoSplit command is disabled if we don't support InsertVideo (e.g zh-CN doesn't support video)
             // The problem is related to Windows 7 #712524 & #758433 and this is a work around for this particular case.
             // The dropdown commands for this (InsertVideoFromFile etc) are already disabled based on the feature support. We explicitly set the state of
             // group command here so that it has the right state to begin with (otherwise a switch tab/app is required to refresh).

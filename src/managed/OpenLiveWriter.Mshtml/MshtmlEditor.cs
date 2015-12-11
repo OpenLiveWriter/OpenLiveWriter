@@ -267,7 +267,7 @@ namespace OpenLiveWriter.Mshtml
                 catch (COMException ex)
                 {
                     // There is a bug in IE where the HR is incorrectly set for RESPECTVISIBILITY_INDESIGN, but
-                    // the value is correctly set.  It is targetted to be fixed in IE9
+                    // the value is correctly set.  It is targeted to be fixed in IE9
                     const int E_NOTSUPPORTED = unchecked((int)0x80040100);
                     if (ex.ErrorCode == E_NOTSUPPORTED && (uint)editingOption.Key == IDM.RESPECTVISIBILITY_INDESIGN)
                     {
