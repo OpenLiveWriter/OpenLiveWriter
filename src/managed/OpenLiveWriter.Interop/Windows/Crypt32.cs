@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Interop.Windows
     {
 
         /// <summary>
-        /// Encrypt a string into a byte array using the Windows Cryto API. This
+        /// Encrypt a string into a byte array using the Windows Crypto API. This
         /// method provides a high-level wrapper for the use of CryptProtectData
         /// </summary>
         /// <param name="str">string to encrypt</param>
@@ -162,7 +162,7 @@ namespace OpenLiveWriter.Interop.Windows
             );
 
         // <summary>
-        /// Unit test for cryto utility methods
+        /// Unit test for crypto utility methods
         /// </summary>
         [Obsolete]
         public static void TestCrypt()
@@ -212,7 +212,7 @@ namespace OpenLiveWriter.Interop.Windows
     }
 
     /// <summary>
-    /// Cryto data-blob
+    /// Crypto data-blob
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct DATA_BLOB
