@@ -329,30 +329,30 @@ namespace OpenLiveWriter.CoreServices
         static Regex badStartTag = new Regex(@"\<[a-z\!].*?(?:\>|$)", RegexOptions.IgnorePatternWhitespace | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
         static Regex requiresEndTag = new Regex(@"\b(a|b|blockquote|cite|code|div|dl|em|font|form|h[1-6]|i|ol|pre|select|span|strong|style|table|textarea|tt|ul)\b", RegexOptions.IgnorePatternWhitespace | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
 
-        private Regex _llegalTagTreeName;
+        private Regex _illegalTagTreeName;
         private Regex IllegalTagTreeName
         {
             get
             {
-                if (_llegalTagTreeName == null)
+                if (_illegalTagTreeName == null)
                 {
                     StringBuilder sb = new StringBuilder();
                     if (FlagIsSet(Flag.RemoveDocumentTags))
                         AppendRegexStringList(sb, ILLEGAL_DOCUMENT_TAG_TREE_NAMES);
 
-                    _llegalTagTreeName = CreateStringListRegex(sb.ToString());
+                    _illegalTagTreeName = CreateStringListRegex(sb.ToString());
                 }
-                return _llegalTagTreeName;
+                return _illegalTagTreeName;
             }
         }
         private string ILLEGAL_DOCUMENT_TAG_TREE_NAMES = "head";
 
-        private Regex _llegalTagName;
+        private Regex _illegalTagName;
         private Regex IllegalTagName
         {
             get
             {
-                if (_llegalTagName == null)
+                if (_illegalTagName == null)
                 {
                     StringBuilder sb = new StringBuilder();
                     if (FlagIsSet(Flag.RemoveScriptTags))
@@ -362,9 +362,9 @@ namespace OpenLiveWriter.CoreServices
                     if (FlagIsSet(Flag.RemoveDocumentTags))
                         AppendRegexStringList(sb, ILLEGAL_DOCUMENT_TAG_NAMES);
 
-                    _llegalTagName = CreateStringListRegex(sb.ToString());
+                    _illegalTagName = CreateStringListRegex(sb.ToString());
                 }
-                return _llegalTagName;
+                return _illegalTagName;
             }
         }
         private string ILLEGAL_SCRIPT_TAG_NAMES = "script";
