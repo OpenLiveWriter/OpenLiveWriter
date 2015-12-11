@@ -220,7 +220,7 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="html">HTML to load</param>
         public void LoadFromString(string html)
         {
-            // declare unmanged resources
+            // declare unmanaged resources
             IntPtr hHTML = IntPtr.Zero;
             IStream stream = null;
 
@@ -229,7 +229,7 @@ namespace OpenLiveWriter.Mshtml
                 // copy the string to an unmanaged global memory block
                 hHTML = Marshal.StringToHGlobalUni(html);
 
-                // get a stream interface to the unmanged memory block
+                // get a stream interface to the unmanaged memory block
                 int result = Ole32Storage.CreateStreamOnHGlobal(hHTML, 0, out stream);
                 if (result != HRESULT.S_OK)
                     throw new COMException("Unexpected failure to create html stream", result);

@@ -524,7 +524,7 @@ namespace OpenLiveWriter.CoreServices
                     byteCount++;
                 } while (b != 0 && byteCount < maxArraySize);
 
-                // allocate a byte array and copy the unmanged memory to it
+                // allocate a byte array and copy the unmanaged memory to it
                 byte[] bytes = new byte[byteCount];
                 Marshal.Copy(htmlBytes, bytes, 0, byteCount);
 
