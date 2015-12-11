@@ -236,7 +236,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             {
                 get
                 {
-                    // remove numonics
+                    // remove mnemonics
                     return _name;
                 }
             }
