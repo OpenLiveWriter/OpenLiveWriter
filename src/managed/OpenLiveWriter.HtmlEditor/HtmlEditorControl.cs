@@ -528,7 +528,7 @@ namespace OpenLiveWriter.HtmlEditor
                     break;
                 // WinLive 252760 - It is possible to create a selection on the screen that persists even when you
                 // create a new selection, navigate around, etc.  This phantom selection is not properly reflected
-                // in the various variable regarding selection range, but is corrected when the complete mshmtl
+                // in the various variable regarding selection range, but is corrected when the complete mshtml
                 // control is forced to refresh due to an invalidation. (Note: this bug was only listed for mail,
                 // but could also be reproed in writer using a slightly different situation)
                 case Keys.Up:

@@ -77,7 +77,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             tableHtml.Append("</tbody>\r\n");
             tableHtml.Append("</table>\r\n");
 
-            // if we have an mshml selection, save it before inserting (so we can locate the table after insert)
+            // if we have an mshtml selection, save it before inserting (so we can locate the table after insert)
             MarkupRange targetMarkupRange = null;
             if (insertingIntoMshtml)
             {

@@ -730,7 +730,7 @@ namespace OpenLiveWriter.Mshtml
             // MSHTML should always pass us a view
             if (pViewToActivate == null)
             {
-                Debug.Fail("MSHMTL should always pass us a view!");
+                Debug.Fail("MSHTML should always pass us a view!");
                 ComHelper.Return(HRESULT.E_FAILED);
             }
 
