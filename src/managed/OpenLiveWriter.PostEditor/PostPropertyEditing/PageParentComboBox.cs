@@ -106,7 +106,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         private object[] ConvertPageList(PageInfo[] pageList)
         {
-            // acculate available parents
+            // accumulate available parents
             Hashtable availableParents = new Hashtable();
             foreach (PageInfo page in pageList)
                 availableParents[page.Id] = null;
