@@ -396,7 +396,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                     int columnCount = row.cells.length;
                     if (tableColumnCount == -1)
                     {
-                        // initilize table column count if this is the first pass
+                        // initialize table column count if this is the first pass
                         tableColumnCount = columnCount;
                     }
                     else

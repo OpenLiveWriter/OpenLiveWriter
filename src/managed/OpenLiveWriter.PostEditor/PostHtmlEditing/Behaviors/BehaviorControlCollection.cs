@@ -44,7 +44,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         ///	Initializes a new instance of <see cref='OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors.BehaviorControlCollection'/> containing any array of <see cref='OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors.BehaviorControl'/> objects.
         /// </summary>
         /// <param name='value'>
-        /// A array of <see cref='OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors.BehaviorControl'/> objects with which to intialize the collection
+        /// A array of <see cref='OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors.BehaviorControl'/> objects with which to initialize the collection
         /// </param>
         public BehaviorControlCollection(BehaviorControl[] value)
         {

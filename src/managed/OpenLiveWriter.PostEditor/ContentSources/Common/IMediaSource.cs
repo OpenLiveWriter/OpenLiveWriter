@@ -28,7 +28,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         /// </summary>
         string Id { get; }
         /// <summary>
-        /// Initilizes the source with the current blog, a dialog it can use when it displays UI, and smart content
+        /// Initializes the source with the current blog, a dialog it can use when it displays UI, and smart content
         /// that is used to when editing the content
         /// </summary>
         /// <param name="media"></param>

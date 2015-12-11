@@ -318,7 +318,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
 
                             User32.SetParent(_panelImage.Handle, _hWndParent);
 
-                            //initalize the other sources
+                            //initialize the other sources
                             foreach (InsertImageSource source in imageSources)
                             {
                                 source.Init(_panelImage.Width, _panelImage.Height);

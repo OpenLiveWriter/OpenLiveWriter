@@ -26,7 +26,7 @@ namespace OpenLiveWriter.BrowserControl
     public class ExplorerBrowserControl : UserControl, IBrowserControl
     {
         /// <summary>
-        /// Intialize BrowserControl
+        /// Initialize BrowserControl
         /// </summary>
         public ExplorerBrowserControl()
         {

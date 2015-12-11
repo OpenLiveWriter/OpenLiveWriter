@@ -18,7 +18,7 @@ namespace OpenLiveWriter.CoreServices
     {
 
         /// <summary>
-        /// Intitialize the WindowSubclasser. To actually subclass the
+        /// Initialize the WindowSubclasser. To actually subclass the
         /// underlying control use the Install() and Remove() methods
         /// </summary>
         /// <param name="window">Control to subclass</param>

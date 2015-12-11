@@ -19,7 +19,7 @@ namespace OpenLiveWriter.PostEditor
     // @SharedCanvas - bring back default editing view
     // @SharedCanvas - when openning another post, the blogpostsupporting files are disposed with the old content in the editor
     //                 and then the blog is changed on the editor which causes the theme to reload.  This will mean
-    //                 scan and initilize images is run, which throw an exception because it can't find the file.
+    //                 scan and initialize images is run, which throw an exception because it can't find the file.
 
     /// <summary>
     /// WYSIWYG editor that can edit arbitrary HTML.

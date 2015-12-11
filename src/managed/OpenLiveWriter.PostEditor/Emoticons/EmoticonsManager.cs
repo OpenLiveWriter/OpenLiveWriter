@@ -256,7 +256,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
         /// </summary>
         private Uri CreateInlineImage(Emoticon emoticon)
         {
-            Debug.Assert(_imageEditingContext.ImageList != null && _imageEditingContext.SupportingFileService != null, "ImageEditingContext not initalized yet.");
+            Debug.Assert(_imageEditingContext.ImageList != null && _imageEditingContext.SupportingFileService != null, "ImageEditingContext not initialized yet.");
 
             Stream emoticonStream = StreamHelper.AsStream(ImageHelper.GetBitmapBytes(emoticon.Bitmap, ImageFormat.Png));
             ISupportingFile sourceFile = _imageEditingContext.SupportingFileService.CreateSupportingFile(emoticon.Id + emoticon.FileExtension, emoticonStream);
