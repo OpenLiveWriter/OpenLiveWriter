@@ -25,7 +25,7 @@ namespace OpenLiveWriter.CoreServices
             //support for bidi languages
             if (BidiHelper.IsRightToLeft)
             {
-                //this one is making the 3rd toolbar shorter/missing buttons and preventing the html editro from loading
+                //this one is making the 3rd toolbar shorter/missing buttons and preventing the html editor from loading
                 RightToLeft = RightToLeft.Yes;
                 RightToLeftLayout = true;
                 //the two of them together make the words in the status bar and start screen go backwards
