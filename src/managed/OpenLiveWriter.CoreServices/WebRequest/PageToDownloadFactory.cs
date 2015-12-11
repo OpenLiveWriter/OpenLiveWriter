@@ -327,7 +327,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Gets pagesToDownloadFactories for a set of pagesToDownload
         /// </summary>
-        /// <param name="pagesToDownload">The pagesToDownlaod to get factories for</param>
+        /// <param name="pagesToDownload">The pagesToDownload to get factories for</param>
         /// <param name="context">The context controlling the factories</param>
         /// <returns>An array of PageToDownloadFactories</returns>
         private string[] GetSubPagesToDownload(PageToDownload[] pagesToDownload, PageToDownload parentPage)

@@ -62,7 +62,7 @@ namespace OpenLiveWriter.CoreServices
         private string _pathToken;
 
         /// <summary>
-        /// The list of errors that occur during the downlaod (if throwOnFailure is false)
+        /// The list of errors that occur during the download (if throwOnFailure is false)
         /// </summary>
         public ArrayList Errors = ArrayList.Synchronized(new ArrayList());
 
