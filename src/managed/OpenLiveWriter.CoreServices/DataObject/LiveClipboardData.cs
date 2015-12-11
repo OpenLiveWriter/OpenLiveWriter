@@ -232,7 +232,7 @@ namespace OpenLiveWriter.CoreServices
 
         private LiveClipboardData(XmlDocument xmlDocument)
         {
-            // save a refrence to the document
+            // save a reference to the document
             _xmlDocument = xmlDocument;
 
             // create namespace manager

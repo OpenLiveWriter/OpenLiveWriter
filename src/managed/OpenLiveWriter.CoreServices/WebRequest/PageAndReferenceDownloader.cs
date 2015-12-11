@@ -228,7 +228,7 @@ namespace OpenLiveWriter.CoreServices
         /// Download a reference, providing progress
         /// </summary>
         /// <param name="reference">The reference to download</param>
-        /// <param name="fileStorage">The storage to download the refernce into</param>
+        /// <param name="fileStorage">The storage to download the reference into</param>
         /// <param name="progressHost">The progressHost to provide feedback to</param>
         private void DownloadReference(ReferenceToDownload reference, FileBasedSiteStorage fileStorage, IProgressHost progressHost)
         {

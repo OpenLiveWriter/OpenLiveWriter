@@ -158,7 +158,7 @@ namespace OpenLiveWriter.ApplicationFramework
         // handle painting
         protected override void OnPaint(PaintEventArgs e)
         {
-            // get refrence to graphics context
+            // get reference to graphics context
             Graphics g = e.Graphics;
 
             // fill background
