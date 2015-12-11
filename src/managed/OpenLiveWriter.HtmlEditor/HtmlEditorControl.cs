@@ -402,7 +402,7 @@ namespace OpenLiveWriter.HtmlEditor
                 if (mshtmlEditorDragAndDropTarget != null)
                     mshtmlEditorDragAndDropTarget.Dispose();
 
-                //initialize the drag drop targetting for this control
+                //initialize the drag drop targeting for this control
                 mshtmlEditorDragAndDropTarget = new MshtmlEditorDragAndDropTarget(this, _dataFormatHandlerFactory);
             }
         }
