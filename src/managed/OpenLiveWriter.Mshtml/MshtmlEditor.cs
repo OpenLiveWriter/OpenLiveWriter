@@ -204,7 +204,7 @@ namespace OpenLiveWriter.Mshtml
 
         private void AddEditDesigner()
         {
-            // NOTE: workaround for a bug in MshtmlControl where it caches the EditServices interface accross
+            // NOTE: workaround for a bug in MshtmlControl where it caches the EditServices interface across
             // multiple document loads -- if we could change the source we would just invalidate the ptr
             // after a load -- instead we just do the QueryService ourselves so we can get a different
             // pointer each time

@@ -40,7 +40,7 @@ namespace OpenLiveWriter.PostEditor
                 BlogPost blogPost = getPostThread.BlogPost;
                 if (blogPost != null)
                 {
-                    // Clone in case there are ever issues sharing these accross threads
+                    // Clone in case there are ever issues sharing these across threads
                     // (not aware of any right now)
                     return blogPost.Clone() as BlogPost;
                 }
