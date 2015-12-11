@@ -98,7 +98,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         /// <param name="clipFormat">Name of clipboard format requested</param>
         /// <param name="types">type(s) requested</param>
-        /// <returns>true if the subseqent call to GetData would likely be
+        /// <returns>true if the subsequent call to GetData would likely be
         /// successful, otherwise false</returns>
         public bool QueryGetData(string clipFormat, TYMED types)
         {
