@@ -172,7 +172,7 @@ namespace ImageManipulation
                     for (int col = 0; col < width; col++, pSourcePixel++, pDestinationPixel++)
                     {
                         // Check if this is the same as the last pixel. If so use that value
-                        // rather than calculating it again. This is an inexpensive optimisation.
+                        // rather than calculating it again. This is an inexpensive optimization.
                         if (*pPreviousPixel != *pSourcePixel)
                         {
                             // Quantize the pixel
