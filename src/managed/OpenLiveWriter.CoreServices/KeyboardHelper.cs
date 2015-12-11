@@ -320,7 +320,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Map the specified Shortcut value to a Keys value (note: this operation is a reverse
-        /// lookup in a hashtable so may be slighly expensive)
+        /// lookup in a hashtable so may be slightly expensive)
         /// </summary>
         /// <param name="shortcut">Shortcut value to map</param>
         /// <returns>Keys that the Shortcut maps to</returns>
