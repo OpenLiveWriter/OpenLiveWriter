@@ -216,7 +216,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                 EditorContext.DoDragDrop(dataObject, DragDropEffects.Move);
             }
 
-            // If the user dragged into a restrcited area(like an edit field) the markup range is destroyed
+            // If the user dragged into a restricted area(like an edit field) the markup range is destroyed
             // when we strip out the html, so dont try to select it
             IHTMLElement e = smartSelection.HTMLElement;
             if (e.sourceIndex < 0 || e.document == null || ((IHTMLDocument2)e.document).body == null)
