@@ -16,7 +16,7 @@ namespace OpenLiveWriter.CoreServices
     /// Summary description for mimeHelper.
     ///
     ///  Mime-types was originally defined in RFC 1341. After that a series of
-    ///  improvment has been made. Some of this can be found in RFC 1521
+    ///  improvement has been made. Some of this can be found in RFC 1521
     ///  and RFC 1522.
     /// </summary>
     public class MimeHelper
