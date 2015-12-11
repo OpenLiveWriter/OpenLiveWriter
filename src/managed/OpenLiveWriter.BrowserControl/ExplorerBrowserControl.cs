@@ -199,7 +199,7 @@ namespace OpenLiveWriter.BrowserControl
                 // verify that we are being called correctly
                 if (TextSizeSupported)
                 {
-                    // perepare Execute paramters
+                    // perepare Execute parameters
                     object input = value;
                     object output = null;
 
