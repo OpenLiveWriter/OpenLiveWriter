@@ -18,7 +18,7 @@ namespace OpenLiveWriter.ApplicationFramework
     {
         /* NOTE: When being shown in the context of the browser (or any non .NET
          * application) this form will not handle any dialog level keyboard
-         * commands (tab, enter, escape, alt-mnenonics, etc.). This is because
+         * commands (tab, enter, escape, alt-mnemonics, etc.). This is because
          * it is a modeless form that does not have its own thread/message-loop.
          * Because the form was created by our .NET code the main IE frame that
          * has the message loop has no idea it needs to route keyboard events'
