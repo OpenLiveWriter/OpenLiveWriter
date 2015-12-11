@@ -423,8 +423,8 @@ namespace OpenLiveWriter.PostEditor
             this.labelPluginDescription.Name = "labelPluginDescription";
             this.labelPluginDescription.Size = new System.Drawing.Size(241, 100);
             this.labelPluginDescription.TabIndex = 1;
-            this.labelPluginDescription.Text = "Publish videos to your weblog from YouTube, the leading free online video streami" +
-                "ng service.";
+            this.labelPluginDescription.Text = "Publish videos to your weblog from YouTube, the leading free online video " +
+                "streaming service.";
             //
             // radioButtonDisablePlugin
             //
