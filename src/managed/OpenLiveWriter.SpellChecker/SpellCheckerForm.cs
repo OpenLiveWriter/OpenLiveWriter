@@ -441,7 +441,7 @@ namespace OpenLiveWriter.SpellChecker
         /// <param name="e">event args</param>
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            // add this word to the user dictioanry
+            // add this word to the user dictionary
             spellingChecker.AddToUserDictionary(labelWord.Text);
 
             // continue spell checking
