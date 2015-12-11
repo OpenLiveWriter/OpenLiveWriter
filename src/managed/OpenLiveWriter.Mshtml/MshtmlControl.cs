@@ -1448,7 +1448,7 @@ namespace OpenLiveWriter.Mshtml
             // log access to method
             LOG("IDocHostShowUI", "ShowHelp");
 
-            // we handle help directly via the F1 keybaord hook so supress native help
+            // we handle help directly via the F1 keyboard hook so supress native help
             return HRESULT.S_OK;
         }
 
