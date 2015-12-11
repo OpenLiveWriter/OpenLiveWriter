@@ -142,7 +142,7 @@ namespace OpenLiveWriter.CoreServices
             // always returns ISO-8859-1 if the charset it not specified, although often the content has a different
             // encoding (which of course HttpWebResponse cannot know).
             // In real life however, in case of a missing charset definition in the HTTP header user agents look into
-            // the markup, and usully a meta tag can be found that contains the correct encoding, like "utf-8". To
+            // the markup, and usually a meta tag can be found that contains the correct encoding, like "utf-8". To
             // implement this pragmatic approach, it would IMHO be much more convenient if the CharacterSet would
             // default to an empty string, then you know, that the encoding is not specified and you need a workaround
             // to determine the correct encoding to use.
