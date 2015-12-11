@@ -784,7 +784,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             //	Clear the log.
             listViewLog.Items.Clear();
 
-            //	Reset the sequece number.
+            //	Reset the sequence number.
             lastEventIndex = firstEventIndex;
 
             LoadEntries();
@@ -817,7 +817,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                 //	Clear the log.
                 listViewLog.Items.Clear();
 
-                //	Reset the sequece number.
+                //	Reset the sequence number.
                 firstEventIndex = lastEventIndex = 0;
 
                 LoadEntries();
