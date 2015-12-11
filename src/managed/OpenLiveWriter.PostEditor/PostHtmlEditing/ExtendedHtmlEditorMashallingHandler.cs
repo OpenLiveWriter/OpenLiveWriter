@@ -75,7 +75,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                    new DelegateBasedDataFormatHandlerFactory(CreateInternalSmartContentFormatHandler, InternalSmartContentFormatHandler.CanCreateFrom ),
                 new DelegateBasedDataFormatHandlerFactory(CreateLiveClipboardContentSourceFormatHandler, LiveClipboardContentSourceFormatHandler.CanCreateFrom ),
                 new DelegateBasedDataFormatHandlerFactory(CreateLiveClipboardHtmlFormatHandler, LiveClipboardHtmlFormatHandler.CanCreateFrom ),
-                new DelegateBasedDataFormatHandlerFactory(CreateContentSourceUrlFormatHandler, UrlContentSourcelFormatHandler.CanCreateFrom),
+                new DelegateBasedDataFormatHandlerFactory(CreateContentSourceUrlFormatHandler, UrlContentSourceFormatHandler.CanCreateFrom),
                 new DelegateBasedDataFormatHandlerFactory(CreateUrlDataFormatHandler, CanCreateUrlFormatHandler),
                 new DelegateBasedDataFormatHandlerFactory(CreateImageOnlyHtmlDataFormatHandler, CanCreateImageOnlyHtmlFormatHandler),
                 new DelegateBasedDataFormatHandlerFactory(CreateImageFileFormatHandler, data => !_blogEditor.ShouldComposeHostHandlePhotos() && ImageFileFormatHandler.CanCreateFrom(data)),
@@ -121,7 +121,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         protected virtual DataFormatHandler CreateContentSourceUrlFormatHandler(DataObjectMeister dataMeister, DataFormatHandlerContext handlerContext)
         {
-            return new UrlContentSourcelFormatHandler(dataMeister, handlerContext, EditorContext, _insertionSite);
+            return new UrlContentSourceFormatHandler(dataMeister, handlerContext, EditorContext, _insertionSite);
         }
 
         protected virtual DataFormatHandler CreateImageFileFormatHandler(DataObjectMeister dataMeister, DataFormatHandlerContext handlerContext)
@@ -573,11 +573,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
     }
 
-    internal class UrlContentSourcelFormatHandler : UrlHandler
+    internal class UrlContentSourceFormatHandler : UrlHandler
     {
         IContentSourceSite _contentSourceSite;
 
-        public UrlContentSourcelFormatHandler(DataObjectMeister dataObject, DataFormatHandlerContext handlerContext, IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite)
+        public UrlContentSourceFormatHandler(DataObjectMeister dataObject, DataFormatHandlerContext handlerContext, IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite)
             : base(dataObject, handlerContext, editorContext)
         {
             _contentSourceSite = sourceSite;
