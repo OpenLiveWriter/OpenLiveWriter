@@ -1182,7 +1182,7 @@ namespace OpenLiveWriter.Mshtml
 
             // Currently we ignore this notification since our use of MSHTML
             // is to embed it as a UI component (rather than as the entire UI)
-            // In this case there is no reason to disaply it's status text.
+            // In this case there is no reason to display it's status text.
             // In the future we could expose a StatusText property and StatusTextChanged
             // event if users of the control wanted access to this.
         }
