@@ -83,7 +83,7 @@ namespace OpenLiveWriter.Controls
                 Close();
         }
 
-        protected void SetAnimatatedBitmapControl(AnimatedBitmapControl animatedBitmapControl)
+        protected void SetAnimatedBitmapControl(AnimatedBitmapControl animatedBitmapControl)
         {
             _animatedBitmapControl = animatedBitmapControl;
         }

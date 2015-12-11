@@ -35,7 +35,7 @@ namespace OpenLiveWriter.PostEditor.Video
             buttonCancelForm.Text = Res.Get(StringId.CancelButton);
             progressAnimatedBitmap.Bitmaps = AnimationBitmaps;
             progressAnimatedBitmap.Interval = 2000 / AnimationBitmaps.Length;
-            SetAnimatatedBitmapControl(progressAnimatedBitmap);
+            SetAnimatedBitmapControl(progressAnimatedBitmap);
 
         }
 
