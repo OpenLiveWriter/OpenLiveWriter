@@ -613,7 +613,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 35);
 
             // add settings downloading (note: this operation will be a no-op
-            // in the case where we don't succesfully detect a weblog)
+            // in the case where we don't successfully detect a weblog)
             AddProgressOperation(
                 new ProgressOperation(DetectWeblogSettings),
                 new ProgressOperationCompleted(DetectWeblogSettingsCompleted),
