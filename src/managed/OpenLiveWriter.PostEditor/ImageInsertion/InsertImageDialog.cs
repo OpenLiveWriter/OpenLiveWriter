@@ -398,7 +398,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
                             else if (code == CommonDlgNotification.FileOk)
                             {
                                 // update the image path (need to do this if the user selected
-                                // a file by simpliy typing in the filepath text box)
+                                // a file by simply typing in the filepath text box)
                                 UpdateChosenImage(true);
 
                                 // ok to insert
