@@ -112,7 +112,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Retrieve a Stream for the given path (Read or Write access can be specified)
         /// Stream.Close() should be called when you are finished using the Stream.
-        /// Imlementation of Open is deferred to subclasses.
+        /// Implementation of Open is deferred to subclasses.
         /// </summary>
         /// <param name="path">Hierarchical path designating stream location (uses "/" as
         /// path designator)</param>
@@ -162,7 +162,7 @@ namespace OpenLiveWriter.CoreServices
     public class FileListingComparer : IComparer
     {
         /// <summary>
-        /// Implemet Compare method
+        /// Implement Compare method
         /// </summary>
         /// <param name="x">left hand side</param>
         /// <param name="y">right hand side</param>

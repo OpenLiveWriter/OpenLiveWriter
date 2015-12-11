@@ -1191,7 +1191,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
 
         #endregion
 
-        #region Implemetation if IHTMLChangeSink
+        #region Implementation if IHTMLChangeSink
 
         /// <summary>
         /// Implement IHtmlChangeSink to get notified of changes to the document

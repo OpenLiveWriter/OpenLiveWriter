@@ -9,7 +9,7 @@ using Microsoft.Win32;
 namespace OpenLiveWriter.Interop.Com
 {
     /// <summary>
-    /// Helper functions for using and imlementing COM interfaces
+    /// Helper functions for using and implementing COM interfaces
     /// </summary>
     public class ComHelper
     {
