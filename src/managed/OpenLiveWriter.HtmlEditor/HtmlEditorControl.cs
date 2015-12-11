@@ -930,7 +930,7 @@ namespace OpenLiveWriter.HtmlEditor
                     //mouseUp if a dragdrop operation had been started by the editor.  To prevent
                     //the editor from hitting this condition, we hook the mouseMove event and eat
                     //it if the editor's selection state is invalid. This prevents the editor from
-                    //intiating a dragdrop while in an invalid selection state.
+                    //initiating a dragdrop while in an invalid selection state.
                     if ((Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left)
                     {
                         if (HasContiguousSelection && !IsValidContiguousSelection())
