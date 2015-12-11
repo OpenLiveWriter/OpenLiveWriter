@@ -273,7 +273,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         private readonly Bitmap miniFormBevelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.CommandBar.MiniFormBevel.png");
 
-        // layout and drawing contants
+        // layout and drawing constants
         private const int HEADER_INSET = 2;
         private const int HEADER_HEIGHT = 17;
         private const int HORIZONTAL_INSET = 10;

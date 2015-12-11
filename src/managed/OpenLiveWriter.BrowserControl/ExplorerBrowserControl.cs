@@ -859,7 +859,7 @@ namespace OpenLiveWriter.BrowserControl
         private void AxWebBrowser_CommandStateChange(
             object sender, DWebBrowserEvents2_CommandStateChangeEvent e)
         {
-            // constatns representing possible command state changes
+            // constants representing possible command state changes
             const int CSC_UPDATECOMMANDS = -1;
             const int CSC_NAVIGATEFORWARD = 1;
             const int CSC_NAVIGATEBACK = 2;
