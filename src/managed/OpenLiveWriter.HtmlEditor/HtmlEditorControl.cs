@@ -1047,7 +1047,7 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// Gets the bounding box of the element using all the childern of the control.  This is useful
+        /// Gets the bounding box of the element using all the children of the control.  This is useful
         /// for getting the bounding box that repersents the body because we artificially make the box larger
         /// to give the user a visual effect of a 'page' as one would see in Word.  However, the dead space below the last child
         /// can cause problems during click detection so this function will trim that off.
@@ -2238,7 +2238,7 @@ namespace OpenLiveWriter.HtmlEditor
 
             // The point that we are trying to move the caret to is directly in the PostBodyElement
             // When we find the size of the element, we use GetBodyBoundingBox which
-            // will determine the size of the element using the childern.  If the user clicks past the last
+            // will determine the size of the element using the children.  If the user clicks past the last
             // child element of the post body, calculating the size this will will result in the code path
             // that places at the last line of the body.  This is correct.  If we used the normal getBoundingClientRect
             // and the user clicked inside of the body but below the last line, the caret would move to the top

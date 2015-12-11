@@ -123,7 +123,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
 
             // Clear out any width on the overall smart content block, if the element is centered, we will add the width back in later
-            // after we calculate it from the childern, the current width value is stale.
+            // after we calculate it from the children, the current width value is stale.
             element.style.width = "";
 
             //Note: we use MarkupServices to insert the content so that IE doesn't try to fix up URLs.
@@ -155,10 +155,10 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                 MarkupContext mc = htmlRange.End.Right(false);
                 MarkupRange range = MarkupServices.CreateMarkupRange(mc.Element, false);
 
-                IHTMLElement[] childern = range.GetTopLevelElements(MarkupRange.FilterNone);
+                IHTMLElement[] children = range.GetTopLevelElements(MarkupRange.FilterNone);
 
                 int maxWidth = 0;
-                foreach (IHTMLElement child in childern)
+                foreach (IHTMLElement child in children)
                     maxWidth = Math.Max(maxWidth, child.offsetWidth);
 
                 if (maxWidth != 0)
