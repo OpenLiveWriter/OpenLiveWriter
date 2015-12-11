@@ -35,7 +35,7 @@ namespace OpenLiveWriter.Mshtml
         #region Initialization/Disposal
 
         /// <summary>
-        /// Construction. Some initialization is done here, the rest of the initialiation is
+        /// Construction. Some initialization is done here, the rest of the initialization is
         /// deferred until the document readyState is "complete"
         /// </summary>
         public MshtmlEditor(IServiceProviderRaw serviceProvider, MshtmlOptions mshtmlOptions, bool protectFocus)
