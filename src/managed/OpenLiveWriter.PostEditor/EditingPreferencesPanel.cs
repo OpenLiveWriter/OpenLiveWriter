@@ -201,11 +201,11 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxTypographic.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxTypographic.UseVisualStyleBackColor = true;
             //
-            // EditingPrefencesPanel
+            // EditingPreferencesPanel
             //
             this.AccessibleName = "Preferences";
             this.Controls.Add(this.groupBoxEditing);
-            this.Name = "EditingPrefencesPanel";
+            this.Name = "EditingPreferencesPanel";
             this.PanelName = "Preferences";
             this.Size = new System.Drawing.Size(370, 314);
             this.Controls.SetChildIndex(this.groupBoxEditing, 0);

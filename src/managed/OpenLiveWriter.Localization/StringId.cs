@@ -141,7 +141,7 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// Auto Replace
         /// </summary>
-        AutoreplacePrefererencesPanel,
+        AutoreplacePreferencesPanel,
         /// <summary>
         /// Replacement value:
         /// </summary>

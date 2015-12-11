@@ -1242,7 +1242,7 @@ GlossaryAutomaticallyLinkFirstTime,Li&nk to each term only once per post,
 GlossaryAutomaticLinkOptions,"Automatic linking options",
 GlossaryExampleTitle,"Open Live Writer site",This is used in the link glossary as the title of our example link- may not need to be localized
 AutoreplaceTypographic,Replace h&yphens (--) with dash (—),
-AutoreplacePrefererencesPanel,Auto Replace,"Currently not in use- do not localize"
+AutoreplacePreferencesPanel,Auto Replace,"Currently not in use- do not localize"
 AutoreplaceSmartQuotes,Replace "straight quotes" with “smart &quotes”,
 AutoreplaceOtherChars,Re&place other special characters,
 AutoreplaceFormTitle,Auto Replace,"Currently not in use- do not localize"

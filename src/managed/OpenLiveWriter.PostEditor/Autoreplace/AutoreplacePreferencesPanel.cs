@@ -16,7 +16,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         public AutoreplacePreferencesPanel()
         {
             InitializeComponent();
-            PanelName = Res.Get(StringId.AutoreplacePrefererencesPanel);
+            PanelName = Res.Get(StringId.AutoreplacePreferencesPanel);
             PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PreferencesAutoreplace.png");
             autoreplaceManagementControl1.Preferences = _autoreplacePreferences;
             _autoreplacePreferences.PreferencesModified += _autoreplacePreferences_PreferencesModified;
