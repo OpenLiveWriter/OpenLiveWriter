@@ -109,7 +109,7 @@ namespace OpenLiveWriter.Api
         /// <summary>
         /// Content sub-type handled by this content source. (corresponds to the
         /// type attribute of the &lt;lc:format&gt; tag). Optional (required only
-        /// for formats which require additional disambiguration of the contentType
+        /// for formats which require additional disambiguation of the contentType
         /// attribute).
         /// </summary>
         public string Type
