@@ -929,7 +929,7 @@ namespace OpenLiveWriter.BlogClient.Providers
 
         virtual public bool IsProviderForHomepageUrl(string homepageUrl)
         {
-            return IsMatch(HompepageUrlRegex, homepageUrl);
+            return IsMatch(HomepageUrlRegex, homepageUrl);
         }
 
         virtual public bool IsProviderForHomepageContent(string homepageContent)
@@ -1010,7 +1010,7 @@ namespace OpenLiveWriter.BlogClient.Providers
                 return regex.IsMatch(inputText);
         }
 
-        private Regex HompepageUrlRegex
+        private Regex HomepageUrlRegex
         {
             get
             {
