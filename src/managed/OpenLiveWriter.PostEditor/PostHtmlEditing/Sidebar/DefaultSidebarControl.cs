@@ -721,7 +721,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
             using ( Graphics g = Parent.CreateGraphics() )
             {
-                // deterine room occcupied by icon
+                // determine room occcupied by icon
                 const int ICON_PADDING = 2 ;
                 int iconWidth = 0 ;
                 if ( Image != null )
