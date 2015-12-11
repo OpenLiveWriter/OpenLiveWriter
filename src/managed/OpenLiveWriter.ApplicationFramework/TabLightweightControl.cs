@@ -68,12 +68,12 @@ namespace OpenLiveWriter.ApplicationFramework
         private bool drawSideAndBottomTabPageBorders = true;
 
         /// <summary>
-        /// A value indicating whether the tab selecter area is scrollable.
+        /// A value indicating whether the tab selector area is scrollable.
         /// </summary>
         private bool scrollableTabSelectorArea = false;
 
         /// <summary>
-        /// A value indicating whether the tab selecter area will allow tab text/bitmaps to be clipped.
+        /// A value indicating whether the tab selector area will allow tab text/bitmaps to be clipped.
         /// </summary>
         private bool allowTabClipping = false;
 
@@ -297,12 +297,12 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        ///	Gets or sets a value indicating whether the tab selecter area is scrollable.
+        ///	Gets or sets a value indicating whether the tab selector area is scrollable.
         /// </summary>
         [
             Category("Appearance"),
                 DefaultValue(false),
-                Description("Specifies whether whether whether the tab selecter area is scrollable.")
+                Description("Specifies whether whether whether the tab selector area is scrollable.")
         ]
         public bool ScrollableTabSelectorArea
         {
@@ -324,13 +324,13 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        ///	Gets or sets whether the tab selecter area will allow tab text/bitmaps to be clipped.
+        ///	Gets or sets whether the tab selector area will allow tab text/bitmaps to be clipped.
         /// If false, text or bitmaps will be dropped to shrink the tab size.
         /// </summary>
         [
             Category("Appearance"),
                 DefaultValue(false),
-                Description("Specifies whether whether whether the tab selecter area is scrollable.")
+                Description("Specifies whether whether whether the tab selector area is scrollable.")
         ]
         public bool AllowTabClipping
         {
