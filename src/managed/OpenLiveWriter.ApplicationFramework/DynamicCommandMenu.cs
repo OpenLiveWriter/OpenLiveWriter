@@ -85,7 +85,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 // add the command to our internal list
                 _commands.Add(command);
 
-                // add the command to the system command manaager
+                // add the command to the system command manager
                 Context.CommandManager.Add(command);
             }
 
