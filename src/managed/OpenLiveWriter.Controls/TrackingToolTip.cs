@@ -40,7 +40,7 @@ namespace OpenLiveWriter.Controls
         }
 
         /// <summary>
-        /// Set the location (in screen coordiantes) of the tooltip. This location will
+        /// Set the location (in screen coordinates) of the tooltip. This location will
         /// be reflected the next time the tooltip is shown
         /// </summary>
         public Point Location
@@ -209,7 +209,7 @@ namespace OpenLiveWriter.Controls
             private const int TTF_RTLREADING = 0x0004;
 
             /// <summary>
-            /// Set the location (in screen coordiantes) of the tooltip for the tool
+            /// Set the location (in screen coordinates) of the tooltip for the tool
             /// </summary>
             public Point Location
             {
