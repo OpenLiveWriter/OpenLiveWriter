@@ -92,7 +92,7 @@ namespace OpenLiveWriter.CoreServices
         private Thread monitorThread;
 
         /// <summary>
-        /// Initializesd the fixed set of monitor events.
+        /// Initializes the fixed set of monitor events.
         /// </summary>
         private void InitFixedMonitorEvents()
         {
