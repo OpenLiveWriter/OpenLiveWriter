@@ -1516,7 +1516,7 @@ namespace OpenLiveWriter.HtmlEditor
                 IHTMLElement tempElement = mc.Element;
 
                 // If we found something other then the tags
-                // used for defineing the font we have walked to far
+                // used for defining the font we have walked to far
                 if (tempElement.tagName != "FONT" &&
                     tempElement.tagName != "EM" &&
                     tempElement.tagName != "STRONG" &&
