@@ -2897,7 +2897,7 @@ namespace OpenLiveWriter.HtmlEditor
                 }
                 else
                 {
-                    //if this insn't wrapped in a <pre> tag, then use a textRange to insert the
+                    //if this isn't wrapped in a <pre> tag, then use a textRange to insert the
                     //text so that it will be padded with <BR> and &nbsp.
                     MarkupRange range = MarkupServices.CreateMarkupRange(start, end);
                     IHTMLTxtRange txtRange = range.ToTextRange();
