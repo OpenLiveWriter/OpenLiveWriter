@@ -241,7 +241,7 @@ namespace OpenLiveWriter.CoreServices
     /// <summary>
     /// Delegate used for filtering the manifest of a FileBasedSiteStorage.
     /// The name of the file will always be lower case to aid in case-
-    /// insensitive comparisions.
+    /// insensitive comparisons.
     /// (return true to include the file, otherwise return false)
     /// </summary>
     public delegate bool SiteStorageFileFilter(string fileRelativePath);
