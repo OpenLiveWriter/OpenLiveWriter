@@ -298,7 +298,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         internal const string INSTANCE_ID_DATAFORMAT = "OpenLiveWriterInstanceId";
 
         /// <summary>
-        /// Name of data format for moving around items internaly
+        /// Name of data format for moving around items internally
         /// </summary>
         internal const string INTERNAL_SMART_CONTENT_DATAFORMAT = "OpenLiveWriterInternalSmartContent";
     }
