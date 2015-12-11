@@ -10,7 +10,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 {
     /// <summary>
     /// Top Level exception handling delegate.
-    /// rovides conveniences for registering default handlers; RegisterWindowsHandler() for
+    /// provides conveniences for registering default handlers; RegisterWindowsHandler() for
     /// GUI apps, RegisterConsoleHandler()for non-GUI apps.
     /// </summary>
     public class UnexpectedErrorDelegate
