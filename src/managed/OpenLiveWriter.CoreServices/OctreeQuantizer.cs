@@ -132,7 +132,7 @@ namespace ImageManipulation
                 // Check if this request is for the same color as the last
                 if (_previousColor == pixel->ARGB)
                 {
-                    // If so, check if I have a previous node setup. This will only ocurr if the first color in the image
+                    // If so, check if I have a previous node setup. This will only occur if the first color in the image
                     // happens to be black, with an alpha component of zero.
                     if (null == _previousNode)
                     {

@@ -24,7 +24,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Files contained within the site. Path sub-directories
         /// are separated by the "/" character. The listing will start with the
-        /// RootFile and will then be ordered accoring to the FileListingComparer
+        /// RootFile and will then be ordered occurring to the FileListingComparer
         /// implementation of IComparer (standard recursive directory listing).
         /// </summary>
         ArrayList Manifest { get; }
