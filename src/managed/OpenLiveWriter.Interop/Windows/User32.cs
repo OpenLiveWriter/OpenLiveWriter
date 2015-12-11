@@ -571,7 +571,7 @@ namespace OpenLiveWriter.Interop.Windows
         }
 
         /////////////////////////////////////////////////////////////////////////////
-        /// Active Accessiblity API -- Available in Win98, Win2K, and WinXP
+        /// Active Accessibility API -- Available in Win98, Win2K, and WinXP
         /// (available as a redistributable component for Win95 and NT4/SP6)
         ///
 
@@ -1361,7 +1361,7 @@ namespace OpenLiveWriter.Interop.Windows
     }
 
     /// <summary>
-    /// Active Accessibilty event constants (note: only the constants we are
+    /// Active Accessibility event constants (note: only the constants we are
     /// currently using are defined -- there are many more available in Winuser.h)
     /// </summary>
     public enum EVENT_SYSTEM : uint
