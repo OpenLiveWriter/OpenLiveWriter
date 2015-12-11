@@ -879,7 +879,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                     //	Build the strings to be copied to the clipboard.
                     foreach (ListViewItem listViewItem in selectedListViewItemCollection)
                     {
-                        //	Append an extra line inbetween entries.
+                        //	Append an extra line in between entries.
                         if (stringBuilder.Length != 0)
                             stringBuilder.Append("\r\n");
 
