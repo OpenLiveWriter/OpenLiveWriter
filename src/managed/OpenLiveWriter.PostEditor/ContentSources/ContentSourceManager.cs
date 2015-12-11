@@ -1293,7 +1293,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         {
             get
             {
-                return String.Format(CultureInfo.CurrentCulture, "The Plugin {0} does not have the required attributes. Content source plugins must include the WriterPlugin attribute as well as one or more of the InsertableContentSource, UrlContentSource, or LiveClipbaordContentSource attributes.", _pluginType.Name);
+                return String.Format(CultureInfo.CurrentCulture, "The Plugin {0} does not have the required attributes. Content source plugins must include the WriterPlugin attribute as well as one or more of the InsertableContentSource, UrlContentSource, or LiveClipboardContentSource attributes.", _pluginType.Name);
             }
         }
 

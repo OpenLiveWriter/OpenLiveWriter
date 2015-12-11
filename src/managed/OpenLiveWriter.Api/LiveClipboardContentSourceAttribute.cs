@@ -88,7 +88,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// End-user presentable description of the data format handled by this ContentSource.
-        /// (used within the Live Clipbaord Preferences panel (Optional).
+        /// (used within the Live Clipboard Preferences panel (Optional).
         /// </summary>
         public string Description
         {
