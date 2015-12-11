@@ -206,7 +206,7 @@ namespace OpenLiveWriter.ApplicationFramework
                                             1,
                                             faceRectangle.Height - 1);
 
-                //	Draw the botom edge.
+                //	Draw the bottom edge.
                 e.Graphics.FillRectangle(solidBrush,
                                             faceRectangle.X,
                                             faceRectangle.Bottom - 1,

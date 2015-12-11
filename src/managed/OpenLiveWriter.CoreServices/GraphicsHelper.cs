@@ -354,7 +354,7 @@ namespace OpenLiveWriter.CoreServices
 
             if (HasArea(bottomRightRectangle))
             {
-                //	Botom right.
+                //	Bottom right.
                 graphics.DrawImage(image,
                                        new Rectangle(rectangle.Right - bottomRightRectangle.Width, rectangle.Bottom - bottomRightRectangle.Height, bottomRightRectangle.Width, bottomRightRectangle.Height),
                                        bottomRightRectangle,
