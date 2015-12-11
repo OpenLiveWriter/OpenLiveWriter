@@ -521,7 +521,7 @@ namespace OpenLiveWriter.PostEditor
         }
 
         /// <summary>
-        /// Clear the currnet post (does not prompt to save changes)
+        /// Clear the current post (does not prompt to save changes)
         /// </summary>
         public void ClearPost()
         {
