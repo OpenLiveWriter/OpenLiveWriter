@@ -1652,11 +1652,11 @@ namespace OpenLiveWriter.PostEditor
         /// <param name="action"></param>
         private void WithRibbonSettingsIStream(bool create, bool writable, bool onlyIfChanged, WithIStreamAction action)
         {
-            // Re-entrancy check
-            // We could have re-entrancy while loading/saving the settings because of CLR/COM pumping messages
+            // Reentrancy check
+            // We could have reentrancy while loading/saving the settings because of CLR/COM pumping messages
             // while pinvoking and marshalling interface pointers.
             // If we are already in the process of saving/loading, then we can't do this action.
-            // There is no user bad of skipping this in case of re-entrancy for the following reasons:
+            // There is no user bad of skipping this in case of reentrancy for the following reasons:
             //  - If this is a Load and the one before is a Save, then we can skip this since we haven't finished saving to load anything.
             //  - And vice-versa.
             if (_ribbonSettingsLoadSaveActive)
@@ -1666,7 +1666,7 @@ namespace OpenLiveWriter.PostEditor
 
             try
             {
-                // Flag this to prevent us from shooting ourselves on the foot in case of re-entrancy
+                // Flag this to prevent us from shooting ourselves on the foot in case of reentrancy
                 _ribbonSettingsLoadSaveActive = true;
 
                 string ribbonFile = Path.Combine(ApplicationEnvironment.ApplicationDataDirectory, "Ribbon.dat");
