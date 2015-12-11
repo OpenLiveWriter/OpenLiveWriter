@@ -273,7 +273,7 @@ namespace OpenLiveWriter.CoreServices
                     }
                 }
 
-                // didin't find a feed
+                // didn't find a feed
                 return false;
             }
             catch (Exception e)
