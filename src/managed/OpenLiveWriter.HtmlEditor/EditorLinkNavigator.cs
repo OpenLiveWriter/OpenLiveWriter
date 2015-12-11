@@ -383,7 +383,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
             catch (Exception ex)
             {
-                // eat exceptions that occur in here (bizzare timing bugs can occur w/ drag and
+                // eat exceptions that occur in here (bizarre timing bugs can occur w/ drag and
                 // drop of images -- this is harmless and the user shouldn't be burdened with
                 // an error message
                 Debug.Fail("Unexpected error during tool tip delay timer: " + ex.ToString());
