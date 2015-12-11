@@ -292,7 +292,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         /// <summary>
         /// Any setting that is derived from the homepage html needs to be in this function.  This function is turned
-        /// on and off when detecting blog seetings through the IncludeHomePageSettings.  None of these checks will be run
+        /// on and off when detecting blog settings through the IncludeHomePageSettings.  None of these checks will be run
         /// if the internet is not active.  As each check is made, it does not need to be applied back the _content until the end
         /// at which time it will write the settings back to the registry.
         /// </summary>
