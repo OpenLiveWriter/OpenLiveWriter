@@ -389,7 +389,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Provides data to the client as it becomes available during asynchronous bind operations.
         /// </summary>
-        void IBindStatusCallback.OnDataAvailable(BSCF grfBSCF, uint dwSize, ref FORMATETC pformatetc, ref STGMEDIUM pstgmed)
+        void IBindStatusCallback.OnDataAvailable(BSCF grfBSCF, uint dwSize, ref FORMATETC pformatetc, ref STGMEDIUM pStgmed)
         {
             // never called by URLDownloadToFile
             LOG_UN("IBindStatusCallback", "OnDataAvailable");
