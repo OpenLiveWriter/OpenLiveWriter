@@ -12,7 +12,7 @@ using OpenLiveWriter.Interop.Com.Ribbon;
 namespace OpenLiveWriter.PostEditor
 {
     // @SharedCanvas - Mail should save to file outside of the draft
-    // @SharedCanvas - Block off forwared/replied code?
+    // @SharedCanvas - Block off forwarded/replied code?
     // @SharedCanvas - Dont scan+init images in replies/forward
     // @SharedCanvas - Spell checking in plain text
     // @SharedCanvas - title should be decided by the editing context
