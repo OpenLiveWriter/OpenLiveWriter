@@ -1056,7 +1056,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 // set the value
                 commandBarButtonBitmapEnabled = value;
 
-                // since other command bar states can be auto-derivied from enabled we
+                // since other command bar states can be auto-derived from enabled we
                 // need to null them out so they can be updated
                 commandBarButtonBitmapSelected = null;
                 commandBarButtonBitmapPushed = null;
