@@ -305,7 +305,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Determines whether any element of an array satisifies a condition.
+        /// Determines whether any element of an array satisfies a condition.
         /// </summary>
         /// <param name="array">The array to test.</param>
         /// <param name="predicate">A function to test each element for a condition.</param>
