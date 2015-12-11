@@ -366,10 +366,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return _fullImageSize;
         }
 
-        private bool ImageSizeNameMatches(ImageSizeName sizeName, Size orginalSize, Size currentSize)
+        private bool ImageSizeNameMatches(ImageSizeName sizeName, Size originalSize, Size currentSize)
         {
             Size constrainedSize = ImageSizeHelper.GetSizeConstraints(sizeName);
-            return currentSize == ImageUtils.GetScaledImageSize(constrainedSize.Width, constrainedSize.Height, orginalSize);
+            return currentSize == ImageUtils.GetScaledImageSize(constrainedSize.Width, constrainedSize.Height, originalSize);
         }
 
         public event EventHandler ImageSizeChanged;
