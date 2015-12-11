@@ -79,7 +79,7 @@ namespace OpenLiveWriter.Controls
         /// Disable the FlatStyle property and force it to be standard.
         /// </summary>
         [
-            Category("Appearence")
+            Category("Appearance")
         ]
         public bool MultiLine
         {
