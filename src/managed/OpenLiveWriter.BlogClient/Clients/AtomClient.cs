@@ -723,7 +723,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return HttpRequestCredentialsFilter.Create(tc.Username, tc.Password, requestUri, true);
         }
 
-        public virtual string AddCategory(string blogId, BlogPostCategory categohowry)
+        public virtual string AddCategory(string blogId, BlogPostCategory category)
         {
             throw new BlogClientMethodUnsupportedException("AddCategory");
         }
