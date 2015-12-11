@@ -9,14 +9,14 @@ namespace OpenLiveWriter.PostEditor.Commands
     /// <summary>
     /// Summary description for CommandClose.
     /// </summary>
-    public class CommandUseTemplateForEditting : Command
+    public class CommandUseTemplateForEditing : Command
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
 
-        public CommandUseTemplateForEditting(IContainer container)
+        public CommandUseTemplateForEditing(IContainer container)
         {
             ///
             /// Required for Windows.Forms Class Composition Designer support
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             //
         }
 
-        public CommandUseTemplateForEditting()
+        public CommandUseTemplateForEditing()
         {
             ///
             /// Required for Windows.Forms Class Composition Designer support
@@ -51,7 +51,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             // CommandConfigureWeblog
             //
             this.ContextMenuPath = "Author in Weblog &Style@60";
-            this.Identifier = "OpenLiveWriter.PostEditor.Commands.UseTemplateForEditting";
+            this.Identifier = "OpenLiveWriter.PostEditor.Commands.UseTemplateForEditing";
             this.MainMenuPath = "&Weblog@7/Author in Weblog &Style-@60";
             this.MenuText = "Author in Weblog &Style";
 
