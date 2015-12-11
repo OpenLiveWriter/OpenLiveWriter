@@ -90,7 +90,7 @@ namespace OpenLiveWriter.Api
         /// <summary>
         /// Create a new SmartContentEditor for this ContentSource. The SmartContentEditor is the control
         /// that appears in the Sidebar whenever a SmartContent object created by this content source
-        /// is selected within the PostEditor. This method must be overriden by all subclasses of SmartContentSource.
+        /// is selected within the PostEditor. This method must be overridden by all subclasses of SmartContentSource.
         /// </summary>
         /// <param name="editorSite">Interface to the SmartContentEditor's site.</param>
         /// <returns>A new instance of a class derived from SmartContentEditor.</returns>
@@ -171,7 +171,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Update the appearance of the smart content object in realtime as the user resizes the object. If this
-        /// flag is specified then the OnResizing method should be overriden to update the state of the ISmartContent
+        /// flag is specified then the OnResizing method should be overridden to update the state of the ISmartContent
         /// object as resizing occurs. The editor will first call this method and then call the GenerateEditorHtml
         /// method to update the display as the user resizes.
         /// </summary>

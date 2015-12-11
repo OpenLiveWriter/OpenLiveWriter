@@ -178,7 +178,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         protected virtual void BeforeHttpRequest(HttpWebRequest request)
         {
             // WARNING: Derived classes do not currently make it a practice to call this method
-            //          so don't count on the code executing if the method is overriden!
+            //          so don't count on the code executing if the method is overridden!
         }
 
         public virtual BlogPostCategory[] SuggestCategories(string blogId, string partialCategoryName)
