@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         /// </summary>
         string ServiceName { get; }
         /// <summary>
-        /// An ID that can be used to identifiy the service.
+        /// An ID that can be used to identify the service.
         /// </summary>
         string Id { get; }
         /// <summary>
