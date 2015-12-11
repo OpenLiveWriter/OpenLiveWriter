@@ -22,7 +22,7 @@ namespace OpenLiveWriter.Interop.Windows
         /// <param name="description">categorical description of item being encrypted</param>
         /// <param name="dwFlags">flags (see API docs for CryptProtectData)</param>
         /// <param name="promptText">text to prompt the user with when the data is being encrypted (null for no prompt)</param>
-        /// <returns>byte array containing encrtyped version of string</returns>
+        /// <returns>byte array containing encrypted version of string</returns>
         [Obsolete("Use CryptHelper")]
         unsafe public static byte[] CryptProtectString(
             string str, string description, uint dwFlags, string promptText)
@@ -59,11 +59,11 @@ namespace OpenLiveWriter.Interop.Windows
                         dwFlags,            // flags
                         ref dataOut))
                     {
-                        throw new Win32Exception(Marshal.GetLastWin32Error(), "Error encryting " + description);
+                        throw new Win32Exception(Marshal.GetLastWin32Error(), "Error encrypting " + description);
                     }
                 }
 
-                // return the encrtyped data as a managed byte-array
+                // return the encrypted data as a managed byte-array
                 byte[] encryptedData = new byte[dataOut.cbData];
                 Marshal.Copy(dataOut.pbData, encryptedData, 0, (int)dataOut.cbData);
                 return encryptedData;
@@ -76,11 +76,11 @@ namespace OpenLiveWriter.Interop.Windows
         }
 
         /// <summary>
-        /// Decrypt a string previously encrtyped into a byte array with CryptProtectString.
+        /// Decrypt a string previously encrypted into a byte array with CryptProtectString.
         /// This method provides a high-level wrapper for the use of CryptUnprotectData.
         /// </summary>
-        /// <param name="encryptedStr">byte array containing the encrtyped string</param>
-        /// <param name="description">out parameter for the description of the encrtyped item</param>
+        /// <param name="encryptedStr">byte array containing the encrypted string</param>
+        /// <param name="description">out parameter for the description of the encrypted item</param>
         /// <param name="flags">flags (see API docs for CryptUnprotectData)</param>
         /// <param name="promptText">text to prompt user with (null for no prompt)</param>
         /// <returns>decrypted value of string</returns>
@@ -107,13 +107,13 @@ namespace OpenLiveWriter.Interop.Windows
                 fixed (byte* data = encryptedStr)
                 {
                     // encrypted data
-                    DATA_BLOB encrtypedData = new DATA_BLOB();
-                    encrtypedData.cbData = (uint)encryptedStr.Length;
-                    encrtypedData.pbData = new IntPtr(data);
+                    DATA_BLOB encryptedData = new DATA_BLOB();
+                    encryptedData.cbData = (uint)encryptedStr.Length;
+                    encryptedData.pbData = new IntPtr(data);
 
                     // unencrypt
                     if (!CryptUnprotectData(
-                        ref encrtypedData,
+                        ref encryptedData,
                         out dataDescription,
                         IntPtr.Zero,
                         IntPtr.Zero,
@@ -172,11 +172,11 @@ namespace OpenLiveWriter.Interop.Windows
             string data = "TestData";
 
             // encrypt data
-            byte[] encrtypedData = CryptProtectString(data, description, 0, null);
+            byte[] encryptedData = CryptProtectString(data, description, 0, null);
 
             // decrypt data
             string extractedDescription;
-            string decryptedData = CryptUnprotectString(encrtypedData, out extractedDescription, 0, null);
+            string decryptedData = CryptUnprotectString(encryptedData, out extractedDescription, 0, null);
 
             // verify results
             Debug.Assert(description == extractedDescription);
