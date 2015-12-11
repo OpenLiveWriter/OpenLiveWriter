@@ -11,7 +11,7 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
-    /// General purpose implementation of an Ole DataObject that accepts arbirary
+    /// General purpose implementation of an Ole DataObject that accepts arbitrary
     /// binary data (the .NET IDataObject implementation does not allow you to pass
     /// arbitrary binary data so if you want to do this you need a class like this).
     /// This implementation does not support advise sinks.
