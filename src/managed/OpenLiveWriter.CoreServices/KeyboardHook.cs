@@ -131,7 +131,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Delegate for KeyboardProc (hold on to a reference to it so that it
-        /// isn't garbarge collected)
+        /// isn't garbage collected)
         /// </summary>
         private User32.HookDelegate m_hookDelegate;
     }
