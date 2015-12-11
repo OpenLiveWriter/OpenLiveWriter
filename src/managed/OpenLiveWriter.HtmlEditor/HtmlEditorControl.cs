@@ -2239,7 +2239,7 @@ namespace OpenLiveWriter.HtmlEditor
             // The point that we are trying to move the caret to is directly in the PostBodyElement
             // When we find the size of the element, we use GetBodyBoundingBox which
             // will determine the size of the element using the childern.  If the user clicks past the last
-            // child element of the post body, calcuating the size this will will result in the code path
+            // child element of the post body, calculating the size this will will result in the code path
             // that places at the last line of the body.  This is correct.  If we used the normal getBoundingClientRect
             // and the user clicked inside of the body but below the last line, the caret would move to the top
             // left corner of the post body which is not what users would expect.
