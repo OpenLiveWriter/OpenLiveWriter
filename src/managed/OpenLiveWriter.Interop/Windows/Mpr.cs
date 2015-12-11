@@ -56,7 +56,7 @@ namespace OpenLiveWriter.Interop.Windows
                 {
                     Debug.Assert( bufferSize > oldBufferSize ) ;
 
-                    // more data avilable....
+                    // more data available....
                     return GetUniversalName(path,bufferSize);
                 }
                 else
