@@ -68,7 +68,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Generates the list of pages to download, providing progress.  The operation
-        /// can be very time consuming, particularly if the context specifies creating mulitiple
+        /// can be very time consuming, particularly if the context specifies creating multiple
         /// levels of pagesToDownload
         /// </summary>
         /// <param name="progressHost">The progress host to use to provide feedback</param>
