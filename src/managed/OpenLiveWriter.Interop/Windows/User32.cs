@@ -1471,7 +1471,7 @@ namespace OpenLiveWriter.Interop.Windows
         public ushort wCreatorVersion;
     }
 
-    //for commong dialogs
+    //for common dialogs
     /// <summary>
     /// See the documentation for OPENFILENAME
     /// </summary>
