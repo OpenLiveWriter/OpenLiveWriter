@@ -461,7 +461,7 @@ namespace OpenLiveWriter.BrowserControl
 
         /// <summary>
         /// Event that fires when a download operation is completed. Applications should
-        /// use this event to update thier visual 'busy' indicator.
+        /// use this event to update their visual 'busy' indicator.
         /// </summary>
         public event EventHandler DownloadComplete;
 

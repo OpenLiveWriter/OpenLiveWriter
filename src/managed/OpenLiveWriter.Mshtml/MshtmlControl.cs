@@ -1005,7 +1005,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Not used by document objects (thier RECT always occupies the whole window)
+        /// Not used by document objects (their RECT always occupies the whole window)
         /// </summary>
         /// <param name="lprcPosRect"></param>
         public void OnPosRectChange(ref RECT lprcPosRect)
