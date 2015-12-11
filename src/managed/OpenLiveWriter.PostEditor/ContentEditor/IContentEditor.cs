@@ -84,7 +84,7 @@ namespace OpenLiveWriter.PostEditor
         string Publish(IPublishOperation imageConverter);
 
         /// <summary>
-        /// Gets an IHTMLDocument2 that repersents the whole document
+        /// Gets an IHTMLDocument2 that represents the whole document
         /// where images are still pointing to local files on disk.
         /// </summary>
         /// <returns></returns>

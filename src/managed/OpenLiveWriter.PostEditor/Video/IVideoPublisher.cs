@@ -28,7 +28,7 @@ namespace OpenLiveWriter.PostEditor.Video
         /// <param name="description">A description of the video according to the user</param>
         /// <param name="tags">A comma seperated list of tags the user wants to apply to the video.</param>
         /// <param name="categoryId">The Id of the CategoryItem which was selected by the user</param>
-        /// <param name="permissionValue">A string to repersent the type of permission the user wants to have on the video.</param>
+        /// <param name="permissionValue">A string to represent the type of permission the user wants to have on the video.</param>
         /// <param name="error">
         /// If this is a string that string will be shown on a error message box if null is returned.  If it is "" then a generic error
         /// will be shown.  If it is null, no error will be shown.
