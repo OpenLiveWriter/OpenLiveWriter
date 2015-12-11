@@ -222,7 +222,7 @@ namespace ImageManipulation
         /// <summary>
         /// Retrieve the palette for the quantized image
         /// </summary>
-        /// <param name="original">Any old palette, this is overrwritten</param>
+        /// <param name="original">Any old palette, this is overwritten</param>
         /// <returns>The new color palette</returns>
         protected abstract ColorPalette GetPalette(ColorPalette original);
 
