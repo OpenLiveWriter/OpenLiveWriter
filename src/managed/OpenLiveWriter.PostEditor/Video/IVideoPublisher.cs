@@ -26,7 +26,7 @@ namespace OpenLiveWriter.PostEditor.Video
         /// </summary>
         /// <param name="title">The title of the video according to the user.</param>
         /// <param name="description">A description of the video according to the user</param>
-        /// <param name="tags">A comma seperated list of tags the user wants to apply to the video.</param>
+        /// <param name="tags">A comma separated list of tags the user wants to apply to the video.</param>
         /// <param name="categoryId">The Id of the CategoryItem which was selected by the user</param>
         /// <param name="permissionValue">A string to represent the type of permission the user wants to have on the video.</param>
         /// <param name="error">

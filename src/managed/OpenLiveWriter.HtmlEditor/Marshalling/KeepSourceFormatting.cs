@@ -443,7 +443,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // 2.  CSS 2.1
             // -----------
 
-            // Can't copy to inlineStyle.background directly, so we'll do each background style seperately.
+            // Can't copy to inlineStyle.background directly, so we'll do each background style separately.
 
             if (String.Compare(destinationCascadedStyle.backgroundAttachment, sourceCascadedStyle.backgroundAttachment, StringComparison.OrdinalIgnoreCase) != 0)
             {
@@ -464,7 +464,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.backgroundImage = sourceCascadedStyle.backgroundImage;
             }
 
-            // Can't copy to inlineStyle.backgroundPosition directly, so we'll do each backgroundPosition style seperately.
+            // Can't copy to inlineStyle.backgroundPosition directly, so we'll do each backgroundPosition style separately.
 
             // We check if the destination already has an inline style specified using em units because we'll be
             // removing the font-size property which will cause the calculated size to change. Therefore we need to
@@ -496,14 +496,14 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.backgroundRepeat = sourceCascadedStyle.backgroundRepeat;
             }
 
-            // Can't copy to inlineStyle.border directly, so we'll do each border style seperately.
+            // Can't copy to inlineStyle.border directly, so we'll do each border style separately.
 
             if (String.Compare(destinationCascadedStyle.borderCollapse, sourceCascadedStyle.borderCollapse, StringComparison.OrdinalIgnoreCase) != 0)
             {
                 destinationInlineStyle2.borderCollapse = sourceCascadedStyle.borderCollapse;
             }
 
-            // Can't copy to inlineStyle.borderColor directly, so we'll do each borderColor style seperately.
+            // Can't copy to inlineStyle.borderColor directly, so we'll do each borderColor style separately.
 
             if (isAtLeastIE8)
             {
@@ -520,9 +520,9 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 }
             }
 
-            // Can't copy to inlineStyle.borderStyle directly, so we'll do each borderStyle style seperately.
-            // Can't copy to inlineStyle.borderWidth directly, so we'll do each borderWidth style seperately.
-            // Can't copy to inlineStyle.borderBottom directly, so we'll do each borderBottom style seperately.
+            // Can't copy to inlineStyle.borderStyle directly, so we'll do each borderStyle style separately.
+            // Can't copy to inlineStyle.borderWidth directly, so we'll do each borderWidth style separately.
+            // Can't copy to inlineStyle.borderBottom directly, so we'll do each borderBottom style separately.
 
             // Optimization: only copy over the color if there is actually a border.
             if (String.Compare(destinationCascadedStyle.borderBottomColor as string, sourceCascadedStyle.borderBottomColor as string, StringComparison.OrdinalIgnoreCase) != 0 &&
@@ -549,7 +549,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.borderBottomWidth = sourceCascadedStyle.borderBottomWidth;
             }
 
-            // Can't copy to inlineStyle.borderLeft directly, so we'll do each borderLeft style seperately.
+            // Can't copy to inlineStyle.borderLeft directly, so we'll do each borderLeft style separately.
 
             // Optimization: only copy over the color if there is actually a border.
             if (String.Compare(destinationCascadedStyle.borderLeftColor as string, sourceCascadedStyle.borderLeftColor as string, StringComparison.OrdinalIgnoreCase) != 0 &&
@@ -576,7 +576,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.borderLeftWidth = sourceCascadedStyle.borderLeftWidth;
             }
 
-            // Can't copy to inlineStyle.borderRight directly, so we'll do each borderRight style seperately.
+            // Can't copy to inlineStyle.borderRight directly, so we'll do each borderRight style separately.
 
             // Optimization: only copy over the color if there is actually a border.
             if (String.Compare(destinationCascadedStyle.borderRightColor as string, sourceCascadedStyle.borderRightColor as string, StringComparison.OrdinalIgnoreCase) != 0 &&
@@ -603,7 +603,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.borderRightWidth = sourceCascadedStyle.borderRightWidth;
             }
 
-            // Can't copy to inlineStyle.borderTop directly, so we'll do each borderTop style seperately.
+            // Can't copy to inlineStyle.borderTop directly, so we'll do each borderTop style separately.
 
             // Optimization: only copy over the color if there is actually a border.
             if (String.Compare(destinationCascadedStyle.borderTopColor as string, sourceCascadedStyle.borderTopColor as string, StringComparison.OrdinalIgnoreCase) != 0 &&
@@ -630,7 +630,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.borderTopWidth = sourceCascadedStyle.borderTopWidth;
             }
 
-            // Can't copy to inlineStyle.borderTop directly, so we'll do each borderTop style seperately.
+            // Can't copy to inlineStyle.borderTop directly, so we'll do each borderTop style separately.
 
             if (IsEms(sourceCascadedStyle.bottom as string))
             {
@@ -656,7 +656,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.clear = sourceCascadedStyle.clear;
             }
 
-            // Can't copy to inlineStyle.clip directly, so we'll do each clip style seperately.
+            // Can't copy to inlineStyle.clip directly, so we'll do each clip style separately.
 
             string clipTop = sourceCascadedStyle.clipTop as string;
             string clipRight = sourceCascadedStyle.clipRight as string;
@@ -700,7 +700,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.clip = String.Format(CultureInfo.InvariantCulture, "rect({0} {1} {2} {3})", clipTop, clipRight, clipBottom, clipLeft);
             }
 
-            // We don't want to copy over color as it be handled seperately.
+            // We don't want to copy over color as it be handled separately.
 
             // The content, counterIncrement and counterReset properties will have already been generated by the time
             // we paste, so we don't do anything with them.
@@ -734,7 +734,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             }
 
             // We don't want to copy over font, fontFamily, fontSize, fontStyle, fontVariant or fontWeight as they
-            // will all be handled seperately.
+            // will all be handled separately.
 
             if (IsEms(sourceCascadedStyle.height as string))
             {
@@ -783,7 +783,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.lineHeight = sourceCascadedStyle.lineHeight;
             }
 
-            // Can't copy to inlineStyle.listStyle directly, so we'll do each listStyle seperately.
+            // Can't copy to inlineStyle.listStyle directly, so we'll do each listStyle separately.
 
             if (String.Compare(destinationCascadedStyle.listStyleImage, sourceCascadedStyle.listStyleImage, StringComparison.OrdinalIgnoreCase) != 0)
             {
@@ -1029,7 +1029,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.textAlign = sourceCascadedStyle.textAlign;
             }
 
-            // We don't want to copy over textDecoration as it will be handled seperately.
+            // We don't want to copy over textDecoration as it will be handled separately.
 
             if (IsEms(sourceCascadedStyle.textIndent as string))
             {
