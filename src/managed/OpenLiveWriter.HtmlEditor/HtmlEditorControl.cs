@@ -1048,7 +1048,7 @@ namespace OpenLiveWriter.HtmlEditor
 
         /// <summary>
         /// Gets the bounding box of the element using all the childern of the control.  This is useful
-        /// for getting the bounding box that repersents the body because we artifically make the box larger
+        /// for getting the bounding box that repersents the body because we artificially make the box larger
         /// to give the user a visual effect of a 'page' as one would see in Word.  However, the dead space below the last child
         /// can cause problems during click detection so this function will trim that off.
         /// </summary>
