@@ -2251,7 +2251,7 @@ namespace OpenLiveWriter.PostEditor
                 {
                     using (new WaitCursor())
                     {
-                        // fixup bizzaro table selections
+                        // fixup bizarro table selections
                         IHtmlEditorComponentContext editorContext = _currentEditor as IHtmlEditorComponentContext;
                         if (editorContext != null)
                         {
