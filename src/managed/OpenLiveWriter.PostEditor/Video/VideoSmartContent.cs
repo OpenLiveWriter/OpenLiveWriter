@@ -354,7 +354,7 @@ namespace OpenLiveWriter.PostEditor.Video
         }
 
         /// <summary>
-        /// Gets the status of a video.  In the event the video is already publiushed to a service
+        /// Gets the status of a video.  In the event the video is already published to a service
         /// this function should return "".  When it is being published by WLW we will get the status
         /// from the publisher.  It needs a window so that it can prompt the user for the
         /// username/password if a status watcher needs to be created.
