@@ -749,7 +749,7 @@ namespace OpenLiveWriter.ApplicationFramework
                         x += previousTabEntry.IsSelected ? -PAD + 1 : -1;
                     int y = Math.Max(0, tabSelectorAreaSize.Height - tabEntry.TabSelectorLightweightControl.VirtualBounds.Height);
 
-                    //	Latout the tab entry.
+                    //	Layout the tab entry.
                     tabEntry.TabSelectorLightweightControl.VirtualLocation = new Point(x - tabScrollerPosition, y);
 
                     //	Adjust the x offset to account for the tab entry.
