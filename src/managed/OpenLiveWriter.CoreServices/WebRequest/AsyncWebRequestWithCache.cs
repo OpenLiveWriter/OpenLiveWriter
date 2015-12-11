@@ -16,7 +16,7 @@ namespace OpenLiveWriter.CoreServices
     public class AsyncWebRequestWithCache
     {
         /// <summary>
-        /// The Reponse Stream returned by the WebRequestHelper
+        /// The Response Stream returned by the WebRequestHelper
         /// </summary>
         public Stream ResponseStream;
 
