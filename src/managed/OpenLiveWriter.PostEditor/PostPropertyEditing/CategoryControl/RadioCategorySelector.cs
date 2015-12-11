@@ -29,7 +29,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         public RadioCategorySelector(CategoryContext ctx)
         {
-            // We set it here because we need it set before we naturalize height, which happens in the costructor (LoadCategories)
+            // We set it here because we need it set before we naturalize height, which happens in the constructor (LoadCategories)
             this.Font = Res.DefaultFont;
             this.ctx = ctx;
             InitializeComponent();
