@@ -814,7 +814,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
             catch (Exception ex)
             {
-                DisplayContentRetreivalError(sourceSite.DialogOwner, ex, contentSource);
+                DisplayContentRetrievalError(sourceSite.DialogOwner, ex, contentSource);
             }
         }
 
@@ -930,7 +930,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
         }
 
-        public static void DisplayContentRetreivalError(IWin32Window dialogOwner, Exception ex, ContentSourceInfo info)
+        public static void DisplayContentRetrievalError(IWin32Window dialogOwner, Exception ex, ContentSourceInfo info)
         {
             if (ex is ContentCreationException)
             {

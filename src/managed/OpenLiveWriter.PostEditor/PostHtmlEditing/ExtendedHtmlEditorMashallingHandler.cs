@@ -355,7 +355,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 }
                 catch (Exception ex)
                 {
-                    ContentSourceManager.DisplayContentRetreivalError(EditorContext.FrameWindow, ex, contentSource);
+                    ContentSourceManager.DisplayContentRetrievalError(EditorContext.FrameWindow, ex, contentSource);
                     return false;
                 }
             }
@@ -646,7 +646,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             string title = String.Empty;
             string content = String.Empty;
 
-            if (UrlContentRetreivalWithProgress.ExecuteSimpleContentRetreival(
+            if (UrlContentRetrievalWithProgress.ExecuteSimpleContentRetrieval(
                 EditorContext.FrameWindow, contentSource, url, ref title, ref content))
             {
                 _contentSourceSite.InsertContent(content, false);
@@ -665,7 +665,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             IExtensionData extensionData = _contentSourceSite.CreateExtensionData(Guid.NewGuid().ToString());
             ISmartContent smartContent = new SmartContent(extensionData);
 
-            if (UrlContentRetreivalWithProgress.ExecuteSmartContentRetreival(
+            if (UrlContentRetrievalWithProgress.ExecuteSmartContentRetrieval(
                 EditorContext.FrameWindow, contentSource, url, ref title, smartContent))
             {
                 string content = smartSource.GenerateEditorHtml(smartContent, _contentSourceSite);
