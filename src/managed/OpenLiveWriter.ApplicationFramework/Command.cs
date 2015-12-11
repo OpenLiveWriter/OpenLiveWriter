@@ -1004,7 +1004,7 @@ namespace OpenLiveWriter.ApplicationFramework
                     //	Set the text.
                     commandBarButtonText = value;
 
-                    //	Fire the CommandBarButtonTextChangd event.
+                    //	Fire the CommandBarButtonTextChanged event.
                     OnCommandBarButtonTextChanged(EventArgs.Empty);
                 }
             }
