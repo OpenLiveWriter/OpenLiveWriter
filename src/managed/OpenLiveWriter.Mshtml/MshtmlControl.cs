@@ -1136,7 +1136,7 @@ namespace OpenLiveWriter.Mshtml
             // log access to method
             LOG_UN("IOleInPlaceFrame", "InsertMenus");
 
-            // reutrn not-implemented
+            // return not-implemented
             ComHelper.Return(HRESULT.E_NOTIMPL);
         }
 
