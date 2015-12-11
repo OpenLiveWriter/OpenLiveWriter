@@ -258,7 +258,7 @@ namespace OpenLiveWriter.PostEditor
 
         protected override Control CreateMainControl()
         {
-            // create post editor manin control as appropriate
+            // create post editor main control as appropriate
             if (_initialEditingContext != null)
             {
                 _postEditorMainControl = new PostEditorMainControl(this, _initialEditingContext);
