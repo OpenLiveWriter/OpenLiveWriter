@@ -163,7 +163,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Preserve the aspect ratio of the object during resizing. The default aspect ratio to be enforced is the
-        /// ratio of the object prior to resizing. If the desired aspect ratio is staticly known it is highly recommended
+        /// ratio of the object prior to resizing. If the desired aspect ratio is statically known it is highly recommended
         /// that this ratio be specified within an override of the OnResizeStart method (will eliminate the problem
         /// of "creeping" change to the aspect ratios with continued resizing).
         /// </summary>
@@ -200,7 +200,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Aspect ratio to be enforced if the ResizeCapabilities.PreserveAspectRatio flag is specified. If the
-        /// desired aspect ratio is staticly known it is highly recommended that this ratio be specified within
+        /// desired aspect ratio is statically known it is highly recommended that this ratio be specified within
         /// the OnResizeStart method (will eliminate the problem of "creeping" change to the aspect ratios with continued resizing).
         /// </summary>
         public double AspectRatio
