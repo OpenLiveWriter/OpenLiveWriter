@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Controls
     /// Implements a "tracking" ToolTip (using the native Win32 tooltip api). A
     /// tracking tooltip can be positioned anywhere on the screen irrespective
     /// of parent controls, etc. Normally you should use NOT use this class and
-    /// instead shoould use the .NET ToolTip class -- this class is used for
+    /// instead should use the .NET ToolTip class -- this class is used for
     /// scenarios where you are hosting a non .NET window (e.g. MSHTML editor)
     /// that fully occludes your .NET control and therefore prevents the display
     /// of .NET tooltips.
