@@ -17,8 +17,8 @@ namespace OpenLiveWriter.SpellChecker
     /// all correct words
     /// mzispalled wordz
     /// "Punctuaation."
-    /// Apostraphe's
-    /// 'Apostraphe's'
+    /// Apostrophe's
+    /// 'Apostrophe's'
     /// numb3rs
     /// 1312
     /// &#x47;ood
