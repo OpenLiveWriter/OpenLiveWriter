@@ -125,13 +125,13 @@ namespace OpenLiveWriter.Controls
         private IContainer components;
 
         /// <summary>
-        /// A value which indicates how the BitmapButton should automcatically determine its
+        /// A value which indicates how the BitmapButton should automatically determine its
         /// width.
         /// </summary>
         private bool autoSizeWidth = false;
 
         /// <summary>
-        /// A value which indicates how the BitmapButton should automcatically determine its
+        /// A value which indicates how the BitmapButton should automatically determine its
         /// height.
         /// </summary>
         private bool autoSizeHeight = false;
@@ -324,14 +324,14 @@ namespace OpenLiveWriter.Controls
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets a value which indicates whether the BitmapButton should automcatically
+        /// Gets or sets a value which indicates whether the BitmapButton should automatically
         /// determine its size.
         /// </summary>
         [
             Category("Appearance"),
                 Localizable(false),
                 DefaultValue(false),
-                Description("Specifies whether the BitmapButton should automcatically determine its width.")
+                Description("Specifies whether the BitmapButton should automatically determine its width.")
         ]
         public bool AutoSizeWidth
         {
@@ -351,14 +351,14 @@ namespace OpenLiveWriter.Controls
         }
 
         /// <summary>
-        /// Gets or sets a value which indicates whether the BitmapButton should automcatically
+        /// Gets or sets a value which indicates whether the BitmapButton should automatically
         /// determine its size.
         /// </summary>
         [
             Category("Appearance"),
                 Localizable(false),
                 DefaultValue(false),
-                Description("Specifies whether the BitmapButton should automcatically determine its height.")
+                Description("Specifies whether the BitmapButton should automatically determine its height.")
         ]
         public bool AutoSizeHeight
         {
