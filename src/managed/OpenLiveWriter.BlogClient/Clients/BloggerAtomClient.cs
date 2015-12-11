@@ -123,7 +123,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
             uploadContext.Settings.SetString(EDIT_MEDIA_LINK, editUri);
 
-            PicasaRefererBlockingWorkaround(uploadContext.BlogId, uploadContext.Role, ref srcUrl);
+            PicasaReferrerBlockingWorkaround(uploadContext.BlogId, uploadContext.Role, ref srcUrl);
 
             return srcUrl;
         }
@@ -143,7 +143,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// shot and let me know if you have any further questions or problems."
         ///   -- Anonymous Google Employee
         /// </summary>
-        private void PicasaRefererBlockingWorkaround(string blogId, FileUploadRole role, ref string srcUrl)
+        private void PicasaReferrerBlockingWorkaround(string blogId, FileUploadRole role, ref string srcUrl)
         {
             if (role == FileUploadRole.LinkedImage && Options.UsePicasaS1600h)
             {
