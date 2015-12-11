@@ -373,7 +373,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 // change left column
                 _leftColumn.Width = Math.Max(_leftColumn.Width + offset, MINIMUM_COLUMN_WIDTH);
 
-                // set the table width to prevent table wierdness
+                // set the table width to prevent table weirdness
                 TableHelper.SynchronizeTableWidthForEditing(_table);
             }
 
