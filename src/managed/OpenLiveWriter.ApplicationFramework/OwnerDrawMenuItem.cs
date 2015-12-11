@@ -561,7 +561,7 @@ namespace OpenLiveWriter.ApplicationFramework
                     //	Calculate the text area rectangle.  This area excludes an area at the right
                     //	edge of the menu item where the system draws the cascade indicator.  It would
                     //	have been better if MenuItem let us draw the indicator (we did say "OwnerDraw"
-                    //	afterall), but this is just how it works.
+                    //	after all), but this is just how it works.
                     Rectangle textAreaRectangle = new Rectangle(bounds.X + STANDARD_BITMAP_AREA_WIDTH + STANDARD_TEXT_PADDING,
                                                                 bounds.Y,
                                                                 bounds.Width - (STANDARD_BITMAP_AREA_WIDTH + STANDARD_TEXT_PADDING + STANDARD_RIGHT_EDGE_PAD),
