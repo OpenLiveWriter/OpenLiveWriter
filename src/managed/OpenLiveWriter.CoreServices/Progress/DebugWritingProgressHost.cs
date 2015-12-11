@@ -21,14 +21,14 @@ namespace OpenLiveWriter.CoreServices.Progress
             this.progressDisplayPrefix = progressDisplayPrefix;
         }
         private string progressDisplayPrefix = string.Empty;
-        private double committedProgessPercentage;
+        private double committedProgressPercentage;
 
         #region IProgressHost Members
 
         public void UpdateProgress(int complete, int total, string message)
         {
             Debug.WriteLine(String.Format(CultureInfo.InvariantCulture, "Debug Writing Progress {0} {1} : {2} / {3}", progressDisplayPrefix, message, complete, total));
-            committedProgessPercentage = total == 0 ? 0 : ((double)complete) / total;
+            committedProgressPercentage = total == 0 ? 0 : ((double)complete) / total;
         }
 
         public void UpdateProgress(int complete, int total)
@@ -53,7 +53,7 @@ namespace OpenLiveWriter.CoreServices.Progress
         {
             get
             {
-                return committedProgessPercentage;
+                return committedProgressPercentage;
             }
         }
 
