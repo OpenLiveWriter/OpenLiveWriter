@@ -42,7 +42,7 @@ namespace OpenLiveWriter.CoreServices
         /// Call an XmlRpc method
         /// </summary>
         /// <param name="methodName">method name</param>
-        /// <param name="parameters">variabile length list of parameters</param>
+        /// <param name="parameters">variable length list of parameters</param>
         /// <returns>response from the remote host</returns>
         /// <exception cref="Exception">allows all exceptions to propagate out of the method</exception>
         public XmlRpcMethodResponse CallMethod(string methodName, params XmlRpcValue[] parameters)
