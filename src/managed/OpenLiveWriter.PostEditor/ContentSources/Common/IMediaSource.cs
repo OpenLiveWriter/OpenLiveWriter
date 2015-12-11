@@ -16,7 +16,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         /// </summary>
         Bitmap Image { get; }
         /// <summary>
-        /// An object that can control the authenication for the service
+        /// An object that can control the authentication for the service
         /// </summary>
         IAuth Auth { get; }
         /// <summary>

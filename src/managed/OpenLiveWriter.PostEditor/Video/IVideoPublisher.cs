@@ -61,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.Video
         /// <summary>
         /// This will be used if we can identify the publisher after a post is loaded
         /// and we want to try and make a status watcher for the item.  If the publisher cannot
-        /// make a new status watcher, perhaps because of authenication problems, then it can return null.
+        /// make a new status watcher, perhaps because of authentication problems, then it can return null.
         /// </summary>
         /// <param name="video">
         /// A video object that contains as much information as we know about the video
