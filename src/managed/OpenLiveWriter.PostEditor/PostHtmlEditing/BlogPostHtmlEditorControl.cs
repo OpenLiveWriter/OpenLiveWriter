@@ -2279,7 +2279,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// <summary>
         /// Implements a specialized damage commit strategy for the inline spellchecking.
         /// Spellchecking generally utilizes the word-based commit strategy, but when editing
-        /// a word that is already marked as mispelled, then the realtime commit strategy needs
+        /// a word that is already marked as misspelled, then the realtime commit strategy needs
         /// to be used.
         /// </summary>
         class SpellCheckingDamageCommitStrategy : DamageCommitStrategy
