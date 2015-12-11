@@ -465,7 +465,7 @@ namespace OpenLiveWriter.CoreServices
     }
 
     /// <summary>
-    /// Delegeate for handling Progress notification
+    /// Delegate for handling Progress notification
     /// </summary>
     public delegate void ProgressUpdatedEventHandler(object sender, ProgressUpdatedEventArgs progressUpdatedHandler);
 
