@@ -1134,7 +1134,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             //      vertical-align: baseline;
             //  }
             //
-            // But when we replace "position: relative;" with "postion: inherit", superscript doesn't
+            // But when we replace "position: relative;" with "position: inherit", superscript doesn't
             // display correctly. We'll check to make sure we don't replace the position in this case.
 
             int currentOpeningParenthesis = textUpToCapture.LastIndexOf('{');
