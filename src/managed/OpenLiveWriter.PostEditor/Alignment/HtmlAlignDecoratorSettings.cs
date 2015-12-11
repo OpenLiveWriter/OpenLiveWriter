@@ -353,7 +353,7 @@ namespace OpenLiveWriter.PostEditor
             MarkupPointer end = MarkupServices.CreateMarkupPointer();
             MarkupPointer target = MarkupServices.CreateMarkupPointer();
 
-            // Move the stuff inside the smart content container ouside of itself
+            // Move the stuff inside the smart content container outside of itself
             start.MoveAdjacentToElement(element, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterBegin);
             end.MoveAdjacentToElement(element, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeEnd);
             target.MoveAdjacentToElement(element, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
