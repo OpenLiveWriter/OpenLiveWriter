@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -145,7 +146,7 @@ namespace OpenLiveWriter.PostEditor.Tagging
                 throw new Exception("Invalid tagproviders.xml file detected");
 
             // get the list of providers from the xml
-            HashSet marketSupportedIds = new HashSet();
+            HashSet<string> marketSupportedIds = new HashSet<string>();
             marketSupportedIds.AddAll(
                 StringHelper.Split(
                 MarketizationOptions.GetFeatureParameter(MarketizationOptions.Feature.TagProviders, "supported"), ";"));

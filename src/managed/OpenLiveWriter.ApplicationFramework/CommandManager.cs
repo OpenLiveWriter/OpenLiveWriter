@@ -141,7 +141,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// <summary>
         /// A set of shortcuts that need to be ignored. Always check for null before accessing.
         /// </summary>
-        private HashSet maskedShortcuts;
+        private HashSet<Shortcut> maskedShortcuts;
 
         /// <summary>
         /// Update count.
@@ -517,7 +517,7 @@ namespace OpenLiveWriter.ApplicationFramework
         public void IgnoreShortcut(Shortcut shortcut)
         {
             if (maskedShortcuts == null)
-                maskedShortcuts = new HashSet();
+                maskedShortcuts = new HashSet<Shortcut>();
             bool isNewElement = maskedShortcuts.Add(shortcut);
             Debug.Assert(isNewElement, "Shortcut " + shortcut + " was already masked");
         }

@@ -3,11 +3,13 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
@@ -18,6 +20,7 @@ using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
+using Enumerable = System.Linq.Enumerable;
 
 namespace LocUtil
 {
@@ -88,12 +91,12 @@ namespace LocUtil
                 return 1;
             }
 
-            HashSet ribbonIds;
+            HashSet<string> ribbonIds;
             Hashtable ribbonValues;
             Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
             if (!ParseRibbonXml(ribbonFiles, pairsLoc, pairsNonLoc, typeof(Command), "//ribbon:Command", "Command.{0}.{1}", out ribbonIds, out ribbonValues))
                 return 1;
-            HashSet commandIds;
+            HashSet<string> commandIds;
             Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
 
             string[] transformedCommandFiles = commandFiles;
@@ -124,7 +127,7 @@ namespace LocUtil
 
             if (!ParseCommandXml(transformedCommandFiles, pairsLoc, pairsNonLoc, typeof(Command), "/Commands/Command", "Command.{0}.{1}", out commandIds))
                 return 1;
-            HashSet dialogIds;
+            HashSet<string> dialogIds;
             Console.WriteLine("Parsing messages from " + StringHelper.Join(dialogFiles, ";"));
             if (!ParseCommandXml(dialogFiles, pairsLoc, pairsNonLoc, typeof(DisplayMessage), "/Messages/Message", "DisplayMessage.{0}.{1}", out dialogIds))
                 return 1;
@@ -178,7 +181,7 @@ namespace LocUtil
                 {
                     string senum = (string)clo.GetValue("senum", null);
                     Console.WriteLine("Writing StringId enum file " + senum);
-                    if (!GenerateEnum(new HashSet(pairs), "StringId", senum, pairs, null))
+                    if (!GenerateEnum(new HashSet<string>(pairs.Keys.Cast<string>()), "StringId", senum, pairs, null))
                         return 1;
                 }
                 if (clo.IsArgPresent("strings"))
@@ -297,7 +300,7 @@ namespace LocUtil
         }
 
         // @RIBBON TODO: For now the union of the command in Commands.xml and Ribbon.xml will go into the CommandId enum.
-        private static bool GenerateEnum(HashSet commandIds, string enumName, string enumPath, Hashtable descriptions, Hashtable values)
+        private static bool GenerateEnum(HashSet<string> commandIds, string enumName, string enumPath, Hashtable descriptions, Hashtable values)
         {
             const string TEMPLATE = @"namespace OpenLiveWriter.Localization
                             {{
@@ -309,7 +312,7 @@ namespace LocUtil
                             }}
                             ";
 
-            ArrayList commandList = commandIds.ToArrayList();
+            ArrayList commandList = new ArrayList(Enumerable.ToList(commandIds));
             commandList.Sort(new CaseInsensitiveComparer(CultureInfo.InvariantCulture));
             using (StreamWriter sw = new StreamWriter(Path.GetFullPath(enumPath)))
             {
@@ -389,7 +392,7 @@ namespace LocUtil
             return true;
         }
 
-        private static bool ParseRibbonXml(string[] inputFiles, Hashtable pairs, Hashtable pairsNonLoc, Type t, string xpath, string KEY_FORMAT, out HashSet ids, out Hashtable values)
+        private static bool ParseRibbonXml(string[] inputFiles, Hashtable pairs, Hashtable pairsNonLoc, Type t, string xpath, string KEY_FORMAT, out HashSet<string> ids, out Hashtable values)
         {
             // Add to the proptable
             Hashtable propTable = new Hashtable();
@@ -398,7 +401,7 @@ namespace LocUtil
                 propTable.Add(prop.Name, prop);
             }
 
-            ids = new HashSet();
+            ids = new HashSet<string>();
             values = new Hashtable();
 
             foreach (string relativeInputFile in inputFiles)
@@ -489,7 +492,7 @@ namespace LocUtil
             return true;
         }
 
-        private static bool ParseCommandXml(string[] inputFiles, Hashtable pairs, Hashtable pairsNonLoc, Type t, string xpath, string KEY_FORMAT, out HashSet ids)
+        private static bool ParseCommandXml(string[] inputFiles, Hashtable pairs, Hashtable pairsNonLoc, Type t, string xpath, string KEY_FORMAT, out HashSet<string> ids)
         {
             bool seenMenu = false;
 
@@ -499,7 +502,7 @@ namespace LocUtil
                 propTable.Add(prop.Name, prop);
             }
 
-            ids = new HashSet();
+            ids = new HashSet<string>();
 
             foreach (string relativeInputFile in inputFiles)
             {
@@ -615,7 +618,7 @@ namespace LocUtil
             return comment;
         }
 
-        private static void BuildMenuString(StringBuilder structure, XmlElement el, HashSet commandIds, Hashtable pairs)
+        private static void BuildMenuString(StringBuilder structure, XmlElement el, HashSet<string> commandIds, Hashtable pairs)
         {
             int startLen = structure.Length;
             int pos = 0;

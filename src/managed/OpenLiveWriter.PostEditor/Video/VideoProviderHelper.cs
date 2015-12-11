@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -60,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.Video
 
             // get the list of providers from the xml
             ArrayList providers = new ArrayList();
-            HashSet marketSupportedIds = new HashSet();
+            HashSet<string> marketSupportedIds = new HashSet<string>();
             marketSupportedIds.AddAll(
                 StringHelper.Split(
                 MarketizationOptions.GetFeatureParameter(MarketizationOptions.Feature.VideoProviders, "supported"), ";"));
