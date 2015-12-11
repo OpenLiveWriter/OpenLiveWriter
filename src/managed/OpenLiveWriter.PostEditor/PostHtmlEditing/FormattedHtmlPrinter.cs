@@ -450,7 +450,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 this.stackDepth = stackDepth;
                 this.parentElementPrinter = parentElementPrinter;
 
-                //create the appropriate indentation stategy for this element
+                //create the appropriate indentation strategy for this element
                 this.indentStrategy = CreateIndentStrategy(tagName, this);
             }
 
