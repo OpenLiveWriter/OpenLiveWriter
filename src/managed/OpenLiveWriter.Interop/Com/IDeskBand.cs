@@ -177,7 +177,7 @@ namespace OpenLiveWriter.Interop.Com
         FLOATING = 0x0002,
 
         /// <summary>
-        /// The band is being displayed tranparently
+        /// The band is being displayed transparently
         /// </summary>
         TRANSPARENT = 0x0004
     }
