@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.Video
         /// <returns></returns>
         Video GetVideo(string title, string description, string tags, string categoryId, string categoryString, string permissionValue, string permissionString);
         /// <summary>
-        /// A list of categoires that a user can have their video be tagged under.
+        /// A list of categories that a user can have their video be tagged under.
         /// </summary>
         /// <returns></returns>
         List<CategoryItem> Categories { get; }
