@@ -1700,7 +1700,7 @@ namespace OpenLiveWriter.PostEditor
             IHtmlEditorComponentContext componentContext = null;
             if (_currentEditor != null)
             {
-                //unregisiter from editing events
+                //unregister from editing events
                 _currentEditor.TitleChanged -= new EventHandler(_currentEditor_TitleChanged);
                 _currentEditor.EditableRegionFocusChanged -= new EventHandler(_currentEditor_EditableRegionFocusChanged);
 
