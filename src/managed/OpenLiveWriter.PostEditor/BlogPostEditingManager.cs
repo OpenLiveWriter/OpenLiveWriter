@@ -277,7 +277,7 @@ namespace OpenLiveWriter.PostEditor
         {
             Trace.Assert(_blog != null, "Can only call SwitchBlog after initialization!");
 
-            // only execute if we are truely switching blogs
+            // only execute if we are truly switching blogs
             if (Blog != null && blogId != Blog.Id)
             {
                 // set current blog

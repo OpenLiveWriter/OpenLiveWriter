@@ -1113,7 +1113,7 @@ namespace OpenLiveWriter.Mshtml
             string args = pActiveObject != null ? "object" : "null";
             LOG("IOleInPlaceFrame", "SetActiveObject(" + args + ")");
 
-            // set the new object only if it is truely new
+            // set the new object only if it is truly new
             if (oleInPlaceActiveObject != pActiveObject)
             {
                 // release existing object if necessary
