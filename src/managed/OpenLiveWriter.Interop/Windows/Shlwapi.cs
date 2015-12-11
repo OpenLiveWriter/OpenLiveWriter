@@ -46,7 +46,7 @@ namespace OpenLiveWriter.Interop.Windows
 
             // Some other exception has occurred, bail
             if (hResult != HRESULT.S_OK)
-                throw new COMException("Unabled to combine Urls", hResult);
+                throw new COMException("Unable to combine Urls", hResult);
 
             // We've got the new URL
             return builder.ToString();
