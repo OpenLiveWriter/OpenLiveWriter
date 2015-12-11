@@ -210,7 +210,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
                 // don't re-propagate exceptions here because we found that TypePad's
                 // RSD file was returning bogus HTTP crap at the end of the response
-                // and the XML parser cholking on this caused us to fail autodetection
+                // and the XML parser choking on this caused us to fail autodetection
             }
 
             // if we got at least one API then return the service description
