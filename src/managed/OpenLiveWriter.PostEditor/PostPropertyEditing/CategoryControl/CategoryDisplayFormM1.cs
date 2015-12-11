@@ -61,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                 categoryContainerControl.Height += gap ;
             }
 
-            // dynamic layout depending upon whether we support heirarchical categories
+            // dynamic layout depending upon whether we support hierarchical categories
             if ( !categoryContext.SupportsHierarchicalCategories )
             {
                 textBoxAddCategory.Width += (comboBoxParent.Right - textBoxAddCategory.Right);

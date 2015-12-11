@@ -273,7 +273,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 return false;
 
             // we support inline category addition and we don't require a special
-            // api for heirarchical categories (inline api can't handle parent specification)
+            // api for hierarchical categories (inline api can't handle parent specification)
             if (Options.SupportsNewCategoriesInline && !Options.SupportsHierarchicalCategories)
                 return false;
 

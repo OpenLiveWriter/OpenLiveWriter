@@ -46,8 +46,8 @@ namespace OpenLiveWriter.BlogClient.Providers
 
         public bool SupportsHierarchicalCategories
         {
-            get { return _supportsHeirarchicalCategories; }
-            set { _supportsHeirarchicalCategories = value; }
+            get { return _supportsHierarchicalCategories; }
+            set { _supportsHierarchicalCategories = value; }
         }
 
         public bool SupportsNewCategories
@@ -665,7 +665,7 @@ namespace OpenLiveWriter.BlogClient.Providers
         private bool _supportsHttps = false;
         private bool _supportsCategories = false;
         private bool _supportsMultipleCategories = false;
-        private bool _supportsHeirarchicalCategories = false;
+        private bool _supportsHierarchicalCategories = false;
         private bool _supportsNewCategories = false;
         private bool _supportsNewCategoriesInline = false;
         private bool _supportsSuggestCategories = false;

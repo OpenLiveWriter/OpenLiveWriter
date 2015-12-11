@@ -8,7 +8,7 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Generic interface for storing a collection of site data represented by
-    /// heirarchical path designations. Paths should be separated using the "/"
+    /// hierarchical path designations. Paths should be separated using the "/"
     /// character. This class and its subclasses all throw SiteStorageException
     /// based exceptions. See the documentation for that class for an enumeration
     /// of exception types.
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>true if it exists, otherwise false</returns>
         bool Exists(string file);
 
-        /// <param name="file">Heirarchical path designating stream location (uses "/"
+        /// <param name="file">Hierarchical path designating stream location (uses "/"
         /// as path designator)</param>
         /// <param name="mode">Read or Write. Write will overwrite any existing path of
         /// the same name.</param>

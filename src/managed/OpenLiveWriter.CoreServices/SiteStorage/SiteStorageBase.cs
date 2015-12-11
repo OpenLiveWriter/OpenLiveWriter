@@ -114,7 +114,7 @@ namespace OpenLiveWriter.CoreServices
         /// Stream.Close() should be called when you are finished using the Stream.
         /// Imlementation of Open is deferred to subclasses.
         /// </summary>
-        /// <param name="path">Heirarchical path designating stream location (uses "/" as
+        /// <param name="path">Hierarchical path designating stream location (uses "/" as
         /// path designator)</param>
         /// <param name="mode">Read or Write. Write will overwrite any existing path of
         /// the same name.</param>
