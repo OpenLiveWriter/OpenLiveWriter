@@ -137,7 +137,7 @@ namespace OpenLiveWriter.CoreServices
                             Debug.Fail("Unexpected File Not Found error attempting to locate default browser");
                             break;
                         case SE_ERR.NOASSOC:
-                            Debug.Fail("Unexpected failure to find .htm file assocation attempting to locate default browser");
+                            Debug.Fail("Unexpected failure to find .htm file association attempting to locate default browser");
                             break;
                         case SE_ERR.OOM:
                             Debug.Fail("Unexpected out of memory error attempting to find default browser");
