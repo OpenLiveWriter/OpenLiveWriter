@@ -162,7 +162,7 @@ namespace OpenLiveWriter.BrowserControl
         private EncryptionLevel m_encryptionLevel;
 
         /// <summary>
-        /// Size of text displayed by the browser control. Before usin g this
+        /// Size of text displayed by the browser control. Before using this
         /// property you should query the TextSizeSupported property to make
         /// sure that the currently displayed document supports TextSize.
         /// </summary>
