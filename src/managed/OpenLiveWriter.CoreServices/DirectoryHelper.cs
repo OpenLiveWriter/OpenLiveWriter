@@ -156,7 +156,7 @@ namespace OpenLiveWriter.CoreServices
     }
 
     /// <summary>
-    /// Abstract class which iterates recursively over a directory and its subdirctories.
+    /// Abstract class which iterates recursively over a directory and its subdirectories.
     /// Subclasses are notified of the directories and files found via the OnSubdirectory
     /// and OnFile virtual methods. These can be overridden to provide custom functionality
     /// such as enumeration, copying, compression, etc.
