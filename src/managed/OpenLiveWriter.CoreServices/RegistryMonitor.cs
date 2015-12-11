@@ -130,7 +130,7 @@ namespace OpenLiveWriter.CoreServices
         }
         /// <summary>
         /// Register a method for callbacks when the specified registry key is changed.
-        /// Note: this operation does not recursively register for notifcations from subkeys!
+        /// Note: this operation does not recursively register for notifications from subkeys!
         /// </summary>
         /// <param name="hkey">the HKEY constant (HKEY.CURRENT_USER or HKEY.CLASSES_ROOT)</param>
         /// <param name="key">the registry key path (example: @"Software\AppDataLow\Software\Onfolio\Preferences\Appearance"</param>

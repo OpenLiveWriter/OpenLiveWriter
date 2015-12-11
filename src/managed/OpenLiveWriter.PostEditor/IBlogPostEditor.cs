@@ -48,18 +48,18 @@ namespace OpenLiveWriter.PostEditor
         bool ValidatePublish();
 
         /// <summary>
-        /// Notificaiton that a publish succeeded
+        /// Notification that a publish succeeded
         /// </summary>
         void OnPublishSucceeded(BlogPost blogPost, PostResult postResult);
 
         /// <summary>
-        /// Notificaiton that the application is about to close
+        /// Notification that the application is about to close
         /// </summary>
         /// <returns></returns>
         void OnClosing(CancelEventArgs e);
 
         /// <summary>
-        /// Notificaiton that the post is about to close
+        /// Notification that the post is about to close
         /// </summary>
         /// <returns></returns>
         void OnPostClosing(CancelEventArgs e);
