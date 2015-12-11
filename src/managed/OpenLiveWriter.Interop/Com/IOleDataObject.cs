@@ -202,7 +202,7 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// Invalid value for pFormatetc (this is value returned by GetData,
         /// GetDataHere, or QueryGetData when the requested clipboard format /
-        /// storage medium cannot be accomodated
+        /// storage medium cannot be accommodated
         /// </summary>
         public const int FORMATETC = unchecked((int)0x80040064);
 
