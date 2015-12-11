@@ -161,7 +161,7 @@ namespace OpenLiveWriter.CoreServices
                 signal.Signal();
                 Application.Run(_applicationContext);
 
-                // propragate exceptions that happened inside the AppContext
+                // propagate exceptions that happened inside the AppContext
                 if (_applicationContext.Exception != null)
                     throw _applicationContext.Exception;
             }

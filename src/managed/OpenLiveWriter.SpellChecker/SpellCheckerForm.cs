@@ -174,7 +174,7 @@ namespace OpenLiveWriter.SpellChecker
                         result = SpellCheckResult.Correct;
 
                     //note: currently using this to not show any errors in smart content, since the fix isn't
-                    // propogated to the underlying data structure
+                    // propagated to the underlying data structure
                     if (result != SpellCheckResult.Correct && !wordRange.FilterAppliesRanged(offset, length))
                     {
                         // auto-replace

@@ -960,7 +960,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 if (parentAnchor != null)
                 {
                     // To make sure the title is readable, we will replace the anchor tag with a new span tag
-                    // that has all of the anchor tag properties we believe need to be propogated.  This will
+                    // that has all of the anchor tag properties we believe need to be propagated.  This will
                     // keep the final render as close to the original as possible.
 
                     // Get the next parent block element to compare against the anchor tag
