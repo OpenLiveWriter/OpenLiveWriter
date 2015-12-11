@@ -1733,7 +1733,7 @@ namespace OpenLiveWriter.Controls
                 //	it, translate the virtual client point to be relative to the location of the
                 //	lightweight control and recursively ask the lightweight control to return the
                 //	lightweight control at the virtual client point.  This will find the innermost
-                //	lightweight control, at the top of the Z order, that contains the virual client
+                //	lightweight control, at the top of the Z order, that contains the virtual client
                 //	point.
                 if (lightweightControl.Visible && lightweightControl.VirtualBounds.Contains(point))
                 {
@@ -1776,7 +1776,7 @@ namespace OpenLiveWriter.Controls
                 //	lightweight control and recursively ask the lightweight control to return the
                 //	lightweight control at the virtual client point that supports drag-and-drop
                 //	events.  This will find the innermost lightweight control, at the top of the
-                //	Z order, that contains the virual client point and supports drag-and-drop events.
+                //	Z order, that contains the virtual client point and supports drag-and-drop events.
                 if (lightweightControl.Visible && lightweightControl.AllowDrop && lightweightControl.VirtualBounds.Contains(point))
                 {
                     //	Translate the virtual point to be relative to the location of the lightweight control.
@@ -1819,7 +1819,7 @@ namespace OpenLiveWriter.Controls
                 //	lightweight control and recursively ask the lightweight control to return the
                 //	lightweight control at the virtual client point that supports mouse wheel
                 //	events.  This will find the innermost lightweight control, at the top of the
-                //	Z order that contains the virual client point and supports mouse wheel events.
+                //	Z order that contains the virtual client point and supports mouse wheel events.
                 if (lightweightControl.Visible && lightweightControl.VirtualBounds.Contains(point))
                 {
                     //	Translate the virtual point to be relative to the location of the lightweight control.

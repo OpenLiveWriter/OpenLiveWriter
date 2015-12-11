@@ -640,7 +640,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                 //	it, translate the virtual client point to be relative to the location of the
                 //	lightweight control and recursively ask the lightweight control to return the
                 //	lightweight control at the virtual client point.  This will find the innermost
-                //	lightweight control, at the top of the Z order, that contains the virual client
+                //	lightweight control, at the top of the Z order, that contains the virtual client
                 //	point.
                 if (BehaviorControl.Visible && BehaviorControl.VirtualBounds.Contains(point))
                 {
@@ -683,7 +683,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                 //	lightweight control and recursively ask the lightweight control to return the
                 //	lightweight control at the virtual client point that supports mouse wheel
                 //	events.  This will find the innermost lightweight control, at the top of the
-                //	Z order that contains the virual client point and supports mouse wheel events.
+                //	Z order that contains the virtual client point and supports mouse wheel events.
                 if (BehaviorControl.Visible && BehaviorControl.VirtualBounds.Contains(point))
                 {
                     //	Translate the virtual point to be relative to the location of the lightweight control.
