@@ -47,14 +47,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _editWithStyleStep = editWithStyleStep;
         }
 
-        public virtual OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentConrol, TemporaryBlogSettings temporarySettings)
+        public virtual OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentControl, TemporaryBlogSettings temporarySettings)
         {
             _temporarySettings = temporarySettings;
 
             // create and start the account detector
             _blogServiceDetector = new BlogServiceDetector(
                 uiContext,
-                parentConrol,
+                parentControl,
                 _temporarySettings.Id, _temporarySettings.HomepageUrl,
                 new BlogCredentialsAccessor(_temporarySettings.Id, _temporarySettings.Credentials));
 
@@ -182,14 +182,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
         }
 
-        public override OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentConrol, TemporaryBlogSettings temporarySettings)
+        public override OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentControl, TemporaryBlogSettings temporarySettings)
         {
             _temporarySettings = temporarySettings;
 
             // create and start the account detector
             _blogServiceDetector = new SharePointBlogDetector(
                 uiContext,
-                parentConrol,
+                parentControl,
                 _temporarySettings.Id, _temporarySettings.HomepageUrl,
                 new BlogCredentialsAccessor(_temporarySettings.Id, _temporarySettings.Credentials),
                 _temporarySettings.Credentials);
