@@ -60,8 +60,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
             // ServerParameterNotSpecifiedDisplayMessage
             //
             this.Text = "You need to customize the Weblog API URL before proceeding.{0}The following value" +
-                "s were not customized:{0}{0}{1}{0}{0}Please change these values to whatever is a" +
-                "ppropriate for{0}your weblog server.";
+                "s were not customized:{0}{0}{1}{0}{0}Please change these values to whatever is " +
+                "appropriate for{0}your weblog server.";
             this.Title = "Weblog API URL Requires Customization";
             this.Type = DisplayMessageType.Warning;
 

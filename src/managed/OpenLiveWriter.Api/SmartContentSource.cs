@@ -132,7 +132,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Notification that the sizing of an object is complete. The  implementation of
-        /// this method should update the ISmartContent object as approriate based on the
+        /// this method should update the ISmartContent object as appropriate based on the
         /// new size. The editor will first call this method and then call the GenerateEditorHtml
         /// method to update the display based on the new size.
         /// </summary>

@@ -64,7 +64,7 @@ namespace OpenLiveWriter.CoreServices
             // convert the path to lower-case
             string pathLower = file.ToLower(CultureInfo.InvariantCulture);
 
-            // return the approrpiate stream
+            // return the appropriate stream
             switch (mode)
             {
                 case AccessMode.Read:
