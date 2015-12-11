@@ -773,7 +773,7 @@ namespace OpenLiveWriter.Controls
         #region Class Initialization & Termination
 
         /// <summary>
-        /// Initializes a new insatnce of the LightweightControl class.
+        /// Initializes a new instance of the LightweightControl class.
         /// </summary>
         public LightweightControl(IContainer container)
         {
@@ -786,7 +786,7 @@ namespace OpenLiveWriter.Controls
         }
 
         /// <summary>
-        /// Initializes a new insatnce of the LightweightControl class.
+        /// Initializes a new instance of the LightweightControl class.
         /// </summary>
         public LightweightControl()
         {

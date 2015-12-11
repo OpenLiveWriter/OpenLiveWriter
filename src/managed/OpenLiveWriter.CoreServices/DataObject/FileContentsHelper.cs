@@ -17,7 +17,7 @@ namespace OpenLiveWriter.CoreServices
     {
         /// <summary>
         /// Utility function to extract an array of file contents file descriptors from
-        /// an IDataObject instnace
+        /// an IDataObject instance
         /// </summary>
         /// <param name="dataObject">data object to extract descriptors from</param>
         /// <returns>array of file descriptors</returns>
