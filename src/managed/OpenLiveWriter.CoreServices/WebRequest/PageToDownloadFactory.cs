@@ -444,7 +444,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Dispose of this
         /// </summary>
-        /// <param name="disposing">indicates whether this is being caled from Dispose()</param>
+        /// <param name="disposing">indicates whether this is being called from Dispose()</param>
         private void Dispose(bool disposing)
         {
             if (!disposing)
