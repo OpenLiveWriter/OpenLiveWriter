@@ -103,7 +103,7 @@ namespace OpenLiveWriter.CoreServices
         {
             // For now we don't support this method. MFC uses the internal method
             // AfxCopyStgMedium to implement this -- if we absolutely positively
-            // need to suppport this then we should base are implementation on
+            // need to support this then we should base are implementation on
             // that code (source is the file atlmfc\src\mfc\olemisc.cpp)
             return HRESULT.E_NOTIMPL;
         }
