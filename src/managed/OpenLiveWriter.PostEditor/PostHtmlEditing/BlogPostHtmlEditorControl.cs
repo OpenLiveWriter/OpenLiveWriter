@@ -1306,7 +1306,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
 
             // SInce this action is reverted in the deattach of the behaviors, we only do this in edit mode,
-            // otherwie there is no deattach to balance it out.  See that AttachBehaviors() doesnt attach in edit mode
+            // otherwise there is no deattach to balance it out.  See that AttachBehaviors() doesnt attach in edit mode
             if (Editable)
             {
                 //attach the extended entry HTML behavior
