@@ -156,7 +156,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// SmartContentSource is resizable (size grippers will appear when the object is selected within the editor).
-        /// If this flag is specified as part of ResizeCapabilties then the OnResizeComplete method should also be
+        /// If this flag is specified as part of ResizeCapabilities then the OnResizeComplete method should also be
         /// overridden to update the ISmartContent as necessary with the new size of the SmartContent object.
         /// </summary>
         Resizable = 1,
@@ -199,7 +199,7 @@ namespace OpenLiveWriter.Api
         private string _resizableElementId = null;
 
         /// <summary>
-        /// Aspect ratio to be enforced if the ResizeCapabilties.PreserveAspectRatio flag is specified. If the
+        /// Aspect ratio to be enforced if the ResizeCapabilities.PreserveAspectRatio flag is specified. If the
         /// desired aspect ratio is staticly known it is highly recommended that this ratio be specified within
         /// the OnResizeStart method (will eliminate the problem of "creeping" change to the aspect ratios with continued resizing).
         /// </summary>
