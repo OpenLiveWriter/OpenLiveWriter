@@ -15,7 +15,7 @@
 ///
 /// (2) Implement a constructor that forwards an ISynchronizeInvoke instance
 ///     on the base class and accepts whatever custom initialization parameters
-///     are requried for the class.
+///     are required for the class.
 ///
 /// (2) Override the DoWork() method to perform the actual background work.
 ///
