@@ -541,7 +541,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        internal MarkupRange CreateDamageTrackingRange(MarkupPointer start, MarkupPointer end, bool includeAdjecentWords)
+        internal MarkupRange CreateDamageTrackingRange(MarkupPointer start, MarkupPointer end, bool includeAdjacentWords)
         {
             MarkupRange range = _mshtmlEditor.MshtmlControl.MarkupServices.CreateMarkupRange();
             range.Start.MoveToPointer(start);
@@ -550,7 +550,7 @@ namespace OpenLiveWriter.HtmlEditor
             range.End.Gravity = _POINTER_GRAVITY.POINTER_GRAVITY_Right;
             _wordHelper.MoveToWordStart(range.Start);
             _wordHelper.MoveToWordEnd(range.End);
-            if (includeAdjecentWords)
+            if (includeAdjacentWords)
             {
                 ExpandDamageToAdjacentWords(range);
             }
