@@ -92,7 +92,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexpeted exception detaching from blog provider button notification context: " + ex.ToString());
+                Trace.Fail("Unexpected exception detaching from blog provider button notification context: " + ex.ToString());
             }
 
         }

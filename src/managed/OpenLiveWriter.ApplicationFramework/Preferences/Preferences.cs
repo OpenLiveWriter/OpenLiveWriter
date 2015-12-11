@@ -252,7 +252,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             int result = Advapi32.RegNotifyChangeKeyValue(hPrefsKey, false, REG_NOTIFY_CHANGE.LAST_SET, settingsChangedEvent.SafeWaitHandle, true);
             if (result != ERROR.SUCCESS)
             {
-                Trace.WriteLine("Unexpeced failure to monitor reg key (Error code: " + result.ToString(CultureInfo.InvariantCulture));
+                Trace.WriteLine("Unexpected failure to monitor reg key (Error code: " + result.ToString(CultureInfo.InvariantCulture));
                 changeMonitoringDisabled = true;
             }
         }

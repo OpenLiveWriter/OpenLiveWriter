@@ -441,7 +441,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexptected exception initializing content-sources: " + ex.ToString());
+                Trace.Fail("Unexpected exception initializing content-sources: " + ex.ToString());
             }
 
             ContentSourceInfo[] contentSources = PluginContentSources;

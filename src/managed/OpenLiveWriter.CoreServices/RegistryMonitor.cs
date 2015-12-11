@@ -493,7 +493,7 @@ namespace OpenLiveWriter.CoreServices
                 false, REG_NOTIFY_CHANGE.LAST_SET, monitor.settingsChangedEvent.SafeWaitHandle, true);
             if (result != ERROR.SUCCESS)
             {
-                Trace.WriteLine("Unexpeced failure to monitor reg key (Error code: " + result);
+                Trace.WriteLine("Unexpected failure to monitor reg key (Error code: " + result);
             }
         }
 

@@ -271,7 +271,7 @@ namespace OpenLiveWriter.Api
             }
             else
             {
-                Trace.Fail("Unexpedcted failure to create cache entry for url " + _requestUrl + ": " + Marshal.GetLastWin32Error().ToString(CultureInfo.InvariantCulture));
+                Trace.Fail("Unexpected failure to create cache entry for url " + _requestUrl + ": " + Marshal.GetLastWin32Error().ToString(CultureInfo.InvariantCulture));
                 return responseStream;
             }
         }

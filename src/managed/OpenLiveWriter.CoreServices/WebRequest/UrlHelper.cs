@@ -165,7 +165,7 @@ namespace OpenLiveWriter.CoreServices
                 // return start url
                 return path ;
             }
-                // unxpected error occurred!
+                // unexpected error occurred!
             else
             {
                 throw new
