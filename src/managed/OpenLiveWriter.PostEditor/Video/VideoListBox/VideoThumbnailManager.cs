@@ -179,7 +179,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             try
             {
                 // ensure we don't invoke on 'dead' controls (could happen if a background
-                // thread completes a download after the parent dialog has been dismisssed)
+                // thread completes a download after the parent dialog has been dismissed)
                 if (!_workQueue.Terminated && !_owner.IsDisposed)
                 {
                     // marshal to the UI thread if necessary
