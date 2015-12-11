@@ -131,7 +131,7 @@ namespace OpenLiveWriter.CoreServices
         /// the data in. The method will return an OleStgMedium for the type(s)
         /// requested if it is available, otherwise it will return null.
         /// If a single type is requested then the return value can be safely
-        /// cast to the requested OleStgMedium subclasss. If multiple types
+        /// cast to the requested OleStgMedium subclass. If multiple types
         /// are requested then the return value will represent the object's
         /// preferred storage representation and client code will need to use
         /// the 'is' operator to determine what type was returned.
@@ -151,7 +151,7 @@ namespace OpenLiveWriter.CoreServices
         /// the data in. The method will return an OleStgMedium for the type(s)
         /// requested if it is available, otherwise it will return null.
         /// If a single type is requested then the return value can be safely
-        /// cast to the requested OleStgMedium subclasss. If multiple types
+        /// cast to the requested OleStgMedium subclass. If multiple types
         /// are requested then the return value will represent the object's
         /// preferred storage representation and client code will need to use
         /// the 'is' operator to determine what type was returned.
