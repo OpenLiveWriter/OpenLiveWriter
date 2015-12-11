@@ -16,7 +16,7 @@ using OpenLiveWriter.PostEditor.Video.VideoService;
 namespace OpenLiveWriter.PostEditor.Video.VideoListBox
 {
     /// <summary>
-    /// Class which abstracts downloading and retreiving thumbnail images.
+    /// Class which abstracts downloading and retrieving thumbnail images.
     /// This class should be instantiated and used on the main UI thread.
     /// </summary>
     internal class VideoThumbNailManager : IDisposable
