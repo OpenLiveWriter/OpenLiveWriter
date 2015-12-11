@@ -123,7 +123,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
 
             // Clear out any width on the overall smart content block, if the element is centered, we will add the width back in later
-            // after we calcuate it from the childern, the current width value is stale.
+            // after we calculate it from the childern, the current width value is stale.
             element.style.width = "";
 
             //Note: we use MarkupServices to insert the content so that IE doesn't try to fix up URLs.

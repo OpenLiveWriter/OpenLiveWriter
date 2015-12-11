@@ -227,7 +227,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             IHTMLTableCell cell = targetCell as IHTMLTableCell;
             IHTMLTableRow row = TableHelper.GetContainingRowElement(cell);
 
-            // convert the client point to cell-local coordinates & calcualte our comparison x values
+            // convert the client point to cell-local coordinates & calculate our comparison x values
             TableCellEditingElementBehavior cellBehavior = _tableEditingContext.GetCellBehavior(targetCell);
             if (cellBehavior == null)
             {

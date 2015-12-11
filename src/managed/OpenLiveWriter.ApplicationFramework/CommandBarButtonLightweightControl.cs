@@ -1064,7 +1064,7 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             if (Command != null)
             {
-                // calcualte point to show context menu at as well as alternative point
+                // calculate point to show context menu at as well as alternative point
                 // in the case where the menu might go off the right edge of the screen
                 Point menuLocation = VirtualClientPointToScreen(new Point(0, VirtualHeight));
                 int alternativeLocation = VirtualClientPointToScreen(new Point(VirtualWidth, VirtualHeight)).X;

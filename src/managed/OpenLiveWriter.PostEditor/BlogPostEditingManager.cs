@@ -705,7 +705,7 @@ namespace OpenLiveWriter.PostEditor
         /// <param name="editingContext">editing conext</param>
         private void DispatchEditPost(IBlogPostEditingContext editingContext, bool isNewPost)
         {
-            // calcluate whether the user has a "blank" unsaved post
+            // calculate whether the user has a "blank" unsaved post
             bool currentPostIsEmptyAndUnsaved =
                 ((BlogPost != null) && BlogPost.IsNew && (BlogPost.Contents == null || BlogPost.Contents == String.Empty)) &&
                  !LocalFile.IsSaved && !PostIsDirty;

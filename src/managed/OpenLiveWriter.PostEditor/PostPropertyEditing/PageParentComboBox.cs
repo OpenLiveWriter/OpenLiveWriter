@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         {
             if (e.Index != -1)
             {
-                // calcluate text to paint
+                // calculate text to paint
                 PostIdAndNameField comboItem = Items[e.Index] as PostIdAndNameField;
                 string text = comboItem.ToString();
                 if (comboItem is ParentPageComboItem)
