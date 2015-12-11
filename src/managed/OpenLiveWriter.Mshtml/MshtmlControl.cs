@@ -918,7 +918,7 @@ namespace OpenLiveWriter.Mshtml
             LOG("IOleInPlaceSite", "GetWindowContext");
 
             // provide pointers to our frame and in-place UI window (the user-control
-            // provides the implemenation of both)
+            // provides the implementation of both)
             ppFrame = (IOleInPlaceFrame)this;
             ppDoc = (IOleInPlaceUIWindow)this;
 
@@ -972,7 +972,7 @@ namespace OpenLiveWriter.Mshtml
 
         /// <summary>
         /// Notifies the container that the object is no longer active in place.
-        /// Will occur during our implmentation of Dispose.
+        /// Will occur during our implementation of Dispose.
         /// </summary>
         public void OnInPlaceDeactivate()
         {

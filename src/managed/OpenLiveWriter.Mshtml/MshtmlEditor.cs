@@ -940,7 +940,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         /// <param name="ppDispatch">Address of a pointer to a variable that receives an IDispatch interface pointer for the host application</param>
         void IDocHostUIHandler2.GetExternal(out IntPtr ppDispatch)
         {
-            // no external dispatch implementaiton available
+            // no external dispatch implementation available
             ppDispatch = IntPtr.Zero;
         }
 
@@ -948,7 +948,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         /// Delegate to DragAndDropManager for GetDropTarget
         /// </summary>
         /// <param name="pDropTarget">default implementation</param>
-        /// <param name="ppDropTarget">our implemetation</param>
+        /// <param name="ppDropTarget">our implementation</param>
         /// <returns>S_OK to indicate that we replaced implementation, otherwise E_NOTIMPL</returns>
         int IDocHostUIHandler2.GetDropTarget(OpenLiveWriter.Interop.Com.IDropTarget pDropTarget, out OpenLiveWriter.Interop.Com.IDropTarget ppDropTarget)
         {
