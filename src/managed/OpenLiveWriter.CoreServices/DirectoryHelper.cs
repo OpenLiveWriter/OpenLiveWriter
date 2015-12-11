@@ -367,7 +367,7 @@ namespace OpenLiveWriter.CoreServices
             m_files.Add(file);
         }
 
-        // flag indicating whether we should convert OS path separators to URI separtors
+        // flag indicating whether we should convert OS path separators to URI separators
         bool m_useUriSeparator;
 
         // storage for list of files
