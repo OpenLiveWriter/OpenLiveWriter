@@ -120,7 +120,7 @@ namespace OpenLiveWriter.CoreServices
             catch (Exception ex)
             {
                 Trace.WriteLine("Caught exception while handling keyboard hook: " + ex.ToString());
-                return new IntPtr(1); // supress key from editor
+                return new IntPtr(1); // suppress key from editor
             }
         }
 

@@ -499,7 +499,7 @@ namespace OpenLiveWriter.HtmlEditor
         private bool statusBarTextVisible = false;
 
         /// <summary>
-        /// Flag indicating we have navigated to the current link element (supresses the
+        /// Flag indicating we have navigated to the current link element (suppresses the
         /// tooltip from displaying)
         /// </summary>
         private bool navigatedToCurrentLinkElement = false;

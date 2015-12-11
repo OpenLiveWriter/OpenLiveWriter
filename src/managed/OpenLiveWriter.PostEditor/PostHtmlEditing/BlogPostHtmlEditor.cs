@@ -584,7 +584,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private void ShowWebLayoutWarningIfNecessary()
         {
             // if the blog's DefaultView is not WebLayout and the user has not chosen
-            // to supress the web-layout warning dialog then show a warning prior
+            // to suppress the web-layout warning dialog then show a warning prior
             // to proceeding
             if (_currentBlog.DefaultView != EditingViews.WebLayout)
             {

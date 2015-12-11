@@ -679,7 +679,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             catch (Exception ex)
             {
                 Trace.WriteLine("Unexpected error occurred during ShowContextMenu: " + ex.ToString());
-                return HRESULT.S_OK; // supress menu in case of error
+                return HRESULT.S_OK; // suppress menu in case of error
             }
         }
 
@@ -691,12 +691,12 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 if (BeforeShowContextMenuEventHandler != null)
                     BeforeShowContextMenuEventHandler(this, EventArgs.Empty);
 
-                // NOTE: The Supressing of UpdateUI notifications during display of the context menu was
+                // NOTE: The Suppressing of UpdateUI notifications during display of the context menu was
                 // necessary to fix Bug# 244853. The main editor hooks these notifications in order to
                 // update command states. Unfortunately this notification is called quite eagerly by the
                 // editor (mouse move causes it to fire), so command management was actually occurring
                 // while the context menu was being created and shown. In some cases this caused the context
-                // menu to flash in and out of view (still not 100% clear on why). In any event, supressing
+                // menu to flash in and out of view (still not 100% clear on why). In any event, suppressing
                 // UpdateUI (and therefore command management) during the showing of context menus reliably
                 // fixes the problem.
                 SuppressUpdateUI = true;

@@ -215,13 +215,13 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
         private void _directionalButton_Click(object sender, EventArgs e)
         {
-            _supressNextEnter = true;
+            _suppressNextEnter = true;
             Direction = (sender as DirectionalButton).Direction;
         }
 
         private void arrowHotTrack_MouseEnter(object sender, EventArgs e)
         {
-            if (!_supressNextEnter)
+            if (!_suppressNextEnter)
             {
                 DirectionalButton button = sender as DirectionalButton;
                 for (int i = 0; i < _buttonLocations.Length; i++)
@@ -235,7 +235,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             }
             else
             {
-                _supressNextEnter = false;
+                _suppressNextEnter = false;
             }
         }
 
@@ -244,7 +244,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             CenterArrowBitmap = _arrowBitmaps[0];
         }
 
-        private bool _supressNextEnter = false;
+        private bool _suppressNextEnter = false;
 
         /// <summary>
         /// Clean up any resources being used.

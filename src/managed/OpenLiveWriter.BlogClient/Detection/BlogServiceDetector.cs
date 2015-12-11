@@ -38,7 +38,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         protected override object DetectBlogService(IProgressHost progressHost)
         {
-            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //supress prompting for credentials
+            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //suppress prompting for credentials
             {
                 try
                 {
@@ -497,7 +497,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         protected override object DetectBlogService(IProgressHost progressHost)
         {
-            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //supress prompting for credentials
+            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //suppress prompting for credentials
             {
                 try
                 {
@@ -924,7 +924,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         private object DetectWeblogSettings(IProgressHost progressHost)
         {
-            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //supress prompting for credentials
+            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //suppress prompting for credentials
             {
                 // no-op if we don't have a blog-id to work with
                 if (HostBlogId == String.Empty)

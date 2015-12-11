@@ -588,7 +588,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             public BlockElementIndentStrategy(HtmlElementPrinter elementPrinter)
                 : base(elementPrinter)
             {
-                //if this element is is the very first content in the parent element, then supress
+                //if this element is is the very first content in the parent element, then suppress
                 //adding the visual line break so that we don't end up with extra whitespace.
                 HtmlElementPrinter parent = elementPrinter.getParent();
                 if (parent != null)

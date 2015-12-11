@@ -1448,7 +1448,7 @@ namespace OpenLiveWriter.Mshtml
             // log access to method
             LOG("IDocHostShowUI", "ShowHelp");
 
-            // we handle help directly via the F1 keyboard hook so supress native help
+            // we handle help directly via the F1 keyboard hook so suppress native help
             return HRESULT.S_OK;
         }
 
@@ -1803,7 +1803,7 @@ namespace OpenLiveWriter.Mshtml
 
         public int Exec(ref Guid pguidCmdGroup, uint nCmdID, OLECMDEXECOPT nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
         {
-            // Supress window.alert and script errors
+            // Suppress window.alert and script errors
             if (nCmdID == OLECMDID.SHOWSCRIPTERROR || nCmdID == OLECMDID.SHOWMESSAGE)
                 return HRESULT.S_OK;
 
