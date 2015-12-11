@@ -91,7 +91,7 @@ namespace OpenLiveWriter.Controls
         private const int HORIZONTAL_TEXT_PAD = 3;
 
         /// <summary>
-        /// The vertcial text pad.
+        /// The vertical text pad.
         /// </summary>
         private const int VERTICAL_TEXT_PAD = -1;
 
