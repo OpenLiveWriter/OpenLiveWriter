@@ -391,7 +391,7 @@ namespace OpenLiveWriter.PostEditor
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexpected exception type in PostEditorFile.Load. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exeption and see if there is a way to behave more robustly!\r\n"
+                Trace.Fail("Unexpected exception type in PostEditorFile.Load. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exception and see if there is a way to behave more robustly!\r\n"
                     + ex.ToString());
                 throw PostEditorStorageException.Create(ex);
             }
@@ -536,7 +536,7 @@ namespace OpenLiveWriter.PostEditor
                 }
                 catch (Exception ex)
                 {
-                    Trace.Fail("Unexpected exception type in PostEditorFile.Save. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exeption and see if there is a way to behave more robustly!\r\n"
+                    Trace.Fail("Unexpected exception type in PostEditorFile.Save. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exception and see if there is a way to behave more robustly!\r\n"
                         + ex.ToString());
                     throw PostEditorStorageException.Create(ex);
                 }
