@@ -368,9 +368,9 @@ namespace OpenLiveWriter.CoreServices
                 // Do not call Path.GetFileName() and like methods on originalFileName
                 //    since these will throw exceptions if originalFileName has system-illegal characters
                 //    in it, such as ", |, <, >, etc.
-                if (originalFileName.Length == 0 ||  // empty string gets guidded
-                    originalFileName[0] != '.' ||    // non-".htaccess"-like names get guidded
-                    Regex.IsMatch(originalFileName, @"^\.+$"))   // ".", "..", "...", etc. gets guidded
+                if (originalFileName.Length == 0 ||  // empty string gets guided
+                    originalFileName[0] != '.' ||    // non-".htaccess"-like names get guided
+                    Regex.IsMatch(originalFileName, @"^\.+$"))   // ".", "..", "...", etc. gets guided
                     noExt = TrimFileAndReplaceWithGuidIfEmpty(noExt, null);
             }
 
