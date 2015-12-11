@@ -204,7 +204,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             ProgressTick tick = new ProgressTick(progress, 50, 100);
             MemoryStream memStream = new MemoryStream();
             IHTMLDocument2 doc2 = null;
-            // WinLive 221984: Theme detection timing out intermitantly on WordPress.com
+            // WinLive 221984: Theme detection timing out intermittently on WordPress.com
             // The temp post *often* takes more than a minute to show up on the blog home page.
             // The download progress dialog has a cancel button, we'll try a lot before giving up.
             for (int i = 0; i < 30 && doc2 == null; i++)
