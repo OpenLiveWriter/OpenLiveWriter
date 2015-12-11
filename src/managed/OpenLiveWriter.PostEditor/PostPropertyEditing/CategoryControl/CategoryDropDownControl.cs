@@ -89,7 +89,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         void IBlogPostEditor.OnBlogSettingsChanged(bool templateChanged)
         {
-            // make sure we have the lastest categories (in case the underlying target blog changed)
+            // make sure we have the latest categories (in case the underlying target blog changed)
             CategoryContext.SetBlogCategories(_targetBlog.Categories) ;
         }
 
