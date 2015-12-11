@@ -249,7 +249,7 @@ namespace OpenLiveWriter.PostEditor
         {
             // Create markup services using the element's document that we are analyzing
             MshtmlMarkupServices MarkupServices = new MshtmlMarkupServices(_element.document as IMarkupServicesRaw);
-            // Create a pointer and move it to before the begining of its opening tag
+            // Create a pointer and move it to before the beginning of its opening tag
             MarkupPointer start = MarkupServices.CreateMarkupPointer();
             start.MoveAdjacentToElement(_element, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
             // Find the block parent of this node.
@@ -313,7 +313,7 @@ namespace OpenLiveWriter.PostEditor
                 elementToEncapsulate = _element.parentElement;
             }
 
-            // Move the starting pointer to before the begining of the element we want to wrap
+            // Move the starting pointer to before the beginning of the element we want to wrap
             start.MoveAdjacentToElement(elementToEncapsulate, _ELEMENT_ADJACENCY.ELEM_ADJ_BeforeBegin);
 
             // Find this elements parent
@@ -325,7 +325,7 @@ namespace OpenLiveWriter.PostEditor
             // e.g "<DIV>Blah<IMG/>Blah</DIV>" => "<DIV>Blah</DIV><DIV><IMG/></DIV><DIV>Blah</DIV>"
             if (!IsBodyElement(currentBlockScope))
             {
-                // We are in a block that can be split so split it at the begining and end
+                // We are in a block that can be split so split it at the beginning and end
                 MarkupHelpers.SplitBlockForInsertionOrBreakout(MarkupServices, null, start);
                 end.MoveAdjacentToElement(elementToEncapsulate, _ELEMENT_ADJACENCY.ELEM_ADJ_AfterEnd);
                 MarkupHelpers.SplitBlockForInsertionOrBreakout(MarkupServices, null, end);

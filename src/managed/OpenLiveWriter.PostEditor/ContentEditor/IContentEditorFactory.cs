@@ -227,7 +227,7 @@ namespace OpenLiveWriter.PostEditor
         /// <param name="contentEditorSite"></param>
         /// <param name="internetSecurityManager"></param>
         /// <param name="htmlDocument"></param>
-        /// If true, a new line will be added to the begining of the body.
+        /// If true, a new line will be added to the beginning of the body.
         /// If false, a new line will be added to the end of the body
         /// </param>
         /// <returns></returns>
