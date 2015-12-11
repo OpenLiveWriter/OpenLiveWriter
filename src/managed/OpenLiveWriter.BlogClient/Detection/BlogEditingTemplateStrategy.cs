@@ -923,7 +923,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                             //IE won't return some attributes (like class) using IHTMLElement.getAttribute(),
                             //so if the value is null, try to get the value directly from the DOM Attribute.
                             //Note: we can't use the DOM value by default, because IE will rewrite the value
-                            //to contain a fully-qualified path on some attribures (like src and href).
+                            //to contain a fully-qualified path on some attributes (like src and href).
                             attrValue = attr.nodeValue as string;
 
                             if (attrValue == null)

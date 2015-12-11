@@ -599,7 +599,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
                 if (modified)
                     return overrideValue;
 
-                // Atributes like 'Nowrap' can have no value
+                // Attributes like 'Nowrap' can have no value
                 if (value == null)
                     return null;
 
