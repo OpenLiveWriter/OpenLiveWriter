@@ -675,7 +675,7 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>link element (or null if this element or one of its parents are not a link)</returns>
         public static IHTMLAnchorElement GetContainingAnchorElement(IHTMLElement element)
         {
-            // search up the parent heirarchy
+            // search up the parent hierarchy
             while (element != null)
             {
                 // if it is an anchor that has an HREF (exclude anchors with only NAME)

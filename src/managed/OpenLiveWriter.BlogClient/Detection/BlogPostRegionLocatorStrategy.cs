@@ -389,7 +389,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         private static bool IsSmartContent(IHTMLElement element)
         {
-            // search up the parent heirarchy
+            // search up the parent hierarchy
             while (element != null)
             {
                 if (0 == String.Compare(element.tagName, "div", StringComparison.OrdinalIgnoreCase))

@@ -426,7 +426,7 @@ namespace OpenLiveWriter.HtmlEditor
                     return null;
             }
 
-            // search up the parent heirarchy
+            // search up the parent hierarchy
             while (element != null)
             {
                 // if it is an anchor that has an HREF (exclude anchors with only NAME)

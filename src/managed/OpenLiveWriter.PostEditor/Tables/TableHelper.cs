@@ -16,7 +16,7 @@ namespace OpenLiveWriter.PostEditor.Tables
     {
         public static IHTMLTable GetContainingTableElement(IHTMLElement element)
         {
-            // search up the parent heirarchy
+            // search up the parent hierarchy
             while (element != null)
             {
                 if (element is IHTMLTable)
@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         public static IHTMLTableRow GetContainingRowElement(IHTMLTableCell cell)
         {
-            // search up the parent heirarchy
+            // search up the parent hierarchy
             IHTMLElement element = cell as IHTMLElement;
             while (element != null)
             {
