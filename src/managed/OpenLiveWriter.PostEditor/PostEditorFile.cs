@@ -1760,7 +1760,7 @@ namespace OpenLiveWriter.PostEditor
         private const string POST_TRACKBACK_POLICY = "TrackbackPolicy";
         private const string POST_ATOM_REMOTE_POST = "AtomRemotePost";
         private const string POST_KEYWORDS = "Keywords";
-        private const string POST_EXCERPT = "Exerpt";
+        private const string POST_EXCERPT = "Excerpt";
         private const string POST_PERMALINK = "PermaLink";
         private const string POST_PINGURLS_PENDING = "PingUrls";
         private const string POST_PINGURLS_SENT = "SentPingUrls";
