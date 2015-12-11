@@ -522,7 +522,7 @@ namespace OpenLiveWriter.Mshtml
                     // yikes! how could this happen
                     Debug.Fail("Unexpected exception occurred while determining selection type: " + ex.Message);
 
-                    // default to return no selection in relase mode
+                    // default to return no selection in release mode
                     return false;
                 }
             }
