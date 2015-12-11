@@ -112,14 +112,14 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Cancels the event and kills its propogation.
+        /// Cancels the event and kills its propagation.
         /// </summary>
         public void Cancel()
         {
             //set the cancelBubble value
             htmlEvt.cancelBubble = true;
 
-            //the returnValue controls the propogation of the event.
+            //the returnValue controls the propagation of the event.
             htmlEvt.returnValue = false;
 
             // update state
