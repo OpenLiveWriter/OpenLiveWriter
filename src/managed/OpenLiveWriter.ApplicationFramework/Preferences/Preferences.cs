@@ -81,7 +81,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         /// Initializes a new instance of the Preferences class (optionally enable change monitoring)
         /// </summary>
         /// <param name="subKey">sub-key name</param>
-        /// <param name="monitorChanges">specifies whether the creator intendes to monitor
+        /// <param name="monitorChanges">specifies whether the creator intends to monitor
         /// this prefs object for changes by calling the CheckForChanges method</param>
         public Preferences(string subKey, bool monitorChanges)
         {
