@@ -68,7 +68,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Run the context menu.
             Command command = commandContextMenu.ShowModal(parentWindow, position, alternateXPosition);
 
-            //	Restore our parent window's contetx menu.
+            //	Restore our parent window's context menu.
             parentWindow.ContextMenu = parentContextMenu;
 
             //	Dipose of the context menu.
@@ -120,7 +120,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Run the context menu.
             Command command = commandContextMenu.ShowModal(parentWindow, position, alternateXPosition);
 
-            //	Restore our parent window's contetx menu.
+            //	Restore our parent window's context menu.
             parentWindow.ContextMenu = parentContextMenu;
 
             //	Dipose of the context menu.
@@ -159,7 +159,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Run the context menu.
             Command command = commandContextMenu.ShowModal(parentWindow, position, alternateXPosition);
 
-            //	Restore our parent window's contetx menu.
+            //	Restore our parent window's context menu.
             parentWindow.ContextMenu = parentContextMenu;
 
             //	Dipose of the context menu.
