@@ -1848,7 +1848,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             if (selectedMarkupRange != null && selectedMarkupRange.IsEmpty())
             {
                 //resolve problems with display-vs-markup position ambiguity by moving past
-                //invisible markupon the left. This makes the element context consistent
+                //invisible mark up on the left. This makes the element context consistent
                 //with the element the caret exists within when typing text (avoids bugs like 403028)
                 MoveSelectionToPoint(screenPoint);
             }
