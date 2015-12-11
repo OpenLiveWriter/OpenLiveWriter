@@ -25,7 +25,7 @@ using OpenLiveWriter.PostEditor.Commands;
 
 // M2:
 //    - Initial user experience / spaces signup
-//    - Emeds/Video/LifeCam (see Flash Embedding Cage Match: http://alistapart.com/articles/flashembedcagematch)
+//    - Embeds/Video/LifeCam (see Flash Embedding Cage Match: http://alistapart.com/articles/flashembedcagematch)
 //    - Product vision
 
 // RADAR:
