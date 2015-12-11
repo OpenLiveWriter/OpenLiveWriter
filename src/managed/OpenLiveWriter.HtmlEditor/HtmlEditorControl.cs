@@ -3804,7 +3804,7 @@ namespace OpenLiveWriter.HtmlEditor
                 }
                 catch (Exception ex)
                 {
-                    // WinLive 105991: Carry on inspite of OLECMDERR_E_DISABLED (0x80040101)
+                    // WinLive 105991: Carry on in spite of OLECMDERR_E_DISABLED (0x80040101)
                     Trace.WriteLine("Exception thrown when getting selection fore color: " + ex);
                     return 0;
                 }
