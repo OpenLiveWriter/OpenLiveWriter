@@ -79,7 +79,7 @@ namespace OpenLiveWriter.Interop.Com
         /// caller uses the supplied value of pFormatetcOut, unless the value supplied
         /// is NULL. This value is NULL if the method returns DATA_S_SAMEFORMATETC.
         /// The TYMED member is not significant in this case and should be ignored</param>
-        /// <returns>S_OK if the logically equivilant structure was provided,
+        /// <returns>S_OK if the logically equivalent structure was provided,
         /// otherwise returns DATA_S_SAMEFORMATETC indicating the structures
         /// are the same (in this case pFormatEtcOut is NULL)</returns>
         [PreserveSig]
