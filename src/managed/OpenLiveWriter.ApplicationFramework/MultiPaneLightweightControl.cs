@@ -151,7 +151,7 @@ namespace Project31.ApplicationFramework
         /// The vertical tracking indicator.  This helper class displays the splitter position when
         /// a splitter is being resized.
         /// </summary>
-        VerticalTrackingIndicator verticalTrackingIdicator = new VerticalTrackingIndicator();
+        VerticalTrackingIndicator verticalTrackingIndicator = new VerticalTrackingIndicator();
 
         /// <summary>
         /// Initializes a new instance of the MultiPaneLightweightControl class.
@@ -444,7 +444,7 @@ namespace Project31.ApplicationFramework
             //	Calculate.
             Rectangle trackingIndicatorRectangle = CalculateVerticalTrackingIndicatorRectangle(leftSplitterPosition);
 
-            verticalTrackingIdicator.Begin(Parent, VirtualClientRectangleToParent(trackingIndicatorRectangle));
+            verticalTrackingIndicator.Begin(Parent, VirtualClientRectangleToParent(trackingIndicatorRectangle));
         }
 
         /// <summary>
@@ -454,7 +454,7 @@ namespace Project31.ApplicationFramework
         /// <param name="e"></param>
         private void leftSplitter_SplitterEndMove(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
         {
-            verticalTrackingIdicator.End();
+            verticalTrackingIndicator.End();
             leftSplitterPosition = newLeftSplitterPosition;
             PerformLayout();
             Invalidate();
@@ -484,7 +484,7 @@ namespace Project31.ApplicationFramework
             Rectangle trackingIndicatorRectangle = CalculateVerticalTrackingIndicatorRectangle(newLeftSplitterPosition);
 
             //	Set the new left splitter position, if it has changed.
-            verticalTrackingIdicator.Update(VirtualClientRectangleToParent(trackingIndicatorRectangle).Location);
+            verticalTrackingIndicator.Update(VirtualClientRectangleToParent(trackingIndicatorRectangle).Location);
         }
 
         /// <summary>
@@ -497,7 +497,7 @@ namespace Project31.ApplicationFramework
             //	Calculate.
             Rectangle trackingIndicatorRectangle = CalculateVerticalTrackingIndicatorRectangle(VirtualWidth-rightSplitterPosition);
 
-            verticalTrackingIdicator.Begin(Parent, VirtualClientRectangleToParent(trackingIndicatorRectangle));
+            verticalTrackingIndicator.Begin(Parent, VirtualClientRectangleToParent(trackingIndicatorRectangle));
         }
 
         /// <summary>
@@ -507,7 +507,7 @@ namespace Project31.ApplicationFramework
         /// <param name="e"></param>
         private void rightSplitter_SplitterEndMove(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
         {
-            verticalTrackingIdicator.End();
+            verticalTrackingIndicator.End();
             rightSplitterPosition = newRightSplitterPosition;
             PerformLayout();
             Invalidate();
@@ -537,7 +537,7 @@ namespace Project31.ApplicationFramework
             Rectangle trackingIndicatorRectangle = CalculateVerticalTrackingIndicatorRectangle(VirtualWidth-newRightSplitterPosition);
 
             //	Set the new right splitter position, if it has changed.
-            verticalTrackingIdicator.Update(VirtualClientRectangleToParent(trackingIndicatorRectangle).Location);
+            verticalTrackingIndicator.Update(VirtualClientRectangleToParent(trackingIndicatorRectangle).Location);
         }
     }
 }
