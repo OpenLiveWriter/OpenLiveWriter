@@ -592,7 +592,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             ArrayList sidebarContentSources = new ArrayList();
             if ( maxSources <= ContentSourceManager.BuiltInInsertableContentSources.Length )
             {
-                // clip the list of standard spources if necessary
+                // clip the list of standard sources if necessary
                 for( int i=0; i<maxSources; i++ )
                     sidebarContentSources.Add(ContentSourceManager.BuiltInInsertableContentSources[i]);
             }

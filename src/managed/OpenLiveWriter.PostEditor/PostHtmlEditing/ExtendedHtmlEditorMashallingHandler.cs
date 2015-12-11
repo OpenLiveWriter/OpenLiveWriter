@@ -324,7 +324,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 LiveClipboardManager.FindContentSourceForLiveClipboard(lcData.Formats);
             if (contentSource == null)
             {
-                Trace.Fail("Unexpected failure to find content soure!");
+                Trace.Fail("Unexpected failure to find content source!");
                 return false;
             }
 
