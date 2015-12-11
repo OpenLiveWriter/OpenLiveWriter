@@ -330,8 +330,8 @@
     <Compile Include="ContentSources\RefreshableContentManager.cs" />
     <Compile Include="ContentSources\SmartContent.cs" />
     <Compile Include="ContentSources\SmartContentInsertionHelper.cs" />
-    <Compile Include="ContentSources\UrlContentRetreivalWithProgress.cs" />
-    <Compile Include="ContentSources\UrlContentRetreivalWithProgressDialog.cs">
+    <Compile Include="ContentSources\UrlContentRetrievalWithProgress.cs" />
+    <Compile Include="ContentSources\UrlContentRetrievalWithProgressDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditingPreferencesPanel.cs">
@@ -1040,8 +1040,8 @@
     <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress20.png" />
     <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress21.png" />
     <EmbeddedResource Include="ContentSources\Images\NetworkProgress\Progress22.png" />
-    <EmbeddedResource Include="ContentSources\UrlContentRetreivalWithProgressDialog.resx">
-      <DependentUpon>UrlContentRetreivalWithProgressDialog.cs</DependentUpon>
+    <EmbeddedResource Include="ContentSources\UrlContentRetrievalWithProgressDialog.resx">
+      <DependentUpon>UrlContentRetrievalWithProgressDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EditingPreferencesPanel.resx">
