@@ -34,7 +34,7 @@ namespace OpenLiveWriter.ApplicationFramework
     /// </summary>
     public class CommandBarLightweightControl : LightweightControl
     {
-        #region Private Memeber Variables & Declarations
+        #region Private Member Variables & Declarations
 
         /// <summary>
         /// The CommandManager for the CommandBarLightweightControl.
@@ -71,7 +71,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         private BevelStyle bottomBevelStyle = BevelStyle.None;
 
-        #endregion Private Memeber Variables & Declarations
+        #endregion Private Member Variables & Declarations
 
         #region Public Events
 
