@@ -25,7 +25,7 @@ namespace OpenLiveWriter.CoreServices
     public class PageAndReferenceDownloader
     {
         /// <summary>
-        /// Constructs a new asynchrous page download.
+        /// Constructs a new asynchronous page download.
         /// </summary>
         /// <param name="pagesToDownload">The array of pagesToDownload</param>
         /// <param name="siteStorage">The File based site storage into which to place the page and references</param>
@@ -35,7 +35,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Constructs a new asynchrous page download.
+        /// Constructs a new asynchronous page download.
         /// </summary>
         /// <param name="pagesToDownload">The array of pagesToDownload</param>
         /// <param name="siteStorage">The File based site storage into which to place the page and references</param>

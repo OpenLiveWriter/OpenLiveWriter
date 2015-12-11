@@ -1,7 +1,7 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-/// AsyncOperation.cs - A base class for asyncronous, cancellable operations
+/// AsyncOperation.cs - A base class for asynchronous, cancellable operations
 ///
 /// This base class is designed to be used by lengthy operations that wish to
 /// support cancellation. The class is based heavily the Ian Griffiths article
@@ -9,7 +9,7 @@
 /// Threads" on pg. 68 of the Feb 2003 MSDN Magazine:
 ///	 http://msdn.microsoft.com/msdnmag/issues/03/02/Multithreading/default.aspx
 ///
-/// To create a new class that supports cancellable, asychronous operations:
+/// To create a new class that supports cancellable, asynchronous operations:
 ///
 /// (1) Derive a new class from AsyncOperation.
 ///

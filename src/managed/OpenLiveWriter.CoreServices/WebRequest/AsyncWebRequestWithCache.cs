@@ -21,7 +21,7 @@ namespace OpenLiveWriter.CoreServices
         public Stream ResponseStream;
 
         /// <summary>
-        /// Event called when an ansychronous request is completed.
+        /// Event called when an asynchronous request is completed.
         /// </summary>
         public event EventHandler RequestComplete;
         protected void OnRequestComplete(EventArgs e)
