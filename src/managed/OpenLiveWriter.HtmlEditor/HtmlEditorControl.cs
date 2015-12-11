@@ -2299,7 +2299,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
 
             // We might not want to select the element if this is an edit field
-            // that will select its whole inner contents on intial focus inside of the element
+            // that will select its whole inner contents on initial focus inside of the element
             if (selectLocation)
             {
                 //focus the target element in case focus is currently in another element.

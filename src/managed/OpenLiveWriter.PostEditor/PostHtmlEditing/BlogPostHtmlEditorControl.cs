@@ -315,7 +315,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     ForceTablesToInheritFontColor(postBodyRange);
                 }
 
-                // Since we move around the HTML where the intial cursor is positioned, we need
+                // Since we move around the HTML where the initial cursor is positioned, we need
                 // to make sure that it is still visible.
                 if (HTMLCaret != null)
                     HTMLCaret.Show(1);
