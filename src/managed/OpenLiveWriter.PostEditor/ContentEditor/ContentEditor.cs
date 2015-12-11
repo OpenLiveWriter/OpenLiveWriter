@@ -764,7 +764,7 @@ namespace OpenLiveWriter.PostEditor
             // @SharedCanvas - Check to make sure we can get rid of this once we get rid of the sidebar
             if (_editingContext is BlogPostEditingManager)
             {
-                // Get an event everytime the user tried to publish, so we refesh smart content that might have been updated during published
+                // Get an event everytime the user tried to publish, so we refresh smart content that might have been updated during published
                 BlogPostEditingManager editingManager = (BlogPostEditingManager)_editingContext;
                 editingManager.UserPublishedPost += new EventHandler(editingManager_UserPublishedPost);
             }
