@@ -1694,7 +1694,7 @@ namespace OpenLiveWriter.Mshtml
         private IOleDocumentView oleDocumentView = null;
 
         /// <summary>
-        /// Command target for view (quieried from oleDocumentView)
+        /// Command target for view (queried from oleDocumentView)
         /// </summary>
         private IOleCommandTargetWithExecParams oleCommandTarget = null;
 
