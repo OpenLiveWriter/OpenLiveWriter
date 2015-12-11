@@ -617,7 +617,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // Remove noscript tags from the editing template.  If a user has a blog theme of
             // <html><head><noscript></noscript></head><body><div></div></body></html> we will parse it to
             // <html><head><noscript></head><body><div></div></body></noscript></html> and this code will change it to
-            // <html><head></head><body><div></div></body></html> which will allow us to attach our beavhiors to the body element
+            // <html><head></head><body><div></div></body></html> which will allow us to attach our behaviors to the body element
             wysiwygHTML = Regex.Replace(wysiwygHTML, "</?NOSCRIPT>", "", RegexOptions.IgnoreCase);
             // Remove any scroll=no attributes. Sharepoint 2010 adds these.
             wysiwygHTML = Regex.Replace(wysiwygHTML, "scroll=[\"']?no[\"']?", "", RegexOptions.IgnoreCase);

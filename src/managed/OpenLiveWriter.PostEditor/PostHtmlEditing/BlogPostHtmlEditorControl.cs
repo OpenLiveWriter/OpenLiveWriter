@@ -1305,7 +1305,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     blogPostBody += CONTENT_BODY_PADDING;
             }
 
-            // SInce this action is reverted in the deattach of the behvaiors, we only do this in edit mode,
+            // SInce this action is reverted in the deattach of the behaviors, we only do this in edit mode,
             // otherwie there is no deattach to balance it out.  See that AttachBehaviors() doesnt attach in edit mode
             if (Editable)
             {

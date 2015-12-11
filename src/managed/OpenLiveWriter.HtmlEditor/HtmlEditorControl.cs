@@ -217,7 +217,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// to set the security policy that will be returned to mshtml
         ///
         /// This will be needed by BlogPostHtmlEditor so it can set an allow
-        /// policy for the bevhaiors that the canvas defines
+        /// policy for the behaviors that the canvas defines
         /// </summary>
         /// <param name="behavior"></param>
         /// <param name="pPolicy"></param>
