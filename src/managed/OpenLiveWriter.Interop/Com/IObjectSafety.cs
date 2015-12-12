@@ -8,7 +8,7 @@ namespace OpenLiveWriter.Interop.Com
 {
     /// <summary>
     /// The IObjectSafety interface provides methods to retrieve and set safety options.
-    /// 
+    ///
     /// For details, see: http://msdn.microsoft.com/workshop/components/com/reference/ifaces/iobjectsafety/iobjectsafety.asp
     /// </summary>
     [ComImport]

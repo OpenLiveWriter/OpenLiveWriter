@@ -68,18 +68,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // labelPicture
-            // 
+            //
             this.labelPicture.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPicture.Location = new System.Drawing.Point(8, 0);
             this.labelPicture.Name = "labelPicture";
             this.labelPicture.Size = new System.Drawing.Size(193, 13);
             this.labelPicture.TabIndex = 0;
             this.labelPicture.Text = "Picture:";
-            // 
+            //
             // labelFilename
-            // 
+            //
             this.labelFilename.AutoSize = true;
             this.labelFilename.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelFilename.Location = new System.Drawing.Point(0, 0);
@@ -88,9 +88,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.labelFilename.Padding = new Padding(0, 0, 0, 0);
             this.labelFilename.Size = new System.Drawing.Size(193, 13);
             this.labelFilename.TabIndex = 1;
-            // 
+            //
             // labelSize
-            // 
+            //
             this.labelSize.AutoSize = true;
             this.labelSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelSize.Location = new System.Drawing.Point(0, 0);
@@ -99,9 +99,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.labelSize.Padding = new Padding(0, 0, 0, 0);
             this.labelSize.Size = new System.Drawing.Size(193, 13);
             this.labelSize.TabIndex = 2;
-            // 
+            //
             // tableLayoutPanel
-            // 
+            //
             this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel.AutoSize = true;
@@ -119,45 +119,45 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(193, 20);
             this.tableLayoutPanel.TabIndex = 3;
-            // 
+            //
             // labelAltText
-            // 
+            //
             this.labelAltText.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelAltText.Location = new System.Drawing.Point(8, 46);
             this.labelAltText.Name = "labelAltText";
             this.labelAltText.Size = new System.Drawing.Size(193, 13);
             this.labelAltText.TabIndex = 4;
             this.labelAltText.Text = "Alternate &text:";
-            // 
+            //
             // textBoxAltText
-            // 
+            //
             this.textBoxAltText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAltText.Location = new System.Drawing.Point(8, 62);
             this.textBoxAltText.Name = "textBoxAltText";
             this.textBoxAltText.Size = new System.Drawing.Size(193, 20);
             this.textBoxAltText.TabIndex = 5;
-            // 
+            //
             // labelTitle
-            // 
+            //
             this.labelTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelTitle.Location = new System.Drawing.Point(8, 92);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(193, 13);
             this.labelTitle.TabIndex = 6;
             this.labelTitle.Text = "T&itle:";
-            // 
+            //
             // textBoxTitle
-            // 
+            //
             this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTitle.Location = new System.Drawing.Point(8, 108);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(193, 20);
             this.textBoxTitle.TabIndex = 7;
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(47, 148);
@@ -166,9 +166,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonOK.TabIndex = 8;
             this.buttonOK.Text = "button1";
             this.buttonOK.UseVisualStyleBackColor = true;
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(126, 148);
@@ -177,9 +177,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "button2";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
+            //
             // HtmlAltTextEditor
-            // 
+            //
             this.Controls.Add(this.labelPicture);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.labelAltText);

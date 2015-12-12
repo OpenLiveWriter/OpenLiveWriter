@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -6,7 +6,7 @@ using System;
 namespace OpenLiveWriter.Interop.Com
 {
     /// <summary>
-    /// A refence to an icon resource 
+    /// A refence to an icon resource
     /// </summary>
     public struct IconReference
     {

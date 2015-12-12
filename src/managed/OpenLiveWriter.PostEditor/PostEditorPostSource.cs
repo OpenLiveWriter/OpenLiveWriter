@@ -195,9 +195,6 @@ namespace OpenLiveWriter.PostEditor
         }
     }
 
-
-
-
     public class RemoteWeblogBlogPostSource : IPostEditorPostSource
     {
         public RemoteWeblogBlogPostSource(string blogId)
@@ -250,8 +247,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
-
         public bool SupportsDelete
         {
             get
@@ -268,14 +263,12 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public bool VerifyCredentials()
         {
             using (Blog blog = new Blog(_blogId))
                 return blog.VerifyCredentials();
 
         }
-
 
         public RecentPostCapabilities RecentPostCapabilities
         {
@@ -316,7 +309,7 @@ namespace OpenLiveWriter.PostEditor
                     // Larger number by default for blogs that support
                     // pages (this is so pages are not "clipped" out of
                     // view in the default case). Alternatively we could
-                    // support separate defaults for Posts and Pages 
+                    // support separate defaults for Posts and Pages
                     // however this would have introduced too much new
                     // complexity into the OpenPostForm. That said, if
                     // we are hell bent on fixing this it is definitely
@@ -326,7 +319,6 @@ namespace OpenLiveWriter.PostEditor
 
             }
         }
-
 
         public PostInfo[] GetRecentPosts(RecentPostRequest request)
         {
@@ -341,7 +333,6 @@ namespace OpenLiveWriter.PostEditor
             return GetPosts(request, true);
         }
 
-
         public IBlogPostEditingContext GetPost(string postId)
         {
             foreach (BlogPost blogPost in _blogPosts)
@@ -350,7 +341,7 @@ namespace OpenLiveWriter.PostEditor
                 {
                     if (blogPost.Id == postId)
                     {
-                        // Fix bug 457160 - New post created with a new category 
+                        // Fix bug 457160 - New post created with a new category
                         // becomes without a category when opened in WLW
                         //
                         // See also RecentPostSynchronizer.DoWork()
@@ -428,8 +419,6 @@ namespace OpenLiveWriter.PostEditor
         private bool _supportsPages;
         private BlogPost[] _blogPosts;
     }
-
-
 
     /// <summary>
     /// Chooser source for local blog storage
@@ -529,7 +518,6 @@ namespace OpenLiveWriter.PostEditor
             return PostEditorFile.GetRecentPosts(_directory, request);
         }
 
-
         public IBlogPostEditingContext GetPost(string postId)
         {
             PostEditorFile postEditorFile = PostEditorFile.GetExisting(new FileInfo(postId));
@@ -563,7 +551,6 @@ namespace OpenLiveWriter.PostEditor
                 return Res.Get(StringId.OpenPostNoDraftsAvailable);
             }
         }
-
 
         public override bool DeletePost(string postId, bool isPage)
         {
@@ -606,7 +593,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
     }
-
 
     public class RecentPostCapabilities
     {
@@ -660,8 +646,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private static readonly RecentPostRequest _all = new RecentPostRequest(ALL_POSTS);
 
-
-
         public string DisplayName
         {
             get { return _displayName; }
@@ -697,8 +681,5 @@ namespace OpenLiveWriter.PostEditor
         private int _numberOfPosts;
         public const int ALL_POSTS = Int32.MaxValue;
     }
-
-
-
 
 }

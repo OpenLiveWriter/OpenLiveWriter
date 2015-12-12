@@ -10,7 +10,7 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
-    /// WebRequestWithCache provides a mechanism for retrieve web data synchronously.  
+    /// WebRequestWithCache provides a mechanism for retrieve web data synchronously.
     /// It includes the capability to automatically check the local
     /// internet explorer cache for improved performance.
     /// </summary>
@@ -118,21 +118,17 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
 
-
             // Make a synchronous request, if necessary
             if (stream == Stream.Null && cacheSettings != CacheSettings.CACHEONLY)
             {
                 if (m_url == null)
                     return null;
 
-
-
                 if (WebRequest is HttpWebRequest)
                 {
                     HttpWebRequest thisRequest = (HttpWebRequest)WebRequest;
                     thisRequest.Timeout = timeOut;
                 }
-
 
                 try
                 {

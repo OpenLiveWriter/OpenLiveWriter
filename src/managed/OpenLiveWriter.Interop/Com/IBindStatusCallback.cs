@@ -36,7 +36,6 @@ namespace OpenLiveWriter.Interop.Com
             [In, Out] ref uint grfBINDF,
             [In, Out] ref BINDINFO pbindinfo);
 
-
         void OnDataAvailable(
             [In] BSCF grfBSCF,
             [In] uint dwSize,
@@ -47,7 +46,6 @@ namespace OpenLiveWriter.Interop.Com
             [In] ref Guid riid,
             [In] IntPtr punk);
     }
-
 
 }
 

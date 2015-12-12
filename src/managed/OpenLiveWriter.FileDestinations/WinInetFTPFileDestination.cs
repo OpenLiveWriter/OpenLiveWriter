@@ -42,16 +42,14 @@ namespace OpenLiveWriter.FileDestinations
         /// <param name="password">The password to use to login to the server</param>
         /// <param name="retryCount">The number of times to retry a file transfer that has
         /// suffered a non fatal error</param>
-        /// <param name="retryPause">The amount of time, in milliseconds, to wait between 
-        /// retries</param> 
+        /// <param name="retryPause">The amount of time, in milliseconds, to wait between
+        /// retries</param>
         public WinInetFTPFileDestination(string ftpAddress, string targetDirectory,
             string username, string password, int retryCount, int retryPause) :
             this(GetServerName(ftpAddress), GetServerPort(ftpAddress), targetDirectory,
             username, password, retryCount, retryPause)
         {
         }
-
-
 
         /// <summary>
         /// FTP Destination constructor, specify FTP port.
@@ -74,8 +72,6 @@ namespace OpenLiveWriter.FileDestinations
             m_ftpPort = ftpPort;
         }
 
-
-
         /// <summary>
         /// FTP Destination constructor, specify FTP port.
         /// </summary>
@@ -86,8 +82,8 @@ namespace OpenLiveWriter.FileDestinations
         /// <param name="password">The password to use to login to the server</param>
         /// <param name="retryCount">The number of times to retry a file transfer that has
         /// suffered a non fatal error</param>
-        /// <param name="retryPause">The amount of time, in milliseconds, to wait between 
-        /// retries</param> 
+        /// <param name="retryPause">The amount of time, in milliseconds, to wait between
+        /// retries</param>
         public WinInetFTPFileDestination(
             string ftpAddress,
             int ftpPort,
@@ -104,7 +100,7 @@ namespace OpenLiveWriter.FileDestinations
         }
 
         /// <summary>
-        /// Connects to the FTP server 
+        /// Connects to the FTP server
         /// </summary>
         public override void Connect()
         {
@@ -125,7 +121,7 @@ namespace OpenLiveWriter.FileDestinations
             m_hFtp = WinInet.InternetConnect(
                 m_hInternet,                    // The internet connection to use
                 m_ftpAddress,
-                m_ftpPort,                      // The FTP port number 
+                m_ftpPort,                      // The FTP port number
                 m_userName,
                 m_passWord,
                 INTERNET_SERVICE.FTP,           // Open the connection for this type of service
@@ -178,7 +174,6 @@ namespace OpenLiveWriter.FileDestinations
 
         }
 
-
         /// <summary>
         /// Copy a file to the FTP destination
         /// </summary>
@@ -194,7 +189,7 @@ namespace OpenLiveWriter.FileDestinations
             // throwing an exception.  That will pass that CopyFile failed up
             // up the chain, allowing any retry logic to execute.
 
-            // NOTE: This should respect the bool overWrite.  Right now, it just 
+            // NOTE: This should respect the bool overWrite.  Right now, it just
             // blows over the top
             return ValidateFileTransfer(WinInet.FtpPutFile(
                 m_hFtp,
@@ -260,7 +255,7 @@ namespace OpenLiveWriter.FileDestinations
 
         /// <summary>
         /// This method is called to determine whether a directory exists.  This is used to
-        /// determine whether to create a new directory or not. 
+        /// determine whether to create a new directory or not.
         /// </summary>
         /// <param name="Path">the relative directory</param>
         /// <returns>true indicates the directory exists, false indicates it doesn't</returns>
@@ -322,7 +317,6 @@ namespace OpenLiveWriter.FileDestinations
             return false;
         }
 
-
         /// <summary>
         /// Creates a directory on the FTP server
         /// </summary>
@@ -371,7 +365,7 @@ namespace OpenLiveWriter.FileDestinations
         /// Deletes a file on the FTP server
         /// </summary>
         /// <param name="path">The path of the file to delete (typically
-        /// relative to the current directory)</param>		
+        /// relative to the current directory)</param>
         public override void DeleteFile(string path)
         {
             path = CombinePath(m_path, path);
@@ -502,8 +496,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
-
         /// <summary>
         /// Disconnect from the FTP Server
         /// </summary>
@@ -524,7 +516,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         /// <summary>
         /// Validates that a WinInet connection was successfully made.  If the connection
         /// wasn't successful, this will throw a SiteDestination exception of the correct
@@ -536,7 +527,7 @@ namespace OpenLiveWriter.FileDestinations
             // validate that there wasn't an exception
             if (connectionHandle == IntPtr.Zero)
             {
-                // Throw the correct destination exception for this 
+                // Throw the correct destination exception for this
                 // type of WinInet error code
                 ThrowDestinationException(Marshal.GetLastWin32Error());
 
@@ -548,14 +539,14 @@ namespace OpenLiveWriter.FileDestinations
         ///<summary>
         /// Validates that a WinInet file transfer was successfully made.  If the transfer
         /// wasn't successful, this will attempt to determine the cause and either return false
-        /// indicating that the file transfer should be retried, or it will throw a SiteDestination 
-        /// exception of the correct type and include corresponding details describing the 
+        /// indicating that the file transfer should be retried, or it will throw a SiteDestination
+        /// exception of the correct type and include corresponding details describing the
         /// cause of the exception.
         /// </summary>
         /// <param name="didTransfer">Bool indicating the result of the file transfer</param>
         private bool ValidateFileTransfer(bool didTransfer)
         {
-            // If the file transfer failed, check to see if the failure was 
+            // If the file transfer failed, check to see if the failure was
             // fatal.
             if (!didTransfer)
             {
@@ -572,17 +563,16 @@ namespace OpenLiveWriter.FileDestinations
                 if (error != ERROR_INTERNET.TIMEOUT &&
                     error != ERROR_INTERNET.OPERATION_CANCELLED &&
                     error != ERROR_INTERNET.FORCE_RETRY)
-                    // Throw the correct destination exception for this 
+                    // Throw the correct destination exception for this
                     // type of WinInet error code
                     ThrowDestinationException(error);
             }
             return didTransfer;
         }
 
-
         ///<summary>
         /// Validates that a WinInet FTP command was successfully executed.  If the command
-        /// wasn't successful this will throw a SiteDestination exception of the correct type 
+        /// wasn't successful this will throw a SiteDestination exception of the correct type
         /// and include corresponding details describing the cause of the exception.
         /// </summary>
         /// <param name="commandSucceeded">Bool indicating the result of the FTP command</param>
@@ -590,14 +580,11 @@ namespace OpenLiveWriter.FileDestinations
         {
             if (!commandSucceeded)
             {
-                // Throw the correct destination exception for this 
+                // Throw the correct destination exception for this
                 // type of WinInet error code
                 ThrowDestinationException(Marshal.GetLastWin32Error());
             }
         }
-
-
-
 
         /// <summary>
         /// Throws the correct Site Destination exception for a given WinInet Error Code.
@@ -738,7 +725,6 @@ namespace OpenLiveWriter.FileDestinations
             }
             return ftpUri;
         }
-
 
         /// <summary>
         /// The ftp username

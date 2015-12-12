@@ -73,7 +73,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             Response = response;
         }
 
-
         public readonly string Method;
 
         public readonly string ErrorMessage = String.Empty;
@@ -91,7 +90,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
                     errorMessage)
         {
         }
-
 
         public BlogClientFileTransferException(FileInfo file, string errorCode, string errorMessage)
             : this(string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.BCEFileTransferTransferringFile), file.Name), errorCode, errorMessage)
@@ -179,7 +177,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         {
         }
 
-
         public BlogClientIOException(FileInfo file, IOException ioException)
             : base(StringId.BCEFileIOTitle,
                     StringId.BCEFileIOMessage,
@@ -227,7 +224,4 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         }
     }
 }
-
-
-
 

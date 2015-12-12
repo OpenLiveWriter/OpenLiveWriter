@@ -197,7 +197,7 @@ namespace OpenLiveWriter.PostEditor.Video
             commandVideoWidescreenAspectRatio.Latched = _VideoContent.AspectRatioType == VideoAspectRatioType.Widescreen;
             commandVideoStandardAspectRatio.Latched = _VideoContent.AspectRatioType == VideoAspectRatioType.Standard;
 
-            // The ribbon keeps internal state about if the buttons should be latched or not, so we invalidate the 
+            // The ribbon keeps internal state about if the buttons should be latched or not, so we invalidate the
             // state to make sure it calls back into us to get the current values.
             commandVideoWidescreenAspectRatio.Invalidate(new[] { PropertyKeys.BooleanValue });
             commandVideoStandardAspectRatio.Invalidate(new[] { PropertyKeys.BooleanValue });
@@ -221,7 +221,6 @@ namespace OpenLiveWriter.PostEditor.Video
             if (paddingChanged)
                 OnContentEdited();
         }
-
 
         private void InitializeSettingsUI()
         {
@@ -260,7 +259,7 @@ namespace OpenLiveWriter.PostEditor.Video
             OnContentEdited();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -276,14 +275,14 @@ namespace OpenLiveWriter.PostEditor.Video
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
         }
 
-        #endregion         
+        #endregion
     }
 }

@@ -20,7 +20,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         /// <summary>
         /// Detect a specific BlogAccount (or list of blog accounts if a single account could not
-        /// be identified). 
+        /// be identified).
         /// </summary>
         /// <param name="homepageUrl">Hint to the detector that if there is a list of blogs then the one with this homepageUrl is the one we are seeking</param>
         /// <param name="clientType">Client API type</param>
@@ -32,7 +32,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             _postApiUrl = postApiUrl;
             _credentials = credentials;
         }
-
 
         public bool ValidateService()
         {
@@ -78,7 +77,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
         }
 
-
         public BlogInfo DetectAccount(string homepageUrlHint, string blogIdHint)
         {
             // although the request is for all blogs belonging to the user, some
@@ -106,7 +104,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         public bool ServiceIncludesBlogId(string blogId)
         {
-            // otherwise scan the list of blogs with the passed homepage and 
+            // otherwise scan the list of blogs with the passed homepage and
             // blog id hints to see if we have a match
             foreach (BlogInfo blog in _usersBlogs)
             {

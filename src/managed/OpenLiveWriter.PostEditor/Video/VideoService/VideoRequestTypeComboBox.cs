@@ -77,8 +77,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 SelectedRequestTypeChanged(this, EventArgs.Empty);
         }
 
-
-
     }
 
 }

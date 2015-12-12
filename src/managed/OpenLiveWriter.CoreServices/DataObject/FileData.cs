@@ -34,7 +34,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// The FileItems contained in the data object. 
+        /// The FileItems contained in the data object.
         /// </summary>
         public FileItem[] Files
         {
@@ -60,7 +60,6 @@ namespace OpenLiveWriter.CoreServices
             // debug-only sanity check on formats
             VerifyFormatsMutuallyExclusive(iDataObject);
         }
-
 
         /// <summary>
         /// Initialize list of FileItem formats that we support
@@ -90,7 +89,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         private static ArrayList GetFormatsForDataObject(IDataObject dataObject)
         {
-            // Mozilla often time is very sketchy about their filedrops.  They 
+            // Mozilla often time is very sketchy about their filedrops.  They
             // may place null in the filedrop format, or they may place paths
             // to files that are highly transient and may or may not be available
             // when you need then (many images will get reset to 0 byte files)
@@ -103,24 +102,22 @@ namespace OpenLiveWriter.CoreServices
         }
         private const string MOZILLA_MARKER = "text/_moz_htmlinfo";
 
-
         // underlying data object
         private IDataObject m_dataObject = null;
 
-        // file item format 
+        // file item format
         private IFileItemFormat m_fileItemFormat = null;
 
         // list of files
         private FileItem[] m_files = null;
 
-
-        // Helper to verify that our IFileItemFormat instances are mutually 
-        // exclusive (more than one format shouldn't be supported by the 
+        // Helper to verify that our IFileItemFormat instances are mutually
+        // exclusive (more than one format shouldn't be supported by the
         // data inside a single IDataObject)
         [Conditional("DEBUG")]
         private static void VerifyFormatsMutuallyExclusive(IDataObject iDataObject)
         {
-            // verify there is no case where multiple file items types can 
+            // verify there is no case where multiple file items types can
             // be created from the same IDataObject (just a sanity/assumption check)
             int matches = 0;
             StringBuilder sb = new StringBuilder();
@@ -136,6 +133,5 @@ namespace OpenLiveWriter.CoreServices
 
         }
     }
-
 
 }

@@ -66,7 +66,6 @@ namespace OpenLiveWriter.PostEditor
 
         public readonly string DestinationContext;
 
-
         protected string FormatFileName(string format, string filename, string conflictToken)
         {
             string postTitle = PostContext;
@@ -222,7 +221,6 @@ namespace OpenLiveWriter.PostEditor
         }
     }
 
-
     public class NullBlogFileUploader : BlogFileUploader
     {
         public NullBlogFileUploader(string destinationContext, string contextName, string blogId)
@@ -258,7 +256,6 @@ namespace OpenLiveWriter.PostEditor
             base.Dispose();
             _blogSettings.Dispose();
         }
-
 
         public override Uri DoUploadWorkBeforePublish(IFileUploadContext uploadContext)
         {
@@ -296,8 +293,8 @@ namespace OpenLiveWriter.PostEditor
             {
                 Trace.Fail(ex.ToString());
 
-                // provider exceptions that are not authentication exceptions are presumed 
-                // to be lack of support for newMediaObject we may want to filter this down 
+                // provider exceptions that are not authentication exceptions are presumed
+                // to be lack of support for newMediaObject we may want to filter this down
                 // further -- not sure how to do this other than by trial and error with the
                 // various services.
                 throw new BlogClientFileUploadNotSupportedException(ex.ErrorCode, ex.ErrorString);
@@ -473,7 +470,6 @@ namespace OpenLiveWriter.PostEditor
                 return ftpIconBytes;
             }
         }
-
 
         private class FtpCredentials
         {
@@ -687,7 +683,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
         private const string PASSWORD = "Password";
-
 
         public string FileUploadFormat
         {

@@ -820,7 +820,7 @@ namespace OpenLiveWriter.Controls
 
         #endregion Class Initialization & Termination
 
-        #region Public Properties		
+        #region Public Properties
         /// <summary>
         /// Gets or sets a value indicating whether the lightweight control is a tab stop.
         /// </summary>
@@ -1585,14 +1585,14 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Raises the DragEnter event.
-		/// </summary>
-		/// <param name="e">A DragEventArgs that contains the event data.</param>
-		internal void RaiseDragEnter(DragEventArgs e)
-		{
-			OnDragEnter(e);
-		}
+        /// <summary>
+        /// Raises the DragEnter event.
+        /// </summary>
+        /// <param name="e">A DragEventArgs that contains the event data.</param>
+        internal void RaiseDragEnter(DragEventArgs e)
+        {
+            OnDragEnter(e);
+        }
 #endif
 
         /// <summary>
@@ -1605,14 +1605,14 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Raises the DragLeave event.
-		/// </summary>
-		/// <param name="e">An EventArgs that contains the event data.</param>
-		internal void RaiseDragLeave(EventArgs e)
-		{
-			OnDragLeave(e);
-		}
+        /// <summary>
+        /// Raises the DragLeave event.
+        /// </summary>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        internal void RaiseDragLeave(EventArgs e)
+        {
+            OnDragLeave(e);
+        }
 #endif
 
         /// <summary>
@@ -1813,7 +1813,7 @@ namespace OpenLiveWriter.Controls
             //	Raise the event.
             OnVirtualLocationChanged(e);
 
-            //	Raise the LightweightControlContainerControlVirtualLocationChanged event on each 
+            //	Raise the LightweightControlContainerControlVirtualLocationChanged event on each
             //	child control.
             foreach (LightweightControl lightweightControl in lightweightControls)
                 lightweightControl.OnLightweightControlContainerControlVirtualLocationChanged(e);
@@ -1851,14 +1851,14 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Raises the DragEnter event.
-		/// </summary>
-		/// <param name="e">A DragEventArgs that contains the event data.</param>
-		protected virtual void OnDragEnter(DragEventArgs e)
-		{
-			RaiseEvent(DragEnterEventKey, e);
-		}
+        /// <summary>
+        /// Raises the DragEnter event.
+        /// </summary>
+        /// <param name="e">A DragEventArgs that contains the event data.</param>
+        protected virtual void OnDragEnter(DragEventArgs e)
+        {
+            RaiseEvent(DragEnterEventKey, e);
+        }
 #endif
 
         /// <summary>
@@ -1871,14 +1871,14 @@ namespace OpenLiveWriter.Controls
         }
 
 #if false
-		/// <summary>
-		/// Raises the DragLeave event.
-		/// </summary>
-		/// <param name="e">An EventArgs that contains the event data.</param>
-		protected virtual void OnDragLeave(EventArgs e)
-		{
-			RaiseEvent(DragLeaveEventKey, e);
-		}
+        /// <summary>
+        /// Raises the DragLeave event.
+        /// </summary>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        protected virtual void OnDragLeave(EventArgs e)
+        {
+            RaiseEvent(DragLeaveEventKey, e);
+        }
 #endif
 
         /// <summary>
@@ -2064,8 +2064,8 @@ namespace OpenLiveWriter.Controls
                     //	causes anything applied to the lightweight control's virtual client
                     //	rectangle to be mapped to the lightweight control's on-screen bounds.
                     GraphicsContainer graphicsContainer = e.Graphics.BeginContainer(/*lightweightControl.VirtualBounds,
-																					lightweightControlVirtualClientRectangle,
-																					GraphicsUnit.Pixel*/);
+                                                                                    lightweightControlVirtualClientRectangle,
+                                                                                    GraphicsUnit.Pixel*/);
                     e.Graphics.TranslateTransform(lightweightControl.VirtualBounds.Location.X, lightweightControl.VirtualBounds.Location.Y);
 
                     //	Clip the graphics context to prevent the lightweight control from drawing
@@ -2112,7 +2112,6 @@ namespace OpenLiveWriter.Controls
             RaiseEvent(VisibleChangedEventKey, e);
         }
 
-
         /// <summary>
         /// Raises the VirtualSizeChanged event.
         /// </summary>
@@ -2131,7 +2130,7 @@ namespace OpenLiveWriter.Controls
             //	Raise the event.
             RaiseEvent(VirtualLocationChangedEventKey, e);
 
-            //	Raise the LightweightControlContainerControlVirtualLocationChanged event on each 
+            //	Raise the LightweightControlContainerControlVirtualLocationChanged event on each
             //	child control.
             foreach (LightweightControl lightweightControl in lightweightControls)
                 lightweightControl.OnLightweightControlContainerControlVirtualLocationChanged(e);
@@ -2149,7 +2148,6 @@ namespace OpenLiveWriter.Controls
             }
             return focusedControl;
         }
-
 
         private bool _focused;
         public bool Focused
@@ -2218,7 +2216,6 @@ namespace OpenLiveWriter.Controls
             return false;
         }
 
-
         protected string AccessibleDefaultAction
         {
             get { return accessibleDefaultAction; }
@@ -2232,7 +2229,6 @@ namespace OpenLiveWriter.Controls
             set { _accessibleName = value; }
         }
         private string _accessibleName;
-
 
         protected AccessibleRole AccessibleRole
         {
@@ -2329,7 +2325,6 @@ namespace OpenLiveWriter.Controls
                     if (_control.Focused)
                         states = states | AccessibleStates.Focused;
 
-
                     if (!IsControlVisible(_control))
                         states = states | AccessibleStates.Invisible;
 
@@ -2369,12 +2364,12 @@ namespace OpenLiveWriter.Controls
                 get
                 {
                     /*ILightweightControlContainerControl parent = _control.lightweightControlContainerControl;
-					if(parent is Control)
-						return ((Control) parent).AccessibilityObject;
-					else if(parent is LightweightControl)
-						return ((LightweightControl) parent).AccessibilityObject;
-					else
-						return null;*/
+                    if(parent is Control)
+                        return ((Control) parent).AccessibilityObject;
+                    else if(parent is LightweightControl)
+                        return ((LightweightControl) parent).AccessibilityObject;
+                    else
+                        return null;*/
 
                     Control parent = _control.Parent;
                     if (parent != null)
@@ -2525,7 +2520,6 @@ namespace OpenLiveWriter.Controls
             if (showContextEventHandler != null)
                 showContextEventHandler(this, e);
         }
-
 
         #endregion Private Methods
     }

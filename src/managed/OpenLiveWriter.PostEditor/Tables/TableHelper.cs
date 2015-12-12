@@ -32,7 +32,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             return null;
         }
 
-
         public static IHTMLTableRow GetContainingRowElement(IHTMLTableCell cell)
         {
             // search up the parent heirarchy
@@ -71,7 +70,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         public static int GetParentContainerBlockWidth(MarkupRange markupRange)
         {
             IHTMLElement2 parentBlock = markupRange.Start.GetParentElement(ElementFilters.BLOCK_OR_TABLE_CELL_ELEMENTS) as IHTMLElement2;
@@ -81,7 +79,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 // be zero. So in this case we use scrollWidth which should be a proxy except in the case where
                 // the parent element has a horizontal scroll bar (in which case we may insert a table which
                 // is worst case too narrow). What we "should" do is insert and remove some bogus content
-                // within the block elemet to force its clientWidth to the right value. 
+                // within the block elemet to force its clientWidth to the right value.
                 int blockWidth = parentBlock.clientWidth;
 
                 if (blockWidth == 0)
@@ -114,8 +112,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
-
         public static int GetRowHeight(IHTMLTableRow row)
         {
             IHTMLTableRow2 row2 = row as IHTMLTableRow2;
@@ -135,7 +131,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 return 0;
             }
         }
-
 
         public static int GetTableLogicalEditingWidth(IHTMLTable table)
         {
@@ -160,7 +155,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             // return width
             return logicalWidth;
         }
-
 
         public static void SynchronizeCellWidthsForEditing(IHTMLTable table)
         {
@@ -269,7 +263,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                     UpdateDesignTimeBorders(table, cell as IHTMLElement2);
         }
 
-
         public static void UpdateDesignTimeBorders(IHTMLTable table, IHTMLElement2 tableElement)
         {
             // don't do anything if there is a css-based border on this element
@@ -319,7 +312,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 IHTMLElement tableElement = table as IHTMLElement;
                 borderOffset = GetAttributeAsInteger(tableElement.style.borderWidth) * 2;
 
-                // if no css border width, we know the total border width is 2 (b/c we 
+                // if no css border width, we know the total border width is 2 (b/c we
                 // add a one pixel border for editing)
                 if (borderOffset == 0)
                     borderOffset = 2;
@@ -328,7 +321,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             // return width
             return borderOffset;
         }
-
 
         public static int GetAttributeAsInteger(object value)
         {
@@ -350,12 +342,12 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
         /// <summary>
-        /// Only edit tables that are not contained within SmartContent blocks and which 
+        /// Only edit tables that are not contained within SmartContent blocks and which
         /// are marked with the "unselectable"  attribute. Since this is an attribute which
         /// applies only to editing scenarios it is almost certain never to enter the editor
-        /// "from the wild" so it is a  reasonable way to determine whether we created the 
-        /// table (and thus can guarantee that it conforms to our editing capabilities). The 
-        /// only other reasonable choice would be to mark the table up with some other 
+        /// "from the wild" so it is a  reasonable way to determine whether we created the
+        /// table (and thus can guarantee that it conforms to our editing capabilities). The
+        /// only other reasonable choice would be to mark the table up with some other
         /// pseudo-hidden metadata, which seems even more undesirable.
         /// </summary>
         public static bool TableElementIsEditable(IHTMLElement element)
@@ -365,12 +357,12 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
         /// <summary>
-        /// Only edit tables that are not contained within SmartContent blocks and which 
+        /// Only edit tables that are not contained within SmartContent blocks and which
         /// are marked with the "unselectable"  attribute. Since this is an attribute which
         /// applies only to editing scenarios it is almost certain never to enter the editor
-        /// "from the wild" so it is a  reasonable way to determine whether we created the 
-        /// table (and thus can guarantee that it conforms to our editing capabilities). The 
-        /// only other reasonable choice would be to mark the table up with some other 
+        /// "from the wild" so it is a  reasonable way to determine whether we created the
+        /// table (and thus can guarantee that it conforms to our editing capabilities). The
+        /// only other reasonable choice would be to mark the table up with some other
         /// pseudo-hidden metadata, which seems even more undesirable.
         /// </summary>
         public static bool TableElementIsEditable(IHTMLElement element, MarkupRange elementMarkupRange)
@@ -425,7 +417,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 Trace.Fail("Unexpected error in MakeTableWriterEditableIfRectangular: " + ex.ToString());
             }
         }
-
 
         private static bool TableElementIsContainedInUnselectableTable(IHTMLElement element)
         {

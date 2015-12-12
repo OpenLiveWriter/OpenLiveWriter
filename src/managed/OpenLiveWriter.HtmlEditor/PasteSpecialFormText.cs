@@ -65,7 +65,6 @@ namespace OpenLiveWriter.HtmlEditor
 
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -97,9 +96,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.bevel = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.SuspendLayout();
-            // 
+            //
             // rdPlainText
-            // 
+            //
             this.rdPlainText.Checked = true;
             this.rdPlainText.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rdPlainText.Location = new System.Drawing.Point(12, 14);
@@ -109,9 +108,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.rdPlainText.TabStop = true;
             this.rdPlainText.Text = "&Plain Text";
             this.rdPlainText.Click += new System.EventHandler(this.rdPlainText_Click);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.FlatStyle = FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(29, 35);
@@ -119,9 +118,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.label1.Size = new System.Drawing.Size(219, 34);
             this.label1.TabIndex = 1;
             this.label1.Text = "Standard plain text paste. Any html tags will be escaped.";
-            // 
+            //
             // rdFormatted
-            // 
+            //
             this.rdFormatted.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rdFormatted.Location = new System.Drawing.Point(12, 89);
             this.rdFormatted.Name = "rdFormatted";
@@ -129,9 +128,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.rdFormatted.TabIndex = 2;
             this.rdFormatted.Text = "&HTML";
             this.rdFormatted.Click += new System.EventHandler(this.rdFormatted_Click);
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label2.FlatStyle = FlatStyle.System;
             this.label2.Location = new System.Drawing.Point(29, 110);
@@ -140,9 +139,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.label2.TabIndex = 3;
             this.label2.Text = "Interprets text as html source code. Copied content will appear with formatting. " +
                 "Use for imgs, embeds, etc. ";
-            // 
+            //
             // btnOK
-            // 
+            //
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -150,9 +149,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.btnOK.Name = "btnOK";
             this.btnOK.TabIndex = 4;
             this.btnOK.Text = "OK";
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -160,9 +159,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // bevel
-            // 
+            //
             this.bevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)));
             this.bevel.Location = new System.Drawing.Point(267, 2);
@@ -170,17 +169,17 @@ namespace OpenLiveWriter.HtmlEditor
             this.bevel.Size = new System.Drawing.Size(2, 295);
             this.bevel.TabIndex = 6;
             this.bevel.TabStop = false;
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.Location = new System.Drawing.Point(302, 17);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(173, 226);
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // PasteSpecialFormText
-            // 
+            //
             this.AcceptButton = this.btnOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.btnCancel;
@@ -230,7 +229,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
 
         }
-
 
         public enum PasteType { Standard, KeepFormatting }
     }

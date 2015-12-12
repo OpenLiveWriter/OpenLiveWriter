@@ -61,7 +61,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
                 txtURL.TextAlign = HorizontalAlignment.Right;
         }
 
-
         private void RefreshAdvancedState(bool showAdvanced)
         {
             if (!showAdvanced)
@@ -125,7 +124,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             }
             base.Dispose(disposing);
         }
-
 
         public bool Edit
         {
@@ -224,9 +222,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.panelAdvanced = new System.Windows.Forms.Panel();
             this.panelAdvanced.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // btnOK
-            // 
+            //
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnOK.Location = new System.Drawing.Point(306, 10);
@@ -235,9 +233,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.btnOK.TabIndex = 18;
             this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -246,63 +244,63 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.btnCancel.Size = new System.Drawing.Size(73, 23);
             this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(10, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Te&xt:";
-            // 
+            //
             // txtText
-            // 
+            //
             this.txtText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtText.Location = new System.Drawing.Point(10, 28);
             this.txtText.Name = "txtText";
             this.txtText.Size = new System.Drawing.Size(286, 23);
             this.txtText.TabIndex = 2;
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(10, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "&URL:";
-            // 
+            //
             // txtURL
-            // 
+            //
             this.txtURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtURL.Location = new System.Drawing.Point(10, 73);
             this.txtURL.Name = "txtURL";
             this.txtURL.Size = new System.Drawing.Size(286, 23);
             this.txtURL.TabIndex = 4;
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(0, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 15);
             this.label3.TabIndex = 25;
             this.label3.Text = "&Title (optional):";
-            // 
+            //
             // txtTitle
-            // 
+            //
             this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitle.Location = new System.Drawing.Point(0, 33);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(286, 23);
             this.txtTitle.TabIndex = 30;
-            // 
+            //
             // checkBoxNewWindow
-            // 
+            //
             this.checkBoxNewWindow.AutoSize = true;
             this.checkBoxNewWindow.Location = new System.Drawing.Point(10, 105);
             this.checkBoxNewWindow.Name = "checkBoxNewWindow";
@@ -310,9 +308,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.checkBoxNewWindow.TabIndex = 10;
             this.checkBoxNewWindow.Text = "Open link in new window";
             this.checkBoxNewWindow.UseVisualStyleBackColor = true;
-            // 
+            //
             // buttonAdvanced
-            // 
+            //
             this.buttonAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonAdvanced.Location = new System.Drawing.Point(306, 129);
@@ -322,9 +320,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.buttonAdvanced.Text = "Advanced";
             this.buttonAdvanced.UseVisualStyleBackColor = true;
             this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
-            // 
+            //
             // groupBoxSeparator
-            // 
+            //
             this.groupBoxSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxSeparator.Location = new System.Drawing.Point(0, 0);
@@ -332,9 +330,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.groupBoxSeparator.Name = "groupBoxSeparator";
             this.groupBoxSeparator.Size = new System.Drawing.Size(371, 10);
             this.groupBoxSeparator.TabIndex = 11;
-            // 
+            //
             // comboBoxRel
-            // 
+            //
             this.comboBoxRel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxRel.Location = new System.Drawing.Point(0, 84);
@@ -342,18 +340,18 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.comboBoxRel.Rel = "";
             this.comboBoxRel.Size = new System.Drawing.Size(286, 23);
             this.comboBoxRel.TabIndex = 40;
-            // 
+            //
             // labelRel
-            // 
+            //
             this.labelRel.AutoSize = true;
             this.labelRel.Location = new System.Drawing.Point(0, 67);
             this.labelRel.Name = "labelRel";
             this.labelRel.Size = new System.Drawing.Size(81, 15);
             this.labelRel.TabIndex = 35;
             this.labelRel.Text = "&Rel (optional):";
-            // 
+            //
             // panelAdvanced
-            // 
+            //
             this.panelAdvanced.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.panelAdvanced.Controls.Add(this.comboBoxRel);
@@ -365,9 +363,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.panelAdvanced.Name = "panelAdvanced";
             this.panelAdvanced.Size = new System.Drawing.Size(371, 108);
             this.panelAdvanced.TabIndex = 15;
-            // 
+            //
             // AddLinkDialog
-            // 
+            //
             this.AcceptButton = this.btnOK;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(388, 272);
@@ -413,7 +411,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
                 DialogResult = DialogResult.OK;
             }
         }
-
 
         private bool IsAlreadyInGlossary(string entry)
         {

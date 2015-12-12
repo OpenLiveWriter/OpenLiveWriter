@@ -41,7 +41,6 @@ namespace OpenLiveWriter.BrowserControl
         InternetOptions
     }
 
-
     /// <summary>
     /// Interface for accessing browser commands
     /// </summary>
@@ -53,7 +52,7 @@ namespace OpenLiveWriter.BrowserControl
         bool Enabled { get; }
 
         /// <summary>
-        /// Execute the command 
+        /// Execute the command
         /// </summary>
         void Execute();
 

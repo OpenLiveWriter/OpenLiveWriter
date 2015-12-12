@@ -24,12 +24,11 @@ namespace OpenLiveWriter.Localization
         }
         private static bool _gdiPlusLineCenteringBroken = false;
 
-
         /// <summary>
         /// Applies the given culture name to the current thread.
         /// </summary>
         /// <param name="cultureName"></param>
-		public static void ApplyUICulture(string cultureName)
+        public static void ApplyUICulture(string cultureName)
         {
             if (cultureName == null)
             {
@@ -44,7 +43,6 @@ namespace OpenLiveWriter.Localization
             FixupDateTimeFormat();
         }
 
-
         private static void FixupDateTimeFormat()
         {
             if (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToUpperInvariant() == "AR")
@@ -53,7 +51,6 @@ namespace OpenLiveWriter.Localization
                 CultureInfo ci = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
                 ci.DateTimeFormat.ShortDatePattern = Regex.Replace(ci.DateTimeFormat.ShortDatePattern, "[Mdy]+", "\u200F$0");
                 Thread.CurrentThread.CurrentCulture = ci;
-
 
             }
         }
@@ -103,7 +100,6 @@ namespace OpenLiveWriter.Localization
                 throw;
             }
         }
-
 
         public static void FixupTextboxForNumber(TextBox textBox)
         {
@@ -173,7 +169,6 @@ namespace OpenLiveWriter.Localization
             }
 
         }
-
 
         [Obsolete("NOT FULLY TESTED")]
         public static class Imm32

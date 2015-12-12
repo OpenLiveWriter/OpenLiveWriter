@@ -50,7 +50,7 @@ namespace OpenLiveWriter.CoreServices.Layout
         /// <summary>
         /// Naturalizes height, then distributes vertically ACCORDING TO THE ORDER YOU PASSED THEM IN
         /// </summary>
-	    public static void NaturalizeHeightAndDistribute(int pixelsBetween, params object[] controls)
+        public static void NaturalizeHeightAndDistribute(int pixelsBetween, params object[] controls)
         {
             NaturalizeHeight(controls);
             DistributeVertically(pixelsBetween, false, controls);
@@ -66,8 +66,8 @@ namespace OpenLiveWriter.CoreServices.Layout
                     Control c = (Control)o;
 
                     // TODO: Fix Windows Forms RTL mirroring!
-                    // This alignRight code below is incorrect and may cause a control's location to inadvertently change! Unfortunately, 
-                    // I'm leaving it there for backwards compatibility. Its very hard to figure out if a control should be aligned right 
+                    // This alignRight code below is incorrect and may cause a control's location to inadvertently change! Unfortunately,
+                    // I'm leaving it there for backwards compatibility. Its very hard to figure out if a control should be aligned right
                     // by just looking at its RightToLeft and Anchor property. For instance:
                     //
                     //      Form form1 = new Form();
@@ -92,14 +92,14 @@ namespace OpenLiveWriter.CoreServices.Layout
                     //      BidiHelper.RtlLayoutFixup(form1); // Basically a no-op, we'll let the form be auto-mirrored by WinForms.
                     //      BidiHelper.RtlLayoutFixup(panel1); // We'll do work in here to fix up the panel.
                     //
-                    //      // label1's parent is a Form with Form.RightToLeftLayout == true so it will be automatically mirrored by 
-                    //      // WinForms. It's Anchor won't actually change value, but when WinForms lays it out, it will *act* like it 
+                    //      // label1's parent is a Form with Form.RightToLeftLayout == true so it will be automatically mirrored by
+                    //      // WinForms. It's Anchor won't actually change value, but when WinForms lays it out, it will *act* like it
                     //      // has its Anchor set to AnchorStyles.Right.
                     //      Debug.Assert(label1.Parent == form1);
                     //      Debug.Assert(label1.Anchor == AnchorStyles.Left);
                     //
-                    //      // label2's parent is a Panel whose parent is a Form with Form.RightToLeftLayout == true, however the 
-                    //      // controls inside panel1 will *not* get automatically mirrored by WinForms. In the call to 
+                    //      // label2's parent is a Panel whose parent is a Form with Form.RightToLeftLayout == true, however the
+                    //      // controls inside panel1 will *not* get automatically mirrored by WinForms. In the call to
                     //      // BidiHelper.RtlLayoutFixup we'll manually flip label2's Anchor property to force it to act like it's RTL.
                     //      Debug.Assert(label2.Parent == panel1);
                     //      Debug.Assert(panel1.Parent == form1);
@@ -185,7 +185,7 @@ namespace OpenLiveWriter.CoreServices.Layout
         public static Size GetNaturalSize(object o)
         {
             // TODO: Reimplement our usage of Windows Forms!
-            // This method is just a band-aid over the real problem that we don't properly use Windows Forms. By using 
+            // This method is just a band-aid over the real problem that we don't properly use Windows Forms. By using
             // TextRender.MeasureText, we are estimating the size of the WinForms control, but our estimate can be wrong if
             // the control is drawn with different TextFormatFlags than the ones used to measure the control. This entire
             // method is really just an educated guess of the size of the control. We should not be calling this method on the
@@ -253,7 +253,7 @@ namespace OpenLiveWriter.CoreServices.Layout
             else if (c is Label)
             {
                 // Both LinkLabel and Label do c.GetPreferredSize without wrapping if FlatStyle = FlatStyle.System
-                // 
+                //
 
                 if (((Label)c).FlatStyle != FlatStyle.System)
                     return c.GetPreferredSize(new Size(c.Width, 0));
@@ -284,9 +284,9 @@ namespace OpenLiveWriter.CoreServices.Layout
 
             measuredSize = TextRenderer.MeasureText(text, font, new Size(width, 0), formatFlags);
 
-            // The +1 is because Windows Forms likes to be sneaky and shrink Labels by 1 pixel when the label becomes visible, 
-            // which is just enough to make the label force a line break when measuring text with TextFormatFlags.TextBoxControl 
-            // specified. This adds an extra line of whitespace below the Label, which is not what we want. To work around this, 
+            // The +1 is because Windows Forms likes to be sneaky and shrink Labels by 1 pixel when the label becomes visible,
+            // which is just enough to make the label force a line break when measuring text with TextFormatFlags.TextBoxControl
+            // specified. This adds an extra line of whitespace below the Label, which is not what we want. To work around this,
             // we allow the measuredSize to grow the control by at most one pixel, otherwise we will remeasure the control and
             // force it to stay within the width we have provided.
             if (measuredSize.Width > width + 1)
@@ -295,8 +295,8 @@ namespace OpenLiveWriter.CoreServices.Layout
 
                 // WinLive 116755: Using the following flags forces the TextRenderer to measure text with correct character-wrapping.
                 // Without these flags, its possible for the TextRenderer to return a width wider than the proposed width if the text
-                // contains a very long word. I used the TextFormatFlags Utility (TextRendering.exe) from the March 2006 MSDN Magazine 
-                // article "Build World-Ready Apps Using Complex Scripts In Windows Forms Controls" to help visualize what each flag 
+                // contains a very long word. I used the TextFormatFlags Utility (TextRendering.exe) from the March 2006 MSDN Magazine
+                // article "Build World-Ready Apps Using Complex Scripts In Windows Forms Controls" to help visualize what each flag
                 // does: http://download.microsoft.com/download/f/2/7/f279e71e-efb0-4155-873d-5554a0608523/TextRendering.exe
                 formatFlags |= TextFormatFlags.TextBoxControl | TextFormatFlags.NoPadding;
                 measuredSize = TextRenderer.MeasureText(text, font, new Size(width, 0), formatFlags);

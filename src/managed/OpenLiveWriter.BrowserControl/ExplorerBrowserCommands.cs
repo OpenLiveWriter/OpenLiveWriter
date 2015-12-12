@@ -27,18 +27,15 @@ namespace OpenLiveWriter.BrowserControl
             Browser = browser;
         }
 
-
         /// <summary>
         /// Determine whether the current command is enabled.
         /// </summary>
         public abstract bool Enabled { get; }
 
-
         /// <summary>
-        /// Execute the command 
+        /// Execute the command
         /// </summary>
         public abstract void Execute();
-
 
         /// <summary>
         /// Browser control used by subclasses to implement commands (initialized
@@ -46,7 +43,6 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         protected internal AxWebBrowser Browser;
     }
-
 
     /// <summary>
     /// Base class implementation for BrowserCommands that must be invoked directly
@@ -65,7 +61,6 @@ namespace OpenLiveWriter.BrowserControl
         {
         }
 
-
         /// <summary>
         /// Set the current enabled status of the command (this must be done via an
         /// external call because this command is not capable of calling QueryStatusWB
@@ -77,7 +72,6 @@ namespace OpenLiveWriter.BrowserControl
             m_enabled = enabled;
         }
 
-
         /// <summary>
         /// Determine whether the current command is enabled.
         /// </summary>
@@ -86,13 +80,11 @@ namespace OpenLiveWriter.BrowserControl
             get { return m_enabled; }
         }
 
-
         /// <summary>
         /// Private member used to track current enabled status (default to enabled)
         /// </summary>
         private bool m_enabled = true;
     }
-
 
     /// <summary>
     /// New Window browser button
@@ -110,7 +102,7 @@ namespace OpenLiveWriter.BrowserControl
 
         /// <summary>
         /// Execute the command
-        /// </summary>		
+        /// </summary>
         public override void Execute()
         {
             // determine location to navigate to (either current URL or about:blank)
@@ -124,7 +116,6 @@ namespace OpenLiveWriter.BrowserControl
             Browser.Navigate(location, ref flags, ref m, ref m, ref m);
         }
     }
-
 
     /// <summary>
     /// Command for browser Back button
@@ -158,7 +149,6 @@ namespace OpenLiveWriter.BrowserControl
         }
     }
 
-
     /// <summary>
     /// Command for browser Forward button
     /// </summary>
@@ -175,7 +165,7 @@ namespace OpenLiveWriter.BrowserControl
 
         /// <summary>
         /// Execute the command
-        /// </summary>		
+        /// </summary>
         public override void Execute()
         {
             // go forward (ignore excpetion thrown if the history list doesn't have
@@ -190,7 +180,6 @@ namespace OpenLiveWriter.BrowserControl
             }
         }
     }
-
 
     /// <summary>
     /// Command for browser Stop button
@@ -215,7 +204,6 @@ namespace OpenLiveWriter.BrowserControl
         }
     }
 
-
     /// <summary>
     /// Command for browser Home button
     /// </summary>
@@ -239,7 +227,6 @@ namespace OpenLiveWriter.BrowserControl
         }
     }
 
-
     /// <summary>
     /// Command for browser Search button. Goes to the default search page.
     /// </summary>
@@ -262,7 +249,6 @@ namespace OpenLiveWriter.BrowserControl
             Browser.GoSearch();
         }
     }
-
 
     /// <summary>
     /// Abstract base class for commands that are implemented by calling IShellUIHelper
@@ -293,8 +279,6 @@ namespace OpenLiveWriter.BrowserControl
         }
     }
 
-
-
     /// <summary>
     /// Command for Add Favorites...
     /// </summary>
@@ -318,11 +302,10 @@ namespace OpenLiveWriter.BrowserControl
             string url = Browser.LocationURL;
             object title = Browser.LocationName;
 
-            // add to favorites	
+            // add to favorites
             ShellUIHelper.AddFavorite(url, ref title);
         }
     }
-
 
     /// <summary>
     /// Command for Organize Favorites...
@@ -352,7 +335,6 @@ namespace OpenLiveWriter.BrowserControl
         }
     }
 
-
     /// <summary>
     /// Command for Languages dialog
     /// </summary>
@@ -367,13 +349,12 @@ namespace OpenLiveWriter.BrowserControl
         {
         }
 
-
         /// <summary>
         /// Execute the command
         /// </summary>
         public override void Execute()
         {
-            // constant for calling Languages dialog			
+            // constant for calling Languages dialog
             const string LANGUAGE_DIALOG = "LanguageDialog";
 
             // call organize favorites dialog
@@ -381,8 +362,6 @@ namespace OpenLiveWriter.BrowserControl
             ShellUIHelper.ShowBrowserUI(LANGUAGE_DIALOG, ref objNull);
         }
     }
-
-
 
     /// <summary>
     /// Implementation of BrowserCommand for commands that can be accessed
@@ -401,7 +380,6 @@ namespace OpenLiveWriter.BrowserControl
             m_cmdID = cmdID;
         }
 
-
         /// <summary>
         /// Determine whether the current command is enabled.
         /// </summary>
@@ -409,7 +387,6 @@ namespace OpenLiveWriter.BrowserControl
         {
             get { return IsEnabled(m_cmdID); }
         }
-
 
         /// <summary>
         /// Execute the command
@@ -424,7 +401,6 @@ namespace OpenLiveWriter.BrowserControl
                 ref input, ref output);
         }
 
-
         /// <summary>
         /// Helper function used to determine if a given command-id is enabled
         /// </summary>
@@ -435,13 +411,12 @@ namespace OpenLiveWriter.BrowserControl
             // query the underlying command
             OLECMDF cmdf = Browser.QueryStatusWB(cmdID);
 
-            // return the appropriate value		
+            // return the appropriate value
             if ((cmdf & OLECMDF.OLECMDF_ENABLED) > 0)
                 return true;
             else
                 return false;
         }
-
 
         /// <summary>
         /// ID of native browser command
@@ -449,19 +424,17 @@ namespace OpenLiveWriter.BrowserControl
         private OLECMDID m_cmdID;
     }
 
-
-
     /// <summary>
     /// Implementation of BrowserCommand for command that can be accessed through the
-    /// IE private command group (find, view source, internet options). Note that 
+    /// IE private command group (find, view source, internet options). Note that
     /// this interface is verified to work through IE 6.0 but is not officially
     /// documented and guaranteed to work in future versions.
     /// </summary>
     public class PrivateBrowserCommand : ExplorerBrowserCommand
     {
         // constants defining known private browser commands. Constants are used
-        // rather than an enum to keep the command-set 'open' for additional (as yet 
-        // undiscovered) private commands. 
+        // rather than an enum to keep the command-set 'open' for additional (as yet
+        // undiscovered) private commands.
         public const int Find = 1;
         public const int ViewSource = 2;
         public const int InternetOptions = 3;
@@ -470,7 +443,6 @@ namespace OpenLiveWriter.BrowserControl
         // updated when new private commands are added)
         private const int PrivateCommandMin = 1;
         private const int PrivateCommandMax = 3;
-
 
         /// <summary>
         /// Initialize a PrivateBrowserCommand
@@ -488,10 +460,9 @@ namespace OpenLiveWriter.BrowserControl
             m_cmdID = cmdID;
         }
 
-
         /// <summary>
         /// Determine whether the current command is enabled
-        /// </summary>		
+        /// </summary>
         public override bool Enabled
         {
             get
@@ -515,8 +486,7 @@ namespace OpenLiveWriter.BrowserControl
                             ref oleCmd,
                             IntPtr.Zero);
 
-
-                        // check to see if the command is enabled						
+                        // check to see if the command is enabled
                         if ((oleCmd.cmdf & OpenLiveWriter.Interop.Com.OLECMDF.ENABLED) > 0)
                             return true;
                         else
@@ -531,7 +501,6 @@ namespace OpenLiveWriter.BrowserControl
             }
         }
 
-
         /// <summary>
         /// Execute the command with an input and output parameter
         /// </summary>
@@ -540,7 +509,7 @@ namespace OpenLiveWriter.BrowserControl
             // get the command target
             IOleCommandTargetWithExecParams target = GetCommandTarget();
 
-            // if there is a target, execute the command on it	
+            // if there is a target, execute the command on it
             if (target != null)
             {
                 object input = null;
@@ -571,7 +540,6 @@ namespace OpenLiveWriter.BrowserControl
             }
         }
 
-
         /// <summary>
         /// Helper function to get the appropriate command target for the command
         /// </summary>
@@ -599,13 +567,10 @@ namespace OpenLiveWriter.BrowserControl
             }
         }
 
-
-
         /// <summary>
         /// ID of private command
         /// </summary>
         private uint m_cmdID;
-
 
         /// <summary>
         /// Command Group ID for private WebBrowser commands

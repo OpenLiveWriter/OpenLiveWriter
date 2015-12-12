@@ -16,7 +16,7 @@ namespace OpenLiveWriter.CoreServices
     /// <summary>
     /// The existence of a non-disposed ProcessKeepalive object will ensure
     /// that a process stays alive.  This is essential in two situations:
-    /// 
+    ///
     ///   1) When Internet Explorer hosts the CLR, it does not wait for
     ///      .NET threads to exit before closing the process.  So even
     ///      non-background threads are not safe from abrupt death unless
@@ -25,29 +25,29 @@ namespace OpenLiveWriter.CoreServices
     ///      all non-background threads have exited but we still need the
     ///      process to stay around, perhaps to listen for an event we're
     ///      expecting.  (e.g. FileMonitor)
-    /// 
+    ///
     /// BE SURE that any ProcessKeepalive objects you obtain eventually get
     /// disposed, even in the face of exceptions in the code it's protecting.
-    /// 
+    ///
     /// Example:
-    /// 
+    ///
     /// ProcessKeepalive keepAlive = ProcessKeepalive.Open();
     /// // time passes...
     /// keepAlive.Dispose();
-    /// 
+    ///
     /// or
-    /// 
+    ///
     /// using (ProcessKeepalive keepAlive = ProcessKeepalive.Open())
     /// {
     ///   // protected code
     /// }
-    /// 
+    ///
     /// or
-    /// 
+    ///
     /// class MyForm : Form
     /// {
     ///   private ProcessKeepalive keepAlive;
-    /// 
+    ///
     ///   public MyForm()
     ///   {
     ///     keepAlive = ProcessKeepalive.Open();
@@ -89,7 +89,7 @@ namespace OpenLiveWriter.CoreServices
         /// In the case of IE, this is not true, but in the case of any CLR-managed
         /// process, it's true, so we can skip all the work involved in keepalive
         /// and simply return a NullKeepalive() which is just a placebo.
-        /// 
+        ///
         /// (If in doubt, pass false; it's always safe to do so.)
         /// </param>
         public static ProcessKeepalive Open(bool taskHasNonBackgroundThread)
@@ -133,7 +133,6 @@ namespace OpenLiveWriter.CoreServices
         protected abstract void Dispose(bool disposing);
     }
 
-
     /// <summary>
     /// Does nothing.  In some situations, we know that a ProcessKeepalive
     /// is redundant, but the calling code still expects it.
@@ -143,7 +142,6 @@ namespace OpenLiveWriter.CoreServices
         public NullKeepalive() { }
         protected override void Dispose(bool disposing) { }
     }
-
 
     /// <summary>
     /// The ProcessKeepalive implementation that is appropriate for
@@ -206,7 +204,6 @@ namespace OpenLiveWriter.CoreServices
         }
     }
 
-
     /// <summary>
     /// An implementation of ProcessKeepalive that is appropriate for
     /// components hosted within a Internet Explorer or Windows Explorer
@@ -247,7 +244,6 @@ namespace OpenLiveWriter.CoreServices
             Debug.WriteLine("ExplorerKeepalive: Manually releasing pointer " + ptr.ToString());
             return Marshal.Release(ptr);
         }
-
 
         // Wrapper implementation.
 

@@ -134,7 +134,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             }
         }
 
-
         protected static void OnSettingsChanged()
         {
             if (SettingsChanged != null)
@@ -155,8 +154,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         private const string SPECIAL = "OtherSpecialCharacters";
         private const string EMOTICONS = "Emoticons";
     }
-
-
 
     public class AutoreplacePhrase
     {

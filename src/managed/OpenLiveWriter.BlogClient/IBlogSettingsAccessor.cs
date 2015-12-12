@@ -50,7 +50,6 @@ namespace OpenLiveWriter.BlogClient
         BlogPostCategory[] Categories { get; set; }
         BlogPostKeyword[] Keywords { get; set; }
 
-
         FileUploadSupport FileUploadSupport { get; }
         IBlogFileUploadSettings FileUploadSettings { get; }
 
@@ -184,6 +183,5 @@ namespace OpenLiveWriter.BlogClient
         }
         private readonly string _eTag;
     }
-
 
 }

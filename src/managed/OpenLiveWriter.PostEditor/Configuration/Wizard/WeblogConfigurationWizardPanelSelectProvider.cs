@@ -27,7 +27,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private System.Windows.Forms.ComboBox comboBoxSelectProvider;
         private System.Windows.Forms.Label labelServerAPIUrl;
         private System.Windows.Forms.TextBox textBoxServerApiUrl;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -135,7 +135,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             get { return _targetBlog; }
         }
 
-
         public BlogInfo[] UsersBlogs
         {
             get { return _usersBlogs; }
@@ -225,8 +224,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -242,8 +240,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -254,26 +252,26 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxServerApiUrl = new System.Windows.Forms.TextBox();
             this.labelText = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.labelText);
             this.panelMain.Controls.Add(this.textBoxServerApiUrl);
             this.panelMain.Controls.Add(this.labelServerAPIUrl);
             this.panelMain.Controls.Add(this.comboBoxSelectProvider);
             this.panelMain.Controls.Add(this.labelSelectProvider);
-            // 
+            //
             // labelSelectProvider
-            // 
+            //
             this.labelSelectProvider.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelSelectProvider.Location = new System.Drawing.Point(20, 48);
             this.labelSelectProvider.Name = "labelSelectProvider";
             this.labelSelectProvider.Size = new System.Drawing.Size(344, 16);
             this.labelSelectProvider.TabIndex = 0;
             this.labelSelectProvider.Text = "&Type of weblog that you are using:";
-            // 
+            //
             // comboBoxSelectProvider
-            // 
+            //
             this.comboBoxSelectProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectProvider.Location = new System.Drawing.Point(20, 64);
             this.comboBoxSelectProvider.MaxDropDownItems = 20;
@@ -281,26 +279,26 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.comboBoxSelectProvider.Size = new System.Drawing.Size(256, 21);
             this.comboBoxSelectProvider.TabIndex = 1;
             this.comboBoxSelectProvider.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectProvider_SelectedIndexChanged);
-            // 
+            //
             // labelServerAPIUrl
-            // 
+            //
             this.labelServerAPIUrl.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelServerAPIUrl.Location = new System.Drawing.Point(20, 104);
             this.labelServerAPIUrl.Name = "labelServerAPIUrl";
             this.labelServerAPIUrl.Size = new System.Drawing.Size(344, 16);
             this.labelServerAPIUrl.TabIndex = 2;
             this.labelServerAPIUrl.Text = "Remote posting &URL for your weblog:";
-            // 
+            //
             // textBoxServerApiUrl
-            // 
+            //
             this.textBoxServerApiUrl.Location = new System.Drawing.Point(20, 120);
             this.textBoxServerApiUrl.Name = "textBoxServerApiUrl";
             this.textBoxServerApiUrl.Size = new System.Drawing.Size(256, 20);
             this.textBoxServerApiUrl.TabIndex = 3;
             this.textBoxServerApiUrl.Text = "";
-            // 
+            //
             // labelText
-            // 
+            //
             this.labelText.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelText.Location = new System.Drawing.Point(20, 0);
             this.labelText.Name = "labelText";
@@ -308,17 +306,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelText.TabIndex = 4;
             this.labelText.Text = "{0} was not able to automatically detect your blog settings. Please select the ty" +
                 "pe of blog that you are using to continue.";
-            // 
+            //
             // WeblogConfigurationWizardPanelSelectProvider
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelSelectProvider";
             this.Size = new System.Drawing.Size(432, 244);
             this.panelMain.ResumeLayout(false);
 
         }
         #endregion
-
-
 
         private class BlogProviderDescriptionProxy : IBlogProviderDescription
         {
@@ -342,7 +338,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             {
                 get { return _provider.Name; }
             }
-
 
             public string Description
             {
@@ -398,7 +393,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             private IBlogProviderDescription _provider;
             private string _postApiUrl;
 
-
             // special "select provider" proxy
 
             internal static readonly BlogProviderDescriptionProxy SelectProvider = new SelectProviderProxy();
@@ -428,9 +422,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         }
 
-
-
     }
-
 
 }

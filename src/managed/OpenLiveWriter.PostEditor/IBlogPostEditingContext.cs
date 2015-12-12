@@ -19,12 +19,11 @@ namespace OpenLiveWriter.PostEditor
         ISupportingFileService SupportingFileService { get; }
         PostEditorFile LocalFile { get; }
         PostEditorFile AutoSaveLocalFile { get; }
-        // @SharedCanvas - this should not be here, it is only hear because it was an 
+        // @SharedCanvas - this should not be here, it is only hear because it was an
         // easy way to get the information from BlogPostManagingEditor into the CE
         string GetPostSpellingContextDirectory();
 
     }
-
 
     public class BlogPostEditingContext : IBlogPostEditingContext
     {
@@ -57,13 +56,11 @@ namespace OpenLiveWriter.PostEditor
             _localFile = localFile;
         }
 
-
         public string BlogId
         {
             get { return _blogId; }
         }
         private string _blogId;
-
 
         public PostEditorFile LocalFile
         {
@@ -83,7 +80,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private BlogPost _blogPost;
 
-
         public string ServerSupportingFileDirectory
         {
             get
@@ -92,7 +88,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
         private string _serverSupportingFileDirectory = String.Empty;
-
 
         public BlogPostSupportingFileStorage SupportingFileStorage
         {
@@ -137,7 +132,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
         private ISupportingFileService _fileService;
-
 
         #region IBlogPostEditingContext Members
 

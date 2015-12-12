@@ -19,7 +19,6 @@ namespace OpenLiveWriter.PostEditor.Video
         public string Title { get { return _title; } }
         public string Description { get { return _description; } }
 
-
         private string _title;
         private string _description;
     }

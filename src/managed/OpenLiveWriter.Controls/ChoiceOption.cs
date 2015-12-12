@@ -120,7 +120,6 @@ namespace OpenLiveWriter.Controls
                     subHeadingSize = TextRenderer.MeasureText(SubHeading, Res.DefaultFont,
                          new Size(width - origin.X - HORIZONTAL_PADDING, height - origin.Y), textFormatFlags | TextFormatFlags.NoPrefix);
 
-
                 }
                 else
                 {

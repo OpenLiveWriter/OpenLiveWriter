@@ -362,13 +362,12 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         //
         public const int TERMINATED = unchecked((int)0x80030202);
 
-
         /*++
 
-			 MessageId's 0x0305 - 0x031f (inclusive) are reserved for **STORAGE**
-			 copy protection errors.
+             MessageId's 0x0305 - 0x031f (inclusive) are reserved for **STORAGE**
+             copy protection errors.
 
-			--*/
+            --*/
         //
         // MessageId: STG_E_STATUS_COPY_PROTECTION_FAILURE
         //
@@ -448,7 +447,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         public const int LOGON_FAILURE = unchecked((int)0x8007052E);
 
     }
-
 
     public class STG_S
     {

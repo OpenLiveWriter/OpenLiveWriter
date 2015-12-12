@@ -27,7 +27,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             }
         }
 
-
         public bool AutoLinkTermsOnlyOnce
         {
             get { return _autoLinkTermsOnlyOnce; }

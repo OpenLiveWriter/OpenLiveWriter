@@ -16,7 +16,7 @@ namespace OpenLiveWriter.Interop.Windows
     {
         /// <summary>
         /// Set property that controls global WorkOffline state. This code
-        /// is based on the MSDN article "Supporting Offline Browsing in 
+        /// is based on the MSDN article "Supporting Offline Browsing in
         /// Applications and Components" at:
         ///	 http://msdn.microsoft.com/workshop/components/offline/offline.asp
         /// Note: 'unsafe' is used because we need the address-of operator (&)
@@ -110,7 +110,6 @@ namespace OpenLiveWriter.Interop.Windows
         public static extern bool InternetQueryOption(
             IntPtr hInternet, INTERNET_OPTION dwOption, IntPtr lpBuffer, ref uint lpdwBufferLength);
 
-
         /// <summary>
         /// Initializes WinInet to prepare library for use
         /// </summary>
@@ -121,7 +120,6 @@ namespace OpenLiveWriter.Interop.Windows
             string lpszProxyName, //always null
             string lpszProxyBypass,  // always null
             int dwFlags);
-
 
         /// <summary>
         /// Creates the internet connection
@@ -151,7 +149,6 @@ namespace OpenLiveWriter.Interop.Windows
                 return InternetGetConnectedState(out flags, 0);
             }
         }
-
 
         /// <summary>
         /// Gets information about a file in the internet explorer cache
@@ -195,7 +192,6 @@ namespace OpenLiveWriter.Interop.Windows
                     }
                 }
 
-
                 // The resulting cache info
                 cacheInfo =
                     (Internet_Cache_Entry_Info)Marshal.PtrToStructure(buffer, typeof(Internet_Cache_Entry_Info));
@@ -238,7 +234,6 @@ namespace OpenLiveWriter.Interop.Windows
             IntPtr lpszFileExtension,
             IntPtr lpszOriginalUrl
             );
-
 
         /// <summary>
         /// Sets the current directory on the FTP Server
@@ -315,7 +310,6 @@ namespace OpenLiveWriter.Interop.Windows
             int dwContext
             );
 
-
         /// <summary>
         /// Returns the next file in an FTP find command.
         /// </summary>
@@ -337,7 +331,7 @@ namespace OpenLiveWriter.Interop.Windows
             );
 
         /// <summary>
-        /// Retrieves the last error description or server response on 
+        /// Retrieves the last error description or server response on
         /// the thread calling this function
         /// </summary>
         [DllImport("wininet.dll", SetLastError = true)]
@@ -529,10 +523,6 @@ namespace OpenLiveWriter.Interop.Windows
     }
 
 
-
-
-
-
     /// <summary>
     /// Enumeration of WinInet option flags
     /// </summary>
@@ -542,10 +532,9 @@ namespace OpenLiveWriter.Interop.Windows
         CONNECTED_STATE = 50
     }
 
-
     /// <summary>
     /// Enumeration of internet states
-    /// </summary>	
+    /// </summary>
     public struct INTERNET_STATE
     {
         /// <summary>
@@ -574,7 +563,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint STATE_BUSY = 0x00000200;
     }
 
-
     /// <summary>
     /// Information used to set the global connected state
     /// </summary>
@@ -591,19 +579,17 @@ namespace OpenLiveWriter.Interop.Windows
         public uint dwFlags;
     }
 
-
     /// <summary>
     /// InternetSetOption flags (used in INTERNET_CONNECTED_INFO structure)
     /// </summary>
     public struct ISO
     {
         /// <summary>
-        /// If set when putting Wininet into disconnected mode, all outstanding 
+        /// If set when putting Wininet into disconnected mode, all outstanding
         /// requests will be aborted with a cancelled error
         /// </summary>
         public const uint FORCE_DISCONNECTED = 0x00000001;
     }
-
 
     /// <summary>
     /// Values for base internet connection
@@ -686,7 +672,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const int KEEP_ALIVE_DISABLED = 0;
     }
 
-
     /// <summary>
     /// Flags used for controlling connections
     /// </summary>
@@ -718,7 +703,7 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint PASSIVE = 0x08000000;
 
         /// <summary>
-        /// don't write this item to the cache 
+        /// don't write this item to the cache
         /// </summary>
         public const uint NO_CACHE_WRITE = 0x04000000;
 
@@ -838,7 +823,7 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint NEED_FILE = 0x00000010;
 
         /// <summary>
-        /// need a file for this request 
+        /// need a file for this request
         /// </summary>
         public const uint MUST_CACHE_REQUEST = 0x00000010;
 
@@ -882,8 +867,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const int GOPHER = 2;
         public const int HTTP = 3;
     }
-
-
 
     /// <summary>
     /// Error codes that can be returned for WinInet Errors.

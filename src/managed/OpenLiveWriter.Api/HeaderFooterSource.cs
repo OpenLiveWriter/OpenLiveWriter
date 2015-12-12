@@ -10,10 +10,10 @@ namespace OpenLiveWriter.Api
     /// of a post when the post is being previewed or published.
     /// </summary>
     /// <remarks>
-    /// There is a single instance of a given FooterPlugin created 
-    /// for each Open Live Writer process. The implementation of FooterPlugin 
-    /// objects must therefore be stateless (the context required to carry out the 
-    /// responsibilities of the various methods are passed as parameters to the 
+    /// There is a single instance of a given FooterPlugin created
+    /// for each Open Live Writer process. The implementation of FooterPlugin
+    /// objects must therefore be stateless (the context required to carry out the
+    /// responsibilities of the various methods are passed as parameters to the
     /// respective methods).
     /// </remarks>
     public abstract class HeaderFooterSource : WriterPlugin
@@ -35,13 +35,13 @@ namespace OpenLiveWriter.Api
         };
 
         /// <summary>
-        /// Subclasses should override this method and return true if a 
+        /// Subclasses should override this method and return true if a
         /// permalink is required for GeneratePublishFooter calls to
         /// work.
         /// </summary>
         /// <remarks>
-        /// Since new posts don't have permalinks until after they are 
-        /// posted to the server, returning true may cause Writer to 
+        /// Since new posts don't have permalinks until after they are
+        /// posted to the server, returning true may cause Writer to
         /// perform an extra publish operation. Therefore, only return
         /// true if it is absolutely necessary for your plugin to function
         /// correctly.
@@ -53,7 +53,7 @@ namespace OpenLiveWriter.Api
         /// the blog post when the editor is switched to Preview mode.
         /// </summary>
         /// <remarks>
-        /// The returned HTML will be wrapped inside a <c>div</c> 
+        /// The returned HTML will be wrapped inside a <c>div</c>
         /// whose float and margins can be controlled by the <c>Layout</c>
         /// property on the <c>ISmartContent</c> parameter.
         /// </remarks>
@@ -71,7 +71,7 @@ namespace OpenLiveWriter.Api
         /// the blog post during publishing.
         /// </summary>
         /// <remarks>
-        /// The returned HTML will be wrapped inside a <c>div</c> 
+        /// The returned HTML will be wrapped inside a <c>div</c>
         /// whose float and margins can be controlled by the <c>Layout</c>
         /// property on the <c>ISmartContent</c> parameter.
         /// </remarks>

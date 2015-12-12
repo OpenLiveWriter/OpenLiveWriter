@@ -35,7 +35,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         /// <summary>
         /// Creates a destination that points to the destination's root folder.
         /// </summary>
@@ -54,8 +53,6 @@ namespace OpenLiveWriter.FileDestinations
                 dest = CreateFileDestination(settings, "");
             return dest;
         }
-
-
 
         /// <summary>
         /// Translate an exception into an error message

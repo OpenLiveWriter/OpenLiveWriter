@@ -39,7 +39,6 @@ namespace OpenLiveWriter.PostEditor.Video
         private Label lblService;
         private System.Windows.Forms.Label lblVideoCode;
 
-
         public WebVideoSource()
         {
             // This call is required by the Windows.Forms Form Designer.
@@ -95,8 +94,8 @@ namespace OpenLiveWriter.PostEditor.Video
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -109,9 +108,9 @@ namespace OpenLiveWriter.PostEditor.Video
             this.lblService = new System.Windows.Forms.Label();
             this.lblVideoCode = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // videoCode
-            // 
+            //
             this.videoCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.videoCode.Location = new System.Drawing.Point(8, 26);
@@ -121,9 +120,9 @@ namespace OpenLiveWriter.PostEditor.Video
             this.videoCode.DoubleClick += new System.EventHandler(this.VideoCode_Enter);
             this.videoCode.TextChanged += new System.EventHandler(this.videoCode_TextChanged);
             this.videoCode.Enter += new System.EventHandler(this.VideoCode_Enter);
-            // 
+            //
             // previewButton
-            // 
+            //
             this.previewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.previewButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.previewButton.Location = new System.Drawing.Point(197, 26);
@@ -132,9 +131,9 @@ namespace OpenLiveWriter.PostEditor.Video
             this.previewButton.TabIndex = 16;
             this.previewButton.Text = "&Preview";
             this.previewButton.Click += new System.EventHandler(this._previewButton_Click);
-            // 
+            //
             // previewBox
-            // 
+            //
             this.previewBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.previewBox.Location = new System.Drawing.Point(0, 0);
@@ -142,9 +141,9 @@ namespace OpenLiveWriter.PostEditor.Video
             this.previewBox.Size = new System.Drawing.Size(259, 204);
             this.previewBox.TabIndex = 0;
             this.previewBox.TabStop = false;
-            // 
+            //
             // pictureBorder
-            // 
+            //
             this.pictureBorder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -161,9 +160,9 @@ namespace OpenLiveWriter.PostEditor.Video
             this.pictureBorder.TabStop = false;
             this.pictureBorder.ThemeBorder = false;
             this.pictureBorder.TopInset = 0;
-            // 
+            //
             // lblSize
-            // 
+            //
             this.lblSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSize.AutoSize = true;
             this.lblSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -172,9 +171,9 @@ namespace OpenLiveWriter.PostEditor.Video
             this.lblSize.Size = new System.Drawing.Size(30, 13);
             this.lblSize.TabIndex = 2;
             this.lblSize.Text = "Size:";
-            // 
+            //
             // lblService
-            // 
+            //
             this.lblService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblService.AutoSize = true;
             this.lblService.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -183,17 +182,17 @@ namespace OpenLiveWriter.PostEditor.Video
             this.lblService.Size = new System.Drawing.Size(46, 13);
             this.lblService.TabIndex = 1;
             this.lblService.Text = "Service:";
-            // 
+            //
             // lblVideoCode
-            // 
+            //
             this.lblVideoCode.Location = new System.Drawing.Point(8, 8);
             this.lblVideoCode.Name = "lblVideoCode";
             this.lblVideoCode.Size = new System.Drawing.Size(349, 15);
             this.lblVideoCode.TabIndex = 0;
             this.lblVideoCode.Text = "&Video URL or Embed:";
-            // 
+            //
             // WebVideoSource
-            // 
+            //
             this.Controls.Add(this.lblVideoCode);
             this.Controls.Add(this.lblService);
             this.Controls.Add(this.lblSize);
@@ -207,7 +206,6 @@ namespace OpenLiveWriter.PostEditor.Video
 
         }
         #endregion
-
 
         public void Reset()
         {
@@ -231,7 +229,6 @@ namespace OpenLiveWriter.PostEditor.Video
                 Reset();
             videoCode.Select();
         }
-
 
         public override bool ValidateSelection()
         {
@@ -381,7 +378,6 @@ namespace OpenLiveWriter.PostEditor.Video
         {
             return String.Format(CultureInfo.InvariantCulture, "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"><body style='margin: 0; padding: 0;background-color: #{1}'>{0}</body></html>", html, color);
         }
-
 
         private void lblService_SizeChanged(object sender, EventArgs e)
         {

@@ -21,7 +21,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             _theme = new ControlTheme(this, true);
         }
 
-
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -38,7 +37,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             public ControlTheme(Control control, bool applyTheme) : base(control, applyTheme)
             {
             }
-
 
             protected override void ApplyTheme(bool highContrast)
             {

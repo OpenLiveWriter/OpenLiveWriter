@@ -14,10 +14,10 @@ namespace OpenLiveWriter.CoreServices
     /// Class which encapsulates a native OleDataObject (OLE IDataObject interface).
     /// Instances of the class can be created from either a native Ole IDataObject
     /// or from a .NET IDataObject (in which case the native Ole IDataObject is
-    /// extracted from the .NET IDataObject. This is sometimes necessary because 
+    /// extracted from the .NET IDataObject. This is sometimes necessary because
     /// the default .NET bridging between IOleDataObject to IDataObject obfuscates
     /// and in some cases corrupts the source data (this is the result of a combination
-    /// of bugs and oversights).  
+    /// of bugs and oversights).
     /// </summary>
     public class OleDataObject
     {
@@ -33,13 +33,12 @@ namespace OpenLiveWriter.CoreServices
             return oleDataObject;
         }
 
-
         /// <summary>
-        /// Create an OleDataObject from a .NET IDataObject.		
+        /// Create an OleDataObject from a .NET IDataObject.
         /// </summary>
-        /// <param name="ido">IDataObject to extract OleDataObject from</param>	
-        /// <returns>A new instance of OleDataObject mapped to the inner 
-        /// OleDataObject of the specified IDataObject or null if unable 
+        /// <param name="ido">IDataObject to extract OleDataObject from</param>
+        /// <returns>A new instance of OleDataObject mapped to the inner
+        /// OleDataObject of the specified IDataObject or null if unable
         /// to extract OleDataObject from IDataObject</returns>
         public static OleDataObject CreateFrom(IDataObject ido)
         {
@@ -53,16 +52,16 @@ namespace OpenLiveWriter.CoreServices
                 return null;
             }
 
-            // To extract an OleDataObject from a DataObject, we first need to 
+            // To extract an OleDataObject from a DataObject, we first need to
             // get the "innerData" field of the DataObject. This field is of type
-            // System.Windows.Forms.UnsafeNativeMethods.OleConverter. Next, we 
+            // System.Windows.Forms.UnsafeNativeMethods.OleConverter. Next, we
             // need to get the "innerData" field of the OleConverter, which is of
             // type System.Windows.Forms.UnsafeNativeMethods.IOleDataObject
             const string INNER_DATA_FIELD = "innerData";
             object innerData = oleDataObject.GetField(dataObject, INNER_DATA_FIELD);
             object innerInnerData = oleDataObject.GetField(innerData, INNER_DATA_FIELD);
 
-            // attempt to convert the 'private' ole data object contained in 
+            // attempt to convert the 'private' ole data object contained in
             // innerData into an instance of our locally defined IOleDataObject
             oleDataObject.m_dataObject = innerInnerData as IOleDataObject;
             if (oleDataObject.m_dataObject != null)
@@ -83,7 +82,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// Get the underlying IOleDataObject
         /// </summary>
@@ -91,7 +89,6 @@ namespace OpenLiveWriter.CoreServices
         {
             get { return m_dataObject; }
         }
-
 
         /// <summary>
         /// Determines whether the data object is capable of rendering the data described
@@ -128,15 +125,14 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Extract the date from within an OleDataObject. Pass in the requested
         /// clipboard format and type (or types ORed together) that you want
         /// the data in. The method will return an OleStgMedium for the type(s)
-        /// requested if it is available, otherwise it will return null. 
+        /// requested if it is available, otherwise it will return null.
         /// If a single type is requested then the return value can be safely
-        /// cast to the requested OleStgMedium subclasss. If multiple types 
-        /// are requested then the return value will represent the object's 
+        /// cast to the requested OleStgMedium subclasss. If multiple types
+        /// are requested then the return value will represent the object's
         /// preferred storage representation and client code will need to use
         /// the 'is' operator to determine what type was returned.
         /// </summary>
@@ -149,15 +145,14 @@ namespace OpenLiveWriter.CoreServices
             return GetData(-1, clipFormat, types);
         }
 
-
         /// <summary>
         /// Extract the date from within an OleDataObject. Pass in the requested
         /// clipboard format and type (or types ORed together) that you want
         /// the data in. The method will return an OleStgMedium for the type(s)
-        /// requested if it is available, otherwise it will return null. 
+        /// requested if it is available, otherwise it will return null.
         /// If a single type is requested then the return value can be safely
-        /// cast to the requested OleStgMedium subclasss. If multiple types 
-        /// are requested then the return value will represent the object's 
+        /// cast to the requested OleStgMedium subclasss. If multiple types
+        /// are requested then the return value will represent the object's
         /// preferred storage representation and client code will need to use
         /// the 'is' operator to determine what type was returned.
         /// </summary>
@@ -178,7 +173,7 @@ namespace OpenLiveWriter.CoreServices
             {
                 int result = m_dataObject.GetData(ref formatEtc, ref stgMedium);
 
-                // check for errors			
+                // check for errors
                 if (result != HRESULT.S_OK)
                 {
                     // data format not supported (expected error condition)
@@ -218,36 +213,32 @@ namespace OpenLiveWriter.CoreServices
                 return null;
         }
 
-
-
-
         /// <summary>
         /// Converter helper function to extract a field from an object
         /// This code Asserts the ReflectionPermission so that it can reflect over
         /// private types and private members. Assert is used rather than Demand
         /// so that callers are not required to have this permission. Note that the
         /// calling code must have SecurityPermission.Assertion in order for this
-        /// to work. We need to do a bit more research on SecurityPermissions to 
+        /// to work. We need to do a bit more research on SecurityPermissions to
         /// determine whether Assert or Demand is the correct SecurityAction here.
         /// </summary>
-        /// <param name="source">object to get field value from</param>		
+        /// <param name="source">object to get field value from</param>
         /// <param name="fieldName">name of field</param>
         /// <returns>value contained in fieldName for source object</returns>
         /// [ReflectionPermission(SecurityAction.Assert, TypeInformation=true, MemberAccess=true)]
         private object GetField(object source, string fieldName)
         {
-            // get the FieldInfo 
+            // get the FieldInfo
             FieldInfo fld = source.GetType().GetField(fieldName,
                 BindingFlags.Public | BindingFlags.NonPublic |
                 BindingFlags.Instance);
 
-            // retreive and return the value			
+            // retreive and return the value
             if (fld != null)
                 return fld.GetValue(source);
             else
                 return null;
         }
-
 
         /// <summary>
         /// Underlying native OLE IDataObject.

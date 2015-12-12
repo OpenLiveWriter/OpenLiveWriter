@@ -92,7 +92,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
         }
         private string _formatImagePath;
 
-
         public string FriendlyContentType
         {
             get
@@ -109,7 +108,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             get { return _contentSource; }
         }
         private ContentSourceInfo _contentSource;
-
 
         public class NameComparer : IComparer
         {
@@ -171,7 +169,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             return null;
         }
 
-
         /// <summary>
         /// Return all supported formats in alphabetical order by format des
         /// </summary>
@@ -222,8 +219,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             }
         }
 
-
-
         public static ContentSourceInfo[] GetContentSourcesForFormat(LiveClipboardFormat format)
         {
             ArrayList contentSources = new ArrayList();
@@ -243,7 +238,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
                 formatSettings.SetString(CONTENT_SOURCE_ID, contentSourceId);
         }
 
-
         private static string GetContentSourceIdForFormat(LiveClipboardFormat format)
         {
             using (SettingsPersisterHelper formatSettings = _formatHandlerSettings.GetSubSettings(format.Id))
@@ -253,7 +247,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
         private static SettingsPersisterHelper _liveClipboardSettings = ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("LiveClipboard");
         private static SettingsPersisterHelper _formatHandlerSettings = _liveClipboardSettings.GetSubSettings("Formats");
         private const string CONTENT_SOURCE_ID = "ContentSourceId";
-
 
     }
 

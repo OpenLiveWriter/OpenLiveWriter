@@ -14,9 +14,9 @@ namespace mshtml
         void setAttribute([In, MarshalAs(UnmanagedType.BStr)] string strAttributeName, [In, MarshalAs(UnmanagedType.Struct)] object AttributeValue, [In, Optional] int lFlags /* = 1 */);
         [return: MarshalAs(UnmanagedType.Struct)]
         //0 Default. Performs a property search that is not case-sensitive, and returns an interpolated value if the property is found.
-        //1 Performs a case-sensitive property search. To find a match, the uppercase and lowercase letters in strAttributeName must exactly match those in the attribute name. 
-        //2 Returns attribute value as a BSTR. This flag does not work for event properties. 
-        //4 Returns attribute value as a fully expanded URL. Only works for URL attributes. 
+        //1 Performs a case-sensitive property search. To find a match, the uppercase and lowercase letters in strAttributeName must exactly match those in the attribute name.
+        //2 Returns attribute value as a BSTR. This flag does not work for event properties.
+        //4 Returns attribute value as a fully expanded URL. Only works for URL attributes.
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(-2147417610)]
         object getAttribute([In, MarshalAs(UnmanagedType.BStr)] string strAttributeName, [In, Optional] int lFlags /* = 0 */);
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(-2147417609)]

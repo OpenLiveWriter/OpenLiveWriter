@@ -73,7 +73,7 @@ namespace OpenLiveWriter.HtmlEditor.Controls
                                                                                              new HtmlElementFormattingStyle(Res.Get(StringId.Paragraph), "p", _ELEMENT_TAG_ID.TAGID_P)
                                                                                          };
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -89,8 +89,8 @@ namespace OpenLiveWriter.HtmlEditor.Controls
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -99,9 +99,9 @@ namespace OpenLiveWriter.HtmlEditor.Controls
             this.styleComboBox = new System.Windows.Forms.ComboBox();
             this.toolTip = new ToolTip2(this.components);
             this.SuspendLayout();
-            // 
+            //
             // styleComboBox
-            // 
+            //
             this.styleComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -114,9 +114,9 @@ namespace OpenLiveWriter.HtmlEditor.Controls
             this.styleComboBox.TabIndex = 0;
             this.toolTip.SetToolTip(this.styleComboBox, "Change Text Style");
             this.styleComboBox.SelectionChangeCommitted += new System.EventHandler(this.styleComboBox_SelectionChangeCommitted);
-            // 
+            //
             // HtmlStylePicker
-            // 
+            //
             this.Controls.Add(this.styleComboBox);
             this.Name = "HtmlStylePicker";
             this.Size = new System.Drawing.Size(76, 21);

@@ -21,7 +21,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// </summary>
         private ISettingsPersister settingsPersister;
 
-
         /// <summary>
         /// Dispose the settings persister helper
         /// </summary>
@@ -81,9 +80,6 @@ namespace OpenLiveWriter.CoreServices.Settings
             }
         }
 
-
-
-
         /// <summary>
         /// Get the names of available settings.
         /// </summary>
@@ -101,7 +97,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         {
             return SettingsPersister.HasSubSettings(subSettingsName);
         }
-
 
         public SettingsPersisterHelper GetSubSettings(string subSettingsName)
         {
@@ -293,7 +288,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         {
             return (ulong)settingsPersister.Get(name, typeof(ulong), defaultValue);
         }
-
 
         /// <summary>
         /// Gets the double-precision floating point number setting with the specified name.
@@ -631,9 +625,6 @@ namespace OpenLiveWriter.CoreServices.Settings
             if (settingsPersister.HasSubSettings(name))
                 settingsPersister.UnsetSubSettingsTree(name);
         }
-
-
-
 
         /// <summary>
         /// Returns a SettingsPersisterHelper for the first RegistryKeySpec that exists

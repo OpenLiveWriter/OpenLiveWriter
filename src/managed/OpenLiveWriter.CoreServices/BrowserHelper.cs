@@ -109,7 +109,6 @@ namespace OpenLiveWriter.CoreServices
                 return false;
         }
 
-
         /// <summary>
         /// Path to the default Browser executable
         /// </summary>

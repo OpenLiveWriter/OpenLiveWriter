@@ -51,7 +51,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
                 LoadData();
         }
 
-
         public BlogSettings SelectedWeblog
         {
             get
@@ -76,7 +75,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             return listViewItem;
         }
 
-
         public void EditWeblogItem(ListViewItem item, BlogSettings settings)
         {
             // Set tag (back-reference to profile)
@@ -85,7 +83,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             // set text
             item.Text = String.Format(CultureInfo.CurrentCulture, " {0}", settings.BlogName);
         }
-
 
         public void DeleteSelectedWeblog()
         {
@@ -107,10 +104,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             }
         }
 
-
         private void LoadData()
         {
-            // take note of which profile is the default 
+            // take note of which profile is the default
             string defaultBlogId = BlogSettings.DefaultBlogId;
 
             BeginUpdate();
@@ -129,11 +125,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         }
 
 
-
-
-
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -163,7 +155,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             base.Dispose(disposing);
         }
 
-
         #region Component Designer generated code
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -172,9 +163,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            // 
+            //
             // WeblogAccountListView
-            // 
+            //
             this.AutoArrange = false;
             this.FullRowSelect = true;
             this.HideSelection = false;

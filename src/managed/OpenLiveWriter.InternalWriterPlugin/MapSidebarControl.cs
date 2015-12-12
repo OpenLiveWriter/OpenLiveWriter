@@ -127,8 +127,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             VirtualTransparency.VirtualPaint(this, pevent);
         }
 
-
-
         private void ShowCustomizeMapDialog()
         {
             using (new WaitCursor())
@@ -163,12 +161,10 @@ namespace OpenLiveWriter.InternalWriterPlugin
             }
         }
 
-
         private void linkLabelCustomizeMap_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
             ShowCustomizeMapDialog();
         }
-
 
         private void comboBoxTextWrapping_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -199,7 +195,7 @@ namespace OpenLiveWriter.InternalWriterPlugin
                 numericMarginRight.Value = 0;
             }
 
-            // update 
+            // update
             UpdatePadding();
         }
 
@@ -219,7 +215,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             // invalidate
             OnContentEdited();
         }
-
 
         private void InitializeOptionsUI()
         {
@@ -273,8 +268,7 @@ namespace OpenLiveWriter.InternalWriterPlugin
             return (layoutStyle.TopMargin != 0) || (layoutStyle.RightMargin != 0) || (layoutStyle.BottomMargin != 0) || (layoutStyle.LeftMargin != 0);
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -339,7 +333,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
                 base.Dispose(disposing);
             }
 
-
             private class ComboItem : ImageComboBox.IComboItem, IDisposable
             {
                 public ComboItem(Alignment alignment, string caption, string imageResourcePath)
@@ -369,7 +362,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             }
         }
 
-
         private class MarginsComboBox : ComboBox
         {
             public MarginsComboBox()
@@ -393,11 +385,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             private static readonly string CUSTOM_MARGINS = Res.Get(StringId.MapCustomMargins);
         }
 
-
-
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -431,18 +421,18 @@ namespace OpenLiveWriter.InternalWriterPlugin
             ((System.ComponentModel.ISupportInitialize)(this.numericMarginTop)).BeginInit();
             this.panelCustomMargins.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // textBoxCaption
-            // 
+            //
             this.textBoxCaption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCaption.Location = new System.Drawing.Point(11, 159);
             this.textBoxCaption.Name = "textBoxCaption";
             this.textBoxCaption.Size = new System.Drawing.Size(173, 20);
             this.textBoxCaption.TabIndex = 10;
-            // 
+            //
             // labelCaption
-            // 
+            //
             this.labelCaption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -452,9 +442,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.labelCaption.Size = new System.Drawing.Size(161, 16);
             this.labelCaption.TabIndex = 9;
             this.labelCaption.Text = "Caption:";
-            // 
+            //
             // labelTextWrapping
-            // 
+            //
             this.labelTextWrapping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTextWrapping.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -464,9 +454,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.labelTextWrapping.Size = new System.Drawing.Size(171, 15);
             this.labelTextWrapping.TabIndex = 14;
             this.labelTextWrapping.Text = "Text wrapping:";
-            // 
+            //
             // comboBoxTextWrapping
-            // 
+            //
             this.comboBoxTextWrapping.AllowMirroring = true;
             this.comboBoxTextWrapping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -477,9 +467,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.comboBoxTextWrapping.Name = "comboBoxTextWrapping";
             this.comboBoxTextWrapping.Size = new System.Drawing.Size(173, 31);
             this.comboBoxTextWrapping.TabIndex = 15;
-            // 
+            //
             // linkLabelCustomizeMap
-            // 
+            //
             this.linkLabelCustomizeMap.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.linkLabelCustomizeMap.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.linkLabelCustomizeMap.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
@@ -492,18 +482,18 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.linkLabelCustomizeMap.Text = "Customize Map...";
             this.toolTip.SetToolTip(this.linkLabelCustomizeMap, "Edit the Map location, style, and pushpins");
             this.linkLabelCustomizeMap.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCustomizeMap_LinkClicked);
-            // 
+            //
             // pictureBoxCustomizeMap
-            // 
+            //
             this.pictureBoxCustomizeMap.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.pictureBoxCustomizeMap.Location = new System.Drawing.Point(11, 117);
             this.pictureBoxCustomizeMap.Name = "pictureBoxCustomizeMap";
             this.pictureBoxCustomizeMap.Size = new System.Drawing.Size(23, 16);
             this.pictureBoxCustomizeMap.TabIndex = 3;
             this.pictureBoxCustomizeMap.TabStop = false;
-            // 
+            //
             // sidebarHeaderControl1
-            // 
+            //
             this.sidebarHeaderControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.sidebarHeaderControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -511,9 +501,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.sidebarHeaderControl1.Name = "sidebarHeaderControl1";
             this.sidebarHeaderControl1.Size = new System.Drawing.Size(184, 48);
             this.sidebarHeaderControl1.TabIndex = 31;
-            // 
+            //
             // headerLayout
-            // 
+            //
             this.headerLayout.AccessibleName = "Layout";
             this.headerLayout.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
             this.headerLayout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -524,9 +514,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.headerLayout.Size = new System.Drawing.Size(184, 17);
             this.headerLayout.TabIndex = 3;
             this.headerLayout.TabStop = false;
-            // 
+            //
             // sectionHeaderControlOptions
-            // 
+            //
             this.sectionHeaderControlOptions.AccessibleName = "Options";
             this.sectionHeaderControlOptions.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
             this.sectionHeaderControlOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -537,9 +527,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.sectionHeaderControlOptions.Size = new System.Drawing.Size(184, 17);
             this.sectionHeaderControlOptions.TabIndex = 32;
             this.sectionHeaderControlOptions.TabStop = false;
-            // 
+            //
             // labelBottom
-            // 
+            //
             this.labelBottom.AutoSize = true;
             this.labelBottom.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelBottom.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -548,9 +538,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.labelBottom.Size = new System.Drawing.Size(40, 13);
             this.labelBottom.TabIndex = 20;
             this.labelBottom.Text = "Bottom";
-            // 
+            //
             // labelLeft
-            // 
+            //
             this.labelLeft.AutoSize = true;
             this.labelLeft.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -559,9 +549,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.labelLeft.Size = new System.Drawing.Size(25, 13);
             this.labelLeft.TabIndex = 30;
             this.labelLeft.Text = "Left";
-            // 
+            //
             // labelRight
-            // 
+            //
             this.labelRight.AutoSize = true;
             this.labelRight.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -570,9 +560,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.labelRight.Size = new System.Drawing.Size(32, 13);
             this.labelRight.TabIndex = 10;
             this.labelRight.Text = "Right";
-            // 
+            //
             // labelTop
-            // 
+            //
             this.labelTop.AutoSize = true;
             this.labelTop.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelTop.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -581,9 +571,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.labelTop.Size = new System.Drawing.Size(26, 13);
             this.labelTop.TabIndex = 0;
             this.labelTop.Text = "Top";
-            // 
+            //
             // numericMarginLeft
-            // 
+            //
             this.numericMarginLeft.Increment = new decimal(new int[] {
             5,
             0,
@@ -594,9 +584,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.numericMarginLeft.Size = new System.Drawing.Size(56, 20);
             this.numericMarginLeft.TabIndex = 35;
             this.numericMarginLeft.Enter += new System.EventHandler(this.numericMargin_Enter);
-            // 
+            //
             // numericMarginBottom
-            // 
+            //
             this.numericMarginBottom.Increment = new decimal(new int[] {
             5,
             0,
@@ -607,9 +597,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.numericMarginBottom.Size = new System.Drawing.Size(56, 20);
             this.numericMarginBottom.TabIndex = 25;
             this.numericMarginBottom.Enter += new System.EventHandler(this.numericMargin_Enter);
-            // 
+            //
             // numericMarginRight
-            // 
+            //
             this.numericMarginRight.Increment = new decimal(new int[] {
             5,
             0,
@@ -620,9 +610,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.numericMarginRight.Size = new System.Drawing.Size(56, 20);
             this.numericMarginRight.TabIndex = 15;
             this.numericMarginRight.Enter += new System.EventHandler(this.numericMargin_Enter);
-            // 
+            //
             // numericMarginTop
-            // 
+            //
             this.numericMarginTop.Increment = new decimal(new int[] {
             5,
             0,
@@ -633,9 +623,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.numericMarginTop.Size = new System.Drawing.Size(56, 20);
             this.numericMarginTop.TabIndex = 1;
             this.numericMarginTop.Enter += new System.EventHandler(this.numericMargin_Enter);
-            // 
+            //
             // panelCustomMargins
-            // 
+            //
             this.panelCustomMargins.Controls.Add(this.numericMarginTop);
             this.panelCustomMargins.Controls.Add(this.numericMarginRight);
             this.panelCustomMargins.Controls.Add(this.numericMarginBottom);
@@ -648,9 +638,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.panelCustomMargins.Name = "panelCustomMargins";
             this.panelCustomMargins.Size = new System.Drawing.Size(180, 92);
             this.panelCustomMargins.TabIndex = 30;
-            // 
+            //
             // comboBoxMargins
-            // 
+            //
             this.comboBoxMargins.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMargins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -659,9 +649,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.comboBoxMargins.Name = "comboBoxMargins";
             this.comboBoxMargins.Size = new System.Drawing.Size(173, 21);
             this.comboBoxMargins.TabIndex = 20;
-            // 
+            //
             // labelMargins
-            // 
+            //
             this.labelMargins.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMargins.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -671,9 +661,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.labelMargins.Size = new System.Drawing.Size(172, 15);
             this.labelMargins.TabIndex = 19;
             this.labelMargins.Text = "Margins:";
-            // 
+            //
             // MapSidebarControl
-            // 
+            //
             this.Controls.Add(this.sectionHeaderControlOptions);
             this.Controls.Add(this.sidebarHeaderControl1);
             this.Controls.Add(this.textBoxCaption);
@@ -709,9 +699,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             if (upDown != null)
                 upDown.Select(0, upDown.Text.Length);
         }
-
-
-
 
     }
 }

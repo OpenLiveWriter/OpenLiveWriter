@@ -80,7 +80,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private Bitmap m_bitmap = null;
 
-
         private ImageData(IDataObject iDataObject)
         {
             m_iDataObject = iDataObject;

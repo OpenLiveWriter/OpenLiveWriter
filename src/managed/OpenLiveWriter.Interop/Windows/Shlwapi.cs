@@ -54,7 +54,6 @@ namespace OpenLiveWriter.Interop.Windows
 
         private static readonly int DEFAULT_URL_BUFFER_SIZE = 32;
 
-
         [DllImport("Shlwapi.dll", CharSet = CharSet.Auto)]
         public static extern int UrlCombine(
             [In, MarshalAs(UnmanagedType.LPTStr)] string pszBase,
@@ -74,7 +73,6 @@ namespace OpenLiveWriter.Interop.Windows
             public const UInt32 PLUGGABLE_PROTOCOL = 0x40000000;
         }
 
-
         [DllImport("Shlwapi.dll")]
         public static extern int SHAutoComplete(IntPtr hwndEdit, uint dwFlags);
 
@@ -85,9 +83,6 @@ namespace OpenLiveWriter.Interop.Windows
             [Out, MarshalAs(UnmanagedType.LPTStr)] StringBuilder pszUrl,
             [In, Out] ref uint pcchUrl,
             [In] uint dwReserved);
-
-
-
 
 
         /// <summary>
@@ -108,14 +103,14 @@ namespace OpenLiveWriter.Interop.Windows
         /// </param>
         /// <param name="pszExtra">Optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as open. Set this parameter to NULL if it is not used.</param>
         /// <param name="pszOut">Null-terminated string used to return the requested string. Set this parameter to NULL to retrieve the required buffer size.</param>
-        /// <param name="pcchOut">Pointer to a value that is set to the number of characters in the pszOut buffer. When the function returns, it will be set to the number of characters actually placed in the buffer. 
+        /// <param name="pcchOut">Pointer to a value that is set to the number of characters in the pszOut buffer. When the function returns, it will be set to the number of characters actually placed in the buffer.
         /// If the ASSOCF.NOTRUNCATE flag is set in flags and the buffer specified in pszOut is too small, the function returns E_POINTER and the value is set to the required size of the buffer.
         /// If pszOut is NULL, the function returns S_FALSE and pcchOut points to the required size of the buffer.</param>
         /// <returns>
-        /// Returns a standard error value or one of the following: Error Meaning 
-        /// S_OK Success. 
-        /// E_POINTER The pszOut buffer is too small to hold the entire string. 
-        /// S_FALSE pszOut is NULL. pcchOut contains the required buffer size. 
+        /// Returns a standard error value or one of the following: Error Meaning
+        /// S_OK Success.
+        /// E_POINTER The pszOut buffer is too small to hold the entire string.
+        /// S_FALSE pszOut is NULL. pcchOut contains the required buffer size.
         /// </returns>
         [DllImport("Shlwapi.dll", CharSet = CharSet.Auto)]
         public static extern int AssocQueryString(
@@ -229,7 +224,5 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint AUTOAPPEND_FORCE_ON = 0x40000000;  // Ignore the registry default and force the feature on. (Also know as AutoComplete)
         public const uint AUTOAPPEND_FORCE_OFF = 0x80000000;  // Ignore the registry default and force the feature off. (Also know as AutoComplete)
     }
-
-
 
 }

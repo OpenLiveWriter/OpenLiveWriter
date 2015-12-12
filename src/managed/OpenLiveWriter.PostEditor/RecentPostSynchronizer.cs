@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor
     public class RecentPostSynchronizer
     {
         /// <summary>
-        /// Synchronize the local and remote copies of the recent post to create an 
+        /// Synchronize the local and remote copies of the recent post to create an
         /// edit context that combines the latest HTML content, etc. from the web
         /// with the local image editing context
         /// </summary>
@@ -117,14 +117,13 @@ namespace OpenLiveWriter.PostEditor
                     // load the recent post
                     IBlogPostEditingContext newEditingContext = recentPost.Load();
 
-
                     string localContents = newEditingContext.BlogPost.Contents;
                     string localContentsSignature = newEditingContext.BlogPost.ContentsVersionSignature;
 
                     // merge trackbacks from client
                     MergeTrackbacksFromClient(editingContext.BlogPost, newEditingContext.BlogPost);
 
-                    // copy the BlogPost properties from the server (including merged trackbacks) 
+                    // copy the BlogPost properties from the server (including merged trackbacks)
                     newEditingContext.BlogPost.CopyFrom(editingContext.BlogPost);
 
                     SynchronizeLocalContentsWithEditingContext(localContents, localContentsSignature, newEditingContext);
@@ -149,7 +148,7 @@ namespace OpenLiveWriter.PostEditor
             // storing on the client as PingUrlsPending plus the union of the client
             // and server PingUrlsSent fields.
 
-            // ping urls already sent is the union of the client record of pings sent plus the 
+            // ping urls already sent is the union of the client record of pings sent plus the
             // server record (if any) of pings sent
             serverBlogPost.PingUrlsSent = ArrayHelper.Union(clientBlogPost.PingUrlsSent, serverBlogPost.PingUrlsSent);
 
@@ -163,7 +162,6 @@ namespace OpenLiveWriter.PostEditor
                     pingUrlsPending.Add(pingUrl);
             serverBlogPost.PingUrlsPending = pingUrlsPending.ToArray(typeof(string)) as string[];
         }
-
 
         /// <summary>
         ///  Does this blog support post-sync? (default to true if we can't figure this out)
@@ -266,7 +264,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private static void ShowRecentPostNotSynchronizedWarning(IWin32Window owner, string entityName)
         {
             using (RecentPostNotSynchronizedWarningForm warningForm = new RecentPostNotSynchronizedWarningForm(entityName))
@@ -313,14 +310,13 @@ namespace OpenLiveWriter.PostEditor
                 get { return CancelRequested; }
             }
 
-
             protected override void DoWork()
             {
                 using (BlogClientUIContextScope uiScope = new BlogClientUIContextScope(_uiContext))
                 {
                     using (Blog blog = new Blog(_blogId))
                     {
-                        // Fix bug 457160 - New post created with a new category 
+                        // Fix bug 457160 - New post created with a new category
                         // becomes without a category when opened in WLW
                         //
                         // See also PostEditorPostSource.GetPost(string)
@@ -347,7 +343,6 @@ namespace OpenLiveWriter.PostEditor
             private IBlogClientUIContext _uiContext;
 
         }
-
 
         private static void ConvertImageReferencesToLocal(IBlogPostEditingContext editingContext)
         {

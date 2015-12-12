@@ -17,7 +17,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// </summary>
     public class WeblogConfigurationWizardHeader : UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -50,8 +50,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             g.DrawText(_label, Font, textRect, textColor);
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -71,15 +70,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             BidiHelper.Mirror(ResourceHelper.LoadAssemblyResourceBitmap("Configuration.Wizard.Images.WeblogWizardHeader.png"));
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // WeblogConfigurationWizardHeader
-            // 
+            //
             this.Font = Res.GetFont(FontSize.GiantHeading, FontStyle.Regular);
             this.Name = "WeblogConfigurationWizardHeader";
             this.Size = new System.Drawing.Size(310, 40);

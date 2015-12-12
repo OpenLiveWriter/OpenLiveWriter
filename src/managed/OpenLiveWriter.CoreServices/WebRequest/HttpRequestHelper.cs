@@ -23,7 +23,6 @@ namespace OpenLiveWriter.CoreServices
     /// </summary>
     public delegate void HttpRequestFilter(HttpWebRequest request);
 
-
     /// <summary>
     /// Utility class for doing HTTP requests -- uses the Feeds Proxy settings (if any) for requests
     /// </summary>
@@ -59,11 +58,8 @@ namespace OpenLiveWriter.CoreServices
                 Trace.WriteLine("SSL Policy error " + sslPolicyErrors);
             }
 
-
             return true;
         }
-
-
 
         public static void TrackResponseClosing(ref HttpWebRequest req)
         {
@@ -108,7 +104,6 @@ namespace OpenLiveWriter.CoreServices
                 return null;
             }
         }
-
 
         public static HttpWebResponse SendRequest(string requestUri)
         {
@@ -178,8 +173,8 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Returns the default proxy for an HTTP request. 
-        /// 
+        /// Returns the default proxy for an HTTP request.
+        ///
         /// Consider using ApplyProxyOverride instead.
         /// </summary>
         /// <returns></returns>
@@ -312,7 +307,6 @@ namespace OpenLiveWriter.CoreServices
             }
             return sb.ToString();
         }
-
 
         public static DateTime GetExpiresHeader(HttpWebResponse response)
         {
@@ -450,7 +444,6 @@ namespace OpenLiveWriter.CoreServices
         private bool _digestOnly;
     }
 
-
     /// <summary>
     /// Allow chaining together of http request filters
     /// </summary>
@@ -472,10 +465,8 @@ namespace OpenLiveWriter.CoreServices
                 filter(request);
         }
 
-
         private HttpRequestFilter[] _filters;
     }
-
 
     /// <summary>
     /// Typed-exception that occurs when an HTTP request times out after the request has been sent, but

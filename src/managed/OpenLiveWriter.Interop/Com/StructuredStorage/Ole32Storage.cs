@@ -13,25 +13,25 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
     public class Ole32Storage
     {
         /// <summary>
-        /// StgCreateDocfile creates a new compound file storage object 
+        /// StgCreateDocfile creates a new compound file storage object
         /// using the COM-provided compound file implementation for the IStorage interface.
         /// </summary>
-        /// <param name="pwcsName">Pointer to a null-terminated Unicode string 
-        /// name for the compound file being created. It is passed uninterpreted 
-        /// to the file system. This can be a relative name or NULL. If NULL, a 
+        /// <param name="pwcsName">Pointer to a null-terminated Unicode string
+        /// name for the compound file being created. It is passed uninterpreted
+        /// to the file system. This can be a relative name or NULL. If NULL, a
         /// temporary compound file is allocated with a unique name. </param>
-        /// <param name="grfMode">Specifies the access mode to use when opening 
-        /// the new storage object. For more information, see the STGM enumeration. 
-        /// If the caller specifies transacted mode together with STGM_CREATE 
-        /// or STGM_CONVERT, the overwrite or conversion takes place when the 
-        /// commit operation is called for the root storage. If IStorage::Commit 
-        /// is not called for the root storage object, previous contents of 
-        /// the file will be restored. STGM_CREATE and STGM_CONVERT cannot be 
-        /// combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is 
-        /// required when a file is overwritten or converted in the transacted 
+        /// <param name="grfMode">Specifies the access mode to use when opening
+        /// the new storage object. For more information, see the STGM enumeration.
+        /// If the caller specifies transacted mode together with STGM_CREATE
+        /// or STGM_CONVERT, the overwrite or conversion takes place when the
+        /// commit operation is called for the root storage. If IStorage::Commit
+        /// is not called for the root storage object, previous contents of
+        /// the file will be restored. STGM_CREATE and STGM_CONVERT cannot be
+        /// combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is
+        /// required when a file is overwritten or converted in the transacted
         /// mode. </param>
         /// <param name="reserved">Reserved for future use; must be zero. </param>
-        /// <param name="ppstgOpen">Pointer to the location of the IStorage 
+        /// <param name="ppstgOpen">Pointer to the location of the IStorage
         /// pointer to the new storage object.</param>
         /// <returns>HResult indicating status code.</returns>
         [DllImport("Ole32.dll", CharSet = CharSet.Unicode)]
@@ -42,31 +42,31 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             out IStorage ppstgOpen);
 
         /// <summary>
-        /// StgOpenStorage opens an existing root storage object in the file 
-        /// system. You can use this function to open compound files, but you 
-        /// cannot use it to open directories, files, or summary catalogs. 
-        /// Nested storage objects can only be opened using their parent's 
+        /// StgOpenStorage opens an existing root storage object in the file
+        /// system. You can use this function to open compound files, but you
+        /// cannot use it to open directories, files, or summary catalogs.
+        /// Nested storage objects can only be opened using their parent's
         /// IStorage::OpenStorage method.
         /// </summary>
-        /// <param name="pwcsName">Pointer to the path of the null-terminated 
-        /// Unicode string file containing the storage object to open. This 
+        /// <param name="pwcsName">Pointer to the path of the null-terminated
+        /// Unicode string file containing the storage object to open. This
         /// parameter is ignored if the pstgPriority parameter is not NULL. </param>
-        /// <param name="pstgPriority">Most often NULL. If not NULL, this parameter 
-        /// is used instead of the pwcsName parameter to specify the pointer to the 
-        /// IStorage interface on the storage object to open. It points to a 
-        /// previous opening of a root storage object, most often one that 
-        /// was opened in priority mode. After the StgOpenStorage function 
+        /// <param name="pstgPriority">Most often NULL. If not NULL, this parameter
+        /// is used instead of the pwcsName parameter to specify the pointer to the
+        /// IStorage interface on the storage object to open. It points to a
+        /// previous opening of a root storage object, most often one that
+        /// was opened in priority mode. After the StgOpenStorage function
         /// returns, the storage object specified in the pstgPriority parameter
-        /// on function entry is not valid, and can no longer be used. Instead, 
+        /// on function entry is not valid, and can no longer be used. Instead,
         /// use the storage object specified in the ppStgOpen parameter.</param>
-        /// <param name="grfMode">Specifies the access mode to use to open the storage 
+        /// <param name="grfMode">Specifies the access mode to use to open the storage
         /// object. </param>
-        /// <param name="snbExclude">If not NULL, pointer to a block of elements 
-        /// in the storage that are to be excluded as the storage object is opened. 
-        /// The exclusion occurs regardless of whether a snapshot copy happens 
+        /// <param name="snbExclude">If not NULL, pointer to a block of elements
+        /// in the storage that are to be excluded as the storage object is opened.
+        /// The exclusion occurs regardless of whether a snapshot copy happens
         /// on the open. May be NULL. </param>
         /// <param name="reserved">Indicates reserved for future use; must be zero. </param>
-        /// <param name="ppstgOpen">Pointer IStorage* pointer variable that 
+        /// <param name="ppstgOpen">Pointer IStorage* pointer variable that
         /// receives the interface pointer to the opened storage. </param>
         /// <returns>HResult indicating status code.</returns>
         [DllImport("Ole32.dll", CharSet = CharSet.Unicode)]
@@ -112,23 +112,21 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             out IStorage ppObjectOpen
             );
 
-
         /// <summary>
         /// Indicates whether a particular disk file contains a storage object.
         /// </summary>
-        /// <param name="pwcsName">Pointer to the null-terminated Unicode string 
-        /// name of the disk file to be examined. The pwcsName parameter is 
+        /// <param name="pwcsName">Pointer to the null-terminated Unicode string
+        /// name of the disk file to be examined. The pwcsName parameter is
         /// passed uninterpreted to the underlying file system. </param>
         /// <returns>HResult indicating status code</returns>
         [DllImport("Ole32.dll", CharSet = CharSet.Unicode)]
         public static extern int StgIsStorageFile(
             [MarshalAs(UnmanagedType.LPTStr)] string pwcsName);
 
-
         /// <summary>
         /// Reads the CLSID previously written to a storage object with the WriteClassStg function.
         /// </summary>
-        /// <param name="pStg">Pointer to the IStorage interface on the storage object 
+        /// <param name="pStg">Pointer to the IStorage interface on the storage object
         /// containing the CLSID to be retrieved. </param>
         /// <param name="pclsid">Pointer to where the CLSID is written. May return CLSID_NULL. </param>
         [DllImport("Ole32.dll")]
@@ -178,9 +176,8 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             [Out] out IStream ppstm
             );
 
-
         /// <summary>
-        /// Creates and opens a new compound file storage object on top of a byte-array 
+        /// Creates and opens a new compound file storage object on top of a byte-array
         /// object provided by the caller. The storage object supports the COM-provided,
         /// compound-file implementation for the IStorage interface
         /// </summary>
@@ -197,15 +194,14 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             [Out] out IStorage ppstgOpen
         );
 
-
         /// <summary>
         /// Retrieves a global memory handle to a byte array object created using the
-        /// CreateILockBytesOnHGlobal function. The contents of the returned memory 
+        /// CreateILockBytesOnHGlobal function. The contents of the returned memory
         /// handle can be written to a clean disk file, and then opened as a storage
         /// object using the StgOpenStorage function.
         /// </summary>
-        /// <param name="pLkbyt">[in] Pointer to the ILockBytes interface on the 
-        /// byte-array object previously created by a call to the 
+        /// <param name="pLkbyt">[in] Pointer to the ILockBytes interface on the
+        /// byte-array object previously created by a call to the
         /// CreateILockBytesOnHGlobal function.</param>
         /// <param name="phglobal">[out] Pointer to the current memory handle used by the specified byte-array object.</param>
         /// <returns></returns>

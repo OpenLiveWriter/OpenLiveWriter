@@ -73,7 +73,5 @@ namespace OpenLiveWriter.CoreServices
         protected virtual void OnStyleText(StyleText styleText)
         { }
 
-
-
     }
 }

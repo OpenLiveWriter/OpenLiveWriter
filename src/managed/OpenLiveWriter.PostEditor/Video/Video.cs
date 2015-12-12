@@ -33,7 +33,6 @@ namespace OpenLiveWriter.PostEditor.Video
             }
         }
 
-
         public string Id { get { return _id; } }
         public string EditorFormat { get { return _editorFormat; } }
         public string Embed { get { return _embed; } }

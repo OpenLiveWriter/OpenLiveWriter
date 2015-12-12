@@ -23,7 +23,7 @@ namespace OpenLiveWriter.PostEditor
 
     public class PostEditorPreferencesPanel : PreferencesPanel
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -67,7 +67,6 @@ namespace OpenLiveWriter.PostEditor
                 PanelName = Res.Get(StringId.PostEditorPrefName);
             }
 
-
             PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PreferencesOther.png");
 
             _postEditorPreferences = new PostEditorPreferences();
@@ -106,7 +105,6 @@ namespace OpenLiveWriter.PostEditor
             radioButtonOpenNewWindow.CheckedChanged += new EventHandler(radioButtonPostWindowBehavior_CheckedChanged);
             radioButtonOpenNewWindowIfDirty.CheckedChanged += new EventHandler(radioButtonPostWindowBehavior_CheckedChanged);
 
-
             checkBoxViewWeblog.CheckedChanged += new EventHandler(checkBoxViewWeblog_CheckedChanged);
             checkBoxCloseWindow.CheckedChanged += new EventHandler(checkBoxCloseWindow_CheckedChanged);
 
@@ -115,7 +113,6 @@ namespace OpenLiveWriter.PostEditor
             checkBoxTagReminder.CheckedChanged += new EventHandler(checkBoxTagReminder_CheckedChanged);
 
         }
-
 
         private bool _layedOut = false;
         protected override void OnLoad(EventArgs e)
@@ -132,7 +129,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public override void Save()
         {
             if (_postEditorPreferences.IsModified())
@@ -142,13 +138,10 @@ namespace OpenLiveWriter.PostEditor
                 _wordCountPreferences.Save();
         }
 
-
-
         private void checkBoxViewWeblog_CheckedChanged(object sender, EventArgs e)
         {
             _postEditorPreferences.ViewPostAfterPublish = checkBoxViewWeblog.Checked;
         }
-
 
         private void radioButtonPostWindowBehavior_CheckedChanged(object sender, EventArgs e)
         {
@@ -205,7 +198,7 @@ namespace OpenLiveWriter.PostEditor
             _wordCountPreferences.EnableRealTimeWordCount = checkBoxWordCount.Checked;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -223,8 +216,8 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -246,9 +239,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPostWindows.SuspendLayout();
             this.groupBoxGeneral.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // groupBoxPublishing
-            // 
+            //
             this.groupBoxPublishing.Controls.Add(this.checkBoxTitleReminder);
             this.groupBoxPublishing.Controls.Add(this.checkBoxTagReminder);
             this.groupBoxPublishing.Controls.Add(this.checkBoxCategoryReminder);
@@ -261,9 +254,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPublishing.TabIndex = 2;
             this.groupBoxPublishing.TabStop = false;
             this.groupBoxPublishing.Text = "Publishing";
-            // 
+            //
             // checkBoxTitleReminder
-            // 
+            //
             this.checkBoxTitleReminder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxTitleReminder.Location = new System.Drawing.Point(16, 93);
             this.checkBoxTitleReminder.Name = "checkBoxTitleReminder";
@@ -271,9 +264,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxTitleReminder.TabIndex = 3;
             this.checkBoxTitleReminder.Text = "&Remind me to specify a title before publishing";
             this.checkBoxTitleReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // checkBoxTagReminder
-            // 
+            //
             this.checkBoxTagReminder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxTagReminder.Location = new System.Drawing.Point(16, 135);
             this.checkBoxTagReminder.Name = "checkBoxTagReminder";
@@ -281,9 +274,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxTagReminder.TabIndex = 5;
             this.checkBoxTagReminder.Text = "Remind me to add &tags before publishing";
             this.checkBoxTagReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // checkBoxCategoryReminder
-            // 
+            //
             this.checkBoxCategoryReminder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxCategoryReminder.Location = new System.Drawing.Point(16, 114);
             this.checkBoxCategoryReminder.Name = "checkBoxCategoryReminder";
@@ -291,9 +284,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxCategoryReminder.TabIndex = 4;
             this.checkBoxCategoryReminder.Text = "Remind me to add &categories before publishing";
             this.checkBoxCategoryReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // checkBoxCloseWindow
-            // 
+            //
             this.checkBoxCloseWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxCloseWindow.Location = new System.Drawing.Point(16, 42);
             this.checkBoxCloseWindow.Name = "checkBoxCloseWindow";
@@ -301,9 +294,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxCloseWindow.TabIndex = 1;
             this.checkBoxCloseWindow.Text = "Close &window after publishing: ";
             this.checkBoxCloseWindow.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // checkBoxViewWeblog
-            // 
+            //
             this.checkBoxViewWeblog.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxViewWeblog.Location = new System.Drawing.Point(16, 21);
             this.checkBoxViewWeblog.Name = "checkBoxViewWeblog";
@@ -311,9 +304,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxViewWeblog.TabIndex = 0;
             this.checkBoxViewWeblog.Text = "&View post after publishing";
             this.checkBoxViewWeblog.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // groupBoxPostWindows
-            // 
+            //
             this.groupBoxPostWindows.Controls.Add(this.radioButtonOpenNewWindowIfDirty);
             this.groupBoxPostWindows.Controls.Add(this.radioButtonUseSameWindow);
             this.groupBoxPostWindows.Controls.Add(this.radioButtonOpenNewWindow);
@@ -324,9 +317,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPostWindows.TabIndex = 1;
             this.groupBoxPostWindows.TabStop = false;
             this.groupBoxPostWindows.Text = "Post Windows";
-            // 
+            //
             // radioButtonOpenNewWindowIfDirty
-            // 
+            //
             this.radioButtonOpenNewWindowIfDirty.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonOpenNewWindowIfDirty.Location = new System.Drawing.Point(16, 69);
             this.radioButtonOpenNewWindowIfDirty.Name = "radioButtonOpenNewWindowIfDirty";
@@ -334,9 +327,9 @@ namespace OpenLiveWriter.PostEditor
             this.radioButtonOpenNewWindowIfDirty.TabIndex = 2;
             this.radioButtonOpenNewWindowIfDirty.Text = "Open a new window &only when there are unsaved changes to the current post";
             this.radioButtonOpenNewWindowIfDirty.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // radioButtonUseSameWindow
-            // 
+            //
             this.radioButtonUseSameWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonUseSameWindow.Location = new System.Drawing.Point(16, 21);
             this.radioButtonUseSameWindow.Name = "radioButtonUseSameWindow";
@@ -344,9 +337,9 @@ namespace OpenLiveWriter.PostEditor
             this.radioButtonUseSameWindow.TabIndex = 0;
             this.radioButtonUseSameWindow.Text = "Use a &single window for editing all posts";
             this.radioButtonUseSameWindow.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // radioButtonOpenNewWindow
-            // 
+            //
             this.radioButtonOpenNewWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonOpenNewWindow.Location = new System.Drawing.Point(16, 44);
             this.radioButtonOpenNewWindow.Name = "radioButtonOpenNewWindow";
@@ -354,9 +347,9 @@ namespace OpenLiveWriter.PostEditor
             this.radioButtonOpenNewWindow.TabIndex = 1;
             this.radioButtonOpenNewWindow.Text = "Open a new window for &each post";
             this.radioButtonOpenNewWindow.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // groupBoxGeneral
-            // 
+            //
             this.groupBoxGeneral.Controls.Add(this.checkBoxAutoSaveDrafts);
             this.groupBoxGeneral.Controls.Add(this.checkBoxWordCount);
             this.groupBoxGeneral.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -366,9 +359,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxGeneral.TabIndex = 3;
             this.groupBoxGeneral.TabStop = false;
             this.groupBoxGeneral.Text = "General";
-            // 
+            //
             // checkBoxAutoSaveDrafts
-            // 
+            //
             this.checkBoxAutoSaveDrafts.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxAutoSaveDrafts.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxAutoSaveDrafts.Location = new System.Drawing.Point(16, 21);
@@ -377,9 +370,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxAutoSaveDrafts.TabIndex = 0;
             this.checkBoxAutoSaveDrafts.Text = "Automatically save &drafts every:";
             this.checkBoxAutoSaveDrafts.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // checkBoxWordCount
-            // 
+            //
             this.checkBoxWordCount.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxWordCount.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxWordCount.Location = new System.Drawing.Point(16, 156);
@@ -389,9 +382,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxWordCount.Text = "Show real time &word count in status bar";
             this.checkBoxWordCount.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxWordCount.UseVisualStyleBackColor = true;
-            // 
+            //
             // PostEditorPreferencesPanel
-            // 
+            //
             this.AccessibleName = "Preferences";
             this.Controls.Add(this.groupBoxPostWindows);
             this.Controls.Add(this.groupBoxPublishing);
@@ -409,8 +402,6 @@ namespace OpenLiveWriter.PostEditor
 
         }
         #endregion
-
-
 
     }
 }

@@ -17,7 +17,7 @@ namespace OpenLiveWriter.CoreServices
     public class PathHelper
     {
         /// <summary>
-        /// Determines whether a path is a path to a directory 
+        /// Determines whether a path is a path to a directory
         /// </summary>
         /// <param name="path">The path to check</param>
         /// <returns>true if the path is a directory, otherwise false</returns>
@@ -27,33 +27,33 @@ namespace OpenLiveWriter.CoreServices
         }
 
 #if FALSE
-		// not localized
-		public static string GetPrettyPath(string path, bool hideExtensionsForKnowTypes)
-		{
-			if (path == null)
-				return null;
+        // not localized
+        public static string GetPrettyPath(string path, bool hideExtensionsForKnowTypes)
+        {
+            if (path == null)
+                return null;
 
-			// obtain special paths.
-			string myDocumentsPath = (Environment.GetFolderPath(Environment.SpecialFolder.Personal)+Path.DirectorySeparatorChar).ToLower() ;
-			string desktopPath = (Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)+Path.DirectorySeparatorChar).ToLower() ;
+            // obtain special paths.
+            string myDocumentsPath = (Environment.GetFolderPath(Environment.SpecialFolder.Personal)+Path.DirectorySeparatorChar).ToLower() ;
+            string desktopPath = (Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)+Path.DirectorySeparatorChar).ToLower() ;
 
-			// default to pretty path being the same as base path
-			string prettyPath = path ;
+            // default to pretty path being the same as base path
+            string prettyPath = path ;
 
-			if ( prettyPath.ToLower().StartsWith(myDocumentsPath) )
-				prettyPath = "My Documents\\" + prettyPath.Substring( myDocumentsPath.Length ) ;		
+            if ( prettyPath.ToLower().StartsWith(myDocumentsPath) )
+                prettyPath = "My Documents\\" + prettyPath.Substring( myDocumentsPath.Length ) ;
 
-				// also check for the desktop
-			else if ( prettyPath.ToLower().StartsWith(desktopPath) )
-				prettyPath = "Desktop\\" + prettyPath.Substring( desktopPath.Length ) ;		
+                // also check for the desktop
+            else if ( prettyPath.ToLower().StartsWith(desktopPath) )
+                prettyPath = "Desktop\\" + prettyPath.Substring( desktopPath.Length ) ;
 
-			// if we should hide the extension, do so.
-			if (hideExtensionsForKnowTypes)
-				prettyPath = Path.Combine(Path.GetDirectoryName(prettyPath), Path.GetFileNameWithoutExtension(prettyPath));						
+            // if we should hide the extension, do so.
+            if (hideExtensionsForKnowTypes)
+                prettyPath = Path.Combine(Path.GetDirectoryName(prettyPath), Path.GetFileNameWithoutExtension(prettyPath));
 
-			// return the pretty path
-			return prettyPath ;
-		}
+            // return the pretty path
+            return prettyPath ;
+        }
 #endif
 
         public static bool PathsEqual(string file1, string file2)
@@ -165,7 +165,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Creates a path that will no overwrite any files that already exist at
         /// that location.
-        /// 
+        ///
         /// To ensure this, a zero-length file is created and its full path is returned.
         /// </summary>
         /// <param name="path">The path requested</param>
@@ -195,7 +195,6 @@ namespace OpenLiveWriter.CoreServices
             [MarshalAs(UnmanagedType.LPTStr)]   string pszSource,
             [MarshalAs(UnmanagedType.U4)]       int cchMax,
             [MarshalAs(UnmanagedType.U4)]       int dwReserved);
-
 
         /// <summary>
         /// Normalizes the capitalization for the given path, if
@@ -260,7 +259,6 @@ namespace OpenLiveWriter.CoreServices
             result.Reverse();
             return (FileSystemInfo[])result.ToArray(typeof(FileSystemInfo));
         }
-
 
         public static bool IsPathVideo(string path)
         {

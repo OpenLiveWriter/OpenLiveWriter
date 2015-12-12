@@ -167,7 +167,7 @@ namespace OpenLiveWriter.Controls
                 propLoader.ApplyResources(this, messageId.ToString());
         }
 
-        /// <summary> 
+        /// <summary>
         public DisplayMessage(String text, String title)
         {
             InitializeComponent();
@@ -260,7 +260,6 @@ namespace OpenLiveWriter.Controls
                 caption = Title;
             else
                 caption = ApplicationEnvironment.ProductNameQualified;
-
 
             //	Format the display text.
             string displayText;

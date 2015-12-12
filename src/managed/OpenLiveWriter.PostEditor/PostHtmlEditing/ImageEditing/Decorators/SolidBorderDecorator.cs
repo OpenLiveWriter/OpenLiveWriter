@@ -58,7 +58,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
         }
 
-
         public override Bitmap BitmapLarge
         {
             get { return Images.Photo_Border_Solid_1_pixel; }

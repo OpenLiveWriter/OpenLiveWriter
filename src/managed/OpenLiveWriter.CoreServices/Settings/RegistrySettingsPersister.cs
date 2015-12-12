@@ -87,10 +87,8 @@ namespace OpenLiveWriter.CoreServices.Settings
         private bool haveLoggedFailedDefault = false;
         private bool haveLoggedFailedGetKey = false;
 
-
-
         /// <summary>
-        /// Low-level get (returns null if the value doesn't exist). 
+        /// Low-level get (returns null if the value doesn't exist).
         /// </summary>
         /// <param name="name">name</param>
         /// <returns>value (null if not present)</returns>
@@ -192,7 +190,6 @@ namespace OpenLiveWriter.CoreServices.Settings
             }
         }
 
-
         /// <summary>
         /// Get a subsetting object that is rooted in the current ISettingsPersister
         /// </summary>
@@ -202,7 +199,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         {
             return new RegistrySettingsPersister(this.rootNode, keyName + "\\" + subSettingsName);
         }
-
 
         /// <summary>
         /// Enumerate the available sub-settings
@@ -219,7 +215,6 @@ namespace OpenLiveWriter.CoreServices.Settings
             }
         }
 
-
         /// <summary>
         /// Dispose the settings persister
         /// </summary>
@@ -227,7 +222,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         {
             rootNode.Close();
         }
-
 
         #endregion
 

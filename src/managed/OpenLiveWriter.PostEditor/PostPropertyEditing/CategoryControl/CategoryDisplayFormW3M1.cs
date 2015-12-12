@@ -397,7 +397,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                 // prevent editing and showing of drop down
                 DropDownStyle = ComboBoxStyle.DropDownList;
 
-
                 // fully cusotm painting
                 DrawMode = DrawMode.OwnerDrawFixed;
                 IntegralHeight = false;
@@ -502,7 +501,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
             private int _indentLevel;
             private ComboBox _parentCombo;
-
 
         }
 

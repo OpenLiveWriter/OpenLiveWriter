@@ -11,8 +11,8 @@ namespace OpenLiveWriter.CoreServices.Progress
     /// together to fill an allocation of ticks.  This is necessary
     /// (as opposed to creating individual ProgressTick objects)
     /// when an operation has multiple parts that proceed in parallel.
-    /// 
-    /// This design assumes that all the parts of the operation 
+    ///
+    /// This design assumes that all the parts of the operation
     /// represent an equal slice of the total allocation.
     /// </summary>
     public class JointProgressHosts

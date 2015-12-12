@@ -11,8 +11,6 @@ using OpenLiveWriter.Localization;
 namespace OpenLiveWriter.PostEditor.Tagging
 {
 
-
-
     public class TagProvider : IComparable
     {
         private const string DEFAULT_FORMAT = "<a href=\"{0}\" rel=\"tag\">{1}</a>";
@@ -20,7 +18,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
         public string GenerateHtmlForTags(string[] tags)
         {
             StringBuilder htmlBuilder = new StringBuilder();
-
 
             for (int i = 0; i < tags.Length; i++)
             {
@@ -39,7 +36,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
                 if (i < (tags.Length - 1))
                     htmlBuilder.Append(Separator);
             }
-
 
             string tagGroup = htmlBuilder.ToString();
 
@@ -63,7 +59,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
             }
         }
         private string _id;
-
 
         public string Name
         {
@@ -159,7 +154,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
             return Id.GetHashCode();
         }
 
-
         public int CompareTo(object obj)
         {
             TagProvider otherProvider = obj as TagProvider;
@@ -203,7 +197,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
         private string _caption;
         private bool _new = false;
         private string _htmlFormatString;
-
 
         public const string TAG_TOKEN = "{tag}";
         public const string TAG_ENCODED_TOKEN = "{tag-encoded}";

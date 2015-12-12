@@ -53,7 +53,6 @@ namespace OpenLiveWriter.PostEditor
             return exData2;
         }
 
-
         public void RemoveExtensionData(string id)
         {
             _extensionData.Remove(id);
@@ -115,15 +114,10 @@ namespace OpenLiveWriter.PostEditor
                 RemoveExtensionData(removeId);
         }
 
-
-
-
         public IExtensionData GetOrCreateExtensionData(string id)
         {
             return GetExtensionData(id) ?? CreateExtensionData(id);
         }
-
-
 
         public int Count
         {
@@ -134,7 +128,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         public event EventHandler RefreshableCallbackTriggered;
-
 
         internal IExtensionData GetExtensionDataWithMinCallback()
         {
@@ -153,8 +146,6 @@ namespace OpenLiveWriter.PostEditor
             return minCallBackExtensionData;
         }
     }
-
-
 
     public interface IExtensionData
     {

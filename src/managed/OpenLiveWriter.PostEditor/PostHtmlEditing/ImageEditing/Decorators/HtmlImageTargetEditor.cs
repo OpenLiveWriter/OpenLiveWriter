@@ -59,7 +59,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // HACK: 722879
-            // THis button does not always run its 'clicked' event when it has focus and you press enter, space does 
+            // THis button does not always run its 'clicked' event when it has focus and you press enter, space does
             // always seem to work though.
             if (buttonTargetOptions.Focused && keyData == Keys.Enter)
             {
@@ -68,7 +68,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -95,9 +94,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonTargetOptions = new System.Windows.Forms.Button();
             this.comboBoxLinkTargets = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
+            //
             // buttonTargetOptions
-            // 
+            //
             this.buttonTargetOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonTargetOptions.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonTargetOptions.Location = new System.Drawing.Point(167, 35);
@@ -106,9 +105,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonTargetOptions.TabIndex = 1;
             this.buttonTargetOptions.Text = "Options...";
             this.buttonTargetOptions.Click += new System.EventHandler(this.buttonTargetOptions_Click);
-            // 
+            //
             // comboBoxLinkTargets
-            // 
+            //
             this.comboBoxLinkTargets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxLinkTargets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -117,9 +116,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.comboBoxLinkTargets.Size = new System.Drawing.Size(232, 21);
             this.comboBoxLinkTargets.TabIndex = 0;
             this.comboBoxLinkTargets.SelectedIndexChanged += new System.EventHandler(this.comboBoxLinkTargets_SelectedIndexChanged);
-            // 
+            //
             // HtmlImageTargetEditor
-            // 
+            //
             this.Controls.Add(this.buttonTargetOptions);
             this.Controls.Add(this.comboBoxLinkTargets);
             this.Name = "HtmlImageTargetEditor";
@@ -153,7 +152,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         protected override void OnSaveSettings()
         {
-            //NOTE: the settings for this control are changed directly in the 
+            //NOTE: the settings for this control are changed directly in the
             //comboBoxLinkTargets_SelectedIndexChanged method, which isn't
             //really correct and needs to be changed so that we persist settings
             //here instead.
@@ -312,7 +311,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         Rectangle summaryTextRect;
         private const int summaryTextTopMargin = 10;
         private const int summarySizeSpacing = 5;
-
 
         public bool LinkToSourceImageEnabled
         {

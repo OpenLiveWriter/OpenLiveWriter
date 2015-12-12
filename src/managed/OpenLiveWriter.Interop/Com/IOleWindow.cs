@@ -48,7 +48,6 @@ namespace OpenLiveWriter.Interop.Com
         void GetAdvise();
     }
 
-
     [ComImport, TypeLibType((short)0x1010), Guid("3050F52E-98B5-11CF-BB82-00AA00BDCE0B"), InterfaceType((short)2)]
     public interface DispHTMLEmbed
     {

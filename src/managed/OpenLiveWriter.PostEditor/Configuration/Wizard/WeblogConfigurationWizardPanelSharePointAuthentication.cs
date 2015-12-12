@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.TextBox textBoxUsername;
         private System.Windows.Forms.Label labelUsername;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -78,7 +78,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             get { return ConfigPanelId.SharePointAuth; }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -94,8 +94,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -108,53 +108,53 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.checkBoxSavePassword = new System.Windows.Forms.CheckBox();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.labelUsername);
             this.panelMain.Controls.Add(this.textBoxUsername);
             this.panelMain.Controls.Add(this.labelPassword);
             this.panelMain.Controls.Add(this.textBoxPassword);
             this.panelMain.Controls.Add(this.cbUseSystemLogin);
             this.panelMain.Controls.Add(this.checkBoxSavePassword);
-            // 
+            //
             // labelPassword
-            // 
+            //
             this.labelPassword.Location = new System.Drawing.Point(20, 0);
             this.labelPassword.FlatStyle = FlatStyle.System;
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(168, 13);
             this.labelPassword.TabIndex = 2;
             this.labelPassword.Text = "&Password:";
-            // 
+            //
             // textBoxPassword
-            // 
+            //
             this.textBoxPassword.Location = new System.Drawing.Point(20, 16);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(168, 20);
             this.textBoxPassword.TabIndex = 3;
             this.textBoxPassword.Text = "";
-            // 
+            //
             // textBoxUsername
-            // 
+            //
             this.textBoxUsername.Location = new System.Drawing.Point(20, 16);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(168, 20);
             this.textBoxUsername.TabIndex = 1;
             this.textBoxUsername.Text = "";
-            // 
+            //
             // labelUsername
-            // 
+            //
             this.labelUsername.Location = new System.Drawing.Point(20, 0);
             this.labelUsername.FlatStyle = FlatStyle.System;
             this.labelUsername.Name = "labelUsername";
             this.labelUsername.Size = new System.Drawing.Size(168, 13);
             this.labelUsername.TabIndex = 0;
             this.labelUsername.Text = "&Username:";
-            // 
+            //
             // cbUseSystemLogin
-            // 
+            //
             this.cbUseSystemLogin.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbUseSystemLogin.Location = new System.Drawing.Point(20, 0);
             this.cbUseSystemLogin.Name = "cbUseSystemLogin";
@@ -162,9 +162,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.cbUseSystemLogin.TabIndex = 1;
             this.cbUseSystemLogin.Text = "Use my &Windows username and password";
             this.cbUseSystemLogin.CheckedChanged += new System.EventHandler(this.cbUseSystemLogin_CheckedChanged);
-            // 
+            //
             // checkBoxSavePassword
-            // 
+            //
             this.checkBoxSavePassword.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxSavePassword.Location = new System.Drawing.Point(20, 40);
             this.checkBoxSavePassword.Name = "checkBoxSavePassword";
@@ -172,9 +172,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.checkBoxSavePassword.TabIndex = 14;
             this.checkBoxSavePassword.Text = "&Remember my password";
             this.checkBoxSavePassword.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // WeblogConfigurationWizardPanelSharePointAuthentication
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelSharePointAuthentication";
             this.panelMain.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -183,16 +183,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         #endregion
 
         /*public string Username
-		{
-			get{ return textBoxUsername.Text.Trim(); }
-			set{ textBoxUsername.Text = value; }
-		}
-		
-		public string Password
-		{
-			get{ return textBoxPassword.Text.Trim(); }
-			set{ textBoxPassword.Text = value; }
-		}*/
+        {
+            get{ return textBoxUsername.Text.Trim(); }
+            set{ textBoxUsername.Text = value; }
+        }
+
+        public string Password
+        {
+            get{ return textBoxPassword.Text.Trim(); }
+            set{ textBoxPassword.Text = value; }
+        }*/
 
         public override bool ValidatePanel()
         {

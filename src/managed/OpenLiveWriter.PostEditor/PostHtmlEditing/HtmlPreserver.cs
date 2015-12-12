@@ -14,7 +14,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     /// The WYSIWYG editor mangles some types of HTML. When we detect
     /// such chunks of HTML, we wrap them in a <span class="wlWriterPreserve">...</span>
     /// and save the original contents for later. Whenever pulling data
-    /// out of the WYSIWYG editor, we go back and restore those spans to 
+    /// out of the WYSIWYG editor, we go back and restore those spans to
     /// their original state.
     /// </summary>
     public class HtmlPreserver

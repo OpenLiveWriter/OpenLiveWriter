@@ -5,7 +5,6 @@ using System;
 using System.Drawing;
 using OpenLiveWriter.Api;
 
-
 namespace OpenLiveWriter.InternalWriterPlugin
 {
     /// <summary>
@@ -102,7 +101,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
                 return MapUrlHelper.CreateLiveUrl(Latitude, Longitude, Reserved, MapStyle, ZoomLevel, Pushpins, scene);
             }
         }
-
 
         public Size Size
         {

@@ -179,8 +179,6 @@ namespace OpenLiveWriter.ApplicationFramework
             PerformLayout();
             Invalidate();
 
-
-
             if (selectedIndex >= 0 && SelectedTabChanged != null)
                 SelectedTabChanged(this, new SelectedTabChangedEventArgs(selectedIndex));
         }
@@ -218,7 +216,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 BidiGraphics g = new BidiGraphics(e.Graphics, e.ClipRectangle);
                 GraphicsHelper.TileFillScaledImageHorizontally(g, ColorizedResources.Instance.DropShadowBitmap, new Rectangle(0, 0, ShadowWidth, ColorizedResources.Instance.DropShadowBitmap.Height));
             }
-
 
             base.OnPaint(e);
         }

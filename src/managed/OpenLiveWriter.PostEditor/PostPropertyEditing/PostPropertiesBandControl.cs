@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -40,7 +40,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
      * Each Page Parent combo makes its own delayed request
      - Tags control should share leftover space with category control
      x Properties dialog should hide and come back
-     * 
+     *
      * Questions:
      * Should Enter dismiss the properties dialog?
      * Should properties dialog scroll state be remembered between views?
@@ -93,14 +93,13 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             commandManager.Add(CommandId.PostProperties, PostProperties_Execute);
             commandManager.Add(CommandId.ShowCategoryPopup, ShowCategoryPopup_Execute);
 
-
             linkViewAll.KeyDown += (sender, args) =>
                                    {
                                        if (args.KeyValue == ' ')
                                            linkViewAll_LinkClicked(sender, new LinkLabelLinkClickedEventArgs(null));
                                    };
 
-            // WinLive 180287: We don't want to show or use mnemonics on labels in the post properties band because 
+            // WinLive 180287: We don't want to show or use mnemonics on labels in the post properties band because
             // they can steal focus from the canvas.
             linkViewAll.Text = TextHelper.StripAmpersands(Res.Get(StringId.ViewAll));
             linkViewAll.UseMnemonic = false;
@@ -208,7 +207,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             bool shouldShow = !categoryVisible && !tagsVisible;
             table.ColumnStyles[COL_FILLER].SizeType = shouldShow ? SizeType.Percent : SizeType.AutoSize;
         }
-
 
         private IBlogPostEditingContext _editorContext;
         public void Initialize(IBlogPostEditingContext editorContext, IBlogClientOptions clientOptions)
@@ -348,7 +346,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                 postPropertiesForm.Activate();
             }
         }
-
 
         void IRtlAware.Layout()
         {

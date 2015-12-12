@@ -53,7 +53,7 @@ namespace OpenLiveWriter.CoreServices
         private string m_url;
 
         /// <summary>
-        /// The content encoding provided for this url (if known). 
+        /// The content encoding provided for this url (if known).
         /// </summary>
         public string ContentEncoding
         {
@@ -63,7 +63,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private string m_contentEncoding;
-
 
         /// <summary>
         /// The content length provided for the url (if known).
@@ -78,13 +77,11 @@ namespace OpenLiveWriter.CoreServices
         private int _contentLength = -1;
     }
 
-
     /// <summary>
     /// Helper for determining and using content type information
     /// </summary>
     public class ContentTypeHelper
     {
-
 
         /// <summary>
         /// Determine the content type of a URL using only inexpensive operations like looking
@@ -382,7 +379,6 @@ namespace OpenLiveWriter.CoreServices
             return contentType;
         }
 
-
         /// <summary>
         /// Retrieve the content type by requesting the content type from the server hosting the URL
         /// </summary>
@@ -426,7 +422,6 @@ namespace OpenLiveWriter.CoreServices
             }
             return contentType;
         }
-
 
     }
 }

@@ -36,9 +36,7 @@ namespace OpenLiveWriter.SpellChecker
             private set;
         }
 
-
         private readonly SortedMarkupRangeList _ignoredOnce = new SortedMarkupRangeList();
-
 
         public SpellingManager(CommandManager commandManager)
         {
@@ -94,7 +92,6 @@ namespace OpenLiveWriter.SpellChecker
             //clear listeners
         }
 
-
         /// <summary>
         /// Check the spelling of the entire document
         /// </summary>
@@ -106,7 +103,7 @@ namespace OpenLiveWriter.SpellChecker
 
         public void HighlightSpelling(MarkupRange range)
         {
-            // check spelling	
+            // check spelling
             MshtmlWordRange wordRange;
             if (range == null) //check the whole document.
             {
@@ -218,7 +215,7 @@ namespace OpenLiveWriter.SpellChecker
             if (!_ignoredOnce.Contains(range))
             {
                 _ignoredOnce.Add(range);
-            }                                                
+            }
         }
 
         private void ignoreAllCommand_Execute(object sender, EventArgs e)
@@ -233,7 +230,6 @@ namespace OpenLiveWriter.SpellChecker
         {
             _spellingHighlighter.UnhighlightWord((string)sender);
         }
-
 
         private void addToDictionary_Execute(object sender, EventArgs e)
         {
@@ -257,7 +253,7 @@ namespace OpenLiveWriter.SpellChecker
             if (cmdIgnoreOnce != null && cmdIgnoreOnce.On)
                 supportsIgnoreOnce = true;
 
-            // must first force the control to lose focus so that it doesn't "lose" 
+            // must first force the control to lose focus so that it doesn't "lose"
             // the selection when the dialog opens
             IntPtr hPrevious = User32.SetFocus(IntPtr.Zero);
 
@@ -284,7 +280,6 @@ namespace OpenLiveWriter.SpellChecker
                 User32.SetFocus(hPrevious);
             }
         }
-
 
         #region IDisposable Members
 

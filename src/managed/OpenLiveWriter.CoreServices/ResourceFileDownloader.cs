@@ -36,7 +36,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static readonly ResourceFileDownloader _application = new ResourceFileDownloader(Path.Combine(ApplicationEnvironment.LocalApplicationDataDirectory, "ResourceCache"), _allowResourceFileDownloads);
 
-
         public object ProcessLocalResourceSafelyAndRefresh(string name, string url, string contentType, ResourceFileProcessor processor, int delayMs)
         {
             Assembly assembly = Assembly.GetCallingAssembly();
@@ -93,8 +92,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
-
         /// <summary>
         /// Initialize the downloader with the appropriate paths and options
         /// </summary>
@@ -120,8 +117,6 @@ namespace OpenLiveWriter.CoreServices
         {
             return GetResource(Assembly.GetCallingAssembly(), name, resourceUrl, contentType, requiredFreshnessDays, timeoutMs);
         }
-
-
 
         /// <summary>
         /// Get and process a resource (see comment on GetResource for more info on resources)
@@ -199,9 +194,7 @@ namespace OpenLiveWriter.CoreServices
                 return _processor(processedStream);
             }
 
-
         }
-
 
         private Stream GetResource(Assembly assembly, string name, string resourceUrl, string contentType, int requiredFreshnessDays, int timeoutMs)
         {
@@ -252,11 +245,10 @@ namespace OpenLiveWriter.CoreServices
             }
 
             // if we get this far it means downloading was disabled, we couldn't find the file
-            // on the web, or an unexpected error occurred (e.g. file sharing violation), in 
+            // on the web, or an unexpected error occurred (e.g. file sharing violation), in
             // these cases fallback to returning the stream from within the assembly
             return assembly.GetManifestResourceStream(assemblyResourcePath);
         }
-
 
         private Stream SafeDownloadUrl(string url, string contentType, int timeoutMs)
         {
@@ -287,9 +279,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
-
-
         /// <summary>
         /// Get the specified resource from the local cache
         /// </summary>
@@ -302,15 +291,12 @@ namespace OpenLiveWriter.CoreServices
 
         private Stream GetResourceLocal(Assembly assembly, string name)
         {
-            // calculate the full resource path name 	
+            // calculate the full resource path name
             string assemblyResourcePath = FormatResourcePath(assembly, name);
 
             // return the resource stream
             return assembly.GetManifestResourceStream(assemblyResourcePath);
         }
-
-
-
 
 
         private void SafeDeleteLocalCacheFile(Assembly assembly, string resourceName)
@@ -333,7 +319,6 @@ namespace OpenLiveWriter.CoreServices
             else
                 return String.Empty;
         }
-
 
         private string FormatResourcePath(Assembly assembly, string name)
         {

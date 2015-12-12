@@ -177,7 +177,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
                         if (editingManifest != null)
                         {
-                            // always update the download info 
+                            // always update the download info
                             if (editingManifest.DownloadInfo != null)
                                 _context.ManifestDownloadInfo = editingManifest.DownloadInfo;
 
@@ -227,7 +227,6 @@ namespace OpenLiveWriter.BlogClient.Detection
                         ((ISelfConfiguringClient)blogClient).DetectSettings(_context, this);
                     }
 
-
                     // detect categories
                     if (IncludeCategories)
                     {
@@ -244,8 +243,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                         }
                     }
 
-
-                    // detect favicon (only if requested AND we don't have a PNG already 
+                    // detect favicon (only if requested AND we don't have a PNG already
                     // for the small image size)
                     if (IncludeFavIcon)
                     {
@@ -294,8 +292,8 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         /// <summary>
         /// Any setting that is derivaed from the homepage html needs to be in this function.  This function is turned
-        /// on and off when detecting blog seetings through the IncludeHomePageSettings.  None of these checks will be run 
-        /// if the internet is not active.  As each check is made, it does not need to be applied back the _content until the end 
+        /// on and off when detecting blog seetings through the IncludeHomePageSettings.  None of these checks will be run
+        /// if the internet is not active.  As each check is made, it does not need to be applied back the _content until the end
         /// at which time it will write the settings back to the registry.
         /// </summary>
         private void DetectHomePageSettings()
@@ -315,7 +313,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 }
                 catch (NotSupportedException)
                 {
-                    //not an actual encoding	
+                    //not an actual encoding
                 }
 
             }
@@ -386,7 +384,6 @@ namespace OpenLiveWriter.BlogClient.Detection
                 return null;
             }
         }
-
 
         private byte[] SafeProbeForFavIconFromLinkTag()
         {
@@ -497,8 +494,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
         }
 
-
-
         private WriterEditingManifest SafeDownloadEditingManifest()
         {
             WriterEditingManifest editingManifest = null;
@@ -533,7 +528,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             return editingManifest;
         }
 
-
         private void ReportException(string context, Exception ex)
         {
             string error = String.Format(CultureInfo.InvariantCulture, "Exception occurred {0} for weblog {1}: {2}", context, _context.HomepageUrl, ex.ToString());
@@ -547,10 +541,8 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         }
 
-
         // detection context
         private IBlogSettingsDetectionContext _context;
-
 
         // helper class for wrapping progress around steps
         private class ProgressContext : IDisposable
@@ -567,12 +559,9 @@ namespace OpenLiveWriter.BlogClient.Detection
                     throw new OperationCancelledException();
             }
 
-
             private IProgressHost _progressHost;
 
         }
     }
-
-
 
 }

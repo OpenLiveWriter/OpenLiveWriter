@@ -68,7 +68,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 }
 
                 // if we have notifications to poll for then force an immediate polling
-                // (we will adjust the polling interval within the callback to the 
+                // (we will adjust the polling interval within the callback to the
                 // standard interval after processing the first call)
                 if (_buttonIds.Count > 0)
                 {
@@ -96,7 +96,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             }
 
         }
-
 
         private void CheckForNotifications(object state)
         {
@@ -134,7 +133,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             return buttons.ToArray(typeof(BlogProviderButton)) as BlogProviderButton[];
         }
 
-
         // NOTE: Special handling of this event to ensure that all windows currently listening
         // for button notification events receive the notification
         public event BlogProviderButtonNotificationReceivedHandler BlogProviderButtonNotificationReceived
@@ -148,7 +146,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 UnregisterButtonNotificationListener(_synchronizeInvokeControl, value);
             }
         }
-
 
         // fired by the button when its state changes
         internal static void FireNotificationEvent(string blogId, string buttonId)
@@ -174,7 +171,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             }
         }
 
-
         private static void RegisterButtonNotificationListener(Control controlContext, BlogProviderButtonNotificationReceivedHandler listener)
         {
             lock (_buttonNotificationListeners)
@@ -192,8 +188,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 
         private static Hashtable _buttonNotificationListeners = new Hashtable();
 
-
-
         private string _blogId;
         private string _hostBlogId;
         private string _homepageUrl;
@@ -204,7 +198,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         private readonly TimeSpan _disablePollingInterval = TimeSpan.FromMilliseconds(-1);
         private readonly TimeSpan _immediatePollingInterval = TimeSpan.FromMilliseconds(100);
         private readonly TimeSpan _standardPollingInterval = TimeSpan.FromSeconds(61);
-        // logically, 60 seconds should work however we set to 61 just 
+        // logically, 60 seconds should work however we set to 61 just
         // for superstition's sake :-)
 
         private readonly Control _synchronizeInvokeControl;

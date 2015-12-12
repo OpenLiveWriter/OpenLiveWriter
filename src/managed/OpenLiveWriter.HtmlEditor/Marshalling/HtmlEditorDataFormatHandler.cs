@@ -24,22 +24,17 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             return DoInsertData(action, (MarkupPointer)args[0], (MarkupPointer)args[1]);
         }
 
-
         /// <summary>
         /// Instruct the handler to insert data into the presentation editor
-        /// </summary>		
+        /// </summary>
         protected abstract bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end);
-
-
-
 
         /// <summary>
         /// Presentation editor context for handling data
         /// </summary>
         protected IHtmlMarshallingTarget EditorContext { get { return editorContext; } }
 
-
-        // private members accessed via properties by subclasses		
+        // private members accessed via properties by subclasses
         private IHtmlMarshallingTarget editorContext;
     }
 }

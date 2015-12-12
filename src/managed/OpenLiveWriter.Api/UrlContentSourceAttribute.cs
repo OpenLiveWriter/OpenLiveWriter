@@ -8,10 +8,10 @@ using System.Text.RegularExpressions;
 namespace OpenLiveWriter.Api
 {
     /// <summary>
-    /// Attribute applied to ContentSource and SmartContentSource classes which override the 
-    /// CreateContentFromUrl method to enable creation of new content from URLs. The source of 
-    /// this URL can either be the page the user was navigated to when they pressed the "Blog This" 
-    /// button or a URL that is pasted or dragged into the editor. 
+    /// Attribute applied to ContentSource and SmartContentSource classes which override the
+    /// CreateContentFromUrl method to enable creation of new content from URLs. The source of
+    /// this URL can either be the page the user was navigated to when they pressed the "Blog This"
+    /// button or a URL that is pasted or dragged into the editor.
     /// Plugin classes which override this method must also be declared with the UrlContentSourceAttribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
@@ -49,7 +49,7 @@ namespace OpenLiveWriter.Api
         private string _urlPattern;
 
         /// <summary>
-        /// Indicates that the UrlContentSource requires a progress dialog during the execution of its CreateContentFromUrl 
+        /// Indicates that the UrlContentSource requires a progress dialog during the execution of its CreateContentFromUrl
         /// method. This value should be specified if the content source performs network operations during content creation.
         /// Defaults to false.
         /// </summary>
@@ -94,7 +94,6 @@ namespace OpenLiveWriter.Api
             }
         }
         private string _progressMessage = String.Empty;
-
 
         private bool ValidateRegex(string pattern)
         {

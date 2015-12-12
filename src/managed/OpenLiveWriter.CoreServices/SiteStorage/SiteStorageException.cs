@@ -22,14 +22,12 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         // valid exception types
 
         /// <summary>
         /// A RootFile was not specified for the site
         /// </summary>
         public static string NoRootFileSpecified = "NoRootFileSpecified";
-
 
         /// <summary>
         /// The specified RootFile value ({0}) is invalid.
@@ -44,7 +42,7 @@ namespace OpenLiveWriter.CoreServices
         public static string InvalidPath = "InvalidPath";
 
         /// <summary>
-        /// The specified path was not found. 
+        /// The specified path was not found.
         ///		{0} name of path
         /// </summary>
         public static string PathNotFound = "PathNotFound";
@@ -92,7 +90,6 @@ namespace OpenLiveWriter.CoreServices
         ///		{0} path of stream that was not closed
         /// </summary>
         public static string StreamNotClosed = "StreamNotClosed";
-
 
     }
 

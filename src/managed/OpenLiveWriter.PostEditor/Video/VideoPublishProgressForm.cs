@@ -56,7 +56,6 @@ namespace OpenLiveWriter.PostEditor.Video
             base.OnClosing(e);
         }
 
-
         private Bitmap[] AnimationBitmaps
         {
             get
@@ -140,7 +139,6 @@ namespace OpenLiveWriter.PostEditor.Video
                 _isSuccessful = true;
                 return true;
             }
-
 
             return false;
 

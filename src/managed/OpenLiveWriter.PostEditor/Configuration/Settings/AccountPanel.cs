@@ -38,7 +38,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         private System.Windows.Forms.TextBox textBoxUsername;
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.LinkLabel linkLabelViewCapabilities;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -85,7 +85,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.PanelName = Res.Get(StringId.AccountPanel);
         }
 
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -103,8 +102,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             textBoxPassword.Text = TemporaryBlogSettings.Credentials.Password;
         }
 
-
-
         public override bool PrepareSave(SwitchToPanel switchToPanel)
         {
             // validate that we have a post api url
@@ -118,7 +115,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
 
             return true;
         }
-
 
         private void textBoxWeblogName_TextChanged(object sender, EventArgs e)
         {
@@ -157,7 +153,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -173,8 +169,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -196,26 +192,26 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxConfiguration.SuspendLayout();
             this.groupBoxName.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // textBoxWeblogName
-            // 
+            //
             this.textBoxWeblogName.Location = new System.Drawing.Point(16, 37);
             this.textBoxWeblogName.Name = "textBoxWeblogName";
             this.textBoxWeblogName.Size = new System.Drawing.Size(316, 20);
             this.textBoxWeblogName.TabIndex = 1;
             this.textBoxWeblogName.Text = "";
-            // 
+            //
             // labelName
-            // 
+            //
             this.labelName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelName.Location = new System.Drawing.Point(16, 19);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(144, 16);
             this.labelName.TabIndex = 0;
             this.labelName.Text = "&Weblog Name:";
-            // 
+            //
             // labelWeblogProvider
-            // 
+            //
             this.labelWeblogProvider.AutoSize = true;
             this.labelWeblogProvider.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelWeblogProvider.Location = new System.Drawing.Point(16, 24);
@@ -223,9 +219,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.labelWeblogProvider.Size = new System.Drawing.Size(50, 16);
             this.labelWeblogProvider.TabIndex = 0;
             this.labelWeblogProvider.Text = "Provider:";
-            // 
+            //
             // labelHomepageUrl
-            // 
+            //
             this.labelHomepageUrl.AutoSize = true;
             this.labelHomepageUrl.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelHomepageUrl.Location = new System.Drawing.Point(16, 72);
@@ -233,9 +229,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.labelHomepageUrl.Size = new System.Drawing.Size(63, 16);
             this.labelHomepageUrl.TabIndex = 2;
             this.labelHomepageUrl.Text = "Homepage:";
-            // 
+            //
             // labelUsername
-            // 
+            //
             this.labelUsername.AutoSize = true;
             this.labelUsername.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelUsername.Location = new System.Drawing.Point(16, 120);
@@ -243,9 +239,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.labelUsername.Size = new System.Drawing.Size(60, 16);
             this.labelUsername.TabIndex = 4;
             this.labelUsername.Text = "Username:";
-            // 
+            //
             // groupBoxConfiguration
-            // 
+            //
             this.groupBoxConfiguration.Controls.Add(this.linkLabelViewCapabilities);
             this.groupBoxConfiguration.Controls.Add(this.textBoxPassword);
             this.groupBoxConfiguration.Controls.Add(this.textBoxUsername);
@@ -263,9 +259,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxConfiguration.TabIndex = 2;
             this.groupBoxConfiguration.TabStop = false;
             this.groupBoxConfiguration.Text = "Configuration";
-            // 
+            //
             // linkLabelViewCapabilities
-            // 
+            //
             this.linkLabelViewCapabilities.AutoSize = true;
             this.linkLabelViewCapabilities.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.linkLabelViewCapabilities.Location = new System.Drawing.Point(16, 216);
@@ -277,9 +273,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.linkLabelViewCapabilities.LinkBehavior = LinkBehavior.HoverUnderline;
             this.linkLabelViewCapabilities.LinkColor = SystemColors.HotTrack;
             this.linkLabelViewCapabilities.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelViewCapabilities_LinkClicked);
-            // 
+            //
             // textBoxPassword
-            // 
+            //
             this.textBoxPassword.Location = new System.Drawing.Point(16, 184);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
@@ -288,9 +284,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.textBoxPassword.TabIndex = 7;
             this.textBoxPassword.TabStop = false;
             this.textBoxPassword.Text = "xxxxxxxxxx";
-            // 
+            //
             // textBoxUsername
-            // 
+            //
             this.textBoxUsername.Location = new System.Drawing.Point(16, 136);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.ReadOnly = true;
@@ -298,9 +294,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.textBoxUsername.TabIndex = 5;
             this.textBoxUsername.TabStop = false;
             this.textBoxUsername.Text = "";
-            // 
+            //
             // textBoxHomepageUrl
-            // 
+            //
             this.textBoxHomepageUrl.Location = new System.Drawing.Point(16, 88);
             this.textBoxHomepageUrl.Name = "textBoxHomepageUrl";
             this.textBoxHomepageUrl.ReadOnly = true;
@@ -308,9 +304,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.textBoxHomepageUrl.TabIndex = 3;
             this.textBoxHomepageUrl.TabStop = false;
             this.textBoxHomepageUrl.Text = "";
-            // 
+            //
             // textBoxWeblogProvider
-            // 
+            //
             this.textBoxWeblogProvider.Location = new System.Drawing.Point(16, 40);
             this.textBoxWeblogProvider.Name = "textBoxWeblogProvider";
             this.textBoxWeblogProvider.ReadOnly = true;
@@ -318,9 +314,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.textBoxWeblogProvider.TabIndex = 1;
             this.textBoxWeblogProvider.TabStop = false;
             this.textBoxWeblogProvider.Text = "Blogger";
-            // 
+            //
             // buttonEditConfiguration
-            // 
+            //
             this.buttonEditConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEditConfiguration.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonEditConfiguration.Location = new System.Drawing.Point(154, 255);
@@ -328,9 +324,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.buttonEditConfiguration.Size = new System.Drawing.Size(178, 23);
             this.buttonEditConfiguration.TabIndex = 10;
             this.buttonEditConfiguration.Text = "&Update Account Configuration...";
-            // 
+            //
             // labelPassword
-            // 
+            //
             this.labelPassword.AutoSize = true;
             this.labelPassword.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPassword.Location = new System.Drawing.Point(16, 168);
@@ -338,9 +334,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.labelPassword.Size = new System.Drawing.Size(57, 16);
             this.labelPassword.TabIndex = 6;
             this.labelPassword.Text = "Password:";
-            // 
+            //
             // groupBoxName
-            // 
+            //
             this.groupBoxName.Controls.Add(this.textBoxWeblogName);
             this.groupBoxName.Controls.Add(this.labelName);
             this.groupBoxName.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -350,9 +346,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxName.TabIndex = 1;
             this.groupBoxName.TabStop = false;
             this.groupBoxName.Text = "Name";
-            // 
+            //
             // AccountPanel
-            // 
+            //
             this.Controls.Add(this.groupBoxName);
             this.Controls.Add(this.groupBoxConfiguration);
             this.Name = "AccountPanel";
@@ -375,7 +371,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
                     form.ShowDialog(FindForm());
             }
         }
-
 
     }
 }

@@ -57,7 +57,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         public ColumnProperties ColumnProperties
         {
             get
@@ -107,9 +106,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.cellPropertiesControl = new OpenLiveWriter.PostEditor.Tables.CellPropertiesControl();
             this.groupBoxSize.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -117,9 +116,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // groupBoxSize
-            // 
+            //
             this.groupBoxSize.Controls.Add(this.columnWidthControl);
             this.groupBoxSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBoxSize.Location = new System.Drawing.Point(9, 8);
@@ -128,23 +127,23 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.groupBoxSize.TabIndex = 0;
             this.groupBoxSize.TabStop = false;
             this.groupBoxSize.Text = "Size";
-            // 
+            //
             // columnWidthControl
-            // 
+            //
             this.columnWidthControl.ColumnWidth = 0;
             this.columnWidthControl.Location = new System.Drawing.Point(15, 24);
             this.columnWidthControl.Name = "columnWidthControl";
             this.columnWidthControl.Size = new System.Drawing.Size(209, 23);
             this.columnWidthControl.TabIndex = 0;
-            // 
+            //
             // label11
-            // 
+            //
             this.label11.Location = new System.Drawing.Point(1, 1);
             this.label11.Name = "label11";
             this.label11.TabIndex = 0;
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(86, 184);
@@ -152,16 +151,16 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // cellPropertiesControl
-            // 
+            //
             this.cellPropertiesControl.Location = new System.Drawing.Point(9, 79);
             this.cellPropertiesControl.Name = "cellPropertiesControl";
             this.cellPropertiesControl.Size = new System.Drawing.Size(234, 98);
             this.cellPropertiesControl.TabIndex = 1;
-            // 
+            //
             // ColumnPropertiesForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;
@@ -180,7 +179,6 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         }
         #endregion
-
 
     }
 }

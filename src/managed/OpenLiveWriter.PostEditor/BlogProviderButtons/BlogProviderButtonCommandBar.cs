@@ -12,81 +12,79 @@ using OpenLiveWriter.ApplicationFramework.Skinning;
 
 namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 {
-	internal sealed class BlogProviderButtonCommandBarInfo
-	{
-		public const int MaximumProviderCommands = 4 ;
-		public const string ProviderCommandFormat = "BlogProviderButtonsProviderCommand{0}" ;
-	}
+    internal sealed class BlogProviderButtonCommandBarInfo
+    {
+        public const int MaximumProviderCommands = 4 ;
+        public const string ProviderCommandFormat = "BlogProviderButtonsProviderCommand{0}" ;
+    }
 
     // @RIBBON TODO: Remove obsolete code
     [Obsolete]
-	internal class BlogProviderButtonCommandBarControl : TransparentCommandBarControl
-	{
-		public BlogProviderButtonCommandBarControl()
-			: base(	new BlogProviderButtonCommandBarLightweightControl(), CommandBarDefinition.Create(_providerCommandIds.ToArray()))
-		{
-		}
-		
-		protected override void OnPaintBackground(System.Windows.Forms.PaintEventArgs pevent)
-		{
-			base.OnPaintBackground (pevent);
+    internal class BlogProviderButtonCommandBarControl : TransparentCommandBarControl
+    {
+        public BlogProviderButtonCommandBarControl()
+            : base(	new BlogProviderButtonCommandBarLightweightControl(), CommandBarDefinition.Create(_providerCommandIds.ToArray()))
+        {
+        }
 
-			Graphics g = pevent.Graphics;
-			g.ResetClip();
-			g.ResetTransform();
-			
-			if(!ColorizedResources.UseSystemColors)
-			{
-				using (Brush b = new SolidBrush(Color.FromArgb(64, Color.White)))
-					g.FillRectangle(b, ClientRectangle);
-			}
-		}
+        protected override void OnPaintBackground(System.Windows.Forms.PaintEventArgs pevent)
+        {
+            base.OnPaintBackground (pevent);
+
+            Graphics g = pevent.Graphics;
+            g.ResetClip();
+            g.ResetTransform();
+
+            if(!ColorizedResources.UseSystemColors)
+            {
+                using (Brush b = new SolidBrush(Color.FromArgb(64, Color.White)))
+                    g.FillRectangle(b, ClientRectangle);
+            }
+        }
+
+        public Size DesiredSize
+        {
+            get
+            {
+                return _commandBar.DefaultVirtualSize ;
+            }
+        }
+
+        public bool HasButtons
+        {
+            get
+            {
+                Command firstButtonCommand = ApplicationManager.CommandManager.Get(String.Format(CultureInfo.InvariantCulture, BlogProviderButtonCommandBarInfo.ProviderCommandFormat, 0)) ;
+                return firstButtonCommand.On ;
+            }
+        }
 
 
-		public Size DesiredSize
-		{
-			get
-			{
-				return _commandBar.DefaultVirtualSize ; 
-			}
-		}
+        static BlogProviderButtonCommandBarControl()
+        {
+            for (int i=0; i<BlogProviderButtonCommandBarInfo.MaximumProviderCommands; i++ )
+                _providerCommandIds.Add(String.Format(CultureInfo.InvariantCulture, BlogProviderButtonCommandBarInfo.ProviderCommandFormat, i)) ;
+        }
 
-		public bool HasButtons
-		{
-			get
-			{
-				Command firstButtonCommand = ApplicationManager.CommandManager.Get(String.Format(CultureInfo.InvariantCulture, BlogProviderButtonCommandBarInfo.ProviderCommandFormat, 0)) ;
-				return firstButtonCommand.On ;
-			}
-		}
+        private static readonly ArrayList _providerCommandIds = new ArrayList();
 
-	
-	
-		static BlogProviderButtonCommandBarControl()
-		{
-			for (int i=0; i<BlogProviderButtonCommandBarInfo.MaximumProviderCommands; i++ )
-				_providerCommandIds.Add(String.Format(CultureInfo.InvariantCulture, BlogProviderButtonCommandBarInfo.ProviderCommandFormat, i)) ;
-		}
+        private class BlogProviderButtonCommandBarLightweightControl : ApplicationCommandBarLightweightControl
+        {
+            public BlogProviderButtonCommandBarLightweightControl()
+            {
+                CommandManager = ApplicationManager.CommandManager ;
+            }
 
-		private static readonly ArrayList _providerCommandIds = new ArrayList();
+            public override int BottomLayoutMargin
+            {
+                get
+                {
+                    // reflection is so light that we count this as our
+                    // bottom layout margin
+                    return 0;
+                }
+            }
 
-		private class BlogProviderButtonCommandBarLightweightControl : ApplicationCommandBarLightweightControl
-		{
-			public BlogProviderButtonCommandBarLightweightControl()
-			{
-				CommandManager = ApplicationManager.CommandManager ;
-			}
-
-			public override int BottomLayoutMargin
-			{
-				get
-				{
-					// reflection is so light that we count this as our 
-					// bottom layout margin
-					return 0;
-				}
-			}
-
-		}
-	}
+        }
+    }
 }

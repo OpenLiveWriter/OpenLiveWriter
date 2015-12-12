@@ -128,7 +128,7 @@ namespace OpenLiveWriter.CoreServices
                 Directory.CreateDirectory(_localApplicationDataDirectory);
         }
 
-        // allow override of product-name for user-agent (useful to cloak product's 
+        // allow override of product-name for user-agent (useful to cloak product's
         // real identify during private beta testing)
         public static void OverrideUserAgent(string productName, bool browserBased)
         {
@@ -158,7 +158,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static string _productName_short = string.Empty;
 
-
         public static string ProductName
         {
             get
@@ -176,7 +175,7 @@ namespace OpenLiveWriter.CoreServices
                 return ProductName + " " + Res.Get(StringId.Beta);
 #else
                 return ProductName;
-#endif      
+#endif
             }
         }
 
@@ -242,7 +241,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static string _mainExecutableName;
 
-
         public static string ApplicationDataDirectory
         {
             get
@@ -251,7 +249,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private static string _applicationDataDirectory;
-
 
         public static string LocalApplicationDataDirectory
         {
@@ -262,7 +259,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static string _localApplicationDataDirectory;
 
-
         public static string UserAgent
         {
             get
@@ -271,7 +267,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private static string _userAgent;
-
 
         public static Icon ProductIcon
         {
@@ -335,7 +330,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static string _settingsRootKeyName;
 
-
         public static SettingsPersisterHelper UserSettingsRoot
         {
             get
@@ -353,7 +347,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private static SettingsPersisterHelper _machineSettingsRoot;
-
 
         public static SettingsPersisterHelper PreferencesSettingsRoot
         {
@@ -441,7 +434,7 @@ namespace OpenLiveWriter.CoreServices
 #if DEBUG
             _logFilePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #else
-			_logFilePath = LocalApplicationDataDirectory ; 
+            _logFilePath = LocalApplicationDataDirectory ;
 #endif
             _logFilePath = Path.Combine(_logFilePath, String.Format(CultureInfo.InvariantCulture, "{0}.log", ProductName));
 
@@ -475,7 +468,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private static bool? _portable;
-
 
         public static string FormatUserAgentString(string productName, bool browserBased)
         {
@@ -538,8 +530,7 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
-        // default initialization for designer dependencies (only do this 
+        // default initialization for designer dependencies (only do this
         // when running in the IDE)
 #if DEBUG
         static ApplicationEnvironment()
@@ -551,7 +542,6 @@ namespace OpenLiveWriter.CoreServices
         }
 #endif
         private static string _myWeblogPostsFolder;
-
 
         public static string MyWeblogPostsFolder
         {

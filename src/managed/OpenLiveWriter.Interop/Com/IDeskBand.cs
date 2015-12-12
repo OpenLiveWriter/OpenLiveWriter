@@ -41,7 +41,7 @@ namespace OpenLiveWriter.Interop.Com
         void CloseDW([In] UInt32 dwReserved);
 
         /// <summary>
-        /// Notify docking window that the frame's border space has changed -- this 
+        /// Notify docking window that the frame's border space has changed -- this
         /// method is NOT called for DeskBands.
         /// </summary>
         /// <param name="prcBorder">Ignored/unused for DeskBands</param>
@@ -63,7 +63,6 @@ namespace OpenLiveWriter.Interop.Com
             UInt32 dwViewMode,
             ref DESKBANDINFO pdbi);
     }
-
 
     /// <summary>
     /// Structure containing Desk Band information
@@ -103,10 +102,9 @@ namespace OpenLiveWriter.Interop.Com
         public String wszTitle;
 
         /// <summary>
-        /// Mode of operations for the band object (can contain multiple values) 
-        /// </summary>		
+        /// Mode of operations for the band object (can contain multiple values)
+        /// </summary>
         public DBIMF dwModeFlags;
-
 
         /// <summary>
         /// Background color of the band object -- only valid if DBIMF.BKCOLOR is
@@ -114,9 +112,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         public Int32 crBkgnd;
     };
-
-
-
 
     /// <summary>
     /// Mask which determines which DESKBANDINFO fields are being requested
@@ -160,7 +155,6 @@ namespace OpenLiveWriter.Interop.Com
         BKCOLOR = 0x0040
     }
 
-
     /// <summary>
     /// View Mode for DeskBands
     /// </summary>
@@ -187,8 +181,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         TRANSPARENT = 0x0004
     }
-
-
 
     /// <summary>
     /// Mode of operation for a band object
@@ -221,7 +213,6 @@ namespace OpenLiveWriter.Interop.Com
         /// Undocumented
         /// </summary>
         UNDELETEABLE = 0x0010,
-
 
         /// <summary>
         /// The band object will be displayed with a sunken look

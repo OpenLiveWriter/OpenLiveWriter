@@ -27,7 +27,7 @@ namespace OpenLiveWriter.ApplicationFramework
         private Bitmap maxDisabled = ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.MaximizeDisabled.png");
         private Bitmap closeDisabled = ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.CloseDisabled.png");
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -66,7 +66,6 @@ namespace OpenLiveWriter.ApplicationFramework
             VirtualTransparency.VirtualPaint(this, e);
         }
 
-
         public bool Faded
         {
             get { return _faded; }
@@ -90,7 +89,7 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -106,8 +105,8 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -116,9 +115,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.btnMaximize = new BitmapButton();
             this.btnClose = new BitmapButton();
             this.SuspendLayout();
-            // 
+            //
             // btnMinimize
-            // 
+            //
             this.btnMinimize.BackColor = Color.Transparent;
             this.btnMinimize.Location = new System.Drawing.Point(0, 0);
             this.btnMinimize.Size = new Size(25, 17);
@@ -129,9 +128,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.btnMinimize.BitmapPushed = ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.MinimizePushed.png");
             this.btnMinimize.TabIndex = 2;
             this.btnMinimize.Click += new EventHandler(btnMinimize_Click);
-            // 
+            //
             // btnMaximize
-            // 
+            //
             this.btnMaximize.BackColor = Color.Transparent;
             this.btnMaximize.Location = new System.Drawing.Point(25, 0);
             this.btnMaximize.Size = new Size(26, 17);
@@ -142,9 +141,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.btnMaximize.BitmapPushed = ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.MaximizePushed.png");
             this.btnMaximize.TabIndex = 3;
             this.btnMaximize.Click += new EventHandler(btnMaximize_Click);
-            // 
+            //
             // btnClose
-            // 
+            //
             this.btnClose.BackColor = Color.Transparent;
             this.btnClose.Location = new System.Drawing.Point(51, 0);
             this.btnClose.Size = new Size(42, 17);
@@ -155,9 +154,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.btnClose.BitmapPushed = ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.ClosePushed.png");
             this.btnClose.TabIndex = 4;
             this.btnClose.Click += new EventHandler(btnClose_Click);
-            // 
+            //
             // MinMaxClose
-            // 
+            //
             this.BackColor = Color.Transparent;
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnMaximize);

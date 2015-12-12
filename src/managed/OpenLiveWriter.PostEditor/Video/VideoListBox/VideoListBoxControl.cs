@@ -50,7 +50,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             base.Dispose(disposing);
         }
 
-
         #endregion
 
         #region Public Interface
@@ -77,7 +76,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             else
                 QueryStatusText = null;
         }
-
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string QueryStatusText
@@ -170,7 +168,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             _preventSelectionPainting = false;
         }
 
-
         private bool MouseInHyperlink
         {
             get
@@ -211,7 +208,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
                 return null;
             }
         }
-
 
         private PointF _lastMouseLocation = Point.Empty;
         private bool _preventSelectionPainting = false;
@@ -385,7 +381,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             };
         }
 
-
         private Label QueryStatusLabel
         {
             get
@@ -413,19 +408,14 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
         }
         private Label _queryStatusLabel;
 
-
         // item metrics
         private const int VERTICAL_INSET = 5;
         private const int HORIZONTAL_INSET = 5;
         private const int THUMBNAIL_IMAGE_WIDTH = 130;
         private const int THUMBNAIL_IMAGE_HEIGHT = 100;
 
-
-
         #endregion
 
-
     }
-
 
 }

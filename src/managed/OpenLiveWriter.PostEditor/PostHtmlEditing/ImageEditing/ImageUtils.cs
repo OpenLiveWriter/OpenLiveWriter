@@ -38,7 +38,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             float requestedWidth;
             float requestedHeight;
 
-
             if (imageRatio >= maxRatio)
             {
                 // the image's width is the determinant in scaling, scale based upon that
@@ -67,7 +66,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public static void CopyEXIF(Image from, Image to)
         {
-            // This should work most the time.  Could on Vista and below get 
+            // This should work most the time.  Could on Vista and below get
             // some improved results with WIC
             foreach (PropertyItem pi in from.PropertyItems)
             {
@@ -136,7 +135,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         /// <summary>
         /// Examines the exif metadata in am image and determines if the picture was rotated
-        /// when it was taken. 
+        /// when it was taken.
         /// </summary>
         /// <param name="image"></param>
         /// <returns>The RotateFlipType that should be applied to fix the image orientation</returns>
@@ -168,7 +167,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
             return RotateFlipType.RotateNoneFlipNone;
         }
-
 
         enum Orientation
         {
@@ -216,7 +214,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             //http://www.bobpowell.net/dropshadowtext.htm
 
             //some constants that can be used to tweak the shadow
-            //const int shadowRatio = 4; //increasing this value will lighten the color of the shadow 
+            //const int shadowRatio = 4; //increasing this value will lighten the color of the shadow
             const int shadowMargin = 1; //the amount of background color to include on the shadow's edges
 
             //Make a bitmap that is used to hold the shadow rectangle. To give the rectangle soft
@@ -234,7 +232,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 g.FillRectangle(backgroundBrush, new Rectangle(0, 0, shadowImage.Width, shadowImage.Height));
                 g.FillRectangle(new SolidBrush(Color.FromArgb(200, shadowColor)), new Rectangle(shadowMargin, shadowMargin, shadowImage.Width - shadowMargin, shadowImage.Height - shadowMargin));
                 g.Dispose();
-
 
                 //set the border color
                 Color borderColor = Color.White;
@@ -263,7 +260,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                         g.FillRectangle(new SolidBrush(borderColor), new Rectangle(0, 0, enlargedBitmap.Width - offset, enlargedBitmap.Height - offset));
                         g.DrawRectangle(new Pen(Color.FromArgb(50, shadowColor), 1), new Rectangle(0, 0, enlargedBitmap.Width - offset, enlargedBitmap.Height - offset));
                     }
-
 
                     Rectangle destRect = new Rectangle(borderLeft, borderTop,
                                                        Convert.ToInt32(actualCrop.Width),

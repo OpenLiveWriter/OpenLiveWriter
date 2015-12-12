@@ -40,7 +40,7 @@ namespace OpenLiveWriter.Interop.Com
         void CloseDW([In] UInt32 dwReserved);
 
         /// <summary>
-        /// Notify docking window that the frame's border space has changed -- this 
+        /// Notify docking window that the frame's border space has changed -- this
         /// method is NOT called for DeskBands.
         /// </summary>
         /// <param name="prcBorder">Ignored/unused for DeskBands</param>

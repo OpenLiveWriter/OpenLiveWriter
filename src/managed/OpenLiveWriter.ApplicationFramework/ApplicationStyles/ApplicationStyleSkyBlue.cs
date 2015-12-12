@@ -9,7 +9,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 {
     public class ApplicationStyleSkyBlue : ApplicationStyle
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -20,7 +20,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -36,15 +36,15 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // ApplicationStyleSkyBlue
-            // 
+            //
             this.ActiveSelectionColor = System.Drawing.Color.FromArgb(((System.Byte)(107)), ((System.Byte)(140)), ((System.Byte)(210)));
             this.ActiveTabBottomColor = System.Drawing.Color.FromArgb(((System.Byte)(183)), ((System.Byte)(203)), ((System.Byte)(245)));
             this.ActiveTabHighlightColor = System.Drawing.Color.FromArgb(((System.Byte)(243)), ((System.Byte)(243)), ((System.Byte)(243)));

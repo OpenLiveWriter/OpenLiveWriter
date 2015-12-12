@@ -119,9 +119,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             RefreshLayout();
         }
 
-
         private IAuth _auth;
-
 
         private void RefreshLayout()
         {
@@ -168,8 +166,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
                 LayoutHelper.NaturalizeHeightAndDistribute(15, ckBoxSavePassword, btnLogin);
             }
 
-
-
             if (BidiHelper.IsRightToLeft)
             {
                 btnLogin.Left = txtPassword.Left;
@@ -189,7 +185,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             ResumeLayout();
         }
 
-
         private void InitializeComponent()
         {
             lblUsername = new Label();
@@ -204,9 +199,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             linkLabelCreateMicrosoftAccountID = new LinkLabel();
             linkLabelPrivacy = new LinkLabel();
             SuspendLayout();
-            // 
+            //
             // lblUsername
-            // 
+            //
             lblUsername.Location = new Point(48, 126);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(216, 18);
@@ -214,9 +209,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             lblUsername.Text = "&Microsoft Account ID:";
             lblUsername.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
                                  | AnchorStyles.Right)));
-            // 
+            //
             // txtUsername
-            // 
+            //
             txtUsername.Location = new Point(48, 144);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(216, 23);
@@ -224,9 +219,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             txtUsername.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
                                  | AnchorStyles.Right)));
 
-            // 
+            //
             // lblPassword
-            // 
+            //
             lblPassword.Location = new Point(48, 190);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(216, 18);
@@ -255,9 +250,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             linkLabelPrivacy.Visible = false;
             linkLabelCreateMicrosoftAccountID.TabIndex = 14;
 
-            // 
+            //
             // txtPassword
-            // 
+            //
             txtPassword.Location = new Point(48, 208);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
@@ -266,9 +261,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             txtPassword.Text = "";
             txtPassword.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
                                              | AnchorStyles.Right)));
-            // 
+            //
             // btnLogin
-            // 
+            //
             btnLogin.FlatStyle = FlatStyle.System;
             btnLogin.Location = new Point(189, 256);
             btnLogin.Name = "btnLogin";
@@ -276,9 +271,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             btnLogin.Text = "&Login";
             btnLogin.Click += new EventHandler(btnLogin_Click);
             btnLogin.Anchor = ((AnchorStyles)(AnchorStyles.Bottom | AnchorStyles.Right));
-            // 
+            //
             // pictureBoxLogo
-            // 
+            //
             pictureBoxLogo.Location = new Point(48, 40);
             pictureBoxLogo.Name = "pictureBoxLogo";
             pictureBoxLogo.Size = new Size(216, 50);
@@ -286,9 +281,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             pictureBoxLogo.Click += new EventHandler(pictureBox1_Click);
             pictureBoxLogo.MouseEnter += new EventHandler(pictureBox1_MouseEnter);
             pictureBoxLogo.MouseLeave += new EventHandler(pictureBox1_MouseLeave);
-            // 
+            //
             // ckBoxSavePassword
-            // 
+            //
             ckBoxSavePassword.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
                                                          )));
             ckBoxSavePassword.FlatStyle = FlatStyle.System;
@@ -297,9 +292,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             ckBoxSavePassword.Size = new Size(216, 16);
             ckBoxSavePassword.TabIndex = 11;
             ckBoxSavePassword.Text = "Remember my &password";
-            // 
+            //
             // lblEmailExample
-            // 
+            //
             lblEmailExample.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right)
                                                        )));
             lblEmailExample.ForeColor = SystemColors.ControlDarkDark;
@@ -317,9 +312,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             lblStatus.Size = new Size(309, 56);
             lblStatus.Location = new Point(3, 165);
 
-            // 
+            //
             // SoapboxLoginControl
-            // 
+            //
             Controls.Add(linkLabelCreateMicrosoftAccountID);
             Controls.Add(linkLabelPrivacy);
             Controls.Add(lblEmailExample);
@@ -410,7 +405,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             Cursor = Cursors.Hand;
         }
 
-
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Enter && !linkLabelCreateMicrosoftAccountID.Focused && !linkLabelPrivacy.Focused)
@@ -447,8 +441,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             Refresh();
         }
 
-
-
         private void Login()
         {
             string username = txtUsername.Text.Trim();
@@ -476,12 +468,10 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             LoginStatus(false);
         }
 
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             BrowserHelper.DisplayUrl(_auth.ServiceUrl);
         }
-
 
         internal void Clear()
         {

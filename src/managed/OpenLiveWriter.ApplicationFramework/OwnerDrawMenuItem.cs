@@ -171,7 +171,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
             menuFont = Res.DefaultFont;
 
-            //	We dont owner draw menu items when in high contrast because it disabled some accessibility features            
+            //	We dont owner draw menu items when in high contrast because it disabled some accessibility features
             //if(!SystemInformation.HighContrast && !BidiHelper.IsRightToLeft)
             //	OwnerDraw = true;
         }
@@ -256,7 +256,7 @@ namespace OpenLiveWriter.ApplicationFramework
             if (Parent is MainMenu)
             {
                 DrawMainMenuItem(e);
-                //	Draw the offscreen bitmap.               
+                //	Draw the offscreen bitmap.
                 //BidiGraphics g = new BidiGraphics(e.Graphics, new Size(GetMainMenu().GetForm().Width, e.Bounds.Height));
                 //g.DrawImage(false, offscreenBitmap, e.Bounds.Location);
 
@@ -394,7 +394,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //		   cascading menu being removed.
             //	When these conditions are true, .NET inexplicably leaves a turd on the screen.
             //	It's really amazing.  Anyway, the ONLY fix is to clean up the turd or not draw an
-            //	image.  We needed double buffer 
+            //	image.  We needed double buffer
             if (!(Parent is MainMenu))
             {
                 using (SolidBrush solidBrush = new SolidBrush(Color.FromKnownColor(KnownColor.Control)))
@@ -431,7 +431,7 @@ namespace OpenLiveWriter.ApplicationFramework
             //Rectangle bounds = new Rectangle(0, 0, offscreenBitmap.Width, offscreenBitmap.Height);
             Rectangle bounds = ea.Bounds;
 
-            // get reference to colorized resources 
+            // get reference to colorized resources
             ColorizedResources cres = ColorizedResources.Instance;
 
             //	Fill the menu item with the correct color
@@ -536,9 +536,9 @@ namespace OpenLiveWriter.ApplicationFramework
 
                 //	Fill the background.
                 /*
-				using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.MenuBitmapAreaColor))
-					graphics.FillRectangle(solidBrush, bitmapAreaRectangle);
-				*/
+                using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.MenuBitmapAreaColor))
+                    graphics.FillRectangle(solidBrush, bitmapAreaRectangle);
+                */
                 Color backgroundColor = SystemColors.Menu;
                 //	If the item is selected, draw the selection rectangle.
                 if ((drawItemState & DrawItemState.Selected) != 0)
@@ -707,7 +707,6 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             return KeyboardHelper.FormatShortcutString(shortcut);
         }
-
 
     }
 

@@ -10,7 +10,7 @@ using System.IO;
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
-    /// Implementation of ISiteStorage that uses memory as a backing store. 
+    /// Implementation of ISiteStorage that uses memory as a backing store.
     /// </summary>
     public class MemoryBasedSiteStorage : SiteStorageBase
     {
@@ -23,7 +23,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// Initialize with the specified RootFile
         /// </summary>
@@ -33,7 +32,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// Test to see whether the specified file already exists
         /// </summary>
@@ -41,13 +39,12 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>true if it exists, otherwise false</returns>
         public override bool Exists(string file)
         {
-            // convert the path to lower-case 
+            // convert the path to lower-case
             string pathLower = file.ToLower(CultureInfo.InvariantCulture);
 
             // check if it exists
             return m_streams.ContainsKey(pathLower);
         }
-
 
         /// <summary>
         /// Retrieve a Stream for the given path (Read or Write access can be specified)
@@ -55,16 +52,16 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         /// <param name="file">Heirarchical path designating stream location (uses "/" as
         /// path designator)</param>
-        /// <param name="mode">Read or Write. Write will overwrite any exising path of 
+        /// <param name="mode">Read or Write. Write will overwrite any exising path of
         /// the same name.</param>
-        /// <returns>Stream that can be used to access the path (Stream.Close() must be 
+        /// <returns>Stream that can be used to access the path (Stream.Close() must be
         /// called when you are finished using the Stream).</returns>
         public override Stream Open(string file, AccessMode mode)
         {
             // validate the path (throws an exception if it is invalid)
             ValidatePath(file);
 
-            // convert the path to lower-case 
+            // convert the path to lower-case
             string pathLower = file.ToLower(CultureInfo.InvariantCulture);
 
             // return the approrpiate stream
@@ -82,7 +79,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Method called by base class SupportingFiles implementation
         /// </summary>
@@ -92,7 +88,6 @@ namespace OpenLiveWriter.CoreServices
             // copy the stream path names into an array list to be returned
             return new ArrayList(m_streams.Keys);
         }
-
 
         // open a stream for read access
         private Stream OpenMemoryStreamForRead(string path)
@@ -106,12 +101,12 @@ namespace OpenLiveWriter.CoreServices
                 // confirm that the stream was closed prior to being opened for reading
                 if (stream.FinalLength != -1)
                 {
-                    // return a new stream based on the buffer in the already 
+                    // return a new stream based on the buffer in the already
                     // written to stream
                     return new MemoryStream(stream.GetBuffer(), 0, stream.FinalLength, false);
                 }
 
-                // user writing the stream never closed it -- you can't read a stream that 
+                // user writing the stream never closed it -- you can't read a stream that
                 // has been written to until it has been closed
                 else
                 {
@@ -126,7 +121,6 @@ namespace OpenLiveWriter.CoreServices
                     SiteStorageException(null, SiteStorageException.PathNotFound, path);
             }
         }
-
 
         // open a stream for write access (overwrites existing stream if any)
         private Stream OpenMemoryStreamForWrite(string path)
@@ -143,11 +137,9 @@ namespace OpenLiveWriter.CoreServices
             return newStream;
         }
 
-
         // hashtable containing paths and corresponding memory streams
         private Hashtable m_streams = new Hashtable();
     }
-
 
     /// <summary>
     /// Specialized version of MemoryStream that overrides the Close method and records the

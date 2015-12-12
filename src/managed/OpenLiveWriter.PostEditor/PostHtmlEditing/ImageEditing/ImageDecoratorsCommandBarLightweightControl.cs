@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             InitializeComponent();
 
             //
-            // 
+            //
             //
         }
 
@@ -46,11 +46,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             InitializeComponent();
 
             //
-            // 
+            //
             //
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)

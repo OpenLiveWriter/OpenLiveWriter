@@ -106,7 +106,6 @@ namespace OpenLiveWriter.CoreServices
         private readonly int MONITOR_ABORT_INDEX = 1;
         private ManualResetEvent[] FIXED_MONITOR_EVENTS;
 
-
         /// <summary>
         /// Returns the RegistryMonitor singleton instance.
         /// </summary>
@@ -120,7 +119,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private static RegistryMonitor _instance;
-
 
         #endregion
 
@@ -486,7 +484,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         private static void RegisterForRegistryKeyChanged(RegistryKeyMonitor monitor)
         {
-            // reset the settings changed event so it will not be considered signaled until 
+            // reset the settings changed event so it will not be considered signaled until
             // another change is made to the specified key
             monitor.settingsChangedEvent.Reset();
 

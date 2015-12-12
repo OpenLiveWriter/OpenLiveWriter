@@ -10,7 +10,7 @@ namespace OpenLiveWriter.Interop.Com
     /// <summary>
     /// The IClassFactory interface contains two methods intended to deal with an
     /// entire class of objects, and so is implemented on the class object for a
-    /// specific class of objects (identified by a CLSID). The first method, 
+    /// specific class of objects (identified by a CLSID). The first method,
     /// CreateInstance, creates an uninitialized object of a specified CLSID,
     /// and the second, LockServer, locks the object's server in memory, allowing
     /// new objects to be created more quickly.
@@ -21,12 +21,12 @@ namespace OpenLiveWriter.Interop.Com
     public interface IClassFactory
     {
         /// <summary>
-        /// Creates an uninitialized object. 
+        /// Creates an uninitialized object.
         /// </summary>
         /// <param name="pUnkOuter">[in] If the object is being created as part of an
         /// aggregate, pointer to the controlling IUnknown interface of the aggregate.
         /// Otherwise, pUnkOuter must be NULL. </param>
-        /// <param name="riid">[in] Reference to the identifier of the interface 
+        /// <param name="riid">[in] Reference to the identifier of the interface
         /// to be used to communicate with the newly created object. If pUnkOuter
         /// is NULL, this parameter is frequently the IID of the initializing
         /// interface; if pUnkOuter is non-NULL, riid must be IID_IUnknown (defined

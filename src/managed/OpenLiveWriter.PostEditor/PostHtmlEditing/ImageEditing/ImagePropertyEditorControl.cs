@@ -14,283 +14,281 @@ using OpenLiveWriter.ApplicationFramework.ApplicationStyles;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Hosts the tab control for the image property editing form.
-	/// </summary>
-	public class ImagePropertyEditorControl : PrimaryWorkspaceControl
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
-		private PrimaryWorkspaceWorkspaceCommandBarLightweightControl commandBarLightweightControl;
+    /// <summary>
+    /// Hosts the tab control for the image property editing form.
+    /// </summary>
+    public class ImagePropertyEditorControl : PrimaryWorkspaceControl
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
+        private PrimaryWorkspaceWorkspaceCommandBarLightweightControl commandBarLightweightControl;
 
-		private TabLightweightControl tabLightweightControl;
-		private ImageTabPageImageControl imageTabPageImage;
-		private ImageTabPageLayoutControl imageTabPageLayout;
-		private ImageTabPageEffectsControl imageTabPageEffects;
-		private ImageTabPageUploadControl imageTabPageUpload;
+        private TabLightweightControl tabLightweightControl;
+        private ImageTabPageImageControl imageTabPageImage;
+        private ImageTabPageLayoutControl imageTabPageLayout;
+        private ImageTabPageEffectsControl imageTabPageEffects;
+        private ImageTabPageUploadControl imageTabPageUpload;
 
-		public ImagePropertyEditorControl()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        public ImagePropertyEditorControl()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
-			// configure look and behavior
-			AllowDragDropAutoScroll = false;
-			AllPaintingInWmPaint = true;
-			TopLayoutMargin = 2;
+            // configure look and behavior
+            AllowDragDropAutoScroll = false;
+            AllPaintingInWmPaint = true;
+            TopLayoutMargin = 2;
 
-			ApplicationStyleManager.ApplicationStyleChanged += new EventHandler(ApplicationManager_ApplicationStyleChanged);
+            ApplicationStyleManager.ApplicationStyleChanged += new EventHandler(ApplicationManager_ApplicationStyleChanged);
 
-			// initialize tab lightweight control
-			tabLightweightControl = new TabLightweightControl(this.components) ;
-			tabLightweightControl.DrawSideAndBottomTabPageBorders = false ;
-			tabLightweightControl.SmallTabs = true ;		
-		}
+            // initialize tab lightweight control
+            tabLightweightControl = new TabLightweightControl(this.components) ;
+            tabLightweightControl.DrawSideAndBottomTabPageBorders = false ;
+            tabLightweightControl.SmallTabs = true ;
+        }
 
-		public void Init(IBlogPostImageDataContext dataContext)
-		{
+        public void Init(IBlogPostImageDataContext dataContext)
+        {
 
-			_imageDataContext = dataContext;
-			// initialization constants 
-			const int TOP_INSET = 2;
+            _imageDataContext = dataContext;
+            // initialization constants
+            const int TOP_INSET = 2;
 
-			imageTabPageImage = new ImageTabPageImageControl() ;
-			imageTabPageLayout = new ImageTabPageLayoutControl() ;
-			imageTabPageEffects = new ImageTabPageEffectsControl() ;
-			imageTabPageUpload = new ImageTabPageUploadControl() ;
+            imageTabPageImage = new ImageTabPageImageControl() ;
+            imageTabPageLayout = new ImageTabPageLayoutControl() ;
+            imageTabPageEffects = new ImageTabPageEffectsControl() ;
+            imageTabPageUpload = new ImageTabPageUploadControl() ;
 
-			_tabPages = new ImageEditingTabPageControl[]{imageTabPageLayout, imageTabPageImage, imageTabPageEffects, imageTabPageUpload};
-			for(int i=0; i<_tabPages.Length; i++)
-			{
-				ImageEditingTabPageControl tabPage = _tabPages[i];
-				tabPage.DecoratorsManager = dataContext.DecoratorsManager;
-				tabPage.TabStop = false ;
-				tabPage.TabIndex = i ;	
-				Controls.Add( tabPage ) ;
-				tabLightweightControl.SetTab( i, tabPage ) ;		
-			}
-			
-			// initial appearance of editor
-			tabLightweightControl.SelectedTabNumber = 0 ;
+            _tabPages = new ImageEditingTabPageControl[]{imageTabPageLayout, imageTabPageImage, imageTabPageEffects, imageTabPageUpload};
+            for(int i=0; i<_tabPages.Length; i++)
+            {
+                ImageEditingTabPageControl tabPage = _tabPages[i];
+                tabPage.DecoratorsManager = dataContext.DecoratorsManager;
+                tabPage.TabStop = false ;
+                tabPage.TabIndex = i ;
+                Controls.Add( tabPage ) ;
+                tabLightweightControl.SetTab( i, tabPage ) ;
+            }
 
-			InitializeCommands();
-			InitializeToolbar();
+            // initial appearance of editor
+            tabLightweightControl.SelectedTabNumber = 0 ;
 
-			_imageDataContext.DecoratorsManager.GetImageDecorator(BrightnessDecorator.Id).Command.StateChanged += new EventHandler(Command_StateChanged);
+            InitializeCommands();
+            InitializeToolbar();
 
-			// configure primary workspace 
-			// configure primary workspace 
-			SuspendLayout() ;
-			TopLayoutMargin = TOP_INSET;
-			LeftColumn.UpperPane.LightweightControl = tabLightweightControl;
-			CenterColumn.Visible = false;
-			RightColumn.Visible = false;
-			ResumeLayout() ;
-		}
-		IBlogPostImageDataContext _imageDataContext;
+            _imageDataContext.DecoratorsManager.GetImageDecorator(BrightnessDecorator.Id).Command.StateChanged += new EventHandler(Command_StateChanged);
 
-		
-		private void InitializeCommands()
-		{
-			commandContextManager = new CommandContextManager(ApplicationManager.CommandManager);
-			commandContextManager.BeginUpdate() ;
-			
-			commandImageBrightness = new CommandImageBrightness(components) ;
-			commandImageBrightness.Tag = _imageDataContext.DecoratorsManager.GetImageDecorator(BrightnessDecorator.Id);
-			commandImageBrightness.Execute += new EventHandler(commandImageDecorator_Execute);
-			commandContextManager.AddCommand( commandImageBrightness, CommandContext.Normal) ;
+            // configure primary workspace
+            // configure primary workspace
+            SuspendLayout() ;
+            TopLayoutMargin = TOP_INSET;
+            LeftColumn.UpperPane.LightweightControl = tabLightweightControl;
+            CenterColumn.Visible = false;
+            RightColumn.Visible = false;
+            ResumeLayout() ;
+        }
+        IBlogPostImageDataContext _imageDataContext;
 
-			commandImageRotate = new CommandImageRotate(components) ;
-			commandImageRotate.Execute += new EventHandler(commandImageRotate_Execute);
-			commandContextManager.AddCommand( commandImageRotate, CommandContext.Normal) ;
+        private void InitializeCommands()
+        {
+            commandContextManager = new CommandContextManager(ApplicationManager.CommandManager);
+            commandContextManager.BeginUpdate() ;
 
-			commandImageReset = new CommandImageReset(components) ;
-			commandImageReset.Execute += new EventHandler(commandImageReset_Execute);
-			commandContextManager.AddCommand( commandImageReset, CommandContext.Normal) ;
+            commandImageBrightness = new CommandImageBrightness(components) ;
+            commandImageBrightness.Tag = _imageDataContext.DecoratorsManager.GetImageDecorator(BrightnessDecorator.Id);
+            commandImageBrightness.Execute += new EventHandler(commandImageDecorator_Execute);
+            commandContextManager.AddCommand( commandImageBrightness, CommandContext.Normal) ;
 
-			commandImageSaveDefaults = new CommandImageSaveDefaults(components) ;
-			commandImageSaveDefaults.Execute += new EventHandler(commandImageSaveDefaults_Execute);
-			commandContextManager.AddCommand( commandImageSaveDefaults, CommandContext.Normal) ;
+            commandImageRotate = new CommandImageRotate(components) ;
+            commandImageRotate.Execute += new EventHandler(commandImageRotate_Execute);
+            commandContextManager.AddCommand( commandImageRotate, CommandContext.Normal) ;
 
-			commandContextManager.EndUpdate() ;
-		}
-		CommandContextManager commandContextManager;
-		Command commandImageBrightness;
-		Command commandImageRotate;
-		Command commandImageReset;
-		Command commandImageSaveDefaults;
+            commandImageReset = new CommandImageReset(components) ;
+            commandImageReset.Execute += new EventHandler(commandImageReset_Execute);
+            commandContextManager.AddCommand( commandImageReset, CommandContext.Normal) ;
 
-		private void InitializeToolbar()
-		{
-			CommandBarButtonEntry commandBarButtonEntryImageBrightness = new CommandBarButtonEntry(components) ;
-			commandBarButtonEntryImageBrightness.CommandIdentifier = commandImageBrightness.Identifier ;
+            commandImageSaveDefaults = new CommandImageSaveDefaults(components) ;
+            commandImageSaveDefaults.Execute += new EventHandler(commandImageSaveDefaults_Execute);
+            commandContextManager.AddCommand( commandImageSaveDefaults, CommandContext.Normal) ;
 
-			CommandBarButtonEntry commandBarButtonEntryImageRotate = new CommandBarButtonEntry(components) ;
-			commandBarButtonEntryImageRotate.CommandIdentifier = commandImageRotate.Identifier ;
-			
-			CommandBarButtonEntry commandBarButtonEntryImageReset = new CommandBarButtonEntry(components) ;
-			commandBarButtonEntryImageReset.CommandIdentifier = commandImageReset.Identifier ;
+            commandContextManager.EndUpdate() ;
+        }
+        CommandContextManager commandContextManager;
+        Command commandImageBrightness;
+        Command commandImageRotate;
+        Command commandImageReset;
+        Command commandImageSaveDefaults;
 
-			CommandBarButtonEntry commandBarButtonEntryImageSaveDefaults = new CommandBarButtonEntry(components) ;
-			commandBarButtonEntryImageSaveDefaults.CommandIdentifier = commandImageSaveDefaults.Identifier ;
+        private void InitializeToolbar()
+        {
+            CommandBarButtonEntry commandBarButtonEntryImageBrightness = new CommandBarButtonEntry(components) ;
+            commandBarButtonEntryImageBrightness.CommandIdentifier = commandImageBrightness.Identifier ;
 
-			CommandBarDefinition commandBarDefinition = new CommandBarDefinition(components) ;
-			commandBarDefinition.LeftCommandBarEntries.Add( commandBarButtonEntryImageRotate ) ;
-			commandBarDefinition.LeftCommandBarEntries.Add( commandBarButtonEntryImageBrightness ) ;
+            CommandBarButtonEntry commandBarButtonEntryImageRotate = new CommandBarButtonEntry(components) ;
+            commandBarButtonEntryImageRotate.CommandIdentifier = commandImageRotate.Identifier ;
 
-			commandBarDefinition.RightCommandBarEntries.Add( commandBarButtonEntryImageReset ) ;
-			commandBarDefinition.RightCommandBarEntries.Add( commandBarButtonEntryImageSaveDefaults ) ;
+            CommandBarButtonEntry commandBarButtonEntryImageReset = new CommandBarButtonEntry(components) ;
+            commandBarButtonEntryImageReset.CommandIdentifier = commandImageReset.Identifier ;
 
-			commandBarLightweightControl = new PrimaryWorkspaceWorkspaceCommandBarLightweightControl(components) ;
-			commandBarLightweightControl.LightweightControlContainerControl = this ;
+            CommandBarButtonEntry commandBarButtonEntryImageSaveDefaults = new CommandBarButtonEntry(components) ;
+            commandBarButtonEntryImageSaveDefaults.CommandIdentifier = commandImageSaveDefaults.Identifier ;
 
-			commandBarLightweightControl.CommandManager = ApplicationManager.CommandManager ;
-			commandBarLightweightControl.CommandBarDefinition = commandBarDefinition ;
-		}
+            CommandBarDefinition commandBarDefinition = new CommandBarDefinition(components) ;
+            commandBarDefinition.LeftCommandBarEntries.Add( commandBarButtonEntryImageRotate ) ;
+            commandBarDefinition.LeftCommandBarEntries.Add( commandBarButtonEntryImageBrightness ) ;
 
-		public override CommandBarLightweightControl FirstCommandBarLightweightControl
-		{
-			get
-			{
-				return commandBarLightweightControl;
-			}
-		}
+            commandBarDefinition.RightCommandBarEntries.Add( commandBarButtonEntryImageReset ) ;
+            commandBarDefinition.RightCommandBarEntries.Add( commandBarButtonEntryImageSaveDefaults ) ;
 
+            commandBarLightweightControl = new PrimaryWorkspaceWorkspaceCommandBarLightweightControl(components) ;
+            commandBarLightweightControl.LightweightControlContainerControl = this ;
 
-		public event EventHandler SaveDefaultsRequested;
-		public event EventHandler ResetToDefaultsRequested;
+            commandBarLightweightControl.CommandManager = ApplicationManager.CommandManager ;
+            commandBarLightweightControl.CommandBarDefinition = commandBarDefinition ;
+        }
 
-		public event ImagePropertyEventHandler ImagePropertyChanged;
-		private void ApplyImageDecorations()
-		{
-			ApplyImageDecorations(ImageDecoratorInvocationSource.ImagePropertiesEditor);
-		}
-		private void ApplyImageDecorations(ImageDecoratorInvocationSource source)
-		{
-			if(ImagePropertyChanged != null)
-			{
-				ImagePropertyChanged(this, new ImagePropertyEvent(ImagePropertyType.Decorators, this.ImageInfo, source));
-			}
-		}
-		public ImagePropertiesInfo ImageInfo
-		{
-			get
-			{
-				return imageInfo;
-			}
-			set
-			{
-				if(imageInfo != value)
-				{
-					imageInfo = value;
+        public override CommandBarLightweightControl FirstCommandBarLightweightControl
+        {
+            get
+            {
+                return commandBarLightweightControl;
+            }
+        }
 
-					//disable the image rotate command if the image is not a local image.
-					commandImageRotate.Enabled = imageInfo != null && imageInfo.ImageSourceUri.IsFile;
+        public event EventHandler SaveDefaultsRequested;
+        public event EventHandler ResetToDefaultsRequested;
 
-					imageTabPageUpload.Visible = (this._imageDataContext != null) && (this._imageDataContext.ImageServiceId != null);
-				}
-			}
-		}
-		public ImagePropertiesInfo imageInfo;
+        public event ImagePropertyEventHandler ImagePropertyChanged;
+        private void ApplyImageDecorations()
+        {
+            ApplyImageDecorations(ImageDecoratorInvocationSource.ImagePropertiesEditor);
+        }
+        private void ApplyImageDecorations(ImageDecoratorInvocationSource source)
+        {
+            if(ImagePropertyChanged != null)
+            {
+                ImagePropertyChanged(this, new ImagePropertyEvent(ImagePropertyType.Decorators, this.ImageInfo, source));
+            }
+        }
+        public ImagePropertiesInfo ImageInfo
+        {
+            get
+            {
+                return imageInfo;
+            }
+            set
+            {
+                if(imageInfo != value)
+                {
+                    imageInfo = value;
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
+                    //disable the image rotate command if the image is not a local image.
+                    commandImageRotate.Enabled = imageInfo != null && imageInfo.ImageSourceUri.IsFile;
 
-				ApplicationStyleManager.ApplicationStyleChanged -= new EventHandler(ApplicationManager_ApplicationStyleChanged);
-			}
-			base.Dispose( disposing );
-		}
+                    imageTabPageUpload.Visible = (this._imageDataContext != null) && (this._imageDataContext.ImageServiceId != null);
+                }
+            }
+        }
+        public ImagePropertiesInfo imageInfo;
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			components = new System.ComponentModel.Container();
-		}
-		#endregion
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose( bool disposing )
+        {
+            if( disposing )
+            {
+                if(components != null)
+                {
+                    components.Dispose();
+                }
 
-		internal ImageEditingTabPageControl[] TabPages
-		{
-			get
-			{
-				return _tabPages;
-			}
-		}
-		private ImageEditingTabPageControl[] _tabPages = new ImageEditingTabPageControl[0];
+                ApplicationStyleManager.ApplicationStyleChanged -= new EventHandler(ApplicationManager_ApplicationStyleChanged);
+            }
+            base.Dispose( disposing );
+        }
 
-		private void UpdateAppearance()
-		{		
-			PerformLayout();
-			Invalidate();
-		}
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            components = new System.ComponentModel.Container();
+        }
+        #endregion
 
-		protected override void OnPaintBackground(PaintEventArgs pevent)
-		{
-			using ( Brush brush = new SolidBrush(ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarBottomColor) )
-				pevent.Graphics.FillRectangle( brush, ClientRectangle ) ;
-		}
+        internal ImageEditingTabPageControl[] TabPages
+        {
+            get
+            {
+                return _tabPages;
+            }
+        }
+        private ImageEditingTabPageControl[] _tabPages = new ImageEditingTabPageControl[0];
 
-		/// <summary>
-		/// Handle appearance preference changes.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void ApplicationManager_ApplicationStyleChanged(object sender, EventArgs e)
-		{
-			UpdateAppearance() ;
-		}
+        private void UpdateAppearance()
+        {
+            PerformLayout();
+            Invalidate();
+        }
 
-		private void commandImageDecorator_Execute(object sender, EventArgs e)
-		{
-			ImageDecorator imageDecorator = ((ImageDecorator)((Command)sender).Tag);
+        protected override void OnPaintBackground(PaintEventArgs pevent)
+        {
+            using ( Brush brush = new SolidBrush(ApplicationManager.ApplicationStyle.PrimaryWorkspaceCommandBarBottomColor) )
+                pevent.Graphics.FillRectangle( brush, ClientRectangle ) ;
+        }
 
-			//perform the execution so that the decorator is added to the list of active decorators
-			imageDecorator.Command.PerformExecute();
+        /// <summary>
+        /// Handle appearance preference changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ApplicationManager_ApplicationStyleChanged(object sender, EventArgs e)
+        {
+            UpdateAppearance() ;
+        }
 
-			//since this command was invoked explicitly via a command button, display the editor dialog.
-			ImageDecoratorHelper.ShowImageDecoratorEditorDialog( FindForm(), imageDecorator, ImageInfo, new ApplyDecoratorCallback(ApplyImageDecorations) );			
-		}
+        private void commandImageDecorator_Execute(object sender, EventArgs e)
+        {
+            ImageDecorator imageDecorator = ((ImageDecorator)((Command)sender).Tag);
 
-		private void commandImageRotate_Execute(object sender, EventArgs e)
-		{
-			ImageInfo.ImageRotation = ImageDecoratorUtils.GetFlipTypeRotated90(ImageInfo.ImageRotation);
-			ApplyImageDecorations();
-		}
+            //perform the execution so that the decorator is added to the list of active decorators
+            imageDecorator.Command.PerformExecute();
 
-		private void commandImageReset_Execute(object sender, EventArgs e)
-		{
-			if(ResetToDefaultsRequested != null)
-			{
-				ResetToDefaultsRequested(this, EventArgs.Empty);
-			}
-			ApplyImageDecorations(ImageDecoratorInvocationSource.Reset);
-		}
+            //since this command was invoked explicitly via a command button, display the editor dialog.
+            ImageDecoratorHelper.ShowImageDecoratorEditorDialog( FindForm(), imageDecorator, ImageInfo, new ApplyDecoratorCallback(ApplyImageDecorations) );
+        }
 
-		private void commandImageSaveDefaults_Execute(object sender, EventArgs e)
-		{
-			if(SaveDefaultsRequested != null)
-			{
-				SaveDefaultsRequested(this, EventArgs.Empty);
-			}
-		}
+        private void commandImageRotate_Execute(object sender, EventArgs e)
+        {
+            ImageInfo.ImageRotation = ImageDecoratorUtils.GetFlipTypeRotated90(ImageInfo.ImageRotation);
+            ApplyImageDecorations();
+        }
 
-		private void Command_StateChanged(object sender, EventArgs e)
-		{
-			commandImageBrightness.Enabled = _imageDataContext.DecoratorsManager.GetImageDecorator(BrightnessDecorator.Id).Command.Enabled;
-		}
-	}
+        private void commandImageReset_Execute(object sender, EventArgs e)
+        {
+            if(ResetToDefaultsRequested != null)
+            {
+                ResetToDefaultsRequested(this, EventArgs.Empty);
+            }
+            ApplyImageDecorations(ImageDecoratorInvocationSource.Reset);
+        }
+
+        private void commandImageSaveDefaults_Execute(object sender, EventArgs e)
+        {
+            if(SaveDefaultsRequested != null)
+            {
+                SaveDefaultsRequested(this, EventArgs.Empty);
+            }
+        }
+
+        private void Command_StateChanged(object sender, EventArgs e)
+        {
+            commandImageBrightness.Enabled = _imageDataContext.DecoratorsManager.GetImageDecorator(BrightnessDecorator.Id).Command.Enabled;
+        }
+    }
 }

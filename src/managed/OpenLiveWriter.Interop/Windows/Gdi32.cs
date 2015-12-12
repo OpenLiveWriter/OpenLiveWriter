@@ -32,7 +32,6 @@ namespace OpenLiveWriter.Interop.Windows
             int nHeight     // height of bitmap, in pixels
             );
 
-
         [DllImport("Gdi32.dll", SetLastError = true)]
         public static extern IntPtr CreateCompatibleDC(
             IntPtr hdc   // handle to DC
@@ -65,7 +64,7 @@ namespace OpenLiveWriter.Interop.Windows
         }
 
         [DllImport("Gdi32.dll", SetLastError = true)]
-        public static extern bool DeleteObject(IntPtr hObject);  // handle to object	
+        public static extern bool DeleteObject(IntPtr hObject);  // handle to object
 
         [DllImport("Gdi32.dll")]
         public static extern IntPtr CreateDC(
@@ -132,7 +131,6 @@ namespace OpenLiveWriter.Interop.Windows
             public float eDy;
         }
 
-
         [DllImport("gdi32.dll", SetLastError = true)]
         public static extern uint GetLayout(IntPtr hdc);
 
@@ -167,7 +165,6 @@ namespace OpenLiveWriter.Interop.Windows
             POINT[] lpPoints,
             int nCounts);
     }
-
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public struct SIZEL

@@ -42,7 +42,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             return null;
         }
 
-
         private const string CELL_ELEMENT_BEHAVIORS = "CellElementBehaviors";
         private ArrayList _cellElementBehaviors;
 

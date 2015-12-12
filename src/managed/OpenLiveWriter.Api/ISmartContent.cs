@@ -38,7 +38,6 @@ namespace OpenLiveWriter.Api
         }
     }
 
-
     /// <summary>
     /// SmartContent object alignment.
     /// </summary>
@@ -119,7 +118,7 @@ namespace OpenLiveWriter.Api
 
     /// <summary>
     /// Interface to supporting-files used by the SmartContent object. Any type of file can be added
-    /// to the list of supporting files however only image files with a .gif or .jpg extension can 
+    /// to the list of supporting files however only image files with a .gif or .jpg extension can
     /// be included in published output.
     /// </summary>
     public interface ISupportingFiles
@@ -194,7 +193,6 @@ namespace OpenLiveWriter.Api
         /// </summary>
         string[] Filenames { get; }
     }
-
 
 }
 

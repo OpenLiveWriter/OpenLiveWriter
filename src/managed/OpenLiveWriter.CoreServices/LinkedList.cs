@@ -271,7 +271,6 @@ namespace OpenLiveWriter.CoreServices
 
         #endregion
 
-
         #region Internal data structures
         [Serializable]
         private class Node
@@ -386,13 +385,13 @@ namespace OpenLiveWriter.CoreServices
         }
 
 #if FALSE
-		public string String
-		{
-			get
-			{
-				return this.ToString();
-			}
-		}
+        public string String
+        {
+            get
+            {
+                return this.ToString();
+            }
+        }
 #endif
     }
 }

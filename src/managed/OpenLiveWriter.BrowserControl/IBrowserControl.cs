@@ -9,7 +9,7 @@ namespace OpenLiveWriter.BrowserControl
     public interface IBrowserControl
     {
         /// <summary>
-        /// The name of the resource that Microsoft® Internet Explorer is currently
+        /// The name of the resource that MicrosoftÂ® Internet Explorer is currently
         /// displaying. If the resource is an HTML page on the World Wide Web, the
         /// name is the title of that page. If the resource is a folder or file on
         /// the network or local computer, the name is the full path of the folder
@@ -17,15 +17,13 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         string LocationName { get; }
 
-
         /// <summary>
-        /// Retrieves the URL of the resource that Microsoft® Internet Explorer is
+        /// Retrieves the URL of the resource that MicrosoftÂ® Internet Explorer is
         /// currently displaying. If the resource is a folder or file on the
         /// network or local computer, the name is the full path of the folder or
         /// file in the Universal Naming Convention (UNC) format.
         /// </summary>
         string LocationURL { get; }
-
 
         /// <summary>
         /// Title of current document (normally use for window caption display).
@@ -34,14 +32,11 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         string Title { get; }
 
-
-
         /// <summary>
         /// StatusText (normally displayed in status bar). You should retreive/update
         /// this value whenever the StatusTextChanged event is fired.
         /// </summary>
         string StatusText { get; }
-
 
         /// <summary>
         /// Property indicating the encryption level of the currently displayed document.
@@ -50,14 +45,12 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         EncryptionLevel EncryptionLevel { get; }
 
-
         /// <summary>
-        /// Size of text displayed by the browser control. Before usin g this 
+        /// Size of text displayed by the browser control. Before usin g this
         /// property you should query the TextSizeSupported property to make
         /// sure that the currently displayed document supports TextSize.
         /// </summary>
         TextSize TextSize { get; set; }
-
 
         /// <summary>
         /// Check whether the TextSize property is supported by the current
@@ -66,7 +59,6 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         bool TextSizeSupported { get; }
 
-
         /// <summary>
         /// Indicates whether the object is engaged in a navigation or downloading
         /// operation. If the control is busy, you can use the BrowserCommand.Stop
@@ -74,16 +66,13 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         bool Busy { get; }
 
-
         // Sets or retrieves a value that indicates whether the object can show dialog boxes.
         bool Silent { get; set; }
-
 
         /// <summary>
         /// Global offline state ('Work Offline' menu in Internet Explorer)
         /// </summary>
         bool WorkOffline { get; set; }
-
 
         /// <summary>
         /// Retrieves the automation object of the active document, if any. When the
@@ -94,18 +83,15 @@ namespace OpenLiveWriter.BrowserControl
         /// When other document types are active (e.g. a Word document) this property
         /// returns the default IDispatch interface pointer for the document (e.g.
         /// the Document object in the Word object model). This property should only
-        /// be accessed after the DocumentComplete event is fired.		
+        /// be accessed after the DocumentComplete event is fired.
         /// </summary>
         object Document { get; }
-
 
         /// <summary>
         /// Navigate to the specified URL
         /// </summary>
         /// <param name="url">URL to navigate to</param>
         void Navigate(string url);
-
-
 
         /// <summary>
         /// Navigate to the specified URL using the specified options
@@ -114,8 +100,6 @@ namespace OpenLiveWriter.BrowserControl
         /// <param name="newWindow">navigate using new top level window</param>
         void Navigate(string url, bool newWindow);
 
-
-
         /// <summary>
         /// Determine if a command is enabled
         /// </summary>
@@ -123,35 +107,29 @@ namespace OpenLiveWriter.BrowserControl
         /// <returns>true if the command is enabled, otherwise false</returns>
         bool IsEnabled(BrowserCommand command);
 
-
-
         /// <summary>
-        /// Execute a command 
+        /// Execute a command
         /// </summary>
-        /// <param name="command">unique ID of command</param>		
+        /// <param name="command">unique ID of command</param>
         void Execute(BrowserCommand command);
-
-
 
         /// <summary>
         /// Force refresh of the state of the browser commands
         /// </summary>
         void UpdateCommandState();
 
-
         /// <summary>
-        /// Fires after a navigation to a link is completed on either a window or 
-        /// frameSet element. The document might still be downloading (and in the 
-        /// case of HTML, images might still be downloading), but at least part 
-        /// of the document has been received from the server, and the viewer 
+        /// Fires after a navigation to a link is completed on either a window or
+        /// frameSet element. The document might still be downloading (and in the
+        /// case of HTML, images might still be downloading), but at least part
+        /// of the document has been received from the server, and the viewer
         /// for the document has been created.
         ///
-        /// In Internet Explorer 6 or later, the Navigate2 event fires only after 
-        /// the first navigation made in code. It does not fire when a user clicks 
-        /// a link on a Web page. 
+        /// In Internet Explorer 6 or later, the Navigate2 event fires only after
+        /// the first navigation made in code. It does not fire when a user clicks
+        /// a link on a Web page.
         /// </summary>
         event BrowserNavigateComplete2EventHandler NavigateComplete2;
-
 
         /// <summary>
         /// Event that fires when a new document is navigated to and has completed
@@ -162,19 +140,16 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         event BrowserDocumentEventHandler DocumentComplete;
 
-
         /// <summary>
         /// Event that fires when a frame within a frameset has completed downloading
         /// </summary>
         event BrowserDocumentEventHandler FrameComplete;
 
-
         /// <summary>
-        /// Event that fires when a download operation commences. Applications should 
+        /// Event that fires when a download operation commences. Applications should
         /// use this event to update their visual 'busy' indicator.
         /// </summary>
         event EventHandler DownloadBegin;
-
 
         /// <summary>
         /// Event that fires when a download operation is completed. Applications shoudl
@@ -182,11 +157,10 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         event EventHandler DownloadComplete;
 
-
         /// <summary>
         /// Event that fires when document download progress changes. Applications
         /// should use this event to update progress bars or other visual indicators
-        /// of download progress. 
+        /// of download progress.
         /// </summary>
         event BrowserProgressChangeEventHandler ProgressChange;
 
@@ -195,21 +169,18 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         event EventHandler TitleChanged;
 
-
         /// <summary>
         /// Event the fires when the StatusText property changes
         /// </summary>
         event EventHandler StatusTextChanged;
-
 
         /// <summary>
         /// Event that fires when the EncryptionLevel property changes
         /// </summary>
         event EventHandler EncryptionLevelChanged;
 
-
         /// <summary>
-        /// Event that fires when the state of the browser commands has changed. 
+        /// Event that fires when the state of the browser commands has changed.
         /// Applies generally to all command except for GoBack and GoForward which
         /// have special events defined for them (because they change so frequently).
         /// </summary>
@@ -230,7 +201,6 @@ namespace OpenLiveWriter.BrowserControl
         OneHundredTwentyEightBit = 6
     }
 
-
     /// <summary>
     /// Enumeration used with TextSize property
     /// </summary>
@@ -242,8 +212,6 @@ namespace OpenLiveWriter.BrowserControl
         Larger = 3,
         Largest = 4
     }
-
-
 
     /// <summary>
     /// Event arguments for events that communicate state about browser documents
@@ -269,7 +237,6 @@ namespace OpenLiveWriter.BrowserControl
             get { return m_url; }
         }
         private string m_url;
-
 
         /// <summary>
         /// IDispatch of browser document. To check whether this document implements
@@ -411,7 +378,6 @@ namespace OpenLiveWriter.BrowserControl
 
     public delegate void BrowserNavigateErrorEventHandler(object sender, BrowserNavigateErrorEventArgs e);
 
-
     /// <summary>
     /// Event arguments for ProgressChange event
     /// </summary>
@@ -472,7 +438,6 @@ namespace OpenLiveWriter.BrowserControl
         }
         private long m_progressMax;
     }
-
 
     /// <summary>
     /// Delegate used for ProgressChange events

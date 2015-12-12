@@ -104,7 +104,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private IProgressHost progressHost;
 
-
         /// <summary>
         /// Indicates whether the download is complete
         /// </summary>
@@ -128,7 +127,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private WebPageDownloaderResult _result = null;
 
-
         /// <summary>
         /// Disposes this object
         /// </summary>
@@ -147,7 +145,6 @@ namespace OpenLiveWriter.CoreServices
             Debug.Fail("Failed to dispose WebPageDownloader. Please call Dispose to clean it up.");
         }
 
-
         public int GetDownloadOptions()
         {
             int downloadControl = DLCTL.DOWNLOADONLY | DLCTL.NO_CLIENTPULL |
@@ -156,7 +153,6 @@ namespace OpenLiveWriter.CoreServices
 
             return downloadControl;
         }
-
 
         /// <summary>
         /// Hook the browser events
@@ -220,8 +216,6 @@ namespace OpenLiveWriter.CoreServices
 
             OnDownloadComplete(e);
         }
-
-
 
         /// <summary>
         /// Handle new window event (prevent all pop-up windows from displaying)
@@ -287,7 +281,6 @@ namespace OpenLiveWriter.CoreServices
         {
             if (progressHost.CancelRequested)
                 throw new OperationCancelledException();
-
 
             long longMax = e.ProgressMax;
             long longComp = e.Progress;
@@ -419,7 +412,6 @@ namespace OpenLiveWriter.CoreServices
             LOG(iface, method);
         }
 
-
         public WinInetCredentialsContext CredentialsContext
         {
             set
@@ -440,10 +432,7 @@ namespace OpenLiveWriter.CoreServices
             set { browserControl.SetCookies(Url, value); }
         }
 
-
         #endregion
-
-
 
         public class WebPageDownloaderResult
         {
@@ -507,8 +496,6 @@ namespace OpenLiveWriter.CoreServices
 
     }
 
-
-
     public class WebPageDownloaderException : Exception
     {
         public WebPageDownloaderException(string message, string finalUrl) : this(-1, message, finalUrl)
@@ -540,7 +527,5 @@ namespace OpenLiveWriter.CoreServices
             }
         }
     }
-
-
 
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -41,7 +41,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         private bool isDirty;
 
         /// <summary>
-        /// When non-zero, suppress marking ourselves dirty and syncing 
+        /// When non-zero, suppress marking ourselves dirty and syncing
         /// with the "other" controller.
         /// </summary>
         private int suspendCount = 0;
@@ -392,7 +392,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             set
             {
                 datePublishDate.Tag = true; // Signal the datetime picker has a value
-                // Set the datetime and checked state without triggering the PublishDateTimePicker.ValueChanged2 event 
+                // Set the datetime and checked state without triggering the PublishDateTimePicker.ValueChanged2 event
                 datePublishDate.SetDateTimeAndChecked(datePublishDate.Checked, DateTimeHelper.UtcToLocal(value));
             }
         }

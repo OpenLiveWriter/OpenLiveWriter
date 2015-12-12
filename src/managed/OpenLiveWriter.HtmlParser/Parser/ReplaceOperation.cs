@@ -78,7 +78,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
         protected abstract string OnMatchingAttr(BeginTag tag, Attr attr);
         protected abstract string OnScriptLiteral(ScriptLiteral literal);
 
-
         protected override string Replace(Element el)
         {
             if (el is BeginTag)
@@ -108,6 +107,5 @@ namespace OpenLiveWriter.HtmlParser.Parser
         }
 
     }
-
 
 }

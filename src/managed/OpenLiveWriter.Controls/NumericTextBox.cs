@@ -14,7 +14,6 @@ namespace OpenLiveWriter.Controls
     {
         const int ES_NUMBER = 0x2000;
 
-
         protected override CreateParams CreateParams
         {
             [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]

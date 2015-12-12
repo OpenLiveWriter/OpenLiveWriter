@@ -16,7 +16,6 @@ namespace OpenLiveWriter.FileDestinations
     public class DestinationProfileManager
     {
 
-
         public DestinationProfileManager() : this(FILE_DESTINATIONS_KEY)
         {
 
@@ -28,8 +27,6 @@ namespace OpenLiveWriter.FileDestinations
         }
 
         #region Destination Settings Management
-
-
 
         public bool HasProfile(string key)
         {
@@ -156,8 +153,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
-
         /// <summary>
         /// Returns the registry subtree for a specified profile.
         /// </summary>
@@ -170,10 +165,7 @@ namespace OpenLiveWriter.FileDestinations
             return settings;
         }
 
-
         #endregion
-
-
 
         #region Class Configuration (location of settings, etc)
 
@@ -192,8 +184,6 @@ namespace OpenLiveWriter.FileDestinations
         private string _destinationKey;
 
         #endregion
-
-
 
         #region Constants
 

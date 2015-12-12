@@ -65,8 +65,6 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         }
 
-
-
         /// <summary>
         /// Try to extract the EditUri (RSD file URI) from the passed DOM
         /// </summary>
@@ -132,7 +130,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
             try
             {
-                // liberally parse the RSD xml 
+                // liberally parse the RSD xml
                 XmlReader reader = new XmlTextReader(
                     SkipLeadingWhitespace(new StreamReader(rsdStream, new UTF8Encoding(false, false))));
                 while (reader.Read())
@@ -143,13 +141,13 @@ namespace OpenLiveWriter.BlogClient.Detection
                         if (UrlHelper.UrlsAreEqual(reader.NamespaceURI, WINDOWS_LIVE_WRITER_NAMESPACE))
                         {
                             /*
-							switch ( reader.LocalName.ToLower() )
-							{
-								case "manifestlink":
-									rsdServiceDescription.WriterManifestUrl = reader.ReadString().Trim() ;
-									break;
-							}
-							*/
+                            switch ( reader.LocalName.ToLower() )
+                            {
+                                case "manifestlink":
+                                    rsdServiceDescription.WriterManifestUrl = reader.ReadString().Trim() ;
+                                    break;
+                            }
+                            */
                         }
                         // standard rsd elements
                         else
@@ -179,7 +177,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                                                 api.Preferred = "true" == reader.Value.Trim();
                                                 break;
                                             case "APILINK":
-                                            case "RPCLINK": // radio-userland uses rpcLink 
+                                            case "RPCLINK": // radio-userland uses rpcLink
                                                 api.ApiLink = ToAbsoluteUrl(url, reader.Value.Trim());
                                                 break;
                                             case "BLOGID":
@@ -210,7 +208,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             {
                 Trace.Fail("Exception attempting to read RSD file: " + ex.ToString());
 
-                // don't re-propagate exceptions here becaus we found that TypePad's 
+                // don't re-propagate exceptions here becaus we found that TypePad's
                 // RSD file was returning bogus HTTP crap at the end of the response
                 // and the XML parser cholking on this caused us to fail autodetection
             }
@@ -245,9 +243,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             return nName;
         }
 
-
         private const string WINDOWS_LIVE_WRITER_NAMESPACE = "http://www.microsoft.com/schemas/livewriter";
     }
-
 
 }

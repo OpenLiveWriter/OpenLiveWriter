@@ -15,7 +15,7 @@ namespace OpenLiveWriter.PostEditor.Tables
     /// </summary>
     public class TableIndentControl : System.Windows.Forms.UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -29,7 +29,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -45,15 +45,15 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // TableIndentControl
-            // 
+            //
             this.Name = "TableIndentControl";
             this.Size = new System.Drawing.Size(216, 24);
 

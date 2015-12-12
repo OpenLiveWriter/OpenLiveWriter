@@ -20,7 +20,6 @@ namespace OpenLiveWriter.HtmlParser.Parser.FormAgent
                 base.AddData(data);
         }
 
-
         public FormData Click()
         {
             return ParentForm.Submit(this);

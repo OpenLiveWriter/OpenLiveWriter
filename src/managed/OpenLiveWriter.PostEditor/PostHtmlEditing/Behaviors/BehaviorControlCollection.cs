@@ -71,7 +71,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         }
 
         /// <summary>
-        /// Adds a <see cref='OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors.BehaviorControl'/> with the specified value to the 
+        /// Adds a <see cref='OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors.BehaviorControl'/> with the specified value to the
         /// <see cref='OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors.BehaviorControlCollection'/> .
         /// </summary>
         /// <param name='value'>The <see cref='OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors.BehaviorControl'/> to add.</param>

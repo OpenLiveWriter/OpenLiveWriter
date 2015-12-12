@@ -24,10 +24,10 @@ namespace OpenLiveWriter.CoreServices
         /// Stop this ThreadSafeQueue from any further enqueues.
         /// Termination is a one-way operation; there is no way
         /// to un-terminate a terminated queue.
-        /// 
+        ///
         /// Termination is a way to indicate to consumer threads
         /// that no more items are forthcoming.
-        /// 
+        ///
         /// Note that termination is strictly optional; if you
         /// have some other mechanism for signaling job completion
         /// to your threads (such as Thread.Interrupt()) and
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         /// <param name="clearQueueBeforeTerminate">
         /// Clear queue before terminating.  If false, any items
-        /// already in the queue will continue to be dequeued 
+        /// already in the queue will continue to be dequeued
         /// normally.
         /// </param>
         public void Terminate(bool clearQueueBeforeTerminate)
@@ -83,7 +83,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Get an object from the queue if one is available.
-        /// Returns immediately either way (unless the queue is under 
+        /// Returns immediately either way (unless the queue is under
         /// extremely high contention).
         /// </summary>
         /// <param name="success">
@@ -224,7 +224,7 @@ namespace OpenLiveWriter.CoreServices
     }
 
     /// <summary>
-    /// Indicates that the ThreadSafeQueue has been Terminated() and 
+    /// Indicates that the ThreadSafeQueue has been Terminated() and
     /// can no longer be used.
     /// </summary>
     [Serializable]

@@ -34,8 +34,6 @@ namespace OpenLiveWriter.CoreServices
             return null;
         }
 
-
-
         /// <summary>
         /// The title of the Text DataObject
         /// </summary>
@@ -49,7 +47,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private string m_title;
-
 
         /// <summary>
         /// The actual textual data from the IDataObject
@@ -76,7 +73,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string m_text;
 
-
         /// <summary>
         /// Constructor for TextData
         /// </summary>
@@ -88,7 +84,6 @@ namespace OpenLiveWriter.CoreServices
         private IDataObject m_dataObject;
 
         private const string OUTLOOK_FORMAT_IGNORE_TEXT = "RenPrivateMessages";
-
 
     }
 

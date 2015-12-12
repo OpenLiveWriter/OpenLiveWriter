@@ -36,7 +36,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
         private MapPushpinEditedHandler _pushpinEditedHandler;
 
-
         public MapPushpinForm(IWin32Window parentFrame, Point location, MapPushpinEditedHandler pushpinEditedHandler)
             : this(parentFrame, location, pushpinEditedHandler, null)
         {
@@ -93,7 +92,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             LayoutHelper.FixupOKCancel(buttonSave, buttonCancel);
         }
 
-
         private void buttonSave_Click(object sender, System.EventArgs e)
         {
             string title = StringHelper.Ellipsis(textBoxTitle.Text.Trim(), 600);
@@ -105,7 +103,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             // initialize the pushpin info
             MapPushpinInfo pushpinInfo = new MapPushpinInfo(title);
 
-            // treat an empty title as the same as "Cancel" -- since this dialog dismisses 
+            // treat an empty title as the same as "Cancel" -- since this dialog dismisses
             // on deactivation we can't really throw up a message-box
             if (pushpinInfo.Title != String.Empty)
             {
@@ -118,7 +116,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
             Close();
         }
-
 
         private void buttonCancel_Click(object sender, System.EventArgs e)
         {
@@ -147,8 +144,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
                 g.DrawText(Text, boldFont, new Rectangle(4, 2, Width - 2, SystemInformation.ToolWindowCaptionHeight - 1), SystemColors.ActiveCaptionText);
 
         }
-
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -183,26 +178,26 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // labelTitle
-            // 
+            //
             this.labelTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelTitle.Location = new System.Drawing.Point(8, 23);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(185, 14);
             this.labelTitle.TabIndex = 1;
             this.labelTitle.Text = "&Title:";
-            // 
+            //
             // textBoxTitle
-            // 
+            //
             this.textBoxTitle.Location = new System.Drawing.Point(8, 39);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(220, 21);
             this.textBoxTitle.TabIndex = 2;
             this.textBoxTitle.Text = "Untitled pushpin";
-            // 
+            //
             // textBoxNotes
-            // 
+            //
             this.textBoxNotes.AcceptsReturn = true;
             this.textBoxNotes.Location = new System.Drawing.Point(8, 81);
             this.textBoxNotes.Multiline = true;
@@ -211,52 +206,52 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             this.textBoxNotes.Size = new System.Drawing.Size(220, 67);
             this.textBoxNotes.TabIndex = 4;
             this.textBoxNotes.Text = "";
-            // 
+            //
             // labelNotes
-            // 
+            //
             this.labelNotes.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelNotes.Location = new System.Drawing.Point(8, 66);
             this.labelNotes.Name = "labelNotes";
             this.labelNotes.Size = new System.Drawing.Size(215, 14);
             this.labelNotes.TabIndex = 3;
             this.labelNotes.Text = "&Notes:";
-            // 
+            //
             // textBoxPhotoUrl
-            // 
+            //
             this.textBoxPhotoUrl.Location = new System.Drawing.Point(8, 168);
             this.textBoxPhotoUrl.Name = "textBoxPhotoUrl";
             this.textBoxPhotoUrl.Size = new System.Drawing.Size(220, 21);
             this.textBoxPhotoUrl.TabIndex = 6;
             this.textBoxPhotoUrl.Text = "";
-            // 
+            //
             // labelPhotoUrl
-            // 
+            //
             this.labelPhotoUrl.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPhotoUrl.Location = new System.Drawing.Point(8, 153);
             this.labelPhotoUrl.Name = "labelPhotoUrl";
             this.labelPhotoUrl.Size = new System.Drawing.Size(211, 14);
             this.labelPhotoUrl.TabIndex = 5;
             this.labelPhotoUrl.Text = "&Photo URL:";
-            // 
+            //
             // textBoxMoreInfoUrl
-            // 
+            //
             this.textBoxMoreInfoUrl.Location = new System.Drawing.Point(8, 211);
             this.textBoxMoreInfoUrl.Name = "textBoxMoreInfoUrl";
             this.textBoxMoreInfoUrl.Size = new System.Drawing.Size(220, 21);
             this.textBoxMoreInfoUrl.TabIndex = 8;
             this.textBoxMoreInfoUrl.Text = "";
-            // 
+            //
             // labelMoreInfoUrl
-            // 
+            //
             this.labelMoreInfoUrl.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelMoreInfoUrl.Location = new System.Drawing.Point(8, 195);
             this.labelMoreInfoUrl.Name = "labelMoreInfoUrl";
             this.labelMoreInfoUrl.Size = new System.Drawing.Size(216, 14);
             this.labelMoreInfoUrl.TabIndex = 7;
             this.labelMoreInfoUrl.Text = "&URL for more info:";
-            // 
+            //
             // buttonSave
-            // 
+            //
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonSave.Location = new System.Drawing.Point(73, 238);
@@ -264,9 +259,9 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             this.buttonSave.TabIndex = 9;
             this.buttonSave.Text = "&Save";
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -275,9 +270,9 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             this.buttonCancel.TabIndex = 10;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
+            //
             // MapPushpinForm
-            // 
+            //
             this.AcceptButton = this.buttonSave;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.BackColor = System.Drawing.Color.White;
@@ -299,7 +294,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
         }
         #endregion
-
 
     }
 
@@ -339,7 +333,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
             set { _moreInfoUrl = value; }
         }
         private string _moreInfoUrl = String.Empty;
-
 
     }
 }

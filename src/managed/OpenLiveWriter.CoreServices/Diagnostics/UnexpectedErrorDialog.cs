@@ -65,7 +65,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             DisplayHelper.AutoFitSystemButton(buttonExit, buttonExit.Width, int.MaxValue);
         }
 
-
         /// <summary>
         /// Creates a new dialog
         /// </summary>
@@ -112,9 +111,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonSendError = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panel1
-            // 
+            //
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
@@ -124,9 +123,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(399, 71);
             this.panel1.TabIndex = 0;
-            // 
+            //
             // labelTitle
-            // 
+            //
             this.labelTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.labelTitle.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -135,9 +134,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.labelTitle.Size = new System.Drawing.Size(390, 27);
             this.labelTitle.TabIndex = 1;
             this.labelTitle.Text = "Title goes here.";
-            // 
+            //
             // labelMessage
-            // 
+            //
             this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -148,9 +147,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.labelMessage.Size = new System.Drawing.Size(309, 27);
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "Message goes here.";
-            // 
+            //
             // buttonExit
-            // 
+            //
             this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonExit.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -161,9 +160,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonExit.Text = "Exit";
             this.buttonExit.Visible = false;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
-            // 
+            //
             // buttonContinue
-            // 
+            //
             this.buttonContinue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonContinue.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonContinue.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -174,9 +173,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonContinue.TabIndex = 5;
             this.buttonContinue.Text = "&Continue";
             this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
-            // 
+            //
             // labelClickHere
-            // 
+            //
             this.labelClickHere.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelClickHere.AutoSize = true;
             this.labelClickHere.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -191,9 +190,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.labelClickHere.TabStop = true;
             this.labelClickHere.Text = "Click here to see error details";
             this.labelClickHere.Click += new System.EventHandler(this.labelClickHere_Click);
-            // 
+            //
             // labelDescription
-            // 
+            //
             this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelDescription.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelDescription.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -202,9 +201,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.labelDescription.Size = new System.Drawing.Size(383, 34);
             this.labelDescription.TabIndex = 2;
             this.labelDescription.Text = "We have created an error summary that you can view.";
-            // 
+            //
             // buttonSendError
-            // 
+            //
             this.buttonSendError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSendError.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonSendError.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -215,9 +214,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonSendError.TabIndex = 8;
             this.buttonSendError.Text = "&Send Error";
             this.buttonSendError.Click += new System.EventHandler(this.buttonSendError_Click);
-            // 
+            //
             // UnexpectedErrorDialog
-            // 
+            //
             this.ClientSize = new System.Drawing.Size(390, 249);
             this.ControlBox = false;
             this.Controls.Add(this.buttonSendError);
@@ -240,7 +239,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         }
         #endregion
 
-
         private void buttonExit_Click(object sender, EventArgs e)
         {
             Process.GetCurrentProcess().Kill();
@@ -257,7 +255,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             Close();
         }
 
-
         private void labelClickHere_Click(object sender, EventArgs e)
         {
             try
@@ -273,7 +270,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                 Trace.Fail("Unable to report error.\r\n\r\n" + ex.Message);
             }
         }
-
 
         private string DiagnosticsFilePath
         {
@@ -317,8 +313,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         }
         private string m_diagnosticsFilePath = null;
 
-
-
         private static void WriteMemoryStatus(TextWriter writer)
         {
             try
@@ -339,7 +333,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             }
         }
 
-
         private static string ReadExecutable()
         {
             string executable = string.Empty;
@@ -350,7 +343,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             catch { }
             return executable;
         }
-
 
         private void WriteException(Exception ex, StreamWriter writer)
         {
@@ -365,10 +357,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         private int m_exceptionDepth = 0;
         private static readonly int MAX_EXCEPTION_DEPTH = 25;
 
-
         private readonly Exception m_rootCause;
     }
-
-
 
 }

@@ -66,7 +66,7 @@ namespace OpenLiveWriter.CoreServices
         /// <param name="detectImage">
         /// Takes background-image into account when looking for background color.
         /// This is positionally sensitive so if you're not sure if your elements
-        /// are in the "correct" positions relative to each other (such as in 
+        /// are in the "correct" positions relative to each other (such as in
         /// Web Layout view) you may want to set this to false.
         /// </param>
         /// <param name="pageUrl">The URL that should be used to escape relative background image paths. Can be null.</param>
@@ -309,7 +309,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Returns true if the hex color is considered dark. This is useful when trying to decide whether to 
+        /// Returns true if the hex color is considered dark. This is useful when trying to decide whether to
         /// contrast a color with a light or dark value.
         /// </summary>
         /// <param name="color"></param>

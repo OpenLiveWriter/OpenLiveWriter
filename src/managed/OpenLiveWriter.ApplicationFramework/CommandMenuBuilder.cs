@@ -59,7 +59,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         /// <summary>
         /// Initializes a new instance of the CommandMenuBuilder class.
-        /// </summary>		
+        /// </summary>
         public CommandMenuBuilder(MenuType menuType)
         {
             this.menuType = menuType;
@@ -146,7 +146,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// <summary>
         /// Helper to parse a menu path entry describing a menu item in the form:
         ///		[-]text@position
-        ///		
+        ///
         ///	'-'			Optional.  Specifies that a separator menu item should be inserted before the
         ///				menu item item.
         ///	text		Menu item text (i.e. &File)

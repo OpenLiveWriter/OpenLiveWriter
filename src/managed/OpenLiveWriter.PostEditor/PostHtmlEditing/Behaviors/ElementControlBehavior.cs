@@ -114,7 +114,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                 g.CompositingMode = CompositingMode.SourceOver;
                 g.CompositingQuality = CompositingQuality.HighQuality;
 
-                //	Raise the Paint event 
+                //	Raise the Paint event
                 Paint(new PaintEventArgs(g, bounds));
 
                 //	End the graphics container.
@@ -439,7 +439,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                 MouseBehaviorControl.RaiseClick(e);
         }
 
-
         #region IBehaviorControlContainerControl Members
 
         /// <summary>
@@ -735,7 +734,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
 
         public override int HitTestPoint(POINT pt, ref bool pbHit, ref int plPartID)
         {
-            // The given point's origin includes padding set by rcExpand. We translate this to a point whose origin 
+            // The given point's origin includes padding set by rcExpand. We translate this to a point whose origin
             // does not include padding.
             Point testPoint = new Point(pt.x - LeftPadding, pt.y - TopPadding);
 

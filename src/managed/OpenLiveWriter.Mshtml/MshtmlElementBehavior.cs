@@ -16,7 +16,7 @@ namespace OpenLiveWriter.Mshtml
 
     /// <summary>
     /// Implementation of MSHTML element behavior interfaces (IElementBehavior
-    /// and IHTMLPainter) that serve as as a base class for custom behaviors. 
+    /// and IHTMLPainter) that serve as as a base class for custom behaviors.
     /// </summary>
     public abstract class MshtmlElementBehavior : IElementBehaviorRaw, IHTMLPainterRaw, IHTMLPainterEventInfoRaw, IDisposable
     {
@@ -56,7 +56,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Access HTML element and HTML document properties, etc.
         /// </summary>
@@ -69,7 +68,7 @@ namespace OpenLiveWriter.Mshtml
         #region Public Interface
 
         /// <summary>
-        /// Get the HTML element 
+        /// Get the HTML element
         /// </summary>
         public IHTMLElement HTMLElement
         {
@@ -78,9 +77,9 @@ namespace OpenLiveWriter.Mshtml
                 Debug.Assert(_attached, "Getting HTMLElement from detached behavior!");
                 if (_attached)
                 {
-                    // From the MSDN docs: Use the IElementBehaviorSite.GetElement method to get a pointer to the 
-                    // element that the DHTML behavior is attached to. Note that the pointer returned by a call to the 
-                    // IElementBehaviorSite.GetElement method should not be cached, because caching prevents the 
+                    // From the MSDN docs: Use the IElementBehaviorSite.GetElement method to get a pointer to the
+                    // element that the DHTML behavior is attached to. Note that the pointer returned by a call to the
+                    // IElementBehaviorSite.GetElement method should not be cached, because caching prevents the
                     // behavior from receiving a detach call.
                     IHTMLElement element = _elementBehaviorSite.GetElement();
                     Debug.Assert(element != null, "IElementBehaviorSite.GetElement returned null while behavior was attached!");
@@ -94,9 +93,7 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-
         #region Protected Helper Methods
-
 
         protected IHTMLPaintSiteRaw HTMLPaintSite
         {
@@ -107,18 +104,17 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Behaviors often have a scope and lifetime beyond the HTML elements they are attached to, so it's critical 
-        /// that methods that may be called after a behavior has been detached (i.e. event handlers) check to make 
+        /// Behaviors often have a scope and lifetime beyond the HTML elements they are attached to, so it's critical
+        /// that methods that may be called after a behavior has been detached (i.e. event handlers) check to make
         /// sure the behavior is still attached and the associated HTMLElement is not null before executing.
         /// </summary>
-	    public bool Attached
+        public bool Attached
         {
             get
             {
                 return _attached;
             }
         }
-
 
         /// <summary>
         /// Convenience method to invalidate the entire element
@@ -156,16 +152,14 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         #endregion
-
 
         #region IElementBehavior Implementation
 
         /// <summary>
         /// IElementBehavior.Init -- Notifies the Dynamic HTML (DHTML) behavior that it has been instantiated
         /// </summary>
-        /// <param name="pBehaviorSite">Pointer to the IElementBehaviorSite interface through 
+        /// <param name="pBehaviorSite">Pointer to the IElementBehaviorSite interface through
         /// which the DHTML behavior communicates with MSHTML </param>
         void IElementBehaviorRaw.Init(IElementBehaviorSite pBehaviorSite)
         {
@@ -174,9 +168,8 @@ namespace OpenLiveWriter.Mshtml
             _htmlPaintSite = (IHTMLPaintSiteRaw)_elementBehaviorSite;
         }
 
-
         /// <summary>
-        /// IElementBehavior.Notify -- Notifies the Dynamic HTML (DHTML) behavior about the 
+        /// IElementBehavior.Notify -- Notifies the Dynamic HTML (DHTML) behavior about the
         /// progress of parsing the document and the element to which the behavior is attached
         /// </summary>
         /// <param name="lEvent">event code</param>
@@ -202,7 +195,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// IElementBehavior.Detach -- Notifies the Dynamic HTML (DHTML) behavior that it is 
+        /// IElementBehavior.Detach -- Notifies the Dynamic HTML (DHTML) behavior that it is
         /// being detached from an element
         /// </summary>
         void IElementBehaviorRaw.Detach()
@@ -211,7 +204,6 @@ namespace OpenLiveWriter.Mshtml
         }
 
         #endregion
-
 
         #region IHTMLPainter Implementation
 
@@ -223,17 +215,16 @@ namespace OpenLiveWriter.Mshtml
         /// information the behavior needs to pass to MSHTML</param>
         public abstract void GetPainterInfo(ref _HTML_PAINTER_INFO pInfo);
 
-
         /// <summary>
-        /// IHTMLPainter.HitTestPoint -- Called by MSHTML to retrieve a value that specifies 
+        /// IHTMLPainter.HitTestPoint -- Called by MSHTML to retrieve a value that specifies
         /// whether a point is contained in a rendering behavior
         /// </summary>
         /// <param name="pt">POINT structure that specifies the point clicked relative to the
         /// top-left corner of the element to which the behavior is attached</param>
-        /// <param name="pbHit">Pointer to a variable of type BOOL that receives TRUE if the 
-        /// point is contained in the element to which the rendering behavior is attached, or 
+        /// <param name="pbHit">Pointer to a variable of type BOOL that receives TRUE if the
+        /// point is contained in the element to which the rendering behavior is attached, or
         /// FALSE otherwise</param>
-        /// <param name="plPartID">Pointer to a variable of type LONG that receives a number 
+        /// <param name="plPartID">Pointer to a variable of type LONG that receives a number
         /// identifying which part of the behavior has been hit</param>
         /// <returns></returns>
         public virtual int HitTestPoint(POINT pt, ref bool pbHit, ref int plPartID)
@@ -243,16 +234,14 @@ namespace OpenLiveWriter.Mshtml
             return HRESULT.S_OK;
         }
 
-
         /// <summary>
         /// IHTMLPainter.Resize -- Called by MSHTML when an element containing a rendering behavior is resized
         /// </summary>
-        /// <param name="size">SIZE structure that specifies the new width and height for the element, 
+        /// <param name="size">SIZE structure that specifies the new width and height for the element,
         /// including any expanded region</param>
         public virtual void OnResize(SIZE size)
         {
         }
-
 
         /// <summary>
         /// IHTMLPainter.Draw -- Called by MSHTML to render a behavior in the browser's client area
@@ -260,8 +249,8 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="rcBounds">RECT that specifies the bounds of the element to which the behavior is attached</param>
         /// <param name="rcUpdate">RECT that specifies a bounding rectangle for the region that needs to be redrawn</param>
         /// <param name="lDrawFlags">HTML_PAINT_DRAW_FLAGS enumeration that specifies options to use while drawing</param>
-        /// <param name="hdc">HDC that specifies a Microsoft® Windows® Graphics Device Interface (GDI) device context for the behavior to use while drawing</param>
-        /// <param name="pvDrawObject">Pointer to a drawing object, such as a Microsoft DirectDraw® surface, for the behavior to use while drawing</param>
+        /// <param name="hdc">HDC that specifies a MicrosoftÂ® WindowsÂ® Graphics Device Interface (GDI) device context for the behavior to use while drawing</param>
+        /// <param name="pvDrawObject">Pointer to a drawing object, such as a Microsoft DirectDrawÂ® surface, for the behavior to use while drawing</param>
         public virtual void Draw(RECT rcBounds, RECT rcUpdate, int lDrawFlags, IntPtr hdc, IntPtr pvDrawObject)
         {
         }
@@ -285,10 +274,9 @@ namespace OpenLiveWriter.Mshtml
             ppElement = Marshal.StringToBSTR(lPartID.ToString(CultureInfo.InvariantCulture));
         }
 
-
         #endregion
 
-        #region IDisposable Members        
+        #region IDisposable Members
 
         public event EventHandler Disposed;
 

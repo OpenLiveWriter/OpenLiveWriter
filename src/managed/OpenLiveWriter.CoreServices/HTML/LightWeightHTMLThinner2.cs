@@ -78,7 +78,6 @@ namespace OpenLiveWriter.CoreServices.HTML
             _tagSpecs.Add("h5", new TagDesc("h6", TagType.Block));
             _tagSpecs.Add("h6", new TagDesc("h6", TagType.Block));
 
-
             _tagSpecs.Add("a", new TagDesc(TagType.Inline, "href", "name"));
 
             _tagSpecs.Add("br", new TagDesc(TagType.Empty, "clear"));
@@ -122,7 +121,6 @@ namespace OpenLiveWriter.CoreServices.HTML
             _tagSpecsStrict.Add("h4", P);
             _tagSpecsStrict.Add("h5", P);
             _tagSpecsStrict.Add("h6", P);
-
 
             _tagSpecsStrict.Add("br", BR);
 
@@ -262,7 +260,7 @@ namespace OpenLiveWriter.CoreServices.HTML
         }
 
         /// <summary>
-        /// Write a begin tag to the StringBuilder.  Attributes will be 
+        /// Write a begin tag to the StringBuilder.  Attributes will be
         /// filtered according to the provided TagDesc, if any.
         /// </summary>
         private void WriteBeginTag(TagDesc desc, string tagName, Attr[] attributes, StringBuilder output)
@@ -357,7 +355,6 @@ namespace OpenLiveWriter.CoreServices.HTML
                         return string.Empty;
                 }
             }
-
 
             public static ElementClass ClassifyText(string text)
             {

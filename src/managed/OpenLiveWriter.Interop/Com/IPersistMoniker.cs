@@ -43,4 +43,3 @@ namespace OpenLiveWriter.Interop.Com
     }
 }
 
-

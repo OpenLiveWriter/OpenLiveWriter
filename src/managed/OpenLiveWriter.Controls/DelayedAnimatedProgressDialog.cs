@@ -21,10 +21,8 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private Container components = null;
 
-
         private OpenLiveWriter.CoreServices.AsyncOperation _asyncOperation;
         private AnimatedBitmapControl _animatedBitmapControl;
-
 
         public DelayedAnimatedProgressDialog()
         {
@@ -37,32 +35,31 @@ namespace OpenLiveWriter.Controls
             Icon = ApplicationEnvironment.ProductIcon;
         }
 
-
         public void ShowDialogWithDelay(IWin32Window owner, OpenLiveWriter.CoreServices.AsyncOperation asyncOperation, int delayMs)
         {
             // JJA: THIS TECHNIQUE DOES NOT WORK AND CAUSES ALL KINDS OF PROBLEMS! WE NEED A DIFFERENT
             // TECHNIQUE THAT DOES NOT STARVE THE UI THREAD. DO NOT UNDER ANY CONDITIONS RESTORE
             // THIS CODE!!!!!!
             /*
-			// start out by polling the get post operation for completion for the delay interval
-			using ( new WaitCursor() )
-			{
-				const int SPLICE_MS = 100 ;
-				int waitMs = 0 ;
-				while( waitMs < delayMs )
-				{
-					if ( asyncOperation.IsDone )
-					{
-						return ;
-					}
-					else
-					{
-						Thread.Sleep(SPLICE_MS);
-						waitMs += SPLICE_MS ;
-					}
-				}
-			}
-			*/
+            // start out by polling the get post operation for completion for the delay interval
+            using ( new WaitCursor() )
+            {
+                const int SPLICE_MS = 100 ;
+                int waitMs = 0 ;
+                while( waitMs < delayMs )
+                {
+                    if ( asyncOperation.IsDone )
+                    {
+                        return ;
+                    }
+                    else
+                    {
+                        Thread.Sleep(SPLICE_MS);
+                        waitMs += SPLICE_MS ;
+                    }
+                }
+            }
+            */
 
             // got past the delay interval, need to signup for events and show the dialog
             _asyncOperation = asyncOperation;
@@ -117,7 +114,6 @@ namespace OpenLiveWriter.Controls
             Close();
         }
 
-
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
@@ -127,7 +123,6 @@ namespace OpenLiveWriter.Controls
             if (!_animatedBitmapControl.Running)
                 _animatedBitmapControl.Start();
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -163,9 +158,9 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // DelayedAnimatedProgressDialog
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(264, 141);
             this.Location = new System.Drawing.Point(0, 0);
@@ -176,7 +171,6 @@ namespace OpenLiveWriter.Controls
 
         }
         #endregion
-
 
     }
 }

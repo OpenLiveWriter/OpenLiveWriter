@@ -9,10 +9,10 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// DataObject base is a simple class that holds an IDataObject and delegates
-    /// calls to it.  Since it implements the IDataObject interface, you can 
+    /// calls to it.  Since it implements the IDataObject interface, you can
     /// derive from it and be an IDataObject yourself.  When using it it,
     /// be sure you set the IDataObject prior to any methods being called on it.
-    /// 
+    ///
     /// Since all public methods simple delegate, see documentation on IDataObject
     /// for reference on methods.
     /// </summary>
@@ -90,7 +90,6 @@ namespace OpenLiveWriter.CoreServices
             m_dataObject.SetData(format, autoConvert, data);
         }
 
-
         /// <summary>
         /// The IDataObject which is contained by the DataObjectBase.
         /// </summary>
@@ -107,7 +106,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private IDataObject m_dataObject;
-
 
         /// <summary>
         /// Validates that the dataobject isn't null.

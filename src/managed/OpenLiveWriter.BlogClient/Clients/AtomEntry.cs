@@ -140,7 +140,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="entryEl"></param>
         /// <param name="nsMgr"></param>
@@ -243,16 +243,16 @@ T
 (?<second>\d{2})
 (\. (?<fraction>\d+) )?
 (?<timezone>
-	(?<utc>Z)
-	|
-	(?<offset>
-		(?<offdir>[+-])
-		(?<offhour>\d{2})
-		(?:
-			\:?
-			(?<offmin>\d{2})
-		)?
-	)
+    (?<utc>Z)
+    |
+    (?<offset>
+        (?<offdir>[+-])
+        (?<offhour>\d{2})
+        (?:
+            \:?
+            (?<offmin>\d{2})
+        )?
+    )
 )
 $", RegexOptions.IgnorePatternWhitespace);
 

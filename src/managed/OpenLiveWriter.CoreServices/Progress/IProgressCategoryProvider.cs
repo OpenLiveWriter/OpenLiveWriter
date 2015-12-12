@@ -27,9 +27,8 @@ namespace OpenLiveWriter.CoreServices.Progress
         event EventHandler ProgressCategoryChanged;
     }
 
-
     /// <summary>
-    /// Progress category 
+    /// Progress category
     /// </summary>
     public class ProgressCategory
     {

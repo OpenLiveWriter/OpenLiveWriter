@@ -14,7 +14,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     {
         private System.Windows.Forms.Label labelSelectWeblog;
         private System.Windows.Forms.ListBox listBoxSelectWeblog;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -84,7 +84,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 listBoxSelectWeblog.SelectedIndex = 0;
         }
 
-
         public BlogInfo SelectedBlog
         {
             get
@@ -98,8 +97,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             return SelectedBlog != null;
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -115,8 +113,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -124,14 +122,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelSelectWeblog = new System.Windows.Forms.Label();
             this.listBoxSelectWeblog = new System.Windows.Forms.ListBox();
             this.panelMain.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.listBoxSelectWeblog);
             this.panelMain.Controls.Add(this.labelSelectWeblog);
-            // 
+            //
             // labelSelectWeblog
-            // 
+            //
             this.labelSelectWeblog.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelSelectWeblog.Location = new System.Drawing.Point(20, 0);
             this.labelSelectWeblog.Name = "labelSelectWeblog";
@@ -139,16 +137,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelSelectWeblog.TabIndex = 0;
             this.labelSelectWeblog.Text = "More than one Weblog was detected. Please select the Weblog that you\'d like to ad" +
                 "d from the list below:";
-            // 
+            //
             // listBoxSelectWeblog
-            // 
+            //
             this.listBoxSelectWeblog.Location = new System.Drawing.Point(20, 32);
             this.listBoxSelectWeblog.Name = "listBoxSelectWeblog";
             this.listBoxSelectWeblog.Size = new System.Drawing.Size(280, 121);
             this.listBoxSelectWeblog.TabIndex = 1;
-            // 
+            //
             // WeblogConfigurationWizardPanelSelectBlog
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelSelectBlog";
             this.Size = new System.Drawing.Size(432, 244);
             this.panelMain.ResumeLayout(false);

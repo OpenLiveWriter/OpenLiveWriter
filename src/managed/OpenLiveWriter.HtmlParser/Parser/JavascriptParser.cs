@@ -123,7 +123,5 @@ namespace OpenLiveWriter.HtmlParser.Parser
             }
         }
 
-
-
     }
 }

@@ -45,9 +45,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.grpAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // txtFilter
-            // 
+            //
             this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -56,9 +56,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.txtFilter.Size = new System.Drawing.Size(157, 14);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
-            // 
+            //
             // selectorContainer
-            // 
+            //
             this.selectorContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -66,9 +66,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.selectorContainer.Name = "selectorContainer";
             this.selectorContainer.Size = new System.Drawing.Size(209, 250);
             this.selectorContainer.TabIndex = 2;
-            // 
+            //
             // lblNone
-            // 
+            //
             this.lblNone.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNone.BackColor = System.Drawing.SystemColors.Window;
@@ -79,9 +79,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.lblNone.Text = "(No categories)";
             this.lblNone.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblNone.Visible = false;
-            // 
+            //
             // btnRefresh
-            // 
+            //
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.Location = new System.Drawing.Point(202, 12);
             this.btnRefresh.Name = "btnRefresh";
@@ -90,9 +90,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.toolTip.SetToolTip(this.btnRefresh, "Refresh List");
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
+            //
             // grpAdd
-            // 
+            //
             this.grpAdd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.grpAdd.Controls.Add(this.btnDoAdd);
@@ -105,9 +105,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.grpAdd.TabIndex = 3;
             this.grpAdd.TabStop = false;
             this.grpAdd.Text = "Add Category";
-            // 
+            //
             // btnDoAdd
-            // 
+            //
             this.btnDoAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDoAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnDoAdd.Location = new System.Drawing.Point(170, 46);
@@ -117,9 +117,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.btnDoAdd.Text = "&Add";
             this.btnDoAdd.UseVisualStyleBackColor = true;
             this.btnDoAdd.Click += new System.EventHandler(this.btnDoAdd_Click);
-            // 
+            //
             // cbParent
-            // 
+            //
             this.cbParent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.cbParent.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -131,18 +131,18 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.cbParent.Name = "cbParent";
             this.cbParent.Size = new System.Drawing.Size(156, 22);
             this.cbParent.TabIndex = 1;
-            // 
+            //
             // txtNewCategory
-            // 
+            //
             this.txtNewCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNewCategory.Location = new System.Drawing.Point(8, 20);
             this.txtNewCategory.Name = "txtNewCategory";
             this.txtNewCategory.Size = new System.Drawing.Size(197, 21);
             this.txtNewCategory.TabIndex = 0;
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox1.Location = new System.Drawing.Point(179, 16);
@@ -151,9 +151,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.pictureBox1.Size = new System.Drawing.Size(15, 15);
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // CategoryDisplayFormW3M1
-            // 
+            //
             this.ClientSize = new System.Drawing.Size(233, 391);
             this.Controls.Add(this.lblNone);
             this.Controls.Add(this.pictureBox1);

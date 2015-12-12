@@ -15,7 +15,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         }
         private const string SIDEBAR_VISIBLE = "SidebarVisible";
 
-
         internal static SettingsPersisterHelper SettingsKey = HtmlEditorSettings.SettingsKey.GetSubSettings("Sidebar");
     }
 }

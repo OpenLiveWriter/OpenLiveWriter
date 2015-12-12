@@ -14,12 +14,11 @@ using OpenLiveWriter.Localization;
 namespace OpenLiveWriter.PostEditor.Tables
 {
 
-
     public class TableAlignmentControl : System.Windows.Forms.UserControl
     {
         private System.Windows.Forms.Label labelCaption;
         private System.Windows.Forms.ComboBox comboBoxValue;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -53,7 +52,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                     c.Width = c.comboBoxValue.Right + 1;
             }
         }
-
 
         protected void Initialize(AlignmentEditingProfile profile)
         {
@@ -91,9 +89,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 comboBoxValue.Items.Remove(option);
         }
 
-
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -109,8 +105,8 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -118,26 +114,26 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.labelCaption = new System.Windows.Forms.Label();
             this.comboBoxValue = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
+            //
             // labelCaption
-            // 
+            //
             this.labelCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCaption.Location = new System.Drawing.Point(0, 3);
             this.labelCaption.Name = "labelCaption";
             this.labelCaption.Size = new System.Drawing.Size(113, 17);
             this.labelCaption.TabIndex = 0;
             this.labelCaption.Text = "Horizontal alignment:";
-            // 
+            //
             // comboBoxValue
-            // 
+            //
             this.comboBoxValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxValue.Location = new System.Drawing.Point(115, 0);
             this.comboBoxValue.Name = "comboBoxValue";
             this.comboBoxValue.Size = new System.Drawing.Size(86, 21);
             this.comboBoxValue.TabIndex = 1;
-            // 
+            //
             // TableAlignmentControl
-            // 
+            //
             this.Controls.Add(this.comboBoxValue);
             this.Controls.Add(this.labelCaption);
             this.Name = "TableAlignmentControl";
@@ -160,8 +156,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 _value = value;
             }
 
-
-
             public string Caption { get { return _caption; } }
             public object Value { get { return _value; } }
 
@@ -179,7 +173,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             {
                 return _value.GetHashCode();
             }
-
 
             private string _caption;
             private object _value;
@@ -269,6 +262,5 @@ namespace OpenLiveWriter.PostEditor.Tables
         private readonly AlignmentOption MixedAlignment = new AlignmentOption("", VerticalAlignment.Mixed);
 
     }
-
 
 }

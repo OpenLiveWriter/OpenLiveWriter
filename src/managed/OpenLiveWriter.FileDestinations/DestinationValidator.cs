@@ -47,7 +47,6 @@ namespace OpenLiveWriter.FileDestinations
                 throw new DestinationServerFailedException(siteException);
             }
 
-
             if (urlMapping != null)
             {
                 try
@@ -115,6 +114,5 @@ namespace OpenLiveWriter.FileDestinations
 
         }
     }
-
 
 }

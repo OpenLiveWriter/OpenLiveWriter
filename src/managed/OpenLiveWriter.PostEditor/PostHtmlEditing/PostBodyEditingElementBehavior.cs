@@ -49,7 +49,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             if (e.htmlEvt.altKey)
             {
                 Keys keys = (Keys)e.htmlEvt.keyCode;
-                //alt+Left/Right is the control navigation shortcut 
+                //alt+Left/Right is the control navigation shortcut
                 if (keys == Keys.Right || keys == Keys.Left)
                 {
                     bool forward = keys == Keys.Right;
@@ -271,7 +271,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             insertionPoint.PushGravity(_POINTER_GRAVITY.POINTER_GRAVITY_Right);
             try
             {
-                //insert the entryBreak DIV into the beginning of the post body				
+                //insert the entryBreak DIV into the beginning of the post body
                 entryBreakDiv.id = EXTENDED_ENTRY_ID;
                 entryBreakDiv.setAttribute("name", EXTENDED_ENTRY_ID, 0);
 

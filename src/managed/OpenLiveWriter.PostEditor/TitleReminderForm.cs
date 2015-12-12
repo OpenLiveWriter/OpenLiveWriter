@@ -63,7 +63,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -87,7 +86,6 @@ namespace OpenLiveWriter.PostEditor
                 PostEditorSettings.TitleReminder = !cbDontShowAgain.Checked;
         }
 
-
         #region Windows Form Designer generated code
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -104,9 +102,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonNo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // cbDontShowAgain
-            // 
+            //
             this.cbDontShowAgain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         )));
             this.cbDontShowAgain.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -117,9 +115,9 @@ namespace OpenLiveWriter.PostEditor
             this.cbDontShowAgain.TabIndex = 4;
             this.cbDontShowAgain.Text = "&Don\'t remind me about missing titles in the future";
             this.cbDontShowAgain.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // labelExplanation
-            // 
+            //
             this.labelExplanation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         )));
             this.labelExplanation.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -129,9 +127,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelExplanation.TabIndex = 1;
             this.labelExplanation.Text = "You have not specified a title for this {0}. Do you still want to continue with p" +
                 "ublishing?";
-            // 
+            //
             // labelError
-            // 
+            //
             this.labelError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         )));
             this.labelError.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -141,9 +139,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelError.Size = new System.Drawing.Size(216, 23);
             this.labelError.TabIndex = 0;
             this.labelError.Text = "{0} Title Not Specified";
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(8, 8);
             this.pictureBox1.Name = "pictureBox1";
@@ -151,9 +149,9 @@ namespace OpenLiveWriter.PostEditor
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // buttonYes
-            // 
+            //
             this.buttonYes.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.buttonYes.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonYes.Location = new System.Drawing.Point(71, 97);
@@ -161,9 +159,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonYes.Size = new System.Drawing.Size(75, 23);
             this.buttonYes.TabIndex = 3;
             this.buttonYes.Text = "Yes";
-            // 
+            //
             // buttonNo
-            // 
+            //
             this.buttonNo.DialogResult = System.Windows.Forms.DialogResult.No;
             this.buttonNo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonNo.Location = new System.Drawing.Point(151, 97);
@@ -171,9 +169,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonNo.Size = new System.Drawing.Size(75, 23);
             this.buttonNo.TabIndex = 2;
             this.buttonNo.Text = "No";
-            // 
+            //
             // TitleReminderForm
-            // 
+            //
             this.AcceptButton = this.buttonNo;
             this.CancelButton = this.buttonNo;
             this.ClientSize = new System.Drawing.Size(314, 168);

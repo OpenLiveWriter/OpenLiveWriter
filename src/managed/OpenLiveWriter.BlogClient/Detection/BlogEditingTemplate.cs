@@ -35,7 +35,6 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         public readonly bool ContainsTitle;
 
-
         public BlogEditingTemplate(string template, bool containsTitle)
         {
             ContainsTitle = containsTitle;
@@ -98,7 +97,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             Debug.Assert(html.Contains("<HTML>"), "normal template lacks <HTML> tag in uppercase");
             return html.Replace("<HTML>", "<HTML dir=\"rtl\">");
         }
-
 
         public static string GetBlogTemplateDir(string blogId)
         {

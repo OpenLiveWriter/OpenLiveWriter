@@ -13,7 +13,6 @@ namespace OpenLiveWriter.PostEditor
     internal sealed class PostEditorSettingsM1
     {
 
-
         internal static SettingsPersisterHelper SettingsKey = ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("PostEditor");
 
     }

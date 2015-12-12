@@ -48,7 +48,6 @@ namespace OpenLiveWriter.ApplicationFramework
 
         #endregion Public Events
 
-
         #region Class Initialization & Termination
 
         /// <summary>

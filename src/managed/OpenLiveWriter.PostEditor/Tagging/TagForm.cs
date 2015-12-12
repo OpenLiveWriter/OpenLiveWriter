@@ -38,7 +38,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
             }
         }
 
-
         public string[] Tags
         {
             get
@@ -78,9 +77,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tagEditor = new OpenLiveWriter.PostEditor.Tagging.TagEditor();
             this.SuspendLayout();
-            // 
+            //
             // buttonInsert
-            // 
+            //
             this.buttonInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInsert.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonInsert.Location = new System.Drawing.Point(94, 179);
@@ -89,9 +88,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.buttonInsert.TabIndex = 2;
             this.buttonInsert.Text = "&Insert";
             this.buttonInsert.Click += new System.EventHandler(this.buttonInsert_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -101,9 +100,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
+            //
             // tagEditor
-            // 
+            //
             this.tagEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -113,9 +112,9 @@ namespace OpenLiveWriter.PostEditor.Tagging
             this.tagEditor.TabIndex = 0;
             this.tagEditor.TagProvider = null;
             this.tagEditor.Tags = new string[0];
-            // 
+            //
             // TagForm
-            // 
+            //
             this.AcceptButton = this.buttonInsert;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(288, 216);
@@ -139,7 +138,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
         private Container components = null;
         private TagEditor tagEditor;
 
-
         private void buttonInsert_Click(object sender, EventArgs e)
         {
             if (tagEditor.Tags.Length == 0)
@@ -154,8 +152,6 @@ namespace OpenLiveWriter.PostEditor.Tagging
         {
             DialogResult = DialogResult.Cancel;
         }
-
-
 
     }
 }

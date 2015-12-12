@@ -7,7 +7,7 @@ using System.Reflection;
 namespace OpenLiveWriter.Api
 {
     /// <summary>
-    /// Attribute applied to ContentSource and SmartContentSource classes which override the 
+    /// Attribute applied to ContentSource and SmartContentSource classes which override the
     /// CreateContentFromLiveClipboard method to enable creation of new content from Live
     /// Clipboard data.
     /// </summary>
@@ -18,7 +18,7 @@ namespace OpenLiveWriter.Api
         /// Initialize a new instance of a LiveClipboardContentSourceAttribute
         /// </summary>
         /// <param name="name">End-user presentable name of data format handled by this ContentSource.</param>
-        /// <param name="contentType">MIME content-type handled by this ContentSource (corresponds to the 
+        /// <param name="contentType">MIME content-type handled by this ContentSource (corresponds to the
         /// contentType attribute of the &lt;lc:format&gt; tag)</param>
         public LiveClipboardContentSourceAttribute(string name, string contentType)
         {
@@ -46,7 +46,7 @@ namespace OpenLiveWriter.Api
         private string _name = String.Empty;
 
         /// <summary>
-        /// MIME content-type handled by this ContentSource (corresponds to the 
+        /// MIME content-type handled by this ContentSource (corresponds to the
         /// contentType attribute of the &lt;lc:format&gt; tag)
         /// </summary>
         public string ContentType
@@ -68,7 +68,7 @@ namespace OpenLiveWriter.Api
         /// <summary>
         /// Path to embedded image resource used to represent this format within the Live Clipboard
         /// Preferences panel. The embedded image should be 20x18. If this attribute is not specified
-        /// then the image specified in the WriterPlugin attribute is used. 
+        /// then the image specified in the WriterPlugin attribute is used.
         /// </summary>
         public string ImagePath
         {
@@ -107,7 +107,7 @@ namespace OpenLiveWriter.Api
         private string _description = String.Empty;
 
         /// <summary>
-        /// Content sub-type handled by this content source. (corresponds to the 
+        /// Content sub-type handled by this content source. (corresponds to the
         /// type attribute of the &lt;lc:format&gt; tag). Optional (required only
         /// for formats which require additional disambiguration of the contentType
         /// attribute).

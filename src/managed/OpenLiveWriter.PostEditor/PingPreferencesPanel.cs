@@ -51,7 +51,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -65,8 +64,8 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -74,9 +73,9 @@ namespace OpenLiveWriter.PostEditor
             this.chkPing = new System.Windows.Forms.CheckBox();
             this.txtUrls = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
+            //
             // chkPing
-            // 
+            //
             this.chkPing.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.chkPing.Location = new System.Drawing.Point(8, 32);
             this.chkPing.Name = "chkPing";
@@ -85,9 +84,9 @@ namespace OpenLiveWriter.PostEditor
             this.chkPing.Text = "Send &pings to the URLs below (one URL per line)";
             this.chkPing.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chkPing.CheckedChanged += new System.EventHandler(this.chkPing_CheckedChanged);
-            // 
+            //
             // txtUrls
-            // 
+            //
             this.txtUrls.AcceptsReturn = true;
             this.txtUrls.Location = new System.Drawing.Point(8, 56);
             this.txtUrls.Multiline = true;
@@ -98,9 +97,9 @@ namespace OpenLiveWriter.PostEditor
             this.txtUrls.Text = "urls";
             this.txtUrls.WordWrap = false;
             this.txtUrls.TextChanged += new System.EventHandler(this.txtUrls_TextChanged);
-            // 
+            //
             // PingPreferencesPanel
-            // 
+            //
             this.Controls.Add(this.txtUrls);
             this.Controls.Add(this.chkPing);
             this.Name = "PingPreferencesPanel";

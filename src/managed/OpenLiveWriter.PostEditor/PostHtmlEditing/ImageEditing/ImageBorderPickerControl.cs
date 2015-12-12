@@ -14,7 +14,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     /// </summary>
     public class ImagePickerControl : ComboBox
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -26,7 +26,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             ItemHeight = CalculateItemHeight();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -62,8 +62,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 IComboImageItem comboItem = (IComboImageItem)item;
                 borderImage = comboItem.Image;
             }
-
-
 
             // determine state
             bool selected = (e.State & DrawItemState.Selected) > 0;
@@ -143,7 +141,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             base.OnDropDown(e);
         }
         bool dropDownShowing;
-
 
         int MAX_IMAGE_HEIGHT = 25;
         int MAX_IMAGE_WIDTH = 40;

@@ -29,7 +29,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static readonly GLink _instance;
 
-
         static GLink()
         {
             _instance = new GLink();
@@ -38,7 +37,6 @@ namespace OpenLiveWriter.CoreServices
         private GLink()
         {
         }
-
 
         public string CreateMicrosoftAccountID
         {
@@ -227,6 +225,5 @@ namespace OpenLiveWriter.CoreServices
 
         private readonly SettingsPersisterHelper _settings = ApplicationEnvironment.UserSettingsRoot.GetSubSettings("glinks");
     }
-
 
 }

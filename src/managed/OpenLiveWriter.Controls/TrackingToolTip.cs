@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Controls
     /// Implements a "tracking" ToolTip (using the native Win32 tooltip api). A
     /// tracking tooltip can be positioned anywhere on the screen irrespective
     /// of parent controls, etc. Normally you should use NOT use this class and
-    /// instead shoould use the .NET ToolTip class -- this class is used for 
+    /// instead shoould use the .NET ToolTip class -- this class is used for
     /// scenarios where you are hosting a non .NET window (e.g. MSHTML editor)
     /// that fully occludes your .NET control and therefore prevents the display
     /// of .NET tooltips.
@@ -64,7 +64,6 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         /// <summary>
         /// Set the current tool caption (set null to hide the tooltip)
         /// </summary>
@@ -91,7 +90,7 @@ namespace OpenLiveWriter.Controls
             if (tool == null)
                 tool = AddTool(caption);
 
-            // if the tool is not the same as the current tool then hide the current 
+            // if the tool is not the same as the current tool then hide the current
             // tool and show this one
             if (tool != currentTool)
             {
@@ -109,7 +108,6 @@ namespace OpenLiveWriter.Controls
                 currentTool.Show();
             }
         }
-
 
         /// <summary>
         /// Dispose unmanaged resources
@@ -130,7 +128,6 @@ namespace OpenLiveWriter.Controls
             GC.SuppressFinalize(this);
         }
 
-
         /// <summary>
         /// Add a tool to the tooltip control
         /// </summary>
@@ -148,7 +145,6 @@ namespace OpenLiveWriter.Controls
             return tool;
         }
 
-
         /// <summary>
         /// Verify dispose was called
         /// </summary>
@@ -163,18 +159,15 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private IDictionary tools = new Hashtable();
 
-
         /// <summary>
         /// Current location of the tooltip
         /// </summary>
         private Point location;
 
-
         /// <summary>
         /// Tool currently displayed by the tooltip
         /// </summary>
         private Tool currentTool;
-
 
         /// <summary>
         /// Innner class: Tool associated with a TrackingToolTip
@@ -232,7 +225,6 @@ namespace OpenLiveWriter.Controls
                 }
             }
 
-
             /// <summary>
             /// Show the ToolTip for the tool
             /// </summary>
@@ -242,7 +234,6 @@ namespace OpenLiveWriter.Controls
                 GC.KeepAlive(this);
             }
 
-
             /// <summary>
             /// Hide the ToolTip for the tool
             /// </summary>
@@ -251,8 +242,6 @@ namespace OpenLiveWriter.Controls
                 User32.SendMessage(toolTipControl, TTM.TRACKACTIVATE, UIntPtr.Zero, pToolInfo);
                 GC.KeepAlive(this);
             }
-
-
 
             /// <summary>
             /// Dispose the tool
@@ -270,7 +259,6 @@ namespace OpenLiveWriter.Controls
                 GC.SuppressFinalize(this);
             }
 
-
             /// <summary>
             /// Finalize should NEVER be called since we suppress it in Dispose
             /// </summary>
@@ -278,7 +266,6 @@ namespace OpenLiveWriter.Controls
             {
                 Debug.Fail("Must Dispose instances of Tool class!");
             }
-
 
             /// <summary>
             /// ToolTip control associated with this tool
@@ -292,7 +279,7 @@ namespace OpenLiveWriter.Controls
 
             /// <summary>
             /// Unmanaged pointer to TOOLINFO structure
-            /// </summary>			
+            /// </summary>
             IntPtr pToolInfo = IntPtr.Zero;
 
             /// <summary>
@@ -301,9 +288,6 @@ namespace OpenLiveWriter.Controls
             private Point location;
         }
     }
-
-
-
 
 }
 

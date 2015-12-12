@@ -70,7 +70,6 @@ namespace OpenLiveWriter.HtmlEditor
             LayoutHelper.FixupOKCancel(btnOK, btnCancel);
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -104,9 +103,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bevel = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
-            // 
+            //
             // rdPlainText
-            // 
+            //
             this.rdPlainText.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rdPlainText.Location = new System.Drawing.Point(12, 12);
             this.rdPlainText.Name = "rdPlainText";
@@ -114,9 +113,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.rdPlainText.TabIndex = 0;
             this.rdPlainText.Text = "&Remove Formatting";
             this.rdPlainText.Click += new System.EventHandler(this.rdPlainText_Click);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.FlatStyle = FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(29, 32);
@@ -125,9 +124,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.label1.TabIndex = 1;
             this.label1.Text = "Removes all formatting except for line breaks. Preserves links and images. Use to" +
                 " copy content only.";
-            // 
+            //
             // rdThinned
-            // 
+            //
             this.rdThinned.Checked = true;
             this.rdThinned.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rdThinned.Location = new System.Drawing.Point(12, 92);
@@ -137,9 +136,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.rdThinned.TabStop = true;
             this.rdThinned.Text = "&Thinned HTML";
             this.rdThinned.Click += new System.EventHandler(this.rdThinned_Click);
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label2.FlatStyle = FlatStyle.System;
             this.label2.Location = new System.Drawing.Point(29, 110);
@@ -149,9 +148,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.label2.Text = "Removes extra formatting, such as MS Office specific formatting, CSS styles, and " +
                 "tables. Preserves relative heading sizes, basic formatting, and aligns with your" +
                 " blog style.";
-            // 
+            //
             // rdKeepFormatting
-            // 
+            //
             this.rdKeepFormatting.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.rdKeepFormatting.Location = new System.Drawing.Point(12, 176);
             this.rdKeepFormatting.Name = "rdKeepFormatting";
@@ -159,9 +158,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.rdKeepFormatting.TabIndex = 4;
             this.rdKeepFormatting.Text = "&Keep Formatting";
             this.rdKeepFormatting.Click += new System.EventHandler(this.rdKeepFormatting_Click);
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label3.FlatStyle = FlatStyle.System;
             this.label3.Location = new System.Drawing.Point(29, 196);
@@ -170,9 +169,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.label3.TabIndex = 5;
             this.label3.Text = "Maintains all the formatting, including those which may not display correctly in " +
                 "your blog. For security reasons, scripts are stripped out.";
-            // 
+            //
             // btnOK
-            // 
+            //
             this.btnOK.Anchor = AnchorStyles.Right | AnchorStyles.Bottom;
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -180,9 +179,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.btnOK.Name = "btnOK";
             this.btnOK.TabIndex = 6;
             this.btnOK.Text = "OK";
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Anchor = AnchorStyles.Right | AnchorStyles.Bottom;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -190,26 +189,26 @@ namespace OpenLiveWriter.HtmlEditor
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.Location = new System.Drawing.Point(302, 17);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(173, 226);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // bevel
-            // 
+            //
             this.bevel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             this.bevel.Location = new System.Drawing.Point(267, 2);
             this.bevel.Name = "bevel";
             this.bevel.Size = new System.Drawing.Size(2, 295);
             this.bevel.TabIndex = 0;
             this.bevel.TabStop = false;
-            // 
+            //
             // PasteSpecialForm
-            // 
+            //
             this.AcceptButton = this.btnOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.btnCancel;
@@ -267,7 +266,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
 
         }
-
 
         public enum PasteType { RemoveFormatting, Standard, KeepFormatting }
 

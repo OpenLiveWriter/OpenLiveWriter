@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Controls
     /// </summary>
     public class LabelControl : Label
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -49,7 +49,7 @@ namespace OpenLiveWriter.Controls
             SetStringFormat();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -65,8 +65,8 @@ namespace OpenLiveWriter.Controls
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -162,7 +162,6 @@ namespace OpenLiveWriter.Controls
                 stringFormat |= TextFormatFlags.NoPrefix;
             else if (!ShowKeyboardCues)
                 stringFormat |= TextFormatFlags.HidePrefix;
-
 
             //	Map ContentAlignment to the StringFormat we use to draw the string.
             switch (TextAlign)
@@ -274,7 +273,7 @@ namespace OpenLiveWriter.Controls
 
         /// <summary>
         /// Used for calculations in IsInText.
-        /// 
+        ///
         /// </summary>
         private TextFormatFlags InvertIfRightToLeft(TextFormatFlags sa)
         {

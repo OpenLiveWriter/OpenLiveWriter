@@ -31,7 +31,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         private LightweightControlContainerControl mainTabControl;
         private TabLightweightControl tabs;
 
-
         private List<MediaTab> _sources;
         private MediaTab activeSource = null;
 
@@ -40,8 +39,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         private Button btnCancel;
 
         public const string EventName = "Inserting Media";
-
-
 
         public MediaInsertForm(List<MediaTab> sources, string blogID, int selectedTab, MediaSmartContent content, string title, bool showCopyright) :
     this(sources, blogID, selectedTab, content, title, showCopyright, false)
@@ -83,10 +80,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
 
             copyrightLinkLabel.LinkColor = SystemColors.HotTrack;
 
-
-            // 
+            //
             // tabs
-            // 
+            //
             tabs = new TabLightweightControl();
             tabs.VirtualBounds = new Rectangle(0, 5, 450, 485);
             tabs.LightweightControlContainerControl = mainTabControl;
@@ -123,7 +119,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             tabs.SelectedTabNumberChanged += new EventHandler(tabs_SelectedTabNumberChanged);
 
             Closing += new CancelEventHandler(MediaInsertForm_Closing);
-
 
         }
 
@@ -163,7 +158,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             base.OnLoad(e);
             LayoutHelper.FixupOKCancel(buttonInsert, btnCancel);
         }
-
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -210,9 +204,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.copyrightLinkLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.mainTabControl)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // mainTabControl
-            // 
+            //
             this.mainTabControl.AllowDragDropAutoScroll = false;
             this.mainTabControl.AllPaintingInWmPaint = true;
             this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -223,9 +217,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.Size = new System.Drawing.Size(450, 480);
             this.mainTabControl.TabIndex = 14;
-            // 
+            //
             // buttonInsert
-            // 
+            //
             this.buttonInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInsert.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonInsert.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -234,9 +228,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.buttonInsert.Size = new System.Drawing.Size(75, 23);
             this.buttonInsert.TabIndex = 20;
             this.buttonInsert.Text = "Insert";
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -245,9 +239,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 21;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // copyrightLinkLabel
-            // 
+            //
             this.copyrightLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.copyrightLinkLabel.AutoSize = true;
             this.copyrightLinkLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -259,9 +253,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
             this.copyrightLinkLabel.TabIndex = 19;
             this.copyrightLinkLabel.TabStop = true;
             this.copyrightLinkLabel.Text = "Please Respect Copyright";
-            // 
+            //
             // MediaInsertForm
-            // 
+            //
             this.AcceptButton = this.buttonInsert;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(450, 520);

@@ -131,7 +131,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return HtmlMarginDecoratorSettings.GetImageMargin(props);
         }
 
-
         /// <summary>
         /// Return the list of decorators to use if there are no saved decorators for the current context.
         /// </summary>
@@ -170,7 +169,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 NoSharpenDecorator.Id,
                 NoBlurDecorator.Id,
                 NoEmbossDecorator.Id};
-
 
             ImageDecoratorsList decoratorsList = new ImageDecoratorsList(_decoratorsManager, new BlogPostSettingsBag());
             foreach (string decoratorId in defaultDecoratorIds)

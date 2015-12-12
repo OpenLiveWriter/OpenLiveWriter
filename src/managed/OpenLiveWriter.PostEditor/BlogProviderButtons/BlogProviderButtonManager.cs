@@ -17,13 +17,10 @@ using OpenLiveWriter.Interop.Com;
 using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.PostEditor.Commands;
 
-
-// P0 TODO 
+// P0 TODO
 // ==========================================================================================
 
-
-
-// M1: 
+// M1:
 //    - Syndication docs for partners
 
 // M2:
@@ -44,7 +41,6 @@ using OpenLiveWriter.PostEditor.Commands;
 //    - Me Control / Live sign-in
 //    - Generic editor: simple article-based CMS
 //    - Generic editor: bootstrap from web page
-
 
 namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 {
@@ -115,7 +111,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             }
         }
 
-
         public void Initialize(Control synchronizeInvokeControl, BlogPostEditingManager editingManager)
         {
             // initialize notification sink
@@ -132,7 +127,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             if (editingManager.BlogId != String.Empty)
                 ConnectToBlog(editingManager.BlogId);
         }
-
 
         private void ConnectToBlog(string blogId)
         {
@@ -159,7 +153,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         /// Must be called under the proection of _commandsLock.
         /// </summary>
         /// <param name="blog"></param>
-		private void ConnectToBlog(Blog blog)
+        private void ConnectToBlog(Blog blog)
         {
             items.Clear();
             UpdateInvalidationState(PropertyKeys.ItemsSource, InvalidationState.Pending);
@@ -193,7 +187,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                     // create buttons and attach to commands
                     for (int i = 0; (i < providerButtonDescriptions.Length) && (i < _commands.Length); i++)
                     {
-                        // create button 
+                        // create button
                         BlogProviderButton providerButton = new BlogProviderButton(blog.Id, blog.HostBlogId, blog.HomepageUrl, blog.PostApiUrl, providerButtonDescriptions[i].Id);
 
                         // notify button we are connecting (allows it to reset notification image and
@@ -256,7 +250,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         /// Must be called under the protection of _commandsLock.
         /// </summary>
         /// <param name="command"></param>
-		private void DisableCommand(Command command)
+        private void DisableCommand(Command command)
         {
             command.On = false;
             if (command.Tag != null)
@@ -277,7 +271,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         /// Must be called under the protection _commandsLock.
         /// </summary>
         /// <param name="command"></param>
-		private void RemoveDropDownMenu(Command command)
+        private void RemoveDropDownMenu(Command command)
         {
             command.CommandBarButtonContextMenuHandler = null;
             command.CommandBarButtonContextMenuDropDown = false;
@@ -292,7 +286,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         {
             ConnectToBlog(blogId);
         }
-
 
         private void BlogProviderButton_Execute(object sender, EventArgs e)
         {
@@ -312,7 +305,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                     ShellHelper.LaunchUrl(blogProviderButton.ContentUrl);
             }
         }
-
 
         private void _notificationSink_BlogProviderButtonNotificationReceived(string blogId, string buttonId)
         {
@@ -369,7 +361,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             ShellHelper.LaunchUrl(_editingManager.BlogAdminUrl);
         }
 
-
         public void Dispose()
         {
             if (_editingManager != null)
@@ -406,7 +397,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 
         private BlogProviderButtonNotificationSink _notificationSink;
     }
-
 
     internal class BlogProviderContentViewer
     {
@@ -490,7 +480,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         {
             _disposeWhenDone.Dispose();
         }
-
 
         private readonly BlogProviderButton _button;
         private IDisposable _disposeWhenDone;

@@ -38,16 +38,16 @@ namespace OpenLiveWriter.CoreServices
     /// You can use parenthesis to group expressions.
     ///
     /// The caller can define variables by Add()ing them to the
-    /// XmlPreprocessor instance. 
+    /// XmlPreprocessor instance.
     ///
     /// Keywords are case insensitive, but identifiers are not.
     /// Identifiers must begin with a letter and can contain
     /// letters, numbers, and underscore.
-    /// 
+    ///
     /// Examples:
-    /// 
+    ///
     /// 'hello' is 'hello' and 'foo' neq 'bar'
-    /// 
+    ///
     /// </summary>
     public class XmlPreprocessor : RuntimeValues
     {

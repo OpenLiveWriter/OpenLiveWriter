@@ -94,7 +94,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Copyright information for the page.
         /// </summary>
@@ -224,7 +223,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string m_charset;
 
-
         /// <summary>
         /// The underlying IHTMLDocument2
         /// </summary>
@@ -293,7 +291,6 @@ namespace OpenLiveWriter.CoreServices
                 m_metaTableGenerated = true;
             }
 
-
             if (m_metaTags.Contains(metaDataName))
                 return (string)m_metaTags[metaDataName];
             else
@@ -301,7 +298,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private Hashtable m_metaTags = new Hashtable();
         private bool m_metaTableGenerated = false;
-
 
         private IHTMLMetaElement GetElement(string metaDataName)
         {
@@ -375,7 +371,6 @@ namespace OpenLiveWriter.CoreServices
             }
             m_metaTableGenerated = true;
         }
-
 
         private static readonly Regex multiSpaces = new Regex("[ \t]+");
         private string[] GetKeywordsFromString(string keywords)

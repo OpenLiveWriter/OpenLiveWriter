@@ -5,11 +5,11 @@ using OpenLiveWriter.Api;
 
 namespace OpenLiveWriter.Extensibility.ImageServices
 {
-	/// <summary>
-	/// Summary description for IImageUploadSettingsEditorContext.
-	/// </summary>
-	public interface IImageUploadSettingsEditorContext
-	{
-		IProperties ImageUploadSettings { get; }
-	}
+    /// <summary>
+    /// Summary description for IImageUploadSettingsEditorContext.
+    /// </summary>
+    public interface IImageUploadSettingsEditorContext
+    {
+        IProperties ImageUploadSettings { get; }
+    }
 }

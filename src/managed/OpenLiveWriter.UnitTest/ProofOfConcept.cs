@@ -22,17 +22,15 @@ namespace OpenLiveWriter.UnitTest
             //throw new Exception("This failed!");
         }
 
-
         [Test]
         public void TestSuccess()
         {
         }
 
-
         [TearDown]
         public void TearDown()
         {
-            
+
         }
     }
 }

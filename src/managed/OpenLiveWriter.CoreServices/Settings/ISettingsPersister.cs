@@ -25,9 +25,8 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// <returns>The value of the setting, or the defaul value.</returns>
         object Get(string name, Type desiredType, object defaultValue);
 
-
         /// <summary>
-        /// Low-level get (returns null if the value doesn't exist). 
+        /// Low-level get (returns null if the value doesn't exist).
         /// </summary>
         /// <param name="name">name</param>
         /// <returns>value (null if not present)</returns>
@@ -54,12 +53,11 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// <param name="name"></param>
         void UnsetSubSettingsTree(string name);
 
-
         /// <summary>
         /// Provides a hint to the settings persister that many
         /// changes are happening, and that the persister may
         /// want to batch up the changes for performance.
-        /// 
+        ///
         /// This makes no guarantees about atomicity, nor whether
         /// the changes will actually be batched--it's up to the
         /// ISettingsPersister implementation to decide the best
@@ -73,9 +71,7 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// </example>
         /// <returns>An IDisposable that should be disposed when
         /// the batch operation completes, OR NULL.</returns>
-	    IDisposable BatchUpdate();
-
-
+        IDisposable BatchUpdate();
 
         /// <summary>
         /// Determine whether the specified sub-settings exists
@@ -90,7 +86,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// <param name="subKeyName">name of subkey</param>
         /// <returns>settings persister</returns>
         ISettingsPersister GetSubSettings(string subSettingsName);
-
 
         /// <summary>
         /// Enumerate the available sub-settings

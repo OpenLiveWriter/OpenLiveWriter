@@ -21,7 +21,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
             dataFormatRegistry.Register(CreateDataFormatFactories());
 
-
         }
 
         protected virtual IDataFormatHandlerFactory[] CreateDataFormatFactories()

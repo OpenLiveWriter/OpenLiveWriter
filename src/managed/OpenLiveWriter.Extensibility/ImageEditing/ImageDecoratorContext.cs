@@ -205,7 +205,6 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
             _heightFactor = heightFactor;
         }
 
-
         internal int WidthAdd
         {
             get { return _widthAdd; }

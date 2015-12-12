@@ -16,7 +16,7 @@ namespace OpenLiveWriter.Mshtml
     class MshtmlKeyboardHook : KeyboardHook
     {
         /// <summary>
-        /// Help requested event 
+        /// Help requested event
         /// </summary>
         public event EventHandler HelpRequested;
         protected virtual void OnHelpRequested(EventArgs ea)
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.Mshtml
         /// <summary>
         /// Override F1 to prevent it from getting to MSHTML. Will fire the HelpRequested
         /// event when the F1 key is pressed
-        /// </summary>		
+        /// </summary>
         protected override IntPtr OnKeyHooked(int nCode, UIntPtr wParam, IntPtr lParam)
         {
             // only process HC_ACTION
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.Mshtml
             {
                 // We want one key event per key key-press. To do this we need to
                 // mask out key-down repeats and key-ups by making sure that bits 30
-                // and 31 of the lParam are NOT set. Bit 30 specifies the previous 
+                // and 31 of the lParam are NOT set. Bit 30 specifies the previous
                 // key state. The value is 1 if the key is down before the message is
                 // sent; it is 0 if the key is up. Bit 31 specifies the transition
                 // state. The value is 0 if the key is being pressed and 1 if it is

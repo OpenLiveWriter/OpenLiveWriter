@@ -29,7 +29,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             RecentPosts
         }
 
-
         public OpenPostForm()
             : this(OpenMode.Auto)
         {
@@ -159,7 +158,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             set { _allowDelete = value; }
         }
 
-
         private PostInfo BlogPostInfo
         {
             get
@@ -167,7 +165,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 return listBoxPosts.SelectedPost;
             }
         }
-
 
         public IBlogPostEditingContext BlogPostEditingContext
         {
@@ -228,7 +225,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             // number of posts combo
             comboBoxPosts.SelectedIndexChanged += new EventHandler(comboBoxPosts_SelectedIndexChanged);
 
-            // post list 
+            // post list
             listBoxPosts.Initialize(this);
             listBoxPosts.SelectedIndexChanged += new EventHandler(listBoxPosts_SelectedIndexChanged);
             listBoxPosts.PostsRefreshed += new EventHandler(listBoxPosts_PostsRefreshed);
@@ -283,7 +280,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 listBoxPostSources.SelectRecentPosts();
             }
         }
-
 
         private void listBoxPostSources_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -344,7 +340,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             //Hack! - refreshing the items in listBoxPosts causes the list to steal accessibility
             //focus from the postSourceListbox. So if the listBoxPostSources is focused, we need to
             //explicitly fire a focus changed event so that accessibility focus will return to the
-            //correct control.			
+            //correct control.
             if (listBoxPostSources.Focused)
                 (listBoxPostSources.AccessibilityObject as BlogPostSourceListBox.BlogPostSourceListBoxAccessibility).NotifySelectionChanged();
 
@@ -441,8 +437,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             // This width depends on the contents of the combo, which are dynamic
             DisplayHelper.AutoFitSystemCombo(comboBoxPosts, 0, int.MaxValue, false);
 
-
-
             int HPADDING = GetHpadding();
             int x;
 
@@ -481,7 +475,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         {
             return (int)Math.Ceiling(DisplayHelper.ScaleX(5));
         }
-
 
         private void ManageControls(bool fullManage)
         {
@@ -536,8 +529,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             PostEditorSettings.OpenPostFormSize = Size;
         }
 
-
-
         private void SaveNumberOfPostsSettings()
         {
             // get post data/context to save
@@ -560,7 +551,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                     postSourceSettings.SetBoolean(SHOW_PAGES, false);
             }
         }
-
 
         private void RestorePostListViewSettings()
         {
@@ -629,7 +619,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 
         private SettingsPersisterHelper _recentPostsSettings = PostEditorSettings.SettingsKey.GetSubSettings("RecentPostDefaults");
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -674,9 +663,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             ((System.ComponentModel.ISupportInitialize)(this.filterPictureBox)).BeginInit();
             this.panelType.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(414, 421);
@@ -685,9 +674,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.buttonOK.TabIndex = 4;
             this.buttonOK.Text = "OK";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -696,9 +685,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.buttonCancel.Size = new System.Drawing.Size(90, 26);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // listBoxPostSources
-            // 
+            //
             this.listBoxPostSources.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxPostSources.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -707,9 +696,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.listBoxPostSources.Name = "listBoxPostSources";
             this.listBoxPostSources.Size = new System.Drawing.Size(181, 373);
             this.listBoxPostSources.TabIndex = 1;
-            // 
+            //
             // listBoxPosts
-            // 
+            //
             this.listBoxPosts.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBoxPosts.Filter = "";
             this.listBoxPosts.IntegralHeight = false;
@@ -719,35 +708,35 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.listBoxPosts.ShowPages = false;
             this.listBoxPosts.Size = new System.Drawing.Size(400, 343);
             this.listBoxPosts.TabIndex = 3;
-            // 
+            //
             // labelOpenPostFrom
-            // 
+            //
             this.labelOpenPostFrom.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelOpenPostFrom.Location = new System.Drawing.Point(16, 12);
             this.labelOpenPostFrom.Name = "labelOpenPostFrom";
             this.labelOpenPostFrom.Size = new System.Drawing.Size(178, 16);
             this.labelOpenPostFrom.TabIndex = 0;
             this.labelOpenPostFrom.Text = "&Open from:";
-            // 
+            //
             // comboBoxPosts
-            // 
+            //
             this.comboBoxPosts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPosts.Location = new System.Drawing.Point(240, 7);
             this.comboBoxPosts.Name = "comboBoxPosts";
             this.comboBoxPosts.Size = new System.Drawing.Size(108, 23);
             this.comboBoxPosts.TabIndex = 6;
-            // 
+            //
             // labelPosts
-            // 
+            //
             this.labelPosts.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPosts.Location = new System.Drawing.Point(655, 11);
             this.labelPosts.Name = "labelPosts";
             this.labelPosts.Size = new System.Drawing.Size(42, 18);
             this.labelPosts.TabIndex = 7;
             this.labelPosts.Text = "items";
-            // 
+            //
             // buttonDelete
-            // 
+            //
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDelete.Location = new System.Drawing.Point(525, 6);
             this.buttonDelete.Name = "buttonDelete";
@@ -755,35 +744,35 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.buttonDelete.TabIndex = 10;
             this.buttonDelete.Text = "&Delete";
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
+            //
             // labelShow
-            // 
+            //
             this.labelShow.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelShow.Location = new System.Drawing.Point(203, 11);
             this.labelShow.Name = "labelShow";
             this.labelShow.Size = new System.Drawing.Size(33, 18);
             this.labelShow.TabIndex = 5;
             this.labelShow.Text = "&Show";
-            // 
+            //
             // filterPictureBox
-            // 
+            //
             this.filterPictureBox.Location = new System.Drawing.Point(204, 42);
             this.filterPictureBox.Name = "filterPictureBox";
             this.filterPictureBox.Size = new System.Drawing.Size(16, 16);
             this.filterPictureBox.TabIndex = 10;
             this.filterPictureBox.TabStop = false;
-            // 
+            //
             // panelType
-            // 
+            //
             this.panelType.Controls.Add(this.radioButtonPages);
             this.panelType.Controls.Add(this.radioButtonPosts);
             this.panelType.Location = new System.Drawing.Point(354, 10);
             this.panelType.Name = "panelType";
             this.panelType.Size = new System.Drawing.Size(168, 18);
             this.panelType.TabIndex = 8;
-            // 
+            //
             // radioButtonPages
-            // 
+            //
             this.radioButtonPages.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonPages.Location = new System.Drawing.Point(100, 0);
             this.radioButtonPages.Name = "radioButtonPages";
@@ -791,9 +780,9 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.radioButtonPages.TabIndex = 1;
             this.radioButtonPages.Text = "P&ages";
             this.radioButtonPages.CheckedChanged += new System.EventHandler(this.radioButtonPostsOrPages_CheckedChanged);
-            // 
+            //
             // radioButtonPosts
-            // 
+            //
             this.radioButtonPosts.Checked = true;
             this.radioButtonPosts.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonPosts.Location = new System.Drawing.Point(3, 0);
@@ -803,17 +792,17 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             this.radioButtonPosts.TabStop = true;
             this.radioButtonPosts.Text = "&Posts";
             this.radioButtonPosts.CheckedChanged += new System.EventHandler(this.radioButtonPostsOrPages_CheckedChanged);
-            // 
+            //
             // textBoxFilter
-            // 
+            //
             this.textBoxFilter.Location = new System.Drawing.Point(202, 40);
             this.textBoxFilter.Name = "textBoxFilter";
             this.textBoxFilter.Size = new System.Drawing.Size(400, 23);
             this.textBoxFilter.TabIndex = 2;
             this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
-            // 
+            //
             // OpenPostForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(621, 458);
@@ -866,8 +855,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
         #endregion
 
-
-
         private Button buttonOK;
         private Button buttonCancel;
         private BlogPostSourceListBox listBoxPostSources;
@@ -878,13 +865,11 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         private Button buttonDelete;
         private IContainer components;
 
-
         private OpenMode _openMode;
         private bool _includeDrafts;
         private bool _allowDelete;
         private bool _filterDirty = false;
         private Timer _filterTimer;
-
 
     }
 
@@ -907,6 +892,4 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         private bool _postIsValid;
     }
 }
-
-
 

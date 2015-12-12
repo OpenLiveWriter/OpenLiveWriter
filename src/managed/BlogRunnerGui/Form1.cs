@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -191,7 +191,6 @@ namespace BlogRunnerGui
         const string SETTING_CONFIG = "config";
         const string SETTING_OUTPUT = "output";
         const string SETTING_PROVIDER = "provider";
-
 
         class BlogProviderItem
         {

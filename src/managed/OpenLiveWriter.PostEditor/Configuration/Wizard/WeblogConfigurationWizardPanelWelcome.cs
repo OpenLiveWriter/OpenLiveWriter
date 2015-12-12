@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// </summary>
     public class WeblogConfigurationWizardPanelWelcome : WeblogConfigurationWizardPanel
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -77,7 +77,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -93,8 +93,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -104,14 +104,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.linkLabelLearnMore = new LinkLabel();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.labelWelcomeText);
             this.panelMain.Controls.Add(this.linkLabelLearnMore);
-            // 
+            //
             // labelWelcomeText
-            // 
+            //
             this.labelWelcomeText.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelWelcomeText.Location = new System.Drawing.Point(20, 0);
             this.labelWelcomeText.Name = "labelWelcomeText";
@@ -123,9 +123,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.linkLabelLearnMore.Location = new Point(17, 65);
             this.linkLabelLearnMore.Name = "linkLabelLearnMore";
             this.linkLabelLearnMore.LinkBehavior = LinkBehavior.HoverUnderline;
-            // 
+            //
             // WeblogConfigurationWizardPanelWelcome
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelWelcome";
             this.Size = new System.Drawing.Size(432, 244);
             this.panelMain.ResumeLayout(false);
@@ -133,9 +133,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         }
         #endregion
-
-
-
 
     }
 }

@@ -60,13 +60,13 @@ namespace OpenLiveWriter.CoreServices
         /// Return the intersection of n arrays.
         /// </summary>
         /// <param name="arrays">
-        ///		0..n arrays (or an array of arrays).  All arrays should have 
+        ///		0..n arrays (or an array of arrays).  All arrays should have
         ///		the same underlying type.  Duplicate elements within an
         ///		input array is allowed, but the return value is guaranteed not
         ///		to contain duplicates.
         ///	 </param>
         /// <returns>
-        ///		An array of the elements which are present in all arrays. 
+        ///		An array of the elements which are present in all arrays.
         ///		The order of the elements is not guaranteed.
         /// </returns>
         public static Array Intersection(Array[] arrays)
@@ -124,18 +124,17 @@ namespace OpenLiveWriter.CoreServices
                 return intersection;
         }
 
-
         /// <summary>
         /// Return the union of n arrays.
         /// </summary>
         /// <param name="arrays">
-        ///		0..n arrays (or an array of arrays).  All arrays should have 
+        ///		0..n arrays (or an array of arrays).  All arrays should have
         ///		the same underlying type.  Duplicate elements within an
         ///		input array is allowed, but the return value is guaranteed not
         ///		to contain duplicates.
         ///	 </param>
         /// <returns>
-        ///		An array of the elements which are present in any array. 
+        ///		An array of the elements which are present in any array.
         ///		The order of the elements is not guaranteed.
         /// </returns>
         public static T[] Union<T>(params T[][] arrays)

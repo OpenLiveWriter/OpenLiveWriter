@@ -28,10 +28,9 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
             return data.TextData != null;
         }
 
-
         /// <summary>
         /// Grabs text copied in the clipboard and pastes it into the document
-        /// </summary>		
+        /// </summary>
         protected override bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end)
         {
             try

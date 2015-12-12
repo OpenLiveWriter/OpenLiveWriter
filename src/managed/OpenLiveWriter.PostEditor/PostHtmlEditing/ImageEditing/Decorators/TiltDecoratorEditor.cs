@@ -78,7 +78,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 TiltSettings.TiltDegrees = newTilt;
         }
 
-
         private void btnOK_Click(object sender, EventArgs e)
         {
             SaveSettingsAndApplyDecorator();

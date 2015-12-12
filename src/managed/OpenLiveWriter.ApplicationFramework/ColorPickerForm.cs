@@ -122,34 +122,34 @@ namespace OpenLiveWriter.ApplicationFramework
             this.colorDefaultColorControl = new OpenLiveWriter.ApplicationFramework.ColorDefaultColorControl(this.colorPickerForm_ColorSelected, this.sc_Navigate);
             this.colorDialogLauncherControl = new OpenLiveWriter.ApplicationFramework.ColorDialogLauncherControl(this.colorPickerForm_ColorSelected, this.sc_Navigate);
             this.SuspendLayout();
-            // 
+            //
             // colorPresets
-            // 
+            //
             this.colorPresets.Location = new System.Drawing.Point(11, 39);
             this.colorPresets.Name = "colorPresets";
             this.colorPresets.Size = new System.Drawing.Size(96, 72);
             this.colorPresets.TabIndex = 1;
             this.colorPresets.TabStop = true;
-            // 
+            //
             // colorDefaultColorControl
-            // 
+            //
             this.colorDefaultColorControl.Location = new System.Drawing.Point(5, 5);
             this.colorDefaultColorControl.Name = "colorDefaultColorControl";
             this.colorDefaultColorControl.Size = new System.Drawing.Size(108, 32);
             this.colorDefaultColorControl.TabIndex = 0;
             this.colorDefaultColorControl.TabStop = true;
-            // 
+            //
             // colorDialogLauncherControl
-            // 
+            //
             this.colorDialogLauncherControl.Location = new System.Drawing.Point(5, 112);
             this.colorDialogLauncherControl.Name = "colorDialogLauncherControl";
             this.colorDialogLauncherControl.Size = new System.Drawing.Size(108, 24);
             this.colorDialogLauncherControl.TabIndex = 2;
             this.colorDialogLauncherControl.TabStop = true;
 
-            // 
+            //
             // ColorPickerForm
-            // 
+            //
             this.AutoScaleMode = AutoScaleMode.None;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.BackColor = System.Drawing.SystemColors.Window;
@@ -177,7 +177,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 // Borderless windows show in the alt+tab window, so this fakes
                 // out windows into thinking its a tool window (which doesn't
                 // show up in the alt+tab window).
-                createParams.ExStyle |= 0x00000080; // WS_EX_TOOLWINDOW 
+                createParams.ExStyle |= 0x00000080; // WS_EX_TOOLWINDOW
 
                 return createParams;
             }
@@ -274,10 +274,9 @@ namespace OpenLiveWriter.ApplicationFramework
         }
     }
 
-
     public abstract class IColorPickerSubControl : System.Windows.Forms.UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         protected System.ComponentModel.Container components = null;
@@ -291,8 +290,8 @@ namespace OpenLiveWriter.ApplicationFramework
         /// <summary>
         /// Raised by a subcontrol to inform ColorPickerForm that it should navigate
         /// (either for forward or backward) to the next control.
-        /// </summary>	    
-		public event NavigateEventHandler _Navigate;
+        /// </summary>
+        public event NavigateEventHandler _Navigate;
 
         /// <summary>
         /// Called by a subcontrol (derived class of IColorPickerSubControl) to raise the _Navigate event
@@ -319,13 +318,13 @@ namespace OpenLiveWriter.ApplicationFramework
 
         /// <summary>
         /// Used by ColorPickerForm to facilitate navigation (up/down arrow keys) across the color picker menu.
-        /// </summary>		
+        /// </summary>
         public virtual void SelectControl(bool forward)
         {
             this.Select();
         }
 
-        /// Used by ColorPickerForm to inform a subcontrol of the currently selected color.        
+        /// Used by ColorPickerForm to inform a subcontrol of the currently selected color.
         public virtual Color Color
         {
             get { return _color; }
@@ -363,7 +362,7 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)

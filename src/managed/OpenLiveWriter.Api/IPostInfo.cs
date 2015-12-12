@@ -14,7 +14,7 @@ namespace OpenLiveWriter.Api
     {
         /// <summary>
         /// Gets the ID of the post, as assigned by the server. For
-        /// new posts that have never been successfully posted to a 
+        /// new posts that have never been successfully posted to a
         /// server, the value will be null.
         /// </summary>
         string Id { get; }

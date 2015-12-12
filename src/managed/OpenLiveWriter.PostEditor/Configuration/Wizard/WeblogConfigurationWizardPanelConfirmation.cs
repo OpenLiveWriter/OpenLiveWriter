@@ -30,7 +30,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private System.Windows.Forms.TextBox textBoxWeblogName;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Button buttonEditWeblogSettings;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -65,7 +65,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
 
         }
-
 
         private bool shown = false;
         public void ShowPanel(TemporaryBlogSettings temporaryBlogSettings, bool preventSwitchToWeblog)
@@ -155,7 +154,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                                                        checkBoxSwitchToWeblog);
         }
 
-
         public override bool ValidatePanel()
         {
             if (WeblogName == String.Empty)
@@ -167,8 +165,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             return true;
         }
-
-
 
         private void buttonEditWeblogSettings_Click(object sender, System.EventArgs e)
         {
@@ -183,10 +179,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-        /// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose(bool disposing)
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -199,8 +195,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -213,61 +209,61 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.buttonEditWeblogSettings = new System.Windows.Forms.Button();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.buttonEditWeblogSettings);
             this.panelMain.Controls.Add(this.textBoxWeblogName);
             this.panelMain.Controls.Add(this.labelName);
             this.panelMain.Controls.Add(this.labelDesc);
             this.panelMain.Controls.Add(this.labelDesc2);
             this.panelMain.Controls.Add(this.checkBoxSwitchToWeblog);
-            // 
+            //
             // checkBoxSwitchToWeblog
-            // 
+            //
             this.checkBoxSwitchToWeblog.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxSwitchToWeblog.Location = new System.Drawing.Point(20, 197);
             this.checkBoxSwitchToWeblog.Name = "checkBoxSwitchToWeblog";
             this.checkBoxSwitchToWeblog.Size = new System.Drawing.Size(324, 24);
             this.checkBoxSwitchToWeblog.TabIndex = 15;
             this.checkBoxSwitchToWeblog.Text = "&Switch to this weblog now";
-            // 
+            //
             // labelDesc
-            // 
+            //
             this.labelDesc.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelDesc.Location = new System.Drawing.Point(20, 0);
             this.labelDesc.Name = "labelDesc";
             this.labelDesc.Size = new System.Drawing.Size(344, 80);
             this.labelDesc.TabIndex = 0;
             this.labelDesc.Text = "Please confirm that you would like to save these settings.";
-            // 
+            //
             // labelDesc2
-            // 
+            //
             this.labelDesc2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelDesc2.Location = new System.Drawing.Point(20, 0);
             this.labelDesc2.Name = "labelDesc2";
             this.labelDesc2.Size = new System.Drawing.Size(344, 80);
             this.labelDesc2.TabIndex = 0;
             this.labelDesc2.Text = "Writer will periodically check for, and download, new configuration information for your blog.";
-            // 
+            //
             // textBoxWeblogName
-            // 
+            //
             this.textBoxWeblogName.Location = new System.Drawing.Point(20, 64);
             this.textBoxWeblogName.Name = "textBoxWeblogName";
             this.textBoxWeblogName.Size = new System.Drawing.Size(224, 20);
             this.textBoxWeblogName.TabIndex = 2;
-            // 
+            //
             // labelName
-            // 
+            //
             this.labelName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelName.Location = new System.Drawing.Point(20, 48);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(144, 16);
             this.labelName.TabIndex = 1;
             this.labelName.Text = "&Weblog Name:";
-            // 
+            //
             // buttonEditWeblogSettings
-            // 
+            //
             this.buttonEditWeblogSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonEditWeblogSettings.Location = new System.Drawing.Point(20, 160);
             this.buttonEditWeblogSettings.Name = "buttonEditWeblogSettings";
@@ -275,9 +271,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.buttonEditWeblogSettings.TabIndex = 10;
             this.buttonEditWeblogSettings.Text = "Edit Settings...";
             this.buttonEditWeblogSettings.Click += new System.EventHandler(this.buttonEditWeblogSettings_Click);
-            // 
+            //
             // WeblogConfigurationWizardPanelConfirmation
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelConfirmation";
             this.Size = new System.Drawing.Size(432, 283);
             this.panelMain.ResumeLayout(false);
