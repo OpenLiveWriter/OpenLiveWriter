@@ -38,11 +38,6 @@ namespace OpenLiveWriter.PostEditor
         /// the input caret into the document
         /// </summary>
         void SetFocus();
-        /// <summary>
-        /// This will be called by Mail when the canvas is not in focus
-        /// and will update the ribbon with appropriate button states and context
-        /// </summary>
-        void NotifyMailFocus(bool fIsPhotoAttachment);
 
         /// <summary>
         /// Provides a way for the hosting application to add html
