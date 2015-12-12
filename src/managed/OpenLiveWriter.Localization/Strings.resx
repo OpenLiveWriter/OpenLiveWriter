@@ -460,7 +460,7 @@
     <comment>From the Weblog | Edit Weblog Settings | Plugins preferences panel</comment>
   </data>
   <data name="BlogServiceNames" xml:space="preserve">
-    <value>Blogger, TypePad, and more</value>
+    <value>TypePad and more</value>
   </data>
   <data name="BrightnessAdjust" xml:space="preserve">
     <value>Contrast</value>
@@ -1065,6 +1065,12 @@
   </data>
   <data name="CWSharePointUseSystemLogin" xml:space="preserve">
     <value>Use my &amp;Windows user name and password</value>
+  </data>
+  <data name="CWGoogleBloggerTitle" xml:space="preserve">
+    <value>Provide Google Blogger Login</value>
+  </data>
+  <data name="CWGoogleBloggerDescription" xml:space="preserve">
+    <value>To configure Google Blogger please sign in.</value>
   </data>
   <data name="CWSpacesUsername" xml:space="preserve">
     <value>&amp;Microsoft Account ID:</value>
@@ -4496,6 +4502,9 @@ This might take a while.</value>
   <data name="WizardBlogTypeConfigureTo" xml:space="preserve">
     <value>Configure {0} to publish to:</value>
     <comment>{0} - Long product name, i.e. "Open Live Writer"; followed by a choice of two options: "SharePoint blog" or "Another blog service"</comment>
+  </data>
+  <data name="WizardBlogTypeGoogleBlogger" xml:space="preserve">
+    <value>&amp;Google Blogger</value>
   </data>
   <data name="WizardBlogTypeOther" xml:space="preserve">
     <value>&amp;Other services</value>

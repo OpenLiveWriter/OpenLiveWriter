@@ -2796,6 +2796,12 @@ Check the file name and try again.</value>
   <data name="DisplayMessage.GoogleAuthTokenNotFound.Text" xml:space="preserve">
     <value>The server did not respond with the expected authorization token.</value>
   </data>
+  <data name="DisplayMessage.GoogleBloggerLoginRequired.Text" xml:space="preserve">
+    <value>Sign in to Google Blogger to continue.</value>
+  </data>
+  <data name="DisplayMessage.GoogleBloggerLoginRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
   <data name="DisplayMessage.GuestNotSupported.Text" xml:space="preserve">
     <value>Using Open Live Writer from the guest account is not supported.</value>
   </data>

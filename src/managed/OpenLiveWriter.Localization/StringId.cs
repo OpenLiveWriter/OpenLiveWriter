@@ -395,7 +395,7 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         BlogPluginsDescription,
         /// <summary>
-        /// Blogger, TypePad, and more
+        /// TypePad and more
         /// </summary>
         BlogServiceNames,
         /// <summary>
@@ -1102,6 +1102,14 @@ namespace OpenLiveWriter.Localization
         /// Use my &Windows user name and password
         /// </summary>
         CWSharePointUseSystemLogin,
+        /// <summary>
+        /// Provide Google Blogger Login
+        /// </summary>
+        CWGoogleBloggerTitle,
+        /// <summary>
+        /// To configure Google Blogger please sign in.
+        /// </summary>
+        CWGoogleBloggerDescription,
         /// <summary>
         /// &Microsoft Account:
         /// </summary>
@@ -5202,6 +5210,10 @@ namespace OpenLiveWriter.Localization
         /// Configure {0} to publish to:
         /// </summary>
         WizardBlogTypeConfigureTo,
+        /// <summary>
+        /// &Google Blogger
+        /// </summary>
+        WizardBlogTypeGoogleBlogger,
         /// <summary>
         /// &Other services
         /// </summary>

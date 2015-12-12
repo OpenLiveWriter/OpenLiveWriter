@@ -20,12 +20,16 @@ using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.HtmlParser.Parser.FormAgent;
 using OpenLiveWriter.Localization;
+using Google.Apis.Blogger.v3;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
     [BlogClient("BloggerAtom", "Atom")]
     public class BloggerAtomClient : AtomClient
     {
+        public static string PicasaServiceScope = "https://picasaweb.google.com/data";
+        public static string BloggerServiceScope = BloggerService.Scope.Blogger;
+
         public BloggerAtomClient(Uri postApiUrl, IBlogCredentialsAccessor credentials)
             : base(AtomProtocolVersion.V10DraftBlogger, postApiUrl, credentials)
         {

@@ -30,6 +30,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             OtherBasicInfo = 33,
             SelectProvider = 40,
             SharePointAuth = 41,
+            GoogleBloggerAuth = 42,
             SelectBlog = 50,
             SelectImageEndPoint = 60,
             Confirm = 80,

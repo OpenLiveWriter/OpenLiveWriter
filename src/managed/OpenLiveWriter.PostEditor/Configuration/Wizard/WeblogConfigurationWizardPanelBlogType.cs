@@ -25,6 +25,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private System.Windows.Forms.Label labelWelcomeText;
         private System.Windows.Forms.Panel panelRadioButtons;
         private System.Windows.Forms.RadioButton radioButtonSharePoint;
+        private System.Windows.Forms.RadioButton radioButtonBlogger;
         private System.Windows.Forms.RadioButton radioButtonOther;
         private System.Windows.Forms.Label labelOtherDesc;
         private System.Windows.Forms.RadioButton radioButtonWordpress;
@@ -47,6 +48,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             labelHeader.Text = Res.Get(StringId.WizardBlogTypeWhatBlogType);
             labelWelcomeText.Text = Res.Get(StringId.WizardBlogTypeWelcome);
             radioButtonSharePoint.Text = Res.Get(StringId.WizardBlogTypeSharePoint);
+            radioButtonBlogger.Text = Res.Get(StringId.WizardBlogTypeGoogleBlogger);
             radioButtonOther.Text = Res.Get(StringId.WizardBlogTypeOther);
             radioButtonWordpress.Text = Res.Get(StringId.CWWelcomeWP);
 
@@ -78,6 +80,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                         comboBoxSelectWeblogType.Items.Add(new WeblogType(serviceName));
                 }
 
+                comboBoxSelectWeblogType.Items.Add(new WeblogType(radioButtonBlogger));
+
                 // add "another weblog type" entry
                 comboBoxSelectWeblogType.Items.Add(new WeblogType(radioButtonOther));
 
@@ -99,8 +103,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             comboBoxSelectWeblogType.SelectedIndexChanged += new EventHandler(UserChangedSelectionHandler);
             radioButtonWordpress.CheckedChanged += new EventHandler(UserChangedSelectionHandler);
             radioButtonSharePoint.CheckedChanged += new EventHandler(UserChangedSelectionHandler);
+            radioButtonBlogger.CheckedChanged += new EventHandler(UserChangedSelectionHandler);
             radioButtonOther.CheckedChanged += new EventHandler(UserChangedSelectionHandler);
-
         }
 
         public override void NaturalizeLayout()
@@ -117,12 +121,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
                 MaximizeWidth(radioButtonWordpress);
                 MaximizeWidth(radioButtonSharePoint);
+                MaximizeWidth(radioButtonBlogger);
                 MaximizeWidth(radioButtonOther);
                 MaximizeWidth(labelOtherDesc);
 
                 using (new AutoGrow(panelRadioButtons, AnchorStyles.Bottom, true))
                 {
-                    LayoutHelper.NaturalizeHeightAndDistribute(3, radioButtonWordpress, radioButtonSharePoint, radioButtonOther);
+                    LayoutHelper.NaturalizeHeightAndDistribute(3, radioButtonWordpress, radioButtonSharePoint, radioButtonBlogger, radioButtonOther);
                     labelOtherDesc.Top = radioButtonOther.Bottom;
                 }
             }
@@ -158,6 +163,21 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 else
                 {
                     return SelectedWeblog.RadioButton == radioButtonSharePoint;
+                }
+            }
+        }
+
+        public bool IsGoogleBloggerBlog
+        {
+            get
+            {
+                if (panelRadioButtons.Visible)
+                {
+                    return radioButtonBlogger.Checked;
+                }
+                else
+                {
+                    return SelectedWeblog.RadioButton == radioButtonBlogger;
                 }
             }
         }
@@ -293,6 +313,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelRadioButtons = new System.Windows.Forms.Panel();
             this.radioButtonWordpress = new System.Windows.Forms.RadioButton();
             this.radioButtonSharePoint = new System.Windows.Forms.RadioButton();
+            this.radioButtonBlogger = new System.Windows.Forms.RadioButton();
             this.radioButtonOther = new System.Windows.Forms.RadioButton();
             this.labelOtherDesc = new System.Windows.Forms.Label();
             this.panelComboBox = new System.Windows.Forms.Panel();
@@ -326,6 +347,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRadioButtons.Controls.Add(this.radioButtonWordpress);
             this.panelRadioButtons.Controls.Add(this.radioButtonSharePoint);
+            this.panelRadioButtons.Controls.Add(this.radioButtonBlogger);
             this.panelRadioButtons.Controls.Add(this.radioButtonOther);
             this.panelRadioButtons.Controls.Add(this.labelOtherDesc);
             this.panelRadioButtons.Location = new System.Drawing.Point(20, 88);
@@ -349,7 +371,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.radioButtonSharePoint.Size = new System.Drawing.Size(104, 24);
             this.radioButtonSharePoint.TabIndex = 2;
             this.radioButtonSharePoint.Text = "Share&Point weblog";
-            //
+            // 
+            // radioButtonBlogger
+            // 
+            this.radioButtonBlogger.Location = new System.Drawing.Point(0, 72);
+            this.radioButtonBlogger.Name = "radioButtonBlogger";
+            this.radioButtonBlogger.Size = new System.Drawing.Size(104, 24);
+            this.radioButtonBlogger.TabIndex = 3;
+            this.radioButtonBlogger.Text = "&Google Blogger";
+            // 
             // radioButtonOther
             //
             this.radioButtonOther.Location = new System.Drawing.Point(0, 48);
@@ -366,8 +396,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelOtherDesc.Name = "labelOtherDesc";
             this.labelOtherDesc.Size = new System.Drawing.Size(332, 40);
             this.labelOtherDesc.TabIndex = 5;
-            this.labelOtherDesc.Text = "Blogger, WordPress, TypePad, all others";
-            //
+            this.labelOtherDesc.Text = "TypePad and others";
+            // 
             // panelComboBox
             //
             this.panelComboBox.Controls.Add(this.comboBoxSelectWeblogType);
