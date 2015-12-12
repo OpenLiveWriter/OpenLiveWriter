@@ -66,7 +66,7 @@ namespace OpenLiveWriter.PostEditor
         private static PostInfo[] _draftList;
 
         // Note: The maximum number of recent items specified here should match the RecentItem's MaxCount attribute in ribbon.xml.
-        // This is the same count used by RecentItemsCommand, JumpList and DrafPostItemsGalleryCommand for other recent draft/post 
+        // This is the same count used by RecentItemsCommand, JumpList and DrafPostItemsGalleryCommand for other recent draft/post
         // surfaced in the product. If you change this value, make sure the new value works with other components using it.
         public const int MaxItems = 10;
     }

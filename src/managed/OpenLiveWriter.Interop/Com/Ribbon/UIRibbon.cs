@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -45,7 +45,7 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
     {
         NoColor = 0,
         Automatic = 1, // automatic swatch
-        RGB = 2,       // Solid color swatch               
+        RGB = 2,       // Solid color swatch
     }
 
     [Flags]

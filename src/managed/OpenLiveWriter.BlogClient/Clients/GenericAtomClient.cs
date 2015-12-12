@@ -18,7 +18,7 @@ using OpenLiveWriter.Localization;
 
 /*
  * TODO
- * 
+ *
  * Make sure all required fields are filled out.
  * Remove the HTML title from the friendly error message
  * Test ETags where HEAD not supported
@@ -155,7 +155,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="blogId"></param>
         /// <param name="inScheme">The scheme that should definitely be used (i.e. from wlwmanifest), or null.
@@ -232,7 +232,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 return scheme;
             }
         }
-
 
         protected override void VerifyCredentials(TransientCredentials tc)
         {

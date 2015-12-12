@@ -72,14 +72,12 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         }
         private bool _isPage = false;
 
-
         public string Title
         {
             get { return XmlCharacterHelper.RemoveInvalidXmlChars(_title); }
             set { _title = XmlCharacterHelper.RemoveInvalidXmlChars(value); }
         }
         private string _title = String.Empty;
-
 
         public string Contents
         {
@@ -124,7 +122,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             }
         }
         private string _permaLink = String.Empty;
-
 
         public BlogPostCategory[] Categories
         {
@@ -209,14 +206,12 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             NewCategories = newCategories.ToArray(typeof(BlogPostCategory)) as BlogPostCategory[];
         }
 
-
         public DateTime DatePublished
         {
             get { return _datePublished; }
             set { _datePublished = value; }
         }
         private DateTime _datePublished = DateTime.MinValue;
-
 
         public DateTime DatePublishedOverride
         {
@@ -236,7 +231,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             set { _commentPolicy = value; }
         }
         private BlogCommentPolicy _commentPolicy = BlogCommentPolicy.Unspecified;
-
 
         public BlogTrackbackPolicy TrackbackPolicy
         {
@@ -413,7 +407,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             newPost.CopyFrom(this);
             return newPost;
         }
-
 
         public void CopyFrom(BlogPost sourcePost)
         {

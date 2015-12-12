@@ -43,7 +43,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
         private string _editingTargetName = Res.Get(StringId.PostLower);
 
-
         protected override void OnElementAttached()
         {
             base.OnElementAttached();
@@ -88,8 +87,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-
-
         public event EventHandler TitleChanged;
         protected virtual void OnTitleChanged(EventArgs evt)
         {
@@ -130,7 +127,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 undo.Commit();
             }
         }
-
 
         protected override void OnSelectedChanged()
         {
@@ -189,7 +185,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 // WinLive 240926
                 // If we are moving away from this title, add our text for spell checking to be sure any changes are spell checked.
-                // The Enter/Tab keys are eaten up after this (e.Handled = true) and so WordRangeDamager.OnKeyDown will not get a 
+                // The Enter/Tab keys are eaten up after this (e.Handled = true) and so WordRangeDamager.OnKeyDown will not get a
                 // chance to see these keys to update the damaged area.
                 EditorContext.DamageServices.AddDamage(EditorContext.MarkupServices.CreateMarkupRange(HTMLElement, false));
             }
@@ -221,6 +217,5 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.OnTitleChanged(EventArgs.Empty);
         }
     }
-
 
 }

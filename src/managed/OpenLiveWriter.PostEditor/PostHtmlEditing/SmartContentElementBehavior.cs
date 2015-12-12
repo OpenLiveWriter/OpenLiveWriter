@@ -178,7 +178,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 UpdateCursor(selected);
         }
 
-
         protected override int HandlePreHandleEvent(int inEvtDispId, IHTMLEventObj pIEventObj)
         {
             if (ShouldProcessEvents(inEvtDispId, pIEventObj))
@@ -278,7 +277,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             EditorContext.CommandManager.BeforeExecute += new CommandManagerExecuteEventHandler(CommandManager_BeforeExecute);
             EditorContext.CommandManager.AfterExecute += new CommandManagerExecuteEventHandler(CommandManager_AfterExecute);
             EditorContext.HtmlInserted += new EventHandler(EditorContext_HtmlInserted);
-
 
             base.OnElementAttached();
 
@@ -596,7 +594,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 EditorContext.CommandManager.Execute(CommandId.ActivateContextualTab);
         }
 
-
         protected override void OnResizeStart(Size size, bool preserveAspectRatio)
         {
             _resizeUndo = EditorContext.CreateUndoUnit();
@@ -687,11 +684,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private void CompactElementSize(Size newSize)
         {
             //compact the HTML element's width as much as possible, don't set the height so
-            //the height just flows based on a fixed width			
+            //the height just flows based on a fixed width
             //Note: this fixed-width compaction algorithm is fairly arbitrary and may need to
             //      change if we find out users are trying to create plugins that need more flexibility
             //      in to compact around resized content.
-            //HTMLElement.style.width = newSize.Width + "px";	
+            //HTMLElement.style.width = newSize.Width + "px";
         }
 
         private Size UpdateHtmlForResize(Size newSize, bool isComplete)

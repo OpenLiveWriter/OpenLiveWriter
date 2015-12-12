@@ -60,7 +60,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -90,9 +89,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelCanStillEditLocally = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // pictureBoxWarning
-            // 
+            //
             this.pictureBoxWarning.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxWarning.Image")));
             this.pictureBoxWarning.Location = new System.Drawing.Point(10, 10);
             this.pictureBoxWarning.Name = "pictureBoxWarning";
@@ -100,9 +99,9 @@ namespace OpenLiveWriter.PostEditor
             this.pictureBoxWarning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxWarning.TabIndex = 0;
             this.pictureBoxWarning.TabStop = false;
-            // 
+            //
             // labelUnableToRetrieve
-            // 
+            //
             this.labelUnableToRetrieve.FlatStyle = FlatStyle.System;
             this.labelUnableToRetrieve.Location = new System.Drawing.Point(61, 52);
             this.labelUnableToRetrieve.Name = "labelUnableToRetrieve";
@@ -110,9 +109,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelUnableToRetrieve.TabIndex = 1;
             this.labelUnableToRetrieve.Text = "{0} was unable to retrieve an up to date copy of the {1} from the weblog server (" +
                 "an error occurred or the retrieve was cancelled).";
-            // 
+            //
             // labelTitle
-            // 
+            //
             this.labelTitle.FlatStyle = FlatStyle.System;
             this.labelTitle.Font = Res.GetFont(FontSize.XLarge, FontStyle.Bold);
             this.labelTitle.Location = new System.Drawing.Point(61, 21);
@@ -120,9 +119,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelTitle.Size = new System.Drawing.Size(237, 23);
             this.labelTitle.TabIndex = 2;
             this.labelTitle.Text = "Unable to Retrieve {0} from Server";
-            // 
+            //
             // labelCanStillEditLocally
-            // 
+            //
             this.labelCanStillEditLocally.FlatStyle = FlatStyle.System;
             this.labelCanStillEditLocally.Location = new System.Drawing.Point(61, 103);
             this.labelCanStillEditLocally.Name = "labelCanStillEditLocally";
@@ -130,18 +129,18 @@ namespace OpenLiveWriter.PostEditor
             this.labelCanStillEditLocally.TabIndex = 3;
             this.labelCanStillEditLocally.Text = "You may still edit the {0} using the local copy stored on this computer. However " +
                 "if you have changed the {0} online the copy you are editing is out of date.";
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(130, 159);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.TabIndex = 4;
             this.buttonOK.Text = "OK";
-            // 
+            //
             // RecentPostNotSynchronizedWarningForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.CancelButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);

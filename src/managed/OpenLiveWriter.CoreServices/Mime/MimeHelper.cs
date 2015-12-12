@@ -14,9 +14,9 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Summary description for mimeHelper.
-    /// 
-    ///  Mime-types was originally defined in RFC 1341. After that a series of 
-    ///  improvment has been made. Some of this can be found in RFC 1521  
+    ///
+    ///  Mime-types was originally defined in RFC 1341. After that a series of
+    ///  improvment has been made. Some of this can be found in RFC 1521
     ///  and RFC 1522.
     /// </summary>
     public class MimeHelper
@@ -26,14 +26,12 @@ namespace OpenLiveWriter.CoreServices
         /// the file
         /// </summary>
         /// <param name="fileExtension">the file extension (i.e. '.gif')</param>
-        /// <returns>the content type (i.e. 'image/gif').  returns null if no contentType 
+        /// <returns>the content type (i.e. 'image/gif').  returns null if no contentType
         /// is found for the file extension.</returns>
         public static string GetContentType(string fileExtension)
         {
             return GetContentType(fileExtension, null);
         }
-
-
 
         /// <summary>
         /// This sets the content type value in the registry for a given file
@@ -61,14 +59,11 @@ namespace OpenLiveWriter.CoreServices
 
         }
 
-
-
         /// <summary>
         /// Application/octet-stream content type, a good default for
         /// unrecognized content types.
         /// </summary>
         public const string APP_OCTET_STREAM = "application/octet-stream";
-
 
         /// <summary>
         /// Text/html content type
@@ -126,7 +121,7 @@ namespace OpenLiveWriter.CoreServices
             // be base64 encoded even though they're text.  We could force those to be
             // QP encoded using a static hash of extensions...
 
-            // Open the registry key for the extension and return the 
+            // Open the registry key for the extension and return the
             // content type, if possible
             RegistryKey extKey = Registry.ClassesRoot.OpenSubKey(fileExtension, false);
             if (extKey != null)
@@ -169,10 +164,9 @@ namespace OpenLiveWriter.CoreServices
         private const string MIME_DATABASE_CONTENTTYPE = "MIME\\Database\\Content Type";
         private const string EXTENSION = "Extension";
 
-
-        // 
+        //
         // The below are an enumeration of the available encoding types
-        // 
+        //
 
         /// <summary>
         /// Base 64 encoding
@@ -188,7 +182,6 @@ namespace OpenLiveWriter.CoreServices
         /// Quoted-printable encoding (used for all text)
         /// </summary>
         public const string QuotedPrintable = "quoted-printable";
-
 
         /// <summary>
         /// Gets the encoding type to use for this content type
@@ -230,7 +223,6 @@ namespace OpenLiveWriter.CoreServices
 
         }
 
-
         /// <summary>
         /// Write base64 encoded data
         /// </summary>
@@ -240,7 +232,6 @@ namespace OpenLiveWriter.CoreServices
         {
             // Get a writer (use ASCII encoding since this will write 7 bit ascii text)
             StreamWriter writer = new StreamWriter(output, ASCIIEncoding.ASCII);
-
 
             // Each 3 byte sequence in the source data becomes a 4 byte
             // sequence in the character array. (so the byte buffer is 3/4 the
@@ -274,7 +265,6 @@ namespace OpenLiveWriter.CoreServices
             writer.Flush();
 
         }
-
 
         /// <summary>
         /// Writes quoted printable encoded characters to the output stream
@@ -353,13 +343,11 @@ namespace OpenLiveWriter.CoreServices
                 // Lookahead to the next character
                 ch = reader.Peek();
 
-
             }
             // Flush this writer to make sure any internal buffer is empty.
             writer.Flush();
 
         }
-
 
         /// <summary>
         /// Determines whether the given content type is an image
@@ -377,7 +365,6 @@ namespace OpenLiveWriter.CoreServices
 
             return false;
         }
-
 
         /// <summary>
         /// Determines whether the given content type is a page
@@ -413,7 +400,6 @@ namespace OpenLiveWriter.CoreServices
             return false;
         }
 
-
         /// <summary>
         /// Determines whether the given content type is a file
         /// </summary>
@@ -443,7 +429,6 @@ namespace OpenLiveWriter.CoreServices
                             "application/vnd.ms-publisher",
                             "application/x-mspublisher",
                             "text/plain"};
-
 
         /// <summary>
         /// Returns the quoted printable character type for a given chacacter
@@ -479,7 +464,6 @@ namespace OpenLiveWriter.CoreServices
                 // Throw illegal character exception
                 throw MimeHelperException.ForIllegalEncodingCharacter((char)ascii, "quoted-printable", null);
         }
-
 
         // The states, actions, and inputs used in the quoted printable encoder
         #region Quoted Printable State Table
@@ -522,41 +506,41 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         private static int[,,] QPStateTable =
             {
-				// SCANNING				
-				{
+                // SCANNING
+                {
                     {OUTPUT,PENDING},			// Legal Ascii
-					{OUTPUT_ESCAPED,PENDING},	// Illegal Ascii
-					{OUTPUT,PENDING},			// WriteSpace
-					{NONE,LOOK_FOR_LF},		// CarriageReturn
-					{OUTPUT_CRLF, SCANNING}		// Linefeed
-				},
-				
-				// LOOK_FOR_LF
-				{
+                    {OUTPUT_ESCAPED,PENDING},	// Illegal Ascii
+                    {OUTPUT,PENDING},			// WriteSpace
+                    {NONE,LOOK_FOR_LF},		// CarriageReturn
+                    {OUTPUT_CRLF, SCANNING}		// Linefeed
+                },
+
+                // LOOK_FOR_LF
+                {
                     {CRLF_AND_PUTBACK, SCANNING},	// Legal Ascii
-					{CRLF_AND_PUTBACK, SCANNING},	// Illegal Ascii
-					{CRLF_AND_PUTBACK, SCANNING},	// WhiteSpace
-					{CRLF_AND_PUTBACK, SCANNING},	// CarriageReturn
-					{OUTPUT_CRLF, SCANNING}			// Linefeed
-				},
-				
-				// REDZONE			
-				{
+                    {CRLF_AND_PUTBACK, SCANNING},	// Illegal Ascii
+                    {CRLF_AND_PUTBACK, SCANNING},	// WhiteSpace
+                    {CRLF_AND_PUTBACK, SCANNING},	// CarriageReturn
+                    {OUTPUT_CRLF, SCANNING}			// Linefeed
+                },
+
+                // REDZONE
+                {
                     {OUTPUT, END_OF_LINE},			// Legal Ascii
-					{OUTPUT_ESCAPED, END_OF_LINE},	// Illegal Ascii
-					{OUTPUT_ESCAPED, END_OF_LINE},	// WhiteSpace
-					{NONE, LOOK_FOR_LF},			// CarriageReturn
-					{OUTPUT_CRLF, SCANNING}			// Linefeed
-				},
-				
-				// END_OF_LINE
-				{
+                    {OUTPUT_ESCAPED, END_OF_LINE},	// Illegal Ascii
+                    {OUTPUT_ESCAPED, END_OF_LINE},	// WhiteSpace
+                    {NONE, LOOK_FOR_LF},			// CarriageReturn
+                    {OUTPUT_CRLF, SCANNING}			// Linefeed
+                },
+
+                // END_OF_LINE
+                {
                     {SOFT_CRLF_AND_PUTBACK, SCANNING},	// Legal Ascii
-					{SOFT_CRLF_AND_PUTBACK, SCANNING},	// Illegal Ascii
-					{SOFT_CRLF_AND_PUTBACK, SCANNING},	// WhiteSpace
-					{NONE, LOOK_FOR_LF},				// CarriageReturn
-					{OUTPUT_CRLF, SCANNING}				// Linefeed				
-				}
+                    {SOFT_CRLF_AND_PUTBACK, SCANNING},	// Illegal Ascii
+                    {SOFT_CRLF_AND_PUTBACK, SCANNING},	// WhiteSpace
+                    {NONE, LOOK_FOR_LF},				// CarriageReturn
+                    {OUTPUT_CRLF, SCANNING}				// Linefeed
+                }
             };
         #endregion
 
@@ -566,7 +550,7 @@ namespace OpenLiveWriter.CoreServices
         /// but taking into account folding whitespace, comments, quoting,
         /// quoted-char, and all the other stuff that RFC2045/RFC2822
         /// force us to deal with.
-        /// 
+        ///
         /// To get the mainValue, look for the key "" in the result table.
         /// </summary>
         public static IDictionary ParseContentType(string contentType, bool caseInsensitive)
@@ -726,7 +710,6 @@ namespace OpenLiveWriter.CoreServices
                 return result;
         }
 
-
         /// <summary>
         /// The maximum length of a line in a Mime Multipart Document
         /// </summary>
@@ -734,7 +717,6 @@ namespace OpenLiveWriter.CoreServices
 
         // The registry key that stores the content type value
         private const string CONTENT_TYPE_KEY = "Content Type";
-
 
     }
 

@@ -13,7 +13,7 @@ namespace OpenLiveWriter.ApplicationFramework
     {
         /// <summary>
         /// Initializes a new instance of the MenuBuilder class.
-        /// </summary>		
+        /// </summary>
         private MenuBuilder()
         {
         }

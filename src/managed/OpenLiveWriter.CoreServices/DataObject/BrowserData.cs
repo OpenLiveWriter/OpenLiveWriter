@@ -30,7 +30,6 @@ namespace OpenLiveWriter.CoreServices
                 return null;
         }
 
-
         /// <summary>
         /// The IWebBrowser2 provided to the Meister
         /// </summary>
@@ -53,7 +52,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private bool m_isFormPost;
-
 
         /// <summary>
         /// The browser's current url
@@ -104,7 +102,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private HTMLMetaData m_htmlMetaData;
-
 
         public LightWeightHTMLDocument LightWeightDocument
         {

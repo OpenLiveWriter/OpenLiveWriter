@@ -16,7 +16,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 {
     internal class MapBirdsEyeDirectionControl : System.Windows.Forms.UserControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -47,7 +47,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
         private Bitmap _centerArrowBitmap;
 
-
         public MapBirdsEyeDirectionControl()
         {
             //	Turn on double buffered painting.
@@ -71,7 +70,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
             // initialize the background bitmap
             _backgroundBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.BEVNSEWFrame.png");
-
 
             Width = _backgroundBitmap.Width + (BUTTON_INSET * 2);
             Height = _backgroundBitmap.Height + (BUTTON_INSET * 2);
@@ -178,9 +176,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
         private VEOrientation _mapDirection;
 
-
         public event EventHandler DirectionChanged;
-
 
         protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
         {
@@ -250,7 +246,7 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
         private bool _supressNextEnter = false;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -266,8 +262,8 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()

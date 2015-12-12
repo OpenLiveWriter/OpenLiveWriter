@@ -132,7 +132,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="graphics"></param>
         /// <param name="image"></param>
@@ -163,24 +163,24 @@ namespace OpenLiveWriter.CoreServices
 
             return new Rectangle[]
                 {
-					// top left
-					new Rectangle(left, top, leftWidth, topHeight),
-					// top center
-					new Rectangle(center, top, centerWidth, topHeight),
-					// top right
-					new Rectangle(right, top, rightWidth, topHeight),
-					// left
-					new Rectangle(left, middle, leftWidth, middleHeight),
+                    // top left
+                    new Rectangle(left, top, leftWidth, topHeight),
+                    // top center
+                    new Rectangle(center, top, centerWidth, topHeight),
+                    // top right
+                    new Rectangle(right, top, rightWidth, topHeight),
+                    // left
+                    new Rectangle(left, middle, leftWidth, middleHeight),
                     // middle
-                    new Rectangle(center, middle, centerWidth, middleHeight), 
-					// right
-					new Rectangle(right, middle, rightWidth, middleHeight),
-					// bottom left
-					new Rectangle(left, bottom, leftWidth, bottomHeight),
-					// bottom center
-					new Rectangle(center, bottom, centerWidth, bottomHeight),
-					// bottom right
-					new Rectangle(right, bottom, rightWidth, bottomHeight)
+                    new Rectangle(center, middle, centerWidth, middleHeight),
+                    // right
+                    new Rectangle(right, middle, rightWidth, middleHeight),
+                    // bottom left
+                    new Rectangle(left, bottom, leftWidth, bottomHeight),
+                    // bottom center
+                    new Rectangle(center, bottom, centerWidth, bottomHeight),
+                    // bottom right
+                    new Rectangle(right, bottom, rightWidth, bottomHeight)
                 };
         }
 
@@ -370,11 +370,10 @@ namespace OpenLiveWriter.CoreServices
             return rectangle.Height > 0 && rectangle.Width > 0;
         }
 
-
         /// <summary>
         /// Draws a composited image border.  Note that because it would be too computationally
         /// expensive, it is ASSUMED that the rectangle supplied is large enough to draw the border
-        /// witout 
+        /// witout
         /// </summary>
         /// <remarks>
         ///	Note that because it would be too computationally expensive, it is assumed that images
@@ -424,7 +423,6 @@ namespace OpenLiveWriter.CoreServices
             //	Top right.
             graphics.DrawImageUnscaled(topRightImage, rectangle.Right - topRightImage.Width, rectangle.Y);
 
-
             //	Left center.
             fillRectangle = new Rectangle(rectangle.X,
                                             rectangle.Y + topLeftImage.Height,
@@ -432,14 +430,12 @@ namespace OpenLiveWriter.CoreServices
                                             rectangle.Height - (topLeftImage.Height + bottomLeftImage.Height));
             TileFillUnscaledImageVertically(graphics, leftCenterImage, fillRectangle);
 
-
             //	Right center.
             fillRectangle = new Rectangle(rectangle.Right - rightCenterImage.Width,
                                             rectangle.Y + topRightImage.Height,
                                             rightCenterImage.Width,
                                             rectangle.Height - (topRightImage.Height + bottomRightImage.Height));
             TileFillUnscaledImageVertically(graphics, rightCenterImage, fillRectangle);
-
 
             //	Bottom left.
             graphics.DrawImageUnscaled(bottomLeftImage, rectangle.X, rectangle.Bottom - bottomLeftImage.Height);
@@ -472,7 +468,6 @@ namespace OpenLiveWriter.CoreServices
             else
                 return 255;
         }
-
 
         public static IDisposable Offset(Graphics g, Rectangle dest, Rectangle src)
         {

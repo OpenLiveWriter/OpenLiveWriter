@@ -29,7 +29,6 @@ namespace OpenLiveWriter.Controls
         {
         }
 
-
         public MiniForm(IWin32Window parentFrame)
         {
             _parentFrame = parentFrame;
@@ -58,14 +57,12 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         public void FloatAboveOwner(IMiniFormOwner owner)
         {
             _floatAboveMainFrame = true;
             _owner = owner;
             _owner.AddOwnedForm(this);
         }
-
 
         protected IWin32Window ParentFrame
         {
@@ -75,14 +72,12 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         protected override CreateParams CreateParams
         {
             get
             {
                 // copy base create params
                 CreateParams createParams = base.CreateParams;
-
 
                 // add system standard drop shadow
                 if (ShowDropShadow)
@@ -106,7 +101,6 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         /// <summary>
         /// Override out Activated event to allow parent form to retains its 'activated'
         /// look (caption bar color, etc.) even when we are active
@@ -118,10 +112,9 @@ namespace OpenLiveWriter.Controls
             base.OnActivated(e);
 
             // send the parent form a WM_NCACTIVATE message to cause it to to retain it's
-            // activated title bar appearance			
+            // activated title bar appearance
             User32.SendMessage(ParentFrame.Handle, WM.NCACTIVATE, new UIntPtr(1), IntPtr.Zero);
         }
-
 
         /// <summary>
         /// Automatically close when the form is deactivated
@@ -136,7 +129,7 @@ namespace OpenLiveWriter.Controls
                 // set a timer that will result in the closing of the form
                 // (we do this because if actually call Close right here it
                 // will prevent the mouse event that resulted in the deactivation
-                // of the form from actually triggering in the new target 
+                // of the form from actually triggering in the new target
                 // window -- this allows the mouse event to trigger and the
                 // form to go away almost instantly
                 Timer closeDelayTimer = new Timer();
@@ -170,7 +163,6 @@ namespace OpenLiveWriter.Controls
                 _owner.RemoveOwnedForm(this);
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -193,9 +185,9 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // MiniForm
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(292, 266);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

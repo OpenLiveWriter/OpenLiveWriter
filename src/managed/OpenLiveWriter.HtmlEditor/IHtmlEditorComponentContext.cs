@@ -44,7 +44,7 @@ namespace OpenLiveWriter.HtmlEditor
 
         /// <summary>
         /// Allow components to perform fixups to edited html
-        /// prior to publishing or saving. These edits are 
+        /// prior to publishing or saving. These edits are
         /// automatically reverted after publishing or saving
         /// so that the editing experience is not affected
         /// </summary>
@@ -57,7 +57,6 @@ namespace OpenLiveWriter.HtmlEditor
 
         event EventHandler BeforeInitialInsertion;
         event EventHandler AfterInitialInsertion;
-
 
         void FireSelectionChanged();
 
@@ -89,7 +88,6 @@ namespace OpenLiveWriter.HtmlEditor
         /// <param name="input">input parameter</param>
         void ExecuteCommand(uint cmdID, object input);
 
-
         /// <summary>
         /// Execute an MSHTML command
         /// </summary>
@@ -98,12 +96,10 @@ namespace OpenLiveWriter.HtmlEditor
         /// <param name="output">out parameter</param>
         void ExecuteCommand(uint cmdID, object input, ref object output);
 
-
         /// <summary>
         /// Clear the current selection
         /// </summary>
         void Clear();
-
 
         /// <summary>
         /// Provide the ability to filter editor events
@@ -134,7 +130,6 @@ namespace OpenLiveWriter.HtmlEditor
         /// </summary>
         event HtmlEventHandler KeyUp;
 
-
         /// <summary>
         /// Provide the ability to process clipboard Copy
         /// </summary>
@@ -143,7 +138,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// <summary>
         /// Provide the ability to process clipboard Cut
         /// </summary>
-        /// 
+        ///
         event HtmlEditorSelectionOperationEventHandler HandleCut;
 
         /// <summary>
@@ -180,7 +175,6 @@ namespace OpenLiveWriter.HtmlEditor
         /// </summary>
         /// <returns></returns>
         IUndoUnit CreateInvisibleUndoUnit();
-
 
         /// <summary>
         /// Cookie bag which can be used for components to communicate
@@ -262,9 +256,5 @@ namespace OpenLiveWriter.HtmlEditor
 
     public delegate void HtmlEditorSelectionOperationEventHandler(HtmlEditorSelectionOperationEventArgs ea);
 
-
-
 }
-
-
 

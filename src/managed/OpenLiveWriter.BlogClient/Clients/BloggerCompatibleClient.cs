@@ -27,7 +27,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
         }
 
-
         protected override void VerifyCredentials(TransientCredentials tc)
         {
             try
@@ -123,7 +122,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             return node.InnerText;
         }
 
-
         public override void DeletePost(string blogId, string postId, bool publish)
         {
             TransientCredentials tc = Login();
@@ -134,8 +132,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 new XmlRpcString(tc.Password, true),
                 new XmlRpcBoolean(publish));
         }
-
-
 
         protected const string APP_KEY = "0123456789ABCDEF";
     }

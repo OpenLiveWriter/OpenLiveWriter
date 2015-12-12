@@ -95,6 +95,5 @@ namespace OpenLiveWriter.HtmlParser.Parser.FormAgent
             return formData;
         }
 
-
     }
 }

@@ -9,20 +9,20 @@ namespace OpenLiveWriter.Api
 {
     /// <summary>
     /// <para>Base class for plugins that wish to enable the insertion of custom HTML content into posts.
-    /// The source of content to be inserted can any or all of the following: an Insert dialog, 
+    /// The source of content to be inserted can any or all of the following: an Insert dialog,
     /// a URL, or LiveClipboard data.</para>
-    /// <para>Implementors of this class should override the CreateContent method(s) corresponding to 
+    /// <para>Implementors of this class should override the CreateContent method(s) corresponding to
     /// the content-sources they wish to support. Note also that each of the CreateContent methods
-    /// has a corresponding class-level attribute that must be specified along with the override.</para> 
+    /// has a corresponding class-level attribute that must be specified along with the override.</para>
     /// <para>There is a single instance of a given ContentSource created for each Open Live Writer
-    /// process. The implementation of ContentSource objects must therefore be stateless (the 
+    /// process. The implementation of ContentSource objects must therefore be stateless (the
     /// context required to carry out the responsibilities of the various methods are passed as parameters to
     /// the respective methods).</para>
     /// </summary>
     public class ContentSource : WriterPlugin
     {
         /// <summary>
-        /// Create content using an Insert dialog. Plugin classes which override this method must 
+        /// Create content using an Insert dialog. Plugin classes which override this method must
         /// also be declared with the InsertableContentSourceAttribute.
         /// </summary>
         /// <param name="dialogOwner">Owner for any dialogs shown.</param>
@@ -52,8 +52,8 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Create content based on a URL. The source of this URL can either be the page the user was
-        /// navigated to when they pressed the "Blog This" button or a URL that is pasted or dragged 
-        /// into the editor. Plugin classes which override this method must also be declared with 
+        /// navigated to when they pressed the "Blog This" button or a URL that is pasted or dragged
+        /// into the editor. Plugin classes which override this method must also be declared with
         /// the UrlContentSourceAttribute.
         /// </summary>
         /// <param name="url">Url to create content from.</param>

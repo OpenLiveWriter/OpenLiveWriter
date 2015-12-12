@@ -104,7 +104,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
         // unmanaged memory buffer that holds the Win32 dialog template
         private IntPtr _ipTemplate;
 
-
         /// <summary>
         /// Sets up the data structures necessary to display the OpenFileDialog
         /// </summary>
@@ -364,7 +363,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
                             //fixing up button text and tab order
                             IntPtr hWndOpenButton = User32.GetDlgItem(_hWndParent, _OPEN_BUTTON_ID);
                             User32.SetWindowText(hWndOpenButton, Res.Get(StringId.InsertImageButton));
-
 
                             mainTabControl.InitFocusManager();
                             mainTabControl.AddFocusableControls(tabs.GetAccessibleControls());
@@ -665,7 +663,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
 
             _cancelButton.Invalidate();
 
-
             if (activeImageSource != null)
             {
                 activeImageSource.Repaint(new Size(newWidth, _panelImage.Height));
@@ -694,7 +691,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
 
             state = STATE.WEB;
         }
-
 
         private void SetFromFileActive()
         {
@@ -826,7 +822,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
             return true;
         }
 
-
         public void ExpandFileTextBox(IntPtr hWndControl)
         {
             Rectangle rcContent = new Rectangle(0, 0, 0, 0);
@@ -877,7 +872,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
 
         #endregion
 
-
         #region IDisposable Members
 
         public void Dispose()
@@ -904,7 +898,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
 
         #endregion
 
-
         private void ForceLargeThumbnail(IntPtr hContentWindow)
         {
             // This hack is based on the knowledge that within the standard open file dialog
@@ -917,7 +910,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
             // enumeration (this is also described in the article referenced above).
             // NOTE: there is at least one report from a developer of this technique not working
             // (see comments at http://www.thecodeproject.com/cs/miscctrl/FileDialogExtender.asp).
-            // it is very likely that this technique is fragile accross OS version and/or 
+            // it is very likely that this technique is fragile accross OS version and/or
             // installed shell customizations.
 
             UIntPtr viewType = FCIDM_SHVIEW.LARGEICON;
@@ -925,7 +918,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
             User32.SendMessage(hContentWindow, WM_COMMAND, viewType, IntPtr.Zero);
             GC.KeepAlive(this);
         }
-
 
         public void CompleteInitialization()
         {
@@ -971,7 +963,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
             public static readonly UIntPtr THUMBNAIL = new UIntPtr(0x702D);
             public static readonly UIntPtr TILE = new UIntPtr(0x702E);
         }
-
 
         private class CommandListener : NativeWindow
         {

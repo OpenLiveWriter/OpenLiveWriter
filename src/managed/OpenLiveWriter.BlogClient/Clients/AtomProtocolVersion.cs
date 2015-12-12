@@ -77,7 +77,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         public abstract XmlElement HtmlToTextNode(XmlDocument ownerDoc, string html);
         public abstract XmlElement PlaintextToTextNode(XmlDocument ownerDoc, string text);
 
-
         private class Atom03ProtocolVersion : AtomProtocolVersion
         {
             private const string DC_URI = "http://purl.org/dc/elements/1.1/";
@@ -103,7 +102,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 while (null != (category = node.SelectSingleNode("dc:subject", nsMgr)))
                     category.ParentNode.RemoveChild(category);
             }
-
 
             public override string TextNodeToHtml(XmlElement node)
             {
@@ -249,11 +247,11 @@ namespace OpenLiveWriter.BlogClient.Clients
             private bool SchemesEqual(string scheme1, string scheme2)
             {
                 /*
-				if (scheme1 == null)
-					scheme1 = "";
-				if (scheme2 == null)
-					scheme2 = "";
-				*/
+                if (scheme1 == null)
+                    scheme1 = "";
+                if (scheme2 == null)
+                    scheme2 = "";
+                */
                 return string.Equals(scheme1, scheme2);
             }
 

@@ -43,7 +43,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="inStream"></param>
         /// <param name="outStream"></param>
@@ -101,7 +101,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Return up to <c>count</c> bytes from the stream.
-        /// 
+        ///
         /// If EOF has been reached, returns null. Otherwise,
         /// returns a byte array exactly long enough to hold
         /// the actual number of bytes read (will not exceed
@@ -138,7 +138,7 @@ namespace OpenLiveWriter.CoreServices
         {
             if (s.CanSeek)
             {
-                // If we can find out the stream length, we can copy it in a way 
+                // If we can find out the stream length, we can copy it in a way
                 // that only results in a single byte array getting instantiated.
                 return new MemoryStream(AsBytes(s, checked((int)s.Length)));
             }

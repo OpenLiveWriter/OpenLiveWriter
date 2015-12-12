@@ -53,7 +53,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             base.Dispose(disposing);
         }
 
-
         #endregion
 
         #region Public Interface
@@ -82,7 +81,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
         private IPostEditorPostSource _postSource;
 
-
         public RecentPostRequest RecentPostRequest
         {
             get
@@ -101,7 +99,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
         private RecentPostRequest _recentPostRequest = new RecentPostRequest(5);
 
-
         public bool ShowPages
         {
             get
@@ -118,9 +115,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             }
         }
         private bool _showPages = false;
-
-
-
 
         public PostInfo SelectedPost
         {
@@ -159,7 +153,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                         _filterSegments[i] = new Regex(pattern, RegexOptions.ExplicitCapture);
                     }
 
-
                     UpdateListBox();
                 }
             }
@@ -171,7 +164,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             if (RefreshBegin != null)
                 RefreshBegin(this, EventArgs.Empty);
         }
-
 
         public void RefreshPosts()
         {
@@ -202,7 +194,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 ShowEmptyPostListControl();
             }
         }
-
 
         public bool IsRefreshing
         {
@@ -440,7 +431,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             {
                 base.ApplyTheme(highContrast);
 
-
                 backColor = SystemColors.Window;
                 textColor = SystemColors.ControlText;
                 backColorSelected = !highContrast ? SystemColors.ControlLight : SystemColors.InactiveCaption;
@@ -473,7 +463,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 
         #endregion
 
-        #region Post Refreshing Implementation 
+        #region Post Refreshing Implementation
 
         private void BeginGetRecentPostsAsync()
         {
@@ -486,14 +476,12 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             // show progress UI
             GetRecentPostsProgressControl.Start(ShowPages);
 
-
             _pendingRecentPostsOperation = new GetRecentPostsAsyncOperation(new BlogClientUIContextImpl(_parentForm), PostSource, RecentPostRequest, ShowPages);
             _pendingRecentPostsOperation.Completed += new EventHandler(_pendingRecentPostsOperation_Completed);
             _pendingRecentPostsOperation.Failed += new ThreadExceptionEventHandler(_pendingRecentPostsOperation_Failed);
             _pendingRecentPostsOperation.Start();
         }
         private GetRecentPostsAsyncOperation _pendingRecentPostsOperation = null;
-
 
         private void EndGetRecentPostsAsync()
         {
@@ -525,7 +513,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             }
             private PostInfo[] _recentPosts;
 
-
             protected override void DoWork()
             {
                 using (BlogClientUIContextScope uiContextScope = new BlogClientUIContextScope(_uiContext))
@@ -540,13 +527,11 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 }
             }
 
-
             private IBlogClientUIContext _uiContext;
             private IPostEditorPostSource _postSource;
             private RecentPostRequest _request;
             private bool _getPages;
         }
-
 
         private void CancelGetRecentPostsAsync()
         {
@@ -662,7 +647,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 _lastFilter = Filter;
             }
 
-
             // default selection
             if (Items.Count > 0)
                 SelectedIndex = 0;
@@ -703,7 +687,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 return new PostInfo[] { };
             }
         }
-
 
         private GetRecentPostsProgressControl GetRecentPostsProgressControl
         {
@@ -839,7 +822,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             }
 
             public PostInfo PostInfo { get { return _postInfo; } }
-
 
             public readonly string SearchIndex;
         }

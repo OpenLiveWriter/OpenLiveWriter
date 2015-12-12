@@ -80,7 +80,7 @@ namespace OpenLiveWriter.HtmlEditor
             MarkupRange[] stylableBlockRegions = GetSelectableBlockRegions(selection);
             if (stylableBlockRegions.Length > 0)
             {
-                // 
+                //
                 // We want to make sure that the selection reflects only the
                 // blocks that were changed. Unposition the start and end
                 // pointers and then make sure they cover the stylable block
@@ -554,7 +554,7 @@ namespace OpenLiveWriter.HtmlEditor
     /// is deleted and rewritten. In these cases the selection
     /// gets lost. This class helps restore the selection to
     /// approximately where it was before.
-    /// 
+    ///
     /// Before the change is applied, call Init so the class can
     /// save the position of the cursor relative to the visible
     /// characters in the range. After the change is applied, call
@@ -562,11 +562,11 @@ namespace OpenLiveWriter.HtmlEditor
     /// was originally. Each call takes a MarkupRange that represents
     /// the boundary of the range that's being changed--at least
     /// the text contained therein should be the same for both calls.
-    /// 
+    ///
     /// Limitations:
-    /// * Doesn't preserve position relative to non-textual markup, 
+    /// * Doesn't preserve position relative to non-textual markup,
     ///   like images, br's, etc. This means if the initial selection
-    ///   is adjacent to one of these things instead of surrounded on 
+    ///   is adjacent to one of these things instead of surrounded on
     ///   both sides by text (or the edge of the bounds/block) then the
     ///   resulting placement will be approximate only.
     /// * Only works if the selection is empty.

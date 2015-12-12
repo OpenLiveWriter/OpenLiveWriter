@@ -17,7 +17,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private TextBox textBoxUrl;
         private LinkOptionsEditorControl linkOptionsControl1;
         private Label label1;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -29,7 +29,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.label1.Text = Res.Get(StringId.LinkToWebPageURL);
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -45,8 +45,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -55,9 +55,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.linkOptionsControl1 = new OpenLiveWriter.PostEditor.PostHtmlEditing.LinkOptionsEditorControl();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // textBoxUrl
-            // 
+            //
             this.textBoxUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxUrl.Location = new System.Drawing.Point(0, 16);
@@ -67,9 +67,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.textBoxUrl.Text = "http://";
             this.textBoxUrl.TextChanged += new System.EventHandler(this.textBoxUrl_TextChanged);
             this.textBoxUrl.Leave += new System.EventHandler(this.textBoxUrl_Leave);
-            // 
+            //
             // linkOptionsControl1
-            // 
+            //
             this.linkOptionsControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.linkOptionsControl1.Location = new System.Drawing.Point(0, 40);
@@ -77,9 +77,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.linkOptionsControl1.Size = new System.Drawing.Size(284, 20);
             this.linkOptionsControl1.TabIndex = 1;
             this.linkOptionsControl1.LinkOptionsChanged += new System.EventHandler(this.linkOptionsControl1_LinkOptionsChanged);
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -88,9 +88,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.label1.Size = new System.Drawing.Size(284, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Link to webpage URL:";
-            // 
+            //
             // ImageUrlTargetEditorControl
-            // 
+            //
             this.Controls.Add(this.label1);
             this.Controls.Add(this.linkOptionsControl1);
             this.Controls.Add(this.textBoxUrl);

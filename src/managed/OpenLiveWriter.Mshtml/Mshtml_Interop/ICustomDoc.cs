@@ -18,5 +18,3 @@ namespace OpenLiveWriter.Mshtml
     }
 }
 
-
-

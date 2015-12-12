@@ -57,7 +57,6 @@ namespace OpenLiveWriter.CoreServices
 
         private LightWeightHTMLMetaData _metaData = null;
 
-
         public void AddUrlToReplace(UrlToReplace urlToReplace)
         {
             if (!_urlsToReplace.Contains(urlToReplace))
@@ -107,8 +106,6 @@ namespace OpenLiveWriter.CoreServices
             return html;
         }
 
-
-
         private int _scriptDepth = 0;
         protected override void OnBeginTag(BeginTag tag)
         {
@@ -121,7 +118,6 @@ namespace OpenLiveWriter.CoreServices
                     EmitTag(HTMLTokens.Html);
                 _firstTag = false;
             }
-
 
             if (!_seenHead && !TagPermittedAboveBody(tag))
             {
@@ -228,7 +224,6 @@ namespace OpenLiveWriter.CoreServices
             base.OnScriptLiteral(literal);
         }
 
-
         protected override void OnStyleLiteral(StyleLiteral literal)
         {
             if (literal == null || _scriptDepth > 0)
@@ -329,7 +324,6 @@ namespace OpenLiveWriter.CoreServices
             base.OnStyleComment(styleComment);
         }
 
-
         protected override void OnStyleImport(StyleImport styleImport)
         {
             if (styleImport == null || _scriptDepth > 0)
@@ -398,8 +392,6 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
 
-
-
             //check substitution Urls
             return value;
         }
@@ -412,8 +404,6 @@ namespace OpenLiveWriter.CoreServices
             return false;
         }
         private static string[] _jscriptAttributes = new string[] { "onload", "onclick", "onblur", "onchange", "onerror", "onfocus", "onmouseout", "onmouseover", "onreset", "onsubmit", "onselect", "onunload", "onmousedown", "onmouseup", "ondblclick", "onmousemove", "onkeypress", "onkeydown", "onkeyup", };
-
-
 
         private void ModifyMetaDataAsNecessary(BeginTag tag)
         {
@@ -506,15 +496,11 @@ namespace OpenLiveWriter.CoreServices
             if (_metaData.Pragma != null && !_emittedMetaData.Contains(HTMLTokens.Pragma))
                 Emit(string.Format(CultureInfo.InvariantCulture, equivFormat, HTMLTokens.Pragma, _metaData.Pragma));
 
-
         }
 
         private StringBuilder _htmlBuilder = new StringBuilder();
 
         private static string[] _permittedBeforeBody = new string[] { HTMLTokens.Html, HTMLTokens.Head, HTMLTokens.Title, HTMLTokens.Script, HTMLTokens.Style, HTMLTokens.Meta, HTMLTokens.Link, HTMLTokens.Object, HTMLTokens.Base, HTMLTokens.Frame, HTMLTokens.FrameSet, HTMLTokens.NoScript };
     }
-
-
-
 
 }

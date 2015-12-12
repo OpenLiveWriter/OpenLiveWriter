@@ -17,30 +17,26 @@ namespace OpenLiveWriter.PostEditor.Tables
 {
 
     /* Why is percent based column sizing not allowed? We want to in all cases let the
-	 * table flow to occupy the width of its container. This provides for both robust
-	 * behavior accross blogs/templates/normal mode and also allows the browser table
-	 * rendering logic to automatically "balance" columns based on their content and
-	 * preferred widths. Percent mode requires that the table be given a fixed width
-	 * (otherwise you end up with a table of essentially zero size). Note that users
-	 * are essentially able to do percent based sizing by providing a set of 
-	 * preferred widths to their columns (if the preferred widths exceed the available
-	 * width in the table's parent block then they become relative guidelines for
-	 * sizing the columns).
-	 */
-
+     * table flow to occupy the width of its container. This provides for both robust
+     * behavior accross blogs/templates/normal mode and also allows the browser table
+     * rendering logic to automatically "balance" columns based on their content and
+     * preferred widths. Percent mode requires that the table be given a fixed width
+     * (otherwise you end up with a table of essentially zero size). Note that users
+     * are essentially able to do percent based sizing by providing a set of
+     * preferred widths to their columns (if the preferred widths exceed the available
+     * width in the table's parent block then they become relative guidelines for
+     * sizing the columns).
+     */
 
     public class ColumnWidthControl : System.Windows.Forms.UserControl
     {
         private OpenLiveWriter.Controls.NumericTextBox textBoxWidth;
         private System.Windows.Forms.Label labelWidth;
         private System.Windows.Forms.Label labelPixels;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-
-
-
 
         public ColumnWidthControl()
         {
@@ -61,8 +57,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 LayoutHelper.DistributeHorizontally(8, labelWidth, textBoxWidth, labelPixels);
             }
         }
-
-
 
         public int ColumnWidth
         {
@@ -123,8 +117,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -140,8 +133,8 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -150,36 +143,36 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.labelWidth = new System.Windows.Forms.Label();
             this.labelPixels = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // textBoxWidth
-            // 
+            //
             this.textBoxWidth.Location = new System.Drawing.Point(72, 0);
             this.textBoxWidth.MaxLength = 9;
             this.textBoxWidth.Name = "textBoxWidth";
             this.textBoxWidth.Size = new System.Drawing.Size(46, 20);
             this.textBoxWidth.TabIndex = 2;
             this.textBoxWidth.Text = "";
-            // 
+            //
             // labelWidth
-            // 
+            //
             this.labelWidth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelWidth.Location = new System.Drawing.Point(0, 3);
             this.labelWidth.Name = "labelWidth";
             this.labelWidth.Size = new System.Drawing.Size(64, 15);
             this.labelWidth.TabIndex = 0;
             this.labelWidth.Text = "&Width:";
-            // 
+            //
             // labelPixels
-            // 
+            //
             this.labelPixels.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPixels.Location = new System.Drawing.Point(120, 3);
             this.labelPixels.Name = "labelPixels";
             this.labelPixels.Size = new System.Drawing.Size(63, 15);
             this.labelPixels.TabIndex = 3;
             this.labelPixels.Text = "pixels";
-            // 
+            //
             // ColumnWidthControl
-            // 
+            //
             this.Controls.Add(this.labelPixels);
             this.Controls.Add(this.textBoxWidth);
             this.Controls.Add(this.labelWidth);
@@ -190,13 +183,7 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
         #endregion
 
-
-
-
     }
-
-
-
 
 
 }

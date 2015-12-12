@@ -60,7 +60,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             }
         }
 
-
         public void Clear()
         {
             lock (dataFormatHandlerFactories)
@@ -71,7 +70,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
         public void Register(DataFormatHandlerCreate create, DataObjectFilter filter)
         {
-            // register the data format handler 
+            // register the data format handler
             lock (dataFormatHandlerFactories)
             {
                 dataFormatHandlerFactories.Add(new DelegateBasedDataFormatHandlerFactory(create, filter));
@@ -79,17 +78,17 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /*public void Register( Type dataFormatHandlerType, DataObjectFilter filter )
-		{
-			// register the data format handler 
-			lock(dataFormatHandlerFactories)
-			{
-				dataFormatHandlerFactories.Add(new DataObjectFilterFormatFactory(filter, dataFormatHandlerType));
-			}
-		}*/
+        {
+            // register the data format handler
+            lock(dataFormatHandlerFactories)
+            {
+                dataFormatHandlerFactories.Add(new DataObjectFilterFormatFactory(filter, dataFormatHandlerType));
+            }
+        }*/
 
         public void Register(params IDataFormatHandlerFactory[] dataFormatFactories)
         {
-            // register the data format handler 
+            // register the data format handler
             lock (dataFormatHandlerFactories)
             {
                 foreach (IDataFormatHandlerFactory dataFormatFactory in dataFormatFactories)
@@ -107,7 +106,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // cycle through our registered handlers and see who wants it
             foreach (IDataFormatHandlerFactory handlerFactory in GetDataFormatHandlers())
             {
-                // check if the handler can convert/handle the data				
+                // check if the handler can convert/handle the data
                 if (handlerFactory.CanCreateFrom(dataMeister))
                 {
                     // create a data format handler and return it
@@ -116,10 +115,9 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 }
             }
 
-            // nobody wanted it! 
+            // nobody wanted it!
             return null;
         }
-
 
         /// <summary>
         /// Registered data format handler factories.

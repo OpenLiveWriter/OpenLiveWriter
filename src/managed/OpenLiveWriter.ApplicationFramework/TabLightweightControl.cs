@@ -107,7 +107,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         /// <summary>
         /// The tab selector area size.
-        /// </summary>	
+        /// </summary>
         private Size tabSelectorAreaSize;
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace OpenLiveWriter.ApplicationFramework
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -191,27 +191,27 @@ namespace OpenLiveWriter.ApplicationFramework
             ((System.ComponentModel.ISupportInitialize)(this.tabScrollerButtonLightweightControlLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabScrollerButtonLightweightControlRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // tabScrollerButtonLightweightControlLeft
-            // 
+            //
             this.tabScrollerButtonLightweightControlLeft.LightweightControlContainerControl = this;
             this.tabScrollerButtonLightweightControlLeft.Scroll += new System.EventHandler(this.tabScrollerButtonLightweightControlLeft_Scroll);
             this.tabScrollerButtonLightweightControlLeft.AutoScroll += new System.EventHandler(this.tabScrollerButtonLightweightControlLeft_AutoScroll);
-            // 
+            //
             // tabScrollerButtonLightweightControlRight
-            // 
+            //
             this.tabScrollerButtonLightweightControlRight.LightweightControlContainerControl = this;
             this.tabScrollerButtonLightweightControlRight.Scroll += new System.EventHandler(this.tabScrollerButtonLightweightControlRight_Scroll);
             this.tabScrollerButtonLightweightControlRight.AutoScroll += new System.EventHandler(this.tabScrollerButtonLightweightControlRight_AutoScroll);
-            // 
+            //
             // tabPageContainerControl
-            // 
+            //
             this.tabPageContainerControl.Location = new System.Drawing.Point(524, 17);
             this.tabPageContainerControl.Name = "tabPageContainerControl";
             this.tabPageContainerControl.TabIndex = 0;
-            // 
+            //
             // TabLightweightControl
-            // 
+            //
             this.AllowMouseWheel = true;
             ((System.ComponentModel.ISupportInitialize)(this.tabScrollerButtonLightweightControlLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabScrollerButtonLightweightControlRight)).EndInit();
@@ -221,7 +221,6 @@ namespace OpenLiveWriter.ApplicationFramework
         #endregion
 
         #region Public Methods & Properties
-
 
         public bool ColorizeBorder
         {
@@ -1059,7 +1058,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 return;
 
             //	Ensure that the sender is who we think it is.
-            Debug.Assert(sender is TabSelectorLightweightControl, "Doh!", "Bad event wiring is the leading cause of code decay.  Call Brian.");
+            Debug.Assert(sender is TabSelectorLightweightControl, "Doh!", "Bad event wiring is the leading cause of code decay.");
             if (sender is TabSelectorLightweightControl)
             {
 
@@ -1078,7 +1077,7 @@ namespace OpenLiveWriter.ApplicationFramework
         private void TabSelectorLightweightControl_Selected(object sender, EventArgs e)
         {
             //	Ensure that the sender is who we think it is.
-            Debug.Assert(sender is TabSelectorLightweightControl, "Doh!", "Bad event wiring is the leading cause of code decay.  Call Brian.");
+            Debug.Assert(sender is TabSelectorLightweightControl, "Doh!", "Bad event wiring is the leading cause of code decay.");
             if (sender is TabSelectorLightweightControl)
             {
                 //	Set the selected tab entry.
@@ -1154,8 +1153,6 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         #endregion Private Methods & Properties
-
-
 
         #region Accessibility
         protected override void AddAccessibleControlsToList(ArrayList list)

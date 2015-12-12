@@ -1,13 +1,13 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-/* 
-  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF 
-  ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-  THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A 
-  PARTICULAR PURPOSE. 
-  
-    This is sample code and is freely distributable. 
+/*
+  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
+  ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+  THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+  PARTICULAR PURPOSE.
+
+    This is sample code and is freely distributable.
 */
 using System;
 using System.Collections;
@@ -485,7 +485,6 @@ namespace ImageManipulation
 
             }
         }
-
 
     }
 }

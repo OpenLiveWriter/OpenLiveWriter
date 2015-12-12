@@ -42,7 +42,7 @@ namespace OpenLiveWriter.Extensibility.BlogClient
     }
 
     /// <summary>
-    /// This is a generic way of describing an account(blog, email, etc...) 
+    /// This is a generic way of describing an account(blog, email, etc...)
     /// </summary>
     public interface IEditorAccount : IDisposable
     {
@@ -77,9 +77,9 @@ namespace OpenLiveWriter.Extensibility.BlogClient
     /// </summary>
     public interface IBlogClientOptions : IEditorOptions
     {
-        /// 
+        ///
         /// Weblog
-        /// 
+        ///
         string HomepageLinkText { get; }
         string AdminLinkText { get; }
         string AdminUrl { get; }
@@ -132,9 +132,9 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         string InvalidPostIdFaultCodePattern { get; }
         string InvalidPostIdFaultStringPattern { get; }
 
-        /// 
+        ///
         /// Hacks
-        /// 
+        ///
         string CharacterSet { get; }
         bool UseLocalTime { get; }
         string PostDateFormat { get; }
@@ -161,10 +161,9 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         bool UsePicasaS1600h { get; }
         bool KeywordsAsTags { get; }
 
-
-        /// 
+        ///
         ///  Views
-        /// 
+        ///
         string DefaultView { get; }
     }
 

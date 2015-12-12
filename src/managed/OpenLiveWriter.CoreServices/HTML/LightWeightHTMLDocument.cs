@@ -127,7 +127,6 @@ namespace OpenLiveWriter.CoreServices
             return FromStream(stream, url, null);
         }
 
-
         public static LightWeightHTMLDocument FromStream(Stream stream, string url, string name)
         {
             if (!stream.CanSeek)
@@ -242,7 +241,7 @@ namespace OpenLiveWriter.CoreServices
             // Set the Frames
             finalDocument.SetFrames(GetLightWeightDocumentForFrames(htmlDocument));
 
-            // Set the styles 
+            // Set the styles
             finalDocument.SetStyleReferences(HTMLDocumentHelper.GetStyleReferencesForDocument(htmlDocument, url));
 
             // Set the DocType
@@ -302,7 +301,6 @@ namespace OpenLiveWriter.CoreServices
             }
             return (LightWeightHTMLDocument[])frameLightWeightDocuments.ToArray(typeof(LightWeightHTMLDocument));
         }
-
 
         public LightWeightTag[] GetTagsByName(string name)
         {
@@ -473,7 +471,6 @@ namespace OpenLiveWriter.CoreServices
                         }
                     }
 
-
                     // Handle Links
                     LightWeightTag[] linkTags = GetTagsByName(HTMLTokens.Link);
                     foreach (LightWeightTag link in linkTags)
@@ -493,7 +490,6 @@ namespace OpenLiveWriter.CoreServices
                             }
                         }
                     }
-
 
                     _resourceUrlInfos.AddRange(urls);
                     _generated = true;
@@ -567,7 +563,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private LightWeightHTMLReplacer _generator = null;
 
-
         public void AddUrlToEscape(UrlToReplace urlToReplace)
         {
             Generator.AddUrlToReplace(urlToReplace);
@@ -640,7 +635,6 @@ namespace OpenLiveWriter.CoreServices
                     }
                 }
 
-
                 LightWeightTag currentTag = new LightWeightTag(tag);
                 // The key we'll use for the table
                 string key = tag.Name.ToUpper(CultureInfo.InvariantCulture);
@@ -674,7 +668,6 @@ namespace OpenLiveWriter.CoreServices
         private LightWeightTag _collectingForTag = null;
         private int _collectingForTagDepth = 0;
 
-
         protected override void OnEndTag(EndTag tag)
         {
             if (_collectingForTag != null)
@@ -689,9 +682,6 @@ namespace OpenLiveWriter.CoreServices
             }
             base.OnEndTag(tag);
         }
-
-
-
 
         protected override void OnText(Text text)
         {
@@ -859,7 +849,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static ArrayList _paramsUrlElements = null;
 
-
         public static ArrayList LinksUrlElements
         {
             get
@@ -868,7 +857,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private static ArrayList _linkUrlElements = null;
-
 
         public static Hashtable AllUrlElements
         {

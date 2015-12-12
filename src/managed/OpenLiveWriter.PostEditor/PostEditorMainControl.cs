@@ -94,14 +94,11 @@ namespace OpenLiveWriter.PostEditor
         private System.Windows.Forms.Timer _autoSaveTimer;
         private System.Windows.Forms.Timer _autoSaveMessageDismissTimer;
 
-
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = new Container();
         #endregion
-
-
 
         #region Initialization/Disposal
 
@@ -122,7 +119,7 @@ namespace OpenLiveWriter.PostEditor
             // initialize UI
             InitializeUI();
 
-            // Initialize the editing manager 
+            // Initialize the editing manager
             InitializeEditingManager();
 
             // initialize our commands
@@ -172,7 +169,7 @@ namespace OpenLiveWriter.PostEditor
             _editingManager.UserPublishedPost += new EventHandler(_editingManager_UserPublishedPost);
             _editingManager.UserDeletedPost += new EventHandler(_editingManager_UserDeletedPost);
 
-            // initialize auto-save timer 
+            // initialize auto-save timer
             _autoSaveTimer = new System.Windows.Forms.Timer(this.components);
             _autoSaveTimer.Interval = 5000;
             _autoSaveTimer.Tick += new EventHandler(_autoSaveTimer_Tick);
@@ -340,7 +337,6 @@ namespace OpenLiveWriter.PostEditor
             _mainEditorPanel = new Panel();
             _mainEditorPanel.Dock = DockStyle.Fill;
 
-
             //Controls.Add(_publishBar);
             Controls.Add(_mainEditorPanel);
         }
@@ -439,7 +435,6 @@ namespace OpenLiveWriter.PostEditor
             TestMode = ApplicationDiagnostics.TestMode;
         }
 
-
         [ComImport]
         [Guid("926749fa-2615-4987-8845-c33e65f2b957")]
         public class Framework
@@ -508,7 +503,6 @@ namespace OpenLiveWriter.PostEditor
             Update();
         }
 
-
         private void InitializeHtmlEditor()
         {
             // create the editor
@@ -526,8 +520,8 @@ namespace OpenLiveWriter.PostEditor
 
         public void OnKeyboardLanguageChanged()
         {
-            //// Sync dictionary language with keyboard language (if enabled)            
-            //ushort currentLangId = (ushort) (User32.GetKeyboardLayout(0) & 0xFFFF);            
+            //// Sync dictionary language with keyboard language (if enabled)
+            //ushort currentLangId = (ushort) (User32.GetKeyboardLayout(0) & 0xFFFF);
             //SpellingLanguageEntry[] langs = SpellingSettings.GetInstalledLanguages();
             //foreach (var v in langs)
             //{
@@ -536,8 +530,8 @@ namespace OpenLiveWriter.PostEditor
             //        SpellingSettings.Language = v.Language;
             //        SpellingSettings.FireChangedEvent();
             //        break;
-            //    }                    
-            //}                        
+            //    }
+            //}
         }
 
         void _htmlEditor_EditingModeChanged(object sender, EventArgs e)
@@ -577,8 +571,6 @@ namespace OpenLiveWriter.PostEditor
             private PostEditorMainControl _parent;
         }
 
-
-
         private void InitializePostPropertyEditors()
         {
             _styleComboControl = new HtmlStylePicker(this._htmlEditor);
@@ -590,8 +582,7 @@ namespace OpenLiveWriter.PostEditor
             get { return _editingManager; }
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -623,9 +614,7 @@ namespace OpenLiveWriter.PostEditor
             base.Dispose(disposing);
         }
 
-
         #endregion
-
 
         #region Command Handlers
 
@@ -635,13 +624,11 @@ namespace OpenLiveWriter.PostEditor
             _editingManager.NewPost();
         }
 
-
         private void commandNewPage_Execute(object sender, EventArgs e)
         {
             WindowCascadeHelper.SetNextOpenedLocation(this._mainFrameWindow.Location);
             _editingManager.NewPage();
         }
-
 
         private void commandOpenDrafts_Execute(object sender, EventArgs e)
         {
@@ -661,7 +648,6 @@ namespace OpenLiveWriter.PostEditor
             _editingManager.OpenPost(OpenPostForm.OpenMode.Auto);
         }
 
-
         private void commandSavePost_Execute(object sender, EventArgs e)
         {
             // save the draft
@@ -680,12 +666,11 @@ namespace OpenLiveWriter.PostEditor
         {
             if (_editingManager.PublishAsDraft())
             {
-                // respect close settings 
+                // respect close settings
                 if (CloseWindowOnPublish)
                     CloseMainFrameWindow();
             }
         }
-
 
         private void commandPostAsDraftAndEditOnline_Execute(object sender, EventArgs e)
         {
@@ -694,7 +679,7 @@ namespace OpenLiveWriter.PostEditor
                 // edit post online
                 _editingManager.EditPostOnline(true);
 
-                // respect close settings 
+                // respect close settings
                 if (CloseWindowOnPublish)
                     CloseMainFrameWindow();
             }
@@ -708,7 +693,7 @@ namespace OpenLiveWriter.PostEditor
                 if (PostEditorSettings.ViewPostAfterPublish)
                     _editingManager.ViewPost();
 
-                // respect close settings 
+                // respect close settings
                 if (CloseWindowOnPublish)
                     CloseMainFrameWindow();
             }
@@ -869,7 +854,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private bool ValidateTitleSpecified()
         {
 
@@ -880,7 +864,7 @@ namespace OpenLiveWriter.PostEditor
                     // show error
                     DisplayMessage.Show(MessageId.NoTitleSpecified, FindForm());
 
-                    // focus the title and return false 
+                    // focus the title and return false
                     _htmlEditor.FocusTitle();
                     return false;
                 }
@@ -901,7 +885,6 @@ namespace OpenLiveWriter.PostEditor
             return true;
         }
 
-
         private bool CheckSpelling()
         {
             // do auto spell check
@@ -916,7 +899,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #endregion
-
 
         #region Event handlers for UI state management
 
@@ -961,7 +943,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private void _weblogMenuManager_WeblogSelected(string blogId)
         {
             string currentBlogId = CurrentBlogId;
@@ -972,7 +953,6 @@ namespace OpenLiveWriter.PostEditor
             if (blogId != currentBlogId)
                 _htmlEditor.SetCurrentEditorDirty();
         }
-
 
         private void _editingManager_EditingStatusChanged(object sender, EventArgs e)
         {
@@ -1004,7 +984,6 @@ namespace OpenLiveWriter.PostEditor
 
             UpdateFrameUI();
         }
-
 
         private void htmlEditor_TitleFocusChanged(object sender, EventArgs e)
         {
@@ -1097,7 +1076,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         /// <summary>
         /// Responds to global blog deletion events.
         /// </summary>
@@ -1117,7 +1095,7 @@ namespace OpenLiveWriter.PostEditor
         {
             Debug.Assert(!InvokeRequired, "This method must be invoked on the UI thread!");
 
-            // if the current weblog got deleted as part of this operation then reselect the 
+            // if the current weblog got deleted as part of this operation then reselect the
             // new default weblog
             if (!BlogSettings.BlogIdIsValid(_editingManager.BlogId))
             {
@@ -1127,9 +1105,7 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Private Helper Methods
-
 
         private string GetSpellingContextDirectory()
         {
@@ -1179,7 +1155,6 @@ namespace OpenLiveWriter.PostEditor
             _htmlEditor.StatusBar.SetStatusMessage(statusText);
         }
 
-
         private string FormatUtcDate(DateTime dateTime)
         {
             DateTime localDateTime = DateTimeHelper.UtcToLocal(dateTime);
@@ -1188,23 +1163,21 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // PostEditorMainControl
-            // 
+            //
             this.Name = "PostEditorMainControl";
             this.Size = new System.Drawing.Size(499, 276);
 
         }
         #endregion
-
 
         #region IBlogPostEditingSite Members
 
@@ -1229,8 +1202,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
-
         void IBlogPostEditingSite.ConfigureWeblogFtpUpload(string blogId)
         {
             if (WeblogSettingsManager.EditFtpImageUpload(FindForm(), blogId))
@@ -1239,7 +1210,6 @@ namespace OpenLiveWriter.PostEditor
                 FireWeblogSettingsChangedEvent(blogId, false);
             }
         }
-
 
         bool IBlogPostEditingSite.UpdateWeblogTemplate(string blogID)
         {
@@ -1279,7 +1249,6 @@ namespace OpenLiveWriter.PostEditor
             return false;
         }
 
-
         void IBlogPostEditingSite.AddWeblog()
         {
             using (new WaitCursor())
@@ -1316,7 +1285,6 @@ namespace OpenLiveWriter.PostEditor
         {
             FireWeblogSettingsChangedEvent(blogId, templateChanged);
         }
-
 
         void IBlogPostEditingSite.OpenLocalPost(PostInfo postInfo)
         {
@@ -1362,7 +1330,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public event EventHandler WeblogListChanged
         {
             add
@@ -1387,12 +1354,9 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         #endregion
 
-
         #region Implementation of post list changed event
-
 
         private void _editingManager_UserSavedPost(object sender, EventArgs e)
         {
@@ -1439,7 +1403,6 @@ namespace OpenLiveWriter.PostEditor
                     CommandManager.Invalidate(CommandId.OpenDraftSplit);
                     CommandManager.Invalidate(CommandId.OpenPostSplit);
 
-
                     // now notify all of the listeners asynchronously
                     foreach (DictionaryEntry listener in _postListChangedListeners)
                     {
@@ -1451,7 +1414,6 @@ namespace OpenLiveWriter.PostEditor
                     }
                 }
 
-
             }
             catch (Exception ex)
             {
@@ -1459,14 +1421,11 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private static Hashtable _postListChangedListeners = new Hashtable();
 
         #endregion
 
-
         #region Implementation of weblog settings changed event
-
 
         private static void RegisterWeblogSettingsChangedListener(Control controlContext, WeblogSettingsChangedHandler listener)
         {
@@ -1524,7 +1483,6 @@ namespace OpenLiveWriter.PostEditor
                     }
                 }
 
-
             }
             catch (Exception ex)
             {
@@ -1533,7 +1491,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private static Hashtable _weblogSettingsChangedListeners = new Hashtable();
-
 
         private static Hashtable _weblogListChangedListeners = new Hashtable();
         private static void FireWeblogListChangedEvent()
@@ -1562,7 +1519,6 @@ namespace OpenLiveWriter.PostEditor
                     }
                 }
 
-
             }
             catch (Exception ex)
             {
@@ -1571,7 +1527,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #endregion
-
 
         #region internal properties
 
@@ -1593,7 +1548,6 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         public void OnClosing(CancelEventArgs e)
         {
         }
@@ -1608,7 +1562,6 @@ namespace OpenLiveWriter.PostEditor
         public void OnPostClosed() { }
 
         #region IBlogPostEditingSite Members
-
 
         public IHtmlStylePicker StyleControl
         {
@@ -1692,7 +1645,7 @@ namespace OpenLiveWriter.PostEditor
 
         private delegate int WithIStreamAction(IStream stream);
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="create">Create the stream if it doesn't exist, and make it writable.</param>
         /// <param name="onlyIfChanged"></param>
@@ -1704,7 +1657,7 @@ namespace OpenLiveWriter.PostEditor
             // while pinvoking and marshalling interface pointers.
             // If we are already in the process of saving/loading, then we can't do this action.
             // There is no user bad of skipping this in case of re-entrancy for the following reasons:
-            //  - If this is a Load and the one before is a Save, then we can skip this since we haven't finished saving to load anything. 
+            //  - If this is a Load and the one before is a Save, then we can skip this since we haven't finished saving to load anything.
             //  - And vice-versa.
             if (_ribbonSettingsLoadSaveActive)
             {

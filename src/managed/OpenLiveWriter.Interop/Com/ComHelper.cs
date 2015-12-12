@@ -44,9 +44,9 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Query the specified service (which the passed source object knows about)
-        /// for the requested COM interface. This implementation assumes that the 
-        /// source implements IServiceProvider, that the source knows about the 
-        /// specified service, and that the service implements the requested 
+        /// for the requested COM interface. This implementation assumes that the
+        /// source implements IServiceProvider, that the source knows about the
+        /// specified service, and that the service implements the requested
         /// interface. If any of these conditions is not true the method will return
         /// null and will Assert in Debug mode. This method should be used in cases
         /// where the caller fully expects and assumes that it will work correctly
@@ -68,7 +68,7 @@ namespace OpenLiveWriter.Interop.Com
                 return null;
             }
 
-            // query for the requested interface 
+            // query for the requested interface
             object obj = null;
             try
             {
@@ -83,7 +83,6 @@ namespace OpenLiveWriter.Interop.Com
             return obj;
         }
 
-
         /// <summary>
         /// Register the class as an implementor of the specified category
         /// </summary>
@@ -97,7 +96,7 @@ namespace OpenLiveWriter.Interop.Com
             const string REG_FMT = "B";
             const string IMPLEMENTED_CATEGORIES = "Implemented Categories";
 
-            // create a sub-key for listing the categories we implement			
+            // create a sub-key for listing the categories we implement
             RegistryKey rkCategories = Registry.ClassesRoot.CreateSubKey(
                 CLSID + @"\" +
                 clsGuid.ToString(REG_FMT) + @"\" +
@@ -108,20 +107,19 @@ namespace OpenLiveWriter.Interop.Com
                 rkCategories.CreateSubKey(categoryIID.ToString("B"));
 
             /*
-			// "New school" COM-based method for registering as a category
-			// implementor. Why don't we use this? First, it is incompatible
-			// with Win95 and NT prior to SP3. Second, when trying to use it
-			// to unregister a category we got a mysterious FileNotFound exception
-			// that the ICatManager documentattion implies should never happen.
-			// This was enough to scare us off of the bus.....
-			//
-			ICatRegister cr = (ICatRegister) new StdComponentCategoriesMgr();
-			cr.RegisterClassImplCategories( 
-				ref guid, 1, new Guid[] { categoryIID } );
-			*/
+            // "New school" COM-based method for registering as a category
+            // implementor. Why don't we use this? First, it is incompatible
+            // with Win95 and NT prior to SP3. Second, when trying to use it
+            // to unregister a category we got a mysterious FileNotFound exception
+            // that the ICatManager documentattion implies should never happen.
+            // This was enough to scare us off of the bus.....
+            //
+            ICatRegister cr = (ICatRegister) new StdComponentCategoriesMgr();
+            cr.RegisterClassImplCategories(
+                ref guid, 1, new Guid[] { categoryIID } );
+            */
 
         }
     }
-
 
 }

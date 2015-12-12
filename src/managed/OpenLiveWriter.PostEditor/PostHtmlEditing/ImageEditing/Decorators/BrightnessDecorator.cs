@@ -51,7 +51,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     new float[]{0f, 0f, 0f, 1f, 0f},
                     new float[]{0.001f, 0.001f, 0.001f, 0f, 1f}});
 
-
             ColorMatrix adjust = null;
             if (bf != 0)
                 adjust = bm;

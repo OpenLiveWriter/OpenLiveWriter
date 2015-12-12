@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
@@ -46,7 +46,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// </summary>
         public void Dispose()
         {
-            // By waiting, we make sure the fileService doesn't get reset between the time we cancel and the time the 
+            // By waiting, we make sure the fileService doesn't get reset between the time we cancel and the time the
             // background thread realizes its been cancelled.
             CancelAndWait();
         }

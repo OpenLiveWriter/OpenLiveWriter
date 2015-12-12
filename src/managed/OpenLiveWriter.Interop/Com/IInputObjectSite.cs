@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Interop.Com
     public interface IInputObjectSite
     {
         /// <summary>
-        /// Informs the browser that the focus has changed. PreserveSig attribute is 
+        /// Informs the browser that the focus has changed. PreserveSig attribute is
         /// used to suppress spurious COM errors from throwing exceptions (this was
         /// used in the C# DeskBand example -- not sure if it is a necessary precaution)
         /// TODO: test whether PreserveSig is necessary

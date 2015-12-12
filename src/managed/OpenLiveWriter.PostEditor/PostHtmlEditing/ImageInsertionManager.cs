@@ -30,7 +30,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         /// <summary>
         /// Scans the DOM for images that have not yet been properly initialized by the editor.
-        /// As part of the initialization, the default image settings and effects will be applied to the image. 
+        /// As part of the initialization, the default image settings and effects will be applied to the image.
         /// </summary>
         internal static void ScanAndInitializeNewImages(IBlogPostHtmlEditor currentEditor, ISupportingFileService fileService, IEditorAccount editorAccount, ContentEditor editor, Control owner, bool useDefaultTargetSettings, bool selectLastImage)
         {
@@ -143,7 +143,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                         // decorator settings.
                                         if (copyDecoratorSettings)
                                         {
-                                            // Try to look up the original copied source image. 
+                                            // Try to look up the original copied source image.
                                             BlogPostImageData imageDataOriginal = BlogPostImageDataList.LookupImageDataByInlineUri(editor.ImageList, new Uri(attributeCopySrcUrl));
                                             if (imageDataOriginal != null && imageDataOriginal.GetImageSourceFile() != null)
                                             {
@@ -157,7 +157,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                             }
                                             else
                                             {
-                                                // There are probably decorators applied to the image, but in a different editor so we can't access them. 
+                                                // There are probably decorators applied to the image, but in a different editor so we can't access them.
                                                 // We probably don't want to apply any decorators to this image, so apply blank decorators and load the
                                                 // image as full size so it looks like it did before.
                                                 imageInfo.ImageDecorators = defaultImageSettings.LoadBlankLocalImageDecoratorsList();
@@ -300,10 +300,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
                 tasks.AddWork(delegate
                 {
-                    // WinLive 214012: If the original insertion operation is undone before we get to this point make 
-                    // sure we don't attempt to update the HTML. Elements that are removed via an undo, but that we 
+                    // WinLive 214012: If the original insertion operation is undone before we get to this point make
+                    // sure we don't attempt to update the HTML. Elements that are removed via an undo, but that we
                     // still hold a reference to, are put into another document whose readyState is "uninitialized".
-                    // It's also possible that the picture has already been updated if a user undoes and redoes the 
+                    // It's also possible that the picture has already been updated if a user undoes and redoes the
                     // initial insertion multiple times.
                     IHTMLDocument2 doc = (IHTMLDocument2)info.Element.document;
                     if (doc == null || doc.readyState.Equals("uninitialized", StringComparison.OrdinalIgnoreCase) ||
@@ -347,7 +347,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
 
             // When the editor is closing, or changing to a new blog post we need to get rid of this object
-            // which will then stop all the unfinished images from continuing to load.  
+            // which will then stop all the unfinished images from continuing to load.
             editor.DisposeOnEditorChange(tasks);
             tasks.Start();
         }
@@ -423,7 +423,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                         }
                     }
 
-                    // If the image has an embedded thumbnail, we'll use it as a place holder for the <img src="..."> 
+                    // If the image has an embedded thumbnail, we'll use it as a place holder for the <img src="...">
                     // until we generate an inline image and apply decorators.
                     Stream embeddedThumbnailStream = ImageHelper2.GetEmbeddedThumbnailStream(imagePath);
 

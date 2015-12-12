@@ -51,7 +51,6 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         /// </summary>
         public RsdApi[] Apis = new RsdApi[] { };
 
-
         public RsdApi ScanForApi(string apiName)
         {
             foreach (RsdApi api in Apis)

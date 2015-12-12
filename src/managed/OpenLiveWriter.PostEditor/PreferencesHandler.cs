@@ -30,8 +30,7 @@ namespace OpenLiveWriter.PostEditor
         /// <summary>
         /// The name to preferences panel type table.
         /// </summary>
-		private static Hashtable preferencesPanelTypeTable;
-
+        private static Hashtable preferencesPanelTypeTable;
 
         public static PreferencesHandler Instance
         {
@@ -43,7 +42,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
         private static PreferencesHandler _instance;
-
 
         /// <summary>
         /// A version of show preferences that allows the caller to specify which
@@ -61,8 +59,6 @@ namespace OpenLiveWriter.PostEditor
             ShowPreferences(owner, null, type);
         }
 
-
-
         /// <summary>
         /// A version of show preferences that allows the caller to specify which
         /// panel should be selected when the dialog opens
@@ -78,7 +74,7 @@ namespace OpenLiveWriter.PostEditor
             {
                 using (PreferencesForm preferencesForm = new PreferencesForm())
                 {
-                    //	Set the PreferencesPanel entries.				
+                    //	Set the PreferencesPanel entries.
                     for (int i = 0; i < preferencesPanelTypes.Length; i++)
                     {
                         //	Add the entry.
@@ -103,7 +99,7 @@ namespace OpenLiveWriter.PostEditor
                     preferencesForm.Win32Owner = owner;
                     preferencesForm.ShowDialog(owner);
 
-                    // if we have an editing site then let it know that the account 
+                    // if we have an editing site then let it know that the account
                     // list may have been edited (allows it to adapt to the currently
                     // active weblog being deleted)
                     if (editingSite != null)
@@ -127,7 +123,6 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
         }
-
 
         /// <summary>
         /// Helper to load the preferences panels.

@@ -10,7 +10,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 {
     /// <summary>
     /// Top Level exception handling delegate.
-    /// rovides conveniences for registering default handlers; RegisterWindowsHandler() for 
+    /// rovides conveniences for registering default handlers; RegisterWindowsHandler() for
     /// GUI apps, RegisterConsoleHandler()for non-GUI apps.
     /// </summary>
     public class UnexpectedErrorDelegate
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         /// <summary>
         /// All unhandled exceptions will ultimately end up here, (hopefully) providing a single
         /// point of contact for what action to take when it happens.
-        /// 
+        ///
         /// Exceptions are divided into 2 categories. Non-CLR compliant exceptions, (usually the result
         /// of calling outside the .NET framework) CLR compliant exceptions.
         /// </summary>

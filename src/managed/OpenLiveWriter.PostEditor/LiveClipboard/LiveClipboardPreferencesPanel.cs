@@ -107,7 +107,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
 
         }
 
-
         private void PopulateFormatList()
         {
             listViewFormats.BeginUpdate();
@@ -141,12 +140,10 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             }
         }
 
-
         private void _liveClipboardPreferences_PreferencesModified(object sender, EventArgs e)
         {
             OnModified(EventArgs.Empty);
         }
-
 
         private void listViewFormats_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -159,12 +156,10 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
                 ChangeSelectedFormat();
         }
 
-
         private void buttonChange_Click(object sender, System.EventArgs e)
         {
             ChangeSelectedFormat();
         }
-
 
         private void ChangeSelectedFormat()
         {
@@ -230,7 +225,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
 
         }
 
-
         private LiveClipboardFormatHandler GetSelectedFormat()
         {
             if (listViewFormats.SelectedItems.Count > 0)
@@ -239,8 +233,7 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
                 return null;
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -258,8 +251,8 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -289,9 +282,9 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxContentSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLiveClipboardIcon)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // listViewFormats
-            // 
+            //
             this.listViewFormats.AutoArrange = false;
             this.listViewFormats.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderFormat,
@@ -308,34 +301,34 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.listViewFormats.UseCompatibleStateImageBehavior = false;
             this.listViewFormats.View = System.Windows.Forms.View.Details;
             this.listViewFormats.DoubleClick += new System.EventHandler(this.listViewFormats_DoubleClick);
-            // 
+            //
             // columnHeaderFormat
-            // 
+            //
             this.columnHeaderFormat.Text = "Format";
             this.columnHeaderFormat.Width = 100;
-            // 
+            //
             // columnHeaderDescription
-            // 
+            //
             this.columnHeaderDescription.Text = "Description";
             this.columnHeaderDescription.Width = 223;
-            // 
+            //
             // imageListFormats
-            // 
+            //
             this.imageListFormats.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imageListFormats.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListFormats.TransparentColor = System.Drawing.Color.Transparent;
-            // 
+            //
             // labelInstalledPlugins
-            // 
+            //
             this.labelInstalledPlugins.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelInstalledPlugins.Location = new System.Drawing.Point(8, 66);
             this.labelInstalledPlugins.Name = "labelInstalledPlugins";
             this.labelInstalledPlugins.Size = new System.Drawing.Size(341, 15);
             this.labelInstalledPlugins.TabIndex = 2;
             this.labelInstalledPlugins.Text = "&Supported formats:";
-            // 
+            //
             // groupBoxFormatDetails
-            // 
+            //
             this.groupBoxFormatDetails.Controls.Add(this.panelFormatDetails);
             this.groupBoxFormatDetails.Controls.Add(this.labelNoFormatSelected);
             this.groupBoxFormatDetails.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -345,9 +338,9 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.groupBoxFormatDetails.TabIndex = 4;
             this.groupBoxFormatDetails.TabStop = false;
             this.groupBoxFormatDetails.Text = "Details for \'vCalendar\' format";
-            // 
+            //
             // panelFormatDetails
-            // 
+            //
             this.panelFormatDetails.Controls.Add(this.labelContentType);
             this.panelFormatDetails.Controls.Add(this.labelHandledByCaption);
             this.panelFormatDetails.Controls.Add(this.labelContentSourceName);
@@ -359,36 +352,36 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.panelFormatDetails.Name = "panelFormatDetails";
             this.panelFormatDetails.Size = new System.Drawing.Size(339, 89);
             this.panelFormatDetails.TabIndex = 0;
-            // 
+            //
             // labelContentType
-            // 
+            //
             this.labelContentType.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelContentType.Location = new System.Drawing.Point(2, 67);
             this.labelContentType.Name = "labelContentType";
             this.labelContentType.Size = new System.Drawing.Size(224, 16);
             this.labelContentType.TabIndex = 5;
             this.labelContentType.Text = "vcalendar (application/xhtml+xml)";
-            // 
+            //
             // labelHandledByCaption
-            // 
+            //
             this.labelHandledByCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelHandledByCaption.Location = new System.Drawing.Point(2, 7);
             this.labelHandledByCaption.Name = "labelHandledByCaption";
             this.labelHandledByCaption.Size = new System.Drawing.Size(186, 15);
             this.labelHandledByCaption.TabIndex = 0;
             this.labelHandledByCaption.Text = "Handled by:";
-            // 
+            //
             // labelContentSourceName
-            // 
+            //
             this.labelContentSourceName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelContentSourceName.Location = new System.Drawing.Point(26, 23);
             this.labelContentSourceName.Name = "labelContentSourceName";
             this.labelContentSourceName.Size = new System.Drawing.Size(136, 15);
             this.labelContentSourceName.TabIndex = 1;
             this.labelContentSourceName.Text = "Open Live Writer";
-            // 
+            //
             // buttonChange
-            // 
+            //
             this.buttonChange.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonChange.Location = new System.Drawing.Point(259, 10);
             this.buttonChange.Name = "buttonChange";
@@ -396,9 +389,9 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.buttonChange.TabIndex = 2;
             this.buttonChange.Text = "Change...";
             this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
-            // 
+            //
             // buttonOptions
-            // 
+            //
             this.buttonOptions.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOptions.Location = new System.Drawing.Point(259, 40);
             this.buttonOptions.Name = "buttonOptions";
@@ -406,26 +399,26 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.buttonOptions.TabIndex = 4;
             this.buttonOptions.Text = "Options...";
             this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
-            // 
+            //
             // labelContentTypeCaption
-            // 
+            //
             this.labelContentTypeCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelContentTypeCaption.Location = new System.Drawing.Point(2, 51);
             this.labelContentTypeCaption.Name = "labelContentTypeCaption";
             this.labelContentTypeCaption.Size = new System.Drawing.Size(188, 16);
             this.labelContentTypeCaption.TabIndex = 3;
             this.labelContentTypeCaption.Text = "Content type:";
-            // 
+            //
             // pictureBoxContentSource
-            // 
+            //
             this.pictureBoxContentSource.Location = new System.Drawing.Point(2, 21);
             this.pictureBoxContentSource.Name = "pictureBoxContentSource";
             this.pictureBoxContentSource.Size = new System.Drawing.Size(16, 16);
             this.pictureBoxContentSource.TabIndex = 0;
             this.pictureBoxContentSource.TabStop = false;
-            // 
+            //
             // labelNoFormatSelected
-            // 
+            //
             this.labelNoFormatSelected.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelNoFormatSelected.Location = new System.Drawing.Point(8, 41);
             this.labelNoFormatSelected.Name = "labelNoFormatSelected";
@@ -433,9 +426,9 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.labelNoFormatSelected.TabIndex = 1;
             this.labelNoFormatSelected.Text = "(No format selected)";
             this.labelNoFormatSelected.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+            //
             // linkLabelMoreAboutLiveClipboard
-            // 
+            //
             this.linkLabelMoreAboutLiveClipboard.AutoSize = true;
             this.linkLabelMoreAboutLiveClipboard.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.linkLabelMoreAboutLiveClipboard.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
@@ -446,26 +439,26 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             this.linkLabelMoreAboutLiveClipboard.TabIndex = 5;
             this.linkLabelMoreAboutLiveClipboard.TabStop = true;
             this.linkLabelMoreAboutLiveClipboard.Text = "More about Live Clipboard...";
-            // 
+            //
             // labelCaption
-            // 
+            //
             this.labelCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCaption.Location = new System.Drawing.Point(8, 32);
             this.labelCaption.Name = "labelCaption";
             this.labelCaption.Size = new System.Drawing.Size(341, 32);
             this.labelCaption.TabIndex = 1;
             this.labelCaption.Text = "You can paste web content that supports the Live Clipboard format into {0}.";
-            // 
+            //
             // pictureBoxLiveClipboardIcon
-            // 
+            //
             this.pictureBoxLiveClipboardIcon.Location = new System.Drawing.Point(14, 420);
             this.pictureBoxLiveClipboardIcon.Name = "pictureBoxLiveClipboardIcon";
             this.pictureBoxLiveClipboardIcon.Size = new System.Drawing.Size(16, 16);
             this.pictureBoxLiveClipboardIcon.TabIndex = 6;
             this.pictureBoxLiveClipboardIcon.TabStop = false;
-            // 
+            //
             // LiveClipboardPreferencesPanel
-            // 
+            //
             this.AccessibleName = "Live Clipboard";
             this.Controls.Add(this.pictureBoxLiveClipboardIcon);
             this.Controls.Add(this.labelCaption);
@@ -491,9 +484,6 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
 
         }
         #endregion
-
-
-
 
     }
 }

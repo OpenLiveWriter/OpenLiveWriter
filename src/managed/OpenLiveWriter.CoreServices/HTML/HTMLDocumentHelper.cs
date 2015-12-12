@@ -42,7 +42,7 @@ namespace OpenLiveWriter.CoreServices
 
             // TODO: Determine the right semantics for escaping urls
             // ideally, we should encode or decode both for compare, but since we're doing
-            // search and replace, this doesn't work.				
+            // search and replace, this doesn't work.
             // Note that the below only works for attribs like:
             //
             //	<a href="news.html">
@@ -68,18 +68,18 @@ namespace OpenLiveWriter.CoreServices
             html = html.Replace("url(" + UrlHelper.CleanUpUrl(url) + ")", "Url(" + newUrl + ")");    // url(_)
             html = html.Replace("url( " + UrlHelper.CleanUpUrl(url) + " )", "Url(" + newUrl + ")");  // url( _ )
 #else
-			string pattern1 = @"(=?\s*(?:'|"")?)(" + Regex.Escape(cleanedUpUrl) + @")((?:""|')?\s*>?)";
-			html = Regex.Replace(html, pattern1, new MatchEvaluator(helper.MatchEvaluator1));
+            string pattern1 = @"(=?\s*(?:'|"")?)(" + Regex.Escape(cleanedUpUrl) + @")((?:""|')?\s*>?)";
+            html = Regex.Replace(html, pattern1, new MatchEvaluator(helper.MatchEvaluator1));
 
-			string pattern2 = @"url\(\s*" + Regex.Escape(cleanedUpUrl) + @"\s*\)";
-			html = Regex.Replace(html, pattern2, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
+            string pattern2 = @"url\(\s*" + Regex.Escape(cleanedUpUrl) + @"\s*\)";
+            html = Regex.Replace(html, pattern2, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
 #endif
 
             // HACK: Bug 1380. Be careful, because there can be some crazy things, like escaped tabs in URLs!
             if (url.IndexOf("\t", StringComparison.OrdinalIgnoreCase) > -1)
                 html = html.Replace(url.Replace("\t", "&#9;"), newUrl);
 
-            // Pages saved as web page complete escape the urls, so we should also try 
+            // Pages saved as web page complete escape the urls, so we should also try
             // replacing a decoded version of the current reference.
 #if oldschool
             html = html.Replace("\"" + HttpUtility.UrlDecode(UrlHelper.CleanUpUrl(url)) + "\"", "\"" + newUrl + "\"");
@@ -91,13 +91,13 @@ namespace OpenLiveWriter.CoreServices
             html = html.Replace("url(" + HttpUtility.UrlDecode(UrlHelper.CleanUpUrl(url)) + ")", "Url(" + newUrl + ")");
             html = html.Replace("url( " + HttpUtility.UrlDecode(UrlHelper.CleanUpUrl(url)) + " )", "Url(" + newUrl + ")");
 #else
-			string decodedUrl = HttpUtility.UrlDecode(cleanedUpUrl);
+            string decodedUrl = HttpUtility.UrlDecode(cleanedUpUrl);
 
-			string pattern3 = @"(=?\s*(?:'|"")?)(" + Regex.Escape(decodedUrl) + @")((?:""|')?\s*>?)";
-			html = Regex.Replace(html, pattern3, new MatchEvaluator(helper.MatchEvaluator1));
+            string pattern3 = @"(=?\s*(?:'|"")?)(" + Regex.Escape(decodedUrl) + @")((?:""|')?\s*>?)";
+            html = Regex.Replace(html, pattern3, new MatchEvaluator(helper.MatchEvaluator1));
 
-			string pattern4 = @"url\(\s*" + Regex.Escape(decodedUrl) + @"\s*\)";
-			html = Regex.Replace(html, pattern4, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
+            string pattern4 = @"url\(\s*" + Regex.Escape(decodedUrl) + @"\s*\)";
+            html = Regex.Replace(html, pattern4, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
 #endif
 
             // When an absolute path doesn't end with a file or a slash (i.e. http://www.realultimatepower.net)
@@ -247,7 +247,6 @@ namespace OpenLiveWriter.CoreServices
             return (document.url.StartsWith(friendlyErrorPath, StringComparison.OrdinalIgnoreCase));
         }
 
-
         public static bool DocumentContainsFeed(IHTMLDocument2 document)
         {
             try
@@ -324,14 +323,12 @@ namespace OpenLiveWriter.CoreServices
             return htmlText;
         }
 
-
-
         /// <summary>
         /// Gets the body text for a given url
         /// </summary>
         /// <param name="url">The url to get the text for</param>
         /// <param name="timeout">The request timeout, in MS</param>
-        /// <returns></returns>		
+        /// <returns></returns>
         public static IHTMLDocument2 GetHTMLDocumentForUrl(string url, int timeout)
         {
             return GetHTMLDocumentForUrl(url, timeout, SilentProgressHost.Instance);
@@ -352,11 +349,8 @@ namespace OpenLiveWriter.CoreServices
         }
 
 
-
-
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="stream"></param>
         /// <param name="sourceUrl"></param>
@@ -437,7 +431,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// This creates an HTML string that should be correctly formatted with matching closing tags, etc. . .
         /// </summary>
@@ -484,7 +477,6 @@ namespace OpenLiveWriter.CoreServices
             return false;
         }
 
-
         /// <summary>
         /// Converts an HTML string into an IHTMLDocument2
         /// </summary>
@@ -496,7 +488,6 @@ namespace OpenLiveWriter.CoreServices
         {
             return StringToHTMLDoc(html, baseUrl, true);
         }
-
 
         /// <summary>
         /// Gets an IHTMLElement collection of the links in a given document
@@ -514,10 +505,6 @@ namespace OpenLiveWriter.CoreServices
             IHTMLDocument3 html3 = (IHTMLDocument3)document;
             return html3.getElementsByTagName("AREA");
         }
-
-
-
-
 
 
         /// <summary>
@@ -572,7 +559,6 @@ namespace OpenLiveWriter.CoreServices
 
             return htmlDoc;
         }
-
 
         public static IHTMLDocument2 StreamToHTMLDoc(Stream stream, string baseUrl, bool escapePaths)
         {
@@ -675,8 +661,6 @@ namespace OpenLiveWriter.CoreServices
             return url;
         }
 
-
-
         /// <summary>
         /// Structure of special headers that may begin the HTML at the beginning of an
         /// HTMLDocument, but be omitted from the DOM
@@ -698,7 +682,6 @@ namespace OpenLiveWriter.CoreServices
                 {
                     node = node.previousSibling;
 
-
                     IHTMLCommentElement commentElement = node as IHTMLCommentElement;
                     if (commentElement != null)
                     {
@@ -714,7 +697,6 @@ namespace OpenLiveWriter.CoreServices
             return specialHeaders;
         }
 
-
         public static SpecialHeaders GetSpecialHeaders(string html, string url)
         {
             SpecialHeaders headers = null;
@@ -724,7 +706,6 @@ namespace OpenLiveWriter.CoreServices
             writer.Flush();
             stream.Position = 0;
             headers = GetSpecialHeaders(stream, url);
-
 
             return headers;
         }
@@ -774,7 +755,6 @@ namespace OpenLiveWriter.CoreServices
                 // Read character by character until we hit the first brace
                 // Doctype is always required to be the first tag in the page!
                 StringBuilder builder = new StringBuilder();
-
 
                 bool keepReading = true;
                 char c;
@@ -881,7 +861,6 @@ namespace OpenLiveWriter.CoreServices
             return HtmlUtils.UnEscapeEntities(html);
         }
 
-
         /// <summary>
         /// Resource Elements are elements that can be downloaded when a page or snippet is captured
         /// </summary>
@@ -965,9 +944,8 @@ namespace OpenLiveWriter.CoreServices
         }
         private static Hashtable m_iframeElements = null;
 
-
         /// <summary>
-        /// Gets a list of the iframe items in an HTMLDocument 
+        /// Gets a list of the iframe items in an HTMLDocument
         /// The list contains one entry per referenced item no matter how many times that item
         /// is referenced by the document.
         /// </summary>
@@ -985,7 +963,6 @@ namespace OpenLiveWriter.CoreServices
             return resources;
 
         }
-
 
         /// <summary>
         /// Escapes relative paths in a HTMLDocument
@@ -1011,7 +988,7 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
 
-            // Iterate through and escape the relative paths			
+            // Iterate through and escape the relative paths
             IEnumerator elementCollectionEnum = GetElementCollection(htmlDocument, NonResourceElements).GetEnumerator();
             while (elementCollectionEnum.MoveNext())
             {
@@ -1020,7 +997,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Escapes relative paths in a HTMLDocument
         /// </summary>
@@ -1028,7 +1004,7 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>an IHTMLDocument2 with absolute paths for all paths (except frames / iframes)</returns>
         public static void EscapeResourceRelativePaths(IHTMLDocument2 htmlDocument, string baseUrl)
         {
-            // Iterate through and escape the relative paths			
+            // Iterate through and escape the relative paths
             IEnumerator elementCollectionEnum = GetElementCollection(htmlDocument, ResourceElements).GetEnumerator();
             while (elementCollectionEnum.MoveNext())
             {
@@ -1139,23 +1115,22 @@ namespace OpenLiveWriter.CoreServices
             AddSheetReferencesToList(list, styleSheet, baseUrl, 0);
         }
 
-
         // Depth is here because of an IE bug-
         /*
             index.htm
             <style>
                 @import(url1.css)
             </style>
-			
+
             url1.css
             @import(url2.css)
-			
+
             url2.css
             @import(url3.css)
-		
+
         Enumerating the import statement in url2.css will cause an out of memory exception
         and destabilize / crash IE.  The depth restriction causes us to skip imports that
-        are at that depth or deeper.		
+        are at that depth or deeper.
         */
         private static void AddSheetReferencesToList(ArrayList list, IHTMLStyleSheet styleSheet, string baseUrl, int depth)
         {
@@ -1187,7 +1162,6 @@ namespace OpenLiveWriter.CoreServices
                         AddSheetReferencesToList(list, importSheet, baseUrl, depth + 1);
                     }
                 }
-
 
                 IHTMLStyleSheetRulesCollection rules = (IHTMLStyleSheetRulesCollection)styleSheet.rules;
                 for (int i = 0; i < rules.length; i++)
@@ -1256,7 +1230,6 @@ namespace OpenLiveWriter.CoreServices
             public string InnerText;
         }
 
-
         /// <summary>
         /// Uses a hashtable of tags and the corresponding attributes to create a hashtable of all
         /// matching elements in an HTMLDocument
@@ -1277,9 +1250,8 @@ namespace OpenLiveWriter.CoreServices
             return elementCollection;
         }
 
-
         /// <summary>
-        /// Escapes characters with ascii values between 128 and 256 with 
+        /// Escapes characters with ascii values between 128 and 256 with
         /// their HTML escape characters (i.e. &#149;)
         /// </summary>
         /// <param name="chars">The characters to parse and escape</param>
@@ -1331,7 +1303,6 @@ namespace OpenLiveWriter.CoreServices
                 return EscapeUnicodeCharacters(str.ToCharArray());
         }
 
-
         /// <summary>
         /// Check whether the passed HTML element contains the specified attribute
         /// </summary>
@@ -1351,7 +1322,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         private static void ResetPaths(string attributeName, IHTMLElementCollection elements, string baseUrl)
         {
             foreach (IHTMLElement element in elements)
@@ -1359,7 +1329,6 @@ namespace OpenLiveWriter.CoreServices
                 ResetPath(attributeName, element, baseUrl);
             }
         }
-
 
         private static void ResetPath(string attributeName, IHTMLElement element, string baseUrl)
         {
@@ -1383,7 +1352,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         private static void AddAttributesToList(string attributeName, IHTMLElementCollection elements, ArrayList resources)
         {
             foreach (IHTMLElement element in elements)
@@ -1396,7 +1364,6 @@ namespace OpenLiveWriter.CoreServices
         {
             // For this element, try to find the attribute containing a relative path
             string path = null;
-
 
             Object pathObject = element.getAttribute(attributeName, HTMLAttributeFlags.DoNotEscapePaths);
             if (pathObject != DBNull.Value)
@@ -1414,9 +1381,6 @@ namespace OpenLiveWriter.CoreServices
                 resources.Add(info);
             }
         }
-
-
-
 
         private static string GetParamValue(IHTMLElement param, string[] attributesToSearch)
         {
@@ -1442,8 +1406,8 @@ namespace OpenLiveWriter.CoreServices
 
 #if DISABLE_SCRIPT_INJECTION
         /// <summary>
-        /// Insert a new top level scripting object into the runtime environment of the specified 
-        /// HTML document. 
+        /// Insert a new top level scripting object into the runtime environment of the specified
+        /// HTML document.
         /// </summary>
         /// <param name="document">document to insert into</param>
         /// <param name="objectName">top-level name to refer to the object in script</param>
@@ -1518,7 +1482,6 @@ namespace OpenLiveWriter.CoreServices
         }
 #endif
 
-
         /// <summary>
         /// Flags that control how tag attribute mataching is performed when using getAttribute on an HTMLDOMNode
         /// </summary>
@@ -1528,7 +1491,6 @@ namespace OpenLiveWriter.CoreServices
             public const int CaseSensitive = 1;
             public const int DoNotEscapePaths = 2;
         }
-
 
         public static string MonikerToString(IMoniker moniker, uint codepage, out string url)
         {
@@ -1592,7 +1554,6 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public bool Handled = false;
     }
-
 
     /// <summary>
     /// Event that occurs within an HTML document

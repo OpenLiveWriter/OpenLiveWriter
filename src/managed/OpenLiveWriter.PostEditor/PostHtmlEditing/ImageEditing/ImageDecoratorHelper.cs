@@ -20,7 +20,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             //no instances
         }
 
-
         /// <summary>
         /// Displays the editor (if one exists) for an image decorator in a dialog.
         /// </summary>

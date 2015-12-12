@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using OpenLiveWriter.ApplicationFramework;
@@ -16,7 +16,7 @@ namespace OpenLiveWriter.PostEditor
         public RibbonControl(IHtmlEditorComponentContext componentContext, IHtmlEditorCommandSource commandSource)
         {
             // Note that this code is *not* called within Mail.
-            // Shared canvas commands/code need to go in ContentEditor.            
+            // Shared canvas commands/code need to go in ContentEditor.
 
             this.componentContext = componentContext;
             this.commandSource = commandSource;

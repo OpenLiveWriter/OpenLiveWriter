@@ -198,7 +198,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private string _hostBlogId;
 
-
         public WriterEditingManifestDownloadInfo ManifestDownloadInfo
         {
             get
@@ -224,7 +223,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
         private string _clientType;
-
 
         public byte[] FavIcon
         {
@@ -369,7 +367,6 @@ namespace OpenLiveWriter.PostEditor
             return settingsContents.ToString();
         }
 
-
         private string GetSettingsContents()
         {
             StringBuilder settingsContents = new StringBuilder();
@@ -381,7 +378,6 @@ namespace OpenLiveWriter.PostEditor
             AppendOptionOverrides(HomePageOverrides, settingsContents);
             return settingsContents.ToString();
         }
-
 
         private void AppendManifestDownloadInfo(WriterEditingManifestDownloadInfo manifestDownloadInfo, StringBuilder settingsContents)
         {
@@ -444,7 +440,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private void AppendButtons(IBlogProviderButtonDescription[] buttons, StringBuilder settingsContents)
         {
             if (buttons != null)
@@ -488,8 +483,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
     }
-
 
 }

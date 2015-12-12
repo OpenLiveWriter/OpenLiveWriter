@@ -31,7 +31,6 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
             [In, MarshalAs(UnmanagedType.Bool)] bool fLock);
     }
 
-
     [Flags]
     public enum OLECONTF : uint
     {
@@ -41,7 +40,6 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
         ONLYUSER = 8,
         ONLYIFRUNNING = 16
     };
-
 
 }
 

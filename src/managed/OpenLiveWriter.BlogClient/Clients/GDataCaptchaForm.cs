@@ -97,9 +97,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picCaptcha)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // picCaptcha
-            // 
+            //
             this.picCaptcha.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.picCaptcha.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -108,24 +108,24 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.picCaptcha.Size = new System.Drawing.Size(197, 80);
             this.picCaptcha.TabIndex = 0;
             this.picCaptcha.TabStop = false;
-            // 
+            //
             // txtCaptcha
-            // 
+            //
             this.txtCaptcha.Location = new System.Drawing.Point(10, 178);
             this.txtCaptcha.Name = "txtCaptcha";
             this.txtCaptcha.Size = new System.Drawing.Size(197, 23);
             this.txtCaptcha.TabIndex = 0;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.Location = new System.Drawing.Point(10, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(194, 37);
             this.label1.TabIndex = 3;
             this.label1.Text = "Type the characters you see in the picture below.";
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(130, 190);
@@ -133,9 +133,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.btnCancel.Size = new System.Drawing.Size(77, 26);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // btnOK
-            // 
+            //
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = DialogResult.OK;
             this.btnOK.Location = new System.Drawing.Point(43, 190);
@@ -143,9 +143,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.btnOK.Size = new System.Drawing.Size(77, 26);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
-            // 
+            //
             // linkLabel1
-            // 
+            //
             this.linkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabel1.LinkColor = System.Drawing.SystemColors.HotTrack;
             this.linkLabel1.Location = new System.Drawing.Point(10, 46);
@@ -155,9 +155,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Visually impaired users can access an audio version of the test here.";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
+            //
             // GDataCaptchaForm
-            // 
+            //
             this.AcceptButton = this.btnOK;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(216, 224);

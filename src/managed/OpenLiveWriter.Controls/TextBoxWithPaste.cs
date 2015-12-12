@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using OpenLiveWriter.Interop.Windows;
 
-
 namespace OpenLiveWriter.Controls
 {
 

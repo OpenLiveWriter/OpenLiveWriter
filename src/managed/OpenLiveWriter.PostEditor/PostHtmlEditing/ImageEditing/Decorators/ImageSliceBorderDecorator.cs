@@ -70,7 +70,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         /// <summary>
         /// The size of this rectangle will be added to the size of the
         /// original image to determine the size of the new image.
-        /// 
+        ///
         /// The position of this rectangle will be the position in the new
         /// image where the old image will be drawn.
         /// </summary>

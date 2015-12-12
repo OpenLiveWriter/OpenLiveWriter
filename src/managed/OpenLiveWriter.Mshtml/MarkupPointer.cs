@@ -250,7 +250,7 @@ namespace OpenLiveWriter.Mshtml
         /// Inspects the content of the container to the left of the markup pointer and optionally moves
         /// the pointer one position to the left.
         /// </summary>
-        /// <param name="move">TRUE if the pointer is to move past the content to the left, or FALSE otherwise. 
+        /// <param name="move">TRUE if the pointer is to move past the content to the left, or FALSE otherwise.
         /// If TRUE, the pointer will move either to the other side of the tag or text to its left, depending on
         /// the CONTEXT_TYPE to the pointer's left.
         /// </param>
@@ -266,7 +266,7 @@ namespace OpenLiveWriter.Mshtml
         /// Inspects the content of the container to the left of the markup pointer and optionally moves
         /// the pointer one position to the left.
         /// </summary>
-        /// <param name="move">TRUE if the pointer is to move past the content to the left, or FALSE otherwise. 
+        /// <param name="move">TRUE if the pointer is to move past the content to the left, or FALSE otherwise.
         /// If TRUE, the pointer will move either to the other side of the tag or text to its left, depending on
         /// the CONTEXT_TYPE to the pointer's left.
         /// </param>
@@ -275,8 +275,6 @@ namespace OpenLiveWriter.Mshtml
         {
             PointerRaw.Left(move, out context.Context, out context.Element, IntPtr.Zero, IntPtr.Zero);
         }
-
-
 
         public IHTMLElement SeekElementLeft(IHTMLElementFilter filter)
         {
@@ -303,7 +301,6 @@ namespace OpenLiveWriter.Mshtml
             // none found
             return null;
         }
-
 
         public IHTMLElement SeekElementRight(IHTMLElementFilter filter)
         {
@@ -332,9 +329,6 @@ namespace OpenLiveWriter.Mshtml
         }
 
 
-
-
-
         /// <summary>
         /// Moves the pointer adjacent to an element.
         /// </summary>
@@ -354,7 +348,6 @@ namespace OpenLiveWriter.Mshtml
         {
             PointerRaw.MoveToContainer(container.Container, atStart);
         }
-
 
         /// <summary>
         /// Moves this pointer to another pointer's location.
@@ -427,7 +420,6 @@ namespace OpenLiveWriter.Mshtml
             Cling = newCling;
         }
 
-
         /// <summary>
         /// Return the gravity to its value prior to the last gravityPush operation.
         /// </summary>
@@ -450,7 +442,7 @@ namespace OpenLiveWriter.Mshtml
         /// Inspects the content of the container to the right of the markup pointer and optionally moves
         /// the pointer one position to the right.
         /// </summary>
-        /// <param name="move">TRUE if the pointer is to move past the content to the right, or FALSE otherwise. 
+        /// <param name="move">TRUE if the pointer is to move past the content to the right, or FALSE otherwise.
         /// If TRUE, the pointer will move either to the other side of the tag or text to its right, depending on
         /// the CONTEXT_TYPE to the pointer's right.
         /// </summary>
@@ -467,7 +459,7 @@ namespace OpenLiveWriter.Mshtml
         /// Inspects the content of the container to the right of the markup pointer and optionally moves
         /// the pointer one position to the right.
         /// </summary>
-        /// <param name="move">TRUE if the pointer is to move past the content to the right, or FALSE otherwise. 
+        /// <param name="move">TRUE if the pointer is to move past the content to the right, or FALSE otherwise.
         /// If TRUE, the pointer will move either to the other side of the tag or text to its right, depending on
         /// the CONTEXT_TYPE to the pointer's right.
         /// </summary>
@@ -568,7 +560,6 @@ namespace OpenLiveWriter.Mshtml
             sb.Append(e.tagName);
             sb.Append(">");
         }
-
 
         /// <summary>
         /// Appends a description of a MarkupContext context.

@@ -25,7 +25,6 @@ namespace OpenLiveWriter.PostEditor.Video
             return new VideoServiceSettings(serviceId, _settings.GetSubSettings("Services"));
         }
 
-
         private const string SELECTEDSERVICE = "selectedServiceName";
 
         private static readonly SettingsPersisterHelper _settings = ApplicationEnvironment.UserSettingsRoot.GetSubSettings("Video");

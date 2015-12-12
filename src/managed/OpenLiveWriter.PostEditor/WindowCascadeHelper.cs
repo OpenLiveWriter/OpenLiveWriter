@@ -22,7 +22,6 @@ namespace OpenLiveWriter.PostEditor
             referenceLocation = location;
         }
 
-
         public static Point GetNewPostLocation(Size formSize, int offset)
         {
             //case 1: opened through new post, so there is a window to cascade against

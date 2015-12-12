@@ -20,7 +20,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
     {
         #region Private Delegates
 
-
         #endregion Private Delegates
 
         #region Static & Constant Declarations
@@ -191,9 +190,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.emptyComponent = new OpenLiveWriter.CoreServices.Diagnostics.EmptyComponent(this.components);
             this.groupBoxFilter.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // listViewLog
-            // 
+            //
             this.listViewLog.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.listViewLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
@@ -213,29 +212,29 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.listViewLog.TabIndex = 2;
             this.listViewLog.View = System.Windows.Forms.View.Details;
             this.listViewLog.ItemActivate += new System.EventHandler(this.listViewLog_ItemActivate);
-            // 
+            //
             // columnHeaderSequence
-            // 
+            //
             this.columnHeaderSequence.Text = "#";
             this.columnHeaderSequence.Width = 45;
-            // 
+            //
             // columnHeaderTime
-            // 
+            //
             this.columnHeaderTime.Text = "Time";
             this.columnHeaderTime.Width = 105;
-            // 
+            //
             // columnHeaderCategory
-            // 
+            //
             this.columnHeaderCategory.Text = "Category";
             this.columnHeaderCategory.Width = 80;
-            // 
+            //
             // columnHeaderText
-            // 
+            //
             this.columnHeaderText.Text = "Text";
             this.columnHeaderText.Width = 1000;
-            // 
+            //
             // contextMenuLog
-            // 
+            //
             this.contextMenuLog.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
                                                                                            this.menuItemOpen,
                                                                                            this.menuItemSep1,
@@ -244,62 +243,62 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                                                                                            this.menuItemReload,
                                                                                            this.menuItemSep2,
                                                                                            this.menuItemSelectAll});
-            // 
+            //
             // menuItemOpen
-            // 
+            //
             this.menuItemOpen.Index = 0;
             this.menuItemOpen.Text = "Open...";
             this.menuItemOpen.Click += new System.EventHandler(this.menuItemOpen_Click);
-            // 
+            //
             // menuItemSep1
-            // 
+            //
             this.menuItemSep1.Index = 1;
             this.menuItemSep1.Text = "-";
-            // 
+            //
             // menuItemCopy
-            // 
+            //
             this.menuItemCopy.Index = 2;
             this.menuItemCopy.Shortcut = System.Windows.Forms.Shortcut.CtrlC;
             this.menuItemCopy.Text = "&Copy";
             this.menuItemCopy.Click += new System.EventHandler(this.menuItemCopy_Click);
-            // 
+            //
             // menuItemClear
-            // 
+            //
             this.menuItemClear.Index = 3;
             this.menuItemClear.Shortcut = System.Windows.Forms.Shortcut.CtrlW;
             this.menuItemClear.Text = "Clea&r";
             this.menuItemClear.Click += new System.EventHandler(this.menuItemClear_Click);
-            // 
+            //
             // menuItemReload
-            // 
+            //
             this.menuItemReload.Index = 4;
             this.menuItemReload.Shortcut = System.Windows.Forms.Shortcut.CtrlR;
             this.menuItemReload.Text = "&Reload";
             this.menuItemReload.Click += new System.EventHandler(this.menuItemReload_Click);
-            // 
+            //
             // menuItemSep2
-            // 
+            //
             this.menuItemSep2.Index = 5;
             this.menuItemSep2.Text = "-";
-            // 
+            //
             // menuItemSelectAll
-            // 
+            //
             this.menuItemSelectAll.Index = 6;
             this.menuItemSelectAll.Shortcut = System.Windows.Forms.Shortcut.CtrlA;
             this.menuItemSelectAll.Text = "Select &All";
             this.menuItemSelectAll.Click += new System.EventHandler(this.menuItemSelectAll_Click);
-            // 
+            //
             // labelLog
-            // 
+            //
             this.labelLog.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelLog.Location = new System.Drawing.Point(12, 92);
             this.labelLog.Name = "labelLog";
             this.labelLog.Size = new System.Drawing.Size(218, 18);
             this.labelLog.TabIndex = 1;
             this.labelLog.Text = "&Log of Trace and Debug events:";
-            // 
+            //
             // buttonClear
-            // 
+            //
             this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonClear.Location = new System.Drawing.Point(548, 478);
@@ -307,9 +306,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonClear.TabIndex = 6;
             this.buttonClear.Text = "Clea&r";
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-            // 
+            //
             // buttonSelectAll
-            // 
+            //
             this.buttonSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonSelectAll.Location = new System.Drawing.Point(10, 478);
@@ -317,9 +316,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonSelectAll.TabIndex = 3;
             this.buttonSelectAll.Text = "Select &All";
             this.buttonSelectAll.Click += new System.EventHandler(this.buttonSelectAll_Click);
-            // 
+            //
             // buttonCopy
-            // 
+            //
             this.buttonCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCopy.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonCopy.Location = new System.Drawing.Point(92, 478);
@@ -327,9 +326,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonCopy.TabIndex = 4;
             this.buttonCopy.Text = "&Copy";
             this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
-            // 
+            //
             // buttonReload
-            // 
+            //
             this.buttonReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonReload.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonReload.Location = new System.Drawing.Point(466, 478);
@@ -337,9 +336,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonReload.TabIndex = 5;
             this.buttonReload.Text = "&Reload";
             this.buttonReload.Click += new System.EventHandler(this.buttonReload_Click);
-            // 
+            //
             // groupBoxFilter
-            // 
+            //
             this.groupBoxFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxFilter.Controls.Add(this.labelExclude);
@@ -355,45 +354,45 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "&Filter";
             this.groupBoxFilter.Layout += new System.Windows.Forms.LayoutEventHandler(this.groupBoxFiltering_Layout);
-            // 
+            //
             // labelExclude
-            // 
+            //
             this.labelExclude.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelExclude.Location = new System.Drawing.Point(258, 20);
             this.labelExclude.Name = "labelExclude";
             this.labelExclude.Size = new System.Drawing.Size(100, 18);
             this.labelExclude.TabIndex = 2;
             this.labelExclude.Text = "&Exclude (regex):";
-            // 
+            //
             // textBoxExclude
-            // 
+            //
             this.textBoxExclude.Location = new System.Drawing.Point(258, 38);
             this.textBoxExclude.Name = "textBoxExclude";
             this.textBoxExclude.Size = new System.Drawing.Size(240, 20);
             this.textBoxExclude.TabIndex = 3;
             this.textBoxExclude.Text = "";
             this.textBoxExclude.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxExclude_KeyPress);
-            // 
+            //
             // labelInclude
-            // 
+            //
             this.labelInclude.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelInclude.Location = new System.Drawing.Point(10, 20);
             this.labelInclude.Name = "labelInclude";
             this.labelInclude.Size = new System.Drawing.Size(100, 18);
             this.labelInclude.TabIndex = 0;
             this.labelInclude.Text = "&Include (regex):";
-            // 
+            //
             // textBoxInclude
-            // 
+            //
             this.textBoxInclude.Location = new System.Drawing.Point(10, 38);
             this.textBoxInclude.Name = "textBoxInclude";
             this.textBoxInclude.Size = new System.Drawing.Size(240, 20);
             this.textBoxInclude.TabIndex = 1;
             this.textBoxInclude.Text = "";
             this.textBoxInclude.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxInclude_KeyPress);
-            // 
+            //
             // buttonApplyFilter
-            // 
+            //
             this.buttonApplyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApplyFilter.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonApplyFilter.Location = new System.Drawing.Point(526, 36);
@@ -401,9 +400,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             this.buttonApplyFilter.TabIndex = 4;
             this.buttonApplyFilter.Text = "&Apply";
             this.buttonApplyFilter.Click += new System.EventHandler(this.buttonApplyFilter_Click);
-            // 
+            //
             // DiagnosticsConsole
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(632, 510);
             this.Controls.Add(this.listViewLog);
@@ -704,7 +703,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                     ListViewItem.ListViewSubItem listViewSubItemText = new ListViewItem.ListViewSubItem();
                     listViewSubItemText.Text = text;
                     listViewSubItemText.Font = itemFont;
-
 
                     ListViewItem.ListViewSubItem[] listViewSubItemArray = new ListViewItem.ListViewSubItem[] {  listViewSubItemSequenceNumber,
                                                                                                                 listViewSubItemTime,

@@ -63,7 +63,6 @@ namespace OpenLiveWriter.CoreServices
         public const string Height = "HEIGHT";
         public const string Import = "IMPORT";
 
-
         public const string Action = "ACTION";
         public const string Alt = "ALT";
         public const string Href = "HREF";

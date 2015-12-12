@@ -80,7 +80,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             private static readonly string FONTFAMILY = "FontFamily";
             private static readonly string FONTSIZE = "FontSize";
 
-
             private readonly IProperties Settings;
             public WatermarkDecoratorSettings(IProperties settings)
             {

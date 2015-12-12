@@ -27,8 +27,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         /// </summary>
         private System.ComponentModel.Container components = null;
 
-
-
         public UrlContentRetreivalWithProgressDialog(ContentSourceInfo contentSourceInfo)
         {
             //
@@ -63,12 +61,10 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             ShowDialog(owner);
         }
 
-
         private void buttonCancel_Click(object sender, System.EventArgs e)
         {
             Cancel();
         }
-
 
         protected void Cancel()
         {
@@ -91,8 +87,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             Close();
         }
 
-
-
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
@@ -102,7 +96,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             if (!_animatedBitmapControl.Running)
                 _animatedBitmapControl.Start();
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -160,9 +153,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             this.labelDetails = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // _animatedBitmapControl
-            // 
+            //
             this._animatedBitmapControl.Bitmaps = null;
             this._animatedBitmapControl.Interval = 100;
             this._animatedBitmapControl.Location = new System.Drawing.Point(192, 56);
@@ -170,9 +163,9 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             this._animatedBitmapControl.Running = false;
             this._animatedBitmapControl.Size = new System.Drawing.Size(123, 32);
             this._animatedBitmapControl.TabIndex = 5;
-            // 
+            //
             // labelCaption
-            // 
+            //
             this.labelCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCaption.Font = Res.GetFont(FontSize.Normal, FontStyle.Bold);
             this.labelCaption.Location = new System.Drawing.Point(8, 16);
@@ -180,27 +173,27 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             this.labelCaption.Size = new System.Drawing.Size(312, 23);
             this.labelCaption.TabIndex = 6;
             this.labelCaption.Text = "Downloading Video Details from YouTube";
-            // 
+            //
             // labelDetails
-            // 
+            //
             this.labelDetails.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelDetails.Location = new System.Drawing.Point(8, 56);
             this.labelDetails.Name = "labelDetails";
             this.labelDetails.Size = new System.Drawing.Size(168, 56);
             this.labelDetails.TabIndex = 7;
             this.labelDetails.Text = "Downloading additional details for video \"Harlem\'s last stand\"...";
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonCancel.Location = new System.Drawing.Point(240, 120);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 8;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
+            //
             // UrlContentRetreivalWithProgressDialog
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(330, 152);
             this.ControlBox = false;
@@ -217,7 +210,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
         }
         #endregion
-
 
     }
 }

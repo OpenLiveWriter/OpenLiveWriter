@@ -78,7 +78,6 @@ namespace OpenLiveWriter.ApplicationFramework
             return command;
         }
 
-
         /// <summary>
         /// Shows a CommandContextMenu modally.
         /// </summary>
@@ -309,8 +308,6 @@ namespace OpenLiveWriter.ApplicationFramework
             MenuItems.AddRange(commandMenuBuilder.CreateMenuItems());
         }
 
-
-
         /// <summary>
         /// Displays the CommandContextMenu at the specified location and returns the command that
         /// was selected by the user.
@@ -368,7 +365,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
             //	Return the command that the user selected.
             CommandOwnerDrawMenuItem commandOwnerDrawMenuItem = LocateCommandOwnerDrawMenuItem(MenuItems, menuID);
-            Debug.Assert(commandOwnerDrawMenuItem != null, "CommandContextMenu.ShowModal was not able to locate the CommandOwnerDrawMenuItem corresponding to the user's selection.  Call Brian.");
+            Debug.Assert(commandOwnerDrawMenuItem != null, "CommandContextMenu.ShowModal was not able to locate the CommandOwnerDrawMenuItem corresponding to the user's selection.");
             return commandOwnerDrawMenuItem.Command;
         }
 

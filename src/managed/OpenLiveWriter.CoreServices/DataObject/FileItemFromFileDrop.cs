@@ -49,7 +49,6 @@ namespace OpenLiveWriter.CoreServices
             return CreateArrayFromPaths(filePaths);
         }
 
-
         /// <summary>
         /// Creates an array of FileInfo objects from an array of paths
         /// </summary>
@@ -68,7 +67,6 @@ namespace OpenLiveWriter.CoreServices
             // return the array
             return (FileItem[])fileList.ToArray(typeof(FileItem));
         }
-
 
         /// <summary>
         /// Initialize with a full physical path
@@ -89,7 +87,6 @@ namespace OpenLiveWriter.CoreServices
             this.fileInfo = new FileInfo(physicalPath);
         }
 
-
         /// <summary>
         /// Determines whether this file is a directory
         /// </summary>
@@ -97,7 +94,6 @@ namespace OpenLiveWriter.CoreServices
         {
             get { return (fileInfo.Attributes & FileAttributes.Directory) > 0; }
         }
-
 
         /// <summary>
         /// If this file is a directory, the children contained in the directory
@@ -119,7 +115,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Path where the contents of the file can be found
         /// </summary>
@@ -127,7 +122,6 @@ namespace OpenLiveWriter.CoreServices
         {
             get { return physicalPath; }
         }
-
 
         /// <summary>
         /// The full path to the file containing the FileItem
@@ -140,5 +134,4 @@ namespace OpenLiveWriter.CoreServices
         private FileInfo fileInfo = null;
     }
 }
-
 

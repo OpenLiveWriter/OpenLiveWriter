@@ -16,7 +16,6 @@ namespace OpenLiveWriter.ApplicationFramework
             _parentControl = parentControl;
         }
 
-
         public bool HasFocus
         {
             get
@@ -192,13 +191,11 @@ namespace OpenLiveWriter.ApplicationFramework
                 AggressiveCommandStateChanged(this, EventArgs.Empty);
         }
 
-
         private TextBoxBase FindFocusedTextBox()
         {
             Control focusedControl = ControlHelper.FindFocused(_parentControl);
             return focusedControl as TextBoxBase;
         }
-
 
         private Control _parentControl;
     }

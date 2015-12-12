@@ -12,9 +12,9 @@ namespace OpenLiveWriter.CoreServices
     /// lock objects on demand.  Locks are identified by a hashtable
     /// key (so make sure that any lockKey objects you pass in have the
     /// appropriate .Equals() and .GetHashCode() semantics).
-    /// 
+    ///
     /// For example, you could do the following:
-    /// 
+    ///
     /// public void SomeMethod(int n)
     /// {
     ///		using (MetaLock.Lock("joe's lock " + n))
@@ -22,13 +22,13 @@ namespace OpenLiveWriter.CoreServices
     ///			// protected code
     ///		}
     ///	}
-    ///	
+    ///
     ///	This will make sure that method invocations with the same param
     ///	"n" will be blocked from executing concurrently.
-    ///	
+    ///
     ///	Note that these locks are NOT REENTRANT.  That means the following
     ///	code will hang forever, EVERY TIME.
-    ///	
+    ///
     ///	using (MetaLock.Lock("abc123"))
     ///	{
     ///		using (MetaLock.Lock("abc123"))
@@ -36,11 +36,11 @@ namespace OpenLiveWriter.CoreServices
     ///			// this point will never be reached
     ///		}
     ///	}
-    ///	
+    ///
     ///	We could add reentrancy if it's necessary, but if not, we get higher
     ///	performance by staying away from thread-static lock counts.
-    ///	
-    ///	Note that this class gets more expensive as the number of threads 
+    ///
+    ///	Note that this class gets more expensive as the number of threads
     ///	waiting in Enter() increases (even if they are not waiting for
     ///	the same lock).
     /// </summary>

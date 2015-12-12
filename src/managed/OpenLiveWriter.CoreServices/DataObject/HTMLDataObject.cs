@@ -13,7 +13,7 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// HTMLDataObject is a Mindshare Data Object that conatins HTML text fragments.
-    /// It includes an html document based upon the HTML DOM (IHTMLDocument2) as well 
+    /// It includes an html document based upon the HTML DOM (IHTMLDocument2) as well
     /// as various properties derived from the HTML fragment contained in the IDataObject.
     /// </summary>
     public class HTMLDataObject : DataObjectBase
@@ -94,7 +94,7 @@ namespace OpenLiveWriter.CoreServices
             if (html == null)
                 return null;
 
-            // Mark the Fragment.  
+            // Mark the Fragment.
             if (html.IndexOf("<HTML>", StringComparison.OrdinalIgnoreCase) == -1)
                 html = START_FRAGMENT_MARKER + html + END_FRAGMENT_MARKER;
             else
@@ -134,7 +134,7 @@ namespace OpenLiveWriter.CoreServices
             // Calculate the bytes to encode the whole html document
             int htmlDocLength = Encoding.UTF8.GetByteCount(validHTML);
 
-            // The start of the HTML (where the header ends).  
+            // The start of the HTML (where the header ends).
             // Its safe to use the character count because the header and URL
             // are always low ascii
             int startHTML = HEADER_LENGTH_NO_URL + sourceUrl.Length;
@@ -162,7 +162,6 @@ namespace OpenLiveWriter.CoreServices
                 string htmlFragmentString = validHTML.Substring(
                         startFragString,
                         fragStringLength);
-
 
                 startFragment = startHTML + htmlLeadingLength + START_FRAGMENT_MARKER.Length;
                 int lenFragBytes = Encoding.UTF8.GetByteCount(htmlFragmentString);
@@ -192,7 +191,6 @@ namespace OpenLiveWriter.CoreServices
             return hBuilder.ToString();
         }
 
-
         /// <summary>
         /// Headers used in the Clipboard HTML Format
         /// </summary>
@@ -209,7 +207,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// The mask used in Clipboard HTML Format headers indicating byte 
+        /// The mask used in Clipboard HTML Format headers indicating byte
         /// count position
         /// </summary>
         public const string ByteCountFormatMask = "000000000";

@@ -89,8 +89,6 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         }
 
-
-
         private IBlogClientUIContext _uiContext;
 
         public BlogEditingTemplateDetector(IBlogClientUIContext uiContext, Control parentControl, IBlogSettingsAccessor blogSettings, bool probeForManifest)
@@ -102,8 +100,8 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
 
         /// <summary>
-        /// Initialize BlogTemplateDetector without providing context (if you do not call 
-        /// one of the SetContext methods prior to executing the Start method then the 
+        /// Initialize BlogTemplateDetector without providing context (if you do not call
+        /// one of the SetContext methods prior to executing the Start method then the
         /// BlogTemplateDetector will be a no-op that does not detect and download the template)
         /// </summary>
         /// <param name="parentControl"></param>
@@ -112,7 +110,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             _uiContext = uiContext;
             _parentControl = parentControl;
         }
-
 
         /// <summary>
         /// SetContext using a weblog account
@@ -133,7 +130,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             _manifestDownloadInfo = manifestDownloadInfo;
             _probeForManifest = probeForManifest;
         }
-
 
         public BlogEditingTemplateFile[] BlogTemplateFiles
         {
@@ -162,11 +158,10 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
         private Exception _exception;
 
-
         public object DetectTemplate(IProgressHost progress)
         {
             // if our context has not been set then just return without doing anything
-            // (supports this being an optional step at the end of a chain of 
+            // (supports this being an optional step at the end of a chain of
             // other progress operations)
             if (_contextSet == false)
                 return this;
@@ -233,11 +228,10 @@ namespace OpenLiveWriter.BlogClient.Detection
                     }
                 }
 
-                // return 
+                // return
                 return this;
             }
         }
-
 
         private class BlogEditingTemplateFiles
         {
@@ -330,7 +324,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             return templateFiles;
         }
 
-
         private string DownloadManifestTemplate(IProgressHost progress, string manifestTemplateUrl)
         {
             try
@@ -356,9 +349,8 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
         }
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="progress"></param>
         /// <param name="targetTemplateTypes"></param>
@@ -389,7 +381,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             {
                 CheckCancelRequested(progress);
 
-                //reset the progress for each iteration					
+                //reset the progress for each iteration
                 BlogPostRegionLocatorStrategy regionLocatorStrategy = regionLocatorStrategies[i];
                 try
                 {
@@ -489,7 +481,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             return blogTemplateFiles;
         }
 
-
         private void CheckCancelRequested(IProgressHost progress)
         {
             if (progress.CancelRequested)
@@ -544,7 +535,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             return blogEditingTemplate.Template;
         }
         private delegate BlogEditingTemplate TemplateParser(BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress);
-
 
         private BlogEditingTemplate ParseBlogPostIntoTemplate(BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress)
         {
@@ -680,9 +670,6 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
 
         BlogEditingTemplateStrategy templateStrategy = BlogEditingTemplateStrategies.GetTemplateStrategy(BlogEditingTemplateStrategies.StrategyType.FramedWysiwyg);
-
-
-
 
         // execution context
         private Control _parentControl;

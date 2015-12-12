@@ -29,15 +29,14 @@ namespace OpenLiveWriter.Interop.Com
         /// attribute is used to prevent .NET COM Interop from throwning an exception when
         /// we return S_FALSE.
         /// </summary>
-        /// <returns>S_OK if one of the object's windows has keyboard focus, 
+        /// <returns>S_OK if one of the object's windows has keyboard focus,
         /// otherwise S_FALSE</returns>
         [PreserveSig]
         [return: MarshalAs(UnmanagedType.Error)]
         Int32 HasFocusIO();
 
-
         /// <summary>
-        /// Passes keyboard accelerators to the object. Note: PreserveSig attribute is used to 
+        /// Passes keyboard accelerators to the object. Note: PreserveSig attribute is used to
         /// prevent .NET COM Interop from throwning an exception when we return S_FALSE.
         /// </summary>
         /// <param name="msg">Structure containing the keyboard message to be translated</param>

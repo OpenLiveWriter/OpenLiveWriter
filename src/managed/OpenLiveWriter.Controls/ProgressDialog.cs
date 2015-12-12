@@ -45,7 +45,6 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-
         /// <summary>
         /// The title displayed for this dialog
         /// </summary>
@@ -136,7 +135,6 @@ namespace OpenLiveWriter.Controls
             this.progressBar.Value = progressUpdatedEvt.Completed;
         }
 
-
         /// <summary>
         /// Handles user clicking the cancel button
         /// </summary>
@@ -197,7 +195,6 @@ namespace OpenLiveWriter.Controls
             base.Dispose(disposing);
         }
 
-
         private void ConfigureCategoryUI()
         {
             // if this progress provider has categories then allow this UI to show
@@ -223,7 +220,6 @@ namespace OpenLiveWriter.Controls
             pictureBoxCategory.Image = m_progressCategoryProvider.CurrentCategory.Icon;
             labelCategory.Text = m_progressCategoryProvider.CurrentCategory.Name;
         }
-
 
         private void HookEvents()
         {
@@ -258,9 +254,9 @@ namespace OpenLiveWriter.Controls
             this.pictureBoxCategory = new System.Windows.Forms.PictureBox();
             this.panelCategory.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // cancelButton
-            // 
+            //
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -269,51 +265,51 @@ namespace OpenLiveWriter.Controls
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
+            //
             // progressBar
-            // 
+            //
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.progressBar.Location = new System.Drawing.Point(10, 56);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(304, 19);
             this.progressBar.TabIndex = 0;
-            // 
+            //
             // progressLabel
-            // 
+            //
             this.progressLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.progressLabel.Location = new System.Drawing.Point(10, 38);
             this.progressLabel.MultiLine = false;
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(292, 16);
             this.progressLabel.TabIndex = 2;
-            // 
+            //
             // panelCategory
-            // 
+            //
             this.panelCategory.Controls.Add(this.labelCategory);
             this.panelCategory.Controls.Add(this.pictureBoxCategory);
             this.panelCategory.Location = new System.Drawing.Point(10, 13);
             this.panelCategory.Name = "panelCategory";
             this.panelCategory.Size = new System.Drawing.Size(300, 24);
             this.panelCategory.TabIndex = 3;
-            // 
+            //
             // labelCategory
-            // 
+            //
             this.labelCategory.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCategory.Location = new System.Drawing.Point(22, 1);
             this.labelCategory.Name = "labelCategory";
             this.labelCategory.Size = new System.Drawing.Size(278, 16);
             this.labelCategory.TabIndex = 1;
-            // 
+            //
             // pictureBoxCategory
-            // 
+            //
             this.pictureBoxCategory.Location = new System.Drawing.Point(1, 0);
             this.pictureBoxCategory.Name = "pictureBoxCategory";
             this.pictureBoxCategory.Size = new System.Drawing.Size(16, 16);
             this.pictureBoxCategory.TabIndex = 0;
             this.pictureBoxCategory.TabStop = false;
-            // 
+            //
             // ProgressDialog
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(324, 113);
@@ -342,7 +338,6 @@ namespace OpenLiveWriter.Controls
         private IProgressCategoryProvider m_progressCategoryProvider;
         DialogResult m_progressProviderResult = DialogResult.None;
 
-
         private Button cancelButton;
         private ProgressBar progressBar;
         private LabelControl progressLabel;
@@ -354,7 +349,6 @@ namespace OpenLiveWriter.Controls
         /// Required designer variable.
         /// </summary>
         private Container components = null;
-
 
     }
 }

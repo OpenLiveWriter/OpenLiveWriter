@@ -3,11 +3,10 @@
 
 using System;
 
-
 namespace OpenLiveWriter.Api
 {
     /// <summary>
-    /// Attribute applied to ContentSource and SmartContentSource classes which override the 
+    /// Attribute applied to ContentSource and SmartContentSource classes which override the
     /// CreateContent method to enable creation of new content from an Insert dialog.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]

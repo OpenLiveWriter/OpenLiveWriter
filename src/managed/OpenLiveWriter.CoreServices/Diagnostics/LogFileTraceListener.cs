@@ -41,15 +41,15 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 #if DEBUG
         private int LOG_FILE_SIZE_THRESHOLD = 5000000;
 #else
-		private const int LOG_FILE_SIZE_THRESHOLD = 1000000;
+        private const int LOG_FILE_SIZE_THRESHOLD = 1000000;
 #endif
 
         private FileLogger logger;
 
         /// <summary>
-		/// The facility.
-		/// </summary>
-		private string facility;
+        /// The facility.
+        /// </summary>
+        private string facility;
 
         /// <summary>
         /// The ID of the current process.

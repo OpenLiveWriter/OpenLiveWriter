@@ -37,7 +37,6 @@ namespace OpenLiveWriter.BlogClient
             return Id.GetHashCode();
         }
 
-
         public class Comparer : IComparer
         {
             public int Compare(object x, object y)

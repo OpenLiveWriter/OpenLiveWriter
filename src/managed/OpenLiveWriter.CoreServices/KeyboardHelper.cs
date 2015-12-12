@@ -274,7 +274,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// List of all known shortcuts
         /// </summary>

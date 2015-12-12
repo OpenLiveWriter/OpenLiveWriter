@@ -22,7 +22,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// Initialize with the specified RootFile
         /// </summary>
@@ -32,9 +31,8 @@ namespace OpenLiveWriter.CoreServices
             RootFile = rootFile;
         }
 
-
         /// <summary>
-        /// Root file for the web site (e.g. index.htm). This value must be 
+        /// Root file for the web site (e.g. index.htm). This value must be
         /// set for a site to be valid.
         /// </summary>
         public string RootFile
@@ -64,11 +62,11 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Files contained within the site. Path sub-directories
-        /// are separated by the "/" character. The listing will start with the 
+        /// are separated by the "/" character. The listing will start with the
         /// RootFile and will then be ordered accoring to the FileListingComparer
         /// implementation of IComparer (standard recursive directory listing).
         /// </summary>
-        /// <returns>List of the files contained within the site (represented as 
+        /// <returns>List of the files contained within the site (represented as
         /// strings)</returns>
         public ArrayList Manifest
         {
@@ -103,7 +101,6 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>New ArrayList containing the names all files in storage</returns>
         protected abstract ArrayList GetStoredFiles();
 
-
         /// <summary>
         /// Test to see whether the specified file already exists
         /// </summary>
@@ -112,7 +109,6 @@ namespace OpenLiveWriter.CoreServices
         public abstract bool Exists(string file);
         // defer implementation to subclasses
 
-
         /// <summary>
         /// Retrieve a Stream for the given path (Read or Write access can be specified)
         /// Stream.Close() should be called when you are finished using the Stream.
@@ -120,23 +116,22 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         /// <param name="path">Heirarchical path designating stream location (uses "/" as
         /// path designator)</param>
-        /// <param name="mode">Read or Write. Write will overwrite any exising path of 
+        /// <param name="mode">Read or Write. Write will overwrite any exising path of
         /// the same name.</param>
-        /// <returns>Stream that can be used to access the path (Stream.Close() must be 
+        /// <returns>Stream that can be used to access the path (Stream.Close() must be
         /// called when you are finished using the Stream).</returns>
         public abstract Stream Open(string path, AccessMode mode);
         // defer implementation to subclasses
 
-
         /// <summary>
-        /// Helper function used to validate that a specified path string has a 
+        /// Helper function used to validate that a specified path string has a
         /// valid format. Throws a SiteStorageException of type InvalidPath if
         /// the path is not valid.
         /// </summary>
         /// <param name="path"></param>
         protected static void ValidatePath(string path)
         {
-            // validate the path 
+            // validate the path
             if (path.IndexOfAny(pathInvalid) != -1 ||
                 path.IndexOfAny(mimeInvalid) != -1)
             {
@@ -150,8 +145,6 @@ namespace OpenLiveWriter.CoreServices
         static char[] mimeInvalid = new char[] { };
         // both ( and ) were protected, but I couldn't replicate a problem w/parens in Content headers.
 
-
-
         // storage for root file name
         private string m_rootFile = null;
 
@@ -159,10 +152,9 @@ namespace OpenLiveWriter.CoreServices
         private static FileListingComparer m_comparer = new FileListingComparer();
     }
 
-
     /// <summary>
-    /// Implementation of IComparer used to implement a recursive file listing of 
-    /// a directory and its subdirectories. Code is a bit tricky but there are 
+    /// Implementation of IComparer used to implement a recursive file listing of
+    /// a directory and its subdirectories. Code is a bit tricky but there are
     /// no straightforward heuristics for this comparison. We take care of simple
     /// cases first and then get into the nitty gritty of splitting up paths
     /// and distinguishing between file and directory entries, etc.
@@ -191,7 +183,7 @@ namespace OpenLiveWriter.CoreServices
             else if (rightSlash == -1)
                 return 1;  // right is a root entry and left is not
 
-            // both paths are in subdirectories off the root, parse out the 
+            // both paths are in subdirectories off the root, parse out the
             // individual sub-paths in each full path
             char[] separators = new char[] { '/' };
             string[] leftPaths = left.Split(separators);
@@ -208,7 +200,7 @@ namespace OpenLiveWriter.CoreServices
                     if (leftPaths.Length == (level + 1) && rightPaths.Length == (level + 1))
                         break;
 
-                    else  // otherwise go to the next level		
+                    else  // otherwise go to the next level
                         level++;
                 }
                 else // we are the last level for one of the two paths

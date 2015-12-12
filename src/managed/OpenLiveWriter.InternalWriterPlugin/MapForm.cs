@@ -93,7 +93,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             cbShowLabels.Text = Res.Get(StringId.MapShowLabel);
             mapTipControl.Text = Res.Get(StringId.MapPushpinTip);
 
-
             if (insertNewMap)
             {
                 Text = Res.Get(StringId.InsertMap);
@@ -104,7 +103,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
                 Text = Res.Get(StringId.CustomizeMap);
                 buttonOK.Text = Res.Get(StringId.OKButtonText);
             }
-
 
             if (!DesignMode)
                 Icon = ApplicationEnvironment.ProductIcon;
@@ -128,7 +126,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             trackBarZoom.Height = 30;
             cbShowLabels.Top = trackBarZoom.Bottom;
 
-
         }
 
         protected override void OnLoad(EventArgs e)
@@ -136,8 +133,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             base.OnLoad(e);
 
             Size = _mapOptions.DefaultDialogSize;
-
-
 
             using (LayoutHelper.SuspendAnchoring(mapControl, mapTipControl, buttonOK, buttonCancel))
             {
@@ -165,9 +160,7 @@ namespace OpenLiveWriter.InternalWriterPlugin
 
             textBoxAddress.Focus();
 
-
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -227,9 +220,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.panelNormal.SuspendLayout();
             this.panelBirdseye.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panel1
-            // 
+            //
             this.panel1.Anchor =
                 ((System.Windows.Forms.AnchorStyles)
                  (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -243,9 +236,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(642, 52);
             this.panel1.TabIndex = 0;
-            // 
+            //
             // buttonSearch
-            // 
+            //
             this.buttonSearch.Anchor =
                 ((System.Windows.Forms.AnchorStyles)
                  ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -255,17 +248,17 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.buttonSearch.Size = new System.Drawing.Size(24, 24);
             this.buttonSearch.TabIndex = 2;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
-            // 
+            //
             // mapLogoControl
-            // 
+            //
             this.mapLogoControl.Location = new System.Drawing.Point(0, 2);
             this.mapLogoControl.Name = "mapLogoControl";
             this.mapLogoControl.Size = new System.Drawing.Size(184, 51);
             this.mapLogoControl.TabIndex = 3;
             this.mapLogoControl.TabStop = false;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label1.Location = new System.Drawing.Point(188, 12);
@@ -273,9 +266,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.label1.Size = new System.Drawing.Size(203, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Find &address:";
-            // 
+            //
             // textBoxAddress
-            // 
+            //
             this.textBoxAddress.AcceptsReturn = true;
             this.textBoxAddress.Anchor =
                 ((System.Windows.Forms.AnchorStyles)
@@ -287,9 +280,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.textBoxAddress.TabIndex = 1;
             this.textBoxAddress.Text = "";
             this.textBoxAddress.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxAddress_KeyDown);
-            // 
+            //
             // mapControl
-            // 
+            //
             this.mapControl.Anchor =
                 ((System.Windows.Forms.AnchorStyles)
                  ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -308,9 +301,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.mapControl.TabStop = false;
             this.mapControl.ThemeBorder = false;
             this.mapControl.TopInset = 0;
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor =
                 ((System.Windows.Forms.AnchorStyles)
                  ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -322,9 +315,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.buttonOK.TabIndex = 4;
             this.buttonOK.Text = "&Insert";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor =
                 ((System.Windows.Forms.AnchorStyles)
                  ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -335,9 +328,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // buttonGotoBirdseye
-            // 
+            //
             this.buttonGotoBirdseye.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonGotoBirdseye.AutoSizeHeight = true;
             this.buttonGotoBirdseye.AutoSizeWidth = false;
@@ -359,9 +352,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.buttonGotoBirdseye.ToolTip = "";
             this.buttonGotoBirdseye.Visible = false;
             this.buttonGotoBirdseye.Click += new System.EventHandler(this.buttonGotoBirdseye_Click);
-            // 
+            //
             // trackBarZoom
-            // 
+            //
             this.trackBarZoom.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.trackBarZoom.LargeChange = 3;
             this.trackBarZoom.Location = new System.Drawing.Point(70, 3);
@@ -376,9 +369,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.trackBarZoom.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarZoom_MouseUp);
             this.trackBarZoom.ValueChanged += new System.EventHandler(this.trackBarZoom_ValueChanged);
             this.trackBarZoom.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trackBarZoom_MouseDown);
-            // 
+            //
             // comboBoxStyle
-            // 
+            //
             this.comboBoxStyle.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStyle.ItemHeight = 21;
@@ -386,16 +379,16 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.comboBoxStyle.Name = "comboBoxStyle";
             this.comboBoxStyle.Size = new System.Drawing.Size(175, 27);
             this.comboBoxStyle.TabIndex = 1;
-            // 
+            //
             // mapScrollControl
-            // 
+            //
             this.mapScrollControl.Location = new System.Drawing.Point(0, 0);
             this.mapScrollControl.Name = "mapScrollControl";
             this.mapScrollControl.Size = new System.Drawing.Size(56, 56);
             this.mapScrollControl.TabIndex = 0;
-            // 
+            //
             // cbShowLabels
-            // 
+            //
             this.cbShowLabels.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cbShowLabels.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbShowLabels.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -406,9 +399,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.cbShowLabels.Text = "Show &labels";
             this.cbShowLabels.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cbShowLabels.CheckedChanged += new System.EventHandler(this.cbShowLabels_CheckedChanged);
-            // 
+            //
             // panelNormal
-            // 
+            //
             this.panelNormal.Controls.Add(this.mapZoomPlusButton);
             this.panelNormal.Controls.Add(this.buttonZoomMinus);
             this.panelNormal.Controls.Add(this.mapScrollControl);
@@ -419,9 +412,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.panelNormal.Name = "panelNormal";
             this.panelNormal.Size = new System.Drawing.Size(176, 132);
             this.panelNormal.TabIndex = 2;
-            // 
+            //
             // mapZoomPlusButton
-            // 
+            //
             this.mapZoomPlusButton.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.mapZoomPlusButton.AutoSizeHeight = true;
             this.mapZoomPlusButton.AutoSizeWidth = true;
@@ -442,9 +435,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.mapZoomPlusButton.Text = "button1";
             this.mapZoomPlusButton.ToolTip = "";
             this.mapZoomPlusButton.Click += new System.EventHandler(this.mapZoomPlusButton_Click);
-            // 
+            //
             // buttonZoomMinus
-            // 
+            //
             this.buttonZoomMinus.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonZoomMinus.AutoSizeHeight = true;
             this.buttonZoomMinus.AutoSizeWidth = true;
@@ -463,9 +456,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.buttonZoomMinus.Text = "button1";
             this.buttonZoomMinus.ToolTip = "";
             this.buttonZoomMinus.Click += new System.EventHandler(this.buttonZoomMinus_Click);
-            // 
+            //
             // panelBirdseye
-            // 
+            //
             this.panelBirdseye.Controls.Add(this.mapBirdsEyeDirectionControl);
             this.panelBirdseye.Controls.Add(this.mapBirdsEyeZoomControl);
             this.panelBirdseye.Location = new System.Drawing.Point(7, 224);
@@ -473,25 +466,25 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.panelBirdseye.Size = new System.Drawing.Size(176, 247);
             this.panelBirdseye.TabIndex = 3;
             this.panelBirdseye.Visible = false;
-            // 
+            //
             // mapBirdsEyeDirectionControl
-            // 
+            //
             this.mapBirdsEyeDirectionControl.Location = new System.Drawing.Point(0, 0);
             this.mapBirdsEyeDirectionControl.Name = "mapBirdsEyeDirectionControl";
             this.mapBirdsEyeDirectionControl.Size = new System.Drawing.Size(62, 57);
             this.mapBirdsEyeDirectionControl.TabIndex = 0;
-            // 
+            //
             // mapBirdsEyeZoomControl
-            // 
+            //
             this.mapBirdsEyeZoomControl.Location = new System.Drawing.Point(66, 0);
             this.mapBirdsEyeZoomControl.Name = "mapBirdsEyeZoomControl";
             this.mapBirdsEyeZoomControl.Size = new System.Drawing.Size(109, 61);
             this.mapBirdsEyeZoomControl.TabIndex = 1;
             this.mapBirdsEyeZoomControl.TabStop = false;
             this.mapBirdsEyeZoomControl.ZoomLevel = OpenLiveWriter.InternalWriterPlugin.Controls.BirdsEyeZoomLevel.Small;
-            // 
+            //
             // mapTipControl
-            // 
+            //
             this.mapTipControl.Anchor =
                 ((System.Windows.Forms.AnchorStyles)
                  (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
@@ -503,9 +496,9 @@ namespace OpenLiveWriter.InternalWriterPlugin
             this.mapTipControl.TabStop = false;
             this.mapTipControl.ForeColor = SystemColors.ControlDarkDark;
             this.mapTipControl.Text = "Tip: Right-click to add a pushpin";
-            // 
+            //
             // MapForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;
@@ -603,7 +596,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             get { return mapControl.Size; }
         }
 
-
         private void buttonOK_Click(object sender, EventArgs e)
         {
         }
@@ -620,7 +612,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
                 return base.ProcessDialogKey(keyData);
             }
         }
-
 
         private void textBoxAddress_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1033,7 +1024,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
                                       pushpinInfo.MoreInfoUrl, pushpinInfo.PhotoUrl));
             }
         }
-
 
     }
 }

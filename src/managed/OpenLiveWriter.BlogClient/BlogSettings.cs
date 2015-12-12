@@ -36,7 +36,6 @@ namespace OpenLiveWriter.BlogClient
             return (string[])ArrayHelper.Compact(blogIds);
         }
 
-
         public static BlogDescriptor[] GetBlogs(bool sortByName)
         {
             string[] ids = GetBlogIds();
@@ -87,7 +86,7 @@ namespace OpenLiveWriter.BlogClient
                 }
 
                 // if one is not specified then get the first one stored (if any)
-                // (update the value while doing this so we don't have to repeat 
+                // (update the value while doing this so we don't have to repeat
                 // this calculation)
                 string[] blogIds = GetBlogIds();
                 if (blogIds != null && blogIds.Length > 0)
@@ -114,12 +113,10 @@ namespace OpenLiveWriter.BlogClient
                 BlogSettingsDeleted(blogId);
         }
 
-
         public static BlogSettings ForBlogId(string id)
         {
             return new BlogSettings(id);
         }
-
 
         private BlogSettings(string id)
         {
@@ -136,7 +133,6 @@ namespace OpenLiveWriter.BlogClient
 
             }
         }
-
 
         /// <summary>
         /// used as a key into settings storage
@@ -172,7 +168,6 @@ namespace OpenLiveWriter.BlogClient
         }
         private const string IS_SHAREPOINT_BLOG = "IsSharePointBlog";
 
-
         /// <summary>
         /// Id of the weblog on the host service
         /// </summary>
@@ -183,14 +178,12 @@ namespace OpenLiveWriter.BlogClient
         }
         private const string BLOG_ID = "BlogId";
 
-
         public string BlogName
         {
             get { return Settings.GetString(BLOG_NAME, String.Empty); }
             set { Settings.SetString(BLOG_NAME, value); }
         }
         private const string BLOG_NAME = "BlogName";
-
 
         public string HomepageUrl
         {
@@ -199,14 +192,12 @@ namespace OpenLiveWriter.BlogClient
         }
         private const string HOMEPAGE_URL = "HomepageUrl";
 
-
         public bool ForceManualConfig
         {
             get { return Settings.GetBoolean(FORCE_MANUAL_CONFIG, false); }
             set { Settings.SetBoolean(FORCE_MANUAL_CONFIG, value); }
         }
         private const string FORCE_MANUAL_CONFIG = "ForceManualConfig";
-
 
         public WriterEditingManifestDownloadInfo ManifestDownloadInfo
         {
@@ -269,7 +260,6 @@ namespace OpenLiveWriter.BlogClient
         }
         private const string WRITER_MANIFEST_URL = "ManifestUrl";
 
-
         public void SetProvider(string providerId, string serviceName)
         {
             Settings.SetString(PROVIDER_ID, providerId);
@@ -317,7 +307,7 @@ namespace OpenLiveWriter.BlogClient
                 // type from being changed in the registry from WindowsLiveSpaces
                 // to WindowsLiveSpacesAtom; the only practical effect of letting
                 // the write go to disk would be that you can't go back to an
-                // older build of Writer. We don't have perfect forward compatibility 
+                // older build of Writer. We don't have perfect forward compatibility
                 // anyway--going through the config wizard with a Spaces blog will
                 // also break older builds. But it seems like it's going too far
                 // that just starting Writer will make that change.
@@ -329,7 +319,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
         private const string CLIENT_TYPE = "ClientType";
-
 
         public string PostApiUrl
         {
@@ -411,7 +400,6 @@ namespace OpenLiveWriter.BlogClient
         private const string OPTION_OVERRIDES = "ManifestOptions";
         private readonly static object _optionOverridesLock = new object();
 
-
         public IDictionary UserOptionOverrides
         {
             get
@@ -445,7 +433,6 @@ namespace OpenLiveWriter.BlogClient
         }
         private const string USER_OPTION_OVERRIDES = "UserOptionOverrides";
         private readonly static object _userOptionOverridesLock = new object();
-
 
         IBlogCredentialsAccessor IBlogSettingsAccessor.Credentials
         {
@@ -481,9 +468,6 @@ namespace OpenLiveWriter.BlogClient
         }
         private BlogCredentials _blogCredentials;
 
-
-
-
         public IBlogProviderButtonDescription[] ButtonDescriptions
         {
             get
@@ -506,7 +490,7 @@ namespace OpenLiveWriter.BlogClient
             {
                 lock (_buttonsLock)
                 {
-                    // write button descriptions 
+                    // write button descriptions
                     using (SettingsPersisterHelper providerButtons = Settings.GetSubSettings(BUTTONS_KEY))
                     {
                         // track buttons that have been deleted (assume all have been deleted and then
@@ -534,7 +518,6 @@ namespace OpenLiveWriter.BlogClient
         private const string BUTTONS_KEY = "CustomButtons";
         private readonly static object _buttonsLock = new object();
 
-
         public bool LastPublishFailed
         {
             get { return Settings.GetBoolean(LAST_PUBLISH_FAILED, false); }
@@ -548,7 +531,6 @@ namespace OpenLiveWriter.BlogClient
             set { Settings.SetByteArray(FAV_ICON, value); }
         }
         private const string FAV_ICON = "FavIcon";
-
 
         public byte[] Image
         {
@@ -639,7 +621,7 @@ namespace OpenLiveWriter.BlogClient
         /// <summary>
         /// Make sure to own _keywordsLock before calling this property
         /// </summary>
-	    private XmlSettingsPersister KeywordPersister
+        private XmlSettingsPersister KeywordPersister
         {
             get
             {
@@ -713,7 +695,7 @@ namespace OpenLiveWriter.BlogClient
         /// <summary>
         /// The path to an xml file in the %APPDATA% folder that contains keywords for the current blog
         /// </summary>
-	    private string KeywordPath
+        private string KeywordPath
         {
             get
             {
@@ -727,8 +709,6 @@ namespace OpenLiveWriter.BlogClient
                 return _keywordPath;
             }
         }
-
-
 
         private BlogPostCategory[] LegacyCategories
         {
@@ -774,13 +754,13 @@ namespace OpenLiveWriter.BlogClient
             {
                 lock (_authorsLock)
                 {
-                    // safely delete existing 
+                    // safely delete existing
                     SettingsPersisterHelper settings = Settings;
                     using (settings.BatchUpdate())
                     {
                         settings.UnsetSubsettingTree(AUTHORS);
 
-                        // re-write 
+                        // re-write
                         using (SettingsPersisterHelper authorsKey = settings.GetSubSettings(AUTHORS))
                         {
                             foreach (AuthorInfo author in value)
@@ -798,7 +778,6 @@ namespace OpenLiveWriter.BlogClient
         private const string AUTHORS = "Authors";
         private const string AUTHOR_NAME = "Name";
         private readonly static object _authorsLock = new object();
-
 
         public PageInfo[] Pages
         {
@@ -829,13 +808,13 @@ namespace OpenLiveWriter.BlogClient
             {
                 lock (_pagesLock)
                 {
-                    // safely delete existing 
+                    // safely delete existing
                     SettingsPersisterHelper settings = Settings;
                     using (settings.BatchUpdate())
                     {
                         settings.UnsetSubsettingTree(PAGES);
 
-                        // re-write 
+                        // re-write
                         using (SettingsPersisterHelper pagesKey = settings.GetSubSettings(PAGES))
                         {
                             foreach (PageInfo page in value)
@@ -858,9 +837,6 @@ namespace OpenLiveWriter.BlogClient
         private const string PAGE_PARENT_ID = "ParentId";
         private readonly static object _pagesLock = new object();
 
-
-
-
         public FileUploadSupport FileUploadSupport
         {
             get
@@ -878,7 +854,6 @@ namespace OpenLiveWriter.BlogClient
             set { Settings.SetInt32(FILE_UPLOAD_SUPPORT, (Int32)value); }
         }
         private const string FILE_UPLOAD_SUPPORT = "FileUploadSupport";
-
 
         public IBlogFileUploadSettings FileUploadSettings
         {
@@ -908,9 +883,9 @@ namespace OpenLiveWriter.BlogClient
         }
 
         /// <summary>
-		/// Delete this profile
-		/// </summary>
-		public void Delete()
+        /// Delete this profile
+        /// </summary>
+        public void Delete()
         {
             // dispose the profile
             Dispose();
@@ -983,7 +958,6 @@ namespace OpenLiveWriter.BlogClient
         }
         private const string APPLY_UPDATES_LOCK = "ApplyUpdates";
 
-
         public void Dispose()
         {
             if (_blogCredentials != null)
@@ -1011,7 +985,7 @@ namespace OpenLiveWriter.BlogClient
             }
 
             // This block is unsafe because it's easy for a persister
-            // to be disposed while it's still being used on another 
+            // to be disposed while it's still being used on another
             // thread.
 
             // if (_keywordPersister.ContainsKey(KeywordPath))
@@ -1027,9 +1001,6 @@ namespace OpenLiveWriter.BlogClient
         {
             Trace.Fail(String.Format(CultureInfo.InvariantCulture, "Failed to dispose BlogSettings!!! BlogId: {0} // BlogName: {1}", Id, BlogName));
         }
-
-
-
 
         public IBlogFileUploadSettings FileUpload
         {
@@ -1053,10 +1024,7 @@ namespace OpenLiveWriter.BlogClient
         }
         private SettingsPersisterHelper _settings;
 
-
-
         #region Class Configuration (location of settings, etc)
-
 
         public static SettingsPersisterHelper GetProviderButtonsSettingsKey(string blogId)
         {
@@ -1079,7 +1047,6 @@ namespace OpenLiveWriter.BlogClient
 
         private static SettingsPersisterHelper _settingsKey = ApplicationEnvironment.UserSettingsRoot.GetSubSettings("Weblogs");
 
-
         #endregion
 
     }
@@ -1098,7 +1065,6 @@ namespace OpenLiveWriter.BlogClient
             set { CredentialsSettings.SetString(USERNAME, value); }
         }
         private const string USERNAME = "Username";
-
 
         public string Password
         {
@@ -1159,7 +1125,6 @@ namespace OpenLiveWriter.BlogClient
         }
         private ICredentialsDomain _domain;
 
-
         public void Dispose()
         {
             if (_credentialsSettingsRoot != null)
@@ -1177,7 +1142,7 @@ namespace OpenLiveWriter.BlogClient
         }
 
         /// <summary>
-        /// Get Username from either the credentials key or the root key 
+        /// Get Username from either the credentials key or the root key
         /// (seamless migration of accounts that existed prior to us moving
         /// the credentials into their own subkey)
         /// </summary>
@@ -1192,7 +1157,7 @@ namespace OpenLiveWriter.BlogClient
         }
 
         /// <summary>
-        /// Get Password from either the credentials key or the root key 
+        /// Get Password from either the credentials key or the root key
         /// (seamless migration of accounts that existed prior to us moving
         /// the credentials into their own subkey)
         /// </summary>
@@ -1210,16 +1175,12 @@ namespace OpenLiveWriter.BlogClient
         private SettingsPersisterHelper _settingsRoot;
     }
 
-
-
     public class BlogFileUploadSettings : IBlogFileUploadSettings, IDisposable
     {
         public BlogFileUploadSettings(SettingsPersisterHelper settings)
         {
             _settings = settings;
         }
-
-
 
         public string GetValue(string name)
         {
@@ -1247,6 +1208,5 @@ namespace OpenLiveWriter.BlogClient
 
         private SettingsPersisterHelper _settings;
     }
-
 
 }

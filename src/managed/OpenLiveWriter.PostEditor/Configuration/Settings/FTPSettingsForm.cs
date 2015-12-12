@@ -87,8 +87,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             // save reference to settings
             _ftpSettings = ftpSettings;
 
-
-
             // populate controls
             _originalHostname = ftpSettings.FtpServer;
             textBoxHostName.Text = ftpSettings.FtpServer;
@@ -119,7 +117,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
                 LayoutHelper.NaturalizeHeightAndDistribute(8, new ControlGroup(labelPath, textBoxPath, buttonBrowse), new ControlGroup(labelUrlMapping, textBoxUrlMapping), new ControlGroup(pictureBoxHelp, linkLabel1), new ControlGroup(buttonOK, buttonCancel));
             }
         }
-
 
         private string HostName
         {
@@ -190,7 +187,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             }
         }
 
-
         private bool ValidateRequiredFields(bool validateMapping, bool requirePassword)
         {
             if (!ValidateTextBox(textBoxHostName))
@@ -253,7 +249,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
                 return false;
             }
 
-
             using (DestinationValidator validator = new DestinationValidator(destination))
             {
                 try
@@ -303,7 +298,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             return true;
         }
 
-
         private void textBoxUrlMapping_Leave(object sender, EventArgs e)
         {
             textBoxUrlMapping.Text = UrlHelper.FixUpUrl(textBoxUrlMapping.Text);
@@ -339,7 +333,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         {
             ShellHelper.LaunchUrl(GLink.Instance.FTPHelp);
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -381,9 +374,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.checkBoxSavePassword = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -391,9 +384,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 14;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(158, 239);
@@ -401,9 +394,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.buttonOK.TabIndex = 13;
             this.buttonOK.Text = "OK";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // linkLabel1
-            // 
+            //
             this.linkLabel1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.linkLabel1.Location = new System.Drawing.Point(27, 210);
             this.linkLabel1.Name = "linkLabel1";
@@ -414,9 +407,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.linkLabel1.LinkBehavior = LinkBehavior.HoverUnderline;
             this.linkLabel1.LinkColor = SystemColors.HotTrack;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
+            //
             // pictureBoxHelp
-            // 
+            //
             this.pictureBoxHelp.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxHelp.Image")));
             this.pictureBoxHelp.Location = new System.Drawing.Point(3, 207);
             this.pictureBoxHelp.Name = "pictureBoxHelp";
@@ -424,9 +417,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.pictureBoxHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxHelp.TabIndex = 59;
             this.pictureBoxHelp.TabStop = false;
-            // 
+            //
             // buttonBrowse
-            // 
+            //
             this.buttonBrowse.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonBrowse.Location = new System.Drawing.Point(286, 141);
             this.buttonBrowse.Name = "buttonBrowse";
@@ -434,96 +427,96 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.buttonBrowse.TabIndex = 9;
             this.buttonBrowse.Text = "...";
             this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
-            // 
+            //
             // labelUrlMapping
-            // 
+            //
             this.labelUrlMapping.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelUrlMapping.Location = new System.Drawing.Point(8, 165);
             this.labelUrlMapping.Name = "labelUrlMapping";
             this.labelUrlMapping.Size = new System.Drawing.Size(299, 14);
             this.labelUrlMapping.TabIndex = 10;
             this.labelUrlMapping.Text = "URL of image publishing &folder:";
-            // 
+            //
             // labelPath
-            // 
+            //
             this.labelPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPath.Location = new System.Drawing.Point(8, 125);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(299, 14);
             this.labelPath.TabIndex = 7;
             this.labelPath.Text = "Publish &images into this folder:";
-            // 
+            //
             // labelHostName
-            // 
+            //
             this.labelHostName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelHostName.Location = new System.Drawing.Point(9, 8);
             this.labelHostName.Name = "labelHostName";
             this.labelHostName.Size = new System.Drawing.Size(301, 14);
             this.labelHostName.TabIndex = 0;
             this.labelHostName.Text = "FTP &hostname:";
-            // 
+            //
             // labelPassword
-            // 
+            //
             this.labelPassword.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPassword.Location = new System.Drawing.Point(148, 48);
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(159, 14);
             this.labelPassword.TabIndex = 4;
             this.labelPassword.Text = "&Password:";
-            // 
+            //
             // labelUserName
-            // 
+            //
             this.labelUserName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelUserName.Location = new System.Drawing.Point(9, 48);
             this.labelUserName.Name = "labelUserName";
             this.labelUserName.Size = new System.Drawing.Size(131, 14);
             this.labelUserName.TabIndex = 2;
             this.labelUserName.Text = "&Username:";
-            // 
+            //
             // textBoxUrlMapping
-            // 
+            //
             this.textBoxUrlMapping.Location = new System.Drawing.Point(8, 181);
             this.textBoxUrlMapping.Name = "textBoxUrlMapping";
             this.textBoxUrlMapping.Size = new System.Drawing.Size(304, 21);
             this.textBoxUrlMapping.TabIndex = 11;
             this.textBoxUrlMapping.Text = "";
             this.textBoxUrlMapping.Leave += new System.EventHandler(this.textBoxUrlMapping_Leave);
-            // 
+            //
             // textBoxPath
-            // 
+            //
             this.textBoxPath.Location = new System.Drawing.Point(8, 141);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(276, 21);
             this.textBoxPath.TabIndex = 8;
             this.textBoxPath.Text = "";
-            // 
+            //
             // textBoxHostName
-            // 
+            //
             this.textBoxHostName.Location = new System.Drawing.Point(9, 24);
             this.textBoxHostName.Name = "textBoxHostName";
             this.textBoxHostName.Size = new System.Drawing.Size(304, 21);
             this.textBoxHostName.TabIndex = 1;
             this.textBoxHostName.Text = "";
-            // 
+            //
             // textBoxPassword
-            // 
+            //
             this.textBoxPassword.Location = new System.Drawing.Point(146, 64);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(167, 21);
             this.textBoxPassword.TabIndex = 5;
             this.textBoxPassword.Text = "";
-            // 
+            //
             // textBoxUsername
-            // 
+            //
             this.textBoxUsername.Location = new System.Drawing.Point(9, 64);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(133, 21);
             this.textBoxUsername.TabIndex = 3;
             this.textBoxUsername.Text = "";
-            // 
+            //
             // checkBoxSavePassword
-            // 
+            //
             this.checkBoxSavePassword.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxSavePassword.Location = new System.Drawing.Point(147, 88);
             this.checkBoxSavePassword.Name = "checkBoxSavePassword";
@@ -531,9 +524,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.checkBoxSavePassword.TabIndex = 6;
             this.checkBoxSavePassword.Text = "&Save Password";
             this.checkBoxSavePassword.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // FTPSettingsForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;
@@ -563,7 +556,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
 
         }
         #endregion
-
 
         /// <summary>
         /// Helper for showing the FTP settings dialog which also takes care of clearing the cached credentials.

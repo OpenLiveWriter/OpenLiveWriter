@@ -19,13 +19,10 @@ namespace OpenLiveWriter.Interop.Windows
             out UIntPtr phkResult
             );
 
-
         [DllImport("Advapi32.dll", SetLastError = true)]
         public static extern int RegCloseKey(
             UIntPtr hKey
             );
-
-
 
         [DllImport("Advapi32.dll", SetLastError = true)]
         public static extern int RegNotifyChangeKeyValue(
@@ -36,16 +33,13 @@ namespace OpenLiveWriter.Interop.Windows
             bool fAsynchronous
             );
 
-
     }
-
 
     public struct STANDARD_RIGHTS
     {
         public const uint READ = 0x00020000;
         public const uint SYNCHRONIZE = 0x00100000;
     }
-
 
     public struct KEY
     {
@@ -66,7 +60,6 @@ namespace OpenLiveWriter.Interop.Windows
         public static readonly UIntPtr CURRENT_CONFIG = new UIntPtr(0x80000005);
         public static readonly UIntPtr DYN_DATA = new UIntPtr(0x80000006);
     }
-
 
     public struct REG_NOTIFY_CHANGE
     {

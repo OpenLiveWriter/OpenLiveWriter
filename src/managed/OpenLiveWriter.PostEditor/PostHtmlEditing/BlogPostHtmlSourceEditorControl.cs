@@ -102,9 +102,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.textBoxTitle = new TextBox();
             this.panelSourceEditor = new Panel();
             this.SuspendLayout();
-            // 
+            //
             // textBoxTitle
-            // 
+            //
             this.textBoxTitle.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
                 | AnchorStyles.Right)));
             this.textBoxTitle.Location = new Point(2, 0);
@@ -114,9 +114,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.textBoxTitle.Text = "post title";
             this.textBoxTitle.TextChanged += new EventHandler(this.textBoxTitle_TextChanged);
             this.textBoxTitle.GotFocus += new EventHandler(this.textBoxTitle_TitleGotFocus);
-            // 
+            //
             // panelSourceEditor
-            // 
+            //
             this.panelSourceEditor.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
                 | AnchorStyles.Left)
                 | AnchorStyles.Right)));
@@ -125,9 +125,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.panelSourceEditor.Size = new Size(326, 272);
             this.panelSourceEditor.TabIndex = 1;
 
-            // 
+            //
             // BlogPostHtmlSourceEditorControl
-            // 
+            //
             this.BackColor = SystemColors.Control;
             this.Controls.Add(this.panelSourceEditor);
             this.Controls.Add(this.textBoxTitle);
@@ -169,13 +169,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             OnEditableRegionFocusChanged(new EditableRegionFocusChangedEventArgs(true));
         }
 
-
         protected virtual void OnEditableRegionFocusChanged(EventArgs e)
         {
             if (EditableRegionFocusChanged != null)
                 EditableRegionFocusChanged(this, e);
         }
-
 
         public void LoadHtmlFragment(string title, string postBodyHtml, string baseUrl, BlogEditingTemplate editingTemplate)
         {
@@ -308,7 +306,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             sourceControl.InsertHtml(BlogPost.ClearBreak, true);
         }
 
-
         public void InsertExtendedEntryBreak()
         {
             if (sourceControl.GetRawText().IndexOf(BlogPost.ExtendedEntryBreak) == -1)
@@ -420,7 +417,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 _replaceOperation.Mode = ReplaceAbsoluteFilePathsOperation.REPLACE_MODE.ABS2VAR;
                 htmlText = _replaceOperation.Execute(htmlText);
 
-
                 SourceEditor.Text = htmlText;
             }
 
@@ -448,7 +444,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         /// <summary>
         /// If the specified markers exist in the editor text,
-        /// delete the first instance of each and position the 
+        /// delete the first instance of each and position the
         /// selection at the markers.
         /// </summary>
         public bool SelectAndDelete(string startMarker, string endMarker)
@@ -529,7 +525,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     }
 
     /// <summary>
-    /// Converts URLs to/from absolute file and shortened variable name formats. 
+    /// Converts URLs to/from absolute file and shortened variable name formats.
     /// </summary>
     public class ReplaceAbsoluteFilePathsOperation : ReplaceOperation
     {

@@ -823,7 +823,6 @@ namespace OpenLiveWriter.HtmlEditor
                 AggressiveCommandStateChanged(this, EventArgs.Empty);
         }
 
-
         #endregion
 
         #region IDisposable Members
@@ -857,7 +856,6 @@ namespace OpenLiveWriter.HtmlEditor
         #endregion
 
         #region Syntax Edit event handlers
-
 
         private void _textBox_TextChanged(object sender, EventArgs e)
         {
@@ -908,7 +906,6 @@ namespace OpenLiveWriter.HtmlEditor
                 _textBox.Paste(String.Format(CultureInfo.InvariantCulture, "<{0}>{1}</{0}>", tagName, _textBox.SelectedText));
         }
 
-
         private void InsertList(string listTag)
         {
             string selectedText = _textBox.SelectedText;
@@ -918,7 +915,6 @@ namespace OpenLiveWriter.HtmlEditor
         #endregion
 
         #region UI Management Helpers
-
 
         private IWin32Window Owner
         {

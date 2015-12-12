@@ -24,10 +24,8 @@ namespace OpenLiveWriter.Mshtml
             [In, MarshalAs(UnmanagedType.IUnknown)] object pcmdtReserved,
             [In, MarshalAs(UnmanagedType.IDispatch)] object pdispReserved);
 
-
         void GetHostInfo(
             [Out][In] ref DOCHOSTUIINFO pInfo);
-
 
         [PreserveSig]
         int ShowUI(
@@ -44,20 +42,16 @@ namespace OpenLiveWriter.Mshtml
         void EnableModeless(
             [In, MarshalAs(UnmanagedType.Bool)] bool fEnable);
 
-
         void OnDocWindowActivate(
             [In, MarshalAs(UnmanagedType.Bool)] bool fActivate);
 
-
         void OnFrameWindowActivate(
             [In, MarshalAs(UnmanagedType.Bool)] bool fActivate);
-
 
         void ResizeBorder(
             [In] ref RECT prcBorder,
             [In] IOleInPlaceUIWindow pUIWindow,
             [In, MarshalAs(UnmanagedType.Bool)] bool frameWindow);
-
 
         [PreserveSig]
         int TranslateAccelerator(
@@ -65,21 +59,17 @@ namespace OpenLiveWriter.Mshtml
             [In] ref Guid pguidCmdGroup,
             [In] uint nCmdID);
 
-
         void GetOptionKeyPath(
             [Out] out IntPtr pchKey,
             [In] uint dwReserved);
-
 
         [PreserveSig]
         int GetDropTarget(
             [In] IDropTarget pDropTarget,
             [Out] out IDropTarget ppDropTarget);
 
-
         void GetExternal(
             [Out] out IntPtr ppDispatch);
-
 
         [PreserveSig]
         int TranslateUrl(
@@ -87,16 +77,14 @@ namespace OpenLiveWriter.Mshtml
             [In] IntPtr pchURLIn,
             [Out] out IntPtr ppchURLOut);
 
-
         [PreserveSig]
         int FilterDataObject(
             [In] IOleDataObject pDO,
             [Out] out IOleDataObject ppDORet);
     }
 
-
     /// <summary>
-    /// Context menu constants 
+    /// Context menu constants
     /// </summary>
     public struct CONTEXT_MENU
     {
@@ -108,7 +96,6 @@ namespace OpenLiveWriter.Mshtml
         public static int ANCHOR = 5;
         public static int UNKNOWN = 6;
     }
-
 
     /// <summary>
     /// ShowContextMenu constants (used in call to IDocHostUIHandler.ShowContextMenu, derived
@@ -125,7 +112,6 @@ namespace OpenLiveWriter.Mshtml
         public static int UNKNOWN = 0x01 << CONTEXT_MENU.UNKNOWN;
     }
 
-
     /// <summary>
     /// Used by the IDocHostUIHandler::GetHostInfo method to allow MSHTML to retrieve information about
     /// the host's UI requirements.
@@ -139,7 +125,6 @@ namespace OpenLiveWriter.Mshtml
         public IntPtr pchHostNS;
     };
 
-
     /// <summary>
     /// Type of UI being displayed by MSHTML
     /// </summary>
@@ -148,7 +133,6 @@ namespace OpenLiveWriter.Mshtml
         BROWSE = 0,
         AUTHOR = 1
     }
-
 
     /// <summary>
     /// Defines values used to indicate the proper action on a double-click event.
@@ -159,7 +143,6 @@ namespace OpenLiveWriter.Mshtml
         SHOWPROPERTIES = 1,
         SHOWCODE = 2,
     }
-
 
     /// <summary>
     /// Defines a set of flags that indicate the capabilities of an IDocHostUIHandler implementation.

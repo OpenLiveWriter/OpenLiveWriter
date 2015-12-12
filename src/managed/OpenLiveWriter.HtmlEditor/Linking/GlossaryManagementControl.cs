@@ -73,7 +73,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             buttonDelete.Enabled = itemSelected;
         }
 
-
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             try
@@ -139,7 +138,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -155,8 +154,8 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -167,9 +166,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // listViewGlossary
-            // 
+            //
             this.listViewGlossary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
@@ -185,9 +184,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.listViewGlossary.DoubleClick += new System.EventHandler(this.ListViewGlossary_DoubleClick);
             this.listViewGlossary.SelectedIndexChanged += new System.EventHandler(this.ListViewGlossary_SelectedIndexChanged);
             this.listViewGlossary.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            // 
+            //
             // buttonAdd
-            // 
+            //
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonAdd.Location = new System.Drawing.Point(261, 0);
@@ -196,9 +195,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "&Add...";
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
+            //
             // buttonEdit
-            // 
+            //
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonEdit.Location = new System.Drawing.Point(261, 30);
@@ -207,9 +206,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.buttonEdit.TabIndex = 2;
             this.buttonEdit.Text = "&Edit...";
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
-            // 
+            //
             // buttonDelete
-            // 
+            //
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonDelete.Location = new System.Drawing.Point(261, 60);
@@ -218,9 +217,9 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             this.buttonDelete.TabIndex = 3;
             this.buttonDelete.Text = "&Delete...";
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
+            //
             // GlossaryManagementControl
-            // 
+            //
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonAdd);
@@ -231,7 +230,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 
         }
         #endregion
-
 
         private void EditSelectedEntry()
         {
@@ -251,7 +249,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
                         listViewGlossary.PopulateListItem(listViewGlossary.SelectedItems[0], revisedEntry);
                     }
 
-                    // set focus to the list							
+                    // set focus to the list
                     listViewGlossary.Focus();
                 }
             }
@@ -261,8 +259,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             }
 
         }
-
-
 
         private void DeleteSelectedEntry()
         {
@@ -279,7 +275,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
                     // delete the entry
                     listViewGlossary.DeleteSelectedEntry();
 
-                    // set focus to the list					
+                    // set focus to the list
                     listViewGlossary.Focus();
 
                     // update button enabled states

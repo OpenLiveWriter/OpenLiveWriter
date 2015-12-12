@@ -25,7 +25,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         /// <summary>
         /// FileSystemDestination Constructor
         /// </summary>
@@ -40,8 +39,6 @@ namespace OpenLiveWriter.FileDestinations
                 throw new NoSuchDirectoryException(path);
             }
         }
-
-
 
         /// <summary>
         /// Copies files to a local destination
@@ -121,7 +118,7 @@ namespace OpenLiveWriter.FileDestinations
 
         /// <summary>
         /// Determines whether file transfer operations should retry
-        /// given an exception. 
+        /// given an exception.
         /// </summary>
         /// <param name="e">The exception that has occurred</param>
         /// <returns>True indicates to retry operation, otherwise false</returns>
@@ -130,10 +127,9 @@ namespace OpenLiveWriter.FileDestinations
             return false;
         }
 
-
         /// <summary>
         /// This method is called to determine whether a directory exists.  This is used to
-        /// determine whether to create a new directory or not. 
+        /// determine whether to create a new directory or not.
         /// </summary>
         /// <param name="path">The directory</param>
         /// <returns>true indicates the directory exists, false indicates it doesn't</returns>
@@ -162,7 +158,7 @@ namespace OpenLiveWriter.FileDestinations
         }
 
         /// <summary>
-        /// Creates a local directory 
+        /// Creates a local directory
         /// </summary>
         /// <param name="path">The path of the directory to create (typically
         /// relative to the current directory)</param>

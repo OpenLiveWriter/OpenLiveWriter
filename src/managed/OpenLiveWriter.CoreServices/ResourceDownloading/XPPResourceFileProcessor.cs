@@ -28,6 +28,5 @@ namespace OpenLiveWriter.CoreServices.ResourceDownloading
             return _processor(document);
         }
 
-
     }
 }

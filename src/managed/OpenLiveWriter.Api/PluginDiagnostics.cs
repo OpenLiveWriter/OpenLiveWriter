@@ -11,12 +11,12 @@ using OpenLiveWriter.Controls;
 namespace OpenLiveWriter.Api
 {
     /// <summary>
-    /// Provides diagnostic services (logging and error display) to plugins. 
+    /// Provides diagnostic services (logging and error display) to plugins.
     /// </summary>
     public sealed class PluginDiagnostics
     {
         /// <summary>
-        /// Notify the user that an error has occurred. 
+        /// Notify the user that an error has occurred.
         /// </summary>
         /// <param name="title">Error title (used as the error caption).</param>
         /// <param name="description">Error description (displayed within a scrolling
@@ -31,7 +31,7 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Notify the user that an unexpected exception has occurred. In addition to 
+        /// Notify the user that an unexpected exception has occurred. In addition to
         /// displaying an error message to the user this method also automatically logs
         /// the unexpected exception in the Open Live Writer log file.
         /// </summary>

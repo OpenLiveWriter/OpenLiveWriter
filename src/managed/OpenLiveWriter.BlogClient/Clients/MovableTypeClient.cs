@@ -39,4 +39,3 @@ namespace OpenLiveWriter.BlogClient.Clients
     }
 }
 
-

@@ -39,9 +39,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// <returns></returns>
         string GenerateHtmlFromPlainText(string text);
 
-
         string CleanupHtml(string html, string baseUrl, HtmlCleanupRule cleanupRule);
-
 
     }
 

@@ -32,7 +32,6 @@ namespace OpenLiveWriter.PostEditor
         private System.Windows.Forms.Label labelFTP;
         private System.Windows.Forms.Label labelFTP2;
 
-
         public static DialogResult Show(IWin32Window owner, string[] files)
         {
             using (FileUploadFailedForm form = new FileUploadFailedForm(files))
@@ -50,7 +49,6 @@ namespace OpenLiveWriter.PostEditor
                 buttonNo.Top = buttonYes.Top;
             }
         }
-
 
         private FileUploadFailedForm(string[] images)
         {
@@ -105,9 +103,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelFTP = new System.Windows.Forms.Label();
             this.labelFTP2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // buttonYes
-            // 
+            //
             this.buttonYes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonYes.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.buttonYes.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -115,9 +113,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonYes.Name = "buttonYes";
             this.buttonYes.TabIndex = 0;
             this.buttonYes.Text = "&Yes";
-            // 
+            //
             // buttonNo
-            // 
+            //
             this.buttonNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonNo.DialogResult = System.Windows.Forms.DialogResult.No;
             this.buttonNo.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -125,9 +123,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonNo.Name = "buttonNo";
             this.buttonNo.TabIndex = 1;
             this.buttonNo.Text = "&No";
-            // 
+            //
             // listViewFiles
-            // 
+            //
             this.listViewFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
                                                                                             this.columnHeaderFile});
             this.listViewFiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
@@ -137,14 +135,14 @@ namespace OpenLiveWriter.PostEditor
             this.listViewFiles.Size = new System.Drawing.Size(280, 96);
             this.listViewFiles.TabIndex = 5;
             this.listViewFiles.View = System.Windows.Forms.View.List;
-            // 
+            //
             // columnHeaderFile
-            // 
+            //
             this.columnHeaderFile.Text = "";
             this.columnHeaderFile.Width = 328;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(56, 8);
             this.label1.Name = "label1";
@@ -152,18 +150,18 @@ namespace OpenLiveWriter.PostEditor
             this.label1.TabIndex = 4;
             this.label1.Text = "The following images cannot be published because the weblog does not support imag" +
                 "e publishing:";
-            // 
+            //
             // pictureBox1
-            // 
+            //
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(8, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(44, 40);
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
-            // 
+            //
             // labelFTP
-            // 
+            //
             this.labelFTP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelFTP.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelFTP.Location = new System.Drawing.Point(56, 144);
@@ -171,9 +169,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelFTP.Size = new System.Drawing.Size(288, 32);
             this.labelFTP.TabIndex = 7;
             this.labelFTP.Text = "Open Live Writer can be configured to publish images to an FTP account.";
-            // 
+            //
             // labelFTP2
-            // 
+            //
             this.labelFTP2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelFTP2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelFTP2.Location = new System.Drawing.Point(56, 176);
@@ -181,9 +179,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelFTP2.Size = new System.Drawing.Size(296, 32);
             this.labelFTP2.TabIndex = 8;
             this.labelFTP2.Text = "Do you want to configure an FTP account for image publishing now?";
-            // 
+            //
             // FileUploadFailedForm
-            // 
+            //
             this.AcceptButton = this.buttonYes;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonNo;
@@ -204,8 +202,6 @@ namespace OpenLiveWriter.PostEditor
 
         }
         #endregion
-
-
 
     }
 }

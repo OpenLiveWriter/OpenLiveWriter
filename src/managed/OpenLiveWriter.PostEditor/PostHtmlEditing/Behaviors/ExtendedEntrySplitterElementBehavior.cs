@@ -61,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             IHTMLElementCollection extendedEntryElements = doc3.getElementsByName(PostBodyEditingElementBehavior.EXTENDED_ENTRY_ID);
             if (extendedEntryElements.length > 1)
             {
-                //delete any extended entry markers that are not this element (use a timer to avoid bug 407544) 
+                //delete any extended entry markers that are not this element (use a timer to avoid bug 407544)
                 ExtendedEntrySweeper extendedEntrySweeper = new ExtendedEntrySweeper(EditorContext, (IHTMLDocument3)HTMLElement.document, HTMLElement);
                 TimerHelper.CallbackOnDelay(new InvokeInUIThreadDelegate(extendedEntrySweeper.DoDelete), 10);
             }
@@ -142,7 +142,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
 
             public void DoDelete()
             {
-                if (_realExtendedEntry.sourceIndex == 0) //this "real" entry is deleted 
+                if (_realExtendedEntry.sourceIndex == 0) //this "real" entry is deleted
                     return;
 
                 using (IUndoUnit undo = _editorContext.CreateInvisibleUndoUnit())
@@ -188,7 +188,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             //draw the splitter line
             GraphicsHelper.TileFillScaledImageHorizontally(g, extendedEntrySeparatorTileImage, _lineRect);
 
-            //draw the More... box			
+            //draw the More... box
             Color backgroundColor = Color.FromArgb(128, 128, 128);
             SizeF moreTextSize = g.MeasureText(_moreText, font);
             int morePadding = 0;

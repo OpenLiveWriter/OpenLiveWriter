@@ -6,16 +6,15 @@ using System.Windows.Forms;
 namespace OpenLiveWriter.Controls
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public interface IHelpProviderContext
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         HelpProvider HelpProvider { get; }
     }
-
 
     public class HelpProviderContext
     {

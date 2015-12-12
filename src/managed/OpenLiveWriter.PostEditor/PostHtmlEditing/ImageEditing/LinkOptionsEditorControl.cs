@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private CheckBox cbEnableViewer;
         private Label label1;
         private TextBox txtGroupName;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -89,7 +89,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             //Height = txtGroupName.Bottom + 3;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -105,8 +105,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -116,9 +116,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.label1 = new System.Windows.Forms.Label();
             this.txtGroupName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
+            //
             // cbNewWindow
-            // 
+            //
             this.cbNewWindow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.cbNewWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -128,9 +128,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.cbNewWindow.TabIndex = 0;
             this.cbNewWindow.Text = "Open in new window";
             this.cbNewWindow.CheckedChanged += new System.EventHandler(this.cbNewWindow_CheckedChanged);
-            // 
+            //
             // cbEnableViewer
-            // 
+            //
             this.cbEnableViewer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.cbEnableViewer.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -140,27 +140,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.cbEnableViewer.TabIndex = 1;
             this.cbEnableViewer.Text = "&Enable {0}";
             this.cbEnableViewer.UseVisualStyleBackColor = true;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(23, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "&Group (optional):";
-            // 
+            //
             // txtGroupName
-            // 
+            //
             this.txtGroupName.Location = new System.Drawing.Point(114, 39);
             this.txtGroupName.Name = "txtGroupName";
             this.txtGroupName.Size = new System.Drawing.Size(155, 20);
             this.txtGroupName.TabIndex = 3;
             this.txtGroupName.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
             this.txtGroupName.MaxLength = 100;
-            // 
+            //
             // LinkOptionsEditorControl
-            // 
+            //
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtGroupName);
             this.Controls.Add(this.cbNewWindow);

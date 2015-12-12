@@ -231,7 +231,7 @@ namespace OpenLiveWriter.ApplicationFramework
             return _accessibleObject;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -254,9 +254,9 @@ namespace OpenLiveWriter.ApplicationFramework
         private void InitializeComponent()
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // TabSelectorLightweightControl
-            // 
+            //
             this.AllowDrop = true;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -372,12 +372,12 @@ namespace OpenLiveWriter.ApplicationFramework
 
                 // With localized tab text, we can't afford to waste any space
                 /*
-				tabWidth += PAD*4;
-				if (!bitmapRectangle.IsEmpty)
-					bitmapRectangle.X += PAD*2;
-				if (!textLayoutRectangle.IsEmpty)
-					textLayoutRectangle.X += PAD*2;
-				*/
+                tabWidth += PAD*4;
+                if (!bitmapRectangle.IsEmpty)
+                    bitmapRectangle.X += PAD*2;
+                if (!textLayoutRectangle.IsEmpty)
+                    textLayoutRectangle.X += PAD*2;
+                */
             }
 
             //	Set the virtual size.
@@ -488,7 +488,6 @@ namespace OpenLiveWriter.ApplicationFramework
                                                     virtualClientRectangle.Width - 2,
                                                     virtualClientRectangle.Height - (tabEntry.IsSelected ? 1 : 2));
 
-
             //	Fill face of the tab.
             Color topColor, bottomColor;
             if (tabEntry.IsSelected)
@@ -509,44 +508,44 @@ namespace OpenLiveWriter.ApplicationFramework
                     graphics.FillRectangle(linearGradientBrush, faceRectangle);
 
 #if THREEDEE
-			//	Draw the highlight inside the tab selector.
-			Color highlightColor;
-			if (tabEntry.IsSelected)
-				highlightColor = TabEntry.TabPageControl.ApplicationStyle.ActiveTabHighlightColor;
-			else
-				highlightColor = TabEntry.TabPageControl.ApplicationStyle.InactiveTabHighlightColor;
-			using (SolidBrush solidBrush = new SolidBrush(highlightColor))
-			{
-				//	Draw the top edge.
-				graphics.FillRectangle(	solidBrush,
-										faceRectangle.X,
-										faceRectangle.Y,
-										faceRectangle.Width-1,
-										1);
+            //	Draw the highlight inside the tab selector.
+            Color highlightColor;
+            if (tabEntry.IsSelected)
+                highlightColor = TabEntry.TabPageControl.ApplicationStyle.ActiveTabHighlightColor;
+            else
+                highlightColor = TabEntry.TabPageControl.ApplicationStyle.InactiveTabHighlightColor;
+            using (SolidBrush solidBrush = new SolidBrush(highlightColor))
+            {
+                //	Draw the top edge.
+                graphics.FillRectangle(	solidBrush,
+                                        faceRectangle.X,
+                                        faceRectangle.Y,
+                                        faceRectangle.Width-1,
+                                        1);
 
-				//	Draw the left edge.
-				graphics.FillRectangle(	solidBrush,
-										faceRectangle.X,
-										faceRectangle.Y+1,
-										1,
-										faceRectangle.Height-(tabEntry.IsSelected ? 2 : 1));
-			}
+                //	Draw the left edge.
+                graphics.FillRectangle(	solidBrush,
+                                        faceRectangle.X,
+                                        faceRectangle.Y+1,
+                                        1,
+                                        faceRectangle.Height-(tabEntry.IsSelected ? 2 : 1));
+            }
 
-			//	Draw the lowlight inside the tab selector.
-			Color lowlightColor;
-			if (tabEntry.IsSelected)
-				lowlightColor = TabEntry.TabPageControl.ApplicationStyle.ActiveTabLowlightColor;
-			else
-				lowlightColor = TabEntry.TabPageControl.ApplicationStyle.InactiveTabLowlightColor;
-			using (SolidBrush solidBrush = new SolidBrush(lowlightColor))
-			{
-				//	Draw the right edge.
-				graphics.FillRectangle(	solidBrush,
-										faceRectangle.Right-1,
-										faceRectangle.Y+1,
-										1,
-										faceRectangle.Height-(tabEntry.IsSelected ? 2 : 1));
-			}
+            //	Draw the lowlight inside the tab selector.
+            Color lowlightColor;
+            if (tabEntry.IsSelected)
+                lowlightColor = TabEntry.TabPageControl.ApplicationStyle.ActiveTabLowlightColor;
+            else
+                lowlightColor = TabEntry.TabPageControl.ApplicationStyle.InactiveTabLowlightColor;
+            using (SolidBrush solidBrush = new SolidBrush(lowlightColor))
+            {
+                //	Draw the right edge.
+                graphics.FillRectangle(	solidBrush,
+                                        faceRectangle.Right-1,
+                                        faceRectangle.Y+1,
+                                        1,
+                                        faceRectangle.Height-(tabEntry.IsSelected ? 2 : 1));
+            }
 #endif
 
             //	Draw the edges of the tab selector.

@@ -101,7 +101,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.labelImageSmall.Text = Res.Get(StringId.ImgSBSmallImage);
             this.Text = Res.Get(StringId.ImgSBDefaultImageSizes);
 
-
             numericSmallWidth.Value = ImageEditingSettings.DefaultImageSizeSmall.Width;
             numericSmallHeight.Value = ImageEditingSettings.DefaultImageSizeSmall.Height;
             numericMediumWidth.Value = ImageEditingSettings.DefaultImageSizeMedium.Width;
@@ -137,7 +136,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 LayoutHelper.FixupOKCancel(buttonOK, buttonCancel);
             }
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -191,9 +189,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             ((System.ComponentModel.ISupportInitialize)(this.numericLargeHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericLargeWidth)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // numericSmallWidth
-            // 
+            //
             this.numericSmallWidth.Location = new System.Drawing.Point(115, 28);
             this.numericSmallWidth.Maximum = new System.Decimal(new int[] {
                                                                               4096,
@@ -213,36 +211,36 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                                                             0,
                                                                             0,
                                                                             0});
-            // 
+            //
             // label4
-            // 
+            //
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label4.Location = new System.Drawing.Point(180, 56);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 16);
             this.label4.TabIndex = 20;
             this.label4.Text = "pixels";
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label3.Location = new System.Drawing.Point(180, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 16);
             this.label3.TabIndex = 19;
             this.label3.Text = "pixels";
-            // 
+            //
             // label2
-            // 
+            //
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label2.Location = new System.Drawing.Point(20, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Maximum &Height:";
-            // 
+            //
             // numericSmallHeight
-            // 
+            //
             this.numericSmallHeight.Location = new System.Drawing.Point(115, 52);
             this.numericSmallHeight.Maximum = new System.Decimal(new int[] {
                                                                                3072,
@@ -262,45 +260,45 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                                                              0,
                                                                              0,
                                                                              0});
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(20, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Maximum &Width:";
-            // 
+            //
             // label5
-            // 
+            //
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label5.Location = new System.Drawing.Point(180, 128);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 16);
             this.label5.TabIndex = 18;
             this.label5.Text = "pixels";
-            // 
+            //
             // label6
-            // 
+            //
             this.label6.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label6.Location = new System.Drawing.Point(180, 104);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(48, 16);
             this.label6.TabIndex = 17;
             this.label6.Text = "pixels";
-            // 
+            //
             // label7
-            // 
+            //
             this.label7.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label7.Location = new System.Drawing.Point(20, 128);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(85, 16);
             this.label7.TabIndex = 7;
             this.label7.Text = "Maximum H&eight:";
-            // 
+            //
             // numericMediumHeight
-            // 
+            //
             this.numericMediumHeight.Location = new System.Drawing.Point(115, 128);
             this.numericMediumHeight.Maximum = new System.Decimal(new int[] {
                                                                                 3072,
@@ -320,18 +318,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                                                               0,
                                                                               0,
                                                                               0});
-            // 
+            //
             // label8
-            // 
+            //
             this.label8.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label8.Location = new System.Drawing.Point(20, 104);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(85, 16);
             this.label8.TabIndex = 5;
             this.label8.Text = "Maximum W&idth:";
-            // 
+            //
             // numericMediumWidth
-            // 
+            //
             this.numericMediumWidth.Location = new System.Drawing.Point(115, 104);
             this.numericMediumWidth.Maximum = new System.Decimal(new int[] {
                                                                                4096,
@@ -351,36 +349,36 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                                                              0,
                                                                              0,
                                                                              0});
-            // 
+            //
             // label9
-            // 
+            //
             this.label9.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label9.Location = new System.Drawing.Point(180, 204);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(48, 16);
             this.label9.TabIndex = 16;
             this.label9.Text = "pixels";
-            // 
+            //
             // label10
-            // 
+            //
             this.label10.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label10.Location = new System.Drawing.Point(180, 180);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(48, 16);
             this.label10.TabIndex = 15;
             this.label10.Text = "pixels";
-            // 
+            //
             // label11
-            // 
+            //
             this.label11.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label11.Location = new System.Drawing.Point(20, 204);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(85, 16);
             this.label11.TabIndex = 11;
             this.label11.Text = "Maximum Hei&ght:";
-            // 
+            //
             // numericLargeHeight
-            // 
+            //
             this.numericLargeHeight.Location = new System.Drawing.Point(115, 200);
             this.numericLargeHeight.Maximum = new System.Decimal(new int[] {
                                                                                3072,
@@ -400,18 +398,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                                                              0,
                                                                              0,
                                                                              0});
-            // 
+            //
             // label12
-            // 
+            //
             this.label12.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label12.Location = new System.Drawing.Point(20, 180);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(85, 16);
             this.label12.TabIndex = 9;
             this.label12.Text = "Maximum Wi&dth:";
-            // 
+            //
             // numericLargeWidth
-            // 
+            //
             this.numericLargeWidth.Location = new System.Drawing.Point(115, 176);
             this.numericLargeWidth.Maximum = new System.Decimal(new int[] {
                                                                               4096,
@@ -431,9 +429,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                                                             0,
                                                                             0,
                                                                             0});
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -441,9 +439,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 14;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -452,9 +450,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.buttonOK.TabIndex = 13;
             this.buttonOK.Text = "OK";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // labelImageLarge
-            // 
+            //
             this.labelImageLarge.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.labelImageLarge.Location = new System.Drawing.Point(10, 160);
@@ -464,9 +462,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.labelImageLarge.Size = new System.Drawing.Size(236, 16);
             this.labelImageLarge.TabIndex = 2;
             this.labelImageLarge.Text = "Large image:";
-            // 
+            //
             // labelImageMedium
-            // 
+            //
             this.labelImageMedium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.labelImageMedium.Location = new System.Drawing.Point(10, 84);
@@ -476,9 +474,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.labelImageMedium.Size = new System.Drawing.Size(236, 16);
             this.labelImageMedium.TabIndex = 1;
             this.labelImageMedium.Text = "Medium image:";
-            // 
+            //
             // labelImageSmall
-            // 
+            //
             this.labelImageSmall.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.labelImageSmall.Location = new System.Drawing.Point(10, 12);
@@ -488,9 +486,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.labelImageSmall.Size = new System.Drawing.Size(236, 16);
             this.labelImageSmall.TabIndex = 0;
             this.labelImageSmall.Text = "Small image:";
-            // 
+            //
             // EditImageSizesDialog
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;

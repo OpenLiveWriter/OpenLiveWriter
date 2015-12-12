@@ -175,7 +175,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return false;
         }
 
-
         public void RemoveDecorator(ImageDecorator decorator)
         {
             _RemoveDecorator(decorator);

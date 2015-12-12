@@ -48,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             this.buttonClockwise = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // buttonClockwise
-            // 
+            //
             this.buttonClockwise.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonClockwise.Location = new System.Drawing.Point(0, 0);
             this.buttonClockwise.Name = "buttonClockwise";
@@ -58,9 +58,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonClockwise.TabIndex = 0;
             this.buttonClockwise.Text = "Rotate Clockwise";
             this.buttonClockwise.Click += new System.EventHandler(this.buttonClockwise_Click);
-            // 
+            //
             // RotationEditor
-            // 
+            //
             this.Controls.Add(this.buttonClockwise);
             this.Name = "RotationEditor";
             this.Size = new System.Drawing.Size(220, 56);

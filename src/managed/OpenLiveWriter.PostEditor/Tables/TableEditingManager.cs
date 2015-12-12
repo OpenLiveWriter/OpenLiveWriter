@@ -16,7 +16,6 @@ using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.ApplicationFramework;
 using mshtml;
 
-
 namespace OpenLiveWriter.PostEditor.Tables
 {
     internal class TableEditingManager : IDisposable
@@ -74,12 +73,10 @@ namespace OpenLiveWriter.PostEditor.Tables
             ManageCommands();
         }
 
-
         private void _editorContext_SelectionChanged(object sender, EventArgs e)
         {
             ManageCommands();
         }
-
 
         private void InitializeCommands()
         {
@@ -186,7 +183,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             commandDeleteRow.Enabled = editableTableSelected;
             //			commandDeleteRow.MenuFormatArgs = new object[] { multipleRowsSelected ? "s" : String.Empty };
 
-
             commandColumnProperties.Enabled = editableTableSelected && !multipleColumnsSelected;
             commandInsertColumnLeft.Enabled = editableTableSelected;
             commandInsertColumnRight.Enabled = editableTableSelected;
@@ -199,7 +195,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             commandClearCell.Enabled = editableTableSelected;
             //			commandClearCell.MenuFormatArgs = new object[] { multipleCellsSelected ? "s" : String.Empty } ;
         }
-
 
         private void commandTableProperties_Execute(object sender, EventArgs e)
         {
@@ -218,7 +213,6 @@ namespace OpenLiveWriter.PostEditor.Tables
                 }
             }
         }
-
 
         private void commandDeleteTable_Execute(object sender, EventArgs e)
         {
@@ -244,7 +238,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             TableEditor.InsertRowAbove(_editorContext);
         }
 
-
         private void commandInsertRowBelow_Execute(object sender, EventArgs e)
         {
             TableEditor.InsertRowBelow(_editorContext);
@@ -265,7 +258,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             TableEditor.DeleteRows(_editorContext);
             ManageCommands();
         }
-
 
         private void commandColumnProperties_Execute(object sender, EventArgs e)
         {
@@ -373,10 +365,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
     }
-
-
-
-
 
 
 }

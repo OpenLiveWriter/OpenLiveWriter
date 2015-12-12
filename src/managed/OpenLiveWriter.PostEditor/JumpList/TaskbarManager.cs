@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -77,7 +77,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// </summary>
         /// <param name="appId">The app id to set</param>
         /// <param name="windowHandle">Window handle for the window that needs a specific application id</param>
-        /// <remarks>AppId specifies a unique Application User Model ID (AppID) for the application or individual 
+        /// <remarks>AppId specifies a unique Application User Model ID (AppID) for the application or individual
         /// top-level window whose taskbar button will hold the custom JumpList built through the methods <see cref="OpenLiveWriter.PostEditor.JumpList"/> class.
         /// By setting an appId for a specific window, the window will not be grouped with it's parent window/application. Instead it will have it's own taskbar button.</remarks>
         public void SetApplicationIdForSpecificWindow(IntPtr windowHandle, string appId)
@@ -113,7 +113,6 @@ namespace OpenLiveWriter.PostEditor.JumpList
             get;
             private set;
         }
-
 
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.

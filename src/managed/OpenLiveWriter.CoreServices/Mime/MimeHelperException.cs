@@ -24,13 +24,11 @@ namespace OpenLiveWriter.CoreServices
             return new MimeHelperException(message, innerException);
         }
 
-
         public static MimeHelperException ForUnableToSetContentType(string encodingType, Exception innerException)
         {
             string message = String.Format(CultureInfo.CurrentCulture, "Can't set content type: {0}", encodingType);
             return new MimeHelperException(message, innerException);
         }
-
 
         /// <summary>
         /// MimeHelperException constructor
@@ -43,7 +41,6 @@ namespace OpenLiveWriter.CoreServices
             base(message, innerException)
         {
         }
-
 
     }
 }

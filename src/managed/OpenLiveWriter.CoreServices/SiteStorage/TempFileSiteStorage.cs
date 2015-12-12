@@ -8,9 +8,9 @@ using System.IO;
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
-    /// Implementation of FileBasedSiteStorage that uses a temporary directory for 
+    /// Implementation of FileBasedSiteStorage that uses a temporary directory for
     /// the storage. The caller can choose between the system temp path or a custom
-    /// temp path. Implements IDisposable and recursively deletes the contents of the 
+    /// temp path. Implements IDisposable and recursively deletes the contents of the
     /// directory when Dispose is called.
     /// </summary>
     public class TempFileSiteStorage : FileBasedSiteStorage, IDisposable
@@ -24,7 +24,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// Create a TempFileSiteStorage using the specified directory name prefix
         /// and RootFile.
@@ -34,7 +33,6 @@ namespace OpenLiveWriter.CoreServices
             : base(TempFileManager.Instance.CreateTempDir(), rootFile)
         {
         }
-
 
         /// <summary>
         /// Create a temp file stite storage from an existing directory
@@ -47,7 +45,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// Create a TempFileSiteStorage using the specified directory name prefix.
         /// RootFile must also be specified once it is known.
@@ -56,7 +53,6 @@ namespace OpenLiveWriter.CoreServices
             : base(TempFileManager.Instance.CreateTempDir(), filter)
         {
         }
-
 
         /// <summary>
         /// Create a TempFileSiteStorage using the specified directory name prefix
@@ -68,7 +64,6 @@ namespace OpenLiveWriter.CoreServices
         {
         }
 
-
         /// <summary>
         /// Create a temp file stite storage from an existing directory
         /// with the specified root file (directory will be deleted upon disposal)
@@ -79,8 +74,6 @@ namespace OpenLiveWriter.CoreServices
             : base(existingDirectory, rootFile, filter)
         {
         }
-
-
 
         /// <summary>
         /// Recursively delete all files contained in the temporary directory
@@ -97,13 +90,12 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         // Helper function to delete files beneath the specified path
         private static void DeleteFiles(string path)
         {
             try
             {
-                // recursively delete all of the site's files and directories				
+                // recursively delete all of the site's files and directories
                 if (Directory.Exists(path))
                     Directory.Delete(path, true);
             }
@@ -113,8 +105,6 @@ namespace OpenLiveWriter.CoreServices
                     e, SiteStorageException.UnableToDeleteSite, path);
             }
         }
-
-
 
         // Helper function to generate a temporary site path name
         private static string GetTemporarySitePath(string prefix, string tempDirectory)

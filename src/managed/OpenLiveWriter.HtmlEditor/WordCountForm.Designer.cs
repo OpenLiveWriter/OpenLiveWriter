@@ -41,18 +41,18 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelWordCount = new System.Windows.Forms.Label();
             this.gbTableHeader.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Selection Statistics";
-            // 
+            //
             // buttonClose
-            // 
+            //
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -63,9 +63,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
+            //
             // gbTableHeader
-            // 
+            //
             this.gbTableHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.gbTableHeader.Controls.Add(this.labelParagraphsValue);
@@ -83,9 +83,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.gbTableHeader.TabIndex = 8;
             this.gbTableHeader.TabStop = false;
             this.gbTableHeader.Text = "Selection Statistics";
-            // 
+            //
             // labelParagraphsValue
-            // 
+            //
             this.labelParagraphsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelParagraphsValue.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelParagraphsValue.Location = new System.Drawing.Point(157, 81);
@@ -94,9 +94,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelParagraphsValue.TabIndex = 14;
             this.labelParagraphsValue.Text = "999999";
             this.labelParagraphsValue.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
+            //
             // labelParagraphs
-            // 
+            //
             this.labelParagraphs.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelParagraphs.Location = new System.Drawing.Point(6, 81);
             this.labelParagraphs.Name = "labelParagraphs";
@@ -104,9 +104,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelParagraphs.TabIndex = 13;
             this.labelParagraphs.Text = "Paragraphs";
             this.labelParagraphs.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
+            //
             // labelCharsNoSpacesValue
-            // 
+            //
             this.labelCharsNoSpacesValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCharsNoSpacesValue.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCharsNoSpacesValue.Location = new System.Drawing.Point(157, 61);
@@ -115,9 +115,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelCharsNoSpacesValue.TabIndex = 12;
             this.labelCharsNoSpacesValue.Text = "1180";
             this.labelCharsNoSpacesValue.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
+            //
             // labelCharsValue
-            // 
+            //
             this.labelCharsValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCharsValue.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCharsValue.Location = new System.Drawing.Point(157, 41);
@@ -126,9 +126,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelCharsValue.TabIndex = 11;
             this.labelCharsValue.Text = "1012";
             this.labelCharsValue.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
+            //
             // labelWordCountValue
-            // 
+            //
             this.labelWordCountValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWordCountValue.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelWordCountValue.Location = new System.Drawing.Point(157, 22);
@@ -137,9 +137,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelWordCountValue.TabIndex = 10;
             this.labelWordCountValue.Text = "181";
             this.labelWordCountValue.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            // 
+            //
             // labelCharsNoSpaces
-            // 
+            //
             this.labelCharsNoSpaces.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCharsNoSpaces.Location = new System.Drawing.Point(6, 61);
             this.labelCharsNoSpaces.Name = "labelCharsNoSpaces";
@@ -147,9 +147,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelCharsNoSpaces.TabIndex = 9;
             this.labelCharsNoSpaces.Text = "Characters (with spaces)";
             this.labelCharsNoSpaces.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
+            //
             // labelChars
-            // 
+            //
             this.labelChars.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelChars.Location = new System.Drawing.Point(6, 41);
             this.labelChars.Name = "labelChars";
@@ -157,9 +157,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelChars.TabIndex = 8;
             this.labelChars.Text = "Characters (no spaces)";
             this.labelChars.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
+            //
             // labelWordCount
-            // 
+            //
             this.labelWordCount.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelWordCount.Location = new System.Drawing.Point(6, 22);
             this.labelWordCount.Name = "labelWordCount";
@@ -167,9 +167,9 @@ namespace OpenLiveWriter.HtmlEditor
             this.labelWordCount.TabIndex = 7;
             this.labelWordCount.Text = "Words";
             this.labelWordCount.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
+            //
             // WordCountForm
-            // 
+            //
             this.AcceptButton = this.buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;

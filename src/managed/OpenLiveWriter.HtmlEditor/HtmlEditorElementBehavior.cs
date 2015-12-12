@@ -39,8 +39,6 @@ namespace OpenLiveWriter.HtmlEditor
             UpdateSelectionState();
         }
 
-
-
         public bool Selected
         {
             get
@@ -161,7 +159,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         protected IHtmlEditorComponentContext EditorContext
         {
             get
@@ -170,7 +167,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
         private IHtmlEditorComponentContext _editorContext;
-
 
         private void _editorContext_SelectionChanged(object sender, EventArgs e)
         {
@@ -210,6 +206,5 @@ namespace OpenLiveWriter.HtmlEditor
         }
         private bool _disposed;
     }
-
 
 }

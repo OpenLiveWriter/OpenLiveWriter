@@ -68,11 +68,11 @@ namespace OpenLiveWriter.Api
         string HomepageUrl { get; }
 
         /// <summary>
-        /// Gets the detected background color of the publishing 
+        /// Gets the detected background color of the publishing
         /// context, or null if none is available.
         /// </summary>
         /// <remarks>
-        /// Since the detection is based on heuristics, it 
+        /// Since the detection is based on heuristics, it
         /// is just a good guess and may not always be correct.
         /// </remarks>
         Color? BodyBackgroundColor { get; }
@@ -83,7 +83,5 @@ namespace OpenLiveWriter.Api
         IPostInfo PostInfo { get; }
     }
 
-
 }
-
 

@@ -23,7 +23,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private TextBox textBoxHomepageUrl;
         private Label labelHomepageUrl;
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -124,7 +124,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-
         public override bool ValidatePanel()
         {
             if (HomepageUrl == String.Empty)
@@ -135,8 +134,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             return true;
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -152,8 +150,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -162,34 +160,34 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxHomepageUrl = new TextBox();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.labelHomepageUrl);
             this.panelMain.Controls.Add(this.textBoxHomepageUrl);
             this.panelMain.Location = new System.Drawing.Point(48, 8);
             this.panelMain.Size = new System.Drawing.Size(352, 224);
-            // 
+            //
             // textBoxHomepageUrl
-            // 
+            //
             this.textBoxHomepageUrl.Location = new System.Drawing.Point(20, 74);
             this.textBoxHomepageUrl.Name = "textBoxHomepageUrl";
             this.textBoxHomepageUrl.Size = new System.Drawing.Size(275, 22);
             this.textBoxHomepageUrl.TabIndex = 2;
             this.textBoxHomepageUrl.Enter += new System.EventHandler(this.textBoxHomepageUrl_Enter);
             this.textBoxHomepageUrl.Leave += new System.EventHandler(this.textBoxHomepageUrl_Leave);
-            // 
+            //
             // labelHomepageUrl
-            // 
+            //
             this.labelHomepageUrl.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelHomepageUrl.Location = new System.Drawing.Point(20, 0);
             this.labelHomepageUrl.Name = "labelHomepageUrl";
             this.labelHomepageUrl.Size = new System.Drawing.Size(167, 13);
             this.labelHomepageUrl.TabIndex = 1;
             this.labelHomepageUrl.Text = "Web &address of your blog:";
-            // 
+            //
             // WeblogConfigurationWizardPanelSharePointBasicInfo
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelSharePointBasicInfo";
             this.Size = new System.Drawing.Size(432, 244);
             this.panelMain.ResumeLayout(false);

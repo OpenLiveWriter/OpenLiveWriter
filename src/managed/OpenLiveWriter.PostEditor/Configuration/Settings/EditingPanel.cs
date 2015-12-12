@@ -31,11 +31,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         private GroupBox groupBoxRTL;
         private Label labelRTL;
         private ComboBox comboBoxRTL;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-
 
         public EditingPanel()
         {
@@ -84,7 +83,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             groupBoxRTL.Text = Res.Get(StringId.EditingRTLName);
             labelRTL.Text = Res.Get(StringId.EditingRTLExplanation);
 
-
             bool? useRTL = TemporaryBlogSettings.HomePageOverrides.Contains(BlogClientOptions.TEMPLATE_IS_RTL)
                 ? (bool?)StringHelper.ToBool(TemporaryBlogSettings.HomePageOverrides[BlogClientOptions.TEMPLATE_IS_RTL].ToString(), false)
                 : null;
@@ -97,7 +95,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             comboBoxRTL.Items.Add(String.Format(CultureInfo.CurrentUICulture, Res.Get(StringId.EditingRTLDefault), (useRTL == true ? Res.Get(StringId.EditingRTLYes) : Res.Get(StringId.EditingRTLNo))));
             comboBoxRTL.Items.Add(Res.Get(StringId.EditingRTLYes));
             comboBoxRTL.Items.Add(Res.Get(StringId.EditingRTLNo));
-
 
             // Though the value of the combo box can come from homepage/manifest/user options
             if (TemporaryBlogSettings.UserOptionOverrides.Contains(BlogClientOptions.TEMPLATE_IS_RTL))
@@ -151,7 +148,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             return PostEditorSettings.AllowSettingsAutoUpdate && blog.ClientOptions.SupportsAutoUpdate;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -167,8 +164,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -184,9 +181,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxWeblogStyle.SuspendLayout();
             this.groupBoxRTL.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // groupBoxWeblogStyle
-            // 
+            //
             this.groupBoxWeblogStyle.Controls.Add(this.panelBrowserParent);
             this.groupBoxWeblogStyle.Controls.Add(this.label1);
             this.groupBoxWeblogStyle.Controls.Add(this.labelEditUsingStyle);
@@ -198,17 +195,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxWeblogStyle.TabIndex = 1;
             this.groupBoxWeblogStyle.TabStop = false;
             this.groupBoxWeblogStyle.Text = "Weblog Style";
-            // 
+            //
             // panelBrowserParent
-            // 
+            //
             this.panelBrowserParent.Location = new System.Drawing.Point(232, 110);
             this.panelBrowserParent.Name = "panelBrowserParent";
             this.panelBrowserParent.Size = new System.Drawing.Size(32, 24);
             this.panelBrowserParent.TabIndex = 7;
             this.panelBrowserParent.Visible = false;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label1.Location = new System.Drawing.Point(16, 72);
             this.label1.Name = "label1";
@@ -216,9 +213,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.label1.TabIndex = 5;
             this.label1.Text = "If you have changed the visual style of your weblog you can update your local edi" +
                 "ting template by using the button below.";
-            // 
+            //
             // labelEditUsingStyle
-            // 
+            //
             this.labelEditUsingStyle.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelEditUsingStyle.Location = new System.Drawing.Point(16, 21);
             this.labelEditUsingStyle.Name = "labelEditUsingStyle";
@@ -226,9 +223,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.labelEditUsingStyle.TabIndex = 4;
             this.labelEditUsingStyle.Text = "{0} enables you to edit using the visual style of your weblog. This enables you t" +
                 "o see what your posts will look like online while you are editing them.";
-            // 
+            //
             // buttonUpdateStyle
-            // 
+            //
             this.buttonUpdateStyle.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonUpdateStyle.Location = new System.Drawing.Point(16, 110);
             this.buttonUpdateStyle.Name = "buttonUpdateStyle";
@@ -236,9 +233,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.buttonUpdateStyle.TabIndex = 6;
             this.buttonUpdateStyle.Text = "&Update Style";
             this.buttonUpdateStyle.Click += new System.EventHandler(this.buttonUpdateStyle_Click);
-            // 
+            //
             // groupBoxRTL
-            // 
+            //
             this.groupBoxRTL.Controls.Add(this.comboBoxRTL);
             this.groupBoxRTL.Controls.Add(this.labelRTL);
             this.groupBoxRTL.Location = new System.Drawing.Point(8, 191);
@@ -247,9 +244,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxRTL.TabIndex = 2;
             this.groupBoxRTL.TabStop = false;
             this.groupBoxRTL.Text = "Text Direction";
-            // 
+            //
             // comboBoxRTL
-            // 
+            //
             this.comboBoxRTL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxRTL.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxRTL.FormattingEnabled = true;
@@ -258,17 +255,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.comboBoxRTL.Size = new System.Drawing.Size(195, 23);
             this.comboBoxRTL.TabIndex = 2;
             this.comboBoxRTL.SelectedIndexChanged += new System.EventHandler(this.comboBoxRTL_SelectedIndexChanged);
-            // 
+            //
             // labelRTL
-            // 
+            //
             this.labelRTL.Location = new System.Drawing.Point(16, 21);
             this.labelRTL.Name = "labelRTL";
             this.labelRTL.Size = new System.Drawing.Size(320, 40);
             this.labelRTL.TabIndex = 0;
             this.labelRTL.Text = "Writer detects whether the template for your blog uses right-to-left text.";
-            // 
+            //
             // EditingPanel
-            // 
+            //
             this.AccessibleName = "Editing";
             this.Controls.Add(this.groupBoxRTL);
             this.Controls.Add(this.groupBoxWeblogStyle);
@@ -300,10 +297,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             else
                 TemporaryBlogSettings.UserOptionOverrides.Remove(BlogClientOptions.TEMPLATE_IS_RTL);
 
-
             TemporaryBlogSettingsModified = true;
         }
-
 
     }
 }

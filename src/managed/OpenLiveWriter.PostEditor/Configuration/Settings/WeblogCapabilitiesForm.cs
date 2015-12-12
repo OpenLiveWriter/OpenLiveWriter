@@ -61,7 +61,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             listViewCapabilities.Height -= delta;
         }
 
-
         private class ListViewOptionWriter : DisplayableBlogClientOptionWriter
         {
             public ListViewOptionWriter(ListView listView)
@@ -106,9 +105,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.columnHeaderValue = new System.Windows.Forms.ColumnHeader();
             this.labelCapabilities = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -116,9 +115,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
-            // 
+            //
             // listViewCapabilities
-            // 
+            //
             this.listViewCapabilities.AutoArrange = false;
             this.listViewCapabilities.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
                                                                                                    this.columnHeaderCapability,
@@ -132,28 +131,28 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.listViewCapabilities.Size = new System.Drawing.Size(329, 223);
             this.listViewCapabilities.TabIndex = 1;
             this.listViewCapabilities.View = System.Windows.Forms.View.Details;
-            // 
+            //
             // columnHeaderCapability
-            // 
+            //
             this.columnHeaderCapability.Text = "Capability";
             this.columnHeaderCapability.Width = 151;
-            // 
+            //
             // columnHeaderValue
-            // 
+            //
             this.columnHeaderValue.Text = "Value";
             this.columnHeaderValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeaderValue.Width = 155;
-            // 
+            //
             // labelCapabilities
-            // 
+            //
             this.labelCapabilities.Location = new System.Drawing.Point(13, 12);
             this.labelCapabilities.Name = "labelCapabilities";
             this.labelCapabilities.Size = new System.Drawing.Size(335, 27);
             this.labelCapabilities.TabIndex = 2;
             this.labelCapabilities.Text = "{0} has detected the following capabilities for your weblog:";
-            // 
+            //
             // WeblogCapabilitiesForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonOK;

@@ -26,7 +26,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             //
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -41,7 +41,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             base.Dispose(disposing);
         }
 
-
         #region Component Designer generated code
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -49,9 +48,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // UnhandledExceptionErrorMessage
-            // 
+            //
             this.Text = Res.Get(StringId.UnhandledExceptionErrorMessage);
             this.Title = Res.Get(StringId.UnhandledExceptionErrorTitle);
 

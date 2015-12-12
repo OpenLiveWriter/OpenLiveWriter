@@ -5,7 +5,6 @@ using System.Drawing;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization.Bidi;
 
-
 namespace OpenLiveWriter.ApplicationFramework
 {
     public class SystemButtonHelper
@@ -116,7 +115,6 @@ namespace OpenLiveWriter.ApplicationFramework
         /// Pushed button face.
         /// </summary>
         private static Bitmap buttonFacePushedBitmap { get { return ResourceHelper.LoadAssemblyResourceBitmap("Images.HIG.ToolbarButtonPressed.png"); } }
-
 
         /// <summary>
         ///	Left button face image rectangle.

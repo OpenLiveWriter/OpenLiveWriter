@@ -20,14 +20,13 @@ namespace OpenLiveWriter.PostEditor
             _owner = owner;
             _editingSite = editingSite;
 
-            // initialize commands 
+            // initialize commands
             InitializeCommands();
         }
 
         public void Dispose()
         {
         }
-
 
         /// <summary>
         /// Show the preferences form
@@ -53,17 +52,15 @@ namespace OpenLiveWriter.PostEditor
             PreferencesHandler.Instance.ShowPreferences(_owner, _editingSite, typeof(PluginsPreferencesPanel));
         }
 
-
         private void InitializeCommands()
         {
             // initialize commands
             _editingSite.CommandManager.BeginUpdate();
 
-            // command accounts			
+            // command accounts
             _editingSite.CommandManager.Add(CommandId.Accounts, _commandAccounts_Execute);
 
-
-            // command options			
+            // command options
             _editingSite.CommandManager.Add(CommandId.Options, _commandPreferences_Execute);
 
             _editingSite.CommandManager.Add(CommandId.ManagePlugins, commandManagePluginsDialog_Execute);

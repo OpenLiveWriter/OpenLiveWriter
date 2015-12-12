@@ -18,7 +18,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             _tableEditingContext = tableEditingContext;
         }
 
-
         public void EditorSelectionChanged(TableSelection tableSelection)
         {
             // list of currently selected cells (default to none)
@@ -60,13 +59,10 @@ namespace OpenLiveWriter.PostEditor.Tables
             _lastSelectedCells = selectedCells;
         }
 
-
         private TableEditingElementBehavior _tableElementBehavior;
         private TableEditingContext _tableEditingContext;
 
         private ArrayList _lastSelectedCells = new ArrayList();
-
-
 
     }
 }

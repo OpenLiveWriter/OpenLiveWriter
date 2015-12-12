@@ -96,9 +96,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
-
-
         protected override void OnPaint(PaintEventArgs e)
         {
 
@@ -130,7 +127,6 @@ namespace OpenLiveWriter.ApplicationFramework
                     }
                 }
             }
-
 
             /*
             if (!selected && !SystemInformation.HighContrast)

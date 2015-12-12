@@ -196,7 +196,7 @@ namespace OpenLiveWriter.PostEditor
 
             if (emText.Contains("-"))
             {
-                // \u00A0 = non breaking space                
+                // \u00A0 = non breaking space
                 Regex regex = new Regex(@"[^\s\u00A0\-]([ \u00A0]?(?>--?)[ \u00A0]?)[^\s\u00A0\-]");
                 Match match = regex.Match(emText);
                 if (match.Success)

@@ -26,7 +26,6 @@ namespace OpenLiveWriter.CoreServices
             OleDataObjectHelper.PopulateFORMATETC(-1, clipFormat, types, ref formatEtc);
         }
 
-
         /// <summary>
         /// Helper function to populate the contents of a FORMATETC structure
         /// using the passed clipboard format and type(s).
@@ -38,7 +37,7 @@ namespace OpenLiveWriter.CoreServices
         public static void PopulateFORMATETC(
             int lindex, string clipFormat, TYMED types, ref FORMATETC formatEtc)
         {
-            // populate contents of FORMATETC structure					
+            // populate contents of FORMATETC structure
             formatEtc.cfFormat = (ushort)User32.RegisterClipboardFormat(clipFormat);
             formatEtc.ptd = IntPtr.Zero;
             formatEtc.dwAspect = DVASPECT.CONTENT;
@@ -69,8 +68,8 @@ namespace OpenLiveWriter.CoreServices
         public static bool GetDataPresentSafe(IDataObject obj, Type format)
         {
             // asking for .NET object types in GetDataPresent when the drag source is
-            // another .NET application can result in an exception related to the 
-            // convertion of System.__ComObject to System.Type (no idea why). 
+            // another .NET application can result in an exception related to the
+            // convertion of System.__ComObject to System.Type (no idea why).
             try
             {
                 if (obj == null)

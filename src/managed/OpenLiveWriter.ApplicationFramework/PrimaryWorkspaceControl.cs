@@ -78,12 +78,12 @@ namespace OpenLiveWriter.ApplicationFramework
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
 
-            //	Set the CommandManager of the CommandBarLightweightControls. 
+            //	Set the CommandManager of the CommandBarLightweightControls.
             primaryWorkspaceFirstCommandBarLightweightControl.CommandManager = commandManager;
             primaryWorkspaceSecondCommandBarLightweightControl.CommandManager = commandManager;
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -105,8 +105,8 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -117,17 +117,17 @@ namespace OpenLiveWriter.ApplicationFramework
             ((System.ComponentModel.ISupportInitialize)(this.primaryWorkspaceFirstCommandBarLightweightControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.primaryWorkspaceSecondCommandBarLightweightControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
+            //
             // primaryWorkspaceFirstCommandBarLightweightControl
-            // 
+            //
             this.primaryWorkspaceFirstCommandBarLightweightControl.LightweightControlContainerControl = this;
-            // 
+            //
             // primaryWorkspaceSecondCommandBarLightweightControl
-            // 
+            //
             this.primaryWorkspaceSecondCommandBarLightweightControl.LightweightControlContainerControl = this;
-            // 
+            //
             // PrimaryWorkspaceControl
-            // 
+            //
             this.AllowDrop = false;
             this.Name = "PrimaryWorkspaceControl";
             ((System.ComponentModel.ISupportInitialize)(this.primaryWorkspaceFirstCommandBarLightweightControl)).EndInit();

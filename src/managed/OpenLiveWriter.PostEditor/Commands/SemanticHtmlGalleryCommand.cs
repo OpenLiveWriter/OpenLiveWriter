@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -131,7 +131,6 @@ namespace OpenLiveWriter.PostEditor.Commands
                     _editingSite.FrameWindow.Invoke(new ThreadStart(() => _editingSite.CommandManager.Invalidate(
                                                                               CommandId.SemanticHtmlGallery)), null);
 
-
                 }
                 catch (Exception ex)
                 {
@@ -173,7 +172,6 @@ namespace OpenLiveWriter.PostEditor.Commands
 
         private readonly object _previewLock;
         public object Lock { get { return _previewLock; } }
-
 
         internal class BlogPreviewInfo
         {
@@ -269,7 +267,6 @@ namespace OpenLiveWriter.PostEditor.Commands
             _width = width;
             _height = height;
 
-
             string previewText = HtmlServices.HtmlEncode(Res.Get(StringId.SemanticHtmlPreviewText));
 
             _postBodyHtml =
@@ -317,7 +314,7 @@ namespace OpenLiveWriter.PostEditor.Commands
 
                     if (!_asyncOps.ContainsKey(blogId))
                     {
-                        // Fetch asynchronously                        
+                        // Fetch asynchronously
                         UpdateSemanticHtmlPreviewAsyncOperation asyncOperation = new UpdateSemanticHtmlPreviewAsyncOperation(_editingSite, blogId, info.ElementIds, info.TemplateHtml, info.PostBodyHtml, info.IsRtl, _editingSite.FrameWindow, Lock, _width, _height);
                         _asyncOps.Add(blogId, asyncOperation);
 
@@ -325,7 +322,7 @@ namespace OpenLiveWriter.PostEditor.Commands
                         asyncOperation.Completed += new EventHandler(asyncOperation_Completed);
                         asyncOperation.Start();
                     }
-                    // else we're already fetching                                                             
+                    // else we're already fetching
                 }
             }
             catch (Exception ex)
@@ -377,7 +374,7 @@ namespace OpenLiveWriter.PostEditor.Commands
         /// Associates a set of element ids and template html with a blog for the purpose of gallery preview image extraction
         /// </summary>
         /// <param name="blogId"></param>
-        /// <param name="elementIds"></param>        
+        /// <param name="elementIds"></param>
         public void RegisterBlog(string blogId, string[] elementIds, bool isRtl)
         {
             if (!_blogPreviewInfo.ContainsKey(blogId))
@@ -418,7 +415,6 @@ namespace OpenLiveWriter.PostEditor.Commands
         {
             _editingSite = editingSite;
             _componentContext = componentContext;
-
 
             _elements = new List<SemanticHtmlElementInfo>(7);
             _elements.Add(new SemanticHtmlElementInfo("p", _ELEMENT_TAG_ID.TAGID_P, Res.Get(StringId.Paragraph), SemanticHtmlPreviewManager.PreviewId_P, CommandId.ApplySemanticParagraph));

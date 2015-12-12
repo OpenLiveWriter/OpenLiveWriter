@@ -51,8 +51,6 @@ namespace OpenLiveWriter.Interop.Com.ActiveDocuments
             [In] ref RECT lprcPosRect);
     }
 
-
-
     public struct OLEINPLACEFRAMEINFO
     {
         public uint cb;

@@ -97,7 +97,6 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         private bool visibleOnMainMenu = true;
 
-
         /// <summary>
         /// A value indicating whether the command should be visible on a command bar
         /// </summary>
@@ -298,7 +297,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         private static readonly object CommandBarButtonContextMenuDefinitionKey = new object();
         /// <summary>
         /// Occurs when the CommandBarButtonContextMenuDefinition should be shown.
@@ -366,7 +364,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 Events.RemoveHandler(VisibleOnMainMenuChangedEventKey, value);
             }
         }
-
 
         /// <summary>
         /// The VisibleOnCommandBarChanged event key.
@@ -743,7 +740,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         /// <summary>
         /// Gets or sets a value indicating whether the command should be visible on a command bar
         /// </summary>
@@ -768,7 +764,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 }
             }
         }
-
 
         /// <summary>
         /// Gets or sets A value indicating whether the Shortcut of the command should be shown when the
@@ -1061,8 +1056,8 @@ namespace OpenLiveWriter.ApplicationFramework
                 // set the value
                 commandBarButtonBitmapEnabled = value;
 
-                // since other command bar states can be auto-derivied from enabled we 
-                // need to null them out so they can be updated 
+                // since other command bar states can be auto-derivied from enabled we
+                // need to null them out so they can be updated
                 commandBarButtonBitmapSelected = null;
                 commandBarButtonBitmapPushed = null;
                 commandBarButtonBitmapDisabled = null;
@@ -1186,10 +1181,9 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         /// <summary>
         /// Gets or sets the command bar button mini form factory
-        /// </summary>		
+        /// </summary>
         public ICommandContextMenuControlHandler CommandBarButtonContextMenuControlHandler
         {
             get
@@ -1253,9 +1247,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
         private bool commandBarButtonContextMenuInvalidateParent = false;
-
-
-
 
         /// <summary>
         /// Gets or sets the command text.
@@ -1846,7 +1837,6 @@ namespace OpenLiveWriter.ApplicationFramework
             RaiseEvent(VisibleOnMainMenuChangedEventKey, e);
         }
 
-
         /// <summary>
         /// Raises the VisibleOnCommandBarChanged event.
         /// </summary>
@@ -1918,7 +1908,7 @@ namespace OpenLiveWriter.ApplicationFramework
             return false;
         }
 
-        #endregion Private Methods                       
+        #endregion Private Methods
 
         #region IComparable Members
 
@@ -1938,11 +1928,11 @@ namespace OpenLiveWriter.ApplicationFramework
             throw new ArgumentException("object is not a Command");
         }
 
-        #endregion            
+        #endregion
 
         public enum InvalidationState
         {
-            Pending, // We have not yet set or invalidated the ribbon             
+            Pending, // We have not yet set or invalidated the ribbon
             WaitingForUpdateProperty, // We have called InvalidateUICommand and are waiting for an UpdateProperty callback.
             Error // The ribbon APIs to set and invalidate this command have return an failing error code.
         }

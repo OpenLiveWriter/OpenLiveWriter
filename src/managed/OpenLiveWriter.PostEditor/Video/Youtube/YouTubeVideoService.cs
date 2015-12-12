@@ -203,13 +203,11 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                     string.Format(CultureInfo.InvariantCulture, "?max-results={0}&start-index={1}", maxPerPage, ((page - 1) * maxPerPage + 1));
                 string requestUrl = baseUrl + queryString;
 
-
                 YouTubeVideo[] videos;
                 int totalResults;
 
                 // download the document
                 Stream videoListStream = CallYouTubeApi(requestUrl, timeoutMs);
-
 
                 // parse it into a list of videos
                 videos = ParseVideoList(videoListStream, out totalResults);
@@ -224,7 +222,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 foreach (YouTubeVideo video in videos)
                     yield return video;
 
-
                 page++;
             }
         }
@@ -233,7 +230,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         {
             _videoAuth.LoginStatusChanged -= _videoAuth_LoginStatusChanged;
         }
-
 
         private static Stream CallYouTubeApi(string requestUrl, int timeoutMs)
         {
@@ -313,16 +309,11 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             return videos.ToArray(typeof(YouTubeVideo)) as YouTubeVideo[];
         }
 
-
         private static readonly VideoRequestType[] _requestTypes;
         private readonly Bitmap _sidebarIcon = ResourceHelper.LoadAssemblyResourceBitmap("Video.YouTube.Images.Sidebar.png");
         private readonly IAuth _videoAuth = YouTubeAuth.Instance;
 
-
-
-
         #region IMediaSource Members
-
 
         public string Id
         {
@@ -351,7 +342,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 if (name.ToLower(CultureInfo.InvariantCulture) == "rejected")
                     _isPublished = false;
             }
-
 
             _author = entryNode.SelectSingleNode(
             "atom:author/atom:name", mgr).InnerText;
@@ -480,7 +470,5 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         private bool _isPublished = true;
 
     }
-
-
 
 }

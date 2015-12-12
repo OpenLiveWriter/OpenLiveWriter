@@ -201,7 +201,6 @@ namespace OpenLiveWriter.Controls
                 DirtyChanged(this, EventArgs.Empty);
         }
 
-
         public AutoCompleteSource TagSource
         {
             set { tagSource = value; }
@@ -619,17 +618,17 @@ namespace OpenLiveWriter.Controls
         {
             this.lstSuggest = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
+            //
             // lstSuggest
-            // 
+            //
             this.lstSuggest.Location = new System.Drawing.Point(0, 0);
             this.lstSuggest.Name = "lstSuggest";
             this.lstSuggest.Size = new System.Drawing.Size(148, 108);
             this.lstSuggest.TabIndex = 0;
             this.lstSuggest.Click += new System.EventHandler(this.lstSuggest_Click);
-            // 
+            //
             // TagSuggestForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Window;

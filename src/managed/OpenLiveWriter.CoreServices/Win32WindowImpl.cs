@@ -20,7 +20,6 @@ namespace OpenLiveWriter.CoreServices
             get { return new Win32WindowImpl(User32.GetForegroundWindow()); }
         }
 
-
         /// <summary>
         /// Get the IWin32Window interface for the desktop window
         /// </summary>

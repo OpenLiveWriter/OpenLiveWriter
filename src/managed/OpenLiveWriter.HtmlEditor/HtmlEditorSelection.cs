@@ -139,7 +139,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         public IHTMLTable SelectedTable
         {
             get

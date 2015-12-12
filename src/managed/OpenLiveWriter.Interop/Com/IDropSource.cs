@@ -15,8 +15,8 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         /// <param name="fEscapePressed">Specifies whether the Esc key has been pressed since the previous call to IDropSource::QueryContinueDrag or to DoDragDrop if this is the first call to QueryContinueDrag. A TRUE value indicates the end user has pressed the escape key; a FALSE value indicates it has not been pressed</param>
         /// <param name="grfKeyState">Current state of the keyboard modifier keys on the keyboard</param>
-        /// <returns>S_OK The drag operation should continue. This result occurs if no errors are detected, the mouse button starting the drag-and-drop operation has not been released, and the Esc key has not been detected. 
-        ///			 DRAGDROP_S.DROP The drop operation should occur completing the drag operation. This result occurs if grfKeyState indicates that the key that started the drag-and-drop operation has been released. 
+        /// <returns>S_OK The drag operation should continue. This result occurs if no errors are detected, the mouse button starting the drag-and-drop operation has not been released, and the Esc key has not been detected.
+        ///			 DRAGDROP_S.DROP The drop operation should occur completing the drag operation. This result occurs if grfKeyState indicates that the key that started the drag-and-drop operation has been released.
         ///			 DRAGDROP_S.CANCEL   The drag operation should be canceled with no drop operation occurring. This result occurs if fEscapePressed is TRUE, indicating the Esc key has been pressed</returns>
         [PreserveSig]
         int QueryContinueDrag(
@@ -27,13 +27,12 @@ namespace OpenLiveWriter.Interop.Com
         /// Enables a source application to give visual feedback to the end user during a drag-and-drop operation by providing the DoDragDrop function with an enumeration value specifying the visual effect
         /// </summary>
         /// <param name="dwEffect">The DROPEFFECT value returned by the most recent call to IDropTarget::DragEnter, IDropTarget::DragOver, or IDropTarget::DragLeave</param>
-        /// <returns>S_OK The method completed its task successfully, using the cursor set by the source application. 
+        /// <returns>S_OK The method completed its task successfully, using the cursor set by the source application.
         ///   	     DRAGDROP_S.USEDEFAULTCURSORS Indicates successful completion of the method, and requests OLE to update the cursor using the OLE-provided default cursors</returns>
         [PreserveSig]
         int GiveFeedback(
             [In] DROPEFFECT dwEffect);
     }
-
 
     /// <summary>
     /// Drag and Drop status HRESULT values
@@ -41,8 +40,8 @@ namespace OpenLiveWriter.Interop.Com
     public struct DRAGDROP_S
     {
         /// <summary>
-        ///  Successful drop took place 
-        /// </summary>		
+        ///  Successful drop took place
+        /// </summary>
         public const int DROP = unchecked((int)0x00040100);
 
         /// <summary>
@@ -55,7 +54,6 @@ namespace OpenLiveWriter.Interop.Com
         /// </summary>
         public const int USEDEFAULTCURSORS = unchecked((int)0x00040102);
     }
-
 
     /// <summary>
     /// Drag and drop error HRESULT values

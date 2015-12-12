@@ -16,7 +16,7 @@ namespace OpenLiveWriter.CoreServices
     public class FileContentsHelper
     {
         /// <summary>
-        /// Utility function to extract an array of file contents file descriptors from 
+        /// Utility function to extract an array of file contents file descriptors from
         /// an IDataObject instnace
         /// </summary>
         /// <param name="dataObject">data object to extract descriptors from</param>
@@ -34,7 +34,7 @@ namespace OpenLiveWriter.CoreServices
             }
 
             // Try to get the data as FileGroupDescriptorW then try to get it
-            // as FileGroupDescriptor			
+            // as FileGroupDescriptor
             bool bFileNameIsWide;
             OleStgMediumHGLOBAL stgMedium = (OleStgMediumHGLOBAL)oleDataObject.GetData(
                                                                       DataFormatsEx.FileGroupDescriptorWFormat, TYMED.HGLOBAL);
@@ -60,13 +60,12 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
 
-
             // Copy the descriptors
             using (stgMedium)
             {
                 using (HGlobalLock globalMem = new HGlobalLock(stgMedium.Handle))
                 {
-                    // get a pointer to the count 
+                    // get a pointer to the count
                     IntPtr pCount = globalMem.Memory;
 
                     // determine the number of file descriptors
@@ -85,7 +84,7 @@ namespace OpenLiveWriter.CoreServices
                     int fileNameSize = bFileNameIsWide ? FILENAME_BUFFER_SIZE * 2 : FILENAME_BUFFER_SIZE;
                     int totalSize = headerSize + fileNameSize;
 
-                    // iterate through the memory block copying the FILEDESCRIPTOR structures			
+                    // iterate through the memory block copying the FILEDESCRIPTOR structures
                     for (int i = 0; i < count; i++)
                     {
                         // determine the addresses of the various data elements
@@ -108,8 +107,6 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
         }
-
-
 
         /// <summary>
         /// TYMEDs supported by CF_FILECONTENTS

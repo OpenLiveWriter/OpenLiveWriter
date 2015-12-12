@@ -26,7 +26,6 @@ namespace OpenLiveWriter.ApplicationFramework
             base.Dispose(disposing);
         }
 
-
         public void ForceLayout()
         {
             CommandBarLightweightControl.PerformLayout();

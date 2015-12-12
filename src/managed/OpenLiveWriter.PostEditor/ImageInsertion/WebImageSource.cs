@@ -187,7 +187,6 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
             _webImageUrl.SelectAll();
         }
 
-
         public void Repaint(Size newSize)
         {
             _control.Size = newSize;

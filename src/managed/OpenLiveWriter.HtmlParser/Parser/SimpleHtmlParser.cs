@@ -11,7 +11,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
 {
     /// <summary>
     /// Parser that is suitable for parsing HTML.
-    /// 
+    ///
     /// The HTML does not need to be well-formed XML (i.e. mismatched tags are fine)
     /// or even well-formed HTML. In all but the most pathological cases, the parser
     /// will behave in a reasonable way that is similar to IE and Firefox.
@@ -63,7 +63,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
             unquotedAttrValueMatcher = new StatefulMatcher(data, unquotedAttrValue);
             endBeginTagMatcher = new StatefulMatcher(data, endBeginTag);
         }
-
 
         public int Position
         {
@@ -119,7 +118,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
 
                 return null;
             }
-
 
             // None of the special cases are true.  Start consuming characters
 
@@ -406,19 +404,18 @@ namespace OpenLiveWriter.HtmlParser.Parser
         {
             Match match = stopAt.Match(data, offset);
             /*
-						if (!match.Success)
-						{
-							// Failure.  If an end tag is never encountered, the
-							// begin tag does not count.
-							// We can remove this whole clause if we want to behave
-							// more like IE than Gecko.
-							retval = string.Empty;
-							return 0;
-						}
-			*/
+                        if (!match.Success)
+                        {
+                            // Failure.  If an end tag is never encountered, the
+                            // begin tag does not count.
+                            // We can remove this whole clause if we want to behave
+                            // more like IE than Gecko.
+                            retval = string.Empty;
+                            return 0;
+                        }
+            */
 
             int end = match.Success ? match.Index : data.Length;
-
 
             // HACK: this code should not be aware of parser types
             IElementSource source = (stopAt == endScript) ? (IElementSource)new JavascriptParser(data, offset, end - offset) : (IElementSource)new CssParser(data, offset, end - offset);
@@ -462,11 +459,11 @@ namespace OpenLiveWriter.HtmlParser.Parser
             public Match Match(int pos)
             {
                 /* We need to reexecute the search under any of these three conditions:
-				 * 
-				 * 1) The search has never been run
-				 * 2) The last search successfully matched before it got to the desired position
-				 * 3) The last search was started past the desired position
-				 */
+                 *
+                 * 1) The search has never been run
+                 * 2) The last search successfully matched before it got to the desired position
+                 * 3) The last search was started past the desired position
+                 */
                 if (lastMatch == null || (lastMatch.Success && lastMatch.Index < pos) || lastStartOffset > pos)
                 {
 #if DEBUG
@@ -492,7 +489,6 @@ namespace OpenLiveWriter.HtmlParser.Parser
             }
         }
 
-
         public static void Create()
         {
             // Touch a static variable to make sure all static variables are created
@@ -507,7 +503,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
     /// String.Substring is very expensive, so we avoid calling it
     /// until the caller demands it.
     /// </summary>
-	internal class LazySubstring
+    internal class LazySubstring
     {
         private readonly string baseString;
         private readonly int offset;

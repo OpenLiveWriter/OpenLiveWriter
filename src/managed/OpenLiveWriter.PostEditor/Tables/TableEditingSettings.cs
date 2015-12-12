@@ -20,14 +20,12 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         public static int DefaultRows
         {
             get { return SettingsKey.GetInt32(DEFAULT_ROWS, 2); }
             set { SettingsKey.SetInt32(DEFAULT_ROWS, value); }
         }
         private const string DEFAULT_ROWS = "DefaultRows";
-
 
         public static int DefaultColumns
         {
@@ -63,7 +61,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             set { SettingsKey.SetInt32(DEFAULT_WIDTH, value); }
         }
         private const string DEFAULT_WIDTH = "DefaultWidth";
-
 
         internal static SettingsPersisterHelper SettingsKey = PostEditorSettings.SettingsKey.GetSubSettings("TableEditing");
     }

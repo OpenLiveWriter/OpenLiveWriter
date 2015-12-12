@@ -130,7 +130,6 @@ namespace OpenLiveWriter.PostEditor
         /// </summary>
         public ImageFileData LinkedImageFile;
 
-
         /// <summary>
         /// Returns the settings assigned to this image and its derivatives.
         /// </summary>

@@ -115,7 +115,6 @@ namespace OpenLiveWriter.CoreServices.Marketization
             if (featuresNode == null)
                 throw new Exception("Invalid marketizationXml.xml file detected");
 
-
             string selectionXpath = String.Format(CultureInfo.InvariantCulture, "//features/market[@name='{0}']/feature", market);
             XmlNodeList featureNodes = providersDocument.SelectNodes(selectionXpath);
             foreach (XmlNode featureNode in featureNodes)
@@ -222,7 +221,7 @@ namespace OpenLiveWriter.CoreServices.Marketization
                 string[] mapSplit = map.Split(',');
                 for (int i = 1; i < mapSplit.Length; i += 2)
                 {
-                    // in our mapping table (markets.xml), if the "from" entry is longer than two chars, we compare it against 
+                    // in our mapping table (markets.xml), if the "from" entry is longer than two chars, we compare it against
                     // the current UI culture *name*, not the current UI culture *TwoLetterISOLanguageName*.
                     string mapFrom = mapSplit[i - 1].Trim();
                     string currentCultureIdOrLanguage = mapFrom.Length > 2 ? currentCulture.Name : currentCulture.TwoLetterISOLanguageName;

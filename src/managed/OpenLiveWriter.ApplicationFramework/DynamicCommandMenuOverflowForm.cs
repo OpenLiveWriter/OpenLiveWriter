@@ -41,7 +41,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 listBoxCommands.SelectedIndex = 0;
         }
 
-
         public IMenuCommandObject SelectedObject
         {
             get
@@ -57,7 +56,6 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             DialogResult = DialogResult.OK;
         }
-
 
         private class MenuCommandObjectListBoxAdapter
         {
@@ -102,35 +100,35 @@ namespace OpenLiveWriter.ApplicationFramework
             this.buttonCancel = new System.Windows.Forms.Button();
             this.listBoxCommands = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(88, 228);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonCancel.Location = new System.Drawing.Point(171, 228);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
-            // 
+            //
             // listBoxCommands
-            // 
+            //
             this.listBoxCommands.Location = new System.Drawing.Point(8, 8);
             this.listBoxCommands.Name = "listBoxCommands";
             this.listBoxCommands.Size = new System.Drawing.Size(238, 212);
             this.listBoxCommands.TabIndex = 2;
             this.listBoxCommands.DoubleClick += new System.EventHandler(this.listBoxCommands_DoubleClick);
-            // 
+            //
             // DynamicCommandMenuOverflowForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.CancelButton = this.buttonCancel;
@@ -150,7 +148,6 @@ namespace OpenLiveWriter.ApplicationFramework
 
         }
         #endregion
-
 
     }
 }

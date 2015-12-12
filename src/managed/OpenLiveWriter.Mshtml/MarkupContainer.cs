@@ -77,7 +77,7 @@ namespace OpenLiveWriter.Mshtml
         /// <returns></returns>
         public IHTMLTxtRange CreateTextRange(MarkupPointer start, MarkupPointer end)
         {
-            // when switching between wywiwyg and source view sometimes .body is null 
+            // when switching between wywiwyg and source view sometimes .body is null
             // and this throws a null ref exception that we catch (can be detected by enabling
             // exception breaking in the debugger)
             IHTMLTxtRange range = (Document.body as IHTMLBodyElement).createTextRange();

@@ -40,7 +40,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             //
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -54,7 +54,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             }
             base.Dispose(disposing);
         }
-
 
         #region Component Designer generated code
         /// <summary>

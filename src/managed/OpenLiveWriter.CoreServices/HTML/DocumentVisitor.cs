@@ -108,7 +108,7 @@ namespace OpenLiveWriter.CoreServices.HTML
 
         /// <summary>
         /// Called when an element is encountered.  If false is returned,
-        /// OnElementEnd will not be called for this element, and the 
+        /// OnElementEnd will not be called for this element, and the
         /// element's children will not be visited.
         /// </summary>
         protected virtual bool OnElementBegin(IHTMLElement el) { return true; }
@@ -121,8 +121,6 @@ namespace OpenLiveWriter.CoreServices.HTML
         protected virtual void OnComment(IHTMLCommentElement el) { }
 
         protected virtual void OnText(IHTMLTextElement el) { }
-
-
 
         private const int INDENT_SPACES = 4;
         private StringBuilder indent = new StringBuilder("");

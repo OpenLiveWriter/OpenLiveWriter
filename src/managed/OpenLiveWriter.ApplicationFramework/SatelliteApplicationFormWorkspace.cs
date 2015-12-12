@@ -24,7 +24,7 @@ namespace OpenLiveWriter.ApplicationFramework
         private Panel panelBottom;
         private Panel panelMain;
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -48,7 +48,7 @@ namespace OpenLiveWriter.ApplicationFramework
             panelMain.Dock = DockStyle.Fill;
             Controls.Add(panelMain);
 
-            // create border panels			
+            // create border panels
             panelLeft = new Panel();
             panelLeft.Width = _workspaceInset;
             panelLeft.Dock = DockStyle.Left;
@@ -83,7 +83,6 @@ namespace OpenLiveWriter.ApplicationFramework
             UpdateAppearance();
         }
 
-
         public WorkspaceBorder WorkspaceBorders
         {
             get
@@ -102,7 +101,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
         public void UpdateAppearance()
         {
             Color backgroundColor = ApplicationManager.ApplicationStyle.SecondaryWorkspaceBottomColor;
@@ -115,7 +113,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)

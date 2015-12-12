@@ -17,7 +17,7 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// HTMLData is a Mindshare Data Object that conatins HTML text fragments.
-    /// It includes an html document based upon the HTML DOM (IHTMLDocument2) as well 
+    /// It includes an html document based upon the HTML DOM (IHTMLDocument2) as well
     /// as various properties derived from the HTML fragment contained in the IDataObject.
     /// </summary>
     public class HTMLData
@@ -25,7 +25,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Attempts to create a new HTMLData.  This can return null if the DataObject
-        /// couldn't be created based upon the IDataObject.  
+        /// couldn't be created based upon the IDataObject.
         /// </summary>
         /// <param name="iDataObject">The IDataObject from which to create the HTML Data Object</param>
         /// <returns>The HTMLData, null if it couldn't be created.</returns>
@@ -78,7 +78,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string m_sourceURL = null;
 
-
         /// <summary>
         /// The HTML string from an IDataObject (uses the HTML clipboard format)
         /// The HTML clipboard format includes a complete syntactically valid HTML DOM
@@ -91,7 +90,7 @@ namespace OpenLiveWriter.CoreServices
                 if (m_HTML == null)
                 {
                     // UTF8-decode the bytes and get the characters
-                    // Escape any high ascii characters to the valid HTML views					
+                    // Escape any high ascii characters to the valid HTML views
                     m_HTML =
                         HTMLDataObject.StripFragmentMarkers(
                         HTMLDocumentHelper.EscapeHighAscii(
@@ -127,13 +126,11 @@ namespace OpenLiveWriter.CoreServices
                         EndFragment - StartFragment)));
                 }
 
-
                 return m_HTMLSelection;
 
             }
         }
         private string m_HTMLSelection = null;
-
 
         public HTMLMetaData HTMLMetaData
         {
@@ -145,7 +142,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private HTMLMetaData m_htmlMetaData;
-
 
         /// <summary>
         /// Plain Text representation of the html selection
@@ -160,7 +156,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private string m_selectionPlainText;
-
 
         /// <summary>
         /// The title of the HTML Data.  This could be derived from the HTML document
@@ -178,7 +173,6 @@ namespace OpenLiveWriter.CoreServices
                     return string.Empty;
             }
         }
-
 
         public LightWeightHTMLDocument LightWeightDocument
         {
@@ -240,7 +234,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private string m_HTMLWithMarkers = null;
 
-
         /// <summary>
         /// Gets a valid IHTMLDocument2 from the selected text contained
         /// </summary>
@@ -254,7 +247,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private IHTMLDocument2 m_selectionHTMLDocument = null;
-
 
         /// <summary>
         /// The url of a link the represents the only element in the selection
@@ -294,7 +286,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private string m_onlyLinkTitle;
-
 
         /// <summary>
         /// The path to the image that represents the only element in the selection
@@ -409,7 +400,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private IHTMLElement m_rootLink;
 
-
         /// <summary>
         /// Get the value of a given header in HTML clipboard formatted data
         /// </summary>
@@ -454,11 +444,8 @@ namespace OpenLiveWriter.CoreServices
         // Hashtable caches headers as they get read
         private Hashtable m_HTMLFormatHeaders = new Hashtable(StringComparer.OrdinalIgnoreCase);
 
-
-
-
         /// <summary>
-        /// Helper function to extract and UTF8-decode the underlying CF_HTML. 
+        /// Helper function to extract and UTF8-decode the underlying CF_HTML.
         /// </summary>
         /// <returns>decoded CF_HTML</returns>
         public byte[] HTMLFormatBytes
@@ -498,8 +485,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private byte[] m_HTMLBytes;
 
-
-
         /// <summary>
         /// Retrieves the bytes representing the data in the HTML format of the HTMLData's
         /// IDataObject.
@@ -509,7 +494,7 @@ namespace OpenLiveWriter.CoreServices
         {
             // NOTE: Our theory about where/why the .NET implementation is failing
             // is that they probably assumed that the CF_HTML clipboard data was raw
-            // Unicode and called Marshal.PtrToStringUni to convert it! CF_HTML is 
+            // Unicode and called Marshal.PtrToStringUni to convert it! CF_HTML is
             // in fact UTF8-encoded, so we need to first move it into a .NET byte
             // array and then UTF8-decode it.
 
@@ -554,7 +539,6 @@ namespace OpenLiveWriter.CoreServices
 
         }
 
-
         /// <summary>
         /// The position (in bytes) to the start of the HTML in the CF_HTML formatted
         /// byte array.
@@ -585,12 +569,11 @@ namespace OpenLiveWriter.CoreServices
 
         }
 
-
         /// <summary>
         /// The position (in bytes) to the start of the HTML fragment in the CF_HTML formatted
         /// byte array.  Note that the fragment contains a complete HTML tree of the selection
-        /// (meaning that if the selection doesn't include a closing font tag, for example, the 
-        /// fragment will include the appropriate matching font tag).  This generally makes the 
+        /// (meaning that if the selection doesn't include a closing font tag, for example, the
+        /// fragment will include the appropriate matching font tag).  This generally makes the
         /// fragment a preferable way to access the selection.
         /// </summary>
         private int StartFragment
@@ -602,10 +585,9 @@ namespace OpenLiveWriter.CoreServices
 
         }
 
-
         /// <summary>
         /// The position (in bytes) to the end of the HTML fragment in the CF_HTML formatted
-        /// byte array. 
+        /// byte array.
         /// </summary>
         private int EndFragment
         {
@@ -618,7 +600,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// The position (in bytes) to the start of the HTML selection in the CF_HTML formatted
-        /// byte array.  
+        /// byte array.
         /// </summary>
         private int StartSelection
         {
@@ -629,10 +611,9 @@ namespace OpenLiveWriter.CoreServices
 
         }
 
-
         /// <summary>
         /// The position (in bytes) to the end of the HTML selection in the CF_HTML formatted
-        /// byte array.  
+        /// byte array.
         /// </summary>
         private int EndSelection
         {
@@ -644,7 +625,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Constructor for HTMLData.  Use the static create method to create a new 
+        /// Constructor for HTMLData.  Use the static create method to create a new
         /// HTMLData.
         /// </summary>
         /// <param name="iDataObject">The IDataObject from which to create the HTMLData</param>

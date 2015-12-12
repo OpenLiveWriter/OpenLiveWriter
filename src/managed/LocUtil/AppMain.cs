@@ -122,7 +122,6 @@ namespace LocUtil
                 return 1;
             }
 
-
             if (!ParseCommandXml(transformedCommandFiles, pairsLoc, pairsNonLoc, typeof(Command), "/Commands/Command", "Command.{0}.{1}", out commandIds))
                 return 1;
             HashSet dialogIds;
@@ -144,7 +143,7 @@ namespace LocUtil
                 Console.WriteLine("Generating CommandId enum file " + cenum);
 
                 // commandId:    command name
-                // ribbonValues: command name --> resource id 
+                // ribbonValues: command name --> resource id
                 commandIds.AddAll(ribbonIds);
                 if (!GenerateEnum(commandIds, "CommandId", cenum, null, ribbonValues))
                     return 1;
@@ -258,7 +257,6 @@ namespace LocUtil
                 // HACK: hard-code wizard height
                 pairs.Add("ConfigurationWizard.Height", new Values("380", "The height of the configuration wizard, in pixels."));
 
-
             }
 
             pairs.Add("Culture.UseItalics", new Values("True", "Whether or not the language uses italics"));
@@ -298,16 +296,16 @@ namespace LocUtil
             xmlDoc.Save(path);
         }
 
-        // @RIBBON TODO: For now the union of the command in Commands.xml and Ribbon.xml will go into the CommandId enum.        
+        // @RIBBON TODO: For now the union of the command in Commands.xml and Ribbon.xml will go into the CommandId enum.
         private static bool GenerateEnum(HashSet commandIds, string enumName, string enumPath, Hashtable descriptions, Hashtable values)
         {
             const string TEMPLATE = @"namespace OpenLiveWriter.Localization
                             {{
-	                            public enum {0}
-	                            {{
-		                            None,
-		                            {1}
-	                            }}
+                                public enum {0}
+                                {{
+                                    None,
+                                    {1}
+                                }}
                             }}
                             ";
 
@@ -369,9 +367,9 @@ namespace LocUtil
                 else if (values == null)
                 {
                     const string DESC_TEMPLATE = @"/// <summary>
-		                                            /// {0}
-		                                            /// </summary>
-		                                            {1}";
+                                                    /// {0}
+                                                    /// </summary>
+                                                    {1}";
                     ArrayList descs = new ArrayList();
                     foreach (string command in commandList.ToArray())
                     {
@@ -501,7 +499,6 @@ namespace LocUtil
                 propTable.Add(prop.Name, prop);
             }
 
-
             ids = new HashSet();
 
             foreach (string relativeInputFile in inputFiles)
@@ -530,7 +527,6 @@ namespace LocUtil
                                 continue;
 
                             string name = attr.Name;
-
 
                             if (name == "DebugOnly" || name == "Identifier")
                                 continue;

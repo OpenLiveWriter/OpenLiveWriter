@@ -36,7 +36,6 @@ namespace OpenLiveWriter.Mshtml
             ref int plPartID);
     }
 
-
     [Flags]
     public enum HTML_PAINTER : int
     {

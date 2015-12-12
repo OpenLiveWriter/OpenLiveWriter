@@ -2,12 +2,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
     partial class TiltDecoratorEditor
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -22,8 +22,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -35,9 +35,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTilt)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // textBoxTilt
-            // 
+            //
             this.textBoxTilt.AcceptsReturn = true;
             this.textBoxTilt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTilt.Location = new System.Drawing.Point(224, 18);
@@ -48,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.textBoxTilt.TextChanged += new System.EventHandler(this.textBoxTilt_TextChanged);
             this.textBoxTilt.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxTilt_KeyDown);
             this.textBoxTilt.Leave += new System.EventHandler(this.textBoxTilt_Leave);
-            // 
+            //
             // trackBarTilt
-            // 
+            //
             this.trackBarTilt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarTilt.Location = new System.Drawing.Point(3, 18);
@@ -63,17 +63,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.trackBarTilt.ValueChanged += new System.EventHandler(this.trackBarTilt_ValueChanged);
             this.trackBarTilt.KeyUp += new System.Windows.Forms.KeyEventHandler(this.trackBarTilt_KeyUp);
             this.trackBarTilt.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarTilt_MouseUp);
-            // 
+            //
             // labelTilt
-            // 
+            //
             this.labelTilt.Location = new System.Drawing.Point(3, 2);
             this.labelTilt.Name = "labelTilt";
             this.labelTilt.Size = new System.Drawing.Size(100, 16);
             this.labelTilt.TabIndex = 8;
             this.labelTilt.Text = "Tilt:";
-            // 
+            //
             // btnOK
-            // 
+            //
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -83,9 +83,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.btnOK.TabIndex = 11;
             this.btnOK.Text = "OK";
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
+            //
             // btnCancel
-            // 
+            //
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -94,9 +94,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Cancel";
-            // 
+            //
             // TiltDecoratorEditor
-            // 
+            //
             this.Controls.Add(this.textBoxTilt);
             this.Controls.Add(this.trackBarTilt);
             this.Controls.Add(this.labelTilt);

@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 namespace OpenLiveWriter.Interop.Com.StructuredStorage
 {
     /// <summary>
-    /// The ILockBytes interface is implemented on a byte array object that is backed 
-    /// by some physical storage, such as a disk file, global memory, or a database. 
-    /// It is used by a COM compound file storage object to give its root storage 
-    /// access to the physical device, while isolating the root storage from the 
+    /// The ILockBytes interface is implemented on a byte array object that is backed
+    /// by some physical storage, such as a disk file, global memory, or a database.
+    /// It is used by a COM compound file storage object to give its root storage
+    /// access to the physical device, while isolating the root storage from the
     /// details of accessing the physical storage.
     /// </summary>
     [ComImport]
@@ -19,7 +19,7 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
     public interface ILockBytes
     {
         /// <summary>
-        /// Reads a specified number of bytes starting at a specified offset from the 
+        /// Reads a specified number of bytes starting at a specified offset from the
         /// beginning of the byte array.
         /// </summary>
         /// <param name="ulOffset">[in] Specifies the starting point from the beginning of the byte array for reading data. </param>
@@ -58,7 +58,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         void SetSize(
             [In] UInt64 cb);
 
-
         /// <summary>
         /// Restricts access to a specified range of bytes in the byte array
         /// </summary>
@@ -70,9 +69,8 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             [In] UInt64 cb,
             [In] uint dwLockType);
 
-
         /// <summary>
-        /// Removes the access restriction on a range of bytes previously restricted 
+        /// Removes the access restriction on a range of bytes previously restricted
         /// with ILockBytes::LockRegion
         /// </summary>
         /// <param name="libOffset">[in] Specifies the byte offset for the beginning of the range.</param>

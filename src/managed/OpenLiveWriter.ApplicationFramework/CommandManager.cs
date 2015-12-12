@@ -118,9 +118,9 @@ namespace OpenLiveWriter.ApplicationFramework
         /// consulted. The two things that affect the state here are 1) the set of commands that
         /// are loaded (whether enabled or disabled), and 2) the shortcuts/advanced shortcuts of
         /// those commands. If either changes then this flag needs to be set to true.
-        /// 
+        ///
         /// The reason this is important is because otherwise the commandShortcutTable will be
-        /// fully rebuilt on every keypress in the editor (actually it currently happens twice), 
+        /// fully rebuilt on every keypress in the editor (actually it currently happens twice),
         /// which is enough to make typing feel sluggish.
         /// </summary>
         private bool commandShortcutTableIsStale = true;
@@ -201,7 +201,7 @@ namespace OpenLiveWriter.ApplicationFramework
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -508,9 +508,9 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        /// Instructs the command manager to ignore the shortcut until 
+        /// Instructs the command manager to ignore the shortcut until
         /// UnignoreShortcut is called.
-        /// 
+        ///
         /// LIMITATION: You cannot currently ignore an AdvancedShortcut
         /// (i.e. one based on Keys instead of Shortcut).
         /// </summary>
@@ -595,7 +595,6 @@ namespace OpenLiveWriter.ApplicationFramework
             Command command = (Command)commandShortcutTable[commandShortcut];
             if (command != null)
                 return command;
-
 
             Shortcut shortcut = KeyboardHelper.MapToShortcut(commandShortcut);
             if (shortcut != Shortcut.None && !ShouldIgnore(shortcut))

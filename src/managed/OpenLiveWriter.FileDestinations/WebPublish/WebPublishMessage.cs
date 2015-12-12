@@ -19,7 +19,6 @@ namespace OpenLiveWriter.FileDestinations
             _textFormatArgs = textFormatArgs;
         }
 
-
         public string Title
         {
             get { return _displayMessage.Title; }

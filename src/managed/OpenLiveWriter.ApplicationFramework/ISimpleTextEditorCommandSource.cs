@@ -68,8 +68,8 @@ namespace OpenLiveWriter.ApplicationFramework
 
             /// <summary>
             /// Call this method to ensure that the passed control
-            /// does NOT get to handle cut, copy, paste, undo, redo, 
-            /// and del natively, but gets passed through the 
+            /// does NOT get to handle cut, copy, paste, undo, redo,
+            /// and del natively, but gets passed through the
             /// SimpleTextEditorCommand system instead.
             /// </summary>
             public void Dispose()

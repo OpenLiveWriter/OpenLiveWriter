@@ -35,7 +35,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             this.writable = writable;
         }
 
-
         /// <summary>
         /// Get the underlying IStorage
         /// </summary>
@@ -43,7 +42,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         {
             get { return this.storage; }
         }
-
 
         /// <summary>
         /// Whether the storage is writable.
@@ -72,7 +70,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         }
         private Guid clsid;
 
-
         /// <summary>
         /// Opens a Storage in this storage.
         /// </summary>
@@ -83,7 +80,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         {
             return OpenStorage(name, mode, Writable);
         }
-
 
         /// <summary>
         /// Opens a Storage in this storage.
@@ -103,7 +99,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
                 );
         }
 
-
         /// <summary>
         /// Opens a Storage in this storage.
         /// </summary>
@@ -122,7 +117,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
                 );
         }
 
-
         /// <summary>
         /// Opens a stream in this storage.
         /// </summary>
@@ -133,7 +127,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         {
             return OpenStream(NameFromGuid(guid), mode, Writable);
         }
-
 
         /// <summary>
         /// Opens a stream in this storage.
@@ -149,7 +142,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             return OpenStream(NameFromGuid(guid), mode, writable);
         }
 
-
         /// <summary>
         /// Opens a stream in this storage.
         /// </summary>
@@ -160,7 +152,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         {
             return OpenStream(name, mode, Writable);
         }
-
 
         /// <summary>
         /// Opens a stream in this storage.
@@ -266,7 +257,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             }
         }
 
-
         /// <summary>
         /// Copies this storage to another storage.
         /// </summary>
@@ -338,10 +328,10 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         }
 
         /// <summary>
-        /// Commits changes to this storage.  Note that for changes to be committed, 
+        /// Commits changes to this storage.  Note that for changes to be committed,
         /// the parent storage must also be committed.  Does not currently support
         /// multiwriter transaction (only a single instance of the storage can be writable)
-        /// 
+        ///
         /// </summary>
         public void Commit()
         {
@@ -403,15 +393,14 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             Close();
         }
 
-
 #if FALSE
-		/// <summary>
-		/// Storage finalizer
-		/// </summary>
-		~Storage()
-		{
-			//Debug.Assert(storage == null, "Object not disposed properly - Use Close or Dispose!");
-		}
+        /// <summary>
+        /// Storage finalizer
+        /// </summary>
+        ~Storage()
+        {
+            //Debug.Assert(storage == null, "Object not disposed properly - Use Close or Dispose!");
+        }
 #endif
 
         /// <summary>
@@ -458,9 +447,8 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             return storage;
         }
 
-
         /// <summary>
-        /// Creates a stream in this storage. 
+        /// Creates a stream in this storage.
         /// </summary>
         /// <param name="name">The string representing the name of the stream to create. (31 characters or less)</param>
         /// <param name="stream">The stream.</param>
@@ -478,7 +466,7 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         }
 
         /// <summary>
-        /// Opens a stream in this storage. 
+        /// Opens a stream in this storage.
         /// </summary>
         /// <param name="name">The string representing the name of the stream to create (31 characters or less).</param>
         /// <param name="stream">The stream.</param>
@@ -497,7 +485,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
                 out stream);
         }
 
-
         /// <summary>
         /// Converts a Guid to an encoded string (that has a shorter length)
         /// </summary>
@@ -513,7 +500,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
 
             return new string(chars);
         }
-
 
         /// <summary>
         /// Converts a string produced with NameFromGuid back to a guid
@@ -617,7 +603,7 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
                 case STG_E.FILEALREADYEXISTS:
                     throw new StorageFileAlreadyExistsException(e);
 
-                // Storage Format	
+                // Storage Format
                 case STG_E.DOCFILECORRUPT:
                 case STG_E.INVALIDHEADER:
                     throw new StorageInvalidFormatException(e);
@@ -688,8 +674,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             }
         }
 
-
-
         /// <summary>
         /// The storage's IStorage
         /// </summary>
@@ -702,7 +686,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
 
         private const int FIRST_NON_RESERVED_CHAR = 0x5D;
     }
-
 
     /// <summary>
     /// The substorage opener for a storage.
@@ -718,7 +701,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             this.storage = storage;
         }
 
-
         /// <summary>
         /// Creates a substorage
         /// </summary>
@@ -730,7 +712,7 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         {
             // Note: The compound file implementation of structured
             // storage requires that all substorages and substreams be opened as share_exclusive (locking
-            // is managed at the file level).									
+            // is managed at the file level).
             this.storage.CreateStorage(
                 pwcsName,
                 STGM.CREATE | STGM.TRANSACTED |
@@ -796,13 +778,8 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
             return true;
         }
 
-
-
         private IStorage storage;
     }
-
-
-
 
     /// <summary>
     /// The IStorageOpener for compound files
@@ -875,7 +852,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
                 return false;
             }
 
-
             Ole32Storage.STGOPTIONS stgoptions = new Ole32Storage.STGOPTIONS();
             stgoptions.usVersion = 1;
             stgoptions.ulSectorSize = 4096;
@@ -897,7 +873,7 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         }
 
         /// <summary>
-        /// Validates that the path to the file is a valid Compound File. 
+        /// Validates that the path to the file is a valid Compound File.
         /// Returns false if the file does not exist.
         /// </summary>
         /// <param name="path"></param>
@@ -920,9 +896,6 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         }
     }
 
-
-
-
     /// <summary>
     /// The StorageModes used when getting Storage and streams.
     /// </summary>
@@ -932,6 +905,5 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         Open,
         OpenOrCreate
     }
-
 
 }

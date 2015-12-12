@@ -76,7 +76,6 @@ namespace OpenLiveWriter.PostEditor
             // set our bitmaps
             PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PluginsSmall.png");
 
-
             // paramaterize caption with product name
             labelCaption.Text = String.Format(CultureInfo.CurrentCulture, labelCaption.Text, ApplicationEnvironment.ProductName);
 
@@ -114,7 +113,6 @@ namespace OpenLiveWriter.PostEditor
                 DisplayHelper.AutoFitSystemButton(buttonOptions);
             }
         }
-
 
         private void ContentSourceManager_GlobalContentSourceListChanged(object sender, EventArgs e)
         {
@@ -165,12 +163,10 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private void _pluginsPreferences_PreferencesModified(object sender, EventArgs e)
         {
             OnModified(EventArgs.Empty);
         }
-
 
         private void listViewInstalledPlugins_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -233,7 +229,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private void RefreshSelectedListViewItem()
         {
             if (listViewInstalledPlugins.SelectedItems.Count > 0)
@@ -247,7 +242,6 @@ namespace OpenLiveWriter.PostEditor
             listViewItem.Text = " " + itemContentSource.Name;
             listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, _pluginsPreferences.GetPluginEnabledState(itemContentSource) ? Res.Get(StringId.Enabled) : Res.Get(StringId.Disabled)));
         }
-
 
         private void UpdateDetailsPane()
         {
@@ -281,8 +275,7 @@ namespace OpenLiveWriter.PostEditor
                 return null;
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -301,8 +294,8 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -330,9 +323,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPluginDetails.SuspendLayout();
             this.panelPluginDetails.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // listViewInstalledPlugins
-            // 
+            //
             this.listViewInstalledPlugins.AutoArrange = false;
             this.listViewInstalledPlugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
                                                                                                        this.columnHeaderName,
@@ -348,34 +341,34 @@ namespace OpenLiveWriter.PostEditor
             this.listViewInstalledPlugins.SmallImageList = this.imageListPlugins;
             this.listViewInstalledPlugins.TabIndex = 3;
             this.listViewInstalledPlugins.View = System.Windows.Forms.View.Details;
-            // 
+            //
             // columnHeaderName
-            // 
+            //
             this.columnHeaderName.Text = "Plugin";
             this.columnHeaderName.Width = 229;
-            // 
+            //
             // columnHeaderStatus
-            // 
+            //
             this.columnHeaderStatus.Text = "Status";
             this.columnHeaderStatus.Width = 95;
-            // 
+            //
             // imageListPlugins
-            // 
+            //
             this.imageListPlugins.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imageListPlugins.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListPlugins.TransparentColor = System.Drawing.Color.Transparent;
-            // 
+            //
             // labelInstalledPlugins
-            // 
+            //
             this.labelInstalledPlugins.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelInstalledPlugins.Location = new System.Drawing.Point(8, 66);
             this.labelInstalledPlugins.Name = "labelInstalledPlugins";
             this.labelInstalledPlugins.Size = new System.Drawing.Size(341, 15);
             this.labelInstalledPlugins.TabIndex = 2;
             this.labelInstalledPlugins.Text = "&Plugins currently installed:";
-            // 
+            //
             // groupBoxPluginDetails
-            // 
+            //
             this.groupBoxPluginDetails.Controls.Add(this.panelPluginDetails);
             this.groupBoxPluginDetails.Controls.Add(this.labelNoPluginSelected);
             this.groupBoxPluginDetails.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -385,9 +378,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPluginDetails.TabIndex = 4;
             this.groupBoxPluginDetails.TabStop = false;
             this.groupBoxPluginDetails.Text = "Plugin details";
-            // 
+            //
             // panelPluginDetails
-            // 
+            //
             this.panelPluginDetails.Controls.Add(this.buttonOptions);
             this.panelPluginDetails.Controls.Add(this.linkLabelPluginName);
             this.panelPluginDetails.Controls.Add(this.labelPluginDescription);
@@ -398,9 +391,9 @@ namespace OpenLiveWriter.PostEditor
             this.panelPluginDetails.Name = "panelPluginDetails";
             this.panelPluginDetails.Size = new System.Drawing.Size(339, 123);
             this.panelPluginDetails.TabIndex = 0;
-            // 
+            //
             // buttonOptions
-            // 
+            //
             this.buttonOptions.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.buttonOptions.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOptions.Location = new System.Drawing.Point(250, 61);
@@ -409,9 +402,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonOptions.TabIndex = 4;
             this.buttonOptions.Text = "Options...";
             this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
-            // 
+            //
             // linkLabelPluginName
-            // 
+            //
             this.linkLabelPluginName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.linkLabelPluginName.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabelPluginName.LinkColor = System.Drawing.SystemColors.HotTrack;
@@ -422,9 +415,9 @@ namespace OpenLiveWriter.PostEditor
             this.linkLabelPluginName.TabStop = true;
             this.linkLabelPluginName.Text = "YouTube Video Publisher";
             this.toolTip.SetToolTip(this.linkLabelPluginName, "Click here to find out more about this plugin.");
-            // 
+            //
             // labelPluginDescription
-            // 
+            //
             this.labelPluginDescription.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPluginDescription.Location = new System.Drawing.Point(2, 21);
             this.labelPluginDescription.Name = "labelPluginDescription";
@@ -432,36 +425,36 @@ namespace OpenLiveWriter.PostEditor
             this.labelPluginDescription.TabIndex = 1;
             this.labelPluginDescription.Text = "Publish videos to your weblog from YouTube, the leading free online video streami" +
                 "ng service.";
-            // 
+            //
             // radioButtonDisablePlugin
-            // 
+            //
             this.radioButtonDisablePlugin.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonDisablePlugin.Location = new System.Drawing.Point(254, 30);
             this.radioButtonDisablePlugin.Name = "radioButtonDisablePlugin";
             this.radioButtonDisablePlugin.Size = new System.Drawing.Size(84, 24);
             this.radioButtonDisablePlugin.TabIndex = 3;
             this.radioButtonDisablePlugin.Text = "&Disable";
-            // 
+            //
             // radioButtonEnablePlugin
-            // 
+            //
             this.radioButtonEnablePlugin.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonEnablePlugin.Location = new System.Drawing.Point(254, 10);
             this.radioButtonEnablePlugin.Name = "radioButtonEnablePlugin";
             this.radioButtonEnablePlugin.Size = new System.Drawing.Size(84, 24);
             this.radioButtonEnablePlugin.TabIndex = 2;
             this.radioButtonEnablePlugin.Text = "&Enable";
-            // 
+            //
             // pictureBoxPluginImage
-            // 
+            //
             this.pictureBoxPluginImage.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxPluginImage.Image")));
             this.pictureBoxPluginImage.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxPluginImage.Name = "pictureBoxPluginImage";
             this.pictureBoxPluginImage.Size = new System.Drawing.Size(20, 18);
             this.pictureBoxPluginImage.TabIndex = 0;
             this.pictureBoxPluginImage.TabStop = false;
-            // 
+            //
             // labelNoPluginSelected
-            // 
+            //
             this.labelNoPluginSelected.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelNoPluginSelected.Location = new System.Drawing.Point(16, 43);
             this.labelNoPluginSelected.Name = "labelNoPluginSelected";
@@ -469,9 +462,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelNoPluginSelected.TabIndex = 1;
             this.labelNoPluginSelected.Text = "(No Plugin selected)";
             this.labelNoPluginSelected.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
+            //
             // labelCaption
-            // 
+            //
             this.labelCaption.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCaption.Location = new System.Drawing.Point(8, 32);
             this.labelCaption.Name = "labelCaption";
@@ -479,9 +472,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelCaption.TabIndex = 1;
             this.labelCaption.Text = "Plugins are programs that extend the functionality of {0}. You can enable and dis" +
                 "able Plugins using this dialog.";
-            // 
+            //
             // linkLabelDownloadPlugins
-            // 
+            //
             this.linkLabelDownloadPlugins.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.linkLabelDownloadPlugins.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.linkLabelDownloadPlugins.LinkColor = System.Drawing.SystemColors.HotTrack;
@@ -492,17 +485,17 @@ namespace OpenLiveWriter.PostEditor
             this.linkLabelDownloadPlugins.TabStop = true;
             this.linkLabelDownloadPlugins.Text = "Add a Plugin...";
             this.linkLabelDownloadPlugins.AutoSize = true;
-            // 
+            //
             // pictureBoxAddPlugin
-            // 
+            //
             this.pictureBoxAddPlugin.Location = new System.Drawing.Point(13, 393);
             this.pictureBoxAddPlugin.Name = "pictureBoxAddPlugin";
             this.pictureBoxAddPlugin.Size = new System.Drawing.Size(16, 16);
             this.pictureBoxAddPlugin.TabIndex = 6;
             this.pictureBoxAddPlugin.TabStop = false;
-            // 
+            //
             // PluginsPreferencesPanel
-            // 
+            //
             this.Controls.Add(this.pictureBoxAddPlugin);
             this.Controls.Add(this.labelCaption);
             this.Controls.Add(this.linkLabelDownloadPlugins);
@@ -524,7 +517,6 @@ namespace OpenLiveWriter.PostEditor
 
         }
         #endregion
-
 
     }
 }

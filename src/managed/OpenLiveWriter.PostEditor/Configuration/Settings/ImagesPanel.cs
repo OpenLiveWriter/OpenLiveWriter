@@ -29,7 +29,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         private System.Windows.Forms.RadioButton radioButtonFtp;
         private System.Windows.Forms.RadioButton radioButtonWeblog;
         private System.Windows.Forms.Button buttonConfigureFtp;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -77,7 +77,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             }
         }
 
-
         private void UpdateStrings()
         {
             groupBoxUpload.Text = Res.Get(StringId.ImagesUpload);
@@ -87,7 +86,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             buttonConfigureFtp.Text = Res.Get(StringId.ImagesFtpConfig);
             PanelName = Res.Get(StringId.ImagesPanel);
         }
-
 
         private void InitializeSettings()
         {
@@ -112,14 +110,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
                 }
             }
 
-
             return true;
 
         }
-
-
-
-
 
 
         private FileUploadSupport FileUploadSupport
@@ -160,7 +153,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             }
         }
 
-
         private void radioButtonUpload_CheckedChanged(object sender, EventArgs e)
         {
             TemporaryBlogSettings.FileUploadSupport = FileUploadSupport;
@@ -173,8 +165,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             buttonConfigureFtp.Enabled = (FileUploadSupport == FileUploadSupport.FTP);
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -190,8 +181,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -203,9 +194,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.radioButtonFtp = new System.Windows.Forms.RadioButton();
             this.groupBoxUpload.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // groupBoxUpload
-            // 
+            //
             this.groupBoxUpload.Controls.Add(this.buttonConfigureFtp);
             this.groupBoxUpload.Controls.Add(this.labelDesc);
             this.groupBoxUpload.Controls.Add(this.radioButtonWeblog);
@@ -217,9 +208,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.groupBoxUpload.TabIndex = 1;
             this.groupBoxUpload.TabStop = false;
             this.groupBoxUpload.Text = "Upload";
-            // 
+            //
             // buttonConfigureFtp
-            // 
+            //
             this.buttonConfigureFtp.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonConfigureFtp.Location = new System.Drawing.Point(54, 142);
             this.buttonConfigureFtp.Name = "buttonConfigureFtp";
@@ -227,9 +218,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.buttonConfigureFtp.TabIndex = 8;
             this.buttonConfigureFtp.Text = "&Configure FTP";
             this.buttonConfigureFtp.Click += new System.EventHandler(this.buttonConfigureFtp_Click);
-            // 
+            //
             // labelDesc
-            // 
+            //
             this.labelDesc.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelDesc.Location = new System.Drawing.Point(16, 21);
             this.labelDesc.Name = "labelDesc";
@@ -237,9 +228,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.labelDesc.TabIndex = 4;
             this.labelDesc.Text = "When you include images in your Weblog entries, they can be automatically uploade" +
                 "d when you post your entry. Please select how images should be uploaded:";
-            // 
+            //
             // radioButtonWeblog
-            // 
+            //
             this.radioButtonWeblog.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonWeblog.Location = new System.Drawing.Point(16, 93);
             this.radioButtonWeblog.Name = "radioButtonWeblog";
@@ -247,9 +238,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.radioButtonWeblog.TabIndex = 6;
             this.radioButtonWeblog.Text = "&Upload images to my weblog";
             this.radioButtonWeblog.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // radioButtonFtp
-            // 
+            //
             this.radioButtonFtp.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonFtp.Location = new System.Drawing.Point(16, 119);
             this.radioButtonFtp.Name = "radioButtonFtp";
@@ -257,9 +248,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             this.radioButtonFtp.TabIndex = 7;
             this.radioButtonFtp.Text = "Upload images to an &FTP server:";
             this.radioButtonFtp.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            // 
+            //
             // ImagesPanel
-            // 
+            //
             this.AccessibleName = "Images";
             this.Controls.Add(this.groupBoxUpload);
             this.Name = "ImagesPanel";
@@ -270,9 +261,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
 
         }
         #endregion
-
-
-
 
     }
 }

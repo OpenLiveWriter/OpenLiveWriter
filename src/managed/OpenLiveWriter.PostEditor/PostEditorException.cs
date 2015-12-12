@@ -63,7 +63,6 @@ namespace OpenLiveWriter.PostEditor
             if (ex is StorageException)
                 return new PostEditorStorageException((StorageException)ex);
 
-
             return new PostEditorStorageException(ex);
         }
     }

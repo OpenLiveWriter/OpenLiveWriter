@@ -12,9 +12,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 {
     /// <summary>
     /// Handles logging of performance tracing events to a text file.
-    /// 
+    ///
     /// Example usage:
-    /// 
+    ///
     /// using (ApplicationPerformance.LogEvent("ApplyImageEffects"))
     /// {
     ///     // do work here

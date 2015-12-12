@@ -63,7 +63,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private const string TAG_REMINDER = "TagReminder";
 
-
         public static bool Ping
         {
             get { return SettingsKey.GetBoolean(PING, false); }
@@ -93,7 +92,6 @@ namespace OpenLiveWriter.PostEditor
             set { SettingsKey.SetBoolean(AUTO_SAVE_DRAFTS, value); }
         }
         private const string AUTO_SAVE_DRAFTS = "AutoRecover";
-
 
         public static int AutoSaveMinutes
         {

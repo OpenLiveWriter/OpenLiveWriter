@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -16,7 +16,7 @@ namespace OpenLiveWriter.Interop.Com
     /// a VT_UNKNOWN prop, an implicit AddRef is called, thus your reference will
     /// be active even after the PropVariant struct is cleared.
     /// Correct usage:
-    /// 
+    ///
     ///     PropVariant propVar;
     ///     GetProp(out propVar);
     ///     try
@@ -24,7 +24,7 @@ namespace OpenLiveWriter.Interop.Com
     ///         object value = propVar.Value;
     ///     }
     ///     finally { propVar.Clear(); }
-    ///     
+    ///
     /// Originally sourced from http://blogs.msdn.com/adamroot/pages/interop-with-propvariants-in-net.aspx
     /// and modified to support additional types including vectors and ability to set values
     /// </remarks>
@@ -49,7 +49,6 @@ namespace OpenLiveWriter.Interop.Com
         ushort wReserved1;
         ushort wReserved2;
         ushort wReserved3;
-
 
         // In order to allow x64 compat, we need to allow for
         // expansion of the IntPtr. However, the BLOB struct
@@ -286,7 +285,6 @@ namespace OpenLiveWriter.Interop.Com
         {
             return (VarType == VarEnum.VT_ERROR);
         }
-
 
         /// <summary>
         /// Called to clear the PropVariant's referenced and local memory.
@@ -934,7 +932,6 @@ namespace OpenLiveWriter.Interop.Com
                     Propsys.PropVariantGetFileTimeElem(ref this, i, out val);
 
                     long fileTime = FileTimeToDateTime(ref val);
-
 
                     arr.SetValue(DateTime.FromFileTime(fileTime), i);
                 }

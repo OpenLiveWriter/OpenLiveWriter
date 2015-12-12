@@ -8,7 +8,6 @@ using OpenLiveWriter.Extensibility.BlogClient;
 namespace OpenLiveWriter.PostEditor
 {
 
-
     public interface IBlogPostPublishingContext : INewCategoryContext, IBlogPostEditingContext
     {
         IBlogPostEditingContext EditingContext { get; }

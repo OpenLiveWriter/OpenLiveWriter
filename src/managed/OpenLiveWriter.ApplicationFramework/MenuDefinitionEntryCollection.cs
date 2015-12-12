@@ -172,7 +172,7 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             /// <summary>
             /// Private data.
-            /// </summary>            
+            /// </summary>
             private IEnumerator baseEnumerator;
             private IEnumerable temp;
 

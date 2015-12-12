@@ -18,7 +18,6 @@ namespace OpenLiveWriter.HtmlParser.Parser.FormAgent
                 data.Add(Name, Value);
         }
 
-
         public string Value
         {
             get { return this.value; }

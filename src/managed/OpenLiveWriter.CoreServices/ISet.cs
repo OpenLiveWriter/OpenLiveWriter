@@ -31,9 +31,9 @@ namespace OpenLiveWriter.CoreServices
         int AddAll(IEnumerable col);
 
         /// <summary>
-        /// Returns true if the object was in the set before 
+        /// Returns true if the object was in the set before
         /// the remove operation.
-        /// 
+        ///
         /// (After the call returns, the object will not be
         /// in the set, regardless of the return value.)
         /// </summary>
@@ -42,7 +42,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Removes all the elements of the given tree
         /// from this tree, if they are present.
-        /// 
+        ///
         /// Returns the number of items actually found
         /// and removed.
         /// </summary>

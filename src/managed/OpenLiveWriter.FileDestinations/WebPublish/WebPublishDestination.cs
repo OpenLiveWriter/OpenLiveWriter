@@ -30,7 +30,6 @@ namespace OpenLiveWriter.FileDestinations
         }
         private string id;
 
-
         /// <summary>
         /// Is the destination valid?
         /// </summary>
@@ -49,7 +48,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         /// <summary>
         /// Name of the destination
         /// </summary>
@@ -64,7 +62,6 @@ namespace OpenLiveWriter.FileDestinations
                     return UNKNOWN;
             }
         }
-
 
         /// <summary>
         /// Profile information for the destination (returns null if destination is invalid)
@@ -85,7 +82,6 @@ namespace OpenLiveWriter.FileDestinations
         }
         private DestinationProfile destinationProfile = null;
 
-
         /// <summary>
         /// Refresh the cached destination profile
         /// </summary>
@@ -93,7 +89,6 @@ namespace OpenLiveWriter.FileDestinations
         {
             destinationProfile = null;
         }
-
 
         /// <summary>
         /// Helper to get a destination profile manager

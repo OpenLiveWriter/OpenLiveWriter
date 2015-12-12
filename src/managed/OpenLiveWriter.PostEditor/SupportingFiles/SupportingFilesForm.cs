@@ -102,7 +102,6 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
             return s;
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -131,9 +130,9 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
             this.dataGridProperties = new System.Windows.Forms.DataGrid();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProperties)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // listBoxFiles
-            // 
+            //
             this.listBoxFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxFiles.HorizontalScrollbar = true;
@@ -141,9 +140,9 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
             this.listBoxFiles.Name = "listBoxFiles";
             this.listBoxFiles.Size = new System.Drawing.Size(648, 121);
             this.listBoxFiles.TabIndex = 0;
-            // 
+            //
             // dataGridProperties
-            // 
+            //
             this.dataGridProperties.AlternatingBackColor = System.Drawing.SystemColors.Control;
             this.dataGridProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                 | System.Windows.Forms.AnchorStyles.Left)
@@ -158,9 +157,9 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
             this.dataGridProperties.RowHeadersVisible = false;
             this.dataGridProperties.Size = new System.Drawing.Size(648, 260);
             this.dataGridProperties.TabIndex = 1;
-            // 
+            //
             // SupportingFilesForm
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(672, 421);
             this.Controls.Add(this.dataGridProperties);
@@ -240,7 +239,6 @@ namespace OpenLiveWriter.PostEditor.SupportingFiles
                 dataGridProperties.TableStyles[dataTable.TableName].GridColumnStyles[nameColumn.ColumnName].Width = 200;
                 UpdateTableSize();
             }
-
 
             dataTable.Clear();
         }
