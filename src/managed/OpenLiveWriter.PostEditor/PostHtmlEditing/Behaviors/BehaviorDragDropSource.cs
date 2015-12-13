@@ -105,7 +105,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
                 return false;
         }
 
-
         // <summary>
         /// Pre-process mouse messages to detect drag-and-drop of selections
         /// </summary>

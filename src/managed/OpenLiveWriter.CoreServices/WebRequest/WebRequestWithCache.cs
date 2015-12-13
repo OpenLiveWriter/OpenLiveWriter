@@ -124,7 +124,6 @@ namespace OpenLiveWriter.CoreServices
                 if (m_url == null)
                     return null;
 
-
                 if (WebRequest is HttpWebRequest)
                 {
                     HttpWebRequest thisRequest = (HttpWebRequest)WebRequest;

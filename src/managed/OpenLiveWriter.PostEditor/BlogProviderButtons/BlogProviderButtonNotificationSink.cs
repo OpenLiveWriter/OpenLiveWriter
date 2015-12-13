@@ -188,7 +188,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 
         private static Hashtable _buttonNotificationListeners = new Hashtable();
 
-
         private string _blogId;
         private string _hostBlogId;
         private string _homepageUrl;

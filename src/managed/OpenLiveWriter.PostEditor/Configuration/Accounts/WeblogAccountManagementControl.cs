@@ -119,7 +119,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
             EditSelectedWeblog();
         }
 
-
         private void buttonView_Click(object sender, EventArgs e)
         {
             try
@@ -194,7 +193,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
 
         }
 
-
         private void DeleteSelectedWeblog()
         {
             if (SelectedWeblog == null)
@@ -219,7 +217,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
                 UnexpectedErrorMessage.Show(ex);
             }
         }
-
 
         private BlogSettings SelectedWeblog
         {
@@ -347,7 +344,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
 
         }
         #endregion
-
 
         /// <summary>
         /// Hook that allows for processing just after a new blog has been created.

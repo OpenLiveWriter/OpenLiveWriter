@@ -52,7 +52,6 @@ namespace OpenLiveWriter.Controls
             base.OnClosed(e);
         }
 
-
         /// <summary>
         /// Handle OnLoad -- set standard icon
         /// </summary>

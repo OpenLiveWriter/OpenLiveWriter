@@ -166,7 +166,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             return true;
         }
 
-
         private void buttonEditWeblogSettings_Click(object sender, System.EventArgs e)
         {
             try
@@ -181,9 +180,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         /// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose(bool disposing)
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

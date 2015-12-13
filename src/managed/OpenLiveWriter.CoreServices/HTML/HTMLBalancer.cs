@@ -300,46 +300,46 @@ namespace OpenLiveWriter.CoreServices
         }
 
 #if FALSE
-		public static void Test()
-		{
-			Verify(Balance("<a href=foo>test</a>", 13), "");
-			Verify(Balance("<a href=foo>test", 13), "");
+        public static void Test()
+        {
+            Verify(Balance("<a href=foo>test</a>", 13), "");
+            Verify(Balance("<a href=foo>test", 13), "");
 
-			Verify(Balance("<a href=foo>test</a>", 100), "<a href=foo>test</a>");
-			Verify(Balance("<a href=foo>test", 100), "<a href=foo>test</a>");
-			Verify(Balance("<b><a href=foo>test</b>", 100), "<b><a href=foo>test</b></a>");
+            Verify(Balance("<a href=foo>test</a>", 100), "<a href=foo>test</a>");
+            Verify(Balance("<a href=foo>test", 100), "<a href=foo>test</a>");
+            Verify(Balance("<b><a href=foo>test</b>", 100), "<b><a href=foo>test</b></a>");
 
-			Verify(Balance("<b><a href=foo>test</b>", 10), "<b></b>");
-			Verify(Balance("<B><a href=foo>test</b>", 10), "<B></B>");
-			Verify(Balance("abcd&blacksquare;efghijklmnop", 7), "abcd");
-			Verify(Balance("abcd&blacksquare;efg", 17), "abcd&blacksquare;");
-			Verify(Balance("abcd&blacksquare;efg", 34, new DoubleCostFilter()), "abcd&blacksquare;");
+            Verify(Balance("<b><a href=foo>test</b>", 10), "<b></b>");
+            Verify(Balance("<B><a href=foo>test</b>", 10), "<B></B>");
+            Verify(Balance("abcd&blacksquare;efghijklmnop", 7), "abcd");
+            Verify(Balance("abcd&blacksquare;efg", 17), "abcd&blacksquare;");
+            Verify(Balance("abcd&blacksquare;efg", 34, new DoubleCostFilter()), "abcd&blacksquare;");
 
-			Verify(Balance("<a><b><c><table><tr><td>", int.MaxValue), "<a><b><c><table><tr><td></table></b></a>");
-			Verify(BalanceForUrl("<b>test</b>", 20), "<b>tes</b>");
+            Verify(Balance("<a><b><c><table><tr><td>", int.MaxValue), "<a><b><c><table><tr><td></table></b></a>");
+            Verify(BalanceForUrl("<b>test</b>", 20), "<b>tes</b>");
 
-			Verify(Balance("<b>test</b>", 2, new TextOnlyCostFilter()), "<b>te</b>");
-			Verify(Balance("<b>test test</b>", 8, new TextOnlyCostFilter()), "<b>test</b>");
-		}
+            Verify(Balance("<b>test</b>", 2, new TextOnlyCostFilter()), "<b>te</b>");
+            Verify(Balance("<b>test test</b>", 8, new TextOnlyCostFilter()), "<b>test</b>");
+        }
 
-		private static void Verify(string a, string b)
-		{
-			if (a != b)
-				throw new Exception(a + " != " + b);
-		}
+        private static void Verify(string a, string b)
+        {
+            if (a != b)
+                throw new Exception(a + " != " + b);
+        }
 
-		private class DoubleCostFilter : HTMLBalancerCostFilter
-		{
-			public override int ElementCost(Element el)
-			{
-				return el.ToString().Length * 2;
-			}
+        private class DoubleCostFilter : HTMLBalancerCostFilter
+        {
+            public override int ElementCost(Element el)
+            {
+                return el.ToString().Length * 2;
+            }
 
-			protected override int CharCost(char c)
-			{
-				return 2;
-			}
-		}
+            protected override int CharCost(char c)
+            {
+                return 2;
+            }
+        }
 #endif
     }
 }

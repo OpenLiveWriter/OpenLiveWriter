@@ -80,7 +80,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         private string ftpServer = "";
         /// <summary>
         /// The hostname of the FTP server
@@ -160,7 +159,6 @@ namespace OpenLiveWriter.FileDestinations
                 ftpPublishPath = value;
             }
         }
-
 
         public override string ToString()
         {

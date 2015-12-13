@@ -145,7 +145,6 @@ namespace OpenLiveWriter.CoreServices
         static char[] mimeInvalid = new char[] { };
         // both ( and ) were protected, but I couldn't replicate a problem w/parens in Content headers.
 
-
         // storage for root file name
         private string m_rootFile = null;
 

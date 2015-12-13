@@ -146,7 +146,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             _settingsKey.SetDateTime(NOTIFICATION_POLLING_TIME, DateTimeHelper.UtcNow);
         }
 
-
         public Size ContentDisplaySize
         {
             get
@@ -219,7 +218,6 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 Trace.WriteLine("Error occurred polling for button notification: " + ex.ToString());
             }
         }
-
 
         private string NotificationUrl
         {

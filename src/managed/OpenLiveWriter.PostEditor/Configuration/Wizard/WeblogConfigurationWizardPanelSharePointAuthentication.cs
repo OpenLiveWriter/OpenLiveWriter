@@ -183,16 +183,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         #endregion
 
         /*public string Username
-		{
-			get{ return textBoxUsername.Text.Trim(); }
-			set{ textBoxUsername.Text = value; }
-		}
+        {
+            get{ return textBoxUsername.Text.Trim(); }
+            set{ textBoxUsername.Text = value; }
+        }
 
-		public string Password
-		{
-			get{ return textBoxPassword.Text.Trim(); }
-			set{ textBoxPassword.Text = value; }
-		}*/
+        public string Password
+        {
+            get{ return textBoxPassword.Text.Trim(); }
+            set{ textBoxPassword.Text = value; }
+        }*/
 
         public override bool ValidatePanel()
         {

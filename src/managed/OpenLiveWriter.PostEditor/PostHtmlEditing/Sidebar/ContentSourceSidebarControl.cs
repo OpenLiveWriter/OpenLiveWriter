@@ -56,7 +56,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             }
         }
 
-
         public override void UpdateView(object htmlSelection, bool force)
         {
             if (htmlSelection == null) //true when the a non-smartcontent element is selected

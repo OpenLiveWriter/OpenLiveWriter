@@ -280,7 +280,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 return false;
             }
 
-
             serviceSettings.SelectedRequestType = _videoRequestComboBox.SelectedRequestType.TypeName;
             serviceSettings.Username = CurrentService.Auth.Username;
 

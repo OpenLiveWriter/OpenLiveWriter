@@ -591,7 +591,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             private StreamWriter _output;
         }
 
-
         private static string ReadText(string textValue, string defaultValue)
         {
             if (textValue != null)
@@ -823,7 +822,6 @@ namespace OpenLiveWriter.BlogClient.Providers
         protected abstract void WriteOption(string name, string value);
     }
 
-
     public class BlogProviderDescription : IBlogProviderDescription
     {
         public BlogProviderDescription(
@@ -998,7 +996,6 @@ namespace OpenLiveWriter.BlogClient.Providers
             // no match
             return null;
         }
-
 
         public virtual IBlogClientOptions ConstructBlogOptions(IBlogClientOptions defaultOptions)
         {

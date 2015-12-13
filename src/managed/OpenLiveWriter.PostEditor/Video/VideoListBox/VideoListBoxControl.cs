@@ -414,7 +414,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
         private const int THUMBNAIL_IMAGE_WIDTH = 130;
         private const int THUMBNAIL_IMAGE_HEIGHT = 100;
 
-
         #endregion
 
     }

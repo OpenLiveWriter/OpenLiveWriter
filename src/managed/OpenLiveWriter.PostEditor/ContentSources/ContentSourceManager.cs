@@ -345,7 +345,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         internal const int IMAGE_WIDTH = 16;
         internal const int IMAGE_HEIGHT = 16;
 
-
         private string VerifyAttributeValue(Type pluginType, object attribute, string attributeField, string attributeValue)
         {
             if (attributeValue != null && attributeValue != String.Empty)
@@ -732,7 +731,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
         }
 
-
         public static string MakeContainingElementId(string sourceId, string contentBlockId)
         {
             return String.Format(CultureInfo.InvariantCulture, "{0}:{1}:{2}", SMART_CONTENT_ID_PREFIX, sourceId, contentBlockId);
@@ -819,7 +817,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                 DisplayContentRetreivalError(sourceSite.DialogOwner, ex, contentSource);
             }
         }
-
 
         /// <summary>
         /// Returns true if the element className is a structured block.

@@ -92,7 +92,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// <summary>
         /// The homepage HTML without sanitization or relative URL escaping applied.
         /// </summary>
-	    public string OriginalHtml
+        public string OriginalHtml
         {
             get
             {

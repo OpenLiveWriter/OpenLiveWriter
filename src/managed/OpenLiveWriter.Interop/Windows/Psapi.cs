@@ -23,7 +23,6 @@ namespace OpenLiveWriter.Interop.Windows
             uint nSize
             );
 
-
         [DllImport("psapi.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern bool EnumProcessModules(
             IntPtr hProcess,

@@ -143,7 +143,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             MarkupRange stagingRange = MarkupServices.CreateMarkupRange(sc1, sc2);
             stagingRange.MoveToElement(doc.body, false);
 
-
             //IE7 hack: fixes bug 305512.  Note that this will destroy the inner content of the element,
             //so make sure it is called before the refreshed content is inserted.
             BeforeInsertInvalidateHackForIE7(element);

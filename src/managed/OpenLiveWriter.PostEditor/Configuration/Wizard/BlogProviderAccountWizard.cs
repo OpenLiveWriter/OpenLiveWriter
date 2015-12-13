@@ -317,5 +317,4 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
     }
 
-
 }

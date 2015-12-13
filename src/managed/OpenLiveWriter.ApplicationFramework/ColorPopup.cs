@@ -128,7 +128,6 @@ namespace OpenLiveWriter.ApplicationFramework
             Invalidate();
         }
 
-
         const int PADDING = 6;
         const int GUTTER_SIZE = 3;
         const int COLOR_SIZE = 14;

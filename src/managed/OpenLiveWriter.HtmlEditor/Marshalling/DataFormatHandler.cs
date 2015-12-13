@@ -35,7 +35,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
 
-
         /// <summary>
         /// Optional notification that we are beginning a drag operation
         /// </summary>
@@ -95,7 +94,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 return DragDropEffects.None;
         }
 
-
         /// <summary>
         /// Support copy as default with optional shift-key override to move
         /// </summary>
@@ -121,7 +119,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // return effects
             return effects;
         }
-
 
         /// <summary>
         /// Support move as default with optional control-key override to copy

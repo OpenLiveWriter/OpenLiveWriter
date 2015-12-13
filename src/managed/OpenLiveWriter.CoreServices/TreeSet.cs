@@ -446,69 +446,67 @@ namespace OpenLiveWriter.CoreServices
         #endregion
 
 
-
-
 #if TEST
-		/// <summary>
-		/// Brute-force correctness test of insert/delete operations.
-		/// </summary>
-		public static void Test()
-		{
-			TreeSet ts = new TreeSet();
-			int count = 0;
+        /// <summary>
+        /// Brute-force correctness test of insert/delete operations.
+        /// </summary>
+        public static void Test()
+        {
+            TreeSet ts = new TreeSet();
+            int count = 0;
 
-			for (int loops = 0; ; loops++)
-			{
-				count += ts.AddAll(RandomArrayList(100000 - ts.Count));
+            for (int loops = 0; ; loops++)
+            {
+                count += ts.AddAll(RandomArrayList(100000 - ts.Count));
 
-				InOrder(ts);
+                InOrder(ts);
 
-				ArrayList data = ts.ToArrayList();
+                ArrayList data = ts.ToArrayList();
 
-				RandomizeOrder(ref data);
+                RandomizeOrder(ref data);
 
-				for (int i = 0; i < 50000 && i < data.Count; i++)
-				{
-					if (ts.Remove(data[i]))
-						count--;
-				}
+                for (int i = 0; i < 50000 && i < data.Count; i++)
+                {
+                    if (ts.Remove(data[i]))
+                        count--;
+                }
 
-				Debug.Assert(count == ts.Count);
-				InOrder(ts);
+                Debug.Assert(count == ts.Count);
+                InOrder(ts);
 
-				if ((loops % 10) == 0)
-				Console.WriteLine("So far so good: " + loops + " " + count);
-			}
-		}
+                if ((loops % 10) == 0)
+                Console.WriteLine("So far so good: " + loops + " " + count);
+            }
+        }
 
-		public static void InOrder(TreeSet tree)
-		{
-			object last = null;
-			foreach (object o in tree)
-			{
-				if (last != null)
-					Debug.Assert(((IComparable)last).CompareTo(o) < 0, "Out of order");
-			}
-		}
+        public static void InOrder(TreeSet tree)
+        {
+            object last = null;
+            foreach (object o in tree)
+            {
+                if (last != null)
+                    Debug.Assert(((IComparable)last).CompareTo(o) < 0, "Out of order");
+            }
+        }
 
-		public static void RandomizeOrder(ref ArrayList list)
-		{
-			Hashtable table = new Hashtable(list.Count);
-			foreach (object o in list)
-				table[o] = string.Empty;
-			list = new ArrayList(table.Keys);
-		}
+        public static void RandomizeOrder(ref ArrayList list)
+        {
+            Hashtable table = new Hashtable(list.Count);
+            foreach (object o in list)
+                table[o] = string.Empty;
+            list = new ArrayList(table.Keys);
+        }
 
-		public static ArrayList RandomArrayList(int size)
-		{
-			Random r = new Random();
+        public static ArrayList RandomArrayList(int size)
+        {
+            Random r = new Random();
 
-			ArrayList al = new ArrayList(size);
-			for (int i = 0; i < size; i++)
-				al.Add(r.Next());
+            ArrayList al = new ArrayList(size);
+            for (int i = 0; i < size; i++)
+                al.Add(r.Next());
 
-			return al;
-		}
+            return al;
+        }
 #endif
     }
 }

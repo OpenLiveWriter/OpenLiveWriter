@@ -125,7 +125,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Accounts
         }
 
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>

@@ -79,7 +79,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 return controller.EditWeblogTemporarySettings(owner);
         }
 
-
         private WeblogConfigurationWizardController(TemporaryBlogSettings settings)
             : base()
         {
@@ -227,7 +226,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             _authenticationRequired = showAuthenticationStep;
         }
-
 
         private void AddConfirmationStep()
         {
@@ -588,7 +586,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 _temporarySettings.Credentials);
         }
 
-
         void OnSelectProviderCompleted(Object stepControl)
         {
             // get reference to panel
@@ -615,7 +612,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 PerformSettingsAutoDetectionSubStepIfNecessary();
             }
         }
-
 
         #endregion
 

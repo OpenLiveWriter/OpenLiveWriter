@@ -81,7 +81,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             }
         }
 
-
         private string GenerateHtml(ISmartContent content, bool editor, string blogId)
         {
             MapSettings settings = new MapSettings(content.Properties);

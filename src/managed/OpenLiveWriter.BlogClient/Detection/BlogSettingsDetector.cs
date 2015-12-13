@@ -494,7 +494,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
         }
 
-
         private WriterEditingManifest SafeDownloadEditingManifest()
         {
             WriterEditingManifest editingManifest = null;
@@ -564,6 +563,5 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         }
     }
-
 
 }

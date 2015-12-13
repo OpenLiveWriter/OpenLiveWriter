@@ -158,9 +158,9 @@ namespace OpenLiveWriter.ApplicationFramework
         public CommandBarButtonLightweightControl(CommandBarLightweightControl commandBarLightweightControl, string commandIdentifier, bool rightAligned)
         {
             /// <summary>
-			/// Required for Windows.Forms Class Composition Designer support
-			/// </summary>
-			InitializeComponent();
+            /// Required for Windows.Forms Class Composition Designer support
+            /// </summary>
+            InitializeComponent();
             InitializeObject();
 
             //	Set the command bar lightweight control.
@@ -1260,7 +1260,6 @@ namespace OpenLiveWriter.ApplicationFramework
             int Height { get; }
             void Paint(BidiGraphics g, Rectangle bounds, DrawState drawState);
         }
-
 
         public override bool DoDefaultAction()
         {

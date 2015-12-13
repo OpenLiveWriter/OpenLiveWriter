@@ -181,7 +181,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             //          so don't count on the code executing if the method is overriden!
         }
 
-
         public virtual BlogPostCategory[] SuggestCategories(string blogId, string partialCategoryName)
         {
             throw new BlogClientMethodUnsupportedException("SuggestCategories");
@@ -280,7 +279,6 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         protected abstract BlogClientProviderException ExceptionForFault(string faultCode, string faultString);
 
-
         protected XmlRpcArray ArrayFromStrings(string[] strings)
         {
             ArrayList stringValues = new ArrayList();
@@ -296,7 +294,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             else
                 return String.Empty;
         }
-
 
         /// <summary>
         /// Parse a date returned from a weblog. Returns the parsed date as a UTC DateTime value.

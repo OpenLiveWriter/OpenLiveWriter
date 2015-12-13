@@ -155,7 +155,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         private const string EMOTICONS = "Emoticons";
     }
 
-
     public class AutoreplacePhrase
     {
         public AutoreplacePhrase(string phrase, string replaceValue)

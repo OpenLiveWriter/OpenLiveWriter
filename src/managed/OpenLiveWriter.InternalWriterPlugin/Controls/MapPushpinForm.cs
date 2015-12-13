@@ -145,7 +145,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>

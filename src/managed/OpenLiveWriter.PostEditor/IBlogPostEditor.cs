@@ -67,12 +67,12 @@ namespace OpenLiveWriter.PostEditor
         /// <summary>
         /// Notification that the application is now closed
         /// </summary>
-	    void OnClosed();
+        void OnClosed();
 
         /// <summary>
         /// Notification that current blog post is closed
         /// </summary>
-	    void OnPostClosed();
+        void OnPostClosed();
     }
 
     public class BlogPostSaveOptions
@@ -92,11 +92,11 @@ namespace OpenLiveWriter.PostEditor
     }
 
     /// <summary>
-	/// This class is a dummy that is put into the list of editors so that when a change is made
-	/// external to any editor inside the manager, the manager has an editor to put the dirty flag to
-	/// true.
-	/// </summary>
-	internal class ForceDirtyPostEditor : IBlogPostEditor
+    /// This class is a dummy that is put into the list of editors so that when a change is made
+    /// external to any editor inside the manager, the manager has an editor to put the dirty flag to
+    /// true.
+    /// </summary>
+    internal class ForceDirtyPostEditor : IBlogPostEditor
     {
         void IBlogPostEditor.Initialize(IBlogPostEditingContext editingContext, IBlogClientOptions clientOptions)
         {

@@ -8,63 +8,63 @@ using OpenLiveWriter.Mshtml;
 namespace OpenLiveWriter.SpellChecker
 {
 
-	/// <summary>
-	/// Interface representing a word-range to be spell checked
-	/// </summary>
-	[Guid("F4FB57BC-5DB2-484A-8CDC-1EA270BE3821")]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[ComVisible(true)]
-	public interface IWordRange
-	{
-		/// <summary>
-		/// Is there another word in the range?
-		/// </summary>
-		/// <returns>true if there is another word in the range</returns>
-		bool HasNext() ;
+    /// <summary>
+    /// Interface representing a word-range to be spell checked
+    /// </summary>
+    [Guid("F4FB57BC-5DB2-484A-8CDC-1EA270BE3821")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [ComVisible(true)]
+    public interface IWordRange
+    {
+        /// <summary>
+        /// Is there another word in the range?
+        /// </summary>
+        /// <returns>true if there is another word in the range</returns>
+        bool HasNext() ;
 
-		/// <summary>
-		/// Advance to the next word in the range
-		/// </summary>
-		void Next() ;
+        /// <summary>
+        /// Advance to the next word in the range
+        /// </summary>
+        void Next() ;
 
-		/// <summary>
-		/// Get the current word
-		/// </summary>
-		string CurrentWord { get; }
+        /// <summary>
+        /// Get the current word
+        /// </summary>
+        string CurrentWord { get; }
 
-		/// <summary>
-		/// Place the cursor
-		/// </summary>
-		void PlaceCursor() ;
+        /// <summary>
+        /// Place the cursor
+        /// </summary>
+        void PlaceCursor() ;
 
-		/// <summary>
-		/// Highlight the current word, adjusted by the offset and length.
-		/// The offset and length do not change the current word,
-		/// they just affect the application of the highlight.
-		/// </summary>
-		void Highlight(int offset, int length) ;
+        /// <summary>
+        /// Highlight the current word, adjusted by the offset and length.
+        /// The offset and length do not change the current word,
+        /// they just affect the application of the highlight.
+        /// </summary>
+        void Highlight(int offset, int length) ;
 
-		/// <summary>
-		/// Remove highlighting from the range
-		/// </summary>
-		void RemoveHighlight() ;
+        /// <summary>
+        /// Remove highlighting from the range
+        /// </summary>
+        void RemoveHighlight() ;
 
-		/// <summary>
-		/// Replace the current word
-		/// </summary>
-		void Replace(int offset, int length, string newText) ;
+        /// <summary>
+        /// Replace the current word
+        /// </summary>
+        void Replace(int offset, int length, string newText) ;
 
-		/// <summary>
-		/// Tests the current word to determine if it is part of a URL sequence.
-		/// </summary>
-		/// <returns></returns>
-		bool IsCurrentWordUrlPart();
+        /// <summary>
+        /// Tests the current word to determine if it is part of a URL sequence.
+        /// </summary>
+        /// <returns></returns>
+        bool IsCurrentWordUrlPart();
 
-		/// <summary>
-		/// Tests the current word to determine if it is contained in smart content.
-		/// </summary>
-		/// <returns></returns>
-		bool FilterApplies();
+        /// <summary>
+        /// Tests the current word to determine if it is contained in smart content.
+        /// </summary>
+        /// <returns></returns>
+        bool FilterApplies();
 
         /// <summary>
         /// Tests the current word from an offset for a given length to determine if it is contained in smart content.
@@ -72,8 +72,8 @@ namespace OpenLiveWriter.SpellChecker
         /// <param name="offset"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-		bool FilterAppliesRanged(int offset, int length);
-	}
+        bool FilterAppliesRanged(int offset, int length);
+    }
 
     public static class WordRangeHelper
     {

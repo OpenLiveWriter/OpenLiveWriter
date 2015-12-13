@@ -262,7 +262,6 @@ namespace OpenLiveWriter.PostEditor.Video
             }
         }
 
-
         #region IContentUpdateFilter Members
 
         public bool ShouldUpdateContent(string oldHTML, string newHTML)

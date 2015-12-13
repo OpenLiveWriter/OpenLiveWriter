@@ -276,7 +276,6 @@ namespace OpenLiveWriter.Mshtml
             PointerRaw.Left(move, out context.Context, out context.Element, IntPtr.Zero, IntPtr.Zero);
         }
 
-
         public IHTMLElement SeekElementLeft(IHTMLElementFilter filter)
         {
             return SeekElementLeft(filter, null);
@@ -328,7 +327,6 @@ namespace OpenLiveWriter.Mshtml
             // none found
             return null;
         }
-
 
 
         /// <summary>

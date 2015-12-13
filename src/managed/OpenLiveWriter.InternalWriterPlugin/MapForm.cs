@@ -134,7 +134,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
 
             Size = _mapOptions.DefaultDialogSize;
 
-
             using (LayoutHelper.SuspendAnchoring(mapControl, mapTipControl, buttonOK, buttonCancel))
             {
                 LayoutHelper.FixupOKCancel(buttonOK, buttonCancel);

@@ -308,6 +308,5 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
         #endregion
 
-
     }
 }

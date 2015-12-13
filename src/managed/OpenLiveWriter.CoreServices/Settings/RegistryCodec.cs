@@ -35,14 +35,14 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// Any <c>Codec</c> that is not part of this list will never get called.
         /// </summary>
         private Codec[] codecs = {
-									 // common types up top
-									 new StringCodec(),
+                                     // common types up top
+                                     new StringCodec(),
                                      new BooleanCodec(),
                                      new Int32Codec(),
                                      new DoubleCodec(),
                                      new Int64Codec(),
-									 // now all other primitive types
-									 new SByteCodec(),
+                                     // now all other primitive types
+                                     new SByteCodec(),
                                      new ByteCodec(),
                                      new CharCodec(),
                                      new Int16Codec(),
@@ -51,15 +51,15 @@ namespace OpenLiveWriter.CoreServices.Settings
                                      new UInt64Codec(),
                                      new FloatCodec(),
                                      new DecimalCodec(),
-									 // date-time
-									 new DateTimeCodec(),
+                                     // date-time
+                                     new DateTimeCodec(),
                                      new RectangleCodec(),
                                      new PointCodec(),
                                      new SizeCodec(),
                                      new SizeFCodec(),
                                      new MultiStringCodec(),
-									 // catch-all case
-									 new SerializableCodec()
+                                     // catch-all case
+                                     new SerializableCodec()
                                  };
 
         /// <summary>
@@ -67,7 +67,6 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// Keys are <c>Types</c>, values are <c>Codecs</c>.
         /// </summary>
         private Hashtable codecCache = new Hashtable();
-
 
         /// <summary>
         /// Take a native value and return a registry-ready representation.

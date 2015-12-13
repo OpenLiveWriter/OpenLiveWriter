@@ -105,7 +105,6 @@ namespace OpenLiveWriter.CoreServices
             return scale;
         }
 
-
         /// <summary>
         /// Walks a tree of controls, executing the provided delegate on
         /// each control it encounters.

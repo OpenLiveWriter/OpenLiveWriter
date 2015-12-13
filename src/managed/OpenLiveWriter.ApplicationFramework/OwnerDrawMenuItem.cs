@@ -536,9 +536,9 @@ namespace OpenLiveWriter.ApplicationFramework
 
                 //	Fill the background.
                 /*
-				using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.MenuBitmapAreaColor))
-					graphics.FillRectangle(solidBrush, bitmapAreaRectangle);
-				*/
+                using (SolidBrush solidBrush = new SolidBrush(ApplicationManager.ApplicationStyle.MenuBitmapAreaColor))
+                    graphics.FillRectangle(solidBrush, bitmapAreaRectangle);
+                */
                 Color backgroundColor = SystemColors.Menu;
                 //	If the item is selected, draw the selection rectangle.
                 if ((drawItemState & DrawItemState.Selected) != 0)

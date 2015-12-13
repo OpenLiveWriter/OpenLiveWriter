@@ -172,7 +172,6 @@ namespace OpenLiveWriter.Localization.Bidi
             return mirrored;
         }
 
-
     }
 }
 

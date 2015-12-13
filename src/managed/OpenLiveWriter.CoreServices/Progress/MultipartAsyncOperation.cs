@@ -62,7 +62,6 @@ namespace OpenLiveWriter.CoreServices.Progress
             AddProgressOperation(operation, null, completed, tickSize);
         }
 
-
         /// <summary>
         /// Adds a new ProgressOperation to the list of work to perform and assigns the operation
         /// the number of ticks that it should take up in the overall operation.

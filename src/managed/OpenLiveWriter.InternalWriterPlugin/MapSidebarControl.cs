@@ -127,7 +127,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             VirtualTransparency.VirtualPaint(this, pevent);
         }
 
-
         private void ShowCustomizeMapDialog()
         {
             using (new WaitCursor())
@@ -385,7 +384,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             private static readonly string NO_MARGINS = Res.Get(StringId.MapNoMargins);
             private static readonly string CUSTOM_MARGINS = Res.Get(StringId.MapCustomMargins);
         }
-
 
         #region Component Designer generated code
         /// <summary>
@@ -701,7 +699,6 @@ namespace OpenLiveWriter.InternalWriterPlugin
             if (upDown != null)
                 upDown.Select(0, upDown.Text.Length);
         }
-
 
     }
 }

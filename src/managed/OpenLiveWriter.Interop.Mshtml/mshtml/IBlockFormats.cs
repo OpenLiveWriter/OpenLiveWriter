@@ -8,7 +8,7 @@ namespace mshtml
     using System.Reflection;
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
-	using System.Runtime.InteropServices.CustomMarshalers;
+    using System.Runtime.InteropServices.CustomMarshalers;
 
     [ComImport, DefaultMember("item"), Guid("3050F830-98B5-11CF-BB82-00AA00BDCE0B"), TypeLibType((short) 0x1000)]
     public interface IBlockFormats : IEnumerable

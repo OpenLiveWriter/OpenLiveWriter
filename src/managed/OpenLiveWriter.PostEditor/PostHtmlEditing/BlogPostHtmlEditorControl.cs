@@ -671,7 +671,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             InvalidatePostBodyElement();
         }
 
-
         /// <summary>
         /// Removes editing styles that are known to cause buggy editing.
         /// </summary>
@@ -1199,7 +1198,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return _lastSetBodyHtml;
             }
         }
-
 
         public string GetEditedTitleHtml()
         {

@@ -8,7 +8,7 @@ namespace mshtml
     using System.Reflection;
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
-	using System.Runtime.InteropServices.CustomMarshalers;
+    using System.Runtime.InteropServices.CustomMarshalers;
 
     [ComImport, InterfaceType((short) 2), TypeLibType((short) 0x1010), DefaultMember("item"), Guid("3050F56C-98B5-11CF-BB82-00AA00BDCE0B")]
     public interface DispHTMLAttributeCollection

@@ -411,7 +411,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         }
         private const string HTTP_PREFIX = "http://";
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>

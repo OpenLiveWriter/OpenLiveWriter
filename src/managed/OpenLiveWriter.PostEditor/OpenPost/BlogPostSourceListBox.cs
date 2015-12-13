@@ -239,7 +239,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             }
         }
 
-
         #endregion
 
         #region Accessibility
@@ -410,7 +409,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         private const int LARGE_BOTTOM_INSET = 4;
         private const int ELEMENT_PADDING = 3;
         private const int TITLE_LINES = 2;
-
 
         // view mode
         private bool _showLargeIcons;

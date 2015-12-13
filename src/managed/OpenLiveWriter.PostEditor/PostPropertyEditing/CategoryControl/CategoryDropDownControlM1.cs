@@ -261,14 +261,14 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             Focus();
 
             /*
-			_categoryDisplayForm = new CategoryDisplayFormM1(this, _categoryContext) ;
-			_categoryDisplayForm.MinDropDownWidth = 0;
-			IMiniFormOwner miniFormOwner = FindForm() as IMiniFormOwner;
-			if (miniFormOwner != null)
-				_categoryDisplayForm.FloatAboveOwner(miniFormOwner);
-			_categoryDisplayForm.Closed += new EventHandler(_categoryDisplayForm_Closed);
-			using ( new WaitCursor() )
-				_categoryDisplayForm.Show();
+            _categoryDisplayForm = new CategoryDisplayFormM1(this, _categoryContext) ;
+            _categoryDisplayForm.MinDropDownWidth = 0;
+            IMiniFormOwner miniFormOwner = FindForm() as IMiniFormOwner;
+            if (miniFormOwner != null)
+                _categoryDisplayForm.FloatAboveOwner(miniFormOwner);
+            _categoryDisplayForm.Closed += new EventHandler(_categoryDisplayForm_Closed);
+            using ( new WaitCursor() )
+                _categoryDisplayForm.Show();
             */
 
             Point anchor = PointToScreen(new Point(RightToLeft == RightToLeft.Yes ? 0 : ClientSize.Width, ClientSize.Height));
@@ -321,7 +321,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             _categoryDisplayForm = null;
             Invalidate();
         }
-
 
         private TextFormatFlags DisplayFormat
         {

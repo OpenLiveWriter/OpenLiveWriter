@@ -29,7 +29,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// </summary>
         protected abstract bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end);
 
-
         /// <summary>
         /// Presentation editor context for handling data
         /// </summary>

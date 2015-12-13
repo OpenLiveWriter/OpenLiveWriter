@@ -63,7 +63,6 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public bool IsInstalled { get { return m_hHook != IntPtr.Zero; } }
 
-
         /// <summary>
         /// Remove the keyboard hook
         /// </summary>

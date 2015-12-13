@@ -65,7 +65,6 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         }
 
-
         /// <summary>
         /// Try to extract the EditUri (RSD file URI) from the passed DOM
         /// </summary>
@@ -142,13 +141,13 @@ namespace OpenLiveWriter.BlogClient.Detection
                         if (UrlHelper.UrlsAreEqual(reader.NamespaceURI, WINDOWS_LIVE_WRITER_NAMESPACE))
                         {
                             /*
-							switch ( reader.LocalName.ToLower() )
-							{
-								case "manifestlink":
-									rsdServiceDescription.WriterManifestUrl = reader.ReadString().Trim() ;
-									break;
-							}
-							*/
+                            switch ( reader.LocalName.ToLower() )
+                            {
+                                case "manifestlink":
+                                    rsdServiceDescription.WriterManifestUrl = reader.ReadString().Trim() ;
+                                    break;
+                            }
+                            */
                         }
                         // standard rsd elements
                         else

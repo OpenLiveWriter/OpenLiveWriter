@@ -40,7 +40,6 @@ namespace OpenLiveWriter.FileDestinations
             }
         }
 
-
         /// <summary>
         /// Copies files to a local destination
         /// </summary>

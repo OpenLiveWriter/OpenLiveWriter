@@ -117,12 +117,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         // HTML required to make runtime bound behaviors work (GUID value is irrelevant)
         /*
-			<STYLE>
-				img { behavior: url(#default#IMG_BEHAVIOR) }
-			</STYLE>
+            <STYLE>
+                img { behavior: url(#default#IMG_BEHAVIOR) }
+            </STYLE>
 
-			<object id="IMG_BEHAVIOR" clsid="clsid:3C0C37AD-21B5-41f4-A25E-59259B0ED874" style="visibility: hidden" width="0px" height="0px"> </object>
-		*/
+            <object id="IMG_BEHAVIOR" clsid="clsid:3C0C37AD-21B5-41f4-A25E-59259B0ED874" style="visibility: hidden" width="0px" height="0px"> </object>
+        */
 
         private LazyLoader<string> _getBehaviorStyles;
         public string BehaviorStyles

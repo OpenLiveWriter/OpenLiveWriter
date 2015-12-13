@@ -158,7 +158,6 @@ namespace OpenLiveWriter.SpellChecker
         private const string IGNORE_UPPERCASE = "IgnoreUppercase";
         private const bool IGNORE_UPPERCASE_DEFAULT = true;
 
-
         /// <summary>
         /// Ignore words with numbers
         /// </summary>

@@ -25,7 +25,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             _tableEditingManager = tableEditingManager;
         }
 
-
         protected override void OnElementAttached()
         {
             base.OnElementAttached();
@@ -317,7 +316,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
         private TableEditingContext _tableEditingContext;
 
-
         private void SelectEntireTable()
         {
             try
@@ -388,6 +386,5 @@ namespace OpenLiveWriter.PostEditor.Tables
         private TableEditingManager _tableEditingManager;
 
     }
-
 
 }

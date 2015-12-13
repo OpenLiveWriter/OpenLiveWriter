@@ -468,7 +468,6 @@ namespace OpenLiveWriter.BlogClient
         }
         private BlogCredentials _blogCredentials;
 
-
         public IBlogProviderButtonDescription[] ButtonDescriptions
         {
             get
@@ -622,7 +621,7 @@ namespace OpenLiveWriter.BlogClient
         /// <summary>
         /// Make sure to own _keywordsLock before calling this property
         /// </summary>
-	    private XmlSettingsPersister KeywordPersister
+        private XmlSettingsPersister KeywordPersister
         {
             get
             {
@@ -696,7 +695,7 @@ namespace OpenLiveWriter.BlogClient
         /// <summary>
         /// The path to an xml file in the %APPDATA% folder that contains keywords for the current blog
         /// </summary>
-	    private string KeywordPath
+        private string KeywordPath
         {
             get
             {
@@ -710,7 +709,6 @@ namespace OpenLiveWriter.BlogClient
                 return _keywordPath;
             }
         }
-
 
         private BlogPostCategory[] LegacyCategories
         {
@@ -839,7 +837,6 @@ namespace OpenLiveWriter.BlogClient
         private const string PAGE_PARENT_ID = "ParentId";
         private readonly static object _pagesLock = new object();
 
-
         public FileUploadSupport FileUploadSupport
         {
             get
@@ -886,9 +883,9 @@ namespace OpenLiveWriter.BlogClient
         }
 
         /// <summary>
-		/// Delete this profile
-		/// </summary>
-		public void Delete()
+        /// Delete this profile
+        /// </summary>
+        public void Delete()
         {
             // dispose the profile
             Dispose();
@@ -1005,7 +1002,6 @@ namespace OpenLiveWriter.BlogClient
             Trace.Fail(String.Format(CultureInfo.InvariantCulture, "Failed to dispose BlogSettings!!! BlogId: {0} // BlogName: {1}", Id, BlogName));
         }
 
-
         public IBlogFileUploadSettings FileUpload
         {
             get
@@ -1027,7 +1023,6 @@ namespace OpenLiveWriter.BlogClient
             }
         }
         private SettingsPersisterHelper _settings;
-
 
         #region Class Configuration (location of settings, etc)
 
@@ -1180,14 +1175,12 @@ namespace OpenLiveWriter.BlogClient
         private SettingsPersisterHelper _settingsRoot;
     }
 
-
     public class BlogFileUploadSettings : IBlogFileUploadSettings, IDisposable
     {
         public BlogFileUploadSettings(SettingsPersisterHelper settings)
         {
             _settings = settings;
         }
-
 
         public string GetValue(string name)
         {

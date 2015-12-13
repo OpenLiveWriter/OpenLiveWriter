@@ -140,7 +140,7 @@ namespace OpenLiveWriter.PostEditor
         /// <summary>
         /// Turns off spelling checking--for example, user selected "None" for dictionary
         /// </summary>
-	    void DisableSpelling();
+        void DisableSpelling();
 
         /// <summary>
         /// Releases resources and shuts down the editor.

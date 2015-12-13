@@ -48,12 +48,12 @@ namespace OpenLiveWriter.CoreServices
             int[] NET_CODES =
                 {
                     0x0040, // network name no longer available
-					0x0035, // bad net path
-					0x0033, // ERROR_REM_NOT_LIST
-					0x0036, // network busy
-					0x0037, // DEV_NOT_EXIST
-					// see http://msdn.microsoft.com/library/en-us/debug/base/system_error_codes__1000-1299_.asp
-					1203,
+                    0x0035, // bad net path
+                    0x0033, // ERROR_REM_NOT_LIST
+                    0x0036, // network busy
+                    0x0037, // DEV_NOT_EXIST
+                    // see http://msdn.microsoft.com/library/en-us/debug/base/system_error_codes__1000-1299_.asp
+                    1203,
                     1222,
                     1225,
                     1226,

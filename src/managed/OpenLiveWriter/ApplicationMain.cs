@@ -109,7 +109,6 @@ namespace OpenLiveWriter
             UrlMon.CoInternetSetFeatureEnabled(FEATURE.DISABLE_NAVIGATION_SOUNDS, INTERNETSETFEATURE.ON_PROCESS, true);
         }
 
-
         private static void LoadCulture(string cultureName)
         {
             try

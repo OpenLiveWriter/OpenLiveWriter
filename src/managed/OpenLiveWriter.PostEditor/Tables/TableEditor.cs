@@ -186,7 +186,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             return tableEditor.InsertRowBelow();
         }
 
-
         public static void MoveRowUp(IHtmlEditorComponentContext editorContext)
         {
             MarkupRange selectedMarkupRange = editorContext.Selection.SelectedMarkupRange;
@@ -376,7 +375,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             tableEditor.MakeEmptyCellsNull();
         }
 
-
         #region Construction and Initialization
 
         private TableEditor(IHtmlEditorComponentContext editorContext)
@@ -390,11 +388,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             _markupRange = markupRange;
         }
 
-
         #endregion
 
         #region Table Level Commands
-
 
         private TableProperties TableProperties
         {
@@ -493,7 +489,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         #endregion
 
         #region Row Level Commands
-
 
         private RowProperties RowProperties
         {
@@ -923,9 +918,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 undoUnit.Commit();
             }
 
-
         }
-
 
         /// <summary>
         /// Routine to automatically add/remove/restore &nbsp; to empty cells so that
@@ -1077,7 +1070,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             textRange.select();
         }
 
-
         #endregion
 
         #region Private Helpers
@@ -1213,7 +1205,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             return verticalAlignment;
         }
 
-
         private bool TableParentElementFilter(IHTMLElement e)
         {
             if (ElementFilters.BLOCK_ELEMENTS(e))
@@ -1235,7 +1226,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             return cell as IHTMLTableCell;
         }
 
-
         private void DeleteTableIfEmpty()
         {
             IHTMLElement tableElement = TableSelection.Table as IHTMLElement;
@@ -1247,7 +1237,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
 
         }
-
 
         private void InsertAdjacentColumn(HTMLTableColumn column, bool after)
         {
@@ -1282,7 +1271,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             private MarkupRange _preservedMarkupRange = null;
         }
 
-
         #endregion
 
         #region Private Data and Constants
@@ -1296,7 +1284,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         #endregion
 
     }
-
 
     public class TableCreationParameters
     {

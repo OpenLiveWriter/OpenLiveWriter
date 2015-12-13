@@ -91,7 +91,6 @@ namespace OpenLiveWriter.FileDestinations
                 if (CopyFile(fromPath, toPath, overWrite))
                     break;
 
-
                 // Wait and then retry copyfile
                 attempts++;
 
@@ -114,7 +113,6 @@ namespace OpenLiveWriter.FileDestinations
                     0);
 
         }
-
 
         /// <summary>
         /// This method is called to make a connection to the destination

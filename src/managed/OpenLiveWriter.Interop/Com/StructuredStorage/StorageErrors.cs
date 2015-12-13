@@ -364,10 +364,10 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
 
         /*++
 
-			 MessageId's 0x0305 - 0x031f (inclusive) are reserved for **STORAGE**
-			 copy protection errors.
+             MessageId's 0x0305 - 0x031f (inclusive) are reserved for **STORAGE**
+             copy protection errors.
 
-			--*/
+            --*/
         //
         // MessageId: STG_E_STATUS_COPY_PROTECTION_FAILURE
         //

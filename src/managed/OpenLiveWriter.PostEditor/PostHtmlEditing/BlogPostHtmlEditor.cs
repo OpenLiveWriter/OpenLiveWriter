@@ -457,7 +457,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         private Command _commandClosePreview;
 
-
         protected override void ManageCommandsForEditingMode()
         {
             base.ManageCommandsForEditingMode();

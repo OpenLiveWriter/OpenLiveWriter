@@ -58,14 +58,12 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="output">output parameter</param>
         void Execute(OLECMDEXECOPT execOption, object input, ref object output);
 
-
         /// <summary>
         /// Get the value of the command
         /// </summary>
         /// <returns></returns>
         object GetValue();
     }
-
 
     /// <summary>
     /// Core command set exposed by MSHTML
@@ -195,7 +193,6 @@ namespace OpenLiveWriter.Mshtml
         private IOleCommandTargetWithExecParams commandTarget;
     }
 
-
     /// <summary>
     /// Class which implements access to an MSHTML command that is defined as
     /// part of the core command set
@@ -259,7 +256,6 @@ namespace OpenLiveWriter.Mshtml
                     return false;
             }
         }
-
 
         /// <summary>
         /// Execute the command without parameters
@@ -325,7 +321,6 @@ namespace OpenLiveWriter.Mshtml
 
         }
 
-
         /// <summary>
         /// Get the value of the command
         /// </summary>
@@ -372,7 +367,6 @@ namespace OpenLiveWriter.Mshtml
         protected IOleCommandTargetGetCommandValue getValueCommandTarget;
 
     }
-
 
     /// <summary>
     /// Constant representing the Guid of the MSHTML core command set

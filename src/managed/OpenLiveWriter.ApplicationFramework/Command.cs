@@ -1248,7 +1248,6 @@ namespace OpenLiveWriter.ApplicationFramework
         }
         private bool commandBarButtonContextMenuInvalidateParent = false;
 
-
         /// <summary>
         /// Gets or sets the command text.
         /// </summary>

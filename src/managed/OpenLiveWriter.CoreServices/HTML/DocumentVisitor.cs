@@ -122,7 +122,6 @@ namespace OpenLiveWriter.CoreServices.HTML
 
         protected virtual void OnText(IHTMLTextElement el) { }
 
-
         private const int INDENT_SPACES = 4;
         private StringBuilder indent = new StringBuilder("");
         private void IncreaseIndent()

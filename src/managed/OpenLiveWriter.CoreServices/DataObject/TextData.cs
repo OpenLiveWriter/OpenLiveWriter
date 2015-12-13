@@ -34,7 +34,6 @@ namespace OpenLiveWriter.CoreServices
             return null;
         }
 
-
         /// <summary>
         /// The title of the Text DataObject
         /// </summary>

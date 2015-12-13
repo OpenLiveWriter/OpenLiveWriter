@@ -36,7 +36,6 @@ namespace OpenLiveWriter.PostEditor
             _undoRedoCheck = undoRedoCheck;
         }
 
-
         public string TextValue
         {
             // The innerText may contain a shortened form of the title

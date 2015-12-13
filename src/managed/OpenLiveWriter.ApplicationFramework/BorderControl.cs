@@ -73,7 +73,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// <summary>
         /// True if bottom border should not be used.
         /// </summary>
-	    private bool suppressBottomBorder;
+        private bool suppressBottomBorder;
 
         /// <summary>
         /// The right inset.

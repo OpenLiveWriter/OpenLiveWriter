@@ -5,54 +5,53 @@ using System.ComponentModel;
 
 namespace OpenLiveWriter.ApplicationFramework.Commands
 {
-	/// <summary>
-	/// Summary description for CommandCopy.
-	/// </summary>
-	public class CommandBold : Command
-	{
+    /// <summary>
+    /// Summary description for CommandCopy.
+    /// </summary>
+    public class CommandBold : Command
+    {
 
-		public CommandBold(IContainer container)
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandBold(IContainer container)
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			//
-			//
-		}
+            //
+            //
+            //
+        }
 
-		public CommandBold()
-		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
-			InitializeComponent();
+        public CommandBold()
+        {
+            ///
+            /// Required for Windows.Forms Class Composition Designer support
+            ///
+            InitializeComponent();
 
-			//
-			//
-			//
-		}
+            //
+            //
+            //
+        }
 
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            //
+            // CommandBold
+            //
+            this.ContextMenuPath = "";
+            this.Identifier = "MindShare.ApplicationCore.Commands.Bold";
+            this.MainMenuPath = "";
+            this.Shortcut = System.Windows.Forms.Shortcut.CtrlB;
+            this.Text = "Bold";
 
-		#region Component Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			//
-			// CommandBold
-			//
-			this.ContextMenuPath = "";
-			this.Identifier = "MindShare.ApplicationCore.Commands.Bold";
-			this.MainMenuPath = "";
-			this.Shortcut = System.Windows.Forms.Shortcut.CtrlB;
-			this.Text = "Bold";
-
-		}
-		#endregion
-	}
+        }
+        #endregion
+    }
 }

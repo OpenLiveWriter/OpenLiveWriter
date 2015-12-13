@@ -61,7 +61,6 @@ namespace OpenLiveWriter.Interop.Com
         public const int E_POINTER = unchecked((int)0x80004003);
     }
 
-
     /// <summary>
     /// Common OLE error codes
     /// </summary>

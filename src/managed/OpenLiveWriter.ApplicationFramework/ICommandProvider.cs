@@ -5,17 +5,17 @@ using System;
 
 namespace Project31.ApplicationFramework
 {
-	/// <summary>
-	/// Interface for command providers.
-	/// </summary>
-	public interface ICommandProvider
-	{
-		/// <summary>
-		/// Returns the command list for the command provider.
-		/// </summary>
-		CommandList CommandList
-		{
-			get;
-		}
-	}
+    /// <summary>
+    /// Interface for command providers.
+    /// </summary>
+    public interface ICommandProvider
+    {
+        /// <summary>
+        /// Returns the command list for the command provider.
+        /// </summary>
+        CommandList CommandList
+        {
+            get;
+        }
+    }
 }

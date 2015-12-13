@@ -112,7 +112,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         public static int GetRowHeight(IHTMLTableRow row)
         {
             IHTMLTableRow2 row2 = row as IHTMLTableRow2;

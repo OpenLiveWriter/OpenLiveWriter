@@ -158,7 +158,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private Hashtable m_metaData = new Hashtable();
 
-
         public LightWeightHTMLDocumentData LightWeightHTMLDocumentData
         {
             get

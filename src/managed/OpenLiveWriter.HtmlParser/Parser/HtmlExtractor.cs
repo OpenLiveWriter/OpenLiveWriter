@@ -39,7 +39,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
         /// <summary>
         /// Returns the underlying parser that the HtmlExtractor is wrapping.
         /// </summary>
-		public SimpleHtmlParser Parser
+        public SimpleHtmlParser Parser
         {
             get { return parser; }
         }
@@ -47,7 +47,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
         /// <summary>
         /// Indicates whether the last match succeeded.
         /// </summary>
-		public bool Success
+        public bool Success
         {
             get
             {
@@ -59,7 +59,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
         /// Gets the element that was last matched. If the last
         /// match failed, then returns null.
         /// </summary>
-		public Element Element
+        public Element Element
         {
             get
             {
@@ -76,7 +76,7 @@ namespace OpenLiveWriter.HtmlParser.Parser
         ///
         /// if (ex.Seek(...).Success || ex.Reset().Seek(...).Success) { ... }
         /// </returns>
-		public HtmlExtractor Reset()
+        public HtmlExtractor Reset()
         {
             lastMatch = null;
             parser = new SimpleHtmlParser(html);
@@ -114,26 +114,26 @@ namespace OpenLiveWriter.HtmlParser.Parser
         /// Seeks forward from the current position for the criterion.
         ///
         /// If the seek fails, the parser will be positioned at the end of the file--all
-		/// future seeks will also fail (until Reset() is called).
+        /// future seeks will also fail (until Reset() is called).
         /// </summary>
-		/// <param name="criterion">
-		/// Can be either a begin tag or end tag, or a run of text, or a comment.
-		///
-		/// Examples of start tags:
-		/// <a> (any anchor tag)
-		/// <a name> (any anchor tag that has at least one "name" attribute (with or without value)
-		/// <a name='title'> (any anchor tag that has a name attribute whose value is "title")
-		///
-		/// Example of end tag:
-		/// </a> (any end anchor tag)
-		///
-		/// Examples of invalid criteria:
-		/// <a></a> (only one criterion allowed per seek; chain Seek() calls if necessary)
-		/// foo (only begin tags and end tags are allowed)
-		///
-		/// TODO: Allow regular expression matching on attribute values, e.g. <a class=/^heading.*$/>
-		/// </param>
-		public HtmlExtractor Seek(string criterion)
+        /// <param name="criterion">
+        /// Can be either a begin tag or end tag, or a run of text, or a comment.
+        ///
+        /// Examples of start tags:
+        /// <a> (any anchor tag)
+        /// <a name> (any anchor tag that has at least one "name" attribute (with or without value)
+        /// <a name='title'> (any anchor tag that has a name attribute whose value is "title")
+        ///
+        /// Example of end tag:
+        /// </a> (any end anchor tag)
+        ///
+        /// Examples of invalid criteria:
+        /// <a></a> (only one criterion allowed per seek; chain Seek() calls if necessary)
+        /// foo (only begin tags and end tags are allowed)
+        ///
+        /// TODO: Allow regular expression matching on attribute values, e.g. <a class=/^heading.*$/>
+        /// </param>
+        public HtmlExtractor Seek(string criterion)
         {
             lastMatch = null;
 
@@ -188,12 +188,12 @@ namespace OpenLiveWriter.HtmlParser.Parser
             return HtmlUtils.HTMLToPlainText(parser.CollectHtmlUntil(endTagName));
             /*
 
-						string text = parser.CollectTextUntil(endTagName);
-						if (convertToPlainText && text != null)
-							return HtmlUtils.HTMLToPlainText(text);
-						else
-							return text;
-			*/
+                        string text = parser.CollectTextUntil(endTagName);
+                        if (convertToPlainText && text != null)
+                            return HtmlUtils.HTMLToPlainText(text);
+                        else
+                            return text;
+            */
         }
 
         /// <summary>

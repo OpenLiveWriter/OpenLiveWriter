@@ -213,7 +213,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-
         private class WeblogType
         {
             public WeblogType(IBlogProviderAccountWizardDescription providerAccountWizard)
@@ -267,7 +266,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             private RadioButton _radioButton;
             private IBlogProviderAccountWizardDescription _providerAccountWizard;
         }
-
 
         /// <summary>
         /// Clean up any resources being used.

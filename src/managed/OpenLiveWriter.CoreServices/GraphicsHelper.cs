@@ -163,24 +163,24 @@ namespace OpenLiveWriter.CoreServices
 
             return new Rectangle[]
                 {
-					// top left
-					new Rectangle(left, top, leftWidth, topHeight),
-					// top center
-					new Rectangle(center, top, centerWidth, topHeight),
-					// top right
-					new Rectangle(right, top, rightWidth, topHeight),
-					// left
-					new Rectangle(left, middle, leftWidth, middleHeight),
+                    // top left
+                    new Rectangle(left, top, leftWidth, topHeight),
+                    // top center
+                    new Rectangle(center, top, centerWidth, topHeight),
+                    // top right
+                    new Rectangle(right, top, rightWidth, topHeight),
+                    // left
+                    new Rectangle(left, middle, leftWidth, middleHeight),
                     // middle
                     new Rectangle(center, middle, centerWidth, middleHeight),
-					// right
-					new Rectangle(right, middle, rightWidth, middleHeight),
-					// bottom left
-					new Rectangle(left, bottom, leftWidth, bottomHeight),
-					// bottom center
-					new Rectangle(center, bottom, centerWidth, bottomHeight),
-					// bottom right
-					new Rectangle(right, bottom, rightWidth, bottomHeight)
+                    // right
+                    new Rectangle(right, middle, rightWidth, middleHeight),
+                    // bottom left
+                    new Rectangle(left, bottom, leftWidth, bottomHeight),
+                    // bottom center
+                    new Rectangle(center, bottom, centerWidth, bottomHeight),
+                    // bottom right
+                    new Rectangle(right, bottom, rightWidth, bottomHeight)
                 };
         }
 

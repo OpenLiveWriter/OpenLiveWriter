@@ -119,5 +119,4 @@ namespace OpenLiveWriter.CoreServices
         private T _value;
     }
 
-
 }

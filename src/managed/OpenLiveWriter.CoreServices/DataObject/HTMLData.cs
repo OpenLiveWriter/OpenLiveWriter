@@ -444,7 +444,6 @@ namespace OpenLiveWriter.CoreServices
         // Hashtable caches headers as they get read
         private Hashtable m_HTMLFormatHeaders = new Hashtable(StringComparer.OrdinalIgnoreCase);
 
-
         /// <summary>
         /// Helper function to extract and UTF8-decode the underlying CF_HTML.
         /// </summary>
@@ -485,7 +484,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private byte[] m_HTMLBytes;
-
 
         /// <summary>
         /// Retrieves the bytes representing the data in the HTML format of the HTMLData's

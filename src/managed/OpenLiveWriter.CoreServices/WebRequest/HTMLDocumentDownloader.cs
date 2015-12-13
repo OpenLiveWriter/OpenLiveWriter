@@ -13,7 +13,6 @@ using OpenLiveWriter.CoreServices.Progress;
 namespace OpenLiveWriter.CoreServices
 {
 
-
     /// <summary>
     /// Gets HTMLDocuments for a given URL.  It gets two versions of the Document,
     /// one that can be used to get a list of references in the Document and one that
@@ -258,7 +257,6 @@ namespace OpenLiveWriter.CoreServices
                 Monitor.PulseAll(this);
             }
         }
-
 
         #region IDisposable Members
 

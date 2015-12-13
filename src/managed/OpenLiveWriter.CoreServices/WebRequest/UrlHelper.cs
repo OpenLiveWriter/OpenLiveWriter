@@ -126,51 +126,51 @@ namespace OpenLiveWriter.CoreServices
             // The only downside of using the Uri above is that it doesn't handle UNC paths of the form:
             // \\?\UNC\...
 
-		    // allocate buffer to hold url
-			uint bufferSize = 4096 ;
-			StringBuilder buffer = new StringBuilder(Convert.ToInt32(bufferSize)) ;
+            // allocate buffer to hold url
+            uint bufferSize = 4096 ;
+            StringBuilder buffer = new StringBuilder(Convert.ToInt32(bufferSize)) ;
 
-			// normalize the url
-			int result = Shlwapi.UrlCreateFromPath( path, buffer, ref bufferSize, 0 ) ;
+            // normalize the url
+            int result = Shlwapi.UrlCreateFromPath( path, buffer, ref bufferSize, 0 ) ;
 
-			// successfully converted
-			if ( result == HRESULT.S_OK )
-			{
-				// return URL converted to a .NET URL encoded value
-				string url = buffer.ToString();
-				url = ShlwapiFileUrlToDotnetEncodedUrl(url); //fixes bug 47859
+            // successfully converted
+            if ( result == HRESULT.S_OK )
+            {
+                // return URL converted to a .NET URL encoded value
+                string url = buffer.ToString();
+                url = ShlwapiFileUrlToDotnetEncodedUrl(url); //fixes bug 47859
 
-				try
-				{
-					if(new FileInfo(path).FullName != new FileInfo(new Uri(url).LocalPath).FullName)
-					{
-						Trace.Fail("Possible bug encoding/decoding path: " + path);
-					}
-				}
-				catch(Exception ex)
-				{
-					Trace.Fail("Exception while checking path encoding. Original path: " + path + " url from Shlwapi: " + url);
-					throw ex;
-				}
-				return url;
-			}
-				// didn't need conversion
-			else if ( result == HRESULT.S_FALSE )
+                try
+                {
+                    if(new FileInfo(path).FullName != new FileInfo(new Uri(url).LocalPath).FullName)
+                    {
+                        Trace.Fail("Possible bug encoding/decoding path: " + path);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Trace.Fail("Exception while checking path encoding. Original path: " + path + " url from Shlwapi: " + url);
+                    throw ex;
+                }
+                return url;
+            }
+                // didn't need conversion
+            else if ( result == HRESULT.S_FALSE )
 
-			{
-				// docs say that even if we don't need conversion it will
-				// copy the buffer we passed it to the result
-				Debug.Assert( path.Equals(buffer.ToString()) );
+            {
+                // docs say that even if we don't need conversion it will
+                // copy the buffer we passed it to the result
+                Debug.Assert( path.Equals(buffer.ToString()) );
 
-				// return start url
-				return path ;
-			}
-				// unxpected error occurred!
-			else
-			{
-				throw new
-					COMException( "Error calling UrlCreateFromPath for path " + path, result ) ;
-			}
+                // return start url
+                return path ;
+            }
+                // unxpected error occurred!
+            else
+            {
+                throw new
+                    COMException( "Error calling UrlCreateFromPath for path " + path, result ) ;
+            }
 #endif
         }
 
@@ -328,28 +328,28 @@ namespace OpenLiveWriter.CoreServices
             else
                 return false;
 #if false
-			// TODO: For some reason, IsvalidURL is always returning 1 (S_FALSE)
-			// no matter what URL you pass into the sucker.
-			// Handle only the base URL
-			if (url.IndexOf("?") > -1)
-				url = url.Substring(0, url.IndexOf("?"));
+            // TODO: For some reason, IsvalidURL is always returning 1 (S_FALSE)
+            // no matter what URL you pass into the sucker.
+            // Handle only the base URL
+            if (url.IndexOf("?") > -1)
+                url = url.Substring(0, url.IndexOf("?"));
 
-			int hResult = UrlMon.IsValidURL(
-				IntPtr.Zero,
-				url,
-				0);
+            int hResult = UrlMon.IsValidURL(
+                IntPtr.Zero,
+                url,
+                0);
 
-			switch (hResult)
-			{
-				case HRESULT.S_OK:
-					return true;
-				case HRESULT.E_INVALIDARG:
-					Trace.Log("IsUrl returned HRESULT.E_INVALIDARG for this url: " + url);
-					return false;
-				case HRESULT.S_FALSE:
-				default:
-					return false;
-			}
+            switch (hResult)
+            {
+                case HRESULT.S_OK:
+                    return true;
+                case HRESULT.E_INVALIDARG:
+                    Trace.Log("IsUrl returned HRESULT.E_INVALIDARG for this url: " + url);
+                    return false;
+                case HRESULT.S_FALSE:
+                default:
+                    return false;
+            }
 #endif
         }
 
@@ -794,7 +794,6 @@ namespace OpenLiveWriter.CoreServices
         {
             return string.Format(CultureInfo.InvariantCulture, "<!-- saved from url=({0:0000}){1} -->\r\n", url.Length, url);
         }
-
 
         public static bool IsUrlLinkable(string url)
         {

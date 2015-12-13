@@ -5,21 +5,21 @@ using System.Runtime.InteropServices;
 
 namespace OpenLiveWriter.Interop.Com.ActiveDocuments
 {
-	/// <summary>
-	///
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("b722bcca-4e68-101b-a2bc-00aa00404770")]
-	public interface IContinueCallback
-	{
-		[PreserveSig]
-		int FContinue() ;
+    /// <summary>
+    ///
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("b722bcca-4e68-101b-a2bc-00aa00404770")]
+    public interface IContinueCallback
+    {
+        [PreserveSig]
+        int FContinue() ;
 
         [PreserveSig]
-		int FContinuePrinting(
-			[In] int nCntPrinted,
-			[In] int nCurPage,
-			[In, MarshalAs(UnmanagedType.LPWStr)] string pwszPrintStatus ) ;
-	}
+        int FContinuePrinting(
+            [In] int nCntPrinted,
+            [In] int nCurPage,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string pwszPrintStatus ) ;
+    }
 }

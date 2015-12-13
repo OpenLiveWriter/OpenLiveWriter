@@ -41,25 +41,25 @@ namespace OpenLiveWriter.Controls
             // TECHNIQUE THAT DOES NOT STARVE THE UI THREAD. DO NOT UNDER ANY CONDITIONS RESTORE
             // THIS CODE!!!!!!
             /*
-			// start out by polling the get post operation for completion for the delay interval
-			using ( new WaitCursor() )
-			{
-				const int SPLICE_MS = 100 ;
-				int waitMs = 0 ;
-				while( waitMs < delayMs )
-				{
-					if ( asyncOperation.IsDone )
-					{
-						return ;
-					}
-					else
-					{
-						Thread.Sleep(SPLICE_MS);
-						waitMs += SPLICE_MS ;
-					}
-				}
-			}
-			*/
+            // start out by polling the get post operation for completion for the delay interval
+            using ( new WaitCursor() )
+            {
+                const int SPLICE_MS = 100 ;
+                int waitMs = 0 ;
+                while( waitMs < delayMs )
+                {
+                    if ( asyncOperation.IsDone )
+                    {
+                        return ;
+                    }
+                    else
+                    {
+                        Thread.Sleep(SPLICE_MS);
+                        waitMs += SPLICE_MS ;
+                    }
+                }
+            }
+            */
 
             // got past the delay interval, need to signup for events and show the dialog
             _asyncOperation = asyncOperation;

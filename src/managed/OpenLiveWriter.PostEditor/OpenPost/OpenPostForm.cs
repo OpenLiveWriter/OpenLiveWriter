@@ -437,7 +437,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             // This width depends on the contents of the combo, which are dynamic
             DisplayHelper.AutoFitSystemCombo(comboBoxPosts, 0, int.MaxValue, false);
 
-
             int HPADDING = GetHpadding();
             int x;
 
@@ -529,7 +528,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             // save settings
             PostEditorSettings.OpenPostFormSize = Size;
         }
-
 
         private void SaveNumberOfPostsSettings()
         {
@@ -857,7 +855,6 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         }
         #endregion
 
-
         private Button buttonOK;
         private Button buttonCancel;
         private BlogPostSourceListBox listBoxPostSources;
@@ -895,5 +892,4 @@ namespace OpenLiveWriter.PostEditor.OpenPost
         private bool _postIsValid;
     }
 }
-
 

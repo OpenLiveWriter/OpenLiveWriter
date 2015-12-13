@@ -27,7 +27,6 @@ namespace OpenLiveWriter.PostEditor
         /// </summary>
         private Container components = null;
 
-
         public RecentPostProgressForm(string entityName)
         {
             //
@@ -169,7 +168,6 @@ namespace OpenLiveWriter.PostEditor
 
         }
         #endregion
-
 
 
     }

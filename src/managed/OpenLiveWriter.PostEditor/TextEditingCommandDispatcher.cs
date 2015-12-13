@@ -826,7 +826,6 @@ namespace OpenLiveWriter.PostEditor
                     ActiveSimpleTextEditor.Paste();
             }
 
-
             public override void Manage()
             {
                 Enabled = ActiveSimpleTextEditor.CanPaste;
@@ -987,7 +986,6 @@ namespace OpenLiveWriter.PostEditor
                 return new OverridableCommand(CommandId);
             }
         }
-
 
         internal class LetterCommand : OverridableCommand, CommandBarButtonLightweightControl.ICustomButtonBitmapPaint
         {
@@ -1160,7 +1158,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private class StyleCommand : TextEditingCommand
         {
             IHtmlStylePicker _stylePicker;
@@ -1266,7 +1263,6 @@ namespace OpenLiveWriter.PostEditor
             public override CommandId CommandId { get { return CommandId.AlignRight; } }
             public override string ContextMenuText { get { return Command.MenuText; } }
         }
-
 
         private class NumbersCommand : LatchedTextEditingCommand
         {

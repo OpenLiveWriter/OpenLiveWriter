@@ -28,9 +28,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             verboseLogging = true;
             allowUnsafeCertificates = true;
 #else
-			testMode = false;
-			verboseLogging = false;
-			allowUnsafeCertificates = false;
+            testMode = false;
+            verboseLogging = false;
+            allowUnsafeCertificates = false;
 #endif
         }
         public static bool TestMode
@@ -176,7 +176,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 #if DEBUG
                 return new DiagnosticsConsole(bufferingTraceListener, title);
 #else
-				throw new NotSupportedException("Diagnostic console is only available in debug mode");
+                throw new NotSupportedException("Diagnostic console is only available in debug mode");
 #endif
             }
         }

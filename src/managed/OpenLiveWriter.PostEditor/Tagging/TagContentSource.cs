@@ -87,6 +87,5 @@ namespace OpenLiveWriter.PostEditor.Tagging
             options.ShowDialog(dialogOwner);
         }
 
-
     }
 }

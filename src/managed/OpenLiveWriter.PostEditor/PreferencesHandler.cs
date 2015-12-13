@@ -30,7 +30,7 @@ namespace OpenLiveWriter.PostEditor
         /// <summary>
         /// The name to preferences panel type table.
         /// </summary>
-		private static Hashtable preferencesPanelTypeTable;
+        private static Hashtable preferencesPanelTypeTable;
 
         public static PreferencesHandler Instance
         {
@@ -58,7 +58,6 @@ namespace OpenLiveWriter.PostEditor
                 type = (Type)preferencesPanelTypeTable[selectedPanelName.ToLower(CultureInfo.InvariantCulture)];
             ShowPreferences(owner, null, type);
         }
-
 
         /// <summary>
         /// A version of show preferences that allows the caller to specify which

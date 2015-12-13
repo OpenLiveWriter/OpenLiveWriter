@@ -106,7 +106,6 @@ namespace OpenLiveWriter.CoreServices
             return html;
         }
 
-
         private int _scriptDepth = 0;
         protected override void OnBeginTag(BeginTag tag)
         {
@@ -393,7 +392,6 @@ namespace OpenLiveWriter.CoreServices
                 }
             }
 
-
             //check substitution Urls
             return value;
         }
@@ -406,7 +404,6 @@ namespace OpenLiveWriter.CoreServices
             return false;
         }
         private static string[] _jscriptAttributes = new string[] { "onload", "onclick", "onblur", "onchange", "onerror", "onfocus", "onmouseout", "onmouseover", "onreset", "onsubmit", "onselect", "onunload", "onmousedown", "onmouseup", "ondblclick", "onmousemove", "onkeypress", "onkeydown", "onkeyup", };
-
 
         private void ModifyMetaDataAsNecessary(BeginTag tag)
         {
@@ -505,6 +502,5 @@ namespace OpenLiveWriter.CoreServices
 
         private static string[] _permittedBeforeBody = new string[] { HTMLTokens.Html, HTMLTokens.Head, HTMLTokens.Title, HTMLTokens.Script, HTMLTokens.Style, HTMLTokens.Meta, HTMLTokens.Link, HTMLTokens.Object, HTMLTokens.Base, HTMLTokens.Frame, HTMLTokens.FrameSet, HTMLTokens.NoScript };
     }
-
 
 }

@@ -50,8 +50,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                          new ImageDecorator(PhotoBorderDecorator.Id, Res.Get(StringId.DecoratorPhotopaper), typeof(PhotoBorderDecorator), BORDER_GROUP, true, false, true, false),
                                          new ImageDecorator(ReflectionBorderDecorator.Id, Res.Get(StringId.DecoratorReflection), typeof(ReflectionBorderDecorator), BORDER_GROUP, true, false, true, false),
                                          new ImageDecorator(RoundedCornersBorderDecorator.Id, Res.Get(StringId.DecoratorRoundedCorners), typeof(RoundedCornersBorderDecorator), BORDER_GROUP, true, false, true, false),
-										 //new ImageDecorator(SoftShadowBorderDecorator.Id, "Soft Shadow", typeof(SoftShadowBorderDecorator), true, false, true, false),
-										 new ImageDecorator(ThinSolidBorderDecorator.Id, Res.Get(StringId.DecoratorSolid1px), typeof(ThinSolidBorderDecorator), BORDER_GROUP, true, false, true, false),
+                                         //new ImageDecorator(SoftShadowBorderDecorator.Id, "Soft Shadow", typeof(SoftShadowBorderDecorator), true, false, true, false),
+                                         new ImageDecorator(ThinSolidBorderDecorator.Id, Res.Get(StringId.DecoratorSolid1px), typeof(ThinSolidBorderDecorator), BORDER_GROUP, true, false, true, false),
                                          new ImageDecorator(ThickSolidBorderDecorator.Id, Res.Get(StringId.DecoratorSolid3px), typeof(ThickSolidBorderDecorator), BORDER_GROUP, true, false, true, false),
             });
             ImageDecoratorGroup colors = new ImageDecoratorGroup(ADJUST_COLOR_GROUP, false,
@@ -166,23 +166,23 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private void RegisterImageDecoratorPlugins()
         {
 #if SUPPORT_PLUGINS
-			Type[] pluginImplTypes = PostEditorPluginManager.Instance.GetPlugins(typeof(IImageDecorator));
-			foreach(Type pluginImplType in pluginImplTypes)
-			{
-				object[] attrs = pluginImplType.GetCustomAttributes(typeof(ImageDecoratorAttribute), true);
-				if(attrs.Length > 0)
-				{
-					ImageDecoratorAttribute decAttr = (ImageDecoratorAttribute)attrs[0];
-					AddDecorator(
-						decAttr.Group != null ? decAttr.Group : DefaultGroupName,
-						new ImageDecorator(
-						decAttr.Id != null ? decAttr.Id : pluginImplType.FullName,
-						decAttr.Name,
-						pluginImplType, false));
-				}
-				else
-					AddDecorator(DefaultGroupName, new ImageDecorator(pluginImplType.FullName, pluginImplType.Name, pluginImplType, false));
-			}
+            Type[] pluginImplTypes = PostEditorPluginManager.Instance.GetPlugins(typeof(IImageDecorator));
+            foreach(Type pluginImplType in pluginImplTypes)
+            {
+                object[] attrs = pluginImplType.GetCustomAttributes(typeof(ImageDecoratorAttribute), true);
+                if(attrs.Length > 0)
+                {
+                    ImageDecoratorAttribute decAttr = (ImageDecoratorAttribute)attrs[0];
+                    AddDecorator(
+                        decAttr.Group != null ? decAttr.Group : DefaultGroupName,
+                        new ImageDecorator(
+                        decAttr.Id != null ? decAttr.Id : pluginImplType.FullName,
+                        decAttr.Name,
+                        pluginImplType, false));
+                }
+                else
+                    AddDecorator(DefaultGroupName, new ImageDecorator(pluginImplType.FullName, pluginImplType.Name, pluginImplType, false));
+            }
 #endif
         }
 

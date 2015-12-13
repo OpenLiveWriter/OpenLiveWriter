@@ -102,7 +102,6 @@ namespace OpenLiveWriter.Interop.Windows
             bool bErase          // erase state
             );
 
-
         [DllImport("User32.dll")]
         public static extern bool UpdateWindow(
             IntPtr hWnd   // handle to window
@@ -131,7 +130,6 @@ namespace OpenLiveWriter.Interop.Windows
 
         [DllImport("User32.dll")]
         public static extern bool IsWindowVisible(IntPtr hWnd);
-
 
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern bool SetWindowText(
@@ -310,7 +308,6 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-
         [DllImport("User32.dll")]
         public static extern bool PeekMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
 
@@ -417,7 +414,6 @@ namespace OpenLiveWriter.Interop.Windows
 
         [DllImport("user32.dll")]
         public static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
-
 
         /// <summary>
         /// Registers a new clipboard format. This format can then be used as a valid
@@ -740,7 +736,6 @@ namespace OpenLiveWriter.Interop.Windows
     /// </summary>
     public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam);
 
-
     public struct WINDOWPLACEMENT
     {
         public uint length;
@@ -777,7 +772,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint ENABLED = 0x00000000;
         public const uint DISABLED = 0x00000002;
     }
-
 
     public struct PM
     {
@@ -979,7 +973,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const int HELP = 9;
     }
 
-
     public struct WPF
     {
         public const int RESTORETOMAXIMIZED = 0x0002;
@@ -1037,7 +1030,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint VERNEGANIMATION = 0x2000;
         public const uint LAYOUTRTL = 0x8000;
     }
-
 
 
     /// <summary>
@@ -1334,7 +1326,6 @@ namespace OpenLiveWriter.Interop.Windows
         public static readonly IntPtr NOTOPMOST = new IntPtr(-2);
         public static readonly IntPtr MESSAGE = new IntPtr(-3);
     }
-
 
     /// <summary>
     /// Hook codes passed to HookDelegate
@@ -1674,6 +1665,5 @@ namespace OpenLiveWriter.Interop.Windows
         [FieldOffset(16)]
         public IntPtr ipFile;
     };
-
 
 }

@@ -85,7 +85,6 @@ namespace OpenLiveWriter.Interop.Windows
             [In] uint dwReserved);
 
 
-
         /// <summary>
         /// Searches for and retrieves a file association-related string from the registry.
         /// </summary>
@@ -225,6 +224,5 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint AUTOAPPEND_FORCE_ON = 0x40000000;  // Ignore the registry default and force the feature on. (Also know as AutoComplete)
         public const uint AUTOAPPEND_FORCE_OFF = 0x80000000;  // Ignore the registry default and force the feature off. (Also know as AutoComplete)
     }
-
 
 }
