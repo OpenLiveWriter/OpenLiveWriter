@@ -17,7 +17,9 @@ A: Since .NET runs on Mac OS and Linux, it is possible to port some of the code 
 A: Yes! Open Live Writer is licensed under the open source [MIT license](https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt). If someone made you pay for your copy of Open Live Writer then ask for your money back and go download from http://openlivewriter.org
 
 ##### Q: I found a bug, what do I do?
-A: Please submit an issue via GitHub: https://github.com/OpenLiveWriter/OpenLiveWriter/issues/new
+A: Add to an existing issue or create a new issue via GitHub: https://github.com/OpenLiveWriter/OpenLiveWriter/issues/new
+   Before creating a new issue, make sure that the issue does not already exist and feel free to add to the issue.
+   When creating a new issue, identify as much information as you can to assist the developers in fixing the issue.
 
 ##### Q: How can I get involved?
 A: WELCOME!  We definitely love contributions!  
