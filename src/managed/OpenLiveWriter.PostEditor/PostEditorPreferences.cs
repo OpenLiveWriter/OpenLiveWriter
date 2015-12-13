@@ -67,6 +67,13 @@ namespace OpenLiveWriter.PostEditor
         }
         private int _autoSaveMinutes;
 
+        public string WeblogPostsFolder
+        {
+            get { return _weblogPostsFolder; }
+            set { _weblogPostsFolder = value; Modified(); }
+        }
+        private string _weblogPostsFolder;
+
         protected override void LoadPreferences()
         {
             PostWindowBehavior = PostEditorSettings.PostWindowBehavior;
@@ -77,6 +84,7 @@ namespace OpenLiveWriter.PostEditor
             TagReminder = PostEditorSettings.TagReminder;
             AutoSaveDrafts = PostEditorSettings.AutoSaveDrafts;
             AutoSaveMinutes = PostEditorSettings.AutoSaveMinutes;
+            WeblogPostsFolder = PostEditorSettings.WeblogPostsFolder;
         }
 
         protected override void SavePreferences()
@@ -89,6 +97,7 @@ namespace OpenLiveWriter.PostEditor
             PostEditorSettings.TagReminder = TagReminder;
             PostEditorSettings.AutoSaveDrafts = AutoSaveDrafts;
             PostEditorSettings.AutoSaveMinutes = AutoSaveMinutes;
+            PostEditorSettings.WeblogPostsFolder = WeblogPostsFolder;
         }
 
     }

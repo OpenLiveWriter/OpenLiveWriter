@@ -70,28 +70,25 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return _mMyWeblogPostsFolder;
+                return new DirectoryInfo(ApplicationEnvironment.MyWeblogPostsFolder);
             }
         }
-        private static readonly DirectoryInfo _mMyWeblogPostsFolder = new DirectoryInfo(ApplicationEnvironment.MyWeblogPostsFolder);
 
         public static DirectoryInfo DraftsFolder
         {
             get
             {
-                return _draftsFolder;
+                return new DirectoryInfo(Path.Combine(MyWeblogPostsFolder.FullName, "Drafts"));
             }
         }
-        private static readonly DirectoryInfo _draftsFolder = new DirectoryInfo(Path.Combine(MyWeblogPostsFolder.FullName, "Drafts"));
 
         public static DirectoryInfo RecentPostsFolder
         {
             get
             {
-                return _recentPostsFolder;
+                return new DirectoryInfo(Path.Combine(MyWeblogPostsFolder.FullName, "Recent Posts"));
             }
         }
-        private static readonly DirectoryInfo _recentPostsFolder = new DirectoryInfo(Path.Combine(MyWeblogPostsFolder.FullName, "Recent Posts"));
 
         public static PostInfo[] GetRecentPosts(DirectoryInfo directory, RecentPostRequest request)
         {
