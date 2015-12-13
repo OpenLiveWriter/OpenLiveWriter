@@ -21,6 +21,7 @@ using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.HtmlParser.Parser.FormAgent;
 using OpenLiveWriter.Localization;
 using Google.Apis.Blogger.v3;
+using System.Reflection;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -29,6 +30,13 @@ namespace OpenLiveWriter.BlogClient.Clients
     {
         public static string PicasaServiceScope = "https://picasaweb.google.com/data";
         public static string BloggerServiceScope = BloggerService.Scope.Blogger;
+        public static Stream ClientSecretsStream
+        {
+            get
+            {
+                return ResourceHelper.LoadAssemblyResourceStream("Clients.GoogleBloggerv3Secrets.json");
+            }
+        }
 
         public BloggerAtomClient(Uri postApiUrl, IBlogCredentialsAccessor credentials)
             : base(AtomProtocolVersion.V10DraftBlogger, postApiUrl, credentials)

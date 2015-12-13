@@ -214,6 +214,17 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />
+  <PropertyGroup>
+    <BloggerClientSecretsJson>Clients\GoogleBloggerv3Secrets.json</BloggerClientSecretsJson>
+    <OlwBloggerClientId Condition="'$(OlwBloggerClientId)'==''">ClientId</OlwBloggerClientId>
+    <OlwBloggerClientSecret Condition="'$(OlwBloggerClientSecret)'==''">ClientSecret</OlwBloggerClientSecret>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Condition="Exists('$(BloggerClientSecretsJson)')" Include="$(BloggerClientSecretsJson)" />
+  </ItemGroup>
+  <Target Name="GenerateBloggerClientSecrets" DependsOnTargets="ResolveProjectReferences" BeforeTargets="CoreCompile" Outputs="$(BloggerClientSecretsJson)">
+    <WriteLinesToFile File="$(BloggerClientSecretsJson)" Lines="{ &quot;installed&quot;: { &quot;client_id&quot;: &quot;$(OlwBloggerClientId)&quot;, &quot;client_secret&quot;: &quot;$(OlwBloggerClientSecret)&quot; } }" Overwrite="true" />
+  </Target>
   <Target Name="BeforeBuild">
     <Copy SourceFiles="$(ProjectDir)Detection\default.htm" DestinationFiles="$(OutputPath)\template\default.htm" />
     <Copy SourceFiles="$(ProjectDir)Detection\defaultstyle.css" DestinationFiles="$(OutputPath)\template\defaultstyle.css" />

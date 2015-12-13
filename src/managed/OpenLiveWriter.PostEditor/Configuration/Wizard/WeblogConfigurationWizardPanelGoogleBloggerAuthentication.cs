@@ -54,11 +54,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             {
                 _cancellationTokenSource = new CancellationTokenSource();
                 _userCredentials = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    new ClientSecrets()
-                    {
-                        ClientId = "clientId",
-                        ClientSecret = "clientSecret"
-                    },
+                    GoogleClientSecrets.Load(BloggerAtomClient.ClientSecretsStream).Secrets,
                     new List<string>() { BloggerAtomClient.BloggerServiceScope, BloggerAtomClient.PicasaServiceScope },
                     "user",
                     _cancellationTokenSource.Token);
