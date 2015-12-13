@@ -17,6 +17,7 @@ using Google.Apis.Blogger.v3.Data;
 using Google.Apis.Services;
 using System.Threading;
 using OpenLiveWriter.BlogClient.Detection;
+using Google.Apis.Util.Store;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
@@ -31,13 +32,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-        
-        private UserCredential _userCredentials;
-        private BlogList _blogList;
-        private CancellationTokenSource _cancellationTokenSource;
 
-        public WeblogConfigurationWizardPanelGoogleBloggerAuthentication()
+        private string _blogId;
+        private CancellationTokenSource _cancellationTokenSource;
+        private UserCredential _userCredentials;
+
+        public WeblogConfigurationWizardPanelGoogleBloggerAuthentication(string blogId)
         {
+            _blogId = blogId;
+
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
             
@@ -53,11 +56,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             try
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                _userCredentials = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(BloggerAtomClient.ClientSecretsStream).Secrets,
-                    new List<string>() { BloggerAtomClient.BloggerServiceScope, BloggerAtomClient.PicasaServiceScope },
-                    "user",
-                    _cancellationTokenSource.Token);
+                _userCredentials = await BloggerAtomClient.GetOAuth2AuthorizationAsync(_blogId, _cancellationTokenSource.Token);
                 _cancellationTokenSource = null;
             }
             finally
@@ -65,17 +64,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 buttonLogin.Enabled = true;
             }
         }
-
-        private async Task ListUserBlogs()
-        {
-            BloggerService service = new BloggerService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = _userCredentials
-            });
-
-            _blogList = await service.Blogs.ListByUser("self").ExecuteAsync();
-        }
-
+        
         public void CancelAuthorization()
         {
             if (_cancellationTokenSource != null)
@@ -212,23 +201,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             get
             {
+                // The Google Blogger credentials don't use the normal IBlogCredentials storage and are instead 
+                // automatically written to disk by the Google APIs in the GetOAuth2AuthorizationAsync() call.
                 TemporaryBlogCredentials credentials = new TemporaryBlogCredentials();
                 credentials.Username = "user";
-                if (_userCredentials != null)
-                {
-                    // TODO:OLW
-                    //credentials.GoogleBloggerToken = _userCredentials;
-                    credentials.Password = _userCredentials.Token.AccessToken;
-                    credentials.SetCustomValue("RefreshToken", _userCredentials.Token.RefreshToken);
-                    credentials.SetCustomValue("Scope", _userCredentials.Token.Scope);
-                    credentials.SetCustomValue("Issued", _userCredentials.Token.Issued.ToBinary().ToString());
-                }
                 return credentials;
             }
-            set
-            {
-                // TODO:OLW
-            }
+            set { }
         }
 
         public BlogInfo BlogAccount
