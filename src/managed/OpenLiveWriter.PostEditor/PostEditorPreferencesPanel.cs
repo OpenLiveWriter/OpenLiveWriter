@@ -422,41 +422,39 @@ namespace OpenLiveWriter.PostEditor
             // textBoxWeblogPostsFolder
             //
             this.textBoxWeblogPostsFolder.Name = "textBoxWeblogPostsFolder";
-            this.textBoxWeblogPostsFolder.Size = new System.Drawing.Size(238, 18);
+            this.textBoxWeblogPostsFolder.Size = new System.Drawing.Size(314, 22);
+            this.textBoxWeblogPostsFolder.AutoSize = false;
             this.textBoxWeblogPostsFolder.TabIndex = 1;
             this.textBoxWeblogPostsFolder.Text = "Show default post save location";
             this.textBoxWeblogPostsFolder.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.textBoxWeblogPostsFolder.Location = new System.Drawing.Point(0, 0);
+            this.textBoxWeblogPostsFolder.Location = new System.Drawing.Point(16, 21);
+            this.textBoxWeblogPostsFolder.BorderStyle = BorderStyle.FixedSingle;
+            this.textBoxWeblogPostsFolder.Font = Res.DefaultFont;
             //
             // buttonBrowserDialog
             //
             this.buttonBrowserDialog.Name = "buttonBrowserDialog";
             this.buttonBrowserDialog.Text = Res.Get(StringId.PostEditorPrefBrowseFolder);
             this.buttonBrowserDialog.TabIndex = 2;
-            this.buttonBrowserDialog.Location = new System.Drawing.Point(280, 0);
+            this.buttonBrowserDialog.Location = new System.Drawing.Point(16, 32);
+            this.buttonBrowserDialog.Size =  new System.Drawing.Size(70, 22);
+            this.buttonBrowserDialog.Font = Res.DefaultFont;
+            this.buttonBrowserDialog.AutoSize = false;
             //
             // FolderBrowserDialog
             //
             this.folderBrowserDialog.Description = "Select the directory that you want to use as the default";
             this.folderBrowserDialog.ShowNewFolderButton = true;
-            this.folderBrowserDialog.RootFolder = Environment.SpecialFolder.Personal;
+            this.folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
             //
-            // flowLayoutPanel
+            // groupBoxWeblogPostsFolder
             //
-            this.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Controls.Add(this.textBoxWeblogPostsFolder);
-            this.flowLayoutPanel.Controls.Add(this.buttonBrowserDialog);
-            this.flowLayoutPanel.FlowDirection = FlowDirection.LeftToRight;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(16, 21);
-            this.flowLayoutPanel.Size = new System.Drawing.Size(325, 40);
-            //
-            // groupBoxGeneral
-            //
-            this.groupBoxWeblogPostsFolder.Controls.Add(this.flowLayoutPanel);
+            this.groupBoxWeblogPostsFolder.Controls.Add(this.textBoxWeblogPostsFolder);
+            this.groupBoxWeblogPostsFolder.Controls.Add(this.buttonBrowserDialog);
             this.groupBoxWeblogPostsFolder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBoxWeblogPostsFolder.Location = new System.Drawing.Point(8, 154);
-            this.groupBoxWeblogPostsFolder.Name = "groupBoxFolderLocation";
-            this.groupBoxWeblogPostsFolder.Size = new System.Drawing.Size(345, 25);
+            this.groupBoxWeblogPostsFolder.Name = "groupBoxWeblogPostsFolder";
+            this.groupBoxWeblogPostsFolder.Size = new System.Drawing.Size(345, 45);
             this.groupBoxWeblogPostsFolder.TabIndex = 4;
             this.groupBoxWeblogPostsFolder.TabStop = false;
             this.groupBoxWeblogPostsFolder.Text = "Post Folder Location";
@@ -478,8 +476,8 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPublishing.ResumeLayout(false);
             this.groupBoxPostWindows.ResumeLayout(false);
             this.groupBoxGeneral.ResumeLayout(false);
-            this.groupBoxWeblogPostsFolder.ResumeLayout(false);
             this.flowLayoutPanel.ResumeLayout(false);
+            this.groupBoxWeblogPostsFolder.ResumeLayout(false);
             this.ResumeLayout(false);
         }
         #endregion
