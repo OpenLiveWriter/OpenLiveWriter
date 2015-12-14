@@ -52,7 +52,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
                 if (DisplayMessage.Show(MessageId.InputIsNotUrl, this, _source.SourceImageLink) == System.Windows.Forms.DialogResult.Yes)
                     return;
             }
-            DialogResult = System.Windows.Forms.DialogResult.Abort;
+            DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
     }
