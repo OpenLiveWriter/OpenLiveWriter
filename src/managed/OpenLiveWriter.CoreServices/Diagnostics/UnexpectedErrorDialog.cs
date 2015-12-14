@@ -325,7 +325,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                 writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Page File: {0} MB", (memoryStatus.AvailablePageFile / 1048576)));
                 writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Total Virtual: {0} MB", (memoryStatus.TotalVirtual / 1048576)));
                 writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Virtual: {0} MB", (memoryStatus.AvailableVirtual / 1048576)));
-                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Extented Virtual: {0} MB", (memoryStatus.AvailableExtendedVirtual / 1048576)));
+                writer.WriteLine(string.Format(CultureInfo.InvariantCulture, "Available Extended Virtual: {0} MB", (memoryStatus.AvailableExtendedVirtual / 1048576)));
             }
             catch (Exception ex)
             {

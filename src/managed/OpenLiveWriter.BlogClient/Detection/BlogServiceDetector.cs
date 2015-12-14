@@ -38,7 +38,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         protected override object DetectBlogService(IProgressHost progressHost)
         {
-            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //supress prompting for credentials
+            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //suppress prompting for credentials
             {
                 try
                 {
@@ -497,7 +497,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         protected override object DetectBlogService(IProgressHost progressHost)
         {
-            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //supress prompting for credentials
+            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //suppress prompting for credentials
             {
                 try
                 {
@@ -613,7 +613,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 35);
 
             // add settings downloading (note: this operation will be a no-op
-            // in the case where we don't succesfully detect a weblog)
+            // in the case where we don't successfully detect a weblog)
             AddProgressOperation(
                 new ProgressOperation(DetectWeblogSettings),
                 new ProgressOperationCompleted(DetectWeblogSettingsCompleted),
@@ -729,10 +729,10 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         public bool AuthenticationErrorOccurred
         {
-            get { return _authenticationErrorOccured; }
-            set { _authenticationErrorOccured = value; }
+            get { return _authenticationErrorOccurred; }
+            set { _authenticationErrorOccurred = value; }
         }
-        private bool _authenticationErrorOccured = false;
+        private bool _authenticationErrorOccurred = false;
 
         public bool TemplateDownloadFailed
         {
@@ -924,7 +924,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         private object DetectWeblogSettings(IProgressHost progressHost)
         {
-            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //supress prompting for credentials
+            using (BlogClientUIContextSilentMode uiContextScope = new BlogClientUIContextSilentMode()) //suppress prompting for credentials
             {
                 // no-op if we don't have a blog-id to work with
                 if (HostBlogId == String.Empty)

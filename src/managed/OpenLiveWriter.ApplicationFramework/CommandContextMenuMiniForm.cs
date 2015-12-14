@@ -18,7 +18,7 @@ namespace OpenLiveWriter.ApplicationFramework
     {
         /* NOTE: When being shown in the context of the browser (or any non .NET
          * application) this form will not handle any dialog level keyboard
-         * commands (tab, enter, escape, alt-mnenonics, etc.). This is because
+         * commands (tab, enter, escape, alt-mnemonics, etc.). This is because
          * it is a modeless form that does not have its own thread/message-loop.
          * Because the form was created by our .NET code the main IE frame that
          * has the message loop has no idea it needs to route keyboard events'
@@ -131,7 +131,7 @@ namespace OpenLiveWriter.ApplicationFramework
             // (we do this because if actually call Close right here it
             // will prevent the mouse event that resulted in the deactivation
             // of the form from actually triggering in the new target
-            // winodw -- this allows the mouse event to trigger and the
+            // window -- this allows the mouse event to trigger and the
             // form to go away almost instantly
             Timer closeDelayTimer = new Timer();
             closeDelayTimer.Tick += new EventHandler(closeDelayTimer_Tick);
@@ -158,7 +158,7 @@ namespace OpenLiveWriter.ApplicationFramework
         // handle painting
         protected override void OnPaint(PaintEventArgs e)
         {
-            // get refrence to graphics context
+            // get reference to graphics context
             Graphics g = e.Graphics;
 
             // fill background
@@ -273,7 +273,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         private readonly Bitmap miniFormBevelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.CommandBar.MiniFormBevel.png");
 
-        // layout and drawing contants
+        // layout and drawing constants
         private const int HEADER_INSET = 2;
         private const int HEADER_HEIGHT = 17;
         private const int HORIZONTAL_INSET = 10;

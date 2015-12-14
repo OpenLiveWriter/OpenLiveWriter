@@ -37,7 +37,7 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Create content using the contents of a LiveClipboad Xml document. Plugin classes which override
+        /// Create content using the contents of a LiveClipboard Xml document. Plugin classes which override
         /// this method must also be declared with the LiveClipboardContentSourceAttribute.
         /// </summary>
         /// <param name="dialogOwner">Owner for any dialogs shown.</param>
@@ -90,7 +90,7 @@ namespace OpenLiveWriter.Api
         /// <summary>
         /// Create a new SmartContentEditor for this ContentSource. The SmartContentEditor is the control
         /// that appears in the Sidebar whenever a SmartContent object created by this content source
-        /// is selected within the PostEditor. This method must be overriden by all subclasses of SmartContentSource.
+        /// is selected within the PostEditor. This method must be overridden by all subclasses of SmartContentSource.
         /// </summary>
         /// <param name="editorSite">Interface to the SmartContentEditor's site.</param>
         /// <returns>A new instance of a class derived from SmartContentEditor.</returns>
@@ -132,7 +132,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Notification that the sizing of an object is complete. The  implementation of
-        /// this method should update the ISmartContent object as approriate based on the
+        /// this method should update the ISmartContent object as appropriate based on the
         /// new size. The editor will first call this method and then call the GenerateEditorHtml
         /// method to update the display based on the new size.
         /// </summary>
@@ -156,14 +156,14 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// SmartContentSource is resizable (size grippers will appear when the object is selected within the editor).
-        /// If this flag is specified as part of ResizeCapabilties then the OnResizeComplete method should also be
+        /// If this flag is specified as part of ResizeCapabilities then the OnResizeComplete method should also be
         /// overridden to update the ISmartContent as necessary with the new size of the SmartContent object.
         /// </summary>
         Resizable = 1,
 
         /// <summary>
         /// Preserve the aspect ratio of the object during resizing. The default aspect ratio to be enforced is the
-        /// ratio of the object prior to resizing. If the desired aspect ratio is staticly known it is highly recommended
+        /// ratio of the object prior to resizing. If the desired aspect ratio is statically known it is highly recommended
         /// that this ratio be specified within an override of the OnResizeStart method (will eliminate the problem
         /// of "creeping" change to the aspect ratios with continued resizing).
         /// </summary>
@@ -171,7 +171,7 @@ namespace OpenLiveWriter.Api
 
         /// <summary>
         /// Update the appearance of the smart content object in realtime as the user resizes the object. If this
-        /// flag is specified then the OnResizing method should be overriden to update the state of the ISmartContent
+        /// flag is specified then the OnResizing method should be overridden to update the state of the ISmartContent
         /// object as resizing occurs. The editor will first call this method and then call the GenerateEditorHtml
         /// method to update the display as the user resizes.
         /// </summary>
@@ -191,7 +191,7 @@ namespace OpenLiveWriter.Api
         /// the Size parameters passed to the OnResize methods refer to the size of this element rather than to
         /// the size of the entire SmartContent object.
         /// </summary>
-        public string ResizeableElementId
+        public string ResizableElementId
         {
             get { return _resizableElementId; }
             set { _resizableElementId = value; }
@@ -199,8 +199,8 @@ namespace OpenLiveWriter.Api
         private string _resizableElementId = null;
 
         /// <summary>
-        /// Aspect ratio to be enforced if the ResizeCapabilties.PreserveAspectRatio flag is specified. If the
-        /// desired aspect ratio is staticly known it is highly recommended that this ratio be specified within
+        /// Aspect ratio to be enforced if the ResizeCapabilities.PreserveAspectRatio flag is specified. If the
+        /// desired aspect ratio is statically known it is highly recommended that this ratio be specified within
         /// the OnResizeStart method (will eliminate the problem of "creeping" change to the aspect ratios with continued resizing).
         /// </summary>
         public double AspectRatio

@@ -108,7 +108,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                         }
                         else
                         {
-                            // if we are copying and pasting an image from writer, we need to change temp path references the orginal file path
+                            // if we are copying and pasting an image from writer, we need to change temp path references the original file path
                             if (htmlData.OnlyImageElement != null)
                             {
                                 // WinLive 96840 - Copying and pasting images within shared canvas should persist source

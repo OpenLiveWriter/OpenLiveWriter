@@ -277,7 +277,7 @@ namespace OpenLiveWriter.PostEditor
         {
             Trace.Assert(_blog != null, "Can only call SwitchBlog after initialization!");
 
-            // only execute if we are truely switching blogs
+            // only execute if we are truly switching blogs
             if (Blog != null && blogId != Blog.Id)
             {
                 // set current blog
@@ -521,7 +521,7 @@ namespace OpenLiveWriter.PostEditor
         }
 
         /// <summary>
-        /// Clear the currnet post (does not prompt to save changes)
+        /// Clear the current post (does not prompt to save changes)
         /// </summary>
         public void ClearPost()
         {
@@ -702,10 +702,10 @@ namespace OpenLiveWriter.PostEditor
         /// or to a new editor form depending upon the user's preferences and
         /// the current editing state
         /// </summary>
-        /// <param name="editingContext">editing conext</param>
+        /// <param name="editingContext">editing context</param>
         private void DispatchEditPost(IBlogPostEditingContext editingContext, bool isNewPost)
         {
-            // calcluate whether the user has a "blank" unsaved post
+            // calculate whether the user has a "blank" unsaved post
             bool currentPostIsEmptyAndUnsaved =
                 ((BlogPost != null) && BlogPost.IsNew && (BlogPost.Contents == null || BlogPost.Contents == String.Empty)) &&
                  !LocalFile.IsSaved && !PostIsDirty;
@@ -714,7 +714,7 @@ namespace OpenLiveWriter.PostEditor
             // re-using the window in this case will just make the New button appear
             // to not work at all, therefore we force a new window. We make an exception
             // for creation of new pages, as firing up a new writer instance and then
-            // switching into "page authoring" mode is a natual thing to do (and shouldn't
+            // switching into "page authoring" mode is a natural thing to do (and shouldn't
             // result in a new window for no apparent reason). In this case the user will
             // get "feedback" by seeing the default title change to "Enter Page Title Here"
             // as well as the contents of the property tray changing.

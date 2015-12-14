@@ -24,7 +24,7 @@ namespace Project31.CoreServices
         /// </summary>
         public WebPageDownloader()
         {
-            // create the undelrying control
+            // create the underlying control
             browserControl = new ExplorerBrowserControl() ;
 
             // set us as the client site

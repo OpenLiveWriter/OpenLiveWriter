@@ -78,7 +78,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             {
                 text = NormalizeInputValue(text);
 
-                // We dont need to do the replacment here because
+                // We dont need to do the replacement here because
                 // we do it in TypographicCharacterHandler and that is
                 // where we check to make sure the hosting application
                 // can handle unicode ellipsis

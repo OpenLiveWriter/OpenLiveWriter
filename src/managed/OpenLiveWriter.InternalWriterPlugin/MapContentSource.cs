@@ -157,7 +157,7 @@ namespace OpenLiveWriter.InternalWriterPlugin
         {
             //force the resize operation to scale based on the size of the map image.
             MapSettings settings = new MapSettings(content.Properties);
-            options.ResizeableElementId = settings.MapId;
+            options.ResizableElementId = settings.MapId;
         }
 
         public override void OnResizing(ISmartContent content, Size newSize)

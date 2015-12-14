@@ -7,14 +7,14 @@ using OpenLiveWriter.Controls;
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
 {
 
-    public class UnknownLoginErrrorDisplayMessage : DisplayMessage
+    public class UnknownLoginErrorDisplayMessage : DisplayMessage
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
 
-        public UnknownLoginErrrorDisplayMessage(IContainer container)
+        public UnknownLoginErrorDisplayMessage(IContainer container)
         {
             ///
             /// Required for Windows.Forms Class Composition Designer support
@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
             InitMessage();
         }
 
-        public UnknownLoginErrrorDisplayMessage()
+        public UnknownLoginErrorDisplayMessage()
         {
             ///
             /// Required for Windows.Forms Class Composition Designer support
@@ -64,7 +64,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard.DisplayMessages
         private void InitializeComponent()
         {
             //
-            // UnknownLoginErrrorDisplayMessage
+            // UnknownLoginErrorDisplayMessage
             //
             this.Text = "";
             this.Title = "Login Failed";

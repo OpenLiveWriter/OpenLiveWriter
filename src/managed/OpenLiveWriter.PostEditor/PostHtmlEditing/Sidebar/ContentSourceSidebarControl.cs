@@ -424,7 +424,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         ISmartContent CloneSmartContent(string contentId, string newContentId);
         void RemoveSmartContent(string contentId);
         void DeleteSmartContent(string contentId);
-        IExtensionData FindExtentsionData(string contentId);
+        IExtensionData FindExtensionData(string contentId);
         void SelectSmartContent(string contentId);
         void OnSmartContentEdited(string contentId);
     }

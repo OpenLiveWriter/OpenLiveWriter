@@ -96,13 +96,13 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
             extensionData.RefreshCallBack = null;
 
-            IExtensionData[] missingExentinsionData = ((IContentSourceSite)_editor).UpdateContent(new IExtensionData[] { extensionData });
+            IExtensionData[] missingExtensionData = ((IContentSourceSite)_editor).UpdateContent(new IExtensionData[] { extensionData });
 
-            if (missingExentinsionData.Length == 0) return;
-            Debug.Assert(missingExentinsionData.Length == 1, "Only one IExtensionData was supposed to update, but more then 1 was returned as being missing.");
-            Debug.Assert(!_missedCallbackExtensionData.Contains(missingExentinsionData[0]), "We should not have tried to update smart content that was not in the editor.");
+            if (missingExtensionData.Length == 0) return;
+            Debug.Assert(missingExtensionData.Length == 1, "Only one IExtensionData was supposed to update, but more then 1 was returned as being missing.");
+            Debug.Assert(!_missedCallbackExtensionData.Contains(missingExtensionData[0]), "We should not have tried to update smart content that was not in the editor.");
 
-            _missedCallbackExtensionData.Add(missingExentinsionData[0]);
+            _missedCallbackExtensionData.Add(missingExtensionData[0]);
         }
 
         #region IDisposable Members

@@ -241,9 +241,9 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 YouTubeUploadRequestHelper.AddSimpleHeader(req, YouTubeAuth.Instance.AuthToken);
                 using (HttpWebResponse response = (HttpWebResponse)req.GetResponse())
                 {
-                    using (Stream responseStreamOrginal = response.GetResponseStream())
+                    using (Stream responseStreamOriginal = response.GetResponseStream())
                     {
-                        responseStream = StreamHelper.CopyToMemoryStream(responseStreamOrginal);
+                        responseStream = StreamHelper.CopyToMemoryStream(responseStreamOriginal);
                     }
                 }
             }

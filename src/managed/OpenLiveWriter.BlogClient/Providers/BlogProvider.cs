@@ -23,7 +23,7 @@ namespace OpenLiveWriter.BlogClient.Providers
     {
         public BlogClientOptions()
         {
-            // accept default options (see private data declaratoins for defaults)
+            // accept default options (see private data declarations for defaults)
         }
 
         public bool SupportsHttps
@@ -46,8 +46,8 @@ namespace OpenLiveWriter.BlogClient.Providers
 
         public bool SupportsHierarchicalCategories
         {
-            get { return _supportsHeirarchicalCategories; }
-            set { _supportsHeirarchicalCategories = value; }
+            get { return _supportsHierarchicalCategories; }
+            set { _supportsHierarchicalCategories = value; }
         }
 
         public bool SupportsNewCategories
@@ -665,7 +665,7 @@ namespace OpenLiveWriter.BlogClient.Providers
         private bool _supportsHttps = false;
         private bool _supportsCategories = false;
         private bool _supportsMultipleCategories = false;
-        private bool _supportsHeirarchicalCategories = false;
+        private bool _supportsHierarchicalCategories = false;
         private bool _supportsNewCategories = false;
         private bool _supportsNewCategoriesInline = false;
         private bool _supportsSuggestCategories = false;
@@ -929,7 +929,7 @@ namespace OpenLiveWriter.BlogClient.Providers
 
         virtual public bool IsProviderForHomepageUrl(string homepageUrl)
         {
-            return IsMatch(HompepageUrlRegex, homepageUrl);
+            return IsMatch(HomepageUrlRegex, homepageUrl);
         }
 
         virtual public bool IsProviderForHomepageContent(string homepageContent)
@@ -1010,7 +1010,7 @@ namespace OpenLiveWriter.BlogClient.Providers
                 return regex.IsMatch(inputText);
         }
 
-        private Regex HompepageUrlRegex
+        private Regex HomepageUrlRegex
         {
             get
             {

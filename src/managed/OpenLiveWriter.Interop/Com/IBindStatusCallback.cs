@@ -40,7 +40,7 @@ namespace OpenLiveWriter.Interop.Com
             [In] BSCF grfBSCF,
             [In] uint dwSize,
             [In] ref FORMATETC pformatetc,
-            [In] ref STGMEDIUM pstgmed);
+            [In] ref STGMEDIUM pStgmed);
 
         void OnObjectAvailable(
             [In] ref Guid riid,

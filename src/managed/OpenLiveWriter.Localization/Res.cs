@@ -408,9 +408,9 @@ namespace OpenLiveWriter.Localization
                 return;
             }
             if (f > 25)
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} is supiciously large: {1} => {2}", fontSizeName, fontSize, f));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} is suspiciously large: {1} => {2}", fontSizeName, fontSize, f));
             else if (f < 6)
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} is supiciously small: {1} => {2}", fontSizeName, fontSize, f));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "{0} is suspiciously small: {1} => {2}", fontSizeName, fontSize, f));
         }
     }
 

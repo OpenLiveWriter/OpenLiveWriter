@@ -177,7 +177,7 @@ namespace OpenLiveWriter.Interop.Com
         FLOATING = 0x0002,
 
         /// <summary>
-        /// The band is being displayed tranparently
+        /// The band is being displayed transparently
         /// </summary>
         TRANSPARENT = 0x0004
     }
@@ -212,7 +212,7 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// Undocumented
         /// </summary>
-        UNDELETEABLE = 0x0010,
+        UNDELETABLE = 0x0010,
 
         /// <summary>
         /// The band object will be displayed with a sunken look

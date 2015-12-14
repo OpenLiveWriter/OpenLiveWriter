@@ -1242,7 +1242,7 @@ GlossaryAutomaticallyLinkFirstTime,Li&nk to each term only once per post,
 GlossaryAutomaticLinkOptions,"Automatic linking options",
 GlossaryExampleTitle,"Open Live Writer site",This is used in the link glossary as the title of our example link- may not need to be localized
 AutoreplaceTypographic,Replace h&yphens (--) with dash (—),
-AutoreplacePrefererencesPanel,Auto Replace,"Currently not in use- do not localize"
+AutoreplacePreferencesPanel,Auto Replace,"Currently not in use- do not localize"
 AutoreplaceSmartQuotes,Replace "straight quotes" with “smart &quotes”,
 AutoreplaceOtherChars,Re&place other special characters,
 AutoreplaceFormTitle,Auto Replace,"Currently not in use- do not localize"
@@ -1298,7 +1298,7 @@ UpdatesAvailableMessagePrerelease,"A new pre-release version of {0} is now avail
 UpdatesAvailableMessageFull,"A new version of {0} is now available. Click the download now button to download and install the update.",{0} will be replaced with the product name (i.e. Open Live Writer)
 UpdatesAvailableLink,"More information",
 UpdatesAvailableNotify,"&Automatically check for updates",
-UpdatesAvailableNofifyBeta,"Also check for pre-release (beta) &versions",
+UpdatesAvailableNotifyBeta,"Also check for pre-release (beta) &versions",
 UpdatesAvailableDownloadButton,&Download Now,Text displayed on download button
 UpdatesAvailableAskLaterButton,A&sk Me Later,Text displayed on ask me later button
 UpdatesAvailableNoUpdateTitle,No Updates Available,
@@ -1353,6 +1353,6 @@ CopyrightInformation,Copyright Information,This is the string that will be read 
 ViewAll,View all,shows the full list of options
 SeeSolutionOnline,See the solution online,Dialog box that gives an error while signing in to Live ID. This string prompts user to go online to resolve the problem.
 CantSignIn,Can't sign in because an error occurred
-TheErrorOccuredBecause,The error occurred for the following reason:
+TheErrorOccurredBecause,The error occurred for the following reason:
 RetrySignin,"After you go through the solution, try signing in again."
 GenericLoginError,Unable to login to Live ID.

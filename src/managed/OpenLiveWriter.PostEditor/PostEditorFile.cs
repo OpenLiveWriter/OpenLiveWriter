@@ -391,7 +391,7 @@ namespace OpenLiveWriter.PostEditor
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexpected exception type in PostEditorFile.Load. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exeption and see if there is a way to behave more robustly!\r\n"
+                Trace.Fail("Unexpected exception type in PostEditorFile.Load. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exception and see if there is a way to behave more robustly!\r\n"
                     + ex.ToString());
                 throw PostEditorStorageException.Create(ex);
             }
@@ -449,7 +449,7 @@ namespace OpenLiveWriter.PostEditor
         private void SaveCore(IBlogPostEditingContext editingContext, PostEditorFile autoSaveSourceFile, string filePath)
         {
             // did this file exist prior to the attempt to save (if no, we need to delete
-            // it if an exceptoin occurs -- otherwise we leave a "zombie" post file with
+            // it if an exception occurs -- otherwise we leave a "zombie" post file with
             // no available streams
             bool isPreviouslyUnsaved = !IsSaved;
 
@@ -536,7 +536,7 @@ namespace OpenLiveWriter.PostEditor
                 }
                 catch (Exception ex)
                 {
-                    Trace.Fail("Unexpected exception type in PostEditorFile.Save. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exeption and see if there is a way to behave more robustly!\r\n"
+                    Trace.Fail("Unexpected exception type in PostEditorFile.Save. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exception and see if there is a way to behave more robustly!\r\n"
                         + ex.ToString());
                     throw PostEditorStorageException.Create(ex);
                 }
@@ -1760,7 +1760,7 @@ namespace OpenLiveWriter.PostEditor
         private const string POST_TRACKBACK_POLICY = "TrackbackPolicy";
         private const string POST_ATOM_REMOTE_POST = "AtomRemotePost";
         private const string POST_KEYWORDS = "Keywords";
-        private const string POST_EXCERPT = "Exerpt";
+        private const string POST_EXCERPT = "Excerpt";
         private const string POST_PERMALINK = "PermaLink";
         private const string POST_PINGURLS_PENDING = "PingUrls";
         private const string POST_PINGURLS_SENT = "SentPingUrls";

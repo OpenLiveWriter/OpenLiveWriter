@@ -52,7 +52,7 @@ namespace OpenLiveWriter.CoreServices
     /// This class will run multiple "tasks" on the UI thread with a wait time between each one
     /// that will give time for some messages to be processed.  WARNING: using this with a foreach loop or
     /// a for loop that does not explicitly create a new reference to the variables used in the "task" can
-    /// result in a unexpected behvaiors.
+    /// result in a unexpected behaviors.
     /// </summary>
     public class MultiTaskHelper : IDisposable
     {

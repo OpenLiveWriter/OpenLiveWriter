@@ -98,16 +98,16 @@ namespace OpenLiveWriter.CoreServices
         {
             get
             {
-                if (!haveAttempedURLCreate)
+                if (!haveAttemptedURLCreate)
                 {
                     m_urlData = URLData.Create(m_dataObject);
-                    haveAttempedURLCreate = true;
+                    haveAttemptedURLCreate = true;
                 }
                 return m_urlData;
             }
         }
         private URLData m_urlData;
-        private bool haveAttempedURLCreate = false;
+        private bool haveAttemptedURLCreate = false;
 
         /// <summary>
         /// The text data associated with the IDataObject.  This property will be

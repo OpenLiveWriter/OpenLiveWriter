@@ -42,7 +42,7 @@ namespace OpenLiveWriter.Mshtml
 
     /// <summary>
     /// Interface used for querying the paint site of a rendering behavior.
-    /// This is a special delcaration of the interface that allows the passing
+    /// This is a special declaration of the interface that allows the passing
     /// of an IntPtr to InvalidateRect (which enables us to pass IntPtr.Zero
     /// requesting that the entire site be invalidated)
     /// </summary>

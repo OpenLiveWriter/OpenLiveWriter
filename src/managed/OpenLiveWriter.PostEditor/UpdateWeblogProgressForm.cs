@@ -54,7 +54,7 @@ namespace OpenLiveWriter.PostEditor
             _publishingContext = publishingContext;
             _publish = publish;
 
-            // look and feel (no form border and theme dervied background color)
+            // look and feel (no form border and theme derived background color)
             FormBorderStyle = FormBorderStyle.None;
             BackColor = ColorizedResources.Instance.FrameGradientLight;
 

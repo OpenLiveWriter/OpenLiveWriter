@@ -35,7 +35,7 @@ namespace OpenLiveWriter.PostEditor.Video
             buttonCancelForm.Text = Res.Get(StringId.CancelButton);
             progressAnimatedBitmap.Bitmaps = AnimationBitmaps;
             progressAnimatedBitmap.Interval = 2000 / AnimationBitmaps.Length;
-            SetAnimatatedBitmapControl(progressAnimatedBitmap);
+            SetAnimatedBitmapControl(progressAnimatedBitmap);
 
         }
 
@@ -81,7 +81,7 @@ namespace OpenLiveWriter.PostEditor.Video
         private readonly VideoPublishStatus validState;
         private readonly VideoPublishStatus invalidState;
 
-        public VideoSmartContentWaitOperation(ISynchronizeInvoke context, SmartContentOperationType checkType, IExtensionData[] extendionDataList)
+        public VideoSmartContentWaitOperation(ISynchronizeInvoke context, SmartContentOperationType checkType, IExtensionData[] extensionDataList)
             : base(context)
         {
             validState = VideoPublishStatus.Completed;
@@ -90,7 +90,7 @@ namespace OpenLiveWriter.PostEditor.Video
             if (checkType == SmartContentOperationType.Close)
                 validState |= VideoPublishStatus.RemoteProcessing;
 
-            _extensionDataList = extendionDataList;
+            _extensionDataList = extensionDataList;
         }
 
         protected override void DoWork()

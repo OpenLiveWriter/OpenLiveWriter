@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     public class WeblogHomepageUrlControl : UserControl
     {
         private TextBox textBoxHomepageUrl;
-        private Label labeHomepageURL;
+        private Label labelHomepageURL;
         private LinkLabel linkLabelViewWeblog;
         private HelpProvider helpProvider;
         /// <summary>
@@ -108,7 +108,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private void InitializeComponent()
         {
             this.textBoxHomepageUrl = new System.Windows.Forms.TextBox();
-            this.labeHomepageURL = new System.Windows.Forms.Label();
+            this.labelHomepageURL = new System.Windows.Forms.Label();
             this.linkLabelViewWeblog = new System.Windows.Forms.LinkLabel();
             this.helpProvider = new System.Windows.Forms.HelpProvider();
             this.SuspendLayout();
@@ -126,16 +126,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxHomepageUrl.Text = "";
             this.textBoxHomepageUrl.TextChanged += new System.EventHandler(this.textBoxHomepageUrl_TextChanged);
             //
-            // labeHomepageURL
+            // labelHomepageURL
             //
-            this.labeHomepageURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.labelHomepageURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 )));
-            this.labeHomepageURL.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labeHomepageURL.Location = new System.Drawing.Point(0, 0);
-            this.labeHomepageURL.Name = "labeHomepageURL";
-            this.labeHomepageURL.Size = new System.Drawing.Size(311, 17);
-            this.labeHomepageURL.TabIndex = 0;
-            this.labeHomepageURL.Text = "Weblog &Homepage URL:";
+            this.labelHomepageURL.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelHomepageURL.Location = new System.Drawing.Point(0, 0);
+            this.labelHomepageURL.Name = "labelHomepageURL";
+            this.labelHomepageURL.Size = new System.Drawing.Size(311, 17);
+            this.labelHomepageURL.TabIndex = 0;
+            this.labelHomepageURL.Text = "Weblog &Homepage URL:";
             //
             // linkLabelViewWeblog
             //
@@ -157,7 +157,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // WeblogHomepageUrlControl
             //
             this.Controls.Add(this.textBoxHomepageUrl);
-            this.Controls.Add(this.labeHomepageURL);
+            this.Controls.Add(this.labelHomepageURL);
             this.Controls.Add(this.linkLabelViewWeblog);
             this.Name = "WeblogHomepageUrlControl";
             this.Size = new System.Drawing.Size(315, 55);
@@ -170,11 +170,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             get
             {
-                return labeHomepageURL.Text;
+                return labelHomepageURL.Text;
             }
             set
             {
-                labeHomepageURL.Text = value;
+                labelHomepageURL.Text = value;
             }
         }
 

@@ -63,7 +63,7 @@ namespace OpenLiveWriter.CoreServices
                 _urlsToReplace.Add(urlToReplace);
         }
 
-        public void AddSubstitionUrl(UrlToReplace substitutionUrl)
+        public void AddSubstitutionUrl(UrlToReplace substitutionUrl)
         {
             if (!_substitutionUrls.ContainsKey(substitutionUrl.newUrl))
                 _substitutionUrls[substitutionUrl.newUrl] = substitutionUrl.oldUrl;

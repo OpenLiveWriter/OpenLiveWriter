@@ -85,7 +85,7 @@ namespace OpenLiveWriter.ApplicationFramework
             /// Required for Windows.Forms Class Composition Designer support
             /// </summary>
             InitializeComponent();
-            SetAccesibleInfo();
+            SetAccessibleInfo();
         }
 
         /// <summary>
@@ -102,10 +102,10 @@ namespace OpenLiveWriter.ApplicationFramework
             //	Set the text.
             this.text = text;
 
-            SetAccesibleInfo();
+            SetAccessibleInfo();
         }
 
-        private void SetAccesibleInfo()
+        private void SetAccessibleInfo()
         {
             AccessibleName = ControlHelper.ToAccessibleName(text);
             AccessibleRole = AccessibleRole.StaticText;

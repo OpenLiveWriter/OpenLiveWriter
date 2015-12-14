@@ -16,7 +16,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         /// </summary>
         Bitmap Image { get; }
         /// <summary>
-        /// An object that can control the authenication for the service
+        /// An object that can control the authentication for the service
         /// </summary>
         IAuth Auth { get; }
         /// <summary>
@@ -24,12 +24,12 @@ namespace OpenLiveWriter.PostEditor.ContentSources.Common
         /// </summary>
         string ServiceName { get; }
         /// <summary>
-        /// An ID that can be used to identifiy the service.
+        /// An ID that can be used to identify the service.
         /// </summary>
         string Id { get; }
         /// <summary>
-        /// Initilizes the source with the current blog, a dialog it can use when it displays UI, and smart content
-        /// that is used to when editing the cotnent
+        /// Initializes the source with the current blog, a dialog it can use when it displays UI, and smart content
+        /// that is used to when editing the content
         /// </summary>
         /// <param name="media"></param>
         /// <param name="DialogOwner"></param>

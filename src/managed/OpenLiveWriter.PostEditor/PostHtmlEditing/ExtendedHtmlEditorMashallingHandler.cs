@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     /// <summary>
     /// Handles marshalling for the RichHtmlContentEditor.
     /// </summary>
-    internal class ExtendedHtmlEditorMashallingHandler : HtmlEditorMarshallingHandler
+    internal class ExtendedHtmlEditorMarshallingHandler : HtmlEditorMarshallingHandler
     {
         IHtmlEditorHost _blogEditor;
         IContentSourceSite _insertionSite;
@@ -52,7 +52,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-        internal ExtendedHtmlEditorMashallingHandler(IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite, IHtmlEditorHost blogEditor, OpenLiveWriter.Interop.Com.IDropTarget unhandledDropTarget)
+        internal ExtendedHtmlEditorMarshallingHandler(IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite, IHtmlEditorHost blogEditor, OpenLiveWriter.Interop.Com.IDropTarget unhandledDropTarget)
             : base(editorContext)
         {
             _insertionSite = sourceSite;
@@ -75,7 +75,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                    new DelegateBasedDataFormatHandlerFactory(CreateInternalSmartContentFormatHandler, InternalSmartContentFormatHandler.CanCreateFrom ),
                 new DelegateBasedDataFormatHandlerFactory(CreateLiveClipboardContentSourceFormatHandler, LiveClipboardContentSourceFormatHandler.CanCreateFrom ),
                 new DelegateBasedDataFormatHandlerFactory(CreateLiveClipboardHtmlFormatHandler, LiveClipboardHtmlFormatHandler.CanCreateFrom ),
-                new DelegateBasedDataFormatHandlerFactory(CreateContentSourceUrlFormatHandler, UrlContentSourcelFormatHandler.CanCreateFrom),
+                new DelegateBasedDataFormatHandlerFactory(CreateContentSourceUrlFormatHandler, UrlContentSourceFormatHandler.CanCreateFrom),
                 new DelegateBasedDataFormatHandlerFactory(CreateUrlDataFormatHandler, CanCreateUrlFormatHandler),
                 new DelegateBasedDataFormatHandlerFactory(CreateImageOnlyHtmlDataFormatHandler, CanCreateImageOnlyHtmlFormatHandler),
                 new DelegateBasedDataFormatHandlerFactory(CreateImageFileFormatHandler, data => !_blogEditor.ShouldComposeHostHandlePhotos() && ImageFileFormatHandler.CanCreateFrom(data)),
@@ -121,7 +121,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         protected virtual DataFormatHandler CreateContentSourceUrlFormatHandler(DataObjectMeister dataMeister, DataFormatHandlerContext handlerContext)
         {
-            return new UrlContentSourcelFormatHandler(dataMeister, handlerContext, EditorContext, _insertionSite);
+            return new UrlContentSourceFormatHandler(dataMeister, handlerContext, EditorContext, _insertionSite);
         }
 
         protected virtual DataFormatHandler CreateImageFileFormatHandler(DataObjectMeister dataMeister, DataFormatHandlerContext handlerContext)
@@ -324,7 +324,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 LiveClipboardManager.FindContentSourceForLiveClipboard(lcData.Formats);
             if (contentSource == null)
             {
-                Trace.Fail("Unexpected failure to find content soure!");
+                Trace.Fail("Unexpected failure to find content source!");
                 return false;
             }
 
@@ -355,7 +355,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 }
                 catch (Exception ex)
                 {
-                    ContentSourceManager.DisplayContentRetreivalError(EditorContext.FrameWindow, ex, contentSource);
+                    ContentSourceManager.DisplayContentRetrievalError(EditorContext.FrameWindow, ex, contentSource);
                     return false;
                 }
             }
@@ -573,11 +573,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
     }
 
-    internal class UrlContentSourcelFormatHandler : UrlHandler
+    internal class UrlContentSourceFormatHandler : UrlHandler
     {
         IContentSourceSite _contentSourceSite;
 
-        public UrlContentSourcelFormatHandler(DataObjectMeister dataObject, DataFormatHandlerContext handlerContext, IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite)
+        public UrlContentSourceFormatHandler(DataObjectMeister dataObject, DataFormatHandlerContext handlerContext, IHtmlMarshallingTarget editorContext, IContentSourceSite sourceSite)
             : base(dataObject, handlerContext, editorContext)
         {
             _contentSourceSite = sourceSite;
@@ -646,7 +646,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             string title = String.Empty;
             string content = String.Empty;
 
-            if (UrlContentRetreivalWithProgress.ExecuteSimpleContentRetreival(
+            if (UrlContentRetrievalWithProgress.ExecuteSimpleContentRetrieval(
                 EditorContext.FrameWindow, contentSource, url, ref title, ref content))
             {
                 _contentSourceSite.InsertContent(content, false);
@@ -665,7 +665,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             IExtensionData extensionData = _contentSourceSite.CreateExtensionData(Guid.NewGuid().ToString());
             ISmartContent smartContent = new SmartContent(extensionData);
 
-            if (UrlContentRetreivalWithProgress.ExecuteSmartContentRetreival(
+            if (UrlContentRetrievalWithProgress.ExecuteSmartContentRetrieval(
                 EditorContext.FrameWindow, contentSource, url, ref title, smartContent))
             {
                 string content = smartSource.GenerateEditorHtml(smartContent, _contentSourceSite);
@@ -979,7 +979,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         //         (1) We don't have to deal with embeds that steal mouse clicks (need it to be
         //             selectable and moveable like any other content)
         ///        (2) We can implement a custom sidebar and other custom behavior like snapshotting
-        ///        (3) We don't have to chase down bizzaro editor edge cases caused by complex or misbehaving embeds
+        ///        (3) We don't have to chase down bizarro editor edge cases caused by complex or misbehaving embeds
         ///
         IContentSourceSite _contentSourceSite;
 

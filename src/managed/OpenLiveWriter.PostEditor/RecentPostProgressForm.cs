@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor
 
             progressAnimatedBitmap.Bitmaps = AnimationBitmaps;
             progressAnimatedBitmap.Interval = 2000 / AnimationBitmaps.Length;
-            SetAnimatatedBitmapControl(progressAnimatedBitmap);
+            SetAnimatedBitmapControl(progressAnimatedBitmap);
         }
 
         protected override void OnLoad(EventArgs e)

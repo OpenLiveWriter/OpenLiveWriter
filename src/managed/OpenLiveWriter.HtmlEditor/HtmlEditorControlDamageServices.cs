@@ -105,16 +105,16 @@ namespace OpenLiveWriter.HtmlEditor
             _editorControl.SelectionChanged -= new EventHandler(_editorControl_SelectionChanged);
         }
 
-        public event DamageListener DamageOccured
+        public event DamageListener DamageOccurred
         {
             add
             {
-                wordRangeDamager.DamageOccured += value;
+                wordRangeDamager.DamageOccurred += value;
                 DamageTrackingEnabled = true;
             }
             remove
             {
-                wordRangeDamager.DamageOccured -= value;
+                wordRangeDamager.DamageOccurred -= value;
                 if (!wordRangeDamager.HasDamageHandlers)
                     DamageTrackingEnabled = false;
             }
@@ -362,7 +362,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        public void HandleDamageOccured(object source, DamageEvent evt)
+        public void HandleDamageOccurred(object source, DamageEvent evt)
         {
             DumpDamagedRegions(evt.DamageRegions);
         }
@@ -417,15 +417,15 @@ namespace OpenLiveWriter.HtmlEditor
             _currentSelectionDamage.End.Gravity = _POINTER_GRAVITY.POINTER_GRAVITY_Right;
         }
 
-        public event DamageListener DamageOccured;
-        private void OnDamageOccured(DamageEvent e)
+        public event DamageListener DamageOccurred;
+        private void OnDamageOccurred(DamageEvent e)
         {
-            if (DamageOccured != null)
-                DamageOccured(_editorControl, e);
+            if (DamageOccurred != null)
+                DamageOccurred(_editorControl, e);
         }
         internal bool HasDamageHandlers
         {
-            get { return DamageOccured != null; }
+            get { return DamageOccurred != null; }
         }
 
         public void OnKeyDown(HtmlEventArgs e)
@@ -541,7 +541,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        internal MarkupRange CreateDamageTrackingRange(MarkupPointer start, MarkupPointer end, bool includeAdjecentWords)
+        internal MarkupRange CreateDamageTrackingRange(MarkupPointer start, MarkupPointer end, bool includeAdjacentWords)
         {
             MarkupRange range = _mshtmlEditor.MshtmlControl.MarkupServices.CreateMarkupRange();
             range.Start.MoveToPointer(start);
@@ -550,7 +550,7 @@ namespace OpenLiveWriter.HtmlEditor
             range.End.Gravity = _POINTER_GRAVITY.POINTER_GRAVITY_Right;
             _wordHelper.MoveToWordStart(range.Start);
             _wordHelper.MoveToWordEnd(range.End);
-            if (includeAdjecentWords)
+            if (includeAdjacentWords)
             {
                 ExpandDamageToAdjacentWords(range);
             }
@@ -560,7 +560,7 @@ namespace OpenLiveWriter.HtmlEditor
         private void FireDamageOccurred()
         {
             if (!_disposed)
-                OnDamageOccured(new DamageEvent(GetDamagedRegions()));
+                OnDamageOccurred(new DamageEvent(GetDamagedRegions()));
         }
 
         public void OnSelectionChange()

@@ -117,7 +117,7 @@ namespace OpenLiveWriter.SpellChecker
             completed = false;
             wordRangeHighlightPending = false;
 
-            // enter the spell-checking loop (if there are no mispelled words
+            // enter the spell-checking loop (if there are no misspelled words
             // then the form will never show)
             ContinueSpellCheck();
         }
@@ -174,7 +174,7 @@ namespace OpenLiveWriter.SpellChecker
                         result = SpellCheckResult.Correct;
 
                     //note: currently using this to not show any errors in smart content, since the fix isn't
-                    // propogated to the underlying data structure
+                    // propagated to the underlying data structure
                     if (result != SpellCheckResult.Correct && !wordRange.FilterAppliesRanged(offset, length))
                     {
                         // auto-replace
@@ -441,7 +441,7 @@ namespace OpenLiveWriter.SpellChecker
         /// <param name="e">event args</param>
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            // add this word to the user dictioanry
+            // add this word to the user dictionary
             spellingChecker.AddToUserDictionary(labelWord.Text);
 
             // continue spell checking

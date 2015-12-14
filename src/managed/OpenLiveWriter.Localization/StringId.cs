@@ -141,7 +141,7 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// Auto Replace
         /// </summary>
-        AutoreplacePrefererencesPanel,
+        AutoreplacePreferencesPanel,
         /// <summary>
         /// Replacement value:
         /// </summary>
@@ -4750,7 +4750,7 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// The error occurred for the following reason:
         /// </summary>
-        TheErrorOccuredBecause,
+        TheErrorOccurredBecause,
         /// <summary>
         /// &Tilt:
         /// </summary>
@@ -4904,7 +4904,7 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// Also check for pre-release (beta) &versions
         /// </summary>
-        UpdatesAvailableNofifyBeta,
+        UpdatesAvailableNotifyBeta,
         /// <summary>
         /// &Automatically check for updates
         /// </summary>

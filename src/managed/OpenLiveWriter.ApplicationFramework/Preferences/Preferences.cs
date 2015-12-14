@@ -81,7 +81,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         /// Initializes a new instance of the Preferences class (optionally enable change monitoring)
         /// </summary>
         /// <param name="subKey">sub-key name</param>
-        /// <param name="monitorChanges">specifies whether the creator intendes to monitor
+        /// <param name="monitorChanges">specifies whether the creator intends to monitor
         /// this prefs object for changes by calling the CheckForChanges method</param>
         public Preferences(string subKey, bool monitorChanges)
         {
@@ -252,7 +252,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
             int result = Advapi32.RegNotifyChangeKeyValue(hPrefsKey, false, REG_NOTIFY_CHANGE.LAST_SET, settingsChangedEvent.SafeWaitHandle, true);
             if (result != ERROR.SUCCESS)
             {
-                Trace.WriteLine("Unexpeced failure to monitor reg key (Error code: " + result.ToString(CultureInfo.InvariantCulture));
+                Trace.WriteLine("Unexpected failure to monitor reg key (Error code: " + result.ToString(CultureInfo.InvariantCulture));
                 changeMonitoringDisabled = true;
             }
         }

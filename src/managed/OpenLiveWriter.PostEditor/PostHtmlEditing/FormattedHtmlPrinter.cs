@@ -199,7 +199,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         /// <summary>
         /// Utility for properly printing the start tag for an element.
-        /// This utility takes care of including/suppresing attributes and namespaces properly.
+        /// This utility takes care of including/suppressing attributes and namespaces properly.
         /// </summary>
         /// <param name="writer"></param>
         /// <param name="element"></param>
@@ -239,7 +239,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                             //IE won't return some attributes (like class) using IHTMLElement.getAttribute(),
                             //so if the value is null, try to get the value directly from the DOM Attribute.
                             //Note: we can't use the DOM value by default, because IE will rewrite the value
-                            //to contain a fully-qualified path on some attribures (like src and href).
+                            //to contain a fully-qualified path on some attributes (like src and href).
                             attrValue = attr.nodeValue as string;
 
                             if (attrValue == null)
@@ -301,7 +301,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                     }
                                 }
                             }
-                            Debug.WriteLineIf(attrValue != null && attrName != "id", String.Format(CultureInfo.InvariantCulture, "{0}.{1} attribute value not retreived", tagName, attrName), element.outerHTML);
+                            Debug.WriteLineIf(attrValue != null && attrName != "id", String.Format(CultureInfo.InvariantCulture, "{0}.{1} attribute value not retrieved", tagName, attrName), element.outerHTML);
                         }
 
                         // Minimized attributes are not allowed, according
@@ -450,7 +450,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 this.stackDepth = stackDepth;
                 this.parentElementPrinter = parentElementPrinter;
 
-                //create the appropriate indentation stategy for this element
+                //create the appropriate indentation strategy for this element
                 this.indentStrategy = CreateIndentStrategy(tagName, this);
             }
 
@@ -588,7 +588,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             public BlockElementIndentStrategy(HtmlElementPrinter elementPrinter)
                 : base(elementPrinter)
             {
-                //if this element is is the very first content in the parent element, then supress
+                //if this element is is the very first content in the parent element, then suppress
                 //adding the visual line break so that we don't end up with extra whitespace.
                 HtmlElementPrinter parent = elementPrinter.getParent();
                 if (parent != null)

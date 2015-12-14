@@ -23,7 +23,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
             }
         }
 
-        #region ApplicatonStyle access/monitoring
+        #region ApplicationStyle access/monitoring
 
         public static event EventHandler ApplicationStyleChanged
         {

@@ -47,14 +47,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _editWithStyleStep = editWithStyleStep;
         }
 
-        public virtual OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentConrol, TemporaryBlogSettings temporarySettings)
+        public virtual OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentControl, TemporaryBlogSettings temporarySettings)
         {
             _temporarySettings = temporarySettings;
 
             // create and start the account detector
             _blogServiceDetector = new BlogServiceDetector(
                 uiContext,
-                parentConrol,
+                parentControl,
                 _temporarySettings.Id, _temporarySettings.HomepageUrl,
                 new BlogCredentialsAccessor(_temporarySettings.Id, _temporarySettings.Credentials));
 
@@ -120,7 +120,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _temporarySettings.ManifestDownloadInfo = _blogServiceDetector.ManifestDownloadInfo;
             _temporarySettings.ClientType = _blogServiceDetector.ClientType;
 
-            // values that the service detector attempts to retreive -- if the attempt fails
+            // values that the service detector attempts to retrieve -- if the attempt fails
             // for any reason then don't update the value (i.e. a failed attempt to get the
             // list of categories should not be construed as "there are no categories")
             if (_blogServiceDetector.Categories != null)
@@ -182,14 +182,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
         }
 
-        public override OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentConrol, TemporaryBlogSettings temporarySettings)
+        public override OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentControl, TemporaryBlogSettings temporarySettings)
         {
             _temporarySettings = temporarySettings;
 
             // create and start the account detector
             _blogServiceDetector = new SharePointBlogDetector(
                 uiContext,
-                parentConrol,
+                parentControl,
                 _temporarySettings.Id, _temporarySettings.HomepageUrl,
                 new BlogCredentialsAccessor(_temporarySettings.Id, _temporarySettings.Credentials),
                 _temporarySettings.Credentials);

@@ -199,7 +199,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return attachSettings.AttachmentUrl;
         }
 
-        //SharePoint blogIDs are formatted: webguid#listguid
+        //SharePoint blogIDs are formatted: webguid#listGuid
         public static string SharepointBlogIdToListGuid(string blogId)
         {
             int listGuidIndex = blogId.IndexOf("#", StringComparison.OrdinalIgnoreCase);
@@ -366,16 +366,16 @@ namespace OpenLiveWriter.BlogClient.Clients
             internal AuthenticationScheme GetAuthenticationScheme()
             {
                 string authVal = _blogCredentials.GetCustomValue(AUTH_SCHEME);
-                AuthenticationScheme authSceme = AuthenticationScheme.Http;
+                AuthenticationScheme authScheme = AuthenticationScheme.Http;
                 if (authVal != null && authVal.Length > 0)
                 {
                     try
                     {
-                        authSceme = (AuthenticationScheme)AuthenticationScheme.Parse(typeof(AuthenticationScheme), authVal);
+                        authScheme = (AuthenticationScheme)AuthenticationScheme.Parse(typeof(AuthenticationScheme), authVal);
                     }
                     catch (Exception) { }//unknown authscheme detected
                 }
-                return authSceme;
+                return authScheme;
             }
         }
     }

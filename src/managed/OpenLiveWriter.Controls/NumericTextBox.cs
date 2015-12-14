@@ -37,11 +37,11 @@ namespace OpenLiveWriter.Controls
                     {
                         DataObjectMeister meister = new DataObjectMeister(Clipboard.GetDataObject());
 
-                        // if there is no text data then surpress paste
+                        // if there is no text data then suppress paste
                         if (meister.TextData == null)
                             return;
 
-                        // if the text-data can't be parsed into an integer then supress paste
+                        // if the text-data can't be parsed into an integer then suppress paste
                         try
                         {
                             int.Parse(meister.TextData.Text, CultureInfo.InvariantCulture);

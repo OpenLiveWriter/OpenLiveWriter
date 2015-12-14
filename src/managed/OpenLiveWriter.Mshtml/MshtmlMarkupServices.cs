@@ -366,7 +366,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Positions a MarkupPointer at the specfied caret.
+        /// Positions a MarkupPointer at the specified caret.
         /// </summary>
         /// <param name="caret"></param>
         /// <param name="p"></param>

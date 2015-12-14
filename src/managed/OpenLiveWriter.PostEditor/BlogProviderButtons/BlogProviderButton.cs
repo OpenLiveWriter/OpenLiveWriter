@@ -137,7 +137,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         }
 
         /// <summary>
-        /// Initial connection to application frame. Supress notification image and force
+        /// Initial connection to application frame. Suppress notification image and force
         /// an immediate polling for notification status
         /// </summary>
         public void ConnectToFrame()

@@ -328,7 +328,7 @@ namespace OpenLiveWriter.FileDestinations
                         }
 
                         //If the elements in the folder can't be listed, then just shove it into the tree.
-                        //Note: This case is necessary for shared FTP enviroments where the user starts
+                        //Note: This case is necessary for shared FTP environments where the user starts
                         //out in a writable homedir but the parent dirs aren't browsable.
                         if (nextNode == null)
                         {

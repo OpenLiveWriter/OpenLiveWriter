@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             IBlogPostImageEditingContext imageEditingContext,
             CreateFileCallback createFileCallback)
         {
-            // Instead of creating the image sidebar, we now create the manager for ribbon commands releated to image editing.
+            // Instead of creating the image sidebar, we now create the manager for ribbon commands related to image editing.
             _pictureEditingManager = new PictureEditingManager(editorContext, imageEditingContext, createFileCallback);
         }
 

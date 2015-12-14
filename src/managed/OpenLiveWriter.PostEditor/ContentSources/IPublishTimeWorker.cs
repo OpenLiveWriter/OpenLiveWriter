@@ -12,7 +12,7 @@ namespace OpenLiveWriter.PostEditor
     public interface IPublishTimeWorker
     {
         /// <summary>
-        /// IPublishTimeWorker can be implemened by plugins that want to do work during the publish workflow.
+        /// IPublishTimeWorker can be implemented by plugins that want to do work during the publish workflow.
         /// For example this interface can be used by the photo album plugin to publish the photo album or by
         /// the video plugin if we wanted to publish the video to a web service when publishing and not in the background
         /// </summary>

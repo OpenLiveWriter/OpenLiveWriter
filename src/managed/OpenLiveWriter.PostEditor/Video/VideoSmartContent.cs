@@ -354,7 +354,7 @@ namespace OpenLiveWriter.PostEditor.Video
         }
 
         /// <summary>
-        /// Gets the status of a video.  In the event the video is already publiushed to a service
+        /// Gets the status of a video.  In the event the video is already published to a service
         /// this function should return "".  When it is being published by WLW we will get the status
         /// from the publisher.  It needs a window so that it can prompt the user for the
         /// username/password if a status watcher needs to be created.
@@ -401,14 +401,14 @@ namespace OpenLiveWriter.PostEditor.Video
                 }
 
                 // If the publisher couldnt make a new status watcher
-                // we just try to take a snap shot and then pretend it is comepleted
+                // we just try to take a snap shot and then pretend it is completed
                 if (publisher == null)
                 {
                     StopProgress(false);
                     return VideoPublishStatus.Completed.ToString();
                 }
 
-                // Check to see the status and if it is comepleted we can stop tracking the progress
+                // Check to see the status and if it is completed we can stop tracking the progress
                 PublishStatus publishStatus = publisher.Status;
 
                 Id = publishStatus.Id;

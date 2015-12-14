@@ -181,7 +181,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 buttonPreviousPage.Enabled = false;
                 buttonNextPage.Enabled = false;
             }
-            // we got all of the vidoes
+            // we got all of the videos
             else if (_numberOfVideos < NUMBEROFVIDEOSPERPAGE)
             {
                 labelQueryStatus.Text = FormatVideoString(1, _numberOfVideos) + " " + string.Format(CultureInfo.CurrentCulture, Res.Get(StringId.Plugin_Video_Soapbox_Total_Videos), _numberOfVideos);

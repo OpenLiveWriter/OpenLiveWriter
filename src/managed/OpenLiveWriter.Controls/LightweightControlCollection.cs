@@ -40,7 +40,7 @@ namespace OpenLiveWriter.Controls
         ///	Initializes a new instance of <see cref='OpenLiveWriter.Controls.LightweightControlCollection'/> containing any array of <see cref='OpenLiveWriter.Controls.LightweightControl'/> objects.
         /// </summary>
         /// <param name='value'>
-        /// A array of <see cref='OpenLiveWriter.Controls.LightweightControl'/> objects with which to intialize the collection
+        /// A array of <see cref='OpenLiveWriter.Controls.LightweightControl'/> objects with which to initialize the collection
         /// </param>
         public LightweightControlCollection(LightweightControl[] value)
         {

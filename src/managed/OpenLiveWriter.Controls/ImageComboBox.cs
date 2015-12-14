@@ -114,7 +114,7 @@ namespace OpenLiveWriter.Controls
                     g.DrawLine(pen, area.Left, area.Bottom - 1, area.Right, area.Bottom - 1);
             }
 
-            // focus rectange if necessary
+            // focus rectangle if necessary
             e.DrawFocusRectangle();
         }
 

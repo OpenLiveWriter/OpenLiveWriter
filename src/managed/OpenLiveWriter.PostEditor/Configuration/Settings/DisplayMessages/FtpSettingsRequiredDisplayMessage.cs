@@ -55,7 +55,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings.DisplayMessages
         /// </summary>
         private void InitializeComponent()
         {
-            this.Text = "If you choose to upload images to an FTP server you must speicfy the settings for the destination server.";
+            this.Text = "If you choose to upload images to an FTP server you must specify the settings for the destination server.";
             this.Title = "FTP Settings Required";
             this.Type = DisplayMessageType.Warning;
 

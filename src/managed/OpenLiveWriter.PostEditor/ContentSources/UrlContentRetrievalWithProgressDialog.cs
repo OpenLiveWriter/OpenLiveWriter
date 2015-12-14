@@ -15,9 +15,9 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.ContentSources
 {
-    internal class UrlContentRetreivalWithProgressDialog : ApplicationDialog
+    internal class UrlContentRetrievalWithProgressDialog : ApplicationDialog
     {
-        private UrlContentRetreivalAsyncOperation _asyncOperation;
+        private UrlContentRetrievalAsyncOperation _asyncOperation;
         private OpenLiveWriter.Controls.AnimatedBitmapControl _animatedBitmapControl;
         private System.Windows.Forms.Label labelCaption;
         private System.Windows.Forms.Label labelDetails;
@@ -27,7 +27,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         /// </summary>
         private System.ComponentModel.Container components = null;
 
-        public UrlContentRetreivalWithProgressDialog(ContentSourceInfo contentSourceInfo)
+        public UrlContentRetrievalWithProgressDialog(ContentSourceInfo contentSourceInfo)
         {
             //
             // Required for Windows Form Designer support
@@ -49,7 +49,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             Icon = ApplicationEnvironment.ProductIcon;
         }
 
-        public void ShowProgress(IWin32Window owner, UrlContentRetreivalAsyncOperation asyncOperation)
+        public void ShowProgress(IWin32Window owner, UrlContentRetrievalAsyncOperation asyncOperation)
         {
             // got past the delay interval, need to signup for events and show the dialog
             _asyncOperation = asyncOperation;
@@ -192,7 +192,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             //
-            // UrlContentRetreivalWithProgressDialog
+            // UrlContentRetrievalWithProgressDialog
             //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(330, 152);
@@ -204,7 +204,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             this.Location = new System.Drawing.Point(0, 0);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "UrlContentRetreivalWithProgressDialog";
+            this.Name = "UrlContentRetrievalWithProgressDialog";
             this.Text = "YouTube Video";
             this.ResumeLayout(false);
 

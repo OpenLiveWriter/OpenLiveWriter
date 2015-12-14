@@ -89,7 +89,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         void IBlogPostEditor.OnBlogSettingsChanged(bool templateChanged)
         {
-            // make sure we have the lastest categoires (in case the underlying target blog changed)
+            // make sure we have the latest categories (in case the underlying target blog changed)
             CategoryContext.SetBlogCategories(_targetBlog.Categories) ;
         }
 
@@ -103,7 +103,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             // prevent editing and showing of drop down
             DropDownStyle = ComboBoxStyle.DropDownList ;
 
-            // fully cusotm painting
+            // fully custom painting
             IntegralHeight = false ;
             DrawMode = DrawMode.OwnerDrawFixed ;
             Items.Add(String.Empty) ;

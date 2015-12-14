@@ -92,7 +92,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexpeted exception detaching from blog provider button notification context: " + ex.ToString());
+                Trace.Fail("Unexpected exception detaching from blog provider button notification context: " + ex.ToString());
             }
 
         }
@@ -105,7 +105,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 foreach (BlogProviderButton button in GetButtons())
                     button.CheckForNotification();
 
-                // set timer to standard internval
+                // set timer to standard interval
                 lock (this)
                 {
                     if (_buttonIds != null)

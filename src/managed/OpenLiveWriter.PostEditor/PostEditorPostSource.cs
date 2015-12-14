@@ -491,7 +491,7 @@ namespace OpenLiveWriter.PostEditor
 
         public PostInfo[] GetPages(RecentPostRequest request)
         {
-            throw new NotSupportedException("Pages are not suppported for this post source!");
+            throw new NotSupportedException("Pages are not supported for this post source!");
         }
 
         public RecentPostCapabilities RecentPostCapabilities

@@ -44,6 +44,6 @@ namespace OpenLiveWriter.Interop.Windows
             MINIDUMP_TYPE DumpType,
             IntPtr ExceptionParam,
             IntPtr UserStreamParam,
-            IntPtr CallackParam);
+            IntPtr CallbackParam);
     }
 }

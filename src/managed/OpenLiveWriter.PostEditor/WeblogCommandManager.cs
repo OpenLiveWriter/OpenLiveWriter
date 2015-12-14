@@ -165,7 +165,7 @@ namespace OpenLiveWriter.PostEditor
 
         private CommandContextMenuDefinition GetWeblogContextMenuDefinition(bool includeAllCommands)
         {
-            // initialize contenxt-menu definition
+            // initialize context-menu definition
             CommandContextMenuDefinition weblogContextMenuDefinition = new CommandContextMenuDefinition(this.components);
             weblogContextMenuDefinition.CommandBar = true;
 

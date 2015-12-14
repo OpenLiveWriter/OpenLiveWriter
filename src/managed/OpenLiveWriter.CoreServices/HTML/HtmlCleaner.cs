@@ -23,7 +23,7 @@ namespace OpenLiveWriter.CoreServices.HTML
           Smart content sources call SmartContentInsertionHelper to do their insertion. Both of
           these paths allow "raw" access to HTML insertion. We will ultimately need to provide a
           service to plugins to do security and formatting oriented transformations of HTML
-          that they retreive "from the wild".
+          that they retrieve "from the wild".
     */
 
     public class HtmlCleaner

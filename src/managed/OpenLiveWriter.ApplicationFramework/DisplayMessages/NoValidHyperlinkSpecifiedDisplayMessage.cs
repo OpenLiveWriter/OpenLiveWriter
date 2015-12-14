@@ -58,7 +58,7 @@ namespace OpenLiveWriter.ApplicationFramework
         private void InitializeComponent()
         {
             //
-            // NoValidHyperlinkSpecifiedDisplayMesssage
+            // NoValidHyperlinkSpecifiedDisplayMessage
             //
             this.Text = "You must specify a valid hyperlink.";
             this.Title = "Hyperlink Not Specified";

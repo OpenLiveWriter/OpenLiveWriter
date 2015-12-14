@@ -63,7 +63,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Files contained within the site. Path sub-directories
         /// are separated by the "/" character. The listing will start with the
-        /// RootFile and will then be ordered accoring to the FileListingComparer
+        /// RootFile and will then be ordered occurring to the FileListingComparer
         /// implementation of IComparer (standard recursive directory listing).
         /// </summary>
         /// <returns>List of the files contained within the site (represented as
@@ -112,11 +112,11 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Retrieve a Stream for the given path (Read or Write access can be specified)
         /// Stream.Close() should be called when you are finished using the Stream.
-        /// Imlementation of Open is deferred to subclasses.
+        /// Implementation of Open is deferred to subclasses.
         /// </summary>
-        /// <param name="path">Heirarchical path designating stream location (uses "/" as
+        /// <param name="path">Hierarchical path designating stream location (uses "/" as
         /// path designator)</param>
-        /// <param name="mode">Read or Write. Write will overwrite any exising path of
+        /// <param name="mode">Read or Write. Write will overwrite any existing path of
         /// the same name.</param>
         /// <returns>Stream that can be used to access the path (Stream.Close() must be
         /// called when you are finished using the Stream).</returns>
@@ -162,7 +162,7 @@ namespace OpenLiveWriter.CoreServices
     public class FileListingComparer : IComparer
     {
         /// <summary>
-        /// Implemet Compare method
+        /// Implement Compare method
         /// </summary>
         /// <param name="x">left hand side</param>
         /// <param name="y">right hand side</param>

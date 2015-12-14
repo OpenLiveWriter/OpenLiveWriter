@@ -13,7 +13,7 @@ namespace OpenLiveWriter.Mshtml
     public class ElementBehaviorFactoryForExistingBehavior : IElementBehaviorFactoryRaw
     {
         /// <summary>
-        /// Initialize the factory with an ealready existing IElementBehavior
+        /// Initialize the factory with an already existing IElementBehavior
         /// </summary>
         /// <param name="behavior">behavior we should return</param>
         public ElementBehaviorFactoryForExistingBehavior(IElementBehaviorRaw behavior)

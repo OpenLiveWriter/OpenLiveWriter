@@ -27,7 +27,7 @@ namespace BlogRunner.Core
 
         public void RunTests(Provider provider, Blog blog, XmlElement providerEl)
         {
-            using (new BlogClientUIContextSilentMode()) //supress prompting for credentials
+            using (new BlogClientUIContextSilentMode()) //suppress prompting for credentials
             {
                 TemporaryBlogCredentials credentials = new TemporaryBlogCredentials();
                 credentials.Username = blog.Username;

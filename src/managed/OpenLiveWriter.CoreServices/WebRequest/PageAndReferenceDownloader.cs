@@ -25,7 +25,7 @@ namespace OpenLiveWriter.CoreServices
     public class PageAndReferenceDownloader
     {
         /// <summary>
-        /// Constructs a new asynchrous page download.
+        /// Constructs a new asynchronous page download.
         /// </summary>
         /// <param name="pagesToDownload">The array of pagesToDownload</param>
         /// <param name="siteStorage">The File based site storage into which to place the page and references</param>
@@ -35,7 +35,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Constructs a new asynchrous page download.
+        /// Constructs a new asynchronous page download.
         /// </summary>
         /// <param name="pagesToDownload">The array of pagesToDownload</param>
         /// <param name="siteStorage">The File based site storage into which to place the page and references</param>
@@ -62,7 +62,7 @@ namespace OpenLiveWriter.CoreServices
         private string _pathToken;
 
         /// <summary>
-        /// The list of errors that occur during the downlaod (if throwOnFailure is false)
+        /// The list of errors that occur during the download (if throwOnFailure is false)
         /// </summary>
         public ArrayList Errors = ArrayList.Synchronized(new ArrayList());
 
@@ -228,7 +228,7 @@ namespace OpenLiveWriter.CoreServices
         /// Download a reference, providing progress
         /// </summary>
         /// <param name="reference">The reference to download</param>
-        /// <param name="fileStorage">The storage to download the refernce into</param>
+        /// <param name="fileStorage">The storage to download the reference into</param>
         /// <param name="progressHost">The progressHost to provide feedback to</param>
         private void DownloadReference(ReferenceToDownload reference, FileBasedSiteStorage fileStorage, IProgressHost progressHost)
         {

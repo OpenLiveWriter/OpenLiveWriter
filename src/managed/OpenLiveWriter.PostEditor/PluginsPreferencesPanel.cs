@@ -76,7 +76,7 @@ namespace OpenLiveWriter.PostEditor
             // set our bitmaps
             PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PluginsSmall.png");
 
-            // paramaterize caption with product name
+            // parameterize caption with product name
             labelCaption.Text = String.Format(CultureInfo.CurrentCulture, labelCaption.Text, ApplicationEnvironment.ProductName);
 
             // initialize preferences
@@ -215,7 +215,7 @@ namespace OpenLiveWriter.PostEditor
                     }
                     catch (NotImplementedException ex)
                     {
-                        ContentSourceManager.DisplayContentRetreivalError(FindForm(), ex, selectedContentSource);
+                        ContentSourceManager.DisplayContentRetrievalError(FindForm(), ex, selectedContentSource);
                     }
                     catch (Exception exception)
                     {
@@ -423,8 +423,8 @@ namespace OpenLiveWriter.PostEditor
             this.labelPluginDescription.Name = "labelPluginDescription";
             this.labelPluginDescription.Size = new System.Drawing.Size(241, 100);
             this.labelPluginDescription.TabIndex = 1;
-            this.labelPluginDescription.Text = "Publish videos to your weblog from YouTube, the leading free online video streami" +
-                "ng service.";
+            this.labelPluginDescription.Text = "Publish videos to your weblog from YouTube, the leading free online video " +
+                "streaming service.";
             //
             // radioButtonDisablePlugin
             //

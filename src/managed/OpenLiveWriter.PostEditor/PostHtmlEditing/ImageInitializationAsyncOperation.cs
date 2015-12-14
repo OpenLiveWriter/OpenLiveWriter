@@ -121,7 +121,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 }
             }
 
-            // We've successfully intialized all the images, but make sure we weren't cancelled at the last second.
+            // We've successfully initialized all the images, but make sure we weren't cancelled at the last second.
             if (CancelRequested)
             {
                 AcknowledgeCancel();

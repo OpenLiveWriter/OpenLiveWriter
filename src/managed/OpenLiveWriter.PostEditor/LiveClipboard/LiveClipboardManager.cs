@@ -84,7 +84,7 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
                 // catch should not be necessary but we are adding this code late
                 // so include it to be safe
                 {
-                    Trace.Fail("Unexpected exception thrown while trying to retreive live clipboard format image: " + ex.ToString());
+                    Trace.Fail("Unexpected exception thrown while trying to retrieve live clipboard format image: " + ex.ToString());
                     return ContentSource.Image;
                 }
 

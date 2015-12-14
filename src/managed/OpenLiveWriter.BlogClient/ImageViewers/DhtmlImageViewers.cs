@@ -32,7 +32,7 @@ namespace OpenLiveWriter.BlogClient
         public static ImageViewer DetectImageViewer(string html, string sourceUrl)
         {
             List<ImageViewer> viewers = imageViewers;
-            LazyLoader<List<Regex>> regexes = new LazyLoader<List<Regex>>(delegate
+            LazyLoader<List<Regex>> regexs = new LazyLoader<List<Regex>>(delegate
               {
                   List<Regex> regexList = new List<Regex>(viewers.Count);
                   foreach (ImageViewer v in viewers)
@@ -74,7 +74,7 @@ namespace OpenLiveWriter.BlogClient
                     // We'll just use the regex on the raw attribute value.
                 }
 
-                List<Regex> regexList = regexes.Value;
+                List<Regex> regexList = regexs.Value;
                 for (int i = 0; i < regexList.Count; i++)
                 {
                     if (regexList[i].IsMatch(src))

@@ -36,7 +36,7 @@ namespace OpenLiveWriter.CoreServices
         public string RootDomain = null;
 
         /// <summary>
-        /// The mamixum total number of pages to download. The downloader will stop downloading as soon as it has exceeded
+        /// The maximum total number of pages to download. The downloader will stop downloading as soon as it has exceeded
         /// this limit (no matter the depth or position in the tree).  All additional pages will not be downloaded, but the links
         /// to them will be resolved to point to their location on the web.
         /// </summary>

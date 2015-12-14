@@ -315,7 +315,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     ForceTablesToInheritFontColor(postBodyRange);
                 }
 
-                // Since we move around the HTML where the intial cursor is positioned, we need
+                // Since we move around the HTML where the initial cursor is positioned, we need
                 // to make sure that it is still visible.
                 if (HTMLCaret != null)
                     HTMLCaret.Show(1);
@@ -627,7 +627,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 {
                     // we return true on exception here because we don't want to halt publishing
                     // due to an unexpected error
-                    Trace.Fail("Unexpected exception attemptign to discover tags in document: " + ex.ToString());
+                    Trace.Fail("Unexpected exception attempting to discover tags in document: " + ex.ToString());
                     return true;
                 }
             }
@@ -960,7 +960,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 if (parentAnchor != null)
                 {
                     // To make sure the title is readable, we will replace the anchor tag with a new span tag
-                    // that has all of the anchor tag properties we believe need to be propogated.  This will
+                    // that has all of the anchor tag properties we believe need to be propagated.  This will
                     // keep the final render as close to the original as possible.
 
                     // Get the next parent block element to compare against the anchor tag
@@ -1291,7 +1291,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _templateContainsTitle = editingTemplate.ContainsTitle;
 
             //if any manually attached behaviors are attached, remove them.
-            //Note: this is necessary to prevent errors from occuring when switching between wysiwyg and code view
+            //Note: this is necessary to prevent errors from occurring when switching between wysiwyg and code view
             //to quickly.
             DetachBehaviors();
 
@@ -1305,8 +1305,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     blogPostBody += CONTENT_BODY_PADDING;
             }
 
-            // SInce this action is reverted in the deattach of the behvaiors, we only do this in edit mode,
-            // otherwie there is no deattach to balance it out.  See that AttachBehaviors() doesnt attach in edit mode
+            // SInce this action is reverted in the deattach of the behaviors, we only do this in edit mode,
+            // otherwise there is no deattach to balance it out.  See that AttachBehaviors() doesnt attach in edit mode
             if (Editable)
             {
                 //attach the extended entry HTML behavior
@@ -1325,7 +1325,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // Hack: put some padding at the bottom of the div so that the bottom line of text does not get
             // cutoff if it extends below the baseline (p's and g's sometimes cause issues)
 
-            //put an ID'd span around the title so that editing behaviors can be attachd to it.
+            //put an ID'd span around the title so that editing behaviors can be attached to it.
             //Note: use a span instead of a DIV as since DIVs can't be nested inside inline elements, so if
             //the title text was surrounded by inline tags (like font, or bold, etc) then the DIV would
             //break the rendering of the surrounding inline styles.
@@ -1848,7 +1848,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             if (selectedMarkupRange != null && selectedMarkupRange.IsEmpty())
             {
                 //resolve problems with display-vs-markup position ambiguity by moving past
-                //invisible markupon the left. This makes the element context consistent
+                //invisible mark up on the left. This makes the element context consistent
                 //with the element the caret exists within when typing text (avoids bugs like 403028)
                 MoveSelectionToPoint(screenPoint);
             }
@@ -2078,7 +2078,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         protected override bool ContentIsDeletableForInsert(MarkupPointer start, MarkupPointer end)
         {
-            // if a table element is contained within the selection then it is not deleteable for insert
+            // if a table element is contained within the selection then it is not deletable for insert
             TableSelection tableSelection = new TableSelection(MarkupServices.CreateMarkupRange(start, end));
             bool contentIsDeletableForInsert = !tableSelection.HasContiguousSelection;
 
@@ -2165,7 +2165,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             if (!_damageHandlerInstalled)
             {
-                DamageOccured += HandleSpellingDamage;
+                DamageOccurred += HandleSpellingDamage;
                 _damageHandlerInstalled = true;
             }
 
@@ -2279,7 +2279,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// <summary>
         /// Implements a specialized damage commit strategy for the inline spellchecking.
         /// Spellchecking generally utilizes the word-based commit strategy, but when editing
-        /// a word that is already marked as mispelled, then the realtime commit strategy needs
+        /// a word that is already marked as misspelled, then the realtime commit strategy needs
         /// to be used.
         /// </summary>
         class SpellCheckingDamageCommitStrategy : DamageCommitStrategy

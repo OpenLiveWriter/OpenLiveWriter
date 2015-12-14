@@ -150,7 +150,7 @@ namespace OpenLiveWriter.Mshtml
 
         public static string GetRangeTextFast(MarkupRange range)
         {
-            IHTMLTxtRange stagingTextRange = IHTMLTxtRangePool.AquireTxtRange(range);
+            IHTMLTxtRange stagingTextRange = IHTMLTxtRangePool.AcquireTxtRange(range);
             string returnValue = UseStagingTextRange(ref stagingTextRange, range, rng => rng.text);
             IHTMLTxtRangePool.RelinquishTxtRange(stagingTextRange, range);
             return returnValue;
@@ -158,7 +158,7 @@ namespace OpenLiveWriter.Mshtml
 
         public static string GetRangeHtmlFast(MarkupRange range)
         {
-            IHTMLTxtRange stagingTextRange = IHTMLTxtRangePool.AquireTxtRange(range);
+            IHTMLTxtRange stagingTextRange = IHTMLTxtRangePool.AcquireTxtRange(range);
             string returnValue = UseStagingTextRange(ref stagingTextRange, range, rng => rng.htmlText);
             IHTMLTxtRangePool.RelinquishTxtRange(stagingTextRange, range);
             return returnValue;
@@ -174,7 +174,7 @@ namespace OpenLiveWriter.Mshtml
             cache = Hashtable.Synchronized(new Hashtable());
         }
 
-        public static IHTMLTxtRange AquireTxtRange(MarkupRange range)
+        public static IHTMLTxtRange AcquireTxtRange(MarkupRange range)
         {
             try
             {

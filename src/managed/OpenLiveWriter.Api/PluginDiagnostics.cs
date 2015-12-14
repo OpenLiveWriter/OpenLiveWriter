@@ -44,7 +44,7 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Log an error that has occured (writes to the Open Live Writer log file
+        /// Log an error that has occurred (writes to the Open Live Writer log file
         /// (located at C:\Documents and Settings\%USER%\Application Data\Open Live Writer).
         /// </summary>
         /// <param name="message">Error message to log.</param>

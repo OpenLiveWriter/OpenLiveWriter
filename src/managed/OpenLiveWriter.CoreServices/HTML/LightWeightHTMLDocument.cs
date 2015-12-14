@@ -594,7 +594,7 @@ namespace OpenLiveWriter.CoreServices
         }
         private string _url;
 
-        public void AddSubstitionUrl(UrlToReplace urlToReplace)
+        public void AddSubstitutionUrl(UrlToReplace urlToReplace)
         {
             Generator.AddUrlToReplace(urlToReplace);
         }
@@ -630,7 +630,7 @@ namespace OpenLiveWriter.CoreServices
                         {
                             Attr src = tag.GetAttribute(HTMLTokens.Src);
                             if (src != null && src.Value != frameDoc.Url)
-                                Generator.AddSubstitionUrl(new UrlToReplace(src.Value, frameDoc.Url));
+                                Generator.AddSubstitutionUrl(new UrlToReplace(src.Value, frameDoc.Url));
                         }
                     }
                 }
@@ -736,7 +736,7 @@ namespace OpenLiveWriter.CoreServices
             m_resourceElements.Add(HTMLTokens.Img, HTMLTokens.Src);
             m_resourceElements.Add(HTMLTokens.Object, HTMLTokens.Src);
             m_resourceElements.Add(HTMLTokens.Embed, HTMLTokens.Src);
-            m_resourceElements.Add(HTMLTokens.Param, HTMLTokens.Value); //required for movies embeded using object tag
+            m_resourceElements.Add(HTMLTokens.Param, HTMLTokens.Value); //required for movies embedded using object tag
             m_resourceElements.Add(HTMLTokens.Script, HTMLTokens.Src);
             m_resourceElements.Add(HTMLTokens.Body, HTMLTokens.Background);
             m_resourceElements.Add(HTMLTokens.Input, HTMLTokens.Src);

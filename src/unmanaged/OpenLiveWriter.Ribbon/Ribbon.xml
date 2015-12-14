@@ -280,7 +280,7 @@
     <Command Name="cmdFormatMapEdit" Keytip="M" LabelTitle="Customize map" TooltipDescription="Change the map location." Symbol="cmdFormatMapEdit" Id="23420" Comment="MapContextTabGroup-FormatMapTab-FormatMapPropertiesGroup-FormatMapEdit"/>
     <Command Name="cmdDeleteDraft" LabelTitle="&amp;Delete local draft" TooltipTitle="Delete local draft" TooltipDescription="Removes the current draft from your computer." Symbol="cmdDeleteDraft" Id="23421" Comment="FileMenu-DeleteDraft"/>
 
-    <Command Name="cmdActivateContexutalTab" Symbol="cmdActivateContextualTab" Id="23422" Comment=""/>
+    <Command Name="cmdActivateContextualTab" Symbol="cmdActivateContextualTab" Id="23422" Comment=""/>
     
     <!-- TODO: Review usage of commands above. -->
     <Command Name="cmdAddDecorator" Symbol="AddDecorator" Id="23424" Comment=""/>

@@ -66,8 +66,8 @@ namespace OpenLiveWriter.BlogClient.Detection.DisplayMessages
             //
             // WeblogAuthenticationErrorDisplayMessage
             //
-            this.Text = "The weblog account could not be accessed using the specified username and p" +
-                "assword.{0}Please ensure that these values are correct before proceeding.";
+            this.Text = "The weblog account could not be accessed using the specified username and " +
+                "password.{0}Please ensure that these values are correct before proceeding.";
             this.Title = "Invalid Username or Password";
             this.Type = DisplayMessageType.Warning;
 

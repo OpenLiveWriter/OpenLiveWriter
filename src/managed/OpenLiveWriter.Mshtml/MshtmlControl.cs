@@ -220,7 +220,7 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="html">HTML to load</param>
         public void LoadFromString(string html)
         {
-            // declare unmanged resources
+            // declare unmanaged resources
             IntPtr hHTML = IntPtr.Zero;
             IStream stream = null;
 
@@ -229,7 +229,7 @@ namespace OpenLiveWriter.Mshtml
                 // copy the string to an unmanaged global memory block
                 hHTML = Marshal.StringToHGlobalUni(html);
 
-                // get a stream interface to the unmanged memory block
+                // get a stream interface to the unmanaged memory block
                 int result = Ole32Storage.CreateStreamOnHGlobal(hHTML, 0, out stream);
                 if (result != HRESULT.S_OK)
                     throw new COMException("Unexpected failure to create html stream", result);
@@ -271,7 +271,7 @@ namespace OpenLiveWriter.Mshtml
 
         #endregion
 
-        #region Propreties
+        #region Properties
 
         /// <summary>
         /// Window handle for the underlying MSHTML window
@@ -463,7 +463,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Hightlight rendering services for document ((must wait until document IsComplete to get this)
+        /// Highlight rendering services for document ((must wait until document IsComplete to get this)
         /// </summary>
         public IHighlightRenderingServicesRaw HighlightRenderingServices
         {
@@ -522,7 +522,7 @@ namespace OpenLiveWriter.Mshtml
                     // yikes! how could this happen
                     Debug.Fail("Unexpected exception occurred while determining selection type: " + ex.Message);
 
-                    // default to return no selection in relase mode
+                    // default to return no selection in release mode
                     return false;
                 }
             }
@@ -730,7 +730,7 @@ namespace OpenLiveWriter.Mshtml
             // MSHTML should always pass us a view
             if (pViewToActivate == null)
             {
-                Debug.Fail("MSHMTL should always pass us a view!");
+                Debug.Fail("MSHTML should always pass us a view!");
                 ComHelper.Return(HRESULT.E_FAILED);
             }
 
@@ -799,7 +799,7 @@ namespace OpenLiveWriter.Mshtml
                 if (htmlDocument != null)
                     Marshal.ReleaseComObject(htmlDocument);
 
-                // Sever any remaining connections to our site. Note that we probabaly
+                // Sever any remaining connections to our site. Note that we probably
                 // don't need to call this since it designed to sever out-of-process
                 // connections to our site -- typically the way we would get these is
                 // if MSHTML embedded an OLE object implemented as an out-of-process
@@ -918,7 +918,7 @@ namespace OpenLiveWriter.Mshtml
             LOG("IOleInPlaceSite", "GetWindowContext");
 
             // provide pointers to our frame and in-place UI window (the user-control
-            // provides the implemenation of both)
+            // provides the implementation of both)
             ppFrame = (IOleInPlaceFrame)this;
             ppDoc = (IOleInPlaceUIWindow)this;
 
@@ -934,7 +934,7 @@ namespace OpenLiveWriter.Mshtml
 
             // Set frame info (no accelerator table provided, we don't need to
             // since MSHTML is an in-process server we will get first crack at
-            // all acclerators).
+            // all accelerators).
             lpFrameInfo.cb = (uint)Marshal.SizeOf(typeof(OLEINPLACEFRAMEINFO));
             lpFrameInfo.fMDIApp = false;
             lpFrameInfo.hwndFrame = this.Handle;
@@ -972,7 +972,7 @@ namespace OpenLiveWriter.Mshtml
 
         /// <summary>
         /// Notifies the container that the object is no longer active in place.
-        /// Will occur during our implmentation of Dispose.
+        /// Will occur during our implementation of Dispose.
         /// </summary>
         public void OnInPlaceDeactivate()
         {
@@ -1005,7 +1005,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Not used by document objects (thier RECT always occupies the whole window)
+        /// Not used by document objects (their RECT always occupies the whole window)
         /// </summary>
         /// <param name="lprcPosRect"></param>
         public void OnPosRectChange(ref RECT lprcPosRect)
@@ -1113,7 +1113,7 @@ namespace OpenLiveWriter.Mshtml
             string args = pActiveObject != null ? "object" : "null";
             LOG("IOleInPlaceFrame", "SetActiveObject(" + args + ")");
 
-            // set the new object only if it is truely new
+            // set the new object only if it is truly new
             if (oleInPlaceActiveObject != pActiveObject)
             {
                 // release existing object if necessary
@@ -1136,7 +1136,7 @@ namespace OpenLiveWriter.Mshtml
             // log access to method
             LOG_UN("IOleInPlaceFrame", "InsertMenus");
 
-            // reutrn not-implemented
+            // return not-implemented
             ComHelper.Return(HRESULT.E_NOTIMPL);
         }
 
@@ -1182,7 +1182,7 @@ namespace OpenLiveWriter.Mshtml
 
             // Currently we ignore this notification since our use of MSHTML
             // is to embed it as a UI component (rather than as the entire UI)
-            // In this case there is no reason to disaply it's status text.
+            // In this case there is no reason to display it's status text.
             // In the future we could expose a StatusText property and StatusTextChanged
             // event if users of the control wanted access to this.
         }
@@ -1448,7 +1448,7 @@ namespace OpenLiveWriter.Mshtml
             // log access to method
             LOG("IDocHostShowUI", "ShowHelp");
 
-            // we handle help directly via the F1 keybaord hook so supress native help
+            // we handle help directly via the F1 keyboard hook so suppress native help
             return HRESULT.S_OK;
         }
 
@@ -1694,7 +1694,7 @@ namespace OpenLiveWriter.Mshtml
         private IOleDocumentView oleDocumentView = null;
 
         /// <summary>
-        /// Command target for view (quieried from oleDocumentView)
+        /// Command target for view (queried from oleDocumentView)
         /// </summary>
         private IOleCommandTargetWithExecParams oleCommandTarget = null;
 
@@ -1758,7 +1758,7 @@ namespace OpenLiveWriter.Mshtml
         private ISelectionServicesRaw selectionServices;
 
         /// <summary>
-        /// Reference to IHightlightRenderingServices for the document
+        /// Reference to IHighlightRenderingServices for the document
         /// </summary>
         private IHighlightRenderingServicesRaw highlightRenderingServices;
 
@@ -1803,7 +1803,7 @@ namespace OpenLiveWriter.Mshtml
 
         public int Exec(ref Guid pguidCmdGroup, uint nCmdID, OLECMDEXECOPT nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
         {
-            // Supress window.alert and script errors
+            // Suppress window.alert and script errors
             if (nCmdID == OLECMDID.SHOWSCRIPTERROR || nCmdID == OLECMDID.SHOWMESSAGE)
                 return HRESULT.S_OK;
 

@@ -217,7 +217,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// to set the security policy that will be returned to mshtml
         ///
         /// This will be needed by BlogPostHtmlEditor so it can set an allow
-        /// policy for the bevhaiors that the canvas defines
+        /// policy for the behaviors that the canvas defines
         /// </summary>
         /// <param name="behavior"></param>
         /// <param name="pPolicy"></param>
@@ -361,7 +361,7 @@ namespace OpenLiveWriter.HtmlEditor
         private void InitDamageServices()
         {
             _damageServices = new HtmlEditorControlDamageServices(this, MshtmlEditor, CreateDamageCommitStrategy());
-            //_damageServices.DamageOccured += new DamageListener(new DamageTracer().HandleDamageOccured);
+            //_damageServices.DamageOccurred += new DamageListener(new DamageTracer().HandleDamageOccurred);
         }
 
         protected virtual DamageCommitStrategy CreateDamageCommitStrategy()
@@ -402,7 +402,7 @@ namespace OpenLiveWriter.HtmlEditor
                 if (mshtmlEditorDragAndDropTarget != null)
                     mshtmlEditorDragAndDropTarget.Dispose();
 
-                //initialize the drag drop targetting for this control
+                //initialize the drag drop targeting for this control
                 mshtmlEditorDragAndDropTarget = new MshtmlEditorDragAndDropTarget(this, _dataFormatHandlerFactory);
             }
         }
@@ -528,7 +528,7 @@ namespace OpenLiveWriter.HtmlEditor
                     break;
                 // WinLive 252760 - It is possible to create a selection on the screen that persists even when you
                 // create a new selection, navigate around, etc.  This phantom selection is not properly reflected
-                // in the various variable regarding selection range, but is corrected when the complete mshmtl
+                // in the various variable regarding selection range, but is corrected when the complete mshtml
                 // control is forced to refresh due to an invalidation. (Note: this bug was only listed for mail,
                 // but could also be reproed in writer using a slightly different situation)
                 case Keys.Up:
@@ -908,10 +908,10 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        public event DamageListener DamageOccured
+        public event DamageListener DamageOccurred
         {
-            add { _damageServices.DamageOccured += value; }
-            remove { _damageServices.DamageOccured -= value; }
+            add { _damageServices.DamageOccurred += value; }
+            remove { _damageServices.DamageOccurred -= value; }
         }
 
         /// <summary>
@@ -930,7 +930,7 @@ namespace OpenLiveWriter.HtmlEditor
                     //mouseUp if a dragdrop operation had been started by the editor.  To prevent
                     //the editor from hitting this condition, we hook the mouseMove event and eat
                     //it if the editor's selection state is invalid. This prevents the editor from
-                    //intiating a dragdrop while in an invalid selection state.
+                    //initiating a dragdrop while in an invalid selection state.
                     if ((Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left)
                     {
                         if (HasContiguousSelection && !IsValidContiguousSelection())
@@ -1047,8 +1047,8 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// Gets the bounding box of the element using all the childern of the control.  This is useful
-        /// for getting the bounding box that repersents the body because we artifically make the box larger
+        /// Gets the bounding box of the element using all the children of the control.  This is useful
+        /// for getting the bounding box that represents the body because we artificially make the box larger
         /// to give the user a visual effect of a 'page' as one would see in Word.  However, the dead space below the last child
         /// can cause problems during click detection so this function will trim that off.
         /// </summary>
@@ -1516,7 +1516,7 @@ namespace OpenLiveWriter.HtmlEditor
                 IHTMLElement tempElement = mc.Element;
 
                 // If we found something other then the tags
-                // used for defineing the font we have walked to far
+                // used for defining the font we have walked to far
                 if (tempElement.tagName != "FONT" &&
                     tempElement.tagName != "EM" &&
                     tempElement.tagName != "STRONG" &&
@@ -1907,7 +1907,7 @@ namespace OpenLiveWriter.HtmlEditor
                         }
                         catch (Exception e)
                         {
-                            //MHTML occasionally throws a "catastropic" error while undoing an operation
+                            //MHTML occasionally throws a "catastrophic" error while undoing an operation
                             //that went wrong.  Log the error instead of scaring the crap out of the
                             //user when this occurs.
                             Trace.Fail("Undo error occurred: " + e.Message, e.StackTrace);
@@ -2008,7 +2008,7 @@ namespace OpenLiveWriter.HtmlEditor
                 IOleUndoUnit targetRedoUnit = activeRedoUnits[0] as IOleUndoUnit;
 
                 // we assume the first item in the list is visible b/c invisible undos
-                // should always be chained with a visible one. check this assumptoin
+                // should always be chained with a visible one. check this assumption
                 Trace.Assert(!InvisibleUndoUnit.UnitIsInvisible(GetUndoUnitDescription(targetRedoUnit)));
 
                 // scan the list for 'invisible' undos that are logically part of
@@ -2238,8 +2238,8 @@ namespace OpenLiveWriter.HtmlEditor
 
             // The point that we are trying to move the caret to is directly in the PostBodyElement
             // When we find the size of the element, we use GetBodyBoundingBox which
-            // will determine the size of the element using the childern.  If the user clicks past the last
-            // child element of the post body, calcuating the size this will will result in the code path
+            // will determine the size of the element using the children.  If the user clicks past the last
+            // child element of the post body, calculating the size this will will result in the code path
             // that places at the last line of the body.  This is correct.  If we used the normal getBoundingClientRect
             // and the user clicked inside of the body but below the last line, the caret would move to the top
             // left corner of the post body which is not what users would expect.
@@ -2299,7 +2299,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
 
             // We might not want to select the element if this is an edit field
-            // that will select its whole inner contents on intial focus inside of the element
+            // that will select its whole inner contents on initial focus inside of the element
             if (selectLocation)
             {
                 //focus the target element in case focus is currently in another element.
@@ -2532,8 +2532,8 @@ namespace OpenLiveWriter.HtmlEditor
                 if (!string.IsNullOrEmpty(html))
                 {
                     //Note: we use MarkupServices to insert the content so that IE doesn't try to fix up URLs.
-                    //Element.insertAdjacentHTML() is a no-no because it rewrites relaive URLs to include
-                    //the fullpath from the local filesytem.
+                    //Element.insertAdjacentHTML() is a no-no because it rewrites relative URLs to include
+                    //the fullpath from the local filesystem.
 
                     //MarkupServices.ParseString() doesn't attempt to fix up URLs, so its safe to use.
                     //We will now stage the new content into a MarkupContainer, and then move it into
@@ -2897,7 +2897,7 @@ namespace OpenLiveWriter.HtmlEditor
                 }
                 else
                 {
-                    //if this insn't wrapped in a <pre> tag, then use a textRange to insert the
+                    //if this isn't wrapped in a <pre> tag, then use a textRange to insert the
                     //text so that it will be padded with <BR> and &nbsp.
                     MarkupRange range = MarkupServices.CreateMarkupRange(start, end);
                     IHTMLTxtRange txtRange = range.ToTextRange();
@@ -3804,7 +3804,7 @@ namespace OpenLiveWriter.HtmlEditor
                 }
                 catch (Exception ex)
                 {
-                    // WinLive 105991: Carry on inspite of OLECMDERR_E_DISABLED (0x80040101)
+                    // WinLive 105991: Carry on in spite of OLECMDERR_E_DISABLED (0x80040101)
                     Trace.WriteLine("Exception thrown when getting selection fore color: " + ex);
                     return 0;
                 }
@@ -5612,7 +5612,7 @@ namespace OpenLiveWriter.HtmlEditor
 
         #region IServiceProviderRaw Members
 
-        // make virtual as escpae hatch for derived classes to implement other services
+        // make virtual as escape hatch for derived classes to implement other services
         int IServiceProviderRaw.QueryService(ref Guid guid, ref Guid riid, out IntPtr service)
         {
             return OnQueryService(ref guid, ref riid, out service);

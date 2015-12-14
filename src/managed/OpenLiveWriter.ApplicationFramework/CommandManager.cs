@@ -109,7 +109,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         /// <summary>
         ///	The cross-referenced set of active Shortcuts.  Keyed by Command.Shortcut.  This table
-        ///	is not contructed or maintained until it is first used.
+        ///	is not constructed or maintained until it is first used.
         /// </summary>
         private Hashtable commandShortcutTable = null;
 
@@ -127,14 +127,14 @@ namespace OpenLiveWriter.ApplicationFramework
 
         /// <summary>
         ///	The cross-referenced set of active AcceleratorMnemonic values. Keyed by Command.AcceleratorMnemonic.
-        ///	This table is not contructed or maintained until it is first used.
+        ///	This table is not constructed or maintained until it is first used.
         /// </summary>
         private Hashtable acceleratorMnemonicTable = null;
 
         /// <summary>
         ///	The cross-referenced set of active CommandBarButtonContextMenuAcceleratorMnemonic
         ///	values. Keyed by Command.CommandBarButtonContextMenuAcceleratorMnemonic.  This table is
-        ///	not contructed or maintained until it is first used.
+        ///	not constructed or maintained until it is first used.
         /// </summary>
         private Hashtable commandBarButtonContextMenuAcceleratorMnemonicTable = null;
 

@@ -11,7 +11,7 @@ Emoticon_EmbarrasedSmile
 Emoticon_ConfusedSmile
 Emoticon_SadSmile
 Emoticon_CryingFace
-Emoticon_DissappointedSmile
+Emoticon_DisappointedSmile
 Emoticon_Devil
 Emoticon_Angel
 Emoticon_VampireBat

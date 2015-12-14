@@ -32,7 +32,7 @@ namespace OpenLiveWriter.PostEditor
         /// <returns></returns>
         public static IBlogPostEditingContext Synchronize(IWin32Window mainFrameWindow, IBlogPostEditingContext editingContext)
         {
-            // reloading a local draft does not require syncronization
+            // reloading a local draft does not require synchronization
             if (editingContext.LocalFile.IsDraft && editingContext.LocalFile.IsSaved)
             {
                 return editingContext;
@@ -421,7 +421,7 @@ namespace OpenLiveWriter.PostEditor
                     Uri fixedImageUri = (Uri)urlFixupTable[new Uri(reference)];
                     if (fixedImageUri != null)
                     {
-                        Debug.WriteLine(String.Format(CultureInfo.InvariantCulture, "RecentPostSyncrhonizer: converting remote image reference [{0}] to local reference", reference));
+                        Debug.WriteLine(String.Format(CultureInfo.InvariantCulture, "RecentPostSynchronizer: converting remote image reference [{0}] to local reference", reference));
                         reference = fixedImageUri.ToString();
                     }
                 }

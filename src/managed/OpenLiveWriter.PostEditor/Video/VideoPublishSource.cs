@@ -106,7 +106,7 @@ namespace OpenLiveWriter.PostEditor.Video
 
         private void UpdateSelectedPublisher()
         {
-            // We get the new publisher, we alwasy trust that _currentPublisher is not null
+            // We get the new publisher, we always trust that _currentPublisher is not null
             _currentPublisher = sideBarControl.SelectedValue;
 
             videoLoginStatusControl.Auth = _currentPublisher.Auth;
@@ -213,17 +213,17 @@ namespace OpenLiveWriter.PostEditor.Video
                 {
                     txtFile.Text = value;
                     string baseWords = Path.GetFileNameWithoutExtension(value);
-                    string seperator = Res.Get(StringId.Plugin_Video_Publish_Filename_Seperator);
+                    string separator = Res.Get(StringId.Plugin_Video_Publish_Filename_Seperator);
 
                     // Try to fill in as many fields as we can
-                    if (!String.IsNullOrEmpty(seperator))
+                    if (!String.IsNullOrEmpty(separator))
                     {
                         if (txtTitle.Text == String.Empty || !_isUserDirty)
-                            txtTitle.Text = baseWords.Replace(seperator, " ");
+                            txtTitle.Text = baseWords.Replace(separator, " ");
                         if (txtDescription.Text == String.Empty || !_isUserDirty)
-                            txtDescription.Text = baseWords.Replace(seperator, " ");
+                            txtDescription.Text = baseWords.Replace(separator, " ");
                         if (txtTags.Text == String.Empty || !_isUserDirty)
-                            txtTags.Text = baseWords.Replace(seperator, " ");
+                            txtTags.Text = baseWords.Replace(separator, " ");
                     }
                     else
                     {
@@ -262,7 +262,7 @@ namespace OpenLiveWriter.PostEditor.Video
             string description = txtDescription.Text.Trim();
             string filePath = txtFile.Text.Trim();
 
-            // Make sure they filled in all the feilds
+            // Make sure they filled in all the fields
             if (((CategoryItem)comboBoxCategory.SelectedItem).CategoryId == Guid.Empty.ToString() ||
                 title == String.Empty ||
                 description == String.Empty ||

@@ -709,7 +709,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// Returns the bounds of the element in client-based coordinatates.
+        /// Returns the bounds of the element in client-based coordinates.
         /// Note: These bounds seem to map to the outer edge of the element's border region.
         /// </summary>
         /// <returns></returns>
@@ -768,7 +768,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     offsetBottom = marginBottom;
                 }
                 else
-                    throw new ArgumentException("Unnsupported ELEMENT_REGION: " + outerBoundary.ToString());
+                    throw new ArgumentException("Unsupported ELEMENT_REGION: " + outerBoundary.ToString());
 
                 Rectangle rect = new Rectangle(elementBounds.Location, elementBounds.Size);
                 rect.X += offsetX;

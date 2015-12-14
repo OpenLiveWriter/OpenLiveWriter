@@ -30,7 +30,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             SetNewCategories(new BlogPostCategory[0]);
             _selectionMode = SelectionModes.MultiSelect;
             _supportsAddingCategories = false;
-            _supportsHeirarchicalCategories = false;
+            _supportsHierarchicalCategories = false;
 
         }
 
@@ -192,10 +192,10 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         public bool SupportsHierarchicalCategories
         {
-            get { return _supportsHeirarchicalCategories; }
-            set { _supportsHeirarchicalCategories = value; }
+            get { return _supportsHierarchicalCategories; }
+            set { _supportsHierarchicalCategories = value; }
         }
-        private bool _supportsHeirarchicalCategories = false;
+        private bool _supportsHierarchicalCategories = false;
 
         public int MaxCategoryNameLength
         {
@@ -336,7 +336,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         public static BlogPostCategoryListItem[] BuildList(BlogPostCategory[] categories, bool flatten)
         {
-            // acculate available parents
+            // accumulate available parents
             Hashtable availableParents = new Hashtable();
             foreach (BlogPostCategory category in categories)
                 availableParents[category.Id] = null;

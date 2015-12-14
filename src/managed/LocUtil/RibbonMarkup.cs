@@ -20,7 +20,7 @@ namespace LocUtil
             public const string TooltipDescription = "TooltipDescription";
             public const string LargeImages = "Command.LargeImages";
             public const string SmallImages = "Command.SmallImages";
-            public const string LargeHighConstrastImages = "Command.LargeHighContrastImages";
+            public const string LargeHighContrastImages = "Command.LargeHighContrastImages";
             public const string SmallHighContrastImages = "Command.SmallHighContrastImages";
 
             // Child nodes of Command --> Command.LargeImages, Command.SmallImages, Command.LargeHighContrastImages, Command.SmallHighContrastImages

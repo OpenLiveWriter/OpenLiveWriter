@@ -90,7 +90,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
         public ContentSourceInfo(Type pluginType, bool showErrors)
         {
-            // save a refernce to the type
+            // save a reference to the type
             _pluginType = pluginType;
             _resMan = new ResourceManager(_pluginType);
 
@@ -441,7 +441,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexptected exception initializing content-sources: " + ex.ToString());
+                Trace.Fail("Unexpected exception initializing content-sources: " + ex.ToString());
             }
 
             ContentSourceInfo[] contentSources = PluginContentSources;
@@ -814,7 +814,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
             catch (Exception ex)
             {
-                DisplayContentRetreivalError(sourceSite.DialogOwner, ex, contentSource);
+                DisplayContentRetrievalError(sourceSite.DialogOwner, ex, contentSource);
             }
         }
 
@@ -930,7 +930,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
         }
 
-        public static void DisplayContentRetreivalError(IWin32Window dialogOwner, Exception ex, ContentSourceInfo info)
+        public static void DisplayContentRetrievalError(IWin32Window dialogOwner, Exception ex, ContentSourceInfo info)
         {
             if (ex is ContentCreationException)
             {
@@ -1293,7 +1293,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
         {
             get
             {
-                return String.Format(CultureInfo.CurrentCulture, "The Plugin {0} does not have the required attributes. Content source plugins must include the WriterPlugin attribute as well as one or more of the InsertableContentSource, UrlContentSource, or LiveClipbaordContentSource attributes.", _pluginType.Name);
+                return String.Format(CultureInfo.CurrentCulture, "The Plugin {0} does not have the required attributes. Content source plugins must include the WriterPlugin attribute as well as one or more of the InsertableContentSource, UrlContentSource, or LiveClipboardContentSource attributes.", _pluginType.Name);
             }
         }
 
