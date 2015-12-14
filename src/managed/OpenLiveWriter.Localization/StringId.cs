@@ -1111,6 +1111,10 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         CWGoogleBloggerDescription,
         /// <summary>
+        /// Successfully signed in
+        /// </summary>
+        CWGoogleBloggerSignInSuccess,
+        /// <summary>
         /// &Microsoft Account:
         /// </summary>
         CWSpacesUsername,

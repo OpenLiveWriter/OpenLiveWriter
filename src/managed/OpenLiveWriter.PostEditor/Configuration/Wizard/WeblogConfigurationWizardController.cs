@@ -230,7 +230,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private void AddGoogleBloggerOAuthSubStep()
         {
             addWizardSubStep(
-                new WizardSubStep(new WeblogConfigurationWizardPanelGoogleBloggerAuthentication(_temporarySettings.Id),
+                new WizardSubStep(new WeblogConfigurationWizardPanelGoogleBloggerAuthentication(_temporarySettings.Id, this),
                 null,
                 new DisplayCallback(OnBasicInfoDisplayed),
                 new VerifyStepCallback(OnValidatePanel),

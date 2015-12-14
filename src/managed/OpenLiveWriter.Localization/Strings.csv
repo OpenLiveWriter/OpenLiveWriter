@@ -368,6 +368,7 @@ CWSharePointText2,Enter the login required to publish to your SharePoint blog.,
 CWSharePointUseSystemLogin,Use my &Windows user name and password,
 CWGoogleBloggerTitle,Provide Google Blogger Login,
 CWGoogleBloggerDescription,To configure Google Blogger please sign in.,
+CWGoogleBloggerSignInSuccess,Successfully signed in,
 CWTitle,Add Blog Wizard,Caption of the Add Blog Wizard window.
 CWProgressHeader,Setting up your blog account,
 ProgressDownloadingEditingTemplate,Downloading editing template...,

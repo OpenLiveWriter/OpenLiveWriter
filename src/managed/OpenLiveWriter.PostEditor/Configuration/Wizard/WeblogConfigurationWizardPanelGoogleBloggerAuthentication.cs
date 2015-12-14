@@ -2,22 +2,15 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Google.Apis.Auth.OAuth2;
 using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.BlogClient.Clients;
-using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Controls.Wizard;
 using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Localization;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Blogger.v3;
-using Google.Apis.Blogger.v3.Data;
-using Google.Apis.Services;
-using System.Threading;
-using OpenLiveWriter.BlogClient.Detection;
-using Google.Apis.Util.Store;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
@@ -35,11 +28,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private string _blogId;
         private CancellationTokenSource _cancellationTokenSource;
+        private WizardController _wizardController;
         private UserCredential _userCredentials;
 
-        public WeblogConfigurationWizardPanelGoogleBloggerAuthentication(string blogId)
+        public WeblogConfigurationWizardPanelGoogleBloggerAuthentication(string blogId, WizardController wizardController)
         {
             _blogId = blogId;
+            _wizardController = wizardController;
 
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
@@ -58,10 +53,28 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 _cancellationTokenSource = new CancellationTokenSource();
                 _userCredentials = await BloggerAtomClient.GetOAuth2AuthorizationAsync(_blogId, _cancellationTokenSource.Token);
                 _cancellationTokenSource = null;
+
+                if (_userCredentials?.Token != null)
+                {
+                    // Leave the button disabled but let the user know they are signed in.
+                    buttonLogin.Text = Res.Get(StringId.CWGoogleBloggerSignInSuccess);
+
+                    // If this is the first time through the login flow, automatically click the 'Next' button on 
+                    // behalf of the user.
+                    if (_wizardController != null)
+                    {
+                        _wizardController.next();
+                        _wizardController = null;
+                    }
+                }
             }
             finally
             {
-                buttonLogin.Enabled = true;
+                if (_userCredentials?.Token == null)
+                {
+                    // Let the user try again.
+                    buttonLogin.Enabled = true;
+                }
             }
         }
         
@@ -152,7 +165,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public override bool ValidatePanel()
         {
-            if (_userCredentials == null || _userCredentials.Token == null)
+            if (_userCredentials?.Token == null)
             {
                 ShowValidationError(buttonLogin, MessageId.GoogleBloggerLoginRequired);
                 return false;
@@ -204,7 +217,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 // The Google Blogger credentials don't use the normal IBlogCredentials storage and are instead 
                 // automatically written to disk by the Google APIs in the GetOAuth2AuthorizationAsync() call.
                 TemporaryBlogCredentials credentials = new TemporaryBlogCredentials();
-                credentials.Username = "user";
+                credentials.Username = _blogId;
                 return credentials;
             }
             set { }

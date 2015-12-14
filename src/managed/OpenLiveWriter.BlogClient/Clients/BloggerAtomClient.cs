@@ -49,7 +49,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             // The Google APIs will automatically store the OAuth2 tokens in the given path. We use a unique path per 
             // blog to support multiple Blogger accounts.
-            var folderPath = Path.Combine(ApplicationEnvironment.LocalApplicationDataDirectory, "GoogleBloggerv3", blogId);
+            var folderPath = Path.Combine(ApplicationEnvironment.LocalApplicationDataDirectory, "GoogleBloggerv3");
             return new FileDataStore(folderPath, true);
         }
 
@@ -60,7 +60,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(ClientSecretsStream).Secrets,
                 new List<string>() { BloggerServiceScope, PicasaServiceScope },
-                "user",
+                blogId,
                 taskCancellationToken,
                 GetCredentialsDataStoreForBlog(blogId));
         }

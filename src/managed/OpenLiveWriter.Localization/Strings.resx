@@ -1072,6 +1072,9 @@
   <data name="CWGoogleBloggerDescription" xml:space="preserve">
     <value>To configure Google Blogger please sign in.</value>
   </data>
+  <data name="CWGoogleBloggerSignInSuccess" xml:space="preserve">
+    <value>Successfully signed in</value>
+  </data>
   <data name="CWSpacesUsername" xml:space="preserve">
     <value>&amp;Microsoft Account ID:</value>
   </data>
