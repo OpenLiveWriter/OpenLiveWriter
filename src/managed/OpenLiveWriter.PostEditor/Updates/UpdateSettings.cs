@@ -13,10 +13,7 @@ namespace OpenLiveWriter.PostEditor.Updates
     {
         static UpdateSettings()
         {
-            // Force these settings temporarily in case other devs already got defaults set.
-            // AutoUpdate = true;
-            // CheckForBetaUpdates = false;
-            // UpdateDownloadUrl = UPDATEDOWNLOADURL;
+            // Force these settings temporarily in case people already got defaults set.
             BetaUpdateDownloadUrl = BETAUPDATEDOWNLOADURL;
         }
 
@@ -50,7 +47,7 @@ namespace OpenLiveWriter.PostEditor.Updates
         private const string CHECKUPDATESURL = "CheckUpdatesUrl";
         private const string UPDATEDOWNLOADURL = "https://openlivewriter.azureedge.net/stable/Releases"; // Location of signed builds
         private const string CHECKBETAUPDATESURL = "CheckBetaUpdatesUrl";
-        private const string BETAUPDATEDOWNLOADURL = "https://olw.blob.core.windows.net/nightly/Releases/"; // Location of CI builds
+        private const string BETAUPDATEDOWNLOADURL = "https://olw.blob.core.windows.net/nightly/Releases"; // Location of CI builds
 
         private static readonly SettingsPersisterHelper settings = ApplicationEnvironment.UserSettingsRoot.GetSubSettings("Updates");
     }
