@@ -31,40 +31,6 @@ namespace OpenLiveWriter.BlogClient.Clients
     [BlogClient("BloggerAtom", "Atom")]
     public class BloggerAtomClient : AtomClient
     {
-        // These URLs map to OAuth2 permission scopes for Google Blogger.
-        public static string PicasaServiceScope = "https://picasaweb.google.com/data";
-        public static string BloggerServiceScope = BloggerService.Scope.Blogger;
-
-        private static Stream ClientSecretsStream
-        {
-            get
-            {
-                // The secrets file is automatically generated at build time by OpenLiveWriter.BlogClient.csproj. It 
-                // contains just a client ID and client secret, which are pulled from the user's environment variables.
-                return ResourceHelper.LoadAssemblyResourceStream("Clients.GoogleBloggerv3Secrets.json");
-            }
-        }
-
-        private static IDataStore GetCredentialsDataStoreForBlog(string blogId)
-        {
-            // The Google APIs will automatically store the OAuth2 tokens in the given path. We use a unique path per 
-            // blog to support multiple Blogger accounts.
-            var folderPath = Path.Combine(ApplicationEnvironment.LocalApplicationDataDirectory, "GoogleBloggerv3");
-            return new FileDataStore(folderPath, true);
-        }
-
-        public static Task<UserCredential> GetOAuth2AuthorizationAsync(string blogId, CancellationToken taskCancellationToken)
-        {
-            // This async task will either find cached credentials in the IDataStore provided, or it will pop open a 
-            // browser window and prompt the user for permissions and then write those permissions to the IDataStore.
-            return GoogleWebAuthorizationBroker.AuthorizeAsync(
-                GoogleClientSecrets.Load(ClientSecretsStream).Secrets,
-                new List<string>() { BloggerServiceScope, PicasaServiceScope },
-                blogId,
-                taskCancellationToken,
-                GetCredentialsDataStoreForBlog(blogId));
-        }
-
         public BloggerAtomClient(Uri postApiUrl, IBlogCredentialsAccessor credentials)
             : base(AtomProtocolVersion.V10DraftBlogger, postApiUrl, credentials)
         {

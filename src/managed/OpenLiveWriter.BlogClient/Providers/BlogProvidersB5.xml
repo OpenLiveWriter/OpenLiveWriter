@@ -109,6 +109,35 @@
       <usePicasaS1600h>Yes</usePicasaS1600h>
     </options>
   </provider>
+  <provider>
+    <id>343F1D83-1098-43F4-AE86-93AFC7602855</id>
+    <name>Google Blogger v3</name>
+    <description>
+      Create your custom home on the web. Design your blog your way, and use it to share whatever's on your mind.
+    </description>
+    <link>http://www.blogger.com</link>
+    <clientType>GoogleBloggerv3</clientType>
+    <postApiUrl>
+      <![CDATA[
+    https://www.googleapis.com/blogger/v3
+    ]]>
+    </postApiUrl>
+    <options>
+      <serviceName>GoogleBloggerv3</serviceName>
+      <supportsScripts>Yes</supportsScripts>
+      <supportsEmbeds>Yes</supportsEmbeds>
+      <supportsCustomDate>Yes</supportsCustomDate>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
+      <maxCategoryNameLength>200</maxCategoryNameLength>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <usePicasaImgMaxAlways>Yes</usePicasaImgMaxAlways>
+      <usePicasaS1600h>Yes</usePicasaS1600h>
+    </options>
+  </provider>
   <provider xpp:if="version gte &wave2mship;">
     <id>D48F1B5A-06E6-4f0f-BD76-74F34F520792</id>
     <name>Atom Publishing Protocol</name>

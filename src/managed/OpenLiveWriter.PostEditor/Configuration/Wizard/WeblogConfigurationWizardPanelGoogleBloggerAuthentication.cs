@@ -51,7 +51,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             try
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                _userCredentials = await BloggerAtomClient.GetOAuth2AuthorizationAsync(_blogId, _cancellationTokenSource.Token);
+                _userCredentials = await GoogleBloggerv3Client.GetOAuth2AuthorizationAsync(_blogId, _cancellationTokenSource.Token);
                 _cancellationTokenSource = null;
 
                 if (_userCredentials?.Token != null)

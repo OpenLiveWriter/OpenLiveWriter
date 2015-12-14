@@ -152,6 +152,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Clients\BlogClientManager.cs" />
+    <Compile Include="Clients\GoogleBloggerv3Client.cs" />
     <Compile Include="Clients\BloggerAtomClient.cs" />
     <Compile Include="Clients\BloggerCompatibleClient.cs" />
     <Compile Include="Clients\BlogPostContentFilters.cs" />
