@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.Updates
 
         public static bool CheckForBetaUpdates
         {
-            get { return settings.GetBoolean(CHECKFORBETAUPDATES, true); }
+            get { return settings.GetBoolean(CHECKFORBETAUPDATES, false); }
             set { settings.SetBoolean(CHECKFORBETAUPDATES, value); }
         }
 
