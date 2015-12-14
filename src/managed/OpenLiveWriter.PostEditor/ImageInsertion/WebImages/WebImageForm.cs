@@ -48,10 +48,11 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
         {
             if (!UrlHelper.IsUrl(_source.SourceImageLink))
             {
-                if (DisplayMessage.Show(MessageId.InputIsNotUrl, this, _source.SourceImageLink) == System.Windows.Forms.DialogResult.No)
+                //Ask if they want to go back and correct the link or just abort it altogether
+                if (DisplayMessage.Show(MessageId.InputIsNotUrl, this, _source.SourceImageLink) == System.Windows.Forms.DialogResult.Yes)
                     return;
             }
-            DialogResult = System.Windows.Forms.DialogResult.OK;
+            DialogResult = System.Windows.Forms.DialogResult.Abort;
         }
 
     }

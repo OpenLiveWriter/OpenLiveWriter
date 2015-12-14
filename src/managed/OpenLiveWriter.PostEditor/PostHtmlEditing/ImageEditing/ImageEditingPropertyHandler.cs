@@ -95,15 +95,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     imgHtmlElement.setAttribute("height", oldHeight, 0);
                 if (!String.IsNullOrEmpty(oldWidth))
                     imgHtmlElement.setAttribute("width", oldWidth, 0);
-
                 try
                 {
                     info = new ImagePropertiesInfo(new Uri(imgSrc), new Size(width, height), remoteImageDecoratorsList);
                 }
                 catch (UriFormatException)
                 {
-                    DisplayMessage.Show(MessageId.InvalidWebImage);
-                    return null;
+                    DisplayMessage.Show(MessageId.NoSuchImageFile);
+                    imgHtmlElement.setAttribute("src", "https://browshot.com/static/images/not-found.png");
+                    info = new ImagePropertiesInfo(new Uri("https://browshot.com/static/images/not-found.png"), new Size(width, height), remoteImageDecoratorsList);
                 }
                 info.ImgElement = imgHtmlElement;
 
