@@ -298,7 +298,8 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public void DeletePost(string blogId, string postId, bool publish)
         {
-            throw new NotImplementedException();
+            var deletePostRequest = GetService().Posts.Delete(blogId, postId);
+            deletePostRequest.Execute();
         }
 
         public BlogPost GetPage(string blogId, string pageId)
