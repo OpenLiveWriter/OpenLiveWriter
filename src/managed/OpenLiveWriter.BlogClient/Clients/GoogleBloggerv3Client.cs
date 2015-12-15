@@ -65,6 +65,20 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new FileDataStore(folderPath, true);
         }
 
+        private static BlogPost GetBlogPostFromGoogleBloggerPost(Post post)
+        {
+            return new BlogPost()
+            {
+                Title = post.Title,
+                Id = post.Id,
+                Permalink = post.Url,
+                Contents = post.Content,
+                DatePublished = post.Published.Value,
+                // TODO:OLW - Need to figure out how to make the UI for 'tags' show up in Writer
+                // Keywords = string.Join(",", p.Labels)
+            };
+        }
+
         private static Post GetGoogleBloggerPostFromBlogPost(BlogPost post)
         {
             return new Post()
@@ -233,16 +247,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             recentPostsRequest.Status = PostsResource.ListRequest.StatusEnum.Live;
 
             var recentPosts = recentPostsRequest.Execute();
-            return recentPosts?.Items?.Select(p => new BlogPost()
-            {
-                Title = p.Title,
-                Id = p.Id,
-                Permalink = p.Url,
-                Contents = p.Content,
-                DatePublished = p.Published.Value,
-                // TODO:OLW - Need to figure out how to make the UI for 'tags' show up in Writer
-                // Keywords = string.Join(",", p.Labels)
-            }).ToArray();
+            return recentPosts?.Items?.Select(p => GetBlogPostFromGoogleBloggerPost(p)).ToArray();
         }
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -287,7 +292,8 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public BlogPost GetPost(string blogId, string postId)
         {
-            throw new NotImplementedException();
+            var getPostRequest = GetService().Posts.Get(blogId, postId);
+            return GetBlogPostFromGoogleBloggerPost(getPostRequest.Execute());
         }
 
         public void DeletePost(string blogId, string postId, bool publish)
