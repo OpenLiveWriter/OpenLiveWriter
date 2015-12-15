@@ -65,6 +65,19 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new FileDataStore(folderPath, true);
         }
 
+        private static Post GetGoogleBloggerPostFromBlogPost(BlogPost post)
+        {
+            return new Post()
+            {
+                Content = post.Contents,
+                Labels = post.Keywords?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(k => k.Trim()).ToList(),
+                // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
+                // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
+                Published = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null,
+                Title = post.Title,
+            };
+        }
+
         public static Task<UserCredential> GetOAuth2AuthorizationAsync(string blogId, CancellationToken taskCancellationToken)
         {
             // This async task will either find cached credentials in the IDataStore provided, or it will pop open a 
@@ -243,15 +256,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
 
-            var bloggerPost = new Post()
-            {
-                Content = post.Contents,
-                Labels = post.Keywords?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(k => k.Trim()).ToList(),
-                // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
-                // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
-                Published = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null,
-                Title = post.Title,
-            };
+            var bloggerPost = GetGoogleBloggerPostFromBlogPost(post);
             var newPostRequest = GetService().Posts.Insert(bloggerPost, blogId);
             newPostRequest.IsDraft = !publish;
 
@@ -262,7 +267,22 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
         {
-            throw new NotImplementedException();
+            // The remote post is only meant to be used for blogs that use the Atom protocol.
+            remotePost = null;
+
+            if (!publish && !Options.SupportsPostAsDraft)
+            {
+                Trace.Fail("Post to draft not supported on this provider");
+                throw new BlogClientPostAsDraftUnsupportedException();
+            }
+
+            var bloggerPost = GetGoogleBloggerPostFromBlogPost(post);
+            var updatePostRequest = GetService().Posts.Update(bloggerPost, blogId, post.Id);
+            updatePostRequest.Publish = publish;
+
+            var newPost = updatePostRequest.Execute();
+            etag = newPost.ETag;
+            return true;
         }
 
         public BlogPost GetPost(string blogId, string postId)
