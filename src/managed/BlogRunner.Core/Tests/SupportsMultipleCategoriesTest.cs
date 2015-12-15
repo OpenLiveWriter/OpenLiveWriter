@@ -2,11 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using BlogRunner.Core.Config;
 using OpenLiveWriter.Extensibility.BlogClient;
-using System.Configuration;
 
 namespace BlogRunner.Core.Tests
 {

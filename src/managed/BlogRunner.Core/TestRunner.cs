@@ -3,15 +3,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using BlogRunner.Core.Config;
 using OpenLiveWriter.BlogClient.Clients;
 using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.PostEditor.Configuration;
 using Blog = BlogRunner.Core.Config.Blog;
 using OpenLiveWriter.Extensibility.BlogClient;
-using System.Collections;
-using System.Diagnostics;
 using System.Xml;
 
 namespace BlogRunner.Core
