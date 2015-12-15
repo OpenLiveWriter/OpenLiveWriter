@@ -22,9 +22,6 @@ using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.HtmlParser.Parser.FormAgent;
 using OpenLiveWriter.Localization;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Blogger.v3;
-using Google.Apis.Util.Store;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {

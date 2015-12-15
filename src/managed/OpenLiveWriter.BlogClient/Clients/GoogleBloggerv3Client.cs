@@ -20,6 +20,9 @@ using Google.Apis.Auth.OAuth2.Flows;
 using OpenLiveWriter.BlogClient.Providers;
 using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Util;
+using System.Globalization;
+using System.Diagnostics;
+using Google.Apis.Blogger.v3.Data;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -79,13 +82,16 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             // configure client options
             BlogClientOptions clientOptions = new BlogClientOptions();
-            clientOptions.SupportsCategories = true;
-            clientOptions.SupportsMultipleCategories = true;
-            clientOptions.SupportsNewCategories = true;
+            clientOptions.SupportsCategories = false;
+            clientOptions.SupportsMultipleCategories = false;
+            clientOptions.SupportsNewCategories = false;
             clientOptions.SupportsCustomDate = true;
-            clientOptions.SupportsExcerpt = true;
-            clientOptions.SupportsSlug = true;
+            clientOptions.SupportsExcerpt = false;
+            clientOptions.SupportsSlug = false;
             clientOptions.SupportsFileUpload = true;
+            clientOptions.SupportsKeywords = true;
+            clientOptions.SupportsGetKeywords = false;
+
             _clientOptions = clientOptions;
         }
 
@@ -94,7 +100,8 @@ namespace OpenLiveWriter.BlogClient.Clients
             TransientCredentials transientCredentials = Login();
             return new BloggerService(new BaseClientService.Initializer()
             {
-                HttpClientInitializer = (UserCredential)transientCredentials.Token
+                HttpClientInitializer = (UserCredential)transientCredentials.Token,
+                ApplicationName = String.Format(CultureInfo.InvariantCulture, "{0} {1}", ApplicationEnvironment.ProductName, ApplicationEnvironment.ProductVersion),
             });
         }
 
@@ -122,7 +129,6 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             var userCredential = tc.Token as UserCredential;
             var token = userCredential?.Token;
-            var cancellationTokenSource = new CancellationTokenSource();
 
             if (IsValidToken(token))
             {
@@ -140,7 +146,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     Scopes = new List<string>() { BloggerServiceScope, PicasaServiceScope },
                 });
 
-                var loadTokenTask = flow.LoadTokenAsync(tc.Username, cancellationTokenSource.Token);
+                var loadTokenTask = flow.LoadTokenAsync(tc.Username, CancellationToken.None);
                 loadTokenTask.Wait();
                 if (loadTokenTask.IsCompleted)
                 {
@@ -160,7 +166,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 }
 
                 // Start an OAuth flow to renew the credentials.
-                var authorizationTask = GetOAuth2AuthorizationAsync(tc.Username, cancellationTokenSource.Token);
+                var authorizationTask = GetOAuth2AuthorizationAsync(tc.Username, CancellationToken.None);
                 authorizationTask.Wait();
                 if (authorizationTask.IsCompleted)
                 {
@@ -187,10 +193,8 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public BlogInfo[] GetUsersBlogs()
         {
-            var cancellationTokenSource = new CancellationTokenSource();
-            var listBlogsTask = GetService().Blogs.ListByUser("self").ExecuteAsync();
-            listBlogsTask.Wait(cancellationTokenSource.Token);
-            return listBlogsTask.Result?.Items?.Select(x => new BlogInfo(x.Id, x.Name, x.Url)).ToArray();
+            var blogList = GetService().Blogs.ListByUser("self").Execute();
+            return blogList?.Items?.Select(b => new BlogInfo(b.Id, b.Name, b.Url)).ToArray();
         }
 
         public BlogPostCategory[] GetCategories(string blogId)
@@ -205,12 +209,55 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
         {
-            throw new NotImplementedException();
+            var recentPostsRequest = GetService().Posts.List(blogId);
+            if (now.HasValue)
+            {
+                recentPostsRequest.EndDate = now.Value;
+            }
+            recentPostsRequest.FetchImages = false;
+            recentPostsRequest.MaxResults = maxPosts;
+            recentPostsRequest.OrderBy = PostsResource.ListRequest.OrderByEnum.Published;
+            recentPostsRequest.Status = PostsResource.ListRequest.StatusEnum.Live;
+
+            var recentPosts = recentPostsRequest.Execute();
+            return recentPosts?.Items?.Select(p => new BlogPost()
+            {
+                Title = p.Title,
+                Id = p.Id,
+                Permalink = p.Url,
+                Contents = p.Content,
+                DatePublished = p.Published.Value,
+                // TODO:OLW - Need to figure out how to make the UI for 'tags' show up in Writer
+                // Keywords = string.Join(",", p.Labels)
+            }).ToArray();
         }
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
         {
-            throw new NotImplementedException();
+            // The remote post is only meant to be used for blogs that use the Atom protocol.
+            remotePost = null;
+
+            if (!publish && !Options.SupportsPostAsDraft)
+            {
+                Trace.Fail("Post to draft not supported on this provider");
+                throw new BlogClientPostAsDraftUnsupportedException();
+            }
+
+            var bloggerPost = new Post()
+            {
+                Content = post.Contents,
+                Labels = post.Keywords?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(k => k.Trim()).ToList(),
+                // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
+                // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
+                Published = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null,
+                Title = post.Title,
+            };
+            var newPostRequest = GetService().Posts.Insert(bloggerPost, blogId);
+            newPostRequest.IsDraft = !publish;
+
+            var newPost = newPostRequest.Execute();
+            etag = newPost.ETag;
+            return newPost.Id;
         }
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
