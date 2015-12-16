@@ -540,7 +540,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private void ShowPicasaSignupPrompt(object sender, EventArgs e)
         {
-            if (DisplayMessage.Show(MessageId.PicasawebSignup, Credentials.Username) == DialogResult.Yes)
+            if (DisplayMessage.Show(MessageId.PicasawebSignup) == DialogResult.Yes)
             {
                 ShellHelper.LaunchUrl("http://picasaweb.google.com");
             }

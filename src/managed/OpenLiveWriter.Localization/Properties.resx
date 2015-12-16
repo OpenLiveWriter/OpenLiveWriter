@@ -3040,7 +3040,7 @@ Type a title for your post, and try publishing it again.</value>
     <value>Open Live Writer</value>
   </data>
   <data name="DisplayMessage.PicasawebSignup.Text" xml:space="preserve">
-    <value>In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in as {0}, and agree to the Terms and Conditions.
+    <value>In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in with your Blogger account, and agree to the Terms and Conditions.
 
 Would you like to go to the Picasa Web Albums homepage now?</value>
   <comment>{0} - username, for example: joe@gmail.com</comment></data>

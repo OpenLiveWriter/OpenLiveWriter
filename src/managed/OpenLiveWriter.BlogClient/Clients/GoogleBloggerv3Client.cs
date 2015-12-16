@@ -24,6 +24,8 @@ using System.Globalization;
 using System.Diagnostics;
 using Google.Apis.Blogger.v3.Data;
 using System.Net.Http.Headers;
+using OpenLiveWriter.Controls;
+using System.Windows.Forms;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -34,6 +36,18 @@ namespace OpenLiveWriter.BlogClient.Clients
         public static string PicasaServiceScope = "https://picasaweb.google.com/data";
         public static string BloggerServiceScope = BloggerService.Scope.Blogger;
 
+        public static Task<UserCredential> GetOAuth2AuthorizationAsync(string blogId, CancellationToken taskCancellationToken)
+        {
+            // This async task will either find cached credentials in the IDataStore provided, or it will pop open a 
+            // browser window and prompt the user for permissions and then write those permissions to the IDataStore.
+            return GoogleWebAuthorizationBroker.AuthorizeAsync(
+                GoogleClientSecrets.Load(ClientSecretsStream).Secrets,
+                new List<string>() { BloggerServiceScope, PicasaServiceScope },
+                blogId,
+                taskCancellationToken,
+                GetCredentialsDataStoreForBlog(blogId));
+        }
+
         private static Stream ClientSecretsStream
         {
             get
@@ -42,21 +56,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 // contains just a client ID and client secret, which are pulled from the user's environment variables.
                 return ResourceHelper.LoadAssemblyResourceStream("Clients.GoogleBloggerv3Secrets.json");
             }
-        }
-
-        private IBlogClientOptions _clientOptions;
-
-        public IBlogClientOptions Options
-        {
-            get
-            {
-                return _clientOptions;
-            }
-        }
-
-        public bool IsSecure
-        {
-            get { return true; }
         }
 
         private static IDataStore GetCredentialsDataStoreForBlog(string blogId)
@@ -125,17 +124,17 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new PageInfo(page.Id, page.Title, page.Published.GetValueOrDefault(DateTime.Now), string.Empty);
         }
 
-        public static Task<UserCredential> GetOAuth2AuthorizationAsync(string blogId, CancellationToken taskCancellationToken)
-        {
-            // This async task will either find cached credentials in the IDataStore provided, or it will pop open a 
-            // browser window and prompt the user for permissions and then write those permissions to the IDataStore.
-            return GoogleWebAuthorizationBroker.AuthorizeAsync(
-                GoogleClientSecrets.Load(ClientSecretsStream).Secrets,
-                new List<string>() { BloggerServiceScope, PicasaServiceScope },
-                blogId,
-                taskCancellationToken,
-                GetCredentialsDataStoreForBlog(blogId));
-        }
+        private const string ENTRY_CONTENT_TYPE = "application/atom+xml;type=entry";
+        private const string XHTML_NS = "http://www.w3.org/1999/xhtml";
+        private const string FEATURES_NS = "http://purl.org/atompub/features/1.0";
+        private const string MEDIA_NS = "http://search.yahoo.com/mrss/";
+        private const string LIVE_NS = "http://api.live.com/schemas";
+
+        private static readonly Namespace atomNS = new Namespace(AtomProtocolVersion.V10DraftBlogger.NamespaceUri, "atom");
+        private static readonly Namespace pubNS = new Namespace(AtomProtocolVersion.V10DraftBlogger.PubNamespaceUri, "app");
+
+        private IBlogClientOptions _clientOptions;
+        private XmlNamespaceManager _nsMgr;
 
         public GoogleBloggerv3Client(Uri postApiUrl, IBlogCredentialsAccessor credentials)
             : base(credentials)
@@ -152,8 +151,28 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsKeywords = true;
             clientOptions.SupportsGetKeywords = false;
             clientOptions.SupportsPages = true;
-
             _clientOptions = clientOptions;
+
+            _nsMgr = new XmlNamespaceManager(new NameTable());
+            _nsMgr.AddNamespace(atomNS.Prefix, atomNS.Uri);
+            _nsMgr.AddNamespace(pubNS.Prefix, pubNS.Uri);
+            _nsMgr.AddNamespace(AtomClient.xhtmlNS.Prefix, AtomClient.xhtmlNS.Uri);
+            _nsMgr.AddNamespace(AtomClient.featuresNS.Prefix, AtomClient.featuresNS.Uri);
+            _nsMgr.AddNamespace(AtomClient.mediaNS.Prefix, AtomClient.mediaNS.Uri);
+            _nsMgr.AddNamespace(AtomClient.liveNS.Prefix, AtomClient.liveNS.Uri);
+        }
+
+        public IBlogClientOptions Options
+        {
+            get
+            {
+                return _clientOptions;
+            }
+        }
+
+        public bool IsSecure
+        {
+            get { return true; }
         }
 
         private BloggerService GetService()
@@ -247,7 +266,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             tc.Token = userCredential;
         }
 
-        private HttpRequestFilter CreateAuthorizationFilter(string requestUri)
+        private HttpRequestFilter CreateAuthorizationFilter()
         {
             var transientCredentials = Login();
             var userCredential = (UserCredential)transientCredentials.Token;
@@ -429,17 +448,114 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public bool? DoesFileNeedUpload(IFileUploadContext uploadContext)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public string DoBeforePublishUploadWork(IFileUploadContext uploadContext)
         {
-            throw new NotImplementedException();
+            string albumName = ApplicationEnvironment.ProductName;
+
+            string path = uploadContext.GetContentsLocalFilePath();
+
+            if (Options.FileUploadNameFormat != null && Options.FileUploadNameFormat.Length > 0)
+            {
+                string formattedFileName = uploadContext.FormatFileName(uploadContext.PreferredFileName);
+                string[] chunks = StringHelper.Reverse(formattedFileName).Split(new char[] { '/' }, 2);
+                if (chunks.Length == 2)
+                    albumName = StringHelper.Reverse(chunks[1]);
+            }
+
+            string EDIT_MEDIA_LINK = "EditMediaLink";
+            string srcUrl;
+            string editUri = uploadContext.Settings.GetString(EDIT_MEDIA_LINK, null);
+            if (editUri == null || editUri.Length == 0)
+            {
+                PostNewImage(albumName, path, out srcUrl, out editUri);
+            }
+            else
+            {
+                try
+                {
+                    UpdateImage(editUri, path, out srcUrl, out editUri);
+                }
+                catch (Exception e)
+                {
+                    Trace.Fail(e.ToString());
+                    if (e is WebException)
+                        HttpRequestHelper.LogException((WebException)e);
+
+                    bool success = false;
+                    srcUrl = null; // compiler complains without this line
+                    try
+                    {
+                        // couldn't update existing image? try posting a new one
+                        PostNewImage(albumName, path, out srcUrl, out editUri);
+                        success = true;
+                    }
+                    catch
+                    {
+                    }
+                    if (!success)
+                        throw;  // rethrow the exception from the update, not the post
+                }
+            }
+            uploadContext.Settings.SetString(EDIT_MEDIA_LINK, editUri);
+
+            PicasaRefererBlockingWorkaround(uploadContext.BlogId, uploadContext.Role, ref srcUrl);
+
+            return srcUrl;
+        }
+
+        /// <summary>
+        /// "It looks like the problem with the inline image is due to referrer checking.
+        /// The thumbnail image being used is protected for display only on certain domains.
+        /// These domains include *.blogspot.com and *.google.com.  This user is using a
+        /// feature in Blogger which allows him to display his blog directly on his own
+        /// domain, which will not pass the referrer checking.
+        ///
+        /// "The maximum size of a thumbnail image that can be displayed on non-*.blogspot.com
+        /// domains is 800px. (blogs don't actually appear at *.google.com).  However, if you
+        /// request a 800px thumbnail, and the image is less than 800px for the maximum
+        /// dimension, then the original image will be returned without the referrer
+        /// restrictions.  That sounds like it will work for you, so feel free to give it a
+        /// shot and let me know if you have any further questions or problems."
+        ///   -- Anonymous Google Employee
+        /// </summary>
+        private void PicasaRefererBlockingWorkaround(string blogId, FileUploadRole role, ref string srcUrl)
+        {
+            if (role == FileUploadRole.LinkedImage && Options.UsePicasaS1600h)
+            {
+                try
+                {
+                    int lastSlash = srcUrl.LastIndexOf('/');
+                    string srcUrl2 = srcUrl.Substring(0, lastSlash)
+                                     + "/s1600-h"
+                                     + srcUrl.Substring(lastSlash);
+                    HttpWebRequest req = HttpRequestHelper.CreateHttpWebRequest(srcUrl2, true);
+                    req.Method = "HEAD";
+                    req.GetResponse().Close();
+                    srcUrl = srcUrl2;
+                    return;
+                }
+                catch (WebException we)
+                {
+                    Debug.Fail("Picasa s1600-h hack failed: " + we.ToString());
+                }
+            }
+
+            try
+            {
+                srcUrl += ((srcUrl.IndexOf('?') >= 0) ? "&" : "?") + "imgmax=800";
+            }
+            catch (Exception ex)
+            {
+                Trace.Fail("Unexpected error while doing Picasa upload: " + ex.ToString());
+            }
         }
 
         public void DoAfterPublishUploadWork(IFileUploadContext uploadContext)
         {
-            throw new NotImplementedException();
+            // Nothing to do.
         }
 
         public string AddCategory(string blogId, BlogPostCategory category)
@@ -454,12 +570,217 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public HttpWebResponse SendAuthenticatedHttpRequest(string requestUri, int timeoutMs, HttpRequestFilter filter)
         {
-            return BlogClientHelper.SendAuthenticatedHttpRequest(requestUri, filter, CreateAuthorizationFilter(requestUri));
+            return BlogClientHelper.SendAuthenticatedHttpRequest(requestUri, filter, CreateAuthorizationFilter());
         }
 
         public BlogInfo[] GetImageEndpoints()
         {
             throw new NotImplementedException();
         }
+
+        #region Picasa image uploading - stolen from BloggerAtomClient
+
+        public string GetBlogImagesAlbum(string albumName)
+        {
+            const string FEED_REL = "http://schemas.google.com/g/2005#feed";
+            const string GPHOTO_NS_URI = "http://schemas.google.com/photos/2007";
+            
+            Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default");
+
+            try
+            {
+                Uri reqUri = picasaUri;
+                XmlDocument albumListDoc = AtomClient.xmlRestRequestHelper.Get(ref reqUri, CreateAuthorizationFilter(), "kind", "album");
+                foreach (XmlElement entryEl in albumListDoc.SelectNodes(@"/atom:feed/atom:entry", _nsMgr))
+                {
+                    XmlElement titleNode = entryEl.SelectSingleNode(@"atom:title", _nsMgr) as XmlElement;
+                    if (titleNode != null)
+                    {
+                        string titleText = AtomProtocolVersion.V10DraftBlogger.TextNodeToPlaintext(titleNode);
+                        if (titleText == albumName)
+                        {
+                            XmlNamespaceManager nsMgr2 = new XmlNamespaceManager(new NameTable());
+                            nsMgr2.AddNamespace("gphoto", "http://schemas.google.com/photos/2007");
+                            XmlNode numPhotosRemainingNode = entryEl.SelectSingleNode("gphoto:numphotosremaining/text()", nsMgr2);
+                            if (numPhotosRemainingNode != null)
+                            {
+                                int numPhotosRemaining;
+                                if (int.TryParse(numPhotosRemainingNode.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out numPhotosRemaining))
+                                {
+                                    if (numPhotosRemaining < 1)
+                                        continue;
+                                }
+                            }
+                            string selfHref = AtomEntry.GetLink(entryEl, _nsMgr, FEED_REL, "application/atom+xml", null, reqUri);
+                            if (selfHref.Length > 1)
+                                return selfHref;
+                        }
+                    }
+                }
+            }
+            catch (WebException we)
+            {
+                HttpWebResponse httpWebResponse = we.Response as HttpWebResponse;
+                if (httpWebResponse != null)
+                {
+                    HttpRequestHelper.DumpResponse(httpWebResponse);
+                    if (httpWebResponse.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new BlogClientOperationCancelledException();
+                    }
+                }
+                throw;
+            }
+
+            XmlDocument newDoc = new XmlDocument();
+            XmlElement newEntryEl = newDoc.CreateElement("atom", "entry", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
+            newDoc.AppendChild(newEntryEl);
+
+            XmlElement newTitleEl = newDoc.CreateElement("atom", "title", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
+            newTitleEl.SetAttribute("type", "text");
+            newTitleEl.InnerText = albumName;
+            newEntryEl.AppendChild(newTitleEl);
+
+            XmlElement newSummaryEl = newDoc.CreateElement("atom", "summary", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
+            newSummaryEl.SetAttribute("type", "text");
+            newSummaryEl.InnerText = Res.Get(StringId.BloggerImageAlbumDescription);
+            newEntryEl.AppendChild(newSummaryEl);
+
+            XmlElement newAccessEl = newDoc.CreateElement("gphoto", "access", GPHOTO_NS_URI);
+            newAccessEl.InnerText = "private";
+            newEntryEl.AppendChild(newAccessEl);
+
+            XmlElement newCategoryEl = newDoc.CreateElement("atom", "category", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
+            newCategoryEl.SetAttribute("scheme", "http://schemas.google.com/g/2005#kind");
+            newCategoryEl.SetAttribute("term", "http://schemas.google.com/photos/2007#album");
+            newEntryEl.AppendChild(newCategoryEl);
+
+            Uri postUri = picasaUri;
+            XmlDocument newAlbumResult = AtomClient.xmlRestRequestHelper.Post(ref postUri, CreateAuthorizationFilter(), "application/atom+xml", newDoc, null);
+            XmlElement newAlbumResultEntryEl = newAlbumResult.SelectSingleNode("/atom:entry", _nsMgr) as XmlElement;
+            Debug.Assert(newAlbumResultEntryEl != null);
+            return AtomEntry.GetLink(newAlbumResultEntryEl, _nsMgr, FEED_REL, "application/atom+xml", null, postUri);
+        }
+
+        private void ShowPicasaSignupPrompt(object sender, EventArgs e)
+        {
+            if (DisplayMessage.Show(MessageId.PicasawebSignup) == DialogResult.Yes)
+            {
+                ShellHelper.LaunchUrl("http://picasaweb.google.com");
+            }
+        }
+
+        private void PostNewImage(string albumName, string filename, out string srcUrl, out string editUri)
+        {
+            Login();
+
+            string albumUrl = GetBlogImagesAlbum(albumName);
+            HttpWebResponse response = RedirectHelper.GetResponse(albumUrl, new RedirectHelper.RequestFactory(new UploadFileRequestFactory(this, filename, "POST").Create));
+            using (Stream s = response.GetResponseStream())
+                ParseMediaEntry(s, out srcUrl, out editUri);
+        }
+
+        private void UpdateImage(string editUri, string filename, out string srcUrl, out string newEditUri)
+        {
+            for (int retry = 5; retry > 0; retry--)
+            {
+                HttpWebResponse response;
+                bool conflict = false;
+                try
+                {
+                    response = RedirectHelper.GetResponse(editUri, new RedirectHelper.RequestFactory(new UploadFileRequestFactory(this, filename, "PUT").Create));
+                }
+                catch (WebException we)
+                {
+                    if (retry > 1
+                        && we.Response as HttpWebResponse != null
+                        && ((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.Conflict)
+                    {
+                        response = (HttpWebResponse)we.Response;
+                        conflict = true;
+                    }
+                    else
+                        throw;
+                }
+                using (Stream s = response.GetResponseStream())
+                    ParseMediaEntry(s, out srcUrl, out newEditUri);
+                if (!conflict)
+                    return; // success!
+                editUri = newEditUri;
+            }
+
+            Trace.Fail("Should never get here");
+            throw new ApplicationException("Should never get here");
+        }
+
+        private void ParseMediaEntry(Stream s, out string srcUrl, out string editUri)
+        {
+            srcUrl = null;
+
+            // First try <content src>
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(s);
+            XmlElement contentEl = xmlDoc.SelectSingleNode("/atom:entry/atom:content", _nsMgr) as XmlElement;
+            if (contentEl != null)
+                srcUrl = XmlHelper.GetUrl(contentEl, "@src", _nsMgr, null);
+
+            // Then try media RSS
+            if (srcUrl == null || srcUrl.Length == 0)
+            {
+                contentEl = xmlDoc.SelectSingleNode("/atom:entry/media:group/media:content[@medium='image']", _nsMgr) as XmlElement;
+                if (contentEl == null)
+                    throw new ArgumentException("Picasa photo entry was missing content element");
+                srcUrl = XmlHelper.GetUrl(contentEl, "@url", _nsMgr, null);
+            }
+
+            editUri = AtomEntry.GetLink(xmlDoc.SelectSingleNode("/atom:entry", _nsMgr) as XmlElement, _nsMgr, "edit-media", null, null, null);
+        }
+
+        private class UploadFileRequestFactory
+        {
+            private readonly GoogleBloggerv3Client _parent;
+            private readonly string _filename;
+            private readonly string _method;
+
+            public UploadFileRequestFactory(GoogleBloggerv3Client parent, string filename, string method)
+            {
+                _parent = parent;
+                _filename = filename;
+                _method = method;
+            }
+
+            public HttpWebRequest Create(string uri)
+            {
+                // TODO: choose rational timeout values
+                HttpWebRequest request = HttpRequestHelper.CreateHttpWebRequest(uri, false);
+
+                _parent.CreateAuthorizationFilter().Invoke(request);
+
+                request.ContentType = MimeHelper.GetContentType(Path.GetExtension(_filename));
+                try
+                {
+                    request.Headers.Add("Slug", Path.GetFileNameWithoutExtension(_filename));
+                }
+                catch (ArgumentException)
+                {
+                    request.Headers.Add("Slug", "Image");
+                }
+
+                request.Method = _method;
+
+                using (Stream s = request.GetRequestStream())
+                {
+                    using (Stream inS = new FileStream(_filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    {
+                        StreamHelper.Transfer(inS, s);
+                    }
+                }
+
+                return request;
+            }
+        }
+
+        #endregion
+
     }
 }

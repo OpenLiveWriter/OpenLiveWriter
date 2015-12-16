@@ -511,8 +511,7 @@
     Type="Information"
     Buttons="YesNo"
     Title="Picasa Web Albums"
-    Text="In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in as {0}, and agree to the Terms and Conditions.&#xD;&#xA;&#xD;&#xA;Would you like to go to the Picasa Web Albums homepage now?"
-    comment:Text="{0} - username, for example: joe@gmail.com"/>
+    Text="In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in with your Blogger account, and agree to the Terms and Conditions.&#xD;&#xA;&#xD;&#xA;Would you like to go to the Picasa Web Albums homepage now?"/>
   <Message
     Identifier="YouTubeSignup"
     Type="Information"
