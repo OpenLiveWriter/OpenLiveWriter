@@ -66,7 +66,21 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new FileDataStore(folderPath, true);
         }
 
-        private static BlogPost GetBlogPostFromGoogleBloggerPost(Post post)
+        private static BlogPost ConvertToBlogPost(Page page)
+        {
+            return new BlogPost()
+            {
+                Title = page.Title,
+                Id = page.Id,
+                Permalink = page.Url,
+                Contents = page.Content,
+                DatePublished = page.Published.Value,
+                // TODO:OLW - Need to figure out how to make the UI for 'tags' show up in Writer
+                // Keywords = string.Join(",", p.Labels)
+            };
+        }
+
+        private static BlogPost ConvertToBlogPost(Post post)
         {
             return new BlogPost()
             {
@@ -80,7 +94,19 @@ namespace OpenLiveWriter.BlogClient.Clients
             };
         }
 
-        private static Post GetGoogleBloggerPostFromBlogPost(BlogPost post)
+        private static Page ConvertToGoogleBloggerPage(BlogPost page)
+        {
+            return new Page()
+            {
+                Content = page.Contents,
+                // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
+                // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
+                Published = page.HasDatePublishedOverride ? page?.DatePublishedOverride : null,
+                Title = page.Title,
+            };
+        }
+
+        private static Post ConvertToGoogleBloggerPost(BlogPost post)
         {
             return new Post()
             {
@@ -91,6 +117,12 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Published = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null,
                 Title = post.Title,
             };
+        }
+
+        private static PageInfo ConvertToPageInfo(Page page)
+        {
+            // Google Blogger doesn't support parent/child pages, so we pass string.Empty.
+            return new PageInfo(page.Id, page.Title, page.Published.GetValueOrDefault(DateTime.Now), string.Empty);
         }
 
         public static Task<UserCredential> GetOAuth2AuthorizationAsync(string blogId, CancellationToken taskCancellationToken)
@@ -119,6 +151,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsFileUpload = true;
             clientOptions.SupportsKeywords = true;
             clientOptions.SupportsGetKeywords = false;
+            clientOptions.SupportsPages = true;
 
             _clientOptions = clientOptions;
         }
@@ -237,17 +270,19 @@ namespace OpenLiveWriter.BlogClient.Clients
         public BlogInfo[] GetUsersBlogs()
         {
             var blogList = GetService().Blogs.ListByUser("self").Execute();
-            return blogList?.Items?.Select(b => new BlogInfo(b.Id, b.Name, b.Url)).ToArray();
+            return blogList.Items.Select(b => new BlogInfo(b.Id, b.Name, b.Url)).ToArray();
         }
 
         public BlogPostCategory[] GetCategories(string blogId)
         {
-            throw new NotImplementedException();
+            // Google Blogger does not support categories
+            return new BlogPostCategory[] { };
         }
 
         public BlogPostKeyword[] GetKeywords(string blogId)
         {
-            throw new NotImplementedException();
+            Trace.Fail("Google Blogger does not support GetKeywords!");
+            return new BlogPostKeyword[] { };
         }
 
         public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
@@ -263,7 +298,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             recentPostsRequest.Status = PostsResource.ListRequest.StatusEnum.Live;
 
             var recentPosts = recentPostsRequest.Execute();
-            return recentPosts?.Items?.Select(p => GetBlogPostFromGoogleBloggerPost(p)).ToArray();
+            return recentPosts.Items.Select(p => ConvertToBlogPost(p)).ToArray();
         }
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -277,7 +312,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
 
-            var bloggerPost = GetGoogleBloggerPostFromBlogPost(post);
+            var bloggerPost = ConvertToGoogleBloggerPost(post);
             var newPostRequest = GetService().Posts.Insert(bloggerPost, blogId);
             newPostRequest.IsDraft = !publish;
 
@@ -297,19 +332,19 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
 
-            var bloggerPost = GetGoogleBloggerPostFromBlogPost(post);
+            var bloggerPost = ConvertToGoogleBloggerPost(post);
             var updatePostRequest = GetService().Posts.Update(bloggerPost, blogId, post.Id);
             updatePostRequest.Publish = publish;
 
-            var newPost = updatePostRequest.Execute();
-            etag = newPost.ETag;
+            var updatedPost = updatePostRequest.Execute();
+            etag = updatedPost.ETag;
             return true;
         }
 
         public BlogPost GetPost(string blogId, string postId)
         {
             var getPostRequest = GetService().Posts.Get(blogId, postId);
-            return GetBlogPostFromGoogleBloggerPost(getPostRequest.Execute());
+            return ConvertToBlogPost(getPostRequest.Execute());
         }
 
         public void DeletePost(string blogId, string postId, bool publish)
@@ -320,32 +355,71 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public BlogPost GetPage(string blogId, string pageId)
         {
-            throw new NotImplementedException();
+            var getPageRequest = GetService().Pages.Get(blogId, pageId);
+            return ConvertToBlogPost(getPageRequest.Execute());
         }
 
         public PageInfo[] GetPageList(string blogId)
         {
-            throw new NotImplementedException();
+            var getPagesRequest = GetService().Pages.List(blogId);
+
+            var pageList = getPagesRequest.Execute();
+            return pageList.Items.Select(p => ConvertToPageInfo(p)).ToArray();
         }
 
         public BlogPost[] GetPages(string blogId, int maxPages)
         {
-            throw new NotImplementedException();
+            var getPagesRequest = GetService().Pages.List(blogId);
+            getPagesRequest.MaxResults = maxPages;
+
+            var pageList = getPagesRequest.Execute();
+            return pageList.Items.Select(p => ConvertToBlogPost(p)).ToArray();
         }
 
         public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
         {
-            throw new NotImplementedException();
+            // The remote post is only meant to be used for blogs that use the Atom protocol.
+            remotePost = null;
+
+            if (!publish && !Options.SupportsPostAsDraft)
+            {
+                Trace.Fail("Post to draft not supported on this provider");
+                throw new BlogClientPostAsDraftUnsupportedException();
+            }
+
+            var bloggerPage = ConvertToGoogleBloggerPage(page);
+            var newPageRequest = GetService().Pages.Insert(bloggerPage, blogId);
+            newPageRequest.IsDraft = !publish;
+
+            var newPage = newPageRequest.Execute();
+            etag = newPage.ETag;
+            return newPage.Id;
         }
 
         public bool EditPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
         {
-            throw new NotImplementedException();
+            // The remote post is only meant to be used for blogs that use the Atom protocol.
+            remotePost = null;
+
+            if (!publish && !Options.SupportsPostAsDraft)
+            {
+                Trace.Fail("Post to draft not supported on this provider");
+                throw new BlogClientPostAsDraftUnsupportedException();
+            }
+
+            var bloggerPage = ConvertToGoogleBloggerPage(page);
+            var updatePostRequest = GetService().Pages.Update(bloggerPage, blogId, page.Id);
+            updatePostRequest.Publish = publish;
+
+            var updatedPage = updatePostRequest.Execute();
+            etag = updatedPage.ETag;
+            return true;
         }
 
         public void DeletePage(string blogId, string pageId)
         {
-            throw new NotImplementedException();
+            var deletePostRequest = GetService().Pages.Delete(blogId, pageId);
+            deletePostRequest.Execute();
         }
 
         public AuthorInfo[] GetAuthors(string blogId)
@@ -370,12 +444,12 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public string AddCategory(string blogId, BlogPostCategory category)
         {
-            throw new NotImplementedException();
+            throw new BlogClientMethodUnsupportedException("AddCategory");
         }
 
         public BlogPostCategory[] SuggestCategories(string blogId, string partialCategoryName)
         {
-            throw new NotImplementedException();
+            throw new BlogClientMethodUnsupportedException("SuggestCategories");
         }
 
         public HttpWebResponse SendAuthenticatedHttpRequest(string requestUri, int timeoutMs, HttpRequestFilter filter)
