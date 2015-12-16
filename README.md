@@ -56,7 +56,7 @@ their work on Windows Live Writer with Windows Live Writer 2012.
 
 Even though there was no active development, Windows Live Writer continued to be a favorite tool of a passionate
 community of Windows PC users for authoring, editing, and publishing blog posts. Data from WordPress.com at the 
-time suggested that Open Live Writer (even two years after active development ended) was the #1 app for authoring
+time suggested that Windows Live Writer (even two years after active development ended) was the #1 app for authoring
 a blog post to WordPress.com from a Windows PC. 
 
 A few employees at Microsoft took an interest in reviving Live Writer as an open source project in their
