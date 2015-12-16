@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE xpp[
-  <!ENTITY wave2mship "12.0.1292.0815">
+  <!ENTITY wave2mship "0.5.0.0">
 ]>
 <providers xmlns:xpp="http://writer.live.com/xmlpp/2007" xmlns:blogrunner="http://writer.live.com/blogrunner/2007">
   <provider>
