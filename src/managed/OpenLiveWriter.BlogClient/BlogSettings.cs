@@ -168,6 +168,13 @@ namespace OpenLiveWriter.BlogClient
         }
         private const string IS_SHAREPOINT_BLOG = "IsSharePointBlog";
 
+        public bool IsGoogleBloggerBlog
+        {
+            get { return Settings.GetBoolean(IS_GOOGLE_BLOGGER_BLOG, false); }
+            set { Settings.SetBoolean(IS_GOOGLE_BLOGGER_BLOG, value); }
+        }
+        private const string IS_GOOGLE_BLOGGER_BLOG = "IsGoogleBloggerBlog";
+
         /// <summary>
         /// Id of the weblog on the host service
         /// </summary>

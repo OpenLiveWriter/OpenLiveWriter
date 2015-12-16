@@ -130,6 +130,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                         AddClientType(typeof(MetaweblogClient));
                         AddClientType(typeof(MovableTypeClient));
                         AddClientType(typeof(GenericAtomClient));
+                        AddClientType(typeof(GoogleBloggerv3Client));
                         AddClientType(typeof(BloggerAtomClient));
                         AddClientType(typeof(SharePointClient));
                         AddClientType(typeof(WordPressClient));

@@ -39,12 +39,17 @@ namespace OpenLiveWriter.PostEditor
 
         // Copyright notices are not to be localized.
         string[] credits = {
-            "DeltaCompressionDotNet (MS-PL) Copyright © Todd Aspeotis 2013 \nhttps://github.com/taspeotis/DeltaCompressionDotNet",
-            "Mono.Cecil (MIT) Copyright © 2008 - 2015 Jb Evain Copyright © 2008 - 2011 Novell, Inc \nhttps://github.com/jbevain/cecil",
-            "Splat (MIT) Copyright © 2013 Paul Betts \nhttps://github.com/paulcbetts/splat/",
-            "Squirrel.Windows (MIT) Copyright © 2012 GitHub, Inc. \n https://github.com/squirrel/squirrel.windows",
-            /* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
+            "Apache log4net (Apache 2.0) (C) Copyright 2004-2015 The Apache Software Foundation\nhttp://logging.apache.org/log4net/",
             /* Brian Lambert */ "Portions Copyright © 2003 Brian Lambert, used with permission of the author under the MIT License.",
+            "DeltaCompressionDotNet (MS-PL) Copyright © Todd Aspeotis 2013 \nhttps://github.com/taspeotis/DeltaCompressionDotNet",
+            "DotNetZip (MS-PL) Copyright (c) 2011 Dino Chiesa.\nhttp://dotnetzip.codeplex.com/",
+            "Google API Client Library for .NET (Apache 2.0) (C) Copyright Google Inc.\nhttps://developers.google.com/api-client-library/dotnet/",
+            "Ionic Zlib Copyright (c) 2000,2001,2002,2003 ymnk, JCraft",
+            "Mono.Cecil (MIT) Copyright © 2008 - 2015 Jb Evain Copyright © 2008 - 2011 Novell, Inc \nhttps://github.com/jbevain/cecil",
+            /* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
+            "Splat (MIT) Copyright © 2013 Paul Betts \nhttps://github.com/paulcbetts/splat/",
+            "Squirrel.Windows (MIT) Copyright © 2012 GitHub, Inc. \nhttps://github.com/squirrel/squirrel.windows",
+            "zlib-1.1.3 Copyright (C) 1995-2004 Jean-loup Gailly and Mark Adler",
         };
 
         public AboutForm()

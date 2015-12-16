@@ -34,6 +34,7 @@ namespace OpenLiveWriter.Localization
         FtpServerUnavailable,
         FtpSettingsRequired,
         GoogleAuthTokenNotFound,
+        GoogleBloggerLoginRequired,
         GuestNotSupported,
         HomepageUrlInvalid,
         HomepageUrlRequired,

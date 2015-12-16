@@ -4,20 +4,16 @@
 #define APIHACK
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Net;
-using System.Text;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Threading;
 using mshtml;
-using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.BlogClient.Clients;
-using OpenLiveWriter.BlogClient.Detection;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
@@ -26,14 +22,19 @@ using OpenLiveWriter.CoreServices.Progress;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.Localization;
+using Google.Apis.Blogger.v3;
+using Google.Apis.Services;
 
 namespace OpenLiveWriter.BlogClient.Detection
 {
     public class BlogServiceDetector : BlogServiceDetectorBase
     {
-        public BlogServiceDetector(IBlogClientUIContext uiContext, Control hiddenBrowserParentControl, string localBlogId, string homepageUrl, IBlogCredentialsAccessor credentials)
-            : base(uiContext, hiddenBrowserParentControl, localBlogId, homepageUrl, credentials)
+        private IBlogSettingsAccessor _blogSettings;
+
+        public BlogServiceDetector(IBlogClientUIContext uiContext, Control hiddenBrowserParentControl, IBlogSettingsAccessor blogSettings, IBlogCredentialsAccessor credentials)
+            : base(uiContext, hiddenBrowserParentControl, blogSettings.Id, blogSettings.HomepageUrl, credentials)
         {
+            _blogSettings = blogSettings;
         }
 
         protected override object DetectBlogService(IProgressHost progressHost)
@@ -60,7 +61,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                     if (!detectionSucceeded)
                         detectionSucceeded = AttemptGenericAtomLinkDetection(_homepageUrl, html, !ApplicationDiagnostics.PreferAtom);
 
-                    if (!detectionSucceeded)
+                    if (!detectionSucceeded && _blogSettings.IsGoogleBloggerBlog)
                         detectionSucceeded = AttemptBloggerDetection(_homepageUrl, html);
 
                     if (!detectionSucceeded)
@@ -220,41 +221,31 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// </summary>
         private bool AttemptBloggerDetection(string homepageUrl, string html)
         {
-            html = html ?? "";
-            BloggerDetectionHelper bloggerDetectionHelper = new BloggerDetectionHelper(homepageUrl, html);
-            if (!bloggerDetectionHelper.IsBlogger())
-                return false;
+            Debug.Assert(string.IsNullOrEmpty(homepageUrl), "Google Blogger blogs don't know the homepageUrl");
+            Debug.Assert(string.IsNullOrEmpty(html), "Google Blogger blogs don't know the homepageUrl");
 
-            const string BLOGGER_ATOM_PROVIDER_ID = "B6F817C3-9D39-45c1-A634-EAC792B8A635";
-            IBlogProvider bloggerProvider = BlogProviderManager.FindProvider(BLOGGER_ATOM_PROVIDER_ID);
+            const string BLOGGER_V3_PROVIDER_ID = "343F1D83-1098-43F4-AE86-93AFC7602855";
+            IBlogProvider bloggerProvider = BlogProviderManager.FindProvider(BLOGGER_V3_PROVIDER_ID);
             if (bloggerProvider == null)
             {
                 Trace.Fail("Couldn't retrieve Blogger provider");
                 return false;
             }
 
-            _providerId = bloggerProvider.Id;
-            _serviceName = bloggerProvider.Name;
-            _clientType = bloggerProvider.ClientType;
-            _postApiUrl = "http://www.blogger.com/feeds/default/blogs";
-
-            BlogAccountDetector blogAccountDetector = new BlogAccountDetector(bloggerProvider.ClientType, "http://www.blogger.com", _credentials);
+            BlogAccountDetector blogAccountDetector = new BlogAccountDetector(bloggerProvider.ClientType, bloggerProvider.PostApiUrl, _credentials);
             if (blogAccountDetector.ValidateService())
             {
+                CopySettingsFromProvider(bloggerProvider);
+
                 _usersBlogs = blogAccountDetector.UsersBlogs;
-                foreach (BlogInfo blog in _usersBlogs)
+                if (_usersBlogs.Length == 1)
                 {
-                    string blogHomepageUrl = blog.HomepageUrl;
-                    if (NormalizeBloggerHomepageUrl(blogHomepageUrl) == NormalizeBloggerHomepageUrl(homepageUrl))
-                    {
-                        _hostBlogId = blog.Id;
-                        _postApiUrl = blog.Id;
-                        _blogName = blog.Name;
-                        return true;
-                    }
+                    _hostBlogId = _usersBlogs[0].Id;
+                    _blogName = _usersBlogs[0].Name;
+                    _homepageUrl = _usersBlogs[0].HomepageUrl;
                 }
 
-                // We didn't find the specific blog, but we'll prompt the user with the list of blogs
+                // If we didn't find the specific blog, we'll prompt the user with the list of blogs
                 return true;
             }
             else
@@ -263,19 +254,6 @@ namespace OpenLiveWriter.BlogClient.Detection
                 ReportErrorAndFail(blogAccountDetector.ErrorMessageType, blogAccountDetector.ErrorMessageParams);
                 return false;
             }
-        }
-
-        private string NormalizeBloggerHomepageUrl(string url)
-        {
-            // trim and uppercase
-            url = url.Trim().ToUpperInvariant();
-
-            // if the url has any ONE of the common suffixes, it is dropped and
-            // the string is returned.
-            foreach (string commonSuffix in new string[] { "/index.html", "/", "/index.htm", "/index.php", "/default.htm", "/default.html" })
-                if (url.EndsWith(commonSuffix, StringComparison.OrdinalIgnoreCase))
-                    return url.Substring(0, url.Length - commonSuffix.Length);
-            return url;
         }
 
         private bool AttemptRsdBasedDetection(IProgressHost progressHost, RsdServiceDescription rsdServiceDescription)
@@ -999,7 +977,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// <summary>
         /// Blog account we are scanning
         /// </summary>
-        private string _localBlogId;
+        protected string _localBlogId;
         protected string _homepageUrl;
         protected WriterEditingManifestDownloadInfo _manifestDownloadInfo = null;
         protected IBlogCredentialsAccessor _credentials;
