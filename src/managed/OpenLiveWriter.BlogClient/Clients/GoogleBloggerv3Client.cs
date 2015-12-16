@@ -61,7 +61,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         private static IDataStore GetCredentialsDataStoreForBlog(string blogId)
         {
             // The Google APIs will automatically store the OAuth2 tokens in the given path.
-            var folderPath = Path.Combine(ApplicationEnvironment.LocalApplicationDataDirectory, "GoogleBloggerv3");
+            var folderPath = Path.Combine(ApplicationEnvironment.ApplicationDataDirectory, "GoogleBloggerv3");
             return new FileDataStore(folderPath, true);
         }
 
