@@ -23,6 +23,7 @@ using Google.Apis.Util;
 using System.Globalization;
 using System.Diagnostics;
 using Google.Apis.Blogger.v3.Data;
+using System.Net.Http.Headers;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -128,7 +129,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new BloggerService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = (UserCredential)transientCredentials.Token,
-                ApplicationName = String.Format(CultureInfo.InvariantCulture, "{0} {1}", ApplicationEnvironment.ProductName, ApplicationEnvironment.ProductVersion),
+                ApplicationName = string.Format(CultureInfo.InvariantCulture, "{0} {1}", ApplicationEnvironment.ProductName, ApplicationEnvironment.ProductVersion),
             });
         }
 
@@ -211,6 +212,21 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             // Stash the valid user credentials.
             tc.Token = userCredential;
+        }
+
+        private HttpRequestFilter CreateAuthorizationFilter(string requestUri)
+        {
+            var transientCredentials = Login();
+            var userCredential = (UserCredential)transientCredentials.Token;
+            var accessToken = userCredential.Token.AccessToken;
+
+            return (HttpWebRequest request) =>
+            {
+                // OAuth uses a Bearer token in the HTTP Authorization header.
+                request.Headers.Add(
+                    HttpRequestHeader.Authorization,
+                    string.Format(CultureInfo.InvariantCulture, "Bearer {0}", accessToken));
+            };
         }
 
         public void OverrideOptions(IBlogClientOptions newClientOptions)
@@ -364,7 +380,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public HttpWebResponse SendAuthenticatedHttpRequest(string requestUri, int timeoutMs, HttpRequestFilter filter)
         {
-            throw new NotImplementedException();
+            return BlogClientHelper.SendAuthenticatedHttpRequest(requestUri, filter, CreateAuthorizationFilter(requestUri));
         }
 
         public BlogInfo[] GetImageEndpoints()
