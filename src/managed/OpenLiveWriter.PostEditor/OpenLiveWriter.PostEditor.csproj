@@ -372,15 +372,6 @@
     <Compile Include="InlineEditField.cs" />
     <Compile Include="ISupportingFile.cs" />
     <Compile Include="ISupportingFileService.cs" />
-    <Compile Include="JumpList\IJumpListItem.cs" />
-    <Compile Include="JumpList\JumpList.cs" />
-    <Compile Include="JumpList\JumpListCustomCategory.cs" />
-    <Compile Include="JumpList\JumpListCustomCategoryCollection.cs" />
-    <Compile Include="JumpList\JumpListItem.cs" />
-    <Compile Include="JumpList\JumpListItemCollection.cs" />
-    <Compile Include="JumpList\TaskbarEnums.cs" />
-    <Compile Include="JumpList\TaskbarManager.cs" />
-    <Compile Include="JumpList\WriterJumplist.cs" />
     <Compile Include="LiveClipboard\LiveClipboardChangeHandlerForm.cs">
       <SubType>Form</SubType>
     </Compile>

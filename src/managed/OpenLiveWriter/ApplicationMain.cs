@@ -15,7 +15,6 @@ using OpenLiveWriter.CoreServices.Settings;
 using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor;
-using OpenLiveWriter.PostEditor.JumpList;
 
 namespace OpenLiveWriter
 {
@@ -200,9 +199,6 @@ namespace OpenLiveWriter
                 Res.Get(StringId.ProductDisplayVersion),
                 ApplicationEnvironment.ProductVersion
                 );
-
-            if (PlatformHelper.RunningOnWin7OrHigher())
-                TaskbarManager.Instance.ApplicationId = ApplicationEnvironment.TaskbarApplicationId;
         }
 
         /// <summary>

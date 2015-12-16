@@ -3,11 +3,9 @@
 
 using System;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Settings;
-using OpenLiveWriter.PostEditor.JumpList;
 
 namespace OpenLiveWriter.PostEditor
 {

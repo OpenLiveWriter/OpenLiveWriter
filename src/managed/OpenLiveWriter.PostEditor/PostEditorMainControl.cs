@@ -36,14 +36,11 @@ using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.PostEditor.Commands;
 using OpenLiveWriter.PostEditor.Configuration.Wizard;
 using OpenLiveWriter.PostEditor.Configuration.Settings;
-using OpenLiveWriter.PostEditor.ContentSources;
-using OpenLiveWriter.PostEditor.JumpList;
 using OpenLiveWriter.PostEditor.OpenPost;
 using OpenLiveWriter.PostEditor.PostHtmlEditing;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.PostEditor.SupportingFiles;
-using OpenLiveWriter.PostEditor.Updates;
 //using OpenLiveWriter.SpellChecker;
 using Timer = System.Windows.Forms.Timer;
 
@@ -1397,7 +1394,6 @@ namespace OpenLiveWriter.PostEditor
                 {
                     // first refresh the post-list cache for high-performance refresh
                     PostListCache.Update();
-                    WriterJumpList.Invalidate(Handle);
 
                     CommandManager.Invalidate(CommandId.MRUList);
                     CommandManager.Invalidate(CommandId.OpenDraftSplit);
@@ -1645,11 +1641,12 @@ namespace OpenLiveWriter.PostEditor
 
         private delegate int WithIStreamAction(IStream stream);
         /// <summary>
-        ///
+        /// Withes the ribbon settings i stream.
         /// </summary>
         /// <param name="create">Create the stream if it doesn't exist, and make it writable.</param>
-        /// <param name="onlyIfChanged"></param>
-        /// <param name="action"></param>
+        /// <param name="writable">if set to <c>true</c> [writable].</param>
+        /// <param name="onlyIfChanged">if set to <c>true</c> [only if changed].</param>
+        /// <param name="action">The action.</param>
         private void WithRibbonSettingsIStream(bool create, bool writable, bool onlyIfChanged, WithIStreamAction action)
         {
             // Re-entrancy check

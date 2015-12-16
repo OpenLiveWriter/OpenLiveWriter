@@ -3737,10 +3737,6 @@ Unimplemented Method: {2}</value>
 
 Do you still want to set this web address as your custom pin?</value>
   </data>
-  <data name="RecentDrafts" xml:space="preserve">
-    <value>Recent drafts</value>
-    <comment>Category description for recent drafts that appears in Writer's taskbar jumplist.</comment>
-  </data>
   <data name="RecentlyPosted" xml:space="preserve">
     <value>Recently posted</value>
   </data>
@@ -3759,10 +3755,6 @@ Do you still want to set this web address as your custom pin?</value>
   <data name="RecentPostNotSyncTitle" xml:space="preserve">
     <value>Unable to Retrieve {0} from Server</value>
     <comment>{0} - Post/Page</comment>
-  </data>
-  <data name="RecentPosts" xml:space="preserve">
-    <value>Recent posts</value>
-    <comment>Category description for recent posts that appears in Writer's taskbar jumplist.</comment>
   </data>
   <data name="RememberPassword" xml:space="preserve">
     <value>&amp;Remember my password</value>
