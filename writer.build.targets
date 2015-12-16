@@ -20,4 +20,16 @@
     </ItemGroup>
   </Target>
 
+  <!-- Google Blogger -->
+
+  <PropertyGroup>
+    <BloggerClientSecretsJson>$(RepoRoot)\src\managed\OpenLiveWriter.BlogClient\Clients\GoogleBloggerv3Secrets.json</BloggerClientSecretsJson>
+    <OlwBloggerClientId Condition="'$(OlwBloggerClientId)'==''">PASTE_YOUR_CLIENT_ID_HERE</OlwBloggerClientId>
+    <OlwBloggerClientSecret Condition="'$(OlwBloggerClientSecret)'==''">PASTE_YOUR_CLIENT_SECRET_HERE</OlwBloggerClientSecret>
+  </PropertyGroup>
+
+  <Target Name="GenerateBloggerClientSecrets" BeforeTargets="CoreCompile" Outputs="$(BloggerClientSecretsJson)">
+    <WriteLinesToFile File="$(BloggerClientSecretsJson)" Lines="{ &quot;installed&quot;: { &quot;client_id&quot;: &quot;$(OlwBloggerClientId)&quot;, &quot;client_secret&quot;: &quot;$(OlwBloggerClientSecret)&quot; } }" Overwrite="true" />
+  </Target>
+
 </Project>
