@@ -37,6 +37,8 @@ to clarify expected behavior in our community. This code of conduct has been
 [adopted by many other projects](http://contributor-covenant.org/adopters/).
 For more information see the [.NET Foundation Code of Conduct](http://www.dotnetfoundation.org/code-of-conduct).
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OpenLiveWriter/OpenLiveWriter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 ### License
 Open Live Writer proudly uses the [MIT License](license.txt).
 

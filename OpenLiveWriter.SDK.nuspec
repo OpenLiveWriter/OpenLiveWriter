@@ -4,13 +4,16 @@
         <id>OpenLiveWriter.SDK</id>
         <version>0.5.0-beta</version>
         <authors>Open Live Writer</authors>
+        <owners>OpenLiveWriter</owners>
         <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt?raw=true</licenseUrl>
+        <projectUrl>http://openlivewriter.org</projectUrl>
         <iconUrl>http://openlivewriter.github.io/favicon.ico</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>The SDK required to create plug-ins for Open Live Writer.</description>
+        <copyright>(c) .NET  Foundation</copyright>
         <frameworkAssemblies>
-            <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework="net452" />
-			<frameworkAssembly assemblyName="System.Drawing" targetFramework="net452" />
+            <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework=".NETFramework4.5.2" />
+            <frameworkAssembly assemblyName="System.Drawing" targetFramework=".NETFramework4.5.2" />
         </frameworkAssemblies>
     </metadata>
     <files>

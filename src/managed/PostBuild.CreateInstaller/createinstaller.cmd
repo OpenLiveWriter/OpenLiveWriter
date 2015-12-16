@@ -19,6 +19,7 @@ IF EXIST "%LocalAppData%\Nuget\Nuget.exe" (GOTO package) ELSE (
 ECHO Created Writer NuGet package.
 
 .\src\managed\packages\squirrel.windows.1.2.1\tools\Squirrel.exe -i .\src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico %OLW_SIGN% --no-msi --releasify .\OpenLiveWriter.%dottedVersion%.nupkg 
+MOVE .\Releases\Setup.exe .\Releases\OpenLiveWriterSetup.exe
 ECHO Created Open Live Writer setup file.
 
 :end
