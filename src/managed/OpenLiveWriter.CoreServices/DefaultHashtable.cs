@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace OpenLiveWriter.CoreServices
 {
@@ -63,12 +64,7 @@ namespace OpenLiveWriter.CoreServices
 
         public static object HashSetDefault(object key)
         {
-            return new HashSet();
-        }
-
-        public static object TreeSetDefault(object key)
-        {
-            return new TreeSet();
+            return new HashSet<object>();
         }
 
         public static object HashtableDefault(object key)

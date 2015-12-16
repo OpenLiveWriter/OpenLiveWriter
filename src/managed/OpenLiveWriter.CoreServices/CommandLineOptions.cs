@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -30,7 +31,7 @@ namespace OpenLiveWriter.CoreServices
 
         private ArrayList _unnamedArgs = new ArrayList();
         private Hashtable _values = new Hashtable();
-        private HashSet _argsPresent = new HashSet();
+        private HashSet<string> _argsPresent = new HashSet<string>();
         private ArrayList _errors = new ArrayList();
 
         public CommandLineOptions(params ArgSpec[] args) : this(false, 0, int.MaxValue, args)

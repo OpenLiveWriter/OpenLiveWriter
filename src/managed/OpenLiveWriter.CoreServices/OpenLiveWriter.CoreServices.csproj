@@ -142,7 +142,6 @@
     <Compile Include="GLink.cs" />
     <Compile Include="GraphicsHelper.cs" />
     <Compile Include="GuidHelper.cs" />
-    <Compile Include="HashSet.cs" />
     <Compile Include="HtmlScreenCaptureCore.cs" />
     <Compile Include="HTML\DefaultBlockElement.cs" />
     <Compile Include="HTML\ExternalHtmlReferenceFixer.cs" />
@@ -267,7 +266,6 @@
     <Compile Include="TransientDirectory.cs" />
     <Compile Include="TransientFile.cs" />
     <Compile Include="TransientFileSystemItem.cs" />
-    <Compile Include="TreeSet.cs" />
     <Compile Include="TypeHelper.cs" />
     <Compile Include="UI\BorderPaint.cs" />
     <Compile Include="UI\ControlUITheme.cs" />

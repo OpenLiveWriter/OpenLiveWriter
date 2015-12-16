@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
 
@@ -48,7 +49,7 @@ namespace OpenLiveWriter.CoreServices
     {
         private static readonly TimeSpan INITIAL_TIMEOUT = TimeSpan.FromSeconds(1);
         private object metaLock = new object();
-        private ISet locks = new HashSet();
+        private ISet<object> locks = new HashSet<object>();
 
         public MetaLock()
         {

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -109,7 +110,7 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-        private readonly HashSet loadedPlugins = new HashSet();
+        private readonly HashSet<string> loadedPlugins = new HashSet<string>();
         public void LoadPluginsFromAssembly(Assembly assembly)
         {
             if (_apiAssemblyName != null)

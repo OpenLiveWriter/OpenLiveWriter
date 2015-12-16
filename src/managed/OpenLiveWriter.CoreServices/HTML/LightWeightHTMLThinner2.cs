@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
@@ -419,7 +420,7 @@ namespace OpenLiveWriter.CoreServices.HTML
         {
             private readonly string _substitute;
             private readonly TagType _tagType;
-            private readonly HashSet _allowedAttributes;
+            private readonly HashSet<string> _allowedAttributes;
 
             public TagDesc(TagType tagType, params string[] allowedAttributes) : this(null, tagType, allowedAttributes)
             {
@@ -431,7 +432,7 @@ namespace OpenLiveWriter.CoreServices.HTML
                 _tagType = tagType;
                 if (allowedAttributes != null && allowedAttributes.Length > 0)
                 {
-                    _allowedAttributes = new HashSet();
+                    _allowedAttributes = new HashSet<string>();
                     foreach (string attr in allowedAttributes)
                         _allowedAttributes.Add(attr.ToUpperInvariant());
                 }

@@ -4,6 +4,7 @@
 #define APIHACK
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Net;
@@ -254,7 +255,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             FixupBlogId(ref blogId);
 
-            HashSet seenIds = new HashSet();
+            HashSet<string> seenIds = new HashSet<string>();
 
             ArrayList blogPosts = new ArrayList();
             try

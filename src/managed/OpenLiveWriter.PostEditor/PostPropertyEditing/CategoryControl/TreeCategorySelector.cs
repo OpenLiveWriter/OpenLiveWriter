@@ -230,7 +230,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                 nodes = CategoriesToNodes(ctx.Categories);
                 treeView.Nodes.Clear();
                 treeView.Nodes.AddRange(FilteredNodes(RealNodes, delegate { return true; }));
-                HashSet selectedCategories = new HashSet();
+                HashSet<BlogPostCategory> selectedCategories = new HashSet<BlogPostCategory>();
                 selectedCategories.AddAll(ctx.SelectedCategories);
                 if (selectedCategories.Count > 0)
                     WalkNodes(treeView.Nodes, delegate (TreeNode n)
