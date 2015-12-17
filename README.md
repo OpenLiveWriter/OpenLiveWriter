@@ -20,21 +20,10 @@ For the latest news and updates about Open Live Writer, you can follow us on Twi
 ### Contributing
 Open Live Writer is an open source project and wouldn't exist without the passionate community of volunteer
 [contributors](https://github.com/OpenLiveWriter/OpenLiveWriter/graphs/contributors).
-If you would like to help out then you can find more information below:
-
-* [Building, testing and debugging the sources](https://github.com/OpenLiveWriter/OpenLiveWriter/wiki/Building,-Testing,-and-Debugging)
-
-To contribute code to the project simply:
-  1. Fork the repo and clone locally
-  2. Create a specific topic branch, add a nice feature or fix your bug
-  3. Send a Pull Request to spread the fun!
-
-If you haven't already, please sign the [.NET Foundation CLA](http://cla2.dotnetfoundation.org) to give us 
-permission to include your code in the next release of Open Live Writer.
+If you would like to help out then please see the [Contributing](CONTRIBUTING.md) guide.
 
 This project has adopted the code of conduct defined by the [Contributor Covenant](http://contributor-covenant.org/)
-to clarify expected behavior in our community. This code of conduct has been 
-[adopted by many other projects](http://contributor-covenant.org/adopters/).
+to clarify expected behavior in our community.
 For more information see the [.NET Foundation Code of Conduct](http://www.dotnetfoundation.org/code-of-conduct).
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/OpenLiveWriter/OpenLiveWriter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
