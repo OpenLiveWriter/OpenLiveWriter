@@ -35,7 +35,7 @@ using OpenLiveWriter.PostEditor.Tables;
 using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar;
 using OpenLiveWriter.PostEditor.Tagging;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 using OpenLiveWriter.InternalWriterPlugin;
 using Timer = System.Windows.Forms.Timer;
 using OpenLiveWriter.PostEditor.WordCount;
@@ -49,9 +49,7 @@ using OpenLiveWriter.PostEditor.Commands;
 
 namespace OpenLiveWriter.PostEditor
 {
-    //ToDo: OLW Spell Checker
-    //internal class ContentEditor : IBlogPostContentEditor, IContentSourceSite, IDisposable, IHtmlEditorCommandSource, IHtmlEditorHost, IBlogPostImageEditingContext, IBlogPostSidebarContext, IContentSourceSidebarContext, IBlogPostSpellCheckingContext, ICommandManagerHost, IEditingMode, IInternalSmartContentContextSource
-    internal class ContentEditor : IBlogPostContentEditor, IContentSourceSite, IDisposable, IHtmlEditorCommandSource, IHtmlEditorHost, IBlogPostImageEditingContext, IBlogPostSidebarContext, IContentSourceSidebarContext, ICommandManagerHost, IEditingMode, IInternalSmartContentContextSource
+    internal class ContentEditor : IBlogPostContentEditor, IContentSourceSite, IDisposable, IHtmlEditorCommandSource, IHtmlEditorHost, IBlogPostImageEditingContext, IBlogPostSidebarContext, IContentSourceSidebarContext, IBlogPostSpellCheckingContext, ICommandManagerHost, IEditingMode, IInternalSmartContentContextSource
     {
         public ContentEditor(IMainFrameWindow mainFrameWindow, Control editorContainer, IBlogPostEditingSite postEditingSite, IInternetSecurityManager internetSecurityManager, BlogPostHtmlEditorControl.TemplateStrategy templateStrategy, int dlControlFlags)
         {
@@ -146,7 +144,7 @@ namespace OpenLiveWriter.PostEditor
             _mshtmlOptions.DocHostUIOptionKeyPath = GlobalEditorOptions.GetSetting<string>(ContentEditorSetting.MshtmlOptionKeyPath);
 
             // create the editor
-            _normalHtmlContentEditor = new BlogPostHtmlEditorControl(_mainFrameWindow, StatusBar, _mshtmlOptions, this, this, this, new SmartContentResizedListener(ResizedListener), new SharedCanvasImageReferenceFixer(ReferenceFixer), internetSecurityManager, CommandManager, templateStrategy, this);
+            _normalHtmlContentEditor = new BlogPostHtmlEditorControl(_mainFrameWindow, StatusBar, _mshtmlOptions, this, this, this, new SmartContentResizedListener(ResizedListener), this, new SharedCanvasImageReferenceFixer(ReferenceFixer), internetSecurityManager, CommandManager, templateStrategy, this);
             _normalHtmlContentEditor.PostBodyInlineStyle = GetPostBodyInlineStyleOverrides();
             // hookup services and events
             _normalHtmlContentEditor.HtmlGenerationService = new HtmlGenerator(this);
@@ -209,8 +207,7 @@ namespace OpenLiveWriter.PostEditor
         private void InitializeSourceEditor()
         {
             // create the source code editor control
-            //_codeHtmlContentEditor = new BlogPostHtmlSourceEditorControl(this, CommandManager, this);
-            _codeHtmlContentEditor = new BlogPostHtmlSourceEditorControl(CommandManager, this);
+            _codeHtmlContentEditor = new BlogPostHtmlSourceEditorControl(this, CommandManager, this);
 
             _codeHtmlContentEditor.AccessibleName = "Source Editor";
 
@@ -729,12 +726,11 @@ namespace OpenLiveWriter.PostEditor
             ContentSourceManager.GlobalContentSourceListChanged -= new EventHandler(ContentSourceManager_GlobalContentSourceListChanged);
             CommandManager.CommandStateChanged -= new EventHandler(CommandManager_CommandStateChanged);
 
-            //ToDo: OLW Spell Checker
-            //if (_spellingChecker != null)
-            //{
-            //    _spellingChecker.Dispose();
-            //    _spellingChecker = null;
-            //}
+            if (_spellingChecker != null)
+            {
+                _spellingChecker.Dispose();
+                _spellingChecker = null;
+            }
 
             if (_insertImageDialogWin7 != null)
             {
@@ -2407,7 +2403,7 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return true; // _spellingChecker.IsInitialized;
+                return _spellingChecker.IsInitialized;
             }
         }
 
@@ -2421,12 +2417,11 @@ namespace OpenLiveWriter.PostEditor
             get { return _autoCorrectLexiconFile; }
         }
 
-        //ToDo: OLW Spell Checker
-        //public ISpellingChecker SpellingChecker
-        //{
-        //    get { return _spellingChecker; }
-        //}
-        //private NlgSpellingChecker _spellingChecker = new NlgSpellingChecker();
+        public ISpellingChecker SpellingChecker
+        {
+            get { return _spellingChecker; }
+        }
+        private WinSpellingChecker _spellingChecker = new WinSpellingChecker();
 
         public void SetSpellingOptions(string dllName, ushort lcid, string[] mainLexFiles, string userLexFile, uint sobitOptions, bool useAutoCorrect)
         {
@@ -2438,17 +2433,16 @@ namespace OpenLiveWriter.PostEditor
                 return;
             }
 
-            //ToDo: OLW Spell Checker
-            //_spellingChecker.StopChecking();
-            //_spellingChecker.SetOptions(dllName, lcid, mainLexFiles, userLexFile, sobitOptions);
-            //_spellingChecker.StartChecking(_supportingFileStorage != null ? PostSpellingContextDirectory : null);
+            _spellingChecker.StopChecking();
+            _spellingChecker.SetOptions(dllName, lcid, mainLexFiles, userLexFile, sobitOptions);
+            _spellingChecker.StartChecking(_supportingFileStorage != null ? PostSpellingContextDirectory : null);
 
             // Get autocorrect file if needed, mso.acl ships with Writer/Shared Canvas
             _autoCorrectLexiconFile = null;
-            //if (useAutoCorrect && lcid == 1033 /* en-us */ && File.Exists(Path.Combine(SpellingSettings.DictionaryPath, "mso.acl")))
-            //{
-            //    _autoCorrectLexiconFile = Path.Combine(SpellingSettings.DictionaryPath, "mso.acl");
-            //}
+            if (useAutoCorrect && lcid == 1033 /* en-us */ && File.Exists(Path.Combine(SpellingSettings.DictionaryPath, "mso.acl")))
+            {
+                _autoCorrectLexiconFile = Path.Combine(SpellingSettings.DictionaryPath, "mso.acl");
+            }
 
             if (SpellingOptionsChanged != null)
             {
@@ -2458,8 +2452,8 @@ namespace OpenLiveWriter.PostEditor
 
         public void DisableSpelling()
         {
-            //_spellingChecker.StopChecking();
-            //_spellingChecker.SetOptions(null, 0, null, null, 0);
+            _spellingChecker.StopChecking();
+            _spellingChecker.SetOptions(null, 0, null, null, 0);
             if (SpellingOptionsChanged != null)
                 SpellingOptionsChanged(this, EventArgs.Empty);
         }

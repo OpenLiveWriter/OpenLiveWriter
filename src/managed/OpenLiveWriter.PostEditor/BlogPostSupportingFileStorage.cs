@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using OpenLiveWriter.HtmlParser.Parser;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.HTML;
 using OpenLiveWriter.Interop.Windows;
@@ -139,9 +139,8 @@ namespace OpenLiveWriter.PostEditor
                 return null;
         }
 
-        //ToDo: OLW Spell Checker
         // NOTE: hardcode to sentry spelling engine -- need to unroll this if we switch engines
-        private static readonly string CONTEXT_DICTIONARY_FILE = "context.tlx";
+        private static readonly string CONTEXT_DICTIONARY_FILE = SentrySpellingChecker.ContextDictionaryFileName;
 
         private DirectoryInfo _storageDirectory;
     }
