@@ -359,7 +359,7 @@ namespace OpenLiveWriter.Interop.Com
         /// Combines a base and relative URL into a full URL.
         /// </summary>
         /// <param name="pwzBaseUrl">[in] String value containing the base URL. </param>
-        /// <param name="pwzRelatuveUrl">[in] String value containing the relative URL. </param>
+        /// <param name="pwzRelativeUrl">[in] String value containing the relative URL. </param>
         /// <param name="dwCombineFlags">[in] Unsigned long integer value that controls the combining process. Can be one of the following values.
         ///	ICU_BROWSER_MODE, ICU_ENCODE_SPACES_ONLY, ICU_NO_ENCODE, ICU_NO_META</param>
         /// <param name="pwzResult">[out] String variable where the full URL will be stored. </param>

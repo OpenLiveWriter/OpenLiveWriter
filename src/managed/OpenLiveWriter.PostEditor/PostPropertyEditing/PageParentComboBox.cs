@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         {
             if (e.Index != -1)
             {
-                // calcluate text to paint
+                // calculate text to paint
                 PostIdAndNameField comboItem = Items[e.Index] as PostIdAndNameField;
                 string text = comboItem.ToString();
                 if (comboItem is ParentPageComboItem)
@@ -106,7 +106,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         private object[] ConvertPageList(PageInfo[] pageList)
         {
-            // acculate available parents
+            // accumulate available parents
             Hashtable availableParents = new Hashtable();
             foreach (PageInfo page in pageList)
                 availableParents[page.Id] = null;

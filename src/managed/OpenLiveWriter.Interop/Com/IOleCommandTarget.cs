@@ -188,7 +188,7 @@ namespace OpenLiveWriter.Interop.Com
 
     /// <summary>
     /// Generic COM/OLE command dispatching interface. This version of the declaration
-    /// allows for the passing of NULL for the input parmaeter and object for the
+    /// allows for the passing of NULL for the input parameter and object for the
     /// output parameter, thereby making it compatible with implementations that expect
     /// a NULL input parameter as an indicator that a command value request is occurring.
     /// </summary>
@@ -248,7 +248,7 @@ namespace OpenLiveWriter.Interop.Com
 
     /// <summary>
     /// Generic COM/OLE command dispatching interface. This version of the declaration
-    /// allows for the passing of NULL for the input parmaeter and object for the
+    /// allows for the passing of NULL for the input parameter and object for the
     /// output parameter, thereby making it compatible with implementations that expect
     /// a NULL input parameter as an indicator that a command value request is occurring.
     /// </summary>

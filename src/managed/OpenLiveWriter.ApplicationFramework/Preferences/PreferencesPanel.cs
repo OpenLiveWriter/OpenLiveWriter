@@ -204,7 +204,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         /// <param name="e">An EventArgs that contains the event data.</param>
         private void preferences_PreferencesModified(object sender, EventArgs e)
         {
-            //	Raise the Modified evebt.
+            //	Raise the Modified event.
             OnModified(EventArgs.Empty);
         }
 

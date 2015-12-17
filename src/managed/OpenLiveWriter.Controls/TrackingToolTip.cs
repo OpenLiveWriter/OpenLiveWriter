@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Controls
     /// Implements a "tracking" ToolTip (using the native Win32 tooltip api). A
     /// tracking tooltip can be positioned anywhere on the screen irrespective
     /// of parent controls, etc. Normally you should use NOT use this class and
-    /// instead shoould use the .NET ToolTip class -- this class is used for
+    /// instead should use the .NET ToolTip class -- this class is used for
     /// scenarios where you are hosting a non .NET window (e.g. MSHTML editor)
     /// that fully occludes your .NET control and therefore prevents the display
     /// of .NET tooltips.
@@ -35,12 +35,12 @@ namespace OpenLiveWriter.Controls
             cp.ClassName = WINDOW_CLASS.TOOLTIPS;
             cp.Style = unchecked((int)(WS.POPUP | TTS.ALWAYSTIP | TTS.NOPREFIX));
 
-            // create the winow
+            // create the window
             CreateHandle(cp);
         }
 
         /// <summary>
-        /// Set the location (in screen coordiantes) of the tooltip. This location will
+        /// Set the location (in screen coordinates) of the tooltip. This location will
         /// be reflected the next time the tooltip is shown
         /// </summary>
         public Point Location
@@ -209,7 +209,7 @@ namespace OpenLiveWriter.Controls
             private const int TTF_RTLREADING = 0x0004;
 
             /// <summary>
-            /// Set the location (in screen coordiantes) of the tooltip for the tool
+            /// Set the location (in screen coordinates) of the tooltip for the tool
             /// </summary>
             public Point Location
             {

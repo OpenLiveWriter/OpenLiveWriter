@@ -69,7 +69,7 @@ namespace OpenLiveWriter.CoreServices
                 if (truncatedName == null)
                     truncatedName = string.Empty;
 
-                int charsForName = charsLeft - truncatedName.Length/*extension*/ - 1/*path seperator*/;
+                int charsForName = charsLeft - truncatedName.Length/*extension*/ - 1/*path separator*/;
                 if (charsForName < 1)
                     throw new PathTooLongException();
                 truncatedName = Path.GetFileNameWithoutExtension(name).Substring(0, charsForName) + truncatedName;

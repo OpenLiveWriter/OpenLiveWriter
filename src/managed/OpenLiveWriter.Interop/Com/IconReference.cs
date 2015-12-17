@@ -37,7 +37,7 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// Overloaded constructor takes in the module name and resource id separated by a comma.
         /// </summary>
-        /// <param name="refPath">Reference path for the icon consiting of the module name and resource id.</param>
+        /// <param name="refPath">Reference path for the icon consisting of the module name and resource id.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Int32.Parse(System.String)", Justification = "We are not currently handling globalization or localization")]
         public IconReference(string refPath)
         {

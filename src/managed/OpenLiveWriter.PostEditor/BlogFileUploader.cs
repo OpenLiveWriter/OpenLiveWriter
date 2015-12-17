@@ -647,7 +647,7 @@ namespace OpenLiveWriter.PostEditor
                         if (base64EncodedPass.Length < 200) //encoded passwords are always larger than 200, and non-encoded passwords are unlikely to be
                         {
 
-                            //then this password is not stored encrypted (probably because of a bug introduced in M2, so resave the password in encrupted form)
+                            //then this password is not stored encrypted (probably because of a bug introduced in M2, so resave the password in encrypted form)
                             Password = base64EncodedPass;
                             base64EncodedPass = _settings.GetValue(PASSWORD);
                             Trace.WriteLine("FTP password was auto-encrypted");

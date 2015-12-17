@@ -254,7 +254,7 @@ namespace OpenLiveWriter.CoreServices.Settings
         }
 
         /// <summary>
-        /// Gets the 32-bit usigned integer setting with the specified name.
+        /// Gets the 32-bit unsigned integer setting with the specified name.
         /// </summary>
         /// <param name="name">Name of the setting to get.</param>
         /// <param name="defaultValue">The default value to return in the event that a setting
@@ -278,7 +278,7 @@ namespace OpenLiveWriter.CoreServices.Settings
         }
 
         /// <summary>
-        /// Gets the 64-bit usigned integer setting with the specified name.
+        /// Gets the 64-bit unsigned integer setting with the specified name.
         /// </summary>
         /// <param name="name">Name of the setting to get.</param>
         /// <param name="defaultValue">The default value to return in the event that a setting
@@ -496,7 +496,7 @@ namespace OpenLiveWriter.CoreServices.Settings
         }
 
         /// <summary>
-        /// Sets the 32-bit usigned integer setting with the specified name.
+        /// Sets the 32-bit unsigned integer setting with the specified name.
         /// </summary>
         /// <param name="name">Name of the setting to set.</param>
         /// <param name="value">The value to set.</param>
@@ -516,7 +516,7 @@ namespace OpenLiveWriter.CoreServices.Settings
         }
 
         /// <summary>
-        /// Sets the 64-bit usigned integer setting with the specified name.
+        /// Sets the 64-bit unsigned integer setting with the specified name.
         /// </summary>
         /// <param name="name">Name of the setting to set.</param>
         /// <param name="value">The value to set.</param>

@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             if (PostEditorSettings.AutomationMode)
             {
                 //Test automation requires the element to be explicitly named in the accessibility tree, but
-                //setting a title causes an annoying tooltip and focus rectanlge, so we only show it in automation mode
+                //setting a title causes an annoying tooltip and focus rectangle, so we only show it in automation mode
                 HTMLElement.title = "Post Body";
                 HTMLElement2.tabIndex = 1;
             }

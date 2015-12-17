@@ -40,7 +40,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public WebPageDownloader(Control parentControl, WinInetCredentialsContext credentialsContext)
         {
-            // create the undelrying control
+            // create the underlying control
             browserControl = new ExplorerBrowserControl();
 
             if (parentControl != null)

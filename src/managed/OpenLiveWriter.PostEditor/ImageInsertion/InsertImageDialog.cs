@@ -318,7 +318,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
 
                             User32.SetParent(_panelImage.Handle, _hWndParent);
 
-                            //initalize the other sources
+                            //initialize the other sources
                             foreach (InsertImageSource source in imageSources)
                             {
                                 source.Init(_panelImage.Width, _panelImage.Height);
@@ -398,7 +398,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
                             else if (code == CommonDlgNotification.FileOk)
                             {
                                 // update the image path (need to do this if the user selected
-                                // a file by simpliy typing in the filepath text box)
+                                // a file by simply typing in the filepath text box)
                                 UpdateChosenImage(true);
 
                                 // ok to insert
@@ -880,7 +880,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
         }
 
         /// <summary>
-        /// Free any unamanged memory used by this instance of OpenFileDialog
+        /// Free any unmanaged memory used by this instance of OpenFileDialog
         /// </summary>
         /// <param name="disposing">true if called by Dispose, false otherwise</param>
         public void Dispose(bool disposing)
@@ -910,7 +910,7 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion
             // enumeration (this is also described in the article referenced above).
             // NOTE: there is at least one report from a developer of this technique not working
             // (see comments at http://www.thecodeproject.com/cs/miscctrl/FileDialogExtender.asp).
-            // it is very likely that this technique is fragile accross OS version and/or
+            // it is very likely that this technique is fragile across OS version and/or
             // installed shell customizations.
 
             UIntPtr viewType = FCIDM_SHVIEW.LARGEICON;

@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// In the context of a DeskBand, provides the IUnknown site pointer for Explorer
         /// </summary>
-        /// <param name="pUnkSite">Browser interface as IUnkown</param>
+        /// <param name="pUnkSite">Browser interface as IUnknown</param>
         [PreserveSig]
         int SetSite([In, MarshalAs(UnmanagedType.IUnknown)] object pUnkSite);
 

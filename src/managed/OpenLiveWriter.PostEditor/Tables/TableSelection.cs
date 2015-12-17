@@ -197,7 +197,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         private IHTMLTableRow GetContainingRowForCell(IHTMLTableCell tableCell)
         {
-            // search up the parent heirarchy
+            // search up the parent hierarchy
             IHTMLElement element = tableCell as IHTMLElement;
             while (element != null)
             {

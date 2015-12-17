@@ -12,14 +12,14 @@ using OpenLiveWriter.Interop.Com.Ribbon;
 namespace OpenLiveWriter.PostEditor
 {
     // @SharedCanvas - Mail should save to file outside of the draft
-    // @SharedCanvas - Block off forwared/replied code?
+    // @SharedCanvas - Block off forwarded/replied code?
     // @SharedCanvas - Dont scan+init images in replies/forward
     // @SharedCanvas - Spell checking in plain text
     // @SharedCanvas - title should be decided by the editing context
     // @SharedCanvas - bring back default editing view
     // @SharedCanvas - when openning another post, the blogpostsupporting files are disposed with the old content in the editor
     //                 and then the blog is changed on the editor which causes the theme to reload.  This will mean
-    //                 scan and initilize images is run, which throw an exception because it can't find the file.
+    //                 scan and initialize images is run, which throw an exception because it can't find the file.
 
     /// <summary>
     /// WYSIWYG editor that can edit arbitrary HTML.
@@ -65,7 +65,7 @@ namespace OpenLiveWriter.PostEditor
         /// can later be passed into Load() to bring up the saved item
         /// </param>
         /// <param name="preserveDirty">
-        /// True if thethe dirty start should be saved(autosave), false
+        /// True if the dirty start should be saved(autosave), false
         /// if the dirty state should be set to false(normal save).
         /// </param>
         /// <returns>true if success</returns>
@@ -84,7 +84,7 @@ namespace OpenLiveWriter.PostEditor
         string Publish(IPublishOperation imageConverter);
 
         /// <summary>
-        /// Gets an IHTMLDocument2 that repersents the whole document
+        /// Gets an IHTMLDocument2 that represents the whole document
         /// where images are still pointing to local files on disk.
         /// </summary>
         /// <returns></returns>

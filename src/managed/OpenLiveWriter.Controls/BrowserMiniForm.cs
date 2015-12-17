@@ -73,7 +73,7 @@ namespace OpenLiveWriter.Controls
 
             // Navigate to about:blank for installation of ui customizations. Note that this step is CRITICAL
             // to ensuring that not only our custom ui hooks get installed but also to ensure that our DLCTL
-            // options (which control security) are registered prior to the fectching of the content.
+            // options (which control security) are registered prior to the fetching of the content.
             _explorerBrowserControl.DocumentComplete += new BrowserDocumentEventHandler(_explorerBrowserControl_AboutBlankDocumentComplete);
             _explorerBrowserControl.Navigate("about:blank");
         }

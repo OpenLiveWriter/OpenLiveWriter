@@ -15,14 +15,14 @@ namespace OpenLiveWriter.Interop.Windows
     {
 
         /// <summary>
-        /// Encrypt a string into a byte array using the Windows Cryto API. This
+        /// Encrypt a string into a byte array using the Windows Crypto API. This
         /// method provides a high-level wrapper for the use of CryptProtectData
         /// </summary>
         /// <param name="str">string to encrypt</param>
         /// <param name="description">categorical description of item being encrypted</param>
         /// <param name="dwFlags">flags (see API docs for CryptProtectData)</param>
         /// <param name="promptText">text to prompt the user with when the data is being encrypted (null for no prompt)</param>
-        /// <returns>byte array containing encrtyped version of string</returns>
+        /// <returns>byte array containing encrypted version of string</returns>
         [Obsolete("Use CryptHelper")]
         unsafe public static byte[] CryptProtectString(
             string str, string description, uint dwFlags, string promptText)
@@ -63,7 +63,7 @@ namespace OpenLiveWriter.Interop.Windows
                     }
                 }
 
-                // return the encrtyped data as a managed byte-array
+                // return the encrypted data as a managed byte-array
                 byte[] encryptedData = new byte[dataOut.cbData];
                 Marshal.Copy(dataOut.pbData, encryptedData, 0, (int)dataOut.cbData);
                 return encryptedData;
@@ -76,11 +76,11 @@ namespace OpenLiveWriter.Interop.Windows
         }
 
         /// <summary>
-        /// Decrypt a string previously encrtyped into a byte array with CryptProtectString.
+        /// Decrypt a string previously encrypted into a byte array with CryptProtectString.
         /// This method provides a high-level wrapper for the use of CryptUnprotectData.
         /// </summary>
-        /// <param name="encryptedStr">byte array containing the encrtyped string</param>
-        /// <param name="description">out parameter for the description of the encrtyped item</param>
+        /// <param name="encryptedStr">byte array containing the encrypted string</param>
+        /// <param name="description">out parameter for the description of the encrypted item</param>
         /// <param name="flags">flags (see API docs for CryptUnprotectData)</param>
         /// <param name="promptText">text to prompt user with (null for no prompt)</param>
         /// <returns>decrypted value of string</returns>
@@ -162,7 +162,7 @@ namespace OpenLiveWriter.Interop.Windows
             );
 
         // <summary>
-        /// Unit test for cryto utility methods
+        /// Unit test for crypto utility methods
         /// </summary>
         [Obsolete]
         public static void TestCrypt()
@@ -212,7 +212,7 @@ namespace OpenLiveWriter.Interop.Windows
     }
 
     /// <summary>
-    /// Cryto data-blob
+    /// Crypto data-blob
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public struct DATA_BLOB

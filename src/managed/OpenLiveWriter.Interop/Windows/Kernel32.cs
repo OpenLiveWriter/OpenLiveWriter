@@ -532,7 +532,7 @@ namespace OpenLiveWriter.Interop.Windows
         private IntPtr hGlobal = IntPtr.Zero;
 
         /// <summary>
-        /// Pointer to data (aquired by locking the HGLOBAL)
+        /// Pointer to data (acquired by locking the HGLOBAL)
         /// </summary>
         private IntPtr pData = IntPtr.Zero;
     }

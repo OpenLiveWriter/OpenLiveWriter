@@ -192,7 +192,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 g.DrawText(postSource.Name, e.Font, layoutRectangle, textColor, stringFormat);
             }
 
-            // draw focus rectange if necessary
+            // draw focus rectangle if necessary
             e.DrawFocusRectangle();
         }
 

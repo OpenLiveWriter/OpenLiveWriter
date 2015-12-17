@@ -79,7 +79,7 @@ namespace OpenLiveWriter.Interop.Com
         /// caller uses the supplied value of pFormatetcOut, unless the value supplied
         /// is NULL. This value is NULL if the method returns DATA_S_SAMEFORMATETC.
         /// The TYMED member is not significant in this case and should be ignored</param>
-        /// <returns>S_OK if the logically equivilant structure was provided,
+        /// <returns>S_OK if the logically equivalent structure was provided,
         /// otherwise returns DATA_S_SAMEFORMATETC indicating the structures
         /// are the same (in this case pFormatEtcOut is NULL)</returns>
         [PreserveSig]
@@ -202,7 +202,7 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// Invalid value for pFormatetc (this is value returned by GetData,
         /// GetDataHere, or QueryGetData when the requested clipboard format /
-        /// storage medium cannot be accomodated
+        /// storage medium cannot be accommodated
         /// </summary>
         public const int FORMATETC = unchecked((int)0x80040064);
 
@@ -272,7 +272,7 @@ namespace OpenLiveWriter.Interop.Com
     public struct STGMEDIUM
     {
         /// <summary>
-        /// Type of storage medium. The marshaling and unmarshaling routines use this
+        /// Type of storage medium. The marshaling and unmarshalling routines use this
         /// value to determine which union member was used.
         /// </summary>
         public TYMED tymed;

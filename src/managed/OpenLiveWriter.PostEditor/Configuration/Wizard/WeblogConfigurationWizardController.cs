@@ -471,7 +471,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _temporarySettings.ClearProvider();
             _detectionOperation = new WizardWeblogAndSettingsAutoDetectionOperation(_editWithStyleStep);
 
-            // performe the step
+            // perform the step
             addWizardSubStep(new WizardAutoDetectionStep(
                 (IBlogClientUIContext)this,
                 _temporarySettings,
@@ -731,7 +731,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private void PerformSettingsAutoDetectionSubStep()
         {
-            // performe the step
+            // perform the step
             addWizardSubStep(new WizardAutoDetectionStep(
                 (IBlogClientUIContext)this,
                 _temporarySettings, new NextCallback(OnPerformSettingsAutoDetectionCompleted),

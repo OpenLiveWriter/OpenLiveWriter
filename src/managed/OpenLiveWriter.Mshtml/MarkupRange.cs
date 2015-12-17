@@ -572,7 +572,7 @@ namespace OpenLiveWriter.Mshtml
             IHTMLElement sharedParent = GetSharedParent(Start, End);
             // If share a common parent, we will take the shared parent's parent so we can see if we want to grab
             // all the html inside of it, unless the shared parent is the body element, in which case we don't want to
-            // epxand outward anymore
+            // expand outward anymore
             if (Start.CurrentScope == sharedParent && End.CurrentScope == sharedParent && !(sharedParent is IHTMLBodyElement))
             {
                 sharedParent = sharedParent.parentElement;

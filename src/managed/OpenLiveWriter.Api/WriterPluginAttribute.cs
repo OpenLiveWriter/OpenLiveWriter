@@ -124,7 +124,7 @@ namespace OpenLiveWriter.Api
         private string _description = String.Empty;
 
         /// <summary>
-        /// URL of the publisher for the Plugin (linked to from Plugins Preferneces panel). Optional.
+        /// URL of the publisher for the Plugin (linked to from Plugins Preferences panel). Optional.
         /// </summary>
         public string PublisherUrl
         {

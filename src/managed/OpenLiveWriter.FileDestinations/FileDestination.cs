@@ -97,7 +97,7 @@ namespace OpenLiveWriter.FileDestinations
                 // NOTE: This is not CPU optimized- need to optimize
 
                 // Pause - in case an intermittent connection or something
-                // gets restored and allows the retry to suceed
+                // gets restored and allows the retry to succeed
                 int startTime = Environment.TickCount;
                 while (Environment.TickCount < (startTime + m_retryPause))
                 {

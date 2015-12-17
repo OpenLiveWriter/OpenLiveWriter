@@ -29,7 +29,7 @@ namespace OpenLiveWriter.PostEditor.Tagging
 
         protected override void OnPaintBackground(PaintEventArgs pevent)
         {
-            // supress background painting to avoid flicker
+            // suppress background painting to avoid flicker
         }
 
         protected override void OnPaint(PaintEventArgs e)

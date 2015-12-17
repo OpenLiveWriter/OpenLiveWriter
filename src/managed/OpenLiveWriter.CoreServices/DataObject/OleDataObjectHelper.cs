@@ -30,7 +30,7 @@ namespace OpenLiveWriter.CoreServices
         /// Helper function to populate the contents of a FORMATETC structure
         /// using the passed clipboard format and type(s).
         /// </summary>
-        /// <param name="lindex">Index of item to retreive</param>
+        /// <param name="lindex">Index of item to retrieve</param>
         /// <param name="clipFormat">Name of clipboard format requested</param>
         /// <param name="types">type(s) requested</param>
         /// <param name="formatEtc">FORMATETC structure to be populated</param>
@@ -69,7 +69,7 @@ namespace OpenLiveWriter.CoreServices
         {
             // asking for .NET object types in GetDataPresent when the drag source is
             // another .NET application can result in an exception related to the
-            // convertion of System.__ComObject to System.Type (no idea why).
+            // conversion of System.__ComObject to System.Type (no idea why).
             try
             {
                 if (obj == null)

@@ -604,7 +604,7 @@ namespace OpenLiveWriter.FileDestinations
             SiteDestinationException exception = null;
 
             // This wraps the lower level WinInet errors into higher level
-            // Site destination exceptions.  It also gathers extened info from
+            // Site destination exceptions.  It also gathers extended info from
             // the connection to assist with troubleshooting.
             switch (error)
             {

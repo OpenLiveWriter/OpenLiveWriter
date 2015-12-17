@@ -165,7 +165,7 @@ namespace OpenLiveWriter.CoreServices
                 // return start url
                 return path ;
             }
-                // unxpected error occurred!
+                // unexpected error occurred!
             else
             {
                 throw new
@@ -590,7 +590,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Returns the base path from a full Url.
-        /// This basically strips the filename from a URL leaving oonly its directory.
+        /// This basically strips the filename from a URL leaving only its directory.
         /// Warning: if a URL directory is passed in without a trailing slash, the directory
         /// name will be considered a filename, and will be stripped.
         /// </summary>

@@ -25,7 +25,7 @@ using OpenLiveWriter.PostEditor.Commands;
 
 // M2:
 //    - Initial user experience / spaces signup
-//    - Emeds/Video/LifeCam (see Flash Embedding Cage Match: http://alistapart.com/articles/flashembedcagematch)
+//    - Embeds/Video/LifeCam (see Flash Embedding Cage Match: http://alistapart.com/articles/flashembedcagematch)
 //    - Product vision
 
 // RADAR:
@@ -150,7 +150,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         private Command commandViewWeblogAdmin;
 
         /// <summary>
-        /// Must be called under the proection of _commandsLock.
+        /// Must be called under the protection of _commandsLock.
         /// </summary>
         /// <param name="blog"></param>
         private void ConnectToBlog(Blog blog)

@@ -200,7 +200,7 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         /// a reference to the IStorage and does not allow the underlying file
         /// to be closed when it is released. In general, after this call a copy
         /// of the STATSTG structures should be made and the IEnumSTATSTG object
-        /// should be released immedately.
+        /// should be released immediately.
         /// </summary>
         /// <param name="reserved1">[In] Reserved for future use; must be zero</param>
         /// <param name="reserved2">[In] Reserved for future use; must be NULL</param>
@@ -301,8 +301,8 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
     /// soon as you are finished using it! Otherwise the enumerator maintains
     /// a reference to the IStorage and does not allow the underlying file
     /// to be closed when it is released. In general, when an IEnumSTATSTG
-    /// is retreived from an IStorage a copy of the STATSTG structures should
-    /// be made and the IEnumSTATSTG object should be released immedately.
+    /// is retrieved from an IStorage a copy of the STATSTG structures should
+    /// be made and the IEnumSTATSTG object should be released immediately.
     /// </summary>
     [ComImport]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

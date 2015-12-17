@@ -404,7 +404,7 @@ namespace OpenLiveWriter.PostEditor.OpenPost
                 postPreview,
                 e.Font, layoutRectangle, textColor, ellipsesStringFormat);
 
-            // focus rectange if necessary
+            // focus rectangle if necessary
             e.DrawFocusRectangle();
         }
 

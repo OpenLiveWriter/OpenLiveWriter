@@ -52,7 +52,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         /// <summary>
         /// Gets an array of BufferingTraceListenerEntry objects starting at the specified index.
         /// </summary>
-        /// <param name="index">The index at which to return BufferingTraceListenerEntry obejcts.  This value is updated.</param>
+        /// <param name="index">The index at which to return BufferingTraceListenerEntry objects.  This value is updated.</param>
         /// <returns>An array of BufferingTraceListenerEntry objects, or null.</returns>
         public BufferingTraceListenerEntry[] GetEntries(ref int index)
         {

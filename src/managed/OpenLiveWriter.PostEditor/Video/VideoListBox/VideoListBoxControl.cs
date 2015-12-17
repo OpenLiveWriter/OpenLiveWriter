@@ -315,7 +315,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
                     g.DrawLine(pen, e.Bounds.Left, e.Bounds.Bottom - ScaleY(1), e.Bounds.Right, e.Bounds.Bottom - ScaleY(1));
             }
 
-            // focus rectange if necessary
+            // focus rectangle if necessary
             e.DrawFocusRectangle();
         }
 

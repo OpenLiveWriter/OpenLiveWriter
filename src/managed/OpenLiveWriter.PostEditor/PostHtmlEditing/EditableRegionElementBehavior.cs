@@ -709,7 +709,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// Returns the bounds of the element in client-based coordinatates.
+        /// Returns the bounds of the element in client-based coordinates.
         /// Note: These bounds seem to map to the outer edge of the element's border region.
         /// </summary>
         /// <returns></returns>

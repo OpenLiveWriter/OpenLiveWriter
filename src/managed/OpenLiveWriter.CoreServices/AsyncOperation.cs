@@ -1,7 +1,7 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-/// AsyncOperation.cs - A base class for asyncronous, cancellable operations
+/// AsyncOperation.cs - A base class for asynchronous, cancellable operations
 ///
 /// This base class is designed to be used by lengthy operations that wish to
 /// support cancellation. The class is based heavily the Ian Griffiths article
@@ -9,13 +9,13 @@
 /// Threads" on pg. 68 of the Feb 2003 MSDN Magazine:
 ///	 http://msdn.microsoft.com/msdnmag/issues/03/02/Multithreading/default.aspx
 ///
-/// To create a new class that supports cancellable, asychronous operations:
+/// To create a new class that supports cancellable, asynchronous operations:
 ///
 /// (1) Derive a new class from AsyncOperation.
 ///
 /// (2) Implement a constructor that forwards an ISynchronizeInvoke instance
 ///     on the base class and accepts whatever custom initialization parameters
-///     are requried for the class.
+///     are required for the class.
 ///
 /// (2) Override the DoWork() method to perform the actual background work.
 ///
@@ -465,7 +465,7 @@ namespace OpenLiveWriter.CoreServices
     }
 
     /// <summary>
-    /// Delegeate for handling Progress notification
+    /// Delegate for handling Progress notification
     /// </summary>
     public delegate void ProgressUpdatedEventHandler(object sender, ProgressUpdatedEventArgs progressUpdatedHandler);
 

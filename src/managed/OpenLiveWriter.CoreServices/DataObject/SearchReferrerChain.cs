@@ -178,7 +178,7 @@ namespace Project31.CoreServices
         /// <summary>
         /// Determines whether the referrer list contains a specific referrer
         /// </summary>
-        /// <param name="referrer">The refrerrer</param>
+        /// <param name="referrer">The referrer</param>
         /// <returns>true if it contains the referrer, otherwise false</returns>
         private bool ContainsReferrer(string referrer)
         {

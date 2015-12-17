@@ -34,7 +34,7 @@ namespace OpenLiveWriter.CoreServices
         private long splitPerformanceCounter;
 
         /// <summary>
-        /// Static initialization of the PerformaceCounter class.
+        /// Static initialization of the PerformanceCounter class.
         /// </summary>
         static PerformanceTimer()
         {
@@ -50,7 +50,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Initializes a new instance of the PerformaceTimer class.
+        /// Initializes a new instance of the PerformanceTimer class.
         /// </summary>
         public PerformanceTimer()
         {
@@ -58,7 +58,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Initializes a new instance of the PerformaceTimer class.
+        /// Initializes a new instance of the PerformanceTimer class.
         /// </summary>
         public PerformanceTimer(string name)
         {
@@ -104,7 +104,7 @@ namespace OpenLiveWriter.CoreServices
             //	Calculate the split time.
             double splitTime = ((endPerformanceCounter - splitPerformanceCounter) * performanceCounterFrequency);
 
-            //	Set the new split performace counter.
+            //	Set the new split performance counter.
             splitPerformanceCounter = endPerformanceCounter;
 
             //	Return the split time.

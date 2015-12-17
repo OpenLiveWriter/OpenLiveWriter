@@ -18,14 +18,14 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
         // Currently supported properties:
         // + ContextAvailability
 
-        // Overrides shared canvas logic with respect to the given propery key.
+        // Overrides shared canvas logic with respect to the given property key.
         // IUICommandHandler::UpdateProperty will reflect any active overrides
         [PreserveSig]
         Int32 OverrideProperty(UInt32 commandId,
                                [In] ref PropertyKey key,
                                [In, Optional] PropVariantRef overrideValue);
 
-        // Cancels override for given propery key.
+        // Cancels override for given property key.
         // Returns S_OK if override was active.
         // Returns S_FALSE if override was not active.
         // Returns E_INVALIDARG for an unsupported commandId and/or property key.
