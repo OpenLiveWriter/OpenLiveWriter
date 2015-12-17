@@ -35,6 +35,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         // These URLs map to OAuth2 permission scopes for Google Blogger.
         public static string PicasaServiceScope = "https://picasaweb.google.com/data";
         public static string BloggerServiceScope = BloggerService.Scope.Blogger;
+        public static char LabelDelimiter = ',';
 
         public static Task<UserCredential> GetOAuth2AuthorizationAsync(string blogId, CancellationToken taskCancellationToken)
         {
@@ -74,8 +75,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Permalink = page.Url,
                 Contents = page.Content,
                 DatePublished = page.Published.Value,
-                // TODO:OLW - Need to figure out how to make the UI for 'tags' show up in Writer
-                // Keywords = string.Join(",", p.Labels)
+                //Keywords = string.Join(LabelDelimiter, page.Labels)
             };
         }
 
@@ -88,8 +88,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Permalink = post.Url,
                 Contents = post.Content,
                 DatePublished = post.Published.Value,
-                // TODO:OLW - Need to figure out how to make the UI for 'tags' show up in Writer
-                // Keywords = string.Join(",", p.Labels)
+                Keywords = string.Join(new string(LabelDelimiter,1), post.Labels)
             };
         }
 
@@ -110,7 +109,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new Post()
             {
                 Content = post.Contents,
-                Labels = post.Keywords?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(k => k.Trim()).ToList(),
+                Labels = post.Keywords?.Split(new char[] { LabelDelimiter }, StringSplitOptions.RemoveEmptyEntries).Select(k => k.Trim()).ToList(),
                 // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
                 // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
                 Published = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null,
