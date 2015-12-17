@@ -151,6 +151,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsKeywords = true;
             clientOptions.SupportsGetKeywords = false;
             clientOptions.SupportsPages = true;
+            clientOptions.SupportsExtendedEntries = true;
             _clientOptions = clientOptions;
 
             _nsMgr = new XmlNamespaceManager(new NameTable());
