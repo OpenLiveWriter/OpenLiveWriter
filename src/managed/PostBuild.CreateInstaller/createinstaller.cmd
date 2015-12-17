@@ -22,5 +22,9 @@ ECHO Created Writer NuGet package.
 MOVE .\Releases\Setup.exe .\Releases\OpenLiveWriterSetup.exe
 ECHO Created Open Live Writer setup file.
 
+%LocalAppData%\Nuget\Nuget.exe pack .\OpenLiveWriter.Install.nuspec -version %dottedVersion% -basepath Releases
+ECHO Created Writer Chocolatey Package
+
 :end
+
 POPD
