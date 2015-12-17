@@ -149,7 +149,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsSlug = false;
             clientOptions.SupportsFileUpload = true;
             clientOptions.SupportsKeywords = true;
-            clientOptions.SupportsGetKeywords = false;
+            clientOptions.SupportsGetKeywords = true;
             clientOptions.SupportsPages = true;
             clientOptions.SupportsExtendedEntries = true;
             _clientOptions = clientOptions;
@@ -301,7 +301,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public BlogPostKeyword[] GetKeywords(string blogId)
         {
-            Trace.Fail("Google Blogger does not support GetKeywords!");
+            // Google Blogger does not support get labels
             return new BlogPostKeyword[] { };
         }
 
