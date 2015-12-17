@@ -142,7 +142,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                     _textColor = SystemColors.ControlText;
                     _sidebarTitleControl.buttonChevron.BackColor = SystemColors.Control;
 
-                    //convert the chevon's White color to the Window Text color (fixes bug 437444)
+                    //convert the chevron's White color to the Window Text color (fixes bug 437444)
                     bmpChevronRight = new Bitmap(bmpChevronRightBase);
                     ColorMap colorMap = new ColorMap();
                     colorMap.OldColor = Color.White;

@@ -14,7 +14,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 
     /* Why is percent based column sizing not allowed? We want to in all cases let the
      * table flow to occupy the width of its container. This provides for both robust
-     * behavior accross blogs/templates/normal mode and also allows the browser table
+     * behavior across blogs/templates/normal mode and also allows the browser table
      * rendering logic to automatically "balance" columns based on their content and
      * preferred widths. Percent mode requires that the table be given a fixed width
      * (otherwise you end up with a table of essentially zero size). Note that users

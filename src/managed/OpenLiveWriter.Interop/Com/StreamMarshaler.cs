@@ -14,7 +14,7 @@ namespace OpenLiveWriter.Interop.Com
     /// for ICustomerMarshaler.
     ///
     /// Based upon the StreamMarshaler implementation example found in
-    /// Adam Nathan's ".NET and COM: The Complete Iteroperability Guide" Page 901.
+    /// Adam Nathan's ".NET and COM: The Complete Interoperability Guide" Page 901.
     /// </summary>
     public class StreamMarshaler : ICustomMarshaler
     {

@@ -60,7 +60,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // save reference
             _progressProvider = progressProvider;
 
-            // reset the progress UR and start the animiation
+            // reset the progress UR and start the animation
             labelProgress.Text = String.Empty;
             progressBar.Value = 0;
             progressAnimatedBitmap.Start();

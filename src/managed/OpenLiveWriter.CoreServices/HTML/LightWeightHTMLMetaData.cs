@@ -226,7 +226,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public string Charset
         {
-            // Don't get tricked by the charset attribut on IHTMLMetaElement
+            // Don't get tricked by the charset attribute on IHTMLMetaElement
             // This sets an attribute 'charset' rather than the charset
             // property in content type
             get

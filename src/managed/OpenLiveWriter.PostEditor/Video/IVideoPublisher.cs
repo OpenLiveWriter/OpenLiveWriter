@@ -26,9 +26,9 @@ namespace OpenLiveWriter.PostEditor.Video
         /// </summary>
         /// <param name="title">The title of the video according to the user.</param>
         /// <param name="description">A description of the video according to the user</param>
-        /// <param name="tags">A comma seperated list of tags the user wants to apply to the video.</param>
+        /// <param name="tags">A comma separated list of tags the user wants to apply to the video.</param>
         /// <param name="categoryId">The Id of the CategoryItem which was selected by the user</param>
-        /// <param name="permissionValue">A string to repersent the type of permission the user wants to have on the video.</param>
+        /// <param name="permissionValue">A string to represent the type of permission the user wants to have on the video.</param>
         /// <param name="error">
         /// If this is a string that string will be shown on a error message box if null is returned.  If it is "" then a generic error
         /// will be shown.  If it is null, no error will be shown.
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.Video
         /// <returns></returns>
         Video GetVideo(string title, string description, string tags, string categoryId, string categoryString, string permissionValue, string permissionString);
         /// <summary>
-        /// A list of categoires that a user can have their video be tagged under.
+        /// A list of categories that a user can have their video be tagged under.
         /// </summary>
         /// <returns></returns>
         List<CategoryItem> Categories { get; }
@@ -61,7 +61,7 @@ namespace OpenLiveWriter.PostEditor.Video
         /// <summary>
         /// This will be used if we can identify the publisher after a post is loaded
         /// and we want to try and make a status watcher for the item.  If the publisher cannot
-        /// make a new status watcher, perhaps because of authenication problems, then it can return null.
+        /// make a new status watcher, perhaps because of authentication problems, then it can return null.
         /// </summary>
         /// <param name="video">
         /// A video object that contains as much information as we know about the video

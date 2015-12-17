@@ -60,27 +60,27 @@ namespace OpenLiveWriter.CoreServices
         public static string ManifestAccessError = "ManifestAccessError";
 
         /// <summary>
-        /// Unexpected error ocurred while attempting to copy a site.
+        /// Unexpected error occurred while attempting to copy a site.
         ///		{0} source directory
         ///		(1) destination directory
         /// </summary>
         public static string UnableToCopySite = "UnableToCopySite";
 
         /// <summary>
-        /// Unexpected error ocurred while attempting to move a site.
+        /// Unexpected error occurred while attempting to move a site.
         ///		{0} source directory
         ///		(1) destination directory
         /// </summary>
         public static string UnableToMoveSite = "UnableToMoveSite";
 
         /// <summary>
-        /// Unexpected error ocurred while attempting to delete a site.
+        /// Unexpected error occurred while attempting to delete a site.
         ///		{0} directory containing site
         /// </summary>
         public static string UnableToDeleteSite = "UnableToDeleteSite";
 
         /// <summary>
-        /// Unexpected error ocurred while attempting to create storage for a site
+        /// Unexpected error occurred while attempting to create storage for a site
         ///		{0} location where we attempted to create storage
         /// </summary>
         public static string UnableToCreateStorage = "UnableToCreateStorage";

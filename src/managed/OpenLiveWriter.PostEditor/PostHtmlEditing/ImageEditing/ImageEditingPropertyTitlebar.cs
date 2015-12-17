@@ -133,7 +133,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             base.Dispose( disposing );
         }
 
-        // tray compontents
+        // tray components
         private BitmapButton closeButton ;
 
         /// <summary>

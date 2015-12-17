@@ -10,7 +10,7 @@ using OpenLiveWriter.Mshtml.Mshtml_Interop;
 namespace OpenLiveWriter.Mshtml
 {
     /// <summary>
-    /// Base implemetnation of interface used for customizing the UI of MSHTML.
+    /// Base implementation of interface used for customizing the UI of MSHTML.
     /// Provides correct default behavior for all methods and allows selective
     /// overrides for targeted customization.
     /// </summary>
@@ -82,7 +82,7 @@ namespace OpenLiveWriter.Mshtml
 
         public virtual void GetExternal(out IntPtr ppDispatch)
         {
-            // no external dispatch implementaiton available
+            // no external dispatch implementation available
             ppDispatch = IntPtr.Zero;
         }
 

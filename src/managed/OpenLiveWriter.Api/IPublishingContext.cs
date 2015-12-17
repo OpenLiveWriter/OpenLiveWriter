@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Api
         Unknown,
 
         /// <summary>
-        /// The feature is suported.
+        /// The feature is supported.
         /// </summary>
         Yes,
 

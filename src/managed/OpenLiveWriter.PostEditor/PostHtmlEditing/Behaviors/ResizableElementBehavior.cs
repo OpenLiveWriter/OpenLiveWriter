@@ -126,7 +126,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             // two SmartContent objects on the page then the cursor flashes when sizing.
             // I would have removed this call entirely b/c it seems string that UpdateCursor
             // needs to be call from a paint event but I didn't want to disrupt whatever original
-            // purpose this had. If we believe this call is not necessary we should definiely
+            // purpose this had. If we believe this call is not necessary we should definitely
             // remove it so it doesn't cause any more mischief!
             if (_resizerControl != null && _resizerControl.ActiveSizerHandle != SizerHandle.None)
             {

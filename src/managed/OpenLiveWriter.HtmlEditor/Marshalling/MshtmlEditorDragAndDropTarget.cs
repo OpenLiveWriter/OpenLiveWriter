@@ -35,15 +35,15 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// Method that is delegated to by the presentation editor's implementation of
         /// IDocHostCustomUI.GetDropTarget. Replaces the default drop target implementation
         /// with our own. Note that the main purpose of this method for us is to get a reference
-        /// to the MSHTML drop target implementaiton. While in this method we do in fact replace
-        /// thier implementation with our own, this is probabaly redundant as we also disable
+        /// to the MSHTML drop target implementation. While in this method we do in fact replace
+        /// their implementation with our own, this is probably redundant as we also disable
         /// their drop target (see below comment on Initialize). We replace their implementation
         /// in any case just so that if they have any internal state or behavior that depends
         /// upon knowing whether their drop target implementation is active then it can be
         /// set correctly.
         /// </summary>
         /// <param name="pDropTarget">default implementation</param>
-        /// <param name="ppDropTarget">our implemetation</param>
+        /// <param name="ppDropTarget">our implementation</param>
         /// <returns>S_OK to indicate that we replaced implementation, otherwise E_NOTIMPL</returns>
         public int GetDropTarget(OpenLiveWriter.Interop.Com.IDropTarget pDropTarget, out OpenLiveWriter.Interop.Com.IDropTarget ppDropTarget)
         {
@@ -52,7 +52,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // save a reference to the mshtml drop target
             mshtmlDropTargetImpl = pDropTarget;
 
-            // replace the mshtml implementaiton with our own (will delegate as necessary)
+            // replace the mshtml implementation with our own (will delegate as necessary)
             ppDropTarget = this;
 
             // indicate that we replaced the implementation

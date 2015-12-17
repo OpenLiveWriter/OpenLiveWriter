@@ -336,7 +336,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         public static BlogPostCategoryListItem[] BuildList(BlogPostCategory[] categories, bool flatten)
         {
-            // acculate available parents
+            // accumulate available parents
             Hashtable availableParents = new Hashtable();
             foreach (BlogPostCategory category in categories)
                 availableParents[category.Id] = null;

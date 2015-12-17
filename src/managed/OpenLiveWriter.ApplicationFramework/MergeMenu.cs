@@ -32,7 +32,7 @@ namespace Project31.ApplicationFramework
     }
 
     /// <summary>
-    /// Menu mergers and aquisitions.
+    /// Menu mergers and acquisitions.
     /// </summary>
     internal class MergeMenu
     {

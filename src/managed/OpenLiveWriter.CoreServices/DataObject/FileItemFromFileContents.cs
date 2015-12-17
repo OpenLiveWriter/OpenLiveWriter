@@ -262,7 +262,7 @@ namespace OpenLiveWriter.CoreServices
                     new FileStream(destFileName, FileMode.Create, FileAccess.ReadWrite);
                 using (destination)
                 {
-                    // use Win32 WriteFile so we can blast the entire unamanged memory
+                    // use Win32 WriteFile so we can blast the entire unmanaged memory
                     // block in a single call (if we wanted to use managed file io
                     // methods we would have to copy the entire memory block into
                     // unmanaged memory first)

@@ -84,7 +84,7 @@ namespace OpenLiveWriter.InternalWriterPlugin
             // initialize bitmaps
             pictureBoxCustomizeMap.Image = ResourceHelper.LoadAssemblyResourceBitmap("Images.CustomizeMapIcon.png");
 
-            // additional initializatoin of combos
+            // additional initialization of combos
             comboBoxTextWrapping.Initialize();
             comboBoxMargins.Initialize();
 

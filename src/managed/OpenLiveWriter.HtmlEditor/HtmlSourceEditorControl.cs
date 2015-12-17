@@ -648,7 +648,7 @@ namespace OpenLiveWriter.HtmlEditor
         {
             get
             {
-                // not suppported
+                // not supported
                 return false;
             }
         }
@@ -710,14 +710,14 @@ namespace OpenLiveWriter.HtmlEditor
         {
             get
             {
-                //not suported
+                //not supported
                 return false;
             }
         }
 
         public void Redo()
         {
-            //not impelemented;
+            //not implemented;
         }
 
         public bool CanCut

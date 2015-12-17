@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private Container components = null;
 
         /// <summary>
-        /// Innitializes a new instance of the MindShareToolBandCommandBarLightweightControl.
+        /// Initializes a new instance of the MindShareToolBandCommandBarLightweightControl.
         /// </summary>
         public ImageDecoratorsCommandBarLightweightControl(IContainer container)
         {
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// Innitializes a new instance of the MindShareToolBandCommandBarLightweightControl.
+        /// Initializes a new instance of the MindShareToolBandCommandBarLightweightControl.
         /// </summary>
         public ImageDecoratorsCommandBarLightweightControl()
         {

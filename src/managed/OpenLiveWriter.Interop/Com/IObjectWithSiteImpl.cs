@@ -24,7 +24,7 @@ namespace OpenLiveWriter.Interop.Com
         /// <summary>
         /// Provides the IUnknown site pointer (save for returning in GetSite)
         /// </summary>
-        /// <param name="pUnkSite">Browser interface as IUnkown</param>
+        /// <param name="pUnkSite">Browser interface as IUnknown</param>
         public virtual int SetSite([In, MarshalAs(UnmanagedType.IUnknown)] Object pUnkSite)
         {
             // we are being set with a new site, release reference to existing site

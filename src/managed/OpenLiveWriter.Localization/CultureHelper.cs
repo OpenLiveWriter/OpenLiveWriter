@@ -47,7 +47,7 @@ namespace OpenLiveWriter.Localization
         {
             if (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToUpperInvariant() == "AR")
             {
-                // Ensure that no spaces, slashes, or dashes will make the date not formmatted correctly by forcing all chars RTL
+                // Ensure that no spaces, slashes, or dashes will make the date not formatted correctly by forcing all chars RTL
                 CultureInfo ci = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
                 ci.DateTimeFormat.ShortDatePattern = Regex.Replace(ci.DateTimeFormat.ShortDatePattern, "[Mdy]+", "\u200F$0");
                 Thread.CurrentThread.CurrentCulture = ci;

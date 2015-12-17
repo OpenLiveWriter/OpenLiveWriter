@@ -8,7 +8,7 @@ using OpenLiveWriter.Controls;
 namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
-    /// Command bar control entry.  Allows any control to be added to a command bar defintion.
+    /// Command bar control entry.  Allows any control to be added to a command bar definition.
     /// </summary>
     [
         DesignTimeVisible(false),

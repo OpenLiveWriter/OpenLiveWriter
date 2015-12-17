@@ -263,7 +263,7 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-        // overrideable methods used to customize the UI of the satellite form
+        // overridable methods used to customize the UI of the satellite form
         //protected virtual CommandBarDefinition FirstCommandBarDefinition { get { return null; }	}
 
         protected virtual Control CreateMainControl() { return null; }
@@ -276,7 +276,7 @@ namespace OpenLiveWriter.ApplicationFramework
         //    get{ return _commandBarControl; }
         //}
 
-        // overrieable processing methods
+        // overridable processing methods
         protected virtual void OnBackgroundTimerTick() { }
 
         // override to let base know if the main menu is visible

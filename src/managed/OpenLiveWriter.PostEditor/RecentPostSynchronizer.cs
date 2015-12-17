@@ -32,7 +32,7 @@ namespace OpenLiveWriter.PostEditor
         /// <returns></returns>
         public static IBlogPostEditingContext Synchronize(IWin32Window mainFrameWindow, IBlogPostEditingContext editingContext)
         {
-            // reloading a local draft does not require syncronization
+            // reloading a local draft does not require synchronization
             if (editingContext.LocalFile.IsDraft && editingContext.LocalFile.IsSaved)
             {
                 return editingContext;

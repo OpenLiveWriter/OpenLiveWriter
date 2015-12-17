@@ -63,7 +63,7 @@ namespace OpenLiveWriter.CoreServices.Settings
                                  };
 
         /// <summary>
-        /// A cache of previously matchd type/codec pairs.
+        /// A cache of previously matched type/codec pairs.
         /// Keys are <c>Types</c>, values are <c>Codecs</c>.
         /// </summary>
         private Hashtable codecCache = new Hashtable();
@@ -148,7 +148,7 @@ namespace OpenLiveWriter.CoreServices.Settings
             public abstract object Encode(object val);
 
             /// <summary>
-            /// Convert a symetrically persistable type back into a native object.
+            /// Convert a symmetrically persistable type back into a native object.
             ///
             /// The return value should be of the same type as Encode() expects
             /// to receive.  The val parameter can reasonably expected to be of

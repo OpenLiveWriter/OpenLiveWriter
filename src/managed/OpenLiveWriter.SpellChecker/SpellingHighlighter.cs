@@ -50,7 +50,7 @@ namespace OpenLiveWriter.SpellChecker
             _markupServices = new MshtmlMarkupServices(_markupServicesRaw);
             _htmlDocument = htmlDocument;
             _tracker = new HighlightSegmentTracker();
-            //the timer to handle interleaving of spell ghecking
+            //the timer to handle interleaving of spell checking
             _timer = new SpellingTimer(TIMER_INTERVAL);
             _timer.Start();
             _timer.Tick += new EventHandler(_timer_Tick);
@@ -181,7 +181,7 @@ namespace OpenLiveWriter.SpellChecker
             if (result != SpellCheckResult.Correct)
             {
                 //note: currently using this to not show any errors in smart content, since the fix isn't
-                // propogated to the underlying data structure
+                // propagated to the underlying data structure
                 if (!word.FilterApplies())
                 {
                     return true;

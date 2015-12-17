@@ -68,7 +68,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Generates the list of pages to download, providing progress.  The operation
-        /// can be very time consuming, particularly if the context specifies creating mulitiple
+        /// can be very time consuming, particularly if the context specifies creating multiple
         /// levels of pagesToDownload
         /// </summary>
         /// <param name="progressHost">The progress host to use to provide feedback</param>
@@ -327,7 +327,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Gets pagesToDownloadFactories for a set of pagesToDownload
         /// </summary>
-        /// <param name="pagesToDownload">The pagesToDownlaod to get factories for</param>
+        /// <param name="pagesToDownload">The pagesToDownload to get factories for</param>
         /// <param name="context">The context controlling the factories</param>
         /// <returns>An array of PageToDownloadFactories</returns>
         private string[] GetSubPagesToDownload(PageToDownload[] pagesToDownload, PageToDownload parentPage)
@@ -444,7 +444,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Dispose of this
         /// </summary>
-        /// <param name="disposing">indicates whether this is being caled from Dispose()</param>
+        /// <param name="disposing">indicates whether this is being called from Dispose()</param>
         private void Dispose(bool disposing)
         {
             if (!disposing)

@@ -12,7 +12,7 @@ namespace BlogServer
 			// calculate file type name
 			string fileTypeName = String.Format( "BlogServer.{0}.1", className);
 				
-			// write the extnesion key
+			// write the extension key
 			using (RegistryKey extensionKey = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + extension) )
 			{
 				extensionKey.SetValue(null, fileTypeName); 

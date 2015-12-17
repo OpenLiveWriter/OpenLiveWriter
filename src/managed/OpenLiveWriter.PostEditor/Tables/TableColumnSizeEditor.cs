@@ -227,7 +227,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             IHTMLTableCell cell = targetCell as IHTMLTableCell;
             IHTMLTableRow row = TableHelper.GetContainingRowElement(cell);
 
-            // convert the client point to cell-local coordinates & calcualte our comparison x values
+            // convert the client point to cell-local coordinates & calculate our comparison x values
             TableCellEditingElementBehavior cellBehavior = _tableEditingContext.GetCellBehavior(targetCell);
             if (cellBehavior == null)
             {
@@ -373,7 +373,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 // change left column
                 _leftColumn.Width = Math.Max(_leftColumn.Width + offset, MINIMUM_COLUMN_WIDTH);
 
-                // set the table width to prevent table wierdness
+                // set the table width to prevent table weirdness
                 TableHelper.SynchronizeTableWidthForEditing(_table);
             }
 

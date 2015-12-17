@@ -736,7 +736,7 @@ namespace OpenLiveWriter.CoreServices
             m_resourceElements.Add(HTMLTokens.Img, HTMLTokens.Src);
             m_resourceElements.Add(HTMLTokens.Object, HTMLTokens.Src);
             m_resourceElements.Add(HTMLTokens.Embed, HTMLTokens.Src);
-            m_resourceElements.Add(HTMLTokens.Param, HTMLTokens.Value); //required for movies embeded using object tag
+            m_resourceElements.Add(HTMLTokens.Param, HTMLTokens.Value); //required for movies embedded using object tag
             m_resourceElements.Add(HTMLTokens.Script, HTMLTokens.Src);
             m_resourceElements.Add(HTMLTokens.Body, HTMLTokens.Background);
             m_resourceElements.Add(HTMLTokens.Input, HTMLTokens.Src);

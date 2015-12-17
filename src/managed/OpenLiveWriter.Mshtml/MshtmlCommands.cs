@@ -381,7 +381,7 @@ namespace OpenLiveWriter.Mshtml
     /// listed in the MsHtmlcid.h header file are listed below. Most however
     /// are commented out as they are not documented as part of the official
     /// MSHTML Command Identifiers list. It is likely that many of them will
-    /// work correctly -- as we experiement with them and verify their correct
+    /// work correctly -- as we experiment with them and verify their correct
     /// usage we should comment them out and add a brief documentation note
     /// on how to use them correctly.
     /// </summary>
@@ -828,7 +828,7 @@ namespace OpenLiveWriter.Mshtml
         //		public const uint NEW_TOPLEVELWINDOW =     7050 ;
 
         //
-        // Undo persistence comands
+        // Undo persistence commands
         //
         //		public const uint PRESERVEUNDOALWAYS =     6049 ;
         //		public const uint PERSISTDEFAULTVALUES =   7100 ;

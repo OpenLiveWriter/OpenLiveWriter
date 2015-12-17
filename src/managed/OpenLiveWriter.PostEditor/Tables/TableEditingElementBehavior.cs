@@ -45,7 +45,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 
                 HookEvents();
 
-                // make it unselecteable
+                // make it unselectable
                 HTMLElement.setAttribute("unselectable", "on", 0);
 
                 // if the table has no borders then set a runtime style that lets the user see the borders

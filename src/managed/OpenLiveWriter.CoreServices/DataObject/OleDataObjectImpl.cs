@@ -11,7 +11,7 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
-    /// General purpose implementation of an Ole DataObject that accepts arbirary
+    /// General purpose implementation of an Ole DataObject that accepts arbitrary
     /// binary data (the .NET IDataObject implementation does not allow you to pass
     /// arbitrary binary data so if you want to do this you need a class like this).
     /// This implementation does not support advise sinks.
@@ -103,7 +103,7 @@ namespace OpenLiveWriter.CoreServices
         {
             // For now we don't support this method. MFC uses the internal method
             // AfxCopyStgMedium to implement this -- if we absolutely positively
-            // need to suppport this then we should base are implementation on
+            // need to support this then we should base are implementation on
             // that code (source is the file atlmfc\src\mfc\olemisc.cpp)
             return HRESULT.E_NOTIMPL;
         }
@@ -139,7 +139,7 @@ namespace OpenLiveWriter.CoreServices
         /// caller uses the supplied value of pFormatetcOut, unless the value supplied
         /// is NULL. This value is NULL if the method returns DATA_S_SAMEFORMATETC.
         /// The TYMED member is not significant in this case and should be ignored</param>
-        /// <returns>S_OK if the logically equivilant structure was provided,
+        /// <returns>S_OK if the logically equivalent structure was provided,
         /// otherwise returns DATA_S_SAMEFORMATETC indicating the structures
         /// are the same (in this case pFormatEtcOut is NULL)</returns>
         public int GetCanonicalFormatEtc(ref FORMATETC pFormatEtcIn, ref FORMATETC pFormatEtcOut)

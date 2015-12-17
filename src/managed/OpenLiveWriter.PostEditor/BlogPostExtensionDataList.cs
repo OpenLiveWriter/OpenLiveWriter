@@ -195,7 +195,7 @@ namespace OpenLiveWriter.PostEditor
 
                 // If the call back is set or even cleared on a extension data
                 // object we fire the event which the RefreshableContentManager
-                // will listen for and change the intveral on its timer accordingly
+                // will listen for and change the interval on its timer accordingly
                 if (RefreshCallBackChanged != null)
                     RefreshCallBackChanged(this, EventArgs.Empty);
             }
