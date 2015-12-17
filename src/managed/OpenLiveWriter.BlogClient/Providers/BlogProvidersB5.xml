@@ -574,4 +574,16 @@
       <supportsScripts>Yes</supportsScripts>
     </options>
   </provider>
+  <provider>
+    <id>DB026A7D-F1CE-4237-ADC7-88F8FA50287A</id>
+    <name>GitHub Page</name>
+    <clientType>GitHubPage</clientType>
+    <postApiUrl>
+      <![CDATA[
+		https://github.com/<username>/<username>.github.io
+		]]>
+    </postApiUrl>
+    <options>
+    </options>
+  </provider>
 </providers>
