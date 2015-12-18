@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
@@ -11,6 +12,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using OpenLiveWriter.Controls;
@@ -538,7 +540,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private void ShowPicasaSignupPrompt(object sender, EventArgs e)
         {
-            if (DisplayMessage.Show(MessageId.PicasawebSignup, Credentials.Username) == DialogResult.Yes)
+            if (DisplayMessage.Show(MessageId.PicasawebSignup) == DialogResult.Yes)
             {
                 ShellHelper.LaunchUrl("http://picasaweb.google.com");
             }

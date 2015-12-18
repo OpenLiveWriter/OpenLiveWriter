@@ -1,0 +1,26 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>openlivewriter</id>
+    <version>0.5.0.0</version>
+    <title>OpenLiveWriter (Install)</title>
+    <authors>See list of authors at http://openlivewriter.org/</authors>
+    <owners>Darwin Sanoy, OpenLiveWriter</owners>
+    <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt</licenseUrl>
+    <projectUrl>http://openlivewriter.org/</projectUrl>
+    <iconUrl>https://cdn.rawgit.com/csi-windowschocolatey/openlivewriter/master/app.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Open Live Writer is an open source application enabling users to author, edit, and publish blog posts.
+      It is based on a fork of the well-loved but not actively developed Windows Live Writer code.</description>
+    <summary>Open Live Writer makes it easy to write, preview, and post to your blog.</summary>
+    <copyright>.NET Foundation</copyright>
+    <tags>Blog WindowsLiveWriter OpenLiveWriter</tags>
+    <releaseNotes>https://github.com/OpenLiveWriter/OpenLiveWriter/releases</releaseNotes>
+    <!--<projectSourceUrl>https://github.com/OpenLiveWriter</projectSourceUrl>-->
+  </metadata>
+  <files>
+    <file src="OpenLiveWriterSetup.exe" target="tools" />
+    <file src="..\choco\chocolateyInstall.ps1" target="tools"/>
+    <file src="..\choco\chocolateyUninstall.ps1" target="tools"/>
+  </files>  
+</package>
