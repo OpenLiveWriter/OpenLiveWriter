@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 namespace OpenLiveWriter.BlogClient.Clients
 {
 
+    public class GitHubPage
+    {
+        public string url { get; set; }
+        public string status { get; set; }
+        public string cname { get; set; }
+        public bool custom_404 { get; set; }
+    }
+
+
     public class GitHubRepository
     {
         public int id { get; set; }

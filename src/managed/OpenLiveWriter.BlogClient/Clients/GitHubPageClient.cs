@@ -6,8 +6,10 @@ using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -51,9 +53,15 @@ namespace OpenLiveWriter.BlogClient.Clients
             _postApiUrl = new Uri(UrlHelper.SafeToAbsoluteUri(postApiUrl));
             var clientOptions = new BlogClientOptions
             {
-                SupportsCategories = false,
-                SupportsMultipleCategories = false,
-                SupportsNewCategories = false
+                SupportsKeywords = true,
+                SupportsCategories = true,
+                SupportsNewCategories = true,
+                SupportsCustomDate = true,
+                SupportsExcerpt = true,
+                SupportsHierarchicalCategories = true,
+                SupportsMultipleCategories = true,
+                SupportsPostAsDraft = true,
+                SupportsPages = true
             };
 
             _clientOptions = clientOptions;
@@ -80,7 +88,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 return null;
             }
 
-            var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Concat(RepositoryUri, _postApiUrl.AbsolutePath));
+            var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Concat(RepositoryUri, _postApiUrl.AbsolutePath, "/pages"));
 
             String encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(username, ":", password)));
             httpWebRequest.Headers.Add("Authorization", "Basic " + encoded);
@@ -94,24 +102,42 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             using (var sr = new StreamReader(response.GetResponseStream()))
             {
-                var blog = JsonConvert.DeserializeObject<GitHubRepository>(sr.ReadToEnd());
-                return new [] { new BlogInfo(blog.full_name, blog.full_name, blog.full_name) };
+                var blog = JsonConvert.DeserializeObject<GitHubPage>(sr.ReadToEnd());
+                var homepageUrl = String.IsNullOrEmpty(blog.cname) ? String.Format("{0}.github.io", username) : blog.cname;
+                return new [] { new BlogInfo(_postApiUrl.AbsolutePath, _postApiUrl.AbsolutePath, new UriBuilder(homepageUrl).Uri.AbsoluteUri) };
             }
         }
 
         public BlogPostCategory[] GetCategories(string blogId)
         {
+            // TODO: https://github.com/rebornix/OpenLiveWriter/issues/4
             return new BlogPostCategory[]{};
         }
 
         public BlogPostKeyword[] GetKeywords(string blogId)
         {
-            throw new NotImplementedException();
+            // TODO: https://github.com/rebornix/OpenLiveWriter/issues/4
+            return new BlogPostKeyword[] { };
         }
 
         public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
         {
-            throw new NotImplementedException();
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(String.Concat(RepositoryUri, blogId, "/contents/_posts"));
+
+            var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credentials.Username + ":" + Credentials.Password));
+            httpWebRequest.Headers.Add("Authorization", "Basic " + encoded);
+            httpWebRequest.UserAgent = "DD local";
+
+            var response = (HttpWebResponse)httpWebRequest.GetResponse();
+
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                var githubEntryList = JsonConvert.DeserializeObject<List<GitHubEntry>>(sr.ReadToEnd());
+                return githubEntryList.Select( o => new BlogPost {
+                    Title = o.name,
+                    Id = o.path
+                }).ToArray();
+            }
         }
 
         /// <summary>
@@ -137,7 +163,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             // TODO: For posts in Jekyll, the filename contains publish date while draft and pages are dateless. https://github.com/jekyll/jekyll/blob/master/lib/jekyll/document.rb#L9
             var fileName = String.Concat(post.DatePublishedOverride.ToString("yyyy-MM-dd"), "-", slug, ".md");
 
-            var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Concat(RepositoryUri, _postApiUrl.AbsolutePath, "/contents/_posts/", fileName));
+            var httpWebRequest = (HttpWebRequest) WebRequest.Create(String.Concat(RepositoryUri, blogId, "/contents/_posts/", fileName));
             var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Concat(Credentials.Username, ":", Credentials.Password)));
             httpWebRequest.Headers.Add("Authorization", "Basic " + encoded);
             httpWebRequest.UserAgent = "DD local";
@@ -178,7 +204,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// <returns></returns>
         public BlogPost GetPost(string blogId, string postId)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(String.Concat(RepositoryUri, _postApiUrl.AbsolutePath, "/contents/" + postId));
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(String.Concat(RepositoryUri, blogId, "/contents/" + postId));
 
             var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credentials.Username + ":" + Credentials.Password));
             httpWebRequest.Headers.Add("Authorization", "Basic " + encoded);
@@ -193,7 +219,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 {
                     Title = githubEntry.name,
                     Id = githubEntry.path,
-                    Contents = Convert.FromBase64String(githubEntry.content).ToString()
+                    Contents = Encoding.UTF8.GetString(Convert.FromBase64String(githubEntry.content))
                 };
 
                 return blogPost;
@@ -238,7 +264,8 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public AuthorInfo[] GetAuthors(string blogId)
         {
-            throw new NotImplementedException();
+            // this has nothing to do with GitHub Page for now.
+            return new AuthorInfo[] { };
         }
 
         public bool? DoesFileNeedUpload(IFileUploadContext uploadContext)
@@ -258,7 +285,8 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public string AddCategory(string blogId, BlogPostCategory category)
         {
-            throw new NotImplementedException();
+            // Acutally we don't need to do anything as Jekyll won't store categories separately, it's stored in posts' YFM.
+            return category.Id;
         }
 
         public BlogPostCategory[] SuggestCategories(string blogId, string partialCategoryName)
