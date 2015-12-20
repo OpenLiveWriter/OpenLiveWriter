@@ -8,16 +8,16 @@ If you do, then you will need to do the following in order to use Live Writer wi
 
 1. Head over to the [Google developer console](https://console.developers.google.com/project)
 2. Create a new project
-    {Insert image here}
+    [[images/ConnectingToBloggerImage1.png]]
 3. Once created, the console will take you to the dashboard for that project, click where it says Enable and Manage APIs
-    {Insert image here}
+    [[images/ConnectingToBloggerImage2.png]]
 4. Search for the Blogger API
-    {Insert image here}
+    [[images/ConnectingToBloggerImage3.png]]
 5. Enable that API
-    {Insert image here}
+    [[images/ConnectingToBloggerImage4.png]]
 6. Click on Credentials on the left
 7. In the New Credentials drop down, choose OAuth Client ID
-    {Insert image here}
+    [[images/ConnectingToBloggerImage5.png]]
 8. If you haven't added any details for your project's consent screen, you'll need to do so at this point.
 9. When prompted for your application type, choose other, and just give it a name, then click Create
 10. You will then be shown the client ID and Client Secret that need to be used.
