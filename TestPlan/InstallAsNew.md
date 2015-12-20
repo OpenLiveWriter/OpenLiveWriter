@@ -1,4 +1,4 @@
-#Test Plan for Ensuring that Installing as an Update works properly
+#Test Plan for Ensuring that Installing as an New Install works properly
 Steps                 | Desired Results                | Complete | Comments
 ----------------------|--------------------------------|----------| --------
 Ensure that OpenLiveWriter is not installed.  If it is installed, delete registry keys and local files | |
