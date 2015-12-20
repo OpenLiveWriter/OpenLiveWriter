@@ -84,18 +84,17 @@ namespace OpenLiveWriter.BlogClient.Clients
                         // add to our list of blogs
                         blogs.Add(new BlogInfo(idNode.InnerText, HttpUtility.HtmlDecode(NodeToText(nameNode)), urlNode.InnerText));
                     }
-
-                    // return list of blogs
-                    return (BlogInfo[])blogs.ToArray(typeof(BlogInfo));
                 }
+
+                // return list of blogs
+                return (BlogInfo[])blogs.ToArray(typeof(BlogInfo));
             }
             catch (Exception ex)
             {
                 string response = result != null ? result.OuterXml : "(empty response)";
                 Trace.Fail("Exception occurred while parsing GetUsersBlogs response: " + response + "\r\n" + ex.ToString());
-                throw new BlogClientInvalidServerResponseException("blogger.getUsersBlogs", ex.Message, response);
+                throw new BlogClientInvalidServerResponseException("wp.getUsersBlogs", ex.Message, response);
             }
-            return null;
         }
 
     }
