@@ -336,7 +336,10 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="eAdj"></param>
         public void MoveAdjacentToElement(IHTMLElement element, _ELEMENT_ADJACENCY eAdj)
         {
-            PointerRaw.MoveAdjacentToElement(element, eAdj);
+            if (element != null)
+            {
+                PointerRaw.MoveAdjacentToElement(element, eAdj);
+            }
         }
 
         /// <summary>
