@@ -88,7 +88,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Permalink = post.Url,
                 Contents = post.Content,
                 DatePublished = post.Published.Value,
-                Keywords = string.Join(new string(LabelDelimiter,1), post.Labels)
+                Keywords = string.Join(new string(LabelDelimiter,1), post.Labels ?? new List<string>())
             };
         }
 
