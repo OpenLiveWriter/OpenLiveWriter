@@ -185,10 +185,14 @@ namespace OpenLiveWriter.CoreServices.Settings
 		{
 			using (RegistryKey key = GetKey(false))
 			{
-				using ( RegistryKey subSettingsKey = key.OpenSubKey(subSettingsName) )
-				{
-					return subSettingsKey != null ;
-				}
+                if (key == null)
+                {
+                    return false;
+                }
+                using (RegistryKey subSettingsKey = key.OpenSubKey(subSettingsName))
+                {
+                    return subSettingsKey != null;
+                }
 			}
 		}
 
