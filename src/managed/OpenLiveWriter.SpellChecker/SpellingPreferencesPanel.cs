@@ -20,12 +20,7 @@ namespace OpenLiveWriter.SpellChecker
     /// </summary>
     public class SpellingPreferencesPanel : PreferencesPanel
     {
-        //private GroupBox groupBoxInternationalDictionaries;
         private GroupBox _groupBoxGeneralOptions;
-        private CheckBox _checkBoxIgnoreUppercase;
-        private CheckBox _checkBoxIgnoreNumbers;
-        //private PictureBox pictureBoxInternationalDictionaries;
-        //private Label labelDictionary;
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -51,8 +46,6 @@ namespace OpenLiveWriter.SpellChecker
             _labelDictionaryLanguage.Text = Res.Get(StringId.DictionaryLanguageLabel);
             _groupBoxGeneralOptions.Text = Res.Get(StringId.SpellingPrefOptions);
             _checkBoxRealTimeChecking.Text = Res.Get(StringId.SpellingPrefReal);
-            _checkBoxIgnoreNumbers.Text = Res.Get(StringId.SpellingPrefNum);
-            _checkBoxIgnoreUppercase.Text = Res.Get(StringId.SpellingPrefUpper);
             _checkBoxCheckBeforePublish.Text = Res.Get(StringId.SpellingPrefPub);
             _checkBoxAutoCorrect.Text = Res.Get(StringId.SpellingPrefAuto);
             PanelName = Res.Get(StringId.SpellingPrefName);
@@ -65,8 +58,6 @@ namespace OpenLiveWriter.SpellChecker
             spellingPreferences.PreferencesModified += new EventHandler(spellingPreferences_PreferencesModified);
 
             // core options
-            _checkBoxIgnoreUppercase.Checked = spellingPreferences.IgnoreUppercase;
-            _checkBoxIgnoreNumbers.Checked = spellingPreferences.IgnoreWordsWithNumbers;
             _checkBoxCheckBeforePublish.Checked = spellingPreferences.CheckSpellingBeforePublish;
             _checkBoxRealTimeChecking.Checked = spellingPreferences.RealTimeSpellChecking;
             _checkBoxAutoCorrect.Checked = spellingPreferences.EnableAutoCorrect;
@@ -74,29 +65,33 @@ namespace OpenLiveWriter.SpellChecker
             // initialize language combo
             _comboBoxLanguage.BeginUpdate();
             _comboBoxLanguage.Items.Clear();
-            SpellingCheckerLanguage currentLanguage = spellingPreferences.Language;
+            string currentLanguage = spellingPreferences.Language;
 
             SpellingLanguageEntry[] languages = SpellingSettings.GetInstalledLanguages();
             Array.Sort(languages, new SentryLanguageEntryComparer(CultureInfo.CurrentUICulture));
 
+            _comboBoxLanguage.Items.Add(new SpellingLanguageEntry(string.Empty, Res.Get(StringId.DictionaryLanguageNone)));
+
             foreach (SpellingLanguageEntry language in languages)
             {
                 int index = _comboBoxLanguage.Items.Add(language);
-                if (language.Language == currentLanguage)
+                if (language.BCP47Code == currentLanguage)
                     _comboBoxLanguage.SelectedIndex = index;
             }
             // defend against invalid value
             if (_comboBoxLanguage.SelectedIndex == -1)
             {
-                Debug.Fail("Language in registry not supported!");
+                if (!string.IsNullOrEmpty(currentLanguage))
+                {
+                    Debug.Fail("Language in registry not supported!");
+                }
+                _comboBoxLanguage.SelectedIndex = 0; // "None"
             }
             _comboBoxLanguage.EndUpdate();
 
             ManageSpellingOptions();
 
             // hookup to changed events to update preferences
-            _checkBoxIgnoreUppercase.CheckedChanged += new EventHandler(checkBoxIgnoreUppercase_CheckedChanged);
-            _checkBoxIgnoreNumbers.CheckedChanged += new EventHandler(checkBoxIgnoreNumbers_CheckedChanged);
             _checkBoxCheckBeforePublish.CheckedChanged += new EventHandler(checkBoxCheckBeforePublish_CheckedChanged);
             _checkBoxRealTimeChecking.CheckedChanged += new EventHandler(checkBoxRealTimeChecking_CheckedChanged);
             _checkBoxAutoCorrect.CheckedChanged += new EventHandler(checkBoxAutoCorrect_CheckedChanged);
@@ -108,8 +103,6 @@ namespace OpenLiveWriter.SpellChecker
         private void ManageSpellingOptions()
         {
             bool enabled = _comboBoxLanguage.SelectedIndex != 0;  // "None"
-            _checkBoxIgnoreUppercase.Enabled = enabled;
-            _checkBoxIgnoreNumbers.Enabled = enabled;
             _checkBoxCheckBeforePublish.Enabled = enabled;
             _checkBoxRealTimeChecking.Enabled = enabled;
             _checkBoxAutoCorrect.Enabled = enabled;
@@ -193,8 +186,6 @@ namespace OpenLiveWriter.SpellChecker
             this._comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this._labelDictionaryLanguage = new System.Windows.Forms.Label();
             this._checkBoxRealTimeChecking = new System.Windows.Forms.CheckBox();
-            this._checkBoxIgnoreNumbers = new System.Windows.Forms.CheckBox();
-            this._checkBoxIgnoreUppercase = new System.Windows.Forms.CheckBox();
             this._checkBoxCheckBeforePublish = new System.Windows.Forms.CheckBox();
             this._checkBoxAutoCorrect = new System.Windows.Forms.CheckBox();
             this._groupBoxGeneralOptions.SuspendLayout();
@@ -207,8 +198,6 @@ namespace OpenLiveWriter.SpellChecker
             this._groupBoxGeneralOptions.Controls.Add(this._comboBoxLanguage);
             this._groupBoxGeneralOptions.Controls.Add(this._labelDictionaryLanguage);
             this._groupBoxGeneralOptions.Controls.Add(this._checkBoxRealTimeChecking);
-            this._groupBoxGeneralOptions.Controls.Add(this._checkBoxIgnoreNumbers);
-            this._groupBoxGeneralOptions.Controls.Add(this._checkBoxIgnoreUppercase);
             this._groupBoxGeneralOptions.Controls.Add(this._checkBoxCheckBeforePublish);
             this._groupBoxGeneralOptions.Controls.Add(this._checkBoxAutoCorrect);
             this._groupBoxGeneralOptions.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -248,28 +237,10 @@ namespace OpenLiveWriter.SpellChecker
             this._checkBoxRealTimeChecking.TabIndex = 2;
             this._checkBoxRealTimeChecking.Text = "Use &real time spell checking (squiggles)";
             //
-            // _checkBoxIgnoreNumbers
-            //
-            this._checkBoxIgnoreNumbers.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this._checkBoxIgnoreNumbers.Location = new System.Drawing.Point(16, 111);
-            this._checkBoxIgnoreNumbers.Name = "_checkBoxIgnoreNumbers";
-            this._checkBoxIgnoreNumbers.Size = new System.Drawing.Size(323, 18);
-            this._checkBoxIgnoreNumbers.TabIndex = 4;
-            this._checkBoxIgnoreNumbers.Text = "Ignore words with &numbers";
-            //
-            // _checkBoxIgnoreUppercase
-            //
-            this._checkBoxIgnoreUppercase.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this._checkBoxIgnoreUppercase.Location = new System.Drawing.Point(16, 88);
-            this._checkBoxIgnoreUppercase.Name = "_checkBoxIgnoreUppercase";
-            this._checkBoxIgnoreUppercase.Size = new System.Drawing.Size(323, 18);
-            this._checkBoxIgnoreUppercase.TabIndex = 3;
-            this._checkBoxIgnoreUppercase.Text = "Ignore words in &UPPERCASE";
-            //
             // _checkBoxCheckBeforePublish
             //
             this._checkBoxCheckBeforePublish.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this._checkBoxCheckBeforePublish.Location = new System.Drawing.Point(16, 134);
+            this._checkBoxCheckBeforePublish.Location = new System.Drawing.Point(16, 88);
             this._checkBoxCheckBeforePublish.Name = "_checkBoxCheckBeforePublish";
             this._checkBoxCheckBeforePublish.Size = new System.Drawing.Size(323, 18);
             this._checkBoxCheckBeforePublish.TabIndex = 5;
@@ -278,7 +249,7 @@ namespace OpenLiveWriter.SpellChecker
             // _checkBoxAutoCorrect
             //
             this._checkBoxAutoCorrect.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this._checkBoxAutoCorrect.Location = new System.Drawing.Point(16, 157);
+            this._checkBoxAutoCorrect.Location = new System.Drawing.Point(16, 111);
             this._checkBoxAutoCorrect.Name = "_checkBoxAutoCorrect";
             this._checkBoxAutoCorrect.Size = new System.Drawing.Size(323, 18);
             this._checkBoxAutoCorrect.TabIndex = 6;
@@ -298,16 +269,6 @@ namespace OpenLiveWriter.SpellChecker
         }
         #endregion
 
-        private void checkBoxIgnoreUppercase_CheckedChanged(object sender, EventArgs e)
-        {
-            spellingPreferences.IgnoreUppercase = _checkBoxIgnoreUppercase.Checked;
-        }
-
-        private void checkBoxIgnoreNumbers_CheckedChanged(object sender, EventArgs e)
-        {
-            spellingPreferences.IgnoreWordsWithNumbers = _checkBoxIgnoreNumbers.Checked;
-        }
-
         private void checkBoxCheckBeforePublish_CheckedChanged(object sender, EventArgs e)
         {
             spellingPreferences.CheckSpellingBeforePublish = _checkBoxCheckBeforePublish.Checked;
@@ -325,7 +286,7 @@ namespace OpenLiveWriter.SpellChecker
 
         private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            spellingPreferences.Language = (_comboBoxLanguage.SelectedItem as SpellingLanguageEntry).Language;
+            spellingPreferences.Language = (_comboBoxLanguage.SelectedItem as SpellingLanguageEntry).BCP47Code;
             ManageSpellingOptions();
         }
     }

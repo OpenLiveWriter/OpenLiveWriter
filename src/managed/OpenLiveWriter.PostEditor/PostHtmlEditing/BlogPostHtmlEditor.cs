@@ -98,35 +98,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         private void ApplySpellingSettings(object sender, EventArgs args)
         {
-            SpellingCheckerLanguage language = SpellingSettings.Language;
+            string language = SpellingSettings.Language;
 
-            if (language == SpellingCheckerLanguage.None)
+            if (string.IsNullOrEmpty(language))
             {
                 // No language selected. Disable the speller and return.
                 DisableSpelling();
             }
             else
             {
-                SpellingLanguageEntry languageEntry = SpellingSettings.GetInstalledLanguage(language);
-
-                uint sobit = 0;
-                if (SpellingSettings.IgnoreUppercase)
-                    sobit |= (uint)SpellerOptionBit.IgnoreAllCaps;
-                if (SpellingSettings.IgnoreWordsWithNumbers)
-                    sobit |= (uint)SpellerOptionBit.IgnoreMixedDigits;
-
-                sobit |= (uint)SpellerOptionBit.IgnoreSingleLetter;
-
-                List<string> lexAbsPaths = new List<string>(languageEntry.CSAPILex.Length);
-                foreach (string path in languageEntry.CSAPILex)
-                    lexAbsPaths.Add(Path.Combine(SpellingSettings.DictionaryPath, path));
-                string engineDllAbsPath = Path.Combine(SpellingSettings.DictionaryPath, languageEntry.CSAPIEngine);
-
-                SetSpellingOptions(engineDllAbsPath,
-                    languageEntry.LCID,
-                    lexAbsPaths.ToArray(),
-                    SpellingSettings.UserDictionaryPath,
-                    sobit,
+                SetSpellingOptions(
+                    language,
                     SpellingSettings.EnableAutoCorrect);
             }
         }

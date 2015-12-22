@@ -64,7 +64,7 @@ namespace OpenLiveWriter.SpellChecker
                 _mshtmlControl.MarkupServicesRaw,
                 (IHTMLDocument4)_htmlDocument);
             //start new highlighter
-            _spellingChecker.StartChecking(_spellingContext.PostSpellingContextDirectory);
+            _spellingChecker.StartChecking();
             _spellingChecker.WordIgnored += new EventHandler(_spellingChecker_WordIgnored);
             _spellingChecker.WordAdded += new EventHandler(_spellingChecker_WordAdded);
 
@@ -273,7 +273,7 @@ namespace OpenLiveWriter.SpellChecker
                 spellCheckerForm.WordIgnored += (sender2, args) => IgnoreOnce(wordRange.CurrentWordRange);
 
                 // check spelling
-                spellCheckerForm.CheckSpelling(wordRange, _spellingContext.PostSpellingContextDirectory);
+                spellCheckerForm.CheckSpelling(wordRange);
                 _mshtmlControl.MarkupServices.EndUndoUnit();
 
                 // restore focus to the control that had it before we spell-checked

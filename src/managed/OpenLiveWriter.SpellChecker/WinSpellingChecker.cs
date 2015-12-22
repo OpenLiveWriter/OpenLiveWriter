@@ -3,17 +3,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenLiveWriter.SpellChecker
 {
     public class WinSpellingChecker : ISpellingChecker, IDisposable
     {
+        private PlatformSpellCheck.SpellChecker _speller;
+        private string _bcp47Code;
+
         public bool IsInitialized
         {
             get
             {
-                // TODO
-                return false;
+                return _speller != null;
             }
         }
 
@@ -22,7 +25,9 @@ namespace OpenLiveWriter.SpellChecker
 
         public void AddToUserDictionary(string word)
         {
-            // TODO
+            CheckInitialized();
+            _speller.Add(word);
+
             if (WordAdded == null)
                 return;
             WordAdded(word, EventArgs.Empty);
@@ -30,21 +35,55 @@ namespace OpenLiveWriter.SpellChecker
 
         public SpellCheckResult CheckWord(string word, out string otherWord, out int offset, out int length)
         {
-            // TODO
+            CheckInitialized();
             otherWord = null;
-            offset = 0;
-            length = word.Length;
-            return SpellCheckResult.Correct;
+
+            if (string.IsNullOrEmpty(word))
+            {
+                offset = 0;
+                length = word.Length;
+                return SpellCheckResult.Correct;
+            }
+
+            PlatformSpellCheck.SpellingError spellerStatus = _speller.Check(word).FirstOrDefault();
+
+            if (spellerStatus == null)
+            {
+                offset = -1;
+                length = -1;
+                return SpellCheckResult.Correct;
+            }
+            else
+            {
+                offset = (int)spellerStatus.StartIndex;
+                length = (int)spellerStatus.Length;
+
+                switch (spellerStatus.RecommendedAction)
+                {
+                    case PlatformSpellCheck.RecommendedAction.Delete:
+                        otherWord = "";
+                        return SpellCheckResult.AutoReplace;
+                    case PlatformSpellCheck.RecommendedAction.Replace:
+                        otherWord = spellerStatus.RecommendedReplacement;
+                        return SpellCheckResult.AutoReplace;
+                    case PlatformSpellCheck.RecommendedAction.GetSuggestions:
+                        return SpellCheckResult.Misspelled;
+                    default:
+                        return SpellCheckResult.Correct;
+                }
+            }
         }
 
         public void Dispose()
         {
-            // TODO
+            StopChecking();
         }
 
         public void IgnoreAll(string word)
         {
-            // TODO
+            CheckInitialized();
+            _speller.Ignore(word);
+
             if (WordIgnored == null)
                 return;
             WordIgnored(word, EventArgs.Empty);
@@ -52,34 +91,77 @@ namespace OpenLiveWriter.SpellChecker
 
         public void ReplaceAll(string word, string replaceWith)
         {
-            // TODO
+            CheckInitialized();
+            _speller.AutoCorrect(word, replaceWith);
         }
 
-        public void Reset()
+        public void StartChecking()
         {
-            // TODO
-        }
+            if (!PlatformSpellCheck.SpellChecker.IsPlatformSupported() ||
+                string.IsNullOrEmpty(_bcp47Code))
+            {
+                StopChecking();
+                return;
+            }
 
-        public void StartChecking(string contextDictionaryLocation)
-        {
-            // TODO
+            _speller = new PlatformSpellCheck.SpellChecker(_bcp47Code);
         }
 
         public void StopChecking()
         {
-            // TODO
+            if (_speller != null)
+                _speller.Dispose();
+
+            _speller = null;
         }
 
         public SpellingSuggestion[] Suggest(string word, short maxSuggestions, short depth)
         {
-            // TODO
+            CheckInitialized();
             List<SpellingSuggestion> list = new List<SpellingSuggestion>();
+
+            foreach (string suggestion in _speller.Suggestions(word).Take(maxSuggestions))
+            {
+                list.Add(new SpellingSuggestion(suggestion, 1));
+            }
+
             return list.ToArray();
         }
 
-        public void SetOptions(string engineDllPath, ushort lcid, string[] mainLexPaths, string userLexiconPath, uint sobitOptions)
+        public void SetOptions(string bcp47Code)
         {
-            // TODO
+            _bcp47Code = bcp47Code;
+        }
+
+        public static string[] GetInstalledLanguages()
+        {
+            if (PlatformSpellCheck.SpellChecker.IsPlatformSupported())
+            {
+                return PlatformSpellCheck.SpellChecker.SupportedLanguages.ToArray();
+            }
+
+            return new string[0];
+        }
+
+        public static bool IsLanguageSupported(string bcp47Code)
+        {
+            if (string.IsNullOrEmpty(bcp47Code))
+            {
+                return false;
+            }
+
+            if (PlatformSpellCheck.SpellChecker.IsPlatformSupported())
+            {
+                return PlatformSpellCheck.SpellChecker.IsLanguageSupported(bcp47Code);
+            }
+
+            return false;
+        }
+
+        private void CheckInitialized()
+        {
+            if (!IsInitialized)
+                throw new InvalidOperationException("Operation attempted on an uninitialized WinSpellingChecker");
         }
     }
 }

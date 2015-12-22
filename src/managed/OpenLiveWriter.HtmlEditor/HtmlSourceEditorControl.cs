@@ -276,7 +276,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        public bool CheckSpelling(string contextDictionaryPath)
+        public bool CheckSpelling()
         {
             // check spelling
             using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), false))
@@ -290,7 +290,7 @@ namespace OpenLiveWriter.HtmlEditor
                 HtmlTextBoxWordRange wordRange = new HtmlTextBoxWordRange(_textBox);
 
                 // check spelling
-                spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
+                spellCheckerForm.CheckSpelling(wordRange);
 
                 // return completed status
                 return spellCheckerForm.Completed;

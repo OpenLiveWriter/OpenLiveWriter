@@ -966,7 +966,7 @@ namespace OpenLiveWriter.PostEditor
         private void InitializeTextEditingCommands()
         {
             DisposeTextEditingCommandDispatcher();
-            _textEditingCommandDispatcher = new TextEditingCommandDispatcher(_mainFrameWindow, new SpellingContextDirectorySource(_editingContext.GetPostSpellingContextDirectory), _postEditingSite.StyleControl, CommandManager);
+            _textEditingCommandDispatcher = new TextEditingCommandDispatcher(_mainFrameWindow, _postEditingSite.StyleControl, CommandManager);
             _textEditingCommandDispatcher.RegisterPostEditor(this, ComponentContext, new TextEditingFocusHandler(Focus));
 
             if (_mainFrameWindow is Control)
@@ -1606,10 +1606,10 @@ namespace OpenLiveWriter.PostEditor
             _currentEditor.CommandSource.PrintPreview();
         }
 
-        public bool CheckSpelling(string spellingContextDirectory)
+        public bool CheckSpelling()
         {
             // check spelling
-            return _currentEditor.CommandSource.CheckSpelling(spellingContextDirectory);
+            return _currentEditor.CommandSource.CheckSpelling();
         }
 
         public void Focus()
@@ -2407,11 +2407,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-        public string PostSpellingContextDirectory
-        {
-            get { return _supportingFileStorage.SpellingContextDirectory; }
-        }
-
         public string AutoCorrectLexiconFilePath
         {
             get { return _autoCorrectLexiconFile; }
@@ -2423,27 +2418,21 @@ namespace OpenLiveWriter.PostEditor
         }
         private WinSpellingChecker _spellingChecker = new WinSpellingChecker();
 
-        public void SetSpellingOptions(string dllName, ushort lcid, string[] mainLexFiles, string userLexFile, uint sobitOptions, bool useAutoCorrect)
+        public void SetSpellingOptions(string bcp47Code, bool useAutoCorrect)
         {
             if (ControlHelper.ControlCanHandleInvoke(_editorContainer) && _editorContainer.InvokeRequired)
             {
                 _editorContainer.BeginInvoke(new ThreadStart(
-                    () => SetSpellingOptions(dllName, lcid, mainLexFiles, userLexFile, sobitOptions, useAutoCorrect)
+                    () => SetSpellingOptions(bcp47Code, useAutoCorrect)
                     ));
                 return;
             }
 
             _spellingChecker.StopChecking();
-            _spellingChecker.SetOptions(dllName, lcid, mainLexFiles, userLexFile, sobitOptions);
-            _spellingChecker.StartChecking(_supportingFileStorage != null ? PostSpellingContextDirectory : null);
+            _spellingChecker.SetOptions(bcp47Code);
+            _spellingChecker.StartChecking();
 
-            // Get autocorrect file if needed, mso.acl ships with Writer/Shared Canvas
-            _autoCorrectLexiconFile = null;
-            if (useAutoCorrect && lcid == 1033 /* en-us */ && File.Exists(Path.Combine(SpellingSettings.DictionaryPath, "mso.acl")))
-            {
-                _autoCorrectLexiconFile = Path.Combine(SpellingSettings.DictionaryPath, "mso.acl");
-            }
-
+            _autoCorrectLexiconFile = null; // TODO: Auto correct custom file
             if (SpellingOptionsChanged != null)
             {
                 SpellingOptionsChanged(this, EventArgs.Empty);
@@ -2453,7 +2442,7 @@ namespace OpenLiveWriter.PostEditor
         public void DisableSpelling()
         {
             _spellingChecker.StopChecking();
-            _spellingChecker.SetOptions(null, 0, null, null, 0);
+            _spellingChecker.SetOptions(string.Empty);
             if (SpellingOptionsChanged != null)
                 SpellingOptionsChanged(this, EventArgs.Empty);
         }

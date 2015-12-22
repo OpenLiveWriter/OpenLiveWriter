@@ -382,11 +382,6 @@ namespace OpenLiveWriter.PostEditor
             get { return BlogPost.Id; }
         }
 
-        public string GetPostSpellingContextDirectory()
-        {
-            return SupportingFileStorage.SpellingContextDirectory;
-        }
-
         public event EventHandler EditingStatusChanged;
 
         #endregion

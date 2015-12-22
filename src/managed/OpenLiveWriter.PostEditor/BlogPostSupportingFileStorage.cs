@@ -105,43 +105,6 @@ namespace OpenLiveWriter.PostEditor
             return cleanPath;
         }
 
-        public string SpellingContextDirectory
-        {
-            get
-            {
-                if (_spellingContextDirectory == null)
-                {
-                    _spellingContextDirectory = Path.Combine(StoragePath, SPELLING_CONTEXT);
-                    if (!Directory.Exists(_spellingContextDirectory))
-                        Directory.CreateDirectory(_spellingContextDirectory);
-                }
-                return _spellingContextDirectory;
-            }
-        }
-        private string _spellingContextDirectory;
-        private const string SPELLING_CONTEXT = "SpellingContext";
-
-        public void WriteSpellingContextDictionary(Stream dictionaryContents)
-        {
-            string contextDictionaryPath = Path.Combine(SpellingContextDirectory, CONTEXT_DICTIONARY_FILE);
-            using (FileStream dictionaryFile = new FileStream(contextDictionaryPath, FileMode.Create))
-            {
-                StreamHelper.Transfer(dictionaryContents, dictionaryFile);
-            }
-        }
-
-        public Stream ReadSpellingContextDictionary()
-        {
-            string contextDictionaryPath = Path.Combine(SpellingContextDirectory, CONTEXT_DICTIONARY_FILE);
-            if (File.Exists(contextDictionaryPath))
-                return new FileStream(contextDictionaryPath, FileMode.Open);
-            else
-                return null;
-        }
-
-        // NOTE: hardcode to sentry spelling engine -- need to unroll this if we switch engines
-        private static readonly string CONTEXT_DICTIONARY_FILE = SentrySpellingChecker.ContextDictionaryFileName;
-
         private DirectoryInfo _storageDirectory;
     }
 

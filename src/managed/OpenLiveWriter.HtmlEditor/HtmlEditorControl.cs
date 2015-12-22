@@ -3440,7 +3440,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// Check the spelling of the document, returning true if the user completed the spelling check
         /// </summary>
         /// <returns>false if they cancelled the spelling check or if we're already in the middle of executing a spell check</returns>
-        public bool CheckSpelling(string contextDictionaryPath)
+        public bool CheckSpelling()
         {
             if (!Editable || _isSpellChecking)
                 return false;
@@ -3494,7 +3494,7 @@ namespace OpenLiveWriter.HtmlEditor
                     // check spelling
                     using (undoUnit)
                     {
-                        spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
+                        spellCheckerForm.CheckSpelling(wordRange);
                         undoUnit.Commit();
                     }
 
@@ -3522,7 +3522,7 @@ namespace OpenLiveWriter.HtmlEditor
                         IWordRangeProvider wordRangeProvider = (IWordRangeProvider)_mainFrameWindow;
                         IWordRange wordRangeSubject = wordRangeProvider.GetSubjectSpellcheckWordRange();
 
-                        spellCheckerForm.CheckSpelling(wordRangeSubject, contextDictionaryPath);
+                        spellCheckerForm.CheckSpelling(wordRangeSubject);
 
                         wordRangeProvider.CloseSubjectSpellcheckWordRange();
                         fCompleted = spellCheckerForm.Completed;

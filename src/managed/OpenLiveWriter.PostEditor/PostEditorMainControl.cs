@@ -890,7 +890,7 @@ namespace OpenLiveWriter.PostEditor
             // do auto spell check
             if (SpellingSettings.CheckSpellingBeforePublish && _htmlEditor.CanSpellCheck)
             {
-                if (!_htmlEditor.CheckSpelling(_editingManager.GetPostSpellingContextDirectory()))
+                if (!_htmlEditor.CheckSpelling())
                 {
                     return (DialogResult.Yes == DisplayMessage.Show(MessageId.SpellCheckCancelledStillPost, _mainFrameWindow));
                 }
@@ -1106,11 +1106,6 @@ namespace OpenLiveWriter.PostEditor
         #endregion
 
         #region Private Helper Methods
-
-        private string GetSpellingContextDirectory()
-        {
-            return _editingManager.GetPostSpellingContextDirectory();
-        }
 
         private void ManageCommands()
         {

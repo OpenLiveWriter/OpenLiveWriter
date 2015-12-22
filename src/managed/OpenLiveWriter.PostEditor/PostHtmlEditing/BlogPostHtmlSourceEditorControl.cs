@@ -150,7 +150,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         public void UpdateEditingContext()
         {
             sourceControl.SpellingChecker.StopChecking();
-            sourceControl.SpellingChecker.StartChecking(spellingContext.PostSpellingContextDirectory);
+            sourceControl.SpellingChecker.StartChecking();
         }
 
         private void textBoxTitle_TitleGotFocus(object sender, EventArgs e)
