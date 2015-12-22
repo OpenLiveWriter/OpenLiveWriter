@@ -3,8 +3,8 @@
 
 namespace OpenLiveWriter.HtmlParser.Parser
 {
-	public interface IElementSource
-	{
-		Element Next();
-	}
+    public interface IElementSource
+    {
+        Element Next();
+    }
 }

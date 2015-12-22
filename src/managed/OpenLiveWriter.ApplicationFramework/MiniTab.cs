@@ -33,7 +33,7 @@ namespace OpenLiveWriter.ApplicationFramework
                 {
                     if (this.LightweightControlContainerControl is MiniTabsControl)
                     {
-                        borderColor = ((MiniTabsControl) this.LightweightControlContainerControl).TopBorderColor;
+                        borderColor = ((MiniTabsControl)this.LightweightControlContainerControl).TopBorderColor;
                     }
                 }
                 return borderColor;
@@ -96,9 +96,6 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
-
-        
         protected override void OnPaint(PaintEventArgs e)
         {
 
@@ -123,14 +120,13 @@ namespace OpenLiveWriter.ApplicationFramework
                                        tabRectangle.Top);
                         g.DrawLine(pen, tabRectangle.Left, tabRectangle.Top, tabRectangle.Left,
                                    tabRectangle.Bottom);
-                        g.DrawLine(pen, tabRectangle.Right-1, tabRectangle.Top, tabRectangle.Right-1,
+                        g.DrawLine(pen, tabRectangle.Right - 1, tabRectangle.Top, tabRectangle.Right - 1,
                                    tabRectangle.Bottom);
                         g.DrawLine(pen, tabRectangle.Left, tabRectangle.Bottom - 1,
                                    tabRectangle.Right, tabRectangle.Bottom - 1);
                     }
                 }
             }
-
 
             /*
             if (!selected && !SystemInformation.HighContrast)
@@ -149,7 +145,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
             Rectangle textBounds = tabRectangle;
             if (!selected)
-                textBounds.Y += (int) DisplayHelper.ScaleX(3);
+                textBounds.Y += (int)DisplayHelper.ScaleX(3);
             else
                 textBounds.Y += (int)DisplayHelper.ScaleX(3);
 
@@ -157,7 +153,7 @@ namespace OpenLiveWriter.ApplicationFramework
             if (selected)
                 textColor = Parent.ForeColor;
 
-            g.DrawText(Text, selected ? ctx.Font : ctx.Font, textBounds, SystemInformation.HighContrast ? SystemColors.ControlText : textColor, 
+            g.DrawText(Text, selected ? ctx.Font : ctx.Font, textBounds, SystemInformation.HighContrast ? SystemColors.ControlText : textColor,
                        TextFormatFlags.Top | TextFormatFlags.HorizontalCenter | TextFormatFlags.PreserveGraphicsTranslateTransform | TextFormatFlags.PreserveGraphicsClipping);
         }
 

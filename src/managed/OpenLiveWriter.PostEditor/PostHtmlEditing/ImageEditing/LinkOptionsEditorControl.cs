@@ -15,29 +15,29 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	/// <summary>
-	/// Summary description for LinkOptionsControl.
-	/// </summary>
-	public class LinkOptionsEditorControl : UserControl, ILinkOptionsEditor
-	{
-		private CheckBox cbNewWindow;
+    /// <summary>
+    /// Summary description for LinkOptionsControl.
+    /// </summary>
+    public class LinkOptionsEditorControl : UserControl, ILinkOptionsEditor
+    {
+        private CheckBox cbNewWindow;
         private CheckBox cbEnableViewer;
         private Label label1;
         private TextBox txtGroupName;
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
-	    private ImageViewer _imageViewer;
+        private ImageViewer _imageViewer;
 
-	    public LinkOptionsEditorControl()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
-			this.cbNewWindow.Text = Res.Get(StringId.ImgSBOpenInNewWindow);
-	        this.cbEnableViewer.Text = Res.Get(StringId.ImageViewerLabel);
-	        this.label1.Text = Res.Get(StringId.ImageViewerGroupLabel);
+        public LinkOptionsEditorControl()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
+            this.cbNewWindow.Text = Res.Get(StringId.ImgSBOpenInNewWindow);
+            this.cbEnableViewer.Text = Res.Get(StringId.ImageViewerLabel);
+            this.label1.Text = Res.Get(StringId.ImageViewerGroupLabel);
             txtGroupName.Enabled = false;
             cbEnableViewer.CheckedChanged += delegate
                                                  {
@@ -45,12 +45,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                                      if (cbEnableViewer.Checked)
                                                          cbNewWindow.Checked = false;
                                                  };
-	        cbNewWindow.CheckedChanged += delegate
-	                                          {
-	                                              if (cbNewWindow.Checked)
-	                                                  cbEnableViewer.Checked = false;
-	                                          };
-		}
+            cbNewWindow.CheckedChanged += delegate
+                                              {
+                                                  if (cbNewWindow.Checked)
+                                                      cbEnableViewer.Checked = false;
+                                              };
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -89,36 +89,36 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             //Height = txtGroupName.Bottom + 3;
         }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.cbNewWindow = new System.Windows.Forms.CheckBox();
             this.cbEnableViewer = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtGroupName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
+            //
             // cbNewWindow
-            // 
+            //
             this.cbNewWindow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.cbNewWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -128,9 +128,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.cbNewWindow.TabIndex = 0;
             this.cbNewWindow.Text = "Open in new window";
             this.cbNewWindow.CheckedChanged += new System.EventHandler(this.cbNewWindow_CheckedChanged);
-            // 
+            //
             // cbEnableViewer
-            // 
+            //
             this.cbEnableViewer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.cbEnableViewer.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -140,27 +140,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.cbEnableViewer.TabIndex = 1;
             this.cbEnableViewer.Text = "&Enable {0}";
             this.cbEnableViewer.UseVisualStyleBackColor = true;
-            // 
+            //
             // label1
-            // 
+            //
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(23, 42);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "&Group (optional):";
-            // 
+            //
             // txtGroupName
-            // 
+            //
             this.txtGroupName.Location = new System.Drawing.Point(114, 39);
             this.txtGroupName.Name = "txtGroupName";
             this.txtGroupName.Size = new System.Drawing.Size(155, 20);
             this.txtGroupName.TabIndex = 3;
-		    this.txtGroupName.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-		    this.txtGroupName.MaxLength = 100;
-            // 
+            this.txtGroupName.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
+            this.txtGroupName.MaxLength = 100;
+            //
             // LinkOptionsEditorControl
-            // 
+            //
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtGroupName);
             this.Controls.Add(this.cbNewWindow);
@@ -170,25 +170,25 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		public ILinkOptions LinkOptions
-		{
-			get
-			{
+        public ILinkOptions LinkOptions
+        {
+            get
+            {
                 return new LinkOptions(cbNewWindow.Checked, cbEnableViewer.Checked, txtGroupName.Text.Trim());
-			}
-			set
-			{
-				cbNewWindow.Checked = value.ShowInNewWindow;
-			    cbEnableViewer.Checked = value.UseImageViewer;
-			    txtGroupName.Text = value.ImageViewerGroupName ?? "";
-			}
-		}
+            }
+            set
+            {
+                cbNewWindow.Checked = value.ShowInNewWindow;
+                cbEnableViewer.Checked = value.UseImageViewer;
+                txtGroupName.Text = value.ImageViewerGroupName ?? "";
+            }
+        }
 
         public IEditorOptions EditorOptions
-	    {
+        {
             set
             {
                 string imageViewer = value.DhtmlImageViewer;
@@ -224,19 +224,19 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     Parent.Height -= deltaY;
                 }
             }
-	    }
+        }
 
-	    public event EventHandler LinkOptionsChanged;
-		protected virtual void OnLinkOptionsChanged(EventArgs e)
-		{
-			if(LinkOptionsChanged != null)
-				LinkOptionsChanged(this, e);
-		}
+        public event EventHandler LinkOptionsChanged;
+        protected virtual void OnLinkOptionsChanged(EventArgs e)
+        {
+            if (LinkOptionsChanged != null)
+                LinkOptionsChanged(this, e);
+        }
 
-		private void cbNewWindow_CheckedChanged(object sender, EventArgs e)
-		{
-			OnLinkOptionsChanged(EventArgs.Empty);
-		}
-	}
+        private void cbNewWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            OnLinkOptionsChanged(EventArgs.Empty);
+        }
+    }
 }
 

@@ -52,7 +52,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         public static Bitmap DownloadBitmap(string bitmapUrl)
         {
             return DownloadBitmap(bitmapUrl, null);
@@ -60,7 +59,7 @@ namespace OpenLiveWriter.CoreServices
 
         public static Bitmap DownloadBitmap(string bitmapUrl, WinInetCredentialsContext credentialsContext)
         {
-            // download the image 
+            // download the image
             try
             {
                 string fileName = UrlDownloadToFile.Download(bitmapUrl, credentialsContext);
@@ -73,7 +72,6 @@ namespace OpenLiveWriter.CoreServices
                     String.Format(CultureInfo.CurrentCulture, "Error attempting to download bitmap from url {0}: {1}", bitmapUrl, ex.Message), ex);
             }
         }
-
 
         /// <summary>
         /// Creates a "disabled" version of the given bitmap.
@@ -94,12 +92,12 @@ namespace OpenLiveWriter.CoreServices
                 float bw = 0.3f;
                 float d = 0.95f;  // desaturate by 95%
                 ColorMatrix cm = new ColorMatrix(new float[][] {
-																   new float[] {d*rw+1-d, d*rw, d*rw, 0, 0},
-																   new float[] {d*gw, d*gw+1-d, d*gw, 0, 0},
-																   new float[] {d*bw, d*bw, d*bw+1-d, 0, 0},
-																   new float[] {0, 0, 0, 0.45f, 0},
-																   new float[] {0, 0, 0, 0, 1}
-															   }
+                                                                   new float[] {d*rw+1-d, d*rw, d*rw, 0, 0},
+                                                                   new float[] {d*gw, d*gw+1-d, d*gw, 0, 0},
+                                                                   new float[] {d*bw, d*bw, d*bw+1-d, 0, 0},
+                                                                   new float[] {0, 0, 0, 0.45f, 0},
+                                                                   new float[] {0, 0, 0, 0, 1}
+                                                               }
                     );
                 ia.SetColorMatrix(cm);
                 Rectangle bounds = new Rectangle(0, 0, enabled.Width, enabled.Height);
@@ -129,12 +127,12 @@ namespace OpenLiveWriter.CoreServices
                 cm4B = .3f;
             }
 
-            ColorMatrix cm = new ColorMatrix(new float[][]{ 
-				new float[]{rwgt, rwgt, rwgt,    0f,    0f},
-				new float[]{gwgt, gwgt, gwgt,    0f,    0f},
-				new float[]{bwgt, bwgt, bwgt,    0f,    0f},
-				new float[]{0f,     0f,   0f,    1f,    0f},
-				new float[]{cm4R,  cm4G,   cm4B,    0f,    1f}});
+            ColorMatrix cm = new ColorMatrix(new float[][]{
+                new float[]{rwgt, rwgt, rwgt,    0f,    0f},
+                new float[]{gwgt, gwgt, gwgt,    0f,    0f},
+                new float[]{bwgt, bwgt, bwgt,    0f,    0f},
+                new float[]{0f,     0f,   0f,    1f,    0f},
+                new float[]{cm4R,  cm4G,   cm4B,    0f,    1f}});
 
             return cm;
         }
@@ -289,7 +287,7 @@ namespace OpenLiveWriter.CoreServices
                 new PointF(0, 0),
                 new PointF(image.Width, 0),
                 new PointF(0, image.Height),
-                new PointF(image.Width, image.Height), 
+                new PointF(image.Width, image.Height),
                 };
 
             double angle = PolarPoint.ToRadians(degrees);
@@ -313,7 +311,6 @@ namespace OpenLiveWriter.CoreServices
             {
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
 
                 if (bgColor != null && bgColor != Color.Transparent)
                 {
@@ -343,7 +340,7 @@ namespace OpenLiveWriter.CoreServices
             return newBitmap;
         }
 
-        // Inspects the EXIF orientation of originalImage and performs the same rotation on originalImage 
+        // Inspects the EXIF orientation of originalImage and performs the same rotation on originalImage
         public static void AutoRotateFromExifOrientation(Image originalImage)
         {
             ExifMetadata exif = ExifMetadata.FromImage(originalImage);

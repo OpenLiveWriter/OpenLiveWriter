@@ -360,6 +360,9 @@
   <data name="DisplayMessage.InvalidWebImage.Type" xml:space="preserve">
     <value>Asterisk</value>
   </data>
+  <data name="DisplayMessage.GoogleBloggerLoginRequired.Type" xml:space="preserve">
+    <value>Warning</value>
+  </data>
   <data name="DisplayMessage.LocalDeleteConfirmation.Buttons" xml:space="preserve">
     <value>YesNo</value>
   </data>

@@ -10,7 +10,7 @@ namespace OpenLiveWriter.CoreServices
 {
     public class EventCounter
     {
-        private Dictionary<string, List<StackTrace>> _eventsHooked = new Dictionary<string,List<StackTrace>>();
+        private Dictionary<string, List<StackTrace>> _eventsHooked = new Dictionary<string, List<StackTrace>>();
         private Dictionary<string, List<StackTrace>> _eventsUnhooked = new Dictionary<string, List<StackTrace>>();
 
         [Conditional("DEBUG")]
@@ -42,7 +42,7 @@ namespace OpenLiveWriter.CoreServices
             Debug.Assert(callingEventMethodName.StartsWith("remove_", StringComparison.OrdinalIgnoreCase), "EventUnhooked called from an invalid method");
             string eventName = callingEventMethodName.Substring("remove_".Length);
 
-            if(eventHandler == null)
+            if (eventHandler == null)
             {
                 // If the MulticastDelegate is null, then the event is completely unhooked.
                 _eventsHooked.Remove(eventName);
@@ -68,14 +68,14 @@ namespace OpenLiveWriter.CoreServices
                 List<StackTrace> eventHookedStackTraces = _eventsHooked[eventName];
 
                 List<StackTrace> eventUnhookedStackTraces = new List<StackTrace>();
-                if(_eventsUnhooked.ContainsKey(eventName))
-                    eventUnhookedStackTraces  = _eventsUnhooked[eventName];
+                if (_eventsUnhooked.ContainsKey(eventName))
+                    eventUnhookedStackTraces = _eventsUnhooked[eventName];
 
                 Debug.WriteLine(eventName + " was left hooked after " + eventHookedStackTraces.Count + " hooks and " + eventUnhookedStackTraces.Count + " unhooks!");
-                    
+
                 Debug.WriteLine(eventName + " hooks:");
                 eventHookedStackTraces.ForEach(stackTrace => Debug.WriteLine(stackTrace));
-                
+
                 Debug.WriteLine(eventName + " unhooks:");
                 eventUnhookedStackTraces.ForEach(stackTrace => Debug.WriteLine(stackTrace));
             }

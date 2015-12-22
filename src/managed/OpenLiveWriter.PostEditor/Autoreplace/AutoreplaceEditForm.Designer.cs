@@ -35,9 +35,9 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             this.textBoxReplace = new System.Windows.Forms.TextBox();
             this.labelReplace = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -48,9 +48,9 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(198, 260);
@@ -60,27 +60,27 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
+            //
             // textBoxPhrase
-            // 
+            //
             this.textBoxPhrase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPhrase.Location = new System.Drawing.Point(12, 25);
             this.textBoxPhrase.Name = "textBoxPhrase";
             this.textBoxPhrase.Size = new System.Drawing.Size(342, 21);
             this.textBoxPhrase.TabIndex = 5;
-            // 
+            //
             // labelPhrase
-            // 
+            //
             this.labelPhrase.AutoSize = true;
             this.labelPhrase.Location = new System.Drawing.Point(9, 9);
             this.labelPhrase.Name = "labelPhrase";
             this.labelPhrase.Size = new System.Drawing.Size(86, 13);
             this.labelPhrase.TabIndex = 0;
             this.labelPhrase.Text = "Word or Phrase:";
-            // 
+            //
             // textBoxReplace
-            // 
+            //
             this.textBoxReplace.AcceptsReturn = true;
             this.textBoxReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
@@ -91,18 +91,18 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             this.textBoxReplace.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxReplace.Size = new System.Drawing.Size(342, 189);
             this.textBoxReplace.TabIndex = 15;
-            // 
+            //
             // labelReplace
-            // 
+            //
             this.labelReplace.AutoSize = true;
             this.labelReplace.Location = new System.Drawing.Point(9, 49);
             this.labelReplace.Name = "labelReplace";
             this.labelReplace.Size = new System.Drawing.Size(102, 13);
             this.labelReplace.TabIndex = 10;
             this.labelReplace.Text = "Replacement value:";
-            // 
+            //
             // AutoreplaceEditForm
-            // 
+            //
             this.AcceptButton = this.buttonOK;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.CancelButton = this.buttonCancel;

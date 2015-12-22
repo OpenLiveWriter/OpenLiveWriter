@@ -4,12 +4,12 @@
 using System;
 
 namespace OpenLiveWriter.SpellChecker
-{		
-	public class SpellingTimer : System.Windows.Forms.Timer
-	{
-			public SpellingTimer(int interval)
-			{
-				Interval = interval;
-			}
-	}
+{
+    public class SpellingTimer : System.Windows.Forms.Timer
+    {
+            public SpellingTimer(int interval)
+            {
+                Interval = interval;
+            }
+    }
 }

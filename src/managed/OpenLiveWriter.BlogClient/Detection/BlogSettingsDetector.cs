@@ -6,7 +6,7 @@ using System.Net;
 using System.Globalization;
 using System.Text;
 using System.Xml;
-using System.IO ;
+using System.IO;
 using System.Drawing;
 using System.Diagnostics;
 using System.Collections;
@@ -20,213 +20,212 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.BlogClient.Detection
 {
-	public interface ISelfConfiguringClient : IBlogClient
-	{
-		void DetectSettings(IBlogSettingsDetectionContext context, BlogSettingsDetector detector);
-	}
-	
-	public interface IBlogSettingsDetectionContext
-	{
-		string HomepageUrl { get; }
-		string HostBlogId { get; }
-		string PostApiUrl { get; }
-		IBlogCredentialsAccessor Credentials { get; }
-		string ProviderId { get; }
-		IDictionary UserOptionOverrides { get; }
+    public interface ISelfConfiguringClient : IBlogClient
+    {
+        void DetectSettings(IBlogSettingsDetectionContext context, BlogSettingsDetector detector);
+    }
 
-		WriterEditingManifestDownloadInfo ManifestDownloadInfo { get; set; }
-		string ClientType { get; set; }
-		byte [] FavIcon { get; set; }
-		byte [] Image { get; set; }
-		byte [] WatermarkImage { get; set; }
-		BlogPostCategory[] Categories { get; set; }
+    public interface IBlogSettingsDetectionContext
+    {
+        string HomepageUrl { get; }
+        string HostBlogId { get; }
+        string PostApiUrl { get; }
+        IBlogCredentialsAccessor Credentials { get; }
+        string ProviderId { get; }
+        IDictionary UserOptionOverrides { get; }
+
+        WriterEditingManifestDownloadInfo ManifestDownloadInfo { get; set; }
+        string ClientType { get; set; }
+        byte[] FavIcon { get; set; }
+        byte[] Image { get; set; }
+        byte[] WatermarkImage { get; set; }
+        BlogPostCategory[] Categories { get; set; }
         BlogPostKeyword[] Keywords { get; set; }
-		IDictionary OptionOverrides { get; set; }
+        IDictionary OptionOverrides { get; set; }
         IDictionary HomePageOverrides { get; set; }
-		IBlogProviderButtonDescription[] ButtonDescriptions { get; set; }
-	}
+        IBlogProviderButtonDescription[] ButtonDescriptions { get; set; }
+    }
 
-	public interface ITemporaryBlogSettingsDetectionContext : IBlogSettingsDetectionContext
-	{
-		BlogInfo[] AvailableImageEndpoints { get; set; }
-	}
+    public interface ITemporaryBlogSettingsDetectionContext : IBlogSettingsDetectionContext
+    {
+        BlogInfo[] AvailableImageEndpoints { get; set; }
+    }
 
-	public interface IBlogSettingsDetectionContextForCategorySchemeHack : IBlogSettingsDetectionContext
-	{
-		string InitialCategoryScheme { get; }
-	}
+    public interface IBlogSettingsDetectionContextForCategorySchemeHack : IBlogSettingsDetectionContext
+    {
+        string InitialCategoryScheme { get; }
+    }
 
-	internal interface IBlogClientForCategorySchemeHack : IBlogClient
-	{
-		string DefaultCategoryScheme { set; }
-	}
+    internal interface IBlogClientForCategorySchemeHack : IBlogClient
+    {
+        string DefaultCategoryScheme { set; }
+    }
 
-	public class BlogSettingsDetector
-	{
-		/// <summary>
-		/// Create a blog client based on all of the context we currently have available
-		/// </summary>
-		/// <returns></returns>
-		private IBlogClient CreateBlogClient()
-		{
+    public class BlogSettingsDetector
+    {
+        /// <summary>
+        /// Create a blog client based on all of the context we currently have available
+        /// </summary>
+        /// <returns></returns>
+        private IBlogClient CreateBlogClient()
+        {
             return BlogClientManager.CreateClient(_context.ClientType, _context.PostApiUrl, _context.Credentials, _context.ProviderId, _context.OptionOverrides, _context.UserOptionOverrides, _context.HomePageOverrides);
-		}
+        }
 
-		private HttpWebResponse ExecuteHttpRequest( string requestUri, int timeoutMs, HttpRequestFilter filter )
-		{
-			return CreateBlogClient().SendAuthenticatedHttpRequest(requestUri, timeoutMs, filter) ;
-		}
+        private HttpWebResponse ExecuteHttpRequest(string requestUri, int timeoutMs, HttpRequestFilter filter)
+        {
+            return CreateBlogClient().SendAuthenticatedHttpRequest(requestUri, timeoutMs, filter);
+        }
 
-		public BlogSettingsDetector(IBlogSettingsDetectionContext context)
-		{
-			// save the context
-			_context = context ;
+        public BlogSettingsDetector(IBlogSettingsDetectionContext context)
+        {
+            // save the context
+            _context = context;
 
-			_homepageAccessor = new LazyHomepageDownloader(_context.HomepageUrl, new HttpRequestHandler(ExecuteHttpRequest));
-		}
+            _homepageAccessor = new LazyHomepageDownloader(_context.HomepageUrl, new HttpRequestHandler(ExecuteHttpRequest));
+        }
 
-		public bool SilentMode
-		{
-			get { return _silentMode; }		
-			set { _silentMode = value; }
-		}
-		private bool _silentMode = false ;
+        public bool SilentMode
+        {
+            get { return _silentMode; }
+            set { _silentMode = value; }
+        }
+        private bool _silentMode = false;
 
-		public bool IncludeFavIcon
-		{
-			get { return _includeFavIcon && _context.Image == null; }
-			set { _includeFavIcon = value; }
-		}
-		private bool _includeFavIcon = true ;
+        public bool IncludeFavIcon
+        {
+            get { return _includeFavIcon && _context.Image == null; }
+            set { _includeFavIcon = value; }
+        }
+        private bool _includeFavIcon = true;
 
-		public bool IncludeImageEndpoints
-		{
-			get { return _includeImageEndpoints; }
-			set { _includeImageEndpoints = value; }
-		}
-		private bool _includeImageEndpoints = true ;
+        public bool IncludeImageEndpoints
+        {
+            get { return _includeImageEndpoints; }
+            set { _includeImageEndpoints = value; }
+        }
+        private bool _includeImageEndpoints = true;
 
-		public bool IncludeCategories
-		{
-			get { return _includeCategories; }
-			set { _includeCategories = value; }
-		}
-		private bool _includeCategories = true ;
+        public bool IncludeCategories
+        {
+            get { return _includeCategories; }
+            set { _includeCategories = value; }
+        }
+        private bool _includeCategories = true;
 
-		public bool IncludeCategoryScheme
-		{
-			get { return _includeCategoryScheme; }
-			set { _includeCategoryScheme = value; }
-		}
-		private bool _includeCategoryScheme = true ;
+        public bool IncludeCategoryScheme
+        {
+            get { return _includeCategoryScheme; }
+            set { _includeCategoryScheme = value; }
+        }
+        private bool _includeCategoryScheme = true;
 
-		public bool IncludeOptionOverrides
-		{
-			get { return _includeOptionOverrides; }
-			set { _includeOptionOverrides = value; }
-		}
-		private bool _includeOptionOverrides = true ;
+        public bool IncludeOptionOverrides
+        {
+            get { return _includeOptionOverrides; }
+            set { _includeOptionOverrides = value; }
+        }
+        private bool _includeOptionOverrides = true;
 
-		public bool IncludeInsecureOperations
-		{
-			get { return _includeInsecureOperations; }
+        public bool IncludeInsecureOperations
+        {
+            get { return _includeInsecureOperations; }
             set { _includeInsecureOperations = value; }
-		}
+        }
         private bool _includeInsecureOperations = true;
 
-		public bool IncludeHomePageSettings
-		{
+        public bool IncludeHomePageSettings
+        {
             get { return _includeHomePageSettings; }
             set { _includeHomePageSettings = value; }
-		}
+        }
         private bool _includeHomePageSettings = true;
 
         public bool IncludeImages
-		{
-			get { return _includeWatermark; }
-			set { _includeWatermark = value; }
-		}
-		private bool _includeWatermark = true ;
+        {
+            get { return _includeWatermark; }
+            set { _includeWatermark = value; }
+        }
+        private bool _includeWatermark = true;
 
-		public bool IncludeButtons
-		{
-			get { return _includeButtons; }
-			set { _includeButtons = value; }
-		}
-		private bool _includeButtons = true ;
+        public bool IncludeButtons
+        {
+            get { return _includeButtons; }
+            set { _includeButtons = value; }
+        }
+        private bool _includeButtons = true;
 
-		public bool UseManifestCache
-		{
-			get { return _useManifestCache; }
-			set { _useManifestCache = value; }
-		}
-		private bool _useManifestCache = false ;
+        public bool UseManifestCache
+        {
+            get { return _useManifestCache; }
+            set { _useManifestCache = value; }
+        }
+        private bool _useManifestCache = false;
 
-		private LazyHomepageDownloader _homepageAccessor;
+        private LazyHomepageDownloader _homepageAccessor;
 
-		public object DetectSettings(IProgressHost progressHost)
-		{
-			using ( _silentMode ? new BlogClientUIContextSilentMode() : null )
-			{
-				if ( IncludeButtons || IncludeOptionOverrides || IncludeImages )
-				{
-					using ( new ProgressContext(progressHost, 40, Res.Get(StringId.ProgressDetectingWeblogSettings)) )
-					{
-						// attempt to download editing manifest
-						WriterEditingManifest editingManifest = SafeDownloadEditingManifest() ;
+        public object DetectSettings(IProgressHost progressHost)
+        {
+            using (_silentMode ? new BlogClientUIContextSilentMode() : null)
+            {
+                if (IncludeButtons || IncludeOptionOverrides || IncludeImages)
+                {
+                    using (new ProgressContext(progressHost, 40, Res.Get(StringId.ProgressDetectingWeblogSettings)))
+                    {
+                        // attempt to download editing manifest
+                        WriterEditingManifest editingManifest = SafeDownloadEditingManifest();
 
-						if ( editingManifest != null )
-						{
-							// always update the download info 
-							if ( editingManifest.DownloadInfo != null )
-								_context.ManifestDownloadInfo = editingManifest.DownloadInfo ;
+                        if (editingManifest != null)
+                        {
+                            // always update the download info
+                            if (editingManifest.DownloadInfo != null)
+                                _context.ManifestDownloadInfo = editingManifest.DownloadInfo;
 
-							// images
-							if ( IncludeImages )
-							{
-								// image if provided
-								if ( editingManifest.Image != null )
-									_context.Image = editingManifest.Image ;
-								
-								// watermark if provided
-								if ( editingManifest.Watermark != null )
-									_context.WatermarkImage = editingManifest.Watermark ;
-							}
+                            // images
+                            if (IncludeImages)
+                            {
+                                // image if provided
+                                if (editingManifest.Image != null)
+                                    _context.Image = editingManifest.Image;
 
-							// buttons if provided
-							if ( IncludeButtons && (editingManifest.ButtonDescriptions != null) )
-								_context.ButtonDescriptions = editingManifest.ButtonDescriptions ;
+                                // watermark if provided
+                                if (editingManifest.Watermark != null)
+                                    _context.WatermarkImage = editingManifest.Watermark;
+                            }
 
-							// option overrides if provided
-							if ( IncludeOptionOverrides )
-							{
-								if (editingManifest.ClientType != null)
-									_context.ClientType = editingManifest.ClientType ;
+                            // buttons if provided
+                            if (IncludeButtons && (editingManifest.ButtonDescriptions != null))
+                                _context.ButtonDescriptions = editingManifest.ButtonDescriptions;
 
-								if (editingManifest.OptionOverrides != null)
-									_context.OptionOverrides = editingManifest.OptionOverrides ;								
-							}
-						}
-					}
-				}
+                            // option overrides if provided
+                            if (IncludeOptionOverrides)
+                            {
+                                if (editingManifest.ClientType != null)
+                                    _context.ClientType = editingManifest.ClientType;
 
-				using ( new ProgressContext(progressHost, 40, Res.Get(StringId.ProgressDetectingWeblogCharSet)) )
-				{
-					if (IncludeOptionOverrides && IncludeHomePageSettings)
-					{
-					    DetectHomePageSettings();
-					}
-				}
+                                if (editingManifest.OptionOverrides != null)
+                                    _context.OptionOverrides = editingManifest.OptionOverrides;
+                            }
+                        }
+                    }
+                }
 
-			    IBlogClient blogClient = CreateBlogClient();
-                if ( IncludeInsecureOperations || blogClient.IsSecure )
+                using (new ProgressContext(progressHost, 40, Res.Get(StringId.ProgressDetectingWeblogCharSet)))
+                {
+                    if (IncludeOptionOverrides && IncludeHomePageSettings)
+                    {
+                        DetectHomePageSettings();
+                    }
+                }
+
+                IBlogClient blogClient = CreateBlogClient();
+                if (IncludeInsecureOperations || blogClient.IsSecure)
                 {
                     if (blogClient is ISelfConfiguringClient)
                     {
                         // This must happen before categories detection but after manifest!!
-                        ((ISelfConfiguringClient) blogClient).DetectSettings(_context, this);
+                        ((ISelfConfiguringClient)blogClient).DetectSettings(_context, this);
                     }
-
 
                     // detect categories
                     if (IncludeCategories)
@@ -244,8 +243,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                         }
                     }
 
-
-                    // detect favicon (only if requested AND we don't have a PNG already 
+                    // detect favicon (only if requested AND we don't have a PNG already
                     // for the small image size)
                     if (IncludeFavIcon)
                     {
@@ -285,22 +283,22 @@ namespace OpenLiveWriter.BlogClient.Detection
                         }
                     }
                 }
-			    // completed
-				progressHost.UpdateProgress(100,100, Res.Get(StringId.ProgressCompletedSettingsDetection));
-			}
+                // completed
+                progressHost.UpdateProgress(100, 100, Res.Get(StringId.ProgressCompletedSettingsDetection));
+            }
 
-			return this ;
-		}
+            return this;
+        }
 
         /// <summary>
         /// Any setting that is derivaed from the homepage html needs to be in this function.  This function is turned
-        /// on and off when detecting blog seetings through the IncludeHomePageSettings.  None of these checks will be run 
-        /// if the internet is not active.  As each check is made, it does not need to be applied back the _content until the end 
+        /// on and off when detecting blog seetings through the IncludeHomePageSettings.  None of these checks will be run
+        /// if the internet is not active.  As each check is made, it does not need to be applied back the _content until the end
         /// at which time it will write the settings back to the registry.
         /// </summary>
         private void DetectHomePageSettings()
         {
-            if(_homepageAccessor.HtmlDocument == null) return;
+            if (_homepageAccessor.HtmlDocument == null) return;
 
             IDictionary homepageSettings = new Hashtable();
 
@@ -315,7 +313,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 }
                 catch (NotSupportedException)
                 {
-                    //not an actual encoding	
+                    //not an actual encoding
                 }
 
             }
@@ -343,7 +341,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                     homepageSettings.Add(BlogClientOptions.TEMPLATE_IS_RTL, true.ToString(CultureInfo.InvariantCulture));
                 }
             }
-            
+
             if (_homepageAccessor.HtmlDocument != null)
             {
                 string html = _homepageAccessor.OriginalHtml;
@@ -356,129 +354,128 @@ namespace OpenLiveWriter.BlogClient.Detection
 
             _context.HomePageOverrides = homepageSettings;
         }
-	
-		private byte[] SafeDownloadFavIcon()
-		{
 
-			byte[] favIcon = SafeProbeForFavIconFromFile() ;
-			if ( favIcon != null )
-				return favIcon ;
-			else
-				return SafeProbeForFavIconFromLinkTag() ;
-		}
+        private byte[] SafeDownloadFavIcon()
+        {
 
-		private byte[] SafeProbeForFavIconFromFile()
-		{
-			try
-			{
-				string favIconUrl = UrlHelper.UrlCombine(_context.HomepageUrl, "favicon.ico") ;	
-				using ( Stream favIconStream = SafeDownloadFavIcon(favIconUrl) ) 
-				{
-					if ( favIconStream != null )
-						return FavIconArrayFromStream(favIconStream)			 ;
-					else
-						return null ;
-				}
-			}
-			catch(Exception ex)
-			{
-				ReportException("attempting to download favicon", ex) ;
-				return null ;
-			}
-		}
+            byte[] favIcon = SafeProbeForFavIconFromFile();
+            if (favIcon != null)
+                return favIcon;
+            else
+                return SafeProbeForFavIconFromLinkTag();
+        }
 
-		
-		private byte[] SafeProbeForFavIconFromLinkTag()
-		{
-			try
-			{
-				if ( _homepageAccessor.HtmlDocument != null )
-				{
-					LightWeightTag[] linkTags = _homepageAccessor.HtmlDocument.GetTagsByName(HTMLTokens.Link);
-					foreach ( LightWeightTag linkTag in linkTags )
-					{
-						string rel = linkTag.BeginTag.GetAttributeValue("rel") ;
-						string href = linkTag.BeginTag.GetAttributeValue("href") ;
-						if ( rel != null && rel.Trim().ToUpperInvariant() == "SHORTCUT ICON" && href != null )
-						{
-							// now we have the favicon url, try to download it
-							string favIconUrl = UrlHelper.UrlCombineIfRelative(_context.HomepageUrl, href) ;
-							using ( Stream favIconStream = SafeDownloadFavIcon(favIconUrl) )
-							{
-								if ( favIconStream != null )
-									return FavIconArrayFromStream(favIconStream) ;
-							}
-						}
-					}
-				}
+        private byte[] SafeProbeForFavIconFromFile()
+        {
+            try
+            {
+                string favIconUrl = UrlHelper.UrlCombine(_context.HomepageUrl, "favicon.ico");
+                using (Stream favIconStream = SafeDownloadFavIcon(favIconUrl))
+                {
+                    if (favIconStream != null)
+                        return FavIconArrayFromStream(favIconStream);
+                    else
+                        return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ReportException("attempting to download favicon", ex);
+                return null;
+            }
+        }
 
-				// didn't find the favicon this way
-				return null ;
-			}
-			catch(Exception ex)
-			{
-				ReportException("attempting to download favicon from link tag", ex  ) ;
-				return null ;
-			}
-		}
+        private byte[] SafeProbeForFavIconFromLinkTag()
+        {
+            try
+            {
+                if (_homepageAccessor.HtmlDocument != null)
+                {
+                    LightWeightTag[] linkTags = _homepageAccessor.HtmlDocument.GetTagsByName(HTMLTokens.Link);
+                    foreach (LightWeightTag linkTag in linkTags)
+                    {
+                        string rel = linkTag.BeginTag.GetAttributeValue("rel");
+                        string href = linkTag.BeginTag.GetAttributeValue("href");
+                        if (rel != null && rel.Trim().ToUpperInvariant() == "SHORTCUT ICON" && href != null)
+                        {
+                            // now we have the favicon url, try to download it
+                            string favIconUrl = UrlHelper.UrlCombineIfRelative(_context.HomepageUrl, href);
+                            using (Stream favIconStream = SafeDownloadFavIcon(favIconUrl))
+                            {
+                                if (favIconStream != null)
+                                    return FavIconArrayFromStream(favIconStream);
+                            }
+                        }
+                    }
+                }
 
-		private byte[] FavIconArrayFromStream(Stream favIconStream)
-		{
-			using ( MemoryStream memoryStream = new MemoryStream() )
-			{
-				// copy it to a memory stream
-				StreamHelper.Transfer(favIconStream, memoryStream) ;
-				memoryStream.Seek(0, SeekOrigin.Begin) ;
+                // didn't find the favicon this way
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ReportException("attempting to download favicon from link tag", ex);
+                return null;
+            }
+        }
 
-				// validate that it is indeed an icon
-				try
-				{
-					Icon icon = new Icon(memoryStream) ;
-					(icon as IDisposable).Dispose();
-					
-					memoryStream.Seek(0, SeekOrigin.Begin) ;
-					return memoryStream.ToArray() ;
-				}
-				catch
-				{
-					return null ;
-				}
-			}	
-		}
+        private byte[] FavIconArrayFromStream(Stream favIconStream)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // copy it to a memory stream
+                StreamHelper.Transfer(favIconStream, memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
 
-		private Stream SafeDownloadFavIcon(string favIconUrl)
-		{
-			try
-			{
-				string favIconPath = UrlDownloadToFile.Download(favIconUrl, 3000) ;
-				return new FileStream(favIconPath, FileMode.Open) ;
-			}
-			catch
-			{
-				return null ;
-			}
-		}
-		
-		private BlogPostCategory[] SafeDownloadCategories()
-		{
-			try
-			{
-				IBlogClient blogClient = CreateBlogClient();
+                // validate that it is indeed an icon
+                try
+                {
+                    Icon icon = new Icon(memoryStream);
+                    (icon as IDisposable).Dispose();
 
-				if (blogClient is IBlogClientForCategorySchemeHack && _context is IBlogSettingsDetectionContextForCategorySchemeHack)
-				{
-					((IBlogClientForCategorySchemeHack) blogClient).DefaultCategoryScheme =
-						((IBlogSettingsDetectionContextForCategorySchemeHack) _context).InitialCategoryScheme;
-				}
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    return memoryStream.ToArray();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
 
-				return blogClient.GetCategories(_context.HostBlogId) ;
-			}
-			catch(Exception ex)
-			{
-				ReportException("attempting to download categories", ex  ) ;
-				return null ;
-			}
-		}
+        private Stream SafeDownloadFavIcon(string favIconUrl)
+        {
+            try
+            {
+                string favIconPath = UrlDownloadToFile.Download(favIconUrl, 3000);
+                return new FileStream(favIconPath, FileMode.Open);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private BlogPostCategory[] SafeDownloadCategories()
+        {
+            try
+            {
+                IBlogClient blogClient = CreateBlogClient();
+
+                if (blogClient is IBlogClientForCategorySchemeHack && _context is IBlogSettingsDetectionContextForCategorySchemeHack)
+                {
+                    ((IBlogClientForCategorySchemeHack)blogClient).DefaultCategoryScheme =
+                        ((IBlogSettingsDetectionContextForCategorySchemeHack)_context).InitialCategoryScheme;
+                }
+
+                return blogClient.GetCategories(_context.HostBlogId);
+            }
+            catch (Exception ex)
+            {
+                ReportException("attempting to download categories", ex);
+                return null;
+            }
+        }
 
         private BlogPostKeyword[] SafeDownloadKeywords()
         {
@@ -497,82 +494,74 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
         }
 
+        private WriterEditingManifest SafeDownloadEditingManifest()
+        {
+            WriterEditingManifest editingManifest = null;
+            try
+            {
+                // create a blog client
+                IBlogClient blogClient = CreateBlogClient();
 
-		
-		private WriterEditingManifest SafeDownloadEditingManifest()
-		{
-			WriterEditingManifest editingManifest = null ;
-			try
-			{
-				// create a blog client
-				IBlogClient blogClient = CreateBlogClient() ;
+                // can we get one based on cached download info
+                IBlogCredentialsAccessor credentialsToUse = (IncludeInsecureOperations || blogClient.IsSecure) ? _context.Credentials : null;
+                if (_context.ManifestDownloadInfo != null)
+                {
+                    string manifestUrl = _context.ManifestDownloadInfo.SourceUrl;
+                    if (UseManifestCache)
+                        editingManifest = WriterEditingManifest.FromDownloadInfo(_context.ManifestDownloadInfo, blogClient, credentialsToUse, true);
+                    else
+                        editingManifest = WriterEditingManifest.FromUrl(new Uri(manifestUrl), blogClient, credentialsToUse, true);
+                }
 
-				// can we get one based on cached download info
-			    IBlogCredentialsAccessor credentialsToUse = (IncludeInsecureOperations || blogClient.IsSecure) ? _context.Credentials : null;
-			    if ( _context.ManifestDownloadInfo != null )
-				{
-					string manifestUrl = _context.ManifestDownloadInfo.SourceUrl ;
-					if ( UseManifestCache )
-						editingManifest = WriterEditingManifest.FromDownloadInfo(_context.ManifestDownloadInfo, blogClient, credentialsToUse,  true) ;
-					else
-						editingManifest = WriterEditingManifest.FromUrl(new Uri(manifestUrl), blogClient, credentialsToUse, true) ;
-				}
-				
-				// if we don't have one yet then probe for one
-				if ( editingManifest == null )
-				{
-					editingManifest = WriterEditingManifest.FromHomepage(_homepageAccessor, new Uri(_context.HomepageUrl), blogClient, credentialsToUse) ;	
-				}
-			}
-			catch(Exception ex)
-			{
-				ReportException("attempting to download editing manifest", ex) ;
-			}
+                // if we don't have one yet then probe for one
+                if (editingManifest == null)
+                {
+                    editingManifest = WriterEditingManifest.FromHomepage(_homepageAccessor, new Uri(_context.HomepageUrl), blogClient, credentialsToUse);
+                }
+            }
+            catch (Exception ex)
+            {
+                ReportException("attempting to download editing manifest", ex);
+            }
 
-			// return whatever we found
-			return editingManifest ;
-		}
-		
-		
-		private void ReportException(string context, Exception ex)
-		{
-			string error = String.Format(CultureInfo.InvariantCulture, "Exception occurred {0} for weblog {1}: {2}", context,  _context.HomepageUrl, ex.ToString());
-				
-			if ( _silentMode )
-			{
-				Trace.WriteLine(error);
-			}
-			else
-				Trace.Fail(error);
+            // return whatever we found
+            return editingManifest;
+        }
 
-		}
-		
-	
-		// detection context
-		private IBlogSettingsDetectionContext _context ;
+        private void ReportException(string context, Exception ex)
+        {
+            string error = String.Format(CultureInfo.InvariantCulture, "Exception occurred {0} for weblog {1}: {2}", context, _context.HomepageUrl, ex.ToString());
 
+            if (_silentMode)
+            {
+                Trace.WriteLine(error);
+            }
+            else
+                Trace.Fail(error);
 
-		// helper class for wrapping progress around steps
-		private class ProgressContext : IDisposable
-		{
-			public ProgressContext(IProgressHost progressHost, int complete, string message)
-			{
-				_progressHost = progressHost ;
-				_progressHost.UpdateProgress(complete, 100, message);
-			}
+        }
 
-			public void Dispose()
-			{
-				if(_progressHost.CancelRequested)
-					throw new OperationCancelledException();
-			}
+        // detection context
+        private IBlogSettingsDetectionContext _context;
 
+        // helper class for wrapping progress around steps
+        private class ProgressContext : IDisposable
+        {
+            public ProgressContext(IProgressHost progressHost, int complete, string message)
+            {
+                _progressHost = progressHost;
+                _progressHost.UpdateProgress(complete, 100, message);
+            }
 
-			private IProgressHost _progressHost ;
+            public void Dispose()
+            {
+                if (_progressHost.CancelRequested)
+                    throw new OperationCancelledException();
+            }
 
-		}
-	}
+            private IProgressHost _progressHost;
 
-
+        }
+    }
 
 }

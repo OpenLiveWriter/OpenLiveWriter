@@ -45,10 +45,10 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+
             // We do this just to reverse the anchor directions of the children
             BidiHelper.RtlLayoutFixup(this, true, true, Controls);
-            
+
             UpdateQueryStatus();
         }
 
@@ -113,7 +113,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 RefreshRequested(this, EventArgs.Empty);
         }
 
-
         private void buttonPreviousPage_Click(object sender, EventArgs e)
         {
             if (_currentPage > 1)
@@ -159,16 +158,16 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 buttonNextPage.Left = 0;
                 buttonPreviousPage.Left = buttonNextPage.Right + PADDING_X;
                 labelQueryStatus.Left = buttonPreviousPage.Right + PADDING_X;
-                
+
             }
             else
             {
                 buttonNextPage.Left = Width - buttonNextPage.Width;
                 buttonPreviousPage.Left = buttonNextPage.Left - buttonPreviousPage.Width - PADDING_X;
                 labelQueryStatus.Left = buttonPreviousPage.Left - labelQueryStatus.Width - PADDING_X;
-                labelQueryStatus.TextAlign = ContentAlignment.MiddleRight;    
+                labelQueryStatus.TextAlign = ContentAlignment.MiddleRight;
             }
-            
+
         }
 
         private static readonly int PADDING_X = 2;
@@ -210,7 +209,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             RefreshLayout();
         }
 
-
         private static string FormatVideoString(int beginIndex, int endIndex)
         {
             if (beginIndex != endIndex)
@@ -219,16 +217,15 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 return String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.Plugin_Video_Soapbox_Result_Single), beginIndex);
         }
 
-
         private void InitializeComponent()
         {
             this.labelQueryStatus = new System.Windows.Forms.Label();
             this.buttonPreviousPage = new OpenLiveWriter.Controls.XPBitmapButton();
             this.buttonNextPage = new OpenLiveWriter.Controls.XPBitmapButton();
             this.SuspendLayout();
-            // 
+            //
             // labelQueryStatus
-            // 
+            //
             this.labelQueryStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelQueryStatus.BackColor = System.Drawing.SystemColors.Control;
             this.labelQueryStatus.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -237,27 +234,27 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             this.labelQueryStatus.Size = new System.Drawing.Size(192, 18);
             this.labelQueryStatus.TabIndex = 9;
             this.labelQueryStatus.Text = "11 to 20 (of 121)";
-            // 
+            //
             // buttonPreviousPage
-            // 
+            //
             this.buttonPreviousPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonPreviousPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonPreviousPage.Location = new System.Drawing.Point(201, -1);
             this.buttonPreviousPage.Name = "buttonPreviousPage";
             this.buttonPreviousPage.Size = new System.Drawing.Size(23, 21);
             this.buttonPreviousPage.TabIndex = 10;
-            // 
+            //
             // buttonNextPage
-            // 
+            //
             this.buttonNextPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNextPage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.buttonNextPage.Location = new System.Drawing.Point(224, -1);
             this.buttonNextPage.Name = "buttonNextPage";
             this.buttonNextPage.Size = new System.Drawing.Size(23, 21);
             this.buttonNextPage.TabIndex = 11;
-            // 
+            //
             // VideoPagingControl
-            // 
+            //
             this.Controls.Add(this.labelQueryStatus);
             this.Controls.Add(this.buttonPreviousPage);
             this.Controls.Add(this.buttonNextPage);

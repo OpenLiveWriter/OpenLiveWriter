@@ -25,17 +25,17 @@ namespace OpenLiveWriter.PostEditor.Commands
             foreach (Command c in Commands)
             {
                 Debug.Assert(c.Tag is IComparable);
-                c.Execute += executeHandler;                            
+                c.Execute += executeHandler;
             }
-                
+
         }
 
         public virtual void SelectTag(T tag)
         {
             foreach (Command c in Commands)
-            {                
+            {
                 IComparable comparable = c.Tag as IComparable;
-                Debug.Assert(c.Tag is IComparable);                
+                Debug.Assert(c.Tag is IComparable);
 
                 bool selected = comparable != null && comparable.CompareTo(tag) == 0;
                 c.Latched = selected;
@@ -58,7 +58,7 @@ namespace OpenLiveWriter.PostEditor.Commands
         /// </summary>
         /// <param name="selectedCommand"></param>
         public virtual void UpdateDropdown(Command selectedCommand)
-        {            
+        {
             DropDownCommand.LabelTitle = selectedCommand.LabelTitle;
         }
 
@@ -83,12 +83,12 @@ namespace OpenLiveWriter.PostEditor.Commands
             }
 
             set
-            {                
+            {
                 foreach (Command c in Commands)
                 {
                     c.Enabled = value;
                 }
-                DropDownCommand.Enabled = value;               
+                DropDownCommand.Enabled = value;
             }
         }
     }
@@ -111,10 +111,10 @@ namespace OpenLiveWriter.PostEditor.Commands
 
         protected static PropertyKey[] Keys = new[] { PropertyKeys.BooleanValue };
         protected virtual void OnExecute(Command executedCommand)
-        {                        
+        {
             foreach (Command c in Commands)
             {
-                c.Latched = c.CommandId == executedCommand.CommandId;                
+                c.Latched = c.CommandId == executedCommand.CommandId;
                 c.Invalidate(Keys);
             }
         }
@@ -122,6 +122,6 @@ namespace OpenLiveWriter.PostEditor.Commands
         private void command_Execute(object sender, EventArgs e)
         {
             OnExecute((Command)sender);
-        }        
+        }
     }
 }

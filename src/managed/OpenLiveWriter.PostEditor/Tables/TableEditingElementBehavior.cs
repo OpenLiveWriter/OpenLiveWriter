@@ -25,14 +25,12 @@ namespace OpenLiveWriter.PostEditor.Tables
             _tableEditingManager = tableEditingManager;
         }
 
-
-
         protected override void OnElementAttached()
         {
             base.OnElementAttached();
 
             // If this is a "rectangular" table then automatically add the "unselectable"
-            // attribute to it because we know we can support editing of it without 
+            // attribute to it because we know we can support editing of it without
             // erratic behavior
             TableHelper.MakeTableWriterEditableIfRectangular(HTMLElement as IHTMLTable);
 
@@ -56,7 +54,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 _tableEditingInitialized = true;
             }
         }
-       
+
         protected void HookEvents()
         {
             // subscribe to events
@@ -156,7 +154,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private void EditorContext_KeyDown(object o, HtmlEventArgs e)
         {
             if (Selected)
@@ -240,7 +237,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private static void EditorContext_PerformTemporaryFixupsToEditedHtml(TemporaryFixupArgs args)
         {
             string html = args.Html;
@@ -248,7 +244,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             {
                 StringBuilder output = new StringBuilder(html.Length);
                 SimpleHtmlParser parser = new SimpleHtmlParser(html);
-                for (Element el; null != (el = parser.Next()); )
+                for (Element el; null != (el = parser.Next());)
                 {
                     output.Append(html, el.Offset, el.Length);
                     if (el is BeginTag &&
@@ -293,7 +289,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-
         private bool MultipleCellsSelected
         {
             get
@@ -320,8 +315,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
         private TableEditingContext _tableEditingContext;
-
-
 
         private void SelectEntireTable()
         {
@@ -355,7 +348,7 @@ namespace OpenLiveWriter.PostEditor.Tables
         private bool _drawSelectionBorder = false;
 
         protected override void Dispose(bool disposeManagedResources)
-        {           
+        {
             if (!_disposed)
             {
                 if (disposeManagedResources)
@@ -393,7 +386,5 @@ namespace OpenLiveWriter.PostEditor.Tables
         private TableEditingManager _tableEditingManager;
 
     }
-
-
 
 }

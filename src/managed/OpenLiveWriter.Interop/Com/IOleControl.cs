@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -12,7 +12,6 @@ namespace OpenLiveWriter.Interop.Com
     [ComImport(), Guid("B196B288-BAB4-101A-B69C-00AA00341D07"), InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IOleControl
     {
-
 
         [PreserveSig]
         int GetControlInfo();

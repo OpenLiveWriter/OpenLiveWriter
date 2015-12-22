@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -22,7 +22,7 @@ namespace OpenLiveWriter.SpellChecker
             newRange.End.Cling = false;
             newRange.Start.Gravity = _POINTER_GRAVITY.POINTER_GRAVITY_Right;
             newRange.End.Gravity = _POINTER_GRAVITY.POINTER_GRAVITY_Left;
-            
+
             // Select just the inner-most text so that it is easier to compare to other MarkupRanges.
             newRange.SelectInner();
 
@@ -34,7 +34,7 @@ namespace OpenLiveWriter.SpellChecker
             {
                 Trace.Fail(ex.ToString());
             }
-            
+
         }
 
         public bool Contains(MarkupRange testRange)
@@ -107,7 +107,7 @@ namespace OpenLiveWriter.SpellChecker
             // Debug.WriteLine(string.Format("ClearRange:\r\n{0}\r\n{1}", clear.Start.PositionTextDetail, clear.End.PositionTextDetail));
 
             /*
-             * Start from the first range in the list where the start is left of 
+             * Start from the first range in the list where the start is left of
              * the Clear range's end. Take a look at each range until you get to
              * one where the range's end is left of the Clear range's start.
              */
@@ -210,11 +210,11 @@ namespace OpenLiveWriter.SpellChecker
         /// Does a binary search. Very similar to System.Array.BinarySearch().
         /// </summary>
         /// <returns>
-        /// The index of the specified value in the specified array, if value is found. 
-        /// If value is not found and value is less than one or more elements in array, 
-        /// a negative number which is the bitwise complement of the index of the first 
-        /// element that is larger than value. If value is not found and value is 
-        /// greater than any of the elements in array, a negative number which is the 
+        /// The index of the specified value in the specified array, if value is found.
+        /// If value is not found and value is less than one or more elements in array,
+        /// a negative number which is the bitwise complement of the index of the first
+        /// element that is larger than value. If value is not found and value is
+        /// greater than any of the elements in array, a negative number which is the
         /// bitwise complement of (the index of the last element plus 1).
         /// </returns>
         public static int BinarySearch<T>(IList<T> list, T value, IComparer<T> comparer)
@@ -226,11 +226,11 @@ namespace OpenLiveWriter.SpellChecker
             {
                 int mid = min + ((max - min)/2);
                 int result = comparer.Compare(value, list[mid]);
-                
+
                 // found it
                 if (result == 0)
                     return mid;
-                
+
                 if (result < 0)
                     max = mid;
                 else

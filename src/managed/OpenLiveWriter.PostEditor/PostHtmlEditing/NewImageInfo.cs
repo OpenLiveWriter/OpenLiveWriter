@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
@@ -7,7 +7,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     using mshtml;
 
     /// <summary>
-    /// Holds the state of an image that was just inserted into the editor, but hasn't been initialized yet. This 
+    /// Holds the state of an image that was just inserted into the editor, but hasn't been initialized yet. This
     /// object is passed around and updated as the image is initialized.
     /// </summary>
     internal class NewImageInfo
@@ -74,7 +74,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this image should be removed from the editor. Set this to true if 
+        /// Gets or sets a value indicating whether this image should be removed from the editor. Set this to true if
         /// there is an error while initializing the image.
         /// </summary>
         public bool Remove

@@ -47,7 +47,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 string text = null;
                 if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text)
                 {
-                    //if this is a text context, then get the text that is between the start and end points.					
+                    //if this is a text context, then get the text that is between the start and end points.
                     text = range.HtmlText;
 
                     //the range.HtmlText operation sometimes returns the outer tags for a text node,
@@ -207,7 +207,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         {
             string tagName = element.tagName;
 
-            // If there is no tag name, this is mostly an artificial tag reported by mshtml, 
+            // If there is no tag name, this is mostly an artificial tag reported by mshtml,
             // and not really present in the markup
             // (e.g HTMLTableCaptionClass)
             if (string.IsNullOrEmpty(tagName))

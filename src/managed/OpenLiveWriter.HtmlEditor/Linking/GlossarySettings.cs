@@ -11,7 +11,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
         private static readonly SettingsPersisterHelper Settings =
             ApplicationEnvironment.UserSettingsRoot.GetSubSettings("LinkGlossary");
 
-
         public static bool AutoLinkEnabled
         {
             get
@@ -66,11 +65,10 @@ namespace OpenLiveWriter.HtmlEditor.Linking
                 _init = value;
             }
         }
-        
 
         private static bool _enabled = true;
         private static bool _enabledInit = false;
-        
+
         private static bool _linkOnce = true;
         private static bool _linkOnceInit = false;
 

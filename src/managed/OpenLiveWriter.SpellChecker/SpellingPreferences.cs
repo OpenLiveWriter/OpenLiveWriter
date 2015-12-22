@@ -64,7 +64,6 @@ namespace OpenLiveWriter.SpellChecker
         }
         private bool ignoreWordsWithNumbers;
 
-
         /// <summary>
         /// Main language for spell checking
         /// </summary>
@@ -99,7 +98,7 @@ namespace OpenLiveWriter.SpellChecker
         }
 
         /// <summary>
-        /// Save preference values 
+        /// Save preference values
         /// </summary>
         protected override void SavePreferences()
         {

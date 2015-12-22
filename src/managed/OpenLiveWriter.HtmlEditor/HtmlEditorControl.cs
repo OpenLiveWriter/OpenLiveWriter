@@ -91,10 +91,9 @@ namespace OpenLiveWriter.HtmlEditor
             PostEditorEvent += new MshtmlEditor.EditDesignerEventHandler(HtmlEditorControl_PostEditorEvent);
             HandleClear += new HtmlEditorSelectionOperationEventHandler(TryMoveIntoNextTable);
 
-            // Hook the editor into the stream of the security manager so we 
+            // Hook the editor into the stream of the security manager so we
             // can allow our own objects (smart content, image resizing) to load in the editor
             _internetSecurityManager.HandleProcessUrlAction = HandleProcessUrlAction;
-
 
             //  Automation uses this to find the editor to automate it
             _mshtmlEditor.Name = "BorderControl";
@@ -117,7 +116,6 @@ namespace OpenLiveWriter.HtmlEditor
             _mshtmlEditor.MshtmlControl.DLControlFlagsChanged += new EventHandler(_mshtmlControl_DLControlFlagsChanged);
             _mshtmlEditor.TranslateAccelerator += new HtmlEditDesignerEventHandler(_mshtmlEditor_TranslateAccelerator);
 
-
             InitDamageServices();
 
             // notify subclasses that the editor has been created
@@ -131,8 +129,8 @@ namespace OpenLiveWriter.HtmlEditor
                 switch (args.EventObj.keyCode)
                 {
                     case (int)Keys.Enter:
-                        // WinLive 245925: Because we inline some CSS into the font tag (specifically, the font-size 
-                        // property), we need to make sure that when the user hits enter that the font-size persists 
+                        // WinLive 245925: Because we inline some CSS into the font tag (specifically, the font-size
+                        // property), we need to make sure that when the user hits enter that the font-size persists
                         // onto the next line. MSHTML does not handle this for us.
                         MarkupRange currentSelection = SelectedMarkupRange.Clone();
                         currentSelection.Start.PushGravity(_POINTER_GRAVITY.POINTER_GRAVITY_Left);
@@ -174,9 +172,9 @@ namespace OpenLiveWriter.HtmlEditor
                         }
                         break;
                     case (int)Keys.Back:
-                        // Bug 101165: MSHTML maintains internal state about font tag. After forcibly clearing the 
-                        // font backcolor, MSHTML will often insert an empty font tag on the next keystroke. This 
-                        // font tag can then mutate into <font size="+0">, which causes the font to be rendered 
+                        // Bug 101165: MSHTML maintains internal state about font tag. After forcibly clearing the
+                        // font backcolor, MSHTML will often insert an empty font tag on the next keystroke. This
+                        // font tag can then mutate into <font size="+0">, which causes the font to be rendered
                         // incorrectly.
                         GetMshtmlCommand(IDM.BACKCOLOR).Execute(null);
                         _backColorWasReset = true;
@@ -217,8 +215,8 @@ namespace OpenLiveWriter.HtmlEditor
         /// <summary>
         /// Gives the sub classes a chance to allow binary behaviors a chance
         /// to set the security policy that will be returned to mshtml
-        /// 
-        /// This will be needed by BlogPostHtmlEditor so it can set an allow 
+        ///
+        /// This will be needed by BlogPostHtmlEditor so it can set an allow
         /// policy for the bevhaiors that the canvas defines
         /// </summary>
         /// <param name="behavior"></param>
@@ -265,8 +263,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// </summary>
         protected virtual void OnEditorCreated() { }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         public virtual void Dispose()
@@ -411,7 +408,6 @@ namespace OpenLiveWriter.HtmlEditor
         }
         private IDataFormatHandlerFactory _dataFormatHandlerFactory;
 
-
         /// <summary>
         /// Save the file that was previously loaded from
         /// </summary>
@@ -419,7 +415,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
             _mshtmlEditor.SaveToFile();
         }
-
 
         public void PageSetup()
         {
@@ -443,8 +438,6 @@ namespace OpenLiveWriter.HtmlEditor
                 return true;
             }
         }
-
-
 
         /// <summary>
         /// Returns the Html generation service.
@@ -499,7 +492,7 @@ namespace OpenLiveWriter.HtmlEditor
             {
                 //if the command was not handled, but there was a disabled command configured we
                 //need to eat it so that the underlying editor doesn't try to handle this command
-                //using its default implementation (such as for Ctrl+Z triggering undo!).				
+                //using its default implementation (such as for Ctrl+Z triggering undo!).
                 Command command = CommandManager.FindCommandWithShortcut(e.KeyData);
                 if (command != null && command.On)
                 {
@@ -536,7 +529,7 @@ namespace OpenLiveWriter.HtmlEditor
                 // WinLive 252760 - It is possible to create a selection on the screen that persists even when you
                 // create a new selection, navigate around, etc.  This phantom selection is not properly reflected
                 // in the various variable regarding selection range, but is corrected when the complete mshmtl
-                // control is forced to refresh due to an invalidation. (Note: this bug was only listed for mail, 
+                // control is forced to refresh due to an invalidation. (Note: this bug was only listed for mail,
                 // but could also be reproed in writer using a slightly different situation)
                 case Keys.Up:
                 case Keys.Down:
@@ -597,7 +590,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Provide the ability to process clipboard Copy
         /// </summary>
@@ -619,7 +611,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// <summary>
         /// Provide the ability to process clipboard Cut
         /// </summary>
-        /// 
+        ///
         public event HtmlEditorSelectionOperationEventHandler HandleCut;
         protected virtual void OnCut(HtmlEditorSelectionOperationEventArgs ea)
         {
@@ -659,7 +651,7 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// WinLive 225587: If the user hits delete when the cursor is just before a table, we want to move the 
+        /// WinLive 225587: If the user hits delete when the cursor is just before a table, we want to move the
         /// content at the cursor into the first table cell. This behavior aligns us with Word 2010.
         /// </summary>
         private void TryMoveIntoNextTable(HtmlEditorSelectionOperationEventArgs ea)
@@ -677,7 +669,7 @@ namespace OpenLiveWriter.HtmlEditor
             MarkupRange postBodyRange = MarkupServices.CreateMarkupRange(PostBodyElement, false);
             postBodyRange.Start.MoveToPointer(SelectedMarkupRange.Start);
             postBodyRange.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                 {
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text ||
                         context.Element == null)
@@ -691,7 +683,7 @@ namespace OpenLiveWriter.HtmlEditor
                     {
                         if (context.Element is IHTMLBRElement && brElement == null)
                         {
-                            // Allow up to one <br> element to be between the cursor position and the next table as 
+                            // Allow up to one <br> element to be between the cursor position and the next table as
                             // long as its in our parent block element, since it won't cause a line break, e.g.:
                             //  <div>Hello[cursor]<br></div><table>...</table>
                             //  <table><tr><td>Hello[cursor]<br><table>...</table></td></tr></table>
@@ -704,7 +696,7 @@ namespace OpenLiveWriter.HtmlEditor
                     }
 
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_EnterScope)
-                    {                        
+                    {
                         if (context.Element is IHTMLTable)
                         {
                             if (StopTryMoveIntoNextTable(context.Element))
@@ -739,7 +731,7 @@ namespace OpenLiveWriter.HtmlEditor
                             }
                             else
                             {
-                                // We count up the number of block elements we've exited so we know what parent to 
+                                // We count up the number of block elements we've exited so we know what parent to
                                 // remove later, e.g.:
                                 //  <div><div><div>Hello[cursor]</div></div>[currentPosition]</div><table>...</table>
                                 numBlockElementsBetweenSelectionAndNextTable++;
@@ -782,7 +774,7 @@ namespace OpenLiveWriter.HtmlEditor
                     else
                     {
                         // The <br> would cause a line break if we moved it into the <table>, e.g.:
-                        //  <div>Hello<br></div><table><tr><td></td></tr></table> - if we moved "Hello<br>" into the 
+                        //  <div>Hello<br></div><table><tr><td></td></tr></table> - if we moved "Hello<br>" into the
                         //  <td>, the <br> would now cause a line break (although it did not when wrapped in a <div>).
                         HTMLElementHelper.RemoveElement(brElement);
                     }
@@ -948,8 +940,8 @@ namespace OpenLiveWriter.HtmlEditor
                     }
                     break;
                 case DISPID_HTMLELEMENTEVENTS2.ONKEYDOWN:
-                    // WinLive 245925: Because we inline some CSS into the font tag (specifically, the font-size 
-                    // property), we need to make sure that when the user hits enter that the font-size persists 
+                    // WinLive 245925: Because we inline some CSS into the font tag (specifically, the font-size
+                    // property), we need to make sure that when the user hits enter that the font-size persists
                     // onto the next line. MSHTML does not handle this for us.
                     if (Editable && pIEventObj.keyCode == (int)Keys.Enter && SelectedMarkupRange.IsEmptyOfText(false))
                     {
@@ -970,8 +962,8 @@ namespace OpenLiveWriter.HtmlEditor
                                 }
                                 else if (ElementFilters.IsVisibleEmptyElement(context.Element))
                                 {
-                                    // If there is any content to the right of the cursor in the current block 
-                                    // element, then it (and any font tags) will go down to the new line 
+                                    // If there is any content to the right of the cursor in the current block
+                                    // element, then it (and any font tags) will go down to the new line
                                     // automatically, so we don't have to worry about anything in this case.
                                     restOfBlockElementIsEmpty = false;
                                     break;
@@ -979,8 +971,8 @@ namespace OpenLiveWriter.HtmlEditor
                             }
                             else if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text)
                             {
-                                // If there is any content to the right of the cursor in the current block 
-                                // element, then it (and any font tags) will go down to the new line 
+                                // If there is any content to the right of the cursor in the current block
+                                // element, then it (and any font tags) will go down to the new line
                                 // automatically, so we don't have to worry about anything in this case.
                                 restOfBlockElementIsEmpty = false;
                                 break;
@@ -1041,9 +1033,6 @@ namespace OpenLiveWriter.HtmlEditor
 
         # region Command Initialization
 
-
-
-
         private IMshtmlCommand GetMshtmlCommand(uint key)
         {
             return _mshtmlEditor.Commands[key] as IMshtmlCommand;
@@ -1075,7 +1064,7 @@ namespace OpenLiveWriter.HtmlEditor
             // of this element. Instead, we walk the range to ensure we account for all elements.
             MarkupRange elementRange = MarkupServices.CreateMarkupRange(element, false);
             elementRange.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                 {
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_EnterScope)
                     {
@@ -1173,7 +1162,7 @@ namespace OpenLiveWriter.HtmlEditor
                 mshtmlEditorDragAndDropTarget.Initialize(EditorControl);
 
 #if DEBUG_STYLES
-				// StyleDebugger.ShowDebugger(_mainFrameWindow, MshtmlEditor);
+                // StyleDebugger.ShowDebugger(_mainFrameWindow, MshtmlEditor);
 #endif
                 // one-time init
                 _initialDocumentLoaded = true;
@@ -1197,7 +1186,7 @@ namespace OpenLiveWriter.HtmlEditor
             OnDocumentComplete(e);
 
             // Remove null-attributed font tags, e.g. <p><font>blah</font></p> --> <p>blah</p>
-            if (DocumentIsReady)
+            if (DocumentIsReady && PostBodyElement != null)
             {
                 MarkupRange bodyRange = MarkupServices.CreateMarkupRange(PostBodyElement);
                 bodyRange.RemoveElementsByTagId(_ELEMENT_TAG_ID.TAGID_FONT, true);
@@ -1289,10 +1278,8 @@ namespace OpenLiveWriter.HtmlEditor
             // global processing for Mouse Up (none for the time being )
         }
 
-
-
 #if SELECTION_DEBUG
-	    private SelectionDebugDialog SelectionDebugDialog;
+        private SelectionDebugDialog SelectionDebugDialog;
 #endif
         private void DocumentEvents_SelectionChanged(object sender, EventArgs e)
         {
@@ -1397,7 +1384,6 @@ namespace OpenLiveWriter.HtmlEditor
                 }
             }
 
-
         }
 
         protected bool _logInvalidEditRegions = true;
@@ -1426,7 +1412,7 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// Overridable hook that allows subclasses to customize if the current selection should be emptied because 
+        /// Overridable hook that allows subclasses to customize if the current selection should be emptied because
         /// it is invalid.
         /// </summary>
         protected virtual bool ShouldEmptySelection()
@@ -1462,18 +1448,17 @@ namespace OpenLiveWriter.HtmlEditor
                 _mshtmlEditor.DocumentEvents.SelectionChanged += new EventHandler(DocumentEvents_SelectionChanged);
             }
 
-
             _defaultSelection = new HtmlEditorSelection(_mshtmlEditor, HTMLDocument);
             ((IHtmlEditorComponentContext)this).Selection = _defaultSelection;
         }
 
         /// <summary>
-        /// This function will make sure the selection is somewhere that the 
+        /// This function will make sure the selection is somewhere that the
         /// IDM_FONTNAME command will find a font using using one of 2 methods
-        /// 
+        ///
         /// 1) <div>|</div> becomes <div><font ...>|</font></div>
         /// 2) <div>|<font></font></div> becomes <div><font>|</font></div>
-        /// 
+        ///
         /// This function is needed for Mail to provide high probability that
         /// no matter where the user selects a font tag will be there to express
         /// the font in the ribbon.Mail must use font tags to be to make sure it interops correctly
@@ -1494,17 +1479,12 @@ namespace OpenLiveWriter.HtmlEditor
                             ele.innerHTML = CurrentDefaultFont.ApplyFont("");
                     }
 
-
-
                     IHTMLElement finalElement = FindFontElement(true);
-
-
 
                     if (finalElement == null)
                     {
                         finalElement = FindFontElement(false);
                     }
-
 
                     if (finalElement != null && string.IsNullOrEmpty(finalElement.innerHTML))
                     {
@@ -1568,14 +1548,13 @@ namespace OpenLiveWriter.HtmlEditor
 
         private void _mshtmlEditor_BeforeShowContextMenu(object sender, EventArgs e)
         {
-            //FireDefaultSelectionChanged();	
+            //FireDefaultSelectionChanged();
         }
 
         private void _mshtmlEditor_DisplayChanged(object sender, EventArgs e)
         {
             OnAggressiveCommandStateChanged();
         }
-
 
         public int _mshtmlEditor_GetDropTarget(OpenLiveWriter.Interop.Com.IDropTarget pDropTarget, out OpenLiveWriter.Interop.Com.IDropTarget ppDropTarget)
         {
@@ -1597,10 +1576,6 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
 
-
-
-
-
         #endregion
 
         #region Spell Checking Helpers
@@ -1617,7 +1592,6 @@ namespace OpenLiveWriter.HtmlEditor
         //    }
         //}
         //private ISpellingChecker _spellingChecker;
-
 
         #endregion
 
@@ -1653,7 +1627,6 @@ namespace OpenLiveWriter.HtmlEditor
                 return _mshtmlEditor.MshtmlControl.MarkupServices;
             }
         }
-
 
         protected IMainFrameWindow FrameWindow
         {
@@ -1714,9 +1687,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
-
-
         protected MarkupRange CleanUpRange()
         {
             MarkupRange mRange = null;
@@ -1744,7 +1714,7 @@ namespace OpenLiveWriter.HtmlEditor
                 {
                     if (HasContiguousSelection)
                     {
-                        //try to locate the anchor within the selection.						
+                        //try to locate the anchor within the selection.
                         MarkupRange range = markupRange.Clone();
                         IHTMLElement[] anchors = range.GetElements(ElementFilters.ANCHOR_ELEMENTS, false);
                         if (anchors.Length > 1)
@@ -1780,7 +1750,7 @@ namespace OpenLiveWriter.HtmlEditor
                     // determine if this is an edit of an existing link
                     if (HasContiguousSelection)
                     {
-                        //try to locate the anchor within the selection.						
+                        //try to locate the anchor within the selection.
                         IHTMLElement[] anchors = range.GetElements(ElementFilters.ANCHOR_ELEMENTS, false);
                         if (anchors.Length > 0)
                         {
@@ -1810,7 +1780,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
             return anchor;
         }
-
 
         /// <summary>
         /// Get current selection pointers
@@ -1891,13 +1860,12 @@ namespace OpenLiveWriter.HtmlEditor
                 undoDepth++;
             }
 
-
             /// <summary>
             /// Call this method to indicate that the undo unit should be
             /// committed. Users of UndoUnit must call this when their edit is
             /// completed -- if the object is disposed and this method has not
             /// been called then all of the changes will be rolled back.
-            /// </summary>  
+            /// </summary>
             public void Commit()
             {
                 committed = true;
@@ -1930,7 +1898,6 @@ namespace OpenLiveWriter.HtmlEditor
                     // end the undo unit
                     _editor.MarkupServices.EndUndoUnit();
 
-
                     // if the edit was not completed then roll all of the changes back
                     if (_editor.uncommittedCount > 0 && undoDepth == 0)
                     {
@@ -1950,7 +1917,7 @@ namespace OpenLiveWriter.HtmlEditor
                     // command state changed
                     try
                     {
-                        // WinLive 160235: Sometimes we have an unpositioned selection at this point                       
+                        // WinLive 160235: Sometimes we have an unpositioned selection at this point
                         if (!_editor.SelectedMarkupRange.Positioned)
                             _editor.ResetSelection();
 
@@ -2037,14 +2004,14 @@ namespace OpenLiveWriter.HtmlEditor
             // screen empty list case
             if (activeRedoUnits.Count > 0)
             {
-                // the first unit in the list is our logical target 
+                // the first unit in the list is our logical target
                 IOleUndoUnit targetRedoUnit = activeRedoUnits[0] as IOleUndoUnit;
 
                 // we assume the first item in the list is visible b/c invisible undos
                 // should always be chained with a visible one. check this assumptoin
                 Trace.Assert(!InvisibleUndoUnit.UnitIsInvisible(GetUndoUnitDescription(targetRedoUnit)));
 
-                // scan the list for 'invisible' undos that are logically part of 
+                // scan the list for 'invisible' undos that are logically part of
                 // of the target redo unit. keep scanning until we find another
                 // 'visible' undo
                 for (int i = 1; i < activeRedoUnits.Count; i++)
@@ -2070,7 +2037,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         private ArrayList CopyUndoUnitsToArray(IEnumOleUndoUnits undoUnits)
         {
             // get a list of all of the undo units
@@ -2091,7 +2057,6 @@ namespace OpenLiveWriter.HtmlEditor
             undoUnit.GetDescription(out description);
             return description;
         }
-
 
         #endregion
 
@@ -2176,11 +2141,10 @@ namespace OpenLiveWriter.HtmlEditor
 
         #region Private Data
 
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         protected Container components = null;
-
 
         private MshtmlEditorDragAndDropTarget mshtmlEditorDragAndDropTarget;
         private MshtmlEditor _mshtmlEditor;
@@ -2214,8 +2178,8 @@ namespace OpenLiveWriter.HtmlEditor
         #endregion
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -2242,7 +2206,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// <param name="clientPoint"></param>
         /// <param name="select"></param>
         /// <returns></returns>
-        /// 
+        ///
         public IHTMLCaretRaw MoveCaretToClientPoint(Point clientPoint)
         {
             return MoveCaretToClientPoint(clientPoint, true);
@@ -2389,10 +2353,10 @@ namespace OpenLiveWriter.HtmlEditor
             HtmlCaret.MoveCaretToPointerEx(
                 displayPointer,
                 // Display pointer to move caret to
-                true,		// Make caret visible	
+                true,		// Make caret visible
                 true,		// Auto-scroll to caret
                 _CARET_DIRECTION.CARET_DIRECTION_SAME
-                // Preserve direction of caret 
+                // Preserve direction of caret
                 );
 
             if (select)
@@ -2408,16 +2372,16 @@ namespace OpenLiveWriter.HtmlEditor
                 HtmlCaret.MoveCaretToPointerEx(
                     displayPointer,
                     // Display pointer to move caret to
-                    true,		// Make caret visible	
+                    true,		// Make caret visible
                     true,		// Auto-scroll to caret
                     _CARET_DIRECTION.CARET_DIRECTION_SAME
-                    // Preserve direction of caret 
+                    // Preserve direction of caret
                     );
             }
         }
 
         /// <summary>
-        /// Demand retrieve (and cache) the html caret 
+        /// Demand retrieve (and cache) the html caret
         /// </summary>
         private IHTMLCaretRaw HtmlCaret
         {
@@ -2543,11 +2507,10 @@ namespace OpenLiveWriter.HtmlEditor
 
             using (undoUnit)
             {
-                // Any changes to the way we remove the content in the destination may need to be changed in 
+                // Any changes to the way we remove the content in the destination may need to be changed in
                 // KeepSourceFormatting.PasteSourceOverDestination as well!
                 MarkupPointerMoveHelper.PerformImageBreakout(start);
                 MarkupPointerMoveHelper.PerformImageBreakout(end);
-
 
                 //if the start and endpoints are not equal, then we need to paste over the selection
                 //so delete the selected region (which will collapse the pointers to now be equal.
@@ -2584,11 +2547,11 @@ namespace OpenLiveWriter.HtmlEditor
                     // BUG: 624122, 622715
                     MarkupPointer mpStart = MarkupServices.CreateMarkupPointer();
                     MarkupPointer mpEnd = MarkupServices.CreateMarkupPointer();
-                    // Make a temp document and load our ending html into it. 
+                    // Make a temp document and load our ending html into it.
                     MarkupServices.ParseString(CONTENT_BODY_PADDING, mpStart, mpEnd);
 
                     //Create a temporary document from the html and set the start/end pointers to the
-                    //start and end of the document.  
+                    //start and end of the document.
 
                     MarkupServices.ParseString(html, sc1, sc2);
 
@@ -2603,7 +2566,7 @@ namespace OpenLiveWriter.HtmlEditor
 
                     try
                     {
-                        // Any changes to the way we remove the content in the destination may need to be changed in 
+                        // Any changes to the way we remove the content in the destination may need to be changed in
                         // KeepSourceFormatting.PasteSourceOverDestination as well!
                         bool emptyBlockRemoved;
                         if (stagingRange.ContainsElements(ElementFilters.IsBlockOrTableElement))
@@ -2650,7 +2613,6 @@ namespace OpenLiveWriter.HtmlEditor
                     using (damageTracker)
                     {
 
-
                         // CT: Because we don't set gravity, these pointers can end up in indeterminant positions.
                         // For example, when inserting HTML over a selection inside of a block, the start
                         // pointer can end up on the right side of the end pointer. Pushing gravity onto
@@ -2680,8 +2642,6 @@ namespace OpenLiveWriter.HtmlEditor
                             end.PopGravity();
                             start.PopGravity();
                         }
-
-
 
                         if (allowNewLineInsert && TidyWhitespace)
                         {
@@ -2746,7 +2706,7 @@ namespace OpenLiveWriter.HtmlEditor
                     IHTMLElement3 paragraphElement3 = (IHTMLElement3)paragraphElement;
                     paragraphElement3.inflateBlock = true;
 
-                    // MSHTML will add the &nbsp; back in anyway, but in a special way so that it does not appear 
+                    // MSHTML will add the &nbsp; back in anyway, but in a special way so that it does not appear
                     // selectable to the user. It seems to be their internal way of doing inflateBlock.
                     paragraphElement.innerHTML = "";
                 }
@@ -2754,7 +2714,7 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// WinLive 107762: In IE8, the cursor can get stuck if a user continues to tap an arrow key in a single 
+        /// WinLive 107762: In IE8, the cursor can get stuck if a user continues to tap an arrow key in a single
         /// direction. To work around the issue, we wrap the &lt;br&gt;s in a single &lt;div&gt;.
         /// </summary>
         protected void FixUpStickyBrs(MarkupRange range)
@@ -2788,7 +2748,7 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// WinLive 209110: When IE renders tables in quirks mode, the table inherits its font color from the body 
+        /// WinLive 209110: When IE renders tables in quirks mode, the table inherits its font color from the body
         /// element. We want the table to inherit its font color normally, so we force it to.
         /// </summary>
         protected void ForceTablesToInheritFontColor(MarkupRange range)
@@ -2815,7 +2775,7 @@ namespace OpenLiveWriter.HtmlEditor
         protected virtual bool ShouldAllowNewLineInsert(string html)
         {
             SimpleHtmlParser p = new SimpleHtmlParser(html);
-            for (Element el; null != (el = p.Next()); )
+            for (Element el; null != (el = p.Next());)
             {
                 if (el is BeginTag && (((BeginTag)el).NameEquals("div") || ((BeginTag)el).NameEquals("img")))
                 {
@@ -2887,7 +2847,6 @@ namespace OpenLiveWriter.HtmlEditor
                                 destinationStart.MoveToPointer(parentBlockRange.Start);
                             }
 
-
                             blockOverwritten = true;
                         }
                     }
@@ -2911,7 +2870,6 @@ namespace OpenLiveWriter.HtmlEditor
             get { return null; }
         }
 
-
         public void InsertPlainText(MarkupPointer start, MarkupPointer end, string text)
         {
             IUndoUnit undo = CreateUndoUnit();
@@ -2921,7 +2879,6 @@ namespace OpenLiveWriter.HtmlEditor
                 {
                     DeleteContentNoCling(start, end);
                 }
-
 
                 if (start.CurrentScope.tagName == "PRE")
                 {
@@ -3013,7 +2970,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         /// <summary>
         /// Get the element at the specified screen point (returns null if there is no element)
         /// </summary>
@@ -3029,7 +2985,7 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// Check to see if the specified point is directly over the document (client rectangle 
+        /// Check to see if the specified point is directly over the document (client rectangle
         /// excluding scrollbars if they are visible)
         /// </summary>
         /// <param name="x">x-coordinate</param>
@@ -3201,7 +3157,6 @@ namespace OpenLiveWriter.HtmlEditor
 
         protected abstract string GetEditedHtmlCore(bool preferWellFormed);
 
-
         /// <summary>
         /// Is the document currently dirty?
         /// </summary>
@@ -3253,7 +3208,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         public string SelectedHtml
         {
             get
@@ -3268,8 +3222,6 @@ namespace OpenLiveWriter.HtmlEditor
                 }
             }
         }
-
-
 
         public virtual void EmptySelection()
         {
@@ -3480,7 +3432,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         public void Find()
         {
             GetMshtmlCommand(IDM.FIND).Execute();
@@ -3506,7 +3457,7 @@ namespace OpenLiveWriter.HtmlEditor
                 // save the current selection because it will be lost during spell checking
                 MarkupRange previousMarkupRange = null;
                 bool previousMarkupRangeCollapsed = true;
-                
+
                 if (SelectedMarkupRange != null)
                 {
                     previousMarkupRange = SelectedMarkupRange.Clone();
@@ -3518,7 +3469,7 @@ namespace OpenLiveWriter.HtmlEditor
                     previousMarkupRangeCollapsed = previousMarkupRange.IsEmpty();
                 }
 
-                // must first force the control to lose focus so that it doesn't "lose" 
+                // must first force the control to lose focus so that it doesn't "lose"
                 // the selection when the dialog opens
                 IntPtr hPrevious = User32.SetFocus(IntPtr.Zero);
 
@@ -3530,34 +3481,34 @@ namespace OpenLiveWriter.HtmlEditor
                 //ToDo: OLW Spell Checker
                 //using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), ignoreOnceSupported))
                 //{
-                    //  center the spell-checking form over the document body
-                    //spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
+                //  center the spell-checking form over the document body
+                //spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
 
-                    // determine whether we are checking a selection or the whole document
-                    // get selection
-                    IHTMLSelectionObject selection = HTMLDocument.selection;
-                    bool checkSelection = (selection != null) && (selection.type.ToLower(CultureInfo.InvariantCulture) == "text");
+                // determine whether we are checking a selection or the whole document
+                // get selection
+                IHTMLSelectionObject selection = HTMLDocument.selection;
+                bool checkSelection = (selection != null) && (selection.type.ToLower(CultureInfo.InvariantCulture) == "text");
 
-                    // get the word range to check
-                    // MshtmlWordRange wordRange = new MshtmlWordRange(HTMLDocument, checkSelection, IgnoreRangeForSpellChecking, new DamageFunction(_damageServices.AddDamage));
+                // get the word range to check
+                // MshtmlWordRange wordRange = new MshtmlWordRange(HTMLDocument, checkSelection, IgnoreRangeForSpellChecking, new DamageFunction(_damageServices.AddDamage));
 
-                    //spellCheckerForm.WordIgnored += (sender, args) => OnSpellCheckWordIgnored(wordRange.CurrentWordRange);
+                //spellCheckerForm.WordIgnored += (sender, args) => OnSpellCheckWordIgnored(wordRange.CurrentWordRange);
 
-                    // check spelling
-                    using (undoUnit)
-                    {
-                        //spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
-                        undoUnit.Commit();
-                    }
+                // check spelling
+                using (undoUnit)
+                {
+                    //spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
+                    undoUnit.Commit();
+                }
 
-                    // reselect what was selected previous to spell-checking
-                    if (previousMarkupRange != null)
-                    {
-                        if (previousMarkupRangeCollapsed)
-                            previousMarkupRange.Collapse(true);
+                // reselect what was selected previous to spell-checking
+                if (previousMarkupRange != null)
+                {
+                    if (previousMarkupRangeCollapsed)
+                        previousMarkupRange.Collapse(true);
 
-                        previousMarkupRange.ToTextRange().select();
-                    }
+                    previousMarkupRange.ToTextRange().select();
+                }
 
                 // return completed status
                 fCompleted = true; // spellCheckerForm.Completed;
@@ -3590,7 +3541,7 @@ namespace OpenLiveWriter.HtmlEditor
             finally
             {
                 _isSpellChecking = false;
-            }            
+            }
         }
 
         protected abstract void OnSpellCheckWordIgnored(MarkupRange range);
@@ -3641,11 +3592,9 @@ namespace OpenLiveWriter.HtmlEditor
         {
         }
 
-
         #endregion
 
         #region IHtmlEditorCommandSource Members
-
 
         private void BeginSelectionChangedCaching()
         {
@@ -3673,7 +3622,6 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         public MshtmlFontWrapper CurrentDefaultFont { get; set; }
-
 
         public void UpdateOptions(MshtmlOptions options, bool updateComposeSettings)
         {
@@ -3707,7 +3655,6 @@ namespace OpenLiveWriter.HtmlEditor
             GetMshtmlCommand(IDM.HTMLEDITMODE).Execute(true);
         }
 
-
         /// <summary>
         /// Returns the point font size, e.g. 14pt.
         /// Returns 0 if the selection's point font size cannot be determined.
@@ -3734,7 +3681,7 @@ namespace OpenLiveWriter.HtmlEditor
                         }
 
                         // WinLive 195207: New behavior for returning the selection font size (aligns with Word 2010).
-                        // If the selection contains no text, the control displays the font size of the start of the 
+                        // If the selection contains no text, the control displays the font size of the start of the
                         // selection.
                         string selectionText = selection.Text ?? string.Empty;
                         if (String.IsNullOrEmpty(selectionText.Trim()))
@@ -3744,7 +3691,7 @@ namespace OpenLiveWriter.HtmlEditor
 
                         // Otherwise, the selection contains text and we'll need to walk through it.
                         selection.WalkRange(
-                            delegate(MarkupRange currentRange, MarkupContext context, string text)
+                            delegate (MarkupRange currentRange, MarkupContext context, string text)
                             {
                                 text = text ?? string.Empty;
                                 if (String.IsNullOrEmpty(text.Trim()))
@@ -3806,10 +3753,10 @@ namespace OpenLiveWriter.HtmlEditor
         {
             using (IUndoUnit undoUnit = CreateUndoUnit())
             {
-                // We inline the CSS font-size property on font tags when doing a paste with keep formatting, but MSHTML 
-                // doesn't check for the presence of this CSS property and therefore may not apply the new font size 
-                // correctly. To fix this we need manually to remove the inline font-sizes. We are not attempting to 
-                // handle all edge cases with this code path, only cases in which the content was pasted with keep 
+                // We inline the CSS font-size property on font tags when doing a paste with keep formatting, but MSHTML
+                // doesn't check for the presence of this CSS property and therefore may not apply the new font size
+                // correctly. To fix this we need manually to remove the inline font-sizes. We are not attempting to
+                // handle all edge cases with this code path, only cases in which the content was pasted with keep
                 // formatting. See the KeepSourceFormatting class for implementation details.
                 MarkupRange selection = SelectedMarkupRange.Clone();
 
@@ -3820,7 +3767,7 @@ namespace OpenLiveWriter.HtmlEditor
                                                         MarkupPointerAdjacency.BeforeVisible, PostBodyElement);
 
                 selection.WalkRange(
-                    delegate(MarkupRange currentRange, MarkupContext context, string text)
+                    delegate (MarkupRange currentRange, MarkupContext context, string text)
                     {
                         IHTMLElement currentElement = context.Element;
                         if (currentElement != null && context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_EnterScope)
@@ -3857,7 +3804,7 @@ namespace OpenLiveWriter.HtmlEditor
                 }
                 catch (Exception ex)
                 {
-                    // WinLive 105991: Carry on inspite of OLECMDERR_E_DISABLED (0x80040101)                    
+                    // WinLive 105991: Carry on inspite of OLECMDERR_E_DISABLED (0x80040101)
                     Trace.WriteLine("Exception thrown when getting selection fore color: " + ex);
                     return 0;
                 }
@@ -3900,7 +3847,6 @@ namespace OpenLiveWriter.HtmlEditor
                 }
             }
         }
-
 
         void IHtmlEditorCommandSource.ApplyFontForeColor(int color)
         {
@@ -3980,11 +3926,11 @@ namespace OpenLiveWriter.HtmlEditor
                         {
                             try
                             {
-                                // Note: that if the selection is non-empty, the mshtml command REMOVEFORMAT applies to word level.                            
+                                // Note: that if the selection is non-empty, the mshtml command REMOVEFORMAT applies to word level.
                                 GetMshtmlCommand(IDM.REMOVEFORMAT).Execute();
 
                                 // REMOVEFORMAT does not remove :h1, h2, h3, h4, h5, h6, ul, ol, li.
-                                // We have to remove these ourselves.            
+                                // We have to remove these ourselves.
                                 // First, we change h1, h2, h3, h4, h5, h6, and li to p
                                 // Then we remove ul and ol.
 
@@ -3995,7 +3941,7 @@ namespace OpenLiveWriter.HtmlEditor
                                                                                       _ELEMENT_TAG_ID.TAGID_H3,
                                                                                       _ELEMENT_TAG_ID.TAGID_H4,
                                                                                       _ELEMENT_TAG_ID.TAGID_H5,
-                                                                                      _ELEMENT_TAG_ID.TAGID_H6,                            
+                                                                                      _ELEMENT_TAG_ID.TAGID_H6,
                                                                                     };
                                 if (!IsEditFieldSelected)
                                 {
@@ -4009,7 +3955,7 @@ namespace OpenLiveWriter.HtmlEditor
                                         parentBlockRange.RemoveElementsByTagId(tagId, false);
                                     }
 
-                                    // We'll remove the alignment by removing the align attribute at block level                             
+                                    // We'll remove the alignment by removing the align attribute at block level
                                     HtmlStyleHelper.RemoveAttributes(MarkupServices, parentBlockRange, new[] { "align" });
                                 }
 
@@ -4044,13 +3990,12 @@ namespace OpenLiveWriter.HtmlEditor
             return false;
         }
 
-
         bool IHtmlEditorCommandSource.SelectionSuperscript
         {
             get
             {
                 // IDM.SUPERSCRIPT is not supported, so we'll have to roll our own.
-                //return GetMshtmlCommand(IDM.SUPERSCRIPT).Latched;                
+                //return GetMshtmlCommand(IDM.SUPERSCRIPT).Latched;
                 return IsSelection(_ELEMENT_TAG_ID.TAGID_SUP);
             }
         }
@@ -4067,7 +4012,7 @@ namespace OpenLiveWriter.HtmlEditor
             get
             {
                 // IDM.SUBSCRIPT is not supported, so we'll have to roll our own.
-                //return GetMshtmlCommand(IDM.SUBSCRIPT).Latched;                
+                //return GetMshtmlCommand(IDM.SUBSCRIPT).Latched;
                 return IsSelection(_ELEMENT_TAG_ID.TAGID_SUB);
             }
         }
@@ -4112,13 +4057,11 @@ namespace OpenLiveWriter.HtmlEditor
                             newSelection.ToTextRange().select();
                         }
 
-
                         undo.Commit();
                     }
                 }
             }
         }
-
 
         string IHtmlEditorCommandSource.SelectionStyleName
         {
@@ -4347,7 +4290,7 @@ namespace OpenLiveWriter.HtmlEditor
                     {
                         element.setAttribute("dir", direction, 0);
 
-                        // If the element is empty, MSHTML won't render the cursor on the correct side of the canvas 
+                        // If the element is empty, MSHTML won't render the cursor on the correct side of the canvas
                         // until the the users starts typing. We can force the empty element to render correctly by
                         // setting the inflateBlock property.
                         if (String.IsNullOrEmpty(element.innerHTML))
@@ -4361,7 +4304,7 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// Returns a list of MarkupRanges, where each MarkupRange surrounds HTML content that is not wrapped in an 
+        /// Returns a list of MarkupRanges, where each MarkupRange surrounds HTML content that is not wrapped in an
         /// in-scope block element.
         /// </summary>
         private List<MarkupRange> GetUnwrappedContentRanges(List<IHTMLElement> elements, MarkupRange range)
@@ -4449,7 +4392,6 @@ namespace OpenLiveWriter.HtmlEditor
             return newRange;
         }
 
-
         private List<IHTMLElement> GetBlockElements(MarkupRange bounds)
         {
             return new List<IHTMLElement>(bounds.GetTopLevelBlocksAndCells(ElementFilters.IsBlockOrTableCellElement, true));
@@ -4516,7 +4458,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
             ExecuteBlockCommand(new CommandExecutor(GetMshtmlCommand(IDM.ORDERLIST).Execute));
         }
-
 
         bool IHtmlEditorCommandSource.SelectionBlockquoted
         {
@@ -4636,7 +4577,7 @@ namespace OpenLiveWriter.HtmlEditor
             {
                 //note: use getAttribute("href", 2") to get the unresolved version of the path.
                 hyperlink = anchor.getAttribute("href", 2) as string;
-                //if current hyperlink is to image or is empty, there won't be any anchor text 
+                //if current hyperlink is to image or is empty, there won't be any anchor text
                 if (anchor.innerText != null)
                 {
                     //if we selected more than the anchor, expand the link text to include selection
@@ -4663,10 +4604,9 @@ namespace OpenLiveWriter.HtmlEditor
             return new LinkInfo(text, hyperlink, title, rel, newWindow);
         }
 
-
         void IHtmlEditorCommandSource.InsertLink()
         {
-            // allow for inserting links even when there is no text selection (insert a 
+            // allow for inserting links even when there is no text selection (insert a
             // link w/ the user specified title at the current caret location). Wasn't exactly
             // sure how to do this....
 
@@ -4700,7 +4640,6 @@ namespace OpenLiveWriter.HtmlEditor
 
                     hyperlinkForm.ContainsImage = _isImageOnly;
 
-
                     if (info.AnchorText != null && !_isImageOnly)
                     {
                         hyperlinkForm.LinkText = info.AnchorText;
@@ -4722,7 +4661,7 @@ namespace OpenLiveWriter.HtmlEditor
                     }
                     else if (info.Url != null)
                     {
-                        // don't set the url if it is pointing to a local "backing file" for 
+                        // don't set the url if it is pointing to a local "backing file" for
                         // the current image thumbnail
                         if (!UrlIsTemporaryLocalFilePath(info.Url))
                             hyperlinkForm.Hyperlink = info.Url;
@@ -4768,7 +4707,6 @@ namespace OpenLiveWriter.HtmlEditor
                                 {
                                     InsertLink(hyperlinkForm.Hyperlink, hyperlinkForm.LinkText, hyperlinkForm.LinkTitle, hyperlinkForm.Rel, hyperlinkForm.NewWindow, mRange);
                                 }
-
 
                             }
                             // commit the change
@@ -4836,11 +4774,9 @@ namespace OpenLiveWriter.HtmlEditor
                 GlossaryManager.Instance.AddEntry(anchor.innerText, (string)anchor.getAttribute("href", 2), (string)anchor.getAttribute("title", 2), (string)anchor.getAttribute("rel", 2), ((string)anchor.getAttribute("target", 2)) == "_blank");
         }
 
-
         #endregion
 
         #region IHtmlEditorComponentContext Members
-
 
         IMainFrameWindow IHtmlEditorComponentContext.MainFrameWindow
         {
@@ -4849,8 +4785,6 @@ namespace OpenLiveWriter.HtmlEditor
                 return _mainFrameWindow;
             }
         }
-
-
 
         MshtmlMarkupServices IHtmlEditorComponentContext.MarkupServices
         {
@@ -4864,7 +4798,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
             get { return _damageServices; }
         }
-
 
         Point IHtmlEditorComponentContext.PointToClient(Point p)
         {
@@ -4895,7 +4828,6 @@ namespace OpenLiveWriter.HtmlEditor
             return (!(pointOverVerticalScrollBar || pointOverHorizontalScrollBar));
         }
 
-
         bool IHtmlEditorComponentContext.OverrideCursor
         {
             set
@@ -4913,7 +4845,6 @@ namespace OpenLiveWriter.HtmlEditor
             MshtmlEditor.MshtmlControl.ExecuteCommand(cmdID);
         }
 
-
         /// <summary>
         /// Execute an MSHTML command
         /// </summary>
@@ -4923,7 +4854,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
             MshtmlEditor.MshtmlControl.ExecuteCommand(cmdID, input);
         }
-
 
         /// <summary>
         /// Execute an MSHTML command
@@ -5100,8 +5030,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
-
         public void Undo()
         {
             try
@@ -5140,10 +5068,10 @@ namespace OpenLiveWriter.HtmlEditor
             MarkupPointer beginDamagePointer = startPointer.Clone();
             MarkupPointer endDamagePointer = endPointer.Clone();
             int idx;
-            
+
             MarkupRange bodyRange = MarkupServices.CreateMarkupRange(startPointer, endPointer);
             bodyRange.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                 {
                     if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text &&
                         !String.IsNullOrEmpty(text))
@@ -5183,7 +5111,7 @@ namespace OpenLiveWriter.HtmlEditor
             {
                 bodyRange = MarkupServices.CreateMarkupRange(beginDamagePointer, endPointer);
                 bodyRange.WalkRangeReverse(
-                    delegate(MarkupRange currentRange, MarkupContext context, string text)
+                    delegate (MarkupRange currentRange, MarkupContext context, string text)
                     {
                         if (context.Context == _MARKUP_CONTEXT_TYPE.CONTEXT_TYPE_Text &&
                         !String.IsNullOrEmpty(text))
@@ -5214,9 +5142,9 @@ namespace OpenLiveWriter.HtmlEditor
 
         private void DelayedFireDefaultSelectionChanged()
         {
-            // force selection changed to fire (normally the execution 
+            // force selection changed to fire (normally the execution
             // of the native UNDO command would take care of this)
-            // we do this in a delayed manner so that behaviors can be 
+            // we do this in a delayed manner so that behaviors can be
             // attached/detached before they receive selection changed
             // events (otherwise they get selection changed events first
             // and then detached, causing crashes or other strange behavior)
@@ -5233,7 +5161,6 @@ namespace OpenLiveWriter.HtmlEditor
             if (_selectionChanging == 0)
                 OnSelectionChanged(EventArgs.Empty, _selection, true);
         }
-
 
         public bool CanRedo
         {
@@ -5301,7 +5228,6 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-
         public void Copy()
         {
             Selection.ExecuteSelectionOperation(new HtmlEditorSelectionOperation(CopySelection));
@@ -5317,8 +5243,6 @@ namespace OpenLiveWriter.HtmlEditor
             if (!ea.Handled)
                 GetMshtmlCommand(IDM.COPY).Execute();
         }
-
-
 
         private static bool ClipboardHasData
         {
@@ -5390,7 +5314,7 @@ namespace OpenLiveWriter.HtmlEditor
 
                             switch (formatting)
                             {
-                                //this is just the standard paste	
+                                //this is just the standard paste
                                 case PasteSpecialForm.PasteType.Standard:
                                     using (ApplicationPerformance.LogEvent("StandardHtmlPasteSpecial"))
                                     {
@@ -5411,7 +5335,7 @@ namespace OpenLiveWriter.HtmlEditor
                                         PasteKeepFormatting();
                                         return;
                                     }
-                                //remove all formatting except for line breaks	
+                                //remove all formatting except for line breaks
                                 case PasteSpecialForm.PasteType.RemoveFormatting:
                                     using (ApplicationPerformance.LogEvent("RemoveFormattingHtmlPasteSpecial"))
                                         html = HtmlCleaner.CleanupHtml(html, baseUrl, true, true, false);
@@ -5438,7 +5362,7 @@ namespace OpenLiveWriter.HtmlEditor
 
                             switch (formatting)
                             {
-                                //this is just the standard paste	
+                                //this is just the standard paste
                                 case PasteSpecialFormText.PasteType.Standard:
                                     using (ApplicationPerformance.LogEvent("StandardTextPasteSpecial"))
                                     using (IUndoUnit undo = CreateUndoUnit())
@@ -5541,7 +5465,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// Used to track nested undo situations.  In these situations, if any undo
         /// unit is not committed, all undo units on the stack are rolled back.
         /// Note: rolling back nested undos individually is not allowed and will
-        /// cause "catastrophic" errors from COM (bug 492362) 
+        /// cause "catastrophic" errors from COM (bug 492362)
         /// </summary>
         internal static int undoDepth;
         internal int uncommittedCount;
@@ -5660,7 +5584,6 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         #endregion
-
 
         #region IElementBehaviorFactoryRaw Members
 
@@ -5783,7 +5706,6 @@ namespace OpenLiveWriter.HtmlEditor
     }
 
     public delegate void SnapRectEventHandler(IHTMLElement pIElement, ref RECT prcNEW, _ELEMENT_CORNER elementCorner);
-
 
     public class HtmlEditorControlOptions
     {

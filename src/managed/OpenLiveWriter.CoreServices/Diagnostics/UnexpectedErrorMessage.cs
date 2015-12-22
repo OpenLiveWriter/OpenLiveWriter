@@ -97,7 +97,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             InitializeComponent();
         }
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -123,8 +123,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         }
         #endregion
 
-
-
         /// <summary>
         /// Show with just an exception
         /// </summary>
@@ -144,11 +142,10 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             Show(typeof(UnhandledExceptionErrorMessage), owner, rootCause);
         }
 
-
         /// <summary>
-        /// Static version of Show that allows you to specify the Type of the 
-        /// UnexpectedErrorMessage and have the method automatically create 
-        /// and dispose the instance  
+        /// Static version of Show that allows you to specify the Type of the
+        /// UnexpectedErrorMessage and have the method automatically create
+        /// and dispose the instance
         /// </summary>
         /// <param name="errorType">type of error (must be derived from UnexpectedErrorMessage)</param>
         /// <param name="owner">window owner for showing message</param>
@@ -159,7 +156,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             // verify calling semantics
             if (errorType.IsSubclassOf(typeof(UnexpectedErrorMessage)))
             {
-                // create instance of error type				
+                // create instance of error type
                 using (UnexpectedErrorMessage errorMessage =
                             Activator.CreateInstance(errorType) as UnexpectedErrorMessage)
                 {
@@ -174,14 +171,13 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 
         public static void Show(IWin32Window owner, Exception rootCause, string title)
         {
-            // create instance of error type				
+            // create instance of error type
             using (UnexpectedErrorMessage errorMessage = new UnexpectedErrorMessage())
             {
                 errorMessage.Title = title;
                 errorMessage.ShowMessage(owner, rootCause, new string[0]);
             }
         }
-
 
         /// <summary>
         /// Shows the message -- includes root cause information that can optionally
@@ -237,7 +233,6 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             else
                 return title;
         }
-
 
         /// <summary>
         /// Format the main error message text

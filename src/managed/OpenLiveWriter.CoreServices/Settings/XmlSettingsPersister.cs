@@ -188,7 +188,7 @@ namespace OpenLiveWriter.CoreServices.Settings
                 stream.Dispose();
             }
             base.Dispose(false);
-            
+
         }
 
         public static XmlFileSettingsPersister Open(string filename)

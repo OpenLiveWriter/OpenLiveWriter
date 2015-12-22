@@ -35,7 +35,6 @@ namespace OpenLiveWriter.PostEditor.Video
             }
         }
 
-
         internal CategoryItem(string categoryId, string categoryName)
         {
             _categoryName = categoryName;
@@ -81,7 +80,6 @@ namespace OpenLiveWriter.PostEditor.Video
                 _securityName = value;
             }
         }
-
 
         internal SecurityItem(string securityId, string securityName)
         {

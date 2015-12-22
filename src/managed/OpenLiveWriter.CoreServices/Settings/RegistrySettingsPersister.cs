@@ -42,7 +42,7 @@ namespace OpenLiveWriter.CoreServices.Settings
 				// first try to get it from storage
 				savedValue = Get(name, desiredType);
 			}
-			catch(Exception e)
+            catch (Exception e)
 			{
 				// Since this could get called frequently, try to only log once
 				if (!haveLoggedFailedRead)
@@ -87,8 +87,6 @@ namespace OpenLiveWriter.CoreServices.Settings
 		private bool haveLoggedFailedDefault = false;
 		private bool haveLoggedFailedGetKey = false;
 
-
-
 		/// <summary>
 		/// Low-level get (returns null if the value doesn't exist). 
 		/// </summary>
@@ -108,7 +106,7 @@ namespace OpenLiveWriter.CoreServices.Settings
 				// byte[] outBytes = Get("foo", typeof(byte[]));
 				// Trace.Assert(ArrayHelper.Compare(inBytes, outBytes));
 				if (obj is byte[])
-					obj = RegistryCodec.SerializableCodec.Deserialize((byte[]) obj);
+                    obj = RegistryCodec.SerializableCodec.Deserialize((byte[])obj);
 				
 				return obj;				
 			}
@@ -181,7 +179,7 @@ namespace OpenLiveWriter.CoreServices.Settings
 		/// </summary>
 		/// <param name="subSettingsName">name of sub-settings to check for</param>
 		/// <returns>true if it has them, otherwise false</returns>
-		public bool HasSubSettings( string subSettingsName ) 
+        public bool HasSubSettings(string subSettingsName)
 		{
 			using (RegistryKey key = GetKey(false))
 			{
@@ -190,23 +188,21 @@ namespace OpenLiveWriter.CoreServices.Settings
                     return false;
                 }
                 using (RegistryKey subSettingsKey = key.OpenSubKey(subSettingsName))
-                {
+				{
                     return subSettingsKey != null;
-                }
+				}
 			}
 		}
-
 
 		/// <summary>
 		/// Get a subsetting object that is rooted in the current ISettingsPersister
 		/// </summary>
 		/// <param name="subKeyName">name of subkey</param>
 		/// <returns>settings persister</returns>
-		public ISettingsPersister GetSubSettings( string subSettingsName ) 
+        public ISettingsPersister GetSubSettings(string subSettingsName)
 		{
-			return new RegistrySettingsPersister( this.rootNode, keyName + "\\" + subSettingsName ) ;
+            return new RegistrySettingsPersister(this.rootNode, keyName + "\\" + subSettingsName);
 		}
-
 
 		/// <summary>
 		/// Enumerate the available sub-settings
@@ -219,19 +215,17 @@ namespace OpenLiveWriter.CoreServices.Settings
 				if (key == null)
 					return null;
 				else
-					return key.GetSubKeyNames() ;
+                    return key.GetSubKeyNames();
 			}
 		}
-
 
 		/// <summary>
 		/// Dispose the settings persister
 		/// </summary>
 		public void Dispose()
 		{
-			rootNode.Close() ;
+            rootNode.Close();
 		}
-
 
 		#endregion
 

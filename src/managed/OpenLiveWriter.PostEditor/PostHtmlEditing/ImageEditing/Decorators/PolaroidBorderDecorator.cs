@@ -40,9 +40,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
             Size originalSize = context.Image.Size;
 
-            float scaleX = originalSize.Width/(float) PORTAL_RECT.Width;
+            float scaleX = originalSize.Width / (float)PORTAL_RECT.Width;
             float scaleY = originalSize.Height / (float)PORTAL_RECT.Height;
-            Size finalSize = new Size((int) (polaroidBorder.Width * scaleX), (int) (polaroidBorder.Height * scaleY));
+            Size finalSize = new Size((int)(polaroidBorder.Width * scaleX), (int)(polaroidBorder.Height * scaleY));
 
             Bitmap output = new Bitmap(finalSize.Width, finalSize.Height);
             using (Graphics g = Graphics.FromImage(output))
@@ -59,7 +59,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     PORTAL_RECT.Y * scaleY,
                     PORTAL_RECT.Width * scaleX,
                     PORTAL_RECT.Height * scaleY);
-                
+
                 realPortal.Inflate(1, 1);
                 g.DrawImage(context.Image, realPortal, new RectangleF(0, 0, originalSize.Width, originalSize.Height), GraphicsUnit.Pixel);
                 g.DrawImage(polaroidBorder, 0, 0, output.Width, output.Height);

@@ -7,14 +7,14 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.Api;
 
 namespace OpenLiveWriter.PostEditor.Commands
-{    
+{
     public class AlignmentCommand : GalleryCommand<Alignment>
     {
         private Command _commandAlignmentGroup;
-        
-        public AlignmentCommand(CommandManager commandManager) 
+
+        public AlignmentCommand(CommandManager commandManager)
             : base(CommandId.AlignmentGallery, Alignment.None)
-        {            
+        {
             _commandAlignmentGroup = new GroupCommand(CommandId.AlignmentGroup, this);
             commandManager.Add(_commandAlignmentGroup);
 
@@ -27,14 +27,14 @@ namespace OpenLiveWriter.PostEditor.Commands
 
         void AlignmentCommand_ExecuteWithArgs(object sender, ExecuteEventHandlerArgs args)
         {
-            int newSelectedIndex = args.GetInt(CommandId.ToString());                        
+            int newSelectedIndex = args.GetInt(CommandId.ToString());
             SetSelectedItem(Items[newSelectedIndex].Cookie);
 
             if (AlignmentChanged != null)
-                AlignmentChanged(this, EventArgs.Empty);                                    
+                AlignmentChanged(this, EventArgs.Empty);
         }
 
-        public event EventHandler AlignmentChanged;        
+        public event EventHandler AlignmentChanged;
 
         public override void LoadItems()
         {
@@ -45,11 +45,11 @@ namespace OpenLiveWriter.PostEditor.Commands
                 items.Add(new TooltippedGalleryItem(Res.Get(StringId.ImgSBAlignCenter), Res.Get(StringId.ImgSBAlignCenter), Images.Alignment_Center_48x48, Alignment.Center));
                 items.Add(new TooltippedGalleryItem(Res.Get(StringId.ImgSBAlignRight), Res.Get(StringId.ImgSBAlignRight), Images.Alignment_Right_48x48, Alignment.Right));
                 base.LoadItems();
-            }            
+            }
         }
-        
+
         public void SetAlignment(Alignment? alignment)
-        {            
+        {
             if (alignment.HasValue)
                 SelectedItem = alignment.Value;
         }

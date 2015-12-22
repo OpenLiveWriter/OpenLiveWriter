@@ -10,17 +10,17 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.HtmlEditor.Linking
 {
-	internal class LinkOptionsButton : XPBitmapButton
-	{
-		public LinkOptionsButton()
-		{
-			Bitmap buttonFace = ResourceHelper.LoadAssemblyResourceBitmap("Linking.Images.OptionsArrow.png");
-			Initialize(buttonFace, buttonFace, ContentAlignment.MiddleRight) ;
-			Text = "  " + Res.Get(StringId.LinkTo) ;
+    internal class LinkOptionsButton : XPBitmapButton
+    {
+        public LinkOptionsButton()
+        {
+            Bitmap buttonFace = ResourceHelper.LoadAssemblyResourceBitmap("Linking.Images.OptionsArrow.png");
+            Initialize(buttonFace, buttonFace, ContentAlignment.MiddleRight);
+            Text = "  " + Res.Get(StringId.LinkTo);
             AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.LinkTo));
-			TextAlign = ContentAlignment.MiddleLeft ;
-			AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
-		}
-	}
+            TextAlign = ContentAlignment.MiddleLeft;
+            AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonMenu;
+        }
+    }
 
 }

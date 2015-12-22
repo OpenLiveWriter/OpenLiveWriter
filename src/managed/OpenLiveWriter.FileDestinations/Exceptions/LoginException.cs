@@ -6,19 +6,19 @@ using System;
 namespace OpenLiveWriter.FileDestinations
 {
 
-	/// <summary>
-	/// LoginException Exception Class
-	/// </summary>
-	public class LoginException : SiteDestinationException
-	{
-		/// <summary>
-		/// LoginException constructor
-		/// </summary>
-		/// <param name="innerException">any caught exception to be kept in the exception chain</param>
-		/// <param name="arguments">Any exception type specific arguments</param>
-		public LoginException( Exception innerException, params object[] arguments )
-			: base( innerException, SiteDestinationException.LoginException, arguments )
-		{
-		}
-	}
+    /// <summary>
+    /// LoginException Exception Class
+    /// </summary>
+    public class LoginException : SiteDestinationException
+    {
+        /// <summary>
+        /// LoginException constructor
+        /// </summary>
+        /// <param name="innerException">any caught exception to be kept in the exception chain</param>
+        /// <param name="arguments">Any exception type specific arguments</param>
+        public LoginException(Exception innerException, params object[] arguments)
+            : base(innerException, SiteDestinationException.LoginException, arguments)
+        {
+        }
+    }
 }

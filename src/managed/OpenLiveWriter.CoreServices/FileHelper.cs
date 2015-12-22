@@ -46,28 +46,28 @@ namespace OpenLiveWriter.CoreServices
         public static bool IsErrorCodeNetworkRelated(int hresult)
         {
             int[] NET_CODES =
-				{
-					0x0040, // network name no longer available
-					0x0035, // bad net path
-					0x0033, // ERROR_REM_NOT_LIST
-					0x0036, // network busy
-					0x0037, // DEV_NOT_EXIST
-					// see http://msdn.microsoft.com/library/en-us/debug/base/system_error_codes__1000-1299_.asp
-					1203,
-					1222,
-					1225,
-					1226,
-					1227,
-					1228,
-					1229,
-					1230,
-					1231,
-					1232,
-					1233,
-					1234,
-					1235,
-					1236,
-				};
+                {
+                    0x0040, // network name no longer available
+                    0x0035, // bad net path
+                    0x0033, // ERROR_REM_NOT_LIST
+                    0x0036, // network busy
+                    0x0037, // DEV_NOT_EXIST
+                    // see http://msdn.microsoft.com/library/en-us/debug/base/system_error_codes__1000-1299_.asp
+                    1203,
+                    1222,
+                    1225,
+                    1226,
+                    1227,
+                    1228,
+                    1229,
+                    1230,
+                    1231,
+                    1232,
+                    1233,
+                    1234,
+                    1235,
+                    1236,
+                };
 
             foreach (int code in NET_CODES)
             {
@@ -176,7 +176,6 @@ namespace OpenLiveWriter.CoreServices
                 return false;
         }
 
-
         public static bool IsValidFileName(string fileName)
         {
             return IsValidFileName(fileName, MaxFileNameLength);
@@ -208,7 +207,7 @@ namespace OpenLiveWriter.CoreServices
         /// Convert a file name to an Ansi file name (some external systems such as FTP
         /// and MAPI won't take double-byte file names).
         /// </summary>
-        /// <param name="fileName">file name</param>		
+        /// <param name="fileName">file name</param>
         /// <param name="maxFileNameLength">the maximum numbr of chars to allow in filename. If -1, no max will be enforced.</param>
         public static string GetValidAnsiFileName(string fileName, int maxFileNameLength)
         {
@@ -245,13 +244,12 @@ namespace OpenLiveWriter.CoreServices
         /// Convert a file name to an Ansi file name (some external systems such as FTP
         /// and MAPI won't take double-byte file names).
         /// </summary>
-        /// <param name="fileName">file name</param>		
+        /// <param name="fileName">file name</param>
         public static string GetValidAnsiFileName(string fileName)
         {
             return GetValidAnsiFileName(fileName, -1);
         }
         private static char[] AnsiTrimChars = new char[] { '~' };
-
 
         public static string GetValidFileName(string fileName)
         {
@@ -316,15 +314,15 @@ namespace OpenLiveWriter.CoreServices
                     string extension = Path.GetExtension(fileName);
 
                     /* TODO This block of code is a potential candidate to replace some of the code below.  It's too late in the RC cycle to do it now.
-					
-                    fileNameNoExtension = StringHelper.RestrictLength(fileNameNoExtension, 
+
+                    fileNameNoExtension = StringHelper.RestrictLength(fileNameNoExtension,
                         Math.Max(fileNameNoExtension.Length - numberOfCharsToRemove, minFileNameLength));
-					
+
                     string newFileName = fileNameNoExtension.Trim() + extension;
 
                     // Trim the extension to be as short as required (or the minimum length)
                     fileName = StringHelper.RestrictLength(fileNameNoExtension + extension, maxFileNameLength);
-					
+
                     */
 
                     // Trim the filename itself to be as short as required (or the minimum length)
@@ -446,7 +444,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Returns a progId based upon the extension of a file
         /// </summary>
@@ -508,7 +505,6 @@ namespace OpenLiveWriter.CoreServices
             int hresult = Ole32.CLSIDFromProgID(progId, out clsid);
             return clsid;
         }
-
 
         /// <summary>
         /// Returns true if the file has the readonly attribute
@@ -596,13 +592,13 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Helper to get a pretty file name.  For example, passing a path value of:
-        /// 
+        ///
         ///		c:\documents and settings\blambert\my documents\cape cod tourist attractions.cfs
-        /// 
+        ///
         /// would result in a return value of:
-        /// 
+        ///
         ///		Cape Cod Tourist Attractions.cfs
-        ///		
+        ///
         /// </summary>
         /// <param name="path">Path to file.</param>
         /// <returns>Pretty file name.</returns>
@@ -622,13 +618,13 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Helper to get a pretty path.  For example, passing a path value of:
-        /// 
+        ///
         ///		c:\documents and settings\blambert\my documents\cape cod tourist attractions.cfs
-        /// 
+        ///
         /// would result in a return value of:
-        /// 
+        ///
         ///		C:\Documents and Settings\blambert\My Documents\Cape Cod Tourist Attractions.cfs
-        ///		
+        ///
         /// </summary>
         /// <param name="path">Path to file.</param>
         /// <returns>Pretty file name.</returns>
@@ -732,12 +728,12 @@ namespace OpenLiveWriter.CoreServices
         /// Returns an IDisposable whose Dispose() will cause the file's
         /// last write time to be reset to the value it held when this
         /// method was called.
-        /// 
+        ///
         /// This mechanism will fail silently (for example if the necessary
         /// rights are not available, the file does not exist, etc.).
-        /// 
+        ///
         /// Example:
-        /// 
+        ///
         /// using (FileHelper.PreserveLastWriteTime("c:\\foo.txt"))
         /// {
         ///		// do stuff with foo.txt
@@ -767,7 +763,7 @@ namespace OpenLiveWriter.CoreServices
             //then just generate a guid.
             // WinLive 272918: Make sure there is at least one alphanumeric character.
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            if (fileNameWithoutExtension == String.Empty || 
+            if (fileNameWithoutExtension == String.Empty ||
                 !ArrayHelper.Any(fileNameWithoutExtension.ToCharArray(), c => Char.IsLetterOrDigit(c)))
             {
                 string ext = Path.GetExtension(fileName);
@@ -793,7 +789,6 @@ namespace OpenLiveWriter.CoreServices
         }
         private static char[] EvilEndChars = new char[] { '.', ' ' };
 
-
         public static bool IsFileInUse(string filePath)
         {
             try
@@ -810,7 +805,6 @@ namespace OpenLiveWriter.CoreServices
             }
 
         }
-
 
         private class PreserveLastWriteTimeHelper : IDisposable
         {

@@ -40,11 +40,11 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
 
             _videoPagingControl = new VideoPagingControl();
             _videoPagingControl.RightToLeft = BidiHelper.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
-            
+
             _videoRequestComboBox = new VideoRequestTypeComboBox();
             _videoRequestComboBox.Visible = false;
 
-            _videoLoginControl = new PanelLoginControl();            
+            _videoLoginControl = new PanelLoginControl();
 
             SuspendLayout();
             Controls.Add(_listBoxVideos);
@@ -52,7 +52,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             Controls.Add(_videoLoginStatusControl);
             Controls.Add(_videoPagingControl);
             Controls.Add(_videoRequestComboBox);
-            Controls.Add(_videoLoginControl); 
+            Controls.Add(_videoLoginControl);
             ResumeLayout();
 
             _sidebarService.AccessibleName = Res.Get(StringId.Plugin_Video_Provider_Select);
@@ -78,7 +78,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             controls.Add(_videoPagingControl);
             return controls;
         }
-
 
         void _sidebarService_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -138,7 +137,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             _listBoxVideos.Anchor = (AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right);
             _listBoxVideos.TabIndex = 30;
             _listBoxVideos.Name = "listBoxVideos";
-            
+
             _videoPagingControl.Width = _videoRequestComboBox.Width;
             _videoPagingControl.Left = _videoRequestComboBox.Left;
 
@@ -156,7 +155,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         private readonly static int MARGIN_X = (int)DisplayHelper.ScaleX(8);
         private readonly static int LISTBOX_PADDING = 2;
 
-
         private IVideoService CurrentService
         {
             get
@@ -169,7 +167,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
 
                 _videoLoginStatusControl.Auth = _currentService.Auth;
                 _videoRequestComboBox.SetEntries(_currentService.SupportedRequests);
-                
+
                 VideoServiceSettings serviceSettings = VideoSettings.GetServiceSettings(_currentService.Id);
                 _videoRequestComboBox.SelectEntry(serviceSettings.SelectedRequestType);
 
@@ -181,7 +179,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         }
 
         private IVideoService _currentService;
-        
+
         public void RegisterServices(IVideoService[] services)
         {
             foreach (IVideoService service in services)
@@ -233,7 +231,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 _listBoxVideos.Items.Clear();
                 _listBoxVideos.QueryStatusText = Res.Get(StringId.Plugin_Video_Soapbox_Retrieve_Msg);
                 _listBoxVideos.Update();
-                
+
                 int videosAvailable;
                 try
                 {
@@ -247,7 +245,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                     if (_listBoxVideos.Items.Count > 0)
                         _listBoxVideos.SelectedIndex = 0;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Trace.Write("Failed getting videos: " + e.Message);
                     _listBoxVideos.DisplayGetVideosError();
@@ -257,8 +255,8 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
             else
             {
                 _videoRequestComboBox.Visible = false;
-                _listBoxVideos.Visible = false;                
-                _videoLoginControl.Visible = true;                
+                _listBoxVideos.Visible = false;
+                _videoLoginControl.Visible = true;
                 _listBoxVideos.QueryStatusText = "";
                 _videoPagingControl.Reset();
                 _videoLoginControl.Clear();
@@ -282,18 +280,15 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 return false;
             }
 
-            
-
-            
             serviceSettings.SelectedRequestType = _videoRequestComboBox.SelectedRequestType.TypeName;
             serviceSettings.Username = CurrentService.Auth.Username;
-            
+
             return true;
         }
 
         public override void SaveContent(MediaSmartContent content)
         {
-            IVideo video = (IVideo) _listBoxVideos.SelectedItem;
+            IVideo video = (IVideo)_listBoxVideos.SelectedItem;
             Video contentVideo = video.GetVideo();
             ((VideoSmartContent)content).Initialize(contentVideo, _blogId);
         }
@@ -309,7 +304,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
                 }
                 _setOnce = true;
             }
-            
+
             if (!CurrentService.Auth.IsLoggedIn)
             {
                 _videoLoginControl.Visible = false;
@@ -333,9 +328,9 @@ namespace OpenLiveWriter.PostEditor.Video.VideoService
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
+            //
             // VideoServiceVideoSource
-            // 
+            //
             this.Name = "VideoServiceVideoSource";
             this.ResumeLayout(false);
 

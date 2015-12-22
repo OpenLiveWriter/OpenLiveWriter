@@ -1,4 +1,4 @@
-﻿namespace OpenLiveWriter.Test
+namespace OpenLiveWriter.Test
 {
     partial class CanvasForm
     {
@@ -34,9 +34,9 @@
             this.buttonSource = new System.Windows.Forms.Button();
             this.buttonPlain = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
+            //
             // panelCanvas
-            // 
+            //
             this.panelCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -44,9 +44,9 @@
             this.panelCanvas.Name = "panelCanvas";
             this.panelCanvas.Size = new System.Drawing.Size(439, 392);
             this.panelCanvas.TabIndex = 0;
-            // 
+            //
             // buttonEdit
-            // 
+            //
             this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEdit.Location = new System.Drawing.Point(459, 12);
             this.buttonEdit.Name = "buttonEdit";
@@ -55,9 +55,9 @@
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
-            // 
+            //
             // buttonPreview
-            // 
+            //
             this.buttonPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonPreview.Location = new System.Drawing.Point(459, 42);
             this.buttonPreview.Name = "buttonPreview";
@@ -66,9 +66,9 @@
             this.buttonPreview.Text = "Preview";
             this.buttonPreview.UseVisualStyleBackColor = true;
             this.buttonPreview.Click += new System.EventHandler(this.buttonPreview_Click);
-            // 
+            //
             // buttonSource
-            // 
+            //
             this.buttonSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSource.Location = new System.Drawing.Point(459, 72);
             this.buttonSource.Name = "buttonSource";
@@ -77,9 +77,9 @@
             this.buttonSource.Text = "Source";
             this.buttonSource.UseVisualStyleBackColor = true;
             this.buttonSource.Click += new System.EventHandler(this.buttonSource_Click);
-            // 
+            //
             // buttonPlain
-            // 
+            //
             this.buttonPlain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonPlain.Location = new System.Drawing.Point(459, 101);
             this.buttonPlain.Name = "buttonPlain";
@@ -88,9 +88,9 @@
             this.buttonPlain.Text = "Plain";
             this.buttonPlain.UseVisualStyleBackColor = true;
             this.buttonPlain.Click += new System.EventHandler(this.buttonPlain_Click);
-            // 
+            //
             // CanvasForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(566, 390);

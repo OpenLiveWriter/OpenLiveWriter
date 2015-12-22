@@ -10,7 +10,7 @@ First public release of Open Live Writer
 
 #### Specific features:
 * Update copyright statements
-* Remove code for wlw: protocol aluncher
+* Remove code for wlw: protocol launcher
 * Verify and test existing error and crash reporting
 
 
@@ -46,6 +46,6 @@ First release after v1.0 that includes new features
 * Additional publishing targets
   * Facebook status update
   * Twitter status
-* Support for Markdown editing and previes
+* Support for Markdown editing and previews
 
 ## v2.0 - Major New Features

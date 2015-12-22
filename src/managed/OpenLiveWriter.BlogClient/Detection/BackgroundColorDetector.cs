@@ -27,7 +27,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         public static Color? DetectColor(string uri, Color? defaultColor)
         {
             return BrowserOperationInvoker.InvokeAfterDocumentComplete(uri, "BackgroundColorDetector", 700, 700, defaultColor,
-                delegate(ExplorerBrowserControl browser)
+                delegate (ExplorerBrowserControl browser)
                 {
                     IHTMLDocument2 document = browser.Document as IHTMLDocument2;
                     IHTMLElement[] elements = HTMLDocumentHelper.FindElementsContainingText(document, BlogEditingTemplate.POST_BODY_MARKER);

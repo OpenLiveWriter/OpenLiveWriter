@@ -36,7 +36,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
         {
             Items.Add(new ComboItem(VEMapStyle.Road, Res.Get(StringId.MapRoad), "Images.RoadIcon.png"));
 
-
             if (AerialSupported)
             {
                 Items.Add(new ComboItem(VEMapStyle.Aerial, Res.Get(StringId.MapAerial), "Images.AerialIcon.png"));
@@ -103,7 +102,6 @@ namespace OpenLiveWriter.InternalWriterPlugin.Controls
 
             base.Dispose(disposing);
         }
-
 
         private class ComboItem : ImageComboBox.IComboItem, IDisposable
         {

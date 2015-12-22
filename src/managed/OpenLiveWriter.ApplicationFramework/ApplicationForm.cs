@@ -85,9 +85,9 @@ namespace OpenLiveWriter.ApplicationFramework
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
+            //
             // ApplicationForm
-            // 
+            //
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.ClientSize = new System.Drawing.Size(442, 422);
             this.Name = "ApplicationForm";
@@ -110,7 +110,6 @@ namespace OpenLiveWriter.ApplicationFramework
             ColorizedResources.Instance.ColorizationChanged -= new EventHandler(Instance_ColorizationChanged);
             SizeChanged -= new EventHandler(ApplicationForm_SizeChanged);
         }
-
 
         /// <summary>
         /// Disposed a menu and all of its submenu items.
@@ -252,7 +251,6 @@ namespace OpenLiveWriter.ApplicationFramework
         private IntPtr _hMainMenuBitmap = IntPtr.Zero;
         private IntPtr _hMainMenuBrushBitmap = IntPtr.Zero;
 
-
         void IMainMenuBackgroundPainter.PaintBackground(Graphics g, Rectangle menuItemBounds)
         {
             if (ColorizedResources.Instance.CustomMainMenuPainting)
@@ -275,7 +273,6 @@ namespace OpenLiveWriter.ApplicationFramework
                         Debug.Fail("Buffered paint of menu background failed");
                     }
                 }
-
 
                 try
                 {
@@ -342,8 +339,8 @@ namespace OpenLiveWriter.ApplicationFramework
 
                         /*
                         Rectangle destinationRect = new Rectangle(
-                            frameWidth, 
-                            frameHeight + SystemInformation.CaptionHeight + SystemInformation.MenuHeight - 1, 
+                            frameWidth,
+                            frameHeight + SystemInformation.CaptionHeight + SystemInformation.MenuHeight - 1,
                             ClientSize.Width, 1) ;
                         */
                         // takes into account narrow window sizes where the main menu items start stacking vertically

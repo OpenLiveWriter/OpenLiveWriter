@@ -86,7 +86,7 @@ namespace LocUtil
             {
                 Console.Error.WriteLine("No input files were specified.");
                 return 1;
-            }            
+            }
 
             HashSet ribbonIds;
             Hashtable ribbonValues;
@@ -94,7 +94,7 @@ namespace LocUtil
             if (!ParseRibbonXml(ribbonFiles, pairsLoc, pairsNonLoc, typeof(Command), "//ribbon:Command", "Command.{0}.{1}", out ribbonIds, out ribbonValues))
                 return 1;
             HashSet commandIds;
-            Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));            
+            Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
 
             string[] transformedCommandFiles = commandFiles;
             try
@@ -102,7 +102,7 @@ namespace LocUtil
                 // Transform the files
                 XslCompiledTransform xslTransform = new XslCompiledTransform(true);
                 string xslFile = Path.GetFullPath("Commands.xsl");
-                
+
                 for (int i = 0; i < commandFiles.Length; i++)//string filename in commandFiles)
                 {
                     string inputFile = Path.GetFullPath(commandFiles[i]);
@@ -114,14 +114,13 @@ namespace LocUtil
                     string transformedFile = inputFile.Replace(".xml", ".transformed.xml");
                     xslTransform.Transform(inputFile, transformedFile);
                     transformedCommandFiles[i] = transformedFile;
-                }          
+                }
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine("Failed to transform file: " + ex);
                 return 1;
             }
-              
 
             if (!ParseCommandXml(transformedCommandFiles, pairsLoc, pairsNonLoc, typeof(Command), "/Commands/Command", "Command.{0}.{1}", out commandIds))
                 return 1;
@@ -144,7 +143,7 @@ namespace LocUtil
                 Console.WriteLine("Generating CommandId enum file " + cenum);
 
                 // commandId:    command name
-                // ribbonValues: command name --> resource id 
+                // ribbonValues: command name --> resource id
                 commandIds.AddAll(ribbonIds);
                 if (!GenerateEnum(commandIds, "CommandId", cenum, null, ribbonValues))
                     return 1;
@@ -258,7 +257,6 @@ namespace LocUtil
                 // HACK: hard-code wizard height
                 pairs.Add("ConfigurationWizard.Height", new Values("380", "The height of the configuration wizard, in pixels."));
 
-
             }
 
             pairs.Add("Culture.UseItalics", new Values("True", "Whether or not the language uses italics"));
@@ -298,16 +296,16 @@ namespace LocUtil
             xmlDoc.Save(path);
         }
 
-        // @RIBBON TODO: For now the union of the command in Commands.xml and Ribbon.xml will go into the CommandId enum.        
+        // @RIBBON TODO: For now the union of the command in Commands.xml and Ribbon.xml will go into the CommandId enum.
         private static bool GenerateEnum(HashSet commandIds, string enumName, string enumPath, Hashtable descriptions, Hashtable values)
         {
             const string TEMPLATE = @"namespace OpenLiveWriter.Localization
                             {{
-	                            public enum {0}
-	                            {{
-		                            None,
-		                            {1}
-	                            }}
+                                public enum {0}
+                                {{
+                                    None,
+                                    {1}
+                                }}
                             }}
                             ";
 
@@ -320,34 +318,34 @@ namespace LocUtil
                     sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(commandList.ToArray(), ",\r\n\t\t")));
                 }
                 else if (descriptions == null)
-                {                    
+                {
                     // insert values
                     const string VALUE_TEMPLATE = "{0} = {1}";
                     const string VALUELESS_TEMPLATE = "{0}";
                     ArrayList pairs = new ArrayList();
                     ArrayList unmappedCommands = new ArrayList();
                     foreach (string command in commandList.ToArray())
-                    {                        
+                    {
                         string value = values[command] as string;
                         if (value != null)
                         {
                             pairs.Add(string.Format(CultureInfo.InvariantCulture, VALUE_TEMPLATE, command, value));
                         }
                         else
-                        {                                                        
-                            ConsoleColor color = Console.ForegroundColor;                            
-                            Console.ForegroundColor = ConsoleColor.Red;                            
+                        {
+                            ConsoleColor color = Console.ForegroundColor;
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.Error.WriteLine("ERROR: Command " + command + " is missing an Id (required for instrumentation)");
                             Console.Beep();
                             Console.ForegroundColor = color;
-                            Console.Error.Flush();                            
-                                                        
+                            Console.Error.Flush();
+
                             // This command is not mapped to a ribbon command
                             // We'll keep track of these and put them at the end
                             unmappedCommands.Add(command);
                         }
-                    }           
-                    
+                    }
+
                     if (unmappedCommands.Count > 0)
                     {
                         return false;
@@ -369,9 +367,9 @@ namespace LocUtil
                 else if (values == null)
                 {
                     const string DESC_TEMPLATE = @"/// <summary>
-		                                            /// {0}
-		                                            /// </summary>
-		                                            {1}";
+                                                    /// {0}
+                                                    /// </summary>
+                                                    {1}";
                     ArrayList descs = new ArrayList();
                     foreach (string command in commandList.ToArray())
                     {
@@ -390,7 +388,7 @@ namespace LocUtil
 
             return true;
         }
-        
+
         private static bool ParseRibbonXml(string[] inputFiles, Hashtable pairs, Hashtable pairsNonLoc, Type t, string xpath, string KEY_FORMAT, out HashSet ids, out Hashtable values)
         {
             // Add to the proptable
@@ -402,7 +400,7 @@ namespace LocUtil
 
             ids = new HashSet();
             values = new Hashtable();
-            
+
             foreach (string relativeInputFile in inputFiles)
             {
                 string inputFile = Path.GetFullPath(relativeInputFile);
@@ -415,16 +413,16 @@ namespace LocUtil
                     nsm.AddNamespace(RibbonMarkup.XPathPrefix, RibbonMarkup.NamespaceUri);
 
                     XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.Load(inputFile);                   
+                    xmlDoc.Load(inputFile);
 
                     foreach (XmlElement el in xmlDoc.SelectNodes(xpath, nsm))
                     {
-                        
+
                         string id = el.GetAttribute("Id");
                         string symbol = el.GetAttribute("Symbol");
                         if (id == "")
                             throw new ConfigurationErrorsException(
-                                string.Format(CultureInfo.CurrentCulture, "The following command is missing an identifier:\r\n{0}", el.OuterXml));                      
+                                string.Format(CultureInfo.CurrentCulture, "The following command is missing an identifier:\r\n{0}", el.OuterXml));
 
                         // RibbonDUI.js requires that command names begin with the prefix "cmd".
                         // We will strip that prefix when generating the CommandId enum.
@@ -435,7 +433,7 @@ namespace LocUtil
                         }
 
                         if (!ids.Add(symbol))
-                            throw new ConfigurationErrorsException("Duplicate command: " + symbol + " with id " + id);                                                                        
+                            throw new ConfigurationErrorsException("Duplicate command: " + symbol + " with id " + id);
                         values.Add(symbol, id);
 
                         foreach (XmlAttribute attr in el.Attributes)
@@ -501,7 +499,6 @@ namespace LocUtil
                 propTable.Add(prop.Name, prop);
             }
 
-
             ids = new HashSet();
 
             foreach (string relativeInputFile in inputFiles)
@@ -511,18 +508,18 @@ namespace LocUtil
                 {
                     if (!File.Exists(inputFile))
                         throw new ConfigurationErrorsException("File not found");
-                    
-                    XmlDocument xmlDoc = new XmlDocument();                    
+
+                    XmlDocument xmlDoc = new XmlDocument();
                     xmlDoc.Load(inputFile);
                     foreach (XmlElement el in xmlDoc.SelectNodes(xpath))
-                    {                       
+                    {
                         string id = el.GetAttribute("Identifier");
                         if (id == "")
                             throw new ConfigurationErrorsException(
                                 String.Format(CultureInfo.CurrentCulture, "The following command is missing an identifier:\r\n{0}", el.OuterXml));
 
                         if (!ids.Add(id))
-                            throw new ConfigurationErrorsException("Duplicate command identifier: " + id);                        
+                            throw new ConfigurationErrorsException("Duplicate command identifier: " + id);
 
                         foreach (XmlAttribute attr in el.Attributes)
                         {
@@ -530,7 +527,6 @@ namespace LocUtil
                                 continue;
 
                             string name = attr.Name;
-
 
                             if (name == "DebugOnly" || name == "Identifier")
                                 continue;

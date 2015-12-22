@@ -21,262 +21,260 @@ using System.Security.AccessControl;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	internal class ServiceUpdateChecker
-	{
-		public ServiceUpdateChecker(string blogId, WeblogSettingsChangedHandler settingsChangedHandler)
-		{
-			_blogId = blogId ;
-			_settingsChangedHandler = settingsChangedHandler ;
-		}
 
-		public void Start()
-		{
-			Thread checkerThread = ThreadHelper.NewThread(new ThreadStart(Main), "ServiceUpdateChecker", true, true, true) ;
-			checkerThread.Start();
-		}
+    internal class ServiceUpdateChecker
+    {
+        public ServiceUpdateChecker(string blogId, WeblogSettingsChangedHandler settingsChangedHandler)
+        {
+            _blogId = blogId;
+            _settingsChangedHandler = settingsChangedHandler;
+        }
 
-		private void Main()
-		{
-			try
-			{
-				// delay the check for updates
-				Thread.Sleep(1000);
+        public void Start()
+        {
+            Thread checkerThread = ThreadHelper.NewThread(new ThreadStart(Main), "ServiceUpdateChecker", true, true, true);
+            checkerThread.Start();
+        }
 
-				// only run one service-update at a time process wide
-				lock (_serviceUpdateLock)
-				{
-					// establish settings detection context
-					ServiceUpdateSettingsDetectionContext settingsDetectionContext = new ServiceUpdateSettingsDetectionContext(_blogId);
-					
-					// fire-up a blog settings detector to query for changes
-					BlogSettingsDetector settingsDetector = new BlogSettingsDetector(settingsDetectionContext) ;
+        private void Main()
+        {
+            try
+            {
+                // delay the check for updates
+                Thread.Sleep(1000);
+
+                // only run one service-update at a time process wide
+                lock (_serviceUpdateLock)
+                {
+                    // establish settings detection context
+                    ServiceUpdateSettingsDetectionContext settingsDetectionContext = new ServiceUpdateSettingsDetectionContext(_blogId);
+
+                    // fire-up a blog settings detector to query for changes
+                    BlogSettingsDetector settingsDetector = new BlogSettingsDetector(settingsDetectionContext);
                     settingsDetector.SilentMode = true;
-				    using(RegistryKey key = Registry.CurrentUser.OpenSubKey(ApplicationEnvironment.SettingsRootKeyName +  @"\Weblogs\" + _blogId + @"\HomepageOptions"))
-				    {
-				        if (key != null)
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(ApplicationEnvironment.SettingsRootKeyName + @"\Weblogs\" + _blogId + @"\HomepageOptions"))
+                    {
+                        if (key != null)
                         {
-					        settingsDetector.IncludeFavIcon = false ;
-					        settingsDetector.IncludeCategories = settingsDetectionContext.BlogSupportsCategories ;
-					        settingsDetector.UseManifestCache = true ;
-					        settingsDetector.IncludeHomePageSettings = false;
-					        settingsDetector.IncludeCategoryScheme = false;
+                            settingsDetector.IncludeFavIcon = false;
+                            settingsDetector.IncludeCategories = settingsDetectionContext.BlogSupportsCategories;
+                            settingsDetector.UseManifestCache = true;
+                            settingsDetector.IncludeHomePageSettings = false;
+                            settingsDetector.IncludeCategoryScheme = false;
                             settingsDetector.IncludeInsecureOperations = false;
                         }
-				    }
+                    }
                     settingsDetector.IncludeImageEndpoints = false;
                     settingsDetector.DetectSettings(SilentProgressHost.Instance);
 
-					// write the settings
-					using (ProcessKeepalive.Open())
-					{
-						using ( BlogSettings settings = BlogSettings.ForBlogId(_blogId) )
-							settings.ApplyUpdates(settingsDetectionContext);
-					}
+                    // write the settings
+                    using (ProcessKeepalive.Open())
+                    {
+                        using (BlogSettings settings = BlogSettings.ForBlogId(_blogId))
+                            settings.ApplyUpdates(settingsDetectionContext);
+                    }
 
-					// if changes were made then fire an event to notify the UI
-					if ( settingsDetectionContext.HasUpdates )
-					{
-						_settingsChangedHandler(_blogId, false) ;
-					}
-				}
-				
-			}
-			catch(ManualKeepaliveOperationException)
-			{
-			}
-			catch(Exception ex)
-			{
-				Trace.Fail("Unexpected exception during ServiceUpdateChecker.Main: " + ex.ToString());
-			}
-		}
+                    // if changes were made then fire an event to notify the UI
+                    if (settingsDetectionContext.HasUpdates)
+                    {
+                        _settingsChangedHandler(_blogId, false);
+                    }
+                }
 
-		private string _blogId ;
-		private WeblogSettingsChangedHandler _settingsChangedHandler ;
-		private readonly static object _serviceUpdateLock = new object();
-	}
+            }
+            catch (ManualKeepaliveOperationException)
+            {
+            }
+            catch (Exception ex)
+            {
+                Trace.Fail("Unexpected exception during ServiceUpdateChecker.Main: " + ex.ToString());
+            }
+        }
 
-	internal class ServiceUpdateSettingsDetectionContext : IBlogSettingsDetectionContextForCategorySchemeHack
-	{
-		public ServiceUpdateSettingsDetectionContext(string blogId)
-		{
-			using ( BlogSettings settings = BlogSettings.ForBlogId(blogId) )
-			{
-				_blogId = blogId ;
-				_homepageUrl = settings.HomepageUrl ;
-				_providerId = settings.ProviderId ;
-				_manifestDownloadInfo = settings.ManifestDownloadInfo ;
-				_hostBlogId = settings.HostBlogId ;
-				_postApiUrl = settings.PostApiUrl ;
-				_clientType = settings.ClientType ;
+        private string _blogId;
+        private WeblogSettingsChangedHandler _settingsChangedHandler;
+        private readonly static object _serviceUpdateLock = new object();
+    }
+
+    internal class ServiceUpdateSettingsDetectionContext : IBlogSettingsDetectionContextForCategorySchemeHack
+    {
+        public ServiceUpdateSettingsDetectionContext(string blogId)
+        {
+            using (BlogSettings settings = BlogSettings.ForBlogId(blogId))
+            {
+                _blogId = blogId;
+                _homepageUrl = settings.HomepageUrl;
+                _providerId = settings.ProviderId;
+                _manifestDownloadInfo = settings.ManifestDownloadInfo;
+                _hostBlogId = settings.HostBlogId;
+                _postApiUrl = settings.PostApiUrl;
+                _clientType = settings.ClientType;
                 _userOptionOverrides = settings.UserOptionOverrides;
                 _homepageOptionOverrides = settings.HomePageOverrides;
 
-				_initialCategoryScheme = settings.OptionOverrides != null
-					? settings.OptionOverrides[BlogClientOptions.CATEGORY_SCHEME] as string
-					: null;
-				
-				BlogCredentialsHelper.Copy(settings.Credentials, _credentials) ;
-			
-				using ( Blog blog = new Blog(settings) )
-					_blogSupportsCategories = blog.ClientOptions.SupportsCategories ;
+                _initialCategoryScheme = settings.OptionOverrides != null
+                    ? settings.OptionOverrides[BlogClientOptions.CATEGORY_SCHEME] as string
+                    : null;
 
-				_initialBlogSettingsContents = GetBlogSettingsContents(settings) ;
-				_initialCategoriesContents = GetCategoriesContents(settings.Categories) ;
-                
-			}
-		}
+                BlogCredentialsHelper.Copy(settings.Credentials, _credentials);
 
-		public bool HasUpdates
-		{
-			get
-			{
-				// If all of our manifest fields are null that means we either
-				// don't support manifests or we are using a cached manifest.
-				// In this case just compare categories.
-				if ( Image == null && WatermarkImage == null && ButtonDescriptions == null && OptionOverrides == null && HomePageOverrides == null)
-				{
-					string updatedCategories = GetCategoriesContents(Categories) ;
-					return _initialCategoriesContents != updatedCategories ;
-				}
-				else
-				{
-					string updatedSettingsContents = GetSettingsContents() ;
-					return _initialBlogSettingsContents != updatedSettingsContents ;
-				}
-			}
-		}
+                using (Blog blog = new Blog(settings))
+                    _blogSupportsCategories = blog.ClientOptions.SupportsCategories;
 
-		public bool BlogSupportsCategories
-		{
-			get { return _blogSupportsCategories; }
-		}
-		private bool _blogSupportsCategories ;
-		
-		public string PostApiUrl
-		{
-			get
-			{
-				return _postApiUrl ;
-			}
-		}
-		private string _postApiUrl ;
+                _initialBlogSettingsContents = GetBlogSettingsContents(settings);
+                _initialCategoriesContents = GetCategoriesContents(settings.Categories);
 
-		public IBlogCredentialsAccessor Credentials
-		{
-			get
-			{
-				return new BlogCredentialsAccessor(_blogId, _credentials) ;
-			}
-		}
-		private IBlogCredentials _credentials = new TemporaryBlogCredentials();
+            }
+        }
 
-		public string HomepageUrl
-		{
-			get
-			{
-				return _homepageUrl ;
-			}
-		}
-		private string _homepageUrl ;
-		
-		public string ProviderId
-		{
-			get
-			{
-				return _providerId ;
-			}
-		}
-		private string _providerId ;
+        public bool HasUpdates
+        {
+            get
+            {
+                // If all of our manifest fields are null that means we either
+                // don't support manifests or we are using a cached manifest.
+                // In this case just compare categories.
+                if (Image == null && WatermarkImage == null && ButtonDescriptions == null && OptionOverrides == null && HomePageOverrides == null)
+                {
+                    string updatedCategories = GetCategoriesContents(Categories);
+                    return _initialCategoriesContents != updatedCategories;
+                }
+                else
+                {
+                    string updatedSettingsContents = GetSettingsContents();
+                    return _initialBlogSettingsContents != updatedSettingsContents;
+                }
+            }
+        }
 
-		public string HostBlogId
-		{
-			get
-			{
-				return _hostBlogId ;
-			}
-		}
-		private string _hostBlogId ;
+        public bool BlogSupportsCategories
+        {
+            get { return _blogSupportsCategories; }
+        }
+        private bool _blogSupportsCategories;
 
+        public string PostApiUrl
+        {
+            get
+            {
+                return _postApiUrl;
+            }
+        }
+        private string _postApiUrl;
 
-		public WriterEditingManifestDownloadInfo ManifestDownloadInfo 
-		{
-			get
-			{
-				return _manifestDownloadInfo ;
-			}
-			set
-			{
-				_manifestDownloadInfo = value ;
-			}
-		}
-		private WriterEditingManifestDownloadInfo _manifestDownloadInfo ;
+        public IBlogCredentialsAccessor Credentials
+        {
+            get
+            {
+                return new BlogCredentialsAccessor(_blogId, _credentials);
+            }
+        }
+        private IBlogCredentials _credentials = new TemporaryBlogCredentials();
 
-		public string ClientType
-		{
-			get
-			{
-				return _clientType ;
-			}
-			set
-			{
-				_clientType = value;
-			}
-		}
-		private string _clientType ;
+        public string HomepageUrl
+        {
+            get
+            {
+                return _homepageUrl;
+            }
+        }
+        private string _homepageUrl;
 
+        public string ProviderId
+        {
+            get
+            {
+                return _providerId;
+            }
+        }
+        private string _providerId;
 
-		public byte[] FavIcon
-		{
-			get
-			{
-				return _favIcon ;
-			}
-			set
-			{
-				_favIcon = value ;
-			}
-		}
-		private byte[] _favIcon ;
+        public string HostBlogId
+        {
+            get
+            {
+                return _hostBlogId;
+            }
+        }
+        private string _hostBlogId;
 
-		public byte[] Image
-		{
-			get
-			{
-				return _image ;
-			}
-			set
-			{
-				_image = value ;
-			}
-		}
-		private byte[] _image ;
+        public WriterEditingManifestDownloadInfo ManifestDownloadInfo
+        {
+            get
+            {
+                return _manifestDownloadInfo;
+            }
+            set
+            {
+                _manifestDownloadInfo = value;
+            }
+        }
+        private WriterEditingManifestDownloadInfo _manifestDownloadInfo;
 
-		public byte[] WatermarkImage
-		{
-			get
-			{
-				return _watermarkImage ;
-			}
-			set
-			{
-				_watermarkImage = value ;
-			}
-		}
-		private byte[] _watermarkImage ;
+        public string ClientType
+        {
+            get
+            {
+                return _clientType;
+            }
+            set
+            {
+                _clientType = value;
+            }
+        }
+        private string _clientType;
 
-		public BlogPostCategory[] Categories
-		{
-			get
-			{
-				return _categories ;
-			}
-			set
-			{
-				_categories = value ;
-			}
-		}
-		private BlogPostCategory[] _categories ;
+        public byte[] FavIcon
+        {
+            get
+            {
+                return _favIcon;
+            }
+            set
+            {
+                _favIcon = value;
+            }
+        }
+        private byte[] _favIcon;
+
+        public byte[] Image
+        {
+            get
+            {
+                return _image;
+            }
+            set
+            {
+                _image = value;
+            }
+        }
+        private byte[] _image;
+
+        public byte[] WatermarkImage
+        {
+            get
+            {
+                return _watermarkImage;
+            }
+            set
+            {
+                _watermarkImage = value;
+            }
+        }
+        private byte[] _watermarkImage;
+
+        public BlogPostCategory[] Categories
+        {
+            get
+            {
+                return _categories;
+            }
+            set
+            {
+                _categories = value;
+            }
+        }
+        private BlogPostCategory[] _categories;
 
         public BlogPostKeyword[] Keywords
         {
@@ -291,39 +289,39 @@ namespace OpenLiveWriter.PostEditor
         }
         private BlogPostKeyword[] _keywords;
 
-		public IBlogProviderButtonDescription[] ButtonDescriptions
-		{
-			get
-			{
-				return _buttonDescriptions ;
-			}
-			set
-			{
-				_buttonDescriptions = value ;
-			}
-		}
-		private IBlogProviderButtonDescription[] _buttonDescriptions ;
+        public IBlogProviderButtonDescription[] ButtonDescriptions
+        {
+            get
+            {
+                return _buttonDescriptions;
+            }
+            set
+            {
+                _buttonDescriptions = value;
+            }
+        }
+        private IBlogProviderButtonDescription[] _buttonDescriptions;
 
-		public IDictionary UserOptionOverrides
-		{
-			get
-			{
-				return _userOptionOverrides ;
-			}
-		}
-		private IDictionary _userOptionOverrides ;
+        public IDictionary UserOptionOverrides
+        {
+            get
+            {
+                return _userOptionOverrides;
+            }
+        }
+        private IDictionary _userOptionOverrides;
 
-		public IDictionary OptionOverrides
-		{
-			get
-			{
-				return _optionOverrides ;
-			}
-			set
-			{
-				_optionOverrides = value ;
-			}
-		}
+        public IDictionary OptionOverrides
+        {
+            get
+            {
+                return _optionOverrides;
+            }
+            set
+            {
+                _optionOverrides = value;
+            }
+        }
 
         public IDictionary HomePageOverrides
         {
@@ -337,159 +335,154 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-		public string InitialCategoryScheme
-		{
-			get
-			{
-				if (_optionOverrides != null && _optionOverrides.Contains(BlogClientOptions.CATEGORY_SCHEME))
-					return _optionOverrides[BlogClientOptions.CATEGORY_SCHEME] as string;
-				return _initialCategoryScheme;
-			}
-		}
+        public string InitialCategoryScheme
+        {
+            get
+            {
+                if (_optionOverrides != null && _optionOverrides.Contains(BlogClientOptions.CATEGORY_SCHEME))
+                    return _optionOverrides[BlogClientOptions.CATEGORY_SCHEME] as string;
+                return _initialCategoryScheme;
+            }
+        }
 
-	    private IDictionary _homepageOptionOverrides;
-		private IDictionary _optionOverrides ;
+        private IDictionary _homepageOptionOverrides;
+        private IDictionary _optionOverrides;
 
-		private string _blogId ;
+        private string _blogId;
 
-		private string _initialBlogSettingsContents ;
-		private string _initialCategoriesContents ;
-		private readonly string _initialCategoryScheme;
+        private string _initialBlogSettingsContents;
+        private string _initialCategoriesContents;
+        private readonly string _initialCategoryScheme;
 
-		private string GetBlogSettingsContents(BlogSettings blogSettings)
-		{
-			// return normalized string of settings contents
-			StringBuilder settingsContents = new StringBuilder();
-			AppendClientType(blogSettings.ClientType, settingsContents) ;
-			AppendImages(blogSettings.Image, blogSettings.WatermarkImage, settingsContents) ;
-			AppendCategories(blogSettings.Categories, settingsContents) ;
-			AppendButtons(blogSettings.ButtonDescriptions, settingsContents) ;
-			AppendOptionOverrides(blogSettings.OptionOverrides, settingsContents) ;
+        private string GetBlogSettingsContents(BlogSettings blogSettings)
+        {
+            // return normalized string of settings contents
+            StringBuilder settingsContents = new StringBuilder();
+            AppendClientType(blogSettings.ClientType, settingsContents);
+            AppendImages(blogSettings.Image, blogSettings.WatermarkImage, settingsContents);
+            AppendCategories(blogSettings.Categories, settingsContents);
+            AppendButtons(blogSettings.ButtonDescriptions, settingsContents);
+            AppendOptionOverrides(blogSettings.OptionOverrides, settingsContents);
             AppendOptionOverrides(blogSettings.HomePageOverrides, settingsContents);
-			return settingsContents.ToString() ;
-		}
+            return settingsContents.ToString();
+        }
 
-
-		private string GetSettingsContents()
-		{
-			StringBuilder settingsContents = new StringBuilder();
-			AppendClientType(ClientType, settingsContents) ;
-			AppendImages(Image, WatermarkImage, settingsContents) ;
-			AppendCategories(Categories, settingsContents) ;
-			AppendButtons(ButtonDescriptions, settingsContents) ;
-			AppendOptionOverrides(OptionOverrides, settingsContents) ;
+        private string GetSettingsContents()
+        {
+            StringBuilder settingsContents = new StringBuilder();
+            AppendClientType(ClientType, settingsContents);
+            AppendImages(Image, WatermarkImage, settingsContents);
+            AppendCategories(Categories, settingsContents);
+            AppendButtons(ButtonDescriptions, settingsContents);
+            AppendOptionOverrides(OptionOverrides, settingsContents);
             AppendOptionOverrides(HomePageOverrides, settingsContents);
-			return settingsContents.ToString() ;
-		}
+            return settingsContents.ToString();
+        }
 
+        private void AppendManifestDownloadInfo(WriterEditingManifestDownloadInfo manifestDownloadInfo, StringBuilder settingsContents)
+        {
+            if (manifestDownloadInfo != null)
+            {
+                settingsContents.AppendFormat(CultureInfo.InvariantCulture,
+                    "ManifestUrl:{0}ManifestExpires:{1}ManifestLastModified:{2}ManifestEtag:{3}",
+                    manifestDownloadInfo.SourceUrl,
+                    manifestDownloadInfo.Expires,
+                    manifestDownloadInfo.LastModified,
+                    manifestDownloadInfo.ETag);
+            }
+        }
 
-		private void AppendManifestDownloadInfo(WriterEditingManifestDownloadInfo manifestDownloadInfo, StringBuilder settingsContents)
-		{
-			if ( manifestDownloadInfo != null )
-			{
-				settingsContents.AppendFormat(CultureInfo.InvariantCulture,
-					"ManifestUrl:{0}ManifestExpires:{1}ManifestLastModified:{2}ManifestEtag:{3}", 
-					manifestDownloadInfo.SourceUrl, 
-					manifestDownloadInfo.Expires,
-					manifestDownloadInfo.LastModified,
-					manifestDownloadInfo.ETag) ;
-			}
-		}
+        private void AppendClientType(string clientType, StringBuilder settingsContents)
+        {
+            if (clientType != null)
+                settingsContents.AppendFormat("ClientType:{0}", clientType);
+        }
 
-		private void AppendClientType(string clientType, StringBuilder settingsContents)
-		{
-			if ( clientType != null )
-				settingsContents.AppendFormat("ClientType:{0}", clientType) ;
-		}
+        private void AppendImages(byte[] image, byte[] watermarkImage, StringBuilder settingsContents)
+        {
+            if (image != null && image.Length > 0)
+            {
+                settingsContents.Append("Image:");
+                foreach (byte imageByte in image)
+                    settingsContents.Append(imageByte);
+            }
 
-		private void AppendImages(byte[] image, byte[] watermarkImage, StringBuilder settingsContents)
-		{
-			if ( image != null && image.Length > 0 )
-			{
-				settingsContents.Append("Image:");
-				foreach ( byte imageByte in image )
-					settingsContents.Append(imageByte) ;
-			}
+            if (watermarkImage != null && watermarkImage.Length > 0)
+            {
+                settingsContents.Append("WatemarkImage:");
+                foreach (byte watermarkImageByte in watermarkImage)
+                    settingsContents.Append(watermarkImageByte);
+            }
+        }
 
-			if ( watermarkImage != null && watermarkImage.Length > 0 )
-			{
-				settingsContents.Append("WatemarkImage:") ;
-				foreach ( byte watermarkImageByte in watermarkImage )
-					settingsContents.Append(watermarkImageByte) ;
-			}
-		}
+        private void AppendCategories(BlogPostCategory[] categories, StringBuilder settingsContents)
+        {
+            settingsContents.Append(GetCategoriesContents(categories));
+        }
 
-		private void AppendCategories(BlogPostCategory[] categories, StringBuilder settingsContents)
-		{
-			settingsContents.Append(GetCategoriesContents(categories)) ;
-		}
+        private string GetCategoriesContents(BlogPostCategory[] categories)
+        {
+            StringBuilder categoriesBuilder = new StringBuilder();
+            if (categories != null)
+            {
+                Array.Sort(categories, new SortCategoriesComparer());
+                foreach (BlogPostCategory category in categories)
+                    categoriesBuilder.AppendFormat("Category:{0}/{1}/{2}", category.Id, category.Name, category.Parent);
+            }
+            return categoriesBuilder.ToString();
+        }
 
-		private string GetCategoriesContents(BlogPostCategory[] categories)
-		{
-			StringBuilder categoriesBuilder = new StringBuilder();
-			if ( categories != null )
-			{
-				Array.Sort(categories, new SortCategoriesComparer());
-				foreach ( BlogPostCategory category in categories )
-					categoriesBuilder.AppendFormat("Category:{0}/{1}/{2}", category.Id, category.Name, category.Parent) ;
-			}
-			return categoriesBuilder.ToString();
-		}
+        private class SortCategoriesComparer : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                return (x as BlogPostCategory).Id.CompareTo((y as BlogPostCategory).Id);
+            }
+        }
 
-		private class SortCategoriesComparer : IComparer
-		{
-			public int Compare(object x, object y)
-			{
-				return (x as BlogPostCategory).Id.CompareTo((y as BlogPostCategory).Id) ;
-			}
-		}
+        private void AppendButtons(IBlogProviderButtonDescription[] buttons, StringBuilder settingsContents)
+        {
+            if (buttons != null)
+            {
+                Array.Sort(buttons, new SortButtonsComparer());
+                foreach (IBlogProviderButtonDescription button in buttons)
+                    settingsContents.AppendFormat(CultureInfo.InvariantCulture, "Button:{0}/{1}/{2}/{3}/{4}/{5}/{6}", button.Id, button.Description, button.ImageUrl, button.ClickUrl, button.ContentUrl, button.ContentDisplaySize, button.NotificationUrl);
+            }
+        }
 
+        private class SortButtonsComparer : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                return (x as IBlogProviderButtonDescription).Id.CompareTo((y as IBlogProviderButtonDescription).Id);
+            }
+        }
 
-		private void AppendButtons(IBlogProviderButtonDescription[] buttons, StringBuilder settingsContents)
-		{
-			if ( buttons != null )
-			{
-				Array.Sort( buttons, new SortButtonsComparer() );
-				foreach ( IBlogProviderButtonDescription button in buttons )
-					settingsContents.AppendFormat(CultureInfo.InvariantCulture, "Button:{0}/{1}/{2}/{3}/{4}/{5}/{6}", button.Id, button.Description, button.ImageUrl, button.ClickUrl, button.ContentUrl, button.ContentDisplaySize, button.NotificationUrl) ;
-			}
-		}
-		
-		private class SortButtonsComparer : IComparer
-		{
-			public int Compare(object x, object y)
-			{
-				return (x as IBlogProviderButtonDescription).Id.CompareTo((y as IBlogProviderButtonDescription).Id) ;
-			}
-		}
+        private void AppendOptionOverrides(IDictionary optionOverrides, StringBuilder settingsContents)
+        {
+            if (optionOverrides != null)
+            {
+                ArrayList optionOverrideList = new ArrayList();
+                foreach (DictionaryEntry optionOverride in optionOverrides)
+                    optionOverrideList.Add(optionOverride);
 
-		private void AppendOptionOverrides(IDictionary optionOverrides, StringBuilder settingsContents)
-		{
-			if ( optionOverrides != null )
-			{
-				ArrayList optionOverrideList = new ArrayList();
-				foreach ( DictionaryEntry optionOverride in optionOverrides )
-					optionOverrideList.Add(optionOverride) ;
+                optionOverrideList.Sort(new SortOptionOverridesComparer());
 
-				optionOverrideList.Sort(new SortOptionOverridesComparer());
+                foreach (DictionaryEntry optionOverride in optionOverrideList)
+                    settingsContents.AppendFormat("OptionOverride:{0}/{1}", optionOverride.Key, optionOverride.Value);
+            }
+        }
 
-				foreach ( DictionaryEntry optionOverride in optionOverrideList )
-					settingsContents.AppendFormat("OptionOverride:{0}/{1}", optionOverride.Key, optionOverride.Value ) ;
-			}
-		}
-	
-		private class SortOptionOverridesComparer : IComparer
-		{
-			public int Compare(object x, object y)
-			{
-				string xKey = ((DictionaryEntry)x).Key.ToString();
-				string yKey = ((DictionaryEntry)y).Key.ToString();
-				return xKey.CompareTo(yKey) ;
-			}
-		}
-		
+        private class SortOptionOverridesComparer : IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                string xKey = ((DictionaryEntry)x).Key.ToString();
+                string yKey = ((DictionaryEntry)y).Key.ToString();
+                return xKey.CompareTo(yKey);
+            }
+        }
 
-	}
-
+    }
 
 }

@@ -5,11 +5,9 @@ using OpenLiveWriter.CoreServices.Settings;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	public sealed class HtmlSourceEditorSettings
-	{
-		
+    public sealed class HtmlSourceEditorSettings
+    {
 
-
-		internal static SettingsPersisterHelper SettingsKey = PostEditorSettings.SettingsKey.GetSubSettings("HtmlSourceEditor") ;
-	}
+        internal static SettingsPersisterHelper SettingsKey = PostEditorSettings.SettingsKey.GetSubSettings("HtmlSourceEditor");
+    }
 }

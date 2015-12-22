@@ -10,54 +10,54 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.PostEditor.Tables
 {
-	/// <summary>
-	/// Summary description for TableIndentControl.
-	/// </summary>
-	public class TableIndentControl : System.Windows.Forms.UserControl
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Summary description for TableIndentControl.
+    /// </summary>
+    public class TableIndentControl : System.Windows.Forms.UserControl
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.Container components = null;
 
-		public TableIndentControl()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        public TableIndentControl()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
-			// TODO: Add any initialization after the InitializeComponent call
+            // TODO: Add any initialization after the InitializeComponent call
 
-		}
+        }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			// 
-			// TableIndentControl
-			// 
-			this.Name = "TableIndentControl";
-			this.Size = new System.Drawing.Size(216, 24);
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            //
+            // TableIndentControl
+            //
+            this.Name = "TableIndentControl";
+            this.Size = new System.Drawing.Size(216, 24);
 
-		}
-		#endregion
-	}
+        }
+        #endregion
+    }
 }

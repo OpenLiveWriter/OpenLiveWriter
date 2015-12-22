@@ -28,7 +28,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             _isPost = isPost;
             if (isPost)
             {
-                draftCmdStart = (int) CommandId.OpenPostMRU0;
+                draftCmdStart = (int)CommandId.OpenPostMRU0;
             }
             lock (_commandsLock)
             {

@@ -5,38 +5,38 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.CoreServices
 {
-	/// <summary>
-	/// Summary description for LightWeightHTMLDocumentData.
-	/// </summary>
-	public class LightWeightHTMLDocumentData
-	{
-		private LightWeightHTMLDocument _document;
+    /// <summary>
+    /// Summary description for LightWeightHTMLDocumentData.
+    /// </summary>
+    public class LightWeightHTMLDocumentData
+    {
+        private LightWeightHTMLDocument _document;
 
-		public static LightWeightHTMLDocumentData Create(IDataObject iDataObject)
-		{
-			string[] loser = iDataObject.GetFormats();
-			
-			if (OleDataObjectHelper.GetDataPresentSafe(iDataObject, LightWeightHTMLDataObject.LIGHTWEIGHTHTMLDOCUMENTFORMAT))
-			{
-				LightWeightHTMLDocument document = (LightWeightHTMLDocument)iDataObject.GetData(LightWeightHTMLDataObject.LIGHTWEIGHTHTMLDOCUMENTFORMAT);
-				return new LightWeightHTMLDocumentData(document);
-			}
-			else
-				return null;
-			
-		}
+        public static LightWeightHTMLDocumentData Create(IDataObject iDataObject)
+        {
+            string[] loser = iDataObject.GetFormats();
 
-		private LightWeightHTMLDocumentData(LightWeightHTMLDocument document)
-		{
-			_document = document;
-		}
+            if (OleDataObjectHelper.GetDataPresentSafe(iDataObject, LightWeightHTMLDataObject.LIGHTWEIGHTHTMLDOCUMENTFORMAT))
+            {
+                LightWeightHTMLDocument document = (LightWeightHTMLDocument)iDataObject.GetData(LightWeightHTMLDataObject.LIGHTWEIGHTHTMLDOCUMENTFORMAT);
+                return new LightWeightHTMLDocumentData(document);
+            }
+            else
+                return null;
 
-		public LightWeightHTMLDocument LightWeightHTMLDocument
-		{
-			get
-			{
-				return _document;
-			}
-		}
-	}
+        }
+
+        private LightWeightHTMLDocumentData(LightWeightHTMLDocument document)
+        {
+            _document = document;
+        }
+
+        public LightWeightHTMLDocument LightWeightHTMLDocument
+        {
+            get
+            {
+                return _document;
+            }
+        }
+    }
 }

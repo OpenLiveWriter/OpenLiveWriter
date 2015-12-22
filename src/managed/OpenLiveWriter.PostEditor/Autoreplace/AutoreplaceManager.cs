@@ -22,7 +22,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         {
             canMatch = (text, charactersMatched) => (charactersMatched >= text.Length ||
                                                            !char.IsLetterOrDigit(text[charactersMatched]));
-            
+
             SetAutoCorrectFile(null);
             ReloadPhraseSettings();
         }
@@ -32,7 +32,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         /// </summary>
         public void SetAutoCorrectFile(string path)
         {
-            if(string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
             {
                 finderFile = new AutoReplaceFinder(canMatch);
                 return;
@@ -147,8 +147,8 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             if (s == null)
                 return null;
 
-            return AutoreplaceSettings.EnableSmartQuotes 
-                ? s.Replace('\'', '\u2019') 
+            return AutoreplaceSettings.EnableSmartQuotes
+                ? s.Replace('\'', '\u2019')
                 : s.Replace('\u2019', '\'');
         }
     }

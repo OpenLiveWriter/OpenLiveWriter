@@ -14,41 +14,41 @@ using OpenLiveWriter.Api;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
-	/// <summary>
-	/// Summary description for Decorator.
-	/// </summary>
-	public class HtmlImageTargetDecorator : IImageDecorator, IImageDecoratorDefaultSettingsCustomizer
-	{
-		public const string Id = "ImageTarget";
-		public HtmlImageTargetDecorator()
-		{
-		}
+    /// <summary>
+    /// Summary description for Decorator.
+    /// </summary>
+    public class HtmlImageTargetDecorator : IImageDecorator, IImageDecoratorDefaultSettingsCustomizer
+    {
+        public const string Id = "ImageTarget";
+        public HtmlImageTargetDecorator()
+        {
+        }
 
-		public void Decorate(ImageDecoratorContext context)
-		{
-			HtmlImageTargetDecoratorSettings settings = new HtmlImageTargetDecoratorSettings(context.Settings, context.ImgElement);
-			if(context.InvocationSource == ImageDecoratorInvocationSource.InitialInsert ||
-			   context.InvocationSource == ImageDecoratorInvocationSource.Reset)
-			{
-				//set the default link target type.
-				//settings.LinkTarget = settings.DefaultLinkTarget;
+        public void Decorate(ImageDecoratorContext context)
+        {
+            HtmlImageTargetDecoratorSettings settings = new HtmlImageTargetDecoratorSettings(context.Settings, context.ImgElement);
+            if (context.InvocationSource == ImageDecoratorInvocationSource.InitialInsert ||
+               context.InvocationSource == ImageDecoratorInvocationSource.Reset)
+            {
+                //set the default link target type.
+                //settings.LinkTarget = settings.DefaultLinkTarget;
 
-				//the default size is a scaled version of the image based on the default inline size constraints.
-				Size defaultSizeBounds = settings.DefaultTargetBoundsSize;
+                //the default size is a scaled version of the image based on the default inline size constraints.
+                Size defaultSizeBounds = settings.DefaultTargetBoundsSize;
 
                 settings.BaseSize = context.Image.Size;
-                
-                //calculate the base image size to scale from.  If the image is rotated 90 degrees, then switch the height/width
-				Size baseImageSize = context.Image.Size;
-				if(ImageUtils.IsRotated90(context.ImageRotation))
-					baseImageSize = new Size(baseImageSize.Height, baseImageSize.Width);
 
-				//calculate and set the scaled default size using the defaultSizeBounds
-				//Note: if the image dimensions are smaller than the default, don't scale that dimension (bug 419446)
-				Size defaultSize = ImageUtils.GetScaledImageSize(Math.Min(baseImageSize.Width, defaultSizeBounds.Width), Math.Min(baseImageSize.Height, defaultSizeBounds.Height), baseImageSize);
-				settings.ImageSize = defaultSize;
-			    settings.ImageSizeName = settings.DefaultTargetBoundsSizeName;
-			}
+                //calculate the base image size to scale from.  If the image is rotated 90 degrees, then switch the height/width
+                Size baseImageSize = context.Image.Size;
+                if (ImageUtils.IsRotated90(context.ImageRotation))
+                    baseImageSize = new Size(baseImageSize.Height, baseImageSize.Width);
+
+                //calculate and set the scaled default size using the defaultSizeBounds
+                //Note: if the image dimensions are smaller than the default, don't scale that dimension (bug 419446)
+                Size defaultSize = ImageUtils.GetScaledImageSize(Math.Min(baseImageSize.Width, defaultSizeBounds.Width), Math.Min(baseImageSize.Height, defaultSizeBounds.Height), baseImageSize);
+                settings.ImageSize = defaultSize;
+                settings.ImageSizeName = settings.DefaultTargetBoundsSizeName;
+            }
             else if (settings.BaseSizeChanged(context.Image) && context.ImageEmbedType == ImageEmbedType.Linked)
             {
                 Size newBaseSize = context.Image.Size;
@@ -57,350 +57,347 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
 
             if (context.InvocationSource == ImageDecoratorInvocationSource.Reset)
-			{
-				//set the initial link options
-				settings.LinkOptions = settings.DefaultLinkOptions;
-			}
+            {
+                //set the initial link options
+                settings.LinkOptions = settings.DefaultLinkOptions;
+            }
 
-    		//this decorator only applies to linked images.
-		    if(context.ImageEmbedType == ImageEmbedType.Linked)
-			{
-				Size imageSize = settings.ImageSize;
-				
-				//resize the image and update the image used by the context.
-				Bitmap bitmap = HtmlImageResizeDecorator.ResizeImage(context.Image, imageSize, context.ImageRotation);
+            //this decorator only applies to linked images.
+            if (context.ImageEmbedType == ImageEmbedType.Linked)
+            {
+                Size imageSize = settings.ImageSize;
 
-				context.Image = bitmap;
-				if(settings.ImageSize != bitmap.Size)
-					settings.ImageSize = bitmap.Size;
-			}
-		}
+                //resize the image and update the image used by the context.
+                Bitmap bitmap = HtmlImageResizeDecorator.ResizeImage(context.Image, imageSize, context.ImageRotation);
 
-	    public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
-		{
-			return new HtmlImageTargetEditor();
-		}
+                context.Image = bitmap;
+                if (settings.ImageSize != bitmap.Size)
+                    settings.ImageSize = bitmap.Size;
+            }
+        }
 
-		#region IImageDecoratorDefaultSettingsCustomizer Members
+        public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        {
+            return new HtmlImageTargetEditor();
+        }
 
-		void IImageDecoratorDefaultSettingsCustomizer.CustomizeDefaultSettingsBeforeSave(ImageDecoratorEditorContext context, IProperties defaultSettings)
-		{
-			HtmlImageTargetDecoratorSettings defaultTargetSettings = new HtmlImageTargetDecoratorSettings(defaultSettings, context.ImgElement);
-			HtmlImageTargetDecoratorSettings targetSettings = new HtmlImageTargetDecoratorSettings(context.Settings, context.ImgElement);
+        #region IImageDecoratorDefaultSettingsCustomizer Members
 
-			//save a reasonable value for the default link target.
-			//If the link target is a URL, default to NONE since the user clearly doesn't want to preserve
-			//the URL currently associated with the image for all future images
-			if(defaultTargetSettings.LinkTarget != LinkTargetType.URL)
-				defaultTargetSettings.DefaultLinkTarget = defaultTargetSettings.LinkTarget;
-			else
-				defaultTargetSettings.DefaultLinkTarget = LinkTargetType.NONE;
-			
-			defaultTargetSettings.DefaultLinkOptions = targetSettings.LinkOptions;
-			defaultTargetSettings.DefaultTargetBoundsSizeName = targetSettings.ImageSizeName;
-			defaultTargetSettings.DefaultTargetBoundsSize = targetSettings.ImageSize;
-		}
+        void IImageDecoratorDefaultSettingsCustomizer.CustomizeDefaultSettingsBeforeSave(ImageDecoratorEditorContext context, IProperties defaultSettings)
+        {
+            HtmlImageTargetDecoratorSettings defaultTargetSettings = new HtmlImageTargetDecoratorSettings(defaultSettings, context.ImgElement);
+            HtmlImageTargetDecoratorSettings targetSettings = new HtmlImageTargetDecoratorSettings(context.Settings, context.ImgElement);
 
-		#endregion
-	}
+            //save a reasonable value for the default link target.
+            //If the link target is a URL, default to NONE since the user clearly doesn't want to preserve
+            //the URL currently associated with the image for all future images
+            if (defaultTargetSettings.LinkTarget != LinkTargetType.URL)
+                defaultTargetSettings.DefaultLinkTarget = defaultTargetSettings.LinkTarget;
+            else
+                defaultTargetSettings.DefaultLinkTarget = LinkTargetType.NONE;
 
-	internal class HtmlImageTargetDecoratorSettings : IResizeDecoratorSettings
-	{
-		private const string WIDTH = "ImageWidth";
-		private const string HEIGHT = "ImageHeight";
-		private const string BOUNDS = "ImageBoundsSize";
+            defaultTargetSettings.DefaultLinkOptions = targetSettings.LinkOptions;
+            defaultTargetSettings.DefaultTargetBoundsSizeName = targetSettings.ImageSizeName;
+            defaultTargetSettings.DefaultTargetBoundsSize = targetSettings.ImageSize;
+        }
+
+        #endregion
+    }
+
+    internal class HtmlImageTargetDecoratorSettings : IResizeDecoratorSettings
+    {
+        private const string WIDTH = "ImageWidth";
+        private const string HEIGHT = "ImageHeight";
+        private const string BOUNDS = "ImageBoundsSize";
         private const string BASE_WIDTH = "BaseWidth";
         private const string BASE_HEIGHT = "BaseHeight";
         private const string TARGET_TYPE = "TargetType";
-		private const string DEFAULT_TARGET_TYPE = "DefaultTargetType";
-		private const string DEFAULT_OPEN_NEW_WINDOW = "DefaultOpenNewWindow";
-		private const string DEFAULT_TARGET_WIDTH = "DefaultTargetWidth";
-		private const string DEFAULT_TARGET_HEIGHT = "DefaultTargetHeight";
-		private const string DEFAULT_TARGET_SIZE_NAME = "DefaultTargetSizeName";
-	    private const string DHTML_IMAGE_VIEWER = "DhtmlImageViewer";
-	    private const string DEFAULT_USE_IMAGE_VIEWER = "DefaultUseImageViewer";
-	    private const string DEFAULT_IMAGE_VIEWER_GROUP = "DefaultImageViewerGroup";
+        private const string DEFAULT_TARGET_TYPE = "DefaultTargetType";
+        private const string DEFAULT_OPEN_NEW_WINDOW = "DefaultOpenNewWindow";
+        private const string DEFAULT_TARGET_WIDTH = "DefaultTargetWidth";
+        private const string DEFAULT_TARGET_HEIGHT = "DefaultTargetHeight";
+        private const string DEFAULT_TARGET_SIZE_NAME = "DefaultTargetSizeName";
+        private const string DHTML_IMAGE_VIEWER = "DhtmlImageViewer";
+        private const string DEFAULT_USE_IMAGE_VIEWER = "DefaultUseImageViewer";
+        private const string DEFAULT_IMAGE_VIEWER_GROUP = "DefaultImageViewerGroup";
 
         //  Anything in this list will be removed from the properties when the image reference is fixed
         //  because ti is being synced with a posted edited outside of writer.
         public static readonly string[] ImageReferenceFixedStaleProperties = new string[1] { TARGET_TYPE };
 
+        private readonly IProperties Settings;
+        private readonly IHTMLElement ImgElement;
+        public HtmlImageTargetDecoratorSettings(IProperties settings, IHTMLElement imgElement)
+        {
+            Settings = settings;
+            ImgElement = imgElement;
+        }
 
-		private readonly IProperties Settings;
-		private readonly IHTMLElement ImgElement;
-		public HtmlImageTargetDecoratorSettings(IProperties settings, IHTMLElement imgElement)
-		{
-			Settings = settings;
-			ImgElement = imgElement;
-		}
+        public Size ImageSize
+        {
+            get
+            {
+                IHTMLImgElement imgElement = (IHTMLImgElement)ImgElement;
+                int width = Settings.GetInt(WIDTH, imgElement.width);
+                int height = Settings.GetInt(HEIGHT, imgElement.height);
+                return new Size(width, height);
+            }
+            set
+            {
+                Settings.SetInt(WIDTH, value.Width);
+                Settings.SetInt(HEIGHT, value.Height);
+            }
+        }
 
-		public Size ImageSize
-		{
-			get
-			{
-				IHTMLImgElement imgElement = (IHTMLImgElement)ImgElement;
-				int width = Settings.GetInt(WIDTH, imgElement.width);
-				int height = Settings.GetInt(HEIGHT, imgElement.height);
-				return new Size(width, height);
-			}
-			set
-			{
-				Settings.SetInt(WIDTH, value.Width);
-				Settings.SetInt(HEIGHT, value.Height);
-			}
-		}
+        /// <summary>
+        /// The maximum bounds that were allowed when determining the current image size.
+        /// This value is used to decide what the best initial size should be for the image if the current
+        /// size is saved as the default size.  Rather than forcing all future images to be exactly the current
+        /// size, the named size associated with the bounds can be used for more flexibility.
+        /// </summary>
+        public ImageSizeName ImageSizeName
+        {
+            get
+            {
+                ImageSizeName bounds =
+                    (ImageSizeName)ImageSizeName.Parse(
+                    typeof(ImageSizeName),
+                    Settings.GetString(BOUNDS, ImageSizeName.Full.ToString()));
 
-		/// <summary>
-		/// The maximum bounds that were allowed when determining the current image size.
-		/// This value is used to decide what the best initial size should be for the image if the current
-		/// size is saved as the default size.  Rather than forcing all future images to be exactly the current
-		/// size, the named size associated with the bounds can be used for more flexibility.
-		/// </summary>
-		public ImageSizeName ImageSizeName
-		{
-			get
-			{
-				ImageSizeName bounds = 
-					(ImageSizeName)ImageSizeName.Parse(
-					typeof(ImageSizeName), 
-					Settings.GetString(BOUNDS, ImageSizeName.Full.ToString()));
+                return bounds;
+            }
+            set
+            {
+                Settings.SetString(BOUNDS, value.ToString());
+            }
+        }
 
-				return bounds;
-			}
-			set
-			{
-				Settings.SetString(BOUNDS, value.ToString());
-			}
-		}
+        /// <summary>
+        /// Defines the type of target for the image.
+        /// </summary>
+        public LinkTargetType LinkTarget
+        {
+            get
+            {
+                LinkTargetType linkTargetType = uninitializedDefaultLinkTarget;
 
-		/// <summary>
-		/// Defines the type of target for the image.
-		/// </summary>
-		public LinkTargetType LinkTarget
-		{
-			get
-			{
-				LinkTargetType linkTargetType = uninitializedDefaultLinkTarget;
-				
-				string linkTarget = Settings.GetString(TARGET_TYPE, null);
-				if(linkTarget != null)
-				{
-					linkTargetType = (LinkTargetType)LinkTargetType.Parse(typeof(LinkTargetType), linkTarget);
-				}
-				else
-				{
-					//The link target type is completely uninitialized (no one has set it, and no image decorator defaults have been saved).
-					//Examine the link values from the DOM to figure out the correct value for this property. 
-					//If the image is surrounded by an anchor to a remote image, then set the target type to link.
-					//If the image is not surrounded by an anchor then set the target type to None.
-					//Else leave as the default (which is a local image).
-					string linkTargetUrl = LinkTargetUrl;
-					if(linkTargetUrl == null)
-						linkTargetType = LinkTargetType.NONE;
-					else if(!UrlHelper.IsFileUrl(linkTargetUrl))
-					{
-						linkTargetType = LinkTargetType.URL;
-					}
-				}
-				
-				return linkTargetType;
-			}
-			set
-			{
-				Settings.SetString(TARGET_TYPE, value.ToString());
-			}
-		}
+                string linkTarget = Settings.GetString(TARGET_TYPE, null);
+                if (linkTarget != null)
+                {
+                    linkTargetType = (LinkTargetType)LinkTargetType.Parse(typeof(LinkTargetType), linkTarget);
+                }
+                else
+                {
+                    //The link target type is completely uninitialized (no one has set it, and no image decorator defaults have been saved).
+                    //Examine the link values from the DOM to figure out the correct value for this property.
+                    //If the image is surrounded by an anchor to a remote image, then set the target type to link.
+                    //If the image is not surrounded by an anchor then set the target type to None.
+                    //Else leave as the default (which is a local image).
+                    string linkTargetUrl = LinkTargetUrl;
+                    if (linkTargetUrl == null)
+                        linkTargetType = LinkTargetType.NONE;
+                    else if (!UrlHelper.IsFileUrl(linkTargetUrl))
+                    {
+                        linkTargetType = LinkTargetType.URL;
+                    }
+                }
 
-		public LinkTargetType DefaultLinkTarget
-		{
-			get
-			{
-				string linkTarget = Settings.GetString(DEFAULT_TARGET_TYPE, uninitializedDefaultLinkTarget.ToString());
-				LinkTargetType linkTargetType = (LinkTargetType)LinkTargetType.Parse(typeof(LinkTargetType), linkTarget);
-				return linkTargetType;
-			}
-			set
-			{
-				Settings.SetString(DEFAULT_TARGET_TYPE, value.ToString());
-			}
-		}
-		
-		private readonly LinkTargetType uninitializedDefaultLinkTarget = LinkTargetType.IMAGE;
+                return linkTargetType;
+            }
+            set
+            {
+                Settings.SetString(TARGET_TYPE, value.ToString());
+            }
+        }
 
-		internal Size DefaultTargetBoundsSize
-		{
-			get
-			{
-				ImageSizeName boundsSize = DefaultTargetBoundsSizeName;
-				Size defaultBoundsSize;
-				if(boundsSize != ImageSizeName.Custom)
-					defaultBoundsSize = ImageSizeHelper.GetSizeConstraints(boundsSize);
-				else
-				{
-					int defaultWidth = Settings.GetInt(DEFAULT_TARGET_WIDTH, 300);
-					int defaultHeight = Settings.GetInt(DEFAULT_TARGET_HEIGHT, 300);
-					defaultBoundsSize = new Size(defaultWidth, defaultHeight);
-				}
-				return defaultBoundsSize;
-			}
-			set
-			{
-				Settings.SetInt(DEFAULT_TARGET_WIDTH, value.Width);
-				Settings.SetInt(DEFAULT_TARGET_HEIGHT, value.Height);
-			}
-		}
+        public LinkTargetType DefaultLinkTarget
+        {
+            get
+            {
+                string linkTarget = Settings.GetString(DEFAULT_TARGET_TYPE, uninitializedDefaultLinkTarget.ToString());
+                LinkTargetType linkTargetType = (LinkTargetType)LinkTargetType.Parse(typeof(LinkTargetType), linkTarget);
+                return linkTargetType;
+            }
+            set
+            {
+                Settings.SetString(DEFAULT_TARGET_TYPE, value.ToString());
+            }
+        }
 
-		internal ImageSizeName DefaultTargetBoundsSizeName
-		{
-			get
-			{
-				ImageSizeName bounds = 
-					(ImageSizeName)ImageSizeName.Parse(
-					typeof(ImageSizeName), 
-					Settings.GetString(DEFAULT_TARGET_SIZE_NAME, ImageSizeName.Large.ToString()));
+        private readonly LinkTargetType uninitializedDefaultLinkTarget = LinkTargetType.IMAGE;
 
-				return bounds;
-			}
-			set
-			{
-				Settings.SetString(DEFAULT_TARGET_SIZE_NAME, value.ToString());
-			}
-		}
+        internal Size DefaultTargetBoundsSize
+        {
+            get
+            {
+                ImageSizeName boundsSize = DefaultTargetBoundsSizeName;
+                Size defaultBoundsSize;
+                if (boundsSize != ImageSizeName.Custom)
+                    defaultBoundsSize = ImageSizeHelper.GetSizeConstraints(boundsSize);
+                else
+                {
+                    int defaultWidth = Settings.GetInt(DEFAULT_TARGET_WIDTH, 300);
+                    int defaultHeight = Settings.GetInt(DEFAULT_TARGET_HEIGHT, 300);
+                    defaultBoundsSize = new Size(defaultWidth, defaultHeight);
+                }
+                return defaultBoundsSize;
+            }
+            set
+            {
+                Settings.SetInt(DEFAULT_TARGET_WIDTH, value.Width);
+                Settings.SetInt(DEFAULT_TARGET_HEIGHT, value.Height);
+            }
+        }
 
+        internal ImageSizeName DefaultTargetBoundsSizeName
+        {
+            get
+            {
+                ImageSizeName bounds =
+                    (ImageSizeName)ImageSizeName.Parse(
+                    typeof(ImageSizeName),
+                    Settings.GetString(DEFAULT_TARGET_SIZE_NAME, ImageSizeName.Large.ToString()));
 
-	    Size IResizeDecoratorSettings.DefaultBoundsSize
-	    {
-	        get { return DefaultTargetBoundsSize; }
-	    }
+                return bounds;
+            }
+            set
+            {
+                Settings.SetString(DEFAULT_TARGET_SIZE_NAME, value.ToString());
+            }
+        }
 
-	    ImageSizeName IResizeDecoratorSettings.DefaultBoundsSizeName
-	    {
+        Size IResizeDecoratorSettings.DefaultBoundsSize
+        {
+            get { return DefaultTargetBoundsSize; }
+        }
+
+        ImageSizeName IResizeDecoratorSettings.DefaultBoundsSizeName
+        {
             get { return DefaultTargetBoundsSizeName; }
-	    }
+        }
 
-	    /// <summary>
-		/// Get/Set the url for URL-based link targets.
-		/// </summary>
-		public string LinkTargetUrl
-		{
-			get
-			{
-				IHTMLElement anchorElement = GetAnchorElement();
-				if(anchorElement != null)
-						return (string)anchorElement.getAttribute("href", 2);
-				return null;
-			}
-			set
-			{
-				UpdateImageLink(value, ImgElement, DefaultLinkOptions);
-			}
-		}
-		
-		public void UpdateImageLinkOptions(string title, string rel, bool newWindow)
-		{
-			IHTMLElement anchorElement = GetAnchorElement();
+        /// <summary>
+        /// Get/Set the url for URL-based link targets.
+        /// </summary>
+        public string LinkTargetUrl
+        {
+            get
+            {
+                IHTMLElement anchorElement = GetAnchorElement();
+                if (anchorElement != null)
+                    return (string)anchorElement.getAttribute("href", 2);
+                return null;
+            }
+            set
+            {
+                UpdateImageLink(value, ImgElement, DefaultLinkOptions);
+            }
+        }
 
-			IHTMLAnchorElement htmlAnchorElement = (anchorElement as IHTMLAnchorElement);
-			if (htmlAnchorElement != null)
-			{
-				//set the default target attribute for the new element
-				string target = newWindow ? "_blank" : null;
-				if(htmlAnchorElement.target != target) //don't set the target to null if its already null (avoids adding empty target attr)
-					htmlAnchorElement.target = target ;
-				if (title != String.Empty)
-				{
-					anchorElement.setAttribute("title", title, 0);
-				}
-				else
-				{
-					anchorElement.removeAttribute("title", 0);
-				}
-				if (rel != String.Empty)
-				{
-					anchorElement.setAttribute("rel", rel, 0);
-				}
-				else
-				{
-					anchorElement.removeAttribute("rel", 0);
-				}
-			}
-		}
+        public void UpdateImageLinkOptions(string title, string rel, bool newWindow)
+        {
+            IHTMLElement anchorElement = GetAnchorElement();
 
-		public string LinkTitle
-		{
-			get
-			{
-				IHTMLElement anchorElement = GetAnchorElement();
-				if (anchorElement != null)
-				{
-					if ( anchorElement.title != null )
-						return anchorElement.title ;
-					else
-						return String.Empty ;
-				}
-				else
-				{
-					return String.Empty ;
-				}
-			}
-		}
+            IHTMLAnchorElement htmlAnchorElement = (anchorElement as IHTMLAnchorElement);
+            if (htmlAnchorElement != null)
+            {
+                //set the default target attribute for the new element
+                string target = newWindow ? "_blank" : null;
+                if (htmlAnchorElement.target != target) //don't set the target to null if its already null (avoids adding empty target attr)
+                    htmlAnchorElement.target = target;
+                if (title != String.Empty)
+                {
+                    anchorElement.setAttribute("title", title, 0);
+                }
+                else
+                {
+                    anchorElement.removeAttribute("title", 0);
+                }
+                if (rel != String.Empty)
+                {
+                    anchorElement.setAttribute("rel", rel, 0);
+                }
+                else
+                {
+                    anchorElement.removeAttribute("rel", 0);
+                }
+            }
+        }
 
-		public string LinkRel
-		{
-			get
-			{
-				IHTMLElement anchorElement = GetAnchorElement();
+        public string LinkTitle
+        {
+            get
+            {
+                IHTMLElement anchorElement = GetAnchorElement();
+                if (anchorElement != null)
+                {
+                    if (anchorElement.title != null)
+                        return anchorElement.title;
+                    else
+                        return String.Empty;
+                }
+                else
+                {
+                    return String.Empty;
+                }
+            }
+        }
 
-				IHTMLAnchorElement htmlAnchorElement = (anchorElement as IHTMLAnchorElement);
-				if (htmlAnchorElement != null)
-				{
-					if ( htmlAnchorElement.rel != null )
-						return htmlAnchorElement.rel ;
-					else
-						return String.Empty ;
-				}
-				else
-				{
-					return String.Empty ;
-				}
-			}
-		}
+        public string LinkRel
+        {
+            get
+            {
+                IHTMLElement anchorElement = GetAnchorElement();
 
+                IHTMLAnchorElement htmlAnchorElement = (anchorElement as IHTMLAnchorElement);
+                if (htmlAnchorElement != null)
+                {
+                    if (htmlAnchorElement.rel != null)
+                        return htmlAnchorElement.rel;
+                    else
+                        return String.Empty;
+                }
+                else
+                {
+                    return String.Empty;
+                }
+            }
+        }
 
-		public ILinkOptions LinkOptions
-		{
-			get
-			{
-				bool openInNewWindow = false;
-			    bool useImageViewer = false;
-			    string imageViewerGroupName = null;
-				IHTMLElement anchorElement = GetAnchorElement();
-				if(anchorElement != null)
-				{
-					IHTMLAnchorElement htmlAnchorElement = (IHTMLAnchorElement)anchorElement;
-					openInNewWindow = htmlAnchorElement.target != null;
+        public ILinkOptions LinkOptions
+        {
+            get
+            {
+                bool openInNewWindow = false;
+                bool useImageViewer = false;
+                string imageViewerGroupName = null;
+                IHTMLElement anchorElement = GetAnchorElement();
+                if (anchorElement != null)
+                {
+                    IHTMLAnchorElement htmlAnchorElement = (IHTMLAnchorElement)anchorElement;
+                    openInNewWindow = htmlAnchorElement.target != null;
                     ImageViewer viewer = DhtmlImageViewers.GetImageViewer(DhtmlImageViewer);
                     if (viewer != null)
                         viewer.Detect(htmlAnchorElement, ref useImageViewer, ref imageViewerGroupName);
-				}
-				return new LinkOptions(openInNewWindow, useImageViewer, imageViewerGroupName);
-			}
-			set
-			{
-				IHTMLElement anchorElement = GetAnchorElement();
-				if(anchorElement != null)
-				{
-					string target = value.ShowInNewWindow ? "_blank" : null;
-					IHTMLAnchorElement htmlAnchorElement = (anchorElement as IHTMLAnchorElement);
+                }
+                return new LinkOptions(openInNewWindow, useImageViewer, imageViewerGroupName);
+            }
+            set
+            {
+                IHTMLElement anchorElement = GetAnchorElement();
+                if (anchorElement != null)
+                {
+                    string target = value.ShowInNewWindow ? "_blank" : null;
+                    IHTMLAnchorElement htmlAnchorElement = (anchorElement as IHTMLAnchorElement);
                     if (htmlAnchorElement != null)
                     {
                         if (target == null)
-                            ((IHTMLElement) htmlAnchorElement).removeAttribute("target", 0);
+                            ((IHTMLElement)htmlAnchorElement).removeAttribute("target", 0);
                         else
                             htmlAnchorElement.target = target;
                     }
 
-				    ImageViewer viewer = DhtmlImageViewers.GetImageViewer(DhtmlImageViewer);
+                    ImageViewer viewer = DhtmlImageViewers.GetImageViewer(DhtmlImageViewer);
                     if (viewer != null)
                     {
                         if (value.UseImageViewer)
@@ -408,32 +405,32 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                         else
                             viewer.Remove(htmlAnchorElement);
                     }
-                    
-                    //save the value as the default for this image so that we can properly restore the options
-					//if the user toggles the target and causes the anchor to be removed-then-added
-					DefaultLinkOptions = value;
-				}
-			}
-		}
 
-		public ILinkOptions DefaultLinkOptions
-		{
-			get
-			{
-				bool openInNewWindow = Settings.GetBoolean(DEFAULT_OPEN_NEW_WINDOW, false);
-				bool useImageViewer = Settings.GetBoolean(DEFAULT_USE_IMAGE_VIEWER, true);
-				string groupName = Settings.GetString(DEFAULT_IMAGE_VIEWER_GROUP, null);
-				return new LinkOptions(openInNewWindow, useImageViewer, groupName);
-			}
-			set
-			{
-				Settings.SetBoolean(DEFAULT_OPEN_NEW_WINDOW, value.ShowInNewWindow);
+                    //save the value as the default for this image so that we can properly restore the options
+                    //if the user toggles the target and causes the anchor to be removed-then-added
+                    DefaultLinkOptions = value;
+                }
+            }
+        }
+
+        public ILinkOptions DefaultLinkOptions
+        {
+            get
+            {
+                bool openInNewWindow = Settings.GetBoolean(DEFAULT_OPEN_NEW_WINDOW, false);
+                bool useImageViewer = Settings.GetBoolean(DEFAULT_USE_IMAGE_VIEWER, true);
+                string groupName = Settings.GetString(DEFAULT_IMAGE_VIEWER_GROUP, null);
+                return new LinkOptions(openInNewWindow, useImageViewer, groupName);
+            }
+            set
+            {
+                Settings.SetBoolean(DEFAULT_OPEN_NEW_WINDOW, value.ShowInNewWindow);
                 Settings.SetBoolean(DEFAULT_USE_IMAGE_VIEWER, value.UseImageViewer);
                 Settings.SetString(DEFAULT_IMAGE_VIEWER_GROUP, value.ImageViewerGroupName);
-			}
-		}
+            }
+        }
 
-        // The base size is used to quickly determine whether the image has 
+        // The base size is used to quickly determine whether the image has
         // been cropped since the last time the default bounds were calculated.
         public Size? BaseSize
         {
@@ -487,7 +484,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
         }
 
-	    public bool BaseSizeChanged(Bitmap image)
+        public bool BaseSizeChanged(Bitmap image)
         {
             Size? baseSize = BaseSize;
             if (baseSize == null)
@@ -496,51 +493,51 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         }
 
         internal IHTMLElement GetAnchorElement()
-		{
-			IHTMLElement parentElement = ImgElement.parentElement;
-			while(parentElement != null)
-			{
-				if(parentElement is IHTMLAnchorElement)
-					return parentElement;
-				parentElement = parentElement.parentElement;
-			}
-			return null;
-		}
-		
-		private void UpdateImageLink(string href, IHTMLElement ImgElement, ILinkOptions defaultOptions)
-		{
-			MshtmlMarkupServices markupServices = new MshtmlMarkupServices((IMarkupServicesRaw)ImgElement.document);
-			IHTMLElement parentElement = ImgElement.parentElement;
-			if(!(parentElement is IHTMLAnchorElement))
-			{
-				parentElement = markupServices.CreateElement(_ELEMENT_TAG_ID.TAGID_A, null);
-				MarkupRange range = markupServices.CreateMarkupRange();
-				range.MoveToElement(ImgElement, true);
-				markupServices.InsertElement(parentElement, range.Start, range.End);
+        {
+            IHTMLElement parentElement = ImgElement.parentElement;
+            while (parentElement != null)
+            {
+                if (parentElement is IHTMLAnchorElement)
+                    return parentElement;
+                parentElement = parentElement.parentElement;
+            }
+            return null;
+        }
 
-				//set the default target attribute for the new element
-				string target = defaultOptions.ShowInNewWindow ? "_blank" : null;
-				IHTMLAnchorElement htmlAnchorElement = (parentElement as IHTMLAnchorElement);
-				if(htmlAnchorElement.target != target) //don't set the target to null if its already null (avoids adding empty target attr)
-					htmlAnchorElement.target = target ;
+        private void UpdateImageLink(string href, IHTMLElement ImgElement, ILinkOptions defaultOptions)
+        {
+            MshtmlMarkupServices markupServices = new MshtmlMarkupServices((IMarkupServicesRaw)ImgElement.document);
+            IHTMLElement parentElement = ImgElement.parentElement;
+            if (!(parentElement is IHTMLAnchorElement))
+            {
+                parentElement = markupServices.CreateElement(_ELEMENT_TAG_ID.TAGID_A, null);
+                MarkupRange range = markupServices.CreateMarkupRange();
+                range.MoveToElement(ImgElement, true);
+                markupServices.InsertElement(parentElement, range.Start, range.End);
 
-			    ImageViewer viewer = DhtmlImageViewers.GetImageViewer(DhtmlImageViewer);
+                //set the default target attribute for the new element
+                string target = defaultOptions.ShowInNewWindow ? "_blank" : null;
+                IHTMLAnchorElement htmlAnchorElement = (parentElement as IHTMLAnchorElement);
+                if (htmlAnchorElement.target != target) //don't set the target to null if its already null (avoids adding empty target attr)
+                    htmlAnchorElement.target = target;
+
+                ImageViewer viewer = DhtmlImageViewers.GetImageViewer(DhtmlImageViewer);
                 if (viewer != null)
                 {
                     if (defaultOptions.UseImageViewer)
                         viewer.Apply(htmlAnchorElement, defaultOptions.ImageViewerGroupName);
                 }
-			}
-			parentElement.setAttribute("href", href, 0);
-		}
+            }
+            parentElement.setAttribute("href", href, 0);
+        }
 
-		public void RemoveImageLink()
-		{
-			IHTMLElement parentElement = ImgElement.parentElement;
-			if(parentElement is IHTMLAnchorElement)
-			{
-				((IHTMLDOMNode)parentElement).removeNode(false);
-			}
-		}
-	}
+        public void RemoveImageLink()
+        {
+            IHTMLElement parentElement = ImgElement.parentElement;
+            if (parentElement is IHTMLAnchorElement)
+            {
+                ((IHTMLDOMNode)parentElement).removeNode(false);
+            }
+        }
+    }
 }

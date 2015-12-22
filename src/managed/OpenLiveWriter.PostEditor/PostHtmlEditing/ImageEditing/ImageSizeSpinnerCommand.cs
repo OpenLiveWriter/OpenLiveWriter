@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing
         private const string DefaultFormatString = "";
 
         public ImageSizeSpinnerCommand(CommandId commandId)
-            : base(commandId, DefaultMinValue, DefaultMaxValue, DefaultMinValue, DefaultIncrement, 
+            : base(commandId, DefaultMinValue, DefaultMaxValue, DefaultMinValue, DefaultIncrement,
                    DefaultDecimalPlaces, DefaultRepresentativeString, DefaultFormatString)
         {
         }

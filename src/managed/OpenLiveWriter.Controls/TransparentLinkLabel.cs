@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.Controls
 {
-	public class TransparentLinkLabel : LinkLabel
-	{
-		public TransparentLinkLabel()
-		{
-			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-			BackColor = Color.Transparent ;
-			FlatStyle = FlatStyle.System ;
-		}
-	}
+    public class TransparentLinkLabel : LinkLabel
+    {
+        public TransparentLinkLabel()
+        {
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            BackColor = Color.Transparent ;
+            FlatStyle = FlatStyle.System ;
+        }
+    }
 }

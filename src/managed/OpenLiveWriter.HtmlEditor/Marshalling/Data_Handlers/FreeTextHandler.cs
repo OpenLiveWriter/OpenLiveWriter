@@ -58,14 +58,14 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                     return DragDropEffects.None;
             }
             catch (Exception ex)
-            {                
+            {
                 if (ex is COMException)
                 {
-                    int errorCode = ((COMException) ex).ErrorCode;
-                    if (errorCode == IE_CTL_E.INVALIDLINE || errorCode == IE_CTL_E.UNPOSITIONEDELEMENT || errorCode == IE_CTL_E.UNPOSITIONEDPOINTER)                                   
+                    int errorCode = ((COMException)ex).ErrorCode;
+                    if (errorCode == IE_CTL_E.INVALIDLINE || errorCode == IE_CTL_E.UNPOSITIONEDELEMENT || errorCode == IE_CTL_E.UNPOSITIONEDPOINTER)
                         return DragDropEffects.None;
-                }             
-                
+                }
+
                 Trace.Fail("Exception thrown while providing drag feedback: " + ex);
 
                 //bug fix 1115: eat the exception if one is thrown while placing the caret.
@@ -81,15 +81,12 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                         return DragDropEffects.None;
 
                     // for external html provide move and copy (prefer move -- this allows
-                    // us to smoothly handle the moving of images around the document)                    
+                    // us to smoothly handle the moving of images around the document)
                     return ProvideMoveAsDefaultWithCopyOverride(keyState, supportedEffects);
                 default:
                     return DragDropEffects.None;
             }
         }
-
-
-
 
         /// <summary>
         /// Release any reference to HTML Caret
@@ -98,8 +95,6 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         {
             currentCaretLocation = null;
         }
-
-
 
         /// <summary>
         /// Notify the data format handler that data was dropped and should be inserted into
@@ -117,7 +112,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
             EditorContext.MarkupServices.MoveMarkupPointerToCaret(currentCaretLocation, begin);
             MarkupPointerMoveHelper.PerformImageBreakout(begin);
 
-            //optimize the drop location to keep it from being in an unexpected location (fixes bug 395224) 
+            //optimize the drop location to keep it from being in an unexpected location (fixes bug 395224)
             if (EditorContext.ShouldMoveDropLocationRight(begin))
                 begin.Right(true);
 
@@ -134,7 +129,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
             }
 
             // Forces a SelectionChanged event so that the correct behaviors around the drop location are activated.
-            // For example, one side effect of this call is that the OnEditableRegionFocusChanged event is fired, which 
+            // For example, one side effect of this call is that the OnEditableRegionFocusChanged event is fired, which
             // sets whether the current drop location in the canvas supports images, html and/or text.
             MarkupRange dropRange = EditorContext.MarkupServices.CreateMarkupRange(begin, end);
             dropRange.ToTextRange().select();
@@ -154,9 +149,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         /// <summary>
         /// The type of drag we are processing
         /// </summary>
-        private enum DragType { ExternalHtml } ;
+        private enum DragType { ExternalHtml };
         private DragType dragType;
-
 
         /// <summary>
         /// Track the current caret location

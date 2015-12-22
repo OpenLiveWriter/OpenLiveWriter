@@ -11,262 +11,261 @@ using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.Controls
 {
-	/// <summary>
-	/// Provides an animated bitmap control.
-	/// </summary>
-	public class AnimatedBitmapControl : Control
-	{
-		#region Private Member Variables
+    /// <summary>
+    /// Provides an animated bitmap control.
+    /// </summary>
+    public class AnimatedBitmapControl : Control
+    {
+        #region Private Member Variables
 
-		/// <summary>
-		/// The bitmap list.
-		/// </summary>
-		private Bitmap[] bitmaps;
+        /// <summary>
+        /// The bitmap list.
+        /// </summary>
+        private Bitmap[] bitmaps;
 
-		/// <summary>
-		/// The current bitmap index.
-		/// </summary>
-		private int currentBitmapIndex;
-		
-		/// <summary>
-		/// The timer that runs the animation.
-		/// </summary>
-		private Timer timerAnimation;
+        /// <summary>
+        /// The current bitmap index.
+        /// </summary>
+        private int currentBitmapIndex;
 
-		private bool useVirtualTransparency;
+        /// <summary>
+        /// The timer that runs the animation.
+        /// </summary>
+        private Timer timerAnimation;
 
-		/// <summary>
-		/// Components.
-		/// </summary>
-		private IContainer components;
+        private bool useVirtualTransparency;
 
-		#endregion Private Member Variables
+        /// <summary>
+        /// Components.
+        /// </summary>
+        private IContainer components;
 
-		#region Class Initialization & Termination
+        #endregion Private Member Variables
 
-		/// <summary>
-		/// Initializes a new instance of the AnimatedBitmapControl class.
-		/// </summary>
-		public AnimatedBitmapControl()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        #region Class Initialization & Termination
 
-			//	Turn on double buffered painting.
-			SetStyle(ControlStyles.UserPaint, true);
-			SetStyle(ControlStyles.DoubleBuffer, true);
-			SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-			SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+        /// <summary>
+        /// Initializes a new instance of the AnimatedBitmapControl class.
+        /// </summary>
+        public AnimatedBitmapControl()
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
-			//	Redraw the control on resize.
-			SetStyle(ControlStyles.ResizeRedraw, true);
-		}
-		
+            //	Turn on double buffered painting.
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				//	Stop the animation timer.
-				timerAnimation.Stop();
-				timerAnimation.Tick -= new EventHandler(this.timerAnimation_Tick);
-				timerAnimation.Dispose();
-				timerAnimation = null;
+            //	Redraw the control on resize.
+            SetStyle(ControlStyles.ResizeRedraw, true);
+        }
 
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                //	Stop the animation timer.
+                timerAnimation.Stop();
+                timerAnimation.Tick -= new EventHandler(this.timerAnimation_Tick);
+                timerAnimation.Dispose();
+                timerAnimation = null;
 
-		#endregion Class Initialization & Termination
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this.components = new System.ComponentModel.Container();
-			this.timerAnimation = new System.Windows.Forms.Timer(this.components);
-			// 
-			// timerAnimation
-			// 
-			this.timerAnimation.Tick += new System.EventHandler(this.timerAnimation_Tick);
-			// 
-			// AnimatedBitmapControl
-			// 
-			this.Name = "AnimatedBitmapControl";
-			this.Size = new System.Drawing.Size(64, 48);
+        #endregion Class Initialization & Termination
 
-		}
-		#endregion
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.timerAnimation = new System.Windows.Forms.Timer(this.components);
+            //
+            // timerAnimation
+            //
+            this.timerAnimation.Tick += new System.EventHandler(this.timerAnimation_Tick);
+            //
+            // AnimatedBitmapControl
+            //
+            this.Name = "AnimatedBitmapControl";
+            this.Size = new System.Drawing.Size(64, 48);
 
-		#region Public Properties
+        }
+        #endregion
 
-		/// <summary>
-		/// Gets or sets the animation 
-		/// </summary>
-		public int Interval
-		{
-			get
-			{
-				return timerAnimation.Interval;
-			}
-			set
-			{
-				if (timerAnimation.Interval != value)
-				{
-					bool running = timerAnimation.Enabled;
-					if (running)
-						timerAnimation.Stop();
-					timerAnimation.Interval = value;
-					if (running)
-						timerAnimation.Start();
-				}
-			}
-		}
+        #region Public Properties
 
-		/// <summary>
-		/// Gets or sets the bitmaps. 
-		/// </summary>
-		public Bitmap[] Bitmaps
-		{
-			get
-			{
-				return bitmaps;
-			}
-			set
-			{
-				bitmaps = value;
-			}
-		}
+        /// <summary>
+        /// Gets or sets the animation
+        /// </summary>
+        public int Interval
+        {
+            get
+            {
+                return timerAnimation.Interval;
+            }
+            set
+            {
+                if (timerAnimation.Interval != value)
+                {
+                    bool running = timerAnimation.Enabled;
+                    if (running)
+                        timerAnimation.Stop();
+                    timerAnimation.Interval = value;
+                    if (running)
+                        timerAnimation.Start();
+                }
+            }
+        }
 
-		/// <summary>
-		///	Gets or sets the animation running state.
-		/// </summary>
-		public bool Running
-		{
-			get
-			{
-				return timerAnimation.Enabled;
-			}
-			set
-			{
-				if (timerAnimation.Enabled != value)
-					timerAnimation.Enabled = value;
-			}
-		}
+        /// <summary>
+        /// Gets or sets the bitmaps.
+        /// </summary>
+        public Bitmap[] Bitmaps
+        {
+            get
+            {
+                return bitmaps;
+            }
+            set
+            {
+                bitmaps = value;
+            }
+        }
 
-		public bool UseVirtualTransparency
-		{
-			get { return useVirtualTransparency; }
-			set { useVirtualTransparency = value; }
-		}
+        /// <summary>
+        ///	Gets or sets the animation running state.
+        /// </summary>
+        public bool Running
+        {
+            get
+            {
+                return timerAnimation.Enabled;
+            }
+            set
+            {
+                if (timerAnimation.Enabled != value)
+                    timerAnimation.Enabled = value;
+            }
+        }
 
-		#endregion
+        public bool UseVirtualTransparency
+        {
+            get { return useVirtualTransparency; }
+            set { useVirtualTransparency = value; }
+        }
 
-		#region Public Methods
+        #endregion
 
-		/// <summary>
-		/// Starts the animation.
-		/// </summary>
-		public void Start()
-		{
-			Enabled = true;
-			timerAnimation.Start();
-		}
+        #region Public Methods
 
-		/// <summary>
-		/// Stops the animation.
-		/// </summary>
-		public void Stop()
-		{
-			Enabled = false;
-			timerAnimation.Stop();
-		}
+        /// <summary>
+        /// Starts the animation.
+        /// </summary>
+        public void Start()
+        {
+            Enabled = true;
+            timerAnimation.Start();
+        }
 
-		#endregion Public Methods
+        /// <summary>
+        /// Stops the animation.
+        /// </summary>
+        public void Stop()
+        {
+            Enabled = false;
+            timerAnimation.Stop();
+        }
 
-		#region Protected Event Overrides
-		
-		/// <summary>
-		/// Raises the Paint event.
-		/// </summary>
-		/// <param name="e">A PaintEventArgs that contains the event data.</param>
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			//	Call the base class's method so that registered delegates receive the event.
-			base.OnPaint(e);
+        #endregion Public Methods
 
-			Graphics g = e.Graphics;
+        #region Protected Event Overrides
 
-			//	Obtain the bitmap to draw and, if there is one, draw it.
-			Bitmap bitmap = BitmapToDraw;
-			if (bitmap != null)
-			{
-				//	Fill the offscreen graphics context with the background color.
-				if (UseVirtualTransparency)
-				{
-					VirtualTransparency.VirtualPaint(this, new PaintEventArgs(g, ClientRectangle));
-				}
-				else
-				{
-					using (SolidBrush solidBrush = new SolidBrush(BackColor))
-						g.FillRectangle(solidBrush, ClientRectangle);
-				}
+        /// <summary>
+        /// Raises the Paint event.
+        /// </summary>
+        /// <param name="e">A PaintEventArgs that contains the event data.</param>
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            //	Call the base class's method so that registered delegates receive the event.
+            base.OnPaint(e);
 
-				BidiGraphics bg = new BidiGraphics(g, ClientRectangle, RightToLeft);
-				Rectangle bounds = new Rectangle(Point.Empty, bitmap.Size);
-				bg.DrawImage(true, bitmap, bounds);
-			}
-		}
+            Graphics g = e.Graphics;
 
-		#endregion Protected Event Overrides
+            //	Obtain the bitmap to draw and, if there is one, draw it.
+            Bitmap bitmap = BitmapToDraw;
+            if (bitmap != null)
+            {
+                //	Fill the offscreen graphics context with the background color.
+                if (UseVirtualTransparency)
+                {
+                    VirtualTransparency.VirtualPaint(this, new PaintEventArgs(g, ClientRectangle));
+                }
+                else
+                {
+                    using (SolidBrush solidBrush = new SolidBrush(BackColor))
+                        g.FillRectangle(solidBrush, ClientRectangle);
+                }
 
-		#region Private Event Handlers
+                BidiGraphics bg = new BidiGraphics(g, ClientRectangle, RightToLeft);
+                Rectangle bounds = new Rectangle(Point.Empty, bitmap.Size);
+                bg.DrawImage(true, bitmap, bounds);
+            }
+        }
 
-		/// <summary>
-		/// timerAnimation_Tick event handler.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">An EventArgs that contains the event data.</param>
-		private void timerAnimation_Tick(object sender, EventArgs e)
-		{
-			currentBitmapIndex = (bitmaps != null && bitmaps.Length > 0)
-			                     	? (currentBitmapIndex+1) % bitmaps.Length
-			                     	: 0;
-			Invalidate();
-			Update();
-		}
+        #endregion Protected Event Overrides
 
-		#endregion
+        #region Private Event Handlers
 
-		#region Private Methods
+        /// <summary>
+        /// timerAnimation_Tick event handler.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        private void timerAnimation_Tick(object sender, EventArgs e)
+        {
+            currentBitmapIndex = (bitmaps != null && bitmaps.Length > 0)
+                                     ? (currentBitmapIndex + 1) % bitmaps.Length
+                                     : 0;
+            Invalidate();
+            Update();
+        }
 
-		/// <summary>
-		/// Gets the bitmap to draw.
-		/// </summary>
-		/// <returns>The Bitmap to draw, or null.</returns>
-		private Bitmap BitmapToDraw
-		{
-			get
-			{
-				//	If there are no bitmaps, return null.
-				if (bitmaps == null || bitmaps.Length == 0)
-					return null;
+        #endregion
 
-				//	Return the bitmap to draw, and advance the frame as needed.
-				return bitmaps[currentBitmapIndex];
-			}
-		}
+        #region Private Methods
 
-		#endregion Private Methods
-	}
+        /// <summary>
+        /// Gets the bitmap to draw.
+        /// </summary>
+        /// <returns>The Bitmap to draw, or null.</returns>
+        private Bitmap BitmapToDraw
+        {
+            get
+            {
+                //	If there are no bitmaps, return null.
+                if (bitmaps == null || bitmaps.Length == 0)
+                    return null;
+
+                //	Return the bitmap to draw, and advance the frame as needed.
+                return bitmaps[currentBitmapIndex];
+            }
+        }
+
+        #endregion Private Methods
+    }
 }

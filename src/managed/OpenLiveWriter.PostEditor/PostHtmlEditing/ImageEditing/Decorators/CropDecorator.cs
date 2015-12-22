@@ -40,14 +40,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     flip = context.ImageRotation;
                 }
                 if (ImageUtils.IsRotated90(flip))
-                    aspectRatio = 1/aspectRatio;
-                
+                    aspectRatio = 1 / aspectRatio;
+
                 rect = RectangleHelper.EnforceAspectRatio(rect ?? new Rectangle(Point.Empty, context.Image.Size), aspectRatio);
             }
 
             if (rect != null)
             {
-                Bitmap cropped = ImageHelper2.CropBitmap(context.Image, (Rectangle) rect);
+                Bitmap cropped = ImageHelper2.CropBitmap(context.Image, (Rectangle)rect);
                 try
                 {
                     PropertyItem orientation = context.Image.GetPropertyItem(0x112);

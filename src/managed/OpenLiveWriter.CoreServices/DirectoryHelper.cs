@@ -17,11 +17,11 @@ namespace OpenLiveWriter.CoreServices
     public class DirectoryHelper
     {
         /// <summary>
-        /// Iterates over the contents of a directory and returns a complete list of all 
-        /// of the files contained within. The file names are returned as relative paths. 
-        /// Note that this method provides only a thin-layer over file system calls -- 
-        /// low-level file system exceptions may be thrown and they should be caught and 
-        /// handled appropriately.	
+        /// Iterates over the contents of a directory and returns a complete list of all
+        /// of the files contained within. The file names are returned as relative paths.
+        /// Note that this method provides only a thin-layer over file system calls --
+        /// low-level file system exceptions may be thrown and they should be caught and
+        /// handled appropriately.
         /// </summary>
         /// <param name="path">Path to get a recursive listing for</param>
         /// <returns>An ArrayList of file names (represented as string objects)
@@ -32,13 +32,12 @@ namespace OpenLiveWriter.CoreServices
             return ListRecursive(path, false);
         }
 
-
         /// <summary>
-        /// Iterates over the contents of a directory and returns a complete list of all 
-        /// of the files contained within. The file names are returned as relative paths. 
-        /// Note that this method provides only a thin-layer over file system calls -- 
+        /// Iterates over the contents of a directory and returns a complete list of all
+        /// of the files contained within. The file names are returned as relative paths.
+        /// Note that this method provides only a thin-layer over file system calls --
         /// low-level file system exceptions may be thrown and they should be
-        /// caught and handled appropriately.	
+        /// caught and handled appropriately.
         /// </summary>
         /// <param name="path">Path to enumerate</param>
         /// <param name="useUriSeparator">Use URI standard (forward slash) to separate directories</param>
@@ -51,11 +50,9 @@ namespace OpenLiveWriter.CoreServices
             return lister.GetFiles();
         }
 
-
-
         /// <summary>
         /// Recursively copy the contents of one directory to another. Note  that this method
-        /// provides a thin-layer over file system calls -- low-level file system exceptions 
+        /// provides a thin-layer over file system calls -- low-level file system exceptions
         /// may be thrown from this class and they should be caught and handled appropriately.
         /// </summary>
         /// <param name="sourcePath">Path to copy files from</param>
@@ -71,7 +68,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Copy the contents of one directory to another. Note  that this method
-        /// provides a thin-layer over file system calls -- low-level file system exceptions 
+        /// provides a thin-layer over file system calls -- low-level file system exceptions
         /// may be thrown from this class and they should be caught and handled appropriately.
         /// </summary>
         /// <param name="sourcePath">Path to copy files from</param>
@@ -87,8 +84,6 @@ namespace OpenLiveWriter.CoreServices
                 new DirectoryCopier(sourcePath, destinationPath, overwrite, recursive);
             copier.Copy();
         }
-
-
 
         /// <summary>
         /// Determine whether a path is a network volume or not.  Note that non network
@@ -156,15 +151,13 @@ namespace OpenLiveWriter.CoreServices
             if (ppidl != IntPtr.Zero)
                 Shell32.ILFree(ppidl);
 
-
             return path;
         }
     }
 
-
     /// <summary>
     /// Abstract class which iterates recursively over a directory and its subdirctories.
-    /// Subclasses are notified of the directories and files found via the OnSubdirectory 
+    /// Subclasses are notified of the directories and files found via the OnSubdirectory
     /// and OnFile virtual methods. These can be overridden to provide custom functionality
     /// such as enumeration, copying, compression, etc.
     /// </summary>
@@ -177,7 +170,7 @@ namespace OpenLiveWriter.CoreServices
         /// <param name="includeSubfolders">true if files in subfolders should be included</param>
         protected DirectoryIterator(string rootPath, bool includeSubfolders)
         {
-            // store root path and make sure it ends with "/" 
+            // store root path and make sure it ends with "/"
             m_rootPath = rootPath;
             m_includeSubfolders = includeSubfolders;
             if (!m_rootPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.OrdinalIgnoreCase))
@@ -188,7 +181,6 @@ namespace OpenLiveWriter.CoreServices
         /// Directory which is being iterated
         /// </summary>
         public string RootPath { get { return m_rootPath; } }
-
 
         /// <summary>
         /// Kick-off recursive iteration
@@ -204,13 +196,11 @@ namespace OpenLiveWriter.CoreServices
         /// <param name="directoryName">sub-directory name (relative path)</param>
         protected virtual void OnSubdirectory(string directoryName) { }
 
-
         /// <summary>
         /// Virtual function called whenever a new file is found
         /// </summary>
         /// <param name="fileName">file name (relative path)</param>
         protected virtual void OnFile(string fileName) { }
-
 
         /// <summary>
         /// Recursive iteration function
@@ -286,7 +276,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         /// <summary>
         /// Convert an absolute path to a relative path
         /// </summary>
@@ -326,9 +315,8 @@ namespace OpenLiveWriter.CoreServices
         }
     }
 
-
     /// <summary>
-    /// Class which iterates over the contents of a directory and returns a 
+    /// Class which iterates over the contents of a directory and returns a
     /// complete list of all of the files contained within. The file names are
     /// returned in alphabetical-order as relative paths. Note that this class provides
     /// a thin-layer over file system calls -- low-level file system exceptions may
@@ -386,11 +374,10 @@ namespace OpenLiveWriter.CoreServices
         private ArrayList m_files;
     }
 
-
     /// <summary>
-    /// Class which recursively copies the contents of one directory to another. Note 
+    /// Class which recursively copies the contents of one directory to another. Note
     /// that this class provides a thin-layer over file system calls -- low-level files
-    /// ystem exceptions may be thrown from this class and they should be caught and 
+    /// ystem exceptions may be thrown from this class and they should be caught and
     /// handled appropriately.
     /// </summary>
     public class DirectoryCopier : DirectoryIterator
@@ -420,7 +407,6 @@ namespace OpenLiveWriter.CoreServices
             Iterate();
         }
 
-
         /// <summary>
         /// When notified of a sub-directory in the source tree, create the corresponding
         /// sub-directory in the destination tree.
@@ -448,7 +434,6 @@ namespace OpenLiveWriter.CoreServices
             File.Copy(sourcePath, destPath, m_overwrite);
         }
 
-
         /// <summary>
         /// Get the destination path
         /// </summary>
@@ -460,8 +445,7 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
-        // path to copy files to 
+        // path to copy files to
         private string m_destinationPath;
 
         // flag specifying whether to overwrite existing files

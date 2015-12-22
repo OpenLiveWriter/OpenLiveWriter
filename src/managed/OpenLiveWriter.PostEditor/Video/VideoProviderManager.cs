@@ -63,7 +63,7 @@ namespace OpenLiveWriter.PostEditor.Video
         {
             Size size = new Size(defaultWidth, defaultHeight);
             newEmbed = embedFormat;
-            //width="xx" or width='xx' or width=xx 
+            //width="xx" or width='xx' or width=xx
             string widthPattern = "width=('|\")?(?<width>[0-9]+)('|\")?";
             Match match = Regex.Match(newEmbed, widthPattern);
             while (match.Success)

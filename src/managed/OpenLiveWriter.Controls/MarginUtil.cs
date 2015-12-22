@@ -4,7 +4,7 @@
 using System.Windows.Forms;
 
 namespace OpenLiveWriter.Controls.MarginUtil
-{       
+{
     public enum MarginType
     {
         DefaultMargins,
@@ -38,7 +38,7 @@ namespace OpenLiveWriter.Controls.MarginUtil
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (!(obj is MarginComboItem)) return false;
-            return Equals((MarginComboItem) obj);
+            return Equals((MarginComboItem)obj);
         }
 
         public bool Equals(MarginComboItem obj)

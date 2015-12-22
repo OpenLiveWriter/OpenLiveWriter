@@ -184,7 +184,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             styleBuilder.Append("background-image", currStyle.backgroundImage);
             styleBuilder.Append("background-position", currStyle.backgroundPositionY + " " + currStyle.backgroundPositionX);
 
-
             styleBuilder.Append("border-top", CreateBorderStyle(currStyle.borderTopWidth, currStyle.borderTopStyle, currStyle.borderTopColor));
             styleBuilder.Append("border-right", CreateBorderStyle(currStyle.borderRightWidth, currStyle.borderRightStyle, currStyle.borderRightColor));
             styleBuilder.Append("border-bottom", CreateBorderStyle(currStyle.borderBottomWidth, currStyle.borderBottomStyle, currStyle.borderBottomColor));
@@ -204,7 +203,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             string startTag = sb.ToString();
             return startTag;
         }
-
 
         private string WriteStartTag(IHTMLElement element)
         {
@@ -641,7 +639,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             return new BlogEditingTemplate(templateHtml);
         }
 
-
         private void ClearDocumentContent(IHTMLDocument3 doc)
         {
             IHTMLElement body = (doc as IHTMLDocument2).body;
@@ -727,7 +724,6 @@ namespace OpenLiveWriter.BlogClient.Detection
                 throw new Exception("Error inserting template markers");
             }
 
-
             //prepend the doctype of the document - this prevents styles in the document from rendering improperly
             string docType = HTMLDocumentHelper.GetSpecialHeaders((IHTMLDocument2)doc).DocType;
             if (docType != null)
@@ -736,9 +732,8 @@ namespace OpenLiveWriter.BlogClient.Detection
             return new BlogEditingTemplate(templateHtml);
         }
 
-
         /// <summary>
-        /// WinLive 211555: To avoid confusing our users with warning messages, we strip any &lt;noscript&gt; and 
+        /// WinLive 211555: To avoid confusing our users with warning messages, we strip any &lt;noscript&gt; and
         /// &lt;noembed&gt; elements.
         /// </summary>
         private void RemoveNoShowElements(IHTMLDocument2 doc)
@@ -793,7 +788,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// <param name="bodyElement">the element in the document that surrounds the post body text</param>
         /// <returns></returns>
         protected internal override BlogEditingTemplate GenerateBlogTemplate(IHTMLDocument3 doc, IHTMLElement titleElement, IHTMLElement[] allTitleElements, IHTMLElement bodyElement)
-        {            
+        {
             // if title is containing with a link then strip the link
             CleanupContainingAnchorTag(titleElement);
 
@@ -813,9 +808,9 @@ namespace OpenLiveWriter.BlogClient.Detection
             currElement = titleElement;
             IHTMLElement2 currElement2 = (IHTMLElement2)currElement;
             while (currElement != null && currElement.sourceIndex != stopElement.sourceIndex)
-            {                
+            {
                 titleTemplateText = WriteStartTag(currElement, null) + titleTemplateText + WriteEndTag(currElement);
-               
+
                 currElement2 = (IHTMLElement2)currElement;
                 string styleFloat = currElement2.currentStyle.styleFloat;
                 if (!String.IsNullOrEmpty(styleFloat) && !String.IsNullOrEmpty((string)currElement2.currentStyle.width))
@@ -823,10 +818,10 @@ namespace OpenLiveWriter.BlogClient.Detection
                     if (String.Compare(styleFloat, "LEFT", StringComparison.OrdinalIgnoreCase) == 0 ||
                         String.Compare(styleFloat, "RIGHT", StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        preserveClear = true;                        
+                        preserveClear = true;
                     }
                 }
-                
+
                 currElement = currElement.parentElement;
             }
 
@@ -841,7 +836,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 IHTMLElement parentElement = currElement.parentElement;
                 if (preserveClear && parentElement != null)
                 {
-                    IHTMLElementCollection siblings = (IHTMLElementCollection) parentElement.children;
+                    IHTMLElementCollection siblings = (IHTMLElementCollection)parentElement.children;
                     foreach (IHTMLElement sibling in siblings)
                     {
                         if (sibling.sourceIndex == currElement.sourceIndex)
@@ -853,7 +848,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                         currElementRange.MoveToElement(currElement, true);
                         if (siblingPointer.IsLeftOfOrEqualTo(currElementRange.Start))
                         {
-                            IHTMLElement2 sibling2 = (IHTMLElement2) sibling;
+                            IHTMLElement2 sibling2 = (IHTMLElement2)sibling;
                             string styleClear = sibling2.currentStyle.clear;
                             if (!String.IsNullOrEmpty(styleClear) && String.Compare(styleClear, "NONE", StringComparison.OrdinalIgnoreCase) != 0)
                             {
@@ -1097,7 +1092,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// <returns></returns>
         internal static string ReplacePositionStyle(string text)
         {
-            // TODO: Stop messing with the CSS and instead override the position attribute at runtime so we can  
+            // TODO: Stop messing with the CSS and instead override the position attribute at runtime so we can
             // apply this fix to only block elements.
 
             StringBuilder sb = new StringBuilder();
@@ -1131,7 +1126,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             //      ...
             //  }
             //
-            //  sup, 
+            //  sup,
             //  sub {
             //      height: 0;
             //      line-height: 1;
@@ -1148,7 +1143,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 int previousClosingParenthesis = textUpToCapture.LastIndexOf('}');
                 if (previousClosingParenthesis < 0)
                 {
-                    // There may not be a closing parenthesis included in this text so fall back to the 
+                    // There may not be a closing parenthesis included in this text so fall back to the
                     // start index. We'll add back in the 1 that we subtract here.
                     previousClosingParenthesis = startIndex - 1;
                 }
@@ -1156,7 +1151,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 //      ...
                 //  } /* <-- previousClosingParenthesis */
                 //
-                //  sup, 
+                //  sup,
                 //  sub { /* <-- currentOpeningParenthesis */
                 //      ...
                 //      position: relative;
