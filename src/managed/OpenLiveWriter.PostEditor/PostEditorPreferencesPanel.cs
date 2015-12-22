@@ -17,6 +17,7 @@ using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.WordCount;
+using System.IO;
 
 namespace OpenLiveWriter.PostEditor
 {
@@ -48,6 +49,7 @@ namespace OpenLiveWriter.PostEditor
         private System.Windows.Forms.Button buttonBrowserDialog;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private WordCountPreferences _wordCountPreferences;
+        private string _originalFolder = string.Empty;
 
         public PostEditorPreferencesPanel()
         {
@@ -100,6 +102,7 @@ namespace OpenLiveWriter.PostEditor
             checkBoxTagReminder.Checked = _postEditorPreferences.TagReminder;
 
             textBoxWeblogPostsFolder.Text = _postEditorPreferences.WeblogPostsFolder;
+            _originalFolder = _postEditorPreferences.WeblogPostsFolder;
             textBoxWeblogPostsFolder.TextChanged += TextBoxWeblogPostsFolder_TextChanged;
 
             buttonBrowserDialog.MouseClick += ButtonBrowserDialog_MouseClick;
@@ -153,6 +156,28 @@ namespace OpenLiveWriter.PostEditor
 
         public override void Save()
         {
+            string destinationRecentPosts = Path.Combine(_postEditorPreferences.WeblogPostsFolder + "\\Recent Posts");
+            string destinationDrafts = Path.Combine(_postEditorPreferences.WeblogPostsFolder + "\\Drafts");
+            Directory.CreateDirectory(destinationRecentPosts);
+            Directory.CreateDirectory(destinationDrafts);
+
+            if (String.Compare(_originalFolder, _postEditorPreferences.WeblogPostsFolder, true) != 0)
+            {
+                string message = "You  have updated the default location for your blog posts, would you like to move any existing posts?";
+                string caption = "Move existing posts";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result;
+
+                result = MessageBox.Show(message, caption, buttons);
+
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    MovePosts(Path.Combine(_originalFolder + @"\\Recent Posts\\"), destinationRecentPosts);
+
+                    MovePosts(Path.Combine(_originalFolder + @"\\Drafts\\"), destinationDrafts);
+                }
+            }
+
             if (_postEditorPreferences.IsModified())
                 _postEditorPreferences.Save();
 
@@ -160,6 +185,8 @@ namespace OpenLiveWriter.PostEditor
                 _wordCountPreferences.Save();
 
             PostListCache.Update();
+
+            _originalFolder = _postEditorPreferences.WeblogPostsFolder;
         }
 
         private void checkBoxViewWeblog_CheckedChanged(object sender, EventArgs e)
@@ -225,6 +252,17 @@ namespace OpenLiveWriter.PostEditor
         private void TextBoxWeblogPostsFolder_TextChanged(object sender, EventArgs e)
         {
             _postEditorPreferences.WeblogPostsFolder = textBoxWeblogPostsFolder.Text;
+        }
+
+        private void MovePosts(string sourceFolder, string destinationFolder)
+        {
+            string[] files = System.IO.Directory.GetFiles(sourceFolder);
+            foreach (string s in files)
+            {
+                string fileName = Path.GetFileName(s);
+                string destFile = Path.Combine(destinationFolder, fileName);
+                File.Copy(s, destFile, true);
+            }
         }
 
         /// <summary>
