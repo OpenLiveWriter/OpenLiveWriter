@@ -328,7 +328,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             recentPostsRequest.Status = PostsResource.ListRequest.StatusEnum.Live;
 
             var recentPosts = recentPostsRequest.Execute();
-            return recentPosts.Items.Select(ConvertToBlogPost).ToArray();
+            return recentPosts.Items.Select(p => ConvertToBlogPost(p)).ToArray();
         }
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
