@@ -102,7 +102,7 @@ namespace OpenLiveWriter.PostEditor
             _editingManager = editingManager;
             _editingManager.BlogChanged += new EventHandler(_editingManager_BlogChanged);
             _editingManager.BlogSettingsChanged += new WeblogSettingsChangedHandler(_editingManager_BlogSettingsChanged);
-
+            
             _editingSite = editingSite;
 
             BlogSettings.BlogSettingsDeleted += new BlogSettings.BlogSettingsListener(BlogSettings_BlogSettingsDeleted);
@@ -112,6 +112,11 @@ namespace OpenLiveWriter.PostEditor
 
             // initialize UI
             InitializeUI();
+        }
+
+        private void EditingSiteOnWeblogListChanged(object sender, EventArgs eventArgs)
+        {
+            commandSelectBlog?.ReloadAndInvalidate();
         }
 
         void BlogSettings_BlogSettingsDeleted(string blogId)
@@ -130,6 +135,8 @@ namespace OpenLiveWriter.PostEditor
 
             commandWeblogPicker = new CommandWeblogPicker();
             _editingSite.CommandManager.Add(commandWeblogPicker);
+            _editingSite.WeblogListChanged -= EditingSiteOnWeblogListChanged;
+            _editingSite.WeblogListChanged += EditingSiteOnWeblogListChanged;
 
             commandAddWeblog = new Command(CommandId.AddWeblog);
             commandAddWeblog.Execute += new EventHandler(commandAddWeblog_Execute);
@@ -154,7 +161,6 @@ namespace OpenLiveWriter.PostEditor
         {
             if (WeblogSelected != null)
                 WeblogSelected(BlogSettings.GetBlogs(true)[commandSelectBlog.SelectedIndex].Id);
-
         }
 
         private void InitializeUI()
