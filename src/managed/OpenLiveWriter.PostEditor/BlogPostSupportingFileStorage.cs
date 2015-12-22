@@ -141,7 +141,7 @@ namespace OpenLiveWriter.PostEditor
 
         //ToDo: OLW Spell Checker
         // NOTE: hardcode to sentry spelling engine -- need to unroll this if we switch engines
-        private static readonly string CONTEXT_DICTIONARY_FILE = string.Empty; // SentrySpellingChecker.ContextDictionaryFileName ;
+        private static readonly string CONTEXT_DICTIONARY_FILE = "context.tlx";
 
         private DirectoryInfo _storageDirectory;
     }
