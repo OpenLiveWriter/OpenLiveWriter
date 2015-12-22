@@ -88,7 +88,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Permalink = post.Url,
                 Contents = post.Content,
                 DatePublished = post.Published.Value,
-                Keywords = string.Join(new string(LabelDelimiter,1), post.Labels)
+                Keywords = string.Join(new string(LabelDelimiter,1), post.Labels ?? new List<string>())
             };
         }
 
@@ -328,7 +328,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             recentPostsRequest.Status = PostsResource.ListRequest.StatusEnum.Live;
 
             var recentPosts = recentPostsRequest.Execute();
-            return recentPosts.Items.Select(p => ConvertToBlogPost(p)).ToArray();
+            return recentPosts.Items.Select(ConvertToBlogPost).ToArray();
         }
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
