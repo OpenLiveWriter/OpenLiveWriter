@@ -130,7 +130,7 @@
       <futurePublishDateWarning>No</futurePublishDateWarning>
       <defaultView>WebLayout</defaultView>
       <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
-      <supportsMultipleCategories>No</supportsMultipleCategories>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
       <supportsEmptyTitles>Yes</supportsEmptyTitles>
       <requiresHtmlTitles>Yes</requiresHtmlTitles>
       <usePicasaImgMaxAlways>Yes</usePicasaImgMaxAlways>
