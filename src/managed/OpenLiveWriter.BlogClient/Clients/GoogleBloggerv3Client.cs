@@ -23,7 +23,6 @@ using Google.Apis.Util;
 using System.Globalization;
 using System.Diagnostics;
 using Google.Apis.Blogger.v3.Data;
-using System.Net.Http.Headers;
 using OpenLiveWriter.Controls;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -152,8 +151,8 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsExcerpt = false;
             clientOptions.SupportsSlug = false;
             clientOptions.SupportsFileUpload = true;
-            clientOptions.SupportsKeywords = true;
-            clientOptions.SupportsGetKeywords = true;
+            clientOptions.SupportsKeywords = false;
+            clientOptions.SupportsGetKeywords = false;
             clientOptions.SupportsPages = true;
             clientOptions.SupportsExtendedEntries = true;
             _clientOptions = clientOptions;
