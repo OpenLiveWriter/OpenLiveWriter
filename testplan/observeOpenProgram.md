@@ -1,4 +1,3 @@
-@@ -1,31 +0,0 @@
 ###Test Plan for Ensuring that OpenLiveWriter opens correctly
 Steps                 | Desired Results                | Complete | Comments
 ----------------------|--------------------------------|----------| --------
