@@ -107,10 +107,12 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private static Post ConvertToGoogleBloggerPost(BlogPost post)
         {
+            var labels = post.Categories?.Select(x => x.Name).ToList();
+            labels?.AddRange(post.NewCategories?.Select(x => x.Name) ?? new List<string>());
             return new Post()
             {
                 Content = post.Contents,
-                Labels = post.Keywords?.Split(new char[] { LabelDelimiter }, StringSplitOptions.RemoveEmptyEntries).Select(k => k.Trim()).ToList(),
+                Labels = labels ?? new List<string>(),
                 // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
                 // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
                 Published = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null,
