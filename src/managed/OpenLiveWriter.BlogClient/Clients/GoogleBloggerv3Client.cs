@@ -26,6 +26,7 @@ using Google.Apis.Blogger.v3.Data;
 using System.Net.Http.Headers;
 using OpenLiveWriter.Controls;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -142,9 +143,9 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             // configure client options
             BlogClientOptions clientOptions = new BlogClientOptions();
-            clientOptions.SupportsCategories = false;
-            clientOptions.SupportsMultipleCategories = false;
-            clientOptions.SupportsNewCategories = false;
+            clientOptions.SupportsCategories = true;
+            clientOptions.SupportsMultipleCategories = true;
+            clientOptions.SupportsNewCategories = true;
             clientOptions.SupportsCustomDate = true;
             clientOptions.SupportsExcerpt = false;
             clientOptions.SupportsSlug = false;
@@ -303,10 +304,30 @@ namespace OpenLiveWriter.BlogClient.Clients
             return blogList.Items.Select(b => new BlogInfo(b.Id, b.Name, b.Url)).ToArray();
         }
 
+        private const string CategoriesEndPoint = "/feeds/posts/summary?alt=json&max-results=0";
         public BlogPostCategory[] GetCategories(string blogId)
         {
-            // Google Blogger does not support categories
-            return new BlogPostCategory[] { };
+            var categories = new BlogPostCategory[0];
+            var blog = GetService().Blogs.Get(blogId).Execute();
+
+            if (blog != null)
+            {
+                var categoriesUrl = string.Concat(blog.Url, CategoriesEndPoint);
+
+                var response = SendAuthenticatedHttpRequest(categoriesUrl, 30, CreateAuthorizationFilter());
+                if (response != null)
+                {
+                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        var json = reader.ReadToEnd();
+                        var item = JsonConvert.DeserializeObject<CategoryResponse>(json);
+                        var cats = item?.Feed?.CategoryArray.Select(x => new BlogPostCategory(x.Term));
+                        categories = cats?.ToArray() ?? new BlogPostCategory[0];
+                    }
+                }
+            }
+
+            return categories;
         }
 
         public BlogPostKeyword[] GetKeywords(string blogId)
@@ -834,5 +855,22 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         #endregion
 
+        public class Category
+        {
+            [JsonProperty("term")]
+            public string Term { get; set; }
+        }
+
+        public class Feed
+        {
+            [JsonProperty("category")]
+            public Category[] CategoryArray { get; set; }
+        }
+
+        public class CategoryResponse
+        {
+            [JsonProperty("feed")]
+            public Feed Feed { get; set; }
+        }
     }
 }
