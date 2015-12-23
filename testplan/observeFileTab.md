@@ -1,4 +1,3 @@
-@@ -1,44 +0,0 @@
 ###Test Plan for Ensuring File Tab displays correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
