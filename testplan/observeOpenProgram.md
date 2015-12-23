@@ -30,4 +30,3 @@ Observe top line  | OpenLiveWriter Icon |      |
   | Preview Tab | |
   | Source Tab | |
   | On far right  Draft - Unsaved |  |
-\ No newline at end of file
