@@ -43,4 +43,3 @@ Hover over Exit  | Displas messge
 Click on Exit - Post has not been saved | Opens dialog box - Save Changes
 Click on Exit - Post has been saved | Closes OpenLiveWriter
 Open OpenLive Writer | Verify that last saved post is available in recent posts
-\ No newline at end of file
