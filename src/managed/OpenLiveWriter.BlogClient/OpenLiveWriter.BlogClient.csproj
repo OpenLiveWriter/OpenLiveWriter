@@ -162,6 +162,7 @@
     <Compile Include="Clients\GenericAtomClient.cs" />
     <Compile Include="Clients\GitHubEntry.cs" />
     <Compile Include="Clients\GitHubPageClient.cs" />
+    <Compile Include="Clients\JSONRestRequestHelper.cs" />
     <Compile Include="Clients\LineBreakInputFormatters.cs" />
     <Compile Include="Clients\LiveJournalClient.cs" />
     <Compile Include="Clients\MetaweblogClient.cs" />

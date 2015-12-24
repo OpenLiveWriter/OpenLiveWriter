@@ -587,6 +587,7 @@
       <supportsMultipleCategories>Yes</supportsMultipleCategories>
       <supportsPostAsDraft>Yes</supportsPostAsDraft>
       <futurePublishDateWarning>No</futurePublishDateWarning>
+      <keywordsAsTags>Yes</keywordsAsTags>
     </options>
   </provider>
 </providers>

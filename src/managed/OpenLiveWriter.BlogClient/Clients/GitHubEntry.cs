@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
-
     public class GitHubPage
     {
         public string url { get; set; }
