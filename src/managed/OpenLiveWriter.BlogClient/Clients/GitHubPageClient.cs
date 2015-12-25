@@ -96,7 +96,9 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             try
             {
-                GetUsersBlogsInternal();
+                WebHeaderCollection responseHeaders;
+                var githubApi = new Uri("https://api.github.com");
+                jsonRestRequestHelper.Get(ref githubApi, CreateAuthorizationFilter(), out responseHeaders);
             }
             catch (BlogClientAuthenticationException)
             {
@@ -122,51 +124,31 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private BlogInfo[] GetUsersBlogsInternal()
         {
-            try
+            WebHeaderCollection responseHeaders;
+            var getUsersBlogsUri = new Uri(String.Format(GitHubPageApiUriFormat, _githubRepoOwner, _githubRepoName));
+            var responseContent = jsonRestRequestHelper.Get(ref getUsersBlogsUri, CreateAuthorizationFilter(),
+                out responseHeaders);
+
+            var blog = JsonConvert.DeserializeObject<GitHubPage>(responseContent);
+            var blogId = String.IsNullOrEmpty(blog.cname)
+                ? String.Format(BlogIdFormat, _githubRepoOwner, _githubRepoName)
+                : blog.cname;
+            string homepageUrl;
+
+            if (String.IsNullOrEmpty(blog.cname))
             {
-                WebHeaderCollection responseHeaders;
-                var getUsersBlogsUri = new Uri(String.Format(GitHubPageApiUriFormat, _githubRepoOwner, _githubRepoName));
-                var responseContent = jsonRestRequestHelper.Get(ref getUsersBlogsUri, CreateAuthorizationFilter(),
-                    out responseHeaders);
+                homepageUrl = String.Equals(_githubRepoName, String.Format("{0}.github.io", _githubRepoOwner),
+                    StringComparison.InvariantCultureIgnoreCase)
+                    ? _githubRepoName
+                    : String.Format("{0}.github.io/{1}", _githubRepoOwner, _githubRepoName);
 
-                var blog = JsonConvert.DeserializeObject<GitHubPage>(responseContent);
-                var blogId = String.IsNullOrEmpty(blog.cname)
-                    ? String.Format(BlogIdFormat, _githubRepoOwner, _githubRepoName)
-                    : blog.cname;
-                string homepageUrl;
-
-                if (String.IsNullOrEmpty(blog.cname))
-                {
-                    homepageUrl = String.Equals(_githubRepoName, String.Format("{0}.github.io", _githubRepoOwner),
-                        StringComparison.InvariantCultureIgnoreCase)
-                        ? _githubRepoName
-                        : String.Format("{0}.github.io/{1}", _githubRepoOwner, _githubRepoName);
-
-                }
-                else
-                {
-                    homepageUrl = blog.cname;
-                }
-
-                return new[] {new BlogInfo(blogId, blogId, new UriBuilder(homepageUrl).Uri.AbsoluteUri)};
             }
-            catch (WebException e)
+            else
             {
-                using (var response = (HttpWebResponse) e.Response)
-                {
-                    using (var reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        var errorMessage = reader.ReadToEnd();
-
-                        if ((int) response.StatusCode/100 == 4)
-                        {
-                            throw new BlogClientAuthenticationException(response.StatusCode.ToString(), errorMessage);
-                        }
-
-                        throw e;
-                    }
-                }
+                homepageUrl = blog.cname;
             }
+
+            return new[] {new BlogInfo(blogId, blogId, new UriBuilder(homepageUrl).Uri.AbsoluteUri)};
         }
 
         public BlogPostCategory[] GetCategories(string blogId)
@@ -264,11 +246,18 @@ namespace OpenLiveWriter.BlogClient.Clients
         public BlogPost GetPost(string blogId, string postId)
         {
             var githubEntry = GetPostInternal(blogId, postId);
+            var fileBlob = Encoding.UTF8.GetString(Convert.FromBase64String(githubEntry.content));
+            var postMetadata = fileBlob.YamlFrontMatter();
+            var postContent = fileBlob.MarkdownContent();
             var blogPost = new BlogPost
             {
                 Title = githubEntry.name,
                 Id = postId,
-                Contents = Encoding.UTF8.GetString(Convert.FromBase64String(githubEntry.content))
+                Contents = postContent,
+                Categories = postMetadata.categories != null ? postMetadata.categories.Select( o => new BlogPostCategory(o) ).ToArray()
+                        : new BlogPostCategory[] { new BlogPostCategory(postMetadata.category) },
+                Keywords = String.Join(",", postMetadata.tags),
+                Excerpt = postMetadata.excerpt
             };
 
             return blogPost;
@@ -415,18 +404,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 return "master";
             }
 
-            WebHeaderCollection responseHeaders;
-            var getUsersBlogsUri = new Uri(String.Format(GitHubPageApiUriFormat, repoOwner, repoName));
-            var responseContent = jsonRestRequestHelper.Get(ref getUsersBlogsUri, CreateAuthorizationFilter(),
-                out responseHeaders);
-
-            var blog = JsonConvert.DeserializeObject<GitHubPage>(responseContent);
-            if (blog != null)
-            {
-                return "gh-pages";
-            }
-
-            return "master";
+            return "gh-pages";
         }
 
         private void ShowError(string error)
