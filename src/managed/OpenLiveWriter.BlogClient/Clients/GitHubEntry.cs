@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using YamlDotNet.RepresentationModel;
+using YamlDotNet.Serialization;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -153,7 +154,8 @@ namespace OpenLiveWriter.BlogClient.Clients
         // Predefined Variables for Posts
         public DateTime date;
         // User defined dynamic variables
-        public IDictionary<string, Object> userDefinedMetadata;
+        public YamlStream userDefinedMetadata;
+        
 
         public PageMetadata()
         {
@@ -162,7 +164,9 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public PageMetadata(YamlMappingNode rootNode)
         {
-            this.userDefinedMetadata = new Dictionary<string, object>();
+            var userMetadataRootNode = new YamlMappingNode();
+            this.userDefinedMetadata = new YamlStream(new YamlDocument(userMetadataRootNode));
+
             this.categories = new List<string>();
             this.tags = new List<string>();
             if (rootNode != null)
@@ -222,10 +226,30 @@ namespace OpenLiveWriter.BlogClient.Clients
                             this.tags.AddRange(tagsNode.Select(o => o.ToString()));
                             break;
                         default:
-                            this.userDefinedMetadata.Add(node.Value, entry.Value);
+                            userMetadataRootNode.Add(node.Value, entry.Value);
                             break;
                     }
 
+                }
+            }
+        }
+
+        public string UserDefinedMetadata
+        {
+            get
+            {
+                var sb = new StringBuilder();
+                userDefinedMetadata.Save(new StringWriter(sb));
+                var result = sb.ToString().TrimEnd(new[] { '\n', '\r' });
+
+                if (result.Length < 3)
+                {
+                    return result;
+                }
+                else
+                {
+                    // TODO: why YamlDotNet append ellipsis to the end of the output?
+                    return result.Substring(0, result.Length - 3);
                 }
             }
         }

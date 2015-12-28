@@ -32,6 +32,8 @@ namespace OpenLiveWriter.BlogClient.Clients
         private const string BasicAuthFormat = "{0}:{1}";
         private const string BlogIdFormat = "{0}/{1}";
         private const string BlogManifestFormat = "{0}/olwmanifest.xml";
+        private const string GitHubPageUserOrOrgSiteFormat = "{0}.github.io";
+        private const string GitHubPageProjectSiteFormat = "{0}.github.io/{1}";
 
         private readonly Uri _postApiUrl;
         private string _githubRepoOwner;
@@ -86,7 +88,10 @@ namespace OpenLiveWriter.BlogClient.Clients
                 SupportsPostAsDraft = true,
                 SupportsPages = true,
                 KeywordsAsTags = true,
-                SupportsGetKeywords = true
+                SupportsGetKeywords = true,
+                SupportsSlug = true,
+                SupportFrontMatter = true,
+                SupportLayout = true
             };
 
             _clientOptions = clientOptions;
@@ -137,10 +142,10 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             if (String.IsNullOrEmpty(blog.cname))
             {
-                homepageUrl = String.Equals(_githubRepoName, String.Format("{0}.github.io", _githubRepoOwner),
+                homepageUrl = String.Equals(_githubRepoName, String.Format(GitHubPageUserOrOrgSiteFormat, _githubRepoOwner),
                     StringComparison.InvariantCultureIgnoreCase)
                     ? _githubRepoName
-                    : String.Format("{0}.github.io/{1}", _githubRepoOwner, _githubRepoName);
+                    : String.Format(GitHubPageProjectSiteFormat, _githubRepoOwner, _githubRepoName);
 
             }
             else
@@ -257,7 +262,9 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Categories = postMetadata.categories != null ? postMetadata.categories.Select( o => new BlogPostCategory(o) ).ToArray()
                         : new BlogPostCategory[] { new BlogPostCategory(postMetadata.category) },
                 Keywords = String.Join(",", postMetadata.tags),
-                Excerpt = postMetadata.excerpt
+                Excerpt = postMetadata.excerpt,
+                Layout = postMetadata.layout,
+                FrontMatter = postMetadata.UserDefinedMetadata
             };
 
             return blogPost;
@@ -377,7 +384,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private string GetHomePageUrl(string repoOwner, string repoName)
         {
-            if (String.Format("{0}.github.io", repoOwner).Equals(repoName, StringComparison.InvariantCultureIgnoreCase))
+            if (String.Format(GitHubPageUserOrOrgSiteFormat, repoOwner).Equals(repoName, StringComparison.InvariantCultureIgnoreCase))
             {
                 return repoName;
             }
@@ -393,12 +400,12 @@ namespace OpenLiveWriter.BlogClient.Clients
                 return blog.cname;
             }
 
-            return String.Format("{0}.github.io/{1}", repoOwner, repoName);
+            return String.Format(GitHubPageProjectSiteFormat, repoOwner, repoName);
         }
 
         private string GetBranch(string repoOwner, string repoName)
         {
-            if (String.Equals(repoName, String.Format("{0}.github.io", repoOwner),
+            if (String.Equals(repoName, String.Format(GitHubPageUserOrOrgSiteFormat, repoOwner),
                 StringComparison.InvariantCultureIgnoreCase))
             {
                 return "master";

@@ -128,6 +128,16 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         bool SupportsPostSynchronization { get; }
         bool SupportsAutoUpdate { get; }
 
+        /// <summary>
+        /// Below concepts are from static stie generators. As lack of 
+        /// external storage, most of popular static sites are using
+        /// front matter to hold all metadata. Meanwhile users are allowed
+        /// to customize layouts directly as the themes/layouts are treated
+        /// as content as well.
+        /// </summary>
+        bool SupportFrontMatter { get;  }
+        bool SupportLayout { get;  }
+
         /// Fault-matching
         string InvalidPostIdFaultCodePattern { get; }
         string InvalidPostIdFaultStringPattern { get; }

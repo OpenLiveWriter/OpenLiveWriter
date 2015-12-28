@@ -588,6 +588,8 @@
       <supportsPostAsDraft>Yes</supportsPostAsDraft>
       <futurePublishDateWarning>No</futurePublishDateWarning>
       <keywordsAsTags>Yes</keywordsAsTags>
+      <supportFrontMatter>Yes</supportFrontMatter>
+      <supportLayout>Yes</supportLayout>
     </options>
   </provider>
 </providers>

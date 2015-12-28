@@ -56,6 +56,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.labelPassword.Text = Res.Get(StringId.PropertiesPassword);
             this.labelTrackbacks.Text = Res.Get(StringId.PropertiesTrackbacks);
             this.labelExcerpt.Text = Res.Get(StringId.PropertiesExcerpt);
+            this.labelFrontMatter.Text = "Front Matter";
+            this.labelLayout.Text = "Layout";
             this.textPassword.PasswordChar = Res.PasswordChar;
 
             ControlHelper.SetCueBanner(textTrackbacks, Res.Get(StringId.PropertiesCommaSeparated));
@@ -179,6 +181,14 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                                       pending.Add(url);
                               post.PingUrlsPending = pending.ToArray();
                           });
+            RegisterField(PropertyType.Post, labelFrontMatter, textFrontMatter,
+                          opts => opts.SupportFrontMatter,
+                          post => textFrontMatter.Text = post.FrontMatter,
+                          post => post.FrontMatter = textFrontMatter.Text);
+            RegisterField(PropertyType.Post, labelLayout, textLayout,
+                          opts => opts.SupportLayout,
+                          post => textLayout.Text = post.Layout,
+                          post => post.Layout = textLayout.Text);
         }
 
         private void PostPropertiesForm_FormClosing(object sender, FormClosingEventArgs e)
