@@ -89,10 +89,12 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.textPassword.TextChanged += controller.MakeDirty;
             this.textExcerpt.TextChanged += controller.MakeDirty;
             this.textTrackbacks.TextChanged += controller.MakeDirty;
+            this.textFrontMatter.TextChanged += controller.MakeDirty;
+            this.textLayout.TextChanged += controller.MakeDirty;
 
             SimpleTextEditorCommandHelper.UseNativeBehaviors(commandManager,
                                                              textExcerpt, textPageOrder, textPassword,
-                                                             textSlug, textTags, textTrackbacks);
+                                                             textSlug, textTags, textTrackbacks, textFrontMatter, textLayout);
         }
 
         public void DisplayCategoryForm()
@@ -181,11 +183,11 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                                       pending.Add(url);
                               post.PingUrlsPending = pending.ToArray();
                           });
-            RegisterField(PropertyType.Post, labelFrontMatter, textFrontMatter,
+            RegisterField(PropertyType.Both, labelFrontMatter, textFrontMatter,
                           opts => opts.SupportFrontMatter,
                           post => textFrontMatter.Text = post.FrontMatter,
                           post => post.FrontMatter = textFrontMatter.Text);
-            RegisterField(PropertyType.Post, labelLayout, textLayout,
+            RegisterField(PropertyType.Both, labelLayout, textLayout,
                           opts => opts.SupportLayout,
                           post => textLayout.Text = post.Layout,
                           post => post.Layout = textLayout.Text);

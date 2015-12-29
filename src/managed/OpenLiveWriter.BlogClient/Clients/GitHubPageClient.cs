@@ -211,7 +211,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 // TODO: make commit message configurable?
                 message = "new blog post: " + post.Title,
-                content = Convert.ToBase64String(Encoding.UTF8.GetBytes(post.Contents)),
+                content = CombineContentFromPost(post),
                 branch = GetBranchNameByBlogId(blogId)
             });
 
@@ -234,12 +234,13 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             var json = JsonConvert.SerializeObject(new
             {
-                message = "delete blog post: " + post.Id,
+                message = "Update blog post: " + post.Id,
                 branch = GetBranchNameByBlogId(blogId),
+                content = CombineContentFromPost(post),
                 sha = githubEntry.sha
             });
 
-            var response = jsonRestRequestHelper.Delete(ref uri, "", CreateAuthorizationFilter(), "", json, "UTF-8",
+            var response = jsonRestRequestHelper.Put(ref uri, "", CreateAuthorizationFilter(), "", json, "UTF-8",
                 false);
 
             etag = "";
@@ -260,7 +261,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Id = postId,
                 Contents = postContent,
                 Categories = postMetadata.categories != null ? postMetadata.categories.Select( o => new BlogPostCategory(o) ).ToArray()
-                        : new BlogPostCategory[] { new BlogPostCategory(postMetadata.category) },
+                        : new [] { new BlogPostCategory(postMetadata.category) },
                 Keywords = String.Join(",", postMetadata.tags),
                 Excerpt = postMetadata.excerpt,
                 Layout = postMetadata.layout,
@@ -480,6 +481,17 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
 
             return GetBranch(ownerNrepo[0], ownerNrepo[1]);
+        }
+
+        private string CombineContentFromPost(BlogPost post)
+        {
+            var pageMetadata = new PageMetadata(post);
+            var sb = new StringBuilder();
+            sb.AppendLine("---");
+            sb.AppendLine(pageMetadata.Yaml);
+            sb.AppendLine("---");
+            sb.AppendLine(post.Contents);
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(sb.ToString()));
         }
 
         #endregion

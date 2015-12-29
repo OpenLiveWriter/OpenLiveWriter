@@ -590,6 +590,9 @@
       <keywordsAsTags>Yes</keywordsAsTags>
       <supportFrontMatter>Yes</supportFrontMatter>
       <supportLayout>Yes</supportLayout>
+      <UpdateFileMessageFormat>Update {0}</UpdateFileMessageFormat>
+      <NewFileMessageFormat>Create a new file: {0}</NewFileMessageFormat>
+      <DeleteFileMessageFormat>Delete {0}</DeleteFileMessageFormat>
     </options>
   </provider>
 </providers>

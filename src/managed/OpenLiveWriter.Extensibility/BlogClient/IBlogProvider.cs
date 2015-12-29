@@ -137,6 +137,9 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         /// </summary>
         bool SupportFrontMatter { get;  }
         bool SupportLayout { get;  }
+        string UpdateFileMessageFormat { get; }
+        string NewFileMessageFormat { get; }
+        string DeleteFileMessageFormat { get; }
 
         /// Fault-matching
         string InvalidPostIdFaultCodePattern { get; }

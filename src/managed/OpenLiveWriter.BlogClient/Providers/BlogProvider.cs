@@ -458,6 +458,24 @@ namespace OpenLiveWriter.BlogClient.Providers
             set { _supportlayout = value; }
         }
 
+        public string UpdateFileMessageFormat
+        {
+            get { return _updateFileMessageFormat; }
+            set { _updateFileMessageFormat = value; }
+        }
+
+        public string NewFileMessageFormat
+        {
+            get { return _newFileMessageFormat; }
+            set { _newFileMessageFormat = value; }
+        }
+
+        public string DeleteFileMessageFormat
+        {
+            get { return _deleteFileMessageFormat; }
+            set { _deleteFileMessageFormat = value; }
+        }
+
         public const string CHARACTER_SET = "characterSet";
         public const string SUPPORTS_EMBEDS = "supportsEmbeds";
         public const string SUPPORTS_SCRIPTS = "supportsScripts";
@@ -706,8 +724,14 @@ namespace OpenLiveWriter.BlogClient.Providers
         private bool _supportsCustomDateUpdate = true;
         private bool _supportsPostAsDraft = true;
 
+        /// <summary>
+        /// Static Site related options.
+        /// </summary>
         private bool _supportFrontMatter = false;
         private bool _supportlayout = false;
+        private string _updateFileMessageFormat;
+        private string _newFileMessageFormat;
+        private string _deleteFileMessageFormat;
 
         private SupportsFeature _supportsScripts = SupportsFeature.Unknown;
         private SupportsFeature _supportsEmbeds = SupportsFeature.Unknown;

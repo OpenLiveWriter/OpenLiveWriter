@@ -444,6 +444,8 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             Slug = sourcePost.Slug;
             Password = sourcePost.Password;
             Author = sourcePost.Author.Clone() as PostIdAndNameField;
+            Layout = sourcePost.Layout;
+            FrontMatter = sourcePost.FrontMatter;
 
             IsTemporary = sourcePost.IsTemporary;
             ContentsVersionSignature = sourcePost.ContentsVersionSignature;
