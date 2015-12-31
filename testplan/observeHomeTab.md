@@ -113,5 +113,10 @@ Hover over Find  | Message explaining Find displayed | |
 Click on Find | Ensure Find dialog box is displayed | |
 Hover over Select All  | Message explaining Select All displayed | |
 Click on Select All | Ensure all contents in the blog post are selected | |
+**Home post display** | | |
+Open Live Writer  | Ensure empty blog post is displayed | |
+Click on Preview | Ensure empty blog post is displayed as if the blog post has been published | | 
+Click on source | Ensure blog post is displayed as html | | 
+Check lower left corner | Ensure Draft - Unsaved is displayed | |  
 
 ![Word count dialog box](images\wordCountdiaglogbox.png)
