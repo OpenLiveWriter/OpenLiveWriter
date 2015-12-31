@@ -1,4 +1,4 @@
-###Test Plan for Ensuring File Tab displays correctly
+###Test Plan for Ensuring Home Tab displays correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Live Writer  | Open Live Writer Opens at Home Tab with last blog used selected in Publish area  |  |
@@ -36,5 +36,29 @@ Click on Publish Draft Icon | If password is not saved, sign-in dialog box is di
  | If title is not present, title reminder dialog box is displayed | | 
  | Once all conditions are satisfied, publish dialog box is displayed | |
  | Blog is published in draft status | |  |
-  
+**Font** | | | 
+Hover over the first large box | Message explaining font family appears | |
+Click on the arrow to the right of the first large box | List of available fonts appears | | 
+Click on a font family | Ensure that font family is applied | | 
+Hover over the second smaller box | Message explaining font size appears | |
+Click on the arrow to the right of the second smaller box | List of available fonts appears | |
+Click on a font size | Ensure that font size is applied | | 
+Hover over icon eraser over Aa | Message explaining clear formatting appears | |
+Click on icon eraser over Aa | Ensure that formatting is cleared |  |  
+Hover over bold B | Message explaining bold appears | | 
+Click on bold B | Ensure that text is formatted bold | | 
+Hover over italic I | Messaging explainng italic appears | | 
+Click on italic I | Ensure that text is formatted as italics | |
+Hover over underline U | Messaging explainng underline appears | | 
+Click on underline U | Ensure that text is formatted underlined | | 
+Hover over strikeover abc | Messaging explainng strikeover appears | | 
+Click on strikeover abc | Ensure that text is formatted strikeover | |
+Hover over subscript | Messaging explainng subscript appears | | 
+Click on subscript | Ensure that text is formatted subscript | |
+Hover over superscript | Messaging explainng superscript appears | | 
+Click on superscript | Ensure that text is formatted superscript | |
+Hover over highlight | Messaging explainng highlight appears | | 
+Click on highlight | Ensure that text is highlighted | |
+Hover over text color | Messaging explainng text color appears | | 
+Click on text colr  | Ensure that text is formatted the correct color | |
  
