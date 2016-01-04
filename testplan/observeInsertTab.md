@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Interst Tab displays correctly
+###Test Plan for Ensuring Insert Tab displays correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Live Writer  |   |  |
