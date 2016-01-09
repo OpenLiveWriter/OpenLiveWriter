@@ -451,8 +451,6 @@ ImgSBLocalImage,Local: {0},"{0} - a file size (e.g. localized equivalents of ""1
 ImgSBLocalImage2,Local: {0}/{1},"{0}, {1} - file size (e.g. localized equivalents of ""10.2MB"", ""108 bytes"", etc.). The {0} value will be for the inline image, the {1} value will be for the ""View Larger"" image."
 Post,Post,
 Posts,&Posts,
-RecentPosts,Recent posts, Category description for recent posts that appears in Writer's taskbar jumplist.
-RecentDrafts,Recent drafts, Category description for recent drafts that appears in Writer's taskbar jumplist.
 Page,Page,
 Pages,P&ages,
 Blog,Blog,

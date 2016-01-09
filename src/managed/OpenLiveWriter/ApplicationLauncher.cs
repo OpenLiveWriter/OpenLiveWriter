@@ -10,11 +10,9 @@ using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Diagnostics;
 using OpenLiveWriter.BlogClient;
-using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.Interop.Windows.TaskDialog;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor;
-using OpenLiveWriter.PostEditor.JumpList;
 using OpenLiveWriter.PostEditor.OpenPost;
 using OpenLiveWriter.PostEditor.Configuration.Wizard;
 using OpenLiveWriter.PostEditor.Updates;
@@ -282,7 +280,6 @@ namespace OpenLiveWriter
                 {
                     // ensure we show the list of recent posts
                     PostListCache.Update();
-                    WriterJumpList.Invalidate(IntPtr.Zero);
                     return true;
                 }
                 else
