@@ -43,7 +43,4 @@ Click on File | | |
 Click on Options | | | 
 Click on Accounts | Ensure proper accounts are listed | | 
 
-
-
-
 ![Options Accounts tab](images/accountsDialogBox.png)
