@@ -44,7 +44,35 @@ Click on Edit | Ensure Edit Automatic Link Dialog box appears (same as add, only
 Click on Cancel | Ensure that box closes | |
  | Ensure that current entry is highlighted | | 
  | Ensure that entry does not change | | 
-
+Click on Remove | Ensure Are you sure that you want to delete this auto-link entry? displays | | 
+Click on No | Ensure message box closes | | 
+ | Ensure nothing is selected | | *Seems to be default behavior* 
+Click on a entry | Ensure entry is highlighted | | 
+Click on Remove | Ensure Are you sure that you want to delete this auto-link entry? displays | | 
+Click on Yes | Ensure entry is deleted | | 
+| | |
+**Ensure advanced options is working** | | |
+Click on File | | |
+Click on Options | | | 
+Click on Automatic Linking | | | 
+Click on Add | | | 
+Click on Advanced | Ensure that the dialog box is expanded | |
+| Ensure Title field is available | | 
+| Ensure that Rel field is available | | 
+| Fill in all options correctly | | 
+Click on OK | | | 
+Click on Edit | Ensure that the entry is filled out correctly | |
+Click OK or cancel | | | 
+Select an exisitng entry without advanced options | | 
+Click on Edit | | |
+Click on Advanced | | | 
+| Fill in all options correctly | | 
+Click on OK | | | 
+Click on Edit | Ensure that the entry is filled out correctly | |
+| | |
+**Ensure automatic linking is working** | | |
+Enter at least one automatic linking term and address | | |
+Create a blog post with at least one of the term, the hyperlink should be created automatically as you type | | | 
 
 ![Automatic Linking Dialog Box](images/automaticLinkingDialogBox.png)
 
