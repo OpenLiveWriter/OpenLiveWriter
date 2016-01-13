@@ -54,6 +54,8 @@
         <file src="OpenLiveWriter.Mshtml.dll" target="lib\net451\OpenLiveWriter.Mshtml.dll" />
         <file src="OpenLiveWriter.PostEditor.dll" target="lib\net451\OpenLiveWriter.PostEditor.dll" />
         <file src="OpenLiveWriter.Ribbon.dll" target="lib\net451\OpenLiveWriter.Ribbon.dll" />
+        <file src="OpenLiveWriter.SpellChecker.dll" target="lib\net451\OpenLiveWriter.SpellChecker.dll" />
+        <file src="PlatformSpellCheck.dll" target="lib\net451\PlatformSpellCheck.dll" />
         <file src="Splat.dll" target="lib\net451\Splat.dll" />
         <file src="Squirrel.dll" target="lib\net451\Squirrel.dll" />
         <file src="System.Net.Http.Extensions.dll" target="lib\net451\System.Net.Http.Extensions.dll" />
