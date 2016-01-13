@@ -41,7 +41,7 @@ namespace OpenLiveWriter.SpellChecker
             if (string.IsNullOrEmpty(word))
             {
                 offset = 0;
-                length = word.Length;
+                length = 0;
                 return SpellCheckResult.Correct;
             }
 
@@ -49,8 +49,8 @@ namespace OpenLiveWriter.SpellChecker
 
             if (spellerStatus == null)
             {
-                offset = -1;
-                length = -1;
+                offset = 0;
+                length = word.Length;
                 return SpellCheckResult.Correct;
             }
             else

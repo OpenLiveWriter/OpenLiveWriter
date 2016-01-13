@@ -150,13 +150,10 @@ namespace OpenLiveWriter.PostEditor
             preferencesPanelTypeTable["accounts"] = type;
             types.Add(type);
 
-            //if (SpellingSettings.CanSpellCheck)
-            //{
-                // Spelling preferences.
-                type = typeof(SpellingPreferencesPanel);
-                preferencesPanelTypeTable["spelling"] = type;
-                types.Add(type);
-            //}
+            // Spelling preferences.
+            type = typeof(SpellingPreferencesPanel);
+            preferencesPanelTypeTable["spelling"] = type;
+            types.Add(type);
 
             //glossary management
             type = typeof(GlossaryPreferencesPanel);
