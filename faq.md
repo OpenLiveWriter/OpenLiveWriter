@@ -2,13 +2,13 @@
 A: Open Live Writer is an open source fork of the original Windows Live Writer; an application for authoring, editing, and publishing weblog posts.
 
 ##### Q: Does this replace Windows Live Writer?
-A: Technically no, spiritually yes.  Open Live Writer is designed to run side-by-side with Windows Live Writer so you can still use Windows Live Writer as you have been.  Spiritually, the volunteer team hopes that Open Live Writer will have all of the functionality of Windows Live Writer and much more.  One of the best things about Windows Live Writer was the community behind it, this the community can really get involved with Open Live Writer.
+A: Technically no, spiritually yes.  Open Live Writer is designed to run side-by-side with Windows Live Writer so you can still use Windows Live Writer as you have been.  Spiritually, the volunteer team hopes that Open Live Writer will have all of the functionality of Windows Live Writer and much more.  One of the best things about Windows Live Writer was the community behind it, thus the community can really get involved with Open Live Writer.
 
 ##### Q: Why the .NET Foundation?
 A: The codebase is approximately 200,000 lines of C# so it was a good fit. Take a look at their [About](http://www.dotnetfoundation.org/about) page to learn more.
 
 ##### Q: Does it work on older versions of Windows? 
-A: We focused on Windows 10 for the v0.5 release.  We hope to support Windows 7 and Windows 8 for a while at least.
+A: We focused on Windows 10 for the v0.5 release.  We hope to support Windows 7 and Windows 8 for a while at least.  We will not be able to support Windows XP due to the version of .NET used.
 
 ##### Q: Does it work on a Mac?  On Linux?
 A: Since .NET runs on Mac OS and Linux, it is possible to port some of the code to run on Mac OS or Linux. But significant portions of the code use Windows-specific APIs. You are welcome to find the code on GitHub and fork it to run under Mono - that would be awesome.
@@ -19,7 +19,9 @@ A: Yes! Open Live Writer is licensed under the open source [MIT license](https:/
 ##### Q: I found a bug, what do I do?
 A: Add to an existing issue or create a new issue via GitHub: https://github.com/OpenLiveWriter/OpenLiveWriter/issues/new
    Before creating a new issue, make sure that the issue does not already exist and feel free to add to the issue.
-   When creating a new issue, identify as much information as you can to assist the developers in fixing the issue.
+   When creating a new issue, identify as much information as you can to assist the developers in fixing the issue.  It would be 
+   helpful to include the log file and any messages you received.  The log file is found at %localappdata%\OpenLiveWriter . An easy way
+   to get to it is to navigate to File | About | Show log file which is on the lower left of the about dialog box.
 
 ##### Q: How can I get involved?
 A: WELCOME!  We definitely love contributions!  
