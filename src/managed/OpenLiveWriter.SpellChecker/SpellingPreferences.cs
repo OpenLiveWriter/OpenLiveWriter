@@ -43,36 +43,16 @@ namespace OpenLiveWriter.SpellChecker
             set { realTimeSpellChecking = value; Modified(); }
         }
         private bool realTimeSpellChecking;
-
-        /// <summary>
-        /// Ignore words in upper-case
-        /// </summary>
-        public bool IgnoreUppercase
-        {
-            get { return ignoreUppercase; }
-            set { ignoreUppercase = value; Modified(); }
-        }
-        private bool ignoreUppercase;
-
-        /// <summary>
-        /// Ignore words with numbers
-        /// </summary>
-        public bool IgnoreWordsWithNumbers
-        {
-            get { return ignoreWordsWithNumbers; }
-            set { ignoreWordsWithNumbers = value; Modified(); }
-        }
-        private bool ignoreWordsWithNumbers;
-
+        
         /// <summary>
         /// Main language for spell checking
         /// </summary>
-        public SpellingCheckerLanguage Language
+        public string Language
         {
             get { return language; }
             set { language = value; Modified(); }
         }
-        private SpellingCheckerLanguage language;
+        private string language;
 
         /// <summary>
         /// Enables/Disables AutoCorrect
@@ -89,8 +69,6 @@ namespace OpenLiveWriter.SpellChecker
         /// </summary>
         protected override void LoadPreferences()
         {
-            ignoreUppercase = SpellingSettings.IgnoreUppercase;
-            ignoreWordsWithNumbers = SpellingSettings.IgnoreWordsWithNumbers;
             realTimeSpellChecking = SpellingSettings.RealTimeSpellChecking;
             checkSpellingBeforePublish = SpellingSettings.CheckSpellingBeforePublish;
             enableAutoCorrect = SpellingSettings.EnableAutoCorrect;
@@ -102,8 +80,6 @@ namespace OpenLiveWriter.SpellChecker
         /// </summary>
         protected override void SavePreferences()
         {
-            SpellingSettings.IgnoreUppercase = ignoreUppercase;
-            SpellingSettings.IgnoreWordsWithNumbers = ignoreWordsWithNumbers;
             SpellingSettings.RealTimeSpellChecking = realTimeSpellChecking;
             SpellingSettings.CheckSpellingBeforePublish = checkSpellingBeforePublish;
             SpellingSettings.EnableAutoCorrect = enableAutoCorrect;

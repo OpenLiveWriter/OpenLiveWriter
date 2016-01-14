@@ -11,7 +11,6 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.HtmlEditor.Controls;
 using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.Interop.Windows;
-//using OpenLiveWriter.SpellChecker;
 
 namespace OpenLiveWriter.HtmlEditor.Controls
 {

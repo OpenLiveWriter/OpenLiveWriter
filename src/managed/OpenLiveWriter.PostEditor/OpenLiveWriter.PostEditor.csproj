@@ -11,6 +11,10 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.SpellChecker\OpenLiveWriter.SpellChecker.csproj">
+      <Project>{2db3a424-0f1e-44ac-ae01-5454586ce769}</Project>
+      <Name>OpenLiveWriter.SpellChecker</Name>
+    </ProjectReference>
     <Reference Include="Accessibility" />
     <Reference Include="DeltaCompressionDotNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d14d6e5194e7f4a, processorArchitecture=MSIL">
       <HintPath>..\packages\DeltaCompressionDotNet.1.0.0\lib\net45\DeltaCompressionDotNet.dll</HintPath>

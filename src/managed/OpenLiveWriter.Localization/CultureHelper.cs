@@ -212,5 +212,17 @@ namespace OpenLiveWriter.Localization
         {
             return new CultureInfo(lcid).TextInfo.IsRightToLeft;
         }
+
+        public static bool IsRtlCulture(string bcp47Code)
+        {
+            try
+            {
+                return new CultureInfo(bcp47Code).TextInfo.IsRightToLeft;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

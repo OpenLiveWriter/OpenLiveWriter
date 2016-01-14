@@ -44,7 +44,7 @@ using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.PostEditor.SupportingFiles;
 using OpenLiveWriter.PostEditor.Updates;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 using Timer = System.Windows.Forms.Timer;
 
 // @RIBBON TODO: Cleanly remove obsolete code
@@ -888,13 +888,13 @@ namespace OpenLiveWriter.PostEditor
         private bool CheckSpelling()
         {
             // do auto spell check
-            //if (SpellingSettings.CheckSpellingBeforePublish && _htmlEditor.CanSpellCheck)
-            //{
-            //    if (!_htmlEditor.CheckSpelling(_editingManager.GetPostSpellingContextDirectory()))
-            //    {
-            //        return (DialogResult.Yes == DisplayMessage.Show(MessageId.SpellCheckCancelledStillPost, _mainFrameWindow));
-            //    }
-            //}
+            if (SpellingSettings.CheckSpellingBeforePublish && _htmlEditor.CanSpellCheck)
+            {
+                if (!_htmlEditor.CheckSpelling())
+                {
+                    return (DialogResult.Yes == DisplayMessage.Show(MessageId.SpellCheckCancelledStillPost, _mainFrameWindow));
+                }
+            }
             return true;
         }
 
@@ -1106,11 +1106,6 @@ namespace OpenLiveWriter.PostEditor
         #endregion
 
         #region Private Helper Methods
-
-        private string GetSpellingContextDirectory()
-        {
-            return _editingManager.GetPostSpellingContextDirectory();
-        }
 
         private void ManageCommands()
         {

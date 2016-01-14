@@ -21,8 +21,6 @@ namespace OpenLiveWriter.PostEditor
         PostEditorFile AutoSaveLocalFile { get; }
         // @SharedCanvas - this should not be here, it is only hear because it was an
         // easy way to get the information from BlogPostManagingEditor into the CE
-        string GetPostSpellingContextDirectory();
-
     }
 
     public class BlogPostEditingContext : IBlogPostEditingContext

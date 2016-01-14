@@ -11,7 +11,6 @@ namespace OpenLiveWriter.SpellChecker
     public interface IBlogPostSpellCheckingContext
     {
         bool CanSpellCheck { get; }
-        string PostSpellingContextDirectory { get; }
         ISpellingChecker SpellingChecker { get; }
         string AutoCorrectLexiconFilePath { get; }
         event EventHandler SpellingOptionsChanged;
