@@ -32,14 +32,14 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             if (key == PropertyKeys.Enabled)
             {
-                bool currentValue = Enabled;
+                var currentValue = Enabled;
                 _overrides[key] = overrideValue.PropVariant;
                 UpdateInvalidationStateAndNotifyIfDifferent(ref key, Convert.ToBoolean(overrideValue.PropVariant.Value, CultureInfo.InvariantCulture), () => currentValue);
                 return HRESULT.S_OK;
             }
             else if (key == PropertyKeys.ContextAvailable)
             {
-                uint currentValue = (uint)ContextAvailability;
+                var currentValue = (uint)ContextAvailability;
                 _overrides[key] = overrideValue.PropVariant;
                 UpdateInvalidationStateAndNotifyIfDifferent(ref key, Convert.ToUInt32(overrideValue.PropVariant.Value, CultureInfo.InvariantCulture), () => currentValue);
                 return HRESULT.S_OK;
@@ -78,10 +78,7 @@ namespace OpenLiveWriter.ApplicationFramework
         protected object GetOverride(ref PropertyKey key, object defaultValue)
         {
             PropVariant propVariant;
-            if (_overrides.TryGetValue(key, out propVariant))
-                return propVariant.Value;
-
-            return defaultValue;
+            return _overrides.TryGetValue(key, out propVariant) ? propVariant.Value : defaultValue;
         }
 
         protected delegate IComparable IComparableDelegate();
