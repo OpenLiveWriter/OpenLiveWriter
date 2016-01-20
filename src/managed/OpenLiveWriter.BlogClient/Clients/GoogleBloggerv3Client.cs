@@ -88,7 +88,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Permalink = post.Url,
                 Contents = post.Content,
                 DatePublished = post.Published.Value,
-                Categories = post.Labels.Select(x => new BlogPostCategory(x)).ToArray()
+                Categories = post.Labels?.Select(x => new BlogPostCategory(x)).ToArray() ?? new BlogPostCategory[0]
             };
         }
 
@@ -302,7 +302,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         public BlogInfo[] GetUsersBlogs()
         {
             var blogList = GetService().Blogs.ListByUser("self").Execute();
-            return blogList.Items.Select(b => new BlogInfo(b.Id, b.Name, b.Url)).ToArray();
+            return blogList.Items?.Select(b => new BlogInfo(b.Id, b.Name, b.Url)).ToArray() ?? new BlogInfo[0];
         }
 
         private const string CategoriesEndPoint = "/feeds/posts/summary?alt=json&max-results=0";
@@ -350,7 +350,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             recentPostsRequest.Status = PostsResource.ListRequest.StatusEnum.Live;
 
             var recentPosts = recentPostsRequest.Execute();
-            return recentPosts.Items.Select(p => ConvertToBlogPost(p)).ToArray();
+            return recentPosts.Items?.Select(ConvertToBlogPost).ToArray() ?? new BlogPost[0];
         }
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -416,7 +416,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             var getPagesRequest = GetService().Pages.List(blogId);
 
             var pageList = getPagesRequest.Execute();
-            return pageList.Items.Select(p => ConvertToPageInfo(p)).ToArray();
+            return pageList.Items?.Select(ConvertToPageInfo).ToArray() ?? new PageInfo[0];
         }
 
         public BlogPost[] GetPages(string blogId, int maxPages)
@@ -425,7 +425,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             getPagesRequest.MaxResults = maxPages;
 
             var pageList = getPagesRequest.Execute();
-            return pageList.Items.Select(p => ConvertToBlogPost(p)).ToArray();
+            return pageList.Items?.Select(ConvertToBlogPost).ToArray() ?? new BlogPost[0];
         }
 
         public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
