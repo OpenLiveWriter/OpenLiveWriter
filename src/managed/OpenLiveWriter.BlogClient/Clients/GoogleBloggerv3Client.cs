@@ -403,7 +403,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             getPagesRequest.MaxResults = maxPages;
 
             var pageList = getPagesRequest.Execute();
-            return pageList.Items.Select(p => ConvertToBlogPost(p)).ToArray();
+            return pageList.Items?.Select(p => ConvertToBlogPost(p)).ToArray() ?? new BlogPost[0];
         }
 
         public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
