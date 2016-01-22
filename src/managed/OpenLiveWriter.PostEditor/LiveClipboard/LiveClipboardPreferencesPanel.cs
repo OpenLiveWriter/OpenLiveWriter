@@ -14,7 +14,6 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.PostEditor.LiveClipboard;
-//using OpenLiveWriter.SpellChecker;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 

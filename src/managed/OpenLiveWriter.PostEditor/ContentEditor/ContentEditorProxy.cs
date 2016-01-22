@@ -39,8 +39,6 @@ namespace OpenLiveWriter.PostEditor
     [ComVisible(true)]
     public class ContentEditorFactory : IContentEditorFactory
     {
-        private uint _globalSobitOptions;
-
         #region IContentEditorFactory Members
 
         private RedirectionLogger _logger;
@@ -128,25 +126,8 @@ namespace OpenLiveWriter.PostEditor
             return new ContentEditorProxy(this, contentEditorSite, internetSecurityManager, htmlDocument, options, dlControlFlags, color, wpost);
         }
 
-        public void SetSpellingOptions(uint sobitOptions)
-        {
-            _globalSobitOptions = sobitOptions;
-            if (GlobalSpellingOptionsChanged != null)
-                GlobalSpellingOptionsChanged(this, EventArgs.Empty);
-        }
-
         #endregion
-
-        internal uint GlobalSpellingOptions
-        {
-            get
-            {
-                return _globalSobitOptions;
-            }
-        }
-
-        internal event EventHandler GlobalSpellingOptionsChanged;
-
+        
         #region IContentEditorFactory Members
 
         public void DoPreloadWork()
@@ -337,8 +318,6 @@ namespace OpenLiveWriter.PostEditor
                 {
                     contentEditor.IndentColor = color;
                 }
-
-                this.factory.GlobalSpellingOptionsChanged += GlobalSpellingOptionsChangedHandler;
             }
             catch (Exception ex)
             {
@@ -439,7 +418,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private ContentEditorFactory factory;
-        private SpellingOptionState _spellingState;
         private string _wysiwygHTML;
         private string _previewHTML;
         public void SetTheme(string wysiwygHTML)
@@ -451,12 +429,9 @@ namespace OpenLiveWriter.PostEditor
             contentEditor.SetTheme(_wysiwygHTML, null, false);
         }
 
-        public void SetSpellingOptions(string dllName, ushort lcid, string[] mainLexFiles, string userLexFile, uint sobitOptions, bool useAutoCorrect)
+        public void SetSpellingOptions(string bcp47Code, uint sobitOptions, bool useAutoCorrect)
         {
-            _spellingState = new SpellingOptionState(
-                dllName, lcid, mainLexFiles, userLexFile, sobitOptions, useAutoCorrect);
-            _spellingState.Apply(contentEditor, factory.GlobalSpellingOptions);
-            if (CultureHelper.IsRtlLcid(lcid))
+            if (CultureHelper.IsRtlCulture(bcp47Code))
             {
                 EmailContentTarget target =
                     GlobalEditorOptions.ContentTarget as EmailContentTarget;
@@ -469,39 +444,7 @@ namespace OpenLiveWriter.PostEditor
 
         public void DisableSpelling()
         {
-            _spellingState = null;
             contentEditor.DisableSpelling();
-        }
-
-        private void GlobalSpellingOptionsChangedHandler(object sender, EventArgs e)
-        {
-            if (_spellingState != null)
-                _spellingState.Apply(contentEditor, factory.GlobalSpellingOptions);
-        }
-
-        class SpellingOptionState
-        {
-            readonly string dllName;
-            readonly ushort lcid;
-            readonly string[] mainLexFiles;
-            readonly string userLexFile;
-            readonly uint sobitOptions;
-            readonly bool useAutoCorrect;
-
-            public SpellingOptionState(string dllName, ushort lcid, string[] mainLexFiles, string userLexFile, uint sobitOptions, bool useAutoCorrect)
-            {
-                this.dllName = dllName;
-                this.lcid = lcid;
-                this.mainLexFiles = mainLexFiles;
-                this.userLexFile = userLexFile;
-                this.sobitOptions = sobitOptions;
-                this.useAutoCorrect = useAutoCorrect;
-            }
-
-            public void Apply(ContentEditor editor, uint globalSobitOptions)
-            {
-                editor.SetSpellingOptions(dllName, lcid, mainLexFiles, userLexFile, sobitOptions | globalSobitOptions, useAutoCorrect);
-            }
         }
 
         public void AutoreplaceEmoticons(bool enabled)
@@ -515,8 +458,6 @@ namespace OpenLiveWriter.PostEditor
 
         public void Dispose()
         {
-            factory.GlobalSpellingOptionsChanged -= GlobalSpellingOptionsChangedHandler;
-
             contentEditor.DocumentComplete -= new EventHandler(blogPostHtmlEditor_DocumentComplete);
             contentEditor.GotFocus -= new EventHandler(contentEditor_GotFocus);
             contentEditor.LostFocus -= new EventHandler(contentEditor_LostFocus);

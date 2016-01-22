@@ -16,10 +16,7 @@ namespace OpenLiveWriter.SpellChecker
         /// and that we would like the user's Ignore All and Replace All commands
         /// to be persisted in a context-bound dictionary
         /// </summary>
-        /// <param name="contextDictionaryLocation">directory where the
-        /// spell checker can write a context-bound dictionary (null to not
-        /// use a context-dictionary)</param>
-        void StartChecking( string contextDictionaryLocation ) ;
+        void StartChecking() ;
 
         /// <summary>
         /// Notify the spell checker that we have stopped checking the document
@@ -69,56 +66,7 @@ namespace OpenLiveWriter.SpellChecker
         /// <param name="word">word to replace</param>
         /// <param name="replaceWith">replacement word</param>
         void ReplaceAll( string word, string replaceWith ) ;
-
-        void Reset();
     }
-
-    /// <summary>
-    /// Languages supported by the spelling checker
-    /// </summary>
-    public enum SpellingCheckerLanguage
-    {
-        None,
-        EnglishUS,
-        EnglishUK,
-        EnglishCanada,
-        EnglishAustralia,
-        Spanish,
-        German,
-        GermanReform,
-        French,
-        Korean,
-        Italian,
-        Dutch,
-        PortugueseBrazil,
-        Turkish,
-        Arabic,
-        Bulgarian,
-        Catalan,
-        Czech,
-        Greek,
-        Estonian,
-        Basque,
-        Finnish,
-        Hebrew,
-        Croatian,
-        Hungarian,
-        Indonesian,
-        Lithuanian,
-        Latvian,
-        Malay,
-        Polish,
-        Portuguese,
-        Romanian,
-        Russian,
-        Slovak,
-        Slovenian,
-        SerbianLatin,
-        SerbianCyrillic,
-        Swedish,
-        Ukrainian,
-    }
-
 
     /// <summary>
     /// Possible result codes from check-word call
