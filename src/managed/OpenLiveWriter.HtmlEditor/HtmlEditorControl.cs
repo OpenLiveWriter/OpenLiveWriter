@@ -1186,7 +1186,7 @@ namespace OpenLiveWriter.HtmlEditor
             OnDocumentComplete(e);
 
             // Remove null-attributed font tags, e.g. <p><font>blah</font></p> --> <p>blah</p>
-            if (DocumentIsReady)
+            if (DocumentIsReady && PostBodyElement != null)
             {
                 MarkupRange bodyRange = MarkupServices.CreateMarkupRange(PostBodyElement);
                 bodyRange.RemoveElementsByTagId(_ELEMENT_TAG_ID.TAGID_FONT, true);
