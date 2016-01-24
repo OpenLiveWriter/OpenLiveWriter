@@ -649,7 +649,7 @@
     Type="Exclamation"
     Buttons="YesNo" 
     Title="Open Live Writer"
-    Text="{0}&#xD;&#xA;Not a valid URL.&#xD;&#xA;Do you want to continue?"
+    Text="{0}&#xD;&#xA;Not a valid URL.&#xD;&#xA;Do you want to go back and edit the URL?"
     comment:Text="{0} - the url that was entered"/>
 	<Message
 	  Identifier="InvalidInsertionPoint"

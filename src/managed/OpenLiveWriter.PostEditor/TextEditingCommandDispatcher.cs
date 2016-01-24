@@ -24,8 +24,6 @@ using OpenLiveWriter.PostEditor.Commands;
 
 namespace OpenLiveWriter.PostEditor
 {
-    public delegate string SpellingContextDirectorySource();
-
     public delegate void TextEditingFocusHandler();
     public class TextEditingCommandDispatcher : IDisposable
     {
@@ -460,11 +458,10 @@ namespace OpenLiveWriter.PostEditor
 
         private readonly CommandManager CommandManager;
 
-        public TextEditingCommandDispatcher(IWin32Window owner, SpellingContextDirectorySource spellingContextDirSource, IHtmlStylePicker stylePicker, CommandManager commandManager)
+        public TextEditingCommandDispatcher(IWin32Window owner, IHtmlStylePicker stylePicker, CommandManager commandManager)
         {
             CommandManager = commandManager;
             _owner = owner;
-            _spellingContextDirSource = spellingContextDirSource;
             _stylePicker = stylePicker;
             InitializeCommands();
         }
@@ -597,7 +594,7 @@ namespace OpenLiveWriter.PostEditor
             InitializeCommand(new RTLTextBlockCommand());
             InitializeCommand(new InsertLinkCommand());
             InitializeCommand(new FindCommand());
-            InitializeCommand(new CheckSpellingCommand(_spellingContextDirSource));
+            InitializeCommand(new CheckSpellingCommand());
             InitializeCommand(new EditLinkCommand());
             InitializeCommand(new RemoveLinkCommand());
             InitializeCommand(new RemoveLinkAndClearFormattingCommand());
@@ -1552,10 +1549,6 @@ namespace OpenLiveWriter.PostEditor
         private class CheckSpellingCommand : TextEditingCommand
         {
             private bool _isExecuting;
-            public CheckSpellingCommand(SpellingContextDirectorySource spellingContextDirSource)
-            {
-                _spellingContextDirSource = spellingContextDirSource;
-            }
 
             public override CommandId CommandId { get { return CommandId.CheckSpelling; } }
 
@@ -1575,7 +1568,7 @@ namespace OpenLiveWriter.PostEditor
                         string doNotShow = args.GetString("OLECMDEXECOPT_DONTPROMPTUSER");
                         bool showFinishedUI = !StringHelper.ToBool(doNotShow, false);
 
-                        if (!PostEditor.CheckSpelling(_spellingContextDirSource()))
+                        if (!PostEditor.CheckSpelling())
                         {
                             args.Cancelled = true;
                             return;
@@ -1603,8 +1596,6 @@ namespace OpenLiveWriter.PostEditor
             {
                 return new DontPromptUserCommand(CommandId.CheckSpelling);
             }
-
-            private SpellingContextDirectorySource _spellingContextDirSource;
         }
 
         internal class DontPromptUserCommand : Command
@@ -1640,7 +1631,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private IWin32Window _owner;
-        private SpellingContextDirectorySource _spellingContextDirSource;
         private IHtmlStylePicker _stylePicker;
         private IHtmlEditorCommandSource _postEditor;
         private TextEditingFocusHandler _focusCallback;

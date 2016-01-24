@@ -23,8 +23,7 @@ using OpenLiveWriter.Controls;
 using OpenLiveWriter.Mshtml;
 using OpenLiveWriter.PostEditor.Commands;
 using OpenLiveWriter.PostEditor.PostPropertyEditing;
-//using OpenLiveWriter.SpellChecker;
-//using OpenLiveWriter.SpellChecker.NLG;
+using OpenLiveWriter.SpellChecker;
 
 // @RIBBON TODO: Cleanly remove obsolete code
 
@@ -69,8 +68,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             InitializePropertyEditors();
 
             ApplySpellingSettings(null, EventArgs.Empty);
-            //ToDo: OLW Spell Checker
-            //SpellingSettings.SpellingSettingsChanged += ApplySpellingSettings;
+            SpellingSettings.SpellingSettingsChanged += ApplySpellingSettings;
 
             EditorLoaded += new EventHandler(BlogPostHtmlEditor_EditorLoaded);
             FixCommandEvent += new FixCommendsDelegate(BlogPostHtmlEditor_FixCommandEvent);
@@ -78,15 +76,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public override void Dispose()
         {
-            //ToDo: OLW Spell Checker
-            //SpellingSettings.SpellingSettingsChanged -= ApplySpellingSettings;
+            SpellingSettings.SpellingSettingsChanged -= ApplySpellingSettings;
             base.Dispose();
         }
 
         public override void OnEditorAccountChanged(IEditorAccount newEditorAccount)
         {
-            //ToDo: OLW Spell Checker
-            // Crashes here: return value of CommandManager.Get(CommandId.IgnoreOnce) is null
             Command cmd = CommandManager.Get(CommandId.IgnoreOnce);
             if (cmd != null)
             {
@@ -103,37 +98,19 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         private void ApplySpellingSettings(object sender, EventArgs args)
         {
-            //ToDo: OLW Spell Checker
-            //SpellingCheckerLanguage language = SpellingSettings.Language;
+            string language = SpellingSettings.Language;
 
-            //if (language == SpellingCheckerLanguage.None)
-            //{
-            // No language selected. Disable the speller and return.
-            DisableSpelling();
-            return;
-            //ToDo: OLW Spell Checker
-            //ToDo: OLW Spell Checker
-            // SpellingLanguageEntry languageEntry = SpellingSettings.GetInstalledLanguage(language);
-
-            //uint sobit = 0;
-            //if (SpellingSettings.IgnoreUppercase)
-            //    sobit |= (uint)SpellerOptionBit.IgnoreAllCaps;
-            //if (SpellingSettings.IgnoreWordsWithNumbers)
-            //    sobit |= (uint)SpellerOptionBit.IgnoreMixedDigits;
-
-            //sobit |= (uint)SpellerOptionBit.IgnoreSingleLetter;
-
-            //List<string> lexAbsPaths = new List<string>(languageEntry.CSAPILex.Length);
-            //foreach (string path in languageEntry.CSAPILex)
-            //    lexAbsPaths.Add(Path.Combine(SpellingSettings.DictionaryPath, path));
-            //string engineDllAbsPath = Path.Combine(SpellingSettings.DictionaryPath, languageEntry.CSAPIEngine);
-
-            //SetSpellingOptions(engineDllAbsPath,
-            //    languageEntry.LCID,
-            //    lexAbsPaths.ToArray(),
-            //    SpellingSettings.UserDictionaryPath,
-            //    sobit,
-            //    SpellingSettings.EnableAutoCorrect);
+            if (string.IsNullOrEmpty(language))
+            {
+                // No language selected. Disable the speller and return.
+                DisableSpelling();
+            }
+            else
+            {
+                SetSpellingOptions(
+                    language,
+                    SpellingSettings.EnableAutoCorrect);
+            }
         }
 
         void BlogPostHtmlEditor_FixCommandEvent(bool fullyEditableActive)

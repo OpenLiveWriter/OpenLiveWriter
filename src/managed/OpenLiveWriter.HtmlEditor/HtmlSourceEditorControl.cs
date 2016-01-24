@@ -20,7 +20,7 @@ using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Mshtml;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 namespace OpenLiveWriter.HtmlEditor
 {
     public class HtmlSourceEditorControl : IHtmlEditor, IHtmlEditorCommandSource
@@ -36,12 +36,10 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        //ToDo: OLW Spell Checker
-        //public HtmlSourceEditorControl(ISpellingChecker spellingChecker, CommandManager commandManager)
-        public HtmlSourceEditorControl(CommandManager commandManager)
+        public HtmlSourceEditorControl(ISpellingChecker spellingChecker, CommandManager commandManager)
         {
             _commandManager = commandManager;
-            //_spellingChecker = spellingChecker;
+            _spellingChecker = spellingChecker;
 
             contextMenu.Entries.Add(CommandId.Cut, false, false);
             contextMenu.Entries.Add(CommandId.CopyCommand, false, false);
@@ -278,40 +276,38 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        public bool CheckSpelling(string contextDictionaryPath)
+        public bool CheckSpelling()
         {
-            //ToDo: OLW Spell Checker
             // check spelling
-            //using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), false))
-            //{
-            //  center the spell-checking form over the document body
-            //spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
+            using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), false))
+            {
+                //  center the spell-checking form over the document body
+                spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
 
-            // create word range
-            // TODO: smarter word range for html
-            //TextBoxWordRange wordRange = new TextBoxWordRange(_textBox, _textBox.SelectionLength > 0);
-            //HtmlTextBoxWordRange wordRange = new HtmlTextBoxWordRange(_textBox);
+                // create word range
+                // TODO: smarter word range for html
+                //TextBoxWordRange wordRange = new TextBoxWordRange(_textBox, _textBox.SelectionLength > 0);
+                HtmlTextBoxWordRange wordRange = new HtmlTextBoxWordRange(_textBox);
 
-            // check spelling
-            //spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
+                // check spelling
+                spellCheckerForm.CheckSpelling(wordRange);
 
-            // return completed status
-            return true; // spellCheckerForm.Completed;
-            //}
+                // return completed status
+                return spellCheckerForm.Completed;
+            }
         }
 
-        //ToDo: OLW Spell Checker
         /// <summary>
         /// Get the spelling-checker (demand-create and cache/re-use)
         /// </summary>
-        //public ISpellingChecker SpellingChecker
-        //{
-        //    get
-        //    {
-        //        return _spellingChecker;
-        //    }
-        //}
-        //private ISpellingChecker _spellingChecker;
+        public ISpellingChecker SpellingChecker
+        {
+            get
+            {
+                return _spellingChecker;
+            }
+        }
+        private ISpellingChecker _spellingChecker;
 
         #endregion
 

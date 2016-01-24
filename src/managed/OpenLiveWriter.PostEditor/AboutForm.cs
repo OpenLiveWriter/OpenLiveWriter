@@ -46,6 +46,7 @@ namespace OpenLiveWriter.PostEditor
             "Google API Client Library for .NET (Apache 2.0) (C) Copyright Google Inc.\nhttps://developers.google.com/api-client-library/dotnet/",
             "Ionic Zlib Copyright (c) 2000,2001,2002,2003 ymnk, JCraft",
             "Mono.Cecil (MIT) Copyright © 2008 - 2015 Jb Evain Copyright © 2008 - 2011 Novell, Inc \nhttps://github.com/jbevain/cecil",
+            "PlatformSpellCheck (MIT) Copyright © 2015 Bruce Bowyer-Smyth \nhttps://github.com/bbowyersmyth/spellcheck/",
             /* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
             "Splat (MIT) Copyright © 2013 Paul Betts \nhttps://github.com/paulcbetts/splat/",
             "Squirrel.Windows (MIT) Copyright © 2012 GitHub, Inc. \nhttps://github.com/squirrel/squirrel.windows",

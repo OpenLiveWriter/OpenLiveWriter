@@ -269,12 +269,7 @@ namespace OpenLiveWriter.PostEditor
         /// disposes native resources
         /// </summary>
         void Shutdown();
-
-        /// <summary>
-        /// Spelling options
-        /// </summary>
-        void SetSpellingOptions(uint sobitOptions);
-
+        
         /// <summary>
         /// Preloads some of the costly work assoicated with creating a ContentEditor
         /// </summary>
