@@ -76,7 +76,7 @@ namespace OpenLiveWriter.PostEditor
 
             PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PreferencesOther.png");
 
-            _postEditorPreferences = new PostEditorPreferences();
+            _postEditorPreferences = PostEditorPreferences.Instance;
             _postEditorPreferences.PreferencesModified += _writerPreferences_PreferencesModified;
 
             switch (_postEditorPreferences.PostWindowBehavior)
@@ -160,7 +160,7 @@ namespace OpenLiveWriter.PostEditor
             Directory.CreateDirectory(destinationRecentPosts);
             Directory.CreateDirectory(destinationDrafts);
 
-            if (String.Compare(_originalFolder, _postEditorPreferences.WeblogPostsFolder, true) != 0)
+            if (string.Compare(_originalFolder, _postEditorPreferences.WeblogPostsFolder, true, CultureInfo.CurrentUICulture) != 0)
             {
                 string message = "You  have updated the default location for your blog posts, would you like to move any existing posts?";
                 string caption = "Move existing posts";
@@ -175,6 +175,8 @@ namespace OpenLiveWriter.PostEditor
 
                     MovePosts(Path.Combine(_originalFolder + @"\\Drafts\\"), destinationDrafts);
                 }
+
+                _postEditorPreferences.Changed();
             }
 
             if (_postEditorPreferences.IsModified())

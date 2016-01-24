@@ -558,7 +558,7 @@ namespace OpenLiveWriter.CoreServices
         {
             get
             {
-                return PreferencesSettingsRoot.GetSubSettings("PostEditor").GetString("PostsDirectory", null); ;
+                return PreferencesSettingsRoot.GetSubSettings("PostEditor").GetString("PostsDirectory", null); 
             }
         }
 

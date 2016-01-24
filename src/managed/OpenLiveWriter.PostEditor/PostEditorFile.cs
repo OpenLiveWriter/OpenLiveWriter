@@ -206,10 +206,30 @@ namespace OpenLiveWriter.PostEditor
         private PostEditorFile(DirectoryInfo targetDirectory)
         {
             TargetDirectory = targetDirectory;
+
+            ListenForDirectoryChanges();
         }
+
+        private void ListenForDirectoryChanges()
+        {
+            var preferences = PostEditorPreferences.Instance;
+
+            preferences.PreferencesChanged -= PreferencesOnPreferencesChanged;
+            preferences.PreferencesChanged += PreferencesOnPreferencesChanged;
+        }
+
+        private void PreferencesOnPreferencesChanged(object sender, EventArgs e)
+        {
+            if (TargetDirectory?.FullName != PostEditorSettings.AutoSaveDirectory)
+            {
+                TargetDirectory = new DirectoryInfo(PostEditorPreferences.Instance.WeblogPostsFolder);
+            }
+        }
+
         private PostEditorFile(FileInfo file)
         {
             TargetFile = file;
+            ListenForDirectoryChanges();
         }
 
         // auto-create drafts and recent-posts directories
