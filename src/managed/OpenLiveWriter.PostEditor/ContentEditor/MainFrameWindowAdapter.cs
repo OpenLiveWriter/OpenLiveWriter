@@ -10,7 +10,7 @@ using OpenLiveWriter.HtmlEditor;
 using OpenLiveWriter.HtmlEditor.Controls;
 using OpenLiveWriter.Interop.Com.Ribbon;
 using OpenLiveWriter.Interop.Windows;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 
 namespace OpenLiveWriter.PostEditor
 {
@@ -19,9 +19,7 @@ namespace OpenLiveWriter.PostEditor
     /// IMainFrameWindow and IBlogPostEditingSite which are used by the ContentEditor.  It's general functions
     /// are to act as a middle man to the window that is holding the canvas.
     /// </summary>
-    //ToDo: OLW Spell Checker
-    //internal class MainFrameWindowAdapter : IMainFrameWindow, IBlogPostEditingSite, IBlogContext, OpenLiveWriter.Interop.Com.IDropTarget, IDisposable, IETWProvider, IWordRangeProvider
-    internal class MainFrameWindowAdapter : IMainFrameWindow, IBlogPostEditingSite, IBlogContext, OpenLiveWriter.Interop.Com.IDropTarget, IDisposable, IETWProvider
+    internal class MainFrameWindowAdapter : IMainFrameWindow, IBlogPostEditingSite, IBlogContext, OpenLiveWriter.Interop.Com.IDropTarget, IDisposable, IETWProvider, IWordRangeProvider
     {
         private readonly IntPtr _parentWindowHandle;
         private readonly Control _editorHostPanel;
@@ -68,16 +66,15 @@ namespace OpenLiveWriter.PostEditor
 
         #region IWordRangeProvider Members
 
-        //ToDo: OLW Spell Checker
-        //public IWordRange GetSubjectSpellcheckWordRange()
-        //{
-        //    return ((IWordRangeProvider)_contentEditorSite).GetSubjectSpellcheckWordRange();
-        //}
+        public IWordRange GetSubjectSpellcheckWordRange()
+        {
+            return ((IWordRangeProvider)_contentEditorSite).GetSubjectSpellcheckWordRange();
+        }
 
-        //public void CloseSubjectSpellcheckWordRange()
-        //{
-        //    ((IWordRangeProvider)_contentEditorSite).CloseSubjectSpellcheckWordRange();
-        //}
+        public void CloseSubjectSpellcheckWordRange()
+        {
+            ((IWordRangeProvider)_contentEditorSite).CloseSubjectSpellcheckWordRange();
+        }
 
         #endregion
 

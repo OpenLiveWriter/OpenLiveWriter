@@ -190,8 +190,14 @@ namespace OpenLiveWriter.Mshtml
                     // register for dirty range
                     mshtmlControl.MarkupContainer.RegisterForDirtyRange(this, out _changeSinkCookie);
 
-                    // perform document complete actions
-                    OnDocumentComplete();
+                    // During performing the document complete action, *something* is causing a document change log, which causes
+                    // IHtmlChangeSink.Notify to fire, making the document 'dirty' even when nothing was changed.
+                    // Suppressing handling of the 'dirty' notification until after document completion actions.
+                    using (SuspendNotification())
+                    {
+                        // perform document complete actions
+                        OnDocumentComplete();
+                    }
                 }
             }
             catch (Exception e)

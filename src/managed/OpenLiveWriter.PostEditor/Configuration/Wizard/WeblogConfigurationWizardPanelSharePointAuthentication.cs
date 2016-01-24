@@ -124,7 +124,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelPassword.FlatStyle = FlatStyle.System;
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(168, 13);
-            this.labelPassword.TabIndex = 2;
+            this.labelPassword.TabIndex = 3;
             this.labelPassword.Text = "&Password:";
             //
             // textBoxPassword
@@ -133,7 +133,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(168, 20);
-            this.textBoxPassword.TabIndex = 3;
+            this.textBoxPassword.TabIndex = 4;
             this.textBoxPassword.Text = "";
             //
             // textBoxUsername
@@ -141,7 +141,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxUsername.Location = new System.Drawing.Point(20, 16);
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(168, 20);
-            this.textBoxUsername.TabIndex = 1;
+            this.textBoxUsername.TabIndex = 2;
             this.textBoxUsername.Text = "";
             //
             // labelUsername
@@ -150,7 +150,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelUsername.FlatStyle = FlatStyle.System;
             this.labelUsername.Name = "labelUsername";
             this.labelUsername.Size = new System.Drawing.Size(168, 13);
-            this.labelUsername.TabIndex = 0;
+            this.labelUsername.TabIndex = 1;
             this.labelUsername.Text = "&Username:";
             //
             // cbUseSystemLogin
@@ -159,7 +159,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.cbUseSystemLogin.Location = new System.Drawing.Point(20, 0);
             this.cbUseSystemLogin.Name = "cbUseSystemLogin";
             this.cbUseSystemLogin.Size = new System.Drawing.Size(360, 24);
-            this.cbUseSystemLogin.TabIndex = 1;
+            this.cbUseSystemLogin.TabIndex = 0;
             this.cbUseSystemLogin.Text = "Use my &Windows username and password";
             this.cbUseSystemLogin.CheckedChanged += new System.EventHandler(this.cbUseSystemLogin_CheckedChanged);
             //
@@ -169,7 +169,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.checkBoxSavePassword.Location = new System.Drawing.Point(20, 40);
             this.checkBoxSavePassword.Name = "checkBoxSavePassword";
             this.checkBoxSavePassword.Size = new System.Drawing.Size(176, 26);
-            this.checkBoxSavePassword.TabIndex = 14;
+            this.checkBoxSavePassword.TabIndex = 5;
             this.checkBoxSavePassword.Text = "&Remember my password";
             this.checkBoxSavePassword.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             //

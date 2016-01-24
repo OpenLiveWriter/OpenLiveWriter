@@ -18,7 +18,7 @@ using OpenLiveWriter.HtmlEditor;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.Localization;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
@@ -27,19 +27,16 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private Panel panelSourceEditor;
         private TextBox textBoxTitle;
         private HtmlSourceEditorControl sourceControl;
-        //private readonly IBlogPostSpellCheckingContext spellingContext;
+        private readonly IBlogPostSpellCheckingContext spellingContext;
         private IBlogPostImageEditingContext editingContext;
 
-        //ToDo: OLW Spell Checker
-        //public BlogPostHtmlSourceEditorControl(IBlogPostSpellCheckingContext spellingContext, CommandManager commandManager, IBlogPostImageEditingContext editingContext)
-        public BlogPostHtmlSourceEditorControl(CommandManager commandManager, IBlogPostImageEditingContext editingContext)
+        public BlogPostHtmlSourceEditorControl(IBlogPostSpellCheckingContext spellingContext, CommandManager commandManager, IBlogPostImageEditingContext editingContext)
         {
-            //this.spellingContext = spellingContext;
+            this.spellingContext = spellingContext;
             this.editingContext = editingContext;
             InitializeComponent();
 
-            //sourceControl = new HtmlSourceEditorControl(spellingContext.SpellingChecker, commandManager, editingContext);
-            sourceControl = new HtmlSourceEditorControl(commandManager, editingContext);
+            sourceControl = new HtmlSourceEditorControl(spellingContext.SpellingChecker, commandManager, editingContext);
             sourceControl.EditorControl.TextChanged += new EventHandler(EditorControl_TextChanged);
             sourceControl.EditorControl.GotFocus += new EventHandler(EditorControl_GotFocus);
             BorderControl borderControl = new BorderControl();
@@ -152,9 +149,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public void UpdateEditingContext()
         {
-            //ToDo: OLW Spell Checker
-            //sourceControl.SpellingChecker.StopChecking();
-            //sourceControl.SpellingChecker.StartChecking(spellingContext.PostSpellingContextDirectory);
+            sourceControl.SpellingChecker.StopChecking();
+            sourceControl.SpellingChecker.StartChecking();
         }
 
         private void textBoxTitle_TitleGotFocus(object sender, EventArgs e)
@@ -389,11 +385,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     {
         private ReplaceAbsoluteFilePathsOperation _replaceOperation = new ReplaceAbsoluteFilePathsOperation();
         private IBlogPostImageEditingContext editingContext;
-        //ToDo: OLW Spell Checker
-        //public HtmlSourceEditorControl(ISpellingChecker spellingChecker, CommandManager commandManager, IBlogPostImageEditingContext editingContext)
-        //    : base(spellingChecker, commandManager)
-        public HtmlSourceEditorControl(CommandManager commandManager, IBlogPostImageEditingContext editingContext)
-            : base(commandManager)
+
+        public HtmlSourceEditorControl(ISpellingChecker spellingChecker, CommandManager commandManager, IBlogPostImageEditingContext editingContext)
+            : base(spellingChecker, commandManager)
         {
             this.editingContext = editingContext;
         }

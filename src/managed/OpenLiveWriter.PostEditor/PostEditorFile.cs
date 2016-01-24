@@ -363,9 +363,6 @@ namespace OpenLiveWriter.PostEditor
                         //read in the image data (note: this must happen before fixing the file references)
                         BlogPostImageDataList imageDataList = (BlogPostImageDataList)ReadXml(postStorage, POST_IMAGE_FILES, new XmlReadHandler(new ImageListReader(supportingFilePersister, supportingFileService).ReadImageFiles));
 
-                        // read spelling context dictionary into supporting file storage
-                        ReadSpellingContextDictionary(postStorage, supportingFileStorage);
-
                         //read the extension data settings
                         BlogPostExtensionDataList extensionDataList = new BlogPostExtensionDataList(supportingFileService);
                         try
@@ -511,9 +508,6 @@ namespace OpenLiveWriter.PostEditor
 
                         //write the extension data
                         WriteXml(postStorage, POST_EXTENSION_DATA_LIST, editingContext.ExtensionDataList, new XmlWriteHandler(new ExtensionDataListWriter(supportingFilePersister, blogPost.Contents).WriteExtensionDataList));
-
-                        // spelling context dictionary
-                        WriteSpellingContextDictionary(postStorage, editingContext.SupportingFileStorage);
 
                         //Convert file references in the HTML contents to the new storage path
                         string fixedUpPostContents = supportingFilePersister.FixupHtmlReferences(blogPost.Contents);
@@ -973,31 +967,6 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
             return categories.ToArray(typeof(BlogPostCategory));
-        }
-
-        private void ReadSpellingContextDictionary(Storage postStorage, BlogPostSupportingFileStorage supportingFileStorage)
-        {
-            // try to get the dictionary stream
-            Stream dictionaryStream;
-            try { dictionaryStream = postStorage.OpenStream(SPELLING_CONTEXT_DICTIONARY, StorageMode.Open); }
-            catch (StorageException) { return; }
-
-            // write it to supporting file storage
-            using (dictionaryStream)
-                supportingFileStorage.WriteSpellingContextDictionary(dictionaryStream);
-        }
-
-        private void WriteSpellingContextDictionary(Storage postStorage, BlogPostSupportingFileStorage supportingFileStorage)
-        {
-            Stream spellingStream = supportingFileStorage.ReadSpellingContextDictionary();
-            if (spellingStream != null)
-            {
-                using (spellingStream)
-                {
-                    using (Stream stream = postStorage.OpenStream(SPELLING_CONTEXT_DICTIONARY, StorageMode.Create))
-                        StreamHelper.Transfer(spellingStream, stream);
-                }
-            }
         }
 
         private class AttachedImageListWriter
@@ -1788,8 +1757,6 @@ namespace OpenLiveWriter.PostEditor
         private const string CATEGORY_ID_ATTRIBUTE = "Id";
         private const string CATEGORY_NAME_ATTRIBUTE = "Name";
         private const string CATEGORY_PARENT_ATTRIBUTE = "Parent";
-
-        private const string SPELLING_CONTEXT_DICTIONARY = "SpellingContextDictionary";
 
         private const string SUPPORTING_FILE_LINK_ELEMENT = "SupportingFileLink";
         private const string SUPPORTING_FILE_LINK_NAME_ATTRIBUTE = "Name";

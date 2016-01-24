@@ -7,6 +7,10 @@
     <ProjectGuid>{6A6872BC-67EF-4A42-A21A-30ECED376923}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.SpellChecker\OpenLiveWriter.SpellChecker.csproj">
+      <Project>{2db3a424-0f1e-44ac-ae01-5454586ce769}</Project>
+      <Name>OpenLiveWriter.SpellChecker</Name>
+    </ProjectReference>
     <Reference Include="Accessibility" />
     <Reference Include="System" />
     <Reference Include="System.Data" />

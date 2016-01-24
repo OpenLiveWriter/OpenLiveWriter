@@ -10,6 +10,7 @@ using OpenLiveWriter.Api;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.BlogClient.Providers;
+using System.Web;
 
 // TODO: WP on outstanding issues
 /*
@@ -51,6 +52,49 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsSlug = true;
             clientOptions.SupportsPassword = true;
             clientOptions.SupportsAuthor = true;
+        }
+
+        public override BlogInfo[] GetUsersBlogs()
+        {
+            TransientCredentials tc = Login();
+            return GetWPUsersBlogs(tc.Username, tc.Password);
+        }
+        private BlogInfo[] GetWPUsersBlogs(string username, string password)
+        {
+            // call method
+            XmlNode result = CallMethod("wp.getUsersBlogs",
+                new XmlRpcString(username),
+                new XmlRpcString(password, true));
+
+            try
+            {
+                // parse results
+                ArrayList blogs = new ArrayList();
+                XmlNodeList dataValues = result.SelectNodes("array/data");
+                foreach (XmlNode dataValue in dataValues)
+                {
+                    XmlNodeList blogNodes = dataValue.SelectNodes("value/struct");
+                    foreach (XmlNode blogNode in blogNodes)
+                    {
+                        // get node values
+                        XmlNode idNode = blogNode.SelectSingleNode("member[name='blogid']/value");
+                        XmlNode nameNode = blogNode.SelectSingleNode("member[name='blogName']/value");
+                        XmlNode urlNode = blogNode.SelectSingleNode("member[name='url']/value");
+
+                        // add to our list of blogs
+                        blogs.Add(new BlogInfo(idNode.InnerText, HttpUtility.HtmlDecode(NodeToText(nameNode)), urlNode.InnerText));
+                    }
+                }
+
+                // return list of blogs
+                return (BlogInfo[])blogs.ToArray(typeof(BlogInfo));
+            }
+            catch (Exception ex)
+            {
+                string response = result != null ? result.OuterXml : "(empty response)";
+                Trace.Fail("Exception occurred while parsing GetUsersBlogs response: " + response + "\r\n" + ex.ToString());
+                throw new BlogClientInvalidServerResponseException("wp.getUsersBlogs", ex.Message, response);
+            }
         }
 
     }

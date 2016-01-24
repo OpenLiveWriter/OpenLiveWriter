@@ -13,7 +13,6 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
-//using OpenLiveWriter.SpellChecker;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.WordCount;

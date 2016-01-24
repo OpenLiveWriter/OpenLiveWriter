@@ -29,7 +29,7 @@ using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Mshtml;
 using OpenLiveWriter.Mshtml.Mshtml_Interop;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 using IDataObject = System.Windows.Forms.IDataObject;
 
 namespace OpenLiveWriter.HtmlEditor
@@ -37,7 +37,7 @@ namespace OpenLiveWriter.HtmlEditor
     public abstract class HtmlEditorControl : IHtmlEditor, IHtmlEditorCommandSource, IHtmlEditorComponentContext, IHtmlMarshallingTarget, IHTMLEditHostRaw, IElementBehaviorFactoryRaw, IServiceProviderRaw, IWordBasedEditor, IDisposable
     {
         #region Construction/Disposal
-        public HtmlEditorControl(IMainFrameWindow mainFrameWindow, IStatusBar statusBar, MshtmlOptions options, IInternetSecurityManager internetSecurityManager, CommandManager commandManager)
+        public HtmlEditorControl(IMainFrameWindow mainFrameWindow, IStatusBar statusBar, MshtmlOptions options, ISpellingChecker spellingChecker, IInternetSecurityManager internetSecurityManager, CommandManager commandManager)
         {
             _commandManager = commandManager;
 
@@ -45,8 +45,7 @@ namespace OpenLiveWriter.HtmlEditor
             _mainFrameWindow = mainFrameWindow;
             _statusBar = statusBar;
 
-            //ToDo: OLW Spell Checker
-            //_spellingChecker = spellingChecker;
+            _spellingChecker = spellingChecker;
 
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
@@ -1186,7 +1185,7 @@ namespace OpenLiveWriter.HtmlEditor
             OnDocumentComplete(e);
 
             // Remove null-attributed font tags, e.g. <p><font>blah</font></p> --> <p>blah</p>
-            if (DocumentIsReady)
+            if (DocumentIsReady && PostBodyElement != null)
             {
                 MarkupRange bodyRange = MarkupServices.CreateMarkupRange(PostBodyElement);
                 bodyRange.RemoveElementsByTagId(_ELEMENT_TAG_ID.TAGID_FONT, true);
@@ -1580,18 +1579,17 @@ namespace OpenLiveWriter.HtmlEditor
 
         #region Spell Checking Helpers
 
-        //ToDo: OLW Spell Checker
         /// <summary>
         /// Get the spelling-checker (demand-create and cache/re-use)
         /// </summary>
-        //protected ISpellingChecker SpellingChecker
-        //{
-        //    get
-        //    {
-        //        return _spellingChecker;
-        //    }
-        //}
-        //private ISpellingChecker _spellingChecker;
+        protected ISpellingChecker SpellingChecker
+        {
+            get
+            {
+                return _spellingChecker;
+            }
+        }
+        private ISpellingChecker _spellingChecker;
 
         #endregion
 
@@ -3442,7 +3440,7 @@ namespace OpenLiveWriter.HtmlEditor
         /// Check the spelling of the document, returning true if the user completed the spelling check
         /// </summary>
         /// <returns>false if they cancelled the spelling check or if we're already in the middle of executing a spell check</returns>
-        public bool CheckSpelling(string contextDictionaryPath)
+        public bool CheckSpelling()
         {
             if (!Editable || _isSpellChecking)
                 return false;
@@ -3478,57 +3476,56 @@ namespace OpenLiveWriter.HtmlEditor
                 // check spelling
                 bool fCompleted = false;
 
-                //ToDo: OLW Spell Checker
-                //using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), ignoreOnceSupported))
-                //{
-                //  center the spell-checking form over the document body
-                //spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
-
-                // determine whether we are checking a selection or the whole document
-                // get selection
-                IHTMLSelectionObject selection = HTMLDocument.selection;
-                bool checkSelection = (selection != null) && (selection.type.ToLower(CultureInfo.InvariantCulture) == "text");
-
-                // get the word range to check
-                // MshtmlWordRange wordRange = new MshtmlWordRange(HTMLDocument, checkSelection, IgnoreRangeForSpellChecking, new DamageFunction(_damageServices.AddDamage));
-
-                //spellCheckerForm.WordIgnored += (sender, args) => OnSpellCheckWordIgnored(wordRange.CurrentWordRange);
-
-                // check spelling
-                using (undoUnit)
+                using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), ignoreOnceSupported))
                 {
-                    //spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
-                    undoUnit.Commit();
+                    //  center the spell-checking form over the document body
+                    spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
+
+                    // determine whether we are checking a selection or the whole document
+                    // get selection
+                    IHTMLSelectionObject selection = HTMLDocument.selection;
+                    bool checkSelection = (selection != null) && (selection.type.ToLower(CultureInfo.InvariantCulture) == "text");
+
+                    // get the word range to check
+                    MshtmlWordRange wordRange = new MshtmlWordRange(HTMLDocument, checkSelection, IgnoreRangeForSpellChecking, new DamageFunction(_damageServices.AddDamage));
+
+                    spellCheckerForm.WordIgnored += (sender, args) => OnSpellCheckWordIgnored(wordRange.CurrentWordRange);
+
+                    // check spelling
+                    using (undoUnit)
+                    {
+                        spellCheckerForm.CheckSpelling(wordRange);
+                        undoUnit.Commit();
+                    }
+
+                    // reselect what was selected previous to spell-checking
+                    if (previousMarkupRange != null)
+                    {
+                        if (previousMarkupRangeCollapsed)
+                            previousMarkupRange.Collapse(true);
+
+                        previousMarkupRange.ToTextRange().select();
+                    }
+
+                    // return completed status
+                    fCompleted = spellCheckerForm.Completed;
                 }
 
-                // reselect what was selected previous to spell-checking
-                if (previousMarkupRange != null)
-                {
-                    if (previousMarkupRangeCollapsed)
-                        previousMarkupRange.Collapse(true);
-
-                    previousMarkupRange.ToTextRange().select();
-                }
-
-                // return completed status
-                fCompleted = true; // spellCheckerForm.Completed;
-                //}
-
-                if (fCompleted && (_mainFrameWindow != null)) // && (_mainFrameWindow is IWordRangeProvider))
+                if (fCompleted && _mainFrameWindow != null && _mainFrameWindow is IWordRangeProvider)
                 {
                     // Spell check the subject, it doesn't support the "ignore once" feature
-                    //using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), false))
+                    using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), false))
                     {
                         //  center the spell-checking form over the document body
-                        //spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
+                        spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
 
-                        //IWordRangeProvider wordRangeProvider = (IWordRangeProvider)_mainFrameWindow;
-                        //IWordRange wordRangeSubject = wordRangeProvider.GetSubjectSpellcheckWordRange();
+                        IWordRangeProvider wordRangeProvider = (IWordRangeProvider)_mainFrameWindow;
+                        IWordRange wordRangeSubject = wordRangeProvider.GetSubjectSpellcheckWordRange();
 
-                        //spellCheckerForm.CheckSpelling(wordRangeSubject, contextDictionaryPath);
+                        spellCheckerForm.CheckSpelling(wordRangeSubject);
 
-                        //wordRangeProvider.CloseSubjectSpellcheckWordRange();
-                        fCompleted = true; // spellCheckerForm.Completed;
+                        wordRangeProvider.CloseSubjectSpellcheckWordRange();
+                        fCompleted = spellCheckerForm.Completed;
                     }
                 }
 

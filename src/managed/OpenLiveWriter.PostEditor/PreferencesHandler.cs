@@ -12,7 +12,7 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.Autoreplace;
 using OpenLiveWriter.PostEditor.LiveClipboard;
 using OpenLiveWriter.PostEditor.Configuration.Accounts;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.PostEditor
@@ -150,14 +150,10 @@ namespace OpenLiveWriter.PostEditor
             preferencesPanelTypeTable["accounts"] = type;
             types.Add(type);
 
-            //ToDo: OLW Spell Checker
-            //if (SpellingSettings.CanSpellCheck)
-            //{
-            //    Spelling preferences.
-            //    type = typeof(SpellingPreferencesPanel);
-            //    preferencesPanelTypeTable["spelling"] = type;
-            //    types.Add(type);
-            //}
+            // Spelling preferences.
+            type = typeof(SpellingPreferencesPanel);
+            preferencesPanelTypeTable["spelling"] = type;
+            types.Add(type);
 
             //glossary management
             type = typeof(GlossaryPreferencesPanel);

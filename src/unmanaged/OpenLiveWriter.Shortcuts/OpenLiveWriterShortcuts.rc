@@ -13,7 +13,7 @@
 #define RC_VERSION_INTERNAL_NAME            "OpenLiveWriterShortcuts"
 #define RC_VERSION_ORIGINAL_FILE_NAME       "OpenLiveWriterShortcuts"
 #define RC_VERSION_FILE_DESCRIPTION         "Open Live Writer"
-#define RC_VERSION_PRODUCT_NAME             "Windows Live"
+#define RC_VERSION_PRODUCT_NAME             "Open Live Writer"
 #include <bldver.rc>
 
 // These string IDs are hardcoded into writerprod.wxs. Keep them in sync
@@ -22,7 +22,5 @@ BEGIN
     IDS_WRITER_SHORTCUT_TOOLTIP   "Blog like a pro, with photos, videos, maps, and more" // Tooltop displayed for shortcut in start menu.
     IDS_WRITER_SHORTCUT_NAME      "Open Live Writer" // Text that displays in the shortcut to launch Writer. Do not localize product name.
     IDS_WRITER_SHORTCUT_NAME_BETA "Open Live Writer Beta" // Text that displays in the shortcut to launch Writer when in beta. Do not localize product name.
-    IDS_WRITER_BLOGTHIS_MENU_TEXT "&Blog This in Open Live Writer" // Menu text for Blog This button in Internet Explorer. {EscapePlaceholderChars="[=[\\[]","]=[\\]]"}
-    IDS_WRITER_BLOGTHIS_BUTTON_TEXT "Blog This" // Button text for Blog This button in Internet Explorer{EscapePlaceholderChars="[=[\\[]","]=[\\]]"}
 END
 

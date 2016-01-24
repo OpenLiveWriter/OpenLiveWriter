@@ -238,6 +238,18 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
+        /// Loads a raw stream from an assembly resource.
+        /// </summary>
+        /// <param name="resourcePath">Resource path.</param>
+        /// <returns>Stream to the specified resource, or null if the resource could not be found.</returns>
+        public static Stream LoadAssemblyResourceStream(string resourcePath)
+        {
+            Assembly assembly = Assembly.GetCallingAssembly();
+            string resourceName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", assembly.GetName().Name, resourcePath);
+            return assembly.GetManifestResourceStream(resourceName);
+        }
+
+        /// <summary>
         /// Saves an assembly resource to a file
         /// </summary>
         /// <param name="resourcePath">path to resource within assembly</param>

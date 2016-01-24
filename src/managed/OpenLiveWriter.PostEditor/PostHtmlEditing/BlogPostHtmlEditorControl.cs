@@ -29,7 +29,7 @@ using OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar;
 using OpenLiveWriter.PostEditor.Tables;
 using OpenLiveWriter.PostEditor.Tagging;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 using OpenLiveWriter.CoreServices.HTML;
 using OpenLiveWriter.PostEditor.Emoticons;
 using OpenLiveWriter.Api;
@@ -39,20 +39,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
     internal class BlogPostHtmlEditorControl : HtmlEditorControl, IBlogPostHtmlEditor, IHtmlEditorComponentContext
     {
-        //ToDo: OLW Spell Checker
-        //public BlogPostHtmlEditorControl(IMainFrameWindow mainFrameWindow, IStatusBar statusBar, MshtmlOptions options, IBlogPostImageEditingContext imageEditingContext, IBlogPostSidebarContext sidebarContext, IContentSourceSidebarContext sourceContext, SmartContentResizedListener resizedListener, IBlogPostSpellCheckingContext spellingContext, IImageReferenceFixer referenceFixer, IInternetSecurityManager internetSecurityManager, CommandManager commandManager, TemplateStrategy strategy, IEditingMode editingModeContext)  : base(mainFrameWindow, statusBar, options, internetSecurityManager, commandManager)
-        public BlogPostHtmlEditorControl(IMainFrameWindow mainFrameWindow, IStatusBar statusBar, MshtmlOptions options, IBlogPostImageEditingContext imageEditingContext, IBlogPostSidebarContext sidebarContext, IContentSourceSidebarContext sourceContext, SmartContentResizedListener resizedListener, IImageReferenceFixer referenceFixer, IInternetSecurityManager internetSecurityManager, CommandManager commandManager, TemplateStrategy strategy, IEditingMode editingModeContext)
-            : base(mainFrameWindow, statusBar, options, internetSecurityManager, commandManager)
+        public BlogPostHtmlEditorControl(IMainFrameWindow mainFrameWindow, IStatusBar statusBar, MshtmlOptions options, IBlogPostImageEditingContext imageEditingContext, IBlogPostSidebarContext sidebarContext, IContentSourceSidebarContext sourceContext, SmartContentResizedListener resizedListener, IBlogPostSpellCheckingContext spellingContext, IImageReferenceFixer referenceFixer, IInternetSecurityManager internetSecurityManager, CommandManager commandManager, TemplateStrategy strategy, IEditingMode editingModeContext)
+            : base(mainFrameWindow, statusBar, options, spellingContext.SpellingChecker, internetSecurityManager, commandManager)
         {
             _strategy = strategy;
             _imageEditingContext = imageEditingContext;
             _sidebarContext = sidebarContext;
             _sourceContext = sourceContext;
             _resizedListener = resizedListener;
-            //ToDo: OLW Spell Checker
-            //_spellingContext = spellingContext;
+            _spellingContext = spellingContext;
 
-            //_spellingManager = new SpellingManager(CommandManager);
+            _spellingManager = new SpellingManager(CommandManager);
             _keyBoardHandler = new PostEditorKeyboardHandler(this, imageEditingContext, editingModeContext);
             _referenceFixer = referenceFixer;
 
@@ -107,12 +104,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public override void Dispose()
         {
-            //ToDo: OLW Spell Checker
-            //EditingContextChanged -= _spellingManager.UpdateSpellingContext;
-            //_spellingContext.SpellingOptionsChanged -= spellingSettings_SpellingSettingsChanged;
+            EditingContextChanged -= _spellingManager.UpdateSpellingContext;
+            _spellingContext.SpellingOptionsChanged -= spellingSettings_SpellingSettingsChanged;
 
-            //if (_spellingManager != null)
-            //    _spellingManager.Dispose();
+            if (_spellingManager != null)
+                _spellingManager.Dispose();
 
             if (_keyBoardHandler != null)
             {
@@ -132,7 +128,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         readonly IBlogPostSidebarContext _sidebarContext;
         readonly IContentSourceSidebarContext _sourceContext;
         readonly SmartContentResizedListener _resizedListener;
-        //readonly IBlogPostSpellCheckingContext _spellingContext;
+        readonly IBlogPostSpellCheckingContext _spellingContext;
         private PostEditorKeyboardHandler _keyBoardHandler;
         private IImageReferenceFixer _referenceFixer;
         private TemplateStrategy _strategy;
@@ -199,14 +195,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 TitleChanged(this, e);
         }
 
-        //ToDo: OLW Spell Checker
-        //public event EventHandler EditingContextChanged;
+        public event EventHandler EditingContextChanged;
 
         public void UpdateEditingContext()
         {
-            //ToDo: OLW Spell Checker
-            //if (EditingContextChanged != null)
-            //EditingContextChanged(_spellingContext, null);
+            if (EditingContextChanged != null)
+                EditingContextChanged(_spellingContext, null);
         }
 
         public event EventHandler EditableRegionFocusChanged;
@@ -332,8 +326,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             //post body element, so force the scroll back to the top of the document.
             ScrollToTop();
 
-            //ToDo: OLW Spell Checker
-            //_spellingManager.ClearIgnoreOnce();
+            _spellingManager.ClearIgnoreOnce();
             refreshSpellCheckingSettings();
 
             // Work around for 38082...conditionalize this for writer so that it doesn't steal focus for mail's case.
@@ -1286,8 +1279,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private bool _templateContainsTitle;
         public void LoadHtmlFragment(string title, string blogPostBody, string baseUrl, BlogEditingTemplate editingTemplate)
         {
-            //ToDo: OLW Spell Checker
-            //_spellingManager.ClearIgnoreOnce();
+            _spellingManager.ClearIgnoreOnce();
             _templateContainsTitle = editingTemplate.ContainsTitle;
 
             //if any manually attached behaviors are attached, remove them.
@@ -1729,8 +1721,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 MshtmlEditor.BeginInvoke(new ThreadStart(() =>
                                                          {
-                                                             //_spellingManager.DamagedRange(newContentRange, false);
-                                                             //_spellingManager.IgnoreOnce(newContentRange);
+                                                             _spellingManager.DamagedRange(newContentRange, false);
+                                                             _spellingManager.IgnoreOnce(newContentRange);
                                                          }), null);
             }
         }
@@ -1865,8 +1857,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public override bool IsSelectionMisspelled()
         {
-            //ToDo: OLW Spell Checker
-            return false; // _spellingManager.FindMisspelling(SelectedMarkupRange.Start) != null || _spellingManager.IsInIgnoredWord(SelectedMarkupRange.Start);
+            return _spellingManager.FindMisspelling(SelectedMarkupRange.Start) != null || _spellingManager.IsInIgnoredWord(SelectedMarkupRange.Start);
         }
 
         private CommandContextMenuDefinition ContextMenuForElement(IHTMLElement element, Point screenPoint)
@@ -1888,46 +1879,44 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
             else
             {
-                //MisspelledWordInfo wordInfo = _spellingManager.FindMisspelling(ScreenPointToMarkupPointer(screenPoint));
+                MisspelledWordInfo wordInfo = _spellingManager.FindMisspelling(ScreenPointToMarkupPointer(screenPoint));
                 CommandContextMenuDefinition minimalTextEditingCommands = new TextContextMenuDefinition(true);
                 bool anchorCommandsSupported = FullyEditableRegionActive &&
                                                HTMLElementHelper.GetContainingAnchorElement(element) != null;
 
                 // Ignore once once work in an edit field because we replace the HTML of smart content to much
-                //_spellingManager.IsIgnoreOnceEnabled = !isEditField;
+                _spellingManager.IsIgnoreOnceEnabled = !isEditField;
 
                 if (anchorCommandsSupported)
                 {
-                    //ToDo: OLW Spell Checker
-                    //if (null != wordInfo)
-                    //{
-                    //    return MergeContextMenuDefinitions(_spellingManager.CreateSpellCheckingContextMenu(wordInfo),
-                    //        MergeContextMenuDefinitions(new AnchorContextMenuDefinition(GlobalEditorOptions.SupportsFeature(ContentEditorFeature.ShowAllLinkOptions)), minimalTextEditingCommands));
-                    //}
-                    //else
-                    //{
-                    return MergeContextMenuDefinitions(new AnchorContextMenuDefinition(GlobalEditorOptions.SupportsFeature(ContentEditorFeature.ShowAllLinkOptions)), minimalTextEditingCommands);
-                    //}
-                }
-                else
-                {
-                    //ToDo: OLW Spell Checker
-                    //if (null != wordInfo)
-                    //{
-                    //    return MergeContextMenuDefinitions(_spellingManager.CreateSpellCheckingContextMenu(wordInfo), minimalTextEditingCommands);
-                    //}
-                    //else
-                    //{
-                    if (_tableEditingManager.ShowTableContextMenuForElement(element))
+                    if (null != wordInfo)
                     {
-                        return MergeContextMenuDefinitions(
-                            _tableEditingManager.CreateTableContextMenuDefinition(), new TextContextMenuDefinition(true));
+                        return MergeContextMenuDefinitions(_spellingManager.CreateSpellCheckingContextMenu(wordInfo),
+                            MergeContextMenuDefinitions(new AnchorContextMenuDefinition(GlobalEditorOptions.SupportsFeature(ContentEditorFeature.ShowAllLinkOptions)), minimalTextEditingCommands));
                     }
                     else
                     {
-                        return new TextContextMenuDefinition();
+                        return MergeContextMenuDefinitions(new AnchorContextMenuDefinition(GlobalEditorOptions.SupportsFeature(ContentEditorFeature.ShowAllLinkOptions)), minimalTextEditingCommands);
                     }
-                    //}
+                }
+                else
+                {
+                    if (null != wordInfo)
+                    {
+                        return MergeContextMenuDefinitions(_spellingManager.CreateSpellCheckingContextMenu(wordInfo), minimalTextEditingCommands);
+                    }
+                    else
+                    {
+                        if (_tableEditingManager.ShowTableContextMenuForElement(element))
+                        {
+                            return MergeContextMenuDefinitions(
+                                _tableEditingManager.CreateTableContextMenuDefinition(), new TextContextMenuDefinition(true));
+                        }
+                        else
+                        {
+                            return new TextContextMenuDefinition();
+                        }
+                    }
                 }
             }
 
@@ -2096,22 +2085,21 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private void InitializeSpellChecking()
         {
             IHTMLEditorDamageServices damageServices = ((IHtmlEditorComponentContext)this).DamageServices;
-            //ToDo: OLW Spell Checker
-            //if (_spellingManager == null)
-            return;
+            if (_spellingManager == null)
+                return;
 
-            //_spellingManager.Initialize(SpellingChecker, MshtmlEditor.MshtmlControl, HTMLDocument,
-            //    new ReplaceWord(InsertHtml), IgnoreRangeForSpellChecking, new DamageFunction(damageServices.AddDamage));
+            _spellingManager.Initialize(SpellingChecker, MshtmlEditor.MshtmlControl, HTMLDocument,
+                new ReplaceWord(InsertHtml), IgnoreRangeForSpellChecking, new DamageFunction(damageServices.AddDamage));
 
-            //EditingContextChanged += new EventHandler(_spellingManager.UpdateSpellingContext);
-            //_spellingContext.SpellingOptionsChanged += new EventHandler(spellingSettings_SpellingSettingsChanged);
-            //_spellingManager.InitializeSession(_spellingContext);
+            EditingContextChanged += new EventHandler(_spellingManager.UpdateSpellingContext);
+            _spellingContext.SpellingOptionsChanged += new EventHandler(spellingSettings_SpellingSettingsChanged);
+            _spellingManager.InitializeSession(_spellingContext);
 
         }
 
         protected override void OnSpellCheckWordIgnored(MarkupRange range)
         {
-            //_spellingManager.IgnoreOnce(range);
+            _spellingManager.IgnoreOnce(range);
         }
 
         public override bool IgnoreRangeForSpellChecking(MarkupRange range)
@@ -2125,8 +2113,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             if (range.Start.GetParentElement(IgnoreElementForSpellChecking) != null)
                 return true;
-            //ToDo: OLW Spell Checker
-            return true; // _spellingManager.IsWordIgnored(range);
+
+            return _spellingManager.IsWordIgnored(range);
         }
 
         private bool IgnoreElementForSpellChecking(IHTMLElement element)
@@ -2149,8 +2137,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return false;
         }
 
-        //ToDo: OLW Spell Checker
-        // private SpellingManager _spellingManager;
+        private SpellingManager _spellingManager;
 
         private void spellingSettings_SpellingSettingsChanged(object sender, EventArgs e)
         {
@@ -2173,7 +2160,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             if (spellCheckingCommand != null)
             {
-                bool canSpellCheck = false; //ToDo: OLW Spell Checker // _spellingContext.CanSpellCheck;
+                bool canSpellCheck = _spellingContext.CanSpellCheck;
                 if (spellCheckingCommand.On != canSpellCheck)
                 {
                     CommandManager.BeginUpdate();
@@ -2189,17 +2176,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 }
             }
 
-            if (false) //ToDo: OLW Spell Checker //_spellingContext.CanSpellCheck && SpellingSettings.RealTimeSpellChecking && Editable)
+            if (_spellingContext.CanSpellCheck && SpellingSettings.RealTimeSpellChecking && Editable)
             {
                 //(re)initialize spelling squiggles for the new document
-                //MshtmlEditor.BeginInvoke(new ThreadStart(() => StartRealTimeSpellChecking(true)));
+                MshtmlEditor.BeginInvoke(new ThreadStart(() => StartRealTimeSpellChecking(true)));
             }
             else
             {
                 StopRealTimeSpellChecking();
             }
 
-            //_keyBoardHandler.SetAutoCorrectFile(_spellingContext.AutoCorrectLexiconFilePath);
+            _keyBoardHandler.SetAutoCorrectFile(_spellingContext.AutoCorrectLexiconFilePath);
         }
 
         private bool _realTimeSpellCheckingStarted = false;
@@ -2210,14 +2197,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// <param name="forceSpellingScan"></param>
         private void StartRealTimeSpellChecking(bool forceSpellingScan)
         {
-            //ToDo: OLW Spell Checker
-            //if (!_realTimeSpellCheckingStarted)
-            //{
-            //    _realTimeSpellCheckingStarted = true;
-            //}
+            if (!_realTimeSpellCheckingStarted)
+            {
+                _realTimeSpellCheckingStarted = true;
+            }
 
-            //if (forceSpellingScan)
-            //    _spellingManager.StartSession();
+            if (forceSpellingScan)
+                _spellingManager.StartSession();
         }
 
         /// <summary>
@@ -2228,8 +2214,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             if (_realTimeSpellCheckingStarted)
             {
                 _realTimeSpellCheckingStarted = false;
-                //ToDo: OLW Spell Checker
-                //_spellingManager.StopSession(false);
+                _spellingManager.StopSession(false);
             }
         }
 
@@ -2240,27 +2225,25 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public void ResumeSpellChecking()
         {
-            //ToDo: OLW Spell Checker
-            //if (_spellingContext.CanSpellCheck)
-            //{
-            //    StartRealTimeSpellChecking(true);
-            //}
+            if (_spellingContext.CanSpellCheck)
+            {
+                StartRealTimeSpellChecking(true);
+            }
         }
 
         protected void HandleSpellingDamage(object source, DamageEvent evt)
         {
-            //ToDo: OLW Spell Checker
-            //if (_spellingContext.CanSpellCheck)
-            //{
-            //    foreach (MarkupRange range in evt.DamageRegions)
-            //    {
-            //        if (!range.Positioned)
-            //            continue;
+            if (_spellingContext.CanSpellCheck)
+            {
+                foreach (MarkupRange range in evt.DamageRegions)
+                {
+                    if (!range.Positioned)
+                        continue;
 
-            //        foreach (MarkupRange targetRange in IntersectWithEditableElements(range))
-            //            _spellingManager.DamagedRange(targetRange, _realTimeSpellCheckingStarted);
-            //    }
-            //}
+                    foreach (MarkupRange targetRange in IntersectWithEditableElements(range))
+                        _spellingManager.DamagedRange(targetRange, _realTimeSpellCheckingStarted);
+                }
+            }
         }
 
         private MarkupPointer ScreenPointToMarkupPointer(Point screenPoint)

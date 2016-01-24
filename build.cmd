@@ -28,12 +28,12 @@ IF NOT EXIST %MSBUILD14_TOOLS_PATH% (
 
 IF EXIST %CACHED_NUGET% goto restore
 echo Downloading latest version of NuGet.exe...
-IF NOT EXIST %LocalAppData%\NuGet md %LocalAppData%\NuGet
+IF NOT EXIST "%LocalAppData%\NuGet" md "%LocalAppData%\NuGet"
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile '%CACHED_NUGET%'"
 
 :restore
 IF EXIST "%~dp0src\packages" goto build
-%CACHED_NUGET% restore %SOLUTION_PATH%
+"%CACHED_NUGET%" restore %SOLUTION_PATH%
 
 :build
 
