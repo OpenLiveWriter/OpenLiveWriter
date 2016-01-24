@@ -129,11 +129,11 @@ namespace OpenLiveWriter.PostEditor
 
         private void ButtonBrowserDialog_MouseClick(object sender, MouseEventArgs e)
         {
+            folderBrowserDialog.SelectedPath = textBoxWeblogPostsFolder.Text;
             DialogResult result = folderBrowserDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
                 textBoxWeblogPostsFolder.Text = folderBrowserDialog.SelectedPath;
-
             }
         }
 
