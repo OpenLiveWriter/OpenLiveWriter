@@ -25,7 +25,7 @@ Open Open Live Writer | | |
 Click on File | | |
 Click on Open Recently Posted | Observe dialog box as below | |
  | Observe that Recently Posted is highlighted and that recent posts are available to open | |
-
+ | | | 
 Click on the number next to Show: | Ensure that Show changes the number of posts to be selected | | 
 Select a Recently Posted post | | |
 Click on Delete | Ensure that the post is properly deleted | |
@@ -40,7 +40,7 @@ Click on Open Recently Posted | Enter a term in Filter and hit enter | Observe t
 Open Open Live Writer | | | 
 Click on File | | |
 Click on Open Recently Posted | Observe dialog box as below | | 
-Click on one of the Recently Posted posts | Observe that correct post is loaded
+Click on one of the Recently Posted posts | Observe that correct post is loaded | | 
  |  |  | 
 Open Open Live Writer | | | 
 Click on File | | |
@@ -60,6 +60,7 @@ Enter a term in Filter and hit enter | Observe that appropriate posts are loaded
 Open Open Live Writer | | | 
 Click on File | | |
 Click on any available blog | Observe dialog box as below | | 
-Click on one of the posts | Observe that correct post is loaded
+Click on one of the posts | Observe that correct post is loaded | |
  |  |  | 
+ 
  ![Open diaglog box ](images/openDialogbox.png)
