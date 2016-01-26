@@ -23,9 +23,9 @@ using Google.Apis.Util;
 using System.Globalization;
 using System.Diagnostics;
 using Google.Apis.Blogger.v3.Data;
-using System.Net.Http.Headers;
 using OpenLiveWriter.Controls;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -88,7 +88,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Permalink = post.Url,
                 Contents = post.Content,
                 DatePublished = post.Published.Value,
-                Keywords = string.Join(new string(LabelDelimiter,1), post.Labels ?? new List<string>())
+                Categories = post.Labels?.Select(x => new BlogPostCategory(x)).ToArray() ?? new BlogPostCategory[0]
             };
         }
 
@@ -106,10 +106,12 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private static Post ConvertToGoogleBloggerPost(BlogPost post)
         {
+            var labels = post.Categories?.Select(x => x.Name).ToList();
+            labels?.AddRange(post.NewCategories?.Select(x => x.Name) ?? new List<string>());
             return new Post()
             {
                 Content = post.Contents,
-                Labels = post.Keywords?.Split(new char[] { LabelDelimiter }, StringSplitOptions.RemoveEmptyEntries).Select(k => k.Trim()).ToList(),
+                Labels = labels ?? new List<string>(),
                 // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
                 // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
                 Published = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null,
@@ -142,15 +144,15 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             // configure client options
             BlogClientOptions clientOptions = new BlogClientOptions();
-            clientOptions.SupportsCategories = false;
-            clientOptions.SupportsMultipleCategories = false;
-            clientOptions.SupportsNewCategories = false;
+            clientOptions.SupportsCategories = true;
+            clientOptions.SupportsMultipleCategories = true;
+            clientOptions.SupportsNewCategories = true;
             clientOptions.SupportsCustomDate = true;
             clientOptions.SupportsExcerpt = false;
             clientOptions.SupportsSlug = false;
             clientOptions.SupportsFileUpload = true;
-            clientOptions.SupportsKeywords = true;
-            clientOptions.SupportsGetKeywords = true;
+            clientOptions.SupportsKeywords = false;
+            clientOptions.SupportsGetKeywords = false;
             clientOptions.SupportsPages = true;
             clientOptions.SupportsExtendedEntries = true;
             _clientOptions = clientOptions;
@@ -300,13 +302,33 @@ namespace OpenLiveWriter.BlogClient.Clients
         public BlogInfo[] GetUsersBlogs()
         {
             var blogList = GetService().Blogs.ListByUser("self").Execute();
-            return blogList.Items.Select(b => new BlogInfo(b.Id, b.Name, b.Url)).ToArray();
+            return blogList.Items?.Select(b => new BlogInfo(b.Id, b.Name, b.Url)).ToArray() ?? new BlogInfo[0];
         }
 
+        private const string CategoriesEndPoint = "/feeds/posts/summary?alt=json&max-results=0";
         public BlogPostCategory[] GetCategories(string blogId)
         {
-            // Google Blogger does not support categories
-            return new BlogPostCategory[] { };
+            var categories = new BlogPostCategory[0];
+            var blog = GetService().Blogs.Get(blogId).Execute();
+
+            if (blog != null)
+            {
+                var categoriesUrl = string.Concat(blog.Url, CategoriesEndPoint);
+
+                var response = SendAuthenticatedHttpRequest(categoriesUrl, 30, CreateAuthorizationFilter());
+                if (response != null)
+                {
+                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        var json = reader.ReadToEnd();
+                        var item = JsonConvert.DeserializeObject<CategoryResponse>(json);
+                        var cats = item?.Feed?.CategoryArray.Select(x => new BlogPostCategory(x.Term));
+                        categories = cats?.ToArray() ?? new BlogPostCategory[0];
+                    }
+                }
+            }
+
+            return categories;
         }
 
         public BlogPostKeyword[] GetKeywords(string blogId)
@@ -328,7 +350,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             recentPostsRequest.Status = PostsResource.ListRequest.StatusEnum.Live;
 
             var recentPosts = recentPostsRequest.Execute();
-            return recentPosts.Items.Select(p => ConvertToBlogPost(p)).ToArray();
+            return recentPosts.Items?.Select(ConvertToBlogPost).ToArray() ?? new BlogPost[0];
         }
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -394,7 +416,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             var getPagesRequest = GetService().Pages.List(blogId);
 
             var pageList = getPagesRequest.Execute();
-            return pageList.Items.Select(p => ConvertToPageInfo(p)).ToArray();
+            return pageList.Items?.Select(ConvertToPageInfo).ToArray() ?? new PageInfo[0];
         }
 
         public BlogPost[] GetPages(string blogId, int maxPages)
@@ -403,7 +425,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             getPagesRequest.MaxResults = maxPages;
 
             var pageList = getPagesRequest.Execute();
-            return pageList.Items.Select(p => ConvertToBlogPost(p)).ToArray();
+            return pageList.Items?.Select(ConvertToBlogPost).ToArray() ?? new BlogPost[0];
         }
 
         public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
@@ -834,5 +856,22 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         #endregion
 
+        public class Category
+        {
+            [JsonProperty("term")]
+            public string Term { get; set; }
+        }
+
+        public class Feed
+        {
+            [JsonProperty("category")]
+            public Category[] CategoryArray { get; set; }
+        }
+
+        public class CategoryResponse
+        {
+            [JsonProperty("feed")]
+            public Feed Feed { get; set; }
+        }
     }
 }
