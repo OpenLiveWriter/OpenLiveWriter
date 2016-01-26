@@ -94,7 +94,7 @@ namespace OpenLiveWriter.HtmlEditor
 
         LinkInfo DiscoverCurrentLink();
 
-        bool CheckSpelling(string contextDictionaryPath);
+        bool CheckSpelling();
 
         bool FullyEditableRegionActive { get; }
 

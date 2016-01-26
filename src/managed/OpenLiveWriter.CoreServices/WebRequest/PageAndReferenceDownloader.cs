@@ -232,6 +232,10 @@ namespace OpenLiveWriter.CoreServices
         /// <param name="progressHost">The progressHost to provide feedback to</param>
         private void DownloadReference(ReferenceToDownload reference, FileBasedSiteStorage fileStorage, IProgressHost progressHost)
         {
+            if (IsBase64EmbededImage(reference.AbsoluteUrl))
+            {
+                return;
+            }
             UrlDownloadToFile downloader;
             string fullPath;
 
@@ -344,6 +348,12 @@ namespace OpenLiveWriter.CoreServices
                         writer.Write(newCss);
                 }
             }
+        }
+
+        private bool IsBase64EmbededImage(string url)
+        {
+            return url.StartsWith("data:image/", StringComparison.InvariantCultureIgnoreCase) &&
+                            url.ToLowerInvariant().Contains("base64");
         }
 
         /// <summary>

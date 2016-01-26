@@ -13,7 +13,6 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.PostEditor.Autoreplace;
 using OpenLiveWriter.PostEditor.WordCount;
-//using OpenLiveWriter.SpellChecker;
 
 namespace OpenLiveWriter.PostEditor
 {

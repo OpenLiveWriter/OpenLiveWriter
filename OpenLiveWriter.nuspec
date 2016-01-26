@@ -14,14 +14,24 @@
         <file src="DeltaCompressionDotNet.dll" target="lib\net451\DeltaCompressionDotNet.dll" />
         <file src="DeltaCompressionDotNet.MsDelta.dll" target="lib\net451\DeltaCompressionDotNet.MsDelta.dll" />
         <file src="DeltaCompressionDotNet.PatchApi.dll" target="lib\net451\DeltaCompressionDotNet.PatchApi.dll" />
+        <file src="Google.Apis.dll" target="lib\net451\Google.Apis.dll" />
+        <file src="Google.Apis.Auth.dll" target="lib\net451\Google.Apis.Auth.dll" />
+        <file src="Google.Apis.Auth.PlatformServices.dll" target="lib\net451\Google.Apis.Auth.PlatformServices.dll" />
+        <file src="Google.Apis.Blogger.v3.dll" target="lib\net451\Google.Apis.Blogger.v3.dll" />
+        <file src="Google.Apis.Core.dll" target="lib\net451\Google.Apis.Core.dll" />
+        <file src="Google.Apis.PlatformServices.dll" target="lib\net451\Google.Apis.PlatformServices.dll" />
         <file src="html\map.html" target="lib\net451\html\map.html" />
         <file src="html\map-preview.html" target="lib\net451\html\map-preview.html" />
         <file src="ICSharpCode.SharpZipLib.dll" target="lib\net451\ICSharpCode.SharpZipLib.dll" />
-        <file src="ICSharpCode.SharpZipLib.xml" target="lib\net451\ICSharpCode.SharpZipLib.xml" />
+        <file src="log4net.dll" target="lib\net451\log4net.dll" />
+        <file src="Microsoft.Threading.Tasks.dll" target="lib\net451\Microsoft.Threading.Tasks.dll" />
+        <file src="Microsoft.Threading.Tasks.Extensions.dll" target="lib\net451\Microsoft.Threading.Tasks.Extensions.dll" />
+        <file src="Microsoft.Threading.Tasks.Extensions.Desktop.dll" target="lib\net451\Microsoft.Threading.Tasks.Extensions.Desktop.dll" />
         <file src="Mono.Cecil.dll" target="lib\net451\Mono.Cecil.dll" />
         <file src="Mono.Cecil.Mdb.dll" target="lib\net451\Mono.Cecil.Mdb.dll" />
         <file src="Mono.Cecil.Pdb.dll" target="lib\net451\Mono.Cecil.Pdb.dll" />
         <file src="Mono.Cecil.Rocks.dll" target="lib\net451\Mono.Cecil.Rocks.dll" />
+        <file src="Newtonsoft.Json.dll" target="lib\net451\Newtonsoft.Json.dll" />
         <file src="NuGet.Squirrel.dll" target="lib\net451\NuGet.Squirrel.dll" />
         <file src="OpenLiveWriter.Api.dll" target="lib\net451\OpenLiveWriter.Api.dll" />
         <file src="OpenLiveWriter.ApplicationFramework.dll" target="lib\net451\OpenLiveWriter.ApplicationFramework.dll" />
@@ -30,6 +40,7 @@
         <file src="OpenLiveWriter.Controls.dll" target="lib\net451\OpenLiveWriter.Controls.dll" />
         <file src="OpenLiveWriter.CoreServices.dll" target="lib\net451\OpenLiveWriter.CoreServices.dll" />
         <file src="OpenLiveWriter.exe" target="lib\net451\OpenLiveWriter.exe" />
+        <file src="OpenLiveWriter.exe.config" target="lib\net451\OpenLiveWriter.exe.config" />
         <file src="OpenLiveWriter.exe.manifest" target="lib\net451\OpenLiveWriter.exe.manifest" />
         <file src="OpenLiveWriter.Extensibility.dll" target="lib\net451\OpenLiveWriter.Extensibility.dll" />
         <file src="OpenLiveWriter.FileDestinations.dll" target="lib\net451\OpenLiveWriter.FileDestinations.dll" />
@@ -43,9 +54,14 @@
         <file src="OpenLiveWriter.Mshtml.dll" target="lib\net451\OpenLiveWriter.Mshtml.dll" />
         <file src="OpenLiveWriter.PostEditor.dll" target="lib\net451\OpenLiveWriter.PostEditor.dll" />
         <file src="OpenLiveWriter.Ribbon.dll" target="lib\net451\OpenLiveWriter.Ribbon.dll" />
+        <file src="OpenLiveWriter.SpellChecker.dll" target="lib\net451\OpenLiveWriter.SpellChecker.dll" />
+        <file src="PlatformSpellCheck.dll" target="lib\net451\PlatformSpellCheck.dll" />
         <file src="Splat.dll" target="lib\net451\Splat.dll" />
         <file src="Squirrel.dll" target="lib\net451\Squirrel.dll" />
+        <file src="System.Net.Http.Extensions.dll" target="lib\net451\System.Net.Http.Extensions.dll" />
+        <file src="System.Net.Http.Primitives.dll" target="lib\net451\System.Net.Http.Primitives.dll" />
         <file src="template\default.htm" target="lib\net451\template\default.htm" />
         <file src="template\defaultstyle.css" target="lib\net451\template\defaultstyle.css" />
+        <file src="Zlib.Portable.dll" target="lib\net451\Zlib.Portable.dll" />
     </files>
 </package>

@@ -2796,6 +2796,12 @@ Check the file name and try again.</value>
   <data name="DisplayMessage.GoogleAuthTokenNotFound.Text" xml:space="preserve">
     <value>The server did not respond with the expected authorization token.</value>
   </data>
+  <data name="DisplayMessage.GoogleBloggerLoginRequired.Text" xml:space="preserve">
+    <value>Sign in to Google Blogger to continue.</value>
+  </data>
+  <data name="DisplayMessage.GoogleBloggerLoginRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
   <data name="DisplayMessage.GuestNotSupported.Text" xml:space="preserve">
     <value>Using Open Live Writer from the guest account is not supported.</value>
   </data>
@@ -2829,7 +2835,7 @@ Check the file name and try again.</value>
   <data name="DisplayMessage.InputIsNotUrl.Text" xml:space="preserve">
     <value>{0}
 Not a valid URL.
-Do you want to continue?</value>
+Do you want to go back and edit the URL?</value>
   <comment>{0} - the url that was entered</comment></data>
   <data name="DisplayMessage.InputIsNotUrl.Title" xml:space="preserve">
     <value>Open Live Writer</value>
@@ -3034,7 +3040,7 @@ Type a title for your post, and try publishing it again.</value>
     <value>Open Live Writer</value>
   </data>
   <data name="DisplayMessage.PicasawebSignup.Text" xml:space="preserve">
-    <value>In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in as {0}, and agree to the Terms and Conditions.
+    <value>In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in with your Blogger account, and agree to the Terms and Conditions.
 
 Would you like to go to the Picasa Web Albums homepage now?</value>
   <comment>{0} - username, for example: joe@gmail.com</comment></data>

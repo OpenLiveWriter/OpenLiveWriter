@@ -10,6 +10,7 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Diagnostics;
 using OpenLiveWriter.CoreServices.Settings;
 using OpenLiveWriter.Localization;
+using System.Collections.Generic;
 
 /*
 TODO:
@@ -25,41 +26,6 @@ namespace OpenLiveWriter.SpellChecker
     /// </summary>
     public class SpellingSettings
     {
-        [Obsolete]
-        public static bool CanSpellCheck
-        {
-            get
-            {
-                return Language != SpellingCheckerLanguage.None;
-            }
-        }
-
-        /// <summary>
-        /// Path to dictionary files
-        /// </summary>
-        public static string DictionaryPath
-        {
-            get
-            {
-                return Path.Combine(ApplicationEnvironment.InstallationDirectory, "Dictionaries");
-            }
-        }
-
-        public static string UserDictionaryPath
-        {
-            get
-            {
-                // In the past this property returned the DIRECTORY
-                // where the user dictionary file should go. Now it returns the path to
-                // the FILE itself.
-
-                string userDictionaryPath = Path.Combine(ApplicationEnvironment.ApplicationDataDirectory, "Dictionaries");
-                if (!Directory.Exists(userDictionaryPath))
-                    Directory.CreateDirectory(userDictionaryPath);
-                return Path.Combine(userDictionaryPath, "User.dic");
-            }
-        }
-
         public static event EventHandler SpellingSettingsChanged;
 
         public static void FireChangedEvent()
@@ -82,58 +48,34 @@ namespace OpenLiveWriter.SpellChecker
 
                 // This is GetBoolean rather than just "return RealTimeSpellCheckingDefault"
                 // to ensure that the default gets written to the registry.
-                return SpellingKey.GetBoolean(REAL_TIME_SPELL_CHECKING, RealTimeSpellCheckingDefault);
+                return SpellingKey.GetBoolean(REAL_TIME_SPELL_CHECKING, true);
             }
             set { SpellingKey.SetBoolean(REAL_TIME_SPELL_CHECKING, value); }
         }
-
         private const string REAL_TIME_SPELL_CHECKING = "RealTimeSpellChecking";
-        private static bool RealTimeSpellCheckingDefault
-        {
-            get
-            {
-                try
-                {
-                    string lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-                    foreach (SpellingLanguageEntry sentryLang in GetInstalledLanguages())
-                        if (sentryLang.TwoLetterIsoLanguageName == lang)
-                            return true;
-                    return false;
-                }
-                catch (Exception e)
-                {
-                    Trace.WriteLine(e.ToString());
-                    return false;
-                }
-            }
-        }
 
         /// <summary>
         /// Languages supported by the sentry spelling checker
         /// </summary>
         public static SpellingLanguageEntry[] GetInstalledLanguages()
         {
-            string lexiconPath = DictionaryPath;
-            ArrayList list = new ArrayList();
-            foreach (SpellingLanguageEntry entry in SpellingConfigReader.Languages)
+            List<SpellingLanguageEntry> list = new List<SpellingLanguageEntry>();
+
+            foreach (string entry in WinSpellingChecker.GetInstalledLanguages())
             {
-                if (entry.Language == SpellingCheckerLanguage.None
-                    || entry.IsInstalled(lexiconPath))
+                try
                 {
-                    list.Add(entry);
+                    CultureInfo entryCulture = CultureInfo.GetCultureInfo(entry);
+
+                    list.Add(new SpellingLanguageEntry(entry, entryCulture.DisplayName));
+                }
+                catch
+                {
+                    list.Add(new SpellingLanguageEntry(entry, entry));
                 }
             }
-            return (SpellingLanguageEntry[])list.ToArray(typeof(SpellingLanguageEntry));
-        }
 
-        public static SpellingLanguageEntry GetInstalledLanguage(SpellingCheckerLanguage language)
-        {
-            foreach (SpellingLanguageEntry entry in GetInstalledLanguages())
-            {
-                if (entry.Language == language)
-                    return entry;
-            }
-            return null;
+            return list.ToArray();
         }
 
         /// <summary>
@@ -183,7 +125,7 @@ namespace OpenLiveWriter.SpellChecker
         /// <summary>
         /// Main language for spell checking
         /// </summary>
-        public static SpellingCheckerLanguage Language
+        public static string Language
         {
             get
             {
@@ -191,11 +133,13 @@ namespace OpenLiveWriter.SpellChecker
                 // If so, use it. If not, check if the default language has dictionaries
                 // installed. If so, use it. If not, use the English-US.
 
-                SpellingCheckerLanguage defaultLanguage = SpellingConfigReader.DefaultLanguage;
-                SpellingCheckerLanguage preferredLanguage;
+                // CurrentUICulture is currently forced into en-US which is unlikely to be the preferred dictionary
+                // CurrentCulture is not modified so is more likely to be correct
+                string defaultLanguage = CultureInfo.CurrentCulture.Name;
+                string preferredLanguage;
                 try
                 {
-                    preferredLanguage = (SpellingCheckerLanguage)SpellingKey.GetEnumValue(LANGUAGE, typeof(SpellingCheckerLanguage), defaultLanguage);
+                    preferredLanguage = SpellingKey.GetString(LANGUAGE, defaultLanguage);
                 }
                 catch (Exception e)
                 {
@@ -203,32 +147,34 @@ namespace OpenLiveWriter.SpellChecker
                     preferredLanguage = defaultLanguage;
                 }
 
-                if (preferredLanguage == SpellingCheckerLanguage.None)
-                    return SpellingCheckerLanguage.None;
+                if (string.IsNullOrEmpty(preferredLanguage))
+                    return string.Empty;
 
-                foreach (SpellingLanguageEntry lang in GetInstalledLanguages())
+                if (WinSpellingChecker.IsLanguageSupported(preferredLanguage))
                 {
-                    if (lang.Language == preferredLanguage)
-                        return preferredLanguage;
+                    return preferredLanguage;
                 }
 
                 // Language in registry is not installed!
                 Trace.WriteLine("Dictionary language specified in registry is not installed. Using fallback");
 
-                foreach (SpellingLanguageEntry lang in GetInstalledLanguages())
-                {
-                    if (lang.Language == defaultLanguage)
-                    {
-                        Language = defaultLanguage;
-                        return defaultLanguage;
-                    }
+                if (WinSpellingChecker.IsLanguageSupported(defaultLanguage))
+                { 
+                    Language = defaultLanguage;
+                    return defaultLanguage;
                 }
 
-                return Language = SpellingCheckerLanguage.EnglishUS;
+                if (WinSpellingChecker.IsLanguageSupported("en-US"))
+                {
+                    Language = "en-US";
+                    return "en-US";
+                }
+
+                return string.Empty;
             }
-            set { SpellingKey.SetString(LANGUAGE, value.ToString()); }
+            set { SpellingKey.SetString(LANGUAGE, value); }
         }
-        private const string LANGUAGE = "DictionaryLanguage";
+        private const string LANGUAGE = "SpellingLanguage";
 
         internal static SettingsPersisterHelper SettingsKey = ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("PostEditor");
         public static SettingsPersisterHelper SpellingKey = SettingsKey.GetSubSettings("Spelling");

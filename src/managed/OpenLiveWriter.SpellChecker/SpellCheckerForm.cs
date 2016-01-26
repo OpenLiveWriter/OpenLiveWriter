@@ -96,19 +96,8 @@ namespace OpenLiveWriter.SpellChecker
         /// <summary>
         /// Check spelling
         /// </summary>
-        public void CheckSpelling(IWordRange range)
-        {
-            CheckSpelling(range, null);
-        }
-
-        /// <summary>
-        /// Check spelling
-        /// </summary>
         /// <param name="range">word range to check</param>
-        /// <param name="contextDictionaryLocation">directory where the
-        /// spell checker can write a context-bound dictionary (null to not
-        /// use a context-dictionary)</param>
-        public void CheckSpelling(IWordRange range, string contextDictionaryLocation)
+        public void CheckSpelling(IWordRange range)
         {
             // save reference to word-range
             wordRange = range;
@@ -298,7 +287,6 @@ namespace OpenLiveWriter.SpellChecker
         {
             // remove feedback from the document
             RemoveHighlight();
-            spellingChecker.Reset();
         }
 
         /// <summary>

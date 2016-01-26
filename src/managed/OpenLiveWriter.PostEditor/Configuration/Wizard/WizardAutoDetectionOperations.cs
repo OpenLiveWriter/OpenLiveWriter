@@ -47,15 +47,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _editWithStyleStep = editWithStyleStep;
         }
 
-        public virtual OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentConrol, TemporaryBlogSettings temporarySettings)
+        public virtual OpenLiveWriter.CoreServices.AsyncOperation CreateOperation(IBlogClientUIContext uiContext, Control parentControl, TemporaryBlogSettings temporarySettings)
         {
             _temporarySettings = temporarySettings;
 
             // create and start the account detector
             _blogServiceDetector = new BlogServiceDetector(
                 uiContext,
-                parentConrol,
-                _temporarySettings.Id, _temporarySettings.HomepageUrl,
+                parentControl,
+                _temporarySettings,
                 new BlogCredentialsAccessor(_temporarySettings.Id, _temporarySettings.Credentials));
 
             return _blogServiceDetector;
@@ -115,6 +115,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _temporarySettings.SetProvider(_blogServiceDetector.ProviderId, _blogServiceDetector.ServiceName, _blogServiceDetector.PostApiUrl, _blogServiceDetector.ClientType);
             if (_temporarySettings.BlogName == String.Empty)
                 _temporarySettings.BlogName = _blogServiceDetector.BlogName;
+            if (string.IsNullOrEmpty(_temporarySettings.HomepageUrl))
+                _temporarySettings.HomepageUrl = ((IBlogSettingsDetectionContext)_blogServiceDetector).HomepageUrl;
             _temporarySettings.HostBlogId = _blogServiceDetector.HostBlogId;
             _temporarySettings.HostBlogs = _blogServiceDetector.UsersBlogs;
             _temporarySettings.ManifestDownloadInfo = _blogServiceDetector.ManifestDownloadInfo;

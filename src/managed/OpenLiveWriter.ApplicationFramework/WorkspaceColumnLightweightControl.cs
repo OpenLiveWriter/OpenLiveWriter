@@ -863,7 +863,7 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             get
             {
-                Debug.Assert(VirtualWidth <= MaximumColumnWidth, "The column is wider than it's maximum width.  Call Brian.");
+                Debug.Assert(VirtualWidth <= MaximumColumnWidth, "The column is wider than it's maximum width.");
                 return Math.Max(0, MaximumColumnWidth - VirtualWidth);
             }
         }
@@ -875,7 +875,7 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             get
             {
-                Debug.Assert(VirtualWidth >= MinimumColumnWidth, "The column is narrower than it's minimum width.  Call Brian.");
+                Debug.Assert(VirtualWidth >= MinimumColumnWidth, "The column is narrower than it's minimum width.");
                 return Math.Max(0, VirtualWidth - MinimumColumnWidth);
             }
         }

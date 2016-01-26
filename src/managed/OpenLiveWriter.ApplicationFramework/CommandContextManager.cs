@@ -240,7 +240,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         public void Activate()
         {
-            Debug.Assert(!activated, "CommandContextManager already activated.  Call Brian.");
+            Debug.Assert(!activated, "CommandContextManager already activated.");
             if (!activated)
             {
                 commandManager.Add(activatedCommandCollection);
@@ -253,7 +253,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         public void Deactivate()
         {
-            Debug.Assert(activated, "CommandContextManager not activated.  Call Brian.");
+            Debug.Assert(activated, "CommandContextManager not activated.");
             if (activated)
             {
                 commandManager.Remove(activatedCommandCollection);
@@ -274,7 +274,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         public void Enter()
         {
-            //Debug.Assert(!entered, "CommandContextManager already entered.  Call Brian.");
+            //Debug.Assert(!entered, "CommandContextManager already entered.");
             if (!entered)
             {
                 commandManager.Add(enteredCommandCollection);
@@ -287,7 +287,7 @@ namespace OpenLiveWriter.ApplicationFramework
         /// </summary>
         public void Leave()
         {
-            //Debug.Assert(entered, "CommandContextManager not entered.  Call Brian.");
+            //Debug.Assert(entered, "CommandContextManager not entered.");
             if (entered)
             {
                 commandManager.Remove(enteredCommandCollection);

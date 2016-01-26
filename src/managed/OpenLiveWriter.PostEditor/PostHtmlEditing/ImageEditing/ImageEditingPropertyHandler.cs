@@ -7,8 +7,10 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using mshtml;
+using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
@@ -93,8 +95,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     imgHtmlElement.setAttribute("height", oldHeight, 0);
                 if (!String.IsNullOrEmpty(oldWidth))
                     imgHtmlElement.setAttribute("width", oldWidth, 0);
-
-                info = new ImagePropertiesInfo(new Uri(imgSrc), new Size(width, height), remoteImageDecoratorsList);
+                Uri infoUri;
+                if (Uri.TryCreate(imgSrc, UriKind.Absolute, out infoUri))
+                {
+                    info = new ImagePropertiesInfo(infoUri, new Size(width, height), remoteImageDecoratorsList);
+                }
+                else
+                {
+                    info = new ImagePropertiesInfo(new Uri("http://www.example.com"), new Size(width, height), remoteImageDecoratorsList);
+                }
                 info.ImgElement = imgHtmlElement;
 
                 // Sets the correct inline image size and image size name for the remote image.

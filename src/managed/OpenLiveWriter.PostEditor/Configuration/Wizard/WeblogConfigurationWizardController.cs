@@ -227,6 +227,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _authenticationRequired = showAuthenticationStep;
         }
 
+        private void AddGoogleBloggerOAuthSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelGoogleBloggerAuthentication(_temporarySettings.Id, this),
+                null,
+                new DisplayCallback(OnBasicInfoDisplayed),
+                new VerifyStepCallback(OnValidatePanel),
+                new NextCallback(OnGoogleBloggerOAuthCompleted),
+                null,
+                new BackCallback(OnGoogleBloggerOAuthBack)));
+        }
+
         private void AddConfirmationStep()
         {
             addWizardStep(
@@ -324,6 +336,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             // set the user's choice
             _temporarySettings.IsSharePointBlog = panelBlogType.IsSharePointBlog;
+            _temporarySettings.IsGoogleBloggerBlog = panelBlogType.IsGoogleBloggerBlog;
 
             // did this bootstrap a custom account wizard?
             _providerAccountWizard = panelBlogType.ProviderAccountWizard;
@@ -332,6 +345,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             if (_temporarySettings.IsSharePointBlog)
             {
                 AddSharePointBasicInfoSubStep(false);
+            }
+            else if (_temporarySettings.IsGoogleBloggerBlog)
+            {
+                AddGoogleBloggerOAuthSubStep();
             }
             else
             {
@@ -512,6 +529,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private void OnSharePointAuthenticationBack(Object stepControl)
         {
             _authenticationStepAdded = false;
+        }
+
+        private void OnGoogleBloggerOAuthCompleted(Object stepControl)
+        {
+            OnBasicInfoAndAuthenticationCompleted((IAccountBasicInfoProvider)stepControl, new PerformBlogAutoDetection(PerformWeblogAndSettingsAutoDetectionSubStep));
+        }
+
+        private void OnGoogleBloggerOAuthBack(Object stepControl)
+        {
+            var panel = (WeblogConfigurationWizardPanelGoogleBloggerAuthentication)stepControl;
+            panel.CancelAuthorization();
         }
 
         private void OnWeblogAndSettingsAutoDetectionCompleted(Object stepControl)
