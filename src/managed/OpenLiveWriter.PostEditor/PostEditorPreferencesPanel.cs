@@ -17,6 +17,7 @@ using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.WordCount;
 using System.IO;
+using OpenLiveWriter.PostEditor.JumpList;
 
 namespace OpenLiveWriter.PostEditor
 {
@@ -169,11 +170,15 @@ namespace OpenLiveWriter.PostEditor
 
                 result = MessageBox.Show(message, caption, buttons);
 
-                if (result == System.Windows.Forms.DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     MovePosts(Path.Combine(_originalFolder + @"\\Recent Posts\\"), destinationRecentPosts);
 
                     MovePosts(Path.Combine(_originalFolder + @"\\Drafts\\"), destinationDrafts);
+
+                    PostEditorForm frm = (PostEditorForm)Application.OpenForms?[0];
+                    PostEditorMainControl ctrl = (PostEditorMainControl)frm?.Controls?[0];
+                    ctrl?.FirePostListChangedEvent();
                 }
 
                 _postEditorPreferences.Changed();
