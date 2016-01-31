@@ -176,9 +176,15 @@ namespace OpenLiveWriter.PostEditor
 
                     MovePosts(Path.Combine(_originalFolder + @"\\Drafts\\"), destinationDrafts);
 
-                    PostEditorForm frm = (PostEditorForm)Application.OpenForms?[0];
-                    PostEditorMainControl ctrl = (PostEditorMainControl)frm?.Controls?[0];
-                    ctrl?.FirePostListChangedEvent();
+                    PostEditorForm frm = Application.OpenForms?[0] as PostEditorForm;
+                    if (frm != null)
+                    { 
+                        PostEditorMainControl ctrl = frm.Controls?[0] as PostEditorMainControl;
+                        if (ctrl != null)
+                        {
+                            ctrl.FirePostListChangedEvent();
+                        }
+                    }
                 }
 
                 _postEditorPreferences.Changed();
