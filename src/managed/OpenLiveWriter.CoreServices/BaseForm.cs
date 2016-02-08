@@ -10,17 +10,17 @@ using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.CoreServices
 {
-	public class BaseForm : Form
-	{
-		private bool allowFontChange = true;
-	    private bool suppressAutoRtlFixup = false;
-		public BaseForm()
-		{
-#pragma warning disable 612,618
-		    AutoScale = false;
-#pragma warning restore 612,618
-			this.Font = Res.DefaultFont;
-			allowFontChange = false;
+    public class BaseForm : Form
+    {
+        private bool allowFontChange = true;
+        private bool suppressAutoRtlFixup = false;
+        public BaseForm()
+        {
+#pragma warning disable 612, 618
+            AutoScale = false;
+#pragma warning restore 612, 618
+            this.Font = Res.DefaultFont;
+            allowFontChange = false;
 
             //support for bidi languages
             if (BidiHelper.IsRightToLeft)
@@ -36,15 +36,15 @@ namespace OpenLiveWriter.CoreServices
                 RightToLeft = RightToLeft.No;
                 RightToLeftLayout = false;
             }
-		}
+        }
 
-	    public bool SuppressAutoRtlFixup
-	    {
-	        get { return suppressAutoRtlFixup; }
-	        set { suppressAutoRtlFixup = value; }
-	    }
+        public bool SuppressAutoRtlFixup
+        {
+            get { return suppressAutoRtlFixup; }
+            set { suppressAutoRtlFixup = value; }
+        }
 
-	    private bool scaled = false;
+        private bool scaled = false;
         protected override void SetVisibleCore(bool value)
         {
             if (value && !scaled)
@@ -61,7 +61,7 @@ namespace OpenLiveWriter.CoreServices
             base.SetVisibleCore(value);
         }
 
-	    protected override void OnShown(EventArgs e)
+        protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
             if (!suppressAutoRtlFixup)
@@ -70,7 +70,7 @@ namespace OpenLiveWriter.CoreServices
             if (SystemInformation.HighContrast)
             {
                 ControlHelper.Walk(
-                    delegate(Control c, object state)
+                    delegate (Control c, object state)
                         {
                             LinkLabel link = c as LinkLabel;
                             if (link != null)
@@ -86,17 +86,17 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-		public override System.Drawing.Font Font
-		{
-			get
-			{
-				return base.Font;
-			}
-			set
-			{
-				Trace.Assert(allowFontChange, "Font changed!");
-				base.Font = value;
-			}
-		}
-	}
+        public override System.Drawing.Font Font
+        {
+            get
+            {
+                return base.Font;
+            }
+            set
+            {
+                Trace.Assert(allowFontChange, "Font changed!");
+                base.Font = value;
+            }
+        }
+    }
 }

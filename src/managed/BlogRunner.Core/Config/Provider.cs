@@ -11,7 +11,7 @@ namespace BlogRunner.Core.Config
 {
     public class Provider
     {
-        [XmlElement(ElementName="id")]
+        [XmlElement(ElementName = "id")]
         public string Id;
 
         [XmlElement(ElementName = "blog")]

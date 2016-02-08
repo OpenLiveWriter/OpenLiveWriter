@@ -14,7 +14,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
     /// <summary>
     /// Wrapper class for SoapboxThumbnail images that performs the following services:
     ///		- Create and draw an image based on the Stream it is initialized with.
-    ///		- Delay creation of the image until the Draw method is called so that 
+    ///		- Delay creation of the image until the Draw method is called so that
     ///		  Bitmaps are created and used on the UI thread
     ///		- Dispose the image and underlying stream when it is disposed
     /// </summary>
@@ -95,7 +95,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             Rectangle textRect = new Rectangle(thumbnailRect.X + (int)(thumbnailRect.Width * 0.1F), thumbnailRect.Y, (int)(thumbnailRect.Width * 0.8F), thumbnailRect.Height);
             g.DrawText(_textOverlay, font, textRect, Color.Gray, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordBreak);
         }
-
 
         private readonly StringFormat _overlayFormat = new StringFormat();
         private readonly string _textOverlay;

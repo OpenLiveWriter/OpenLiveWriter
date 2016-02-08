@@ -7,8 +7,10 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using mshtml;
+using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
@@ -19,7 +21,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         event ImagePropertyEventHandler ImagePropertyChanged;
         ImagePropertiesInfo ImagePropertiesInfo { get; set; }
     }
-
 
     /// <summary>
     /// Summary description for ImagePropertiesHandler.
@@ -37,7 +38,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _editorContext = imageEditingContext;
         }
 
-
         public void RefreshView()
         {
             _propertyEditingContext.ImagePropertyChanged -= new ImagePropertyEventHandler(imageProperties_ImagePropertyChanged);
@@ -50,7 +50,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             _propertyEditingContext.ImagePropertyChanged += new ImagePropertyEventHandler(imageProperties_ImagePropertyChanged);
         }
-
 
         public static ImagePropertiesInfo GetImagePropertiesInfo(IHTMLImgElement imgElement, IBlogPostImageEditingContext editorContext)
         {
@@ -96,8 +95,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     imgHtmlElement.setAttribute("height", oldHeight, 0);
                 if (!String.IsNullOrEmpty(oldWidth))
                     imgHtmlElement.setAttribute("width", oldWidth, 0);
-
-                info = new ImagePropertiesInfo(new Uri(imgSrc), new Size(width, height), remoteImageDecoratorsList);
+                Uri infoUri;
+                if (Uri.TryCreate(imgSrc, UriKind.Absolute, out infoUri))
+                {
+                    info = new ImagePropertiesInfo(infoUri, new Size(width, height), remoteImageDecoratorsList);
+                }
+                else
+                {
+                    info = new ImagePropertiesInfo(new Uri("http://www.example.com"), new Size(width, height), remoteImageDecoratorsList);
+                }
                 info.ImgElement = imgHtmlElement;
 
                 // Sets the correct inline image size and image size name for the remote image.
@@ -137,9 +143,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             return info;
         }
-
-
-
 
         private IHTMLElement ImgElement
         {
@@ -192,7 +195,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
                         //initialize some handlers for creating files based on the image's existing ISupportingFile objects
                         //This is necessary so that the new image files are recognized as being updates to an existing image
-                        //which allows the updates to be re-uploaded back to the same location. 
+                        //which allows the updates to be re-uploaded back to the same location.
                         CreateImageFileHandler inlineFileCreator = new CreateImageFileHandler(editorContext.SupportingFileService,
                                                                                               newImageData.InlineImageFile != null ? newImageData.InlineImageFile.SupportingFile : null);
                         CreateImageFileHandler linkedFileCreator = new CreateImageFileHandler(editorContext.SupportingFileService,
@@ -274,7 +277,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
         private readonly ImagePropertiesInfo _imageProperties;
-
 
         public readonly ImagePropertyType PropertyType;
         public readonly ImageDecoratorInvocationSource InvocationSource;

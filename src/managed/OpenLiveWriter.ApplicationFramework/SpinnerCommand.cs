@@ -9,7 +9,7 @@ using OpenLiveWriter.Interop.Com.Ribbon;
 using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.ApplicationFramework
-{    
+{
     public interface IRepresentativeString
     {
         string RepresentativeString { get; }
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.ApplicationFramework
         public SpinnerCommand(CommandId commandId, decimal minValue, decimal maxValue, decimal initialValue, decimal increment, uint decimalPlaces, string representativeString, string formatString)
             : base(commandId)
         {
-            Debug.Assert(initialValue >= minValue && initialValue <= maxValue, "Initial value is outside of allowed range.");            
+            Debug.Assert(initialValue >= minValue && initialValue <= maxValue, "Initial value is outside of allowed range.");
             this._minValue = minValue;
             this._maxValue = maxValue;
             this._value = initialValue;
@@ -55,7 +55,7 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             get { return _maxValue; }
         }
-        
+
         public decimal Value
         {
             get { return _value; }
@@ -93,31 +93,31 @@ namespace OpenLiveWriter.ApplicationFramework
         public override void GetPropVariant(PropertyKey key, PropVariantRef currentValue, ref PropVariant value)
         {
             if (key == PropertyKeys.DecimalValue)
-            {                                    
-                value.SetDecimal(Value);                 
+            {
+                value.SetDecimal(Value);
             }
             else if (key == PropertyKeys.MinValue)
             {
-                value.SetDecimal(MinValue);                                        
+                value.SetDecimal(MinValue);
             }
             else if (key == PropertyKeys.MaxValue)
-            {                
-                value.SetDecimal(MaxValue);                    
+            {
+                value.SetDecimal(MaxValue);
             }
             else if (key == PropertyKeys.Increment)
-            {                
-                value.SetDecimal(Increment);                    
+            {
+                value.SetDecimal(Increment);
             }
             else if (key == PropertyKeys.DecimalPlaces)
-            {                
-                value.SetUInt(DecimalPlaces);                    
+            {
+                value.SetUInt(DecimalPlaces);
             }
             else if (key == PropertyKeys.FormatString)
-            {                
+            {
                 value.SetString(FormatString);
             }
             else
-               base.GetPropVariant(key, currentValue, ref value);
+                base.GetPropVariant(key, currentValue, ref value);
         }
 
         public override int PerformExecute(CommandExecutionVerb verb, PropertyKeyRef key, PropVariantRef currentValue, IUISimplePropertySet commandExecutionProperties)

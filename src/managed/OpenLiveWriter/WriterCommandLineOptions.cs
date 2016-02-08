@@ -102,7 +102,6 @@ namespace OpenLiveWriter
             }
         }
 
-
         public static WriterCommandLineOptions Create(string[] args)
         {
             CommandLineOptions options = new CommandLineOptions(false, 0, int.MaxValue,

@@ -24,12 +24,12 @@ namespace OpenLiveWriter.CoreServices.Marketization
         public enum Feature
         {
             Maps,
-            TeamBlog,            
+            TeamBlog,
             TermsOfUse,
             Privacy,
             Help,
             FTPHelp,
-            WLGallery,            
+            WLGallery,
             LiveClipboard,
             BlogProviders,
             VideoProviders,
@@ -115,7 +115,6 @@ namespace OpenLiveWriter.CoreServices.Marketization
             if (featuresNode == null)
                 throw new Exception("Invalid marketizationXml.xml file detected");
 
-
             string selectionXpath = String.Format(CultureInfo.InvariantCulture, "//features/market[@name='{0}']/feature", market);
             XmlNodeList featureNodes = providersDocument.SelectNodes(selectionXpath);
             foreach (XmlNode featureNode in featureNodes)
@@ -138,7 +137,7 @@ namespace OpenLiveWriter.CoreServices.Marketization
                 case "Privacy": thisFeature = Feature.Privacy; break;
                 case "Help": thisFeature = Feature.Help; break;
                 case "FTP Help": thisFeature = Feature.FTPHelp; break;
-                case "Gallery": thisFeature = Feature.WLGallery; break;                
+                case "Gallery": thisFeature = Feature.WLGallery; break;
                 case "Live Clipboard": thisFeature = Feature.LiveClipboard; break;
                 case "Blog Providers": thisFeature = Feature.BlogProviders; break;
                 case "Insert Video": thisFeature = Feature.VideoProviders; break;
@@ -222,7 +221,7 @@ namespace OpenLiveWriter.CoreServices.Marketization
                 string[] mapSplit = map.Split(',');
                 for (int i = 1; i < mapSplit.Length; i += 2)
                 {
-                    // in our mapping table (markets.xml), if the "from" entry is longer than two chars, we compare it against 
+                    // in our mapping table (markets.xml), if the "from" entry is longer than two chars, we compare it against
                     // the current UI culture *name*, not the current UI culture *TwoLetterISOLanguageName*.
                     string mapFrom = mapSplit[i - 1].Trim();
                     string currentCultureIdOrLanguage = mapFrom.Length > 2 ? currentCulture.Name : currentCulture.TwoLetterISOLanguageName;

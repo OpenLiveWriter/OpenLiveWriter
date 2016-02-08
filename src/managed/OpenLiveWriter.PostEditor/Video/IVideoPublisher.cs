@@ -11,7 +11,7 @@ using OpenLiveWriter.PostEditor.Video.VideoService;
 
 namespace OpenLiveWriter.PostEditor.Video
 {
-    
+
     internal interface IVideoPublisher : IMediaPublisher
     {
         /// <summary>
@@ -54,14 +54,14 @@ namespace OpenLiveWriter.PostEditor.Video
         /// <returns></returns>
         string AcceptanceUrl { get; }
         /// <summary>
-        /// Returns the title of the url that will be seen in the link label for the terms of use 
+        /// Returns the title of the url that will be seen in the link label for the terms of use
         /// </summary>
         /// <returns></returns>
         string AcceptanceTitle { get; }
-       /// <summary>
+        /// <summary>
         /// This will be used if we can identify the publisher after a post is loaded
         /// and we want to try and make a status watcher for the item.  If the publisher cannot
-        /// make a new status watcher, perhaps because of authenication problems, then it can return null. 
+        /// make a new status watcher, perhaps because of authenication problems, then it can return null.
         /// </summary>
         /// <param name="video">
         /// A video object that contains as much information as we know about the video
@@ -75,8 +75,8 @@ namespace OpenLiveWriter.PostEditor.Video
         /// <summary>
         /// SafteyTip link label
         /// </summary>
-        string SafetyTipUrl { get;}
-        string SafetyTipTitle { get;}
+        string SafetyTipUrl { get; }
+        string SafetyTipTitle { get; }
         string FormatTags(string rawTags);
     }
 
@@ -84,7 +84,7 @@ namespace OpenLiveWriter.PostEditor.Video
     {
         public VideoPublishException(string message) : base(message)
         {
-            
+
         }
     }
 

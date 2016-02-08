@@ -124,19 +124,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     buttonRotate.Visible = false;
             }
 
-                DisplayHelper.AutoFitSystemCheckBox(chkGrid, 0, int.MaxValue);
-                DisplayHelper.AutoFitSystemButton(btnRemoveCrop);
-                LayoutHelper.FixupOKCancel(buttonOK, buttonCancel);
-                chkGrid.Left = buttonCancel.Right - chkGrid.Width;
+            DisplayHelper.AutoFitSystemCheckBox(chkGrid, 0, int.MaxValue);
+            DisplayHelper.AutoFitSystemButton(btnRemoveCrop);
+            LayoutHelper.FixupOKCancel(buttonOK, buttonCancel);
+            chkGrid.Left = buttonCancel.Right - chkGrid.Width;
 
-
-                panel1.Height = Math.Max(buttonRotate.Bottom, cbAspectRatio.Bottom) + 3;
-                imageCropControl.Top = panel1.Bottom;
+            panel1.Height = Math.Max(buttonRotate.Bottom, cbAspectRatio.Bottom) + 3;
+            imageCropControl.Top = panel1.Bottom;
 
             imageCropControl.Select();
-
-
-            
 
             //int minWidth = buttonRotate.Right + width + (form.ClientSize.Width - buttonOK.Left) + SystemInformation.FrameBorderSize.Width * 2;
             //form.MinimumSize = new Size(minWidth, form.MinimumSize.Height);
@@ -157,12 +153,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         protected override void LoadEditor()
         {
-            bitmap = (Bitmap) State;
+            bitmap = (Bitmap)State;
             Size origSize = bitmap.Size;
             bitmap.RotateFlip(EditorContext.ImageRotation);
             imageCropControl.Bitmap = bitmap;
-            ((AspectRatioItem)cbAspectRatio.Items[0]).AspectRatio = bitmap.Width/(double) bitmap.Height;
-            
+            ((AspectRatioItem)cbAspectRatio.Items[0]).AspectRatio = bitmap.Width / (double)bitmap.Height;
+
             CropDecoratorSettings settings = new CropDecoratorSettings(Settings);
             originalState = settings.CreateStateToken();
 
@@ -190,7 +186,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     {
                         if (item.Id == savedAspectRatioId)
                         {
-                            // doubles can't be accurately compared after they've been round-tripped 
+                            // doubles can't be accurately compared after they've been round-tripped
                             // to strings, due to lossy conversion to/from strings.
                             if ((float)(item.AspectRatio ?? 0.0) != (float)(savedAspectRatio ?? 0.0))
                             {
@@ -276,14 +272,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             if (cbAspectRatio.SelectedItem != null)
             {
-                double currentEffectiveAspectRatio = imageCropControl.CropRectangle.Width/
-                                                     (double) imageCropControl.CropRectangle.Height;
+                double currentEffectiveAspectRatio = imageCropControl.CropRectangle.Width /
+                                                     (double)imageCropControl.CropRectangle.Height;
 
-                double? aspectRatio = ((AspectRatioItem) cbAspectRatio.SelectedItem).AspectRatio;
+                double? aspectRatio = ((AspectRatioItem)cbAspectRatio.SelectedItem).AspectRatio;
                 if (aspectRatio != null && cbAspectRatio.SelectedIndex != 0 && aspectRatio.Value != 1.0)
                 {
                     if (aspectRatio < 1.0 ^ currentEffectiveAspectRatio < 1.0)
-                        aspectRatio = 1.0/aspectRatio;
+                        aspectRatio = 1.0 / aspectRatio;
                 }
                 imageCropControl.AspectRatio = aspectRatio;
             }
@@ -371,7 +367,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
             public override int GetHashCode()
             {
-                return label.GetHashCode() + 29*aspectRatio.GetHashCode();
+                return label.GetHashCode() + 29 * aspectRatio.GetHashCode();
             }
         }
 

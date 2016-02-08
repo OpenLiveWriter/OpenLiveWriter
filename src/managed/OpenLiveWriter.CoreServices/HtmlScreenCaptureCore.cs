@@ -86,22 +86,21 @@ namespace OpenLiveWriter.CoreServices
                     if (_exception != null)
                         throw _exception;
 
-
                     // return the captured bitmap
                     return (Bitmap)Bitmap.FromStream(StreamHelper.AsStream(_capturedBitmap));
                 }
                 else
                 {
-                    // timed out, make sure we tell the form to close if 
+                    // timed out, make sure we tell the form to close if
                     // it hasn't already
                     _applicationContext.CloseFormAndExit();
 
-                    // return null 
+                    // return null
                     return null;
                 }
             }
         }
-        
+
         public static Bitmap TakeSnapshot(IViewObject obj, int width, int height)
         {
             // draw the view on a Bitmap
@@ -142,8 +141,6 @@ namespace OpenLiveWriter.CoreServices
             return bitmap;
         }
 
-
-
         [STAThread]
         private void ThreadMain(ConditionVariable signal, string[] ids)
         {
@@ -157,7 +154,7 @@ namespace OpenLiveWriter.CoreServices
                 form = new HtmlScreenCaptureForm(this);
                 this.Ids = ids;
                 form.Ids = ids;
-                form.DoCapture();                
+                form.DoCapture();
 
                 // Create and run the form
                 _applicationContext = new FormLifetimeApplicationContext(form);
@@ -237,7 +234,6 @@ namespace OpenLiveWriter.CoreServices
             _exception = exception;
         }
 
-
         // capture parameters
         private int _maximumHeight = -1;
         private bool _showWaitCursor = true;
@@ -247,7 +243,7 @@ namespace OpenLiveWriter.CoreServices
         private int _timeoutMs;
 
         // successfully captured bitmap
-        private byte[] _capturedBitmap;        
+        private byte[] _capturedBitmap;
         private Dictionary<string, ElementCaptureProperties> _elementCaptureProperties = new Dictionary<string, ElementCaptureProperties>();
 
         // error that occured during processing
@@ -258,14 +254,14 @@ namespace OpenLiveWriter.CoreServices
 
     public class ElementCaptureProperties
     {
-        private byte[] _capturedBitmap;                
-        public Padding Padding { get; set; }        
+        private byte[] _capturedBitmap;
+        public Padding Padding { get; set; }
 
         public ElementCaptureProperties(byte[] capturedBitmap, Color backgroundColor, Padding padding)
         {
             _capturedBitmap = capturedBitmap;
             BackgroundColor = backgroundColor;
-            Padding = padding;            
+            Padding = padding;
         }
 
         public Color BackgroundColor { get; private set; }
@@ -276,7 +272,7 @@ namespace OpenLiveWriter.CoreServices
             {
                 return _capturedBitmap == null
                            ? null
-                           : (Bitmap) Bitmap.FromStream(StreamHelper.AsStream(_capturedBitmap));
+                           : (Bitmap)Bitmap.FromStream(StreamHelper.AsStream(_capturedBitmap));
             }
         }
 
@@ -307,7 +303,7 @@ namespace OpenLiveWriter.CoreServices
     {
         public HtmlDocumentAvailableEventArgsCore(object document)
         {
-            _document = document;          
+            _document = document;
         }
 
         public object Document
@@ -321,17 +317,16 @@ namespace OpenLiveWriter.CoreServices
             get { return _documentReady; }
             set { _documentReady = value; }
         }
-        private bool _documentReady = true;       
+        private bool _documentReady = true;
     }
 
     public delegate void HtmlScreenCaptureAvailableHandlerCore(object sender, HtmlScreenCaptureAvailableEventArgsCore e);
 
     public delegate void HtmlDocumentAvailableHandlerCore(object sender, HtmlDocumentAvailableEventArgsCore e);
 
-
     /// <summary>
     /// Special application context that will mirror the lifetime of a Form
-    /// without calling Form.Show (as the standard implementation of 
+    /// without calling Form.Show (as the standard implementation of
     /// ApplicationContext does)
     /// </summary>
     internal class FormLifetimeApplicationContext : ApplicationContext
@@ -396,17 +391,16 @@ namespace OpenLiveWriter.CoreServices
 
             // create and add the underlying browser control
             _browserControl = new ExplorerBrowserControl();
-            _browserControl.Silent = true;            
-            
+            _browserControl.Silent = true;
+
             Controls.Add(_browserControl);
         }
-
 
         public void DoCapture()
         {
             // show the form w/o activating then make it invisible
             User32.SetWindowPos(Handle, HWND.BOTTOM, -1, -1, 1, 1, SWP.NOACTIVATE);
-            Visible = false;            
+            Visible = false;
 
             // determine the url used for navigation
             string navigateUrl;
@@ -433,9 +427,8 @@ namespace OpenLiveWriter.CoreServices
 
             // navigate to the file then wait for document complete for further processing
             _browserControl.DocumentComplete += new BrowserDocumentEventHandler(_browserControl_DocumentComplete);
-            _browserControl.Navigate(navigateUrl);            
+            _browserControl.Navigate(navigateUrl);
         }
-
 
         private void _browserControl_DocumentComplete(object sender, BrowserDocumentEventArgs e)
         {
@@ -458,7 +451,7 @@ namespace OpenLiveWriter.CoreServices
                 body.topMargin = 0;
                 body.bottomMargin = 0;
 
-                // set the width and height of the browser control to the correct 
+                // set the width and height of the browser control to the correct
                 // values for the snapshot
 
                 // width specified by the caller
@@ -473,7 +466,7 @@ namespace OpenLiveWriter.CoreServices
                     _browserControl.Height = element2.scrollHeight;
                 }
 
-                // release UI thread to load the video thumbnail on screen 
+                // release UI thread to load the video thumbnail on screen
                 // (the Tick may need to fire more than once to allow enough
                 // time and message processing for an embedded object to
                 // be fully initialized)
@@ -517,13 +510,13 @@ namespace OpenLiveWriter.CoreServices
                 }
 
                 if (Ids != null)
-                {                    
-                    IHTMLDocument3 doc3 = document as IHTMLDocument3;                    
-                                        
+                {
+                    IHTMLDocument3 doc3 = document as IHTMLDocument3;
+
                     foreach (string elementId in Ids)
-                    {                        
+                    {
                         IHTMLStyle3 style3 = (IHTMLStyle3)(doc3.getElementById(elementId)).style;
-                        style3.wordWrap = "normal";                        
+                        style3.wordWrap = "normal";
                     }
 
                     int originalWidth = _browserControl.Width;
@@ -533,13 +526,13 @@ namespace OpenLiveWriter.CoreServices
                         try
                         {
                             IHTMLElement element = doc3.getElementById(elementId);
-                                                       
+
                             _browserControl.Height = element.offsetHeight + 2 + 2;
-                            
+
                             element.scrollIntoView(true);
 
-                            Padding padding = HTMLElementHelper.PaddingInPixels(element);                            
-                            
+                            Padding padding = HTMLElementHelper.PaddingInPixels(element);
+
                             Color backgroundColor = HTMLColorHelper.GetBackgroundColor(element, true, null, Color.White);
 
                             using (Bitmap elementBitmap = GetElementPreviewImage(doc3, element, _browserControl.Width, _browserControl.Height))
@@ -557,8 +550,6 @@ namespace OpenLiveWriter.CoreServices
                     _browserControl.Width = originalWidth;
                     _browserControl.Height = originalHeight;
                 }
-
-                
 
                 // fire event to see if the Bitmap is ready
                 using (Bitmap bitmap = HtmlScreenCaptureCore.TakeSnapshot((IViewObject)_browserControl.Document, _browserControl.Width, _browserControl.Height))
@@ -580,7 +571,7 @@ namespace OpenLiveWriter.CoreServices
                         CleanupAndExit(timer);
                     }
 
-                    // otherwise just let the Timer call us again 
+                    // otherwise just let the Timer call us again
                     // at the next interval...
                 }
             }
@@ -594,7 +585,6 @@ namespace OpenLiveWriter.CoreServices
                 reentrant = false;
             }
         }
-
 
         private void CleanupAndExit(Timer timer)
         {
@@ -615,7 +605,7 @@ namespace OpenLiveWriter.CoreServices
 
             // close the form
             Close();
-        }        
+        }
 
         private string[] _ids;
         public string[] Ids
@@ -639,40 +629,40 @@ namespace OpenLiveWriter.CoreServices
             }
 
             // fire documented completed hook to clients and return result
-            HtmlDocumentAvailableEventArgsCore ea = new HtmlDocumentAvailableEventArgsCore(document);           
+            HtmlDocumentAvailableEventArgsCore ea = new HtmlDocumentAvailableEventArgsCore(document);
             _htmlScreenCaptureCore.FireHtmlDocumentAvailable(ea);
-            
+
             return ea.DocumentReady;
         }
 
         private static Bitmap GetElementPreviewImage(IHTMLDocument3 doc3, IHTMLElement element, int snapshotWidth, int snapshotHeight)
         {
             try
-            {                
-                // @RIBBON TODO: Need to make this work for RTL as well.                                                              
-                IDisplayServices displayServices = ((IDisplayServices)doc3);                                                               
+            {
+                // @RIBBON TODO: Need to make this work for RTL as well.
+                IDisplayServices displayServices = ((IDisplayServices)doc3);
 
                 element.scrollIntoView(true);
 
                 tagPOINT offset = new tagPOINT();
                 offset.x = 0;
                 offset.y = 0;
-                displayServices.TransformPoint(ref offset, _COORD_SYSTEM.COORD_SYSTEM_CONTENT, _COORD_SYSTEM.COORD_SYSTEM_GLOBAL, element);                
-                
+                displayServices.TransformPoint(ref offset, _COORD_SYSTEM.COORD_SYSTEM_CONTENT, _COORD_SYSTEM.COORD_SYSTEM_GLOBAL, element);
+
                 using (Bitmap snapshotAfter = HtmlScreenCaptureCore.TakeSnapshot((IViewObject)doc3, snapshotWidth, snapshotHeight))
                 {
-                    //snapshotAfter.Save(@"c:\temp\snapshot" + element.id + ".bmp");                                                                               
+                    //snapshotAfter.Save(@"c:\temp\snapshot" + element.id + ".bmp");
 
                     Rectangle elementRect;
-                    elementRect = new Rectangle(Math.Max(2, offset.x), 2, Math.Min(element.offsetWidth, element.offsetParent.offsetWidth), element.offsetHeight);                    
-                                        
+                    elementRect = new Rectangle(Math.Max(2, offset.x), 2, Math.Min(element.offsetWidth, element.offsetParent.offsetWidth), element.offsetHeight);
+
                     if (element.offsetWidth <= 0 || element.offsetHeight <= 0)
-                        return null;                                                 
+                        return null;
 
                     Bitmap cropped = ImageHelper2.CropBitmap(snapshotAfter, elementRect);
                     //cropped.Save(@"c:\temp\snapshot" + element.id + ".cropped.bmp");
-                    return cropped;                    
-                }                
+                    return cropped;
+                }
             }
             catch (Exception ex)
             {
@@ -688,7 +678,6 @@ namespace OpenLiveWriter.CoreServices
                 return DateTime.Now > _timeoutTime;
             }
         }
-
 
         protected override void Dispose(bool disposing)
         {

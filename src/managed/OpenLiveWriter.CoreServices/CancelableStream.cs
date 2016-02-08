@@ -20,8 +20,6 @@ namespace OpenLiveWriter.CoreServices
             _innerStream = innerStream;
         }
 
-        
-
         public override bool CanRead
         {
             get

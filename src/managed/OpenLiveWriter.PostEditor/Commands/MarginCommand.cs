@@ -8,14 +8,14 @@ using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.Commands
-{    
+{
     public class MarginCommand : Command
-    {        
+    {
         private const decimal MinMargin = 0;//(decimal)0.00001;
         private const decimal MaxMargin = 999;
         private const int Increment = 1;
         private const uint DecimalPlaces = 0;
-        
+
         private string RepresentativeString;
         private string FormatString;
 
@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Commands
         private SpinnerCommand commandRightMargin;
         private SpinnerCommand commandBottomMargin;
         private Padding marginValue;
-        
+
         public MarginCommand(CommandManager commandManager)
             : base(CommandId.MarginsGroup)
         {
@@ -55,8 +55,8 @@ namespace OpenLiveWriter.PostEditor.Commands
         {
             return (marginValue.Left == 0 && marginValue.Top == 0 && marginValue.Right == 0 && marginValue.Bottom == 0);
         }
-       
-        public event EventHandler MarginChanged;        
+
+        public event EventHandler MarginChanged;
 
         public int Left { get { return marginValue.Left; } }
         public int Top { get { return marginValue.Top; } }
@@ -106,21 +106,21 @@ namespace OpenLiveWriter.PostEditor.Commands
                 marginValue.Top = value;
                 commandTopMargin.Value = value;
             }
-            
+
             FireMarginChanged();
         }
 
         private void FireMarginChanged()
-        {            
+        {
             if (MarginChanged != null)
-                MarginChanged(this, EventArgs.Empty);            
+                MarginChanged(this, EventArgs.Empty);
         }
-                
+
         public void SetMargin(Padding? margin)
-        {                        
+        {
             if (margin.HasValue)
-                Value = margin.Value;                       
-        }       
+                Value = margin.Value;
+        }
 
         public override bool Enabled
         {
@@ -128,7 +128,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             {
                 if (Enabled != value)
                 {
-                    commandLeftMargin.Enabled = value;                    
+                    commandLeftMargin.Enabled = value;
                     commandTopMargin.Enabled = value;
                     commandRightMargin.Enabled = value;
                     commandBottomMargin.Enabled = value;

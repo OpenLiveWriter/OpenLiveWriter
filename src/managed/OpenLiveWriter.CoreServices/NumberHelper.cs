@@ -16,7 +16,7 @@ namespace OpenLiveWriter.CoreServices
             string pattern = "{0}";
             string negativeSymbol = CultureInfo.CurrentCulture.NumberFormat.NegativeSign;
 
-            if(n < 0)
+            if (n < 0)
             {
                 // http://msdn.microsoft.com/en-us/library/system.globalization.numberformatinfo.numbernegativepattern.aspx
                 switch (CultureInfo.CurrentCulture.NumberFormat.NumberNegativePattern)
@@ -51,9 +51,9 @@ namespace OpenLiveWriter.CoreServices
             double s;
             do
             {
-                x = 2*rand.NextDouble() - 1;
-                y = 2*rand.NextDouble() - 1;
-                s = x*x + y*y;
+                x = 2 * rand.NextDouble() - 1;
+                y = 2 * rand.NextDouble() - 1;
+                s = x * x + y * y;
             } while (s >= 1.0);
 
             double f = Math.Sqrt(-2 * Math.Log(s) / s);

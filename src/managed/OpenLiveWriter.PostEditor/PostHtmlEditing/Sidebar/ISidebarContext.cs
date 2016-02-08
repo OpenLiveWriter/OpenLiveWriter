@@ -2,23 +2,23 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Drawing ;
+using System.Drawing;
 using System.Windows.Forms;
 using OpenLiveWriter.HtmlEditor;
 using OpenLiveWriter.ApplicationFramework;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 {
-	public interface ISidebarContext
-	{
-		IWin32Window Owner { get; }
+    public interface ISidebarContext
+    {
+        IWin32Window Owner { get; }
 
-		void UpdateStatusBar( string statusText ) ;
+        void UpdateStatusBar(string statusText);
 
-		void UpdateStatusBar( Image image, string statusText ) ;
-		
-		IUndoUnit CreateUndoUnit();
+        void UpdateStatusBar(Image image, string statusText);
 
-	    CommandManager CommandManager { get;}
-	}
+        IUndoUnit CreateUndoUnit();
+
+        CommandManager CommandManager { get; }
+    }
 }

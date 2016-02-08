@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.Video
         public VideoSmartContent(ISmartContent content)
             : base(content)
         {
-            MinSize = new Size(1,1);
+            MinSize = new Size(1, 1);
         }
 
         public void Initialize(Video video, string blogID)
@@ -62,7 +62,6 @@ namespace OpenLiveWriter.PostEditor.Video
             // If the video already has a snapshot, then we will want to save it, it came from the WebVideoSource
             if (video.Snapshot != null)
                 UpdateVideoSnapshot(video.Snapshot);
-
 
             if (video.StatusWatcher != null)
                 ((IInternalContent)_content).ObjectState = video.StatusWatcher;
@@ -192,7 +191,7 @@ namespace OpenLiveWriter.PostEditor.Video
             {
                 VideoAspectRatioType aspectRatioType = VideoAspectRatioType.Unknown;
                 string aspectRatioString = _content.Properties.GetString(VIDEO_ASPECT_RATIO, String.Empty);
-                
+
                 if (Enum.IsDefined(typeof(VideoAspectRatioType), aspectRatioString))
                 {
                     aspectRatioType = (VideoAspectRatioType)Enum.Parse(typeof(VideoAspectRatioType), aspectRatioString);
@@ -231,7 +230,6 @@ namespace OpenLiveWriter.PostEditor.Video
             int VERTICAL_OFFSET = 30;
             int LINE_BREAK_PADDING = 4;
 
-
             Size titleSize = bidiGraphics.MeasureText(Res.Get(StringId.VideoError),
                                           Res.GetFont(FontSize.XXLarge, FontStyle.Bold),
                                           new Size(PLACEHOLDER_WIDTH - LEFT_PADDING - ERROR_IMAGE_WIDTH - IMAGE_TO_TEXT_PADDING - RIGHT_PADDING, PLACEHOLDER_HEIGHT - VERTICAL_OFFSET),
@@ -246,7 +244,6 @@ namespace OpenLiveWriter.PostEditor.Video
                                                 PLACEHOLDER_HEIGHT - VERTICAL_OFFSET),
                                   Color.White,
                                   TextFormatFlags.WordBreak);
-
 
             bidiGraphics.DrawText(message,
                                   Res.GetFont(FontSize.XLarge,
@@ -307,7 +304,6 @@ namespace OpenLiveWriter.PostEditor.Video
             return img;
         }
 
-
         public override string GenerateEditorHtml(IPublishingContext publishingContext)
         {
             string status = GenerateStatus(((IContentSourceSite)publishingContext).DialogOwner, ((IContentSourceSite)publishingContext).AccountId);
@@ -332,7 +328,6 @@ namespace OpenLiveWriter.PostEditor.Video
 
             return html.ToString();
         }
-
 
         public override string GeneratePublishHtml(IPublishingContext publishingContext)
         {
@@ -449,7 +444,6 @@ namespace OpenLiveWriter.PostEditor.Video
             if (sw != null)
                 sw.Dispose();
 
-
             // Remove the place holder on success
             if (!hasError)
             {
@@ -476,15 +470,15 @@ namespace OpenLiveWriter.PostEditor.Video
 
             if (Caption.Trim() != String.Empty)
             {
-                metadataHtml.Append(string.Format(CultureInfo.InvariantCulture, "<div style=\"width:{0}px;clear:both;font-size:{1}\"{2}>", HtmlSize.Width, Res.Get(StringId.Plugin_Video_Caption_Size), editMode ? editModeAttributes : string.Empty));                
+                metadataHtml.Append(string.Format(CultureInfo.InvariantCulture, "<div style=\"width:{0}px;clear:both;font-size:{1}\"{2}>", HtmlSize.Width, Res.Get(StringId.Plugin_Video_Caption_Size), editMode ? editModeAttributes : string.Empty));
                 metadataHtml.Append(Caption.Trim());
-                metadataHtml.Append("</div>");               
+                metadataHtml.Append("</div>");
 
                 return metadataHtml.ToString();
             }
 
             if (editMode)
-            {                
+            {
                 metadataHtml.Append(string.Format(CultureInfo.InvariantCulture, "<div style=\"width:{0}px;clear:both;font-size:{1};\"{2}></div>", HtmlSize.Width, Res.Get(StringId.Plugin_Video_Caption_Size), editModeAttributes));
             }
 
@@ -507,7 +501,6 @@ namespace OpenLiveWriter.PostEditor.Video
         {
             get { return _content; }
         }
-
 
         private string GenerateEditorVideoHtml()
         {

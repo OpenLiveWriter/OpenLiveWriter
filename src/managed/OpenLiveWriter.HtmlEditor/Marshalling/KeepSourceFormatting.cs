@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -77,7 +77,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// Pastes the source HTML over the destination HTML and makes necessary modifications to keep the source 
+        /// Pastes the source HTML over the destination HTML and makes necessary modifications to keep the source
         /// formatting.
         /// </summary>
         /// <returns>A MarkupRange containing the pasted HTML or null if unsuccessful.</returns>
@@ -97,7 +97,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             var elementsToReplace = new Dictionary<IHTMLElement, _ELEMENT_TAG_ID>();
 
             sourceRange.WalkRange(
-                delegate(MarkupRange currentRange, MarkupContext context, string text)
+                delegate (MarkupRange currentRange, MarkupContext context, string text)
                     {
                         if (IsBeginTag(context))
                         {
@@ -149,7 +149,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 sourceMarkupServices.InsertElement(replacementElement, replacementRange.Start, replacementRange.End);
             }
 
-            // Walking through the range skips input elements, so we need to explicitly enumerate them. Specifically 
+            // Walking through the range skips input elements, so we need to explicitly enumerate them. Specifically
             // we're looking for <input type="hidden" />.
             IHTMLDocument3 document3 = (IHTMLDocument3)sourceRange.Start.Container.Document;
             foreach (IHTMLElement element in document3.getElementsByTagName("input"))
@@ -178,7 +178,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// Returns true if the element is not natively supported by MSHTML's editing commands and should therefore be 
+        /// Returns true if the element is not natively supported by MSHTML's editing commands and should therefore be
         /// replaced.
         /// </summary>
         /// <param name="element">The element to consider replacing.</param>
@@ -200,7 +200,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// MSHTML does not natively support adding/removing the &lt;s&gt; tag which is the equivalent of the 
+        /// MSHTML does not natively support adding/removing the &lt;s&gt; tag which is the equivalent of the
         /// &lt;strike&gt; tag.
         /// </summary>
         /// <param name="element">The element to check.</param>
@@ -216,13 +216,13 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// Removes the destination range in a manner similar to HtmlEditorControl.InsertHtml and then pastes in the 
+        /// Removes the destination range in a manner similar to HtmlEditorControl.InsertHtml and then pastes in the
         /// source range.
         /// </summary>
         private void PasteSourceOverDestination()
         {
-            // Try to be like HtmlEditorControl.InsertHtml. Any changes in this code may also need to be changed in 
-            // HtmlEditorControl.InsertHtml! We do this because the destination can change (and therefore the styles 
+            // Try to be like HtmlEditorControl.InsertHtml. Any changes in this code may also need to be changed in
+            // HtmlEditorControl.InsertHtml! We do this because the destination can change (and therefore the styles
             // applied to that destination) based on what happens when we remove and collapse the destinationRange.
             MarkupPointerMoveHelper.PerformImageBreakout(destinationRange.Start);
             MarkupPointerMoveHelper.PerformImageBreakout(destinationRange.End);
@@ -251,8 +251,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// </summary>
         private MarkupRange FixupDestinationFormatting()
         {
-            // We'll use the concept of a "fixup segment" to describe a destination segment that needs to be 
-            // reformatted to match its corresponding source segment. This is very similar to what MSHTML does 
+            // We'll use the concept of a "fixup segment" to describe a destination segment that needs to be
+            // reformatted to match its corresponding source segment. This is very similar to what MSHTML does
             // internally.
             var openFixupSegments = new Dictionary<Type, FixupSegment>();
             var registeredFixupSegments = new List<FixupSegment>();
@@ -274,7 +274,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                              "Mismatched tags!");
 
                 // If it is an image, add attribute marker to suppress applying default values for image decorators
-                if (sourceContext.Element != null && destinationContext.Element != null && 
+                if (sourceContext.Element != null && destinationContext.Element != null &&
                     string.Compare(sourceContext.Element.tagName, "IMG", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     destinationContext.Element.setAttribute("wlNoDefaultDecorator", "true", 0);
@@ -320,7 +320,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                         }
                         else if (fixupSegment != null)
                         {
-                            // There's an open fixup segment for this style and we don't want to start a new one. 
+                            // There's an open fixup segment for this style and we don't want to start a new one.
                             // That must mean we want to extend the current one.
                             fixupSegment.RangeToFixup.End.MoveToPointer(currentDestination.End);
                         }
@@ -328,7 +328,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 }
                 else if (IsEndTag(sourceContext) && !IsInlineElement(sourceContext.Element))
                 {
-                    // We're moving out of a block element and <font> tags cannot wrap block elements so we need to 
+                    // We're moving out of a block element and <font> tags cannot wrap block elements so we need to
                     // end any open fixup segments.
                     EndOpenFixupSegments(openFixupSegments, registeredFixupSegments);
                 }
@@ -367,7 +367,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// Copies over the minimum amount of CSS necessary to make the destination element formatted just like the 
+        /// Copies over the minimum amount of CSS necessary to make the destination element formatted just like the
         /// source element.
         /// </summary>
         /// <param name="sourceElement">The element to copy CSS formatting from.</param>
@@ -377,8 +377,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             Debug.Assert(sourceElement != null, "Source element must not be null!");
             Debug.Assert(destinationElement != null, "Destination element must not be null!");
 
-            // This is a very long function (see Table of Contents) because there is no convenient way to loop over 
-            // all the different interfaces and all the different CSS properties while accounting for all the special 
+            // This is a very long function (see Table of Contents) because there is no convenient way to loop over
+            // all the different interfaces and all the different CSS properties while accounting for all the special
             // cases.
 
             // -----------------
@@ -386,22 +386,22 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             // -----------------
             //
             //      1.  Interfaces
-            //              There are several MSHTML interfaces that deal with CSS properties. The IHTMLStyle 
-            //              interfaces can retrieve and set *only* inline styles. The IHTMLCurrentStyle interfaces can 
+            //              There are several MSHTML interfaces that deal with CSS properties. The IHTMLStyle
+            //              interfaces can retrieve and set *only* inline styles. The IHTMLCurrentStyle interfaces can
             //              retrieve the cascaded styles of the element.
             //
             //      2.  CSS 2.1
-            //              This section copies over *all* the CSS 2.1 properties that IE8 implements (see 
-            //              http://www.w3.org/TR/CSS21/propidx.html for a full list). The CSS properties are listed 
-            //              alphabetically. IE8 implements all required CSS properties, but does not implement aural 
-            //              properties (which are optional according to the spec). IE7 does not support a few of the 
+            //              This section copies over *all* the CSS 2.1 properties that IE8 implements (see
+            //              http://www.w3.org/TR/CSS21/propidx.html for a full list). The CSS properties are listed
+            //              alphabetically. IE8 implements all required CSS properties, but does not implement aural
+            //              properties (which are optional according to the spec). IE7 does not support a few of the
             //              CSS 2.1 properties, so we can only copy those properties on IE8+.
             //
             //      3.  CSS 3
-            //              This section copies over all the CSS 3 properties that IE implements (not many). All of 
+            //              This section copies over all the CSS 3 properties that IE implements (not many). All of
             //              these have been around since IE 5.5.
             //
-            //      See http://msdn.microsoft.com/en-us/library/cc351024(VS.85).aspx for more info about IE's CSS 
+            //      See http://msdn.microsoft.com/en-us/library/cc351024(VS.85).aspx for more info about IE's CSS
             //      compatibility.
 
             // --------------
@@ -466,8 +466,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
             // Can't copy to inlineStyle.backgroundPosition directly, so we'll do each backgroundPosition style seperately.
 
-            // We check if the destination already has an inline style specified using em units because we'll be 
-            // removing the font-size property which will cause the calculated size to change. Therefore we need to 
+            // We check if the destination already has an inline style specified using em units because we'll be
+            // removing the font-size property which will cause the calculated size to change. Therefore we need to
             // convert the ems to an absolute unit.
             if (IsEms(sourceCascadedStyle.backgroundPositionX as string))
             {
@@ -538,7 +538,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
             if (IsEms(sourceCascadedStyle.borderBottomWidth as string))
             {
-                int borderBottomInPixels = (int)HTMLElementHelper.CSSUnitStringToPixelSize(HTMLElementHelper.CSSUnitStringBorderBottom, sourceElement, 
+                int borderBottomInPixels = (int)HTMLElementHelper.CSSUnitStringToPixelSize(HTMLElementHelper.CSSUnitStringBorderBottom, sourceElement,
                     HTMLElementHelper.LastChanceBorderWidthPointSize, true);
                 destinationInlineStyle.borderBottomWidth = String.Format(CultureInfo.InvariantCulture, "{0}px", borderBottomInPixels);
             }
@@ -702,7 +702,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
 
             // We don't want to copy over color as it be handled seperately.
 
-            // The content, counterIncrement and counterReset properties will have already been generated by the time 
+            // The content, counterIncrement and counterReset properties will have already been generated by the time
             // we paste, so we don't do anything with them.
 
             if (String.Compare(destinationCascadedStyle.cursor, sourceCascadedStyle.cursor, StringComparison.OrdinalIgnoreCase) != 0)
@@ -733,7 +733,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.styleFloat = sourceCascadedStyle.styleFloat;
             }
 
-            // We don't want to copy over font, fontFamily, fontSize, fontStyle, fontVariant or fontWeight as they 
+            // We don't want to copy over font, fontFamily, fontSize, fontStyle, fontVariant or fontWeight as they
             // will all be handled seperately.
 
             if (IsEms(sourceCascadedStyle.height as string))
@@ -769,8 +769,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 destinationInlineStyle.letterSpacing = sourceCascadedStyle.letterSpacing;
             }
 
-            // The line-height property is the only CSS property whose percentage refers to the font-size of the 
-            // element itself. Since we'll be removing the font-size property, we need to convert the percentage to an 
+            // The line-height property is the only CSS property whose percentage refers to the font-size of the
+            // element itself. Since we'll be removing the font-size property, we need to convert the percentage to an
             // absolute unit.
             if (IsPercentage(sourceCascadedStyle.lineHeight as string) || IsEms(sourceCascadedStyle.lineHeight as string))
             {
@@ -1181,7 +1181,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// Returns whether or not "em" appears in the CSS units somewhere. This is not future proof if the CSS spec 
+        /// Returns whether or not "em" appears in the CSS units somewhere. This is not future proof if the CSS spec
         /// were to add a value (like "auto" or "center") that includes the string "em" in it.
         /// </summary>
         /// <param name="cssUnits">The CSS value string to search.</param>
@@ -1192,7 +1192,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// Removes any inline text-related CSS (font-family, font-size, font-style, font-variant, font-weight, color, 
+        /// Removes any inline text-related CSS (font-family, font-size, font-style, font-variant, font-weight, color,
         /// text-decoration, background-color).
         /// </summary>
         /// <param name="element">The element to remove inline text-related CSS from.</param>
@@ -1244,7 +1244,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         }
 
         /// <summary>
-        /// Moves a few CSS properties (text-align, width and height) to their respective HTML attributes (when 
+        /// Moves a few CSS properties (text-align, width and height) to their respective HTML attributes (when
         /// applicable) to provide better compatibility with MSHTML's editing commands.
         /// </summary>
         /// <param name="sourceElement">The element from which the CSS property originated.</param>
@@ -1308,7 +1308,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         {
             if (supportsAlignmentAttribute == null)
             {
-                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML 
+                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML
                 // align="LEFT|CENTER|RIGHT|JUSTIFY" attribute.
                 supportsAlignmentAttribute = ElementFilters.CreateCompoundElementFilter(
                     ElementFilters.CreateElementNameFilter(sourceMarkupServices.GetNameForTagId(_ELEMENT_TAG_ID.TAGID_DIV)),
@@ -1336,7 +1336,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         {
             if (this.supportsPercentageWidthAttribute == null)
             {
-                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML width="X" 
+                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML width="X"
                 // attribute (where X is in pixels).
                 this.supportsPercentageWidthAttribute = ElementFilters.CreateCompoundElementFilter(
                     ElementFilters.CreateElementNameFilter(sourceMarkupServices.GetNameForTagId(_ELEMENT_TAG_ID.TAGID_IMG)),
@@ -1356,7 +1356,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         {
             if (this.supportsPixelWidthAttribute == null)
             {
-                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML width="X" 
+                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML width="X"
                 // attribute (where X is in pixels).
                 this.supportsPixelWidthAttribute = ElementFilters.CreateCompoundElementFilter(
                     ElementFilters.CreateElementNameFilter(sourceMarkupServices.GetNameForTagId(_ELEMENT_TAG_ID.TAGID_IMG)),
@@ -1378,7 +1378,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         {
             if (this.supportsPercentageHeightAttribute == null)
             {
-                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML height="X" 
+                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML height="X"
                 // attribute (where X is in pixels).
                 this.supportsPercentageHeightAttribute = ElementFilters.CreateCompoundElementFilter(
                     ElementFilters.CreateElementNameFilter(sourceMarkupServices.GetNameForTagId(_ELEMENT_TAG_ID.TAGID_IMG)),
@@ -1394,7 +1394,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         {
             if (this.supportsPixelHeightAttribute == null)
             {
-                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML height="X" 
+                // Per the HTML 4.01 and XHTML Transitional DTD, the following elements support the HTML height="X"
                 // attribute (where X is in pixels).
                 this.supportsPixelHeightAttribute = ElementFilters.CreateCompoundElementFilter(
                     ElementFilters.CreateElementNameFilter(sourceMarkupServices.GetNameForTagId(_ELEMENT_TAG_ID.TAGID_IMG)),
@@ -1439,7 +1439,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 return true;
             }
 
-            // If we've moved into a range where the open fixup segment doesn't apply anymore then we should end the 
+            // If we've moved into a range where the open fixup segment doesn't apply anymore then we should end the
             // fixup segment.
             if (fixupSegment.SourceTextStyle != sourceStyle)
             {
@@ -1455,11 +1455,11 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
         /// <param name="sourceStyle">The current text-formatting at the source.</param>
         /// <param name="destinationStyle">The current text-formatting at the destination.</param>
         /// <param name="fixupSegment">The fixup segment that is currently open for this TextStyle.</param>
-        /// <returns>true if the provided fixup segment should be ended and a new fixup segment started, and false 
+        /// <returns>true if the provided fixup segment should be ended and a new fixup segment started, and false
         /// otherwise.</returns>
         private bool ShouldStartFixupSegment(TextStyle sourceStyle, TextStyle destinationStyle, FixupSegment fixupSegment)
         {
-            // If we've moved into a range where the source and copy styles don't match (and there's not already an 
+            // If we've moved into a range where the source and copy styles don't match (and there's not already an
             // open fixup segment that will make them match) then we should start a fixup segment.
             if (sourceStyle != destinationStyle && (fixupSegment == null || fixupSegment.SourceTextStyle != sourceStyle))
             {
@@ -1493,7 +1493,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                 String.Compare(((IHTMLElement2)element).scopeName, html, StringComparison.OrdinalIgnoreCase) != 0)
             {
                 // This is a custom element (e.g. <o:p></o:p> from Word), so check if its set to display inline.
-                return String.Compare(((IHTMLElement2)element).currentStyle.display, inline, 
+                return String.Compare(((IHTMLElement2)element).currentStyle.display, inline,
                     StringComparison.OrdinalIgnoreCase) == 0;
             }
 
@@ -1540,11 +1540,11 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
             IHTMLBodyElement body = (IHTMLBodyElement)destinationDocument.body;
             IHTMLTxtRange textRange = body.createTextRange();
 
-            // We can QI the IHTMLTxtRange for IOleCommandTarget which then lets us pass each fixup segment a 
+            // We can QI the IHTMLTxtRange for IOleCommandTarget which then lets us pass each fixup segment a
             // command set that they can execute against.
             IOleCommandTargetWithExecParams target = (IOleCommandTargetWithExecParams)textRange;
             MshtmlCoreCommandSet commands = new MshtmlCoreCommandSet(target);
-            
+
             foreach (FixupSegment fixupSegment in registeredFixupSegments)
             {
                 destinationMarkupServices.MoveRangeToPointers(fixupSegment.RangeToFixup.Start, fixupSegment.RangeToFixup.End, textRange);

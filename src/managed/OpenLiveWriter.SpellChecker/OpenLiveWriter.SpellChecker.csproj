@@ -8,6 +8,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PlatformSpellCheck, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PlatformSpellCheck.1.0.0\lib\net45\PlatformSpellCheck.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -60,26 +64,20 @@
     <Compile Include="HighlightSegmentTracker.cs" />
     <Compile Include="HtmlTextBoxWordRange.cs" />
     <Compile Include="IBlogPostSpellCheckingContext.cs" />
-    <Compile Include="NlgSpellerException.cs" />
     <Compile Include="SortedMarkupRangeList.cs" />
     <Compile Include="ISpellingChecker.cs" />
     <Compile Include="IWordRange.cs" />
     <Compile Include="IWordRangeProvider.cs" />
     <Compile Include="MisspelledWordInfo.cs" />
     <Compile Include="MshtmlWordRange.cs" />
-    <Compile Include="NlgSpellingChecker.cs" />
-    <Compile Include="NlgSpeller.cs" />
-    <Compile Include="NLG\ProofBase.cs" />
-    <Compile Include="NLG\SpellApiEx.cs" />
-    <Compile Include="SentrySpellingChecker.cs" />
     <Compile Include="SpellCheckerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SpellCheckingContextMenuDefinition.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SpellingConfigReader.cs" />
     <Compile Include="SpellingHighlighter.cs" />
+    <Compile Include="SpellingLanguageEntry.cs" />
     <Compile Include="SpellingManager.cs" />
     <Compile Include="SpellingPreferences.cs" />
     <Compile Include="SpellingPreferencesPanel.cs">
@@ -89,8 +87,8 @@
     <Compile Include="SpellingTimer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SSCE.cs" />
     <Compile Include="TextBoxWordRange.cs" />
+    <Compile Include="WinSpellingChecker.cs" />
     <EmbeddedResource Include="Images\SpellingDictionaries.png" />
     <EmbeddedResource Include="Images\SpellingGeneral.png" />
     <EmbeddedResource Include="Images\SpellingPanelBitmap.png" />
@@ -99,25 +97,13 @@
       <DependentUpon>SpellCheckerForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SpellingConfig.xml" />
     <EmbeddedResource Include="SpellingPreferencesPanel.resx">
       <DependentUpon>SpellingPreferencesPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <!-- COPY READ-ONLY REDISTRIBUTABLE DICTIONARIES TO OUTPUT DIRECTORY (ALLOWS THEIR USE
-           IN DEVELOPMENT CONFIGURATIONS) -->
-    <RobocopyCompiled Include="$(ProjectDir)Redistribute\Dictionaries\">
-      <DestinationFolder>$(FullTargetProjectPath)\Dictionaries</DestinationFolder>
-    </RobocopyCompiled>
-    <RobocopyCompiled Include="$(ProjectDir)\Dictionaries\">
-      <DestinationFolder>$(FullTargetProjectPath)\Dictionaries</DestinationFolder>
-    </RobocopyCompiled>
-    <!-- COPY REDISTRIBUTABLE SPELLING ENGINE DLL TO SYSTEM DIRECTORY -->
-    <RobocopyCompiled Include="$(ProjectDir)Redistribute\ssceonf1.dll">
-      <DestinationFolder>$(FullTargetProjectPath)</DestinationFolder>
-    </RobocopyCompiled>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />

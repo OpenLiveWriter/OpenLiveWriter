@@ -12,13 +12,13 @@ using OpenLiveWriter.Localization.Bidi;
 
 namespace OpenLiveWriter.Controls
 {
-	public class XPBitmapButton : Button
-	{
-	    public XPBitmapButton()
-		{
-			FlatStyle = FlatStyle.Standard ;
-		    UseCompatibleTextRendering = false;
-		}
+    public class XPBitmapButton : Button
+    {
+        public XPBitmapButton()
+        {
+            FlatStyle = FlatStyle.Standard;
+            UseCompatibleTextRendering = false;
+        }
 
         protected override void OnParentChanged(EventArgs e)
         {
@@ -40,55 +40,55 @@ namespace OpenLiveWriter.Controls
         }
 
         public void Initialize(Bitmap normalImage, Bitmap disabledImage, ContentAlignment alignment)
-		{
-			Initialize(normalImage, disabledImage) ;
+        {
+            Initialize(normalImage, disabledImage);
             ImageAlign = alignment;
-		}
+        }
 
-		public void Initialize(Bitmap normalImage, Bitmap disabledImage)
-		{
+        public void Initialize(Bitmap normalImage, Bitmap disabledImage)
+        {
             if (normalImage == null)
                 throw new ArgumentNullException("normalImage");
 
-			_normalImage = normalImage;
+            _normalImage = normalImage;
             _disabledImage = disabledImage;
-		    mirrored = false;
+            mirrored = false;
 
             UpdateImages();
 
-			// subscribe to enabled changed events to update image
-			EnabledChanged +=new EventHandler(XPBitmapButton_EnabledChanged);
-		}
+            // subscribe to enabled changed events to update image
+            EnabledChanged += new EventHandler(XPBitmapButton_EnabledChanged);
+        }
 
-	    public int GetPreferredWidth()
-		{
-		    int width = DisplayHelper.MeasureButton(this);
+        public int GetPreferredWidth()
+        {
+            int width = DisplayHelper.MeasureButton(this);
             int imageWidth = _normalImage.Width;
-		    return width + imageWidth + (int)DisplayHelper.ScaleX(5) + Padding.Horizontal;
-		}
+            return width + imageWidth + (int)DisplayHelper.ScaleX(5) + Padding.Horizontal;
+        }
 
-		private void XPBitmapButton_EnabledChanged(object sender, EventArgs e)
-		{
+        private void XPBitmapButton_EnabledChanged(object sender, EventArgs e)
+        {
             UpdateImages();
         }
 
-	    private void UpdateImages()
-	    {
+        private void UpdateImages()
+        {
             if (_normalImage == null)
                 return;
 
-	        if (RightToLeft == RightToLeft.Yes ^ mirrored)
-	        {
-	            _normalImage = BidiHelper.Mirror(_normalImage);
+            if (RightToLeft == RightToLeft.Yes ^ mirrored)
+            {
+                _normalImage = BidiHelper.Mirror(_normalImage);
                 if (_disabledImage != null)
-	                _disabledImage = BidiHelper.Mirror(_disabledImage);
-	            mirrored = !mirrored;
+                    _disabledImage = BidiHelper.Mirror(_disabledImage);
+                mirrored = !mirrored;
             }
             Image = Enabled ? _normalImage : (_disabledImage ?? _normalImage);
         }
 
-	    private Bitmap _normalImage ;
-		private Bitmap _disabledImage ;
-	    private bool mirrored;
-	}
+        private Bitmap _normalImage;
+        private Bitmap _disabledImage;
+        private bool mirrored;
+    }
 }

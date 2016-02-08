@@ -32,9 +32,9 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
             this.buttonInsert = new System.Windows.Forms.Button();
             this.panelLayout = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(391, 373);
@@ -43,9 +43,9 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
             this.buttonCancel.TabIndex = 0;
             this.buttonCancel.Text = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
+            //
             // buttonInsert
-            // 
+            //
             this.buttonInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInsert.Location = new System.Drawing.Point(310, 373);
             this.buttonInsert.Name = "buttonInsert";
@@ -54,9 +54,9 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
             this.buttonInsert.Text = "buttonInsert";
             this.buttonInsert.UseVisualStyleBackColor = true;
             this.buttonInsert.Click += new System.EventHandler(this.buttonInsert_Click);
-            // 
+            //
             // panelLayout
-            // 
+            //
             this.panelLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -65,9 +65,9 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
             this.panelLayout.Name = "panelLayout";
             this.panelLayout.Size = new System.Drawing.Size(482, 367);
             this.panelLayout.TabIndex = 2;
-            // 
+            //
             // WebImageForm
-            // 
+            //
             this.AcceptButton = this.buttonInsert;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(478, 408);

@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 
 namespace OpenLiveWriter.Mshtml
 {
-	[ComImport, InterfaceType((short) 1), Guid("3050F683-98B5-11CF-BB82-00AA00BDCE0B")]
-	public interface ISegmentRaw
-	{
-		void GetPointers(
-			[In] IMarkupPointerRaw pIStart,
-			[In] IMarkupPointerRaw pIEnd);		
-	}
+    [ComImport, InterfaceType((short)1), Guid("3050F683-98B5-11CF-BB82-00AA00BDCE0B")]
+    public interface ISegmentRaw
+    {
+        void GetPointers(
+            [In] IMarkupPointerRaw pIStart,
+            [In] IMarkupPointerRaw pIEnd);
+    }
 }

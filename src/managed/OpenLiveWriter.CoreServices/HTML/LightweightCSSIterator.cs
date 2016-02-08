@@ -5,75 +5,73 @@ using OpenLiveWriter.HtmlParser.Parser;
 
 namespace OpenLiveWriter.CoreServices
 {
-	/// <summary>
-	/// Summary description for LightweightCSSIterator.
-	/// </summary>
-	public class LightweightCSSIterator
-	{
-		public LightweightCSSIterator(string css)
-		{
-			_css = css;
-		}
-		private string _css = null;
+    /// <summary>
+    /// Summary description for LightweightCSSIterator.
+    /// </summary>
+    public class LightweightCSSIterator
+    {
+        public LightweightCSSIterator(string css)
+        {
+            _css = css;
+        }
+        private string _css = null;
 
-		public void Parse()
-		{
-			CssParser parser = new CssParser(_css);
-			OnDocumentBegin();
-			while (true)
-			{
-				StyleElement element = parser.Next();
+        public void Parse()
+        {
+            CssParser parser = new CssParser(_css);
+            OnDocumentBegin();
+            while (true)
+            {
+                StyleElement element = parser.Next();
 
-				if (element == null)
-				{
-					OnDocumentEnd();
-					return;
-				}
+                if (element == null)
+                {
+                    OnDocumentEnd();
+                    return;
+                }
 
-				StyleText styleText = element as StyleText;
-				if (styleText != null)
-					OnStyleText(styleText);
+                StyleText styleText = element as StyleText;
+                if (styleText != null)
+                    OnStyleText(styleText);
 
-				StyleLiteral styleLiteral = element as StyleLiteral;
-				if (styleLiteral != null)
-					OnStyleLiteral(styleLiteral);
-			
-				StyleUrl styleUrl = element as StyleUrl;
-				if (styleUrl != null)
-					OnStyleUrl(styleUrl);
-                
-				StyleImport styleImport = element as StyleImport;
-				if (styleImport != null)
-					OnStyleImport(styleImport);
+                StyleLiteral styleLiteral = element as StyleLiteral;
+                if (styleLiteral != null)
+                    OnStyleLiteral(styleLiteral);
 
-				StyleComment styleComment = element as StyleComment;
-				if (styleComment != null)
-					OnStyleComment(styleComment);
-			}
-		}
+                StyleUrl styleUrl = element as StyleUrl;
+                if (styleUrl != null)
+                    OnStyleUrl(styleUrl);
 
-		protected virtual void OnDocumentBegin()
-		{}
+                StyleImport styleImport = element as StyleImport;
+                if (styleImport != null)
+                    OnStyleImport(styleImport);
 
-		protected virtual void OnDocumentEnd()
-		{}
+                StyleComment styleComment = element as StyleComment;
+                if (styleComment != null)
+                    OnStyleComment(styleComment);
+            }
+        }
 
-		protected virtual void OnStyleUrl(StyleUrl styleUrl)
-		{}
+        protected virtual void OnDocumentBegin()
+        { }
 
-		protected virtual void OnStyleLiteral(StyleLiteral styleLiteral)
-		{}
+        protected virtual void OnDocumentEnd()
+        { }
 
-		protected virtual void OnStyleImport(StyleImport styleImport)
-		{}
+        protected virtual void OnStyleUrl(StyleUrl styleUrl)
+        { }
 
-		protected virtual void OnStyleComment(StyleComment styleComment)
-		{}
+        protected virtual void OnStyleLiteral(StyleLiteral styleLiteral)
+        { }
 
-		protected virtual void OnStyleText(StyleText styleText)
-		{}
+        protected virtual void OnStyleImport(StyleImport styleImport)
+        { }
 
+        protected virtual void OnStyleComment(StyleComment styleComment)
+        { }
 
+        protected virtual void OnStyleText(StyleText styleText)
+        { }
 
-	}
+    }
 }

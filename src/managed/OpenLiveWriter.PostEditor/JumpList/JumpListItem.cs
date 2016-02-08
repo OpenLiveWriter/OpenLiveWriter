@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -19,9 +19,9 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// Creates a jump list item with the specified path.
         /// </summary>
         /// <param name="path">The path to the jump list item.</param>
-        /// <remarks>The file type should associate the given file  
+        /// <remarks>The file type should associate the given file
         /// with the calling application.</remarks>
-        public JumpListItem(string path)            
+        public JumpListItem(string path)
         {
             // Get the absolute path
             string absPath = ShellHelper.GetAbsolutePath(path);
@@ -35,7 +35,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
 
         /// <summary>
         /// Parsing name for this Object e.g. c:\Windows\file.txt,
-        /// or ::{Some Guid} 
+        /// or ::{Some Guid}
         /// </summary>
         private string internalParsingName = null;
 
@@ -106,7 +106,6 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// </summary>
         internal IShellItem2 nativeShellItem;
 
-
         /// <summary>
         /// Return the native ShellFolder object as newer IShellItem2
         /// </summary>
@@ -150,15 +149,15 @@ namespace OpenLiveWriter.PostEditor.JumpList
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
-            {               
-                internalParsingName = null;                                
+            {
+                internalParsingName = null;
             }
-           
+
             if (nativeShellItem != null)
             {
                 Marshal.ReleaseComObject(nativeShellItem);
                 nativeShellItem = null;
-            }            
+            }
         }
 
         /// <summary>

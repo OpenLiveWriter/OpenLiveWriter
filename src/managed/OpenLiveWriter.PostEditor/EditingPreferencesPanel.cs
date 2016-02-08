@@ -13,29 +13,28 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.PostEditor.Autoreplace;
 using OpenLiveWriter.PostEditor.WordCount;
-//using OpenLiveWriter.SpellChecker;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	public class EditingPreferencesPanel : PreferencesPanel
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private Container components = null;
+
+    public class EditingPreferencesPanel : PreferencesPanel
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private Container components = null;
 
         private GroupBox groupBoxEditing;
         private CheckBox checkBoxTypographic;
-	    private AutoreplacePreferences _autoReplacePreferences;
+        private AutoreplacePreferences _autoReplacePreferences;
         private CheckBox checkBoxSmartQuotes;
         private CheckBox checkBoxSpecialChars;
         private CheckBox checkBoxEmoticons;
 
         public EditingPreferencesPanel()
-		{
-			// This call is required by the Windows.Forms Form Designer.
-			InitializeComponent();
+        {
+            // This call is required by the Windows.Forms Form Designer.
+            InitializeComponent();
 
             if (!DesignMode)
             {
@@ -47,41 +46,41 @@ namespace OpenLiveWriter.PostEditor
                 checkBoxEmoticons.Text = Res.Get(StringId.AutoreplaceEmoticons);
             }
 
-	        PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Configuration.Settings.Images.EditingPanelBitmap.png") ;
+            PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Configuration.Settings.Images.EditingPanelBitmap.png");
 
-		    _autoReplacePreferences = new AutoreplacePreferences();
+            _autoReplacePreferences = new AutoreplacePreferences();
             _autoReplacePreferences.PreferencesModified += _autoReplacePreferences_PreferencesModified;
 
-	        checkBoxTypographic.Checked = _autoReplacePreferences.EnableTypographicReplacement;
+            checkBoxTypographic.Checked = _autoReplacePreferences.EnableTypographicReplacement;
             checkBoxTypographic.CheckedChanged += new EventHandler(checkBoxTypographic_CheckedChanged);
 
-	        checkBoxSmartQuotes.Checked = _autoReplacePreferences.EnableSmartQuotes;
-	        checkBoxSmartQuotes.Visible = !BidiHelper.IsRightToLeft;
+            checkBoxSmartQuotes.Checked = _autoReplacePreferences.EnableSmartQuotes;
+            checkBoxSmartQuotes.Visible = !BidiHelper.IsRightToLeft;
 
-	        checkBoxSpecialChars.Checked = _autoReplacePreferences.EnableSpecialCharacterReplacement;
+            checkBoxSpecialChars.Checked = _autoReplacePreferences.EnableSpecialCharacterReplacement;
             checkBoxSpecialChars.CheckedChanged += new EventHandler(checkBoxSpecialChars_CheckedChanged);
 
             checkBoxEmoticons.Checked = _autoReplacePreferences.EnableEmoticonsReplacement;
             checkBoxEmoticons.CheckedChanged += new EventHandler(checkBoxEmoticons_CheckedChanged);
-		}
-        
-	    private bool _layedOut = false;
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad (e);
+        }
+
+        private bool _layedOut = false;
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             if (!DesignMode && !_layedOut)
-			{
+            {
                 LayoutHelper.FixupGroupBox(groupBoxEditing);
                 _layedOut = true;
-			}
-		}
+            }
+        }
 
-		public override void Save()
-		{
+        public override void Save()
+        {
             if (_autoReplacePreferences.IsModified())
                 _autoReplacePreferences.Save();
-		}
+        }
 
         void checkBoxTypographic_CheckedChanged(object sender, EventArgs e)
         {
@@ -108,28 +107,28 @@ namespace OpenLiveWriter.PostEditor
             OnModified(EventArgs.Empty);
         }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Component Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.groupBoxEditing = new System.Windows.Forms.GroupBox();
             this.checkBoxSpecialChars = new System.Windows.Forms.CheckBox();
             this.checkBoxSmartQuotes = new System.Windows.Forms.CheckBox();
@@ -137,9 +136,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxEmoticons = new System.Windows.Forms.CheckBox();
             this.groupBoxEditing.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // groupBoxEditing
-            // 
+            //
             this.groupBoxEditing.Controls.Add(this.checkBoxSpecialChars);
             this.groupBoxEditing.Controls.Add(this.checkBoxSmartQuotes);
             this.groupBoxEditing.Controls.Add(this.checkBoxTypographic);
@@ -151,9 +150,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxEditing.TabIndex = 0;
             this.groupBoxEditing.TabStop = false;
             this.groupBoxEditing.Text = "Editing";
-            // 
+            //
             // checkBoxEmoticons
-            // 
+            //
             this.checkBoxEmoticons.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxEmoticons.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxEmoticons.Location = new System.Drawing.Point(16, 99);
@@ -163,9 +162,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxEmoticons.Text = "Replace text emoticons with emoticon graphics";
             this.checkBoxEmoticons.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxEmoticons.UseVisualStyleBackColor = true;
-            // 
+            //
             // checkBoxSpecialChars
-            // 
+            //
             this.checkBoxSpecialChars.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxSpecialChars.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxSpecialChars.Location = new System.Drawing.Point(16, 73);
@@ -175,34 +174,34 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxSpecialChars.Text = "Replace other special characters";
             this.checkBoxSpecialChars.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxSpecialChars.UseVisualStyleBackColor = true;
-            // 
+            //
             // checkBoxSmartQuotes
-            // 
+            //
             this.checkBoxSmartQuotes.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxSmartQuotes.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxSmartQuotes.Location = new System.Drawing.Point(16, 47);
             this.checkBoxSmartQuotes.Name = "checkBoxSmartQuotes";
             this.checkBoxSmartQuotes.Size = new System.Drawing.Size(312, 18);
             this.checkBoxSmartQuotes.TabIndex = 5;
-            this.checkBoxSmartQuotes.Text = "Replace \"straight quotes\" with ìsmart &quotesî";
+            this.checkBoxSmartQuotes.Text = "Replace \"straight quotes\" with ‚Äúsmart &quotes‚Äù";
             this.checkBoxSmartQuotes.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxSmartQuotes.UseVisualStyleBackColor = true;
             this.checkBoxSmartQuotes.CheckedChanged += new System.EventHandler(this.checkBoxSmartQuotes_CheckedChanged);
-            // 
+            //
             // checkBoxTypographic
-            // 
+            //
             this.checkBoxTypographic.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxTypographic.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxTypographic.Location = new System.Drawing.Point(16, 21);
             this.checkBoxTypographic.Name = "checkBoxTypographic";
             this.checkBoxTypographic.Size = new System.Drawing.Size(312, 18);
             this.checkBoxTypographic.TabIndex = 4;
-            this.checkBoxTypographic.Text = "Replace h&yphens (--) with dash (ó)";
+            this.checkBoxTypographic.Text = "Replace h&yphens (--) with dash (‚Äî)";
             this.checkBoxTypographic.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxTypographic.UseVisualStyleBackColor = true;
-            // 
+            //
             // EditingPrefencesPanel
-            // 
+            //
             this.AccessibleName = "Preferences";
             this.Controls.Add(this.groupBoxEditing);
             this.Name = "EditingPrefencesPanel";
@@ -212,9 +211,8 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxEditing.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-
-	}
+    }
 }

@@ -12,9 +12,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
     {
 
         public TiltDecoratorSettings(IProperties settings)
-		{
-			_settings = settings;
-		}
+        {
+            _settings = settings;
+        }
         private readonly IProperties _settings;
 
         public int TiltDegrees

@@ -7,13 +7,13 @@ using OpenLiveWriter.BlogClient;
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	public interface IBlogSettingsEditor : IDisposable
-	{
-		event EventHandler SettingsChanged;
-		void Init(BlogSettings settings);
-		Control EditorControl { get; }
-		void ApplySettings();
-		string Title { get; }
-	}
+
+    public interface IBlogSettingsEditor : IDisposable
+    {
+        event EventHandler SettingsChanged;
+        void Init(BlogSettings settings);
+        Control EditorControl { get; }
+        void ApplySettings();
+        string Title { get; }
+    }
 }

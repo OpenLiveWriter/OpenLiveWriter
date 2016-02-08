@@ -64,7 +64,7 @@ namespace OpenLiveWriter.BlogClient
                     Uri srcUri = new Uri(src);
                     if (srcUri.IsAbsoluteUri)
                     {
-                        // WinLive 248276: We want just the path portion since there could be an additional query or 
+                        // WinLive 248276: We want just the path portion since there could be an additional query or
                         // fragment on the URL that our regexs can't handle.
                         src = srcUri.GetLeftPart(UriPartial.Path);
                     }
@@ -186,7 +186,7 @@ namespace OpenLiveWriter.BlogClient
             {
                 foreach (XmlAttribute attr in single.Attributes)
                 {
-                    ((IHTMLElement) anchor).setAttribute(attr.Name, attr.Value, 0);
+                    ((IHTMLElement)anchor).setAttribute(attr.Name, attr.Value, 0);
                 }
             }
             else
@@ -203,7 +203,7 @@ namespace OpenLiveWriter.BlogClient
                 bool isMatch = true;
                 foreach (XmlAttribute attr in single.Attributes)
                 {
-                    string attrVal = ((IHTMLElement) anchor).getAttribute(attr.Name, 2) as string;
+                    string attrVal = ((IHTMLElement)anchor).getAttribute(attr.Name, 2) as string;
                     if (attrVal == null || attrVal != attr.Value)
                     {
                         isMatch = false;
@@ -259,7 +259,7 @@ namespace OpenLiveWriter.BlogClient
                 return;
 
             foreach (XmlAttribute attr in ((groupName != null) ? group : single).Attributes)
-                ((IHTMLElement) element).removeAttribute(attr.Name, 0);
+                ((IHTMLElement)element).removeAttribute(attr.Name, 0);
         }
     }
 

@@ -7,21 +7,21 @@ using mshtml;
 
 namespace OpenLiveWriter.Mshtml
 {
-	/// <summary>
-	/// Interface used for customizing editing behavior of MSHTML
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("3050f425-98b5-11cf-bb82-00aa00bdce0b")] 
-	public interface IElementBehaviorRaw
-	{
-		void Init( IElementBehaviorSite pBehaviorSite) ;
-        
-		void Notify( 
-			[In] int lEvent,
-			[Out][In] IntPtr pVar) ;
-        
-		void Detach() ;		
-	}
+    /// <summary>
+    /// Interface used for customizing editing behavior of MSHTML
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("3050f425-98b5-11cf-bb82-00aa00bdce0b")]
+    public interface IElementBehaviorRaw
+    {
+        void Init(IElementBehaviorSite pBehaviorSite);
+
+        void Notify(
+            [In] int lEvent,
+            [Out][In] IntPtr pVar);
+
+        void Detach();
+    }
 }
-	
+

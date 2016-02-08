@@ -14,7 +14,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
     {
         public AutoreplacePreferences() : base("Autoreplace")
         {
-            
+
         }
 
         public bool EnableSmartQuotes
@@ -27,7 +27,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             }
         }
         private bool _enableSmartQuotes;
-
 
         public bool EnableTypographicReplacement
         {
@@ -61,10 +60,10 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             }
             return phrases;
         }
-        
+
         public AutoreplacePhrase GetPhrase(string phrase)
         {
-            return new AutoreplacePhrase(phrase,(string)_autoReplacePhrases[phrase]);
+            return new AutoreplacePhrase(phrase, (string)_autoReplacePhrases[phrase]);
         }
 
         public void SetAutoreplacePhrase(string phrase, string replaceValue)
@@ -74,7 +73,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         }
 
         public void RemoveAutoreplacePhrase(string phrase)
-        { 
+        {
             _autoReplacePhrases.Remove(phrase);
             Modified();
         }
@@ -99,9 +98,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             AutoreplaceSettings.EnableSpecialCharacterReplacement = EnableSpecialCharacterReplacement;
             AutoreplaceSettings.EnableEmoticonsReplacement = EnableEmoticonsReplacement;
         }
-
-
-
 
     }
 }

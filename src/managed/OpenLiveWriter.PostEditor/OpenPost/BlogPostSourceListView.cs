@@ -10,118 +10,113 @@ using OpenLiveWriter.Interop.Windows;
 
 namespace OpenLiveWriter.PostEditor.OpenPost
 {
-	
-	public class BlogPostSourceListView : ListView
-	{
-		public BlogPostSourceListView()
-		{
-		}
 
-	
-		// separate initialize to prevent this code from executing in the designer
-		public void Initialize()
-		{
-			View = View.LargeIcon ;
-			MultiSelect = false ;
-			HideSelection = false ;
-			LabelEdit = false ;
-			LabelWrap = true ;
-			
-			_imageList = new ImageList();
-			_imageList.ImageSize = new Size(IMAGE_HEIGHT,IMAGE_WIDTH);
-			_imageList.ColorDepth = ColorDepth.Depth32Bit ;
-			_imageList.Images.Add( ResourceHelper.LoadAssemblyResourceBitmap("OpenPost.Images.SelectDraftPostings.png") ) ;
-			_imageList.Images.Add( ResourceHelper.LoadAssemblyResourceBitmap("OpenPost.Images.SelectRecentPostings.png") ) ;
-			_imageList.Images.Add( ResourceHelper.LoadAssemblyResourceBitmap("OpenPost.Images.SelectWebLogPostings.png") ) ;
-			LargeImageList = _imageList ;
+    public class BlogPostSourceListView : ListView
+    {
+        public BlogPostSourceListView()
+        {
+        }
 
-			// apply initial sizing
-			UpdateIconSize() ;
+        // separate initialize to prevent this code from executing in the designer
+        public void Initialize()
+        {
+            View = View.LargeIcon ;
+            MultiSelect = false ;
+            HideSelection = false ;
+            LabelEdit = false ;
+            LabelWrap = true ;
 
-			AddPostSource( new LocalDraftsPostSource(), DRAFT_IMAGE_INDEX ) ;
-			AddPostSource( new LocalRecentPostsPostSource(), RECENT_POSTS_IMAGE_INDEX ) ;
-			
-			foreach ( string blogId in BlogSettings.GetBlogIds() ) 
-				AddPostSource( new RemoteWeblogBlogPostSource(blogId), WEBLOG_IMAGE_INDEX ) ;
+            _imageList = new ImageList();
+            _imageList.ImageSize = new Size(IMAGE_HEIGHT,IMAGE_WIDTH);
+            _imageList.ColorDepth = ColorDepth.Depth32Bit ;
+            _imageList.Images.Add( ResourceHelper.LoadAssemblyResourceBitmap("OpenPost.Images.SelectDraftPostings.png") ) ;
+            _imageList.Images.Add( ResourceHelper.LoadAssemblyResourceBitmap("OpenPost.Images.SelectRecentPostings.png") ) ;
+            _imageList.Images.Add( ResourceHelper.LoadAssemblyResourceBitmap("OpenPost.Images.SelectWebLogPostings.png") ) ;
+            LargeImageList = _imageList ;
 
-			// call again to reflect scrollbars that may now exist
-			UpdateIconSize() ;
-		}
-	
+            // apply initial sizing
+            UpdateIconSize() ;
 
-		protected override void OnSizeChanged(EventArgs e)
-		{
-			base.OnSizeChanged (e);
-			UpdateIconSize() ;
-		}
+            AddPostSource( new LocalDraftsPostSource(), DRAFT_IMAGE_INDEX ) ;
+            AddPostSource( new LocalRecentPostsPostSource(), RECENT_POSTS_IMAGE_INDEX ) ;
 
-		
-		private void UpdateIconSize()
-		{
-			int width = Width - 8 ; // prevent horizontal scrollbar
-			if ( ControlHelper.ControlHasVerticalScrollbar(this) )
-				width -= SystemInformation.VerticalScrollBarWidth ;
+            foreach ( string blogId in BlogSettings.GetBlogIds() )
+                AddPostSource( new RemoteWeblogBlogPostSource(blogId), WEBLOG_IMAGE_INDEX ) ;
 
-			const int ICON_PADDING = 10;
-			int height = Convert.ToInt32(IMAGE_HEIGHT + (Font.GetHeight() * 2)) + ICON_PADDING ;
+            // call again to reflect scrollbars that may now exist
+            UpdateIconSize() ;
+        }
 
-			const uint LVM_FIRST = 0x1000 ;
-			const uint LVM_SETICONSPACING = (LVM_FIRST + 53) ;
-			User32.SendMessage( Handle, LVM_SETICONSPACING, UIntPtr.Zero, MessageHelper.MAKELONG(width,height) ) ;
-		}
-		
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged (e);
+            UpdateIconSize() ;
+        }
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				_imageList.Dispose() ;
+        private void UpdateIconSize()
+        {
+            int width = Width - 8 ; // prevent horizontal scrollbar
+            if ( ControlHelper.ControlHasVerticalScrollbar(this) )
+                width -= SystemInformation.VerticalScrollBarWidth ;
 
-			}
-			base.Dispose (disposing);
-		}
-			
+            const int ICON_PADDING = 10;
+            int height = Convert.ToInt32(IMAGE_HEIGHT + (Font.GetHeight() * 2)) + ICON_PADDING ;
 
-		public void SelectDrafts()
-		{
-			Items[0].Selected = true ;
-		}
+            const uint LVM_FIRST = 0x1000 ;
+            const uint LVM_SETICONSPACING = (LVM_FIRST + 53) ;
+            User32.SendMessage( Handle, LVM_SETICONSPACING, UIntPtr.Zero, MessageHelper.MAKELONG(width,height) ) ;
+        }
 
-		public void SelectRecentPosts()
-		{
-			Items[1].Selected = true ;
-		}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _imageList.Dispose() ;
 
-		public IPostEditorPostSource SelectedPostSource
-		{
-			get
-			{
-				IPostEditorPostSource postSource = null ;
-				foreach ( ListViewItem item in SelectedItems )
-				{
-					postSource = item.Tag as IPostEditorPostSource ;
-					break;
-				}
-				return postSource ;
-			}
-		}
+            }
+            base.Dispose (disposing);
+        }
 
-		private void AddPostSource( IPostEditorPostSource postSource, int imageIndex )
-		{
-			ListViewItem item = new ListViewItem();
-			item.Text = postSource.Name ;
-			item.Tag = postSource ;
-			item.ImageIndex = imageIndex ;
-			Items.Add(item) ;
-		}
+        public void SelectDrafts()
+        {
+            Items[0].Selected = true ;
+        }
 
-		private ImageList _imageList ;
-		private const int DRAFT_IMAGE_INDEX = 0 ;
-		private const int RECENT_POSTS_IMAGE_INDEX = 1;
-		private const int WEBLOG_IMAGE_INDEX = 2 ;
+        public void SelectRecentPosts()
+        {
+            Items[1].Selected = true ;
+        }
 
-		private const int IMAGE_WIDTH = 32 ;
-		private const int IMAGE_HEIGHT = 32 ;
+        public IPostEditorPostSource SelectedPostSource
+        {
+            get
+            {
+                IPostEditorPostSource postSource = null ;
+                foreach ( ListViewItem item in SelectedItems )
+                {
+                    postSource = item.Tag as IPostEditorPostSource ;
+                    break;
+                }
+                return postSource ;
+            }
+        }
 
-	}
+        private void AddPostSource( IPostEditorPostSource postSource, int imageIndex )
+        {
+            ListViewItem item = new ListViewItem();
+            item.Text = postSource.Name ;
+            item.Tag = postSource ;
+            item.ImageIndex = imageIndex ;
+            Items.Add(item) ;
+        }
+
+        private ImageList _imageList ;
+        private const int DRAFT_IMAGE_INDEX = 0 ;
+        private const int RECENT_POSTS_IMAGE_INDEX = 1;
+        private const int WEBLOG_IMAGE_INDEX = 2 ;
+
+        private const int IMAGE_WIDTH = 32 ;
+        private const int IMAGE_HEIGHT = 32 ;
+
+    }
 }

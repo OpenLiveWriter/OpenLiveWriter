@@ -5,8 +5,8 @@ using System;
 
 namespace OpenLiveWriter.CoreServices
 {
-	/// <summary>
-	/// Delegate used to invoke event handlers in the UI thread.
-	/// </summary>
-	public delegate void InvokeInUIThreadDelegate();
+    /// <summary>
+    /// Delegate used to invoke event handlers in the UI thread.
+    /// </summary>
+    public delegate void InvokeInUIThreadDelegate();
 }

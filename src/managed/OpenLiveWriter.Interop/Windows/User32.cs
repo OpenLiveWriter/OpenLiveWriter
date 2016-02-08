@@ -48,10 +48,8 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("User32.dll")]
         public static extern IntPtr SetCapture(IntPtr hWnd);
 
-
         [DllImport("User32.dll")]
         public static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
-
 
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr LoadCursor(
@@ -80,7 +78,6 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("User32.dll")]
         public static extern bool EnableWindow(IntPtr hcur, bool bEnable);
 
-
         [DllImport("User32.dll")]
         public static extern uint MsgWaitForMultipleObjects(
             uint nCount,
@@ -94,7 +91,7 @@ namespace OpenLiveWriter.Interop.Windows
         public static extern bool InvalidateRect(
             IntPtr hWnd,           // handle to window
             ref RECT lpRect,  // rectangle coordinates
-            //IntPtr lpRect,
+                              //IntPtr lpRect,
             bool bErase          // erase state
             );
 
@@ -104,8 +101,6 @@ namespace OpenLiveWriter.Interop.Windows
             IntPtr lpRect,       // pass IntPtr.Zero to invalidate entire window
             bool bErase          // erase state
             );
-
-
 
         [DllImport("User32.dll")]
         public static extern bool UpdateWindow(
@@ -136,24 +131,19 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("User32.dll")]
         public static extern bool IsWindowVisible(IntPtr hWnd);
 
-
-
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern bool SetWindowText(
             IntPtr hWnd,
             [MarshalAs(UnmanagedType.LPTStr)] string lpString
             );
 
-
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern uint RegisterWindowMessage(
             [MarshalAs(UnmanagedType.LPTStr)] string lpString
             );
 
-
         [DllImport("User32.dll")]
         public static extern bool DestroyIcon(IntPtr hIcon);
-
 
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr FindWindowEx(
@@ -195,10 +185,8 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("User32.dll")]
         public static extern IntPtr GetForegroundWindow();
 
-
         [DllImport("User32.dll")]
         public static extern bool BringWindowToTop(IntPtr hWnd);
-
 
         [DllImport("User32.dll")]
         public static extern Boolean GetWindowRect(IntPtr hWnd, ref RECT lpRect);
@@ -220,20 +208,20 @@ namespace OpenLiveWriter.Interop.Windows
             ref POINT lpPoint   // screen coordinates
             );
 
-        //If the function succeeds, the low-order word of the return value is the number of pixels added 
-        //to the horizontal coordinate of each source point in order to compute the horizontal 
-        //coordinate of each destination point; the high-order word is the number of pixels added 
-        //to the vertical coordinate of each source point in order to compute the vertical coordinate 
-        //of each destination point. 
-        //If the function fails, the return value is zero. Call SetLastError prior to calling this method 
-        //to differentiate an error return value from a legitimate "0" return value. 
+        //If the function succeeds, the low-order word of the return value is the number of pixels added
+        //to the horizontal coordinate of each source point in order to compute the horizontal
+        //coordinate of each destination point; the high-order word is the number of pixels added
+        //to the vertical coordinate of each source point in order to compute the vertical coordinate
+        //of each destination point.
+        //If the function fails, the return value is zero. Call SetLastError prior to calling this method
+        //to differentiate an error return value from a legitimate "0" return value.
 
-        //If hWndFrom or hWndTo (or both) are mirrored windows (that is, have WS_EX_LAYOUTRTL extended style), 
-        //MapWindowPoints will automatically adjust mirrored coordinates 
+        //If hWndFrom or hWndTo (or both) are mirrored windows (that is, have WS_EX_LAYOUTRTL extended style),
+        //MapWindowPoints will automatically adjust mirrored coordinates
         //if you pass two or less points in lpPoints.
         [DllImport("user32.dll", SetLastError = true)]
         public static extern int MapWindowPoints(
-            IntPtr hwndFrom,  //handle to window mapping from 
+            IntPtr hwndFrom,  //handle to window mapping from
             IntPtr hwndTo,   //handle to window mapping to
             ref POINT lpPoints, //array of points to map
             [MarshalAs(UnmanagedType.U4)] int cPoints //size of the array
@@ -251,9 +239,8 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("User32.dll")]
         public static extern Boolean AnimateWindow(IntPtr hWnd, uint dwTime, AW dwFlags);
 
-
         /// <summary>
-        /// The IsWindow function determines whether the specified 
+        /// The IsWindow function determines whether the specified
         /// window handle identifies an existing window.
         /// </summary>
         /// <param name="hWnd">
@@ -261,7 +248,7 @@ namespace OpenLiveWriter.Interop.Windows
         /// </param>
         /// <returns>
         /// If the window handle identifies an existing window, the return value is nonzero.
-        /// If the window handle does not identify an existing window, the return value is zero. 
+        /// If the window handle does not identify an existing window, the return value is zero.
         /// </returns>
         [DllImport("User32.dll")]
         public static extern Boolean IsWindow(IntPtr hWnd);
@@ -275,7 +262,7 @@ namespace OpenLiveWriter.Interop.Windows
         /// <summary>
         /// The GetDCEx function retrieves a handle to a display device context (DC) for the client
         /// area of a specified window or for the entire screen. You can use the returned handle in
-        /// subsequent GDI functions to draw in the DC. 
+        /// subsequent GDI functions to draw in the DC.
         /// </summary>
         [DllImport("user32.dll")]
         public static extern IntPtr GetDCEx(IntPtr hWnd, IntPtr region, UInt32 dw);
@@ -283,7 +270,7 @@ namespace OpenLiveWriter.Interop.Windows
         /// <summary>
         /// The ReleaseDC function releases a device context (DC), freeing it for use by other
         /// applications. The effect of the ReleaseDC function depends on the type of DC. It frees
-        /// only common and window DCs. It has no effect on class or private DCs. 
+        /// only common and window DCs. It has no effect on class or private DCs.
         /// </summary>
         [DllImport("user32.dll")]
         public static extern bool ReleaseDC(IntPtr hWnd, IntPtr dc);
@@ -291,7 +278,7 @@ namespace OpenLiveWriter.Interop.Windows
         /// <summary>
         /// The GetWindowLong function retrieves information about the specified window. The
         /// function also retrieves the 32-bit (long) value at the specified offset into the extra
-        /// window memory. 
+        /// window memory.
         /// </summary>
         [DllImport("user32.dll")]
         public static extern UInt32 GetWindowLong(IntPtr hWnd, int nIndex);
@@ -321,15 +308,12 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-
-
-
         [DllImport("User32.dll")]
         public static extern bool PeekMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
 
         /// <summary>
-        /// Translates virtual-key messages into character messages. The character 
-        /// messages are posted to the calling thread's message queue, to be read 
+        /// Translates virtual-key messages into character messages. The character
+        /// messages are posted to the calling thread's message queue, to be read
         /// the next time the thread calls the GetMessage or PeekMessage function.
         /// </summary>
         [DllImport("user32.dll")]
@@ -347,7 +331,7 @@ namespace OpenLiveWriter.Interop.Windows
         public delegate IntPtr HookDelegate(int nCode, UIntPtr wParam, IntPtr lParam);
 
         /// <summary>
-        /// Installs a windows hook procedure (used for low level filtering of 
+        /// Installs a windows hook procedure (used for low level filtering of
         /// keyboard, mouse, events, etc.)
         /// </summary>
         [DllImport("user32.dll")]
@@ -359,7 +343,6 @@ namespace OpenLiveWriter.Interop.Windows
         /// </summary>
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
 
         [DllImport("user32.dll")]
         public static extern int GetSystemMetrics(int nIndex);
@@ -381,8 +364,8 @@ namespace OpenLiveWriter.Interop.Windows
 
         /// <summary>
         /// Retrieves the status of the specified virtual key. The status specifies
-        /// whether the key is up, down, or toggled (on, off—alternating each time
-        /// the key is pressed). 
+        /// whether the key is up, down, or toggled (on, offâ€”alternating each time
+        /// the key is pressed).
         /// </summary>
         [DllImport("user32.dll")]
         public static extern short GetKeyState(int nVirtKey);
@@ -400,7 +383,6 @@ namespace OpenLiveWriter.Interop.Windows
             UIntPtr wParam,
             IntPtr lParam
             );
-
 
         [DllImport("user32.dll")]
         public static extern uint GetMenuItemID(IntPtr hMenu, int nPos);
@@ -433,15 +415,12 @@ namespace OpenLiveWriter.Interop.Windows
         [DllImport("user32.dll")]
         public static extern bool EnableMenuItem(IntPtr hMenu, uint uIDEnableItem, uint uEnable);
 
-
-
         /// <summary>
-        /// Registers a new clipboard format. This format can then be used as a valid 
+        /// Registers a new clipboard format. This format can then be used as a valid
         /// clipboard format. Return value is an integer id representing the format.
         /// </summary>
         [DllImport("User32.dll")]
         public static extern uint RegisterClipboardFormat(string lpszFormat);
-
 
         [DllImport("user32.dll", EntryPoint = "SetWindowLong", CharSet = CharSet.Unicode)]
         public static extern int SetWindowProc(IntPtr hWnd, int nIndex, WndProcDelegate lpWndProc);
@@ -480,7 +459,6 @@ namespace OpenLiveWriter.Interop.Windows
 
         [DllImport("user32.dll")]
         public static extern bool FlashWindow(IntPtr hwnd, Boolean bInvert);
-
 
         [DllImport("user32.dll")]
         public static extern bool FlashWindowEx(ref FLASHWINFO pfwi);
@@ -524,7 +502,6 @@ namespace OpenLiveWriter.Interop.Windows
             public static Int32 FLASHW_TIMERNOFG = 12;
         };
 
-
         // declaration for EnumWindows
         [DllImport("user32.dll")]
         public static extern bool EnumWindows(EnumWindowsDelegate lpEnumFunc, GCHandle lParam);
@@ -544,12 +521,12 @@ namespace OpenLiveWriter.Interop.Windows
 
         public const int EM_GETTEXTLENGTHEX = 0x0400 + 95;
 
-        public const int GTL_DEFAULT = 0;	// Do default (return # of chars)		
+        public const int GTL_DEFAULT = 0;	// Do default (return # of chars)
         public const int GTL_USECRLF = 1;	// Compute answer using CRLFs for paragraphs
-        public const int GTL_PRECISE = 2;	// Compute a precise answer					
-        public const int GTL_CLOSE = 4;	// Fast computation of a "close" answer		
-        public const int GTL_NUMCHARS = 8;	// Return number of characters			
-        public const int GTL_NUMBYTES = 16;	// Return number of _bytes_				
+        public const int GTL_PRECISE = 2;	// Compute a precise answer
+        public const int GTL_CLOSE = 4;	// Fast computation of a "close" answer
+        public const int GTL_NUMCHARS = 8;	// Return number of characters
+        public const int GTL_NUMBYTES = 16;	// Return number of _bytes_
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern int DrawTextEx(IntPtr hdc, StringBuilder lpchText, int cchText,
@@ -593,9 +570,8 @@ namespace OpenLiveWriter.Interop.Windows
             PREFIXONLY = 0x00200000
         }
 
-
         /////////////////////////////////////////////////////////////////////////////
-        /// Active Accessiblity API -- Available in Win98, Win2K, and WinXP 
+        /// Active Accessiblity API -- Available in Win98, Win2K, and WinXP
         /// (available as a redistributable component for Win95 and NT4/SP6)
         ///
 
@@ -608,9 +584,8 @@ namespace OpenLiveWriter.Interop.Windows
             Int32 idObject, Int32 idChild,
             uint dwEventThread, uint dwmsEventTime);
 
-
         /// <summary>
-        /// Sets an event hook function for a range of events. 
+        /// Sets an event hook function for a range of events.
         /// </summary>
         [DllImport("user32.dll")]
         public static extern IntPtr SetWinEventHook(
@@ -620,18 +595,16 @@ namespace OpenLiveWriter.Interop.Windows
             WINEVENT dwFlags);
 
         /// <summary>
-        /// Removes an event hook function created by a call to SetWinEventHook.		
+        /// Removes an event hook function created by a call to SetWinEventHook.
         /// </summary>
         [DllImport("user32.dll")]
         public static extern bool UnhookWinEvent(IntPtr hWinEventHook);
-
 
         /// <summary>
         /// Retrieves the time of the last input event.
         /// </summary>
         [DllImport("user32.dll")]
         public static extern bool GetLastInputInfo(out LASTINPUTINFO plii);
-
 
         //common dialogs
 
@@ -713,7 +686,7 @@ namespace OpenLiveWriter.Interop.Windows
 
         /// <summary>
         /// <see cref="UnmanagedType.ByValTStr"/> means that the string
-        /// should be marshalled as an array of TCHAR embedded in the 
+        /// should be marshalled as an array of TCHAR embedded in the
         /// structure.  This implies that the font names can be no larger
         /// than <see cref="LF_FACESIZE"/> including the terminating '\0'.
         /// That works out to 31 characters.
@@ -732,7 +705,6 @@ namespace OpenLiveWriter.Interop.Windows
         }
     }
 
-
     public struct NONCLIENTMETRICS
     {
         public int cbSize;
@@ -743,7 +715,7 @@ namespace OpenLiveWriter.Interop.Windows
         public int iCaptionHeight;
         /// <summary>
         /// Since <see cref="LOGFONT"/> is a struct instead of a class,
-        /// we don't have to do any special marshalling here.  Much 
+        /// we don't have to do any special marshalling here.  Much
         /// simpler this way.
         /// </summary>
         public LOGFONT lfCaptionFont;
@@ -757,15 +729,12 @@ namespace OpenLiveWriter.Interop.Windows
         public LOGFONT lfMessageFont;
     }
 
-
     /// <summary>
     /// Delegate to which messages for subclassed control will be redirected.
-    /// redirected. The delegate should invoke CallBaseWindowProc when it 
+    /// redirected. The delegate should invoke CallBaseWindowProc when it
     /// wishes to forward a message on to the underlying window.
     /// </summary>
     public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint uMsg, IntPtr wParam, IntPtr lParam);
-
-
 
     public struct WINDOWPLACEMENT
     {
@@ -775,8 +744,7 @@ namespace OpenLiveWriter.Interop.Windows
         public POINT ptMinPosition;
         public POINT ptMaxPosition;
         public RECT rcNormalPosition;
-    } ;
-
+    };
 
     [Flags]
     public enum QS : uint
@@ -797,7 +765,6 @@ namespace OpenLiveWriter.Interop.Windows
         ALLINPUT = INPUT | POSTMESSAGE | TIMER | PAINT | HOTKEY | SENDMESSAGE
     }
 
-
     public struct MF
     {
         public const uint BYCOMMAND = 0x00000000;
@@ -806,15 +773,11 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint DISABLED = 0x00000002;
     }
 
-
-
-
     public struct PM
     {
         public const uint NOREMOVE = 0x0000;
         public const uint REMOVE = 0x0001;
     }
-
 
     // cursor values
     public class IDC
@@ -827,7 +790,6 @@ namespace OpenLiveWriter.Interop.Windows
     {
         public const uint NORMAL = 32512;
     }
-
 
     /// <summary>
     /// A structure representing a windows message
@@ -866,7 +828,6 @@ namespace OpenLiveWriter.Interop.Windows
         public POINT pt;
     }
 
-
     /// <summary>
     /// POINT used in MSG structure
     /// </summary>
@@ -882,7 +843,6 @@ namespace OpenLiveWriter.Interop.Windows
         /// </summary>
         public Int32 y;
     }
-
 
     /// <summary>
     /// Windows RECT structure
@@ -920,7 +880,7 @@ namespace OpenLiveWriter.Interop.Windows
     public struct SIZE
     {
         /// <summary>
-        /// Width 
+        /// Width
         /// </summary>
         public Int32 cx;
 
@@ -929,7 +889,6 @@ namespace OpenLiveWriter.Interop.Windows
         /// </summary>
         public Int32 cy;
     }
-
 
     /// <summary>
     /// Structure used with COPYDATASTRUCT
@@ -941,10 +900,8 @@ namespace OpenLiveWriter.Interop.Windows
         public IntPtr lpData;
     }
 
-
     // delegate signagure for EnumWindows callback
     public delegate bool EnumWindowsDelegate(IntPtr hwnd, GCHandle lParam);
-
 
     /// <summary>
     /// Constants for window styles
@@ -970,7 +927,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const UInt32 MAXIMIZEBOX = 0x00010000;
     }
 
-
     public struct MOD
     {
         public const uint ALT = 0x0001;
@@ -978,7 +934,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint SHIFT = 0x0004;
         public const uint WIN = 0x0008;
     }
-
 
     /// <summary>
     /// Constants for ShowWindow
@@ -1018,13 +973,10 @@ namespace OpenLiveWriter.Interop.Windows
         public const int HELP = 9;
     }
 
-
-
     public struct WPF
     {
         public const int RESTORETOMAXIMIZED = 0x0002;
     }
-
 
     [Flags]
     public enum AW : uint
@@ -1063,7 +1015,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint NOOWNERZORDER = 0x0200;
     }
 
-
     /// <summary>
     /// TrackPopupMenu flags
     /// </summary>
@@ -1079,9 +1030,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint VERNEGANIMATION = 0x2000;
         public const uint LAYOUTRTL = 0x8000;
     }
-
-
-
 
 
     /// <summary>
@@ -1346,7 +1294,6 @@ namespace OpenLiveWriter.Interop.Windows
         XBUTTON2 = 0x0040
     }
 
-
     /// <summary>
     /// Enumeration for windows hook types
     /// </summary>
@@ -1380,8 +1327,6 @@ namespace OpenLiveWriter.Interop.Windows
         public static readonly IntPtr MESSAGE = new IntPtr(-3);
     }
 
-
-
     /// <summary>
     /// Hook codes passed to HookDelegate
     /// </summary>
@@ -1414,7 +1359,6 @@ namespace OpenLiveWriter.Interop.Windows
         public static readonly IntPtr REPEAT = new IntPtr(0x4000);
         public static readonly IntPtr UP = new IntPtr(0x8000);
     }
-
 
     /// <summary>
     /// Active Accessibilty event constants (note: only the constants we are
@@ -1454,7 +1398,6 @@ namespace OpenLiveWriter.Interop.Windows
         // the client dll to be injected into every process)
     }
 
-
     public struct TTM
     {
         public const uint ADDTOOL = WM.USER + 50;
@@ -1467,7 +1410,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const uint TRACK = 0x0020;
         public const uint ABSOLUTE = 0x0080;
     }
-
 
     public struct TTS
     {
@@ -1488,7 +1430,6 @@ namespace OpenLiveWriter.Interop.Windows
         public IntPtr lParam;
     }
 
-
     public struct WINDOW_CLASS
     {
         public const string TOOLTIPS = "tooltips_class32";
@@ -1498,7 +1439,6 @@ namespace OpenLiveWriter.Interop.Windows
     public struct LASTINPUTINFO
     {
         public static readonly int SizeOf = Marshal.SizeOf(typeof(LASTINPUTINFO));
-
 
         [MarshalAs(UnmanagedType.U4)]
         public int cbSize;
@@ -1530,7 +1470,6 @@ namespace OpenLiveWriter.Interop.Windows
         public ushort atomWindowType;
         public ushort wCreatorVersion;
     }
-
 
     //for commong dialogs
     /// <summary>
@@ -1631,7 +1570,6 @@ namespace OpenLiveWriter.Interop.Windows
         public const Int32 WsExControlParent = 0x00010000;
     };
 
-
     /// <summary>
     /// An in-memory Win32 dialog template
     /// Note: this has a very specific structure with a single static "label" control
@@ -1727,7 +1665,5 @@ namespace OpenLiveWriter.Interop.Windows
         [FieldOffset(16)]
         public IntPtr ipFile;
     };
-
-
 
 }

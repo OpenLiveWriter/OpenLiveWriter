@@ -3,27 +3,26 @@
 
 namespace OpenLiveWriter.HtmlParser.Parser.FormAgent
 {
-	public class SubmitButton : FormElementWithValue
-	{
-		public SubmitButton(HtmlForm parentForm, string name, string value) : base(parentForm, name, value)
-		{
-		}
+    public class SubmitButton : FormElementWithValue
+    {
+        public SubmitButton(HtmlForm parentForm, string name, string value) : base(parentForm, name, value)
+        {
+        }
 
-		public override bool IsSuccessful
-		{
-			get { return false; }
-		}
+        public override bool IsSuccessful
+        {
+            get { return false; }
+        }
 
-		public override void AddData(FormData data)
-		{
-			if (Value != null)
-				base.AddData(data);
-		}
+        public override void AddData(FormData data)
+        {
+            if (Value != null)
+                base.AddData(data);
+        }
 
-
-		public FormData Click()
-		{
-			return ParentForm.Submit(this);
-		}
-	}
+        public FormData Click()
+        {
+            return ParentForm.Submit(this);
+        }
+    }
 }

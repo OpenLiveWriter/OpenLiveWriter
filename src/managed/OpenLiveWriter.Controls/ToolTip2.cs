@@ -36,11 +36,11 @@ namespace OpenLiveWriter.Controls
             e.DrawBorder();
             e.DrawText(TextFormatFlags.PreserveGraphicsClipping | TextFormatFlags.RightToLeft | TextFormatFlags.Right);
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            if (OwnerDraw) 
+            if (OwnerDraw)
                 Draw -= ToolTip2_Draw;
         }
     }

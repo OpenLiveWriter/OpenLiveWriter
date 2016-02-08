@@ -6,7 +6,7 @@ namespace mshtml
     using System;
     using System.Runtime.InteropServices;
 
-    [StructLayout(LayoutKind.Sequential, Pack=4), ComConversionLoss]
+    [StructLayout(LayoutKind.Sequential, Pack = 4), ComConversionLoss]
     public struct _HTML_PAINT_DRAW_INFO
     {
         public tagRECT rcViewport;

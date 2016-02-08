@@ -77,7 +77,6 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
         private bool _drawSelectionBorder = false;
 
-
         public override void GetPainterInfo(ref mshtml._HTML_PAINTER_INFO pInfo)
         {
             // ensure we paint above everything (including selection handles)

@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -18,7 +18,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
         private Bitmap _bitmapCached = null;
 
         public Emoticon(List<string> autoReplaceText, string altText, Bitmap bitmapStrip, int index, string id, string fileExtension)
-        {            
+        {
             AutoReplaceText = autoReplaceText;
             AltText = altText;
             _bitmapStrip = bitmapStrip;
@@ -34,7 +34,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
             get
             {
                 // WinLive 276619: Watson: System.InvalidOperationException: Object is currently in use elsewhere.
-                // We must protect against the Bitmap being referenced by multiple threads simultaneously.                
+                // We must protect against the Bitmap being referenced by multiple threads simultaneously.
                 if (_bitmapCached == null && _bitmapStrip != null && _index >= 0)
                 {
                     // Create a square bitmap out of the strip at location specified by _index
@@ -42,8 +42,8 @@ namespace OpenLiveWriter.PostEditor.Emoticons
                     lock (_bitmapStrip)
                     {
                         int emoSize = _bitmapStrip.Height;
-                        _bitmapCached = _bitmapStrip.Clone(new Rectangle(_index * emoSize, 0, emoSize, emoSize), _bitmapStrip.PixelFormat);                        
-                    }                    
+                        _bitmapCached = _bitmapStrip.Clone(new Rectangle(_index * emoSize, 0, emoSize, emoSize), _bitmapStrip.PixelFormat);
+                    }
                 }
 
                 return _bitmapCached;
@@ -57,7 +57,7 @@ namespace OpenLiveWriter.PostEditor.Emoticons
             get
             {
                 Debug.Assert(AutoReplaceText.Count > 0, AltText + " emoticon is missing auto-replace text!");
-                
+
                 if (AutoReplaceText.Count == 1)
                     return String.Format(CultureInfo.InvariantCulture, Res.Get(StringId.EmoticonsTooltipOneAutoReplace), AltText, AutoReplaceText[0]);
                 else

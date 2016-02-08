@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -48,7 +48,7 @@ namespace OpenLiveWriter.PostEditor
         OpenDialogOnInsertLinkDialog = 7,
 
         /// <summary>
-        /// Whether or not, in left-to-right languages, the option to change the reading direction of each paragraph 
+        /// Whether or not, in left-to-right languages, the option to change the reading direction of each paragraph
         /// should be enabled. This functionality is always enabled for right-to-left languages.
         /// </summary>
         RTLFeatures = 8,
@@ -65,8 +65,8 @@ namespace OpenLiveWriter.PostEditor
         TidyWhitespace = 10,
 
         /// <summary>
-        /// By default, images are centered by displaying the image as a block element and setting the left and right 
-        /// margins to auto. This flag forces the editor to center an image by wrapping it in an HTML 
+        /// By default, images are centered by displaying the image as a block element and setting the left and right
+        /// margins to auto. This flag forces the editor to center an image by wrapping it in an HTML
         /// &lt;p align="center"&gt; tag.
         /// </summary>
         CenterImageWithParagraph = 11,
@@ -129,8 +129,6 @@ namespace OpenLiveWriter.PostEditor
         Source = 4,
         PlainText = 8
     }
-
-
 
     [Flags]
     [Guid("ac667254-1b9d-4db8-83da-b026c730eff2")]
@@ -206,7 +204,7 @@ namespace OpenLiveWriter.PostEditor
             int dlControlFlags);
 
         /// <summary>
-        /// Creates an editor using the draft that was saved by the 
+        /// Creates an editor using the draft that was saved by the
         /// Save() function earlier from a IContentEditor
         /// </summary>
         /// <param name="contentEditorSite"></param>
@@ -222,7 +220,7 @@ namespace OpenLiveWriter.PostEditor
         //    int dlControlFlags);
 
         /// <summary>
-        /// Creates a editor using a html document.  The body will 
+        /// Creates a editor using a html document.  The body will
         /// become the editable region. Everything around the body
         ///  will become the template.
         /// </summary>
@@ -243,22 +241,21 @@ namespace OpenLiveWriter.PostEditor
             int dlControlFlags,
             string wpost);
 
-
         /// <summary>
-        /// Initialize the factory with settings that apply to 
+        /// Initialize the factory with settings that apply to
         /// all editors
         /// </summary>
         /// <param name="appDataPath">
-        /// Sets the path of where the ContentEditor can 
+        /// Sets the path of where the ContentEditor can
         /// save settings(log file, link glossary, etc...)
         /// e.g. C:\Users\user\AppData\Roaming\Open Live Writer
         /// </param>
-        /// <param name="registrySettingsPath"> 
-        /// Sets the path of where in the registry ContentEditor 
+        /// <param name="registrySettingsPath">
+        /// Sets the path of where in the registry ContentEditor
         /// can save settings.
         /// e.g. HKEY_CURRENT_USER\Software\Open Live Writer\Writer
         /// </param>
-        /// <param name="applicationName"> 
+        /// <param name="applicationName">
         /// Localized name of the application, will be shown to user in error messages
         /// </param>
         void Initialize(
@@ -268,16 +265,11 @@ namespace OpenLiveWriter.PostEditor
             ISettingsProvider settingsProvider);
 
         /// <summary>
-        /// Does clean up, and removes temp files, and 
+        /// Does clean up, and removes temp files, and
         /// disposes native resources
         /// </summary>
         void Shutdown();
-
-        /// <summary>
-        /// Spelling options
-        /// </summary>
-        void SetSpellingOptions(uint sobitOptions);
-
+        
         /// <summary>
         /// Preloads some of the costly work assoicated with creating a ContentEditor
         /// </summary>
@@ -285,11 +277,11 @@ namespace OpenLiveWriter.PostEditor
     }
 
     /// <summary>
-    /// IContentEditorLogger is a call back to do logging.  
+    /// IContentEditorLogger is a call back to do logging.
     /// This is not part of the IContentSite because
     /// there will need to be logging done before a ContentEditor
     /// is created and it is global to all ContentEditors
-    /// thus it must be passed in when the IContentEditorFactory 
+    /// thus it must be passed in when the IContentEditorFactory
     /// is created.
     /// </summary>
     [Guid("EB64D508-6B7E-404f-B832-A68E5C5D06F0")]
@@ -299,6 +291,5 @@ namespace OpenLiveWriter.PostEditor
     {
         void WriteLine(string message, int level);
     }
-
 
 }

@@ -44,7 +44,7 @@ using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.PostEditor.SupportingFiles;
 using OpenLiveWriter.PostEditor.Updates;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 using Timer = System.Windows.Forms.Timer;
 
 // @RIBBON TODO: Cleanly remove obsolete code
@@ -58,7 +58,7 @@ namespace OpenLiveWriter.PostEditor
         LTR = 2,
         RTL = 3,
         NoPlugins = 4,
-        HasPlugins = 5,        
+        HasPlugins = 5,
         Test = 31
     }
 
@@ -74,9 +74,9 @@ namespace OpenLiveWriter.PostEditor
         private Command commandSavePost;
         private Command commandDeleteDraft;
         private Command commandPostAsDraft;
-        private Command commandPostAsDraftAndEditOnline;        
+        private Command commandPostAsDraftAndEditOnline;
 
-        private Command commandColorize;        
+        private Command commandColorize;
         private CommandContextMenuDefinition _newPostContextMenuDefinition;
         private CommandContextMenuDefinition _savePostContextMenuDefinition;
 
@@ -87,21 +87,18 @@ namespace OpenLiveWriter.PostEditor
         private PostEditorPreferencesEditor _optionsEditor;
         private WeblogCommandManager _weblogCommandManager;
 
-//        private Bitmap statusNewPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusComposingPost.png");
-//        private Bitmap statusDraftPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusPosted.png");
-//        private Bitmap statusPublishedPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusPublished.png");
+        //        private Bitmap statusNewPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusComposingPost.png");
+        //        private Bitmap statusDraftPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusPosted.png");
+        //        private Bitmap statusPublishedPostBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusPublished.png");
 
         private System.Windows.Forms.Timer _autoSaveTimer;
         private System.Windows.Forms.Timer _autoSaveMessageDismissTimer;
 
-
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = new Container();
         #endregion
-
-
 
         #region Initialization/Disposal
 
@@ -122,7 +119,7 @@ namespace OpenLiveWriter.PostEditor
             // initialize UI
             InitializeUI();
 
-            // Initialize the editing manager 
+            // Initialize the editing manager
             InitializeEditingManager();
 
             // initialize our commands
@@ -163,7 +160,7 @@ namespace OpenLiveWriter.PostEditor
                 _htmlEditor
                 );
 
-            commandPluginsGallery = (GalleryCommand<string>) CommandManager.Get(CommandId.PluginsGallery);
+            commandPluginsGallery = (GalleryCommand<string>)CommandManager.Get(CommandId.PluginsGallery);
             commandPluginsGallery.StateChanged += new EventHandler(commandPluginsGallery_StateChanged);
             _editingManager.BlogChanged += new EventHandler(_editingManager_BlogChanged);
             _editingManager.BlogSettingsChanged += new WeblogSettingsChangedHandler(_editingManager_BlogSettingsChanged);
@@ -172,7 +169,7 @@ namespace OpenLiveWriter.PostEditor
             _editingManager.UserPublishedPost += new EventHandler(_editingManager_UserPublishedPost);
             _editingManager.UserDeletedPost += new EventHandler(_editingManager_UserDeletedPost);
 
-            // initialize auto-save timer 
+            // initialize auto-save timer
             _autoSaveTimer = new System.Windows.Forms.Timer(this.components);
             _autoSaveTimer.Interval = 5000;
             _autoSaveTimer.Tick += new EventHandler(_autoSaveTimer_Tick);
@@ -185,7 +182,7 @@ namespace OpenLiveWriter.PostEditor
         void commandPluginsGallery_StateChanged(object sender, EventArgs e)
         {
             UpdateRibbonMode();
-        }        
+        }
 
         private void InitializeCommands()
         {
@@ -222,10 +219,10 @@ namespace OpenLiveWriter.PostEditor
             _savePostContextMenuDefinition.Entries.Add(CommandId.SavePost, false, true);
             _savePostContextMenuDefinition.Entries.Add(CommandId.PostAsDraft, false, false);
             _savePostContextMenuDefinition.Entries.Add(CommandId.PostAsDraftAndEditOnline, false, false);
-            commandSavePost.CommandBarButtonContextMenuDropDown = true;            
+            commandSavePost.CommandBarButtonContextMenuDropDown = true;
 
             if (ApplicationDiagnostics.TestMode)
-            {                
+            {
                 _htmlEditor.CommandManager.Add(CommandId.DiagnosticsConsole, new EventHandler(commandDiagnosticsConsole_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ShowBetaExpiredDialogs, new EventHandler(commandShowBetaExpiredDialogs_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.ShowWebLayoutWarning, delegate { new WebLayoutViewWarningForm().ShowDialog(this); });
@@ -240,13 +237,13 @@ namespace OpenLiveWriter.PostEditor
                 _htmlEditor.CommandManager.Add(CommandId.ShowAtomImageEndpointSelector, new EventHandler(commandShowAtomImageEndpointSelector_Execute));
                 _htmlEditor.CommandManager.Add(CommandId.RaiseAssertion, delegate { Trace.Fail("You asked for it"); });
                 _htmlEditor.CommandManager.Add(CommandId.ShowGoogleCaptcha, delegate { new GDataCaptchaForm().ShowDialog(this); });
-                _htmlEditor.CommandManager.Add(CommandId.TerminateProcess, delegate { Process.GetCurrentProcess().Kill(); });               
+                _htmlEditor.CommandManager.Add(CommandId.TerminateProcess, delegate { Process.GetCurrentProcess().Kill(); });
             }
-           
+
             commandColorize = new Command(CommandId.Colorize);
             commandColorize.CommandBarButtonContextMenuHandler = new CommandBarButtonContextMenuHandler(new ColorizationContextHelper().Handler);
             _htmlEditor.CommandManager.Add(commandColorize);
-                       
+
             _htmlEditor.CommandManager.EndUpdate();
 
             // initialize the weblog menu commands
@@ -340,7 +337,6 @@ namespace OpenLiveWriter.PostEditor
             _mainEditorPanel = new Panel();
             _mainEditorPanel.Dock = DockStyle.Fill;
 
-
             //Controls.Add(_publishBar);
             Controls.Add(_mainEditorPanel);
         }
@@ -407,7 +403,7 @@ namespace OpenLiveWriter.PostEditor
                 mode |= ToAppMode(ApplicationMode.LTR);
                 mode &= ~ToAppMode(ApplicationMode.RTL);
             }
-                        
+
             if (commandPluginsGallery.Items.Count > 0)
             {
                 mode |= ToAppMode(ApplicationMode.HasPlugins);
@@ -417,18 +413,18 @@ namespace OpenLiveWriter.PostEditor
             {
                 mode |= ToAppMode(ApplicationMode.NoPlugins);
                 mode &= ~ToAppMode(ApplicationMode.HasPlugins);
-            }                           
+            }
 
             if (_framework != null)
             {
-                _framework.SetModes(mode);              
+                _framework.SetModes(mode);
             }
         }
 
         private void InvalidateCommand(CommandId commandId)
         {
             Command command = CommandManager.Get(commandId);
-            if(command != null)
+            if (command != null)
             {
                 command.Invalidate();
             }
@@ -438,7 +434,6 @@ namespace OpenLiveWriter.PostEditor
         {
             TestMode = ApplicationDiagnostics.TestMode;
         }
-
 
         [ComImport]
         [Guid("926749fa-2615-4987-8845-c33e65f2b957")]
@@ -458,28 +453,28 @@ namespace OpenLiveWriter.PostEditor
         private IUIFramework _framework;
         private IUIRibbon ribbon;
         private void InitializeRibbon()
-        {          
-  
-            IUIFramework framework = (IUIFramework)Activator.CreateInstance<Framework>();            
+        {
+
+            IUIFramework framework = (IUIFramework)Activator.CreateInstance<Framework>();
 
             Trace.Assert(framework != null, "Failed to create IUIFramework.");
 
-            ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);            
-            
-            int initializeResult = framework.Initialize(_mainFrameWindow.Handle, this);            
+            ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);
+
+            int initializeResult = framework.Initialize(_mainFrameWindow.Handle, this);
             Trace.Assert(initializeResult == HRESULT.S_OK, "Ribbon framework failed to initialize: " + initializeResult);
 
             _framework = framework;
 
             string nativeResourceDLL = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\OpenLiveWriter.Ribbon.dll";
             IntPtr hMod = Kernel32.LoadLibrary(nativeResourceDLL);
-            
+
             using (new QuickTimer("IUIRibbonFramework::LoadUI"))
-            {                
-                int loadResult = _framework.LoadUI(hMod, "RIBBON_RIBBON");                
-                Trace.Assert(loadResult == HRESULT.S_OK, "Ribbon failed to load: " + loadResult);                
-            }            
-            
+            {
+                int loadResult = _framework.LoadUI(hMod, "RIBBON_RIBBON");
+                Trace.Assert(loadResult == HRESULT.S_OK, "Ribbon failed to load: " + loadResult);
+            }
+
             _framework.SetModes(mode);
 
             CommandManager.Invalidate(CommandId.MRUList);
@@ -487,9 +482,9 @@ namespace OpenLiveWriter.PostEditor
             CommandManager.Invalidate(CommandId.OpenPostSplit);
 
             ApplicationDiagnostics.TestModeChanged += OnTestModeChanged;
-            TestMode = ApplicationDiagnostics.TestMode;            
-        }            
-    
+            TestMode = ApplicationDiagnostics.TestMode;
+        }
+
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
@@ -508,7 +503,6 @@ namespace OpenLiveWriter.PostEditor
             Update();
         }
 
-
         private void InitializeHtmlEditor()
         {
             // create the editor
@@ -516,18 +510,18 @@ namespace OpenLiveWriter.PostEditor
             _htmlEditor.TitleFocusChanged += new EventHandler(htmlEditor_TitleFocusChanged);
             _htmlEditor.Dirty += new EventHandler(htmlEditor_Dirty);
             _htmlEditor.EditorLoaded += new EventHandler(_htmlEditor_EditingModeChanged);
-            _htmlEditor.DocumentComplete += new EventHandler(_htmlEditor_DocumentComplete);            
+            _htmlEditor.DocumentComplete += new EventHandler(_htmlEditor_DocumentComplete);
         }
-        
+
         void _htmlEditor_DocumentComplete(object sender, EventArgs e)
         {
             _htmlEditor.FocusBody();
         }
 
         public void OnKeyboardLanguageChanged()
-        {            
-            //// Sync dictionary language with keyboard language (if enabled)            
-            //ushort currentLangId = (ushort) (User32.GetKeyboardLayout(0) & 0xFFFF);            
+        {
+            //// Sync dictionary language with keyboard language (if enabled)
+            //ushort currentLangId = (ushort) (User32.GetKeyboardLayout(0) & 0xFFFF);
             //SpellingLanguageEntry[] langs = SpellingSettings.GetInstalledLanguages();
             //foreach (var v in langs)
             //{
@@ -536,8 +530,8 @@ namespace OpenLiveWriter.PostEditor
             //        SpellingSettings.Language = v.Language;
             //        SpellingSettings.FireChangedEvent();
             //        break;
-            //    }                    
-            //}                        
+            //    }
+            //}
         }
 
         void _htmlEditor_EditingModeChanged(object sender, EventArgs e)
@@ -577,8 +571,6 @@ namespace OpenLiveWriter.PostEditor
             private PostEditorMainControl _parent;
         }
 
-
-
         private void InitializePostPropertyEditors()
         {
             _styleComboControl = new HtmlStylePicker(this._htmlEditor);
@@ -590,8 +582,7 @@ namespace OpenLiveWriter.PostEditor
             get { return _editingManager; }
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -623,9 +614,7 @@ namespace OpenLiveWriter.PostEditor
             base.Dispose(disposing);
         }
 
-
         #endregion
-
 
         #region Command Handlers
 
@@ -635,13 +624,11 @@ namespace OpenLiveWriter.PostEditor
             _editingManager.NewPost();
         }
 
-
         private void commandNewPage_Execute(object sender, EventArgs e)
         {
             WindowCascadeHelper.SetNextOpenedLocation(this._mainFrameWindow.Location);
             _editingManager.NewPage();
         }
-
 
         private void commandOpenDrafts_Execute(object sender, EventArgs e)
         {
@@ -661,7 +648,6 @@ namespace OpenLiveWriter.PostEditor
             _editingManager.OpenPost(OpenPostForm.OpenMode.Auto);
         }
 
-
         private void commandSavePost_Execute(object sender, EventArgs e)
         {
             // save the draft
@@ -680,12 +666,11 @@ namespace OpenLiveWriter.PostEditor
         {
             if (_editingManager.PublishAsDraft())
             {
-                // respect close settings 
+                // respect close settings
                 if (CloseWindowOnPublish)
                     CloseMainFrameWindow();
             }
         }
-
 
         private void commandPostAsDraftAndEditOnline_Execute(object sender, EventArgs e)
         {
@@ -694,7 +679,7 @@ namespace OpenLiveWriter.PostEditor
                 // edit post online
                 _editingManager.EditPostOnline(true);
 
-                // respect close settings 
+                // respect close settings
                 if (CloseWindowOnPublish)
                     CloseMainFrameWindow();
             }
@@ -708,7 +693,7 @@ namespace OpenLiveWriter.PostEditor
                 if (PostEditorSettings.ViewPostAfterPublish)
                     _editingManager.ViewPost();
 
-                // respect close settings 
+                // respect close settings
                 if (CloseWindowOnPublish)
                     CloseMainFrameWindow();
             }
@@ -869,7 +854,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private bool ValidateTitleSpecified()
         {
 
@@ -880,7 +864,7 @@ namespace OpenLiveWriter.PostEditor
                     // show error
                     DisplayMessage.Show(MessageId.NoTitleSpecified, FindForm());
 
-                    // focus the title and return false 
+                    // focus the title and return false
                     _htmlEditor.FocusTitle();
                     return false;
                 }
@@ -901,22 +885,20 @@ namespace OpenLiveWriter.PostEditor
             return true;
         }
 
-
         private bool CheckSpelling()
         {
             // do auto spell check
-            //if (SpellingSettings.CheckSpellingBeforePublish && _htmlEditor.CanSpellCheck)
-            //{
-            //    if (!_htmlEditor.CheckSpelling(_editingManager.GetPostSpellingContextDirectory()))
-            //    {
-            //        return (DialogResult.Yes == DisplayMessage.Show(MessageId.SpellCheckCancelledStillPost, _mainFrameWindow));
-            //    }
-            //}
+            if (SpellingSettings.CheckSpellingBeforePublish && _htmlEditor.CanSpellCheck)
+            {
+                if (!_htmlEditor.CheckSpelling())
+                {
+                    return (DialogResult.Yes == DisplayMessage.Show(MessageId.SpellCheckCancelledStillPost, _mainFrameWindow));
+                }
+            }
             return true;
         }
 
         #endregion
-
 
         #region Event handlers for UI state management
 
@@ -961,7 +943,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private void _weblogMenuManager_WeblogSelected(string blogId)
         {
             string currentBlogId = CurrentBlogId;
@@ -972,7 +953,6 @@ namespace OpenLiveWriter.PostEditor
             if (blogId != currentBlogId)
                 _htmlEditor.SetCurrentEditorDirty();
         }
-
 
         private void _editingManager_EditingStatusChanged(object sender, EventArgs e)
         {
@@ -1004,7 +984,6 @@ namespace OpenLiveWriter.PostEditor
 
             UpdateFrameUI();
         }
-
 
         private void htmlEditor_TitleFocusChanged(object sender, EventArgs e)
         {
@@ -1097,7 +1076,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         /// <summary>
         /// Responds to global blog deletion events.
         /// </summary>
@@ -1117,7 +1095,7 @@ namespace OpenLiveWriter.PostEditor
         {
             Debug.Assert(!InvokeRequired, "This method must be invoked on the UI thread!");
 
-            // if the current weblog got deleted as part of this operation then reselect the 
+            // if the current weblog got deleted as part of this operation then reselect the
             // new default weblog
             if (!BlogSettings.BlogIdIsValid(_editingManager.BlogId))
             {
@@ -1127,14 +1105,7 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Private Helper Methods
-
-
-        private string GetSpellingContextDirectory()
-        {
-            return _editingManager.GetPostSpellingContextDirectory();
-        }
 
         private void ManageCommands()
         {
@@ -1179,7 +1150,6 @@ namespace OpenLiveWriter.PostEditor
             _htmlEditor.StatusBar.SetStatusMessage(statusText);
         }
 
-
         private string FormatUtcDate(DateTime dateTime)
         {
             DateTime localDateTime = DateTimeHelper.UtcToLocal(dateTime);
@@ -1188,23 +1158,21 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            // 
+            //
             // PostEditorMainControl
-            // 
+            //
             this.Name = "PostEditorMainControl";
             this.Size = new System.Drawing.Size(499, 276);
 
         }
         #endregion
-
 
         #region IBlogPostEditingSite Members
 
@@ -1229,8 +1197,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
-
         void IBlogPostEditingSite.ConfigureWeblogFtpUpload(string blogId)
         {
             if (WeblogSettingsManager.EditFtpImageUpload(FindForm(), blogId))
@@ -1239,7 +1205,6 @@ namespace OpenLiveWriter.PostEditor
                 FireWeblogSettingsChangedEvent(blogId, false);
             }
         }
-
 
         bool IBlogPostEditingSite.UpdateWeblogTemplate(string blogID)
         {
@@ -1279,7 +1244,6 @@ namespace OpenLiveWriter.PostEditor
             return false;
         }
 
-
         void IBlogPostEditingSite.AddWeblog()
         {
             using (new WaitCursor())
@@ -1287,10 +1251,10 @@ namespace OpenLiveWriter.PostEditor
                 bool switchToWeblog;
                 string newBlogId = WeblogConfigurationWizardController.Add(this, true, out switchToWeblog);
                 if (newBlogId != null)
-                {                    
+                {
                     (this as IBlogPostEditingSite).NotifyWeblogAccountListEdited();
                     if (switchToWeblog)
-                    {                        
+                    {
                         _editingManager.SwitchBlog(newBlogId);
                     }
                 }
@@ -1316,7 +1280,6 @@ namespace OpenLiveWriter.PostEditor
         {
             FireWeblogSettingsChangedEvent(blogId, templateChanged);
         }
-
 
         void IBlogPostEditingSite.OpenLocalPost(PostInfo postInfo)
         {
@@ -1362,7 +1325,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public event EventHandler WeblogListChanged
         {
             add
@@ -1387,12 +1349,9 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         #endregion
 
-
         #region Implementation of post list changed event
-
 
         private void _editingManager_UserSavedPost(object sender, EventArgs e)
         {
@@ -1432,13 +1391,12 @@ namespace OpenLiveWriter.PostEditor
                 lock (_postListChangedListeners)
                 {
                     // first refresh the post-list cache for high-performance refresh
-                    PostListCache.Update();                    
+                    PostListCache.Update();
                     WriterJumpList.Invalidate(Handle);
-                    
+
                     CommandManager.Invalidate(CommandId.MRUList);
                     CommandManager.Invalidate(CommandId.OpenDraftSplit);
                     CommandManager.Invalidate(CommandId.OpenPostSplit);
-                    
 
                     // now notify all of the listeners asynchronously
                     foreach (DictionaryEntry listener in _postListChangedListeners)
@@ -1451,7 +1409,6 @@ namespace OpenLiveWriter.PostEditor
                     }
                 }
 
-
             }
             catch (Exception ex)
             {
@@ -1459,14 +1416,11 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private static Hashtable _postListChangedListeners = new Hashtable();
 
         #endregion
 
-
         #region Implementation of weblog settings changed event
-
 
         private static void RegisterWeblogSettingsChangedListener(Control controlContext, WeblogSettingsChangedHandler listener)
         {
@@ -1524,7 +1478,6 @@ namespace OpenLiveWriter.PostEditor
                     }
                 }
 
-
             }
             catch (Exception ex)
             {
@@ -1533,7 +1486,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private static Hashtable _weblogSettingsChangedListeners = new Hashtable();
-
 
         private static Hashtable _weblogListChangedListeners = new Hashtable();
         private static void FireWeblogListChangedEvent()
@@ -1562,7 +1514,6 @@ namespace OpenLiveWriter.PostEditor
                     }
                 }
 
-
             }
             catch (Exception ex)
             {
@@ -1571,7 +1522,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #endregion
-
 
         #region internal properties
 
@@ -1593,7 +1543,6 @@ namespace OpenLiveWriter.PostEditor
 
         #endregion
 
-
         public void OnClosing(CancelEventArgs e)
         {
         }
@@ -1608,7 +1557,6 @@ namespace OpenLiveWriter.PostEditor
         public void OnPostClosed() { }
 
         #region IBlogPostEditingSite Members
-
 
         public IHtmlStylePicker StyleControl
         {
@@ -1672,9 +1620,9 @@ namespace OpenLiveWriter.PostEditor
                 }
             }
         }
-        
+
         public void SaveRibbonSettings()
-        {            
+        {
             lock (_ribbonSettingsLock)
             {
                 try
@@ -1692,7 +1640,7 @@ namespace OpenLiveWriter.PostEditor
 
         private delegate int WithIStreamAction(IStream stream);
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="create">Create the stream if it doesn't exist, and make it writable.</param>
         /// <param name="onlyIfChanged"></param>
@@ -1704,7 +1652,7 @@ namespace OpenLiveWriter.PostEditor
             // while pinvoking and marshalling interface pointers.
             // If we are already in the process of saving/loading, then we can't do this action.
             // There is no user bad of skipping this in case of re-entrancy for the following reasons:
-            //  - If this is a Load and the one before is a Save, then we can skip this since we haven't finished saving to load anything. 
+            //  - If this is a Load and the one before is a Save, then we can skip this since we haven't finished saving to load anything.
             //  - And vice-versa.
             if (_ribbonSettingsLoadSaveActive)
             {
@@ -1768,13 +1716,13 @@ namespace OpenLiveWriter.PostEditor
                     mode |= STGM.CREATE;
                 const int FILE_ATTRIBUTE_NORMAL = 0x00000080;
                 IStream stream;
-                int hr = Shlwapi.SHCreateStreamOnFileEx(filename, (int) mode, FILE_ATTRIBUTE_NORMAL, create, IntPtr.Zero, out stream);
+                int hr = Shlwapi.SHCreateStreamOnFileEx(filename, (int)mode, FILE_ATTRIBUTE_NORMAL, create, IntPtr.Zero, out stream);
                 if (hr != HRESULT.S_OK)
                 {
                     Trace.WriteLine("Failed to create ribbon stream for " + filename + ": hr = " + hr.ToString("X8", CultureInfo.InvariantCulture));
                     return null;
                 }
-                               
+
                 return stream;
             }
             catch (Exception e)
@@ -1798,7 +1746,7 @@ namespace OpenLiveWriter.PostEditor
         #region Implementation of ISessionHandler
 
         public void OnEndSession()
-        {            
+        {
             _autoSaveTimer_Tick(null, EventArgs.Empty);
         }
 

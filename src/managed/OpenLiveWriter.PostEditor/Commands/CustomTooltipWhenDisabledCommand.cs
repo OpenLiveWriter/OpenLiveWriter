@@ -25,11 +25,11 @@ namespace OpenLiveWriter.PostEditor.Commands
             get
             {
                 return Enabled ? base.TooltipDescription : _disabledTooltipDescription;
-            }            
+            }
         }
 
         public override bool Enabled
-        {            
+        {
             set
             {
                 if (base.Enabled != value)
@@ -40,9 +40,9 @@ namespace OpenLiveWriter.PostEditor.Commands
         }
 
         public override int PerformExecute(CommandExecutionVerb verb, PropertyKeyRef key, PropVariantRef currentValue, IUISimplePropertySet commandExecutionProperties)
-        {            
+        {
             PerformExecuteWithArgs(verb, new ExecuteEventHandlerArgs());
             return HRESULT.S_OK;
-        }       
+        }
     }
 }

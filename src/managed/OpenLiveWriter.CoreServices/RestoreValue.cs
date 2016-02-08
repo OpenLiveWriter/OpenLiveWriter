@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -15,7 +15,7 @@ namespace OpenLiveWriter.CoreServices
     /// using (new RestoreBool(ref myBool, myTempValue, b => { myBool = b; })
     /// {
     ///     // Do whatever work here that requires the temp value.
-    /// }    
+    /// }
     /// </summary>
     public class RestoreBool : IDisposable
     {

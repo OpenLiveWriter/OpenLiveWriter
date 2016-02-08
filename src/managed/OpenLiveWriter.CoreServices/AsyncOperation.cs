@@ -10,52 +10,52 @@
 ///	 http://msdn.microsoft.com/msdnmag/issues/03/02/Multithreading/default.aspx
 ///
 /// To create a new class that supports cancellable, asychronous operations:
-/// 
+///
 /// (1) Derive a new class from AsyncOperation.
-/// 
+///
 /// (2) Implement a constructor that forwards an ISynchronizeInvoke instance
 ///     on the base class and accepts whatever custom initialization parameters
 ///     are requried for the class.
-///     
+///
 /// (2) Override the DoWork() method to perform the actual background work.
-/// 
+///
 /// (3) Within the DoWork implementation, periodically check the CancelRequested
 ///     property to see whether the caller wants to cancel. If this is the case
 ///     call the AcknowledgeCancel method to confirm that the cancel request
 ///     has been received and acted upon.
-///     
+///
 /// (4) If you want to fire custom events, use the protected FireEventSafely method
 ///     to safely propagate them to the calling thread. Calls to FireEventSafely must
 ///     be wrapped in a lock(this) block to preserve the thread-safety contract
 ///     of AsyncOperation.
-/// 
+///
 /// To use an AsyncOperation subclass:
-/// 
+///
 /// (1) Create a new instance of the subclass, passing in an ISynchronizeInvoke
-///     instance into the constructor. Normally this will be a control that 
-///     lives on the main UI thread, thus guaranteeing that all events fired 
-///     by the background operation will be propagated safely to the UI thread. 
-///     
+///     instance into the constructor. Normally this will be a control that
+///     lives on the main UI thread, thus guaranteeing that all events fired
+///     by the background operation will be propagated safely to the UI thread.
+///
 /// (2) Hookup to events as desired. The AsyncOperation base class supports
-///     Completed, Cancelled, and Failed events. 
-///     
-/// (3) Call the Start method. The operation will run until either firing the 
-///     Completed, Cancelled, or Failed event. 
-///    
+///     Completed, Cancelled, and Failed events.
+///
+/// (3) Call the Start method. The operation will run until either firing the
+///     Completed, Cancelled, or Failed event.
+///
 /// (4) You can check the IsDone property periodically to see if the operation
 ///     is still in progress. If you want to block waiting for the completion of
 ///     the background task you can call the WaitUntilDone method.
-///     
-/// (5) If you want the user to be able to cancel a running event, you can 
-///     call either the Cancel or CancelAndWait method. Cancel returns 
+///
+/// (5) If you want the user to be able to cancel a running event, you can
+///     call either the Cancel or CancelAndWait method. Cancel returns
 ///     immediately and CancelAndWait returns only after processing terminates.
-///     In either case the Completed, Cancelled, or Failed event may be 
+///     In either case the Completed, Cancelled, or Failed event may be
 ///     fired (since the background thread may or may not receive the cancel
-///     request prior to completing its task or encountering an error). The 
-///     CancelAndWait method will return true if the operation is either 
-///     successfully cancelled or fails, and false if it ends up running to 
+///     request prior to completing its task or encountering an error). The
+///     CancelAndWait method will return true if the operation is either
+///     successfully cancelled or fails, and false if it ends up running to
 ///     completion in spite of the cancel request.
-/// 
+///
 
 using System;
 using System.ComponentModel;
@@ -111,7 +111,6 @@ namespace OpenLiveWriter.CoreServices
             ThreadHelper.NewThread(new ThreadStart(InternalStart), GetType().Name, true, false, true).Start();
         }
 
-
         /// <summary>
         /// Attempt to cancel the current operation.  This returns
         /// immediately to the caller.  No guarantee is made as to
@@ -141,7 +140,6 @@ namespace OpenLiveWriter.CoreServices
                 // Set the cancelled flag
 
                 cancelledFlag = true;
-
 
                 // Now sit and wait either for the operation to
                 // complete or the cancellation to be acknowledged.
@@ -182,7 +180,6 @@ namespace OpenLiveWriter.CoreServices
             return HasCompleted;
         }
 
-
         /// <summary>
         /// Returns false if the operation is still in progress, or true if
         /// it has either completed successfully, been cancelled
@@ -211,14 +208,12 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public event EventHandler Completed;
 
-
         /// <summary>
         /// This event will be fired when the operation is successfully
         /// stoped through cancellation.  This event will be raised through
         /// the ISynchronizeTarget supplied at construction time.
         /// </summary>
         public event EventHandler Cancelled;
-
 
         /// <summary>
         /// This event will be fired if the operation throws an exception.
@@ -227,15 +222,12 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public event ThreadExceptionEventHandler Failed;
 
-
         /// <summary>
-        /// This event will fire whenever the progress of the operation 
+        /// This event will fire whenever the progress of the operation
         /// is updated. This event will be raised through the ISynchronizeTarget
         /// supplied at construction time.
         /// </summary>
         public event ProgressUpdatedEventHandler ProgressUpdated;
-
-
 
         /// <summary>
         /// The ISynchronizeTarget supplied during construction - this can
@@ -247,14 +239,12 @@ namespace OpenLiveWriter.CoreServices
         }
         private ISynchronizeInvoke isiTarget;
 
-
         /// <summary>
         /// To be overridden by the deriving class - this is where the work
         /// will be done.  The base class calls this method on a worker
         /// thread when the Start method is called.
         /// </summary>
         protected abstract void DoWork();
-
 
         /// <summary>
         /// Flag indicating whether the request has been cancelled.  Long-
@@ -270,7 +260,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private bool cancelledFlag;
-
 
         /// <summary>
         /// Flag indicating whether the request has run through to
@@ -294,7 +283,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private Exception exception;
-
 
         /// <summary>
         /// Called by subclasses to fire the UpdateProgress event
@@ -348,12 +336,10 @@ namespace OpenLiveWriter.CoreServices
         }
         private bool cancelAcknowledgedFlag;
 
-
         // Set to true if the operation fails with an exception.
         private bool failedFlag;
         // Set to true if the operation is running
         private bool isRunning;
-
 
         // This method is called on a worker thread (via asynchronous
         // delegate invocation).  This is where we call the operation (as
@@ -405,7 +391,6 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-
         // This is called when the operation runs to completion.
         // (This is private because it is called automatically
         // by this base class when the deriving class's DoWork
@@ -435,8 +420,6 @@ namespace OpenLiveWriter.CoreServices
                 FireEventSafely(Failed, this, new ThreadExceptionEventArgs(e));
             }
         }
-
-
 
         // Utility function for firing an event through the target.
         // It uses C#'s variable length parameter list support
@@ -480,8 +463,6 @@ namespace OpenLiveWriter.CoreServices
             base("Asynchronous operation already running")
         { }
     }
-
-
 
     /// <summary>
     /// Delegeate for handling Progress notification

@@ -7,327 +7,314 @@ using System.IO;
 using System.Xml;
 using System.Xml.XPath;
 using System.Collections;
-using System.Drawing ;
+using System.Drawing;
 using System.Diagnostics;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Settings;
-using OpenLiveWriter.PostEditor.ContentSources; 
-using OpenLiveWriter.BlogClient ;
+using OpenLiveWriter.PostEditor.ContentSources;
+using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.Extensibility.BlogClient;
-
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
 
-	internal sealed class BlogProviderAccountWizard 
-	{
-		public static IBlogProviderAccountWizardDescription[] InstalledAccountWizards
-		{
-			get
-			{
-				lock(_classLock)
-				{
-					if ( _installedAccountWizards == null )
-					{
-						ArrayList installedAccountWizards = new ArrayList();
-						
-						// load account wizards from registered xml descriptors
-						// (disabled for now)
-						//installedAccountWizards.AddRange(LoadAccountWizardsFromXml()) ;
+    internal sealed class BlogProviderAccountWizard
+    {
+        public static IBlogProviderAccountWizardDescription[] InstalledAccountWizards
+        {
+            get
+            {
+                lock (_classLock)
+                {
+                    if (_installedAccountWizards == null)
+                    {
+                        ArrayList installedAccountWizards = new ArrayList();
 
-						_installedAccountWizards = installedAccountWizards.ToArray(typeof(IBlogProviderAccountWizardDescription)) as IBlogProviderAccountWizardDescription[] ;
-					}
-					return _installedAccountWizards ;
-				}
-			}
-		}
-		private static IBlogProviderAccountWizardDescription[] _installedAccountWizards  ;
+                        // load account wizards from registered xml descriptors
+                        // (disabled for now)
+                        //installedAccountWizards.AddRange(LoadAccountWizardsFromXml()) ;
 
+                        _installedAccountWizards = installedAccountWizards.ToArray(typeof(IBlogProviderAccountWizardDescription)) as IBlogProviderAccountWizardDescription[];
+                    }
+                    return _installedAccountWizards;
+                }
+            }
+        }
+        private static IBlogProviderAccountWizardDescription[] _installedAccountWizards;
 
-		private static ArrayList LoadAccountWizardsFromXml()
-		{
-			ArrayList accountWizardsFromXml = new ArrayList();
-			
-			try
-			{
-				using ( SettingsPersisterHelper settingsKey = ApplicationEnvironment.UserSettingsRoot.GetSubSettings("AccountWizard\\Custom") )
-				{
-					foreach ( string customizationName in settingsKey.GetNames() )
-					{
-						IBlogProviderAccountWizardDescription wizardDescription = LoadAccountWizardFromXml(settingsKey.GetString(customizationName, String.Empty)) ;
-						if ( wizardDescription != null )
-							accountWizardsFromXml.Add(wizardDescription) ;
-					}
-				}
-			}
-			catch(Exception ex)
-			{
-				Trace.Fail("Unexpected exception in LoadAccountWizardsFromXml: " + ex.ToString());
-			}
+        private static ArrayList LoadAccountWizardsFromXml()
+        {
+            ArrayList accountWizardsFromXml = new ArrayList();
 
-			return accountWizardsFromXml ;
-		}
+            try
+            {
+                using (SettingsPersisterHelper settingsKey = ApplicationEnvironment.UserSettingsRoot.GetSubSettings("AccountWizard\\Custom"))
+                {
+                    foreach (string customizationName in settingsKey.GetNames())
+                    {
+                        IBlogProviderAccountWizardDescription wizardDescription = LoadAccountWizardFromXml(settingsKey.GetString(customizationName, String.Empty));
+                        if (wizardDescription != null)
+                            accountWizardsFromXml.Add(wizardDescription);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.Fail("Unexpected exception in LoadAccountWizardsFromXml: " + ex.ToString());
+            }
 
-		private static IBlogProviderAccountWizardDescription LoadAccountWizardFromXml(string xmlDocumentPath)
-		{
-			try
-			{
-				return new BlogProviderAccountWizardDescriptionFromXml(xmlDocumentPath) ;
-			}	
-			catch(Exception ex)
-			{
-				Trace.Fail(String.Format(CultureInfo.InvariantCulture, "Unexpected exception loading account wizard {0}: {1}", xmlDocumentPath, ex.ToString()));
-				return null ;
-			}
-		}
+            return accountWizardsFromXml;
+        }
 
-	
-		private static readonly object _classLock = new object() ;
-	}
+        private static IBlogProviderAccountWizardDescription LoadAccountWizardFromXml(string xmlDocumentPath)
+        {
+            try
+            {
+                return new BlogProviderAccountWizardDescriptionFromXml(xmlDocumentPath);
+            }
+            catch (Exception ex)
+            {
+                Trace.Fail(String.Format(CultureInfo.InvariantCulture, "Unexpected exception loading account wizard {0}: {1}", xmlDocumentPath, ex.ToString()));
+                return null;
+            }
+        }
 
-	internal interface IBlogProviderAccountWizardDescription
-	{
-		// identification
-		string ServiceName { get; }
-	
-		// welcome page
-		IBlogProviderWelcomePage WelcomePage { get; }
-	
-		// account creation link
-		IBlogProviderAccountCreationLink AccountCreationLink { get; }
-	}
+        private static readonly object _classLock = new object();
+    }
 
-	internal interface IBlogProviderWelcomePage
-	{
-		string Caption { get; }
-		string Text { get; }
-	}
+    internal interface IBlogProviderAccountWizardDescription
+    {
+        // identification
+        string ServiceName { get; }
 
-	internal interface IBlogProviderAccountCreationLink
-	{
-		Image Icon { get; }
-		string Text { get; }
-		string Url { get; }
-	}
+        // welcome page
+        IBlogProviderWelcomePage WelcomePage { get; }
 
-	
-	internal class BlogProviderAccountWizardDescription : IBlogProviderAccountWizardDescription
-	{
-		protected BlogProviderAccountWizardDescription()
-		{	
-		}
+        // account creation link
+        IBlogProviderAccountCreationLink AccountCreationLink { get; }
+    }
 
-		protected void Init(string serviceName, IBlogProviderWelcomePage welcomePage, IBlogProviderAccountCreationLink accountCreationLink)
-		{
-			if ( serviceName == null )
-				throw new ArgumentNullException("serviceName") ;
+    internal interface IBlogProviderWelcomePage
+    {
+        string Caption { get; }
+        string Text { get; }
+    }
 
-			_serviceName = serviceName ;
-			_welcomePage = welcomePage ;
-			_accountCreationLink = accountCreationLink ;
-		}
+    internal interface IBlogProviderAccountCreationLink
+    {
+        Image Icon { get; }
+        string Text { get; }
+        string Url { get; }
+    }
 
-	
-		public string ServiceName
-		{
-			get
-			{
-				return _serviceName ;
-			}
-		}
-		private string _serviceName ;
+    internal class BlogProviderAccountWizardDescription : IBlogProviderAccountWizardDescription
+    {
+        protected BlogProviderAccountWizardDescription()
+        {
+        }
 
-	
-		public IBlogProviderWelcomePage WelcomePage
-		{
-			get
-			{
-				return _welcomePage ;
-			}
-		}
-		private IBlogProviderWelcomePage _welcomePage ;
-	
+        protected void Init(string serviceName, IBlogProviderWelcomePage welcomePage, IBlogProviderAccountCreationLink accountCreationLink)
+        {
+            if (serviceName == null)
+                throw new ArgumentNullException("serviceName");
 
-		public IBlogProviderAccountCreationLink AccountCreationLink
-		{
-			get
-			{
-				return _accountCreationLink ;
-			}
-		}
-		private IBlogProviderAccountCreationLink _accountCreationLink  ;
-	
-	}
+            _serviceName = serviceName;
+            _welcomePage = welcomePage;
+            _accountCreationLink = accountCreationLink;
+        }
 
+        public string ServiceName
+        {
+            get
+            {
+                return _serviceName;
+            }
+        }
+        private string _serviceName;
 
-	internal class BlogProviderWelcomePage : IBlogProviderWelcomePage
-	{
-		public BlogProviderWelcomePage( string caption, string text )
-		{
-			_caption = caption ;
-			_text = text ;
-		}
+        public IBlogProviderWelcomePage WelcomePage
+        {
+            get
+            {
+                return _welcomePage;
+            }
+        }
+        private IBlogProviderWelcomePage _welcomePage;
 
-		public string Caption
-		{
-			get
-			{
-				return _caption ;
-			}
-		}
-		private string _caption ;
+        public IBlogProviderAccountCreationLink AccountCreationLink
+        {
+            get
+            {
+                return _accountCreationLink;
+            }
+        }
+        private IBlogProviderAccountCreationLink _accountCreationLink;
 
-		public string Text
-		{
-			get
-			{
-				return _text;
-			}
-		}
-		private string _text ;
-	}
+    }
 
-	internal abstract class BlogProviderAccountCreationLink : IBlogProviderAccountCreationLink
-	{
-		public BlogProviderAccountCreationLink( string text, string url)
-		{
-			_text = text ;
-			_url = url ;
-		}
+    internal class BlogProviderWelcomePage : IBlogProviderWelcomePage
+    {
+        public BlogProviderWelcomePage(string caption, string text)
+        {
+            _caption = caption;
+            _text = text;
+        }
 
-		public abstract Image Icon
-		{
-			get ;
-		}
-		
-		public string Text
-		{
-			get
-			{
-				return _text ;
-			}
-		}
-		private string _text;
+        public string Caption
+        {
+            get
+            {
+                return _caption;
+            }
+        }
+        private string _caption;
 
-		public string Url
-		{
-			get
-			{
-				return _url ;
-			}
-		}
-		private string _url ;
-	}
+        public string Text
+        {
+            get
+            {
+                return _text;
+            }
+        }
+        private string _text;
+    }
 
-	
-	internal class BlogProviderAccountCreationLinkFromResource : BlogProviderAccountCreationLink
-	{
-		public BlogProviderAccountCreationLinkFromResource( string imagePath, string text, string url)
-			: base(text, url)
-		{
-			_imagePath = imagePath ;
-		}
+    internal abstract class BlogProviderAccountCreationLink : IBlogProviderAccountCreationLink
+    {
+        public BlogProviderAccountCreationLink(string text, string url)
+        {
+            _text = text;
+            _url = url;
+        }
 
-		public override Image Icon
-		{
-			get
-			{
-				try
-				{
-					return ResourceHelper.LoadAssemblyResourceBitmap(_imagePath, true) ;
-				}
-				catch
-				{
-					Trace.Fail("accountCreationLink image path not found: " + _imagePath);
-					return null ;
-				}
-			}
-		}
+        public abstract Image Icon
+        {
+            get;
+        }
 
-		private string _imagePath ;
-		
-	}
+        public string Text
+        {
+            get
+            {
+                return _text;
+            }
+        }
+        private string _text;
 
-	internal class BlogProviderAccountCreationLinkFromFile : BlogProviderAccountCreationLink
-	{
-		public BlogProviderAccountCreationLinkFromFile( string imagePath, string text, string url)
-			: base(text, url)
-		{
-			_imagePath = imagePath ;
-		}
+        public string Url
+        {
+            get
+            {
+                return _url;
+            }
+        }
+        private string _url;
+    }
 
-		public override Image Icon
-		{
-			get
-			{
-				try
-				{
-					return new Bitmap(_imagePath) ;
-				}
-				catch
-				{
-					Trace.Fail("accountCreationLink image path not found: " + _imagePath);
-					return null ;
-				}
-			}
-		}
+    internal class BlogProviderAccountCreationLinkFromResource : BlogProviderAccountCreationLink
+    {
+        public BlogProviderAccountCreationLinkFromResource(string imagePath, string text, string url)
+            : base(text, url)
+        {
+            _imagePath = imagePath;
+        }
 
-		private string _imagePath ;
-	}
+        public override Image Icon
+        {
+            get
+            {
+                try
+                {
+                    return ResourceHelper.LoadAssemblyResourceBitmap(_imagePath, true);
+                }
+                catch
+                {
+                    Trace.Fail("accountCreationLink image path not found: " + _imagePath);
+                    return null;
+                }
+            }
+        }
 
-	internal class BlogProviderAccountWizardDescriptionFromXml : BlogProviderAccountWizardDescription
-	{
-		public BlogProviderAccountWizardDescriptionFromXml( string wizardDocumentPath )
-		{
-			// load the xml document
-			XmlDocument wizardDocument = new XmlDocument() ;
-			wizardDocument.Load( wizardDocumentPath ) ;
+        private string _imagePath;
 
-			// custom account wizard node
-			XmlNode customAccountWizardNode = wizardDocument.SelectSingleNode("//customAccountWizard") ;
-			if ( customAccountWizardNode == null )
-				throw new Exception("Required root element customAccountWizard not specified");
+    }
 
-			// service name
-			string serviceName = NodeText(customAccountWizardNode.SelectSingleNode("serviceName")) ;
-			if ( serviceName == String.Empty )
-				throw new Exception("Required element serviceName is not specified or empty") ;
+    internal class BlogProviderAccountCreationLinkFromFile : BlogProviderAccountCreationLink
+    {
+        public BlogProviderAccountCreationLinkFromFile(string imagePath, string text, string url)
+            : base(text, url)
+        {
+            _imagePath = imagePath;
+        }
 
-			// welcome page is optional
-			BlogProviderWelcomePage welcomePage = null ;
-			string welcomePageCaption = NodeText(customAccountWizardNode.SelectSingleNode("welcomePage/caption"));
-			string welcomePageText = NodeText(customAccountWizardNode.SelectSingleNode("welcomePage/text")) ;
-			if ( welcomePageCaption != String.Empty && welcomePageText != String.Empty )
-				welcomePage = new BlogProviderWelcomePage(welcomePageCaption, welcomePageText);
+        public override Image Icon
+        {
+            get
+            {
+                try
+                {
+                    return new Bitmap(_imagePath);
+                }
+                catch
+                {
+                    Trace.Fail("accountCreationLink image path not found: " + _imagePath);
+                    return null;
+                }
+            }
+        }
 
-			// account creation link is optional
-			BlogProviderAccountCreationLink accountCreationLink = null ;
-			string imagePath = NodeText(customAccountWizardNode.SelectSingleNode("accountCreationLink/imagePath")) ;
-			if ( imagePath != String.Empty )
-			{
-				if ( !Path.IsPathRooted(imagePath) )
-					imagePath = Path.Combine(Path.GetDirectoryName(wizardDocumentPath), imagePath) ;
-			}
-			string caption = NodeText(customAccountWizardNode.SelectSingleNode("accountCreationLink/caption")) ;
-			string link = NodeText(customAccountWizardNode.SelectSingleNode("accountCreationLink/link")) ;
-			if ( imagePath != String.Empty && caption != String.Empty && link != String.Empty )
-				accountCreationLink = new BlogProviderAccountCreationLinkFromFile(imagePath, caption, link);
+        private string _imagePath;
+    }
 
-			// initialize
-			Init(serviceName, welcomePage, accountCreationLink) ;
-		}
+    internal class BlogProviderAccountWizardDescriptionFromXml : BlogProviderAccountWizardDescription
+    {
+        public BlogProviderAccountWizardDescriptionFromXml(string wizardDocumentPath)
+        {
+            // load the xml document
+            XmlDocument wizardDocument = new XmlDocument();
+            wizardDocument.Load(wizardDocumentPath);
 
+            // custom account wizard node
+            XmlNode customAccountWizardNode = wizardDocument.SelectSingleNode("//customAccountWizard");
+            if (customAccountWizardNode == null)
+                throw new Exception("Required root element customAccountWizard not specified");
 
-		private string NodeText(XmlNode node)
-		{
-			if ( node != null )
-				return node.InnerText.Trim();
-			else
-				return String.Empty ;
-		}
-	}
+            // service name
+            string serviceName = NodeText(customAccountWizardNode.SelectSingleNode("serviceName"));
+            if (serviceName == String.Empty)
+                throw new Exception("Required element serviceName is not specified or empty");
 
-	
+            // welcome page is optional
+            BlogProviderWelcomePage welcomePage = null;
+            string welcomePageCaption = NodeText(customAccountWizardNode.SelectSingleNode("welcomePage/caption"));
+            string welcomePageText = NodeText(customAccountWizardNode.SelectSingleNode("welcomePage/text"));
+            if (welcomePageCaption != String.Empty && welcomePageText != String.Empty)
+                welcomePage = new BlogProviderWelcomePage(welcomePageCaption, welcomePageText);
 
+            // account creation link is optional
+            BlogProviderAccountCreationLink accountCreationLink = null;
+            string imagePath = NodeText(customAccountWizardNode.SelectSingleNode("accountCreationLink/imagePath"));
+            if (imagePath != String.Empty)
+            {
+                if (!Path.IsPathRooted(imagePath))
+                    imagePath = Path.Combine(Path.GetDirectoryName(wizardDocumentPath), imagePath);
+            }
+            string caption = NodeText(customAccountWizardNode.SelectSingleNode("accountCreationLink/caption"));
+            string link = NodeText(customAccountWizardNode.SelectSingleNode("accountCreationLink/link"));
+            if (imagePath != String.Empty && caption != String.Empty && link != String.Empty)
+                accountCreationLink = new BlogProviderAccountCreationLinkFromFile(imagePath, caption, link);
+
+            // initialize
+            Init(serviceName, welcomePage, accountCreationLink);
+        }
+
+        private string NodeText(XmlNode node)
+        {
+            if (node != null)
+                return node.InnerText.Trim();
+            else
+                return String.Empty;
+        }
+    }
 
 }

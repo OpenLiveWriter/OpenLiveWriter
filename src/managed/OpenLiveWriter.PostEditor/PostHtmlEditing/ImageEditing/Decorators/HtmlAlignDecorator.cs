@@ -19,7 +19,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         public void Decorate(ImageDecoratorContext context)
         {
-            if (context.InvocationSource == ImageDecoratorInvocationSource.Reset || 
+            if (context.InvocationSource == ImageDecoratorInvocationSource.Reset ||
                 context.InvocationSource == ImageDecoratorInvocationSource.InitialInsert)
             {
                 //set the default HTML for this decorator.

@@ -137,7 +137,7 @@ namespace OpenLiveWriter.PostEditor
     internal class PersistedFile
     {
         /// <summary>
-        /// If true, save the file to the smart content and 
+        /// If true, save the file to the smart content and
         /// recreate when necessary.
         /// </summary>
         public readonly bool PersistToPostFile;

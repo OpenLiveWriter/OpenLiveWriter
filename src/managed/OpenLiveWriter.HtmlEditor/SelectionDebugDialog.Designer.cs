@@ -1,4 +1,4 @@
-﻿namespace OpenLiveWriter.HtmlEditor
+namespace OpenLiveWriter.HtmlEditor
 {
     partial class SelectionDebugDialog
     {
@@ -30,9 +30,9 @@
         {
             this.listBoxSelection = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
+            //
             // listBoxSelection
-            // 
+            //
             this.listBoxSelection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxSelection.FormattingEnabled = true;
             this.listBoxSelection.Location = new System.Drawing.Point(0, 0);
@@ -40,9 +40,9 @@
             this.listBoxSelection.Size = new System.Drawing.Size(571, 420);
             this.listBoxSelection.TabIndex = 0;
             this.listBoxSelection.SelectedIndexChanged += new System.EventHandler(this.listBoxSelection_SelectedIndexChanged);
-            // 
+            //
             // SelectionDebugDialog
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 420);

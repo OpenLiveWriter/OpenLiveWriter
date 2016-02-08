@@ -6,19 +6,18 @@ using System.Windows.Forms;
 
 namespace OpenLiveWriter.InternalWriterPlugin.Controls
 {
-	internal class MapZoomMinusButton : MapBitmapButton
-	{
-		public MapZoomMinusButton() : base("ZoomMinus")
-		{
-		}
-	}
+    internal class MapZoomMinusButton : MapBitmapButton
+    {
+        public MapZoomMinusButton() : base("ZoomMinus")
+        {
+        }
+    }
 
-	internal class MapZoomPlusButton : MapBitmapButton
-	{
-		public MapZoomPlusButton() : base("ZoomPlus")
-		{
-		}
-	}
+    internal class MapZoomPlusButton : MapBitmapButton
+    {
+        public MapZoomPlusButton() : base("ZoomPlus")
+        {
+        }
+    }
 
-	
 }

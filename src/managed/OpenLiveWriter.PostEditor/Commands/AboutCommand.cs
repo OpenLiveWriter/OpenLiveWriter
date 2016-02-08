@@ -12,7 +12,7 @@ namespace OpenLiveWriter.PostEditor.Commands
     class AboutCommand : Command
     {
         public AboutCommand() : base(CommandId.About)
-        {            
+        {
         }
 
         public override string LabelTitle
@@ -20,7 +20,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             get
             {
                 return String.Format(CultureInfo.InvariantCulture, Res.Get(StringId.AboutAbout), ApplicationEnvironment.ProductNameQualified);
-            }            
+            }
         }
 
         public override string TooltipDescription
@@ -28,7 +28,7 @@ namespace OpenLiveWriter.PostEditor.Commands
             get
             {
                 return TextHelper.StripHotkey(LabelTitle);
-            }            
+            }
         }
     }
 }

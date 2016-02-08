@@ -21,7 +21,7 @@ namespace OpenLiveWriter.UnitTest.Interop
         [Test]
         public void Test()
         {
-            
+
         }
     }
 }

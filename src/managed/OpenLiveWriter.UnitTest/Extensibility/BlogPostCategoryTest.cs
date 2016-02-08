@@ -17,7 +17,7 @@ namespace OpenLiveWriter.UnitTest.Extensibility
         {
             /*
              * Known WordPress.com bug:
-             * 
+             *
              * If a category "Foo" exists and has a parent, attempting
              * to create a new category "Foo" with no parent returns the
              * existing category.

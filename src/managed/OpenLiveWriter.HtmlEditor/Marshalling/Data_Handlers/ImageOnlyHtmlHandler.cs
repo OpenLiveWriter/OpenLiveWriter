@@ -13,7 +13,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
 {
     /// <summary>
     // WinLive 96840 - Copying and pasting images within shared canvas should persist source
-    // decorator settings. 
+    // decorator settings.
     /// Helper function to add "wlCopySrcUrl" attribute from "src" attribute
     /// </summary>
     internal class ImageCopyFixupHelper
@@ -21,7 +21,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
         public static string FixupSourceUrlForCopy(string html)
         {
             // Note: This is not perfect but does the job. The search string could potentially
-            // match 'mysrc="hello"', and this will cause it to insert wlCopySrcUrl even for that. 
+            // match 'mysrc="hello"', and this will cause it to insert wlCopySrcUrl even for that.
             // But that is ok, it should be rare, worst case is an extra dummy attribute.
             Regex rxSrc = new Regex(@"\s*src\s*=\s*([""'])(.*?)\1",
                                  RegexOptions.CultureInvariant | RegexOptions.Compiled |
@@ -31,8 +31,8 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                                  RegexOptions.CultureInvariant | RegexOptions.Compiled |
                                  RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
-            return rxImg.Replace(html, new MatchEvaluator(match => 
-                rxSrc.Replace(match.Value, new MatchEvaluator(match2 => 
+            return rxImg.Replace(html, new MatchEvaluator(match =>
+                rxSrc.Replace(match.Value, new MatchEvaluator(match2 =>
                     string.Format(CultureInfo.InvariantCulture, " src=\"{0}\" wlCopySrcUrl=\"{0}\" ", match2.Groups[2].Value)))));
         }
     }
@@ -88,7 +88,7 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
 
         /// <summary>
         /// Grabs an HTML img copied in the clipboard and pastes it into the document.
-        /// </summary>		
+        /// </summary>
         protected override bool DoInsertData(DataAction action, MarkupPointer begin, MarkupPointer end)
         {
             using (new WaitCursor())

@@ -7,59 +7,57 @@ using OpenLiveWriter.Interop.Windows;
 
 namespace OpenLiveWriter.Interop.Com.ActiveDocuments
 {
-	/// <summary>
-	///
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("00000119-0000-0000-C000-000000000046")] 
-	public interface IOleInPlaceSite
-	{		
-		void GetWindow(
-			[Out] out IntPtr phwnd);   
-		
-		void ContextSensitiveHelp(
-			[In, MarshalAs(UnmanagedType.Bool)] bool fEnterMode);
+    /// <summary>
+    ///
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("00000119-0000-0000-C000-000000000046")]
+    public interface IOleInPlaceSite
+    {
+        void GetWindow(
+            [Out] out IntPtr phwnd);
 
-		[PreserveSig]
-		int CanInPlaceActivate() ;
+        void ContextSensitiveHelp(
+            [In, MarshalAs(UnmanagedType.Bool)] bool fEnterMode);
 
-		void OnInPlaceActivate() ;
+        [PreserveSig]
+        int CanInPlaceActivate();
 
-		void OnUIActivate() ;
+        void OnInPlaceActivate();
 
-		void GetWindowContext( 
-			[Out] out IOleInPlaceFrame ppFrame,
-			[Out] out IOleInPlaceUIWindow ppDoc,
-			[Out] out RECT lprcPosRect,
-			[Out] out RECT lprcClipRect,
-			[Out,In] ref OLEINPLACEFRAMEINFO lpFrameInfo) ;
-       
-		void Scroll(
-            [In] SIZE scrollExtant ) ;
+        void OnUIActivate();
 
-		void OnUIDeactivate(
-			[In, MarshalAs(UnmanagedType.Bool)] bool fUndoable) ;
+        void GetWindowContext(
+            [Out] out IOleInPlaceFrame ppFrame,
+            [Out] out IOleInPlaceUIWindow ppDoc,
+            [Out] out RECT lprcPosRect,
+            [Out] out RECT lprcClipRect,
+            [Out, In] ref OLEINPLACEFRAMEINFO lpFrameInfo);
 
-		void OnInPlaceDeactivate() ;
+        void Scroll(
+            [In] SIZE scrollExtant);
 
-		void DiscardUndoState() ;
-		
-		void DeactivateAndUndo() ;
+        void OnUIDeactivate(
+            [In, MarshalAs(UnmanagedType.Bool)] bool fUndoable);
 
-		void OnPosRectChange( 
-			[In] ref RECT lprcPosRect );
-	}
+        void OnInPlaceDeactivate();
 
+        void DiscardUndoState();
 
+        void DeactivateAndUndo();
 
-	public struct OLEINPLACEFRAMEINFO
-	{ 
-		public uint cb; 
-		[MarshalAs(UnmanagedType.Bool)] 
-		public bool fMDIApp; 
-		public IntPtr hwndFrame; 
-		public IntPtr haccel; 
-		public uint cAccelEntries; 
-	} 
+        void OnPosRectChange(
+            [In] ref RECT lprcPosRect);
+    }
+
+    public struct OLEINPLACEFRAMEINFO
+    {
+        public uint cb;
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool fMDIApp;
+        public IntPtr hwndFrame;
+        public IntPtr haccel;
+        public uint cAccelEntries;
+    }
 }

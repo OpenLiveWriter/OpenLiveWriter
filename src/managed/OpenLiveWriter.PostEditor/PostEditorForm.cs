@@ -32,7 +32,6 @@ namespace OpenLiveWriter.PostEditor
             Launch(BlogSettings.DefaultBlogId, splashScreen);
         }
 
-
         public static void Launch(string blogId, IDisposable splashScreen)
         {
             if (blogId == null)
@@ -42,7 +41,6 @@ namespace OpenLiveWriter.PostEditor
 
             Launch(new BlogPostEditingContext(blogId, new BlogPost()), splashScreen);
         }
-
 
         public static void Launch(IBlogPostEditingContext editingContext)
         {
@@ -93,7 +91,7 @@ namespace OpenLiveWriter.PostEditor
         private void CommonInit()
         {
             // Auto RTL fixup is way too expensive, since it happens
-            // after many controls are already created and showing 
+            // after many controls are already created and showing
             // onscreen. Do manual RTL mirroring instead.
             SuppressAutoRtlFixup = true;
 
@@ -171,9 +169,9 @@ namespace OpenLiveWriter.PostEditor
             SuspendLayout();
 
             // We defer post-synchronization until OnLoad because showing a dialog (which
-            // occurs if the sync takes more than a predefinied interval) too early in 
+            // occurs if the sync takes more than a predefinied interval) too early in
             // the life of the thread prevents the main post editor form from being able
-            // to subsequently come to the foreground (no idea why). Our approach is 
+            // to subsequently come to the foreground (no idea why). Our approach is
             // therefore to allow callers to request this service in the constructor
             // and then have it be executed here,
             if (_synchronizePost && _initialEditingContext != null)
@@ -210,14 +208,14 @@ namespace OpenLiveWriter.PostEditor
             // Make sure the main control has been created.
             // In the case of starting Writer with a maximized window
             // the WM_ACTIVATE call comes earlier then normal,
-            // and our control isn't created yet.  
+            // and our control isn't created yet.
             if (_postEditorMainControl != null)
                 _postEditorMainControl.LoadRibbonSettings();
         }
 
         protected override void OnDeactivate(EventArgs e)
         {
-            // Protected against the window being deactivated before 
+            // Protected against the window being deactivated before
             // the main control has been created.  This will happen everytime
             // OnActivated is called to early(because it is maximized) when
             // we create the mshtml editor and set the client site, the editor
@@ -258,7 +256,6 @@ namespace OpenLiveWriter.PostEditor
             return base.ProcessCmdKey(ref msg, keyData); ;
         }
 
-
         protected override Control CreateMainControl()
         {
             // create post editor manin control as appropriate
@@ -285,7 +282,6 @@ namespace OpenLiveWriter.PostEditor
             return _postEditorMainControl;
         }
         private PostEditorMainControl _postEditorMainControl;
-
 
         protected override void SaveNormalWindowState()
         {
@@ -427,7 +423,6 @@ Ignore - Do nothing",
         }
         private SizeF scale = new SizeF(1f, 1f); //currently applied scale
 
-
         string IMainFrameWindow.Caption
         {
             set { Text = value; }
@@ -515,9 +510,7 @@ Ignore - Do nothing",
             base.OnFormClosing(e);
         }
 
-
         #endregion
-
 
         public void OnKeyboardLanguageChanged()
         {
@@ -536,7 +529,6 @@ Ignore - Do nothing",
         {
 
         }
-
 
         private class UrlHandler
         {
@@ -566,6 +558,5 @@ Ignore - Do nothing",
 
         #endregion
     }
-
 
 }

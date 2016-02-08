@@ -7,10 +7,10 @@ namespace mshtml
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
 
-    [ComImport, Guid("3050F649-98B5-11CF-BB82-00AA00BDCE0B"), InterfaceType((short) 1)]
+    [ComImport, Guid("3050F649-98B5-11CF-BB82-00AA00BDCE0B"), InterfaceType((short)1)]
     public interface IHTMLChangeLog
     {
-        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType=MethodCodeType.Runtime)]
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetNextChange([In] ref byte pbBuffer, [In] int nBufferSize, out int pnRecordLength);
     }
 }

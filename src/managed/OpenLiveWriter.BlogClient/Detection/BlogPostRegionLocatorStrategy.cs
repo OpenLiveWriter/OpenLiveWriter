@@ -91,7 +91,6 @@ namespace OpenLiveWriter.BlogClient.Detection
             this.containsBlogPosts = promptForTempPost;
         }
 
-
         public override void PrepareRegions(IProgressHost progress)
         {
             TempPostWarningHelper helper = new TempPostWarningHelper(BlogClientUIContext.ContextForCurrentThread);
@@ -218,7 +217,6 @@ namespace OpenLiveWriter.BlogClient.Detection
                 // Subsequent attempts will use a 10 second delay.
                 // This means we'll try for 5 minutes (10s + 290s = 300s) before we consider the operation timed out.
                 Thread.Sleep(i < 10 ? 1000 : 10000);
-
 
                 HttpWebResponse resp = _pageDownloader(blogHomepageUrl, 60000);
                 memStream = new MemoryStream();
@@ -348,12 +346,12 @@ namespace OpenLiveWriter.BlogClient.Detection
         {
             blogHomepageContents.Seek(0, SeekOrigin.Begin);
             IHTMLDocument2 doc2 = HTMLDocumentHelper.GetHTMLDocumentFromStream(blogHomepageContents, _blogHomepageUrl);
-                        
-            // Ensure that the document is fully loaded.            
+
+            // Ensure that the document is fully loaded.
             // If it is not fully loaded, then viewing its current style is non-deterministic.
             DateTime startedDoingEvents = DateTime.Now;
             while (!progress.CancelRequested && !HTMLDocumentHelper.IsReady(doc2))
-            {                
+            {
                 if (DateTime.Now.Subtract(startedDoingEvents).TotalMilliseconds > 10000)
                 {
                     // Timing out here is not fatal.
@@ -361,8 +359,8 @@ namespace OpenLiveWriter.BlogClient.Detection
                     break;
                 }
 
-                Application.DoEvents();               
-            }            
+                Application.DoEvents();
+            }
 
             IHTMLElement[] titles = FindText(_titleText, doc2.body);
             IHTMLElement[] bodies = FindText(_bodyText, doc2.body);

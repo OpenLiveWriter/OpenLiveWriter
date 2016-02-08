@@ -6,10 +6,10 @@ using OpenLiveWriter.Api;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	public interface IBlogPostSidebarContext
-	{
-		bool SidebarVisible { get; set; }
-		event EventHandler SidebarVisibleChanged ;
+    public interface IBlogPostSidebarContext
+    {
+        bool SidebarVisible { get; set; }
+        event EventHandler SidebarVisibleChanged;
         SmartContentEditor CurrentEditor { get; }
-	}
+    }
 }

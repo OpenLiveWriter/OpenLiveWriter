@@ -4,12 +4,12 @@ namespace OpenLiveWriter.ApplicationFramework
 {
     partial class SeparatorControl
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -24,8 +24,8 @@ namespace OpenLiveWriter.ApplicationFramework
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -34,9 +34,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.pictureBoxSeparator = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSeparator)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // pictureBoxSeparator
-            // 
+            //
             this.pictureBoxSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -48,9 +48,9 @@ namespace OpenLiveWriter.ApplicationFramework
             this.pictureBoxSeparator.TabIndex = 0;
             this.pictureBoxSeparator.TabStop = false;
             this.pictureBoxSeparator.SizeMode = PictureBoxSizeMode.StretchImage;
-            // 
+            //
             // SeparatorControl
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.Controls.Add(this.pictureBoxSeparator);
             this.Name = "SeparatorControl";

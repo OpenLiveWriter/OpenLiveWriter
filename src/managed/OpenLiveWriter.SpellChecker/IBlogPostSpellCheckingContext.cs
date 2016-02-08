@@ -5,16 +5,15 @@ using System;
 
 namespace OpenLiveWriter.SpellChecker
 {
-	/// <summary>
-	/// Spelling checking services for the HTML Editor.
-	/// </summary>
-	public interface IBlogPostSpellCheckingContext
-	{
+    /// <summary>
+    /// Spelling checking services for the HTML Editor.
+    /// </summary>
+    public interface IBlogPostSpellCheckingContext
+    {
         bool CanSpellCheck { get; }
-		string PostSpellingContextDirectory { get; }
         ISpellingChecker SpellingChecker { get; }
-	    string AutoCorrectLexiconFilePath { get; }
-	    event EventHandler SpellingOptionsChanged;
-	}
+        string AutoCorrectLexiconFilePath { get; }
+        event EventHandler SpellingOptionsChanged;
+    }
 }
 

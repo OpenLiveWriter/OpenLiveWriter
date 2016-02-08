@@ -9,7 +9,6 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.Configuration;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 
-
 namespace OpenLiveWriter.PostEditor.Configuration.Settings
 {
 
@@ -66,7 +65,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             }
         }
 
-
         public static bool EditFtpImageUpload(IWin32Window owner, string id)
         {
             using (BlogSettings blogSettings = BlogSettings.ForBlogId(id))
@@ -83,7 +81,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
                 }
             }
         }
-
 
     }
 }

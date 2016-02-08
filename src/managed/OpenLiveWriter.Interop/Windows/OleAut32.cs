@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace OpenLiveWriter.Interop.Windows
 {
     internal static class OleAut32
-    {        
+    {
         [DllImport("OleAut32.dll", PreserveSig = true)] // psa is actually returned, not hresult
         internal extern static IntPtr SafeArrayCreateVector(ushort vt, int lowerBound, uint cElems);
 
@@ -29,6 +29,6 @@ namespace OpenLiveWriter.Interop.Windows
         // This decl for SafeArrayGetElement is only valid for cDims==1!
         [DllImport("OleAut32.dll", PreserveSig = false)] // returns hresult
         [return: MarshalAs(UnmanagedType.IUnknown)]
-        internal extern static object SafeArrayGetElement(IntPtr psa, ref int rgIndices);        
+        internal extern static object SafeArrayGetElement(IntPtr psa, ref int rgIndices);
     }
 }

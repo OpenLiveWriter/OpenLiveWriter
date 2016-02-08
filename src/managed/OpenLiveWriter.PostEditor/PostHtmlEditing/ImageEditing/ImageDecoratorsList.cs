@@ -12,49 +12,49 @@ using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-	public class ImageDecoratorsList : IEnumerable
-	{
-		private static string APPLIED_DECORATORS = "decoratorsList";
-		List<ImageDecorator> _decoratorsList = new List<ImageDecorator>();
-		Hashtable _decoratorsTable = new Hashtable();
-		BlogPostSettingsBag _decoratorsSettingsBag;
-		ImageDecoratorsManager _decoratorsManager;
-		
-		internal ImageDecoratorsList(ImageDecoratorsManager decoratorsManager, BlogPostSettingsBag settingsBag)
-			: this(decoratorsManager, settingsBag, true)
-		{
-			
-		}
+    public class ImageDecoratorsList : IEnumerable
+    {
+        private static string APPLIED_DECORATORS = "decoratorsList";
+        List<ImageDecorator> _decoratorsList = new List<ImageDecorator>();
+        Hashtable _decoratorsTable = new Hashtable();
+        BlogPostSettingsBag _decoratorsSettingsBag;
+        ImageDecoratorsManager _decoratorsManager;
 
-		internal ImageDecoratorsList(ImageDecoratorsManager decoratorsManager, BlogPostSettingsBag settingsBag, bool addDefaultBorderDecorator)
-		{
-			_decoratorsManager = decoratorsManager;
-			_decoratorsSettingsBag = settingsBag;
+        internal ImageDecoratorsList(ImageDecoratorsManager decoratorsManager, BlogPostSettingsBag settingsBag)
+            : this(decoratorsManager, settingsBag, true)
+        {
+
+        }
+
+        internal ImageDecoratorsList(ImageDecoratorsManager decoratorsManager, BlogPostSettingsBag settingsBag, bool addDefaultBorderDecorator)
+        {
+            _decoratorsManager = decoratorsManager;
+            _decoratorsSettingsBag = settingsBag;
             List<ImageDecorator> decorators = new List<ImageDecorator>();
 
-			string appliedDecorators = settingsBag.GetString(APPLIED_DECORATORS, "");
-			//Add all of the defined decorators from the settings bag to the decoratorslist.
-			//Bug fix note: collect decorators into an arraylist to avoid enumeration modified exception
-			//from _decoratorsSettingsBag.SubsettingNames when calling AddDecorator(decorator);
-			foreach(string decoratorId in appliedDecorators.Split(','))
-			{
-				ImageDecorator decorator = decoratorsManager.GetImageDecorator(decoratorId);
-				if(decorator != null)
-				{
-					decorators.Add(decorator);
-				}
-			}
+            string appliedDecorators = settingsBag.GetString(APPLIED_DECORATORS, "");
+            //Add all of the defined decorators from the settings bag to the decoratorslist.
+            //Bug fix note: collect decorators into an arraylist to avoid enumeration modified exception
+            //from _decoratorsSettingsBag.SubsettingNames when calling AddDecorator(decorator);
+            foreach (string decoratorId in appliedDecorators.Split(','))
+            {
+                ImageDecorator decorator = decoratorsManager.GetImageDecorator(decoratorId);
+                if (decorator != null)
+                {
+                    decorators.Add(decorator);
+                }
+            }
 
             AddDecorator(decorators.ToArray());
 
-			if ( addDefaultBorderDecorator && (BorderImageDecorator == null) )
-				AddDecorator(HtmlBorderDecorator.Id);
-		}
+            if (addDefaultBorderDecorator && (BorderImageDecorator == null))
+                AddDecorator(HtmlBorderDecorator.Id);
+        }
 
-		public BlogPostSettingsBag SettingsBag
-		{
-			get{ return _decoratorsSettingsBag; }
-		}
+        public BlogPostSettingsBag SettingsBag
+        {
+            get { return _decoratorsSettingsBag; }
+        }
 
         public void MergeDecorators(params string[] decoratorIds)
         {
@@ -73,21 +73,21 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             AddDecorator(decorators.ToArray());
         }
 
-		public void AddDecorator(string decoratorId)
-		{
-		    ImageDecorator decorator = _decoratorsManager.GetImageDecorator(decoratorId);
+        public void AddDecorator(string decoratorId)
+        {
+            ImageDecorator decorator = _decoratorsManager.GetImageDecorator(decoratorId);
             if (decorator == null)
             {
                 Trace.Fail("Attempted to add unregistered decorator " + decoratorId);
                 return;
             }
-		    AddDecorator(decorator);
-		}
+            AddDecorator(decorator);
+        }
 
-	    public void AddDecorator(params ImageDecorator[] decorators)
-		{
-			foreach(ImageDecorator decorator in decorators)
-			{
+        public void AddDecorator(params ImageDecorator[] decorators)
+        {
+            foreach (ImageDecorator decorator in decorators)
+            {
                 if (!_decoratorsList.Contains(decorator))
                 {
                     _decoratorsList.Add(decorator);
@@ -96,25 +96,25 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 }
                 else
                     Debug.Fail("Decorator already added: " + decorator.Id);
-			}
+            }
 
             EnforceInvariants();
-		    SaveDecoratorList();
-		}
+            SaveDecoratorList();
+        }
 
-	    protected void EnforceInvariants()
-	    {
+        protected void EnforceInvariants()
+        {
             if (_decoratorsList.Count == 0)
                 return;
 
             // Enforce ordering
-	        ArrayHelper.InsertionSort(_decoratorsList,
-	                                  delegate(ImageDecorator a, ImageDecorator b) { return Classify(a) - Classify(b); });
+            ArrayHelper.InsertionSort(_decoratorsList,
+                                      delegate (ImageDecorator a, ImageDecorator b) { return Classify(a) - Classify(b); });
 
-            foreach(ImageDecoratorGroup group in _decoratorsManager.ImageDecoratorGroups)
+            foreach (ImageDecoratorGroup group in _decoratorsManager.ImageDecoratorGroups)
                 if (group.MutuallyExclusive)
                     EnforceOneDecoratorForGroup(group);
-	    }
+        }
 
         protected ImageDecorator EnforceOneDecoratorForGroup(ImageDecoratorGroup group)
         {
@@ -129,11 +129,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return activeDecorators[activeDecorators.Count - 1];
         }
 
-	    /// <summary>
+        /// <summary>
         /// Specifies the order in which decorators need to appear.
         /// </summary>
-	    private static int Classify(ImageDecorator x)
-	    {
+        private static int Classify(ImageDecorator x)
+        {
             if (x.Id == CropDecorator.Id)
                 return -1;
             if (x.IsBorderDecorator)
@@ -141,10 +141,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             if (x.Id == TiltDecorator.Id)
                 return 2;
 
-	        return 0;
-	    }
+            return 0;
+        }
 
-	    public Size GetAdjustedOriginalSize(Size originalSize)
+        public Size GetAdjustedOriginalSize(Size originalSize)
         {
             foreach (ImageDecorator decorator in _decoratorsList)
             {
@@ -153,82 +153,81 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             return originalSize;
         }
 
-		private void SaveDecoratorList()
-		{
-			StringBuilder sb = new StringBuilder();
-			foreach(ImageDecorator decorator in _decoratorsList)
-			{
-				if(sb.Length > 0)
-					sb.Append(",");
-				sb.Append(decorator.Id);
-			}
-			_decoratorsSettingsBag.SetString(APPLIED_DECORATORS, sb.ToString());
-		}
+        private void SaveDecoratorList()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (ImageDecorator decorator in _decoratorsList)
+            {
+                if (sb.Length > 0)
+                    sb.Append(",");
+                sb.Append(decorator.Id);
+            }
+            _decoratorsSettingsBag.SetString(APPLIED_DECORATORS, sb.ToString());
+        }
 
-		private bool IsSettingsNamespaceInUse(string settingsNamespace)
-		{
-			foreach(ImageDecorator decorator in _decoratorsList)
-			{
-				if(decorator.SettingsNamespace == settingsNamespace)
-					return true;
-			}
-			return false;
-		}
+        private bool IsSettingsNamespaceInUse(string settingsNamespace)
+        {
+            foreach (ImageDecorator decorator in _decoratorsList)
+            {
+                if (decorator.SettingsNamespace == settingsNamespace)
+                    return true;
+            }
+            return false;
+        }
 
-
-		public void RemoveDecorator(ImageDecorator decorator)
-		{
-			_RemoveDecorator(decorator);
+        public void RemoveDecorator(ImageDecorator decorator)
+        {
+            _RemoveDecorator(decorator);
 
             EnforceInvariants();
 
             SaveDecoratorList();
         }
 
-		/// <summary>
-		/// Removes an decorator without saving the decorators list.
-		/// </summary>
-		public void _RemoveDecorator(ImageDecorator decorator)
-		{
-			_decoratorsList.Remove(decorator);
-			_decoratorsTable.Remove(decorator.Id);
+        /// <summary>
+        /// Removes an decorator without saving the decorators list.
+        /// </summary>
+        public void _RemoveDecorator(ImageDecorator decorator)
+        {
+            _decoratorsList.Remove(decorator);
+            _decoratorsTable.Remove(decorator.Id);
 
-			//if this was the last decorator assigned to the settings namespace, blow the namespace way
-			if(!IsSettingsNamespaceInUse(decorator.SettingsNamespace))
-			{
-				_decoratorsSettingsBag.RemoveSubSettings(decorator.SettingsNamespace);
-			}
+            //if this was the last decorator assigned to the settings namespace, blow the namespace way
+            if (!IsSettingsNamespaceInUse(decorator.SettingsNamespace))
+            {
+                _decoratorsSettingsBag.RemoveSubSettings(decorator.SettingsNamespace);
+            }
         }
 
-		public void RemoveAllDecorators()
-		{
-			_decoratorsList.Clear();
-			_decoratorsTable.Clear();
-			_decoratorsSettingsBag.Clear();
+        public void RemoveAllDecorators()
+        {
+            _decoratorsList.Clear();
+            _decoratorsTable.Clear();
+            _decoratorsSettingsBag.Clear();
 
             EnforceInvariants();
 
             SaveDecoratorList();
-		}
-		
-		public bool ContainsDecorator(string decoratorId)
-		{
-			return _decoratorsTable.ContainsKey(decoratorId);
-		}
+        }
 
-		public bool IsDecoratorEditable(string decoratorId)
-		{
-			ImageDecorator decorator = _decoratorsManager.GetImageDecorator(decoratorId);
-			return decorator != null && decorator.IsEditable;
-		}
+        public bool ContainsDecorator(string decoratorId)
+        {
+            return _decoratorsTable.ContainsKey(decoratorId);
+        }
 
-		public ImageDecorator BorderImageDecorator
-		{
-			get
-			{
-				return _decoratorsList.Find(d => d.GroupName == ImageDecoratorsManager.BORDER_GROUP);
-			}
-		}
+        public bool IsDecoratorEditable(string decoratorId)
+        {
+            ImageDecorator decorator = _decoratorsManager.GetImageDecorator(decoratorId);
+            return decorator != null && decorator.IsEditable;
+        }
+
+        public ImageDecorator BorderImageDecorator
+        {
+            get
+            {
+                return _decoratorsList.Find(d => d.GroupName == ImageDecoratorsManager.BORDER_GROUP);
+            }
+        }
 
         public ImageDecorator RecolorImageDecorator
         {
@@ -262,48 +261,48 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
-	    public float? EnforcedAspectRatio
-	    {
+        public float? EnforcedAspectRatio
+        {
             get
             {
                 return BorderImageDecorator != null && BorderImageDecorator.Id == PolaroidBorderDecorator.Id
                         ? PolaroidBorderDecorator.PortalAspectRatio
                         : (float?)null;
             }
-	    }
+        }
 
-		public IProperties GetImageDecoratorSettings(ImageDecorator decorator)
-		{
-			return new ImageDecoratorSettingsBagAdapter(_decoratorsSettingsBag.CreateSubSettings(decorator.SettingsNamespace));
-		}
+        public IProperties GetImageDecoratorSettings(ImageDecorator decorator)
+        {
+            return new ImageDecoratorSettingsBagAdapter(_decoratorsSettingsBag.CreateSubSettings(decorator.SettingsNamespace));
+        }
 
-		public IProperties GetImageDecoratorSettings(string decoratorId)
-		{
-			ImageDecorator decorator = _decoratorsManager.GetImageDecorator(decoratorId);
-			return new ImageDecoratorSettingsBagAdapter(_decoratorsSettingsBag.CreateSubSettings(decorator.SettingsNamespace));
-		}
+        public IProperties GetImageDecoratorSettings(string decoratorId)
+        {
+            ImageDecorator decorator = _decoratorsManager.GetImageDecorator(decoratorId);
+            return new ImageDecoratorSettingsBagAdapter(_decoratorsSettingsBag.CreateSubSettings(decorator.SettingsNamespace));
+        }
 
-		public ImageDecorator GetImageDecorator(string decoratorId)
-		{
-			return (ImageDecorator)_decoratorsTable[decoratorId];
-		}
+        public ImageDecorator GetImageDecorator(string decoratorId)
+        {
+            return (ImageDecorator)_decoratorsTable[decoratorId];
+        }
 
-		public IEnumerable GetImageDecoratorIds()
-		{
-			string[] decoratorIds = new string[_decoratorsList.Count];
-			for(int i=0; i<decoratorIds.Length; i++)
-			{
-				decoratorIds[i] = ((ImageDecorator)_decoratorsList[i]).Id;
-			}
-			return decoratorIds;
-		}
+        public IEnumerable GetImageDecoratorIds()
+        {
+            string[] decoratorIds = new string[_decoratorsList.Count];
+            for (int i = 0; i < decoratorIds.Length; i++)
+            {
+                decoratorIds[i] = ((ImageDecorator)_decoratorsList[i]).Id;
+            }
+            return decoratorIds;
+        }
 
-		#region IEnumerable Members
-		public IEnumerator GetEnumerator()
-		{
-			return _decoratorsList.GetEnumerator();
-		}
+        #region IEnumerable Members
+        public IEnumerator GetEnumerator()
+        {
+            return _decoratorsList.GetEnumerator();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -19,7 +19,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     {
         private OpenLiveWriter.Controls.AnimatedBitmapControl progressAnimatedBitmap;
         private ProgressBar progressBar;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
@@ -57,7 +57,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public void Start(IProgressProvider progressProvider, WizardController wizard)
         {
-            // save reference 
+            // save reference
             _progressProvider = progressProvider;
 
             // reset the progress UR and start the animiation
@@ -84,7 +84,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 progressAnimatedBitmap.Stop();
         }
 
-
         private void _progressProvider_ProgressUpdated(object sender, ProgressUpdatedEventArgs progressUpdatedHandler)
         {
             if (progressUpdatedHandler.ProgressMessage != "")
@@ -96,8 +95,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             progressBar.Value = progressUpdatedHandler.Completed;
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -115,8 +113,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -126,18 +124,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelProgress = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Controls.Add(this.labelProgress);
             this.panelMain.Controls.Add(this.progressBar);
             this.panelMain.Controls.Add(this.progressAnimatedBitmap);
             this.panelMain.Location = new System.Drawing.Point(48, 8);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(352, 224);
-            // 
+            //
             // progressAnimatedBitmap
-            // 
+            //
             this.progressAnimatedBitmap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.progressAnimatedBitmap.Bitmaps = null;
@@ -148,18 +146,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.progressAnimatedBitmap.Size = new System.Drawing.Size(320, 88);
             this.progressAnimatedBitmap.TabIndex = 3;
             this.progressAnimatedBitmap.UseVirtualTransparency = false;
-            // 
+            //
             // progressBar
-            // 
+            //
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(20, 144);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(352, 15);
             this.progressBar.TabIndex = 4;
-            // 
+            //
             // labelProgress
-            // 
+            //
             this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                 | System.Windows.Forms.AnchorStyles.Right)));
             this.labelProgress.FlatStyle = FlatStyle.Standard;
@@ -172,9 +170,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelProgress.AutoSize = false;
             this.labelProgress.AutoEllipsis = true;
             this.labelProgress.TextAlign = ContentAlignment.TopLeft;
-            // 
+            //
             // WeblogConfigurationWizardPanelProgress
-            // 
+            //
             this.Name = "WeblogConfigurationWizardPanelProgress";
             this.Size = new System.Drawing.Size(432, 244);
             this.panelMain.ResumeLayout(false);
