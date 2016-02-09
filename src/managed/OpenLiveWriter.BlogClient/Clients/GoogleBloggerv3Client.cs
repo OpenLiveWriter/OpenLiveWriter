@@ -337,7 +337,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new BlogPostKeyword[] { };
         }
 
-        public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
+        private PostList ListRecentPosts(string blogId, int maxPosts, DateTime? now, PostsResource.ListRequest.StatusEnum status)
         {
             var recentPostsRequest = GetService().Posts.List(blogId);
             if (now.HasValue)
@@ -347,10 +347,27 @@ namespace OpenLiveWriter.BlogClient.Clients
             recentPostsRequest.FetchImages = false;
             recentPostsRequest.MaxResults = maxPosts;
             recentPostsRequest.OrderBy = PostsResource.ListRequest.OrderByEnum.Published;
-            recentPostsRequest.Status = PostsResource.ListRequest.StatusEnum.Live;
+            recentPostsRequest.Status = status;
 
-            var recentPosts = recentPostsRequest.Execute();
-            return recentPosts.Items?.Select(ConvertToBlogPost).ToArray() ?? new BlogPost[0];
+            return recentPostsRequest.Execute();
+        }
+
+        public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now)
+        {
+            var draftRecentPostsList = ListRecentPosts(blogId, maxPosts, now, PostsResource.ListRequest.StatusEnum.Draft);
+            var liveRecentPostsList = ListRecentPosts(blogId, maxPosts, now, PostsResource.ListRequest.StatusEnum.Live);
+            var scheduledRecentPostsList = ListRecentPosts(blogId, maxPosts, now, PostsResource.ListRequest.StatusEnum.Scheduled);
+
+            var draftRecentPosts = draftRecentPostsList.Items ?? new List<Post>();
+            var liveRecentPosts = liveRecentPostsList.Items ?? new List<Post>();
+            var scheduledRecentPosts = scheduledRecentPostsList.Items ?? new List<Post>();
+
+            var allPosts = draftRecentPosts.Concat(liveRecentPosts).Concat(scheduledRecentPosts);
+            return allPosts
+                .OrderByDescending(p => p.Published)
+                .Take(maxPosts)
+                .Select(ConvertToBlogPost)
+                .ToArray() ?? new BlogPost[0];
         }
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -396,6 +413,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         public BlogPost GetPost(string blogId, string postId)
         {
             var getPostRequest = GetService().Posts.Get(blogId, postId);
+            getPostRequest.View = PostsResource.GetRequest.ViewEnum.AUTHOR;
             return ConvertToBlogPost(getPostRequest.Execute());
         }
 
@@ -408,24 +426,43 @@ namespace OpenLiveWriter.BlogClient.Clients
         public BlogPost GetPage(string blogId, string pageId)
         {
             var getPageRequest = GetService().Pages.Get(blogId, pageId);
+            getPageRequest.View = PagesResource.GetRequest.ViewEnum.AUTHOR;
             return ConvertToBlogPost(getPageRequest.Execute());
+        }
+
+        private PageList ListPages(string blogId, int? maxPages, PagesResource.ListRequest.StatusEnum status)
+        {
+            var getPagesRequest = GetService().Pages.List(blogId);
+            getPagesRequest.MaxResults = maxPages;
+            getPagesRequest.Status = status;
+            return getPagesRequest.Execute();
+        }
+
+        private IEnumerable<Page> ListAllPages(string blogId, int? maxPages)
+        {
+            var draftPageList = ListPages(blogId, maxPages, PagesResource.ListRequest.StatusEnum.Draft);
+            var livePageList = ListPages(blogId, maxPages, PagesResource.ListRequest.StatusEnum.Live);
+
+            var draftPages = draftPageList.Items ?? new List<Page>();
+            var livePages = livePageList.Items ?? new List<Page>();
+            return draftPages.Concat(livePages);
         }
 
         public PageInfo[] GetPageList(string blogId)
         {
-            var getPagesRequest = GetService().Pages.List(blogId);
-
-            var pageList = getPagesRequest.Execute();
-            return pageList.Items?.Select(ConvertToPageInfo).ToArray() ?? new PageInfo[0];
+            return ListAllPages(blogId, null)
+                .OrderByDescending(p => p.Published)
+                .Select(ConvertToPageInfo)
+                .ToArray() ?? new PageInfo[0];
         }
 
         public BlogPost[] GetPages(string blogId, int maxPages)
         {
-            var getPagesRequest = GetService().Pages.List(blogId);
-            getPagesRequest.MaxResults = maxPages;
-
-            var pageList = getPagesRequest.Execute();
-            return pageList.Items?.Select(ConvertToBlogPost).ToArray() ?? new BlogPost[0];
+            return ListAllPages(blogId, maxPages)
+                .OrderByDescending(p => p.Published)
+                .Select(ConvertToBlogPost)
+                .Take(maxPages)
+                .ToArray() ?? new BlogPost[0];
         }
 
         public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
