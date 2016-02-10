@@ -161,6 +161,8 @@ namespace OpenLiveWriter.PostEditor
             Directory.CreateDirectory(destinationRecentPosts);
             Directory.CreateDirectory(destinationDrafts);
 
+            _postEditorPreferences.SaveWebLogPostFolder();
+
             if (string.Compare(_originalFolder, _postEditorPreferences.WeblogPostsFolder, true, CultureInfo.CurrentUICulture) != 0)
             {
                 string message = "You  have updated the default location for your blog posts, would you like to move any existing posts?";
@@ -175,7 +177,7 @@ namespace OpenLiveWriter.PostEditor
                     MovePosts(Path.Combine(_originalFolder + @"\\Recent Posts\\"), destinationRecentPosts);
 
                     MovePosts(Path.Combine(_originalFolder + @"\\Drafts\\"), destinationDrafts);
-
+                    
                     PostEditorForm frm = Application.OpenForms?[0] as PostEditorForm;
                     if (frm != null)
                     { 
@@ -186,8 +188,6 @@ namespace OpenLiveWriter.PostEditor
                         }
                     }
                 }
-
-                _postEditorPreferences.Changed();
             }
 
             if (_postEditorPreferences.IsModified())
@@ -195,8 +195,6 @@ namespace OpenLiveWriter.PostEditor
 
             if (_wordCountPreferences.IsModified())
                 _wordCountPreferences.Save();
-
-            PostListCache.Update();
 
             _originalFolder = _postEditorPreferences.WeblogPostsFolder;
         }

@@ -109,5 +109,9 @@ namespace OpenLiveWriter.PostEditor
             PostEditorSettings.WeblogPostsFolder = WeblogPostsFolder;
         }
 
+        public void SaveWebLogPostFolder()
+        {
+            PostEditorSettings.WeblogPostsFolder = WeblogPostsFolder;
+        }
     }
 }
