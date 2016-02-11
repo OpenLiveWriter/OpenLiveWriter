@@ -294,6 +294,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         public void SaveChanges(BlogPost post, BlogPostSaveOptions options)
         {
+            controller.SaveChanges(post, options);
             ((IBlogPostEditor)postPropertiesForm).SaveChanges(post, options);
         }
 
