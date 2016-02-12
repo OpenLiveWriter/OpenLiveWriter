@@ -271,7 +271,25 @@ namespace OpenLiveWriter.PostEditor
             {
                 string fileName = Path.GetFileName(s);
                 string destFile = Path.Combine(destinationFolder, fileName);
-                File.Move(s, destFile);
+
+                MoveFile(s, destFile);
+            }
+        }
+
+        private void MoveFile(string sourcefile, string destinationfile)
+        {
+            if (File.Exists(destinationfile))
+            {
+                string newdestfilename = 
+                    Path.GetDirectoryName(destinationfile) + @"\" +
+                    Path.GetFileNameWithoutExtension(destinationfile) + "_Copy" +
+                    Path.GetExtension(destinationfile);
+
+                MoveFile(sourcefile, newdestfilename);
+            }
+            else
+            {
+                File.Move(sourcefile, destinationfile);
             }
         }
 
