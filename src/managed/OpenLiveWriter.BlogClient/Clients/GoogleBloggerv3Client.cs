@@ -80,7 +80,6 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Permalink = page.Url,
                 Contents = page.Content,
                 DatePublished = page.Published.Value,
-                //Keywords = string.Join(LabelDelimiter, page.Labels)
             };
         }
 
@@ -97,31 +96,39 @@ namespace OpenLiveWriter.BlogClient.Clients
             };
         }
 
-        private static Page ConvertToGoogleBloggerPage(BlogPost page)
+        private static Page ConvertToGoogleBloggerPage(BlogPost page, IBlogClientOptions clientOptions)
         {
             return new Page()
             {
                 Content = page.Contents,
-                // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
-                // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
-                Published = page.HasDatePublishedOverride ? page?.DatePublishedOverride : null,
+                Published = GetDatePublishedOverride(page, clientOptions),
                 Title = page.Title,
             };
         }
 
-        private static Post ConvertToGoogleBloggerPost(BlogPost post)
+        private static Post ConvertToGoogleBloggerPost(BlogPost post, IBlogClientOptions clientOptions)
         {
             var labels = post.Categories?.Select(x => x.Name).ToList();
             labels?.AddRange(post.NewCategories?.Select(x => x.Name) ?? new List<string>());
+
             return new Post()
             {
                 Content = post.Contents,
                 Labels = labels ?? new List<string>(),
-                // TODO:OLW - DatePublishedOverride didn't work quite right. Either the date published override was off by several hours, 
-                // needs to be normalized to UTC or the Blogger website thinks I'm in the wrong time zone.
-                Published = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null,
+                Published = GetDatePublishedOverride(post, clientOptions),
                 Title = post.Title,
             };
+        }
+
+        private static DateTime? GetDatePublishedOverride(BlogPost post, IBlogClientOptions clientOptions)
+        {
+            DateTime? datePublishedOverride = post.HasDatePublishedOverride ? post?.DatePublishedOverride : null;
+            if (datePublishedOverride.HasValue && clientOptions.UseLocalTime)
+            {
+                datePublishedOverride = DateTimeHelper.UtcToLocal(datePublishedOverride.Value);
+            }
+
+            return datePublishedOverride;
         }
 
         private static PageInfo ConvertToPageInfo(Page page)
@@ -160,6 +167,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsGetKeywords = false;
             clientOptions.SupportsPages = true;
             clientOptions.SupportsExtendedEntries = true;
+            clientOptions.UseLocalTime = true;
             _clientOptions = clientOptions;
 
             _nsMgr = new XmlNamespaceManager(new NameTable());
@@ -417,7 +425,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
 
-            var bloggerPost = ConvertToGoogleBloggerPost(post);
+            var bloggerPost = ConvertToGoogleBloggerPost(post, _clientOptions);
             var newPostRequest = GetService().Posts.Insert(bloggerPost, blogId);
             newPostRequest.IsDraft = !publish;
 
@@ -437,7 +445,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
 
-            var bloggerPost = ConvertToGoogleBloggerPost(post);
+            var bloggerPost = ConvertToGoogleBloggerPost(post, _clientOptions);
             var updatePostRequest = GetService().Posts.Update(bloggerPost, blogId, post.Id);
             updatePostRequest.Publish = publish;
 
@@ -543,7 +551,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
 
-            var bloggerPage = ConvertToGoogleBloggerPage(page);
+            var bloggerPage = ConvertToGoogleBloggerPage(page, _clientOptions);
             var newPageRequest = GetService().Pages.Insert(bloggerPage, blogId);
             newPageRequest.IsDraft = !publish;
 
@@ -563,7 +571,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
 
-            var bloggerPage = ConvertToGoogleBloggerPage(page);
+            var bloggerPage = ConvertToGoogleBloggerPage(page, _clientOptions);
             var updatePostRequest = GetService().Pages.Update(bloggerPage, blogId, page.Id);
             updatePostRequest.Publish = publish;
 
