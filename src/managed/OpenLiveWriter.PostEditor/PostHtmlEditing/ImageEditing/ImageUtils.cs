@@ -236,7 +236,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 //set the border color
                 Color borderColor = Color.White;
 
-                //create a version of the orginal bitmap that is reduced enough to make room for the dropshadow.
+                //create a version of the original bitmap that is reduced enough to make room for the dropshadow.
                 Bitmap enlargedBitmap = new Bitmap(
                     Convert.ToInt32(actualCrop.Width) + offset + borderLeft + borderRight,
                     Convert.ToInt32(actualCrop.Height) + offset + borderTop + borderBottom);

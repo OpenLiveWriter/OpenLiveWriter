@@ -75,7 +75,7 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
 #endif
 
     /// <summary>
-    /// Interace implemented by classes that want to add behaviors or effects to embedded images.
+    /// Interface implemented by classes that want to add behaviors or effects to embedded images.
     /// </summary>
     public interface IImageDecorator
     {

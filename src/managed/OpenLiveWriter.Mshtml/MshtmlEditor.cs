@@ -35,7 +35,7 @@ namespace OpenLiveWriter.Mshtml
         #region Initialization/Disposal
 
         /// <summary>
-        /// Construction. Some initialization is done here, the rest of the initialiation is
+        /// Construction. Some initialization is done here, the rest of the initialization is
         /// deferred until the document readyState is "complete"
         /// </summary>
         public MshtmlEditor(IServiceProviderRaw serviceProvider, MshtmlOptions mshtmlOptions, bool protectFocus)
@@ -173,7 +173,7 @@ namespace OpenLiveWriter.Mshtml
                     if (!_documentCompleteReadyStateFired)
                     {
                         // update flag indicating DocumentComplete ReadyState has been called
-                        // (used as a sanity check (see immediately above) on our assumpton that
+                        // (used as a sanity check (see immediately above) on our assumption that
                         // this is called only once)
                         _documentCompleteReadyStateFired = true;
 
@@ -210,7 +210,7 @@ namespace OpenLiveWriter.Mshtml
 
         private void AddEditDesigner()
         {
-            // NOTE: workaround for a bug in MshtmlControl where it caches the EditServices interface accross
+            // NOTE: workaround for a bug in MshtmlControl where it caches the EditServices interface across
             // multiple document loads -- if we could change the source we would just invalidate the ptr
             // after a load -- instead we just do the QueryService ourselves so we can get a different
             // pointer each time
@@ -273,7 +273,7 @@ namespace OpenLiveWriter.Mshtml
                 catch (COMException ex)
                 {
                     // There is a bug in IE where the HR is incorrectly set for RESPECTVISIBILITY_INDESIGN, but
-                    // the value is correctly set.  It is targetted to be fixed in IE9
+                    // the value is correctly set.  It is targeted to be fixed in IE9
                     const int E_NOTSUPPORTED = unchecked((int)0x80040100);
                     if (ex.ErrorCode == E_NOTSUPPORTED && (uint)editingOption.Key == IDM.RESPECTVISIBILITY_INDESIGN)
                     {
@@ -685,7 +685,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             catch (Exception ex)
             {
                 Trace.WriteLine("Unexpected error occurred during ShowContextMenu: " + ex.ToString());
-                return HRESULT.S_OK; // supress menu in case of error
+                return HRESULT.S_OK; // suppress menu in case of error
             }
         }
 
@@ -697,12 +697,12 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 if (BeforeShowContextMenuEventHandler != null)
                     BeforeShowContextMenuEventHandler(this, EventArgs.Empty);
 
-                // NOTE: The Supressing of UpdateUI notifications during display of the context menu was
+                // NOTE: The Suppressing of UpdateUI notifications during display of the context menu was
                 // necessary to fix Bug# 244853. The main editor hooks these notifications in order to
                 // update command states. Unfortunately this notification is called quite eagerly by the
-                // editor (mouse move causes it to fire), so command management was actually occuring
+                // editor (mouse move causes it to fire), so command management was actually occurring
                 // while the context menu was being created and shown. In some cases this caused the context
-                // menu to flash in and out of view (still not 100% clear on why). In any event, supressing
+                // menu to flash in and out of view (still not 100% clear on why). In any event, suppressing
                 // UpdateUI (and therefore command management) during the showing of context menus reliably
                 // fixes the problem.
                 SuppressUpdateUI = true;
@@ -901,7 +901,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             //	If the key was handled, return S_OK.  Otherwise, return S_FALSE.
             if (keyEventArgs.Handled)
             {
-                //translated accellerator
+                //translated accelerator
                 return HRESULT.S_OK;
             }
             else
@@ -946,7 +946,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         /// <param name="ppDispatch">Address of a pointer to a variable that receives an IDispatch interface pointer for the host application</param>
         void IDocHostUIHandler2.GetExternal(out IntPtr ppDispatch)
         {
-            // no external dispatch implementaiton available
+            // no external dispatch implementation available
             ppDispatch = IntPtr.Zero;
         }
 
@@ -954,7 +954,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         /// Delegate to DragAndDropManager for GetDropTarget
         /// </summary>
         /// <param name="pDropTarget">default implementation</param>
-        /// <param name="ppDropTarget">our implemetation</param>
+        /// <param name="ppDropTarget">our implementation</param>
         /// <returns>S_OK to indicate that we replaced implementation, otherwise E_NOTIMPL</returns>
         int IDocHostUIHandler2.GetDropTarget(OpenLiveWriter.Interop.Com.IDropTarget pDropTarget, out OpenLiveWriter.Interop.Com.IDropTarget ppDropTarget)
         {
@@ -1353,7 +1353,7 @@ editingOption.Key, editingOption.Value, ex.ToString()));
         private bool _isDirty = false;
 
         /// <summary>
-        /// Flag indicating we have recieved the event for the DocumentComplete ReadyState
+        /// Flag indicating we have received the event for the DocumentComplete ReadyState
         /// </summary>
         private bool _documentCompleteReadyStateFired = false;
 

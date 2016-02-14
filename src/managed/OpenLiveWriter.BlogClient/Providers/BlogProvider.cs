@@ -23,7 +23,7 @@ namespace OpenLiveWriter.BlogClient.Providers
     {
         public BlogClientOptions()
         {
-            // accept default options (see private data declaratoins for defaults)
+            // accept default options (see private data declarations for defaults)
         }
 
         public bool SupportsHttps

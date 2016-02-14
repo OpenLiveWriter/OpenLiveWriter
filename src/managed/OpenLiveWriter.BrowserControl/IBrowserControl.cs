@@ -27,13 +27,13 @@ namespace OpenLiveWriter.BrowserControl
 
         /// <summary>
         /// Title of current document (normally use for window caption display).
-        /// You should retreive/update this value whenever the TitleChanged
+        /// You should retrieve/update this value whenever the TitleChanged
         /// event is fired.
         /// </summary>
         string Title { get; }
 
         /// <summary>
-        /// StatusText (normally displayed in status bar). You should retreive/update
+        /// StatusText (normally displayed in status bar). You should retrieve/update
         /// this value whenever the StatusTextChanged event is fired.
         /// </summary>
         string StatusText { get; }
@@ -41,12 +41,12 @@ namespace OpenLiveWriter.BrowserControl
         /// <summary>
         /// Property indicating the encryption level of the currently displayed document.
         /// The EncryptionLevelChanged event will be fired whenever this property
-        /// changes valiue.
+        /// changes value.
         /// </summary>
         EncryptionLevel EncryptionLevel { get; }
 
         /// <summary>
-        /// Size of text displayed by the browser control. Before usin g this
+        /// Size of text displayed by the browser control. Before using this
         /// property you should query the TextSizeSupported property to make
         /// sure that the currently displayed document supports TextSize.
         /// </summary>
@@ -152,8 +152,8 @@ namespace OpenLiveWriter.BrowserControl
         event EventHandler DownloadBegin;
 
         /// <summary>
-        /// Event that fires when a download operation is completed. Applications shoudl
-        /// use this event to update thier visual 'busy' indicator.
+        /// Event that fires when a download operation is completed. Applications should
+        /// use this event to update their visual 'busy' indicator.
         /// </summary>
         event EventHandler DownloadComplete;
 

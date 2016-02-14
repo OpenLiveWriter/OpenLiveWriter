@@ -136,7 +136,7 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         public override void Execute()
         {
-            // go back (ignore excpetion thrown if the history list doesn't have
+            // go back (ignore exception thrown if the history list doesn't have
             // a page to go back to)
             try
             {
@@ -168,7 +168,7 @@ namespace OpenLiveWriter.BrowserControl
         /// </summary>
         public override void Execute()
         {
-            // go forward (ignore excpetion thrown if the history list doesn't have
+            // go forward (ignore exception thrown if the history list doesn't have
             // a page to go forward to)
             try
             {

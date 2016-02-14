@@ -168,7 +168,7 @@ namespace OpenLiveWriter.SpellChecker
                     //the selection may or may-not start at the beginning of a word.
                     Debug.Fail("word start jumped past word end");
 
-                    //if this occured, it was probably because start was already at the beginning
+                    //if this occurred, it was probably because start was already at the beginning
                     //of the correct word before it was moved.  To resolve this situation, we
                     //move the start pointer back to the beginning of the word that the end pointer
                     //is at. Since the End pointer always advances on each iteration, this should not

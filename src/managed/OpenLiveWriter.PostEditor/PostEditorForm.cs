@@ -169,7 +169,7 @@ namespace OpenLiveWriter.PostEditor
             SuspendLayout();
 
             // We defer post-synchronization until OnLoad because showing a dialog (which
-            // occurs if the sync takes more than a predefinied interval) too early in
+            // occurs if the sync takes more than a predefined interval) too early in
             // the life of the thread prevents the main post editor form from being able
             // to subsequently come to the foreground (no idea why). Our approach is
             // therefore to allow callers to request this service in the constructor
@@ -258,7 +258,7 @@ namespace OpenLiveWriter.PostEditor
 
         protected override Control CreateMainControl()
         {
-            // create post editor manin control as appropriate
+            // create post editor main control as appropriate
             if (_initialEditingContext != null)
             {
                 _postEditorMainControl = new PostEditorMainControl(this, _initialEditingContext);

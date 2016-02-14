@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor
         event WeblogSettingsChangedHandler WeblogSettingsChanged;
         event WeblogSettingsChangedHandler GlobalWeblogSettingsChanged;
 
-        // allow others to notify the site of indepedent edits
+        // allow others to notify the site of independent edits
         // to weblog settings and/or the weblog account list)
         void NotifyWeblogSettingsChanged(bool templateChanged);
         void NotifyWeblogSettingsChanged(string blogId, bool templateChanged);

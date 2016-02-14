@@ -357,7 +357,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Get the larege icon for the specified file
+        /// Get the large icon for the specified file
         /// </summary>
         /// <param name="filePath">path to file</param>
         /// <returns>IconHandle (or null if none found). IconHandle represents

@@ -40,7 +40,7 @@ namespace OpenLiveWriter.BlogClient.Providers
             if (postApiUrl.Length == 0)
                 throw new ArgumentException("Invalid PostApiUrl");
 
-            // visibiilty flag
+            // visibility flag
             bool visible = BlogClientOptions.ReadBool(NodeText(providerNode.SelectSingleNode("visible")), true); ;
 
             // auto-detection

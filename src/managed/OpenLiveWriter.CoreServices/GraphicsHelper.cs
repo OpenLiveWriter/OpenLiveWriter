@@ -354,7 +354,7 @@ namespace OpenLiveWriter.CoreServices
 
             if (HasArea(bottomRightRectangle))
             {
-                //	Botom right.
+                //	Bottom right.
                 graphics.DrawImage(image,
                                        new Rectangle(rectangle.Right - bottomRightRectangle.Width, rectangle.Bottom - bottomRightRectangle.Height, bottomRightRectangle.Width, bottomRightRectangle.Height),
                                        bottomRightRectangle,
@@ -373,7 +373,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Draws a composited image border.  Note that because it would be too computationally
         /// expensive, it is ASSUMED that the rectangle supplied is large enough to draw the border
-        /// witout
+        /// without
         /// </summary>
         /// <remarks>
         ///	Note that because it would be too computationally expensive, it is assumed that images

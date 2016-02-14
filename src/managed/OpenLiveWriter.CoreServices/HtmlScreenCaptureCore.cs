@@ -161,7 +161,7 @@ namespace OpenLiveWriter.CoreServices
                 signal.Signal();
                 Application.Run(_applicationContext);
 
-                // propragate exceptions that happened inside the AppContext
+                // propagate exceptions that happened inside the AppContext
                 if (_applicationContext.Exception != null)
                     throw _applicationContext.Exception;
             }
@@ -246,7 +246,7 @@ namespace OpenLiveWriter.CoreServices
         private byte[] _capturedBitmap;
         private Dictionary<string, ElementCaptureProperties> _elementCaptureProperties = new Dictionary<string, ElementCaptureProperties>();
 
-        // error that occured during processing
+        // error that occurred during processing
         private Exception _exception;
         private FormLifetimeApplicationContext _applicationContext;
 

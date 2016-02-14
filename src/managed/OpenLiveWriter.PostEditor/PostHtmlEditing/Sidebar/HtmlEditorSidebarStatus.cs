@@ -84,7 +84,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             // calculate the rectangle we will paint within
             _controlRectangle = new Rectangle(0, 1, Width, Height - 1);
 
-            // calculate the image rectanagle (if we have an image)
+            // calculate the image rectangle (if we have an image)
             _imageRectangle = Rectangle.Empty;
             if (_image != null)
             {

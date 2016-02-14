@@ -199,7 +199,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return attachSettings.AttachmentUrl;
         }
 
-        //SharePoint blogIDs are formatted: webguid#listguid
+        //SharePoint blogIDs are formatted: webguid#listGuid
         public static string SharepointBlogIdToListGuid(string blogId)
         {
             int listGuidIndex = blogId.IndexOf("#", StringComparison.OrdinalIgnoreCase);

@@ -34,7 +34,7 @@ namespace OpenLiveWriter
                     // If the COM registration is not set up correctly, we won't be able to launch.
                     RunningObjectTable.EnsureComRegistration();
 
-                    // make sure bloggging is configured before we proceed
+                    // make sure blogging is configured before we proceed
                     if (EnsureBloggingConfigured(splashScreen))
                     {
                         WriterCommandLineOptions options = WriterCommandLineOptions.Create(args);

@@ -21,7 +21,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
     class VideoThumbnail : IDisposable
     {
         /// <summary>
-        /// Initialize a thumbnail based on a Stream containg a bitmap
+        /// Initialize a thumbnail based on a Stream containing a bitmap
         /// </summary>
         public VideoThumbnail(Stream stream)
         {

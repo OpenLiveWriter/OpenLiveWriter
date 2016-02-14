@@ -98,7 +98,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         /// <param name="clipFormat">Name of clipboard format requested</param>
         /// <param name="types">type(s) requested</param>
-        /// <returns>true if the subseqent call to GetData would likely be
+        /// <returns>true if the subsequent call to GetData would likely be
         /// successful, otherwise false</returns>
         public bool QueryGetData(string clipFormat, TYMED types)
         {
@@ -131,7 +131,7 @@ namespace OpenLiveWriter.CoreServices
         /// the data in. The method will return an OleStgMedium for the type(s)
         /// requested if it is available, otherwise it will return null.
         /// If a single type is requested then the return value can be safely
-        /// cast to the requested OleStgMedium subclasss. If multiple types
+        /// cast to the requested OleStgMedium subclass. If multiple types
         /// are requested then the return value will represent the object's
         /// preferred storage representation and client code will need to use
         /// the 'is' operator to determine what type was returned.
@@ -151,12 +151,12 @@ namespace OpenLiveWriter.CoreServices
         /// the data in. The method will return an OleStgMedium for the type(s)
         /// requested if it is available, otherwise it will return null.
         /// If a single type is requested then the return value can be safely
-        /// cast to the requested OleStgMedium subclasss. If multiple types
+        /// cast to the requested OleStgMedium subclass. If multiple types
         /// are requested then the return value will represent the object's
         /// preferred storage representation and client code will need to use
         /// the 'is' operator to determine what type was returned.
         /// </summary>
-        /// <param name="lindex">Index of item to retreive</param>
+        /// <param name="lindex">Index of item to retrieve</param>
         /// <param name="clipFormat">Name of clipboard format requested</param>
         /// <param name="types">type(s) requested</param>
         /// <returns>OleStgMedium instance if format and requested storage type
@@ -233,7 +233,7 @@ namespace OpenLiveWriter.CoreServices
                 BindingFlags.Public | BindingFlags.NonPublic |
                 BindingFlags.Instance);
 
-            // retreive and return the value
+            // retrieve and return the value
             if (fld != null)
                 return fld.GetValue(source);
             else

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace OpenLiveWriter.CoreServices
 {
-#if FALSE // imprve code coverage number
+#if FALSE // improve code coverage number
     ///<summary>
     /// Summary description for CommandLineHelper.
     /// </summary>

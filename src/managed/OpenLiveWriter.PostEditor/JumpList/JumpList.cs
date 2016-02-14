@@ -100,7 +100,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
         /// Creates a new instance of the JumpList class with the specified
         /// appId. The JumpList is associated with the given window.
         /// </summary>
-        /// <param name="appID">Application Id to use for this instace.</param>
+        /// <param name="appID">Application Id to use for this instance.</param>
         /// <param name="windowHandle">Window handle for the window that is associated with this JumpList</param>
         protected JumpList(string appID, IntPtr windowHandle)
         {

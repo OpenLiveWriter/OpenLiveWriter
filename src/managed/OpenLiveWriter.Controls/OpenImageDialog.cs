@@ -99,7 +99,7 @@ namespace OpenLiveWriter.Controls
 
             // NOTE: there is at least one report from a developer of this technique not working
             // (see comments at http://www.thecodeproject.com/cs/miscctrl/FileDialogExtender.asp).
-            // it is very likely that this technique is fragile accross OS version and/or
+            // it is very likely that this technique is fragile across OS version and/or
             // installed shell customizations.
         }
 

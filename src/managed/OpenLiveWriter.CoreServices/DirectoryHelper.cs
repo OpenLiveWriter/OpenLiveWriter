@@ -28,7 +28,7 @@ namespace OpenLiveWriter.CoreServices
         /// </returns>
         public static ArrayList ListRecursive(string path)
         {
-            // enumerate directories (use file system standard separator, probabaly backslash)
+            // enumerate directories (use file system standard separator, probably backslash)
             return ListRecursive(path, false);
         }
 
@@ -156,7 +156,7 @@ namespace OpenLiveWriter.CoreServices
     }
 
     /// <summary>
-    /// Abstract class which iterates recursively over a directory and its subdirctories.
+    /// Abstract class which iterates recursively over a directory and its subdirectories.
     /// Subclasses are notified of the directories and files found via the OnSubdirectory
     /// and OnFile virtual methods. These can be overridden to provide custom functionality
     /// such as enumeration, copying, compression, etc.
@@ -211,7 +211,7 @@ namespace OpenLiveWriter.CoreServices
             // determine the absolute path of this directory
             string absolutePath = Path.Combine(RootPath, relativePath);
 
-            // retreive a list of the files and sort them
+            // retrieve a list of the files and sort them
             string[] files;
             try
             {
@@ -243,7 +243,7 @@ namespace OpenLiveWriter.CoreServices
 
             if (m_includeSubfolders)
             {
-                // retreive a list of the sub-directories and sort them
+                // retrieve a list of the sub-directories and sort them
                 string[] directories;
                 try
                 {
@@ -336,7 +336,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Retreive an alphabetically sorted list of all the files contained within
+        /// Retrieve an alphabetically sorted list of all the files contained within
         /// the directory and its sub-directories
         /// </summary>
         /// <returns>An ArrayList of file names (represented as string objects)</returns>
@@ -367,7 +367,7 @@ namespace OpenLiveWriter.CoreServices
             m_files.Add(file);
         }
 
-        // flag indicating whether we should convert OS path separators to URI separtors
+        // flag indicating whether we should convert OS path separators to URI separators
         bool m_useUriSeparator;
 
         // storage for list of files
@@ -376,8 +376,8 @@ namespace OpenLiveWriter.CoreServices
 
     /// <summary>
     /// Class which recursively copies the contents of one directory to another. Note
-    /// that this class provides a thin-layer over file system calls -- low-level files
-    /// ystem exceptions may be thrown from this class and they should be caught and
+    /// that this class provides a thin-layer over file system calls -- low-level file
+    /// system exceptions may be thrown from this class and they should be caught and
     /// handled appropriately.
     /// </summary>
     public class DirectoryCopier : DirectoryIterator

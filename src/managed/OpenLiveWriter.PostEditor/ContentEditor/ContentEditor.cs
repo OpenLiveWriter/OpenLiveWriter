@@ -760,12 +760,12 @@ namespace OpenLiveWriter.PostEditor
             // @SharedCanvas - Check to make sure we can get rid of this once we get rid of the sidebar
             if (_editingContext is BlogPostEditingManager)
             {
-                // Get an event everytime the user tried to publish, so we refesh smart content that might have been updated during published
+                // Get an event everytime the user tried to publish, so we refresh smart content that might have been updated during published
                 BlogPostEditingManager editingManager = (BlogPostEditingManager)_editingContext;
                 editingManager.UserPublishedPost += new EventHandler(editingManager_UserPublishedPost);
             }
 
-            // save whethere we are editing a page
+            // save whether we are editing a page
             _isPage = editingContext.BlogPost.IsPage;
 
             // save a reference to the supporting files
@@ -1013,7 +1013,7 @@ namespace OpenLiveWriter.PostEditor
 
         public virtual void SaveChanges(BlogPost post, BlogPostSaveOptions options)
         {
-            // get the title (remove linebreaks to prevent auto-convertion to P or BR)
+            // get the title (remove linebreaks to prevent auto-conversion to P or BR)
             string postTitle = _currentEditor.GetEditedTitleHtml();
             post.Title = HtmlLinebreakStripper.RemoveLinebreaks(postTitle);
 
@@ -1024,7 +1024,7 @@ namespace OpenLiveWriter.PostEditor
             //replace the structured content with the publish HTML.
             postContents = SmartContentWorker.PerformOperation(postContents, GetStructuredPublishHtml, false, this, true);
 
-            // remove linebreaks to prevent auto-convertion to P or BR
+            // remove linebreaks to prevent auto-conversion to P or BR
             postContents = HtmlLinebreakStripper.RemoveLinebreaks(postContents);
 
             post.Contents = postContents;
@@ -1696,7 +1696,7 @@ namespace OpenLiveWriter.PostEditor
             IHtmlEditorComponentContext componentContext = null;
             if (_currentEditor != null)
             {
-                //unregisiter from editing events
+                //unregister from editing events
                 _currentEditor.TitleChanged -= new EventHandler(_currentEditor_TitleChanged);
                 _currentEditor.EditableRegionFocusChanged -= new EventHandler(_currentEditor_EditableRegionFocusChanged);
 
@@ -2042,7 +2042,7 @@ namespace OpenLiveWriter.PostEditor
             _normalHtmlContentEditor.SetEditable(editMode);
             SetCurrentEditor();
 
-            // Set the orginal dirty state back
+            // Set the original dirty state back
             _currentEditor.IsDirty = isDirty;
 
             // Let everyone the editor just changed (tabs will update)
@@ -2247,11 +2247,11 @@ namespace OpenLiveWriter.PostEditor
                 {
                     using (new WaitCursor())
                     {
-                        // fixup bizzaro table selections
+                        // fixup bizarro table selections
                         IHtmlEditorComponentContext editorContext = _currentEditor as IHtmlEditorComponentContext;
                         if (editorContext != null)
                         {
-                            // check for a discontigous selection of cells within an existing table and
+                            // check for a discontiguous selection of cells within an existing table and
                             // "fix" the selection accordingly so the editor doesn't barf on it
                             TableSelection tableSelection = new TableSelection(editorContext.Selection.SelectedMarkupRange);
                             if (tableSelection.HasContiguousSelection && !tableSelection.EntireTableSelected)
@@ -3301,7 +3301,7 @@ namespace OpenLiveWriter.PostEditor
                     return;
                 }
 
-                // Check to see what is selectedi smart content
+                // Check to see what is selected smart content
                 IHTMLElement[] elements =
                     editorIHtmlEditorComponentContext.Selection.SelectedMarkupRange.GetTopLevelElements(
                         MarkupRange.FilterNone);

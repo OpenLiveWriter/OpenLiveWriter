@@ -75,7 +75,7 @@ namespace OpenLiveWriter.PostEditor
             // set our bitmaps
             PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PluginsSmall.png");
 
-            // paramaterize caption with product name
+            // parameterize caption with product name
             labelCaption.Text = String.Format(CultureInfo.CurrentCulture, labelCaption.Text, ApplicationEnvironment.ProductName);
 
             // initialize preferences

@@ -92,7 +92,7 @@ namespace OpenLiveWriter.CoreServices
         private Thread monitorThread;
 
         /// <summary>
-        /// Initializesd the fixed set of monitor events.
+        /// Initializes the fixed set of monitor events.
         /// </summary>
         private void InitFixedMonitorEvents()
         {
@@ -130,7 +130,7 @@ namespace OpenLiveWriter.CoreServices
         }
         /// <summary>
         /// Register a method for callbacks when the specified registry key is changed.
-        /// Note: this operation does not recursively register for notifcations from subkeys!
+        /// Note: this operation does not recursively register for notifications from subkeys!
         /// </summary>
         /// <param name="hkey">the HKEY constant (HKEY.CURRENT_USER or HKEY.CLASSES_ROOT)</param>
         /// <param name="key">the registry key path (example: @"Software\AppDataLow\Software\Onfolio\Preferences\Appearance"</param>
@@ -203,7 +203,7 @@ namespace OpenLiveWriter.CoreServices
             return GetRegistryKeyMonitor(hkey, key, false);
         }
         /// <summary>
-        /// Retreives the RegistryKeyMonitor associated with the specified registry key
+        /// Retrieves the RegistryKeyMonitor associated with the specified registry key
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -415,7 +415,7 @@ namespace OpenLiveWriter.CoreServices
                                                         Kernel32.INFINITE);
                     if (result >= 0 && result < FIXED_MONITOR_EVENTS.Length)
                     {
-                        //a FIXED_MONITOR_EVENT occured, so handle it.
+                        //a FIXED_MONITOR_EVENT occurred, so handle it.
                         if (result == MONITOR_HANDLES_UPDATED_INDEX)
                         {
                             //the monitorHandlesUpdatedEvent was signalled, so reset it and re-loop
@@ -441,7 +441,7 @@ namespace OpenLiveWriter.CoreServices
                         while ((result >= WAIT.OBJECT_0 && result <= (WAIT.OBJECT_0 + monitorHandles.Length - 1))
                                && !(result >= 0 && result < FIXED_MONITOR_EVENTS.Length))
                         {
-                            //a registry change event occured, so add the monitor to the notification list.
+                            //a registry change event occurred, so add the monitor to the notification list.
                             RegistryKeyMonitor keyMonitor = monitors[result - FIXED_MONITOR_EVENTS.Length];
                             regChangeList[keyMonitor.FullKey] = keyMonitor;
 

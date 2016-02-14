@@ -8,7 +8,7 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Generic interface for storing a collection of site data represented by
-    /// heirarchical path designations. Paths should be separated using the "/"
+    /// hierarchical path designations. Paths should be separated using the "/"
     /// character. This class and its subclasses all throw SiteStorageException
     /// based exceptions. See the documentation for that class for an enumeration
     /// of exception types.
@@ -24,7 +24,7 @@ namespace OpenLiveWriter.CoreServices
         /// <summary>
         /// Files contained within the site. Path sub-directories
         /// are separated by the "/" character. The listing will start with the
-        /// RootFile and will then be ordered accoring to the FileListingComparer
+        /// RootFile and will then be ordered occurring to the FileListingComparer
         /// implementation of IComparer (standard recursive directory listing).
         /// </summary>
         ArrayList Manifest { get; }
@@ -36,9 +36,9 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>true if it exists, otherwise false</returns>
         bool Exists(string file);
 
-        /// <param name="file">Heirarchical path designating stream location (uses "/"
+        /// <param name="file">Hierarchical path designating stream location (uses "/"
         /// as path designator)</param>
-        /// <param name="mode">Read or Write. Write will overwrite any exising path of
+        /// <param name="mode">Read or Write. Write will overwrite any existing path of
         /// the same name.</param>
         /// <returns>Stream that can be used to access the path (Stream.Close() should
         /// be called when you are finished using the Stream).</returns>

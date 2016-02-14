@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                     progressDialog.CreateControl();
                     SimpleUrlContentRetreivalAsyncOperation asyncOperation = new SimpleUrlContentRetreivalAsyncOperation(progressDialog, contentSourceInfo.Instance as ContentSource, url, title);
 
-                    // execute and retreive results
+                    // execute and retrieve results
                     if (ExecuteWithProgress(dialogOwner, progressDialog, asyncOperation, contentSourceInfo))
                     {
                         title = asyncOperation.Title;
@@ -78,7 +78,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
                     SmartUrlContentRetreivalAsyncOperation asyncOperation = new SmartUrlContentRetreivalAsyncOperation(progressDialog, contentSourceInfo.Instance as SmartContentSource, url, title, newContent);
 
-                    // execute and retreive results
+                    // execute and retrieve results
                     if (ExecuteWithProgress(dialogOwner, progressDialog, asyncOperation, contentSourceInfo))
                     {
                         title = asyncOperation.Title;

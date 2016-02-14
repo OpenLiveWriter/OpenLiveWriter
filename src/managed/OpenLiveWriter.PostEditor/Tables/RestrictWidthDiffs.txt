@@ -92,7 +92,7 @@ Differences ...
 < // - support alignment and float for table
 < // - specify custom CSS class for table
 < // - add background color & border (css vs. html attrib) to table property dialog
-< // - restore ability to do full table selection and resizing (use snaprect) -- implications for TableSelection (assume BeginCell == first cell?)
+< // - restore ability to do full table selection and resizing (use snapRect) -- implications for TableSelection (assume BeginCell == first cell?)
 ---
 > // - "templates" for table borders and background colors
 36,37c35

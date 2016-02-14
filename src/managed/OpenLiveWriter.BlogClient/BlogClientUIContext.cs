@@ -43,7 +43,7 @@ namespace OpenLiveWriter.BlogClient
     /// <summary>
     /// Class used to install and remove (on dispose) the UI context for the currently
     /// running thread. To enforce the idiom of install/remove this is the ONLY
-    /// suppported mechanism for manipulating the UI context. This class should be
+    /// supported mechanism for manipulating the UI context. This class should be
     /// instantiated under a "using" statement on every thread that will call
     /// BlogClient code. Further, every time a new dialog box which may call blog
     /// client code (e.g. OpenPost, UpdateTemplate, etc.) should also construct

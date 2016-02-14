@@ -773,7 +773,7 @@ namespace OpenLiveWriter.Controls
         #region Class Initialization & Termination
 
         /// <summary>
-        /// Initializes a new insatnce of the LightweightControl class.
+        /// Initializes a new instance of the LightweightControl class.
         /// </summary>
         public LightweightControl(IContainer container)
         {
@@ -786,7 +786,7 @@ namespace OpenLiveWriter.Controls
         }
 
         /// <summary>
-        /// Initializes a new insatnce of the LightweightControl class.
+        /// Initializes a new instance of the LightweightControl class.
         /// </summary>
         public LightweightControl()
         {
@@ -2191,7 +2191,7 @@ namespace OpenLiveWriter.Controls
 
         #region Accessibility
         /// <summary>
-        /// Returns a list of all the accessible controls contained in this control (includes decendents).
+        /// Returns a list of all the accessible controls contained in this control (includes descendants).
         /// </summary>
         /// <returns></returns>
         public LightweightControl[] GetAccessibleControls()

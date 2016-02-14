@@ -26,7 +26,7 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Determines if one of the object's windows has the keyboard focus. Note: PreserveSig
-        /// attribute is used to prevent .NET COM Interop from throwning an exception when
+        /// attribute is used to prevent .NET COM Interop from throwing an exception when
         /// we return S_FALSE.
         /// </summary>
         /// <returns>S_OK if one of the object's windows has keyboard focus,
@@ -37,7 +37,7 @@ namespace OpenLiveWriter.Interop.Com
 
         /// <summary>
         /// Passes keyboard accelerators to the object. Note: PreserveSig attribute is used to
-        /// prevent .NET COM Interop from throwning an exception when we return S_FALSE.
+        /// prevent .NET COM Interop from throwing an exception when we return S_FALSE.
         /// </summary>
         /// <param name="msg">Structure containing the keyboard message to be translated</param>
         /// <returns>S_OK if the accelerator was translated; otherwise S_FALSE</returns>

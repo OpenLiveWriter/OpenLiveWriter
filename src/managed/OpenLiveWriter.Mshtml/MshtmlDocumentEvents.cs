@@ -112,14 +112,14 @@ namespace OpenLiveWriter.Mshtml
         }
 
         /// <summary>
-        /// Cancels the event and kills its propogation.
+        /// Cancels the event and kills its propagation.
         /// </summary>
         public void Cancel()
         {
             //set the cancelBubble value
             htmlEvt.cancelBubble = true;
 
-            //the returnValue controls the propogation of the event.
+            //the returnValue controls the propagation of the event.
             htmlEvt.returnValue = false;
 
             // update state
@@ -649,7 +649,7 @@ namespace OpenLiveWriter.Mshtml
 
         /// <summary>
         /// Internal utility for providing IE6-compatible focus events on IE 5.5.
-        /// his method keeps track of focus states and fires focus events if a focus change has occured.
+        /// his method keeps track of focus states and fires focus events if a focus change has occurred.
         /// </summary>
         internal void NotifyDocumentDisplayChanged()
         {

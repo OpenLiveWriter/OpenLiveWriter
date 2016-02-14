@@ -26,7 +26,7 @@ namespace OpenLiveWriter.BrowserControl
     public class ExplorerBrowserControl : UserControl, IBrowserControl
     {
         /// <summary>
-        /// Intialize BrowserControl
+        /// Initialize BrowserControl
         /// </summary>
         public ExplorerBrowserControl()
         {
@@ -131,7 +131,7 @@ namespace OpenLiveWriter.BrowserControl
 
         /// <summary>
         /// Title of current document (normally use for window caption display).
-        /// You should retreive/update this value whenever the TitleChanged
+        /// You should retrieve/update this value whenever the TitleChanged
         /// event is fired.
         /// </summary>
         public string Title
@@ -141,7 +141,7 @@ namespace OpenLiveWriter.BrowserControl
         private string m_title;
 
         /// <summary>
-        /// StatusText (normally displayed in status bar). You should retreive/update
+        /// StatusText (normally displayed in status bar). You should retrieve/update
         /// this value whenever the StatusTextChanged event is fired.
         /// </summary>
         public string StatusText
@@ -153,7 +153,7 @@ namespace OpenLiveWriter.BrowserControl
         /// <summary>
         /// Property indicating the encryption level of the currently displayed document.
         /// The EncryptionLevelChanged event will be fired whenever this property
-        /// changes valiue.
+        /// changes value.
         /// </summary>
         public EncryptionLevel EncryptionLevel
         {
@@ -162,7 +162,7 @@ namespace OpenLiveWriter.BrowserControl
         private EncryptionLevel m_encryptionLevel;
 
         /// <summary>
-        /// Size of text displayed by the browser control. Before usin g this
+        /// Size of text displayed by the browser control. Before using this
         /// property you should query the TextSizeSupported property to make
         /// sure that the currently displayed document supports TextSize.
         /// </summary>
@@ -199,7 +199,7 @@ namespace OpenLiveWriter.BrowserControl
                 // verify that we are being called correctly
                 if (TextSizeSupported)
                 {
-                    // perepare Execute paramters
+                    // prepare Execute parameters
                     object input = value;
                     object output = null;
 
@@ -460,8 +460,8 @@ namespace OpenLiveWriter.BrowserControl
         }
 
         /// <summary>
-        /// Event that fires when a download operation is completed. Applications shoudl
-        /// use this event to update thier visual 'busy' indicator.
+        /// Event that fires when a download operation is completed. Applications should
+        /// use this event to update their visual 'busy' indicator.
         /// </summary>
         public event EventHandler DownloadComplete;
 
@@ -859,7 +859,7 @@ namespace OpenLiveWriter.BrowserControl
         private void AxWebBrowser_CommandStateChange(
             object sender, DWebBrowserEvents2_CommandStateChangeEvent e)
         {
-            // constatns representing possible command state changes
+            // constants representing possible command state changes
             const int CSC_UPDATECOMMANDS = -1;
             const int CSC_NAVIGATEFORWARD = 1;
             const int CSC_NAVIGATEBACK = 2;

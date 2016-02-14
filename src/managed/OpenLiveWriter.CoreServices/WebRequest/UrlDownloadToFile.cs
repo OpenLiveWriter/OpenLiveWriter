@@ -211,7 +211,7 @@ namespace OpenLiveWriter.CoreServices
             // HRESULT E_ABORT 0x80004004
             switch (result)
             {
-                case HRESULT.S_OK:              // The download suceeded
+                case HRESULT.S_OK:              // The download succeeded
                     break;
                 case HRESULT.E_ABORT:           // The download has been cancelled
                                                 //case HRESULT.E_ACCESSDENIED:	// no idea

@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Api
         /// <summary>
         /// Initialize a new instance of an InsertableContentSourceAttribute.
         /// </summary>
-        /// <param name="menuText">Text used to describe the insertable contnet on the Insert menu.</param>
+        /// <param name="menuText">Text used to describe the insertable content on the Insert menu.</param>
         public InsertableContentSourceAttribute(string menuText)
         {
             MenuText = menuText;
@@ -23,7 +23,7 @@ namespace OpenLiveWriter.Api
         }
 
         /// <summary>
-        /// Text used to describe the insertable contnet on the Insert menu.
+        /// Text used to describe the insertable content on the Insert menu.
         /// </summary>
         public string MenuText
         {

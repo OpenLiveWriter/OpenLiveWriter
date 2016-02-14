@@ -57,7 +57,7 @@ namespace OpenLiveWriter.Interop.Windows
     }
 
     /// <summary>
-    /// Structure that contains information about a MAPI mail messsage
+    /// Structure that contains information about a MAPI mail message
     /// </summary>
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
     public struct MapiMessage

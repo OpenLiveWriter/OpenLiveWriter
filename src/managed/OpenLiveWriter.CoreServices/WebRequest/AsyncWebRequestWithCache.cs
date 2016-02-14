@@ -16,12 +16,12 @@ namespace OpenLiveWriter.CoreServices
     public class AsyncWebRequestWithCache
     {
         /// <summary>
-        /// The Reponse Stream returned by the WebRequestHelper
+        /// The Response Stream returned by the WebRequestHelper
         /// </summary>
         public Stream ResponseStream;
 
         /// <summary>
-        /// Event called when an ansychronous request is completed.
+        /// Event called when an asynchronous request is completed.
         /// </summary>
         public event EventHandler RequestComplete;
         protected void OnRequestComplete(EventArgs e)

@@ -8,7 +8,7 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.Mshtml
 {
     /// <summary>
-    /// Base implemetnation of interface used for customizing the UI of MSHTML.
+    /// Base implementation of interface used for customizing the UI of MSHTML.
     /// Provides correct default behavior for all methods and allows selective
     /// overrides for targeted customization.
     /// </summary>

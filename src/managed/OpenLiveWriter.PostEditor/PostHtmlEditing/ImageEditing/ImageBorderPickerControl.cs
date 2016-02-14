@@ -108,7 +108,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 borderText,
                 e.Font, titleRectangle,
                 textColor, ellipsesStringFormat);
-            // focus rectange if necessary
+            // focus rectangle if necessary
             e.DrawFocusRectangle();
         }
 

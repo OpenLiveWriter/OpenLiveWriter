@@ -66,7 +66,7 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
 
             pictureBoxLiveClipboardIcon.Image = ResourceHelper.LoadAssemblyResourceBitmap("LiveClipboard.Images.LiveClipboardIcon.png", true);
 
-            // paramaterize caption with product name
+            // parameterize caption with product name
             labelCaption.Text = String.Format(CultureInfo.CurrentCulture, labelCaption.Text, ApplicationEnvironment.ProductName);
 
             // initialize preferences

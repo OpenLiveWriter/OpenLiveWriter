@@ -123,12 +123,12 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
 
             // Clear out any width on the overall smart content block, if the element is centered, we will add the width back in later
-            // after we calcuate it from the childern, the current width value is stale.
+            // after we calculate it from the children, the current width value is stale.
             element.style.width = "";
 
             //Note: we use MarkupServices to insert the content so that IE doesn't try to fix up URLs.
-            //Element.insertAdjacentHTML() is a no-no because it rewrites relaive URLs to include
-            //the fullpath from the local filesytem.
+            //Element.insertAdjacentHTML() is a no-no because it rewrites relative URLs to include
+            //the fullpath from the local filesystem.
 
             //MarkupServices.ParseString() doesn't attempt to fix up URLs, so its safe to use.
             //We will now stage the new content into a MarkupContainer, and then move it into
@@ -302,7 +302,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
         // Warning: Does not deal with escaping properly. This is fine as long as
         // we're only using it for content we generate and there are no security
-        // impliciations.
+        // implications.
         public static string StripDivsWithClass(string html, string cssClass)
         {
             if (html.IndexOf(cssClass) < 0)

@@ -106,7 +106,7 @@ namespace OpenLiveWriter.PostEditor.Video
 
         private void UpdateSelectedPublisher()
         {
-            // We get the new publisher, we alwasy trust that _currentPublisher is not null
+            // We get the new publisher, we always trust that _currentPublisher is not null
             _currentPublisher = sideBarControl.SelectedValue;
 
             videoLoginStatusControl.Auth = _currentPublisher.Auth;
@@ -262,7 +262,7 @@ namespace OpenLiveWriter.PostEditor.Video
             string description = txtDescription.Text.Trim();
             string filePath = txtFile.Text.Trim();
 
-            // Make sure they filled in all the feilds
+            // Make sure they filled in all the fields
             if (((CategoryItem)comboBoxCategory.SelectedItem).CategoryId == Guid.Empty.ToString() ||
                 title == String.Empty ||
                 description == String.Empty ||

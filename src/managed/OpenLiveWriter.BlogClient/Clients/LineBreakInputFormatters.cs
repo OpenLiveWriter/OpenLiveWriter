@@ -192,7 +192,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
                     // If this chunk starts with a <p> tag--either because
                     // it always did (like <p class="foo">, which doesn't get
-                    // dropped either by WordPress or by our regexes above), or
+                    // dropped either by WordPress or by our regexs above), or
                     // because we added one just now--we want to end it with
                     // a </p> if necessary.
                     if (Regex.IsMatch(chunk, @"<p(?:\s|>)") && !Regex.IsMatch(chunk, @"</p>"))

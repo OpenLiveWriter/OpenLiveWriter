@@ -45,7 +45,7 @@ namespace OpenLiveWriter.SpellChecker
         SpellingSuggestion[] Suggest(string word, short maxSuggestions, short depth ) ;
 
         /// <summary>
-        /// Add a word to the permenant user-dictionary
+        /// Add a word to the permanent user-dictionary
         /// </summary>
         /// <param name="word"></param>
         void AddToUserDictionary( string word ) ;
