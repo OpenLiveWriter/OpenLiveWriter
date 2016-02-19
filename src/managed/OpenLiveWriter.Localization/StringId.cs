@@ -3756,7 +3756,7 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         PostEditorPrefUnsave,
         /// <summary>
-        /// &View post after publishing
+        /// &View blog after publishing - Modified comment by @kathweaver for issue #377
         /// </summary>
         PostEditorPrefView,
         /// <summary>
