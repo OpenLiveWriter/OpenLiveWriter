@@ -3712,6 +3712,10 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         PostEditorPrefGeneral,
         /// <summary>
+        /// Folder Location for Posts
+        /// </summary>
+        PostEditorPrefPostLocation,
+        /// <summary>
         /// Preferences
         /// </summary>
         PostEditorPrefName,
@@ -3755,6 +3759,10 @@ namespace OpenLiveWriter.Localization
         /// &View post after publishing
         /// </summary>
         PostEditorPrefView,
+        /// <summary>
+        /// Browse for a folder
+        /// </summary>
+        PostEditorPrefBrowseFolder,
         /// <summary>
         /// Unexpected error occurred while accessing local post ({0})
         ///

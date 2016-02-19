@@ -1383,7 +1383,7 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-        private void FirePostListChangedEvent()
+        public void FirePostListChangedEvent()
         {
             try
             {

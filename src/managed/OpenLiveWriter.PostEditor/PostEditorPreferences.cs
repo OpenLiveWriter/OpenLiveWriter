@@ -1,12 +1,16 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using OpenLiveWriter.ApplicationFramework.Preferences;
+using System;
 
 namespace OpenLiveWriter.PostEditor
 {
     public class PostEditorPreferences : OpenLiveWriter.ApplicationFramework.Preferences.Preferences
     {
+        private static PostEditorPreferences _instance;
+
+        public static PostEditorPreferences Instance => _instance ?? (_instance = new PostEditorPreferences());
+
         public PostEditorPreferences() : base("Writer")
         {
         }
@@ -67,6 +71,18 @@ namespace OpenLiveWriter.PostEditor
         }
         private int _autoSaveMinutes;
 
+        public string WeblogPostsFolder
+        {
+            get { return _weblogPostsFolder; }
+            set { _weblogPostsFolder = value; Modified(); }
+        }
+        private string _weblogPostsFolder;
+
+        public void Changed()
+        {
+            OnPreferencesChanged(EventArgs.Empty);
+        }
+
         protected override void LoadPreferences()
         {
             PostWindowBehavior = PostEditorSettings.PostWindowBehavior;
@@ -77,6 +93,7 @@ namespace OpenLiveWriter.PostEditor
             TagReminder = PostEditorSettings.TagReminder;
             AutoSaveDrafts = PostEditorSettings.AutoSaveDrafts;
             AutoSaveMinutes = PostEditorSettings.AutoSaveMinutes;
+            WeblogPostsFolder = PostEditorSettings.WeblogPostsFolder;
         }
 
         protected override void SavePreferences()
@@ -89,7 +106,12 @@ namespace OpenLiveWriter.PostEditor
             PostEditorSettings.TagReminder = TagReminder;
             PostEditorSettings.AutoSaveDrafts = AutoSaveDrafts;
             PostEditorSettings.AutoSaveMinutes = AutoSaveMinutes;
+            PostEditorSettings.WeblogPostsFolder = WeblogPostsFolder;
         }
 
+        public void SaveWebLogPostFolder()
+        {
+            PostEditorSettings.WeblogPostsFolder = WeblogPostsFolder;
+        }
     }
 }
