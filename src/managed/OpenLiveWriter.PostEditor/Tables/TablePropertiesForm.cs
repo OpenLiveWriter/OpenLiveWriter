@@ -119,7 +119,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             TableCreationParameters creationParameters = CreateDefaultParameters();
             numericTextBoxRows.Text = creationParameters.Rows.ToString(CultureInfo.CurrentCulture);
             numericTextBoxColumns.Text = creationParameters.Columns.ToString(CultureInfo.CurrentCulture);
-            columnWidthControl.Text = creationParameters.Properties.Width.ToString(CultureInfo.CurrentCulture);
+
+            var width = creationParameters.Properties.Width;
+            columnWidthControl.Text = width.ToString(CultureInfo.CurrentCulture);
             InitializeFormProperties(creationParameters.Properties);
 
             // show the dialog
@@ -376,7 +378,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             tableProperties.CellPadding = TableEditingSettings.DefaultCellPadding;
             tableProperties.CellSpacing = TableEditingSettings.DefaultCellSpacing;
             tableProperties.BorderSize = TableEditingSettings.DefaultBorderSize;
-            tableProperties.Width = TableEditingSettings.DefaultWidth;
+            tableProperties.Width = new PixelPercent();
 
             // return default parameters
             return new TableCreationParameters(
@@ -479,7 +481,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             //
             this.columnWidthControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.columnWidthControl.ColumnWidth = 0;
+            this.columnWidthControl.ColumnWidth = new PixelPercent();
             this.columnWidthControl.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.columnWidthControl.Location = new System.Drawing.Point(16, 55);
             this.columnWidthControl.Name = "columnWidthControl";

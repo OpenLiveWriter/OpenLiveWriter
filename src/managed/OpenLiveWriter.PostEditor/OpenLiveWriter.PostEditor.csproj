@@ -807,6 +807,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Tables\HTMLTableColumn.cs" />
+    <Compile Include="Tables\PixelPercent.cs" />
     <Compile Include="Tables\RowPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>

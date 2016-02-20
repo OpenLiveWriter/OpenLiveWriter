@@ -38,7 +38,7 @@ namespace OpenLiveWriter.PostEditor.Tables
                 if (parentCellBlock is IHTMLTableCell)
                 {
                     int parentCellWidth = parentCellBlock.clientWidth != 0 ? parentCellBlock.clientWidth : parentCellBlock.scrollWidth;
-                    parameters.Properties.Width = Math.Min(parameters.Properties.Width, parentCellWidth);
+                    parameters.Properties.Width = Math.Min(parentCellWidth, parameters.Properties.Width);
                 }
             }
 
@@ -58,7 +58,19 @@ namespace OpenLiveWriter.PostEditor.Tables
             tableHtml.Append("<tbody>\r\n");
 
             // write cells
-            int columnWidth = parameters.Properties.Width / parameters.Columns;
+            string columnWidth = String.Empty;
+
+            switch (parameters.Properties.Width.Units)
+            {
+                case PixelPercentUnits.Pixels:
+                    int width = parameters.Properties.Width / parameters.Columns;
+                    columnWidth = string.Format(" width=\"{0}\"", width);
+                    break;
+                case PixelPercentUnits.Percentage:
+                    columnWidth = string.Format(" width=\"{0}%\"", 100 / parameters.Columns);
+                    break;
+            }
+
             for (int r = 0; r < parameters.Rows; r++)
             {
                 tableHtml.Append("<tr>\r\n");
@@ -67,11 +79,12 @@ namespace OpenLiveWriter.PostEditor.Tables
                 {
                     // add default alignment and width to each cell
                     string valign = " valign=\"top\""; //    (more natural/expected behavior than middle)
-                    tableHtml.AppendFormat("<td {0} width=\"{1}\"></td>\r\n", valign, columnWidth);
+                    tableHtml.AppendFormat("<td {0}{1}></td>\r\n", valign, columnWidth);
                 }
 
                 tableHtml.Append("</tr>\r\n");
             }
+            
 
             // end table
             tableHtml.Append("</tbody>\r\n");
@@ -447,22 +460,27 @@ namespace OpenLiveWriter.PostEditor.Tables
 
                     // get the existing width, calculate the delta, then spread
                     // the delta across all of the columns
-                    int existingWidth = TableHelper.GetTableWidth(TableSelection.Table);
-                    int changeInWidth = value.Width - existingWidth;
-                    IHTMLTableRow firstRow = TableSelection.Table.rows.item(0, 0) as IHTMLTableRow;
-                    if (firstRow.cells.length > 0)
+                    var existingWidth = TableHelper.GetTableWidth(TableSelection.Table);
+
+                    if (existingWidth.Units == PixelPercentUnits.Pixels)
                     {
-                        int changePerColumn = changeInWidth / firstRow.cells.length;
-                        int leftoverChange = changeInWidth % firstRow.cells.length;
-                        foreach (IHTMLTableCell cell in firstRow.cells)
+                        int changeInWidth = value.Width - existingWidth;
+                        IHTMLTableRow firstRow = TableSelection.Table.rows.item(0, 0) as IHTMLTableRow;
+                        if (firstRow.cells.length > 0)
                         {
-                            HTMLTableColumn column = new HTMLTableColumn(TableSelection.Table, cell);
-                            column.Width = column.Width + changePerColumn + leftoverChange;
-                            leftoverChange = 0; // allocate only once
+                            int changePerColumn = changeInWidth / firstRow.cells.length;
+                            int leftoverChange = changeInWidth % firstRow.cells.length;
+                            foreach (IHTMLTableCell cell in firstRow.cells)
+                            {
+                                HTMLTableColumn column = new HTMLTableColumn(TableSelection.Table, cell);
+                                column.Width = column.Width + changePerColumn + leftoverChange;
+                                leftoverChange = 0; // allocate only once
+                            }
                         }
                     }
+
                     // also set the width of the whole table to match the columns
-                    TableSelection.Table.width = value.Width;
+                    TableSelection.Table.width = value.Width.ToString();
 
                     // update borders
                     TableHelper.UpdateDesignTimeBorders(TableSelection.Table);
@@ -1326,12 +1344,7 @@ namespace OpenLiveWriter.PostEditor.Tables
         }
         private string _borderSize = String.Empty;
 
-        public int Width
-        {
-            get { return _width; }
-            set { _width = value; }
-        }
-        private int _width = 0;
+        public PixelPercent Width { get; set; }
     }
 
     public class CellProperties
@@ -1377,12 +1390,8 @@ namespace OpenLiveWriter.PostEditor.Tables
 
     public class ColumnProperties
     {
-        public int Width
-        {
-            get { return _width; }
-            set { _width = value; }
-        }
-        private int _width = 0;
+        public PixelPercent Width { get; set; }
+
 
         public CellProperties CellProperties
         {
