@@ -81,7 +81,7 @@ namespace OpenLiveWriter.CoreServices.Layout
                                 textMode == GdiTextDrawMode.EndEllipsis ? User32.DT.END_ELLIPSIS
                                 : textMode == GdiTextDrawMode.WordBreak ? User32.DT.WORDBREAK | User32.DT.END_ELLIPSIS
                                 : User32.DT.WORDBREAK;
-                            if (useMnemonics)
+                            if (!useMnemonics)
                                 flags |= User32.DT.NOPREFIX;
 
                             if (0 == User32.DrawTextEx(hdc, sb, sb.Length, ref rect, flags, ref dtparams))
