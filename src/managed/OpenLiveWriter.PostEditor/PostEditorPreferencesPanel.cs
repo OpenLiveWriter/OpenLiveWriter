@@ -404,7 +404,8 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxViewWeblog.Name = "checkBoxViewWeblog";
             this.checkBoxViewWeblog.Size = new System.Drawing.Size(312, 21);
             this.checkBoxViewWeblog.TabIndex = 0;
-            this.checkBoxViewWeblog.Text = "&View post after publishing";
+            // Modified on 2/19/2016 by @kathweaver to resolve Issue #377
+            this.checkBoxViewWeblog.Text = "&View blog after publishing";
             this.checkBoxViewWeblog.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             //
             // groupBoxPostWindows

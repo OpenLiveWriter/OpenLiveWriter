@@ -3304,7 +3304,7 @@ Unimplemented Method: {2}</value>
     <value>Open a new window &amp;only when there are unsaved changes to the current post</value>
   </data>
   <data name="PostEditorPrefView" xml:space="preserve">
-    <value>&amp;View post after publishing</value>
+    <value>&amp;View blog after publishing</value>
   </data>
   <data name="PostEditorPrefBrowseFolder" xml:space="preserve">
     <value>Browse</value>
