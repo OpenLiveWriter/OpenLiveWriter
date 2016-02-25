@@ -56,7 +56,7 @@ to the .NET Foundation and this passionate group of volunteer engineers rapidly 
 version.
 
 ### Building
-OpenLiveWriter can be built by running build.cmd found in this directory.   
+Open Live Writer can be built by running build.cmd found in this directory.   
 It can be opened in Visual Studio.  The solution is in src/managed/writer.sln -- if you see errors in Visual Studio run build.cmd from the command prompt and it should be resolved.
 The main program is src/managed/OpenLiveWriter/ApplicationMain.cs .
 To run from Visual Studio, set the startup project to OpenLiveWriter.
