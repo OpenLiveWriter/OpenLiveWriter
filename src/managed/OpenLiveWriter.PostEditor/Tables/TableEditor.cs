@@ -45,7 +45,8 @@ namespace OpenLiveWriter.PostEditor.Tables
             // table properties
             TableProperties properties = parameters.Properties;
             StringBuilder propertiesString = new StringBuilder();
-            propertiesString.AppendFormat("width=\"{0}\"", properties.Width);
+            if (properties.Width.Units != PixelPercentUnits.Undefined)
+                propertiesString.AppendFormat("width=\"{0}\"", properties.Width);
             if (properties.BorderSize != String.Empty)
                 propertiesString.AppendFormat(" border=\"{0}\"", properties.BorderSize);
             if (properties.CellPadding != String.Empty)
