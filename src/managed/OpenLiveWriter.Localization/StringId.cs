@@ -5169,7 +5169,11 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// There was an unexpected error while uploading the video.
         /// </summary>
-        YouTubeVideoError
+        YouTubeVideoError,
+        /// <summary>
+        /// percent
+        /// </summary>
+        percent
     }
 }
 

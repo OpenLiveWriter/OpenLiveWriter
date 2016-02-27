@@ -32,6 +32,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             InitializeComponent();
             this.labelWidth.Text = Res.Get(StringId.WidthLabel);
             this.rbPixels.Text = Res.Get(StringId.pixels);
+            this.rbPercent.Text = Res.Get(StringId.percent);
         }
 
         protected override void OnLoad(EventArgs e)

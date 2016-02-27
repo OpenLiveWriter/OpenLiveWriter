@@ -4486,4 +4486,7 @@ This might take a while.</value>
   <data name="UnexpectedErrorSendError" xml:space="preserve">
     <value>&amp;Send Error</value>
   </data>
+  <data name="percent" xml:space="preserve">
+    <value>percent</value>
+  </data>
 </root>
