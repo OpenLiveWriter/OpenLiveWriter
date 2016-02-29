@@ -40,7 +40,7 @@ namespace OpenLiveWriter.PostEditor.Tables
         {
             get
             {
-                return new PixelPercent((string) _baseCell.width); //TableHelper.GetCellWidth(_baseCell);
+                return new PixelPercent((string) _baseCell.width, CultureInfo.CurrentCulture);
             }
             set
             {

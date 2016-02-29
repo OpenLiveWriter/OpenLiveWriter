@@ -87,6 +87,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PostEditor\Tables\PixelPercentTests.cs" />
     <Compile Include="PostEditor\Tables\TestHtmlEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PostEditor\Tables\InsertTableTests.cs" />

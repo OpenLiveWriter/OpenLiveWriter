@@ -28,9 +28,9 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.labelRows.Text = Res.Get(StringId.TableRowsLabel);
             this.labelColumns.Text = Res.Get(StringId.TableColumnsLabel);
             this.groupBoxAppearance.Text = Res.Get(StringId.Appearance);
-            this.labelSpacingPixels.Text = Res.Get(StringId.pixels);
-            this.labelPaddingPixels.Text = Res.Get(StringId.pixels);
-            this.labelBorderPixels.Text = Res.Get(StringId.pixels);
+            this.labelSpacingPixels.Text = Res.Get(StringId.Pixels);
+            this.labelPaddingPixels.Text = Res.Get(StringId.Pixels);
+            this.labelBorderPixels.Text = Res.Get(StringId.Pixels);
             this.checkBoxShowBorder.Text = Res.Get(StringId.TableShowBorderLabel);
             this.label3.Text = Res.Get(StringId.TableCellSpacingLabel);
             this.label1.Text = Res.Get(StringId.TableCellPaddingLabel);

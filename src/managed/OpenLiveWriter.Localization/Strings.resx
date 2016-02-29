@@ -2783,7 +2783,7 @@ Unimplemented Method: {2}</value>
   <data name="PingPrefUrl" xml:space="preserve">
     <value>&amp;Ping the following web addresses (one web address for each line)</value>
   </data>
-  <data name="pixels" xml:space="preserve">
+  <data name="Pixels" xml:space="preserve">
     <value>pixels</value>
   </data>
   <data name="Plugin_Map_InsertableContentSource_MenuText" xml:space="preserve">
@@ -4486,7 +4486,7 @@ This might take a while.</value>
   <data name="UnexpectedErrorSendError" xml:space="preserve">
     <value>&amp;Send Error</value>
   </data>
-  <data name="percent" xml:space="preserve">
+  <data name="Percent" xml:space="preserve">
     <value>percent</value>
   </data>
 </root>

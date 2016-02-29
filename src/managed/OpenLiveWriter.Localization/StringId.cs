@@ -3124,6 +3124,10 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         PasteSpecialThinnedLabel,
         /// <summary>
+        /// Percent (unit of measure)
+        /// </summary>
+        Percent,
+        /// <summary>
         /// Ping Servers
         /// </summary>
         PingPrefName,
@@ -3132,9 +3136,9 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         PingPrefUrl,
         /// <summary>
-        /// pixels
+        /// Pixels (unit of measure)
         /// </summary>
-        pixels,
+        Pixels,
         /// <summary>
         /// &Map
         /// </summary>
@@ -5169,11 +5173,7 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// There was an unexpected error while uploading the video.
         /// </summary>
-        YouTubeVideoError,
-        /// <summary>
-        /// percent
-        /// </summary>
-        percent
+        YouTubeVideoError
     }
 }
 

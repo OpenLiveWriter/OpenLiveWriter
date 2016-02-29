@@ -31,8 +31,8 @@ namespace OpenLiveWriter.PostEditor.Tables
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
             this.labelWidth.Text = Res.Get(StringId.WidthLabel);
-            this.rbPixels.Text = Res.Get(StringId.pixels);
-            this.rbPercent.Text = Res.Get(StringId.percent);
+            this.rbPixels.Text = Res.Get(StringId.Pixels);
+            this.rbPercent.Text = Res.Get(StringId.Percent);
         }
 
         protected override void OnLoad(EventArgs e)

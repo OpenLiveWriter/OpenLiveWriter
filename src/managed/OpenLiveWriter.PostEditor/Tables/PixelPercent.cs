@@ -31,7 +31,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             Value = value;
         }
 
-        public PixelPercent(string text, IFormatProvider provider, PixelPercentUnits units)
+        public PixelPercent(string text, IFormatProvider provider, PixelPercentUnits units) : this()
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -43,9 +43,16 @@ namespace OpenLiveWriter.PostEditor.Tables
                 var s = text.Trim();
                 Units = units;
 
-                var value = int.Parse(s, provider);
-
-                Value = value;
+                int value;
+                if (int.TryParse(s, NumberStyles.Integer, provider, out value))
+                {
+                    Value = value;
+                }
+                else
+                {
+                    Units = PixelPercentUnits.Undefined;
+                    Value = 0;
+                }
             }
         }
 
@@ -67,28 +74,41 @@ namespace OpenLiveWriter.PostEditor.Tables
                     s = s.TrimEnd('%');
                 }
 
-                var value = int.Parse(s, provider);
-                Value = value;
-                Units = units;
+                int value;
+                if (int.TryParse(s, NumberStyles.Integer, provider, out value))
+                {
+                    Value = value;
+                    Units = units;
+                }
+                else
+                {
+                    Units = PixelPercentUnits.Undefined;
+                }
             }
         }
 
         public static bool CanParse(string text)
         {
-            try
+            if (string.IsNullOrEmpty(text))
             {
-                var p = new PixelPercent(text, CultureInfo.InvariantCulture);
                 return true;
             }
-            catch (Exception)
-            {
-                return false;
-            }
-            
-        }
 
-        public PixelPercent(string text) : this(text, CultureInfo.CurrentCulture)
-        {
+            var s = text.Trim();
+
+            if (s.EndsWith("%"))
+            {
+                s = s.TrimEnd('%');
+            }
+
+            int value;
+
+            if (int.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out value))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public int Value { get; private set; }
