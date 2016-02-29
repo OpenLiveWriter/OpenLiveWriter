@@ -86,7 +86,6 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
 
         [Test]
         [TestCase("d", PixelPercentUnits.Pixels)]
-        [TestCase("1%", PixelPercentUnits.Percentage)]
         [TestCase("100.454 ", PixelPercentUnits.Percentage)]
         public void Constructor_Invalid_Values_With_Units(string text, PixelPercentUnits units)
         {
@@ -104,10 +103,10 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
         [TestCase("100%", true)]
         [TestCase("x", false)]
         [TestCase("107.9", false)]
-        public void CanParse_Values(string text, bool expected)
+        public void IsAcceptableWidth_Values(string text, bool expected)
         {
             // Act
-            var result = PixelPercent.CanParse(text);
+            var result = PixelPercent.IsAcceptableWidth(text);
 
             // Assert
             Assert.AreEqual(expected, result);

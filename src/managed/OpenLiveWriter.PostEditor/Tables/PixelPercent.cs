@@ -19,44 +19,26 @@ namespace OpenLiveWriter.PostEditor.Tables
     {
         public PixelPercent(int value, PixelPercentUnits units) : this()
         {
-            Units = units;
-
             if (value < 0)
-                throw new ArgumentOutOfRangeException("value", value, "value must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(value), value, "value must be greater than zero");
 
             if (value > 100 && units == PixelPercentUnits.Percentage)
-                throw new ArgumentOutOfRangeException("value", value,
+                throw new ArgumentOutOfRangeException(nameof(value), value,
                     "value when percent must be less or equal to 100");
 
-            Value = value;
+            SetValues(value.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture, units);
         }
 
         public PixelPercent(string text, IFormatProvider provider, PixelPercentUnits units) : this()
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                Value = 0;
-                Units = PixelPercentUnits.Undefined;
-            }
-            else
-            {
-                var s = text.Trim();
-                Units = units;
-
-                int value;
-                if (int.TryParse(s, NumberStyles.Integer, provider, out value))
-                {
-                    Value = value;
-                }
-                else
-                {
-                    Units = PixelPercentUnits.Undefined;
-                    Value = 0;
-                }
-            }
+            SetValues(text, provider, units);
         }
 
-        public PixelPercent(string text, IFormatProvider provider) : this()
+        public PixelPercent(string text, IFormatProvider provider) : this(text, provider, PixelPercentUnits.Pixels)
+        {
+        }
+
+        private void SetValues(string text, IFormatProvider provider, PixelPercentUnits units)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -66,7 +48,6 @@ namespace OpenLiveWriter.PostEditor.Tables
             else
             {
                 var s = text.Trim();
-                var units = PixelPercentUnits.Pixels;
 
                 if (s.EndsWith("%"))
                 {
@@ -83,11 +64,12 @@ namespace OpenLiveWriter.PostEditor.Tables
                 else
                 {
                     Units = PixelPercentUnits.Undefined;
+                    Value = 0;
                 }
             }
         }
 
-        public static bool CanParse(string text)
+        public static bool IsAcceptableWidth(string text)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -102,20 +84,14 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
 
             int value;
-
-            if (int.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out value))
-            {
-                return true;
-            }
-
-            return false;
+            return int.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out value);
         }
 
         public int Value { get; private set; }
 
         public PixelPercentUnits Units { get; private set; }
 
-        public static PixelPercent operator / (PixelPercent left, int right)
+        public static PixelPercent operator /(PixelPercent left, int right)
         {
             if (right <= 0)
                 throw new InvalidOperationException("Can't divide PixelPercent by zero or negative numbers");
@@ -126,7 +102,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             return new PixelPercent(left.Value / right, left.Units);
         }
 
-        public static PixelPercent operator * (PixelPercent left, int right)
+        public static PixelPercent operator *(PixelPercent left, int right)
         {
             throw new NotImplementedException();
         }

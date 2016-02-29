@@ -96,7 +96,7 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         public bool ValidateInput(int maxValue)
         {
-            if (!PixelPercent.CanParse(textBoxWidth.Text))
+            if (!PixelPercent.IsAcceptableWidth(textBoxWidth.Text))
             {
                 DisplayMessage.Show(MessageId.UnspecifiedValue, this, Res.Get(StringId.Width));
                 textBoxWidth.Focus();
