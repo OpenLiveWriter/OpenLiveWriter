@@ -36,11 +36,11 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-        public int Width
+        public PixelPercent Width
         {
             get
             {
-                return TableHelper.GetCellWidth(_baseCell);
+                return new PixelPercent((string) _baseCell.width, CultureInfo.CurrentCulture);
             }
             set
             {
@@ -245,13 +245,14 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         private class CellWidthProcessor : IColumnCellProcessor
         {
-            private int _width;
-            public CellWidthProcessor(int width) { _width = width; }
+            private PixelPercent _width;
+            public CellWidthProcessor(PixelPercent width) { _width = width; }
 
             public void ProcessCell(IHTMLTableCell cell)
             {
-                if (_width > 0)
+                if (_width > 0 && _width.Units != PixelPercentUnits.Undefined)
                 {
+                   
                     cell.width = _width.ToString(CultureInfo.InvariantCulture);
                 }
                 else
