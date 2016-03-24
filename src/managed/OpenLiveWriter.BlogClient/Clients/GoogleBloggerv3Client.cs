@@ -335,7 +335,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     {
                         var json = reader.ReadToEnd();
                         var item = JsonConvert.DeserializeObject<CategoryResponse>(json);
-                        var cats = item?.Feed?.CategoryArray.Select(x => new BlogPostCategory(x.Term));
+                        var cats = item?.Feed?.CategoryArray?.Select(x => new BlogPostCategory(x.Term));
                         categories = cats?.ToArray() ?? new BlogPostCategory[0];
                     }
                 }
