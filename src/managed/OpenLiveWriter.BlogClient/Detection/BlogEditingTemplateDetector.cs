@@ -404,6 +404,12 @@ namespace OpenLiveWriter.BlogClient.Detection
                     // will be notified that they won't be able to edit with style)
                     _exception = e;
                 }
+                catch (BlogClientAbortGettingTemplateException e)
+                {
+                    _exception = e;
+                    //Do not proceed with the other strategies if getting the template was aborted.
+                    break;
+                }
                 catch (WebException e)
                 {
                     _exception = e;
@@ -465,6 +471,11 @@ namespace OpenLiveWriter.BlogClient.Detection
                         string templateFile = DownloadTemplateFiles(editingTemplate, baseUrl, new ProgressTick(parseTick, 4, 5));
                         templateFiles.Add(new BlogEditingTemplateFile(templateTypes[i], templateFile));
 
+                    }
+                    catch(BlogClientAbortGettingTemplateException)
+                    {
+                        Trace.WriteLine(String.Format(CultureInfo.CurrentCulture, "Failed to download template {0}.  Aborting getting further templates", templateTypes[i].ToString()));
+                        throw;
                     }
                     catch (Exception e)
                     {
