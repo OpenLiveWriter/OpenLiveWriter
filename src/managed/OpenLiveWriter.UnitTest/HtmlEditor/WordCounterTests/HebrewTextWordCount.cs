@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenLiveWriter.HtmlEditor;
+using System;
 
 namespace OpenLiveWriter.UnitTest.HtmlEditor.WordCounterTests
 {
@@ -30,6 +31,27 @@ namespace OpenLiveWriter.UnitTest.HtmlEditor.WordCounterTests
         }
 
         [TestMethod]
+        public void SanityEnglishTextEndsWithPunctuation()
+        {
+            CountText("Simple English Text.", 3, 20);
+        }
+
+
+        [TestMethod]
+        public void SanityEnglishMultiline()
+        {
+            CountText("This is a " + Environment.NewLine + "multiline text", 5);
+        }
+
+        [TestMethod]
+        public void EnglishSeparatedBy()
+        {
+            CountText("This is a " + Environment.NewLine + "multiline text", 5);
+        }
+
+
+
+        [TestMethod]
         public void CyrillicText()
         {
             CountText("ДЖem", 1, 4);
@@ -48,9 +70,17 @@ namespace OpenLiveWriter.UnitTest.HtmlEditor.WordCounterTests
         }
 
         [TestMethod]
+        public void HebrewMultiline()
+        {
+            CountText("משפט עם חמש " + "\n" + "מילים בעברית", 5);
+        }
+
+
+        [TestMethod]
         public void MixedHebrewEnglishWords()
         {
-            CountText("מילה בעברית and an english word", 6);
+            CountText("מילה בעברית and an english word", 6);            
+
         }
 
         [TestMethod]
