@@ -22,6 +22,11 @@ namespace OpenLiveWriter.ApplicationFramework
 
         protected CommandBarLightweightControl _commandBar;
 
+        public CommandBarControl()
+        {
+            InitializeComponent();
+        }
+
         public CommandBarControl(CommandBarLightweightControl commandBar, CommandBarDefinition commandBarDefinition)
         {
             // It's important that the commandBarDefinition not be set

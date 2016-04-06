@@ -93,22 +93,22 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-        public static int GetTableWidth(IHTMLTable table)
+        public static PixelPercent GetTableWidth(IHTMLTable table)
         {
             if (table.width != null)
             {
                 try
                 {
-                    return int.Parse(table.width.ToString(), CultureInfo.InvariantCulture);
+                    return new PixelPercent(table.width.ToString(), CultureInfo.InvariantCulture);
                 }
                 catch
                 {
-                    return 0;
+                    return new PixelPercent();
                 }
             }
             else
             {
-                return 0;
+                return new PixelPercent();
             }
         }
 
@@ -132,8 +132,14 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
         }
 
-        public static int GetTableLogicalEditingWidth(IHTMLTable table)
+        public static PixelPercent GetTableLogicalEditingWidth(IHTMLTable table)
         {
+            // If percentage, then just keep that
+            var width = GetTableWidth(table);
+
+            if (width.Units == PixelPercentUnits.Percentage || width.Units == PixelPercentUnits.Undefined)
+                return width;
+
             // value to return (default to zero)
             int logicalWidth = 0;
 
@@ -173,9 +179,9 @@ namespace OpenLiveWriter.PostEditor.Tables
 
         public static void SynchronizeTableWidthForEditing(IHTMLTable table)
         {
-            int logicalWidth = TableHelper.GetTableLogicalEditingWidth(table);
-            if (logicalWidth > 0)
-                table.width = logicalWidth;
+            var logicalWidth = TableHelper.GetTableLogicalEditingWidth(table);
+            if (logicalWidth > 0 && logicalWidth.Units != PixelPercentUnits.Undefined)
+                table.width = logicalWidth.ToString();
             else
                 (table as IHTMLElement).removeAttribute("width", 0);
         }

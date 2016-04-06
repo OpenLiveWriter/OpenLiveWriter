@@ -16,6 +16,8 @@ using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.WordCount;
+using System.IO;
+using OpenLiveWriter.PostEditor.JumpList;
 
 namespace OpenLiveWriter.PostEditor
 {
@@ -41,7 +43,13 @@ namespace OpenLiveWriter.PostEditor
         private System.Windows.Forms.CheckBox checkBoxAutoSaveDrafts;
         private System.Windows.Forms.GroupBox groupBoxGeneral;
         private System.Windows.Forms.CheckBox checkBoxWordCount;
+        private System.Windows.Forms.GroupBox groupBoxWeblogPostsFolder;
+        private System.Windows.Forms.TextBox textBoxWeblogPostsFolder;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.Button buttonBrowserDialog;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private WordCountPreferences _wordCountPreferences;
+        private string _originalFolder = string.Empty;
 
         public PostEditorPreferencesPanel()
         {
@@ -64,11 +72,12 @@ namespace OpenLiveWriter.PostEditor
                 checkBoxAutoSaveDrafts.Text = Res.Get(StringId.PostEditorPrefAuto);
                 checkBoxWordCount.Text = Res.Get(StringId.ShowRealTimeWordCount);
                 PanelName = Res.Get(StringId.PostEditorPrefName);
+                this.groupBoxWeblogPostsFolder.Text = Res.Get(StringId.PostEditorPrefPostLocation);
             }
 
             PanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap("Images.PreferencesOther.png");
 
-            _postEditorPreferences = new PostEditorPreferences();
+            _postEditorPreferences = PostEditorPreferences.Instance;
             _postEditorPreferences.PreferencesModified += _writerPreferences_PreferencesModified;
 
             switch (_postEditorPreferences.PostWindowBehavior)
@@ -92,6 +101,12 @@ namespace OpenLiveWriter.PostEditor
             checkBoxCategoryReminder.Checked = _postEditorPreferences.CategoryReminder;
             checkBoxTagReminder.Checked = _postEditorPreferences.TagReminder;
 
+            textBoxWeblogPostsFolder.Text = _postEditorPreferences.WeblogPostsFolder;
+            _originalFolder = _postEditorPreferences.WeblogPostsFolder;
+            textBoxWeblogPostsFolder.TextChanged += TextBoxWeblogPostsFolder_TextChanged;
+
+            buttonBrowserDialog.MouseClick += ButtonBrowserDialog_MouseClick;
+
             checkBoxAutoSaveDrafts.Checked = _postEditorPreferences.AutoSaveDrafts;
             checkBoxAutoSaveDrafts.CheckedChanged += new EventHandler(checkBoxAutoSaveDrafts_CheckedChanged);
 
@@ -113,6 +128,16 @@ namespace OpenLiveWriter.PostEditor
 
         }
 
+        private void ButtonBrowserDialog_MouseClick(object sender, MouseEventArgs e)
+        {
+            folderBrowserDialog.SelectedPath = textBoxWeblogPostsFolder.Text;
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                textBoxWeblogPostsFolder.Text = folderBrowserDialog.SelectedPath;
+            }
+        }
+
         private bool _layedOut = false;
         protected override void OnLoad(EventArgs e)
         {
@@ -123,18 +148,55 @@ namespace OpenLiveWriter.PostEditor
                 LayoutHelper.FixupGroupBox(this.groupBoxPostWindows);
                 LayoutHelper.FixupGroupBox(this.groupBoxPublishing);
                 LayoutHelper.FixupGroupBox(this.groupBoxGeneral);
-                LayoutHelper.NaturalizeHeightAndDistribute(8, groupBoxPostWindows, groupBoxPublishing, groupBoxGeneral);
+                LayoutHelper.FixupGroupBox(this.groupBoxWeblogPostsFolder);
+                LayoutHelper.NaturalizeHeightAndDistribute(8, groupBoxPostWindows, groupBoxPublishing, groupBoxGeneral, groupBoxWeblogPostsFolder);
                 _layedOut = true;
             }
         }
 
         public override void Save()
         {
+            string destinationRecentPosts = Path.Combine(_postEditorPreferences.WeblogPostsFolder + "\\Recent Posts");
+            string destinationDrafts = Path.Combine(_postEditorPreferences.WeblogPostsFolder + "\\Drafts");
+            Directory.CreateDirectory(destinationRecentPosts);
+            Directory.CreateDirectory(destinationDrafts);
+
+            _postEditorPreferences.SaveWebLogPostFolder();
+
+            if (string.Compare(_originalFolder, _postEditorPreferences.WeblogPostsFolder, true, CultureInfo.CurrentUICulture) != 0)
+            {
+                string message = "You  have updated the default location for your blog posts, would you like to move any existing posts?";
+                string caption = "Move existing posts";
+                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                DialogResult result;
+
+                result = MessageBox.Show(message, caption, buttons);
+
+                if (result == DialogResult.Yes)
+                {
+                    MovePosts(Path.Combine(_originalFolder + @"\\Recent Posts\\"), destinationRecentPosts);
+
+                    MovePosts(Path.Combine(_originalFolder + @"\\Drafts\\"), destinationDrafts);
+                    
+                    PostEditorForm frm = Application.OpenForms?[0] as PostEditorForm;
+                    if (frm != null)
+                    { 
+                        PostEditorMainControl ctrl = frm.Controls?[0] as PostEditorMainControl;
+                        if (ctrl != null)
+                        {
+                            ctrl.FirePostListChangedEvent();
+                        }
+                    }
+                }
+            }
+
             if (_postEditorPreferences.IsModified())
                 _postEditorPreferences.Save();
 
             if (_wordCountPreferences.IsModified())
                 _wordCountPreferences.Save();
+
+            _originalFolder = _postEditorPreferences.WeblogPostsFolder;
         }
 
         private void checkBoxViewWeblog_CheckedChanged(object sender, EventArgs e)
@@ -197,6 +259,40 @@ namespace OpenLiveWriter.PostEditor
             _wordCountPreferences.EnableRealTimeWordCount = checkBoxWordCount.Checked;
         }
 
+        private void TextBoxWeblogPostsFolder_TextChanged(object sender, EventArgs e)
+        {
+            _postEditorPreferences.WeblogPostsFolder = textBoxWeblogPostsFolder.Text;
+        }
+
+        private void MovePosts(string sourceFolder, string destinationFolder)
+        {
+            string[] files = System.IO.Directory.GetFiles(sourceFolder);
+            foreach (string s in files)
+            {
+                string fileName = Path.GetFileName(s);
+                string destFile = Path.Combine(destinationFolder, fileName);
+
+                MoveFile(s, destFile);
+            }
+        }
+
+        private void MoveFile(string sourcefile, string destinationfile)
+        {
+            if (File.Exists(destinationfile))
+            {
+                string newdestfilename = 
+                    Path.GetDirectoryName(destinationfile) + @"\" +
+                    Path.GetFileNameWithoutExtension(destinationfile) + "_Copy" +
+                    Path.GetExtension(destinationfile);
+
+                MoveFile(sourcefile, newdestfilename);
+            }
+            else
+            {
+                File.Move(sourcefile, destinationfile);
+            }
+        }
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -234,9 +330,16 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxGeneral = new System.Windows.Forms.GroupBox();
             this.checkBoxAutoSaveDrafts = new System.Windows.Forms.CheckBox();
             this.checkBoxWordCount = new System.Windows.Forms.CheckBox();
+            this.groupBoxWeblogPostsFolder = new System.Windows.Forms.GroupBox();
+            this.textBoxWeblogPostsFolder = new TextBox();
+            this.folderBrowserDialog = new FolderBrowserDialog();
+            this.buttonBrowserDialog = new Button();
+            this.flowLayoutPanel = new FlowLayoutPanel();
+            this.flowLayoutPanel.SuspendLayout();
             this.groupBoxPublishing.SuspendLayout();
             this.groupBoxPostWindows.SuspendLayout();
             this.groupBoxGeneral.SuspendLayout();
+            this.groupBoxWeblogPostsFolder.SuspendLayout();
             this.SuspendLayout();
             //
             // groupBoxPublishing
@@ -301,7 +404,8 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxViewWeblog.Name = "checkBoxViewWeblog";
             this.checkBoxViewWeblog.Size = new System.Drawing.Size(312, 21);
             this.checkBoxViewWeblog.TabIndex = 0;
-            this.checkBoxViewWeblog.Text = "&View post after publishing";
+            // Modified on 2/19/2016 by @kathweaver to resolve Issue #377
+            this.checkBoxViewWeblog.Text = "&View blog after publishing";
             this.checkBoxViewWeblog.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             //
             // groupBoxPostWindows
@@ -382,23 +486,66 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxWordCount.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxWordCount.UseVisualStyleBackColor = true;
             //
+            // textBoxWeblogPostsFolder
+            //
+            this.textBoxWeblogPostsFolder.Name = "textBoxWeblogPostsFolder";
+            this.textBoxWeblogPostsFolder.Size = new System.Drawing.Size(314, 22);
+            this.textBoxWeblogPostsFolder.AutoSize = false;
+            this.textBoxWeblogPostsFolder.TabIndex = 1;
+            this.textBoxWeblogPostsFolder.Text = "Show default post save location";
+            this.textBoxWeblogPostsFolder.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.textBoxWeblogPostsFolder.Location = new System.Drawing.Point(16, 21);
+            this.textBoxWeblogPostsFolder.BorderStyle = BorderStyle.FixedSingle;
+            this.textBoxWeblogPostsFolder.Font = Res.DefaultFont;
+            //
+            // buttonBrowserDialog
+            //
+            this.buttonBrowserDialog.Name = "buttonBrowserDialog";
+            this.buttonBrowserDialog.Text = Res.Get(StringId.PostEditorPrefBrowseFolder);
+            this.buttonBrowserDialog.TabIndex = 2;
+            this.buttonBrowserDialog.Location = new System.Drawing.Point(16, 32);
+            this.buttonBrowserDialog.Size =  new System.Drawing.Size(70, 22);
+            this.buttonBrowserDialog.Font = Res.DefaultFont;
+            this.buttonBrowserDialog.AutoSize = false;
+            //
+            // FolderBrowserDialog
+            //
+            this.folderBrowserDialog.Description = "Select the directory that you want to use as the default";
+            this.folderBrowserDialog.ShowNewFolderButton = true;
+            this.folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+            //
+            // groupBoxWeblogPostsFolder
+            //
+            this.groupBoxWeblogPostsFolder.Controls.Add(this.textBoxWeblogPostsFolder);
+            this.groupBoxWeblogPostsFolder.Controls.Add(this.buttonBrowserDialog);
+            this.groupBoxWeblogPostsFolder.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.groupBoxWeblogPostsFolder.Location = new System.Drawing.Point(8, 154);
+            this.groupBoxWeblogPostsFolder.Name = "groupBoxWeblogPostsFolder";
+            this.groupBoxWeblogPostsFolder.Size = new System.Drawing.Size(345, 45);
+            this.groupBoxWeblogPostsFolder.TabIndex = 4;
+            this.groupBoxWeblogPostsFolder.TabStop = false;
+            this.groupBoxWeblogPostsFolder.Text = "Post Folder Location";
+            //
             // PostEditorPreferencesPanel
             //
             this.AccessibleName = "Preferences";
             this.Controls.Add(this.groupBoxPostWindows);
             this.Controls.Add(this.groupBoxPublishing);
             this.Controls.Add(this.groupBoxGeneral);
+            this.Controls.Add(this.groupBoxWeblogPostsFolder);
             this.Name = "PostEditorPreferencesPanel";
             this.PanelName = "Preferences";
             this.Size = new System.Drawing.Size(370, 521);
             this.Controls.SetChildIndex(this.groupBoxPublishing, 0);
             this.Controls.SetChildIndex(this.groupBoxPostWindows, 0);
             this.Controls.SetChildIndex(this.groupBoxGeneral, 0);
+            this.Controls.SetChildIndex(this.groupBoxWeblogPostsFolder, 0);
             this.groupBoxPublishing.ResumeLayout(false);
             this.groupBoxPostWindows.ResumeLayout(false);
             this.groupBoxGeneral.ResumeLayout(false);
+            this.flowLayoutPanel.ResumeLayout(false);
+            this.groupBoxWeblogPostsFolder.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
         #endregion
 

@@ -252,7 +252,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             {
                 Predicate<TreeNode> prefixPredicate = delegate (TreeNode node)
                                           {
-                                              return node.Text.ToLower(CultureInfo.CurrentCulture).StartsWith(criteria);
+                                              return node.Text.ToLower(CultureInfo.CurrentCulture).IndexOf(criteria, StringComparison.CurrentCultureIgnoreCase) >= 0;
                                           };
 
                 if (criteria.Length > 0 && criteria.StartsWith(lastQuery))

@@ -2,7 +2,7 @@
 Open Live Writer makes it easy to write, preview, and post to your blog.
 For more information see http://www.OpenLiveWriter.org/.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/2a74qa64fomgrjb3?svg=true)](https://ci.appveyor.com/project/ScottHanselman/openlivewriter)
+[![Build status](https://ci.appveyor.com/api/projects/status/8xpga2y53sgwo24g?svg=true)](https://ci.appveyor.com/project/dotnetfoundation/openlivewriter)
 
 ### Installation
 You can install the latest version of Open Live Writer alongside an [older version of Windows Live Writer](http://windows.microsoft.com/en-us/windows-live/essentials). Visit
@@ -54,6 +54,12 @@ volunteer time to help release an updated version of Live Writer had found each 
 this open source fork of Live Writer formed and ready to ship. In December 2015 Microsoft donated the code
 to the .NET Foundation and this passionate group of volunteer engineers rapidly assembled the first open source
 version.
+
+### Building
+Open Live Writer can be built by running build.cmd found in this directory.   
+It can be opened in Visual Studio.  The solution is in src/managed/writer.sln -- if you see errors in Visual Studio run build.cmd from the command prompt and it should be resolved.
+The main program is src/managed/OpenLiveWriter/ApplicationMain.cs .
+To run from Visual Studio, set the startup project to OpenLiveWriter.
 
 ### .NET Foundation
 
