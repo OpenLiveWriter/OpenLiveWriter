@@ -971,7 +971,8 @@ namespace OpenLiveWriter.Controls
                 //					drawBitmapRectangle.Offset(ScaleX(PUSHED_OFFSET), ScaleY(PUSHED_OFFSET));
 
                 //	Draw the bitmap.
-                g.DrawImage(AllowMirroring, buttonBitmap, new Rectangle(ScaleX(drawBitmapRectangle.X), ScaleY(drawBitmapRectangle.Y), ScaleX(buttonBitmap.Width), ScaleY(buttonBitmap.Height)));
+                var destRect = new Rectangle(drawBitmapRectangle.X, drawBitmapRectangle.Y, ScaleX(buttonBitmap.Width), ScaleY(buttonBitmap.Height));
+                g.DrawImage(AllowMirroring, buttonBitmap, destRect);
             }
 
             //	If focus is being shown, and we're focused, draw the focus rectangle.
