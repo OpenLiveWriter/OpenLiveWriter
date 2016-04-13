@@ -71,6 +71,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             treeView.BeforeCollapse += delegate (object sender, TreeViewCancelEventArgs e) { e.Cancel = true; };
             treeView.AfterCheck += treeView1_AfterCheck;
 
+            treeView.ItemHeight = (int) DisplayHelper.ScaleY(treeView.ItemHeight);
+
             treeView.LostFocus += delegate { treeView.Invalidate(); };
         }
 
