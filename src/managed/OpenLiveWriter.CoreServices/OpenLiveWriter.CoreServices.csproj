@@ -348,11 +348,27 @@
   <PropertyGroup>
     <MasterXmlPath>$(MSBuildProjectDirectory)\..\..\..\intl\markets\Master.xml</MasterXmlPath>
     <MasterXmlOutput>$(MSBuildProjectDirectory)\Marketization\Master.xml</MasterXmlOutput>
+    <MarketsXmlPath>$(MSBuildProjectDirectory)\Marketization\Markets.xml</MarketsXmlPath>
+    <MarketsSourceDataFolder>$(MSBuildProjectDirectory)\..\..\..\intl\markets</MarketsSourceDataFolder>
   </PropertyGroup>
-  <Target Name="GenerateMarketXml" DependsOnTargets="ResolveProjectReferences" BeforeTargets="CoreCompile">
-    <MakeDir Directories="$(MSBuildProjectDirectory)\Marketization" />
-    <Copy SourceFiles="$(MasterXmlPath)" DestinationFiles="$(MasterXmlOutput)" />
-    <Exec Command="&quot;$(OutDir)MarketXmlGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\..\..\..\intl\markets&quot; &quot;$(MSBuildProjectDirectory)\Marketization\Markets.xml&quot;" />
+  <Target Name="GenerateMarketXmlDeps">
+    <ItemGroup>
+      <MarketsSourceFiles Include="$(MarketsSourceDataFolder)\**\*.xml" />
+    </ItemGroup>
   </Target>
+
+  <Target Name="GenerateMarketXml" DependsOnTargets="ResolveProjectReferences;GenerateMarketXmlDeps;GenerateMarketXmlCopyMaster;GenerateMarketXmlImpl" BeforeTargets="CoreCompile">
+  </Target>
+  
+  <Target Name="GenerateMarketXmlImpl" Inputs="@(MarketsSourceFiles)" Outputs="$(MarketsXmlPath)">
+    <Exec Command="&quot;$(OutDir)MarketXmlGenerator.exe&quot; &quot;$(MarketsSourceDataFolder)&quot; &quot;$(MarketsXmlPath)&quot;" />
+  </Target>
+
+  <Target Name="GenerateMarketXmlCopyMaster" Inputs="$(MasterXmlPath)" Outputs="$(MasterXmlOutput)">
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Marketization" Condition="!Exists('$(MSBuildProjectDirectory)\Marketization')" />
+    <Copy SourceFiles="$(MasterXmlPath)" DestinationFiles="$(MasterXmlOutput)" />
+  </Target>
+
   <Target Name="_CopyFilesMarkedCopyLocal" />
+
 </Project>
