@@ -4,6 +4,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.UI;
@@ -128,13 +129,13 @@ namespace OpenLiveWriter.Controls
         /// A value which indicates how the BitmapButton should automcatically determine its
         /// width.
         /// </summary>
-        private bool autoSizeWidth = false;
+        private bool autoSizeWidth;
 
         /// <summary>
         /// A value which indicates how the BitmapButton should automcatically determine its
         /// height.
         /// </summary>
-        private bool autoSizeHeight = false;
+        private bool autoSizeHeight;
 
         /// <summary>
         /// A value which how the button is drawn by the control.
@@ -147,24 +148,9 @@ namespace OpenLiveWriter.Controls
         private bool clickSetsFocus;
 
         /// <summary>
-        /// The button bitmap for the disabled state.
-        /// </summary>
-        private Bitmap bitmapDisabled;
-
-        /// <summary>
         /// The button bitmap for the enabled state.
         /// </summary>
         private Bitmap bitmapEnabled;
-
-        /// <summary>
-        /// The bitmap for the selected state.
-        /// </summary>
-        private Bitmap bitmapSelected;
-
-        /// <summary>
-        /// The bitmap for the pushed state.
-        /// </summary>
-        private Bitmap bitmapPushed;
 
         /// <summary>
         /// The text alignment for the button.
@@ -194,36 +180,31 @@ namespace OpenLiveWriter.Controls
         /// <summary>
         /// A value indicating whether the button is latched.
         /// </summary>
-        private bool latched = false;
+        private bool latched;
 
         /// <summary>
         /// A value indicating whether a key press has pushed the button.
         /// </summary>
-        private bool pushedByKeystroke = false;
+        private bool pushedByKeystroke;
 
         /// <summary>
         /// A value indicating whether the mouse is inside the control.
         /// </summary>
-        private bool mouseInside = false;
+        private bool mouseInside;
 
         /// <summary>
         /// A value indicating whether the left mouse button is down.
         /// </summary>
-        private bool leftMouseDown = false;
+        private bool leftMouseDown;
 
         /// <summary>
         /// A value indicating whether the right mouse button is down.
         /// </summary>
-        private bool rightMouseDown = false;
+        private bool rightMouseDown;
 
-        /// <summary>
-        /// A value indicating whether focus is being shown.
-        /// </summary>
-        private bool showFocus = true;
+        private bool useVirtualTransparency;
 
-        private bool useVirtualTransparency = false;
-
-        private bool allowMirroring = false;
+        private bool allowMirroring;
 
         #endregion Private Member Variables & Declarations
 
@@ -244,9 +225,7 @@ namespace OpenLiveWriter.Controls
         /// <param name="container"></param>
         public BitmapButton(IContainer container)
         {
-            /// <summary>
-            /// Required for Windows.Forms Class Composition Designer support
-            /// </summary>
+            // Required for Windows.Forms Class Composition Designer support
             container.Add(this);
             InitializeComponent();
 
@@ -259,9 +238,7 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         public BitmapButton()
         {
-            /// <summary>
-            /// Required for Windows.Forms Class Composition Designer support
-            /// </summary>
+            // Required for Windows.Forms Class Composition Designer support
             InitializeComponent();
 
             //	Do common initialization.
@@ -294,10 +271,7 @@ namespace OpenLiveWriter.Controls
         {
             if (disposing)
             {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
+                components?.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -412,18 +386,7 @@ namespace OpenLiveWriter.Controls
                 DefaultValue(null),
                 Description("Specifies the button bitmap for the disabled state.")
         ]
-        public Bitmap BitmapDisabled
-        {
-            get
-            {
-                return bitmapDisabled;
-            }
-
-            set
-            {
-                bitmapDisabled = value;
-            }
-        }
+        public Bitmap BitmapDisabled { get; set; }
 
         /// <summary>
         /// Gets or sets the bitmap for the enabled state.
@@ -456,18 +419,7 @@ namespace OpenLiveWriter.Controls
                 DefaultValue(null),
                 Description("Specifies the bitmap for the selected state.")
         ]
-        public Bitmap BitmapSelected
-        {
-            get
-            {
-                return bitmapSelected;
-            }
-
-            set
-            {
-                bitmapSelected = value;
-            }
-        }
+        public Bitmap BitmapSelected { get; set; }
 
         /// <summary>
         /// Gets or sets the bitmap for the pushed state.
@@ -478,18 +430,8 @@ namespace OpenLiveWriter.Controls
                 DefaultValue(null),
                 Description("Specifies the bitmap for the pushed state.  Used only when ButtonStyle.Bitmap is specified.")
         ]
-        public Bitmap BitmapPushed
-        {
-            get
-            {
-                return bitmapPushed;
-            }
 
-            set
-            {
-                bitmapPushed = value;
-            }
-        }
+        public Bitmap BitmapPushed { get; set; }
 
         /// <summary>
         /// Gets or sets the text alignment for the button.
@@ -555,9 +497,7 @@ namespace OpenLiveWriter.Controls
         {
             get
             {
-                if (toolTip == null)
-                    return null;
-                return toolTip.GetToolTip(this);
+                return toolTip?.GetToolTip(this);
             }
 
             set
@@ -567,7 +507,7 @@ namespace OpenLiveWriter.Controls
                     // we need to instantiate this tooltip lazily because it
                     // causes memory leaks if the form it lives on is not collected,
                     // which is the case for the property shelf.
-                    toolTip = new ToolTip2(this.components);
+                    toolTip = new ToolTip2(components);
                 }
 
                 toolTip.SetToolTip(this, value);
@@ -673,7 +613,6 @@ namespace OpenLiveWriter.Controls
             //	Track whether focus is being shown.
             if (e.ChangeFocus)
             {
-                showFocus = e.ShowFocus;
                 Invalidate();
             }
 
@@ -1031,7 +970,7 @@ namespace OpenLiveWriter.Controls
         /// <param name="msg">A Message, passed by reference, that represents the window message to process.</param>
         /// <param name="keyData">One of the Keys values that represents the key to process.</param>
         /// <returns>true if the character was processed by the control; otherwise, false.</returns>
-        [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             Keys key = keyData & ~(Keys.Control | Keys.Shift);
@@ -1040,10 +979,7 @@ namespace OpenLiveWriter.Controls
                 PushByKeystroke();
                 return true;
             }
-            else
-            {
-                return base.ProcessCmdKey(ref msg, keyData);
-            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         protected virtual bool IsPushKey(Keys key)
