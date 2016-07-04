@@ -202,3 +202,4 @@ FakesAssemblies/
 
 #Visual Studio specific files
 *.VC.opendb
+src/managed/writer.VC.db
