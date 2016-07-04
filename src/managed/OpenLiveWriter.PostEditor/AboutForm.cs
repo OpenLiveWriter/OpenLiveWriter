@@ -36,6 +36,7 @@ namespace OpenLiveWriter.PostEditor
         /// Required designer variable.
         /// </summary>
         private Container components = null;
+        private LinkLabel labelWebsiteLink;
 
         // Copyright notices are not to be localized.
         string[] credits = {
@@ -155,10 +156,11 @@ namespace OpenLiveWriter.PostEditor
             this.lnkShowLogFile = new System.Windows.Forms.LinkLabel();
             this.labelConfigVersion = new System.Windows.Forms.Label();
             this.copyrightTextbox = new System.Windows.Forms.TextBox();
+            this.labelWebsiteLink = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
-            //
+            // 
             // labelProduct
-            //
+            // 
             this.labelProduct.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelProduct.Font = new System.Drawing.Font("Tahoma", 12F);
             this.labelProduct.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -167,9 +169,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelProduct.Size = new System.Drawing.Size(287, 24);
             this.labelProduct.TabIndex = 0;
             this.labelProduct.Text = "Open Live Writer";
-            //
+            // 
             // labelCopyright
-            //
+            // 
             this.labelCopyright.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCopyright.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelCopyright.Location = new System.Drawing.Point(22, 100);
@@ -177,9 +179,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelCopyright.Size = new System.Drawing.Size(284, 30);
             this.labelCopyright.TabIndex = 1;
             this.labelCopyright.Text = "© 2015 .NET Foundation. All rights reserved.";
-            //
+            // 
             // buttonOK
-            //
+            // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -190,9 +192,9 @@ namespace OpenLiveWriter.PostEditor
             this.buttonOK.TabIndex = 7;
             this.buttonOK.Text = "OK";
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            //
+            // 
             // labelVersion
-            //
+            // 
             this.labelVersion.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelVersion.Location = new System.Drawing.Point(22, 55);
@@ -200,9 +202,9 @@ namespace OpenLiveWriter.PostEditor
             this.labelVersion.Size = new System.Drawing.Size(287, 20);
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Build xxx.xxxx.xxxx";
-            //
+            // 
             // lnkShowLogFile
-            //
+            // 
             this.lnkShowLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lnkShowLogFile.AutoSize = true;
             this.lnkShowLogFile.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -216,9 +218,9 @@ namespace OpenLiveWriter.PostEditor
             this.lnkShowLogFile.Text = "Show log file";
             this.lnkShowLogFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lnkShowLogFile.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkShowLogFile_LinkClicked);
-            //
+            // 
             // labelConfigVersion
-            //
+            // 
             this.labelConfigVersion.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelConfigVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelConfigVersion.Location = new System.Drawing.Point(22, 75);
@@ -226,24 +228,36 @@ namespace OpenLiveWriter.PostEditor
             this.labelConfigVersion.Size = new System.Drawing.Size(284, 18);
             this.labelConfigVersion.TabIndex = 9;
             this.labelConfigVersion.Text = "Configuration Version 12.0.2342.0324";
-            //
+            // 
             // copyrightTextbox
-            //
+            // 
             this.copyrightTextbox.AcceptsReturn = true;
-            this.copyrightTextbox.Location = new System.Drawing.Point(12, 123);
+            this.copyrightTextbox.Location = new System.Drawing.Point(12, 133);
             this.copyrightTextbox.Multiline = true;
             this.copyrightTextbox.Name = "copyrightTextbox";
             this.copyrightTextbox.ReadOnly = true;
             this.copyrightTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.copyrightTextbox.Size = new System.Drawing.Size(410, 151);
+            this.copyrightTextbox.Size = new System.Drawing.Size(410, 141);
             this.copyrightTextbox.TabIndex = 12;
-            //
+            // 
+            // labelWebsiteLink
+            // 
+            this.labelWebsiteLink.AutoSize = true;
+            this.labelWebsiteLink.Location = new System.Drawing.Point(249, 20);
+            this.labelWebsiteLink.Name = "labelWebsiteLink";
+            this.labelWebsiteLink.Size = new System.Drawing.Size(173, 15);
+            this.labelWebsiteLink.TabIndex = 13;
+            this.labelWebsiteLink.TabStop = true;
+            this.labelWebsiteLink.Text = "http://www.openlivewriter.org/";
+            this.labelWebsiteLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelWebsiteLink_LinkClicked);
+            // 
             // AboutForm
-            //
+            // 
             this.AcceptButton = this.buttonOK;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonOK;
             this.ClientSize = new System.Drawing.Size(434, 312);
+            this.Controls.Add(this.labelWebsiteLink);
             this.Controls.Add(this.copyrightTextbox);
             this.Controls.Add(this.labelConfigVersion);
             this.Controls.Add(this.lnkShowLogFile);
@@ -288,6 +302,11 @@ namespace OpenLiveWriter.PostEditor
         private void lnkShowLogFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("explorer.exe", string.Format(CultureInfo.InvariantCulture, "/select,\"{0}\"", ApplicationEnvironment.LogFilePath));
+        }
+
+        private void labelWebsiteLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(labelWebsiteLink.Text);
         }
     }
 }
