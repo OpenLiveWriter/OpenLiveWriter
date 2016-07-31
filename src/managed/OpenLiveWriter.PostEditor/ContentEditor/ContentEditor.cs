@@ -816,11 +816,6 @@ namespace OpenLiveWriter.PostEditor
                 _codeHtmlContentEditor.UpdateEditingContext();
         }
 
-        public void NotifyMailFocus(bool fIsPhotoAttachment)
-        {
-            // TODO:OLW - Remove legacy Mail code
-        }
-
         public void SetTheme(string wysiwygHTML, string previewHTML, bool containsTitle)
         {
             if (string.IsNullOrEmpty(wysiwygHTML))
