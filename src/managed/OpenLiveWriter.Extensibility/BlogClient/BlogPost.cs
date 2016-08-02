@@ -253,6 +253,20 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         }
         private string _excerpt = String.Empty;
 
+        public string FrontMatter
+        {
+            get { return _frontmatter; }
+            set { _frontmatter = value; }
+        }
+        private string _frontmatter = String.Empty;
+
+        public string Layout
+        {
+            get { return _layout; }
+            set { _layout = value; }
+        }
+        private string _layout = String.Empty;
+
         public string[] PingUrlsPending
         {
             get { return _pingUrlsPending.Clone() as string[]; }
@@ -430,6 +444,8 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             Slug = sourcePost.Slug;
             Password = sourcePost.Password;
             Author = sourcePost.Author.Clone() as PostIdAndNameField;
+            Layout = sourcePost.Layout;
+            FrontMatter = sourcePost.FrontMatter;
 
             IsTemporary = sourcePost.IsTemporary;
             ContentsVersionSignature = sourcePost.ContentsVersionSignature;

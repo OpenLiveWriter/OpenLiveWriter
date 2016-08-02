@@ -56,6 +56,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.labelPassword.Text = Res.Get(StringId.PropertiesPassword);
             this.labelTrackbacks.Text = Res.Get(StringId.PropertiesTrackbacks);
             this.labelExcerpt.Text = Res.Get(StringId.PropertiesExcerpt);
+            this.labelFrontMatter.Text = "Front Matter";
+            this.labelLayout.Text = "Layout";
             this.textPassword.PasswordChar = Res.PasswordChar;
 
             ControlHelper.SetCueBanner(textTrackbacks, Res.Get(StringId.PropertiesCommaSeparated));
@@ -87,10 +89,12 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             this.textPassword.TextChanged += controller.MakeDirty;
             this.textExcerpt.TextChanged += controller.MakeDirty;
             this.textTrackbacks.TextChanged += controller.MakeDirty;
+            this.textFrontMatter.TextChanged += controller.MakeDirty;
+            this.textLayout.TextChanged += controller.MakeDirty;
 
             SimpleTextEditorCommandHelper.UseNativeBehaviors(commandManager,
                                                              textExcerpt, textPageOrder, textPassword,
-                                                             textSlug, textTags, textTrackbacks);
+                                                             textSlug, textTags, textTrackbacks, textFrontMatter, textLayout);
         }
 
         public void DisplayCategoryForm()
@@ -179,6 +183,14 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                                       pending.Add(url);
                               post.PingUrlsPending = pending.ToArray();
                           });
+            RegisterField(PropertyType.Both, labelFrontMatter, textFrontMatter,
+                          opts => opts.SupportFrontMatter,
+                          post => textFrontMatter.Text = post.FrontMatter,
+                          post => post.FrontMatter = textFrontMatter.Text);
+            RegisterField(PropertyType.Both, labelLayout, textLayout,
+                          opts => opts.SupportLayout,
+                          post => textLayout.Text = post.Layout,
+                          post => post.Layout = textLayout.Text);
         }
 
         private void PostPropertiesForm_FormClosing(object sender, FormClosingEventArgs e)

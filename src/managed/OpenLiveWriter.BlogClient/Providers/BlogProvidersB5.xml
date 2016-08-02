@@ -574,4 +574,25 @@
       <supportsScripts>Yes</supportsScripts>
     </options>
   </provider>
+  <provider>
+    <id>DB026A7D-F1CE-4237-ADC7-88F8FA50287A</id>
+    <name>GitHub Page</name>
+    <clientType>GitHubPage</clientType>
+    <postApiUrl>
+      <![CDATA[
+		https://github.com/<username>/<username>.github.io
+		]]>
+    </postApiUrl>
+    <options>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsPostAsDraft>Yes</supportsPostAsDraft>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <keywordsAsTags>Yes</keywordsAsTags>
+      <supportFrontMatter>Yes</supportFrontMatter>
+      <supportLayout>Yes</supportLayout>
+      <UpdateFileMessageFormat>Update {0}</UpdateFileMessageFormat>
+      <NewFileMessageFormat>Create a new file: {0}</NewFileMessageFormat>
+      <DeleteFileMessageFormat>Delete {0}</DeleteFileMessageFormat>
+    </options>
+  </provider>
 </providers>

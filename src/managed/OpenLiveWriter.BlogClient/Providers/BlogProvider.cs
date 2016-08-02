@@ -446,6 +446,36 @@ namespace OpenLiveWriter.BlogClient.Providers
             set { _maxPostTitleLength = value; }
         }
 
+        public bool SupportFrontMatter
+        {
+            get { return _supportFrontMatter; }
+            set { _supportFrontMatter = value; }
+        }
+
+        public bool SupportLayout
+        {
+            get { return _supportlayout; }
+            set { _supportlayout = value; }
+        }
+
+        public string UpdateFileMessageFormat
+        {
+            get { return _updateFileMessageFormat; }
+            set { _updateFileMessageFormat = value; }
+        }
+
+        public string NewFileMessageFormat
+        {
+            get { return _newFileMessageFormat; }
+            set { _newFileMessageFormat = value; }
+        }
+
+        public string DeleteFileMessageFormat
+        {
+            get { return _deleteFileMessageFormat; }
+            set { _deleteFileMessageFormat = value; }
+        }
+
         public const string CHARACTER_SET = "characterSet";
         public const string SUPPORTS_EMBEDS = "supportsEmbeds";
         public const string SUPPORTS_SCRIPTS = "supportsScripts";
@@ -495,6 +525,8 @@ namespace OpenLiveWriter.BlogClient.Providers
             clientOptions.SupportsPageParent = ReadBool(optionReader("supportsPageParent"), existingOptions.SupportsPageParent);
             clientOptions.SupportsPageOrder = ReadBool(optionReader("supportsPageOrder"), existingOptions.SupportsPageOrder);
             clientOptions.SupportsPageTrackbacks = ReadBool(optionReader("supportsPageTrackbacks"), existingOptions.SupportsPageTrackbacks);
+            clientOptions.SupportFrontMatter = ReadBool(optionReader("supportFrontMatter"), existingOptions.SupportFrontMatter);
+            clientOptions.SupportLayout = ReadBool(optionReader("supportLayout"), existingOptions.SupportLayout);
 
             // Writer capabilities
             clientOptions.LinkToSkyDriveSelfPage = ReadBool(optionReader("linkToSkyDriveSelfPage"), existingOptions.LinkToSkyDriveSelfPage);
@@ -691,6 +723,15 @@ namespace OpenLiveWriter.BlogClient.Providers
         private bool _supportsCustomDate = true;
         private bool _supportsCustomDateUpdate = true;
         private bool _supportsPostAsDraft = true;
+
+        /// <summary>
+        /// Static Site related options.
+        /// </summary>
+        private bool _supportFrontMatter = false;
+        private bool _supportlayout = false;
+        private string _updateFileMessageFormat;
+        private string _newFileMessageFormat;
+        private string _deleteFileMessageFormat;
 
         private SupportsFeature _supportsScripts = SupportsFeature.Unknown;
         private SupportsFeature _supportsEmbeds = SupportsFeature.Unknown;

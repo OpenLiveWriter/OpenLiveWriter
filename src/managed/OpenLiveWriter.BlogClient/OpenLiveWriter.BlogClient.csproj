@@ -87,9 +87,8 @@
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
+      <Project>{9154b6b4-f2c3-4fb4-be38-a26a6c9409ee}</Project>
       <Name>OpenLiveWriter.CoreServices</Name>
-      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.Extensibility\OpenLiveWriter.Extensibility.csproj">
       <Name>OpenLiveWriter.Extensibility</Name>
@@ -126,6 +125,10 @@
       <Project>{906BA039-467B-41AE-B805-BA1B837AB763}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
+    <Reference Include="YamlDotNet, Version=3.7.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.Signed.3.7.0\lib\net35\YamlDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Zlib.Portable, Version=1.11.0.0, Culture=neutral, PublicKeyToken=431cba815f6a8b5b, processorArchitecture=MSIL">
       <HintPath>..\packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
       <Private>True</Private>
@@ -161,6 +164,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Clients\GenericAtomClient.cs" />
+    <Compile Include="Clients\GitHubEntry.cs" />
+    <Compile Include="Clients\GitHubPageClient.cs" />
+    <Compile Include="Clients\JSONRestRequestHelper.cs" />
     <Compile Include="Clients\LineBreakInputFormatters.cs" />
     <Compile Include="Clients\LiveJournalClient.cs" />
     <Compile Include="Clients\MetaweblogClient.cs" />

@@ -253,7 +253,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                                    || _clientOptions.SupportsPingPolicy
                                    || _clientOptions.SupportsAuthor
                                    || _clientOptions.SupportsSlug
-                                   || _clientOptions.SupportsPassword;
+                                   || _clientOptions.SupportsPassword
+                                   || _clientOptions.SupportFrontMatter
+                                   || _clientOptions.SupportLayout;
                 linkViewAll.Visible = showViewAll;
                 CategoryVisible = false;
                 TagsVisible = false;
@@ -267,7 +269,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                                    || _clientOptions.SupportsSlug
                                    || _clientOptions.SupportsPassword
                                    || _clientOptions.SupportsExcerpt
-                                   || _clientOptions.SupportsTrackbacks;
+                                   || _clientOptions.SupportsTrackbacks
+                                   || _clientOptions.SupportFrontMatter
+                                   || _clientOptions.SupportLayout;
 
                 bool showTags = (_clientOptions.SupportsKeywords && (_clientOptions.KeywordsAsTags || _clientOptions.SupportsGetKeywords));
                 Visible = showViewAll
