@@ -96,6 +96,7 @@ namespace LocUtil
             Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
             if (!ParseRibbonXml(ribbonFiles, pairsLoc, pairsNonLoc, typeof(Command), "//ribbon:Command", "Command.{0}.{1}", out ribbonIds, out ribbonValues))
                 return 1;
+            
             HashSet<string> commandIds;
             Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
 
