@@ -82,16 +82,16 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             numericLargeHeight.Enter += new EventHandler(numeric_Enter);
             numericLargeWidth.Enter += new EventHandler(numeric_Enter);
 
-            this.label4.Text = Res.Get(StringId.pixels);
-            this.label3.Text = Res.Get(StringId.pixels);
+            this.label4.Text = Res.Get(StringId.Pixels);
+            this.label3.Text = Res.Get(StringId.Pixels);
             this.label2.Text = Res.Get(StringId.ImgSBMaximumHeightLabel1);
             this.label1.Text = Res.Get(StringId.ImgSBMaximumWidthLabel1);
-            this.label5.Text = Res.Get(StringId.pixels);
-            this.label6.Text = Res.Get(StringId.pixels);
+            this.label5.Text = Res.Get(StringId.Pixels);
+            this.label6.Text = Res.Get(StringId.Pixels);
             this.label7.Text = Res.Get(StringId.ImgSBMaximumHeightLabel2);
             this.label8.Text = Res.Get(StringId.ImgSBMaximumWidthLabel2);
-            this.label9.Text = Res.Get(StringId.pixels);
-            this.label10.Text = Res.Get(StringId.pixels);
+            this.label9.Text = Res.Get(StringId.Pixels);
+            this.label10.Text = Res.Get(StringId.Pixels);
             this.label11.Text = Res.Get(StringId.ImgSBMaximumHeightLabel3);
             this.label12.Text = Res.Get(StringId.ImgSBMaximumWidthLabel3);
             this.buttonCancel.Text = Res.Get(StringId.CancelButton);

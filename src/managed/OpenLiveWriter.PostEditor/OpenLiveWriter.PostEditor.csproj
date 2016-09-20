@@ -797,16 +797,29 @@
     <Compile Include="Tables\CellPropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Tables\CellPropertiesControl.Designer.cs">
+      <DependentUpon>CellPropertiesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tables\CellPropertiesForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tables\CellPropertiesForm.Designer.cs">
+      <DependentUpon>CellPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Tables\ColumnPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Tables\ColumnPropertiesForm.Designer.cs">
+      <DependentUpon>ColumnPropertiesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tables\ColumnWidthControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Tables\ColumnWidthControl.Designer.cs">
+      <DependentUpon>ColumnWidthControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tables\HTMLTableColumn.cs" />
+    <Compile Include="Tables\PixelPercent.cs" />
     <Compile Include="Tables\RowPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -831,6 +844,9 @@
     </Compile>
     <Compile Include="Tables\TablePropertiesForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tables\TablePropertiesForm.Designer.cs">
+      <DependentUpon>TablePropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Tables\TableSelection.cs" />
     <Compile Include="Tagging\EditTagForm.cs">

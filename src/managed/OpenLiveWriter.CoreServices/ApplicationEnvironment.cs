@@ -105,17 +105,28 @@ namespace OpenLiveWriter.CoreServices
                 dataPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             }
 
-            _myWeblogPostsFolder = _userSettingsRoot.GetString("PostsDirectory", null);
-            if (string.IsNullOrEmpty(_myWeblogPostsFolder))
+            string postsDirectoryPostEditor = PreferencesSettingsRoot.GetSubSettings("PostEditor").GetString("PostsDirectory", null);
+
+            if (string.IsNullOrEmpty(postsDirectoryPostEditor))
             {
-                if ((_productName == DefaultProductName) && (string.IsNullOrEmpty(dataPath)))
+                _myWeblogPostsFolder = _userSettingsRoot.GetString("PostsDirectory", null);
+                if (string.IsNullOrEmpty(_myWeblogPostsFolder))
                 {
-                    throw new DirectoryException(MessageId.PersonalDirectoryFail);
+                    if ((_productName == DefaultProductName) && (string.IsNullOrEmpty(dataPath)))
+                    {
+                        throw new DirectoryException(MessageId.PersonalDirectoryFail);
+                    }
+                    else
+                    {
+                        _myWeblogPostsFolder = Path.Combine(dataPath, "My Weblog Posts");
+                    }
                 }
-                else
-                {
-                    _myWeblogPostsFolder = Path.Combine(dataPath, "My Weblog Posts");
-                }
+
+                PreferencesSettingsRoot.GetSubSettings("PostEditor").SetString("PostsDirectory", _myWeblogPostsFolder);
+            }
+            else
+            {
+                _myWeblogPostsFolder = postsDirectoryPostEditor;
             }
 
             // initialize diagnostics
@@ -547,7 +558,7 @@ namespace OpenLiveWriter.CoreServices
         {
             get
             {
-                return _myWeblogPostsFolder;
+                return PreferencesSettingsRoot.GetSubSettings("PostEditor").GetString("PostsDirectory", null); 
             }
         }
 

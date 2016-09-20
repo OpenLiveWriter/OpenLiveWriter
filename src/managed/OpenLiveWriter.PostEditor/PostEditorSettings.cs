@@ -20,7 +20,6 @@ namespace OpenLiveWriter.PostEditor
 
     public class PostEditorSettings
     {
-
         public static bool ViewPostAfterPublish
         {
             get { return SettingsKey.GetBoolean(VIEW_POST_AFTER_PUBLISH, true); }
@@ -173,6 +172,13 @@ namespace OpenLiveWriter.PostEditor
             set { SettingsKey.SetBoolean(AUTOMATION_MODE, value); }
         }
         private const string AUTOMATION_MODE = "AutomationMode";
+
+        public static string WeblogPostsFolder
+        {
+            get { return SettingsKey.GetString(WEBLOG_POSTS_FOLDER, null); }
+            set { SettingsKey.SetString(WEBLOG_POSTS_FOLDER, value); }
+        }
+        private const string WEBLOG_POSTS_FOLDER = "PostsDirectory";
 
         internal static SettingsPersisterHelper SettingsKey = ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("PostEditor");
         public static SettingsPersisterHelper RecentEmoticonsKey = SettingsKey.GetSubSettings("RecentEmoticons");

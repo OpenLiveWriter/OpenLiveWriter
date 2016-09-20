@@ -698,6 +698,7 @@ namespace OpenLiveWriter.PostEditor
         /// the current editing state
         /// </summary>
         /// <param name="editingContext">editing conext</param>
+        /// <param name="isNewPost">if set to <c>true</c> [is new post].</param>
         private void DispatchEditPost(IBlogPostEditingContext editingContext, bool isNewPost)
         {
             // calcluate whether the user has a "blank" unsaved post
@@ -754,7 +755,7 @@ namespace OpenLiveWriter.PostEditor
                         else if (saveChangesResult == DialogResult.Yes && editingContext.LocalFile.Equals(LocalFile))
                         {
                             EditPostWithPostCloseEvent(LocalFile.Load());
-                            break; ;
+                            break; 
                         }
                     }
 

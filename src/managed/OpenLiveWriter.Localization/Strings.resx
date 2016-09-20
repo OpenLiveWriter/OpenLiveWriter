@@ -2783,7 +2783,7 @@ Unimplemented Method: {2}</value>
   <data name="PingPrefUrl" xml:space="preserve">
     <value>&amp;Ping the following web addresses (one web address for each line)</value>
   </data>
-  <data name="pixels" xml:space="preserve">
+  <data name="Pixels" xml:space="preserve">
     <value>pixels</value>
   </data>
   <data name="Plugin_Map_InsertableContentSource_MenuText" xml:space="preserve">
@@ -3270,6 +3270,9 @@ Unimplemented Method: {2}</value>
   <data name="PostEditorPrefGeneral" xml:space="preserve">
     <value>General options</value>
   </data>
+  <data name="PostEditorPrefPostLocation" xml:space="preserve">
+    <value>Local drafts and recent posts folder</value>
+  </data>
   <data name="PostEditorPrefName" xml:space="preserve">
     <value>Preferences</value>
   </data>
@@ -3301,7 +3304,10 @@ Unimplemented Method: {2}</value>
     <value>Open a new window &amp;only when there are unsaved changes to the current post</value>
   </data>
   <data name="PostEditorPrefView" xml:space="preserve">
-    <value>&amp;View post after publishing</value>
+    <value>&amp;View blog after publishing</value>
+  </data>
+  <data name="PostEditorPrefBrowseFolder" xml:space="preserve">
+    <value>Browse</value>
   </data>
   <data name="PostEditorStorageExceptionMessage" xml:space="preserve">
     <value>Unexpected error occurred while accessing local post ({0})
@@ -4479,5 +4485,8 @@ This might take a while.</value>
   </data>
   <data name="UnexpectedErrorSendError" xml:space="preserve">
     <value>&amp;Send Error</value>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>percent</value>
   </data>
 </root>

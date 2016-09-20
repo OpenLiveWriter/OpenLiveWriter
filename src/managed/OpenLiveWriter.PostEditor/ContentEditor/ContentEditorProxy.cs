@@ -519,11 +519,6 @@ namespace OpenLiveWriter.PostEditor
                 contentEditor.FocusBody();
         }
 
-        public void NotifyMailFocus(bool fIsPhotoAttachment)
-        {
-            contentEditor.NotifyMailFocus(fIsPhotoAttachment);
-        }
-
         public void InsertHtml(string html, HtmlInsertOptions options)
         {
             contentEditor.InsertHtml(html, (HtmlInsertionOptions)options | HtmlInsertionOptions.ExternalContent);
