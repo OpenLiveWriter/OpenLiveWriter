@@ -40,7 +40,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             this.buttonOK.Text = Res.Get(StringId.OKButtonText);
             this.buttonCancel.Text = Res.Get(StringId.CancelButton);
             this.groupBoxHeight.Text = Res.Get(StringId.Height);
-            this.labelPixels.Text = Res.Get(StringId.pixels);
+            this.labelPixels.Text = Res.Get(StringId.Pixels);
             this.radioButtonFixedHeight.Text = Res.Get(StringId.RowPropertiesFixedHeight);
             this.radioButtonSizeToContent.Text = Res.Get(StringId.RowPropertiesSizeToContent);
             this.Text = Res.Get(StringId.RowPropertiesTitle);
