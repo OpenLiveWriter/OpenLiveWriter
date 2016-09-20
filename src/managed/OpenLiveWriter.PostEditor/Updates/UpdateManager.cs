@@ -17,9 +17,11 @@ namespace OpenLiveWriter.PostEditor.Updates
     public class UpdateManager
     {
         public static DateTime Expires = DateTime.MaxValue;
-
+        
         public static void CheckforUpdates(bool forceCheck = false)
         {
+#if !DesktopUWP
+            // Update using Squirrel if not a Desktop UWP package
             var checkNow = forceCheck || UpdateSettings.AutoUpdate;
             var downloadUrl = UpdateSettings.CheckForBetaUpdates ?
                 UpdateSettings.BetaUpdateDownloadUrl : UpdateSettings.UpdateDownloadUrl;
@@ -27,6 +29,7 @@ namespace OpenLiveWriter.PostEditor.Updates
             // Schedule Open Live Writer 10 seconds after the launch
             var delayUpdate = new DelayUpdateHelper(UpdateOpenLiveWriter(downloadUrl, checkNow), UPDATELAUNCHDELAY);
             delayUpdate.StartBackgroundUpdate("Background OpenLiveWriter application update");
+#endif
         }
 
         private static ThreadStart UpdateOpenLiveWriter(string downloadUrl, bool checkNow)
