@@ -12,11 +12,11 @@
         <description>The SDK required to create plug-ins for Open Live Writer.</description>
         <copyright>(c) .NET  Foundation</copyright>
         <frameworkAssemblies>
-            <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework=".NETFramework4.5.2" />
-            <frameworkAssembly assemblyName="System.Drawing" targetFramework=".NETFramework4.5.2" />
+            <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework=".NETFramework4.6.1" />
+            <frameworkAssembly assemblyName="System.Drawing" targetFramework=".NETFramework4.6.1" />
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="src\managed\bin\Release\i386\Writer\OpenLiveWriter.Api.dll" target="lib\net452\OpenLiveWriter.Api.dll" />
+        <file src="src\managed\bin\Release\i386\Writer\OpenLiveWriter.Api.dll" target="lib\net461\OpenLiveWriter.Api.dll" />
     </files>
 </package>
