@@ -1,12 +1,12 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System;
-using System.Xml;
-using System.Windows.Forms;
-
 namespace OpenLiveWriter.Api
 {
+    using System;
+    using System.Windows.Forms;
+    using System.Xml;
+
     /// <summary>
     /// <para>Base class for plugins that wish to enable the insertion of custom HTML content into posts.
     /// The source of content to be inserted can any or all of the following: an Insert dialog,
@@ -32,7 +32,7 @@ namespace OpenLiveWriter.Api
         /// <exception cref="ContentCreationException">Thrown if an error occurs during the creation of content.</exception>
         public virtual DialogResult CreateContent(IWin32Window dialogOwner, ref string content)
         {
-            throw new NotImplementedException("ContentSource.CreateContent");
+            throw new NotImplementedException("ContentSource.CreateContent"); // Not L10N
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace OpenLiveWriter.Api
         /// <exception cref="ContentCreationException">Thrown if an error occurs during the creation of content.</exception>
         public virtual DialogResult CreateContentFromLiveClipboard(IWin32Window dialogOwner, XmlDocument lcDocument, ref string newContent)
         {
-            throw new NotImplementedException("ContentSource.CreateContentFromLiveClipboard");
+            throw new NotImplementedException("ContentSource.CreateContentFromLiveClipboard"); // Not L10N
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace OpenLiveWriter.Api
         /// <exception cref="ContentCreationException">Thrown if an error occurs during the creation of content.</exception>
         public virtual void CreateContentFromUrl(string url, ref string title, ref string newContent)
         {
-            throw new NotImplementedException("ContentSource.CreateContentFromUrl");
+            throw new NotImplementedException("ContentSource.CreateContentFromUrl"); // Not L10N
         }
     }
 }

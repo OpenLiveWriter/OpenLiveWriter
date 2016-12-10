@@ -1,12 +1,10 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace OpenLiveWriter.Api
 {
+    using JetBrains.Annotations;
+
     /// <summary>
     /// Provides read-only access to a post.
     /// </summary>
@@ -17,10 +15,11 @@ namespace OpenLiveWriter.Api
         /// new posts that have never been successfully posted to a
         /// server, the value will be null.
         /// </summary>
+        [CanBeNull]
         string Id { get; }
 
         /// <summary>
-        /// Gets whether the post is a page. Pages generally do not
+        /// Gets a value indicating whether the post is a page. Pages generally do not
         /// appear in reverse-chronological lists and tend to be less
         /// time-sensitive.
         /// </summary>
@@ -30,6 +29,7 @@ namespace OpenLiveWriter.Api
         /// Gets the permanent URL for this post. May be empty or null
         /// if the post has never been successfully published.
         /// </summary>
+        [CanBeNull]
         string Permalink { get; }
 
         /// <summary>
@@ -39,11 +39,13 @@ namespace OpenLiveWriter.Api
         /// Needs to be HTML-encoded before embedding in HTML, or
         /// URL-encoded before using as part of a URL.
         /// </remarks>
+        [NotNull]
         string Title { get; }
 
         /// <summary>
         /// Gets the contents of the post in HTML format.
         /// </summary>
+        [NotNull]
         string Contents { get; }
 
         /// <summary>
@@ -51,6 +53,7 @@ namespace OpenLiveWriter.Api
         /// behavior is determined by the server (comma-delimited is
         /// the most common convention).
         /// </summary>
+        [NotNull]
         string Keywords { get; }
 
         /// <summary>
@@ -59,31 +62,10 @@ namespace OpenLiveWriter.Api
         /// well as categories that are newly created and exist only
         /// on the client.
         /// </summary>
+        [NotNull]
         ICategoryInfo[] Categories { get; }
 
         // DateTime? PublishDate { get; }
         // Comment policy? Trackback policy?
-    }
-
-    /// <summary>
-    /// Provides read-only information about a category.
-    /// </summary>
-    public interface ICategoryInfo
-    {
-        /// <summary>
-        /// The ID of the category.
-        /// </summary>
-        string Id { get; }
-
-        /// <summary>
-        /// The name of the category.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// True if the category is newly created and does not exist
-        /// on the server yet.
-        /// </summary>
-        bool IsNew { get; }
     }
 }

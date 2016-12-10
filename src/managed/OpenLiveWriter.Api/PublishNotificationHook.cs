@@ -1,11 +1,10 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System;
-using System.Windows.Forms;
-
 namespace OpenLiveWriter.Api
 {
+    using System.Windows.Forms;
+
     /// <summary>
     /// Base class for plugins that wish to be notified before and after a post is
     /// uploaded to the server either as a published post or as a draft.

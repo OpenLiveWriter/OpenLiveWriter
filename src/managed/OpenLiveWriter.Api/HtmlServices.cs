@@ -1,39 +1,33 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System;
-using System.Drawing;
-using System.Text;
-using System.Text.RegularExpressions;
-using OpenLiveWriter.CoreServices;
-using OpenLiveWriter.HtmlParser.Parser;
-
 namespace OpenLiveWriter.Api
 {
+    using JetBrains.Annotations;
+
+    using OpenLiveWriter.HtmlParser.Parser;
+
     /// <summary>
     /// Utility methods for the manipulation of HTML (and related) content.
     /// </summary>
-    public sealed class HtmlServices
+    public static class HtmlServices
     {
         /// <summary>
         /// Convert plain-text to HTML by escaping standard HTML entities.
         /// </summary>
         /// <param name="plainText">Plain-text to escape.</param>
         /// <returns>Escaped HTML content.</returns>
-        public static string HtmlEncode(string plainText)
-        {
-            return HtmlUtils.EscapeEntities(plainText);
-        }
+        [NotNull]
+        public static string HtmlEncode([NotNull] string plainText) => HtmlUtils.EscapeEntities(plainText);
 
         /// <summary>
         /// Unescapes HTML entities.
         /// </summary>
         /// <param name="htmlText">The string to unescape.</param>
         /// <returns>The unescaped string.</returns>
-        public static string HtmlDecode(string htmlText)
-        {
-            return HtmlUtils.UnEscapeEntities(htmlText, HtmlUtils.UnEscapeMode.Default);
-        }
+        [NotNull]
+        public static string HtmlDecode([NotNull] string htmlText)
+            => HtmlUtils.UnEscapeEntities(htmlText, HtmlUtils.UnEscapeMode.Default);
 
         /*
                 /// <summary>
@@ -91,5 +85,4 @@ namespace OpenLiveWriter.Api
                 }
         */
     }
-
 }

@@ -1,31 +1,11 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System;
-using System.Drawing;
-
 namespace OpenLiveWriter.Api
 {
-    /// <summary>
-    /// Specifies whether a feature is supported by a publishing context.
-    /// </summary>
-    public enum SupportsFeature
-    {
-        /// <summary>
-        /// Support for the feature is unknown.
-        /// </summary>
-        Unknown,
+    using System.Drawing;
 
-        /// <summary>
-        /// The feature is suported.
-        /// </summary>
-        Yes,
-
-        /// <summary>
-        /// The feature is not supported.
-        /// </summary>
-        No
-    }
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Publishing context for HTML generation.
@@ -33,38 +13,42 @@ namespace OpenLiveWriter.Api
     public interface IPublishingContext
     {
         /// <summary>
-        /// Unique identifier for account configured for use with Open Live Writer.
+        /// Gets the unique identifier for account configured for use with Open Live Writer.
         /// </summary>
+        [CanBeNull]
         string AccountId { get; }
 
         /// <summary>
-        /// Name of current publishing service (e.g. "WordPress.com")
+        /// Gets the name of current publishing service (e.g. "WordPress.com")
         /// </summary>
+        [CanBeNull]
         string ServiceName { get; }
 
         /// <summary>
-        /// Value indicating whether image uploading is supported by the current publishing context.
+        /// Gets a value indicating whether image uploading is supported by the current publishing context.
         /// </summary>
         SupportsFeature SupportsImageUpload { get; }
 
         /// <summary>
-        /// Value indicating whether scripts are supported by the current publishing context.
+        /// Gets a value indicating whether scripts are supported by the current publishing context.
         /// </summary>
         SupportsFeature SupportsScripts { get; }
 
         /// <summary>
-        /// Value indicating whether embeds are supported by the current publishing context.
+        /// Gets a value indicating whether embeds are supported by the current publishing context.
         /// </summary>
         SupportsFeature SupportsEmbeds { get; }
 
         /// <summary>
-        /// Name of the current publishing account, as entered by the user.
+        /// Gets the name of the current publishing account, as entered by the user.
         /// </summary>
+        [CanBeNull]
         string BlogName { get; }
 
         /// <summary>
-        /// The homepage of the current publishing context.
+        /// Gets the homepage of the current publishing context.
         /// </summary>
+        [CanBeNull]
         string HomepageUrl { get; }
 
         /// <summary>
@@ -78,8 +62,9 @@ namespace OpenLiveWriter.Api
         Color? BodyBackgroundColor { get; }
 
         /// <summary>
-        /// The post that is to be published.
+        /// Gets the post that is to be published.
         /// </summary>
+        [CanBeNull]
         IPostInfo PostInfo { get; }
     }
 

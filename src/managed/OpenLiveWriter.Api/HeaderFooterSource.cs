@@ -1,10 +1,10 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System.Windows.Forms;
-
 namespace OpenLiveWriter.Api
 {
+    using System.Windows.Forms;
+
     /// <summary>
     /// Base class for plugins that wish to add HTML to the beginning or end
     /// of a post when the post is being previewed or published.
@@ -28,11 +28,12 @@ namespace OpenLiveWriter.Api
             /// Places content above the post body.
             /// </summary>
             Header,
+
             /// <summary>
             /// Places content below the post body.
             /// </summary>
             Footer
-        };
+        }
 
         /// <summary>
         /// Subclasses should override this method and return true if a
@@ -46,7 +47,7 @@ namespace OpenLiveWriter.Api
         /// true if it is absolutely necessary for your plugin to function
         /// correctly.
         /// </remarks>
-        public virtual bool RequiresPermalink { get { return false; } }
+        public virtual bool RequiresPermalink => false;
 
         /// <summary>
         /// Generate the HTML that should be inserted at the beginning or end of

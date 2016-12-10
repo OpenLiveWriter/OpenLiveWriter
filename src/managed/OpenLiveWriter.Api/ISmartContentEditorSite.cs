@@ -1,11 +1,12 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System;
-using System.Drawing;
-
 namespace OpenLiveWriter.Api
 {
+    using System.Drawing;
+
+    using JetBrains.Annotations;
+
     /// <summary>
     /// Connection between a SmartContent sidebar editor and its context. Provides
     /// notification of inline image resizing and allows the editor to manipulate
@@ -22,20 +23,13 @@ namespace OpenLiveWriter.Api
         /// Update the contents of the Sidebar status bar with a string.
         /// </summary>
         /// <param name="statusText">Status text</param>
-        void UpdateStatusBar(string statusText);
+        void UpdateStatusBar([NotNull] string statusText);
 
         /// <summary>
         /// Update the contents of the Sidebar status bar with an image and a string.
         /// </summary>
         /// <param name="image">Status image</param>
         /// <param name="statusText">Status text</param>
-        void UpdateStatusBar(Image image, string statusText);
+        void UpdateStatusBar([NotNull] Image image, [NotNull] string statusText);
     }
-
-    /// <summary>
-    /// Event handler that is fired when a content is resized.
-    /// </summary>
-    /// <param name="newSize">The new size of the content</param>
-    /// <param name="completed">Whether the sizing operation has completed or not</param>
-    public delegate void ContentResizedEventHandler(Size newSize, bool completed);
 }

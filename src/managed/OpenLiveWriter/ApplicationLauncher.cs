@@ -1,29 +1,39 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
-
-using System;
-using System.Globalization;
-using System.IO;
-using System.Diagnostics;
-using System.Windows.Forms;
-using OpenLiveWriter.Controls;
-using OpenLiveWriter.CoreServices;
-using OpenLiveWriter.CoreServices.Diagnostics;
-using OpenLiveWriter.BlogClient;
-using OpenLiveWriter.BlogClient.Providers;
-using OpenLiveWriter.Interop.Windows.TaskDialog;
-using OpenLiveWriter.Localization;
-using OpenLiveWriter.PostEditor;
-using OpenLiveWriter.PostEditor.JumpList;
-using OpenLiveWriter.PostEditor.OpenPost;
-using OpenLiveWriter.PostEditor.Configuration.Wizard;
-using OpenLiveWriter.PostEditor.Updates;
-
 namespace OpenLiveWriter
 {
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.IO;
+    using System.Windows.Forms;
+
+    using JetBrains.Annotations;
+
+    using OpenLiveWriter.BlogClient;
+    using OpenLiveWriter.Controls;
+    using OpenLiveWriter.CoreServices;
+    using OpenLiveWriter.CoreServices.Diagnostics;
+    using OpenLiveWriter.Interop.Windows.TaskDialog;
+    using OpenLiveWriter.Localization;
+    using OpenLiveWriter.PostEditor;
+    using OpenLiveWriter.PostEditor.Configuration.Wizard;
+    using OpenLiveWriter.PostEditor.JumpList;
+    using OpenLiveWriter.PostEditor.OpenPost;
+    using OpenLiveWriter.PostEditor.Updates;
+
+    /// <summary>
+    /// Class ApplicationLauncher.
+    /// </summary>
     public class ApplicationLauncher
     {
-        public static void LaunchBloggingForm(string[] args, IDisposable splashScreen, bool isFirstInstance)
+        /// <summary>
+        /// Launches the blogging form.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <param name="splashScreen">The splash screen.</param>
+        /// <param name="isFirstInstance">if set to <c>true</c> [is first instance].</param>
+        public static void LaunchBloggingForm(string[] args, [CanBeNull] IDisposable splashScreen, bool isFirstInstance)
         {
             try
             {
@@ -37,13 +47,12 @@ namespace OpenLiveWriter
                     // make sure bloggging is configured before we proceed
                     if (EnsureBloggingConfigured(splashScreen))
                     {
-                        WriterCommandLineOptions options = WriterCommandLineOptions.Create(args);
+                        var options = WriterCommandLineOptions.Create(args);
 
                         // check for a prefs request
                         if (options.IsShowPreferences)
                         {
-                            if (splashScreen != null)
-                                splashScreen.Dispose();
+                            splashScreen?.Dispose();
 
                             ExecuteShowPreferences(options.PreferencesPage);
                         }
@@ -51,8 +60,7 @@ namespace OpenLiveWriter
                         // check for an open-post request
                         else if (options.IsOpenPost)
                         {
-                            if (splashScreen != null)
-                                splashScreen.Dispose();
+                            splashScreen?.Dispose();
 
                             ExecuteOpenPost();
                         }
@@ -79,74 +87,108 @@ namespace OpenLiveWriter
             }
             catch
             {
-                if (splashScreen != null)
-                    splashScreen.Dispose();
+                splashScreen?.Dispose();
                 throw;
             }
         }
 
-        private static bool RecoverPosts(IDisposable splashScreen)
+        /// <summary>
+        /// Recovers the posts.
+        /// </summary>
+        /// <param name="splashScreen">The splash screen.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private static bool RecoverPosts([CanBeNull] IDisposable splashScreen)
         {
             if (!PostEditorSettings.AutoSaveDrafts)
+            {
                 return false;
+            }
 
-            string autoSaveDir = PostEditorSettings.AutoSaveDirectory;
-            string[] autoSavedPostFiles = Directory.GetFiles(autoSaveDir, "*.wpost");
+            var autoSaveDir = PostEditorSettings.AutoSaveDirectory;
+            var autoSavedPostFiles = Directory.GetFiles(autoSaveDir, "*.wpost");
             if (autoSavedPostFiles.Length > 0)
             {
-                if (splashScreen != null)
-                    splashScreen.Dispose();
+                splashScreen?.Dispose();
 
-                AutoRecoverPromptResult result = AutoRecoverPrompt(null, autoSavedPostFiles.Length);
+                var result = AutoRecoverPrompt(null, autoSavedPostFiles.Length);
 
                 switch (result)
                 {
                     case AutoRecoverPromptResult.Recover:
-                        foreach (string autoSavedPost in autoSavedPostFiles)
+                        foreach (var autoSavedPost in autoSavedPostFiles)
                         {
                             ExecutePostEditorFile(autoSavedPost, splashScreen);
                         }
+
                         return true;
                     case AutoRecoverPromptResult.Discard:
-                        foreach (string autoSavedPost in autoSavedPostFiles)
+                        foreach (var autoSavedPost in autoSavedPostFiles)
+                        {
                             File.Delete(autoSavedPost);
+                        }
+
                         return false;
                     case AutoRecoverPromptResult.AskLater:
                         return false;
                 }
             }
+
             return false;
         }
 
+        /// <summary>
+        /// Enum AutoRecoverPromptResult
+        /// </summary>
         private enum AutoRecoverPromptResult
         {
+            /// <summary>
+            /// The recover
+            /// </summary>
             Recover,
+
+            /// <summary>
+            /// The discard
+            /// </summary>
             Discard,
+
+            /// <summary>
+            /// The ask later
+            /// </summary>
             AskLater
         }
 
+        /// <summary>
+        /// Automatics the recover prompt.
+        /// </summary>
+        /// <param name="window">The window.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>AutoRecoverPromptResult.</returns>
         private static AutoRecoverPromptResult AutoRecoverPrompt(IWin32Window window, int count)
         {
-            const int ID_RECOVER = 100,
-                ID_DISCARD = 101,
-                ID_ASKLATER = 2; // same as ID_CANCEL
+            const int ID_RECOVER = 100; // same as ID_CANCEL
+            const int ID_DISCARD = 101; // same as ID_CANCEL
+            const int ID_ASKLATER = 2; // same as ID_CANCEL
 
             while (true)
             {
-                TaskDialog td = new TaskDialog();
+                var td = new TaskDialog
+                             {
+                                 WindowTitle = ApplicationEnvironment.ProductNameQualified,
+                                 MainInstruction =
+                                     string.Format(
+                                         CultureInfo.CurrentCulture,
+                                         Res.Get(StringId.AutoRecoverDialogInstruction),
+                                         ApplicationEnvironment.ProductNameQualified),
+                                 Content =
+                                     string.Format(
+                                         CultureInfo.CurrentCulture,
+                                         Res.Get(StringId.AutoRecoverDialogContent),
+                                         ApplicationEnvironment.ProductNameQualified),
 
-                td.WindowTitle = ApplicationEnvironment.ProductNameQualified;
-                td.MainInstruction = string.Format(CultureInfo.CurrentCulture,
-                                                   Res.Get(StringId.AutoRecoverDialogInstruction),
-                                                   ApplicationEnvironment.ProductNameQualified);
-                td.Content = string.Format(CultureInfo.CurrentCulture,
-                                           Res.Get(StringId.AutoRecoverDialogContent),
-                                           ApplicationEnvironment.ProductNameQualified);
-                //            td.MainIcon = TaskDialogIcon.Warning;
-
-                td.AllowDialogCancellation = true;
-
-                td.UseCommandLinks = true;
+                                 // td.MainIcon = TaskDialogIcon.Warning;
+                                 AllowDialogCancellation = true,
+                                 UseCommandLinks = true
+                             };
                 td.Buttons.Add(new TaskDialogButton(ID_RECOVER, Res.Get(StringId.AutoRecoverDialogButtonRecover)));
                 td.Buttons.Add(new TaskDialogButton(ID_DISCARD, Res.Get(StringId.AutoRecoverDialogButtonDiscard)));
                 td.Buttons.Add(new TaskDialogButton(ID_ASKLATER, Res.Get(StringId.AutoRecoverDialogButtonAskLater)));
@@ -159,12 +201,19 @@ namespace OpenLiveWriter
                     case ID_RECOVER:
                         return AutoRecoverPromptResult.Recover;
                     case ID_DISCARD:
+
                         // WinLive 225110 - Pass ActiveWin32Window here as owner instead of default ForegroundWin32Window
                         // ForegroundWin32Window could return a window of an app that is in admin mode and if we are running
                         // non-admin then trying to use that as parent for MessageBox would cause it to return 'No' without showing
                         // the dialog.
-                        if (DialogResult.Yes == DisplayMessage.Show(MessageId.AutoRecoverPromptDiscardConfirm, Win32WindowImpl.ActiveWin32Window))
+                        if (DialogResult.Yes
+                            == DisplayMessage.Show(
+                                MessageId.AutoRecoverPromptDiscardConfirm,
+                                Win32WindowImpl.ActiveWin32Window))
+                        {
                             return AutoRecoverPromptResult.Discard;
+                        }
+
                         continue;
                     case ID_ASKLATER:
                         return AutoRecoverPromptResult.AskLater;
@@ -175,61 +224,83 @@ namespace OpenLiveWriter
             }
         }
 
+        /// <summary>
+        /// Needses the expiration warning.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool NeedsExpirationWarning()
         {
             if (DateTime.Now > ExpirationSettings.Expires)
-                return true;
-
-            int[] days = new int[] { 1, 2, 3, 4, 5, 15, 30 };
-            int index = Array.BinarySearch(days, ExpirationSettings.DaysRemaining);
-
-            if (index < 0)
-                index = ~index;
-
-            if (index >= days.Length)
-                return false;
-
-            int bucket = days[index];
-            if (ExpirationSettings.LastWarnDays != bucket)
             {
-                ExpirationSettings.LastWarnDays = bucket;
                 return true;
             }
-            return false;
+
+            var days = new[] { 1, 2, 3, 4, 5, 15, 30 };
+            var index = Array.BinarySearch(days, ExpirationSettings.DaysRemaining);
+
+            if (index < 0)
+            {
+                index = ~index;
+            }
+
+            if (index >= days.Length)
+            {
+                return false;
+            }
+
+            var bucket = days[index];
+            if (ExpirationSettings.LastWarnDays == bucket)
+            {
+                return false;
+            }
+
+            ExpirationSettings.LastWarnDays = bucket;
+            return true;
         }
 
+        /// <summary>
+        /// Executes the show preferences.
+        /// </summary>
+        /// <param name="panelName">Name of the panel.</param>
         private static void ExecuteShowPreferences(string panelName)
         {
             PreferencesHandler.Instance.ShowPreferences(Win32WindowImpl.DesktopWin32Window, panelName);
         }
 
+        /// <summary>
+        /// Executes the open post.
+        /// </summary>
         private static void ExecuteOpenPost()
         {
-            using (OpenPostForm openPostForm = new OpenPostForm())
+            using (var openPostForm = new OpenPostForm())
             {
                 if (openPostForm.ShowDialog(Win32WindowImpl.DesktopWin32Window) == DialogResult.OK)
                 {
-                    IBlogPostEditingContext editingContext = openPostForm.BlogPostEditingContext;
+                    var editingContext = openPostForm.BlogPostEditingContext;
                     PostEditorForm.Launch(editingContext, true);
                 }
             }
         }
 
-        private static void ExecutePostEditorFile(string filename, IDisposable splashScreen)
+        /// <summary>
+        /// Executes the post editor file.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="splashScreen">The splash screen.</param>
+        private static void ExecutePostEditorFile(string filename, [CanBeNull] IDisposable splashScreen)
         {
             if (VerifyPostEditorFileIsEditable(filename))
             {
                 // load the contents of the file
-                PostEditorFile postEditorFile = PostEditorFile.GetExisting(new FileInfo(filename));
-                IBlogPostEditingContext editingContext = postEditorFile.Load();
+                var postEditorFile = PostEditorFile.GetExisting(new FileInfo(filename));
+                var editingContext = postEditorFile.Load();
 
                 // launch the editing form (request post synchronization)
                 PostEditorForm.Launch(editingContext, true, splashScreen);
             }
             else
             {
-                if (splashScreen != null)
-                    splashScreen.Dispose();
+                splashScreen?.Dispose();
             }
         }
 
@@ -249,34 +320,38 @@ namespace OpenLiveWriter
 
         }
 
-        private static void ExecuteNewPost(IDisposable splashScreen, string switchToBlog)
+        private static void ExecuteNewPost([CanBeNull] IDisposable splashScreen, string switchToBlog)
         {
             PostEditorForm.Launch(switchToBlog, splashScreen);
         }
 
-        private static bool EnsureBloggingConfigured(IDisposable splashScreen)
+        /// <summary>
+        /// Ensures the blogging configured.
+        /// </summary>
+        /// <param name="splashScreen">The splash screen.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private static bool EnsureBloggingConfigured([CanBeNull] IDisposable splashScreen)
         {
             // see if the user needs to configure their blog first
             if (!BloggingConfigured || ApplicationDiagnostics.SimulateFirstRun)
             {
                 // create a new profile
-                if (CreateInitialProfile(splashScreen))
-                    return true;
-                else
-                    return false;
+                return CreateInitialProfile(splashScreen);
             }
-            else
-            {
-                return true;
-            }
+
+            return true;
         }
 
-        private static bool CreateInitialProfile(IDisposable splashScreen)
+        /// <summary>
+        /// Creates the initial profile.
+        /// </summary>
+        /// <param name="splashScreen">The splash screen.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private static bool CreateInitialProfile([CanBeNull]IDisposable splashScreen)
         {
             using (new WaitCursor())
             {
-                if (splashScreen != null)
-                    splashScreen.Dispose();
+                splashScreen?.Dispose();
 
                 if (WeblogConfigurationWizardController.Welcome(null) != null)
                 {
@@ -292,12 +367,10 @@ namespace OpenLiveWriter
             }
         }
 
-        private static bool BloggingConfigured
-        {
-            get
-            {
-                return BlogSettings.DefaultBlogId != String.Empty;
-            }
-        }
+        /// <summary>
+        /// Gets a value indicating whether [blogging configured].
+        /// </summary>
+        /// <value><c>true</c> if [blogging configured]; otherwise, <c>false</c>.</value>
+        private static bool BloggingConfigured => BlogSettings.DefaultBlogId != string.Empty;
     }
 }

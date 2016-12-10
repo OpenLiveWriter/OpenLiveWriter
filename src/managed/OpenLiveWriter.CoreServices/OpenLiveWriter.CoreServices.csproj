@@ -8,6 +8,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=10.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -279,8 +280,11 @@
     <Compile Include="Utility.cs" />
     <Compile Include="WebRequest\BrowserBasedWebRequestLocator.cs" />
     <Compile Include="WebRequest\CloseTrackingHttpWebRequest.cs" />
+    <Compile Include="WebRequest\CompoundHttpRequestFilter.cs" />
     <Compile Include="WebRequest\ContentTypeHelper.cs" />
     <Compile Include="WebRequest\HTMLDocumentDownloader.cs" />
+    <Compile Include="WebRequest\HttpRequestCredentialsFilter.cs" />
+    <Compile Include="WebRequest\HttpRequestFilter.cs" />
     <Compile Include="WebRequest\HttpRequestHelper.cs" />
     <Compile Include="WebRequest\IBrowserBasedWebRequest.cs" />
     <Compile Include="WebRequest\PageAndReferenceDownloader.cs" />
@@ -294,6 +298,7 @@
     <Compile Include="WebRequest\WebPageDownloader.cs" />
     <Compile Include="WebRequest\WebProxySettings.cs" />
     <Compile Include="WebRequest\WebRequestWithCache.cs" />
+    <Compile Include="WebRequest\WebResponseTimeoutException.cs" />
     <Compile Include="WebRequest\WsseAuthenticationModule.cs" />
     <Compile Include="Win32WindowImpl.cs" />
     <Compile Include="WindowSubClasser.cs" />

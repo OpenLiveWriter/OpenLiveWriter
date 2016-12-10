@@ -1,33 +1,29 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System;
-using System.Collections;
-using System.Globalization;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Net.Cache;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using OpenLiveWriter.CoreServices.Diagnostics;
-using OpenLiveWriter.CoreServices.HTML;
-
 namespace OpenLiveWriter.CoreServices
 {
-    /// <summary>
-    /// Delegate for augmenting and HTTP request.
-    /// </summary>
-    public delegate void HttpRequestFilter(HttpWebRequest request);
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.IO;
+    using System.Net;
+    using System.Net.Cache;
+    using System.Net.Security;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Text;
+    using JetBrains.Annotations;
+    using OpenLiveWriter.CoreServices.Diagnostics;
+    using OpenLiveWriter.CoreServices.HTML;
 
     /// <summary>
     /// Utility class for doing HTTP requests -- uses the Feeds Proxy settings (if any) for requests
     /// </summary>
-    public class HttpRequestHelper
+    public static class HttpRequestHelper
     {
+        /// <summary>
+        /// Initializes static members of the <see cref="HttpRequestHelper"/> class.
+        /// </summary>
         static HttpRequestHelper()
         {
             // This is necessary to avoid problems connecting to Blogger server from behind a proxy.
@@ -46,24 +42,333 @@ namespace OpenLiveWriter.CoreServices
 
             if (ApplicationDiagnostics.AllowUnsafeCertificates)
             {
-                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
-
+                ServicePointManager.ServerCertificateValidationCallback = HttpRequestHelper.CheckValidationResult;
             }
         }
 
-        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        /// <summary>
+        /// Applies the language.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        public static void ApplyLanguage([NotNull] HttpWebRequest request)
         {
-            if (sslPolicyErrors != SslPolicyErrors.None)
+            var acceptLang = CultureInfo.CurrentUICulture.Name.Split('/')[0];
+            if (acceptLang.ToUpperInvariant() == @"SR-SP-LATN")
             {
-                Trace.WriteLine("SSL Policy error " + sslPolicyErrors);
+                acceptLang = "sr-Latn-CS"; // Not L10N
             }
 
-            return true;
+            if (acceptLang != @"en-US")
+            {
+                acceptLang += ", en-US"; // Not L10N
+            }
+
+            acceptLang += ", en, *"; // Not L10N
+            request.Headers["Accept-Language"] = acceptLang; // Not L10N
         }
 
-        public static void TrackResponseClosing(ref HttpWebRequest req)
+        /// <summary>
+        /// Applies the proxy override.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        public static void ApplyProxyOverride([NotNull] WebRequest request)
         {
-            CloseTrackingHttpWebRequest.Wrap(ref req);
+            var proxy = HttpRequestHelper.GetProxyOverride();
+            if (proxy != null)
+            {
+                request.Proxy = proxy;
+            }
+        }
+
+        /// <summary>
+        /// Creates the HTTP credentials.
+        /// </summary>
+        /// <param name="username">The user name.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="url">The URL.</param>
+        /// <returns>The ICredentials.</returns>
+        [NotNull]
+        public static ICredentials CreateHttpCredentials(
+                [CanBeNull] string username,
+                [CanBeNull] string password,
+                [NotNull] string url)
+            => HttpRequestHelper.CreateHttpCredentials(username, password, url, false);
+
+        /// <summary>
+        /// Creates a set of credentials for the specified user/pass, or returns the default credentials if user/pass is null.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="url">The URL.</param>
+        /// <param name="digestOnly">if set to <c>true</c> [digest only].</param>
+        /// <returns>The ICredentials.</returns>
+        [NotNull]
+        public static ICredentials CreateHttpCredentials(
+            [CanBeNull] string username,
+            [CanBeNull] string password,
+            [NotNull] string url,
+            bool digestOnly)
+        {
+            var credentials = CredentialCache.DefaultCredentials;
+            if (username == null && password == null)
+            {
+                return credentials;
+            }
+
+            var credentialCache = new CredentialCache();
+            var userDomain = string.Empty;
+
+            if (username != null)
+            {
+                // try to parse the username string into a domain\userId
+                var domainIndex = username.IndexOf(@"\", StringComparison.OrdinalIgnoreCase);
+                if (domainIndex != -1)
+                {
+                    userDomain = username.Substring(0, domainIndex);
+                    username = username.Substring(domainIndex + 1);
+                }
+            }
+
+            credentialCache.Add(new Uri(url), "Digest", new NetworkCredential(username, password, userDomain)); // Not L10N
+
+            if (!digestOnly)
+            {
+                credentialCache.Add(new Uri(url), "Basic", new NetworkCredential(username, password, userDomain)); // Not L10N
+                credentialCache.Add(new Uri(url), "NTLM", new NetworkCredential(username, password, userDomain)); // Not L10N
+                credentialCache.Add(new Uri(url), "Negotiate", new NetworkCredential(username, password, userDomain)); // Not L10N
+                credentialCache.Add(new Uri(url), "Kerberos", new NetworkCredential(username, password, userDomain)); // Not L10N
+            }
+
+            credentials = credentialCache;
+
+            return credentials;
+        }
+
+        /// <summary>
+        /// Creates the HTTP web request.
+        /// </summary>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="allowAutoRedirect">if set to <c>true</c> [allow automatic redirect].</param>
+        /// <param name="connectTimeoutMs">The connect timeout milliseconds.</param>
+        /// <param name="readWriteTimeoutMs">The read write timeout milliseconds.</param>
+        /// <returns>The HttpWebRequest.</returns>
+        [NotNull]
+        public static HttpWebRequest CreateHttpWebRequest(
+            [NotNull] string requestUri, bool allowAutoRedirect, int? connectTimeoutMs = null, int? readWriteTimeoutMs = null)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(requestUri);
+            HttpRequestHelper.TrackResponseClosing(ref request);
+
+            // Set Accept to */* to stop Bad Behavior plugin for WordPress from
+            // thinking we're a spam cannon
+            request.Accept = "*/*"; // Not L10N
+            HttpRequestHelper.ApplyLanguage(request);
+
+            var timeout = WebProxySettings.HttpRequestTimeout;
+            request.Timeout = timeout;
+            request.ReadWriteTimeout = timeout * 5;
+
+            if (connectTimeoutMs != null)
+            {
+                request.Timeout = connectTimeoutMs.Value;
+            }
+
+            if (readWriteTimeoutMs != null)
+            {
+                request.ReadWriteTimeout = readWriteTimeoutMs.Value;
+            }
+
+            request.AllowAutoRedirect = allowAutoRedirect;
+            request.UserAgent = ApplicationEnvironment.UserAgent;
+
+            HttpRequestHelper.ApplyProxyOverride(request);
+
+            // For robustness, we turn off keep alive and pipelining by default.
+            // If the caller wants to override, the filter parameter can be used to adjust these settings.
+            // Warning: NTLM authentication requires keep-alive, so without adjusting this, NTLM-secured requests will always fail.
+            request.KeepAlive = false;
+            request.Pipelined = false;
+            request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.Reload);
+            return request;
+        }
+
+        /// <summary>
+        /// Dumps the request header.
+        /// </summary>
+        /// <param name="req">The request.</param>
+        /// <returns>The request header.</returns>
+        [NotNull]
+        public static string DumpRequestHeader([NotNull] HttpWebRequest req)
+        {
+            var sb = new StringBuilder();
+            using (var sw = new StringWriter(sb, CultureInfo.InvariantCulture))
+            {
+                sw.WriteLine($"{req.Method} {UrlHelper.SafeToAbsoluteUri(req.RequestUri)} HTTP/{req.ProtocolVersion}");
+                foreach (var key in req.Headers.AllKeys)
+                {
+                    sw.WriteLine($"{key}: {req.Headers[key]}");
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Dumps the response.
+        /// </summary>
+        /// <param name="resp">The HTTP response.</param>
+        /// <returns>The response string.</returns>
+        [NotNull]
+        public static string DumpResponse([NotNull] HttpWebResponse resp)
+        {
+            var sb = new StringBuilder();
+            using (var sw = new StringWriter(sb, CultureInfo.InvariantCulture))
+            {
+                sw.WriteLine($"HTTP/{resp.ProtocolVersion} {(int)resp.StatusCode} {resp.StatusDescription}");
+                foreach (var key in resp.Headers.AllKeys)
+                {
+                    sw.WriteLine($"{key}: {resp.Headers[key]}");
+                }
+
+                sw.WriteLine(string.Empty);
+                sw.WriteLine(HttpRequestHelper.DecodeBody(resp));
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Gets the E-tag header.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>The E-tag header.</returns>
+        [NotNull]
+        public static string GetETagHeader([NotNull] HttpWebResponse response)
+            => HttpRequestHelper.GetStringHeader(response, "ETag"); // Not L10N
+
+        /// <summary>
+        /// Gets the expires header.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>The expiration DateTime.</returns>
+        public static DateTime GetExpiresHeader([NotNull] HttpWebResponse response)
+        {
+            var expires = response.GetResponseHeader("Expires"); // Not L10N
+            if (string.IsNullOrWhiteSpace(expires) || expires.Trim() == @"-1")
+            {
+                return DateTime.MinValue;
+            }
+
+            DateTime expiresDate;
+            if (DateTime.TryParse(
+                expires,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.AdjustToUniversal,
+                out expiresDate))
+            {
+                return expiresDate;
+            }
+
+            // look for ANSI c's asctime() format as a last gasp
+            const string AsctimeFormat = "ddd' 'MMM' 'd' 'HH':'mm':'ss' 'yyyy"; // Not L10N
+            if (DateTime.TryParseExact(
+                expires,
+                AsctimeFormat,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.AllowWhiteSpaces,
+                out expiresDate))
+            {
+                return expiresDate;
+            }
+
+            Trace.Fail($"Exception parsing HTTP date - {expires}");
+            return DateTime.MinValue;
+        }
+
+        /// <summary>
+        /// Gets the friendly error message.
+        /// </summary>
+        /// <param name="we">The web exception.</param>
+        /// <returns>The friendly error message.</returns>
+        [NotNull]
+        public static string GetFriendlyErrorMessage([NotNull] WebException we)
+        {
+            var httpWebResponse = we.Response as HttpWebResponse;
+            if (httpWebResponse == null)
+            {
+                return we.Message;
+            }
+
+            var response = httpWebResponse;
+            var bodyText = HttpRequestHelper.GetBodyText(response);
+            var statusCode = (int)response.StatusCode;
+            var statusDesc = response.StatusDescription;
+
+            return $"{statusCode} {statusDesc}\r\n\r\n{bodyText}";
+        }
+
+        /// <summary>
+        /// Returns the default proxy for an HTTP request.
+        /// Consider using ApplyProxyOverride instead.
+        /// </summary>
+        /// <returns>The default proxy for an HTTP request.</returns>
+        [CanBeNull]
+        public static WebProxy GetProxyOverride()
+        {
+            if (!WebProxySettings.ProxyEnabled)
+            {
+                return null;
+            }
+
+            var proxyServerUrl = WebProxySettings.Hostname;
+            if (proxyServerUrl.IndexOf(@"://", StringComparison.OrdinalIgnoreCase) == -1)
+            {
+                proxyServerUrl = $"http://{proxyServerUrl}";
+            }
+
+            if (WebProxySettings.Port > 0)
+            {
+                proxyServerUrl += $":{WebProxySettings.Port}";
+            }
+
+            var proxyCredentials = HttpRequestHelper.CreateHttpCredentials(
+                WebProxySettings.Username,
+                WebProxySettings.Password,
+                proxyServerUrl);
+            var proxy = new WebProxy(proxyServerUrl, false, new string[0], proxyCredentials);
+
+            return proxy;
+        }
+
+        /// <summary>
+        /// Gets the string header.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <param name="headerName">Name of the header.</param>
+        /// <returns>The string header.</returns>
+        [NotNull]
+        public static string GetStringHeader([NotNull] HttpWebResponse response, [NotNull] string headerName)
+        {
+            var headerValue = response.GetResponseHeader(headerName);
+            return headerValue ?? string.Empty;
+        }
+
+        /// <summary>
+        /// Logs the exception.
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        public static void LogException([NotNull] WebException ex)
+        {
+            Trace.WriteLine("== BEGIN WebException =====================");
+            Trace.WriteLine($"Status: {ex.Status}");
+            Trace.WriteLine(ex.ToString());
+            var response = ex.Response as HttpWebResponse;
+            if (response != null)
+            {
+                Trace.WriteLine(HttpRequestHelper.DumpResponse(response));
+            }
+
+            Trace.WriteLine("== END WebException =======================");
         }
 
         /// <summary>
@@ -72,411 +377,198 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         /// <param name="fileUrl">file url</param>
         /// <returns>path to file or null if it could not be downloaded</returns>
-        public static Stream SafeDownloadFile(string fileUrl)
+        [CanBeNull]
+        public static Stream SafeDownloadFile([NotNull] string fileUrl)
         {
             string responseUri;
-            return SafeDownloadFile(fileUrl, out responseUri, null);
+            return HttpRequestHelper.SafeDownloadFile(fileUrl, out responseUri);
         }
 
-        public static Stream SafeDownloadFile(string fileUrl, out string responseUri)
-        {
-            return SafeDownloadFile(fileUrl, out responseUri, null);
-        }
-
-        public static Stream SafeDownloadFile(string fileUrl, out string responseUri, HttpRequestFilter filter)
+        /// <summary>
+        /// Safes the download file.
+        /// </summary>
+        /// <param name="fileUrl">The file URL.</param>
+        /// <param name="responseUri">The response URI.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>A Stream.</returns>
+        [CanBeNull]
+        public static Stream SafeDownloadFile(
+            [NotNull] string fileUrl,
+            [CanBeNull] out string responseUri,
+            [CanBeNull] HttpRequestFilter filter = null)
         {
             responseUri = null;
             try
             {
-                HttpWebResponse response = SafeSendRequest(fileUrl, filter);
-
-                if (response != null)
+                var response = HttpRequestHelper.SafeSendRequest(fileUrl, filter);
+                if (response == null)
                 {
-                    responseUri = UrlHelper.SafeToAbsoluteUri(response.ResponseUri);
-                    return response.GetResponseStream();
-                }
-                else
                     return null;
+                }
+
+                responseUri = UrlHelper.SafeToAbsoluteUri(response.ResponseUri);
+                return response.GetResponseStream();
             }
             catch (Exception ex)
             {
-                Trace.WriteLine("Unable to download file \"" + fileUrl + "\" during Blog service detection: " + ex.ToString());
+                Trace.WriteLine($"Unable to download file \"{fileUrl}\" during Blog service detection: {ex}");
                 return null;
             }
         }
 
-        public static HttpWebResponse SendRequest(string requestUri)
+        /// <summary>
+        /// Safes the send request.
+        /// </summary>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>The HttpWebResponse.</returns>
+        [CanBeNull]
+        public static HttpWebResponse SafeSendRequest([NotNull] string requestUri, [CanBeNull] HttpRequestFilter filter)
         {
-            return SendRequest(requestUri, null);
+            try
+            {
+                return HttpRequestHelper.SendRequest(requestUri, filter);
+            }
+            catch (WebException we)
+            {
+                if (ApplicationDiagnostics.TestMode)
+                {
+                    HttpRequestHelper.LogException(we);
+                }
+
+                return null;
+            }
         }
 
-        public static HttpWebResponse SendRequest(string requestUri, HttpRequestFilter filter)
+        /// <summary>
+        /// Sends the request.
+        /// </summary>
+        /// <param name="requestUri">The request URI.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>The HttpWebResponse.</returns>
+        /// <exception cref="System.Net.WebException">An unknown error occurred.</exception>
+        /// <exception cref="OpenLiveWriter.CoreServices.WebResponseTimeoutException">The request timed out.</exception>
+        [NotNull]
+        public static HttpWebResponse SendRequest([NotNull] string requestUri, [CanBeNull] HttpRequestFilter filter = null)
         {
-            HttpWebRequest request = CreateHttpWebRequest(requestUri, true, null, null);
-            if (filter != null)
-                filter(request);
+            var request = HttpRequestHelper.CreateHttpWebRequest(requestUri, true);
+            filter?.Invoke(request);
 
             // get the response
             try
             {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                var response = (HttpWebResponse)request.GetResponse();
 
-                //hack: For some reason, disabling auto-redirects also disables throwing WebExceptions for 300 status codes,
-                //so if we detect a non-2xx error code here, throw a web exception.
-                int statusCode = (int)response.StatusCode;
+                // hack: For some reason, disabling auto-redirects also disables throwing WebExceptions for 300 status codes,
+                // so if we detect a non-2xx error code here, throw a web exception.
+                var statusCode = (int)response.StatusCode;
                 if (statusCode > 299)
-                    throw new WebException(response.StatusCode.ToString() + ": " + response.StatusDescription, null, WebExceptionStatus.UnknownError, response);
+                {
+                    throw new WebException(
+                              $"{response.StatusCode}: {response.StatusDescription}",
+                              null,
+                              WebExceptionStatus.UnknownError,
+                              response);
+                }
+
                 return response;
             }
             catch (WebException e)
             {
                 if (e.Status == WebExceptionStatus.Timeout)
                 {
-                    //throw a typed exception that lets callers know that the response timed out after the request was sent
+                    // throw a typed exception that lets callers know that the response timed out after the request was sent
                     throw new WebResponseTimeoutException(e);
                 }
-                else
-                    throw;
-            }
-        }
 
-        public static void ApplyLanguage(HttpWebRequest request)
-        {
-            string acceptLang = CultureInfo.CurrentUICulture.Name.Split('/')[0];
-            if (acceptLang.ToUpperInvariant() == "SR-SP-LATN")
-                acceptLang = "sr-Latn-CS";
-            if (acceptLang != "en-US")
-                acceptLang += ", en-US";
-            acceptLang += ", en, *";
-            request.Headers["Accept-Language"] = acceptLang;
-        }
-
-        public static HttpWebResponse SafeSendRequest(string requestUri, HttpRequestFilter filter)
-        {
-            try
-            {
-                return SendRequest(requestUri, filter);
+                throw;
             }
-            catch (WebException we)
-            {
-                if (ApplicationDiagnostics.TestMode)
-                    LogException(we);
-                return null;
-            }
-        }
-
-        public static void ApplyProxyOverride(WebRequest request)
-        {
-            WebProxy proxy = GetProxyOverride();
-            if (proxy != null)
-                request.Proxy = proxy;
         }
 
         /// <summary>
-        /// Returns the default proxy for an HTTP request.
-        ///
-        /// Consider using ApplyProxyOverride instead.
+        /// Tracks the response closing.
         /// </summary>
-        /// <returns></returns>
-        public static WebProxy GetProxyOverride()
+        /// <param name="req">The request.</param>
+        public static void TrackResponseClosing([NotNull] ref HttpWebRequest req)
         {
-            WebProxy proxy = null;
-            if (WebProxySettings.ProxyEnabled)
-            {
-                string proxyServerUrl = WebProxySettings.Hostname;
-                if (proxyServerUrl.IndexOf("://", StringComparison.OrdinalIgnoreCase) == -1)
-                    proxyServerUrl = "http://" + proxyServerUrl;
-                if (WebProxySettings.Port > 0)
-                    proxyServerUrl += ":" + WebProxySettings.Port;
-
-                ICredentials proxyCredentials = CreateHttpCredentials(WebProxySettings.Username, WebProxySettings.Password, proxyServerUrl);
-                proxy = new WebProxy(proxyServerUrl, false, new string[0], proxyCredentials);
-            }
-            return proxy;
-        }
-
-        public static ICredentials CreateHttpCredentials(string username, string password, string url)
-        {
-            return CreateHttpCredentials(username, password, url, false);
+            CloseTrackingHttpWebRequest.Wrap(ref req);
         }
 
         /// <summary>
-        /// Creates a set of credentials for the specified user/pass, or returns the default credentials if user/pass is null.
+        /// Checks the validation result.
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static ICredentials CreateHttpCredentials(string username, string password, string url, bool digestOnly)
+        /// <param name="sender">The sender.</param>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="chain">The chain.</param>
+        /// <param name="sslPolicyErrors">The SSL policy errors.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        private static bool CheckValidationResult(
+            [CanBeNull] object sender,
+            [CanBeNull] X509Certificate certificate,
+            [CanBeNull] X509Chain chain,
+            SslPolicyErrors sslPolicyErrors)
         {
-            ICredentials credentials = CredentialCache.DefaultCredentials;
-            if (username != null || password != null)
+            if (sslPolicyErrors != SslPolicyErrors.None)
             {
-                CredentialCache credentialCache = new CredentialCache();
-                string userDomain = String.Empty;
-
-                if (username != null)
-                {
-                    //try to parse the username string into a domain\userId
-                    int domainIndex = username.IndexOf(@"\", StringComparison.OrdinalIgnoreCase);
-                    if (domainIndex != -1)
-                    {
-                        userDomain = username.Substring(0, domainIndex);
-                        username = username.Substring(domainIndex + 1);
-                    }
-                }
-
-                credentialCache.Add(new Uri(url), "Digest", new NetworkCredential(username, password, userDomain));
-
-                if (!digestOnly)
-                {
-                    credentialCache.Add(new Uri(url), "Basic", new NetworkCredential(username, password, userDomain));
-                    credentialCache.Add(new Uri(url), "NTLM", new NetworkCredential(username, password, userDomain));
-                    credentialCache.Add(new Uri(url), "Negotiate", new NetworkCredential(username, password, userDomain));
-                    credentialCache.Add(new Uri(url), "Kerberos", new NetworkCredential(username, password, userDomain));
-                }
-                credentials = credentialCache;
+                Trace.WriteLine($"SSL Policy error {sslPolicyErrors}");
             }
-            return credentials;
+
+            return true;
         }
 
-        public static HttpWebRequest CreateHttpWebRequest(string requestUri, bool allowAutoRedirect)
+        /// <summary>
+        /// Decodes the body.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>The body.</returns>
+        [NotNull]
+        private static string DecodeBody([NotNull] WebResponse response)
         {
-            return CreateHttpWebRequest(requestUri, allowAutoRedirect, null, null);
-        }
-
-        public static HttpWebRequest CreateHttpWebRequest(string requestUri, bool allowAutoRedirect, int? connectTimeoutMs, int? readWriteTimeoutMs)
-        {
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(requestUri);
-            TrackResponseClosing(ref request);
-
-            // Set Accept to */* to stop Bad Behavior plugin for WordPress from
-            // thinking we're a spam cannon
-            request.Accept = "*/*";
-            ApplyLanguage(request);
-
-            int timeout = WebProxySettings.HttpRequestTimeout;
-            request.Timeout = timeout;
-            request.ReadWriteTimeout = timeout * 5;
-
-            if (connectTimeoutMs != null)
-                request.Timeout = connectTimeoutMs.Value;
-            if (readWriteTimeoutMs != null)
-                request.ReadWriteTimeout = readWriteTimeoutMs.Value;
-
-            request.AllowAutoRedirect = allowAutoRedirect;
-            request.UserAgent = ApplicationEnvironment.UserAgent;
-
-            ApplyProxyOverride(request);
-
-            //For robustness, we turn off keep alive and piplining by default.
-            //If the caller wants to override, the filter parameter can be used to adjust these settings.
-            //Warning: NTLM authentication requires keep-alive, so without adjusting this, NTLM-secured requests will always fail.
-            request.KeepAlive = false;
-            request.Pipelined = false;
-            request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.Reload);
-            return request;
-        }
-
-        public static string DumpResponse(HttpWebResponse resp)
-        {
-            StringBuilder sb = new StringBuilder();
-            using (StringWriter sw = new StringWriter(sb, CultureInfo.InvariantCulture))
+            var s = response.GetResponseStream();
+            if (s == null)
             {
-                sw.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0}/{1} {2} {3}", "HTTP", resp.ProtocolVersion, (int)resp.StatusCode, resp.StatusDescription));
-                foreach (string key in resp.Headers.AllKeys)
-                {
-                    sw.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0}: {1}", key, resp.Headers[key]));
-                }
-                sw.WriteLine("");
-                sw.WriteLine(DecodeBody(resp));
+                return string.Empty;
             }
-            return sb.ToString();
-        }
 
-        public static string DumpRequestHeader(HttpWebRequest req)
-        {
-            StringBuilder sb = new StringBuilder();
-            using (StringWriter sw = new StringWriter(sb, CultureInfo.InvariantCulture))
+            using (var sr = new StreamReader(s))
             {
-                sw.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0} {1} HTTP/{2}", req.Method, UrlHelper.SafeToAbsoluteUri(req.RequestUri), req.ProtocolVersion));
-                foreach (string key in req.Headers.AllKeys)
-                {
-                    sw.WriteLine(String.Format(CultureInfo.InvariantCulture, "{0}: {1}", key, req.Headers[key]));
-                }
+                return sr.ReadToEnd();
             }
-            return sb.ToString();
         }
 
-        public static DateTime GetExpiresHeader(HttpWebResponse response)
+        /// <summary>
+        /// Gets the body text.
+        /// </summary>
+        /// <param name="resp">The response.</param>
+        /// <returns>The body text.</returns>
+        [NotNull]
+        private static string GetBodyText([NotNull] WebResponse resp)
         {
-            string expires = response.GetResponseHeader("Expires");
-            if (expires != null && expires != String.Empty && expires.Trim() != "-1")
+            if (string.IsNullOrEmpty(resp.ContentType))
             {
-                try
-                {
-                    DateTime expiresDate = DateTime.Parse(expires, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
-                    return expiresDate;
-                }
-                catch (Exception ex)
-                {
-                    // look for ANSI c's asctime() format as a last gasp
-                    try
+                return string.Empty;
+            }
+
+            var contentTypeData = MimeHelper.ParseContentType(resp.ContentType, true);
+            var mainType = (string)contentTypeData[string.Empty];
+            switch (mainType)
+            {
+                case @"text/plain":
                     {
-                        string asctimeFormat = "ddd' 'MMM' 'd' 'HH':'mm':'ss' 'yyyy";
-                        DateTime expiresDate = DateTime.ParseExact(expires, asctimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces);
-                        return expiresDate;
-                    }
-                    catch
-                    {
+                        return HttpRequestHelper.DecodeBody(resp);
                     }
 
-                    Trace.Fail("Exception parsing HTTP date - " + expires + ": " + ex.ToString());
-                    return DateTime.MinValue;
-                }
-            }
-            else
-            {
-                return DateTime.MinValue;
-            }
-        }
-
-        public static string GetETagHeader(HttpWebResponse response)
-        {
-            return GetStringHeader(response, "ETag");
-        }
-
-        public static string GetStringHeader(HttpWebResponse response, string headerName)
-        {
-            string headerValue = response.GetResponseHeader(headerName);
-            if (headerValue != null)
-                return headerValue;
-            else
-                return String.Empty;
-        }
-
-        public static void LogException(WebException ex)
-        {
-            Trace.WriteLine("== BEGIN WebException =====================");
-            Trace.WriteLine("Status: " + ex.Status);
-            Trace.WriteLine(ex.ToString());
-            HttpWebResponse response = ex.Response as HttpWebResponse;
-            if (response != null)
-                Trace.WriteLine(DumpResponse(response));
-            Trace.WriteLine("== END WebException =======================");
-        }
-
-        public static string GetFriendlyErrorMessage(WebException we)
-        {
-            if (we.Response != null && we.Response is HttpWebResponse)
-            {
-                HttpWebResponse response = (HttpWebResponse)we.Response;
-                string bodyText = GetBodyText(response);
-                int statusCode = (int)response.StatusCode;
-                string statusDesc = response.StatusDescription;
-
-                return String.Format(CultureInfo.CurrentCulture,
-                    "{0} {1}\r\n\r\n{2}",
-                    statusCode, statusDesc,
-                    bodyText);
-            }
-            else
-            {
-                return we.Message;
-            }
-        }
-
-        private static string GetBodyText(HttpWebResponse resp)
-        {
-            if (resp.ContentType != null && resp.ContentType.Length > 0)
-            {
-                IDictionary contentTypeData = MimeHelper.ParseContentType(resp.ContentType, true);
-                string mainType = (string)contentTypeData[""];
-                switch (mainType)
-                {
-                    case "text/plain":
-                        {
-                            return DecodeBody(resp);
-                        }
-                    case "text/html":
-                        {
-                            return StringHelper.CompressExcessWhitespace(
-                                HTMLDocumentHelper.HTMLToPlainText(
+                case @"text/html":
+                    {
+                        return StringHelper.CompressExcessWhitespace(
+                            HTMLDocumentHelper.HTMLToPlainText(
                                 LightWeightHTMLThinner2.Thin(
-                                DecodeBody(resp), true)));
-                        }
-                }
+                                    HttpRequestHelper.DecodeBody(resp), true)));
+                    }
+
+                default:
+                    return string.Empty;
             }
-            return "";
-        }
-
-        private static string DecodeBody(HttpWebResponse response)
-        {
-            Stream s = response.GetResponseStream();
-            StreamReader sr = new StreamReader(s);
-            return sr.ReadToEnd();
-        }
-    }
-
-    public class HttpRequestCredentialsFilter
-    {
-        public static HttpRequestFilter Create(string username, string password, string url, bool digestOnly)
-        {
-            return new HttpRequestFilter(new HttpRequestCredentialsFilter(username, password, url, digestOnly).Filter);
-        }
-
-        private HttpRequestCredentialsFilter(string username, string password, string url, bool digestOnly)
-        {
-            _username = username;
-            _password = password;
-            _url = url;
-            _digestOnly = digestOnly;
-        }
-
-        private void Filter(HttpWebRequest request)
-        {
-            request.Credentials = HttpRequestHelper.CreateHttpCredentials(_username, _password, _url, _digestOnly);
-        }
-
-        private string _username;
-        private string _password;
-        private string _url;
-        private bool _digestOnly;
-    }
-
-    /// <summary>
-    /// Allow chaining together of http request filters
-    /// </summary>
-    public class CompoundHttpRequestFilter
-    {
-        public static HttpRequestFilter Create(HttpRequestFilter[] filters)
-        {
-            return new HttpRequestFilter(new CompoundHttpRequestFilter(filters).Filter);
-        }
-
-        private CompoundHttpRequestFilter(HttpRequestFilter[] filters)
-        {
-            _filters = filters;
-        }
-
-        private void Filter(HttpWebRequest request)
-        {
-            foreach (HttpRequestFilter filter in _filters)
-                filter(request);
-        }
-
-        private HttpRequestFilter[] _filters;
-    }
-
-    /// <summary>
-    /// Typed-exception that occurs when an HTTP request times out after the request has been sent, but
-    /// before the response is received.
-    /// </summary>
-    public class WebResponseTimeoutException : WebException
-    {
-        public WebResponseTimeoutException(WebException innerException) : base(innerException.Message, innerException, innerException.Status, innerException.Response)
-        {
-
         }
     }
 }
