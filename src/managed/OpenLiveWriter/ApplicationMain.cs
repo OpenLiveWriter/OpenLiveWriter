@@ -16,6 +16,8 @@ using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.PostEditor.JumpList;
+using OpenLiveWriter.PostEditor.Updates;
+using Squirrel;
 
 namespace OpenLiveWriter
 {
@@ -137,6 +139,9 @@ namespace OpenLiveWriter
 
                 InitializeApplicationEnvironment();
 
+                string downloadUrl = UpdateSettings.CheckForBetaUpdates ? UpdateSettings.BetaUpdateDownloadUrl : UpdateSettings.UpdateDownloadUrl;
+                RegisterSquirrelEventHandlers(downloadUrl);
+
                 try
                 {
                     // TODO:OLW
@@ -188,6 +193,54 @@ namespace OpenLiveWriter
             {
                 return LaunchAdditionalInstance(args);
             }
+        }
+
+        /// <summary>
+        /// Registers functions to handle Squirrel's events.
+        /// </summary>
+        /// <param name="downloadUrl">The Url to use for downloading payloads.</param>
+        private static void RegisterSquirrelEventHandlers(string downloadUrl)
+        {
+            using (var mgr = new Squirrel.UpdateManager(downloadUrl))
+            {
+                SquirrelAwareApp.HandleEvents(
+                    onInitialInstall: v => InitialInstall(mgr),
+                    onFirstRun: () => FirstRun(mgr),
+                    onAppUpdate: v => OnAppUpdate(mgr),
+                    onAppUninstall: v => OnAppUninstall(mgr));
+            }
+        }
+
+        /// <summary>
+        /// Removes registry keys under HKCU/SOFTWARE/OpenLiveWriter and deletes the AppData and Roaming profiles.
+        /// </summary>
+        /// <param name="mgr">An instance of Squirrel.UpdateManager to be used as helper class.</param>
+        private static void OnAppUninstall(Squirrel.UpdateManager mgr)
+        {
+            mgr.FullUninstall();
+            string OLWRegKey = @"SOFTWARE\OpenLiveWriter";
+            Registry.CurrentUser.DeleteSubKeyTree(OLWRegKey);
+            mgr.RemoveShortcutForThisExe();
+            mgr.RemoveUninstallerRegistryEntry();
+            Directory.Delete(ApplicationEnvironment.LocalApplicationDataDirectory, true);
+            Directory.Delete(ApplicationEnvironment.ApplicationDataDirectory, true);
+        }
+
+        private static void OnAppUpdate(Squirrel.UpdateManager mgr)
+        {
+            mgr.UpdateApp();
+        }
+
+        private static void FirstRun(Squirrel.UpdateManager mgr)
+        {
+            mgr.CreateShortcutForThisExe();
+        }
+
+        private static void InitialInstall(Squirrel.UpdateManager mgr)
+        {
+            mgr.CreateShortcutForThisExe();
+            mgr.CreateUninstallerRegistryEntry();
+            mgr.FullInstall();
         }
 
         private static void InitializeApplicationEnvironment()
