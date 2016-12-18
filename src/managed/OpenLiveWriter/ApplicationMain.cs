@@ -217,12 +217,13 @@ namespace OpenLiveWriter
         /// <param name="mgr">An instance of Squirrel.UpdateManager to be used as helper class.</param>
         private static void OnAppUninstall(Squirrel.UpdateManager mgr)
         {
+            mgr.FullUninstall();
             string OLWRegKey = @"SOFTWARE\OpenLiveWriter";
             Registry.CurrentUser.DeleteSubKeyTree(OLWRegKey);
+            mgr.RemoveShortcutForThisExe();
+            mgr.RemoveUninstallerRegistryEntry();
             Directory.Delete(ApplicationEnvironment.LocalApplicationDataDirectory, true);
             Directory.Delete(ApplicationEnvironment.ApplicationDataDirectory, true);
-            mgr.RemoveShortcutForThisExe();
-            mgr.FullUninstall();
         }
 
         private static void OnAppUpdate(Squirrel.UpdateManager mgr)
@@ -237,8 +238,9 @@ namespace OpenLiveWriter
 
         private static void InitialInstall(Squirrel.UpdateManager mgr)
         {
-            mgr.FullInstall();
             mgr.CreateShortcutForThisExe();
+            mgr.CreateUninstallerRegistryEntry();
+            mgr.FullInstall();
         }
 
         private static void InitializeApplicationEnvironment()
