@@ -1,0 +1,3689 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DisplayMessage.InvalidPingUrl.Text" xml:space="preserve">
+    <value>为 Ping 输入的网址无效。</value>
+  </data>
+  <data name="Command.CheckSpelling.TooltipTitle" xml:space="preserve">
+    <value>拼写检查(F7)</value>
+  </data>
+  <data name="Command.ValidateXhtml.LabelTitle" xml:space="preserve">
+    <value>XHTML</value>
+  </data>
+  <data name="Command.SplitPrint.LabelTitle" xml:space="preserve">
+    <value>W(&amp;W)</value>
+  </data>
+  <data name="Command.Delete.Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Command.DeleteColumn.MenuText" xml:space="preserve">
+    <value>删除列(&amp;N)</value>
+  </data>
+  <data name="Command.FormatImageLinkOptions.LabelTitle" xml:space="preserve">
+    <value>链接选项</value>
+  </data>
+  <data name="DisplayMessage.NoVideoFound.Text" xml:space="preserve">
+    <value>无法识别你输入的信息，它不是有效的视频提供者。请输入有效的 URL 或嵌入代码。</value>
+  </data>
+  <data name="DisplayMessage.ConfirmReplaceEntry.Text" xml:space="preserve">
+    <value>是否确实要替换该文本的当前条目?</value>
+  </data>
+  <data name="Command.BlogProviderShortcutsGroup.LabelTitle" xml:space="preserve">
+    <value>快捷方式</value>
+  </data>
+  <data name="Command.AlignNone.Keytip" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="DisplayMessage.HostNameRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.BlogProviderShortcutsGroup.Keytip" xml:space="preserve">
+    <value>ZS</value>
+  </data>
+  <data name="Command.FormatTagPropertiesGroup.LabelTitle" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="DisplayMessage.InputIsNotUrl.Text" xml:space="preserve">
+    <value>{0}
+不是有效的网址。
+是否要继续?</value>
+  </data>
+  <data name="Command.MarginsGroup.Keytip" xml:space="preserve">
+    <value>ZM</value>
+  </data>
+  <data name="Command.TextEditingGroup.LabelTitle" xml:space="preserve">
+    <value>编辑
+</value>
+  </data>
+  <data name="Command.ImageEffectsEmbossGallery.TooltipTitle" xml:space="preserve">
+    <value>阳文</value>
+  </data>
+  <data name="Command.ColumnProperties.TooltipTitle" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="Command.ValidateHtml.LabelTitle" xml:space="preserve">
+    <value>HTML</value>
+  </data>
+  <data name="Command.RowProperties.TooltipDescription" xml:space="preserve">
+    <value>编辑行属性。</value>
+  </data>
+  <data name="Command.DebugTab.Keytip" xml:space="preserve">
+    <value>D</value>
+  </data>
+  <data name="Command.TableMenu.Text" xml:space="preserve">
+    <value>表格</value>
+  </data>
+  <data name="Command.FormatAlbumEdit.TooltipDescription" xml:space="preserve">
+    <value>更改相册名称和照片。</value>
+  </data>
+  <data name="Command.Clear.Text" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="Command.ImageLinkToUrl.LabelTitle" xml:space="preserve">
+    <value>网址(&amp;W)...</value>
+  </data>
+  <data name="Command.InsertRowBelow.MenuText" xml:space="preserve">
+    <value>在下方插入行(&amp;B)</value>
+  </data>
+  <data name="Command.ViewPreview.Shortcut" xml:space="preserve">
+    <value>F12</value>
+  </data>
+  <data name="DisplayMessage.ServerParameterNotSpecified.Text" xml:space="preserve">
+    <value>继续操作前需要自定义日志 API URL。
+下列值尚未自定义:
+
+{0}
+
+请将这些值更改为任何适合你的
+日志服务器的值。</value>
+  </data>
+  <data name="DisplayMessage.SelectEntry.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.AlignLeft.MenuText" xml:space="preserve">
+    <value>左对齐(&amp;L)</value>
+  </data>
+  <data name="DisplayMessage.FinishedSearchingDocument.Title" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="Command.ValidateDebugGroup.LabelTitle" xml:space="preserve">
+    <value>验证</value>
+  </data>
+  <data name="Command.FontBackgroundColor.LabelTitle" xml:space="preserve">
+    <value>文本突出显示颜色</value>
+  </data>
+  <data name="Command.ImageSaveDefaults.Keytip" xml:space="preserve">
+    <value>DS</value>
+  </data>
+  <data name="Command.Justify.Text" xml:space="preserve">
+    <value>两端对齐</value>
+  </data>
+  <data name="Command.ViewUseStyles.MenuText" xml:space="preserve">
+    <value>使用主题编辑(&amp;T)</value>
+  </data>
+  <data name="DisplayMessage.YouTubeSignup.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FontColorPicker.TooltipDescription" xml:space="preserve">
+    <value>更改文本颜色。</value>
+  </data>
+  <data name="Command.FormatMapTab.Keytip" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="Command.ImageEffectsBlurGallery.TooltipTitle" xml:space="preserve">
+    <value>模糊</value>
+  </data>
+  <data name="Command.InsertVideoFromFile.TooltipDescription" xml:space="preserve">
+    <value>选择一段视频上载到联机服务可将该视频显示在日志中。</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlInvalid.Text" xml:space="preserve">
+    <value>请为你的日志主页输入合法的网址。</value>
+  </data>
+  <data name="Command.CellProperties.TooltipTitle" xml:space="preserve">
+    <value>单元格</value>
+  </data>
+  <data name="Command.FormatImageTab.LabelTitle" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="Command.PasteSplit.TooltipDescription" xml:space="preserve">
+    <value>选择粘贴选项。</value>
+  </data>
+  <data name="Command.InsertPictureFromFile.LabelTitle" xml:space="preserve">
+    <value>来自计算机(&amp;C)...</value>
+  </data>
+  <data name="Command.InsertVideoSplit.LabelTitle" xml:space="preserve">
+    <value>视频
+</value>
+  </data>
+  <data name="Command.SemanticHtmlGallery.TooltipDescription" xml:space="preserve">
+    <value>使用由日志主题确定的文本格式预设置。</value>
+  </data>
+  <data name="Command.OpenPostMRU4.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="Command.Help.LabelTitle" xml:space="preserve">
+    <value>联机帮助(F1)</value>
+  </data>
+  <data name="Command.AlignCenter.TooltipTitle" xml:space="preserve">
+    <value>居中文本(Ctrl+E)</value>
+  </data>
+  <data name="Command.ValidateXhtml.Shortcut" xml:space="preserve">
+    <value>CtrlShiftF7</value>
+  </data>
+  <data name="Command.FindButton.Shortcut" xml:space="preserve">
+    <value>CtrlF</value>
+  </data>
+  <data name="Command.InsertColumnRight.Text" xml:space="preserve">
+    <value>在右侧插入列</value>
+  </data>
+  <data name="Command.ImageTilt.LabelTitle" xml:space="preserve">
+    <value>倾斜度...</value>
+  </data>
+  <data name="Command.Glossary.Text" xml:space="preserve">
+    <value>自动链接条目...</value>
+  </data>
+  <data name="Command.FormatAlbumSetAlbumPrivacy.TooltipDescription" xml:space="preserve">
+    <value>更改此相册的隐私设置。</value>
+  </data>
+  <data name="Command.WordCount.TooltipDescription" xml:space="preserve">
+    <value>提供单词、字符、段落和行的数量。</value>
+  </data>
+  <data name="Command.ImageBorderGallery.TooltipTitle" xml:space="preserve">
+    <value>图片边框</value>
+  </data>
+  <data name="DisplayMessage.NoPostSelected.Text" xml:space="preserve">
+    <value>在继续操作之前，请先选择要打开的日志。</value>
+  </data>
+  <data name="Command.ShowVideoErrorMessage.MenuText" xml:space="preserve">
+    <value>[Debug] Show Video Publish Error Message</value>
+  </data>
+  <data name="Command.InsertLoremIpsum.LabelTitle" xml:space="preserve">
+    <value>Lorem Ipsum</value>
+  </data>
+  <data name="Command.Redo.MenuText" xml:space="preserve">
+    <value>恢复(&amp;R)</value>
+  </data>
+  <data name="Command.Clear.Shortcut" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="Command.PasteSpecial.TooltipTitle" xml:space="preserve">
+    <value>选择性粘贴(Ctrl+Shift+V)</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumFileNotAdded.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertVideoSplit.Keytip" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="Command.Help.Text" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="DisplayMessage.FinishedSearchingDocument.Text" xml:space="preserve">
+    <value>已完成对文档的搜索。</value>
+  </data>
+  <data name="Command.ViewWeblog.Text" xml:space="preserve">
+    <value>查看日志</value>
+  </data>
+  <data name="Command.AlignRight.Shortcut" xml:space="preserve">
+    <value>CtrlR</value>
+  </data>
+  <data name="Command.SavePost.Shortcut" xml:space="preserve">
+    <value>CtrlS</value>
+  </data>
+  <data name="Command.CustomSizeOriginal.TooltipTitle" xml:space="preserve">
+    <value>原始大小</value>
+  </data>
+  <data name="DisplayMessage.PostFileInvalid.Text" xml:space="preserve">
+    <value>指定的文件({0})不是有效的日志，所以无法打开。</value>
+  </data>
+  <data name="Command.MoveRowDown.MenuText" xml:space="preserve">
+    <value>下移行(&amp;V)</value>
+  </data>
+  <data name="Command.ShowWebLayoutWarning.LabelTitle" xml:space="preserve">
+    <value>网页版式警告</value>
+  </data>
+  <data name="DisplayMessage.ConfirmRemoveWeblog.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.FileNotFound.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertLink.Text" xml:space="preserve">
+    <value>插入超链接</value>
+  </data>
+  <data name="Command.PostAsDraft.MenuText" xml:space="preserve">
+    <value>将草稿发布到日志(&amp;D)</value>
+  </data>
+  <data name="Command.Close.MenuText" xml:space="preserve">
+    <value>关闭(&amp;C)</value>
+  </data>
+  <data name="Command.FontColor.MenuText" xml:space="preserve">
+    <value>字体颜色(&amp;C)...</value>
+  </data>
+  <data name="DisplayMessage.RepublishAsDraftUnsupported.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertTab.LabelTitle" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Command.ImageRotateCW.TooltipTitle" xml:space="preserve">
+    <value>向右旋转 90°</value>
+  </data>
+  <data name="Command.FormatTagTab.LabelTitle" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmDeleteProvider.Title" xml:space="preserve">
+    <value>确认删除</value>
+  </data>
+  <data name="Command.RowProperties.Text" xml:space="preserve">
+    <value>行属性</value>
+  </data>
+  <data name="Command.Outdent.TooltipDescription" xml:space="preserve">
+    <value>减少段落的缩进量</value>
+  </data>
+  <data name="DisplayMessage.MustAcceptTermsOfUse.Text" xml:space="preserve">
+    <value>若要发布视频，请接受该服务的使用条款和安全提示。单击此链接阅读使用条款和安全提示，如果你同意接受，请选中此复选框。</value>
+  </data>
+  <data name="Command.ShowErrorDialog.MenuText" xml:space="preserve">
+    <value>[Debug] Show Error &amp;Dialog</value>
+  </data>
+  <data name="Command.Strikethrough.TooltipTitle" xml:space="preserve">
+    <value>删除线(Ctrl+H)</value>
+  </data>
+  <data name="DisplayMessage.NoSuchPublishFolder.Text" xml:space="preserve">
+    <value>指定的发布文件夹不存在:
+
+{0}</value>
+  </data>
+  <data name="ConfigurationWizard.Height" xml:space="preserve">
+    <value>420</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteTable.Text" xml:space="preserve">
+    <value>是否确实要删除该表格?</value>
+  </data>
+  <data name="DisplayMessage.MultipleLinks.Text" xml:space="preserve">
+    <value>你选择了多个链接，请选择一个链接来编辑。</value>
+  </data>
+  <data name="Command.BlogProviderBlogGroup.Keytip" xml:space="preserve">
+    <value>ZB</value>
+  </data>
+  <data name="DisplayMessage.WeblogDetectionUnexpectedError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.UsernameAndPasswordRequired.Text" xml:space="preserve">
+    <value>输入用户名和密码。</value>
+  </data>
+  <data name="Command.FindButton.LabelTitle" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="Command.DeleteDraft.Text" xml:space="preserve">
+    <value>删除本地草稿</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumFileNotAdded.Text" xml:space="preserve">
+    <value>一个或多个文件不是有效的图像文件，因此无法添加到相册。</value>
+  </data>
+  <data name="Command.AlignRight.Keytip" xml:space="preserve">
+    <value>AR</value>
+  </data>
+  <data name="Command.Cut.TooltipTitle" xml:space="preserve">
+    <value>剪切(Ctrl+X)</value>
+  </data>
+  <data name="Command.AlignLeft.Keytip" xml:space="preserve">
+    <value>AL</value>
+  </data>
+  <data name="Font.Size.Small" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Command.Close.Text" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="DisplayMessage.PluginInvalidAttribute.Text" xml:space="preserve">
+    <value>加载插件 {0} 时出错
+
+{1} - {2}
+
+由于此错误而导致该插件无法加载。</value>
+  </data>
+  <data name="Command.ImageRotateCW.TooltipDescription" xml:space="preserve">
+    <value>将此图片向右旋转 90°。</value>
+  </data>
+  <data name="Command.RemoveLink.MenuText" xml:space="preserve">
+    <value>删除超链接(&amp;R)</value>
+  </data>
+  <data name="Command.PhotoUploadSize.TooltipTitle" xml:space="preserve">
+    <value>照片上载大小</value>
+  </data>
+  <data name="Font.Size.Large" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="Command.VideoAspectRatioGroup.LabelTitle" xml:space="preserve">
+    <value>纵横比</value>
+  </data>
+  <data name="Command.InsertRowBelow.Text" xml:space="preserve">
+    <value>在下方插入行</value>
+  </data>
+  <data name="Command.ParagraphGroup.Keytip" xml:space="preserve">
+    <value>ZP</value>
+  </data>
+  <data name="Font.Size.ToolbarFormatButton" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="Command.SelectAll.LabelTitle" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeletePost.Text" xml:space="preserve">
+    <value>{0}将同时从你的日志和本地计算机上删除。
+
+是否确实要删除{0}“{1}”?</value>
+  </data>
+  <data name="Command.FormatImageLinkOptions.TooltipDescription" xml:space="preserve">
+    <value>更改链接的选项。</value>
+  </data>
+  <data name="Command.Underline.LabelTitle" xml:space="preserve">
+    <value>下划线</value>
+  </data>
+  <data name="Command.Print.TooltipDescription" xml:space="preserve">
+    <value>打印此日志。</value>
+  </data>
+  <data name="Command.CustomSizeLarge.LabelTitle" xml:space="preserve">
+    <value>大(&amp;L)</value>
+  </data>
+  <data name="Command.Close.TooltipDescription" xml:space="preserve">
+    <value>关闭 Open Live Writer。</value>
+  </data>
+  <data name="Command.RTLTextBlock.MenuText" xml:space="preserve">
+    <value>文字方向从右向左(&amp;R)</value>
+  </data>
+  <data name="Command.FormatImageAltText.Keytip" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="DisplayMessage.InvalidWebImage.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatImageLockAspectRatio.Keytip" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="Command.Paste.TooltipTitle" xml:space="preserve">
+    <value>粘贴(Ctrl+V)</value>
+  </data>
+  <data name="Command.Bullets.Shortcut" xml:space="preserve">
+    <value>CtrlShiftL</value>
+  </data>
+  <data name="Command.VideoAspectRatioGroup.Keytip" xml:space="preserve">
+    <value>ZR</value>
+  </data>
+  <data name="DisplayMessage.TagMissingToken.Text" xml:space="preserve">
+    <value>HTML 标题必须包含标记“{0}”。</value>
+  </data>
+  <data name="Command.UpdateWeblogStyle.Keytip" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="Culture.UseItalics" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Command.NewPost.TooltipTitle" xml:space="preserve">
+    <value>新建日志(Ctrl+N)</value>
+  </data>
+  <data name="Command.NewPost.CommandBarButtonText" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="Command.ViewCode.MenuText" xml:space="preserve">
+    <value>源代码(&amp;S)</value>
+  </data>
+  <data name="Command.ValidateXhtml.MenuText" xml:space="preserve">
+    <value>[Debug] Validate XHTML</value>
+  </data>
+  <data name="Command.OpenSpellingForm.Text" xml:space="preserve">
+    <value>打开拼写对话框</value>
+  </data>
+  <data name="Command.ValidateDebugGroup.TooltipTitle" xml:space="preserve">
+    <value>验证</value>
+  </data>
+  <data name="Command.OriginalPhotoUploadSize.LabelTitle" xml:space="preserve">
+    <value>原始大小(&amp;O)</value>
+  </data>
+  <data name="DisplayMessage.RepublishAsDraftUnsupported.Text" xml:space="preserve">
+    <value>对于以前已发布的日志，当前日志不支持将其发布为草稿。</value>
+  </data>
+  <data name="Command.PhotoUploadSize.LabelTitle" xml:space="preserve">
+    <value>照片上载大小</value>
+  </data>
+  <data name="Command.MapWebPreview.LabelTitle" xml:space="preserve">
+    <value>Web 预览</value>
+  </data>
+  <data name="Command.FormatTagTab.Keytip" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="Command.Redo.Shortcut" xml:space="preserve">
+    <value>CtrlY</value>
+  </data>
+  <data name="DisplayMessage.EntryFound.Text" xml:space="preserve">
+    <value>找到相同的链接文本“{0}”和 URL {1}。
+
+是否要使用此链接信息?</value>
+  </data>
+  <data name="Command.InsertPhotoAlbumSplit.Keytip" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="Command.FormatTableTab.Keytip" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="Command.OpenDraftSplit.TooltipDescription" xml:space="preserve">
+    <value>打开本地草稿</value>
+  </data>
+  <data name="Command.FormatTablePropertiesSplit.Keytip" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="DisplayMessage.MultipleCategoriesNotSupported.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnecting.Text" xml:space="preserve">
+    <value>尝试连接到远程服务器时发生问题。</value>
+  </data>
+  <data name="DisplayMessage.GoogleAuthTokenNotFound.Text" xml:space="preserve">
+    <value>服务器没有使用所需的授权标记做出响应。</value>
+  </data>
+  <data name="Command.ImageTilt.Keytip" xml:space="preserve">
+    <value>RT</value>
+  </data>
+  <data name="Command.TagContextTabGroup.LabelTitle" xml:space="preserve">
+    <value>标记工具</value>
+  </data>
+  <data name="DisplayMessage.NoLinkTextSpecified.Text" xml:space="preserve">
+    <value>为超链接输入要显示的文本。</value>
+  </data>
+  <data name="Command.TableProperties.LabelTitle" xml:space="preserve">
+    <value>自定义表格(&amp;T)</value>
+  </data>
+  <data name="Command.LTRTextBlock.LabelTitle" xml:space="preserve">
+    <value>从左到右</value>
+  </data>
+  <data name="DisplayMessage.VideoAccessError.Text" xml:space="preserve">
+    <value>由于此服务当前使用量过大，无法通过此服务访问所选视频。
+请稍后重试。</value>
+  </data>
+  <data name="Command.MoveColumnLeft.Text" xml:space="preserve">
+    <value>左移列</value>
+  </data>
+  <data name="Command.ImageBorderGallery.TooltipDescription" xml:space="preserve">
+    <value>对此图片应用边框样式。</value>
+  </data>
+  <data name="Command.ShowGoogleCaptcha.LabelTitle" xml:space="preserve">
+    <value>Google Captcha</value>
+  </data>
+  <data name="Command.PrintPreview.LabelDescription" xml:space="preserve">
+    <value>预览此日志。</value>
+  </data>
+  <data name="Command.DeleteColumn.TooltipDescription" xml:space="preserve">
+    <value>删除选定的列。</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumMaxFolderError.Text" xml:space="preserve">
+    <value>已达到 OneDrive 中顶级文件夹的数量上限。若要添加此相册，请从 OneDrive 中删除一个现有文件夹。</value>
+  </data>
+  <data name="Command.InsertVideoFromFile.LabelTitle" xml:space="preserve">
+    <value>来自计算机(&amp;C)...</value>
+  </data>
+  <data name="Command.DeleteColumn.LabelTitle" xml:space="preserve">
+    <value>删除列</value>
+  </data>
+  <data name="Command.ViewPreview.MenuText" xml:space="preserve">
+    <value>预览(&amp;P)</value>
+  </data>
+  <data name="Command.IgnoreAll.Text" xml:space="preserve">
+    <value>忽略该词的所有实例</value>
+  </data>
+  <data name="Command.AddToDictionary.MenuText" xml:space="preserve">
+    <value>添加到字典(&amp;A)</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumTitleDuplicateError.Text" xml:space="preserve">
+    <value>另一相册已使用了相同的名称。请输入其他名称。</value>
+  </data>
+  <data name="Command.Redo.LabelTitle" xml:space="preserve">
+    <value>恢复</value>
+  </data>
+  <data name="Command.VideoWidescreenAspectRatio.LabelTitle" xml:space="preserve">
+    <value>宽屏(16:9)</value>
+  </data>
+  <data name="Command.OpenPostMRU1.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="Command.CopyCommand.MenuText" xml:space="preserve">
+    <value>复制(&amp;C)</value>
+  </data>
+  <data name="DisplayMessage.FileNotFound.Text" xml:space="preserve">
+    <value>{0}
+未找到文件。
+请检查文件名，然后重试。</value>
+  </data>
+  <data name="DisplayMessage.ConfirmRemoveWeblog.Text" xml:space="preserve">
+    <value>是否确实要从 Writer 中删除此日志?</value>
+  </data>
+  <data name="DisplayMessage.AutoreplacePhraseRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatImageAltText.LabelTitle" xml:space="preserve">
+    <value>替代文本</value>
+  </data>
+  <data name="Command.ClipboardGroup.Keytip" xml:space="preserve">
+    <value>ZC</value>
+  </data>
+  <data name="Command.Italic.Text" xml:space="preserve">
+    <value>斜体</value>
+  </data>
+  <data name="Command.RecentPost.MenuText" xml:space="preserve">
+    <value>上一篇日志(&amp;P)...</value>
+  </data>
+  <data name="Command.ViewPlainText.LabelTitle" xml:space="preserve">
+    <value>纯文本</value>
+  </data>
+  <data name="Command.MoveColumnLeft.TooltipDescription" xml:space="preserve">
+    <value>使所选列与左侧的一列交换位置。</value>
+  </data>
+  <data name="Command.PostProperties.Shortcut" xml:space="preserve">
+    <value>F2</value>
+  </data>
+  <data name="Command.FormatImageAdjustWidth.TooltipDescription" xml:space="preserve">
+    <value>设置图片宽度。</value>
+  </data>
+  <data name="Command.MapAddPushpin.MenuText" xml:space="preserve">
+    <value>添加标注(&amp;A)...</value>
+  </data>
+  <data name="Command.ForceWatson.LabelTitle" xml:space="preserve">
+    <value>Force Watson</value>
+  </data>
+  <data name="Command.SavePost.LabelTitle" xml:space="preserve">
+    <value>保存(&amp;S)</value>
+  </data>
+  <data name="Command.OpenDraftMRU1.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="DisplayMessage.LoginFailed.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.NewPost.Shortcut" xml:space="preserve">
+    <value>CtrlN</value>
+  </data>
+  <data name="Command.ShowCategoryPopup.MenuText" xml:space="preserve">
+    <value>类别(&amp;A)</value>
+  </data>
+  <data name="Command.FixWordSpelling.Text" xml:space="preserve">
+    <value>(无建议)</value>
+  </data>
+  <data name="Command.Undo.TooltipTitle" xml:space="preserve">
+    <value>撤消(Ctrl+Z)</value>
+  </data>
+  <data name="Command.PhotoAlbum.TooltipTitle" xml:space="preserve">
+    <value>创建联机相册</value>
+  </data>
+  <data name="Command.FormatAlbumStyleGallery.TooltipDescription" xml:space="preserve">
+    <value>更改此相册的缩略图版式。</value>
+  </data>
+  <data name="Command.BlogClientOptions.LabelTitle" xml:space="preserve">
+    <value>日志客户端选项</value>
+  </data>
+  <data name="DisplayMessage.WordpressHomepageWrong.Text" xml:space="preserve">
+    <value>若要配置 {0} 以向 Wordpress 发布日志，请输入日志主页的 URL (如 http://myblog.wordpress.com)。</value>
+  </data>
+  <data name="DisplayMessage.NoSuchImageFile.Text" xml:space="preserve">
+    <value>{0} 不是有效的 URL。</value>
+  </data>
+  <data name="Command.InsertTable.Keytip" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="Command.ImageEffectsEmbossGallery.TooltipDescription" xml:space="preserve">
+    <value>为该图片添加阳文效果。</value>
+  </data>
+  <data name="Command.ImageArrangeGallery.LabelTitle" xml:space="preserve">
+    <value>文字环绕</value>
+  </data>
+  <data name="Command.InsertVideoFromService.TooltipTitle" xml:space="preserve">
+    <value>来自视频服务</value>
+  </data>
+  <data name="Command.TerminateProcess.MenuText" xml:space="preserve">
+    <value>[Debug] Terminate Process</value>
+  </data>
+  <data name="Command.AddWeblog.Text" xml:space="preserve">
+    <value>添加日志帐户...</value>
+  </data>
+  <data name="Command.OpenSpellingForm.MenuText" xml:space="preserve">
+    <value>打开拼写对话框(&amp;D)</value>
+  </data>
+  <data name="DisplayMessage.InvalidNumberNonNegative.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ClearCell.LabelTitle" xml:space="preserve">
+    <value>清除单元格</value>
+  </data>
+  <data name="Command.FormatTableEditingGroup.Keytip" xml:space="preserve">
+    <value>ZD</value>
+  </data>
+  <data name="DisplayMessage.AddBlogUrlFormatError.Text" xml:space="preserve">
+    <value>为日志主页输入有效的网址({0} 不是有效网址。)</value>
+  </data>
+  <data name="DisplayMessage.ReadOnlyPostFile.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.NoValidHyperlinkSpecified.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlInvalid.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.MapZoomStreetLevel.MenuText" xml:space="preserve">
+    <value>缩放到街道级(&amp;S)</value>
+  </data>
+  <data name="Command.ManageTagProviders.LabelTitle" xml:space="preserve">
+    <value>管理标记提供者</value>
+  </data>
+  <data name="DisplayMessage.WeblogDetectionUnexpectedError.Text" xml:space="preserve">
+    <value>检测日志设置时发生问题:
+
+{0}</value>
+  </data>
+  <data name="Command.ImageCrop.TooltipTitle" xml:space="preserve">
+    <value>裁剪</value>
+  </data>
+  <data name="Command.PhotoAlbum.TooltipDescription" xml:space="preserve">
+    <value>在 Windows Live OneDrive 上创建相册可将照片缩略图显示在此日志中。</value>
+  </data>
+  <data name="Command.ShowImageUploadError.MenuText" xml:space="preserve">
+    <value>[Debug] Show Image Upload Error Message</value>
+  </data>
+  <data name="Command.Paste.MenuText" xml:space="preserve">
+    <value>粘贴(&amp;P)</value>
+  </data>
+  <data name="Command.ClosePreview.LabelTitle" xml:space="preserve">
+    <value>关闭预览</value>
+  </data>
+  <data name="Command.MoveColumnLeft.LabelTitle" xml:space="preserve">
+    <value>向左移动</value>
+  </data>
+  <data name="Command.Cut.MenuText" xml:space="preserve">
+    <value>剪切(&amp;T)</value>
+  </data>
+  <data name="Command.UpdateWeblogStyle.TooltipDescription" xml:space="preserve">
+    <value>获取此日志的最新日志主题。</value>
+  </data>
+  <data name="DisplayMessage.MapsNoInternetConnection.Text" xml:space="preserve">
+    <value>请连接到 Internet 来插入和编辑地图。</value>
+  </data>
+  <data name="Command.InsertPictureFromFile.TooltipDescription" xml:space="preserve">
+    <value>选择计算机中的图片，显示在此日志中。</value>
+  </data>
+  <data name="Command.InsertLink.Keytip" xml:space="preserve">
+    <value>K</value>
+  </data>
+  <data name="Command.Bullets.TooltipDescription" xml:space="preserve">
+    <value>开始创建项目符号列表。</value>
+  </data>
+  <data name="Command.InsertColumnLeft.Text" xml:space="preserve">
+    <value>在左侧插入列</value>
+  </data>
+  <data name="Command.Underline.TooltipDescription" xml:space="preserve">
+    <value>为所选文字添加下划线。</value>
+  </data>
+  <data name="Command.ImageLinkToNone.LabelTitle" xml:space="preserve">
+    <value>无链接(&amp;N)</value>
+  </data>
+  <data name="DisplayMessage.SoapboxLoginError.Text" xml:space="preserve">
+    <value>{0} 在登录时遇到问题:
+
+{1}</value>
+  </data>
+  <data name="Command.InsertRowAbove.Text" xml:space="preserve">
+    <value>在上方插入行</value>
+  </data>
+  <data name="Command.PublishGroup.LabelTitle" xml:space="preserve">
+    <value>发布
+</value>
+  </data>
+  <data name="Command.CustomSizeGallery.TooltipDescription" xml:space="preserve">
+    <value>为此图片选择自定义大小。</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumNoImagesError.Text" xml:space="preserve">
+    <value>为此相册至少选择一张照片。</value>
+  </data>
+  <data name="DisplayMessage.TagSelectProvider.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Italic.Keytip" xml:space="preserve">
+    <value>I</value>
+  </data>
+  <data name="Command.AddWeblog.TooltipDescription" xml:space="preserve">
+    <value>为 Writer 添加新日志帐户。</value>
+  </data>
+  <data name="Command.DeleteDraft.TooltipDescription" xml:space="preserve">
+    <value>从计算机中删除当前草稿。</value>
+  </data>
+  <data name="Command.SavePost.Text" xml:space="preserve">
+    <value>保存本地草稿</value>
+  </data>
+  <data name="DisplayMessage.ConnectionTimeout.Text" xml:space="preserve">
+    <value>无法与 FTP 服务器建立连接。</value>
+  </data>
+  <data name="Command.InsertVideoFromService.LabelTitle" xml:space="preserve">
+    <value>来自视频服务(&amp;S)...</value>
+  </data>
+  <data name="Command.MarginsGroup.TooltipDescription" xml:space="preserve">
+    <value>更改选定对象的边距。</value>
+  </data>
+  <data name="DisplayMessage.NoSoapboxVideoSelected.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatVideoTab.LabelTitle" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="Command.PasteSpecial.TooltipDescription" xml:space="preserve">
+    <value>选择是否保留粘贴内容的格式。</value>
+  </data>
+  <data name="Command.Justify.Keytip" xml:space="preserve">
+    <value>AJ</value>
+  </data>
+  <data name="Command.SelectAll.Text" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="DisplayMessage.NoValidHyperlinkSpecified.Text" xml:space="preserve">
+    <value>输入有效的超链接。</value>
+  </data>
+  <data name="Command.Close.LabelTitle" xml:space="preserve">
+    <value>退出(&amp;X)</value>
+  </data>
+  <data name="DisplayMessage.CategoryReminder.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FontGroup.LabelTitle" xml:space="preserve">
+    <value>字体</value>
+  </data>
+  <data name="Font.Size.XLarge" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="DisplayMessage.VideoFailedPublish.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ConfigureWeblog.MenuText" xml:space="preserve">
+    <value>编辑日志设置(&amp;E)...</value>
+  </data>
+  <data name="Command.CellProperties.MenuText" xml:space="preserve">
+    <value>单元格属性(&amp;O)...</value>
+  </data>
+  <data name="Command.DeleteDraft.CommandBarButtonText" xml:space="preserve">
+    <value>删除草稿</value>
+  </data>
+  <data name="Command.InsertMap.Keytip" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="Command.FormatImageRevertSettings.LabelTitle" xml:space="preserve">
+    <value>还原为原始图片</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumInsertErrorDownloadFailed.Title" xml:space="preserve">
+    <value>Windows Live Writer</value>
+  </data>
+  <data name="DisplayMessage.PluginInvalidAttribute.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.MappingVerificationFailed.Text" xml:space="preserve">
+    <value>无法验证 URL 映射。是否仍要继续?</value>
+  </data>
+  <data name="DisplayMessage.AutoreplaceReplacementRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmRestoreProviders.Text" xml:space="preserve">
+    <value>是否确实要还原默认提供者?
+
+还原操作将添加所有缺少的默认提供者，并覆盖对现有默认提供者所做的任何更改。还原操作不会覆盖或删除任何新建的提供者。</value>
+  </data>
+  <data name="Command.FormatAlbumPropertiesGroup.Keytip" xml:space="preserve">
+    <value>ZP</value>
+  </data>
+  <data name="Command.MoveRowDown.Keytip" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="Command.ImageCrop.LabelTitle" xml:space="preserve">
+    <value>裁剪
+</value>
+  </data>
+  <data name="Command.InsertTable2.Text" xml:space="preserve">
+    <value>插入表格</value>
+  </data>
+  <data name="Command.ViewPreview.Text" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="Command.FormatAlbumSetAlbumPrivacy.Keytip" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumTitleTooShortError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ShowAtomImageEndpointSelector.LabelTitle" xml:space="preserve">
+    <value>原子图像终结点选择器</value>
+  </data>
+  <data name="Command.InsertGroup.Keytip" xml:space="preserve">
+    <value>ZI</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumSelectionError.Text" xml:space="preserve">
+    <value>在插入前选择一个相册。</value>
+  </data>
+  <data name="Command.FontFamily.TooltipDescription" xml:space="preserve">
+    <value>更改字体。</value>
+  </data>
+  <data name="Command.InsertPictureFromFile.Shortcut" xml:space="preserve">
+    <value>CtrlJ</value>
+  </data>
+  <data name="DisplayMessage.PluginUnexpectedLoadError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.WidthHeightRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.SpacesPublishingNotEnabled.Text" xml:space="preserve">
+    <value>已不能将文章发布到 Windows Live Spaces 上的日志中。请访问并登录 http://spaces.live.com 了解有关如何将日志移至 WordPress.com 的详细信息。</value>
+  </data>
+  <data name="Command.ImageSaveDefaults.TooltipTitle" xml:space="preserve">
+    <value>设置为默认设置</value>
+  </data>
+  <data name="DisplayMessage.MultipleCategoriesNotSupported.Text" xml:space="preserve">
+    <value>日志服务器未配置为接受多个日志类别。</value>
+  </data>
+  <data name="DisplayMessage.AutoreplacePhraseRequired.Text" xml:space="preserve">
+    <value>输入应替换掉的词组。</value>
+  </data>
+  <data name="Command.UpdateWeblogStyle.MenuText" xml:space="preserve">
+    <value>刷新主题(&amp;R)</value>
+  </data>
+  <data name="DisplayMessage.EntryFound.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.TempPostDeleteFailed.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatImageLinkOptions.Keytip" xml:space="preserve">
+    <value>KK</value>
+  </data>
+  <data name="Command.Help.TooltipDescription" xml:space="preserve">
+    <value>获取有关使用 Open Live Writer 的帮助。</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpublishedEntry.Title" xml:space="preserve">
+    <value>发布日志</value>
+  </data>
+  <data name="DisplayMessage.WeblogUrlNotFound.Text" xml:space="preserve">
+    <value>找不到以下网址:
+
+{0}
+
+请检查 URL 并重试。</value>
+  </data>
+  <data name="Command.ShowGoogleCaptcha.MenuText" xml:space="preserve">
+    <value>[Debug] Show Unlock Google Account Dialog</value>
+  </data>
+  <data name="Command.AlignRight.MenuText" xml:space="preserve">
+    <value>右对齐(&amp;R)</value>
+  </data>
+  <data name="Command.CustomSizeOriginal.LabelTitle" xml:space="preserve">
+    <value>原始大小(&amp;O)</value>
+  </data>
+  <data name="Command.MoveRowDown.TooltipDescription" xml:space="preserve">
+    <value>使当前行与下面的一行交换位置。</value>
+  </data>
+  <data name="Command.Blockquote.MenuText" xml:space="preserve">
+    <value>整段缩进(&amp;Q)</value>
+  </data>
+  <data name="Command.FontColorPicker.LabelTitle" xml:space="preserve">
+    <value>字体颜色</value>
+  </data>
+  <data name="DisplayMessage.PostFileInvalid.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertLink.Shortcut" xml:space="preserve">
+    <value>CtrlK</value>
+  </data>
+  <data name="Command.FocusPreviousPane.Text" xml:space="preserve">
+    <value>上一个窗格</value>
+  </data>
+  <data name="Command.FormatTablePropertiesSplit.LabelTitle" xml:space="preserve">
+    <value>自定义表格</value>
+  </data>
+  <data name="Command.AddPlugin.Text" xml:space="preserve">
+    <value>添加插件...</value>
+  </data>
+  <data name="Command.CellProperties.LabelTitle" xml:space="preserve">
+    <value>单元格(&amp;E)...</value>
+  </data>
+  <data name="Command.FormatAlbumPropertiesGroup.LabelTitle" xml:space="preserve">
+    <value>联机相册</value>
+  </data>
+  <data name="Command.TablesGroup.Keytip" xml:space="preserve">
+    <value>ZT</value>
+  </data>
+  <data name="Command.ViewUseStyles.Shortcut" xml:space="preserve">
+    <value>CtrlF11</value>
+  </data>
+  <data name="Command.ImageContrast.Keytip" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="Command.PostAndPublish.TooltipTitle" xml:space="preserve">
+    <value>发布(Ctrl+Shift+P)</value>
+  </data>
+  <data name="Command.OpenDraftMRU4.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="Command.InsertTags.LabelTitle" xml:space="preserve">
+    <value>日志标记</value>
+  </data>
+  <data name="Command.VideoWidescreenAspectRatio.Keytip" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="Command.AdjustTopMargin.TooltipDescription" xml:space="preserve">
+    <value>更改此对象上方的边距。</value>
+  </data>
+  <data name="Command.DeleteTable.TooltipDescription" xml:space="preserve">
+    <value>删除表格。</value>
+  </data>
+  <data name="Command.AlignLeft.LabelTitle" xml:space="preserve">
+    <value>左对齐</value>
+  </data>
+  <data name="Command.Print.Shortcut" xml:space="preserve">
+    <value>CtrlP</value>
+  </data>
+  <data name="Command.IgnoreOnce.MenuText" xml:space="preserve">
+    <value>忽略一次(&amp;O)</value>
+  </data>
+  <data name="DisplayMessage.PostTitleTooLong.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.PasteSpecialInvalidData.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Subscript.LabelTitle" xml:space="preserve">
+    <value>下标</value>
+  </data>
+  <data name="Command.Paste.TooltipDescription" xml:space="preserve">
+    <value>粘贴剪贴板上的内容。</value>
+  </data>
+  <data name="Command.InsertTags.Keytip" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="Command.RecentPost.Text" xml:space="preserve">
+    <value>链接到上一篇日志</value>
+  </data>
+  <data name="Command.FindButton.Keytip" xml:space="preserve">
+    <value>FD</value>
+  </data>
+  <data name="Command.ViewWeblog.LabelTitle" xml:space="preserve">
+    <value>查看日志</value>
+  </data>
+  <data name="Command.AlignNone.LabelTitle" xml:space="preserve">
+    <value>嵌入文本</value>
+  </data>
+  <data name="Command.PasteSplit.TooltipTitle" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="Command.TextDebugGroup.LabelTitle" xml:space="preserve">
+    <value>文本</value>
+  </data>
+  <data name="Command.SetCustomSizeDefaults.TooltipTitle" xml:space="preserve">
+    <value>默认图片大小</value>
+  </data>
+  <data name="DisplayMessage.FileInUse.Text" xml:space="preserve">
+    <value>其他程序正在使用 {0}。
+
+请关闭使用此文件的所有程序，然后重试。</value>
+  </data>
+  <data name="Command.PostAsDraftAndEditOnline.MenuText" xml:space="preserve">
+    <value>发布草稿并联机编辑(&amp;E)</value>
+  </data>
+  <data name="Command.Undo.LabelTitle" xml:space="preserve">
+    <value>撤消</value>
+  </data>
+  <data name="DisplayMessage.NoSoapboxVideoSelected.Text" xml:space="preserve">
+    <value>选择要插入的视频。</value>
+  </data>
+  <data name="Command.PluginsGallery.LabelTitle" xml:space="preserve">
+    <value>插件</value>
+  </data>
+  <data name="Command.TableMenu.MenuText" xml:space="preserve">
+    <value>表格</value>
+  </data>
+  <data name="Command.Indent.Keytip" xml:space="preserve">
+    <value>MI</value>
+  </data>
+  <data name="Command.EditTags.LabelTitle" xml:space="preserve">
+    <value>自定义标记</value>
+  </data>
+  <data name="Command.FormatImageAltText.TooltipDescription" xml:space="preserve">
+    <value>为该图片添加标题和替代文本。</value>
+  </data>
+  <data name="Command.FormatTagProvidersGroup.LabelTitle" xml:space="preserve">
+    <value>提供者</value>
+  </data>
+  <data name="Command.FormatAlbumOrganizeGroup.Keytip" xml:space="preserve">
+    <value>ZO</value>
+  </data>
+  <data name="Command.Clear.MenuText" xml:space="preserve">
+    <value>清除(&amp;L)</value>
+  </data>
+  <data name="Command.FormatAlbumStyleGallery.Keytip" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="Command.FormatMapGroup.LabelTitle" xml:space="preserve">
+    <value>地图</value>
+  </data>
+  <data name="Command.InsertImageSplit.LabelTitle" xml:space="preserve">
+    <value>图片
+</value>
+  </data>
+  <data name="DisplayMessage.UrlMappingRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.SavePost.MenuText" xml:space="preserve">
+    <value>保存本地草稿(&amp;S)</value>
+  </data>
+  <data name="Command.FormatImageRevertSettings.TooltipDescription" xml:space="preserve">
+    <value>还原为此图片的原始版本。</value>
+  </data>
+  <data name="Command.InsertRowBelow.LabelTitle" xml:space="preserve">
+    <value>在下方插入</value>
+  </data>
+  <data name="Command.InsertColumnRight.TooltipDescription" xml:space="preserve">
+    <value>在当前位置的右侧插入列。</value>
+  </data>
+  <data name="Command.InsertColumnLeft.LabelTitle" xml:space="preserve">
+    <value>在左侧插入</value>
+  </data>
+  <data name="Command.Cut.TooltipDescription" xml:space="preserve">
+    <value>从文档中剪切选定的内容并将其放在剪贴板中。</value>
+  </data>
+  <data name="DisplayMessage.AutoreplaceAlreadyExists.Text" xml:space="preserve">
+    <value>“自动替换”列表中已包含该词组。是否要覆盖现有词组?</value>
+  </data>
+  <data name="DisplayMessage.PostFileNoExist.Text" xml:space="preserve">
+    <value>指定的日志文件({0})不存在。</value>
+  </data>
+  <data name="Command.PostAndPublish.CommandBarButtonText" xml:space="preserve">
+    <value>发布</value>
+  </data>
+  <data name="Command.MapCenterMap.MenuText" xml:space="preserve">
+    <value>以此处作为地图中心(&amp;C)</value>
+  </data>
+  <data name="Command.AlignRight.LabelTitle" xml:space="preserve">
+    <value>右对齐</value>
+  </data>
+  <data name="Command.AdjustBottomMargin.LabelTitle" xml:space="preserve">
+    <value>底端</value>
+  </data>
+  <data name="Command.RTLTextBlock.Text" xml:space="preserve">
+    <value>文字方向从右向左</value>
+  </data>
+  <data name="Command.ConfigureWeblog.Keytip" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="DisplayMessage.NoPreviewAvailable.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Bold.TooltipDescription" xml:space="preserve">
+    <value>加粗选定文本。</value>
+  </data>
+  <data name="Command.GeneralDebugGroup.LabelTitle" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="Command.Underline.TooltipTitle" xml:space="preserve">
+    <value>下划线(Ctrl+U)</value>
+  </data>
+  <data name="Command.MoveRowDown.LabelTitle" xml:space="preserve">
+    <value>向下移动</value>
+  </data>
+  <data name="Command.PublishGroup.Keytip" xml:space="preserve">
+    <value>ZP1</value>
+  </data>
+  <data name="DisplayMessage.PassportUsernameAndPasswordRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Italic.Shortcut" xml:space="preserve">
+    <value>CtrlI</value>
+  </data>
+  <data name="Command.ManagePlugins.TooltipDescription" xml:space="preserve">
+    <value>更改插件选项。</value>
+  </data>
+  <data name="Command.Bold.Shortcut" xml:space="preserve">
+    <value>CtrlB</value>
+  </data>
+  <data name="Command.FormatAlbumExpiration.TooltipDescription" xml:space="preserve">
+    <value>发送此邮件 90 天后将从 OneDrive 中删除此相册中的照片。</value>
+  </data>
+  <data name="Command.PostAndPublish.Text" xml:space="preserve">
+    <value>发布到日志</value>
+  </data>
+  <data name="Command.AdjustBottomMargin.TooltipDescription" xml:space="preserve">
+    <value>更改此对象下方的边距。</value>
+  </data>
+  <data name="Command.Bullets.MenuText" xml:space="preserve">
+    <value>项目符号(&amp;B)</value>
+  </data>
+  <data name="Command.OpenPostMRU8.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="Command.ValidateLocalizedResources.MenuText" xml:space="preserve">
+    <value>[Debug] Validate Localized Resources</value>
+  </data>
+  <data name="Command.PostAsDraft.LabelDescription" xml:space="preserve">
+    <value>将当前日志作为不向其他人公开的草稿发送到你的日志。</value>
+  </data>
+  <data name="Command.MediumPhotoUploadSize.LabelTitle" xml:space="preserve">
+    <value>中 \r\n(600 像素)\r\n(&amp;M)</value>
+  </data>
+  <data name="Command.CustomSizeGallery.Keytip" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="Command.InsertTags.TooltipDescription" xml:space="preserve">
+    <value>插入有关指定标记提供者的标记。</value>
+  </data>
+  <data name="DisplayMessage.NoVideoFound.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Accounts.TooltipDescription" xml:space="preserve">
+    <value>添加、删除及编辑日志帐户。</value>
+  </data>
+  <data name="Font.Size.Normal" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="Command.InsertClearBreak.TooltipDescription" xml:space="preserve">
+    <value>在图片后插入分隔符来阻止文本环绕。</value>
+  </data>
+  <data name="DisplayMessage.AutoRecoverPromptDiscardConfirm.Title" xml:space="preserve">
+    <value>丢弃更改</value>
+  </data>
+  <data name="Command.VideoWidescreenAspectRatio.TooltipDescription" xml:space="preserve">
+    <value>为此视频使用宽屏纵横比。</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteDraft.Text" xml:space="preserve">
+    <value>是否确实要删除{0}草稿“{1}”?</value>
+  </data>
+  <data name="Command.InsertPictureFromFile.MenuText" xml:space="preserve">
+    <value>图片(&amp;P)...</value>
+  </data>
+  <data name="Command.FormatImageLinkOptions.TooltipTitle" xml:space="preserve">
+    <value>链接选项</value>
+  </data>
+  <data name="Command.PostAndPublish.MenuText" xml:space="preserve">
+    <value>发布到日志(&amp;U)</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckCancelledStillPost.Text" xml:space="preserve">
+    <value>没有完成拼写检查。
+
+是否仍要发布此日志?</value>
+  </data>
+  <data name="Command.Justify.TooltipDescription" xml:space="preserve">
+    <value>使文字同时向左右两端的边距对齐，并根据需要增加字间距。</value>
+  </data>
+  <data name="Command.VideoContextTabGroup.LabelTitle" xml:space="preserve">
+    <value>视频工具</value>
+  </data>
+  <data name="DisplayMessage.FtpSettingsRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FindButton.TooltipTitle" xml:space="preserve">
+    <value>查找(Ctrl+F)</value>
+  </data>
+  <data name="Command.CopyCommand.LabelTitle" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Command.ImageRotateCW.LabelTitle" xml:space="preserve">
+    <value>向右旋转</value>
+  </data>
+  <data name="Command.RaiseAssertion.LabelTitle" xml:space="preserve">
+    <value>声明</value>
+  </data>
+  <data name="Command.ImageTilt.TooltipDescription" xml:space="preserve">
+    <value>将此图片向左或向右倾斜。</value>
+  </data>
+  <data name="Command.FormatImageSettingsGroup.LabelTitle" xml:space="preserve">
+    <value>设置
+</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.DeleteRow.LabelTitle" xml:space="preserve">
+    <value>删除行</value>
+  </data>
+  <data name="DisplayMessage.NonImageTypeFileSelected.Text" xml:space="preserve">
+    <value>文件 {0} 不是有效的图像文件。</value>
+  </data>
+  <data name="Command.MapZoomRegionLevel.MenuText" xml:space="preserve">
+    <value>缩放到地区级(&amp;R)</value>
+  </data>
+  <data name="DisplayMessage.WeblogUrlNotFound.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Justify.LabelTitle" xml:space="preserve">
+    <value>两端对齐</value>
+  </data>
+  <data name="Command.FormatImageAdjustWidth.TooltipTitle" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+  <data name="Command.FormatImageAdjustHeight.TooltipTitle" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="Command.RowProperties.TooltipTitle" xml:space="preserve">
+    <value>行</value>
+  </data>
+  <data name="Command.FocusNextPane.Text" xml:space="preserve">
+    <value>下一个窗格</value>
+  </data>
+  <data name="Command.OpenPostMRU2.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="DisplayMessage.WeblogNoAccountsOnServer.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.UnknownLoginError.Text" xml:space="preserve">
+    <value>尝试登录服务器时发生错误。
+
+如果你配置了代理服务器或防火墙，请确保你的系统已正确配置为允许此程序连接到远程服务器。</value>
+  </data>
+  <data name="Command.SetCustomSizeDefaults.TooltipDescription" xml:space="preserve">
+    <value>更改嵌入图片的大小预设值。</value>
+  </data>
+  <data name="Command.DialogDebugGroup.LabelTitle" xml:space="preserve">
+    <value>对话框</value>
+  </data>
+  <data name="DisplayMessage.PluginStatusChanged.Text" xml:space="preserve">
+    <value>你已选择启用或禁用某些插件。为使这些更改
+生效，需要重新启动 Writer。</value>
+  </data>
+  <data name="Command.FormatImageRevertSettings.Keytip" xml:space="preserve">
+    <value>DR</value>
+  </data>
+  <data name="DisplayMessage.NoTitleSpecified.Text" xml:space="preserve">
+    <value>日志必须具有标题。
+请为你的日志键入一个标题，并重新尝试发布。</value>
+  </data>
+  <data name="Command.DiagnosticsConsole.MenuText" xml:space="preserve">
+    <value>[Debug] Show &amp;Diagnostics Console</value>
+  </data>
+  <data name="Command.AlignRight.TooltipTitle" xml:space="preserve">
+    <value>文本右对齐(Ctrl+R)</value>
+  </data>
+  <data name="Command.Print.TooltipTitle" xml:space="preserve">
+    <value>打印(Ctrl+P)</value>
+  </data>
+  <data name="Command.ImageRotateCCW.TooltipDescription" xml:space="preserve">
+    <value>将此图片向左旋转 90°。</value>
+  </data>
+  <data name="DisplayMessage.InvalidInsertionPoint.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ClipboardGroup.LabelTitle" xml:space="preserve">
+    <value>剪贴板
+</value>
+  </data>
+  <data name="DisplayMessage.YouTubeSignup.Text" xml:space="preserve">
+    <value>若要向 YouTube 上载视频，请将 YouTube 昵称与帐户 {0} 链接起来。
+
+是否要启动浏览器以立即链接你的帐户?</value>
+  </data>
+  <data name="DisplayMessage.ConfirmReplaceEntry.Title" xml:space="preserve">
+    <value>Windows Live Writer</value>
+  </data>
+  <data name="Command.ImageEffectsGallery.LabelTitle" xml:space="preserve">
+    <value>图片效果</value>
+  </data>
+  <data name="Command.WebImage.TooltipDescription" xml:space="preserve">
+    <value>输入图片的网址可将该图片显示在日志中。</value>
+  </data>
+  <data name="Command.FormatImageRotateGroup.LabelTitle" xml:space="preserve">
+    <value>旋转
+</value>
+  </data>
+  <data name="Command.Help.Shortcut" xml:space="preserve">
+    <value>F1</value>
+  </data>
+  <data name="DisplayMessage.VideoUnexpectedDownloadError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.AddToDictionary.Text" xml:space="preserve">
+    <value>将词语添加到本地字典</value>
+  </data>
+  <data name="Command.Strikethrough.Text" xml:space="preserve">
+    <value>删除线</value>
+  </data>
+  <data name="Command.SelectBlog.TooltipTitle" xml:space="preserve">
+    <value>日志帐户</value>
+  </data>
+  <data name="Command.Accounts.LabelTitle" xml:space="preserve">
+    <value>管理日志帐户(&amp;M)...</value>
+  </data>
+  <data name="DisplayMessage.PasteSpecialInvalidData.Text" xml:space="preserve">
+    <value>选择性粘贴只能用于 HTML 数据和文本数据。请选择其他文本，然后重试。</value>
+  </data>
+  <data name="DisplayMessage.NonImageTypeFileSelected.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.AlignRight.TooltipDescription" xml:space="preserve">
+    <value>使文本向右对齐。</value>
+  </data>
+  <data name="Command.ShowSupportingFilesForm.MenuText" xml:space="preserve">
+    <value>[Debug] Show &amp;Supporting Files</value>
+  </data>
+  <data name="Command.ViewNormal.Text" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="Command.Print.Text" xml:space="preserve">
+    <value>打印...</value>
+  </data>
+  <data name="Command.AlignLeft.TooltipTitle" xml:space="preserve">
+    <value>文本左对齐(Ctrl+L)</value>
+  </data>
+  <data name="DisplayMessage.VideoUnexpectedDownloadError.Text" xml:space="preserve">
+    <value>访问视频 {0} 时出错
+
+因此无法预览此视频。</value>
+  </data>
+  <data name="Command.DeleteColumn.Text" xml:space="preserve">
+    <value>删除列</value>
+  </data>
+  <data name="Command.ShowBetaExpiredDialogs.LabelTitle" xml:space="preserve">
+    <value>试用版过期对话框</value>
+  </data>
+  <data name="DisplayMessage.NotLinkable.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.WeblogPicker.Text" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Command.ClearFormatting.TooltipDescription" xml:space="preserve">
+    <value>清除选定内容的所有格式，更改为纯文本格式。</value>
+  </data>
+  <data name="Command.DeleteTable.Text" xml:space="preserve">
+    <value>删除表格</value>
+  </data>
+  <data name="Command.LTRTextBlock.Keytip" xml:space="preserve">
+    <value>R2</value>
+  </data>
+  <data name="Command.AlignCenter.Keytip" xml:space="preserve">
+    <value>AC</value>
+  </data>
+  <data name="DisplayMessage.WeblogAuthenticationError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertVideoFromFile.TooltipTitle" xml:space="preserve">
+    <value>来自计算机</value>
+  </data>
+  <data name="Command.OpenLink.Text" xml:space="preserve">
+    <value>打开链接</value>
+  </data>
+  <data name="Command.ShowUpdateMessage.MenuText" xml:space="preserve">
+    <value>[Debug] Show &amp;Updates Available Message</value>
+  </data>
+  <data name="Command.AlignmentGallery.TooltipDescription" xml:space="preserve">
+    <value>调整选定对象在页面中的位置。文本自动设置为环绕对象。</value>
+  </data>
+  <data name="Command.TableProperties.Text" xml:space="preserve">
+    <value>表格属性</value>
+  </data>
+  <data name="DisplayMessage.PublishCanceledByPlugin.Text" xml:space="preserve">
+    <value>{0} 插件已将发布取消。</value>
+  </data>
+  <data name="Command.PostProperties.MenuText" xml:space="preserve">
+    <value>属性(&amp;O)</value>
+  </data>
+  <data name="Command.Indent.TooltipTitle" xml:space="preserve">
+    <value>增加缩进(Ctrl+M)</value>
+  </data>
+  <data name="Command.FormatImageRevertSettings.TooltipTitle" xml:space="preserve">
+    <value>还原为原始图片</value>
+  </data>
+  <data name="Command.Bold.Text" xml:space="preserve">
+    <value>粗体</value>
+  </data>
+  <data name="Command.HomeTab.Keytip" xml:space="preserve">
+    <value>H</value>
+  </data>
+  <data name="DisplayMessage.MapsNoInternetConnection.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.AlignmentGroup.LabelTitle" xml:space="preserve">
+    <value>对齐方式</value>
+  </data>
+  <data name="Command.MapZoomCityLevel.MenuText" xml:space="preserve">
+    <value>缩放到市/县级(&amp;Z)</value>
+  </data>
+  <data name="Command.PasteSpecial.MenuText" xml:space="preserve">
+    <value>选择性粘贴(&amp;S)...</value>
+  </data>
+  <data name="Command.Subscript.Text" xml:space="preserve">
+    <value>下标</value>
+  </data>
+  <data name="DisplayMessage.NoMapAddressSpecified.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumLogInError.Title" xml:space="preserve">
+    <value>Windows Live Writer</value>
+  </data>
+  <data name="Command.NewPage.Shortcut" xml:space="preserve">
+    <value>CtrlG</value>
+  </data>
+  <data name="Command.LTRTextBlock.TooltipDescription" xml:space="preserve">
+    <value>使所选文本的方向为从左到右。</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumTitleInvalidChar.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.CopyCommand.Text" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="DisplayMessage.ReadOnlyPostFile.Text" xml:space="preserve">
+    <value>日志文件“{0}”标记为只读。
+
+先将日志文件保存到可写位置，然后才能将其打开。</value>
+  </data>
+  <data name="Command.DebugTab.LabelTitle" xml:space="preserve">
+    <value>调试</value>
+  </data>
+  <data name="DisplayMessage.MalformedHtmlIgnored.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.FtpSettingsRequired.Text" xml:space="preserve">
+    <value>如果你选择将图片上载到 FTP 站点，请指定目标服务器的设置。</value>
+  </data>
+  <data name="Command.ParagraphGroup.LabelTitle" xml:space="preserve">
+    <value>段落
+</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnecting.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertExtendedEntry.Text" xml:space="preserve">
+    <value>拆分日志</value>
+  </data>
+  <data name="Command.SemanticHtmlGallery.LabelTitle" xml:space="preserve">
+    <value>HTML 样式
+</value>
+  </data>
+  <data name="Command.GeneralDebugGroup.TooltipTitle" xml:space="preserve">
+    <value>常规调试</value>
+  </data>
+  <data name="Command.FontGroup.Keytip" xml:space="preserve">
+    <value>ZF</value>
+  </data>
+  <data name="Command.OpenPostMRU3.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="Command.ConfigureWeblog.LabelTitle" xml:space="preserve">
+    <value>日志选项
+</value>
+  </data>
+  <data name="DisplayMessage.ShouldUsePlugin.Title" xml:space="preserve">
+    <value>检测到新插件</value>
+  </data>
+  <data name="Command.Justify.MenuText" xml:space="preserve">
+    <value>两端对齐(&amp;J)</value>
+  </data>
+  <data name="DisplayMessage.ValueExceedsMaximum.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Strikethrough.Shortcut" xml:space="preserve">
+    <value>CtrlH</value>
+  </data>
+  <data name="Command.ShowBetaExpiredDialogs.MenuText" xml:space="preserve">
+    <value>[Debug] Show Expired Dialogs</value>
+  </data>
+  <data name="DisplayMessage.UnspecifiedValue.Text" xml:space="preserve">
+    <value>为{0}字段输入有效的值。</value>
+  </data>
+  <data name="Command.SavePost.TooltipTitle" xml:space="preserve">
+    <value>保存(Ctrl+S)</value>
+  </data>
+  <data name="Command.Redo.TooltipTitle" xml:space="preserve">
+    <value>恢复(Ctrl+Y)</value>
+  </data>
+  <data name="Command.DeleteTable.MenuText" xml:space="preserve">
+    <value>删除表格(&amp;D)...</value>
+  </data>
+  <data name="Command.InsertMenu.Text" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Command.Indent.TooltipDescription" xml:space="preserve">
+    <value>增加段落的缩进量</value>
+  </data>
+  <data name="Command.LargePhotoUploadSize.LabelTitle" xml:space="preserve">
+    <value>大 \r\n(1600 像素)\r\n(&amp;L)</value>
+  </data>
+  <data name="Command.DeleteRow.Text" xml:space="preserve">
+    <value>删除行</value>
+  </data>
+  <data name="Command.InsertVideoFromWeb.LabelTitle" xml:space="preserve">
+    <value>来自 Web(&amp;W)...</value>
+  </data>
+  <data name="Command.ImageRotateCW.Keytip" xml:space="preserve">
+    <value>RR</value>
+  </data>
+  <data name="DisplayMessage.LoginFailed.Text" xml:space="preserve">
+    <value>{0} 无法使用该用户名和密码登录到远程服务器。
+
+请检查信息是否正确，然后重试。</value>
+  </data>
+  <data name="Command.FormatMapEdit.TooltipDescription" xml:space="preserve">
+    <value>更改地图位置。</value>
+  </data>
+  <data name="Command.RowProperties.MenuText" xml:space="preserve">
+    <value>行属性(&amp;R)...</value>
+  </data>
+  <data name="DisplayMessage.CannotInsert.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumTitleTooShortError.Text" xml:space="preserve">
+    <value>相册名称必须至少包含一个字符。请输入名称，然后重试。</value>
+  </data>
+  <data name="DisplayMessage.PostTitleTooLong.Text" xml:space="preserve">
+    <value>日志标题过长。请缩短标题，然后重新尝试发布日志。</value>
+  </data>
+  <data name="Command.ImageSaveDefaults.LabelTitle" xml:space="preserve">
+    <value>设置为默认设置</value>
+  </data>
+  <data name="Command.FontBackgroundColor.TooltipDescription" xml:space="preserve">
+    <value>为文本添加发光效果。</value>
+  </data>
+  <data name="Command.OpenDraftMRU9.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="Command.MoveColumnRight.Keytip" xml:space="preserve">
+    <value>MR</value>
+  </data>
+  <data name="DisplayMessage.WeblogNoAccountsOnServer.Text" xml:space="preserve">
+    <value>你已成功使用日志帐户登录，但是你未使用此日志服务创建任何日志。
+$#xA;请检查日志服务提供商是否正确，然后重试。</value>
+  </data>
+  <data name="DisplayMessage.NotLinkable.Text" xml:space="preserve">
+    <value>无法为所选内容插入超链接。请选择文本或单击图片，然后重试。</value>
+  </data>
+  <data name="Command.ClosePreview.TooltipDescription" xml:space="preserve">
+    <value>关闭 web 预览，并返回编辑状态。</value>
+  </data>
+  <data name="Font.Size.GiantHeading" xml:space="preserve">
+    <value>15.75</value>
+  </data>
+  <data name="Font.Size.XXLarge" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="Command.AddWeblog.LabelTitle" xml:space="preserve">
+    <value>添加日志帐户(&amp;A)...</value>
+  </data>
+  <data name="Command.Bullets.LabelTitle" xml:space="preserve">
+    <value>项目符号</value>
+  </data>
+  <data name="Command.ImageRotateCCW.Keytip" xml:space="preserve">
+    <value>RL</value>
+  </data>
+  <data name="Command.SplitNew.LabelTitle" xml:space="preserve">
+    <value>F(&amp;F)</value>
+  </data>
+  <data name="Command.FormatImageSelectLink.Keytip" xml:space="preserve">
+    <value>KL</value>
+  </data>
+  <data name="Command.InsertHorizontalLine.TooltipDescription" xml:space="preserve">
+    <value>插入水平线。</value>
+  </data>
+  <data name="DisplayMessage.InvalidNumberPositiveOnly.Text" xml:space="preserve">
+    <value>输入大于零的数字。</value>
+  </data>
+  <data name="Command.Strikethrough.TooltipDescription" xml:space="preserve">
+    <value>在选定的文本中间画一条线。</value>
+  </data>
+  <data name="Command.FormatImageRotateGroup.TooltipTitle" xml:space="preserve">
+    <value>向左或向右旋转图片。</value>
+  </data>
+  <data name="DisplayMessage.NoTags.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnectingPromptContinue.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.ValueLessThanMinimum.Text" xml:space="preserve">
+    <value>为{1}字段输入大于或等于 {0} 的值。</value>
+  </data>
+  <data name="Command.FormatTableTab.LabelTitle" xml:space="preserve">
+    <value>版式</value>
+  </data>
+  <data name="Command.PluginsGallery.TooltipDescription" xml:space="preserve">
+    <value>访问已安装的 Writer 插件。</value>
+  </data>
+  <data name="Font.Size.PostSplitCaption" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="Command.PrintPreview.Text" xml:space="preserve">
+    <value>打印预览...</value>
+  </data>
+  <data name="Command.Cut.LabelTitle" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="Command.ShowCategoryPopup.Shortcut" xml:space="preserve">
+    <value>CtrlShiftC</value>
+  </data>
+  <data name="Command.AlignCenter.LabelTitle" xml:space="preserve">
+    <value>居中对齐</value>
+  </data>
+  <data name="Command.SelectAll.Shortcut" xml:space="preserve">
+    <value>CtrlA</value>
+  </data>
+  <data name="Command.OpenPostSplit.CommandBarButtonText" xml:space="preserve">
+    <value>打开最近使用过的日志</value>
+  </data>
+  <data name="DisplayMessage.InputIsNotUrl.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.DiagnosticsConsole.LabelTitle" xml:space="preserve">
+    <value>诊断控制台</value>
+  </data>
+  <data name="Command.ClearCell.Keytip" xml:space="preserve">
+    <value>DE</value>
+  </data>
+  <data name="Command.TableProperties.MenuText" xml:space="preserve">
+    <value>表格属性(&amp;E)...</value>
+  </data>
+  <data name="DisplayMessage.InvalidWebImage.Text" xml:space="preserve">
+    <value>输入正确格式的 URL。</value>
+  </data>
+  <data name="Command.Undo.MenuText" xml:space="preserve">
+    <value>撤消(&amp;U)</value>
+  </data>
+  <data name="Command.Bullets.Keytip" xml:space="preserve">
+    <value>L1</value>
+  </data>
+  <data name="Command.FormatImageAltText.TooltipTitle" xml:space="preserve">
+    <value>替代文本</value>
+  </data>
+  <data name="Command.PostAsDraftAndEditOnline.TooltipDescription" xml:space="preserve">
+    <value>将当前日志作为草稿发送到你的日志，并进行联机编辑。</value>
+  </data>
+  <data name="Command.OpenPost.Text" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Command.PluginsGroup.LabelTitle" xml:space="preserve">
+    <value>插件</value>
+  </data>
+  <data name="Command.InsertColumnRight.Keytip" xml:space="preserve">
+    <value>IR</value>
+  </data>
+  <data name="Command.ViewWeblog.MenuText" xml:space="preserve">
+    <value>查看日志(&amp;V)</value>
+  </data>
+  <data name="Command.OpenPostSplit.Text" xml:space="preserve">
+    <value>打开最近使用过的日志</value>
+  </data>
+  <data name="DisplayMessage.BloggerError.Text" xml:space="preserve">
+    <value>Blogger 返回以下错误:
+
+{0}</value>
+  </data>
+  <data name="Command.BlogProviderThemeGroup.LabelTitle" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Command.Paste.Shortcut" xml:space="preserve">
+    <value>CtrlV</value>
+  </data>
+  <data name="Command.MapEditPushpin.MenuText" xml:space="preserve">
+    <value>编辑标注(&amp;E)...</value>
+  </data>
+  <data name="Command.OpenPostSplit.LabelTitle" xml:space="preserve">
+    <value>打开最近使用过的日志(&amp;R)</value>
+  </data>
+  <data name="Command.AlignmentGroup.Keytip" xml:space="preserve">
+    <value>ZA</value>
+  </data>
+  <data name="Command.NewPost.Text" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="Command.OpenDraftMRU7.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="DisplayMessage.TitleNotLinkable.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatTableMoveGroup.LabelTitle" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="DisplayMessage.RestrictedUserPhotoAlbumError.Text" xml:space="preserve">
+    <value>请向你的家长请求创建相册的权限。</value>
+  </data>
+  <data name="Command.FormatTableMoveGroup.Keytip" xml:space="preserve">
+    <value>ZM</value>
+  </data>
+  <data name="Command.SelectAll.Keytip" xml:space="preserve">
+    <value>AS</value>
+  </data>
+  <data name="Command.FormatTablePropertiesGroup.Keytip" xml:space="preserve">
+    <value>ZP</value>
+  </data>
+  <data name="Command.InsertExtendedEntry.MenuText" xml:space="preserve">
+    <value>拆分日志(&amp;S)</value>
+  </data>
+  <data name="Command.Print.MenuText" xml:space="preserve">
+    <value>打印(&amp;P)...</value>
+  </data>
+  <data name="Command.InsertColumnLeft.TooltipDescription" xml:space="preserve">
+    <value>在当前位置的左侧插入列。</value>
+  </data>
+  <data name="Command.RTLTextBlock.LabelTitle" xml:space="preserve">
+    <value>从右到左</value>
+  </data>
+  <data name="Command.CheckSpelling.LabelTitle" xml:space="preserve">
+    <value>拼写
+</value>
+  </data>
+  <data name="Command.Subscript.TooltipTitle" xml:space="preserve">
+    <value>下标(Ctrl+=)</value>
+  </data>
+  <data name="DisplayMessage.NoLinkTextSpecified.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Font.Size.Heading" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="Command.ImageEffectsGallery.Keytip" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="Command.FormatAlbumShuffleCoverPictures.Keytip" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="Command.OpenPostSplit.MenuText" xml:space="preserve">
+    <value>打开最近使用过的日志(&amp;R)</value>
+  </data>
+  <data name="Command.ImageLinkToSource.LabelTitle" xml:space="preserve">
+    <value>源图片(&amp;S)</value>
+  </data>
+  <data name="Command.NewPage.TooltipDescription" xml:space="preserve">
+    <value>并非所有的日志服务提供商都支持该功能。</value>
+  </data>
+  <data name="Command.AlignCenter.Text" xml:space="preserve">
+    <value>居中</value>
+  </data>
+  <data name="DisplayMessage.PublishFailed.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatAlbumExpiration.Keytip" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Command.FormatImageStyleGroup.LabelTitle" xml:space="preserve">
+    <value>图片样式
+</value>
+  </data>
+  <data name="Command.WebImage.MenuText" xml:space="preserve">
+    <value>Web 图像(&amp;W)...</value>
+  </data>
+  <data name="Command.WeblogMenu.Text" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Command.AddWeblog.TooltipTitle" xml:space="preserve">
+    <value>添加日志帐户</value>
+  </data>
+  <data name="Command.NewPost.MenuText" xml:space="preserve">
+    <value>新建日志(&amp;N)</value>
+  </data>
+  <data name="DisplayMessage.UnexpectedErrorLogin.Text" xml:space="preserve">
+    <value>尝试登录时发生意外错误:
+
+{0}</value>
+  </data>
+  <data name="Command.ManagePlugins.Keytip" xml:space="preserve">
+    <value>PM</value>
+  </data>
+  <data name="Command.ViewUseStyles.LabelTitle" xml:space="preserve">
+    <value>日志主题</value>
+  </data>
+  <data name="Command.Numbers.LabelTitle" xml:space="preserve">
+    <value>编号</value>
+  </data>
+  <data name="Command.FormatTablePropertiesSplit.TooltipDescription" xml:space="preserve">
+    <value>编辑表格属性。</value>
+  </data>
+  <data name="Command.InsertPhotoAlbumSplit.LabelTitle" xml:space="preserve">
+    <value>相册
+</value>
+  </data>
+  <data name="DisplayMessage.VideoPublisherFailed.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.CopyCommand.Shortcut" xml:space="preserve">
+    <value>CtrlC</value>
+  </data>
+  <data name="DisplayMessage.PushpinValidationError.Text" xml:space="preserve">
+    <value>无法验证你输入的标注 URL 是否指向 Web 上的有
+效图像文件。请注意，该 URL 仍可能是正确的，
+但此时无法定位该 URL。
+
+是否仍将其设置为自定义标注 URL?</value>
+  </data>
+  <data name="Command.PostAsDraft.Keytip" xml:space="preserve">
+    <value>D</value>
+  </data>
+  <data name="Command.MapWebPreview.Keytip" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="Command.MoveColumnRight.TooltipDescription" xml:space="preserve">
+    <value>使所选列与右侧的一列交换位置。</value>
+  </data>
+  <data name="DisplayMessage.WordpressHomepageWrong.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.CellProperties.TooltipDescription" xml:space="preserve">
+    <value>编辑单元格属性。</value>
+  </data>
+  <data name="Command.InsertExtendedEntry.Keytip" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="DisplayMessage.PicasawebSignup.Text" xml:space="preserve">
+    <value>若要将图片上载到 Blogger 日志，请转到 Picasa 网络相册主页，作为 {0} 登录，并同意使用条款。
+
+是否要立即转到 Picasa 网络相册主页?</value>
+  </data>
+  <data name="Command.AlignCenter.MenuText" xml:space="preserve">
+    <value>居中(&amp;C)</value>
+  </data>
+  <data name="Command.ImageContrast.TooltipTitle" xml:space="preserve">
+    <value>对比度</value>
+  </data>
+  <data name="Command.OpenPostMRU5.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="Command.PostAndPublish.LabelDescription" xml:space="preserve">
+    <value>将此日志发布到所选日志中。</value>
+  </data>
+  <data name="Command.InsertHorizontalLine.LabelTitle" xml:space="preserve">
+    <value>水平线</value>
+  </data>
+  <data name="Command.ClearCell.MenuText" xml:space="preserve">
+    <value>清除单元格</value>
+  </data>
+  <data name="Command.FormatImageTab.Keytip" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="Command.HomeTab.LabelTitle" xml:space="preserve">
+    <value>开始</value>
+  </data>
+  <data name="Command.Watermark.Keytip" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="DisplayMessage.VideoRequiredFields.Text" xml:space="preserve">
+    <value>若要发布视频，需要填写所有字段。请验证是否已输入所有字段。</value>
+  </data>
+  <data name="DisplayMessage.MappingVerificationFailed.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ViewCode.Text" xml:space="preserve">
+    <value>源代码</value>
+  </data>
+  <data name="Command.CheckSpelling.Shortcut" xml:space="preserve">
+    <value>F7</value>
+  </data>
+  <data name="Command.ClearFormatting.Keytip" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="Command.Paste.Text" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="Command.InsertImageSplit.TooltipDescription" xml:space="preserve">
+    <value>在日志中添加来自计算机或网络的图片。</value>
+  </data>
+  <data name="Command.InsertRowAbove.LabelTitle" xml:space="preserve">
+    <value>在上方插入</value>
+  </data>
+  <data name="Command.NewPage.CommandBarButtonText" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="Command.InsertColumnLeft.Keytip" xml:space="preserve">
+    <value>IL</value>
+  </data>
+  <data name="DisplayMessage.VideoAccessError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.AddPlugin.Keytip" xml:space="preserve">
+    <value>PA</value>
+  </data>
+  <data name="Command.ClearCell.TooltipDescription" xml:space="preserve">
+    <value>清除选定的单元格。</value>
+  </data>
+  <data name="DisplayMessage.TagSelectProvider.Text" xml:space="preserve">
+    <value>选择标记提供者。</value>
+  </data>
+  <data name="Command.InsertGroup.LabelTitle" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Command.ViewSource.Shortcut" xml:space="preserve">
+    <value>CtrlF3</value>
+  </data>
+  <data name="Command.VideoStandardAspectRatio.LabelTitle" xml:space="preserve">
+    <value>标准(4:3)</value>
+  </data>
+  <data name="Command.SavePost.LabelDescription" xml:space="preserve">
+    <value>保存此日志的本地草稿。</value>
+  </data>
+  <data name="Command.FormatAlbumEdit.Keytip" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="Command.InsertRowAbove.MenuText" xml:space="preserve">
+    <value>在上方插入行(&amp;A)</value>
+  </data>
+  <data name="Command.Font.Text" xml:space="preserve">
+    <value>字体</value>
+  </data>
+  <data name="Command.PostAsDraft.LabelTitle" xml:space="preserve">
+    <value>将草稿发布到日志(&amp;D)</value>
+  </data>
+  <data name="DisplayMessage.NoTags.Text" xml:space="preserve">
+    <value>至少输入一个标记。</value>
+  </data>
+  <data name="Command.ShowMenu.MenuText" xml:space="preserve">
+    <value>菜单栏(&amp;M)</value>
+  </data>
+  <data name="Command.OpenDraftMRU6.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="Command.FontSize.LabelTitle" xml:space="preserve">
+    <value>字号</value>
+  </data>
+  <data name="Command.Cut.Shortcut" xml:space="preserve">
+    <value>CtrlX</value>
+  </data>
+  <data name="Command.PrintPreview.MenuText" xml:space="preserve">
+    <value>打印预览(&amp;V)...</value>
+  </data>
+  <data name="Command.OpenPost.MenuText" xml:space="preserve">
+    <value>打开(&amp;O)...</value>
+  </data>
+  <data name="Command.FormatAlbumSetAlbumPrivacy.LabelTitle" xml:space="preserve">
+    <value>相册隐私选项</value>
+  </data>
+  <data name="DisplayMessage.WriterCannotStart.Text" xml:space="preserve">
+    <value>Open Live Writer 无法启动，因为必要的文件已丢失或损坏。若要修复此问题，请在控制面板中，转到“程序和功能”，修复 Open Live Writer 软件包。</value>
+  </data>
+  <data name="Command.BlogProviderButtonsGallery.LabelTitle" xml:space="preserve">
+    <value>日志快捷方式</value>
+  </data>
+  <data name="DisplayMessage.PluginBitmapLoadError.Text" xml:space="preserve">
+    <value>警告: 无法从指定路径({1})加载插件 {0} 的位图。
+
+注意: 应确保你的插件类包含在程序集的默认命名空间中。</value>
+  </data>
+  <data name="DisplayMessage.LocalDeleteConfirmation.Title" xml:space="preserve">
+    <value>确认删除</value>
+  </data>
+  <data name="Command.OpenPostSplit.Shortcut" xml:space="preserve">
+    <value>CtrlO</value>
+  </data>
+  <data name="Command.Italic.TooltipTitle" xml:space="preserve">
+    <value>斜体(Ctrl+I)</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteEntry.Text" xml:space="preserve">
+    <value>是否确实要删除此自动链接条目?</value>
+  </data>
+  <data name="Command.FormatImageLockAspectRatio.TooltipTitle" xml:space="preserve">
+    <value>锁定纵横比</value>
+  </data>
+  <data name="Command.ImageLinkToUrl.TooltipTitle" xml:space="preserve">
+    <value>选择和输入在单击此图片时将转到的网址。</value>
+  </data>
+  <data name="DisplayMessage.InvalidNumberPositiveOnly.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ValidateHtml.MenuText" xml:space="preserve">
+    <value>[Debug] Validate HTML</value>
+  </data>
+  <data name="Command.InsertVideoFromWeb.TooltipDescription" xml:space="preserve">
+    <value>输入网络视频的网址可将该视频显示在日志中。</value>
+  </data>
+  <data name="DisplayMessage.GuestNotSupported.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.PostAsDraft.TooltipDescription" xml:space="preserve">
+    <value>将当前日志作为草稿发送到你的日志。</value>
+  </data>
+  <data name="Command.NewPage.LabelTitle" xml:space="preserve">
+    <value>新建页面(&amp;G)</value>
+  </data>
+  <data name="Command.Glossary.MenuText" xml:space="preserve">
+    <value>自动链接条目(&amp;E)...</value>
+  </data>
+  <data name="DisplayMessage.SelectEntry.Text" xml:space="preserve">
+    <value>选择一个链接。</value>
+  </data>
+  <data name="DisplayMessage.QueryForCreateEditorTemplate.Title" xml:space="preserve">
+    <value>生成创作模板</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeletePost.Title" xml:space="preserve">
+    <value>确认删除</value>
+  </data>
+  <data name="Command.DialogDebugGroup.TooltipTitle" xml:space="preserve">
+    <value>启动对话框</value>
+  </data>
+  <data name="Command.FormatAlbumShuffleCoverPictures.LabelTitle" xml:space="preserve">
+    <value>无序播放照片</value>
+  </data>
+  <data name="Command.PrintPreview.TooltipDescription" xml:space="preserve">
+    <value>预览此日志。</value>
+  </data>
+  <data name="Command.OpenPost.LabelTitle" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Command.Numbers.MenuText" xml:space="preserve">
+    <value>编号(&amp;N)</value>
+  </data>
+  <data name="Command.Superscript.LabelTitle" xml:space="preserve">
+    <value>上标</value>
+  </data>
+  <data name="Command.OpenPostSplit.TooltipDescription" xml:space="preserve">
+    <value>打开最近发布的日志</value>
+  </data>
+  <data name="Command.ImageSaveDefaults.TooltipDescription" xml:space="preserve">
+    <value>将此图片的对齐方式、边距、图片样式和属性设置为其他图片的默认设置。</value>
+  </data>
+  <data name="DisplayMessage.CategoryReminder.Text" xml:space="preserve">
+    <value>尚未指定此日志的类别。
+
+是否仍要继续发布?</value>
+  </data>
+  <data name="DisplayMessage.UnableToRetrieve.Text" xml:space="preserve">
+    <value>无法从日志服务检索{0}。
+
+由于网络或服务器出错，日志服务无法处理该请求。</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteAutoReplaceEntry.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckComplete.Text" xml:space="preserve">
+    <value>拼写检查已完成。</value>
+  </data>
+  <data name="Command.Bullets.TooltipTitle" xml:space="preserve">
+    <value>项目符号(Ctrl+Shift+L)</value>
+  </data>
+  <data name="Command.FormatImageSelectLink.TooltipTitle" xml:space="preserve">
+    <value>链接</value>
+  </data>
+  <data name="Command.SelectAll.TooltipTitle" xml:space="preserve">
+    <value>全选(Ctrl+A)</value>
+  </data>
+  <data name="DisplayMessage.SoapboxLoginError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.InternetConnectionWarning.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ImageEffectsGallery.TooltipDescription" xml:space="preserve">
+    <value>为该图片添加效果。</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumTitleInvalidChar.Text" xml:space="preserve">
+    <value>相册的名称包含一个或多个无效字符，请删除无效字符，然后重试。相册名称不能以句点开头或结尾，也不能包含以下字符: \ / : ;* " &gt; &lt; | ?</value>
+  </data>
+  <data name="Command.NewPost.LabelDescription" xml:space="preserve">
+    <value>创建新日志。</value>
+  </data>
+  <data name="Command.ColumnProperties.MenuText" xml:space="preserve">
+    <value>列属性(&amp;M)...</value>
+  </data>
+  <data name="DisplayMessage.TitleNotLinkable.Text" xml:space="preserve">
+    <value>无法在日志标题中插入超链接。请选择其他文本，然后重试。</value>
+  </data>
+  <data name="Command.UpdateWeblogStyle.LabelTitle" xml:space="preserve">
+    <value>更新主题</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpostedEntry.Title" xml:space="preserve">
+    <value>将日志发布为草稿</value>
+  </data>
+  <data name="Command.ShowErrorDialog.LabelTitle" xml:space="preserve">
+    <value>错误对话框</value>
+  </data>
+  <data name="Command.CheckSpelling.Text" xml:space="preserve">
+    <value>检查拼写...</value>
+  </data>
+  <data name="Command.FormatMapGroup.Keytip" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="Command.ImageEffectsRecolorGallery.LabelTitle" xml:space="preserve">
+    <value>重新着色(&amp;R)</value>
+  </data>
+  <data name="Command.TableContextTabGroup.LabelTitle" xml:space="preserve">
+    <value>表格工具</value>
+  </data>
+  <data name="Command.PostAndPublish.Shortcut" xml:space="preserve">
+    <value>CtrlShiftP</value>
+  </data>
+  <data name="Command.ImageContrast.TooltipDescription" xml:space="preserve">
+    <value>提高或降低此图片的对比度。</value>
+  </data>
+  <data name="Command.ImageContextTabGroup.Keytip" xml:space="preserve">
+    <value>IM</value>
+  </data>
+  <data name="Command.InsertEmoticon.LabelTitle" xml:space="preserve">
+    <value>表情图释
+</value>
+  </data>
+  <data name="Command.ColumnProperties.Text" xml:space="preserve">
+    <value>列属性</value>
+  </data>
+  <data name="Command.Print.LabelTitle" xml:space="preserve">
+    <value>打印(&amp;P)</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumServerError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.CheckSpelling.Keytip" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="Command.Numbers.Text" xml:space="preserve">
+    <value>编号</value>
+  </data>
+  <data name="Command.Delete.Shortcut" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="Command.ImageEffectsGallery.TooltipTitle" xml:space="preserve">
+    <value>图片效果</value>
+  </data>
+  <data name="DisplayMessage.NoUpdateAvailable.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Paste.LabelTitle" xml:space="preserve">
+    <value>粘贴
+(&amp;P)</value>
+  </data>
+  <data name="Command.FormatImageAdjustHeight.TooltipDescription" xml:space="preserve">
+    <value>设置图片高度。</value>
+  </data>
+  <data name="DisplayMessage.PingUrlRequired.Text" xml:space="preserve">
+    <value>若要启用 Ping，请至少提供一个有效的网址。</value>
+  </data>
+  <data name="Command.ImageContrast.LabelTitle" xml:space="preserve">
+    <value>对比度</value>
+  </data>
+  <data name="Command.PhotoAlbumContextTabGroup.LabelTitle" xml:space="preserve">
+    <value>相册工具</value>
+  </data>
+  <data name="Command.Strikethrough.LabelTitle" xml:space="preserve">
+    <value>删除线</value>
+  </data>
+  <data name="Command.DeleteDraft.MenuText" xml:space="preserve">
+    <value>删除草稿(&amp;T)...</value>
+  </data>
+  <data name="Command.VideoWebPreview.TooltipDescription" xml:space="preserve">
+    <value>使用网页浏览器联机播放此视频。</value>
+  </data>
+  <data name="Command.Help.MenuText" xml:space="preserve">
+    <value>{0} 帮助(&amp;H)</value>
+  </data>
+  <data name="Command.Indent.LabelTitle" xml:space="preserve">
+    <value>增加缩进</value>
+  </data>
+  <data name="DisplayMessage.VideoFailedPublish.Text" xml:space="preserve">
+    <value>一个或多个视频发布失败。请删除发布失败的视频，然后重试。</value>
+  </data>
+  <data name="Command.InsertRowAbove.TooltipDescription" xml:space="preserve">
+    <value>在当前位置的上方插入行。</value>
+  </data>
+  <data name="Command.NewPost.TooltipDescription" xml:space="preserve">
+    <value>创建新日志。</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmRestoreProviders.Title" xml:space="preserve">
+    <value>确认还原默认设置</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpublishedEntry.Text" xml:space="preserve">
+    <value>你已将此日志发布为草稿。
+
+是否要立即发布它?</value>
+  </data>
+  <data name="Command.OpenPost.CommandBarButtonText" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Command.FormatImageSettingsGroup.TooltipTitle" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Command.ImageBrightness.LabelTitle" xml:space="preserve">
+    <value>对比度(图像亮度)</value>
+  </data>
+  <data name="Command.FontSize.Keytip" xml:space="preserve">
+    <value>FS</value>
+  </data>
+  <data name="Command.FormatImagePropertiesGroup.TooltipTitle" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="DisplayMessage.AutoRecoverPromptDiscardConfirm.Text" xml:space="preserve">
+    <value>确定要永久丢弃已恢复的更改吗?</value>
+  </data>
+  <data name="Command.MediaGroup.Keytip" xml:space="preserve">
+    <value>ZM</value>
+  </data>
+  <data name="DisplayMessage.InvalidInsertionPoint.Text" xml:space="preserve">
+    <value>该位置不是可插入内容的有效位置</value>
+  </data>
+  <data name="Command.FindButton.Text" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="Command.MoveRowUp.Text" xml:space="preserve">
+    <value>上移行</value>
+  </data>
+  <data name="Command.Options.LabelTitle" xml:space="preserve">
+    <value>选项(&amp;I)</value>
+  </data>
+  <data name="Command.SemanticHtmlGroup.Keytip" xml:space="preserve">
+    <value>ZS</value>
+  </data>
+  <data name="Command.InsertColumnLeft.MenuText" xml:space="preserve">
+    <value>在左侧插入列(&amp;L)</value>
+  </data>
+  <data name="Command.ImageEffectsBlurGallery.LabelTitle" xml:space="preserve">
+    <value>模糊(&amp;B)</value>
+  </data>
+  <data name="Command.ShowAtomImageEndpointSelector.MenuText" xml:space="preserve">
+    <value>[Debug] Show Atom image endpoint selector</value>
+  </data>
+  <data name="Command.InsertRowBelow.Keytip" xml:space="preserve">
+    <value>IB</value>
+  </data>
+  <data name="DisplayMessage.GuestNotSupported.Text" xml:space="preserve">
+    <value>不支持通过来宾帐户使用 Open Live Writer。</value>
+  </data>
+  <data name="DisplayMessage.QueryForCreateEditorTemplate.Text" xml:space="preserve">
+    <value>是否要生成与你的日志主题相匹配的创作模板?</value>
+  </data>
+  <data name="Command.RTLTextBlock.Keytip" xml:space="preserve">
+    <value>R1</value>
+  </data>
+  <data name="DisplayMessage.VideoLoginRequired.Text" xml:space="preserve">
+    <value>登录并选择一个视频。</value>
+  </data>
+  <data name="DisplayMessage.TagProviderNameRequired.Text" xml:space="preserve">
+    <value>输入此提供者的名称。</value>
+  </data>
+  <data name="Command.PostProperties.Text" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="Command.AdjustLeftMargin.TooltipDescription" xml:space="preserve">
+    <value>更改此对象左侧的边距。</value>
+  </data>
+  <data name="Command.AdjustTopMargin.LabelTitle" xml:space="preserve">
+    <value>顶端</value>
+  </data>
+  <data name="Command.CustomSizeMedium.TooltipTitle" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="DisplayMessage.NoPostSelected.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.PhotoAlbumFromWeb.LabelTitle" xml:space="preserve">
+    <value>添加联机相册(&amp;A)...</value>
+  </data>
+  <data name="DisplayMessage.UnknownLoginError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ImageRotateCCW.LabelTitle" xml:space="preserve">
+    <value>向左旋转</value>
+  </data>
+  <data name="Command.Font.MenuText" xml:space="preserve">
+    <value>字体(&amp;F)...</value>
+  </data>
+  <data name="Command.NewPost.LabelTitle" xml:space="preserve">
+    <value>新建日志(&amp;N)</value>
+  </data>
+  <data name="Command.InsertLink.TooltipDescription" xml:space="preserve">
+    <value>创建指向网页、图片、电子邮件地址或程序的链接。</value>
+  </data>
+  <data name="Command.AdjustRightMargin.LabelTitle" xml:space="preserve">
+    <value>右端</value>
+  </data>
+  <data name="Command.ImageEffectsSharpenGallery.TooltipTitle" xml:space="preserve">
+    <value>锐化</value>
+  </data>
+  <data name="Command.ImageBorderGallery.Keytip" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="Command.ClosePreview.Keytip" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="Command.PostAsDraft.Text" xml:space="preserve">
+    <value>将草稿发布到日志</value>
+  </data>
+  <data name="DisplayMessage.WriterCannotStart.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.PrintPreview.LabelTitle" xml:space="preserve">
+    <value>打印预览(&amp;V)</value>
+  </data>
+  <data name="Command.RaiseAssertion.MenuText" xml:space="preserve">
+    <value>[Debug] Force Assertion</value>
+  </data>
+  <data name="DisplayMessage.FtpServerUnavailable.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.PassportUsernameAndPasswordRequired.Text" xml:space="preserve">
+    <value>输入 Windows Live ID 和密码。</value>
+  </data>
+  <data name="Command.RemoveLink.Text" xml:space="preserve">
+    <value>删除链接</value>
+  </data>
+  <data name="Command.PostAndPublish.TooltipDescription" xml:space="preserve">
+    <value>将此日志发布到你的日志中。</value>
+  </data>
+  <data name="Command.Print.LabelDescription" xml:space="preserve">
+    <value>打印此日志。</value>
+  </data>
+  <data name="Command.SelectAll.MenuText" xml:space="preserve">
+    <value>全选(&amp;E)</value>
+  </data>
+  <data name="Command.MarginsGroup.LabelTitle" xml:space="preserve">
+    <value>边距
+</value>
+  </data>
+  <data name="Command.WeblogMenu.CommandBarButtonText" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Command.SemanticHtmlGallery.Keytip" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="Command.FormatTableEditingGroup.LabelTitle" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Command.InsertMap.LabelTitle" xml:space="preserve">
+    <value>地图
+</value>
+  </data>
+  <data name="Command.OpenPostMRU0.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="Command.ImageEffectsRecolorGallery.TooltipDescription" xml:space="preserve">
+    <value>为该图片添加着色效果。</value>
+  </data>
+  <data name="Command.AlignCenter.TooltipDescription" xml:space="preserve">
+    <value>使文本居中。</value>
+  </data>
+  <data name="Command.PasteSplit.Keytip" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="DisplayMessage.VideoLoginRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ForceWatson.MenuText" xml:space="preserve">
+    <value>[Debug] Force &amp;Watson</value>
+  </data>
+  <data name="Command.AddTagProvider.LabelTitle" xml:space="preserve">
+    <value>添加标记提供者</value>
+  </data>
+  <data name="Command.OpenDraftMRU0.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="Command.InsertColumnRight.MenuText" xml:space="preserve">
+    <value>在右侧插入列(&amp;G)</value>
+  </data>
+  <data name="Command.ImageRotateCCW.TooltipTitle" xml:space="preserve">
+    <value>向左旋转 90°</value>
+  </data>
+  <data name="Command.ImageContextTabGroup.LabelTitle" xml:space="preserve">
+    <value>图片工具</value>
+  </data>
+  <data name="Command.MoveRowDown.Text" xml:space="preserve">
+    <value>下移行</value>
+  </data>
+  <data name="Command.Italic.TooltipDescription" xml:space="preserve">
+    <value>将所选文本设置为斜体。</value>
+  </data>
+  <data name="DisplayMessage.PicasawebSignup.Title" xml:space="preserve">
+    <value>Picasa 网络相册</value>
+  </data>
+  <data name="DisplayMessage.ConfirmOverwrite.Title" xml:space="preserve">
+    <value>确认覆盖</value>
+  </data>
+  <data name="DisplayMessage.HostNameRequired.Text" xml:space="preserve">
+    <value>输入主机名。</value>
+  </data>
+  <data name="Command.AlignRight.Text" xml:space="preserve">
+    <value>右对齐</value>
+  </data>
+  <data name="Command.FontFamily.LabelTitle" xml:space="preserve">
+    <value>字体
+</value>
+  </data>
+  <data name="Command.InsertColumnRight.LabelTitle" xml:space="preserve">
+    <value>在右侧插入</value>
+  </data>
+  <data name="Command.Bold.TooltipTitle" xml:space="preserve">
+    <value>加粗(Ctrl+B)</value>
+  </data>
+  <data name="Command.ApplySemanticParagraph.Shortcut" xml:space="preserve">
+    <value>CtrlShiftN</value>
+  </data>
+  <data name="Command.FormatImageLockAspectRatio.LabelTitle" xml:space="preserve">
+    <value>锁定纵横比</value>
+  </data>
+  <data name="Command.Cut.Keytip" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="Command.DeleteRow.TooltipDescription" xml:space="preserve">
+    <value>删除选定的行。</value>
+  </data>
+  <data name="Command.SemanticHtmlGroup.TooltipDescription" xml:space="preserve">
+    <value>使用由日志主题确定的文本格式预设置。</value>
+  </data>
+  <data name="Command.InsertVideoSplit.TooltipDescription" xml:space="preserve">
+    <value>在日志中添加来自计算机或网络的视频。</value>
+  </data>
+  <data name="DisplayMessage.PersonalDirectoryFail.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.TagProviderNameRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.NoPreviewAvailable.Text" xml:space="preserve">
+    <value>当前无法预览。请检查输入的 URL 和网络连接。</value>
+  </data>
+  <data name="Command.FormatImageStyleGroup.TooltipTitle" xml:space="preserve">
+    <value>图片样式</value>
+  </data>
+  <data name="Command.InsertVideoFromService.TooltipDescription" xml:space="preserve">
+    <value>选择来自联机服务的视频，显示在此日志中。</value>
+  </data>
+  <data name="Command.Superscript.TooltipTitle" xml:space="preserve">
+    <value>上标(Ctrl+Shift+=)</value>
+  </data>
+  <data name="Command.TextEditingGroup.Keytip" xml:space="preserve">
+    <value>ZE</value>
+  </data>
+  <data name="Command.LTRTextBlock.MenuText" xml:space="preserve">
+    <value>文字方向从左向右(&amp;L)</value>
+  </data>
+  <data name="DisplayMessage.DirectoryFail.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Subscript.TooltipDescription" xml:space="preserve">
+    <value>在文本基线下方创建小字符。</value>
+  </data>
+  <data name="Command.FormatPhotoAlbumTab.LabelTitle" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="Command.NewPage.TooltipTitle" xml:space="preserve">
+    <value>新建页面(Ctrl+G)</value>
+  </data>
+  <data name="Command.DeleteTable.LabelTitle" xml:space="preserve">
+    <value>删除表格</value>
+  </data>
+  <data name="DisplayMessage.LocalDeleteConfirmation.Text" xml:space="preserve">
+    <value>尝试从日志中删除{0}时出错。
+
+是否仍要删除{0}的本地副本?</value>
+  </data>
+  <data name="Command.ImageEffectsEmbossGallery.LabelTitle" xml:space="preserve">
+    <value>阳文(&amp;E)</value>
+  </data>
+  <data name="Command.CopyCommand.TooltipDescription" xml:space="preserve">
+    <value>复制选定的内容并将其放在剪贴板中。</value>
+  </data>
+  <data name="DisplayMessage.PersonalDirectoryFail.Text" xml:space="preserve">
+    <value>无法访问你的“文档”文件夹。</value>
+  </data>
+  <data name="Command.FormatMapEdit.Keytip" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="Command.BlogProviderTab.Keytip" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="Command.FormatTableInsertGroup.LabelTitle" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Command.InsertLoremIpsum.MenuText" xml:space="preserve">
+    <value>[Debug] Insert Lorem Ipsum</value>
+  </data>
+  <data name="Command.PhotoUploadSize.Keytip" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="Command.SetCustomSizeDefaults.LabelTitle" xml:space="preserve">
+    <value>设置默认大小(&amp;D)...</value>
+  </data>
+  <data name="Command.InsertClearBreak.LabelTitle" xml:space="preserve">
+    <value>清除分隔符</value>
+  </data>
+  <data name="DisplayMessage.VideoPathInvalid.Text" xml:space="preserve">
+    <value>视频文件的路径无效，请验证磁盘中是否存在该文件。</value>
+  </data>
+  <data name="Command.OpenDraftSplit.Keytip" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="Command.SemanticHtmlGroup.LabelTitle" xml:space="preserve">
+    <value>HTML 样式</value>
+  </data>
+  <data name="Command.PostAndPublish.Keytip" xml:space="preserve">
+    <value>P1</value>
+  </data>
+  <data name="DisplayMessage.NoImageSelected.Text" xml:space="preserve">
+    <value>选择图片。</value>
+  </data>
+  <data name="Command.DeleteRow.MenuText" xml:space="preserve">
+    <value>删除行(&amp;W)</value>
+  </data>
+  <data name="Command.ClearFormatting.LabelTitle" xml:space="preserve">
+    <value>清除格式</value>
+  </data>
+  <data name="DisplayMessage.TemplateDownloadFailed.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatMapPropertiesGroup.Keytip" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="Command.FormatMapPropertiesGroup.LabelTitle" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="Command.FontSize.TooltipDescription" xml:space="preserve">
+    <value>更改字号。</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumNoImagesError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Style.Text" xml:space="preserve">
+    <value>样式</value>
+  </data>
+  <data name="Command.SavePost.TooltipDescription" xml:space="preserve">
+    <value>保存此日志的本地草稿。</value>
+  </data>
+  <data name="Command.MapDeletePushpin.MenuText" xml:space="preserve">
+    <value>删除标注(&amp;D)</value>
+  </data>
+  <data name="Command.AdjustLeftMargin.LabelTitle" xml:space="preserve">
+    <value>左端</value>
+  </data>
+  <data name="DisplayMessage.PluginStatusChanged.Title" xml:space="preserve">
+    <value>插件状态</value>
+  </data>
+  <data name="Command.PasteSpecial.LabelTitle" xml:space="preserve">
+    <value>选择性粘贴(&amp;S)...</value>
+  </data>
+  <data name="Command.OpenDraftSplit.TooltipTitle" xml:space="preserve">
+    <value>打开本地草稿</value>
+  </data>
+  <data name="DisplayMessage.CannotInsert.Text" xml:space="preserve">
+    <value>无法在此位置插入{0}。请单击日志中的其他位置，然后重新尝试插入。</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumMaxFolderError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ColumnProperties.TooltipDescription" xml:space="preserve">
+    <value>编辑列属性。</value>
+  </data>
+  <data name="Command.InsertEmoticon.TooltipTitle" xml:space="preserve">
+    <value>表情图释</value>
+  </data>
+  <data name="Command.FormatImageAdjustWidth.Keytip" xml:space="preserve">
+    <value>SW</value>
+  </data>
+  <data name="Command.Underline.Shortcut" xml:space="preserve">
+    <value>CtrlU</value>
+  </data>
+  <data name="DisplayMessage.RequiredFieldOmitted.Text" xml:space="preserve">
+    <value>为{0}字段输入值后
+才能配置日志的发布设置。</value>
+  </data>
+  <data name="Command.InsertHorizontalLine.Keytip" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="Command.Outdent.Shortcut" xml:space="preserve">
+    <value>CtrlShiftM</value>
+  </data>
+  <data name="DisplayMessage.PublishCanceledByPlugin.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.CustomSizeSmall.LabelTitle" xml:space="preserve">
+    <value>小(&amp;S)</value>
+  </data>
+  <data name="Command.DeleteDraft.TooltipTitle" xml:space="preserve">
+    <value>删除本地草稿</value>
+  </data>
+  <data name="Command.FormatImageSelectLink.LabelTitle" xml:space="preserve">
+    <value>链接到:</value>
+  </data>
+  <data name="Command.DeleteRow.Keytip" xml:space="preserve">
+    <value>DR</value>
+  </data>
+  <data name="Command.MoveRowUp.TooltipDescription" xml:space="preserve">
+    <value>使当前行与上面的一行交换位置。</value>
+  </data>
+  <data name="Command.FindButton.MenuText" xml:space="preserve">
+    <value>查找文本(&amp;N)...</value>
+  </data>
+  <data name="Command.PhotoAlbumFromWeb.TooltipDescription" xml:space="preserve">
+    <value>添加 Windows Live OneDrive 中的相册可将照片缩略图显示在此日志中。</value>
+  </data>
+  <data name="Command.Watermark.LabelTitle" xml:space="preserve">
+    <value>水印</value>
+  </data>
+  <data name="Command.PasteSpecial.Text" xml:space="preserve">
+    <value>选择性粘贴...</value>
+  </data>
+  <data name="Command.BlogProviderButtonsGallery.TooltipTitle" xml:space="preserve">
+    <value>日志快捷方式</value>
+  </data>
+  <data name="Command.InsertPictureFromFile.TooltipTitle" xml:space="preserve">
+    <value>来自计算机(Ctrl+J)</value>
+  </data>
+  <data name="Command.DeleteColumn.Keytip" xml:space="preserve">
+    <value>DC</value>
+  </data>
+  <data name="Command.Indent.MenuText" xml:space="preserve">
+    <value>增加缩进(&amp;I)</value>
+  </data>
+  <data name="Command.PhotoAlbum.MenuText" xml:space="preserve">
+    <value>相册(&amp;O)...</value>
+  </data>
+  <data name="Command.SavePost.CommandBarButtonText" xml:space="preserve">
+    <value>保存草稿</value>
+  </data>
+  <data name="Command.ViewNormal.MenuText" xml:space="preserve">
+    <value>编辑(&amp;E)</value>
+  </data>
+  <data name="Command.ShowSupportingFilesForm.LabelTitle" xml:space="preserve">
+    <value>支持文件表单</value>
+  </data>
+  <data name="Command.ViewSource.LabelTitle" xml:space="preserve">
+    <value>View HTML Source</value>
+  </data>
+  <data name="Command.InsertTable.MenuText" xml:space="preserve">
+    <value>插入表格(&amp;I)...</value>
+  </data>
+  <data name="DisplayMessage.ServerParameterNotSpecified.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FocusNextPane.Shortcut" xml:space="preserve">
+    <value>F6</value>
+  </data>
+  <data name="Command.FindAndReplace.LabelTitle" xml:space="preserve">
+    <value>查找和替换</value>
+  </data>
+  <data name="DisplayMessage.NoUpdateAvailable.Text" xml:space="preserve">
+    <value>当前没有可用更新。</value>
+  </data>
+  <data name="Command.FormatMapTab.LabelTitle" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="DisplayMessage.DirectoryFail.Text" xml:space="preserve">
+    <value>无法访问:
+{0}</value>
+  </data>
+  <data name="Command.MoveColumnRight.Text" xml:space="preserve">
+    <value>右移列</value>
+  </data>
+  <data name="Command.SelectBlog.TooltipDescription" xml:space="preserve">
+    <value>更改、添加及管理日志帐户。</value>
+  </data>
+  <data name="Command.FormatAlbumExpiration.TooltipTitle" xml:space="preserve">
+    <value>关闭或打开相册过期</value>
+  </data>
+  <data name="DisplayMessage.RestrictedUserPhotoAlbumError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertPictureFromFile.Text" xml:space="preserve">
+    <value>插入来自文件的图片</value>
+  </data>
+  <data name="Command.Bold.Keytip" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="Command.ViewUseStyles.Keytip" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="Command.MoveRowUp.LabelTitle" xml:space="preserve">
+    <value>向上移动</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnsavedChanges.Text" xml:space="preserve">
+    <value>尚未保存对此日志所做的更改。
+
+是否要在继续操作之前保存更改?</value>
+  </data>
+  <data name="Command.LTRTextBlock.Text" xml:space="preserve">
+    <value>文字方向从左向右</value>
+  </data>
+  <data name="Command.CustomSizeLarge.TooltipTitle" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="Command.InsertEmoticon.TooltipDescription" xml:space="preserve">
+    <value>插入表情图释。</value>
+  </data>
+  <data name="DisplayMessage.NoTitleSpecified.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.MRUList.LabelTitle" xml:space="preserve">
+    <value>最近使用过的日志和草稿</value>
+  </data>
+  <data name="DisplayMessage.UnspecifiedValue.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertTable2.MenuText" xml:space="preserve">
+    <value>表格(&amp;T)...</value>
+  </data>
+  <data name="DisplayMessage.AutoreplaceAlreadyExists.Title" xml:space="preserve">
+    <value>覆盖现有词组</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumInsertErrorDownloadFailed.Text" xml:space="preserve">
+    <value>无法添加选定的相册，原因是该相册中没有照片、相册中的照片已损坏或没有可用的网络连接。</value>
+  </data>
+  <data name="Command.InsertLoremIpsum.Shortcut" xml:space="preserve">
+    <value>CtrlShiftF6</value>
+  </data>
+  <data name="Command.FormatImageSizeGroup.LabelTitle" xml:space="preserve">
+    <value>大小
+</value>
+  </data>
+  <data name="Command.AlignLeft.Shortcut" xml:space="preserve">
+    <value>CtrlL</value>
+  </data>
+  <data name="DisplayMessage.TempPostPermission.Title" xml:space="preserve">
+    <value>下载日志主题</value>
+  </data>
+  <data name="Command.ColumnProperties.LabelTitle" xml:space="preserve">
+    <value>列(&amp;C)...</value>
+  </data>
+  <data name="DisplayMessage.HomepageUrlRequired.Text" xml:space="preserve">
+    <value>输入日志主页的网址。</value>
+  </data>
+  <data name="Command.Numbers.TooltipDescription" xml:space="preserve">
+    <value>开始创建编号列表。</value>
+  </data>
+  <data name="DisplayMessage.MalformedHtmlIgnored.Text" xml:space="preserve">
+    <value>插件 {0} 生成了无效的 HTML，系统会删除这些 HTML 以防止损坏你的日志。</value>
+  </data>
+  <data name="Command.FontColor.Text" xml:space="preserve">
+    <value>字体颜色</value>
+  </data>
+  <data name="Command.OpenPostMRU6.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="Command.FormatImageSelectLink.TooltipDescription" xml:space="preserve">
+    <value>选择单击此图片时将链接到的网址。</value>
+  </data>
+  <data name="DisplayMessage.YouTubeError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.Undo.Text" xml:space="preserve">
+    <value>撤消</value>
+  </data>
+  <data name="Command.OpenDraftMRU5.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="DisplayMessage.ValueLessThanMinimum.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnpostedEntry.Text" xml:space="preserve">
+    <value>你所编辑的日志尚未发布。
+
+是否要立即发布该日志的草稿?</value>
+  </data>
+  <data name="Command.RowProperties.LabelTitle" xml:space="preserve">
+    <value>行(&amp;R)...</value>
+  </data>
+  <data name="Command.BlogProviderTab.LabelTitle" xml:space="preserve">
+    <value>日志帐户</value>
+  </data>
+  <data name="Command.ViewSidebar.Shortcut" xml:space="preserve">
+    <value>F9</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteEntry.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.CustomSizeMedium.LabelTitle" xml:space="preserve">
+    <value>中(&amp;M)</value>
+  </data>
+  <data name="DisplayMessage.TempPostPermission.Text" xml:space="preserve">
+    <value>是否要发布临时日志来下载日志主题? 该日志将在检索主题后立即删除。
+
+借助此功能你可以在编辑过程中看到日志联机时的显示外观。</value>
+  </data>
+  <data name="DisplayMessage.YouTubeError.Text" xml:space="preserve">
+    <value>检索视频时发生问题，请重试。</value>
+  </data>
+  <data name="Command.TableProperties.TooltipDescription" xml:space="preserve">
+    <value>编辑表格属性。</value>
+  </data>
+  <data name="Command.InsertExtendedEntry.TooltipDescription" xml:space="preserve">
+    <value>插入分隔符可创建日志摘要。分隔符前的内容将作为摘要显示在此日志的主页面上。</value>
+  </data>
+  <data name="DisplayMessage.BetaError.Text" xml:space="preserve">
+    <value>此帐户不属于 Windows Live 试用版程序，请以授权的帐户重试。</value>
+  </data>
+  <data name="DisplayMessage.MustAcceptTermsOfUse.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatImageLockAspectRatio.TooltipDescription" xml:space="preserve">
+    <value>保留此图片的纵横比。</value>
+  </data>
+  <data name="Command.MediaGroup.LabelTitle" xml:space="preserve">
+    <value>媒体</value>
+  </data>
+  <data name="Command.ViewNormal.Shortcut" xml:space="preserve">
+    <value>F11</value>
+  </data>
+  <data name="Command.DeleteTable.Keytip" xml:space="preserve">
+    <value>DT</value>
+  </data>
+  <data name="Command.WordCount.MenuText" xml:space="preserve">
+    <value>字数统计(&amp;W)</value>
+  </data>
+  <data name="Command.MapContextTabGroup.LabelTitle" xml:space="preserve">
+    <value>地图工具</value>
+  </data>
+  <data name="Command.FileMenu.LabelTitle" xml:space="preserve">
+    <value>Live Writer</value>
+  </data>
+  <data name="Command.OpenLink.MenuText" xml:space="preserve">
+    <value>打开超链接(&amp;O)</value>
+  </data>
+  <data name="DisplayMessage.InvalidNumberNonNegative.Text" xml:space="preserve">
+    <value>输入大于或等于零的数字。</value>
+  </data>
+  <data name="Command.InsertLink.LabelTitle" xml:space="preserve">
+    <value>超链接
+</value>
+  </data>
+  <data name="DisplayMessage.RequiredFieldOmitted.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.BlogThisImageListError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.PluginsGroup.Keytip" xml:space="preserve">
+    <value>ZP</value>
+  </data>
+  <data name="Command.ConfigureWeblog.TooltipDescription" xml:space="preserve">
+    <value>更改此日志帐户的选项。</value>
+  </data>
+  <data name="Command.AlignCenter.Shortcut" xml:space="preserve">
+    <value>CtrlE</value>
+  </data>
+  <data name="Command.Indent.Text" xml:space="preserve">
+    <value>增加缩进</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumLogInError.Text" xml:space="preserve">
+    <value>登录并选择一个相册，然后插入。</value>
+  </data>
+  <data name="Command.FormatImagePropertiesGroup.LabelTitle" xml:space="preserve">
+    <value>属性
+</value>
+  </data>
+  <data name="Command.AddToGlossary.Text" xml:space="preserve">
+    <value>添加到自动链接列表</value>
+  </data>
+  <data name="Command.Accounts.TooltipTitle" xml:space="preserve">
+    <value>管理日志帐户</value>
+  </data>
+  <data name="Command.ImageLinkToSource.TooltipTitle" xml:space="preserve">
+    <value>单击此图片时将转到源图片的网址。</value>
+  </data>
+  <data name="Command.ViewCode.Shortcut" xml:space="preserve">
+    <value>ShiftF11</value>
+  </data>
+  <data name="Command.SelectBlog.Keytip" xml:space="preserve">
+    <value>P2</value>
+  </data>
+  <data name="Command.Watermark.TooltipDescription" xml:space="preserve">
+    <value>为此图片添加水印。</value>
+  </data>
+  <data name="Command.BlogProviderThemeGroup.Keytip" xml:space="preserve">
+    <value>ZT</value>
+  </data>
+  <data name="Command.VideoStandardAspectRatio.Keytip" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="Command.FormatAlbumStyleGroup.LabelTitle" xml:space="preserve">
+    <value>相册样式</value>
+  </data>
+  <data name="Command.ImageTilt.TooltipTitle" xml:space="preserve">
+    <value>倾斜度</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumServerError.Text" xml:space="preserve">
+    <value>相册服务出错，请稍后再试。</value>
+  </data>
+  <data name="Command.InsertVideoFromWeb.TooltipTitle" xml:space="preserve">
+    <value>来自 Web</value>
+  </data>
+  <data name="Command.InsertImageSplit.Keytip" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="DisplayMessage.NoSuchPublishFolder.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.FtpServerUnavailable.Text" xml:space="preserve">
+    <value>指定的主机名似乎不是运行中的 FTP 服务器。</value>
+  </data>
+  <data name="Command.WebImage.Shortcut" xml:space="preserve">
+    <value>CtrlShiftJ</value>
+  </data>
+  <data name="Command.InsertTable.TooltipDescription" xml:space="preserve">
+    <value>在日志中插入表格。</value>
+  </data>
+  <data name="Command.BreaksGroup.LabelTitle" xml:space="preserve">
+    <value>分隔符
+</value>
+  </data>
+  <data name="Command.InsertClearBreak.Keytip" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="Command.ViewUseStyles.TooltipDescription" xml:space="preserve">
+    <value>在编辑此日志时打开日志主题。</value>
+  </data>
+  <data name="DisplayMessage.WeblogConnectionError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ViewWeblogAdmin.Text" xml:space="preserve">
+    <value>管理日志</value>
+  </data>
+  <data name="Command.Subscript.Keytip" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="Command.OpenDraftSplit.LabelTitle" xml:space="preserve">
+    <value>打开本地草稿(&amp;O)</value>
+  </data>
+  <data name="DisplayMessage.TagConfirmDeleteProvider.Text" xml:space="preserve">
+    <value>是否确实要删除“{0}”?</value>
+  </data>
+  <data name="Command.ImageEffectsSharpenGallery.TooltipDescription" xml:space="preserve">
+    <value>为该图片添加锐化滤镜。</value>
+  </data>
+  <data name="Command.PostAndPublish.LabelTitle" xml:space="preserve">
+    <value>发布
+(&amp;H)</value>
+  </data>
+  <data name="Command.FormatImageAdjustWidth.LabelTitle" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+  <data name="DisplayMessage.PostFileNoExist.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatMapEdit.LabelTitle" xml:space="preserve">
+    <value>自定义地图</value>
+  </data>
+  <data name="Command.OpenPostMRU7.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="DisplayMessage.NoMapAddressSpecified.Text" xml:space="preserve">
+    <value>指定一个位置。</value>
+  </data>
+  <data name="Command.AddPlugin.MenuText" xml:space="preserve">
+    <value>添加插件...</value>
+  </data>
+  <data name="DisplayMessage.TagReminder.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.AlignLeft.Text" xml:space="preserve">
+    <value>左对齐</value>
+  </data>
+  <data name="Command.Indent.Shortcut" xml:space="preserve">
+    <value>CtrlM</value>
+  </data>
+  <data name="Command.Outdent.LabelTitle" xml:space="preserve">
+    <value>减少缩进</value>
+  </data>
+  <data name="Command.Strikethrough.Keytip" xml:space="preserve">
+    <value>H</value>
+  </data>
+  <data name="DisplayMessage.TemplateDownloadFailed.Text" xml:space="preserve">
+    <value>无法下载日志主题。
+
+你可以向此日志发布内容，但是在编辑日志时将无法查看日志主题。</value>
+  </data>
+  <data name="Command.VideoWebPreview.Keytip" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="Command.MoveColumnRight.MenuText" xml:space="preserve">
+    <value>右移列(&amp;H)</value>
+  </data>
+  <data name="Command.MoveColumnLeft.MenuText" xml:space="preserve">
+    <value>左移列(&amp;F)</value>
+  </data>
+  <data name="Command.OpenPostSplit.Keytip" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="Command.OpenPost.TooltipDescription" xml:space="preserve">
+    <value>打开草稿或最近发布的日志。</value>
+  </data>
+  <data name="Command.PhotoAlbum.LabelTitle" xml:space="preserve">
+    <value>创建联机相册(&amp;E)...</value>
+  </data>
+  <data name="Command.InsertRowAbove.Keytip" xml:space="preserve">
+    <value>IA</value>
+  </data>
+  <data name="Command.ImageLinkToNone.TooltipTitle" xml:space="preserve">
+    <value>此图片无任何链接。</value>
+  </data>
+  <data name="Command.PreviewTab.LabelTitle" xml:space="preserve">
+    <value>Web 预览</value>
+  </data>
+  <data name="Command.MoveColumnLeft.Keytip" xml:space="preserve">
+    <value>ML</value>
+  </data>
+  <data name="Command.Bold.LabelTitle" xml:space="preserve">
+    <value>加粗</value>
+  </data>
+  <data name="Command.FileMenu.TooltipDescription" xml:space="preserve">
+    <value>单击此处可打开、保存、打印此日志，以及查看可对此日志执行的其他操作。</value>
+  </data>
+  <data name="Command.NewPage.LabelDescription" xml:space="preserve">
+    <value>创建新页面。</value>
+  </data>
+  <data name="Command.OpenPostMRU9.LabelTitle" xml:space="preserve">
+    <value>打开日志</value>
+  </data>
+  <data name="Command.Outdent.Text" xml:space="preserve">
+    <value>减少缩进</value>
+  </data>
+  <data name="Command.Options.TooltipTitle" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="Command.Underline.Keytip" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteTable.Title" xml:space="preserve">
+    <value>确认删除</value>
+  </data>
+  <data name="Command.AddPlugin.LabelTitle" xml:space="preserve">
+    <value>添加插件
+</value>
+  </data>
+  <data name="DisplayMessage.MultipleLinks.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.WebImage.TooltipTitle" xml:space="preserve">
+    <value>来自 Web (Ctrl+Shift+J)</value>
+  </data>
+  <data name="Command.CheckSpelling.MenuText" xml:space="preserve">
+    <value>检查拼写(&amp;S)...</value>
+  </data>
+  <data name="Command.NewPage.Text" xml:space="preserve">
+    <value>新建页面</value>
+  </data>
+  <data name="Command.Blockquote.Text" xml:space="preserve">
+    <value>整段缩进</value>
+  </data>
+  <data name="Command.Delete.MenuText" xml:space="preserve">
+    <value>删除(&amp;D)</value>
+  </data>
+  <data name="Command.OpenPostSplit.TooltipTitle" xml:space="preserve">
+    <value>打开最近使用过的日志</value>
+  </data>
+  <data name="DisplayMessage.VideoPublisherFailed.Text" xml:space="preserve">
+    <value>由于未知原因，选定的视频发布程序失败，无法发布该视频。</value>
+  </data>
+  <data name="DisplayMessage.IncompatiblePostInfoType.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.FormatAlbumStyleGroup.Keytip" xml:space="preserve">
+    <value>ZS</value>
+  </data>
+  <data name="Command.InsertImageSplit.TooltipTitle" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="Command.MoveRowUp.Keytip" xml:space="preserve">
+    <value>MA</value>
+  </data>
+  <data name="Command.DeleteDraft.LabelTitle" xml:space="preserve">
+    <value>删除本地草稿(&amp;D)</value>
+  </data>
+  <data name="Command.Cut.Text" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="DisplayMessage.BetaError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.ConfirmOverwrite.Text" xml:space="preserve">
+    <value>根据服务器上的信息，该日志在你开始进行编辑之后已被更改。
+
+你是否要使用自己的更改来覆盖服务器上的更改?</value>
+  </data>
+  <data name="Command.TextDebugGroup.TooltipTitle" xml:space="preserve">
+    <value>文本调试</value>
+  </data>
+  <data name="DisplayMessage.VideoPathInvalid.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertTable.LabelTitle" xml:space="preserve">
+    <value>表格
+</value>
+  </data>
+  <data name="Command.Numbers.Keytip" xml:space="preserve">
+    <value>L2</value>
+  </data>
+  <data name="DisplayMessage.WeblogConnectionError.Text" xml:space="preserve">
+    <value>无法连接到你的日志服务:
+
+{0}
+
+请尝试解决问题，然后重试。</value>
+  </data>
+  <data name="Command.AddToGlossary.MenuText" xml:space="preserve">
+    <value>添加到自动链接列表(&amp;K)</value>
+  </data>
+  <data name="Command.BlogProviderButtonsGallery.Keytip" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="Command.FormatVideoGroup.Keytip" xml:space="preserve">
+    <value>ZV</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumSelectionError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Sidebar.WidthInPixels" xml:space="preserve">
+    <value>200</value>
+  </data>
+  <data name="Command.ViewSidebar.MenuText" xml:space="preserve">
+    <value>任务窗格(&amp;A)</value>
+  </data>
+  <data name="Command.ImageEffectsBlurGallery.TooltipDescription" xml:space="preserve">
+    <value>为该图片添加模糊滤镜。</value>
+  </data>
+  <data name="Command.ShowUpdateMessage.LabelTitle" xml:space="preserve">
+    <value>更新消息</value>
+  </data>
+  <data name="Command.FormatAlbumShuffleCoverPictures.TooltipDescription" xml:space="preserve">
+    <value>无序播放此联机相册中照片的缩略图。</value>
+  </data>
+  <data name="Command.ShowDisplayMessageTestForm.MenuText" xml:space="preserve">
+    <value>[Debug] Show Display &amp;Messages</value>
+  </data>
+  <data name="Command.InsertTable.Text" xml:space="preserve">
+    <value>插入表格</value>
+  </data>
+  <data name="DisplayMessage.WidthHeightRequired.Text" xml:space="preserve">
+    <value>输入宽度和高度。</value>
+  </data>
+  <data name="Command.ShowMenu.Text" xml:space="preserve">
+    <value>显示菜单栏</value>
+  </data>
+  <data name="Command.PostAsDraft.TooltipTitle" xml:space="preserve">
+    <value>将草稿发布到日志(Ctrl+Shift+D)</value>
+  </data>
+  <data name="Command.FormatAlbumEdit.LabelTitle" xml:space="preserve">
+    <value>添加或删除照片</value>
+  </data>
+  <data name="DisplayMessage.TagFormatRequired.Text" xml:space="preserve">
+    <value>输入每个标记的 HTML 模板。</value>
+  </data>
+  <data name="Command.VideoStandardAspectRatio.TooltipDescription" xml:space="preserve">
+    <value>为此视频使用标准纵横比。</value>
+  </data>
+  <data name="Command.OpenDraftMRU3.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="Command.InsertExtendedEntry.LabelTitle" xml:space="preserve">
+    <value>拆分日志</value>
+  </data>
+  <data name="DisplayMessage.ValueExceedsMaximum.Text" xml:space="preserve">
+    <value>为{1}字段输入小于 {0} 的值。</value>
+  </data>
+  <data name="Command.FormatVideoTab.Keytip" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="DisplayMessage.ErrorConnectingPromptContinue.Text" xml:space="preserve">
+    <value>无法与远程服务器联系来验证设置。是否仍要继续?</value>
+  </data>
+  <data name="Command.Superscript.Keytip" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="Command.InsertMap.TooltipDescription" xml:space="preserve">
+    <value>在日志中选择和显示 Bing 地图上的位置。</value>
+  </data>
+  <data name="Command.ValidateLocalizedResources.LabelTitle" xml:space="preserve">
+    <value>本地化资源</value>
+  </data>
+  <data name="Command.CellProperties.Text" xml:space="preserve">
+    <value>单元格属性</value>
+  </data>
+  <data name="Command.ViewWeblogAdmin.MenuText" xml:space="preserve">
+    <value>管理日志(&amp;M)</value>
+  </data>
+  <data name="Command.Redo.Text" xml:space="preserve">
+    <value>恢复</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteAutoReplaceEntry.Text" xml:space="preserve">
+    <value>是否确实要删除此自动替换条目?</value>
+  </data>
+  <data name="Command.Italic.LabelTitle" xml:space="preserve">
+    <value>斜体</value>
+  </data>
+  <data name="Command.ShowDisplayMessageTestForm.LabelTitle" xml:space="preserve">
+    <value>显示消息测试窗体</value>
+  </data>
+  <data name="Command.ViewPlainText.MenuText" xml:space="preserve">
+    <value>纯文本模式</value>
+  </data>
+  <data name="DisplayMessage.ConfirmDeleteDraft.Title" xml:space="preserve">
+    <value>确认删除</value>
+  </data>
+  <data name="Command.FocusPreviousPane.Shortcut" xml:space="preserve">
+    <value>ShiftF6</value>
+  </data>
+  <data name="Command.NewPage.MenuText" xml:space="preserve">
+    <value>新建页面(&amp;W)</value>
+  </data>
+  <data name="Command.PhotoUploadSize.TooltipDescription" xml:space="preserve">
+    <value>选择照片上载大小。</value>
+  </data>
+  <data name="Command.PostAsDraft.Shortcut" xml:space="preserve">
+    <value>CtrlShiftD</value>
+  </data>
+  <data name="Command.InsertLink.MenuText" xml:space="preserve">
+    <value>超链接(&amp;H)...</value>
+  </data>
+  <data name="DisplayMessage.TagReminder.Text" xml:space="preserve">
+    <value>尚未为此日志添加标记。
+
+是否仍要继续发布?</value>
+  </data>
+  <data name="DisplayMessage.ConnectionTimeout.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.ImageEffectsRecolorGallery.TooltipTitle" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="DisplayMessage.QueryForUnsavedChanges.Title" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="Command.PostAsDraftAndEditOnline.LabelTitle" xml:space="preserve">
+    <value>发布草稿并联机编辑(&amp;E)</value>
+  </data>
+  <data name="Command.InsertMenu.CommandBarButtonText" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="Command.AlignmentGallery.LabelTitle" xml:space="preserve">
+    <value>对齐方式</value>
+  </data>
+  <data name="Command.Close.Shortcut" xml:space="preserve">
+    <value>AltF4</value>
+  </data>
+  <data name="DisplayMessage.TempPostDeleteFailed.Text" xml:space="preserve">
+    <value>之前创建用于检索日志主题的临时日志未删除。
+
+请从日志中删除此临时日志。</value>
+  </data>
+  <data name="Command.IgnoreAll.MenuText" xml:space="preserve">
+    <value>全部忽略(&amp;I)</value>
+  </data>
+  <data name="DisplayMessage.FileInUse.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.PasteSplit.LabelTitle" xml:space="preserve">
+    <value>粘贴
+</value>
+  </data>
+  <data name="DisplayMessage.InvalidHostname.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.PhotoAlbumTitleDuplicateError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.WeblogAuthenticationError.Text" xml:space="preserve">
+    <value>用户名或密码不正确。
+
+请重试。</value>
+  </data>
+  <data name="Command.CustomSizeSmall.TooltipTitle" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="Command.MapWebPreview.TooltipDescription" xml:space="preserve">
+    <value>联机查看地图。</value>
+  </data>
+  <data name="Command.CheckSpelling.TooltipDescription" xml:space="preserve">
+    <value>检查此日志的拼写。</value>
+  </data>
+  <data name="Command.ShowWebLayoutWarning.MenuText" xml:space="preserve">
+    <value>[Debug] Show Web Layout Warning</value>
+  </data>
+  <data name="Command.ImageEffectsSharpenGallery.LabelTitle" xml:space="preserve">
+    <value>锐化(&amp;S)</value>
+  </data>
+  <data name="Command.ImageBorderGallery.LabelTitle" xml:space="preserve">
+    <value>图片边框
+</value>
+  </data>
+  <data name="Command.FormatTableInsertGroup.Keytip" xml:space="preserve">
+    <value>ZI</value>
+  </data>
+  <data name="DisplayMessage.IncompatiblePostInfoType.Text" xml:space="preserve">
+    <value>发生内部错误(日志信息类型不兼容)。无法打开所选的日志。</value>
+  </data>
+  <data name="Command.Superscript.Text" xml:space="preserve">
+    <value>上标</value>
+  </data>
+  <data name="DisplayMessage.InvalidHostname.Text" xml:space="preserve">
+    <value>指定的主机名不存在。</value>
+  </data>
+  <data name="Command.WordCount.LabelTitle" xml:space="preserve">
+    <value>字数统计</value>
+  </data>
+  <data name="Command.CustomSizeGallery.LabelTitle" xml:space="preserve">
+    <value>自定义大小</value>
+  </data>
+  <data name="Command.FormatImageAdjustHeight.Keytip" xml:space="preserve">
+    <value>SH</value>
+  </data>
+  <data name="Command.PostAsDraftAndEditOnline.LabelDescription" xml:space="preserve">
+    <value>将日志作为不向其他人公开的草稿发送到你的日志，并打开网页浏览器联机编辑草稿。</value>
+  </data>
+  <data name="Command.Blockquote.LabelTitle" xml:space="preserve">
+    <value>整段缩进</value>
+  </data>
+  <data name="Command.Underline.Text" xml:space="preserve">
+    <value>下划线</value>
+  </data>
+  <data name="Command.CustomSizeGallery.TooltipTitle" xml:space="preserve">
+    <value>自定义大小</value>
+  </data>
+  <data name="Command.FormatAlbumStyleGallery.LabelTitle" xml:space="preserve">
+    <value>相册样式</value>
+  </data>
+  <data name="Command.MoveColumnRight.LabelTitle" xml:space="preserve">
+    <value>向右移动</value>
+  </data>
+  <data name="Command.ImageCrop.Keytip" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="DisplayMessage.AutoreplaceReplacementRequired.Text" xml:space="preserve">
+    <value>输入替换值。</value>
+  </data>
+  <data name="Command.ImageCrop.TooltipDescription" xml:space="preserve">
+    <value>剪裁图片，仅保留当前选定的部分。</value>
+  </data>
+  <data name="Command.PostAsDraftAndEditOnline.Text" xml:space="preserve">
+    <value>发布草稿并联机编辑</value>
+  </data>
+  <data name="Command.AddPlugin.TooltipDescription" xml:space="preserve">
+    <value>联机获取更多 Writer 插件。</value>
+  </data>
+  <data name="Command.OpenDraftMRU2.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="Command.Accounts.MenuText" xml:space="preserve">
+    <value>帐户(&amp;A)...</value>
+  </data>
+  <data name="Command.FontFamily.Keytip" xml:space="preserve">
+    <value>FF</value>
+  </data>
+  <data name="Command.WebImage.LabelTitle" xml:space="preserve">
+    <value>来自 Web(&amp;W)...</value>
+  </data>
+  <data name="DisplayMessage.PublishFailed.Text" xml:space="preserve">
+    <value>发布时出现错误: {0}</value>
+  </data>
+  <data name="Command.ManagePlugins.LabelTitle" xml:space="preserve">
+    <value>插件选项
+</value>
+  </data>
+  <data name="Command.Options.MenuText" xml:space="preserve">
+    <value>选项(&amp;O)...</value>
+  </data>
+  <data name="Command.BreaksGroup.Keytip" xml:space="preserve">
+    <value>ZB</value>
+  </data>
+  <data name="Command.OpenDraftMRU8.LabelTitle" xml:space="preserve">
+    <value>打开草稿</value>
+  </data>
+  <data name="Command.Outdent.MenuText" xml:space="preserve">
+    <value>减少缩进(&amp;D)</value>
+  </data>
+  <data name="Command.SplitSave.LabelTitle" xml:space="preserve">
+    <value>V(&amp;V)</value>
+  </data>
+  <data name="DisplayMessage.NoImageSelected.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.BlogThisImageListError.Text" xml:space="preserve">
+    <value>找不到任何图像。</value>
+  </data>
+  <data name="Command.PluginsGallery.Keytip" xml:space="preserve">
+    <value>PP</value>
+  </data>
+  <data name="DisplayMessage.UsernameAndPasswordRequired.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.InsertTab.Keytip" xml:space="preserve">
+    <value>I</value>
+  </data>
+  <data name="Command.FontBackgroundColor.Keytip" xml:space="preserve">
+    <value>FH</value>
+  </data>
+  <data name="Command.Undo.Shortcut" xml:space="preserve">
+    <value>CtrlZ</value>
+  </data>
+  <data name="Command.TerminateProcess.LabelTitle" xml:space="preserve">
+    <value>终止进程</value>
+  </data>
+  <data name="Command.FormatAlbumExpiration.LabelTitle" xml:space="preserve">
+    <value>90 天后过期</value>
+  </data>
+  <data name="Command.ViewUseStyles.TooltipTitle" xml:space="preserve">
+    <value>日志主题(Ctrl+F11)</value>
+  </data>
+  <data name="Command.AlignLeft.TooltipDescription" xml:space="preserve">
+    <value>使文本向左对齐。</value>
+  </data>
+  <data name="Command.CopyCommand.Keytip" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="Command.OpenPost.TooltipTitle" xml:space="preserve">
+    <value>打开(Ctrl+O)</value>
+  </data>
+  <data name="Command.Watermark.TooltipTitle" xml:space="preserve">
+    <value>水印</value>
+  </data>
+  <data name="Command.Outdent.Keytip" xml:space="preserve">
+    <value>MO</value>
+  </data>
+  <data name="Command.Blockquote.TooltipDescription" xml:space="preserve">
+    <value>整段缩进选定文本。</value>
+  </data>
+  <data name="DisplayMessage.PluginUnexpectedLoadError.Text" xml:space="preserve">
+    <value>加载插件 {0} 时出错
+
+{1}
+
+由于此错误而导致该插件无法加载。</value>
+  </data>
+  <data name="Command.Outdent.TooltipTitle" xml:space="preserve">
+    <value>减少缩进(Ctrl+Shift+M)</value>
+  </data>
+  <data name="DisplayMessage.UrlMappingRequired.Text" xml:space="preserve">
+    <value>输入 URL 映射。</value>
+  </data>
+  <data name="Command.FormatImageAdjustHeight.LabelTitle" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="Command.FormatPhotoAlbumTab.Keytip" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="DisplayMessage.ShouldUsePlugin.Text" xml:space="preserve">
+    <value>是否要为此日志启用 {0} 插件?
+
+(你可以稍后更改此设置，方法是在“日志”菜单中，单击“编辑日志设置”，然后单击“插件”。)</value>
+  </data>
+  <data name="Command.InsertLink.TooltipTitle" xml:space="preserve">
+    <value>超链接(Ctrl+K)</value>
+  </data>
+  <data name="Command.FontColorPicker.Keytip" xml:space="preserve">
+    <value>FC</value>
+  </data>
+  <data name="Command.FixWordSpelling.MenuText" xml:space="preserve">
+    <value>(无建议)</value>
+  </data>
+  <data name="Command.RTLTextBlock.TooltipDescription" xml:space="preserve">
+    <value>使选定文本的方向为从右到左。</value>
+  </data>
+  <data name="Command.InsertRowBelow.TooltipDescription" xml:space="preserve">
+    <value>在当前位置下方插入行。</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Microsoft YaHei</value>
+  </data>
+  <data name="DisplayMessage.InternetConnectionWarning.Text" xml:space="preserve">
+    <value>由于没有可用的 Internet 连接，无法显示内容。</value>
+  </data>
+  <data name="DisplayMessage.AddBlogUrlFormatError.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="Command.BlogClientOptions.MenuText" xml:space="preserve">
+    <value>[Debug] &amp;Blog Client Options</value>
+  </data>
+  <data name="Command.WordCount.Keytip" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="Command.Bullets.Text" xml:space="preserve">
+    <value>项目符号</value>
+  </data>
+  <data name="Command.ClearCell.Text" xml:space="preserve">
+    <value>清除单元格</value>
+  </data>
+  <data name="Command.Blockquote.Keytip" xml:space="preserve">
+    <value>Q</value>
+  </data>
+  <data name="Command.VideoWebPreview.LabelTitle" xml:space="preserve">
+    <value>联机查看</value>
+  </data>
+  <data name="Command.InsertPhotoAlbumSplit.TooltipDescription" xml:space="preserve">
+    <value>添加 Windows Live OneDrive 中的相册可将照片缩略图显示在此日志中。</value>
+  </data>
+  <data name="Command.BlogProviderButtonsGallery.TooltipDescription" xml:space="preserve">
+    <value>选定日志服务提供的快捷方式。</value>
+  </data>
+  <data name="Command.CopyCommand.TooltipTitle" xml:space="preserve">
+    <value>复制(Ctrl+C)</value>
+  </data>
+  <data name="Command.AdjustRightMargin.TooltipDescription" xml:space="preserve">
+    <value>更改此对象右侧的边距。</value>
+  </data>
+  <data name="Command.AddWeblog.MenuText" xml:space="preserve">
+    <value>添加日志帐户(&amp;A)...</value>
+  </data>
+  <data name="Command.Superscript.TooltipDescription" xml:space="preserve">
+    <value>在文本行上方创建小字符。</value>
+  </data>
+  <data name="Command.Options.TooltipDescription" xml:space="preserve">
+    <value>更改 Open Live Writer 选项。</value>
+  </data>
+  <data name="Command.PreviewTab.Keytip" xml:space="preserve">
+    <value>R</value>
+  </data>
+  <data name="Command.MoveRowUp.MenuText" xml:space="preserve">
+    <value>上移行(&amp;U)</value>
+  </data>
+  <data name="DisplayMessage.VideoRequiredFields.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.SpacesPublishingNotEnabled.Title" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="DisplayMessage.SpellCheckCancelledStillPost.Title" xml:space="preserve">
+    <value>拼写检查已取消</value>
+  </data>
+</root>
