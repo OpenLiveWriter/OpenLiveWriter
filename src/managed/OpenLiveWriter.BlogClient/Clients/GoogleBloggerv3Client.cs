@@ -211,7 +211,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         protected override TransientCredentials Login()
         {
-            var transientCredentials = Credentials.TransientCredentials as TransientCredentials ?? 
+            var transientCredentials = Credentials.TransientCredentials as TransientCredentials ??
                 new TransientCredentials(Credentials.Username, Credentials.Password, null);
             VerifyAndRefreshCredentials(transientCredentials);
             Credentials.TransientCredentials = transientCredentials;
@@ -406,7 +406,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 allPosts = allPosts.Concat(draftRecentPosts).Concat(liveRecentPosts).Concat(scheduledRecentPosts);
 
             } while (allPosts.Count() < maxPosts && (draftRecentPosts.Count > 0 || liveRecentPosts.Count > 0 || scheduledRecentPosts.Count > 0));
-            
+
             return allPosts
                 .OrderByDescending(p => p.Published)
                 .Take(maxPosts)
@@ -503,7 +503,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             // We keep around the PageList returned by each request to support pagination.
             PageList draftPagesList = null;
             PageList livePagesList = null;
-            
+
             // We break out of the following loop depending on which one of these two cases we hit: 
             //   (a) the number of all blog pages ever posted to this blog is greater than maxPages, so eventually 
             //       allPages.count() will exceed maxPages and we can stop making requests.
@@ -615,7 +615,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             string editUri = uploadContext.Settings.GetString(EDIT_MEDIA_LINK, null);
             if (editUri == null || editUri.Length == 0)
             {
-                PostNewImage(albumName, path, out srcUrl, out editUri);
+                PostNewImage(albumName, path, uploadContext.BlogId, out srcUrl, out editUri);
             }
             else
             {
@@ -634,7 +634,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     try
                     {
                         // couldn't update existing image? try posting a new one
-                        PostNewImage(albumName, path, out srcUrl, out editUri);
+                        PostNewImage(albumName, path, uploadContext.BlogId, out srcUrl, out editUri);
                         success = true;
                     }
                     catch
@@ -725,17 +725,18 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         #region Picasa image uploading - stolen from BloggerAtomClient
 
-        public string GetBlogImagesAlbum(string albumName)
+        public string GetBlogImagesAlbum(string albumName, string blogId)
         {
             const string FEED_REL = "http://schemas.google.com/g/2005#feed";
             const string GPHOTO_NS_URI = "http://schemas.google.com/photos/2007";
-            
+
             Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default");
 
             try
             {
                 Uri reqUri = picasaUri;
                 XmlDocument albumListDoc = AtomClient.xmlRestRequestHelper.Get(ref reqUri, CreateAuthorizationFilter(), "kind", "album");
+
                 foreach (XmlElement entryEl in albumListDoc.SelectNodes(@"/atom:feed/atom:entry", _nsMgr))
                 {
                     XmlElement titleNode = entryEl.SelectSingleNode(@"atom:title", _nsMgr) as XmlElement;
@@ -777,34 +778,54 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw;
             }
 
-            XmlDocument newDoc = new XmlDocument();
-            XmlElement newEntryEl = newDoc.CreateElement("atom", "entry", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-            newDoc.AppendChild(newEntryEl);
+            try
+            {
+                XmlDocument newDoc = new XmlDocument();
+                XmlElement newEntryEl = newDoc.CreateElement("atom", "entry", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
+                newDoc.AppendChild(newEntryEl);
 
-            XmlElement newTitleEl = newDoc.CreateElement("atom", "title", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-            newTitleEl.SetAttribute("type", "text");
-            newTitleEl.InnerText = albumName;
-            newEntryEl.AppendChild(newTitleEl);
+                XmlElement newTitleEl = newDoc.CreateElement("atom", "title", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
+                newTitleEl.SetAttribute("type", "text");
+                newTitleEl.InnerText = albumName;
+                newEntryEl.AppendChild(newTitleEl);
 
-            XmlElement newSummaryEl = newDoc.CreateElement("atom", "summary", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-            newSummaryEl.SetAttribute("type", "text");
-            newSummaryEl.InnerText = Res.Get(StringId.BloggerImageAlbumDescription);
-            newEntryEl.AppendChild(newSummaryEl);
+                XmlElement newSummaryEl = newDoc.CreateElement("atom", "summary", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
+                newSummaryEl.SetAttribute("type", "text");
+                newSummaryEl.InnerText = Res.Get(StringId.BloggerImageAlbumDescription);
+                newEntryEl.AppendChild(newSummaryEl);
 
-            XmlElement newAccessEl = newDoc.CreateElement("gphoto", "access", GPHOTO_NS_URI);
-            newAccessEl.InnerText = "private";
-            newEntryEl.AppendChild(newAccessEl);
+                XmlElement newAccessEl = newDoc.CreateElement("gphoto", "access", GPHOTO_NS_URI);
+                newAccessEl.InnerText = "private";
+                newEntryEl.AppendChild(newAccessEl);
 
-            XmlElement newCategoryEl = newDoc.CreateElement("atom", "category", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-            newCategoryEl.SetAttribute("scheme", "http://schemas.google.com/g/2005#kind");
-            newCategoryEl.SetAttribute("term", "http://schemas.google.com/photos/2007#album");
-            newEntryEl.AppendChild(newCategoryEl);
+                XmlElement newCategoryEl = newDoc.CreateElement("atom", "category", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
+                newCategoryEl.SetAttribute("scheme", "http://schemas.google.com/g/2005#kind");
+                newCategoryEl.SetAttribute("term", "http://schemas.google.com/photos/2007#album");
+                newEntryEl.AppendChild(newCategoryEl);
 
-            Uri postUri = picasaUri;
-            XmlDocument newAlbumResult = AtomClient.xmlRestRequestHelper.Post(ref postUri, CreateAuthorizationFilter(), "application/atom+xml", newDoc, null);
-            XmlElement newAlbumResultEntryEl = newAlbumResult.SelectSingleNode("/atom:entry", _nsMgr) as XmlElement;
-            Debug.Assert(newAlbumResultEntryEl != null);
-            return AtomEntry.GetLink(newAlbumResultEntryEl, _nsMgr, FEED_REL, "application/atom+xml", null, postUri);
+                Uri postUri = picasaUri;
+                XmlDocument newAlbumResult = AtomClient.xmlRestRequestHelper.Post(ref postUri, CreateAuthorizationFilter(), "application/atom+xml", newDoc, null);
+                XmlElement newAlbumResultEntryEl = newAlbumResult.SelectSingleNode("/atom:entry", _nsMgr) as XmlElement;
+                Debug.Assert(newAlbumResultEntryEl != null);
+                return AtomEntry.GetLink(newAlbumResultEntryEl, _nsMgr, FEED_REL, "application/atom+xml", null, postUri);
+            }
+            catch (Exception)
+            {
+                // Ignore
+            }
+
+            // If we've got this far, it means creating the Open Live Writer album has failed.
+            var service = GetService();
+
+            var userInfo = service.BlogUserInfos.Get("self", blogId).Execute();
+            if (userInfo.BlogUserInfoValue.PhotosAlbumKey != "0")
+            {
+                var bloggerPicasaUrl = $"https://picasaweb.google.com/data/feed/api/user/{userInfo.BlogUserInfoValue.UserId}/albumid/{userInfo.BlogUserInfoValue.PhotosAlbumKey}";
+                return bloggerPicasaUrl;
+            }
+
+            // If we've got this far, it means the user is going to have to manually create their own album.
+            throw new BlogClientFileTransferException($"We were unable to create a folder for your images, please go to PLACEHOLDER to see how to do this", "BloggerError", $"We were unable to create a folder for your images, please go to PLACEHOLDER to see how to do this");
         }
 
         private void ShowPicasaSignupPrompt(object sender, EventArgs e)
@@ -815,14 +836,14 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
         }
 
-        private void PostNewImage(string albumName, string filename, out string srcUrl, out string editUri)
+        private void PostNewImage(string albumName, string filename, string blogId, out string srcUrl, out string editUri)
         {
             for (int retry = 0; retry < MaxRetries; retry++)
             {
                 var transientCredentials = Login();
                 try
                 {
-                    string albumUrl = GetBlogImagesAlbum(albumName);
+                    string albumUrl = GetBlogImagesAlbum(albumName, blogId);
                     HttpWebResponse response = RedirectHelper.GetResponse(albumUrl, new RedirectHelper.RequestFactory(new UploadFileRequestFactory(this, filename, "POST").Create));
                     using (Stream s = response.GetResponseStream())
                     {
@@ -863,7 +884,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 }
                 catch (WebException we)
                 {
-                    if (retry < MaxRetries - 1 && 
+                    if (retry < MaxRetries - 1 &&
                         we.Response as HttpWebResponse != null)
                     {
                         if (((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.Conflict)
