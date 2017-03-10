@@ -144,9 +144,11 @@ namespace OpenLiveWriter.BlogClient.Clients
         private const string FEATURES_NS = "http://purl.org/atompub/features/1.0";
         private const string MEDIA_NS = "http://search.yahoo.com/mrss/";
         private const string LIVE_NS = "http://api.live.com/schemas";
+        private const string GPHOTO_NS_URI = "http://schemas.google.com/photos/2007";
 
         private static readonly Namespace atomNS = new Namespace(AtomProtocolVersion.V10DraftBlogger.NamespaceUri, "atom");
         private static readonly Namespace pubNS = new Namespace(AtomProtocolVersion.V10DraftBlogger.PubNamespaceUri, "app");
+        private static readonly Namespace photoNS = new Namespace(GPHOTO_NS_URI, "gphoto");
 
         private IBlogClientOptions _clientOptions;
         private XmlNamespaceManager _nsMgr;
@@ -173,6 +175,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             _nsMgr = new XmlNamespaceManager(new NameTable());
             _nsMgr.AddNamespace(atomNS.Prefix, atomNS.Uri);
             _nsMgr.AddNamespace(pubNS.Prefix, pubNS.Uri);
+            _nsMgr.AddNamespace(photoNS.Prefix, photoNS.Uri);
             _nsMgr.AddNamespace(AtomClient.xhtmlNS.Prefix, AtomClient.xhtmlNS.Uri);
             _nsMgr.AddNamespace(AtomClient.featuresNS.Prefix, AtomClient.featuresNS.Uri);
             _nsMgr.AddNamespace(AtomClient.mediaNS.Prefix, AtomClient.mediaNS.Uri);
@@ -728,14 +731,21 @@ namespace OpenLiveWriter.BlogClient.Clients
         public string GetBlogImagesAlbum(string albumName, string blogId)
         {
             const string FEED_REL = "http://schemas.google.com/g/2005#feed";
-            const string GPHOTO_NS_URI = "http://schemas.google.com/photos/2007";
-
+            
             Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default");
+
+            var picasaId = string.Empty;
 
             try
             {
                 Uri reqUri = picasaUri;
                 XmlDocument albumListDoc = AtomClient.xmlRestRequestHelper.Get(ref reqUri, CreateAuthorizationFilter(), "kind", "album");
+                var idNode = albumListDoc.SelectSingleNode(@"/atom:feed/gphoto:user", _nsMgr) as XmlElement;
+                if (idNode != null)
+                {
+                    var id = AtomProtocolVersion.V10DraftBlogger.TextNodeToPlaintext(idNode);
+                    picasaId = id;
+                }
 
                 foreach (XmlElement entryEl in albumListDoc.SelectNodes(@"/atom:feed/atom:entry", _nsMgr))
                 {
@@ -745,9 +755,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                         string titleText = AtomProtocolVersion.V10DraftBlogger.TextNodeToPlaintext(titleNode);
                         if (titleText == albumName)
                         {
-                            XmlNamespaceManager nsMgr2 = new XmlNamespaceManager(new NameTable());
-                            nsMgr2.AddNamespace("gphoto", "http://schemas.google.com/photos/2007");
-                            XmlNode numPhotosRemainingNode = entryEl.SelectSingleNode("gphoto:numphotosremaining/text()", nsMgr2);
+                            XmlNode numPhotosRemainingNode = entryEl.SelectSingleNode("gphoto:numphotosremaining/text()", _nsMgr);
                             if (numPhotosRemainingNode != null)
                             {
                                 int numPhotosRemaining;
@@ -794,7 +802,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 newSummaryEl.InnerText = Res.Get(StringId.BloggerImageAlbumDescription);
                 newEntryEl.AppendChild(newSummaryEl);
 
-                XmlElement newAccessEl = newDoc.CreateElement("gphoto", "access", GPHOTO_NS_URI);
+                XmlElement newAccessEl = newDoc.CreateElement("gphoto", "access", photoNS.Uri);
                 newAccessEl.InnerText = "private";
                 newEntryEl.AppendChild(newAccessEl);
 
@@ -815,13 +823,21 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
 
             // If we've got this far, it means creating the Open Live Writer album has failed.
-            var service = GetService();
-
-            var userInfo = service.BlogUserInfos.Get("self", blogId).Execute();
-            if (userInfo.BlogUserInfoValue.PhotosAlbumKey != "0")
+            // We will now try and use the Blogger assigned folder.
+            if (!string.IsNullOrEmpty(picasaId))
             {
-                var bloggerPicasaUrl = $"https://picasaweb.google.com/data/feed/api/user/{userInfo.BlogUserInfoValue.UserId}/albumid/{userInfo.BlogUserInfoValue.PhotosAlbumKey}";
-                return bloggerPicasaUrl;
+                var service = GetService();
+
+                var userInfo = service.BlogUserInfos.Get("self", blogId).Execute();
+
+                // If the PhotosAlbumKey is "0", this means the user has never posted to Blogger from the 
+                // Blogger web interface, which means the album has never been created and so there's nothing
+                // for us to use.
+                if (userInfo.BlogUserInfoValue.PhotosAlbumKey != "0")
+                {
+                    var bloggerPicasaUrl = $"https://picasaweb.google.com/data/feed/api/user/{picasaId}/albumid/{userInfo.BlogUserInfoValue.PhotosAlbumKey}";
+                    return bloggerPicasaUrl;
+                }
             }
 
             // If we've got this far, it means the user is going to have to manually create their own album.
