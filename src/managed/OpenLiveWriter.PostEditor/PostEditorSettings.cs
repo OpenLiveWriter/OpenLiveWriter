@@ -20,7 +20,6 @@ namespace OpenLiveWriter.PostEditor
 
     public class PostEditorSettings
     {
-
         public static bool ViewPostAfterPublish
         {
             get { return SettingsKey.GetBoolean(VIEW_POST_AFTER_PUBLISH, true); }
@@ -63,7 +62,6 @@ namespace OpenLiveWriter.PostEditor
         }
         private const string TAG_REMINDER = "TagReminder";
 
-
         public static bool Ping
         {
             get { return SettingsKey.GetBoolean(PING, false); }
@@ -93,7 +91,6 @@ namespace OpenLiveWriter.PostEditor
             set { SettingsKey.SetBoolean(AUTO_SAVE_DRAFTS, value); }
         }
         private const string AUTO_SAVE_DRAFTS = "AutoRecover";
-
 
         public static int AutoSaveMinutes
         {
@@ -126,8 +123,8 @@ namespace OpenLiveWriter.PostEditor
         }
         private const string POST_EDITOR_WINDOW_MAXIMIZED = "MainWindowMaximized";
 
-		public static Rectangle PostEditorWindowBounds
-		{
+        public static Rectangle PostEditorWindowBounds
+        {
             get { return SettingsKey.GetRectangle(POST_EDITOR_WINDOW_BOUNDS, DefaultWindowBounds); }
             set { SettingsKey.SetRectangle(POST_EDITOR_WINDOW_BOUNDS, value); }
         }
@@ -174,7 +171,14 @@ namespace OpenLiveWriter.PostEditor
             get { return SettingsKey.GetBoolean(AUTOMATION_MODE, false); }
             set { SettingsKey.SetBoolean(AUTOMATION_MODE, value); }
         }
-        private const string AUTOMATION_MODE = "AutomationMode";       
+        private const string AUTOMATION_MODE = "AutomationMode";
+
+        public static string WeblogPostsFolder
+        {
+            get { return SettingsKey.GetString(WEBLOG_POSTS_FOLDER, null); }
+            set { SettingsKey.SetString(WEBLOG_POSTS_FOLDER, value); }
+        }
+        private const string WEBLOG_POSTS_FOLDER = "PostsDirectory";
 
         internal static SettingsPersisterHelper SettingsKey = ApplicationEnvironment.PreferencesSettingsRoot.GetSubSettings("PostEditor");
         public static SettingsPersisterHelper RecentEmoticonsKey = SettingsKey.GetSubSettings("RecentEmoticons");

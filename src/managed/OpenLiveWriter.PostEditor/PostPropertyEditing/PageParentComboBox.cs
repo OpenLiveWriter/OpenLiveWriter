@@ -2,180 +2,178 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Drawing ;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Collections;
 using System.ComponentModel;
-using OpenLiveWriter.Controls ;
+using OpenLiveWriter.Controls;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.BlogClient;
 
-
 namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 {
-	internal class PageParentComboBox : DelayedFetchComboBox
-	{
-		public PageParentComboBox()
-		{
-			DrawMode = DrawMode.OwnerDrawFixed ;
-			IntegralHeight = false ;
-		}
+    internal class PageParentComboBox : DelayedFetchComboBox
+    {
+        public PageParentComboBox()
+        {
+            DrawMode = DrawMode.OwnerDrawFixed;
+            IntegralHeight = false;
+        }
 
-		protected override void OnDrawItem(DrawItemEventArgs e)
-		{
-			if (e.Index != -1)
-			{
-				// calcluate text to paint
-				PostIdAndNameField comboItem = Items[e.Index] as PostIdAndNameField ;
-				string text = comboItem.ToString() ;
-				if ( comboItem is ParentPageComboItem )
-				{
-					if ( e.Bounds.Width >= Width )
-					{
-						text = new String(' ', (comboItem as ParentPageComboItem).IndentLevel * 3) + text ;
-					}
-				}
-					
-				e.DrawBackground();
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            if (e.Index != -1)
+            {
+                // calcluate text to paint
+                PostIdAndNameField comboItem = Items[e.Index] as PostIdAndNameField;
+                string text = comboItem.ToString();
+                if (comboItem is ParentPageComboItem)
+                {
+                    if (e.Bounds.Width >= Width)
+                    {
+                        text = new String(' ', (comboItem as ParentPageComboItem).IndentLevel * 3) + text;
+                    }
+                }
 
-				using ( Brush brush = new SolidBrush(e.ForeColor) )
-					e.Graphics.DrawString(text, e.Font, brush, e.Bounds.X, e.Bounds.Y+1) ;
+                e.DrawBackground();
 
-				e.DrawFocusRectangle();
-			}
-		}
+                using (Brush brush = new SolidBrush(e.ForeColor))
+                    e.Graphics.DrawString(text, e.Font, brush, e.Bounds.X, e.Bounds.Y + 1);
 
-	}
+                e.DrawFocusRectangle();
+            }
+        }
 
-	internal class ParentPageComboItem : PostIdAndNameField, IComparable
-	{
-		public ParentPageComboItem(PageInfo pageInfo, int indentLevel)
-			: this(pageInfo, indentLevel, new ArrayList() )
-		{
-		}
+    }
 
-		public ParentPageComboItem(PageInfo pageInfo, int indentLevel, ArrayList children)
-			: base(pageInfo.Id, pageInfo.Title)
-		{
-			_pageInfo = pageInfo ;
-			_indentLevel = indentLevel ;
-			_children = children ;
-		}
+    internal class ParentPageComboItem : PostIdAndNameField, IComparable
+    {
+        public ParentPageComboItem(PageInfo pageInfo, int indentLevel)
+            : this(pageInfo, indentLevel, new ArrayList())
+        {
+        }
 
-		public int IndentLevel
-		{
-			get { return _indentLevel; }
-		}
-		private int _indentLevel ;
+        public ParentPageComboItem(PageInfo pageInfo, int indentLevel, ArrayList children)
+            : base(pageInfo.Id, pageInfo.Title)
+        {
+            _pageInfo = pageInfo;
+            _indentLevel = indentLevel;
+            _children = children;
+        }
 
-		public ArrayList Children{ get { return _children; } }
-		private ArrayList _children ;
+        public int IndentLevel
+        {
+            get { return _indentLevel; }
+        }
+        private int _indentLevel;
 
-		public int CompareTo(object obj)
-		{
-			return Name.CompareTo((obj as ParentPageComboItem).Name) ;
-		}
+        public ArrayList Children { get { return _children; } }
+        private ArrayList _children;
 
-		public override object Clone()
-		{
-			return new ParentPageComboItem(_pageInfo, IndentLevel, Children.Clone() as ArrayList);
-		}
+        public int CompareTo(object obj)
+        {
+            return Name.CompareTo((obj as ParentPageComboItem).Name);
+        }
 
-		private PageInfo _pageInfo ;
-	}
+        public override object Clone()
+        {
+            return new ParentPageComboItem(_pageInfo, IndentLevel, Children.Clone() as ArrayList);
+        }
 
-	internal class BlogPageFetcher : BlogDelayedFetchHandler
-	{
-		public BlogPageFetcher(string blogId, int timeoutMs)
-			: base(blogId, "list of pages", timeoutMs)
-		{
-		}
-			
-		protected override object BlogFetchOperation(Blog blog)
-		{
-			// refresh our page list
-			blog.RefreshPageList();
+        private PageInfo _pageInfo;
+    }
 
-			// return what we've got
-			return ConvertPageList(blog.PageList) ;
-		}
+    internal class BlogPageFetcher : BlogDelayedFetchHandler
+    {
+        public BlogPageFetcher(string blogId, int timeoutMs)
+            : base(blogId, "list of pages", timeoutMs)
+        {
+        }
 
-		protected override object[] GetDefaultItems(Blog blog)
-		{
-			return ConvertPageList(blog.PageList) ;
-		}
+        protected override object BlogFetchOperation(Blog blog)
+        {
+            // refresh our page list
+            blog.RefreshPageList();
 
-		private object[] ConvertPageList(PageInfo[] pageList)
-		{
-			// acculate available parents
-			Hashtable availableParents = new Hashtable();
-			foreach (PageInfo page in pageList) 
-				availableParents[page.Id] = null ;
+            // return what we've got
+            return ConvertPageList(blog.PageList);
+        }
 
-			// build an array list of pages, fixing up pages with "invalid"
-			// parent ids to be root items
-			ArrayList sourcePages = new ArrayList();
-			foreach (PageInfo page in pageList)
-			{
-				string parent = page.ParentId ;
-				if ( !availableParents.ContainsKey(page.ParentId) )
-					parent = String.Empty ;
-				sourcePages.Add(new PageInfo(page.Id, page.Title, page.DatePublished, parent)) ;
-			}
+        protected override object[] GetDefaultItems(Blog blog)
+        {
+            return ConvertPageList(blog.PageList);
+        }
 
-			// get a tree of child items
-			ArrayList pageListItems = ExtractChildItemsOfParent(sourcePages, String.Empty, 0) ;
+        private object[] ConvertPageList(PageInfo[] pageList)
+        {
+            // acculate available parents
+            Hashtable availableParents = new Hashtable();
+            foreach (PageInfo page in pageList)
+                availableParents[page.Id] = null;
 
-			// flatten list  and return
-			return FlattenList(pageListItems).ToArray() ;
-		}
-			
+            // build an array list of pages, fixing up pages with "invalid"
+            // parent ids to be root items
+            ArrayList sourcePages = new ArrayList();
+            foreach (PageInfo page in pageList)
+            {
+                string parent = page.ParentId;
+                if (!availableParents.ContainsKey(page.ParentId))
+                    parent = String.Empty;
+                sourcePages.Add(new PageInfo(page.Id, page.Title, page.DatePublished, parent));
+            }
 
-		private ArrayList ExtractChildItemsOfParent(ArrayList sourcePages, string parentId, int indentLevel)
-		{
-			// accumulate all categories with the specified parent
-			ArrayList childItems = new ArrayList();
-			foreach ( PageInfo page in sourcePages.Clone() as ArrayList)
-			{
-				if ( page.ParentId == parentId )
-				{
-					// add category to our list and remove it from the source list
-					childItems.Add( new ParentPageComboItem(page, indentLevel) ) ;
-					sourcePages.Remove(page);
-				}
-			}
+            // get a tree of child items
+            ArrayList pageListItems = ExtractChildItemsOfParent(sourcePages, String.Empty, 0);
 
-			// sort the list alphabetically
-			childItems.Sort();
+            // flatten list  and return
+            return FlattenList(pageListItems).ToArray();
+        }
 
-			// add the children of each item recursively
-			foreach (ParentPageComboItem pageListItem in childItems)
-				pageListItem.Children.AddRange(ExtractChildItemsOfParent(sourcePages, pageListItem.Id, pageListItem.IndentLevel+1));
+        private ArrayList ExtractChildItemsOfParent(ArrayList sourcePages, string parentId, int indentLevel)
+        {
+            // accumulate all categories with the specified parent
+            ArrayList childItems = new ArrayList();
+            foreach (PageInfo page in sourcePages.Clone() as ArrayList)
+            {
+                if (page.ParentId == parentId)
+                {
+                    // add category to our list and remove it from the source list
+                    childItems.Add(new ParentPageComboItem(page, indentLevel));
+                    sourcePages.Remove(page);
+                }
+            }
 
-			// return the list
-			return childItems ;
-		}
+            // sort the list alphabetically
+            childItems.Sort();
 
-		private static ArrayList FlattenList(ArrayList sourceList)
-		{
-			ArrayList flattenedList = new ArrayList();
-			foreach( ParentPageComboItem listItem in sourceList )
-			{
-				// add the item
-				flattenedList.Add(listItem) ;
+            // add the children of each item recursively
+            foreach (ParentPageComboItem pageListItem in childItems)
+                pageListItem.Children.AddRange(ExtractChildItemsOfParent(sourcePages, pageListItem.Id, pageListItem.IndentLevel + 1));
 
-				if ( listItem.Children.Count > 0 )
-				{
-					// add children recursively
-					flattenedList.AddRange(FlattenList(listItem.Children));	
+            // return the list
+            return childItems;
+        }
 
-					// reset children because we are flattened
-					listItem.Children.Clear();
-				}
-			}
-			
-			return flattenedList ;
-		}
-	}
+        private static ArrayList FlattenList(ArrayList sourceList)
+        {
+            ArrayList flattenedList = new ArrayList();
+            foreach (ParentPageComboItem listItem in sourceList)
+            {
+                // add the item
+                flattenedList.Add(listItem);
+
+                if (listItem.Children.Count > 0)
+                {
+                    // add children recursively
+                    flattenedList.AddRange(FlattenList(listItem.Children));
+
+                    // reset children because we are flattened
+                    listItem.Children.Clear();
+                }
+            }
+
+            return flattenedList;
+        }
+    }
 
 }

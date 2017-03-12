@@ -101,7 +101,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         {
             FileInfo fileInfo = new FileInfo(logFileName);
 
-            for (; ; )
+            for (;;)
             {
                 LogEntry localHead;
 
@@ -147,15 +147,15 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 
                 try
                 {
-                    //	Try to write the message.  Incrementally back off, waiting for the file to 
-                    //  become available.  (The first backoff is 0ms intentionally -- to give up our 
-                    //  scheduling quantum -- allowing another thread to run.  Subsequent backoffs 
+                    //	Try to write the message.  Incrementally back off, waiting for the file to
+                    //  become available.  (The first backoff is 0ms intentionally -- to give up our
+                    //  scheduling quantum -- allowing another thread to run.  Subsequent backoffs
                     //  increase linearly at 5ms intervals.)
                     for (int i = 0; ; i++)
                     {
                         try
                         {
-                            //	Get a stream writer on the file.					
+                            //	Get a stream writer on the file.
                             using (StreamWriter streamWriter = File.AppendText(logFileName))
                             {
                                 for (LogEntry le = localHead; le != null; le = le.Next)

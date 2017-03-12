@@ -43,7 +43,7 @@ namespace OpenLiveWriter.CoreServices.HTML
         public void FixReferences(TextWriter output, ExternalReferenceFixer externalReferenceFixer, ReferenceFixedCallback referenceFixed)
         {
             var referenceFixer = new ReferenceFixer(
-                delegate(BeginTag beginTag, string reference)
+                delegate (BeginTag beginTag, string reference)
                 {
                     return externalReferenceFixer(beginTag, reference, _sourceUrl);
                 });

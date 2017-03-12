@@ -44,9 +44,8 @@ namespace OpenLiveWriter.ApplicationFramework
 
         public void RefreshLayout()
         {
-            ((IRtlAware) this).Layout();
+            ((IRtlAware)this).Layout();
         }
-
 
         private bool _doingLayout = false;
         void IRtlAware.Layout()
@@ -96,7 +95,7 @@ namespace OpenLiveWriter.ApplicationFramework
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
         ]
-		public string HeaderText
+        public string HeaderText
         {
             get
             {
@@ -116,7 +115,7 @@ namespace OpenLiveWriter.ApplicationFramework
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
         ]
-		public string LinkText
+        public string LinkText
         {
             get
             {
@@ -133,7 +132,7 @@ namespace OpenLiveWriter.ApplicationFramework
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
         ]
-		public string SecondLinkText
+        public string SecondLinkText
         {
             get
             {
@@ -145,7 +144,6 @@ namespace OpenLiveWriter.ApplicationFramework
                 linkLabelOptional.Visible = !string.IsNullOrEmpty(value);
             }
         }
-
 
         [
         Browsable(false),
@@ -168,7 +166,7 @@ namespace OpenLiveWriter.ApplicationFramework
         Browsable(false),
         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)
         ]
-		public string SecondLinkUrl
+        public string SecondLinkUrl
         {
             get
             {
@@ -209,14 +207,10 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
-
-
         private void linkLabelOptional_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LaunchUrl(_secondUrl);
         }
-
-
 
     }
 }

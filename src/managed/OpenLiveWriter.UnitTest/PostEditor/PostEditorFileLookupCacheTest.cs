@@ -67,10 +67,10 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         public void PostLifeCycle()
         {
             Assert.IsNull(Lookup(blogId1, "501"));
-            
+
             CreateBlogPost(blogId1, "501", "newPost");
             Assert.AreEqual(Lookup(blogId1, "501").Name, "newPost.wpost");
-            
+
             File.Delete(Path.Combine(tempDir.FullName, "newPost.wpost"));
             Assert.IsNull(Lookup(blogId1, "501"));
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -14,14 +14,14 @@ namespace OpenLiveWriter.Mshtml
 {
     /// <summary>
     /// FontWrapper will take a string formatted for IDM_COMPOSESETTINGS and create the HTML
-    /// string that has the same formatting. 
+    /// string that has the same formatting.
     /// Bold: 1 for bold; 0 or blank for non-bold.
     /// Italic: 1 for italic; 0 or blank for non-italic.
     /// Underline: 1 for underline; 0 or blank for non-underline.
     /// Size: Integer that specifies the font size within a range of 1 through 7, with 7 representing the largest font.
     /// Font Color: RGB color value given by a period-delimited list of three integers (for example, 100.19.0). Each number should be between 0 and 255, but if a number is not, the value for the color will be interpreted as the number mod 255.
     /// Background Color: RGB color value given by a period delimited list of three integers (e.g., 100.19.0). Each number should be between 0 and 255, but if a number is not, the value for the color will be the number mod 255.
-    /// Name: String that specifies a font name. 
+    /// Name: String that specifies a font name.
     /// </summary>
     public class MshtmlFontWrapper
     {
@@ -47,7 +47,7 @@ namespace OpenLiveWriter.Mshtml
         }
 
         public string ApplyFont(string text)
-        {           
+        {
             if (ValidFont)
                 return string.Format(CultureInfo.InvariantCulture, HtmlWrap, text);
             else
@@ -63,7 +63,7 @@ namespace OpenLiveWriter.Mshtml
 
         public string ApplyFontToBody(string bodyInnerHtml)
         {
-            return String.Format(CultureInfo.InvariantCulture, @"<div style=""font-family:'{0}';font-size:{1}pt;color:{2};"">{3}</div>", 
+            return String.Format(CultureInfo.InvariantCulture, @"<div style=""font-family:'{0}';font-size:{1}pt;color:{2};"">{3}</div>",
                 FontFamily,     // {0}
                 FontPointSize,  // {1}
                 FontColor,      // {2}
@@ -87,10 +87,9 @@ namespace OpenLiveWriter.Mshtml
                 ValidFont = false;
                 return;
             }
-          
+
             start.Append("<DIV STYLE=\"");
             end.Insert(0, "</DIV>");
-
 
             start.Append("font-size:");
             if (Int32.TryParse(parts[3], NumberStyles.Integer, CultureInfo.InvariantCulture, out FontSize))
@@ -127,7 +126,7 @@ namespace OpenLiveWriter.Mshtml
                     start.Append("color:");
                     start.Append(FontColor);
                     start.Append(";");
-                    
+
                 }
                 catch (ArgumentException e) // Invalid color
                 {
@@ -141,7 +140,6 @@ namespace OpenLiveWriter.Mshtml
                     ValidFont = false;
                     return;
                 }
-
 
             }
 
@@ -167,7 +165,6 @@ namespace OpenLiveWriter.Mshtml
             }
             start.Append(FontFamily);
             start.Append("';\"");
-
 
             start.Append(">");
 

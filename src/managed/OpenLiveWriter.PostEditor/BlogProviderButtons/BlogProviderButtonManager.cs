@@ -12,18 +12,15 @@ using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.Extensibility.BlogClient;
-using OpenLiveWriter.ApplicationFramework ;
+using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.Interop.Com;
 using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.PostEditor.Commands;
 
-
-// P0 TODO 
+// P0 TODO
 // ==========================================================================================
 
-
-
-// M1: 
+// M1:
 //    - Syndication docs for partners
 
 // M2:
@@ -45,7 +42,6 @@ using OpenLiveWriter.PostEditor.Commands;
 //    - Generic editor: simple article-based CMS
 //    - Generic editor: bootstrap from web page
 
-
 namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 {
     internal sealed class BlogProviderButtonCommandBarInfo
@@ -54,16 +50,16 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         public const string ProviderCommandFormat = "BlogProviderButtonsProviderCommand{0}";
     }
 
-	internal class BlogProviderButtonManager : GalleryCommand<Command>, IDisposable
-	{
+    internal class BlogProviderButtonManager : GalleryCommand<Command>, IDisposable
+    {
         // The first two items in the gallery are:
         // 1. The blog home page
         // 2. The blog admin page
         // The values are available through the editing manager.
         private object _commandsLock = new object();
 
-		public BlogProviderButtonManager(CommandManager commandManager) : base(CommandId.BlogProviderButtonsGallery, false)
-		{
+        public BlogProviderButtonManager(CommandManager commandManager) : base(CommandId.BlogProviderButtonsGallery, false)
+        {
             AllowSelection = false;
 
             lock (_commandsLock)
@@ -86,11 +82,11 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 commandManager.Add(this);
 
             }
-						
+
             commandViewWeblog = commandManager.Add(CommandId.ViewWeblog, commandViewWeblog_Execute);
             commandViewWeblogAdmin = commandManager.Add(CommandId.ViewWeblogAdmin, commandViewWeblogAdmin_Execute);
 
-		}
+        }
 
         void BlogProviderButtonManager_ExecuteWithArgs(object sender, EventArgs e)
         {
@@ -113,29 +109,27 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                     _commands[SelectedIndex - commandsOffset].PerformExecute();
                 }
             }
-        }       
+        }
 
+        public void Initialize(Control synchronizeInvokeControl, BlogPostEditingManager editingManager)
+        {
+            // initialize notification sink
+            _notificationSink = new BlogProviderButtonNotificationSink(synchronizeInvokeControl);
+            _notificationSink.BlogProviderButtonNotificationReceived += new BlogProviderButtonNotificationReceivedHandler(_notificationSink_BlogProviderButtonNotificationReceived);
+            _notificationSink.CheckForNotifications();
 
-		public void Initialize(Control synchronizeInvokeControl, BlogPostEditingManager editingManager)
-		{
-			// initialize notification sink
-			_notificationSink = new BlogProviderButtonNotificationSink(synchronizeInvokeControl);
-			_notificationSink.BlogProviderButtonNotificationReceived +=new BlogProviderButtonNotificationReceivedHandler(_notificationSink_BlogProviderButtonNotificationReceived);
-		    _notificationSink.CheckForNotifications();
-
-			// save a reference to the editing manager and subscribe to change notifications
-			_editingManager = editingManager ;
-			_editingManager.BlogChanged +=new EventHandler(_editingManager_BlogChanged);
-			_editingManager.BlogSettingsChanged +=new WeblogSettingsChangedHandler(_editingManager_BlogSettingsChanged);
+            // save a reference to the editing manager and subscribe to change notifications
+            _editingManager = editingManager;
+            _editingManager.BlogChanged += new EventHandler(_editingManager_BlogChanged);
+            _editingManager.BlogSettingsChanged += new WeblogSettingsChangedHandler(_editingManager_BlogSettingsChanged);
 
             // connect to the current weblog
             if (editingManager.BlogId != String.Empty)
                 ConnectToBlog(editingManager.BlogId);
-		}
+        }
 
-		
-		private void ConnectToBlog(string blogId)
-		{
+        private void ConnectToBlog(string blogId)
+        {
             lock (_commandsLock)
             {
                 if (BlogSettings.BlogIdIsValid(blogId))
@@ -147,8 +141,8 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 {
                     ClearBlogProvider();
                 }
-            }		    
-		}
+            }
+        }
 
         private string blogAdminUrl;
         private int commandsOffset;
@@ -159,19 +153,19 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
         /// Must be called under the proection of _commandsLock.
         /// </summary>
         /// <param name="blog"></param>
-		private void ConnectToBlog(Blog blog)
-		{
+        private void ConnectToBlog(Blog blog)
+        {
             items.Clear();
             UpdateInvalidationState(PropertyKeys.ItemsSource, InvalidationState.Pending);
             InvalidateSelectedItemProperties();
 
-			// always clear existing providers to start
-			ClearBlogProvider() ;			
+            // always clear existing providers to start
+            ClearBlogProvider();
 
-                        blogAdminUrl = _editingManager.BlogAdminUrl;            
+            blogAdminUrl = _editingManager.BlogAdminUrl;
 
             // Add the homepage link
-            commandsOffset = 1;                        
+            commandsOffset = 1;
             string homepageLinkText = _editingManager.Blog.ClientOptions.HomepageLinkText;
             items.Add(new GalleryItem(!String.IsNullOrEmpty(homepageLinkText) ? homepageLinkText : Res.Get(StringId.ViewWeblog), Images.BlogWebPreview_SmallImage, commandViewWeblog));
 
@@ -181,7 +175,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 commandsOffset++;
                 // @RIBBON TODO: Add an icon for the admin link item
                 string adminLinkText = _editingManager.Blog.ClientOptions.AdminLinkText;
-                items.Add(new GalleryItem(!String.IsNullOrEmpty(adminLinkText) ? adminLinkText : Res.Get(StringId.ManageWeblog), Images.BlogAccount_SmallImage, commandViewWeblogAdmin));                
+                items.Add(new GalleryItem(!String.IsNullOrEmpty(adminLinkText) ? adminLinkText : Res.Get(StringId.ManageWeblog), Images.BlogAccount_SmallImage, commandViewWeblogAdmin));
             }
 
             if (PostEditorSettings.AllowProviderButtons)
@@ -193,7 +187,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                     // create buttons and attach to commands
                     for (int i = 0; (i < providerButtonDescriptions.Length) && (i < _commands.Length); i++)
                     {
-                        // create button 
+                        // create button
                         BlogProviderButton providerButton = new BlogProviderButton(blog.Id, blog.HostBlogId, blog.HomepageUrl, blog.PostApiUrl, providerButtonDescriptions[i].Id);
 
                         // notify button we are connecting (allows it to reset notification image and
@@ -203,7 +197,7 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                         // connect button to frame
                         _commands[i].On = true;
                         _commands[i].Tag = providerButton;
-                        _commands[i].Enabled = PostEditorSettings.AllowProviderButtons;                                                
+                        _commands[i].Enabled = PostEditorSettings.AllowProviderButtons;
                         _commands[i].AccessibleName = providerButton.CurrentText;
                         _commands[i].LabelTitle = providerButton.CurrentText;
                         _commands[i].LargeImage = providerButton.CurrentImage;
@@ -234,68 +228,67 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                     // attach notification sink
                     _notificationSink.Attach(blog);
                 }
-                OnStateChanged(EventArgs.Empty);                                                     
+                OnStateChanged(EventArgs.Empty);
             }
-            
-		}       
+
+        }
 
         /// <summary>
         /// Must be called under the protection of _commandsLock.
         /// </summary>
-		private void ClearBlogProvider()
-		{
-			// detach from the notification sink
-			_notificationSink.Detach();
+        private void ClearBlogProvider()
+        {
+            // detach from the notification sink
+            _notificationSink.Detach();
 
-			// turn off all of the commands
-			foreach ( Command command in _commands )
-				DisableCommand(command) ;
-		}
+            // turn off all of the commands
+            foreach (Command command in _commands)
+                DisableCommand(command);
+        }
 
         /// <summary>
         /// Must be called under the protection of _commandsLock.
         /// </summary>
         /// <param name="command"></param>
-		private void DisableCommand(Command command)
-		{
-			command.On = false ;
-			if ( command.Tag != null )
-			{
-				// optionally dispose
-				IDisposable disposableTag = command.Tag as IDisposable ;
-				if ( disposableTag != null )
-					disposableTag.Dispose();
+        private void DisableCommand(Command command)
+        {
+            command.On = false;
+            if (command.Tag != null)
+            {
+                // optionally dispose
+                IDisposable disposableTag = command.Tag as IDisposable;
+                if (disposableTag != null)
+                    disposableTag.Dispose();
 
-				command.Tag = null ;
-			}
-			command.CommandBarButtonBitmapEnabled = null ;
-			command.Text = String.Empty ;
-			RemoveDropDownMenu(command) ;
-		}
+                command.Tag = null;
+            }
+            command.CommandBarButtonBitmapEnabled = null;
+            command.Text = String.Empty;
+            RemoveDropDownMenu(command);
+        }
 
         /// <summary>
         /// Must be called under the protection _commandsLock.
         /// </summary>
         /// <param name="command"></param>
-		private void RemoveDropDownMenu(Command command)
-		{
-			command.CommandBarButtonContextMenuHandler = null; 
-			command.CommandBarButtonContextMenuDropDown = false ;	
-		}
+        private void RemoveDropDownMenu(Command command)
+        {
+            command.CommandBarButtonContextMenuHandler = null;
+            command.CommandBarButtonContextMenuDropDown = false;
+        }
 
-		private void _editingManager_BlogChanged(object sender, EventArgs e)
-		{
-			ConnectToBlog(_editingManager.BlogId) ;
-		}
+        private void _editingManager_BlogChanged(object sender, EventArgs e)
+        {
+            ConnectToBlog(_editingManager.BlogId);
+        }
 
-		private void _editingManager_BlogSettingsChanged(string blogId, bool templateChanged)
-		{
-			ConnectToBlog(blogId) ;
-		}
-		
+        private void _editingManager_BlogSettingsChanged(string blogId, bool templateChanged)
+        {
+            ConnectToBlog(blogId);
+        }
 
-		private void BlogProviderButton_Execute(object sender, EventArgs e)
-		{
+        private void BlogProviderButton_Execute(object sender, EventArgs e)
+        {
             lock (_commandsLock)
             {
                 // get the command and frame button
@@ -308,14 +301,13 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                 // launch the browser
                 if (!String.IsNullOrEmpty(blogProviderButton.ClickUrl))
                     ShellHelper.LaunchUrl(blogProviderButton.ClickUrl);
-                else if (!String.IsNullOrEmpty(blogProviderButton.ContentUrl))   
-                    ShellHelper.LaunchUrl(blogProviderButton.ContentUrl);                                    
-            }		    
-		}
+                else if (!String.IsNullOrEmpty(blogProviderButton.ContentUrl))
+                    ShellHelper.LaunchUrl(blogProviderButton.ContentUrl);
+            }
+        }
 
-		
-		private void _notificationSink_BlogProviderButtonNotificationReceived(string blogId, string buttonId)
-		{
+        private void _notificationSink_BlogProviderButtonNotificationReceived(string blogId, string buttonId)
+        {
             lock (_commandsLock)
             {
                 // see if we are currently managing this button (can get "stale" notifications if they
@@ -356,8 +348,8 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                         Invalidate(new PropertyKey[] { PropertyKeys.ItemsSource });
                     }
                 }
-            }			
-		}
+            }
+        }
 
         private void commandViewWeblog_Execute(object sender, EventArgs e)
         {
@@ -369,14 +361,13 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
             ShellHelper.LaunchUrl(_editingManager.BlogAdminUrl);
         }
 
-		
-		public void Dispose()
-		{
-			if(_editingManager != null)
-			{
-				_editingManager.BlogChanged -=new EventHandler(_editingManager_BlogChanged);
-				_editingManager = null;
-			}
+        public void Dispose()
+        {
+            if (_editingManager != null)
+            {
+                _editingManager.BlogChanged -= new EventHandler(_editingManager_BlogChanged);
+                _editingManager = null;
+            }
 
             lock (_commandsLock)
             {
@@ -387,113 +378,111 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
                     if (disposableTag != null)
                         disposableTag.Dispose();
                 }
-            }		    
-			
-			if ( _notificationSink != null )
-			{
-				_notificationSink.BlogProviderButtonNotificationReceived -= new BlogProviderButtonNotificationReceivedHandler(_notificationSink_BlogProviderButtonNotificationReceived);
-				_notificationSink.Dispose();
-			}
-		}
+            }
+
+            if (_notificationSink != null)
+            {
+                _notificationSink.BlogProviderButtonNotificationReceived -= new BlogProviderButtonNotificationReceivedHandler(_notificationSink_BlogProviderButtonNotificationReceived);
+                _notificationSink.Dispose();
+            }
+        }
 
         public override void LoadItems()
         {
         }
 
-		private BlogPostEditingManager _editingManager ;
+        private BlogPostEditingManager _editingManager;
 
-		private Command[] _commands = new Command[BlogProviderButtonCommandBarInfo.MaximumProviderCommands];
+        private Command[] _commands = new Command[BlogProviderButtonCommandBarInfo.MaximumProviderCommands];
 
-		private BlogProviderButtonNotificationSink _notificationSink ;
-	}
-	
+        private BlogProviderButtonNotificationSink _notificationSink;
+    }
 
-	internal class BlogProviderContentViewer
-	{
-		public BlogProviderContentViewer(BlogProviderButton button)
-		{
-			_button = button ;
-		}
+    internal class BlogProviderContentViewer
+    {
+        public BlogProviderContentViewer(BlogProviderButton button)
+        {
+            _button = button;
+        }
 
-		public void ViewContent(Control parent, Point menuLocation, int alternativeLocation, IDisposable disposeWhenDone)
-		{
-			try
-			{
-				if ( !WinInet.InternetConnectionAvailable )
-				{
-					disposeWhenDone.Dispose();
-					DisplayMessage.Show(MessageId.InternetConnectionWarning);
-					return ;
-				}
+        public void ViewContent(Control parent, Point menuLocation, int alternativeLocation, IDisposable disposeWhenDone)
+        {
+            try
+            {
+                if (!WinInet.InternetConnectionAvailable)
+                {
+                    disposeWhenDone.Dispose();
+                    DisplayMessage.Show(MessageId.InternetConnectionWarning);
+                    return;
+                }
 
-				// track resource that need to be disposed
-				_disposeWhenDone = disposeWhenDone;
+                // track resource that need to be disposed
+                _disposeWhenDone = disposeWhenDone;
 
-				using ( new WaitCursor() )
-				{
-					// if the user is holding the CTRL button down then invalidate the cache
-					bool forceResynchronize = (KeyboardHelper.GetModifierKeys() == Keys.Control) ;
+                using (new WaitCursor())
+                {
+                    // if the user is holding the CTRL button down then invalidate the cache
+                    bool forceResynchronize = (KeyboardHelper.GetModifierKeys() == Keys.Control);
 
-					// setup download options
-					int downloadOptions = 
-						DLCTL.DLIMAGES |
-						DLCTL.NO_CLIENTPULL | 
-						DLCTL.NO_BEHAVIORS |
-						DLCTL.NO_DLACTIVEXCTLS |
-						DLCTL.SILENT ;
-					if (forceResynchronize)
-						downloadOptions |= DLCTL.RESYNCHRONIZE ;
+                    // setup download options
+                    int downloadOptions =
+                        DLCTL.DLIMAGES |
+                        DLCTL.NO_CLIENTPULL |
+                        DLCTL.NO_BEHAVIORS |
+                        DLCTL.NO_DLACTIVEXCTLS |
+                        DLCTL.SILENT;
+                    if (forceResynchronize)
+                        downloadOptions |= DLCTL.RESYNCHRONIZE;
 
-					// determine cookies and/or network credentials
-					WinInetCredentialsContext credentialsContext = null;
-					try
-					{
-						credentialsContext = BlogClientHelper.GetCredentialsContext(_button.BlogId, _button.ContentUrl) ;
-					}
-					catch(BlogClientOperationCancelledException)
-					{
-						_disposeWhenDone.Dispose();
-						return ;
-					}
+                    // determine cookies and/or network credentials
+                    WinInetCredentialsContext credentialsContext = null;
+                    try
+                    {
+                        credentialsContext = BlogClientHelper.GetCredentialsContext(_button.BlogId, _button.ContentUrl);
+                    }
+                    catch (BlogClientOperationCancelledException)
+                    {
+                        _disposeWhenDone.Dispose();
+                        return;
+                    }
 
-					// note that we have viewed the content
-					_button.RecordButtonClicked();
+                    // note that we have viewed the content
+                    _button.RecordButtonClicked();
 
-					// create the form and position it
-					BrowserMiniForm form = new BrowserMiniForm( _button.ContentQueryUrl, downloadOptions, credentialsContext) ;
-					form.StartPosition = FormStartPosition.Manual;
-					form.Size = _button.ContentDisplaySize ;
-					if (!Screen.FromPoint(menuLocation).Bounds.Contains(menuLocation.X + form.Width, menuLocation.Y))
-						menuLocation.X = alternativeLocation - form.Width;
-					form.Location = new Point(menuLocation.X + 1, menuLocation.Y );
+                    // create the form and position it
+                    BrowserMiniForm form = new BrowserMiniForm(_button.ContentQueryUrl, downloadOptions, credentialsContext);
+                    form.StartPosition = FormStartPosition.Manual;
+                    form.Size = _button.ContentDisplaySize;
+                    if (!Screen.FromPoint(menuLocation).Bounds.Contains(menuLocation.X + form.Width, menuLocation.Y))
+                        menuLocation.X = alternativeLocation - form.Width;
+                    form.Location = new Point(menuLocation.X + 1, menuLocation.Y);
 
-					// subscribe to close event for disposal
-					form.Closed += new EventHandler(form_Closed);
-			
-					// float above parent if we have one
-					IMiniFormOwner miniFormOwner = parent.FindForm() as IMiniFormOwner;
-					if (miniFormOwner != null)
-						form.FloatAboveOwner(miniFormOwner);
-				
-					// show the form
-					form.Show();
-				}
-			}
-			catch
-			{
-				disposeWhenDone.Dispose();
-				throw;
-			}
-		}
+                    // subscribe to close event for disposal
+                    form.Closed += new EventHandler(form_Closed);
 
-		private void form_Closed(object sender, EventArgs e)
-		{
-			_disposeWhenDone.Dispose();
-		}
+                    // float above parent if we have one
+                    IMiniFormOwner miniFormOwner = parent.FindForm() as IMiniFormOwner;
+                    if (miniFormOwner != null)
+                        form.FloatAboveOwner(miniFormOwner);
 
+                    // show the form
+                    form.Show();
+                }
+            }
+            catch
+            {
+                disposeWhenDone.Dispose();
+                throw;
+            }
+        }
 
-		private readonly BlogProviderButton _button ;
-		private IDisposable _disposeWhenDone ;
-	}
-		
+        private void form_Closed(object sender, EventArgs e)
+        {
+            _disposeWhenDone.Dispose();
+        }
+
+        private readonly BlogProviderButton _button;
+        private IDisposable _disposeWhenDone;
+    }
+
 }

@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 
 namespace mshtml
 {
-	[ComImport, Guid("25336920-03F9-11CF-8FD0-00AA00686F13")]
-	public class HTMLDocumentClass
-	{
-	}
+    [ComImport, Guid("25336920-03F9-11CF-8FD0-00AA00686F13")]
+    public class HTMLDocumentClass
+    {
+    }
 }

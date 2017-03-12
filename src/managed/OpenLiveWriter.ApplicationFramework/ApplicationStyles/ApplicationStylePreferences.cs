@@ -10,144 +10,144 @@ using OpenLiveWriter.ApplicationFramework.Preferences ;
 
 namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 {
-	/// <summary>
-	/// Appearance preferences.
-	/// </summary>
-	public class ApplicationStylePreferences : OpenLiveWriter.ApplicationFramework.Preferences.Preferences
-	{
-		#region Static & Constant Declarations
+    /// <summary>
+    /// Appearance preferences.
+    /// </summary>
+    public class ApplicationStylePreferences : OpenLiveWriter.ApplicationFramework.Preferences.Preferences
+    {
+        #region Static & Constant Declarations
 
-		/// <summary>
-		/// The AppearancePreferences sub-key.
-		/// </summary>
-		private const string PREFERENCES_SUB_KEY = "Appearance";
+        /// <summary>
+        /// The AppearancePreferences sub-key.
+        /// </summary>
+        private const string PREFERENCES_SUB_KEY = "Appearance";
 
-		/// <summary>
-		/// The ApplicationStyleTypeName key.
-		/// </summary>
-		private const string APPLICATION_STYLE_TYPE_NAME = "ApplicationStyleTypeName";
+        /// <summary>
+        /// The ApplicationStyleTypeName key.
+        /// </summary>
+        private const string APPLICATION_STYLE_TYPE_NAME = "ApplicationStyleTypeName";
 
-		#endregion Static & Constant Declarations
+        #endregion Static & Constant Declarations
 
-		#region Private Member Variables
+        #region Private Member Variables
 
-		/// <summary>
-		/// The ApplicationStyle Type.
-		/// </summary>
-		private Type applicationStyleType;
-	
-		#endregion
-	
-		#region Class Initialization & Termination
+        /// <summary>
+        /// The ApplicationStyle Type.
+        /// </summary>
+        private Type applicationStyleType;
 
-		/// <summary>
-		/// Initializes a new instance of the AppearancePreferences class.
-		/// </summary>
-		public ApplicationStylePreferences(bool monitorChanges) : base(PREFERENCES_SUB_KEY, monitorChanges)
-		{
-		}
+        #endregion
 
-		public ApplicationStylePreferences() : this(false)
-		{
-		}
+        #region Class Initialization & Termination
 
-		#endregion Class Initialization & Termination
+        /// <summary>
+        /// Initializes a new instance of the AppearancePreferences class.
+        /// </summary>
+        public ApplicationStylePreferences(bool monitorChanges) : base(PREFERENCES_SUB_KEY, monitorChanges)
+        {
+        }
 
-		#region Public Properties
+        public ApplicationStylePreferences() : this(false)
+        {
+        }
 
-		/// <summary>
-		/// Gets or sets the ApplicationStyle Type.
-		/// </summary>
-		public Type ApplicationStyleType
-		{
-			get
-			{
-				return typeof(ApplicationStyleSkyBlue);
+        #endregion Class Initialization & Termination
 
-				// JJA: Decided to only support SkyBlue so we could make the
-				// design of the sidebar more straightforward
-				//return applicationStyleType;
-			}
-			set
-			{
-				if (applicationStyleType != value)
-				{
-					applicationStyleType = value;
-					Modified();
-				}
-			}
-		}
+        #region Public Properties
 
-		#endregion Public Properties
+        /// <summary>
+        /// Gets or sets the ApplicationStyle Type.
+        /// </summary>
+        public Type ApplicationStyleType
+        {
+            get
+            {
+                return typeof(ApplicationStyleSkyBlue);
 
-		#region Protected Methods
+                // JJA: Decided to only support SkyBlue so we could make the
+                // design of the sidebar more straightforward
+                //return applicationStyleType;
+            }
+            set
+            {
+                if (applicationStyleType != value)
+                {
+                    applicationStyleType = value;
+                    Modified();
+                }
+            }
+        }
 
-		/// <summary>
-		/// Loads preferences.
-		/// </summary>
-		protected override void LoadPreferences()
-		{
-			//	Obtain the type name of the application style.  If it's null, use SkyBlue.
-			string name = SettingsPersisterHelper.GetString(APPLICATION_STYLE_TYPE_NAME, "ApplicationStyleSkyBlue");
-			
-			// strip "AplicationStyle" preface (for legacy settings format support)
-			const string APPLICATION_STYLE = "ApplicationStyle";
-			if ( name.StartsWith(APPLICATION_STYLE) )
-				name = name.Substring(APPLICATION_STYLE.Length) ;
-			
-			switch(name)
-			{
-				case "SkyBlue":
-					applicationStyleType = typeof(ApplicationStyleSkyBlue);
-					break;
-				case "Lavender":
-					applicationStyleType = typeof(ApplicationStyleLavender);
-					break;
-				case "Sienna":
-					applicationStyleType = typeof(ApplicationStyleSienna);
-					break;
-				case "Sterling":
-					applicationStyleType = typeof(ApplicationStyleSterling);
-					break;
-				case "Wintergreen":
-					applicationStyleType = typeof(ApplicationStyleWintergreen);
-					break;
-				default:
-					Trace.Fail("Unexpected application style type: " + name);
-					applicationStyleType = typeof(ApplicationStyleSkyBlue);
-					break;
-			}
+        #endregion Public Properties
 
-			//	Set the new application style.
-			if (ApplicationManager.ApplicationStyle.GetType() != applicationStyleType)
-				ApplicationManager.ApplicationStyle = Activator.CreateInstance(applicationStyleType) as ApplicationStyle;
-		}
+        #region Protected Methods
 
-		/// <summary>
-		/// Saves preferences.
-		/// </summary>
-		protected override void SavePreferences()
-		{
-			string name = null;
-			if ( applicationStyleType == typeof(ApplicationStyleSkyBlue) )
-				name = "SkyBlue";
-			else if ( applicationStyleType == typeof(ApplicationStyleLavender) )
-				name = "Lavender";
-			else if ( applicationStyleType == typeof(ApplicationStyleSienna) )
-				name = "Sienna";
-			else if ( applicationStyleType == typeof(ApplicationStyleSterling) )
-				name = "Sterling";
-			else if ( applicationStyleType == typeof(ApplicationStyleWintergreen) )
-				name = "Wintergreen";
-			else
-			{
-				Trace.Fail("Unexpected application style: " + applicationStyleType.Name);
-				name = "SkyBlue";
-			}
+        /// <summary>
+        /// Loads preferences.
+        /// </summary>
+        protected override void LoadPreferences()
+        {
+            //	Obtain the type name of the application style.  If it's null, use SkyBlue.
+            string name = SettingsPersisterHelper.GetString(APPLICATION_STYLE_TYPE_NAME, "ApplicationStyleSkyBlue");
 
-			SettingsPersisterHelper.SetString(APPLICATION_STYLE_TYPE_NAME, name);
-		}
+            // strip "AplicationStyle" preface (for legacy settings format support)
+            const string APPLICATION_STYLE = "ApplicationStyle";
+            if ( name.StartsWith(APPLICATION_STYLE) )
+                name = name.Substring(APPLICATION_STYLE.Length) ;
 
-		#endregion Protected Methods
-	}
+            switch(name)
+            {
+                case "SkyBlue":
+                    applicationStyleType = typeof(ApplicationStyleSkyBlue);
+                    break;
+                case "Lavender":
+                    applicationStyleType = typeof(ApplicationStyleLavender);
+                    break;
+                case "Sienna":
+                    applicationStyleType = typeof(ApplicationStyleSienna);
+                    break;
+                case "Sterling":
+                    applicationStyleType = typeof(ApplicationStyleSterling);
+                    break;
+                case "Wintergreen":
+                    applicationStyleType = typeof(ApplicationStyleWintergreen);
+                    break;
+                default:
+                    Trace.Fail("Unexpected application style type: " + name);
+                    applicationStyleType = typeof(ApplicationStyleSkyBlue);
+                    break;
+            }
+
+            //	Set the new application style.
+            if (ApplicationManager.ApplicationStyle.GetType() != applicationStyleType)
+                ApplicationManager.ApplicationStyle = Activator.CreateInstance(applicationStyleType) as ApplicationStyle;
+        }
+
+        /// <summary>
+        /// Saves preferences.
+        /// </summary>
+        protected override void SavePreferences()
+        {
+            string name = null;
+            if ( applicationStyleType == typeof(ApplicationStyleSkyBlue) )
+                name = "SkyBlue";
+            else if ( applicationStyleType == typeof(ApplicationStyleLavender) )
+                name = "Lavender";
+            else if ( applicationStyleType == typeof(ApplicationStyleSienna) )
+                name = "Sienna";
+            else if ( applicationStyleType == typeof(ApplicationStyleSterling) )
+                name = "Sterling";
+            else if ( applicationStyleType == typeof(ApplicationStyleWintergreen) )
+                name = "Wintergreen";
+            else
+            {
+                Trace.Fail("Unexpected application style: " + applicationStyleType.Name);
+                name = "SkyBlue";
+            }
+
+            SettingsPersisterHelper.SetString(APPLICATION_STYLE_TYPE_NAME, name);
+        }
+
+        #endregion Protected Methods
+    }
 }

@@ -87,7 +87,7 @@ namespace OpenLiveWriter.PostEditor
                             if (continueOnError == null)
                                 throw;
 
-                            if(!continueOnError.Value)
+                            if (!continueOnError.Value)
                                 return String.Empty;
                         }
 

@@ -38,7 +38,7 @@ namespace OpenLiveWriter.PostEditor
         private MarkupPointer blockBoundary;
 
         public static readonly List<string> SpecialCharacters = new List<string> { "...", "(c)", "(r)", "(tm)", };
-        
+
         public bool HandleTypographicReplace()
         {
             // We're doing typographic replacement _after_ MSHTML has handled the key event.
@@ -183,21 +183,21 @@ namespace OpenLiveWriter.PostEditor
 
             _insertHtml(_currentSelection.Start, _currentSelection.End, replacementValue);
         }
-        
+
         private void ReplaceDashes(MarkupPointer blockBoundary)
         {
             if (!AutoreplaceSettings.EnableHyphenReplacement)
                 return;
-            
+
             MarkupRange emRange = _currentSelection.Clone();
             for (int i = 0; i < 3 && emRange.Start.IsRightOf(blockBoundary); i++)
                 emRange.Start.MoveUnit(_MOVEUNIT_ACTION.MOVEUNIT_PREVWORDBEGIN);
             string emText = emRange.Text ?? "";
-            
+
             if (emText.Contains("-"))
             {
-                // \u00A0 = non breaking space                
-                Regex regex = new Regex(@"[^\s\u00A0\-]([ \u00A0]?(?>--?)[ \u00A0]?)[^\s\u00A0\-]");                
+                // \u00A0 = non breaking space
+                Regex regex = new Regex(@"[^\s\u00A0\-]([ \u00A0]?(?>--?)[ \u00A0]?)[^\s\u00A0\-]");
                 Match match = regex.Match(emText);
                 if (match.Success)
                 {

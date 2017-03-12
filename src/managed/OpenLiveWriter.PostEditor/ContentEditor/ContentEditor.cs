@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -35,7 +35,7 @@ using OpenLiveWriter.PostEditor.Tables;
 using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar;
 using OpenLiveWriter.PostEditor.Tagging;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 using OpenLiveWriter.InternalWriterPlugin;
 using Timer = System.Windows.Forms.Timer;
 using OpenLiveWriter.PostEditor.WordCount;
@@ -47,12 +47,9 @@ using OpenLiveWriter.Mshtml.Mshtml_Interop;
 using IDropTarget = OpenLiveWriter.Interop.Com.IDropTarget;
 using OpenLiveWriter.PostEditor.Commands;
 
-
 namespace OpenLiveWriter.PostEditor
 {
-    //ToDo: OLW Spell Checker
-    //internal class ContentEditor : IBlogPostContentEditor, IContentSourceSite, IDisposable, IHtmlEditorCommandSource, IHtmlEditorHost, IBlogPostImageEditingContext, IBlogPostSidebarContext, IContentSourceSidebarContext, IBlogPostSpellCheckingContext, ICommandManagerHost, IEditingMode, IInternalSmartContentContextSource
-    internal class ContentEditor : IBlogPostContentEditor, IContentSourceSite, IDisposable, IHtmlEditorCommandSource, IHtmlEditorHost, IBlogPostImageEditingContext, IBlogPostSidebarContext, IContentSourceSidebarContext, ICommandManagerHost, IEditingMode, IInternalSmartContentContextSource
+    internal class ContentEditor : IBlogPostContentEditor, IContentSourceSite, IDisposable, IHtmlEditorCommandSource, IHtmlEditorHost, IBlogPostImageEditingContext, IBlogPostSidebarContext, IContentSourceSidebarContext, IBlogPostSpellCheckingContext, ICommandManagerHost, IEditingMode, IInternalSmartContentContextSource
     {
         public ContentEditor(IMainFrameWindow mainFrameWindow, Control editorContainer, IBlogPostEditingSite postEditingSite, IInternetSecurityManager internetSecurityManager, BlogPostHtmlEditorControl.TemplateStrategy templateStrategy, int dlControlFlags)
         {
@@ -102,7 +99,7 @@ namespace OpenLiveWriter.PostEditor
 
             InitializeViewCommands();
 
-            // initialize custom content 
+            // initialize custom content
             InitializeContentSources();
 
             // bring main editor panel to front (this must be here for the sidebar to work!!!!)
@@ -118,9 +115,9 @@ namespace OpenLiveWriter.PostEditor
         }
 
         /// <summary>
-        /// The default to be used in the editor.  The string should be formatted to be used with 
+        /// The default to be used in the editor.  The string should be formatted to be used with
         /// IDM_COMPOSESETTINGS http://msdn.microsoft.com/en-us/library/aa769901(VS.85).aspx
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public void SetDefaultFont(string fontString)
@@ -147,7 +144,7 @@ namespace OpenLiveWriter.PostEditor
             _mshtmlOptions.DocHostUIOptionKeyPath = GlobalEditorOptions.GetSetting<string>(ContentEditorSetting.MshtmlOptionKeyPath);
 
             // create the editor
-            _normalHtmlContentEditor = new BlogPostHtmlEditorControl(_mainFrameWindow, StatusBar, _mshtmlOptions, this, this, this, new SmartContentResizedListener(ResizedListener), new SharedCanvasImageReferenceFixer(ReferenceFixer), internetSecurityManager, CommandManager, templateStrategy, this);
+            _normalHtmlContentEditor = new BlogPostHtmlEditorControl(_mainFrameWindow, StatusBar, _mshtmlOptions, this, this, this, new SmartContentResizedListener(ResizedListener), this, new SharedCanvasImageReferenceFixer(ReferenceFixer), internetSecurityManager, CommandManager, templateStrategy, this);
             _normalHtmlContentEditor.PostBodyInlineStyle = GetPostBodyInlineStyleOverrides();
             // hookup services and events
             _normalHtmlContentEditor.HtmlGenerationService = new HtmlGenerator(this);
@@ -210,8 +207,7 @@ namespace OpenLiveWriter.PostEditor
         private void InitializeSourceEditor()
         {
             // create the source code editor control
-            //_codeHtmlContentEditor = new BlogPostHtmlSourceEditorControl(this, CommandManager, this);
-            _codeHtmlContentEditor = new BlogPostHtmlSourceEditorControl(CommandManager, this);
+            _codeHtmlContentEditor = new BlogPostHtmlSourceEditorControl(this, CommandManager, this);
 
             _codeHtmlContentEditor.AccessibleName = "Source Editor";
 
@@ -257,7 +253,7 @@ namespace OpenLiveWriter.PostEditor
             return _editingTemplatePreview.Template;
         }
 
-        // Shared group commands need to be here.            
+        // Shared group commands need to be here.
         protected virtual void InitializeCommands()
         {
             CommandManager.BeginUpdate();
@@ -410,13 +406,11 @@ namespace OpenLiveWriter.PostEditor
 
             CommandManager.Add(new Command(CommandId.FontGroup));
 
-#if SUPPORT_FILES   
+#if SUPPORT_FILES
             commandInsertFile = new Command(CommandId.InsertFile);
             commandInsertFile.Execute += new EventHandler(commandInsertFile_Execute);
             CommandManager.Add(commandInsertFile);
 #endif
-
-
 
             CommandManager.Add(new CommandRecentPost());
             CommandManager.Add(CommandId.WordCount, new EventHandler(WordCount_Execute));
@@ -472,7 +466,7 @@ namespace OpenLiveWriter.PostEditor
 
             bool initialInsertion = _makingInitialInsertion > 0;
 
-            // We want this to get the source ids for any "containing" smart content.    
+            // We want this to get the source ids for any "containing" smart content.
             IHtmlEditorComponentContext componentContext = _currentEditor as IHtmlEditorComponentContext;
             MarkupRange selection = componentContext.Selection.SelectedMarkupRange;
             IHTMLElement smartContentElement = ContentSourceManager.GetContainingSmartContentElement(selection);
@@ -545,7 +539,7 @@ namespace OpenLiveWriter.PostEditor
                 {
                     command.FlushPendingInvalidations(_postEditingSite.RibbonFramework);
 
-                    // NOTICE: Ribbon has a bug in SplitButton (Windows 7 712524). When all items inside a SplitButton change their enabled/disabled state 
+                    // NOTICE: Ribbon has a bug in SplitButton (Windows 7 712524). When all items inside a SplitButton change their enabled/disabled state
                     // while the ribbon is changing mode, the splitbutton state won't be updated correctly. Since Paste command is hosted
                     // by PasteSplit command, we now force to update the splitbutton state manually to ask Ribbon refresh the splitbutton.
                     switch (command.CommandId)
@@ -645,7 +639,7 @@ namespace OpenLiveWriter.PostEditor
 
             foreach (string commandId in contentSourceList.CommandIdentifiers)
                 if (WebImageContentSource.ID != commandId)
-                    insertMenuDefinition.Entries.Add(commandId, false, false);            
+                    insertMenuDefinition.Entries.Add(commandId, false, false);
         }
 
         private void UpdateContentSourceCommands()
@@ -668,7 +662,6 @@ namespace OpenLiveWriter.PostEditor
             SetTopStripControl(new UpdatesAvailableBand(new UpdatesAvailableBand.HitClose(HidePanel)), false, true);
         }
         */
-
 
         private void RegisterEditor(IBlogPostHtmlEditor editor)
         {
@@ -733,12 +726,11 @@ namespace OpenLiveWriter.PostEditor
             ContentSourceManager.GlobalContentSourceListChanged -= new EventHandler(ContentSourceManager_GlobalContentSourceListChanged);
             CommandManager.CommandStateChanged -= new EventHandler(CommandManager_CommandStateChanged);
 
-            //ToDo: OLW Spell Checker
-            //if (_spellingChecker != null)
-            //{
-            //    _spellingChecker.Dispose();
-            //    _spellingChecker = null;
-            //}
+            if (_spellingChecker != null)
+            {
+                _spellingChecker.Dispose();
+                _spellingChecker = null;
+            }
 
             if (_insertImageDialogWin7 != null)
             {
@@ -822,11 +814,6 @@ namespace OpenLiveWriter.PostEditor
             _normalHtmlContentEditor.UpdateEditingContext();
             if (_codeHtmlContentEditor != null)
                 _codeHtmlContentEditor.UpdateEditingContext();
-        }
-
-        public void NotifyMailFocus(bool fIsPhotoAttachment)
-        {
-            // TODO:OLW - Remove legacy Mail code
         }
 
         public void SetTheme(string wysiwygHTML, string previewHTML, bool containsTitle)
@@ -959,8 +946,6 @@ namespace OpenLiveWriter.PostEditor
         {
             FixCommands((e as EditableRegionFocusChangedEventArgs).IsFullyEditable);
 
-
-
             Debug.Assert(_textEditingCommandDispatcher != null, "ContentEditor was not setup correctly, an editor got focus before command were created.");
 
             _textEditingCommandDispatcher.TitleFocusChanged();
@@ -976,13 +961,12 @@ namespace OpenLiveWriter.PostEditor
         private void InitializeTextEditingCommands()
         {
             DisposeTextEditingCommandDispatcher();
-            _textEditingCommandDispatcher = new TextEditingCommandDispatcher(_mainFrameWindow, new SpellingContextDirectorySource(_editingContext.GetPostSpellingContextDirectory), _postEditingSite.StyleControl, CommandManager);
+            _textEditingCommandDispatcher = new TextEditingCommandDispatcher(_mainFrameWindow, _postEditingSite.StyleControl, CommandManager);
             _textEditingCommandDispatcher.RegisterPostEditor(this, ComponentContext, new TextEditingFocusHandler(Focus));
 
             if (_mainFrameWindow is Control)
                 _textEditingCommandDispatcher.RegisterSimpleTextEditor(new ContainedTextBoxCommandSource((Control)_mainFrameWindow));
         }
-
 
         private void DisposeTextEditingCommandDispatcher()
         {
@@ -999,7 +983,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private string GetBodyCore(bool preferWellFormed)
         {
             string html = _currentEditor != null ? _currentEditor.GetEditedHtml(preferWellFormed) : "";
@@ -1008,7 +991,6 @@ namespace OpenLiveWriter.PostEditor
 
             return html;
         }
-
 
         private static string StripPluginHeadersAndFooters(string html)
         {
@@ -1024,14 +1006,13 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public virtual void SaveChanges(BlogPost post, BlogPostSaveOptions options)
         {
             // get the title (remove linebreaks to prevent auto-convertion to P or BR)
             string postTitle = _currentEditor.GetEditedTitleHtml();
             post.Title = HtmlLinebreakStripper.RemoveLinebreaks(postTitle);
 
-            // get the editor html 
+            // get the editor html
             // performance optimization for AutoSave
             string postContents = options.AutoSave ? GetBodyCore(false) : Body;
 
@@ -1072,9 +1053,9 @@ namespace OpenLiveWriter.PostEditor
         {
             this.DisposeItemsOnEditorChange();
 
-            // WinLive 105879: During the process of creating a new post, all the SmartContent present in the current 
-            // post was being be enumerated and refreshed unnecessarily. But at that point, those SmartContent held 
-            // stale references to the old SupportingFileService. Clearing the extension data list removes all the 
+            // WinLive 105879: During the process of creating a new post, all the SmartContent present in the current
+            // post was being be enumerated and refreshed unnecessarily. But at that point, those SmartContent held
+            // stale references to the old SupportingFileService. Clearing the extension data list removes all the
             // SmartContent data, so that we no longer enumerate and refresh all the SmartContent when its unnecessary.
             _extensionDataList.Clear();
         }
@@ -1092,15 +1073,14 @@ namespace OpenLiveWriter.PostEditor
 
         public virtual bool ValidatePublish()
         {
-            // Be sure that the title is not too long            
+            // Be sure that the title is not too long
             if (HtmlLinebreakStripper.RemoveLinebreaks(_currentEditor.GetEditedTitleHtml()).Length > _currentEditorAccount.EditorOptions.MaxPostTitleLength)
             {
                 DisplayMessage.Show(MessageId.PostTitleTooLong);
                 return false;
             }
 
-
-            // make sure that all smart content that might be 
+            // make sure that all smart content that might be
             // waiting for something to happen, like a call back,
             // have been taken care of before we publish
             else if (!WaitOnSmartContentForOperation(SmartContentOperationType.Publish))
@@ -1114,7 +1094,6 @@ namespace OpenLiveWriter.PostEditor
                 return true;
             }
         }
-
 
         private bool WaitOnSmartContentForOperation(SmartContentOperationType checkType)
         {
@@ -1141,7 +1120,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public virtual void OnPublishSucceeded(BlogPost blogPost, PostResult postResult)
         {
         }
@@ -1150,7 +1128,6 @@ namespace OpenLiveWriter.PostEditor
         {
             _htmlEditorSidebarHost.ForceUpdateSidebarState();
         }
-
 
         public virtual bool IsDirty
         {
@@ -1180,7 +1157,6 @@ namespace OpenLiveWriter.PostEditor
         {
             return _supportingFileStorage.CreateFile(requestedFileName);
         }
-
 
         public virtual void OnEditorAccountChanged(IEditorAccount newEditorAccount)
         {
@@ -1277,7 +1253,6 @@ namespace OpenLiveWriter.PostEditor
 
             if (!allowLeadingNewline && html.StartsWith("\r\n"))
                 html = html.Substring(2);
-
 
             html = TextHelper.GetHTMLFromText(html, false, this.DefaultBlockElement);
         }
@@ -1421,7 +1396,6 @@ namespace OpenLiveWriter.PostEditor
             if ((options & HtmlInsertionOptions.Indent) == HtmlInsertionOptions.Indent)
                 fixedUpHtml = ApplyIndent(fixedUpHtml);
 
-
             if ((options & HtmlInsertionOptions.InsertNewLineBefore) == HtmlInsertionOptions.InsertNewLineBefore)
             {
                 if (GlobalEditorOptions.SupportsFeature(ContentEditorFeature.DivNewLine))
@@ -1543,7 +1517,6 @@ namespace OpenLiveWriter.PostEditor
 
                 }
 
-
             }
         }
 
@@ -1574,7 +1547,6 @@ namespace OpenLiveWriter.PostEditor
             return images.ToArray();
         }
 
-
         public void InsertSmartContentFromTabbedDialog(string contentSourceID, int selectedTab)
         {
             // Get a reference to the video plugin
@@ -1600,17 +1572,13 @@ namespace OpenLiveWriter.PostEditor
 
                 }
 
-
             }
         }
-
-
 
         public void InsertLink(string url, string linkText, string linkTitle, string rel, bool newWindow)
         {
             _currentEditor.InsertLink(url, linkText, linkTitle, rel, newWindow);
         }
-
 
         public void Find()
         {
@@ -1633,11 +1601,10 @@ namespace OpenLiveWriter.PostEditor
             _currentEditor.CommandSource.PrintPreview();
         }
 
-
-        public bool CheckSpelling(string spellingContextDirectory)
+        public bool CheckSpelling()
         {
             // check spelling
-            return _currentEditor.CommandSource.CheckSpelling(spellingContextDirectory);
+            return _currentEditor.CommandSource.CheckSpelling();
         }
 
         public void Focus()
@@ -1829,10 +1796,9 @@ namespace OpenLiveWriter.PostEditor
             return (CurrentEditingMode == EditingMode.Source || CurrentEditingMode == EditingMode.Wysiwyg) && EditFieldNotSelected;
         }
 
-
         protected virtual void ContentEditor_SelectionChanged(object sender, EventArgs e)
         {
-            // Update the set of commands available based on edit field selection            
+            // Update the set of commands available based on edit field selection
             bool editFieldNotSelected = EditFieldNotSelected;
 
             if (CurrentEditingMode == EditingMode.Wysiwyg)
@@ -1851,7 +1817,7 @@ namespace OpenLiveWriter.PostEditor
             }
 
             bool inSourceOrWysiwygModeAndEditFieldNotSelected = InSourceOrWysiwygModeAndEditFieldIsNotSelected();
-            
+
             commandInsertPicture.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertEmoticon.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
             commandInsertTable.Enabled = inSourceOrWysiwygModeAndEditFieldNotSelected;
@@ -1991,7 +1957,6 @@ namespace OpenLiveWriter.PostEditor
             wordCountForm.ShowDialog(this._mainFrameWindow);
         }
 
-
         private void commandViewPlainText_Execute(object sender, EventArgs e)
         {
             if (_currentEditingMode != EditingMode.PlainText)
@@ -2111,14 +2076,14 @@ namespace OpenLiveWriter.PostEditor
         private void htmlEditor_DocumentComplete(object source, EventArgs evt)
         {
             //when the document is loaded, scan it for any uninitialized images that need to be loaded
-            //This lets images that are added via "blog this" or the source editor automatically have the 
+            //This lets images that are added via "blog this" or the source editor automatically have the
             //default settings applied
             ImageInsertionManager.ScanAndInitializeNewImages(_currentEditor, _fileService, _currentEditorAccount, this, _editorContainer, true, false);
             // @SharedCanvas - does this need to change to "email" for WLM?
-            // set editing target name            
+            // set editing target name
             _normalHtmlContentEditor.EditingTargetName = _isPage ? Res.Get(StringId.PageLower) : Res.Get(StringId.PostLower);
 
-            // WinLive 182722: Setting the default font may attempt to update the body of the HTML document, so make 
+            // WinLive 182722: Setting the default font may attempt to update the body of the HTML document, so make
             // sure we do it on DocumentComplete.
             if (CurrentEditingMode == EditingMode.PlainText)
             {
@@ -2138,10 +2103,10 @@ namespace OpenLiveWriter.PostEditor
 
             // WinLive 222385 - When switching between plain-text/html, mshtml doesn't report IME
             // info to IMM when queried because the document is not fully loaded. This causes IMM to deactivate IME
-            // for canvas. To work around this, explicitly setting focus on body here causes mshtml to 
+            // for canvas. To work around this, explicitly setting focus on body here causes mshtml to
             // report the right IME state and thus activates IMM for canvas.
             // Note: In case of mail, this path is executed before mail's CNote::OnDocumentReady is run, which
-            // reset the focus to 'To' line for a new compose note. 
+            // reset the focus to 'To' line for a new compose note.
             _currentEditor.FocusBody();
 
             // Invalidate emoticons, this causes the gallery to be loaded if it is not loaded already
@@ -2202,7 +2167,7 @@ namespace OpenLiveWriter.PostEditor
                     _insertImageDialogWin7.Title = Res.Get(StringId.InsertPicture);
                     _insertImageDialogWin7.Multiselect = true;
                     // Bug 769860 - Unexpected folder navigation with photo libraries on Win7
-                    //dialog.InitialDirectory = ApplicationEnvironment.InsertImageDirectory; 
+                    //dialog.InitialDirectory = ApplicationEnvironment.InsertImageDirectory;
                     // So instead we just set the user to the my pictures folder.
                     _insertImageDialogWin7.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
                     _insertImageDialogWin7.Filter = String.Format(CultureInfo.InvariantCulture, "{0}|*.gif;*.jpg;*.jpeg;*.png|{1}|*.*", Res.Get(StringId.ImagesFilterString), Res.Get(StringId.AllFilesFilterString));
@@ -2216,8 +2181,6 @@ namespace OpenLiveWriter.PostEditor
                     imageFiles = _insertImageDialogWin7.FileNames;
                     _insertImageDialogWin7.InitialDirectory = null;
                 }
-
-
 
                 // Check to see if the user actually selected anything
                 if (imageFiles != null && imageFiles.Length > 0)
@@ -2244,7 +2207,6 @@ namespace OpenLiveWriter.PostEditor
                 //size calculation since this will distort the image.
                 Size originalBorderlessSize = new Size(originalImgElementSize.Width - borderMargin.Width, originalImgElementSize.Height - borderMargin.Height);
                 Size borderlessNewMaxSize = borderMargin.ReverseCalculateImageSize(newImgElementSize);
-
 
                 newBorderlessImageSize = ImageUtils.GetScaledImageSize(borderlessNewMaxSize.Width, borderlessNewMaxSize.Height, originalBorderlessSize);
             }
@@ -2284,7 +2246,7 @@ namespace OpenLiveWriter.PostEditor
                         IHtmlEditorComponentContext editorContext = _currentEditor as IHtmlEditorComponentContext;
                         if (editorContext != null)
                         {
-                            // check for a discontigous selection of cells within an existing table and 
+                            // check for a discontigous selection of cells within an existing table and
                             // "fix" the selection accordingly so the editor doesn't barf on it
                             TableSelection tableSelection = new TableSelection(editorContext.Selection.SelectedMarkupRange);
                             if (tableSelection.HasContiguousSelection && !tableSelection.EntireTableSelected)
@@ -2304,13 +2266,10 @@ namespace OpenLiveWriter.PostEditor
 
         }
 
-
         private void commandAddPlugin_Execute(object sender, EventArgs e)
         {
             ShellHelper.LaunchUrl(GLink.Instance.DownloadPlugins);
         }
-
-
 
         private void _normalHtmlContentEditor_HelpRequest(object sender, EventArgs e)
         {
@@ -2320,9 +2279,9 @@ namespace OpenLiveWriter.PostEditor
                 commandHelp.PerformExecute();
         }
 
-#if SUPPORT_FILES   
+#if SUPPORT_FILES
         private void commandInsertFile_Execute(object sender, EventArgs e)
-        {   
+        {
             using (new WaitCursor())
             {
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -2335,7 +2294,7 @@ namespace OpenLiveWriter.PostEditor
                         string newPath = LocalFileReferenceFixer(string.Format(CultureInfo.InvariantCulture, "file:\\\\\\{0}", openFileDialog.FileName));;
                         string name = Path.GetFileName(openFileDialog.FileName);
                         InsertLink(newPath, name, name, String.Empty, false);
-                        
+
                     }
                 }
             }
@@ -2382,8 +2341,6 @@ namespace OpenLiveWriter.PostEditor
                 FixCommandEvent(fullyEditableActive);
         }
 
-
-
         public bool FullyEditableRegionActive
         {
             get
@@ -2411,9 +2368,9 @@ namespace OpenLiveWriter.PostEditor
             commandInsertTable.Enabled = allowInsertCommands;
             commandInsertTable2.Enabled = allowInsertCommands;
             commandInsertPicture.Enabled = allowInsertCommands;
-#if SUPPORT_FILES   
+#if SUPPORT_FILES
             commandInsertFile.Enabled = allowInsertCommands;
-#endif            
+#endif
             CommandManager.Get(CommandId.TableMenu).Enabled = allowInsertCommands;
             commandInsertTags.Enabled = allowInsertCommands;
             commandInsertMap.Enabled = allowInsertCommands;
@@ -2441,13 +2398,8 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
-                return true; // _spellingChecker.IsInitialized; 
+                return _spellingChecker.IsInitialized;
             }
-        }
-
-        public string PostSpellingContextDirectory
-        {
-            get { return _supportingFileStorage.SpellingContextDirectory; }
         }
 
         public string AutoCorrectLexiconFilePath
@@ -2455,35 +2407,27 @@ namespace OpenLiveWriter.PostEditor
             get { return _autoCorrectLexiconFile; }
         }
 
-        //ToDo: OLW Spell Checker
-        //public ISpellingChecker SpellingChecker
-        //{
-        //    get { return _spellingChecker; }
-        //}
-        //private NlgSpellingChecker _spellingChecker = new NlgSpellingChecker();
+        public ISpellingChecker SpellingChecker
+        {
+            get { return _spellingChecker; }
+        }
+        private WinSpellingChecker _spellingChecker = new WinSpellingChecker();
 
-        public void SetSpellingOptions(string dllName, ushort lcid, string[] mainLexFiles, string userLexFile, uint sobitOptions, bool useAutoCorrect)
+        public void SetSpellingOptions(string bcp47Code, bool useAutoCorrect)
         {
             if (ControlHelper.ControlCanHandleInvoke(_editorContainer) && _editorContainer.InvokeRequired)
             {
                 _editorContainer.BeginInvoke(new ThreadStart(
-                    () => SetSpellingOptions(dllName, lcid, mainLexFiles, userLexFile, sobitOptions, useAutoCorrect)
+                    () => SetSpellingOptions(bcp47Code, useAutoCorrect)
                     ));
                 return;
             }
 
-            //ToDo: OLW Spell Checker
-            //_spellingChecker.StopChecking();
-            //_spellingChecker.SetOptions(dllName, lcid, mainLexFiles, userLexFile, sobitOptions);
-            //_spellingChecker.StartChecking(_supportingFileStorage != null ? PostSpellingContextDirectory : null);
+            _spellingChecker.StopChecking();
+            _spellingChecker.SetOptions(bcp47Code);
+            _spellingChecker.StartChecking();
 
-            // Get autocorrect file if needed, mso.acl ships with Writer/Shared Canvas
-            _autoCorrectLexiconFile = null;
-            //if (useAutoCorrect && lcid == 1033 /* en-us */ && File.Exists(Path.Combine(SpellingSettings.DictionaryPath, "mso.acl")))
-            //{
-            //    _autoCorrectLexiconFile = Path.Combine(SpellingSettings.DictionaryPath, "mso.acl");
-            //}
-
+            _autoCorrectLexiconFile = null; // TODO: Auto correct custom file
             if (SpellingOptionsChanged != null)
             {
                 SpellingOptionsChanged(this, EventArgs.Empty);
@@ -2492,8 +2436,8 @@ namespace OpenLiveWriter.PostEditor
 
         public void DisableSpelling()
         {
-            //_spellingChecker.StopChecking();
-            //_spellingChecker.SetOptions(null, 0, null, null, 0);
+            _spellingChecker.StopChecking();
+            _spellingChecker.SetOptions(string.Empty);
             if (SpellingOptionsChanged != null)
                 SpellingOptionsChanged(this, EventArgs.Empty);
         }
@@ -2642,7 +2586,6 @@ namespace OpenLiveWriter.PostEditor
             return null;
         }
 
-
         string IPublishingContext.ServiceName
         {
             get { return _currentEditorAccount.ServiceName; }
@@ -2653,12 +2596,10 @@ namespace OpenLiveWriter.PostEditor
             get { return _currentEditorAccount.Id; }
         }
 
-
         string IPublishingContext.BlogName
         {
             get { return _currentEditorAccount.Name; }
         }
-
 
         string IPublishingContext.HomepageUrl
         {
@@ -2687,7 +2628,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public string ProviderId
         {
             get { return _currentEditorAccount.ProviderId; }
@@ -2700,7 +2640,6 @@ namespace OpenLiveWriter.PostEditor
                 return _currentEditorAccount.EditorOptions.SupportsImageUpload;
             }
         }
-
 
         SupportsFeature IPublishingContext.SupportsScripts
         {
@@ -2718,7 +2657,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         IWin32Window IContentSourceSite.DialogOwner
         {
             get { return _mainFrameWindow; }
@@ -2729,7 +2667,6 @@ namespace OpenLiveWriter.PostEditor
             return _extensionDataList.CreateExtensionData(id);
         }
 
-
         bool IContentSourceSite.InsertCommandsEnabled
         {
             get
@@ -2738,7 +2675,6 @@ namespace OpenLiveWriter.PostEditor
                 return commandInsertPicture.Enabled;
             }
         }
-
 
         void IContentSourceSite.InsertContent(string content, bool select)
         {
@@ -2892,7 +2828,6 @@ namespace OpenLiveWriter.PostEditor
             return (IExtensionData[])ArrayHelper.Compact(extensionDataList);
         }
 
-
         private TextEditingCommandDispatcher _textEditingCommandDispatcher;
 
         #endregion
@@ -2922,7 +2857,6 @@ namespace OpenLiveWriter.PostEditor
 
         List<IDisposable> _itemsToDisposeOnEditorClose = new List<IDisposable>();
 
-
         private IBlogPostEditingContext _editingContext;
         protected bool _isPage;
         private BlogPostSupportingFileStorage _supportingFileStorage;
@@ -2930,20 +2864,15 @@ namespace OpenLiveWriter.PostEditor
         private BlogPostExtensionDataList _extensionDataList;
         private ISupportingFileService _fileService;
 
-
         protected IMainFrameWindow _mainFrameWindow;
         protected IBlogPostEditingSite _postEditingSite;
         private Panel _editorContainer;
         private bool _focusedRegionSupportsFormattingCommands;
 
-
-
         private IContainer components = new Container();
         private Timer wordCountTimer;
 
         private RefreshableContentManager _refreshSmartContentManager;
-
-
 
         private BlogEditingTemplate GetSurroundingContent()
         {
@@ -2974,7 +2903,6 @@ namespace OpenLiveWriter.PostEditor
                     break;
 
             }
-
 
             if (template != null)
                 return template;
@@ -3150,7 +3078,6 @@ namespace OpenLiveWriter.PostEditor
             _currentEditor.CommandSource.ApplySuperscript();
         }
 
-
         public bool SelectionItalic
         {
             get
@@ -3249,8 +3176,6 @@ namespace OpenLiveWriter.PostEditor
                 Trace.WriteLine("Failed to detect alignment: " + ex);
                 element = null;
             }
-
-
 
             // If we found an image or smart content, try to get the alignment off of it
             if (element != null)
@@ -3385,7 +3310,6 @@ namespace OpenLiveWriter.PostEditor
             // It wasnt smart content or an image, so continue with the normal way of applying alignment
             _currentEditor.CommandSource.ApplyAlignment(alignment);
         }
-
 
         public bool SelectionBulleted
         {
@@ -3568,7 +3492,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public void Cut()
         {
             _currentEditor.CommandSource.Cut();
@@ -3603,7 +3526,6 @@ namespace OpenLiveWriter.PostEditor
                 PasteExecuted(this, EventArgs.Empty);
         }
 
-
         public bool CanPasteSpecial
         {
             get
@@ -3627,7 +3549,6 @@ namespace OpenLiveWriter.PostEditor
             if (PasteSpecialExecuted != null)
                 PasteSpecialExecuted(this, EventArgs.Empty);
         }
-
 
         public bool CanClear
         {
@@ -3661,7 +3582,6 @@ namespace OpenLiveWriter.PostEditor
                     }
                 }
             }
-
 
             _currentEditor.CommandSource.Clear();
         }
@@ -3733,7 +3653,6 @@ namespace OpenLiveWriter.PostEditor
                 ContentResized(newSize, completed);
         }
 
-
         ContentSourceInfo IContentSourceSidebarContext.FindContentSource(string contentSourceId)
         {
             return ContentSourceManager.FindContentSource(contentSourceId);
@@ -3784,8 +3703,8 @@ namespace OpenLiveWriter.PostEditor
 
             if (element != null && element.document != null)
             {
-                // When a photo album is updated inline by EditableSmartContent.SaveEditedSmartContent(), there is no 
-                // notification to the editor that any HTML was changed. However, because the inline edit field is 
+                // When a photo album is updated inline by EditableSmartContent.SaveEditedSmartContent(), there is no
+                // notification to the editor that any HTML was changed. However, because the inline edit field is
                 // rewritten, we need to spell check it again.
                 MshtmlMarkupServices markupServices = new MshtmlMarkupServices((IMarkupServicesRaw)element.document);
                 _normalHtmlContentEditor.DamageServices.AddDamage(markupServices.CreateMarkupRange(element, false));
@@ -3832,7 +3751,6 @@ namespace OpenLiveWriter.PostEditor
 
         }
 
-
         private void _htmlEditorSidebarHost_VisibleChanged(object sender, EventArgs e)
         {
             if (_htmlEditorSidebarHost.Visible)
@@ -3850,7 +3768,6 @@ namespace OpenLiveWriter.PostEditor
         {
             ((Control)sender).Invalidate(false);
         }
-
 
         private int _editorLoadSuppressCount;
         private string _autoCorrectLexiconFile;
@@ -3883,7 +3800,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
         #endregion
-
 
         #region IInternalSmartContentContextSource
 

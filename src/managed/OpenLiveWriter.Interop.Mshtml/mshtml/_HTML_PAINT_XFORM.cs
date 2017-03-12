@@ -6,7 +6,7 @@ namespace mshtml
     using System;
     using System.Runtime.InteropServices;
 
-    [StructLayout(LayoutKind.Sequential, Pack=4)]
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct _HTML_PAINT_XFORM
     {
         public float eM11;

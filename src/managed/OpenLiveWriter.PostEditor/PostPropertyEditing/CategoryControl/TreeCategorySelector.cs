@@ -4,27 +4,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Data;
 using System.Globalization;
-using System.Text;
 using System.Windows.Forms;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.Interop.Windows;
-using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 {
     internal partial class TreeCategorySelector : UserControl, ICategorySelector
     {
-        private readonly CategoryContext ctx;
-        private TreeNode[] nodes = new TreeNode[0];
-        private string lastQuery = "";
-        private bool initMode = false;
+        private readonly CategoryContext _ctx;
+        private string _lastQuery = "";
+        private bool _initMode;
 
         internal class DoubleClicklessTreeView : TreeView
         {
@@ -38,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             {
                 if (m.Msg == WM.LBUTTONDBLCLK)
                 {
-                    m.Msg = (int) WM.LBUTTONDOWN;
+                    m.Msg = (int)WM.LBUTTONDOWN;
                 }
                 base.WndProc(ref m);
             }
@@ -52,7 +47,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         public TreeCategorySelector(CategoryContext ctx)
         {
-            this.ctx = ctx;
+            _ctx = ctx;
             InitializeComponent();
 
             // TODO: Whoops, missed UI Freeze... add this later
@@ -68,8 +63,10 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
             LoadCategories();
 
-            treeView.BeforeCollapse += delegate(object sender, TreeViewCancelEventArgs e) { e.Cancel = true; };
+            treeView.BeforeCollapse += delegate (object sender, TreeViewCancelEventArgs e) { e.Cancel = true; };
             treeView.AfterCheck += treeView1_AfterCheck;
+
+            treeView.ItemHeight = (int) DisplayHelper.ScaleY(treeView.ItemHeight);
 
             treeView.LostFocus += delegate { treeView.Invalidate(); };
         }
@@ -88,7 +85,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
         {
             int width = 0;
             int height = 0;
-            WalkNodes(treeView.Nodes, delegate(TreeNode n)
+            WalkNodes(treeView.Nodes, delegate (TreeNode n)
                                           {
                                               width = Math.Max(width, n.Bounds.Right);
                                               height = Math.Max(height, n.Bounds.Bottom);
@@ -101,23 +98,23 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         void treeView1_AfterCheck(object sender, TreeViewEventArgs e)
         {
-            if (initMode)
+            if (_initMode)
                 return;
 
-            List<BlogPostCategory> categories = new List<BlogPostCategory>(ctx.SelectedCategories);
-            TreeNode realTreeNode = (TreeNode) e.Node.Tag;
+            List<BlogPostCategory> categories = new List<BlogPostCategory>(_ctx.SelectedCategories);
+            TreeNode realTreeNode = (TreeNode)e.Node.Tag;
             realTreeNode.Checked = e.Node.Checked;
-            BlogPostCategory category = (BlogPostCategory) (realTreeNode.Tag);
+            BlogPostCategory category = (BlogPostCategory)(realTreeNode.Tag);
             if (e.Node.Checked)
             {
-                // Fix bug 587012: Category control can display one category repeatedly if 
+                // Fix bug 587012: Category control can display one category repeatedly if
                 // checked category is added from search box after refresh
                 categories.Remove(category);
                 categories.Add(category);
             }
             else
                 categories.Remove(category);
-            ctx.SelectedCategories = categories.ToArray();
+            _ctx.SelectedCategories = categories.ToArray();
         }
 
         public static TreeNode[] CategoriesToNodes(BlogPostCategory[] categories)
@@ -144,23 +141,17 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             for (int i = 0; i < allNodes.Length; i++)
             {
                 TreeNode node = allNodes[i];
-                string parent = ((BlogPostCategory) node.Tag).Parent;
+                string parent = ((BlogPostCategory)node.Tag).Parent;
                 if (!string.IsNullOrEmpty(parent) && catToNode.ContainsKey(parent))
                 {
                     catToNode[parent].Nodes.Add(node);
                     allNodes[i] = null;
                 }
             }
-            return (TreeNode[]) ArrayHelper.Compact(allNodes);
+            return (TreeNode[])ArrayHelper.Compact(allNodes);
         }
 
-        private TreeNode[] RealNodes
-        {
-            get
-            {
-                return nodes;
-            }
-        }
+        private TreeNode[] RealNodes { get; set; } = new TreeNode[0];
 
         private static TreeNode[] FilteredNodes(IEnumerable nodes, Predicate<TreeNode> predicate)
         {
@@ -181,8 +172,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
             if (results == null)
                 return new TreeNode[0];
-            else
-                return results.ToArray();
+            return results.ToArray();
         }
 
         private TreeNode FindFirstMatch(TreeNodeCollection nodes, Predicate<TreeNode> predicate)
@@ -224,16 +214,16 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
 
         public void LoadCategories()
         {
-            initMode = true;
+            _initMode = true;
             try
             {
-                nodes = CategoriesToNodes(ctx.Categories);
+                RealNodes = CategoriesToNodes(_ctx.Categories);
                 treeView.Nodes.Clear();
                 treeView.Nodes.AddRange(FilteredNodes(RealNodes, delegate { return true; }));
                 HashSet selectedCategories = new HashSet();
-                selectedCategories.AddAll(ctx.SelectedCategories);
+                selectedCategories.AddAll(_ctx.SelectedCategories);
                 if (selectedCategories.Count > 0)
-                    WalkNodes(treeView.Nodes, delegate(TreeNode n)
+                    WalkNodes(treeView.Nodes, delegate (TreeNode n)
                             {
                                 n.Checked = selectedCategories.Contains(((TreeNode)n.Tag).Tag as BlogPostCategory);
                             });
@@ -241,7 +231,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             }
             finally
             {
-                initMode = false;
+                _initMode = false;
             }
         }
 
@@ -250,12 +240,12 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             treeView.BeginUpdate();
             try
             {
-                Predicate<TreeNode> prefixPredicate = delegate(TreeNode node)
+                Predicate<TreeNode> prefixPredicate = delegate (TreeNode node)
                                           {
-                                              return node.Text.ToLower(CultureInfo.CurrentCulture).StartsWith(criteria);
+                                              return node.Text.ToLower(CultureInfo.CurrentCulture).IndexOf(criteria, StringComparison.CurrentCultureIgnoreCase) >= 0;
                                           };
 
-                if (criteria.Length > 0 && criteria.StartsWith(lastQuery))
+                if (criteria.Length > 0 && criteria.StartsWith(_lastQuery))
                 {
                     KeepNodes(treeView.Nodes, prefixPredicate);
                 }
@@ -273,7 +263,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                 if (treeView.Nodes.Count > 0)
                     treeView.Nodes[0].EnsureVisible();
 
-                Predicate<TreeNode> equalityPredicate = delegate(TreeNode n) { return n.Text.ToLower(CultureInfo.CurrentCulture) == criteria; };
+                Predicate<TreeNode> equalityPredicate = delegate (TreeNode n) { return n.Text.ToLower(CultureInfo.CurrentCulture) == criteria; };
                 if (treeView.SelectedNode == null || !equalityPredicate(treeView.SelectedNode))
                 {
                     TreeNode firstMatch = FindFirstMatch(treeView.Nodes, equalityPredicate);
@@ -292,13 +282,13 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                 treeView.EndUpdate();
             }
 
-            lastQuery = criteria;
+            _lastQuery = criteria;
 
         }
 
         public void SelectCategory(BlogPostCategory category)
         {
-            WalkNodes(treeView.Nodes, delegate(TreeNode n)
+            WalkNodes(treeView.Nodes, delegate (TreeNode n)
                     {
                         if (category.Equals(((TreeNode)n.Tag).Tag))
                         {
@@ -327,8 +317,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                     treeView.SelectedNode = nextNode;
             }
 
-            if (treeView.SelectedNode != null)
-                treeView.SelectedNode.EnsureVisible();
+            treeView.SelectedNode?.EnsureVisible();
 
             treeView.Focus();
         }
@@ -350,8 +339,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
                     treeView.SelectedNode = nextNode;
             }
 
-            if (treeView.SelectedNode != null)
-                treeView.SelectedNode.EnsureVisible();
+            treeView.SelectedNode?.EnsureVisible();
 
             treeView.Focus();
         }

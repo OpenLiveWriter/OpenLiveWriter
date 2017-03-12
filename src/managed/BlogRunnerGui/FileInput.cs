@@ -42,7 +42,7 @@ namespace BlogRunnerGui
         }
 
         public DialogStyle DialogStyle;
- 
+
         protected override void OnGotFocus(EventArgs e)
         {
             textBox1.Focus();

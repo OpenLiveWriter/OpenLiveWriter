@@ -19,7 +19,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// This method will create a new thread, make a hidden form and a browser
-        /// control on that thread, navigate the browser to the URL you give it, 
+        /// control on that thread, navigate the browser to the URL you give it,
         /// wait for OnDocumentComplete, and then execute the operation you give it.
         /// </summary>
         /// <typeparam name="TResult">The type of the result</typeparam>
@@ -58,7 +58,7 @@ namespace OpenLiveWriter.CoreServices
                 this.browserWidth = browserWidth;
             }
 
-            public TResult Result { get { return result; }}
+            public TResult Result { get { return result; } }
 
             public void Execute()
             {

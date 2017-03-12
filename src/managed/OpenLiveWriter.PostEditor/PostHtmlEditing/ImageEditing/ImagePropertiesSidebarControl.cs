@@ -22,7 +22,7 @@ using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
     /// <summary>
-    /// Used to host the sidebar control for the image property editing form. Now that the ribbon has replaced the 
+    /// Used to host the sidebar control for the image property editing form. Now that the ribbon has replaced the
     /// sidebar, this class has been repurposed to centralize all the picture related commands.
     /// </summary>
     public class PictureEditingManager : IImagePropertyEditingContext
@@ -116,7 +116,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         #endregion
 
         /// <summary>
-        /// Called when the ImagePropertiesInfo object has changed in order to sync the commands and decorators with 
+        /// Called when the ImagePropertiesInfo object has changed in order to sync the commands and decorators with
         /// the currently selected image.
         /// </summary>
         private void ManageCommands()
@@ -183,7 +183,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// The alignment and margin commands are used in other parts of the ribbon, so they should be hooked up only 
+        /// The alignment and margin commands are used in other parts of the ribbon, so they should be hooked up only
         /// when needed.
         /// </summary>
         private void HookAlignmentMarginCommands()
@@ -201,7 +201,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         /// <summary>
-        /// The alignment and margin commands are used in other parts of the ribbon, so they should be hooked up only 
+        /// The alignment and margin commands are used in other parts of the ribbon, so they should be hooked up only
         /// when needed.
         /// </summary>
         private void UnhookAlignmentMarginCommands()
@@ -508,13 +508,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// </summary>
         private void ResetPropertiesChunkCommands(bool isImageSelected, bool isEditableEmbeddedImage)
         {
-            // Set enabled state.            
+            // Set enabled state.
             _imageLinkTargetDropdown.Enabled = isImageSelected;
             _imageLinkToSourceCommand.Enabled = isImageSelected && UrlHelper.IsFileUrl(ImagePropertiesInfo.ImageSourceUri.ToString()) && GlobalEditorOptions.SupportsFeature(ContentEditorFeature.SupportsImageClickThroughs);
             _imageLinkOptionsCommand.Enabled = isImageSelected;
             _imageAltTextCommand.Enabled = isImageSelected;
 
-            // Set any defaults.            
+            // Set any defaults.
             _imageLinkTargetDropdown.SelectTag(LinkTargetType.NONE);
         }
 
@@ -728,7 +728,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
                 if (!ImagePropertiesInfo.IsEditableEmbeddedImage())
                 {
-                    // If this is a web image, calling ApplyImageDecorations will keep properties up to date but won't 
+                    // If this is a web image, calling ApplyImageDecorations will keep properties up to date but won't
                     // actually do any decorating, so do it manually. Only borders should be manually decorated.
                     SimpleImageDecoratorContext context = new SimpleImageDecoratorContext(ImagePropertiesInfo);
                     newDecorator.Decorate(context);

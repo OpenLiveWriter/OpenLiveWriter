@@ -13,17 +13,17 @@ namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Manages single-instance application behavior. Example usage:
-    /// 
+    ///
     /// public static void Main(string[] args)
     /// {
     ///		SingleInstanceApplicationManager.Run(
-    ///			"MyAppID", 
+    ///			"MyAppID",
     ///			new SingleInstanceApplicationManager.LaunchAction(LaunchAction),
     ///			args);
     /// }
-    /// 
+    ///
     /// private static MyAppForm form;
-    /// 
+    ///
     /// private static bool LaunchAction(string[] args, bool isFirstInstance)
     /// {
     ///		if (isFirstInstance)
@@ -50,9 +50,9 @@ namespace OpenLiveWriter.CoreServices
         /// will be true if the call represents the initial startup of the
         /// application; if false, then an additional launch was requested
         /// by another instance of the program.
-        /// 
+        ///
         /// If isFirstInstance is false, the return value should be false if
-        /// this process was unable to service the request AND it should be 
+        /// this process was unable to service the request AND it should be
         /// retried. If isFirstInstance is true, the return value is ignored.
         /// </summary>
         public delegate bool LaunchAction(string[] args, bool isFirstInstance);
@@ -116,7 +116,6 @@ namespace OpenLiveWriter.CoreServices
 
             Trace.WriteLine(appId + " could not start!");
         }
-
 
         internal class OleCommandTargetImpl : IOleCommandTargetWithExecParams
         {

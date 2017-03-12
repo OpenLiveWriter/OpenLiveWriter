@@ -20,7 +20,7 @@ using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Mshtml;
-//using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.SpellChecker;
 namespace OpenLiveWriter.HtmlEditor
 {
     public class HtmlSourceEditorControl : IHtmlEditor, IHtmlEditorCommandSource
@@ -36,12 +36,10 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        //ToDo: OLW Spell Checker
-        //public HtmlSourceEditorControl(ISpellingChecker spellingChecker, CommandManager commandManager)
-        public HtmlSourceEditorControl(CommandManager commandManager)
+        public HtmlSourceEditorControl(ISpellingChecker spellingChecker, CommandManager commandManager)
         {
             _commandManager = commandManager;
-            //_spellingChecker = spellingChecker;
+            _spellingChecker = spellingChecker;
 
             contextMenu.Entries.Add(CommandId.Cut, false, false);
             contextMenu.Entries.Add(CommandId.CopyCommand, false, false);
@@ -82,7 +80,7 @@ namespace OpenLiveWriter.HtmlEditor
         {
             if (e.Button == MouseButtons.Left)
                 OnCommandStateChanged();
-        }     
+        }
 
         void _textBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -278,47 +276,45 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
-        public bool CheckSpelling(string contextDictionaryPath)
+        public bool CheckSpelling()
         {
-            //ToDo: OLW Spell Checker
             // check spelling
-            //using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), false))
-            //{
-            //  center the spell-checking form over the document body
-            //spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
+            using (SpellCheckerForm spellCheckerForm = new SpellCheckerForm(SpellingChecker, EditorControl.FindForm(), false))
+            {
+                //  center the spell-checking form over the document body
+                spellCheckerForm.StartPosition = FormStartPosition.CenterParent;
 
-            // create word range
-            // TODO: smarter word range for html
-            //TextBoxWordRange wordRange = new TextBoxWordRange(_textBox, _textBox.SelectionLength > 0);
-            //HtmlTextBoxWordRange wordRange = new HtmlTextBoxWordRange(_textBox);
+                // create word range
+                // TODO: smarter word range for html
+                //TextBoxWordRange wordRange = new TextBoxWordRange(_textBox, _textBox.SelectionLength > 0);
+                HtmlTextBoxWordRange wordRange = new HtmlTextBoxWordRange(_textBox);
 
-            // check spelling
-            //spellCheckerForm.CheckSpelling(wordRange, contextDictionaryPath);
+                // check spelling
+                spellCheckerForm.CheckSpelling(wordRange);
 
-            // return completed status
-            return true; // spellCheckerForm.Completed;
-            //}
+                // return completed status
+                return spellCheckerForm.Completed;
+            }
         }
 
-        //ToDo: OLW Spell Checker
         /// <summary>
         /// Get the spelling-checker (demand-create and cache/re-use)
         /// </summary>
-        //public ISpellingChecker SpellingChecker
-        //{
-        //    get
-        //    {
-        //        return _spellingChecker;
-        //    }
-        //}
-        //private ISpellingChecker _spellingChecker;
+        public ISpellingChecker SpellingChecker
+        {
+            get
+            {
+                return _spellingChecker;
+            }
+        }
+        private ISpellingChecker _spellingChecker;
 
         #endregion
 
         #region IHtmlEditorCommandSource Members
 
         public void ViewSource()
-        {            
+        {
         }
 
         void IHtmlEditorCommandSource.ClearFormatting()
@@ -357,7 +353,7 @@ namespace OpenLiveWriter.HtmlEditor
             if (color.HasValue)
             {
                 _textBox.Paste("<font style=\"background-color:" + ColorHelper.ColorToString(Color.FromArgb(color.Value)) + "\">" + selectedText + "</font>");
-            }            
+            }
         }
 
         void IHtmlEditorCommandSource.ApplyFontFamily(string fontFamily)
@@ -823,7 +819,6 @@ namespace OpenLiveWriter.HtmlEditor
                 AggressiveCommandStateChanged(this, EventArgs.Empty);
         }
 
-
         #endregion
 
         #region IDisposable Members
@@ -857,7 +852,6 @@ namespace OpenLiveWriter.HtmlEditor
         #endregion
 
         #region Syntax Edit event handlers
-
 
         private void _textBox_TextChanged(object sender, EventArgs e)
         {
@@ -905,9 +899,8 @@ namespace OpenLiveWriter.HtmlEditor
             if (attributes != null)
                 _textBox.Paste(String.Format(CultureInfo.InvariantCulture, "<{0} {1}>{2}</{0}>", tagName, attributes, _textBox.SelectedText));
             else
-                _textBox.Paste(String.Format(CultureInfo.InvariantCulture, "<{0}>{1}</{0}>", tagName, _textBox.SelectedText));            
+                _textBox.Paste(String.Format(CultureInfo.InvariantCulture, "<{0}>{1}</{0}>", tagName, _textBox.SelectedText));
         }
-
 
         private void InsertList(string listTag)
         {
@@ -918,7 +911,6 @@ namespace OpenLiveWriter.HtmlEditor
         #endregion
 
         #region UI Management Helpers
-
 
         private IWin32Window Owner
         {

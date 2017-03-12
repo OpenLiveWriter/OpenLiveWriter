@@ -58,7 +58,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
                         StreamHelper.Transfer(cachedStream, memoryStream);
                         _thumbnails[video] = new VideoThumbnail(memoryStream);
                     }
-                        // otherwise mark it as 'downloading' and enque the download
+                    // otherwise mark it as 'downloading' and enque the download
                     else
                     {
                         _thumbnails[video] = new DownloadingVideoThumbnail();
@@ -87,7 +87,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
         /// Notify listeners that a new download has been completed
         /// </summary>
         public event VideoThumbnailDownloadCompleteHandler ThumbnailDownloadCompleted;
-
 
         /// <summary>
         /// Dispose the thumbnail manager -- terminate the thread-pool and discard
@@ -138,7 +137,6 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             }
         }
 
-
         /// <summary>
         /// Download the thumbnail -- return null if any error (connection, r/w, timeout, etc.) occurs
         /// </summary>
@@ -172,9 +170,8 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             }
         }
 
-
         /// <summary>
-        /// Callback method invoked from worker threads to indicate that another 
+        /// Callback method invoked from worker threads to indicate that another
         /// thumbnail has been downloaded
         /// </summary>
         private void ProcessCompletedDownload(IVideo iVideo, VideoThumbnail thumbnail)

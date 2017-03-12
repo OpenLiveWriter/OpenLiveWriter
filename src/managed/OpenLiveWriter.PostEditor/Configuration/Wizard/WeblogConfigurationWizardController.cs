@@ -79,8 +79,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 return controller.EditWeblogTemporarySettings(owner);
         }
 
-
-
         private WeblogConfigurationWizardController(TemporaryBlogSettings settings)
             : base()
         {
@@ -229,7 +227,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _authenticationRequired = showAuthenticationStep;
         }
 
-
+        private void AddGoogleBloggerOAuthSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelGoogleBloggerAuthentication(_temporarySettings.Id, this),
+                null,
+                new DisplayCallback(OnBasicInfoDisplayed),
+                new VerifyStepCallback(OnValidatePanel),
+                new NextCallback(OnGoogleBloggerOAuthCompleted),
+                null,
+                new BackCallback(OnGoogleBloggerOAuthBack)));
+        }
 
         private void AddConfirmationStep()
         {
@@ -242,7 +250,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 null,
                 null));
         }
-
 
         private DialogResult ShowDialog(IWin32Window owner, string title)
         {
@@ -329,6 +336,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             // set the user's choice
             _temporarySettings.IsSharePointBlog = panelBlogType.IsSharePointBlog;
+            _temporarySettings.IsGoogleBloggerBlog = panelBlogType.IsGoogleBloggerBlog;
 
             // did this bootstrap a custom account wizard?
             _providerAccountWizard = panelBlogType.ProviderAccountWizard;
@@ -337,6 +345,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             if (_temporarySettings.IsSharePointBlog)
             {
                 AddSharePointBasicInfoSubStep(false);
+            }
+            else if (_temporarySettings.IsGoogleBloggerBlog)
+            {
+                AddGoogleBloggerOAuthSubStep();
             }
             else
             {
@@ -396,7 +408,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private void OnBasicInfoAndAuthenticationCompleted(IAccountBasicInfoProvider basicInfo, PerformBlogAutoDetection performBlogAutoDetection)
         {
-            // copy the settings 
+            // copy the settings
             _temporarySettings.HomepageUrl = basicInfo.HomepageUrl;
             _temporarySettings.ForceManualConfig = basicInfo.ForceManualConfiguration;
             _temporarySettings.Credentials = basicInfo.Credentials;
@@ -469,11 +481,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private WizardWeblogAndSettingsAutoDetectionOperation _detectionOperation;
 
-
         private void PerformSharePointAutoDetectionSubStep()
         {
             // Clear the provider so the user will be forced to do autodetection
-            // until we have successfully configured a publishing interface								
+            // until we have successfully configured a publishing interface
             _temporarySettings.ClearProvider();
 
             AddAutoDetectionStep();
@@ -520,6 +531,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             _authenticationStepAdded = false;
         }
 
+        private void OnGoogleBloggerOAuthCompleted(Object stepControl)
+        {
+            OnBasicInfoAndAuthenticationCompleted((IAccountBasicInfoProvider)stepControl, new PerformBlogAutoDetection(PerformWeblogAndSettingsAutoDetectionSubStep));
+        }
+
+        private void OnGoogleBloggerOAuthBack(Object stepControl)
+        {
+            var panel = (WeblogConfigurationWizardPanelGoogleBloggerAuthentication)stepControl;
+            panel.CancelAuthorization();
+        }
+
         private void OnWeblogAndSettingsAutoDetectionCompleted(Object stepControl)
         {
             // if we weren't able to identify a specific weblog
@@ -563,7 +585,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
         }
 
-
         #endregion
 
         #region Select Provider Panel
@@ -593,14 +614,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 _temporarySettings.Credentials);
         }
 
-
-
         void OnSelectProviderCompleted(Object stepControl)
         {
             // get reference to panel
             WeblogConfigurationWizardPanelSelectProvider panelSelectProvider = stepControl as WeblogConfigurationWizardPanelSelectProvider;
 
-            // record the provider and blog info 
+            // record the provider and blog info
             IBlogProviderDescription provider = panelSelectProvider.SelectedBlogProvider;
             _temporarySettings.SetProvider(provider.Id, provider.Name, provider.PostApiUrl, provider.ClientType);
             _temporarySettings.HostBlogId = String.Empty;
@@ -608,8 +627,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 _temporarySettings.SetBlogInfo(panelSelectProvider.TargetBlog);
             _temporarySettings.HostBlogs = panelSelectProvider.UsersBlogs;
 
-            // If we don't yet have a HostBlogId then the user needs to choose from 
-            // among available weblogs 
+            // If we don't yet have a HostBlogId then the user needs to choose from
+            // among available weblogs
             if (_temporarySettings.HostBlogId == String.Empty)
             {
                 PerformSelectBlogSubStep();
@@ -621,8 +640,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 PerformSettingsAutoDetectionSubStepIfNecessary();
             }
         }
-
-
 
         #endregion
 
@@ -662,7 +679,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             PerformSettingsAutoDetectionSubStepIfNecessary();
         }
 
-
         #endregion
 
         #region Select Image Endpoint Panel
@@ -700,7 +716,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             optionOverrides[BlogClientOptions.IMAGE_ENDPOINT] = panelSelectBlog.SelectedBlog.Id;
             _temporarySettings.HomePageOverrides = optionOverrides;
         }
-
 
         #endregion
 
@@ -771,7 +786,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #endregion
-
 
         #region Private Members
 

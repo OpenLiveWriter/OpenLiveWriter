@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -40,13 +40,13 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
      * Each Page Parent combo makes its own delayed request
      - Tags control should share leftover space with category control
      x Properties dialog should hide and come back
-     * 
+     *
      * Questions:
      * Should Enter dismiss the properties dialog?
      * Should properties dialog scroll state be remembered between views?
      */
     public partial class PostPropertiesBandControl : UserControl, IBlogPostEditor, IRtlAware, INewCategoryContext
-    {        
+    {
         private Blog _targetBlog;
         private IBlogClientOptions _clientOptions;
 
@@ -76,23 +76,22 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
             categoryContext = new CategoryContext();
 
-            controller = new SharedPropertiesController(this, null, categoryDropDown, 
+            controller = new SharedPropertiesController(this, null, categoryDropDown,
                 null, textTags, labelPageOrder, textPageOrder, labelPageParent, comboPageParent, null,
                 datePublishDate, fields, categoryContext);
 
-            SimpleTextEditorCommandHelper.UseNativeBehaviors(commandManager, 
+            SimpleTextEditorCommandHelper.UseNativeBehaviors(commandManager,
                 textTags, textPageOrder);
 
             postPropertiesForm = new PostPropertiesForm(commandManager, categoryContext);
             if (components == null)
                 components = new Container();
             components.Add(postPropertiesForm);
-            
+
             postPropertiesForm.Synchronize(controller);
 
             commandManager.Add(CommandId.PostProperties, PostProperties_Execute);
             commandManager.Add(CommandId.ShowCategoryPopup, ShowCategoryPopup_Execute);
-
 
             linkViewAll.KeyDown += (sender, args) =>
                                    {
@@ -100,7 +99,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                                            linkViewAll_LinkClicked(sender, new LinkLabelLinkClickedEventArgs(null));
                                    };
 
-            // WinLive 180287: We don't want to show or use mnemonics on labels in the post properties band because 
+            // WinLive 180287: We don't want to show or use mnemonics on labels in the post properties band because
             // they can steal focus from the canvas.
             linkViewAll.Text = TextHelper.StripAmpersands(Res.Get(StringId.ViewAll));
             linkViewAll.UseMnemonic = false;
@@ -111,7 +110,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         }
 
         private void ShowCategoryPopup_Execute(object sender, EventArgs e)
-        {            
+        {
             if (postPropertiesForm.Visible)
                 postPropertiesForm.DisplayCategoryForm();
             else
@@ -121,7 +120,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         protected override void OnLoad(EventArgs args)
         {
             base.OnLoad(args);
-            
+
             FixCategoryDropDown();
         }
 
@@ -209,15 +208,14 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             table.ColumnStyles[COL_FILLER].SizeType = shouldShow ? SizeType.Percent : SizeType.AutoSize;
         }
 
-
         private IBlogPostEditingContext _editorContext;
         public void Initialize(IBlogPostEditingContext editorContext, IBlogClientOptions clientOptions)
         {
-            _editorContext = editorContext;            
+            _editorContext = editorContext;
             _clientOptions = clientOptions;
 
             controller.Initialize(editorContext, clientOptions);
-            ((IBlogPostEditor) postPropertiesForm).Initialize(editorContext, clientOptions);
+            ((IBlogPostEditor)postPropertiesForm).Initialize(editorContext, clientOptions);
 
             ManageLayout();
         }
@@ -229,10 +227,10 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         }
 
         public void OnBlogChanged(Blog newBlog)
-        {            
+        {
             _clientOptions = newBlog.ClientOptions;
             _targetBlog = newBlog;
-            
+
             controller.OnBlogChanged(newBlog);
             ((IBlogPostEditor)postPropertiesForm).OnBlogChanged(newBlog);
 
@@ -286,7 +284,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         public bool IsDirty
         {
-            get { return controller.IsDirty || ((IBlogPostEditor) postPropertiesForm).IsDirty; }
+            get { return controller.IsDirty || ((IBlogPostEditor)postPropertiesForm).IsDirty; }
         }
 
         public bool HasKeywords
@@ -296,6 +294,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
         public void SaveChanges(BlogPost post, BlogPostSaveOptions options)
         {
+            controller.SaveChanges(post, options);
             ((IBlogPostEditor)postPropertiesForm).SaveChanges(post, options);
         }
 
@@ -307,7 +306,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
         public void OnPublishSucceeded(BlogPost blogPost, PostResult postResult)
         {
             controller.OnPublishSucceeded(blogPost, postResult);
-            ((IBlogPostEditor) postPropertiesForm).OnPublishSucceeded(blogPost, postResult);
+            ((IBlogPostEditor)postPropertiesForm).OnPublishSucceeded(blogPost, postResult);
         }
 
         public void OnClosing(CancelEventArgs e)
@@ -348,7 +347,6 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                 postPropertiesForm.Activate();
             }
         }
-
 
         void IRtlAware.Layout()
         {

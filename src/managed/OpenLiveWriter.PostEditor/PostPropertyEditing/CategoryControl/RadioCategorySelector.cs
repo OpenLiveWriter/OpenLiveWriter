@@ -54,7 +54,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             categories.Sort();
 
             BlogPostCategory[] selected = ctx.SelectedCategories;
-            
+
             foreach (BlogPostCategory cat in categories)
             {
                 RadioButton radio = new RadioButton();

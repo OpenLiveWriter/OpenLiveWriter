@@ -27,7 +27,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
             }
         }
 
-
         public bool AutoLinkTermsOnlyOnce
         {
             get { return _autoLinkTermsOnlyOnce; }
@@ -48,6 +47,6 @@ namespace OpenLiveWriter.HtmlEditor.Linking
 
         private bool _autoLinkEnabled = true;
         private bool _autoLinkTermsOnlyOnce = true;
-        
+
     }
 }

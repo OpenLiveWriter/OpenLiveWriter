@@ -3,45 +3,45 @@
 
 namespace OpenLiveWriter.CoreServices.Progress
 {
-	/// <summary>
-	/// Progress host that only forwards cancel requests.
-	/// </summary>
-	public class CancelOnlyProgressHost : IProgressHost
-	{
-		private readonly IProgressHost parent;
+    /// <summary>
+    /// Progress host that only forwards cancel requests.
+    /// </summary>
+    public class CancelOnlyProgressHost : IProgressHost
+    {
+        private readonly IProgressHost parent;
 
-		public CancelOnlyProgressHost(IProgressHost parent)
-		{
-			this.parent = parent;
-		}
+        public CancelOnlyProgressHost(IProgressHost parent)
+        {
+            this.parent = parent;
+        }
 
-		public void UpdateProgress(int complete, int total, string message)
-		{
-		}
+        public void UpdateProgress(int complete, int total, string message)
+        {
+        }
 
-		void IProgressHost.UpdateProgress(int complete, int total)
-		{
-		}
+        void IProgressHost.UpdateProgress(int complete, int total)
+        {
+        }
 
-		void IProgressHost.UpdateProgress(string message)
-		{
-		}
+        void IProgressHost.UpdateProgress(string message)
+        {
+        }
 
-		public bool CancelRequested
-		{
-			get
-			{
-				return parent.CancelRequested;
-			}
-		}
+        public bool CancelRequested
+        {
+            get
+            {
+                return parent.CancelRequested;
+            }
+        }
 
-		public double ProgressCompletionPercentage
-		{
-			get
-			{
-				return 0;
-			}
-		}
+        public double ProgressCompletionPercentage
+        {
+            get
+            {
+                return 0;
+            }
+        }
 
-	}
+    }
 }

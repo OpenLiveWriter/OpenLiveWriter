@@ -12,18 +12,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
     public class NoRecolorDecorator : IImageDecorator
     {
         public NoRecolorDecorator()
-		{
-		}
+        {
+        }
 
-		public readonly static string Id = "NoRecolor";
+        public readonly static string Id = "NoRecolor";
 
-		public void Decorate(ImageDecoratorContext context)
-		{
-		}
+        public void Decorate(ImageDecoratorContext context)
+        {
+        }
 
-		public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
-		{
-			return null;
-		}
+        public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        {
+            return null;
+        }
     }
 }

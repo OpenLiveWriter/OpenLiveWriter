@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -44,7 +44,7 @@ namespace OpenLiveWriter.HtmlEditor
                 //     Else remove the tag
                 // If already entirely outside the tag
                 //     If empty, apply the tag and put selection inside
-                //     If non-empty, then apply tag and reselect            
+                //     If non-empty, then apply tag and reselect
                 // If partially inside the tag
                 //     Remove the tag
 
@@ -134,7 +134,7 @@ namespace OpenLiveWriter.HtmlEditor
                     break;
                 }
 
-                // Check if the next context is entering or exiting a block.                    
+                // Check if the next context is entering or exiting a block.
                 currentPointer.Right(false, contextStart);
                 if (contextStart.Element != null && ElementFilters.IsBlockElement(contextStart.Element))
                 {
@@ -208,10 +208,10 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         /// <summary>
-        /// Returns the markup pointer to the position of the first exit scope of type tagId or type terminatingTagId which follows this markup range.        
-        /// Returns null if text exists between the range and such an exit scope, or if there is no such exit scope. 
+        /// Returns the markup pointer to the position of the first exit scope of type tagId or type terminatingTagId which follows this markup range.
+        /// Returns null if text exists between the range and such an exit scope, or if there is no such exit scope.
         /// </summary>
-        /// <param name="terminatingTagId"></param>        
+        /// <param name="terminatingTagId"></param>
         /// <returns></returns>
         internal MarkupPointer NextExitScopeWithoutInterveningText(MarkupRange selection, _ELEMENT_TAG_ID tagId, _ELEMENT_TAG_ID terminatingTagId, out bool primaryTagIdMatch)
         {
@@ -316,7 +316,7 @@ namespace OpenLiveWriter.HtmlEditor
                 rangeToChange = selection;
 
                 // If expanding the selection would not include any new text, then expand it.
-                // <h1>|abc|</h1> --> |<h1>abc</h1>|                
+                // <h1>|abc|</h1> --> |<h1>abc</h1>|
                 rangeToChange.MoveOutwardIfNoText();
             }
 
@@ -324,7 +324,6 @@ namespace OpenLiveWriter.HtmlEditor
 
             for (int i = 0; i < tagBefore.Length; i++)
                 filters[i] = ElementFilters.CreateTagIdFilter(markupServices.GetNameForTagId(tagBefore[i]));
-
 
             IHTMLElement[] elements = rangeToChange.GetElements(ElementFilters.CreateCompoundElementFilter(filters), false);
             foreach (IHTMLElement element in elements)
@@ -372,7 +371,7 @@ namespace OpenLiveWriter.HtmlEditor
             // We may now be left with empty font tags, e.g. <font>blah</font>.
             // After switching between editors this becomes <font size="+0">blah</font>, which
             // causes blah to be rendered differently.
-            // To avoid that we need to remove any empty-attribute font tags.                                                                                                                                                                                                        
+            // To avoid that we need to remove any empty-attribute font tags.
             selection.RemoveElementsByTagId(_ELEMENT_TAG_ID.TAGID_FONT, true);
         }
 

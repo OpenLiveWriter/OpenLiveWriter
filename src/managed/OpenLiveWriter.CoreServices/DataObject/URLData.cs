@@ -7,7 +7,6 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-
 namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
@@ -15,7 +14,7 @@ namespace OpenLiveWriter.CoreServices
     /// </summary>
     public class URLData
     {
-		
+
         /// <summary>
         /// Creates a URLData based upon an IDataObject
         /// </summary>
@@ -34,24 +33,24 @@ namespace OpenLiveWriter.CoreServices
             }
             catch (Exception e)
             {
-                Debug.Fail(e.ToString());              
+                Debug.Fail(e.ToString());
             }
 
-            // Validate required format           
+            // Validate required format
             // WinLive Bug 182698: Assert when pasting a hyperlink from IE
             if (canGetDataPresentDirectlyFromIDataObject &&
                 OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormatsEx.URLFormat) &&
-                OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormatsEx.FileGroupDescriptorWFormat))                            
+                OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormatsEx.FileGroupDescriptorWFormat))
                 return new URLData(iDataObject);
             else
             {
                 //check to see if the dataObject contains a single .url file,
                 //if so, create the URLData from that.
                 FileData fileData = FileData.Create(iDataObject);
-                if(fileData != null && fileData.Files.Length == 1)
+                if (fileData != null && fileData.Files.Length == 1)
                 {
                     string filePath = fileData.Files[0].ContentsPath;
-                    if(PathHelper.IsPathUrlFile(filePath))
+                    if (PathHelper.IsPathUrlFile(filePath))
                     {
                         URLData urlData = new URLData(iDataObject, UrlHelper.GetUrlFromShortCutFile(filePath), Path.GetFileNameWithoutExtension(filePath));
                         urlData.DateCreated = File.GetCreationTime(filePath);
@@ -75,7 +74,7 @@ namespace OpenLiveWriter.CoreServices
                 if (m_url == null)
                 {
                     // Read the URL into a string
-                    Stream stream = (Stream) m_dataObject.GetData(DataFormatsEx.URLFormat);
+                    Stream stream = (Stream)m_dataObject.GetData(DataFormatsEx.URLFormat);
                     StreamReader reader = new StreamReader(stream);
 
                     using (reader)
@@ -103,7 +102,6 @@ namespace OpenLiveWriter.CoreServices
 
         private DateTime _dateModified;
 
-
         /// <summary>
         /// Gets the title of a URL by inspecting the accompanying file drop
         /// </summary>
@@ -115,13 +113,13 @@ namespace OpenLiveWriter.CoreServices
                 if (m_title == null)
                 {
                     // Get the bytes from the stream
-                    Stream memoryStream = 
-                        (Stream) m_dataObject.GetData(DataFormatsEx.FileGroupDescriptorWFormat);
+                    Stream memoryStream =
+                        (Stream)m_dataObject.GetData(DataFormatsEx.FileGroupDescriptorWFormat);
                     byte[] memoryStreamBytes = new Byte[memoryStream.Length];
-			
-                    using(memoryStream)
+
+                    using (memoryStream)
                     {
-                        memoryStream.Read(memoryStreamBytes, 0, (int) memoryStream.Length);
+                        memoryStream.Read(memoryStreamBytes, 0, (int)memoryStream.Length);
                     }
 
                     // Just get the characters at this byte position in the stream, until the end
@@ -130,25 +128,24 @@ namespace OpenLiveWriter.CoreServices
                     const int BYTE_INCREMENT = 2;
                     char currentChar;
                     StringBuilder sBuilder = new StringBuilder();
-				
-                    // Read character by character into a string 
+
+                    // Read character by character into a string
                     int i = FILENAME_OFFSET;
                     currentChar = BitConverter.ToChar(memoryStreamBytes, i);
-                    while (currentChar != (char) 0)
+                    while (currentChar != (char)0)
                     {
                         sBuilder.Append(currentChar);
-					
+
                         i = i + BYTE_INCREMENT;
                         currentChar = BitConverter.ToChar(memoryStreamBytes, i);
-                    } 
-		
+                    }
+
                     m_title = Path.GetFileNameWithoutExtension(FileHelper.GetValidFileName(sBuilder.ToString()));
                 }
                 return m_title;
             }
         }
         private string m_title;
-
 
         /// <summary>
         /// Constructor for URLData

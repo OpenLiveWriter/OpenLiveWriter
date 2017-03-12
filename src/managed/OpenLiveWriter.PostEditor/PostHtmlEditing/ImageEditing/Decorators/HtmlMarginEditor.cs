@@ -14,7 +14,7 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.Commands;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
-{   
+{
 
     public class HtmlMarginEditor : ImageDecoratorEditor
     {
@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             // This call is required by the Windows Form Designer.
             InitializeComponent();
-            
+
             marginCommand = (MarginCommand)commandManager.Get(CommandId.MarginsGroup);
 
             this.label3.Text = Res.Get(StringId.ImgSBMarginTop);
@@ -47,10 +47,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             comboBoxMargins.Initialize();
             comboBoxMargins.SelectedIndexChanged += new EventHandler(comboBoxMargins_SelectedIndexChanged);
             comboBoxMargins.SelectedIndex = 0;
-            panelCustomMargin.VisibleChanged += new EventHandler(panelCustomMargin_VisibleChanged);          
+            panelCustomMargin.VisibleChanged += new EventHandler(panelCustomMargin_VisibleChanged);
 
             comboBoxMargins.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.ImgSBMargins));
-            
+
             marginCommand.MarginChanged += new EventHandler(marginCommand_MarginChanged);
         }
 
@@ -105,9 +105,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             ((System.ComponentModel.ISupportInitialize)(this.numericMarginBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericMarginLeft)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // panelCustomMargin
-            // 
+            //
             this.panelCustomMargin.Controls.Add(this.numericMarginTop);
             this.panelCustomMargin.Controls.Add(this.numericMarginRight);
             this.panelCustomMargin.Controls.Add(this.numericMarginBottom);
@@ -121,9 +121,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.panelCustomMargin.Name = "panelCustomMargin";
             this.panelCustomMargin.Size = new System.Drawing.Size(180, 83);
             this.panelCustomMargin.TabIndex = 5;
-            // 
+            //
             // numericMarginTop
-            // 
+            //
             this.numericMarginTop.Increment = new decimal(new int[] {
             5,
             0,
@@ -135,9 +135,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.numericMarginTop.TabIndex = 10;
             this.numericMarginTop.ValueChanged += new System.EventHandler(this.numericMargin_ValueChanged);
             this.numericMarginTop.Enter += new System.EventHandler(this.numericMargin_Enter);
-            // 
+            //
             // numericMarginRight
-            // 
+            //
             this.numericMarginRight.Increment = new decimal(new int[] {
             5,
             0,
@@ -149,9 +149,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.numericMarginRight.TabIndex = 20;
             this.numericMarginRight.ValueChanged += new System.EventHandler(this.numericMargin_ValueChanged);
             this.numericMarginRight.Enter += new System.EventHandler(this.numericMargin_Enter);
-            // 
+            //
             // numericMarginBottom
-            // 
+            //
             this.numericMarginBottom.Increment = new decimal(new int[] {
             5,
             0,
@@ -163,9 +163,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.numericMarginBottom.TabIndex = 30;
             this.numericMarginBottom.ValueChanged += new System.EventHandler(this.numericMargin_ValueChanged);
             this.numericMarginBottom.Enter += new System.EventHandler(this.numericMargin_Enter);
-            // 
+            //
             // numericMarginLeft
-            // 
+            //
             this.numericMarginLeft.Increment = new decimal(new int[] {
             5,
             0,
@@ -177,9 +177,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.numericMarginLeft.TabIndex = 40;
             this.numericMarginLeft.ValueChanged += new System.EventHandler(this.numericMargin_ValueChanged);
             this.numericMarginLeft.Enter += new System.EventHandler(this.numericMargin_Enter);
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.AutoSize = true;
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label3.Location = new System.Drawing.Point(0, 0);
@@ -187,9 +187,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "T&op";
-            // 
+            //
             // label4
-            // 
+            //
             this.label4.AutoSize = true;
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label4.Location = new System.Drawing.Point(93, 0);
@@ -197,9 +197,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.label4.Size = new System.Drawing.Size(32, 13);
             this.label4.TabIndex = 15;
             this.label4.Text = "&Right";
-            // 
+            //
             // label5
-            // 
+            //
             this.label5.AutoSize = true;
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label5.Location = new System.Drawing.Point(93, 40);
@@ -207,9 +207,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.label5.Size = new System.Drawing.Size(25, 13);
             this.label5.TabIndex = 35;
             this.label5.Text = "&Left";
-            // 
+            //
             // label6
-            // 
+            //
             this.label6.AutoSize = true;
             this.label6.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.label6.Location = new System.Drawing.Point(0, 40);
@@ -217,9 +217,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 25;
             this.label6.Text = "&Bottom";
-            // 
+            //
             // comboBoxMargins
-            // 
+            //
             this.comboBoxMargins.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMargins.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -227,9 +227,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.comboBoxMargins.Name = "comboBoxMargins";
             this.comboBoxMargins.Size = new System.Drawing.Size(204, 21);
             this.comboBoxMargins.TabIndex = 0;
-            // 
+            //
             // HtmlMarginEditor
-            // 
+            //
             this.Controls.Add(this.comboBoxMargins);
             this.Controls.Add(this.panelCustomMargin);
             this.Name = "HtmlMarginEditor";
@@ -277,7 +277,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             else
                 HtmlMarginSettings.Margin = null;
 
-
             //  Taking out this call because applying
             //   decorators is very slow and doesn't seem to do anything
             //   in this case. I don't know of any side effects to taking
@@ -300,7 +299,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             SaveSettings();
         }
-
 
         private void comboBoxMargins_SelectedIndexChanged(object sender, EventArgs e)
         {

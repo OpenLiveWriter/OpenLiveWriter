@@ -6,28 +6,28 @@ using System.Threading;
 
 namespace OpenLiveWriter.CoreServices.Threading
 {
-	public delegate void ThreadStartWithParamsDelegate(object[] parameters);
+    public delegate void ThreadStartWithParamsDelegate(object[] parameters);
 
-	public class ThreadStartWithParams
-	{
-		private readonly ThreadStartWithParamsDelegate _delegate;
-		private readonly object[] _params;
+    public class ThreadStartWithParams
+    {
+        private readonly ThreadStartWithParamsDelegate _delegate;
+        private readonly object[] _params;
 
-		private ThreadStartWithParams(ThreadStartWithParamsDelegate ts, object[] parameters)
-		{
-			_delegate = ts;
-			_params = parameters;
-		}
+        private ThreadStartWithParams(ThreadStartWithParamsDelegate ts, object[] parameters)
+        {
+            _delegate = ts;
+            _params = parameters;
+        }
 
-		[STAThread]
-		private void Run()
-		{
-			_delegate(_params);
-		}
+        [STAThread]
+        private void Run()
+        {
+            _delegate(_params);
+        }
 
-		public static ThreadStart Create(ThreadStartWithParamsDelegate ts, params object[] parameters)
-		{
-			return new ThreadStart(new ThreadStartWithParams(new ThreadStartWithParamsDelegate(ts), parameters).Run);
-		}
-	}
+        public static ThreadStart Create(ThreadStartWithParamsDelegate ts, params object[] parameters)
+        {
+            return new ThreadStart(new ThreadStartWithParams(new ThreadStartWithParamsDelegate(ts), parameters).Run);
+        }
+    }
 }

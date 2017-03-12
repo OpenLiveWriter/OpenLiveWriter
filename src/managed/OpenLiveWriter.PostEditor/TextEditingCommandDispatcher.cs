@@ -24,8 +24,6 @@ using OpenLiveWriter.PostEditor.Commands;
 
 namespace OpenLiveWriter.PostEditor
 {
-    public delegate string SpellingContextDirectorySource();
-
     public delegate void TextEditingFocusHandler();
     public class TextEditingCommandDispatcher : IDisposable
     {
@@ -77,7 +75,7 @@ namespace OpenLiveWriter.PostEditor
                 else
                 {
                     // Note: that the font family drop down will not reflect changes to the set of
-                    // Note: installed fonts made after initialization.                    
+                    // Note: installed fonts made after initialization.
                     selectedIndex = INVALID_INDEX;
                     string fontName = _postEditor.SelectionFontFamily;
                     if (string.IsNullOrEmpty(fontName))
@@ -148,7 +146,7 @@ namespace OpenLiveWriter.PostEditor
                     else
                     {
                         // User edited the combo box edit field, but their input didn't correspond to a valid choice.
-                        // We just need to update the gallery based on the current selection.                                              
+                        // We just need to update the gallery based on the current selection.
                         InvalidateSelectedItemProperties();
                     }
                 }
@@ -189,12 +187,12 @@ namespace OpenLiveWriter.PostEditor
                     {
                         // Don't include the decimal places if it's just going add ".0";
                         // We allow for up to 1 decimal place, but we don't want to show it
-                        // if it is just a zero.                       
-                        double rounded = Math.Round(_currentFontSize, 1, MidpointRounding.AwayFromZero);                        
+                        // if it is just a zero.
+                        double rounded = Math.Round(_currentFontSize, 1, MidpointRounding.AwayFromZero);
                         string format = (Math.Truncate(rounded) == rounded) ? "F0" : "F1";
-                        
+
                         return rounded.ToString(format, CultureInfo.InvariantCulture);
-                    }                        
+                    }
 
                     return String.Empty;
                 }
@@ -245,7 +243,6 @@ namespace OpenLiveWriter.PostEditor
 
         }
 
-
         /// <summary>
         /// This command corresponds to a ColorPickerDropDown in ribbon markup.
         /// </summary>
@@ -288,20 +285,19 @@ namespace OpenLiveWriter.PostEditor
                                                                  new ColorPickerColor(Color.FromArgb(255, 0,   0), StringId.ColorVibrantRed),
                                                                  new ColorPickerColor(Color.FromArgb(192, 80,  77), StringId.ColorProfessionalRed),
                                                                  new ColorPickerColor(Color.FromArgb(209, 99,  73), StringId.ColorEarthyRed),
-                                                                 new ColorPickerColor(Color.FromArgb(221, 132, 132), StringId.ColorPastelRed),                                                                 
+                                                                 new ColorPickerColor(Color.FromArgb(221, 132, 132), StringId.ColorPastelRed),
 
                                                                  new ColorPickerColor(Color.FromArgb(204, 204, 204), StringId.ColorLightGray),
                                                                  new ColorPickerColor(Color.FromArgb(255, 192, 0), StringId.ColorVibrantOrange),
-                                                                 new ColorPickerColor(Color.FromArgb(247, 150, 70), StringId.ColorProfessionalOrange),                                                                 
-                                                                 new ColorPickerColor(Color.FromArgb(209, 144, 73), StringId.ColorEarthyOrange),                                                                 
-                                                                 new ColorPickerColor(Color.FromArgb(243, 164, 71), StringId.ColorPastelOrange),                                                                 
-                                                                 
+                                                                 new ColorPickerColor(Color.FromArgb(247, 150, 70), StringId.ColorProfessionalOrange),
+                                                                 new ColorPickerColor(Color.FromArgb(209, 144, 73), StringId.ColorEarthyOrange),
+                                                                 new ColorPickerColor(Color.FromArgb(243, 164, 71), StringId.ColorPastelOrange),
+
                                                                  new ColorPickerColor(Color.FromArgb(165, 165, 165), StringId.ColorMediumGray),
                                                                  new ColorPickerColor(Color.FromArgb(255, 255, 0), StringId.ColorVibrantYellow),
                                                                  new ColorPickerColor(Color.FromArgb(155, 187, 89), StringId.ColorProfessionalGreen),
                                                                  new ColorPickerColor(Color.FromArgb(204, 180, 0), StringId.ColorEarthyYellow),
                                                                  new ColorPickerColor(Color.FromArgb(223, 206, 4), StringId.ColorPastelYellow),
-
 
                                                                  new ColorPickerColor(Color.FromArgb(102, 102, 102), StringId.ColorDarkGray),
                                                                  new ColorPickerColor(Color.FromArgb(0,   255, 0), StringId.ColorVibrantGreen),
@@ -462,11 +458,10 @@ namespace OpenLiveWriter.PostEditor
 
         private readonly CommandManager CommandManager;
 
-        public TextEditingCommandDispatcher(IWin32Window owner, SpellingContextDirectorySource spellingContextDirSource, IHtmlStylePicker stylePicker, CommandManager commandManager)
+        public TextEditingCommandDispatcher(IWin32Window owner, IHtmlStylePicker stylePicker, CommandManager commandManager)
         {
             CommandManager = commandManager;
             _owner = owner;
-            _spellingContextDirSource = spellingContextDirSource;
             _stylePicker = stylePicker;
             InitializeCommands();
         }
@@ -553,7 +548,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         public void Dispose()
         {
             foreach (ISimpleTextEditorCommandSource commandSource in _simpleTextEditors)
@@ -566,7 +560,6 @@ namespace OpenLiveWriter.PostEditor
             if (components != null)
                 components.Dispose();
         }
-
 
         private void InitializeCommands()
         {
@@ -600,8 +593,8 @@ namespace OpenLiveWriter.PostEditor
             InitializeCommand(new LTRTextBlockCommand());
             InitializeCommand(new RTLTextBlockCommand());
             InitializeCommand(new InsertLinkCommand());
-            InitializeCommand(new FindCommand());            
-            InitializeCommand(new CheckSpellingCommand(_spellingContextDirSource));
+            InitializeCommand(new FindCommand());
+            InitializeCommand(new CheckSpellingCommand());
             InitializeCommand(new EditLinkCommand());
             InitializeCommand(new RemoveLinkCommand());
             InitializeCommand(new RemoveLinkAndClearFormattingCommand());
@@ -639,7 +632,7 @@ namespace OpenLiveWriter.PostEditor
         {
             //if (fontColorPickerCommand.Automatic)
             //    PostEditor.ApplyAutomaticFontForeColor();
-            //else            
+            //else
             Color color = e.GetColor("SelectedColor");
             PostEditor.ApplyFontForeColor(color.ToArgb());
         }
@@ -690,7 +683,6 @@ namespace OpenLiveWriter.PostEditor
             _focusCallback();
         }
 
-
         private void editingCommand_BeforeShowInMenu(object sender, EventArgs ea)
         {
             ManageCommands();
@@ -721,7 +713,6 @@ namespace OpenLiveWriter.PostEditor
             return null;
         }
 
-
         private ISimpleTextEditorCommandSource ActiveSimpleTextEditor
         {
             get
@@ -736,7 +727,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private IHtmlEditorCommandSource PostEditor
         {
             get
@@ -744,7 +734,6 @@ namespace OpenLiveWriter.PostEditor
                 return _postEditor;
             }
         }
-
 
         private class UndoCommand : TextEditingCommand
         {
@@ -833,8 +822,6 @@ namespace OpenLiveWriter.PostEditor
                 using (ApplicationPerformance.LogEvent("Paste"))
                     ActiveSimpleTextEditor.Paste();
             }
-
-
 
             public override void Manage()
             {
@@ -997,8 +984,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
-
         internal class LetterCommand : OverridableCommand, CommandBarButtonLightweightControl.ICustomButtonBitmapPaint
         {
             private char _letter;
@@ -1033,7 +1018,6 @@ namespace OpenLiveWriter.PostEditor
                     }
                 }
 
-
                 using (Font f = new Font(fontFamily, Res.ToolbarFormatButtonFontSize, FontStyle.Bold | _fontStyle, GraphicsUnit.Pixel, 0))
                 {
                     // Note: no high contrast mode support here
@@ -1056,11 +1040,9 @@ namespace OpenLiveWriter.PostEditor
                     bounds.Y -= 1;
                     g.DrawText(_letter + "", f, bounds, color, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.PreserveGraphicsTranslateTransform | TextFormatFlags.NoPadding | TextFormatFlags.NoClipping);
 
-
                 }
             }
         }
-
 
         private class ItalicCommand : LatchedTextEditingCommand
         {
@@ -1173,9 +1155,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
-
-
         private class StyleCommand : TextEditingCommand
         {
             IHtmlStylePicker _stylePicker;
@@ -1197,7 +1176,6 @@ namespace OpenLiveWriter.PostEditor
             }
 
             // @RIBBON TODO: Rationalize existing StyleCommand with SemanticHtmlStyleCommand
-
 
             public override void Manage()
             {
@@ -1255,7 +1233,6 @@ namespace OpenLiveWriter.PostEditor
             private EditorTextAlignment _alignment;
         }
 
-
         private class AlignLeftCommand : AlignCommand
         {
             public AlignLeftCommand() : base(EditorTextAlignment.Left) { }
@@ -1283,8 +1260,6 @@ namespace OpenLiveWriter.PostEditor
             public override CommandId CommandId { get { return CommandId.AlignRight; } }
             public override string ContextMenuText { get { return Command.MenuText; } }
         }
-
-
 
         private class NumbersCommand : LatchedTextEditingCommand
         {
@@ -1374,7 +1349,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private class LTRTextBlockCommand : LatchedTextEditingCommand
         {
             public override CommandId CommandId { get { return CommandId.LTRTextBlock; } }
@@ -1425,7 +1399,6 @@ namespace OpenLiveWriter.PostEditor
                 Enabled = rtlState && PostEditor.CanApplyFormatting(CommandId);
             }
         }
-
 
         private class BlockquoteCommand : LatchedTextEditingCommand
         {
@@ -1482,7 +1455,7 @@ namespace OpenLiveWriter.PostEditor
                 get
                 {
                     return Res.Get(StringId.LinkEditHyperlink);
-                }                
+                }
             }
         }
 
@@ -1518,7 +1491,7 @@ namespace OpenLiveWriter.PostEditor
             {
                 // tie enabled state to Insert Link -- it looks odd to have
                 // Remove Link disabled on the command bar right next to
-                // Insert Link -- the command no-ops in the case where it 
+                // Insert Link -- the command no-ops in the case where it
                 // is invalid for the current context (see Execute above)
                 Enabled = PostEditor.CanInsertLink;
             }
@@ -1538,7 +1511,7 @@ namespace OpenLiveWriter.PostEditor
                 // this command only appears on the context-menu for links,
                 // so by default it is always enabled (if we don't do this
                 // then it gets tied up in context-menu command management
-                // funkiness, where sometimes it is enabled and sometimes 
+                // funkiness, where sometimes it is enabled and sometimes
                 // it is not
                 Enabled = true;
             }
@@ -1558,7 +1531,6 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         private class FindCommand : TextEditingCommand
         {
             public override CommandId CommandId { get { return CommandId.FindButton; } }
@@ -1573,14 +1545,10 @@ namespace OpenLiveWriter.PostEditor
                 Enabled = PostEditor.CanFind;
             }
         }
-        
+
         private class CheckSpellingCommand : TextEditingCommand
         {
             private bool _isExecuting;
-            public CheckSpellingCommand(SpellingContextDirectorySource spellingContextDirSource)
-            {
-                _spellingContextDirSource = spellingContextDirSource;
-            }
 
             public override CommandId CommandId { get { return CommandId.CheckSpelling; } }
 
@@ -1600,7 +1568,7 @@ namespace OpenLiveWriter.PostEditor
                         string doNotShow = args.GetString("OLECMDEXECOPT_DONTPROMPTUSER");
                         bool showFinishedUI = !StringHelper.ToBool(doNotShow, false);
 
-                        if (!PostEditor.CheckSpelling(_spellingContextDirSource()))
+                        if (!PostEditor.CheckSpelling())
                         {
                             args.Cancelled = true;
                             return;
@@ -1610,13 +1578,13 @@ namespace OpenLiveWriter.PostEditor
                         {
                             DisplayMessage.Show(MessageId.SpellCheckComplete, Owner);
                         }
-                    }    
+                    }
                 }
                 finally
                 {
                     _isExecuting = false;
                 }
-                                               
+
             }
 
             public override void Manage()
@@ -1628,8 +1596,6 @@ namespace OpenLiveWriter.PostEditor
             {
                 return new DontPromptUserCommand(CommandId.CheckSpelling);
             }
-
-            private SpellingContextDirectorySource _spellingContextDirSource;
         }
 
         internal class DontPromptUserCommand : Command
@@ -1665,7 +1631,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private IWin32Window _owner;
-        private SpellingContextDirectorySource _spellingContextDirSource;
         private IHtmlStylePicker _stylePicker;
         private IHtmlEditorCommandSource _postEditor;
         private TextEditingFocusHandler _focusCallback;
@@ -1729,7 +1694,7 @@ namespace OpenLiveWriter.PostEditor
             protected abstract void Execute();
             protected virtual void ExecuteWithArgs(ExecuteEventHandlerArgs args)
             {
-                // @RIBBON TODO: Unify the Execute and ExecuteWithArgs events.                
+                // @RIBBON TODO: Unify the Execute and ExecuteWithArgs events.
                 Execute();
             }
 

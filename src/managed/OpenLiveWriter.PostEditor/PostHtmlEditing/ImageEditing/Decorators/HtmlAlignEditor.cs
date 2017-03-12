@@ -13,91 +13,90 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.Commands;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
-{   
-	public class HtmlAlignEditor : ImageDecoratorEditor
-	{
-		private IContainer components = null;
-		
-		private ImagePickerControl imagePickerAlign;
+{
+    public class HtmlAlignEditor : ImageDecoratorEditor
+    {
+        private IContainer components = null;
 
-		public HtmlAlignEditor(CommandManager commandManager)
-		{
-			// This call is required by the Windows Form Designer.
-			InitializeComponent();
-		    imagePickerAlign.AccessibleName = Res.Get(StringId.Alignment);
-			imagePickerAlign.Items.AddRange( new object[] {
-				new AlignmentComboItem(Res.Get(StringId.ImgSBAlignInline), ImgAlignment.NONE, ResourceHelper.LoadAssemblyResourceBitmap(BUTTON_IMAGE_PATH + "WrapTextInlineEnabled.png")),
-				new AlignmentComboItem(Res.Get(StringId.ImgSBAlignLeft), ImgAlignment.LEFT, ResourceHelper.LoadAssemblyResourceBitmap(BUTTON_IMAGE_PATH + "WrapTextLeftEnabled.png")),
-				new AlignmentComboItem(Res.Get(StringId.ImgSBAlignRight), ImgAlignment.RIGHT, ResourceHelper.LoadAssemblyResourceBitmap(BUTTON_IMAGE_PATH + "WrapTextRightEnabled.png")),
+        private ImagePickerControl imagePickerAlign;
+
+        public HtmlAlignEditor(CommandManager commandManager)
+        {
+            // This call is required by the Windows Form Designer.
+            InitializeComponent();
+            imagePickerAlign.AccessibleName = Res.Get(StringId.Alignment);
+            imagePickerAlign.Items.AddRange(new object[] {
+                new AlignmentComboItem(Res.Get(StringId.ImgSBAlignInline), ImgAlignment.NONE, ResourceHelper.LoadAssemblyResourceBitmap(BUTTON_IMAGE_PATH + "WrapTextInlineEnabled.png")),
+                new AlignmentComboItem(Res.Get(StringId.ImgSBAlignLeft), ImgAlignment.LEFT, ResourceHelper.LoadAssemblyResourceBitmap(BUTTON_IMAGE_PATH + "WrapTextLeftEnabled.png")),
+                new AlignmentComboItem(Res.Get(StringId.ImgSBAlignRight), ImgAlignment.RIGHT, ResourceHelper.LoadAssemblyResourceBitmap(BUTTON_IMAGE_PATH + "WrapTextRightEnabled.png")),
                 new AlignmentComboItem(Res.Get(StringId.ImgSBAlignCenter), ImgAlignment.CENTER, ResourceHelper.LoadAssemblyResourceBitmap(BUTTON_IMAGE_PATH + "WrapTextCenterEnabled.png"))
-				});
-		}
+                });
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this.SuspendLayout();
-			
-			this.imagePickerAlign = new ImagePickerControl();
-			this.imagePickerAlign.Name = "imagePickerAlign";
-			this.imagePickerAlign.Dock = DockStyle.Fill;
-			this.imagePickerAlign.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-			this.imagePickerAlign.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.imagePickerAlign.IntegralHeight = false;
-			this.imagePickerAlign.ItemHeight = 29;
-			this.imagePickerAlign.SelectedIndexChanged += new EventHandler(imagePickerAlign_SelectedIndexChanged);
-			
-			// 
-			// HtmlAlignEditor
-			// 
-			this.Controls.Add(this.imagePickerAlign);
-			this.Name = "HtmlAlignEditor";
-			this.Size = new System.Drawing.Size(208, 35);
+        #region Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
 
-			this.ResumeLayout(false);
-		}
-		#endregion
+            this.imagePickerAlign = new ImagePickerControl();
+            this.imagePickerAlign.Name = "imagePickerAlign";
+            this.imagePickerAlign.Dock = DockStyle.Fill;
+            this.imagePickerAlign.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.imagePickerAlign.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.imagePickerAlign.IntegralHeight = false;
+            this.imagePickerAlign.ItemHeight = 29;
+            this.imagePickerAlign.SelectedIndexChanged += new EventHandler(imagePickerAlign_SelectedIndexChanged);
 
-		protected override void LoadEditor()
-		{
-			base.LoadEditor ();
-			HtmlAlignSettings = new HtmlAlignDecoratorSettings(EditorContext.Settings, EditorContext.ImgElement);
-			Alignment = HtmlAlignSettings.Alignment;
-		}
-		private HtmlAlignDecoratorSettings HtmlAlignSettings;
+            //
+            // HtmlAlignEditor
+            //
+            this.Controls.Add(this.imagePickerAlign);
+            this.Name = "HtmlAlignEditor";
+            this.Size = new System.Drawing.Size(208, 35);
 
+            this.ResumeLayout(false);
+        }
+        #endregion
 
-		public override Size GetPreferredSize()
-		{
-			return new Size(208, 35);
-		}
+        protected override void LoadEditor()
+        {
+            base.LoadEditor();
+            HtmlAlignSettings = new HtmlAlignDecoratorSettings(EditorContext.Settings, EditorContext.ImgElement);
+            Alignment = HtmlAlignSettings.Alignment;
+        }
+        private HtmlAlignDecoratorSettings HtmlAlignSettings;
 
-		protected override void OnSaveSettings()
-		{
-			HtmlAlignSettings.Alignment = Alignment;
-			base.OnSaveSettings ();
+        public override Size GetPreferredSize()
+        {
+            return new Size(208, 35);
+        }
 
-		    FireAlignmentChanged();
-		}
+        protected override void OnSaveSettings()
+        {
+            HtmlAlignSettings.Alignment = Alignment;
+            base.OnSaveSettings();
+
+            FireAlignmentChanged();
+        }
 
         public event EventHandler AlignmentChanged;
         protected void FireAlignmentChanged()
@@ -106,63 +105,63 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 AlignmentChanged(this, EventArgs.Empty);
         }
 
-		public ImgAlignment Alignment
-		{
-			get
-			{
-				return alignment;
-			}
-			private set
-			{
-				alignment = value;
-				switch (value)
-				{
-					case ImgAlignment.NONE:
-						imagePickerAlign.SelectedIndex = 0;
-						break;
-					case ImgAlignment.LEFT:
-						imagePickerAlign.SelectedIndex = 1;
-						break;
-					case ImgAlignment.RIGHT:
-						imagePickerAlign.SelectedIndex = 2;
-						break;
+        public ImgAlignment Alignment
+        {
+            get
+            {
+                return alignment;
+            }
+            private set
+            {
+                alignment = value;
+                switch (value)
+                {
+                    case ImgAlignment.NONE:
+                        imagePickerAlign.SelectedIndex = 0;
+                        break;
+                    case ImgAlignment.LEFT:
+                        imagePickerAlign.SelectedIndex = 1;
+                        break;
+                    case ImgAlignment.RIGHT:
+                        imagePickerAlign.SelectedIndex = 2;
+                        break;
                     case ImgAlignment.CENTER:
                         imagePickerAlign.SelectedIndex = 3;
                         break;
-				}
-				SaveSettingsAndApplyDecorator();                
-			}
-		}
-		ImgAlignment alignment;
+                }
+                SaveSettingsAndApplyDecorator();
+            }
+        }
+        ImgAlignment alignment;
 
-		public const string BUTTON_IMAGE_PATH = "PostHtmlEditing.ImageEditing.Images." ;
+        public const string BUTTON_IMAGE_PATH = "PostHtmlEditing.ImageEditing.Images.";
 
-		private void imagePickerAlign_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			AlignmentComboItem selectedAlignment = imagePickerAlign.SelectedItem as AlignmentComboItem;
-			if (selectedAlignment != null)
-				Alignment = (ImgAlignment) selectedAlignment.ItemValue;
-		}
+        private void imagePickerAlign_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AlignmentComboItem selectedAlignment = imagePickerAlign.SelectedItem as AlignmentComboItem;
+            if (selectedAlignment != null)
+                Alignment = (ImgAlignment)selectedAlignment.ItemValue;
+        }
 
-		private class AlignmentComboItem : OptionItem, ImagePickerControl.IComboImageItem
-		{
-			public AlignmentComboItem(string text, ImgAlignment alignment, Image borderImage) : base(text, alignment)
-			{
-				image = borderImage;
-			}
-			#region ImageBorderItem Members
+        private class AlignmentComboItem : OptionItem, ImagePickerControl.IComboImageItem
+        {
+            public AlignmentComboItem(string text, ImgAlignment alignment, Image borderImage) : base(text, alignment)
+            {
+                image = borderImage;
+            }
+            #region ImageBorderItem Members
 
-			public Image Image
-			{
-				get
-				{
-					return image;
-				}
-			}
-			private Image image;
-			#endregion
-		}
-	}
+            public Image Image
+            {
+                get
+                {
+                    return image;
+                }
+            }
+            private Image image;
+            #endregion
+        }
+    }
 
     internal class OptionItem
     {

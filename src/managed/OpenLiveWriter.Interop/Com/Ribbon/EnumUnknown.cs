@@ -7,16 +7,16 @@ using System.Runtime.InteropServices;
 namespace OpenLiveWriter.Interop.Com.Ribbon
 {
     [
-        ComImport, 
-        InterfaceType(ComInterfaceType.InterfaceIsIUnknown), 
+        ComImport,
+        InterfaceType(ComInterfaceType.InterfaceIsIUnknown),
         Guid("00000100-0000-0000-C000-000000000046")
     ]
     public interface IEnumUnknown
     {
         [PreserveSig]
         Int32 Next(
-            uint celt, 
-            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType=UnmanagedType.IUnknown, SizeParamIndex=0)] object[] rgelt, 
+            uint celt,
+            [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.IUnknown, SizeParamIndex = 0)] object[] rgelt,
             IntPtr pceltFetched
             );
 
@@ -25,8 +25,8 @@ namespace OpenLiveWriter.Interop.Com.Ribbon
             uint celt
             );
 
-        void Reset( );
+        void Reset();
 
-        IEnumUnknown Clone( );
+        IEnumUnknown Clone();
     }
 }

@@ -6,39 +6,39 @@ using mshtml;
 
 namespace OpenLiveWriter.Mshtml
 {
-	/// <summary>
-	/// Interface used for customizing editing behavior of MSHTML
-	/// </summary>
-	[ComImport]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	[Guid("3050f648-98b5-11cf-bb82-00aa00bdce0b")] 
-	public interface IMarkupContainer2Raw
-	{
-		void OwningDoc( 
-			[Out] out IHTMLDocument2 ppDoc) ;
+    /// <summary>
+    /// Interface used for customizing editing behavior of MSHTML
+    /// </summary>
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("3050f648-98b5-11cf-bb82-00aa00bdce0b")]
+    public interface IMarkupContainer2Raw
+    {
+        void OwningDoc(
+            [Out] out IHTMLDocument2 ppDoc);
 
-		void CreateChangeLog( 
-			[In] IHTMLChangeSink pChangeSink,
+        void CreateChangeLog(
+            [In] IHTMLChangeSink pChangeSink,
             [Out] out IHTMLChangeLog ppChangeLog,
             [In, MarshalAs(UnmanagedType.Bool)] bool fForward,
-            [In, MarshalAs(UnmanagedType.Bool)] bool fBackward)  ;
-        
-        void RegisterForDirtyRange( 
-			[In] IHTMLChangeSink pChangeSink,
-            [Out] out uint pdwCookie) ;
-        
-        void UnRegisterForDirtyRange( 
-			[In] uint dwCookie ) ;
-        
-        void GetAndClearDirtyRange( 
-			[In] uint dwCookie,
-			[In] IMarkupPointerRaw pIPointerBegin,
-            [In] IMarkupPointerRaw pIPointerEnd ) ;
+            [In, MarshalAs(UnmanagedType.Bool)] bool fBackward);
+
+        void RegisterForDirtyRange(
+            [In] IHTMLChangeSink pChangeSink,
+            [Out] out uint pdwCookie);
+
+        void UnRegisterForDirtyRange(
+            [In] uint dwCookie);
+
+        void GetAndClearDirtyRange(
+            [In] uint dwCookie,
+            [In] IMarkupPointerRaw pIPointerBegin,
+            [In] IMarkupPointerRaw pIPointerEnd);
 
         [PreserveSig]
-        int GetVersionNumber() ;
-        
-		void GetMasterElement( 
-			[Out] out IHTMLElement ppElementMaster) ;
-	}
+        int GetVersionNumber();
+
+        void GetMasterElement(
+            [Out] out IHTMLElement ppElementMaster);
+    }
 }

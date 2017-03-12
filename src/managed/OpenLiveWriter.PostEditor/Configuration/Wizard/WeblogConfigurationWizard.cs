@@ -11,34 +11,34 @@ using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
-	
-	public class WeblogConfigurationWizard : WizardForm
-	{
-	    private LinkLabel proxyLabel;
 
-		public WeblogConfigurationWizard(WizardController controller) : base(controller)
-		{
-		    this.BackColor = SystemColors.Window;
-		    this.ForeColor = SystemInformation.HighContrast ? SystemColors.WindowText : Color.FromArgb(51, 51, 51);
+    public class WeblogConfigurationWizard : WizardForm
+    {
+        private LinkLabel proxyLabel;
+
+        public WeblogConfigurationWizard(WizardController controller) : base(controller)
+        {
+            this.BackColor = SystemColors.Window;
+            this.ForeColor = SystemInformation.HighContrast ? SystemColors.WindowText : Color.FromArgb(51, 51, 51);
             this.ClientSize = new System.Drawing.Size(440, 348);
             this.Text = Res.Get(StringId.CWTitle);
-			this.Icon = ApplicationEnvironment.ProductIcon;
+            this.Icon = ApplicationEnvironment.ProductIcon;
             this.SizeChanged += new EventHandler(WeblogConfigurationWizard_SizeChanged);
 
-		    this.Height = Res.WizardHeight;
+            this.Height = Res.WizardHeight;
 
             proxyLabel = new LinkLabel();
-		    proxyLabel.Text = Res.Get(StringId.EditProxySettings);
-		    proxyLabel.AutoSize = true;
+            proxyLabel.Text = Res.Get(StringId.EditProxySettings);
+            proxyLabel.AutoSize = true;
             proxyLabel.Location = new Point(19, 16);
             proxyLabel.LinkBehavior = LinkBehavior.HoverUnderline;
-		    proxyLabel.Name = "linkLabelProxy";
-		    proxyLabel.LinkColor = SystemInformation.HighContrast ? SystemColors.HotTrack : Color.FromArgb(0, 102, 204);
+            proxyLabel.Name = "linkLabelProxy";
+            proxyLabel.LinkColor = SystemInformation.HighContrast ? SystemColors.HotTrack : Color.FromArgb(0, 102, 204);
             proxyLabel.LinkClicked += new LinkLabelLinkClickedEventHandler(proxyLabel_LinkClicked);
             panelFooter.Controls.Add(proxyLabel);
-		    proxyLabel.Visible = false;
-		    proxyLabel.TabIndex = 0;
-		}
+            proxyLabel.Visible = false;
+            proxyLabel.TabIndex = 0;
+        }
 
         void proxyLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -80,5 +80,5 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             if (wizardPanel != null)
                 wizardPanel.PrepareForAdd();
         }
-	}
+    }
 }

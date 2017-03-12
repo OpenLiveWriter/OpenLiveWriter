@@ -32,7 +32,6 @@ using OpenLiveWriter.PostEditor.ContentSources;
 using OpenLiveWriter.PostEditor.PostHtmlEditing;
 using IDropTarget = OpenLiveWriter.Interop.Com.IDropTarget;
 
-
 namespace OpenLiveWriter.PostEditor
 {
     [ClassInterface(ClassInterfaceType.None)]
@@ -40,8 +39,6 @@ namespace OpenLiveWriter.PostEditor
     [ComVisible(true)]
     public class ContentEditorFactory : IContentEditorFactory
     {
-        private uint _globalSobitOptions;
-
         #region IContentEditorFactory Members
 
         private RedirectionLogger _logger;
@@ -129,27 +126,9 @@ namespace OpenLiveWriter.PostEditor
             return new ContentEditorProxy(this, contentEditorSite, internetSecurityManager, htmlDocument, options, dlControlFlags, color, wpost);
         }
 
-        public void SetSpellingOptions(uint sobitOptions)
-        {
-            _globalSobitOptions = sobitOptions;
-            if (GlobalSpellingOptionsChanged != null)
-                GlobalSpellingOptionsChanged(this, EventArgs.Empty);
-        }
-
         #endregion
-
-        internal uint GlobalSpellingOptions
-        {
-            get
-            {
-                return _globalSobitOptions;
-            }
-        }
-
-        internal event EventHandler GlobalSpellingOptionsChanged;
-
+        
         #region IContentEditorFactory Members
-
 
         public void DoPreloadWork()
         {
@@ -193,7 +172,7 @@ namespace OpenLiveWriter.PostEditor
         public override void WriteLine(string message, string category)
         {
             try
-            {                
+            {
                 if (category == ErrText.FailText)
                 {
                     _logger.WriteLine(message, (int)ContentEditorLoggingLevel.Log_Error);
@@ -206,7 +185,7 @@ namespace OpenLiveWriter.PostEditor
             catch (Exception)
             {
                 // TODO: Explore our options here.
-                // IContentEditorLogger should not be throwing exceptions, but in the case that it does we do not want 
+                // IContentEditorLogger should not be throwing exceptions, but in the case that it does we do not want
                 // to make another Debug or Trace call because it could cause an infinite loop/stack overflow.
             }
         }
@@ -224,7 +203,7 @@ namespace OpenLiveWriter.PostEditor
         private IBlogPostEditingContext context;
         private Panel panel;
         private ContentEditorAccountAdapter accountAdapter;
-        private IContentEditorSite _contentEditorSite;        
+        private IContentEditorSite _contentEditorSite;
 
         public ContentEditorProxy(ContentEditorFactory factory, IContentEditorSite contentEditorSite, IInternetSecurityManager internetSecurityManager, string wysiwygHTML, string previewHTML, int dlControlFlags)
         {
@@ -262,7 +241,6 @@ namespace OpenLiveWriter.PostEditor
 
             ContentEditorProxyCore(factory, contentEditorSite, internetSecurityManager, wysiwygHTML, null, editingContext, new ContentEditorTemplateStrategy(), dlControlFlags, color);
 
-
         }
 
         private class DelayedInsert
@@ -290,9 +268,9 @@ namespace OpenLiveWriter.PostEditor
         /// <param name="newEditingContext"></param>
         /// <param name="templateStrategy"></param>
         /// <param name="dlControlFlags">
-        /// For Mail, these flags should always include DLCTL_DLIMAGES | DLCTL_VIDEOS | DLCTL_BGSOUNDS so that local 
-        /// images, videos and sounds are loaded. To block external content, it should also include 
-        /// DLCTL_PRAGMA_NO_CACHE | DLCTL_FORCEOFFLINE | DLCTL_NO_CLIENTPULL so that external images are not loaded 
+        /// For Mail, these flags should always include DLCTL_DLIMAGES | DLCTL_VIDEOS | DLCTL_BGSOUNDS so that local
+        /// images, videos and sounds are loaded. To block external content, it should also include
+        /// DLCTL_PRAGMA_NO_CACHE | DLCTL_FORCEOFFLINE | DLCTL_NO_CLIENTPULL so that external images are not loaded
         /// and are displayed as a red X instead.
         /// </param>
         /// <param name="color"></param>
@@ -309,7 +287,7 @@ namespace OpenLiveWriter.PostEditor
 
                 _wysiwygHTML = wysiwygHTML;
                 _previewHTML = previewHTML;
-                _contentEditorSite = contentEditorSite;                
+                _contentEditorSite = contentEditorSite;
 
                 IntPtr p = _contentEditorSite.GetWindowHandle();
                 WINDOWINFO info = new WINDOWINFO();
@@ -340,8 +318,6 @@ namespace OpenLiveWriter.PostEditor
                 {
                     contentEditor.IndentColor = color;
                 }
-
-                this.factory.GlobalSpellingOptionsChanged += GlobalSpellingOptionsChangedHandler;
             }
             catch (Exception ex)
             {
@@ -406,7 +382,7 @@ namespace OpenLiveWriter.PostEditor
         {
             return contentEditor.Publish(imageConverter);
         }
-       
+
         public IHTMLDocument2 GetPublishDocument()
         {
             string body = contentEditor.Publish(null);
@@ -433,10 +409,8 @@ namespace OpenLiveWriter.PostEditor
             // email as a whole is determined by the direction defined in the body
             publishDocument.body.setAttribute("dir", dir, 1);
 
-            return publishDocument;                        
+            return publishDocument;
         }
-
-
 
         public void SetSize(int width, int height)
         {
@@ -444,7 +418,6 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private ContentEditorFactory factory;
-        private SpellingOptionState _spellingState;
         private string _wysiwygHTML;
         private string _previewHTML;
         public void SetTheme(string wysiwygHTML)
@@ -456,12 +429,9 @@ namespace OpenLiveWriter.PostEditor
             contentEditor.SetTheme(_wysiwygHTML, null, false);
         }
 
-        public void SetSpellingOptions(string dllName, ushort lcid, string[] mainLexFiles, string userLexFile, uint sobitOptions, bool useAutoCorrect)
+        public void SetSpellingOptions(string bcp47Code, uint sobitOptions, bool useAutoCorrect)
         {
-            _spellingState = new SpellingOptionState(
-                dllName, lcid, mainLexFiles, userLexFile, sobitOptions, useAutoCorrect);
-            _spellingState.Apply(contentEditor, factory.GlobalSpellingOptions);
-            if (CultureHelper.IsRtlLcid(lcid))
+            if (CultureHelper.IsRtlCulture(bcp47Code))
             {
                 EmailContentTarget target =
                     GlobalEditorOptions.ContentTarget as EmailContentTarget;
@@ -474,39 +444,7 @@ namespace OpenLiveWriter.PostEditor
 
         public void DisableSpelling()
         {
-            _spellingState = null;
             contentEditor.DisableSpelling();
-        }
-
-        private void GlobalSpellingOptionsChangedHandler(object sender, EventArgs e)
-        {
-            if (_spellingState != null)
-                _spellingState.Apply(contentEditor, factory.GlobalSpellingOptions);
-        }
-
-        class SpellingOptionState
-        {
-            readonly string dllName;
-            readonly ushort lcid;
-            readonly string[] mainLexFiles;
-            readonly string userLexFile;
-            readonly uint sobitOptions;
-            readonly bool useAutoCorrect;
-
-            public SpellingOptionState(string dllName, ushort lcid, string[] mainLexFiles, string userLexFile, uint sobitOptions, bool useAutoCorrect)
-            {
-                this.dllName = dllName;
-                this.lcid = lcid;
-                this.mainLexFiles = mainLexFiles;
-                this.userLexFile = userLexFile;
-                this.sobitOptions = sobitOptions;
-                this.useAutoCorrect = useAutoCorrect;
-            }
-
-            public void Apply(ContentEditor editor, uint globalSobitOptions)
-            {
-                editor.SetSpellingOptions(dllName, lcid, mainLexFiles, userLexFile, sobitOptions | globalSobitOptions, useAutoCorrect);
-            }
         }
 
         public void AutoreplaceEmoticons(bool enabled)
@@ -519,9 +457,7 @@ namespace OpenLiveWriter.PostEditor
         #region IDisposable Members
 
         public void Dispose()
-        {            
-            factory.GlobalSpellingOptionsChanged -= GlobalSpellingOptionsChangedHandler;
-
+        {
             contentEditor.DocumentComplete -= new EventHandler(blogPostHtmlEditor_DocumentComplete);
             contentEditor.GotFocus -= new EventHandler(contentEditor_GotFocus);
             contentEditor.LostFocus -= new EventHandler(contentEditor_LostFocus);
@@ -532,7 +468,7 @@ namespace OpenLiveWriter.PostEditor
             mainFrame.Dispose();
 
             Marshal.ReleaseComObject(_contentEditorSite);
-            _contentEditorSite = null;            
+            _contentEditorSite = null;
             accountAdapter = null;
             contentEditor = null;
             panel = null;
@@ -573,7 +509,6 @@ namespace OpenLiveWriter.PostEditor
                 throw;
             }
 
-
             Debug.Fail("Unknown value for editingView: " + editingMode.ToString() + "\r\nAccepted values Wysiwyg, Source, Preview, PlainText");
 
         }
@@ -582,11 +517,6 @@ namespace OpenLiveWriter.PostEditor
         {
             if (!_inGotFocusHandler && !contentEditor.DocumentHasFocus())
                 contentEditor.FocusBody();
-        }
-
-        public void NotifyMailFocus(bool fIsPhotoAttachment)
-        {
-            contentEditor.NotifyMailFocus(fIsPhotoAttachment);
         }
 
         public void InsertHtml(string html, HtmlInsertOptions options)
@@ -669,9 +599,7 @@ namespace OpenLiveWriter.PostEditor
             }
         }
 
-
         #region IContentEditor Members
-
 
         public bool GetDirtyState()
         {
@@ -689,7 +617,7 @@ namespace OpenLiveWriter.PostEditor
         }
 
         #endregion
-        
+
     }
 
 }

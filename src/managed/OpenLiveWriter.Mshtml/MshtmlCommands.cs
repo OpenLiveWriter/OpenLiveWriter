@@ -17,24 +17,20 @@ namespace OpenLiveWriter.Mshtml
         /// </summary>
         bool Enabled { get; }
 
-
         /// <summary>
         /// Is the command latched
         /// </summary>
         bool Latched { get; }
-
 
         /// <summary>
         /// Execute the command with no input parameters
         /// </summary>
         void Execute();
 
-
         /// <summary>
         /// Execute the command with no input parameters
         /// </summary>
         void Execute(OLECMDEXECOPT execOption);
-
 
         /// <summary>
         /// Execute the command with an input parameter
@@ -42,13 +38,11 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="input">input parameter</param>
         void Execute(object input);
 
-
         /// <summary>
         /// Execute the command with an input parameter
         /// </summary>
         /// <param name="input">input parameter</param>
         void Execute(OLECMDEXECOPT execOption, object input);
-
 
         /// <summary>
         /// Execute the command with an input and output parameter
@@ -57,7 +51,6 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="output">output parameter</param>
         void Execute(object input, ref object output);
 
-
         /// <summary>
         /// Execute the command with an input and output parameter
         /// </summary>
@@ -65,16 +58,12 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="output">output parameter</param>
         void Execute(OLECMDEXECOPT execOption, object input, ref object output);
 
-
-
         /// <summary>
         /// Get the value of the command
         /// </summary>
         /// <returns></returns>
         object GetValue();
     }
-
-
 
     /// <summary>
     /// Core command set exposed by MSHTML
@@ -125,8 +114,8 @@ namespace OpenLiveWriter.Mshtml
             AddCommand(IDM.GETFRAMEZONE);
             AddCommand(IDM.HORIZONTALLINE);
             AddCommand(IDM.HTMLEDITMODE);
-            AddCommand(IDM.HYPERLINK);            
-            AddCommand(IDM.IFRAME);                        
+            AddCommand(IDM.HYPERLINK);
+            AddCommand(IDM.IFRAME);
             AddCommand(IDM.IMAGE);
             AddCommand(IDM.IME_ENABLE_RECONVERSION, true);
             AddCommand(IDM.INDENT);
@@ -180,7 +169,6 @@ namespace OpenLiveWriter.Mshtml
             AddCommand(IDM.VIEWSOURCE);
         }
 
-
         /// <summary>
         /// Helper method to add a command to the standard command set
         /// </summary>
@@ -189,7 +177,6 @@ namespace OpenLiveWriter.Mshtml
         {
             AddCommand(cmdID, false);
         }
-
 
         /// <summary>
         /// Helper method to add a command to the standard command set
@@ -200,23 +187,20 @@ namespace OpenLiveWriter.Mshtml
             Add(cmdID, new MshtmlCommandFromCoreSet(cmdID, commandTarget, useNullOutputParam));
         }
 
-
         /// <summary>
         /// Command target that we execute our commands against
         /// </summary>
         private IOleCommandTargetWithExecParams commandTarget;
     }
 
-
-
     /// <summary>
-    /// Class which implements access to an MSHTML command that is defined as 
+    /// Class which implements access to an MSHTML command that is defined as
     /// part of the core command set
     /// </summary>
     internal class MshtmlCommandFromCoreSet : IMshtmlCommand
     {
         /// <summary>
-        /// Initialize based on a command id and the document to which 
+        /// Initialize based on a command id and the document to which
         /// to send commands to
         /// </summary>
         /// <param name="cmdID">mshtml command id (IDM_)</param>
@@ -230,7 +214,6 @@ namespace OpenLiveWriter.Mshtml
         }
 
         private readonly bool UseNullOutputParam;
-
 
         /// <summary>
         /// Check whether the command is supported by the document
@@ -246,7 +229,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
         /// <summary>
         /// Check whether the command is currently enabled
         /// </summary>
@@ -260,7 +242,6 @@ namespace OpenLiveWriter.Mshtml
                     return false;
             }
         }
-
 
         /// <summary>
         /// Check whether the command is currently latched
@@ -276,9 +257,6 @@ namespace OpenLiveWriter.Mshtml
             }
         }
 
-
-
-
         /// <summary>
         /// Execute the command without parameters
         /// </summary>
@@ -287,7 +265,6 @@ namespace OpenLiveWriter.Mshtml
             Execute(null);
         }
 
-
         /// <summary>
         /// Execute the command without parameters
         /// </summary>
@@ -295,7 +272,6 @@ namespace OpenLiveWriter.Mshtml
         {
             Execute(execOption, null);
         }
-
 
         /// <summary>
         /// Execute the command with an input parameter
@@ -317,7 +293,6 @@ namespace OpenLiveWriter.Mshtml
             Execute(execOption, input, ref output);
         }
 
-
         /// <summary>
         /// Execute the command with an input and an output parameter
         /// </summary>
@@ -328,14 +303,13 @@ namespace OpenLiveWriter.Mshtml
             Execute(OLECMDEXECOPT.DODEFAULT, input, ref output);
         }
 
-
         /// <summary>
         /// Execute the command with an input and an output parameter
         /// </summary>
         /// <param name="input">input parameter</param>
         /// <param name="output">output parameter</param>
         public virtual void Execute(OLECMDEXECOPT execOption, object input, ref object output)
-        {    
+        {
             if (UseNullOutputParam)
             {
                 ((IOleCommandTargetNullOutputParam)commandTarget).Exec(CGID.MSHTML, commandID, execOption, ref input, IntPtr.Zero);
@@ -346,8 +320,6 @@ namespace OpenLiveWriter.Mshtml
             }
 
         }
-
-
 
         /// <summary>
         /// Get the value of the command
@@ -361,7 +333,6 @@ namespace OpenLiveWriter.Mshtml
                 IntPtr.Zero, ref output);
             return output;
         }
-
 
         /// <summary>
         /// Helper method to query for the current status (latched, enabled, etc.)
@@ -397,8 +368,6 @@ namespace OpenLiveWriter.Mshtml
 
     }
 
-
-
     /// <summary>
     /// Constant representing the Guid of the MSHTML core command set
     /// </summary>
@@ -407,13 +376,12 @@ namespace OpenLiveWriter.Mshtml
         public static Guid MSHTML = new Guid("DE4BA900-59CA-11CF-9592-444553540000");
     }
 
-
     /// <summary>
-    /// Underlying MSHTML command ids. Note that this all of the command id's 
+    /// Underlying MSHTML command ids. Note that this all of the command id's
     /// listed in the MsHtmlcid.h header file are listed below. Most however
     /// are commented out as they are not documented as part of the official
     /// MSHTML Command Identifiers list. It is likely that many of them will
-    /// work correctly -- as we experiement with them and verify their correct 
+    /// work correctly -- as we experiement with them and verify their correct
     /// usage we should comment them out and add a brief documentation note
     /// on how to use them correctly.
     /// </summary>
@@ -487,7 +455,7 @@ namespace OpenLiveWriter.Mshtml
         //		public const uint OBJECTVERBLIST4 =        76 ;
         //		public const uint OBJECTVERBLIST5 =        77 ;
         //		public const uint OBJECTVERBLIST6 =        78 ;
-        //		public const uint OBJECTVERBLIST7 =        79 ; 
+        //		public const uint OBJECTVERBLIST7 =        79 ;
         //		public const uint OBJECTVERBLIST8 =        80 ;
         //		public const uint OBJECTVERBLIST9 =        81 ;
         //		public const uint OBJECTVERBLISTLAST = IDM.OBJECTVERBLIST9 ;
@@ -532,7 +500,7 @@ namespace OpenLiveWriter.Mshtml
         //		public const uint FORMATMARK =             2132 ;
         //		public const uint TEXTONLY =               2133 ;
         //		public const uint OPTIONS =                2135 ;
-        //		public const uint FOLLOWLINKC =            2136 ; 
+        //		public const uint FOLLOWLINKC =            2136 ;
         //		public const uint FOLLOWLINKN =            2137 ;
         public const uint VIEWSOURCE = 2139;
         //		public const uint ZOOMPOPUP =              2140 ;
@@ -553,7 +521,7 @@ namespace OpenLiveWriter.Mshtml
         //		public const uint LINEBREAKBOTH =          2154 ;
         //		public const uint NONBREAK =               2155 ;
         //		public const uint SPECIALCHAR =            2156 ;
-        //		public const uint HTMLSOURCE =             2157 ; 
+        //		public const uint HTMLSOURCE =             2157 ;
         public const uint IFRAME = 2158;
         //		public const uint HTMLCONTAIN =            2159 ;
         public const uint TEXTBOX = 2161;
@@ -653,7 +621,7 @@ namespace OpenLiveWriter.Mshtml
         //		public const uint IMGARTPLAY =             2274 ;
         //		public const uint IMGARTSTOP =             2275 ;
         //		public const uint IMGARTREWIND =           2276 ;
-        //		public const uint PRINTQUERYJOBSPENDING =  2277 ; 
+        //		public const uint PRINTQUERYJOBSPENDING =  2277 ;
         //		public const uint SETDESKTOPITEM =         2278 ;
 
         //		public const uint CONTEXTMENU =            2280 ;
@@ -801,8 +769,8 @@ namespace OpenLiveWriter.Mshtml
         // Printing Status
         //		public const uint UPDATEPAGESTATUS =       2408 ;
 
-        // IME Reconversion 
-        public const uint IME_ENABLE_RECONVERSION =	2409;
+        // IME Reconversion
+        public const uint IME_ENABLE_RECONVERSION = 2409;
 
         public const uint KEEPSELECTION = 2410;
 
@@ -852,7 +820,7 @@ namespace OpenLiveWriter.Mshtml
         public const uint CUT = 16;
         public const uint PASTE = 26;
 
-        // IDMs for CGID_EditStateCommands group 
+        // IDMs for CGID_EditStateCommands group
         //		public const uint CONTEXT =                1 ;
         //		public const uint HWND =                   2 ;
 

@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
@@ -48,7 +48,6 @@ namespace OpenLiveWriter.Interop.Windows
 
         [DllImport("propsys.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern void PropVariantGetStringElem([In] ref PropVariant propVar, [In]  uint iElem, [Out, MarshalAs(UnmanagedType.LPWStr)] out string ppszVal);
-
 
         [DllImport("propsys.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern void InitPropVariantFromBooleanVector([In, Out] bool[] prgf, uint cElems, out PropVariant ppropvar);

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.CoreServices", "OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj", "{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}"
 EndProject
@@ -82,6 +82,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostBuild.CreateInstaller",
 		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0} = {195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}
 		{A5C213F6-F0C6-4FD6-B496-61FE434621A6} = {A5C213F6-F0C6-4FD6-B496-61FE434621A6}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.SpellChecker", "OpenLiveWriter.SpellChecker\OpenLiveWriter.SpellChecker.csproj", "{2DB3A424-0F1E-44AC-AE01-5454586CE769}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Tests", "OpenLiveWriter.Tests\OpenLiveWriter.Tests.csproj", "{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +197,14 @@ Global
 		{4E445FF3-7F7B-46D1-9424-682E146F1F09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E445FF3-7F7B-46D1-9424-682E146F1F09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E445FF3-7F7B-46D1-9424-682E146F1F09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DB3A424-0F1E-44AC-AE01-5454586CE769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DB3A424-0F1E-44AC-AE01-5454586CE769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DB3A424-0F1E-44AC-AE01-5454586CE769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DB3A424-0F1E-44AC-AE01-5454586CE769}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -36,7 +36,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             public int Compare(object x, object y)
             {
                 if (x is ListViewItem && y is ListViewItem)
-                    return ((ListViewItem) x).Text.CompareTo(((ListViewItem) y).Text);
+                    return ((ListViewItem)x).Text.CompareTo(((ListViewItem)y).Text);
                 return -1;
             }
         }
@@ -47,7 +47,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             listViewItems.Columns[0].Width = listViewItems.ClientSize.Width / 3;
             listViewItems.Columns[1].Width = listViewItems.ClientSize.Width - listViewItems.Columns[0].Width;
         }
-            
+
         public AutoreplacePreferences Preferences
         {
             get
@@ -66,7 +66,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
         private void RefreshEntries()
         {
             // TODO: Review text
-            
+
             listViewItems.Items.Clear();
             if (_preferences != null)
             {
@@ -113,7 +113,6 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
             }
         }
 
-
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             using (AutoreplaceEditForm form = new AutoreplaceEditForm(_preferences))
@@ -159,7 +158,7 @@ namespace OpenLiveWriter.PostEditor.Autoreplace
                 int selectedIndex = 0;
                 if (listViewItems.SelectedIndices.Count == 1)
                     selectedIndex = listViewItems.SelectedIndices[0];
-                
+
                 _preferences.RemoveAutoreplacePhrase(listViewItems.SelectedItems[0].Text);
                 RefreshEntries();
 

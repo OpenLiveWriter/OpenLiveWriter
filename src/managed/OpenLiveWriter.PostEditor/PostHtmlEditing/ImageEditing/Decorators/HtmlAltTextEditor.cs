@@ -14,14 +14,14 @@ using OpenLiveWriter.CoreServices.Layout;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
-	public class HtmlAltTextEditor : ImageDecoratorEditor
-	{
-		private IContainer components = null;
+    public class HtmlAltTextEditor : ImageDecoratorEditor
+    {
+        private IContainer components = null;
 
-		public HtmlAltTextEditor()
-		{
-			// This call is required by the Windows Form Designer.
-			InitializeComponent();
+        public HtmlAltTextEditor()
+        {
+            // This call is required by the Windows Form Designer.
+            InitializeComponent();
 
             labelPicture.Text = Res.Get(StringId.ImgAltTextPicture);
             labelAltText.Text = Res.Get(StringId.ImgAltTextAlternateText);
@@ -32,30 +32,30 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             Text = Res.Get(StringId.AltTextEditorTitle);
 
             buttonOK.Click += new EventHandler(buttonOK_Click);
-		}
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.labelPicture = new System.Windows.Forms.Label();
             this.labelFilename = new System.Windows.Forms.Label();
             this.labelSize = new System.Windows.Forms.Label();
@@ -68,18 +68,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // labelPicture
-            // 
+            //
             this.labelPicture.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPicture.Location = new System.Drawing.Point(8, 0);
             this.labelPicture.Name = "labelPicture";
             this.labelPicture.Size = new System.Drawing.Size(193, 13);
             this.labelPicture.TabIndex = 0;
             this.labelPicture.Text = "Picture:";
-            // 
+            //
             // labelFilename
-            // 
+            //
             this.labelFilename.AutoSize = true;
             this.labelFilename.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelFilename.Location = new System.Drawing.Point(0, 0);
@@ -88,9 +88,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.labelFilename.Padding = new Padding(0, 0, 0, 0);
             this.labelFilename.Size = new System.Drawing.Size(193, 13);
             this.labelFilename.TabIndex = 1;
-            // 
+            //
             // labelSize
-            // 
+            //
             this.labelSize.AutoSize = true;
             this.labelSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelSize.Location = new System.Drawing.Point(0, 0);
@@ -99,9 +99,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.labelSize.Padding = new Padding(0, 0, 0, 0);
             this.labelSize.Size = new System.Drawing.Size(193, 13);
             this.labelSize.TabIndex = 2;
-            // 
+            //
             // tableLayoutPanel
-            // 
+            //
             this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel.AutoSize = true;
@@ -119,45 +119,45 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(193, 20);
             this.tableLayoutPanel.TabIndex = 3;
-            // 
+            //
             // labelAltText
-            // 
+            //
             this.labelAltText.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelAltText.Location = new System.Drawing.Point(8, 46);
             this.labelAltText.Name = "labelAltText";
             this.labelAltText.Size = new System.Drawing.Size(193, 13);
             this.labelAltText.TabIndex = 4;
             this.labelAltText.Text = "Alternate &text:";
-            // 
+            //
             // textBoxAltText
-            // 
+            //
             this.textBoxAltText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAltText.Location = new System.Drawing.Point(8, 62);
             this.textBoxAltText.Name = "textBoxAltText";
             this.textBoxAltText.Size = new System.Drawing.Size(193, 20);
             this.textBoxAltText.TabIndex = 5;
-            // 
+            //
             // labelTitle
-            // 
+            //
             this.labelTitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelTitle.Location = new System.Drawing.Point(8, 92);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(193, 13);
             this.labelTitle.TabIndex = 6;
             this.labelTitle.Text = "T&itle:";
-            // 
+            //
             // textBoxTitle
-            // 
+            //
             this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTitle.Location = new System.Drawing.Point(8, 108);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(193, 20);
             this.textBoxTitle.TabIndex = 7;
-            // 
+            //
             // buttonOK
-            // 
+            //
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(47, 148);
@@ -166,9 +166,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonOK.TabIndex = 8;
             this.buttonOK.Text = "button1";
             this.buttonOK.UseVisualStyleBackColor = true;
-            // 
+            //
             // buttonCancel
-            // 
+            //
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(126, 148);
@@ -177,9 +177,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "button2";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
+            //
             // HtmlAltTextEditor
-            // 
+            //
             this.Controls.Add(this.labelPicture);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.labelAltText);
@@ -195,18 +195,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		protected override void LoadEditor()
-		{
-			base.LoadEditor ();
-			HtmlAltTextSettings = new HtmlAltTextDecoratorSettings(EditorContext.ImgElement);
+        protected override void LoadEditor()
+        {
+            base.LoadEditor();
+            HtmlAltTextSettings = new HtmlAltTextDecoratorSettings(EditorContext.ImgElement);
             labelFilename.Text = HttpUtility.UrlDecode(UrlHelper.GetFileNameForUrl(UrlHelper.SafeToAbsoluteUri(EditorContext.SourceImageUri)));
             labelSize.Text = String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.DimensionsFormat), EditorContext.SourceImageSize.Width, EditorContext.SourceImageSize.Height);
-			textBoxAltText.Text = HtmlAltTextSettings.AltText;
+            textBoxAltText.Text = HtmlAltTextSettings.AltText;
             textBoxTitle.Text = HtmlAltTextSettings.Title;
-		}
+        }
         private Label labelPicture;
         private Label labelFilename;
         private Label labelSize;
@@ -217,19 +217,19 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         private TextBox textBoxTitle;
         private Button buttonOK;
         private Button buttonCancel;
-		private HtmlAltTextDecoratorSettings HtmlAltTextSettings;
+        private HtmlAltTextDecoratorSettings HtmlAltTextSettings;
 
-		public override Size GetPreferredSize()
-		{
+        public override Size GetPreferredSize()
+        {
             return new Size(300, 200);
-		}
+        }
 
-		protected override void OnSaveSettings()
-		{
-			base.OnSaveSettings ();			
-			HtmlAltTextSettings.AltText = textBoxAltText.Text;
+        protected override void OnSaveSettings()
+        {
+            base.OnSaveSettings();
+            HtmlAltTextSettings.AltText = textBoxAltText.Text;
             HtmlAltTextSettings.Title = textBoxTitle.Text;
-		}
+        }
 
         void buttonOK_Click(object sender, EventArgs e)
         {
@@ -256,6 +256,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
             LayoutHelper.FixupOKCancel(buttonOK, buttonCancel);
         }
-	}
+    }
 }
 

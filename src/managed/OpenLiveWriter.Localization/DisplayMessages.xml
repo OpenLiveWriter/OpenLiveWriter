@@ -458,6 +458,11 @@
     Text="Blogger returned the following error:&#xD;&#xA;&#xD;&#xA;{0}"
     comment:Text="{0} - an error message" />
   <Message
+    Identifier="GoogleBloggerLoginRequired"
+    Type="Warning"
+    Title="Open Live Writer"
+    Text="Sign in to Google Blogger to continue." />
+  <Message
     Identifier="UnexpectedErrorLogin"
     Text="An unexpected error has occurred while attempting to log in:&#xD;&#xA;&#xD;&#xA;{0}" 
     comment:Text="{0} - an error message" />
@@ -506,8 +511,7 @@
     Type="Information"
     Buttons="YesNo"
     Title="Picasa Web Albums"
-    Text="In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in as {0}, and agree to the Terms and Conditions.&#xD;&#xA;&#xD;&#xA;Would you like to go to the Picasa Web Albums homepage now?"
-    comment:Text="{0} - username, for example: joe@gmail.com"/>
+    Text="In order to upload pictures to Blogger blogs, go to the Picasa Web Albums homepage, sign in with your Blogger account, and agree to the Terms and Conditions.&#xD;&#xA;&#xD;&#xA;Would you like to go to the Picasa Web Albums homepage now?"/>
   <Message
     Identifier="YouTubeSignup"
     Type="Information"
@@ -524,7 +528,7 @@
     Identifier="VideoLoginRequired" 
     Type="Warning" 
     Title="Open Live Writer" 
-    Text="Sign in and select a video to continue." />     
+    Text="Sign in and select a video to continue." />
   <Message 
     Identifier="WordpressHomepageWrong"
     Type="Warning" 
@@ -645,7 +649,7 @@
     Type="Exclamation"
     Buttons="YesNo" 
     Title="Open Live Writer"
-    Text="{0}&#xD;&#xA;Not a valid URL.&#xD;&#xA;Do you want to continue?"
+    Text="{0}&#xD;&#xA;Not a valid URL.&#xD;&#xA;Do you want to go back and edit the URL?"
     comment:Text="{0} - the url that was entered"/>
 	<Message
 	  Identifier="InvalidInsertionPoint"

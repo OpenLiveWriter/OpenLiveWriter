@@ -231,12 +231,12 @@ namespace OpenLiveWriter.PostEditor
 
             g.DrawText(Text, Font, logicalClientRect, textColor, Color.Transparent, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
 
-//            if (Focused)
-//            {
-//                Rectangle rect = logicalClientRect;
-//                rect.Inflate(-2, -2);
-//                g.DrawFocusRectangle(rect);
-//            }
+            //            if (Focused)
+            //            {
+            //                Rectangle rect = logicalClientRect;
+            //                rect.Inflate(-2, -2);
+            //                g.DrawFocusRectangle(rect);
+            //            }
         }
     }
 }

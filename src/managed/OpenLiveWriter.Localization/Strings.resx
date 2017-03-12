@@ -460,7 +460,7 @@
     <comment>From the Weblog | Edit Weblog Settings | Plugins preferences panel</comment>
   </data>
   <data name="BlogServiceNames" xml:space="preserve">
-    <value>Blogger, TypePad, and more</value>
+    <value>TypePad and more</value>
   </data>
   <data name="BrightnessAdjust" xml:space="preserve">
     <value>Contrast</value>
@@ -1066,6 +1066,15 @@
   <data name="CWSharePointUseSystemLogin" xml:space="preserve">
     <value>Use my &amp;Windows user name and password</value>
   </data>
+  <data name="CWGoogleBloggerTitle" xml:space="preserve">
+    <value>Provide Google Blogger Login</value>
+  </data>
+  <data name="CWGoogleBloggerDescription" xml:space="preserve">
+    <value>To configure Google Blogger please sign in.</value>
+  </data>
+  <data name="CWGoogleBloggerSignInSuccess" xml:space="preserve">
+    <value>Successfully signed in</value>
+  </data>
   <data name="CWSpacesUsername" xml:space="preserve">
     <value>&amp;Microsoft Account ID:</value>
   </data>
@@ -1240,125 +1249,11 @@
     <value>Delete {0}</value>
     <comment>{0} can be Post, Page, Draft, Published</comment>
   </data>
-  <data name="DictionaryLanguageArabic" xml:space="preserve">
-    <value>Arabic</value>
-  </data>
-  <data name="DictionaryLanguageBasque" xml:space="preserve">
-    <value>Basque</value>
-  </data>
-  <data name="DictionaryLanguageBulgarian" xml:space="preserve">
-    <value>Bulgarian</value>
-  </data>
-  <data name="DictionaryLanguageCatalan" xml:space="preserve">
-    <value>Catalan</value>
-  </data>
-  <data name="DictionaryLanguageCroatian" xml:space="preserve">
-    <value>Croatian</value>
-  </data>
-  <data name="DictionaryLanguageCzech" xml:space="preserve">
-    <value>Czech</value>
-  </data>
-  <data name="DictionaryLanguageDutch" xml:space="preserve">
-    <value>Dutch</value>
-  </data>
-  <data name="DictionaryLanguageEnglishAustralia" xml:space="preserve">
-    <value>English (Australia)</value>
-  </data>
-  <data name="DictionaryLanguageEnglishCanada" xml:space="preserve">
-    <value>English (Canada)</value>
-  </data>
-  <data name="DictionaryLanguageEnglishUK" xml:space="preserve">
-    <value>English (United Kingdom)</value>
-  </data>
-  <data name="DictionaryLanguageEnglishUS" xml:space="preserve">
-    <value>English (United States)</value>
-  </data>
-  <data name="DictionaryLanguageEstonian" xml:space="preserve">
-    <value>Estonian</value>
-  </data>
-  <data name="DictionaryLanguageFinnish" xml:space="preserve">
-    <value>Finnish</value>
-  </data>
-  <data name="DictionaryLanguageFrench" xml:space="preserve">
-    <value>French</value>
-  </data>
-  <data name="DictionaryLanguageGerman" xml:space="preserve">
-    <value>German</value>
-  </data>
-  <data name="DictionaryLanguageGermanReform" xml:space="preserve">
-    <value>German (Reform)</value>
-  </data>
-  <data name="DictionaryLanguageGreek" xml:space="preserve">
-    <value>Greek</value>
-  </data>
-  <data name="DictionaryLanguageHebrew" xml:space="preserve">
-    <value>Hebrew</value>
-  </data>
-  <data name="DictionaryLanguageHungarian" xml:space="preserve">
-    <value>Hungarian</value>
-  </data>
-  <data name="DictionaryLanguageIndonesian" xml:space="preserve">
-    <value>Indonesian</value>
-  </data>
-  <data name="DictionaryLanguageItalian" xml:space="preserve">
-    <value>Italian</value>
-  </data>
-  <data name="DictionaryLanguageKorean" xml:space="preserve">
-    <value>Korean</value>
-  </data>
   <data name="DictionaryLanguageLabel" xml:space="preserve">
     <value>Dictionary &amp;language:</value>
   </data>
-  <data name="DictionaryLanguageLatvian" xml:space="preserve">
-    <value>Latvian</value>
-  </data>
-  <data name="DictionaryLanguageLithuanian" xml:space="preserve">
-    <value>Lithuanian</value>
-  </data>
-  <data name="DictionaryLanguageMalay" xml:space="preserve">
-    <value>Malay</value>
-  </data>
   <data name="DictionaryLanguageNone" xml:space="preserve">
     <value>(None)</value>
-  </data>
-  <data name="DictionaryLanguagePolish" xml:space="preserve">
-    <value>Polish</value>
-  </data>
-  <data name="DictionaryLanguagePortuguese" xml:space="preserve">
-    <value>Portuguese</value>
-  </data>
-  <data name="DictionaryLanguagePortugueseBrazil" xml:space="preserve">
-    <value>Portuguese (Brazil)</value>
-  </data>
-  <data name="DictionaryLanguageRomanian" xml:space="preserve">
-    <value>Romanian</value>
-  </data>
-  <data name="DictionaryLanguageRussian" xml:space="preserve">
-    <value>Russian</value>
-  </data>
-  <data name="DictionaryLanguageSerbianCyrillic" xml:space="preserve">
-    <value>Serbian (Cyrillic)</value>
-  </data>
-  <data name="DictionaryLanguageSerbianLatin" xml:space="preserve">
-    <value>Serbian (Latin)</value>
-  </data>
-  <data name="DictionaryLanguageSlovak" xml:space="preserve">
-    <value>Slovak</value>
-  </data>
-  <data name="DictionaryLanguageSlovenian" xml:space="preserve">
-    <value>Slovenian</value>
-  </data>
-  <data name="DictionaryLanguageSpanish" xml:space="preserve">
-    <value>Spanish</value>
-  </data>
-  <data name="DictionaryLanguageSwedish" xml:space="preserve">
-    <value>Swedish</value>
-  </data>
-  <data name="DictionaryLanguageTurkish" xml:space="preserve">
-    <value>Turkish</value>
-  </data>
-  <data name="DictionaryLanguageUkrainian" xml:space="preserve">
-    <value>Ukrainian</value>
   </data>
   <data name="DimensionsFormat" xml:space="preserve">
     <value>{0}x{1}</value>
@@ -2888,7 +2783,7 @@ Unimplemented Method: {2}</value>
   <data name="PingPrefUrl" xml:space="preserve">
     <value>&amp;Ping the following web addresses (one web address for each line)</value>
   </data>
-  <data name="pixels" xml:space="preserve">
+  <data name="Pixels" xml:space="preserve">
     <value>pixels</value>
   </data>
   <data name="Plugin_Map_InsertableContentSource_MenuText" xml:space="preserve">
@@ -3375,6 +3270,9 @@ Unimplemented Method: {2}</value>
   <data name="PostEditorPrefGeneral" xml:space="preserve">
     <value>General options</value>
   </data>
+  <data name="PostEditorPrefPostLocation" xml:space="preserve">
+    <value>Local drafts and recent posts folder</value>
+  </data>
   <data name="PostEditorPrefName" xml:space="preserve">
     <value>Preferences</value>
   </data>
@@ -3406,7 +3304,10 @@ Unimplemented Method: {2}</value>
     <value>Open a new window &amp;only when there are unsaved changes to the current post</value>
   </data>
   <data name="PostEditorPrefView" xml:space="preserve">
-    <value>&amp;View post after publishing</value>
+    <value>&amp;View blog after publishing</value>
+  </data>
+  <data name="PostEditorPrefBrowseFolder" xml:space="preserve">
+    <value>Browse</value>
   </data>
   <data name="PostEditorStorageExceptionMessage" xml:space="preserve">
     <value>Unexpected error occurred while accessing local post ({0})
@@ -4497,6 +4398,9 @@ This might take a while.</value>
     <value>Configure {0} to publish to:</value>
     <comment>{0} - Long product name, i.e. "Open Live Writer"; followed by a choice of two options: "SharePoint blog" or "Another blog service"</comment>
   </data>
+  <data name="WizardBlogTypeGoogleBlogger" xml:space="preserve">
+    <value>&amp;Google Blogger</value>
+  </data>
   <data name="WizardBlogTypeOther" xml:space="preserve">
     <value>&amp;Other services</value>
   </data>
@@ -4581,5 +4485,8 @@ This might take a while.</value>
   </data>
   <data name="UnexpectedErrorSendError" xml:space="preserve">
     <value>&amp;Send Error</value>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>percent</value>
   </data>
 </root>

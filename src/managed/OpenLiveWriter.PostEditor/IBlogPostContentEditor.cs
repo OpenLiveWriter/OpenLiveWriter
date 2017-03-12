@@ -3,17 +3,17 @@
 
 namespace OpenLiveWriter.PostEditor
 {
-	
-	public interface IBlogPostContentEditor
-	{
-		string SelectedText { get; }
 
-		string SelectedHtml { get; }
+    public interface IBlogPostContentEditor
+    {
+        string SelectedText { get; }
 
-		bool FullyEditableRegionActive { get; }
+        string SelectedHtml { get; }
 
-		void InsertHtml(string content, bool moveSelectionRight) ;
+        bool FullyEditableRegionActive { get; }
 
-		void InsertLink(string url, string linkText, string linkTitle, string rel, bool newWindow) ;
-	}
+        void InsertHtml(string content, bool moveSelectionRight);
+
+        void InsertLink(string url, string linkText, string linkTitle, string rel, bool newWindow);
+    }
 }

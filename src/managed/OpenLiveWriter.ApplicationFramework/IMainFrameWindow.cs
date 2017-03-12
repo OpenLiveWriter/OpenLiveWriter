@@ -13,33 +13,33 @@ using OpenLiveWriter.Interop.Windows;
 namespace OpenLiveWriter.ApplicationFramework
 {
 
-	public interface IMainFrameWindow : IWin32Window, ISynchronizeInvoke, IMiniFormOwner
-	{
-		string Caption { set; }   
- 
-		Point Location { get; }
-		Size Size { get; }
+    public interface IMainFrameWindow : IWin32Window, ISynchronizeInvoke, IMiniFormOwner
+    {
+        string Caption { set; }
 
-		event EventHandler LocationChanged ;
+        Point Location { get; }
+        Size Size { get; }
 
-		event EventHandler SizeChanged ;
+        event EventHandler LocationChanged;
 
-		event EventHandler Deactivate ;
+        event EventHandler SizeChanged;
 
-		event LayoutEventHandler Layout ;
-		
-		void Activate();
+        event EventHandler Deactivate;
 
-		void Update() ;
+        event LayoutEventHandler Layout;
 
-		void PerformLayout() ;
-		void Invalidate() ;
+        void Activate();
 
-		void Close() ;
+        void Update();
 
-	    void OnKeyboardLanguageChanged();
-	}
-		
+        void PerformLayout();
+        void Invalidate();
+
+        void Close();
+
+        void OnKeyboardLanguageChanged();
+    }
+
     public interface IStatusBar
     {
         void SetWordCountMessage(string msg);
@@ -72,19 +72,19 @@ namespace OpenLiveWriter.ApplicationFramework
         }
     }
 
-	public class StatusMessage
-	{
+    public class StatusMessage
+    {
         public StatusMessage(string blogPostStatus)
             : this(null, blogPostStatus, null)
-		{
-		}
+        {
+        }
 
         public StatusMessage(Image icon, string blogPostStatus, string wordCountValue)
-		{
-			Icon = icon ;
+        {
+            Icon = icon;
             BlogPostStatus = blogPostStatus;
-		    WordCountValue = wordCountValue;
-		}
+            WordCountValue = wordCountValue;
+        }
 
         public void ConsumeValues(StatusMessage externalMessage)
         {
@@ -99,17 +99,17 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         private Image _icon;
-		public Image Icon
-		{
-			get
-			{
-				return _icon;
-			}
+        public Image Icon
+        {
+            get
+            {
+                return _icon;
+            }
             set
             {
                 _icon = value;
             }
-		}
+        }
 
         private string _blogPostStatus;
         public string BlogPostStatus
@@ -136,113 +136,109 @@ namespace OpenLiveWriter.ApplicationFramework
                 _wordCountValue = value;
             }
         }
-	}
+    }
 
-	public class DesignModeMainFrameWindow : SameThreadSimpleInvokeTarget,  IMainFrameWindow
-	{
+    public class DesignModeMainFrameWindow : SameThreadSimpleInvokeTarget, IMainFrameWindow
+    {
 
-		public string Caption
-		{
-			get
-			{
-				return String.Empty;
-			}
-			set
-			{
-			}
-		}
+        public string Caption
+        {
+            get
+            {
+                return String.Empty;
+            }
+            set
+            {
+            }
+        }
 
-		public Point Location { get { return Point.Empty; } }
-		public Size Size { get { return Size.Empty; }}
+        public Point Location { get { return Point.Empty; } }
+        public Size Size { get { return Size.Empty; } }
 
-		public void Activate()
-		{
-		}
+        public void Activate()
+        {
+        }
 
-		public void Update()
-		{
-		}
+        public void Update()
+        {
+        }
 
-		public void AddOwnedForm(Form form)
-		{
-		}
+        public void AddOwnedForm(Form form)
+        {
+        }
 
-		public void RemoveOwnedForm(Form form)
-		{
-		}
+        public void RemoveOwnedForm(Form form)
+        {
+        }
 
-		public void SetStatusBarMessage(StatusMessage message)
-		{
-		}
+        public void SetStatusBarMessage(StatusMessage message)
+        {
+        }
 
-		public void PushStatusBarMessage(StatusMessage message)
-		{
-		}
+        public void PushStatusBarMessage(StatusMessage message)
+        {
+        }
 
-		public void PopStatusBarMessage()
-		{
-		}
+        public void PopStatusBarMessage()
+        {
+        }
 
-		public void PerformLayout()
-		{
-		}
+        public void PerformLayout()
+        {
+        }
 
-		public void Invalidate()
-		{
-			
-		}
+        public void Invalidate()
+        {
 
-		public void Close()
-		{
-		}
+        }
 
-		public IntPtr Handle
-		{
-			get
-			{
-				return User32.GetForegroundWindow() ;
-			}
-		}
+        public void Close()
+        {
+        }
 
-		public event EventHandler SizeChanged ;
-		protected void OnSizeChanged()
-		{
-			// prevent compiler warnings
-			if ( SizeChanged != null )
-				SizeChanged(this, EventArgs.Empty) ;
-		}
+        public IntPtr Handle
+        {
+            get
+            {
+                return User32.GetForegroundWindow();
+            }
+        }
 
-		public event EventHandler LocationChanged ;
-		protected void OnLocationChanged()
-		{
-			// prevent compiler warnings
-			if ( LocationChanged != null )
-				LocationChanged(this, EventArgs.Empty) ;
-		}
+        public event EventHandler SizeChanged;
+        protected void OnSizeChanged()
+        {
+            // prevent compiler warnings
+            if (SizeChanged != null)
+                SizeChanged(this, EventArgs.Empty);
+        }
 
-		public event EventHandler Deactivate ;
-		protected void OnDeactivate()
-		{
-			// prevent compiler warnings
-			if ( Deactivate != null )
-				Deactivate(this, EventArgs.Empty) ;
-		}
+        public event EventHandler LocationChanged;
+        protected void OnLocationChanged()
+        {
+            // prevent compiler warnings
+            if (LocationChanged != null)
+                LocationChanged(this, EventArgs.Empty);
+        }
 
-		public event LayoutEventHandler Layout ;
-		protected void OnLayout(LayoutEventArgs ea)
-		{
-			if ( Layout != null )
-				Layout(this, ea) ;
-		}
+        public event EventHandler Deactivate;
+        protected void OnDeactivate()
+        {
+            // prevent compiler warnings
+            if (Deactivate != null)
+                Deactivate(this, EventArgs.Empty);
+        }
 
+        public event LayoutEventHandler Layout;
+        protected void OnLayout(LayoutEventArgs ea)
+        {
+            if (Layout != null)
+                Layout(this, ea);
+        }
 
-	    public void OnKeyboardLanguageChanged()
-	    {
-	    }	    
+        public void OnKeyboardLanguageChanged()
+        {
+        }
     }
 }
-
-
-
 
 

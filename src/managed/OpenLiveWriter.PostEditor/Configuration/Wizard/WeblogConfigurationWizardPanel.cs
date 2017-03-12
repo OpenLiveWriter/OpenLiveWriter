@@ -30,6 +30,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             OtherBasicInfo = 33,
             SelectProvider = 40,
             SharePointAuth = 41,
+            GoogleBloggerAuth = 42,
             SelectBlog = 50,
             SelectImageEndPoint = 60,
             Confirm = 80,
@@ -38,11 +39,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         protected System.Windows.Forms.Panel panelMain;
         protected Label labelHeader;
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
-
 
         public WeblogConfigurationWizardPanel()
         {
@@ -99,8 +99,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             control.Focus();
         }
 
-
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         protected override void Dispose(bool disposing)
@@ -116,8 +115,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -125,26 +124,26 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelMain = new System.Windows.Forms.Panel();
             this.labelHeader = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // panelMain
-            // 
+            //
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(20, 49);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(392, 195);
             this.panelMain.TabIndex = 0;
-            // 
+            //
             // labelHeader
-            // 
+            //
             this.labelHeader.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelHeader.Location = new System.Drawing.Point(16, 15);
             this.labelHeader.Name = "labelHeader";
             this.labelHeader.Size = new System.Drawing.Size(416, 21);
             this.labelHeader.TabIndex = 1;
             this.labelHeader.Text = "Header";
-            // 
+            //
             // WeblogConfigurationWizardPanel
-            // 
+            //
             this.Controls.Add(this.labelHeader);
             this.Controls.Add(this.panelMain);
             this.Name = "WeblogConfigurationWizardPanel";
@@ -161,7 +160,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         /// Specifically, the "Select blog type" panel gets fixed up twice just because
         /// it's part of the wizard form on the form's first layout and it also gets
         /// reversed on the way into the form.
-        /// 
+        ///
         /// Really we should not reverse wizard steps on the way in unless the form's
         /// reversal has already occurred, but this way we'll be robust to changes in
         /// our form reversal strategy.

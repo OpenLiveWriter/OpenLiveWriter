@@ -55,7 +55,7 @@ namespace OpenLiveWriter.Controls
             // Set the font size and color for the heading
             labelHeading.Font = Res.GetFont(FontSize.XLarge, FontStyle.Regular);
             labelHeading.ForeColor = BlueText;
-            
+
             // Layout the heading and subheading
             LayoutHelper.NaturalizeHeightAndDistribute(3, labelHeading, labelSubheading);
             // Move the options panel below the subheading
@@ -93,7 +93,7 @@ namespace OpenLiveWriter.Controls
 
         void co_Click(object sender, EventArgs e)
         {
-            _selectedItem = (ChoiceOption) sender;
+            _selectedItem = (ChoiceOption)sender;
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -103,7 +103,7 @@ namespace OpenLiveWriter.Controls
             bool ret = base.ProcessCmdKey(ref msg, keyData);
             Invalidate(true);
             return ret;
-            
+
         }
     }
 }

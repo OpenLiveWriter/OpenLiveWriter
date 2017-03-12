@@ -259,15 +259,19 @@
       <SubType>UserControl</SubType>
     </Compile>
     <EmbeddedResource Include="ApplicationForm.resx">
+      <DependentUpon>ApplicationForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ApplicationManager.resx">
+      <DependentUpon>ApplicationManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ApplicationStyle.resx">
+      <DependentUpon>ApplicationStyle.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ApplicationStyles\ApplicationStyleSkyBlue.resx">
+      <DependentUpon>ApplicationStyleSkyBlue.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ApplicationStyles\Images\ApplicationStyleSmall.png" />
@@ -277,84 +281,111 @@
     <EmbeddedResource Include="ApplicationStyles\Images\Sterling.png" />
     <EmbeddedResource Include="ApplicationStyles\Images\Wintergreen.png" />
     <EmbeddedResource Include="BorderControl.resx">
+      <DependentUpon>BorderControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorDefaultColorControl.resx">
+      <DependentUpon>ColorDefaultColorControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorDialogLauncherControl.resx">
+      <DependentUpon>ColorDialogLauncherControl.cs</DependentUpon>  
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorPickerForm.resx">
+      <DependentUpon>ColorPickerForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorPopup.resx">
+      <DependentUpon>ColorPopup.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorPresetControl.resx">
+      <DependentUpon>ColorPresetControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Command.resx">
+      <DependentUpon>Command.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarButtonEntry.resx">
+      <DependentUpon>CommandBarButtonEntry.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarButtonLightweightControl.resx">
+      <DependentUpon>CommandBarButtonLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarContainerLightweightControl.resx">
+      <DependentUpon>CommandBarContainerLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarControl.resx">
+      <DependentUpon>CommandBarControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarControlEntry.resx">
+      <DependentUpon>CommandBarControlEntry.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarControlLightweightControl.resx">
+      <DependentUpon>CommandBarControlLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarDefinition.resx">
+      <DependentUpon>CommandBarDefinition.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarEntry.resx">
+      <DependentUpon>CommandBarEntry.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarLabelEntry.resx">
+      <DependentUpon>CommandBarLabelEntry.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarLabelLightweightControl.resx">
+      <DependentUpon>CommandBarLabelLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarLightweightControl.resx">
+      <DependentUpon>CommandBarLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarLightweightControlEntry.resx">
+      <DependentUpon>CommandBarLightweightControlEntry.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarSeparatorEntry.resx">
+      <DependentUpon>CommandBarSeparatorEntry.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarSeparatorLightweightControl.resx">
+      <DependentUpon>CommandBarSeparatorLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandContextMenu.resx">
+      <DependentUpon>CommandContextMenu.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandContextMenuDefinition.resx">
+      <DependentUpon>CommandContextMenuDefinition.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandContextMenuMiniForm.resx">
+      <DependentUpon>CommandContextMenuMiniForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandManager.resx">
+      <DependentUpon>CommandManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandOwnerDrawMenuItem.resx">
+      <DependentUpon>CommandOwnerDrawMenuItem.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DynamicCommandMenuOverflowForm.resx">
+      <DependentUpon>DynamicCommandMenuOverflowForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Images\Application\CommandMenuBitmapLatchedEnabled.png" />
@@ -442,40 +473,52 @@
     <EmbeddedResource Include="Images\HIG\WhiteDropArrow.png" />
     <EmbeddedResource Include="Images\HIG\XPActionBarBottom.png" />
     <EmbeddedResource Include="MenuDefinitionEntry.resx">
+      <DependentUpon>MenuDefinitionEntry.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuDefinitionEntryCommand.resx">
+      <DependentUpon>MenuDefinitionEntryCommand.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuDefinitionEntryPlaceholder.resx">
+      <DependentUpon>MenuDefinitionEntryPlaceholder.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MinMaxClose.resx">
+      <DependentUpon>MinMaxClose.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="OwnerDrawMenuItem.resx">
+      <DependentUpon>OwnerDrawMenuItem.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Preferences\Images\WebProxyPanelBitmap.png" />
     <EmbeddedResource Include="Preferences\PreferencesForm.resx">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Preferences\PreferencesPanel.resx">
+      <DependentUpon>PreferencesPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Preferences\WebProxyPreferencesPanel.resx">
+      <DependentUpon>WebProxyPreferencesPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PrimaryWorkspaceCommandBarLightweightControl.resx">
+      <DependentUpon>PrimaryWorkspaceCommandBarLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PrimaryWorkspaceControl.resx">
+      <DependentUpon>PrimaryWorkspaceControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SatelliteApplicationForm.resx">
+      <DependentUpon>SatelliteApplicationForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SatelliteApplicationFormWorkspace.resx">
+      <DependentUpon>SatelliteApplicationFormWorkspace.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SectionHeaderControl.resx">
@@ -487,6 +530,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SideBarControl.resx">
+      <DependentUpon>SideBarControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SidebarHeaderControl.resx">
@@ -494,33 +538,43 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SplitterLightweightControl.resx">
+      <DependentUpon>SplitterLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TabLightweightControl.resx">
+      <DependentUpon>TabLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPageContainerControl.resx">
+      <DependentUpon>TabPageContainerControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TabPageControl.resx">
+      <DependentUpon>TabPageControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TabScrollerButtonLightweightControl.resx">
+      <DependentUpon>TabScrollerButtonLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TabSelectorLightweightControl.resx">
+      <DependentUpon>TabSelectorLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkspaceColumnLightweightControl.resx">
+      <DependentUpon>WorkspaceColumnLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkspaceColumnPaneLightweightControl.resx">
+      <DependentUpon>WorkspaceColumnPaneLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkspaceCommandBarLightweightControl.resx">
+      <DependentUpon>WorkspaceCommandBarLightweightControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkspaceControl.resx">
+      <DependentUpon>WorkspaceControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Images\Application\ErrorLogoSmall.png" />

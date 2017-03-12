@@ -263,7 +263,6 @@ namespace OpenLiveWriter.CoreServices
             float requestedWidth;
             float requestedHeight;
 
-
             if (imageRatio >= maxRatio)
             {
                 // the image's width is the determinant in scaling, scale based upon that
@@ -439,11 +438,11 @@ namespace OpenLiveWriter.CoreServices
 
                     using (new QuickTimer("Resize"))
                         g.DrawImage(bitmap, new PointF[]
-						                    	{
-						                    		new PointF(destRect.Left, destRect.Top),
-						                    		new PointF(destRect.Right, destRect.Top),
-						                    		new PointF(destRect.Left, destRect.Bottom),
-						                    	}, srcRect, GraphicsUnit.Pixel, ia);
+                                                {
+                                                    new PointF(destRect.Left, destRect.Top),
+                                                    new PointF(destRect.Right, destRect.Top),
+                                                    new PointF(destRect.Left, destRect.Bottom),
+                                                }, srcRect, GraphicsUnit.Pixel, ia);
                 }
                 return scaledBitmap;
             }
@@ -542,12 +541,12 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Utility class for managing image manipulation.
-        /// 
+        ///
         ///Based on code obtained from:
         /// http://www.c-sharpcorner.com/Code/2003/March/ThumbnailImages.asp
-        /// 
+        ///
         /// LICENSE: http://www.c-sharpcorner.com/terms.asp
-        /// 
+        ///
         /// </summary>
         internal class ImageSaver
         {
@@ -582,16 +581,16 @@ namespace OpenLiveWriter.CoreServices
                     }
 
                     /*
-				    ColorPalette p = bitmap.Palette;
-					bool seenTransparent = false;
-					foreach (Color c in p.Entries)
-					{
-						if (c.A == 0)
-						{
-							Trace.Assert(!seenTransparent);
-							seenTransparent = true;
-						}
-					}
+                    ColorPalette p = bitmap.Palette;
+                    bool seenTransparent = false;
+                    foreach (Color c in p.Entries)
+                    {
+                        if (c.A == 0)
+                        {
+                            Trace.Assert(!seenTransparent);
+                            seenTransparent = true;
+                        }
+                    }
                     */
                 }
 
@@ -624,12 +623,12 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Utility class for managing image manipulation.
-        /// 
+        ///
         /// Code obtained from:
         /// http://www.c-sharpcorner.com/Code/2003/March/ThumbnailImages.asp
-        /// 
+        ///
         /// LICENSE: http://www.c-sharpcorner.com/terms.asp
-        /// 
+        ///
         /// </summary>
         internal class ThumbMaker
         {
@@ -819,5 +818,5 @@ namespace OpenLiveWriter.CoreServices
         Normal = 0,
         TransparentGif = 1,
         AnimatedGif = 2
-    } ;
+    };
 }

@@ -23,7 +23,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
 
         static YouTubeVideoService()
         {
-            _requestTypes = new VideoRequestType[] 
+            _requestTypes = new VideoRequestType[]
                 {
                     new MyVideosRequestType(),
                     new MyFavoritesRequestType()
@@ -37,7 +37,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
 
         public static VideoRequestType[] SupportedRequests
         {
-            get { return _requestTypes; }			
+            get { return _requestTypes; }
         }
 
         public Bitmap Image
@@ -52,7 +52,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
 
         public string ServiceUrl
         {
-            get { return "http://www.youtube.com";  }
+            get { return "http://www.youtube.com"; }
         }
 
         public IAuth Auth
@@ -70,19 +70,19 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             VideoBuffer buffer = GetBuffer(requestType, timeoutMs, maxPerPage);
 
             // Insure we have enough videos in the Arraylist to satisfy the request
-            int maxRequest = page*maxPerPage;
+            int maxRequest = page * maxPerPage;
             buffer.FetchMore(maxRequest - buffer.Videos.Count);
 
             videosAvailable = buffer.Available;
 
-            int startRequest = (page - 1)*maxPerPage;
+            int startRequest = (page - 1) * maxPerPage;
 
             int count = maxPerPage;
             if (startRequest + maxPerPage > buffer.Videos.Count)
             {
                 count = buffer.Videos.Count - startRequest;
             }
-            
+
             // Deal with out of range
             return buffer.Videos.GetRange(startRequest, count).ToArray();
         }
@@ -100,7 +100,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
 
         void _videoAuth_LoginStatusChanged(object sender, EventArgs e)
         {
-            if(!_videoAuth.IsLoggedIn)
+            if (!_videoAuth.IsLoggedIn)
                 _ytVideoBuffers.Clear();
         }
 
@@ -179,14 +179,14 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
             {
                 // format the url for downloading
                 baseUrl = String.Format(
-                    CultureInfo.InvariantCulture, 
+                    CultureInfo.InvariantCulture,
                     "http://gdata.youtube.com/feeds/api/users/{0}/favorites",
                     _videoAuth.Username);
             }
             else if (requestType is MyVideosRequestType)
             {
                 baseUrl = String.Format(
-                    CultureInfo.InvariantCulture, 
+                    CultureInfo.InvariantCulture,
                     "http://gdata.youtube.com/feeds/api/users/{0}/uploads",
                     _videoAuth.Username);
 
@@ -203,13 +203,11 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                     string.Format(CultureInfo.InvariantCulture, "?max-results={0}&start-index={1}", maxPerPage, ((page - 1) * maxPerPage + 1));
                 string requestUrl = baseUrl + queryString;
 
-
                 YouTubeVideo[] videos;
                 int totalResults;
 
                 // download the document
                 Stream videoListStream = CallYouTubeApi(requestUrl, timeoutMs);
-
 
                 // parse it into a list of videos
                 videos = ParseVideoList(videoListStream, out totalResults);
@@ -224,7 +222,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 foreach (YouTubeVideo video in videos)
                     yield return video;
 
-
                 page++;
             }
         }
@@ -233,7 +230,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         {
             _videoAuth.LoginStatusChanged -= _videoAuth_LoginStatusChanged;
         }
-
 
         private static Stream CallYouTubeApi(string requestUrl, int timeoutMs)
         {
@@ -307,22 +303,17 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                     ytVid.Load(node, mgr);
                     if (ytVid.IsPublished)
                         videos.Add(ytVid);
-                }                    
+                }
             }
 
             return videos.ToArray(typeof(YouTubeVideo)) as YouTubeVideo[];
         }
 
-
         private static readonly VideoRequestType[] _requestTypes;
         private readonly Bitmap _sidebarIcon = ResourceHelper.LoadAssemblyResourceBitmap("Video.YouTube.Images.Sidebar.png");
         private readonly IAuth _videoAuth = YouTubeAuth.Instance;
 
-
-
-
         #region IMediaSource Members
-
 
         public string Id
         {
@@ -341,7 +332,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
     }
 
     public class YouTubeVideo : IVideo
-    {        
+    {
         public void Load(XmlNode entryNode, XmlNamespaceManager mgr)
         {
             XmlElement stateNode = entryNode.SelectSingleNode("app:control/yt:state", mgr) as XmlElement;
@@ -351,7 +342,6 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 if (name.ToLower(CultureInfo.InvariantCulture) == "rejected")
                     _isPublished = false;
             }
-
 
             _author = entryNode.SelectSingleNode(
             "atom:author/atom:name", mgr).InnerText;
@@ -404,7 +394,7 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
         public string[] Tags { get { return _tags; } }
         public string Url { get { return _url; } set { _url = value; } }
         public string ThumbnailUrl { get { return _thumbnailUrl; } }
-        public bool IsPublished { get { return _isPublished;  } }
+        public bool IsPublished { get { return _isPublished; } }
 
         public Video GetVideo()
         {
@@ -464,23 +454,21 @@ namespace OpenLiveWriter.PostEditor.Video.YouTube
                 return 0.0F;
             }
         }
-        private  string _author = String.Empty;
+        private string _author = String.Empty;
         private string _id = String.Empty;
-        private  string _title = String.Empty;
-        private  int _lengthSeconds = 0;
-        private  float _ratingAvg = 0.0F;
-        private  int _ratingCount = 0;
-        private  string _description = String.Empty;
-        private  int _viewCount = 0;
-        private  DateTime _uploadTime = DateTime.MinValue;
-        private  int _commentCount = 0;
-        private  string[] _tags = new string[] { };
+        private string _title = String.Empty;
+        private int _lengthSeconds = 0;
+        private float _ratingAvg = 0.0F;
+        private int _ratingCount = 0;
+        private string _description = String.Empty;
+        private int _viewCount = 0;
+        private DateTime _uploadTime = DateTime.MinValue;
+        private int _commentCount = 0;
+        private string[] _tags = new string[] { };
         private string _url = String.Empty;
-        private  string _thumbnailUrl = String.Empty;
+        private string _thumbnailUrl = String.Empty;
         private bool _isPublished = true;
 
     }
-
-
 
 }

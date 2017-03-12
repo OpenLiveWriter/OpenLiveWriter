@@ -56,7 +56,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         {
             get
             {
-                
+
                 return ApplicationEnvironment.ProductVersion;
             }
         }

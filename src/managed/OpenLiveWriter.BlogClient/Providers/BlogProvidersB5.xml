@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE xpp[
-  <!ENTITY wave2mship "12.0.1292.0815">
+  <!ENTITY wave2mship "0.5.0.0">
 ]>
 <providers xmlns:xpp="http://writer.live.com/xmlpp/2007" xmlns:blogrunner="http://writer.live.com/blogrunner/2007">
   <provider>
@@ -102,6 +102,34 @@
       <maxCategoryNameLength>200</maxCategoryNameLength>
       <!-- Bug in MShip prevents drafts from working on Blogger -->
       <supportsPostAsDraft xpp:if="version gte &wave2mship; and version lte 12.0.1366.1026">No</supportsPostAsDraft>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <usePicasaImgMaxAlways>Yes</usePicasaImgMaxAlways>
+      <usePicasaS1600h>Yes</usePicasaS1600h>
+    </options>
+  </provider>
+  <provider>
+    <id>343F1D83-1098-43F4-AE86-93AFC7602855</id>
+    <name>Google Blogger v3</name>
+    <description>
+      Create your custom home on the web. Design your blog your way, and use it to share whatever's on your mind.
+    </description>
+    <link>http://www.blogger.com</link>
+    <clientType>GoogleBloggerv3</clientType>
+    <postApiUrl>
+      <![CDATA[
+    https://www.googleapis.com/blogger/v3
+    ]]>
+    </postApiUrl>
+    <options>
+      <serviceName>GoogleBloggerv3</serviceName>
+      <supportsScripts>Yes</supportsScripts>
+      <supportsEmbeds>Yes</supportsEmbeds>
+      <supportsCustomDate>Yes</supportsCustomDate>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
       <supportsMultipleCategories>Yes</supportsMultipleCategories>
       <supportsEmptyTitles>Yes</supportsEmptyTitles>
       <requiresHtmlTitles>Yes</requiresHtmlTitles>
@@ -311,12 +339,42 @@
   </provider>
   <provider>
     <id>D3405AD6-9E02-43b3-87F4-08F5A5946B40</id>
-    <name>Community Server</name>
+    <name>Telligent Community</name>
     <description>The easiest and most powerful way to build and grow a robust online community.</description>
     <clientType>Metaweblog</clientType>
     <postApiUrl>
       <![CDATA[
 		http://<hostname>/blogs/metablog.ashx
+		]]>
+    </postApiUrl>
+    <rsdEngineNamePattern>Community Server</rsdEngineNamePattern>
+    <options>
+      <supportsNewCategories>Yes</supportsNewCategories>
+      <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+      <useLocalTime>Yes</useLocalTime>
+      <requiresHtmlTitles>No</requiresHtmlTitles>
+      <returnsHtmlTitlesOnGet>Yes</returnsHtmlTitlesOnGet>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^0$</invalidPostIdFaultCodePattern>
+      <invalidPostIdFaultStringPattern>object reference not set to an instance of an object</invalidPostIdFaultStringPattern>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsPostAsDraft>Yes</supportsPostAsDraft>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <supportsEmbeds>No</supportsEmbeds>
+      <supportsScripts>No</supportsScripts>
+      <fileUploadNameFormat>{AsciiFileNameWithoutExtension}_{Randomizer}{FileExtension}</fileUploadNameFormat>
+      <keywordsAsTags>Yes</keywordsAsTags>
+    </options>
+  </provider>
+  <provider>
+    <id>E83A8A63-0F40-4499-AAD1-DFB2577CCC40</id>
+    <name>Telligent Community 8.0+</name>
+    <description>The easiest and most powerful way to build and grow a robust online community.</description>
+    <clientType>Metaweblog</clientType>
+    <postApiUrl>
+      <![CDATA[
+		http://<hostname>/<groupname>/b/<blogname>/metablog
 		]]>
     </postApiUrl>
     <rsdEngineNamePattern>Community Server</rsdEngineNamePattern>
