@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.CoreServices", "OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj", "{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}"
 EndProject
@@ -59,6 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\..\build.cmd = ..\..\build.cmd
 		..\..\version.txt = ..\..\version.txt
+		..\..\writer.build.targets = ..\..\writer.build.targets
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostBuild.CreateInstaller", "PostBuild.CreateInstaller\PostBuild.CreateInstaller.csproj", "{4E445FF3-7F7B-46D1-9424-682E146F1F09}"
