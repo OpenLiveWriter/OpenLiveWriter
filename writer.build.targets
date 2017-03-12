@@ -28,7 +28,8 @@
     <OlwBloggerClientSecret Condition="'$(OlwBloggerClientSecret)'==''">PASTE_YOUR_CLIENT_SECRET_HERE</OlwBloggerClientSecret>
   </PropertyGroup>
 
-  <Target Name="GenerateBloggerClientSecrets" BeforeTargets="CoreCompile" Outputs="$(BloggerClientSecretsJson)">
+  <Target Name="GenerateBloggerClientSecrets" BeforeTargets="CoreCompile" Inputs="$(MSBuildThisFileFullPath)" Outputs="$(BloggerClientSecretsJson)">
+    <Message Text="$(BloggerClientSecretsJson)" Importance="high" />
     <WriteLinesToFile File="$(BloggerClientSecretsJson)" Lines="{ &quot;installed&quot;: { &quot;client_id&quot;: &quot;$(OlwBloggerClientId)&quot;, &quot;client_secret&quot;: &quot;$(OlwBloggerClientSecret)&quot; } }" Overwrite="true" />
   </Target>
 
