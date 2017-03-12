@@ -86,7 +86,7 @@ namespace OpenLiveWriter.HtmlEditor
     {
         #region Regex To Find Words
         //private readonly static Regex regexWords = new Regex(@"[\p{Ll}\p{Lu}\p{Lt}\p{Nd}\p{Pc}\p{Pf}\p{Pi}\p{Po}\p{Sc}\u2019]+|\p{Lo}", RegexOptions.Compiled);
-        private readonly static Regex regexWords = new Regex(@"[^\n\r\t\s()\p{Lo}]+|\p{Lo}", RegexOptions.Compiled);
+        private readonly static Regex regexWords = new Regex(@"[^\n\r\t\s()]+", RegexOptions.Compiled);
         private readonly static Regex regexChars = new Regex("[^\n\r\t]", RegexOptions.Compiled);
         private readonly static Regex regexCharsWithoutSpace = new Regex("\\S", RegexOptions.Compiled);
         private readonly static Regex regexParagraph = new Regex(@"(\r\n){1,2}\s*", RegexOptions.Compiled);
