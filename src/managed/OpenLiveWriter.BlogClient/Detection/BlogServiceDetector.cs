@@ -162,7 +162,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 _serviceName = atomProvider.Name;
                 _clientType = atomProvider.ClientType;
                 _blogName = string.Empty;
-                _postApiUrl = linkUrl;
+                _postApiUrl = GetAbsoluteUrl(url, linkUrl);
 
                 IBlogClient client = BlogClientManager.CreateClient(atomProvider.ClientType, _postApiUrl, _credentials);
                 client.VerifyCredentials();
@@ -190,6 +190,19 @@ namespace OpenLiveWriter.BlogClient.Detection
                 return true;
             }
             return false;
+        }
+
+        private string GetAbsoluteUrl(string url, string linkUrl)
+        {
+            Uri absoluteUrl;
+            if (Uri.TryCreate(linkUrl, UriKind.Absolute, out absoluteUrl))
+            {
+                return linkUrl;
+            }
+
+            Uri baseUrl = new Uri(url);
+            absoluteUrl = new Uri(baseUrl, linkUrl);
+            return absoluteUrl.AbsoluteUri;
         }
 
         private class BloggerGeneratorCriterion : IElementPredicate
