@@ -908,6 +908,21 @@ namespace OpenLiveWriter.CoreServices
                     return (float)Convert.ToDouble(cssUnits.Substring(0, i), CultureInfo.InvariantCulture) * 0.283464567f;
                 }
 
+                // CSS3 RELATIVE SIZE TO ROOT HTML
+                i = cssUnits.IndexOf("REM", StringComparison.OrdinalIgnoreCase);
+                if (i > 0)
+                {
+                    float rootMultiplier = (float)Convert.ToDouble(cssUnits.Substring(0, i), CultureInfo.InstalledUICulture);
+                    IHTMLElement rootElement = element;
+                    while (rootElement.parentElement != null) // until it encounters {mshtml.HTMLHtmlElementClass} which is the root HTML node
+                    {
+                        rootElement = rootElement.parentElement;
+                    }
+                    
+                    // the 'rem' unit is relative to the computed value of the font-size attribute of the root element.
+                    return rootMultiplier * CSSUnitStringToPointSize(CSSUnitStringFontSize, rootElement, LastChanceFontPointSize, vertical);
+                }
+
                 // RELATIVE SIZE
                 i = cssUnits.IndexOf("EM", StringComparison.OrdinalIgnoreCase);
                 if (i > 0)
