@@ -195,6 +195,14 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         }
     }
 
+    public class BlogClientAbortGettingTemplateException : BlogClientException
+    {
+        public BlogClientAbortGettingTemplateException()
+            : base(StringId.BCEOperationCancelledTitle, StringId.BCEOperationCancelledMessage)
+        {
+        }
+    }
+
     public class BlogClientMethodUnsupportedException : BlogClientException
     {
         public BlogClientMethodUnsupportedException(string methodName)
