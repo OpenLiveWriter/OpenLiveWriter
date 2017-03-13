@@ -362,6 +362,10 @@ namespace OpenLiveWriter.BlogClient.Detection
                 Application.DoEvents();
             }
 
+            //The Google/Blogger dynamic templates load the pages dynmaically usig Ajax, so we dont have any template to use.
+            if (IsUsingDynamicTemplate(doc2))
+                throw new BlogClientAbortGettingTemplateException();
+
             IHTMLElement[] titles = FindText(_titleText, doc2.body);
             IHTMLElement[] bodies = FindText(_bodyText, doc2.body);
             if (titles.Length == 0 || bodies.Length == 0)
@@ -404,6 +408,44 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
             // not in smart content
             return false;
+        }
+
+        private static bool IsUsingDynamicTemplate(IHTMLDocument2 doc2)
+        {
+            IHTMLElement head = GetHeadElement(doc2);
+
+            if(head != null)
+            {
+                var template = GetMetaTagContent(head, "blogger-template");
+
+                return template == "dynamic";
+            }
+
+            return false;
+        }
+
+        private static IHTMLElement GetHeadElement(IHTMLDocument2 doc2)
+        {
+            foreach(IHTMLElement element in doc2.all)
+            {
+                if(element.tagName.ToLower() == "head")
+                {
+                    return element;
+                }
+            }
+            return null;
+        }
+
+        private static string GetMetaTagContent(IHTMLElement head, string name)
+        {
+            foreach(IHTMLElement element in (IHTMLElementCollection)head.children)
+            {
+                if(element.tagName.ToLower() == "meta" && (string)element.getAttribute("name") == name)
+                {
+                    return (string)element.getAttribute("content");
+                }
+            }
+            return null;
         }
 
         private IHTMLElement ScrubPostBodyRegionParentElements(IHTMLElement postBodyElement)
