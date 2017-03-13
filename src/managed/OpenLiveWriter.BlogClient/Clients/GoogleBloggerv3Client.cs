@@ -841,7 +841,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
 
             // If we've got this far, it means the user is going to have to manually create their own album.
-            throw new BlogClientFileTransferException($"We were unable to create a folder for your images, please go to PLACEHOLDER to see how to do this", "BloggerError", $"We were unable to create a folder for your images, please go to PLACEHOLDER to see how to do this");
+            throw new BlogClientFileTransferException("Unable to upload to Blogger", "BloggerError", "We were unable to create a folder for your images, please go to http://openlivewriter.org/tutorials/googlePhotoFix.html to see how to do this");
         }
 
         private void ShowPicasaSignupPrompt(object sender, EventArgs e)
