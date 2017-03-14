@@ -268,6 +268,7 @@ namespace OpenLiveWriter.CoreServices
             request.UserAgent = ApplicationEnvironment.UserAgent;
 
             ApplyProxyOverride(request);
+            ServicePointManager.ServerCertificateValidationCallback = AcceptAllCerts;
 
             //For robustness, we turn off keep alive and piplining by default.
             //If the caller wants to override, the filter parameter can be used to adjust these settings.
@@ -276,6 +277,11 @@ namespace OpenLiveWriter.CoreServices
             request.Pipelined = false;
             request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.Reload);
             return request;
+        }
+
+        private static bool AcceptAllCerts(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslpolicyerrors)
+        {
+            return true;
         }
 
         public static string DumpResponse(HttpWebResponse resp)
