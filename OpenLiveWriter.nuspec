@@ -23,7 +23,6 @@
         <file src="html\map.html" target="lib\net451\html\map.html" />
         <file src="html\map-preview.html" target="lib\net451\html\map-preview.html" />
         <file src="ICSharpCode.SharpZipLib.dll" target="lib\net451\ICSharpCode.SharpZipLib.dll" />
-        <file src="log4net.dll" target="lib\net451\log4net.dll" />
         <file src="Microsoft.Threading.Tasks.dll" target="lib\net451\Microsoft.Threading.Tasks.dll" />
         <file src="Microsoft.Threading.Tasks.Extensions.dll" target="lib\net451\Microsoft.Threading.Tasks.Extensions.dll" />
         <file src="Microsoft.Threading.Tasks.Extensions.Desktop.dll" target="lib\net451\Microsoft.Threading.Tasks.Extensions.Desktop.dll" />

@@ -40,7 +40,6 @@ namespace OpenLiveWriter.PostEditor
 
         // Copyright notices are not to be localized.
         string[] credits = {
-            "Apache log4net (Apache 2.0) (C) Copyright 2004-2015 The Apache Software Foundation\nhttp://logging.apache.org/log4net/",
             /* Brian Lambert */ "Portions Copyright © 2003 Brian Lambert, used with permission of the author under the MIT License.",
             "DeltaCompressionDotNet (MS-PL) Copyright © Todd Aspeotis 2013 \nhttps://github.com/taspeotis/DeltaCompressionDotNet",
             "DotNetZip (MS-PL) Copyright (c) 2011 Dino Chiesa.\nhttp://dotnetzip.codeplex.com/",
