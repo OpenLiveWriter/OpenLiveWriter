@@ -22,7 +22,8 @@ ECHO Created Writer NuGet package.
 MOVE .\Releases\Setup.exe .\Releases\OpenLiveWriterSetup.exe
 ECHO Created Open Live Writer setup file.
 
-"%LocalAppData%\Nuget\Nuget.exe" pack .\OpenLiveWriter.Install.nuspec -version %dottedVersion% -basepath Releases
+::Build Chocolatey package. Suppress package analysis since Chocolatey powershell generates verbose warnings.
+"%LocalAppData%\Nuget\Nuget.exe" pack .\OpenLiveWriter.Install.nuspec -version %dottedVersion% -basepath Releases -nopackageanalysis
 ECHO Created Writer Chocolatey Package
 
 :end
