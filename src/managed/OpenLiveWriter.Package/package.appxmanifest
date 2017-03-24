@@ -8,7 +8,7 @@
          xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
         IgnorableNamespaces="uap mp rescap desktop">
   <mp:PhoneIdentity PhoneProductId="2dfca7a6-5aa7-43e3-ad57-0f8c4242db86" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
-  <Identity Name="D5BA6BCD.OpenLiveWriter" ProcessorArchitecture="x86" Publisher="CN=59FB1262-434E-4693-9A1E-CD275B151706" Version="0.6.1.0" />
+  <Identity Name="D5BA6BCD.OpenLiveWriter"  Publisher="CN=59FB1262-434E-4693-9A1E-CD275B151706" Version="0.6.1.0" />
   <Properties>
     <DisplayName>Open Live Writer</DisplayName>
     <PublisherDisplayName>.NET Foundation</PublisherDisplayName>
