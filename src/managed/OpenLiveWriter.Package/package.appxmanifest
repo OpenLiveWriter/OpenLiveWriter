@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
+         xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" 
+         xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" 
+         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
+         xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+        IgnorableNamespaces="uap mp rescap desktop">
+  <mp:PhoneIdentity PhoneProductId="2dfca7a6-5aa7-43e3-ad57-0f8c4242db86" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="D5BA6BCD.OpenLiveWriter" ProcessorArchitecture="x86" Publisher="CN=59FB1262-434E-4693-9A1E-CD275B151706" Version="0.6.1.0" />
+  <Properties>
+    <DisplayName>Open Live Writer</DisplayName>
+    <PublisherDisplayName>.NET Foundation</PublisherDisplayName>
+    <Logo>Assets\Writer50x50.png</Logo>
+  </Properties>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
+  </Dependencies>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+  <Applications>
+    <Application Id="OpenLiveWriter" Executable="OpenLiveWriter.exe" 
+                 EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="Open Live Writer" Description="Open Live Writer" BackgroundColor="#a25da2" Square150x150Logo="Assets\Writer150x150.png" Square44x44Logo="Assets\Writer44x44.png">
+        <uap:DefaultTile>
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+      </uap:VisualElements>
+      <Extensions />
+    </Application>
+  </Applications>
+</Package>
