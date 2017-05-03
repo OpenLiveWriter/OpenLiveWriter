@@ -18,6 +18,7 @@ IF EXIST "%LocalAppData%\Nuget\Nuget.exe" (GOTO package) ELSE (
 "%LocalAppData%\Nuget\Nuget.exe" pack .\OpenLiveWriter.nuspec -version %dottedVersion% -basepath src\managed\bin\%OLW_CONFIG%\i386\Writer
 ECHO Created Writer NuGet package.
 
+.\src\managed\packages\squirrel.windows.1.4.4\tools\SyncReleases.exe -url=https://olw.blob.core.windows.net/stable/Releases/ -r=.\Releases
 .\src\managed\packages\squirrel.windows.1.4.4\tools\Squirrel.exe -i .\src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico %OLW_SIGN% --no-msi --releasify .\OpenLiveWriter.%dottedVersion%.nupkg 
 MOVE .\Releases\Setup.exe .\Releases\OpenLiveWriterSetup.exe
 ECHO Created Open Live Writer setup file.
