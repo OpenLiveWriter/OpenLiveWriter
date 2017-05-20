@@ -1,0 +1,4445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutAbout" xml:space="preserve">
+    <value>关于(&amp;T) {0}</value>
+    <comment>{0} - Open Live Writer Beta</comment>
+  </data>
+  <data name="AboutConfigurationVersion" xml:space="preserve">
+    <value>配置版本: {0}</value>
+    <comment>Displays the version of Writer's configuration file in the about dialog</comment>
+  </data>
+  <data name="AboutCopyright" xml:space="preserve">
+    <value>Copyright © .NET 基金会.保留所有权利.</value>
+  </data>
+  <data name="AboutVersion" xml:space="preserve">
+    <value>{0}</value>
+    <comment>{0} - version number, e.g. 2.0.1</comment>
+  </data>
+  <data name="AccountPanel" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>添加(&amp;D)...</value>
+    <comment>Add new blog, add to link glossary, etc.</comment>
+  </data>
+  <data name="AddButton2" xml:space="preserve">
+    <value>添加(&amp;A)</value>
+  </data>
+  <data name="AdvancedBlogOverride" xml:space="preserve">
+    <value>其他日志设置</value>
+    <comment>Names a group of options for overriding some blog settings</comment>
+  </data>
+  <data name="AdvancedDefault" xml:space="preserve">
+    <value>默认 ({0})</value>
+    <comment>{0} - default encoding web name (e.g. "UTF-8")</comment>
+  </data>
+  <data name="AdvancedEmbedTags" xml:space="preserve">
+    <value>内嵌标记(&amp;E):</value>
+    <comment>A blog feature, whether the blog supports &lt;embed&gt;</comment>
+  </data>
+  <data name="AdvancedName" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="AdvancedScripts" xml:space="preserve">
+    <value>脚本(&amp;S):</value>
+    <comment>A blog feature, whether the blog supports &lt;script&gt;</comment>
+  </data>
+  <data name="AdvancedText" xml:space="preserve">
+    <value>为你的日志选择其他编码类型。默认情况下为 UTF-8。</value>
+  </data>
+  <data name="AdvancedTransport" xml:space="preserve">
+    <value>字符集</value>
+  </data>
+  <data name="AdvancedXHTMLDefault" xml:space="preserve">
+    <value>默认 ({0})</value>
+    <comment>{0} - yes or no</comment>
+  </data>
+  <data name="AdvancedXHTMLGroupName" xml:space="preserve">
+    <value>标记语言</value>
+  </data>
+  <data name="AdvancedXHTMLLabel" xml:space="preserve">
+    <value>选择 HTML 或 XHTML 作为你的标记语言类型。默认情况下为 HTML。</value>
+  </data>
+  <data name="Alignment" xml:space="preserve">
+    <value>对齐方式</value>
+    <comment>Tooltip for image alignment dropdown</comment>
+  </data>
+  <data name="AlignMenuItem" xml:space="preserve">
+    <value>对齐(&amp;A)</value>
+    <comment>From the context menu when right-clicking on text in the editor.</comment>
+  </data>
+  <data name="AllFilesFilterString" xml:space="preserve">
+    <value>所有文件(*.*)</value>
+  </data>
+  <data name="AllowAutoUpdate" xml:space="preserve">
+    <value>自动更新帐户信息(类别、链接、功能和提供者的扩展程序)(&amp;U)</value>
+  </data>
+  <data name="AllowProviderExtensions" xml:space="preserve">
+    <value>允许使用日志提供者的扩展程序(添加到功能区“日志帐户”标签上“快捷方式”组的按钮)(&amp;B)</value>
+  </data>
+  <data name="AltTextEditorTitle" xml:space="preserve">
+    <value>替代文本</value>
+    <comment>Title of the HTML image alternate text dialog</comment>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="ApplyButton" xml:space="preserve">
+    <value>应用(&amp;A)</value>
+  </data>
+  <data name="AutoRecoverDialogButtonAskLater" xml:space="preserve">
+    <value>稍后询问我(&amp;A)</value>
+  </data>
+  <data name="AutoRecoverDialogButtonDiscard" xml:space="preserve">
+    <value>永久丢弃更改(&amp;D)</value>
+  </data>
+  <data name="AutoRecoverDialogButtonRecover" xml:space="preserve">
+    <value>立即恢复更改(推荐)(&amp;R)</value>
+  </data>
+  <data name="AutoRecoverDialogContent" xml:space="preserve">
+    <value>你上次使用 {0} 时它没有正常关闭。未保存的更改仍可恢复，是否立即恢复这些更改?</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="AutoRecoverDialogInstruction" xml:space="preserve">
+    <value>是否恢复未保存的更改?</value>
+  </data>
+  <data name="AutoreplaceEmoticons" xml:space="preserve">
+    <value>用表情图释替换文字图释(&amp;E)</value>
+  </data>
+  <data name="AutoreplaceFormTitle" xml:space="preserve">
+    <value>Auto Replace</value>
+    <comment>Currently not in use- do not localize</comment>
+  </data>
+  <data name="AutoreplaceOtherChars" xml:space="preserve">
+    <value>替换其他特殊字符(&amp;P)</value>
+  </data>
+  <data name="AutoreplacePrefererencesPanel" xml:space="preserve">
+    <value>Auto Replace</value>
+    <comment>Currently not in use- do not localize</comment>
+  </data>
+  <data name="AutoreplaceReplacementValue" xml:space="preserve">
+    <value>替换值:</value>
+    <comment>'"Currently not in use- do not localize"</comment>
+  </data>
+  <data name="AutoreplaceSmartQuotes" xml:space="preserve">
+    <value>用弯引号替换直引号(&amp;Q)</value>
+  </data>
+  <data name="AutoreplaceTypographic" xml:space="preserve">
+    <value>用破折号(—)替换连字符(--)(&amp;Y)</value>
+  </data>
+  <data name="AutoreplaceWordorPhrase" xml:space="preserve">
+    <value>词语或词组:</value>
+    <comment>Currently not in use- do not localize</comment>
+  </data>
+  <data name="BCEAuthenticationMessage" xml:space="preserve">
+    <value>请检查你的用户名和密码。{0} - {1}</value>
+    <comment>{0} - type of error (e.g. ArgumentException), {1} - error message</comment>
+  </data>
+  <data name="BCEAuthenticationTitle" xml:space="preserve">
+    <value>帐户登录失败</value>
+  </data>
+  <data name="BCEConnectionErrorMessage" xml:space="preserve">
+    <value>尝试连接到以下日志时出错:{0}{1}</value>
+    <comment>{0} - URL, {1} - error message</comment>
+  </data>
+  <data name="BCEConnectionErrorTitle" xml:space="preserve">
+    <value>网络连接错误</value>
+  </data>
+  <data name="BCEFileIOMessage" xml:space="preserve">
+    <value>访问文件 {0} 时发生意外错误{1} - {2}</value>
+    <comment>{0} - filename, {1} - type of exception (e.g. ArgumentException), {2} - error message</comment>
+  </data>
+  <data name="BCEFileIOTitle" xml:space="preserve">
+    <value>文件访问错误</value>
+  </data>
+  <data name="BCEFileTransferConnectingToDestination" xml:space="preserve">
+    <value>正在连接到文件目标	</value>
+    <comment>This string will be embedded in BCEFileTransferMessage</comment>
+  </data>
+  <data name="BCEFileTransferDisconnectingFromDestination" xml:space="preserve">
+    <value>正在断开与文件目标的连接</value>
+    <comment>This string will be embedded in BCEFileTransferMessage</comment>
+  </data>
+  <data name="BCEFileTransferMessage" xml:space="preserve">
+    <value>{0}时出错({1}) {2}</value>
+    <comment>{0} - an action, {1} - error code, {2} - error message</comment>
+  </data>
+  <data name="BCEFileTransferTitle" xml:space="preserve">
+    <value>文件传输错误</value>
+  </data>
+  <data name="BCEFileTransferTransferringFile" xml:space="preserve">
+    <value>正在传输文件 {0}</value>
+    <comment>{0} - file name. This string will be embedded in BCEFileTransferMessage.</comment>
+  </data>
+  <data name="BCEFileUploadNotSupportedMessage" xml:space="preserve">
+    <value>此日志不支持文件上载。请先为此日志配置文件上载，然后再尝试发布包含附加图片或文件的日志。</value>
+  </data>
+  <data name="BCEFileUploadNotSupportedTitle" xml:space="preserve">
+    <value>不支持文件上载</value>
+  </data>
+  <data name="BCEHttpErrorMessage" xml:space="preserve">
+    <value>服务器报告以下网址出错:{0}{1}</value>
+    <comment>{0} - URL, {1} - error message</comment>
+  </data>
+  <data name="BCEHttpErrorTitle" xml:space="preserve">
+    <value>服务器错误</value>
+  </data>
+  <data name="BCEInvalidServerResponseMessage" xml:space="preserve">
+    <value>从日志服务器接收的对 {0} 方法的响应无效:{1}</value>
+    <comment>{0} - XML-RPC method name, {1} - error message</comment>
+  </data>
+  <data name="BCEInvalidServerResponseTitle" xml:space="preserve">
+    <value>服务器响应无效</value>
+  </data>
+  <data name="BCEMethodUnsupportedMessage" xml:space="preserve">
+    <value>日志服务不支持 {0} 方法。</value>
+    <comment>{0} - an XML-RPC method name, e.g. "metaWeblog.deletePost"</comment>
+  </data>
+  <data name="BCEMethodUnsupportedTitle" xml:space="preserve">
+    <value>不支持该方法</value>
+  </data>
+  <data name="BCENetworkIOMessage" xml:space="preserve">
+    <value>{0}时发生意外的数据传输异常{1} - {2}</value>
+    <comment>{0} - some operation (e.g. "transferring file"), {1} - type of exception, {2} - error message</comment>
+  </data>
+  <data name="BCENetworkIOTitle" xml:space="preserve">
+    <value>数据传输异常</value>
+  </data>
+  <data name="BCEOperationCancelledMessage" xml:space="preserve">
+    <value>操作已取消。</value>
+  </data>
+  <data name="BCEOperationCancelledTitle" xml:space="preserve">
+    <value>操作已取消。</value>
+  </data>
+  <data name="BCEPostAsDraftUnsupportedMessage" xml:space="preserve">
+    <value>此服务器不支持发布草稿。</value>
+  </data>
+  <data name="BCEPostAsDraftUnsupportedTitle" xml:space="preserve">
+    <value>不支持发布草稿</value>
+  </data>
+  <data name="BCEPostUrlNotFoundMessage" xml:space="preserve">
+    <value>找不到日志的网址:{1}</value>
+    <comment>{0} - URL, {1} - error message</comment>
+  </data>
+  <data name="BCEPostUrlNotFoundTitle" xml:space="preserve">
+    <value>找不到日志的网址</value>
+  </data>
+  <data name="BCEProviderMessage" xml:space="preserve">
+    <value>发生服务器错误 {0}{1}</value>
+    <comment>{0} - error code, {1} - error message</comment>
+  </data>
+  <data name="BCEProviderTitle" xml:space="preserve">
+    <value>日志服务器发生问题</value>
+  </data>
+  <data name="Beta" xml:space="preserve">
+    <value>(试用版)</value>
+    <comment>Suffix for qualified product name (e.g. Window Live Writer Beta)</comment>
+  </data>
+  <data name="Beta1DayRemaining" xml:space="preserve">
+    <value>还剩 1 天</value>
+    <comment>Title of dialog displayed when there is only 1 day remaining before the beta expires.</comment>
+  </data>
+  <data name="BetaDaysRemaining" xml:space="preserve">
+    <value>还剩 {0} 天</value>
+    <comment>Title of dialog displayed when there are only a few days remaining before the beta expires. {0} will be replaced with the number of days remaining (always more than 1)</comment>
+  </data>
+  <data name="BetaExpiredAskLater" xml:space="preserve">
+    <value>稍后询问我(&amp;A)</value>
+    <comment>Text displayed on ask me later button of beta expiration warning dialog</comment>
+  </data>
+  <data name="BetaExpiredDialogTitle" xml:space="preserve">
+    <value>过期</value>
+    <comment>The title displayed in the expiration dialog's border</comment>
+  </data>
+  <data name="BetaExpiredDownloadNow" xml:space="preserve">
+    <value>立即下载(&amp;D)</value>
+    <comment>Text displayed on download button of beta expiration warning dialog</comment>
+  </data>
+  <data name="BetaExpiredMessage" xml:space="preserve">
+    <value>{0} 版本已过期。请下载并安装更新的版本。</value>
+    <comment>Message displayed when the beta version of writer has expired. {0} will be replaced with the product name</comment>
+  </data>
+  <data name="BetaExpiredTitle" xml:space="preserve">
+    <value>已过期</value>
+    <comment>Title of dialog displayed when the beta version of Writer has expired.</comment>
+  </data>
+  <data name="BetaRemainingMessage" xml:space="preserve">
+    <value>{0} 版本将于 {1} 过期。请下载并安装更新的版本。</value>
+    <comment>Message displayed when the beta version of writer has only a few days remaining before the beta expires. {0} will be replaced with the product name, {1} will be replaced with the expiration date.</comment>
+  </data>
+  <data name="Blog" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Blog_Option_Not_Supported" xml:space="preserve">
+    <value>不支持</value>
+    <comment>Feature is not supported</comment>
+  </data>
+  <data name="Blog_Option_Supported" xml:space="preserve">
+    <value>支持</value>
+    <comment>Feature is supported</comment>
+  </data>
+  <data name="Blog_Option_Unknown" xml:space="preserve">
+    <value>未知</value>
+    <comment>Support for feature is unknown</comment>
+  </data>
+  <data name="BlogCategoryNone" xml:space="preserve">
+    <value>无</value>
+    <comment>Allows the user to specify that the blog post has no categories assigned to it.</comment>
+  </data>
+  <data name="BloggerAccountDeleted" xml:space="preserve">
+    <value>该用户帐户已删除。</value>
+  </data>
+  <data name="BloggerAccountDisabled" xml:space="preserve">
+    <value>该用户帐户已禁用。</value>
+  </data>
+  <data name="BloggerBadAuthentication" xml:space="preserve">
+    <value>无法识别该用户名或密码。</value>
+  </data>
+  <data name="BloggerGenericError" xml:space="preserve">
+    <value>发生错误: {0}</value>
+    <comment>{0} - an error message</comment>
+  </data>
+  <data name="BloggerImageAlbumDescription" xml:space="preserve">
+    <value>此相册用于存储 Open Live Writer 所发布的日志中的图片。</value>
+  </data>
+  <data name="BloggerNotVerified" xml:space="preserve">
+    <value>尚未验证该帐户的电子邮件地址。用户需要首先直接访问其 Google 帐户来解决该问题，然后再使用非 Google 应用程序登录。</value>
+  </data>
+  <data name="BloggerServiceUnavailable" xml:space="preserve">
+    <value>该服务不可用；请稍后重试。</value>
+  </data>
+  <data name="BloggerTermsNotAgreed" xml:space="preserve">
+    <value>该用户尚未接受条款。用户需要首先直接访问其 Google 帐户来解决该问题，然后再使用非 Google 应用程序登录。</value>
+  </data>
+  <data name="BloggerUnknown" xml:space="preserve">
+    <value>发生未知或非特定错误；输入的请求无效或其格式不正确。</value>
+  </data>
+  <data name="BlogPluginsDescription" xml:space="preserve">
+    <value>选择你要使用的插件，并更改它们的启动顺序。</value>
+    <comment>From the Weblog | Edit Weblog Settings | Plugins preferences panel</comment>
+  </data>
+  <data name="BlogServiceNames" xml:space="preserve">
+    <value>TypePad 以及所有其他服务</value>
+  </data>
+  <data name="BrightnessAdjust" xml:space="preserve">
+    <value>对比度</value>
+  </data>
+  <data name="BrightnessBrightness" xml:space="preserve">
+    <value>亮度(&amp;B):</value>
+  </data>
+  <data name="BrightnessContrast" xml:space="preserve">
+    <value>对比度(&amp;C):</value>
+  </data>
+  <data name="BrowseForFile" xml:space="preserve">
+    <value>浏览文件</value>
+    <comment>Tooltip over the button in the insert video from file dialog that opens an Open File Dialog when clicked</comment>
+  </data>
+  <data name="BrowserMiniFormProgress" xml:space="preserve">
+    <value>正在检索...</value>
+  </data>
+  <data name="BytesFormat" xml:space="preserve">
+    <value>{0} 个字节</value>
+    <comment>{0} - a number (integer)</comment>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+    <comment>does not get an accelerator</comment>
+  </data>
+  <data name="Canceling" xml:space="preserve">
+    <value>正在取消...</value>
+  </data>
+  <data name="CantSignIn" xml:space="preserve">
+    <value>发生错误，无法登录</value>
+  </data>
+  <data name="Capabilities" xml:space="preserve">
+    <value>日志服务功能(&amp;C):</value>
+  </data>
+  <data name="CapabilityAuthor" xml:space="preserve">
+    <value>作者</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityAutoUpdate" xml:space="preserve">
+    <value>自动更新</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityCategories" xml:space="preserve">
+    <value>类别</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityCategoriesInline" xml:space="preserve">
+    <value>嵌入类别</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityCategoryNameLimit" xml:space="preserve">
+    <value>类别名称限制</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityCategoryScheme" xml:space="preserve">
+    <value>类别方案</value>
+  </data>
+  <data name="CapabilityCharacterSet" xml:space="preserve">
+    <value>编码</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityCommentPolicy" xml:space="preserve">
+    <value>评论策略</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityCustomPublishDate" xml:space="preserve">
+    <value>自定义发布日期</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityCustomPublishDateUpdate" xml:space="preserve">
+    <value>更新发布日期</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityDefaultView" xml:space="preserve">
+    <value>默认视图</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityEmbeds" xml:space="preserve">
+    <value>嵌入</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityEmptyTitles" xml:space="preserve">
+    <value>空标题</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityExcerpt" xml:space="preserve">
+    <value>摘要</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It indicates whether or not the API used by the blog provider is able to edit blog post excerpts.</comment>
+  </data>
+  <data name="CapabilityExtendedEntries" xml:space="preserve">
+    <value>扩展日志</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityFileUpload" xml:space="preserve">
+    <value>文件上载</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityHierarchicalCategories" xml:space="preserve">
+    <value>多级类别</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityHtmlTitles" xml:space="preserve">
+    <value>HTML 标题</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityKeywordRetrieval" xml:space="preserve">
+    <value>关键字检索</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityKeywords" xml:space="preserve">
+    <value>关键字</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityMultipleCategories" xml:space="preserve">
+    <value>多种类别</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityNewCategories" xml:space="preserve">
+    <value>新建类别</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityNewCategoriesInline" xml:space="preserve">
+    <value>嵌入新类别</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityPageOrder" xml:space="preserve">
+    <value>页面顺序</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityPageParent" xml:space="preserve">
+    <value>父页</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityPages" xml:space="preserve">
+    <value>页面</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityPassword" xml:space="preserve">
+    <value>密码</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityPostDraftToServer" xml:space="preserve">
+    <value>将草稿发布到服务器</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityPostTitleLengthLimit" xml:space="preserve">
+    <value>标题长度限制</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityRequiresXHTML" xml:space="preserve">
+    <value>需要 XHTML</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityScripts" xml:space="preserve">
+    <value>脚本</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilitySendTrackbacks" xml:space="preserve">
+    <value>发送引用通告</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilitySlug" xml:space="preserve">
+    <value>数据域</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It indicates whether or not the API used by the blog provider is able to edit blog post slugs.</comment>
+  </data>
+  <data name="CapabilityTemplateIsRTL" xml:space="preserve">
+    <value>模板文字方向为从右至左</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityTrackbackPolicy" xml:space="preserve">
+    <value>引用通告策略</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
+  <data name="CapabilityValueNoLimit" xml:space="preserve">
+    <value>(无限制)</value>
+    <comment>Specifies that there is no limit to the number of characters in a category name.</comment>
+  </data>
+  <data name="CapabilityValueNormal" xml:space="preserve">
+    <value>普通</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment>
+  </data>
+  <data name="CapabilityValueWebLayout" xml:space="preserve">
+    <value>Web 版式</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment>
+  </data>
+  <data name="CapabilityValueWebPreview" xml:space="preserve">
+    <value>Web 预览</value>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment>
+  </data>
+  <data name="CategoryAdd" xml:space="preserve">
+    <value>添加类别</value>
+  </data>
+  <data name="CategoryCategoryName" xml:space="preserve">
+    <value>类别名称</value>
+    <comment>The 'cue banner' for the textbox in the category popup</comment>
+  </data>
+  <data name="CategoryControlCategories" xml:space="preserve">
+    <value>类别: {0}</value>
+    <comment>{0} - comma-delimited list of categories</comment>
+  </data>
+  <data name="CategoryControlCategory" xml:space="preserve">
+    <value>类别: {0}</value>
+    <comment>{0} - the single category that is selected</comment>
+  </data>
+  <data name="CategoryControlNoCategories" xml:space="preserve">
+    <value>(无)</value>
+  </data>
+  <data name="CategoryControlNoCategories2" xml:space="preserve">
+    <value>(无类别)</value>
+  </data>
+  <data name="CategoryControlSetCategories" xml:space="preserve">
+    <value>设置类别</value>
+  </data>
+  <data name="CategoryControlSetCategory" xml:space="preserve">
+    <value>设置类别</value>
+  </data>
+  <data name="CategoryNoParent" xml:space="preserve">
+    <value>(无父类别)</value>
+    <comment>Indicates that a category does not have a parent category.</comment>
+  </data>
+  <data name="CategoryParentAccessible" xml:space="preserve">
+    <value>父类别</value>
+    <comment>Accessible name for a combo box that lets you choose the parent category for a new blog category</comment>
+  </data>
+  <data name="CategoryRefreshList" xml:space="preserve">
+    <value>刷新列表</value>
+  </data>
+  <data name="CategoryRefreshListTooltip" xml:space="preserve">
+    <value>刷新类别列表。</value>
+  </data>
+  <data name="Cell" xml:space="preserve">
+    <value>单元格</value>
+    <comment>Table cell</comment>
+  </data>
+  <data name="CellPropertiesTitle" xml:space="preserve">
+    <value>单元格属性</value>
+  </data>
+  <data name="Cells" xml:space="preserve">
+    <value>单元格</value>
+    <comment>Table cells</comment>
+  </data>
+  <data name="ChangeLiveClipboardHandlerCaption" xml:space="preserve">
+    <value>可用来处理“{0}”的组件:</value>
+    <comment>{0} - a live clipboard format name</comment>
+  </data>
+  <data name="ChangeLiveClipboardHandlerComponent" xml:space="preserve">
+    <value>组件</value>
+  </data>
+  <data name="ChangeLiveClipboardHandlerTitle" xml:space="preserve">
+    <value>更改格式处理程序</value>
+  </data>
+  <data name="ChangeTextStyle" xml:space="preserve">
+    <value>更改文本样式</value>
+    <comment>Tooltip for style switcher in editing toolbar</comment>
+  </data>
+  <data name="CharCount" xml:space="preserve">
+    <value>字符(带空格)</value>
+    <comment>{0} - The number of characters in a given text.</comment>
+  </data>
+  <data name="CharNoSpacesCount" xml:space="preserve">
+    <value>字符(无空格)</value>
+    <comment>{0} - The number of characters in text minus spaces/tabs/new lines</comment>
+  </data>
+  <data name="ClickToViewMap" xml:space="preserve">
+    <value>单击可在 Live.com 上查看此地图</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>关闭(&amp;C)</value>
+  </data>
+  <data name="CloseButtonNoMnemonic" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="CloseButtonTooltip" xml:space="preserve">
+    <value>关闭</value>
+    <comment>In the sense of closing a window.</comment>
+  </data>
+  <data name="ColorBlack" xml:space="preserve">
+    <value>黑色</value>
+  </data>
+  <data name="ColorCharcoal" xml:space="preserve">
+    <value>炭黑</value>
+  </data>
+  <data name="ColorDarkGray" xml:space="preserve">
+    <value>深灰</value>
+  </data>
+  <data name="ColorEarthyBlue" xml:space="preserve">
+    <value>暗蓝</value>
+  </data>
+  <data name="ColorEarthyBrown" xml:space="preserve">
+    <value>土褐</value>
+  </data>
+  <data name="ColorEarthyGreen" xml:space="preserve">
+    <value>深绿</value>
+  </data>
+  <data name="ColorEarthyOrange" xml:space="preserve">
+    <value>土橙</value>
+  </data>
+  <data name="ColorEarthyRed" xml:space="preserve">
+    <value>土红</value>
+  </data>
+  <data name="ColorEarthyYellow" xml:space="preserve">
+    <value>土黄</value>
+  </data>
+  <data name="ColorLightGray" xml:space="preserve">
+    <value>浅灰</value>
+  </data>
+  <data name="ColorMediumGray" xml:space="preserve">
+    <value>中灰</value>
+  </data>
+  <data name="ColorPastelBlue" xml:space="preserve">
+    <value>粉蓝</value>
+  </data>
+  <data name="ColorPastelGreen" xml:space="preserve">
+    <value>粉绿</value>
+  </data>
+  <data name="ColorPastelOrange" xml:space="preserve">
+    <value>粉橙</value>
+  </data>
+  <data name="ColorPastelPurple" xml:space="preserve">
+    <value>粉紫</value>
+  </data>
+  <data name="ColorPastelRed" xml:space="preserve">
+    <value>粉红</value>
+  </data>
+  <data name="ColorPastelYellow" xml:space="preserve">
+    <value>粉黄</value>
+  </data>
+  <data name="ColorPickerColor" xml:space="preserve">
+    <value>颜色</value>
+  </data>
+  <data name="ColorPickerDefaultColor" xml:space="preserve">
+    <value>默认颜色(&amp;D)</value>
+  </data>
+  <data name="ColorPickerMoreColors" xml:space="preserve">
+    <value>更多颜色(&amp;M)...</value>
+  </data>
+  <data name="ColorProfessionalAqua" xml:space="preserve">
+    <value>职业浅绿</value>
+  </data>
+  <data name="ColorProfessionalBlue" xml:space="preserve">
+    <value>纯蓝</value>
+  </data>
+  <data name="ColorProfessionalGreen" xml:space="preserve">
+    <value>纯绿</value>
+  </data>
+  <data name="ColorProfessionalOrange" xml:space="preserve">
+    <value>纯橙</value>
+  </data>
+  <data name="ColorProfessionalPurple" xml:space="preserve">
+    <value>纯紫</value>
+  </data>
+  <data name="ColorProfessionalRed" xml:space="preserve">
+    <value>纯红</value>
+  </data>
+  <data name="ColorTempCooler" xml:space="preserve">
+    <value>较冷</value>
+    <comment>This is displayed on the Color Temperature adjustment control (available by adding the Color Temperature effect from the image sidebar Effects tab) where you can specify whether to make an image warmer or cooler.</comment>
+  </data>
+  <data name="ColorTempWarmer" xml:space="preserve">
+    <value>较暖</value>
+    <comment>This is displayed on the Color Temperature adjustment control (available by adding the Color Temperature effect from the image sidebar Effects tab) where you can specify whether to make an image warmer or cooler.</comment>
+  </data>
+  <data name="ColorVibrantBlue" xml:space="preserve">
+    <value>亮蓝</value>
+  </data>
+  <data name="ColorVibrantGreen" xml:space="preserve">
+    <value>鲜绿</value>
+  </data>
+  <data name="ColorVibrantOrange" xml:space="preserve">
+    <value>亮橙</value>
+  </data>
+  <data name="ColorVibrantPurple" xml:space="preserve">
+    <value>亮紫</value>
+  </data>
+  <data name="ColorVibrantRed" xml:space="preserve">
+    <value>鲜红</value>
+  </data>
+  <data name="ColorVibrantYellow" xml:space="preserve">
+    <value>亮黄</value>
+  </data>
+  <data name="ColorWhite" xml:space="preserve">
+    <value>白</value>
+  </data>
+  <data name="ColumnProperties" xml:space="preserve">
+    <value>列属性</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>,</value>
+    <comment>The comma character for this language. (e.g., U+FF0C for Chinese)</comment>
+  </data>
+  <data name="CommaSpace" xml:space="preserve">
+    <value>, </value>
+    <comment>The comma character, formatted the way it would appear in a list. In English, list elements are separated by a comma plus a space. (This MUST be the same as the Comma string plus whitespace if applicable.)</comment>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="ConfigureProduct" xml:space="preserve">
+    <value>配置 {0}</value>
+    <comment>{0} - Product name, i.e. "Open Live Writer"</comment>
+  </data>
+  <data name="ConfigWizardBasicInfo" xml:space="preserve">
+    <value>日志主页和登录</value>
+    <comment>The header for the screen that prompts for homepage and login.</comment>
+  </data>
+  <data name="ConfigWizardChooseWeblogType" xml:space="preserve">
+    <value>选择日志类型</value>
+    <comment>The header for the screen for choosing blog type (Spaces, SharePoint, or Other).</comment>
+  </data>
+  <data name="ConfigWizardComplete" xml:space="preserve">
+    <value>日志配置完成</value>
+  </data>
+  <data name="ConfigWizardDetectSettings" xml:space="preserve">
+    <value>正在检测日志设置</value>
+  </data>
+  <data name="ConfigWizardLearnMore" xml:space="preserve">
+    <value>了解有关 {0} 的详细信息</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="ConfigWizardSelectImageEndpoint" xml:space="preserve">
+    <value>选择图像集</value>
+  </data>
+  <data name="ConfigWizardSelectProvider" xml:space="preserve">
+    <value>选择日志类型</value>
+  </data>
+  <data name="ConfigWizardSelectWeblog" xml:space="preserve">
+    <value>选择日志</value>
+  </data>
+  <data name="ConfigWizardSharePointHomepage" xml:space="preserve">
+    <value>SharePoint 日志主页</value>
+  </data>
+  <data name="ConfigWizardSharePointLogin" xml:space="preserve">
+    <value>SharePoint 日志登录</value>
+  </data>
+  <data name="ConfigWizardWelcome" xml:space="preserve">
+    <value>欢迎!</value>
+  </data>
+  <data name="ConnectionRequired" xml:space="preserve">
+    <value>需要建立 Internet 连接</value>
+  </data>
+  <data name="CopyrightInformation" xml:space="preserve">
+    <value>版权信息</value>
+    <comment>This is the string that will be read by screen reader to announce the copyright legal information on the about dialog.</comment>
+  </data>
+  <data name="CropAspect16x9" xml:space="preserve">
+    <value>16x9</value>
+  </data>
+  <data name="CropAspect35x5" xml:space="preserve">
+    <value>3.5x5</value>
+  </data>
+  <data name="CropAspect4x3" xml:space="preserve">
+    <value>4x3</value>
+  </data>
+  <data name="CropAspect4x6" xml:space="preserve">
+    <value>4x6</value>
+  </data>
+  <data name="CropAspect5x7" xml:space="preserve">
+    <value>5x7</value>
+  </data>
+  <data name="CropAspect85x11" xml:space="preserve">
+    <value>8.5x11</value>
+  </data>
+  <data name="CropAspect8x10" xml:space="preserve">
+    <value>8x10</value>
+  </data>
+  <data name="CropAspectCustom" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="CropAspectOriginal" xml:space="preserve">
+    <value>原始大小</value>
+  </data>
+  <data name="CropAspectRatioLabel" xml:space="preserve">
+    <value>比例(&amp;P):</value>
+  </data>
+  <data name="CropAspectSquare" xml:space="preserve">
+    <value>正方形</value>
+  </data>
+  <data name="CropDialogTitle" xml:space="preserve">
+    <value>裁剪</value>
+  </data>
+  <data name="CropPane" xml:space="preserve">
+    <value>图像剪裁窗格</value>
+  </data>
+  <data name="CropRemoveCrop" xml:space="preserve">
+    <value>删除裁剪(&amp;R)</value>
+    <comment>Remove the crop that is currently applied to the image</comment>
+  </data>
+  <data name="CropRotateFrame" xml:space="preserve">
+    <value>旋转边框(&amp;F)</value>
+    <comment>Command to rotate by 90 degrees the frame that indicates the cropping area</comment>
+  </data>
+  <data name="CropShowGridlines" xml:space="preserve">
+    <value>显示网格(&amp;G)</value>
+    <comment>Checkbox to show two horizontal and two vertical lines within the cropping rectangle</comment>
+  </data>
+  <data name="Culture.UseItalics" xml:space="preserve">
+    <value>True</value>
+    <comment>Whether or not the language uses italics</comment>
+  </data>
+  <data name="CustomizeMap" xml:space="preserve">
+    <value>自定义地图</value>
+  </data>
+  <data name="CWBasicCreateAccount" xml:space="preserve">
+    <value>如果你没有 {0} 帐户，可立即创建一个。单击以下链接打开网页，可马上开始联机注册。</value>
+    <comment>{0} - Microsoft Account</comment>
+  </data>
+  <data name="CWBasicHeader" xml:space="preserve">
+    <value>添加日志帐户</value>
+  </data>
+  <data name="CWBasicHomepage" xml:space="preserve">
+    <value>你的日志网址(&amp;A):</value>
+  </data>
+  <data name="CWBasicHomepage2" xml:space="preserve">
+    <value>访问者将使用此网址阅读你的日志。</value>
+  </data>
+  <data name="CWBasicText" xml:space="preserve">
+    <value>若要使用 {0}，必须已拥有某日志服务的帐户。如果还没有可用的日志服务帐户，请立即创建一个帐户。</value>
+    <comment>{0} - Writer</comment>
+  </data>
+  <data name="CWBasicTitle" xml:space="preserve">
+    <value>配置 {0} 以便用于{1}</value>
+    <comment>{0} - Writer, {1} - "your blog" or name of blog service</comment>
+  </data>
+  <data name="CWBasicTitleDefaultService" xml:space="preserve">
+    <value>你的日志</value>
+    <comment>See CWBasicTitle</comment>
+  </data>
+  <data name="CWConfirmEditWeblogSettings" xml:space="preserve">
+    <value>编辑设置(&amp;E)...</value>
+  </data>
+  <data name="CWConfirmFTPServer" xml:space="preserve">
+    <value>FTP 服务器</value>
+  </data>
+  <data name="CWConfirmSwitchToWeblog" xml:space="preserve">
+    <value>立即切换到此日志(&amp;S)</value>
+  </data>
+  <data name="CWConfirmText" xml:space="preserve">
+    <value>请确认你希望保存这篇日志。</value>
+  </data>
+  <data name="CWConfirmText2" xml:space="preserve">
+    <value>Writer 将定期检查你的日志并下载最新的配置信息。</value>
+  </data>
+  <data name="CWConfirmThanks" xml:space="preserve">
+    <value>你的日志已设置完成</value>
+  </data>
+  <data name="CWConfirmUploadSettings" xml:space="preserve">
+    <value>将图片上载到:</value>
+  </data>
+  <data name="CWConfirmWeblogName" xml:space="preserve">
+    <value>日志名称</value>
+  </data>
+  <data name="CWLiveIDCreateAccount" xml:space="preserve">
+    <value>如果你使用过 Hotmail、Messenger 或 Xbox LIVE，你就已经拥有 Microsoft Account ID。</value>
+  </data>
+  <data name="CWLiveIDCreateAccount2" xml:space="preserve">
+    <value>没有 Microsoft Account ID 吗?</value>
+  </data>
+  <data name="CWProgressHeader" xml:space="preserve">
+    <value>设置你的日志帐户</value>
+  </data>
+  <data name="CWSelectBlogText" xml:space="preserve">
+    <value>检测到多个日志。请从下表中选择要添加的日志:</value>
+  </data>
+  <data name="CWSelectImageEndpointText" xml:space="preserve">
+    <value>请选择你要将图像上载到的目标图像集:</value>
+  </data>
+  <data name="CWSelectProviderApiUrl" xml:space="preserve">
+    <value>服务器 API 网址</value>
+  </data>
+  <data name="CWSelectProviderApiUrlLabel" xml:space="preserve">
+    <value>日志的远程发布网址(&amp;W):</value>
+  </data>
+  <data name="CWSelectProviderApiUrlLabel_ServiceDoc" xml:space="preserve">
+    <value>服务文档网址(&amp;W):</value>
+  </data>
+  <data name="CWSelectProviderText" xml:space="preserve">
+    <value>{0} 无法自动检测到你的日志设置。请选择你所使用的日志类型。</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="CWSelectProviderWeblogProvider" xml:space="preserve">
+    <value>日志提供者</value>
+  </data>
+  <data name="CWSelectProviderWeblogTypeLabel" xml:space="preserve">
+    <value>你所使用的日志类型(&amp;T):</value>
+  </data>
+  <data name="CWSharePointHomepageUrl" xml:space="preserve">
+    <value>SharePoint 日志网址(&amp;P):</value>
+  </data>
+  <data name="CWSharePointText" xml:space="preserve">
+    <value>若要使用 {0}，你必须拥有 SharePoint 日志。</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="CWSharePointText2" xml:space="preserve">
+    <value>输入发布到 SharePoint 日志所需的登录帐户。</value>
+  </data>
+  <data name="CWSharePointTitle" xml:space="preserve">
+    <value>为 SharePoint 日志配置 {0}</value>
+    <comment>{0} - Writer</comment>
+  </data>
+  <data name="CWSharePointTitle2" xml:space="preserve">
+    <value>提供 SharePoint 日志登录帐户</value>
+  </data>
+  <data name="CWSharePointUseSystemLogin" xml:space="preserve">
+    <value>使用我的 Windows 用户名和密码(&amp;W)</value>
+  </data>
+  <data name="CWGoogleBloggerTitle" xml:space="preserve">
+    <value>提供者 Google Blogger 登录</value>
+  </data>
+  <data name="CWGoogleBloggerDescription" xml:space="preserve">
+    <value>要设置 Google Blogger 请登录。</value>
+  </data>
+  <data name="CWGoogleBloggerSignInSuccess" xml:space="preserve">
+    <value>登录成功</value>
+  </data>
+  <data name="CWSpacesUsername" xml:space="preserve">
+    <value>Microsoft Account ID(&amp;M):</value>
+  </data>
+  <data name="CWSpacesUsernameExample" xml:space="preserve">
+    <value>(example555@hotmail.com)</value>
+    <comment>Example of Microsoft Account ID</comment>
+  </data>
+  <data name="CWTitle" xml:space="preserve">
+    <value>添加日志向导</value>
+    <comment>Caption of the Add Blog Wizard window.</comment>
+  </data>
+  <data name="CWWelcomeAlreadyHave" xml:space="preserve">
+    <value>我已经设置了自己的日志(&amp;A)</value>
+  </data>
+  <data name="CWWelcomeCaption" xml:space="preserve">
+    <value>欢迎来到日志世界!</value>
+  </data>
+  <data name="CWWelcomeClickNext" xml:space="preserve">
+    <value>单击“下一步”继续操作。</value>
+  </data>
+  <data name="CWWelcomeCreate" xml:space="preserve">
+    <value>创建新的日志(&amp;C)</value>
+  </data>
+  <data name="CWWelcomeText" xml:space="preserve">
+    <value>使用 {0} 将你感兴趣的内容写入日志，还可以添加照片和视频，然后发布到常见的日志服务，包括 WordPress、Blogger 和 TypePad。</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="CWWelcomeWP" xml:space="preserve">
+    <value>&amp;WordPress</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="DecoratorBWDescription" xml:space="preserve">
+    <value>黑白</value>
+  </data>
+  <data name="DecoratorBWLabel" xml:space="preserve">
+    <value>黑白</value>
+    <comment>Apply a black and white filter on the selected image.</comment>
+  </data>
+  <data name="DecoratorCoolestTemperatureLabel" xml:space="preserve">
+    <value>最冷</value>
+    <comment>Dark blue temperature effect available to apply to the selected image.</comment>
+  </data>
+  <data name="DecoratorCoolTemperatureLabel" xml:space="preserve">
+    <value>冷</value>
+    <comment>Blue temperature effect available to apply to the selected image.</comment>
+  </data>
+  <data name="DecoratorDropShadow" xml:space="preserve">
+    <value>投影</value>
+  </data>
+  <data name="DecoratorEmbossDescription" xml:space="preserve">
+    <value>对选定图像应用阳文效果。</value>
+  </data>
+  <data name="DecoratorEmbossLabel" xml:space="preserve">
+    <value>阳文</value>
+    <comment>Apply an emboss effect on the selected image.</comment>
+  </data>
+  <data name="DecoratorGaussianBlurDescription" xml:space="preserve">
+    <value>对选定图像应用高斯模糊滤镜。</value>
+  </data>
+  <data name="DecoratorGaussianBlurLabel" xml:space="preserve">
+    <value>高斯模糊</value>
+    <comment>Apply a Gaussian blur filter on the selected image.</comment>
+  </data>
+  <data name="DecoratorGroupOverlays" xml:space="preserve">
+    <value>覆盖</value>
+  </data>
+  <data name="DecoratorGroupTransformations" xml:space="preserve">
+    <value>转换</value>
+  </data>
+  <data name="DecoratorInheritBorder" xml:space="preserve">
+    <value>从日志继承</value>
+  </data>
+  <data name="DecoratorInstantPhoto" xml:space="preserve">
+    <value>快照</value>
+  </data>
+  <data name="DecoratorNoBlurDescription" xml:space="preserve">
+    <value>删除选定图像上的模糊滤镜。</value>
+  </data>
+  <data name="DecoratorNoBlurLabel" xml:space="preserve">
+    <value>不模糊</value>
+    <comment>Remove the blur filter on the selected image.</comment>
+  </data>
+  <data name="DecoratorNoBorder" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="DecoratorNoEmbossDescription" xml:space="preserve">
+    <value>删除选定图像上的阳文效果。</value>
+  </data>
+  <data name="DecoratorNoEmbossLabel" xml:space="preserve">
+    <value>无阳文</value>
+    <comment>Remove the emboss effect on the selected image.</comment>
+  </data>
+  <data name="DecoratorNoRecolorDescription" xml:space="preserve">
+    <value>删除选定图像上应用的重新着色效果。</value>
+  </data>
+  <data name="DecoratorNoRecolorLabel" xml:space="preserve">
+    <value>不重新着色</value>
+    <comment>Remove any black and white or sepia applied on the selected image.</comment>
+  </data>
+  <data name="DecoratorNoSharpenDescription" xml:space="preserve">
+    <value>删除选定图像上的锐化滤镜。</value>
+  </data>
+  <data name="DecoratorNoSharpenLabel" xml:space="preserve">
+    <value>不锐化</value>
+    <comment>Remove the sharpening filter on the selected image.</comment>
+  </data>
+  <data name="DecoratorPhotopaper" xml:space="preserve">
+    <value>相纸</value>
+  </data>
+  <data name="DecoratorReflection" xml:space="preserve">
+    <value>反射</value>
+  </data>
+  <data name="DecoratorRoundedCorners" xml:space="preserve">
+    <value>圆角</value>
+  </data>
+  <data name="DecoratorSaturationDescription" xml:space="preserve">
+    <value>使选定图像的颜色更生动。</value>
+  </data>
+  <data name="DecoratorSaturationLabel" xml:space="preserve">
+    <value>光照色</value>
+    <comment>Make the colors in the selected image vivid.</comment>
+  </data>
+  <data name="DecoratorSepiaDescription" xml:space="preserve">
+    <value>棕褐色</value>
+  </data>
+  <data name="DecoratorSepiaLabel" xml:space="preserve">
+    <value>棕褐色调</value>
+    <comment>Apply a sepia filter on the selected image.</comment>
+  </data>
+  <data name="DecoratorSharpenDescription" xml:space="preserve">
+    <value>对选定图像应用锐化滤镜。</value>
+  </data>
+  <data name="DecoratorSharpenLabel" xml:space="preserve">
+    <value>锐化</value>
+    <comment>Apply a sharpening filter on the selected image.</comment>
+  </data>
+  <data name="DecoratorSolid1px" xml:space="preserve">
+    <value>实线，1 个像素</value>
+  </data>
+  <data name="DecoratorSolid3px" xml:space="preserve">
+    <value>实线，3 个像素</value>
+  </data>
+  <data name="DecoratorTemperatureDescription" xml:space="preserve">
+    <value>更改选定图像的颜色暖度。</value>
+  </data>
+  <data name="DecoratorWarmestTemperatureLabel" xml:space="preserve">
+    <value>最暖</value>
+    <comment>Orange temperature effect available to apply to the selected image.</comment>
+  </data>
+  <data name="DecoratorWarmTemperatureLabel" xml:space="preserve">
+    <value>暖</value>
+    <comment>Yellow temperature effect available to apply to the selected image.</comment>
+  </data>
+  <data name="DecoratorWatermark" xml:space="preserve">
+    <value>水印...</value>
+  </data>
+  <data name="DefaultTemplateBodyFont" xml:space="preserve">
+    <value>Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif</value>
+    <comment>The font used for the post body when editing using no theme. Should be a comma separated list of HTML supported font names</comment>
+  </data>
+  <data name="DefaultTemplateTitleFont" xml:space="preserve">
+    <value>Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif</value>
+    <comment>The font used for the post title when editing using no theme. Should be a comma separated list of HTML supported font names</comment>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>删除(&amp;M)...</value>
+    <comment>Delete blog, glossary entry, etc.</comment>
+  </data>
+  <data name="DeleteSomething" xml:space="preserve">
+    <value>删除{0}</value>
+    <comment>{0} can be Post, Page, Draft, Published</comment>
+  </data>
+  <data name="DictionaryLanguageLabel" xml:space="preserve">
+    <value>字典语言(&amp;L):</value>
+  </data>
+  <data name="DictionaryLanguageNone" xml:space="preserve">
+    <value>(无)</value>
+  </data>
+  <data name="DimensionsFormat" xml:space="preserve">
+    <value>{0}x{1}</value>
+    <comment>{0} - width, {1} - height</comment>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>不再显示此消息(&amp;D)</value>
+  </data>
+  <data name="DownloadingWeblogStyle" xml:space="preserve">
+    <value>正在下载日志主题</value>
+  </data>
+  <data name="DraftNameFormat" xml:space="preserve">
+    <value>草稿{0}</value>
+    <comment>{0} - Post or Page. "Draft" is an adjective in this context</comment>
+  </data>
+  <data name="Drafts" xml:space="preserve">
+    <value>草稿</value>
+  </data>
+  <data name="DynamicCommandMenuInsert" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="DynamicCommandMenuMore" xml:space="preserve">
+    <value>更多(&amp;R)...</value>
+    <comment>If all the options can't be shown in one menu then this is the last option in a menu and it launches a form that shows all the options</comment>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>编辑(&amp;E)...</value>
+    <comment>Edit blog, glossary entry, etc.</comment>
+  </data>
+  <data name="EditingName" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EditingRTLDefault" xml:space="preserve">
+    <value>默认({0})</value>
+    <comment>{0} - EditingRTLYes or EditingRTLNo</comment>
+  </data>
+  <data name="EditingRTLExplanation" xml:space="preserve">
+    <value>更改日志的文字阅读方向。</value>
+    <comment>Explanation for the right-to-left setting</comment>
+  </data>
+  <data name="EditingRTLName" xml:space="preserve">
+    <value>文本方向</value>
+  </data>
+  <data name="EditingRTLNo" xml:space="preserve">
+    <value>从左向右</value>
+  </data>
+  <data name="EditingRTLUse" xml:space="preserve">
+    <value>在“编辑”视图中从右向左输入文字(&amp;E)。</value>
+  </data>
+  <data name="EditingRTLYes" xml:space="preserve">
+    <value>从右向左</value>
+  </data>
+  <data name="EditingStyle" xml:space="preserve">
+    <value>日志主题</value>
+  </data>
+  <data name="EditingText" xml:space="preserve">
+    <value>联机更改主题后</value>
+    <comment>click Update theme to see the latest.</comment>
+  </data>
+  <data name="EditingUpdate" xml:space="preserve">
+    <value>更新主题(&amp;U)</value>
+  </data>
+  <data name="EditingUsing" xml:space="preserve">
+    <value>使用日志主题在编辑日志过程中查看日志联机后的外观。</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="EditProxySettings" xml:space="preserve">
+    <value>设置代理服务器...</value>
+  </data>
+  <data name="EmoticonAirplane" xml:space="preserve">
+    <value>飞机</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonAlien" xml:space="preserve">
+    <value>外星人</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonAngel" xml:space="preserve">
+    <value>天使</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonAngrySmile" xml:space="preserve">
+    <value>生气</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonAnnoyed" xml:space="preserve">
+    <value>恼怒</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonAuto" xml:space="preserve">
+    <value>汽车</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonBaringTeethSmile" xml:space="preserve">
+    <value>咬牙切齿</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonBeRightBack" xml:space="preserve">
+    <value>马上回来</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonBirthdayCake" xml:space="preserve">
+    <value>生日蛋糕</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonBlackSheep" xml:space="preserve">
+    <value>黑羊</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonBowl" xml:space="preserve">
+    <value>餐具</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonBoy" xml:space="preserve">
+    <value>男孩</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonBrokenHeart" xml:space="preserve">
+    <value>破碎的心</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonBunny" xml:space="preserve">
+    <value>小兔子</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonCallMe" xml:space="preserve">
+    <value>电话听筒</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonCamera" xml:space="preserve">
+    <value>照相机</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonCatFace" xml:space="preserve">
+    <value>猫脸</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonClock" xml:space="preserve">
+    <value>时钟</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonCoffeeCup" xml:space="preserve">
+    <value>咖啡杯</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonComputer" xml:space="preserve">
+    <value>计算机</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonConfusedSmile" xml:space="preserve">
+    <value>困惑</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonCryingFace" xml:space="preserve">
+    <value>哭泣的脸</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonDevil" xml:space="preserve">
+    <value>恶魔</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonDisappointedSmile" xml:space="preserve">
+    <value>失望</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonDogFace" xml:space="preserve">
+    <value>狗脸</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonDontTellAnyoneSmile" xml:space="preserve">
+    <value>保守秘密</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonEmail" xml:space="preserve">
+    <value>电子邮件</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonEmbarrassedSmile" xml:space="preserve">
+    <value>尴尬</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonEyeRollingSmile" xml:space="preserve">
+    <value>转动眼睛</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonFilmstrip" xml:space="preserve">
+    <value>电影胶片</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonFingersCrossed" xml:space="preserve">
+    <value>上帝保佑</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonFlirtFemale" xml:space="preserve">
+    <value>夏娃</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonFlirtMale" xml:space="preserve">
+    <value>亚当</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonFreezing" xml:space="preserve">
+    <value>冰冻</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonGhost" xml:space="preserve">
+    <value>幽灵</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonGiftWithABow" xml:space="preserve">
+    <value>礼品盒</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonGirl" xml:space="preserve">
+    <value>女孩</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonGoat" xml:space="preserve">
+    <value>羊</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonGreenWithEnvy" xml:space="preserve">
+    <value>妒忌</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonHighFive" xml:space="preserve">
+    <value>击掌欢呼</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonHotSmile" xml:space="preserve">
+    <value>热烈的笑脸</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonIDontKnowSmile" xml:space="preserve">
+    <value>我不知道</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonInLove" xml:space="preserve">
+    <value>相爱</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonIslandWithAPalmTree" xml:space="preserve">
+    <value>有棕榈树的小岛</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonJustKidding" xml:space="preserve">
+    <value>开玩笑</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonLaughingOutLoud" xml:space="preserve">
+    <value>大声笑</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonLeftHug" xml:space="preserve">
+    <value>左侧拥抱</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonLightBulb" xml:space="preserve">
+    <value>灯泡</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonLightning" xml:space="preserve">
+    <value>闪电</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonMartiniGlass" xml:space="preserve">
+    <value>高脚杯</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonMessenger" xml:space="preserve">
+    <value>信息</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonMobilePhone" xml:space="preserve">
+    <value>移动电话</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonMoney" xml:space="preserve">
+    <value>金钱</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonMug" xml:space="preserve">
+    <value>杯子</value>
+    <comment>Alternate text for a beer mug emoticon. The emoticon has CHANGED from Messenger so DON'T use Messenger's localization.</comment>
+  </data>
+  <data name="EmoticonNerdSmile" xml:space="preserve">
+    <value>书呆子</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonNinja" xml:space="preserve">
+    <value>忍者</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonNote" xml:space="preserve">
+    <value>音符</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonNyahNyah" xml:space="preserve">
+    <value>吐舌鬼脸</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonOpenMouthedSmile" xml:space="preserve">
+    <value>大笑</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonPartySmile" xml:space="preserve">
+    <value>聚会笑脸</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonPeace" xml:space="preserve">
+    <value>和平</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonPizza" xml:space="preserve">
+    <value>比萨</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonPlate" xml:space="preserve">
+    <value>餐盘</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonPointingUp" xml:space="preserve">
+    <value>向上指</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonPrincess" xml:space="preserve">
+    <value>公主</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonPunch" xml:space="preserve">
+    <value>猛击</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonPunk" xml:space="preserve">
+    <value>朋克</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonRainbow" xml:space="preserve">
+    <value>彩虹</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonRedHeart" xml:space="preserve">
+    <value>红心</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonRedLips" xml:space="preserve">
+    <value>红唇</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonRedRose" xml:space="preserve">
+    <value>红玫瑰</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonRightHug" xml:space="preserve">
+    <value>右侧拥抱</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonRollingOnTheFloorLaughing" xml:space="preserve">
+    <value>捧腹大笑</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSadSmile" xml:space="preserve">
+    <value>悲伤</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSarcasticSmile" xml:space="preserve">
+    <value>讽刺</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSchool" xml:space="preserve">
+    <value>学校</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSchoolBus" xml:space="preserve">
+    <value>校车</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSecretTellingSmile" xml:space="preserve">
+    <value>悄悄话</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSendAKiss" xml:space="preserve">
+    <value>飞吻</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonsGalleryPopular" xml:space="preserve">
+    <value>全部</value>
+    <comment>This is a category header that appears above all the available emoticons</comment>
+  </data>
+  <data name="EmoticonsGalleryRecent" xml:space="preserve">
+    <value>最近</value>
+    <comment>This is a category header that appears above the last 10 recently used emoticons</comment>
+  </data>
+  <data name="EmoticonShifty" xml:space="preserve">
+    <value>狡猾</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSickSmile" xml:space="preserve">
+    <value>生病</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSleepingHalfMoon" xml:space="preserve">
+    <value>沉睡的弯月</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSleepySmile" xml:space="preserve">
+    <value>困了</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSmile" xml:space="preserve">
+    <value>微笑</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSmileWithTongueOut" xml:space="preserve">
+    <value>吐舌笑脸</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSnail" xml:space="preserve">
+    <value>蜗牛</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSoccerBall" xml:space="preserve">
+    <value>足球</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonStar" xml:space="preserve">
+    <value>星星</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSteamingMad" xml:space="preserve">
+    <value>愤怒</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonsTooltipOneAutoReplace" xml:space="preserve">
+    <value>{0}  {1}</value>
+    <comment>{0} - description of emoticon, {1} - text form of emoticon e.g. :-)</comment>
+  </data>
+  <data name="EmoticonsTooltipTwoAutoReplace" xml:space="preserve">
+    <value>{0}  {1} 或 {2}</value>
+    <comment>{0} - description of emoticon, {1} - 1st text form of emoticon e.g. :-), {2} - 2nd text form of emoticon e.g. :)</comment>
+  </data>
+  <data name="EmoticonStormCloud" xml:space="preserve">
+    <value>乌云</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSun" xml:space="preserve">
+    <value>太阳</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonSurprisedSmile" xml:space="preserve">
+    <value>惊讶</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonTelephoneReceiver" xml:space="preserve">
+    <value>电话听筒</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonThinkingSmile" xml:space="preserve">
+    <value>正在思考</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonThumbsDown" xml:space="preserve">
+    <value>太差了</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonThumbsUp" xml:space="preserve">
+    <value>太棒了</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonTurtle" xml:space="preserve">
+    <value>乌龟</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonUmbrella" xml:space="preserve">
+    <value>雨伞</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonVampireBat" xml:space="preserve">
+    <value>吸血蝙蝠</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonWhoMe" xml:space="preserve">
+    <value>疑惑</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonWiltedRose" xml:space="preserve">
+    <value>凋谢的玫瑰</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonWinkingSmile" xml:space="preserve">
+    <value>眨眼</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonWork" xml:space="preserve">
+    <value>工作</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="EmoticonXbox" xml:space="preserve">
+    <value>Xbox</value>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="ErrorOccurredDeletingDraft" xml:space="preserve">
+    <value>删除草稿时出错</value>
+  </data>
+  <data name="ErrorOccurredDeletingDraftDetails" xml:space="preserve">
+    <value>尝试删除草稿时发生意外错误: {0}</value>
+    <comment>{0} - Error message</comment>
+  </data>
+  <data name="FileUploadFailedCaption" xml:space="preserve">
+    <value>由于日志不支持图片发布，下列图片无法发布。</value>
+  </data>
+  <data name="FileUploadFailedException" xml:space="preserve">
+    <value>无法发布文件</value>
+  </data>
+  <data name="FileUploadFailedFTP" xml:space="preserve">
+    <value>可以配置 Open Live Writer 来将图片发布到 FTP 帐户。</value>
+  </data>
+  <data name="FileUploadFailedFTP2" xml:space="preserve">
+    <value>是否要立即配置 FTP 帐户来发布图片?</value>
+  </data>
+  <data name="FileUploadFailedTitle" xml:space="preserve">
+    <value>日志不支持图片上载</value>
+  </data>
+  <data name="FileUploadFTPServer" xml:space="preserve">
+    <value>FTP 服务器</value>
+  </data>
+  <data name="FileUploadNone" xml:space="preserve">
+    <value>不上载</value>
+  </data>
+  <data name="FileUploadUploadToWeblog" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="FindCategory" xml:space="preserve">
+    <value>查找类别</value>
+  </data>
+  <data name="FindDirection" xml:space="preserve">
+    <value>方向</value>
+  </data>
+  <data name="FindDirectionDown" xml:space="preserve">
+    <value>向下(&amp;D)</value>
+  </data>
+  <data name="FindDirectionUp" xml:space="preserve">
+    <value>向上(&amp;U)</value>
+  </data>
+  <data name="FindNextButton" xml:space="preserve">
+    <value>查找下一个(&amp;F)</value>
+  </data>
+  <data name="FindTitle" xml:space="preserve">
+    <value>查找</value>
+  </data>
+  <data name="FindWhatLabel" xml:space="preserve">
+    <value>查找内容(&amp;N):</value>
+  </data>
+  <data name="ForgotMyPassword" xml:space="preserve">
+    <value>忘记密码了</value>
+  </data>
+  <data name="FtpFolderPath" xml:space="preserve">
+    <value>发布文件夹的路径(&amp;P):</value>
+  </data>
+  <data name="FtpFolderUrl" xml:space="preserve">
+    <value>发布文件夹的网址(&amp;W):</value>
+  </data>
+  <data name="FtpHelp" xml:space="preserve">
+    <value>如何配置 FTP 站点?</value>
+  </data>
+  <data name="FtpHostname" xml:space="preserve">
+    <value>主机名(&amp;H):</value>
+  </data>
+  <data name="FtpLoginDomain" xml:space="preserve">
+    <value>FTP</value>
+  </data>
+  <data name="FtpPassword" xml:space="preserve">
+    <value>密码(&amp;P):</value>
+  </data>
+  <data name="FtpText" xml:space="preserve">
+    <value>FTP 设置</value>
+  </data>
+  <data name="FtpUsername" xml:space="preserve">
+    <value>用户名(&amp;U):</value>
+  </data>
+  <data name="FuturePostWarningDialogTitle" xml:space="preserve">
+    <value>Open Live Writer</value>
+  </data>
+  <data name="FuturePostWarningDontShowAgain" xml:space="preserve">
+    <value>总是立即发布，不再询问(&amp;A)</value>
+  </data>
+  <data name="FuturePostWarningExplanation" xml:space="preserve">
+    <value>此日志服务无法延迟到你设置的日期进行发布。是否立即发布?</value>
+  </data>
+  <data name="FuturePostWarningTitle" xml:space="preserve">
+    <value>无法设置未来的发布日期</value>
+  </data>
+  <data name="GDataCaptchaAlternate" xml:space="preserve">
+    <value>有视力障碍的用户可以在此处访问测试的音频版。</value>
+  </data>
+  <data name="GDataCaptchaPrompt" xml:space="preserve">
+    <value>键入你在下图中看到的字符。</value>
+  </data>
+  <data name="GDataCaptchaTitle" xml:space="preserve">
+    <value>解除 Google 帐户锁定</value>
+  </data>
+  <data name="GenericLoginError" xml:space="preserve">
+    <value>无法登录 Live ID。</value>
+  </data>
+  <data name="GigabytesFormat" xml:space="preserve">
+    <value>{0}GB</value>
+    <comment>{0} - a number (with or without decimals)</comment>
+  </data>
+  <data name="GlossaryAutomaticallyLink" xml:space="preserve">
+    <value>自动链接匹配的字词(&amp;U)</value>
+  </data>
+  <data name="GlossaryAutomaticallyLinkFirstTime" xml:space="preserve">
+    <value>在每个日志中仅为每个词语添加一次链接(&amp;N)</value>
+  </data>
+  <data name="GlossaryAutomaticLinkOptions" xml:space="preserve">
+    <value>自动链接选项</value>
+  </data>
+  <data name="GlossaryExampleTitle" xml:space="preserve">
+    <value>Open Live Writer 网站</value>
+    <comment>This is used in the link glossary as the title of our example link- may not need to be localized</comment>
+  </data>
+  <data name="GlossaryPrefName" xml:space="preserve">
+    <value>自动链接</value>
+  </data>
+  <data name="GlossarySelectLink" xml:space="preserve">
+    <value>选择链接</value>
+  </data>
+  <data name="GlossaryTextCol" xml:space="preserve">
+    <value>词语</value>
+    <comment>for a link in the glossary--the link text</comment>
+  </data>
+  <data name="GlossaryUrlCol" xml:space="preserve">
+    <value>网址</value>
+    <comment>for a link in the glossary--the link URL</comment>
+  </data>
+  <data name="Heading1" xml:space="preserve">
+    <value>标题 1</value>
+    <comment>HTML style: heading 1</comment>
+  </data>
+  <data name="Heading2" xml:space="preserve">
+    <value>标题 2</value>
+    <comment>HTML style: heading 2</comment>
+  </data>
+  <data name="Heading3" xml:space="preserve">
+    <value>标题 3</value>
+    <comment>HTML style: heading 3</comment>
+  </data>
+  <data name="Heading4" xml:space="preserve">
+    <value>标题 4</value>
+    <comment>HTML style: heading 4</comment>
+  </data>
+  <data name="Heading5" xml:space="preserve">
+    <value>标题 5</value>
+    <comment>HTML style: heading 5</comment>
+  </data>
+  <data name="Heading6" xml:space="preserve">
+    <value>标题 6</value>
+    <comment>HTML style: heading 6</comment>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="HeightColon" xml:space="preserve">
+    <value>高度(&amp;H):</value>
+  </data>
+  <data name="HeightLabel" xml:space="preserve">
+    <value>高度(&amp;H):</value>
+  </data>
+  <data name="HelpButton" xml:space="preserve">
+    <value>帮助(&amp;H)</value>
+  </data>
+  <data name="HideProperties" xml:space="preserve">
+    <value>隐藏属性</value>
+    <comment>Show the post properties tray.</comment>
+  </data>
+  <data name="HomepageUrl" xml:space="preserve">
+    <value>网址:</value>
+  </data>
+  <data name="ImageEffectsColorModesCategory" xml:space="preserve">
+    <value>颜色模式</value>
+  </data>
+  <data name="ImageEffectsColorTemperatureCategory" xml:space="preserve">
+    <value>色温</value>
+  </data>
+  <data name="ImageEffectsEmbossCategory" xml:space="preserve">
+    <value>阳文</value>
+  </data>
+  <data name="ImageEffectsGaussianCategory" xml:space="preserve">
+    <value>高斯模糊</value>
+  </data>
+  <data name="ImageEffectsNoBlurCategory" xml:space="preserve">
+    <value>不模糊</value>
+  </data>
+  <data name="ImageEffectsNoEmbossCategory" xml:space="preserve">
+    <value>无阳文</value>
+  </data>
+  <data name="ImageEffectsNoRecolorCategory" xml:space="preserve">
+    <value>不重新着色</value>
+  </data>
+  <data name="ImageEffectsNoSharpenCategory" xml:space="preserve">
+    <value>不锐化</value>
+  </data>
+  <data name="ImageEffectsSharpenCategory" xml:space="preserve">
+    <value>锐化</value>
+  </data>
+  <data name="ImagesBlogOpt" xml:space="preserve">
+    <value>日志服务(&amp;B)</value>
+  </data>
+  <data name="ImagesFilterString" xml:space="preserve">
+    <value>所有图片(*.gif, *.jpg, *.jpeg, *.png)</value>
+  </data>
+  <data name="ImagesFtpConfig" xml:space="preserve">
+    <value>更改 FTP 设置(&amp;C)...</value>
+  </data>
+  <data name="ImagesFtpOpt" xml:space="preserve">
+    <value>FTP 站点(&amp;F):</value>
+  </data>
+  <data name="ImagesPanel" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="ImagesText" xml:space="preserve">
+    <value>向日志中添加图片时，你要将这些图片上载至此日志服务还是上载至 FTP 站点?</value>
+  </data>
+  <data name="ImagesUpload" xml:space="preserve">
+    <value>上载</value>
+  </data>
+  <data name="ImageViewerDisplayFormatGroup" xml:space="preserve">
+    <value>使用 {0} [{1}]</value>
+    <comment>{0} - the name of the image viewer (e.g. Lightbox), {1} - the name of the group. For example, "Lightbox [Ski Trip]".</comment>
+  </data>
+  <data name="ImageViewerDisplayFormatSingle" xml:space="preserve">
+    <value>使用 {0}</value>
+    <comment>{0} - the name of the image viewer (e.g. Lightbox)</comment>
+  </data>
+  <data name="ImageViewerGroupLabel" xml:space="preserve">
+    <value>组(可选)(&amp;G):</value>
+    <comment>A Group is a label that allows multiple images to be grouped into a set</comment>
+  </data>
+  <data name="ImageViewerLabel" xml:space="preserve">
+    <value>启用 {0}(&amp;E)</value>
+    <comment>{0} - the name of the image viewer (e.g. Lightbox)</comment>
+  </data>
+  <data name="ImgAltTextAlternateText" xml:space="preserve">
+    <value>替代文本(&amp;A):</value>
+  </data>
+  <data name="ImgAltTextPicture" xml:space="preserve">
+    <value>图片:</value>
+  </data>
+  <data name="ImgAltTextTitle" xml:space="preserve">
+    <value>标题(&amp;T):</value>
+  </data>
+  <data name="ImgSBActions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="ImgSBAdvanced" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="ImgSBAlignCenter" xml:space="preserve">
+    <value>居中</value>
+  </data>
+  <data name="ImgSBAlignInline" xml:space="preserve">
+    <value>嵌入</value>
+  </data>
+  <data name="ImgSBAlignLeft" xml:space="preserve">
+    <value>居左</value>
+  </data>
+  <data name="ImgSBAlignRight" xml:space="preserve">
+    <value>居右</value>
+  </data>
+  <data name="ImgSBAppliedEffects" xml:space="preserve">
+    <value>应用的效果:</value>
+  </data>
+  <data name="ImgSBBorders" xml:space="preserve">
+    <value>边框</value>
+  </data>
+  <data name="ImgSBBrightness" xml:space="preserve">
+    <value>对比度...</value>
+  </data>
+  <data name="ImgSBCrop" xml:space="preserve">
+    <value>裁剪...</value>
+  </data>
+  <data name="ImgSBCustomize" xml:space="preserve">
+    <value>自定义默认图片大小</value>
+  </data>
+  <data name="ImgSBDefaultImageSizes" xml:space="preserve">
+    <value>默认图片大小</value>
+  </data>
+  <data name="ImgSBEffect" xml:space="preserve">
+    <value>效果</value>
+  </data>
+  <data name="ImgSBEffects" xml:space="preserve">
+    <value>效果</value>
+  </data>
+  <data name="ImgSBEffectsLabel" xml:space="preserve">
+    <value>效果:</value>
+  </data>
+  <data name="ImgSBHeader" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="ImgSBImageEffects" xml:space="preserve">
+    <value>效果</value>
+  </data>
+  <data name="ImgSBImageSize" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="ImgSBImageSizeLabel" xml:space="preserve">
+    <value>大小(&amp;S):</value>
+  </data>
+  <data name="ImgSBLargeImage" xml:space="preserve">
+    <value>大:</value>
+  </data>
+  <data name="ImgSBLayout" xml:space="preserve">
+    <value>版式</value>
+  </data>
+  <data name="ImgSBLinkOptions" xml:space="preserve">
+    <value>源图片选项</value>
+  </data>
+  <data name="ImgSBLinkOptionsDisabledTooltip" xml:space="preserve">
+    <value>对 Web 图像和一些图像类型禁用此命令。</value>
+  </data>
+  <data name="ImgSBLinkTo" xml:space="preserve">
+    <value>链接到</value>
+  </data>
+  <data name="ImgSBLocalImage" xml:space="preserve">
+    <value>本机: {0}</value>
+    <comment>{0} - a file size (e.g. localized equivalents of "10.2MB", "108 bytes", etc.)</comment>
+  </data>
+  <data name="ImgSBLocalImage2" xml:space="preserve">
+    <value>本机: {0}/{1}</value>
+    <comment>{0}, {1} - file size (e.g. localized equivalents of "10.2MB", "108 bytes", etc.). The {0} value will be for the inline image, the {1} value will be for the "View Larger" image.</comment>
+  </data>
+  <data name="ImgSBLockRatio" xml:space="preserve">
+    <value>锁定纵横比(&amp;R)</value>
+  </data>
+  <data name="ImgSBMarginBottom" xml:space="preserve">
+    <value>底端:</value>
+  </data>
+  <data name="ImgSBMarginCustomMargins" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="ImgSBMarginLeft" xml:space="preserve">
+    <value>左端:</value>
+  </data>
+  <data name="ImgSBMarginNoMargins" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="ImgSBMarginRight" xml:space="preserve">
+    <value>右端:</value>
+  </data>
+  <data name="ImgSBMargins" xml:space="preserve">
+    <value>边距:</value>
+  </data>
+  <data name="ImgSBMarginTop" xml:space="preserve">
+    <value>顶端:</value>
+  </data>
+  <data name="ImgSBMaximumHeightLabel1" xml:space="preserve">
+    <value>最大高度(&amp;H):</value>
+  </data>
+  <data name="ImgSBMaximumHeightLabel2" xml:space="preserve">
+    <value>最大高度(&amp;E):</value>
+  </data>
+  <data name="ImgSBMaximumHeightLabel3" xml:space="preserve">
+    <value>最大高度(&amp;T):</value>
+  </data>
+  <data name="ImgSBMaximumWidthLabel1" xml:space="preserve">
+    <value>最大宽度(&amp;W):</value>
+  </data>
+  <data name="ImgSBMaximumWidthLabel2" xml:space="preserve">
+    <value>最大宽度(&amp;I):</value>
+  </data>
+  <data name="ImgSBMaximumWidthLabel3" xml:space="preserve">
+    <value>最大宽度(&amp;D):</value>
+  </data>
+  <data name="ImgSBMediumImage" xml:space="preserve">
+    <value>中:</value>
+  </data>
+  <data name="ImgSBOpenInNewWindow" xml:space="preserve">
+    <value>在新窗口中打开(&amp;O)</value>
+  </data>
+  <data name="ImgSBOther" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="ImgSBRevert" xml:space="preserve">
+    <value>还原为默认设置</value>
+  </data>
+  <data name="ImgSBRotate" xml:space="preserve">
+    <value>旋转</value>
+  </data>
+  <data name="ImgSBSave" xml:space="preserve">
+    <value>保存为默认设置</value>
+  </data>
+  <data name="ImgSBSizerCustom" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="ImgSBSizerLarge" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="ImgSBSizerMedium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="ImgSBSizerOriginal" xml:space="preserve">
+    <value>原始大小</value>
+  </data>
+  <data name="ImgSBSizerSmall" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="ImgSBSizerUnknown" xml:space="preserve">
+    <value>(自定义)</value>
+  </data>
+  <data name="ImgSBSmallImage" xml:space="preserve">
+    <value>小:</value>
+  </data>
+  <data name="ImgSBTextWrapping" xml:space="preserve">
+    <value>文字环绕:</value>
+  </data>
+  <data name="ImgSBTilt" xml:space="preserve">
+    <value>倾斜度...</value>
+  </data>
+  <data name="Insert" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="InsertButton" xml:space="preserve">
+    <value>插入(&amp;I)</value>
+  </data>
+  <data name="InsertButtonText" xml:space="preserve">
+    <value>插入</value>
+  </data>
+  <data name="InsertImageButton" xml:space="preserve">
+    <value>插入(&amp;S)</value>
+    <comment>This is required since the image dialog has a mnemonic for 'i' which can't be changed.</comment>
+  </data>
+  <data name="InsertImageDimensionsFormat" xml:space="preserve">
+    <value>{0}x{1}</value>
+    <comment>{0} - width, {1} - height.  Example: 800x600</comment>
+  </data>
+  <data name="InsertImageDimensionsFormatScaled" xml:space="preserve">
+    <value>{0} (调整大小以适合在此窗口中预览)</value>
+    <comment>{0} - original dimensions</comment>
+  </data>
+  <data name="InsertImageFileName" xml:space="preserve">
+    <value>文件名:</value>
+  </data>
+  <data name="InsertImageImageUrl" xml:space="preserve">
+    <value>图片网址(&amp;W):</value>
+  </data>
+  <data name="InsertImageInsertFromFile" xml:space="preserve">
+    <value>来自文件</value>
+  </data>
+  <data name="InsertImageInsertFromWeb" xml:space="preserve">
+    <value>来自网页</value>
+  </data>
+  <data name="InsertImageLinkTo" xml:space="preserve">
+    <value>链接到(&amp;L):</value>
+  </data>
+  <data name="InsertImageOpenInNewWindow" xml:space="preserve">
+    <value>在新窗口中打开(&amp;O)</value>
+  </data>
+  <data name="InsertImagePreviewButton" xml:space="preserve">
+    <value>预览(&amp;P)</value>
+  </data>
+  <data name="InsertImageSize" xml:space="preserve">
+    <value>大小:</value>
+    <comment>The size, in pixels, of the selected image</comment>
+  </data>
+  <data name="InsertLink" xml:space="preserve">
+    <value>插入超链接</value>
+  </data>
+  <data name="InsertLinkDotDotDot" xml:space="preserve">
+    <value>超链接...</value>
+  </data>
+  <data name="InsertLinkTooltip" xml:space="preserve">
+    <value>在当前文档中插入超链接</value>
+  </data>
+  <data name="InsertMap" xml:space="preserve">
+    <value>插入地图</value>
+  </data>
+  <data name="InsertPicture" xml:space="preserve">
+    <value>插入图片</value>
+  </data>
+  <data name="InsertPictureDotDotDot" xml:space="preserve">
+    <value>图片...</value>
+  </data>
+  <data name="InsertPictureTooltip" xml:space="preserve">
+    <value>在当前文档中插入图片</value>
+  </data>
+  <data name="InsertTable" xml:space="preserve">
+    <value>插入表格</value>
+  </data>
+  <data name="InsertTableDotDotDot" xml:space="preserve">
+    <value>表格...</value>
+  </data>
+  <data name="InsertTableTooltip" xml:space="preserve">
+    <value>在当前文档中插入表格</value>
+  </data>
+  <data name="KilobytesFormat" xml:space="preserve">
+    <value>{0}KB</value>
+    <comment>{0} - a number (with or without decimals)</comment>
+  </data>
+  <data name="LCPrefCaption" xml:space="preserve">
+    <value>将支持 Live Clipboard 格式的 Web 内容粘贴到 {0} 中。</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="LCPrefChangeButton" xml:space="preserve">
+    <value>更改...</value>
+  </data>
+  <data name="LCPrefContentType" xml:space="preserve">
+    <value>内容类型:</value>
+  </data>
+  <data name="LCPrefDescription" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="LCPrefDetails" xml:space="preserve">
+    <value>详细信息</value>
+  </data>
+  <data name="LCPrefDetailsGroupBoxFormat" xml:space="preserve">
+    <value>“{0}”格式的详细信息</value>
+    <comment>{0} - the name of the selected microformat, e.g. hCalendar</comment>
+  </data>
+  <data name="LCPrefFormat" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="LCPrefHandledBy" xml:space="preserve">
+    <value>处理插件:</value>
+    <comment>Followed by the name of a plug-in that can handle this format. You can think of it in the context of, "The vCalendar microformat will be HANDLED BY the Google Calendar plug-in"</comment>
+  </data>
+  <data name="LCPrefMoreAboutLiveClipboard" xml:space="preserve">
+    <value>有关 Live Clipboard 的更多信息...</value>
+    <comment>'(In English)' should be added at the end of local string for non-en language, because the link goes to EN webpage for all markets</comment>
+  </data>
+  <data name="LCPrefNoFormatSelected" xml:space="preserve">
+    <value>(未选择任何格式)</value>
+  </data>
+  <data name="LCPrefOptionsButton" xml:space="preserve">
+    <value>选项...</value>
+  </data>
+  <data name="LCPrefPanelName" xml:space="preserve">
+    <value>Live Clipboard</value>
+  </data>
+  <data name="LCPrefSupportedFormats" xml:space="preserve">
+    <value>支持的格式(&amp;S):</value>
+  </data>
+  <data name="LinkAddToGlossary" xml:space="preserve">
+    <value>自动链接到该文本(&amp;M)</value>
+  </data>
+  <data name="LinkAdvanced" xml:space="preserve">
+    <value>高级(&amp;A) {0}</value>
+    <comment>{0} - double chevron pointing left or right, depending on whether the advanced properties are showing or not</comment>
+  </data>
+  <data name="LinkEditHyperlink" xml:space="preserve">
+    <value>编辑超链接</value>
+  </data>
+  <data name="LinkFormTitle" xml:space="preserve">
+    <value>插入超链接</value>
+  </data>
+  <data name="LinkGlossaryEdit" xml:space="preserve">
+    <value>编辑自动链接</value>
+  </data>
+  <data name="LinkGlossaryRelOptional" xml:space="preserve">
+    <value>关联(可选)(&amp;R):</value>
+  </data>
+  <data name="LinkGlossaryText" xml:space="preserve">
+    <value>文本(&amp;X):</value>
+  </data>
+  <data name="LinkGlossaryTitle" xml:space="preserve">
+    <value>添加自动链接</value>
+  </data>
+  <data name="LinkGlossaryTitleOptional" xml:space="preserve">
+    <value>标题(可选)(&amp;T):</value>
+  </data>
+  <data name="LinkGlossaryUrl" xml:space="preserve">
+    <value>网址(&amp;W):</value>
+  </data>
+  <data name="LinkLinkTo" xml:space="preserve">
+    <value>链接到(&amp;L)</value>
+  </data>
+  <data name="LinkNewWindowLabel" xml:space="preserve">
+    <value>在新窗口中打开链接(&amp;O)</value>
+  </data>
+  <data name="LinkOptionsTooltip" xml:space="preserve">
+    <value>浏览链接</value>
+  </data>
+  <data name="LinkRelLabel" xml:space="preserve">
+    <value>关联(&amp;E):</value>
+  </data>
+  <data name="LinkRemoveLink" xml:space="preserve">
+    <value>删除超链接(&amp;R)</value>
+  </data>
+  <data name="LinkSelectionContainsImage" xml:space="preserve">
+    <value>[所选内容包含图像]</value>
+  </data>
+  <data name="LinkTextLabel" xml:space="preserve">
+    <value>要显示的文本(&amp;X):</value>
+  </data>
+  <data name="LinkTitleLabel" xml:space="preserve">
+    <value>标题(&amp;T):</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>链接到(&amp;L)</value>
+  </data>
+  <data name="LinkToNone" xml:space="preserve">
+    <value>无</value>
+    <comment>Make the selected image not be a link.</comment>
+  </data>
+  <data name="LinkToNoneDescription" xml:space="preserve">
+    <value>不将此图像设为链接。</value>
+  </data>
+  <data name="LinkToNoneLabelTitle" xml:space="preserve">
+    <value>链接至: 无</value>
+    <comment>Shows the user that the selected image is not a link</comment>
+  </data>
+  <data name="LinkToolTip" xml:space="preserve">
+    <value>按住 Ctrl 并单击以下链接: {0}</value>
+    <comment>Used when hovering over a link in the editor. {0} - the hyperlink to follow</comment>
+  </data>
+  <data name="LinkToPost" xml:space="preserve">
+    <value>链接到日志</value>
+  </data>
+  <data name="LinkToSource" xml:space="preserve">
+    <value>源图片</value>
+    <comment>Navigate to the source picture when the selected image is clicked.</comment>
+  </data>
+  <data name="LinkToSourceDescription" xml:space="preserve">
+    <value>单击选定的图像时将转至源图片。</value>
+  </data>
+  <data name="LinkToSourceLabelTitle" xml:space="preserve">
+    <value>链接至: 源图片</value>
+    <comment>Shows the user that the selected image links to the original image</comment>
+  </data>
+  <data name="LinkToURL" xml:space="preserve">
+    <value>网址</value>
+    <comment>Choose the location to go to when the selected image is clicked.</comment>
+  </data>
+  <data name="LinkToURLDescription" xml:space="preserve">
+    <value>选择在单击选定图像时将转到的位置。</value>
+  </data>
+  <data name="LinkToURLLabelTitle" xml:space="preserve">
+    <value>链接到: 网址</value>
+    <comment>Shows the user that the selected image links to a URL</comment>
+  </data>
+  <data name="LinkToWebPageURL" xml:space="preserve">
+    <value>链接到网址:</value>
+  </data>
+  <data name="LiveIDPrivacy" xml:space="preserve">
+    <value>隐私策略</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="ManageWeblog" xml:space="preserve">
+    <value>管理日志</value>
+    <comment>Displayed in the header of the default sidebar</comment>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>地图</value>
+  </data>
+  <data name="MapAerial" xml:space="preserve">
+    <value>卫星图</value>
+  </data>
+  <data name="MapAlignCenter" xml:space="preserve">
+    <value>居中</value>
+  </data>
+  <data name="MapAlignInline" xml:space="preserve">
+    <value>嵌入</value>
+  </data>
+  <data name="MapAlignLeft" xml:space="preserve">
+    <value>左对齐</value>
+  </data>
+  <data name="MapAlignRight" xml:space="preserve">
+    <value>右对齐</value>
+  </data>
+  <data name="MapBirdseye" xml:space="preserve">
+    <value>鸟瞰</value>
+  </data>
+  <data name="MapBirdseyeButton" xml:space="preserve">
+    <value>切换鸟瞰视图</value>
+  </data>
+  <data name="MapBirdseyeLabel" xml:space="preserve">
+    <value>鸟瞰(&amp;B)</value>
+  </data>
+  <data name="MapCustomMargins" xml:space="preserve">
+    <value>自定义边距</value>
+  </data>
+  <data name="MapDirectionEast" xml:space="preserve">
+    <value>东</value>
+  </data>
+  <data name="MapDirectionNorth" xml:space="preserve">
+    <value>北</value>
+  </data>
+  <data name="MapDirectionSouth" xml:space="preserve">
+    <value>南</value>
+  </data>
+  <data name="MapDirectionWest" xml:space="preserve">
+    <value>西</value>
+  </data>
+  <data name="MapFindAddress" xml:space="preserve">
+    <value>查找地址(&amp;F):</value>
+  </data>
+  <data name="MapImageAltText" xml:space="preserve">
+    <value>地图图片</value>
+  </data>
+  <data name="MapNoMargins" xml:space="preserve">
+    <value>无边距</value>
+  </data>
+  <data name="MapPushpinTip" xml:space="preserve">
+    <value>提示: 右键单击地图可添加标注</value>
+  </data>
+  <data name="MapRoad" xml:space="preserve">
+    <value>道路</value>
+  </data>
+  <data name="MapSBBottom" xml:space="preserve">
+    <value>下</value>
+  </data>
+  <data name="MapSBCaption" xml:space="preserve">
+    <value>标题:</value>
+  </data>
+  <data name="MapSBCustomize" xml:space="preserve">
+    <value>自定义地图...</value>
+  </data>
+  <data name="MapSBCustomizeTooltip" xml:space="preserve">
+    <value>编辑地图中的地点、样式和标注</value>
+  </data>
+  <data name="MapSBLayoutHeader" xml:space="preserve">
+    <value>版式</value>
+  </data>
+  <data name="MapSBLeft" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="MapSBMapHeader" xml:space="preserve">
+    <value>地图</value>
+  </data>
+  <data name="MapSBMargins" xml:space="preserve">
+    <value>边距:</value>
+  </data>
+  <data name="MapSBRight" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="MapSBTop" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="MapSBViewMap" xml:space="preserve">
+    <value>在 Live.com 上查看地图</value>
+  </data>
+  <data name="MapSBWrapping" xml:space="preserve">
+    <value>文字环绕:</value>
+  </data>
+  <data name="MapSearch" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="MapSeeInBirdseye" xml:space="preserve">
+    <value>查看此地点的鸟瞰视图</value>
+  </data>
+  <data name="MapShowLabel" xml:space="preserve">
+    <value>显示标签(&amp;W)</value>
+  </data>
+  <data name="MapStyle" xml:space="preserve">
+    <value>地图样式</value>
+  </data>
+  <data name="MapZoomIn" xml:space="preserve">
+    <value>放大</value>
+  </data>
+  <data name="MapZoomOut" xml:space="preserve">
+    <value>缩小</value>
+  </data>
+  <data name="MapZoomSlider" xml:space="preserve">
+    <value>缩放滑块</value>
+  </data>
+  <data name="MarkupTypeHTML" xml:space="preserve">
+    <value>HTML</value>
+    <comment>Used in the Advanced settings for a blog.</comment>
+  </data>
+  <data name="MarkupTypeXHTML" xml:space="preserve">
+    <value>XHTML</value>
+    <comment>Used in the Advanced settings for a blog.</comment>
+  </data>
+  <data name="MaximizeButtonTooltip" xml:space="preserve">
+    <value>最大化</value>
+  </data>
+  <data name="MaxLgHeight" xml:space="preserve">
+    <value>最大高度(大图片)</value>
+  </data>
+  <data name="MaxLgWidth" xml:space="preserve">
+    <value>最大宽度(大图片)</value>
+  </data>
+  <data name="MaxMdHeight" xml:space="preserve">
+    <value>最大高度(中等图片)</value>
+  </data>
+  <data name="MaxMdWidth" xml:space="preserve">
+    <value>最大宽度(中等图片)</value>
+  </data>
+  <data name="MaxSmHeight" xml:space="preserve">
+    <value>最大高度(小图片)</value>
+  </data>
+  <data name="MaxSmWidth" xml:space="preserve">
+    <value>最大宽度(小图片)</value>
+  </data>
+  <data name="MegabytesFormat" xml:space="preserve">
+    <value>{0}MB</value>
+    <comment>{0} - a number (with or without decimals)</comment>
+  </data>
+  <data name="MethodNotImplemented" xml:space="preserve">
+    <value>未实现的方法</value>
+    <comment>Title of plug-in error dialog</comment>
+  </data>
+  <data name="MethodNotImplementedDetail" xml:space="preserve">
+    <value>由于安装的插件未正确执行，导致出现错误。你可以与以下插件发行商联系来解决此问题。此外，你可以通过卸载下面提及的插件来避免以后再出现该错误。名称: {0}发行商: {1}未实现的方法: {2}</value>
+    <comment>More detailed header in plug-in error dialog</comment>
+  </data>
+  <data name="MinimizeButtonTooltip" xml:space="preserve">
+    <value>最小化</value>
+  </data>
+  <data name="MissingPostLinkCaption" xml:space="preserve">
+    <value>{0}无可用链接</value>
+    <comment>{0} - Post/Page</comment>
+  </data>
+  <data name="MissingPostLinkExplanation" xml:space="preserve">
+    <value>所选的{0}无可用链接。这可能是由于在你的日志服务中，{0}的链接对于 {1} 无效。通过使用“日志设置”对话框的“帐户”面板重新检测日志帐户配置，也许可以解决此问题。</value>
+    <comment>{0} - post/page. {1} - Open Live Writer.</comment>
+  </data>
+  <data name="MissingPostLinkTitle" xml:space="preserve">
+    <value>无可用链接</value>
+  </data>
+  <data name="MoreDotDotDot" xml:space="preserve">
+    <value>更多...</value>
+  </data>
+  <data name="MoreDrafts" xml:space="preserve">
+    <value>更多草稿</value>
+  </data>
+  <data name="MoreDraftsTooltip" xml:space="preserve">
+    <value>打开上面未列出的其他草稿</value>
+  </data>
+  <data name="MorePosts" xml:space="preserve">
+    <value>最近使用过的日志</value>
+  </data>
+  <data name="MorePostsTooltip" xml:space="preserve">
+    <value>打开上面未列出的其他日志</value>
+  </data>
+  <data name="MoreWeblogs" xml:space="preserve">
+    <value>更多日志(&amp;O)...</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>下移(&amp;D)</value>
+    <comment>From the Weblog | Edit Blog Settings | Plugins preferences panel</comment>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>上移(&amp;U)</value>
+    <comment>From the Weblog | Edit Blog Settings | Plugins preferences panel</comment>
+  </data>
+  <data name="MyFavorites" xml:space="preserve">
+    <value>收藏夹</value>
+    <comment>Videos marked as favorites by current user</comment>
+  </data>
+  <data name="MyVideos" xml:space="preserve">
+    <value>我的视频</value>
+    <comment>Videos uploaded by current user</comment>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="NewFolder" xml:space="preserve">
+    <value>新文件夹</value>
+  </data>
+  <data name="NewFolderPrompt" xml:space="preserve">
+    <value>新文件夹名称:</value>
+  </data>
+  <data name="NewFolderTitle" xml:space="preserve">
+    <value>新建文件夹</value>
+  </data>
+  <data name="NewFolderTooltip" xml:space="preserve">
+    <value>创建一个新文件夹</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="NoButton" xml:space="preserve">
+    <value>否(&amp;N)</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>只有连接到 Internet 才能插入和编辑地图。</value>
+  </data>
+  <data name="NoThings" xml:space="preserve">
+    <value>(无{0})</value>
+    <comment>{0} can be "Drafts", "Recently Posted"</comment>
+  </data>
+  <data name="OKButtonText" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="OpenPostDelete" xml:space="preserve">
+    <value>删除(&amp;D)</value>
+  </data>
+  <data name="OpenPostItems" xml:space="preserve">
+    <value>项</value>
+  </data>
+  <data name="OpenPostNoDraftsAvailable" xml:space="preserve">
+    <value>无可用的草稿。</value>
+  </data>
+  <data name="OpenPostNoPagesAvailable" xml:space="preserve">
+    <value>无可用的页面。</value>
+  </data>
+  <data name="OpenPostNoPostsAvailable" xml:space="preserve">
+    <value>无可用的日志。</value>
+  </data>
+  <data name="OpenPostOpenFrom" xml:space="preserve">
+    <value>打开位置(&amp;O):</value>
+  </data>
+  <data name="OpenPostPages" xml:space="preserve">
+    <value>页面(&amp;A)</value>
+  </data>
+  <data name="OpenPostPosts" xml:space="preserve">
+    <value>日志(&amp;P)</value>
+  </data>
+  <data name="OpenPostRefresh" xml:space="preserve">
+    <value>刷新(&amp;R)</value>
+  </data>
+  <data name="OpenPostRefreshTooltip" xml:space="preserve">
+    <value>刷新日志</value>
+  </data>
+  <data name="OpenPostRefreshTooltipPages" xml:space="preserve">
+    <value>刷新页面</value>
+  </data>
+  <data name="OpenPostShow" xml:space="preserve">
+    <value>显示(&amp;S):</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>选项</value>
+  </data>
+  <data name="OptionsButton" xml:space="preserve">
+    <value>选项...</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="PageLower" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="PageProperties" xml:space="preserve">
+    <value>页面属性</value>
+  </data>
+  <data name="Pages" xml:space="preserve">
+    <value>页面(&amp;A)</value>
+  </data>
+  <data name="PagesLower" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="PanelNameAccounts" xml:space="preserve">
+    <value>帐户</value>
+    <comment>As in, Blog Accounts</comment>
+  </data>
+  <data name="Paragraph" xml:space="preserve">
+    <value>段落</value>
+    <comment>HTML style: paragraph</comment>
+  </data>
+  <data name="Paragraphs" xml:space="preserve">
+    <value>段落</value>
+  </data>
+  <data name="PassportLoginNoUserPass" xml:space="preserve">
+    <value>请输入 Microsoft Account ID 和密码</value>
+  </data>
+  <data name="PassportLoginNoUserPassTitle" xml:space="preserve">
+    <value>需要提供 Microsoft Account ID 和密码</value>
+  </data>
+  <data name="PassportLoginSignIn" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="PassportLoginTitle" xml:space="preserve">
+    <value>登录 Microsoft Account</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码:</value>
+  </data>
+  <data name="PasswordChar" xml:space="preserve">
+    <value>0x25CF</value>
+    <comment>The hex value of the single character that will be used to represent each character in a password field.</comment>
+  </data>
+  <data name="PasswordLabel" xml:space="preserve">
+    <value>密码(&amp;P):</value>
+  </data>
+  <data name="PasteSpecial" xml:space="preserve">
+    <value>选择性粘贴</value>
+  </data>
+  <data name="PasteSpecialHtmlDesc" xml:space="preserve">
+    <value>保留所有格式，包括在日志中可能无法正确显示的格式。出于安全考虑，将删除所有脚本。</value>
+  </data>
+  <data name="PasteSpecialHtmlLabel" xml:space="preserve">
+    <value>保留格式(&amp;K)</value>
+  </data>
+  <data name="PasteSpecialPlaintextDesc" xml:space="preserve">
+    <value>删除换行符之外的所有格式。保留链接和图片。仅用于复制内容。</value>
+  </data>
+  <data name="PasteSpecialPlaintextLabel" xml:space="preserve">
+    <value>删除格式(&amp;R)</value>
+  </data>
+  <data name="PasteSpecialTextFormatted" xml:space="preserve">
+    <value>HTML(&amp;H)</value>
+  </data>
+  <data name="PasteSpecialTextFormattedDesc" xml:space="preserve">
+    <value>将文本作为 HTML 源代码来解释。复制的内容将带格式显示。适用于图像和嵌入内容等。</value>
+  </data>
+  <data name="PasteSpecialTextPlainText" xml:space="preserve">
+    <value>纯文本(&amp;P)</value>
+  </data>
+  <data name="PasteSpecialTextPlainTextDesc" xml:space="preserve">
+    <value>标准纯文本粘贴。忽略所有 HTML 标记。</value>
+  </data>
+  <data name="PasteSpecialThinnedDesc" xml:space="preserve">
+    <value>删除多余的格式，例如 MS Office 专用格式、CSS 样式和表格。保留标题相对大小和基本格式，并与日志主题一致。</value>
+  </data>
+  <data name="PasteSpecialThinnedLabel" xml:space="preserve">
+    <value>精简 HTML(&amp;T)</value>
+  </data>
+  <data name="PingPrefName" xml:space="preserve">
+    <value>Ping 服务器</value>
+  </data>
+  <data name="PingPrefUrl" xml:space="preserve">
+    <value>Ping 下列网址(每行一个网址)(&amp;P)</value>
+  </data>
+  <data name="pixels" xml:space="preserve">
+    <value>像素</value>
+  </data>
+  <data name="Plugin_Map_InsertableContentSource_MenuText" xml:space="preserve">
+    <value>地图(&amp;M)</value>
+  </data>
+  <data name="Plugin_Map_InsertableContentSource_SidebarText" xml:space="preserve">
+    <value>地图</value>
+  </data>
+  <data name="Plugin_Map_WriterPlugin_Description" xml:space="preserve">
+    <value>日志中嵌入的 Live Search 地图</value>
+  </data>
+  <data name="Plugin_Map_WriterPlugin_Name" xml:space="preserve">
+    <value>Live Search 地图</value>
+  </data>
+  <data name="Plugin_Tags_InsertableContentSource_MenuText" xml:space="preserve">
+    <value>标记(&amp;S)</value>
+  </data>
+  <data name="Plugin_Tags_InsertableContentSource_SidebarText" xml:space="preserve">
+    <value>标记</value>
+  </data>
+  <data name="Plugin_Tags_WriterPlugin_Description" xml:space="preserve">
+    <value>使用常用的标记网站或自定义 HTML 在日志中添加标记</value>
+  </data>
+  <data name="Plugin_Tags_WriterPlugin_Name" xml:space="preserve">
+    <value>标记</value>
+  </data>
+  <data name="Plugin_Video_Alignment_Inline" xml:space="preserve">
+    <value>嵌入</value>
+    <comment>Player alignment in post</comment>
+  </data>
+  <data name="Plugin_Video_Alignment_Left" xml:space="preserve">
+    <value>左对齐</value>
+    <comment>Player alignment in post</comment>
+  </data>
+  <data name="Plugin_Video_Alignment_Right" xml:space="preserve">
+    <value>右对齐</value>
+    <comment>Player alignment in post</comment>
+  </data>
+  <data name="Plugin_Video_Alt_Text" xml:space="preserve">
+    <value>视频</value>
+    <comment>Alt text in image tag when inserting a video</comment>
+  </data>
+  <data name="Plugin_Video_Cannot_Parse_Url" xml:space="preserve">
+    <value>无法解析视频网址</value>
+    <comment>Exception title for problems getting video from URL</comment>
+  </data>
+  <data name="Plugin_Video_Cannot_Parse_Url_Message" xml:space="preserve">
+    <value>未知提供者或不完整的网址。</value>
+  </data>
+  <data name="Plugin_Video_Caption_Size" xml:space="preserve">
+    <value>.8em</value>
+    <comment>The size of the font used for the video caption feature. Only localize if the font size must be changed. Use format number.em (i.e. 1em, .9em, etc..)</comment>
+  </data>
+  <data name="Plugin_Video_Copyright_Notice" xml:space="preserve">
+    <value>请尊重版权</value>
+    <comment>Text shown on insert video dialog to remind users of copyright responsibilities. For some markets, will be linked.</comment>
+  </data>
+  <data name="Plugin_Video_Editor_Cancel" xml:space="preserve">
+    <value>取消发布</value>
+  </data>
+  <data name="Plugin_Video_Editor_Caption" xml:space="preserve">
+    <value>标题:</value>
+    <comment>Caption for video</comment>
+  </data>
+  <data name="Plugin_Video_Editor_Layout_Header" xml:space="preserve">
+    <value>版式</value>
+  </data>
+  <data name="Plugin_Video_Editor_Link_Text" xml:space="preserve">
+    <value>查看此视频</value>
+    <comment>Link to see video on web</comment>
+  </data>
+  <data name="Plugin_Video_Editor_Margin_Bottom" xml:space="preserve">
+    <value>底端</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margin_Left" xml:space="preserve">
+    <value>左端</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margin_Right" xml:space="preserve">
+    <value>右端</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margin_Top" xml:space="preserve">
+    <value>顶端</value>
+  </data>
+  <data name="Plugin_Video_Editor_Margins" xml:space="preserve">
+    <value>边距:</value>
+  </data>
+  <data name="Plugin_Video_Editor_Player_Style" xml:space="preserve">
+    <value>播放器样式:</value>
+  </data>
+  <data name="Plugin_Video_Editor_Text_Wrap" xml:space="preserve">
+    <value>文字环绕:</value>
+  </data>
+  <data name="Plugin_Video_Editor_Title" xml:space="preserve">
+    <value>{0} 视频</value>
+    <comment>{0} is name of video provider (YouTube, etc)</comment>
+  </data>
+  <data name="Plugin_Video_Error_Unexpected_Title" xml:space="preserve">
+    <value>未知异常</value>
+  </data>
+  <data name="Plugin_Video_Margins_Custom" xml:space="preserve">
+    <value>自定义边距</value>
+    <comment>Player padding in post (user sets)</comment>
+  </data>
+  <data name="Plugin_Video_Margins_None" xml:space="preserve">
+    <value>无边距</value>
+    <comment>Player padding in post (none)</comment>
+  </data>
+  <data name="Plugin_Video_Player_Automatic" xml:space="preserve">
+    <value>自动</value>
+    <comment>Player type: player is selected for you</comment>
+  </data>
+  <data name="Plugin_Video_Player_Embed" xml:space="preserve">
+    <value>嵌入页面中</value>
+    <comment>Player type: An embed tag is in the html code--the player will appear and play inline</comment>
+  </data>
+  <data name="Plugin_Video_Player_Preview" xml:space="preserve">
+    <value>使用链接进行预览</value>
+    <comment>Player type: An image is shown of the player,  and it is linked to the video provider website</comment>
+  </data>
+  <data name="Plugin_Video_Provider_Select" xml:space="preserve">
+    <value>选择视频提供者</value>
+    <comment>Accessible name for video provider service (Soapbox or YouTube Videos)</comment>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Animals" xml:space="preserve">
+    <value>动物</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Animation" xml:space="preserve">
+    <value>动画</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Autos" xml:space="preserve">
+    <value>汽车</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Blogs" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Comedy" xml:space="preserve">
+    <value>搞笑</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Commercials" xml:space="preserve">
+    <value>商业</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Education" xml:space="preserve">
+    <value>教育</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Entertainment" xml:space="preserve">
+    <value>娱乐</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Film" xml:space="preserve">
+    <value>电影</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Games" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_How_To" xml:space="preserve">
+    <value>时尚</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Movies" xml:space="preserve">
+    <value>电影</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Music" xml:space="preserve">
+    <value>音乐</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_News" xml:space="preserve">
+    <value>政治与资讯</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Non_Profit" xml:space="preserve">
+    <value>非营利性活动</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_People" xml:space="preserve">
+    <value>人物</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Politics" xml:space="preserve">
+    <value>政治</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Screencast" xml:space="preserve">
+    <value>Screencast 视频</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Sports" xml:space="preserve">
+    <value>体育</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Technology" xml:space="preserve">
+    <value>技术</value>
+  </data>
+  <data name="Plugin_Video_Publish_Categories_Travel" xml:space="preserve">
+    <value>旅游</value>
+  </data>
+  <data name="Plugin_Video_Publish_Filename_Seperator" xml:space="preserve">
+    <value>_</value>
+    <comment>In English people often use _ to separate words in a file name.  For example I might name a video file My_Birthday_Party.wmv.  We will use this string to replace the char with a space.  If this can't be applied to a certain language</comment>
+  </data>
+  <data name="Plugin_Video_Publish_Message" xml:space="preserve">
+    <value>等待视频发布完成</value>
+  </data>
+  <data name="Plugin_Video_Publish_Safety_View" xml:space="preserve">
+    <value>查看安全提示</value>
+  </data>
+  <data name="Plugin_Video_Publish_Terms_View" xml:space="preserve">
+    <value>查看使用条款</value>
+  </data>
+  <data name="Plugin_Video_Snapshot_Error_Message" xml:space="preserve">
+    <value>尝试生成视频快照时发生以下错误: {0}</value>
+    <comment>{0} is the error stack trace</comment>
+  </data>
+  <data name="Plugin_Video_Snapshot_Error_Title" xml:space="preserve">
+    <value>检索视频快照时出错</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_LoggingIn" xml:space="preserve">
+    <value>正在登录...</value>
+    <comment>Status message shown during login process</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_None_Found" xml:space="preserve">
+    <value>找不到任何视频。</value>
+    <comment>Search didn't find any videos.</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Not_Logged_In" xml:space="preserve">
+    <value>你尚未登录</value>
+    <comment>Shown when user is not currently logged in to Passport.</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Passport_Login" xml:space="preserve">
+    <value>登录(&amp;S)</value>
+    <comment>Button text for logging in to passport</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Passport_Password" xml:space="preserve">
+    <value>密码(&amp;P):</value>
+    <comment>Passport password for logging in</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Passport_Username" xml:space="preserve">
+    <value>Microsoft Account ID(&amp;M):</value>
+    <comment>Passport user name for signing in</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Categories" xml:space="preserve">
+    <value>类别(&amp;C):</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Description" xml:space="preserve">
+    <value>说明(&amp;D):</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Permissions" xml:space="preserve">
+    <value>权限(&amp;E):</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Permissions_Hidden" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Permissions_Public" xml:space="preserve">
+    <value>公开</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Tab_Title" xml:space="preserve">
+    <value>来自文件</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Tags" xml:space="preserve">
+    <value>标记(&amp;G):</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Title" xml:space="preserve">
+    <value>标题(&amp;T):</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Video_File" xml:space="preserve">
+    <value>视频文件(&amp;F):</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Video_File_Open" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Publish_Video_Open_File" xml:space="preserve">
+    <value>打开视频文件</value>
+  </data>
+  <data name="Plugin_Video_Soapbox_Result_Range" xml:space="preserve">
+    <value>从 {0} 到 {1} 的视频</value>
+    <comment>used when showing a list of videos ({0} and {1] are begin and end indices)</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Result_Single" xml:space="preserve">
+    <value>视频 {0}</value>
+    <comment>used when showing just one video ({0} is index)</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Retrieve_Msg" xml:space="preserve">
+    <value>正在检索视频列表...</value>
+    <comment>Shown while query is running to access soapbox videos</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Soap_Error" xml:space="preserve">
+    <value>Soapbox 服务返回错误。</value>
+    <comment>Message when query against soapbox errors.</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Switch_User" xml:space="preserve">
+    <value>(切换用户)</value>
+    <comment>shown when user is logged into passport and wants to switch their login</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Thumbnail_Downloading" xml:space="preserve">
+    <value>正在下载预览...</value>
+    <comment>Message shown for each video while thumbnail is getting generated.</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Thumbnail_None" xml:space="preserve">
+    <value>没有可下载的预览</value>
+    <comment>Message shown for each video that doesn't have a thumbnail.</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Total_Videos" xml:space="preserve">
+    <value>(共 {0} 项)</value>
+    <comment>used in pagination ie "Videos 1 - 10 (of 12)" this is the part in the paren. With the {0} being the number of videos.</comment>
+  </data>
+  <data name="Plugin_Video_Soapbox_Web_Error" xml:space="preserve">
+    <value>搜索请求超时。</value>
+    <comment>Web error while searching for videos.</comment>
+  </data>
+  <data name="Plugin_Video_Unknown_Provider" xml:space="preserve">
+    <value>未知提供者</value>
+    <comment>string for provider that isn't in our xml file</comment>
+  </data>
+  <data name="Plugin_Video_Video_Header" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Download_Error" xml:space="preserve">
+    <value>由于此服务当前使用量过大，无法通过此服务访问所选视频。\r\n请稍后重试。</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Download_Error_Title" xml:space="preserve">
+    <value>视频访问错误</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Enter_Prompt" xml:space="preserve">
+    <value>视频网址或嵌入视频(&amp;W):</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Preview_Button" xml:space="preserve">
+    <value>预览(&amp;V)</value>
+    <comment>Preview button text</comment>
+  </data>
+  <data name="Plugin_Video_Web_Video_Provider" xml:space="preserve">
+    <value>提供者: {0}</value>
+    <comment>{0} is video provider name</comment>
+  </data>
+  <data name="Plugin_Video_Web_Video_Service_Blank" xml:space="preserve">
+    <value>提供者:</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Size" xml:space="preserve">
+    <value>大小: {0} x {1}</value>
+    <comment>{0} is width and {1} is height</comment>
+  </data>
+  <data name="Plugin_Video_Web_Video_Size_Blank" xml:space="preserve">
+    <value>大小:</value>
+  </data>
+  <data name="Plugin_Video_Web_Video_Tab_Name" xml:space="preserve">
+    <value>来自网页</value>
+  </data>
+  <data name="Plugin_Video_XML_Error_Embed_Format" xml:space="preserve">
+    <value>嵌入格式参数丢失</value>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
+  <data name="Plugin_Video_XML_Error_Embed_Pattern" xml:space="preserve">
+    <value>嵌入模式参数丢失</value>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
+  <data name="Plugin_Video_XML_Error_Service_Id" xml:space="preserve">
+    <value>缺少服务 ID 参数</value>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
+  <data name="Plugin_Video_XML_Error_Service_Name" xml:space="preserve">
+    <value>服务名称参数丢失</value>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
+  <data name="Plugin_Video_XML_Error_Size" xml:space="preserve">
+    <value>大小参数丢失</value>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
+  <data name="Plugin_Video_XML_Error_Url_Format" xml:space="preserve">
+    <value>网址格式参数丢失</value>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
+  <data name="Plugin_Video_XML_Error_Url_Pattern" xml:space="preserve">
+    <value>网址模式参数丢失</value>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
+  <data name="Plugin_Video_Youtube_Publish_Name" xml:space="preserve">
+    <value>YouTube</value>
+  </data>
+  <data name="Plugin_Video_YouTube_Publish_Terms_Agree" xml:space="preserve">
+    <value>是，我同意 YouTube 使用条款，我拥有此视频的所有版权，或者具有上载它的授权。在未经许可的情况下，不上载任何电视节目、音乐视频或商业内容，除非所有内容完全由你个人创作。</value>
+  </data>
+  <data name="Plugin_Video_YouTube_Publish_Video_File_Open_Filter_Ext" xml:space="preserve">
+    <value>所有视频文件(*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4;*.mov;*)|*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4,*.mov;|所有文件(*.*)|*.*</value>
+    <comment>The filter shown in file open dialog when selecting a movie file.</comment>
+  </data>
+  <data name="Plugin_Videos_InsertableContentSource_MenuText" xml:space="preserve">
+    <value>视频(&amp;V)</value>
+  </data>
+  <data name="Plugin_Videos_InsertableContentSource_SidebarText" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="Plugin_Videos_Load_Error_Message" xml:space="preserve">
+    <value>由于视频服务负载过重，无法加载视频来插入到编辑器中。</value>
+  </data>
+  <data name="Plugin_Videos_Load_Error_Title" xml:space="preserve">
+    <value>无法加载视频</value>
+  </data>
+  <data name="Plugin_Videos_Select_Video_Form" xml:space="preserve">
+    <value>插入视频</value>
+    <comment>Title (across top) of inserting video dialog</comment>
+  </data>
+  <data name="Plugin_Videos_Video_Size" xml:space="preserve">
+    <value>视频大小: {0} x {1}</value>
+    <comment>{0} is width and {1} is height</comment>
+  </data>
+  <data name="Plugin_Videos_WriterPlugin_Description" xml:space="preserve">
+    <value>使用常用视频提供者向日志中添加视频。</value>
+  </data>
+  <data name="Plugin_Videos_WriterPlugin_Name" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="Plugin_WebImage_Title" xml:space="preserve">
+    <value>插入 Web 图像</value>
+  </data>
+  <data name="Plugin_WebImage_WriterPlugin_Description" xml:space="preserve">
+    <value>将来自 web 的图像添加到日志中。</value>
+  </data>
+  <data name="PluginInsertSidebarText" xml:space="preserve">
+    <value>{0}...</value>
+    <comment>{0} will be the name provided by the plug-in.</comment>
+  </data>
+  <data name="PluginInsertSidebarTooltip" xml:space="preserve">
+    <value>在当前文档中插入{0}</value>
+    <comment>{0} will be the name provided by the plug-in (e.g. Video</comment>
+  </data>
+  <data name="PluginPrefCaption" xml:space="preserve">
+    <value>打开和关闭插件来充分利用 {0} 的功能。</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="PluginPrefDetails" xml:space="preserve">
+    <value>插件详细信息</value>
+  </data>
+  <data name="PluginPrefDisable" xml:space="preserve">
+    <value>关闭(&amp;F)</value>
+  </data>
+  <data name="PluginPrefEnable" xml:space="preserve">
+    <value>打开(&amp;N)</value>
+  </data>
+  <data name="PluginPrefInstalled" xml:space="preserve">
+    <value>当前已安装的插件(&amp;P):</value>
+  </data>
+  <data name="PluginPrefLink" xml:space="preserve">
+    <value>联机获取插件...</value>
+  </data>
+  <data name="PluginPrefName" xml:space="preserve">
+    <value>插件</value>
+  </data>
+  <data name="PluginPrefNameCol" xml:space="preserve">
+    <value>插件</value>
+  </data>
+  <data name="PluginPrefNone" xml:space="preserve">
+    <value>(未选择任何插件)</value>
+  </data>
+  <data name="PluginPrefStatCol" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="PluginPrefTooltip" xml:space="preserve">
+    <value>单击此处了解有关此插件的详细信息。</value>
+  </data>
+  <data name="PluginPublishProgress" xml:space="preserve">
+    <value>正在执行插件: {0}</value>
+    <comment>{0} - the name of a plugin</comment>
+  </data>
+  <data name="PluginSidebarDisabled" xml:space="preserve">
+    <value>所选插件已禁用。</value>
+  </data>
+  <data name="PluginSidebarNotEditable" xml:space="preserve">
+    <value>无法编辑所选项。</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="PostCountAccessible" xml:space="preserve">
+    <value>日志数</value>
+    <comment>Accessible name for a combo box in the Open Post form that lets the user filter how many posts they want to show up in the search</comment>
+  </data>
+  <data name="PostEditorBodyRegion" xml:space="preserve">
+    <value>日志正文</value>
+  </data>
+  <data name="PostEditorDiskSpaceExceptionMessage" xml:space="preserve">
+    <value>磁盘上已没有可用空间。</value>
+  </data>
+  <data name="PostEditorPrefAuto" xml:space="preserve">
+    <value>定期保存自动恢复信息(&amp;U)</value>
+  </data>
+  <data name="PostEditorPrefClose" xml:space="preserve">
+    <value>发布后关闭窗口(&amp;W): </value>
+  </data>
+  <data name="PostEditorPrefEditing" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="PostEditorPrefGeneral" xml:space="preserve">
+    <value>常规选项</value>
+  </data>
+  <data name="PostEditorPrefName" xml:space="preserve">
+    <value>首选项</value>
+  </data>
+  <data name="PostEditorPrefNew" xml:space="preserve">
+    <value>为每篇日志打开一个新窗口(&amp;E)</value>
+  </data>
+  <data name="PostEditorPrefPostWindows" xml:space="preserve">
+    <value>日志窗口</value>
+  </data>
+  <data name="PostEditorPrefPublishing" xml:space="preserve">
+    <value>发布</value>
+  </data>
+  <data name="PostEditorPrefRemind" xml:space="preserve">
+    <value>发布前提醒我添加标记(&amp;T)</value>
+  </data>
+  <data name="PostEditorPrefRemindCat" xml:space="preserve">
+    <value>发布前提醒我添加类别(&amp;C)</value>
+  </data>
+  <data name="PostEditorPrefSide" xml:space="preserve">
+    <value>插入可编辑内容时显示任务窗格(&amp;H)</value>
+  </data>
+  <data name="PostEditorPrefSingle" xml:space="preserve">
+    <value>使用一个窗口编辑所有日志(&amp;S)</value>
+  </data>
+  <data name="PostEditorPrefTitle" xml:space="preserve">
+    <value>发布前提醒我键入标题(&amp;R)</value>
+  </data>
+  <data name="PostEditorPrefUnsave" xml:space="preserve">
+    <value>只有当前日志包含未保存的更改时才打开新窗口(&amp;O)</value>
+  </data>
+  <data name="PostEditorPrefView" xml:space="preserve">
+    <value>发布后查看日志(&amp;V)</value>
+  </data>
+  <data name="PostEditorStorageExceptionMessage" xml:space="preserve">
+    <value>访问本地日志时发生意外错误({0}){1}</value>
+    <comment>{0} - error code, {1} - error message</comment>
+  </data>
+  <data name="PostEditorStorageExceptionMessage2" xml:space="preserve">
+    <value>访问本地日志时发生意外的磁盘访问错误({0}){1}</value>
+    <comment>{0} - type of error (e.g. ArgumentException), {1} - error message</comment>
+  </data>
+  <data name="PostEditorStorageExceptionTitle" xml:space="preserve">
+    <value>访问本地日志时出错</value>
+  </data>
+  <data name="PostEditorStorageExceptionTitle2" xml:space="preserve">
+    <value>访问本地日志时出错</value>
+  </data>
+  <data name="PostEditorTitleRegion" xml:space="preserve">
+    <value>日志标题</value>
+  </data>
+  <data name="PostLinkTooltipFormat" xml:space="preserve">
+    <value>{0}
+{1} ({2})</value>
+    <comment>{0} - title of post, {1} - title of blog, {2} - date/time of post</comment>
+  </data>
+  <data name="PostLinkTooltipFormatNoBlogTitle" xml:space="preserve">
+    <value>{0}
+({1})</value>
+    <comment>{0} - title of post, {1} - date/time of post</comment>
+  </data>
+  <data name="PostLower" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="PostPageFilter" xml:space="preserve">
+    <value>筛选{0}</value>
+    <comment>{0} - Posts or Pages</comment>
+  </data>
+  <data name="PostProperties" xml:space="preserve">
+    <value>日志属性</value>
+  </data>
+  <data name="PostPublishFileUploadErrorCaption1" xml:space="preserve">
+    <value>{0}已成功发布，但在上载支持文件时出错:</value>
+    <comment>{0} - Post or Page</comment>
+  </data>
+  <data name="PostPublishFileUploadErrorCaption2" xml:space="preserve">
+    <value>根据错误的性质，通过重试也许可以成功发布支持文件。此外，你可能需要将{0}从日志中删除。</value>
+    <comment>{0} - Post or Page</comment>
+  </data>
+  <data name="PostPublishFileUploadErrorTitle" xml:space="preserve">
+    <value>上载支持文件时出错</value>
+  </data>
+  <data name="Posts" xml:space="preserve">
+    <value>日志(&amp;P)</value>
+  </data>
+  <data name="PostsLower" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="PPCRL_AUTHSTATE_E_EXPIRED" xml:space="preserve">
+    <value>身份验证已到期。</value>
+  </data>
+  <data name="PPCRL_E_AUTH_SERVICE_UNAVAILABLE" xml:space="preserve">
+    <value>无法连接身份验证服务。</value>
+  </data>
+  <data name="PPCRL_REQUEST_E_BAD_MEMBER_NAME_OR_PASSWORD" xml:space="preserve">
+    <value>无法识别用户名或密码。</value>
+  </data>
+  <data name="PPCRL_REQUEST_E_CANCELLED" xml:space="preserve">
+    <value>请求已取消。</value>
+  </data>
+  <data name="PPCRL_REQUEST_E_CLIENT_DEPRECATED" xml:space="preserve">
+    <value>登录服务器已不再支持发出此请求的客户端。请升级到较新的版本。</value>
+  </data>
+  <data name="PPCRL_REQUEST_E_FORCE_SIGNIN" xml:space="preserve">
+    <value>身份验证令牌已过期。</value>
+  </data>
+  <data name="PPCRL_REQUEST_E_INVALID_MEMBER_NAME" xml:space="preserve">
+    <value>无法识别该用户名。</value>
+  </data>
+  <data name="PPCRL_REQUEST_E_PASSWORD_LOCKED_OUT" xml:space="preserve">
+    <value>该用户帐户已被阻止。</value>
+  </data>
+  <data name="PrivacyPreferencesCodeOfConduct" xml:space="preserve">
+    <value>.NET 基金会行为准则</value>
+  </data>
+  <data name="PrivacyPreferencesPanelName" xml:space="preserve">
+    <value>信任中心</value>
+  </data>
+  <data name="PrivacyPreferencesPrivacyExplanation" xml:space="preserve">
+    <value>我们尊重你的隐私。有关 Open Live Writer 如何帮助保护隐私的详细信息，请参阅:</value>
+    <comment>Three links follow the colon: Privacy statement, service agreement and Code of Conduct</comment>
+  </data>
+  <data name="PrivacyPreferencesPrivacyStatement" xml:space="preserve">
+    <value>.NET 基金会 隐私声明</value>
+  </data>
+  <data name="ProductDisplayVersion" xml:space="preserve">
+    <value>版本 {0}</value>
+    <comment>{0}- the build number like 12.00.1234.1234.</comment>
+  </data>
+  <data name="ProductNameVersioned" xml:space="preserve">
+    <value>Open Live Writer</value>
+    <comment>Versioned product name for about dialog.</comment>
+  </data>
+  <data name="ProgressAnalyzingHomepage" xml:space="preserve">
+    <value>正在分析日志主页网址和内容...</value>
+  </data>
+  <data name="ProgressAnalyzingInterface" xml:space="preserve">
+    <value>正在分析日志发布接口...</value>
+  </data>
+  <data name="ProgressAnalyzingWeblogList" xml:space="preserve">
+    <value>正在分析日志列表...</value>
+  </data>
+  <data name="ProgressCompletedSettingsDetection" xml:space="preserve">
+    <value>设置检测已完成</value>
+  </data>
+  <data name="ProgressCreatingEditingTemplate" xml:space="preserve">
+    <value>正在创建编辑模板...</value>
+  </data>
+  <data name="ProgressDetectingWeblogCategories" xml:space="preserve">
+    <value>正在检测日志类别...</value>
+  </data>
+  <data name="ProgressDetectingWeblogCharSet" xml:space="preserve">
+    <value>正在检测日志字符集...</value>
+  </data>
+  <data name="ProgressDetectingWeblogEditingStyle" xml:space="preserve">
+    <value>正在检测日志编辑主题...</value>
+  </data>
+  <data name="ProgressDetectingWeblogIcon" xml:space="preserve">
+    <value>正在检测日志图标...</value>
+  </data>
+  <data name="ProgressDetectingWeblogSettings" xml:space="preserve">
+    <value>正在检测日志设置...</value>
+  </data>
+  <data name="ProgressDeterminingType" xml:space="preserve">
+    <value>正在判断 {0} 的类型...</value>
+    <comment>{0} - a URL</comment>
+  </data>
+  <data name="ProgressDialogTitle" xml:space="preserve">
+    <value>进度对话框</value>
+  </data>
+  <data name="ProgressDownloadFinished" xml:space="preserve">
+    <value>下载已完成</value>
+  </data>
+  <data name="ProgressDownloading" xml:space="preserve">
+    <value>正在下载 {0}...</value>
+    <comment>{0} - a URL</comment>
+  </data>
+  <data name="ProgressDownloadingEditingTemplate" xml:space="preserve">
+    <value>正在下载编辑模板...</value>
+  </data>
+  <data name="ProgressDownloadingSupportingFiles" xml:space="preserve">
+    <value>正在下载支持文件...</value>
+  </data>
+  <data name="ProgressDownloadingWeblogEditingStyle" xml:space="preserve">
+    <value>正在下载日志编辑主题...</value>
+  </data>
+  <data name="ProgressFinalizingEditingTemplateConfig" xml:space="preserve">
+    <value>正在完成编辑模板配置...</value>
+  </data>
+  <data name="ProgressPreparingListOfFiles" xml:space="preserve">
+    <value>正在准备要下载的文件列表...</value>
+  </data>
+  <data name="ProgressSaving" xml:space="preserve">
+    <value>正在保存 {0}...</value>
+    <comment>{0} - a filename</comment>
+  </data>
+  <data name="ProgressStartingDownloadOfReferences" xml:space="preserve">
+    <value>开始下载参考...</value>
+  </data>
+  <data name="ProgressVerifyingInterface" xml:space="preserve">
+    <value>正在验证日志发布接口...</value>
+  </data>
+  <data name="PropertiesAuthor" xml:space="preserve">
+    <value>作者(&amp;A):</value>
+  </data>
+  <data name="PropertiesAuthorsFetchingText" xml:space="preserve">
+    <value>作者列表</value>
+  </data>
+  <data name="PropertiesCategories" xml:space="preserve">
+    <value>类别(&amp;C):</value>
+  </data>
+  <data name="PropertiesCommaSeparated" xml:space="preserve">
+    <value>(以逗号分隔)</value>
+    <comment>Used inside the Trackback URLs control in the post property dialog</comment>
+  </data>
+  <data name="PropertiesCommentPolicyClosed" xml:space="preserve">
+    <value>关闭</value>
+    <comment>No new comments are allowed on the post</comment>
+  </data>
+  <data name="PropertiesCommentPolicyNone" xml:space="preserve">
+    <value>无</value>
+    <comment>Comments are not allowed on the post</comment>
+  </data>
+  <data name="PropertiesCommentPolicyOpen" xml:space="preserve">
+    <value>打开</value>
+    <comment>Comments are allowed on the post</comment>
+  </data>
+  <data name="PropertiesComments" xml:space="preserve">
+    <value>评论(&amp;M):</value>
+  </data>
+  <data name="PropertiesDefault" xml:space="preserve">
+    <value>(默认)</value>
+    <comment>Default option for author, comment policy, etc.</comment>
+  </data>
+  <data name="PropertiesExcerpt" xml:space="preserve">
+    <value>摘要(&amp;E):</value>
+  </data>
+  <data name="PropertiesKeywords" xml:space="preserve">
+    <value>关键字(&amp;K):</value>
+  </data>
+  <data name="PropertiesNoPageParent" xml:space="preserve">
+    <value>(无父类别)</value>
+  </data>
+  <data name="PropertiesPageOrder" xml:space="preserve">
+    <value>页面顺序(&amp;O):</value>
+    <comment>For specifying the order in which Pages appear on WordPress. The value will be an integer</comment>
+  </data>
+  <data name="PropertiesPageParent" xml:space="preserve">
+    <value>父页(&amp;P):</value>
+    <comment>For specifying the parent Page of a Page for WordPress.</comment>
+  </data>
+  <data name="PropertiesPanel" xml:space="preserve">
+    <value>日志属性</value>
+    <comment>This is an accessibility name and should be localized.</comment>
+  </data>
+  <data name="PropertiesPassword" xml:space="preserve">
+    <value>密码(&amp;W):</value>
+  </data>
+  <data name="PropertiesPings" xml:space="preserve">
+    <value>Ping(&amp;I):</value>
+    <comment>This refers to sending an HTTP request to notify servers that a blog has been updated. For more info</comment>
+  </data>
+  <data name="PropertiesPublishDate" xml:space="preserve">
+    <value>发布日期(&amp;U):</value>
+  </data>
+  <data name="PropertiesShowHide" xml:space="preserve">
+    <value>关闭/打开属性面板</value>
+    <comment>This is an accessibility name and should be localized.</comment>
+  </data>
+  <data name="PropertiesSlug" xml:space="preserve">
+    <value>数据域(&amp;S):</value>
+    <comment>A slug describes a post or page in a few words. Used by WordPress to form a permalink URL for the post. See this link for details: http://codex.wordpress.org/Glossary#Slug</comment>
+  </data>
+  <data name="PropertiesTags" xml:space="preserve">
+    <value>标记(&amp;T):</value>
+    <comment>This replaces Keywords for (currently) WordPress blogs only</comment>
+  </data>
+  <data name="PropertiesTrackbackPolicyAllow" xml:space="preserve">
+    <value>允许</value>
+  </data>
+  <data name="PropertiesTrackbackPolicyDeny" xml:space="preserve">
+    <value>拒绝</value>
+  </data>
+  <data name="PropertiesTrackbacks" xml:space="preserve">
+    <value>引用通告 URL(&amp;R):</value>
+  </data>
+  <data name="ProxyPrefCustom" xml:space="preserve">
+    <value>自定义代理服务器设置</value>
+  </data>
+  <data name="ProxyPrefEnabled" xml:space="preserve">
+    <value>手动配置设置(&amp;M)</value>
+  </data>
+  <data name="ProxyPrefName" xml:space="preserve">
+    <value>Web 代理服务器</value>
+  </data>
+  <data name="ProxyPrefPassword" xml:space="preserve">
+    <value>密码(&amp;W):</value>
+  </data>
+  <data name="ProxyPrefPort" xml:space="preserve">
+    <value>端口(&amp;P):</value>
+  </data>
+  <data name="ProxyPrefServer" xml:space="preserve">
+    <value>代理服务器地址(&amp;R):</value>
+  </data>
+  <data name="ProxyPrefTitle" xml:space="preserve">
+    <value>Web 代理服务器首选项</value>
+  </data>
+  <data name="ProxyPrefUsername" xml:space="preserve">
+    <value>用户名(&amp;N):</value>
+  </data>
+  <data name="PublishDatePrompt" xml:space="preserve">
+    <value>设置发布日期</value>
+    <comment>No apostrophes (') allowed in this message</comment>
+  </data>
+  <data name="PublishDateTooltip" xml:space="preserve">
+    <value>发布日期</value>
+  </data>
+  <data name="PublishedNameFormat" xml:space="preserve">
+    <value>{0}已发布</value>
+    <comment>{0} - Post or Page</comment>
+  </data>
+  <data name="PublishFolderPickerCaption" xml:space="preserve">
+    <value>选择要发布的目标文件夹:</value>
+  </data>
+  <data name="PublishFolderPickerTitle" xml:space="preserve">
+    <value>浏览文件夹</value>
+  </data>
+  <data name="PublishFolderPickerToolTip" xml:space="preserve">
+    <value>浏览文件夹</value>
+  </data>
+  <data name="PublishNow" xml:space="preserve">
+    <value>立即发布</value>
+  </data>
+  <data name="PushpinAdd" xml:space="preserve">
+    <value>添加标注</value>
+  </data>
+  <data name="PushpinEdit" xml:space="preserve">
+    <value>编辑标注</value>
+  </data>
+  <data name="PushpinMoreInfoUrl" xml:space="preserve">
+    <value>提供详细信息的网址(&amp;W):</value>
+  </data>
+  <data name="PushpinNotes" xml:space="preserve">
+    <value>注释(&amp;N):</value>
+  </data>
+  <data name="PushpinPhotoUrl" xml:space="preserve">
+    <value>照片网址(&amp;P):</value>
+  </data>
+  <data name="PushpinTitle" xml:space="preserve">
+    <value>标题(&amp;T):</value>
+  </data>
+  <data name="PushpinUntitled" xml:space="preserve">
+    <value>为此标注输入名称</value>
+  </data>
+  <data name="PushpinValidationError" xml:space="preserve">
+    <value>找不到当前输入的标注对应的位置。是否仍将此网址设置为自定义标注?</value>
+  </data>
+  <data name="RecentDrafts" xml:space="preserve">
+    <value>最近的草稿</value>
+    <comment>Category description for recent drafts that appears in Writer's taskbar jumplist.</comment>
+  </data>
+  <data name="RecentlyPosted" xml:space="preserve">
+    <value>最近发布的日志</value>
+  </data>
+  <data name="RecentPostNotSyncCaption" xml:space="preserve">
+    <value>无法从服务器检索{0}</value>
+    <comment>{0} - Post/Page</comment>
+  </data>
+  <data name="RecentPostNotSyncText" xml:space="preserve">
+    <value>{0} 无法从日志服务器检索{1}的最新副本(操作出错或检索已取消)。</value>
+    <comment>{0} - Open Live Writer, {1} - post/page</comment>
+  </data>
+  <data name="RecentPostNotSyncText2" xml:space="preserve">
+    <value>你仍可以使用此计算机上存储的本地副本编辑{0}。但是，如果曾联机更改过{0}，你所编辑的副本可能已过时。</value>
+    <comment>{0} - post/page</comment>
+  </data>
+  <data name="RecentPostNotSyncTitle" xml:space="preserve">
+    <value>无法从服务器检索{0}</value>
+    <comment>{0} - Post/Page</comment>
+  </data>
+  <data name="RecentPosts" xml:space="preserve">
+    <value>最近使用过的日志</value>
+    <comment>Category description for recent posts that appears in Writer's taskbar jumplist.</comment>
+  </data>
+  <data name="RememberPassword" xml:space="preserve">
+    <value>记住我的密码(&amp;R)</value>
+  </data>
+  <data name="Retrieving" xml:space="preserve">
+    <value>正在检索{0}</value>
+    <comment>{0} - Post/Page</comment>
+  </data>
+  <data name="RetrievingFromWeblog" xml:space="preserve">
+    <value>正在检索{0}...</value>
+    <comment>{0} - post/page</comment>
+  </data>
+  <data name="RetrySignin" xml:space="preserve">
+    <value>解决此问题后，请尝试重新登录。</value>
+  </data>
+  <data name="RowPropertiesFixedHeight" xml:space="preserve">
+    <value>固定高度(&amp;F):</value>
+  </data>
+  <data name="RowPropertiesSizeToContent" xml:space="preserve">
+    <value>自动调整内容大小(&amp;A)</value>
+  </data>
+  <data name="RowPropertiesTitle" xml:space="preserve">
+    <value>行属性</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存(&amp;S)</value>
+  </data>
+  <data name="SeeSolutionOnline" xml:space="preserve">
+    <value>联机查看解决方法</value>
+    <comment>Dialog box that gives an error while signing in to Live ID. This string prompts user to go online to resolve the problem.</comment>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>已选</value>
+    <comment>Used for the Accessible Value of the currently selected view switching tab (Edit | Preview | Source).</comment>
+  </data>
+  <data name="SelectWeblogProvider" xml:space="preserve">
+    <value>(选择日志提供者)</value>
+    <comment>This appears in the drop-down list with blog providers, hence the parentheses.</comment>
+  </data>
+  <data name="SemanticHtmlPreviewText" xml:space="preserve">
+    <value>AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz</value>
+    <comment>Sample text rendered to give the user an idea what each style in the HTML styles gallery looks like</comment>
+  </data>
+  <data name="SendingPing" xml:space="preserve">
+    <value>发送 ping 命令</value>
+  </data>
+  <data name="SendingPings" xml:space="preserve">
+    <value>发送 ping 命令</value>
+  </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>Live Search 地图</value>
+  </data>
+  <data name="ShortcutAlt" xml:space="preserve">
+    <value>Alt</value>
+    <comment>The Alt in Ctrl+Shift+Alt+F5</comment>
+  </data>
+  <data name="ShortcutCtrl" xml:space="preserve">
+    <value>Ctrl</value>
+    <comment>The Ctrl in Ctrl+Shift+Alt+F5</comment>
+  </data>
+  <data name="ShortcutPlus" xml:space="preserve">
+    <value>+</value>
+    <comment>The + in Ctrl+Shift+Alt+F5</comment>
+  </data>
+  <data name="ShortcutShift" xml:space="preserve">
+    <value>Shift</value>
+    <comment>The Shift in Ctrl+Shift+Alt+F5</comment>
+  </data>
+  <data name="ShowAllPosts" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="ShowLogFile" xml:space="preserve">
+    <value>显示日志文件</value>
+    <comment>Appears in Help | About dialog</comment>
+  </data>
+  <data name="ShowProperties" xml:space="preserve">
+    <value>显示属性</value>
+    <comment>Show the post properties tray.</comment>
+  </data>
+  <data name="ShowRealTimeWordCount" xml:space="preserve">
+    <value>在状态栏上实时显示字数(&amp;B)</value>
+  </data>
+  <data name="ShowXPosts" xml:space="preserve">
+    <value>{0}</value>
+    <comment>{0} - a number</comment>
+  </data>
+  <data name="SidebarPanel" xml:space="preserve">
+    <value>任务窗格</value>
+    <comment>This is an accessibility name and should be localized.</comment>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="SpellAdd" xml:space="preserve">
+    <value>添加(&amp;D)</value>
+    <comment>Add misspelled word to dictionary</comment>
+  </data>
+  <data name="SpellCaps" xml:space="preserve">
+    <value>大写:</value>
+  </data>
+  <data name="SpellChange" xml:space="preserve">
+    <value>更改为(&amp;H):</value>
+  </data>
+  <data name="SpellChangeAll" xml:space="preserve">
+    <value>全部更改(&amp;L)</value>
+  </data>
+  <data name="SpellChangeWord" xml:space="preserve">
+    <value>更改(&amp;C)</value>
+  </data>
+  <data name="SpellIgnore" xml:space="preserve">
+    <value>忽略(&amp;G)</value>
+  </data>
+  <data name="SpellIgnoreAll" xml:space="preserve">
+    <value>全部忽略(&amp;I)</value>
+  </data>
+  <data name="SpellingPrefAuto" xml:space="preserve">
+    <value>自动更正常见大小写和拼写错误(&amp;C)</value>
+  </data>
+  <data name="SpellingPrefGroup" xml:space="preserve">
+    <value>拼写格式选项</value>
+  </data>
+  <data name="SpellingPrefName" xml:space="preserve">
+    <value>拼写</value>
+  </data>
+  <data name="SpellingPrefNum" xml:space="preserve">
+    <value>忽略带数字的词语(&amp;N)</value>
+  </data>
+  <data name="SpellingPrefOptions" xml:space="preserve">
+    <value>常规选项</value>
+  </data>
+  <data name="SpellingPrefPub" xml:space="preserve">
+    <value>发布前检查拼写(&amp;P)</value>
+  </data>
+  <data name="SpellingPrefReal" xml:space="preserve">
+    <value>使用实时拼写检查(波形曲线)(&amp;R)</value>
+  </data>
+  <data name="SpellingPrefUpper" xml:space="preserve">
+    <value>忽略全部大写的词语(&amp;U)</value>
+  </data>
+  <data name="SpellNoSuggest" xml:space="preserve">
+    <value>(无建议)</value>
+    <comment>Used with punctuation to indicate that no alternate spellings were returned</comment>
+  </data>
+  <data name="SpellNotInDict" xml:space="preserve">
+    <value>字典中没有该词(&amp;N):</value>
+  </data>
+  <data name="SpellOptions" xml:space="preserve">
+    <value>建议(&amp;U):</value>
+  </data>
+  <data name="SpellSuggest" xml:space="preserve">
+    <value>建议(&amp;S)</value>
+  </data>
+  <data name="SpellText" xml:space="preserve">
+    <value>检查拼写</value>
+  </data>
+  <data name="SpinnerPixelFormatString" xml:space="preserve">
+    <value>像素</value>
+    <comment>Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners</comment>
+  </data>
+  <data name="SpinnerPixelRepresentativeString" xml:space="preserve">
+    <value>999 像素</value>
+    <comment>The Ribbon uses the width of this string to decide how wide the spinner should be displayed</comment>
+  </data>
+  <data name="SplashScreenCopyrightNotice" xml:space="preserve">
+    <value>Copyright © .NET 基金会. 保留所有权利.</value>
+  </data>
+  <data name="SplitterMore" xml:space="preserve">
+    <value>更多...</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>统计信息</value>
+    <comment>Header of the table that shows word and character count</comment>
+  </data>
+  <data name="StatisticsSelection" xml:space="preserve">
+    <value>所选文本的统计信息</value>
+    <comment>Header of the table that shows word and character count when only looking at the currently selected text</comment>
+  </data>
+  <data name="StatusAutoSaving" xml:space="preserve">
+    <value>正在自动保存...</value>
+    <comment>This message is shown in the status bar while Writer saves the current post in the background</comment>
+  </data>
+  <data name="StatusDraftSaved" xml:space="preserve">
+    <value>草稿 - 保存时间 {0}</value>
+    <comment>{0} - saved date</comment>
+  </data>
+  <data name="StatusDraftUnsaved" xml:space="preserve">
+    <value>草稿 - 未保存</value>
+  </data>
+  <data name="StatusPublished" xml:space="preserve">
+    <value>发布时间: {0}</value>
+    <comment>{0} - publish date</comment>
+  </data>
+  <data name="StatusWeblogNameFormatter" xml:space="preserve">
+    <value>{0} ({1})</value>
+    <comment>{0} - status message, {1} - blog name</comment>
+  </data>
+  <data name="SwitchWeblogs" xml:space="preserve">
+    <value>切换到日志</value>
+  </data>
+  <data name="TableAlignHorizontal" xml:space="preserve">
+    <value>水平对齐(&amp;H):</value>
+  </data>
+  <data name="TableAlignHorizontalCenter" xml:space="preserve">
+    <value>居中</value>
+  </data>
+  <data name="TableAlignHorizontalLeft" xml:space="preserve">
+    <value>左对齐</value>
+  </data>
+  <data name="TableAlignHorizontalRight" xml:space="preserve">
+    <value>右对齐</value>
+  </data>
+  <data name="TableAlignVertical" xml:space="preserve">
+    <value>垂直对齐(&amp;V):</value>
+  </data>
+  <data name="TableAlignVerticalBottom" xml:space="preserve">
+    <value>底端对齐</value>
+  </data>
+  <data name="TableAlignVerticalMiddle" xml:space="preserve">
+    <value>中间对齐</value>
+  </data>
+  <data name="TableAlignVerticalTop" xml:space="preserve">
+    <value>顶端对齐</value>
+  </data>
+  <data name="TableBorder" xml:space="preserve">
+    <value>边框</value>
+  </data>
+  <data name="TableCellPadding" xml:space="preserve">
+    <value>单元格内容衬距</value>
+  </data>
+  <data name="TableCellPaddingLabel" xml:space="preserve">
+    <value>单元格内容衬距(&amp;P):</value>
+  </data>
+  <data name="TableCellSpacing" xml:space="preserve">
+    <value>单元格间距</value>
+  </data>
+  <data name="TableCellSpacingLabel" xml:space="preserve">
+    <value>单元格间距(&amp;S):</value>
+  </data>
+  <data name="TableColumns" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="TableColumnsLabel" xml:space="preserve">
+    <value>列(&amp;C):</value>
+  </data>
+  <data name="TableRows" xml:space="preserve">
+    <value>行</value>
+  </data>
+  <data name="TableRowsLabel" xml:space="preserve">
+    <value>行(&amp;R):</value>
+  </data>
+  <data name="TableShowBorderLabel" xml:space="preserve">
+    <value>显示表格边框(&amp;B):</value>
+  </data>
+  <data name="TableTableProperties" xml:space="preserve">
+    <value>表格属性</value>
+  </data>
+  <data name="TagControlSetTags" xml:space="preserve">
+    <value>设置标记(以逗号分隔)</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>标记</value>
+  </data>
+  <data name="TagsCaptionFormat" xml:space="preserve">
+    <value>{0} 标记: {{tag-group}}</value>
+    <comment>{0} - the name of a tag provider. {{tag-group}} must NOT be translated!</comment>
+  </data>
+  <data name="TagsCreateNew" xml:space="preserve">
+    <value>新建标记提供者</value>
+  </data>
+  <data name="TagsCustomizeProviders" xml:space="preserve">
+    <value>(自定义提供者...)</value>
+  </data>
+  <data name="TagsEditPattern" xml:space="preserve">
+    <value>编辑 {0}</value>
+    <comment>{0} - Name of tag provider that is being edited</comment>
+  </data>
+  <data name="TagsHtmlCaptionHelpString" xml:space="preserve">
+    <value>为标记生成 HTML 的同时会显示的 HTML 标题。在要放置由 HTML 标记模板所生成的 HTML 处使用 {0} 。</value>
+    <comment>{0} - "{tag-group}"</comment>
+  </data>
+  <data name="TagsHtmlCaptionLabel" xml:space="preserve">
+    <value>标记列表的 HTML 标题(&amp;C):</value>
+  </data>
+  <data name="TagsHtmlDelimiterHelpString" xml:space="preserve">
+    <value>多个标记 HTML 之间应使用的分隔符。在每个标记生成的 HTML 之间应该使用此分隔符。</value>
+  </data>
+  <data name="TagsHtmlDelimiterLabel" xml:space="preserve">
+    <value>使用以下符号分隔每个标记的 HTML(&amp;S):</value>
+  </data>
+  <data name="TagsHtmlPreviewHelpString" xml:space="preserve">
+    <value>为一组标记生成的文本 HTML 的预览。</value>
+  </data>
+  <data name="TagsHtmlPreviewLabel" xml:space="preserve">
+    <value>HTML 预览:</value>
+  </data>
+  <data name="TagsHtmlTemplateHelpString" xml:space="preserve">
+    <value>HTML 模板将用于为提供的每个标记生成 HTML。在 HTML 模板中，在要放置标记的位置使用 {0}。在要放置 URL 编码标记的位置使用 {1}。</value>
+    <comment>{0} - "{tag}", {1} - "{tag-encoded}"</comment>
+  </data>
+  <data name="TagsHtmlTemplateLabel" xml:space="preserve">
+    <value>每个标记的 HTML 模板(&amp;H):</value>
+  </data>
+  <data name="TagsInsertTags" xml:space="preserve">
+    <value>插入标记</value>
+  </data>
+  <data name="TagsProviderDefaultCaption" xml:space="preserve">
+    <value>{0} 标记: {1}</value>
+    <comment>{0} - the name of a tag provider, {1} - tags provided by tag provider {0}</comment>
+  </data>
+  <data name="TagsProviderNameHelpString" xml:space="preserve">
+    <value>标记提供者的名称。插入标记时，此名称将显示在标记提供者列表中。</value>
+  </data>
+  <data name="TagsProviderNameLabel" xml:space="preserve">
+    <value>提供者名称(&amp;P):</value>
+  </data>
+  <data name="TagsRestoreDefaults" xml:space="preserve">
+    <value>还原默认设置(&amp;R)</value>
+  </data>
+  <data name="TagsTagExample1" xml:space="preserve">
+    <value>标记 1</value>
+  </data>
+  <data name="TagsTagExample2" xml:space="preserve">
+    <value>标记 2</value>
+  </data>
+  <data name="TagsTagOptions" xml:space="preserve">
+    <value>标记选项</value>
+  </data>
+  <data name="TagsTagProviderLabel" xml:space="preserve">
+    <value>标记提供者(&amp;P):</value>
+  </data>
+  <data name="TagsTagProvidersLabel" xml:space="preserve">
+    <value>标记提供者(&amp;T):</value>
+  </data>
+  <data name="TagsTagsLabel" xml:space="preserve">
+    <value>标记(逗号分隔)(&amp;T):</value>
+  </data>
+  <data name="TagsXmlParsingError" xml:space="preserve">
+    <value>{0} 参数丢失</value>
+    <comment>Exception when parsing tag providers xml file. {0} replaced by tag name that is missing.</comment>
+  </data>
+  <data name="TemporaryPostBody" xml:space="preserve">
+    <value>这是一个未删除的临时日志。请手动删除它。({0} - {1})</value>
+    <comment>{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E</comment>
+  </data>
+  <data name="TemporaryPostTitle" xml:space="preserve">
+    <value>用于主题检测的临时日志({0} - {1})</value>
+    <comment>{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E</comment>
+  </data>
+  <data name="TextStyle" xml:space="preserve">
+    <value>文本样式</value>
+    <comment>This is an accessibility name and should be localized.</comment>
+  </data>
+  <data name="TheErrorOccuredBecause" xml:space="preserve">
+    <value>发生错误的原因如下:</value>
+  </data>
+  <data name="TiltEditorLabel" xml:space="preserve">
+    <value>倾斜度(&amp;T):</value>
+  </data>
+  <data name="TiltEditorTitle" xml:space="preserve">
+    <value>倾斜度</value>
+  </data>
+  <data name="TitleDefaultText" xml:space="preserve">
+    <value>输入{0}标题</value>
+    <comment>{0} - Post or Page</comment>
+  </data>
+  <data name="TitleRemindDontShowAgain" xml:space="preserve">
+    <value>不再提示缺少标题(&amp;D)</value>
+  </data>
+  <data name="TitleRemindError" xml:space="preserve">
+    <value>未指定{0}标题</value>
+    <comment>{0} - Page or Post</comment>
+  </data>
+  <data name="TitleRemindExplanation" xml:space="preserve">
+    <value>尚未指定此{0}的标题。是否仍要继续发布?</value>
+    <comment>{0} - Page or Post</comment>
+  </data>
+  <data name="TitleRemindTitle" xml:space="preserve">
+    <value>标题提醒</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="ToolbarBoldLetter" xml:space="preserve">
+    <value>B</value>
+    <comment>The letter that should be used for the Bold button on the editing toolbar</comment>
+  </data>
+  <data name="ToolbarFontStyleFontFamily" xml:space="preserve">
+    <value />
+    <comment>The typeface that should be used to render the Bold</comment>
+  </data>
+  <data name="ToolbarItalicLetter" xml:space="preserve">
+    <value>I</value>
+    <comment>The letter that should be used for the Italic button on the editing toolbar</comment>
+  </data>
+  <data name="ToolbarStrikethroughLetter" xml:space="preserve">
+    <value>A</value>
+    <comment>The letter that should be used for the Strikethrough button on the editing toolbar</comment>
+  </data>
+  <data name="ToolbarUnderlineLetter" xml:space="preserve">
+    <value>U</value>
+    <comment>The letter that should be used for the Underline button on the editing toolbar</comment>
+  </data>
+  <data name="TruncatedString" xml:space="preserve">
+    <value>{0}...</value>
+    <comment>{0} - a string that is being truncated</comment>
+  </data>
+  <data name="UnexpectedErrorClickHere" xml:space="preserve">
+    <value>单击此处查看错误详细信息</value>
+  </data>
+  <data name="UnexpectedErrorContinue" xml:space="preserve">
+    <value>继续(&amp;C)</value>
+  </data>
+  <data name="UnexpectedErrorDescription" xml:space="preserve">
+    <value>我们已创建了供你查看的错误摘要。</value>
+  </data>
+  <data name="UnexpectedErrorExit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="UnexpectedErrorPluginDescription" xml:space="preserve">
+    <value>{0} 插件发生错误:{1}</value>
+    <comment>{0} - plug-in name, {1} - error description</comment>
+  </data>
+  <data name="UnexpectedErrorPluginTitle" xml:space="preserve">
+    <value>发生插件错误</value>
+  </data>
+  <data name="UnexpectedErrorTitle" xml:space="preserve">
+    <value>意外错误</value>
+  </data>
+  <data name="UnhandledExceptionErrorMessage" xml:space="preserve">
+    <value>应用程序发生意外错误。</value>
+  </data>
+  <data name="UnhandledExceptionErrorTitle" xml:space="preserve">
+    <value>发生意外错误</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>未知</value>
+    <comment>Used when the value is not known.</comment>
+  </data>
+  <data name="Untitled" xml:space="preserve">
+    <value>无标题</value>
+  </data>
+  <data name="UntitledPage" xml:space="preserve">
+    <value>(无标题页面)</value>
+    <comment>When a title needs to be displayed and a page doesn't have a title, this string will be used instead.</comment>
+  </data>
+  <data name="UntitledPost" xml:space="preserve">
+    <value>(无标题日志)</value>
+    <comment>When a title needs to be displayed and a post doesn't have a title, this string will be used instead.</comment>
+  </data>
+  <data name="UpdateAccountConfiguration" xml:space="preserve">
+    <value>更新帐户信息(&amp;U)...</value>
+  </data>
+  <data name="UpdateAccountConfigurationTitle" xml:space="preserve">
+    <value>更新帐户配置</value>
+  </data>
+  <data name="UpdatesAvailableAskLaterButton" xml:space="preserve">
+    <value>稍后询问我(&amp;S)</value>
+    <comment>Text displayed on ask me later button</comment>
+  </data>
+  <data name="UpdatesAvailableChecking" xml:space="preserve">
+    <value>正在检查更新</value>
+    <comment>Displayed in progress dialog while user manually checks for updates</comment>
+  </data>
+  <data name="UpdatesAvailableDownloadButton" xml:space="preserve">
+    <value>立即下载(&amp;D)</value>
+    <comment>Text displayed on download button</comment>
+  </data>
+  <data name="UpdatesAvailableLink" xml:space="preserve">
+    <value>更多信息</value>
+  </data>
+  <data name="UpdatesAvailableMessage" xml:space="preserve">
+    <value>在你下次启动 Open Live Writer 时，将会应用所需的更新。</value>
+    <comment>Message shown to user when updates are found.</comment>
+  </data>
+  <data name="UpdatesAvailableMessageFull" xml:space="preserve">
+    <value>现在你可以使用 {0} 的新版本。请单击“立即下载”按钮来下载并安装更新。</value>
+    <comment>{0} will be replaced with the product name (i.e. Open Live Writer)</comment>
+  </data>
+  <data name="UpdatesAvailableMessagePrerelease" xml:space="preserve">
+    <value>现在你可使用新的 {0} 预发布版本。单击“立即下载”按钮来下载并安装更新。</value>
+    <comment>{0} will be replaced with the product name (i.e. Open Live Writer)</comment>
+  </data>
+  <data name="UpdatesAvailableNofifyBeta" xml:space="preserve">
+    <value>同时检查预发布版本(试用版)(&amp;V)</value>
+  </data>
+  <data name="UpdatesAvailableNotify" xml:space="preserve">
+    <value>自动检查更新(&amp;A)</value>
+  </data>
+  <data name="UpdatesAvailableNoUpdateText" xml:space="preserve">
+    <value>当前没有可用更新。你运行的是最新版本的 {0}。</value>
+    <comment>{0} will be replaced with the product name</comment>
+  </data>
+  <data name="UpdatesAvailableNoUpdateTitle" xml:space="preserve">
+    <value>无可用更新</value>
+  </data>
+  <data name="UpdatesAvailableTitle" xml:space="preserve">
+    <value>有可用新版本</value>
+  </data>
+  <data name="UpdatesAvailableTitlePrerelease" xml:space="preserve">
+    <value>现在你可使用新的预发布版本</value>
+  </data>
+  <data name="UpdatesBandClose" xml:space="preserve">
+    <value>关闭</value>
+    <comment>Used to hide the updates available message</comment>
+  </data>
+  <data name="UpdatesInstalling" xml:space="preserve">
+    <value>正在下载和安装 {0} 更新。请稍候 ...</value>
+    <comment>{0} is number of updates</comment>
+  </data>
+  <data name="UpdatesPreparing" xml:space="preserve">
+    <value>正在准备更新 Open Live Writer...</value>
+    <comment>Message to user while updates are getting downloaded.</comment>
+  </data>
+  <data name="UpdatesProgressTitle" xml:space="preserve">
+    <value>安装更新 - Open Live Writer</value>
+    <comment>Dialog box title for installing update progress dialog.</comment>
+  </data>
+  <data name="UpdatesStartingWriter" xml:space="preserve">
+    <value>正在启动更新过的  Open Live Writer...</value>
+    <comment>Message after updates are installed and before writer starts.</comment>
+  </data>
+  <data name="UpdateWeblogDraft" xml:space="preserve">
+    <value>草稿</value>
+  </data>
+  <data name="UpdateWeblogPublish1" xml:space="preserve">
+    <value>发布{0}</value>
+    <comment>{0} - Post/Page/Draft</comment>
+  </data>
+  <data name="UpdateWeblogPublish2" xml:space="preserve">
+    <value>正在将{0}发布到 {1}</value>
+    <comment>{0} - Post/Page/Draft, {1} - blog name</comment>
+  </data>
+  <data name="UpdateWeblogViewPost" xml:space="preserve">
+    <value>发布后在浏览器中打开日志</value>
+  </data>
+  <data name="UrlLabel" xml:space="preserve">
+    <value>网址(&amp;W):</value>
+  </data>
+  <data name="UrlRetrieveProgressCaption" xml:space="preserve">
+    <value>正在检索数据</value>
+  </data>
+  <data name="UrlRetrieveProgressMessage" xml:space="preserve">
+    <value>正在检索发布所需的其他数据...</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>用户名:</value>
+  </data>
+  <data name="UsernameLabel" xml:space="preserve">
+    <value>用户名(&amp;U):</value>
+  </data>
+  <data name="VideoCaptionDefaultText" xml:space="preserve">
+    <value>在此输入视频标题</value>
+  </data>
+  <data name="VideoCaptionMaxCharactersAccepted" xml:space="preserve">
+    <value>245</value>
+    <comment>The maximum number of characters allowed in the video caption edit field - Cannot be greater than 245</comment>
+  </data>
+  <data name="VideoError" xml:space="preserve">
+    <value>发布视频时出错</value>
+  </data>
+  <data name="VideoErrorTryAgain" xml:space="preserve">
+    <value>请删除该视频并重试发布。</value>
+  </data>
+  <data name="VideoFromVideoService" xml:space="preserve">
+    <value>来自视频服务</value>
+    <comment>The name of the tab in the insert video dialog that allows users to insert soapbox or youtube videos.</comment>
+  </data>
+  <data name="VideoGetVideosError" xml:space="preserve">
+    <value>获取视频列表时出错。</value>
+  </data>
+  <data name="VideoLoading" xml:space="preserve">
+    <value>正在加载...</value>
+  </data>
+  <data name="VideoLocalProcessing" xml:space="preserve">
+    <value>正在上载视频...</value>
+  </data>
+  <data name="VideoNetworkError" xml:space="preserve">
+    <value>网络连接出现错误。</value>
+  </data>
+  <data name="VideoRemoteProcessing" xml:space="preserve">
+    <value>{0} 正在处理你上载的视频。\r\n此过程可能需要一段时间才能完成。</value>
+    <comment>{0} - Soapbox or Youtube</comment>
+  </data>
+  <data name="VideoUrlConvertError" xml:space="preserve">
+    <value>此视频没有包含视频 ID。请输入视频的嵌入代码。</value>
+  </data>
+  <data name="ViewAll" xml:space="preserve">
+    <value>查看全部</value>
+    <comment>shows the full list of options</comment>
+  </data>
+  <data name="ViewButton" xml:space="preserve">
+    <value>查看(&amp;V)</value>
+    <comment>View blog</comment>
+  </data>
+  <data name="ViewMap" xml:space="preserve">
+    <value>查看地图</value>
+  </data>
+  <data name="ViewWeblog" xml:space="preserve">
+    <value>查看日志</value>
+  </data>
+  <data name="ViewWeblogCapabilities" xml:space="preserve">
+    <value>查看日志功能</value>
+  </data>
+  <data name="WatermarkAlignBottomLeft" xml:space="preserve">
+    <value>左下</value>
+  </data>
+  <data name="WatermarkAlignBottomRight" xml:space="preserve">
+    <value>右下</value>
+  </data>
+  <data name="WatermarkAlignCentered" xml:space="preserve">
+    <value>居中</value>
+  </data>
+  <data name="WatermarkAlignTopLeft" xml:space="preserve">
+    <value>左上</value>
+  </data>
+  <data name="WatermarkAlignTopRight" xml:space="preserve">
+    <value>右上</value>
+  </data>
+  <data name="WatermarkAlignUnknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="WatermarkDefaultFont" xml:space="preserve">
+    <value>Arial</value>
+    <comment>The default font that should be selected in the watermark editor</comment>
+  </data>
+  <data name="WatermarkDefaultText" xml:space="preserve">
+    <value>© {0:yyyy}</value>
+    <comment>{0} - Year.  This string can be blank.  THis is the default text in the watermark textbox when the image has no watermark</comment>
+  </data>
+  <data name="WatermarkDialogTitle" xml:space="preserve">
+    <value>水印</value>
+  </data>
+  <data name="WatermarkFontFamilyLabel" xml:space="preserve">
+    <value>字体(&amp;F):</value>
+  </data>
+  <data name="WatermarkPositionLabel" xml:space="preserve">
+    <value>位置(&amp;P):</value>
+  </data>
+  <data name="WatermarkSizeLabel" xml:space="preserve">
+    <value>大小(&amp;S):</value>
+  </data>
+  <data name="WatermarkTextLabel" xml:space="preserve">
+    <value>水印文本(&amp;W):</value>
+  </data>
+  <data name="WatsonMainIntroBoldFormat" xml:space="preserve">
+    <value>{0} 遇到问题: {1}。</value>
+    <comment>{0} - Open Live Writer, {1} - error message</comment>
+  </data>
+  <data name="WatsonMainIntroRegFormat" xml:space="preserve">
+    <value>{0} {1}</value>
+    <comment>{0} - error title, {1} - error message</comment>
+  </data>
+  <data name="WatsonMainPleaBold" xml:space="preserve">
+    <value>请将此问题通知 Microsoft。</value>
+  </data>
+  <data name="WatsonMainPleaReg" xml:space="preserve">
+    <value>我们已创建错误报告，你可以发送该错误报告来帮助我们纠正错误。我们将以匿名和保密的方式处理该报告。</value>
+  </data>
+  <data name="WatsonNoReportButton" xml:space="preserve">
+    <value>不发送报告</value>
+    <comment>The report in question is the error report from Watson.</comment>
+  </data>
+  <data name="WatsonReportButton" xml:space="preserve">
+    <value>发送报告</value>
+    <comment>The report in question is the error report from Watson.</comment>
+  </data>
+  <data name="WebLayoutWarning1" xml:space="preserve">
+    <value>使用该主题编辑当前日志的内容时可能会遇到问题(例如，日志版式不正确，或在选择内容和调整内容大小时遇到问题)。</value>
+  </data>
+  <data name="WebLayoutWarning2" xml:space="preserve">
+    <value>如果确实遇到问题，应返回，尝试不使用该主题编辑内容。</value>
+  </data>
+  <data name="WebLayoutWarningTitle" xml:space="preserve">
+    <value>Web 版式视图</value>
+  </data>
+  <data name="Weblog" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="WeblogCapabilitiesCapability" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="WeblogCapabilitiesCaption" xml:space="preserve">
+    <value>{0} 检测到你日志的以下功能:</value>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
+  <data name="WeblogCapabilitiesTitle" xml:space="preserve">
+    <value>日志功能</value>
+  </data>
+  <data name="WeblogCapabilitiesValue" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="WeblogName" xml:space="preserve">
+    <value>日志名称(&amp;B):</value>
+  </data>
+  <data name="WeblogNameColon" xml:space="preserve">
+    <value>日志昵称(&amp;N):</value>
+  </data>
+  <data name="WeblogProvider" xml:space="preserve">
+    <value>日志服务:</value>
+  </data>
+  <data name="WeblogSettings" xml:space="preserve">
+    <value>日志选项 - {0}</value>
+    <comment>{0} - Name of blog</comment>
+  </data>
+  <data name="Width" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+  <data name="WidthColon" xml:space="preserve">
+    <value>宽度(&amp;W):</value>
+  </data>
+  <data name="WidthLabel" xml:space="preserve">
+    <value>宽度(&amp;W):</value>
+  </data>
+  <data name="PhotoPreview" xml:space="preserve">
+    <value>嵌入图片预览器</value>
+  </data>
+  <data name="WindowTitleFormat" xml:space="preserve">
+    <value>{0} - {1}</value>
+    <comment>{0} - post title, {1} - "Open Live Writer"</comment>
+  </data>
+  <data name="WithEllipses" xml:space="preserve">
+    <value>{0}...</value>
+    <comment>{0} - a command name that needs to be followed with ellipses, in accordance with Windows UI guidelines</comment>
+  </data>
+  <data name="WizardBack" xml:space="preserve">
+    <value>&lt; 上一步(&amp;B)</value>
+  </data>
+  <data name="WizardBlogTypeConfigureTo" xml:space="preserve">
+    <value>配置 {0} 以发布到:</value>
+    <comment>{0} - Long product name, i.e. "Open Live Writer"; followed by a choice of two options: "SharePoint blog" or "Another blog service"</comment>
+  </data>
+  <data name="WizardBlogTypeGoogleBlogger" xml:space="preserve">
+    <value>&amp;Google Blogger</value>
+  </data>
+  <data name="WizardBlogTypeOther" xml:space="preserve">
+    <value>其他服务(&amp;O)</value>
+  </data>
+  <data name="WizardBlogTypeSharePoint" xml:space="preserve">
+    <value>&amp;SharePoint</value>
+  </data>
+  <data name="WizardBlogTypeWelcome" xml:space="preserve">
+    <value>许多常见的日志服务都可以使用 {0}。</value>
+    <comment>{0} - Long product name, i.e. "Open Live Writer"</comment>
+  </data>
+  <data name="WizardBlogTypeWhatBlogType" xml:space="preserve">
+    <value>你使用哪种日志服务?</value>
+  </data>
+  <data name="WizardFinish" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="WizardNext" xml:space="preserve">
+    <value>下一步(&amp;N) &gt;</value>
+  </data>
+  <data name="WordCount" xml:space="preserve">
+    <value>字数</value>
+    <comment>{0} - The number of words in any given text.</comment>
+  </data>
+  <data name="WordCountTitle" xml:space="preserve">
+    <value>字数统计</value>
+    <comment>The text shown on the dialog that gives word count</comment>
+  </data>
+  <data name="Words" xml:space="preserve">
+    <value>字数: {0}</value>
+    <comment>{0} - number of words in the document</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="YesButton" xml:space="preserve">
+    <value>是(&amp;Y)</value>
+  </data>
+  <data name="YouTubeblocked" xml:space="preserve">
+    <value>内容所有者阻止了该视频。</value>
+  </data>
+  <data name="YouTubecantProcess" xml:space="preserve">
+    <value>YouTube 无法转换此视频文件。</value>
+  </data>
+  <data name="YouTubecopyright" xml:space="preserve">
+    <value>此视频侵犯了版权。</value>
+  </data>
+  <data name="YouTubeduplicate" xml:space="preserve">
+    <value>此视频与另一已上载视频相重复。</value>
+  </data>
+  <data name="YouTubeempty" xml:space="preserve">
+    <value>上载的文件为空。</value>
+  </data>
+  <data name="YouTubeinappropriate" xml:space="preserve">
+    <value>此视频包含不合适的内容。</value>
+  </data>
+  <data name="YouTubeinvalidFormat" xml:space="preserve">
+    <value>上载的视频文件格式无效。</value>
+  </data>
+  <data name="YouTubeInvalidResult" xml:space="preserve">
+    <value>系统收到了来自 YouTube 的意外响应。</value>
+  </data>
+  <data name="YouTubeNoAccount" xml:space="preserve">
+    <value>没有任何 YouTube 帐户与此 Google 帐户相关联。</value>
+  </data>
+  <data name="YouTubesuspended" xml:space="preserve">
+    <value>与此视频相关联的帐户已被停用。</value>
+  </data>
+  <data name="YouTubetermsOfUse" xml:space="preserve">
+    <value>此视频违反了使用条款。</value>
+  </data>
+  <data name="YouTubetooLong" xml:space="preserve">
+    <value>此视频超过了最大时长 10 分钟的限制。</value>
+  </data>
+  <data name="YouTubetooSmall" xml:space="preserve">
+    <value>上载的文件太小。</value>
+  </data>
+  <data name="YouTubeunsupportedCodec" xml:space="preserve">
+    <value>此视频使用了不支持的编解码器。</value>
+  </data>
+  <data name="YouTubeVideoError" xml:space="preserve">
+    <value>上载视频时出错。</value>
+  </data>
+  <data name="UnexpectedErrorSendError" xml:space="preserve">
+    <value>发送错误(&amp;S)</value>
+  </data>
+</root>
