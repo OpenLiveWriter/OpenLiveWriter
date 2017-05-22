@@ -2,17 +2,15 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net.Cache;
 using System.Text;
-using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using BlogRunner.Core.Config;
 using System.Xml;
 using System.Threading;
 using System.Net;
 using System.Text.RegularExpressions;
+using OpenLiveWriter.CoreServices;
 
 namespace BlogRunner.Core
 {

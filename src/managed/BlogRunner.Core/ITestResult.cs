@@ -3,8 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using BlogRunner.Core.Config;
 using System.IO;
 using System.Globalization;
 
