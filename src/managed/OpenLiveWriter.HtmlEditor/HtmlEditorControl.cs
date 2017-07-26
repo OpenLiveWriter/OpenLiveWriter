@@ -4551,6 +4551,19 @@ namespace OpenLiveWriter.HtmlEditor
             ExecuteBlockCommand(new CommandExecutor(GetMshtmlCommand(IDM.OUTDENT).Execute));
         }
 
+        bool IHtmlEditorCommandSource.CanInsertCode
+        {
+            get
+            {
+                return Editable;
+            }
+        }
+
+        void IHtmlEditorCommandSource.InsertCode()
+        {
+            MessageBox.Show(@"Comming soon!");
+        }
+
         bool IHtmlEditorCommandSource.CanInsertLink
         {
             get

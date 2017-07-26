@@ -1425,12 +1425,12 @@ namespace OpenLiveWriter.PostEditor
 
             protected override void Execute()
             {
-                MessageBox.Show(@"Comming soon!");
+                PostEditor.InsertCode();
             }
 
             public override void Manage()
             {
-                Enabled = true;
+                Enabled = PostEditor.CanInsertCode;
             }
         }
 
