@@ -4570,8 +4570,12 @@ namespace OpenLiveWriter.HtmlEditor
                     IUndoUnit undoUnit = CreateUndoUnit();
                     using (undoUnit)
                     {
-                        var styledHtml = CodeHighlighter.StyledHtml(htmlText);
+                        IHTMLDocument2 document = HTMLDocument;
+                        var styledHtml = CodeHighlighter.StyledHtml(htmlText, document.body.innerHTML);
                         InsertHtml(range.Start, range.End, styledHtml);
+
+
+
                         // commit the change
                         undoUnit.Commit();
                     }
