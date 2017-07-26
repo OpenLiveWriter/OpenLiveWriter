@@ -17,7 +17,6 @@ namespace OpenLiveWriter.HtmlEditor
         {
             // Using Google's prettifier (https://github.com/google/code-prettify)
 
-            // Add reference to the public JS 
             bool addScript = ShouldAddJsScript(innerHtml);
 
             htmlText = RemoveCode(htmlText, preOpenStyled, preClose);

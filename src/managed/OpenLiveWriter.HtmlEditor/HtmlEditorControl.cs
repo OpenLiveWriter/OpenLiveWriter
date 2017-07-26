@@ -4572,10 +4572,9 @@ namespace OpenLiveWriter.HtmlEditor
                     {
                         IHTMLDocument2 document = HTMLDocument;
                         var styledHtml = CodeHighlighter.StyledHtml(htmlText, document.body.innerHTML);
+
                         InsertHtml(range.Start, range.End, styledHtml);
-
-
-
+                        
                         // commit the change
                         undoUnit.Commit();
                     }
