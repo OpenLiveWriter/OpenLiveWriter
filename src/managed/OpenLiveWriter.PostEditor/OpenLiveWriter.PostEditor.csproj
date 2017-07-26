@@ -234,6 +234,7 @@
     <Compile Include="BlogProviderButtons\BlogProviderButton.cs" />
     <Compile Include="BlogProviderButtons\BlogProviderButtonManager.cs" />
     <Compile Include="BlogProviderButtons\BlogProviderButtonNotificationSink.cs" />
+    <Compile Include="CodeSnippet\CodeSnippetGenerator.cs" />
     <Compile Include="Commands\AboutCommand.cs" />
     <Compile Include="Commands\AlignmentCommand.cs" />
     <Compile Include="Commands\CommandWeblogPicker.cs" />

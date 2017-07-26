@@ -158,6 +158,7 @@ namespace OpenLiveWriter.Localization
         ImageTilt = 1085,
         Indent = 1046,
         InsertClearBreak = 1039,
+        InsertCode = 1041,
         InsertColumnLeft = 23377,
         InsertColumnRight = 23378,
         InsertEmoticon = 1102,

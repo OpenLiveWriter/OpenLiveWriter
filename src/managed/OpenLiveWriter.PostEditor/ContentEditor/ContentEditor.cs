@@ -367,6 +367,10 @@ namespace OpenLiveWriter.PostEditor
             commandInsertEmoticon = new EmoticonsGalleryCommand(CommandId.InsertEmoticon, this);
             CommandManager.Add(commandInsertEmoticon, commandInsertEmoticon_Execute);
 
+            commandInsertCode = new Command(CommandId.InsertCode);
+            commandInsertCode.Execute += new EventHandler(commandInsertCode_Execute);
+            CommandManager.Add(commandInsertCode);
+
             commandInsertVideoFromService = new Command(CommandId.InsertVideoFromService);
             commandInsertVideoFromService.Enabled = _videoProvidersFeatureEnabled;
             commandInsertVideoFromService.Execute += new EventHandler(commandInsertVideoFromService_Execute);
@@ -587,6 +591,11 @@ namespace OpenLiveWriter.PostEditor
         private void commandInsertTags_Execute(object sender, EventArgs e)
         {
             CommandManager.Get(TagContentSource.ID).PerformExecute();
+        }
+
+        private void commandInsertCode_Execute(object sender, EventArgs eventArgs)
+        {
+            MessageBox.Show(@"Comming soon!");
         }
 
         private void commandInsertEmoticon_Execute(object sender, ExecuteEventHandlerArgs args)
@@ -3780,6 +3789,7 @@ namespace OpenLiveWriter.PostEditor
         private Command commandInsertTags;
         private Command commandInsertVideoFromWeb;
         private EmoticonsGalleryCommand commandInsertEmoticon;
+        private Command commandInsertCode;
 
         internal void AddLoadSuppressCount()
         {
