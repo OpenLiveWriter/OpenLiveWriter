@@ -4561,7 +4561,33 @@ namespace OpenLiveWriter.HtmlEditor
 
         void IHtmlEditorCommandSource.InsertCode()
         {
-            MessageBox.Show(@"Comming soon!");
+            using (new WaitCursor())
+            {
+                var range = SelectedMarkupRange;
+                string htmlText = range?.HtmlText;
+                if (htmlText != null)
+                {
+                    IUndoUnit undoUnit = CreateUndoUnit();
+                    using (undoUnit)
+                    {
+                        const string preOpen = "<pre>";
+                        const string preClose = "</pre>";
+                        htmlText = RemoveCode(htmlText, preOpen, preClose);
+
+                        string styledHtml = $"{preOpen}{htmlText}{preClose}";
+                        InsertHtml(range.Start, range.End, styledHtml);
+                        // commit the change
+                        undoUnit.Commit();
+                    }
+                }
+            }
+        }
+
+        private static string RemoveCode(string htmlText, string preOpen, string preClose)
+        {
+            htmlText = htmlText.Replace(preOpen, String.Empty).Replace(preClose, String.Empty);
+            htmlText = htmlText.Replace(preOpen.ToUpper(), String.Empty).Replace(preClose.ToUpper(), String.Empty);
+            return htmlText;
         }
 
         bool IHtmlEditorCommandSource.CanInsertLink
