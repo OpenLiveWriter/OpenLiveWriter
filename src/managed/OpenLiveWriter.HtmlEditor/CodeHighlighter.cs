@@ -1,5 +1,4 @@
 using System;
-using mshtml;
 
 namespace OpenLiveWriter.HtmlEditor
 {
@@ -11,9 +10,10 @@ namespace OpenLiveWriter.HtmlEditor
         private const string PRE_CLOSE = "</pre>";
         private const string PRE_OPEN_STYLED = "<pre class=\"prettyprint\">";
         private const string PRETTIFY_SCRIPT_NAME = "run_prettify.js";
+        private const string DEFAULT_SKIN = CodeHighlighterSkins.Sunburst;
 
         private static readonly string _prettifyScript =
-            $"<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/{PRETTIFY_SCRIPT_NAME}\"></script>";
+            $"<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/{PRETTIFY_SCRIPT_NAME}?skin={DEFAULT_SKIN}\"></script>";
 
         public static string StyledHtml(string htmlText, string innerHtml)
         {
@@ -73,8 +73,12 @@ namespace OpenLiveWriter.HtmlEditor
         }
     }
 
+    // To be used when adding support for skins 
+    // For example: https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=sunburst
+    // All Styles: https://rawgit.com/google/code-prettify/master/styles/index.html
     public static class CodeHighlighterSkins
     {
+        public const string Default = "default";
         public const string Sunburst = "sunburst";
         public const string SonsOfObsidian = "sons-of-obsidian";
         public const string Desert = "desert";
