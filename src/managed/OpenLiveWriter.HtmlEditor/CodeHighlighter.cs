@@ -5,33 +5,46 @@ namespace OpenLiveWriter.HtmlEditor
 {
     public class CodeHighlighter
     {
-        const string prettyprint = "prettyprint";
-        const string preOpen = "<pre>";
-        const string preClose = "</pre>";
-        static readonly string preOpenStyled = $"<pre class=\"{prettyprint}\">";
+        private const int TAB_SIZE = 4;
 
-        private static readonly string codePrettifyScript =
-            "<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js\"></script>";
+        private const string PRE_OPEN = "<pre>";
+        private const string PRE_CLOSE = "</pre>";
+        private const string PRE_OPEN_STYLED = "<pre class=\"prettyprint\">";
+        private const string PRETTIFY_SCRIPT_NAME = "run_prettify.js";
+
+        private static readonly string _prettifyScript =
+            $"<script src=\"https://cdn.rawgit.com/google/code-prettify/master/loader/{PRETTIFY_SCRIPT_NAME}\"></script>";
 
         public static string StyledHtml(string htmlText, string innerHtml)
         {
             // Using Google's prettifier (https://github.com/google/code-prettify)
+            htmlText = SwapTabsForSpaces(htmlText);
+            htmlText = ReplaceLineEndings(htmlText);
+            htmlText = RemoveCode(htmlText, PRE_OPEN_STYLED, PRE_CLOSE);
+            htmlText = RemoveCode(htmlText, PRE_OPEN, PRE_CLOSE);
 
             bool addScript = ShouldAddJsScript(innerHtml);
+            string script = addScript ? _prettifyScript : string.Empty;
 
-            htmlText = RemoveCode(htmlText, preOpenStyled, preClose);
-            htmlText = RemoveCode(htmlText, preOpen, preClose);
-
-            string script = addScript ? codePrettifyScript : string.Empty;
-
-            string styledHtml = $"{script}{preOpenStyled}{htmlText}{preClose}";
+            string styledHtml = $"{script}{PRE_OPEN_STYLED}{htmlText}{PRE_CLOSE}";
             return styledHtml;
+        }
+
+        private static string ReplaceLineEndings(string htmlText)
+        {
+            htmlText = htmlText.Replace(Environment.NewLine, "");
+            return htmlText;
+        }
+
+        private static string SwapTabsForSpaces(string text)
+        {
+            return text.Replace("\t", " ".PadLeft(TAB_SIZE));
         }
 
         private static bool ShouldAddJsScript(string innerHtml)
         {
             var body = innerHtml.ToLowerInvariant();
-            if (body.Contains(codePrettifyScript))
+            if (body.Contains(PRETTIFY_SCRIPT_NAME))
             {
                 return false;
             }
@@ -58,5 +71,12 @@ namespace OpenLiveWriter.HtmlEditor
 
             return htmlText;
         }
+    }
+
+    public static class CodeHighlighterSkins
+    {
+        public const string Sunburst = "sunburst";
+        public const string SonsOfObsidian = "sons-of-obsidian";
+        public const string Desert = "desert";
     }
 }
