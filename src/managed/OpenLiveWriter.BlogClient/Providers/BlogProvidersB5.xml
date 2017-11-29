@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE xpp[
   <!ENTITY wave2mship "0.5.0.0">
 ]>
@@ -604,4 +604,32 @@
       <supportsScripts>Yes</supportsScripts>
     </options>
   </provider>
+  <provider>
+    <id>9E0EC9F9-AFDD-4812-9298-8963D5DB94CC</id>
+    <name>Tistory OAuth</name>
+    <description>Tistory Oauth.</description>
+    <clientType>TistoryBlogClient</clientType>
+    <rsdEngineNamePattern>Movable Type</rsdEngineNamePattern>
+    <postApiUrl>
+      <![CDATA[
+    https://www.tistory.com/oauth/authorize?client_id=[id]&redirect_uri=http://id.tistory.com&response_type=token
+    ]]>
+    </postApiUrl>
+    <options>
+      <serviceName>TisotryOAuth</serviceName>
+      <supportsScripts>Yes</supportsScripts>
+      <supportsEmbeds>Yes</supportsEmbeds>
+	  <supportsPages>No</supportsPages>
+      <supportsCustomDate>Yes</supportsCustomDate>
+      <futurePublishDateWarning>No</futurePublishDateWarning>
+      <defaultView>WebLayout</defaultView>
+      <invalidPostIdFaultCodePattern>^404$</invalidPostIdFaultCodePattern>
+      <supportsMultipleCategories>Yes</supportsMultipleCategories>
+      <supportsEmptyTitles>Yes</supportsEmptyTitles>
+      <requiresHtmlTitles>Yes</requiresHtmlTitles>
+      <usePicasaImgMaxAlways>Yes</usePicasaImgMaxAlways>
+      <usePicasaS1600h>Yes</usePicasaS1600h>
+    </options>
+  </provider>
+  
 </providers>
