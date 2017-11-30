@@ -11,7 +11,9 @@ environment:
   OlwBloggerClientSecret:
     secure: ym7cbPINJz58iEgVlQCDbRz2W1CTYnxWsvMpMvxHFY4=
   SignClientSecret:
-    secure: CHm+63iqVR0ddIHjGwE8nYF2EdUikH5VzCcszekUwptHkCLTuJ3C9ci8fcyox03s
+    secure: Ks35w5ZOk78Bla9953hrhvDm2+t2NY83VgI+IcW92L0=
+  SignClientUser:
+    secure: v2LT5VnPWsq3/aLDN0xsyNjdwCZutUSH8CS/htCB8yXbzmwWrQIWs7TvJdrFqZB+
 nuget:
   disable_publish_on_pr: true
 build_script:
@@ -19,7 +21,7 @@ build_script:
   - cmd: ./build.cmd
 test: off
 install:
-  - cmd: nuget install SignClient -Version 0.7.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion
+  - cmd: nuget install SignClient -Version 0.9.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion
 after_build:
   - ps: '.\SignClient\Sign-Package.ps1'  
 artifacts:
