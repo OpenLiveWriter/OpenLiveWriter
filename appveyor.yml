@@ -15,7 +15,8 @@ environment:
 nuget:
   disable_publish_on_pr: true
 build_script:
-- cmd: ./build.cmd
+  - cmd: powershell.exe get-date 
+  - cmd: ./build.cmd
 test: off
 install:
   - cmd: nuget install SignClient -Version 0.7.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion
