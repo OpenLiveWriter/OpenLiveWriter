@@ -15,7 +15,7 @@ environment:
 nuget:
   disable_publish_on_pr: true
 build_script:
-  - cmd: powershell.exe get-date 
+  - ps: $env:Path = [System.String]::Join(";", ($env:Path -split ";" | Where-Object {!$_.Contains("C:\Tools\vcpkg")}))
   - cmd: ./build.cmd
 test: off
 install:
