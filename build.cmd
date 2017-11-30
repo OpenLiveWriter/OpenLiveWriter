@@ -42,4 +42,6 @@ IF "%OLW_CONFIG%" == "" (
   set OLW_CONFIG=Debug
 )
 
+powershell.exe get-date 
+
 %BUILD_TOOLS_PATH% %SOLUTION_PATH% /nologo /maxcpucount /verbosity:minimal /p:Configuration=%OLW_CONFIG% %*
