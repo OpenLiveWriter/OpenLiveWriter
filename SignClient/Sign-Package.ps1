@@ -10,14 +10,14 @@ if([string]::IsNullOrEmpty($env:SignClientSecret)){
 
 $appSettings = "$currentDirectory\appsettings.json"
 
-$appPath = "$currentDirectory\..\packages\SignClient\tools\SignClient.dll"
+$appPath = "$currentDirectory\..\packages\SignClient\tools\netcoreapp2.0\SignClient.dll"
 
 $releases = ls $currentDirectory\..\Releases\*.exe | Select -ExpandProperty FullName
 
 foreach ($release in $releases){
 	Write-Host "Submitting $release for signing"
 
-	dotnet $appPath 'sign' -c $appSettings -i $release -s $env:SignClientSecret -n 'Open Live Writer' -d 'Open Live Writer' -u 'http://openlivewriter.org' 
+	dotnet $appPath 'sign' -c $appSettings -i $release -r $env:SignClientUser -s $env:SignClientSecret -n 'Open Live Writer' -d 'Open Live Writer' -u 'http://openlivewriter.org' 
 
 	Write-Host "Finished signing $release"
 }
