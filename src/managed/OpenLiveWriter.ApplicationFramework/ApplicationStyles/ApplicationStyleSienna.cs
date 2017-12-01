@@ -15,7 +15,7 @@ namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
         private Container components = null;
 
         /// <summary>
-        /// Initializes a new insance of the ApplicationStyleSienna class.
+        /// Initializes a new instance of the ApplicationStyleSienna class.
         /// </summary>
         public ApplicationStyleSienna()
         {

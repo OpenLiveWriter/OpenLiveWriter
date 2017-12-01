@@ -231,7 +231,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private ImagePropertiesInfo _imageInfo;
 
         /// <summary>
-        /// Manages the commands assocatiated with image editing.
+        /// Manages the commands associated with image editing.
         /// </summary>
         private void ManageCommands()
         {

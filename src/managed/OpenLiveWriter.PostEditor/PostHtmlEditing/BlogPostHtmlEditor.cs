@@ -409,7 +409,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             CommandManager.Add(new GroupCommand(CommandId.InsertImageSplit, CommandManager.Get(CommandId.InsertPictureFromFile)));
 
-            // WinLive 181138 - A targetted fix to ensure the InsertVideoSplit command is disabled if we don't support InsertVideo (e.g zh-CN doesn't support video)
+            // WinLive 181138 - A targeted fix to ensure the InsertVideoSplit command is disabled if we don't support InsertVideo (e.g zh-CN doesn't support video)
             // The problem is related to Windows 7 #712524 & #758433 and this is a work around for this particular case.
             // The dropdown commands for this (InsertVideoFromFile etc) are already disabled based on the feature support. We explicitly set the state of
             // group command here so that it has the right state to begin with (otherwise a switch tab/app is required to refresh).
@@ -561,7 +561,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private void ShowWebLayoutWarningIfNecessary()
         {
             // if the blog's DefaultView is not WebLayout and the user has not chosen
-            // to supress the web-layout warning dialog then show a warning prior
+            // to suppress the web-layout warning dialog then show a warning prior
             // to proceeding
             if (_currentBlog.DefaultView != EditingViews.WebLayout)
             {
@@ -594,7 +594,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // Remove noscript tags from the editing template.  If a user has a blog theme of
             // <html><head><noscript></noscript></head><body><div></div></body></html> we will parse it to
             // <html><head><noscript></head><body><div></div></body></noscript></html> and this code will change it to
-            // <html><head></head><body><div></div></body></html> which will allow us to attach our beavhiors to the body element
+            // <html><head></head><body><div></div></body></html> which will allow us to attach our behaviors to the body element
             wysiwygHTML = Regex.Replace(wysiwygHTML, "</?NOSCRIPT>", "", RegexOptions.IgnoreCase);
             // Remove any scroll=no attributes. Sharepoint 2010 adds these.
             wysiwygHTML = Regex.Replace(wysiwygHTML, "scroll=[\"']?no[\"']?", "", RegexOptions.IgnoreCase);

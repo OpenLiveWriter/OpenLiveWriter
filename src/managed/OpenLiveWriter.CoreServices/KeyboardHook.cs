@@ -120,7 +120,7 @@ namespace OpenLiveWriter.CoreServices
             catch (Exception ex)
             {
                 Trace.WriteLine("Caught exception while handling keyboard hook: " + ex.ToString());
-                return new IntPtr(1); // supress key from editor
+                return new IntPtr(1); // suppress key from editor
             }
         }
 
@@ -131,7 +131,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Delegate for KeyboardProc (hold on to a reference to it so that it
-        /// isn't garbarge collected)
+        /// isn't garbage collected)
         /// </summary>
         private User32.HookDelegate m_hookDelegate;
     }

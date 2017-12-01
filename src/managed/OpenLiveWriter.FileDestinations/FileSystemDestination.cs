@@ -79,7 +79,7 @@ namespace OpenLiveWriter.FileDestinations
         /// Retrieves a file from the destination and copies it to the specified path.
         /// </summary>
         /// <param name="fromPath">the file to retrieve from the destination (relative to basePath)</param>
-        /// <param name="toPath">the local location to save the contents of the file (fully-qualifed path)</param>
+        /// <param name="toPath">the local location to save the contents of the file (fully-qualified path)</param>
         /// <param name="isBinary">true if the file is binary</param>
         override public bool GetFile(String fromPath, string toPath, bool isBinary)
         {
@@ -149,7 +149,7 @@ namespace OpenLiveWriter.FileDestinations
         }
 
         /// <summary>
-        /// Deletes a file from the filesysytem.
+        /// Deletes a file from the filesystem.
         /// </summary>
         /// <param name="path">The file</param>
         public override void DeleteFile(string path)

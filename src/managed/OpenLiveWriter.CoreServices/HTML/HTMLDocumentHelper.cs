@@ -49,7 +49,7 @@ namespace OpenLiveWriter.CoreServices
             //	<a href=news.html>
             //	<a href= news.html>
             //
-            // If we don't require the quoting or equals sign, we'll occassionally hose absolute paths like:
+            // If we don't require the quoting or equals sign, we'll occasionally hose absolute paths like:
             //				http://www.goo.com/hello/world/index.html
             //				when we're replacing a relative path like: index.html
             // see: http://www.cs.tut.fi/~jkorpela/html/iframe.html for an example
@@ -100,8 +100,8 @@ namespace OpenLiveWriter.CoreServices
             html = Regex.Replace(html, pattern4, "Url(" + newUrl + ")", RegexOptions.IgnoreCase);
 #endif
 
-            // When an absolute path doesn't end with a file or a slash (i.e. http://www.realultimatepower.net)
-            // converting it to a Uri automatically adds the trailing slash (i.e. http://www.realtultimatepower.net).
+            // When an absolute path doesn't end with a file or a slash (i.e. http://www.example.net)
+            // converting it to a Uri automatically adds the trailing slash (i.e. http://www.example.net/).
             // When we fix up this escaping, we need to account for the fact that the source may lack the trailing
             // slash, but should still be replaced with the new url.  This is hacked in below.
             if (url.EndsWith("/", StringComparison.OrdinalIgnoreCase))
@@ -273,7 +273,7 @@ namespace OpenLiveWriter.CoreServices
                     }
                 }
 
-                // didin't find a feed
+                // didn't find a feed
                 return false;
             }
             catch (Exception e)
@@ -1483,7 +1483,7 @@ namespace OpenLiveWriter.CoreServices
 #endif
 
         /// <summary>
-        /// Flags that control how tag attribute mataching is performed when using getAttribute on an HTMLDOMNode
+        /// Flags that control how tag attribute matching is performed when using getAttribute on an HTMLDOMNode
         /// </summary>
         public struct HTMLAttributeFlags
         {

@@ -90,7 +90,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
         public ContentSourceInfo(Type pluginType, bool showErrors)
         {
-            // save a refernce to the type
+            // save a reference to the type
             _pluginType = pluginType;
             _resMan = new ResourceManager(_pluginType);
 

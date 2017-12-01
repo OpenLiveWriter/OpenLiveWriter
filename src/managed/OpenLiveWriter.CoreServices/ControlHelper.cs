@@ -258,7 +258,7 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
-        /// Converts an input string into a nice value for an AccessibileName.
+        /// Converts an input string into a nice value for an AccessibleName.
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>

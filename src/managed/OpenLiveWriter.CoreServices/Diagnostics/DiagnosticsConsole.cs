@@ -784,7 +784,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             //	Clear the log.
             listViewLog.Items.Clear();
 
-            //	Reset the sequece number.
+            //	Reset the sequence number.
             lastEventIndex = firstEventIndex;
 
             LoadEntries();
@@ -817,7 +817,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                 //	Clear the log.
                 listViewLog.Items.Clear();
 
-                //	Reset the sequece number.
+                //	Reset the sequence number.
                 firstEventIndex = lastEventIndex = 0;
 
                 LoadEntries();
@@ -879,7 +879,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
                     //	Build the strings to be copied to the clipboard.
                     foreach (ListViewItem listViewItem in selectedListViewItemCollection)
                     {
-                        //	Append an extra line inbetween entries.
+                        //	Append an extra line in between entries.
                         if (stringBuilder.Length != 0)
                             stringBuilder.Append("\r\n");
 

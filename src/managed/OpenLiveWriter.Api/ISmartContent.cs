@@ -157,7 +157,7 @@ namespace OpenLiveWriter.Api
         /// Add an image to the list of supporting files.
         /// </summary>
         /// <param name="fileName">Name of supporting file.</param>
-        /// <param name="image">Souce image</param>
+        /// <param name="image">Source image</param>
         /// <param name="imageFormat">Source image format</param>
         void AddImage(string fileName, Image image, ImageFormat imageFormat);
 

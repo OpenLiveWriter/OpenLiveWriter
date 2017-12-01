@@ -22,7 +22,7 @@ namespace OpenLiveWriter.CoreServices.Settings
         /// <param name="name">The name of the setting value to get.</param>
         /// <param name="desiredType">The desired type to return.</param>
         /// <param name="defaultValue">The default value to return if the value does not exist or an exception occurs.</param>
-        /// <returns>The value of the setting, or the defaul value.</returns>
+        /// <returns>The value of the setting, or the default value.</returns>
         object Get(string name, Type desiredType, object defaultValue);
 
         /// <summary>

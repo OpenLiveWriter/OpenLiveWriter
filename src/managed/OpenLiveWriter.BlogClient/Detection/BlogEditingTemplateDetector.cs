@@ -181,7 +181,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 // try explicit detection of templates
                 BlogEditingTemplateFiles templateFiles = SafeGetTemplates(new ProgressTick(progress, 50, 100));
 
-                // see if we got the FramedTempalte
+                // see if we got the FramedTemplate
                 if (templateFiles.FramedTemplate != null)
                     blogTemplateFiles.Add(templateFiles.FramedTemplate);
                 else
@@ -216,7 +216,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                     _blogTemplateFiles = blogTemplateFiles.ToArray(typeof(BlogEditingTemplateFile)) as BlogEditingTemplateFile[];
 
                     // if we got at least one template by some method then clear any exception
-                    // that occurs so we can at least update that tempalte
+                    // that occurs so we can at least update that template
                     _exception = null;
                 }
 
@@ -388,7 +388,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                     blogTemplateFiles = GetBlogTemplateFiles(progress, regionLocatorStrategy, templateStrategies, targetTemplateTypes);
                     progress.UpdateProgress(100, 100);
 
-                    //if any exception occured along the way, clear them since one of the template strategies
+                    //if any exception occurred along the way, clear them since one of the template strategies
                     //was successful.
                     _exception = null;
                 }
@@ -428,7 +428,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
             }
 
-            // return the detected tempaltes
+            // return the detected templates
             return blogTemplateFiles;
         }
 

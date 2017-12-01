@@ -269,7 +269,7 @@ namespace OpenLiveWriter.CoreServices
 
             ApplyProxyOverride(request);
 
-            //For robustness, we turn off keep alive and piplining by default.
+            //For robustness, we turn off keep alive and pipelining by default.
             //If the caller wants to override, the filter parameter can be used to adjust these settings.
             //Warning: NTLM authentication requires keep-alive, so without adjusting this, NTLM-secured requests will always fail.
             request.KeepAlive = false;

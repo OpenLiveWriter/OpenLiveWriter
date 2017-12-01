@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Interop.Com
     /// on each method and property, see documentation on stream.
     ///
     /// Based upon the ComStream implementation example found in
-    /// Adam Nathan's ".NET and COM: The Complete Iteroperability Guide" Page 883.
+    /// Adam Nathan's ".NET and COM: The Complete Interoperability Guide" Page 883.
     /// </summary>
     public class ComStream : Stream
     {

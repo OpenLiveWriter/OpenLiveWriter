@@ -66,7 +66,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     {
                         defaultBoundsSize = context.Image.Size;
                     }
-                    //calulate the base image size to scale from.  If the image is rotated 90 degrees, then switch the height/width
+                    //calculate the base image size to scale from.  If the image is rotated 90 degrees, then switch the height/width
                     Size baseImageSize = context.Image.Size;
                     if (ImageUtils.IsRotated90(settings.Rotation))
                         baseImageSize = new Size(baseImageSize.Height, baseImageSize.Width);

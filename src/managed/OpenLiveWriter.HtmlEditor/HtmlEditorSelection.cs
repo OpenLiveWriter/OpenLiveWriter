@@ -69,7 +69,7 @@ namespace OpenLiveWriter.HtmlEditor
             try
             {
                 //Note: we saved the adjusted selection temporarily because the editor's IHTMLTxtRange.select()
-                //call isn't guaranteed to postion the selection at exactly the adjusted location.  This was
+                //call isn't guaranteed to position the selection at exactly the adjusted location.  This was
                 //causing issues with operations not actually executing on the adjusted selection, so now these
                 //operations will have access to the exact adjusted selection when they use SelectedMarkupRange.
 

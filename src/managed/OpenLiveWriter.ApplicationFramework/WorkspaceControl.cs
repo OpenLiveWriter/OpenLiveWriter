@@ -675,7 +675,7 @@ namespace OpenLiveWriter.ApplicationFramework
                     //	Make the command bar visible before getting height.
                     FirstCommandBarLightweightControl.Visible = true;
 
-                    //	Obtaing the height and lay it out.
+                    //	Obtain the height and lay it out.
                     int firstCommandBarHeight = FirstCommandBarLightweightControl.DefaultVirtualSize.Height;
                     FirstCommandBarLightweightControl.VirtualBounds = new Rectangle(0, commandBarAreaHeight, Width, firstCommandBarHeight);
 
@@ -700,7 +700,7 @@ namespace OpenLiveWriter.ApplicationFramework
                     //	Make the command bar visible before getting height.
                     SecondCommandBarLightweightControl.Visible = true;
 
-                    //	Obtaing the height and lay it out.
+                    //	Obtain the height and lay it out.
                     int secondCommandBarHeight = SecondCommandBarLightweightControl.DefaultVirtualSize.Height;
                     SecondCommandBarLightweightControl.VirtualBounds = new Rectangle(0, commandBarAreaHeight, Width, secondCommandBarHeight);
 

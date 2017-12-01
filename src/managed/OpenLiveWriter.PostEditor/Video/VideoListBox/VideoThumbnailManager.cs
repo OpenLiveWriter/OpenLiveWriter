@@ -16,7 +16,7 @@ using OpenLiveWriter.PostEditor.Video.VideoService;
 namespace OpenLiveWriter.PostEditor.Video.VideoListBox
 {
     /// <summary>
-    /// Class which abstracts downloading and retreiving thumbnail images.
+    /// Class which abstracts downloading and retrieving thumbnail images.
     /// This class should be instantiated and used on the main UI thread.
     /// </summary>
     internal class VideoThumbNailManager : IDisposable
@@ -58,7 +58,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
                         StreamHelper.Transfer(cachedStream, memoryStream);
                         _thumbnails[video] = new VideoThumbnail(memoryStream);
                     }
-                    // otherwise mark it as 'downloading' and enque the download
+                    // otherwise mark it as 'downloading' and enqueque the download
                     else
                     {
                         _thumbnails[video] = new DownloadingVideoThumbnail();
@@ -179,7 +179,7 @@ namespace OpenLiveWriter.PostEditor.Video.VideoListBox
             try
             {
                 // ensure we don't invoke on 'dead' controls (could happen if a background
-                // thread completes a download after the parent dialog has been dismisssed)
+                // thread completes a download after the parent dialog has been dismissed)
                 if (!_workQueue.Terminated && !_owner.IsDisposed)
                 {
                     // marshal to the UI thread if necessary

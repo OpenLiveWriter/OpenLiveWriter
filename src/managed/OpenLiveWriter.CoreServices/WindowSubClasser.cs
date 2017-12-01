@@ -18,7 +18,7 @@ namespace OpenLiveWriter.CoreServices
     {
 
         /// <summary>
-        /// Intitialize the WindowSubclasser. To actually subclass the
+        /// Initialize the WindowSubclasser. To actually subclass the
         /// underlying control use the Install() and Remove() methods
         /// </summary>
         /// <param name="window">Control to subclass</param>
@@ -64,7 +64,7 @@ namespace OpenLiveWriter.CoreServices
 
         /// <summary>
         /// Call the underlying window procedure of the Control that
-        /// has been subclasssed. Note that you must call this for
+        /// has been subclassed. Note that you must call this for
         /// every message except those that you want to hide from
         /// the underlying Control.
         /// </summary>

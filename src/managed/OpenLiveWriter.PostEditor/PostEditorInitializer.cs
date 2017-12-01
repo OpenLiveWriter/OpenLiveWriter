@@ -10,7 +10,7 @@ namespace OpenLiveWriter.PostEditor
     public sealed class PostEditorInitializer
     {
         /// <summary>
-        /// global initializaiton which may show error dialogs or cause
+        /// global initialization which may show error dialogs or cause
         /// failure of the entire product to load
         /// </summary>
         public static bool Initialize()

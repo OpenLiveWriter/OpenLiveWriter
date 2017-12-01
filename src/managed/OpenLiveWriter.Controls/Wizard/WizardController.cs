@@ -434,7 +434,7 @@ namespace OpenLiveWriter.Controls.Wizard
         private WizardSubStep nextWizardSubStep;
         /// <summary>
         /// A next substep that will be automatically added once this step advances.
-        /// This can be used to easily chaing substeps together without lots of Next() callbacks.
+        /// This can be used to easily chain substeps together without lots of Next() callbacks.
         /// </summary>
         public WizardSubStep NextWizardSubStep
         {

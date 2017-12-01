@@ -383,7 +383,7 @@ namespace OpenLiveWriter.HtmlEditor
             }
             catch (Exception ex)
             {
-                // eat exceptions that occur in here (bizzare timing bugs can occur w/ drag and
+                // eat exceptions that occur in here (bizarre timing bugs can occur w/ drag and
                 // drop of images -- this is harmless and the user shouldn't be burdened with
                 // an error message
                 Debug.Fail("Unexpected error during tool tip delay timer: " + ex.ToString());
@@ -426,7 +426,7 @@ namespace OpenLiveWriter.HtmlEditor
                     return null;
             }
 
-            // search up the parent heirarchy
+            // search up the parent hierarchy
             while (element != null)
             {
                 // if it is an anchor that has an HREF (exclude anchors with only NAME)
@@ -499,7 +499,7 @@ namespace OpenLiveWriter.HtmlEditor
         private bool statusBarTextVisible = false;
 
         /// <summary>
-        /// Flag indicating we have navigated to the current link element (supresses the
+        /// Flag indicating we have navigated to the current link element (suppresses the
         /// tooltip from displaying)
         /// </summary>
         private bool navigatedToCurrentLinkElement = false;

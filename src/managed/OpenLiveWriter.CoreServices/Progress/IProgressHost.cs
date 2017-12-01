@@ -9,7 +9,7 @@ namespace OpenLiveWriter.CoreServices.Progress
     public interface IProgressHost
     {
         /// <summary>
-        /// Notifies the host that progess has been made.
+        /// Notifies the host that progress has been made.
         /// </summary>
         /// <param name="complete">a number indicating what fraction of the total expected progress has been made
         /// (note: this number should always be less than the total)</param>
@@ -18,14 +18,14 @@ namespace OpenLiveWriter.CoreServices.Progress
         void UpdateProgress(int complete, int total, string message);
 
         /// <summary>
-        /// Notifies the host that progess has been made.
+        /// Notifies the host that progress has been made.
         /// </summary>
         /// <param name="complete">a number indicating what fraction of the total expected progress has been made</param>
         /// <param name="total">the total expected progress that the operation will perform.</param>
         void UpdateProgress(int complete, int total);
 
         /// <summary>
-        /// Notifies the host that progess has been made.
+        /// Notifies the host that progress has been made.
         /// </summary>
         /// <param name="message">a message describing the current progress</param>
         void UpdateProgress(string message);

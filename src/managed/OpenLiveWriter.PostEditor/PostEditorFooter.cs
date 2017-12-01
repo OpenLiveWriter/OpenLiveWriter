@@ -232,7 +232,7 @@ namespace OpenLiveWriter.PostEditor
             labelStatus.Visible = labelStatus.Text.Length > 0;
             labelSeparator.Visible = labelStatus.Visible && labelWordCount.Visible;
 
-            // Set a minumum width so the columns in the TableLayoutPanel don't overlap.
+            // Set a minimum width so the columns in the TableLayoutPanel don't overlap.
             int tableMinimumWidth = tableLayoutPanel1.Padding.Horizontal + tableLayoutPanel1.Margin.Horizontal;
             int tableMinimumHeight = tableLayoutPanel1.Height;
 

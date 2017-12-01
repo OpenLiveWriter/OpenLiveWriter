@@ -979,7 +979,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         //         (1) We don't have to deal with embeds that steal mouse clicks (need it to be
         //             selectable and moveable like any other content)
         ///        (2) We can implement a custom sidebar and other custom behavior like snapshotting
-        ///        (3) We don't have to chase down bizzaro editor edge cases caused by complex or misbehaving embeds
+        ///        (3) We don't have to chase down bizarro editor edge cases caused by complex or misbehaving embeds
         ///
         IContentSourceSite _contentSourceSite;
 

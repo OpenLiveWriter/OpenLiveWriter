@@ -417,7 +417,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         #region Private Event Handlers
         /// <summary>
-        /// Propogates the mouse event from the attached control.
+        /// Propagates the mouse event from the attached control.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -427,7 +427,7 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        /// Propogates the mouse event from the attached control.
+        /// Propagates the mouse event from the attached control.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -437,7 +437,7 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        /// Propogates the mouse event from the attached control.
+        /// Propagates the mouse event from the attached control.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -447,7 +447,7 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        /// Propogates the mouse event from the attached control.
+        /// Propagates the mouse event from the attached control.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -457,7 +457,7 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
-        /// Propogates the mouse event from the attached control.
+        /// Propagates the mouse event from the attached control.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

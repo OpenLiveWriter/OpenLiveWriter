@@ -136,7 +136,7 @@ namespace OpenLiveWriter.Controls
             // draw caption
             g.DrawText(item.Name, e.Font, layoutRectangle, textColor, TextFormatFlags.EndEllipsis | TextFormatFlags.HorizontalCenter | TextFormatFlags.WordBreak);
 
-            // draw focus rectange if necessary
+            // draw focus rectangle if necessary
             e.DrawFocusRectangle();
         }
 

@@ -50,9 +50,9 @@ namespace OpenLiveWriter.CoreServices
         /// Retrieve a Stream for the given path (Read or Write access can be specified)
         /// Stream.Close() should be called when you are finished using the Stream.
         /// </summary>
-        /// <param name="file">Heirarchical path designating stream location (uses "/" as
+        /// <param name="file">Hierarchical path designating stream location (uses "/" as
         /// path designator)</param>
-        /// <param name="mode">Read or Write. Write will overwrite any exising path of
+        /// <param name="mode">Read or Write. Write will overwrite any existing path of
         /// the same name.</param>
         /// <returns>Stream that can be used to access the path (Stream.Close() must be
         /// called when you are finished using the Stream).</returns>
@@ -64,7 +64,7 @@ namespace OpenLiveWriter.CoreServices
             // convert the path to lower-case
             string pathLower = file.ToLower(CultureInfo.InvariantCulture);
 
-            // return the approrpiate stream
+            // return the appropriate stream
             switch (mode)
             {
                 case AccessMode.Read:

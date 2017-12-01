@@ -8,8 +8,8 @@ using System.Windows.Forms;
 namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
-    /// Helper control for TabLightwieightControl.  The TabPageContainer provides the
-    /// container control below the tabs and is the parent of the TabPage controls of the TabLightwieightControl
+    /// Helper control for TabLightweightControl.  The TabPageContainer provides the
+    /// container control below the tabs and is the parent of the TabPage controls of the TabLightweightControl
     /// are shown/hidden.
     /// </summary>
     public class TabPageContainerControl : UserControl

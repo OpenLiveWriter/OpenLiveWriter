@@ -170,7 +170,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 DialogResult = DialogResult.OK;
             }
-            //try cleaing up the address
+            //try cleaning up the address
             else if ((!txtUrl.Text.StartsWith("http://")) && (UrlHelper.IsUrl("http://" + txtUrl.Text)))
             {
                 txtUrl.Text = "http://" + txtUrl.Text;

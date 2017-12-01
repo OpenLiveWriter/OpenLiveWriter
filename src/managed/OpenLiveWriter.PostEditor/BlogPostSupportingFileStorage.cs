@@ -63,7 +63,7 @@ namespace OpenLiveWriter.PostEditor
 
         public bool ContainsFile(string filePath)
         {
-            // get cannonical path names
+            // get canonical path names
             string normalizedLocalFilePath = Kernel32.GetLongPathName(filePath);
             if (normalizedLocalFilePath == null) // if the file doesn't exist this will be the case
                 return false;

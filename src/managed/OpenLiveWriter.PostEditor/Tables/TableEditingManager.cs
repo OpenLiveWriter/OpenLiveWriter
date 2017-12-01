@@ -200,7 +200,7 @@ namespace OpenLiveWriter.PostEditor.Tables
         {
             using (TablePropertiesForm tablePropertiesForm = new TablePropertiesForm())
             {
-                // read existing properites
+                // read existing properties
                 TableProperties existingProperties = TableEditor.GetTableProperties(_editorContext);
 
                 // show the dialog

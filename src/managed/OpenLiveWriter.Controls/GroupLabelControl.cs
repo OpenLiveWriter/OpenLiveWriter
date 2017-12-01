@@ -59,7 +59,7 @@ namespace OpenLiveWriter.Controls
 
             BidiGraphics g = new BidiGraphics(e.Graphics, ClientRectangle);
 
-            //get the rectanlge representing the text in the label
+            //get the rectangle representing the text in the label
             Rectangle textRectangle = GetMeasuredTextRectangle();
 
             //paint the line bevels to the left and right of the text

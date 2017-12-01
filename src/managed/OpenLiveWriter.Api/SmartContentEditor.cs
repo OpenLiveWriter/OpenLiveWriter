@@ -13,7 +13,7 @@ namespace OpenLiveWriter.Api
     /// <para>Sidebar editor for SmartContent</para>
     /// <para>There is a single instance of a given SmartContentEditor created for each Open Live Writer
     /// post editor window. The implementation of SmartContentEditor objects must therefore be
-    /// stateless and assume that they will be the editor for mutliple distince SmartContent objects.</para>
+    /// stateless and assume that they will be the editor for multiple distince SmartContent objects.</para>
     /// </summary>
     public class SmartContentEditor : UserControl
     {

@@ -59,7 +59,7 @@ namespace OpenLiveWriter.ApplicationFramework
 
         public static Bitmap GetGalleryItemImageFromCommand(CommandManager commandManager, CommandId commandId)
         {
-            // @RIBBON TODO: Deal with high constrast appropriately
+            // @RIBBON TODO: Deal with high contrast appropriately
             Command command = commandManager.Get(commandId);
             if (command != null)
                 return command.LargeImage;

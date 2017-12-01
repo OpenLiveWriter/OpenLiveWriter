@@ -215,7 +215,7 @@ namespace OpenLiveWriter.Interop.Com.StructuredStorage
         }
 
         /// <summary>
-        /// Enumerate the elements of this storage (STATSTG stucture)
+        /// Enumerate the elements of this storage (STATSTG structure)
         /// </summary>
         /// <returns>Array of STATSTG elements</returns>
         public System.Runtime.InteropServices.ComTypes.STATSTG[] Elements
