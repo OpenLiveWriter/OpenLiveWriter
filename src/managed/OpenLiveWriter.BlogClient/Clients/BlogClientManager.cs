@@ -134,6 +134,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                         AddClientType(typeof(BloggerAtomClient));
                         AddClientType(typeof(SharePointClient));
                         AddClientType(typeof(WordPressClient));
+                        AddClientType(typeof(TistoryBlogClient));
                     }
                     return _clientTypes;
                 }
