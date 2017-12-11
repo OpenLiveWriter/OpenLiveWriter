@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Xml;
 using OpenLiveWriter.CoreServices.ResourceDownloading;
 using OpenLiveWriter.Extensibility.BlogClient;
+using System.Diagnostics;
 
 namespace OpenLiveWriter.BlogClient.Providers
 {
