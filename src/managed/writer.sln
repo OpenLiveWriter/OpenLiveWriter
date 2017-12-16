@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.CoreServices", "OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj", "{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}"
 EndProject
@@ -87,6 +87,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.SpellChecker", "OpenLiveWriter.SpellChecker\OpenLiveWriter.SpellChecker.csproj", "{2DB3A424-0F1E-44AC-AE01-5454586CE769}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Tests", "OpenLiveWriter.Tests\OpenLiveWriter.Tests.csproj", "{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeSnippet", "Plugins\CodeSnippet\CodeSnippet.csproj", "{CA603148-5EB6-41DA-A55B-E3C05B719EE1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{AEECE1C4-9952-41E6-95B6-416B969082D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{C816DD78-062D-4763-9551-6A37047D8BCB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlogRunner", "BlogRunner", "{2A2FDE3D-3E40-4B4B-B9BF-8A2A711FDBEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -206,8 +214,26 @@ Global
 		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA603148-5EB6-41DA-A55B-E3C05B719EE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA603148-5EB6-41DA-A55B-E3C05B719EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA603148-5EB6-41DA-A55B-E3C05B719EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA603148-5EB6-41DA-A55B-E3C05B719EE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA726BEA-9A29-4E53-95DF-E478D86D0926} = {2A2FDE3D-3E40-4B4B-B9BF-8A2A711FDBEB}
+		{1F76020F-DBB5-4F43-B530-C85EF9461A61} = {2A2FDE3D-3E40-4B4B-B9BF-8A2A711FDBEB}
+		{2CDA86AA-4264-4175-8A6C-E6AB436255C8} = {2A2FDE3D-3E40-4B4B-B9BF-8A2A711FDBEB}
+		{8A81012A-1661-46D5-8712-52BB48C2C27C} = {2A2FDE3D-3E40-4B4B-B9BF-8A2A711FDBEB}
+		{E256F137-5DE7-45AA-B51C-62616728401E} = {C816DD78-062D-4763-9551-6A37047D8BCB}
+		{D286C651-2AE7-447E-BBD8-B82F1C542667} = {C816DD78-062D-4763-9551-6A37047D8BCB}
+		{4E445FF3-7F7B-46D1-9424-682E146F1F09} = {C816DD78-062D-4763-9551-6A37047D8BCB}
+		{CA603148-5EB6-41DA-A55B-E3C05B719EE1} = {AEECE1C4-9952-41E6-95B6-416B969082D3}
+		{2A2FDE3D-3E40-4B4B-B9BF-8A2A711FDBEB} = {C816DD78-062D-4763-9551-6A37047D8BCB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3319CC23-46CC-429C-AACA-DBDC1CE8F094}
 	EndGlobalSection
 EndGlobal
