@@ -258,7 +258,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="CodeSnippet.png" />
-    <EmbeddedResource Include="CodeSnippet.Resources.csharp.css" />
+    <EmbeddedResource Include="csharp.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj">

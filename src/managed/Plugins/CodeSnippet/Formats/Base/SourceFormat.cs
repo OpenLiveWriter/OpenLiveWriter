@@ -38,7 +38,7 @@ namespace CodeSnippet.Formats.Base
 		{
 			get
 			{
-				return Assembly.GetExecutingAssembly().GetManifestResourceStream("CodeSnippet.Resources.csharp.css");
+				return Assembly.GetExecutingAssembly().GetManifestResourceStream("csharp.css");
 			}
 		}
 
