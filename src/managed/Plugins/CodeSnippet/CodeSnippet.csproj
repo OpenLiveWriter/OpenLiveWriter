@@ -269,6 +269,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SharedDll\OpenLiveWriter.BlogClient.dll" />
+    <Content Include="SharedInstall\CodeSnippet.dll" />
+    <Content Include="SharedInstall\Microsoft.mshtml.dll" />
+    <Content Include="SharedInstall\WLWPluginBase.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
