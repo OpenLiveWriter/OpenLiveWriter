@@ -604,7 +604,7 @@
       <supportsScripts>Yes</supportsScripts>
     </options>
   </provider>
-  <provider>
+  <!--<provider>  BillKrat.2018.01.14 - causes exception
     <id>9E0EC9F9-AFDD-4812-9298-8963D5DB94CC</id>
     <name>Tistory OAuth</name>
     <description>Tistory Oauth.</description>
@@ -630,6 +630,5 @@
       <usePicasaImgMaxAlways>Yes</usePicasaImgMaxAlways>
       <usePicasaS1600h>Yes</usePicasaS1600h>
     </options>
-  </provider>
-  
-</providers>
+  </provider>-->
+  </providers>

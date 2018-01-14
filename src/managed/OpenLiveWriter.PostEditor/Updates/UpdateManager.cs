@@ -27,8 +27,9 @@ namespace OpenLiveWriter.PostEditor.Updates
                 UpdateSettings.BetaUpdateDownloadUrl : UpdateSettings.UpdateDownloadUrl;
 
             // Schedule Open Live Writer 10 seconds after the launch
-            var delayUpdate = new DelayUpdateHelper(UpdateOpenLiveWriter(downloadUrl, checkNow), UPDATELAUNCHDELAY);
-            delayUpdate.StartBackgroundUpdate("Background OpenLiveWriter application update");
+            // BillKrat.2018.01.14 - causes "Update.exe not found, not a Squirrel-installed app?" error - disabled
+            // var delayUpdate = new DelayUpdateHelper(UpdateOpenLiveWriter(downloadUrl, checkNow), UPDATELAUNCHDELAY);
+            // delayUpdate.StartBackgroundUpdate("Background OpenLiveWriter application update");
 #endif
         }
 
