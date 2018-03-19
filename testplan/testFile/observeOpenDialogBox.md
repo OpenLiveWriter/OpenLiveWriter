@@ -1,4 +1,4 @@
-#Test Plan for Ensuring that Open dialog box
+### Test Plan for Ensuring that Open dialog box
 Steps                 | Desired Results                | Complete | Comments
 ----------------------|--------------------------------|----------| --------
 Open Open Live Writer | | | 
@@ -54,7 +54,7 @@ Click on Delete | Ensure that the post is properly deleted | |
    |  |  | 
 Open Open Live Writer | | | 
 Click on File | | |
-Click on any available blog
+Click on any available blog |
 Enter a term in Filter and hit enter | Observe that appropriate posts are loaded | | 
  |  |  | 
 Open Open Live Writer | | | 

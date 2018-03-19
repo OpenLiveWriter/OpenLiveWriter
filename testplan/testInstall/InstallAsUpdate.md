@@ -1,4 +1,4 @@
-#Test Plan for Ensuring that Installing as an Update works properly
+# Test Plan for Ensuring that Installing as an Update works properly
 Steps                 | Desired Results                | Complete | Comments
 ----------------------|--------------------------------|----------| --------
 Download build | Setup File should be named OpenLiveWriterSetup.exe |  | 
