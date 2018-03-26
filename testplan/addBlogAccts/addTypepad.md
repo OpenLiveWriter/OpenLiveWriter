@@ -1,4 +1,4 @@
-#Test Plan for Ensuring that Adding a Typepad account works properly
+# Test Plan for Ensuring that Adding a Typepad account works properly
 Steps                 | Desired Results                | Complete | Comments
 ----------------------|--------------------------------|----------| --------
 Click Home | | |

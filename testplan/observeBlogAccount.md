@@ -1,4 +1,4 @@
-###Test Plan for Ensuring that OpenLiveWriter opens correctly
+### Test Plan for Ensuring that OpenLiveWriter opens correctly
 Steps                 | Desired Results                | Complete | Comments
 ----------------------|--------------------------------|----------| --------
 OpenLiveWriter opens |  |   |

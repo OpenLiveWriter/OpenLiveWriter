@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Video Dialog Boxes work correctly
+### Test Plan for Ensuring Video Dialog Boxes work correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Live Writer |  |  |
@@ -40,7 +40,7 @@ Enter a Description |  |  |
 Enter a Tag  | | | 
 Enter a Category using the drop down box | | |
 Enter a Permission by using the drop down box | | |
-Click on Checkbox to Accept terms
+Click on Checkbox to Accept terms |
 Click on Insert | Ensure that video uploads to YouTube | | 
 | Ensure video is uploaded
 | Ensure video is inserted in the blog post

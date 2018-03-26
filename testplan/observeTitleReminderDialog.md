@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Title Reminder works correctly
+### Test Plan for Ensuring Title Reminder works correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Live Writer  |   |  |
@@ -16,5 +16,6 @@ Click on View Post after Publishing | | |
 Open Live Writer  |   |  |
 Click on File | | | 
 Click on Publish | Since blank post with no title, Title Reminder dialog box appears, see below | | | 
+
 ![Title Reminder](images/titlereminder.png)
 

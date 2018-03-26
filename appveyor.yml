@@ -19,7 +19,7 @@ nuget:
 build_script:
   - cmd: rmdir C:\Tools\vcpkg /q /s 
   - cmd: ./build.cmd
-test: off
+test: on
 install:
   - cmd: nuget install SignClient -Version 0.9.0 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion
 after_build:
@@ -27,11 +27,4 @@ after_build:
 artifacts:
 - path: releases\*
   name: Setup
-deploy:
-- provider: AzureBlob
-  storage_account_name: olw
-  storage_access_key:
-    secure: GruVAC0VrJlbCP3AYz5XownU5bxltZBuGinJ9KwdedM12B07msVLwLYWAsWfWA8Cq6xxt3QN2tKMsDnkzSxSenYFBHZEkGXwRdmh9K/a9jReoNUeQukP/RXRqsS0otFh
-  container: nightly
-  on:
-    branch: master
+deploy: off
