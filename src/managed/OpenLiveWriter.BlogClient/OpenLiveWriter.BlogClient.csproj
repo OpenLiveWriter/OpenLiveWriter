@@ -164,6 +164,7 @@
     <Compile Include="Clients\RedirectHelper.cs" />
     <Compile Include="Clients\SharePointClient.cs" />
     <Compile Include="Clients\WordPressClient.cs" />
+	<Compile Include="Clients\TistoryBlogClient.cs" />
     <Compile Include="Clients\XmlRestRequestHelper.cs" />
     <Compile Include="Clients\XmlRpcBlogClient.cs" />
     <Compile Include="Detection\BackgroundColorDetector.cs" />
