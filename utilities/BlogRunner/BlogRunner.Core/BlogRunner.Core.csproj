@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,8 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BlogRunner.Core</RootNamespace>
     <AssemblyName>BlogRunner.Core</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -36,23 +44,23 @@
     <Reference Include="System.Xml" />
     <Reference Include="OpenLiveWriter.BlogClient, Version=3.0.0.1, Culture=neutral, PublicKeyToken=5f0eb3cf65eb27e9">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\src\OpenLiveWriter.BlogClient\bin\Debug\OpenLiveWriter.BlogClient.dll</HintPath>
+      <HintPath>..\..\..\src\managed\bin\Debug\i386\Writer\OpenLiveWriter.BlogClient.dll</HintPath>
     </Reference>
     <Reference Include="OpenLiveWriter.CoreServices, Version=3.0.0.1, Culture=neutral, PublicKeyToken=5f0eb3cf65eb27e9">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\src\OpenLiveWriter.CoreServices\bin\Debug\OpenLiveWriter.CoreServices.dll</HintPath>
+      <HintPath>..\..\..\src\managed\bin\Debug\i386\Writer\OpenLiveWriter.CoreServices.dll</HintPath>
     </Reference>
     <Reference Include="OpenLiveWriter.Extensibility, Version=3.0.0.1, Culture=neutral, PublicKeyToken=5f0eb3cf65eb27e9">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\src\OpenLiveWriter.Extensibility\bin\Debug\OpenLiveWriter.Extensibility.dll</HintPath>
+      <HintPath>..\..\..\src\managed\bin\Debug\i386\Writer\OpenLiveWriter.Extensibility.dll</HintPath>
     </Reference>
     <Reference Include="OpenLiveWriter.HtmlParser, Version=3.0.0.1, Culture=neutral, PublicKeyToken=5f0eb3cf65eb27e9">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\src\OpenLiveWriter.HtmlParser\bin\Debug\OpenLiveWriter.HtmlParser.dll</HintPath>
+      <HintPath>..\..\..\src\managed\bin\Debug\i386\Writer\OpenLiveWriter.HtmlParser.dll</HintPath>
     </Reference>
     <Reference Include="OpenLiveWriter.PostEditor, Version=3.0.0.1, Culture=neutral, PublicKeyToken=5f0eb3cf65eb27e9">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\src\OpenLiveWriter.PostEditor\bin\Debug\OpenLiveWriter.PostEditor.dll</HintPath>
+      <HintPath>..\..\..\src\managed\bin\Debug\i386\Writer\OpenLiveWriter.PostEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
