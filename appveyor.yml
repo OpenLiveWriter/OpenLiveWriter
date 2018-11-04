@@ -35,4 +35,3 @@ deploy:
   container: nightly
   on:
     branch: master
-    deployToAzure: true
