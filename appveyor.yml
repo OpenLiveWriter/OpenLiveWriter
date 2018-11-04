@@ -4,7 +4,7 @@ pull_requests:
 branches:
   only:
   - master
-image: Previous Visual Studio 2015
+image: Visual Studio 2017
 environment:
   OLW_CONFIG: Release
   OlwBloggerClientId: 597389294595-271ukaucs8ghmc6c6cnhrbef2c02g5qa.apps.googleusercontent.com
@@ -35,3 +35,4 @@ deploy:
   container: nightly
   on:
     branch: master
+    deployToAzure: true
