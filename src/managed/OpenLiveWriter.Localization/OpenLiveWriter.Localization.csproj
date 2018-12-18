@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.Localization</AssemblyName>
     <RootNamespace>OpenLiveWriter.Localization</RootNamespace>
     <ProjectGuid>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</ProjectGuid>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -15,20 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="Bidi\BidiGraphics.cs" />
-    <Compile Include="Bidi\BidiHelper.cs" />
-    <Compile Include="Bidi\BidiLayout.cs" />
-    <Compile Include="CommandId.cs" />
-    <Compile Include="CultureHelper.cs" />
-    <Compile Include="CustomLocalizedPluginAttribute.cs" />
-    <Compile Include="Images.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Images.resx</DependentUpon>
-    </Compile>
-    <Compile Include="MessageId.cs" />
-    <Compile Include="Res.cs" />
-    <Compile Include="StringId.cs" />
     <None Include="CommandBitmaps\Cut.LargeImage.png" />
     <None Include="CommandBitmaps\Paste.LargeImage.png" />
     <None Include="CommandBitmaps\InsertMap.LargeImage.png" />
@@ -299,20 +287,6 @@
     <Content Include="Emoticons\Emoticon_WiltedRose.png" />
     <Content Include="Emoticons\Emoticon_WinkingSmile.png" />
     <Content Include="Emoticons\Emoticon_Work.png" />
-    <EmbeddedResource Include="Images.resx">
-      <SubType>Designer</SubType>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Images.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PropertiesNonLoc.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Strings.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="Strings.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

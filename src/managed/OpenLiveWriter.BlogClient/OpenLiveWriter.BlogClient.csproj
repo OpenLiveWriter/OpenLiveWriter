@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.BlogClient</AssemblyName>
     <RootNamespace>OpenLiveWriter.BlogClient</RootNamespace>
-    <ProjectGuid>{B6D10B42-F173-4086-BB81-96B724BA5594}</ProjectGuid>
     <ProjectGuid>{FE2EA529-26E6-42C3-9F6A-E58966995FFE}</ProjectGuid>
+    <ProjectGuid>{FE2EA529-26E6-42C3-9F6A-E58966995FFE}</ProjectGuid>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -129,75 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="Blog.cs" />
-    <Compile Include="BlogClientBase.cs" />
-    <Compile Include="BlogClientHelper.cs" />
-    <Compile Include="BlogClientUIContext.cs" />
-    <Compile Include="BlogDescriptor.cs" />
-    <Compile Include="BlogProviderButtonDescription.cs" />
-    <Compile Include="BlogSettings.cs" />
-    <Compile Include="Clients\AtomClient.cs" />
-    <Compile Include="Clients\AtomContentValue.cs" />
-    <Compile Include="Clients\AtomEntry.cs" />
-    <Compile Include="Clients\AtomMediaUploader.cs" />
-    <Compile Include="Clients\AtomProtocolVersion.cs" />
-    <Compile Include="Clients\BlogClientLoginControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Clients\BlogClientLoginDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Clients\BlogClientManager.cs" />
-    <Compile Include="Clients\GoogleBloggerv3Client.cs" />
-    <Compile Include="Clients\BloggerAtomClient.cs" />
-    <Compile Include="Clients\BloggerCompatibleClient.cs" />
-    <Compile Include="Clients\BlogPostContentFilters.cs" />
-    <Compile Include="Clients\CredentialsHelper.cs" />
-    <Compile Include="Clients\GDataCaptchaForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Clients\GenericAtomClient.cs" />
-    <Compile Include="Clients\LineBreakInputFormatters.cs" />
-    <Compile Include="Clients\LiveJournalClient.cs" />
-    <Compile Include="Clients\MetaweblogClient.cs" />
-    <Compile Include="Clients\MovableTypeClient.cs" />
-    <Compile Include="Clients\RedirectHelper.cs" />
-    <Compile Include="Clients\SharePointClient.cs" />
-    <Compile Include="Clients\WordPressClient.cs" />
-    <Compile Include="Clients\XmlRestRequestHelper.cs" />
-    <Compile Include="Clients\XmlRpcBlogClient.cs" />
-    <Compile Include="Detection\BackgroundColorDetector.cs" />
-    <Compile Include="Detection\BlogAccountDetector.cs" />
-    <Compile Include="Detection\BlogEditingTemplate.cs" />
-    <Compile Include="Detection\BlogEditingTemplateDetector.cs" />
-    <Compile Include="Detection\BlogEditingTemplateStrategy.cs" />
-    <Compile Include="Detection\BloggerDetectionHelper.cs" />
-    <Compile Include="Detection\BlogPostRegionLocatorStrategy.cs" />
-    <Compile Include="Detection\BlogServiceDetector.cs" />
-    <Compile Include="Detection\BlogSettingsDetector.cs" />
-    <Compile Include="Detection\LazyHomepageDownloader.cs" />
-    <Compile Include="Detection\RsdServiceDetector.cs" />
-    <Compile Include="Detection\WriterEditingManifest.cs" />
-    <Compile Include="IBlogCredentials.cs" />
-    <Compile Include="IBlogSettingsAccessor.cs" />
-    <Compile Include="ICredentialsDomain.cs" />
-    <Compile Include="ImageViewers\DhtmlImageViewers.cs" />
-    <Compile Include="Providers\BlogProvider.cs" />
-    <Compile Include="Providers\BlogProviderFromXml.cs" />
-    <Compile Include="Providers\BlogProviderManager.cs" />
-    <Compile Include="Providers\BlogProviderParameters.cs" />
-    <EmbeddedResource Include="Clients\BlogClientLoginControl.resx">
-      <DependentUpon>BlogClientLoginControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Clients\BlogClientLoginDialog.resx">
-      <DependentUpon>BlogClientLoginDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Clients\GDataCaptchaForm.resx">
-      <DependentUpon>GDataCaptchaForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Clients\PassportSettings.xml" />
     <EmbeddedResource Include="Clients\GoogleBloggerv3Secrets.json" />
     <EmbeddedResource Include="Images\WordPressFav.ico" />

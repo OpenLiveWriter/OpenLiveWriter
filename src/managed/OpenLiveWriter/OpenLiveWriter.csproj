@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter</AssemblyName>
@@ -13,6 +13,8 @@
     <StartupObject>OpenLiveWriter.ApplicationMain</StartupObject>
     <ApplicationManifest>OpenLiveWriter.exe.manifest</ApplicationManifest>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -133,16 +135,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="ApplicationLauncher.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ApplicationMain.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="WriterCommandLineOptions.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <EmbeddedResource Include="OpenLiveWriter.exe.manifest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

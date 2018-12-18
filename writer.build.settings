@@ -2,7 +2,8 @@
 
     <PropertyGroup>
       <Project>Writer</Project>
-      <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+      <!--<TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>-->
+      <TargetFramework>netcoreapp3.0</TargetFramework>
       <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
       <SrcManagedRoot>$(RepoRoot)\src\managed</SrcManagedRoot>
       <SolutionDir Condition="'$(SolutionDir)'==''">$(SrcManagedRoot)</SolutionDir>

@@ -72,10 +72,6 @@
       <Project>{B6D10B42-F173-4086-BB81-96B724BA5594}</Project>
       <Name>OpenLiveWriter.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
-      <Project>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</Project>
-      <Name>OpenLiveWriter.CoreServices</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.Extensibility\OpenLiveWriter.Extensibility.csproj">
       <Project>{A803C16E-6619-4017-883C-EA73EB947F34}</Project>
       <Name>OpenLiveWriter.Extensibility</Name>

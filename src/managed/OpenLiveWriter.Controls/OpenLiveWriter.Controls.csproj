@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.Controls</AssemblyName>
     <RootNamespace>OpenLiveWriter.Controls</RootNamespace>
     <ProjectGuid>{D4A39612-3610-458F-83F8-5722D1F51063}</ProjectGuid>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -52,184 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="AnimatedBitmapControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ApplicationDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AutoCompleteTextbox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="AutoCompleteTextbox.Designer.cs">
-      <DependentUpon>AutoCompleteTextbox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BitmapButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BrowserMiniForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ButtonBaseLightweightControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ChoiceDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChoiceDialog.Designer.cs">
-      <DependentUpon>ChoiceDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ChoiceOption.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ChoiceOption.Designer.cs">
-      <DependentUpon>ChoiceOption.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ComboBoxRel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ComboBoxRel.Designer.cs">
-      <DependentUpon>ComboBoxRel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DelayedAnimatedProgressDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DelayedFetchComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DialogHelper.cs" />
-    <Compile Include="DisplayableExceptionDisplayForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DisplayMessage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DisplayMessageTestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FocusWatchingUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GroupLabelControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="IChildFocusWatcher.cs" />
-    <Compile Include="IHelpProviderContext.cs" />
-    <Compile Include="ILightweightControlContainerControl.cs" />
-    <Compile Include="ImageComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ImageCropControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ImageCropControl.Designer.cs">
-      <DependentUpon>ImageCropControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IToolTipDisplay.cs" />
-    <Compile Include="LabelControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LCCCFocusAndAccessibilityController.cs" />
-    <Compile Include="LightweightControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LightweightControlCollection.cs" />
-    <Compile Include="LightweightControlContainerControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="LightweightControlEventArgs.cs" />
-    <Compile Include="MarginUtil.cs" />
-    <Compile Include="MiniForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NewFolderButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="NumericTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PersistentWindowAttribute.cs" />
-    <Compile Include="ProgressDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProgressHelper.cs" />
-    <Compile Include="ShowContextMenuEventArgs.cs" />
-    <Compile Include="SidebarListBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TextBoxWithPaste.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ToolTip2.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TrackingToolTip.cs" />
-    <Compile Include="Wizard\WizardController.cs" />
-    <Compile Include="Wizard\WizardForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Wizard\WizardHeaderBar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="XPBitmapButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <EmbeddedResource Include="AnimatedBitmapControl.resx">
-      <DependentUpon>AnimatedBitmapControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ApplicationDialog.resx">
-      <DependentUpon>ApplicationDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BitmapButton.resx">
-      <DependentUpon>BitmapButton.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BrowserMiniForm.resx">
-      <DependentUpon>BrowserMiniForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ButtonBaseLightweightControl.resx">
-      <DependentUpon>ButtonBaseLightweightControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChoiceDialog.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ChoiceDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ChoiceOption.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ChoiceOption.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DelayedAnimatedProgressDialog.resx">
-      <DependentUpon>DelayedAnimatedProgressDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DelayedFetchComboBox.resx">
-      <DependentUpon>DelayedFetchComboBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DisplayableExceptionDisplayForm.resx">
-      <DependentUpon>DisplayableExceptionDisplayForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DisplayMessage.resx">
-      <DependentUpon>DisplayMessage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DisplayMessageTestForm.resx">
-      <DependentUpon>DisplayMessageTestForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FocusWatchingUserControl.resx">
-      <DependentUpon>FocusWatchingUserControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GroupLabelControl.resx">
-      <DependentUpon>GroupLabelControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Images\Application\BitmapButtonFace.png" />
     <EmbeddedResource Include="Images\Application\BitmapButtonFacePushed.png" />
     <EmbeddedResource Include="Images\Application\ButtonFace.png" />
@@ -283,42 +107,6 @@
     <EmbeddedResource Include="Images\WizardArrowBody.png" />
     <EmbeddedResource Include="Images\WizardArrowHead.png" />
     <EmbeddedResource Include="Images\WizardTopTile.png" />
-    <EmbeddedResource Include="LabelControl.resx">
-      <DependentUpon>LabelControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LightweightControl.resx">
-      <DependentUpon>LightweightControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LightweightControlContainerControl.resx">
-      <DependentUpon>LightweightControlContainerControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MiniForm.resx">
-      <DependentUpon>MiniForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NewFolderButton.resx">
-      <DependentUpon>NewFolderButton.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NumericTextBox.resx">
-      <DependentUpon>NumericTextBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProgressDialog.resx">
-      <DependentUpon>ProgressDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizard\WizardForm.resx">
-      <DependentUpon>WizardForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizard\WizardHeaderBar.resx">
-      <DependentUpon>WizardHeaderBar.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <Content Include="Images\Application\NewFolderDisabled.png" />
     <Content Include="Images\Application\NewFolderEnabled.png" />
     <Content Include="Images\Application\NewFolderSelected.png" />

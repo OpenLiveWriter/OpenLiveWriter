@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.Api</AssemblyName>
     <RootNamespace>OpenLiveWriter.Api</RootNamespace>
     <ProjectGuid>{B6D10B42-F173-4086-BB81-96B724BA5594}</ProjectGuid>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,35 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="AdaptiveHtmlObject.cs" />
-    <Compile Include="ContentCreationException.cs" />
-    <Compile Include="ContentSource.cs" />
-    <Compile Include="HeaderFooterSource.cs" />
-    <Compile Include="HtmlScreenCapture.cs" />
-    <Compile Include="HtmlServices.cs" />
-    <Compile Include="IPostInfo.cs" />
-    <Compile Include="InsertableContentSourceAttribute.cs" />
-    <Compile Include="IProperties.cs" />
-    <Compile Include="IPublishingContext.cs" />
-    <Compile Include="ISmartContent.cs" />
-    <Compile Include="ISmartContentEditorSite.cs" />
-    <Compile Include="LiveClipboardContentSourceAttribute.cs" />
-    <Compile Include="PluginDiagnostics.cs" />
-    <Compile Include="PluginHttpRequest.cs" />
-    <Compile Include="PublishNotificationHook.cs" />
-    <Compile Include="SmartContentEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartContentSource.cs" />
-    <Compile Include="TaskServices.cs" />
-    <Compile Include="UrlContentSourceAttribute.cs" />
-    <Compile Include="WriterApplication.cs" />
-    <Compile Include="WriterPlugin.cs" />
-    <Compile Include="WriterPluginAttribute.cs" />
-    <EmbeddedResource Include="SmartContentEditor.resx">
-      <DependentUpon>SmartContentEditor.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <ProjectGuid>{D286C651-2AE7-447E-BBD8-B82F1C542667}</ProjectGuid>
@@ -9,6 +9,9 @@
     <AssemblyName>MarketXmlGenerator</AssemblyName>
     <OutputType>Exe</OutputType>
     <RootNamespace>MarketXmlGenerator</RootNamespace>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -19,13 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="MarketXmlGenerator.cs" />
-    <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="..\GlobalAssemblyVersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.SpellChecker</AssemblyName>
     <RootNamespace>OpenLiveWriter.SpellChecker</RootNamespace>
     <ProjectGuid>{2DB3A424-0F1E-44AC-AE01-5454586CE769}</ProjectGuid>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PlatformSpellCheck, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -61,46 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="HighlightSegmentTracker.cs" />
-    <Compile Include="HtmlTextBoxWordRange.cs" />
-    <Compile Include="IBlogPostSpellCheckingContext.cs" />
-    <Compile Include="SortedMarkupRangeList.cs" />
-    <Compile Include="ISpellingChecker.cs" />
-    <Compile Include="IWordRange.cs" />
-    <Compile Include="IWordRangeProvider.cs" />
-    <Compile Include="MisspelledWordInfo.cs" />
-    <Compile Include="MshtmlWordRange.cs" />
-    <Compile Include="SpellCheckerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SpellCheckingContextMenuDefinition.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SpellingHighlighter.cs" />
-    <Compile Include="SpellingLanguageEntry.cs" />
-    <Compile Include="SpellingManager.cs" />
-    <Compile Include="SpellingPreferences.cs" />
-    <Compile Include="SpellingPreferencesPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SpellingSettings.cs" />
-    <Compile Include="SpellingTimer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TextBoxWordRange.cs" />
-    <Compile Include="WinSpellingChecker.cs" />
     <EmbeddedResource Include="Images\SpellingDictionaries.png" />
     <EmbeddedResource Include="Images\SpellingGeneral.png" />
     <EmbeddedResource Include="Images\SpellingPanelBitmap.png" />
     <EmbeddedResource Include="Images\SpellingPanelBitmapSmall.png" />
-    <EmbeddedResource Include="SpellCheckerForm.resx">
-      <DependentUpon>SpellCheckerForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SpellingPreferencesPanel.resx">
-      <DependentUpon>SpellingPreferencesPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
