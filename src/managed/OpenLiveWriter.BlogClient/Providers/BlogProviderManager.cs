@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Xml;
 using OpenLiveWriter.CoreServices.ResourceDownloading;
 using OpenLiveWriter.Extensibility.BlogClient;
+using System.Diagnostics;
 
 namespace OpenLiveWriter.BlogClient.Providers
 {
@@ -100,7 +101,18 @@ namespace OpenLiveWriter.BlogClient.Providers
             XmlNodeList providerNodes = providersDocument.SelectNodes("//providers/provider");
             foreach (XmlNode providerNode in providerNodes)
             {
-                providers.Add(new BlogProviderFromXml(providerNode));
+                // BillKrat.2017.11.11 Added try/catch as any error crashes the application
+                // Exception thrown: 'System.ArgumentException' in OpenLiveWriter.BlogClient.dll
+                // Invalid ClientType: TistoryBlogClient
+                try
+                {
+                    providers.Add(new BlogProviderFromXml(providerNode));
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine($"Exception attempting to load provider : {ex.Message}{ex.StackTrace}");
+                    // Do not let failures crash process
+                }
             }
 
             // return list of providers

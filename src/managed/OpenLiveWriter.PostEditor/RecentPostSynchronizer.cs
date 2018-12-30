@@ -376,7 +376,11 @@ namespace OpenLiveWriter.PostEditor
                     {
                         // We can no longer trust the target settings for this file, so we must remove them
                         // this means the first time the object is clicked it will read the settings from the DOM
-                        if (file.FileId == imageData.InlineImageFile.SupportingFile.FileId)
+                        // 
+                        // BillKrat.2018.04.16 InlineImageFile property was null crashing application.  I encountered this after
+                        // an issue with the online BlogEngine site where I was inserting an image but the impage did not make it to
+                        // the blog.  I couldn't upload images from site nor reload the blog in OpenWriter [resolved]
+                        if (imageData.InlineImageFile==null || file.FileId == imageData.InlineImageFile.SupportingFile.FileId)
                         {
                             BlogPostSettingsBag settings =
                                 imageData.ImageDecoratorSettings.GetSubSettings(HtmlImageTargetDecorator.Id);

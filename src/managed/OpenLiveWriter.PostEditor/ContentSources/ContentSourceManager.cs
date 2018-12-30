@@ -226,6 +226,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
             try
             {
+                name = name.Replace(".", "_");
                 string result = _resMan.GetString(name);
                 if (result == null)
                     return defaultValue;

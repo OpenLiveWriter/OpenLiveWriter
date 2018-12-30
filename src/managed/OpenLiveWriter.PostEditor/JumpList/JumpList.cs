@@ -206,7 +206,8 @@ namespace OpenLiveWriter.PostEditor.JumpList
                             if (String.IsNullOrEmpty(progId))
                             {
                                 error = true;
-                                Trace.Fail("ERROR: ProgId missing for extension: " + extension);
+                                // BillKrat.2018.01.14 - remove annoying fail for ProgId missing for extension
+                                // Trace.Fail("ERROR: ProgId missing for extension: " + extension);
                             }
                             else
                             {
@@ -291,7 +292,8 @@ namespace OpenLiveWriter.PostEditor.JumpList
                         if ((uint)hr == 0x80040F03)
                         {
                             DumpFileRegistration(category);
-                            throw new InvalidOperationException("The file type is not registered with this application.");
+                            // BillKrat.2018.01.14 Remove annoying exception for JumpList "not registered with this application"
+                            // throw new InvalidOperationException("The file type is not registered with this application.");
                         }
                         else if ((uint)hr == 0x80070005 /*E_ACCESSDENIED*/)
                         {

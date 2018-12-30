@@ -186,7 +186,7 @@
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.InternalWriterPlugin\OpenLiveWriter.InternalWriterPlugin.csproj">
-      <Name>OpenLiveWriter.WriterPlugin</Name>
+      <Name>OpenLiveWriter.InternalWriterPlugin</Name>
       <Project>{699FB638-CE02-48D7-8078-30A7939C5BCB}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>

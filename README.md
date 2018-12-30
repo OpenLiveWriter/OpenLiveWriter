@@ -1,8 +1,14 @@
-# Open Live Writer
-Open Live Writer makes it easy to write, preview, and post to your blog.
-For more information see http://www.OpenLiveWriter.org/.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/8xpga2y53sgwo24g?svg=true)](https://ci.appveyor.com/project/dotnetfoundation/openlivewriter)
+# BillKrat updates to LiveWrite
+* A **C:\Program Files (x86)\Open Live Writer\Plugins** folder is required for a clean compile (plug in transferred to it); be sure to provide yourself write access to the folder.
+
+# Open Live Writer
+
+<hr>
+Open Live Writer makes it easy to write, preview, and post to your blog.
+For more information see http://www.OpenLiveWriter.org/.  Original information follows:
+<hr>
+
 
 ### Installation
 You can install the latest version of Open Live Writer alongside an [older version of Windows Live Writer](http://windows.microsoft.com/en-us/windows-live/essentials). Visit
