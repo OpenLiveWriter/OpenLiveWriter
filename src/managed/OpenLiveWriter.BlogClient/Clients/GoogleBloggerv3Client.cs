@@ -731,9 +731,9 @@ namespace OpenLiveWriter.BlogClient.Clients
         public string GetBlogImagesAlbum(string albumName, string blogId)
         {
             const string FEED_REL = "http://schemas.google.com/g/2005#feed";
-            
-            Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default");
 
+            // TODO: HACK: The deprecation-extension flag keeps the deprecated Picasa API alive.
+            Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default?deprecation-extension=true");
             var picasaId = string.Empty;
 
             try
@@ -767,7 +767,11 @@ namespace OpenLiveWriter.BlogClient.Clients
                             }
                             string selfHref = AtomEntry.GetLink(entryEl, _nsMgr, FEED_REL, "application/atom+xml", null, reqUri);
                             if (selfHref.Length > 1)
+                            {
+                                // TODO: HACK: This keeps the deprecated Picasa API alive.
+                                selfHref += "&deprecation-extension=true";
                                 return selfHref;
+                            }
                         }
                     }
                 }
@@ -835,7 +839,8 @@ namespace OpenLiveWriter.BlogClient.Clients
                 // for us to use.
                 if (userInfo.BlogUserInfoValue.PhotosAlbumKey != "0")
                 {
-                    var bloggerPicasaUrl = $"https://picasaweb.google.com/data/feed/api/user/{picasaId}/albumid/{userInfo.BlogUserInfoValue.PhotosAlbumKey}";
+                    // TODO: HACK: The deprecation-extension flag keeps the deprecated Picasa API alive.
+                    var bloggerPicasaUrl = $"https://picasaweb.google.com/data/feed/api/user/{picasaId}/albumid/{userInfo.BlogUserInfoValue.PhotosAlbumKey}?deprecation-extension=true";
                     return bloggerPicasaUrl;
                 }
             }
