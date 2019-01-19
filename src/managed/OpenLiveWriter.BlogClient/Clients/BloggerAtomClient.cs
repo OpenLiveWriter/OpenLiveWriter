@@ -461,7 +461,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             //TransientCredentials transientCredentials = Credentials.TransientCredentials as TransientCredentials;
             // TODO: HACK: The deprecation-extension flag keeps the deprecated Picasa API alive.
-            Uri picasaUri = new Uri("http://picasaweb.google.com/data/feed/api/user/default?deprecation-extension=true");
+            Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default?deprecation-extension=true");
 
             try
             {
