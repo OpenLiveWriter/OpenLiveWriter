@@ -255,6 +255,13 @@ namespace OpenLiveWriter.CoreServices
             request.Accept = "*/*";
             ApplyLanguage(request);
 
+            // Temporary fix for Blogger photos issue
+            // Remove after March 15, 2019 as it will no longer be effective
+            if (request.RequestUri.Host.Contains("picasaweb.google.com"))
+            {
+                request.Headers["deprecation-extension"] = "true";
+            }
+
             int timeout = WebProxySettings.HttpRequestTimeout;
             request.Timeout = timeout;
             request.ReadWriteTimeout = timeout * 5;
