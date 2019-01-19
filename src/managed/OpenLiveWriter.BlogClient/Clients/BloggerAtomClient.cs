@@ -460,7 +460,8 @@ namespace OpenLiveWriter.BlogClient.Clients
             const string GPHOTO_NS_URI = "http://schemas.google.com/photos/2007";
 
             //TransientCredentials transientCredentials = Credentials.TransientCredentials as TransientCredentials;
-            Uri picasaUri = new Uri("http://picasaweb.google.com/data/feed/api/user/default");
+            // TODO: HACK: The deprecation-extension flag keeps the deprecated Picasa API alive.
+            Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default?deprecation-extension=true");
 
             try
             {
