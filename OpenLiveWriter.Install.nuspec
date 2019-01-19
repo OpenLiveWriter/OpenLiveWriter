@@ -22,5 +22,7 @@
     <file src="OpenLiveWriterSetup.exe" target="tools" />
     <file src="..\choco\chocolateyInstall.ps1" target="tools"/>
     <file src="..\choco\chocolateyUninstall.ps1" target="tools"/>
-  </files>  
+    <file src="..\choco\VERIFICATION.TXT" />
+    <file src="..\choco\LICENSE.TXT" />
+  </files>
 </package>
