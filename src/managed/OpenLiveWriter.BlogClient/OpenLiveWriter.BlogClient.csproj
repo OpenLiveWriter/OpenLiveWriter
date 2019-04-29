@@ -68,6 +68,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <ProjectReference Include="..\Google.Apis.PhotosLibrary.v1\Google.Apis.PhotosLibrary.v1.csproj">
+      <Project>{6745aaf1-a1b5-4c28-8b33-195fa88bcdaf}</Project>
+      <Name>Google.Apis.PhotosLibrary.v1</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj">
       <Name>OpenLiveWriter.Api</Name>
       <Project>{B6D10B42-F173-4086-BB81-96B724BA5594}</Project>

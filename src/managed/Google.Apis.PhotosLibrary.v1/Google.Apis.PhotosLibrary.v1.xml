@@ -1,0 +1,1365 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.Apis.PhotosLibrary.v1</name>
+    </assembly>
+    <members>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumRequest">
+            <summary>Request to add an enrichment to a specific album at a specific position.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumRequest.AlbumPosition">
+            <summary>The position in the album where the enrichment is to be inserted.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumRequest.NewEnrichmentItem">
+            <summary>The enrichment to be added.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumResponse">
+            <summary>The enrichment item that's created.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumResponse.EnrichmentItem">
+            <summary>[Output only] Enrichment which was added.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.Album">
+            <summary>Representation of an album in Google Photos. Albums are containers for media items. If an album has
+            been shared by the application, it contains an extra `shareInfo` property.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.CoverPhotoBaseUrl">
+            <summary>[Output only] A URL to the cover photo's bytes. This shouldn't be used as is. Parameters should be
+            appended to this URL before use. For example, `'=w2048-h1024'` sets the dimensions of the cover photo to
+            have a width of 2048 px and height of 1024 px.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.CoverPhotoMediaItemId">
+            <summary>[Output only] Identifier for the media item associated with the cover photo.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.Id">
+            <summary>[Ouput only] Identifier for the album. This is a persistent identifier that can be used between
+            sessions to identify this album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.IsWriteable">
+            <summary>[Output only] True if you can create media items in this album. This field is based on the scopes
+            granted and permissions of the album. If the scopes are changed or permissions of the album are changed,
+            this field is updated.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.MediaItemsCount">
+            <summary>[Output only] The number of media items in the album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.ProductUrl">
+            <summary>[Output only] Google Photos URL for the album. The user needs to be signed in to their Google
+            Photos account to access this link.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.ShareInfo">
+            <summary>[Output only] Information related to shared albums. This field is only populated if the album is a
+            shared album, the developer created the album and the user has granted the `photoslibrary.sharing`
+            scope.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.Title">
+            <summary>Name of the album displayed to the user in their Google Photos account. This string shouldn't be
+            more than 500 characters.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Album.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.AlbumPosition">
+            <summary>Specifies a position in an album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AlbumPosition.Position">
+            <summary>Type of position, for a media or enrichment item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AlbumPosition.RelativeEnrichmentItemId">
+            <summary>The enrichment item to which the position is relative to. Only used when position type is
+            AFTER_ENRICHMENT_ITEM.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AlbumPosition.RelativeMediaItemId">
+            <summary>The media item to which the position is relative to. Only used when position type is
+            AFTER_MEDIA_ITEM.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.AlbumPosition.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsRequest">
+            <summary>Request to create one or more media items in a user's Google Photos library. If an `albumid` is
+            specified, the media items are also added to that album. `albumPosition` is optional and can only be specified
+            if an `albumId` is set.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsRequest.AlbumId">
+            <summary>Identifier of the album where the media items are added. The media items are also added to the
+            user's library. This is an optional field.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsRequest.AlbumPosition">
+            <summary>Position in the album where the media items are added. If not specified, the media items are added
+            to the end of the album (as per the default value, that is, `LAST_IN_ALBUM`). The request fails if this
+            field is set and the `albumId` is not specified. The request will also fail if you set the field and are not
+            the owner of the shared album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsRequest.NewMediaItems">
+            <summary>List of media items to be created.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsResponse">
+            <summary>List of media items created.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsResponse.NewMediaItemResults">
+            <summary>[Output only] List of media items created.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.BatchGetMediaItemsResponse">
+            <summary>Response to retrieve a list of media items.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.BatchGetMediaItemsResponse.MediaItemResults">
+            <summary>[Output only] List of media items retrieved. Note that even if the call to BatchGetMediaItems
+            succeeds, there may have been failures for some media items in the batch. These failures are indicated in
+            each MediaItemResult.status.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.BatchGetMediaItemsResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.ContentFilter">
+             <summary>This filter allows you to return media items based on the content type.
+            
+             It's possible to specify a list of categories to include, and/or a list of categories to exclude. Within each
+             list, the categories are combined with an OR. The content filter `includedContentCategories`: [c1, c2, c3] would
+             get media items that contain (c1 OR c2 OR c3). The content filter `excludedContentCategories`: [c1, c2, c3]
+             would NOT get media items that contain (c1 OR c2 OR c3). You can also include some categories while excluding
+             others, as in this example: `includedContentCategories`: [c1, c2], `excludedContentCategories`: [c3, c4] The
+             previous example would get media items that contain (c1 OR c2) AND NOT (c3 OR c4). A category that appears in
+             `includedContentategories` must not appear in `excludedContentCategories`.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ContentFilter.ExcludedContentCategories">
+            <summary>The set of categories which are not to be included in the media item search results. The items in
+            the set are ORed. There's a maximum of 10 `excludedContentCategories` per request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ContentFilter.IncludedContentCategories">
+            <summary>The set of categories to be included in the media item search results. The items in the set are
+            ORed. There's a maximum of 10 `includedContentCategories` per request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ContentFilter.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.ContributorInfo">
+            <summary>Information about the user who added the media item. Note that this information is included only if the
+            media item is within a shared album created by your app and you have the sharing scope.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ContributorInfo.DisplayName">
+            <summary>Display name of the contributor.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ContributorInfo.ProfilePictureBaseUrl">
+            <summary>URL to the profile picture of the contributor.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ContributorInfo.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.CreateAlbumRequest">
+            <summary>Request to create an album in Google Photos.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.CreateAlbumRequest.Album">
+            <summary>The album to be created.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.CreateAlbumRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.Date">
+            <summary>Represents a whole calendar date. The day may be 0 to represent a year and month where the day isn't
+            significant, such as a whole calendar month. The month may be 0 to represent a a day and a year where the month
+            isn't signficant, like when you want to specify the same day in every month of a year or a specific year. The
+            year may be 0 to represent a month and day independent of year, like an anniversary date.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Date.Day">
+            <summary>Day of month. Must be from 1 to 31 and valid for the year and month, or 0 if specifying a
+            year/month where the day isn't significant.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Date.Month">
+            <summary>Month of year. Must be from 1 to 12, or 0 if specifying a year without a month and day.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Date.Year">
+            <summary>Year of date. Must be from 1 to 9999, or 0 if specifying a date without a year.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Date.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.DateFilter">
+            <summary>This filter defines the allowed dates or date ranges for the media returned. It's possible to pick a
+            set of specific dates and a set of date ranges.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.DateFilter.Dates">
+            <summary>List of dates that match the media items' creation date. A maximum of 5 dates can be included per
+            request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.DateFilter.Ranges">
+            <summary>List of dates ranges that match the media items' creation date. A maximum of 5 dates ranges can be
+            included per request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.DateFilter.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.DateRange">
+            <summary>Defines a range of dates. Both dates must be of the same format. For more information, see
+            Date</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.DateRange.EndDate">
+            <summary>The end date (included as part of the range). It must be specified in the same format as the start
+            date.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.DateRange.StartDate">
+            <summary>The start date (included as part of the range) in one of the formats described.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.DateRange.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.EnrichmentItem">
+            <summary>An enrichment item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.EnrichmentItem.Id">
+            <summary>Identifier of the enrichment item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.EnrichmentItem.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.Filters">
+            <summary>Filters that can be applied to a media item search. If multiple filter options are specified, they're
+            treated as AND with each other.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Filters.ContentFilter">
+            <summary>Filters the media items based on their content.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Filters.DateFilter">
+            <summary>Filters the media items based on their creation date.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Filters.ExcludeNonAppCreatedData">
+            <summary>If set, the results exclude media items that were not created by this app. Defaults to false (all
+            media items are returned). This field is ignored if the photoslibrary.readonly.appcreateddata scope is
+            used.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Filters.IncludeArchivedMedia">
+            <summary>If set, the results include media items that the user has archived. Defaults to false (archived
+            media items aren't included).</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Filters.MediaTypeFilter">
+            <summary>Filters the media items based on the type of media.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Filters.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.JoinSharedAlbumRequest">
+            <summary>Request to join a shared album on behalf of the user. This uses a shareToken which can be acquired via
+            the shareAlbum or listSharedAlbums calls.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.JoinSharedAlbumRequest.ShareToken">
+            <summary>Token to join the shared album on behalf of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.JoinSharedAlbumRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.JoinSharedAlbumResponse">
+            <summary>Response to successfully joining the shared album on behalf of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.JoinSharedAlbumResponse.Album">
+            <summary>Shared album that the user has joined.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.JoinSharedAlbumResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.LatLng">
+            <summary>An object representing a latitude/longitude pair. This is expressed as a pair of doubles representing
+            degrees latitude and degrees longitude. Unless specified otherwise, this must conform to the WGS84 standard.
+            Values must be within normalized ranges.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.LatLng.Latitude">
+            <summary>The latitude in degrees. It must be in the range [-90.0, +90.0].</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.LatLng.Longitude">
+            <summary>The longitude in degrees. It must be in the range [-180.0, +180.0].</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.LatLng.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.LeaveSharedAlbumRequest">
+            <summary>Request to leave a shared album on behalf of the user. This uses a shareToken which can be acquired via
+            the or listSharedAlbums or getAlbum calls.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.LeaveSharedAlbumRequest.ShareToken">
+            <summary>Token to leave the shared album on behalf of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.LeaveSharedAlbumRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.LeaveSharedAlbumResponse">
+            <summary>Response to successfully leaving the shared album on behalf of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.LeaveSharedAlbumResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.ListAlbumsResponse">
+            <summary>List of albums requested.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListAlbumsResponse.Albums">
+            <summary>[Output only] List of albums shown in the Albums tab of the user's Google Photos app.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListAlbumsResponse.NextPageToken">
+            <summary>[Output only] Token to use to get the next set of albums. Populated if there are more albums to
+            retrieve for this request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListAlbumsResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.ListMediaItemsResponse">
+            <summary>List of all media items from the user's Google Photos library.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListMediaItemsResponse.MediaItems">
+            <summary>[Output only] List of media items in the user's library.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListMediaItemsResponse.NextPageToken">
+            <summary>[Output only] Token to use to get the next set of media items. Its presence is the only reliable
+            indicator of more media items being available in the next request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListMediaItemsResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.ListSharedAlbumsResponse">
+            <summary>List of shared albums requested.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListSharedAlbumsResponse.NextPageToken">
+            <summary>[Output only] Token to use to get the next set of shared albums. Populated if there are more shared
+            albums to retrieve for this request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListSharedAlbumsResponse.SharedAlbums">
+            <summary>[Output only] List of shared albums.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ListSharedAlbumsResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.Location">
+            <summary>Represents a physical location.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Location.Latlng">
+            <summary>Position of the location on the map.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Location.LocationName">
+            <summary>Name of the location to be displayed.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Location.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.LocationEnrichment">
+            <summary>An enrichment containing a single location.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.LocationEnrichment.Location">
+            <summary>Location for this enrichment item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.LocationEnrichment.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.MapEnrichment">
+            <summary>An enrichment containing a map, showing origin and destination locations.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MapEnrichment.Destination">
+            <summary>Destination location for this enrichemt item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MapEnrichment.Origin">
+            <summary>Origin location for this enrichment item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MapEnrichment.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.MediaItem">
+            <summary>Representation of a media item (such as a photo or video) in Google Photos.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.BaseUrl">
+            <summary>A URL to the media item's bytes. This shouldn't be used directly to access the media item. For
+            example, `'=w2048-h1024'` will set the dimensions of a media item of type photo to have a width of 2048 px
+            and height of 1024 px.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.ContributorInfo">
+            <summary>Information about the user who created this media item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.Description">
+            <summary>Description of the media item. This is shown to the user in the item's info section in the Google
+            Photos app.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.Filename">
+            <summary>Filename of the media item. This is shown to the user in the item's info section in the Google
+            Photos app.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.Id">
+            <summary>Identifier for the media item. This is a persistent identifier that can be used between sessions to
+            identify this media item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.MediaMetadata">
+            <summary>Metadata related to the media item, such as, height, width, or creation time.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.MimeType">
+            <summary>MIME type of the media item. For example, `image/jpeg`.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.ProductUrl">
+            <summary>Google Photos URL for the media item. This link is available to the user only if they're signed
+            in.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItem.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.MediaItemResult">
+            <summary>Result of retrieving a media item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItemResult.MediaItem">
+            <summary>Media item retrieved from the user's library. It's populated if no errors occurred and the media
+            item was fetched successfully.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItemResult.Status">
+            <summary>If an error occurred while accessing this media item, this field is populated with information
+            related to the error. For details regarding this field, see Status.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaItemResult.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.MediaMetadata">
+            <summary>Metadata for a media item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaMetadata.CreationTime">
+            <summary>Time when the media item was first created (not when it was uploaded to Google Photos).</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaMetadata.Height">
+            <summary>Original height (in pixels) of the media item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaMetadata.Photo">
+            <summary>Metadata for a photo media type.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaMetadata.Video">
+            <summary>Metadata for a video media type.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaMetadata.Width">
+            <summary>Original width (in pixels) of the media item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaMetadata.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.MediaTypeFilter">
+            <summary>This filter defines the type of media items to be returned, for example, videos or photos. All the
+            specified media types are treated as an OR when used together.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaTypeFilter.MediaTypes">
+            <summary>The types of media items to be included. This field should be populated with only one media type.
+            If you specify multiple media types, it results in an error.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.MediaTypeFilter.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.NewEnrichmentItem">
+            <summary>A new enrichment item to be added to an album, used by the `albums.addEnrichment` call.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewEnrichmentItem.LocationEnrichment">
+            <summary>Location to be added to the album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewEnrichmentItem.MapEnrichment">
+            <summary>Map to be added to the album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewEnrichmentItem.TextEnrichment">
+            <summary>Text to be added to the album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewEnrichmentItem.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.NewMediaItem">
+            <summary>New media item that's created in a user's Google Photos account.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewMediaItem.Description">
+            <summary>Description of the media item. This will be shown to the user in the item's info section in the
+            Google Photos app. This string shouldn't be more than 1000 characters.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewMediaItem.SimpleMediaItem">
+            <summary>A new media item that has been uploaded via the included `uploadToken`.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewMediaItem.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.NewMediaItemResult">
+            <summary>Result of creating a new media item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewMediaItemResult.MediaItem">
+            <summary>Media item created with the upload token. It's populated if no errors occurred and the media item
+            was created successfully.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewMediaItemResult.Status">
+            <summary>If an error occurred during the creation of this media item, this field is  populated with
+            information related to the error. For details regarding this field, see Status.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewMediaItemResult.UploadToken">
+            <summary>The upload token used to create this new media item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.NewMediaItemResult.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.Photo">
+            <summary>Metadata that is specific to a photo, such as, ISO, focal length and exposure time. Some of these
+            fields may be null or not included.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Photo.ApertureFNumber">
+            <summary>Aperture f number of the camera lens with which the photo was taken.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Photo.CameraMake">
+            <summary>Brand of the camera with which the photo was taken.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Photo.CameraModel">
+            <summary>Model of the camera with which the photo was taken.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Photo.ExposureTime">
+            <summary>Exposure time of the camera aperture when the photo was taken.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Photo.FocalLength">
+            <summary>Focal length of the camera lens with which the photo was taken.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Photo.IsoEquivalent">
+            <summary>ISO of the camera with which the photo was taken.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Photo.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsRequest">
+             <summary>Request to search for media items in a user's library.
+            
+             If the album id is specified, this call will return the list of media items in the album. If neither filters nor
+             album id are specified, this call will return all media items in a user's Google Photos library.
+            
+             If filters are specified, this call will return all media items in the user's library that fulfill the filter
+             criteria.
+            
+             Filters and album id must not both be set, as this will result in an invalid request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsRequest.AlbumId">
+            <summary>Identifier of an album. If populated, lists all media items in specified album. Can't set in
+            conjunction with any filters.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsRequest.Filters">
+            <summary>Filters to apply to the request. Can't be set in conjunction with an `albumId`.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsRequest.PageSize">
+            <summary>Maximum number of media items to return in the response. The default number of media items to
+            return at a time is 25. The maximum `pageSize` is 100.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsRequest.PageToken">
+            <summary>A continuation token to get the next page of the results. Adding this to the request returns the
+            rows after the `pageToken`. The `pageToken` should be the value returned in the `nextPageToken` parameter in
+            the response to the `searchMediaItems` request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsResponse">
+            <summary>List of media items that match the search parameters.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsResponse.MediaItems">
+            <summary>[Output only] List of media items that match the search parameters.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsResponse.NextPageToken">
+            <summary>[Output only] Use this token to get the next set of media items. Its presence is the only reliable
+            indicator of more media items being available in the next request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.ShareAlbumRequest">
+            <summary>Request to make an album shared in Google Photos.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareAlbumRequest.SharedAlbumOptions">
+            <summary>Options to be set when converting the album to a shared album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareAlbumRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.ShareAlbumResponse">
+            <summary>Response to successfully sharing an album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareAlbumResponse.ShareInfo">
+            <summary>[Output only] Information about the shared album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareAlbumResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.ShareInfo">
+            <summary>Information about albums that are shared. This information is only included if you created the album,
+            it is shared and you have the sharing scope.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareInfo.IsJoined">
+            <summary>True if the user has joined the album. This is always true for the owner of the shared
+            album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareInfo.ShareToken">
+            <summary>A token that can be used by other users to join this shared album via the API.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareInfo.ShareableUrl">
+            <summary>A link to the album that's now shared on the Google Photos website and app. Anyone with the link
+            can access this shared album and see all of the items present in the album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareInfo.SharedAlbumOptions">
+            <summary>Options that control the sharing of an album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.ShareInfo.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.SharedAlbumOptions">
+            <summary>Options that control the sharing of an album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SharedAlbumOptions.IsCollaborative">
+            <summary>True if the shared album allows collaborators (users who have joined the album) to add media items
+            to it. Defaults to false.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SharedAlbumOptions.IsCommentable">
+            <summary>True if the shared album allows the owner and the collaborators (users who have joined the album)
+            to add comments to the album. Defaults to false.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SharedAlbumOptions.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.SimpleMediaItem">
+            <summary>A simple media item to be created in Google Photos via an upload token.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SimpleMediaItem.UploadToken">
+            <summary>Token identifying the media bytes that have been uploaded to Google.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.SimpleMediaItem.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.Status">
+             <summary>The `Status` type defines a logical error model that is suitable for different programming
+             environments, including REST APIs and RPC APIs. It is used by [gRPC](https://github.com/grpc). The error model
+             is designed to be:
+            
+             - Simple to use and understand for most users - Flexible enough to meet unexpected needs
+            
+             # Overview
+            
+             The `Status` message contains three pieces of data: error code, error message, and error details. The error code
+             should be an enum value of google.rpc.Code, but it may accept additional error codes if needed.  The error
+             message should be a developer-facing English message that helps developers *understand* and *resolve* the error.
+             If a localized user-facing error message is needed, put the localized message in the error details or localize
+             it in the client. The optional error details may contain arbitrary information about the error. There is a
+             predefined set of error detail types in the package `google.rpc` that can be used for common error conditions.
+            
+             # Language mapping
+            
+             The `Status` message is the logical representation of the error model, but it is not necessarily the actual wire
+             format. When the `Status` message is exposed in different client libraries and different wire protocols, it can
+             be mapped differently. For example, it will likely be mapped to some exceptions in Java, but more likely mapped
+             to some error codes in C.
+            
+             # Other uses
+            
+             The error model and the `Status` message can be used in a variety of environments, either with or without APIs,
+             to provide a consistent developer experience across different environments.
+            
+             Example uses of this error model include:
+            
+             - Partial errors. If a service needs to return partial errors to the client, it may embed the `Status` in the
+             normal response to indicate the partial errors.
+            
+             - Workflow errors. A typical workflow has multiple steps. Each step may have a `Status` message for error
+             reporting.
+            
+             - Batch operations. If a client uses batch request and batch response, the `Status` message should be used
+             directly inside batch response, one for each error sub-response.
+            
+             - Asynchronous operations. If an API call embeds asynchronous operation results in its response, the status of
+             those operations should be represented directly using the `Status` message.
+            
+             - Logging. If some API errors are stored in logs, the message `Status` could be used directly after any
+             stripping needed for security/privacy reasons.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Status.Code">
+            <summary>The status code, which should be an enum value of google.rpc.Code.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Status.Details">
+            <summary>A list of messages that carry the error details.  There is a common set of message types for APIs
+            to use.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Status.Message">
+            <summary>A developer-facing error message, which should be in English. Any user-facing error message should
+            be localized and sent in the google.rpc.Status.details field, or localized by the client.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Status.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.TextEnrichment">
+            <summary>An enrichment containing text.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.TextEnrichment.Text">
+            <summary>Text for this enrichment item.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.TextEnrichment.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.UnshareAlbumRequest">
+            <summary>Request to unshare a shared album in Google Photos.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.UnshareAlbumRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.UnshareAlbumResponse">
+            <summary>Response of a successful unshare of a shared album.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.UnshareAlbumResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.Data.Video">
+            <summary>Metadata that is specific to a video, for example, fps and processing status. Some of these fields may
+            be null or not included.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Video.CameraMake">
+            <summary>Brand of the camera with which the video was taken.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Video.CameraModel">
+            <summary>Model of the camera with which the video was taken.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Video.Fps">
+            <summary>Frame rate of the video.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Video.Status">
+            <summary>Processing status of the video.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.Data.Video.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.PhotosLibraryService">
+            <summary>The PhotosLibrary Service.</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Version">
+            <summary>The API version.</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.DiscoveryVersionUsed">
+            <summary>The discovery version used to generate this service.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.#ctor">
+            <summary>Constructs a new service.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.#ctor(Google.Apis.Services.BaseClientService.Initializer)">
+            <summary>Constructs a new service.</summary>
+            <param name="initializer">The service initializer.</param>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Features">
+            <summary>Gets the service supported features.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Name">
+            <summary>Gets the service name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.BaseUri">
+            <summary>Gets the service base URI.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.BasePath">
+            <summary>Gets the service base path.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Scope">
+            <summary>Available OAuth 2.0 scopes for use with the Photos Library API.</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Scope.Photoslibrary">
+            <summary>View and manage your Google Photos library</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Scope.PhotoslibraryAppendonly">
+            <summary>Add to your Google Photos library</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Scope.PhotoslibraryReadonly">
+            <summary>View your Google Photos library</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Scope.PhotoslibraryReadonlyAppcreateddata">
+            <summary>Manage photos added by this app</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Scope.PhotoslibrarySharing">
+            <summary>Manage and add to shared albums on your behalf</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.Albums">
+            <summary>Gets the Albums resource.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.MediaItems">
+            <summary>Gets the MediaItems resource.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryService.SharedAlbums">
+            <summary>Gets the SharedAlbums resource.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1">
+            <summary>A base abstract class for PhotosLibrary requests.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new PhotosLibraryBaseServiceRequest instance.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.Xgafv">
+            <summary>V1 error format.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.XgafvEnum">
+            <summary>V1 error format.</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.XgafvEnum.Value1">
+            <summary>v1 error format</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.XgafvEnum.Value2">
+            <summary>v2 error format</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.AccessToken">
+            <summary>OAuth access token.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.Alt">
+            <summary>Data format for response.</summary>
+            [default: json]
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.AltEnum">
+            <summary>Data format for response.</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.AltEnum.Json">
+            <summary>Responses with Content-Type of application/json</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.AltEnum.Media">
+            <summary>Media download with context-dependent Content-Type</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.AltEnum.Proto">
+            <summary>Responses with Content-Type of application/x-protobuf</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.Callback">
+            <summary>JSONP</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.Fields">
+            <summary>Selector specifying which fields to include in a partial response.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.Key">
+            <summary>API key. Your API key identifies your project and provides you with API access, quota, and reports.
+            Required unless you provide an OAuth 2.0 token.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.OauthToken">
+            <summary>OAuth 2.0 token for the current user.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.PrettyPrint">
+            <summary>Returns response with indentations and line breaks.</summary>
+            [default: true]
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.QuotaUser">
+            <summary>Available to use for quota purposes for server-side applications. Can be any arbitrary string
+            assigned to a user, but should not exceed 40 characters.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.UploadType">
+            <summary>Legacy upload protocol for media (e.g. "media", "multipart").</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.UploadProtocol">
+            <summary>Upload protocol for media (e.g. "raw", "multipart").</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.PhotosLibraryBaseServiceRequest`1.InitParameters">
+            <summary>Initializes PhotosLibrary parameter list.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.AlbumsResource">
+            <summary>The "albums" collection of methods.</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.AlbumsResource.service">
+            <summary>The service which this resource belongs to.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new resource.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichment(Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumRequest,System.String)">
+            <summary>Adds an enrichment at a specified position in a defined album.</summary>
+            <param name="body">The body of the request.</param>
+            <param name="albumId">Identifier of the album where the enrichment is to be added.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest">
+            <summary>Adds an enrichment at a specified position in a defined album.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.PhotosLibrary.v1.Data.AddEnrichmentToAlbumRequest,System.String)">
+            <summary>Constructs a new AddEnrichment request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest.AlbumId">
+            <summary>Identifier of the album where the enrichment is to be added.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.AddEnrichmentRequest.InitParameters">
+            <summary>Initializes AddEnrichment parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.Create(Google.Apis.PhotosLibrary.v1.Data.CreateAlbumRequest)">
+            <summary>Creates an album in a user's Google Photos library.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.AlbumsResource.CreateRequest">
+            <summary>Creates an album in a user's Google Photos library.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.CreateRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.PhotosLibrary.v1.Data.CreateAlbumRequest)">
+            <summary>Constructs a new Create request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.CreateRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.CreateRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.CreateRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.CreateRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.CreateRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.CreateRequest.InitParameters">
+            <summary>Initializes Create parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.Get(System.String)">
+            <summary>Returns the album based on the specified `albumId`. The `albumId` must be the ID of an album owned
+            by the user or a shared album that the user has joined.</summary>
+            <param name="albumId">Identifier of the album to be requested.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.AlbumsResource.GetRequest">
+            <summary>Returns the album based on the specified `albumId`. The `albumId` must be the ID of an album owned
+            by the user or a shared album that the user has joined.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.GetRequest.#ctor(Google.Apis.Services.IClientService,System.String)">
+            <summary>Constructs a new Get request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.GetRequest.AlbumId">
+            <summary>Identifier of the album to be requested.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.GetRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.GetRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.GetRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.GetRequest.InitParameters">
+            <summary>Initializes Get parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.List">
+            <summary>Lists all albums shown to a user in the Albums tab of the Google Photos app.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest">
+            <summary>Lists all albums shown to a user in the Albums tab of the Google Photos app.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new List request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest.PageToken">
+            <summary>A continuation token to get the next page of the results. Adding this to the request returns
+            the rows after the `pageToken`. The `pageToken` should be the value returned in the `nextPageToken`
+            parameter in the response to the `listAlbums` request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest.PageSize">
+            <summary>Maximum number of albums to return in the response. The default number of albums to return at a
+            time is 20. The maximum `pageSize` is 50.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest.ExcludeNonAppCreatedData">
+            <summary>If set, the results exclude media items that were not created by this app. Defaults to false
+            (all albums are returned). This field is ignored if the photoslibrary.readonly.appcreateddata scope is
+            used.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.ListRequest.InitParameters">
+            <summary>Initializes List parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.Share(Google.Apis.PhotosLibrary.v1.Data.ShareAlbumRequest,System.String)">
+            <summary>Marks an album as shared and accessible to other users. This action can only be performed on albums
+            which were created by the developer via the API.</summary>
+            <param name="body">The body of the request.</param>
+            <param name="albumId">Identifier of the album to be shared. This `albumId` must belong to an album created by the
+            developer.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest">
+            <summary>Marks an album as shared and accessible to other users. This action can only be performed on albums
+            which were created by the developer via the API.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.PhotosLibrary.v1.Data.ShareAlbumRequest,System.String)">
+            <summary>Constructs a new Share request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest.AlbumId">
+            <summary>Identifier of the album to be shared. This `albumId` must belong to an album created by the
+            developer.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.ShareRequest.InitParameters">
+            <summary>Initializes Share parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.Unshare(Google.Apis.PhotosLibrary.v1.Data.UnshareAlbumRequest,System.String)">
+            <summary>Marks a previously shared album as private. This means that the album is no longer shared and all
+            the non-owners will lose access to the album. All non-owner content will be removed from the album. If a
+            non-owner has previously added the album to their library, they will retain all photos in their library.
+            This action can only be performed on albums which were created by the developer via the API.</summary>
+            <param name="body">The body of the request.</param>
+            <param name="albumId">Identifier of the album to be unshared. This album id must belong to an album created by the
+            developer.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest">
+            <summary>Marks a previously shared album as private. This means that the album is no longer shared and all
+            the non-owners will lose access to the album. All non-owner content will be removed from the album. If a
+            non-owner has previously added the album to their library, they will retain all photos in their library.
+            This action can only be performed on albums which were created by the developer via the API.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.PhotosLibrary.v1.Data.UnshareAlbumRequest,System.String)">
+            <summary>Constructs a new Unshare request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest.AlbumId">
+            <summary>Identifier of the album to be unshared. This album id must belong to an album created by the
+            developer.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.AlbumsResource.UnshareRequest.InitParameters">
+            <summary>Initializes Unshare parameter list.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.MediaItemsResource">
+            <summary>The "mediaItems" collection of methods.</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.MediaItemsResource.service">
+            <summary>The service which this resource belongs to.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new resource.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreate(Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsRequest)">
+             <summary>Creates one or more media items in a user's Google Photos library.
+            
+             This is the second step for creating a media item. For details regarding Step 1, uploading the raw bytes to
+             a Google Server, see Uploading media.
+            
+             This call adds the media item to the library. If an album `id` is specified, the call adds the media item to
+             the album too. By default, the media item will be added to the end of the library or album.
+            
+             If an album `id` and position are both defined, the media item is added to the album at the specified
+             position.
+            
+             If the call contains multiple media items, they're added at the specified position. If you are creating a
+             media item in a shared album where you are not the owner, you are not allowed to position the media item.
+             Doing so will result in a `BAD REQUEST` error.</summary>
+             <param name="body">The body of the request.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreateRequest">
+             <summary>Creates one or more media items in a user's Google Photos library.
+            
+             This is the second step for creating a media item. For details regarding Step 1, uploading the raw bytes to
+             a Google Server, see Uploading media.
+            
+             This call adds the media item to the library. If an album `id` is specified, the call adds the media item to
+             the album too. By default, the media item will be added to the end of the library or album.
+            
+             If an album `id` and position are both defined, the media item is added to the album at the specified
+             position.
+            
+             If the call contains multiple media items, they're added at the specified position. If you are creating a
+             media item in a shared album where you are not the owner, you are not allowed to position the media item.
+             Doing so will result in a `BAD REQUEST` error.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreateRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.PhotosLibrary.v1.Data.BatchCreateMediaItemsRequest)">
+            <summary>Constructs a new BatchCreate request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreateRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreateRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreateRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreateRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreateRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchCreateRequest.InitParameters">
+            <summary>Initializes BatchCreate parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchGet">
+            <summary>Returns the list of media items for the specified media item identifiers. Items are returned in the
+            same order as the supplied identifiers.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchGetRequest">
+            <summary>Returns the list of media items for the specified media item identifiers. Items are returned in the
+            same order as the supplied identifiers.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchGetRequest.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new BatchGet request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchGetRequest.MediaItemIds">
+            <summary>Identifiers of the media items to be requested. Must not contain repeated identifiers and
+            cannot be empty. The maximum number of media items that can be retrieved in one call is 50.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchGetRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchGetRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchGetRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.BatchGetRequest.InitParameters">
+            <summary>Initializes BatchGet parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.Get(System.String)">
+            <summary>Returns the media item for the specified media item identifier.</summary>
+            <param name="mediaItemId">Identifier of the media item to be requested.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.MediaItemsResource.GetRequest">
+            <summary>Returns the media item for the specified media item identifier.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.GetRequest.#ctor(Google.Apis.Services.IClientService,System.String)">
+            <summary>Constructs a new Get request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.GetRequest.MediaItemId">
+            <summary>Identifier of the media item to be requested.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.GetRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.GetRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.GetRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.GetRequest.InitParameters">
+            <summary>Initializes Get parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.List">
+            <summary>List all media items from a user's Google Photos library.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.MediaItemsResource.ListRequest">
+            <summary>List all media items from a user's Google Photos library.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.ListRequest.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new List request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.ListRequest.PageToken">
+            <summary>A continuation token to get the next page of the results. Adding this to the request returns
+            the rows after the `pageToken`. The `pageToken` should be the value returned in the `nextPageToken`
+            parameter in the response to the `listMediaItems` request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.ListRequest.PageSize">
+            <summary>Maximum number of media items to return in the response. The default number of media items to
+            return at a time is 25. The maximum `pageSize` is 100.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.ListRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.ListRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.ListRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.ListRequest.InitParameters">
+            <summary>Initializes List parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.Search(Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsRequest)">
+            <summary>Searches for media items in a user's Google Photos library. If no filters are set, then all media
+            items in the user's library are returned. If an album is set, all media items in the specified album are
+            returned. If filters are specified, media items that match the filters from the user's library are listed.
+            If you set both the album and the filters, the request results in an error.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.MediaItemsResource.SearchRequest">
+            <summary>Searches for media items in a user's Google Photos library. If no filters are set, then all media
+            items in the user's library are returned. If an album is set, all media items in the specified album are
+            returned. If filters are specified, media items that match the filters from the user's library are listed.
+            If you set both the album and the filters, the request results in an error.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.SearchRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.PhotosLibrary.v1.Data.SearchMediaItemsRequest)">
+            <summary>Constructs a new Search request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.SearchRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.SearchRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.SearchRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.SearchRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.MediaItemsResource.SearchRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.MediaItemsResource.SearchRequest.InitParameters">
+            <summary>Initializes Search parameter list.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource">
+            <summary>The "sharedAlbums" collection of methods.</summary>
+        </member>
+        <member name="F:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.service">
+            <summary>The service which this resource belongs to.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new resource.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.Get(System.String)">
+            <summary>Returns the album based on the specified `shareToken`.</summary>
+            <param name="shareToken">Share token of the album to be requested.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.GetRequest">
+            <summary>Returns the album based on the specified `shareToken`.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.GetRequest.#ctor(Google.Apis.Services.IClientService,System.String)">
+            <summary>Constructs a new Get request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.GetRequest.ShareToken">
+            <summary>Share token of the album to be requested.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.GetRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.GetRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.GetRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.GetRequest.InitParameters">
+            <summary>Initializes Get parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.Join(Google.Apis.PhotosLibrary.v1.Data.JoinSharedAlbumRequest)">
+            <summary>Joins a shared album on behalf of the Google Photos user.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.JoinRequest">
+            <summary>Joins a shared album on behalf of the Google Photos user.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.JoinRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.PhotosLibrary.v1.Data.JoinSharedAlbumRequest)">
+            <summary>Constructs a new Join request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.JoinRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.JoinRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.JoinRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.JoinRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.JoinRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.JoinRequest.InitParameters">
+            <summary>Initializes Join parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.Leave(Google.Apis.PhotosLibrary.v1.Data.LeaveSharedAlbumRequest)">
+            <summary>Leaves a previously-joined shared album on behalf of the Google Photos user. The user must not own
+            this album.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.LeaveRequest">
+            <summary>Leaves a previously-joined shared album on behalf of the Google Photos user. The user must not own
+            this album.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.LeaveRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.PhotosLibrary.v1.Data.LeaveSharedAlbumRequest)">
+            <summary>Constructs a new Leave request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.LeaveRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.LeaveRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.LeaveRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.LeaveRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.LeaveRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.LeaveRequest.InitParameters">
+            <summary>Initializes Leave parameter list.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.List">
+            <summary>Lists all shared albums available in the Sharing tab of the user's Google Photos app.</summary>
+        </member>
+        <member name="T:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest">
+            <summary>Lists all shared albums available in the Sharing tab of the user's Google Photos app.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new List request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest.PageSize">
+            <summary>Maximum number of albums to return in the response. The default number of albums to return at a
+            time is 20. The maximum `pageSize` is 50.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest.ExcludeNonAppCreatedData">
+            <summary>If set, the results exclude media items that were not created by this app. Defaults to false
+            (all albums are returned). This field is ignored if the photoslibrary.readonly.appcreateddata scope is
+            used.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest.PageToken">
+            <summary>A continuation token to get the next page of the results. Adding this to the request returns
+            the rows after the `pageToken`. The `pageToken` should be the value returned in the `nextPageToken`
+            parameter in the response to the `listSharedAlbums` request.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="M:Google.Apis.PhotosLibrary.v1.SharedAlbumsResource.ListRequest.InitParameters">
+            <summary>Initializes List parameter list.</summary>
+        </member>
+    </members>
+</doc>
