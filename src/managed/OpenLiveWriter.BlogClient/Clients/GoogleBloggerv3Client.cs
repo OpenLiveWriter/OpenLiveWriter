@@ -779,14 +779,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             return newAlbum.Id;
         }
 
-        private void ShowPicasaSignupPrompt(object sender, EventArgs e)
-        {
-            if (DisplayMessage.Show(MessageId.PicasawebSignup) == DialogResult.Yes)
-            {
-                ShellHelper.LaunchUrl("http://picasaweb.google.com");
-            }
-        }
-
         private void PostNewImage(string albumName, string filename, string blogId, out string srcUrl, out string editUri)
         {
             for (int retry = 0; retry < MaxRetries; retry++)
