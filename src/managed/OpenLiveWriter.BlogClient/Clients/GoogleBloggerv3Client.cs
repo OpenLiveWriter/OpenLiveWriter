@@ -14,6 +14,8 @@ using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Localization;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Blogger.v3;
+using Google.Apis.PhotosLibrary.v1;
+using Google.Apis.PhotosLibrary.v1.Data;
 using Google.Apis.Util.Store;
 using Google.Apis.Services;
 using Google.Apis.Auth.OAuth2.Flows;
@@ -33,7 +35,7 @@ namespace OpenLiveWriter.BlogClient.Clients
     public class GoogleBloggerv3Client : BlogClientBase, IBlogClient
     {
         // These URLs map to OAuth2 permission scopes for Google Blogger.
-        public static string PicasaServiceScope = "https://picasaweb.google.com/data";
+        public static string PhotosLibraryServiceScope = PhotosLibraryService.Scope.Photoslibrary;
         public static string BloggerServiceScope = BloggerService.Scope.Blogger;
         public static char LabelDelimiter = ',';
 
@@ -48,7 +50,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             // browser window and prompt the user for permissions and then write those permissions to the IDataStore.
             return GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(ClientSecretsStream).Secrets,
-                new List<string>() { BloggerServiceScope, PicasaServiceScope },
+                new List<string>() { BloggerServiceScope, PhotosLibraryServiceScope },
                 blogId,
                 taskCancellationToken,
                 GetCredentialsDataStoreForBlog(blogId));
@@ -205,6 +207,16 @@ namespace OpenLiveWriter.BlogClient.Clients
             });
         }
 
+        private PhotosLibraryService GetPhotosLibraryService()
+        {
+            TransientCredentials transientCredentials = Login();
+            return new PhotosLibraryService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = (UserCredential)transientCredentials.Token,
+                ApplicationName = string.Format(CultureInfo.InvariantCulture, "{0} {1}", ApplicationEnvironment.ProductName, ApplicationEnvironment.ProductVersion),
+            });
+        }
+
         private bool IsValidToken(TokenResponse token)
         {
             // If the token is expired but we have a non-null RefreshToken, we can assume the token will be 
@@ -244,7 +256,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 {
                     ClientSecretsStream = ClientSecretsStream,
                     DataStore = GetCredentialsDataStoreForBlog(tc.Username),
-                    Scopes = new List<string>() { BloggerServiceScope, PicasaServiceScope },
+                    Scopes = new List<string>() { BloggerServiceScope, PhotosLibraryServiceScope },
                 });
 
                 var loadTokenTask = flow.LoadTokenAsync(tc.Username, CancellationToken.None);
@@ -726,127 +738,45 @@ namespace OpenLiveWriter.BlogClient.Clients
             throw new NotImplementedException();
         }
 
-        #region Picasa image uploading - stolen from BloggerAtomClient
+        #region Google Photos image uploading, adapted from Picasa image uploading - stolen from BloggerAtomClient
+
+        private List<Album> GetAllAlbums(PhotosLibraryService library)
+        {
+            // Navigate GPhotos pagination and return a list of all the user's albums
+            var albums = new List<Album>();
+            ListAlbumsResponse albumsResponse;
+            string pageToken = null;
+            do
+            {
+                albumsResponse = (new AlbumsResource.ListRequest(library) {
+                    PageSize = 50,
+                    PageToken = pageToken
+                }).Execute();
+                if(albumsResponse.Albums != null) foreach(var album in albumsResponse.Albums) albums.Add(album);
+                pageToken = albumsResponse.NextPageToken;
+            } while (pageToken != null);
+            return albums;
+        }
 
         public string GetBlogImagesAlbum(string albumName, string blogId)
         {
-            const string FEED_REL = "http://schemas.google.com/g/2005#feed";
+            // TODO, somehow implement blogId? How would we distinguish between the different blog albums on GPhotos?
+            // Get the URL of the Google Photos 'Open Live Writer' album, creating it if it doesn't exist
+            var library = GetPhotosLibraryService();
+            var matchingAlbums = GetAllAlbums(library).Where(album => album.Title == albumName);
+            if (matchingAlbums.Count() > 0) return matchingAlbums.First().Id; // Return the ID of the album if it exists
 
-            // TODO: HACK: The deprecation-extension flag keeps the deprecated Picasa API alive.
-            Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default?deprecation-extension=true");
-            var picasaId = string.Empty;
-
-            try
+            // Attempt to create the album as it does not exist
+            var newAlbum = library.Albums.Create(new CreateAlbumRequest()
             {
-                Uri reqUri = picasaUri;
-                XmlDocument albumListDoc = AtomClient.xmlRestRequestHelper.Get(ref reqUri, CreateAuthorizationFilter(), "kind", "album");
-                var idNode = albumListDoc.SelectSingleNode(@"/atom:feed/gphoto:user", _nsMgr) as XmlElement;
-                if (idNode != null)
+                Album = new Album()
                 {
-                    var id = AtomProtocolVersion.V10DraftBlogger.TextNodeToPlaintext(idNode);
-                    picasaId = id;
+                    Title = albumName
                 }
+            }).Execute();
 
-                foreach (XmlElement entryEl in albumListDoc.SelectNodes(@"/atom:feed/atom:entry", _nsMgr))
-                {
-                    XmlElement titleNode = entryEl.SelectSingleNode(@"atom:title", _nsMgr) as XmlElement;
-                    if (titleNode != null)
-                    {
-                        string titleText = AtomProtocolVersion.V10DraftBlogger.TextNodeToPlaintext(titleNode);
-                        if (titleText == albumName)
-                        {
-                            XmlNode numPhotosRemainingNode = entryEl.SelectSingleNode("gphoto:numphotosremaining/text()", _nsMgr);
-                            if (numPhotosRemainingNode != null)
-                            {
-                                int numPhotosRemaining;
-                                if (int.TryParse(numPhotosRemainingNode.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out numPhotosRemaining))
-                                {
-                                    if (numPhotosRemaining < 1)
-                                        continue;
-                                }
-                            }
-                            string selfHref = AtomEntry.GetLink(entryEl, _nsMgr, FEED_REL, "application/atom+xml", null, reqUri);
-                            if (selfHref.Length > 1)
-                            {
-                                // TODO: HACK: This keeps the deprecated Picasa API alive.
-                                selfHref += "&deprecation-extension=true";
-                                return selfHref;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (WebException we)
-            {
-                HttpWebResponse httpWebResponse = we.Response as HttpWebResponse;
-                if (httpWebResponse != null)
-                {
-                    HttpRequestHelper.DumpResponse(httpWebResponse);
-                    if (httpWebResponse.StatusCode == HttpStatusCode.NotFound)
-                    {
-                        throw new BlogClientOperationCancelledException();
-                    }
-                }
-                throw;
-            }
-
-            try
-            {
-                XmlDocument newDoc = new XmlDocument();
-                XmlElement newEntryEl = newDoc.CreateElement("atom", "entry", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-                newDoc.AppendChild(newEntryEl);
-
-                XmlElement newTitleEl = newDoc.CreateElement("atom", "title", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-                newTitleEl.SetAttribute("type", "text");
-                newTitleEl.InnerText = albumName;
-                newEntryEl.AppendChild(newTitleEl);
-
-                XmlElement newSummaryEl = newDoc.CreateElement("atom", "summary", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-                newSummaryEl.SetAttribute("type", "text");
-                newSummaryEl.InnerText = Res.Get(StringId.BloggerImageAlbumDescription);
-                newEntryEl.AppendChild(newSummaryEl);
-
-                XmlElement newAccessEl = newDoc.CreateElement("gphoto", "access", photoNS.Uri);
-                newAccessEl.InnerText = "private";
-                newEntryEl.AppendChild(newAccessEl);
-
-                XmlElement newCategoryEl = newDoc.CreateElement("atom", "category", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-                newCategoryEl.SetAttribute("scheme", "http://schemas.google.com/g/2005#kind");
-                newCategoryEl.SetAttribute("term", "http://schemas.google.com/photos/2007#album");
-                newEntryEl.AppendChild(newCategoryEl);
-
-                Uri postUri = picasaUri;
-                XmlDocument newAlbumResult = AtomClient.xmlRestRequestHelper.Post(ref postUri, CreateAuthorizationFilter(), "application/atom+xml", newDoc, null);
-                XmlElement newAlbumResultEntryEl = newAlbumResult.SelectSingleNode("/atom:entry", _nsMgr) as XmlElement;
-                Debug.Assert(newAlbumResultEntryEl != null);
-                return AtomEntry.GetLink(newAlbumResultEntryEl, _nsMgr, FEED_REL, "application/atom+xml", null, postUri);
-            }
-            catch (Exception)
-            {
-                // Ignore
-            }
-
-            // If we've got this far, it means creating the Open Live Writer album has failed.
-            // We will now try and use the Blogger assigned folder.
-            if (!string.IsNullOrEmpty(picasaId))
-            {
-                var service = GetService();
-
-                var userInfo = service.BlogUserInfos.Get("self", blogId).Execute();
-
-                // If the PhotosAlbumKey is "0", this means the user has never posted to Blogger from the 
-                // Blogger web interface, which means the album has never been created and so there's nothing
-                // for us to use.
-                if (userInfo.BlogUserInfoValue.PhotosAlbumKey != "0")
-                {
-                    // TODO: HACK: The deprecation-extension flag keeps the deprecated Picasa API alive.
-                    var bloggerPicasaUrl = $"https://picasaweb.google.com/data/feed/api/user/{picasaId}/albumid/{userInfo.BlogUserInfoValue.PhotosAlbumKey}?deprecation-extension=true";
-                    return bloggerPicasaUrl;
-                }
-            }
-
-            // If we've got this far, it means the user is going to have to manually create their own album.
-            throw new BlogClientFileTransferException("Unable to upload to Blogger", "BloggerError", "We were unable to create a folder for your images, please go to http://openlivewriter.org/tutorials/googlePhotoFix.html to see how to do this");
+            // Return the ID of the new album
+            return newAlbum.Id;
         }
 
         private void ShowPicasaSignupPrompt(object sender, EventArgs e)
@@ -865,12 +795,13 @@ namespace OpenLiveWriter.BlogClient.Clients
                 try
                 {
                     string albumUrl = GetBlogImagesAlbum(albumName, blogId);
-                    HttpWebResponse response = RedirectHelper.GetResponse(albumUrl, new RedirectHelper.RequestFactory(new UploadFileRequestFactory(this, filename, "POST").Create));
+                    throw new ApplicationException(albumUrl);
+                    /*HttpWebResponse response = RedirectHelper.GetResponse(albumUrl, new RedirectHelper.RequestFactory(new UploadFileRequestFactory(this, filename, "POST").Create));
                     using (Stream s = response.GetResponseStream())
                     {
                         ParseMediaEntry(s, out srcUrl, out editUri);
                         return;
-                    }
+                    }*/
                 }
                 catch (WebException we)
                 {
