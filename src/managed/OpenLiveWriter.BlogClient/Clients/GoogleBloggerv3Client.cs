@@ -37,6 +37,7 @@ namespace OpenLiveWriter.BlogClient.Clients
     {
         // These URLs map to OAuth2 permission scopes for Google Blogger.
         public static string PhotosLibraryServiceScope = PhotosLibraryService.Scope.Photoslibrary;
+        public static string PhotosLibraryServiceSharingScope = PhotosLibraryService.Scope.PhotoslibrarySharing;
         public static string BloggerServiceScope = BloggerService.Scope.Blogger;
         public static char LabelDelimiter = ',';
 
@@ -51,7 +52,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             // browser window and prompt the user for permissions and then write those permissions to the IDataStore.
             return GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(ClientSecretsStream).Secrets,
-                new List<string>() { BloggerServiceScope, PhotosLibraryServiceScope },
+                new List<string>() { BloggerServiceScope, PhotosLibraryServiceScope, PhotosLibraryServiceSharingScope },
                 blogId,
                 taskCancellationToken,
                 GetCredentialsDataStoreForBlog(blogId));
@@ -257,7 +258,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 {
                     ClientSecretsStream = ClientSecretsStream,
                     DataStore = GetCredentialsDataStoreForBlog(tc.Username),
-                    Scopes = new List<string>() { BloggerServiceScope, PhotosLibraryServiceScope },
+                    Scopes = new List<string>() { BloggerServiceScope, PhotosLibraryServiceScope, PhotosLibraryServiceSharingScope },
                 });
 
                 var loadTokenTask = flow.LoadTokenAsync(tc.Username, CancellationToken.None);
@@ -626,43 +627,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     albumName = StringHelper.Reverse(chunks[1]);
             }
 
-            string EDIT_MEDIA_LINK = "EditMediaLink";
-            string srcUrl;
-            string editUri = uploadContext.Settings.GetString(EDIT_MEDIA_LINK, null);
-            if (editUri == null || editUri.Length == 0)
-            {
-                PostNewImage(albumName, path, uploadContext.BlogId, out srcUrl, out editUri);
-            }
-            else
-            {
-                try
-                {
-                    UpdateImage(editUri, path, out srcUrl, out editUri);
-                }
-                catch (Exception e)
-                {
-                    Trace.Fail(e.ToString());
-                    if (e is WebException)
-                        HttpRequestHelper.LogException((WebException)e);
-
-                    bool success = false;
-                    srcUrl = null; // compiler complains without this line
-                    try
-                    {
-                        // couldn't update existing image? try posting a new one
-                        PostNewImage(albumName, path, uploadContext.BlogId, out srcUrl, out editUri);
-                        success = true;
-                    }
-                    catch
-                    {
-                    }
-                    if (!success)
-                        throw;  // rethrow the exception from the update, not the post
-                }
-            }
-            uploadContext.Settings.SetString(EDIT_MEDIA_LINK, editUri);
-
-            return srcUrl;
+            return PostNewImage(albumName, path, uploadContext.BlogId);
         }
 
         public void DoAfterPublishUploadWork(IFileUploadContext uploadContext)
@@ -716,7 +681,19 @@ namespace OpenLiveWriter.BlogClient.Clients
             // Get the URL of the Google Photos 'Open Live Writer' album, creating it if it doesn't exist
             var library = GetPhotosLibraryService();
             var matchingAlbums = GetAllAlbums(library).Where(album => album.Title == albumName);
-            if (matchingAlbums.Count() > 0) return matchingAlbums.First().Id; // Return the ID of the album if it exists
+            if (matchingAlbums.Count() > 0)
+            {
+                // Check if album has sharing permissions and add them if not
+                if (matchingAlbums.First().ShareInfo == null)
+                    library.Albums.Share(new ShareAlbumRequest() {
+                        SharedAlbumOptions = new SharedAlbumOptions()
+                        {
+                            IsCollaborative = false, IsCommentable = false
+                        }
+                    }, matchingAlbums.First().Id).Execute();
+
+                return matchingAlbums.First().Id; // Return the ID of the album if it exists
+            }
 
             // Attempt to create the album as it does not exist
             var newAlbum = library.Albums.Create(new CreateAlbumRequest()
@@ -727,20 +704,23 @@ namespace OpenLiveWriter.BlogClient.Clients
                 }
             }).Execute();
 
+            // Share the new album
+            library.Albums.Share(new ShareAlbumRequest()
+            {
+                SharedAlbumOptions = new SharedAlbumOptions()
+                {
+                    IsCollaborative = false,
+                    IsCommentable = false
+                }
+            }, newAlbum.Id).Execute();
             // Return the ID of the new album
             return newAlbum.Id;
         }
 
-        private void PostNewImage(string albumName, string filename, string blogId, out string srcUrl, out string editUri)
+        private string PostNewImage(string albumName, string filename, string blogId)
         {
             var albumId = GetBlogImagesAlbum(albumName, blogId);
             var library = GetPhotosLibraryService();
-
-            /* Uploading an image to Google Photos from a filename is a multiple step process
-             *  1. Create a reading System.IO.FileStream on the given filename
-             *  2. begin the file upload
-             *  3. Execute a MediaItems BatchCreate request to create the metadata on Google Photos */
-             
 
             // Create a FileStream
             var imageFileStream = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read);
@@ -775,59 +755,10 @@ namespace OpenLiveWriter.BlogClient.Clients
                 }
             }).Execute();
 
-            // TODO correctly format baseUrl to include width parameter
-            srcUrl = batchCreateResponse.NewMediaItemResults.First().MediaItem.BaseUrl;
-            // TODO change from edit URI into and edit token or ID 
-            editUri = "";
-        }
+            // Retrieve the appropiate Base URL for inlining the image.
+            var mediaItem = library.MediaItems.Get(batchCreateResponse.NewMediaItemResults.First().MediaItem.Id).Execute();
 
-        private void UpdateImage(string editUri, string filename, out string srcUrl, out string newEditUri)
-        {
-            for (int retry = 0; retry < MaxRetries; retry++)
-            {
-                var transientCredentials = Login();
-                HttpWebResponse response;
-                bool conflict = false;
-                try
-                {
-                    response = RedirectHelper.GetResponse(editUri, new RedirectHelper.RequestFactory(new UploadFileRequestFactory(this, filename, "PUT").Create));
-                }
-                catch (WebException we)
-                {
-                    if (retry < MaxRetries - 1 &&
-                        we.Response as HttpWebResponse != null)
-                    {
-                        if (((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.Conflict)
-                        {
-                            response = (HttpWebResponse)we.Response;
-                            conflict = true;
-                        }
-                        else if (((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.Forbidden)
-                        {
-                            // HTTP 403 Forbidden means our OAuth access token is not valid.
-                            RefreshAccessToken(transientCredentials);
-                            continue;
-                        }
-                    }
-
-                    throw;
-                }
-
-                using (Stream s = response.GetResponseStream())
-                {
-                    ParseMediaEntry(s, out srcUrl, out newEditUri);
-                }
-
-                if (!conflict)
-                {
-                    return; // success!
-                }
-
-                editUri = newEditUri;
-            }
-
-            Trace.Fail("Should never get here");
-            throw new ApplicationException("Should never get here");
+            return mediaItem.BaseUrl + "=d"; // 'd' Base URL parameter for Download
         }
 
         private void ParseMediaEntry(Stream s, out string srcUrl, out string editUri)
