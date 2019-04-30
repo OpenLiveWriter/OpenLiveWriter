@@ -627,7 +627,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     albumName = StringHelper.Reverse(chunks[1]);
             }
 
-            return PostNewImage(albumName, path, uploadContext.BlogId);
+            return PostNewImage(albumName, path);
         }
 
         public void DoAfterPublishUploadWork(IFileUploadContext uploadContext)
@@ -675,7 +675,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return albums;
         }
 
-        public string GetBlogImagesAlbum(string albumName, string blogId)
+        public string GetBlogImagesAlbum(string albumName)
         {
             // TODO, somehow implement blogId? How would we distinguish between the different blog albums on GPhotos?
             // Get the URL of the Google Photos 'Open Live Writer' album, creating it if it doesn't exist
@@ -717,9 +717,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             return newAlbum.Id;
         }
 
-        private string PostNewImage(string albumName, string filename, string blogId)
+        private string PostNewImage(string albumName, string filename)
         {
-            var albumId = GetBlogImagesAlbum(albumName, blogId);
+            var albumId = GetBlogImagesAlbum(albumName);
             var library = GetPhotosLibraryService();
 
             // Create a FileStream
@@ -760,74 +760,6 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             return mediaItem.BaseUrl + "=d"; // 'd' Base URL parameter for Download
         }
-
-        private void ParseMediaEntry(Stream s, out string srcUrl, out string editUri)
-        {
-            srcUrl = null;
-
-            // First try <content src>
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(s);
-            XmlElement contentEl = xmlDoc.SelectSingleNode("/atom:entry/atom:content", _nsMgr) as XmlElement;
-            if (contentEl != null)
-                srcUrl = XmlHelper.GetUrl(contentEl, "@src", _nsMgr, null);
-
-            // Then try media RSS
-            if (srcUrl == null || srcUrl.Length == 0)
-            {
-                contentEl = xmlDoc.SelectSingleNode("/atom:entry/media:group/media:content[@medium='image']", _nsMgr) as XmlElement;
-                if (contentEl == null)
-                    throw new ArgumentException("Picasa photo entry was missing content element");
-                srcUrl = XmlHelper.GetUrl(contentEl, "@url", _nsMgr, null);
-            }
-
-            editUri = AtomEntry.GetLink(xmlDoc.SelectSingleNode("/atom:entry", _nsMgr) as XmlElement, _nsMgr, "edit-media", null, null, null);
-        }
-
-        private class UploadFileRequestFactory
-        {
-            private readonly GoogleBloggerv3Client _parent;
-            private readonly string _filename;
-            private readonly string _method;
-
-            public UploadFileRequestFactory(GoogleBloggerv3Client parent, string filename, string method)
-            {
-                _parent = parent;
-                _filename = filename;
-                _method = method;
-            }
-
-            public HttpWebRequest Create(string uri)
-            {
-                // TODO: choose rational timeout values
-                HttpWebRequest request = HttpRequestHelper.CreateHttpWebRequest(uri, false);
-
-                _parent.CreateAuthorizationFilter().Invoke(request);
-
-                request.ContentType = MimeHelper.GetContentType(Path.GetExtension(_filename));
-                try
-                {
-                    request.Headers.Add("Slug", Path.GetFileNameWithoutExtension(_filename));
-                }
-                catch (ArgumentException)
-                {
-                    request.Headers.Add("Slug", "Image");
-                }
-
-                request.Method = _method;
-
-                using (Stream s = request.GetRequestStream())
-                {
-                    using (Stream inS = new FileStream(_filename, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    {
-                        StreamHelper.Transfer(inS, s);
-                    }
-                }
-
-                return request;
-            }
-        }
-
         #endregion
 
         public class Category
