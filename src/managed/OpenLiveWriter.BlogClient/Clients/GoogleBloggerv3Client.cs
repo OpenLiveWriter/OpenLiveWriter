@@ -662,56 +662,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
             uploadContext.Settings.SetString(EDIT_MEDIA_LINK, editUri);
 
-            PicasaRefererBlockingWorkaround(uploadContext.BlogId, uploadContext.Role, ref srcUrl);
-
             return srcUrl;
-        }
-
-        /// <summary>
-        /// "It looks like the problem with the inline image is due to referrer checking.
-        /// The thumbnail image being used is protected for display only on certain domains.
-        /// These domains include *.blogspot.com and *.google.com.  This user is using a
-        /// feature in Blogger which allows him to display his blog directly on his own
-        /// domain, which will not pass the referrer checking.
-        ///
-        /// "The maximum size of a thumbnail image that can be displayed on non-*.blogspot.com
-        /// domains is 800px. (blogs don't actually appear at *.google.com).  However, if you
-        /// request a 800px thumbnail, and the image is less than 800px for the maximum
-        /// dimension, then the original image will be returned without the referrer
-        /// restrictions.  That sounds like it will work for you, so feel free to give it a
-        /// shot and let me know if you have any further questions or problems."
-        ///   -- Anonymous Google Employee
-        /// </summary>
-        private void PicasaRefererBlockingWorkaround(string blogId, FileUploadRole role, ref string srcUrl)
-        {
-            if (role == FileUploadRole.LinkedImage && Options.UsePicasaS1600h)
-            {
-                try
-                {
-                    int lastSlash = srcUrl.LastIndexOf('/');
-                    string srcUrl2 = srcUrl.Substring(0, lastSlash)
-                                     + "/s1600-h"
-                                     + srcUrl.Substring(lastSlash);
-                    HttpWebRequest req = HttpRequestHelper.CreateHttpWebRequest(srcUrl2, true);
-                    req.Method = "HEAD";
-                    req.GetResponse().Close();
-                    srcUrl = srcUrl2;
-                    return;
-                }
-                catch (WebException we)
-                {
-                    Debug.Fail("Picasa s1600-h hack failed: " + we.ToString());
-                }
-            }
-
-            try
-            {
-                srcUrl += ((srcUrl.IndexOf('?') >= 0) ? "&" : "?") + "imgmax=800";
-            }
-            catch (Exception ex)
-            {
-                Trace.Fail("Unexpected error while doing Picasa upload: " + ex.ToString());
-            }
         }
 
         public void DoAfterPublishUploadWork(IFileUploadContext uploadContext)
