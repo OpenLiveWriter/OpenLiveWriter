@@ -722,8 +722,8 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Role = "reader"
             }, imageFile.Id).Execute();
             
-            // Retrieve the appropiate URL for inlining the image.
-            return imageFile.WebContentLink;
+            // Retrieve the appropiate URL for inlining the image, splitting off the download parameter
+            return imageFile.WebContentLink.Split('&').First();
         }
         #endregion
 
