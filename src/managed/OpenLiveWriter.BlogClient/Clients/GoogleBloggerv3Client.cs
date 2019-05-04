@@ -9,12 +9,15 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Localization;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Blogger.v3;
+using Google.Apis.Drive.v3;
+using GoogleDriveData = Google.Apis.Drive.v3.Data;
 using Google.Apis.Util.Store;
 using Google.Apis.Services;
 using Google.Apis.Auth.OAuth2.Flows;
@@ -34,7 +37,11 @@ namespace OpenLiveWriter.BlogClient.Clients
     public class GoogleBloggerv3Client : BlogClientBase, IBlogClient
     {
         // These URLs map to OAuth2 permission scopes for Google Blogger.
-        public static string BloggerServiceScope = BloggerService.Scope.Blogger;
+        public static readonly string[] GoogleAPIScopes =
+        {
+            DriveService.Scope.DriveFile,
+            BloggerService.Scope.Blogger
+        };
         public static char LabelDelimiter = ',';
 
         /// <summary>
@@ -48,7 +55,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             // browser window and prompt the user for permissions and then write those permissions to the IDataStore.
             return GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(ClientSecretsStream).Secrets,
-                new List<string>() { BloggerServiceScope },
+                GoogleAPIScopes,
                 blogId,
                 taskCancellationToken,
                 GetCredentialsDataStoreForBlog(blogId));
@@ -205,15 +212,15 @@ namespace OpenLiveWriter.BlogClient.Clients
             });
         }
 
-        /* private PhotosLibraryService GetPhotosLibraryService()
+        private DriveService GetDriveService()
         {
             TransientCredentials transientCredentials = Login();
-            return new PhotosLibraryService(new BaseClientService.Initializer()
+            return new DriveService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = (UserCredential)transientCredentials.Token,
                 ApplicationName = string.Format(CultureInfo.InvariantCulture, "{0} {1}", ApplicationEnvironment.ProductName, ApplicationEnvironment.ProductVersion),
             });
-        } */
+        }
 
         private bool IsValidToken(TokenResponse token)
         {
@@ -254,7 +261,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 {
                     ClientSecretsStream = ClientSecretsStream,
                     DataStore = GetCredentialsDataStoreForBlog(tc.Username),
-                    Scopes = new List<string>() { BloggerServiceScope },
+                    Scopes = GoogleAPIScopes,
                 });
 
                 var loadTokenTask = flow.LoadTokenAsync(tc.Username, CancellationToken.None);
@@ -651,97 +658,72 @@ namespace OpenLiveWriter.BlogClient.Clients
             throw new NotImplementedException();
         }
 
-        #region Google Photos image uploading, adapted from Picasa image uploading - stolen from BloggerAtomClient
+        #region Google Drive image uploading, heavily adapted from Picasa image uploading - stolen from BloggerAtomClient
 
-        /*private List<Album> GetAllAlbums(PhotosLibraryService library)
+        private List<GoogleDriveData.File> GetAllFolders(DriveService drive)
         {
-            // Navigate GPhotos pagination and return a list of all the user's albums
-            var albums = new List<Album>();
-            ListAlbumsResponse albumsResponse;
+            // Navigate GDrive pagination and return a list of all the user's top level folders
+            var folders = new List<GoogleDriveData.File>();
+            GoogleDriveData.FileList fileList;
             string pageToken = null;
             do
             {
-                albumsResponse = (new AlbumsResource.ListRequest(library) {
-                    PageSize = 50,
-                    PageToken = pageToken
-                }).Execute();
-                if(albumsResponse.Albums != null) foreach(var album in albumsResponse.Albums) albums.Add(album);
-                pageToken = albumsResponse.NextPageToken;
+                var listRequest = drive.Files.List();
+                listRequest.Q = "mimeType='application/vnd.google-apps.folder'";
+                fileList = listRequest.Execute();
+
+                if (fileList.Files != null) foreach (var folder in fileList.Files) folders.Add(folder);
+                pageToken = fileList.NextPageToken;
             } while (pageToken != null);
-            return albums;
-        }*/
+            return folders;
+        }
 
-        /*public string GetBlogImagesAlbumId(PhotosLibraryService library, string albumName)
+        private GoogleDriveData.File GetBlogImagesFolder(DriveService drive, string folderName)
         {
-            // TODO, somehow implement blogId? How would we distinguish between the different blog albums on GPhotos?
-            // Get the URL of the Google Photos 'Open Live Writer' album, creating it if it doesn't exist
-            var matchingAlbums = GetAllAlbums(library).Where(album => album.Title == albumName);
-            if (matchingAlbums.Count() > 0)
-            {
-                // Check if album has sharing permissions and add them if not
-                if (matchingAlbums.First().ShareInfo == null) 
-                    library.Albums.Share(new ShareAlbumRequest() {
-                        SharedAlbumOptions = new SharedAlbumOptions()
-                        {
-                            IsCollaborative = false, IsCommentable = false
-                        }
-                    }, matchingAlbums.First().Id).Execute();
+            // Get the ID of the Google Drive 'Open Live Writer' folder, creating it if it doesn't exist
+            var matchingFolders = GetAllFolders(drive).Where(folder => folder.Name == folderName);
+            if (matchingFolders.Count() > 0) return matchingFolders.First();
 
-                return matchingAlbums.First().Id; // Return the album if it exists
+            // Attempt to create and return the folder as it does not exist
+            return drive.Files.Create(new GoogleDriveData.File()
+            {
+                Name = folderName,
+                MimeType = "application/vnd.google-apps.folder"
+            }).Execute();
+        }
+
+        private string PostNewImage(string imagesFolderName, string filename)
+        {
+            var drive = GetDriveService();
+            var imagesFolder = GetBlogImagesFolder(drive, imagesFolderName);
+            FilesResource.CreateMediaUpload uploadReq;
+
+            // Create a FileStream for the image to upload
+            using (var imageFileStream = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read)) {
+                // Detect mime type for file based on extension
+                var imageMime = MimeMapping.GetMimeMapping(filename);
+                // Upload the image to the images folder, naming it with a GUID to prevent clashes
+                uploadReq = drive.Files.Create(new GoogleDriveData.File()
+                {
+                    Name = Guid.NewGuid().ToString(),
+                    Parents = new string[] { imagesFolder.Id },
+                    OriginalFilename = Path.GetFileName(filename)
+                }, imageFileStream, imageMime);
+                uploadReq.Fields = "id,webContentLink"; // Retrieve Id and WebContentLink fields
+                var uploadRes = uploadReq.Upload();
+                if (uploadRes.Status != Google.Apis.Upload.UploadStatus.Completed) throw new ApplicationException($"Google Drive image upload for {filename} failed.");
             }
 
-            // Attempt to create the album as it does not exist
-            var newAlbum = library.Albums.Create(new CreateAlbumRequest()
+            // Make the uploaded file public
+            var imageFile = uploadReq.ResponseBody;
+            drive.Permissions.Create(new GoogleDriveData.Permission()
             {
-                Album = new Album()
-                {
-                    Title = albumName
-                }
-            }).Execute();
-
-            // Share the new album
-            library.Albums.Share(new ShareAlbumRequest()
-            {
-                SharedAlbumOptions = new SharedAlbumOptions()
-                {
-                    IsCollaborative = false,
-                    IsCommentable = false
-                }
-            }, newAlbum.Id).Execute();
-            // Return the new album
-            return newAlbum.Id;
-        }*/
-
-        private string PostNewImage(string albumName, string filename)
-        {
-            /*var library = GetPhotosLibraryService();
-            var albumId = GetBlogImagesAlbumId(library, albumName);
-            // Request the album on it's own as Google does not give us the ShareInfo in a listing
-            var album = library.Albums.Get(albumId).Execute();*/
-
-            // Create a FileStream
-            var imageFileStream = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read);
-
-            /*/ Upload the image by POSTing to https://photoslibrary.googleapis.com/v1/uploads
-            // Wish this could be nicer but the relevant message was not autogenerated into our PhotosLibrary API package
-            var uploadRequest = new HttpRequestMessage()
-            {
-                RequestUri = new Uri("https://photoslibrary.googleapis.com/v1/uploads"),
-                Method = HttpMethod.Post
-            };
-            uploadRequest.Headers.Add("X-Goog-Upload-File-Name", Path.GetFileName(filename));
-            uploadRequest.Headers.Add("X-Goog-Upload-Protocol", "raw");
-            uploadRequest.Content = new StreamContent(imageFileStream);
-            // Send the request. Sending through library.HttpClient inserts the Authorization headers for us
-            var uploadResponse = library.HttpClient.SendAsync(uploadRequest).Result;
-            if (uploadResponse.StatusCode != HttpStatusCode.OK) throw new ApplicationException("Failed to upload image to Google Photos");
-            var uploadToken = uploadResponse.Content.ReadAsStringAsync().Result;*/
-
+                Type = "anyone",
+                Role = "reader"
+            }, imageFile.Id).Execute();
+            
             // Retrieve the appropiate URL for inlining the image.
-            // var mediaItem = library.MediaItems.Get(batchCreateResponse.NewMediaItemResults.First().MediaItem.Id).Execute();
-
-            // return mediaItem.BaseUrl + "=d"; // 'd' Base URL parameter for Download
-            return "";
+            return imageFile.WebContentLink;
         }
         #endregion
 
