@@ -675,16 +675,15 @@ namespace OpenLiveWriter.BlogClient.Clients
             return albums;
         }
 
-        public string GetBlogImagesAlbum(string albumName)
+        public string GetBlogImagesAlbumId(PhotosLibraryService library, string albumName)
         {
             // TODO, somehow implement blogId? How would we distinguish between the different blog albums on GPhotos?
             // Get the URL of the Google Photos 'Open Live Writer' album, creating it if it doesn't exist
-            var library = GetPhotosLibraryService();
             var matchingAlbums = GetAllAlbums(library).Where(album => album.Title == albumName);
             if (matchingAlbums.Count() > 0)
             {
                 // Check if album has sharing permissions and add them if not
-                if (matchingAlbums.First().ShareInfo == null)
+                if (matchingAlbums.First().ShareInfo == null) 
                     library.Albums.Share(new ShareAlbumRequest() {
                         SharedAlbumOptions = new SharedAlbumOptions()
                         {
@@ -692,7 +691,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                         }
                     }, matchingAlbums.First().Id).Execute();
 
-                return matchingAlbums.First().Id; // Return the ID of the album if it exists
+                return matchingAlbums.First().Id; // Return the album if it exists
             }
 
             // Attempt to create the album as it does not exist
@@ -713,14 +712,16 @@ namespace OpenLiveWriter.BlogClient.Clients
                     IsCommentable = false
                 }
             }, newAlbum.Id).Execute();
-            // Return the ID of the new album
+            // Return the new album
             return newAlbum.Id;
         }
 
         private string PostNewImage(string albumName, string filename)
         {
-            var albumId = GetBlogImagesAlbum(albumName);
             var library = GetPhotosLibraryService();
+            var albumId = GetBlogImagesAlbumId(library, albumName);
+            // Request the album on it's own as Google does not give us the ShareInfo in a listing
+            var album = library.Albums.Get(albumId).Execute();
 
             // Create a FileStream
             var imageFileStream = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read);
@@ -755,7 +756,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 }
             }).Execute();
 
-            // Retrieve the appropiate Base URL for inlining the image.
+            // Retrieve the appropiate URL for inlining the image.
             var mediaItem = library.MediaItems.Get(batchCreateResponse.NewMediaItemResults.First().MediaItem.Id).Execute();
 
             return mediaItem.BaseUrl + "=d"; // 'd' Base URL parameter for Download
