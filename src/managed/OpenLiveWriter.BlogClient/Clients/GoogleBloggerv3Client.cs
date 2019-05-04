@@ -653,7 +653,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         #region Google Photos image uploading, adapted from Picasa image uploading - stolen from BloggerAtomClient
 
-        private List<Album> GetAllAlbums(PhotosLibraryService library)
+        /*private List<Album> GetAllAlbums(PhotosLibraryService library)
         {
             // Navigate GPhotos pagination and return a list of all the user's albums
             var albums = new List<Album>();
@@ -669,9 +669,9 @@ namespace OpenLiveWriter.BlogClient.Clients
                 pageToken = albumsResponse.NextPageToken;
             } while (pageToken != null);
             return albums;
-        }
+        }*/
 
-        public string GetBlogImagesAlbumId(PhotosLibraryService library, string albumName)
+        /*public string GetBlogImagesAlbumId(PhotosLibraryService library, string albumName)
         {
             // TODO, somehow implement blogId? How would we distinguish between the different blog albums on GPhotos?
             // Get the URL of the Google Photos 'Open Live Writer' album, creating it if it doesn't exist
@@ -710,7 +710,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             }, newAlbum.Id).Execute();
             // Return the new album
             return newAlbum.Id;
-        }
+        }*/
 
         private string PostNewImage(string albumName, string filename)
         {
