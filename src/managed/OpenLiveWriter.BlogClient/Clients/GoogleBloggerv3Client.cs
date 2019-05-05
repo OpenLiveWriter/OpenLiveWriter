@@ -713,9 +713,9 @@ namespace OpenLiveWriter.BlogClient.Clients
                 var uploadRes = uploadReq.Upload();
                 if (uploadRes.Status != Google.Apis.Upload.UploadStatus.Completed)
                     throw new BlogClientFileTransferException(
-                        Res.Get(StringId.BCEFileTransferTitle), 
+                        String.Format(Res.Get(StringId.BCEFileTransferTransferringFile), Path.GetFileName(filename)), 
                         "BloggerDriveError",
-                        $"Google Drive image upload for {filename} failed.");
+                        $"Google Drive image upload for {Path.GetFileName(filename)} failed.\nDetails: {uploadRes.Exception}");
             }
 
             // Make the uploaded file public
