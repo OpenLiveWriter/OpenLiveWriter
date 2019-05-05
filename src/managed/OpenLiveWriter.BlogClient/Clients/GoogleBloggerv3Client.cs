@@ -711,7 +711,11 @@ namespace OpenLiveWriter.BlogClient.Clients
                 }, imageFileStream, imageMime);
                 uploadReq.Fields = "id,webContentLink"; // Retrieve Id and WebContentLink fields
                 var uploadRes = uploadReq.Upload();
-                if (uploadRes.Status != Google.Apis.Upload.UploadStatus.Completed) throw new ApplicationException($"Google Drive image upload for {filename} failed.");
+                if (uploadRes.Status != Google.Apis.Upload.UploadStatus.Completed)
+                    throw new BlogClientFileTransferException(
+                        Res.Get(StringId.BCEFileTransferTitle), 
+                        "BloggerDriveError",
+                        $"Google Drive image upload for {filename} failed.");
             }
 
             // Make the uploaded file public
