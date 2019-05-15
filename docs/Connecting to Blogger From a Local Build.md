@@ -26,15 +26,6 @@ If you do, then you will need to do the following in order to use Live Writer wi
 8. If you haven't added any details for your project's consent screen, you'll need to do so at this point.
 9. When prompted for your application type, choose other, and just give it a name, then click Create
 10. You will then be shown the client ID and Client Secret that need to be used.
-11. In your Live Writer repository, go to `\src\managed\OpenLiveWriter.BlogClient\Clients\GoogleBloggerv3Secrets.json` and open it in a text editor.
-  > Note: If this file does not exist, create it and add the following:
-  ```json
-  {
-    "installed": {
-      "client_id": "PASTE_YOUR_CLIENT_ID_HERE",
-      "client_secret": "PASTE_YOUR_CLIENT_SECRET_HERE"
-    }
-  }
-  ```
+11. In your Live Writer repository, go to writer.build.targets and open it in a text editor.
 12. Replace the ClientId and Client Secret details where it says PASTE\_YOUR\_CLIENT\_ID\_HERE and PASTE\_YOUR\_CLIENT\_SECRET\_HERE respectively
 13. Now you should be able to build Live Writer again and connect your Blogger blog.
