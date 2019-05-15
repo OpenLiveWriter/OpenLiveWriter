@@ -18,6 +18,7 @@
         <file src="Google.Apis.Auth.dll" target="lib\net451\Google.Apis.Auth.dll" />
         <file src="Google.Apis.Auth.PlatformServices.dll" target="lib\net451\Google.Apis.Auth.PlatformServices.dll" />
         <file src="Google.Apis.Blogger.v3.dll" target="lib\net451\Google.Apis.Blogger.v3.dll" />
+        <file src="Google.Apis.Drive.v3.dll" target="lib\net451\Google.Apis.Drive.v3.dll" />
         <file src="Google.Apis.Core.dll" target="lib\net451\Google.Apis.Core.dll" />
         <file src="Google.Apis.PlatformServices.dll" target="lib\net451\Google.Apis.PlatformServices.dll" />
         <file src="html\map.html" target="lib\net451\html\map.html" />

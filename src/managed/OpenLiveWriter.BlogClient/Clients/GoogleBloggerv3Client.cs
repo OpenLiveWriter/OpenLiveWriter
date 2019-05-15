@@ -6,14 +6,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Localization;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Blogger.v3;
+using Google.Apis.Drive.v3;
+using GoogleDriveData = Google.Apis.Drive.v3.Data;
 using Google.Apis.Util.Store;
 using Google.Apis.Services;
 using Google.Apis.Auth.OAuth2.Flows;
@@ -33,8 +37,11 @@ namespace OpenLiveWriter.BlogClient.Clients
     public class GoogleBloggerv3Client : BlogClientBase, IBlogClient
     {
         // These URLs map to OAuth2 permission scopes for Google Blogger.
-        public static string PicasaServiceScope = "https://picasaweb.google.com/data";
-        public static string BloggerServiceScope = BloggerService.Scope.Blogger;
+        public static readonly string[] GoogleAPIScopes =
+        {
+            DriveService.Scope.DriveFile,
+            BloggerService.Scope.Blogger
+        };
         public static char LabelDelimiter = ',';
 
         /// <summary>
@@ -48,7 +55,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             // browser window and prompt the user for permissions and then write those permissions to the IDataStore.
             return GoogleWebAuthorizationBroker.AuthorizeAsync(
                 GoogleClientSecrets.Load(ClientSecretsStream).Secrets,
-                new List<string>() { BloggerServiceScope, PicasaServiceScope },
+                GoogleAPIScopes,
                 blogId,
                 taskCancellationToken,
                 GetCredentialsDataStoreForBlog(blogId));
@@ -205,6 +212,16 @@ namespace OpenLiveWriter.BlogClient.Clients
             });
         }
 
+        private DriveService GetDriveService()
+        {
+            TransientCredentials transientCredentials = Login();
+            return new DriveService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = (UserCredential)transientCredentials.Token,
+                ApplicationName = string.Format(CultureInfo.InvariantCulture, "{0} {1}", ApplicationEnvironment.ProductName, ApplicationEnvironment.ProductVersion),
+            });
+        }
+
         private bool IsValidToken(TokenResponse token)
         {
             // If the token is expired but we have a non-null RefreshToken, we can assume the token will be 
@@ -244,7 +261,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 {
                     ClientSecretsStream = ClientSecretsStream,
                     DataStore = GetCredentialsDataStoreForBlog(tc.Username),
-                    Scopes = new List<string>() { BloggerServiceScope, PicasaServiceScope },
+                    Scopes = GoogleAPIScopes,
                 });
 
                 var loadTokenTask = flow.LoadTokenAsync(tc.Username, CancellationToken.None);
@@ -613,92 +630,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                     albumName = StringHelper.Reverse(chunks[1]);
             }
 
-            string EDIT_MEDIA_LINK = "EditMediaLink";
-            string srcUrl;
-            string editUri = uploadContext.Settings.GetString(EDIT_MEDIA_LINK, null);
-            if (editUri == null || editUri.Length == 0)
-            {
-                PostNewImage(albumName, path, uploadContext.BlogId, out srcUrl, out editUri);
-            }
-            else
-            {
-                try
-                {
-                    UpdateImage(editUri, path, out srcUrl, out editUri);
-                }
-                catch (Exception e)
-                {
-                    Trace.Fail(e.ToString());
-                    if (e is WebException)
-                        HttpRequestHelper.LogException((WebException)e);
-
-                    bool success = false;
-                    srcUrl = null; // compiler complains without this line
-                    try
-                    {
-                        // couldn't update existing image? try posting a new one
-                        PostNewImage(albumName, path, uploadContext.BlogId, out srcUrl, out editUri);
-                        success = true;
-                    }
-                    catch
-                    {
-                    }
-                    if (!success)
-                        throw;  // rethrow the exception from the update, not the post
-                }
-            }
-            uploadContext.Settings.SetString(EDIT_MEDIA_LINK, editUri);
-
-            PicasaRefererBlockingWorkaround(uploadContext.BlogId, uploadContext.Role, ref srcUrl);
-
-            return srcUrl;
-        }
-
-        /// <summary>
-        /// "It looks like the problem with the inline image is due to referrer checking.
-        /// The thumbnail image being used is protected for display only on certain domains.
-        /// These domains include *.blogspot.com and *.google.com.  This user is using a
-        /// feature in Blogger which allows him to display his blog directly on his own
-        /// domain, which will not pass the referrer checking.
-        ///
-        /// "The maximum size of a thumbnail image that can be displayed on non-*.blogspot.com
-        /// domains is 800px. (blogs don't actually appear at *.google.com).  However, if you
-        /// request a 800px thumbnail, and the image is less than 800px for the maximum
-        /// dimension, then the original image will be returned without the referrer
-        /// restrictions.  That sounds like it will work for you, so feel free to give it a
-        /// shot and let me know if you have any further questions or problems."
-        ///   -- Anonymous Google Employee
-        /// </summary>
-        private void PicasaRefererBlockingWorkaround(string blogId, FileUploadRole role, ref string srcUrl)
-        {
-            if (role == FileUploadRole.LinkedImage && Options.UsePicasaS1600h)
-            {
-                try
-                {
-                    int lastSlash = srcUrl.LastIndexOf('/');
-                    string srcUrl2 = srcUrl.Substring(0, lastSlash)
-                                     + "/s1600-h"
-                                     + srcUrl.Substring(lastSlash);
-                    HttpWebRequest req = HttpRequestHelper.CreateHttpWebRequest(srcUrl2, true);
-                    req.Method = "HEAD";
-                    req.GetResponse().Close();
-                    srcUrl = srcUrl2;
-                    return;
-                }
-                catch (WebException we)
-                {
-                    Debug.Fail("Picasa s1600-h hack failed: " + we.ToString());
-                }
-            }
-
-            try
-            {
-                srcUrl += ((srcUrl.IndexOf('?') >= 0) ? "&" : "?") + "imgmax=800";
-            }
-            catch (Exception ex)
-            {
-                Trace.Fail("Unexpected error while doing Picasa upload: " + ex.ToString());
-            }
+            return PostNewImage(albumName, path);
         }
 
         public void DoAfterPublishUploadWork(IFileUploadContext uploadContext)
@@ -726,288 +658,77 @@ namespace OpenLiveWriter.BlogClient.Clients
             throw new NotImplementedException();
         }
 
-        #region Picasa image uploading - stolen from BloggerAtomClient
+        #region Google Drive image uploading, heavily adapted from Picasa image uploading - stolen from BloggerAtomClient
 
-        public string GetBlogImagesAlbum(string albumName, string blogId)
+        private List<GoogleDriveData.File> GetAllFolders(DriveService drive)
         {
-            const string FEED_REL = "http://schemas.google.com/g/2005#feed";
-
-            // TODO: HACK: The deprecation-extension flag keeps the deprecated Picasa API alive.
-            Uri picasaUri = new Uri("https://picasaweb.google.com/data/feed/api/user/default?deprecation-extension=true");
-            var picasaId = string.Empty;
-
-            try
+            // Navigate GDrive pagination and return a list of all the user's top level folders
+            var folders = new List<GoogleDriveData.File>();
+            GoogleDriveData.FileList fileList;
+            string pageToken = null;
+            do
             {
-                Uri reqUri = picasaUri;
-                XmlDocument albumListDoc = AtomClient.xmlRestRequestHelper.Get(ref reqUri, CreateAuthorizationFilter(), "kind", "album");
-                var idNode = albumListDoc.SelectSingleNode(@"/atom:feed/gphoto:user", _nsMgr) as XmlElement;
-                if (idNode != null)
-                {
-                    var id = AtomProtocolVersion.V10DraftBlogger.TextNodeToPlaintext(idNode);
-                    picasaId = id;
-                }
+                var listRequest = drive.Files.List();
+                listRequest.Q = "mimeType='application/vnd.google-apps.folder'";
+                fileList = listRequest.Execute();
 
-                foreach (XmlElement entryEl in albumListDoc.SelectNodes(@"/atom:feed/atom:entry", _nsMgr))
-                {
-                    XmlElement titleNode = entryEl.SelectSingleNode(@"atom:title", _nsMgr) as XmlElement;
-                    if (titleNode != null)
-                    {
-                        string titleText = AtomProtocolVersion.V10DraftBlogger.TextNodeToPlaintext(titleNode);
-                        if (titleText == albumName)
-                        {
-                            XmlNode numPhotosRemainingNode = entryEl.SelectSingleNode("gphoto:numphotosremaining/text()", _nsMgr);
-                            if (numPhotosRemainingNode != null)
-                            {
-                                int numPhotosRemaining;
-                                if (int.TryParse(numPhotosRemainingNode.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out numPhotosRemaining))
-                                {
-                                    if (numPhotosRemaining < 1)
-                                        continue;
-                                }
-                            }
-                            string selfHref = AtomEntry.GetLink(entryEl, _nsMgr, FEED_REL, "application/atom+xml", null, reqUri);
-                            if (selfHref.Length > 1)
-                            {
-                                // TODO: HACK: This keeps the deprecated Picasa API alive.
-                                selfHref += "&deprecation-extension=true";
-                                return selfHref;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (WebException we)
-            {
-                HttpWebResponse httpWebResponse = we.Response as HttpWebResponse;
-                if (httpWebResponse != null)
-                {
-                    HttpRequestHelper.DumpResponse(httpWebResponse);
-                    if (httpWebResponse.StatusCode == HttpStatusCode.NotFound)
-                    {
-                        throw new BlogClientOperationCancelledException();
-                    }
-                }
-                throw;
-            }
-
-            try
-            {
-                XmlDocument newDoc = new XmlDocument();
-                XmlElement newEntryEl = newDoc.CreateElement("atom", "entry", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-                newDoc.AppendChild(newEntryEl);
-
-                XmlElement newTitleEl = newDoc.CreateElement("atom", "title", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-                newTitleEl.SetAttribute("type", "text");
-                newTitleEl.InnerText = albumName;
-                newEntryEl.AppendChild(newTitleEl);
-
-                XmlElement newSummaryEl = newDoc.CreateElement("atom", "summary", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-                newSummaryEl.SetAttribute("type", "text");
-                newSummaryEl.InnerText = Res.Get(StringId.BloggerImageAlbumDescription);
-                newEntryEl.AppendChild(newSummaryEl);
-
-                XmlElement newAccessEl = newDoc.CreateElement("gphoto", "access", photoNS.Uri);
-                newAccessEl.InnerText = "private";
-                newEntryEl.AppendChild(newAccessEl);
-
-                XmlElement newCategoryEl = newDoc.CreateElement("atom", "category", AtomProtocolVersion.V10DraftBlogger.NamespaceUri);
-                newCategoryEl.SetAttribute("scheme", "http://schemas.google.com/g/2005#kind");
-                newCategoryEl.SetAttribute("term", "http://schemas.google.com/photos/2007#album");
-                newEntryEl.AppendChild(newCategoryEl);
-
-                Uri postUri = picasaUri;
-                XmlDocument newAlbumResult = AtomClient.xmlRestRequestHelper.Post(ref postUri, CreateAuthorizationFilter(), "application/atom+xml", newDoc, null);
-                XmlElement newAlbumResultEntryEl = newAlbumResult.SelectSingleNode("/atom:entry", _nsMgr) as XmlElement;
-                Debug.Assert(newAlbumResultEntryEl != null);
-                return AtomEntry.GetLink(newAlbumResultEntryEl, _nsMgr, FEED_REL, "application/atom+xml", null, postUri);
-            }
-            catch (Exception)
-            {
-                // Ignore
-            }
-
-            // If we've got this far, it means creating the Open Live Writer album has failed.
-            // We will now try and use the Blogger assigned folder.
-            if (!string.IsNullOrEmpty(picasaId))
-            {
-                var service = GetService();
-
-                var userInfo = service.BlogUserInfos.Get("self", blogId).Execute();
-
-                // If the PhotosAlbumKey is "0", this means the user has never posted to Blogger from the 
-                // Blogger web interface, which means the album has never been created and so there's nothing
-                // for us to use.
-                if (userInfo.BlogUserInfoValue.PhotosAlbumKey != "0")
-                {
-                    // TODO: HACK: The deprecation-extension flag keeps the deprecated Picasa API alive.
-                    var bloggerPicasaUrl = $"https://picasaweb.google.com/data/feed/api/user/{picasaId}/albumid/{userInfo.BlogUserInfoValue.PhotosAlbumKey}?deprecation-extension=true";
-                    return bloggerPicasaUrl;
-                }
-            }
-
-            // If we've got this far, it means the user is going to have to manually create their own album.
-            throw new BlogClientFileTransferException("Unable to upload to Blogger", "BloggerError", "We were unable to create a folder for your images, please go to http://openlivewriter.org/tutorials/googlePhotoFix.html to see how to do this");
+                if (fileList.Files != null) foreach (var folder in fileList.Files) folders.Add(folder);
+                pageToken = fileList.NextPageToken;
+            } while (pageToken != null);
+            return folders;
         }
 
-        private void ShowPicasaSignupPrompt(object sender, EventArgs e)
+        private GoogleDriveData.File GetBlogImagesFolder(DriveService drive, string folderName)
         {
-            if (DisplayMessage.Show(MessageId.PicasawebSignup) == DialogResult.Yes)
+            // Get the ID of the Google Drive 'Open Live Writer' folder, creating it if it doesn't exist
+            var matchingFolders = GetAllFolders(drive).Where(folder => folder.Name == folderName);
+            if (matchingFolders.Count() > 0) return matchingFolders.First();
+
+            // Attempt to create and return the folder as it does not exist
+            return drive.Files.Create(new GoogleDriveData.File()
             {
-                ShellHelper.LaunchUrl("http://picasaweb.google.com");
-            }
+                Name = folderName,
+                MimeType = "application/vnd.google-apps.folder"
+            }).Execute();
         }
 
-        private void PostNewImage(string albumName, string filename, string blogId, out string srcUrl, out string editUri)
+        private string PostNewImage(string imagesFolderName, string filename)
         {
-            for (int retry = 0; retry < MaxRetries; retry++)
-            {
-                var transientCredentials = Login();
-                try
+            var drive = GetDriveService();
+            var imagesFolder = GetBlogImagesFolder(drive, imagesFolderName);
+            FilesResource.CreateMediaUpload uploadReq;
+
+            // Create a FileStream for the image to upload
+            using (var imageFileStream = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read)) {
+                // Detect mime type for file based on extension
+                var imageMime = MimeMapping.GetMimeMapping(filename);
+                // Upload the image to the images folder, naming it with a GUID to prevent clashes
+                uploadReq = drive.Files.Create(new GoogleDriveData.File()
                 {
-                    string albumUrl = GetBlogImagesAlbum(albumName, blogId);
-                    HttpWebResponse response = RedirectHelper.GetResponse(albumUrl, new RedirectHelper.RequestFactory(new UploadFileRequestFactory(this, filename, "POST").Create));
-                    using (Stream s = response.GetResponseStream())
-                    {
-                        ParseMediaEntry(s, out srcUrl, out editUri);
-                        return;
-                    }
-                }
-                catch (WebException we)
-                {
-                    if (retry < MaxRetries - 1 &&
-                        we.Response as HttpWebResponse != null &&
-                        ((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.Forbidden)
-                    {
-                        // HTTP 403 Forbidden means our OAuth access token is not valid.
-                        RefreshAccessToken(transientCredentials);
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                    Name = Guid.NewGuid().ToString(),
+                    Parents = new string[] { imagesFolder.Id },
+                    OriginalFilename = Path.GetFileName(filename)
+                }, imageFileStream, imageMime);
+                uploadReq.Fields = "id,webContentLink"; // Retrieve Id and WebContentLink fields
+                var uploadRes = uploadReq.Upload();
+                if (uploadRes.Status != Google.Apis.Upload.UploadStatus.Completed)
+                    throw new BlogClientFileTransferException(
+                        String.Format(Res.Get(StringId.BCEFileTransferTransferringFile), Path.GetFileName(filename)), 
+                        "BloggerDriveError",
+                        $"Google Drive image upload for {Path.GetFileName(filename)} failed.\nDetails: {uploadRes.Exception}");
             }
 
-            Trace.Fail("Should never get here");
-            throw new ApplicationException("Should never get here");
+            // Make the uploaded file public
+            var imageFile = uploadReq.ResponseBody;
+            drive.Permissions.Create(new GoogleDriveData.Permission()
+            {
+                Type = "anyone",
+                Role = "reader"
+            }, imageFile.Id).Execute();
+            
+            // Retrieve the appropiate URL for inlining the image, splitting off the download parameter
+            return imageFile.WebContentLink.Split('&').First();
         }
-
-        private void UpdateImage(string editUri, string filename, out string srcUrl, out string newEditUri)
-        {
-            for (int retry = 0; retry < MaxRetries; retry++)
-            {
-                var transientCredentials = Login();
-                HttpWebResponse response;
-                bool conflict = false;
-                try
-                {
-                    response = RedirectHelper.GetResponse(editUri, new RedirectHelper.RequestFactory(new UploadFileRequestFactory(this, filename, "PUT").Create));
-                }
-                catch (WebException we)
-                {
-                    if (retry < MaxRetries - 1 &&
-                        we.Response as HttpWebResponse != null)
-                    {
-                        if (((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.Conflict)
-                        {
-                            response = (HttpWebResponse)we.Response;
-                            conflict = true;
-                        }
-                        else if (((HttpWebResponse)we.Response).StatusCode == HttpStatusCode.Forbidden)
-                        {
-                            // HTTP 403 Forbidden means our OAuth access token is not valid.
-                            RefreshAccessToken(transientCredentials);
-                            continue;
-                        }
-                    }
-
-                    throw;
-                }
-
-                using (Stream s = response.GetResponseStream())
-                {
-                    ParseMediaEntry(s, out srcUrl, out newEditUri);
-                }
-
-                if (!conflict)
-                {
-                    return; // success!
-                }
-
-                editUri = newEditUri;
-            }
-
-            Trace.Fail("Should never get here");
-            throw new ApplicationException("Should never get here");
-        }
-
-        private void ParseMediaEntry(Stream s, out string srcUrl, out string editUri)
-        {
-            srcUrl = null;
-
-            // First try <content src>
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(s);
-            XmlElement contentEl = xmlDoc.SelectSingleNode("/atom:entry/atom:content", _nsMgr) as XmlElement;
-            if (contentEl != null)
-                srcUrl = XmlHelper.GetUrl(contentEl, "@src", _nsMgr, null);
-
-            // Then try media RSS
-            if (srcUrl == null || srcUrl.Length == 0)
-            {
-                contentEl = xmlDoc.SelectSingleNode("/atom:entry/media:group/media:content[@medium='image']", _nsMgr) as XmlElement;
-                if (contentEl == null)
-                    throw new ArgumentException("Picasa photo entry was missing content element");
-                srcUrl = XmlHelper.GetUrl(contentEl, "@url", _nsMgr, null);
-            }
-
-            editUri = AtomEntry.GetLink(xmlDoc.SelectSingleNode("/atom:entry", _nsMgr) as XmlElement, _nsMgr, "edit-media", null, null, null);
-        }
-
-        private class UploadFileRequestFactory
-        {
-            private readonly GoogleBloggerv3Client _parent;
-            private readonly string _filename;
-            private readonly string _method;
-
-            public UploadFileRequestFactory(GoogleBloggerv3Client parent, string filename, string method)
-            {
-                _parent = parent;
-                _filename = filename;
-                _method = method;
-            }
-
-            public HttpWebRequest Create(string uri)
-            {
-                // TODO: choose rational timeout values
-                HttpWebRequest request = HttpRequestHelper.CreateHttpWebRequest(uri, false);
-
-                _parent.CreateAuthorizationFilter().Invoke(request);
-
-                request.ContentType = MimeHelper.GetContentType(Path.GetExtension(_filename));
-                try
-                {
-                    request.Headers.Add("Slug", Path.GetFileNameWithoutExtension(_filename));
-                }
-                catch (ArgumentException)
-                {
-                    request.Headers.Add("Slug", "Image");
-                }
-
-                request.Method = _method;
-
-                using (Stream s = request.GetRequestStream())
-                {
-                    using (Stream inS = new FileStream(_filename, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    {
-                        StreamHelper.Transfer(inS, s);
-                    }
-                }
-
-                return request;
-            }
-        }
-
         #endregion
 
         public class Category
