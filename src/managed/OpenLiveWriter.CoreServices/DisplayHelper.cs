@@ -102,6 +102,17 @@ namespace OpenLiveWriter.CoreServices
         }
 
         /// <summary>
+        /// Scales a bitmap from 96dpi to the actual screen dpi.
+        /// </summary>
+        public static Bitmap ScaleBitmap(Bitmap original)
+        {
+            return new Bitmap(original, new Size(
+                (int)Math.Ceiling(ScaleX(original.Width)),
+                (int)Math.Ceiling(ScaleY(original.Height))
+                ));
+        }
+
+        /// <summary>
         /// When PMingLiU is rendered by GDI+ with StringFormat.LineAlignment == StringAlignment.Center
         /// with at least one Chinese character, it ends up 2-3 pixels higher than it should be.
         /// I couldn't find a better fix than to just move it down a couple of pixels.
