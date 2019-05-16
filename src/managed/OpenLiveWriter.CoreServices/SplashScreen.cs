@@ -35,6 +35,7 @@ namespace OpenLiveWriter.CoreServices
             // Required for Windows Form Designer support
             //
             InitializeComponent();
+            DisplayHelper.Scale(this);
 
             //	Turn off CS_CLIPCHILDREN.
             User32.SetWindowLong(Handle, GWL.STYLE, User32.GetWindowLong(Handle, GWL.STYLE) & ~WS.CLIPCHILDREN);
@@ -45,8 +46,8 @@ namespace OpenLiveWriter.CoreServices
             if (!BidiHelper.IsRightToLeft)
                 SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
-            _backgroundImage = new Bitmap(this.GetType(), "Images.SplashScreen.png");
-            _logoImage = new Bitmap(this.GetType(), "Images.SplashScreenLogo.jpg");
+            _backgroundImage = DisplayHelper.ScaleBitmap(new Bitmap(this.GetType(), "Images.SplashScreen.png"));
+            _logoImage = DisplayHelper.ScaleBitmap(new Bitmap(this.GetType(), "Images.SplashScreenLogo.jpg"));
 
             if (SystemInformation.HighContrast)
             {
@@ -148,7 +149,7 @@ namespace OpenLiveWriter.CoreServices
                 // draw logo image
                 g.DrawImage(false, _logoImage, new Rectangle(
                     (ClientSize.Width - _logoImage.Width) / 2,
-                    120 - _logoImage.Height,
+                    (int)Math.Ceiling(DisplayHelper.ScaleY(120)) - _logoImage.Height,
                     _logoImage.Width,
                     _logoImage.Height));
 
@@ -158,10 +159,12 @@ namespace OpenLiveWriter.CoreServices
                 {
                     const int TEXT_PADDING_H = 36;
                     const int TEXT_PADDING_V = 26;
-                    int textWidth = Size.Width - 2 * TEXT_PADDING_H;
+                    int textWidth = Size.Width - 2 * (int)Math.Ceiling(DisplayHelper.ScaleX(TEXT_PADDING_H));
                     int textHeight =
                         Convert.ToInt32(
-                            g.MeasureText(splashText, font, new Size(textWidth, 0), TextFormatFlags.WordBreak).Height,
+                            (int)Math.Ceiling(DisplayHelper.ScaleY(
+                                g.MeasureText(splashText, font, new Size(textWidth, 0), TextFormatFlags.WordBreak).Height
+                            )),
                             CultureInfo.InvariantCulture);
 
                     // GDI text can't be drawn on an alpha-blended surface. So we render a black-on-white
@@ -176,7 +179,9 @@ namespace OpenLiveWriter.CoreServices
                                 DrawText(splashText, font, new Rectangle(0, 0, textWidth, textHeight), Color.White, Color.Black, TextFormatFlags.WordBreak);
                         }
 
-                        Rectangle textRect = new Rectangle(TEXT_PADDING_H, ClientSize.Height - TEXT_PADDING_V - textHeight, textWidth, textHeight);
+                        Rectangle textRect = new Rectangle(
+                            (int)Math.Ceiling(DisplayHelper.ScaleX(TEXT_PADDING_H)), 
+                            ClientSize.Height - (int)Math.Ceiling(DisplayHelper.ScaleY(TEXT_PADDING_V)) - textHeight, textWidth, textHeight);
                         using (ImageAttributes ia = new ImageAttributes())
                         {
                             ColorMatrix cm = new ColorMatrix(new float[][]
