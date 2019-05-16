@@ -274,12 +274,10 @@ namespace OpenLiveWriter.PostEditor
                     for (int i = 1; i <= 26; i++)
                     {
                         string resourceName = String.Format(CultureInfo.InvariantCulture, "Images.PublishAnimation.post{0:00}.png", i);
-                        var originalBmp = ResourceHelper.LoadAssemblyResourceBitmap(resourceName);
-                        var newBmp = new Bitmap(
-                            originalBmp,
-                            new Size((int)DisplayHelper.ScaleX(originalBmp.Size.Width), (int)DisplayHelper.ScaleY(originalBmp.Size.Height))
-                        );
-                        list.Add(originalBmp);
+                        // Add the scaled animation frame bitmap
+                        list.Add(
+                            DisplayHelper.ScaleBitmap(ResourceHelper.LoadAssemblyResourceBitmap(resourceName))
+                            );
                     }
                     _animationBitmaps = (Bitmap[])list.ToArray(typeof(Bitmap));
                 }
