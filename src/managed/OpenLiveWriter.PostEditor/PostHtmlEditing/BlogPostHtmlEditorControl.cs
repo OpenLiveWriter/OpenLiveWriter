@@ -278,7 +278,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 try
                 {
                     if (body.runtimeStyle.margin == null)
-                        body.runtimeStyle.margin = "10px 10px 10px 10px";
+                    {
+                        // Scale control padding as per current display scaling.
+                        // FIXME: dynamically scale this on DPI change
+                        var padding = DisplayHelper.ScaleSize(new Size(10, 10));
+                        body.runtimeStyle.margin = $"{padding.Height}px {padding.Width}px {padding.Height}px {padding.Width}px";
+                    }
                 }
                 catch (NullReferenceException nre)
                 {
@@ -648,7 +653,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             int minor;
             BrowserHelper.GetInstalledVersion(out major, out minor);
 
-            string postTitleStyles = "margin: 0px 0px 10px 0px; padding: 0px; border: 0px;"; //add some space btwn the title and body
+            // FIXME: Dynamically scale this padding on DPI change
+            int titlePaddingY = (int)Math.Ceiling(DisplayHelper.ScaleY(10));
+            string postTitleStyles = $"margin: 0px 0px {titlePaddingY}px 0px; padding: 0px; border: 0px;"; //add some space btwn the title and body
 
             //set a minimum height for the body element so that it takes up a larger space when its empty.
             string postBodyStyles = String.Format(CultureInfo.InvariantCulture, "margin: 0px; padding: 0px; border: 0px; {0}", _postBodyInlineStyle);
