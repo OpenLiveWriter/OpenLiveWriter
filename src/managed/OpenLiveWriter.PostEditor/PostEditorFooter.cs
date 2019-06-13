@@ -234,7 +234,9 @@ namespace OpenLiveWriter.PostEditor
 
             // Set a minimum width so the columns in the TableLayoutPanel don't overlap.
             int tableMinimumWidth = tableLayoutPanel1.Padding.Horizontal + tableLayoutPanel1.Margin.Horizontal;
-            int tableMinimumHeight = tableLayoutPanel1.Height;
+            // FIXME: Kludge to fix height of footer on Hi-DPI, always set to the height of the flow layout panel. 
+            // This assumes the status text will never be taller than the tabs.
+            int tableMinimumHeight = flowLayoutPanel.Height;
 
             if (flowLayoutPanel.Visible)
                 tableMinimumWidth += flowLayoutPanel.Padding.Horizontal + flowLayoutPanel.Margin.Horizontal + flowLayoutPanel.Width;
