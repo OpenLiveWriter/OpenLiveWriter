@@ -124,7 +124,7 @@ namespace OpenLiveWriter.PostEditor
                 return;
             }
 
-            size.Width += 20;
+            size.Width += (int)Math.Ceiling(DisplayHelper.ScaleX(20)); // Scale tab width for DPI, however height doesn't look quite right
             size.Height += 8;
 
             // Extra height for Selected state, which we won't use if we aren't selected
