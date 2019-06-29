@@ -176,6 +176,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         private Font font = Res.GetFont(FontSize.PostSplitCaption, FontStyle.Regular);
         public SplitterControl()
         {
+            VirtualHeight = 16;
         }
 
         protected override void OnPaint(PaintEventArgs e)
