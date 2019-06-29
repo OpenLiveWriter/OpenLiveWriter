@@ -91,8 +91,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         private void ExtendedEntrySplitterElementBehavior_ElementSizeChanged(object sender, EventArgs e)
         {
             //synchronized the splitter width with the new element width
-            Rectangle elementRect = ElementRectangle;
-            _splitter.VirtualSize = new Size(elementRect.Width, elementRect.Height);
+            _splitter.VirtualWidth = ElementRectangle.Width;
         }
 
         protected override void OnKeyDown(HtmlEventArgs e)
