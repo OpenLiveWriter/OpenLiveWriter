@@ -46,7 +46,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         protected override void OnElementAttached()
         {
             // Padding is applied to both top and bottom, so halve the splitter height
-            int cssVerticalPadding = (_splitterHeight / 2) + _verticalPadding;
+            int cssVerticalPadding = DisplayHelper.ScaleYCeil(_splitterHeight / 2 + _verticalPadding);
 
             IHTMLElement2 e2 = (IHTMLElement2)HTMLElement;
             e2.runtimeStyle.padding = $"{cssVerticalPadding}px 0px {cssVerticalPadding}px 0px"; 
@@ -186,11 +186,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         /// <summary>
         /// Instansiates a new SplitterControl
         /// </summary>
-        /// <param name="virtualHeight">The 'virtual height' of the splitter.
+        /// <param name="virtualHeight96">The 'virtual height' of the splitter in 96 DPI pixels.
         /// Subtracting _lineRect.Height from this value yields the height of the 'More' rectangle on the end of the splitter line.</param>
-        public SplitterControl(int virtualHeight)
+        public SplitterControl(int virtualHeight96)
         {
-            VirtualHeight = virtualHeight;
+            VirtualHeight = DisplayHelper.ScaleYCeil(virtualHeight96);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -208,8 +208,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             int morePadding = 0;
             int moreRightOffset = 1;
 
-            Size moreRectSize = new Size(Convert.ToInt32(moreTextSize.Width) + morePadding * 2, 
-                                         VirtualHeight - _lineRect.Height);
+            Size moreRectSize = new Size(Convert.ToInt32(moreTextSize.Width) + DisplayHelper.ScaleXCeil(morePadding * 2), 
+                                         VirtualHeight - DisplayHelper.ScaleYCeil(_lineRect.Height));
             Point moreRectLocation = new Point(_controlRect.Right - moreRectSize.Width - moreRightOffset, _lineRect.Bottom);
             Rectangle moreRect = new Rectangle(moreRectLocation, moreRectSize);
 
@@ -231,7 +231,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         protected override void OnLayout(EventArgs e)
         {
             _controlRect = new Rectangle(VirtualLocation, new Size(VirtualWidth, VirtualHeight));
-            _lineRect = new Rectangle(new Point(0, 0), new Size(_controlRect.Width, 2));
+            _lineRect = new Rectangle(new Point(0, 0), new Size(_controlRect.Width, DisplayHelper.ScaleYCeil(2)));
         }
     }
 }
