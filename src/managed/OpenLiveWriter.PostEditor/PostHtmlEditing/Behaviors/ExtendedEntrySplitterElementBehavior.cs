@@ -27,11 +27,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
     internal class ExtendedEntrySplitterElementBehavior : ElementControlBehavior
     {
         private SplitterControl _splitter;
-        private const int _verticalPadding = 3;
+
+        // _splitterHeight and _verticalPadding measured in 96dpi pixels
+        private const int _splitterHeight = 16;
+        private const int _verticalPadding = 2;
+
         public ExtendedEntrySplitterElementBehavior(IHtmlEditorComponentContext editorContext)
             : base(editorContext)
         {
-            _splitter = new SplitterControl();
+            _splitter = new SplitterControl(_splitterHeight);
             _splitter.VirtualLocation = new Point(0, _verticalPadding);
             Controls.Add(_splitter);
 
@@ -41,10 +45,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
 
         protected override void OnElementAttached()
         {
+            // Padding is applied to both top and bottom, so halve the splitter height
+            int cssVerticalPadding = (_splitterHeight / 2) + _verticalPadding;
+
             IHTMLElement2 e2 = (IHTMLElement2)HTMLElement;
-            e2.runtimeStyle.padding = "0px 0px 0px 0px;";
-            e2.runtimeStyle.margin = String.Format(CultureInfo.InvariantCulture, "{0}px 0px {0}px 0px;", _verticalPadding);
+            e2.runtimeStyle.padding = $"{cssVerticalPadding}px 0px {cssVerticalPadding}px 0px"; 
+            e2.runtimeStyle.margin = "0px 0px 0px 0px";
             e2.runtimeStyle.lineHeight = "16px";
+            
             (e2 as IHTMLElement3).contentEditable = "false";
             base.OnElementAttached();
 
@@ -174,9 +182,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
         private Rectangle _lineRect;
         private string _moreText = Res.Get(StringId.SplitterMore);
         private Font font = Res.GetFont(FontSize.PostSplitCaption, FontStyle.Regular);
-        public SplitterControl()
+
+        /// <summary>
+        /// Instansiates a new SplitterControl
+        /// </summary>
+        /// <param name="virtualHeight">The 'virtual height' of the splitter.
+        /// Subtracting _lineRect.Height from this value yields the height of the 'More' rectangle on the end of the splitter line.</param>
+        public SplitterControl(int virtualHeight)
         {
-            VirtualHeight = 16;
+            VirtualHeight = virtualHeight;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -194,7 +208,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Behaviors
             int morePadding = 0;
             int moreRightOffset = 1;
 
-            Size moreRectSize = new Size(Convert.ToInt32(moreTextSize.Width) + morePadding * 2, Convert.ToInt32(moreTextSize.Height) + morePadding * 2);
+            Size moreRectSize = new Size(Convert.ToInt32(moreTextSize.Width) + morePadding * 2, 
+                                         VirtualHeight - _lineRect.Height);
             Point moreRectLocation = new Point(_controlRect.Right - moreRectSize.Width - moreRightOffset, _lineRect.Bottom);
             Rectangle moreRect = new Rectangle(moreRectLocation, moreRectSize);
 
