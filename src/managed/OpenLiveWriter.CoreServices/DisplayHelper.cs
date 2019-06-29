@@ -105,15 +105,11 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-        public static float ScaleX(float x)
-        {
-            return x * ScalingFactorX;
-        }
+        public static float ScaleX(float x) => x * ScalingFactorX;
+        public static float ScaleY(float y) => y * ScalingFactorY;
 
-        public static float ScaleY(float y)
-        {
-            return y * ScalingFactorY;
-        }
+        public static int ScaleXCeil(float x) => (int)Math.Ceiling(x * ScalingFactorX);
+        public static int ScaleYCeil(float y) => (int)Math.Ceiling(y * ScalingFactorY);
 
         /// <summary>
         /// Scales a control from 96dpi to the actual screen dpi.
@@ -136,10 +132,7 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         public static Size ScaleSize(Size original)
         {
-            return new Size(
-                (int)Math.Ceiling(ScaleX(original.Width)),
-                (int)Math.Ceiling(ScaleY(original.Height))
-                );
+            return new Size(ScaleXCeil(original.Width), ScaleYCeil(original.Height));
         }
 
         /// <summary>
