@@ -28,6 +28,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             WPCreate = 29,
             SharePointBasicInfo = 32,
             OtherBasicInfo = 33,
+            StaticSiteConfig = 34,
             SelectProvider = 40,
             SharePointAuth = 41,
             GoogleBloggerAuth = 42,

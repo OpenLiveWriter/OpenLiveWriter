@@ -239,6 +239,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new BackCallback(OnGoogleBloggerOAuthBack)));
         }
 
+        private void AddStaticSiteConfigSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteConfig(),
+                null,
+                new DisplayCallback(OnStaticSiteConfigDisplayed),
+                new VerifyStepCallback(OnValidatePanel),
+                new NextCallback(OnStaticSiteConfigCompleted),
+                null,
+                null));
+        }
+
         private void AddConfirmationStep()
         {
             addWizardStep(
@@ -337,6 +349,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // set the user's choice
             _temporarySettings.IsSharePointBlog = panelBlogType.IsSharePointBlog;
             _temporarySettings.IsGoogleBloggerBlog = panelBlogType.IsGoogleBloggerBlog;
+            _temporarySettings.IsStaticSiteBlog = panelBlogType.IsStaticSiteBlog;
 
             // did this bootstrap a custom account wizard?
             _providerAccountWizard = panelBlogType.ProviderAccountWizard;
@@ -349,6 +362,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             else if (_temporarySettings.IsGoogleBloggerBlog)
             {
                 AddGoogleBloggerOAuthSubStep();
+            }
+            else if (_temporarySettings.IsStaticSiteBlog)
+            {
+                AddStaticSiteConfigSubStep();
             }
             else
             {
@@ -457,6 +474,31 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                                                    null,
                                                    new WizardController.BackCallback(OnSharePointAuthenticationBack)));
                 _authenticationStepAdded = true;
+            }
+        }
+
+        #endregion
+
+        #region Static Site Generator support
+        private void OnStaticSiteConfigDisplayed(Object stepControl)
+        {
+            // TODO Populate Data
+        }
+
+        private void OnStaticSiteConfigCompleted(Object stepControl)
+        {
+            if (_authenticationRequired)
+                AddSharePointAuthenticationStep((IAccountBasicInfoProvider)stepControl);
+            else
+                OnBasicInfoAndAuthenticationCompleted((IAccountBasicInfoProvider)stepControl, new PerformBlogAutoDetection(PerformSharePointAutoDetectionSubStep));
+        }
+
+        private void OnStaticSiteConfigUndone(Object stepControl)
+        {
+            if (_authenticationRequired && !_authenticationStepAdded)
+            {
+                AddSharePointAuthenticationStep((IAccountBasicInfoProvider)stepControl);
+                next();
             }
         }
 
