@@ -1151,6 +1151,10 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         CWWelcomeWP,
         /// <summary>
+        /// Provide static site configuration
+        /// </summary>
+        CWStaticSiteAddSiteTitle,
+        /// <summary>
         /// Path to local static site:
         /// </summary>
         CWStaticSiteLocalSitePath,

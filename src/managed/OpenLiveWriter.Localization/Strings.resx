@@ -4489,6 +4489,9 @@ This might take a while.</value>
   <data name="Percent" xml:space="preserve">
     <value>percent</value>
   </data>
+  <data name="CWStaticSiteAddSiteTitle" xml:space="preserve">
+    <value>Provide static site configuration</value>
+  </data>
   <data name="CWStaticSiteBuildCommand" xml:space="preserve">
     <value>Build command:</value>
   </data>
