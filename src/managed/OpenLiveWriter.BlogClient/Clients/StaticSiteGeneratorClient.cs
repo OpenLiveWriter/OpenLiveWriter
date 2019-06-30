@@ -51,7 +51,11 @@ namespace OpenLiveWriter.BlogClient.Clients
         // Authentication is handled by publish script at the moment 
         protected override bool RequiresPassword => false;
 
-        protected void ConfigureClientOptions(BlogClientOptions clientOptions)
+        /// <summary>
+        /// Sets the relevant BlogClientOptions for this client
+        /// </summary>
+        /// <param name="clientOptions">A BlogClientOptions instance</param>
+        private void ConfigureClientOptions(BlogClientOptions clientOptions)
         {
             // Pages are supported via filesystem
             clientOptions.SupportsPages = true;
@@ -65,7 +69,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsSlug = true;
             clientOptions.SupportsAuthor = true;
         }
-
 
         /// <summary>
         /// Load SSG configuration from client credentials
