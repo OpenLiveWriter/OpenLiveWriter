@@ -4489,4 +4489,25 @@ This might take a while.</value>
   <data name="Percent" xml:space="preserve">
     <value>percent</value>
   </data>
+  <data name="CWStaticSiteBuildCommand" xml:space="preserve">
+    <value>Build command:</value>
+  </data>
+  <data name="CWStaticSiteEnableBuilding" xml:space="preserve">
+    <value>Enable building</value>
+  </data>
+  <data name="CWStaticSiteLocalSitePath" xml:space="preserve">
+    <value>Path to local static site:</value>
+  </data>
+  <data name="CWStaticSitePagesPath" xml:space="preserve">
+    <value>Pages path: (relative)</value>
+  </data>
+  <data name="CWStaticSitePostsPath" xml:space="preserve">
+    <value>Posts path: (relative)</value>
+  </data>
+  <data name="CWStaticSitePublishCommand" xml:space="preserve">
+    <value>Publish command:</value>
+  </data>
+  <data name="WizardBlogTypeStaticSite" xml:space="preserve">
+    <value>Static Site G&amp;enerator</value>
+  </data>
 </root>

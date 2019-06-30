@@ -1151,6 +1151,30 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         CWWelcomeWP,
         /// <summary>
+        /// Path to local static site:
+        /// </summary>
+        CWStaticSiteLocalSitePath,
+        /// <summary>
+        /// Posts path: (relative)
+        /// </summary>
+        CWStaticSitePostsPath,
+        /// <summary>
+        /// Pages path: (relative)
+        /// </summary>
+        CWStaticSitePagesPath,
+        /// <summary>
+        /// Build command:
+        /// </summary>
+        CWStaticSiteBuildCommand,
+        /// <summary>
+        /// Publish command:
+        /// </summary>
+        CWStaticSitePublishCommand,
+        /// <summary>
+        /// Enable building
+        /// </summary>
+        CWStaticSiteEnableBuilding,
+        /// <summary>
         /// Date
         /// </summary>
         Date,
@@ -5070,6 +5094,10 @@ namespace OpenLiveWriter.Localization
         /// &Google Blogger
         /// </summary>
         WizardBlogTypeGoogleBlogger,
+        /// <summary>
+        /// &Static Site Generator
+        /// </summary>
+        WizardBlogTypeStaticSite,
         /// <summary>
         /// &Other services
         /// </summary>
