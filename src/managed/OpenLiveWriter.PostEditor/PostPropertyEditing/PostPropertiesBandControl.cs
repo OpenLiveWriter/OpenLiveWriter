@@ -122,6 +122,17 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             base.OnLoad(args);
 
             FixCategoryDropDown();
+            FixPageParentDropDown();
+        }
+
+        private void FixPageParentDropDown()
+        {
+            // For unknown reasons, the page parent drop down vertically misaligns at runtime
+            // Force it to vertically align with the publish date picker on location change
+            comboPageParent.LocationChanged += delegate
+            {
+                comboPageParent.Top = datePublishDate.Top;
+            };
         }
 
         private void FixCategoryDropDown()
