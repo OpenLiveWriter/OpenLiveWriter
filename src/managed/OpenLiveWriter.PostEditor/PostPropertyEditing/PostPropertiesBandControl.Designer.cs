@@ -145,7 +145,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             // 
             this.labelPageOrder.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelPageOrder.AutoSize = true;
-            this.labelPageOrder.Location = new System.Drawing.Point(735, 14);
+            this.labelPageOrder.Location = new System.Drawing.Point(753, 14);
             this.labelPageOrder.Margin = new System.Windows.Forms.Padding(0);
             this.labelPageOrder.Name = "labelPageOrder";
             this.labelPageOrder.Size = new System.Drawing.Size(62, 13);
