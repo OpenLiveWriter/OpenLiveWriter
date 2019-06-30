@@ -1,52 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using OpenLiveWriter.BlogClient.Providers;
+using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using YamlDotNet.Serialization;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
     [BlogClient("StaticSiteGenerator", "StaticSiteGenerator")]
-    class StaticSiteGeneratorClient : BlogClientBase, IBlogClient
+    public class StaticSiteGeneratorClient : BlogClientBase, IBlogClient
     {
-        /// <summary>
-        /// Path to site directory
-        /// </summary>
-        private string sitePath;
-
-        /// <summary>
-        /// Name of posts directory, appended to sitePath
-        /// </summary>
-        private string postsPathRel;
-
-        /// <summary>
-        /// Name of pages directory, appended to sitePath
-        /// </summary>
-        private string pagesPathRel;
-
-        /// <summary>
-        /// Path to build command, executed from working directory of sitePath
-        /// </summary>
-        private string buildCmd;
-
-        /// <summary>
-        /// Path to publish command, executed from working directory of sitePath
-        /// </summary>
-        private string publishCmd;
-
-        public BlogClientOptions Options { get; private set; }
+        public IBlogClientOptions Options { get; private set; }
 
         public StaticSiteGeneratorClient(IBlogCredentialsAccessor credentials) : base(credentials)
         {
-            LoadConfigurationFromCredentials();
-
             // Set the client options
-            Options = new BlogClientOptions();
-            ConfigureClientOptions(Options);
+            var options = new BlogClientOptions();
+            ConfigureClientOptions(options);
+            Options = options;
         }
+
+        protected override void VerifyCredentials(TransientCredentials transientCredentials)
+        {
+            
+        }
+
+        public void OverrideOptions(IBlogClientOptions newClientOptions)
+        {
+            Options = newClientOptions;
+        }
+
+        public BlogInfo[] GetUsersBlogs() => new BlogInfo[0];
+
+        public BlogPostCategory[] GetCategories(string blogId) => new BlogPostCategory[0];
+        public BlogPostKeyword[] GetKeywords(string blogId) => new BlogPostKeyword[0];
+
+        /// <summary>
+        /// Returns recent posts
+        /// </summary>
+        /// <param name="blogId"></param>
+        /// <param name="maxPosts"></param>
+        /// <param name="includeCategories"></param>
+        /// <param name="now">If null, then includes future posts.  If non-null, then only includes posts before the *UTC* 'now' time.</param>
+        /// <returns></returns>
+        public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now) => new BlogPost[0];
+
+        public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
+        {
+            etag = "";
+            remotePost = new XmlDocument();
+            return "";
+        }
+
+        public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
+        {
+            etag = "";
+            remotePost = new XmlDocument();
+            return false;
+        }
+
+        /// <summary>
+        /// Attempt to get a post with the specified id (note: may return null
+        /// if the post could not be found on the remote server)
+        /// </summary>
+        public BlogPost GetPost(string blogId, string postId) => new BlogPost();
+
+        public void DeletePost(string blogId, string postId, bool publish)
+        {
+        }
+
+        public BlogPost GetPage(string blogId, string pageId) => new BlogPost();
+        public PageInfo[] GetPageList(string blogId) => new PageInfo[0];
+        public BlogPost[] GetPages(string blogId, int maxPages) => new BlogPost[0];
+
+        public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
+        {
+            etag = "";
+            remotePost = new XmlDocument();
+            return "";
+        }
+
+        public bool EditPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
+        {
+            etag = "";
+            remotePost = new XmlDocument();
+            return false;
+        }
+
+        public void DeletePage(string blogId, string pageId)
+        {
+        }
+
+        public AuthorInfo[] GetAuthors(string blogId) => new AuthorInfo[0];
+        public bool? DoesFileNeedUpload(IFileUploadContext uploadContext) => false;
+        public string DoBeforePublishUploadWork(IFileUploadContext uploadContext) => "";
+
+        public void DoAfterPublishUploadWork(IFileUploadContext uploadContext)
+        {
+        }
+
+        public string AddCategory(string blogId, BlogPostCategory category) => "";
+
+        public BlogPostCategory[] SuggestCategories(string blogId, string partialCategoryName)
+            => new BlogPostCategory[0];
+
+        public HttpWebResponse SendAuthenticatedHttpRequest(string requestUri, int timeoutMs, HttpRequestFilter filter)
+            => throw new NotImplementedException();
+
+        public BlogInfo[] GetImageEndpoints() => new BlogInfo[0];
+
+        /// <summary>
+        /// Returns if this StaticSiteGeneratorClient is secure
+        /// Returns true for now as we trust the user publish script
+        /// </summary>
+        public bool IsSecure => true;
 
         // Authentication is handled by publish script at the moment 
         protected override bool RequiresPassword => false;
@@ -68,18 +140,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsFileUpload = true;
             clientOptions.SupportsSlug = true;
             clientOptions.SupportsAuthor = true;
-        }
-
-        /// <summary>
-        /// Load SSG configuration from client credentials
-        /// </summary>
-        private void LoadConfigurationFromCredentials()
-        {
-            sitePath     = Credentials.GetCustomValue("sitePath");
-            postsPathRel = Credentials.GetCustomValue("postsPathRel");
-            pagesPathRel = Credentials.GetCustomValue("pagesPathRel");
-            buildCmd     = Credentials.GetCustomValue("buildCmd");
-            publishCmd   = Credentials.GetCustomValue("publishCmd");
         }
 
         /// <summary>
