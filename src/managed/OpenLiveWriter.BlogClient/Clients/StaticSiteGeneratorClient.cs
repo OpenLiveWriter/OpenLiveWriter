@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.Extensibility.BlogClient;
+using YamlDotNet.Serialization;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -76,6 +77,31 @@ namespace OpenLiveWriter.BlogClient.Clients
             pagesPathRel = Credentials.GetCustomValue("pagesPathRel");
             buildCmd     = Credentials.GetCustomValue("buildCmd");
             publishCmd   = Credentials.GetCustomValue("publishCmd");
+        }
+
+        /// <summary>
+        /// Get a PostFrontMatter instance for a post
+        /// </summary>
+        /// <param name="post">Post to generate front matter for</param>
+        /// <returns></returns>
+        private PostFrontMatter GetFrontMatterForPost(BlogPost post) => 
+            new PostFrontMatter()
+            {
+                title = post.Title,
+                author = post.Author.Name,
+                date = post.DatePublished.ToString("yyyy-MM-dd HH:mm:ss"),
+                categories = post.Categories.Select(cat => cat.Name).ToArray(),
+                tags = post.Keywords
+            };
+
+        private class PostFrontMatter
+        {
+            public string title { get; set; }
+            public string author { get; set; }
+            public string date { get; set; }
+
+            public string[] categories { get; set; }
+            public string tags { get; set; }
         }
     }
 }
