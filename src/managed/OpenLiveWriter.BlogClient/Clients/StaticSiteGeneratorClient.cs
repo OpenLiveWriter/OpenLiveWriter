@@ -13,11 +13,11 @@ using YamlDotNet.Serialization;
 namespace OpenLiveWriter.BlogClient.Clients
 {
     [BlogClient("StaticSiteGenerator", "StaticSiteGenerator")]
-    public class StaticSiteGeneratorClient : BlogClientBase, IBlogClient
+    public class StaticSiteClient : BlogClientBase, IBlogClient
     {
         public IBlogClientOptions Options { get; private set; }
 
-        public StaticSiteGeneratorClient(IBlogCredentialsAccessor credentials) : base(credentials)
+        public StaticSiteClient(IBlogCredentialsAccessor credentials) : base(credentials)
         {
             // Set the client options
             var options = new BlogClientOptions();
