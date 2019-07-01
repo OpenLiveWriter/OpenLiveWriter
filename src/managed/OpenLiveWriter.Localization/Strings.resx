@@ -128,7 +128,7 @@
     <value>Configuration Version: {0}</value>
   <comment>Displays the version of Writer's configuration file in the about dialog</comment></data>
   <data name="AboutCopyright" xml:space="preserve">
-    <value>© 2015 .NET Foundation. All rights reserved.</value>
+    <value>Copyright © .NET Foundation. All rights reserved.</value>
   </data>
   <data name="AboutVersion" xml:space="preserve">
     <value>{0}</value>
@@ -975,6 +975,9 @@
   </data>
   <data name="CWStaticSiteEnableBuilding" xml:space="preserve">
     <value>Enable building</value>
+  </data>
+  <data name="CWStaticSiteLocalSiteFolderPicker" xml:space="preserve">
+    <value>Please select the project folder of your static site (eg. Git repository)</value>
   </data>
   <data name="CWStaticSiteLocalSitePath" xml:space="preserve">
     <value>Path to local static site:</value>
@@ -2610,6 +2613,9 @@ Unimplemented Method: {2}</value>
   <data name="PasteSpecialThinnedLabel" xml:space="preserve">
     <value>&amp;Thinned HTML</value>
   </data>
+  <data name="Percent" xml:space="preserve">
+    <value>percent</value>
+  </data>
   <data name="PhotoPreview" xml:space="preserve">
     <value>Inline Photo Previewer</value>
   </data>
@@ -3045,6 +3051,9 @@ Unimplemented Method: {2}</value>
   <data name="PostEditorPrefAuto" xml:space="preserve">
     <value>Save A&amp;utoRecover information periodically</value>
   </data>
+  <data name="PostEditorPrefBrowseFolder" xml:space="preserve">
+    <value>Browse</value>
+  </data>
   <data name="PostEditorPrefClose" xml:space="preserve">
     <value>Close &amp;window after publishing</value>
   </data>
@@ -3059,6 +3068,9 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PostEditorPrefNew" xml:space="preserve">
     <value>Open a new window for &amp;each post</value>
+  </data>
+  <data name="PostEditorPrefPostLocation" xml:space="preserve">
+    <value>Local drafts and recent posts folder</value>
   </data>
   <data name="PostEditorPrefPostWindows" xml:space="preserve">
     <value>Post window</value>
@@ -3170,7 +3182,7 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PrivacyPreferencesPrivacyExplanation" xml:space="preserve">
     <value>Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:</value>
-  <comment>Three links follow the colon: Microsoft Privacy statement, Microsoft service agreement and Code of Conduct</comment></data>
+  <comment>Three links follow the colon: Privacy statement, service agreement and Code of Conduct</comment></data>
   <data name="PrivacyPreferencesPrivacyStatement" xml:space="preserve">
     <value>.NET Foundation Privacy Policy</value>
   </data>
@@ -3555,7 +3567,7 @@ Do you still want to set this web address as your custom pin?</value>
     <value>999 px</value>
   <comment>The Ribbon uses the width of this string to decide how wide the spinner should be displayed</comment></data>
   <data name="SplashScreenCopyrightNotice" xml:space="preserve">
-    <value>© 2015 .NET Foundation. All rights reserved.</value>
+    <value>Copyright © .NET Foundation. All rights reserved.</value>
   </data>
   <data name="SplitterMore" xml:space="preserve">
     <value>More...</value>

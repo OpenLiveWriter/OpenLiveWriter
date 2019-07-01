@@ -81,6 +81,8 @@ PostEditorPrefNew,Open a new window for &each post,
 PostEditorPrefTitle,&Remind me to type a title before publishing,
 PostEditorPrefName,Preferences,
 PostEditorPrefGeneral,General options,
+PostEditorPrefPostLocation,Local drafts and recent posts folder,
+PostEditorPrefBrowseFolder,Browse,
 SpellingPrefOptions,General options,
 SpellingPrefReal,Use &real-time spell checking (squiggles),
 SpellingPrefNum,Ignore words with &numbers,
@@ -377,6 +379,7 @@ CWStaticSitePagesPath,Pages path: (relative),
 CWStaticSiteBuildCommand,Build command:,
 CWStaticSitePublishCommand,Publish command:,
 CWStaticSiteEnableBuilding,Enable building,
+CWStaticSiteLocalSiteFolderPicker,Please select the project folder of your static site (eg. Git repository),
 CWTitle,Add Blog Wizard,Caption of the Add Blog Wizard window.
 CWProgressHeader,Setting up your blog account,
 ProgressDownloadingEditingTemplate,Downloading editing template...,
@@ -433,7 +436,7 @@ PagesLower,pages,
 PostsLower,posts,
 AboutAbout,Abou&t {0},{0} - Open Live Writer Beta
 AboutVersion,{0},"{0} - version number, e.g. 2.0.1"
-AboutCopyright,© 2015 .NET Foundation. All rights reserved.,
+AboutCopyright,Copyright © .NET Foundation. All rights reserved.,
 AboutConfigurationVersion,Configuration Version: {0},Displays the version of Writer's configuration file in the about dialog,
 ProductDisplayVersion,Build {0},{0}- the build number like 12.00.1234.1234.
 ProductNameVersioned,Open Live Writer,Versioned product name for about dialog.
@@ -500,6 +503,7 @@ TableRowsLabel,&Rows:,
 TableColumnsLabel,&Columns:,
 Appearance,Appearance,
 Pixels,pixels,
+Percent,percent,
 TableShowBorderLabel,Show table &border:,
 TableCellSpacingLabel,&Space between cells:,
 TableCellPaddingLabel,&Pad cell contents:,
@@ -960,7 +964,7 @@ FuturePostWarningDontShowAgain,&Always publish immediately without asking again,
 FuturePostWarningExplanation,"This blog service can't delay publishing for the date that you set. Would you like to publish it now?",
 FuturePostWarningTitle,Can't set a future date for publishing,
 LinkToolTip,CTRL + click to follow link: {0},Used when hovering over a link in the editor. {0} - the hyperlink to follow
-SplashScreenCopyrightNotice,© 2015 .NET Foundation. All rights reserved.,
+SplashScreenCopyrightNotice,Copyright © .NET Foundation. All rights reserved.,
 BlogCategoryNone,None,Allows the user to specify that the blog post has no categories assigned to it.
 CWSelectProviderWeblogProvider,Blog Provider,
 CWSelectProviderApiUrl,Server API web address,
@@ -1293,7 +1297,7 @@ ImageViewerDisplayFormatGroup,Using {0} [{1}],"{0} - the name of the image viewe
 ImageViewerLabel,&Enable {0},{0} - the name of the image viewer (e.g. Lightbox)
 ImageViewerGroupLabel,&Group (optional):,A Group is a label that allows multiple images to be grouped into a set
 PrivacyPreferencesPanelName,Trust Center,
-PrivacyPreferencesPrivacyExplanation,"Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:","Three links follow the colon: Microsoft Privacy statement, Microsoft service agreement and Code of Conduct",
+PrivacyPreferencesPrivacyExplanation,"Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:","Three links follow the colon: Privacy statement, service agreement and Code of Conduct",
 PrivacyPreferencesPrivacyStatement,".NET Foundation Privacy Policy",
 PrivacyPreferencesCodeOfConduct,".NET Foundation Contributor Code of Conduct",
 TiltEditorTitle,"Tilt",

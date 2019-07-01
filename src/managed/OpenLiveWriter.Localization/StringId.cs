@@ -19,7 +19,7 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     AboutConfigurationVersion,
 		/// <summary>
-                                                    /// © 2015 .NET Foundation. All rights reserved.
+                                                    /// Copyright © .NET Foundation. All rights reserved.
                                                     /// </summary>
                                                     AboutCopyright,
 		/// <summary>
@@ -1138,6 +1138,10 @@ namespace OpenLiveWriter.Localization
                                                     /// Enable building
                                                     /// </summary>
                                                     CWStaticSiteEnableBuilding,
+		/// <summary>
+                                                    /// Please select the project folder of your static site (eg. Git repository)
+                                                    /// </summary>
+                                                    CWStaticSiteLocalSiteFolderPicker,
 		/// <summary>
                                                     /// Path to local static site:
                                                     /// </summary>
@@ -3316,6 +3320,10 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     PasteSpecialThinnedLabel,
 		/// <summary>
+                                                    /// percent
+                                                    /// </summary>
+                                                    Percent,
+		/// <summary>
                                                     /// Inline Photo Previewer
                                                     /// </summary>
                                                     PhotoPreview,
@@ -3896,6 +3904,10 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     PostEditorPrefAuto,
 		/// <summary>
+                                                    /// Browse
+                                                    /// </summary>
+                                                    PostEditorPrefBrowseFolder,
+		/// <summary>
                                                     /// Close &window after publishing
                                                     /// </summary>
                                                     PostEditorPrefClose,
@@ -3915,6 +3927,10 @@ namespace OpenLiveWriter.Localization
                                                     /// Open a new window for &each post
                                                     /// </summary>
                                                     PostEditorPrefNew,
+		/// <summary>
+                                                    /// Local drafts and recent posts folder
+                                                    /// </summary>
+                                                    PostEditorPrefPostLocation,
 		/// <summary>
                                                     /// Post window
                                                     /// </summary>
@@ -4572,7 +4588,7 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     SpinnerPixelRepresentativeString,
 		/// <summary>
-                                                    /// © 2015 .NET Foundation. All rights reserved.
+                                                    /// Copyright © .NET Foundation. All rights reserved.
                                                     /// </summary>
                                                     SplashScreenCopyrightNotice,
 		/// <summary>
