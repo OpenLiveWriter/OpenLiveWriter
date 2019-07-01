@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.IO;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -112,19 +113,19 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public string LocalSitePath
         {
-            get => textBoxLocalSitePath.Text;
+            get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxLocalSitePath.Text);
             set { textBoxLocalSitePath.Text = value; }
         }
 
         public string PostsPath
         {
-            get => textBoxPostsPath.Text;
+            get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxPostsPath.Text);
             set { textBoxPostsPath.Text = value; }
         }
 
         public string PagesPath
         {
-            get => textBoxPagesPath.Text;
+            get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxPagesPath.Text);
             set { textBoxPagesPath.Text = value; }
         }
 
@@ -181,7 +182,36 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public override bool ValidatePanel()
         {
-            // TODO Check all paths and commands exist
+            if (!Directory.Exists(LocalSitePath))
+            {
+                ShowValidationError(textBoxLocalSitePath, MessageId.FolderNotFound, LocalSitePath);
+                return false;
+            }
+
+            var postsPathFull = $"{LocalSitePath}\\{PostsPath}";
+            var pagesPathFull = $"{LocalSitePath}\\{PagesPath}";
+
+            // If the Posts path is empty or doesn't exist, display an error
+            if (PagesPath.Trim().Length == 0 || !Directory.Exists(postsPathFull))
+            {
+                ShowValidationError(textBoxPostsPath, MessageId.FolderNotFound, postsPathFull);
+                return false;
+            }
+
+            // If the Pages path is over 0 (pages enabled) and the path doesn't exist, display an error
+            if (PagesPath.Trim().Length > 0 && !Directory.Exists(pagesPathFull))
+            {
+                ShowValidationError(textBoxPagesPath, MessageId.FolderNotFound, pagesPathFull);
+                return false;
+            }
+
+            // Publish commands are required
+            if(PublishCmd.Trim().Length == 0)
+            {
+                ShowValidationError(textBoxPublishCmd, MessageId.SSGPublishCommandRequired);
+                return false;
+            }
+
             return true;
         }
 

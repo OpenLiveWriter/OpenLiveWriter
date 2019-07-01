@@ -487,19 +487,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private void OnStaticSiteConfigCompleted(Object stepControl)
         {
-            if (_authenticationRequired)
-                AddSharePointAuthenticationStep((IAccountBasicInfoProvider)stepControl);
-            else
-                OnBasicInfoAndAuthenticationCompleted((IAccountBasicInfoProvider)stepControl, new PerformBlogAutoDetection(PerformSharePointAutoDetectionSubStep));
-        }
-
-        private void OnStaticSiteConfigUndone(Object stepControl)
-        {
-            if (_authenticationRequired && !_authenticationStepAdded)
-            {
-                AddSharePointAuthenticationStep((IAccountBasicInfoProvider)stepControl);
-                next();
-            }
+            
         }
 
         #endregion
