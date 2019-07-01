@@ -18,12 +18,14 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.PostEditor.BlogProviderButtons;
 
+using StaticSiteClient = OpenLiveWriter.BlogClient.Clients.StaticSiteClient;
+
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
     /// <summary>
     /// Summary description for WelcomeToBlogControl.
     /// </summary>
-    internal class WeblogConfigurationWizardPanelStaticSiteConfig : WeblogConfigurationWizardPanel
+    internal class WeblogConfigurationWizardPanelStaticSiteConfig : WeblogConfigurationWizardPanel, IAccountBasicInfoProvider
     {
         private System.Windows.Forms.Label labelLocalSitePath;
         private System.Windows.Forms.Label labelPostsPath;
@@ -141,6 +143,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set { textBoxPublishCmd.Text = value; }
         }
 
+        public string HomepageUrl { get; set; } = "http://localhost";
+
+        public bool SavePassword { get; set; }
+
         public bool BuildEnabled
         {
             get => checkBoxEnableBuilding.Checked;
@@ -157,18 +163,30 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             get
             {
-                // TODO
-                return new TemporaryBlogCredentials();
+                // Create the blog creds for entered data
+                // FIXME Doesn't exactly make sense to store the config into the credentials, should it be stored somewhere else?
+                var creds = new TemporaryBlogCredentials();
+                // Set username to Local Site Path
+                creds.Username = LocalSitePath;
+                creds.SetCustomValue(StaticSiteClient.CONFIG_POSTS_PATH, PostsPath);
+                creds.SetCustomValue(StaticSiteClient.CONFIG_PAGES_PATH, PagesPath);
+                creds.SetCustomValue(StaticSiteClient.CONFIG_BUILD_COMMAND, BuildCmd);
+                creds.SetCustomValue(StaticSiteClient.CONFIG_PUBLISH_COMMAND, PublishCmd);
+                return creds;
             }
             set
             {
-                // TODO
+                LocalSitePath = value.Username;
+                PostsPath = value.GetCustomValue(StaticSiteClient.CONFIG_POSTS_PATH);
+                PagesPath = value.GetCustomValue(StaticSiteClient.CONFIG_PAGES_PATH);
+                BuildCmd = value.GetCustomValue(StaticSiteClient.CONFIG_BUILD_COMMAND);
+                PublishCmd = value.GetCustomValue(StaticSiteClient.CONFIG_PUBLISH_COMMAND);
             }
         }
 
         public bool IsDirty(TemporaryBlogSettings settings)
         {
-            return true; // TODO
+            return false; // TODO
 
         }
 
@@ -392,5 +410,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 textBoxLocalSitePath.Text = folderBrowserDialog.SelectedPath;
             }
         }
+
+        
     }
 }
