@@ -36,6 +36,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private System.Windows.Forms.TextBox textBoxBuildCmd;
         private System.Windows.Forms.TextBox textBoxPublishCmd;
 
+        private System.Windows.Forms.Button btnLocalSiteBrowse;
+
         private System.Windows.Forms.CheckBox checkBoxEnableBuilding;
 
         /// <summary>
@@ -59,28 +61,33 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public override void NaturalizeLayout()
         {
-            if (!DesignMode)
-            {
-                MaximizeWidth(labelLocalSitePath);
-                MaximizeWidth(labelBuildCmd);
-                MaximizeWidth(labelPublishCmd);
-                //MaximizeWidth(checkBoxEnableBuilding);
+            // Wizard views are very broken in the VS Form Designer, due to runtime control layout.
+            if (DesignMode) return;
+            
+            MaximizeWidth(labelLocalSitePath);
+            MaximizeWidth(labelBuildCmd);
+            MaximizeWidth(labelPublishCmd);
+            //MaximizeWidth(checkBoxEnableBuilding);
 
-                LayoutHelper.NaturalizeHeightAndDistribute(3, labelLocalSitePath, textBoxLocalSitePath);
-                LayoutHelper.NaturalizeHeightAndDistribute(3, labelPostsPath, textBoxPostsPath);
-                LayoutHelper.NaturalizeHeightAndDistribute(3, labelPagesPath, textBoxPagesPath);
-                LayoutHelper.NaturalizeHeightAndDistribute(3, labelBuildCmd, textBoxBuildCmd);
-                LayoutHelper.NaturalizeHeightAndDistribute(3, labelPublishCmd, textBoxPublishCmd);
-                LayoutHelper.DistributeVertically(10, false,
-                    new ControlGroup(labelLocalSitePath, textBoxLocalSitePath),
-                    new ControlGroup(labelPostsPath, textBoxPostsPath, labelPagesPath, textBoxPagesPath),
-                    new ControlGroup(labelBuildCmd, textBoxBuildCmd),
-                    new ControlGroup(labelPublishCmd, textBoxPublishCmd)
-                    );
+            LayoutHelper.NaturalizeHeightAndDistribute(3, labelLocalSitePath, textBoxLocalSitePath);
+            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPostsPath, textBoxPostsPath);
+            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPagesPath, textBoxPagesPath);
+            LayoutHelper.NaturalizeHeightAndDistribute(3, labelBuildCmd, textBoxBuildCmd);
+            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPublishCmd, textBoxPublishCmd);
+            LayoutHelper.DistributeVertically(10, false,
+                new ControlGroup(labelLocalSitePath, textBoxLocalSitePath),
+                new ControlGroup(labelPostsPath, textBoxPostsPath, labelPagesPath, textBoxPagesPath),
+                new ControlGroup(labelBuildCmd, textBoxBuildCmd),
+                new ControlGroup(labelPublishCmd, textBoxPublishCmd)
+                );
 
-                // Align Pages path label and input next to Posts path
-                labelPagesPath.Left = textBoxPagesPath.Left = textBoxPostsPath.Left + textBoxPostsPath.Width + 20;
-            }
+            // Align Pages path label and input next to Posts path
+            labelPagesPath.Left = textBoxPagesPath.Left = textBoxPostsPath.Left + textBoxPostsPath.Width + 20;
+
+            // Align Browse button with Local Site Path top and right
+            btnLocalSiteBrowse.Left = textBoxLocalSitePath.Left + textBoxLocalSitePath.Width + 3;
+            btnLocalSiteBrowse.Top = textBoxLocalSitePath.Top;
+            btnLocalSiteBrowse.Height = textBoxLocalSitePath.Height;
         }
 
         public override ConfigPanelId? PanelId
@@ -213,10 +220,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxBuildCmd = new System.Windows.Forms.TextBox();
             this.textBoxPublishCmd = new System.Windows.Forms.TextBox();
 
+            this.btnLocalSiteBrowse = new System.Windows.Forms.Button();
+
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
             panelMain.Controls.Add(labelLocalSitePath);
             panelMain.Controls.Add(textBoxLocalSitePath);
+            panelMain.Controls.Add(btnLocalSiteBrowse);
             panelMain.Controls.Add(labelPostsPath);
             panelMain.Controls.Add(textBoxPostsPath);
             panelMain.Controls.Add(labelPagesPath);
@@ -253,13 +263,24 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxLocalSitePath.Size = new System.Drawing.Size(275, 22);
             this.textBoxLocalSitePath.TabIndex = 2;
             //
+            // btnLocalSiteBrowse
+            //
+            this.btnLocalSiteBrowse.Location = new System.Drawing.Point(20, 74);
+            this.btnLocalSiteBrowse.Name = "btnLocalSiteBrowse";
+            this.btnLocalSiteBrowse.Text = "...";
+            this.btnLocalSiteBrowse.FlatStyle = FlatStyle.System;
+            this.btnLocalSiteBrowse.Size = new System.Drawing.Size(20, 22);
+            this.btnLocalSiteBrowse.Margin = new Padding(0);
+            this.btnLocalSiteBrowse.TabIndex = 3;
+            this.btnLocalSiteBrowse.Click += new System.EventHandler(this.BtnLocalSiteBrowse_Click);
+            //
             // labelPostsPath
             //
             this.labelPostsPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelPostsPath.Location = new System.Drawing.Point(20, 0);
             this.labelPostsPath.Name = "labelPostsPath";
             this.labelPostsPath.Size = new System.Drawing.Size(167, 13);
-            this.labelPostsPath.TabIndex = 3;
+            this.labelPostsPath.TabIndex = 4;
             this.labelPostsPath.Text = "Path to posts directory: (relative)";
             //
             // textBoxPostsPath
@@ -267,7 +288,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxPostsPath.Location = new System.Drawing.Point(20, 74);
             this.textBoxPostsPath.Name = "textBoxPostsPath";
             this.textBoxPostsPath.Size = new System.Drawing.Size(180, 22);
-            this.textBoxPostsPath.TabIndex = 4;
+            this.textBoxPostsPath.TabIndex = 5;
             //
             // labelPagesPath
             //
@@ -275,7 +296,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelPagesPath.Location = new System.Drawing.Point(20, 0);
             this.labelPagesPath.Name = "labelPagesPath";
             this.labelPagesPath.Size = new System.Drawing.Size(167, 13);
-            this.labelPagesPath.TabIndex = 5;
+            this.labelPagesPath.TabIndex = 6;
             this.labelPagesPath.Text = "Path to posts directory: (relative)";
             //
             // textBoxPagesPath
@@ -283,7 +304,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxPagesPath.Location = new System.Drawing.Point(20, 74);
             this.textBoxPagesPath.Name = "textBoxPagesPath";
             this.textBoxPagesPath.Size = new System.Drawing.Size(180, 22);
-            this.textBoxPagesPath.TabIndex = 6;
+            this.textBoxPagesPath.TabIndex = 7;
             //
             // labelBuildCmd
             //
@@ -291,7 +312,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelBuildCmd.Location = new System.Drawing.Point(20, 0);
             this.labelBuildCmd.Name = "labelBuildCmd";
             this.labelBuildCmd.Size = new System.Drawing.Size(167, 13);
-            this.labelBuildCmd.TabIndex = 7;
+            this.labelBuildCmd.TabIndex = 8;
             this.labelBuildCmd.Text = "Build command:";
             //
             // textBoxBuildCmd
@@ -299,7 +320,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxBuildCmd.Location = new System.Drawing.Point(20, 74);
             this.textBoxBuildCmd.Name = "textBoxBuildCmd";
             this.textBoxBuildCmd.Size = new System.Drawing.Size(275, 22);
-            this.textBoxBuildCmd.TabIndex = 8;
+            this.textBoxBuildCmd.TabIndex = 9;
             //
             // labelPublishCmd
             //
@@ -307,7 +328,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelPublishCmd.Location = new System.Drawing.Point(20, 0);
             this.labelPublishCmd.Name = "labelBuildCmd";
             this.labelPublishCmd.Size = new System.Drawing.Size(167, 13);
-            this.labelPublishCmd.TabIndex = 9;
+            this.labelPublishCmd.TabIndex = 10;
             this.labelPublishCmd.Text = "Publish command:";
             //
             // textBoxPublishCmd
@@ -315,7 +336,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxPublishCmd.Location = new System.Drawing.Point(20, 74);
             this.textBoxPublishCmd.Name = "textBoxBuildCmd";
             this.textBoxPublishCmd.Size = new System.Drawing.Size(275, 22);
-            this.textBoxPublishCmd.TabIndex = 10;
+            this.textBoxPublishCmd.TabIndex = 11;
 
             //
             // WeblogConfigurationWizardPanelBasicInfo
@@ -328,5 +349,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         }
         #endregion
+
+        private void BtnLocalSiteBrowse_Click(object sender, EventArgs args)
+        {
+            var folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.ShowNewFolderButton = false;
+            folderBrowserDialog.Description = Res.Get(StringId.CWStaticSiteLocalSiteFolderPicker);
+            var result = folderBrowserDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                textBoxLocalSitePath.Text = folderBrowserDialog.SelectedPath;
+            }
+        }
     }
 }
