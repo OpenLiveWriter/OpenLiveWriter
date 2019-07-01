@@ -81,79 +81,83 @@ namespace LocUtil
             string[] commandFiles = (string[])ArrayHelper.Narrow(clo.GetValues("c"), typeof(string));
             string[] dialogFiles = (string[])ArrayHelper.Narrow(clo.GetValues("d"), typeof(string));
             string[] ribbonFiles = (string[])ArrayHelper.Narrow(clo.GetValues("r"), typeof(string));
+            string[] stringFiles = (string[])ArrayHelper.Narrow(clo.GetValues("s"), typeof(string));
 
-            if (commandFiles.Length + dialogFiles.Length == 0)
+            if (commandFiles.Length + dialogFiles.Length + stringFiles.Length == 0)
             {
                 Console.Error.WriteLine("No input files were specified.");
                 return 1;
             }
 
-            HashSet ribbonIds;
-            Hashtable ribbonValues;
-            Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
-            if (!ParseRibbonXml(ribbonFiles, pairsLoc, pairsNonLoc, typeof(Command), "//ribbon:Command", "Command.{0}.{1}", out ribbonIds, out ribbonValues))
-                return 1;
-            HashSet commandIds;
-            Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
-
-            string[] transformedCommandFiles = commandFiles;
-            try
+            if(commandFiles.Length + dialogFiles.Length > 0)
             {
-                // Transform the files
-                XslCompiledTransform xslTransform = new XslCompiledTransform(true);
-                string xslFile = Path.GetFullPath("Commands.xsl");
+                HashSet ribbonIds;
+                Hashtable ribbonValues;
+                Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
+                if (!ParseRibbonXml(ribbonFiles, pairsLoc, pairsNonLoc, typeof(Command), "//ribbon:Command", "Command.{0}.{1}", out ribbonIds, out ribbonValues))
+                    return 1;
+                HashSet commandIds;
+                Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
 
-                for (int i = 0; i < commandFiles.Length; i++)//string filename in commandFiles)
+                string[] transformedCommandFiles = commandFiles;
+                try
                 {
-                    string inputFile = Path.GetFullPath(commandFiles[i]);
-                    if (!File.Exists(inputFile))
-                        throw new ConfigurationErrorsException("File not found: " + inputFile);
+                    // Transform the files
+                    XslCompiledTransform xslTransform = new XslCompiledTransform(true);
+                    string xslFile = Path.GetFullPath("Commands.xsl");
 
-                    xslTransform.Load(xslFile);
+                    for (int i = 0; i < commandFiles.Length; i++)//string filename in commandFiles)
+                    {
+                        string inputFile = Path.GetFullPath(commandFiles[i]);
+                        if (!File.Exists(inputFile))
+                            throw new ConfigurationErrorsException("File not found: " + inputFile);
 
-                    string transformedFile = inputFile.Replace(".xml", ".transformed.xml");
-                    xslTransform.Transform(inputFile, transformedFile);
-                    transformedCommandFiles[i] = transformedFile;
+                        xslTransform.Load(xslFile);
+
+                        string transformedFile = inputFile.Replace(".xml", ".transformed.xml");
+                        xslTransform.Transform(inputFile, transformedFile);
+                        transformedCommandFiles[i] = transformedFile;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine("Failed to transform file: " + ex);
-                return 1;
-            }
-
-            if (!ParseCommandXml(transformedCommandFiles, pairsLoc, pairsNonLoc, typeof(Command), "/Commands/Command", "Command.{0}.{1}", out commandIds))
-                return 1;
-            HashSet dialogIds;
-            Console.WriteLine("Parsing messages from " + StringHelper.Join(dialogFiles, ";"));
-            if (!ParseCommandXml(dialogFiles, pairsLoc, pairsNonLoc, typeof(DisplayMessage), "/Messages/Message", "DisplayMessage.{0}.{1}", out dialogIds))
-                return 1;
-
-            string propsFile = (string)clo.GetValue("props", null);
-            Console.WriteLine("Writing localizable resources to " + propsFile);
-            WritePairs(pairsLoc, propsFile, true);
-
-            string propsNonLocFile = (string)clo.GetValue("propsnonloc", null);
-            Console.WriteLine("Writing non-localizable resources to " + propsNonLocFile);
-            WritePairs(pairsNonLoc, propsNonLocFile, false);
-
-            if (clo.IsArgPresent("cenum"))
-            {
-                string cenum = (string)clo.GetValue("cenum", null);
-                Console.WriteLine("Generating CommandId enum file " + cenum);
-
-                // commandId:    command name
-                // ribbonValues: command name --> resource id
-                commandIds.AddAll(ribbonIds);
-                if (!GenerateEnum(commandIds, "CommandId", cenum, null, ribbonValues))
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine("Failed to transform file: " + ex);
                     return 1;
-            }
-            if (clo.IsArgPresent("denum"))
-            {
-                string denum = (string)clo.GetValue("denum", null);
-                Console.WriteLine("Generating MessageId enum file " + denum);
-                if (!GenerateEnum(dialogIds, "MessageId", denum, null, null))
+                }
+
+                if (!ParseCommandXml(transformedCommandFiles, pairsLoc, pairsNonLoc, typeof(Command), "/Commands/Command", "Command.{0}.{1}", out commandIds))
                     return 1;
+                HashSet dialogIds;
+                Console.WriteLine("Parsing messages from " + StringHelper.Join(dialogFiles, ";"));
+                if (!ParseCommandXml(dialogFiles, pairsLoc, pairsNonLoc, typeof(DisplayMessage), "/Messages/Message", "DisplayMessage.{0}.{1}", out dialogIds))
+                    return 1;
+
+                string propsFile = (string)clo.GetValue("props", null);
+                Console.WriteLine("Writing localizable resources to " + propsFile);
+                WritePairs(pairsLoc, propsFile, true);
+
+                string propsNonLocFile = (string)clo.GetValue("propsnonloc", null);
+                Console.WriteLine("Writing non-localizable resources to " + propsNonLocFile);
+                WritePairs(pairsNonLoc, propsNonLocFile, false);
+
+                if (clo.IsArgPresent("cenum"))
+                {
+                    string cenum = (string)clo.GetValue("cenum", null);
+                    Console.WriteLine("Generating CommandId enum file " + cenum);
+
+                    // commandId:    command name
+                    // ribbonValues: command name --> resource id
+                    commandIds.AddAll(ribbonIds);
+                    if (!GenerateEnum(commandIds, "CommandId", cenum, null, ribbonValues))
+                        return 1;
+                }
+                if (clo.IsArgPresent("denum"))
+                {
+                    string denum = (string)clo.GetValue("denum", null);
+                    Console.WriteLine("Generating MessageId enum file " + denum);
+                    if (!GenerateEnum(dialogIds, "MessageId", denum, null, null))
+                        return 1;
+                }
             }
 
             if (clo.IsArgPresent("s"))
