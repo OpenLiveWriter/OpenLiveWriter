@@ -14,6 +14,8 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
 using System.Runtime.InteropServices;
 
+using StaticSiteClient = OpenLiveWriter.BlogClient.Clients.StaticSiteClient;
+
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
 
@@ -487,7 +489,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private void OnStaticSiteConfigCompleted(Object stepControl)
         {
-            
+            IAccountBasicInfoProvider accountBasicInfo = (IAccountBasicInfoProvider)stepControl;
+
+            // Fill blog settings
+            _temporarySettings.SetProvider(
+                StaticSiteClient.PROVIDER_ID, 
+                StaticSiteClient.SERVICE_NAME,
+                StaticSiteClient.POST_API_URL,
+                StaticSiteClient.CLIENT_TYPE
+                );
+            _temporarySettings.HomepageUrl = accountBasicInfo.HomepageUrl;
+            _temporarySettings.Credentials = accountBasicInfo.Credentials;
         }
 
         #endregion
