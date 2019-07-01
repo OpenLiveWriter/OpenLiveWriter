@@ -857,6 +857,7 @@ UnexpectedErrorContinue,&Continue,
 UnexpectedErrorClickHere,Click here to see error details,
 UnexpectedErrorDescription,We have created an error summary that you can view.,
 UnexpectedErrorTitle,Unexpected Error,
+UnexpectedErrorSendError,&Send Error,
 UnexpectedErrorPluginTitle,Plug-in Error Occurred,
 UnexpectedErrorPluginDescription,"An error occurred in the {0} plug-in:
 

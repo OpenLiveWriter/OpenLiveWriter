@@ -3793,6 +3793,9 @@ Do you still want to set this web address as your custom pin?</value>
   <data name="UnexpectedErrorPluginTitle" xml:space="preserve">
     <value>Plug-in Error Occurred</value>
   </data>
+  <data name="UnexpectedErrorSendError" xml:space="preserve">
+    <value>&amp;Send Error</value>
+  </data>
   <data name="UnexpectedErrorTitle" xml:space="preserve">
     <value>Unexpected Error</value>
   </data>

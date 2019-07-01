@@ -4890,6 +4890,10 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     UnexpectedErrorPluginTitle,
 		/// <summary>
+                                                    /// &Send Error
+                                                    /// </summary>
+                                                    UnexpectedErrorSendError,
+		/// <summary>
                                                     /// Unexpected Error
                                                     /// </summary>
                                                     UnexpectedErrorTitle,
