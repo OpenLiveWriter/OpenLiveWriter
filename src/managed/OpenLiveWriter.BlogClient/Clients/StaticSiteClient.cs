@@ -134,7 +134,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             => new BlogPostCategory[0];
 
         public HttpWebResponse SendAuthenticatedHttpRequest(string requestUri, int timeoutMs, HttpRequestFilter filter)
-            => throw new Exception("HTTP requests not implemented for static sites"); // TODO This is used for downloading writing manifest XMLs. Throw an exception for now.
+            => throw new NotImplementedException("HTTP requests not implemented for static sites"); // TODO This is used for downloading writing manifest XMLs. Throw an exception for now.
 
         public BlogInfo[] GetImageEndpoints() => new BlogInfo[0];
 
