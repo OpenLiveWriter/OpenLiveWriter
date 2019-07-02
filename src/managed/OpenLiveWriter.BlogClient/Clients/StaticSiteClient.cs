@@ -153,8 +153,11 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// <param name="clientOptions">A BlogClientOptions instance</param>
         private void ConfigureClientOptions(BlogClientOptions clientOptions)
         {
-            // Pages are supported via filesystem
-            clientOptions.SupportsPages = true;
+            // Pages are supported if a Pages path is provided
+            clientOptions.SupportsPages = PagesPath.Length > 0;
+
+            // Drafts are supported if a Drafts path is provided
+            clientOptions.SupportsPostAsDraft = false; // TODO ask for a drafts path
 
             // The follwoing values would be written into YAML front-matter
             clientOptions.SupportsCategories = true;
