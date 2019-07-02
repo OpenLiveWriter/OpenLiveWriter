@@ -8,9 +8,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
+using OpenLiveWriter.Localization;
 
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -98,6 +100,8 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             // Make post front matter
             var frontMatter = GetFrontMatterForPost(post);
+
+            // Build the output
             var outputFile = new StringBuilder();
             outputFile.AppendLine("---");
             outputFile.Append(frontMatter.Serialize());
@@ -105,9 +109,15 @@ namespace OpenLiveWriter.BlogClient.Clients
             outputFile.AppendLine();
             outputFile.Append(post.Contents);
 
+            // Write to file
             var fileName = GetFileNameForPost(post, publish);
-
             File.WriteAllText($"{LocalSitePath}/{PostsPath}/{fileName}.html", outputFile.ToString());
+
+            // Build the site, if required
+            if (BuildCommand != string.Empty) DoSiteBuild();
+
+            // Publish the site 
+            DoSitePublish();
 
             return "";
         }
@@ -175,8 +185,77 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// </summary>
         public bool IsSecure => true;
 
+        /// <summary>
+        /// Always false. It is not possible to perform remote detection on a static site, as
+        /// it may not be published yet, or published to a web location.
+        /// </summary>
+        public override bool RemoteDetectionPossible { get; } = false;
+
         // Authentication is handled by publish script at the moment 
         protected override bool RequiresPassword => false;
+
+        /// <summary>
+        /// Build the static site
+        /// </summary>
+        private void DoSiteBuild()
+        {
+            var proc = RunSiteCommand(BuildCommand);
+            if (proc.ExitCode != 0)
+            {
+                throw new BlogClientException(
+                    StringId.SSGBuildErrorTitle,
+                    StringId.SSGBuildErrorText,
+                    StringId.ProductNameVersioned,
+                    proc.ExitCode.ToString(),
+                    proc.StandardOutput.ReadToEnd(),
+                    proc.StandardError.ReadToEnd()
+                );
+            }
+        }
+
+        /// <summary>
+        /// Publish the static site
+        /// </summary>
+        private void DoSitePublish()
+        {
+            var proc = RunSiteCommand(PublishCommand);
+            if (proc.ExitCode != 0)
+            {
+                throw new BlogClientException(
+                    StringId.SSGPublishErrorTitle,
+                    StringId.SSGPublishErrorText,
+                    StringId.ProductNameVersioned,
+                    proc.ExitCode.ToString(),
+                    proc.StandardOutput.ReadToEnd(),
+                    proc.StandardError.ReadToEnd()
+                );
+            }
+        }
+
+        /// <summary>
+        /// Run a command from the site directory
+        /// </summary>
+        /// <param name="localCommand">Command to run, releative to site directory</param>
+        /// <returns></returns>
+        private Process RunSiteCommand(string localCommand)
+        {
+            var proc = new Process();
+            proc.StartInfo.FileName = "cmd.exe";
+            // Set working directory to local site path
+            proc.StartInfo.WorkingDirectory = LocalSitePath;
+
+            proc.StartInfo.RedirectStandardError = true;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.StartInfo.CreateNoWindow = true;
+            proc.StartInfo.UseShellExecute = false;
+            
+            proc.StartInfo.Arguments = $"/C {localCommand}";
+            proc.Start();
+            proc.WaitForExit();
+
+            // The Process will have all standard output waiting in buffer
+            return proc;
+        }
 
         /// <summary>
         /// Sets the relevant BlogClientOptions for this client
@@ -219,12 +298,6 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             return $"{post.DatePublished.ToString("yyyy-MM-dd")}-{safeTitle}";
         }
-
-        /// <summary>
-        /// Always false. It is not possible to perform remote detection on a static site, as
-        /// it may not be published yet, or published to a web location.
-        /// </summary>
-        public override bool RemoteDetectionPossible { get; } = false;
 
         /// <summary>
         /// Get a PostFrontMatter instance for a post
