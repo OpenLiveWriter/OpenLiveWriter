@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
+
 using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
+
 
 namespace OpenLiveWriter.BlogClient.Clients
 {
@@ -28,6 +34,8 @@ namespace OpenLiveWriter.BlogClient.Clients
         public const string CONFIG_PAGES_PATH = "SSGPagesPath";
         public const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
         public const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
+
+        private static Regex WEB_UNSAFE_CHARS = new Regex("[^A-Za-z0-9 ]*");
 
         public IBlogClientOptions Options { get; private set; }
         
@@ -76,8 +84,31 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
         {
+            if(!publish && !Options.SupportsPostAsDraft)
+            {
+                Trace.Fail("Cannot post as draft as this static site has no specified draft path.");
+                throw new BlogClientPostAsDraftUnsupportedException();
+            }
+
+            // The remote post is only meant to be used for blogs that use the Atom protocol.
+            remotePost = null;
+
+            // Static sites do not generate E-Tags
             etag = "";
-            remotePost = new XmlDocument();
+
+            // Make post front matter
+            var frontMatter = GetFrontMatterForPost(post);
+            var outputFile = new StringBuilder();
+            outputFile.AppendLine("---");
+            outputFile.Append(frontMatter.Serialize());
+            outputFile.AppendLine("---");
+            outputFile.AppendLine();
+            outputFile.Append(post.Contents);
+
+            var fileName = GetFileNameForPost(post, publish);
+
+            File.WriteAllText($"{LocalSitePath}/{PostsPath}/{fileName}.html", outputFile.ToString());
+
             return "";
         }
 
