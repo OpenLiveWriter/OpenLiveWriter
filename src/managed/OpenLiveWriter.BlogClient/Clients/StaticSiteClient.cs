@@ -182,6 +182,13 @@ namespace OpenLiveWriter.BlogClient.Clients
             PublishCommand = blogCredentials.GetCustomValue(CONFIG_PUBLISH_COMMAND);
         }
 
+        private string GetFileNameForPost(BlogPost post, bool newPost)
+        {
+            var safeTitle = WEB_UNSAFE_CHARS.Replace(post.Title.ToLower(), "").Replace(" ", "-");
+
+            return $"{post.DatePublished.ToString("yyyy-MM-dd")}-{safeTitle}";
+        }
+
         /// <summary>
         /// Always false. It is not possible to perform remote detection on a static site, as
         /// it may not be published yet, or published to a web location.
