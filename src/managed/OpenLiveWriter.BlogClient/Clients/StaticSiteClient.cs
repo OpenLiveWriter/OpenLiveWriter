@@ -193,24 +193,43 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// </summary>
         /// <param name="post">Post to generate front matter for</param>
         /// <returns></returns>
-        private PostFrontMatter GetFrontMatterForPost(BlogPost post) => 
-            new PostFrontMatter()
+        private PostFrontMatter GetFrontMatterForPost(BlogPost post)
+        {
+            var frontMatter = new PostFrontMatter()
             {
-                title = post.Title,
-                author = post.Author.Name,
-                date = post.DatePublished.ToString("yyyy-MM-dd HH:mm:ss"),
-                categories = post.Categories.Select(cat => cat.Name).ToArray(),
-                tags = post.Keywords
+                Title = post.Title,
+                Categories = post.Categories.Select(cat => cat.Name).ToArray(),
+                Tags = post.Keywords
             };
+
+            if (post.Author != null) frontMatter.Author = post.Author.Name;
+            if (post.DatePublished != new DateTime()) frontMatter.Date = post.DatePublished.ToString("yyyy-MM-dd HH:mm:ss");
+
+            return frontMatter;
+        }
 
         private class PostFrontMatter
         {
-            public string title { get; set; }
-            public string author { get; set; }
-            public string date { get; set; }
+            [YamlMember(Alias = "title")]
+            public string Title { get; set; }
 
-            public string[] categories { get; set; }
-            public string tags { get; set; }
+            [YamlMember(Alias = "author")]
+            public string Author { get; set; }
+
+            [YamlMember(Alias = "date")]
+            public string Date { get; set; }
+
+            [YamlMember(Alias = "layout")]
+            public string Layout { get; set; } = "post";
+
+            [YamlMember(Alias = "categories")]
+            public string[] Categories { get; set; }
+
+            [YamlMember(Alias = "tags")]
+            public string Tags { get; set; }
+
+            public string Serialize() => (new Serializer().Serialize(this));
+            public static PostFrontMatter Deserialize(string yaml) => (new Deserializer().Deserialize<PostFrontMatter>(yaml));
         }
     }
 }
