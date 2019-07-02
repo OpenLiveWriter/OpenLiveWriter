@@ -3572,6 +3572,32 @@ Do you still want to set this web address as your custom pin?</value>
   <data name="SplitterMore" xml:space="preserve">
     <value>More...</value>
   </data>
+  <data name="SSGBuildErrorText" xml:space="preserve">
+    <value>{0} has failed to build your site. Please ensure your site builds manually, check your build command and try again.
+
+Build command exit code: {1}
+Command STDOUT:
+{2}
+Command STDERR:
+{3}
+</value>
+  <comment>{0} - Product name, {1} - Build command exit code</comment></data>
+  <data name="SSGBuildErrorTitle" xml:space="preserve">
+    <value>Static site build failed</value>
+  </data>
+  <data name="SSGPublishErrorText" xml:space="preserve">
+    <value>{0} has failed to publish your site. Please check your site publish command.
+
+Publish command exit code: {1}
+Command STDOUT:
+{2}
+Command STDERR:
+{3}
+</value>
+  <comment>{0} - Product name, {1} - Publish command exit code</comment></data>
+  <data name="SSGPublishErrorTitle" xml:space="preserve">
+    <value>Static site publish failed</value>
+  </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>
   <comment>Header of the table that shows word and character count</comment></data>

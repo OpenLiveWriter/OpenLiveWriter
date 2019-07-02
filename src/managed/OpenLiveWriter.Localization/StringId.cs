@@ -4596,6 +4596,36 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     SplitterMore,
 		/// <summary>
+                                                    /// {0} has failed to build your site. Please ensure your site builds manually, check your build command and try again.
+		/// 
+		/// Build command exit code: {1}
+		/// Command STDOUT:
+		/// {2}
+		/// Command STDERR:
+		/// {3}
+		/// 
+                                                    /// </summary>
+                                                    SSGBuildErrorText,
+		/// <summary>
+                                                    /// Static site build failed
+                                                    /// </summary>
+                                                    SSGBuildErrorTitle,
+		/// <summary>
+                                                    /// {0} has failed to publish your site. Please check your site publish command.
+		/// 
+		/// Publish command exit code: {1}
+		/// Command STDOUT:
+		/// {2}
+		/// Command STDERR:
+		/// {3}
+		/// 
+                                                    /// </summary>
+                                                    SSGPublishErrorText,
+		/// <summary>
+                                                    /// Static site publish failed
+                                                    /// </summary>
+                                                    SSGPublishErrorTitle,
+		/// <summary>
                                                     /// Statistics
                                                     /// </summary>
                                                     Statistics,

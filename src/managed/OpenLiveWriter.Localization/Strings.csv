@@ -380,6 +380,24 @@ CWStaticSiteBuildCommand,Build command:,
 CWStaticSitePublishCommand,Publish command:,
 CWStaticSiteEnableBuilding,Enable building,
 CWStaticSiteLocalSiteFolderPicker,Please select the project folder of your static site (eg. Git repository),
+SSGBuildErrorTitle,Static site build failed,
+SSGBuildErrorText,"{0} has failed to build your site. Please ensure your site builds manually, check your build command and try again.
+
+Build command exit code: {1}
+Command STDOUT:
+{2}
+Command STDERR:
+{3}
+","{0} - Product name, {1} - Build command exit code"
+SSGPublishErrorTitle,Static site publish failed,
+SSGPublishErrorText,"{0} has failed to publish your site. Please check your site publish command.
+
+Publish command exit code: {1}
+Command STDOUT:
+{2}
+Command STDERR:
+{3}
+","{0} - Product name, {1} - Publish command exit code"
 CWTitle,Add Blog Wizard,Caption of the Add Blog Wizard window.
 CWProgressHeader,Setting up your blog account,
 ProgressDownloadingEditingTemplate,Downloading editing template...,
