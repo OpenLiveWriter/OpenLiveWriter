@@ -180,6 +180,12 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
         /// <summary>
+        /// Always false. It is not possible to perform remote detection on a static site, as
+        /// it may not be published yet, or published to a web location.
+        /// </summary>
+        public override bool RemoteDetectionPossible { get; } = false;
+
+        /// <summary>
         /// Get a PostFrontMatter instance for a post
         /// </summary>
         /// <param name="post">Post to generate front matter for</param>
