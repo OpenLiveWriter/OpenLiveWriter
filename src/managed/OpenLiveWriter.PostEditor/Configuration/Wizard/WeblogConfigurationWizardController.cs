@@ -248,7 +248,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private void AddStaticSiteConfigSubStep()
         {
-            var configPanel = new WeblogConfigurationWizardPanelStaticSiteConfig();
+            var configPanel = new WeblogConfigurationWizardPanelStaticSiteInitial();
             addWizardSubStep(
                 new WizardSubStep(configPanel,
                 null,
@@ -491,14 +491,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private void OnStaticSiteConfigDisplayed(Object stepControl)
         {
             // Populate data
-            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteConfig);
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteInitial);
             var config = StaticSiteConfig.LoadConfigFromCredentials( _temporarySettings.Credentials);
             panel.LoadFromConfig(config);
         }
 
         private void OnStaticSiteConfigCompleted(Object stepControl)
         {
-            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteConfig);
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteInitial);
 
             // Fill blog settings
             _temporarySettings.SetProvider(
@@ -507,7 +507,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 StaticSiteClient.POST_API_URL,
                 StaticSiteClient.CLIENT_TYPE
                 );
-            _temporarySettings.HomepageUrl = panel.HomepageUrl;
 
             // TODO Find a place for this that persists between panels
             var config = new StaticSiteConfig();

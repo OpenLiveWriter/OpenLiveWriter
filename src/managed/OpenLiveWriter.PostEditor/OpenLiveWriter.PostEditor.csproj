@@ -304,7 +304,10 @@
     <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelAutoDetection.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteConfig.cs">
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSitePaths.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteInitial.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelBasicInfo.cs">
@@ -1039,8 +1042,12 @@
       <DependentUpon>WeblogConfigurationWizardPanelAutoDetection.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteConfig.resx">
-      <DependentUpon>WeblogConfigurationWizardPanelStaticSiteConfig.cs</DependentUpon>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSitePaths.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelStaticSitePaths.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteInitial.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelStaticSiteInitial.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelBasicInfo.resx">

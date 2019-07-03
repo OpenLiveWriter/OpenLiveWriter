@@ -1127,10 +1127,6 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWSpacesUsernameExample,
 		/// <summary>
-                                                    /// Provide static site configuration
-                                                    /// </summary>
-                                                    CWStaticSiteAddSiteTitle,
-		/// <summary>
                                                     /// Build command:
                                                     /// </summary>
                                                     CWStaticSiteBuildCommand,
@@ -1138,6 +1134,14 @@ namespace OpenLiveWriter.Localization
                                                     /// Enable building
                                                     /// </summary>
                                                     CWStaticSiteEnableBuilding,
+		/// <summary>
+                                                    /// {0} will attempt to automatically detect your static site configuration based on files present in your site project folder. Please select the project folder of your static site (eg. Git repository)
+                                                    /// </summary>
+                                                    CWStaticSiteInitialSubtitle,
+		/// <summary>
+                                                    /// Provide static site configuration
+                                                    /// </summary>
+                                                    CWStaticSiteInitialTitle,
 		/// <summary>
                                                     /// Please select the project folder of your static site (eg. Git repository)
                                                     /// </summary>
