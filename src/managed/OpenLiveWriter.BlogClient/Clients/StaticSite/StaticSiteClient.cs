@@ -311,7 +311,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             var safeTitle = WEB_UNSAFE_CHARS.Replace(post.Title.ToLower(), "").Replace(" ", "-");
 
-            // TODO Make this format customisable 
+            // TODO Make this format customisable
             return $"{post.DatePublished.ToString("yyyy-MM-dd")}-{safeTitle}.html";
         }
 
