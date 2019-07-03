@@ -494,7 +494,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // Populate data
             var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteInitial);
             // Load static config from credentials provided
-            staticSiteConfig = StaticSiteConfig.LoadConfigFromCredentials( _temporarySettings.Credentials);
+            staticSiteConfig = StaticSiteConfig.LoadConfigFromBlogSettings( _temporarySettings);
             panel.LoadFromConfig(staticSiteConfig);
         }
 
@@ -576,6 +576,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 StaticSiteClient.POST_API_URL,
                 StaticSiteClient.CLIENT_TYPE
                 );
+
+            _temporarySettings.HomepageUrl = staticSiteConfig.SiteUrl;
 
             // Fill config into credentials
             staticSiteConfig.SaveToCredentials(_temporarySettings.Credentials);
