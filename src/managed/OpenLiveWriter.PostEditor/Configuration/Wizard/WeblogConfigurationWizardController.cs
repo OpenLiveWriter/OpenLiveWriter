@@ -177,7 +177,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 AddSharePointBasicInfoSubStep(true);
             } else if (_temporarySettings.IsStaticSiteBlog)
             {
-                AddStaticSiteConfigSubStep();
+                AddStaticSiteInitialSubStep();
             } else
             {
                 AddBasicInfoSubStep();
@@ -244,19 +244,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new NextCallback(OnGoogleBloggerOAuthCompleted),
                 null,
                 new BackCallback(OnGoogleBloggerOAuthBack)));
-        }
-
-        private void AddStaticSiteConfigSubStep()
-        {
-            var configPanel = new WeblogConfigurationWizardPanelStaticSiteInitial();
-            addWizardSubStep(
-                new WizardSubStep(configPanel,
-                null,
-                new DisplayCallback(OnStaticSiteConfigDisplayed),
-                new VerifyStepCallback(OnValidatePanel),
-                new NextCallback(OnStaticSiteConfigCompleted),
-                null,
-                null));
         }
 
         private void AddConfirmationStep()
@@ -373,7 +360,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
             else if (_temporarySettings.IsStaticSiteBlog)
             {
-                AddStaticSiteConfigSubStep();
+                AddStaticSiteInitialSubStep();
             }
             else
             {
@@ -488,15 +475,30 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         #endregion
 
         #region Static Site Generator support
-        private void OnStaticSiteConfigDisplayed(Object stepControl)
+        private StaticSiteConfig staticSiteConfig;
+
+        private void AddStaticSiteInitialSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteInitial(),
+                null,
+                new DisplayCallback(OnStaticSiteInitialDisplayed),
+                new VerifyStepCallback(OnValidatePanel),
+                new NextCallback(OnStaticSiteInitialCompleted),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSiteInitialDisplayed(Object stepControl)
         {
             // Populate data
             var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteInitial);
-            var config = StaticSiteConfig.LoadConfigFromCredentials( _temporarySettings.Credentials);
-            panel.LoadFromConfig(config);
+            // Load static config from credentials provided
+            staticSiteConfig = StaticSiteConfig.LoadConfigFromCredentials( _temporarySettings.Credentials);
+            panel.LoadFromConfig(staticSiteConfig);
         }
 
-        private void OnStaticSiteConfigCompleted(Object stepControl)
+        private void OnStaticSiteInitialCompleted(Object stepControl)
         {
             var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteInitial);
 
@@ -508,10 +510,75 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 StaticSiteClient.CLIENT_TYPE
                 );
 
-            // TODO Find a place for this that persists between panels
-            var config = new StaticSiteConfig();
-            panel.SaveToConfig(config);
-            config.SaveToCredentials(_temporarySettings.Credentials);
+            // Save config
+            panel.SaveToConfig(staticSiteConfig);
+
+            if(!staticSiteConfig.Initialised)
+            {
+                // Attempt parameter detection
+                var detectionResult = staticSiteConfig.AttemptConfigDetection();
+                if (detectionResult) // Successful detection of parameters
+                    MessageBox.Show(
+                        string.Format(Res.Get(StringId.CWStaticSiteConfigDetection), Res.Get(StringId.ProductNameVersioned)), 
+                        Res.Get(StringId.ProductNameVersioned),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+            }
+
+            // Go to next step
+            AddStaticSitePathsSubStep();
+        }
+
+        private void AddStaticSitePathsSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths(),
+                null,
+                new DisplayCallback(OnStaticSitePathsDisplayed),
+                new VerifyStepCallback(OnValidatePanel),
+                new NextCallback(OnStaticSitePathsCompleted),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSitePathsDisplayed(Object stepControl)
+        {
+            // Populate data
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths);
+
+            // Load panel values from config
+            panel.LoadFromConfig(staticSiteConfig);
+        }
+
+        private void OnStaticSitePathsCompleted(Object stepControl)
+        {
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths);
+
+            // Save panel values into config
+            panel.SaveToConfig(staticSiteConfig);
+
+            // Go to next step
+            PerformStaticSiteWizardCompletion();
+        }
+
+        private void OnStaticSiteBack(object step)
+        {
+            // Save panel values before going back
+            (step as IWizardPanelStaticSiteConfigProvider).SaveToConfig(staticSiteConfig);
+        }
+
+        private void PerformStaticSiteWizardCompletion()
+        {
+            // Fill blog settings
+            _temporarySettings.SetProvider(
+                StaticSiteClient.PROVIDER_ID,
+                StaticSiteClient.SERVICE_NAME,
+                StaticSiteClient.POST_API_URL,
+                StaticSiteClient.CLIENT_TYPE
+                );
+
+            // Fill config into credentials
+            staticSiteConfig.SaveToCredentials(_temporarySettings.Credentials);
         }
 
         #endregion
@@ -864,6 +931,21 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         #endregion
 
+    }
+
+    internal interface IWizardPanelStaticSiteConfigProvider
+    {
+        /// <summary>
+        /// Saves panel form fields into a StaticSiteConfig
+        /// </summary>
+        /// <param name="config">a StaticSiteConfig instance</param>
+        void SaveToConfig(StaticSiteConfig config);
+
+        /// <summary>
+        /// Loads panel form fields from a StaticSiteConfig
+        /// </summary>
+        /// <param name="config">a StaticSiteConfig instance</param>
+        void LoadFromConfig(StaticSiteConfig config);
     }
 
     internal interface IAccountBasicInfoProvider
