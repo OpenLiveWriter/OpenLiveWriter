@@ -111,15 +111,25 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             // Write to file
             var fileName = GetFileNameForPost(post, publish);
-            File.WriteAllText($"{LocalSitePath}/{PostsPath}/{fileName}.html", outputFile.ToString());
+            var fullPath = $"{LocalSitePath}/{PostsPath}/{fileName}";
+            File.WriteAllText(fullPath, outputFile.ToString());
 
-            // Build the site, if required
-            if (BuildCommand != string.Empty) DoSiteBuild();
+            try
+            {
+                // Build the site, if required
+                if (BuildCommand != string.Empty) DoSiteBuild();
 
-            // Publish the site 
-            DoSitePublish();
+                // Publish the site 
+                DoSitePublish();
 
-            return "";
+                return "";
+            } catch (Exception ex)
+            {
+                // Clean up our output file
+                File.Delete(fullPath);
+                // Throw the exception up
+                throw ex;
+            }
         }
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
