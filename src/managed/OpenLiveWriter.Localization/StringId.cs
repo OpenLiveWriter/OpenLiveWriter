@@ -1131,6 +1131,10 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSiteBuildCommand,
 		/// <summary>
+                                                    /// {0} was able to automatically determine a partial configuration for your site. Please confirm that the pre-filled details on the next pages are correct, and complete the other missing fields.
+                                                    /// </summary>
+                                                    CWStaticSiteConfigDetection,
+		/// <summary>
                                                     /// Enable building
                                                     /// </summary>
                                                     CWStaticSiteEnableBuilding,
@@ -1138,6 +1142,10 @@ namespace OpenLiveWriter.Localization
                                                     /// {0} will attempt to automatically detect your static site configuration based on files present in your site project folder. Please select the project folder of your static site (eg. Git repository)
                                                     /// </summary>
                                                     CWStaticSiteInitialSubtitle,
+		/// <summary>
+                                                    /// {0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you must add your site again to re-attempt configuration detection.
+                                                    /// </summary>
+                                                    CWStaticSiteInitialSubtitleAlreadyDetected,
 		/// <summary>
                                                     /// Provide static site configuration
                                                     /// </summary>
