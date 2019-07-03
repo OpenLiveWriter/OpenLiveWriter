@@ -174,9 +174,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             // first step conditional on blog type
             if (_temporarySettings.IsSharePointBlog)
+            {
                 AddSharePointBasicInfoSubStep(true);
-            else
+            } else if (_temporarySettings.IsStaticSiteBlog)
+            {
+                AddStaticSiteConfigSubStep(true);
+            } else
+            {
                 AddBasicInfoSubStep();
+            }
 
             AddConfirmationStep();
 
@@ -241,10 +247,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new BackCallback(OnGoogleBloggerOAuthBack)));
         }
 
-        private void AddStaticSiteConfigSubStep()
+        private void AddStaticSiteConfigSubStep(bool loadConfigFromCreds)
         {
+            var configPanel = new WeblogConfigurationWizardPanelStaticSiteConfig();
+            if (loadConfigFromCreds) configPanel.Credentials = _temporarySettings.Credentials;
             addWizardSubStep(
-                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteConfig(),
+                new WizardSubStep(configPanel,
                 null,
                 new DisplayCallback(OnStaticSiteConfigDisplayed),
                 new VerifyStepCallback(OnValidatePanel),
@@ -367,7 +375,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
             else if (_temporarySettings.IsStaticSiteBlog)
             {
-                AddStaticSiteConfigSubStep();
+                AddStaticSiteConfigSubStep(false);
             }
             else
             {
