@@ -13,31 +13,37 @@ namespace OpenLiveWriter.BlogClient.Clients
         private const string CONFIG_PAGES_PATH = "SSGPagesPath";
         private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
         private const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
+        private const string CONFIG_INITIALISED = "SSGInitialised";
 
         /// <summary>
         /// The full path to the local static site 'project' directory
         /// </summary>
-        public string LocalSitePath { get; set; }
+        public string LocalSitePath { get; set; } = "";
 
         /// <summary>
         /// Path to Posts directory, relative to LocalSitePath
         /// </summary>
-        public string PostsPath { get; set; }
+        public string PostsPath { get; set; } = "";
 
         /// <summary>
         /// Path to Pages directory, relative to LocalSitePath
         /// </summary>
-        public string PagesPath { get; set; }
+        public string PagesPath { get; set; } = "";
 
         /// <summary>
         /// Build command, executed by system command interpreter with LocalSitePath working directory
         /// </summary>
-        public string BuildCommand { get; set; }
+        public string BuildCommand { get; set; } = "";
 
         /// <summary>
         /// Publish command, executed by system command interpreter with LocalSitePath working directory
         /// </summary>
-        public string PublishCommand { get; set; }
+        public string PublishCommand { get; set; } = "";
+
+        /// <summary>
+        /// Used to determine if parameter detection has occurred, default false.
+        /// </summary>
+        public bool Initialised { get; set; } = false;
 
         /// <summary>
         /// Load site configuration from blog credentials
@@ -50,6 +56,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             PagesPath      = creds.GetCustomValue(CONFIG_PAGES_PATH);
             BuildCommand   = creds.GetCustomValue(CONFIG_BUILD_COMMAND);
             PublishCommand = creds.GetCustomValue(CONFIG_PUBLISH_COMMAND);
+            Initialised    = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
         }
 
         /// <summary>
@@ -63,6 +70,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             creds.SetCustomValue(CONFIG_PAGES_PATH,      PagesPath);
             creds.SetCustomValue(CONFIG_BUILD_COMMAND,   BuildCommand);
             creds.SetCustomValue(CONFIG_PUBLISH_COMMAND, PublishCommand);
+            creds.SetCustomValue(CONFIG_INITIALISED,     Initialised ? "1" : "0");
+        }
+
+        /// <summary>
+        /// Attempt detection of parameters based on LocalSitePath
+        /// </summary>
+        /// <returns>True if detection successful</returns>
+        public bool AttemptConfigDetection()
+        {
+            // TODO Implement
+            Initialised = true;
+            return true;
         }
 
         public void SaveToCredentials(IBlogCredentials blogCredentials)
