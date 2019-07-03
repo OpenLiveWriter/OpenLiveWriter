@@ -240,7 +240,12 @@ namespace OpenLiveWriter.BlogClient.Clients
         private Process RunSiteCommand(string localCommand)
         {
             var proc = new Process();
-            proc.StartInfo.FileName = "cmd.exe";
+
+            // If a 32-bit process on a 64-bit system, call the 64-bit cmd
+            proc.StartInfo.FileName = (!Environment.Is64BitProcess && Environment.Is64BitOperatingSystem) ? 
+                $"{Environment.GetEnvironmentVariable("windir")}\\Sysnative\\cmd.exe" : // 32-on-64, launch sysnative cmd
+                "cmd.exe"; // Launch regular cmd
+
             // Set working directory to local site path
             proc.StartInfo.WorkingDirectory = LocalSitePath;
 
