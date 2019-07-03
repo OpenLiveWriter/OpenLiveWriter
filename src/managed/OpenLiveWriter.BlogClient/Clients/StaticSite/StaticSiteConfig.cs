@@ -11,6 +11,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         // The credential keys where the configuration is stored.
         private const string CONFIG_POSTS_PATH = "SSGPostsPath";
         private const string CONFIG_PAGES_PATH = "SSGPagesPath";
+        private const string CONFIG_DRAFTS_PATH = "SSGDraftsPath";
         private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
         private const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
         private const string CONFIG_INITIALISED = "SSGInitialised";
@@ -26,9 +27,14 @@ namespace OpenLiveWriter.BlogClient.Clients
         public string PostsPath { get; set; } = "";
 
         /// <summary>
-        /// Path to Pages directory, relative to LocalSitePath
+        /// Path to Pages directory, relative to LocalSitePath. Blank for disabled.
         /// </summary>
         public string PagesPath { get; set; } = "";
+
+        /// <summary>
+        /// Path to Drafts directory, relative to LocalSitePath. Blank for disabled.
+        /// </summary>
+        public string DraftsPath { get; set; } = "";
 
         /// <summary>
         /// Build command, executed by system command interpreter with LocalSitePath working directory
@@ -41,6 +47,11 @@ namespace OpenLiveWriter.BlogClient.Clients
         public string PublishCommand { get; set; } = "";
 
         /// <summary>
+        /// Public site URL
+        /// </summary>
+        public string SiteUrl { get; set; } = "";
+
+        /// <summary>
         /// Used to determine if parameter detection has occurred, default false.
         /// </summary>
         public bool Initialised { get; set; } = false;
@@ -51,12 +62,23 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// <param name="creds">An IBlogCredentialsAccessor</param>
         public void LoadFromCredentials(IBlogCredentialsAccessor creds)
         {
-            LocalSitePath  = creds.Username;
-            PostsPath      = creds.GetCustomValue(CONFIG_POSTS_PATH);
-            PagesPath      = creds.GetCustomValue(CONFIG_PAGES_PATH);
-            BuildCommand   = creds.GetCustomValue(CONFIG_BUILD_COMMAND);
+            LocalSitePath = creds.Username;
+            PostsPath = creds.GetCustomValue(CONFIG_POSTS_PATH);
+            PagesPath = creds.GetCustomValue(CONFIG_PAGES_PATH);
+            DraftsPath = creds.GetCustomValue(CONFIG_DRAFTS_PATH);
+            BuildCommand = creds.GetCustomValue(CONFIG_BUILD_COMMAND);
             PublishCommand = creds.GetCustomValue(CONFIG_PUBLISH_COMMAND);
-            Initialised    = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
+            Initialised = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
+        }
+
+        /// <summary>
+        /// Loads site configuration from blog settings
+        /// </summary>
+        /// <param name="blogCredentials">An IBlogSettingsAccessor</param>
+        public void LoadFromBlogSettings(IBlogSettingsAccessor blogSettings)
+        {
+            SiteUrl = blogSettings.HomepageUrl;
+            LoadFromCredentials(blogSettings.Credentials);
         }
 
         /// <summary>
@@ -68,6 +90,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             creds.Username = LocalSitePath;
             creds.SetCustomValue(CONFIG_POSTS_PATH,      PostsPath);
             creds.SetCustomValue(CONFIG_PAGES_PATH,      PagesPath);
+            creds.SetCustomValue(CONFIG_DRAFTS_PATH,     PagesPath);
             creds.SetCustomValue(CONFIG_BUILD_COMMAND,   BuildCommand);
             creds.SetCustomValue(CONFIG_PUBLISH_COMMAND, PublishCommand);
             creds.SetCustomValue(CONFIG_INITIALISED,     Initialised ? "1" : "0");
@@ -100,5 +123,16 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public static StaticSiteConfig LoadConfigFromCredentials(IBlogCredentials blogCredentials)
             => LoadConfigFromCredentials(new BlogCredentialsAccessor("", blogCredentials));
+
+        /// <summary>
+        /// Create a new StaticSiteConfig instance and loads site configuration from blog settings
+        /// </summary>
+        /// <param name="blogCredentials">An IBlogSettingsAccessor</param>
+        public static StaticSiteConfig LoadConfigFromBlogSettings(IBlogSettingsAccessor blogSettings)
+        {
+            var config = new StaticSiteConfig();
+            config.LoadFromBlogSettings(blogSettings);
+            return config;
+        }
     }
 }
