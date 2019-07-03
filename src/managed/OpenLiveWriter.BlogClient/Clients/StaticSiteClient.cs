@@ -205,7 +205,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientException(
                     StringId.SSGBuildErrorTitle,
                     StringId.SSGBuildErrorText,
-                    StringId.ProductNameVersioned,
+                    Res.Get(StringId.ProductNameVersioned),
                     proc.ExitCode.ToString(),
                     proc.StandardOutput.ReadToEnd(),
                     proc.StandardError.ReadToEnd()
@@ -224,7 +224,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 throw new BlogClientException(
                     StringId.SSGPublishErrorTitle,
                     StringId.SSGPublishErrorText,
-                    StringId.ProductNameVersioned,
+                    Res.Get(StringId.ProductNameVersioned),
                     proc.ExitCode.ToString(),
                     proc.StandardOutput.ReadToEnd(),
                     proc.StandardError.ReadToEnd()
