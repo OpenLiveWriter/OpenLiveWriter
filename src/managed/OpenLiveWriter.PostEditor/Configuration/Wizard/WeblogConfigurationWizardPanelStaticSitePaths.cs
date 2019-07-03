@@ -26,21 +26,20 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// </summary>
     internal class WeblogConfigurationWizardPanelStaticSitePaths : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
     {
-        private System.Windows.Forms.Label labelLocalSitePath;
         private System.Windows.Forms.Label labelPostsPath;
-        private System.Windows.Forms.Label labelPagesPath;
-        private System.Windows.Forms.Label labelBuildCmd;
-        private System.Windows.Forms.Label labelPublishCmd;
-
-        private System.Windows.Forms.TextBox textBoxLocalSitePath;
         private System.Windows.Forms.TextBox textBoxPostsPath;
         private System.Windows.Forms.TextBox textBoxPagesPath;
-        private System.Windows.Forms.TextBox textBoxBuildCmd;
-        private System.Windows.Forms.TextBox textBoxPublishCmd;
 
-        private System.Windows.Forms.Button btnLocalSiteBrowse;
-
-        private System.Windows.Forms.CheckBox checkBoxEnableBuilding;
+        /// <summary>
+        /// Local site path, loaded from config, used for validation
+        /// </summary>
+        private string _localSitePath;
+        private CheckBox checkBoxEnablePages;
+        private Label labelSiteUrl;
+        private TextBox textBoxSiteUrl;
+        private TextBox textBoxDraftsPath;
+        private CheckBox checkBoxEnableDrafts;
+        private CheckBox checkBoxPagesInRoot;
 
         /// <summary>
         /// Required designer variable.
@@ -52,44 +51,38 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
 
-            //this.labelHeader.Text = Res.Get(StringId.CWStaticSiteAddSiteTitle);
-            this.labelLocalSitePath.Text = Res.Get(StringId.CWStaticSiteLocalSitePath);
-            this.labelPostsPath.Text = Res.Get(StringId.CWStaticSitePostsPath);
-            this.labelPagesPath.Text = Res.Get(StringId.CWStaticSitePagesPath);
-            this.labelBuildCmd.Text = Res.Get(StringId.CWStaticSiteBuildCommand);
-            this.labelPublishCmd.Text = Res.Get(StringId.CWStaticSitePublishCommand);
-            this.checkBoxEnableBuilding.Text = Res.Get(StringId.CWStaticSiteEnableBuilding);
+            this.labelHeader.Text = Res.Get(StringId.CWStaticSitePathsTitle);
+            this.labelSiteUrl.Text = Res.Get(StringId.CWStaticSitePathsSiteUrl);
+            this.labelPostsPath.Text = Res.Get(StringId.CWStaticSitePathsPostsPath);
+            this.checkBoxEnablePages.Text = Res.Get(StringId.CWStaticSitePathsPagesPath);
+            this.checkBoxEnableDrafts.Text = Res.Get(StringId.CWStaticSitePathsDraftsPath);
+            this.checkBoxPagesInRoot.Text = Res.Get(StringId.CWStaticSitePathsPagesInRoot);
         }
 
         public override void NaturalizeLayout()
         {
             // Wizard views are very broken in the VS Form Designer, due to runtime control layout.
             if (DesignMode) return;
-            
-            MaximizeWidth(labelLocalSitePath);
-            MaximizeWidth(labelBuildCmd);
-            MaximizeWidth(labelPublishCmd);
-            //MaximizeWidth(checkBoxEnableBuilding);
 
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelLocalSitePath, textBoxLocalSitePath);
+            MaximizeWidth(textBoxSiteUrl);
+            MaximizeWidth(textBoxPostsPath);
+            MaximizeWidth(checkBoxEnablePages);
+            MaximizeWidth(textBoxPagesPath);
+            MaximizeWidth(checkBoxPagesInRoot);
+            MaximizeWidth(checkBoxEnableDrafts);
+            MaximizeWidth(textBoxDraftsPath);
+
+            LayoutHelper.NaturalizeHeightAndDistribute(3, labelSiteUrl, textBoxSiteUrl);
             LayoutHelper.NaturalizeHeightAndDistribute(3, labelPostsPath, textBoxPostsPath);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPagesPath, textBoxPagesPath);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelBuildCmd, textBoxBuildCmd);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPublishCmd, textBoxPublishCmd);
+            LayoutHelper.NaturalizeHeightAndDistribute(3, checkBoxEnablePages, textBoxPagesPath, checkBoxPagesInRoot);
+            LayoutHelper.NaturalizeHeightAndDistribute(3, checkBoxEnableDrafts, textBoxDraftsPath);
+
             LayoutHelper.DistributeVertically(10, false,
-                new ControlGroup(labelLocalSitePath, textBoxLocalSitePath),
-                new ControlGroup(labelPostsPath, textBoxPostsPath, labelPagesPath, textBoxPagesPath),
-                new ControlGroup(labelBuildCmd, textBoxBuildCmd),
-                new ControlGroup(labelPublishCmd, textBoxPublishCmd)
+                new ControlGroup(labelSiteUrl, textBoxSiteUrl),
+                new ControlGroup(labelPostsPath, textBoxPostsPath),
+                new ControlGroup(checkBoxEnablePages, textBoxPagesPath, checkBoxPagesInRoot),
+                new ControlGroup(checkBoxEnableDrafts, textBoxDraftsPath)
                 );
-
-            // Align Pages path label and input next to Posts path
-            labelPagesPath.Left = textBoxPagesPath.Left = textBoxPostsPath.Left + textBoxPostsPath.Width + 20;
-
-            // Align Browse button with Local Site Path top and right
-            btnLocalSiteBrowse.Left = textBoxLocalSitePath.Left + textBoxLocalSitePath.Width + 3;
-            btnLocalSiteBrowse.Top = textBoxLocalSitePath.Top;
-            btnLocalSiteBrowse.Height = textBoxLocalSitePath.Height;
         }
 
         public override ConfigPanelId? PanelId
@@ -112,10 +105,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set { }
         }
 
-        public string LocalSitePath
+        public string SiteUrl
         {
-            get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxLocalSitePath.Text);
-            set { textBoxLocalSitePath.Text = value; }
+            get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxSiteUrl.Text);
+            set { textBoxSiteUrl.Text = value; }
         }
 
         public string PostsPath
@@ -130,24 +123,28 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set { textBoxPagesPath.Text = value; }
         }
 
-        public string BuildCmd
+        public string DraftsPath
         {
-            get => textBoxBuildCmd.Text;
-            set { textBoxBuildCmd.Text = value; }
+            get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxDraftsPath.Text);
+            set { textBoxDraftsPath.Text = value; }
         }
 
-        public string PublishCmd
+        public bool EnablePages
         {
-            get => textBoxPublishCmd.Text;
-            set { textBoxPublishCmd.Text = value; }
+            get => checkBoxEnablePages.Checked;
+            set { checkBoxEnablePages.Checked = value; }
         }
 
-        public string HomepageUrl { get; set; } = "http://localhost";
-
-        public bool BuildEnabled
+        public bool EnableDrafts
         {
-            get => checkBoxEnableBuilding.Checked;
-            set { checkBoxEnableBuilding.Checked = value; }
+            get => checkBoxEnableDrafts.Checked;
+            set { checkBoxEnableDrafts.Checked = value; }
+        }
+
+        public bool PagesInRoot
+        {
+            get => checkBoxPagesInRoot.Checked;
+            set { checkBoxPagesInRoot.Checked = value; }
         }
 
         public bool IsDirty(TemporaryBlogSettings settings)
@@ -158,14 +155,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public override bool ValidatePanel()
         {
-            if (!Directory.Exists(LocalSitePath))
-            {
-                ShowValidationError(textBoxLocalSitePath, MessageId.FolderNotFound, LocalSitePath);
-                return false;
-            }
-
-            var postsPathFull = $"{LocalSitePath}\\{PostsPath}";
-            var pagesPathFull = $"{LocalSitePath}\\{PagesPath}";
+            var postsPathFull = $"{_localSitePath}\\{PostsPath}";
+            var pagesPathFull = $"{_localSitePath}\\{PagesPath}";
 
             // If the Posts path is empty or doesn't exist, display an error
             if (PagesPath.Trim().Length == 0 || !Directory.Exists(postsPathFull))
@@ -181,13 +172,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 return false;
             }
 
-            // Publish commands are required
-            if(PublishCmd.Trim().Length == 0)
-            {
-                ShowValidationError(textBoxPublishCmd, MessageId.SSGPublishCommandRequired);
-                return false;
-            }
-
             return true;
         }
 
@@ -197,11 +181,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         /// <param name="config">a StaticSiteConfig instance</param>
         public void SaveToConfig(StaticSiteConfig config)
         {
-            config.LocalSitePath = LocalSitePath;
-            config.PostsPath = PostsPath;
-            config.PagesPath = PagesPath;
-            config.BuildCommand = BuildCmd;
-            config.PublishCommand = PublishCmd;
+            config.SiteUrl    = SiteUrl;
+            config.PostsPath  = PostsPath;
+            config.PagesPath  = EnablePages ? (PagesInRoot ? "." : PagesPath) : "";
+            config.DraftsPath = EnableDrafts ? DraftsPath : "";
         }
 
         /// <summary>
@@ -210,11 +193,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         /// <param name="config">a StaticSiteConfig instance</param>
         public void LoadFromConfig(StaticSiteConfig config)
         {
-            LocalSitePath = config.LocalSitePath;
+            _localSitePath = config.LocalSitePath;
+
+            SiteUrl = config.SiteUrl;
             PostsPath = config.PostsPath;
+
+            EnablePages = config.PagesPath != string.Empty;
+            PagesInRoot = config.PagesPath == ".";
             PagesPath = config.PagesPath;
-            BuildCmd = config.BuildCommand;
-            PublishCmd = config.PublishCommand;
+
+            EnableDrafts = config.DraftsPath != string.Empty;
+            DraftsPath = config.DraftsPath;
         }
 
         /// <summary>
@@ -239,162 +228,147 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelLocalSitePath = new System.Windows.Forms.Label();
             this.labelPostsPath = new System.Windows.Forms.Label();
-            this.labelPagesPath = new System.Windows.Forms.Label();
-            this.labelBuildCmd = new System.Windows.Forms.Label();
-            this.labelPublishCmd = new System.Windows.Forms.Label();
-
-            this.checkBoxEnableBuilding = new System.Windows.Forms.CheckBox();
-            this.textBoxLocalSitePath = new System.Windows.Forms.TextBox();
             this.textBoxPostsPath = new System.Windows.Forms.TextBox();
             this.textBoxPagesPath = new System.Windows.Forms.TextBox();
-            this.textBoxBuildCmd = new System.Windows.Forms.TextBox();
-            this.textBoxPublishCmd = new System.Windows.Forms.TextBox();
-
-            this.btnLocalSiteBrowse = new System.Windows.Forms.Button();
-
+            this.checkBoxEnablePages = new System.Windows.Forms.CheckBox();
+            this.labelSiteUrl = new System.Windows.Forms.Label();
+            this.textBoxSiteUrl = new System.Windows.Forms.TextBox();
+            this.checkBoxEnableDrafts = new System.Windows.Forms.CheckBox();
+            this.textBoxDraftsPath = new System.Windows.Forms.TextBox();
+            this.checkBoxPagesInRoot = new System.Windows.Forms.CheckBox();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
-            panelMain.Controls.Add(labelLocalSitePath);
-            panelMain.Controls.Add(textBoxLocalSitePath);
-            panelMain.Controls.Add(btnLocalSiteBrowse);
-            panelMain.Controls.Add(labelPostsPath);
-            panelMain.Controls.Add(textBoxPostsPath);
-            panelMain.Controls.Add(labelPagesPath);
-            panelMain.Controls.Add(textBoxPagesPath);
-            panelMain.Controls.Add(labelBuildCmd);
-            panelMain.Controls.Add(textBoxBuildCmd);
-            panelMain.Controls.Add(labelPublishCmd);
-            panelMain.Controls.Add(textBoxPublishCmd);
-            //
-            // checkBoxSavePassword
-            //
-            /*this.checkBoxSavePassword.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.checkBoxSavePassword.Location = new System.Drawing.Point(20, 98);
-            this.checkBoxSavePassword.Name = "checkBoxSavePassword";
-            this.checkBoxSavePassword.Size = new System.Drawing.Size(165, 26);
-            this.checkBoxSavePassword.TabIndex = 5;
-            this.checkBoxSavePassword.Text = "&Remember my password";
-            this.checkBoxSavePassword.TextAlign = System.Drawing.ContentAlignment.TopLeft;*/
-
-            //
-            // labelLocalSitePath
-            //
-            this.labelLocalSitePath.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelLocalSitePath.Location = new System.Drawing.Point(20, 0);
-            this.labelLocalSitePath.Name = "labelLocalSitePath";
-            this.labelLocalSitePath.Size = new System.Drawing.Size(167, 13);
-            this.labelLocalSitePath.TabIndex = 1;
-            this.labelLocalSitePath.Text = "Path to local site:";
-            //
-            // textBoxLocalSitePath
-            //
-            this.textBoxLocalSitePath.Location = new System.Drawing.Point(20, 74);
-            this.textBoxLocalSitePath.Name = "labelLocalSitePath";
-            this.textBoxLocalSitePath.Size = new System.Drawing.Size(275, 22);
-            this.textBoxLocalSitePath.TabIndex = 2;
-            //
-            // btnLocalSiteBrowse
-            //
-            this.btnLocalSiteBrowse.Location = new System.Drawing.Point(20, 74);
-            this.btnLocalSiteBrowse.Name = "btnLocalSiteBrowse";
-            this.btnLocalSiteBrowse.Text = "...";
-            this.btnLocalSiteBrowse.FlatStyle = FlatStyle.System;
-            this.btnLocalSiteBrowse.Size = new System.Drawing.Size(20, 22);
-            this.btnLocalSiteBrowse.Margin = new Padding(0);
-            this.btnLocalSiteBrowse.TabIndex = 3;
-            this.btnLocalSiteBrowse.Click += new System.EventHandler(this.BtnLocalSiteBrowse_Click);
-            //
+            // 
+            // panelMain
+            // 
+            this.panelMain.Controls.Add(this.checkBoxPagesInRoot);
+            this.panelMain.Controls.Add(this.textBoxDraftsPath);
+            this.panelMain.Controls.Add(this.checkBoxEnableDrafts);
+            this.panelMain.Controls.Add(this.textBoxSiteUrl);
+            this.panelMain.Controls.Add(this.labelSiteUrl);
+            this.panelMain.Controls.Add(this.checkBoxEnablePages);
+            this.panelMain.Controls.Add(this.labelPostsPath);
+            this.panelMain.Controls.Add(this.textBoxPostsPath);
+            this.panelMain.Controls.Add(this.textBoxPagesPath);
+            this.panelMain.Size = new System.Drawing.Size(435, 242);
+            // 
             // labelPostsPath
-            //
+            // 
             this.labelPostsPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelPostsPath.Location = new System.Drawing.Point(20, 0);
+            this.labelPostsPath.Location = new System.Drawing.Point(20, 45);
             this.labelPostsPath.Name = "labelPostsPath";
             this.labelPostsPath.Size = new System.Drawing.Size(167, 13);
-            this.labelPostsPath.TabIndex = 4;
-            this.labelPostsPath.Text = "Path to posts directory: (relative)";
-            //
+            this.labelPostsPath.TabIndex = 2;
+            this.labelPostsPath.Text = "Posts path: (relative)";
+            // 
             // textBoxPostsPath
-            //
-            this.textBoxPostsPath.Location = new System.Drawing.Point(20, 74);
+            // 
+            this.textBoxPostsPath.Location = new System.Drawing.Point(20, 61);
             this.textBoxPostsPath.Name = "textBoxPostsPath";
-            this.textBoxPostsPath.Size = new System.Drawing.Size(180, 22);
-            this.textBoxPostsPath.TabIndex = 5;
-            //
-            // labelPagesPath
-            //
-            this.labelPagesPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelPagesPath.Location = new System.Drawing.Point(20, 0);
-            this.labelPagesPath.Name = "labelPagesPath";
-            this.labelPagesPath.Size = new System.Drawing.Size(167, 13);
-            this.labelPagesPath.TabIndex = 6;
-            this.labelPagesPath.Text = "Path to posts directory: (relative)";
-            //
+            this.textBoxPostsPath.Size = new System.Drawing.Size(368, 20);
+            this.textBoxPostsPath.TabIndex = 3;
+            // 
             // textBoxPagesPath
-            //
-            this.textBoxPagesPath.Location = new System.Drawing.Point(20, 74);
+            // 
+            this.textBoxPagesPath.Enabled = false;
+            this.textBoxPagesPath.Location = new System.Drawing.Point(20, 113);
             this.textBoxPagesPath.Name = "textBoxPagesPath";
-            this.textBoxPagesPath.Size = new System.Drawing.Size(180, 22);
-            this.textBoxPagesPath.TabIndex = 7;
-            //
-            // labelBuildCmd
-            //
-            this.labelBuildCmd.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelBuildCmd.Location = new System.Drawing.Point(20, 0);
-            this.labelBuildCmd.Name = "labelBuildCmd";
-            this.labelBuildCmd.Size = new System.Drawing.Size(167, 13);
-            this.labelBuildCmd.TabIndex = 8;
-            this.labelBuildCmd.Text = "Build command:";
-            //
-            // textBoxBuildCmd
-            //
-            this.textBoxBuildCmd.Location = new System.Drawing.Point(20, 74);
-            this.textBoxBuildCmd.Name = "textBoxBuildCmd";
-            this.textBoxBuildCmd.Size = new System.Drawing.Size(275, 22);
-            this.textBoxBuildCmd.TabIndex = 9;
-            //
-            // labelPublishCmd
-            //
-            this.labelPublishCmd.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelPublishCmd.Location = new System.Drawing.Point(20, 0);
-            this.labelPublishCmd.Name = "labelBuildCmd";
-            this.labelPublishCmd.Size = new System.Drawing.Size(167, 13);
-            this.labelPublishCmd.TabIndex = 10;
-            this.labelPublishCmd.Text = "Publish command:";
-            //
-            // textBoxPublishCmd
-            //
-            this.textBoxPublishCmd.Location = new System.Drawing.Point(20, 74);
-            this.textBoxPublishCmd.Name = "textBoxBuildCmd";
-            this.textBoxPublishCmd.Size = new System.Drawing.Size(275, 22);
-            this.textBoxPublishCmd.TabIndex = 11;
-
-            //
-            // WeblogConfigurationWizardPanelBasicInfo
-            //
-            this.Name = "WeblogConfigurationWizardPanelStaticSiteConfig";
-            this.Size = new System.Drawing.Size(432, 244);
+            this.textBoxPagesPath.Size = new System.Drawing.Size(368, 20);
+            this.textBoxPagesPath.TabIndex = 5;
+            // 
+            // checkBoxEnablePages
+            // 
+            this.checkBoxEnablePages.AutoSize = true;
+            this.checkBoxEnablePages.Location = new System.Drawing.Point(20, 90);
+            this.checkBoxEnablePages.Name = "checkBoxEnablePages";
+            this.checkBoxEnablePages.Size = new System.Drawing.Size(126, 17);
+            this.checkBoxEnablePages.TabIndex = 4;
+            this.checkBoxEnablePages.Text = "Pages path: (relative)";
+            this.checkBoxEnablePages.UseVisualStyleBackColor = true;
+            this.checkBoxEnablePages.CheckedChanged += new System.EventHandler(this.CheckBoxEnablePages_CheckedChanged);
+            // 
+            // labelSiteUrl
+            // 
+            this.labelSiteUrl.AutoSize = true;
+            this.labelSiteUrl.Location = new System.Drawing.Point(17, 0);
+            this.labelSiteUrl.Name = "labelSiteUrl";
+            this.labelSiteUrl.Size = new System.Drawing.Size(83, 13);
+            this.labelSiteUrl.TabIndex = 0;
+            this.labelSiteUrl.Text = "Public site URL:";
+            // 
+            // textBoxSiteUrl
+            // 
+            this.textBoxSiteUrl.Location = new System.Drawing.Point(20, 17);
+            this.textBoxSiteUrl.Name = "textBoxSiteUrl";
+            this.textBoxSiteUrl.Size = new System.Drawing.Size(368, 20);
+            this.textBoxSiteUrl.TabIndex = 1;
+            // 
+            // checkBoxEnableDrafts
+            // 
+            this.checkBoxEnableDrafts.AutoSize = true;
+            this.checkBoxEnableDrafts.Location = new System.Drawing.Point(20, 170);
+            this.checkBoxEnableDrafts.Name = "checkBoxEnableDrafts";
+            this.checkBoxEnableDrafts.Size = new System.Drawing.Size(124, 17);
+            this.checkBoxEnableDrafts.TabIndex = 7;
+            this.checkBoxEnableDrafts.Text = "Drafts path: (relative)";
+            this.checkBoxEnableDrafts.UseVisualStyleBackColor = true;
+            this.checkBoxEnableDrafts.CheckedChanged += new System.EventHandler(this.CheckBoxEnableDrafts_CheckedChanged);
+            // 
+            // textBoxDraftsPath
+            // 
+            this.textBoxDraftsPath.Enabled = false;
+            this.textBoxDraftsPath.Location = new System.Drawing.Point(20, 193);
+            this.textBoxDraftsPath.Name = "textBoxDraftsPath";
+            this.textBoxDraftsPath.Size = new System.Drawing.Size(368, 20);
+            this.textBoxDraftsPath.TabIndex = 8;
+            // 
+            // checkBoxPagesInRoot
+            // 
+            this.checkBoxPagesInRoot.AutoSize = true;
+            this.checkBoxPagesInRoot.Enabled = false;
+            this.checkBoxPagesInRoot.Location = new System.Drawing.Point(20, 139);
+            this.checkBoxPagesInRoot.Name = "checkBoxPagesInRoot";
+            this.checkBoxPagesInRoot.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.checkBoxPagesInRoot.Size = new System.Drawing.Size(139, 17);
+            this.checkBoxPagesInRoot.TabIndex = 6;
+            this.checkBoxPagesInRoot.Text = "Pages stored in site root";
+            this.checkBoxPagesInRoot.UseVisualStyleBackColor = true;
+            this.checkBoxPagesInRoot.CheckedChanged += new System.EventHandler(this.CheckBoxPagesInRoot_CheckedChanged);
+            // 
+            // WeblogConfigurationWizardPanelStaticSitePaths
+            // 
             this.AutoSize = true;
+            this.Name = "WeblogConfigurationWizardPanelStaticSitePaths";
+            this.Size = new System.Drawing.Size(455, 291);
             this.panelMain.ResumeLayout(false);
+            this.panelMain.PerformLayout();
             this.ResumeLayout(false);
 
         }
         #endregion
 
-        private void BtnLocalSiteBrowse_Click(object sender, EventArgs args)
+        private void CheckBoxEnablePages_CheckedChanged(object sender, EventArgs e)
         {
-            var folderBrowserDialog = new FolderBrowserDialog();
-            folderBrowserDialog.ShowNewFolderButton = false;
-            folderBrowserDialog.Description = Res.Get(StringId.CWStaticSiteLocalSiteFolderPicker);
-            var result = folderBrowserDialog.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                textBoxLocalSitePath.Text = folderBrowserDialog.SelectedPath;
-            }
+            RecomputeEnabledStates();
         }
 
-        
+        private void CheckBoxPagesInRoot_CheckedChanged(object sender, EventArgs e)
+        {
+            RecomputeEnabledStates();
+            if (PagesInRoot) PagesPath = ".";
+        }
+
+        private void CheckBoxEnableDrafts_CheckedChanged(object sender, EventArgs e)
+        {
+            RecomputeEnabledStates();
+        }
+
+        private void RecomputeEnabledStates()
+        {
+            textBoxPagesPath.Enabled = EnablePages && !PagesInRoot;
+            checkBoxPagesInRoot.Enabled = EnablePages;
+            textBoxDraftsPath.Enabled = EnableDrafts;
+        }
     }
 }
