@@ -991,11 +991,23 @@
   <data name="CWStaticSiteLocalSitePath" xml:space="preserve">
     <value>Path to local static site:</value>
   </data>
-  <data name="CWStaticSitePagesPath" xml:space="preserve">
+  <data name="CWStaticSitePathsDraftsPath" xml:space="preserve">
+    <value>Drafts path: (relative)</value>
+  </data>
+  <data name="CWStaticSitePathsPagesInRoot" xml:space="preserve">
+    <value>Pages stored in site root</value>
+  </data>
+  <data name="CWStaticSitePathsPagesPath" xml:space="preserve">
     <value>Pages path: (relative)</value>
   </data>
-  <data name="CWStaticSitePostsPath" xml:space="preserve">
+  <data name="CWStaticSitePathsPostsPath" xml:space="preserve">
     <value>Posts path: (relative)</value>
+  </data>
+  <data name="CWStaticSitePathsSiteUrl" xml:space="preserve">
+    <value>Public site URL:</value>
+  </data>
+  <data name="CWStaticSitePathsTitle" xml:space="preserve">
+    <value>Provide site URL and paths</value>
   </data>
   <data name="CWStaticSitePublishCommand" xml:space="preserve">
     <value>Publish command:</value>

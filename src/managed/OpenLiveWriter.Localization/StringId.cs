@@ -1159,13 +1159,29 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSiteLocalSitePath,
 		/// <summary>
+                                                    /// Drafts path: (relative)
+                                                    /// </summary>
+                                                    CWStaticSitePathsDraftsPath,
+		/// <summary>
+                                                    /// Pages stored in site root
+                                                    /// </summary>
+                                                    CWStaticSitePathsPagesInRoot,
+		/// <summary>
                                                     /// Pages path: (relative)
                                                     /// </summary>
-                                                    CWStaticSitePagesPath,
+                                                    CWStaticSitePathsPagesPath,
 		/// <summary>
                                                     /// Posts path: (relative)
                                                     /// </summary>
-                                                    CWStaticSitePostsPath,
+                                                    CWStaticSitePathsPostsPath,
+		/// <summary>
+                                                    /// Public site URL:
+                                                    /// </summary>
+                                                    CWStaticSitePathsSiteUrl,
+		/// <summary>
+                                                    /// Provide site URL and paths
+                                                    /// </summary>
+                                                    CWStaticSitePathsTitle,
 		/// <summary>
                                                     /// Publish command:
                                                     /// </summary>
