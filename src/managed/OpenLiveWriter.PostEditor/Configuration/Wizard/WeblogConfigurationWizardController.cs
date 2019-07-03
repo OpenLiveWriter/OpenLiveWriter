@@ -7,14 +7,13 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Forms;
 using OpenLiveWriter.BlogClient;
+using OpenLiveWriter.BlogClient.Clients;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Controls.Wizard;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
 using System.Runtime.InteropServices;
-
-using StaticSiteClient = OpenLiveWriter.BlogClient.Clients.StaticSiteClient;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {
@@ -178,7 +177,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 AddSharePointBasicInfoSubStep(true);
             } else if (_temporarySettings.IsStaticSiteBlog)
             {
-                AddStaticSiteConfigSubStep(true);
+                AddStaticSiteConfigSubStep();
             } else
             {
                 AddBasicInfoSubStep();
@@ -247,10 +246,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new BackCallback(OnGoogleBloggerOAuthBack)));
         }
 
-        private void AddStaticSiteConfigSubStep(bool loadConfigFromCreds)
+        private void AddStaticSiteConfigSubStep()
         {
             var configPanel = new WeblogConfigurationWizardPanelStaticSiteConfig();
-            if (loadConfigFromCreds) configPanel.Credentials = _temporarySettings.Credentials;
             addWizardSubStep(
                 new WizardSubStep(configPanel,
                 null,
@@ -375,7 +373,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
             else if (_temporarySettings.IsStaticSiteBlog)
             {
-                AddStaticSiteConfigSubStep(false);
+                AddStaticSiteConfigSubStep();
             }
             else
             {
@@ -492,12 +490,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         #region Static Site Generator support
         private void OnStaticSiteConfigDisplayed(Object stepControl)
         {
-            // TODO Populate Data
+            // Populate data
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteConfig);
+            var config = StaticSiteConfig.LoadConfigFromCredentials( _temporarySettings.Credentials);
+            panel.LoadFromConfig(config);
         }
 
         private void OnStaticSiteConfigCompleted(Object stepControl)
         {
-            IAccountBasicInfoProvider accountBasicInfo = (IAccountBasicInfoProvider)stepControl;
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteConfig);
 
             // Fill blog settings
             _temporarySettings.SetProvider(
@@ -506,8 +507,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 StaticSiteClient.POST_API_URL,
                 StaticSiteClient.CLIENT_TYPE
                 );
-            _temporarySettings.HomepageUrl = accountBasicInfo.HomepageUrl;
-            _temporarySettings.Credentials = accountBasicInfo.Credentials;
+            _temporarySettings.HomepageUrl = panel.HomepageUrl;
+
+            // TODO Find a place for this that persists between panels
+            var config = new StaticSiteConfig();
+            panel.SaveToConfig(config);
+            config.SaveToCredentials(_temporarySettings.Credentials);
         }
 
         #endregion

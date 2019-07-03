@@ -30,28 +30,16 @@ namespace OpenLiveWriter.BlogClient.Clients
         public const string POST_API_URL = "http://localhost/"; // A valid URI is required for BlogClientManager to instantiate a URI object on.
         public const string CLIENT_TYPE  = "StaticSite";
 
-        // The credential keys where the configuration is stored.
-        // Used in WeblogConfigurationWizardPanelStaticSiteConfig
-        public const string CONFIG_POSTS_PATH = "SSGPostsPath";
-        public const string CONFIG_PAGES_PATH = "SSGPagesPath";
-        public const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
-        public const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
-
         private static Regex WEB_UNSAFE_CHARS = new Regex("[^A-Za-z0-9 ]*");
 
         public IBlogClientOptions Options { get; private set; }
-        
-        // Configuration
-        public string LocalSitePath { get; private set; }
-        public string PostsPath { get; private set; }
-        public string PagesPath { get; private set; }
-        public string BuildCommand { get; private set; }
-        public string PublishCommand { get; private set; }
 
+        private StaticSiteConfig config;
+        
         public StaticSiteClient(Uri postApiUrl, IBlogCredentialsAccessor credentials)
             : base(credentials)
         {
-            LoadConfigFromCredentials(credentials);
+            config = StaticSiteConfig.LoadConfigFromCredentials(credentials);
 
             // Set the client options
             var options = new BlogClientOptions();
@@ -111,13 +99,13 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             // Write to file
             var fileName = GetFileNameForPost(post, publish);
-            var fullPath = $"{LocalSitePath}/{PostsPath}/{fileName}";
+            var fullPath = $"{config.LocalSitePath}/{config.PostsPath}/{fileName}";
             File.WriteAllText(fullPath, outputFile.ToString());
 
             try
             {
                 // Build the site, if required
-                if (BuildCommand != string.Empty) DoSiteBuild();
+                if (config.BuildCommand != string.Empty) DoSiteBuild();
 
                 // Publish the site 
                 DoSitePublish();
@@ -209,7 +197,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// </summary>
         private void DoSiteBuild()
         {
-            var proc = RunSiteCommand(BuildCommand);
+            var proc = RunSiteCommand(config.BuildCommand);
             if (proc.ExitCode != 0)
             {
                 throw new BlogClientException(
@@ -228,7 +216,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// </summary>
         private void DoSitePublish()
         {
-            var proc = RunSiteCommand(PublishCommand);
+            var proc = RunSiteCommand(config.PublishCommand);
             if (proc.ExitCode != 0)
             {
                 throw new BlogClientException(
@@ -257,7 +245,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 "cmd.exe"; // Launch regular cmd
 
             // Set working directory to local site path
-            proc.StartInfo.WorkingDirectory = LocalSitePath;
+            proc.StartInfo.WorkingDirectory = config.LocalSitePath;
 
             proc.StartInfo.RedirectStandardError = true;
             proc.StartInfo.RedirectStandardOutput = true;
@@ -279,7 +267,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         private void ConfigureClientOptions(BlogClientOptions clientOptions)
         {
             // Pages are supported if a Pages path is provided
-            clientOptions.SupportsPages = PagesPath.Length > 0;
+            clientOptions.SupportsPages = config.PagesPath.Length > 0;
 
             // Drafts are supported if a Drafts path is provided
             clientOptions.SupportsPostAsDraft = false; // TODO ask for a drafts path
@@ -292,19 +280,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsFileUpload = true;
             clientOptions.SupportsSlug = true;
             clientOptions.SupportsAuthor = true;
-        }
-
-        /// <summary>
-        /// Load client configuration from blog credentials
-        /// </summary>
-        /// <param name="blogCredentials">An IBlogCredentialsAccessor</param>
-        private void LoadConfigFromCredentials(IBlogCredentialsAccessor blogCredentials)
-        {
-            LocalSitePath = blogCredentials.Username;
-            PostsPath = blogCredentials.GetCustomValue(CONFIG_POSTS_PATH);
-            PagesPath = blogCredentials.GetCustomValue(CONFIG_PAGES_PATH);
-            BuildCommand = blogCredentials.GetCustomValue(CONFIG_BUILD_COMMAND);
-            PublishCommand = blogCredentials.GetCustomValue(CONFIG_PUBLISH_COMMAND);
         }
 
         private string GetFileNameForPost(BlogPost post, bool newPost)

@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.BlogClient;
+using OpenLiveWriter.BlogClient.Clients;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Extensibility.BlogClient;
@@ -25,7 +26,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// <summary>
     /// Summary description for WelcomeToBlogControl.
     /// </summary>
-    internal class WeblogConfigurationWizardPanelStaticSiteConfig : WeblogConfigurationWizardPanel, IAccountBasicInfoProvider
+    internal class WeblogConfigurationWizardPanelStaticSiteConfig : WeblogConfigurationWizardPanel
     {
         private System.Windows.Forms.Label labelLocalSitePath;
         private System.Windows.Forms.Label labelPostsPath;
@@ -145,57 +146,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public string HomepageUrl { get; set; } = "http://localhost";
 
-        public bool SavePassword { get; set; }
-
         public bool BuildEnabled
         {
             get => checkBoxEnableBuilding.Checked;
             set { checkBoxEnableBuilding.Checked = value; }
         }
 
-        public bool ForceManualConfiguration
-        {
-            get { return false; }
-            set { }
-        }
-
-        public IBlogCredentials Credentials
-        {
-            get
-            {
-                // Create the blog creds for entered data
-                // FIXME Doesn't exactly make sense to store the config into the credentials, should it be stored somewhere else?
-                var creds = new TemporaryBlogCredentials();
-                // Set username to Local Site Path
-                creds.Username = LocalSitePath;
-                creds.SetCustomValue(StaticSiteClient.CONFIG_POSTS_PATH, PostsPath);
-                creds.SetCustomValue(StaticSiteClient.CONFIG_PAGES_PATH, PagesPath);
-                creds.SetCustomValue(StaticSiteClient.CONFIG_BUILD_COMMAND, BuildCmd);
-                creds.SetCustomValue(StaticSiteClient.CONFIG_PUBLISH_COMMAND, PublishCmd);
-                return creds;
-            }
-            set
-            {
-                LocalSitePath = value.Username;
-                PostsPath = value.GetCustomValue(StaticSiteClient.CONFIG_POSTS_PATH);
-                PagesPath = value.GetCustomValue(StaticSiteClient.CONFIG_PAGES_PATH);
-                BuildCmd = value.GetCustomValue(StaticSiteClient.CONFIG_BUILD_COMMAND);
-                PublishCmd = value.GetCustomValue(StaticSiteClient.CONFIG_PUBLISH_COMMAND);
-            }
-        }
-
         public bool IsDirty(TemporaryBlogSettings settings)
         {
             return false; // TODO
 
-        }
-
-        public BlogInfo BlogAccount
-        {
-            get
-            {
-                return null;
-            }
         }
 
         public override bool ValidatePanel()
@@ -231,6 +191,32 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Saves panel form fields into a StaticSiteConfig
+        /// </summary>
+        /// <param name="config">a StaticSiteConfig instance</param>
+        public void SaveToConfig(StaticSiteConfig config)
+        {
+            config.LocalSitePath = LocalSitePath;
+            config.PostsPath = PostsPath;
+            config.PagesPath = PagesPath;
+            config.BuildCommand = BuildCmd;
+            config.PublishCommand = PublishCmd;
+        }
+
+        /// <summary>
+        /// Loads panel form fields from a StaticSiteConfig
+        /// </summary>
+        /// <param name="config">a StaticSiteConfig instance</param>
+        public void LoadFromConfig(StaticSiteConfig config)
+        {
+            LocalSitePath = config.LocalSitePath;
+            PostsPath = config.PostsPath;
+            PagesPath = config.PagesPath;
+            BuildCmd = config.BuildCommand;
+            PublishCmd = config.PublishCommand;
         }
 
         /// <summary>
