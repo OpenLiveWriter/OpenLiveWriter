@@ -526,33 +526,33 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
 
             // Go to next step
-            AddStaticSitePathsSubStep();
+            AddStaticSitePaths1SubStep();
         }
 
-        private void AddStaticSitePathsSubStep()
+        private void AddStaticSitePaths1SubStep()
         {
             addWizardSubStep(
-                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths(),
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths1(),
                 null,
-                new DisplayCallback(OnStaticSitePathsDisplayed),
+                new DisplayCallback(OnStaticSitePaths1Displayed),
                 new VerifyStepCallback(OnValidatePanel),
-                new NextCallback(OnStaticSitePathsCompleted),
+                new NextCallback(OnStaticSitePaths1Completed),
                 null,
                 new BackCallback(OnStaticSiteBack)));
         }
 
-        private void OnStaticSitePathsDisplayed(Object stepControl)
+        private void OnStaticSitePaths1Displayed(Object stepControl)
         {
             // Populate data
-            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths);
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths1);
 
             // Load panel values from config
             panel.LoadFromConfig(staticSiteConfig);
         }
 
-        private void OnStaticSitePathsCompleted(Object stepControl)
+        private void OnStaticSitePaths1Completed(Object stepControl)
         {
-            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths);
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths1);
 
             // Save panel values into config
             panel.SaveToConfig(staticSiteConfig);

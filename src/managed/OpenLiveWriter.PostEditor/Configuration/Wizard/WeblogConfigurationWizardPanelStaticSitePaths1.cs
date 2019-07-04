@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// <summary>
     /// Summary description for WelcomeToBlogControl.
     /// </summary>
-    internal class WeblogConfigurationWizardPanelStaticSitePaths : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
+    internal class WeblogConfigurationWizardPanelStaticSitePaths1 : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
     {
         private System.Windows.Forms.Label labelPostsPath;
         private System.Windows.Forms.TextBox textBoxPostsPath;
@@ -46,7 +46,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         /// </summary>
         private Container components = null;
 
-        public WeblogConfigurationWizardPanelStaticSitePaths()
+        public WeblogConfigurationWizardPanelStaticSitePaths1()
         {
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
