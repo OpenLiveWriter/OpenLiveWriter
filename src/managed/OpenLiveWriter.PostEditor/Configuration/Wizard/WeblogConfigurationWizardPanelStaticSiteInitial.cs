@@ -76,31 +76,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             get { return ConfigPanelId.StaticSiteConfig; }
         }
 
-        public override bool ShowProxySettingsLink
-        {
-            get { return false; }
-        }
-
-        public IBlogProviderAccountWizardDescription ProviderAccountWizard
-        {
-            set { }
-        }
-
-        public string AccountId
-        {
-            set { }
-        }
-
         public string LocalSitePath
         {
             get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxLocalSitePath.Text);
             set { textBoxLocalSitePath.Text = value; }
-        }
-
-        public bool IsDirty(TemporaryBlogSettings settings)
-        {
-            return false; // TODO
-
         }
 
         public override bool ValidatePanel()
