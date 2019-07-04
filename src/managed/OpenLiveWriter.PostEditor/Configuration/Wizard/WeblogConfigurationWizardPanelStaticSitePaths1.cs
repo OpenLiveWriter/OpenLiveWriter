@@ -26,20 +26,20 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// </summary>
     internal class WeblogConfigurationWizardPanelStaticSitePaths1 : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
     {
-        private System.Windows.Forms.Label labelPostsPath;
-        private System.Windows.Forms.TextBox textBoxPostsPath;
-        private System.Windows.Forms.TextBox textBoxPagesPath;
-
-        /// <summary>
-        /// Local site path, loaded from config, used for validation
-        /// </summary>
-        private string _localSitePath;
+        private Label labelPostsPath;
+        private TextBox textBoxPostsPath;
+        private TextBox textBoxPagesPath;
         private CheckBox checkBoxEnablePages;
         private Label labelSiteUrl;
         private TextBox textBoxSiteUrl;
         private TextBox textBoxDraftsPath;
         private CheckBox checkBoxEnableDrafts;
         private CheckBox checkBoxPagesInRoot;
+
+        /// <summary>
+        /// Local site path, loaded from config, used for validation
+        /// </summary>
+        private string _localSitePath;
 
         /// <summary>
         /// Required designer variable.
