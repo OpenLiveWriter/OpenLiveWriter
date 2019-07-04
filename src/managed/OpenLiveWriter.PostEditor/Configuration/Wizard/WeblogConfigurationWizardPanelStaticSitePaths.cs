@@ -157,18 +157,31 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             var postsPathFull = $"{_localSitePath}\\{PostsPath}";
             var pagesPathFull = $"{_localSitePath}\\{PagesPath}";
+            var draftsPathFull = $"{_localSitePath}\\{DraftsPath}";
 
             // If the Posts path is empty or doesn't exist, display an error
-            if (PagesPath.Trim().Length == 0 || !Directory.Exists(postsPathFull))
+            if (PostsPath.Trim().Length == 0 || !Directory.Exists(postsPathFull))
             {
                 ShowValidationError(textBoxPostsPath, MessageId.FolderNotFound, postsPathFull);
                 return false;
             }
 
-            // If the Pages path is over 0 (pages enabled) and the path doesn't exist, display an error
-            if (PagesPath.Trim().Length > 0 && !Directory.Exists(pagesPathFull))
+            // If Pages are enabled and the path doesn't exist/is empty, display an error
+            if (EnablePages && (PagesPath.Trim() == string.Empty || !Directory.Exists(pagesPathFull)))
             {
-                ShowValidationError(textBoxPagesPath, MessageId.FolderNotFound, pagesPathFull);
+                ShowValidationError(
+                    textBoxPagesPath, 
+                    MessageId.FolderNotFound,
+                    PagesPath.Trim() == string.Empty ? "Pages path empty" : pagesPathFull); // TODO Replace string from with string from resources
+                return false;
+            }
+
+            // If Drafts are enabled and the path doesn't exist/is empty, display an error
+            if (EnableDrafts && (DraftsPath.Trim() == string.Empty || !Directory.Exists(draftsPathFull)))
+            {
+                ShowValidationError(textBoxDraftsPath, 
+                    MessageId.FolderNotFound,
+                    DraftsPath.Trim() == string.Empty ? "Drafts path empty" : draftsPathFull); // TODO Replace string with string from resources
                 return false;
             }
 
