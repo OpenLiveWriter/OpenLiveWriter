@@ -22,6 +22,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
     /// </summary>
     public class PostHtmlEditingSettings : IDisposable
     {
+        public static string UA_COMPATIBLE_STRING = "IE=EmulateIE9";
+
         private string _blogId;
         public PostHtmlEditingSettings(string blogId)
         {
@@ -110,19 +112,33 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     templateHtml = templateHtml.Replace(origPath, newUri);
                 }
 
-                /*Parse meta tags in order to set CSS3 compatibility*/
-                Regex metatag = new Regex(@"<(?i:meta)(\s)+(?i:http-equiv)(\s)*=""(?:X-UA-Compatible)""(\s)+(?i:content)(\s)*=""(?i:IE=edge)""(\s)*/>");
+                /* Parse meta tags in order to set MSHTML emulation for IE9
+                   As of Internet Explorer 10, support for element behaviors have been removed.
+                   Core OLW functionality, such as table management, currently rely on these mechanisms.
+                   An alternative to Element Behaviors must be found before we can push the IE version forward to allow for newer web standards. */
+
+                // Search for an existing X-UA-Compatible tag in the template
+                Regex metatag = new Regex(@"<(?i:meta)(?:\s)+(?i:http-equiv)(?:\s)*=""(?:X-UA-Compatible)""(?:\s)+(?i:content)(?:\s)*=""(\S*)""(?:\s)*/>");
                 Match match = metatag.Match(templateHtml);
                 
-                if (!match.Success)
+                if (match.Success && match.Groups.Count > 1)
                 {
-                    // prepend the metatag to make css3 compatible at least on edge (Windows 8+)
+                    // There already exists a 'X-UA-Compatible' meta tag in the template, modify it
+                    // Grab info on the existing 'content' value
+                    var contentVal = match.Groups[1];
+                    // Remove the content value from the template
+                    var templateContentRemoved = templateHtml.Remove(contentVal.Index, contentVal.Length);
+                    // Add the IE9 emulation string into the HTML template
+                    templateHtml = templateContentRemoved.Insert(contentVal.Index, UA_COMPATIBLE_STRING);
+                } else
+                {
+                    // Prepend meta tag for IE9 emulation
                     int i = templateHtml.IndexOf("<HEAD>", StringComparison.OrdinalIgnoreCase);
                     if (i > 0)
-                    {                        
-                        templateHtml = ( templateHtml.Substring(0, i + 6) 
-                                        + "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />" 
-                                        + templateHtml.Substring(i + 6) );
+                    {
+                        templateHtml = (templateHtml.Substring(0, i + 6)
+                                        + $"<meta http-equiv=\"X-UA-Compatible\" content=\"{UA_COMPATIBLE_STRING}\" />"
+                                        + templateHtml.Substring(i + 6));
                     }
                 }
 
