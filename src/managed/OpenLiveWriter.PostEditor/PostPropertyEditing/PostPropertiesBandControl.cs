@@ -122,6 +122,17 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             base.OnLoad(args);
 
             FixCategoryDropDown();
+            FixPageParentDropDown();
+        }
+
+        private void FixPageParentDropDown()
+        {
+            // For unknown reasons, the page parent drop down vertically misaligns at runtime
+            // Force it to vertically align with the publish date picker on location change
+            comboPageParent.LocationChanged += delegate
+            {
+                comboPageParent.Top = datePublishDate.Top;
+            };
         }
 
         private void FixCategoryDropDown()
@@ -202,9 +213,34 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
             }
         }
 
+        private bool pageParentVisible = false;
+        private bool PageParentVisible
+        {
+            set
+            {
+                labelPageParent.Visible = comboPageParent.Visible = pageParentVisible = value;
+                if (value) {
+                    // Page Parent selection enabled, set Page Parent combo to fill
+                    table.ColumnStyles[COL_PAGEPARENT].SizeType = SizeType.Percent;
+                    table.ColumnStyles[COL_PAGEPARENT] = new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F);
+                } else
+                {
+                    // Page Parent selection disabled, reset column styles and sizing
+                    table.ColumnStyles[COL_PAGEPARENT].SizeType = SizeType.AutoSize;
+                    table.ColumnStyles[COL_PAGEPARENT] = new System.Windows.Forms.ColumnStyle();
+                }
+                ManageFillerVisibility();
+            }
+        }
+
         private void ManageFillerVisibility()
         {
-            bool shouldShow = !categoryVisible && !tagsVisible;
+            // Only show the filler if:
+            //  - Categories aren't visible
+            //  - Tags aren't visible
+            //  - And editing a Post (not a Page)
+
+            bool shouldShow = !categoryVisible && !tagsVisible && !pageParentVisible;
             table.ColumnStyles[COL_FILLER].SizeType = shouldShow ? SizeType.Percent : SizeType.AutoSize;
         }
 
@@ -257,6 +293,9 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
                 linkViewAll.Visible = showViewAll;
                 CategoryVisible = false;
                 TagsVisible = false;
+
+                PageParentVisible = _clientOptions.SupportsPageParent;
+
                 Visible = showViewAll || _clientOptions.SupportsPageParent || _clientOptions.SupportsPageOrder;
             }
             else
@@ -277,6 +316,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing
 
                 CategoryVisible = _clientOptions.SupportsCategories;
                 TagsVisible = showTags;
+
+                PageParentVisible = false;
 
                 linkViewAll.Visible = showViewAll;
             }
