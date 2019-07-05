@@ -534,25 +534,39 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             addWizardSubStep(
                 new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths1(),
                 null,
-                new DisplayCallback(OnStaticSitePaths1Displayed),
+                new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
                 new VerifyStepCallback(OnValidatePanel),
                 new NextCallback(OnStaticSitePaths1Completed),
                 null,
                 new BackCallback(OnStaticSiteBack)));
         }
 
-        private void OnStaticSitePaths1Displayed(Object stepControl)
-        {
-            // Populate data
-            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths1);
-
-            // Load panel values from config
-            panel.LoadFromConfig(staticSiteConfig);
-        }
-
         private void OnStaticSitePaths1Completed(Object stepControl)
         {
             var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths1);
+
+            // Save panel values into config
+            panel.SaveToConfig(staticSiteConfig);
+
+            // Go to next step
+            AddStaticSitePaths2SubStep();
+        }
+
+        private void AddStaticSitePaths2SubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths2(),
+                null,
+                new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
+                new VerifyStepCallback(OnValidatePanel),
+                new NextCallback(OnStaticSitePaths2Completed),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSitePaths2Completed(Object stepControl)
+        {
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths2);
 
             // Save panel values into config
             panel.SaveToConfig(staticSiteConfig);
@@ -581,6 +595,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             // Fill config into credentials
             staticSiteConfig.SaveToCredentials(_temporarySettings.Credentials);
+        }
+
+        private void OnStaticSiteConfigProviderDisplayed(Object stepControl)
+        {
+            // Populate data
+            var panel = (stepControl as IWizardPanelStaticSiteConfigProvider);
+
+            // Load panel values from config
+            panel.LoadFromConfig(staticSiteConfig);
         }
 
         #endregion
