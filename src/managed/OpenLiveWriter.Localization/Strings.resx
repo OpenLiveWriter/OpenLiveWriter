@@ -994,6 +994,12 @@
   <data name="CWStaticSitePathsDraftsPath" xml:space="preserve">
     <value>Drafts path: (relative)</value>
   </data>
+  <data name="CWStaticSitePathsImagesPath" xml:space="preserve">
+    <value>Images path: (relative)</value>
+  </data>
+  <data name="CWStaticSitePathsOutputPath" xml:space="preserve">
+    <value>Build output path: (relative, required if building enabled)</value>
+  </data>
   <data name="CWStaticSitePathsPagesInRoot" xml:space="preserve">
     <value>Pages stored in site root</value>
   </data>
@@ -1008,6 +1014,12 @@
   </data>
   <data name="CWStaticSitePathsTitle" xml:space="preserve">
     <value>Provide site URL and paths</value>
+  </data>
+  <data name="CWStaticSitePathsUrlFormat" xml:space="preserve">
+    <value>Blog post URL format:</value>
+  </data>
+  <data name="CWStaticSitePathsUrlFormatSubtitle" xml:space="preserve">
+    <value>Appended to site URL for automatic display of post after publish. Follows .NET Date formatting conventions. Use %%SLUG for post slug.</value>
   </data>
   <data name="CWStaticSitePublishCommand" xml:space="preserve">
     <value>Publish command:</value>

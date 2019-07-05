@@ -1163,6 +1163,14 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSitePathsDraftsPath,
 		/// <summary>
+                                                    /// Images path: (relative)
+                                                    /// </summary>
+                                                    CWStaticSitePathsImagesPath,
+		/// <summary>
+                                                    /// Build output path: (relative, required if building enabled)
+                                                    /// </summary>
+                                                    CWStaticSitePathsOutputPath,
+		/// <summary>
                                                     /// Pages stored in site root
                                                     /// </summary>
                                                     CWStaticSitePathsPagesInRoot,
@@ -1182,6 +1190,14 @@ namespace OpenLiveWriter.Localization
                                                     /// Provide site URL and paths
                                                     /// </summary>
                                                     CWStaticSitePathsTitle,
+		/// <summary>
+                                                    /// Blog post URL format:
+                                                    /// </summary>
+                                                    CWStaticSitePathsUrlFormat,
+		/// <summary>
+                                                    /// Appended to site URL for automatic display of post after publish. Follows .NET Date formatting conventions. Use %%SLUG for post slug.
+                                                    /// </summary>
+                                                    CWStaticSitePathsUrlFormatSubtitle,
 		/// <summary>
                                                     /// Publish command:
                                                     /// </summary>
