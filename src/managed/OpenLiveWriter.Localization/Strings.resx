@@ -1019,7 +1019,7 @@
     <value>Blog post URL format:</value>
   </data>
   <data name="CWStaticSitePathsUrlFormatSubtitle" xml:space="preserve">
-    <value>Appended to site URL for automatic display of post after publish. Follows .NET Date formatting conventions. Use %%SLUG for post slug.</value>
+    <value>Appended to site URL for automatic display of post after publish. Follows .NET Date formatting conventions. Use %%SLUG for post slug, includes file extension.</value>
   </data>
   <data name="CWStaticSitePublishCommand" xml:space="preserve">
     <value>Publish command:</value>

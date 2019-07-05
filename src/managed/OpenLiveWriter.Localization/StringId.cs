@@ -1195,7 +1195,7 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSitePathsUrlFormat,
 		/// <summary>
-                                                    /// Appended to site URL for automatic display of post after publish. Follows .NET Date formatting conventions. Use %%SLUG for post slug.
+                                                    /// Appended to site URL for automatic display of post after publish. Follows .NET Date formatting conventions. Use %%SLUG for post slug, includes file extension.
                                                     /// </summary>
                                                     CWStaticSitePathsUrlFormatSubtitle,
 		/// <summary>
