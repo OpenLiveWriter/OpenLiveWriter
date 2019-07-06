@@ -25,6 +25,8 @@ namespace OpenLiveWriter.BlogClient.Clients
         // Public Site Url is stored in the blog's BlogConfig. Loading is handled in this class, but saving is handled from the WizardController.
         // This is done to avoid referencing PostEditor from this project.
 
+        // NOTE: When setting default config values below, also make sure to alter LoadFromCredentials to not overwrite defaults if a key was not found.
+
         /// <summary>
         /// The full path to the local static site 'project' directory
         /// </summary>
@@ -119,7 +121,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             BuildCommand = creds.GetCustomValue(CONFIG_BUILD_COMMAND);
 
             PublishCommand = creds.GetCustomValue(CONFIG_PUBLISH_COMMAND);
-            PostUrlFormat = creds.GetCustomValue(CONFIG_POST_URL_FORMAT);
+            // Don't overwrite the default value if we fail to find a value;
+            if (creds.GetCustomValue(CONFIG_POST_URL_FORMAT) != string.Empty) PostUrlFormat = creds.GetCustomValue(CONFIG_POST_URL_FORMAT);
+
             Initialised = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
         }
 
