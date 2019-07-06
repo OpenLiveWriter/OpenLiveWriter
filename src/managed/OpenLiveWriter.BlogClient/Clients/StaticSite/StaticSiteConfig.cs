@@ -10,10 +10,10 @@ namespace OpenLiveWriter.BlogClient.Clients
     {
         // The credential keys where the configuration is stored.
         private const string CONFIG_POSTS_PATH = "SSGPostsPath";
-        private const string CONFIG_PAGES_ENABLED = "SSGPagesPath";
-        private const string CONFIG_PAGES_PATH = "SSGPagesEnabled";
-        private const string CONFIG_DRAFTS_PATH = "SSGDraftsEnabled";
-        private const string CONFIG_DRAFTS_ENABLED = "SSGDraftsPath";
+        private const string CONFIG_PAGES_ENABLED = "SSGPagesEnabled";
+        private const string CONFIG_PAGES_PATH = "SSGPagesPath";
+        private const string CONFIG_DRAFTS_ENABLED = "SSGDraftsEnabled";
+        private const string CONFIG_DRAFTS_PATH = "SSGDraftsPath";
         private const string CONFIG_IMAGES_ENABLED = "SSGImagesEnabled";
         private const string CONFIG_IMAGES_PATH = "SSGImagesPath";
         private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
