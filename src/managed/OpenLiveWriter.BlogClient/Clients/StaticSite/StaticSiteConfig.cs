@@ -16,8 +16,9 @@ namespace OpenLiveWriter.BlogClient.Clients
         private const string CONFIG_DRAFTS_PATH = "SSGDraftsPath";
         private const string CONFIG_IMAGES_ENABLED = "SSGImagesEnabled";
         private const string CONFIG_IMAGES_PATH = "SSGImagesPath";
-        private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
         private const string CONFIG_BUILDING_ENABLED = "SSGBuildingEnabled";
+        private const string CONFIG_OUTPUT_PATH = "SSGOutputPath";
+        private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
         private const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
         private const string CONFIG_POST_URL_FORMAT = "SSGPostUrlFormat";
         private const string CONFIG_INITIALISED = "SSGInitialised";
@@ -73,6 +74,11 @@ namespace OpenLiveWriter.BlogClient.Clients
         public bool BuildingEnabled { get; set; } = false;
 
         /// <summary>
+        /// Path to Output directory, relative to LocalSitePath. Can be possibly used in future for preset publishing routines.
+        /// </summary>
+        public string OutputPath { get; set; } = "";
+
+        /// <summary>
         /// Build command, executed by system command interpreter with LocalSitePath working directory
         /// </summary>
         public string BuildCommand { get; set; } = "";
@@ -118,6 +124,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             ImagesPath = creds.GetCustomValue(CONFIG_IMAGES_PATH);
 
             BuildingEnabled = creds.GetCustomValue(CONFIG_BUILDING_ENABLED) == "1";
+            OutputPath = creds.GetCustomValue(CONFIG_OUTPUT_PATH);
             BuildCommand = creds.GetCustomValue(CONFIG_BUILD_COMMAND);
 
             PublishCommand = creds.GetCustomValue(CONFIG_PUBLISH_COMMAND);
@@ -156,6 +163,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             creds.SetCustomValue(CONFIG_IMAGES_PATH, ImagesPath);
 
             creds.SetCustomValue(CONFIG_BUILDING_ENABLED, BuildingEnabled ? "1" : "0");
+            creds.SetCustomValue(CONFIG_OUTPUT_PATH, OutputPath);
             creds.SetCustomValue(CONFIG_BUILD_COMMAND, BuildCommand);
 
             creds.SetCustomValue(CONFIG_PUBLISH_COMMAND, PublishCommand);
