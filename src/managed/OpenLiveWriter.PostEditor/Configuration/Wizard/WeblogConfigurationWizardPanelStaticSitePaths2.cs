@@ -105,7 +105,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         public bool BuildingEnabled
         {
             get => _buildingEnabled;
-            set => labelOutputPath.Enabled = textBoxOutputPath.Enabled = value;
+            set => _buildingEnabled = labelOutputPath.Enabled = textBoxOutputPath.Enabled = value;
         }
 
         public string OutputPath
