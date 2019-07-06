@@ -158,7 +158,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelSubtitle.Name = "labelSubtitle";
             this.labelSubtitle.Size = new System.Drawing.Size(415, 75);
             this.labelSubtitle.TabIndex = 0;
-            this.labelSubtitle.Text = resources.GetString("labelSubtitle.Text");
             // 
             // labelLocalSitePath
             // 
