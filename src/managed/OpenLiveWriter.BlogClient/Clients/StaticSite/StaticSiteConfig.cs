@@ -10,11 +10,20 @@ namespace OpenLiveWriter.BlogClient.Clients
     {
         // The credential keys where the configuration is stored.
         private const string CONFIG_POSTS_PATH = "SSGPostsPath";
-        private const string CONFIG_PAGES_PATH = "SSGPagesPath";
-        private const string CONFIG_DRAFTS_PATH = "SSGDraftsPath";
+        private const string CONFIG_PAGES_ENABLED = "SSGPagesPath";
+        private const string CONFIG_PAGES_PATH = "SSGPagesEnabled";
+        private const string CONFIG_DRAFTS_PATH = "SSGDraftsEnabled";
+        private const string CONFIG_DRAFTS_ENABLED = "SSGDraftsPath";
+        private const string CONFIG_IMAGES_ENABLED = "SSGImagesEnabled";
+        private const string CONFIG_IMAGES_PATH = "SSGImagesPath";
         private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
+        private const string CONFIG_BUILDING_ENABLED = "SSGBuildingEnabled";
         private const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
+        private const string CONFIG_POST_URL_FORMAT = "SSGPostUrlFormat";
         private const string CONFIG_INITIALISED = "SSGInitialised";
+
+        // Public Site Url is stored in the blog's BlogConfig. Loading is handled in this class, but saving is handled from the WizardController.
+        // This is done to avoid referencing PostEditor from this project.
 
         /// <summary>
         /// The full path to the local static site 'project' directory
@@ -27,14 +36,39 @@ namespace OpenLiveWriter.BlogClient.Clients
         public string PostsPath { get; set; } = "";
 
         /// <summary>
-        /// Path to Pages directory, relative to LocalSitePath. Blank for disabled.
+        /// True if Pages can be posted to this blog.
+        /// </summary>
+        public bool PagesEnabled { get; set; } = false;
+
+        /// <summary>
+        /// Path to Pages directory, relative to LocalSitePath.
         /// </summary>
         public string PagesPath { get; set; } = "";
 
         /// <summary>
-        /// Path to Drafts directory, relative to LocalSitePath. Blank for disabled.
+        /// True if Drafts can be saved to this blog.
+        /// </summary>
+        public bool DraftsEnabled { get; set; } = false;
+
+        /// <summary>
+        /// Path to Drafts directory, relative to LocalSitePath.
         /// </summary>
         public string DraftsPath { get; set; } = "";
+
+        /// <summary>
+        /// True if Images can be uploaded to this blog.
+        /// </summary>
+        public bool ImagesEnabled { get; set; } = false;
+
+        /// <summary>
+        /// Path to Images directory, relative to LocalSitePath.
+        /// </summary>
+        public string ImagesPath { get; set; } = "";
+
+        /// <summary>
+        /// True if site is locally built.
+        /// </summary>
+        public bool BuildingEnabled { get; set; } = false;
 
         /// <summary>
         /// Build command, executed by system command interpreter with LocalSitePath working directory
@@ -52,6 +86,12 @@ namespace OpenLiveWriter.BlogClient.Clients
         public string SiteUrl { get; set; } = "";
 
         /// <summary>
+        /// Post URL format, appended to end of Site URL, automatically opened on publish completion.
+        /// Supports %y for four-digit year, %m and %d for two-digit months and days, %f for post filename.
+        /// </summary>
+        public string PostUrlFormat { get; set; } = "";
+
+        /// <summary>
         /// Used to determine if parameter detection has occurred, default false.
         /// </summary>
         public bool Initialised { get; set; } = false;
@@ -64,10 +104,21 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             LocalSitePath = creds.Username;
             PostsPath = creds.GetCustomValue(CONFIG_POSTS_PATH);
+
+            PagesEnabled = creds.GetCustomValue(CONFIG_PAGES_ENABLED) == "1";
             PagesPath = creds.GetCustomValue(CONFIG_PAGES_PATH);
+
+            DraftsEnabled = creds.GetCustomValue(CONFIG_DRAFTS_ENABLED) == "1";
             DraftsPath = creds.GetCustomValue(CONFIG_DRAFTS_PATH);
+
+            ImagesEnabled = creds.GetCustomValue(CONFIG_IMAGES_ENABLED) == "1";
+            ImagesPath = creds.GetCustomValue(CONFIG_IMAGES_PATH);
+
+            BuildingEnabled = creds.GetCustomValue(CONFIG_BUILDING_ENABLED) == "1";
             BuildCommand = creds.GetCustomValue(CONFIG_BUILD_COMMAND);
+
             PublishCommand = creds.GetCustomValue(CONFIG_PUBLISH_COMMAND);
+            PostUrlFormat = creds.GetCustomValue(CONFIG_POST_URL_FORMAT);
             Initialised = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
         }
 
@@ -88,12 +139,23 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             // Set username to Local Site Path
             creds.Username = LocalSitePath;
-            creds.SetCustomValue(CONFIG_POSTS_PATH,      PostsPath);
-            creds.SetCustomValue(CONFIG_PAGES_PATH,      PagesPath);
-            creds.SetCustomValue(CONFIG_DRAFTS_PATH,     PagesPath);
-            creds.SetCustomValue(CONFIG_BUILD_COMMAND,   BuildCommand);
+            creds.SetCustomValue(CONFIG_POSTS_PATH, PostsPath);
+
+            creds.SetCustomValue(CONFIG_PAGES_ENABLED, PagesEnabled ? "1" : "0");
+            creds.SetCustomValue(CONFIG_PAGES_PATH, PagesPath);
+
+            creds.SetCustomValue(CONFIG_DRAFTS_ENABLED, DraftsEnabled ? "1" : "0");
+            creds.SetCustomValue(CONFIG_DRAFTS_PATH, DraftsPath);
+
+            creds.SetCustomValue(CONFIG_IMAGES_ENABLED, ImagesEnabled ? "1" : "0");
+            creds.SetCustomValue(CONFIG_IMAGES_PATH, ImagesPath);
+
+            creds.SetCustomValue(CONFIG_BUILDING_ENABLED, BuildingEnabled ? "1" : "0");
+            creds.SetCustomValue(CONFIG_BUILD_COMMAND, BuildCommand);
+
             creds.SetCustomValue(CONFIG_PUBLISH_COMMAND, PublishCommand);
-            creds.SetCustomValue(CONFIG_INITIALISED,     Initialised ? "1" : "0");
+            creds.SetCustomValue(CONFIG_POST_URL_FORMAT, PostUrlFormat);
+            creds.SetCustomValue(CONFIG_INITIALISED, Initialised ? "1" : "0");
         }
 
         /// <summary>
