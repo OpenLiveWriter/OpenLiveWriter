@@ -29,17 +29,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private Label labelPostsPath;
         private TextBox textBoxPostsPath;
         private TextBox textBoxPagesPath;
-        private CheckBox checkBoxEnablePages;
         private Label labelSiteUrl;
         private TextBox textBoxSiteUrl;
         private TextBox textBoxDraftsPath;
-        private CheckBox checkBoxEnableDrafts;
         private CheckBox checkBoxPagesInRoot;
 
         /// <summary>
         /// Local site path, loaded from config, used for validation
         /// </summary>
         private string _localSitePath;
+        private Label labelDraftsPath;
+        private Label labelPagesPath;
 
         /// <summary>
         /// Required designer variable.
@@ -51,12 +51,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
 
-            this.labelHeader.Text = Res.Get(StringId.CWStaticSitePathsTitle);
-            this.labelSiteUrl.Text = Res.Get(StringId.CWStaticSitePathsSiteUrl);
-            this.labelPostsPath.Text = Res.Get(StringId.CWStaticSitePathsPostsPath);
-            this.checkBoxEnablePages.Text = Res.Get(StringId.CWStaticSitePathsPagesPath);
-            this.checkBoxEnableDrafts.Text = Res.Get(StringId.CWStaticSitePathsDraftsPath);
-            this.checkBoxPagesInRoot.Text = Res.Get(StringId.CWStaticSitePathsPagesInRoot);
+            labelHeader.Text = Res.Get(StringId.CWStaticSitePathsTitle);
+            labelSiteUrl.Text = Res.Get(StringId.CWStaticSitePathsSiteUrl);
+            labelPostsPath.Text = Res.Get(StringId.CWStaticSitePathsPostsPath);
+            labelPagesPath.Text = Res.Get(StringId.CWStaticSitePathsPagesPath);
+            labelDraftsPath.Text = Res.Get(StringId.CWStaticSitePathsDraftsPath);
+            checkBoxPagesInRoot.Text = Res.Get(StringId.CWStaticSitePathsPagesInRoot);
         }
 
         public override void NaturalizeLayout()
@@ -65,23 +65,24 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             if (DesignMode) return;
 
             MaximizeWidth(textBoxSiteUrl);
+            MaximizeWidth(labelPostsPath);
             MaximizeWidth(textBoxPostsPath);
-            MaximizeWidth(checkBoxEnablePages);
+            MaximizeWidth(labelPagesPath);
             MaximizeWidth(textBoxPagesPath);
             MaximizeWidth(checkBoxPagesInRoot);
-            MaximizeWidth(checkBoxEnableDrafts);
+            MaximizeWidth(labelDraftsPath);
             MaximizeWidth(textBoxDraftsPath);
 
             LayoutHelper.NaturalizeHeightAndDistribute(3, labelSiteUrl, textBoxSiteUrl);
             LayoutHelper.NaturalizeHeightAndDistribute(3, labelPostsPath, textBoxPostsPath);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, checkBoxEnablePages, textBoxPagesPath, checkBoxPagesInRoot);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, checkBoxEnableDrafts, textBoxDraftsPath);
+            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPagesPath, textBoxPagesPath, checkBoxPagesInRoot);
+            LayoutHelper.NaturalizeHeightAndDistribute(3, labelDraftsPath, textBoxDraftsPath);
 
             LayoutHelper.DistributeVertically(10, false,
                 new ControlGroup(labelSiteUrl, textBoxSiteUrl),
                 new ControlGroup(labelPostsPath, textBoxPostsPath),
-                new ControlGroup(checkBoxEnablePages, textBoxPagesPath, checkBoxPagesInRoot),
-                new ControlGroup(checkBoxEnableDrafts, textBoxDraftsPath)
+                new ControlGroup(labelPagesPath, textBoxPagesPath, checkBoxPagesInRoot),
+                new ControlGroup(labelDraftsPath, textBoxDraftsPath)
                 );
         }
 
@@ -102,28 +103,30 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set { textBoxPostsPath.Text = value; }
         }
 
+        private bool _pagesEnabled = false;
+        public bool PagesEnabled
+        {
+            get => _pagesEnabled;
+            set => _pagesEnabled = textBoxPagesPath.Enabled = value;
+        }
+
         public string PagesPath
         {
             get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxPagesPath.Text);
             set { textBoxPagesPath.Text = value; }
         }
 
+        private bool _draftsEnabled = false;
+        public bool DraftsEnabled
+        {
+            get => _draftsEnabled;
+            set => _draftsEnabled = textBoxDraftsPath.Enabled = value;
+        }
+
         public string DraftsPath
         {
             get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxDraftsPath.Text);
             set { textBoxDraftsPath.Text = value; }
-        }
-
-        public bool EnablePages
-        {
-            get => checkBoxEnablePages.Checked;
-            set { checkBoxEnablePages.Checked = value; }
-        }
-
-        public bool EnableDrafts
-        {
-            get => checkBoxEnableDrafts.Checked;
-            set { checkBoxEnableDrafts.Checked = value; }
         }
 
         public bool PagesInRoot
@@ -146,7 +149,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
 
             // If Pages are enabled and the path doesn't exist/is empty, display an error
-            if (EnablePages && (PagesPath.Trim() == string.Empty || !Directory.Exists(pagesPathFull)))
+            if (PagesEnabled && (PagesPath.Trim() == string.Empty || !Directory.Exists(pagesPathFull)))
             {
                 ShowValidationError(
                     textBoxPagesPath, 
@@ -156,7 +159,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             }
 
             // If Drafts are enabled and the path doesn't exist/is empty, display an error
-            if (EnableDrafts && (DraftsPath.Trim() == string.Empty || !Directory.Exists(draftsPathFull)))
+            if (DraftsEnabled && (DraftsPath.Trim() == string.Empty || !Directory.Exists(draftsPathFull)))
             {
                 ShowValidationError(textBoxDraftsPath, 
                     MessageId.FolderNotFound,
@@ -175,8 +178,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             config.SiteUrl    = SiteUrl;
             config.PostsPath  = PostsPath;
-            config.PagesPath  = EnablePages ? (PagesInRoot ? "." : PagesPath) : "";
-            config.DraftsPath = EnableDrafts ? DraftsPath : "";
+            config.PagesPath  = PagesInRoot ? "." : PagesPath;
+            config.DraftsPath = DraftsPath;
         }
 
         /// <summary>
@@ -190,12 +193,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             SiteUrl = config.SiteUrl;
             PostsPath = config.PostsPath;
 
-            EnablePages = config.PagesPath != string.Empty;
+            PagesEnabled = config.PagesEnabled;
             PagesInRoot = config.PagesPath == ".";
             PagesPath = config.PagesPath;
 
-            EnableDrafts = config.DraftsPath != string.Empty;
+            DraftsEnabled = config.DraftsEnabled;
             DraftsPath = config.DraftsPath;
+
+            RecomputeEnabledStates();
         }
 
         /// <summary>
@@ -223,23 +228,23 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelPostsPath = new System.Windows.Forms.Label();
             this.textBoxPostsPath = new System.Windows.Forms.TextBox();
             this.textBoxPagesPath = new System.Windows.Forms.TextBox();
-            this.checkBoxEnablePages = new System.Windows.Forms.CheckBox();
             this.labelSiteUrl = new System.Windows.Forms.Label();
             this.textBoxSiteUrl = new System.Windows.Forms.TextBox();
-            this.checkBoxEnableDrafts = new System.Windows.Forms.CheckBox();
             this.textBoxDraftsPath = new System.Windows.Forms.TextBox();
             this.checkBoxPagesInRoot = new System.Windows.Forms.CheckBox();
+            this.labelPagesPath = new System.Windows.Forms.Label();
+            this.labelDraftsPath = new System.Windows.Forms.Label();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
             // 
+            this.panelMain.Controls.Add(this.labelDraftsPath);
+            this.panelMain.Controls.Add(this.labelPagesPath);
             this.panelMain.Controls.Add(this.checkBoxPagesInRoot);
             this.panelMain.Controls.Add(this.textBoxDraftsPath);
-            this.panelMain.Controls.Add(this.checkBoxEnableDrafts);
             this.panelMain.Controls.Add(this.textBoxSiteUrl);
             this.panelMain.Controls.Add(this.labelSiteUrl);
-            this.panelMain.Controls.Add(this.checkBoxEnablePages);
             this.panelMain.Controls.Add(this.labelPostsPath);
             this.panelMain.Controls.Add(this.textBoxPostsPath);
             this.panelMain.Controls.Add(this.textBoxPagesPath);
@@ -252,7 +257,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelPostsPath.Name = "labelPostsPath";
             this.labelPostsPath.Size = new System.Drawing.Size(167, 13);
             this.labelPostsPath.TabIndex = 2;
-            this.labelPostsPath.Text = "Posts path: (relative)";
+            this.labelPostsPath.Text = "labelPostsPath";
             // 
             // textBoxPostsPath
             // 
@@ -269,25 +274,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxPagesPath.Size = new System.Drawing.Size(368, 20);
             this.textBoxPagesPath.TabIndex = 5;
             // 
-            // checkBoxEnablePages
-            // 
-            this.checkBoxEnablePages.AutoSize = true;
-            this.checkBoxEnablePages.Location = new System.Drawing.Point(20, 90);
-            this.checkBoxEnablePages.Name = "checkBoxEnablePages";
-            this.checkBoxEnablePages.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxEnablePages.TabIndex = 4;
-            this.checkBoxEnablePages.Text = "Pages path: (relative)";
-            this.checkBoxEnablePages.UseVisualStyleBackColor = true;
-            this.checkBoxEnablePages.CheckedChanged += new System.EventHandler(this.CheckBoxEnablePages_CheckedChanged);
-            // 
             // labelSiteUrl
             // 
             this.labelSiteUrl.AutoSize = true;
             this.labelSiteUrl.Location = new System.Drawing.Point(17, 0);
             this.labelSiteUrl.Name = "labelSiteUrl";
-            this.labelSiteUrl.Size = new System.Drawing.Size(83, 13);
+            this.labelSiteUrl.Size = new System.Drawing.Size(60, 13);
             this.labelSiteUrl.TabIndex = 0;
-            this.labelSiteUrl.Text = "Public site URL:";
+            this.labelSiteUrl.Text = "labelSiteUrl";
             // 
             // textBoxSiteUrl
             // 
@@ -295,17 +289,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxSiteUrl.Name = "textBoxSiteUrl";
             this.textBoxSiteUrl.Size = new System.Drawing.Size(368, 20);
             this.textBoxSiteUrl.TabIndex = 1;
-            // 
-            // checkBoxEnableDrafts
-            // 
-            this.checkBoxEnableDrafts.AutoSize = true;
-            this.checkBoxEnableDrafts.Location = new System.Drawing.Point(20, 170);
-            this.checkBoxEnableDrafts.Name = "checkBoxEnableDrafts";
-            this.checkBoxEnableDrafts.Size = new System.Drawing.Size(124, 17);
-            this.checkBoxEnableDrafts.TabIndex = 7;
-            this.checkBoxEnableDrafts.Text = "Drafts path: (relative)";
-            this.checkBoxEnableDrafts.UseVisualStyleBackColor = true;
-            this.checkBoxEnableDrafts.CheckedChanged += new System.EventHandler(this.CheckBoxEnableDrafts_CheckedChanged);
             // 
             // textBoxDraftsPath
             // 
@@ -322,16 +305,34 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.checkBoxPagesInRoot.Location = new System.Drawing.Point(20, 139);
             this.checkBoxPagesInRoot.Name = "checkBoxPagesInRoot";
             this.checkBoxPagesInRoot.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.checkBoxPagesInRoot.Size = new System.Drawing.Size(139, 17);
+            this.checkBoxPagesInRoot.Size = new System.Drawing.Size(136, 17);
             this.checkBoxPagesInRoot.TabIndex = 6;
-            this.checkBoxPagesInRoot.Text = "Pages stored in site root";
+            this.checkBoxPagesInRoot.Text = "checkBoxPagesInRoot";
             this.checkBoxPagesInRoot.UseVisualStyleBackColor = true;
             this.checkBoxPagesInRoot.CheckedChanged += new System.EventHandler(this.CheckBoxPagesInRoot_CheckedChanged);
             // 
-            // WeblogConfigurationWizardPanelStaticSitePaths
+            // labelPagesPath
+            // 
+            this.labelPagesPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelPagesPath.Location = new System.Drawing.Point(20, 97);
+            this.labelPagesPath.Name = "labelPagesPath";
+            this.labelPagesPath.Size = new System.Drawing.Size(167, 13);
+            this.labelPagesPath.TabIndex = 9;
+            this.labelPagesPath.Text = "labelPagesPath";
+            // 
+            // labelDraftsPath
+            // 
+            this.labelDraftsPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelDraftsPath.Location = new System.Drawing.Point(20, 177);
+            this.labelDraftsPath.Name = "labelDraftsPath";
+            this.labelDraftsPath.Size = new System.Drawing.Size(167, 13);
+            this.labelDraftsPath.TabIndex = 10;
+            this.labelDraftsPath.Text = "labelDraftsPath";
+            // 
+            // WeblogConfigurationWizardPanelStaticSitePaths1
             // 
             this.AutoSize = true;
-            this.Name = "WeblogConfigurationWizardPanelStaticSitePaths";
+            this.Name = "WeblogConfigurationWizardPanelStaticSitePaths1";
             this.Size = new System.Drawing.Size(455, 291);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
@@ -340,27 +341,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         }
         #endregion
 
-        private void CheckBoxEnablePages_CheckedChanged(object sender, EventArgs e)
-        {
-            RecomputeEnabledStates();
-        }
-
         private void CheckBoxPagesInRoot_CheckedChanged(object sender, EventArgs e)
         {
             RecomputeEnabledStates();
             if (PagesInRoot) PagesPath = ".";
         }
 
-        private void CheckBoxEnableDrafts_CheckedChanged(object sender, EventArgs e)
-        {
-            RecomputeEnabledStates();
-        }
-
         private void RecomputeEnabledStates()
         {
-            textBoxPagesPath.Enabled = EnablePages && !PagesInRoot;
-            checkBoxPagesInRoot.Enabled = EnablePages;
-            textBoxDraftsPath.Enabled = EnableDrafts;
+            checkBoxPagesInRoot.Enabled = PagesEnabled;
+            textBoxPagesPath.Enabled = PagesEnabled && !PagesInRoot;
         }
     }
 }
