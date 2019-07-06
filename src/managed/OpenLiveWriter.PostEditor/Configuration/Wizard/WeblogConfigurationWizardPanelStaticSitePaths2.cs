@@ -126,16 +126,24 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             var outputPathFull = $"{_localSitePath}\\{OutputPath}";
 
             // If images are enabled, and the images path is empty or doesn't exist, display an error
-            if (ImagesEnabled && (ImagesPath.Trim().Length == 0 || !Directory.Exists(imagesPathFull)))
+            if (ImagesEnabled && (ImagesPath.Trim() == string.Empty || !Directory.Exists(imagesPathFull)))
             {
-                ShowValidationError(textBoxImagesPath, MessageId.FolderNotFound, imagesPathFull);
+                ShowValidationError(
+                    textBoxImagesPath,
+                    MessageId.FolderNotFound,
+                    ImagesPath.Trim() == string.Empty ? "Images path empty" : imagesPathFull); // TODO Replace string from with string from resources
+
                 return false;
             }
 
             // If local building is enabled, and the site output path is empty or doesn't exist, display an error
-            if (BuildingEnabled && (OutputPath.Trim().Length == 0 || !Directory.Exists(outputPathFull)))
+            if (BuildingEnabled && (OutputPath == string.Empty || !Directory.Exists(outputPathFull)))
             {
-                ShowValidationError(textBoxOutputPath, MessageId.FolderNotFound, outputPathFull);
+                ShowValidationError(
+                    textBoxOutputPath,
+                    MessageId.FolderNotFound,
+                    OutputPath.Trim() == string.Empty ? "Output path empty" : outputPathFull); // TODO Replace string from with string from resources
+
                 return false;
             }
 
