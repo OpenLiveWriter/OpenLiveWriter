@@ -3910,4 +3910,7 @@ Check the path and try again.</value>
     <value>A publish command is required to publish a static site.
 Please enter one and try again.</value>
   </data>
+  <data name="DisplayMessage.SSGUrlFormatStringInvalid.Text" xml:space="preserve">
+    <value>Post URL format string must contain at-least a filename variable (%f).</value>
+  </data>
 </root>

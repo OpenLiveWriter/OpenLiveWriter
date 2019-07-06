@@ -147,6 +147,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 return false;
             }
 
+            // If post url format doesn't contain a filename variable, display an error
+            if(!UrlFormat.Contains("%f"))
+            {
+                ShowValidationError(textBoxUrlFormat, MessageId.SSGUrlFormatStringInvalid);
+                return false
+            }
+
             return true;
         }
 
