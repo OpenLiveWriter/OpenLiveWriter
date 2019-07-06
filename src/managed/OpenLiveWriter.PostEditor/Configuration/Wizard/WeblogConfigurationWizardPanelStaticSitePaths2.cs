@@ -40,11 +40,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private string _localSitePath;
 
         /// <summary>
-        /// Build enabled state, loaded from config, used for enabling of Build output path input
-        /// </summary>
-        private bool _buildingEnabled;
-
-        /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
@@ -93,22 +88,32 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             get { return ConfigPanelId.StaticSiteConfig; }
         }
 
+        public bool ImagesEnabled
+        {
+            set => labelImagesPath.Enabled = textBoxImagesPath.Enabled = value;
+        }
+
         public string ImagesPath
         {
             get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxImagesPath.Text);
-            set { textBoxImagesPath.Text = value; }
+            set => textBoxImagesPath.Text = value;
+        }
+
+        public bool BuildingEnabled
+        {
+            set => labelOutputPath.Enabled = textBoxOutputPath.Enabled = value;
         }
 
         public string OutputPath
         {
             get => textBoxOutputPath.Text;
-            set { textBoxOutputPath.Text = value; }
+            set => textBoxOutputPath.Text = value;
         }
 
         public string UrlFormat
         {
             get => textBoxUrlFormat.Text;
-            set { textBoxUrlFormat.Text = value; }
+            set => textBoxUrlFormat.Text = value;
         }
 
         public override bool ValidatePanel()
@@ -123,7 +128,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         /// <param name="config">a StaticSiteConfig instance</param>
         public void SaveToConfig(StaticSiteConfig config)
         {
-            // TODO
+            config.ImagesPath = ImagesPath;
+            config.OutputPath = OutputPath;
+            config.PostUrlFormat = UrlFormat;
         }
 
         /// <summary>
@@ -133,11 +140,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         public void LoadFromConfig(StaticSiteConfig config)
         {
             _localSitePath = config.LocalSitePath;
-            _buildingEnabled = config.BuildCommand != string.Empty;
-
-            // TODO
-
-            RecomputeEnabledStates();
+            ImagesEnabled = config.ImagesEnabled;
+            ImagesPath = config.ImagesPath;
+            BuildingEnabled = config.BuildingEnabled;
+            OutputPath = config.OutputPath;
+            UrlFormat = config.PostUrlFormat;
         }
 
         /// <summary>
@@ -253,14 +260,5 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         }
         #endregion
-
-        private void RecomputeEnabledStates()
-        {
-            // Enable labelOutputPath and textBoxOutputPath if building enabled
-            if(_buildingEnabled)
-            {
-                labelOutputPath.Enabled = textBoxOutputPath.Enabled = _buildingEnabled;
-            }
-        }
     }
 }
