@@ -88,8 +88,9 @@ namespace OpenLiveWriter.BlogClient.Clients
         /// <summary>
         /// Post URL format, appended to end of Site URL, automatically opened on publish completion.
         /// Supports %y for four-digit year, %m and %d for two-digit months and days, %f for post filename.
+        /// Default is Jekyll format: "%y/%m/%d/%f"
         /// </summary>
-        public string PostUrlFormat { get; set; } = "";
+        public string PostUrlFormat { get; set; } = "%y/%m/%d/%f";
 
         /// <summary>
         /// Used to determine if parameter detection has occurred, default false.
