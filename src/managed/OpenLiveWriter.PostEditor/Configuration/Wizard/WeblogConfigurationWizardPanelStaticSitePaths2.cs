@@ -88,9 +88,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             get { return ConfigPanelId.StaticSiteConfig; }
         }
 
+        private bool _imagesEnabled = false;
         public bool ImagesEnabled
         {
-            set => labelImagesPath.Enabled = textBoxImagesPath.Enabled = value;
+            get => _imagesEnabled;
+            set => _imagesEnabled = labelImagesPath.Enabled = textBoxImagesPath.Enabled = value;
         }
 
         public string ImagesPath
@@ -99,8 +101,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set => textBoxImagesPath.Text = value;
         }
 
+        private bool _buildingEnabled = false;
         public bool BuildingEnabled
         {
+            get => _buildingEnabled;
             set => labelOutputPath.Enabled = textBoxOutputPath.Enabled = value;
         }
 
@@ -118,7 +122,23 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public override bool ValidatePanel()
         {
-            
+            var imagesPathFull = $"{_localSitePath}\\{ImagesPath}";
+            var outputPathFull = $"{_localSitePath}\\{OutputPath}";
+
+            // If images are enabled, and the images path is empty or doesn't exist, display an error
+            if (ImagesEnabled && (ImagesPath.Trim().Length == 0 || !Directory.Exists(imagesPathFull)))
+            {
+                ShowValidationError(textBoxImagesPath, MessageId.FolderNotFound, imagesPathFull);
+                return false;
+            }
+
+            // If local building is enabled, and the site output path is empty or doesn't exist, display an error
+            if (BuildingEnabled && (OutputPath.Trim().Length == 0 || !Directory.Exists(outputPathFull)))
+            {
+                ShowValidationError(textBoxOutputPath, MessageId.FolderNotFound, outputPathFull);
+                return false;
+            }
+
             return true;
         }
 
