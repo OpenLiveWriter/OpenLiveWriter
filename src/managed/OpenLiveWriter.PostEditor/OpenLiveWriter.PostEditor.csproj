@@ -304,6 +304,9 @@
     <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelAutoDetection.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteFeatures.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSitePaths2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1043,6 +1046,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelAutoDetection.resx">
       <DependentUpon>WeblogConfigurationWizardPanelAutoDetection.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteFeatures.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelStaticSiteFeatures.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSitePaths2.resx">

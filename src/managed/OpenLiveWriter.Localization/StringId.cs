@@ -1139,6 +1139,30 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSiteEnableBuilding,
 		/// <summary>
+                                                    /// Enable Local Site Building
+                                                    /// </summary>
+                                                    CWStaticSiteFeaturesBuilding,
+		/// <summary>
+                                                    /// Enable Remote Drafts
+                                                    /// </summary>
+                                                    CWStaticSiteFeaturesDrafts,
+		/// <summary>
+                                                    /// Enable Image Upload
+                                                    /// </summary>
+                                                    CWStaticSiteFeaturesImages,
+		/// <summary>
+                                                    /// Enable Pages
+                                                    /// </summary>
+                                                    CWStaticSiteFeaturesPages,
+		/// <summary>
+                                                    /// Use the checkboxes below to define which features your static site supports. You can configure Open Live Writer for these features on the following pages.
+                                                    /// </summary>
+                                                    CWStaticSiteFeaturesSubtitle,
+		/// <summary>
+                                                    /// Provide static site features
+                                                    /// </summary>
+                                                    CWStaticSiteFeaturesTitle,
+		/// <summary>
                                                     /// {0} will attempt to automatically detect your static site configuration based on files present in your site project folder. Please select the project folder of your static site (eg. Git repository)
                                                     /// </summary>
                                                     CWStaticSiteInitialSubtitle,
