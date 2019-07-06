@@ -87,7 +87,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public override ConfigPanelId? PanelId
         {
-            get { return ConfigPanelId.StaticSiteConfig; }
+            get { return ConfigPanelId.StaticSiteConfigPaths1; }
         }
 
         public string SiteUrl
