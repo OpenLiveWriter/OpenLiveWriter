@@ -59,7 +59,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelOutputPath.Text = Res.Get(StringId.CWStaticSitePathsOutputPath);
             this.labelUrlFormat.Text = Res.Get(StringId.CWStaticSitePathsUrlFormat);
             this.labelUrlFormatSubtitle.Text = Res.Get(StringId.CWStaticSitePathsUrlFormatSubtitle);
-            this.labelUrlFormatSubtitle.ForeColor = SystemColors.GrayText;
+            this.labelUrlFormatSubtitle.ForeColor = !SystemInformation.HighContrast ? Color.FromArgb(136, 136, 136) : SystemColors.GrayText;
         }
 
         public override void NaturalizeLayout()
