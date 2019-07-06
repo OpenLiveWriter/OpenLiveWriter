@@ -992,10 +992,10 @@
     <value>Path to local static site:</value>
   </data>
   <data name="CWStaticSitePathsDraftsPath" xml:space="preserve">
-    <value>Drafts path: (relative)</value>
+    <value>Drafts path: (relative, required if drafts enabled)</value>
   </data>
   <data name="CWStaticSitePathsImagesPath" xml:space="preserve">
-    <value>Images path: (relative)</value>
+    <value>Images path: (relative, required if images enabled)</value>
   </data>
   <data name="CWStaticSitePathsOutputPath" xml:space="preserve">
     <value>Build output path: (relative, required if building enabled)</value>
@@ -1004,7 +1004,7 @@
     <value>Pages stored in site root</value>
   </data>
   <data name="CWStaticSitePathsPagesPath" xml:space="preserve">
-    <value>Pages path: (relative)</value>
+    <value>Pages path: (relative, required if pages enabled)</value>
   </data>
   <data name="CWStaticSitePathsPostsPath" xml:space="preserve">
     <value>Posts path: (relative)</value>

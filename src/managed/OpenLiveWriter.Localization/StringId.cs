@@ -1159,11 +1159,11 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSiteLocalSitePath,
 		/// <summary>
-                                                    /// Drafts path: (relative)
+                                                    /// Drafts path: (relative, required if drafts enabled)
                                                     /// </summary>
                                                     CWStaticSitePathsDraftsPath,
 		/// <summary>
-                                                    /// Images path: (relative)
+                                                    /// Images path: (relative, required if images enabled)
                                                     /// </summary>
                                                     CWStaticSitePathsImagesPath,
 		/// <summary>
@@ -1175,7 +1175,7 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSitePathsPagesInRoot,
 		/// <summary>
-                                                    /// Pages path: (relative)
+                                                    /// Pages path: (relative, required if pages enabled)
                                                     /// </summary>
                                                     CWStaticSitePathsPagesPath,
 		/// <summary>
