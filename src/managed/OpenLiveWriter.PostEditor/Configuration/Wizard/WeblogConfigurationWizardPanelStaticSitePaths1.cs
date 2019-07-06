@@ -26,6 +26,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// </summary>
     internal class WeblogConfigurationWizardPanelStaticSitePaths1 : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
     {
+        /// <summary>
+        /// Local site path, loaded from config, used for validation
+        /// </summary>
+        private string _localSitePath;
+
         private Label labelPostsPath;
         private TextBox textBoxPostsPath;
         private TextBox textBoxPagesPath;
@@ -33,11 +38,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private TextBox textBoxSiteUrl;
         private TextBox textBoxDraftsPath;
         private CheckBox checkBoxPagesInRoot;
-
-        /// <summary>
-        /// Local site path, loaded from config, used for validation
-        /// </summary>
-        private string _localSitePath;
         private Label labelDraftsPath;
         private Label labelPagesPath;
 
