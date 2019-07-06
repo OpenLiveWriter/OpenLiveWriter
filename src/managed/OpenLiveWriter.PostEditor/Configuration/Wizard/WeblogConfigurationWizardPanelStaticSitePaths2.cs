@@ -110,7 +110,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         public string OutputPath
         {
-            get => textBoxOutputPath.Text;
+            get => PathHelper.RemoveLeadingAndTrailingSlash(textBoxOutputPath.Text);
             set => textBoxOutputPath.Text = value;
         }
 
