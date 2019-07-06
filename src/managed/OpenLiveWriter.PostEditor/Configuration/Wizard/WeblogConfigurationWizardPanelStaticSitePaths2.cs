@@ -151,7 +151,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             if(!UrlFormat.Contains("%f"))
             {
                 ShowValidationError(textBoxUrlFormat, MessageId.SSGUrlFormatStringInvalid);
-                return false
+                return false;
             }
 
             return true;
@@ -243,26 +243,26 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // 
             // labelOutputPath
             // 
+            this.labelOutputPath.Enabled = false;
             this.labelOutputPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelOutputPath.Location = new System.Drawing.Point(20, 0);
+            this.labelOutputPath.Location = new System.Drawing.Point(20, 40);
             this.labelOutputPath.Name = "labelOutputPath";
             this.labelOutputPath.Size = new System.Drawing.Size(83, 13);
             this.labelOutputPath.TabIndex = 2;
             this.labelOutputPath.Text = "Build output path: (relative)";
-            this.labelOutputPath.Enabled = false;
             // 
             // textBoxOutputPath
             // 
+            this.textBoxOutputPath.Enabled = false;
             this.textBoxOutputPath.Location = new System.Drawing.Point(20, 17);
             this.textBoxOutputPath.Name = "textBoxOutputPath";
             this.textBoxOutputPath.Size = new System.Drawing.Size(368, 20);
             this.textBoxOutputPath.TabIndex = 3;
-            this.textBoxOutputPath.Enabled = false;
             // 
             // labelUrlFormat
             // 
             this.labelUrlFormat.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelUrlFormat.Location = new System.Drawing.Point(20, 0);
+            this.labelUrlFormat.Location = new System.Drawing.Point(20, 90);
             this.labelUrlFormat.Name = "labelUrlFormat";
             this.labelUrlFormat.Size = new System.Drawing.Size(83, 13);
             this.labelUrlFormat.TabIndex = 4;
@@ -271,7 +271,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // labelUrlFormatSubtitle
             // 
             this.labelUrlFormatSubtitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelUrlFormatSubtitle.Location = new System.Drawing.Point(20, 0);
+            this.labelUrlFormatSubtitle.Location = new System.Drawing.Point(20, 107);
             this.labelUrlFormatSubtitle.Name = "labelUrlFormatSubtitle";
             this.labelUrlFormatSubtitle.Size = new System.Drawing.Size(83, 13);
             this.labelUrlFormatSubtitle.TabIndex = 5;
@@ -279,8 +279,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // 
             // textBoxUrlFormat
             // 
-            this.textBoxUrlFormat.Location = new System.Drawing.Point(20, 113);
-            this.textBoxUrlFormat.Name = "textBoxPagesPath";
+            this.textBoxUrlFormat.Location = new System.Drawing.Point(20, 125);
+            this.textBoxUrlFormat.Name = "textBoxUrlFormat";
             this.textBoxUrlFormat.Size = new System.Drawing.Size(368, 20);
             this.textBoxUrlFormat.TabIndex = 6;
             // 
