@@ -384,7 +384,7 @@ CWStaticSitePathsDraftsPath,Drafts path: (relative),
 CWStaticSitePathsImagesPath,Images path: (relative),
 CWStaticSitePathsOutputPath,"Build output path: (relative, required if building enabled)",
 CWStaticSitePathsUrlFormat,Blog post URL format:,
-CWStaticSitePathsUrlFormatSubtitle,"Appended to site URL for automatic display of post after publish. Follows .NET Date formatting conventions. Use %%SLUG for post slug, includes file extension.",
+CWStaticSitePathsUrlFormatSubtitle,"Appended to site URL for automatic display of post after publish. Use %y for four-digit year, %m and %d for two digit months and days respectively. %f for post filenames.",
 CWStaticSiteConfigDetection,"{0} was able to automatically determine a partial configuration for your site. Please confirm that the pre-filled details on the next pages are correct, and complete the other missing fields.",{0} - Product name
 CWStaticSiteLocalSitePath,Path to local static site:,
 CWStaticSiteBuildCommand,Build command:,
