@@ -107,7 +107,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         public bool PagesEnabled
         {
             get => _pagesEnabled;
-            set => _pagesEnabled = textBoxPagesPath.Enabled = value;
+            set
+            {
+                _pagesEnabled
+                = labelPagesPath.Enabled
+                = value;
+
+                RecomputeEnabledStates();
+            }
         }
 
         public string PagesPath
@@ -120,7 +127,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         public bool DraftsEnabled
         {
             get => _draftsEnabled;
-            set => _draftsEnabled = textBoxDraftsPath.Enabled = value;
+            set => _draftsEnabled 
+                = labelDraftsPath.Enabled
+                = textBoxDraftsPath.Enabled 
+                = value;
         }
 
         public string DraftsPath
