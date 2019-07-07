@@ -967,15 +967,27 @@
   <data name="CWSpacesUsernameExample" xml:space="preserve">
     <value>(example555@hotmail.com)</value>
   <comment>Example of Microsoft Account ID</comment></data>
-  <data name="CWStaticSiteBuildCommand" xml:space="preserve">
+  <data name="CWStaticSiteCommandsBuildCommand" xml:space="preserve">
     <value>Build command:</value>
+  </data>
+  <data name="CWStaticSiteCommandsBuildCommandSubtitle" xml:space="preserve">
+    <value>Command that builds your site and stores the output locally, ready to be published. Required if Local Site Building enabled.</value>
+  </data>
+  <data name="CWStaticSiteCommandsPublishCommand" xml:space="preserve">
+    <value>Publish command:</value>
+  </data>
+  <data name="CWStaticSiteCommandsPublishCommandSubtitle" xml:space="preserve">
+    <value>Command that uploads your site to your hosting provider. If Local Site Building is enabled, this command would typically upload the output from the build command.</value>
+  </data>
+  <data name="CWStaticSiteCommandsSubtitle" xml:space="preserve">
+    <value>{0} will run the commands you specify below and alert you if an error occurs. Commands are ran using the system command interpreter with a working directory of your local site.</value>
+  <comment>{0} - Product name</comment></data>
+  <data name="CWStaticSiteCommandsTitle" xml:space="preserve">
+    <value>Provide site authoring commands</value>
   </data>
   <data name="CWStaticSiteConfigDetection" xml:space="preserve">
     <value>{0} was able to automatically determine a partial configuration for your site. Please confirm that the pre-filled details on the next pages are correct, and complete the other missing fields.</value>
   <comment>{0} - Product name</comment></data>
-  <data name="CWStaticSiteEnableBuilding" xml:space="preserve">
-    <value>Enable building</value>
-  </data>
   <data name="CWStaticSiteFeaturesBuilding" xml:space="preserve">
     <value>Enable Local Site Building</value>
   </data>
@@ -1038,9 +1050,6 @@
   </data>
   <data name="CWStaticSitePathsUrlFormatSubtitle" xml:space="preserve">
     <value>Appended to site URL for automatic display of post after publish. Use %y for four-digit year, %m and %d for two digit months and days respectively. %f for post filenames.</value>
-  </data>
-  <data name="CWStaticSitePublishCommand" xml:space="preserve">
-    <value>Publish command:</value>
   </data>
   <data name="CWTitle" xml:space="preserve">
     <value>Add Blog Wizard</value>

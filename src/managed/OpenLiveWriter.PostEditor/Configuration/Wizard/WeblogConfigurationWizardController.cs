@@ -572,7 +572,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             panel.SaveToConfig(staticSiteConfig);
 
             // Go to next step
-            PerformStaticSiteWizardCompletion();
+            AddStaticSiteCommandsSubStep();
         }
 
         private void AddStaticSiteFeaturesSubStep()
@@ -596,6 +596,29 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             // Go to next step
             AddStaticSitePaths1SubStep();
+        }
+
+        private void AddStaticSiteCommandsSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteCommands(),
+                null,
+                new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
+                new VerifyStepCallback(OnValidatePanel),
+                new NextCallback(OnStaticSiteCommandsCompleted),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSiteCommandsCompleted(Object stepControl)
+        {
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteCommands);
+
+            // Save panel values into config
+            panel.SaveToConfig(staticSiteConfig);
+
+            // Go to next step
+            PerformStaticSiteWizardCompletion();
         }
 
         private void OnStaticSiteBack(object step)

@@ -1129,15 +1129,31 @@ namespace OpenLiveWriter.Localization
 		/// <summary>
                                                     /// Build command:
                                                     /// </summary>
-                                                    CWStaticSiteBuildCommand,
+                                                    CWStaticSiteCommandsBuildCommand,
+		/// <summary>
+                                                    /// Command that builds your site and stores the output locally, ready to be published. Required if Local Site Building enabled.
+                                                    /// </summary>
+                                                    CWStaticSiteCommandsBuildCommandSubtitle,
+		/// <summary>
+                                                    /// Publish command:
+                                                    /// </summary>
+                                                    CWStaticSiteCommandsPublishCommand,
+		/// <summary>
+                                                    /// Command that uploads your site to your hosting provider. If Local Site Building is enabled, this command would typically upload the output from the build command.
+                                                    /// </summary>
+                                                    CWStaticSiteCommandsPublishCommandSubtitle,
+		/// <summary>
+                                                    /// {0} will run the commands you specify below and alert you if an error occurs. Commands are ran using the system command interpreter with a working directory of your local site.
+                                                    /// </summary>
+                                                    CWStaticSiteCommandsSubtitle,
+		/// <summary>
+                                                    /// Provide site authoring commands
+                                                    /// </summary>
+                                                    CWStaticSiteCommandsTitle,
 		/// <summary>
                                                     /// {0} was able to automatically determine a partial configuration for your site. Please confirm that the pre-filled details on the next pages are correct, and complete the other missing fields.
                                                     /// </summary>
                                                     CWStaticSiteConfigDetection,
-		/// <summary>
-                                                    /// Enable building
-                                                    /// </summary>
-                                                    CWStaticSiteEnableBuilding,
 		/// <summary>
                                                     /// Enable Local Site Building
                                                     /// </summary>
@@ -1222,10 +1238,6 @@ namespace OpenLiveWriter.Localization
                                                     /// Appended to site URL for automatic display of post after publish. Use %y for four-digit year, %m and %d for two digit months and days respectively. %f for post filenames.
                                                     /// </summary>
                                                     CWStaticSitePathsUrlFormatSubtitle,
-		/// <summary>
-                                                    /// Publish command:
-                                                    /// </summary>
-                                                    CWStaticSitePublishCommand,
 		/// <summary>
                                                     /// Add Blog Wizard
                                                     /// </summary>
