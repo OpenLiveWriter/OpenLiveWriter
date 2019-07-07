@@ -49,6 +49,7 @@ namespace OpenLiveWriter.PostEditor
         private System.Windows.Forms.Button buttonBrowserDialog;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private WordCountPreferences _wordCountPreferences;
+        private System.Windows.Forms.CheckBox checkBoxFormatHTML;
         private string _originalFolder = string.Empty;
 
         public PostEditorPreferencesPanel()
@@ -126,6 +127,9 @@ namespace OpenLiveWriter.PostEditor
             checkBoxCategoryReminder.CheckedChanged += new EventHandler(checkBoxCategoryReminder_CheckedChanged);
             checkBoxTagReminder.CheckedChanged += new EventHandler(checkBoxTagReminder_CheckedChanged);
 
+            checkBoxFormatHTML.Checked = _postEditorPreferences.FormatHTML;
+            checkBoxFormatHTML.CheckedChanged += new EventHandler(checkBoxFormatHTML_CheckedChanged);
+
         }
 
         private void ButtonBrowserDialog_MouseClick(object sender, MouseEventArgs e)
@@ -202,6 +206,11 @@ namespace OpenLiveWriter.PostEditor
         private void checkBoxViewWeblog_CheckedChanged(object sender, EventArgs e)
         {
             _postEditorPreferences.ViewPostAfterPublish = checkBoxViewWeblog.Checked;
+        }
+
+        private void checkBoxFormatHTML_CheckedChanged(object sender, EventArgs e)
+        {
+            _postEditorPreferences.FormatHTML = checkBoxFormatHTML.Checked;
         }
 
         private void radioButtonPostWindowBehavior_CheckedChanged(object sender, EventArgs e)
@@ -330,20 +339,20 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxGeneral = new System.Windows.Forms.GroupBox();
             this.checkBoxAutoSaveDrafts = new System.Windows.Forms.CheckBox();
             this.checkBoxWordCount = new System.Windows.Forms.CheckBox();
+            this.checkBoxFormatHTML = new System.Windows.Forms.CheckBox();
             this.groupBoxWeblogPostsFolder = new System.Windows.Forms.GroupBox();
-            this.textBoxWeblogPostsFolder = new TextBox();
-            this.folderBrowserDialog = new FolderBrowserDialog();
-            this.buttonBrowserDialog = new Button();
-            this.flowLayoutPanel = new FlowLayoutPanel();
-            this.flowLayoutPanel.SuspendLayout();
+            this.textBoxWeblogPostsFolder = new System.Windows.Forms.TextBox();
+            this.buttonBrowserDialog = new System.Windows.Forms.Button();
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBoxPublishing.SuspendLayout();
             this.groupBoxPostWindows.SuspendLayout();
             this.groupBoxGeneral.SuspendLayout();
             this.groupBoxWeblogPostsFolder.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // groupBoxPublishing
-            //
+            // 
             this.groupBoxPublishing.Controls.Add(this.checkBoxTitleReminder);
             this.groupBoxPublishing.Controls.Add(this.checkBoxTagReminder);
             this.groupBoxPublishing.Controls.Add(this.checkBoxCategoryReminder);
@@ -356,9 +365,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPublishing.TabIndex = 2;
             this.groupBoxPublishing.TabStop = false;
             this.groupBoxPublishing.Text = "Publishing";
-            //
+            // 
             // checkBoxTitleReminder
-            //
+            // 
             this.checkBoxTitleReminder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxTitleReminder.Location = new System.Drawing.Point(16, 93);
             this.checkBoxTitleReminder.Name = "checkBoxTitleReminder";
@@ -366,9 +375,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxTitleReminder.TabIndex = 3;
             this.checkBoxTitleReminder.Text = "&Remind me to specify a title before publishing";
             this.checkBoxTitleReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // checkBoxTagReminder
-            //
+            // 
             this.checkBoxTagReminder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxTagReminder.Location = new System.Drawing.Point(16, 135);
             this.checkBoxTagReminder.Name = "checkBoxTagReminder";
@@ -376,9 +385,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxTagReminder.TabIndex = 5;
             this.checkBoxTagReminder.Text = "Remind me to add &tags before publishing";
             this.checkBoxTagReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // checkBoxCategoryReminder
-            //
+            // 
             this.checkBoxCategoryReminder.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxCategoryReminder.Location = new System.Drawing.Point(16, 114);
             this.checkBoxCategoryReminder.Name = "checkBoxCategoryReminder";
@@ -386,9 +395,9 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxCategoryReminder.TabIndex = 4;
             this.checkBoxCategoryReminder.Text = "Remind me to add &categories before publishing";
             this.checkBoxCategoryReminder.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // checkBoxCloseWindow
-            //
+            // 
             this.checkBoxCloseWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxCloseWindow.Location = new System.Drawing.Point(16, 42);
             this.checkBoxCloseWindow.Name = "checkBoxCloseWindow";
@@ -396,20 +405,19 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxCloseWindow.TabIndex = 1;
             this.checkBoxCloseWindow.Text = "Close &window after publishing: ";
             this.checkBoxCloseWindow.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // checkBoxViewWeblog
-            //
+            // 
             this.checkBoxViewWeblog.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxViewWeblog.Location = new System.Drawing.Point(16, 21);
             this.checkBoxViewWeblog.Name = "checkBoxViewWeblog";
             this.checkBoxViewWeblog.Size = new System.Drawing.Size(312, 21);
             this.checkBoxViewWeblog.TabIndex = 0;
-            // Modified on 2/19/2016 by @kathweaver to resolve Issue #377
             this.checkBoxViewWeblog.Text = "&View blog after publishing";
             this.checkBoxViewWeblog.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // groupBoxPostWindows
-            //
+            // 
             this.groupBoxPostWindows.Controls.Add(this.radioButtonOpenNewWindowIfDirty);
             this.groupBoxPostWindows.Controls.Add(this.radioButtonUseSameWindow);
             this.groupBoxPostWindows.Controls.Add(this.radioButtonOpenNewWindow);
@@ -420,9 +428,9 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPostWindows.TabIndex = 1;
             this.groupBoxPostWindows.TabStop = false;
             this.groupBoxPostWindows.Text = "Post Windows";
-            //
+            // 
             // radioButtonOpenNewWindowIfDirty
-            //
+            // 
             this.radioButtonOpenNewWindowIfDirty.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonOpenNewWindowIfDirty.Location = new System.Drawing.Point(16, 69);
             this.radioButtonOpenNewWindowIfDirty.Name = "radioButtonOpenNewWindowIfDirty";
@@ -430,9 +438,9 @@ namespace OpenLiveWriter.PostEditor
             this.radioButtonOpenNewWindowIfDirty.TabIndex = 2;
             this.radioButtonOpenNewWindowIfDirty.Text = "Open a new window &only when there are unsaved changes to the current post";
             this.radioButtonOpenNewWindowIfDirty.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // radioButtonUseSameWindow
-            //
+            // 
             this.radioButtonUseSameWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonUseSameWindow.Location = new System.Drawing.Point(16, 21);
             this.radioButtonUseSameWindow.Name = "radioButtonUseSameWindow";
@@ -440,9 +448,9 @@ namespace OpenLiveWriter.PostEditor
             this.radioButtonUseSameWindow.TabIndex = 0;
             this.radioButtonUseSameWindow.Text = "Use a &single window for editing all posts";
             this.radioButtonUseSameWindow.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // radioButtonOpenNewWindow
-            //
+            // 
             this.radioButtonOpenNewWindow.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButtonOpenNewWindow.Location = new System.Drawing.Point(16, 44);
             this.radioButtonOpenNewWindow.Name = "radioButtonOpenNewWindow";
@@ -450,21 +458,22 @@ namespace OpenLiveWriter.PostEditor
             this.radioButtonOpenNewWindow.TabIndex = 1;
             this.radioButtonOpenNewWindow.Text = "Open a new window for &each post";
             this.radioButtonOpenNewWindow.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // groupBoxGeneral
-            //
+            // 
+            this.groupBoxGeneral.Controls.Add(this.checkBoxFormatHTML);
             this.groupBoxGeneral.Controls.Add(this.checkBoxAutoSaveDrafts);
             this.groupBoxGeneral.Controls.Add(this.checkBoxWordCount);
             this.groupBoxGeneral.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBoxGeneral.Location = new System.Drawing.Point(8, 154);
+            this.groupBoxGeneral.Location = new System.Drawing.Point(8, 254);
             this.groupBoxGeneral.Name = "groupBoxGeneral";
             this.groupBoxGeneral.Size = new System.Drawing.Size(345, 174);
             this.groupBoxGeneral.TabIndex = 3;
             this.groupBoxGeneral.TabStop = false;
             this.groupBoxGeneral.Text = "General";
-            //
+            // 
             // checkBoxAutoSaveDrafts
-            //
+            // 
             this.checkBoxAutoSaveDrafts.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxAutoSaveDrafts.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxAutoSaveDrafts.Location = new System.Drawing.Point(16, 21);
@@ -473,49 +482,31 @@ namespace OpenLiveWriter.PostEditor
             this.checkBoxAutoSaveDrafts.TabIndex = 0;
             this.checkBoxAutoSaveDrafts.Text = "Automatically save &drafts every:";
             this.checkBoxAutoSaveDrafts.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            //
+            // 
             // checkBoxWordCount
-            //
+            // 
             this.checkBoxWordCount.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxWordCount.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkBoxWordCount.Location = new System.Drawing.Point(16, 156);
             this.checkBoxWordCount.Name = "checkBoxWordCount";
-            this.checkBoxWordCount.Size = new System.Drawing.Size(312, 18);
+            this.checkBoxWordCount.Size = new System.Drawing.Size(312, 62);
             this.checkBoxWordCount.TabIndex = 1;
             this.checkBoxWordCount.Text = "Show real time &word count in status bar";
             this.checkBoxWordCount.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.checkBoxWordCount.UseVisualStyleBackColor = true;
-            //
-            // textBoxWeblogPostsFolder
-            //
-            this.textBoxWeblogPostsFolder.Name = "textBoxWeblogPostsFolder";
-            this.textBoxWeblogPostsFolder.Size = new System.Drawing.Size(314, 22);
-            this.textBoxWeblogPostsFolder.AutoSize = false;
-            this.textBoxWeblogPostsFolder.TabIndex = 1;
-            this.textBoxWeblogPostsFolder.Text = "Show default post save location";
-            this.textBoxWeblogPostsFolder.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.textBoxWeblogPostsFolder.Location = new System.Drawing.Point(16, 21);
-            this.textBoxWeblogPostsFolder.BorderStyle = BorderStyle.FixedSingle;
-            this.textBoxWeblogPostsFolder.Font = Res.DefaultFont;
-            //
-            // buttonBrowserDialog
-            //
-            this.buttonBrowserDialog.Name = "buttonBrowserDialog";
-            this.buttonBrowserDialog.Text = Res.Get(StringId.PostEditorPrefBrowseFolder);
-            this.buttonBrowserDialog.TabIndex = 2;
-            this.buttonBrowserDialog.Location = new System.Drawing.Point(16, 32);
-            this.buttonBrowserDialog.Size =  new System.Drawing.Size(70, 22);
-            this.buttonBrowserDialog.Font = Res.DefaultFont;
-            this.buttonBrowserDialog.AutoSize = false;
-            //
-            // FolderBrowserDialog
-            //
-            this.folderBrowserDialog.Description = "Select the directory that you want to use as the default";
-            this.folderBrowserDialog.ShowNewFolderButton = true;
-            this.folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
-            //
+            // 
+            // checkBoxFormatHTML
+            // 
+            this.checkBoxFormatHTML.AutoSize = true;
+            this.checkBoxFormatHTML.Location = new System.Drawing.Point(16, 131);
+            this.checkBoxFormatHTML.Name = "checkBoxFormatHTML";
+            this.checkBoxFormatHTML.Size = new System.Drawing.Size(218, 19);
+            this.checkBoxFormatHTML.TabIndex = 2;
+            this.checkBoxFormatHTML.Text = "&Always format HTML in Source View";
+            this.checkBoxFormatHTML.UseVisualStyleBackColor = true;
+            // 
             // groupBoxWeblogPostsFolder
-            //
+            // 
             this.groupBoxWeblogPostsFolder.Controls.Add(this.textBoxWeblogPostsFolder);
             this.groupBoxWeblogPostsFolder.Controls.Add(this.buttonBrowserDialog);
             this.groupBoxWeblogPostsFolder.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -525,14 +516,45 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxWeblogPostsFolder.TabIndex = 4;
             this.groupBoxWeblogPostsFolder.TabStop = false;
             this.groupBoxWeblogPostsFolder.Text = "Post Folder Location";
-            //
+            // 
+            // textBoxWeblogPostsFolder
+            // 
+            this.textBoxWeblogPostsFolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxWeblogPostsFolder.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxWeblogPostsFolder.Location = new System.Drawing.Point(16, 21);
+            this.textBoxWeblogPostsFolder.Name = "textBoxWeblogPostsFolder";
+            this.textBoxWeblogPostsFolder.Size = new System.Drawing.Size(314, 23);
+            this.textBoxWeblogPostsFolder.TabIndex = 1;
+            this.textBoxWeblogPostsFolder.Text = "Show default post save location";
+            // 
+            // buttonBrowserDialog
+            // 
+            this.buttonBrowserDialog.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttonBrowserDialog.Location = new System.Drawing.Point(16, 32);
+            this.buttonBrowserDialog.Name = "buttonBrowserDialog";
+            this.buttonBrowserDialog.Size = new System.Drawing.Size(70, 22);
+            this.buttonBrowserDialog.TabIndex = 2;
+            this.buttonBrowserDialog.Text = "Browse";
+            // 
+            // folderBrowserDialog
+            // 
+            this.folderBrowserDialog.Description = "Select the directory that you want to use as the default";
+            this.folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // flowLayoutPanel
+            // 
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Size = new System.Drawing.Size(200, 100);
+            this.flowLayoutPanel.TabIndex = 0;
+            // 
             // PostEditorPreferencesPanel
-            //
+            // 
             this.AccessibleName = "Preferences";
+            this.Controls.Add(this.groupBoxWeblogPostsFolder);
+            this.Controls.Add(this.groupBoxGeneral);
             this.Controls.Add(this.groupBoxPostWindows);
             this.Controls.Add(this.groupBoxPublishing);
-            this.Controls.Add(this.groupBoxGeneral);
-            this.Controls.Add(this.groupBoxWeblogPostsFolder);
             this.Name = "PostEditorPreferencesPanel";
             this.PanelName = "Preferences";
             this.Size = new System.Drawing.Size(370, 521);
@@ -543,9 +565,11 @@ namespace OpenLiveWriter.PostEditor
             this.groupBoxPublishing.ResumeLayout(false);
             this.groupBoxPostWindows.ResumeLayout(false);
             this.groupBoxGeneral.ResumeLayout(false);
-            this.flowLayoutPanel.ResumeLayout(false);
+            this.groupBoxGeneral.PerformLayout();
             this.groupBoxWeblogPostsFolder.ResumeLayout(false);
+            this.groupBoxWeblogPostsFolder.PerformLayout();
             this.ResumeLayout(false);
+
         }
         #endregion
 

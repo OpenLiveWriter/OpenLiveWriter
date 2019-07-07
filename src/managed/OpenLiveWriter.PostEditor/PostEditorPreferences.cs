@@ -29,6 +29,13 @@ namespace OpenLiveWriter.PostEditor
         }
         private bool _viewPostAfterPublish;
 
+        public bool FormatHTML
+        {
+            get { return _formatHTML; }
+            set { _formatHTML = value; Modified(); }
+        }
+        private bool _formatHTML;
+
         public bool CloseWindowOnPublish
         {
             get { return _closeWindowOnPublish; }
@@ -94,6 +101,7 @@ namespace OpenLiveWriter.PostEditor
             AutoSaveDrafts = PostEditorSettings.AutoSaveDrafts;
             AutoSaveMinutes = PostEditorSettings.AutoSaveMinutes;
             WeblogPostsFolder = PostEditorSettings.WeblogPostsFolder;
+            FormatHTML = PostEditorSettings.FormatHTML;
         }
 
         protected override void SavePreferences()
@@ -107,6 +115,7 @@ namespace OpenLiveWriter.PostEditor
             PostEditorSettings.AutoSaveDrafts = AutoSaveDrafts;
             PostEditorSettings.AutoSaveMinutes = AutoSaveMinutes;
             PostEditorSettings.WeblogPostsFolder = WeblogPostsFolder;
+            PostEditorSettings.FormatHTML = FormatHTML;
         }
 
         public void SaveWebLogPostFolder()

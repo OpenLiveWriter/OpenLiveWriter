@@ -204,7 +204,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public string GetEditedHtml(bool preferWellFormed)
         {
-            return sourceControl.GetEditedHtml(preferWellFormed);
+            bool formatHTML = PostEditorPreferences.Instance.FormatHTML;
+            return sourceControl.GetEditedHtml(formatHTML);
         }
 
         public string GetEditedHtmlFast()
@@ -427,7 +428,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         public override string GetEditedHtml(bool preferWellFormed)
         {
             //get the raw HTML out of the source control's text box
-            String htmlText = base.GetEditedHtml(preferWellFormed);
+            bool formatHTML = PostEditorPreferences.Instance.FormatHTML;
+            String htmlText = base.GetEditedHtml(formatHTML);
 
             //undo any URL variable-name conversions that were previously applied by the replace operation.
             _replaceOperation.Mode = ReplaceAbsoluteFilePathsOperation.REPLACE_MODE.VAR2ABS;

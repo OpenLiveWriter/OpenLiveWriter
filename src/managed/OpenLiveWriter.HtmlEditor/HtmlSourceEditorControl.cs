@@ -164,8 +164,8 @@ namespace OpenLiveWriter.HtmlEditor
         }
 
         public virtual string GetEditedHtmlFast()
-        {
-            return GetEditedHtml(false);
+        {            
+            return GetEditedHtml(true);
         }
 
         public string SelectedText
