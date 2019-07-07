@@ -152,9 +152,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             var draftsPathFull = $"{_localSitePath}\\{DraftsPath}";
 
             // If the Posts path is empty or doesn't exist, display an error
-            if (PostsPath.Trim().Length == 0 || !Directory.Exists(postsPathFull))
+            if (PostsPath.Trim() == string.Empty || !Directory.Exists(postsPathFull))
             {
-                ShowValidationError(textBoxPostsPath, MessageId.FolderNotFound, postsPathFull);
+                ShowValidationError(
+                    textBoxPostsPath,
+                    MessageId.FolderNotFound,
+                    PostsPath.Trim() == string.Empty ? "Posts path empty" : postsPathFull); // TODO Replace string from with string from resources
                 return false;
             }
 
