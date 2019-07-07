@@ -1159,7 +1159,7 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSiteFeaturesSubtitle,
 		/// <summary>
-                                                    /// Provide static site features
+                                                    /// Define static site features
                                                     /// </summary>
                                                     CWStaticSiteFeaturesTitle,
 		/// <summary>
