@@ -3906,8 +3906,12 @@ Folder not found.
 Check the path and try again.</value>
     <comment>{0} - name of a folder that could not be found</comment>
   </data>
+  <data name="DisplayMessage.SSGBuildCommandRequired.Text" xml:space="preserve">
+    <value>A build command is required when local building is enabled.
+Please enter one and try again.</value>
+  </data>
   <data name="DisplayMessage.SSGPublishCommandRequired.Text" xml:space="preserve">
-    <value>A publish command is required to publish a static site.
+    <value>A publish command is required.
 Please enter one and try again.</value>
   </data>
   <data name="DisplayMessage.SSGUrlFormatStringInvalid.Text" xml:space="preserve">

@@ -101,6 +101,7 @@ namespace OpenLiveWriter.Localization
         SpacesPublishingNotEnabled,
         SpellCheckCancelledStillPost,
         SpellCheckComplete,
+        SSGBuildCommandRequired,
         SSGPublishCommandRequired,
         SSGUrlFormatStringInvalid,
         TagConfirmDeleteProvider,

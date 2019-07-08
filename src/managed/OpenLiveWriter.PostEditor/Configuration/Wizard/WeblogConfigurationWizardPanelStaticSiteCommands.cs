@@ -118,6 +118,22 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // If building enabled, and build command empty, throw validation error
             // If publish command empty, throw validation error
 
+            if(BuildingEnabled && BuildCommand.Trim() == string.Empty)
+            {
+                ShowValidationError(
+                    textBoxBuildCommand,
+                    MessageId.SSGBuildCommandRequired);
+                return false;
+            }
+
+            if(PublishCommand.Trim() == string.Empty)
+            {
+                ShowValidationError(
+                    textBoxPublishCommand,
+                    MessageId.SSGPublishCommandRequired);
+                return false;
+            }
+
             return true;
         }
 
