@@ -59,13 +59,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             LayoutHelper.DistributeHorizontally(5, textBoxLocalSitePath, btnLocalSiteBrowse);
             LayoutHelper.NaturalizeHeight(labelSubtitle);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelLocalSitePath, textBoxLocalSitePath);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelLocalSitePath, textBoxLocalSitePath);
 
             // Align browse button exactly with textbox
             btnLocalSiteBrowse.Height = textBoxLocalSitePath.Height;
             btnLocalSiteBrowse.Top = textBoxLocalSitePath.Top;
 
-            LayoutHelper.DistributeVertically(20, false,
+            LayoutHelper.DistributeVerticallyNoScale(20, false,
                 labelSubtitle,
                 new ControlGroup(labelLocalSitePath, textBoxLocalSitePath, btnLocalSiteBrowse)
             );

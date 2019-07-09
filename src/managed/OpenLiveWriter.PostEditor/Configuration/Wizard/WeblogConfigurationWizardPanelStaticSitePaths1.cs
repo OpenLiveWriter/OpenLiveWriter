@@ -73,12 +73,12 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             MaximizeWidth(labelDraftsPath);
             MaximizeWidth(textBoxDraftsPath);
 
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelSiteUrl, textBoxSiteUrl);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPostsPath, textBoxPostsPath);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPagesPath, textBoxPagesPath, checkBoxPagesInRoot);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelDraftsPath, textBoxDraftsPath);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelSiteUrl, textBoxSiteUrl);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelPostsPath, textBoxPostsPath);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelPagesPath, textBoxPagesPath, checkBoxPagesInRoot);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelDraftsPath, textBoxDraftsPath);
 
-            LayoutHelper.DistributeVertically(10, false,
+            LayoutHelper.DistributeVerticallyNoScale(10, false,
                 new ControlGroup(labelSiteUrl, textBoxSiteUrl),
                 new ControlGroup(labelPostsPath, textBoxPostsPath),
                 new ControlGroup(labelPagesPath, textBoxPagesPath, checkBoxPagesInRoot),

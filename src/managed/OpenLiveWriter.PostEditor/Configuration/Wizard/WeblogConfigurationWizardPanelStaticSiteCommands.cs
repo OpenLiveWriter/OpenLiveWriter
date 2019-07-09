@@ -74,10 +74,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             MaximizeWidth(textBoxPublishCommand);
 
             LayoutHelper.NaturalizeHeight(labelSubtitle);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelBuildCommand, labelBuildCommandSubtitle, textBoxBuildCommand);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelPublishCommand, labelPublishCommandSubtitle, textBoxPublishCommand);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelBuildCommand, labelBuildCommandSubtitle, textBoxBuildCommand);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelPublishCommand, labelPublishCommandSubtitle, textBoxPublishCommand);
 
-            LayoutHelper.DistributeVertically(10, false,
+            LayoutHelper.DistributeVerticallyNoScale(10, false,
                 labelSubtitle,
                 new ControlGroup(labelBuildCommand, labelBuildCommandSubtitle, textBoxBuildCommand),
                 new ControlGroup(labelPublishCommand, labelPublishCommandSubtitle, textBoxPublishCommand)
@@ -247,6 +247,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // labelBuildCommandSubtitle
             // 
             this.labelBuildCommandSubtitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelBuildCommandSubtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelBuildCommandSubtitle.Location = new System.Drawing.Point(20, 70);
             this.labelBuildCommandSubtitle.Name = "labelBuildCommandSubtitle";
             this.labelBuildCommandSubtitle.Size = new System.Drawing.Size(83, 13);
@@ -256,6 +257,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // labelPublishCommandSubtitle
             // 
             this.labelPublishCommandSubtitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelPublishCommandSubtitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPublishCommandSubtitle.Location = new System.Drawing.Point(20, 138);
             this.labelPublishCommandSubtitle.Name = "labelPublishCommandSubtitle";
             this.labelPublishCommandSubtitle.Size = new System.Drawing.Size(167, 13);

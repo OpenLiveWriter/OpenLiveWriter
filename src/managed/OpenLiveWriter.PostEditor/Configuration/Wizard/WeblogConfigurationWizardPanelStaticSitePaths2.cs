@@ -72,11 +72,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             LayoutHelper.NaturalizeHeight(labelUrlFormatSubtitle);
 
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelImagesPath, textBoxImagesPath);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelOutputPath, textBoxOutputPath);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, labelUrlFormat, labelUrlFormatSubtitle, textBoxUrlFormat);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelImagesPath, textBoxImagesPath);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelOutputPath, textBoxOutputPath);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelUrlFormat, labelUrlFormatSubtitle, textBoxUrlFormat);
 
-            LayoutHelper.DistributeVertically(10, false,
+            LayoutHelper.DistributeVerticallyNoScale(10, false,
                 new ControlGroup(labelImagesPath, textBoxImagesPath),
                 new ControlGroup(labelOutputPath, textBoxOutputPath),
                 new ControlGroup(labelUrlFormat, labelUrlFormatSubtitle, textBoxUrlFormat)

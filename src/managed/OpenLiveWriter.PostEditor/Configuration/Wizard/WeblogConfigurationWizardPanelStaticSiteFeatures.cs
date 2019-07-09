@@ -62,13 +62,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             MaximizeWidth(checkBoxBuildingEnabled);
 
             LayoutHelper.NaturalizeHeight(labelSubtitle);
-            LayoutHelper.NaturalizeHeightAndDistribute(3, 
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, 
                 checkBoxPagesEnabled, 
                 checkBoxDraftsEnabled, 
                 checkBoxImagesEnabled, 
                 checkBoxBuildingEnabled);
 
-            LayoutHelper.DistributeVertically(10, false,
+            LayoutHelper.DistributeVerticallyNoScale(10, false,
                 labelSubtitle,
                 new ControlGroup(checkBoxPagesEnabled,
                 checkBoxDraftsEnabled,
