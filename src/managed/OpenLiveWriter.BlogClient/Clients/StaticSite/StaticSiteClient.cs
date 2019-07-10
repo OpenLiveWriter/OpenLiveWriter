@@ -80,12 +80,11 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Trace.Fail("Cannot post as draft as this static site has no specified draft path.");
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
-
-            // The remote post is only meant to be used for blogs that use the Atom protocol.
             remotePost = null;
-
-            // Static sites do not generate E-Tags
             etag = "";
+
+            // Set Date if not provided
+            if (post.DatePublished == new DateTime(1, 1, 1)) post.DatePublished = DateTime.Now;
 
             // Make post front matter
             var frontMatter = GetFrontMatterForPost(post);
@@ -303,12 +302,12 @@ namespace OpenLiveWriter.BlogClient.Clients
             var frontMatter = new PostFrontMatter()
             {
                 Title = post.Title,
-                Categories = post.Categories.Select(cat => cat.Name).ToArray(),
-                Tags = post.Keywords
+                Tags = post.Categories.Select(cat => cat.Name).ToArray(),
+                Date = post.HasDatePublishedOverride ? post.DatePublishedOverride.ToString("yyyy-MM-dd HH:mm:ss") : post.DatePublished.ToString("yyyy-MM-dd HH:mm:ss"),
+                Layout = post.IsPage ? "page" : "post"
             };
 
             if (post.Author != null) frontMatter.Author = post.Author.Name;
-            if (post.DatePublished != new DateTime()) frontMatter.Date = post.DatePublished.ToString("yyyy-MM-dd HH:mm:ss");
 
             return frontMatter;
         }
@@ -327,11 +326,8 @@ namespace OpenLiveWriter.BlogClient.Clients
             [YamlMember(Alias = "layout")]
             public string Layout { get; set; } = "post";
 
-            [YamlMember(Alias = "categories")]
-            public string[] Categories { get; set; }
-
             [YamlMember(Alias = "tags")]
-            public string Tags { get; set; }
+            public string[] Tags { get; set; }
 
             public string Serialize() => (new Serializer().Serialize(this));
             public static PostFrontMatter Deserialize(string yaml) => (new Deserializer().Deserialize<PostFrontMatter>(yaml));
