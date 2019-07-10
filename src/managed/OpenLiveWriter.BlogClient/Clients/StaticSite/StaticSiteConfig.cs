@@ -94,6 +94,11 @@ namespace OpenLiveWriter.BlogClient.Clients
         public string SiteUrl { get; set; } = "";
 
         /// <summary>
+        /// Site title
+        /// </summary>
+        public string SiteTitle { get; set; } = "";
+
+        /// <summary>
         /// Post URL format, appended to end of Site URL, automatically opened on publish completion.
         /// Supports %y for four-digit year, %m and %d for two-digit months and days, %f for post filename.
         /// Default is Jekyll format: "%y/%m/%d/%f"
@@ -141,6 +146,8 @@ namespace OpenLiveWriter.BlogClient.Clients
         public void LoadFromBlogSettings(IBlogSettingsAccessor blogSettings)
         {
             SiteUrl = blogSettings.HomepageUrl;
+            SiteTitle = blogSettings.BlogName;
+
             LoadFromCredentials(blogSettings.Credentials);
         }
 
