@@ -279,6 +279,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             clientOptions.SupportsKeywords = false;
 
             // The follwoing values would be written into YAML front-matter
+            clientOptions.FuturePublishDateWarning = true;
             clientOptions.SupportsCustomDate = clientOptions.SupportsCustomDateUpdate = true;
             clientOptions.SupportsSlug = true;
             clientOptions.SupportsAuthor = true;
@@ -303,7 +304,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 Title = post.Title,
                 Tags = post.Categories.Select(cat => cat.Name).ToArray(),
-                Date = post.HasDatePublishedOverride ? post.DatePublishedOverride.ToString("yyyy-MM-dd HH:mm:ss") : post.DatePublished.ToString("yyyy-MM-dd HH:mm:ss"),
+                Date = post.HasDatePublishedOverride 
+                    ? post.DatePublishedOverride.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss") 
+                    : post.DatePublished.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"),
                 Layout = post.IsPage ? "page" : "post"
             };
 
