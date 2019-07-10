@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 
+using OpenLiveWriter.Api;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
@@ -261,23 +262,25 @@ namespace OpenLiveWriter.BlogClient.Clients
         }
 
         /// <summary>
-        /// Sets the relevant BlogClientOptions for this client
+        /// Sets the relevant BlogClientOptions for this client based on values from the StaticSiteConfig
         /// </summary>
         /// <param name="clientOptions">A BlogClientOptions instance</param>
         private void ConfigureClientOptions(BlogClientOptions clientOptions)
         {
-            // Pages are supported if a Pages path is provided
-            clientOptions.SupportsPages = config.PagesPath.Length > 0;
+            clientOptions.SupportsPages = clientOptions.SupportsPageParent = config.PagesEnabled;
+            clientOptions.SupportsPostAsDraft = config.DraftsEnabled;
+            clientOptions.SupportsFileUpload = config.ImagesEnabled;
+            clientOptions.SupportsImageUpload = config.ImagesEnabled ? SupportsFeature.Yes : SupportsFeature.No;
+            clientOptions.SupportsScripts = clientOptions.SupportsEmbeds = SupportsFeature.Yes;
 
-            // Drafts are supported if a Drafts path is provided
-            clientOptions.SupportsPostAsDraft = false; // TODO ask for a drafts path
-
-            // The follwoing values would be written into YAML front-matter
+            // Categories treated as tags for the time being
             clientOptions.SupportsCategories = true;
             clientOptions.SupportsMultipleCategories = true;
             clientOptions.SupportsNewCategories = true;
-            clientOptions.SupportsCustomDate = true;
-            clientOptions.SupportsFileUpload = true;
+            clientOptions.SupportsKeywords = false;
+
+            // The follwoing values would be written into YAML front-matter
+            clientOptions.SupportsCustomDate = clientOptions.SupportsCustomDateUpdate = true;
             clientOptions.SupportsSlug = true;
             clientOptions.SupportsAuthor = true;
         }
