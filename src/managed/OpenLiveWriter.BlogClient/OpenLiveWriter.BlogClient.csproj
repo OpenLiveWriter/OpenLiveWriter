@@ -163,6 +163,7 @@
     <Compile Include="Clients\MovableTypeClient.cs" />
     <Compile Include="Clients\RedirectHelper.cs" />
     <Compile Include="Clients\SharePointClient.cs" />
+    <Compile Include="Clients\StaticSite\StaticSiteConfigDetector.cs" />
     <Compile Include="Clients\StaticSite\StaticSiteClient.cs" />
     <Compile Include="Clients\StaticSite\StaticSiteConfig.cs" />
     <Compile Include="Clients\WordPressClient.cs" />
