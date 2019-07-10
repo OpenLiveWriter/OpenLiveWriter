@@ -515,14 +515,19 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             if(!staticSiteConfig.Initialised)
             {
+                // Set initialised flag so detection isn't undertaken again
+                staticSiteConfig.Initialised = true;
                 // Attempt parameter detection
-                var detectionResult = staticSiteConfig.AttemptConfigDetection();
-                if (detectionResult) // Successful detection of parameters
+                var detectionResult = StaticSiteConfigDetector.AttmeptAutoDetect(staticSiteConfig);
+                if (detectionResult)
+                {
+                    // Successful detection of parameters
                     MessageBox.Show(
-                        string.Format(Res.Get(StringId.CWStaticSiteConfigDetection), Res.Get(StringId.ProductNameVersioned)), 
+                        string.Format(Res.Get(StringId.CWStaticSiteConfigDetection), Res.Get(StringId.ProductNameVersioned)),
                         Res.Get(StringId.ProductNameVersioned),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                }
             }
 
             // Go to next step
@@ -638,6 +643,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 );
 
             _temporarySettings.HomepageUrl = staticSiteConfig.SiteUrl;
+            _temporarySettings.BlogName = staticSiteConfig.SiteTitle;
 
             // Fill config into credentials
             staticSiteConfig.SaveToCredentials(_temporarySettings.Credentials);

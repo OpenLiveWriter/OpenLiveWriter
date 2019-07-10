@@ -178,17 +178,6 @@ namespace OpenLiveWriter.BlogClient.Clients
             creds.SetCustomValue(CONFIG_INITIALISED, Initialised ? "1" : "0");
         }
 
-        /// <summary>
-        /// Attempt detection of parameters based on LocalSitePath
-        /// </summary>
-        /// <returns>True if detection successful</returns>
-        public bool AttemptConfigDetection()
-        {
-            // TODO Implement
-            Initialised = true;
-            return true;
-        }
-
         public void SaveToCredentials(IBlogCredentials blogCredentials)
             => SaveToCredentials(new BlogCredentialsAccessor("", blogCredentials));
 
