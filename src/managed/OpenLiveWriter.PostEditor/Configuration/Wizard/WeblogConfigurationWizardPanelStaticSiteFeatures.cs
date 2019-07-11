@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.BlogClient;
-using OpenLiveWriter.BlogClient.Clients;
+using OpenLiveWriter.BlogClient.Clients.StaticSite;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Extensibility.BlogClient;

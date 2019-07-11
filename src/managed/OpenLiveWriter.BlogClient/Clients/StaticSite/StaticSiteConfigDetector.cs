@@ -9,7 +9,7 @@ using YamlDotNet.RepresentationModel;
 
 using OpenLiveWriter.CoreServices;
 
-namespace OpenLiveWriter.BlogClient.Clients
+namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
     public class StaticSiteConfigDetector
     {

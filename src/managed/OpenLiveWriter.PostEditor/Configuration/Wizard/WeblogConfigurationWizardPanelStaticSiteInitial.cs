@@ -10,8 +10,6 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using OpenLiveWriter.ApplicationFramework.Preferences;
-using OpenLiveWriter.BlogClient;
-using OpenLiveWriter.BlogClient.Clients;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Extensibility.BlogClient;
@@ -19,7 +17,7 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.PostEditor.BlogProviderButtons;
 
-using StaticSiteClient = OpenLiveWriter.BlogClient.Clients.StaticSiteClient;
+using OpenLiveWriter.BlogClient.Clients.StaticSite;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 {

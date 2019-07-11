@@ -19,7 +19,7 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 
-namespace OpenLiveWriter.BlogClient.Clients
+namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
     [BlogClient(StaticSiteClient.CLIENT_TYPE, StaticSiteClient.CLIENT_TYPE)]
     public class StaticSiteClient : BlogClientBase, IBlogClient

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Forms;
 using OpenLiveWriter.BlogClient;
-using OpenLiveWriter.BlogClient.Clients;
+using OpenLiveWriter.BlogClient.Clients.StaticSite;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Controls.Wizard;
