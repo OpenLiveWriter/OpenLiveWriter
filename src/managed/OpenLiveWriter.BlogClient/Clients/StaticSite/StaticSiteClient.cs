@@ -175,7 +175,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             => throw new NotImplementedException("HTTP requests not implemented for static sites"); // TODO This is used for downloading writing manifest XMLs. Throw an exception for now.
 
         public BlogInfo[] GetImageEndpoints() 
-            => throw new NotImplementedException();;
+            => throw new NotImplementedException();
 
         /// <summary>
         /// Returns if this StaticSiteGeneratorClient is secure
