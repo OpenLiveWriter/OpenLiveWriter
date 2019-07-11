@@ -165,15 +165,17 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
         }
 
-        public string AddCategory(string blogId, BlogPostCategory category) => "";
+        public string AddCategory(string blogId, BlogPostCategory category) =>
+            throw new BlogClientMethodUnsupportedException("AddCategory");
 
         public BlogPostCategory[] SuggestCategories(string blogId, string partialCategoryName)
-            => new BlogPostCategory[0];
+            => throw new BlogClientMethodUnsupportedException("SuggestCategories");
 
         public HttpWebResponse SendAuthenticatedHttpRequest(string requestUri, int timeoutMs, HttpRequestFilter filter)
             => throw new NotImplementedException("HTTP requests not implemented for static sites"); // TODO This is used for downloading writing manifest XMLs. Throw an exception for now.
 
-        public BlogInfo[] GetImageEndpoints() => new BlogInfo[0];
+        public BlogInfo[] GetImageEndpoints() 
+            => throw new NotImplementedException();;
 
         /// <summary>
         /// Returns if this StaticSiteGeneratorClient is secure
