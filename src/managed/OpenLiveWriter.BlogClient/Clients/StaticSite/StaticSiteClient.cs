@@ -15,9 +15,6 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Localization;
 
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
-
 
 namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
@@ -314,27 +311,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             if (post.Author != null) frontMatter.Author = post.Author.Name;
 
             return frontMatter;
-        }
-
-        private class PostFrontMatter
-        {
-            [YamlMember(Alias = "title")]
-            public string Title { get; set; }
-
-            [YamlMember(Alias = "author")]
-            public string Author { get; set; }
-
-            [YamlMember(Alias = "date")]
-            public string Date { get; set; }
-
-            [YamlMember(Alias = "layout")]
-            public string Layout { get; set; } = "post";
-
-            [YamlMember(Alias = "tags")]
-            public string[] Tags { get; set; }
-
-            public string Serialize() => (new Serializer().Serialize(this));
-            public static PostFrontMatter Deserialize(string yaml) => (new Deserializer().Deserialize<PostFrontMatter>(yaml));
         }
     }
 }
