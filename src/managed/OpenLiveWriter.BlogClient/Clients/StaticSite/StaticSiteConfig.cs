@@ -217,7 +217,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
     public class StaticSiteConfigFrontMatterKeys
     {
         public string TitleKey { get; set; }
-        public string AuthorKey { get; set; }
         public string DateKey { get; set; }
         public string LayoutKey { get; set; }
         public string TagsKey { get; set; }

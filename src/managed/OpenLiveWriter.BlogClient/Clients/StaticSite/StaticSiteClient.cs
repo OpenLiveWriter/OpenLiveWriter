@@ -159,7 +159,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
         }
 
-        public AuthorInfo[] GetAuthors(string blogId) => new AuthorInfo[0];
+        public AuthorInfo[] GetAuthors(string blogId) => throw new NotImplementedException();
+
         public bool? DoesFileNeedUpload(IFileUploadContext uploadContext) => false;
         public string DoBeforePublishUploadWork(IFileUploadContext uploadContext) => "";
 
@@ -282,7 +283,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             clientOptions.FuturePublishDateWarning = true;
             clientOptions.SupportsCustomDate = clientOptions.SupportsCustomDateUpdate = true;
             clientOptions.SupportsSlug = true;
-            clientOptions.SupportsAuthor = true;
+            clientOptions.SupportsAuthor = false;
         }
 
         private string GetFileNameForPost(BlogPost post, bool newPost)
