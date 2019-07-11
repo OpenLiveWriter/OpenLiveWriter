@@ -136,6 +136,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Don't overwrite the default value if we fail to find a value;
             if (creds.GetCustomValue(CONFIG_POST_URL_FORMAT) != string.Empty) PostUrlFormat = creds.GetCustomValue(CONFIG_POST_URL_FORMAT);
 
+            // TODO Load FrontMatterKeys
+
             Initialised = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
         }
 
@@ -176,6 +178,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             creds.SetCustomValue(CONFIG_PUBLISH_COMMAND, PublishCommand);
             creds.SetCustomValue(CONFIG_POST_URL_FORMAT, PostUrlFormat);
             creds.SetCustomValue(CONFIG_INITIALISED, Initialised ? "1" : "0");
+
+            // TODO Save FrontMatterKeys
         }
 
         public void SaveToCredentials(IBlogCredentials blogCredentials)
@@ -205,5 +209,20 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             config.LoadFromBlogSettings(blogSettings);
             return config;
         }
+    }
+
+    /// <summary>
+    /// Represents the YAML keys used for each of these properties in the front matter
+    /// </summary>
+    public class StaticSiteConfigFrontMatterKeys
+    {
+        public string TitleKey { get; set; }
+        public string AuthorKey { get; set; }
+        public string DateKey { get; set; }
+        public string LayoutKey { get; set; }
+        public string TagsKey { get; set; }
+
+        // TODO LoadFromCredentials
+        // TODO SaveToCredentials
     }
 }
