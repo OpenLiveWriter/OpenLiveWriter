@@ -58,5 +58,51 @@ date: 2019-01-01 00:00:00");
             Assert.IsTrue(Enumerable.SequenceEqual(fm.Tags, expected.Tags));
         }
 
+        [Test]
+        public void Serialize_Basic()
+        {
+            // Expected
+            var expected = @"title: Test title
+date: 2019-01-01 00:00:00
+layout: post
+";
+
+            // Act
+            var fm = new StaticSitePostFrontMatter()
+            {
+                Title = "Test title",
+                Date = "2019-01-01 00:00:00",
+                Layout = "post"
+            };
+
+            // Assert
+            Assert.AreEqual(expected, fm.Serialize());
+        }
+
+
+        [Test]
+        public void Serialize_WithTags()
+        {
+            // Expected
+            var expected = @"title: Test title
+date: 2019-01-01 00:00:00
+layout: post
+tags:
+- hello
+- world
+";
+
+            // Act
+            var fm = new StaticSitePostFrontMatter()
+            {
+                Title = "Test title",
+                Date = "2019-01-01 00:00:00",
+                Layout = "post",
+                Tags = new string[] {"hello", "world"}
+            };
+
+            // Assert
+            Assert.AreEqual(expected, fm.Serialize());
+        }
     }
 }
