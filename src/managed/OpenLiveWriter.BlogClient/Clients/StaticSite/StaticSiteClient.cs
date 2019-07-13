@@ -83,21 +83,12 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Set Date if not provided
             if (post.DatePublished == new DateTime(1, 1, 1)) post.DatePublished = DateTime.Now;
 
-            // Make post front matter
-            var frontMatter = GetFrontMatterForPost(post);
-
-            // Build the output
-            var outputFile = new StringBuilder();
-            outputFile.AppendLine("---");
-            outputFile.Append(frontMatter.Serialize());
-            outputFile.AppendLine("---");
-            outputFile.AppendLine();
-            outputFile.Append(post.Contents);
+            var fileContents = new StaticSitePost(post).ToString();
 
             // Write to file
             var fileName = GetFileNameForPost(post, publish);
             var fullPath = $"{config.LocalSitePath}/{config.PostsPath}/{fileName}";
-            File.WriteAllText(fullPath, outputFile.ToString());
+            File.WriteAllText(fullPath, fileContents);
 
             try
             {
@@ -291,28 +282,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             // TODO Make this format customisable
             return $"{post.DatePublished.ToString("yyyy-MM-dd")}-{safeTitle}.html";
-        }
-
-        /// <summary>
-        /// Get a PostFrontMatter instance for a post
-        /// </summary>
-        /// <param name="post">Post to generate front matter for</param>
-        /// <returns></returns>
-        private PostFrontMatter GetFrontMatterForPost(BlogPost post)
-        {
-            var frontMatter = new PostFrontMatter()
-            {
-                Title = post.Title,
-                Tags = post.Categories.Select(cat => cat.Name).ToArray(),
-                Date = post.HasDatePublishedOverride 
-                    ? post.DatePublishedOverride.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss") 
-                    : post.DatePublished.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss"),
-                Layout = post.IsPage ? "page" : "post"
-            };
-
-            if (post.Author != null) frontMatter.Author = post.Author.Name;
-
-            return frontMatter;
         }
     }
 }
