@@ -34,6 +34,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             Tags = new string[] { }; // Initialize Tags to empty array
         }
 
+        /// <summary>
+        /// Converts the front matter to it's YAML representation
+        /// </summary>
+        /// <returns>YAML representation of post front-matter, lines separated by CRLF</returns>
         public string Serialize()
         {
             var root = new YamlMappingNode();
@@ -51,6 +55,12 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Trim off end-of-doc
             return new Regex("\\.\\.\\.\r\n$").Replace(stringWriter.ToString(), "", 1);
         }
+
+        /// <summary>
+        /// Converts the front matter to it's YAML representation
+        /// </summary>
+        /// <returns>YAML representation of post front-matter, lines separated by CRLF</returns>
+        public override string ToString() => Serialize();
 
         public void Deserialize(string yaml)
         {
