@@ -57,7 +57,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         /// <summary>
-        /// Get the file name for the published post, based on slug
+        /// Get the on-disk file name for the published post, based on slug
         /// </summary>
         public string FileName
         {
@@ -65,7 +65,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         /// <summary>
-        /// Get the file path for the published post, based on slug
+        /// Get the on-disk file path for the published post, based on slug
         /// </summary>
         public string FilePath
         {
@@ -73,6 +73,19 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                     SiteConfig.LocalSitePath,
                     (BlogPost.IsPage && SiteConfig.PagesEnabled) ? SiteConfig.PagesPath : SiteConfig.PostsPath,
                     FileName);
+        }
+
+        /// <summary>
+        /// Get the site path for the published post
+        /// eg. /2019/01/slug.html
+        /// </summary>
+        public string SitePath
+        {
+            get => SiteConfig.PostUrlFormat
+                .Replace("%y", BlogPost.DatePublished.ToString("yyyy"))
+                .Replace("%m", BlogPost.DatePublished.ToString("MM"))
+                .Replace("%d", BlogPost.DatePublished.ToString("dd"))
+                .Replace("%f", $"{Slug}{PUBLISH_FILE_EXTENSION}");
         }
 
         /// <summary>
