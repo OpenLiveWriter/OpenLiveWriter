@@ -28,16 +28,16 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public const string POST_API_URL = "http://localhost/"; // A valid URI is required for BlogClientManager to instantiate a URI object on.
         public const string CLIENT_TYPE  = "StaticSite";
 
-        private static Regex WEB_UNSAFE_CHARS = new Regex("[^A-Za-z0-9 ]*");
+        public static Regex WEB_UNSAFE_CHARS = new Regex("[^A-Za-z0-9 ]*");
 
         public IBlogClientOptions Options { get; private set; }
 
-        private StaticSiteConfig config;
+        private StaticSiteConfig Config;
         
         public StaticSiteClient(Uri postApiUrl, IBlogCredentialsAccessor credentials)
             : base(credentials)
         {
-            config = StaticSiteConfig.LoadConfigFromCredentials(credentials);
+            Config = StaticSiteConfig.LoadConfigFromCredentials(credentials);
 
             // Set the client options
             var options = new BlogClientOptions();
@@ -83,17 +83,14 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Set Date if not provided
             if (post.DatePublished == new DateTime(1, 1, 1)) post.DatePublished = DateTime.Now;
 
-            var fileContents = new StaticSitePost(post).ToString();
-
             // Write to file
-            var fileName = GetFileNameForPost(post, publish);
-            var fullPath = $"{config.LocalSitePath}/{config.PostsPath}/{fileName}";
-            File.WriteAllText(fullPath, fileContents);
+            var ssgPost = new StaticSitePost(Config, post);
+            ssgPost.SaveToDisk();
 
             try
             {
                 // Build the site, if required
-                if (config.BuildCommand != string.Empty) DoSiteBuild();
+                if (Config.BuildCommand != string.Empty) DoSiteBuild();
 
                 // Publish the site 
                 DoSitePublish();
@@ -102,7 +99,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             } catch (Exception ex)
             {
                 // Clean up our output file
-                File.Delete(fullPath);
+                File.Delete(ssgPost.FilePath);
                 // Throw the exception up
                 throw ex;
             }
@@ -188,7 +185,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         private void DoSiteBuild()
         {
-            var proc = RunSiteCommand(config.BuildCommand);
+            var proc = RunSiteCommand(Config.BuildCommand);
             if (proc.ExitCode != 0)
             {
                 throw new BlogClientException(
@@ -207,7 +204,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         private void DoSitePublish()
         {
-            var proc = RunSiteCommand(config.PublishCommand);
+            var proc = RunSiteCommand(Config.PublishCommand);
             if (proc.ExitCode != 0)
             {
                 throw new BlogClientException(
@@ -236,7 +233,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 "cmd.exe"; // Launch regular cmd
 
             // Set working directory to local site path
-            proc.StartInfo.WorkingDirectory = config.LocalSitePath;
+            proc.StartInfo.WorkingDirectory = Config.LocalSitePath;
 
             proc.StartInfo.RedirectStandardError = true;
             proc.StartInfo.RedirectStandardOutput = true;
@@ -257,10 +254,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <param name="clientOptions">A BlogClientOptions instance</param>
         private void ConfigureClientOptions(BlogClientOptions clientOptions)
         {
-            clientOptions.SupportsPages = clientOptions.SupportsPageParent = config.PagesEnabled;
-            clientOptions.SupportsPostAsDraft = config.DraftsEnabled;
-            clientOptions.SupportsFileUpload = config.ImagesEnabled;
-            clientOptions.SupportsImageUpload = config.ImagesEnabled ? SupportsFeature.Yes : SupportsFeature.No;
+            clientOptions.SupportsPages = clientOptions.SupportsPageParent = Config.PagesEnabled;
+            clientOptions.SupportsPostAsDraft = Config.DraftsEnabled;
+            clientOptions.SupportsFileUpload = Config.ImagesEnabled;
+            clientOptions.SupportsImageUpload = Config.ImagesEnabled ? SupportsFeature.Yes : SupportsFeature.No;
             clientOptions.SupportsScripts = clientOptions.SupportsEmbeds = SupportsFeature.Yes;
 
             // Categories treated as tags for the time being
@@ -274,14 +271,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             clientOptions.SupportsCustomDate = clientOptions.SupportsCustomDateUpdate = true;
             clientOptions.SupportsSlug = true;
             clientOptions.SupportsAuthor = false;
-        }
-
-        private string GetFileNameForPost(BlogPost post, bool newPost)
-        {
-            var safeTitle = WEB_UNSAFE_CHARS.Replace(post.Title.ToLower(), "").Replace(" ", "-");
-
-            // TODO Make this format customisable
-            return $"{post.DatePublished.ToString("yyyy-MM-dd")}-{safeTitle}.html";
         }
     }
 }
