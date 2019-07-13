@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 using YamlDotNet.RepresentationModel;
 
@@ -44,7 +45,11 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 root.Add(frontMatterKeys.TagsKey, new YamlSequenceNode(Tags.Select(
                     tag => new YamlScalarNode(tag))));
 
-            return root.ToString();
+            var stream = new YamlStream(new YamlDocument(root));
+            var stringWriter = new StringWriter();
+            stream.Save(stringWriter);
+            // Trim off end-of-doc
+            return new Regex("\\.\\.\\.\r\n$").Replace(stringWriter.ToString(), "", 1);
         }
 
         public void Deserialize(string yaml)
