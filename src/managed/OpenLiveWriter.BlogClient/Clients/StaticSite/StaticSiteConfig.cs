@@ -214,8 +214,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
     /// <summary>
     /// Represents the YAML keys used for each of these properties in the front matter
     /// </summary>
-    public class StaticSiteConfigFrontMatterKeys
+    public struct StaticSiteConfigFrontMatterKeys
     {
+        public string IdKey { get; set; }
         public string TitleKey { get; set; }
         public string DateKey { get; set; }
         public string LayoutKey { get; set; }
