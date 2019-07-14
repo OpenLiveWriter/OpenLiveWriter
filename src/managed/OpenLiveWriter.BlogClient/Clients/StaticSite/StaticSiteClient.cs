@@ -83,8 +83,11 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Set Date if not provided
             if (post.DatePublished == new DateTime(1, 1, 1)) post.DatePublished = DateTime.Now;
 
-            // Write to file
+            // Create a StaticSitePost on the provided post
             var ssgPost = new StaticSitePost(Config, post);
+            // Ensure the post has an ID
+            var newPostId = ssgPost.EnsureId();
+            // Save the post to disk
             ssgPost.SaveToDisk();
 
             try
@@ -95,7 +98,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 // Publish the site 
                 DoSitePublish();
 
-                return "";
+                return newPostId;
             } catch (Exception ex)
             {
                 // Clean up our output file

@@ -181,9 +181,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         public void SaveToDisk()
         {
-            // Generate an ID if one isn't already generated
-            EnsureId();
-
             // Generate a safe slug if one isn't already generated
             // This ensures we don't overwrite an existing post
             EnsureSafeSlug();
