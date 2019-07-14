@@ -50,11 +50,15 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             get
             {
-                if (BlogPost.Slug == string.Empty)
-                    BlogPost.Slug = GenerateNewSlug();
-                return BlogPost.Slug;
+                EnsureSafeSlug();
+                return _slug;
             }
         }
+
+        /// <summary>
+        /// Confirmed safe slug; does not conflict with any existing post on disk or points to this post on disk.
+        /// </summary>
+        private string _slug;
 
         /// <summary>
         /// Get the on-disk file name for the published post, based on slug
@@ -92,16 +96,24 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         /// <summary>
-        /// Generate a slug for this post based on it's title or a preferred slug
+        /// Generates and saves a new slug
         /// </summary>
-        /// <returns>A safe, on-disk slug for this post</returns>
-        private string GenerateNewSlug() => GenerateNewSlug("");
+        /// <returns>True if a new slug was generated</returns>
+        public bool EnsureSafeSlug()
+        {
+            if (_slug == null || _slug == string.Empty)
+            {
+                _slug = BlogPost.Slug = GetNewSafeSlug(BlogPost.Slug);
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// Generate a slug for this post based on it's title or a preferred slug
         /// </summary>
         /// <returns>A safe, on-disk slug for this post</returns>
-        private string GenerateNewSlug(string preferredSlug)
+        private string GetNewSafeSlug(string preferredSlug)
         {
             // Try the filename without a duplicate identifier, then duplicate identifiers up until 999 before throwing an exception
             for(int i = 0; i < 1000; i++)
