@@ -44,21 +44,27 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         /// <summary>
+        /// Unique ID of the BlogPost
+        /// </summary>
+        public string Id
+        {
+            get => BlogPost.Id;
+            set => BlogPost.Id = value;
+        }
+
+        /// <summary>
         /// Get the slug for the post, or generate it if it currently does not have one
         /// </summary>
         public string Slug
         {
-            get
-            {
-                EnsureSafeSlug();
-                return _slug;
-            }
+            get => _safeSlug;
+            set => BlogPost.Slug = _safeSlug = value;
         }
 
         /// <summary>
         /// Confirmed safe slug; does not conflict with any existing post on disk or points to this post on disk.
         /// </summary>
-        private string _slug;
+        private string _safeSlug;
 
         /// <summary>
         /// Get the on-disk file name for the published post, based on slug
@@ -96,17 +102,23 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         /// <summary>
-        /// Generates and saves a new slug
+        /// Generate a safe slug if the post doesn't already have one. Returns the current or new Slug.
         /// </summary>
-        /// <returns>True if a new slug was generated</returns>
-        public bool EnsureSafeSlug()
+        /// <returns>The current or new Slug.</returns>
+        public string EnsureSafeSlug()
         {
-            if (_slug == null || _slug == string.Empty)
-            {
-                _slug = GetNewSafeSlug(BlogPost.Slug);
-                return true;
-            }
-            return false;
+            if (_safeSlug == null || _safeSlug == string.Empty) Slug = GetNewSafeSlug(BlogPost.Slug);
+            return Slug;
+        }
+
+        /// <summary>
+        /// Generate a new Id and save it to the BlogPost if requried. Returns the current or new Id.
+        /// </summary>
+        /// <returns>The current or new Id</returns>
+        public string EnsureId()
+        {
+            if(Id == null || Id == string.Empty) Id = Guid.NewGuid().ToString();
+            return Id;
         }
 
         /// <summary>
