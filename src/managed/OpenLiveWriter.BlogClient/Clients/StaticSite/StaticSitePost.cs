@@ -137,8 +137,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 if (i > 0) slug += $"-{i}";
                 if (!File.Exists(GetFilePathForProvidedSlug(slug))) return slug;
             }
-            // Couldn't find an available filename, return a GUID.
-            return Guid.NewGuid().ToString();
+
+            // Couldn't find an available filename, use the post's ID.
+            return StaticSiteClient.WEB_UNSAFE_CHARS.Replace(EnsureId(), "").Replace(" ", "-");
         }
 
         /// <summary>
