@@ -18,15 +18,18 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private StaticSiteConfigFrontMatterKeys frontMatterKeys
             = new StaticSiteConfigFrontMatterKeys()
             {
+                IdKey = "olw_id",
                 TitleKey = "title",
                 DateKey = "date",
                 LayoutKey = "layout",
                 TagsKey = "tags"
             };
 
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Date { get; set; }
         public string Layout { get; set; } = "post";
+        public string Slug { get; set; }
         public string[] Tags { get; set; }
 
         public StaticSitePostFrontMatter()
@@ -42,7 +45,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             var root = new YamlMappingNode();
 
-            if(Title != null) root.Add(frontMatterKeys.TitleKey, Title);
+            if (Id != null && Id.Length > 0) root.Add(frontMatterKeys.IdKey, Id);
+            if (Title != null) root.Add(frontMatterKeys.TitleKey, Title);
             if(Date != null) root.Add(frontMatterKeys.DateKey, Date);
             if(Layout != null) root.Add(frontMatterKeys.LayoutKey, Layout);
             if (Tags != null && Tags.Length > 0)
@@ -68,6 +72,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             stream.Load(new StringReader(yaml));
             var root = (YamlMappingNode)stream.Documents[0].RootNode;
 
+            // Load id
+            var idNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.IdKey);
+            if (idNodes.Count() > 0) Id = idNodes.First().Value.ToString();
+
             // Load title
             var titleNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.TitleKey);
             if (titleNodes.Count() > 0) Title = titleNodes.First().Value.ToString();
@@ -88,6 +96,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public void LoadFromBlogPost(BlogPost post)
         {
+            Id = post.Id;
             Title = post.Title;
             Tags = post.Categories.Select(cat => cat.Name).ToArray();
             Date = (post.HasDatePublishedOverride ? post.DatePublishedOverride : post.DatePublished)
@@ -97,6 +106,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public void SaveToBlogPost(BlogPost post)
         {
+            post.Id = Id;
             post.Title = Title;
             post.Categories = Tags?.Select(t => new BlogPostCategory(t)).ToArray();
             try { post.DatePublished = DateTime.Parse(Date); } catch { }
