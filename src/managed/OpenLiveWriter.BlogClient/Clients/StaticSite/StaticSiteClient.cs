@@ -80,13 +80,12 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             remotePost = null;
             etag = "";
 
-            // Set Date if not provided
-            if (post.DatePublished == new DateTime(1, 1, 1)) post.DatePublished = DateTime.Now;
-
             // Create a StaticSitePost on the provided post
             var ssgPost = new StaticSitePost(Config, post);
             // Ensure the post has an ID
             var newPostId = ssgPost.EnsureId();
+            // Ensure the post has a date
+            ssgPost.EnsureDatePublished();
             // Save the post to disk
             ssgPost.SaveToDisk();
 

@@ -61,6 +61,12 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             set => BlogPost.Slug = _safeSlug = value;
         }
 
+        public DateTime DatePublished
+        {
+            get => BlogPost.DatePublished;
+            set => BlogPost.DatePublished = value;
+        }
+
         /// <summary>
         /// Confirmed safe slug; does not conflict with any existing post on disk or points to this post on disk.
         /// </summary>
@@ -119,6 +125,16 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             if(Id == null || Id == string.Empty) Id = Guid.NewGuid().ToString();
             return Id;
+        }
+
+        /// <summary>
+        /// Set post published DateTime to current DateTime if one isn't already set, or current one is default.
+        /// </summary>
+        /// <returns>The current or new DatePublished.</returns>
+        public DateTime EnsureDatePublished()
+        {
+            if (DatePublished == null || DatePublished == new DateTime(1, 1, 1)) DatePublished = DateTime.Now;
+            return DatePublished;
         }
 
         /// <summary>
