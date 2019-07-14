@@ -51,7 +51,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             get
             {
                 if (BlogPost.Slug == string.Empty)
-                    BlogPost.Slug = GenerateSlugFromTitle();
+                    BlogPost.Slug = GenerateNewSlug();
                 return BlogPost.Slug;
             }
         }
@@ -61,7 +61,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         public string FileName
         {
-            get => $"{BlogPost.DatePublished.ToString("yyyy-MM-dd")}-{Slug}{PUBLISH_FILE_EXTENSION}";
+            get => GetFileNameForProvidedSlug(Slug);
         }
 
         /// <summary>
@@ -69,49 +69,86 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         public string FilePath
         {
-            get => Path.Combine(
-                    SiteConfig.LocalSitePath,
-                    (BlogPost.IsPage && SiteConfig.PagesEnabled) ? SiteConfig.PagesPath : SiteConfig.PostsPath,
-                    FileName);
+            get => GetFilePathForProvidedSlug(Slug);
         }
 
         /// <summary>
         /// Get the site path for the published post
         /// eg. /2019/01/slug.html
+        /// TODO consider removing this feature and associated config setting as we don't actually need this information 
         /// </summary>
         public string SitePath
         {
-            get => SiteConfig.PostUrlFormat
+            get
+            {
+                if (BlogPost.IsPage) throw new NotImplementedException(); // TODO 
+
+                return SiteConfig.PostUrlFormat
                 .Replace("%y", BlogPost.DatePublished.ToString("yyyy"))
                 .Replace("%m", BlogPost.DatePublished.ToString("MM"))
                 .Replace("%d", BlogPost.DatePublished.ToString("dd"))
                 .Replace("%f", $"{Slug}{PUBLISH_FILE_EXTENSION}");
+            }
         }
 
         /// <summary>
-        /// Generate a slug for this post based on it's title
+        /// Generate a slug for this post based on it's title or a preferred slug
         /// </summary>
-        /// <returns>The on-disk file name for this post</returns>
-        public string GenerateSlugFromTitle()
+        /// <returns>A safe, on-disk slug for this post</returns>
+        private string GenerateNewSlug() => GenerateNewSlug("");
+
+        /// <summary>
+        /// Generate a slug for this post based on it's title or a preferred slug
+        /// </summary>
+        /// <returns>A safe, on-disk slug for this post</returns>
+        private string GenerateNewSlug(string preferredSlug)
         {
             // Try the filename without a duplicate identifier, then duplicate identifiers up until 999 before throwing an exception
             for(int i = 0; i < 1000; i++)
             {
                 // "Hello World!" -> "hello-world"
-                string slug = StaticSiteClient.WEB_UNSAFE_CHARS.Replace(BlogPost.Title.ToLower(), "").Replace(" ", "-");
+                string slug = StaticSiteClient.WEB_UNSAFE_CHARS
+                    .Replace((preferredSlug == string.Empty ? BlogPost.Title : preferredSlug).ToLower(), "")
+                    .Replace(" ", "-");
                 if (i > 0) slug += $"-{i}";
-
-                var fileName = $"{BlogPost.DatePublished.ToString("yyyy-MM-dd")}-{slug}{PUBLISH_FILE_EXTENSION}";
-                var filePath = Path.Combine(
-                    SiteConfig.LocalSitePath,
-                    (BlogPost.IsPage && SiteConfig.PagesEnabled) ? SiteConfig.PagesPath : SiteConfig.PostsPath,
-                    fileName);
-
-                if (!File.Exists(filePath)) return slug;
+                if (!File.Exists(GetFilePathForProvidedSlug(slug))) return slug;
             }
-
             // Couldn't find an available filename, return a GUID.
             return Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
+        /// Get the Post filenpame for the provided slug
+        /// </summary>
+        /// <param name="slug"></param>
+        private string GetFileNameForProvidedSlug(string slug)
+        {
+            if(BlogPost.IsPage && SiteConfig.PagesEnabled)
+            {
+                return $"{BlogPost.DatePublished.ToString("yyyy-MM-dd")}-{slug}{PUBLISH_FILE_EXTENSION}";
+            }
+            else
+            {
+                return $"{BlogPost.DatePublished.ToString("yyyy-MM-dd")}-{slug}{PUBLISH_FILE_EXTENSION}";
+            }
+        }
+
+        private string GetFilePathForProvidedSlug(string slug)
+        {
+            if (BlogPost.IsPage && SiteConfig.PagesEnabled)
+            {
+                return Path.Combine(
+                    SiteConfig.LocalSitePath,
+                    SiteConfig.PagesPath,
+                    GetFileNameForProvidedSlug(slug));
+            }
+            else
+            {
+                return Path.Combine(
+                    SiteConfig.LocalSitePath,
+                    SiteConfig.PostsPath,
+                    GetFileNameForProvidedSlug(slug));
+            }
         }
 
         /// <summary>
