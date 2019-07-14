@@ -74,7 +74,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             if(!publish && !Options.SupportsPostAsDraft)
             {
-                Trace.Fail("Cannot post as draft as this static site has no specified draft path.");
+                Trace.Fail("Static site does not support drafts, cannot post.");
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
             remotePost = null;
