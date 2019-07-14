@@ -28,7 +28,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public const string POST_API_URL = "http://localhost/"; // A valid URI is required for BlogClientManager to instantiate a URI object on.
         public const string CLIENT_TYPE  = "StaticSite";
 
-        public static Regex WEB_UNSAFE_CHARS = new Regex("[^A-Za-z0-9 ]*");
+        public static Regex WEB_UNSAFE_CHARS = new Regex("[^A-Za-z0-9- ]*");
 
         public IBlogClientOptions Options { get; private set; }
 
