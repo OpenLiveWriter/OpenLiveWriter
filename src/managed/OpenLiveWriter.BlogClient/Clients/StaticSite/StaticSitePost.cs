@@ -178,6 +178,17 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <summary>
         /// Save the post to the correct directory
         /// </summary>
-        public void SaveToDisk() => File.WriteAllText(FilePath, ToString());
+        public void SaveToDisk()
+        {
+            // Generate an ID if one isn't already generated
+            EnsureId();
+
+            // Generate a safe slug if one isn't already generated
+            // This ensures we don't overwrite an existing post
+            EnsureSafeSlug();
+
+            // Save the post to disk
+            File.WriteAllText(FilePath, ToString());
+        }
     }
 }
