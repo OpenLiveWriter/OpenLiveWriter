@@ -103,7 +103,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             if (_slug == null || _slug == string.Empty)
             {
-                _slug = BlogPost.Slug = GetNewSafeSlug(BlogPost.Slug);
+                _slug = GetNewSafeSlug(BlogPost.Slug);
                 return true;
             }
             return false;
