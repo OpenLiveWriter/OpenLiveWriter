@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
+using System.Diagnostics;
 
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
@@ -13,6 +15,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
     public class StaticSitePost
     {
         public static string PUBLISH_FILE_EXTENSION = ".html";
+        private static Regex POST_PARSE_REGEX = new Regex("^---\r?\n((?:.*\r?\n)*?)---\r?\n\r?\n((?:.*\r?\n)*)");
+        private static Regex FILENAME_SLUG_REGEX = new Regex(@"^\d\d\d\d-\d\d-\d\d-(.*?)\.html$");
 
         private StaticSiteConfig SiteConfig;
         public BlogPost BlogPost { get; private set; }
@@ -198,6 +202,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             }
         }
 
+        private string GetSlugFromPublishFileName(string publishFileName) => FILENAME_SLUG_REGEX.Match(publishFileName).Groups[1].Value;
+
         /// <summary>
         /// Save the post to the correct directory
         /// </summary>
@@ -217,12 +223,28 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <param name="postFilePath">Path to published post file</param>
         public void LoadFromFile(string postFilePath)
         {
-            // TODO 
-            // Attempt to open the file
+            // Attempt to load file contents
+            var fileContents = File.ReadAllText(postFilePath);
+
             // Parse out everything between triple-hyphens into front matter parser
-            // Load content into a new BlogPost
-            // Save front matter into BlogPost
+            var frontMatterMatchResult = POST_PARSE_REGEX.Match(fileContents);
+            if (!frontMatterMatchResult.Success || frontMatterMatchResult.Groups.Count < 3) throw new BlogClientException("Post load error", "Could not read post front matter"); // TODO Use strings resources
+            var frontMatterYaml = frontMatterMatchResult.Groups[1].Value;
+            var postContent = frontMatterMatchResult.Groups[2].Value;
+
+            // Create a new BlogPost
+            BlogPost = new BlogPost();
+            // Parse front matter and save in
+            StaticSitePostFrontMatter.GetFromYaml(frontMatterYaml).SaveToBlogPost(BlogPost);
+
+            // Throw error if post does not have an ID
+            if (Id == null || Id == string.Empty) throw new BlogClientException("Post load error", "Post does not have an ID");
+
+            // Load the content into blogpost
+            BlogPost.Contents = postContent;
+
             // Set slug to match file name
+            Slug = GetSlugFromPublishFileName(Path.GetFileName(postFilePath));
         }
 
         /// <summary>
