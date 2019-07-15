@@ -68,7 +68,18 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <param name="includeCategories"></param>
         /// <param name="now">If null, then includes future posts.  If non-null, then only includes posts before the *UTC* 'now' time.</param>
         /// <returns></returns>
-        public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now) => new BlogPost[0];
+        public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now) =>
+            Directory.GetFiles(Path.Combine(Config.LocalSitePath, Config.PostsPath), "*.html")
+            .Select(postFile =>
+            {
+                try
+                {
+                    return StaticSitePost.LoadFromFile(Path.Combine(Config.LocalSitePath, Config.PostsPath, postFile), Config).BlogPost;
+                }
+                catch { return null; }
+            })
+            .Where(post => post != null && (now != null || post.DatePublished < now))
+            .ToArray();
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
         {
