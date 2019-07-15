@@ -17,6 +17,12 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private StaticSiteConfig SiteConfig;
         public BlogPost BlogPost { get; private set; }
 
+        public StaticSitePost(StaticSiteConfig config)
+        {
+            SiteConfig = config;
+            BlogPost = null;
+        }
+
         public StaticSitePost(StaticSiteConfig config, BlogPost blogPost)
         {
             SiteConfig = config;
