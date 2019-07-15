@@ -23,17 +23,17 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
     {
         // The 'provider' concept doesn't really apply to local static sites
         // Store these required constants here so they're in one place
-        public const string PROVIDER_ID  = "D0E0062F-7540-4462-94FD-DC55004D95E6";
+        public const string PROVIDER_ID = "D0E0062F-7540-4462-94FD-DC55004D95E6";
         public const string SERVICE_NAME = "Static Site Generator"; // TODO- Move to Strings
         public const string POST_API_URL = "http://localhost/"; // A valid URI is required for BlogClientManager to instantiate a URI object on.
-        public const string CLIENT_TYPE  = "StaticSite";
+        public const string CLIENT_TYPE = "StaticSite";
 
         public static Regex WEB_UNSAFE_CHARS = new Regex("[^A-Za-z0-9- ]*");
 
         public IBlogClientOptions Options { get; private set; }
 
         private StaticSiteConfig Config;
-        
+
         public StaticSiteClient(Uri postApiUrl, IBlogCredentialsAccessor credentials)
             : base(credentials)
         {
@@ -47,7 +47,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         protected override void VerifyCredentials(TransientCredentials transientCredentials)
         {
-            
+
         }
 
         public void OverrideOptions(IBlogClientOptions newClientOptions)
