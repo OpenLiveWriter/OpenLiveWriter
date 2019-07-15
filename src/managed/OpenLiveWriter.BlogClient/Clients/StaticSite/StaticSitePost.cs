@@ -112,7 +112,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 .Replace("%f", $"{Slug}{PUBLISH_FILE_EXTENSION}");
             }
         }
-
+            
         /// <summary>
         /// Generate a safe slug if the post doesn't already have one. Returns the current or new Slug.
         /// </summary>
@@ -209,6 +209,33 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             // Save the post to disk
             File.WriteAllText(FilePath, ToString());
+        }
+
+        /// <summary>
+        /// Load published post from a specified file path
+        /// </summary>
+        /// <param name="postFilePath">Path to published post file</param>
+        public void LoadFromFile(string postFilePath)
+        {
+            // TODO 
+            // Attempt to open the file
+            // Parse out everything between triple-hyphens into front matter parser
+            // Load content into a new BlogPost
+            // Save front matter into BlogPost
+            // Set slug to match file name
+        }
+
+        /// <summary>
+        /// Load published post from a specified file path
+        /// </summary>
+        /// <param name="postFilePath">Path to published post file</param>
+        /// <param name="config">StaticSiteConfig to instantiate post with</param>
+        /// <returns>A loaded StaticSitePost</returns>
+        public static StaticSitePost LoadFromFile(string postFilePath, StaticSiteConfig config)
+        {
+            var post = new StaticSitePost(config);
+            post.LoadFromFile(postFilePath);
+            return post;
         }
     }
 }
