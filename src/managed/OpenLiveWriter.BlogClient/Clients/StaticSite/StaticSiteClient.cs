@@ -98,7 +98,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Ensure the post has a date
             ssgPost.EnsureDatePublished();
             // Save the post to disk
-            ssgPost.SaveToDisk();
+            ssgPost.SaveToFile();
 
             try
             {

@@ -201,7 +201,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <summary>
         /// Save the post to the correct directory
         /// </summary>
-        public void SaveToDisk()
+        public void SaveToFile()
         {
             // Generate a safe slug if one isn't already generated
             // This ensures we don't overwrite an existing post
