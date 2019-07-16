@@ -18,7 +18,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private StaticSiteConfigFrontMatterKeys frontMatterKeys
             = new StaticSiteConfigFrontMatterKeys()
             {
-                IdKey = "olw_id",
+                IdKey = "id",
                 TitleKey = "title",
                 DateKey = "date",
                 LayoutKey = "layout",
