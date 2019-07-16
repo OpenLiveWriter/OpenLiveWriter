@@ -123,7 +123,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <returns>The current or new Slug.</returns>
         public string EnsureSafeSlug()
         {
-            if (_safeSlug == null || _safeSlug == string.Empty) Slug = GetNewSafeSlug(BlogPost.Slug);
+            if (_safeSlug == null || _safeSlug == string.Empty) Slug = GetNewSlug(BlogPost.Slug, safe: true);
             return Slug;
         }
 
@@ -150,8 +150,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <summary>
         /// Generate a slug for this post based on it's title or a preferred slug
         /// </summary>
+        /// <param name="preferredSlug">The text to base the preferred slug off of. default: post title</param>
+        /// <param name="safe">Safe mode; eif true </param>
         /// <returns>A safe, on-disk slug for this post</returns>
-        private string GetNewSafeSlug(string preferredSlug)
+        private string GetNewSlug(string preferredSlug, bool safe)
         {
             // Try the filename without a duplicate identifier, then duplicate identifiers up until 999 before throwing an exception
             for(int i = 0; i < 1000; i++)
@@ -160,6 +162,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 string slug = StaticSiteClient.WEB_UNSAFE_CHARS
                     .Replace((preferredSlug == string.Empty ? BlogPost.Title : preferredSlug).ToLower(), "")
                     .Replace(" ", "-");
+                if (!safe) return slug; // If unsafe mode, return the generated slug immediately.
+
                 if (i > 0) slug += $"-{i}";
                 if (!File.Exists(GetFilePathForProvidedSlug(slug))) return slug;
             }
