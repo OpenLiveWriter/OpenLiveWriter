@@ -98,7 +98,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             Id = post.Id;
             Title = post.Title;
-            Tags = post.Categories.Select(cat => cat.Name).ToArray();
+            Tags = post.Categories.Union(post.NewCategories).Select(cat => cat.Name).ToArray();
             Date = (post.HasDatePublishedOverride ? post.DatePublishedOverride : post.DatePublished)
                 .ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss");
             Layout = post.IsPage ? "page" : "post";
