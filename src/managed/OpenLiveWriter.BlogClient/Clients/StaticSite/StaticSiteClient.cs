@@ -57,7 +57,13 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public BlogInfo[] GetUsersBlogs() => new BlogInfo[0];
 
-        public BlogPostCategory[] GetCategories(string blogId) => new BlogPostCategory[0];
+        public BlogPostCategory[] GetCategories(string blogId) =>
+            StaticSitePost.GetAllPosts(Config)
+            .SelectMany(post => post.BlogPost.Categories.Select(cat => cat.Name))
+            .Distinct()
+            .Select(cat => new BlogPostCategory(cat))
+            .ToArray();
+
         public BlogPostKeyword[] GetKeywords(string blogId) => new BlogPostKeyword[0];
 
         /// <summary>
