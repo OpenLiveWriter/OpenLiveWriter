@@ -79,6 +79,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 catch { return null; }
             })
             .Where(post => post != null && (now == null || post.DatePublished < now))
+            .OrderByDescending(post => post.DatePublished)
+            .Take(maxPosts)
             .ToArray();
 
         public string NewPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
