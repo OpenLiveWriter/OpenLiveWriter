@@ -117,14 +117,19 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             etag = "";
             remotePost = new XmlDocument();
-            return false;
+            throw new NotImplementedException("not implemented yet :(");
         }
 
         /// <summary>
         /// Attempt to get a post with the specified id (note: may return null
         /// if the post could not be found on the remote server)
         /// </summary>
-        public BlogPost GetPost(string blogId, string postId) => new BlogPost();
+        public BlogPost GetPost(string blogId, string postId)
+        {
+            var post = StaticSitePost.GetPostById(Config, postId);
+            if (post == null) throw new BlogClientException("Post does not exist", "Could not find post with specified ID."); // TODO use strings resources
+            return post.BlogPost;
+        }
 
         public void DeletePost(string blogId, string postId, bool publish)
         {
