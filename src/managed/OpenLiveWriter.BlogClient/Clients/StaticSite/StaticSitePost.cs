@@ -259,5 +259,24 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             post.LoadFromFile(postFilePath);
             return post;
         }
+
+        /// <summary>
+        /// Get all valid posts in PostsPath
+        /// </summary>
+        /// <returns>An IEnumerable of StaticSitePost</returns>
+        public static IEnumerable<StaticSitePost> GetAllPosts(StaticSiteConfig config) =>
+            Directory.GetFiles(Path.Combine(config.LocalSitePath, config.PostsPath), "*.html")
+            .Select(postFile =>
+            {
+                try
+                {
+                    return StaticSitePost.LoadFromFile(Path.Combine(config.LocalSitePath, config.PostsPath, postFile), config);
+                }
+                catch { return null; }
+            })
+            .Where(p => p != null);
+
+        public static StaticSitePost GetPostById(StaticSiteConfig config, string id)
+            => GetAllPosts(config).Where(post => post.Id == id).DefaultIfEmpty(null).FirstOrDefault();
     }
 }
