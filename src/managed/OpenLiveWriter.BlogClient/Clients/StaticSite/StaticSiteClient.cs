@@ -204,7 +204,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         private void DoSiteBuild()
         {
-            var proc = RunSiteCommand(Config.BuildCommand);
+            string stdout, stderr;
+            var proc = RunSiteCommand(Config.BuildCommand, out stdout, out stderr);
             if (proc.ExitCode != 0)
             {
                 throw new BlogClientException(
@@ -212,8 +213,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                     StringId.SSGBuildErrorText,
                     Res.Get(StringId.ProductNameVersioned),
                     proc.ExitCode.ToString(),
-                    proc.StandardOutput.ReadToEnd(),
-                    proc.StandardError.ReadToEnd()
+                    Config.ShowCmdWindows ? "N/A" : stdout,
+                    Config.ShowCmdWindows ? "N/A" : stderr
                 );
             }
         }
@@ -223,7 +224,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         private void DoSitePublish()
         {
-            var proc = RunSiteCommand(Config.PublishCommand);
+            string stdout, stderr;
+            var proc = RunSiteCommand(Config.PublishCommand, out stdout, out stderr);
             if (proc.ExitCode != 0)
             {
                 throw new BlogClientException(
@@ -231,8 +233,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                     StringId.SSGPublishErrorText,
                     Res.Get(StringId.ProductNameVersioned),
                     proc.ExitCode.ToString(),
-                    proc.StandardOutput.ReadToEnd(),
-                    proc.StandardError.ReadToEnd()
+                    Config.ShowCmdWindows ? "N/A" : stdout,
+                    Config.ShowCmdWindows ? "N/A" : stderr
                 );
             }
         }
@@ -241,10 +243,14 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// Run a command from the site directory
         /// </summary>
         /// <param name="localCommand">Command to run, releative to site directory</param>
+        /// <param name="stdout">String which will receive the command stdout</param>
+        /// <param name="stderr">String which will receive the command stderr</param>
         /// <returns></returns>
-        private Process RunSiteCommand(string localCommand)
+        private Process RunSiteCommand(string localCommand, out string outStdout, out string outStderr)
         {
             var proc = new Process();
+            string stdout = "";
+            string stderr = "";
 
             // If a 32-bit process on a 64-bit system, call the 64-bit cmd
             proc.StartInfo.FileName = (!Environment.Is64BitProcess && Environment.Is64BitOperatingSystem) ? 
@@ -254,16 +260,47 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Set working directory to local site path
             proc.StartInfo.WorkingDirectory = Config.LocalSitePath;
 
-            proc.StartInfo.RedirectStandardError = true;
-            proc.StartInfo.RedirectStandardOutput = true;
-            proc.StartInfo.CreateNoWindow = true;
+            proc.StartInfo.RedirectStandardInput = !Config.ShowCmdWindows;
+            proc.StartInfo.RedirectStandardError = !Config.ShowCmdWindows;
+            proc.StartInfo.RedirectStandardOutput = !Config.ShowCmdWindows;
+            proc.StartInfo.CreateNoWindow = !Config.ShowCmdWindows;
             proc.StartInfo.UseShellExecute = false;
             
             proc.StartInfo.Arguments = $"/C {localCommand}";
+
+            if(!Config.ShowCmdWindows)
+            {
+
+                proc.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                    if (!String.IsNullOrEmpty(e.Data))
+                    {
+                        stdout += e.Data;
+                        Trace.WriteLine($"StaticSiteClient stdout: {e.Data}");
+                    }
+                });
+
+                proc.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                    if (!String.IsNullOrEmpty(e.Data))
+                    {
+                        stderr += e.Data;
+                        Trace.WriteLine($"StaticSiteClient stderr: {e.Data}");
+                    }
+                });
+            }
+
             proc.Start();
+            if(!Config.ShowCmdWindows)
+            {
+                proc.BeginOutputReadLine();
+                proc.BeginErrorReadLine();
+            }
             proc.WaitForExit();
 
-            // The Process will have all standard output waiting in buffer
+            // The caller will have all output waiting in outStdout and outStderr
+            outStdout = stdout;
+            outStderr = stderr;
             return proc;
         }
 
