@@ -21,6 +21,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
         private const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
         private const string CONFIG_POST_URL_FORMAT = "SSGPostUrlFormat";
+        private const string CONFIG_SHOW_CMD_WINDOWS = "SSGShowCmdWindows";
         private const string CONFIG_INITIALISED = "SSGInitialised";
 
         // Public Site Url is stored in the blog's BlogConfig. Loading is handled in this class, but saving is handled from the WizardController.
@@ -106,6 +107,11 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string PostUrlFormat { get; set; } = "%y/%m/%d/%f";
 
         /// <summary>
+        /// Show CMD windows. Useful for debugging. Default is false.
+        /// </summary>
+        public bool ShowCmdWindows { get; set; } = false;
+
+        /// <summary>
         /// Used to determine if parameter detection has occurred, default false.
         /// </summary>
         public bool Initialised { get; set; } = false;
@@ -138,6 +144,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             // TODO Load FrontMatterKeys
 
+            ShowCmdWindows = creds.GetCustomValue(CONFIG_SHOW_CMD_WINDOWS) == "1";
             Initialised = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
         }
 
@@ -177,6 +184,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             creds.SetCustomValue(CONFIG_PUBLISH_COMMAND, PublishCommand);
             creds.SetCustomValue(CONFIG_POST_URL_FORMAT, PostUrlFormat);
+
+            creds.SetCustomValue(CONFIG_SHOW_CMD_WINDOWS, ShowCmdWindows ? "1" : "0");
             creds.SetCustomValue(CONFIG_INITIALISED, Initialised ? "1" : "0");
 
             // TODO Save FrontMatterKeys
