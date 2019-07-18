@@ -14,9 +14,13 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
     public class StaticSitePost
     {
+        /// <summary>
+        /// The extension of published posts to the site project, including dot.
+        /// </summary>
         public static string PUBLISH_FILE_EXTENSION = ".html";
+
         private static Regex POST_PARSE_REGEX = new Regex("^---\r?\n((?:.*\r?\n)*?)---\r?\n\r?\n((?:.*\r?\n)*)");
-        private static Regex FILENAME_SLUG_REGEX = new Regex(@"^\d\d\d\d-\d\d-\d\d-(.*?)\.html$");
+        private static Regex FILENAME_SLUG_REGEX = new Regex(@"^(?:.*?)\d\d\d\d-\d\d-\d\d-(.*?)\" + PUBLISH_FILE_EXTENSION + "$");
 
         private StaticSiteConfig SiteConfig;
         public BlogPost BlogPost { get; private set; }
