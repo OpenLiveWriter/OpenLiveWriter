@@ -123,7 +123,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
                     return false;
                 }).DefaultIfEmpty(null).FirstOrDefault();
-                return _filePathById = foundFile ?? Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, foundFile);
+                return _filePathById = (foundFile == null ? null : Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, foundFile));
             }
         }
 
