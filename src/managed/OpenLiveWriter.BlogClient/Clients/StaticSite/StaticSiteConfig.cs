@@ -22,6 +22,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
         private const string CONFIG_POST_URL_FORMAT = "SSGPostUrlFormat";
         private const string CONFIG_SHOW_CMD_WINDOWS = "SSGShowCmdWindows";
+        private const string CONFIG_CMD_TIMEOUT_MS = "SSGCmdTimeoutMs";
         private const string CONFIG_INITIALISED = "SSGInitialised";
 
         // Public Site Url is stored in the blog's BlogConfig. Loading is handled in this class, but saving is handled from the WizardController.
@@ -110,6 +111,11 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// Show CMD windows. Useful for debugging. Default is false.
         /// </summary>
         public bool ShowCmdWindows { get; set; } = false;
+        
+        /// <summary>
+        /// Timeout for commands. Default is 30k MS (30 seconds).
+        /// </summary>
+        public int CmdTimeoutMs { get; set; } = 60000;
 
         /// <summary>
         /// Used to determine if parameter detection has occurred, default false.
@@ -145,6 +151,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // TODO Load FrontMatterKeys
 
             ShowCmdWindows = creds.GetCustomValue(CONFIG_SHOW_CMD_WINDOWS) == "1";
+            if (creds.GetCustomValue(CONFIG_CMD_TIMEOUT_MS) != string.Empty) CmdTimeoutMs = int.Parse(creds.GetCustomValue(CONFIG_CMD_TIMEOUT_MS));
             Initialised = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
         }
 
@@ -186,6 +193,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             creds.SetCustomValue(CONFIG_POST_URL_FORMAT, PostUrlFormat);
 
             creds.SetCustomValue(CONFIG_SHOW_CMD_WINDOWS, ShowCmdWindows ? "1" : "0");
+            creds.SetCustomValue(CONFIG_CMD_TIMEOUT_MS, CmdTimeoutMs.ToString());
             creds.SetCustomValue(CONFIG_INITIALISED, Initialised ? "1" : "0");
 
             // TODO Save FrontMatterKeys
