@@ -140,7 +140,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <returns>The current or new Slug.</returns>
         public string EnsureSafeSlug()
         {
-            if (_safeSlug == null || _safeSlug == string.Empty) Slug = GetNewSlug(BlogPost.Slug, safe: true);
+            if (_safeSlug == null || _safeSlug == string.Empty) Slug = FindNewSlug(BlogPost.Slug, safe: true);
             return Slug;
         }
 
@@ -170,7 +170,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <param name="preferredSlug">The text to base the preferred slug off of. default: post title</param>
         /// <param name="safe">Safe mode; if true the returned slug will not conflict with any existing file</param>
         /// <returns>An on-disk slug for this post</returns>
-        private string GetNewSlug(string preferredSlug, bool safe)
+        public string FindNewSlug(string preferredSlug, bool safe)
         {
             // Try the filename without a duplicate identifier, then duplicate identifiers up until 999 before throwing an exception
             for(int i = 0; i < 1000; i++)
