@@ -226,6 +226,31 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public void DeletePost(string blogId, string postId, bool publish)
         {
+            var post = StaticSitePost.GetPostById(Config, postId);
+            if (post == null) throw new BlogClientException("Post does not exist", "Could not find post with specified ID."); // TODO use strings resources
+
+            var backupFileName = Path.GetTempFileName();
+            File.Copy(post.FilePathById, backupFileName, true);
+
+            try
+            {
+                File.Delete(post.FilePathById);
+
+                // Build the site, if required
+                if (Config.BuildCommand != string.Empty) DoSiteBuild();
+
+                // Publish the site
+                DoSitePublish();
+            }
+            catch (Exception ex)
+            {
+                File.Copy(backupFileName, post.FilePathById, overwrite: true);
+                File.Delete(backupFileName);
+
+                // Throw the exception up
+                throw ex;
+            }
+
         }
 
         public BlogPost GetPage(string blogId, string pageId) => new BlogPost();
