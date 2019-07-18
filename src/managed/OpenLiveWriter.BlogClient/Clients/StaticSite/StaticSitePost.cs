@@ -125,6 +125,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 }).DefaultIfEmpty(null).FirstOrDefault();
                 return _filePathById = (foundFile == null ? null : Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, foundFile));
             }
+
+            protected set => _filePathById = value;
         }
 
         /// <summary>
@@ -268,6 +270,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             // Throw error if post does not have an ID
             if (Id == null || Id == string.Empty) throw new BlogClientException("Post load error", "Post does not have an ID");
+
+            // FilePathById will be the path we loaded this post from
+            FilePathById = postFilePath;
 
             // Load the content into blogpost
             BlogPost.Contents = postContent;
