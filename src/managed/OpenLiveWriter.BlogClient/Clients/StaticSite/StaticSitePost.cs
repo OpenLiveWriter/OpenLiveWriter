@@ -83,19 +83,36 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private string _safeSlug;
 
         /// <summary>
-        /// Get the on-disk file name for the published post, based on slug
-        /// </summary>
-        public string FileName
-        {
-            get => GetFileNameForProvidedSlug(Slug);
-        }
-
-        /// <summary>
         /// Get the on-disk file path for the published post, based on slug
         /// </summary>
-        public string FilePath
+        public string FilePathBySlug
         {
             get => GetFilePathForProvidedSlug(Slug);
+        }
+
+        private string _filePathById;
+        /// <summary>
+        /// Get the on-disk file path for the published post, based on ID
+        /// </summary>
+        public string FilePathById
+        {
+            get
+            {
+                if (_filePathById != null) return _filePathById;
+                var foundFile = Directory.GetFiles(Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath), "*.html")
+                .Where(postFile =>
+                {
+                    try
+                    {
+                        var post = StaticSitePost.LoadFromFile(Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, postFile), SiteConfig);
+                        if (post.Id == Id) return true;
+                    }
+                    catch { }
+
+                    return false;
+                }).DefaultIfEmpty(null).FirstOrDefault();
+                return _filePathById = foundFile ?? Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, foundFile);
+            }
         }
 
         /// <summary>
@@ -151,8 +168,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// Generate a slug for this post based on it's title or a preferred slug
         /// </summary>
         /// <param name="preferredSlug">The text to base the preferred slug off of. default: post title</param>
-        /// <param name="safe">Safe mode; eif true </param>
-        /// <returns>A safe, on-disk slug for this post</returns>
+        /// <param name="safe">Safe mode; if true the returned slug will not conflict with any existing file</param>
+        /// <returns>An on-disk slug for this post</returns>
         private string GetNewSlug(string preferredSlug, bool safe)
         {
             // Try the filename without a duplicate identifier, then duplicate identifiers up until 999 before throwing an exception
@@ -211,14 +228,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <summary>
         /// Save the post to the correct directory
         /// </summary>
-        public void SaveToFile()
+        public void SaveToFile(string postFilePath)
         {
-            // Generate a safe slug if one isn't already generated
-            // This ensures we don't overwrite an existing post
-            EnsureSafeSlug();
-
             // Save the post to disk
-            File.WriteAllText(FilePath, ToString());
+            File.WriteAllText(postFilePath, ToString());
         }
 
         /// <summary>
