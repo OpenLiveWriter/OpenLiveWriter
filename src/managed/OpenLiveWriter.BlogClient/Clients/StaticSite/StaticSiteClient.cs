@@ -98,8 +98,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             var newPostId = ssgPost.EnsureId();
             // Ensure the post has a date
             ssgPost.EnsureDatePublished();
-            // Save the post to disk
-            ssgPost.SaveToFile();
+            // Ensure the post has a safe slug
+            ssgPost.EnsureSafeSlug();
+            // Save the post to disk under it's new slug-based path
+            ssgPost.SaveToFile(ssgPost.FilePathBySlug);
 
             try
             {
@@ -113,7 +115,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             } catch (Exception ex)
             {
                 // Clean up our output file
-                File.Delete(ssgPost.FilePath);
+                File.Delete(ssgPost.FilePathBySlug);
                 // Throw the exception up
                 throw ex;
             }
@@ -121,9 +123,94 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
         {
+            if (!publish && !Options.SupportsPostAsDraft)
+            {
+                Trace.Fail("Static site does not support drafts, cannot post.");
+                throw new BlogClientPostAsDraftUnsupportedException();
+            }
+            remotePost = null;
             etag = "";
-            remotePost = new XmlDocument();
-            throw new NotImplementedException("not implemented yet :(");
+
+            // Create a StaticSitePost on the provided post
+            var ssgPost = new StaticSitePost(Config, post);
+
+            if(ssgPost.FilePathById == null)
+            {
+                // Existing post could not be found to edit, call NewPost instead;
+                NewPost(blogId, post, newCategoryContext, publish, out etag, out remotePost);
+                return true;
+            }
+
+            // Set slug to existing slug on post
+            ssgPost.Slug = post.Slug;
+            // Copy the existing post to a temporary file
+            var backupFileName = Path.GetTempFileName();
+            File.Copy(ssgPost.FilePathById, backupFileName, true);
+
+            bool renameOccurred = false;
+            // Store the old file path and slug
+            string oldPath = ssgPost.FilePathById;
+            string oldSlug = ssgPost.DiskSlug;
+
+            try
+            {
+                // Determine if the post file needs renaming (slug change)
+                if (ssgPost.FilePathById != ssgPost.FilePathBySlug)
+                {
+                    // Set the new safe slug
+                    ssgPost.Slug = ssgPost.FindNewSlug(ssgPost.Slug, safe: true);
+                    // If the new slug is equal to the old, save to the existing file (most likely a date change)
+                    if (oldSlug == ssgPost.Slug)
+                    {
+                        // Save the post to disk based on it's existing id
+                        ssgPost.SaveToFile(ssgPost.FilePathById);
+                    }
+                    else
+                    {
+                        renameOccurred = true;
+
+                        // Remove the old file
+                        File.Delete(oldPath);
+                        // Save to the new file
+                        ssgPost.SaveToFile(ssgPost.FilePathBySlug);
+                    }
+                }
+                else
+                {
+                    // Save the post to disk based on it's existing id
+                    ssgPost.SaveToFile(ssgPost.FilePathById);
+                }
+
+                // Build the site, if required
+                if (Config.BuildCommand != string.Empty) DoSiteBuild();
+
+                // Publish the site
+                DoSitePublish();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Clean up the failed output
+                if(renameOccurred)
+                {
+                    // Delete the rename target
+                    File.Delete(ssgPost.FilePathBySlug);
+                } else
+                {
+                    // Delete the original file
+                    File.Delete(ssgPost.FilePathById);
+                }
+                
+                // Copy the backup to the old location
+                File.Copy(backupFileName, oldPath, overwrite: true);
+
+                // Delete the backup
+                File.Delete(backupFileName);
+
+                // Throw the exception up
+                throw ex;
+            }
         }
 
         /// <summary>
