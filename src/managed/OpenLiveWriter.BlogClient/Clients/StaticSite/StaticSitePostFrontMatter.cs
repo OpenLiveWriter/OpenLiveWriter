@@ -109,7 +109,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             post.Id = Id;
             post.Title = Title;
             post.Categories = Tags?.Select(t => new BlogPostCategory(t)).ToArray();
-            try { post.DatePublished = DateTime.Parse(Date).ToLocalTime(); } catch { }
+            try { post.DatePublished = post.DatePublishedOverride = DateTime.Parse(Date).ToLocalTime(); } catch { }
             post.IsPage = Layout == "page";
         }
 
