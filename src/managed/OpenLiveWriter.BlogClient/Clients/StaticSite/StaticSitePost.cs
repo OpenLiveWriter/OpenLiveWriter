@@ -71,16 +71,24 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             set => BlogPost.Slug = _safeSlug = value;
         }
 
+        /// <summary>
+        /// Confirmed safe slug; does not conflict with any existing post on disk or points to this post on disk.
+        /// </summary>
+        private string _safeSlug;
+
+        /// <summary>
+        /// Get the current on-disk slug from the on-disk post with this ID
+        /// </summary>
+        public string DiskSlug
+        {
+            get => FilePathById == null ? null : GetSlugFromPublishFileName(FilePathById);
+        }
+
         public DateTime DatePublished
         {
             get => BlogPost.DatePublished;
             set => BlogPost.DatePublished = value;
         }
-
-        /// <summary>
-        /// Confirmed safe slug; does not conflict with any existing post on disk or points to this post on disk.
-        /// </summary>
-        private string _safeSlug;
 
         /// <summary>
         /// Get the on-disk file path for the published post, based on slug
