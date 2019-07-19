@@ -100,7 +100,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             Title = post.Title;
             Tags = post.Categories.Union(post.NewCategories).Select(cat => cat.Name).ToArray();
             Date = (post.HasDatePublishedOverride ? post.DatePublishedOverride : post.DatePublished)
-                .ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss");
+                 .ToString("yyyy-MM-dd HH:mm:ss");
             Layout = post.IsPage ? "page" : "post";
         }
 
@@ -109,7 +109,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             post.Id = Id;
             post.Title = Title;
             post.Categories = Tags?.Select(t => new BlogPostCategory(t)).ToArray();
-            try { post.DatePublished = post.DatePublishedOverride = DateTime.Parse(Date).ToLocalTime(); } catch { }
+            try { post.DatePublished = post.DatePublishedOverride = DateTime.Parse(Date); } catch { }
             post.IsPage = Layout == "page";
         }
 
