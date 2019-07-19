@@ -193,11 +193,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// if the post could not be found on the remote server)
         /// </summary>
         public BlogPost GetPost(string blogId, string postId)
-        {
-            var post = StaticSitePost.GetPostById(Config, postId);
-            if (post == null) throw new BlogClientException("Post does not exist", "Could not find post with specified ID."); // TODO use strings resources
-            return post.BlogPost;
-        }
+            => StaticSitePost.GetPostById(Config, postId).BlogPost;
 
         public void DeletePost(string blogId, string postId, bool publish)
         {
