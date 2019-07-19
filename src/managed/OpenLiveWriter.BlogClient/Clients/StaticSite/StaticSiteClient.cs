@@ -433,14 +433,13 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             clientOptions.SupportsFileUpload = Config.ImagesEnabled;
             clientOptions.SupportsImageUpload = Config.ImagesEnabled ? SupportsFeature.Yes : SupportsFeature.No;
             clientOptions.SupportsScripts = clientOptions.SupportsEmbeds = SupportsFeature.Yes;
+            clientOptions.SupportsExtendedEntries = true;
 
-            // Categories treated as tags for the time being
             clientOptions.SupportsCategories = true;
             clientOptions.SupportsMultipleCategories = true;
             clientOptions.SupportsNewCategories = true;
             clientOptions.SupportsKeywords = false;
 
-            // The follwoing values would be written into YAML front-matter
             clientOptions.FuturePublishDateWarning = true;
             clientOptions.SupportsCustomDate = clientOptions.SupportsCustomDateUpdate = true;
             clientOptions.SupportsSlug = true;
