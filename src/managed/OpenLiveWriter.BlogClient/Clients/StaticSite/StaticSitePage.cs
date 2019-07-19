@@ -84,6 +84,27 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                     GetFileNameForProvidedSlug(slug));
         }
 
+        public StaticSitePage ResolveParent()
+        {
+            if(!BlogPost.PageParent.IsEmpty)
+            {
+                // Attempt to locate and load parent 
+                var parent = GetPageById(SiteConfig, BlogPost.PageParent.Id);
+                if (parent == null)
+                {
+                    // Parent not found, set PageParent to empty
+                    BlogPost.PageParent = PostIdAndNameField.Empty;
+                }
+                else
+                {
+                    // Populate Name field
+                    BlogPost.PageParent = new PostIdAndNameField(parent.Id, parent.BlogPost.Title);
+                }
+                return parent;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Load published page from a specified file path
         /// </summary>

@@ -224,8 +224,12 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         }
 
-        public BlogPost GetPage(string blogId, string pageId) =>
-            StaticSitePage.GetPageById(Config, pageId).BlogPost;
+        public BlogPost GetPage(string blogId, string pageId)
+        {
+            var page = StaticSitePage.GetPageById(Config, pageId);
+            page.ResolveParent();
+            return page.BlogPost;
+        }
 
         public PageInfo[] GetPageList(string blogId) => 
             StaticSitePage.GetAllPages(Config).Select(page => page.PageInfo).ToArray();
