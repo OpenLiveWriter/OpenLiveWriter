@@ -11,7 +11,7 @@ using YamlDotNet.RepresentationModel;
 
 namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
-    public class StaticSitePostFrontMatter
+    public class StaticSiteItemFrontMatter
     {
         /// Hardcode these to Jekyll defaults for now
         /// TODO Load from StaticSiteConfig
@@ -32,7 +32,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string Slug { get; set; }
         public string[] Tags { get; set; }
 
-        public StaticSitePostFrontMatter()
+        public StaticSiteItemFrontMatter()
         {
             Tags = new string[] { }; // Initialize Tags to empty array
         }
@@ -113,16 +113,16 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             post.IsPage = Layout == "page";
         }
 
-        public static StaticSitePostFrontMatter GetFromBlogPost(BlogPost post)
+        public static StaticSiteItemFrontMatter GetFromBlogPost(BlogPost post)
         {
-            var frontMatter = new StaticSitePostFrontMatter();
+            var frontMatter = new StaticSiteItemFrontMatter();
             frontMatter.LoadFromBlogPost(post);
             return frontMatter;
         }
 
-        public static StaticSitePostFrontMatter GetFromYaml(string yaml)
+        public static StaticSiteItemFrontMatter GetFromYaml(string yaml)
         {
-            var frontMatter = new StaticSitePostFrontMatter();
+            var frontMatter = new StaticSiteItemFrontMatter();
             frontMatter.Deserialize(yaml);
             return frontMatter;
         }

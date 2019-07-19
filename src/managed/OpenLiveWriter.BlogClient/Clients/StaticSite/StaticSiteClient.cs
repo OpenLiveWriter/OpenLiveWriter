@@ -93,7 +93,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             etag = "";
 
             // Create a StaticSitePost on the provided post
-            return DoNewStaticSitePost(new StaticSitePost(Config, post));
+            return DoNewItem(new StaticSitePost(Config, post));
         }
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -125,7 +125,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             bool renameOccurred = false;
             // Store the old file path and slug
             string oldPath = ssgPost.FilePathById;
-            string oldSlug = ssgPost.DiskSlug;
+            string oldSlug = ssgPost.DiskSlugFromFilePathById;
 
             try
             {
@@ -243,7 +243,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             etag = "";
 
             // Create a StaticSitePost on the provided page
-            return DoNewStaticSitePost(new StaticSitePage(Config, page));
+            return DoNewItem(new StaticSitePage(Config, page));
         }
 
         public bool EditPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
@@ -294,20 +294,20 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         protected override bool RequiresPassword => false;
 
         /// <summary>
-        /// Generic method to prepare and publish a new StaticSitePost or derived class instance
+        /// Generic method to prepare and publish a new StaticSiteItem derived instance 
         /// </summary>
-        /// <param name="ssgPost">the StaticSitePost or derrived class instance</param>
+        /// <param name="item">a new StaticSiteItem derived instance</param>
         /// <returns>the new StaticSitePost ID</returns>
-        private string DoNewStaticSitePost(StaticSitePost ssgPost)
+        private string DoNewItem(StaticSiteItem item)
         {
             // Ensure the post has an ID
-            var newPostId = ssgPost.EnsureId();
+            var newPostId = item.EnsureId();
             // Ensure the post has a date
-            ssgPost.EnsureDatePublished();
+            item.EnsureDatePublished();
             // Ensure the post has a safe slug
-            ssgPost.EnsureSafeSlug();
+            item.EnsureSafeSlug();
             // Save the post to disk under it's new slug-based path
-            ssgPost.SaveToFile(ssgPost.FilePathBySlug);
+            item.SaveToFile(item.FilePathBySlug);
 
             try
             {
@@ -322,7 +322,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             catch (Exception ex)
             {
                 // Clean up our output file
-                File.Delete(ssgPost.FilePathBySlug);
+                File.Delete(item.FilePathBySlug);
                 // Throw the exception up
                 throw ex;
             }

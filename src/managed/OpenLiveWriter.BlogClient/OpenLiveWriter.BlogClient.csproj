@@ -167,8 +167,9 @@
     <Compile Include="Clients\StaticSite\StaticSiteClient.cs" />
     <Compile Include="Clients\StaticSite\StaticSiteConfig.cs" />
     <Compile Include="Clients\StaticSite\StaticSitePage.cs" />
+    <Compile Include="Clients\StaticSite\StaticSiteItem.cs" />
+    <Compile Include="Clients\StaticSite\StaticSiteItemFrontMatter.cs" />
     <Compile Include="Clients\StaticSite\StaticSitePost.cs" />
-    <Compile Include="Clients\StaticSite\StaticSitePostFrontMatter.cs" />
     <Compile Include="Clients\WordPressClient.cs" />
     <Compile Include="Clients\TistoryBlogClient.cs" />
     <Compile Include="Clients\XmlRestRequestHelper.cs" />
