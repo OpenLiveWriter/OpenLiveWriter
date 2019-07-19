@@ -224,9 +224,18 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         }
 
-        public BlogPost GetPage(string blogId, string pageId) => new BlogPost();
-        public PageInfo[] GetPageList(string blogId) => new PageInfo[0];
-        public BlogPost[] GetPages(string blogId, int maxPages) => new BlogPost[0];
+        public BlogPost GetPage(string blogId, string pageId) =>
+            StaticSitePage.GetPageById(Config, pageId).BlogPost;
+
+        public PageInfo[] GetPageList(string blogId) => 
+            StaticSitePage.GetAllPages(Config).Select(page => page.PageInfo).ToArray();
+
+        public BlogPost[] GetPages(string blogId, int maxPages) =>
+            StaticSitePage.GetAllPages(Config)
+            .Select(page => page.BlogPost)
+            .OrderByDescending(page => page.DatePublished)
+            .Take(maxPages)
+            .ToArray();
 
         public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
         {

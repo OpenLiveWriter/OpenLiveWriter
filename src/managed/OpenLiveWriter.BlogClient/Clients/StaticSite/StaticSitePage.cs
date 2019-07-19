@@ -22,6 +22,11 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
         }
 
+        public PageInfo PageInfo
+        {
+            get => new PageInfo(BlogPost.Id, BlogPost.Title, DatePublished, BlogPost.PageParent?.Id);
+        }
+
         public override string FilePathById
         {
             get
