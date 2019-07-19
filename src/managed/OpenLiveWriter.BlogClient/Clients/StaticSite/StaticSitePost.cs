@@ -45,6 +45,19 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         /// <summary>
+        /// Get the site path for the published post
+        /// eg. /2019/01/slug.html
+        /// </summary>
+        public override string SitePath
+        {
+            get => SiteConfig.PostUrlFormat
+                .Replace("%y", BlogPost.DatePublished.ToString("yyyy"))
+                .Replace("%m", BlogPost.DatePublished.ToString("MM"))
+                .Replace("%d", BlogPost.DatePublished.ToString("dd"))
+                .Replace("%f", $"{Slug}{PUBLISH_FILE_EXTENSION}");
+        }
+
+        /// <summary>
         /// Gets filename based on slug with prepended date
         /// </summary>
         /// <param name="slug">Post slug</param>

@@ -118,23 +118,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         /// <summary>
-        /// Get the site path for the published post
+        /// Get the site path for the published item
         /// eg. /2019/01/slug.html
-        /// TODO consider removing this feature and associated config setting as we don't actually need this information 
         /// </summary>
-        public string SitePath
-        {
-            get
-            {
-                if (BlogPost.IsPage) throw new NotImplementedException(); // TODO 
-
-                return SiteConfig.PostUrlFormat
-                .Replace("%y", BlogPost.DatePublished.ToString("yyyy"))
-                .Replace("%m", BlogPost.DatePublished.ToString("MM"))
-                .Replace("%d", BlogPost.DatePublished.ToString("dd"))
-                .Replace("%f", $"{Slug}{PUBLISH_FILE_EXTENSION}");
-            }
-        }
+        public abstract string SitePath { get; }
             
         /// <summary>
         /// Generate a safe slug if the post doesn't already have one. Returns the current or new Slug.
