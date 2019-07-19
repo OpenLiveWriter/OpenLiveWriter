@@ -90,8 +90,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public DateTime DatePublished
         {
-            get => BlogPost.DatePublished;
-            set => BlogPost.DatePublished = value;
+            get => BlogPost.HasDatePublishedOverride ? BlogPost.DatePublishedOverride : BlogPost.DatePublished;
+            set => BlogPost.DatePublished = BlogPost.DatePublishedOverride = value;
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <returns>The current or new DatePublished.</returns>
         public DateTime EnsureDatePublished()
         {
-            if (DatePublished == null || DatePublished == new DateTime(1, 1, 1)) DatePublished = DateTime.Now;
+            if (DatePublished == null || DatePublished == new DateTime(1, 1, 1)) DatePublished = DateTime.UtcNow;
             return DatePublished;
         }
 
