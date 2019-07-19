@@ -166,6 +166,7 @@
     <Compile Include="Clients\StaticSite\StaticSiteConfigDetector.cs" />
     <Compile Include="Clients\StaticSite\StaticSiteClient.cs" />
     <Compile Include="Clients\StaticSite\StaticSiteConfig.cs" />
+    <Compile Include="Clients\StaticSite\StaticSitePage.cs" />
     <Compile Include="Clients\StaticSite\StaticSitePost.cs" />
     <Compile Include="Clients\StaticSite\StaticSitePostFrontMatter.cs" />
     <Compile Include="Clients\WordPressClient.cs" />

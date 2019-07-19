@@ -93,32 +93,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             etag = "";
 
             // Create a StaticSitePost on the provided post
-            var ssgPost = new StaticSitePost(Config, post);
-            // Ensure the post has an ID
-            var newPostId = ssgPost.EnsureId();
-            // Ensure the post has a date
-            ssgPost.EnsureDatePublished();
-            // Ensure the post has a safe slug
-            ssgPost.EnsureSafeSlug();
-            // Save the post to disk under it's new slug-based path
-            ssgPost.SaveToFile(ssgPost.FilePathBySlug);
-
-            try
-            {
-                // Build the site, if required
-                if (Config.BuildCommand != string.Empty) DoSiteBuild();
-
-                // Publish the site 
-                DoSitePublish();
-
-                return newPostId;
-            } catch (Exception ex)
-            {
-                // Clean up our output file
-                File.Delete(ssgPost.FilePathBySlug);
-                // Throw the exception up
-                throw ex;
-            }
+            return DoNewStaticSitePost(new StaticSitePost(Config, post));
         }
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -259,9 +234,16 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
         {
+            if (!publish && !Options.SupportsPostAsDraft)
+            {
+                Trace.Fail("Static site does not support drafts, cannot post.");
+                throw new BlogClientPostAsDraftUnsupportedException();
+            }
+            remotePost = null;
             etag = "";
-            remotePost = new XmlDocument();
-            return "";
+
+            // Create a StaticSitePost on the provided page
+            return DoNewStaticSitePost(new StaticSitePage(Config, page));
         }
 
         public bool EditPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
@@ -310,6 +292,42 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         // Authentication is handled by publish script at the moment 
         protected override bool RequiresPassword => false;
+
+        /// <summary>
+        /// Generic method to prepare and publish a new StaticSitePost or derived class instance
+        /// </summary>
+        /// <param name="ssgPost">the StaticSitePost or derrived class instance</param>
+        /// <returns>the new StaticSitePost ID</returns>
+        private string DoNewStaticSitePost(StaticSitePost ssgPost)
+        {
+            // Ensure the post has an ID
+            var newPostId = ssgPost.EnsureId();
+            // Ensure the post has a date
+            ssgPost.EnsureDatePublished();
+            // Ensure the post has a safe slug
+            ssgPost.EnsureSafeSlug();
+            // Save the post to disk under it's new slug-based path
+            ssgPost.SaveToFile(ssgPost.FilePathBySlug);
+
+            try
+            {
+                // Build the site, if required
+                if (Config.BuildCommand != string.Empty) DoSiteBuild();
+
+                // Publish the site 
+                DoSitePublish();
+
+                return newPostId;
+            }
+            catch (Exception ex)
+            {
+                // Clean up our output file
+                File.Delete(ssgPost.FilePathBySlug);
+                // Throw the exception up
+                throw ex;
+            }
+
+        }
 
         /// <summary>
         /// Build the static site
