@@ -22,7 +22,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 TitleKey = "title",
                 DateKey = "date",
                 LayoutKey = "layout",
-                TagsKey = "tags"
+                TagsKey = "tags",
+                ParentIdKey = "parent_id"
             };
 
         public string Id { get; set; }
@@ -31,6 +32,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string Layout { get; set; } = "post";
         public string Slug { get; set; }
         public string[] Tags { get; set; }
+        public string ParentId { get; set; }
 
         public StaticSiteItemFrontMatter()
         {
@@ -52,6 +54,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             if (Tags != null && Tags.Length > 0)
                 root.Add(frontMatterKeys.TagsKey, new YamlSequenceNode(Tags.Select(
                     tag => new YamlScalarNode(tag))));
+            if (!string.IsNullOrEmpty(ParentId)) root.Add(frontMatterKeys.ParentIdKey, ParentId);
 
             var stream = new YamlStream(new YamlDocument(root));
             var stringWriter = new StringWriter();
@@ -92,6 +95,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             var tagNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.TagsKey);
             if (tagNodes.Count() > 0 && tagNodes.First().Value.NodeType == YamlNodeType.Sequence)
                 Tags = ((YamlSequenceNode)tagNodes.First().Value).Select(node => node.ToString()).ToArray();
+
+            // Load parent ID
+            var parentIdNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.ParentIdKey);
+            if (parentIdNodes.Count() > 0) ParentId = parentIdNodes.First().Value.ToString();
         }
 
         public void LoadFromBlogPost(BlogPost post)
@@ -102,6 +109,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             Date = (post.HasDatePublishedOverride ? post.DatePublishedOverride : post.DatePublished)
                  .ToString("yyyy-MM-dd HH:mm:ss");
             Layout = post.IsPage ? "page" : "post";
+            if(post.IsPage) ParentId = post.PageParent.Id;
         }
 
         public void SaveToBlogPost(BlogPost post)
@@ -111,6 +119,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             post.Categories = Tags?.Select(t => new BlogPostCategory(t)).ToArray();
             try { post.DatePublished = post.DatePublishedOverride = DateTime.Parse(Date); } catch { }
             post.IsPage = Layout == "page";
+            if (post.IsPage) post.PageParent = new PostIdAndNameField(ParentId, string.Empty);
+
         }
 
         public static StaticSiteItemFrontMatter GetFromBlogPost(BlogPost post)

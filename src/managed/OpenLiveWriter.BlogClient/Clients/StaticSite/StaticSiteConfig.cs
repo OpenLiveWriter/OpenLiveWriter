@@ -238,6 +238,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string DateKey { get; set; }
         public string LayoutKey { get; set; }
         public string TagsKey { get; set; }
+        public string ParentIdKey { get; set; }
 
         // TODO LoadFromCredentials
         // TODO SaveToCredentials
