@@ -31,7 +31,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 {
                     try
                     {
-                        var post = StaticSitePost.LoadFromFile(Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, postFile), SiteConfig);
+                        var post = LoadFromFile(Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, postFile), SiteConfig);
                         if (post.Id == Id) return true;
                     }
                     catch { }
