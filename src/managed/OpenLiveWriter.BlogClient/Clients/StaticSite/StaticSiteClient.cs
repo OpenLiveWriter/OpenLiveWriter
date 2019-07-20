@@ -118,74 +118,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             // Set slug to existing slug on post
             ssgPost.Slug = post.Slug;
-            // Copy the existing post to a temporary file
-            var backupFileName = Path.GetTempFileName();
-            File.Copy(ssgPost.FilePathById, backupFileName, true);
 
-            bool renameOccurred = false;
-            // Store the old file path and slug
-            string oldPath = ssgPost.FilePathById;
-            string oldSlug = ssgPost.DiskSlugFromFilePathById;
-
-            try
-            {
-                // Determine if the post file needs renaming (slug change)
-                if (ssgPost.FilePathById != ssgPost.FilePathBySlug)
-                {
-                    // Set the new safe slug
-                    ssgPost.Slug = ssgPost.FindNewSlug(ssgPost.Slug, safe: true);
-                    // If the new slug is equal to the old, save to the existing file (most likely a date change)
-                    if (oldSlug == ssgPost.Slug)
-                    {
-                        // Save the post to disk based on it's existing id
-                        ssgPost.SaveToFile(ssgPost.FilePathById);
-                    }
-                    else
-                    {
-                        renameOccurred = true;
-
-                        // Remove the old file
-                        File.Delete(oldPath);
-                        // Save to the new file
-                        ssgPost.SaveToFile(ssgPost.FilePathBySlug);
-                    }
-                }
-                else
-                {
-                    // Save the post to disk based on it's existing id
-                    ssgPost.SaveToFile(ssgPost.FilePathById);
-                }
-
-                // Build the site, if required
-                if (Config.BuildCommand != string.Empty) DoSiteBuild();
-
-                // Publish the site
-                DoSitePublish();
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                // Clean up the failed output
-                if(renameOccurred)
-                {
-                    // Delete the rename target
-                    File.Delete(ssgPost.FilePathBySlug);
-                } else
-                {
-                    // Delete the original file
-                    File.Delete(ssgPost.FilePathById);
-                }
-                
-                // Copy the backup to the old location
-                File.Copy(backupFileName, oldPath, overwrite: true);
-
-                // Delete the backup
-                File.Delete(backupFileName);
-
-                // Throw the exception up
-                throw ex;
-            }
+            return DoEditItem(ssgPost);
         }
 
         /// <summary>
@@ -336,6 +270,75 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 throw ex;
             }
 
+        }
+
+        /// <summary>
+        /// Generic method to edit an already-published StaticSiteItem derived instance 
+        /// </summary>
+        /// <param name="item">an existing StaticSiteItem derived instance</param>
+        /// <returns>True if successful</returns>
+        private bool DoEditItem(StaticSiteItem item)
+        {
+            // Copy the existing post to a temporary file
+            var backupFileName = Path.GetTempFileName();
+            File.Copy(item.FilePathById, backupFileName, true);
+
+            bool renameOccurred = false;
+            // Store the old file path and slug
+            string oldPath = item.FilePathById;
+            //string oldSlug = item.DiskSlugFromFilePathById;
+
+            try
+            {
+                // Determine if the post file needs renaming (slug, date or parent change)
+                if (item.FilePathById != item.FilePathBySlug)
+                {
+                    renameOccurred = true;
+
+                    // Find a new safe slug for the post
+                    item.Slug = item.FindNewSlug(item.Slug, safe: true);
+                    // Remove the old file
+                    File.Delete(oldPath);
+                    // Save to the new file
+                    item.SaveToFile(item.FilePathBySlug);
+                }
+                else
+                {
+                    // Save the post to disk based on it's existing id
+                    item.SaveToFile(item.FilePathById);
+                }
+
+                // Build the site, if required
+                if (Config.BuildCommand != string.Empty) DoSiteBuild();
+
+                // Publish the site
+                DoSitePublish();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Clean up the failed output
+                if (renameOccurred)
+                {
+                    // Delete the rename target
+                    File.Delete(item.FilePathBySlug);
+                }
+                else
+                {
+                    // Delete the original file
+                    File.Delete(item.FilePathById);
+                }
+
+                // Copy the backup to the old location
+                File.Copy(backupFileName, oldPath, overwrite: true);
+
+                // Delete the backup
+                File.Delete(backupFileName);
+
+                // Throw the exception up
+                throw ex;
+            }
         }
 
         /// <summary>
