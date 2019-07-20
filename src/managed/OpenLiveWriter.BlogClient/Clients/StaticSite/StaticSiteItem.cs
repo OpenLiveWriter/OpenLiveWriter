@@ -20,12 +20,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public static string PUBLISH_FILE_EXTENSION = ".html";
 
         private static Regex POST_PARSE_REGEX = new Regex("^---\r?\n((?:.*\r?\n)*?)---\r?\n\r?\n((?:.*\r?\n)*)");
-        // Matches the published slug out of a on-disk file
-        // page-test.html -> page-test
-        // 2014-02-02-test.html -> test
-        // _posts\2014-02-02-my-post-test.html -> my-post-test
-        // ./my-page-test.html -> my-page-test
-        private static Regex FILENAME_SLUG_REGEX = new Regex(@"^(?:(?:.*?)(?:\\|\/))*(?:\d\d\d\d-\d\d-\d\d-)?(.*?)\" + PUBLISH_FILE_EXTENSION + "$");
 
         protected StaticSiteConfig SiteConfig;
         public BlogPost BlogPost { get; private set; }
@@ -192,7 +186,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <returns>The on-disk path, including filename from GetFileNameForProvidedSlug</returns>
         protected abstract string GetFilePathForProvidedSlug(string slug);
 
-        private string GetSlugFromPublishFileName(string publishFileName) => FILENAME_SLUG_REGEX.Match(publishFileName).Groups[1].Value;
+        protected abstract string GetSlugFromPublishFileName(string publishFileName);
 
         /// <summary>
         /// Save the post to the correct directory
@@ -207,7 +201,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// Load published post from a specified file path
         /// </summary>
         /// <param name="postFilePath">Path to published post file</param>
-        public void LoadFromFile(string postFilePath)
+        public virtual void LoadFromFile(string postFilePath)
         {
             // Attempt to load file contents
             var fileContents = File.ReadAllText(postFilePath);

@@ -14,6 +14,11 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
     public class StaticSitePost : StaticSiteItem
     {
+        // Matches the published slug out of a on-disk post
+        // 2014-02-02-test.html -> test
+        // _posts\2014-02-02-my-post-test.html -> my-post-test
+        private static Regex FILENAME_SLUG_REGEX = new Regex(@"^(?:(?:.*?)(?:\\|\/))*(?:\d\d\d\d-\d\d-\d\d-)(.*?)\" + PUBLISH_FILE_EXTENSION + "$");
+
         public StaticSitePost(StaticSiteConfig config) : base(config)
         {
         }
@@ -21,6 +26,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public StaticSitePost(StaticSiteConfig config, BlogPost blogPost) : base(config, blogPost)
         {
         }
+
+        protected override string GetSlugFromPublishFileName(string publishFileName) => FILENAME_SLUG_REGEX.Match(publishFileName).Groups[1].Value;
 
         public override string FilePathById {
             get
@@ -111,6 +118,5 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public static StaticSiteItem GetPostById(StaticSiteConfig config, string id)
             => GetAllPosts(config).Where(post => post.Id == id).DefaultIfEmpty(null).FirstOrDefault();
-
-}
+    }
 }
