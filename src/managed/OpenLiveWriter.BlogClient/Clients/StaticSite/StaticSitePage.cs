@@ -14,6 +14,12 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
     public class StaticSitePage : StaticSiteItem
     {
+        // Matches the published slug out of a on-disk page
+        // page-test_sub-page-test.html -> sub-page-test
+        // 0001-01-01-page-test.html -> 0001-01-01-page-test
+        // _pages\my-page.html -> my-page
+        private static Regex FILENAME_SLUG_REGEX = new Regex(@"^(?:(?:.*?)(?:\\|\/|_))*(.*?)\" + PUBLISH_FILE_EXTENSION + "$");
+
         public StaticSitePage(StaticSiteConfig config) : base(config)
         {
         }
@@ -26,6 +32,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             get => new PageInfo(BlogPost.Id, BlogPost.Title, DatePublished, BlogPost.PageParent?.Id);
         }
+
+        protected override string GetSlugFromPublishFileName(string publishFileName) => FILENAME_SLUG_REGEX.Match(publishFileName).Groups[1].Value;
 
         public override StaticSiteItemFrontMatter FrontMatter
         {
@@ -75,7 +83,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                     throw new BlogClientException(
                         "Page parent not found", 
                         "Could not locate parent for page '{0}' with specified parent ID.", 
-                        BlogPost.PageParent.Id);
+                        BlogPost.Title);
                 return $"{parent.SitePath}{Slug}/"; // Parent site path will include tailing slash
             }
         }
@@ -87,8 +95,22 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <returns>File name with prepended date</returns>
         protected override string GetFileNameForProvidedSlug(string slug)
         {
-            // TODO, get slug for all previous posts and prepend
-            return $"{slug}{PUBLISH_FILE_EXTENSION}";
+            // Get slug for all parent posts and prepend
+            var parentId = BlogPost.PageParent.Id;
+            var parentSlugs = "";
+            while(!string.IsNullOrEmpty(parentId))
+            {
+                var parent = GetPageById(SiteConfig, parentId);
+                if (parent == null)
+                    throw new BlogClientException(
+                        "Page parent not found",
+                        "Could not locate parent for page '{0}' with specified parent ID.",
+                        BlogPost.Title);
+                parentSlugs = $"{parent.Slug}_" + parentSlugs;
+                parentId = parent.BlogPost.PageParent.Id;
+            }
+
+            return $"{parentSlugs}{slug}{PUBLISH_FILE_EXTENSION}";
         }
 
         /// <summary>
