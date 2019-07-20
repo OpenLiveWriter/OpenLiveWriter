@@ -71,7 +71,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <returns>File name with prepended date</returns>
         protected override string GetFileNameForProvidedSlug(string slug)
         {
-            return $"{BlogPost.DatePublished.ToString("yyyy-MM-dd")}-{slug}{PUBLISH_FILE_EXTENSION}";
+            return $"{DatePublished.ToString("yyyy-MM-dd")}-{slug}{PUBLISH_FILE_EXTENSION}";
         }
 
         /// <summary>
