@@ -42,7 +42,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             BlogPost = blogPost;
         }
 
-        public StaticSiteItemFrontMatter FrontMatter
+        public virtual StaticSiteItemFrontMatter FrontMatter
         {
             get => StaticSiteItemFrontMatter.GetFromBlogPost(BlogPost);
         }

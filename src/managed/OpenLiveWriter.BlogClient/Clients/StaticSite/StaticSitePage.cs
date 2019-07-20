@@ -27,6 +27,16 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             get => new PageInfo(BlogPost.Id, BlogPost.Title, DatePublished, BlogPost.PageParent?.Id);
         }
 
+        public override StaticSiteItemFrontMatter FrontMatter
+        {
+            get
+            {
+                var fm = base.FrontMatter;
+                fm.Permalink = SitePath;
+                return fm;
+            }
+        }
+
         public override string FilePathById
         {
             get
@@ -51,13 +61,23 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         /// <summary>
-        /// Get the site path for the published post
-        /// eg. /2019/01/slug.html
+        /// Get the site path ("permalink") for the published page
+        /// eg. /about/, /page/sub-page/
         /// </summary>
         public override string SitePath
         {
-            // TODO Generate permalink based on parent IDs
-            get => throw new NotImplementedException();
+            get
+            {
+                // If no parents, return single-level path
+                if(BlogPost.PageParent.IsEmpty) return $"/{Slug}/";
+                var parent = GetPageById(SiteConfig, BlogPost.PageParent.Id);
+                if (parent == null)
+                    throw new BlogClientException(
+                        "Page parent not found", 
+                        "Could not locate parent for page '{0}' with specified parent ID.", 
+                        BlogPost.PageParent.Id);
+                return $"{parent.SitePath}{Slug}/"; // Parent site path will include tailing slash
+            }
         }
 
         /// <summary>

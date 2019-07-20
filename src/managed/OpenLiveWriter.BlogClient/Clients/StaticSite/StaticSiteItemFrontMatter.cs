@@ -23,7 +23,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 DateKey = "date",
                 LayoutKey = "layout",
                 TagsKey = "tags",
-                ParentIdKey = "parent_id"
+                ParentIdKey = "parent_id",
+                PermalinkKey = "permalink"
             };
 
         public string Id { get; set; }
@@ -32,7 +33,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string Layout { get; set; } = "post";
         public string Slug { get; set; }
         public string[] Tags { get; set; }
-        public string ParentId { get; set; }
+        public string ParentId { get; set; } = "";
+        public string Permalink { get; set; }
 
         public StaticSiteItemFrontMatter()
         {
@@ -55,6 +57,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 root.Add(frontMatterKeys.TagsKey, new YamlSequenceNode(Tags.Select(
                     tag => new YamlScalarNode(tag))));
             if (!string.IsNullOrEmpty(ParentId)) root.Add(frontMatterKeys.ParentIdKey, ParentId);
+            if (!string.IsNullOrEmpty(Permalink)) root.Add(frontMatterKeys.PermalinkKey, Permalink);
 
             var stream = new YamlStream(new YamlDocument(root));
             var stringWriter = new StringWriter();
@@ -99,6 +102,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Load parent ID
             var parentIdNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.ParentIdKey);
             if (parentIdNodes.Count() > 0) ParentId = parentIdNodes.First().Value.ToString();
+
+            // Permalink is never loaded, only saved
         }
 
         public void LoadFromBlogPost(BlogPost post)
