@@ -20,6 +20,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         // _pages\my-page.html -> my-page
         private static Regex FILENAME_SLUG_REGEX = new Regex(@"^(?:(?:.*?)(?:\\|\/|_))*(.*?)\" + PUBLISH_FILE_EXTENSION + "$");
 
+        private static int PARENT_CRAWL_MAX_LEVELS = 32;
+
         public StaticSitePage(StaticSiteConfig config) : base(config)
         {
         }
@@ -76,15 +78,11 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             get
             {
-                // If no parents, return single-level path
-                if(BlogPost.PageParent.IsEmpty) return $"/{Slug}/";
-                var parent = GetPageById(SiteConfig, BlogPost.PageParent.Id);
-                if (parent == null)
-                    throw new BlogClientException(
-                        "Page parent not found", 
-                        "Could not locate parent for page '{0}' with specified parent ID.", 
-                        BlogPost.Title);
-                return $"{parent.SitePath}{Slug}/"; // Parent site path will include tailing slash
+                // Get slug for all parent posts and prepend
+                var parentSlugs = string.Join("/", GetParentSlugs());
+                if (parentSlugs != string.Empty) parentSlugs += "/"; // If parent slugs were collected, append slug separator
+
+                return $"/{parentSlugs}{Slug}/"; // parentSlugs will include tailing slash
             }
         }
 
@@ -95,21 +93,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <returns>File name with prepended date</returns>
         protected override string GetFileNameForProvidedSlug(string slug)
         {
-            // Get slug for all parent posts and prepend
-            var parentId = BlogPost.PageParent.Id;
-            var parentSlugs = "";
-            while(!string.IsNullOrEmpty(parentId))
-            {
-                var parent = GetPageById(SiteConfig, parentId);
-                if (parent == null)
-                    throw new BlogClientException(
-                        "Page parent not found",
-                        "Could not locate parent for page '{0}' with specified parent ID.",
-                        BlogPost.Title);
-                parentSlugs = $"{parent.Slug}_" + parentSlugs;
-                parentId = parent.BlogPost.PageParent.Id;
-            }
-
+            var parentSlugs = string.Join("_", GetParentSlugs());
+            if (parentSlugs != string.Empty) parentSlugs += "_"; // If parent slugs were collected, append slug separator
             return $"{parentSlugs}{slug}{PUBLISH_FILE_EXTENSION}";
         }
 
@@ -145,6 +130,33 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 return parent;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Crawl parent tree and collect all slugs
+        /// </summary>
+        /// <returns>An array of strings containing the slugs of all parents, in order.</returns>
+        private string[] GetParentSlugs()
+        {
+            List<string> parentSlugs = new List<string>();
+
+            var parentId = BlogPost.PageParent.Id;
+            int level = 0;
+            while (!string.IsNullOrEmpty(parentId) && level < PARENT_CRAWL_MAX_LEVELS)
+            {
+                var parent = GetPageById(SiteConfig, parentId);
+                if (parent == null)
+                    throw new BlogClientException(
+                        "Page parent not found",
+                        "Could not locate parent for page '{0}' with specified parent ID.",
+                        BlogPost.Title);
+                parentSlugs.Insert(0, parent.Slug);
+
+                parentId = parent.BlogPost.PageParent.Id;
+                level++;
+            }
+
+            return parentSlugs.ToArray();
         }
 
         /// <summary>
