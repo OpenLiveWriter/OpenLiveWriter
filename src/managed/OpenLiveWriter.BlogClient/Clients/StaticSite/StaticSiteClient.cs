@@ -133,29 +133,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             var post = StaticSitePost.GetPostById(Config, postId);
             if (post == null) throw new BlogClientException("Post does not exist", "Could not find post with specified ID."); // TODO use strings resources
-
-            var backupFileName = Path.GetTempFileName();
-            File.Copy(post.FilePathById, backupFileName, true);
-
-            try
-            {
-                File.Delete(post.FilePathById);
-
-                // Build the site, if required
-                if (Config.BuildCommand != string.Empty) DoSiteBuild();
-
-                // Publish the site
-                DoSitePublish();
-            }
-            catch (Exception ex)
-            {
-                File.Copy(backupFileName, post.FilePathById, overwrite: true);
-                File.Delete(backupFileName);
-
-                // Throw the exception up
-                throw ex;
-            }
-
+            DoDeleteItem(post);
         }
 
         public BlogPost GetPage(string blogId, string pageId)
@@ -217,6 +195,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public void DeletePage(string blogId, string pageId)
         {
+            var page = StaticSitePage.GetPageById(Config, pageId);
+            if (page == null) throw new BlogClientException("Page does not exist", "Could not find page with specified ID."); // TODO use strings resources
+            DoDeleteItem(page);
         }
 
         public AuthorInfo[] GetAuthors(string blogId) => throw new NotImplementedException();
