@@ -191,9 +191,28 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public bool EditPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
         {
+            if (!publish && !Options.SupportsPostAsDraft)
+            {
+                Trace.Fail("Static site does not support drafts, cannot post.");
+                throw new BlogClientPostAsDraftUnsupportedException();
+            }
+            remotePost = null;
             etag = "";
-            remotePost = new XmlDocument();
-            return false;
+
+            // Create a StaticSitePage on the provided page
+            var ssgPage = new StaticSitePage(Config, page);
+
+            if (ssgPage.FilePathById == null)
+            {
+                // Existing page could not be found to edit, call NewPage instead;
+                NewPage(blogId, page, publish, out etag, out remotePost);
+                return true;
+            }
+
+            // Set slug to existing slug on page
+            ssgPage.Slug = page.Slug;
+
+            return DoEditItem(ssgPage);
         }
 
         public void DeletePage(string blogId, string pageId)
