@@ -236,6 +236,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         // Authentication is handled by publish script at the moment 
         protected override bool RequiresPassword => false;
 
+        #region StaticSiteItem generic methods
+
         /// <summary>
         /// Generic method to prepare and publish a new StaticSiteItem derived instance 
         /// </summary>
@@ -340,6 +342,37 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Delete a StaticSiteItem from disk, and publish the changes
+        /// </summary>
+        /// <param name="item">a StaticSiteItem</param>
+        private void DoDeleteItem(StaticSiteItem item)
+        {
+            var backupFileName = Path.GetTempFileName();
+            File.Copy(item.FilePathById, backupFileName, true);
+
+            try
+            {
+                File.Delete(item.FilePathById);
+
+                // Build the site, if required
+                if (Config.BuildCommand != string.Empty) DoSiteBuild();
+
+                // Publish the site
+                DoSitePublish();
+            }
+            catch (Exception ex)
+            {
+                File.Copy(backupFileName, item.FilePathById, overwrite: true);
+                File.Delete(backupFileName);
+
+                // Throw the exception up
+                throw ex;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Build the static site
