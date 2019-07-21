@@ -21,6 +21,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
         private const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
         private const string CONFIG_POST_URL_FORMAT = "SSGPostUrlFormat";
+        private const string CONFIG_SITE_URL = "SSGSiteUrl"; // Store Site Url in credentials as well, for acccess by StaticSiteClient
         private const string CONFIG_SHOW_CMD_WINDOWS = "SSGShowCmdWindows";
         private const string CONFIG_CMD_TIMEOUT_MS = "SSGCmdTimeoutMs";
         private const string CONFIG_INITIALISED = "SSGInitialised";
@@ -148,6 +149,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Don't overwrite the default value if we fail to find a value;
             if (creds.GetCustomValue(CONFIG_POST_URL_FORMAT) != string.Empty) PostUrlFormat = creds.GetCustomValue(CONFIG_POST_URL_FORMAT);
 
+            SiteUrl = creds.GetCustomValue(CONFIG_SITE_URL); // This will be overidden in LoadFromBlogSettings, HomepageUrl is considered a more accurate source of truth
+
             // TODO Load FrontMatterKeys
 
             ShowCmdWindows = creds.GetCustomValue(CONFIG_SHOW_CMD_WINDOWS) == "1";
@@ -161,10 +164,10 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <param name="blogCredentials">An IBlogSettingsAccessor</param>
         public void LoadFromBlogSettings(IBlogSettingsAccessor blogSettings)
         {
+            LoadFromCredentials(blogSettings.Credentials);
+
             SiteUrl = blogSettings.HomepageUrl;
             SiteTitle = blogSettings.BlogName;
-
-            LoadFromCredentials(blogSettings.Credentials);
         }
 
         /// <summary>
@@ -191,6 +194,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             creds.SetCustomValue(CONFIG_PUBLISH_COMMAND, PublishCommand);
             creds.SetCustomValue(CONFIG_POST_URL_FORMAT, PostUrlFormat);
+            creds.SetCustomValue(CONFIG_SITE_URL, SiteUrl);
 
             creds.SetCustomValue(CONFIG_SHOW_CMD_WINDOWS, ShowCmdWindows ? "1" : "0");
             creds.SetCustomValue(CONFIG_CMD_TIMEOUT_MS, CmdTimeoutMs.ToString());
