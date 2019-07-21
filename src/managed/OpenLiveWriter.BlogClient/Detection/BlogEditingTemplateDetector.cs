@@ -1,10 +1,17 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using mshtml;
+using OpenLiveWriter.BlogClient.Clients;
+using OpenLiveWriter.Controls;
+using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.CoreServices.Progress;
+using OpenLiveWriter.Extensibility.BlogClient;
+using OpenLiveWriter.Localization;
+using OpenLiveWriter.Mshtml;
 using System;
 using System.Collections;
 using System.Diagnostics;
-using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -12,18 +19,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
-using mshtml;
-using OpenLiveWriter.BlogClient;
-using OpenLiveWriter.BlogClient.Clients;
-using OpenLiveWriter.Extensibility.BlogClient;
-using OpenLiveWriter.HtmlParser.Parser;
-using OpenLiveWriter.Localization;
-using OpenLiveWriter.Mshtml;
-using OpenLiveWriter.Controls;
-using OpenLiveWriter.CoreServices;
-using OpenLiveWriter.CoreServices.Progress;
 
 namespace OpenLiveWriter.BlogClient.Detection
 {
@@ -157,6 +153,8 @@ namespace OpenLiveWriter.BlogClient.Detection
             get { return _exception; }
         }
         private Exception _exception;
+
+        private string _nextTryPostUrl;
 
         public object DetectTemplate(IProgressHost progress)
         {
@@ -385,7 +383,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                 BlogPostRegionLocatorStrategy regionLocatorStrategy = regionLocatorStrategies[i];
                 try
                 {
-                    blogTemplateFiles = GetBlogTemplateFiles(progress, regionLocatorStrategy, templateStrategies, targetTemplateTypes);
+                    blogTemplateFiles = GetBlogTemplateFiles(progress, regionLocatorStrategy, templateStrategies, targetTemplateTypes, _blogHomepageUrl);
                     progress.UpdateProgress(100, 100);
 
                     //if any exception occurred along the way, clear them since one of the template strategies
@@ -439,8 +437,12 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// <param name="regionLocatorStrategy"></param>
         /// <param name="templateStrategies"></param>
         /// <param name="templateTypes"></param>
+        /// <param name="targetUrl">
+        /// The URL to analyze. If a post can be located, but not the body, this is used 
+        /// to reiterate into the post it fetch it's content directly.
+        /// </param>
         /// <returns></returns>
-        private BlogEditingTemplateFile[] GetBlogTemplateFiles(IProgressHost progress, BlogPostRegionLocatorStrategy regionLocatorStrategy, BlogEditingTemplateStrategy[] templateStrategies, BlogEditingTemplateType[] templateTypes)
+        private BlogEditingTemplateFile[] GetBlogTemplateFiles(IProgressHost progress, BlogPostRegionLocatorStrategy regionLocatorStrategy, BlogEditingTemplateStrategy[] templateStrategies, BlogEditingTemplateType[] templateTypes, string targetUrl)
         {
             BlogEditingTemplateFile[] blogTemplateFiles = null;
             try
@@ -457,10 +459,27 @@ namespace OpenLiveWriter.BlogClient.Detection
                         CheckCancelRequested(parseTick);
                         templateStrategy = templateStrategies[i];
 
+                        // Clear _nextTryPostUrl flag
+                        _nextTryPostUrl = null;
+
                         // Parse the blog post HTML into an editing template.
                         // Note: we can't use MarkupServices to parse the document from a non-UI thread,
                         // so we have to execute the parsing portion of the template download operation on the UI thread.
-                        string editingTemplate = ParseWebpageIntoEditingTemplate_OnUIThread(_parentControl, regionLocatorStrategy, new ProgressTick(parseTick, 1, 5));
+                        string editingTemplate = ParseWebpageIntoEditingTemplate_OnUIThread(_parentControl, regionLocatorStrategy, new ProgressTick(parseTick, 1, 5), targetUrl);
+
+                        // If there's no editing template, there should be a URL to try next
+                        Debug.Assert(editingTemplate != null || (editingTemplate == null && _nextTryPostUrl != null));
+
+                        // If the homepage has just been analysed and the _nextTryPostUrl flag is set
+                        if (targetUrl == _blogHomepageUrl && _nextTryPostUrl != null && regionLocatorStrategy.CanRefetchPage)
+                        {
+                            // Try fetching the URL that has been specified, and reparse
+                            progress.UpdateProgress("Post contents not present on homepage, checking post..."); // TODO use strings
+                            // Fetch the post page
+                            regionLocatorStrategy.FetchTemporaryPostPage(SilentProgressHost.Instance, _nextTryPostUrl);
+                            // Parse out the template
+                            editingTemplate = ParseWebpageIntoEditingTemplate_OnUIThread(_parentControl, regionLocatorStrategy, new ProgressTick(parseTick, 1, 5), _nextTryPostUrl);
+                        }
 
                         // check for cancel
                         CheckCancelRequested(parseTick);
@@ -540,19 +559,48 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// <param name="uiContext"></param>
         /// <param name="progress"></param>
         /// <returns></returns>
-        private string ParseWebpageIntoEditingTemplate_OnUIThread(Control uiContext, BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress)
+        private string ParseWebpageIntoEditingTemplate_OnUIThread(Control uiContext, BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress, string postUrl)
         {
-            BlogEditingTemplate blogEditingTemplate = (BlogEditingTemplate)uiContext.Invoke(new TemplateParser(ParseBlogPostIntoTemplate), new object[] { regionLocator, new ProgressTick(progress, 1, 100) });
-            return blogEditingTemplate.Template;
+            BlogEditingTemplate blogEditingTemplate = (BlogEditingTemplate)uiContext.Invoke(
+                new TemplateParser(ParseBlogPostIntoTemplate), 
+                new object[] {
+                    regionLocator,
+                    new ProgressTick(progress, 1, 100),
+                    postUrl });
+            return blogEditingTemplate?.Template;
         }
-        private delegate BlogEditingTemplate TemplateParser(BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress);
+        private delegate BlogEditingTemplate TemplateParser(BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress, string postUrl);
 
-        private BlogEditingTemplate ParseBlogPostIntoTemplate(BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress)
+        private BlogEditingTemplate ParseBlogPostIntoTemplate(BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress, string postUrl)
         {
             progress.UpdateProgress(Res.Get(StringId.ProgressCreatingEditingTemplate));
 
-            BlogPostRegions regions = regionLocator.LocateRegionsOnUIThread(progress);
+            BlogPostRegions regions = regionLocator.LocateRegionsOnUIThread(progress, postUrl);
             IHTMLElement primaryTitleRegion = GetPrimaryEditableTitleElement(regions.BodyRegion, regions.Document, regions.TitleRegions);
+
+            // IF
+            //   - primaryTitleRegion is not null (title found)
+            //   - BodyRegion is null (no post body found)
+            //   - AND primaryTitleRegion is a link
+            if (primaryTitleRegion != null && regions.BodyRegion == null && primaryTitleRegion.tagName.ToLower() == "a")
+            {
+                // Title region was detected, but body region was not. 
+                // It is possible that only titles are shown on the homepage
+                // Try requesting the post itself, and loading regions from the post itself
+
+                // HACK Somewhere the 'about:' protocol replaces http/https, replace it again with the correct protocol
+                var pathMatch = new Regex("^about:(.*)$").Match((primaryTitleRegion as IHTMLAnchorElement).href);
+                Debug.Assert(pathMatch.Success); // Assert that this URL is to the format we expect
+                var newPostPath = pathMatch.Groups[1].Value; // Grab the path from the URL
+                var homepageUri = new Uri(_blogHomepageUrl);
+                var newPostUrl = $"{homepageUri.Scheme}://{homepageUri.Host}{newPostPath}"; // Recreate the full post URL
+
+                // Set the NextTryPostUrl flag in the region locater
+                // This will indicate to the other thread that another page should be parsed
+                _nextTryPostUrl = newPostUrl;
+                return null;
+            }
+
             BlogEditingTemplate template = GenerateBlogTemplate((IHTMLDocument3)regions.Document, primaryTitleRegion, regions.TitleRegions, regions.BodyRegion);
 
             progress.UpdateProgress(100, 100);
@@ -696,7 +744,6 @@ namespace OpenLiveWriter.BlogClient.Detection
         // return value
         private BlogEditingTemplateFile[] _blogTemplateFiles = new BlogEditingTemplateFile[0];
         private Color? _postBodyBackgroundColor;
-
     }
 
     public delegate HttpWebResponse PageDownloader(string url, int timeoutMs);
