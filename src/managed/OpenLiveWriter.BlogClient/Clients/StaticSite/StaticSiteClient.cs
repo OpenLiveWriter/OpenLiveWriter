@@ -38,7 +38,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             : base(credentials)
         {
             Config = StaticSiteConfig.LoadConfigFromCredentials(credentials);
-
+            
             // Set the client options
             var options = new BlogClientOptions();
             ConfigureClientOptions(options);
@@ -202,8 +202,13 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public AuthorInfo[] GetAuthors(string blogId) => throw new NotImplementedException();
 
-        public bool? DoesFileNeedUpload(IFileUploadContext uploadContext) => false;
-        public string DoBeforePublishUploadWork(IFileUploadContext uploadContext) => "";
+        public bool? DoesFileNeedUpload(IFileUploadContext uploadContext) => null;
+
+        public string DoBeforePublishUploadWork(IFileUploadContext uploadContext)
+        {
+            string path = uploadContext.GetContentsLocalFilePath();
+            return DoPostImage(path);
+        }
 
         public void DoAfterPublishUploadWork(IFileUploadContext uploadContext)
         {
@@ -373,6 +378,41 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         #endregion
+
+        /// <summary>
+        /// Copy image to images directory, returning the URL on site (eg. http://example.com/images/test.jpg)
+        /// This method does not upload the image, it is assumed this will be done later on.
+        /// </summary>
+        /// <param name="filePath">Path to image on disk</param>
+        /// <returns>URL to image on site</returns>
+        private string DoPostImage(string filePath)
+        {
+            // Generate a unique file name 
+            var fileExt = Path.GetExtension(filePath);
+            string uniqueName = "";
+
+            for (int i = 0; i <= 1000; i++)
+            {
+                uniqueName = Path.GetFileNameWithoutExtension(filePath).Replace(" ", "");
+
+                if (i == 1000)
+                {
+                    // Failed to find a unique file name, return a GUID
+                    uniqueName = Guid.NewGuid().ToString();
+                    break;
+                }
+                if (i > 0) uniqueName += $"-{i}";
+                if (!File.Exists(Path.Combine(Config.LocalSitePath, Config.ImagesPath, uniqueName + fileExt ))) break;
+            }
+
+            // Copy the image to the images path
+            File.Copy(filePath, Path.Combine(Config.LocalSitePath, Config.ImagesPath, uniqueName + fileExt));
+
+            // I attempted to return an absolute server path here, however other parts of OLW expect a fully formed URI
+            // This may cause issue for users who decide to relocate their site to a different URL.
+            // I also attempted to strip the protocol here, however C# does not think protocol-less URIs are valid
+            return Path.Combine(Config.SiteUrl, Config.ImagesPath, uniqueName + fileExt).Replace("\\", "/");
+        }
 
         /// <summary>
         /// Build the static site
