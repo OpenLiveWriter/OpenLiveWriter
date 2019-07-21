@@ -220,8 +220,16 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public BlogPostCategory[] SuggestCategories(string blogId, string partialCategoryName)
             => throw new BlogClientMethodUnsupportedException("SuggestCategories");
 
+        /// <summary>
+        /// Currently sends an UNAUTHENTICATED HTTP request. 
+        /// If a static site requires authentication, this may be implemented here later.
+        /// </summary>
+        /// <param name="requestUri"></param>
+        /// <param name="timeoutMs"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         public HttpWebResponse SendAuthenticatedHttpRequest(string requestUri, int timeoutMs, HttpRequestFilter filter)
-            => throw new NotImplementedException("HTTP requests not implemented for static sites"); // TODO This is used for downloading writing manifest XMLs. Throw an exception for now.
+            => BlogClientHelper.SendAuthenticatedHttpRequest(requestUri, filter, (HttpWebRequest request) => {});
 
         public BlogInfo[] GetImageEndpoints() 
             => throw new NotImplementedException();
@@ -233,10 +241,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public bool IsSecure => true;
 
         /// <summary>
-        /// Always false. It is not possible to perform remote detection on a static site, as
-        /// it may not be published yet, or published to a web location.
+        /// Remote detection is now possible as SendAuthenticatedHttpRequest has been implemented.
         /// </summary>
-        public override bool RemoteDetectionPossible { get; } = false;
+        public override bool RemoteDetectionPossible => true;
 
         // Authentication is handled by publish script at the moment 
         protected override bool RequiresPassword => false;
@@ -537,6 +544,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             clientOptions.SupportsImageUpload = Config.ImagesEnabled ? SupportsFeature.Yes : SupportsFeature.No;
             clientOptions.SupportsScripts = clientOptions.SupportsEmbeds = SupportsFeature.Yes;
             clientOptions.SupportsExtendedEntries = true;
+
+            // Blog template is downloaded from publishing a test post
+            clientOptions.SupportsAutoUpdate = true;
 
             clientOptions.SupportsCategories = true;
             clientOptions.SupportsMultipleCategories = true;
