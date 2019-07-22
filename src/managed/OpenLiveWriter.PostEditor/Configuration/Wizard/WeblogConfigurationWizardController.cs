@@ -647,6 +647,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
             // Fill config into credentials
             staticSiteConfig.SaveToCredentials(_temporarySettings.Credentials);
+
+            // Perform auto-detection
+            addWizardSubStep(new WizardAutoDetectionStep(
+                (IBlogClientUIContext)this,
+                _temporarySettings, 
+                null,
+                new WizardSettingsAutoDetectionOperation(_editWithStyleStep)));
         }
 
         private void OnStaticSiteConfigProviderDisplayed(Object stepControl)
