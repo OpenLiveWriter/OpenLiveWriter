@@ -231,7 +231,9 @@ namespace OpenLiveWriter.ApplicationFramework
                 button.AutoSizeWidth = false;
                 button.AutoSizeHeight = false;
                 button.Width = maxWidth;
-                button.Height = (int)Math.Ceiling(button.Height / (DisplayHelper.PixelsPerLogicalInchY / 96f));
+                button.Height = 
+                    (int)Math.Ceiling(button.Height / (DisplayHelper.PixelsPerLogicalInchY / 96f))
+                  + (button.BitmapEnabled == null ? 10 : 0); // Add a 10 pixel vertical padding when text-only
             }
 
             Width = maxWidth + PAD * 2;
