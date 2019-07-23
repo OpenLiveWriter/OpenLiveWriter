@@ -289,18 +289,12 @@
     <Compile Include="Configuration\Settings\WeblogSettingsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Configuration\StaticSite\StaticSiteAdvancedConfigController.cs" />
-    <Compile Include="Configuration\StaticSite\StaticSiteAdvancedConfigForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Configuration\StaticSite\StaticSiteAdvancedConfigForm.Designer.cs">
-      <DependentUpon>StaticSiteAdvancedConfigForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Configuration\StaticSite\StaticSiteAdvancedConfigPanel.cs">
+    <Compile Include="Configuration\StaticSiteAdvanced\GeneralPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Configuration\StaticSite\StaticSiteAdvancedConfigPanel.Designer.cs">
-      <DependentUpon>StaticSiteAdvancedConfigPanel.cs</DependentUpon>
+    <Compile Include="Configuration\StaticSiteAdvanced\PreferencesController.cs" />
+    <Compile Include="Configuration\StaticSiteAdvanced\StaticSitePreferencesForm.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Configuration\TemporaryBlogSettings.cs" />
     <Compile Include="Configuration\Wizard\BlogProviderAccountWizard.cs" />
@@ -492,6 +486,11 @@
     </Compile>
     <Compile Include="ContentSources\IPublishTimeWorker.cs" />
     <Compile Include="ContentSources\SmartContentWorker.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SmartContentPersistedFileList.cs" />
     <Compile Include="PingPreferencesPanel.cs">
       <SubType>UserControl</SubType>
@@ -1046,11 +1045,9 @@
       <DependentUpon>WeblogSettingsPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\StaticSite\StaticSiteAdvancedConfigForm.resx">
-      <DependentUpon>StaticSiteAdvancedConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Configuration\StaticSite\StaticSiteAdvancedConfigPanel.resx">
-      <DependentUpon>StaticSiteAdvancedConfigPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Configuration\StaticSiteAdvanced\GeneralPanel.resx">
+      <DependentUpon>GeneralPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Wizard\Images\LiveID16.gif" />
     <EmbeddedResource Include="Configuration\Wizard\Images\WeblogWizardHeader.png" />
@@ -1500,6 +1497,10 @@
     <EmbeddedResource Include="PrivacyPreferencesPanel.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PrivacyPreferencesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="RecentPostNotSynchronizedWarningForm.resx">
       <DependentUpon>RecentPostNotSynchronizedWarningForm.cs</DependentUpon>

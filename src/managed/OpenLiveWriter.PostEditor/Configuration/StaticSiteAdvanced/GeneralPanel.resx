@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="labelAutoDetect.Text" xml:space="preserve">
+    <value>Open Live Writer can also reattempt to detect relevant configuration options for your static site. This may not result in a complete configuration, so please use the fields on the following pages to ensure all settings are set correctly.</value>
+  </data>
 </root>

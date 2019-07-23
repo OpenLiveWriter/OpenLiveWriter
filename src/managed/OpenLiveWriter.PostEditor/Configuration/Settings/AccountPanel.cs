@@ -16,7 +16,6 @@ using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.Configuration.Wizard;
-using OpenLiveWriter.PostEditor.Configuration.StaticSite;
 
 namespace OpenLiveWriter.PostEditor.Configuration.Settings
 {
@@ -134,7 +133,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             // For static sites, the advanced configuration panel will be displayed
             // Otherwise, display the wizard
             bool settingsModified = blogSettings.IsStaticSiteBlog
-                ? StaticSiteAdvancedConfigController.EditTemporarySettings(FindForm(), blogSettings)
+                ? StaticSiteAdvanced.PreferencesController.EditTemporarySettings(FindForm(), blogSettings)
                 : WeblogConfigurationWizardController.EditTemporarySettings(FindForm(), blogSettings);
 
             if (settingsModified)
