@@ -123,6 +123,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         public bool Initialised { get; set; } = false;
 
+        public StaticSiteConfigFrontMatterKeys FrontMatterKeys => new StaticSiteConfigFrontMatterKeys(); // stub for now
+
         /// <summary>
         /// Load site configuration from blog credentials
         /// </summary>
@@ -235,7 +237,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
     /// <summary>
     /// Represents the YAML keys used for each of these properties in the front matter
     /// </summary>
-    public struct StaticSiteConfigFrontMatterKeys
+    public class StaticSiteConfigFrontMatterKeys
     {
         public string IdKey { get; set; }
         public string TitleKey { get; set; }
@@ -244,6 +246,18 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string TagsKey { get; set; }
         public string ParentIdKey { get; set; }
         public string PermalinkKey { get; set; }
+
+        public object[][] Rows
+            => new object[][]
+            {
+                new object[] { "ID", IdKey },
+                new object[] { "Title", TitleKey },
+                new object[] { "Date", DateKey },
+                new object[] { "Layout", LayoutKey },
+                new object[] { "Tags", TagsKey },
+                new object[] { "Parent ID", ParentIdKey },
+                new object[] { "Permalink", PermalinkKey }
+            };
 
         // TODO LoadFromCredentials
         // TODO SaveToCredentials

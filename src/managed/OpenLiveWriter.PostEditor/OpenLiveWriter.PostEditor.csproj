@@ -289,6 +289,9 @@
     <Compile Include="Configuration\Settings\WeblogSettingsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Configuration\StaticSiteAdvanced\FrontMatterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Configuration\StaticSiteAdvanced\AuthoringPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1046,6 +1049,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Settings\WeblogSettingsPanel.resx">
       <DependentUpon>WeblogSettingsPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\StaticSiteAdvanced\FrontMatterPanel.resx">
+      <DependentUpon>FrontMatterPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\StaticSiteAdvanced\AuthoringPanel.resx">

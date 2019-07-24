@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
 
         private GeneralPanel panelGeneral;
         private AuthoringPanel panelAuthoring;
+        private FrontMatterPanel panelFrontMatter;
 
         public PreferencesController(TemporaryBlogSettings blogSettings)
         {
@@ -28,6 +30,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
 
             panelGeneral = new GeneralPanel(this);
             panelAuthoring = new AuthoringPanel(this);
+            panelFrontMatter = new FrontMatterPanel(this);
         }
 
         private bool EditWeblogTemporarySettings(IWin32Window owner)
@@ -46,6 +49,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                     int iPanel = 0;
                     preferencesForm.SetEntry(iPanel++, panelGeneral);
                     preferencesForm.SetEntry(iPanel++, panelAuthoring);
+                    preferencesForm.SetEntry(iPanel++, panelFrontMatter);
 
                     preferencesForm.SelectedIndex = 0;
                     
@@ -80,6 +84,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             panelAuthoring.PagesStoredInRoot = ssgConfig.PagesPath == ".";
             panelAuthoring.ImagesEnabled = ssgConfig.ImagesEnabled;
             panelAuthoring.ImagesPath = ssgConfig.ImagesPath;
+
+            // Front Matter
+            foreach (var row in ssgConfig.FrontMatterKeys.Rows) panelFrontMatter.TableRows.Add(row);
+            
         }
 
         public void GeneralPanel_RunAccountWizard()
