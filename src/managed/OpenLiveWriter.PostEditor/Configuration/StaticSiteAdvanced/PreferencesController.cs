@@ -19,6 +19,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         private PreferencesForm _form;
 
         private GeneralPanel panelGeneral;
+        private AuthoringPanel panelAuthoring;
 
         public PreferencesController(TemporaryBlogSettings blogSettings)
         {
@@ -26,6 +27,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             _form = new PreferencesForm();
 
             panelGeneral = new GeneralPanel(this);
+            panelAuthoring = new AuthoringPanel(this);
         }
 
         private bool EditWeblogTemporarySettings(IWin32Window owner)
@@ -43,6 +45,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                     // Add panels
                     int iPanel = 0;
                     preferencesForm.SetEntry(iPanel++, panelGeneral);
+                    preferencesForm.SetEntry(iPanel++, panelAuthoring);
 
                     preferencesForm.SelectedIndex = 0;
                     
@@ -67,6 +70,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             panelGeneral.SiteTitle = ssgConfig.SiteTitle;
             panelGeneral.SiteUrl = ssgConfig.SiteUrl;
             panelGeneral.LocalSitePath = ssgConfig.LocalSitePath;
+
+            // Authoring
+            panelAuthoring.PostsPath = ssgConfig.PostsPath;
+            panelAuthoring.DraftsEnabled = ssgConfig.DraftsEnabled;
+            panelAuthoring.DraftsPath = ssgConfig.DraftsPath;
+            panelAuthoring.PagesEnabled = ssgConfig.PagesEnabled;
+            panelAuthoring.PagesPath = ssgConfig.PagesPath;
+            panelAuthoring.PagesStoredInRoot = ssgConfig.PagesPath == ".";
+            panelAuthoring.ImagesEnabled = ssgConfig.ImagesEnabled;
+            panelAuthoring.ImagesPath = ssgConfig.ImagesPath;
         }
 
         public void GeneralPanel_RunAccountWizard()
