@@ -12,6 +12,7 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.ApplicationFramework.Preferences;
@@ -74,8 +75,20 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            
             DisplayHelper.AutoFitSystemButton(buttonRunAccountWizard);
             DisplayHelper.AutoFitSystemButton(buttonRunAutoDetect);
+
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelRunWizardAgain, buttonRunAccountWizard);
+            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelAutoDetect, buttonRunAutoDetect);
+
+            LayoutHelper.DistributeVerticallyNoScale(10, 
+                new ControlGroup(
+                    labelRunWizardAgain,
+                    buttonRunAccountWizard),
+                new ControlGroup(
+                    labelAutoDetect,
+                    buttonRunAutoDetect));
         }
 
         #region Component Designer generated code
@@ -186,7 +199,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.groupBoxOptions.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBoxOptions.Location = new System.Drawing.Point(8, 196);
             this.groupBoxOptions.Name = "groupBoxOptions";
-            this.groupBoxOptions.Size = new System.Drawing.Size(345, 211);
+            this.groupBoxOptions.Size = new System.Drawing.Size(345, 226);
             this.groupBoxOptions.TabIndex = 2;
             this.groupBoxOptions.TabStop = false;
             this.groupBoxOptions.Text = "Options";
