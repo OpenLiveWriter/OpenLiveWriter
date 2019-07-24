@@ -37,6 +37,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         private Button buttonRunAutoDetect;
         private Label labelRunWizardAgain;
         private Label labelSiteUrl;
+        private Button buttonBrowseLocalSitePath;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -111,12 +113,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelAutoDetect = new System.Windows.Forms.Label();
             this.buttonRunAutoDetect = new System.Windows.Forms.Button();
             this.labelRunWizardAgain = new System.Windows.Forms.Label();
+            this.buttonBrowseLocalSitePath = new System.Windows.Forms.Button();
             this.groupBoxSetup.SuspendLayout();
             this.groupBoxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxSetup
             // 
+            this.groupBoxSetup.Controls.Add(this.buttonBrowseLocalSitePath);
             this.groupBoxSetup.Controls.Add(this.textBoxLocalSitePath);
             this.groupBoxSetup.Controls.Add(this.labelLocalSitePath);
             this.groupBoxSetup.Controls.Add(this.textBoxSiteUrl);
@@ -135,7 +139,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             // 
             this.textBoxLocalSitePath.Location = new System.Drawing.Point(16, 126);
             this.textBoxLocalSitePath.Name = "textBoxLocalSitePath";
-            this.textBoxLocalSitePath.Size = new System.Drawing.Size(316, 23);
+            this.textBoxLocalSitePath.Size = new System.Drawing.Size(286, 23);
             this.textBoxLocalSitePath.TabIndex = 5;
             // 
             // labelLocalSitePath
@@ -232,6 +236,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelRunWizardAgain.Text = "You can chose to run the Account Wizard again if you wish to be guided through th" +
     "e core static site configuration options interactively.";
             // 
+            // buttonBrowseLocalSitePath
+            // 
+            this.buttonBrowseLocalSitePath.Location = new System.Drawing.Point(308, 125);
+            this.buttonBrowseLocalSitePath.Name = "buttonBrowseLocalSitePath";
+            this.buttonBrowseLocalSitePath.Size = new System.Drawing.Size(24, 24);
+            this.buttonBrowseLocalSitePath.TabIndex = 6;
+            this.buttonBrowseLocalSitePath.Text = "...";
+            this.buttonBrowseLocalSitePath.UseVisualStyleBackColor = true;
+            this.buttonBrowseLocalSitePath.Click += new System.EventHandler(this.ButtonBrowseLocalSitePath_Click);
+            // 
             // GeneralPanel
             // 
             this.AccessibleName = "General";
@@ -255,5 +269,18 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
 
         private void ButtonRunAutoDetect_Click(object sender, EventArgs e)
             => _controller.GeneralPanel_RunAutoDetect();
+
+        private void ButtonBrowseLocalSitePath_Click(object sender, EventArgs e)
+        {
+            var folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.ShowNewFolderButton = false;
+            folderBrowserDialog.Description = Res.Get(StringId.CWStaticSiteLocalSiteFolderPicker);
+            var result = folderBrowserDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                textBoxLocalSitePath.Text = folderBrowserDialog.SelectedPath;
+            }
+        }
     }
 }
