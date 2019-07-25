@@ -22,6 +22,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         private GeneralPanel panelGeneral;
         private AuthoringPanel panelAuthoring;
         private FrontMatterPanel panelFrontMatter;
+        private BuildPublishPanel panelBuildPublish;
 
         public PreferencesController(TemporaryBlogSettings blogSettings)
         {
@@ -31,6 +32,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             panelGeneral = new GeneralPanel(this);
             panelAuthoring = new AuthoringPanel(this);
             panelFrontMatter = new FrontMatterPanel(this);
+            panelBuildPublish = new BuildPublishPanel(this);
         }
 
         private bool EditWeblogTemporarySettings(IWin32Window owner)
@@ -50,6 +52,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                     preferencesForm.SetEntry(iPanel++, panelGeneral);
                     preferencesForm.SetEntry(iPanel++, panelAuthoring);
                     preferencesForm.SetEntry(iPanel++, panelFrontMatter);
+                    preferencesForm.SetEntry(iPanel++, panelBuildPublish);
 
                     preferencesForm.SelectedIndex = 0;
                     
