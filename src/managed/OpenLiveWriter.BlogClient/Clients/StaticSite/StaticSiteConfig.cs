@@ -239,6 +239,17 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
     /// </summary>
     public class StaticSiteConfigFrontMatterKeys
     {
+        public enum KeyIdentifier
+        {
+            Id,
+            Title,
+            Date,
+            Layout,
+            Tags,
+            ParentId,
+            Permalink
+        }
+
         public string IdKey { get; set; }
         public string TitleKey { get; set; }
         public string DateKey { get; set; }
@@ -246,18 +257,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string TagsKey { get; set; }
         public string ParentIdKey { get; set; }
         public string PermalinkKey { get; set; }
-
-        public object[][] Rows
-            => new object[][]
-            {
-                new object[] { "ID", IdKey },
-                new object[] { "Title", TitleKey },
-                new object[] { "Date", DateKey },
-                new object[] { "Layout", LayoutKey },
-                new object[] { "Tags", TagsKey },
-                new object[] { "Parent ID", ParentIdKey },
-                new object[] { "Permalink", PermalinkKey }
-            };
 
         // TODO LoadFromCredentials
         // TODO SaveToCredentials

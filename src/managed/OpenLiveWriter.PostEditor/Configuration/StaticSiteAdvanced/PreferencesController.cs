@@ -86,8 +86,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             panelAuthoring.ImagesPath = ssgConfig.ImagesPath;
 
             // Front Matter
-            foreach (var row in ssgConfig.FrontMatterKeys.Rows) panelFrontMatter.TableRows.Add(row);
-            
+            panelFrontMatter.Keys = ssgConfig.FrontMatterKeys;
         }
 
         public void GeneralPanel_RunAccountWizard()

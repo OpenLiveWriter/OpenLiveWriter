@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -14,9 +15,12 @@ using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.BlogClient;
+using OpenLiveWriter.BlogClient.Clients.StaticSite;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.Configuration.Wizard;
+
+using KeyIdentifier = OpenLiveWriter.BlogClient.Clients.StaticSite.StaticSiteConfigFrontMatterKeys.KeyIdentifier;
 
 namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
 {
@@ -26,17 +30,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
     public class FrontMatterPanel : PreferencesPanel
     {
         private DataGridView dataGridView;
-        private DataGridViewTextBoxColumn property;
-        private DataGridViewTextBoxColumn key;
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
         // private System.ComponentModel.Container components = null;
-
-        public DataGridViewRowCollection TableRows => dataGridView.Rows;
-
         private PreferencesController _controller;
+        private DataGridViewTextBoxColumn colProperty;
+        private DataGridViewTextBoxColumn colKey;
+        private Label labelSubtitle;
+        private Dictionary<KeyIdentifier, DataGridViewRow> _keyRowMap = new Dictionary<KeyIdentifier, DataGridViewRow>();
 
         public FrontMatterPanel(PreferencesController controller)
             : base()
@@ -48,9 +51,42 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             _controller = controller;
         }
 
-        protected override void OnLoad(EventArgs e)
+        protected override void OnLayout(LayoutEventArgs e)
         {
-            base.OnLoad(e);
+            base.OnLayout(e);
+            dataGridView?.AutoResizeRows();
+        }
+
+        private void AddTableRow(KeyIdentifier keyIdentifier, string prop, string key)
+        {
+            _keyRowMap[keyIdentifier] = new DataGridViewRow();
+            _keyRowMap[keyIdentifier].Cells.Add(new DataGridViewTextBoxCell()
+            {
+                Value = prop
+            });
+            _keyRowMap[keyIdentifier].Cells.Add(new DataGridViewTextBoxCell()
+            {
+                Value = key
+            });
+            dataGridView.Rows.Add(_keyRowMap[keyIdentifier]);
+        }
+
+        public StaticSiteConfigFrontMatterKeys Keys
+        {
+            set
+            {
+                _keyRowMap = new Dictionary<KeyIdentifier, DataGridViewRow>();
+                dataGridView.Rows.Clear();
+
+                // TODO use strings resource for below
+                AddTableRow(KeyIdentifier.Id, "ID", value.IdKey);
+                AddTableRow(KeyIdentifier.Title, "Title", value.TitleKey);
+                AddTableRow(KeyIdentifier.Date, "Date", value.DateKey);
+                AddTableRow(KeyIdentifier.Layout, "Layout", value.LayoutKey);
+                AddTableRow(KeyIdentifier.Tags, "Tags", value.TagsKey);
+                AddTableRow(KeyIdentifier.Permalink, "Permalink", value.PermalinkKey);
+                AddTableRow(KeyIdentifier.ParentId, "Parent ID", value.ParentIdKey);
+            }
         }
 
         #region Component Designer generated code
@@ -60,10 +96,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.property = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.key = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProperty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelSubtitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,42 +115,51 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.property,
-            this.key});
-            this.dataGridView.Location = new System.Drawing.Point(12, 34);
+            this.colProperty,
+            this.colKey});
+            this.dataGridView.Location = new System.Drawing.Point(12, 70);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(350, 377);
+            this.dataGridView.Size = new System.Drawing.Size(350, 341);
             this.dataGridView.TabIndex = 1;
             // 
-            // property
+            // colProperty
             // 
-            this.property.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.property.DefaultCellStyle = dataGridViewCellStyle1;
-            this.property.HeaderText = "Property";
-            this.property.Name = "property";
-            this.property.ReadOnly = true;
-            this.property.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colProperty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colProperty.DefaultCellStyle = dataGridViewCellStyle2;
+            this.colProperty.HeaderText = "Property";
+            this.colProperty.Name = "colProperty";
+            this.colProperty.ReadOnly = true;
+            this.colProperty.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // key
+            // colKey
             // 
-            this.key.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.key.HeaderText = "Front Matter Key";
-            this.key.Name = "key";
-            this.key.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colKey.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colKey.HeaderText = "Front Matter Key";
+            this.colKey.Name = "colKey";
+            this.colKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // labelSubtitle
+            // 
+            this.labelSubtitle.Location = new System.Drawing.Point(9, 31);
+            this.labelSubtitle.Name = "labelSubtitle";
+            this.labelSubtitle.Size = new System.Drawing.Size(353, 36);
+            this.labelSubtitle.TabIndex = 2;
+            this.labelSubtitle.Text = "Below you can adjust the post front matter keys used to match your static site ge" +
+    "nerator.";
             // 
             // FrontMatterPanel
             // 
             this.AccessibleName = "Front Matter";
+            this.Controls.Add(this.labelSubtitle);
             this.Controls.Add(this.dataGridView);
             this.Name = "FrontMatterPanel";
             this.PanelName = "Front Matter";
             this.Size = new System.Drawing.Size(370, 425);
             this.Controls.SetChildIndex(this.dataGridView, 0);
+            this.Controls.SetChildIndex(this.labelSubtitle, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 
