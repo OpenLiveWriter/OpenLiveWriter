@@ -111,9 +111,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             base.OnLoad(e);
             RecomputeEnabledStates();
 
-            LayoutHelper.NaturalizeHeightAndDistributeNoScale(5, labelPostsPath, textBoxPostsPath, checkBoxDraftsEnabled, labelDraftsPath, textBoxDraftsPath);
-            LayoutHelper.NaturalizeHeightAndDistributeNoScale(5, checkBoxPagesEnabled, labelPagesPath, textBoxPagesPath, checkBoxPagesStoredInRoot);
-            LayoutHelper.NaturalizeHeightAndDistributeNoScale(5, checkBoxImagesEnabled, labelImagesPath, textBoxImagesPath);
+            LayoutHelper.NaturalizeHeight(labelPostsPath, textBoxPostsPath, checkBoxDraftsEnabled, labelDraftsPath, textBoxDraftsPath);
+            LayoutHelper.NaturalizeHeight(checkBoxPagesEnabled, labelPagesPath, textBoxPagesPath, checkBoxPagesStoredInRoot);
+            LayoutHelper.NaturalizeHeight(checkBoxImagesEnabled, labelImagesPath, textBoxImagesPath);
         }
 
         #region Component Designer generated code
@@ -126,15 +126,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelPostsPath = new System.Windows.Forms.Label();
             this.textBoxPostsPath = new System.Windows.Forms.TextBox();
             this.groupBoxPosts = new System.Windows.Forms.GroupBox();
-            this.groupBoxPages = new System.Windows.Forms.GroupBox();
-            this.textBoxPagesPath = new System.Windows.Forms.TextBox();
-            this.labelPagesPath = new System.Windows.Forms.Label();
-            this.checkBoxPagesEnabled = new System.Windows.Forms.CheckBox();
-            this.checkBoxPagesStoredInRoot = new System.Windows.Forms.CheckBox();
-            this.groupBoxImages = new System.Windows.Forms.GroupBox();
             this.checkBoxDraftsEnabled = new System.Windows.Forms.CheckBox();
             this.textBoxDraftsPath = new System.Windows.Forms.TextBox();
             this.labelDraftsPath = new System.Windows.Forms.Label();
+            this.groupBoxPages = new System.Windows.Forms.GroupBox();
+            this.checkBoxPagesStoredInRoot = new System.Windows.Forms.CheckBox();
+            this.checkBoxPagesEnabled = new System.Windows.Forms.CheckBox();
+            this.textBoxPagesPath = new System.Windows.Forms.TextBox();
+            this.labelPagesPath = new System.Windows.Forms.Label();
+            this.groupBoxImages = new System.Windows.Forms.GroupBox();
             this.checkBoxImagesEnabled = new System.Windows.Forms.CheckBox();
             this.textBoxImagesPath = new System.Windows.Forms.TextBox();
             this.labelImagesPath = new System.Windows.Forms.Label();
@@ -174,75 +174,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.groupBoxPosts.TabStop = false;
             this.groupBoxPosts.Text = "Posts and Drafts";
             // 
-            // groupBoxPages
-            // 
-            this.groupBoxPages.Controls.Add(this.checkBoxPagesStoredInRoot);
-            this.groupBoxPages.Controls.Add(this.checkBoxPagesEnabled);
-            this.groupBoxPages.Controls.Add(this.textBoxPagesPath);
-            this.groupBoxPages.Controls.Add(this.labelPagesPath);
-            this.groupBoxPages.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBoxPages.Location = new System.Drawing.Point(8, 182);
-            this.groupBoxPages.Name = "groupBoxPages";
-            this.groupBoxPages.Size = new System.Drawing.Size(345, 120);
-            this.groupBoxPages.TabIndex = 2;
-            this.groupBoxPages.TabStop = false;
-            this.groupBoxPages.Text = "Pages";
-            // 
-            // textBoxPagesPath
-            // 
-            this.textBoxPagesPath.Location = new System.Drawing.Point(16, 63);
-            this.textBoxPagesPath.Name = "textBoxPagesPath";
-            this.textBoxPagesPath.Size = new System.Drawing.Size(316, 23);
-            this.textBoxPagesPath.TabIndex = 1;
-            // 
-            // labelPagesPath
-            // 
-            this.labelPagesPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelPagesPath.Location = new System.Drawing.Point(16, 44);
-            this.labelPagesPath.Name = "labelPagesPath";
-            this.labelPagesPath.Size = new System.Drawing.Size(144, 16);
-            this.labelPagesPath.TabIndex = 0;
-            this.labelPagesPath.Text = "Pages Path:";
-            // 
-            // checkBoxPagesEnabled
-            // 
-            this.checkBoxPagesEnabled.AutoSize = true;
-            this.checkBoxPagesEnabled.Location = new System.Drawing.Point(16, 22);
-            this.checkBoxPagesEnabled.Name = "checkBoxPagesEnabled";
-            this.checkBoxPagesEnabled.Size = new System.Drawing.Size(95, 19);
-            this.checkBoxPagesEnabled.TabIndex = 2;
-            this.checkBoxPagesEnabled.Text = "Enable Pages";
-            this.checkBoxPagesEnabled.UseVisualStyleBackColor = true;
-            this.checkBoxPagesEnabled.CheckedChanged += new System.EventHandler(this.CheckBoxPagesEnabled_CheckedChanged);
-            // 
-            // checkBoxPagesStoredInRoot
-            // 
-            this.checkBoxPagesStoredInRoot.AutoSize = true;
-            this.checkBoxPagesStoredInRoot.Location = new System.Drawing.Point(16, 92);
-            this.checkBoxPagesStoredInRoot.Name = "checkBoxPagesStoredInRoot";
-            this.checkBoxPagesStoredInRoot.Size = new System.Drawing.Size(175, 19);
-            this.checkBoxPagesStoredInRoot.TabIndex = 3;
-            this.checkBoxPagesStoredInRoot.Text = "Pages Stored In Project Root";
-            this.checkBoxPagesStoredInRoot.UseVisualStyleBackColor = true;
-            this.checkBoxPagesStoredInRoot.CheckedChanged += new System.EventHandler(this.CheckBoxPagesStoredInRoot_CheckedChanged);
-            // 
-            // groupBoxImages
-            // 
-            this.groupBoxImages.Controls.Add(this.checkBoxImagesEnabled);
-            this.groupBoxImages.Controls.Add(this.textBoxImagesPath);
-            this.groupBoxImages.Controls.Add(this.labelImagesPath);
-            this.groupBoxImages.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBoxImages.Location = new System.Drawing.Point(8, 308);
-            this.groupBoxImages.Name = "groupBoxImages";
-            this.groupBoxImages.Size = new System.Drawing.Size(345, 101);
-            this.groupBoxImages.TabIndex = 4;
-            this.groupBoxImages.TabStop = false;
-            this.groupBoxImages.Text = "Images";
-            // 
             // checkBoxDraftsEnabled
             // 
             this.checkBoxDraftsEnabled.AutoSize = true;
-            this.checkBoxDraftsEnabled.Location = new System.Drawing.Point(16, 67);
+            this.checkBoxDraftsEnabled.Location = new System.Drawing.Point(16, 70);
+            this.checkBoxDraftsEnabled.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.checkBoxDraftsEnabled.Name = "checkBoxDraftsEnabled";
             this.checkBoxDraftsEnabled.Size = new System.Drawing.Size(95, 19);
             this.checkBoxDraftsEnabled.TabIndex = 2;
@@ -265,6 +201,73 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelDraftsPath.Size = new System.Drawing.Size(144, 16);
             this.labelDraftsPath.TabIndex = 0;
             this.labelDraftsPath.Text = "Drafts Path:";
+            // 
+            // groupBoxPages
+            // 
+            this.groupBoxPages.Controls.Add(this.checkBoxPagesStoredInRoot);
+            this.groupBoxPages.Controls.Add(this.checkBoxPagesEnabled);
+            this.groupBoxPages.Controls.Add(this.textBoxPagesPath);
+            this.groupBoxPages.Controls.Add(this.labelPagesPath);
+            this.groupBoxPages.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.groupBoxPages.Location = new System.Drawing.Point(8, 182);
+            this.groupBoxPages.Name = "groupBoxPages";
+            this.groupBoxPages.Size = new System.Drawing.Size(345, 120);
+            this.groupBoxPages.TabIndex = 2;
+            this.groupBoxPages.TabStop = false;
+            this.groupBoxPages.Text = "Pages";
+            // 
+            // checkBoxPagesStoredInRoot
+            // 
+            this.checkBoxPagesStoredInRoot.AutoSize = true;
+            this.checkBoxPagesStoredInRoot.Location = new System.Drawing.Point(16, 89);
+            this.checkBoxPagesStoredInRoot.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.checkBoxPagesStoredInRoot.Name = "checkBoxPagesStoredInRoot";
+            this.checkBoxPagesStoredInRoot.Size = new System.Drawing.Size(175, 19);
+            this.checkBoxPagesStoredInRoot.TabIndex = 3;
+            this.checkBoxPagesStoredInRoot.Text = "Pages Stored In Project Root";
+            this.checkBoxPagesStoredInRoot.UseVisualStyleBackColor = true;
+            this.checkBoxPagesStoredInRoot.CheckedChanged += new System.EventHandler(this.CheckBoxPagesStoredInRoot_CheckedChanged);
+            // 
+            // checkBoxPagesEnabled
+            // 
+            this.checkBoxPagesEnabled.AutoSize = true;
+            this.checkBoxPagesEnabled.Location = new System.Drawing.Point(16, 22);
+            this.checkBoxPagesEnabled.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.checkBoxPagesEnabled.Name = "checkBoxPagesEnabled";
+            this.checkBoxPagesEnabled.Size = new System.Drawing.Size(95, 19);
+            this.checkBoxPagesEnabled.TabIndex = 2;
+            this.checkBoxPagesEnabled.Text = "Enable Pages";
+            this.checkBoxPagesEnabled.UseVisualStyleBackColor = true;
+            this.checkBoxPagesEnabled.CheckedChanged += new System.EventHandler(this.CheckBoxPagesEnabled_CheckedChanged);
+            // 
+            // textBoxPagesPath
+            // 
+            this.textBoxPagesPath.Location = new System.Drawing.Point(16, 63);
+            this.textBoxPagesPath.Name = "textBoxPagesPath";
+            this.textBoxPagesPath.Size = new System.Drawing.Size(316, 23);
+            this.textBoxPagesPath.TabIndex = 1;
+            // 
+            // labelPagesPath
+            // 
+            this.labelPagesPath.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelPagesPath.Location = new System.Drawing.Point(16, 44);
+            this.labelPagesPath.Name = "labelPagesPath";
+            this.labelPagesPath.Size = new System.Drawing.Size(144, 16);
+            this.labelPagesPath.TabIndex = 0;
+            this.labelPagesPath.Text = "Pages Path:";
+            // 
+            // groupBoxImages
+            // 
+            this.groupBoxImages.Controls.Add(this.checkBoxImagesEnabled);
+            this.groupBoxImages.Controls.Add(this.textBoxImagesPath);
+            this.groupBoxImages.Controls.Add(this.labelImagesPath);
+            this.groupBoxImages.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.groupBoxImages.Location = new System.Drawing.Point(8, 308);
+            this.groupBoxImages.Name = "groupBoxImages";
+            this.groupBoxImages.Size = new System.Drawing.Size(345, 101);
+            this.groupBoxImages.TabIndex = 4;
+            this.groupBoxImages.TabStop = false;
+            this.groupBoxImages.Text = "Images";
             // 
             // checkBoxImagesEnabled
             // 
