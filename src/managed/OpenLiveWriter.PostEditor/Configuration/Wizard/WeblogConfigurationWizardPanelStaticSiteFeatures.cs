@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// <summary>
     /// Summary description for WelcomeToBlogControl.
     /// </summary>
-    internal class WeblogConfigurationWizardPanelStaticSiteFeatures : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
+    internal class WeblogConfigurationWizardPanelStaticSiteFeatures : WeblogConfigurationWizardPanel, IWizardPanelStaticSite
     {
         private CheckBox checkBoxPagesEnabled;
         private CheckBox checkBoxBuildingEnabled;
@@ -106,11 +106,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set => checkBoxBuildingEnabled.Checked = value;
         }
 
-        public override bool ValidatePanel()
-        {
-            // No validation required on this page
-            return true;
-        }
+        // No validation is required on this panel
+        public void ValidateWithConfig(StaticSiteConfig config) { }
 
         /// <summary>
         /// Saves panel form fields into a StaticSiteConfig

@@ -127,6 +127,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public StaticSiteConfigFrontMatterKeys FrontMatterKeys => new StaticSiteConfigFrontMatterKeys(); // stub for now
 
+        public StaticSiteConfigValidator Validator => new StaticSiteConfigValidator(this);
+
         /// <summary>
         /// Load site configuration from blog credentials
         /// </summary>

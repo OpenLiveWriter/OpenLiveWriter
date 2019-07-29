@@ -23,7 +23,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// <summary>
     /// Summary description for WelcomeToBlogControl.
     /// </summary>
-    internal class WeblogConfigurationWizardPanelStaticSiteCommands : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
+    internal class WeblogConfigurationWizardPanelStaticSiteCommands : WeblogConfigurationWizardPanel, IWizardPanelStaticSite
     {
         private Label labelPublishCommand;
         private TextBox textBoxBuildCommand;
@@ -111,30 +111,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set => textBoxBuildCommand.Text = value;
         }
 
-        public override bool ValidatePanel()
-        {
-            // TODO
-            // If building enabled, and build command empty, throw validation error
-            // If publish command empty, throw validation error
-
-            if(BuildingEnabled && BuildCommand.Trim() == string.Empty)
-            {
-                ShowValidationError(
-                    textBoxBuildCommand,
-                    MessageId.SSGBuildCommandRequired);
-                return false;
-            }
-
-            if(PublishCommand.Trim() == string.Empty)
-            {
-                ShowValidationError(
-                    textBoxPublishCommand,
-                    MessageId.SSGPublishCommandRequired);
-                return false;
-            }
-
-            return true;
-        }
+        public void ValidateWithConfig(StaticSiteConfig config)
+            => config.Validator
+            .ValidateBuildCommand()
+            .ValidatePublishCommand();
 
         /// <summary>
         /// Saves panel form fields into a StaticSiteConfig

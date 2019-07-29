@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// <summary>
     /// Summary description for WelcomeToBlogControl.
     /// </summary>
-    internal class WeblogConfigurationWizardPanelStaticSiteInitial : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
+    internal class WeblogConfigurationWizardPanelStaticSiteInitial : WeblogConfigurationWizardPanel, IWizardPanelStaticSite
     {
         private System.Windows.Forms.Label labelSubtitle;
         private System.Windows.Forms.Label labelLocalSitePath;
@@ -80,16 +80,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set { textBoxLocalSitePath.Text = value; }
         }
 
-        public override bool ValidatePanel()
-        {
-            if (!Directory.Exists(LocalSitePath))
-            {
-                ShowValidationError(textBoxLocalSitePath, MessageId.FolderNotFound, LocalSitePath);
-                return false;
-            }
-
-            return true;
-        }
+        public void ValidateWithConfig(StaticSiteConfig config)
+            => config.Validator.ValidateLocalSitePath();
 
         /// <summary>
         /// Saves panel form fields into a StaticSiteConfig

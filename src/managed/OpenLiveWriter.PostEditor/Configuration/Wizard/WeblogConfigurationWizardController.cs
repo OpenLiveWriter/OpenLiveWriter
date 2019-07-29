@@ -483,7 +483,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteInitial(),
                 null,
                 new DisplayCallback(OnStaticSiteInitialDisplayed),
-                new VerifyStepCallback(OnValidatePanel),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
                 new NextCallback(OnStaticSiteInitialCompleted),
                 null,
                 new BackCallback(OnStaticSiteBack)));
@@ -540,7 +540,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths1(),
                 null,
                 new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
-                new VerifyStepCallback(OnValidatePanel),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
                 new NextCallback(OnStaticSitePaths1Completed),
                 null,
                 new BackCallback(OnStaticSiteBack)));
@@ -563,7 +563,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths2(),
                 null,
                 new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
-                new VerifyStepCallback(OnValidatePanel),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
                 new NextCallback(OnStaticSitePaths2Completed),
                 null,
                 new BackCallback(OnStaticSiteBack)));
@@ -586,7 +586,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteFeatures(),
                 null,
                 new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
-                new VerifyStepCallback(OnValidatePanel),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
                 new NextCallback(OnStaticSiteFeaturesCompleted),
                 null,
                 new BackCallback(OnStaticSiteBack)));
@@ -609,7 +609,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                 new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteCommands(),
                 null,
                 new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
-                new VerifyStepCallback(OnValidatePanel),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
                 new NextCallback(OnStaticSiteCommandsCompleted),
                 null,
                 new BackCallback(OnStaticSiteBack)));
@@ -629,7 +629,25 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private void OnStaticSiteBack(object step)
         {
             // Save panel values before going back
-            (step as IWizardPanelStaticSiteConfigProvider).SaveToConfig(staticSiteConfig);
+            (step as IWizardPanelStaticSite).SaveToConfig(staticSiteConfig);
+        }
+
+        private bool OnStaticSiteValidatePanel(object step)
+        {
+            var newConfig = staticSiteConfig.Clone();
+            IWizardPanelStaticSite panel = step as IWizardPanelStaticSite;
+            panel.SaveToConfig(newConfig);
+
+            try
+            {
+                panel.ValidateWithConfig(newConfig);
+            } catch(StaticSiteConfigValidationException ex)
+            {
+                MessageBox.Show(ex.Text, ex.Title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
         }
 
         private void PerformStaticSiteWizardCompletion()
@@ -659,7 +677,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private void OnStaticSiteConfigProviderDisplayed(Object stepControl)
         {
             // Populate data
-            var panel = (stepControl as IWizardPanelStaticSiteConfigProvider);
+            var panel = (stepControl as IWizardPanelStaticSite);
 
             // Load panel values from config
             panel.LoadFromConfig(staticSiteConfig);
@@ -1017,8 +1035,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
     }
 
-    internal interface IWizardPanelStaticSiteConfigProvider
+    internal interface IWizardPanelStaticSite
     {
+        /// <summary>
+        /// Validate the relevant parts of the Static Site Config, raising an exception if the configuration is invalid.
+        /// </summary>
+        /// <param name="config">a StaticSiteConfig instance</param>
+        void ValidateWithConfig(StaticSiteConfig config);
+
         /// <summary>
         /// Saves panel form fields into a StaticSiteConfig
         /// </summary>

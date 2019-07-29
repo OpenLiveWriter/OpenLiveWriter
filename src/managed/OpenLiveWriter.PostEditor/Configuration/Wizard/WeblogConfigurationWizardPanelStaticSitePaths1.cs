@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
     /// <summary>
     /// Summary description for WelcomeToBlogControl.
     /// </summary>
-    internal class WeblogConfigurationWizardPanelStaticSitePaths1 : WeblogConfigurationWizardPanel, IWizardPanelStaticSiteConfigProvider
+    internal class WeblogConfigurationWizardPanelStaticSitePaths1 : WeblogConfigurationWizardPanel, IWizardPanelStaticSite
     {
         /// <summary>
         /// Local site path, loaded from config, used for validation
@@ -145,43 +145,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set { checkBoxPagesInRoot.Checked = value; }
         }
 
-        public override bool ValidatePanel()
-        {
-            var postsPathFull = $"{_localSitePath}\\{PostsPath}";
-            var pagesPathFull = $"{_localSitePath}\\{PagesPath}";
-            var draftsPathFull = $"{_localSitePath}\\{DraftsPath}";
-
-            // If the Posts path is empty or doesn't exist, display an error
-            if (PostsPath.Trim() == string.Empty || !Directory.Exists(postsPathFull))
-            {
-                ShowValidationError(
-                    textBoxPostsPath,
-                    MessageId.FolderNotFound,
-                    PostsPath.Trim() == string.Empty ? "Posts path empty" : postsPathFull); // TODO Replace string from with string from resources
-                return false;
-            }
-
-            // If Pages are enabled and the path doesn't exist/is empty, display an error
-            if (PagesEnabled && (PagesPath.Trim() == string.Empty || !Directory.Exists(pagesPathFull)))
-            {
-                ShowValidationError(
-                    textBoxPagesPath, 
-                    MessageId.FolderNotFound,
-                    PagesPath.Trim() == string.Empty ? "Pages path empty" : pagesPathFull); // TODO Replace string from with string from resources
-                return false;
-            }
-
-            // If Drafts are enabled and the path doesn't exist/is empty, display an error
-            if (DraftsEnabled && (DraftsPath.Trim() == string.Empty || !Directory.Exists(draftsPathFull)))
-            {
-                ShowValidationError(textBoxDraftsPath, 
-                    MessageId.FolderNotFound,
-                    DraftsPath.Trim() == string.Empty ? "Drafts path empty" : draftsPathFull); // TODO Replace string with string from resources
-                return false;
-            }
-
-            return true;
-        }
+        public void ValidateWithConfig(StaticSiteConfig config)
+            => config.Validator
+            .ValidatePostsPath()
+            .ValidatePagesPath()
+            .ValidateDraftsPath();
 
         /// <summary>
         /// Saves panel form fields into a StaticSiteConfig
