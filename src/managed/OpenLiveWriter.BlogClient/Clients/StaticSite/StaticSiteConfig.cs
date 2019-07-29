@@ -210,6 +210,30 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public void SaveToCredentials(IBlogCredentials blogCredentials)
             => SaveToCredentials(new BlogCredentialsAccessor("", blogCredentials));
 
+        public StaticSiteConfig Clone()
+            => new StaticSiteConfig()
+            {
+                LocalSitePath = LocalSitePath,
+                PostsPath = PostsPath,
+                PagesEnabled = PagesEnabled,
+                PagesPath = PagesPath,
+                DraftsEnabled = DraftsEnabled,
+                DraftsPath = DraftsPath,
+                ImagesEnabled = ImagesEnabled,
+                ImagesPath = ImagesPath,
+                BuildingEnabled = BuildingEnabled,
+                OutputPath = OutputPath,
+                BuildCommand = BuildCommand,
+                PublishCommand = PublishCommand,
+                SiteUrl = SiteUrl,
+                SiteTitle = SiteTitle,
+                PostUrlFormat = PostUrlFormat,
+                ShowCmdWindows = ShowCmdWindows,
+                CmdTimeoutMs = CmdTimeoutMs,
+                Initialised = Initialised
+                // TODO Clone Front Matter Keys
+            };
+
         /// <summary>
         /// Create a new StaticSiteConfig instance and load site configuration from blog credentials
         /// </summary>
