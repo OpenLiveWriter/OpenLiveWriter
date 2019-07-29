@@ -26,6 +26,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private const string CONFIG_CMD_TIMEOUT_MS = "SSGCmdTimeoutMs";
         private const string CONFIG_INITIALISED = "SSGInitialised";
 
+        public static int DEFAULT_CMD_TIMEOUT = 60000;
+
         // Public Site Url is stored in the blog's BlogConfig. Loading is handled in this class, but saving is handled from the WizardController.
         // This is done to avoid referencing PostEditor from this project.
 
@@ -114,9 +116,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public bool ShowCmdWindows { get; set; } = false;
         
         /// <summary>
-        /// Timeout for commands. Default is 30k MS (30 seconds).
+        /// Timeout for commands. Default is 60k MS (60 seconds).
         /// </summary>
-        public int CmdTimeoutMs { get; set; } = 60000;
+        public int CmdTimeoutMs { get; set; } = DEFAULT_CMD_TIMEOUT;
 
         /// <summary>
         /// Used to determine if parameter detection has occurred, default false.

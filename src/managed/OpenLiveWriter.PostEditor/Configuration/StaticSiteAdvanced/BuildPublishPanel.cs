@@ -17,6 +17,7 @@ using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.Configuration.Wizard;
+using OpenLiveWriter.BlogClient.Clients.StaticSite;
 
 namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
 {
@@ -62,6 +63,61 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            RecomputeEnabledStates();
+        }
+
+        public bool ShowCmdWindows
+        {
+            get => checkBoxShowCommandWindows.Checked;
+            set => checkBoxShowCommandWindows.Checked = value;
+        }
+
+        public int CmdTimeoutMs
+        {
+            get
+            {
+                if (checkBoxEnableCmdTimeout.Checked)
+                    return Convert.ToInt32(numericUpDownCmdTimeout.Value);
+
+                return StaticSiteConfig.DEFAULT_CMD_TIMEOUT;
+            }
+
+            set
+            {
+                if (value >= 0)
+                {
+                    checkBoxEnableCmdTimeout.Checked = true;
+                    numericUpDownCmdTimeout.Value = value;
+                }
+                else
+                    checkBoxEnableCmdTimeout.Checked = false;
+
+                RecomputeEnabledStates();
+            }
+        }
+
+        public bool BuildingEnabled
+        {
+            get => checkBoxBuildingEnabled.Checked;
+            set => checkBoxBuildingEnabled.Checked = value;
+        }
+
+        public string BuildCommand
+        {
+            get => textBoxBuildCommand.Text;
+            set => textBoxBuildCommand.Text = value;
+        }
+
+        public string OutputPath
+        {
+            get => textBoxOutputPath.Text;
+            set => textBoxOutputPath.Text = value;
+        }
+
+        public string PublishCommand
+        {
+            get => textBoxPublishCommand.Text;
+            set => textBoxPublishCommand.Text = value;
         }
 
         #region Component Designer generated code

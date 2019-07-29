@@ -71,25 +71,33 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             return ssgConfig;
         }
 
-        private void LoadFromStaticSiteConfig(StaticSiteConfig ssgConfig)
+        private void LoadFromStaticSiteConfig(StaticSiteConfig config)
         {
             // General
-            panelGeneral.SiteTitle = ssgConfig.SiteTitle;
-            panelGeneral.SiteUrl = ssgConfig.SiteUrl;
-            panelGeneral.LocalSitePath = ssgConfig.LocalSitePath;
+            panelGeneral.SiteTitle = config.SiteTitle;
+            panelGeneral.SiteUrl = config.SiteUrl;
+            panelGeneral.LocalSitePath = config.LocalSitePath;
 
             // Authoring
-            panelAuthoring.PostsPath = ssgConfig.PostsPath;
-            panelAuthoring.DraftsEnabled = ssgConfig.DraftsEnabled;
-            panelAuthoring.DraftsPath = ssgConfig.DraftsPath;
-            panelAuthoring.PagesEnabled = ssgConfig.PagesEnabled;
-            panelAuthoring.PagesPath = ssgConfig.PagesPath;
-            panelAuthoring.PagesStoredInRoot = ssgConfig.PagesPath == ".";
-            panelAuthoring.ImagesEnabled = ssgConfig.ImagesEnabled;
-            panelAuthoring.ImagesPath = ssgConfig.ImagesPath;
+            panelAuthoring.PostsPath = config.PostsPath;
+            panelAuthoring.DraftsEnabled = config.DraftsEnabled;
+            panelAuthoring.DraftsPath = config.DraftsPath;
+            panelAuthoring.PagesEnabled = config.PagesEnabled;
+            panelAuthoring.PagesPath = config.PagesPath;
+            panelAuthoring.PagesStoredInRoot = config.PagesPath == ".";
+            panelAuthoring.ImagesEnabled = config.ImagesEnabled;
+            panelAuthoring.ImagesPath = config.ImagesPath;
 
             // Front Matter
-            panelFrontMatter.Keys = ssgConfig.FrontMatterKeys;
+            panelFrontMatter.Keys = config.FrontMatterKeys;
+
+            // Building and Publishing
+            panelBuildPublish.ShowCmdWindows = config.ShowCmdWindows;
+            panelBuildPublish.CmdTimeoutMs = config.CmdTimeoutMs;
+            panelBuildPublish.BuildingEnabled = config.BuildingEnabled;
+            panelBuildPublish.BuildCommand = config.BuildCommand;
+            panelBuildPublish.OutputPath = config.OutputPath;
+            panelBuildPublish.PublishCommand = config.PublishCommand;
         }
 
         public void GeneralPanel_RunAccountWizard()
