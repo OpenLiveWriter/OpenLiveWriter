@@ -125,7 +125,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         public bool Initialised { get; set; } = false;
 
-        public StaticSiteConfigFrontMatterKeys FrontMatterKeys => new StaticSiteConfigFrontMatterKeys(); // stub for now
+        public StaticSiteConfigFrontMatterKeys FrontMatterKeys { get; set; } = new StaticSiteConfigFrontMatterKeys();
 
         public StaticSiteConfigValidator Validator => new StaticSiteConfigValidator(this);
 
@@ -157,11 +157,12 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             SiteUrl = creds.GetCustomValue(CONFIG_SITE_URL); // This will be overidden in LoadFromBlogSettings, HomepageUrl is considered a more accurate source of truth
 
-            // TODO Load FrontMatterKeys
-
             ShowCmdWindows = creds.GetCustomValue(CONFIG_SHOW_CMD_WINDOWS) == "1";
             if (creds.GetCustomValue(CONFIG_CMD_TIMEOUT_MS) != string.Empty) CmdTimeoutMs = int.Parse(creds.GetCustomValue(CONFIG_CMD_TIMEOUT_MS));
             Initialised = creds.GetCustomValue(CONFIG_INITIALISED) == "1";
+
+            // Load FrontMatterKeys
+            FrontMatterKeys = StaticSiteConfigFrontMatterKeys.LoadKeysFromCredentials(creds);
         }
 
         /// <summary>
@@ -206,7 +207,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             creds.SetCustomValue(CONFIG_CMD_TIMEOUT_MS, CmdTimeoutMs.ToString());
             creds.SetCustomValue(CONFIG_INITIALISED, Initialised ? "1" : "0");
 
-            // TODO Save FrontMatterKeys
+            // Save FrontMatterKeys
+            FrontMatterKeys.SaveToCredentials(creds);
         }
 
         public void SaveToCredentials(IBlogCredentials blogCredentials)
@@ -232,8 +234,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 PostUrlFormat = PostUrlFormat,
                 ShowCmdWindows = ShowCmdWindows,
                 CmdTimeoutMs = CmdTimeoutMs,
-                Initialised = Initialised
-                // TODO Clone Front Matter Keys
+                Initialised = Initialised,
+                
+                FrontMatterKeys = FrontMatterKeys.Clone()
             };
 
         /// <summary>
