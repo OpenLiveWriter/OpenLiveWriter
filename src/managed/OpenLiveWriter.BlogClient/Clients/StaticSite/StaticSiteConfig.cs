@@ -114,7 +114,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// Show CMD windows. Useful for debugging. Default is false.
         /// </summary>
         public bool ShowCmdWindows { get; set; } = false;
-        
+
         /// <summary>
         /// Timeout for commands. Default is 60k MS (60 seconds).
         /// </summary>
@@ -267,6 +267,14 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
     /// </summary>
     public class StaticSiteConfigFrontMatterKeys
     {
+        private const string CONFIG_ID_KEY = "FrontMatterKey.Id";
+        private const string CONFIG_TITLE_KEY = "FrontMatterKey.Title";
+        private const string CONFIG_DATE_KEY = "FrontMatterKey.Date";
+        private const string CONFIG_LAYOUT_KEY = "FrontMatterKey.Layout";
+        private const string CONFIG_TAGS_KEY = "FrontMatterKey.Tags";
+        private const string CONFIG_PARENT_ID_KEY = "FrontMatterKey.ParentId";
+        private const string CONFIG_PERMALINK_KEY = "FrontMatterKey.Permalink";
+
         public enum KeyIdentifier
         {
             Id,
@@ -286,7 +294,57 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string ParentIdKey { get; set; } = "parent_id";
         public string PermalinkKey { get; set; } = "permalink";
 
-        // TODO LoadFromCredentials
-        // TODO SaveToCredentials
+        public StaticSiteConfigFrontMatterKeys Clone()
+            => new StaticSiteConfigFrontMatterKeys()
+            {
+                IdKey = IdKey,
+                TitleKey = TitleKey,
+                DateKey = DateKey,
+                LayoutKey = LayoutKey,
+                TagsKey = TagsKey,
+                ParentIdKey = ParentIdKey,
+                PermalinkKey = PermalinkKey
+            };
+
+        /// <summary>
+        /// Load front matter keys configuration from blog credentials
+        /// </summary>
+        /// <param name="creds">An IBlogCredentialsAccessor</param>
+        public void LoadFromCredentials(IBlogCredentialsAccessor creds)
+        {
+            if (creds.GetCustomValue(CONFIG_ID_KEY) != string.Empty) IdKey = creds.GetCustomValue(CONFIG_ID_KEY);
+            if (creds.GetCustomValue(CONFIG_TITLE_KEY) != string.Empty) TitleKey = creds.GetCustomValue(CONFIG_TITLE_KEY);
+            if (creds.GetCustomValue(CONFIG_DATE_KEY) != string.Empty) DateKey = creds.GetCustomValue(CONFIG_DATE_KEY);
+            if (creds.GetCustomValue(CONFIG_LAYOUT_KEY) != string.Empty) LayoutKey = creds.GetCustomValue(CONFIG_LAYOUT_KEY);
+            if (creds.GetCustomValue(CONFIG_TAGS_KEY) != string.Empty) TagsKey = creds.GetCustomValue(CONFIG_TAGS_KEY);
+            if (creds.GetCustomValue(CONFIG_PARENT_ID_KEY) != string.Empty) ParentIdKey = creds.GetCustomValue(CONFIG_PARENT_ID_KEY);
+            if (creds.GetCustomValue(CONFIG_PERMALINK_KEY) != string.Empty) PermalinkKey = creds.GetCustomValue(CONFIG_PERMALINK_KEY);
+        }
+
+        /// <summary>
+        /// Save front matter keys configuration to blog credentials
+        /// </summary>
+        /// <param name="creds">An IBlogCredentialsAccessor</param>
+        public void SaveToCredentials(IBlogCredentialsAccessor creds)
+        {
+            creds.SetCustomValue(CONFIG_ID_KEY, IdKey);
+            creds.SetCustomValue(CONFIG_TITLE_KEY, TitleKey);
+            creds.SetCustomValue(CONFIG_DATE_KEY, DateKey);
+            creds.SetCustomValue(CONFIG_LAYOUT_KEY, LayoutKey);
+            creds.SetCustomValue(CONFIG_TAGS_KEY, TagsKey);
+            creds.SetCustomValue(CONFIG_PARENT_ID_KEY, ParentIdKey);
+            creds.SetCustomValue(CONFIG_PERMALINK_KEY, PermalinkKey);
+        }
+
+        /// <summary>
+        /// Create a new StaticSiteConfigFrontMatterKeys instance and load configuration from blog credentials
+        /// </summary>
+        /// <param name="blogCredentials">An IBlogCredentialsAccessor</param>
+        public static StaticSiteConfigFrontMatterKeys LoadKeysFromCredentials(IBlogCredentialsAccessor blogCredentials)
+        {
+            var frontMatterKeys = new StaticSiteConfigFrontMatterKeys();
+            frontMatterKeys.LoadFromCredentials(blogCredentials);
+            return frontMatterKeys;
+        }
     }
 }
