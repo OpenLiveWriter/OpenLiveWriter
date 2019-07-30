@@ -278,13 +278,13 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             Permalink
         }
 
-        public string IdKey { get; set; }
-        public string TitleKey { get; set; }
-        public string DateKey { get; set; }
-        public string LayoutKey { get; set; }
-        public string TagsKey { get; set; }
-        public string ParentIdKey { get; set; }
-        public string PermalinkKey { get; set; }
+        public string IdKey { get; set; } = "id";
+        public string TitleKey { get; set; } = "title";
+        public string DateKey { get; set; } = "date";
+        public string LayoutKey { get; set; } = "layout";
+        public string TagsKey { get; set; } = "tags";
+        public string ParentIdKey { get; set; } = "parent_id";
+        public string PermalinkKey { get; set; } = "permalink";
 
         // TODO LoadFromCredentials
         // TODO SaveToCredentials
