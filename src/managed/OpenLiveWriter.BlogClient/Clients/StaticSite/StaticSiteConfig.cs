@@ -9,22 +9,22 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
     public class StaticSiteConfig
     {
         // The credential keys where the configuration is stored.
-        private const string CONFIG_POSTS_PATH = "SSGPostsPath";
-        private const string CONFIG_PAGES_ENABLED = "SSGPagesEnabled";
-        private const string CONFIG_PAGES_PATH = "SSGPagesPath";
-        private const string CONFIG_DRAFTS_ENABLED = "SSGDraftsEnabled";
-        private const string CONFIG_DRAFTS_PATH = "SSGDraftsPath";
-        private const string CONFIG_IMAGES_ENABLED = "SSGImagesEnabled";
-        private const string CONFIG_IMAGES_PATH = "SSGImagesPath";
-        private const string CONFIG_BUILDING_ENABLED = "SSGBuildingEnabled";
-        private const string CONFIG_OUTPUT_PATH = "SSGOutputPath";
-        private const string CONFIG_BUILD_COMMAND = "SSGBuildCommand";
-        private const string CONFIG_PUBLISH_COMMAND = "SSGPublishCommand";
-        private const string CONFIG_POST_URL_FORMAT = "SSGPostUrlFormat";
-        private const string CONFIG_SITE_URL = "SSGSiteUrl"; // Store Site Url in credentials as well, for acccess by StaticSiteClient
-        private const string CONFIG_SHOW_CMD_WINDOWS = "SSGShowCmdWindows";
-        private const string CONFIG_CMD_TIMEOUT_MS = "SSGCmdTimeoutMs";
-        private const string CONFIG_INITIALISED = "SSGInitialised";
+        private const string CONFIG_POSTS_PATH = "PostsPath";
+        private const string CONFIG_PAGES_ENABLED = "PagesEnabled";
+        private const string CONFIG_PAGES_PATH = "PagesPath";
+        private const string CONFIG_DRAFTS_ENABLED = "DraftsEnabled";
+        private const string CONFIG_DRAFTS_PATH = "DraftsPath";
+        private const string CONFIG_IMAGES_ENABLED = "ImagesEnabled";
+        private const string CONFIG_IMAGES_PATH = "ImagesPath";
+        private const string CONFIG_BUILDING_ENABLED = "BuildingEnabled";
+        private const string CONFIG_OUTPUT_PATH = "OutputPath";
+        private const string CONFIG_BUILD_COMMAND = "BuildCommand";
+        private const string CONFIG_PUBLISH_COMMAND = "PublishCommand";
+        private const string CONFIG_POST_URL_FORMAT = "PostUrlFormat";
+        private const string CONFIG_SITE_URL = "SiteUrl"; // Store Site Url in credentials as well, for acccess by StaticSiteClient
+        private const string CONFIG_SHOW_CMD_WINDOWS = "ShowCmdWindows";
+        private const string CONFIG_CMD_TIMEOUT_MS = "CmdTimeoutMs";
+        private const string CONFIG_INITIALISED = "Initialised";
 
         public static int DEFAULT_CMD_TIMEOUT = 60000;
 
