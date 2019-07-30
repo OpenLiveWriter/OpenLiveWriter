@@ -38,7 +38,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public virtual StaticSiteItemFrontMatter FrontMatter
         {
-            get => StaticSiteItemFrontMatter.GetFromBlogPost(BlogPost);
+            get => StaticSiteItemFrontMatter.GetFromBlogPost(SiteConfig.FrontMatterKeys, BlogPost);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // Create a new BlogPost
             BlogPost = new BlogPost();
             // Parse front matter and save in
-            StaticSiteItemFrontMatter.GetFromYaml(frontMatterYaml).SaveToBlogPost(BlogPost);
+            StaticSiteItemFrontMatter.GetFromYaml(SiteConfig.FrontMatterKeys, frontMatterYaml).SaveToBlogPost(BlogPost);
 
             // Throw error if post does not have an ID
             if (Id == null || Id == string.Empty) throw new BlogClientException("Post load error", "Post does not have an ID");

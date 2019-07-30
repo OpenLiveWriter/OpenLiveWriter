@@ -13,19 +13,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
     public class StaticSiteItemFrontMatter
     {
-        /// Hardcode these to Jekyll defaults for now
-        /// TODO Load from StaticSiteConfig
-        private StaticSiteConfigFrontMatterKeys frontMatterKeys
-            = new StaticSiteConfigFrontMatterKeys()
-            {
-                IdKey = "id",
-                TitleKey = "title",
-                DateKey = "date",
-                LayoutKey = "layout",
-                TagsKey = "tags",
-                ParentIdKey = "parent_id",
-                PermalinkKey = "permalink"
-            };
+        private StaticSiteConfigFrontMatterKeys _frontMatterKeys;
 
         public string Id { get; set; }
         public string Title { get; set; }
@@ -36,8 +24,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string ParentId { get; set; } = "";
         public string Permalink { get; set; }
 
-        public StaticSiteItemFrontMatter()
+        public StaticSiteItemFrontMatter(StaticSiteConfigFrontMatterKeys frontMatterKeys)
         {
+            _frontMatterKeys = frontMatterKeys;
             Tags = new string[] { }; // Initialize Tags to empty array
         }
 
@@ -49,15 +38,15 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             var root = new YamlMappingNode();
 
-            if (Id != null && Id.Length > 0) root.Add(frontMatterKeys.IdKey, Id);
-            if (Title != null) root.Add(frontMatterKeys.TitleKey, Title);
-            if(Date != null) root.Add(frontMatterKeys.DateKey, Date);
-            if(Layout != null) root.Add(frontMatterKeys.LayoutKey, Layout);
+            if (Id != null && Id.Length > 0) root.Add(_frontMatterKeys.IdKey, Id);
+            if (Title != null) root.Add(_frontMatterKeys.TitleKey, Title);
+            if(Date != null) root.Add(_frontMatterKeys.DateKey, Date);
+            if(Layout != null) root.Add(_frontMatterKeys.LayoutKey, Layout);
             if (Tags != null && Tags.Length > 0)
-                root.Add(frontMatterKeys.TagsKey, new YamlSequenceNode(Tags.Select(
+                root.Add(_frontMatterKeys.TagsKey, new YamlSequenceNode(Tags.Select(
                     tag => new YamlScalarNode(tag))));
-            if (!string.IsNullOrEmpty(ParentId)) root.Add(frontMatterKeys.ParentIdKey, ParentId);
-            if (!string.IsNullOrEmpty(Permalink)) root.Add(frontMatterKeys.PermalinkKey, Permalink);
+            if (!string.IsNullOrEmpty(ParentId)) root.Add(_frontMatterKeys.ParentIdKey, ParentId);
+            if (!string.IsNullOrEmpty(Permalink)) root.Add(_frontMatterKeys.PermalinkKey, Permalink);
 
             var stream = new YamlStream(new YamlDocument(root));
             var stringWriter = new StringWriter();
@@ -79,28 +68,28 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             var root = (YamlMappingNode)stream.Documents[0].RootNode;
 
             // Load id
-            var idNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.IdKey);
+            var idNodes = root.Where(kv => kv.Key.ToString() == _frontMatterKeys.IdKey);
             if (idNodes.Count() > 0) Id = idNodes.First().Value.ToString();
 
             // Load title
-            var titleNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.TitleKey);
+            var titleNodes = root.Where(kv => kv.Key.ToString() == _frontMatterKeys.TitleKey);
             if (titleNodes.Count() > 0) Title = titleNodes.First().Value.ToString();
 
             // Load date
-            var dateNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.DateKey);
+            var dateNodes = root.Where(kv => kv.Key.ToString() == _frontMatterKeys.DateKey);
             if (dateNodes.Count() > 0) Date = dateNodes.First().Value.ToString();
 
             // Load layout
-            var layoutNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.LayoutKey);
+            var layoutNodes = root.Where(kv => kv.Key.ToString() == _frontMatterKeys.LayoutKey);
             if (layoutNodes.Count() > 0) Layout = layoutNodes.First().Value.ToString();
 
             // Load tags
-            var tagNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.TagsKey);
+            var tagNodes = root.Where(kv => kv.Key.ToString() == _frontMatterKeys.TagsKey);
             if (tagNodes.Count() > 0 && tagNodes.First().Value.NodeType == YamlNodeType.Sequence)
                 Tags = ((YamlSequenceNode)tagNodes.First().Value).Select(node => node.ToString()).ToArray();
 
             // Load parent ID
-            var parentIdNodes = root.Where(kv => kv.Key.ToString() == frontMatterKeys.ParentIdKey);
+            var parentIdNodes = root.Where(kv => kv.Key.ToString() == _frontMatterKeys.ParentIdKey);
             if (parentIdNodes.Count() > 0) ParentId = parentIdNodes.First().Value.ToString();
 
             // Permalink is never loaded, only saved
@@ -128,16 +117,16 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         }
 
-        public static StaticSiteItemFrontMatter GetFromBlogPost(BlogPost post)
+        public static StaticSiteItemFrontMatter GetFromBlogPost(StaticSiteConfigFrontMatterKeys frontMatterKeys, BlogPost post)
         {
-            var frontMatter = new StaticSiteItemFrontMatter();
+            var frontMatter = new StaticSiteItemFrontMatter(frontMatterKeys);
             frontMatter.LoadFromBlogPost(post);
             return frontMatter;
         }
 
-        public static StaticSiteItemFrontMatter GetFromYaml(string yaml)
+        public static StaticSiteItemFrontMatter GetFromYaml(StaticSiteConfigFrontMatterKeys frontMatterKeys, string yaml)
         {
-            var frontMatter = new StaticSiteItemFrontMatter();
+            var frontMatter = new StaticSiteItemFrontMatter(frontMatterKeys);
             frontMatter.Deserialize(yaml);
             return frontMatter;
         }
