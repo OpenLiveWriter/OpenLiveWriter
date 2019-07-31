@@ -519,11 +519,18 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 proc.BeginErrorReadLine();
             }
 
-            if (!proc.WaitForExit(Config.CmdTimeoutMs))
+            if(Config.CmdTimeoutMs < 0)
             {
-                // Timeout reached
-                try { proc.Kill(); } catch { } // Attempt to kill the process
-                throw new BlogClientException("Command execution timeout", "Blog command timed out. Please check your commands, or lengthen the command timeout."); // TODO move into strings
+                // If timeout is negative, timeout is disabled.
+                proc.WaitForExit();
+            } else
+            {
+                if (!proc.WaitForExit(Config.CmdTimeoutMs))
+                {
+                    // Timeout reached
+                    try { proc.Kill(); } catch { } // Attempt to kill the process
+                    throw new BlogClientException("Command execution timeout", "Blog command timed out. Please check your commands, or lengthen the command timeout."); // TODO move into strings
+                }
             }
 
             // The caller will have all output waiting in outStdout and outStderr
