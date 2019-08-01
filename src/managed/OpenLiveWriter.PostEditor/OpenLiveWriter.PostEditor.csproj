@@ -301,9 +301,12 @@
     <Compile Include="Configuration\StaticSiteAdvanced\GeneralPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Configuration\StaticSiteAdvanced\PreferencesController.cs" />
+    <Compile Include="Configuration\StaticSiteAdvanced\StaticSitePreferencesController.cs" />
     <Compile Include="Configuration\StaticSiteAdvanced\StaticSitePreferencesForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\StaticSiteAdvanced\StaticSitePreferencesPanel.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Configuration\TemporaryBlogSettings.cs" />
     <Compile Include="Configuration\Wizard\BlogProviderAccountWizard.cs" />
