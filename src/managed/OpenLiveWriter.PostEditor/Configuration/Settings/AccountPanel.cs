@@ -133,7 +133,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             // For static sites, the advanced configuration panel will be displayed
             // Otherwise, display the wizard
             bool settingsModified = blogSettings.IsStaticSiteBlog
-                ? StaticSiteAdvanced.PreferencesController.EditTemporarySettings(FindForm(), blogSettings)
+                ? StaticSiteAdvanced.StaticSitePreferencesController.EditTemporarySettings(FindForm(), blogSettings)
                 : WeblogConfigurationWizardController.EditTemporarySettings(FindForm(), blogSettings);
 
             if (settingsModified)
