@@ -17,6 +17,7 @@ using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.Configuration.Wizard;
+using OpenLiveWriter.BlogClient.Clients.StaticSite;
 
 namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
 {
@@ -62,10 +63,27 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             set => textBoxLocalSitePath.Text = value;
         }
 
-        public GeneralPanel(StaticSitePreferencesController controller, TemporaryBlogSettings blogSettings)
-            : base(controller, blogSettings)
+        public GeneralPanel(StaticSitePreferencesController controller)
+            : base(controller)
         {
             InitializeComponent();
+        }
+
+        public override void LoadConfig()
+        {
+            SiteTitle = _controller.Config.SiteTitle;
+            SiteUrl = _controller.Config.SiteUrl;
+            LocalSitePath = _controller.Config.LocalSitePath;
+        }
+
+        public override void ValidateConfig()
+            => _controller.Config.Validator.ValidateLocalSitePath();
+
+        public override void Save()
+        {
+            _controller.Config.SiteTitle = SiteTitle;
+            _controller.Config.SiteUrl = SiteUrl;
+            _controller.Config.LocalSitePath = LocalSitePath;
         }
 
         protected override void OnLoad(EventArgs e)

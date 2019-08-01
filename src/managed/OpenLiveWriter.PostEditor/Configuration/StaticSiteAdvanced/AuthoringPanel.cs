@@ -17,6 +17,7 @@ using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.ApplicationFramework.Preferences;
 using OpenLiveWriter.PostEditor.Configuration.Wizard;
+using OpenLiveWriter.BlogClient.Clients.StaticSite;
 
 namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
 {
@@ -94,10 +95,40 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             set => textBoxImagesPath.Text = value;
         }
 
-        public AuthoringPanel(StaticSitePreferencesController controller, TemporaryBlogSettings blogSettings)
-            : base(controller, blogSettings)
+        public AuthoringPanel(StaticSitePreferencesController controller)
+            : base(controller)
         {
             InitializeComponent();
+        }
+
+        public override void LoadConfig()
+        {
+            PostsPath = _controller.Config.PostsPath;
+            DraftsEnabled = _controller.Config.DraftsEnabled;
+            DraftsPath = _controller.Config.DraftsPath;
+            PagesEnabled = _controller.Config.PagesEnabled;
+            PagesPath = _controller.Config.PagesPath;
+            PagesStoredInRoot = _controller.Config.PagesPath == ".";
+            ImagesEnabled = _controller.Config.ImagesEnabled;
+            ImagesPath = _controller.Config.ImagesPath;
+        }
+
+        public override void ValidateConfig()
+            => _controller.Config.Validator
+            .ValidatePostsPath()
+            .ValidateDraftsPath()
+            .ValidatePagesPath()
+            .ValidateImagesPath();
+
+        public override void Save()
+        {
+            _controller.Config.PostsPath = PostsPath;
+            _controller.Config.DraftsEnabled = DraftsEnabled;
+            _controller.Config.DraftsPath = DraftsPath;
+            _controller.Config.PagesEnabled = PagesEnabled;
+            _controller.Config.PagesPath = PagesStoredInRoot ? "." : PagesPath;
+            _controller.Config.ImagesEnabled = ImagesEnabled;
+            _controller.Config.ImagesPath = ImagesPath;
         }
 
         protected override void OnLoad(EventArgs e)

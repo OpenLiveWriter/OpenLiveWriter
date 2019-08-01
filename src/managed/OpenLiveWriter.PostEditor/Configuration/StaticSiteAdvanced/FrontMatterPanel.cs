@@ -40,12 +40,26 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         private Label labelSubtitle;
         private Dictionary<KeyIdentifier, DataGridViewRow> _keyRowMap = new Dictionary<KeyIdentifier, DataGridViewRow>();
 
-        public FrontMatterPanel(StaticSitePreferencesController controller, TemporaryBlogSettings blogSettings)
-            : base(controller, blogSettings)
+        public FrontMatterPanel(StaticSitePreferencesController controller)
+            : base(controller)
         {
             InitializeComponent();
         }
 
+        public override void LoadConfig()
+        {
+            Keys = _controller.Config.FrontMatterKeys;
+        }
+
+        public override void ValidateConfig()
+        {
+            // No validator for FrontMatterKeys yet
+        }
+
+        public override void Save()
+        {
+            _controller.Config.FrontMatterKeys = Keys;
+        }
 
         protected override void OnLayout(LayoutEventArgs e)
         {

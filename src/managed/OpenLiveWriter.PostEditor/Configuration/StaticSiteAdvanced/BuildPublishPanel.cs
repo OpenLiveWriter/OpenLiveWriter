@@ -46,19 +46,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// </summary>
         // private System.ComponentModel.Container components = null;
 
-        public BuildPublishPanel(StaticSitePreferencesController controller, TemporaryBlogSettings blogSettings)
-            : base(controller, blogSettings)
-        {
-            InitializeComponent();
-            numericUpDownCmdTimeout.Maximum = int.MaxValue;
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            RecomputeEnabledStates();
-        }
-
         public bool ShowCmdWindows
         {
             get => checkBoxShowCommandWindows.Checked;
@@ -111,6 +98,45 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         {
             get => textBoxPublishCommand.Text;
             set => textBoxPublishCommand.Text = value;
+        }
+
+        public BuildPublishPanel(StaticSitePreferencesController controller)
+    : base(controller)
+        {
+            InitializeComponent();
+            numericUpDownCmdTimeout.Maximum = int.MaxValue;
+        }
+
+        public override void LoadConfig()
+        {
+            ShowCmdWindows = _controller.Config.ShowCmdWindows;
+            CmdTimeoutMs = _controller.Config.CmdTimeoutMs;
+            BuildingEnabled = _controller.Config.BuildingEnabled;
+            BuildCommand = _controller.Config.BuildCommand;
+            OutputPath = _controller.Config.OutputPath;
+            PublishCommand = _controller.Config.PublishCommand;
+        }
+
+        public override void ValidateConfig()
+            => _controller.Config.Validator
+            .ValidateBuildCommand()
+            .ValidateOutputPath()
+            .ValidatePublishCommand();
+
+        public override void Save()
+        {
+            _controller.Config.ShowCmdWindows = ShowCmdWindows;
+            _controller.Config.CmdTimeoutMs = CmdTimeoutMs;
+            _controller.Config.BuildingEnabled = BuildingEnabled;
+            _controller.Config.BuildCommand = BuildCommand;
+            _controller.Config.OutputPath = OutputPath;
+            _controller.Config.PublishCommand = PublishCommand;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            RecomputeEnabledStates();
         }
 
         #region Component Designer generated code
