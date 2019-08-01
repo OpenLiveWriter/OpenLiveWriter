@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
     /// <summary>
     /// Summary description for BuildPublishPanel.
     /// </summary>
-    public class BuildPublishPanel : PreferencesPanel
+    public class BuildPublishPanel : StaticSitePreferencesPanel
     {
         private System.Windows.Forms.GroupBox groupBoxGeneral;
         private CheckBox checkBoxShowCommandWindows;
@@ -46,18 +46,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// </summary>
         // private System.ComponentModel.Container components = null;
 
-        private PreferencesController _controller;
-
-        public BuildPublishPanel(PreferencesController controller)
-            : base()
+        public BuildPublishPanel(StaticSitePreferencesController controller, TemporaryBlogSettings blogSettings)
+            : base(controller, blogSettings)
         {
-            // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
             numericUpDownCmdTimeout.Maximum = int.MaxValue;
-
-            //UpdateStrings();
-
-            _controller = controller;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -79,7 +72,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                 if (checkBoxEnableCmdTimeout.Checked)
                     return Convert.ToInt32(numericUpDownCmdTimeout.Value);
 
-                return StaticSiteConfig.DEFAULT_CMD_TIMEOUT;
+                return -1; // -1 for disabled
             }
 
             set

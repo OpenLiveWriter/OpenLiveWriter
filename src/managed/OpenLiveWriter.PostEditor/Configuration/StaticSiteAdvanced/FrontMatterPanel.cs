@@ -27,7 +27,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
     /// <summary>
     /// Summary description for AccountPanel.
     /// </summary>
-    public class FrontMatterPanel : PreferencesPanel
+    public class FrontMatterPanel : StaticSitePreferencesPanel
     {
         private DataGridView dataGridView;
 
@@ -35,21 +35,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// Required designer variable.
         /// </summary>
         // private System.ComponentModel.Container components = null;
-        private PreferencesController _controller;
         private DataGridViewTextBoxColumn colProperty;
         private DataGridViewTextBoxColumn colKey;
         private Label labelSubtitle;
         private Dictionary<KeyIdentifier, DataGridViewRow> _keyRowMap = new Dictionary<KeyIdentifier, DataGridViewRow>();
 
-        public FrontMatterPanel(PreferencesController controller)
-            : base()
+        public FrontMatterPanel(StaticSitePreferencesController controller, TemporaryBlogSettings blogSettings)
+            : base(controller, blogSettings)
         {
-            // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
-            //UpdateStrings();
-
-            _controller = controller;
         }
+
 
         protected override void OnLayout(LayoutEventArgs e)
         {

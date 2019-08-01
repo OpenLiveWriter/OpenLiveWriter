@@ -23,7 +23,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
     /// <summary>
     /// Summary description for AccountPanel.
     /// </summary>
-    public class GeneralPanel : PreferencesPanel
+    public class GeneralPanel : StaticSitePreferencesPanel
     {
         private System.Windows.Forms.GroupBox groupBoxSetup;
         private TextBox textBoxSiteTitle;
@@ -44,8 +44,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// </summary>
         // private System.ComponentModel.Container components = null;
 
-        private PreferencesController _controller;
-
         public string SiteTitle
         {
             get => textBoxSiteTitle.Text;
@@ -64,14 +62,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             set => textBoxLocalSitePath.Text = value;
         }
 
-        public GeneralPanel(PreferencesController controller)
-            : base()
+        public GeneralPanel(StaticSitePreferencesController controller, TemporaryBlogSettings blogSettings)
+            : base(controller, blogSettings)
         {
-            // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
-            //UpdateStrings();
-
-            _controller = controller;
         }
 
         protected override void OnLoad(EventArgs e)

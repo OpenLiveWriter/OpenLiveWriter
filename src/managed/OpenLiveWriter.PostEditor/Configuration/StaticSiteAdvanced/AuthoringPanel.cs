@@ -23,7 +23,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
     /// <summary>
     /// Summary description for AccountPanel.
     /// </summary>
-    public class AuthoringPanel : PreferencesPanel
+    public class AuthoringPanel : StaticSitePreferencesPanel
     {
         private Label labelPostsPath;
         private TextBox textBoxPostsPath;
@@ -45,8 +45,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// Required designer variable.
         /// </summary>
         // private System.ComponentModel.Container components = null;
-
-        private PreferencesController _controller;
 
         public string PostsPath
         {
@@ -96,14 +94,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             set => textBoxImagesPath.Text = value;
         }
 
-        public AuthoringPanel(PreferencesController controller)
-            : base()
+        public AuthoringPanel(StaticSitePreferencesController controller, TemporaryBlogSettings blogSettings)
+            : base(controller, blogSettings)
         {
-            // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
-            //UpdateStrings();
-
-            _controller = controller;
         }
 
         protected override void OnLoad(EventArgs e)
