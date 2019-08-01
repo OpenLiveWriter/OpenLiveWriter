@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ using OpenLiveWriter.PostEditor.Configuration.Wizard;
 
 namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
 {
-    public class PreferencesController
+    public class StaticSitePreferencesController
     {
         private TemporaryBlogSettings _temporarySettings;
         private PreferencesForm _form;
@@ -24,20 +25,20 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         private FrontMatterPanel panelFrontMatter;
         private BuildPublishPanel panelBuildPublish;
 
-        public PreferencesController(TemporaryBlogSettings blogSettings)
+        public StaticSitePreferencesController(TemporaryBlogSettings blogSettings)
         {
             _temporarySettings = blogSettings;
             _form = new PreferencesForm();
 
-            panelGeneral = new GeneralPanel(this);
-            panelAuthoring = new AuthoringPanel(this);
-            panelFrontMatter = new FrontMatterPanel(this);
-            panelBuildPublish = new BuildPublishPanel(this);
+            panelGeneral = new GeneralPanel(this, blogSettings);
+            panelAuthoring = new AuthoringPanel(this, blogSettings);
+            panelFrontMatter = new FrontMatterPanel(this, blogSettings);
+            panelBuildPublish = new BuildPublishPanel(this, blogSettings);
         }
 
         private bool EditWeblogTemporarySettings(IWin32Window owner)
         {
-            LoadFromStaticSiteConfig(CreateSiteConfig());
+            LoadFromStaticSiteConfig(StaticSiteConfig.LoadConfigFromBlogSettings(_temporarySettings));
 
             // Show form
             using (var preferencesForm = new StaticSitePreferencesForm())
@@ -45,7 +46,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                 using (BlogClientUIContextScope uiContextScope = new BlogClientUIContextScope(preferencesForm))
                 {
                     // Customize form title and behavior
-                    preferencesForm.Text = $"Static Site Configuration for '{_temporarySettings.BlogName}'"; //String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.WeblogSettings), blogSettings.BlogName);
+                    preferencesForm.Text = $"Static Site Configuration for '{_temporarySettings.BlogName}'"; //TODO use strings
+                    preferencesForm.HideApplyButton();
 
                     // Add panels
                     int iPanel = 0;
@@ -57,18 +59,22 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                     preferencesForm.SelectedIndex = 0;
                     
                     // Show the dialog
-                    preferencesForm.ShowDialog(owner);
+                    var result = preferencesForm.ShowDialog(owner);
+                    
+                    if(result == DialogResult.OK)
+                    {
+                        // Create a static site config
+                        var ssgConfig = StaticSiteConfig.LoadConfigFromBlogSettings(_temporarySettings);
+                        SaveToStaticSiteConfig(ssgConfig);
+                        // All panels should be validated by this point, so save the settings
+
+                        return true;
+                    }
+
                 }
             }
 
             return false;
-        }
-
-        private StaticSiteConfig CreateSiteConfig()
-        {
-            var ssgConfig = new StaticSiteConfig();
-            ssgConfig.LoadFromBlogSettings(_temporarySettings);
-            return ssgConfig;
         }
 
         private void LoadFromStaticSiteConfig(StaticSiteConfig config)
@@ -100,16 +106,45 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             panelBuildPublish.PublishCommand = config.PublishCommand;
         }
 
+        private void SaveToStaticSiteConfig(StaticSiteConfig config)
+        {
+            // General
+            config.SiteTitle = panelGeneral.SiteTitle;
+            config.SiteUrl = panelGeneral.SiteUrl;
+            config.LocalSitePath = panelGeneral.LocalSitePath;
+
+            // Authoring
+            config.PostsPath = panelAuthoring.PostsPath;
+            config.DraftsEnabled = panelAuthoring.DraftsEnabled;
+            config.DraftsPath = panelAuthoring.DraftsPath;
+            config.PagesEnabled = panelAuthoring.PagesEnabled;
+            config.PagesPath = panelAuthoring.PagesStoredInRoot ? "." : panelAuthoring.PagesPath;
+            config.ImagesEnabled = panelAuthoring.ImagesEnabled;
+            config.ImagesPath = panelAuthoring.ImagesPath;
+
+            // Front Matter
+            config.FrontMatterKeys = panelFrontMatter.Keys;
+
+            // Building and Publishing
+            config.ShowCmdWindows = panelBuildPublish.ShowCmdWindows;
+            config.CmdTimeoutMs = panelBuildPublish.CmdTimeoutMs;
+            config.BuildingEnabled = panelBuildPublish.BuildingEnabled;
+            config.BuildCommand = panelBuildPublish.BuildCommand;
+            config.OutputPath = panelBuildPublish.OutputPath;
+            config.PublishCommand = panelBuildPublish.PublishCommand;
+        }
+
+
         public void GeneralPanel_RunAccountWizard()
         {
             WeblogConfigurationWizardController.EditTemporarySettings(_form, _temporarySettings);
             // Reload the settings into the form
-            LoadFromStaticSiteConfig(CreateSiteConfig());
+            LoadFromStaticSiteConfig(StaticSiteConfig.LoadConfigFromBlogSettings(_temporarySettings));
         }
 
         public void GeneralPanel_RunAutoDetect()
         {
-            var ssgConfig = CreateSiteConfig();
+            var ssgConfig = StaticSiteConfig.LoadConfigFromBlogSettings(_temporarySettings);
             var result = StaticSiteConfigDetector.AttmeptAutoDetect(ssgConfig);
 
             if(result)
@@ -126,6 +161,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         }
 
         public static bool EditTemporarySettings(IWin32Window owner, TemporaryBlogSettings settings)
-            => new PreferencesController(settings).EditWeblogTemporarySettings(owner);
+            => new StaticSitePreferencesController(settings).EditWeblogTemporarySettings(owner);
     }
 }
