@@ -71,8 +71,22 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             dataGridView.Rows.Add(_keyRowMap[keyIdentifier]);
         }
 
+        private string GetTableRow(KeyIdentifier keyIdentifier)
+            => _keyRowMap[keyIdentifier].Cells[1].Value as string;
+
         public StaticSiteConfigFrontMatterKeys Keys
         {
+            get => new StaticSiteConfigFrontMatterKeys()
+            {
+                IdKey = GetTableRow(KeyIdentifier.Id),
+                TitleKey = GetTableRow(KeyIdentifier.Title),
+                DateKey = GetTableRow(KeyIdentifier.Date),
+                LayoutKey = GetTableRow(KeyIdentifier.Layout),
+                TagsKey = GetTableRow(KeyIdentifier.Tags),
+                PermalinkKey = GetTableRow(KeyIdentifier.Permalink),
+                ParentIdKey = GetTableRow(KeyIdentifier.ParentId)
+            };
+
             set
             {
                 _keyRowMap = new Dictionary<KeyIdentifier, DataGridViewRow>();
