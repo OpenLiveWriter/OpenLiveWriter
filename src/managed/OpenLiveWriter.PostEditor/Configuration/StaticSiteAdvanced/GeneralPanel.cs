@@ -43,7 +43,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        // private System.ComponentModel.Container components = null;
+        private System.ComponentModel.Container components = null;
 
         public string SiteTitle
         {
@@ -61,6 +61,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         {
             get => textBoxLocalSitePath.Text;
             set => textBoxLocalSitePath.Text = value;
+        }
+
+        public GeneralPanel() : base()
+        {
+            InitializeComponent();
         }
 
         public GeneralPanel(StaticSitePreferencesController controller)
@@ -105,6 +110,19 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                     buttonRunAutoDetect));
         }
 
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         #region Component Designer generated code
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -114,6 +132,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GeneralPanel));
             this.groupBoxSetup = new System.Windows.Forms.GroupBox();
+            this.buttonBrowseLocalSitePath = new System.Windows.Forms.Button();
             this.textBoxLocalSitePath = new System.Windows.Forms.TextBox();
             this.labelLocalSitePath = new System.Windows.Forms.Label();
             this.textBoxSiteUrl = new System.Windows.Forms.TextBox();
@@ -125,7 +144,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelAutoDetect = new System.Windows.Forms.Label();
             this.buttonRunAutoDetect = new System.Windows.Forms.Button();
             this.labelRunWizardAgain = new System.Windows.Forms.Label();
-            this.buttonBrowseLocalSitePath = new System.Windows.Forms.Button();
             this.groupBoxSetup.SuspendLayout();
             this.groupBoxOptions.SuspendLayout();
             this.SuspendLayout();
@@ -146,6 +164,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.groupBoxSetup.TabIndex = 1;
             this.groupBoxSetup.TabStop = false;
             this.groupBoxSetup.Text = "Setup";
+            // 
+            // buttonBrowseLocalSitePath
+            // 
+            this.buttonBrowseLocalSitePath.Location = new System.Drawing.Point(308, 125);
+            this.buttonBrowseLocalSitePath.Name = "buttonBrowseLocalSitePath";
+            this.buttonBrowseLocalSitePath.Size = new System.Drawing.Size(24, 24);
+            this.buttonBrowseLocalSitePath.TabIndex = 6;
+            this.buttonBrowseLocalSitePath.Text = "...";
+            this.buttonBrowseLocalSitePath.UseVisualStyleBackColor = true;
+            this.buttonBrowseLocalSitePath.Click += new System.EventHandler(this.ButtonBrowseLocalSitePath_Click);
             // 
             // textBoxLocalSitePath
             // 
@@ -202,7 +230,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.buttonRunAccountWizard.Location = new System.Drawing.Point(188, 70);
             this.buttonRunAccountWizard.Name = "buttonRunAccountWizard";
             this.buttonRunAccountWizard.Size = new System.Drawing.Size(144, 23);
-            this.buttonRunAccountWizard.TabIndex = 10;
+            this.buttonRunAccountWizard.TabIndex = 1;
             this.buttonRunAccountWizard.Text = "Run Account &Wizard";
             this.buttonRunAccountWizard.Click += new System.EventHandler(this.ButtonRunAccountWizard_Click);
             // 
@@ -225,7 +253,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelAutoDetect.Location = new System.Drawing.Point(13, 96);
             this.labelAutoDetect.Name = "labelAutoDetect";
             this.labelAutoDetect.Size = new System.Drawing.Size(316, 75);
-            this.labelAutoDetect.TabIndex = 13;
+            this.labelAutoDetect.TabIndex = 2;
             this.labelAutoDetect.Text = resources.GetString("labelAutoDetect.Text");
             // 
             // buttonRunAutoDetect
@@ -235,7 +263,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.buttonRunAutoDetect.Location = new System.Drawing.Point(188, 174);
             this.buttonRunAutoDetect.Name = "buttonRunAutoDetect";
             this.buttonRunAutoDetect.Size = new System.Drawing.Size(144, 23);
-            this.buttonRunAutoDetect.TabIndex = 12;
+            this.buttonRunAutoDetect.TabIndex = 3;
             this.buttonRunAutoDetect.Text = "Run Auto-&Detect";
             this.buttonRunAutoDetect.Click += new System.EventHandler(this.ButtonRunAutoDetect_Click);
             // 
@@ -244,19 +272,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelRunWizardAgain.Location = new System.Drawing.Point(16, 19);
             this.labelRunWizardAgain.Name = "labelRunWizardAgain";
             this.labelRunWizardAgain.Size = new System.Drawing.Size(316, 48);
-            this.labelRunWizardAgain.TabIndex = 11;
+            this.labelRunWizardAgain.TabIndex = 0;
             this.labelRunWizardAgain.Text = "You can chose to run the Account Wizard again if you wish to be guided through th" +
     "e core static site configuration options interactively.";
-            // 
-            // buttonBrowseLocalSitePath
-            // 
-            this.buttonBrowseLocalSitePath.Location = new System.Drawing.Point(308, 125);
-            this.buttonBrowseLocalSitePath.Name = "buttonBrowseLocalSitePath";
-            this.buttonBrowseLocalSitePath.Size = new System.Drawing.Size(24, 24);
-            this.buttonBrowseLocalSitePath.TabIndex = 6;
-            this.buttonBrowseLocalSitePath.Text = "...";
-            this.buttonBrowseLocalSitePath.UseVisualStyleBackColor = true;
-            this.buttonBrowseLocalSitePath.Click += new System.EventHandler(this.ButtonBrowseLocalSitePath_Click);
             // 
             // GeneralPanel
             // 

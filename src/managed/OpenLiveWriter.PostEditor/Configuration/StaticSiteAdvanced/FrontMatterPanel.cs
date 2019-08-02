@@ -34,11 +34,17 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        // private System.ComponentModel.Container components = null;
+        private System.ComponentModel.Container components = null;
+
         private DataGridViewTextBoxColumn colProperty;
         private DataGridViewTextBoxColumn colKey;
         private Label labelSubtitle;
         private Dictionary<KeyIdentifier, DataGridViewRow> _keyRowMap = new Dictionary<KeyIdentifier, DataGridViewRow>();
+
+        public FrontMatterPanel() : base()
+        {
+            InitializeComponent();
+        }
 
         public FrontMatterPanel(StaticSitePreferencesController controller)
             : base(controller)
@@ -65,6 +71,19 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         {
             base.OnLayout(e);
             dataGridView?.AutoResizeRows();
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         private void AddTableRow(KeyIdentifier keyIdentifier, string prop, string key)
@@ -120,7 +139,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.colProperty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -146,13 +165,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.Size = new System.Drawing.Size(350, 341);
-            this.dataGridView.TabIndex = 1;
+            this.dataGridView.TabIndex = 2;
             // 
             // colProperty
             // 
             this.colProperty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colProperty.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colProperty.DefaultCellStyle = dataGridViewCellStyle1;
             this.colProperty.HeaderText = "Property";
             this.colProperty.Name = "colProperty";
             this.colProperty.ReadOnly = true;
@@ -170,7 +189,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelSubtitle.Location = new System.Drawing.Point(9, 31);
             this.labelSubtitle.Name = "labelSubtitle";
             this.labelSubtitle.Size = new System.Drawing.Size(353, 36);
-            this.labelSubtitle.TabIndex = 2;
+            this.labelSubtitle.TabIndex = 1;
             this.labelSubtitle.Text = "Below you can adjust the post front matter keys used to match your static site ge" +
     "nerator.";
             // 

@@ -45,7 +45,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        // private System.ComponentModel.Container components = null;
+        private System.ComponentModel.Container components = null;
 
         public string PostsPath
         {
@@ -95,6 +95,11 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             set => textBoxImagesPath.Text = value;
         }
 
+        public AuthoringPanel() : base()
+        {
+            InitializeComponent();
+        }
+
         public AuthoringPanel(StaticSitePreferencesController controller)
             : base(controller)
         {
@@ -139,6 +144,19 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             LayoutHelper.NaturalizeHeight(labelPostsPath, textBoxPostsPath, checkBoxDraftsEnabled, labelDraftsPath, textBoxDraftsPath);
             LayoutHelper.NaturalizeHeight(checkBoxPagesEnabled, labelPagesPath, textBoxPagesPath, checkBoxPagesStoredInRoot);
             LayoutHelper.NaturalizeHeight(checkBoxImagesEnabled, labelImagesPath, textBoxImagesPath);
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         #region Component Designer generated code
@@ -216,7 +234,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.textBoxDraftsPath.Location = new System.Drawing.Point(16, 108);
             this.textBoxDraftsPath.Name = "textBoxDraftsPath";
             this.textBoxDraftsPath.Size = new System.Drawing.Size(316, 23);
-            this.textBoxDraftsPath.TabIndex = 1;
+            this.textBoxDraftsPath.TabIndex = 4;
             // 
             // labelDraftsPath
             // 
@@ -224,7 +242,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelDraftsPath.Location = new System.Drawing.Point(16, 89);
             this.labelDraftsPath.Name = "labelDraftsPath";
             this.labelDraftsPath.Size = new System.Drawing.Size(144, 16);
-            this.labelDraftsPath.TabIndex = 0;
+            this.labelDraftsPath.TabIndex = 3;
             this.labelDraftsPath.Text = "Drafts Path:";
             // 
             // groupBoxPages
@@ -260,7 +278,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.checkBoxPagesEnabled.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.checkBoxPagesEnabled.Name = "checkBoxPagesEnabled";
             this.checkBoxPagesEnabled.Size = new System.Drawing.Size(95, 19);
-            this.checkBoxPagesEnabled.TabIndex = 2;
+            this.checkBoxPagesEnabled.TabIndex = 0;
             this.checkBoxPagesEnabled.Text = "Enable Pages";
             this.checkBoxPagesEnabled.UseVisualStyleBackColor = true;
             this.checkBoxPagesEnabled.CheckedChanged += new System.EventHandler(this.CheckBoxPagesEnabled_CheckedChanged);
@@ -270,7 +288,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.textBoxPagesPath.Location = new System.Drawing.Point(16, 63);
             this.textBoxPagesPath.Name = "textBoxPagesPath";
             this.textBoxPagesPath.Size = new System.Drawing.Size(316, 23);
-            this.textBoxPagesPath.TabIndex = 1;
+            this.textBoxPagesPath.TabIndex = 2;
             // 
             // labelPagesPath
             // 
@@ -278,7 +296,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelPagesPath.Location = new System.Drawing.Point(16, 44);
             this.labelPagesPath.Name = "labelPagesPath";
             this.labelPagesPath.Size = new System.Drawing.Size(144, 16);
-            this.labelPagesPath.TabIndex = 0;
+            this.labelPagesPath.TabIndex = 1;
             this.labelPagesPath.Text = "Pages Path:";
             // 
             // groupBoxImages
@@ -290,7 +308,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.groupBoxImages.Location = new System.Drawing.Point(8, 308);
             this.groupBoxImages.Name = "groupBoxImages";
             this.groupBoxImages.Size = new System.Drawing.Size(345, 101);
-            this.groupBoxImages.TabIndex = 4;
+            this.groupBoxImages.TabIndex = 3;
             this.groupBoxImages.TabStop = false;
             this.groupBoxImages.Text = "Images";
             // 
@@ -300,7 +318,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.checkBoxImagesEnabled.Location = new System.Drawing.Point(16, 22);
             this.checkBoxImagesEnabled.Name = "checkBoxImagesEnabled";
             this.checkBoxImagesEnabled.Size = new System.Drawing.Size(102, 19);
-            this.checkBoxImagesEnabled.TabIndex = 5;
+            this.checkBoxImagesEnabled.TabIndex = 0;
             this.checkBoxImagesEnabled.Text = "Enable Images";
             this.checkBoxImagesEnabled.UseVisualStyleBackColor = true;
             this.checkBoxImagesEnabled.CheckedChanged += new System.EventHandler(this.CheckBoxImagesEnabled_CheckedChanged);
@@ -310,7 +328,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.textBoxImagesPath.Location = new System.Drawing.Point(16, 63);
             this.textBoxImagesPath.Name = "textBoxImagesPath";
             this.textBoxImagesPath.Size = new System.Drawing.Size(316, 23);
-            this.textBoxImagesPath.TabIndex = 4;
+            this.textBoxImagesPath.TabIndex = 2;
             // 
             // labelImagesPath
             // 
@@ -318,7 +336,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelImagesPath.Location = new System.Drawing.Point(16, 44);
             this.labelImagesPath.Name = "labelImagesPath";
             this.labelImagesPath.Size = new System.Drawing.Size(144, 16);
-            this.labelImagesPath.TabIndex = 3;
+            this.labelImagesPath.TabIndex = 1;
             this.labelImagesPath.Text = "Images Path:";
             // 
             // AuthoringPanel

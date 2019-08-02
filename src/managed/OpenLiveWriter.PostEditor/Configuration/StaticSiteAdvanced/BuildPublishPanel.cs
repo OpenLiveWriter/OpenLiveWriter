@@ -44,7 +44,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        // private System.ComponentModel.Container components = null;
+        private System.ComponentModel.Container components = null;
 
         public bool ShowCmdWindows
         {
@@ -100,8 +100,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             set => textBoxPublishCommand.Text = value;
         }
 
+        public BuildPublishPanel() : base()
+        {
+            InitializeComponent();
+            numericUpDownCmdTimeout.Maximum = int.MaxValue;
+        }
+
         public BuildPublishPanel(StaticSitePreferencesController controller)
-    : base(controller)
+            : base(controller)
         {
             InitializeComponent();
             numericUpDownCmdTimeout.Maximum = int.MaxValue;
@@ -137,6 +143,19 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         {
             base.OnLoad(e);
             RecomputeEnabledStates();
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         #region Component Designer generated code
@@ -186,8 +205,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.checkBoxEnableCmdTimeout.Location = new System.Drawing.Point(16, 50);
             this.checkBoxEnableCmdTimeout.Margin = new System.Windows.Forms.Padding(13, 5, 3, 3);
             this.checkBoxEnableCmdTimeout.Name = "checkBoxEnableCmdTimeout";
-            this.checkBoxEnableCmdTimeout.Size = new System.Drawing.Size(285, 34);
-            this.checkBoxEnableCmdTimeout.TabIndex = 3;
+            this.checkBoxEnableCmdTimeout.Size = new System.Drawing.Size(168, 19);
+            this.checkBoxEnableCmdTimeout.TabIndex = 1;
             this.checkBoxEnableCmdTimeout.Text = "Enable Command Timeout";
             this.checkBoxEnableCmdTimeout.UseVisualStyleBackColor = true;
             this.checkBoxEnableCmdTimeout.CheckedChanged += new System.EventHandler(this.CheckBoxEnableCmdTimeout_CheckedChanged);
@@ -197,7 +216,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelCmdTimeout.AutoSize = true;
             this.labelCmdTimeout.Location = new System.Drawing.Point(13, 77);
             this.labelCmdTimeout.Name = "labelCmdTimeout";
-            this.labelCmdTimeout.Size = new System.Drawing.Size(241, 30);
+            this.labelCmdTimeout.Size = new System.Drawing.Size(141, 15);
             this.labelCmdTimeout.TabIndex = 2;
             this.labelCmdTimeout.Text = "Command Timeout (ms):";
             // 
@@ -210,8 +229,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             0,
             0});
             this.numericUpDownCmdTimeout.Name = "numericUpDownCmdTimeout";
-            this.numericUpDownCmdTimeout.Size = new System.Drawing.Size(169, 35);
-            this.numericUpDownCmdTimeout.TabIndex = 1;
+            this.numericUpDownCmdTimeout.Size = new System.Drawing.Size(169, 23);
+            this.numericUpDownCmdTimeout.TabIndex = 3;
             // 
             // checkBoxShowCommandWindows
             // 
@@ -219,7 +238,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.checkBoxShowCommandWindows.Location = new System.Drawing.Point(16, 23);
             this.checkBoxShowCommandWindows.Margin = new System.Windows.Forms.Padding(13, 3, 3, 3);
             this.checkBoxShowCommandWindows.Name = "checkBoxShowCommandWindows";
-            this.checkBoxShowCommandWindows.Size = new System.Drawing.Size(282, 34);
+            this.checkBoxShowCommandWindows.Size = new System.Drawing.Size(167, 19);
             this.checkBoxShowCommandWindows.TabIndex = 0;
             this.checkBoxShowCommandWindows.Text = "Show Command Windows";
             this.checkBoxShowCommandWindows.UseVisualStyleBackColor = true;
@@ -242,16 +261,16 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             // 
             this.textBoxOutputPath.Location = new System.Drawing.Point(16, 106);
             this.textBoxOutputPath.Name = "textBoxOutputPath";
-            this.textBoxOutputPath.Size = new System.Drawing.Size(313, 35);
-            this.textBoxOutputPath.TabIndex = 4;
+            this.textBoxOutputPath.Size = new System.Drawing.Size(313, 23);
+            this.textBoxOutputPath.TabIndex = 8;
             // 
             // labelOutputPath
             // 
             this.labelOutputPath.AutoSize = true;
             this.labelOutputPath.Location = new System.Drawing.Point(13, 88);
             this.labelOutputPath.Name = "labelOutputPath";
-            this.labelOutputPath.Size = new System.Drawing.Size(256, 30);
-            this.labelOutputPath.TabIndex = 3;
+            this.labelOutputPath.Size = new System.Drawing.Size(146, 15);
+            this.labelOutputPath.TabIndex = 7;
             this.labelOutputPath.Text = "Site Output Path: (relative)";
             // 
             // textBoxBuildCommand
@@ -259,8 +278,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.textBoxBuildCommand.Location = new System.Drawing.Point(16, 62);
             this.textBoxBuildCommand.Margin = new System.Windows.Forms.Padding(13, 3, 13, 3);
             this.textBoxBuildCommand.Name = "textBoxBuildCommand";
-            this.textBoxBuildCommand.Size = new System.Drawing.Size(313, 35);
-            this.textBoxBuildCommand.TabIndex = 2;
+            this.textBoxBuildCommand.Size = new System.Drawing.Size(313, 23);
+            this.textBoxBuildCommand.TabIndex = 6;
             // 
             // labelBuildCommand
             // 
@@ -268,8 +287,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelBuildCommand.Location = new System.Drawing.Point(13, 44);
             this.labelBuildCommand.Margin = new System.Windows.Forms.Padding(13, 0, 3, 0);
             this.labelBuildCommand.Name = "labelBuildCommand";
-            this.labelBuildCommand.Size = new System.Drawing.Size(166, 30);
-            this.labelBuildCommand.TabIndex = 1;
+            this.labelBuildCommand.Size = new System.Drawing.Size(97, 15);
+            this.labelBuildCommand.TabIndex = 5;
             this.labelBuildCommand.Text = "Build Command:";
             // 
             // checkBoxBuildingEnabled
@@ -278,8 +297,8 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.checkBoxBuildingEnabled.Location = new System.Drawing.Point(16, 22);
             this.checkBoxBuildingEnabled.Margin = new System.Windows.Forms.Padding(13, 3, 3, 3);
             this.checkBoxBuildingEnabled.Name = "checkBoxBuildingEnabled";
-            this.checkBoxBuildingEnabled.Size = new System.Drawing.Size(182, 34);
-            this.checkBoxBuildingEnabled.TabIndex = 0;
+            this.checkBoxBuildingEnabled.Size = new System.Drawing.Size(108, 19);
+            this.checkBoxBuildingEnabled.TabIndex = 4;
             this.checkBoxBuildingEnabled.Text = "Enable Building";
             this.checkBoxBuildingEnabled.UseVisualStyleBackColor = true;
             this.checkBoxBuildingEnabled.CheckedChanged += new System.EventHandler(this.CheckBoxBuildingEnabled_CheckedChanged);
@@ -300,15 +319,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.textBoxPublishCommand.Location = new System.Drawing.Point(16, 37);
             this.textBoxPublishCommand.Margin = new System.Windows.Forms.Padding(13, 3, 13, 3);
             this.textBoxPublishCommand.Name = "textBoxPublishCommand";
-            this.textBoxPublishCommand.Size = new System.Drawing.Size(313, 35);
-            this.textBoxPublishCommand.TabIndex = 5;
+            this.textBoxPublishCommand.Size = new System.Drawing.Size(313, 23);
+            this.textBoxPublishCommand.TabIndex = 1;
             // 
             // labelPublishCommand
             // 
             this.labelPublishCommand.AutoSize = true;
             this.labelPublishCommand.Location = new System.Drawing.Point(13, 19);
             this.labelPublishCommand.Name = "labelPublishCommand";
-            this.labelPublishCommand.Size = new System.Drawing.Size(187, 30);
+            this.labelPublishCommand.Size = new System.Drawing.Size(109, 15);
             this.labelPublishCommand.TabIndex = 0;
             this.labelPublishCommand.Text = "Publish Command:";
             // 
