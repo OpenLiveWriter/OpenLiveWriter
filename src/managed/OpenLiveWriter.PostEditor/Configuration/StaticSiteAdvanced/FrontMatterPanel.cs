@@ -39,6 +39,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         private DataGridViewTextBoxColumn colProperty;
         private DataGridViewTextBoxColumn colKey;
         private Label labelSubtitle;
+        private Button buttonResetDefaults;
         private Dictionary<KeyIdentifier, DataGridViewRow> _keyRowMap = new Dictionary<KeyIdentifier, DataGridViewRow>();
 
         public FrontMatterPanel() : base()
@@ -129,6 +130,9 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                 AddTableRow(KeyIdentifier.Tags, "Tags", value.TagsKey);
                 AddTableRow(KeyIdentifier.Permalink, "Permalink", value.PermalinkKey);
                 AddTableRow(KeyIdentifier.ParentId, "Parent ID", value.ParentIdKey);
+
+                // Recompute row sizes
+                dataGridView?.AutoResizeRows();
             }
         }
 
@@ -144,6 +148,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.colProperty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelSubtitle = new System.Windows.Forms.Label();
+            this.buttonResetDefaults = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,7 +169,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(350, 341);
+            this.dataGridView.Size = new System.Drawing.Size(350, 323);
             this.dataGridView.TabIndex = 2;
             // 
             // colProperty
@@ -193,9 +198,20 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.labelSubtitle.Text = "Below you can adjust the post front matter keys used to match your static site ge" +
     "nerator.";
             // 
+            // buttonResetDefaults
+            // 
+            this.buttonResetDefaults.Location = new System.Drawing.Point(253, 399);
+            this.buttonResetDefaults.Name = "buttonResetDefaults";
+            this.buttonResetDefaults.Size = new System.Drawing.Size(109, 23);
+            this.buttonResetDefaults.TabIndex = 3;
+            this.buttonResetDefaults.Text = "Reset to Defaults";
+            this.buttonResetDefaults.UseVisualStyleBackColor = true;
+            this.buttonResetDefaults.Click += new System.EventHandler(this.ButtonResetDefaults_Click);
+            // 
             // FrontMatterPanel
             // 
             this.AccessibleName = "Front Matter";
+            this.Controls.Add(this.buttonResetDefaults);
             this.Controls.Add(this.labelSubtitle);
             this.Controls.Add(this.dataGridView);
             this.Name = "FrontMatterPanel";
@@ -203,10 +219,14 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.Size = new System.Drawing.Size(370, 425);
             this.Controls.SetChildIndex(this.dataGridView, 0);
             this.Controls.SetChildIndex(this.labelSubtitle, 0);
+            this.Controls.SetChildIndex(this.buttonResetDefaults, 0);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
         #endregion
+
+        private void ButtonResetDefaults_Click(object sender, EventArgs e)
+            => Keys = new StaticSiteConfigFrontMatterKeys();
     }
 }
