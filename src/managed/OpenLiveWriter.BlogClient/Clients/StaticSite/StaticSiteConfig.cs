@@ -20,7 +20,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         private const string CONFIG_OUTPUT_PATH = "OutputPath";
         private const string CONFIG_BUILD_COMMAND = "BuildCommand";
         private const string CONFIG_PUBLISH_COMMAND = "PublishCommand";
-        private const string CONFIG_POST_URL_FORMAT = "PostUrlFormat";
         private const string CONFIG_SITE_URL = "SiteUrl"; // Store Site Url in credentials as well, for acccess by StaticSiteClient
         private const string CONFIG_SHOW_CMD_WINDOWS = "ShowCmdWindows";
         private const string CONFIG_CMD_TIMEOUT_MS = "CmdTimeoutMs";
@@ -104,13 +103,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public string SiteTitle { get; set; } = "";
 
         /// <summary>
-        /// Post URL format, appended to end of Site URL, automatically opened on publish completion.
-        /// Supports %y for four-digit year, %m and %d for two-digit months and days, %f for post filename.
-        /// Default is Jekyll format: "%y/%m/%d/%f"
-        /// </summary>
-        public string PostUrlFormat { get; set; } = "%y/%m/%d/%f";
-
-        /// <summary>
         /// Show CMD windows. Useful for debugging. Default is false.
         /// </summary>
         public bool ShowCmdWindows { get; set; } = false;
@@ -152,8 +144,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             BuildCommand = creds.GetCustomValue(CONFIG_BUILD_COMMAND);
 
             PublishCommand = creds.GetCustomValue(CONFIG_PUBLISH_COMMAND);
-            // Don't overwrite the default value if we fail to find a value;
-            if (creds.GetCustomValue(CONFIG_POST_URL_FORMAT) != string.Empty) PostUrlFormat = creds.GetCustomValue(CONFIG_POST_URL_FORMAT);
 
             SiteUrl = creds.GetCustomValue(CONFIG_SITE_URL); // This will be overidden in LoadFromBlogSettings, HomepageUrl is considered a more accurate source of truth
 
@@ -200,7 +190,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             creds.SetCustomValue(CONFIG_BUILD_COMMAND, BuildCommand);
 
             creds.SetCustomValue(CONFIG_PUBLISH_COMMAND, PublishCommand);
-            creds.SetCustomValue(CONFIG_POST_URL_FORMAT, PostUrlFormat);
             creds.SetCustomValue(CONFIG_SITE_URL, SiteUrl);
 
             creds.SetCustomValue(CONFIG_SHOW_CMD_WINDOWS, ShowCmdWindows ? "1" : "0");
@@ -231,7 +220,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 PublishCommand = PublishCommand,
                 SiteUrl = SiteUrl,
                 SiteTitle = SiteTitle,
-                PostUrlFormat = PostUrlFormat,
                 ShowCmdWindows = ShowCmdWindows,
                 CmdTimeoutMs = CmdTimeoutMs,
                 Initialised = Initialised,

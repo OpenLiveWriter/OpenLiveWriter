@@ -27,7 +27,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             .ValidateDraftsPath()
             .ValidateImagesPath()
             .ValidateOutputPath()
-            .ValidatePostUrlFormat()
             .ValidateBuildCommand()
             .ValidatePublishCommand();
 
@@ -155,16 +154,6 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         }
 
         #endregion
-
-        public StaticSiteConfigValidator ValidatePostUrlFormat()
-        {
-            if (!_config.PostUrlFormat.Contains("%f"))
-                throw new StaticSiteConfigValidationException(
-                            "Invalid Post URL format",
-                            "Post URL format does not contain filename variable (%f)");
-
-            return this;
-        }
 
         public StaticSiteConfigValidator ValidateBuildCommand()
         {

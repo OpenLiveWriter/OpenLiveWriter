@@ -30,14 +30,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         private TextBox textBoxImagesPath;
         private Label labelOutputPath;
         private TextBox textBoxOutputPath;
-        private Label labelUrlFormat;
-        private Label labelUrlFormatSubtitle;
-        private TextBox textBoxUrlFormat;
-        
-        /// <summary>
-        /// Local site path, loaded from config, used for validation
-        /// </summary>
-        private string _localSitePath;
 
         /// <summary>
         /// Required designer variable.
@@ -52,9 +44,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.labelHeader.Text = Res.Get(StringId.CWStaticSitePathsTitle);
             this.labelImagesPath.Text = Res.Get(StringId.CWStaticSitePathsImagesPath);
             this.labelOutputPath.Text = Res.Get(StringId.CWStaticSitePathsOutputPath);
-            this.labelUrlFormat.Text = Res.Get(StringId.CWStaticSitePathsUrlFormat);
-            this.labelUrlFormatSubtitle.Text = Res.Get(StringId.CWStaticSitePathsUrlFormatSubtitle);
-            this.labelUrlFormatSubtitle.ForeColor = !SystemInformation.HighContrast ? Color.FromArgb(136, 136, 136) : SystemColors.GrayText;
         }
 
         public override void NaturalizeLayout()
@@ -66,20 +55,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             MaximizeWidth(textBoxImagesPath);
             MaximizeWidth(labelOutputPath);
             MaximizeWidth(textBoxOutputPath);
-            MaximizeWidth(labelUrlFormat);
-            MaximizeWidth(labelUrlFormatSubtitle);
-            MaximizeWidth(textBoxUrlFormat);
-
-            LayoutHelper.NaturalizeHeight(labelUrlFormatSubtitle);
 
             LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelImagesPath, textBoxImagesPath);
             LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelOutputPath, textBoxOutputPath);
-            LayoutHelper.NaturalizeHeightAndDistributeNoScale(3, labelUrlFormat, labelUrlFormatSubtitle, textBoxUrlFormat);
 
             LayoutHelper.DistributeVerticallyNoScale(10, false,
                 new ControlGroup(labelImagesPath, textBoxImagesPath),
-                new ControlGroup(labelOutputPath, textBoxOutputPath),
-                new ControlGroup(labelUrlFormat, labelUrlFormatSubtitle, textBoxUrlFormat)
+                new ControlGroup(labelOutputPath, textBoxOutputPath)
                 );
         }
 
@@ -114,17 +96,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             set => textBoxOutputPath.Text = value;
         }
 
-        public string UrlFormat
-        {
-            get => textBoxUrlFormat.Text;
-            set => textBoxUrlFormat.Text = value;
-        }
-
         public void ValidateWithConfig(StaticSiteConfig config)
             => config.Validator
             .ValidateImagesPath()
-            .ValidateOutputPath()
-            .ValidatePostUrlFormat();
+            .ValidateOutputPath();
 
         /// <summary>
         /// Saves panel form fields into a StaticSiteConfig
@@ -134,7 +109,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             config.ImagesPath = ImagesPath;
             config.OutputPath = OutputPath;
-            config.PostUrlFormat = UrlFormat;
         }
 
         /// <summary>
@@ -143,12 +117,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         /// <param name="config">a StaticSiteConfig instance</param>
         public void LoadFromConfig(StaticSiteConfig config)
         {
-            _localSitePath = config.LocalSitePath;
             ImagesEnabled = config.ImagesEnabled;
             ImagesPath = config.ImagesPath;
             BuildingEnabled = config.BuildingEnabled;
             OutputPath = config.OutputPath;
-            UrlFormat = config.PostUrlFormat;
         }
 
         /// <summary>
@@ -177,9 +149,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxImagesPath = new System.Windows.Forms.TextBox();
             this.labelOutputPath = new System.Windows.Forms.Label();
             this.textBoxOutputPath = new System.Windows.Forms.TextBox();
-            this.labelUrlFormat = new System.Windows.Forms.Label();
-            this.labelUrlFormatSubtitle = new System.Windows.Forms.Label();
-            this.textBoxUrlFormat = new System.Windows.Forms.TextBox();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,9 +158,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.panelMain.Controls.Add(this.textBoxImagesPath);
             this.panelMain.Controls.Add(this.labelOutputPath);
             this.panelMain.Controls.Add(this.textBoxOutputPath);
-            this.panelMain.Controls.Add(this.labelUrlFormat);
-            this.panelMain.Controls.Add(this.labelUrlFormatSubtitle);
-            this.panelMain.Controls.Add(this.textBoxUrlFormat);
             this.panelMain.Size = new System.Drawing.Size(435, 242);
             // 
             // labelImagesPath
@@ -227,31 +193,6 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             this.textBoxOutputPath.Name = "textBoxOutputPath";
             this.textBoxOutputPath.Size = new System.Drawing.Size(368, 20);
             this.textBoxOutputPath.TabIndex = 3;
-            // 
-            // labelUrlFormat
-            // 
-            this.labelUrlFormat.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelUrlFormat.Location = new System.Drawing.Point(20, 90);
-            this.labelUrlFormat.Name = "labelUrlFormat";
-            this.labelUrlFormat.Size = new System.Drawing.Size(83, 13);
-            this.labelUrlFormat.TabIndex = 4;
-            this.labelUrlFormat.Text = "Blog post URL format:";
-            // 
-            // labelUrlFormatSubtitle
-            // 
-            this.labelUrlFormatSubtitle.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelUrlFormatSubtitle.Location = new System.Drawing.Point(20, 107);
-            this.labelUrlFormatSubtitle.Name = "labelUrlFormatSubtitle";
-            this.labelUrlFormatSubtitle.Size = new System.Drawing.Size(83, 13);
-            this.labelUrlFormatSubtitle.TabIndex = 5;
-            this.labelUrlFormatSubtitle.Text = "Subtitle";
-            // 
-            // textBoxUrlFormat
-            // 
-            this.textBoxUrlFormat.Location = new System.Drawing.Point(20, 125);
-            this.textBoxUrlFormat.Name = "textBoxUrlFormat";
-            this.textBoxUrlFormat.Size = new System.Drawing.Size(368, 20);
-            this.textBoxUrlFormat.TabIndex = 6;
             // 
             // WeblogConfigurationWizardPanelStaticSitePaths2
             // 
