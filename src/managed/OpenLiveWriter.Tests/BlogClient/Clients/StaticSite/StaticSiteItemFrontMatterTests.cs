@@ -11,7 +11,7 @@ namespace OpenLiveWriter.Tests.BlogClient.Clients.StaticSite
         public void Deserialize_Basic()
         {
             // Expected
-            var expected = new StaticSiteItemFrontMatter()
+            var expected = new StaticSiteItemFrontMatter(new StaticSiteConfigFrontMatterKeys())
             {
                 Title = "Test title",
                 Date = "2019-01-01 00:00:00",
@@ -20,7 +20,7 @@ namespace OpenLiveWriter.Tests.BlogClient.Clients.StaticSite
             };
 
             // Act
-            var fm = new StaticSiteItemFrontMatter();
+            var fm = new StaticSiteItemFrontMatter(new StaticSiteConfigFrontMatterKeys());
             fm.Deserialize(@"title: Test title
 date: 2019-01-01 00:00:00
 layout: post
@@ -39,7 +39,7 @@ tags:
         public void Deserialize_MissingKeys()
         {
             // Expected
-            var expected = new StaticSiteItemFrontMatter()
+            var expected = new StaticSiteItemFrontMatter(new StaticSiteConfigFrontMatterKeys())
             {
                 Title = "Test title",
                 Date = "2019-01-01 00:00:00",
@@ -47,7 +47,7 @@ tags:
             };
 
             // Act
-            var fm = new StaticSiteItemFrontMatter();
+            var fm = new StaticSiteItemFrontMatter(new StaticSiteConfigFrontMatterKeys());
             fm.Deserialize(@"title: Test title
 date: 2019-01-01 00:00:00");
 
@@ -68,7 +68,7 @@ layout: post
 ";
 
             // Act
-            var fm = new StaticSiteItemFrontMatter()
+            var fm = new StaticSiteItemFrontMatter(new StaticSiteConfigFrontMatterKeys())
             {
                 Title = "Test title",
                 Date = "2019-01-01 00:00:00",
@@ -93,7 +93,7 @@ tags:
 ";
 
             // Act
-            var fm = new StaticSiteItemFrontMatter()
+            var fm = new StaticSiteItemFrontMatter(new StaticSiteConfigFrontMatterKeys())
             {
                 Title = "Test title",
                 Date = "2019-01-01 00:00:00",
