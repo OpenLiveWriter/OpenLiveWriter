@@ -1231,14 +1231,6 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSitePathsTitle,
 		/// <summary>
-                                                    /// Blog post URL format:
-                                                    /// </summary>
-                                                    CWStaticSitePathsUrlFormat,
-		/// <summary>
-                                                    /// Appended to site URL for automatic display of post after publish. Use %y for four-digit year, %m and %d for two digit months and days respectively. %f for post filenames.
-                                                    /// </summary>
-                                                    CWStaticSitePathsUrlFormatSubtitle,
-		/// <summary>
                                                     /// Add Blog Wizard
                                                     /// </summary>
                                                     CWTitle,

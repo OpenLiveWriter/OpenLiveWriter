@@ -1045,12 +1045,6 @@
   <data name="CWStaticSitePathsTitle" xml:space="preserve">
     <value>Provide site URL and paths</value>
   </data>
-  <data name="CWStaticSitePathsUrlFormat" xml:space="preserve">
-    <value>Blog post URL format:</value>
-  </data>
-  <data name="CWStaticSitePathsUrlFormatSubtitle" xml:space="preserve">
-    <value>Appended to site URL for automatic display of post after publish. Use %y for four-digit year, %m and %d for two digit months and days respectively. %f for post filenames.</value>
-  </data>
   <data name="CWTitle" xml:space="preserve">
     <value>Add Blog Wizard</value>
   <comment>Caption of the Add Blog Wizard window.</comment></data>
