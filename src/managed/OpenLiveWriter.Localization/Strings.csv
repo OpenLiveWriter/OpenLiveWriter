@@ -389,8 +389,6 @@ CWStaticSitePathsPagesInRoot,Pages stored in site root,
 CWStaticSitePathsDraftsPath,"Drafts path: (relative, required if drafts enabled)",
 CWStaticSitePathsImagesPath,"Images path: (relative, required if images enabled)",
 CWStaticSitePathsOutputPath,"Build output path: (relative, required if building enabled)",
-CWStaticSitePathsUrlFormat,Blog post URL format:,
-CWStaticSitePathsUrlFormatSubtitle,"Appended to site URL for automatic display of post after publish. Use %y for four-digit year, %m and %d for two digit months and days respectively. %f for post filenames.",
 CWStaticSiteCommandsTitle,Provide site authoring commands,
 CWStaticSiteCommandsSubtitle,"{0} will run the commands you specify below and alert you if an error occurs. Commands are ran using the system command interpreter with a working directory of your local site.",{0} - Product name
 CWStaticSiteCommandsBuildCommand,Build command:,
