@@ -70,11 +70,11 @@ namespace LocEdit
                 var value = (string)row.Cells[1].Value;
                 var comment = (string)row.Cells[2].Value;
 
-                if (key == null || value == null || comment == null) continue;
+                if (key == null || value == null) continue;
 
                 sb.Append($"{Helpers.CsvizeString(key)},");
                 sb.Append($"{Helpers.CsvizeString(value)},");
-                sb.Append($"{Helpers.CsvizeString(comment)}");
+                sb.Append($"{Helpers.CsvizeString(comment == null ? "" : comment)}");
                 sb.AppendLine();
             }
 
