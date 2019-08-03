@@ -122,14 +122,13 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                 _keyRowMap = new Dictionary<KeyIdentifier, DataGridViewRow>();
                 dataGridView.Rows.Clear();
 
-                // TODO use strings resource for below
-                AddTableRow(KeyIdentifier.Id, "ID", value.IdKey);
-                AddTableRow(KeyIdentifier.Title, "Title", value.TitleKey);
-                AddTableRow(KeyIdentifier.Date, "Date", value.DateKey);
-                AddTableRow(KeyIdentifier.Layout, "Layout", value.LayoutKey);
-                AddTableRow(KeyIdentifier.Tags, "Tags", value.TagsKey);
-                AddTableRow(KeyIdentifier.Permalink, "Permalink", value.PermalinkKey);
-                AddTableRow(KeyIdentifier.ParentId, "Parent ID", value.ParentIdKey);
+                AddTableRow(KeyIdentifier.Id, Res.Get(StringId.SSGFrontMatterId), value.IdKey);
+                AddTableRow(KeyIdentifier.Title, Res.Get(StringId.SSGFrontMatterTitle), value.TitleKey);
+                AddTableRow(KeyIdentifier.Date, Res.Get(StringId.SSGFrontMatterDate), value.DateKey);
+                AddTableRow(KeyIdentifier.Layout, Res.Get(StringId.SSGFrontMatterLayout), value.LayoutKey);
+                AddTableRow(KeyIdentifier.Tags, Res.Get(StringId.SSGFrontMatterTags), value.TagsKey);
+                AddTableRow(KeyIdentifier.Permalink, Res.Get(StringId.SSGFrontMatterPermalink), value.PermalinkKey);
+                AddTableRow(KeyIdentifier.ParentId, Res.Get(StringId.SSGFrontMatterParentId), value.ParentIdKey);
 
                 // Recompute row sizes
                 dataGridView?.AutoResizeRows();

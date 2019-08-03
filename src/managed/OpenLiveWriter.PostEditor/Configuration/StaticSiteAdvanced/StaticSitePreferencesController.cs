@@ -73,7 +73,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
                 using (BlogClientUIContextScope uiContextScope = new BlogClientUIContextScope(formPreferences))
                 {
                     // Customize form title and behavior
-                    formPreferences.Text = $"Static Site Configuration for '{_temporarySettings.BlogName}'"; //TODO use strings
+                    formPreferences.Text = string.Format(Res.Get(StringId.SSGConfigTitle), _temporarySettings.BlogName);
                     formPreferences.HideApplyButton();
 
                     // Add panels

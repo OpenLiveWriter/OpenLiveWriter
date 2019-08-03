@@ -4831,7 +4831,7 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     SSGConfigGeneralWizardButton,
 		/// <summary>
-                                                    /// You can chose to run the Account Wizard again if you wish to be guided through the core static site configuration options interactively.
+                                                    /// You can choose to run the Account Wizard again if you wish to be guided through the core static site configuration options interactively.
                                                     /// </summary>
                                                     SSGConfigGeneralWizardLabel,
 		/// <summary>

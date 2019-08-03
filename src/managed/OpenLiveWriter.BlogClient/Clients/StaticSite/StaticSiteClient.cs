@@ -24,7 +24,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         // The 'provider' concept doesn't really apply to local static sites
         // Store these required constants here so they're in one place
         public const string PROVIDER_ID = "D0E0062F-7540-4462-94FD-DC55004D95E6";
-        public const string SERVICE_NAME = "Static Site Generator"; // TODO- Move to Strings
+        public const string SERVICE_NAME = "Static Site Generator";
         public const string POST_API_URL = "http://localhost/"; // A valid URI is required for BlogClientManager to instantiate a URI object on.
         public const string CLIENT_TYPE = "StaticSite";
 
@@ -132,7 +132,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public void DeletePost(string blogId, string postId, bool publish)
         {
             var post = StaticSitePost.GetPostById(Config, postId);
-            if (post == null) throw new BlogClientException("Post does not exist", "Could not find post with specified ID."); // TODO use strings resources
+            if (post == null) throw new BlogClientException(
+                Res.Get(StringId.SSGErrorPostDoesNotExistTitle),
+                Res.Get(StringId.SSGErrorPostDoesNotExistText));
             DoDeleteItem(post);
         }
 
@@ -196,7 +198,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public void DeletePage(string blogId, string pageId)
         {
             var page = StaticSitePage.GetPageById(Config, pageId);
-            if (page == null) throw new BlogClientException("Page does not exist", "Could not find page with specified ID."); // TODO use strings resources
+            if (page == null) throw new BlogClientException(
+                Res.Get(StringId.SSGErrorPageDoesNotExistTitle),
+                Res.Get(StringId.SSGErrorPageDoesNotExistText));
             DoDeleteItem(page);
         }
 
@@ -529,7 +533,9 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
                 {
                     // Timeout reached
                     try { proc.Kill(); } catch { } // Attempt to kill the process
-                    throw new BlogClientException("Command execution timeout", "Blog command timed out. Please check your commands, or lengthen the command timeout."); // TODO move into strings
+                    throw new BlogClientException(
+                        Res.Get(StringId.SSGErrorCommandTimeoutTitle),
+                        Res.Get(StringId.SSGErrorCommandTimeoutText));
                 }
             }
 

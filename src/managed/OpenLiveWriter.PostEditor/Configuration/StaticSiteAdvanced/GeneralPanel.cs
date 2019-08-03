@@ -66,12 +66,30 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         public GeneralPanel() : base()
         {
             InitializeComponent();
+            LocalizeStrings();
         }
 
         public GeneralPanel(StaticSitePreferencesController controller)
             : base(controller)
         {
             InitializeComponent();
+            LocalizeStrings();
+        }
+
+        private void LocalizeStrings()
+        {
+            PanelName = Res.Get(StringId.SSGConfigGeneralTitle);
+
+            groupBoxSetup.Text = Res.Get(StringId.SSGConfigGeneralSetupGroup);
+            labelSiteTitle.Text = Res.Get(StringId.SSGConfigGeneralSiteTitle);
+            labelSiteUrl.Text = Res.Get(StringId.SSGConfigGeneralSiteUrl);
+            labelLocalSitePath.Text = Res.Get(StringId.SSGConfigGeneralLocalSitePath);
+
+            groupBoxOptions.Text = Res.Get(StringId.SSGConfigGeneralOptionsGroup);
+            labelRunWizardAgain.Text = Res.Get(StringId.SSGConfigGeneralWizardLabel);
+            buttonRunAccountWizard.Text = Res.Get(StringId.SSGConfigGeneralWizardButton);
+            labelAutoDetect.Text = Res.Get(StringId.SSGConfigGeneralDetectLabel);
+            buttonRunAutoDetect.Text = Res.Get(StringId.SSGConfigGeneralDetectButton);
         }
 
         public override void LoadConfig()

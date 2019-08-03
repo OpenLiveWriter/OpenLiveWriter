@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 
 using OpenLiveWriter.Extensibility.BlogClient;
+using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
@@ -30,16 +31,14 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             .ValidateBuildCommand()
             .ValidatePublishCommand();
 
-        // TODO replace errors with strings from resources
-
         #region Path Validation
 
         public StaticSiteConfigValidator ValidateLocalSitePath()
         {
             if(!Directory.Exists(_config.LocalSitePath))
                 throw new StaticSiteConfigValidationException(
-                    "Folder not found",
-                    "Local Site Path '{0}' does not exist.",
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathLocalSitePathNotFound),
                     _config.LocalSitePath);
 
             return this;
@@ -52,14 +51,14 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // If the Posts path is empty, display an error
             if (_config.PostsPath.Trim() == string.Empty)
                 throw new StaticSiteConfigValidationException(
-                    "Folder not found",
-                    "Posts path is empty.");
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathPostsEmpty));
 
             // If the Posts path doesn't exist, display an error
             if (!Directory.Exists(postsPathFull))
                 throw new StaticSiteConfigValidationException(
-                    "Folder not found",
-                    "Posts path '{0}' does not exist.",
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathPostsNotFound),
                     postsPathFull);
 
             return this;
@@ -74,15 +73,15 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // If the Pages path is empty, display an error
             if (_config.PagesPath.Trim() == string.Empty)
                 throw new StaticSiteConfigValidationException(
-                    "Folder not found",
-                    "Pages path is empty.");
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathPagesEmpty));
 
             // If the path doesn't exist, display an error
             if (!Directory.Exists(pagesPathFull))
                 throw new StaticSiteConfigValidationException(
-                        "Folder not found",
-                        "Pages path '{0}' does not exist.",
-                        pagesPathFull);
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathPagesNotFound),
+                    pagesPathFull);
 
             return this;
         }
@@ -96,15 +95,15 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // If the Drafts path is empty, display an error
             if (_config.DraftsPath.Trim() == string.Empty)
                 throw new StaticSiteConfigValidationException(
-                    "Folder not found",
-                    "Drafts path is empty.");
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathDraftsEmpty));
 
             // If the path doesn't exist, display an error
             if (!Directory.Exists(draftsPathFull))
                 throw new StaticSiteConfigValidationException(
-                        "Folder not found",
-                        "Drafts path '{0}' does not exist.",
-                        draftsPathFull);
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathDraftsNotFound),
+                    draftsPathFull);
 
             return this;
         }
@@ -118,15 +117,15 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // If the Images path is empty, display an error
             if (_config.ImagesPath.Trim() == string.Empty)
                 throw new StaticSiteConfigValidationException(
-                    "Folder not found",
-                    "Images path is empty.");
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathImagesEmpty));
 
             // If the path doesn't exist, display an error
             if (!Directory.Exists(imagesPathFull))
                 throw new StaticSiteConfigValidationException(
-                        "Folder not found",
-                        "Images path '{0}' does not exist.",
-                        imagesPathFull);
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathImagesNotFound),
+                    imagesPathFull);
 
             return this;
         }
@@ -140,15 +139,15 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             // If the Output path is empty, display an error
             if (_config.OutputPath.Trim() == string.Empty)
                 throw new StaticSiteConfigValidationException(
-                    "Folder not found",
-                    "Output path is empty.");
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathOutputEmpty));
 
             // If the path doesn't exist, display an error
             if (!Directory.Exists(outputPathFull))
                 throw new StaticSiteConfigValidationException(
-                        "Folder not found",
-                        "Output path '{0}' does not exist.",
-                        outputPathFull);
+                    Res.Get(StringId.SSGErrorPathFolderNotFound),
+                    Res.Get(StringId.SSGErrorPathOutputNotFound),
+                    outputPathFull);
 
             return this;
         }
@@ -161,8 +160,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             if (_config.BuildCommand.Trim() == string.Empty)
                 throw new StaticSiteConfigValidationException(
-                "Build command empty",
-                "A build command is required when local site building is enabled.");
+                Res.Get(StringId.SSGErrorBuildCommandEmptyTitle),
+                Res.Get(StringId.SSGErrorBuildCommandEmptyText));
 
             return this;
         }
@@ -171,8 +170,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             if (_config.PublishCommand.Trim() == string.Empty)
                 throw new StaticSiteConfigValidationException(
-                "Publish command empty",
-                "A publish command is required.");
+                Res.Get(StringId.SSGErrorPublishCommandEmptyTitle),
+                Res.Get(StringId.SSGErrorPublishCommandEmptyText));
 
             return this;
         }

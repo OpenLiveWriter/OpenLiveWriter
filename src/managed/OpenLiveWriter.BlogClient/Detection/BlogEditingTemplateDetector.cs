@@ -474,7 +474,7 @@ namespace OpenLiveWriter.BlogClient.Detection
                         if (targetUrl == _blogHomepageUrl && _nextTryPostUrl != null && regionLocatorStrategy.CanRefetchPage)
                         {
                             // Try fetching the URL that has been specified, and reparse
-                            progress.UpdateProgress("Post contents not present on homepage, checking post..."); // TODO use strings
+                            progress.UpdateProgress(Res.Get(StringId.ProgressDownloadingWeblogEditingStyleDeep));
                             // Fetch the post page
                             regionLocatorStrategy.FetchTemporaryPostPage(SilentProgressHost.Instance, _nextTryPostUrl);
                             // Parse out the template

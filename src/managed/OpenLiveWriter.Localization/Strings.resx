@@ -3751,7 +3751,7 @@ Command STDERR:
     <value>Run Account &amp;Wizard</value>
   </data>
   <data name="SSGConfigGeneralWizardLabel" xml:space="preserve">
-    <value>You can chose to run the Account Wizard again if you wish to be guided through the core static site configuration options interactively.</value>
+    <value>You can choose to run the Account Wizard again if you wish to be guided through the core static site configuration options interactively.</value>
   </data>
   <data name="SSGConfigTitle" xml:space="preserve">
     <value>Static Site Configuration for '{0}'</value>

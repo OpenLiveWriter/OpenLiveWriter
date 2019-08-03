@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
+using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 {
@@ -208,7 +209,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
             // Parse out everything between triple-hyphens into front matter parser
             var frontMatterMatchResult = POST_PARSE_REGEX.Match(fileContents);
-            if (!frontMatterMatchResult.Success || frontMatterMatchResult.Groups.Count < 3) throw new BlogClientException("Post load error", "Could not read post front matter"); // TODO Use strings resources
+            if (!frontMatterMatchResult.Success || frontMatterMatchResult.Groups.Count < 3)
+                throw new BlogClientException(Res.Get(StringId.SSGErrorItemLoadTitle), Res.Get(StringId.SSGErrorItemLoadTextFM));
             var frontMatterYaml = frontMatterMatchResult.Groups[1].Value;
             var postContent = frontMatterMatchResult.Groups[2].Value;
 
@@ -218,7 +220,8 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             StaticSiteItemFrontMatter.GetFromYaml(SiteConfig.FrontMatterKeys, frontMatterYaml).SaveToBlogPost(BlogPost);
 
             // Throw error if post does not have an ID
-            if (Id == null || Id == string.Empty) throw new BlogClientException("Post load error", "Post does not have an ID");
+            if (Id == null || Id == string.Empty)
+                throw new BlogClientException(Res.Get(StringId.SSGErrorItemLoadTitle), Res.Get(StringId.SSGErrorItemLoadTextId));
 
             // FilePathById will be the path we loaded this post from
             FilePathById = postFilePath;
