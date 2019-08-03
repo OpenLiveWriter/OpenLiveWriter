@@ -4982,10 +4982,6 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     SSGPublishErrorTitle,
 		/// <summary>
-                                                    /// Static Site Generator
-                                                    /// </summary>
-                                                    SSGServiceName,
-		/// <summary>
                                                     /// Statistics
                                                     /// </summary>
                                                     Statistics,

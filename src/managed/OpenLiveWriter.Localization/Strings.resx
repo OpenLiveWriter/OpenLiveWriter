@@ -3865,9 +3865,6 @@ Command STDERR:
   <data name="SSGPublishErrorTitle" xml:space="preserve">
     <value>Static site publish failed</value>
   </data>
-  <data name="SSGServiceName" xml:space="preserve">
-    <value>Static Site Generator</value>
-  </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>
   <comment>Header of the table that shows word and character count</comment></data>
