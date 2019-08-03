@@ -122,6 +122,11 @@ namespace LocEdit
                 return true;
             }
 
+            if (keyData == (Keys.Control | Keys.A))
+            {
+                if(dataGridView.CurrentRow != null) dataGridView.CurrentRow.Selected = true;
+                return true;
+            }
 
             if (keyData == Keys.F3)
             {
@@ -185,6 +190,22 @@ namespace LocEdit
 
             var result = MessageBox.Show(this, "There are unsaved changes. Are you sure you want to exit?", "LocEdit", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.No) e.Cancel = true;
+        }
+
+        private void ToolStripLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolStripButtonInsertAbove_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.CurrentCell != null) dataGridView.Rows.Insert(dataGridView.CurrentCell.RowIndex);
+        }
+
+        private void ToolStripButtonInsertBelow_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.CurrentCell != null && dataGridView.CurrentCell.RowIndex < dataGridView.Rows.Count - 1)
+                dataGridView.Rows.Insert(dataGridView.CurrentCell.RowIndex + 1);
         }
     }
 

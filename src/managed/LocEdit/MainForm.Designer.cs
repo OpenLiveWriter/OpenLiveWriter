@@ -33,6 +33,10 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButtonInsertAbove = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonInsertBelow = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxFind = new System.Windows.Forms.TextBox();
@@ -53,7 +57,11 @@
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(28, 28);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonLoad,
-            this.toolStripButtonSave});
+            this.toolStripButtonSave,
+            this.toolStripSeparator1,
+            this.toolStripLabel1,
+            this.toolStripButtonInsertAbove,
+            this.toolStripButtonInsertBelow});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -80,6 +88,40 @@
             this.toolStripButtonSave.Size = new System.Drawing.Size(51, 22);
             this.toolStripButtonSave.Text = "Save";
             this.toolStripButtonSave.Click += new System.EventHandler(this.ToolStripButtonSave_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(35, 22);
+            this.toolStripLabel1.Text = "Rows";
+            this.toolStripLabel1.Click += new System.EventHandler(this.ToolStripLabel1_Click);
+            // 
+            // toolStripButtonInsertAbove
+            // 
+            this.toolStripButtonInsertAbove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonInsertAbove.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonInsertAbove.Image")));
+            this.toolStripButtonInsertAbove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonInsertAbove.Name = "toolStripButtonInsertAbove";
+            this.toolStripButtonInsertAbove.Size = new System.Drawing.Size(77, 22);
+            this.toolStripButtonInsertAbove.Text = "Insert Above";
+            this.toolStripButtonInsertAbove.Click += new System.EventHandler(this.ToolStripButtonInsertAbove_Click);
+            // 
+            // toolStripButtonInsertBelow
+            // 
+            this.toolStripButtonInsertBelow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonInsertBelow.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonInsertBelow.Image")));
+            this.toolStripButtonInsertBelow.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonInsertBelow.Name = "toolStripButtonInsertBelow";
+            this.toolStripButtonInsertBelow.Size = new System.Drawing.Size(75, 22);
+            this.toolStripButtonInsertBelow.Text = "Insert Below";
+            this.toolStripButtonInsertBelow.ToolTipText = "Insert Below";
+            this.toolStripButtonInsertBelow.Click += new System.EventHandler(this.ToolStripButtonInsertBelow_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -116,8 +158,8 @@
             // 
             // textBoxFind
             // 
-            this.textBoxFind.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBoxFind.Location = new System.Drawing.Point(60, 5);
+            this.textBoxFind.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxFind.Location = new System.Drawing.Point(60, 3);
             this.textBoxFind.Name = "textBoxFind";
             this.textBoxFind.Size = new System.Drawing.Size(650, 20);
             this.textBoxFind.TabIndex = 0;
@@ -228,6 +270,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridColKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridColValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridColComment;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonInsertAbove;
+        private System.Windows.Forms.ToolStripButton toolStripButtonInsertBelow;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }
 }
 
