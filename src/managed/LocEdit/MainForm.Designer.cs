@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
@@ -66,8 +67,8 @@
             this.toolStripButtonLoad.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonLoad.Name = "toolStripButtonLoad";
-            this.toolStripButtonLoad.Size = new System.Drawing.Size(53, 22);
-            this.toolStripButtonLoad.Text = "Load";
+            this.toolStripButtonLoad.Size = new System.Drawing.Size(56, 22);
+            this.toolStripButtonLoad.Text = "Open";
             this.toolStripButtonLoad.Click += new System.EventHandler(this.ToolStripButtonLoad_Click);
             // 
             // toolStripButtonSave
@@ -78,6 +79,7 @@
             this.toolStripButtonSave.Name = "toolStripButtonSave";
             this.toolStripButtonSave.Size = new System.Drawing.Size(51, 22);
             this.toolStripButtonSave.Text = "Save";
+            this.toolStripButtonSave.Click += new System.EventHandler(this.ToolStripButtonSave_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -127,7 +129,7 @@
             this.buttonFind.Name = "buttonFind";
             this.buttonFind.Size = new System.Drawing.Size(75, 23);
             this.buttonFind.TabIndex = 1;
-            this.buttonFind.Text = "Find Next";
+            this.buttonFind.Text = "Next (F3)";
             this.buttonFind.UseVisualStyleBackColor = true;
             this.buttonFind.Click += new System.EventHandler(this.ButtonFind_Click);
             // 
@@ -149,12 +151,22 @@
             this.dataGridColKey,
             this.dataGridColValue,
             this.dataGridColComment});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 72;
             this.dataGridView.Size = new System.Drawing.Size(794, 383);
             this.dataGridView.TabIndex = 1;
+            this.dataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellValueChanged);
             // 
             // dataGridColKey
             // 
@@ -162,6 +174,7 @@
             this.dataGridColKey.HeaderText = "Key";
             this.dataGridColKey.MinimumWidth = 9;
             this.dataGridColKey.Name = "dataGridColKey";
+            this.dataGridColKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // dataGridColValue
             // 
@@ -169,6 +182,7 @@
             this.dataGridColValue.HeaderText = "Value";
             this.dataGridColValue.MinimumWidth = 9;
             this.dataGridColValue.Name = "dataGridColValue";
+            this.dataGridColValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // dataGridColComment
             // 
@@ -176,6 +190,7 @@
             this.dataGridColComment.HeaderText = "Comment";
             this.dataGridColComment.MinimumWidth = 9;
             this.dataGridColComment.Name = "dataGridColComment";
+            this.dataGridColComment.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MainForm
             // 
@@ -187,6 +202,7 @@
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "LocEdit";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -208,10 +224,10 @@
         private System.Windows.Forms.TextBox textBoxFind;
         private System.Windows.Forms.Button buttonFind;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridColKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridColValue;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridColComment;
-        private System.Windows.Forms.Label label1;
     }
 }
 

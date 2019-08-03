@@ -22,13 +22,24 @@ namespace LocEdit
             InitializeComponent();
         }
 
+        private bool _modified = false;
+        public bool Modified
+        {
+            get => _modified;
+            set
+            {
+                _modified = value;
+                Text = $"LocEdit: {_loadedFile}{(_modified ? "*" : "")}";
+            }
+        }
+
         public void LoadFile(string filePath)
         {
             _loadedFile = filePath;
-            Text = $"LocEdit: {filePath}";
+            Modified = false;
 
             dataGridView.Rows.Clear();
-            using (CsvParser csvParser = new CsvParser(new StreamReader(new FileStream(Path.GetFullPath(filePath), FileMode.Open, FileAccess.Read, FileShare.ReadWrite), Encoding.Default), true))
+            using (CsvParser csvParser = new CsvParser(new StreamReader(new FileStream(Path.GetFullPath(filePath), FileMode.Open, FileAccess.Read, FileShare.ReadWrite), Encoding.UTF8), true))
             {
                 foreach (string[] line in csvParser)
                 {
@@ -39,7 +50,35 @@ namespace LocEdit
                     dataGridView.Rows.Add(new LocDataGridViewRow(line[0], value, comment));
                 }
             }
+            dataGridView.AutoResizeRows();
 
+        }
+
+        public void SaveFile(string filePath)
+        {
+            _loadedFile = filePath;
+            Modified = false;
+
+            var sb = new StringBuilder();
+            sb.AppendLine("Name,Value,Comment");
+
+            foreach(DataGridViewRow row in dataGridView.Rows)
+            {
+                if (row.Cells.Count < 3) continue;
+
+                var key = (string)row.Cells[0].Value;
+                var value = (string)row.Cells[1].Value;
+                var comment = (string)row.Cells[2].Value;
+
+                if (key == null || value == null || comment == null) continue;
+
+                sb.Append($"{Helpers.CsvizeString(key)},");
+                sb.Append($"{Helpers.CsvizeString(value)},");
+                sb.Append($"{Helpers.CsvizeString(comment)}");
+                sb.AppendLine();
+            }
+
+            File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
         }
 
         public void FindNext(string query)
@@ -49,7 +88,7 @@ namespace LocEdit
 
             while(y < dataGridView.Rows.Count - 1)
             {
-                if (((string)dataGridView.Rows[y].Cells[0].Value).Contains(query))
+                if (((string)dataGridView.Rows[y].Cells[0].Value).ToLower().Contains(query.ToLower()))
                 {
                     dataGridView.CurrentCell = dataGridView.Rows[y].Cells[0];
                     return;
@@ -71,12 +110,24 @@ namespace LocEdit
                 return true;
             }
 
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                ShowSaveDialog();
+                return true;
+            }
+
             if (keyData == (Keys.Control | Keys.F))
             {
                 textBoxFind.Focus();
                 return true;
             }
 
+
+            if (keyData == Keys.F3)
+            {
+                FindNext(textBoxFind.Text);
+                return true;
+            }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -87,10 +138,18 @@ namespace LocEdit
             {
                 openFileDialog1.Filter = "Localization CSV File (*.csv)|*.csv";
 
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    LoadFile(openFileDialog1.FileName);
-                }
+                if (openFileDialog1.ShowDialog() == DialogResult.OK) LoadFile(openFileDialog1.FileName);
+            }
+        }
+
+        private void ShowSaveDialog()
+        {
+            using (SaveFileDialog saveFileDialog1 = new SaveFileDialog())
+            {
+                saveFileDialog1.FileName = _loadedFile;
+                saveFileDialog1.Filter = "Localization CSV File (*.csv)|*.csv";
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK) SaveFile(saveFileDialog1.FileName);
             }
         }
 
@@ -107,7 +166,48 @@ namespace LocEdit
 
         private void TextBoxFind_KeyUp(object sender, KeyEventArgs e)
         {
-            if(textBoxFind.Focused && e.KeyCode == Keys.Enter) FindNext(textBoxFind.Text);
+            if (textBoxFind.Focused && e.KeyCode == Keys.Enter)
+            {
+                FindNext(textBoxFind.Text);
+                e.Handled = true;
+            }
+        }
+
+        private void ToolStripButtonSave_Click(object sender, EventArgs e)
+            => ShowSaveDialog();
+
+        private void DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+            => Modified = true;
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!Modified) return;
+
+            var result = MessageBox.Show(this, "There are unsaved changes. Are you sure you want to exit?", "LocEdit", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.No) e.Cancel = true;
+        }
+    }
+
+    internal static class Helpers
+    {
+        public static string CsvizeString(string input)
+        {
+            var sb = new StringBuilder();
+            bool shouldQuote = input.Contains(",") || input.Contains("\n") || (input != string.Empty && input[0] == '"');
+
+            if (shouldQuote)
+            {
+                sb.Append('"');
+                sb.Append(input.Replace("\"", "\"\"")); // Replace double-quotes with double-double-quotes 
+                sb.Append('"');
+            }
+            else
+            {
+                sb.Append(input);
+            }
+
+
+            return sb.ToString();
         }
     }
 
