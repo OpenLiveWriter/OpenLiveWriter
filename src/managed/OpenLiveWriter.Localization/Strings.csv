@@ -374,7 +374,7 @@ CWGoogleBloggerDescription,To configure Google Blogger please sign in.,
 CWGoogleBloggerSignInSuccess,Successfully signed in,
 CWStaticSiteInitialTitle,Provide static site configuration,
 CWStaticSiteInitialSubtitle,{0} will attempt to automatically detect your static site configuration based on files present in your site project folder. Please select the project folder of your static site (eg. Git repository),{0} - Product name
-CWStaticSiteInitialSubtitleAlreadyDetected,"{0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you must add your site again to re-attempt configuration detection.",{0} - Product name
+CWStaticSiteInitialSubtitleAlreadyDetected,"{0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you can re-run configuration detection from Settings.",{0} - Product name
 CWStaticSiteFeaturesTitle,Define static site features,
 CWStaticSiteFeaturesSubtitle,Use the checkboxes below to define which features your static site supports. You can configure Open Live Writer for these features on the following pages.,
 CWStaticSiteFeaturesPages,Enable Pages,
@@ -698,7 +698,7 @@ TagsCaptionFormat,{0} Tags: {{tag-group}},{0} - the name of a tag provider. {{ta
 Tags,Tags,
 TitleDefaultText,Enter a {0} title,{0} - Post or Page
 SpinnerPixelRepresentativeString,999 px,The Ribbon uses the width of this string to decide how wide the spinner should be displayed
-SpinnerPixelFormatString, px,Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners
+SpinnerPixelFormatString,px,Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners
 MapSBCaption,Caption:,
 MapSBMapHeader,Map,
 MapSBMargins,Margins:,
