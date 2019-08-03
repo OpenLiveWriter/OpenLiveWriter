@@ -3615,7 +3615,7 @@ Do you still want to set this web address as your custom pin?</value>
     <value>Check Spelling</value>
   </data>
   <data name="SpinnerPixelFormatString" xml:space="preserve">
-    <value> px</value>
+    <value>px</value>
   <comment>Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners</comment></data>
   <data name="SpinnerPixelRepresentativeString" xml:space="preserve">
     <value>999 px</value>

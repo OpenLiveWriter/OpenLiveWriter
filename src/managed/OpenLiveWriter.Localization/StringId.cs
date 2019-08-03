@@ -4652,7 +4652,7 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     SpellText,
 		/// <summary>
-                                                    ///  px
+                                                    /// px
                                                     /// </summary>
                                                     SpinnerPixelFormatString,
 		/// <summary>
