@@ -309,7 +309,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             this.groupBoxPublishing.Controls.Add(this.labelPublishCommand);
             this.groupBoxPublishing.Location = new System.Drawing.Point(8, 298);
             this.groupBoxPublishing.Name = "groupBoxPublishing";
-            this.groupBoxPublishing.Size = new System.Drawing.Size(354, 73);
+            this.groupBoxPublishing.Size = new System.Drawing.Size(345, 73);
             this.groupBoxPublishing.TabIndex = 3;
             this.groupBoxPublishing.TabStop = false;
             this.groupBoxPublishing.Text = "Publishing";
