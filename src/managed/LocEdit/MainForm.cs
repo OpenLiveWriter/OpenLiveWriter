@@ -39,7 +39,7 @@ namespace LocEdit
             Modified = false;
 
             dataGridView.Rows.Clear();
-            using (CsvParser csvParser = new CsvParser(new StreamReader(new FileStream(Path.GetFullPath(filePath), FileMode.Open, FileAccess.Read, FileShare.ReadWrite), Encoding.UTF8), true))
+            using (CsvParser csvParser = new CsvParser(new StreamReader(new FileStream(Path.GetFullPath(filePath), FileMode.Open, FileAccess.Read, FileShare.ReadWrite), Encoding.Default), true))
             {
                 foreach (string[] line in csvParser)
                 {
@@ -78,7 +78,7 @@ namespace LocEdit
                 sb.AppendLine();
             }
 
-            File.WriteAllText(filePath, sb.ToString(), Encoding.UTF8);
+            File.WriteAllText(filePath, sb.ToString(), Encoding.Default);
         }
 
         public void FindNext(string query)
