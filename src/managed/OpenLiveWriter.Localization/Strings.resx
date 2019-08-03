@@ -1010,7 +1010,7 @@
     <value>{0} will attempt to automatically detect your static site configuration based on files present in your site project folder. Please select the project folder of your static site (eg. Git repository)</value>
   <comment>{0} - Product name</comment></data>
   <data name="CWStaticSiteInitialSubtitleAlreadyDetected" xml:space="preserve">
-    <value>{0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you must add your site again to re-attempt configuration detection.</value>
+    <value>{0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you can re-run configuration detection from Settings.</value>
   <comment>{0} - Product name</comment></data>
   <data name="CWStaticSiteInitialTitle" xml:space="preserve">
     <value>Provide static site configuration</value>
@@ -3297,6 +3297,9 @@ Unimplemented Method: {2}</value>
   <data name="ProgressDownloadingWeblogEditingStyle" xml:space="preserve">
     <value>Downloading blog editing theme...</value>
   </data>
+  <data name="ProgressDownloadingWeblogEditingStyleDeep" xml:space="preserve">
+    <value>Post contents not present on homepage, checking post...</value>
+  <comment>Used when downloading template from a post page is required</comment></data>
   <data name="ProgressFinalizingEditingTemplateConfig" xml:space="preserve">
     <value>Finalizing editing template configuration...</value>
   </data>
@@ -3639,6 +3642,216 @@ Command STDERR:
   <data name="SSGBuildErrorTitle" xml:space="preserve">
     <value>Static site build failed</value>
   </data>
+  <data name="SSGConfigAuthoringDraftsPath" xml:space="preserve">
+    <value>Drafts Path: (relative)</value>
+  </data>
+  <data name="SSGConfigAuthoringEnableDrafts" xml:space="preserve">
+    <value>Enable &amp;Drafts</value>
+  </data>
+  <data name="SSGConfigAuthoringEnableImages" xml:space="preserve">
+    <value>Enable &amp;Images</value>
+  </data>
+  <data name="SSGConfigAuthoringEnablePages" xml:space="preserve">
+    <value>Enable P&amp;ages</value>
+  </data>
+  <data name="SSGConfigAuthoringImagesGroup" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="SSGConfigAuthoringImagesPath" xml:space="preserve">
+    <value>Images Path: (relative)</value>
+  </data>
+  <data name="SSGConfigAuthoringPagesGroup" xml:space="preserve">
+    <value>Pages</value>
+  </data>
+  <data name="SSGConfigAuthoringPagesPath" xml:space="preserve">
+    <value>Pages Path: (relative)</value>
+  </data>
+  <data name="SSGConfigAuthoringPostsDraftsGroup" xml:space="preserve">
+    <value>Posts and Drafts</value>
+  </data>
+  <data name="SSGConfigAuthoringPostsPath" xml:space="preserve">
+    <value>&amp;Posts Path: (relative)</value>
+  </data>
+  <data name="SSGConfigAuthoringTitle" xml:space="preserve">
+    <value>Authoring</value>
+  </data>
+  <data name="SSGConfigBuildPublishBuildCommand" xml:space="preserve">
+    <value>Build Command:</value>
+  </data>
+  <data name="SSGConfigBuildPublishBuildingGroup" xml:space="preserve">
+    <value>Building</value>
+  </data>
+  <data name="SSGConfigBuildPublishCmdTimeout" xml:space="preserve">
+    <value>&amp;Command Timeout (ms):</value>
+  </data>
+  <data name="SSGConfigBuildPublishEnableBuilding" xml:space="preserve">
+    <value>Enable &amp;Building</value>
+  </data>
+  <data name="SSGConfigBuildPublishEnableCmdTimeout" xml:space="preserve">
+    <value>&amp;Enable Command Timeout</value>
+  </data>
+  <data name="SSGConfigBuildPublishGeneralGroup" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SSGConfigBuildPublishOutputPath" xml:space="preserve">
+    <value>Site Output Path: (relative)</value>
+  </data>
+  <data name="SSGConfigBuildPublishPublishCommand" xml:space="preserve">
+    <value>&amp;Publish Command:</value>
+  </data>
+  <data name="SSGConfigBuildPublishPublishingGroup" xml:space="preserve">
+    <value>Publishing</value>
+  </data>
+  <data name="SSGConfigBuildPublishShowCmdWindows" xml:space="preserve">
+    <value>&amp;Show Command Windows</value>
+  </data>
+  <data name="SSGConfigBuildPublishTitle" xml:space="preserve">
+    <value>Building and Publishing</value>
+  </data>
+  <data name="SSGConfigFrontMatterKeyCol" xml:space="preserve">
+    <value>Front Matter Key</value>
+  </data>
+  <data name="SSGConfigFrontMatterPropertyCol" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="SSGConfigFrontMatterReset" xml:space="preserve">
+    <value>&amp;Reset to Defaults</value>
+  </data>
+  <data name="SSGConfigFrontMatterSubtitle" xml:space="preserve">
+    <value>Below you can adjust the post front matter keys used to match your static site generator.</value>
+  </data>
+  <data name="SSGConfigFrontMatterTitle" xml:space="preserve">
+    <value>Front Matter</value>
+  </data>
+  <data name="SSGConfigGeneralDetectButton" xml:space="preserve">
+    <value>Run Auto-&amp;Detect</value>
+  </data>
+  <data name="SSGConfigGeneralDetectLabel" xml:space="preserve">
+    <value>Open Live Writer can also reattempt to detect relevant configuration options for your static site. This may not result in a complete configuration, so please use the fields on the following pages to ensure all settings are set correctly.</value>
+  </data>
+  <data name="SSGConfigGeneralLocalSitePath" xml:space="preserve">
+    <value>&amp;Local Site Path:</value>
+  </data>
+  <data name="SSGConfigGeneralOptionsGroup" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="SSGConfigGeneralSetupGroup" xml:space="preserve">
+    <value>Setup</value>
+  </data>
+  <data name="SSGConfigGeneralSiteTitle" xml:space="preserve">
+    <value>Site &amp;Title:</value>
+  </data>
+  <data name="SSGConfigGeneralSiteUrl" xml:space="preserve">
+    <value>Site &amp;URL:</value>
+  </data>
+  <data name="SSGConfigGeneralTitle" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SSGConfigGeneralWizardButton" xml:space="preserve">
+    <value>Run Account &amp;Wizard</value>
+  </data>
+  <data name="SSGConfigGeneralWizardLabel" xml:space="preserve">
+    <value>You can chose to run the Account Wizard again if you wish to be guided through the core static site configuration options interactively.</value>
+  </data>
+  <data name="SSGConfigTitle" xml:space="preserve">
+    <value>Static Site Configuration for '{0}'</value>
+  <comment>{0} - title of blog</comment></data>
+  <data name="SSGErrorBuildCommandEmptyText" xml:space="preserve">
+    <value>A build command is required when local site building is enabled.</value>
+  </data>
+  <data name="SSGErrorBuildCommandEmptyTitle" xml:space="preserve">
+    <value>Build command empty</value>
+  </data>
+  <data name="SSGErrorCommandTimeoutText" xml:space="preserve">
+    <value>Blog command timed out. Please check your commands, or lengthen the command timeout.</value>
+  </data>
+  <data name="SSGErrorCommandTimeoutTitle" xml:space="preserve">
+    <value>Command execution timeout</value>
+  </data>
+  <data name="SSGErrorItemLoadTextFM" xml:space="preserve">
+    <value>Could not read item front matter.</value>
+  </data>
+  <data name="SSGErrorItemLoadTextId" xml:space="preserve">
+    <value>Item does not have an ID.</value>
+  </data>
+  <data name="SSGErrorItemLoadTitle" xml:space="preserve">
+    <value>Item load error</value>
+  </data>
+  <data name="SSGErrorPageDoesNotExistText" xml:space="preserve">
+    <value>Could not find page with specified ID.</value>
+  </data>
+  <data name="SSGErrorPageDoesNotExistTitle" xml:space="preserve">
+    <value>Page does not exist</value>
+  </data>
+  <data name="SSGErrorPathDraftsEmpty" xml:space="preserve">
+    <value>Drafts path is empty.</value>
+  </data>
+  <data name="SSGErrorPathDraftsNotFound" xml:space="preserve">
+    <value>Drafts path '{0}' does not exist.</value>
+  <comment>{0} - attempted drafts path</comment></data>
+  <data name="SSGErrorPathFolderNotFound" xml:space="preserve">
+    <value>Folder not found</value>
+  </data>
+  <data name="SSGErrorPathImagesEmpty" xml:space="preserve">
+    <value>Images path is empty.</value>
+  </data>
+  <data name="SSGErrorPathImagesNotFound" xml:space="preserve">
+    <value>Images path '{0}' does not exist.</value>
+  <comment>{0} - attempted images path</comment></data>
+  <data name="SSGErrorPathLocalSitePathNotFound" xml:space="preserve">
+    <value>Local site path '{0}' does not exist.</value>
+  <comment>{0} - attempted local site path</comment></data>
+  <data name="SSGErrorPathOutputEmpty" xml:space="preserve">
+    <value>Output path is empty.</value>
+  </data>
+  <data name="SSGErrorPathOutputNotFound" xml:space="preserve">
+    <value>Output path '{0}' does not exist.</value>
+  <comment>{0} - attempted output path</comment></data>
+  <data name="SSGErrorPathPagesEmpty" xml:space="preserve">
+    <value>Pages path is empty.</value>
+  </data>
+  <data name="SSGErrorPathPagesNotFound" xml:space="preserve">
+    <value>Pages path '{0}' does not exist.</value>
+  <comment>{0} - attempted pages path</comment></data>
+  <data name="SSGErrorPathPostsEmpty" xml:space="preserve">
+    <value>Posts path is empty.</value>
+  </data>
+  <data name="SSGErrorPathPostsNotFound" xml:space="preserve">
+    <value>Posts path '{0}' does not exist.</value>
+  <comment>{0} - attempted posts path</comment></data>
+  <data name="SSGErrorPostDoesNotExistText" xml:space="preserve">
+    <value>Could not find post with specified ID.</value>
+  </data>
+  <data name="SSGErrorPostDoesNotExistTitle" xml:space="preserve">
+    <value>Post does not exist</value>
+  </data>
+  <data name="SSGErrorPublishCommandEmptyText" xml:space="preserve">
+    <value>A publish command is required.</value>
+  </data>
+  <data name="SSGErrorPublishCommandEmptyTitle" xml:space="preserve">
+    <value>Publish command empty</value>
+  </data>
+  <data name="SSGFrontMatterDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="SSGFrontMatterId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="SSGFrontMatterLayout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="SSGFrontMatterParentId" xml:space="preserve">
+    <value>Parent ID</value>
+  </data>
+  <data name="SSGFrontMatterPermalink" xml:space="preserve">
+    <value>Permalink</value>
+  </data>
+  <data name="SSGFrontMatterTags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="SSGFrontMatterTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
   <data name="SSGPublishErrorText" xml:space="preserve">
     <value>{0} has failed to publish your site. Please check your site publish command.
 
@@ -3651,6 +3864,9 @@ Command STDERR:
   <comment>{0} - Product name, {1} - Publish command exit code</comment></data>
   <data name="SSGPublishErrorTitle" xml:space="preserve">
     <value>Static site publish failed</value>
+  </data>
+  <data name="SSGServiceName" xml:space="preserve">
+    <value>Static Site Generator</value>
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>

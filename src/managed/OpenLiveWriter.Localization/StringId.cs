@@ -1183,7 +1183,7 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     CWStaticSiteInitialSubtitle,
 		/// <summary>
-                                                    /// {0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you must add your site again to re-attempt configuration detection.
+                                                    /// {0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you can re-run configuration detection from Settings.
                                                     /// </summary>
                                                     CWStaticSiteInitialSubtitleAlreadyDetected,
 		/// <summary>
@@ -4230,6 +4230,10 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     ProgressDownloadingWeblogEditingStyle,
 		/// <summary>
+                                                    /// Post contents not present on homepage, checking post...
+                                                    /// </summary>
+                                                    ProgressDownloadingWeblogEditingStyleDeep,
+		/// <summary>
                                                     /// Finalizing editing template configuration...
                                                     /// </summary>
                                                     ProgressFinalizingEditingTemplateConfig,
@@ -4683,6 +4687,286 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     SSGBuildErrorTitle,
 		/// <summary>
+                                                    /// Drafts Path: (relative)
+                                                    /// </summary>
+                                                    SSGConfigAuthoringDraftsPath,
+		/// <summary>
+                                                    /// Enable &Drafts
+                                                    /// </summary>
+                                                    SSGConfigAuthoringEnableDrafts,
+		/// <summary>
+                                                    /// Enable &Images
+                                                    /// </summary>
+                                                    SSGConfigAuthoringEnableImages,
+		/// <summary>
+                                                    /// Enable P&ages
+                                                    /// </summary>
+                                                    SSGConfigAuthoringEnablePages,
+		/// <summary>
+                                                    /// Images
+                                                    /// </summary>
+                                                    SSGConfigAuthoringImagesGroup,
+		/// <summary>
+                                                    /// Images Path: (relative)
+                                                    /// </summary>
+                                                    SSGConfigAuthoringImagesPath,
+		/// <summary>
+                                                    /// Pages
+                                                    /// </summary>
+                                                    SSGConfigAuthoringPagesGroup,
+		/// <summary>
+                                                    /// Pages Path: (relative)
+                                                    /// </summary>
+                                                    SSGConfigAuthoringPagesPath,
+		/// <summary>
+                                                    /// Posts and Drafts
+                                                    /// </summary>
+                                                    SSGConfigAuthoringPostsDraftsGroup,
+		/// <summary>
+                                                    /// &Posts Path: (relative)
+                                                    /// </summary>
+                                                    SSGConfigAuthoringPostsPath,
+		/// <summary>
+                                                    /// Authoring
+                                                    /// </summary>
+                                                    SSGConfigAuthoringTitle,
+		/// <summary>
+                                                    /// Build Command:
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishBuildCommand,
+		/// <summary>
+                                                    /// Building
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishBuildingGroup,
+		/// <summary>
+                                                    /// &Command Timeout (ms):
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishCmdTimeout,
+		/// <summary>
+                                                    /// Enable &Building
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishEnableBuilding,
+		/// <summary>
+                                                    /// &Enable Command Timeout
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishEnableCmdTimeout,
+		/// <summary>
+                                                    /// General
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishGeneralGroup,
+		/// <summary>
+                                                    /// Site Output Path: (relative)
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishOutputPath,
+		/// <summary>
+                                                    /// &Publish Command:
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishPublishCommand,
+		/// <summary>
+                                                    /// Publishing
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishPublishingGroup,
+		/// <summary>
+                                                    /// &Show Command Windows
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishShowCmdWindows,
+		/// <summary>
+                                                    /// Building and Publishing
+                                                    /// </summary>
+                                                    SSGConfigBuildPublishTitle,
+		/// <summary>
+                                                    /// Front Matter Key
+                                                    /// </summary>
+                                                    SSGConfigFrontMatterKeyCol,
+		/// <summary>
+                                                    /// Property
+                                                    /// </summary>
+                                                    SSGConfigFrontMatterPropertyCol,
+		/// <summary>
+                                                    /// &Reset to Defaults
+                                                    /// </summary>
+                                                    SSGConfigFrontMatterReset,
+		/// <summary>
+                                                    /// Below you can adjust the post front matter keys used to match your static site generator.
+                                                    /// </summary>
+                                                    SSGConfigFrontMatterSubtitle,
+		/// <summary>
+                                                    /// Front Matter
+                                                    /// </summary>
+                                                    SSGConfigFrontMatterTitle,
+		/// <summary>
+                                                    /// Run Auto-&Detect
+                                                    /// </summary>
+                                                    SSGConfigGeneralDetectButton,
+		/// <summary>
+                                                    /// Open Live Writer can also reattempt to detect relevant configuration options for your static site. This may not result in a complete configuration, so please use the fields on the following pages to ensure all settings are set correctly.
+                                                    /// </summary>
+                                                    SSGConfigGeneralDetectLabel,
+		/// <summary>
+                                                    /// &Local Site Path:
+                                                    /// </summary>
+                                                    SSGConfigGeneralLocalSitePath,
+		/// <summary>
+                                                    /// Options
+                                                    /// </summary>
+                                                    SSGConfigGeneralOptionsGroup,
+		/// <summary>
+                                                    /// Setup
+                                                    /// </summary>
+                                                    SSGConfigGeneralSetupGroup,
+		/// <summary>
+                                                    /// Site &Title:
+                                                    /// </summary>
+                                                    SSGConfigGeneralSiteTitle,
+		/// <summary>
+                                                    /// Site &URL:
+                                                    /// </summary>
+                                                    SSGConfigGeneralSiteUrl,
+		/// <summary>
+                                                    /// General
+                                                    /// </summary>
+                                                    SSGConfigGeneralTitle,
+		/// <summary>
+                                                    /// Run Account &Wizard
+                                                    /// </summary>
+                                                    SSGConfigGeneralWizardButton,
+		/// <summary>
+                                                    /// You can chose to run the Account Wizard again if you wish to be guided through the core static site configuration options interactively.
+                                                    /// </summary>
+                                                    SSGConfigGeneralWizardLabel,
+		/// <summary>
+                                                    /// Static Site Configuration for '{0}'
+                                                    /// </summary>
+                                                    SSGConfigTitle,
+		/// <summary>
+                                                    /// A build command is required when local site building is enabled.
+                                                    /// </summary>
+                                                    SSGErrorBuildCommandEmptyText,
+		/// <summary>
+                                                    /// Build command empty
+                                                    /// </summary>
+                                                    SSGErrorBuildCommandEmptyTitle,
+		/// <summary>
+                                                    /// Blog command timed out. Please check your commands, or lengthen the command timeout.
+                                                    /// </summary>
+                                                    SSGErrorCommandTimeoutText,
+		/// <summary>
+                                                    /// Command execution timeout
+                                                    /// </summary>
+                                                    SSGErrorCommandTimeoutTitle,
+		/// <summary>
+                                                    /// Could not read item front matter.
+                                                    /// </summary>
+                                                    SSGErrorItemLoadTextFM,
+		/// <summary>
+                                                    /// Item does not have an ID.
+                                                    /// </summary>
+                                                    SSGErrorItemLoadTextId,
+		/// <summary>
+                                                    /// Item load error
+                                                    /// </summary>
+                                                    SSGErrorItemLoadTitle,
+		/// <summary>
+                                                    /// Could not find page with specified ID.
+                                                    /// </summary>
+                                                    SSGErrorPageDoesNotExistText,
+		/// <summary>
+                                                    /// Page does not exist
+                                                    /// </summary>
+                                                    SSGErrorPageDoesNotExistTitle,
+		/// <summary>
+                                                    /// Drafts path is empty.
+                                                    /// </summary>
+                                                    SSGErrorPathDraftsEmpty,
+		/// <summary>
+                                                    /// Drafts path '{0}' does not exist.
+                                                    /// </summary>
+                                                    SSGErrorPathDraftsNotFound,
+		/// <summary>
+                                                    /// Folder not found
+                                                    /// </summary>
+                                                    SSGErrorPathFolderNotFound,
+		/// <summary>
+                                                    /// Images path is empty.
+                                                    /// </summary>
+                                                    SSGErrorPathImagesEmpty,
+		/// <summary>
+                                                    /// Images path '{0}' does not exist.
+                                                    /// </summary>
+                                                    SSGErrorPathImagesNotFound,
+		/// <summary>
+                                                    /// Local site path '{0}' does not exist.
+                                                    /// </summary>
+                                                    SSGErrorPathLocalSitePathNotFound,
+		/// <summary>
+                                                    /// Output path is empty.
+                                                    /// </summary>
+                                                    SSGErrorPathOutputEmpty,
+		/// <summary>
+                                                    /// Output path '{0}' does not exist.
+                                                    /// </summary>
+                                                    SSGErrorPathOutputNotFound,
+		/// <summary>
+                                                    /// Pages path is empty.
+                                                    /// </summary>
+                                                    SSGErrorPathPagesEmpty,
+		/// <summary>
+                                                    /// Pages path '{0}' does not exist.
+                                                    /// </summary>
+                                                    SSGErrorPathPagesNotFound,
+		/// <summary>
+                                                    /// Posts path is empty.
+                                                    /// </summary>
+                                                    SSGErrorPathPostsEmpty,
+		/// <summary>
+                                                    /// Posts path '{0}' does not exist.
+                                                    /// </summary>
+                                                    SSGErrorPathPostsNotFound,
+		/// <summary>
+                                                    /// Could not find post with specified ID.
+                                                    /// </summary>
+                                                    SSGErrorPostDoesNotExistText,
+		/// <summary>
+                                                    /// Post does not exist
+                                                    /// </summary>
+                                                    SSGErrorPostDoesNotExistTitle,
+		/// <summary>
+                                                    /// A publish command is required.
+                                                    /// </summary>
+                                                    SSGErrorPublishCommandEmptyText,
+		/// <summary>
+                                                    /// Publish command empty
+                                                    /// </summary>
+                                                    SSGErrorPublishCommandEmptyTitle,
+		/// <summary>
+                                                    /// Date
+                                                    /// </summary>
+                                                    SSGFrontMatterDate,
+		/// <summary>
+                                                    /// ID
+                                                    /// </summary>
+                                                    SSGFrontMatterId,
+		/// <summary>
+                                                    /// Layout
+                                                    /// </summary>
+                                                    SSGFrontMatterLayout,
+		/// <summary>
+                                                    /// Parent ID
+                                                    /// </summary>
+                                                    SSGFrontMatterParentId,
+		/// <summary>
+                                                    /// Permalink
+                                                    /// </summary>
+                                                    SSGFrontMatterPermalink,
+		/// <summary>
+                                                    /// Tags
+                                                    /// </summary>
+                                                    SSGFrontMatterTags,
+		/// <summary>
+                                                    /// Title
+                                                    /// </summary>
+                                                    SSGFrontMatterTitle,
+		/// <summary>
                                                     /// {0} has failed to publish your site. Please check your site publish command.
 		/// 
 		/// Publish command exit code: {1}
@@ -4697,6 +4981,10 @@ namespace OpenLiveWriter.Localization
                                                     /// Static site publish failed
                                                     /// </summary>
                                                     SSGPublishErrorTitle,
+		/// <summary>
+                                                    /// Static Site Generator
+                                                    /// </summary>
+                                                    SSGServiceName,
 		/// <summary>
                                                     /// Statistics
                                                     /// </summary>
