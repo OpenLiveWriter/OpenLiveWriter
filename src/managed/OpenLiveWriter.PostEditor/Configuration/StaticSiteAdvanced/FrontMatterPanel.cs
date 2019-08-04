@@ -45,12 +45,25 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         public FrontMatterPanel() : base()
         {
             InitializeComponent();
+            LocalizeStrings();
         }
 
         public FrontMatterPanel(StaticSitePreferencesController controller)
             : base(controller)
         {
             InitializeComponent();
+            LocalizeStrings();
+        }
+
+        private void LocalizeStrings()
+        {
+            PanelName = Res.Get(StringId.SSGConfigFrontMatterTitle);
+            labelSubtitle.Text = Res.Get(StringId.SSGConfigFrontMatterSubtitle);
+
+            colKey.HeaderText = Res.Get(StringId.SSGConfigFrontMatterKeyCol);
+            colProperty.HeaderText = Res.Get(StringId.SSGConfigFrontMatterPropertyCol);
+
+            buttonResetDefaults.Text = Res.Get(StringId.SSGConfigFrontMatterReset);
         }
 
         public override void LoadConfig()
