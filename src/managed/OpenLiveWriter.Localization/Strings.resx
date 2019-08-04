@@ -3663,6 +3663,9 @@ Command STDERR:
   <data name="SSGConfigAuthoringPagesGroup" xml:space="preserve">
     <value>Pages</value>
   </data>
+  <data name="SSGConfigAuthoringPagesInRoot" xml:space="preserve">
+    <value>Pages Stored In Project Root</value>
+  </data>
   <data name="SSGConfigAuthoringPagesPath" xml:space="preserve">
     <value>Pages Path: (relative)</value>
   </data>

@@ -4715,6 +4715,10 @@ namespace OpenLiveWriter.Localization
                                                     /// </summary>
                                                     SSGConfigAuthoringPagesGroup,
 		/// <summary>
+                                                    /// Pages Stored In Project Root
+                                                    /// </summary>
+                                                    SSGConfigAuthoringPagesInRoot,
+		/// <summary>
                                                     /// Pages Path: (relative)
                                                     /// </summary>
                                                     SSGConfigAuthoringPagesPath,

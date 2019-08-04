@@ -98,12 +98,33 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         public AuthoringPanel() : base()
         {
             InitializeComponent();
+            LocalizeStrings();
         }
 
         public AuthoringPanel(StaticSitePreferencesController controller)
             : base(controller)
         {
             InitializeComponent();
+            LocalizeStrings();
+        }
+
+        private void LocalizeStrings()
+        {
+            PanelName = Res.Get(StringId.SSGConfigAuthoringTitle);
+
+            groupBoxPosts.Text = Res.Get(StringId.SSGConfigAuthoringPostsDraftsGroup);
+            labelPostsPath.Text = Res.Get(StringId.SSGConfigAuthoringPostsPath);
+            checkBoxDraftsEnabled.Text = Res.Get(StringId.SSGConfigAuthoringEnableDrafts);
+            labelDraftsPath.Text = Res.Get(StringId.SSGConfigAuthoringDraftsPath);
+
+            groupBoxPages.Text = Res.Get(StringId.SSGConfigAuthoringPagesGroup);
+            checkBoxPagesEnabled.Text = Res.Get(StringId.SSGConfigAuthoringEnablePages);
+            labelPagesPath.Text = Res.Get(StringId.SSGConfigAuthoringPagesPath);
+            checkBoxPagesStoredInRoot.Text = Res.Get(StringId.SSGConfigAuthoringPagesInRoot);
+
+            groupBoxImages.Text = Res.Get(StringId.SSGConfigAuthoringImagesGroup);
+            checkBoxImagesEnabled.Text = Res.Get(StringId.SSGConfigAuthoringEnableImages);
+            labelImagesPath.Text = Res.Get(StringId.SSGConfigAuthoringImagesPath);
         }
 
         public override void LoadConfig()
