@@ -1051,11 +1051,11 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         CWGoogleBloggerTitle,
         /// <summary>
-        /// If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account ID.
+        /// If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account.
         /// </summary>
         CWLiveIDCreateAccount,
         /// <summary>
-        /// Don't have a Microsoft Account ID?
+        /// Don't have a Microsoft Account?
         /// </summary>
         CWLiveIDCreateAccount2,
         /// <summary>
@@ -1119,7 +1119,7 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         CWSharePointUseSystemLogin,
         /// <summary>
-        /// &Microsoft Account ID:
+        /// &Microsoft Account:
         /// </summary>
         CWSpacesUsername,
         /// <summary>
@@ -1871,10 +1871,6 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         EmoticonMartiniGlass,
         /// <summary>
-        /// Messenger
-        /// </summary>
-        EmoticonMessenger,
-        /// <summary>
         /// Mobile phone
         /// </summary>
         EmoticonMobilePhone,
@@ -2098,10 +2094,6 @@ namespace OpenLiveWriter.Localization
         /// Work
         /// </summary>
         EmoticonWork,
-        /// <summary>
-        /// Xbox
-        /// </summary>
-        EmoticonXbox,
         /// <summary>
         /// Enabled
         /// </summary>
@@ -3320,11 +3312,11 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         Paragraphs,
         /// <summary>
-        /// Please enter a Microsoft Account ID and password to continue.
+        /// Please enter a Microsoft Account and password to continue.
         /// </summary>
         PassportLoginNoUserPass,
         /// <summary>
-        /// Microsoft Account ID and Password Required
+        /// Microsoft Account and Password Required
         /// </summary>
         PassportLoginNoUserPassTitle,
         /// <summary>

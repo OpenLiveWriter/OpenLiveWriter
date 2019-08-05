@@ -1027,10 +1027,10 @@
     <value>Provide Google Blogger Login</value>
   </data>
   <data name="CWLiveIDCreateAccount" xml:space="preserve">
-    <value>If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account ID.</value>
+    <value>If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account.</value>
   </data>
   <data name="CWLiveIDCreateAccount2" xml:space="preserve">
-    <value>Don't have a Microsoft Account ID?</value>
+    <value>Don't have a Microsoft Account?</value>
   </data>
   <data name="CWProgressHeader" xml:space="preserve">
     <value>Setting up your blog account</value>
@@ -1081,11 +1081,11 @@
     <value>Use my &amp;Windows user name and password</value>
   </data>
   <data name="CWSpacesUsername" xml:space="preserve">
-    <value>&amp;Microsoft Account ID:</value>
+    <value>&amp;Microsoft Account:</value>
   </data>
   <data name="CWSpacesUsernameExample" xml:space="preserve">
     <value>(example555@hotmail.com)</value>
-    <comment>Example of Microsoft Account ID</comment>
+    <comment>Example of Microsoft Account</comment>
   </data>
   <data name="CWStaticSiteCommandsBuildCommand" xml:space="preserve">
     <value>Build command:</value>
@@ -1727,10 +1727,6 @@
     <value>Martini glass</value>
     <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
   </data>
-  <data name="EmoticonMessenger" xml:space="preserve">
-    <value>Messenger</value>
-    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
-  </data>
   <data name="EmoticonMobilePhone" xml:space="preserve">
     <value>Mobile phone</value>
     <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
@@ -1953,10 +1949,6 @@
   </data>
   <data name="EmoticonWork" xml:space="preserve">
     <value>Work</value>
-    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
-  </data>
-  <data name="EmoticonXbox" xml:space="preserve">
-    <value>Xbox</value>
     <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
   </data>
   <data name="Enabled" xml:space="preserve">
@@ -2924,10 +2916,10 @@ Unimplemented Method: {2}</value>
     <value>Paragraphs</value>
   </data>
   <data name="PassportLoginNoUserPass" xml:space="preserve">
-    <value>Please enter a Microsoft Account ID and password to continue.</value>
+    <value>Please enter a Microsoft Account and password to continue.</value>
   </data>
   <data name="PassportLoginNoUserPassTitle" xml:space="preserve">
-    <value>Microsoft Account ID and Password Required</value>
+    <value>Microsoft Account and Password Required</value>
   </data>
   <data name="PassportLoginSignIn" xml:space="preserve">
     <value>Sign in</value>

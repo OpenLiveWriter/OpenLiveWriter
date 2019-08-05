@@ -270,7 +270,6 @@ EmoticonDogFace,Dog face,Alternate text for the emoticon. The emoticon is from M
 EmoticonLightBulb,Light bulb,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonSleepingHalfMoon,Sleeping half-moon,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonEmail,Email,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
-EmoticonMessenger,Messenger,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonBlackSheep,Black Sheep,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonBowl,Bowl,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonSoccerBall,Soccer ball,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
@@ -291,7 +290,6 @@ EmoticonBunny,Bunny,Alternate text for the emoticon. The emoticon is from Messen
 EmoticonSchoolBus,School bus,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonPeace,Peace,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonSchool,School,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
-EmoticonXbox,Xbox,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 PublishDatePrompt,Set post date,No apostrophes (') allowed in this message
 PublishDateTooltip,Post date,
 PropertiesPanel,Post Properties,This is an accessibility name and should be localized.
@@ -358,11 +356,11 @@ CWSelectBlogText,More than one blog was detected. Please select the blog that yo
 CWSelectImageEndpointText,Please select the collection that you'd like images to be uploaded to:,
 PasswordChar,0x25CF,The hex value of the single character that will be used to represent each character in a password field.
 ViewWeblog,View Blog,
-CWSpacesUsername,&Microsoft Account ID:,
-CWLiveIDCreateAccount,"If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account ID.",
+CWSpacesUsername,&Microsoft Account:,
+CWLiveIDCreateAccount,"If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account.",
 RememberPassword,&Remember my password,
-CWSpacesUsernameExample,(example555@hotmail.com),Example of Microsoft Account ID
-CWLiveIDCreateAccount2,Don't have a Microsoft Account ID?,
+CWSpacesUsernameExample,(example555@hotmail.com),Example of Microsoft Account
+CWLiveIDCreateAccount2,Don't have a Microsoft Account?,
 CWSharePointText,To use {0} you must have a SharePoint blog.,{0} - Open Live Writer
 CWSharePointHomepageUrl,Share&Point blog web address:,
 CWSharePointTitle,Configure {0} for a SharePoint blog,{0} - Writer
@@ -906,8 +904,8 @@ UnhandledExceptionErrorMessage,An unexpected error has occurred within the appli
 UnhandledExceptionErrorTitle,Unexpected Error Occurred,
 PassportLoginSignIn,Sign in,
 PassportLoginTitle,Sign in to Microsoft Account,
-PassportLoginNoUserPass,Please enter a Microsoft Account ID and password to continue.,
-PassportLoginNoUserPassTitle,Microsoft Account ID and Password Required,
+PassportLoginNoUserPass,Please enter a Microsoft Account and password to continue.,
+PassportLoginNoUserPassTitle,Microsoft Account and Password Required,
 MinimizeButtonTooltip,Minimize,
 MaximizeButtonTooltip,Maximize,
 CloseButtonTooltip,Close,In the sense of closing a window.
