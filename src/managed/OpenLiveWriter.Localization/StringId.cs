@@ -14,5761 +14,5761 @@ namespace OpenLiveWriter.Localization
         /// Abou&t {0}
         /// </summary>
         AboutAbout,
-		/// <summary>
+        /// <summary>
         /// Configuration Version: {0}
         /// </summary>
         AboutConfigurationVersion,
-		/// <summary>
+        /// <summary>
         /// Copyright © .NET Foundation. All rights reserved.
         /// </summary>
         AboutCopyright,
-		/// <summary>
+        /// <summary>
         /// {0}
         /// </summary>
         AboutVersion,
-		/// <summary>
+        /// <summary>
         /// Account
         /// </summary>
         AccountPanel,
-		/// <summary>
+        /// <summary>
         /// A&dd...
         /// </summary>
         AddButton,
-		/// <summary>
+        /// <summary>
         /// &Add
         /// </summary>
         AddButton2,
-		/// <summary>
+        /// <summary>
         /// Other blog settings
         /// </summary>
         AdvancedBlogOverride,
-		/// <summary>
+        /// <summary>
         /// Default ({0})
         /// </summary>
         AdvancedDefault,
-		/// <summary>
+        /// <summary>
         /// &Embed tags:
         /// </summary>
         AdvancedEmbedTags,
-		/// <summary>
+        /// <summary>
         /// Advanced
         /// </summary>
         AdvancedName,
-		/// <summary>
+        /// <summary>
         /// &Scripts:
         /// </summary>
         AdvancedScripts,
-		/// <summary>
+        /// <summary>
         /// Select another encoding type for your blog posts. By default, it's UTF-8.
         /// </summary>
         AdvancedText,
-		/// <summary>
+        /// <summary>
         /// Character set
         /// </summary>
         AdvancedTransport,
-		/// <summary>
+        /// <summary>
         /// Default ({0})
         /// </summary>
         AdvancedXHTMLDefault,
-		/// <summary>
+        /// <summary>
         /// Markup language
         /// </summary>
         AdvancedXHTMLGroupName,
-		/// <summary>
+        /// <summary>
         /// Select HTML or XHTML for your markup language type. By default, it's HTML.
         /// </summary>
         AdvancedXHTMLLabel,
-		/// <summary>
+        /// <summary>
         /// Alignment
         /// </summary>
         Alignment,
-		/// <summary>
+        /// <summary>
         /// &Align
         /// </summary>
         AlignMenuItem,
-		/// <summary>
+        /// <summary>
         /// All files (*.*)
         /// </summary>
         AllFilesFilterString,
-		/// <summary>
+        /// <summary>
         /// Automatically &update account information (categories, links, capabilities, and provider extensions)
         /// </summary>
         AllowAutoUpdate,
-		/// <summary>
+        /// <summary>
         /// Allow &blog provider extensions (buttons added to the Shortcuts group on the Accounts tab in the ribbon)
         /// </summary>
         AllowProviderExtensions,
-		/// <summary>
+        /// <summary>
         /// Alt-text
         /// </summary>
         AltTextEditorTitle,
-		/// <summary>
+        /// <summary>
         /// Appearance
         /// </summary>
         Appearance,
-		/// <summary>
+        /// <summary>
         /// &Apply
         /// </summary>
         ApplyButton,
-		/// <summary>
+        /// <summary>
         /// &Ask me later
         /// </summary>
         AutoRecoverDialogButtonAskLater,
-		/// <summary>
+        /// <summary>
         /// &Discard changes permanently
         /// </summary>
         AutoRecoverDialogButtonDiscard,
-		/// <summary>
+        /// <summary>
         /// &Recover changes now (recommended)
         /// </summary>
         AutoRecoverDialogButtonRecover,
-		/// <summary>
+        /// <summary>
         /// {0} did not shut down properly the last time you used it. Unsaved changes are available for recovery. Would you like to recover these changes now?
         /// </summary>
         AutoRecoverDialogContent,
-		/// <summary>
+        /// <summary>
         /// Recover unsaved changes?
         /// </summary>
         AutoRecoverDialogInstruction,
-		/// <summary>
+        /// <summary>
         /// Replace text &emoticons with emoticon graphics
         /// </summary>
         AutoreplaceEmoticons,
-		/// <summary>
+        /// <summary>
         /// Auto Replace
         /// </summary>
         AutoreplaceFormTitle,
-		/// <summary>
+        /// <summary>
         /// Re&place other special characters
         /// </summary>
         AutoreplaceOtherChars,
-		/// <summary>
+        /// <summary>
         /// Auto Replace
         /// </summary>
         AutoreplacePrefererencesPanel,
-		/// <summary>
+        /// <summary>
         /// Replacement value:
         /// </summary>
         AutoreplaceReplacementValue,
-		/// <summary>
+        /// <summary>
         /// Replace "straight quotes" with “smart &quotes”
         /// </summary>
         AutoreplaceSmartQuotes,
-		/// <summary>
+        /// <summary>
         /// Replace h&yphens (--) with dash (—)
         /// </summary>
         AutoreplaceTypographic,
-		/// <summary>
+        /// <summary>
         /// Word or phrase:
         /// </summary>
         AutoreplaceWordorPhrase,
-		/// <summary>
+        /// <summary>
         /// Please check your user name and password.
-		/// 
-		/// {0} - {1}
+        /// 
+        /// {0} - {1}
         /// </summary>
         BCEAuthenticationMessage,
-		/// <summary>
+        /// <summary>
         /// Account Login Failed
         /// </summary>
         BCEAuthenticationTitle,
-		/// <summary>
+        /// <summary>
         /// Error attempting to connect to blog at:
-		/// 
-		/// {0}
-		/// 
-		/// {1}
+        /// 
+        /// {0}
+        /// 
+        /// {1}
         /// </summary>
         BCEConnectionErrorMessage,
-		/// <summary>
+        /// <summary>
         /// Network Connection Error
         /// </summary>
         BCEConnectionErrorTitle,
-		/// <summary>
+        /// <summary>
         /// An unexpected error occurred while accessing the file {0}
-		/// 
-		/// {1} - {2}
+        /// 
+        /// {1} - {2}
         /// </summary>
         BCEFileIOMessage,
-		/// <summary>
+        /// <summary>
         /// File Access Error
         /// </summary>
         BCEFileIOTitle,
-		/// <summary>
+        /// <summary>
         /// connecting to file destination
         /// </summary>
         BCEFileTransferConnectingToDestination,
-		/// <summary>
+        /// <summary>
         /// disconnecting from file destination
         /// </summary>
         BCEFileTransferDisconnectingFromDestination,
-		/// <summary>
+        /// <summary>
         /// Error occurred while {0}
-		/// 
-		/// ({1}) {2}
+        /// 
+        /// ({1}) {2}
         /// </summary>
         BCEFileTransferMessage,
-		/// <summary>
+        /// <summary>
         /// File Transfer Error
         /// </summary>
         BCEFileTransferTitle,
-		/// <summary>
+        /// <summary>
         /// transferring file {0}
         /// </summary>
         BCEFileTransferTransferringFile,
-		/// <summary>
+        /// <summary>
         /// File uploading is not supported by this blog. Please configure file uploading for this blog before attempting to publish posts with attached pictures or files.
         /// </summary>
         BCEFileUploadNotSupportedMessage,
-		/// <summary>
+        /// <summary>
         /// File Upload Not Supported
         /// </summary>
         BCEFileUploadNotSupportedTitle,
-		/// <summary>
+        /// <summary>
         /// The server reported an error with the following web address:
-		/// 
-		/// {0}
-		/// 
-		/// {1}
+        /// 
+        /// {0}
+        /// 
+        /// {1}
         /// </summary>
         BCEHttpErrorMessage,
-		/// <summary>
+        /// <summary>
         /// Server Error
         /// </summary>
         BCEHttpErrorTitle,
-		/// <summary>
+        /// <summary>
         /// The response to the {0} method received from the blog server was invalid:
-		/// 
-		/// {1}
+        /// 
+        /// {1}
         /// </summary>
         BCEInvalidServerResponseMessage,
-		/// <summary>
+        /// <summary>
         /// Invalid Server Response
         /// </summary>
         BCEInvalidServerResponseTitle,
-		/// <summary>
+        /// <summary>
         /// The {0} method is not supported by the blog service.
         /// </summary>
         BCEMethodUnsupportedMessage,
-		/// <summary>
+        /// <summary>
         /// Method Unsupported
         /// </summary>
         BCEMethodUnsupportedTitle,
-		/// <summary>
+        /// <summary>
         /// An unexpected data transfer exception occurred while {0}
-		/// 
-		/// {1} - {2}
+        /// 
+        /// {1} - {2}
         /// </summary>
         BCENetworkIOMessage,
-		/// <summary>
+        /// <summary>
         /// Data Transfer Exception
         /// </summary>
         BCENetworkIOTitle,
-		/// <summary>
+        /// <summary>
         /// The operation was cancelled.
         /// </summary>
         BCEOperationCancelledMessage,
-		/// <summary>
+        /// <summary>
         /// Operation Cancelled
         /// </summary>
         BCEOperationCancelledTitle,
-		/// <summary>
+        /// <summary>
         /// This server does not support posting drafts.
         /// </summary>
         BCEPostAsDraftUnsupportedMessage,
-		/// <summary>
+        /// <summary>
         /// Post as Draft Not Supported
         /// </summary>
         BCEPostAsDraftUnsupportedTitle,
-		/// <summary>
+        /// <summary>
         /// The post web address for the blog was not found:
-		/// 
-		/// {0}
-		/// 
-		/// {1}
+        /// 
+        /// {0}
+        /// 
+        /// {1}
         /// </summary>
         BCEPostUrlNotFoundMessage,
-		/// <summary>
+        /// <summary>
         /// Blog Post Web Address Not Found
         /// </summary>
         BCEPostUrlNotFoundTitle,
-		/// <summary>
+        /// <summary>
         /// Server Error {0} Occurred
-		/// 
-		/// {1}
+        /// 
+        /// {1}
         /// </summary>
         BCEProviderMessage,
-		/// <summary>
+        /// <summary>
         /// Problem with the blog server
         /// </summary>
         BCEProviderTitle,
-		/// <summary>
+        /// <summary>
         /// Beta
         /// </summary>
         Beta,
-		/// <summary>
+        /// <summary>
         /// 1 day remaining
         /// </summary>
         Beta1DayRemaining,
-		/// <summary>
+        /// <summary>
         /// {0} days remaining
         /// </summary>
         BetaDaysRemaining,
-		/// <summary>
+        /// <summary>
         /// &Ask Me Later
         /// </summary>
         BetaExpiredAskLater,
-		/// <summary>
+        /// <summary>
         /// Expiration
         /// </summary>
         BetaExpiredDialogTitle,
-		/// <summary>
+        /// <summary>
         /// &Download Now
         /// </summary>
         BetaExpiredDownloadNow,
-		/// <summary>
+        /// <summary>
         /// This version of {0} has expired. Please download and install a newer version.
         /// </summary>
         BetaExpiredMessage,
-		/// <summary>
+        /// <summary>
         /// Expired
         /// </summary>
         BetaExpiredTitle,
-		/// <summary>
+        /// <summary>
         /// This version of {0} will expire on {1}. Please download and install a newer version.
         /// </summary>
         BetaRemainingMessage,
-		/// <summary>
+        /// <summary>
         /// Blog
         /// </summary>
         Blog,
-		/// <summary>
+        /// <summary>
         /// Not Supported
         /// </summary>
         Blog_Option_Not_Supported,
-		/// <summary>
+        /// <summary>
         /// Supported
         /// </summary>
         Blog_Option_Supported,
-		/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
         Blog_Option_Unknown,
-		/// <summary>
+        /// <summary>
         /// None
         /// </summary>
         BlogCategoryNone,
-		/// <summary>
+        /// <summary>
         /// The user account has been deleted.
         /// </summary>
         BloggerAccountDeleted,
-		/// <summary>
+        /// <summary>
         /// The user account has been disabled.
         /// </summary>
         BloggerAccountDisabled,
-		/// <summary>
+        /// <summary>
         /// The user name or password is not recognized.
         /// </summary>
         BloggerBadAuthentication,
-		/// <summary>
+        /// <summary>
         /// An error has occurred: {0}
         /// </summary>
         BloggerGenericError,
-		/// <summary>
+        /// <summary>
         /// This album is used to store pictures from blog posts published by Open Live Writer.
         /// </summary>
         BloggerImageAlbumDescription,
-		/// <summary>
+        /// <summary>
         /// The account email address has not been verified. The user will need to access their Google account directly to resolve the issue before logging in using a non-Google application.
         /// </summary>
         BloggerNotVerified,
-		/// <summary>
+        /// <summary>
         /// The service is not available; try again later.
         /// </summary>
         BloggerServiceUnavailable,
-		/// <summary>
+        /// <summary>
         /// The user has not agreed to terms. The user will need to access their Google account directly to resolve the issue before logging in using a non-Google application.
         /// </summary>
         BloggerTermsNotAgreed,
-		/// <summary>
+        /// <summary>
         /// The error is unknown or unspecified; the request contained invalid input or was malformed.
         /// </summary>
         BloggerUnknown,
-		/// <summary>
+        /// <summary>
         /// Select which plug-ins you want to use, and change the order in which they start.
         /// </summary>
         BlogPluginsDescription,
-		/// <summary>
+        /// <summary>
         /// TypePad and more
         /// </summary>
         BlogServiceNames,
-		/// <summary>
+        /// <summary>
         /// Contrast
         /// </summary>
         BrightnessAdjust,
-		/// <summary>
+        /// <summary>
         /// &Brightness:
         /// </summary>
         BrightnessBrightness,
-		/// <summary>
+        /// <summary>
         /// &Contrast:
         /// </summary>
         BrightnessContrast,
-		/// <summary>
+        /// <summary>
         /// Browse for file
         /// </summary>
         BrowseForFile,
-		/// <summary>
+        /// <summary>
         /// Retrieving...
         /// </summary>
         BrowserMiniFormProgress,
-		/// <summary>
+        /// <summary>
         /// {0} bytes
         /// </summary>
         BytesFormat,
-		/// <summary>
+        /// <summary>
         /// Cancel
         /// </summary>
         CancelButton,
-		/// <summary>
+        /// <summary>
         /// Cancelling...
         /// </summary>
         Canceling,
-		/// <summary>
+        /// <summary>
         /// Can't sign in because an error occurred
         /// </summary>
         CantSignIn,
-		/// <summary>
+        /// <summary>
         /// Blog Service &capabilities:
         /// </summary>
         Capabilities,
-		/// <summary>
+        /// <summary>
         /// Author
         /// </summary>
         CapabilityAuthor,
-		/// <summary>
+        /// <summary>
         /// Auto-Update
         /// </summary>
         CapabilityAutoUpdate,
-		/// <summary>
+        /// <summary>
         /// Categories
         /// </summary>
         CapabilityCategories,
-		/// <summary>
+        /// <summary>
         /// Categories Inline
         /// </summary>
         CapabilityCategoriesInline,
-		/// <summary>
+        /// <summary>
         /// Category Name Limit
         /// </summary>
         CapabilityCategoryNameLimit,
-		/// <summary>
+        /// <summary>
         /// Category Scheme
         /// </summary>
         CapabilityCategoryScheme,
-		/// <summary>
+        /// <summary>
         /// Encoding
         /// </summary>
         CapabilityCharacterSet,
-		/// <summary>
+        /// <summary>
         /// Comment Policy
         /// </summary>
         CapabilityCommentPolicy,
-		/// <summary>
+        /// <summary>
         /// Custom Publish Date
         /// </summary>
         CapabilityCustomPublishDate,
-		/// <summary>
+        /// <summary>
         /// Update Publish Date
         /// </summary>
         CapabilityCustomPublishDateUpdate,
-		/// <summary>
+        /// <summary>
         /// Default View
         /// </summary>
         CapabilityDefaultView,
-		/// <summary>
+        /// <summary>
         /// Embeds
         /// </summary>
         CapabilityEmbeds,
-		/// <summary>
+        /// <summary>
         /// Empty Titles
         /// </summary>
         CapabilityEmptyTitles,
-		/// <summary>
+        /// <summary>
         /// Excerpt
         /// </summary>
         CapabilityExcerpt,
-		/// <summary>
+        /// <summary>
         /// Extended Entries
         /// </summary>
         CapabilityExtendedEntries,
-		/// <summary>
+        /// <summary>
         /// File Upload
         /// </summary>
         CapabilityFileUpload,
-		/// <summary>
+        /// <summary>
         /// Hierarchical Categories
         /// </summary>
         CapabilityHierarchicalCategories,
-		/// <summary>
+        /// <summary>
         /// HTML Titles
         /// </summary>
         CapabilityHtmlTitles,
-		/// <summary>
+        /// <summary>
         /// Keyword Retrieval
         /// </summary>
         CapabilityKeywordRetrieval,
-		/// <summary>
+        /// <summary>
         /// Keywords
         /// </summary>
         CapabilityKeywords,
-		/// <summary>
+        /// <summary>
         /// Multiple Categories
         /// </summary>
         CapabilityMultipleCategories,
-		/// <summary>
+        /// <summary>
         /// New Categories
         /// </summary>
         CapabilityNewCategories,
-		/// <summary>
+        /// <summary>
         /// New Categories Inline
         /// </summary>
         CapabilityNewCategoriesInline,
-		/// <summary>
+        /// <summary>
         /// Page Order
         /// </summary>
         CapabilityPageOrder,
-		/// <summary>
+        /// <summary>
         /// Page Parent
         /// </summary>
         CapabilityPageParent,
-		/// <summary>
+        /// <summary>
         /// Pages
         /// </summary>
         CapabilityPages,
-		/// <summary>
+        /// <summary>
         /// Password
         /// </summary>
         CapabilityPassword,
-		/// <summary>
+        /// <summary>
         /// Post Draft to Server
         /// </summary>
         CapabilityPostDraftToServer,
-		/// <summary>
+        /// <summary>
         /// Title Length Limit
         /// </summary>
         CapabilityPostTitleLengthLimit,
-		/// <summary>
+        /// <summary>
         /// Requires XHTML
         /// </summary>
         CapabilityRequiresXHTML,
-		/// <summary>
+        /// <summary>
         /// Scripts
         /// </summary>
         CapabilityScripts,
-		/// <summary>
+        /// <summary>
         /// Send Trackbacks
         /// </summary>
         CapabilitySendTrackbacks,
-		/// <summary>
+        /// <summary>
         /// Slug
         /// </summary>
         CapabilitySlug,
-		/// <summary>
+        /// <summary>
         /// Template is Right-to-Left
         /// </summary>
         CapabilityTemplateIsRTL,
-		/// <summary>
+        /// <summary>
         /// Trackback Policy
         /// </summary>
         CapabilityTrackbackPolicy,
-		/// <summary>
+        /// <summary>
         /// (No Limit)
         /// </summary>
         CapabilityValueNoLimit,
-		/// <summary>
+        /// <summary>
         /// Normal
         /// </summary>
         CapabilityValueNormal,
-		/// <summary>
+        /// <summary>
         /// Web Layout
         /// </summary>
         CapabilityValueWebLayout,
-		/// <summary>
+        /// <summary>
         /// Web Preview
         /// </summary>
         CapabilityValueWebPreview,
-		/// <summary>
+        /// <summary>
         /// Add Category
         /// </summary>
         CategoryAdd,
-		/// <summary>
+        /// <summary>
         /// Category Name
         /// </summary>
         CategoryCategoryName,
-		/// <summary>
+        /// <summary>
         /// Categories: {0}
         /// </summary>
         CategoryControlCategories,
-		/// <summary>
+        /// <summary>
         /// Category: {0}
         /// </summary>
         CategoryControlCategory,
-		/// <summary>
+        /// <summary>
         /// (none)
         /// </summary>
         CategoryControlNoCategories,
-		/// <summary>
+        /// <summary>
         /// (No categories)
         /// </summary>
         CategoryControlNoCategories2,
-		/// <summary>
+        /// <summary>
         /// Set categories
         /// </summary>
         CategoryControlSetCategories,
-		/// <summary>
+        /// <summary>
         /// Set category
         /// </summary>
         CategoryControlSetCategory,
-		/// <summary>
+        /// <summary>
         /// (No parent)
         /// </summary>
         CategoryNoParent,
-		/// <summary>
+        /// <summary>
         /// Category parent
         /// </summary>
         CategoryParentAccessible,
-		/// <summary>
+        /// <summary>
         /// Refresh List
         /// </summary>
         CategoryRefreshList,
-		/// <summary>
+        /// <summary>
         /// Refreshes the list of categories.
         /// </summary>
         CategoryRefreshListTooltip,
-		/// <summary>
+        /// <summary>
         /// Cell
         /// </summary>
         Cell,
-		/// <summary>
+        /// <summary>
         /// Cell Properties
         /// </summary>
         CellPropertiesTitle,
-		/// <summary>
+        /// <summary>
         /// Cells
         /// </summary>
         Cells,
-		/// <summary>
+        /// <summary>
         /// Components capable of handling '{0}':
         /// </summary>
         ChangeLiveClipboardHandlerCaption,
-		/// <summary>
+        /// <summary>
         /// Component
         /// </summary>
         ChangeLiveClipboardHandlerComponent,
-		/// <summary>
+        /// <summary>
         /// Change Format Handler
         /// </summary>
         ChangeLiveClipboardHandlerTitle,
-		/// <summary>
+        /// <summary>
         /// Change Text Style
         /// </summary>
         ChangeTextStyle,
-		/// <summary>
+        /// <summary>
         /// Characters (with spaces)
         /// </summary>
         CharCount,
-		/// <summary>
+        /// <summary>
         /// Characters (no spaces)
         /// </summary>
         CharNoSpacesCount,
-		/// <summary>
+        /// <summary>
         /// Click to view this map on Live.com
         /// </summary>
         ClickToViewMap,
-		/// <summary>
+        /// <summary>
         /// &Close
         /// </summary>
         CloseButton,
-		/// <summary>
+        /// <summary>
         /// Close
         /// </summary>
         CloseButtonNoMnemonic,
-		/// <summary>
+        /// <summary>
         /// Close
         /// </summary>
         CloseButtonTooltip,
-		/// <summary>
+        /// <summary>
         /// Black
         /// </summary>
         ColorBlack,
-		/// <summary>
+        /// <summary>
         /// Charcoal
         /// </summary>
         ColorCharcoal,
-		/// <summary>
+        /// <summary>
         /// Dark gray
         /// </summary>
         ColorDarkGray,
-		/// <summary>
+        /// <summary>
         /// Earthy blue
         /// </summary>
         ColorEarthyBlue,
-		/// <summary>
+        /// <summary>
         /// Earthy brown
         /// </summary>
         ColorEarthyBrown,
-		/// <summary>
+        /// <summary>
         /// Earthy green
         /// </summary>
         ColorEarthyGreen,
-		/// <summary>
+        /// <summary>
         /// Earthy orange
         /// </summary>
         ColorEarthyOrange,
-		/// <summary>
+        /// <summary>
         /// Earthy red
         /// </summary>
         ColorEarthyRed,
-		/// <summary>
+        /// <summary>
         /// Earthy yellow
         /// </summary>
         ColorEarthyYellow,
-		/// <summary>
+        /// <summary>
         /// Light gray
         /// </summary>
         ColorLightGray,
-		/// <summary>
+        /// <summary>
         /// Medium gray
         /// </summary>
         ColorMediumGray,
-		/// <summary>
+        /// <summary>
         /// Pastel blue
         /// </summary>
         ColorPastelBlue,
-		/// <summary>
+        /// <summary>
         /// Pastel green
         /// </summary>
         ColorPastelGreen,
-		/// <summary>
+        /// <summary>
         /// Pastel orange
         /// </summary>
         ColorPastelOrange,
-		/// <summary>
+        /// <summary>
         /// Pastel purple
         /// </summary>
         ColorPastelPurple,
-		/// <summary>
+        /// <summary>
         /// Pastel red
         /// </summary>
         ColorPastelRed,
-		/// <summary>
+        /// <summary>
         /// Pastel yellow
         /// </summary>
         ColorPastelYellow,
-		/// <summary>
+        /// <summary>
         /// Color
         /// </summary>
         ColorPickerColor,
-		/// <summary>
+        /// <summary>
         /// &Default Color
         /// </summary>
         ColorPickerDefaultColor,
-		/// <summary>
+        /// <summary>
         /// &More Colors...
         /// </summary>
         ColorPickerMoreColors,
-		/// <summary>
+        /// <summary>
         /// Professional aqua
         /// </summary>
         ColorProfessionalAqua,
-		/// <summary>
+        /// <summary>
         /// Professional blue
         /// </summary>
         ColorProfessionalBlue,
-		/// <summary>
+        /// <summary>
         /// Professional green
         /// </summary>
         ColorProfessionalGreen,
-		/// <summary>
+        /// <summary>
         /// Professional orange
         /// </summary>
         ColorProfessionalOrange,
-		/// <summary>
+        /// <summary>
         /// Professional purple
         /// </summary>
         ColorProfessionalPurple,
-		/// <summary>
+        /// <summary>
         /// Professional red
         /// </summary>
         ColorProfessionalRed,
-		/// <summary>
+        /// <summary>
         /// Cooler
         /// </summary>
         ColorTempCooler,
-		/// <summary>
+        /// <summary>
         /// Warmer
         /// </summary>
         ColorTempWarmer,
-		/// <summary>
+        /// <summary>
         /// Vibrant blue
         /// </summary>
         ColorVibrantBlue,
-		/// <summary>
+        /// <summary>
         /// Vibrant green
         /// </summary>
         ColorVibrantGreen,
-		/// <summary>
+        /// <summary>
         /// Vibrant orange
         /// </summary>
         ColorVibrantOrange,
-		/// <summary>
+        /// <summary>
         /// Vibrant purple
         /// </summary>
         ColorVibrantPurple,
-		/// <summary>
+        /// <summary>
         /// Vibrant red
         /// </summary>
         ColorVibrantRed,
-		/// <summary>
+        /// <summary>
         /// Vibrant yellow
         /// </summary>
         ColorVibrantYellow,
-		/// <summary>
+        /// <summary>
         /// White
         /// </summary>
         ColorWhite,
-		/// <summary>
+        /// <summary>
         /// Column Properties
         /// </summary>
         ColumnProperties,
-		/// <summary>
+        /// <summary>
         /// ,
         /// </summary>
         Comma,
-		/// <summary>
+        /// <summary>
         /// , 
         /// </summary>
         CommaSpace,
-		/// <summary>
+        /// <summary>
         /// Configuration
         /// </summary>
         Configuration,
-		/// <summary>
+        /// <summary>
         /// Configure {0}
         /// </summary>
         ConfigureProduct,
-		/// <summary>
+        /// <summary>
         /// Blog Homepage and Login
         /// </summary>
         ConfigWizardBasicInfo,
-		/// <summary>
+        /// <summary>
         /// Choose Blog Type
         /// </summary>
         ConfigWizardChooseWeblogType,
-		/// <summary>
+        /// <summary>
         /// Blog Configuration Complete
         /// </summary>
         ConfigWizardComplete,
-		/// <summary>
+        /// <summary>
         /// Detecting Blog Settings
         /// </summary>
         ConfigWizardDetectSettings,
-		/// <summary>
+        /// <summary>
         /// Learn more about {0}
         /// </summary>
         ConfigWizardLearnMore,
-		/// <summary>
+        /// <summary>
         /// Select image collection
         /// </summary>
         ConfigWizardSelectImageEndpoint,
-		/// <summary>
+        /// <summary>
         /// Select blog type
         /// </summary>
         ConfigWizardSelectProvider,
-		/// <summary>
+        /// <summary>
         /// Select blog
         /// </summary>
         ConfigWizardSelectWeblog,
-		/// <summary>
+        /// <summary>
         /// SharePoint Blog Homepage
         /// </summary>
         ConfigWizardSharePointHomepage,
-		/// <summary>
+        /// <summary>
         /// SharePoint blog login
         /// </summary>
         ConfigWizardSharePointLogin,
-		/// <summary>
+        /// <summary>
         /// Welcome!
         /// </summary>
         ConfigWizardWelcome,
-		/// <summary>
+        /// <summary>
         /// Internet Connection Required
         /// </summary>
         ConnectionRequired,
-		/// <summary>
+        /// <summary>
         /// Copyright Information
         /// </summary>
         CopyrightInformation,
-		/// <summary>
+        /// <summary>
         /// 16x9
         /// </summary>
         CropAspect16x9,
-		/// <summary>
+        /// <summary>
         /// 3.5x5
         /// </summary>
         CropAspect35x5,
-		/// <summary>
+        /// <summary>
         /// 4x3
         /// </summary>
         CropAspect4x3,
-		/// <summary>
+        /// <summary>
         /// 4x6
         /// </summary>
         CropAspect4x6,
-		/// <summary>
+        /// <summary>
         /// 5x7
         /// </summary>
         CropAspect5x7,
-		/// <summary>
+        /// <summary>
         /// 8.5x11
         /// </summary>
         CropAspect85x11,
-		/// <summary>
+        /// <summary>
         /// 8x10
         /// </summary>
         CropAspect8x10,
-		/// <summary>
+        /// <summary>
         /// Custom
         /// </summary>
         CropAspectCustom,
-		/// <summary>
+        /// <summary>
         /// Original
         /// </summary>
         CropAspectOriginal,
-		/// <summary>
+        /// <summary>
         /// &Proportion:
         /// </summary>
         CropAspectRatioLabel,
-		/// <summary>
+        /// <summary>
         /// Square
         /// </summary>
         CropAspectSquare,
-		/// <summary>
+        /// <summary>
         /// Crop
         /// </summary>
         CropDialogTitle,
-		/// <summary>
+        /// <summary>
         /// Image crop pane
         /// </summary>
         CropPane,
-		/// <summary>
+        /// <summary>
         /// &Remove Crop
         /// </summary>
         CropRemoveCrop,
-		/// <summary>
+        /// <summary>
         /// Rotate &Frame
         /// </summary>
         CropRotateFrame,
-		/// <summary>
+        /// <summary>
         /// Show &Grid
         /// </summary>
         CropShowGridlines,
-		/// <summary>
+        /// <summary>
         /// Customize Map
         /// </summary>
         CustomizeMap,
-		/// <summary>
+        /// <summary>
         /// If you do not already have a {0} account create one now. Click the link below to open the web page that will begin your online registration.
         /// </summary>
         CWBasicCreateAccount,
-		/// <summary>
+        /// <summary>
         /// Add a blog account
         /// </summary>
         CWBasicHeader,
-		/// <summary>
+        /// <summary>
         /// Web &address of your blog:
         /// </summary>
         CWBasicHomepage,
-		/// <summary>
+        /// <summary>
         /// This is the web address that visitors use to read your blog.
         /// </summary>
         CWBasicHomepage2,
-		/// <summary>
+        /// <summary>
         /// To use {0} you must already have an account with a blog service. If you do not already have an account with an existing blog service, create one now.
         /// </summary>
         CWBasicText,
-		/// <summary>
+        /// <summary>
         /// Configure {0} to work with {1}
         /// </summary>
         CWBasicTitle,
-		/// <summary>
+        /// <summary>
         /// your blog
         /// </summary>
         CWBasicTitleDefaultService,
-		/// <summary>
+        /// <summary>
         /// &Edit Settings...
         /// </summary>
         CWConfirmEditWeblogSettings,
-		/// <summary>
+        /// <summary>
         /// FTP Server
         /// </summary>
         CWConfirmFTPServer,
-		/// <summary>
+        /// <summary>
         /// &Switch to this blog now
         /// </summary>
         CWConfirmSwitchToWeblog,
-		/// <summary>
+        /// <summary>
         /// Please confirm that you would like to save this blog.
         /// </summary>
         CWConfirmText,
-		/// <summary>
+        /// <summary>
         /// Writer will periodically check for, and download, new configuration information for your blog.
         /// </summary>
         CWConfirmText2,
-		/// <summary>
+        /// <summary>
         /// Your blog has been set up
         /// </summary>
         CWConfirmThanks,
-		/// <summary>
+        /// <summary>
         /// Upload Pictures To:
         /// </summary>
         CWConfirmUploadSettings,
-		/// <summary>
+        /// <summary>
         /// Blog Name
         /// </summary>
         CWConfirmWeblogName,
-		/// <summary>
+        /// <summary>
         /// To configure Google Blogger please sign in.
         /// </summary>
         CWGoogleBloggerDescription,
-		/// <summary>
+        /// <summary>
         /// Successfully signed in
         /// </summary>
         CWGoogleBloggerSignInSuccess,
-		/// <summary>
+        /// <summary>
         /// Provide Google Blogger Login
         /// </summary>
         CWGoogleBloggerTitle,
-		/// <summary>
+        /// <summary>
         /// If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account ID.
         /// </summary>
         CWLiveIDCreateAccount,
-		/// <summary>
+        /// <summary>
         /// Don't have a Microsoft Account ID?
         /// </summary>
         CWLiveIDCreateAccount2,
-		/// <summary>
+        /// <summary>
         /// Setting up your blog account
         /// </summary>
         CWProgressHeader,
-		/// <summary>
+        /// <summary>
         /// More than one blog was detected. Please select the blog that you'd like to add from the list below:
         /// </summary>
         CWSelectBlogText,
-		/// <summary>
+        /// <summary>
         /// Please select the collection that you'd like images to be uploaded to:
         /// </summary>
         CWSelectImageEndpointText,
-		/// <summary>
+        /// <summary>
         /// Server API web address
         /// </summary>
         CWSelectProviderApiUrl,
-		/// <summary>
+        /// <summary>
         /// Remote posting &web address for your blog:
         /// </summary>
         CWSelectProviderApiUrlLabel,
-		/// <summary>
+        /// <summary>
         /// Service document &web address:
         /// </summary>
         CWSelectProviderApiUrlLabel_ServiceDoc,
-		/// <summary>
+        /// <summary>
         /// {0} was not able to automatically detect your blog settings. Please select the type of blog that you are using to continue.
         /// </summary>
         CWSelectProviderText,
-		/// <summary>
+        /// <summary>
         /// Blog Provider
         /// </summary>
         CWSelectProviderWeblogProvider,
-		/// <summary>
+        /// <summary>
         /// &Type of blog that you are using:
         /// </summary>
         CWSelectProviderWeblogTypeLabel,
-		/// <summary>
+        /// <summary>
         /// Share&Point blog web address:
         /// </summary>
         CWSharePointHomepageUrl,
-		/// <summary>
+        /// <summary>
         /// To use {0} you must have a SharePoint blog.
         /// </summary>
         CWSharePointText,
-		/// <summary>
+        /// <summary>
         /// Enter the login required to publish to your SharePoint blog.
         /// </summary>
         CWSharePointText2,
-		/// <summary>
+        /// <summary>
         /// Configure {0} for a SharePoint blog
         /// </summary>
         CWSharePointTitle,
-		/// <summary>
+        /// <summary>
         /// Provide SharePoint Blog Login
         /// </summary>
         CWSharePointTitle2,
-		/// <summary>
+        /// <summary>
         /// Use my &Windows user name and password
         /// </summary>
         CWSharePointUseSystemLogin,
-		/// <summary>
+        /// <summary>
         /// &Microsoft Account ID:
         /// </summary>
         CWSpacesUsername,
-		/// <summary>
+        /// <summary>
         /// (example555@hotmail.com)
         /// </summary>
         CWSpacesUsernameExample,
-		/// <summary>
+        /// <summary>
         /// Build command:
         /// </summary>
         CWStaticSiteCommandsBuildCommand,
-		/// <summary>
+        /// <summary>
         /// Command that builds your site and stores the output locally, ready to be published. Required if Local Site Building enabled.
         /// </summary>
         CWStaticSiteCommandsBuildCommandSubtitle,
-		/// <summary>
+        /// <summary>
         /// Publish command:
         /// </summary>
         CWStaticSiteCommandsPublishCommand,
-		/// <summary>
+        /// <summary>
         /// Command that uploads your site to your hosting provider. If Local Site Building is enabled, this command would typically upload the output from the build command.
         /// </summary>
         CWStaticSiteCommandsPublishCommandSubtitle,
-		/// <summary>
+        /// <summary>
         /// {0} will run the commands you specify below and alert you if an error occurs. Commands are ran using the system command interpreter with a working directory of your local site.
         /// </summary>
         CWStaticSiteCommandsSubtitle,
-		/// <summary>
+        /// <summary>
         /// Provide site authoring commands
         /// </summary>
         CWStaticSiteCommandsTitle,
-		/// <summary>
+        /// <summary>
         /// {0} was able to automatically determine a partial configuration for your site. Please confirm that the pre-filled details on the next pages are correct, and complete the other missing fields.
         /// </summary>
         CWStaticSiteConfigDetection,
-		/// <summary>
+        /// <summary>
         /// Enable Local Site Building
         /// </summary>
         CWStaticSiteFeaturesBuilding,
-		/// <summary>
+        /// <summary>
         /// Enable Remote Drafts
         /// </summary>
         CWStaticSiteFeaturesDrafts,
-		/// <summary>
+        /// <summary>
         /// Enable Image Upload
         /// </summary>
         CWStaticSiteFeaturesImages,
-		/// <summary>
+        /// <summary>
         /// Enable Pages
         /// </summary>
         CWStaticSiteFeaturesPages,
-		/// <summary>
+        /// <summary>
         /// Use the checkboxes below to define which features your static site supports. You can configure Open Live Writer for these features on the following pages.
         /// </summary>
         CWStaticSiteFeaturesSubtitle,
-		/// <summary>
+        /// <summary>
         /// Define static site features
         /// </summary>
         CWStaticSiteFeaturesTitle,
-		/// <summary>
+        /// <summary>
         /// {0} will attempt to automatically detect your static site configuration based on files present in your site project folder. Please select the project folder of your static site (eg. Git repository)
         /// </summary>
         CWStaticSiteInitialSubtitle,
-		/// <summary>
+        /// <summary>
         /// {0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you can re-run configuration detection from Settings.
         /// </summary>
         CWStaticSiteInitialSubtitleAlreadyDetected,
-		/// <summary>
+        /// <summary>
         /// Provide static site configuration
         /// </summary>
         CWStaticSiteInitialTitle,
-		/// <summary>
+        /// <summary>
         /// Please select the project folder of your static site (eg. Git repository)
         /// </summary>
         CWStaticSiteLocalSiteFolderPicker,
-		/// <summary>
+        /// <summary>
         /// Path to local static site:
         /// </summary>
         CWStaticSiteLocalSitePath,
-		/// <summary>
+        /// <summary>
         /// Drafts path: (relative, required if drafts enabled)
         /// </summary>
         CWStaticSitePathsDraftsPath,
-		/// <summary>
+        /// <summary>
         /// Images path: (relative, required if images enabled)
         /// </summary>
         CWStaticSitePathsImagesPath,
-		/// <summary>
+        /// <summary>
         /// Build output path: (relative, required if building enabled)
         /// </summary>
         CWStaticSitePathsOutputPath,
-		/// <summary>
+        /// <summary>
         /// Pages stored in site root
         /// </summary>
         CWStaticSitePathsPagesInRoot,
-		/// <summary>
+        /// <summary>
         /// Pages path: (relative, required if pages enabled)
         /// </summary>
         CWStaticSitePathsPagesPath,
-		/// <summary>
+        /// <summary>
         /// Posts path: (relative)
         /// </summary>
         CWStaticSitePathsPostsPath,
-		/// <summary>
+        /// <summary>
         /// Public site URL:
         /// </summary>
         CWStaticSitePathsSiteUrl,
-		/// <summary>
+        /// <summary>
         /// Provide site URL and paths
         /// </summary>
         CWStaticSitePathsTitle,
-		/// <summary>
+        /// <summary>
         /// Add Blog Wizard
         /// </summary>
         CWTitle,
-		/// <summary>
+        /// <summary>
         /// I &already have a blog set up
         /// </summary>
         CWWelcomeAlreadyHave,
-		/// <summary>
+        /// <summary>
         /// Welcome to the world of blogging!
         /// </summary>
         CWWelcomeCaption,
-		/// <summary>
+        /// <summary>
         /// Click Next to continue.
         /// </summary>
         CWWelcomeClickNext,
-		/// <summary>
+        /// <summary>
         /// &Create a new blog
         /// </summary>
         CWWelcomeCreate,
-		/// <summary>
+        /// <summary>
         /// Use {0} to blog about whatever interests you. Add photos and videos, and then publish to popular blogging services, including WordPress, Blogger, and TypePad.
         /// </summary>
         CWWelcomeText,
-		/// <summary>
+        /// <summary>
         /// &WordPress
         /// </summary>
         CWWelcomeWP,
-		/// <summary>
+        /// <summary>
         /// Date
         /// </summary>
         Date,
-		/// <summary>
+        /// <summary>
         /// Black and white
         /// </summary>
         DecoratorBWDescription,
-		/// <summary>
+        /// <summary>
         /// Black and white
         /// </summary>
         DecoratorBWLabel,
-		/// <summary>
+        /// <summary>
         /// Coolest
         /// </summary>
         DecoratorCoolestTemperatureLabel,
-		/// <summary>
+        /// <summary>
         /// Cool
         /// </summary>
         DecoratorCoolTemperatureLabel,
-		/// <summary>
+        /// <summary>
         /// Drop shadow
         /// </summary>
         DecoratorDropShadow,
-		/// <summary>
+        /// <summary>
         /// Apply an emboss effect on the selected image.
         /// </summary>
         DecoratorEmbossDescription,
-		/// <summary>
+        /// <summary>
         /// Emboss
         /// </summary>
         DecoratorEmbossLabel,
-		/// <summary>
+        /// <summary>
         /// Apply a Gaussian blur filter on the selected image.
         /// </summary>
         DecoratorGaussianBlurDescription,
-		/// <summary>
+        /// <summary>
         /// Gaussian blur
         /// </summary>
         DecoratorGaussianBlurLabel,
-		/// <summary>
+        /// <summary>
         /// Overlays
         /// </summary>
         DecoratorGroupOverlays,
-		/// <summary>
+        /// <summary>
         /// Transformations
         /// </summary>
         DecoratorGroupTransformations,
-		/// <summary>
+        /// <summary>
         /// Inherit from blog
         /// </summary>
         DecoratorInheritBorder,
-		/// <summary>
+        /// <summary>
         /// Instant photo
         /// </summary>
         DecoratorInstantPhoto,
-		/// <summary>
+        /// <summary>
         /// Remove the blur filter on the selected image.
         /// </summary>
         DecoratorNoBlurDescription,
-		/// <summary>
+        /// <summary>
         /// No blur
         /// </summary>
         DecoratorNoBlurLabel,
-		/// <summary>
+        /// <summary>
         /// None
         /// </summary>
         DecoratorNoBorder,
-		/// <summary>
+        /// <summary>
         /// Remove the emboss effect on the selected image.
         /// </summary>
         DecoratorNoEmbossDescription,
-		/// <summary>
+        /// <summary>
         /// No emboss
         /// </summary>
         DecoratorNoEmbossLabel,
-		/// <summary>
+        /// <summary>
         /// Remove recolor effects applied on the selected image.
         /// </summary>
         DecoratorNoRecolorDescription,
-		/// <summary>
+        /// <summary>
         /// No recolor
         /// </summary>
         DecoratorNoRecolorLabel,
-		/// <summary>
+        /// <summary>
         /// Remove the sharpening filter on the selected image.
         /// </summary>
         DecoratorNoSharpenDescription,
-		/// <summary>
+        /// <summary>
         /// No sharpen
         /// </summary>
         DecoratorNoSharpenLabel,
-		/// <summary>
+        /// <summary>
         /// Photopaper
         /// </summary>
         DecoratorPhotopaper,
-		/// <summary>
+        /// <summary>
         /// Reflection
         /// </summary>
         DecoratorReflection,
-		/// <summary>
+        /// <summary>
         /// Rounded corners
         /// </summary>
         DecoratorRoundedCorners,
-		/// <summary>
+        /// <summary>
         /// Make the colors in the selected image vivid.
         /// </summary>
         DecoratorSaturationDescription,
-		/// <summary>
+        /// <summary>
         /// Color pop
         /// </summary>
         DecoratorSaturationLabel,
-		/// <summary>
+        /// <summary>
         /// Sepia
         /// </summary>
         DecoratorSepiaDescription,
-		/// <summary>
+        /// <summary>
         /// Sepia tone
         /// </summary>
         DecoratorSepiaLabel,
-		/// <summary>
+        /// <summary>
         /// Apply a sharpening filter on the selected image.
         /// </summary>
         DecoratorSharpenDescription,
-		/// <summary>
+        /// <summary>
         /// Sharpen
         /// </summary>
         DecoratorSharpenLabel,
-		/// <summary>
+        /// <summary>
         /// Solid, 1 pixel
         /// </summary>
         DecoratorSolid1px,
-		/// <summary>
+        /// <summary>
         /// Solid, 3 pixels
         /// </summary>
         DecoratorSolid3px,
-		/// <summary>
+        /// <summary>
         /// Change the warmth of the colors in the selected image.
         /// </summary>
         DecoratorTemperatureDescription,
-		/// <summary>
+        /// <summary>
         /// Warmest
         /// </summary>
         DecoratorWarmestTemperatureLabel,
-		/// <summary>
+        /// <summary>
         /// Warm
         /// </summary>
         DecoratorWarmTemperatureLabel,
-		/// <summary>
+        /// <summary>
         /// Watermark...
         /// </summary>
         DecoratorWatermark,
-		/// <summary>
+        /// <summary>
         /// Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif
         /// </summary>
         DefaultTemplateBodyFont,
-		/// <summary>
+        /// <summary>
         /// Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif
         /// </summary>
         DefaultTemplateTitleFont,
-		/// <summary>
+        /// <summary>
         /// Re&move...
         /// </summary>
         DeleteButton,
-		/// <summary>
+        /// <summary>
         /// Delete {0}
         /// </summary>
         DeleteSomething,
-		/// <summary>
+        /// <summary>
         /// Arabic
         /// </summary>
         DictionaryLanguageArabic,
-		/// <summary>
+        /// <summary>
         /// Basque
         /// </summary>
         DictionaryLanguageBasque,
-		/// <summary>
+        /// <summary>
         /// Bulgarian
         /// </summary>
         DictionaryLanguageBulgarian,
-		/// <summary>
+        /// <summary>
         /// Catalan
         /// </summary>
         DictionaryLanguageCatalan,
-		/// <summary>
+        /// <summary>
         /// Croatian
         /// </summary>
         DictionaryLanguageCroatian,
-		/// <summary>
+        /// <summary>
         /// Czech
         /// </summary>
         DictionaryLanguageCzech,
-		/// <summary>
+        /// <summary>
         /// Dutch
         /// </summary>
         DictionaryLanguageDutch,
-		/// <summary>
+        /// <summary>
         /// English (Australia)
         /// </summary>
         DictionaryLanguageEnglishAustralia,
-		/// <summary>
+        /// <summary>
         /// English (Canada)
         /// </summary>
         DictionaryLanguageEnglishCanada,
-		/// <summary>
+        /// <summary>
         /// English (United Kingdom)
         /// </summary>
         DictionaryLanguageEnglishUK,
-		/// <summary>
+        /// <summary>
         /// English (United States)
         /// </summary>
         DictionaryLanguageEnglishUS,
-		/// <summary>
+        /// <summary>
         /// Estonian
         /// </summary>
         DictionaryLanguageEstonian,
-		/// <summary>
+        /// <summary>
         /// Finnish
         /// </summary>
         DictionaryLanguageFinnish,
-		/// <summary>
+        /// <summary>
         /// French
         /// </summary>
         DictionaryLanguageFrench,
-		/// <summary>
+        /// <summary>
         /// German
         /// </summary>
         DictionaryLanguageGerman,
-		/// <summary>
+        /// <summary>
         /// German (Reform)
         /// </summary>
         DictionaryLanguageGermanReform,
-		/// <summary>
+        /// <summary>
         /// Greek
         /// </summary>
         DictionaryLanguageGreek,
-		/// <summary>
+        /// <summary>
         /// Hebrew
         /// </summary>
         DictionaryLanguageHebrew,
-		/// <summary>
+        /// <summary>
         /// Hungarian
         /// </summary>
         DictionaryLanguageHungarian,
-		/// <summary>
+        /// <summary>
         /// Indonesian
         /// </summary>
         DictionaryLanguageIndonesian,
-		/// <summary>
+        /// <summary>
         /// Italian
         /// </summary>
         DictionaryLanguageItalian,
-		/// <summary>
+        /// <summary>
         /// Korean
         /// </summary>
         DictionaryLanguageKorean,
-		/// <summary>
+        /// <summary>
         /// Dictionary &language:
         /// </summary>
         DictionaryLanguageLabel,
-		/// <summary>
+        /// <summary>
         /// Latvian
         /// </summary>
         DictionaryLanguageLatvian,
-		/// <summary>
+        /// <summary>
         /// Lithuanian
         /// </summary>
         DictionaryLanguageLithuanian,
-		/// <summary>
+        /// <summary>
         /// Malay
         /// </summary>
         DictionaryLanguageMalay,
-		/// <summary>
+        /// <summary>
         /// (None)
         /// </summary>
         DictionaryLanguageNone,
-		/// <summary>
+        /// <summary>
         /// Polish
         /// </summary>
         DictionaryLanguagePolish,
-		/// <summary>
+        /// <summary>
         /// Portuguese
         /// </summary>
         DictionaryLanguagePortuguese,
-		/// <summary>
+        /// <summary>
         /// Portuguese (Brazil)
         /// </summary>
         DictionaryLanguagePortugueseBrazil,
-		/// <summary>
+        /// <summary>
         /// Romanian
         /// </summary>
         DictionaryLanguageRomanian,
-		/// <summary>
+        /// <summary>
         /// Russian
         /// </summary>
         DictionaryLanguageRussian,
-		/// <summary>
+        /// <summary>
         /// Serbian (Cyrillic)
         /// </summary>
         DictionaryLanguageSerbianCyrillic,
-		/// <summary>
+        /// <summary>
         /// Serbian (Latin)
         /// </summary>
         DictionaryLanguageSerbianLatin,
-		/// <summary>
+        /// <summary>
         /// Slovak
         /// </summary>
         DictionaryLanguageSlovak,
-		/// <summary>
+        /// <summary>
         /// Slovenian
         /// </summary>
         DictionaryLanguageSlovenian,
-		/// <summary>
+        /// <summary>
         /// Spanish
         /// </summary>
         DictionaryLanguageSpanish,
-		/// <summary>
+        /// <summary>
         /// Swedish
         /// </summary>
         DictionaryLanguageSwedish,
-		/// <summary>
+        /// <summary>
         /// Turkish
         /// </summary>
         DictionaryLanguageTurkish,
-		/// <summary>
+        /// <summary>
         /// Ukrainian
         /// </summary>
         DictionaryLanguageUkrainian,
-		/// <summary>
+        /// <summary>
         /// {0}x{1}
         /// </summary>
         DimensionsFormat,
-		/// <summary>
+        /// <summary>
         /// Disabled
         /// </summary>
         Disabled,
-		/// <summary>
+        /// <summary>
         /// &Don't show this message again
         /// </summary>
         DontShowAgain,
-		/// <summary>
+        /// <summary>
         /// Downloading Blog Theme
         /// </summary>
         DownloadingWeblogStyle,
-		/// <summary>
+        /// <summary>
         /// Draft {0}
         /// </summary>
         DraftNameFormat,
-		/// <summary>
+        /// <summary>
         /// Drafts
         /// </summary>
         Drafts,
-		/// <summary>
+        /// <summary>
         /// Insert
         /// </summary>
         DynamicCommandMenuInsert,
-		/// <summary>
+        /// <summary>
         /// Mo&re...
         /// </summary>
         DynamicCommandMenuMore,
-		/// <summary>
+        /// <summary>
         /// &Edit...
         /// </summary>
         EditButton,
-		/// <summary>
+        /// <summary>
         /// Editing
         /// </summary>
         EditingName,
-		/// <summary>
+        /// <summary>
         /// Default ({0})
         /// </summary>
         EditingRTLDefault,
-		/// <summary>
+        /// <summary>
         /// Change the reading direction of your blog posts.
         /// </summary>
         EditingRTLExplanation,
-		/// <summary>
+        /// <summary>
         /// Text direction
         /// </summary>
         EditingRTLName,
-		/// <summary>
+        /// <summary>
         /// Left to Right
         /// </summary>
         EditingRTLNo,
-		/// <summary>
+        /// <summary>
         /// &Enter text Right to Left in Edit view.
         /// </summary>
         EditingRTLUse,
-		/// <summary>
+        /// <summary>
         /// Right to Left
         /// </summary>
         EditingRTLYes,
-		/// <summary>
+        /// <summary>
         /// Blog theme
         /// </summary>
         EditingStyle,
-		/// <summary>
+        /// <summary>
         /// After you make changes to your theme online
         /// </summary>
         EditingText,
-		/// <summary>
+        /// <summary>
         /// &Update theme
         /// </summary>
         EditingUpdate,
-		/// <summary>
+        /// <summary>
         /// Use your blog theme to see what your post will look like online while you are editing it.
         /// </summary>
         EditingUsing,
-		/// <summary>
+        /// <summary>
         /// Set proxy...
         /// </summary>
         EditProxySettings,
-		/// <summary>
+        /// <summary>
         /// Airplane
         /// </summary>
         EmoticonAirplane,
-		/// <summary>
+        /// <summary>
         /// Alien
         /// </summary>
         EmoticonAlien,
-		/// <summary>
+        /// <summary>
         /// Angel
         /// </summary>
         EmoticonAngel,
-		/// <summary>
+        /// <summary>
         /// Angry smile
         /// </summary>
         EmoticonAngrySmile,
-		/// <summary>
+        /// <summary>
         /// Annoyed
         /// </summary>
         EmoticonAnnoyed,
-		/// <summary>
+        /// <summary>
         /// Auto
         /// </summary>
         EmoticonAuto,
-		/// <summary>
+        /// <summary>
         /// Baring teeth smile
         /// </summary>
         EmoticonBaringTeethSmile,
-		/// <summary>
+        /// <summary>
         /// Be right back
         /// </summary>
         EmoticonBeRightBack,
-		/// <summary>
+        /// <summary>
         /// Birthday cake
         /// </summary>
         EmoticonBirthdayCake,
-		/// <summary>
+        /// <summary>
         /// Black Sheep
         /// </summary>
         EmoticonBlackSheep,
-		/// <summary>
+        /// <summary>
         /// Bowl
         /// </summary>
         EmoticonBowl,
-		/// <summary>
+        /// <summary>
         /// Boy
         /// </summary>
         EmoticonBoy,
-		/// <summary>
+        /// <summary>
         /// Broken heart
         /// </summary>
         EmoticonBrokenHeart,
-		/// <summary>
+        /// <summary>
         /// Bunny
         /// </summary>
         EmoticonBunny,
-		/// <summary>
+        /// <summary>
         /// Call me
         /// </summary>
         EmoticonCallMe,
-		/// <summary>
+        /// <summary>
         /// Camera
         /// </summary>
         EmoticonCamera,
-		/// <summary>
+        /// <summary>
         /// Cat face
         /// </summary>
         EmoticonCatFace,
-		/// <summary>
+        /// <summary>
         /// Clock
         /// </summary>
         EmoticonClock,
-		/// <summary>
+        /// <summary>
         /// Coffee cup
         /// </summary>
         EmoticonCoffeeCup,
-		/// <summary>
+        /// <summary>
         /// Computer
         /// </summary>
         EmoticonComputer,
-		/// <summary>
+        /// <summary>
         /// Confused smile
         /// </summary>
         EmoticonConfusedSmile,
-		/// <summary>
+        /// <summary>
         /// Crying face
         /// </summary>
         EmoticonCryingFace,
-		/// <summary>
+        /// <summary>
         /// Devil
         /// </summary>
         EmoticonDevil,
-		/// <summary>
+        /// <summary>
         /// Disappointed smile
         /// </summary>
         EmoticonDisappointedSmile,
-		/// <summary>
+        /// <summary>
         /// Dog face
         /// </summary>
         EmoticonDogFace,
-		/// <summary>
+        /// <summary>
         /// Don't tell anyone smile
         /// </summary>
         EmoticonDontTellAnyoneSmile,
-		/// <summary>
+        /// <summary>
         /// Email
         /// </summary>
         EmoticonEmail,
-		/// <summary>
+        /// <summary>
         /// Embarrassed smile
         /// </summary>
         EmoticonEmbarrassedSmile,
-		/// <summary>
+        /// <summary>
         /// Eye rolling smile
         /// </summary>
         EmoticonEyeRollingSmile,
-		/// <summary>
+        /// <summary>
         /// Filmstrip
         /// </summary>
         EmoticonFilmstrip,
-		/// <summary>
+        /// <summary>
         /// Fingers crossed
         /// </summary>
         EmoticonFingersCrossed,
-		/// <summary>
+        /// <summary>
         /// Flirt female
         /// </summary>
         EmoticonFlirtFemale,
-		/// <summary>
+        /// <summary>
         /// Flirt male
         /// </summary>
         EmoticonFlirtMale,
-		/// <summary>
+        /// <summary>
         /// Freezing
         /// </summary>
         EmoticonFreezing,
-		/// <summary>
+        /// <summary>
         /// Ghost
         /// </summary>
         EmoticonGhost,
-		/// <summary>
+        /// <summary>
         /// Gift with a bow
         /// </summary>
         EmoticonGiftWithABow,
-		/// <summary>
+        /// <summary>
         /// Girl
         /// </summary>
         EmoticonGirl,
-		/// <summary>
+        /// <summary>
         /// Goat
         /// </summary>
         EmoticonGoat,
-		/// <summary>
+        /// <summary>
         /// Green with envy
         /// </summary>
         EmoticonGreenWithEnvy,
-		/// <summary>
+        /// <summary>
         /// High five
         /// </summary>
         EmoticonHighFive,
-		/// <summary>
+        /// <summary>
         /// Hot smile
         /// </summary>
         EmoticonHotSmile,
-		/// <summary>
+        /// <summary>
         /// I don't know smile
         /// </summary>
         EmoticonIDontKnowSmile,
-		/// <summary>
+        /// <summary>
         /// In love
         /// </summary>
         EmoticonInLove,
-		/// <summary>
+        /// <summary>
         /// Island with a palm tree
         /// </summary>
         EmoticonIslandWithAPalmTree,
-		/// <summary>
+        /// <summary>
         /// Just kidding
         /// </summary>
         EmoticonJustKidding,
-		/// <summary>
+        /// <summary>
         /// Laughing out loud
         /// </summary>
         EmoticonLaughingOutLoud,
-		/// <summary>
+        /// <summary>
         /// Left hug
         /// </summary>
         EmoticonLeftHug,
-		/// <summary>
+        /// <summary>
         /// Light bulb
         /// </summary>
         EmoticonLightBulb,
-		/// <summary>
+        /// <summary>
         /// Lightning
         /// </summary>
         EmoticonLightning,
-		/// <summary>
+        /// <summary>
         /// Martini glass
         /// </summary>
         EmoticonMartiniGlass,
-		/// <summary>
+        /// <summary>
         /// Messenger
         /// </summary>
         EmoticonMessenger,
-		/// <summary>
+        /// <summary>
         /// Mobile phone
         /// </summary>
         EmoticonMobilePhone,
-		/// <summary>
+        /// <summary>
         /// Money
         /// </summary>
         EmoticonMoney,
-		/// <summary>
+        /// <summary>
         /// Mug
         /// </summary>
         EmoticonMug,
-		/// <summary>
+        /// <summary>
         /// Nerd smile
         /// </summary>
         EmoticonNerdSmile,
-		/// <summary>
+        /// <summary>
         /// Ninja
         /// </summary>
         EmoticonNinja,
-		/// <summary>
+        /// <summary>
         /// Note
         /// </summary>
         EmoticonNote,
-		/// <summary>
+        /// <summary>
         /// Nyah-Nyah
         /// </summary>
         EmoticonNyahNyah,
-		/// <summary>
+        /// <summary>
         /// Open-mouthed smile
         /// </summary>
         EmoticonOpenMouthedSmile,
-		/// <summary>
+        /// <summary>
         /// Party smile
         /// </summary>
         EmoticonPartySmile,
-		/// <summary>
+        /// <summary>
         /// Peace
         /// </summary>
         EmoticonPeace,
-		/// <summary>
+        /// <summary>
         /// Pizza
         /// </summary>
         EmoticonPizza,
-		/// <summary>
+        /// <summary>
         /// Plate
         /// </summary>
         EmoticonPlate,
-		/// <summary>
+        /// <summary>
         /// Pointing up
         /// </summary>
         EmoticonPointingUp,
-		/// <summary>
+        /// <summary>
         /// Princess
         /// </summary>
         EmoticonPrincess,
-		/// <summary>
+        /// <summary>
         /// Punch
         /// </summary>
         EmoticonPunch,
-		/// <summary>
+        /// <summary>
         /// Punk
         /// </summary>
         EmoticonPunk,
-		/// <summary>
+        /// <summary>
         /// Rainbow
         /// </summary>
         EmoticonRainbow,
-		/// <summary>
+        /// <summary>
         /// Red heart
         /// </summary>
         EmoticonRedHeart,
-		/// <summary>
+        /// <summary>
         /// Red lips
         /// </summary>
         EmoticonRedLips,
-		/// <summary>
+        /// <summary>
         /// Red rose
         /// </summary>
         EmoticonRedRose,
-		/// <summary>
+        /// <summary>
         /// Right hug
         /// </summary>
         EmoticonRightHug,
-		/// <summary>
+        /// <summary>
         /// Rolling on the floor laughing
         /// </summary>
         EmoticonRollingOnTheFloorLaughing,
-		/// <summary>
+        /// <summary>
         /// Sad smile
         /// </summary>
         EmoticonSadSmile,
-		/// <summary>
+        /// <summary>
         /// Sarcastic smile
         /// </summary>
         EmoticonSarcasticSmile,
-		/// <summary>
+        /// <summary>
         /// School
         /// </summary>
         EmoticonSchool,
-		/// <summary>
+        /// <summary>
         /// School bus
         /// </summary>
         EmoticonSchoolBus,
-		/// <summary>
+        /// <summary>
         /// Secret telling smile
         /// </summary>
         EmoticonSecretTellingSmile,
-		/// <summary>
+        /// <summary>
         /// Send a kiss
         /// </summary>
         EmoticonSendAKiss,
-		/// <summary>
+        /// <summary>
         /// All
         /// </summary>
         EmoticonsGalleryPopular,
-		/// <summary>
+        /// <summary>
         /// Recent
         /// </summary>
         EmoticonsGalleryRecent,
-		/// <summary>
+        /// <summary>
         /// Shifty
         /// </summary>
         EmoticonShifty,
-		/// <summary>
+        /// <summary>
         /// Sick smile
         /// </summary>
         EmoticonSickSmile,
-		/// <summary>
+        /// <summary>
         /// Sleeping half-moon
         /// </summary>
         EmoticonSleepingHalfMoon,
-		/// <summary>
+        /// <summary>
         /// Sleepy smile
         /// </summary>
         EmoticonSleepySmile,
-		/// <summary>
+        /// <summary>
         /// Smile
         /// </summary>
         EmoticonSmile,
-		/// <summary>
+        /// <summary>
         /// Smile with tongue out
         /// </summary>
         EmoticonSmileWithTongueOut,
-		/// <summary>
+        /// <summary>
         /// Snail
         /// </summary>
         EmoticonSnail,
-		/// <summary>
+        /// <summary>
         /// Soccer ball
         /// </summary>
         EmoticonSoccerBall,
-		/// <summary>
+        /// <summary>
         /// Star
         /// </summary>
         EmoticonStar,
-		/// <summary>
+        /// <summary>
         /// Steaming mad
         /// </summary>
         EmoticonSteamingMad,
-		/// <summary>
+        /// <summary>
         /// {0}  {1}
         /// </summary>
         EmoticonsTooltipOneAutoReplace,
-		/// <summary>
+        /// <summary>
         /// {0}  {1} or {2}
         /// </summary>
         EmoticonsTooltipTwoAutoReplace,
-		/// <summary>
+        /// <summary>
         /// Storm cloud
         /// </summary>
         EmoticonStormCloud,
-		/// <summary>
+        /// <summary>
         /// Sun
         /// </summary>
         EmoticonSun,
-		/// <summary>
+        /// <summary>
         /// Surprised smile
         /// </summary>
         EmoticonSurprisedSmile,
-		/// <summary>
+        /// <summary>
         /// Telephone receiver
         /// </summary>
         EmoticonTelephoneReceiver,
-		/// <summary>
+        /// <summary>
         /// Thinking smile
         /// </summary>
         EmoticonThinkingSmile,
-		/// <summary>
+        /// <summary>
         /// Thumbs down
         /// </summary>
         EmoticonThumbsDown,
-		/// <summary>
+        /// <summary>
         /// Thumbs up
         /// </summary>
         EmoticonThumbsUp,
-		/// <summary>
+        /// <summary>
         /// Turtle
         /// </summary>
         EmoticonTurtle,
-		/// <summary>
+        /// <summary>
         /// Umbrella
         /// </summary>
         EmoticonUmbrella,
-		/// <summary>
+        /// <summary>
         /// Vampire bat
         /// </summary>
         EmoticonVampireBat,
-		/// <summary>
+        /// <summary>
         /// Who me?
         /// </summary>
         EmoticonWhoMe,
-		/// <summary>
+        /// <summary>
         /// Wilted rose
         /// </summary>
         EmoticonWiltedRose,
-		/// <summary>
+        /// <summary>
         /// Winking smile
         /// </summary>
         EmoticonWinkingSmile,
-		/// <summary>
+        /// <summary>
         /// Work
         /// </summary>
         EmoticonWork,
-		/// <summary>
+        /// <summary>
         /// Xbox
         /// </summary>
         EmoticonXbox,
-		/// <summary>
+        /// <summary>
         /// Enabled
         /// </summary>
         Enabled,
-		/// <summary>
+        /// <summary>
         /// Error Occurred Deleting Draft
         /// </summary>
         ErrorOccurredDeletingDraft,
-		/// <summary>
+        /// <summary>
         /// An unexpected error occurred while attempting to delete the Draft: {0}
         /// </summary>
         ErrorOccurredDeletingDraftDetails,
-		/// <summary>
+        /// <summary>
         /// The following pictures cannot be published because the blog does not support picture publishing.
         /// </summary>
         FileUploadFailedCaption,
-		/// <summary>
+        /// <summary>
         /// Can't publish files
         /// </summary>
         FileUploadFailedException,
-		/// <summary>
+        /// <summary>
         /// Open Live Writer can be configured to publish pictures to an FTP account.
         /// </summary>
         FileUploadFailedFTP,
-		/// <summary>
+        /// <summary>
         /// Do you want to configure an FTP account for picture publishing now?
         /// </summary>
         FileUploadFailedFTP2,
-		/// <summary>
+        /// <summary>
         /// Picture Upload Not Supported By Blog
         /// </summary>
         FileUploadFailedTitle,
-		/// <summary>
+        /// <summary>
         /// FTP Server
         /// </summary>
         FileUploadFTPServer,
-		/// <summary>
+        /// <summary>
         /// Do not upload
         /// </summary>
         FileUploadNone,
-		/// <summary>
+        /// <summary>
         /// Blog
         /// </summary>
         FileUploadUploadToWeblog,
-		/// <summary>
+        /// <summary>
         /// Find category
         /// </summary>
         FindCategory,
-		/// <summary>
+        /// <summary>
         /// Direction
         /// </summary>
         FindDirection,
-		/// <summary>
+        /// <summary>
         /// &Down
         /// </summary>
         FindDirectionDown,
-		/// <summary>
+        /// <summary>
         /// &Up
         /// </summary>
         FindDirectionUp,
-		/// <summary>
+        /// <summary>
         /// &Find Next
         /// </summary>
         FindNextButton,
-		/// <summary>
+        /// <summary>
         /// Find
         /// </summary>
         FindTitle,
-		/// <summary>
+        /// <summary>
         /// Fi&nd what:
         /// </summary>
         FindWhatLabel,
-		/// <summary>
+        /// <summary>
         /// Forgot my password
         /// </summary>
         ForgotMyPassword,
-		/// <summary>
+        /// <summary>
         /// &Path of the publishing folder:
         /// </summary>
         FtpFolderPath,
-		/// <summary>
+        /// <summary>
         /// &Web address of the publishing folder:
         /// </summary>
         FtpFolderUrl,
-		/// <summary>
+        /// <summary>
         /// How do I configure an FTP site?
         /// </summary>
         FtpHelp,
-		/// <summary>
+        /// <summary>
         /// &Host name:
         /// </summary>
         FtpHostname,
-		/// <summary>
+        /// <summary>
         /// FTP
         /// </summary>
         FtpLoginDomain,
-		/// <summary>
+        /// <summary>
         /// &Password:
         /// </summary>
         FtpPassword,
-		/// <summary>
+        /// <summary>
         /// FTP Settings
         /// </summary>
         FtpText,
-		/// <summary>
+        /// <summary>
         /// &User name:
         /// </summary>
         FtpUsername,
-		/// <summary>
+        /// <summary>
         /// Open Live Writer
         /// </summary>
         FuturePostWarningDialogTitle,
-		/// <summary>
+        /// <summary>
         /// &Always publish immediately without asking again
         /// </summary>
         FuturePostWarningDontShowAgain,
-		/// <summary>
+        /// <summary>
         /// This blog service can't delay publishing for the date that you set. Would you like to publish it now?
         /// </summary>
         FuturePostWarningExplanation,
-		/// <summary>
+        /// <summary>
         /// Can't set a future date for publishing
         /// </summary>
         FuturePostWarningTitle,
-		/// <summary>
+        /// <summary>
         /// Visually impaired users can access an audio version of the test here.
         /// </summary>
         GDataCaptchaAlternate,
-		/// <summary>
+        /// <summary>
         /// Type the characters you see in the picture below.
         /// </summary>
         GDataCaptchaPrompt,
-		/// <summary>
+        /// <summary>
         /// Unlock Google Account
         /// </summary>
         GDataCaptchaTitle,
-		/// <summary>
+        /// <summary>
         /// Unable to login to Live ID.
         /// </summary>
         GenericLoginError,
-		/// <summary>
+        /// <summary>
         /// {0}GB
         /// </summary>
         GigabytesFormat,
-		/// <summary>
+        /// <summary>
         /// A&utomatically link matched terms
         /// </summary>
         GlossaryAutomaticallyLink,
-		/// <summary>
+        /// <summary>
         /// Li&nk to each term only once per post
         /// </summary>
         GlossaryAutomaticallyLinkFirstTime,
-		/// <summary>
+        /// <summary>
         /// Automatic linking options
         /// </summary>
         GlossaryAutomaticLinkOptions,
-		/// <summary>
+        /// <summary>
         /// Open Live Writer site
         /// </summary>
         GlossaryExampleTitle,
-		/// <summary>
+        /// <summary>
         /// Automatic Linking
         /// </summary>
         GlossaryPrefName,
-		/// <summary>
+        /// <summary>
         /// Select Link
         /// </summary>
         GlossarySelectLink,
-		/// <summary>
+        /// <summary>
         /// Term
         /// </summary>
         GlossaryTextCol,
-		/// <summary>
+        /// <summary>
         /// Web address
         /// </summary>
         GlossaryUrlCol,
-		/// <summary>
+        /// <summary>
         /// Heading 1
         /// </summary>
         Heading1,
-		/// <summary>
+        /// <summary>
         /// Heading 2
         /// </summary>
         Heading2,
-		/// <summary>
+        /// <summary>
         /// Heading 3
         /// </summary>
         Heading3,
-		/// <summary>
+        /// <summary>
         /// Heading 4
         /// </summary>
         Heading4,
-		/// <summary>
+        /// <summary>
         /// Heading 5
         /// </summary>
         Heading5,
-		/// <summary>
+        /// <summary>
         /// Heading 6
         /// </summary>
         Heading6,
-		/// <summary>
+        /// <summary>
         /// Height
         /// </summary>
         Height,
-		/// <summary>
+        /// <summary>
         /// &Height:
         /// </summary>
         HeightColon,
-		/// <summary>
+        /// <summary>
         /// &Height:
         /// </summary>
         HeightLabel,
-		/// <summary>
+        /// <summary>
         /// &Help
         /// </summary>
         HelpButton,
-		/// <summary>
+        /// <summary>
         /// Hide Properties 
         /// </summary>
         HideProperties,
-		/// <summary>
+        /// <summary>
         /// Website address:
         /// </summary>
         HomepageUrl,
-		/// <summary>
+        /// <summary>
         /// Color modes
         /// </summary>
         ImageEffectsColorModesCategory,
-		/// <summary>
+        /// <summary>
         /// Color temperature
         /// </summary>
         ImageEffectsColorTemperatureCategory,
-		/// <summary>
+        /// <summary>
         /// Emboss
         /// </summary>
         ImageEffectsEmbossCategory,
-		/// <summary>
+        /// <summary>
         /// Gaussian blur
         /// </summary>
         ImageEffectsGaussianCategory,
-		/// <summary>
+        /// <summary>
         /// No blur
         /// </summary>
         ImageEffectsNoBlurCategory,
-		/// <summary>
+        /// <summary>
         /// No emboss
         /// </summary>
         ImageEffectsNoEmbossCategory,
-		/// <summary>
+        /// <summary>
         /// No recolor
         /// </summary>
         ImageEffectsNoRecolorCategory,
-		/// <summary>
+        /// <summary>
         /// No sharpen
         /// </summary>
         ImageEffectsNoSharpenCategory,
-		/// <summary>
+        /// <summary>
         /// Sharpen
         /// </summary>
         ImageEffectsSharpenCategory,
-		/// <summary>
+        /// <summary>
         /// &Blog service
         /// </summary>
         ImagesBlogOpt,
-		/// <summary>
+        /// <summary>
         /// All pictures (*.gif, *.jpg, *.jpeg, *.png)
         /// </summary>
         ImagesFilterString,
-		/// <summary>
+        /// <summary>
         /// &Change FTP settings...
         /// </summary>
         ImagesFtpConfig,
-		/// <summary>
+        /// <summary>
         /// &FTP site:
         /// </summary>
         ImagesFtpOpt,
-		/// <summary>
+        /// <summary>
         /// Pictures
         /// </summary>
         ImagesPanel,
-		/// <summary>
+        /// <summary>
         /// When you add pictures to your blog post, do you want them uploaded to this blog service or to an FTP site?
         /// </summary>
         ImagesText,
-		/// <summary>
+        /// <summary>
         /// Upload
         /// </summary>
         ImagesUpload,
-		/// <summary>
+        /// <summary>
         /// Using {0} [{1}]
         /// </summary>
         ImageViewerDisplayFormatGroup,
-		/// <summary>
+        /// <summary>
         /// Using {0}
         /// </summary>
         ImageViewerDisplayFormatSingle,
-		/// <summary>
+        /// <summary>
         /// &Group (optional):
         /// </summary>
         ImageViewerGroupLabel,
-		/// <summary>
+        /// <summary>
         /// &Enable {0}
         /// </summary>
         ImageViewerLabel,
-		/// <summary>
+        /// <summary>
         /// &Alternate text:
         /// </summary>
         ImgAltTextAlternateText,
-		/// <summary>
+        /// <summary>
         /// Picture:
         /// </summary>
         ImgAltTextPicture,
-		/// <summary>
+        /// <summary>
         /// &Title:
         /// </summary>
         ImgAltTextTitle,
-		/// <summary>
+        /// <summary>
         /// Actions
         /// </summary>
         ImgSBActions,
-		/// <summary>
+        /// <summary>
         /// Advanced
         /// </summary>
         ImgSBAdvanced,
-		/// <summary>
+        /// <summary>
         /// Center
         /// </summary>
         ImgSBAlignCenter,
-		/// <summary>
+        /// <summary>
         /// Inline
         /// </summary>
         ImgSBAlignInline,
-		/// <summary>
+        /// <summary>
         /// Left
         /// </summary>
         ImgSBAlignLeft,
-		/// <summary>
+        /// <summary>
         /// Right
         /// </summary>
         ImgSBAlignRight,
-		/// <summary>
+        /// <summary>
         /// Applied effects:
         /// </summary>
         ImgSBAppliedEffects,
-		/// <summary>
+        /// <summary>
         /// Borders
         /// </summary>
         ImgSBBorders,
-		/// <summary>
+        /// <summary>
         /// Contrast...
         /// </summary>
         ImgSBBrightness,
-		/// <summary>
+        /// <summary>
         /// Crop...
         /// </summary>
         ImgSBCrop,
-		/// <summary>
+        /// <summary>
         /// Customize default picture sizes
         /// </summary>
         ImgSBCustomize,
-		/// <summary>
+        /// <summary>
         /// Default Picture Sizes
         /// </summary>
         ImgSBDefaultImageSizes,
-		/// <summary>
+        /// <summary>
         /// Effect
         /// </summary>
         ImgSBEffect,
-		/// <summary>
+        /// <summary>
         /// Effects
         /// </summary>
         ImgSBEffects,
-		/// <summary>
+        /// <summary>
         /// Effects:
         /// </summary>
         ImgSBEffectsLabel,
-		/// <summary>
+        /// <summary>
         /// Picture
         /// </summary>
         ImgSBHeader,
-		/// <summary>
+        /// <summary>
         /// Effects
         /// </summary>
         ImgSBImageEffects,
-		/// <summary>
+        /// <summary>
         /// Size
         /// </summary>
         ImgSBImageSize,
-		/// <summary>
+        /// <summary>
         /// &Size:
         /// </summary>
         ImgSBImageSizeLabel,
-		/// <summary>
+        /// <summary>
         /// Large:
         /// </summary>
         ImgSBLargeImage,
-		/// <summary>
+        /// <summary>
         /// Layout
         /// </summary>
         ImgSBLayout,
-		/// <summary>
+        /// <summary>
         /// Source Picture Options
         /// </summary>
         ImgSBLinkOptions,
-		/// <summary>
+        /// <summary>
         /// This command is disabled for web images and some image types.
         /// </summary>
         ImgSBLinkOptionsDisabledTooltip,
-		/// <summary>
+        /// <summary>
         /// Link to
         /// </summary>
         ImgSBLinkTo,
-		/// <summary>
+        /// <summary>
         /// Local: {0}
         /// </summary>
         ImgSBLocalImage,
-		/// <summary>
+        /// <summary>
         /// Local: {0}/{1}
         /// </summary>
         ImgSBLocalImage2,
-		/// <summary>
+        /// <summary>
         /// Lock &ratio
         /// </summary>
         ImgSBLockRatio,
-		/// <summary>
+        /// <summary>
         /// Bottom:
         /// </summary>
         ImgSBMarginBottom,
-		/// <summary>
+        /// <summary>
         /// Custom
         /// </summary>
         ImgSBMarginCustomMargins,
-		/// <summary>
+        /// <summary>
         /// Left:
         /// </summary>
         ImgSBMarginLeft,
-		/// <summary>
+        /// <summary>
         /// None
         /// </summary>
         ImgSBMarginNoMargins,
-		/// <summary>
+        /// <summary>
         /// Right:
         /// </summary>
         ImgSBMarginRight,
-		/// <summary>
+        /// <summary>
         /// Margins:
         /// </summary>
         ImgSBMargins,
-		/// <summary>
+        /// <summary>
         /// Top:
         /// </summary>
         ImgSBMarginTop,
-		/// <summary>
+        /// <summary>
         /// Maximum &Height:
         /// </summary>
         ImgSBMaximumHeightLabel1,
-		/// <summary>
+        /// <summary>
         /// Maximum H&eight:
         /// </summary>
         ImgSBMaximumHeightLabel2,
-		/// <summary>
+        /// <summary>
         /// Maximum Heigh&t:
         /// </summary>
         ImgSBMaximumHeightLabel3,
-		/// <summary>
+        /// <summary>
         /// Maximum &Width:
         /// </summary>
         ImgSBMaximumWidthLabel1,
-		/// <summary>
+        /// <summary>
         /// Maximum W&idth:
         /// </summary>
         ImgSBMaximumWidthLabel2,
-		/// <summary>
+        /// <summary>
         /// Maximum Wi&dth:
         /// </summary>
         ImgSBMaximumWidthLabel3,
-		/// <summary>
+        /// <summary>
         /// Medium:
         /// </summary>
         ImgSBMediumImage,
-		/// <summary>
+        /// <summary>
         /// &Open in new window
         /// </summary>
         ImgSBOpenInNewWindow,
-		/// <summary>
+        /// <summary>
         /// Other
         /// </summary>
         ImgSBOther,
-		/// <summary>
+        /// <summary>
         /// Revert to default settings
         /// </summary>
         ImgSBRevert,
-		/// <summary>
+        /// <summary>
         /// Rotate
         /// </summary>
         ImgSBRotate,
-		/// <summary>
+        /// <summary>
         /// Save settings as default
         /// </summary>
         ImgSBSave,
-		/// <summary>
+        /// <summary>
         /// Custom
         /// </summary>
         ImgSBSizerCustom,
-		/// <summary>
+        /// <summary>
         /// Large
         /// </summary>
         ImgSBSizerLarge,
-		/// <summary>
+        /// <summary>
         /// Medium
         /// </summary>
         ImgSBSizerMedium,
-		/// <summary>
+        /// <summary>
         /// Original
         /// </summary>
         ImgSBSizerOriginal,
-		/// <summary>
+        /// <summary>
         /// Small
         /// </summary>
         ImgSBSizerSmall,
-		/// <summary>
+        /// <summary>
         /// (Custom)
         /// </summary>
         ImgSBSizerUnknown,
-		/// <summary>
+        /// <summary>
         /// Small:
         /// </summary>
         ImgSBSmallImage,
-		/// <summary>
+        /// <summary>
         /// Text wrapping:
         /// </summary>
         ImgSBTextWrapping,
-		/// <summary>
+        /// <summary>
         /// Tilt...
         /// </summary>
         ImgSBTilt,
-		/// <summary>
+        /// <summary>
         /// Insert
         /// </summary>
         Insert,
-		/// <summary>
+        /// <summary>
         /// &Insert
         /// </summary>
         InsertButton,
-		/// <summary>
+        /// <summary>
         /// Insert
         /// </summary>
         InsertButtonText,
-		/// <summary>
+        /// <summary>
         /// In&sert
         /// </summary>
         InsertImageButton,
-		/// <summary>
+        /// <summary>
         /// {0}x{1}
         /// </summary>
         InsertImageDimensionsFormat,
-		/// <summary>
+        /// <summary>
         /// {0} (resized for preview in this window)
         /// </summary>
         InsertImageDimensionsFormatScaled,
-		/// <summary>
+        /// <summary>
         /// File name:
         /// </summary>
         InsertImageFileName,
-		/// <summary>
+        /// <summary>
         /// Picture &web address:
         /// </summary>
         InsertImageImageUrl,
-		/// <summary>
+        /// <summary>
         /// From File
         /// </summary>
         InsertImageInsertFromFile,
-		/// <summary>
+        /// <summary>
         /// From Web
         /// </summary>
         InsertImageInsertFromWeb,
-		/// <summary>
+        /// <summary>
         /// &Link to:
         /// </summary>
         InsertImageLinkTo,
-		/// <summary>
+        /// <summary>
         /// &Open in new window
         /// </summary>
         InsertImageOpenInNewWindow,
-		/// <summary>
+        /// <summary>
         /// &Preview
         /// </summary>
         InsertImagePreviewButton,
-		/// <summary>
+        /// <summary>
         /// Size:
         /// </summary>
         InsertImageSize,
-		/// <summary>
+        /// <summary>
         /// Insert Hyperlink
         /// </summary>
         InsertLink,
-		/// <summary>
+        /// <summary>
         /// Hyperlink...
         /// </summary>
         InsertLinkDotDotDot,
-		/// <summary>
+        /// <summary>
         /// Insert a hyperlink into the current document
         /// </summary>
         InsertLinkTooltip,
-		/// <summary>
+        /// <summary>
         /// Insert Map
         /// </summary>
         InsertMap,
-		/// <summary>
+        /// <summary>
         /// Insert Picture
         /// </summary>
         InsertPicture,
-		/// <summary>
+        /// <summary>
         /// Picture...
         /// </summary>
         InsertPictureDotDotDot,
-		/// <summary>
+        /// <summary>
         /// Insert a picture into the current document
         /// </summary>
         InsertPictureTooltip,
-		/// <summary>
+        /// <summary>
         /// Insert Table
         /// </summary>
         InsertTable,
-		/// <summary>
+        /// <summary>
         /// Table...
         /// </summary>
         InsertTableDotDotDot,
-		/// <summary>
+        /// <summary>
         /// Insert a table into the current document
         /// </summary>
         InsertTableTooltip,
-		/// <summary>
+        /// <summary>
         /// {0}KB
         /// </summary>
         KilobytesFormat,
-		/// <summary>
+        /// <summary>
         /// Paste web content that supports the Live Clipboard format into {0}.
         /// </summary>
         LCPrefCaption,
-		/// <summary>
+        /// <summary>
         /// Change...
         /// </summary>
         LCPrefChangeButton,
-		/// <summary>
+        /// <summary>
         /// Content type:
         /// </summary>
         LCPrefContentType,
-		/// <summary>
+        /// <summary>
         /// Description
         /// </summary>
         LCPrefDescription,
-		/// <summary>
+        /// <summary>
         /// Details
         /// </summary>
         LCPrefDetails,
-		/// <summary>
+        /// <summary>
         /// Details for '{0}' format
         /// </summary>
         LCPrefDetailsGroupBoxFormat,
-		/// <summary>
+        /// <summary>
         /// Format
         /// </summary>
         LCPrefFormat,
-		/// <summary>
+        /// <summary>
         /// Handled by:
         /// </summary>
         LCPrefHandledBy,
-		/// <summary>
+        /// <summary>
         /// More about Live Clipboard...
         /// </summary>
         LCPrefMoreAboutLiveClipboard,
-		/// <summary>
+        /// <summary>
         /// (No format selected)
         /// </summary>
         LCPrefNoFormatSelected,
-		/// <summary>
+        /// <summary>
         /// Options...
         /// </summary>
         LCPrefOptionsButton,
-		/// <summary>
+        /// <summary>
         /// Live Clipboard
         /// </summary>
         LCPrefPanelName,
-		/// <summary>
+        /// <summary>
         /// &Supported formats:
         /// </summary>
         LCPrefSupportedFormats,
-		/// <summary>
+        /// <summary>
         /// Auto&matically link to this text
         /// </summary>
         LinkAddToGlossary,
-		/// <summary>
+        /// <summary>
         /// &Advanced {0}
         /// </summary>
         LinkAdvanced,
-		/// <summary>
+        /// <summary>
         /// Edit Hyperlink
         /// </summary>
         LinkEditHyperlink,
-		/// <summary>
+        /// <summary>
         /// Insert Hyperlink
         /// </summary>
         LinkFormTitle,
-		/// <summary>
+        /// <summary>
         /// Edit Automatic Link
         /// </summary>
         LinkGlossaryEdit,
-		/// <summary>
+        /// <summary>
         /// &Rel (optional):
         /// </summary>
         LinkGlossaryRelOptional,
-		/// <summary>
+        /// <summary>
         /// Te&xt:
         /// </summary>
         LinkGlossaryText,
-		/// <summary>
+        /// <summary>
         /// Add Automatic Link
         /// </summary>
         LinkGlossaryTitle,
-		/// <summary>
+        /// <summary>
         /// &Title (optional):
         /// </summary>
         LinkGlossaryTitleOptional,
-		/// <summary>
+        /// <summary>
         /// &Web address:
         /// </summary>
         LinkGlossaryUrl,
-		/// <summary>
+        /// <summary>
         /// &Link to
         /// </summary>
         LinkLinkTo,
-		/// <summary>
+        /// <summary>
         /// &Open link in new window
         /// </summary>
         LinkNewWindowLabel,
-		/// <summary>
+        /// <summary>
         /// Browse for link
         /// </summary>
         LinkOptionsTooltip,
-		/// <summary>
+        /// <summary>
         /// R&el:
         /// </summary>
         LinkRelLabel,
-		/// <summary>
+        /// <summary>
         /// &Remove Hyperlink
         /// </summary>
         LinkRemoveLink,
-		/// <summary>
+        /// <summary>
         /// [selection contains image]
         /// </summary>
         LinkSelectionContainsImage,
-		/// <summary>
+        /// <summary>
         /// Te&xt to be displayed:
         /// </summary>
         LinkTextLabel,
-		/// <summary>
+        /// <summary>
         /// &Title:
         /// </summary>
         LinkTitleLabel,
-		/// <summary>
+        /// <summary>
         /// &Link to
         /// </summary>
         LinkTo,
-		/// <summary>
+        /// <summary>
         /// None
         /// </summary>
         LinkToNone,
-		/// <summary>
+        /// <summary>
         /// Make the image not be a link.
         /// </summary>
         LinkToNoneDescription,
-		/// <summary>
+        /// <summary>
         /// Link to: None
         /// </summary>
         LinkToNoneLabelTitle,
-		/// <summary>
+        /// <summary>
         /// CTRL + click to follow link: {0}
         /// </summary>
         LinkToolTip,
-		/// <summary>
+        /// <summary>
         /// Link to Post
         /// </summary>
         LinkToPost,
-		/// <summary>
+        /// <summary>
         /// Source picture
         /// </summary>
         LinkToSource,
-		/// <summary>
+        /// <summary>
         /// Navigate to the source picture when the selected image is clicked.
         /// </summary>
         LinkToSourceDescription,
-		/// <summary>
+        /// <summary>
         /// Link to: Source picture
         /// </summary>
         LinkToSourceLabelTitle,
-		/// <summary>
+        /// <summary>
         /// Web address
         /// </summary>
         LinkToURL,
-		/// <summary>
+        /// <summary>
         /// Choose the location to go to when the selected image is clicked.
         /// </summary>
         LinkToURLDescription,
-		/// <summary>
+        /// <summary>
         /// Link to: Web address
         /// </summary>
         LinkToURLLabelTitle,
-		/// <summary>
+        /// <summary>
         /// Link to web address:
         /// </summary>
         LinkToWebPageURL,
-		/// <summary>
+        /// <summary>
         /// Privacy policy
         /// </summary>
         LiveIDPrivacy,
-		/// <summary>
+        /// <summary>
         /// Sign in
         /// </summary>
         Login,
-		/// <summary>
+        /// <summary>
         /// Manage Blog
         /// </summary>
         ManageWeblog,
-		/// <summary>
+        /// <summary>
         /// Map
         /// </summary>
         Map,
-		/// <summary>
+        /// <summary>
         /// Aerial
         /// </summary>
         MapAerial,
-		/// <summary>
+        /// <summary>
         /// Center
         /// </summary>
         MapAlignCenter,
-		/// <summary>
+        /// <summary>
         /// Inline
         /// </summary>
         MapAlignInline,
-		/// <summary>
+        /// <summary>
         /// Left
         /// </summary>
         MapAlignLeft,
-		/// <summary>
+        /// <summary>
         /// Right
         /// </summary>
         MapAlignRight,
-		/// <summary>
+        /// <summary>
         /// Bird's eye
         /// </summary>
         MapBirdseye,
-		/// <summary>
+        /// <summary>
         /// Toggle Bird's eye View
         /// </summary>
         MapBirdseyeButton,
-		/// <summary>
+        /// <summary>
         /// &Bird's eye
         /// </summary>
         MapBirdseyeLabel,
-		/// <summary>
+        /// <summary>
         /// Custom Margins
         /// </summary>
         MapCustomMargins,
-		/// <summary>
+        /// <summary>
         /// East
         /// </summary>
         MapDirectionEast,
-		/// <summary>
+        /// <summary>
         /// North
         /// </summary>
         MapDirectionNorth,
-		/// <summary>
+        /// <summary>
         /// South
         /// </summary>
         MapDirectionSouth,
-		/// <summary>
+        /// <summary>
         /// West
         /// </summary>
         MapDirectionWest,
-		/// <summary>
+        /// <summary>
         /// &Find location:
         /// </summary>
         MapFindAddress,
-		/// <summary>
+        /// <summary>
         /// Map picture
         /// </summary>
         MapImageAltText,
-		/// <summary>
+        /// <summary>
         /// No Margins
         /// </summary>
         MapNoMargins,
-		/// <summary>
+        /// <summary>
         /// Tip: Right-click the map to add a pin
         /// </summary>
         MapPushpinTip,
-		/// <summary>
+        /// <summary>
         /// Road
         /// </summary>
         MapRoad,
-		/// <summary>
+        /// <summary>
         /// Bottom
         /// </summary>
         MapSBBottom,
-		/// <summary>
+        /// <summary>
         /// Caption:
         /// </summary>
         MapSBCaption,
-		/// <summary>
+        /// <summary>
         /// Customize Map...
         /// </summary>
         MapSBCustomize,
-		/// <summary>
+        /// <summary>
         /// Edit the map location, style, and pins
         /// </summary>
         MapSBCustomizeTooltip,
-		/// <summary>
+        /// <summary>
         /// Layout
         /// </summary>
         MapSBLayoutHeader,
-		/// <summary>
+        /// <summary>
         /// Left
         /// </summary>
         MapSBLeft,
-		/// <summary>
+        /// <summary>
         /// Map
         /// </summary>
         MapSBMapHeader,
-		/// <summary>
+        /// <summary>
         /// Margins:
         /// </summary>
         MapSBMargins,
-		/// <summary>
+        /// <summary>
         /// Right
         /// </summary>
         MapSBRight,
-		/// <summary>
+        /// <summary>
         /// Top
         /// </summary>
         MapSBTop,
-		/// <summary>
+        /// <summary>
         /// View Map on Live.com
         /// </summary>
         MapSBViewMap,
-		/// <summary>
+        /// <summary>
         /// Text wrapping:
         /// </summary>
         MapSBWrapping,
-		/// <summary>
+        /// <summary>
         /// Search
         /// </summary>
         MapSearch,
-		/// <summary>
+        /// <summary>
         /// See the Bird's eye view of this location
         /// </summary>
         MapSeeInBirdseye,
-		/// <summary>
+        /// <summary>
         /// Sho&w labels
         /// </summary>
         MapShowLabel,
-		/// <summary>
+        /// <summary>
         /// Map Style
         /// </summary>
         MapStyle,
-		/// <summary>
+        /// <summary>
         /// Zoom In
         /// </summary>
         MapZoomIn,
-		/// <summary>
+        /// <summary>
         /// Zoom Out
         /// </summary>
         MapZoomOut,
-		/// <summary>
+        /// <summary>
         /// Zoom Slider
         /// </summary>
         MapZoomSlider,
-		/// <summary>
+        /// <summary>
         /// HTML
         /// </summary>
         MarkupTypeHTML,
-		/// <summary>
+        /// <summary>
         /// XHTML
         /// </summary>
         MarkupTypeXHTML,
-		/// <summary>
+        /// <summary>
         /// Maximize
         /// </summary>
         MaximizeButtonTooltip,
-		/// <summary>
+        /// <summary>
         /// Maximum large height
         /// </summary>
         MaxLgHeight,
-		/// <summary>
+        /// <summary>
         /// Maximum large width
         /// </summary>
         MaxLgWidth,
-		/// <summary>
+        /// <summary>
         /// Maximum medium height
         /// </summary>
         MaxMdHeight,
-		/// <summary>
+        /// <summary>
         /// Maximum medium width
         /// </summary>
         MaxMdWidth,
-		/// <summary>
+        /// <summary>
         /// Maximum small height
         /// </summary>
         MaxSmHeight,
-		/// <summary>
+        /// <summary>
         /// Maximum small width
         /// </summary>
         MaxSmWidth,
-		/// <summary>
+        /// <summary>
         /// {0}MB
         /// </summary>
         MegabytesFormat,
-		/// <summary>
+        /// <summary>
         /// Method Not Implemented
         /// </summary>
         MethodNotImplemented,
-		/// <summary>
+        /// <summary>
         /// An installed plugin is incorrectly implemented and has caused an error. You may be able to contact the plugin's publisher below to resolve this issue. Alternatively, you may avoid this error in the future by uninstalling the plugin mentioned below.
-		/// Name: {0}
-		/// 
-		/// Publisher: {1}
-		/// 
-		/// Unimplemented Method: {2}
+        /// Name: {0}
+        /// 
+        /// Publisher: {1}
+        /// 
+        /// Unimplemented Method: {2}
         /// </summary>
         MethodNotImplementedDetail,
-		/// <summary>
+        /// <summary>
         /// Minimize
         /// </summary>
         MinimizeButtonTooltip,
-		/// <summary>
+        /// <summary>
         /// No Link Available for {0}
         /// </summary>
         MissingPostLinkCaption,
-		/// <summary>
+        /// <summary>
         /// There is no link available for the selected {0}. This may be because your blog service does not make {0} links available to {1}. You may be able to resolve this problem by redetecting your blog account configuration using the Accounts panel of the Blog Settings dialog.
         /// </summary>
         MissingPostLinkExplanation,
-		/// <summary>
+        /// <summary>
         /// No Link Available
         /// </summary>
         MissingPostLinkTitle,
-		/// <summary>
+        /// <summary>
         /// More...
         /// </summary>
         MoreDotDotDot,
-		/// <summary>
+        /// <summary>
         /// More Drafts
         /// </summary>
         MoreDrafts,
-		/// <summary>
+        /// <summary>
         /// Open another draft not listed above
         /// </summary>
         MoreDraftsTooltip,
-		/// <summary>
+        /// <summary>
         /// More Recent Posts
         /// </summary>
         MorePosts,
-		/// <summary>
+        /// <summary>
         /// Open another post not listed above
         /// </summary>
         MorePostsTooltip,
-		/// <summary>
+        /// <summary>
         /// M&ore Blogs...
         /// </summary>
         MoreWeblogs,
-		/// <summary>
+        /// <summary>
         /// Move &Down
         /// </summary>
         MoveDown,
-		/// <summary>
+        /// <summary>
         /// Move &Up
         /// </summary>
         MoveUp,
-		/// <summary>
+        /// <summary>
         /// My Favorites
         /// </summary>
         MyFavorites,
-		/// <summary>
+        /// <summary>
         /// My Videos
         /// </summary>
         MyVideos,
-		/// <summary>
+        /// <summary>
         /// Blog
         /// </summary>
         Name,
-		/// <summary>
+        /// <summary>
         /// New Folder
         /// </summary>
         NewFolder,
-		/// <summary>
+        /// <summary>
         /// New folder name:
         /// </summary>
         NewFolderPrompt,
-		/// <summary>
+        /// <summary>
         /// Create New Folder
         /// </summary>
         NewFolderTitle,
-		/// <summary>
+        /// <summary>
         /// Create a new folder
         /// </summary>
         NewFolderTooltip,
-		/// <summary>
+        /// <summary>
         /// No
         /// </summary>
         No,
-		/// <summary>
+        /// <summary>
         /// &No
         /// </summary>
         NoButton,
-		/// <summary>
+        /// <summary>
         /// You must be connected to the Internet to insert and edit maps.
         /// </summary>
         NotConnected,
-		/// <summary>
+        /// <summary>
         /// (No {0})
         /// </summary>
         NoThings,
-		/// <summary>
+        /// <summary>
         /// OK
         /// </summary>
         OKButtonText,
-		/// <summary>
+        /// <summary>
         /// Open
         /// </summary>
         Open,
-		/// <summary>
+        /// <summary>
         /// &Delete
         /// </summary>
         OpenPostDelete,
-		/// <summary>
+        /// <summary>
         /// items
         /// </summary>
         OpenPostItems,
-		/// <summary>
+        /// <summary>
         /// No drafts available.
         /// </summary>
         OpenPostNoDraftsAvailable,
-		/// <summary>
+        /// <summary>
         /// No pages available.
         /// </summary>
         OpenPostNoPagesAvailable,
-		/// <summary>
+        /// <summary>
         /// No posts available.
         /// </summary>
         OpenPostNoPostsAvailable,
-		/// <summary>
+        /// <summary>
         /// &Open from:
         /// </summary>
         OpenPostOpenFrom,
-		/// <summary>
+        /// <summary>
         /// P&ages
         /// </summary>
         OpenPostPages,
-		/// <summary>
+        /// <summary>
         /// &Posts
         /// </summary>
         OpenPostPosts,
-		/// <summary>
+        /// <summary>
         /// &Refresh
         /// </summary>
         OpenPostRefresh,
-		/// <summary>
+        /// <summary>
         /// Refresh Posts
         /// </summary>
         OpenPostRefreshTooltip,
-		/// <summary>
+        /// <summary>
         /// Refresh Pages
         /// </summary>
         OpenPostRefreshTooltipPages,
-		/// <summary>
+        /// <summary>
         /// &Show:
         /// </summary>
         OpenPostShow,
-		/// <summary>
+        /// <summary>
         /// Options
         /// </summary>
         Options,
-		/// <summary>
+        /// <summary>
         /// Options...
         /// </summary>
         OptionsButton,
-		/// <summary>
+        /// <summary>
         /// Page
         /// </summary>
         Page,
-		/// <summary>
+        /// <summary>
         /// page
         /// </summary>
         PageLower,
-		/// <summary>
+        /// <summary>
         /// Page Properties
         /// </summary>
         PageProperties,
-		/// <summary>
+        /// <summary>
         /// P&ages
         /// </summary>
         Pages,
-		/// <summary>
+        /// <summary>
         /// pages
         /// </summary>
         PagesLower,
-		/// <summary>
+        /// <summary>
         /// Accounts
         /// </summary>
         PanelNameAccounts,
-		/// <summary>
+        /// <summary>
         /// Paragraph
         /// </summary>
         Paragraph,
-		/// <summary>
+        /// <summary>
         /// Paragraphs
         /// </summary>
         Paragraphs,
-		/// <summary>
+        /// <summary>
         /// Please enter a Microsoft Account ID and password to continue.
         /// </summary>
         PassportLoginNoUserPass,
-		/// <summary>
+        /// <summary>
         /// Microsoft Account ID and Password Required
         /// </summary>
         PassportLoginNoUserPassTitle,
-		/// <summary>
+        /// <summary>
         /// Sign in
         /// </summary>
         PassportLoginSignIn,
-		/// <summary>
+        /// <summary>
         /// Sign in to Microsoft Account
         /// </summary>
         PassportLoginTitle,
-		/// <summary>
+        /// <summary>
         /// Password:
         /// </summary>
         Password,
-		/// <summary>
+        /// <summary>
         /// 0x25CF
         /// </summary>
         PasswordChar,
-		/// <summary>
+        /// <summary>
         /// &Password:
         /// </summary>
         PasswordLabel,
-		/// <summary>
+        /// <summary>
         /// Paste Special
         /// </summary>
         PasteSpecial,
-		/// <summary>
+        /// <summary>
         /// Maintains all the formatting, including those which may not display correctly in your blog. For security reasons, scripts are stripped out.
         /// </summary>
         PasteSpecialHtmlDesc,
-		/// <summary>
+        /// <summary>
         /// &Keep Formatting
         /// </summary>
         PasteSpecialHtmlLabel,
-		/// <summary>
+        /// <summary>
         /// Removes all formatting except for line breaks. Preserves links and pictures. Use to copy content only.
         /// </summary>
         PasteSpecialPlaintextDesc,
-		/// <summary>
+        /// <summary>
         /// &Remove Formatting
         /// </summary>
         PasteSpecialPlaintextLabel,
-		/// <summary>
+        /// <summary>
         /// &HTML
         /// </summary>
         PasteSpecialTextFormatted,
-		/// <summary>
+        /// <summary>
         /// Interprets text as HTML source code. Copied content will appear with formatting. Use for imgs, embeds, etc.
         /// </summary>
         PasteSpecialTextFormattedDesc,
-		/// <summary>
+        /// <summary>
         /// &Plain Text
         /// </summary>
         PasteSpecialTextPlainText,
-		/// <summary>
+        /// <summary>
         /// Standard plain text paste. Any HTML tags will be escaped.
         /// </summary>
         PasteSpecialTextPlainTextDesc,
-		/// <summary>
+        /// <summary>
         /// Removes extra formatting, such as MS Office specific formatting, CSS styles, and tables. Preserves relative heading sizes, basic formatting, and aligns with your blog theme.
         /// </summary>
         PasteSpecialThinnedDesc,
-		/// <summary>
+        /// <summary>
         /// &Thinned HTML
         /// </summary>
         PasteSpecialThinnedLabel,
-		/// <summary>
+        /// <summary>
         /// percent
         /// </summary>
         Percent,
-		/// <summary>
+        /// <summary>
         /// Inline Photo Previewer
         /// </summary>
         PhotoPreview,
-		/// <summary>
+        /// <summary>
         /// Ping Servers
         /// </summary>
         PingPrefName,
-		/// <summary>
+        /// <summary>
         /// &Ping the following web addresses (one web address for each line)
         /// </summary>
         PingPrefUrl,
-		/// <summary>
+        /// <summary>
         /// pixels
         /// </summary>
         Pixels,
-		/// <summary>
+        /// <summary>
         /// &Map
         /// </summary>
         Plugin_Map_InsertableContentSource_MenuText,
-		/// <summary>
+        /// <summary>
         /// Map
         /// </summary>
         Plugin_Map_InsertableContentSource_SidebarText,
-		/// <summary>
+        /// <summary>
         /// Embed Live Search Maps in your blog posts.
         /// </summary>
         Plugin_Map_WriterPlugin_Description,
-		/// <summary>
+        /// <summary>
         /// Live Search Maps
         /// </summary>
         Plugin_Map_WriterPlugin_Name,
-		/// <summary>
+        /// <summary>
         /// Tag&s
         /// </summary>
         Plugin_Tags_InsertableContentSource_MenuText,
-		/// <summary>
+        /// <summary>
         /// Tags
         /// </summary>
         Plugin_Tags_InsertableContentSource_SidebarText,
-		/// <summary>
+        /// <summary>
         /// Add tags to your posts using popular tagging sites or using custom HTML.
         /// </summary>
         Plugin_Tags_WriterPlugin_Description,
-		/// <summary>
+        /// <summary>
         /// Tags
         /// </summary>
         Plugin_Tags_WriterPlugin_Name,
-		/// <summary>
+        /// <summary>
         /// Inline
         /// </summary>
         Plugin_Video_Alignment_Inline,
-		/// <summary>
+        /// <summary>
         /// Left
         /// </summary>
         Plugin_Video_Alignment_Left,
-		/// <summary>
+        /// <summary>
         /// Right
         /// </summary>
         Plugin_Video_Alignment_Right,
-		/// <summary>
+        /// <summary>
         /// Video
         /// </summary>
         Plugin_Video_Alt_Text,
-		/// <summary>
+        /// <summary>
         /// Unable to Parse Video web address
         /// </summary>
         Plugin_Video_Cannot_Parse_Url,
-		/// <summary>
+        /// <summary>
         /// Unknown provider or incomplete web address.
         /// </summary>
         Plugin_Video_Cannot_Parse_Url_Message,
-		/// <summary>
+        /// <summary>
         /// .8em
         /// </summary>
         Plugin_Video_Caption_Size,
-		/// <summary>
+        /// <summary>
         /// Please respect copyright
         /// </summary>
         Plugin_Video_Copyright_Notice,
-		/// <summary>
+        /// <summary>
         /// Cancel Publishing
         /// </summary>
         Plugin_Video_Editor_Cancel,
-		/// <summary>
+        /// <summary>
         /// Caption:
         /// </summary>
         Plugin_Video_Editor_Caption,
-		/// <summary>
+        /// <summary>
         /// Layout
         /// </summary>
         Plugin_Video_Editor_Layout_Header,
-		/// <summary>
+        /// <summary>
         /// View this video
         /// </summary>
         Plugin_Video_Editor_Link_Text,
-		/// <summary>
+        /// <summary>
         /// Bottom
         /// </summary>
         Plugin_Video_Editor_Margin_Bottom,
-		/// <summary>
+        /// <summary>
         /// Left
         /// </summary>
         Plugin_Video_Editor_Margin_Left,
-		/// <summary>
+        /// <summary>
         /// Right
         /// </summary>
         Plugin_Video_Editor_Margin_Right,
-		/// <summary>
+        /// <summary>
         /// Top
         /// </summary>
         Plugin_Video_Editor_Margin_Top,
-		/// <summary>
+        /// <summary>
         /// Margins:
         /// </summary>
         Plugin_Video_Editor_Margins,
-		/// <summary>
+        /// <summary>
         /// Player style:
         /// </summary>
         Plugin_Video_Editor_Player_Style,
-		/// <summary>
+        /// <summary>
         /// Text wrapping:
         /// </summary>
         Plugin_Video_Editor_Text_Wrap,
-		/// <summary>
+        /// <summary>
         /// {0} Video
         /// </summary>
         Plugin_Video_Editor_Title,
-		/// <summary>
+        /// <summary>
         /// Unexpected Exception
         /// </summary>
         Plugin_Video_Error_Unexpected_Title,
-		/// <summary>
+        /// <summary>
         /// Custom Margins
         /// </summary>
         Plugin_Video_Margins_Custom,
-		/// <summary>
+        /// <summary>
         /// No Margins
         /// </summary>
         Plugin_Video_Margins_None,
-		/// <summary>
+        /// <summary>
         /// Automatic
         /// </summary>
         Plugin_Video_Player_Automatic,
-		/// <summary>
+        /// <summary>
         /// Embedded in Page
         /// </summary>
         Plugin_Video_Player_Embed,
-		/// <summary>
+        /// <summary>
         /// Preview with Link
         /// </summary>
         Plugin_Video_Player_Preview,
-		/// <summary>
+        /// <summary>
         /// Select Video Provider
         /// </summary>
         Plugin_Video_Provider_Select,
-		/// <summary>
+        /// <summary>
         /// Animals
         /// </summary>
         Plugin_Video_Publish_Categories_Animals,
-		/// <summary>
+        /// <summary>
         /// Animation
         /// </summary>
         Plugin_Video_Publish_Categories_Animation,
-		/// <summary>
+        /// <summary>
         /// Autos
         /// </summary>
         Plugin_Video_Publish_Categories_Autos,
-		/// <summary>
+        /// <summary>
         /// Blogs
         /// </summary>
         Plugin_Video_Publish_Categories_Blogs,
-		/// <summary>
+        /// <summary>
         /// Comedy
         /// </summary>
         Plugin_Video_Publish_Categories_Comedy,
-		/// <summary>
+        /// <summary>
         /// Commercials
         /// </summary>
         Plugin_Video_Publish_Categories_Commercials,
-		/// <summary>
+        /// <summary>
         /// Education
         /// </summary>
         Plugin_Video_Publish_Categories_Education,
-		/// <summary>
+        /// <summary>
         /// Entertainment
         /// </summary>
         Plugin_Video_Publish_Categories_Entertainment,
-		/// <summary>
+        /// <summary>
         /// Film
         /// </summary>
         Plugin_Video_Publish_Categories_Film,
-		/// <summary>
+        /// <summary>
         /// Games
         /// </summary>
         Plugin_Video_Publish_Categories_Games,
-		/// <summary>
+        /// <summary>
         /// How To & Style
         /// </summary>
         Plugin_Video_Publish_Categories_How_To,
-		/// <summary>
+        /// <summary>
         /// Movies
         /// </summary>
         Plugin_Video_Publish_Categories_Movies,
-		/// <summary>
+        /// <summary>
         /// Music
         /// </summary>
         Plugin_Video_Publish_Categories_Music,
-		/// <summary>
+        /// <summary>
         /// News & Politics
         /// </summary>
         Plugin_Video_Publish_Categories_News,
-		/// <summary>
+        /// <summary>
         /// Non Profit & Activism
         /// </summary>
         Plugin_Video_Publish_Categories_Non_Profit,
-		/// <summary>
+        /// <summary>
         /// People
         /// </summary>
         Plugin_Video_Publish_Categories_People,
-		/// <summary>
+        /// <summary>
         /// Politics
         /// </summary>
         Plugin_Video_Publish_Categories_Politics,
-		/// <summary>
+        /// <summary>
         /// Screencast
         /// </summary>
         Plugin_Video_Publish_Categories_Screencast,
-		/// <summary>
+        /// <summary>
         /// Sports
         /// </summary>
         Plugin_Video_Publish_Categories_Sports,
-		/// <summary>
+        /// <summary>
         /// Technology
         /// </summary>
         Plugin_Video_Publish_Categories_Technology,
-		/// <summary>
+        /// <summary>
         /// Travel
         /// </summary>
         Plugin_Video_Publish_Categories_Travel,
-		/// <summary>
+        /// <summary>
         /// _
         /// </summary>
         Plugin_Video_Publish_Filename_Seperator,
-		/// <summary>
+        /// <summary>
         /// Waiting for videos to finish publishing
         /// </summary>
         Plugin_Video_Publish_Message,
-		/// <summary>
+        /// <summary>
         /// View Safety Tips
         /// </summary>
         Plugin_Video_Publish_Safety_View,
-		/// <summary>
+        /// <summary>
         /// View Terms of Use
         /// </summary>
         Plugin_Video_Publish_Terms_View,
-		/// <summary>
+        /// <summary>
         /// The following error occurred while attempting generate a video snapshot: {0}
         /// </summary>
         Plugin_Video_Snapshot_Error_Message,
-		/// <summary>
+        /// <summary>
         /// Error Retrieving Video Snapshot
         /// </summary>
         Plugin_Video_Snapshot_Error_Title,
-		/// <summary>
+        /// <summary>
         /// Signing in...
         /// </summary>
         Plugin_Video_Soapbox_LoggingIn,
-		/// <summary>
+        /// <summary>
         /// No videos found.
         /// </summary>
         Plugin_Video_Soapbox_None_Found,
-		/// <summary>
+        /// <summary>
         /// Not signed in
         /// </summary>
         Plugin_Video_Soapbox_Not_Logged_In,
-		/// <summary>
+        /// <summary>
         /// &Sign in
         /// </summary>
         Plugin_Video_Soapbox_Passport_Login,
-		/// <summary>
+        /// <summary>
         /// &Password:
         /// </summary>
         Plugin_Video_Soapbox_Passport_Password,
-		/// <summary>
+        /// <summary>
         /// &Microsoft Account ID:
         /// </summary>
         Plugin_Video_Soapbox_Passport_Username,
-		/// <summary>
+        /// <summary>
         /// &Categories:
         /// </summary>
         Plugin_Video_Soapbox_Publish_Categories,
-		/// <summary>
+        /// <summary>
         /// &Description:
         /// </summary>
         Plugin_Video_Soapbox_Publish_Description,
-		/// <summary>
+        /// <summary>
         /// Sign in
         /// </summary>
         Plugin_Video_Soapbox_Publish_Login,
-		/// <summary>
+        /// <summary>
         /// P&ermissions:
         /// </summary>
         Plugin_Video_Soapbox_Publish_Permissions,
-		/// <summary>
+        /// <summary>
         /// Hidden
         /// </summary>
         Plugin_Video_Soapbox_Publish_Permissions_Hidden,
-		/// <summary>
+        /// <summary>
         /// Public
         /// </summary>
         Plugin_Video_Soapbox_Publish_Permissions_Public,
-		/// <summary>
+        /// <summary>
         /// From File
         /// </summary>
         Plugin_Video_Soapbox_Publish_Tab_Title,
-		/// <summary>
+        /// <summary>
         /// Ta&gs:
         /// </summary>
         Plugin_Video_Soapbox_Publish_Tags,
-		/// <summary>
+        /// <summary>
         /// &Title:
         /// </summary>
         Plugin_Video_Soapbox_Publish_Title,
-		/// <summary>
+        /// <summary>
         /// Video &File:
         /// </summary>
         Plugin_Video_Soapbox_Publish_Video_File,
-		/// <summary>
+        /// <summary>
         /// ...
         /// </summary>
         Plugin_Video_Soapbox_Publish_Video_File_Open,
-		/// <summary>
+        /// <summary>
         /// Open Video File
         /// </summary>
         Plugin_Video_Soapbox_Publish_Video_Open_File,
-		/// <summary>
+        /// <summary>
         /// Videos {0} to {1}
         /// </summary>
         Plugin_Video_Soapbox_Result_Range,
-		/// <summary>
+        /// <summary>
         /// Video {0}
         /// </summary>
         Plugin_Video_Soapbox_Result_Single,
-		/// <summary>
+        /// <summary>
         /// Retrieving list of videos...
         /// </summary>
         Plugin_Video_Soapbox_Retrieve_Msg,
-		/// <summary>
+        /// <summary>
         /// The Soapbox service returned an error.
         /// </summary>
         Plugin_Video_Soapbox_Soap_Error,
-		/// <summary>
+        /// <summary>
         /// Switch user
         /// </summary>
         Plugin_Video_Soapbox_Switch_User,
-		/// <summary>
+        /// <summary>
         /// Downloading Preview...
         /// </summary>
         Plugin_Video_Soapbox_Thumbnail_Downloading,
-		/// <summary>
+        /// <summary>
         /// No Preview Available
         /// </summary>
         Plugin_Video_Soapbox_Thumbnail_None,
-		/// <summary>
+        /// <summary>
         /// (of {0})
         /// </summary>
         Plugin_Video_Soapbox_Total_Videos,
-		/// <summary>
+        /// <summary>
         /// The search request timed out.
         /// </summary>
         Plugin_Video_Soapbox_Web_Error,
-		/// <summary>
+        /// <summary>
         /// Unknown Provider
         /// </summary>
         Plugin_Video_Unknown_Provider,
-		/// <summary>
+        /// <summary>
         /// Video
         /// </summary>
         Plugin_Video_Video_Header,
-		/// <summary>
+        /// <summary>
         /// The selected video could not be accessed from the service\r\ndue to heavy service usage. Please try again.
         /// </summary>
         Plugin_Video_Web_Video_Download_Error,
-		/// <summary>
+        /// <summary>
         /// Video Access Error
         /// </summary>
         Plugin_Video_Web_Video_Download_Error_Title,
-		/// <summary>
+        /// <summary>
         /// Video &web address or Embed:
         /// </summary>
         Plugin_Video_Web_Video_Enter_Prompt,
-		/// <summary>
+        /// <summary>
         /// Pre&view
         /// </summary>
         Plugin_Video_Web_Video_Preview_Button,
-		/// <summary>
+        /// <summary>
         /// Provider: {0}
         /// </summary>
         Plugin_Video_Web_Video_Provider,
-		/// <summary>
+        /// <summary>
         /// Provider:
         /// </summary>
         Plugin_Video_Web_Video_Service_Blank,
-		/// <summary>
+        /// <summary>
         /// Size: {0} x {1}
         /// </summary>
         Plugin_Video_Web_Video_Size,
-		/// <summary>
+        /// <summary>
         /// Size:
         /// </summary>
         Plugin_Video_Web_Video_Size_Blank,
-		/// <summary>
+        /// <summary>
         /// From Web
         /// </summary>
         Plugin_Video_Web_Video_Tab_Name,
-		/// <summary>
+        /// <summary>
         /// Missing Embed Format parameter
         /// </summary>
         Plugin_Video_XML_Error_Embed_Format,
-		/// <summary>
+        /// <summary>
         /// Missing Embed Pattern parameter
         /// </summary>
         Plugin_Video_XML_Error_Embed_Pattern,
-		/// <summary>
+        /// <summary>
         /// Missing Service Id parameter
         /// </summary>
         Plugin_Video_XML_Error_Service_Id,
-		/// <summary>
+        /// <summary>
         /// Missing Service Name parameter
         /// </summary>
         Plugin_Video_XML_Error_Service_Name,
-		/// <summary>
+        /// <summary>
         /// Missing Size parameter
         /// </summary>
         Plugin_Video_XML_Error_Size,
-		/// <summary>
+        /// <summary>
         /// Missing Web Address Format parameter
         /// </summary>
         Plugin_Video_XML_Error_Url_Format,
-		/// <summary>
+        /// <summary>
         /// Missing Web Address Pattern parameter
         /// </summary>
         Plugin_Video_XML_Error_Url_Pattern,
-		/// <summary>
+        /// <summary>
         /// YouTube
         /// </summary>
         Plugin_Video_Youtube_Publish_Name,
-		/// <summary>
+        /// <summary>
         /// Yes, I agree to the YouTube Terms of Use and that I own all copyrights in this video or have authorization to upload it. Do not upload any TV shows, music videos, music concerts, or commercials without permission unless they consist entirely of content you created yourself. 
         /// </summary>
         Plugin_Video_YouTube_Publish_Terms_Agree,
-		/// <summary>
+        /// <summary>
         /// All Video Files (*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4;*.mov;*)|*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4,*.mov;|All Files (*.*)|*.*
         /// </summary>
         Plugin_Video_YouTube_Publish_Video_File_Open_Filter_Ext,
-		/// <summary>
+        /// <summary>
         /// &Video
         /// </summary>
         Plugin_Videos_InsertableContentSource_MenuText,
-		/// <summary>
+        /// <summary>
         /// Video
         /// </summary>
         Plugin_Videos_InsertableContentSource_SidebarText,
-		/// <summary>
+        /// <summary>
         /// Unable to load the video for insertion into the editor due to heavy load on the Video service.
         /// </summary>
         Plugin_Videos_Load_Error_Message,
-		/// <summary>
+        /// <summary>
         /// Unable to Load Video
         /// </summary>
         Plugin_Videos_Load_Error_Title,
-		/// <summary>
+        /// <summary>
         /// Insert Video
         /// </summary>
         Plugin_Videos_Select_Video_Form,
-		/// <summary>
+        /// <summary>
         /// Video Size: {0} x {1}
         /// </summary>
         Plugin_Videos_Video_Size,
-		/// <summary>
+        /// <summary>
         /// Add videos to your posts using popular video providers.
         /// </summary>
         Plugin_Videos_WriterPlugin_Description,
-		/// <summary>
+        /// <summary>
         /// Video
         /// </summary>
         Plugin_Videos_WriterPlugin_Name,
-		/// <summary>
+        /// <summary>
         /// Insert Web Image
         /// </summary>
         Plugin_WebImage_Title,
-		/// <summary>
+        /// <summary>
         /// Add images from the web to your post.
         /// </summary>
         Plugin_WebImage_WriterPlugin_Description,
-		/// <summary>
+        /// <summary>
         /// {0}...
         /// </summary>
         PluginInsertSidebarText,
-		/// <summary>
+        /// <summary>
         /// Insert a {0} into the current document
         /// </summary>
         PluginInsertSidebarTooltip,
-		/// <summary>
+        /// <summary>
         /// Turn plug-ins on and off to extend how you use {0}.
         /// </summary>
         PluginPrefCaption,
-		/// <summary>
+        /// <summary>
         /// Plug-in details
         /// </summary>
         PluginPrefDetails,
-		/// <summary>
+        /// <summary>
         /// O&ff
         /// </summary>
         PluginPrefDisable,
-		/// <summary>
+        /// <summary>
         /// O&n
         /// </summary>
         PluginPrefEnable,
-		/// <summary>
+        /// <summary>
         /// Currently installed &plug-ins:
         /// </summary>
         PluginPrefInstalled,
-		/// <summary>
+        /// <summary>
         /// Get plug-ins online...
         /// </summary>
         PluginPrefLink,
-		/// <summary>
+        /// <summary>
         /// Plug-ins
         /// </summary>
         PluginPrefName,
-		/// <summary>
+        /// <summary>
         /// Plug-in
         /// </summary>
         PluginPrefNameCol,
-		/// <summary>
+        /// <summary>
         /// (No Plug-in selected)
         /// </summary>
         PluginPrefNone,
-		/// <summary>
+        /// <summary>
         /// Status
         /// </summary>
         PluginPrefStatCol,
-		/// <summary>
+        /// <summary>
         /// Click here to find out more about this plug-in.
         /// </summary>
         PluginPrefTooltip,
-		/// <summary>
+        /// <summary>
         /// Executing plug-in: {0}
         /// </summary>
         PluginPublishProgress,
-		/// <summary>
+        /// <summary>
         /// Selected item plug-in is disabled.
         /// </summary>
         PluginSidebarDisabled,
-		/// <summary>
+        /// <summary>
         /// Selected item cannot be edited.
         /// </summary>
         PluginSidebarNotEditable,
-		/// <summary>
+        /// <summary>
         /// Post
         /// </summary>
         Post,
-		/// <summary>
+        /// <summary>
         /// Number of posts
         /// </summary>
         PostCountAccessible,
-		/// <summary>
+        /// <summary>
         /// Post Body
         /// </summary>
         PostEditorBodyRegion,
-		/// <summary>
+        /// <summary>
         /// No more space is available on disk.
         /// </summary>
         PostEditorDiskSpaceExceptionMessage,
-		/// <summary>
+        /// <summary>
         /// Save A&utoRecover information periodically
         /// </summary>
         PostEditorPrefAuto,
-		/// <summary>
+        /// <summary>
         /// Browse
         /// </summary>
         PostEditorPrefBrowseFolder,
-		/// <summary>
+        /// <summary>
         /// Close &window after publishing
         /// </summary>
         PostEditorPrefClose,
-		/// <summary>
+        /// <summary>
         /// Editing
         /// </summary>
         PostEditorPrefEditing,
-		/// <summary>
+        /// <summary>
         /// General options
         /// </summary>
         PostEditorPrefGeneral,
-		/// <summary>
+        /// <summary>
         /// Preferences
         /// </summary>
         PostEditorPrefName,
-		/// <summary>
+        /// <summary>
         /// Open a new window for &each post
         /// </summary>
         PostEditorPrefNew,
-		/// <summary>
+        /// <summary>
         /// Local drafts and recent posts folder
         /// </summary>
         PostEditorPrefPostLocation,
-		/// <summary>
+        /// <summary>
         /// Post window
         /// </summary>
         PostEditorPrefPostWindows,
-		/// <summary>
+        /// <summary>
         /// Publishing
         /// </summary>
         PostEditorPrefPublishing,
-		/// <summary>
+        /// <summary>
         /// Remind me to add &tags before publishing
         /// </summary>
         PostEditorPrefRemind,
-		/// <summary>
+        /// <summary>
         /// Remind me to add &categories before publishing
         /// </summary>
         PostEditorPrefRemindCat,
-		/// <summary>
+        /// <summary>
         /// S&how taskpane when editable items are inserted
         /// </summary>
         PostEditorPrefSide,
-		/// <summary>
+        /// <summary>
         /// Use a &single window for editing all posts
         /// </summary>
         PostEditorPrefSingle,
-		/// <summary>
+        /// <summary>
         /// &Remind me to type a title before publishing
         /// </summary>
         PostEditorPrefTitle,
-		/// <summary>
+        /// <summary>
         /// Open a new window &only when there are unsaved changes to the current post
         /// </summary>
         PostEditorPrefUnsave,
-		/// <summary>
+        /// <summary>
         /// &View blog after publishing
         /// </summary>
         PostEditorPrefView,
-		/// <summary>
+        /// <summary>
         /// Unexpected error occurred while accessing local post ({0})
-		/// 
-		/// {1}
+        /// 
+        /// {1}
         /// </summary>
         PostEditorStorageExceptionMessage,
-		/// <summary>
+        /// <summary>
         /// Unexpected disk access error occurred while accessing local post ({0})
-		/// 
-		/// {1}
+        /// 
+        /// {1}
         /// </summary>
         PostEditorStorageExceptionMessage2,
-		/// <summary>
+        /// <summary>
         /// Error Accessing Local Post
         /// </summary>
         PostEditorStorageExceptionTitle,
-		/// <summary>
+        /// <summary>
         /// Error Accessing Local Post
         /// </summary>
         PostEditorStorageExceptionTitle2,
-		/// <summary>
+        /// <summary>
         /// Post Title
         /// </summary>
         PostEditorTitleRegion,
-		/// <summary>
+        /// <summary>
         /// {0}
-		/// {1} ({2})
+        /// {1} ({2})
         /// </summary>
         PostLinkTooltipFormat,
-		/// <summary>
+        /// <summary>
         /// {0}
-		/// ({1})
+        /// ({1})
         /// </summary>
         PostLinkTooltipFormatNoBlogTitle,
-		/// <summary>
+        /// <summary>
         /// post
         /// </summary>
         PostLower,
-		/// <summary>
+        /// <summary>
         /// Filter {0}
         /// </summary>
         PostPageFilter,
-		/// <summary>
+        /// <summary>
         /// Post Properties
         /// </summary>
         PostProperties,
-		/// <summary>
+        /// <summary>
         /// The {0} was successfully published however an error occurred while uploading supporting files:
         /// </summary>
         PostPublishFileUploadErrorCaption1,
-		/// <summary>
+        /// <summary>
         /// Depending upon the nature of the error, you may be able to successfully publish the supporting files by retrying. Alternatively, you may wish to delete the {0} from your blog.
         /// </summary>
         PostPublishFileUploadErrorCaption2,
-		/// <summary>
+        /// <summary>
         /// Error Uploading Supporting Files
         /// </summary>
         PostPublishFileUploadErrorTitle,
-		/// <summary>
+        /// <summary>
         /// &Posts
         /// </summary>
         Posts,
-		/// <summary>
+        /// <summary>
         /// posts
         /// </summary>
         PostsLower,
-		/// <summary>
+        /// <summary>
         /// Authentication expired.
         /// </summary>
         PPCRL_AUTHSTATE_E_EXPIRED,
-		/// <summary>
+        /// <summary>
         /// Cannot connect to authentication service.
         /// </summary>
         PPCRL_E_AUTH_SERVICE_UNAVAILABLE,
-		/// <summary>
+        /// <summary>
         /// User name or password not recognized.
         /// </summary>
         PPCRL_REQUEST_E_BAD_MEMBER_NAME_OR_PASSWORD,
-		/// <summary>
+        /// <summary>
         /// The request was cancelled.
         /// </summary>
         PPCRL_REQUEST_E_CANCELLED,
-		/// <summary>
+        /// <summary>
         /// The client issuing this request is no longer supported by the login server. Please upgrade to a newer version.
         /// </summary>
         PPCRL_REQUEST_E_CLIENT_DEPRECATED,
-		/// <summary>
+        /// <summary>
         /// The authentication token has expired.
         /// </summary>
         PPCRL_REQUEST_E_FORCE_SIGNIN,
-		/// <summary>
+        /// <summary>
         /// The user name is not recognized.
         /// </summary>
         PPCRL_REQUEST_E_INVALID_MEMBER_NAME,
-		/// <summary>
+        /// <summary>
         /// The user account has been blocked.
         /// </summary>
         PPCRL_REQUEST_E_PASSWORD_LOCKED_OUT,
-		/// <summary>
+        /// <summary>
         /// .NET Foundation Contributor Code of Conduct
         /// </summary>
         PrivacyPreferencesCodeOfConduct,
-		/// <summary>
+        /// <summary>
         /// Trust Center
         /// </summary>
         PrivacyPreferencesPanelName,
-		/// <summary>
+        /// <summary>
         /// Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:
         /// </summary>
         PrivacyPreferencesPrivacyExplanation,
-		/// <summary>
+        /// <summary>
         /// .NET Foundation Privacy Policy
         /// </summary>
         PrivacyPreferencesPrivacyStatement,
-		/// <summary>
+        /// <summary>
         /// Build {0}
         /// </summary>
         ProductDisplayVersion,
-		/// <summary>
+        /// <summary>
         /// Open Live Writer
         /// </summary>
         ProductNameVersioned,
-		/// <summary>
+        /// <summary>
         /// Analyzing blog homepage web address and contents...
         /// </summary>
         ProgressAnalyzingHomepage,
-		/// <summary>
+        /// <summary>
         /// Analyzing blog publishing interface...
         /// </summary>
         ProgressAnalyzingInterface,
-		/// <summary>
+        /// <summary>
         /// Analyzing list of blogs...
         /// </summary>
         ProgressAnalyzingWeblogList,
-		/// <summary>
+        /// <summary>
         /// Completed settings detection
         /// </summary>
         ProgressCompletedSettingsDetection,
-		/// <summary>
+        /// <summary>
         /// Creating editing template...
         /// </summary>
         ProgressCreatingEditingTemplate,
-		/// <summary>
+        /// <summary>
         /// Detecting blog categories...
         /// </summary>
         ProgressDetectingWeblogCategories,
-		/// <summary>
+        /// <summary>
         /// Detecting blog character set...
         /// </summary>
         ProgressDetectingWeblogCharSet,
-		/// <summary>
+        /// <summary>
         /// Detecting blog editing theme...
         /// </summary>
         ProgressDetectingWeblogEditingStyle,
-		/// <summary>
+        /// <summary>
         /// Detecting blog icon...
         /// </summary>
         ProgressDetectingWeblogIcon,
-		/// <summary>
+        /// <summary>
         /// Detecting blog settings...
         /// </summary>
         ProgressDetectingWeblogSettings,
-		/// <summary>
+        /// <summary>
         /// Determining type of {0}...
         /// </summary>
         ProgressDeterminingType,
-		/// <summary>
+        /// <summary>
         /// Progress Dialog
         /// </summary>
         ProgressDialogTitle,
-		/// <summary>
+        /// <summary>
         /// Download finished
         /// </summary>
         ProgressDownloadFinished,
-		/// <summary>
+        /// <summary>
         /// Downloading {0}...
         /// </summary>
         ProgressDownloading,
-		/// <summary>
+        /// <summary>
         /// Downloading editing template...
         /// </summary>
         ProgressDownloadingEditingTemplate,
-		/// <summary>
+        /// <summary>
         /// Downloading supporting files...
         /// </summary>
         ProgressDownloadingSupportingFiles,
-		/// <summary>
+        /// <summary>
         /// Downloading blog editing theme...
         /// </summary>
         ProgressDownloadingWeblogEditingStyle,
-		/// <summary>
+        /// <summary>
         /// Post contents not present on homepage, checking post...
         /// </summary>
         ProgressDownloadingWeblogEditingStyleDeep,
-		/// <summary>
+        /// <summary>
         /// Finalizing editing template configuration...
         /// </summary>
         ProgressFinalizingEditingTemplateConfig,
-		/// <summary>
+        /// <summary>
         /// Preparing list of files to download...
         /// </summary>
         ProgressPreparingListOfFiles,
-		/// <summary>
+        /// <summary>
         /// Saving {0}...
         /// </summary>
         ProgressSaving,
-		/// <summary>
+        /// <summary>
         /// Starting download of references...
         /// </summary>
         ProgressStartingDownloadOfReferences,
-		/// <summary>
+        /// <summary>
         /// Verifying blog publishing interface...
         /// </summary>
         ProgressVerifyingInterface,
-		/// <summary>
+        /// <summary>
         /// &Author:
         /// </summary>
         PropertiesAuthor,
-		/// <summary>
+        /// <summary>
         /// list of authors
         /// </summary>
         PropertiesAuthorsFetchingText,
-		/// <summary>
+        /// <summary>
         /// &Categories:
         /// </summary>
         PropertiesCategories,
-		/// <summary>
+        /// <summary>
         /// (comma separated)
         /// </summary>
         PropertiesCommaSeparated,
-		/// <summary>
+        /// <summary>
         /// Closed
         /// </summary>
         PropertiesCommentPolicyClosed,
-		/// <summary>
+        /// <summary>
         /// None
         /// </summary>
         PropertiesCommentPolicyNone,
-		/// <summary>
+        /// <summary>
         /// Open
         /// </summary>
         PropertiesCommentPolicyOpen,
-		/// <summary>
+        /// <summary>
         /// Co&mments:
         /// </summary>
         PropertiesComments,
-		/// <summary>
+        /// <summary>
         /// (Default)
         /// </summary>
         PropertiesDefault,
-		/// <summary>
+        /// <summary>
         /// &Excerpt:
         /// </summary>
         PropertiesExcerpt,
-		/// <summary>
+        /// <summary>
         /// &Keywords:
         /// </summary>
         PropertiesKeywords,
-		/// <summary>
+        /// <summary>
         /// (No parent)
         /// </summary>
         PropertiesNoPageParent,
-		/// <summary>
+        /// <summary>
         /// Page &Order:
         /// </summary>
         PropertiesPageOrder,
-		/// <summary>
+        /// <summary>
         /// Page &Parent:
         /// </summary>
         PropertiesPageParent,
-		/// <summary>
+        /// <summary>
         /// Post Properties
         /// </summary>
         PropertiesPanel,
-		/// <summary>
+        /// <summary>
         /// Pass&word:
         /// </summary>
         PropertiesPassword,
-		/// <summary>
+        /// <summary>
         /// P&ings:
         /// </summary>
         PropertiesPings,
-		/// <summary>
+        /// <summary>
         /// P&ublish Date:
         /// </summary>
         PropertiesPublishDate,
-		/// <summary>
+        /// <summary>
         /// Close/Open Properties Panel
         /// </summary>
         PropertiesShowHide,
-		/// <summary>
+        /// <summary>
         /// &Slug:
         /// </summary>
         PropertiesSlug,
-		/// <summary>
+        /// <summary>
         /// &Tags:
         /// </summary>
         PropertiesTags,
-		/// <summary>
+        /// <summary>
         /// Allow
         /// </summary>
         PropertiesTrackbackPolicyAllow,
-		/// <summary>
+        /// <summary>
         /// Deny
         /// </summary>
         PropertiesTrackbackPolicyDeny,
-		/// <summary>
+        /// <summary>
         /// T&rackback URLs:
         /// </summary>
         PropertiesTrackbacks,
-		/// <summary>
+        /// <summary>
         /// Custom proxy settings
         /// </summary>
         ProxyPrefCustom,
-		/// <summary>
+        /// <summary>
         /// &Manually configure settings
         /// </summary>
         ProxyPrefEnabled,
-		/// <summary>
+        /// <summary>
         /// Web Proxy
         /// </summary>
         ProxyPrefName,
-		/// <summary>
+        /// <summary>
         /// Pass&word:
         /// </summary>
         ProxyPrefPassword,
-		/// <summary>
+        /// <summary>
         /// &Port:
         /// </summary>
         ProxyPrefPort,
-		/// <summary>
+        /// <summary>
         /// P&roxy server address:
         /// </summary>
         ProxyPrefServer,
-		/// <summary>
+        /// <summary>
         /// Web Proxy Preferences
         /// </summary>
         ProxyPrefTitle,
-		/// <summary>
+        /// <summary>
         /// User &name:
         /// </summary>
         ProxyPrefUsername,
-		/// <summary>
+        /// <summary>
         /// Set post date
         /// </summary>
         PublishDatePrompt,
-		/// <summary>
+        /// <summary>
         /// Post date
         /// </summary>
         PublishDateTooltip,
-		/// <summary>
+        /// <summary>
         /// Published {0}
         /// </summary>
         PublishedNameFormat,
-		/// <summary>
+        /// <summary>
         /// Select a folder to publish to:
         /// </summary>
         PublishFolderPickerCaption,
-		/// <summary>
+        /// <summary>
         /// Browse For Folder
         /// </summary>
         PublishFolderPickerTitle,
-		/// <summary>
+        /// <summary>
         /// Browse for folder
         /// </summary>
         PublishFolderPickerToolTip,
-		/// <summary>
+        /// <summary>
         /// Publish now
         /// </summary>
         PublishNow,
-		/// <summary>
+        /// <summary>
         /// Add pin
         /// </summary>
         PushpinAdd,
-		/// <summary>
+        /// <summary>
         /// Edit Pin
         /// </summary>
         PushpinEdit,
-		/// <summary>
+        /// <summary>
         /// &Web address for more information:
         /// </summary>
         PushpinMoreInfoUrl,
-		/// <summary>
+        /// <summary>
         /// &Notes:
         /// </summary>
         PushpinNotes,
-		/// <summary>
+        /// <summary>
         /// &Photo web address:
         /// </summary>
         PushpinPhotoUrl,
-		/// <summary>
+        /// <summary>
         /// &Title:
         /// </summary>
         PushpinTitle,
-		/// <summary>
+        /// <summary>
         /// Enter a name for this pin
         /// </summary>
         PushpinUntitled,
-		/// <summary>
+        /// <summary>
         /// Couldn't find the location for the pin that you entered at this time.
-		/// 
-		/// Do you still want to set this web address as your custom pin?
+        /// 
+        /// Do you still want to set this web address as your custom pin?
         /// </summary>
         PushpinValidationError,
-		/// <summary>
+        /// <summary>
         /// Recent drafts
         /// </summary>
         RecentDrafts,
-		/// <summary>
+        /// <summary>
         /// Recently posted
         /// </summary>
         RecentlyPosted,
-		/// <summary>
+        /// <summary>
         /// Unable to Retrieve {0} from Server
         /// </summary>
         RecentPostNotSyncCaption,
-		/// <summary>
+        /// <summary>
         /// {0} was unable to retrieve an up-to-date copy of the {1} from the blog server (an error occurred or the retrieve was cancelled).
         /// </summary>
         RecentPostNotSyncText,
-		/// <summary>
+        /// <summary>
         /// You may still edit the {0} using the local copy stored on this computer. However, if you have changed the {0} online, the copy you are editing is out of date.
         /// </summary>
         RecentPostNotSyncText2,
-		/// <summary>
+        /// <summary>
         /// Unable to Retrieve {0} from Server
         /// </summary>
         RecentPostNotSyncTitle,
-		/// <summary>
+        /// <summary>
         /// Recent posts
         /// </summary>
         RecentPosts,
-		/// <summary>
+        /// <summary>
         /// &Remember my password
         /// </summary>
         RememberPassword,
-		/// <summary>
+        /// <summary>
         /// Retrieving {0}
         /// </summary>
         Retrieving,
-		/// <summary>
+        /// <summary>
         /// Retrieving {0} from blog...
         /// </summary>
         RetrievingFromWeblog,
-		/// <summary>
+        /// <summary>
         /// After you go through the solution, try signing in again.
         /// </summary>
         RetrySignin,
-		/// <summary>
+        /// <summary>
         /// &Fixed height:
         /// </summary>
         RowPropertiesFixedHeight,
-		/// <summary>
+        /// <summary>
         /// &Automatically size to content
         /// </summary>
         RowPropertiesSizeToContent,
-		/// <summary>
+        /// <summary>
         /// Row Properties
         /// </summary>
         RowPropertiesTitle,
-		/// <summary>
+        /// <summary>
         /// &Save
         /// </summary>
         SaveButton,
-		/// <summary>
+        /// <summary>
         /// See the solution online
         /// </summary>
         SeeSolutionOnline,
-		/// <summary>
+        /// <summary>
         /// Selected
         /// </summary>
         Selected,
-		/// <summary>
+        /// <summary>
         /// (Select Blog Provider)
         /// </summary>
         SelectWeblogProvider,
-		/// <summary>
+        /// <summary>
         /// AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz
         /// </summary>
         SemanticHtmlPreviewText,
-		/// <summary>
+        /// <summary>
         /// Sending ping
         /// </summary>
         SendingPing,
-		/// <summary>
+        /// <summary>
         /// Sending pings
         /// </summary>
         SendingPings,
-		/// <summary>
+        /// <summary>
         /// Live Search Maps
         /// </summary>
         ServiceName,
-		/// <summary>
+        /// <summary>
         /// Alt
         /// </summary>
         ShortcutAlt,
-		/// <summary>
+        /// <summary>
         /// Ctrl
         /// </summary>
         ShortcutCtrl,
-		/// <summary>
+        /// <summary>
         /// +
         /// </summary>
         ShortcutPlus,
-		/// <summary>
+        /// <summary>
         /// Shift
         /// </summary>
         ShortcutShift,
-		/// <summary>
+        /// <summary>
         /// All
         /// </summary>
         ShowAllPosts,
-		/// <summary>
+        /// <summary>
         /// Show log file
         /// </summary>
         ShowLogFile,
-		/// <summary>
+        /// <summary>
         /// Show Properties
         /// </summary>
         ShowProperties,
-		/// <summary>
+        /// <summary>
         /// Show real-time word count in status &bar
         /// </summary>
         ShowRealTimeWordCount,
-		/// <summary>
+        /// <summary>
         /// {0}
         /// </summary>
         ShowXPosts,
-		/// <summary>
+        /// <summary>
         /// Taskpane
         /// </summary>
         SidebarPanel,
-		/// <summary>
+        /// <summary>
         /// Size
         /// </summary>
         Size,
-		/// <summary>
+        /// <summary>
         /// A&dd
         /// </summary>
         SpellAdd,
-		/// <summary>
+        /// <summary>
         /// Capitalization:
         /// </summary>
         SpellCaps,
-		/// <summary>
+        /// <summary>
         /// C&hange to:
         /// </summary>
         SpellChange,
-		/// <summary>
+        /// <summary>
         /// Change A&ll
         /// </summary>
         SpellChangeAll,
-		/// <summary>
+        /// <summary>
         /// &Change
         /// </summary>
         SpellChangeWord,
-		/// <summary>
+        /// <summary>
         /// I&gnore
         /// </summary>
         SpellIgnore,
-		/// <summary>
+        /// <summary>
         /// &Ignore All
         /// </summary>
         SpellIgnoreAll,
-		/// <summary>
+        /// <summary>
         /// Automatically &correct common capitalization and spelling mistakes
         /// </summary>
         SpellingPrefAuto,
-		/// <summary>
+        /// <summary>
         /// Spelling form options
         /// </summary>
         SpellingPrefGroup,
-		/// <summary>
+        /// <summary>
         /// Spelling
         /// </summary>
         SpellingPrefName,
-		/// <summary>
+        /// <summary>
         /// Ignore words with &numbers
         /// </summary>
         SpellingPrefNum,
-		/// <summary>
+        /// <summary>
         /// General options
         /// </summary>
         SpellingPrefOptions,
-		/// <summary>
+        /// <summary>
         /// Check spelling before &publishing
         /// </summary>
         SpellingPrefPub,
-		/// <summary>
+        /// <summary>
         /// Use &real-time spell checking (squiggles)
         /// </summary>
         SpellingPrefReal,
-		/// <summary>
+        /// <summary>
         /// Ignore words in &UPPERCASE
         /// </summary>
         SpellingPrefUpper,
-		/// <summary>
+        /// <summary>
         /// (No suggestions)
         /// </summary>
         SpellNoSuggest,
-		/// <summary>
+        /// <summary>
         /// &Not in dictionary:
         /// </summary>
         SpellNotInDict,
-		/// <summary>
+        /// <summary>
         /// S&uggestions:
         /// </summary>
         SpellOptions,
-		/// <summary>
+        /// <summary>
         /// &Suggest
         /// </summary>
         SpellSuggest,
-		/// <summary>
+        /// <summary>
         /// Check Spelling
         /// </summary>
         SpellText,
-		/// <summary>
+        /// <summary>
         /// px
         /// </summary>
         SpinnerPixelFormatString,
-		/// <summary>
+        /// <summary>
         /// 999 px
         /// </summary>
         SpinnerPixelRepresentativeString,
-		/// <summary>
+        /// <summary>
         /// Copyright © .NET Foundation. All rights reserved.
         /// </summary>
         SplashScreenCopyrightNotice,
-		/// <summary>
+        /// <summary>
         /// More...
         /// </summary>
         SplitterMore,
-		/// <summary>
+        /// <summary>
         /// {0} has failed to build your site. Please ensure your site builds manually, check your build command and try again.
-		/// 
-		/// Build command exit code: {1}
-		/// Command STDOUT:
-		/// {2}
-		/// Command STDERR:
-		/// {3}
-		/// 
+        /// 
+        /// Build command exit code: {1}
+        /// Command STDOUT:
+        /// {2}
+        /// Command STDERR:
+        /// {3}
+        /// 
         /// </summary>
         SSGBuildErrorText,
-		/// <summary>
+        /// <summary>
         /// Static site build failed
         /// </summary>
         SSGBuildErrorTitle,
-		/// <summary>
+        /// <summary>
         /// Drafts Path: (relative)
         /// </summary>
         SSGConfigAuthoringDraftsPath,
-		/// <summary>
+        /// <summary>
         /// Enable &Drafts
         /// </summary>
         SSGConfigAuthoringEnableDrafts,
-		/// <summary>
+        /// <summary>
         /// Enable &Images
         /// </summary>
         SSGConfigAuthoringEnableImages,
-		/// <summary>
+        /// <summary>
         /// Enable P&ages
         /// </summary>
         SSGConfigAuthoringEnablePages,
-		/// <summary>
+        /// <summary>
         /// Images
         /// </summary>
         SSGConfigAuthoringImagesGroup,
-		/// <summary>
+        /// <summary>
         /// Images Path: (relative)
         /// </summary>
         SSGConfigAuthoringImagesPath,
-		/// <summary>
+        /// <summary>
         /// Pages
         /// </summary>
         SSGConfigAuthoringPagesGroup,
-		/// <summary>
+        /// <summary>
         /// Pages Stored In Project Root
         /// </summary>
         SSGConfigAuthoringPagesInRoot,
-		/// <summary>
+        /// <summary>
         /// Pages Path: (relative)
         /// </summary>
         SSGConfigAuthoringPagesPath,
-		/// <summary>
+        /// <summary>
         /// Posts and Drafts
         /// </summary>
         SSGConfigAuthoringPostsDraftsGroup,
-		/// <summary>
+        /// <summary>
         /// &Posts Path: (relative)
         /// </summary>
         SSGConfigAuthoringPostsPath,
-		/// <summary>
+        /// <summary>
         /// Authoring
         /// </summary>
         SSGConfigAuthoringTitle,
-		/// <summary>
+        /// <summary>
         /// Build Command:
         /// </summary>
         SSGConfigBuildPublishBuildCommand,
-		/// <summary>
+        /// <summary>
         /// Building
         /// </summary>
         SSGConfigBuildPublishBuildingGroup,
-		/// <summary>
+        /// <summary>
         /// &Command Timeout (ms):
         /// </summary>
         SSGConfigBuildPublishCmdTimeout,
-		/// <summary>
+        /// <summary>
         /// Enable &Building
         /// </summary>
         SSGConfigBuildPublishEnableBuilding,
-		/// <summary>
+        /// <summary>
         /// &Enable Command Timeout
         /// </summary>
         SSGConfigBuildPublishEnableCmdTimeout,
-		/// <summary>
+        /// <summary>
         /// General
         /// </summary>
         SSGConfigBuildPublishGeneralGroup,
-		/// <summary>
+        /// <summary>
         /// Site Output Path: (relative)
         /// </summary>
         SSGConfigBuildPublishOutputPath,
-		/// <summary>
+        /// <summary>
         /// &Publish Command:
         /// </summary>
         SSGConfigBuildPublishPublishCommand,
-		/// <summary>
+        /// <summary>
         /// Publishing
         /// </summary>
         SSGConfigBuildPublishPublishingGroup,
-		/// <summary>
+        /// <summary>
         /// &Show Command Windows
         /// </summary>
         SSGConfigBuildPublishShowCmdWindows,
-		/// <summary>
+        /// <summary>
         /// Building and Publishing
         /// </summary>
         SSGConfigBuildPublishTitle,
-		/// <summary>
+        /// <summary>
         /// Front Matter Key
         /// </summary>
         SSGConfigFrontMatterKeyCol,
-		/// <summary>
+        /// <summary>
         /// Property
         /// </summary>
         SSGConfigFrontMatterPropertyCol,
-		/// <summary>
+        /// <summary>
         /// &Reset to Defaults
         /// </summary>
         SSGConfigFrontMatterReset,
-		/// <summary>
+        /// <summary>
         /// Below you can adjust the post front matter keys used to match your static site generator.
         /// </summary>
         SSGConfigFrontMatterSubtitle,
-		/// <summary>
+        /// <summary>
         /// Front Matter
         /// </summary>
         SSGConfigFrontMatterTitle,
-		/// <summary>
+        /// <summary>
         /// Run Auto-&Detect
         /// </summary>
         SSGConfigGeneralDetectButton,
-		/// <summary>
+        /// <summary>
         /// Open Live Writer can also reattempt to detect relevant configuration options for your static site. This may not result in a complete configuration, so please use the fields on the following pages to ensure all settings are set correctly.
         /// </summary>
         SSGConfigGeneralDetectLabel,
-		/// <summary>
+        /// <summary>
         /// &Local Site Path:
         /// </summary>
         SSGConfigGeneralLocalSitePath,
-		/// <summary>
+        /// <summary>
         /// Options
         /// </summary>
         SSGConfigGeneralOptionsGroup,
-		/// <summary>
+        /// <summary>
         /// Setup
         /// </summary>
         SSGConfigGeneralSetupGroup,
-		/// <summary>
+        /// <summary>
         /// Site &Title:
         /// </summary>
         SSGConfigGeneralSiteTitle,
-		/// <summary>
+        /// <summary>
         /// Site &URL:
         /// </summary>
         SSGConfigGeneralSiteUrl,
-		/// <summary>
+        /// <summary>
         /// General
         /// </summary>
         SSGConfigGeneralTitle,
-		/// <summary>
+        /// <summary>
         /// Run Account &Wizard
         /// </summary>
         SSGConfigGeneralWizardButton,
-		/// <summary>
+        /// <summary>
         /// You can choose to run the Account Wizard again if you wish to be guided through the core static site configuration options interactively.
         /// </summary>
         SSGConfigGeneralWizardLabel,
-		/// <summary>
+        /// <summary>
         /// Static Site Configuration for '{0}'
         /// </summary>
         SSGConfigTitle,
-		/// <summary>
+        /// <summary>
         /// A build command is required when local site building is enabled.
         /// </summary>
         SSGErrorBuildCommandEmptyText,
-		/// <summary>
+        /// <summary>
         /// Build command empty
         /// </summary>
         SSGErrorBuildCommandEmptyTitle,
-		/// <summary>
+        /// <summary>
         /// Blog command timed out. Please check your commands, or lengthen the command timeout.
         /// </summary>
         SSGErrorCommandTimeoutText,
-		/// <summary>
+        /// <summary>
         /// Command execution timeout
         /// </summary>
         SSGErrorCommandTimeoutTitle,
-		/// <summary>
+        /// <summary>
         /// Could not read item front matter.
         /// </summary>
         SSGErrorItemLoadTextFM,
-		/// <summary>
+        /// <summary>
         /// Item does not have an ID.
         /// </summary>
         SSGErrorItemLoadTextId,
-		/// <summary>
+        /// <summary>
         /// Item load error
         /// </summary>
         SSGErrorItemLoadTitle,
-		/// <summary>
+        /// <summary>
         /// Could not find page with specified ID.
         /// </summary>
         SSGErrorPageDoesNotExistText,
-		/// <summary>
+        /// <summary>
         /// Page does not exist
         /// </summary>
         SSGErrorPageDoesNotExistTitle,
-		/// <summary>
+        /// <summary>
         /// Drafts path is empty.
         /// </summary>
         SSGErrorPathDraftsEmpty,
-		/// <summary>
+        /// <summary>
         /// Drafts path '{0}' does not exist.
         /// </summary>
         SSGErrorPathDraftsNotFound,
-		/// <summary>
+        /// <summary>
         /// Folder not found
         /// </summary>
         SSGErrorPathFolderNotFound,
-		/// <summary>
+        /// <summary>
         /// Images path is empty.
         /// </summary>
         SSGErrorPathImagesEmpty,
-		/// <summary>
+        /// <summary>
         /// Images path '{0}' does not exist.
         /// </summary>
         SSGErrorPathImagesNotFound,
-		/// <summary>
+        /// <summary>
         /// Local site path '{0}' does not exist.
         /// </summary>
         SSGErrorPathLocalSitePathNotFound,
-		/// <summary>
+        /// <summary>
         /// Output path is empty.
         /// </summary>
         SSGErrorPathOutputEmpty,
-		/// <summary>
+        /// <summary>
         /// Output path '{0}' does not exist.
         /// </summary>
         SSGErrorPathOutputNotFound,
-		/// <summary>
+        /// <summary>
         /// Pages path is empty.
         /// </summary>
         SSGErrorPathPagesEmpty,
-		/// <summary>
+        /// <summary>
         /// Pages path '{0}' does not exist.
         /// </summary>
         SSGErrorPathPagesNotFound,
-		/// <summary>
+        /// <summary>
         /// Posts path is empty.
         /// </summary>
         SSGErrorPathPostsEmpty,
-		/// <summary>
+        /// <summary>
         /// Posts path '{0}' does not exist.
         /// </summary>
         SSGErrorPathPostsNotFound,
-		/// <summary>
+        /// <summary>
         /// Could not find post with specified ID.
         /// </summary>
         SSGErrorPostDoesNotExistText,
-		/// <summary>
+        /// <summary>
         /// Post does not exist
         /// </summary>
         SSGErrorPostDoesNotExistTitle,
-		/// <summary>
+        /// <summary>
         /// A publish command is required.
         /// </summary>
         SSGErrorPublishCommandEmptyText,
-		/// <summary>
+        /// <summary>
         /// Publish command empty
         /// </summary>
         SSGErrorPublishCommandEmptyTitle,
-		/// <summary>
+        /// <summary>
         /// Date
         /// </summary>
         SSGFrontMatterDate,
-		/// <summary>
+        /// <summary>
         /// ID
         /// </summary>
         SSGFrontMatterId,
-		/// <summary>
+        /// <summary>
         /// Layout
         /// </summary>
         SSGFrontMatterLayout,
-		/// <summary>
+        /// <summary>
         /// Parent ID
         /// </summary>
         SSGFrontMatterParentId,
-		/// <summary>
+        /// <summary>
         /// Permalink
         /// </summary>
         SSGFrontMatterPermalink,
-		/// <summary>
+        /// <summary>
         /// Tags
         /// </summary>
         SSGFrontMatterTags,
-		/// <summary>
+        /// <summary>
         /// Title
         /// </summary>
         SSGFrontMatterTitle,
-		/// <summary>
+        /// <summary>
         /// {0} has failed to publish your site. Please check your site publish command.
-		/// 
-		/// Publish command exit code: {1}
-		/// Command STDOUT:
-		/// {2}
-		/// Command STDERR:
-		/// {3}
-		/// 
+        /// 
+        /// Publish command exit code: {1}
+        /// Command STDOUT:
+        /// {2}
+        /// Command STDERR:
+        /// {3}
+        /// 
         /// </summary>
         SSGPublishErrorText,
-		/// <summary>
+        /// <summary>
         /// Static site publish failed
         /// </summary>
         SSGPublishErrorTitle,
-		/// <summary>
+        /// <summary>
         /// Statistics
         /// </summary>
         Statistics,
-		/// <summary>
+        /// <summary>
         /// Selection Statistics
         /// </summary>
         StatisticsSelection,
-		/// <summary>
+        /// <summary>
         /// Autosaving...
         /// </summary>
         StatusAutoSaving,
-		/// <summary>
+        /// <summary>
         /// Draft - Saved {0}
         /// </summary>
         StatusDraftSaved,
-		/// <summary>
+        /// <summary>
         /// Draft - Unsaved
         /// </summary>
         StatusDraftUnsaved,
-		/// <summary>
+        /// <summary>
         /// Published: {0}
         /// </summary>
         StatusPublished,
-		/// <summary>
+        /// <summary>
         /// {0} ({1})
         /// </summary>
         StatusWeblogNameFormatter,
-		/// <summary>
+        /// <summary>
         /// Switch to Blog
         /// </summary>
         SwitchWeblogs,
-		/// <summary>
+        /// <summary>
         /// &Horizontal alignment:
         /// </summary>
         TableAlignHorizontal,
-		/// <summary>
+        /// <summary>
         /// Center
         /// </summary>
         TableAlignHorizontalCenter,
-		/// <summary>
+        /// <summary>
         /// Left
         /// </summary>
         TableAlignHorizontalLeft,
-		/// <summary>
+        /// <summary>
         /// Right
         /// </summary>
         TableAlignHorizontalRight,
-		/// <summary>
+        /// <summary>
         /// &Vertical alignment:
         /// </summary>
         TableAlignVertical,
-		/// <summary>
+        /// <summary>
         /// Bottom
         /// </summary>
         TableAlignVerticalBottom,
-		/// <summary>
+        /// <summary>
         /// Middle
         /// </summary>
         TableAlignVerticalMiddle,
-		/// <summary>
+        /// <summary>
         /// Top
         /// </summary>
         TableAlignVerticalTop,
-		/// <summary>
+        /// <summary>
         /// Border
         /// </summary>
         TableBorder,
-		/// <summary>
+        /// <summary>
         /// Cell Padding
         /// </summary>
         TableCellPadding,
-		/// <summary>
+        /// <summary>
         /// &Pad cell contents:
         /// </summary>
         TableCellPaddingLabel,
-		/// <summary>
+        /// <summary>
         /// Cell Spacing
         /// </summary>
         TableCellSpacing,
-		/// <summary>
+        /// <summary>
         /// &Space between cells:
         /// </summary>
         TableCellSpacingLabel,
-		/// <summary>
+        /// <summary>
         /// Columns
         /// </summary>
         TableColumns,
-		/// <summary>
+        /// <summary>
         /// &Columns:
         /// </summary>
         TableColumnsLabel,
-		/// <summary>
+        /// <summary>
         /// Rows
         /// </summary>
         TableRows,
-		/// <summary>
+        /// <summary>
         /// &Rows:
         /// </summary>
         TableRowsLabel,
-		/// <summary>
+        /// <summary>
         /// Show table &border:
         /// </summary>
         TableShowBorderLabel,
-		/// <summary>
+        /// <summary>
         /// Table Properties
         /// </summary>
         TableTableProperties,
-		/// <summary>
+        /// <summary>
         /// Set tags (comma separated)
         /// </summary>
         TagControlSetTags,
-		/// <summary>
+        /// <summary>
         /// Tags
         /// </summary>
         Tags,
-		/// <summary>
+        /// <summary>
         /// {0} Tags: {{tag-group}}
         /// </summary>
         TagsCaptionFormat,
-		/// <summary>
+        /// <summary>
         /// Create New Tag Provider
         /// </summary>
         TagsCreateNew,
-		/// <summary>
+        /// <summary>
         /// (Customize Providers...)
         /// </summary>
         TagsCustomizeProviders,
-		/// <summary>
+        /// <summary>
         /// Edit {0}
         /// </summary>
         TagsEditPattern,
-		/// <summary>
+        /// <summary>
         /// The HTML caption that will appear with the HTML generated for the tags. Use {0} where you'd like the HTML generated from the HTML tag template to be placed.
         /// </summary>
         TagsHtmlCaptionHelpString,
-		/// <summary>
+        /// <summary>
         /// HTML &caption for tag list:
         /// </summary>
         TagsHtmlCaptionLabel,
-		/// <summary>
+        /// <summary>
         /// The separator that should appear between tag HTML. The separator will appear between the HTML that is generated for each tag.
         /// </summary>
         TagsHtmlDelimiterHelpString,
-		/// <summary>
+        /// <summary>
         /// &Separate the HTML for each tag using:
         /// </summary>
         TagsHtmlDelimiterLabel,
-		/// <summary>
+        /// <summary>
         /// A preview of the literal HTML that will be generated for a set of tags.
         /// </summary>
         TagsHtmlPreviewHelpString,
-		/// <summary>
+        /// <summary>
         /// HTML preview:
         /// </summary>
         TagsHtmlPreviewLabel,
-		/// <summary>
+        /// <summary>
         /// The HTML template will be used to generate HTML for each tag that is provided. In the HTML template, use {0} where the tag should be placed. Use {1} where the URL encoded tag should be placed.
         /// </summary>
         TagsHtmlTemplateHelpString,
-		/// <summary>
+        /// <summary>
         /// &HTML template for each tag:
         /// </summary>
         TagsHtmlTemplateLabel,
-		/// <summary>
+        /// <summary>
         /// Insert Tags
         /// </summary>
         TagsInsertTags,
-		/// <summary>
+        /// <summary>
         /// {0} Tags: {1}
         /// </summary>
         TagsProviderDefaultCaption,
-		/// <summary>
+        /// <summary>
         /// The name of the tag provider. This name will be displayed in the tag provider list when inserting tags.
         /// </summary>
         TagsProviderNameHelpString,
-		/// <summary>
+        /// <summary>
         /// &Provider name:
         /// </summary>
         TagsProviderNameLabel,
-		/// <summary>
+        /// <summary>
         /// &Restore Defaults
         /// </summary>
         TagsRestoreDefaults,
-		/// <summary>
+        /// <summary>
         /// tag 1
         /// </summary>
         TagsTagExample1,
-		/// <summary>
+        /// <summary>
         /// tag 2
         /// </summary>
         TagsTagExample2,
-		/// <summary>
+        /// <summary>
         /// Tag Options
         /// </summary>
         TagsTagOptions,
-		/// <summary>
+        /// <summary>
         /// Tag &Provider:
         /// </summary>
         TagsTagProviderLabel,
-		/// <summary>
+        /// <summary>
         /// &Tag providers:
         /// </summary>
         TagsTagProvidersLabel,
-		/// <summary>
+        /// <summary>
         /// &Tags (comma separated):
         /// </summary>
         TagsTagsLabel,
-		/// <summary>
+        /// <summary>
         /// Missing {0} parameter
         /// </summary>
         TagsXmlParsingError,
-		/// <summary>
+        /// <summary>
         /// This is a temporary post that was not deleted. Please delete this manually. ({0} - {1})
         /// </summary>
         TemporaryPostBody,
-		/// <summary>
+        /// <summary>
         /// Temporary Post Used For Theme Detection ({0} - {1})
         /// </summary>
         TemporaryPostTitle,
-		/// <summary>
+        /// <summary>
         /// Text Style
         /// </summary>
         TextStyle,
-		/// <summary>
+        /// <summary>
         /// The error occurred for the following reason:
         /// </summary>
         TheErrorOccuredBecause,
-		/// <summary>
+        /// <summary>
         /// &Tilt:
         /// </summary>
         TiltEditorLabel,
-		/// <summary>
+        /// <summary>
         /// Tilt
         /// </summary>
         TiltEditorTitle,
-		/// <summary>
+        /// <summary>
         /// Enter a {0} title
         /// </summary>
         TitleDefaultText,
-		/// <summary>
+        /// <summary>
         /// &Don't remind me about missing titles
         /// </summary>
         TitleRemindDontShowAgain,
-		/// <summary>
+        /// <summary>
         /// {0} Title Not Specified
         /// </summary>
         TitleRemindError,
-		/// <summary>
+        /// <summary>
         /// You have not specified a title for this {0}. Do you still want to continue with publishing?
         /// </summary>
         TitleRemindExplanation,
-		/// <summary>
+        /// <summary>
         /// Title Reminder
         /// </summary>
         TitleRemindTitle,
-		/// <summary>
+        /// <summary>
         /// Today
         /// </summary>
         Today,
-		/// <summary>
+        /// <summary>
         /// B
         /// </summary>
         ToolbarBoldLetter,
-		/// <summary>
+        /// <summary>
         /// 
         /// </summary>
         ToolbarFontStyleFontFamily,
-		/// <summary>
+        /// <summary>
         /// I
         /// </summary>
         ToolbarItalicLetter,
-		/// <summary>
+        /// <summary>
         /// A
         /// </summary>
         ToolbarStrikethroughLetter,
-		/// <summary>
+        /// <summary>
         /// U
         /// </summary>
         ToolbarUnderlineLetter,
-		/// <summary>
+        /// <summary>
         /// {0}...
         /// </summary>
         TruncatedString,
-		/// <summary>
+        /// <summary>
         /// Click here to see error details
         /// </summary>
         UnexpectedErrorClickHere,
-		/// <summary>
+        /// <summary>
         /// &Continue
         /// </summary>
         UnexpectedErrorContinue,
-		/// <summary>
+        /// <summary>
         /// We have created an error summary that you can view.
         /// </summary>
         UnexpectedErrorDescription,
-		/// <summary>
+        /// <summary>
         /// Exit
         /// </summary>
         UnexpectedErrorExit,
-		/// <summary>
+        /// <summary>
         /// An error occurred in the {0} plug-in:
-		/// 
-		/// {1}
+        /// 
+        /// {1}
         /// </summary>
         UnexpectedErrorPluginDescription,
-		/// <summary>
+        /// <summary>
         /// Plug-in Error Occurred
         /// </summary>
         UnexpectedErrorPluginTitle,
-		/// <summary>
+        /// <summary>
         /// &Send Error
         /// </summary>
         UnexpectedErrorSendError,
-		/// <summary>
+        /// <summary>
         /// Unexpected Error
         /// </summary>
         UnexpectedErrorTitle,
-		/// <summary>
+        /// <summary>
         /// An unexpected error has occurred within the application.
         /// </summary>
         UnhandledExceptionErrorMessage,
-		/// <summary>
+        /// <summary>
         /// Unexpected Error Occurred
         /// </summary>
         UnhandledExceptionErrorTitle,
-		/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
         Unknown,
-		/// <summary>
+        /// <summary>
         /// Untitled
         /// </summary>
         Untitled,
-		/// <summary>
+        /// <summary>
         /// (Untitled Page)
         /// </summary>
         UntitledPage,
-		/// <summary>
+        /// <summary>
         /// (Untitled Post)
         /// </summary>
         UntitledPost,
-		/// <summary>
+        /// <summary>
         /// &Update account information...
         /// </summary>
         UpdateAccountConfiguration,
-		/// <summary>
+        /// <summary>
         /// Update Account Configuration
         /// </summary>
         UpdateAccountConfigurationTitle,
-		/// <summary>
+        /// <summary>
         /// A&sk Me Later
         /// </summary>
         UpdatesAvailableAskLaterButton,
-		/// <summary>
+        /// <summary>
         /// Checking for updates
         /// </summary>
         UpdatesAvailableChecking,
-		/// <summary>
+        /// <summary>
         /// &Download Now
         /// </summary>
         UpdatesAvailableDownloadButton,
-		/// <summary>
+        /// <summary>
         /// More information
         /// </summary>
         UpdatesAvailableLink,
-		/// <summary>
+        /// <summary>
         /// Required updates will be applied next time you start Open Live Writer.
         /// </summary>
         UpdatesAvailableMessage,
-		/// <summary>
+        /// <summary>
         /// A new version of {0} is now available. Click the download now button to download and install the update.
         /// </summary>
         UpdatesAvailableMessageFull,
-		/// <summary>
+        /// <summary>
         /// A new pre-release version of {0} is now available. Click the download now button to download and install the update.
         /// </summary>
         UpdatesAvailableMessagePrerelease,
-		/// <summary>
+        /// <summary>
         /// Also check for pre-release (beta) &versions
         /// </summary>
         UpdatesAvailableNofifyBeta,
-		/// <summary>
+        /// <summary>
         /// &Automatically check for updates
         /// </summary>
         UpdatesAvailableNotify,
-		/// <summary>
+        /// <summary>
         /// There are no updates available. You are running the latest version of {0}.
         /// </summary>
         UpdatesAvailableNoUpdateText,
-		/// <summary>
+        /// <summary>
         /// No Updates Available
         /// </summary>
         UpdatesAvailableNoUpdateTitle,
-		/// <summary>
+        /// <summary>
         /// New Version Available
         /// </summary>
         UpdatesAvailableTitle,
-		/// <summary>
+        /// <summary>
         /// New Pre-Release Version Available
         /// </summary>
         UpdatesAvailableTitlePrerelease,
-		/// <summary>
+        /// <summary>
         /// Close
         /// </summary>
         UpdatesBandClose,
-		/// <summary>
+        /// <summary>
         /// Downloading and installing {0} update(s). Please wait...
         /// </summary>
         UpdatesInstalling,
-		/// <summary>
+        /// <summary>
         /// Preparing to update Open Live Writer...
         /// </summary>
         UpdatesPreparing,
-		/// <summary>
+        /// <summary>
         /// Install Updates - Open Live Writer
         /// </summary>
         UpdatesProgressTitle,
-		/// <summary>
+        /// <summary>
         /// Starting updated Open Live Writer...
         /// </summary>
         UpdatesStartingWriter,
-		/// <summary>
+        /// <summary>
         /// Draft
         /// </summary>
         UpdateWeblogDraft,
-		/// <summary>
+        /// <summary>
         /// Publishing your {0}
         /// </summary>
         UpdateWeblogPublish1,
-		/// <summary>
+        /// <summary>
         /// Publishing {0} to {1}
         /// </summary>
         UpdateWeblogPublish2,
-		/// <summary>
+        /// <summary>
         /// Open my blog in the browser after publishing
         /// </summary>
         UpdateWeblogViewPost,
-		/// <summary>
+        /// <summary>
         /// &Web address:
         /// </summary>
         UrlLabel,
-		/// <summary>
+        /// <summary>
         /// Retrieving Data
         /// </summary>
         UrlRetrieveProgressCaption,
-		/// <summary>
+        /// <summary>
         /// Retrieving additional data required for publishing...
         /// </summary>
         UrlRetrieveProgressMessage,
-		/// <summary>
+        /// <summary>
         /// User name:
         /// </summary>
         Username,
-		/// <summary>
+        /// <summary>
         /// &User name:
         /// </summary>
         UsernameLabel,
-		/// <summary>
+        /// <summary>
         /// Enter video caption here
         /// </summary>
         VideoCaptionDefaultText,
-		/// <summary>
+        /// <summary>
         /// 245
         /// </summary>
         VideoCaptionMaxCharactersAccepted,
-		/// <summary>
+        /// <summary>
         /// Error Publishing Video
         /// </summary>
         VideoError,
-		/// <summary>
+        /// <summary>
         /// Please remove the video and try to publish again.
         /// </summary>
         VideoErrorTryAgain,
-		/// <summary>
+        /// <summary>
         /// From Video Service
         /// </summary>
         VideoFromVideoService,
-		/// <summary>
+        /// <summary>
         /// There was an error getting the list of videos.
         /// </summary>
         VideoGetVideosError,
-		/// <summary>
+        /// <summary>
         /// Loading...
         /// </summary>
         VideoLoading,
-		/// <summary>
+        /// <summary>
         /// Uploading Video...
         /// </summary>
         VideoLocalProcessing,
-		/// <summary>
+        /// <summary>
         /// There was an error with the network connection.
         /// </summary>
         VideoNetworkError,
-		/// <summary>
+        /// <summary>
         /// {0} is processing your uploaded video.
-		/// This might take a while.
+        /// This might take a while.
         /// </summary>
         VideoRemoteProcessing,
-		/// <summary>
+        /// <summary>
         /// This video does not contain the video ID.  Please enter the embed for the video.
         /// </summary>
         VideoUrlConvertError,
-		/// <summary>
+        /// <summary>
         /// View all
         /// </summary>
         ViewAll,
-		/// <summary>
+        /// <summary>
         /// &View
         /// </summary>
         ViewButton,
-		/// <summary>
+        /// <summary>
         /// View map
         /// </summary>
         ViewMap,
-		/// <summary>
+        /// <summary>
         /// View Blog
         /// </summary>
         ViewWeblog,
-		/// <summary>
+        /// <summary>
         /// See blog capabilities
         /// </summary>
         ViewWeblogCapabilities,
-		/// <summary>
+        /// <summary>
         /// Bottom Left
         /// </summary>
         WatermarkAlignBottomLeft,
-		/// <summary>
+        /// <summary>
         /// Bottom Right
         /// </summary>
         WatermarkAlignBottomRight,
-		/// <summary>
+        /// <summary>
         /// Centered
         /// </summary>
         WatermarkAlignCentered,
-		/// <summary>
+        /// <summary>
         /// Top Left
         /// </summary>
         WatermarkAlignTopLeft,
-		/// <summary>
+        /// <summary>
         /// Top Right
         /// </summary>
         WatermarkAlignTopRight,
-		/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
         WatermarkAlignUnknown,
-		/// <summary>
+        /// <summary>
         /// Arial
         /// </summary>
         WatermarkDefaultFont,
-		/// <summary>
+        /// <summary>
         /// © {0:yyyy}
         /// </summary>
         WatermarkDefaultText,
-		/// <summary>
+        /// <summary>
         /// Watermark
         /// </summary>
         WatermarkDialogTitle,
-		/// <summary>
+        /// <summary>
         /// &Font family:
         /// </summary>
         WatermarkFontFamilyLabel,
-		/// <summary>
+        /// <summary>
         /// &Position:
         /// </summary>
         WatermarkPositionLabel,
-		/// <summary>
+        /// <summary>
         /// &Size:
         /// </summary>
         WatermarkSizeLabel,
-		/// <summary>
+        /// <summary>
         /// &Watermark text:
         /// </summary>
         WatermarkTextLabel,
-		/// <summary>
+        /// <summary>
         /// {0} has encountered a problem: {1}.
         /// </summary>
         WatsonMainIntroBoldFormat,
-		/// <summary>
+        /// <summary>
         /// {0} {1}
         /// </summary>
         WatsonMainIntroRegFormat,
-		/// <summary>
+        /// <summary>
         /// Please tell Microsoft about this problem.
         /// </summary>
         WatsonMainPleaBold,
-		/// <summary>
+        /// <summary>
         /// We have created an error report that you can send to help us fix bugs. We will treat this report as confidential and anonymous.
         /// </summary>
         WatsonMainPleaReg,
-		/// <summary>
+        /// <summary>
         /// Do Not Send Report
         /// </summary>
         WatsonNoReportButton,
-		/// <summary>
+        /// <summary>
         /// Send Report
         /// </summary>
         WatsonReportButton,
-		/// <summary>
+        /// <summary>
         /// You may have problems with editing content using the theme for the current blog (for example, incorrect post layout or problems selecting and resizing content).
         /// </summary>
         WebLayoutWarning1,
-		/// <summary>
+        /// <summary>
         /// If you do experience problems you should switch back to editing without the theme.
         /// </summary>
         WebLayoutWarning2,
-		/// <summary>
+        /// <summary>
         /// Web Layout View
         /// </summary>
         WebLayoutWarningTitle,
-		/// <summary>
+        /// <summary>
         /// Blog
         /// </summary>
         Weblog,
-		/// <summary>
+        /// <summary>
         /// Capability
         /// </summary>
         WeblogCapabilitiesCapability,
-		/// <summary>
+        /// <summary>
         /// {0} has detected the following capabilities for your blog:
         /// </summary>
         WeblogCapabilitiesCaption,
-		/// <summary>
+        /// <summary>
         /// Blog Capabilities
         /// </summary>
         WeblogCapabilitiesTitle,
-		/// <summary>
+        /// <summary>
         /// Value
         /// </summary>
         WeblogCapabilitiesValue,
-		/// <summary>
+        /// <summary>
         /// &Blog name:
         /// </summary>
         WeblogName,
-		/// <summary>
+        /// <summary>
         /// Blog &nickname:
         /// </summary>
         WeblogNameColon,
-		/// <summary>
+        /// <summary>
         /// Blog service:
         /// </summary>
         WeblogProvider,
-		/// <summary>
+        /// <summary>
         /// Blog Options - {0}
         /// </summary>
         WeblogSettings,
-		/// <summary>
+        /// <summary>
         /// Width
         /// </summary>
         Width,
-		/// <summary>
+        /// <summary>
         /// &Width:
         /// </summary>
         WidthColon,
-		/// <summary>
+        /// <summary>
         /// &Width:
         /// </summary>
         WidthLabel,
-		/// <summary>
+        /// <summary>
         /// {0} - {1}
         /// </summary>
         WindowTitleFormat,
-		/// <summary>
+        /// <summary>
         /// {0}...
         /// </summary>
         WithEllipses,
-		/// <summary>
+        /// <summary>
         /// < &Back
         /// </summary>
         WizardBack,
-		/// <summary>
+        /// <summary>
         /// Configure {0} to publish to:
         /// </summary>
         WizardBlogTypeConfigureTo,
-		/// <summary>
+        /// <summary>
         /// &Google Blogger
         /// </summary>
         WizardBlogTypeGoogleBlogger,
-		/// <summary>
+        /// <summary>
         /// &Other services
         /// </summary>
         WizardBlogTypeOther,
-		/// <summary>
+        /// <summary>
         /// &SharePoint
         /// </summary>
         WizardBlogTypeSharePoint,
-		/// <summary>
+        /// <summary>
         /// Static Site G&enerator
         /// </summary>
         WizardBlogTypeStaticSite,
-		/// <summary>
+        /// <summary>
         /// Many popular blog services work with {0}.
         /// </summary>
         WizardBlogTypeWelcome,
-		/// <summary>
+        /// <summary>
         /// What blog service do you use?
         /// </summary>
         WizardBlogTypeWhatBlogType,
-		/// <summary>
+        /// <summary>
         /// Finish
         /// </summary>
         WizardFinish,
-		/// <summary>
+        /// <summary>
         /// &Next >
         /// </summary>
         WizardNext,
-		/// <summary>
+        /// <summary>
         /// Words
         /// </summary>
         WordCount,
-		/// <summary>
+        /// <summary>
         /// Word Count
         /// </summary>
         WordCountTitle,
-		/// <summary>
+        /// <summary>
         /// Words: {0}
         /// </summary>
         Words,
-		/// <summary>
+        /// <summary>
         /// Yes
         /// </summary>
         Yes,
-		/// <summary>
+        /// <summary>
         /// &Yes
         /// </summary>
         YesButton,
-		/// <summary>
+        /// <summary>
         /// The video has been blocked by the content owner.
         /// </summary>
         YouTubeblocked,
-		/// <summary>
+        /// <summary>
         /// YouTube is unable to convert the video file.
         /// </summary>
         YouTubecantProcess,
-		/// <summary>
+        /// <summary>
         /// The video commits a copyright infringement.
         /// </summary>
         YouTubecopyright,
-		/// <summary>
+        /// <summary>
         /// The video is a duplicate of another uploaded video.
         /// </summary>
         YouTubeduplicate,
-		/// <summary>
+        /// <summary>
         /// The uploaded file is empty.
         /// </summary>
         YouTubeempty,
-		/// <summary>
+        /// <summary>
         /// The video contains inappropriate content.
         /// </summary>
         YouTubeinappropriate,
-		/// <summary>
+        /// <summary>
         /// The uploaded video is in an invalid file format.
         /// </summary>
         YouTubeinvalidFormat,
-		/// <summary>
+        /// <summary>
         /// An unexpected response from YouTube was received.
         /// </summary>
         YouTubeInvalidResult,
-		/// <summary>
+        /// <summary>
         /// There is no YouTube account associated with this Google Account.
         /// </summary>
         YouTubeNoAccount,
-		/// <summary>
+        /// <summary>
         /// The account associated with the video has been suspended.
         /// </summary>
         YouTubesuspended,
-		/// <summary>
+        /// <summary>
         /// The video commits a terms of use violation.
         /// </summary>
         YouTubetermsOfUse,
-		/// <summary>
+        /// <summary>
         /// The video exceeds the maximum duration of 10 minutes.
         /// </summary>
         YouTubetooLong,
-		/// <summary>
+        /// <summary>
         /// The uploaded file is too small.
         /// </summary>
         YouTubetooSmall,
-		/// <summary>
+        /// <summary>
         /// The video uses an unsupported codec.
         /// </summary>
         YouTubeunsupportedCodec,
-		/// <summary>
+        /// <summary>
         /// There was an unexpected error while uploading the video.
         /// </summary>
         YouTubeVideoError

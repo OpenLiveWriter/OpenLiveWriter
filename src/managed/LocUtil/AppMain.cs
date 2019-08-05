@@ -389,7 +389,7 @@ namespace OpenLiveWriter.Localization
                         index++;
                     }
 
-                    sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(pairs.ToArray(), ",\r\n\t\t")));
+                    sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(pairs.ToArray(), ",\r\n        ")));
                 }
                 else if (values == null)
                 {
@@ -398,10 +398,10 @@ namespace OpenLiveWriter.Localization
                     foreach (string command in commandList.ToArray())
                     {
                         string description = ((Values)descriptions[command]).Val as string;
-                        description = description.Replace("\n", "\n\t\t/// ");
+                        description = description.Replace("\n", "\n        /// ");
                         descs.Add(string.Format(CultureInfo.InvariantCulture, DESC_TEMPLATE, description, command));
                     }
-                    sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(descs.ToArray(), ",\r\n\t\t")));
+                    sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(descs.ToArray(), ",\r\n        ")));
                 }
                 else
                 {
