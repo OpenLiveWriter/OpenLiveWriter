@@ -384,10 +384,7 @@ namespace OpenLiveWriter.Localization
                 }
                 else if (values == null)
                 {
-                    const string DESC_TEMPLATE = @"/// <summary>
-                                                    /// {0}
-                                                    /// </summary>
-                                                    {1}";
+                    const string DESC_TEMPLATE = "/// <summary>\n        /// {0}\n        /// </summary>\n        {1}";
                     ArrayList descs = new ArrayList();
                     foreach (string command in commandList.ToArray())
                     {
