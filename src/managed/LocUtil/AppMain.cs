@@ -398,7 +398,7 @@ namespace OpenLiveWriter.Localization
                     foreach (string command in commandList.ToArray())
                     {
                         string description = ((Values)descriptions[command]).Val as string;
-                        description = description.Replace("\n", "\n        /// ");
+                        description = description.Replace("\n", "\n        /// ").Replace("/// \r\n", "///\r\n");
                         descs.Add(string.Format(CultureInfo.InvariantCulture, DESC_TEMPLATE, description, command));
                     }
                     sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(descs.ToArray(), ",\r\n        ")));

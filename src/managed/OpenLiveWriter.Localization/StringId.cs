@@ -164,7 +164,7 @@ namespace OpenLiveWriter.Localization
         AutoreplaceWordorPhrase,
         /// <summary>
         /// Please check your user name and password.
-        /// 
+        ///
         /// {0} - {1}
         /// </summary>
         BCEAuthenticationMessage,
@@ -174,9 +174,9 @@ namespace OpenLiveWriter.Localization
         BCEAuthenticationTitle,
         /// <summary>
         /// Error attempting to connect to blog at:
-        /// 
+        ///
         /// {0}
-        /// 
+        ///
         /// {1}
         /// </summary>
         BCEConnectionErrorMessage,
@@ -186,7 +186,7 @@ namespace OpenLiveWriter.Localization
         BCEConnectionErrorTitle,
         /// <summary>
         /// An unexpected error occurred while accessing the file {0}
-        /// 
+        ///
         /// {1} - {2}
         /// </summary>
         BCEFileIOMessage,
@@ -204,7 +204,7 @@ namespace OpenLiveWriter.Localization
         BCEFileTransferDisconnectingFromDestination,
         /// <summary>
         /// Error occurred while {0}
-        /// 
+        ///
         /// ({1}) {2}
         /// </summary>
         BCEFileTransferMessage,
@@ -226,9 +226,9 @@ namespace OpenLiveWriter.Localization
         BCEFileUploadNotSupportedTitle,
         /// <summary>
         /// The server reported an error with the following web address:
-        /// 
+        ///
         /// {0}
-        /// 
+        ///
         /// {1}
         /// </summary>
         BCEHttpErrorMessage,
@@ -238,7 +238,7 @@ namespace OpenLiveWriter.Localization
         BCEHttpErrorTitle,
         /// <summary>
         /// The response to the {0} method received from the blog server was invalid:
-        /// 
+        ///
         /// {1}
         /// </summary>
         BCEInvalidServerResponseMessage,
@@ -256,7 +256,7 @@ namespace OpenLiveWriter.Localization
         BCEMethodUnsupportedTitle,
         /// <summary>
         /// An unexpected data transfer exception occurred while {0}
-        /// 
+        ///
         /// {1} - {2}
         /// </summary>
         BCENetworkIOMessage,
@@ -282,9 +282,9 @@ namespace OpenLiveWriter.Localization
         BCEPostAsDraftUnsupportedTitle,
         /// <summary>
         /// The post web address for the blog was not found:
-        /// 
+        ///
         /// {0}
-        /// 
+        ///
         /// {1}
         /// </summary>
         BCEPostUrlNotFoundMessage,
@@ -294,7 +294,7 @@ namespace OpenLiveWriter.Localization
         BCEPostUrlNotFoundTitle,
         /// <summary>
         /// Server Error {0} Occurred
-        /// 
+        ///
         /// {1}
         /// </summary>
         BCEProviderMessage,
@@ -3125,9 +3125,9 @@ namespace OpenLiveWriter.Localization
         /// <summary>
         /// An installed plugin is incorrectly implemented and has caused an error. You may be able to contact the plugin's publisher below to resolve this issue. Alternatively, you may avoid this error in the future by uninstalling the plugin mentioned below.
         /// Name: {0}
-        /// 
+        ///
         /// Publisher: {1}
-        /// 
+        ///
         /// Unimplemented Method: {2}
         /// </summary>
         MethodNotImplementedDetail,
@@ -4041,13 +4041,13 @@ namespace OpenLiveWriter.Localization
         PostEditorPrefView,
         /// <summary>
         /// Unexpected error occurred while accessing local post ({0})
-        /// 
+        ///
         /// {1}
         /// </summary>
         PostEditorStorageExceptionMessage,
         /// <summary>
         /// Unexpected disk access error occurred while accessing local post ({0})
-        /// 
+        ///
         /// {1}
         /// </summary>
         PostEditorStorageExceptionMessage2,
@@ -4439,7 +4439,7 @@ namespace OpenLiveWriter.Localization
         PushpinUntitled,
         /// <summary>
         /// Couldn't find the location for the pin that you entered at this time.
-        /// 
+        ///
         /// Do you still want to set this web address as your custom pin?
         /// </summary>
         PushpinValidationError,
@@ -4673,7 +4673,7 @@ namespace OpenLiveWriter.Localization
         SplitterMore,
         /// <summary>
         /// {0} has failed to build your site. Please ensure your site builds manually, check your build command and try again.
-        /// 
+        ///
         /// Build command exit code: {1}
         /// Command STDOUT:
         /// {2}
@@ -4972,7 +4972,7 @@ namespace OpenLiveWriter.Localization
         SSGFrontMatterTitle,
         /// <summary>
         /// {0} has failed to publish your site. Please check your site publish command.
-        /// 
+        ///
         /// Publish command exit code: {1}
         /// Command STDOUT:
         /// {2}
@@ -5287,7 +5287,7 @@ namespace OpenLiveWriter.Localization
         UnexpectedErrorExit,
         /// <summary>
         /// An error occurred in the {0} plug-in:
-        /// 
+        ///
         /// {1}
         /// </summary>
         UnexpectedErrorPluginDescription,
