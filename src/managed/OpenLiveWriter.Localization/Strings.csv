@@ -72,7 +72,7 @@ PostEditorPrefPublishing,Publishing,
 PostEditorPrefRemind,Remind me to add &tags before publishing,
 PostEditorPrefRemindCat,Remind me to add &categories before publishing,
 PostEditorPrefClose,Close &window after publishing,
-PostEditorPrefView,&View blog after publishing,
+PostEditorPrefView,&View blog after publishing,Modified on 2/19/2016 by @kathweaver to resolve Issue #377
 PostEditorPrefAuto,Save A&utoRecover information periodically,
 PostEditorPrefSide,S&how taskpane when editable items are inserted,
 PostEditorPrefUnsave,Open a new window &only when there are unsaved changes to the current post,

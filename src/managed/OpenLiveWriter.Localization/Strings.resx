@@ -3515,6 +3515,7 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PostEditorPrefView" xml:space="preserve">
     <value>&amp;View blog after publishing</value>
+    <comment>Modified on 2/19/2016 by @kathweaver to resolve Issue #377</comment>
   </data>
   <data name="PostEditorStorageExceptionMessage" xml:space="preserve">
     <value>Unexpected error occurred while accessing local post ({0})
