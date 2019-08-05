@@ -24,6 +24,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         protected StaticSiteConfig SiteConfig;
         public BlogPost BlogPost { get; private set; }
+        public bool IsDraft { get; set; } = false;
 
         public StaticSiteItem(StaticSiteConfig config)
         {
@@ -35,6 +36,13 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             SiteConfig = config;
             BlogPost = blogPost;
+        }
+
+        public StaticSiteItem(StaticSiteConfig config, BlogPost blogPost, bool isDraft)
+        {
+            SiteConfig = config;
+            BlogPost = blogPost;
+            IsDraft = isDraft;
         }
 
         public virtual StaticSiteItemFrontMatter FrontMatter
@@ -188,6 +196,20 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         protected abstract string GetFilePathForProvidedSlug(string slug);
 
         protected abstract string GetSlugFromPublishFileName(string publishFileName);
+
+        /// <summary>
+        /// If the item is a Post and a Draft, returns the Drafts dir, otherwise returns the regular dir
+        /// </summary>
+        protected string ItemRelativeDir => 
+            IsDraft && !BlogPost.IsPage && SiteConfig.DraftsEnabled ? 
+                SiteConfig.DraftsPath 
+            : (
+                BlogPost.IsPage ?
+                    SiteConfig.PagesPath
+                :
+                    SiteConfig.PostsPath
+            );
+
 
         /// <summary>
         /// Save the post to the correct directory

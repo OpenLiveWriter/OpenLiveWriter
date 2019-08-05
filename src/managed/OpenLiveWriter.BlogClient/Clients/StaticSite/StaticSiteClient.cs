@@ -58,7 +58,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         public BlogInfo[] GetUsersBlogs() => new BlogInfo[0];
 
         public BlogPostCategory[] GetCategories(string blogId) =>
-            StaticSitePost.GetAllPosts(Config)
+            StaticSitePost.GetAllPosts(Config, false)
             .SelectMany(post => post.BlogPost.Categories.Select(cat => cat.Name))
             .Distinct()
             .Select(cat => new BlogPostCategory(cat))
@@ -75,7 +75,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// <param name="now">If null, then includes future posts.  If non-null, then only includes posts before the *UTC* 'now' time.</param>
         /// <returns></returns>
         public BlogPost[] GetRecentPosts(string blogId, int maxPosts, bool includeCategories, DateTime? now) =>
-            StaticSitePost.GetAllPosts(Config)
+            StaticSitePost.GetAllPosts(Config, true)
             .Select(post => post.BlogPost)
             .Where(post => post != null && (now == null || post.DatePublished < now))
             .OrderByDescending(post => post.DatePublished)
@@ -93,7 +93,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             etag = "";
 
             // Create a StaticSitePost on the provided post
-            return DoNewItem(new StaticSitePost(Config, post));
+            return DoNewItem(new StaticSitePost(Config, post, !publish));
         }
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -107,10 +107,17 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
             etag = "";
 
             // Create a StaticSitePost on the provided post
-            var ssgPost = new StaticSitePost(Config, post);
+            var ssgPost = new StaticSitePost(Config, post, !publish);
 
             if(ssgPost.FilePathById == null)
             {
+                // If we are publishing and there exists a draft with this ID, delete it.
+                if (publish)
+                {
+                    var filePath = new StaticSitePost(Config, post, true).FilePathById;
+                    if (filePath != null) File.Delete(filePath);
+                }
+
                 // Existing post could not be found to edit, call NewPost instead;
                 NewPost(blogId, post, newCategoryContext, publish, out etag, out remotePost);
                 return true;
@@ -157,11 +164,17 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public string NewPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
         {
-            if (!publish && !Options.SupportsPostAsDraft)
+            if(!publish)
             {
-                Trace.Fail("Static site does not support drafts, cannot post.");
+                Trace.Fail("Posting pages as drafts not yet implemented.");
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
+            //if (!publish && !Options.SupportsPostAsDraft)
+            //{
+            //    Trace.Fail("Static site does not support drafts, cannot post.");
+            //    throw new BlogClientPostAsDraftUnsupportedException();
+            //}
+
             remotePost = null;
             etag = "";
 
@@ -171,11 +184,16 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
 
         public bool EditPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
         {
-            if (!publish && !Options.SupportsPostAsDraft)
+            if (!publish)
             {
-                Trace.Fail("Static site does not support drafts, cannot post.");
+                Trace.Fail("Posting pages as drafts not yet implemented.");
                 throw new BlogClientPostAsDraftUnsupportedException();
             }
+            //if (!publish && !Options.SupportsPostAsDraft)
+            //{
+            //    Trace.Fail("Static site does not support drafts, cannot post.");
+            //    throw new BlogClientPostAsDraftUnsupportedException();
+            //}
             remotePost = null;
             etag = "";
 

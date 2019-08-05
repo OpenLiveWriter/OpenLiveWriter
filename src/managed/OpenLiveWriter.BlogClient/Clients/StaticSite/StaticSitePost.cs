@@ -27,25 +27,30 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
         }
 
+        public StaticSitePost(StaticSiteConfig config, BlogPost blogPost, bool isDraft) : base(config, blogPost, isDraft)
+        {
+        }
+
         protected override string GetSlugFromPublishFileName(string publishFileName) => FILENAME_SLUG_REGEX.Match(publishFileName).Groups[1].Value;
 
         public override string FilePathById {
             get
             {
                 if (_filePathById != null) return _filePathById;
-                var foundFile = Directory.GetFiles(Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath), "*.html")
+
+                var foundFile = Directory.GetFiles(Path.Combine(SiteConfig.LocalSitePath, ItemRelativeDir), "*.html")
                 .Where(postFile =>
                 {
                     try
                     {
-                        var post = LoadFromFile(Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, postFile), SiteConfig);
+                        var post = LoadFromFile(Path.Combine(SiteConfig.LocalSitePath, ItemRelativeDir, postFile), SiteConfig);
                         if (post.Id == Id) return true;
                     }
                     catch { }
 
                     return false;
                 }).DefaultIfEmpty(null).FirstOrDefault();
-                return _filePathById = (foundFile == null ? null : Path.Combine(SiteConfig.LocalSitePath, SiteConfig.PostsPath, foundFile));
+                return _filePathById = (foundFile == null ? null : Path.Combine(SiteConfig.LocalSitePath, ItemRelativeDir, foundFile));
             }
 
             protected set => _filePathById = value;
@@ -75,7 +80,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         {
             return Path.Combine(
                     SiteConfig.LocalSitePath,
-                    SiteConfig.PostsPath,
+                    ItemRelativeDir,
                     GetFileNameForProvidedSlug(slug));
         }
 
@@ -96,19 +101,26 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// Get all valid posts in PostsPath
         /// </summary>
         /// <returns>An IEnumerable of StaticSitePost</returns>
-        public static IEnumerable<StaticSiteItem> GetAllPosts(StaticSiteConfig config) =>
+        public static IEnumerable<StaticSiteItem> GetAllPosts(StaticSiteConfig config, bool includeDrafts) =>
             Directory.GetFiles(Path.Combine(config.LocalSitePath, config.PostsPath), "*.html")
+            .Select(fileName => Path.Combine(config.LocalSitePath, config.PostsPath, fileName)) // Create full paths
+            .Concat(includeDrafts && config.DraftsEnabled ? // Collect drafts if they're enabled
+                    Directory.GetFiles(Path.Combine(config.LocalSitePath, config.DraftsPath), "*.html")
+                    .Select(fileName => Path.Combine(config.LocalSitePath, config.DraftsPath, fileName)) // Create full paths
+                : 
+                    new string[] { } // Drafts are not enabled or were not requested
+                )
             .Select(postFile =>
             {
                 try
                 {
-                    return LoadFromFile(Path.Combine(config.LocalSitePath, config.PostsPath, postFile), config);
+                    return LoadFromFile(postFile, config);
                 }
                 catch { return null; }
             })
             .Where(p => p != null);
 
         public static StaticSiteItem GetPostById(StaticSiteConfig config, string id)
-            => GetAllPosts(config).Where(post => post.Id == id).DefaultIfEmpty(null).FirstOrDefault();
+            => GetAllPosts(config, true).Where(post => post.Id == id).DefaultIfEmpty(null).FirstOrDefault();
     }
 }
