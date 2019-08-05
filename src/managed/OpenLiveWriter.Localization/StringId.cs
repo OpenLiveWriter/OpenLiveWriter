@@ -1427,165 +1427,13 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         DeleteSomething,
         /// <summary>
-        /// Arabic
-        /// </summary>
-        DictionaryLanguageArabic,
-        /// <summary>
-        /// Basque
-        /// </summary>
-        DictionaryLanguageBasque,
-        /// <summary>
-        /// Bulgarian
-        /// </summary>
-        DictionaryLanguageBulgarian,
-        /// <summary>
-        /// Catalan
-        /// </summary>
-        DictionaryLanguageCatalan,
-        /// <summary>
-        /// Croatian
-        /// </summary>
-        DictionaryLanguageCroatian,
-        /// <summary>
-        /// Czech
-        /// </summary>
-        DictionaryLanguageCzech,
-        /// <summary>
-        /// Dutch
-        /// </summary>
-        DictionaryLanguageDutch,
-        /// <summary>
-        /// English (Australia)
-        /// </summary>
-        DictionaryLanguageEnglishAustralia,
-        /// <summary>
-        /// English (Canada)
-        /// </summary>
-        DictionaryLanguageEnglishCanada,
-        /// <summary>
-        /// English (United Kingdom)
-        /// </summary>
-        DictionaryLanguageEnglishUK,
-        /// <summary>
-        /// English (United States)
-        /// </summary>
-        DictionaryLanguageEnglishUS,
-        /// <summary>
-        /// Estonian
-        /// </summary>
-        DictionaryLanguageEstonian,
-        /// <summary>
-        /// Finnish
-        /// </summary>
-        DictionaryLanguageFinnish,
-        /// <summary>
-        /// French
-        /// </summary>
-        DictionaryLanguageFrench,
-        /// <summary>
-        /// German
-        /// </summary>
-        DictionaryLanguageGerman,
-        /// <summary>
-        /// German (Reform)
-        /// </summary>
-        DictionaryLanguageGermanReform,
-        /// <summary>
-        /// Greek
-        /// </summary>
-        DictionaryLanguageGreek,
-        /// <summary>
-        /// Hebrew
-        /// </summary>
-        DictionaryLanguageHebrew,
-        /// <summary>
-        /// Hungarian
-        /// </summary>
-        DictionaryLanguageHungarian,
-        /// <summary>
-        /// Indonesian
-        /// </summary>
-        DictionaryLanguageIndonesian,
-        /// <summary>
-        /// Italian
-        /// </summary>
-        DictionaryLanguageItalian,
-        /// <summary>
-        /// Korean
-        /// </summary>
-        DictionaryLanguageKorean,
-        /// <summary>
         /// Dictionary &language:
         /// </summary>
         DictionaryLanguageLabel,
         /// <summary>
-        /// Latvian
-        /// </summary>
-        DictionaryLanguageLatvian,
-        /// <summary>
-        /// Lithuanian
-        /// </summary>
-        DictionaryLanguageLithuanian,
-        /// <summary>
-        /// Malay
-        /// </summary>
-        DictionaryLanguageMalay,
-        /// <summary>
         /// (None)
         /// </summary>
         DictionaryLanguageNone,
-        /// <summary>
-        /// Polish
-        /// </summary>
-        DictionaryLanguagePolish,
-        /// <summary>
-        /// Portuguese
-        /// </summary>
-        DictionaryLanguagePortuguese,
-        /// <summary>
-        /// Portuguese (Brazil)
-        /// </summary>
-        DictionaryLanguagePortugueseBrazil,
-        /// <summary>
-        /// Romanian
-        /// </summary>
-        DictionaryLanguageRomanian,
-        /// <summary>
-        /// Russian
-        /// </summary>
-        DictionaryLanguageRussian,
-        /// <summary>
-        /// Serbian (Cyrillic)
-        /// </summary>
-        DictionaryLanguageSerbianCyrillic,
-        /// <summary>
-        /// Serbian (Latin)
-        /// </summary>
-        DictionaryLanguageSerbianLatin,
-        /// <summary>
-        /// Slovak
-        /// </summary>
-        DictionaryLanguageSlovak,
-        /// <summary>
-        /// Slovenian
-        /// </summary>
-        DictionaryLanguageSlovenian,
-        /// <summary>
-        /// Spanish
-        /// </summary>
-        DictionaryLanguageSpanish,
-        /// <summary>
-        /// Swedish
-        /// </summary>
-        DictionaryLanguageSwedish,
-        /// <summary>
-        /// Turkish
-        /// </summary>
-        DictionaryLanguageTurkish,
-        /// <summary>
-        /// Ukrainian
-        /// </summary>
-        DictionaryLanguageUkrainian,
         /// <summary>
         /// {0}x{1}
         /// </summary>
@@ -4608,10 +4456,6 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         SpellingPrefName,
         /// <summary>
-        /// Ignore words with &numbers
-        /// </summary>
-        SpellingPrefNum,
-        /// <summary>
         /// General options
         /// </summary>
         SpellingPrefOptions,
@@ -4623,10 +4467,6 @@ namespace OpenLiveWriter.Localization
         /// Use &real-time spell checking (squiggles)
         /// </summary>
         SpellingPrefReal,
-        /// <summary>
-        /// Ignore words in &UPPERCASE
-        /// </summary>
-        SpellingPrefUpper,
         /// <summary>
         /// (No suggestions)
         /// </summary>
