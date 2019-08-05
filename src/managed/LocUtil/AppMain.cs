@@ -304,7 +304,16 @@ namespace LocUtil
                     }
                 }
             }
-            xmlDoc.Save(path);
+
+            // Correct the formatting as to not create needlessly large diffs
+            var sb = new StringBuilder();
+            var stringWriter = new Utf8StringWriter(sb);
+            xmlDoc.Save(stringWriter);
+            File.WriteAllText(path,
+                sb.ToString()
+                .Replace("  <comment>", "    <comment>") // Fix comment tag indent
+                .Replace("</comment></data>", "</comment>\r\n  </data>"), // Move data close following comment close onto own line
+                Encoding.UTF8);
         }
 
         // @RIBBON TODO: For now the union of the command in Commands.xml and Ribbon.xml will go into the CommandId enum.
@@ -694,5 +703,15 @@ namespace OpenLiveWriter.Localization
                     throw new ConfigurationErrorsException("Unexpected element " + childEl.Name);
             }
         }
+    }
+
+    internal sealed class Utf8StringWriter : StringWriter
+    {
+        public Utf8StringWriter(StringBuilder sb) : base(sb)
+        {
+
+        }
+
+        public override Encoding Encoding => Encoding.UTF8;
     }
 }

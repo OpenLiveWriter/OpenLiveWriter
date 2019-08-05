@@ -21,14 +21,15 @@
     <resheader name="version">2.0</resheader>
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment>
+  </data>
     <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
         <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
+          <comment>This is a comment</comment>
     </data>
                 
     There are any number of "resheader" rows that contain simple 
@@ -123,40 +124,48 @@
   </resheader>
   <data name="AboutAbout" xml:space="preserve">
     <value>Abou&amp;t {0}</value>
-  <comment>{0} - Open Live Writer Beta</comment></data>
+    <comment>{0} - Open Live Writer Beta</comment>
+  </data>
   <data name="AboutConfigurationVersion" xml:space="preserve">
     <value>Configuration Version: {0}</value>
-  <comment>Displays the version of Writer's configuration file in the about dialog</comment></data>
+    <comment>Displays the version of Writer's configuration file in the about dialog</comment>
+  </data>
   <data name="AboutCopyright" xml:space="preserve">
     <value>Copyright © .NET Foundation. All rights reserved.</value>
   </data>
   <data name="AboutVersion" xml:space="preserve">
     <value>{0}</value>
-  <comment>{0} - version number, e.g. 2.0.1</comment></data>
+    <comment>{0} - version number, e.g. 2.0.1</comment>
+  </data>
   <data name="AccountPanel" xml:space="preserve">
     <value>Account</value>
   </data>
   <data name="AddButton" xml:space="preserve">
     <value>A&amp;dd...</value>
-  <comment>Add new blog, add to link glossary, etc.</comment></data>
+    <comment>Add new blog, add to link glossary, etc.</comment>
+  </data>
   <data name="AddButton2" xml:space="preserve">
     <value>&amp;Add</value>
   </data>
   <data name="AdvancedBlogOverride" xml:space="preserve">
     <value>Other blog settings</value>
-  <comment>Names a group of options for overriding some blog settings</comment></data>
+    <comment>Names a group of options for overriding some blog settings</comment>
+  </data>
   <data name="AdvancedDefault" xml:space="preserve">
     <value>Default ({0})</value>
-  <comment>{0} - default encoding web name (e.g. "UTF-8")</comment></data>
+    <comment>{0} - default encoding web name (e.g. "UTF-8")</comment>
+  </data>
   <data name="AdvancedEmbedTags" xml:space="preserve">
     <value>&amp;Embed tags:</value>
-  <comment>A blog feature, whether the blog supports &lt;embed&gt;</comment></data>
+    <comment>A blog feature, whether the blog supports &lt;embed&gt;</comment>
+  </data>
   <data name="AdvancedName" xml:space="preserve">
     <value>Advanced</value>
   </data>
   <data name="AdvancedScripts" xml:space="preserve">
     <value>&amp;Scripts:</value>
-  <comment>A blog feature, whether the blog supports &lt;script&gt;</comment></data>
+    <comment>A blog feature, whether the blog supports &lt;script&gt;</comment>
+  </data>
   <data name="AdvancedText" xml:space="preserve">
     <value>Select another encoding type for your blog posts. By default, it's UTF-8.</value>
   </data>
@@ -165,7 +174,8 @@
   </data>
   <data name="AdvancedXHTMLDefault" xml:space="preserve">
     <value>Default ({0})</value>
-  <comment>{0} - yes or no</comment></data>
+    <comment>{0} - yes or no</comment>
+  </data>
   <data name="AdvancedXHTMLGroupName" xml:space="preserve">
     <value>Markup language</value>
   </data>
@@ -174,10 +184,12 @@
   </data>
   <data name="Alignment" xml:space="preserve">
     <value>Alignment</value>
-  <comment>Tooltip for image alignment dropdown</comment></data>
+    <comment>Tooltip for image alignment dropdown</comment>
+  </data>
   <data name="AlignMenuItem" xml:space="preserve">
     <value>&amp;Align</value>
-  <comment>From the context menu when right-clicking on text in the editor.</comment></data>
+    <comment>From the context menu when right-clicking on text in the editor.</comment>
+  </data>
   <data name="AllFilesFilterString" xml:space="preserve">
     <value>All files (*.*)</value>
   </data>
@@ -189,7 +201,8 @@
   </data>
   <data name="AltTextEditorTitle" xml:space="preserve">
     <value>Alt-text</value>
-  <comment>Title of the HTML image alternate text dialog</comment></data>
+    <comment>Title of the HTML image alternate text dialog</comment>
+  </data>
   <data name="Appearance" xml:space="preserve">
     <value>Appearance</value>
   </data>
@@ -207,7 +220,8 @@
   </data>
   <data name="AutoRecoverDialogContent" xml:space="preserve">
     <value>{0} did not shut down properly the last time you used it. Unsaved changes are available for recovery. Would you like to recover these changes now?</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="AutoRecoverDialogInstruction" xml:space="preserve">
     <value>Recover unsaved changes?</value>
   </data>
@@ -216,16 +230,19 @@
   </data>
   <data name="AutoreplaceFormTitle" xml:space="preserve">
     <value>Auto Replace</value>
-  <comment>Currently not in use- do not localize</comment></data>
+    <comment>Currently not in use- do not localize</comment>
+  </data>
   <data name="AutoreplaceOtherChars" xml:space="preserve">
     <value>Re&amp;place other special characters</value>
   </data>
   <data name="AutoreplacePrefererencesPanel" xml:space="preserve">
     <value>Auto Replace</value>
-  <comment>Currently not in use- do not localize</comment></data>
+    <comment>Currently not in use- do not localize</comment>
+  </data>
   <data name="AutoreplaceReplacementValue" xml:space="preserve">
     <value>Replacement value:</value>
-  <comment>'"Currently not in use- do not localize"</comment></data>
+    <comment>'"Currently not in use- do not localize"</comment>
+  </data>
   <data name="AutoreplaceSmartQuotes" xml:space="preserve">
     <value>Replace "straight quotes" with “smart &amp;quotes”</value>
   </data>
@@ -234,12 +251,14 @@
   </data>
   <data name="AutoreplaceWordorPhrase" xml:space="preserve">
     <value>Word or phrase:</value>
-  <comment>Currently not in use- do not localize</comment></data>
+    <comment>Currently not in use- do not localize</comment>
+  </data>
   <data name="BCEAuthenticationMessage" xml:space="preserve">
     <value>Please check your user name and password.
 
 {0} - {1}</value>
-  <comment>{0} - type of error (e.g. ArgumentException), {1} - error message</comment></data>
+    <comment>{0} - type of error (e.g. ArgumentException), {1} - error message</comment>
+  </data>
   <data name="BCEAuthenticationTitle" xml:space="preserve">
     <value>Account Login Failed</value>
   </data>
@@ -249,7 +268,8 @@
 {0}
 
 {1}</value>
-  <comment>{0} - URL, {1} - error message</comment></data>
+    <comment>{0} - URL, {1} - error message</comment>
+  </data>
   <data name="BCEConnectionErrorTitle" xml:space="preserve">
     <value>Network Connection Error</value>
   </data>
@@ -257,27 +277,32 @@
     <value>An unexpected error occurred while accessing the file {0}
 
 {1} - {2}</value>
-  <comment>{0} - filename, {1} - type of exception (e.g. ArgumentException), {2} - error message</comment></data>
+    <comment>{0} - filename, {1} - type of exception (e.g. ArgumentException), {2} - error message</comment>
+  </data>
   <data name="BCEFileIOTitle" xml:space="preserve">
     <value>File Access Error</value>
   </data>
   <data name="BCEFileTransferConnectingToDestination" xml:space="preserve">
     <value>connecting to file destination</value>
-  <comment>This string will be embedded in BCEFileTransferMessage</comment></data>
+    <comment>This string will be embedded in BCEFileTransferMessage</comment>
+  </data>
   <data name="BCEFileTransferDisconnectingFromDestination" xml:space="preserve">
     <value>disconnecting from file destination</value>
-  <comment>This string will be embedded in BCEFileTransferMessage</comment></data>
+    <comment>This string will be embedded in BCEFileTransferMessage</comment>
+  </data>
   <data name="BCEFileTransferMessage" xml:space="preserve">
     <value>Error occurred while {0}
 
 ({1}) {2}</value>
-  <comment>{0} - an action, {1} - error code, {2} - error message</comment></data>
+    <comment>{0} - an action, {1} - error code, {2} - error message</comment>
+  </data>
   <data name="BCEFileTransferTitle" xml:space="preserve">
     <value>File Transfer Error</value>
   </data>
   <data name="BCEFileTransferTransferringFile" xml:space="preserve">
     <value>transferring file {0}</value>
-  <comment>{0} - file name. This string will be embedded in BCEFileTransferMessage.</comment></data>
+    <comment>{0} - file name. This string will be embedded in BCEFileTransferMessage.</comment>
+  </data>
   <data name="BCEFileUploadNotSupportedMessage" xml:space="preserve">
     <value>File uploading is not supported by this blog. Please configure file uploading for this blog before attempting to publish posts with attached pictures or files.</value>
   </data>
@@ -290,7 +315,8 @@
 {0}
 
 {1}</value>
-  <comment>{0} - URL, {1} - error message</comment></data>
+    <comment>{0} - URL, {1} - error message</comment>
+  </data>
   <data name="BCEHttpErrorTitle" xml:space="preserve">
     <value>Server Error</value>
   </data>
@@ -298,13 +324,15 @@
     <value>The response to the {0} method received from the blog server was invalid:
 
 {1}</value>
-  <comment>{0} - XML-RPC method name, {1} - error message</comment></data>
+    <comment>{0} - XML-RPC method name, {1} - error message</comment>
+  </data>
   <data name="BCEInvalidServerResponseTitle" xml:space="preserve">
     <value>Invalid Server Response</value>
   </data>
   <data name="BCEMethodUnsupportedMessage" xml:space="preserve">
     <value>The {0} method is not supported by the blog service.</value>
-  <comment>{0} - an XML-RPC method name, e.g. "metaWeblog.deletePost"</comment></data>
+    <comment>{0} - an XML-RPC method name, e.g. "metaWeblog.deletePost"</comment>
+  </data>
   <data name="BCEMethodUnsupportedTitle" xml:space="preserve">
     <value>Method Unsupported</value>
   </data>
@@ -312,7 +340,8 @@
     <value>An unexpected data transfer exception occurred while {0}
 
 {1} - {2}</value>
-  <comment>{0} - some operation (e.g. "transferring file"), {1} - type of exception, {2} - error message</comment></data>
+    <comment>{0} - some operation (e.g. "transferring file"), {1} - type of exception, {2} - error message</comment>
+  </data>
   <data name="BCENetworkIOTitle" xml:space="preserve">
     <value>Data Transfer Exception</value>
   </data>
@@ -334,7 +363,8 @@
 {0}
 
 {1}</value>
-  <comment>{0} - URL, {1} - error message</comment></data>
+    <comment>{0} - URL, {1} - error message</comment>
+  </data>
   <data name="BCEPostUrlNotFoundTitle" xml:space="preserve">
     <value>Blog Post Web Address Not Found</value>
   </data>
@@ -342,52 +372,66 @@
     <value>Server Error {0} Occurred
 
 {1}</value>
-  <comment>{0} - error code, {1} - error message</comment></data>
+    <comment>{0} - error code, {1} - error message</comment>
+  </data>
   <data name="BCEProviderTitle" xml:space="preserve">
     <value>Problem with the blog server</value>
   </data>
   <data name="Beta" xml:space="preserve">
     <value>Beta</value>
-  <comment>Suffix for qualified product name (e.g. Window Live Writer Beta)</comment></data>
+    <comment>Suffix for qualified product name (e.g. Window Live Writer Beta)</comment>
+  </data>
   <data name="Beta1DayRemaining" xml:space="preserve">
     <value>1 day remaining</value>
-  <comment>Title of dialog displayed when there is only 1 day remaining before the beta expires.</comment></data>
+    <comment>Title of dialog displayed when there is only 1 day remaining before the beta expires.</comment>
+  </data>
   <data name="BetaDaysRemaining" xml:space="preserve">
     <value>{0} days remaining</value>
-  <comment>Title of dialog displayed when there are only a few days remaining before the beta expires. {0} will be replaced with the number of days remaining (always more than 1)</comment></data>
+    <comment>Title of dialog displayed when there are only a few days remaining before the beta expires. {0} will be replaced with the number of days remaining (always more than 1)</comment>
+  </data>
   <data name="BetaExpiredAskLater" xml:space="preserve">
     <value>&amp;Ask Me Later</value>
-  <comment>Text displayed on ask me later button of beta expiration warning dialog</comment></data>
+    <comment>Text displayed on ask me later button of beta expiration warning dialog</comment>
+  </data>
   <data name="BetaExpiredDialogTitle" xml:space="preserve">
     <value>Expiration</value>
-  <comment>The title displayed in the expiration dialog's border</comment></data>
+    <comment>The title displayed in the expiration dialog's border</comment>
+  </data>
   <data name="BetaExpiredDownloadNow" xml:space="preserve">
     <value>&amp;Download Now</value>
-  <comment>Text displayed on download button of beta expiration warning dialog</comment></data>
+    <comment>Text displayed on download button of beta expiration warning dialog</comment>
+  </data>
   <data name="BetaExpiredMessage" xml:space="preserve">
     <value>This version of {0} has expired. Please download and install a newer version.</value>
-  <comment>Message displayed when the beta version of writer has expired. {0} will be replaced with the product name</comment></data>
+    <comment>Message displayed when the beta version of writer has expired. {0} will be replaced with the product name</comment>
+  </data>
   <data name="BetaExpiredTitle" xml:space="preserve">
     <value>Expired</value>
-  <comment>Title of dialog displayed when the beta version of Writer has expired.</comment></data>
+    <comment>Title of dialog displayed when the beta version of Writer has expired.</comment>
+  </data>
   <data name="BetaRemainingMessage" xml:space="preserve">
     <value>This version of {0} will expire on {1}. Please download and install a newer version.</value>
-  <comment>Message displayed when the beta version of writer has only a few days remaining before the beta expires. {0} will be replaced with the product name, {1} will be replaced with the expiration date.</comment></data>
+    <comment>Message displayed when the beta version of writer has only a few days remaining before the beta expires. {0} will be replaced with the product name, {1} will be replaced with the expiration date.</comment>
+  </data>
   <data name="Blog" xml:space="preserve">
     <value>Blog</value>
   </data>
   <data name="Blog_Option_Not_Supported" xml:space="preserve">
     <value>Not Supported</value>
-  <comment>Feature is not supported</comment></data>
+    <comment>Feature is not supported</comment>
+  </data>
   <data name="Blog_Option_Supported" xml:space="preserve">
     <value>Supported</value>
-  <comment>Feature is supported</comment></data>
+    <comment>Feature is supported</comment>
+  </data>
   <data name="Blog_Option_Unknown" xml:space="preserve">
     <value>Unknown</value>
-  <comment>Support for feature is unknown</comment></data>
+    <comment>Support for feature is unknown</comment>
+  </data>
   <data name="BlogCategoryNone" xml:space="preserve">
     <value>None</value>
-  <comment>Allows the user to specify that the blog post has no categories assigned to it.</comment></data>
+    <comment>Allows the user to specify that the blog post has no categories assigned to it.</comment>
+  </data>
   <data name="BloggerAccountDeleted" xml:space="preserve">
     <value>The user account has been deleted.</value>
   </data>
@@ -399,7 +443,8 @@
   </data>
   <data name="BloggerGenericError" xml:space="preserve">
     <value>An error has occurred: {0}</value>
-  <comment>{0} - an error message</comment></data>
+    <comment>{0} - an error message</comment>
+  </data>
   <data name="BloggerImageAlbumDescription" xml:space="preserve">
     <value>This album is used to store pictures from blog posts published by Open Live Writer.</value>
   </data>
@@ -417,7 +462,8 @@
   </data>
   <data name="BlogPluginsDescription" xml:space="preserve">
     <value>Select which plug-ins you want to use, and change the order in which they start.</value>
-  <comment>From the Weblog | Edit Weblog Settings | Plugins preferences panel</comment></data>
+    <comment>From the Weblog | Edit Weblog Settings | Plugins preferences panel</comment>
+  </data>
   <data name="BlogServiceNames" xml:space="preserve">
     <value>TypePad and more</value>
   </data>
@@ -432,16 +478,19 @@
   </data>
   <data name="BrowseForFile" xml:space="preserve">
     <value>Browse for file</value>
-  <comment>Tooltip over the button in the insert video from file dialog that opens an Open File Dialog when clicked</comment></data>
+    <comment>Tooltip over the button in the insert video from file dialog that opens an Open File Dialog when clicked</comment>
+  </data>
   <data name="BrowserMiniFormProgress" xml:space="preserve">
     <value>Retrieving...</value>
   </data>
   <data name="BytesFormat" xml:space="preserve">
     <value>{0} bytes</value>
-  <comment>{0} - a number (integer)</comment></data>
+    <comment>{0} - a number (integer)</comment>
+  </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
-  <comment>does not get an accelerator</comment></data>
+    <comment>does not get an accelerator</comment>
+  </data>
   <data name="Canceling" xml:space="preserve">
     <value>Cancelling...</value>
   </data>
@@ -453,133 +502,174 @@
   </data>
   <data name="CapabilityAuthor" xml:space="preserve">
     <value>Author</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityAutoUpdate" xml:space="preserve">
     <value>Auto-Update</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityCategories" xml:space="preserve">
     <value>Categories</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityCategoriesInline" xml:space="preserve">
     <value>Categories Inline</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityCategoryNameLimit" xml:space="preserve">
     <value>Category Name Limit</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityCategoryScheme" xml:space="preserve">
     <value>Category Scheme</value>
   </data>
   <data name="CapabilityCharacterSet" xml:space="preserve">
     <value>Encoding</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityCommentPolicy" xml:space="preserve">
     <value>Comment Policy</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityCustomPublishDate" xml:space="preserve">
     <value>Custom Publish Date</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityCustomPublishDateUpdate" xml:space="preserve">
     <value>Update Publish Date</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityDefaultView" xml:space="preserve">
     <value>Default View</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityEmbeds" xml:space="preserve">
     <value>Embeds</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityEmptyTitles" xml:space="preserve">
     <value>Empty Titles</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityExcerpt" xml:space="preserve">
     <value>Excerpt</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog. It indicates whether or not the API used by the blog provider is able to edit blog post excerpts.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It indicates whether or not the API used by the blog provider is able to edit blog post excerpts.</comment>
+  </data>
   <data name="CapabilityExtendedEntries" xml:space="preserve">
     <value>Extended Entries</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityFileUpload" xml:space="preserve">
     <value>File Upload</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityHierarchicalCategories" xml:space="preserve">
     <value>Hierarchical Categories</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityHtmlTitles" xml:space="preserve">
     <value>HTML Titles</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityKeywordRetrieval" xml:space="preserve">
     <value>Keyword Retrieval</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityKeywords" xml:space="preserve">
     <value>Keywords</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityMultipleCategories" xml:space="preserve">
     <value>Multiple Categories</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityNewCategories" xml:space="preserve">
     <value>New Categories</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityNewCategoriesInline" xml:space="preserve">
     <value>New Categories Inline</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityPageOrder" xml:space="preserve">
     <value>Page Order</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityPageParent" xml:space="preserve">
     <value>Page Parent</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityPages" xml:space="preserve">
     <value>Pages</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityPassword" xml:space="preserve">
     <value>Password</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityPostDraftToServer" xml:space="preserve">
     <value>Post Draft to Server</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityPostTitleLengthLimit" xml:space="preserve">
     <value>Title Length Limit</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityRequiresXHTML" xml:space="preserve">
     <value>Requires XHTML</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityScripts" xml:space="preserve">
     <value>Scripts</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilitySendTrackbacks" xml:space="preserve">
     <value>Send Trackbacks</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilitySlug" xml:space="preserve">
     <value>Slug</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog. It indicates whether or not the API used by the blog provider is able to edit blog post slugs.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It indicates whether or not the API used by the blog provider is able to edit blog post slugs.</comment>
+  </data>
   <data name="CapabilityTemplateIsRTL" xml:space="preserve">
     <value>Template is Right-to-Left</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityTrackbackPolicy" xml:space="preserve">
     <value>Trackback Policy</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog.</comment>
+  </data>
   <data name="CapabilityValueNoLimit" xml:space="preserve">
     <value>(No Limit)</value>
-  <comment>Specifies that there is no limit to the number of characters in a category name.</comment></data>
+    <comment>Specifies that there is no limit to the number of characters in a category name.</comment>
+  </data>
   <data name="CapabilityValueNormal" xml:space="preserve">
     <value>Normal</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment>
+  </data>
   <data name="CapabilityValueWebLayout" xml:space="preserve">
     <value>Web Layout</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment>
+  </data>
   <data name="CapabilityValueWebPreview" xml:space="preserve">
     <value>Web Preview</value>
-  <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment></data>
+    <comment>This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".</comment>
+  </data>
   <data name="CategoryAdd" xml:space="preserve">
     <value>Add Category</value>
   </data>
   <data name="CategoryCategoryName" xml:space="preserve">
     <value>Category Name</value>
-  <comment>The 'cue banner' for the textbox in the category popup</comment></data>
+    <comment>The 'cue banner' for the textbox in the category popup</comment>
+  </data>
   <data name="CategoryControlCategories" xml:space="preserve">
     <value>Categories: {0}</value>
-  <comment>{0} - comma-delimited list of categories</comment></data>
+    <comment>{0} - comma-delimited list of categories</comment>
+  </data>
   <data name="CategoryControlCategory" xml:space="preserve">
     <value>Category: {0}</value>
-  <comment>{0} - the single category that is selected</comment></data>
+    <comment>{0} - the single category that is selected</comment>
+  </data>
   <data name="CategoryControlNoCategories" xml:space="preserve">
     <value>(none)</value>
   </data>
@@ -594,10 +684,12 @@
   </data>
   <data name="CategoryNoParent" xml:space="preserve">
     <value>(No parent)</value>
-  <comment>Indicates that a category does not have a parent category.</comment></data>
+    <comment>Indicates that a category does not have a parent category.</comment>
+  </data>
   <data name="CategoryParentAccessible" xml:space="preserve">
     <value>Category parent</value>
-  <comment>Accessible name for a combo box that lets you choose the parent category for a new blog category</comment></data>
+    <comment>Accessible name for a combo box that lets you choose the parent category for a new blog category</comment>
+  </data>
   <data name="CategoryRefreshList" xml:space="preserve">
     <value>Refresh List</value>
   </data>
@@ -606,16 +698,19 @@
   </data>
   <data name="Cell" xml:space="preserve">
     <value>Cell</value>
-  <comment>Table cell</comment></data>
+    <comment>Table cell</comment>
+  </data>
   <data name="CellPropertiesTitle" xml:space="preserve">
     <value>Cell Properties</value>
   </data>
   <data name="Cells" xml:space="preserve">
     <value>Cells</value>
-  <comment>Table cells</comment></data>
+    <comment>Table cells</comment>
+  </data>
   <data name="ChangeLiveClipboardHandlerCaption" xml:space="preserve">
     <value>Components capable of handling '{0}':</value>
-  <comment>{0} - a live clipboard format name</comment></data>
+    <comment>{0} - a live clipboard format name</comment>
+  </data>
   <data name="ChangeLiveClipboardHandlerComponent" xml:space="preserve">
     <value>Component</value>
   </data>
@@ -624,13 +719,16 @@
   </data>
   <data name="ChangeTextStyle" xml:space="preserve">
     <value>Change Text Style</value>
-  <comment>Tooltip for style switcher in editing toolbar</comment></data>
+    <comment>Tooltip for style switcher in editing toolbar</comment>
+  </data>
   <data name="CharCount" xml:space="preserve">
     <value>Characters (with spaces)</value>
-  <comment>{0} - The number of characters in a given text.</comment></data>
+    <comment>{0} - The number of characters in a given text.</comment>
+  </data>
   <data name="CharNoSpacesCount" xml:space="preserve">
     <value>Characters (no spaces)</value>
-  <comment>{0} - The number of characters in text minus spaces/tabs/new lines</comment></data>
+    <comment>{0} - The number of characters in text minus spaces/tabs/new lines</comment>
+  </data>
   <data name="ClickToViewMap" xml:space="preserve">
     <value>Click to view this map on Live.com</value>
   </data>
@@ -642,7 +740,8 @@
   </data>
   <data name="CloseButtonTooltip" xml:space="preserve">
     <value>Close</value>
-  <comment>In the sense of closing a window.</comment></data>
+    <comment>In the sense of closing a window.</comment>
+  </data>
   <data name="ColorBlack" xml:space="preserve">
     <value>Black</value>
   </data>
@@ -723,10 +822,12 @@
   </data>
   <data name="ColorTempCooler" xml:space="preserve">
     <value>Cooler</value>
-  <comment>This is displayed on the Color Temperature adjustment control (available by adding the Color Temperature effect from the image sidebar Effects tab) where you can specify whether to make an image warmer or cooler.</comment></data>
+    <comment>This is displayed on the Color Temperature adjustment control (available by adding the Color Temperature effect from the image sidebar Effects tab) where you can specify whether to make an image warmer or cooler.</comment>
+  </data>
   <data name="ColorTempWarmer" xml:space="preserve">
     <value>Warmer</value>
-  <comment>This is displayed on the Color Temperature adjustment control (available by adding the Color Temperature effect from the image sidebar Effects tab) where you can specify whether to make an image warmer or cooler.</comment></data>
+    <comment>This is displayed on the Color Temperature adjustment control (available by adding the Color Temperature effect from the image sidebar Effects tab) where you can specify whether to make an image warmer or cooler.</comment>
+  </data>
   <data name="ColorVibrantBlue" xml:space="preserve">
     <value>Vibrant blue</value>
   </data>
@@ -753,22 +854,27 @@
   </data>
   <data name="Comma" xml:space="preserve">
     <value>,</value>
-  <comment>The comma character for this language. (e.g., U+FF0C for Chinese)</comment></data>
+    <comment>The comma character for this language. (e.g., U+FF0C for Chinese)</comment>
+  </data>
   <data name="CommaSpace" xml:space="preserve">
     <value>, </value>
-  <comment>The comma character, formatted the way it would appear in a list. In English, list elements are separated by a comma plus a space. (This MUST be the same as the Comma string plus whitespace if applicable.)</comment></data>
+    <comment>The comma character, formatted the way it would appear in a list. In English, list elements are separated by a comma plus a space. (This MUST be the same as the Comma string plus whitespace if applicable.)</comment>
+  </data>
   <data name="Configuration" xml:space="preserve">
     <value>Configuration</value>
   </data>
   <data name="ConfigureProduct" xml:space="preserve">
     <value>Configure {0}</value>
-  <comment>{0} - Product name, i.e. "Open Live Writer"</comment></data>
+    <comment>{0} - Product name, i.e. "Open Live Writer"</comment>
+  </data>
   <data name="ConfigWizardBasicInfo" xml:space="preserve">
     <value>Blog Homepage and Login</value>
-  <comment>The header for the screen that prompts for homepage and login.</comment></data>
+    <comment>The header for the screen that prompts for homepage and login.</comment>
+  </data>
   <data name="ConfigWizardChooseWeblogType" xml:space="preserve">
     <value>Choose Blog Type</value>
-  <comment>The header for the screen for choosing blog type (Spaces, SharePoint, or Other).</comment></data>
+    <comment>The header for the screen for choosing blog type (Spaces, SharePoint, or Other).</comment>
+  </data>
   <data name="ConfigWizardComplete" xml:space="preserve">
     <value>Blog Configuration Complete</value>
   </data>
@@ -777,7 +883,8 @@
   </data>
   <data name="ConfigWizardLearnMore" xml:space="preserve">
     <value>Learn more about {0}</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="ConfigWizardSelectImageEndpoint" xml:space="preserve">
     <value>Select image collection</value>
   </data>
@@ -801,7 +908,8 @@
   </data>
   <data name="CopyrightInformation" xml:space="preserve">
     <value>Copyright Information</value>
-  <comment>This is the string that will be read by screen reader to announce the copyright legal information on the about dialog.</comment></data>
+    <comment>This is the string that will be read by screen reader to announce the copyright legal information on the about dialog.</comment>
+  </data>
   <data name="CropAspect16x9" xml:space="preserve">
     <value>16x9</value>
   </data>
@@ -843,22 +951,27 @@
   </data>
   <data name="CropRemoveCrop" xml:space="preserve">
     <value>&amp;Remove Crop</value>
-  <comment>Remove the crop that is currently applied to the image</comment></data>
+    <comment>Remove the crop that is currently applied to the image</comment>
+  </data>
   <data name="CropRotateFrame" xml:space="preserve">
     <value>Rotate &amp;Frame</value>
-  <comment>Command to rotate by 90 degrees the frame that indicates the cropping area</comment></data>
+    <comment>Command to rotate by 90 degrees the frame that indicates the cropping area</comment>
+  </data>
   <data name="CropShowGridlines" xml:space="preserve">
     <value>Show &amp;Grid</value>
-  <comment>Checkbox to show two horizontal and two vertical lines within the cropping rectangle</comment></data>
+    <comment>Checkbox to show two horizontal and two vertical lines within the cropping rectangle</comment>
+  </data>
   <data name="Culture.UseItalics" xml:space="preserve">
     <value>True</value>
-  <comment>Whether or not the language uses italics</comment></data>
+    <comment>Whether or not the language uses italics</comment>
+  </data>
   <data name="CustomizeMap" xml:space="preserve">
     <value>Customize Map</value>
   </data>
   <data name="CWBasicCreateAccount" xml:space="preserve">
     <value>If you do not already have a {0} account create one now. Click the link below to open the web page that will begin your online registration.</value>
-  <comment>{0} - Microsoft Account</comment></data>
+    <comment>{0} - Microsoft Account</comment>
+  </data>
   <data name="CWBasicHeader" xml:space="preserve">
     <value>Add a blog account</value>
   </data>
@@ -870,13 +983,16 @@
   </data>
   <data name="CWBasicText" xml:space="preserve">
     <value>To use {0} you must already have an account with a blog service. If you do not already have an account with an existing blog service, create one now.</value>
-  <comment>{0} - Writer</comment></data>
+    <comment>{0} - Writer</comment>
+  </data>
   <data name="CWBasicTitle" xml:space="preserve">
     <value>Configure {0} to work with {1}</value>
-  <comment>{0} - Writer, {1} - "your blog" or name of blog service</comment></data>
+    <comment>{0} - Writer, {1} - "your blog" or name of blog service</comment>
+  </data>
   <data name="CWBasicTitleDefaultService" xml:space="preserve">
     <value>your blog</value>
-  <comment>See CWBasicTitle</comment></data>
+    <comment>See CWBasicTitle</comment>
+  </data>
   <data name="CWConfirmEditWeblogSettings" xml:space="preserve">
     <value>&amp;Edit Settings...</value>
   </data>
@@ -936,7 +1052,8 @@
   </data>
   <data name="CWSelectProviderText" xml:space="preserve">
     <value>{0} was not able to automatically detect your blog settings. Please select the type of blog that you are using to continue.</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="CWSelectProviderWeblogProvider" xml:space="preserve">
     <value>Blog Provider</value>
   </data>
@@ -948,13 +1065,15 @@
   </data>
   <data name="CWSharePointText" xml:space="preserve">
     <value>To use {0} you must have a SharePoint blog.</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="CWSharePointText2" xml:space="preserve">
     <value>Enter the login required to publish to your SharePoint blog.</value>
   </data>
   <data name="CWSharePointTitle" xml:space="preserve">
     <value>Configure {0} for a SharePoint blog</value>
-  <comment>{0} - Writer</comment></data>
+    <comment>{0} - Writer</comment>
+  </data>
   <data name="CWSharePointTitle2" xml:space="preserve">
     <value>Provide SharePoint Blog Login</value>
   </data>
@@ -966,7 +1085,8 @@
   </data>
   <data name="CWSpacesUsernameExample" xml:space="preserve">
     <value>(example555@hotmail.com)</value>
-  <comment>Example of Microsoft Account ID</comment></data>
+    <comment>Example of Microsoft Account ID</comment>
+  </data>
   <data name="CWStaticSiteCommandsBuildCommand" xml:space="preserve">
     <value>Build command:</value>
   </data>
@@ -981,13 +1101,15 @@
   </data>
   <data name="CWStaticSiteCommandsSubtitle" xml:space="preserve">
     <value>{0} will run the commands you specify below and alert you if an error occurs. Commands are ran using the system command interpreter with a working directory of your local site.</value>
-  <comment>{0} - Product name</comment></data>
+    <comment>{0} - Product name</comment>
+  </data>
   <data name="CWStaticSiteCommandsTitle" xml:space="preserve">
     <value>Provide site authoring commands</value>
   </data>
   <data name="CWStaticSiteConfigDetection" xml:space="preserve">
     <value>{0} was able to automatically determine a partial configuration for your site. Please confirm that the pre-filled details on the next pages are correct, and complete the other missing fields.</value>
-  <comment>{0} - Product name</comment></data>
+    <comment>{0} - Product name</comment>
+  </data>
   <data name="CWStaticSiteFeaturesBuilding" xml:space="preserve">
     <value>Enable Local Site Building</value>
   </data>
@@ -1008,10 +1130,12 @@
   </data>
   <data name="CWStaticSiteInitialSubtitle" xml:space="preserve">
     <value>{0} will attempt to automatically detect your static site configuration based on files present in your site project folder. Please select the project folder of your static site (eg. Git repository)</value>
-  <comment>{0} - Product name</comment></data>
+    <comment>{0} - Product name</comment>
+  </data>
   <data name="CWStaticSiteInitialSubtitleAlreadyDetected" xml:space="preserve">
     <value>{0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you can re-run configuration detection from Settings.</value>
-  <comment>{0} - Product name</comment></data>
+    <comment>{0} - Product name</comment>
+  </data>
   <data name="CWStaticSiteInitialTitle" xml:space="preserve">
     <value>Provide static site configuration</value>
   </data>
@@ -1047,7 +1171,8 @@
   </data>
   <data name="CWTitle" xml:space="preserve">
     <value>Add Blog Wizard</value>
-  <comment>Caption of the Add Blog Wizard window.</comment></data>
+    <comment>Caption of the Add Blog Wizard window.</comment>
+  </data>
   <data name="CWWelcomeAlreadyHave" xml:space="preserve">
     <value>I &amp;already have a blog set up</value>
   </data>
@@ -1062,7 +1187,8 @@
   </data>
   <data name="CWWelcomeText" xml:space="preserve">
     <value>Use {0} to blog about whatever interests you. Add photos and videos, and then publish to popular blogging services, including WordPress, Blogger, and TypePad.</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="CWWelcomeWP" xml:space="preserve">
     <value>&amp;WordPress</value>
   </data>
@@ -1074,13 +1200,16 @@
   </data>
   <data name="DecoratorBWLabel" xml:space="preserve">
     <value>Black and white</value>
-  <comment>Apply a black and white filter on the selected image.</comment></data>
+    <comment>Apply a black and white filter on the selected image.</comment>
+  </data>
   <data name="DecoratorCoolestTemperatureLabel" xml:space="preserve">
     <value>Coolest</value>
-  <comment>Dark blue temperature effect available to apply to the selected image.</comment></data>
+    <comment>Dark blue temperature effect available to apply to the selected image.</comment>
+  </data>
   <data name="DecoratorCoolTemperatureLabel" xml:space="preserve">
     <value>Cool</value>
-  <comment>Blue temperature effect available to apply to the selected image.</comment></data>
+    <comment>Blue temperature effect available to apply to the selected image.</comment>
+  </data>
   <data name="DecoratorDropShadow" xml:space="preserve">
     <value>Drop shadow</value>
   </data>
@@ -1089,13 +1218,15 @@
   </data>
   <data name="DecoratorEmbossLabel" xml:space="preserve">
     <value>Emboss</value>
-  <comment>Apply an emboss effect on the selected image.</comment></data>
+    <comment>Apply an emboss effect on the selected image.</comment>
+  </data>
   <data name="DecoratorGaussianBlurDescription" xml:space="preserve">
     <value>Apply a Gaussian blur filter on the selected image.</value>
   </data>
   <data name="DecoratorGaussianBlurLabel" xml:space="preserve">
     <value>Gaussian blur</value>
-  <comment>Apply a Gaussian blur filter on the selected image.</comment></data>
+    <comment>Apply a Gaussian blur filter on the selected image.</comment>
+  </data>
   <data name="DecoratorGroupOverlays" xml:space="preserve">
     <value>Overlays</value>
   </data>
@@ -1113,7 +1244,8 @@
   </data>
   <data name="DecoratorNoBlurLabel" xml:space="preserve">
     <value>No blur</value>
-  <comment>Remove the blur filter on the selected image.</comment></data>
+    <comment>Remove the blur filter on the selected image.</comment>
+  </data>
   <data name="DecoratorNoBorder" xml:space="preserve">
     <value>None</value>
   </data>
@@ -1122,19 +1254,22 @@
   </data>
   <data name="DecoratorNoEmbossLabel" xml:space="preserve">
     <value>No emboss</value>
-  <comment>Remove the emboss effect on the selected image.</comment></data>
+    <comment>Remove the emboss effect on the selected image.</comment>
+  </data>
   <data name="DecoratorNoRecolorDescription" xml:space="preserve">
     <value>Remove recolor effects applied on the selected image.</value>
   </data>
   <data name="DecoratorNoRecolorLabel" xml:space="preserve">
     <value>No recolor</value>
-  <comment>Remove any black and white or sepia applied on the selected image.</comment></data>
+    <comment>Remove any black and white or sepia applied on the selected image.</comment>
+  </data>
   <data name="DecoratorNoSharpenDescription" xml:space="preserve">
     <value>Remove the sharpening filter on the selected image.</value>
   </data>
   <data name="DecoratorNoSharpenLabel" xml:space="preserve">
     <value>No sharpen</value>
-  <comment>Remove the sharpening filter on the selected image.</comment></data>
+    <comment>Remove the sharpening filter on the selected image.</comment>
+  </data>
   <data name="DecoratorPhotopaper" xml:space="preserve">
     <value>Photopaper</value>
   </data>
@@ -1149,19 +1284,22 @@
   </data>
   <data name="DecoratorSaturationLabel" xml:space="preserve">
     <value>Color pop</value>
-  <comment>Make the colors in the selected image vivid.</comment></data>
+    <comment>Make the colors in the selected image vivid.</comment>
+  </data>
   <data name="DecoratorSepiaDescription" xml:space="preserve">
     <value>Sepia</value>
   </data>
   <data name="DecoratorSepiaLabel" xml:space="preserve">
     <value>Sepia tone</value>
-  <comment>Apply a sepia filter on the selected image.</comment></data>
+    <comment>Apply a sepia filter on the selected image.</comment>
+  </data>
   <data name="DecoratorSharpenDescription" xml:space="preserve">
     <value>Apply a sharpening filter on the selected image.</value>
   </data>
   <data name="DecoratorSharpenLabel" xml:space="preserve">
     <value>Sharpen</value>
-  <comment>Apply a sharpening filter on the selected image.</comment></data>
+    <comment>Apply a sharpening filter on the selected image.</comment>
+  </data>
   <data name="DecoratorSolid1px" xml:space="preserve">
     <value>Solid, 1 pixel</value>
   </data>
@@ -1173,25 +1311,31 @@
   </data>
   <data name="DecoratorWarmestTemperatureLabel" xml:space="preserve">
     <value>Warmest</value>
-  <comment>Orange temperature effect available to apply to the selected image.</comment></data>
+    <comment>Orange temperature effect available to apply to the selected image.</comment>
+  </data>
   <data name="DecoratorWarmTemperatureLabel" xml:space="preserve">
     <value>Warm</value>
-  <comment>Yellow temperature effect available to apply to the selected image.</comment></data>
+    <comment>Yellow temperature effect available to apply to the selected image.</comment>
+  </data>
   <data name="DecoratorWatermark" xml:space="preserve">
     <value>Watermark...</value>
   </data>
   <data name="DefaultTemplateBodyFont" xml:space="preserve">
     <value>Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif</value>
-  <comment>The font used for the post body when editing using no theme. Should be a comma separated list of HTML supported font names</comment></data>
+    <comment>The font used for the post body when editing using no theme. Should be a comma separated list of HTML supported font names</comment>
+  </data>
   <data name="DefaultTemplateTitleFont" xml:space="preserve">
     <value>Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif</value>
-  <comment>The font used for the post title when editing using no theme. Should be a comma separated list of HTML supported font names</comment></data>
+    <comment>The font used for the post title when editing using no theme. Should be a comma separated list of HTML supported font names</comment>
+  </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Re&amp;move...</value>
-  <comment>Delete blog, glossary entry, etc.</comment></data>
+    <comment>Delete blog, glossary entry, etc.</comment>
+  </data>
   <data name="DeleteSomething" xml:space="preserve">
     <value>Delete {0}</value>
-  <comment>{0} can be Post, Page, Draft, Published</comment></data>
+    <comment>{0} can be Post, Page, Draft, Published</comment>
+  </data>
   <data name="DictionaryLanguageArabic" xml:space="preserve">
     <value>Arabic</value>
   </data>
@@ -1314,7 +1458,8 @@
   </data>
   <data name="DimensionsFormat" xml:space="preserve">
     <value>{0}x{1}</value>
-  <comment>{0} - width, {1} - height</comment></data>
+    <comment>{0} - width, {1} - height</comment>
+  </data>
   <data name="Disabled" xml:space="preserve">
     <value>Disabled</value>
   </data>
@@ -1326,7 +1471,8 @@
   </data>
   <data name="DraftNameFormat" xml:space="preserve">
     <value>Draft {0}</value>
-  <comment>{0} - Post or Page. "Draft" is an adjective in this context</comment></data>
+    <comment>{0} - Post or Page. "Draft" is an adjective in this context</comment>
+  </data>
   <data name="Drafts" xml:space="preserve">
     <value>Drafts</value>
   </data>
@@ -1335,19 +1481,23 @@
   </data>
   <data name="DynamicCommandMenuMore" xml:space="preserve">
     <value>Mo&amp;re...</value>
-  <comment>If all the options can't be shown in one menu then this is the last option in a menu and it launches a form that shows all the options</comment></data>
+    <comment>If all the options can't be shown in one menu then this is the last option in a menu and it launches a form that shows all the options</comment>
+  </data>
   <data name="EditButton" xml:space="preserve">
     <value>&amp;Edit...</value>
-  <comment>Edit blog, glossary entry, etc.</comment></data>
+    <comment>Edit blog, glossary entry, etc.</comment>
+  </data>
   <data name="EditingName" xml:space="preserve">
     <value>Editing</value>
   </data>
   <data name="EditingRTLDefault" xml:space="preserve">
     <value>Default ({0})</value>
-  <comment>{0} - EditingRTLYes or EditingRTLNo</comment></data>
+    <comment>{0} - EditingRTLYes or EditingRTLNo</comment>
+  </data>
   <data name="EditingRTLExplanation" xml:space="preserve">
     <value>Change the reading direction of your blog posts.</value>
-  <comment>Explanation for the right-to-left setting</comment></data>
+    <comment>Explanation for the right-to-left setting</comment>
+  </data>
   <data name="EditingRTLName" xml:space="preserve">
     <value>Text direction</value>
   </data>
@@ -1365,340 +1515,450 @@
   </data>
   <data name="EditingText" xml:space="preserve">
     <value>After you make changes to your theme online</value>
-  <comment>click Update theme to see the latest.</comment></data>
+    <comment>click Update theme to see the latest.</comment>
+  </data>
   <data name="EditingUpdate" xml:space="preserve">
     <value>&amp;Update theme</value>
   </data>
   <data name="EditingUsing" xml:space="preserve">
     <value>Use your blog theme to see what your post will look like online while you are editing it.</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="EditProxySettings" xml:space="preserve">
     <value>Set proxy...</value>
   </data>
   <data name="EmoticonAirplane" xml:space="preserve">
     <value>Airplane</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonAlien" xml:space="preserve">
     <value>Alien</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonAngel" xml:space="preserve">
     <value>Angel</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonAngrySmile" xml:space="preserve">
     <value>Angry smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonAnnoyed" xml:space="preserve">
     <value>Annoyed</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonAuto" xml:space="preserve">
     <value>Auto</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonBaringTeethSmile" xml:space="preserve">
     <value>Baring teeth smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonBeRightBack" xml:space="preserve">
     <value>Be right back</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonBirthdayCake" xml:space="preserve">
     <value>Birthday cake</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonBlackSheep" xml:space="preserve">
     <value>Black Sheep</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonBowl" xml:space="preserve">
     <value>Bowl</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonBoy" xml:space="preserve">
     <value>Boy</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonBrokenHeart" xml:space="preserve">
     <value>Broken heart</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonBunny" xml:space="preserve">
     <value>Bunny</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonCallMe" xml:space="preserve">
     <value>Call me</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonCamera" xml:space="preserve">
     <value>Camera</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonCatFace" xml:space="preserve">
     <value>Cat face</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonClock" xml:space="preserve">
     <value>Clock</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonCoffeeCup" xml:space="preserve">
     <value>Coffee cup</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonComputer" xml:space="preserve">
     <value>Computer</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonConfusedSmile" xml:space="preserve">
     <value>Confused smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonCryingFace" xml:space="preserve">
     <value>Crying face</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonDevil" xml:space="preserve">
     <value>Devil</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonDisappointedSmile" xml:space="preserve">
     <value>Disappointed smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonDogFace" xml:space="preserve">
     <value>Dog face</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonDontTellAnyoneSmile" xml:space="preserve">
     <value>Don't tell anyone smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonEmail" xml:space="preserve">
     <value>Email</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonEmbarrassedSmile" xml:space="preserve">
     <value>Embarrassed smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonEyeRollingSmile" xml:space="preserve">
     <value>Eye rolling smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonFilmstrip" xml:space="preserve">
     <value>Filmstrip</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonFingersCrossed" xml:space="preserve">
     <value>Fingers crossed</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonFlirtFemale" xml:space="preserve">
     <value>Flirt female</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonFlirtMale" xml:space="preserve">
     <value>Flirt male</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonFreezing" xml:space="preserve">
     <value>Freezing</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonGhost" xml:space="preserve">
     <value>Ghost</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonGiftWithABow" xml:space="preserve">
     <value>Gift with a bow</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonGirl" xml:space="preserve">
     <value>Girl</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonGoat" xml:space="preserve">
     <value>Goat</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonGreenWithEnvy" xml:space="preserve">
     <value>Green with envy</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonHighFive" xml:space="preserve">
     <value>High five</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonHotSmile" xml:space="preserve">
     <value>Hot smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonIDontKnowSmile" xml:space="preserve">
     <value>I don't know smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonInLove" xml:space="preserve">
     <value>In love</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonIslandWithAPalmTree" xml:space="preserve">
     <value>Island with a palm tree</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonJustKidding" xml:space="preserve">
     <value>Just kidding</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonLaughingOutLoud" xml:space="preserve">
     <value>Laughing out loud</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonLeftHug" xml:space="preserve">
     <value>Left hug</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonLightBulb" xml:space="preserve">
     <value>Light bulb</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonLightning" xml:space="preserve">
     <value>Lightning</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonMartiniGlass" xml:space="preserve">
     <value>Martini glass</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonMessenger" xml:space="preserve">
     <value>Messenger</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonMobilePhone" xml:space="preserve">
     <value>Mobile phone</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonMoney" xml:space="preserve">
     <value>Money</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonMug" xml:space="preserve">
     <value>Mug</value>
-  <comment>Alternate text for a beer mug emoticon. The emoticon has CHANGED from Messenger so DON'T use Messenger's localization.</comment></data>
+    <comment>Alternate text for a beer mug emoticon. The emoticon has CHANGED from Messenger so DON'T use Messenger's localization.</comment>
+  </data>
   <data name="EmoticonNerdSmile" xml:space="preserve">
     <value>Nerd smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonNinja" xml:space="preserve">
     <value>Ninja</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonNote" xml:space="preserve">
     <value>Note</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonNyahNyah" xml:space="preserve">
     <value>Nyah-Nyah</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonOpenMouthedSmile" xml:space="preserve">
     <value>Open-mouthed smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonPartySmile" xml:space="preserve">
     <value>Party smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonPeace" xml:space="preserve">
     <value>Peace</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonPizza" xml:space="preserve">
     <value>Pizza</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonPlate" xml:space="preserve">
     <value>Plate</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonPointingUp" xml:space="preserve">
     <value>Pointing up</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonPrincess" xml:space="preserve">
     <value>Princess</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonPunch" xml:space="preserve">
     <value>Punch</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonPunk" xml:space="preserve">
     <value>Punk</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonRainbow" xml:space="preserve">
     <value>Rainbow</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonRedHeart" xml:space="preserve">
     <value>Red heart</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonRedLips" xml:space="preserve">
     <value>Red lips</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonRedRose" xml:space="preserve">
     <value>Red rose</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonRightHug" xml:space="preserve">
     <value>Right hug</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonRollingOnTheFloorLaughing" xml:space="preserve">
     <value>Rolling on the floor laughing</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSadSmile" xml:space="preserve">
     <value>Sad smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSarcasticSmile" xml:space="preserve">
     <value>Sarcastic smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSchool" xml:space="preserve">
     <value>School</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSchoolBus" xml:space="preserve">
     <value>School bus</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSecretTellingSmile" xml:space="preserve">
     <value>Secret telling smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSendAKiss" xml:space="preserve">
     <value>Send a kiss</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonsGalleryPopular" xml:space="preserve">
     <value>All</value>
-  <comment>This is a category header that appears above all the available emoticons</comment></data>
+    <comment>This is a category header that appears above all the available emoticons</comment>
+  </data>
   <data name="EmoticonsGalleryRecent" xml:space="preserve">
     <value>Recent</value>
-  <comment>This is a category header that appears above the last 10 recently used emoticons</comment></data>
+    <comment>This is a category header that appears above the last 10 recently used emoticons</comment>
+  </data>
   <data name="EmoticonShifty" xml:space="preserve">
     <value>Shifty</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSickSmile" xml:space="preserve">
     <value>Sick smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSleepingHalfMoon" xml:space="preserve">
     <value>Sleeping half-moon</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSleepySmile" xml:space="preserve">
     <value>Sleepy smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSmile" xml:space="preserve">
     <value>Smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSmileWithTongueOut" xml:space="preserve">
     <value>Smile with tongue out</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSnail" xml:space="preserve">
     <value>Snail</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSoccerBall" xml:space="preserve">
     <value>Soccer ball</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonStar" xml:space="preserve">
     <value>Star</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSteamingMad" xml:space="preserve">
     <value>Steaming mad</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonsTooltipOneAutoReplace" xml:space="preserve">
     <value>{0}  {1}</value>
-  <comment>{0} - description of emoticon, {1} - text form of emoticon e.g. :-)</comment></data>
+    <comment>{0} - description of emoticon, {1} - text form of emoticon e.g. :-)</comment>
+  </data>
   <data name="EmoticonsTooltipTwoAutoReplace" xml:space="preserve">
     <value>{0}  {1} or {2}</value>
-  <comment>{0} - description of emoticon, {1} - 1st text form of emoticon e.g. :-), {2} - 2nd text form of emoticon e.g. :)</comment></data>
+    <comment>{0} - description of emoticon, {1} - 1st text form of emoticon e.g. :-), {2} - 2nd text form of emoticon e.g. :)</comment>
+  </data>
   <data name="EmoticonStormCloud" xml:space="preserve">
     <value>Storm cloud</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSun" xml:space="preserve">
     <value>Sun</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonSurprisedSmile" xml:space="preserve">
     <value>Surprised smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonTelephoneReceiver" xml:space="preserve">
     <value>Telephone receiver</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonThinkingSmile" xml:space="preserve">
     <value>Thinking smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonThumbsDown" xml:space="preserve">
     <value>Thumbs down</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonThumbsUp" xml:space="preserve">
     <value>Thumbs up</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonTurtle" xml:space="preserve">
     <value>Turtle</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonUmbrella" xml:space="preserve">
     <value>Umbrella</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonVampireBat" xml:space="preserve">
     <value>Vampire bat</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonWhoMe" xml:space="preserve">
     <value>Who me?</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonWiltedRose" xml:space="preserve">
     <value>Wilted rose</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonWinkingSmile" xml:space="preserve">
     <value>Winking smile</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonWork" xml:space="preserve">
     <value>Work</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="EmoticonXbox" xml:space="preserve">
     <value>Xbox</value>
-  <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment></data>
+    <comment>Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.</comment>
+  </data>
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
@@ -1707,7 +1967,8 @@
   </data>
   <data name="ErrorOccurredDeletingDraftDetails" xml:space="preserve">
     <value>An unexpected error occurred while attempting to delete the Draft: {0}</value>
-  <comment>{0} - Error message</comment></data>
+    <comment>{0} - Error message</comment>
+  </data>
   <data name="FileUploadFailedCaption" xml:space="preserve">
     <value>The following pictures cannot be published because the blog does not support picture publishing.</value>
   </data>
@@ -1806,7 +2067,8 @@
   </data>
   <data name="GigabytesFormat" xml:space="preserve">
     <value>{0}GB</value>
-  <comment>{0} - a number (with or without decimals)</comment></data>
+    <comment>{0} - a number (with or without decimals)</comment>
+  </data>
   <data name="GlossaryAutomaticallyLink" xml:space="preserve">
     <value>A&amp;utomatically link matched terms</value>
   </data>
@@ -1818,7 +2080,8 @@
   </data>
   <data name="GlossaryExampleTitle" xml:space="preserve">
     <value>Open Live Writer site</value>
-  <comment>This is used in the link glossary as the title of our example link- may not need to be localized</comment></data>
+    <comment>This is used in the link glossary as the title of our example link- may not need to be localized</comment>
+  </data>
   <data name="GlossaryPrefName" xml:space="preserve">
     <value>Automatic Linking</value>
   </data>
@@ -1827,28 +2090,36 @@
   </data>
   <data name="GlossaryTextCol" xml:space="preserve">
     <value>Term</value>
-  <comment>for a link in the glossary--the link text</comment></data>
+    <comment>for a link in the glossary--the link text</comment>
+  </data>
   <data name="GlossaryUrlCol" xml:space="preserve">
     <value>Web address</value>
-  <comment>for a link in the glossary--the link URL</comment></data>
+    <comment>for a link in the glossary--the link URL</comment>
+  </data>
   <data name="Heading1" xml:space="preserve">
     <value>Heading 1</value>
-  <comment>HTML style: heading 1</comment></data>
+    <comment>HTML style: heading 1</comment>
+  </data>
   <data name="Heading2" xml:space="preserve">
     <value>Heading 2</value>
-  <comment>HTML style: heading 2</comment></data>
+    <comment>HTML style: heading 2</comment>
+  </data>
   <data name="Heading3" xml:space="preserve">
     <value>Heading 3</value>
-  <comment>HTML style: heading 3</comment></data>
+    <comment>HTML style: heading 3</comment>
+  </data>
   <data name="Heading4" xml:space="preserve">
     <value>Heading 4</value>
-  <comment>HTML style: heading 4</comment></data>
+    <comment>HTML style: heading 4</comment>
+  </data>
   <data name="Heading5" xml:space="preserve">
     <value>Heading 5</value>
-  <comment>HTML style: heading 5</comment></data>
+    <comment>HTML style: heading 5</comment>
+  </data>
   <data name="Heading6" xml:space="preserve">
     <value>Heading 6</value>
-  <comment>HTML style: heading 6</comment></data>
+    <comment>HTML style: heading 6</comment>
+  </data>
   <data name="Height" xml:space="preserve">
     <value>Height</value>
   </data>
@@ -1863,7 +2134,8 @@
   </data>
   <data name="HideProperties" xml:space="preserve">
     <value>Hide Properties </value>
-  <comment>Show the post properties tray.</comment></data>
+    <comment>Show the post properties tray.</comment>
+  </data>
   <data name="HomepageUrl" xml:space="preserve">
     <value>Website address:</value>
   </data>
@@ -1917,16 +2189,20 @@
   </data>
   <data name="ImageViewerDisplayFormatGroup" xml:space="preserve">
     <value>Using {0} [{1}]</value>
-  <comment>{0} - the name of the image viewer (e.g. Lightbox), {1} - the name of the group. For example, "Lightbox [Ski Trip]".</comment></data>
+    <comment>{0} - the name of the image viewer (e.g. Lightbox), {1} - the name of the group. For example, "Lightbox [Ski Trip]".</comment>
+  </data>
   <data name="ImageViewerDisplayFormatSingle" xml:space="preserve">
     <value>Using {0}</value>
-  <comment>{0} - the name of the image viewer (e.g. Lightbox)</comment></data>
+    <comment>{0} - the name of the image viewer (e.g. Lightbox)</comment>
+  </data>
   <data name="ImageViewerGroupLabel" xml:space="preserve">
     <value>&amp;Group (optional):</value>
-  <comment>A Group is a label that allows multiple images to be grouped into a set</comment></data>
+    <comment>A Group is a label that allows multiple images to be grouped into a set</comment>
+  </data>
   <data name="ImageViewerLabel" xml:space="preserve">
     <value>&amp;Enable {0}</value>
-  <comment>{0} - the name of the image viewer (e.g. Lightbox)</comment></data>
+    <comment>{0} - the name of the image viewer (e.g. Lightbox)</comment>
+  </data>
   <data name="ImgAltTextAlternateText" xml:space="preserve">
     <value>&amp;Alternate text:</value>
   </data>
@@ -2010,10 +2286,12 @@
   </data>
   <data name="ImgSBLocalImage" xml:space="preserve">
     <value>Local: {0}</value>
-  <comment>{0} - a file size (e.g. localized equivalents of "10.2MB", "108 bytes", etc.)</comment></data>
+    <comment>{0} - a file size (e.g. localized equivalents of "10.2MB", "108 bytes", etc.)</comment>
+  </data>
   <data name="ImgSBLocalImage2" xml:space="preserve">
     <value>Local: {0}/{1}</value>
-  <comment>{0}, {1} - file size (e.g. localized equivalents of "10.2MB", "108 bytes", etc.). The {0} value will be for the inline image, the {1} value will be for the "View Larger" image.</comment></data>
+    <comment>{0}, {1} - file size (e.g. localized equivalents of "10.2MB", "108 bytes", etc.). The {0} value will be for the inline image, the {1} value will be for the "View Larger" image.</comment>
+  </data>
   <data name="ImgSBLockRatio" xml:space="preserve">
     <value>Lock &amp;ratio</value>
   </data>
@@ -2112,13 +2390,16 @@
   </data>
   <data name="InsertImageButton" xml:space="preserve">
     <value>In&amp;sert</value>
-  <comment>This is required since the image dialog has a mnemonic for 'i' which can't be changed.</comment></data>
+    <comment>This is required since the image dialog has a mnemonic for 'i' which can't be changed.</comment>
+  </data>
   <data name="InsertImageDimensionsFormat" xml:space="preserve">
     <value>{0}x{1}</value>
-  <comment>{0} - width, {1} - height.  Example: 800x600</comment></data>
+    <comment>{0} - width, {1} - height.  Example: 800x600</comment>
+  </data>
   <data name="InsertImageDimensionsFormatScaled" xml:space="preserve">
     <value>{0} (resized for preview in this window)</value>
-  <comment>{0} - original dimensions</comment></data>
+    <comment>{0} - original dimensions</comment>
+  </data>
   <data name="InsertImageFileName" xml:space="preserve">
     <value>File name:</value>
   </data>
@@ -2142,7 +2423,8 @@
   </data>
   <data name="InsertImageSize" xml:space="preserve">
     <value>Size:</value>
-  <comment>The size, in pixels, of the selected image</comment></data>
+    <comment>The size, in pixels, of the selected image</comment>
+  </data>
   <data name="InsertLink" xml:space="preserve">
     <value>Insert Hyperlink</value>
   </data>
@@ -2175,10 +2457,12 @@
   </data>
   <data name="KilobytesFormat" xml:space="preserve">
     <value>{0}KB</value>
-  <comment>{0} - a number (with or without decimals)</comment></data>
+    <comment>{0} - a number (with or without decimals)</comment>
+  </data>
   <data name="LCPrefCaption" xml:space="preserve">
     <value>Paste web content that supports the Live Clipboard format into {0}.</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="LCPrefChangeButton" xml:space="preserve">
     <value>Change...</value>
   </data>
@@ -2193,16 +2477,19 @@
   </data>
   <data name="LCPrefDetailsGroupBoxFormat" xml:space="preserve">
     <value>Details for '{0}' format</value>
-  <comment>{0} - the name of the selected microformat, e.g. hCalendar</comment></data>
+    <comment>{0} - the name of the selected microformat, e.g. hCalendar</comment>
+  </data>
   <data name="LCPrefFormat" xml:space="preserve">
     <value>Format</value>
   </data>
   <data name="LCPrefHandledBy" xml:space="preserve">
     <value>Handled by:</value>
-  <comment>Followed by the name of a plug-in that can handle this format. You can think of it in the context of, "The vCalendar microformat will be HANDLED BY the Google Calendar plug-in"</comment></data>
+    <comment>Followed by the name of a plug-in that can handle this format. You can think of it in the context of, "The vCalendar microformat will be HANDLED BY the Google Calendar plug-in"</comment>
+  </data>
   <data name="LCPrefMoreAboutLiveClipboard" xml:space="preserve">
     <value>More about Live Clipboard...</value>
-  <comment>'(In English)' should be added at the end of local string for non-en language, because the link goes to EN webpage for all markets</comment></data>
+    <comment>'(In English)' should be added at the end of local string for non-en language, because the link goes to EN webpage for all markets</comment>
+  </data>
   <data name="LCPrefNoFormatSelected" xml:space="preserve">
     <value>(No format selected)</value>
   </data>
@@ -2220,7 +2507,8 @@
   </data>
   <data name="LinkAdvanced" xml:space="preserve">
     <value>&amp;Advanced {0}</value>
-  <comment>{0} - double chevron pointing left or right, depending on whether the advanced properties are showing or not</comment></data>
+    <comment>{0} - double chevron pointing left or right, depending on whether the advanced properties are showing or not</comment>
+  </data>
   <data name="LinkEditHyperlink" xml:space="preserve">
     <value>Edit Hyperlink</value>
   </data>
@@ -2274,37 +2562,44 @@
   </data>
   <data name="LinkToNone" xml:space="preserve">
     <value>None</value>
-  <comment>Make the selected image not be a link.</comment></data>
+    <comment>Make the selected image not be a link.</comment>
+  </data>
   <data name="LinkToNoneDescription" xml:space="preserve">
     <value>Make the image not be a link.</value>
   </data>
   <data name="LinkToNoneLabelTitle" xml:space="preserve">
     <value>Link to: None</value>
-  <comment>Shows the user that the selected image is not a link</comment></data>
+    <comment>Shows the user that the selected image is not a link</comment>
+  </data>
   <data name="LinkToolTip" xml:space="preserve">
     <value>CTRL + click to follow link: {0}</value>
-  <comment>Used when hovering over a link in the editor. {0} - the hyperlink to follow</comment></data>
+    <comment>Used when hovering over a link in the editor. {0} - the hyperlink to follow</comment>
+  </data>
   <data name="LinkToPost" xml:space="preserve">
     <value>Link to Post</value>
   </data>
   <data name="LinkToSource" xml:space="preserve">
     <value>Source picture</value>
-  <comment>Navigate to the source picture when the selected image is clicked.</comment></data>
+    <comment>Navigate to the source picture when the selected image is clicked.</comment>
+  </data>
   <data name="LinkToSourceDescription" xml:space="preserve">
     <value>Navigate to the source picture when the selected image is clicked.</value>
   </data>
   <data name="LinkToSourceLabelTitle" xml:space="preserve">
     <value>Link to: Source picture</value>
-  <comment>Shows the user that the selected image links to the original image</comment></data>
+    <comment>Shows the user that the selected image links to the original image</comment>
+  </data>
   <data name="LinkToURL" xml:space="preserve">
     <value>Web address</value>
-  <comment>Choose the location to go to when the selected image is clicked.</comment></data>
+    <comment>Choose the location to go to when the selected image is clicked.</comment>
+  </data>
   <data name="LinkToURLDescription" xml:space="preserve">
     <value>Choose the location to go to when the selected image is clicked.</value>
   </data>
   <data name="LinkToURLLabelTitle" xml:space="preserve">
     <value>Link to: Web address</value>
-  <comment>Shows the user that the selected image links to a URL</comment></data>
+    <comment>Shows the user that the selected image links to a URL</comment>
+  </data>
   <data name="LinkToWebPageURL" xml:space="preserve">
     <value>Link to web address:</value>
   </data>
@@ -2316,7 +2611,8 @@
   </data>
   <data name="ManageWeblog" xml:space="preserve">
     <value>Manage Blog</value>
-  <comment>Displayed in the header of the default sidebar</comment></data>
+    <comment>Displayed in the header of the default sidebar</comment>
+  </data>
   <data name="Map" xml:space="preserve">
     <value>Map</value>
   </data>
@@ -2433,10 +2729,12 @@
   </data>
   <data name="MarkupTypeHTML" xml:space="preserve">
     <value>HTML</value>
-  <comment>Used in the Advanced settings for a blog.</comment></data>
+    <comment>Used in the Advanced settings for a blog.</comment>
+  </data>
   <data name="MarkupTypeXHTML" xml:space="preserve">
     <value>XHTML</value>
-  <comment>Used in the Advanced settings for a blog.</comment></data>
+    <comment>Used in the Advanced settings for a blog.</comment>
+  </data>
   <data name="MaximizeButtonTooltip" xml:space="preserve">
     <value>Maximize</value>
   </data>
@@ -2460,10 +2758,12 @@
   </data>
   <data name="MegabytesFormat" xml:space="preserve">
     <value>{0}MB</value>
-  <comment>{0} - a number (with or without decimals)</comment></data>
+    <comment>{0} - a number (with or without decimals)</comment>
+  </data>
   <data name="MethodNotImplemented" xml:space="preserve">
     <value>Method Not Implemented</value>
-  <comment>Title of plug-in error dialog</comment></data>
+    <comment>Title of plug-in error dialog</comment>
+  </data>
   <data name="MethodNotImplementedDetail" xml:space="preserve">
     <value>An installed plugin is incorrectly implemented and has caused an error. You may be able to contact the plugin's publisher below to resolve this issue. Alternatively, you may avoid this error in the future by uninstalling the plugin mentioned below.
 Name: {0}
@@ -2471,16 +2771,19 @@ Name: {0}
 Publisher: {1}
 
 Unimplemented Method: {2}</value>
-  <comment>More detailed header in plug-in error dialog</comment></data>
+    <comment>More detailed header in plug-in error dialog</comment>
+  </data>
   <data name="MinimizeButtonTooltip" xml:space="preserve">
     <value>Minimize</value>
   </data>
   <data name="MissingPostLinkCaption" xml:space="preserve">
     <value>No Link Available for {0}</value>
-  <comment>{0} - Post/Page</comment></data>
+    <comment>{0} - Post/Page</comment>
+  </data>
   <data name="MissingPostLinkExplanation" xml:space="preserve">
     <value>There is no link available for the selected {0}. This may be because your blog service does not make {0} links available to {1}. You may be able to resolve this problem by redetecting your blog account configuration using the Accounts panel of the Blog Settings dialog.</value>
-  <comment>{0} - post/page. {1} - Open Live Writer.</comment></data>
+    <comment>{0} - post/page. {1} - Open Live Writer.</comment>
+  </data>
   <data name="MissingPostLinkTitle" xml:space="preserve">
     <value>No Link Available</value>
   </data>
@@ -2504,16 +2807,20 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="MoveDown" xml:space="preserve">
     <value>Move &amp;Down</value>
-  <comment>From the Weblog | Edit Blog Settings | Plugins preferences panel</comment></data>
+    <comment>From the Weblog | Edit Blog Settings | Plugins preferences panel</comment>
+  </data>
   <data name="MoveUp" xml:space="preserve">
     <value>Move &amp;Up</value>
-  <comment>From the Weblog | Edit Blog Settings | Plugins preferences panel</comment></data>
+    <comment>From the Weblog | Edit Blog Settings | Plugins preferences panel</comment>
+  </data>
   <data name="MyFavorites" xml:space="preserve">
     <value>My Favorites</value>
-  <comment>Videos marked as favorites by current user</comment></data>
+    <comment>Videos marked as favorites by current user</comment>
+  </data>
   <data name="MyVideos" xml:space="preserve">
     <value>My Videos</value>
-  <comment>Videos uploaded by current user</comment></data>
+    <comment>Videos uploaded by current user</comment>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Blog</value>
   </data>
@@ -2540,7 +2847,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="NoThings" xml:space="preserve">
     <value>(No {0})</value>
-  <comment>{0} can be "Drafts", "Recently Posted"</comment></data>
+    <comment>{0} can be "Drafts", "Recently Posted"</comment>
+  </data>
   <data name="OKButtonText" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -2606,10 +2914,12 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PanelNameAccounts" xml:space="preserve">
     <value>Accounts</value>
-  <comment>As in, Blog Accounts</comment></data>
+    <comment>As in, Blog Accounts</comment>
+  </data>
   <data name="Paragraph" xml:space="preserve">
     <value>Paragraph</value>
-  <comment>HTML style: paragraph</comment></data>
+    <comment>HTML style: paragraph</comment>
+  </data>
   <data name="Paragraphs" xml:space="preserve">
     <value>Paragraphs</value>
   </data>
@@ -2630,7 +2940,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PasswordChar" xml:space="preserve">
     <value>0x25CF</value>
-  <comment>The hex value of the single character that will be used to represent each character in a password field.</comment></data>
+    <comment>The hex value of the single character that will be used to represent each character in a password field.</comment>
+  </data>
   <data name="PasswordLabel" xml:space="preserve">
     <value>&amp;Password:</value>
   </data>
@@ -2708,40 +3019,49 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Video_Alignment_Inline" xml:space="preserve">
     <value>Inline</value>
-  <comment>Player alignment in post</comment></data>
+    <comment>Player alignment in post</comment>
+  </data>
   <data name="Plugin_Video_Alignment_Left" xml:space="preserve">
     <value>Left</value>
-  <comment>Player alignment in post</comment></data>
+    <comment>Player alignment in post</comment>
+  </data>
   <data name="Plugin_Video_Alignment_Right" xml:space="preserve">
     <value>Right</value>
-  <comment>Player alignment in post</comment></data>
+    <comment>Player alignment in post</comment>
+  </data>
   <data name="Plugin_Video_Alt_Text" xml:space="preserve">
     <value>Video</value>
-  <comment>Alt text in image tag when inserting a video</comment></data>
+    <comment>Alt text in image tag when inserting a video</comment>
+  </data>
   <data name="Plugin_Video_Cannot_Parse_Url" xml:space="preserve">
     <value>Unable to Parse Video web address</value>
-  <comment>Exception title for problems getting video from URL</comment></data>
+    <comment>Exception title for problems getting video from URL</comment>
+  </data>
   <data name="Plugin_Video_Cannot_Parse_Url_Message" xml:space="preserve">
     <value>Unknown provider or incomplete web address.</value>
   </data>
   <data name="Plugin_Video_Caption_Size" xml:space="preserve">
     <value>.8em</value>
-  <comment>The size of the font used for the video caption feature. Only localize if the font size must be changed. Use format number.em (i.e. 1em, .9em, etc..)</comment></data>
+    <comment>The size of the font used for the video caption feature. Only localize if the font size must be changed. Use format number.em (i.e. 1em, .9em, etc..)</comment>
+  </data>
   <data name="Plugin_Video_Copyright_Notice" xml:space="preserve">
     <value>Please respect copyright</value>
-  <comment>Text shown on insert video dialog to remind users of copyright responsibilities. For some markets, will be linked.</comment></data>
+    <comment>Text shown on insert video dialog to remind users of copyright responsibilities. For some markets, will be linked.</comment>
+  </data>
   <data name="Plugin_Video_Editor_Cancel" xml:space="preserve">
     <value>Cancel Publishing</value>
   </data>
   <data name="Plugin_Video_Editor_Caption" xml:space="preserve">
     <value>Caption:</value>
-  <comment>Caption for video</comment></data>
+    <comment>Caption for video</comment>
+  </data>
   <data name="Plugin_Video_Editor_Layout_Header" xml:space="preserve">
     <value>Layout</value>
   </data>
   <data name="Plugin_Video_Editor_Link_Text" xml:space="preserve">
     <value>View this video</value>
-  <comment>Link to see video on web</comment></data>
+    <comment>Link to see video on web</comment>
+  </data>
   <data name="Plugin_Video_Editor_Margin_Bottom" xml:space="preserve">
     <value>Bottom</value>
   </data>
@@ -2765,28 +3085,35 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Video_Editor_Title" xml:space="preserve">
     <value>{0} Video</value>
-  <comment>{0} is name of video provider (YouTube, etc)</comment></data>
+    <comment>{0} is name of video provider (YouTube, etc)</comment>
+  </data>
   <data name="Plugin_Video_Error_Unexpected_Title" xml:space="preserve">
     <value>Unexpected Exception</value>
   </data>
   <data name="Plugin_Video_Margins_Custom" xml:space="preserve">
     <value>Custom Margins</value>
-  <comment>Player padding in post (user sets)</comment></data>
+    <comment>Player padding in post (user sets)</comment>
+  </data>
   <data name="Plugin_Video_Margins_None" xml:space="preserve">
     <value>No Margins</value>
-  <comment>Player padding in post (none)</comment></data>
+    <comment>Player padding in post (none)</comment>
+  </data>
   <data name="Plugin_Video_Player_Automatic" xml:space="preserve">
     <value>Automatic</value>
-  <comment>Player type: player is selected for you</comment></data>
+    <comment>Player type: player is selected for you</comment>
+  </data>
   <data name="Plugin_Video_Player_Embed" xml:space="preserve">
     <value>Embedded in Page</value>
-  <comment>Player type: An embed tag is in the html code--the player will appear and play inline</comment></data>
+    <comment>Player type: An embed tag is in the html code--the player will appear and play inline</comment>
+  </data>
   <data name="Plugin_Video_Player_Preview" xml:space="preserve">
     <value>Preview with Link</value>
-  <comment>Player type: An image is shown of the player,  and it is linked to the video provider website</comment></data>
+    <comment>Player type: An image is shown of the player,  and it is linked to the video provider website</comment>
+  </data>
   <data name="Plugin_Video_Provider_Select" xml:space="preserve">
     <value>Select Video Provider</value>
-  <comment>Accessible name for video provider service (Soapbox or YouTube Videos)</comment></data>
+    <comment>Accessible name for video provider service (Soapbox or YouTube Videos)</comment>
+  </data>
   <data name="Plugin_Video_Publish_Categories_Animals" xml:space="preserve">
     <value>Animals</value>
   </data>
@@ -2852,7 +3179,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Video_Publish_Filename_Seperator" xml:space="preserve">
     <value>_</value>
-  <comment>In English people often use _ to separate words in a file name.  For example I might name a video file My_Birthday_Party.wmv.  We will use this string to replace the char with a space.  If this can't be applied to a certain language</comment></data>
+    <comment>In English people often use _ to separate words in a file name.  For example I might name a video file My_Birthday_Party.wmv.  We will use this string to replace the char with a space.  If this can't be applied to a certain language</comment>
+  </data>
   <data name="Plugin_Video_Publish_Message" xml:space="preserve">
     <value>Waiting for videos to finish publishing</value>
   </data>
@@ -2864,28 +3192,35 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Video_Snapshot_Error_Message" xml:space="preserve">
     <value>The following error occurred while attempting generate a video snapshot: {0}</value>
-  <comment>{0} is the error stack trace</comment></data>
+    <comment>{0} is the error stack trace</comment>
+  </data>
   <data name="Plugin_Video_Snapshot_Error_Title" xml:space="preserve">
     <value>Error Retrieving Video Snapshot</value>
   </data>
   <data name="Plugin_Video_Soapbox_LoggingIn" xml:space="preserve">
     <value>Signing in...</value>
-  <comment>Status message shown during login process</comment></data>
+    <comment>Status message shown during login process</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_None_Found" xml:space="preserve">
     <value>No videos found.</value>
-  <comment>Search didn't find any videos.</comment></data>
+    <comment>Search didn't find any videos.</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Not_Logged_In" xml:space="preserve">
     <value>Not signed in</value>
-  <comment>Shown when user is not currently logged in to Passport.</comment></data>
+    <comment>Shown when user is not currently logged in to Passport.</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Passport_Login" xml:space="preserve">
     <value>&amp;Sign in</value>
-  <comment>Button text for logging in to passport</comment></data>
+    <comment>Button text for logging in to passport</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Passport_Password" xml:space="preserve">
     <value>&amp;Password:</value>
-  <comment>Passport password for logging in</comment></data>
+    <comment>Passport password for logging in</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Passport_Username" xml:space="preserve">
     <value>&amp;Microsoft Account ID:</value>
-  <comment>Passport user name for signing in</comment></data>
+    <comment>Passport user name for signing in</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Publish_Categories" xml:space="preserve">
     <value>&amp;Categories:</value>
   </data>
@@ -2924,34 +3259,44 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Video_Soapbox_Result_Range" xml:space="preserve">
     <value>Videos {0} to {1}</value>
-  <comment>used when showing a list of videos ({0} and {1] are begin and end indices)</comment></data>
+    <comment>used when showing a list of videos ({0} and {1] are begin and end indices)</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Result_Single" xml:space="preserve">
     <value>Video {0}</value>
-  <comment>used when showing just one video ({0} is index)</comment></data>
+    <comment>used when showing just one video ({0} is index)</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Retrieve_Msg" xml:space="preserve">
     <value>Retrieving list of videos...</value>
-  <comment>Shown while query is running to access soapbox videos</comment></data>
+    <comment>Shown while query is running to access soapbox videos</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Soap_Error" xml:space="preserve">
     <value>The Soapbox service returned an error.</value>
-  <comment>Message when query against soapbox errors.</comment></data>
+    <comment>Message when query against soapbox errors.</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Switch_User" xml:space="preserve">
     <value>Switch user</value>
-  <comment>shown when user is logged into passport and wants to switch their login</comment></data>
+    <comment>shown when user is logged into passport and wants to switch their login</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Thumbnail_Downloading" xml:space="preserve">
     <value>Downloading Preview...</value>
-  <comment>Message shown for each video while thumbnail is getting generated.</comment></data>
+    <comment>Message shown for each video while thumbnail is getting generated.</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Thumbnail_None" xml:space="preserve">
     <value>No Preview Available</value>
-  <comment>Message shown for each video that doesn't have a thumbnail.</comment></data>
+    <comment>Message shown for each video that doesn't have a thumbnail.</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Total_Videos" xml:space="preserve">
     <value>(of {0})</value>
-  <comment>used in pagination ie "Videos 1 - 10 (of 12)" this is the part in the paren. With the {0} being the number of videos.</comment></data>
+    <comment>used in pagination ie "Videos 1 - 10 (of 12)" this is the part in the paren. With the {0} being the number of videos.</comment>
+  </data>
   <data name="Plugin_Video_Soapbox_Web_Error" xml:space="preserve">
     <value>The search request timed out.</value>
-  <comment>Web error while searching for videos.</comment></data>
+    <comment>Web error while searching for videos.</comment>
+  </data>
   <data name="Plugin_Video_Unknown_Provider" xml:space="preserve">
     <value>Unknown Provider</value>
-  <comment>string for provider that isn't in our xml file</comment></data>
+    <comment>string for provider that isn't in our xml file</comment>
+  </data>
   <data name="Plugin_Video_Video_Header" xml:space="preserve">
     <value>Video</value>
   </data>
@@ -2966,16 +3311,19 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Video_Web_Video_Preview_Button" xml:space="preserve">
     <value>Pre&amp;view</value>
-  <comment>Preview button text</comment></data>
+    <comment>Preview button text</comment>
+  </data>
   <data name="Plugin_Video_Web_Video_Provider" xml:space="preserve">
     <value>Provider: {0}</value>
-  <comment>{0} is video provider name</comment></data>
+    <comment>{0} is video provider name</comment>
+  </data>
   <data name="Plugin_Video_Web_Video_Service_Blank" xml:space="preserve">
     <value>Provider:</value>
   </data>
   <data name="Plugin_Video_Web_Video_Size" xml:space="preserve">
     <value>Size: {0} x {1}</value>
-  <comment>{0} is width and {1} is height</comment></data>
+    <comment>{0} is width and {1} is height</comment>
+  </data>
   <data name="Plugin_Video_Web_Video_Size_Blank" xml:space="preserve">
     <value>Size:</value>
   </data>
@@ -2984,25 +3332,32 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Video_XML_Error_Embed_Format" xml:space="preserve">
     <value>Missing Embed Format parameter</value>
-  <comment>Exception when parsing video providers xml file</comment></data>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
   <data name="Plugin_Video_XML_Error_Embed_Pattern" xml:space="preserve">
     <value>Missing Embed Pattern parameter</value>
-  <comment>Exception when parsing video providers xml file</comment></data>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
   <data name="Plugin_Video_XML_Error_Service_Id" xml:space="preserve">
     <value>Missing Service Id parameter</value>
-  <comment>Exception when parsing video providers xml file</comment></data>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
   <data name="Plugin_Video_XML_Error_Service_Name" xml:space="preserve">
     <value>Missing Service Name parameter</value>
-  <comment>Exception when parsing video providers xml file</comment></data>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
   <data name="Plugin_Video_XML_Error_Size" xml:space="preserve">
     <value>Missing Size parameter</value>
-  <comment>Exception when parsing video providers xml file</comment></data>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
   <data name="Plugin_Video_XML_Error_Url_Format" xml:space="preserve">
     <value>Missing Web Address Format parameter</value>
-  <comment>Exception when parsing video providers xml file</comment></data>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
   <data name="Plugin_Video_XML_Error_Url_Pattern" xml:space="preserve">
     <value>Missing Web Address Pattern parameter</value>
-  <comment>Exception when parsing video providers xml file</comment></data>
+    <comment>Exception when parsing video providers xml file</comment>
+  </data>
   <data name="Plugin_Video_Youtube_Publish_Name" xml:space="preserve">
     <value>YouTube</value>
   </data>
@@ -3011,7 +3366,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Video_YouTube_Publish_Video_File_Open_Filter_Ext" xml:space="preserve">
     <value>All Video Files (*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4;*.mov;*)|*.avi;*.wmv;*.mpg;*.mpeg;*.mp4;*.mpeg4,*.mov;|All Files (*.*)|*.*</value>
-  <comment>The filter shown in file open dialog when selecting a movie file.</comment></data>
+    <comment>The filter shown in file open dialog when selecting a movie file.</comment>
+  </data>
   <data name="Plugin_Videos_InsertableContentSource_MenuText" xml:space="preserve">
     <value>&amp;Video</value>
   </data>
@@ -3026,10 +3382,12 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="Plugin_Videos_Select_Video_Form" xml:space="preserve">
     <value>Insert Video</value>
-  <comment>Title (across top) of inserting video dialog</comment></data>
+    <comment>Title (across top) of inserting video dialog</comment>
+  </data>
   <data name="Plugin_Videos_Video_Size" xml:space="preserve">
     <value>Video Size: {0} x {1}</value>
-  <comment>{0} is width and {1} is height</comment></data>
+    <comment>{0} is width and {1} is height</comment>
+  </data>
   <data name="Plugin_Videos_WriterPlugin_Description" xml:space="preserve">
     <value>Add videos to your posts using popular video providers.</value>
   </data>
@@ -3044,13 +3402,16 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PluginInsertSidebarText" xml:space="preserve">
     <value>{0}...</value>
-  <comment>{0} will be the name provided by the plug-in.</comment></data>
+    <comment>{0} will be the name provided by the plug-in.</comment>
+  </data>
   <data name="PluginInsertSidebarTooltip" xml:space="preserve">
     <value>Insert a {0} into the current document</value>
-  <comment>{0} will be the name provided by the plug-in (e.g. Video</comment></data>
+    <comment>{0} will be the name provided by the plug-in (e.g. Video</comment>
+  </data>
   <data name="PluginPrefCaption" xml:space="preserve">
     <value>Turn plug-ins on and off to extend how you use {0}.</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="PluginPrefDetails" xml:space="preserve">
     <value>Plug-in details</value>
   </data>
@@ -3083,7 +3444,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PluginPublishProgress" xml:space="preserve">
     <value>Executing plug-in: {0}</value>
-  <comment>{0} - the name of a plugin</comment></data>
+    <comment>{0} - the name of a plugin</comment>
+  </data>
   <data name="PluginSidebarDisabled" xml:space="preserve">
     <value>Selected item plug-in is disabled.</value>
   </data>
@@ -3095,7 +3457,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PostCountAccessible" xml:space="preserve">
     <value>Number of posts</value>
-  <comment>Accessible name for a combo box in the Open Post form that lets the user filter how many posts they want to show up in the search</comment></data>
+    <comment>Accessible name for a combo box in the Open Post form that lets the user filter how many posts they want to show up in the search</comment>
+  </data>
   <data name="PostEditorBodyRegion" xml:space="preserve">
     <value>Post Body</value>
   </data>
@@ -3157,12 +3520,14 @@ Unimplemented Method: {2}</value>
     <value>Unexpected error occurred while accessing local post ({0})
 
 {1}</value>
-  <comment>{0} - error code, {1} - error message</comment></data>
+    <comment>{0} - error code, {1} - error message</comment>
+  </data>
   <data name="PostEditorStorageExceptionMessage2" xml:space="preserve">
     <value>Unexpected disk access error occurred while accessing local post ({0})
 
 {1}</value>
-  <comment>{0} - type of error (e.g. ArgumentException), {1} - error message</comment></data>
+    <comment>{0} - type of error (e.g. ArgumentException), {1} - error message</comment>
+  </data>
   <data name="PostEditorStorageExceptionTitle" xml:space="preserve">
     <value>Error Accessing Local Post</value>
   </data>
@@ -3175,26 +3540,31 @@ Unimplemented Method: {2}</value>
   <data name="PostLinkTooltipFormat" xml:space="preserve">
     <value>{0}
 {1} ({2})</value>
-  <comment>{0} - title of post, {1} - title of blog, {2} - date/time of post</comment></data>
+    <comment>{0} - title of post, {1} - title of blog, {2} - date/time of post</comment>
+  </data>
   <data name="PostLinkTooltipFormatNoBlogTitle" xml:space="preserve">
     <value>{0}
 ({1})</value>
-  <comment>{0} - title of post, {1} - date/time of post</comment></data>
+    <comment>{0} - title of post, {1} - date/time of post</comment>
+  </data>
   <data name="PostLower" xml:space="preserve">
     <value>post</value>
   </data>
   <data name="PostPageFilter" xml:space="preserve">
     <value>Filter {0}</value>
-  <comment>{0} - Posts or Pages</comment></data>
+    <comment>{0} - Posts or Pages</comment>
+  </data>
   <data name="PostProperties" xml:space="preserve">
     <value>Post Properties</value>
   </data>
   <data name="PostPublishFileUploadErrorCaption1" xml:space="preserve">
     <value>The {0} was successfully published however an error occurred while uploading supporting files:</value>
-  <comment>{0} - Post or Page</comment></data>
+    <comment>{0} - Post or Page</comment>
+  </data>
   <data name="PostPublishFileUploadErrorCaption2" xml:space="preserve">
     <value>Depending upon the nature of the error, you may be able to successfully publish the supporting files by retrying. Alternatively, you may wish to delete the {0} from your blog.</value>
-  <comment>{0} - Post or Page</comment></data>
+    <comment>{0} - Post or Page</comment>
+  </data>
   <data name="PostPublishFileUploadErrorTitle" xml:space="preserve">
     <value>Error Uploading Supporting Files</value>
   </data>
@@ -3236,16 +3606,19 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PrivacyPreferencesPrivacyExplanation" xml:space="preserve">
     <value>Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:</value>
-  <comment>Three links follow the colon: Privacy statement, service agreement and Code of Conduct</comment></data>
+    <comment>Three links follow the colon: Privacy statement, service agreement and Code of Conduct</comment>
+  </data>
   <data name="PrivacyPreferencesPrivacyStatement" xml:space="preserve">
     <value>.NET Foundation Privacy Policy</value>
   </data>
   <data name="ProductDisplayVersion" xml:space="preserve">
     <value>Build {0}</value>
-  <comment>{0}- the build number like 12.00.1234.1234.</comment></data>
+    <comment>{0}- the build number like 12.00.1234.1234.</comment>
+  </data>
   <data name="ProductNameVersioned" xml:space="preserve">
     <value>Open Live Writer</value>
-  <comment>Versioned product name for about dialog.</comment></data>
+    <comment>Versioned product name for about dialog.</comment>
+  </data>
   <data name="ProgressAnalyzingHomepage" xml:space="preserve">
     <value>Analyzing blog homepage web address and contents...</value>
   </data>
@@ -3278,7 +3651,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="ProgressDeterminingType" xml:space="preserve">
     <value>Determining type of {0}...</value>
-  <comment>{0} - a URL</comment></data>
+    <comment>{0} - a URL</comment>
+  </data>
   <data name="ProgressDialogTitle" xml:space="preserve">
     <value>Progress Dialog</value>
   </data>
@@ -3287,7 +3661,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="ProgressDownloading" xml:space="preserve">
     <value>Downloading {0}...</value>
-  <comment>{0} - a URL</comment></data>
+    <comment>{0} - a URL</comment>
+  </data>
   <data name="ProgressDownloadingEditingTemplate" xml:space="preserve">
     <value>Downloading editing template...</value>
   </data>
@@ -3299,7 +3674,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="ProgressDownloadingWeblogEditingStyleDeep" xml:space="preserve">
     <value>Post contents not present on homepage, checking post...</value>
-  <comment>Used when downloading template from a post page is required</comment></data>
+    <comment>Used when downloading template from a post page is required</comment>
+  </data>
   <data name="ProgressFinalizingEditingTemplateConfig" xml:space="preserve">
     <value>Finalizing editing template configuration...</value>
   </data>
@@ -3308,7 +3684,8 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="ProgressSaving" xml:space="preserve">
     <value>Saving {0}...</value>
-  <comment>{0} - a filename</comment></data>
+    <comment>{0} - a filename</comment>
+  </data>
   <data name="ProgressStartingDownloadOfReferences" xml:space="preserve">
     <value>Starting download of references...</value>
   </data>
@@ -3326,22 +3703,27 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PropertiesCommaSeparated" xml:space="preserve">
     <value>(comma separated)</value>
-  <comment>Used inside the Trackback URLs control in the post property dialog</comment></data>
+    <comment>Used inside the Trackback URLs control in the post property dialog</comment>
+  </data>
   <data name="PropertiesCommentPolicyClosed" xml:space="preserve">
     <value>Closed</value>
-  <comment>No new comments are allowed on the post</comment></data>
+    <comment>No new comments are allowed on the post</comment>
+  </data>
   <data name="PropertiesCommentPolicyNone" xml:space="preserve">
     <value>None</value>
-  <comment>Comments are not allowed on the post</comment></data>
+    <comment>Comments are not allowed on the post</comment>
+  </data>
   <data name="PropertiesCommentPolicyOpen" xml:space="preserve">
     <value>Open</value>
-  <comment>Comments are allowed on the post</comment></data>
+    <comment>Comments are allowed on the post</comment>
+  </data>
   <data name="PropertiesComments" xml:space="preserve">
     <value>Co&amp;mments:</value>
   </data>
   <data name="PropertiesDefault" xml:space="preserve">
     <value>(Default)</value>
-  <comment>Default option for author, comment policy, etc.</comment></data>
+    <comment>Default option for author, comment policy, etc.</comment>
+  </data>
   <data name="PropertiesExcerpt" xml:space="preserve">
     <value>&amp;Excerpt:</value>
   </data>
@@ -3353,31 +3735,38 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PropertiesPageOrder" xml:space="preserve">
     <value>Page &amp;Order:</value>
-  <comment>For specifying the order in which Pages appear on WordPress. The value will be an integer</comment></data>
+    <comment>For specifying the order in which Pages appear on WordPress. The value will be an integer</comment>
+  </data>
   <data name="PropertiesPageParent" xml:space="preserve">
     <value>Page &amp;Parent:</value>
-  <comment>For specifying the parent Page of a Page for WordPress.</comment></data>
+    <comment>For specifying the parent Page of a Page for WordPress.</comment>
+  </data>
   <data name="PropertiesPanel" xml:space="preserve">
     <value>Post Properties</value>
-  <comment>This is an accessibility name and should be localized.</comment></data>
+    <comment>This is an accessibility name and should be localized.</comment>
+  </data>
   <data name="PropertiesPassword" xml:space="preserve">
     <value>Pass&amp;word:</value>
   </data>
   <data name="PropertiesPings" xml:space="preserve">
     <value>P&amp;ings:</value>
-  <comment>This refers to sending an HTTP request to notify servers that a blog has been updated. For more info</comment></data>
+    <comment>This refers to sending an HTTP request to notify servers that a blog has been updated. For more info</comment>
+  </data>
   <data name="PropertiesPublishDate" xml:space="preserve">
     <value>P&amp;ublish Date:</value>
   </data>
   <data name="PropertiesShowHide" xml:space="preserve">
     <value>Close/Open Properties Panel</value>
-  <comment>This is an accessibility name and should be localized.</comment></data>
+    <comment>This is an accessibility name and should be localized.</comment>
+  </data>
   <data name="PropertiesSlug" xml:space="preserve">
     <value>&amp;Slug:</value>
-  <comment>A slug describes a post or page in a few words. Used by WordPress to form a permalink URL for the post. See this link for details: http://codex.wordpress.org/Glossary#Slug</comment></data>
+    <comment>A slug describes a post or page in a few words. Used by WordPress to form a permalink URL for the post. See this link for details: http://codex.wordpress.org/Glossary#Slug</comment>
+  </data>
   <data name="PropertiesTags" xml:space="preserve">
     <value>&amp;Tags:</value>
-  <comment>This replaces Keywords for (currently) WordPress blogs only</comment></data>
+    <comment>This replaces Keywords for (currently) WordPress blogs only</comment>
+  </data>
   <data name="PropertiesTrackbackPolicyAllow" xml:space="preserve">
     <value>Allow</value>
   </data>
@@ -3413,13 +3802,15 @@ Unimplemented Method: {2}</value>
   </data>
   <data name="PublishDatePrompt" xml:space="preserve">
     <value>Set post date</value>
-  <comment>No apostrophes (') allowed in this message</comment></data>
+    <comment>No apostrophes (') allowed in this message</comment>
+  </data>
   <data name="PublishDateTooltip" xml:space="preserve">
     <value>Post date</value>
   </data>
   <data name="PublishedNameFormat" xml:space="preserve">
     <value>Published {0}</value>
-  <comment>{0} - Post or Page</comment></data>
+    <comment>{0} - Post or Page</comment>
+  </data>
   <data name="PublishFolderPickerCaption" xml:space="preserve">
     <value>Select a folder to publish to:</value>
   </data>
@@ -3460,34 +3851,42 @@ Do you still want to set this web address as your custom pin?</value>
   </data>
   <data name="RecentDrafts" xml:space="preserve">
     <value>Recent drafts</value>
-  <comment>Category description for recent drafts that appears in Writer's taskbar jumplist.</comment></data>
+    <comment>Category description for recent drafts that appears in Writer's taskbar jumplist.</comment>
+  </data>
   <data name="RecentlyPosted" xml:space="preserve">
     <value>Recently posted</value>
   </data>
   <data name="RecentPostNotSyncCaption" xml:space="preserve">
     <value>Unable to Retrieve {0} from Server</value>
-  <comment>{0} - Post/Page</comment></data>
+    <comment>{0} - Post/Page</comment>
+  </data>
   <data name="RecentPostNotSyncText" xml:space="preserve">
     <value>{0} was unable to retrieve an up-to-date copy of the {1} from the blog server (an error occurred or the retrieve was cancelled).</value>
-  <comment>{0} - Open Live Writer, {1} - post/page</comment></data>
+    <comment>{0} - Open Live Writer, {1} - post/page</comment>
+  </data>
   <data name="RecentPostNotSyncText2" xml:space="preserve">
     <value>You may still edit the {0} using the local copy stored on this computer. However, if you have changed the {0} online, the copy you are editing is out of date.</value>
-  <comment>{0} - post/page</comment></data>
+    <comment>{0} - post/page</comment>
+  </data>
   <data name="RecentPostNotSyncTitle" xml:space="preserve">
     <value>Unable to Retrieve {0} from Server</value>
-  <comment>{0} - Post/Page</comment></data>
+    <comment>{0} - Post/Page</comment>
+  </data>
   <data name="RecentPosts" xml:space="preserve">
     <value>Recent posts</value>
-  <comment>Category description for recent posts that appears in Writer's taskbar jumplist.</comment></data>
+    <comment>Category description for recent posts that appears in Writer's taskbar jumplist.</comment>
+  </data>
   <data name="RememberPassword" xml:space="preserve">
     <value>&amp;Remember my password</value>
   </data>
   <data name="Retrieving" xml:space="preserve">
     <value>Retrieving {0}</value>
-  <comment>{0} - Post/Page</comment></data>
+    <comment>{0} - Post/Page</comment>
+  </data>
   <data name="RetrievingFromWeblog" xml:space="preserve">
     <value>Retrieving {0} from blog...</value>
-  <comment>{0} - post/page</comment></data>
+    <comment>{0} - post/page</comment>
+  </data>
   <data name="RetrySignin" xml:space="preserve">
     <value>After you go through the solution, try signing in again.</value>
   </data>
@@ -3505,16 +3904,20 @@ Do you still want to set this web address as your custom pin?</value>
   </data>
   <data name="SeeSolutionOnline" xml:space="preserve">
     <value>See the solution online</value>
-  <comment>Dialog box that gives an error while signing in to Live ID. This string prompts user to go online to resolve the problem.</comment></data>
+    <comment>Dialog box that gives an error while signing in to Live ID. This string prompts user to go online to resolve the problem.</comment>
+  </data>
   <data name="Selected" xml:space="preserve">
     <value>Selected</value>
-  <comment>Used for the Accessible Value of the currently selected view switching tab (Edit | Preview | Source).</comment></data>
+    <comment>Used for the Accessible Value of the currently selected view switching tab (Edit | Preview | Source).</comment>
+  </data>
   <data name="SelectWeblogProvider" xml:space="preserve">
     <value>(Select Blog Provider)</value>
-  <comment>This appears in the drop-down list with blog providers, hence the parentheses.</comment></data>
+    <comment>This appears in the drop-down list with blog providers, hence the parentheses.</comment>
+  </data>
   <data name="SemanticHtmlPreviewText" xml:space="preserve">
     <value>AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz</value>
-  <comment>Sample text rendered to give the user an idea what each style in the HTML styles gallery looks like</comment></data>
+    <comment>Sample text rendered to give the user an idea what each style in the HTML styles gallery looks like</comment>
+  </data>
   <data name="SendingPing" xml:space="preserve">
     <value>Sending ping</value>
   </data>
@@ -3526,40 +3929,49 @@ Do you still want to set this web address as your custom pin?</value>
   </data>
   <data name="ShortcutAlt" xml:space="preserve">
     <value>Alt</value>
-  <comment>The Alt in Ctrl+Shift+Alt+F5</comment></data>
+    <comment>The Alt in Ctrl+Shift+Alt+F5</comment>
+  </data>
   <data name="ShortcutCtrl" xml:space="preserve">
     <value>Ctrl</value>
-  <comment>The Ctrl in Ctrl+Shift+Alt+F5</comment></data>
+    <comment>The Ctrl in Ctrl+Shift+Alt+F5</comment>
+  </data>
   <data name="ShortcutPlus" xml:space="preserve">
     <value>+</value>
-  <comment>The + in Ctrl+Shift+Alt+F5</comment></data>
+    <comment>The + in Ctrl+Shift+Alt+F5</comment>
+  </data>
   <data name="ShortcutShift" xml:space="preserve">
     <value>Shift</value>
-  <comment>The Shift in Ctrl+Shift+Alt+F5</comment></data>
+    <comment>The Shift in Ctrl+Shift+Alt+F5</comment>
+  </data>
   <data name="ShowAllPosts" xml:space="preserve">
     <value>All</value>
   </data>
   <data name="ShowLogFile" xml:space="preserve">
     <value>Show log file</value>
-  <comment>Appears in Help | About dialog</comment></data>
+    <comment>Appears in Help | About dialog</comment>
+  </data>
   <data name="ShowProperties" xml:space="preserve">
     <value>Show Properties</value>
-  <comment>Show the post properties tray.</comment></data>
+    <comment>Show the post properties tray.</comment>
+  </data>
   <data name="ShowRealTimeWordCount" xml:space="preserve">
     <value>Show real-time word count in status &amp;bar</value>
   </data>
   <data name="ShowXPosts" xml:space="preserve">
     <value>{0}</value>
-  <comment>{0} - a number</comment></data>
+    <comment>{0} - a number</comment>
+  </data>
   <data name="SidebarPanel" xml:space="preserve">
     <value>Taskpane</value>
-  <comment>This is an accessibility name and should be localized.</comment></data>
+    <comment>This is an accessibility name and should be localized.</comment>
+  </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
   </data>
   <data name="SpellAdd" xml:space="preserve">
     <value>A&amp;dd</value>
-  <comment>Add misspelled word to dictionary</comment></data>
+    <comment>Add misspelled word to dictionary</comment>
+  </data>
   <data name="SpellCaps" xml:space="preserve">
     <value>Capitalization:</value>
   </data>
@@ -3604,7 +4016,8 @@ Do you still want to set this web address as your custom pin?</value>
   </data>
   <data name="SpellNoSuggest" xml:space="preserve">
     <value>(No suggestions)</value>
-  <comment>Used with punctuation to indicate that no alternate spellings were returned</comment></data>
+    <comment>Used with punctuation to indicate that no alternate spellings were returned</comment>
+  </data>
   <data name="SpellNotInDict" xml:space="preserve">
     <value>&amp;Not in dictionary:</value>
   </data>
@@ -3619,10 +4032,12 @@ Do you still want to set this web address as your custom pin?</value>
   </data>
   <data name="SpinnerPixelFormatString" xml:space="preserve">
     <value>px</value>
-  <comment>Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners</comment></data>
+    <comment>Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners</comment>
+  </data>
   <data name="SpinnerPixelRepresentativeString" xml:space="preserve">
     <value>999 px</value>
-  <comment>The Ribbon uses the width of this string to decide how wide the spinner should be displayed</comment></data>
+    <comment>The Ribbon uses the width of this string to decide how wide the spinner should be displayed</comment>
+  </data>
   <data name="SplashScreenCopyrightNotice" xml:space="preserve">
     <value>Copyright © .NET Foundation. All rights reserved.</value>
   </data>
@@ -3638,7 +4053,8 @@ Command STDOUT:
 Command STDERR:
 {3}
 </value>
-  <comment>{0} - Product name, {1} - Build command exit code</comment></data>
+    <comment>{0} - Product name, {1} - Build command exit code</comment>
+  </data>
   <data name="SSGBuildErrorTitle" xml:space="preserve">
     <value>Static site build failed</value>
   </data>
@@ -3758,7 +4174,8 @@ Command STDERR:
   </data>
   <data name="SSGConfigTitle" xml:space="preserve">
     <value>Static Site Configuration for '{0}'</value>
-  <comment>{0} - title of blog</comment></data>
+    <comment>{0} - title of blog</comment>
+  </data>
   <data name="SSGErrorBuildCommandEmptyText" xml:space="preserve">
     <value>A build command is required when local site building is enabled.</value>
   </data>
@@ -3791,7 +4208,8 @@ Command STDERR:
   </data>
   <data name="SSGErrorPathDraftsNotFound" xml:space="preserve">
     <value>Drafts path '{0}' does not exist.</value>
-  <comment>{0} - attempted drafts path</comment></data>
+    <comment>{0} - attempted drafts path</comment>
+  </data>
   <data name="SSGErrorPathFolderNotFound" xml:space="preserve">
     <value>Folder not found</value>
   </data>
@@ -3800,28 +4218,33 @@ Command STDERR:
   </data>
   <data name="SSGErrorPathImagesNotFound" xml:space="preserve">
     <value>Images path '{0}' does not exist.</value>
-  <comment>{0} - attempted images path</comment></data>
+    <comment>{0} - attempted images path</comment>
+  </data>
   <data name="SSGErrorPathLocalSitePathNotFound" xml:space="preserve">
     <value>Local site path '{0}' does not exist.</value>
-  <comment>{0} - attempted local site path</comment></data>
+    <comment>{0} - attempted local site path</comment>
+  </data>
   <data name="SSGErrorPathOutputEmpty" xml:space="preserve">
     <value>Output path is empty.</value>
   </data>
   <data name="SSGErrorPathOutputNotFound" xml:space="preserve">
     <value>Output path '{0}' does not exist.</value>
-  <comment>{0} - attempted output path</comment></data>
+    <comment>{0} - attempted output path</comment>
+  </data>
   <data name="SSGErrorPathPagesEmpty" xml:space="preserve">
     <value>Pages path is empty.</value>
   </data>
   <data name="SSGErrorPathPagesNotFound" xml:space="preserve">
     <value>Pages path '{0}' does not exist.</value>
-  <comment>{0} - attempted pages path</comment></data>
+    <comment>{0} - attempted pages path</comment>
+  </data>
   <data name="SSGErrorPathPostsEmpty" xml:space="preserve">
     <value>Posts path is empty.</value>
   </data>
   <data name="SSGErrorPathPostsNotFound" xml:space="preserve">
     <value>Posts path '{0}' does not exist.</value>
-  <comment>{0} - attempted posts path</comment></data>
+    <comment>{0} - attempted posts path</comment>
+  </data>
   <data name="SSGErrorPostDoesNotExistText" xml:space="preserve">
     <value>Could not find post with specified ID.</value>
   </data>
@@ -3864,31 +4287,38 @@ Command STDOUT:
 Command STDERR:
 {3}
 </value>
-  <comment>{0} - Product name, {1} - Publish command exit code</comment></data>
+    <comment>{0} - Product name, {1} - Publish command exit code</comment>
+  </data>
   <data name="SSGPublishErrorTitle" xml:space="preserve">
     <value>Static site publish failed</value>
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>
-  <comment>Header of the table that shows word and character count</comment></data>
+    <comment>Header of the table that shows word and character count</comment>
+  </data>
   <data name="StatisticsSelection" xml:space="preserve">
     <value>Selection Statistics</value>
-  <comment>Header of the table that shows word and character count when only looking at the currently selected text</comment></data>
+    <comment>Header of the table that shows word and character count when only looking at the currently selected text</comment>
+  </data>
   <data name="StatusAutoSaving" xml:space="preserve">
     <value>Autosaving...</value>
-  <comment>This message is shown in the status bar while Writer saves the current post in the background</comment></data>
+    <comment>This message is shown in the status bar while Writer saves the current post in the background</comment>
+  </data>
   <data name="StatusDraftSaved" xml:space="preserve">
     <value>Draft - Saved {0}</value>
-  <comment>{0} - saved date</comment></data>
+    <comment>{0} - saved date</comment>
+  </data>
   <data name="StatusDraftUnsaved" xml:space="preserve">
     <value>Draft - Unsaved</value>
   </data>
   <data name="StatusPublished" xml:space="preserve">
     <value>Published: {0}</value>
-  <comment>{0} - publish date</comment></data>
+    <comment>{0} - publish date</comment>
+  </data>
   <data name="StatusWeblogNameFormatter" xml:space="preserve">
     <value>{0} ({1})</value>
-  <comment>{0} - status message, {1} - blog name</comment></data>
+    <comment>{0} - status message, {1} - blog name</comment>
+  </data>
   <data name="SwitchWeblogs" xml:space="preserve">
     <value>Switch to Blog</value>
   </data>
@@ -3957,7 +4387,8 @@ Command STDERR:
   </data>
   <data name="TagsCaptionFormat" xml:space="preserve">
     <value>{0} Tags: {{tag-group}}</value>
-  <comment>{0} - the name of a tag provider. {{tag-group}} must NOT be translated!</comment></data>
+    <comment>{0} - the name of a tag provider. {{tag-group}} must NOT be translated!</comment>
+  </data>
   <data name="TagsCreateNew" xml:space="preserve">
     <value>Create New Tag Provider</value>
   </data>
@@ -3966,10 +4397,12 @@ Command STDERR:
   </data>
   <data name="TagsEditPattern" xml:space="preserve">
     <value>Edit {0}</value>
-  <comment>{0} - Name of tag provider that is being edited</comment></data>
+    <comment>{0} - Name of tag provider that is being edited</comment>
+  </data>
   <data name="TagsHtmlCaptionHelpString" xml:space="preserve">
     <value>The HTML caption that will appear with the HTML generated for the tags. Use {0} where you'd like the HTML generated from the HTML tag template to be placed.</value>
-  <comment>{0} - "{tag-group}"</comment></data>
+    <comment>{0} - "{tag-group}"</comment>
+  </data>
   <data name="TagsHtmlCaptionLabel" xml:space="preserve">
     <value>HTML &amp;caption for tag list:</value>
   </data>
@@ -3987,7 +4420,8 @@ Command STDERR:
   </data>
   <data name="TagsHtmlTemplateHelpString" xml:space="preserve">
     <value>The HTML template will be used to generate HTML for each tag that is provided. In the HTML template, use {0} where the tag should be placed. Use {1} where the URL encoded tag should be placed.</value>
-  <comment>{0} - "{tag}", {1} - "{tag-encoded}"</comment></data>
+    <comment>{0} - "{tag}", {1} - "{tag-encoded}"</comment>
+  </data>
   <data name="TagsHtmlTemplateLabel" xml:space="preserve">
     <value>&amp;HTML template for each tag:</value>
   </data>
@@ -3996,7 +4430,8 @@ Command STDERR:
   </data>
   <data name="TagsProviderDefaultCaption" xml:space="preserve">
     <value>{0} Tags: {1}</value>
-  <comment>{0} - the name of a tag provider, {1} - tags provided by tag provider {0}</comment></data>
+    <comment>{0} - the name of a tag provider, {1} - tags provided by tag provider {0}</comment>
+  </data>
   <data name="TagsProviderNameHelpString" xml:space="preserve">
     <value>The name of the tag provider. This name will be displayed in the tag provider list when inserting tags.</value>
   </data>
@@ -4026,16 +4461,20 @@ Command STDERR:
   </data>
   <data name="TagsXmlParsingError" xml:space="preserve">
     <value>Missing {0} parameter</value>
-  <comment>Exception when parsing tag providers xml file. {0} replaced by tag name that is missing.</comment></data>
+    <comment>Exception when parsing tag providers xml file. {0} replaced by tag name that is missing.</comment>
+  </data>
   <data name="TemporaryPostBody" xml:space="preserve">
     <value>This is a temporary post that was not deleted. Please delete this manually. ({0} - {1})</value>
-  <comment>{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E</comment></data>
+    <comment>{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E</comment>
+  </data>
   <data name="TemporaryPostTitle" xml:space="preserve">
     <value>Temporary Post Used For Theme Detection ({0} - {1})</value>
-  <comment>{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E</comment></data>
+    <comment>{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E</comment>
+  </data>
   <data name="TextStyle" xml:space="preserve">
     <value>Text Style</value>
-  <comment>This is an accessibility name and should be localized.</comment></data>
+    <comment>This is an accessibility name and should be localized.</comment>
+  </data>
   <data name="TheErrorOccuredBecause" xml:space="preserve">
     <value>The error occurred for the following reason:</value>
   </data>
@@ -4047,16 +4486,19 @@ Command STDERR:
   </data>
   <data name="TitleDefaultText" xml:space="preserve">
     <value>Enter a {0} title</value>
-  <comment>{0} - Post or Page</comment></data>
+    <comment>{0} - Post or Page</comment>
+  </data>
   <data name="TitleRemindDontShowAgain" xml:space="preserve">
     <value>&amp;Don't remind me about missing titles</value>
   </data>
   <data name="TitleRemindError" xml:space="preserve">
     <value>{0} Title Not Specified</value>
-  <comment>{0} - Page or Post</comment></data>
+    <comment>{0} - Page or Post</comment>
+  </data>
   <data name="TitleRemindExplanation" xml:space="preserve">
     <value>You have not specified a title for this {0}. Do you still want to continue with publishing?</value>
-  <comment>{0} - Page or Post</comment></data>
+    <comment>{0} - Page or Post</comment>
+  </data>
   <data name="TitleRemindTitle" xml:space="preserve">
     <value>Title Reminder</value>
   </data>
@@ -4065,22 +4507,28 @@ Command STDERR:
   </data>
   <data name="ToolbarBoldLetter" xml:space="preserve">
     <value>B</value>
-  <comment>The letter that should be used for the Bold button on the editing toolbar</comment></data>
+    <comment>The letter that should be used for the Bold button on the editing toolbar</comment>
+  </data>
   <data name="ToolbarFontStyleFontFamily" xml:space="preserve">
     <value />
-  <comment>The typeface that should be used to render the Bold</comment></data>
+    <comment>The typeface that should be used to render the Bold</comment>
+  </data>
   <data name="ToolbarItalicLetter" xml:space="preserve">
     <value>I</value>
-  <comment>The letter that should be used for the Italic button on the editing toolbar</comment></data>
+    <comment>The letter that should be used for the Italic button on the editing toolbar</comment>
+  </data>
   <data name="ToolbarStrikethroughLetter" xml:space="preserve">
     <value>A</value>
-  <comment>The letter that should be used for the Strikethrough button on the editing toolbar</comment></data>
+    <comment>The letter that should be used for the Strikethrough button on the editing toolbar</comment>
+  </data>
   <data name="ToolbarUnderlineLetter" xml:space="preserve">
     <value>U</value>
-  <comment>The letter that should be used for the Underline button on the editing toolbar</comment></data>
+    <comment>The letter that should be used for the Underline button on the editing toolbar</comment>
+  </data>
   <data name="TruncatedString" xml:space="preserve">
     <value>{0}...</value>
-  <comment>{0} - a string that is being truncated</comment></data>
+    <comment>{0} - a string that is being truncated</comment>
+  </data>
   <data name="UnexpectedErrorClickHere" xml:space="preserve">
     <value>Click here to see error details</value>
   </data>
@@ -4097,7 +4545,8 @@ Command STDERR:
     <value>An error occurred in the {0} plug-in:
 
 {1}</value>
-  <comment>{0} - plug-in name, {1} - error description</comment></data>
+    <comment>{0} - plug-in name, {1} - error description</comment>
+  </data>
   <data name="UnexpectedErrorPluginTitle" xml:space="preserve">
     <value>Plug-in Error Occurred</value>
   </data>
@@ -4115,16 +4564,19 @@ Command STDERR:
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
-  <comment>Used when the value is not known.</comment></data>
+    <comment>Used when the value is not known.</comment>
+  </data>
   <data name="Untitled" xml:space="preserve">
     <value>Untitled</value>
   </data>
   <data name="UntitledPage" xml:space="preserve">
     <value>(Untitled Page)</value>
-  <comment>When a title needs to be displayed and a page doesn't have a title, this string will be used instead.</comment></data>
+    <comment>When a title needs to be displayed and a page doesn't have a title, this string will be used instead.</comment>
+  </data>
   <data name="UntitledPost" xml:space="preserve">
     <value>(Untitled Post)</value>
-  <comment>When a title needs to be displayed and a post doesn't have a title, this string will be used instead.</comment></data>
+    <comment>When a title needs to be displayed and a post doesn't have a title, this string will be used instead.</comment>
+  </data>
   <data name="UpdateAccountConfiguration" xml:space="preserve">
     <value>&amp;Update account information...</value>
   </data>
@@ -4133,25 +4585,31 @@ Command STDERR:
   </data>
   <data name="UpdatesAvailableAskLaterButton" xml:space="preserve">
     <value>A&amp;sk Me Later</value>
-  <comment>Text displayed on ask me later button</comment></data>
+    <comment>Text displayed on ask me later button</comment>
+  </data>
   <data name="UpdatesAvailableChecking" xml:space="preserve">
     <value>Checking for updates</value>
-  <comment>Displayed in progress dialog while user manually checks for updates</comment></data>
+    <comment>Displayed in progress dialog while user manually checks for updates</comment>
+  </data>
   <data name="UpdatesAvailableDownloadButton" xml:space="preserve">
     <value>&amp;Download Now</value>
-  <comment>Text displayed on download button</comment></data>
+    <comment>Text displayed on download button</comment>
+  </data>
   <data name="UpdatesAvailableLink" xml:space="preserve">
     <value>More information</value>
   </data>
   <data name="UpdatesAvailableMessage" xml:space="preserve">
     <value>Required updates will be applied next time you start Open Live Writer.</value>
-  <comment>Message shown to user when updates are found.</comment></data>
+    <comment>Message shown to user when updates are found.</comment>
+  </data>
   <data name="UpdatesAvailableMessageFull" xml:space="preserve">
     <value>A new version of {0} is now available. Click the download now button to download and install the update.</value>
-  <comment>{0} will be replaced with the product name (i.e. Open Live Writer)</comment></data>
+    <comment>{0} will be replaced with the product name (i.e. Open Live Writer)</comment>
+  </data>
   <data name="UpdatesAvailableMessagePrerelease" xml:space="preserve">
     <value>A new pre-release version of {0} is now available. Click the download now button to download and install the update.</value>
-  <comment>{0} will be replaced with the product name (i.e. Open Live Writer)</comment></data>
+    <comment>{0} will be replaced with the product name (i.e. Open Live Writer)</comment>
+  </data>
   <data name="UpdatesAvailableNofifyBeta" xml:space="preserve">
     <value>Also check for pre-release (beta) &amp;versions</value>
   </data>
@@ -4160,7 +4618,8 @@ Command STDERR:
   </data>
   <data name="UpdatesAvailableNoUpdateText" xml:space="preserve">
     <value>There are no updates available. You are running the latest version of {0}.</value>
-  <comment>{0} will be replaced with the product name</comment></data>
+    <comment>{0} will be replaced with the product name</comment>
+  </data>
   <data name="UpdatesAvailableNoUpdateTitle" xml:space="preserve">
     <value>No Updates Available</value>
   </data>
@@ -4172,28 +4631,35 @@ Command STDERR:
   </data>
   <data name="UpdatesBandClose" xml:space="preserve">
     <value>Close</value>
-  <comment>Used to hide the updates available message</comment></data>
+    <comment>Used to hide the updates available message</comment>
+  </data>
   <data name="UpdatesInstalling" xml:space="preserve">
     <value>Downloading and installing {0} update(s). Please wait...</value>
-  <comment>{0} is number of updates</comment></data>
+    <comment>{0} is number of updates</comment>
+  </data>
   <data name="UpdatesPreparing" xml:space="preserve">
     <value>Preparing to update Open Live Writer...</value>
-  <comment>Message to user while updates are getting downloaded.</comment></data>
+    <comment>Message to user while updates are getting downloaded.</comment>
+  </data>
   <data name="UpdatesProgressTitle" xml:space="preserve">
     <value>Install Updates - Open Live Writer</value>
-  <comment>Dialog box title for installing update progress dialog.</comment></data>
+    <comment>Dialog box title for installing update progress dialog.</comment>
+  </data>
   <data name="UpdatesStartingWriter" xml:space="preserve">
     <value>Starting updated Open Live Writer...</value>
-  <comment>Message after updates are installed and before writer starts.</comment></data>
+    <comment>Message after updates are installed and before writer starts.</comment>
+  </data>
   <data name="UpdateWeblogDraft" xml:space="preserve">
     <value>Draft</value>
   </data>
   <data name="UpdateWeblogPublish1" xml:space="preserve">
     <value>Publishing your {0}</value>
-  <comment>{0} - Post/Page/Draft</comment></data>
+    <comment>{0} - Post/Page/Draft</comment>
+  </data>
   <data name="UpdateWeblogPublish2" xml:space="preserve">
     <value>Publishing {0} to {1}</value>
-  <comment>{0} - Post/Page/Draft, {1} - blog name</comment></data>
+    <comment>{0} - Post/Page/Draft, {1} - blog name</comment>
+  </data>
   <data name="UpdateWeblogViewPost" xml:space="preserve">
     <value>Open my blog in the browser after publishing</value>
   </data>
@@ -4217,7 +4683,8 @@ Command STDERR:
   </data>
   <data name="VideoCaptionMaxCharactersAccepted" xml:space="preserve">
     <value>245</value>
-  <comment>The maximum number of characters allowed in the video caption edit field - Cannot be greater than 245</comment></data>
+    <comment>The maximum number of characters allowed in the video caption edit field - Cannot be greater than 245</comment>
+  </data>
   <data name="VideoError" xml:space="preserve">
     <value>Error Publishing Video</value>
   </data>
@@ -4226,7 +4693,8 @@ Command STDERR:
   </data>
   <data name="VideoFromVideoService" xml:space="preserve">
     <value>From Video Service</value>
-  <comment>The name of the tab in the insert video dialog that allows users to insert soapbox or youtube videos.</comment></data>
+    <comment>The name of the tab in the insert video dialog that allows users to insert soapbox or youtube videos.</comment>
+  </data>
   <data name="VideoGetVideosError" xml:space="preserve">
     <value>There was an error getting the list of videos.</value>
   </data>
@@ -4242,16 +4710,19 @@ Command STDERR:
   <data name="VideoRemoteProcessing" xml:space="preserve">
     <value>{0} is processing your uploaded video.
 This might take a while.</value>
-  <comment>{0} - Soapbox or Youtube</comment></data>
+    <comment>{0} - Soapbox or Youtube</comment>
+  </data>
   <data name="VideoUrlConvertError" xml:space="preserve">
     <value>This video does not contain the video ID.  Please enter the embed for the video.</value>
   </data>
   <data name="ViewAll" xml:space="preserve">
     <value>View all</value>
-  <comment>shows the full list of options</comment></data>
+    <comment>shows the full list of options</comment>
+  </data>
   <data name="ViewButton" xml:space="preserve">
     <value>&amp;View</value>
-  <comment>View blog</comment></data>
+    <comment>View blog</comment>
+  </data>
   <data name="ViewMap" xml:space="preserve">
     <value>View map</value>
   </data>
@@ -4281,10 +4752,12 @@ This might take a while.</value>
   </data>
   <data name="WatermarkDefaultFont" xml:space="preserve">
     <value>Arial</value>
-  <comment>The default font that should be selected in the watermark editor</comment></data>
+    <comment>The default font that should be selected in the watermark editor</comment>
+  </data>
   <data name="WatermarkDefaultText" xml:space="preserve">
     <value>© {0:yyyy}</value>
-  <comment>{0} - Year.  This string can be blank.  THis is the default text in the watermark textbox when the image has no watermark</comment></data>
+    <comment>{0} - Year.  This string can be blank.  THis is the default text in the watermark textbox when the image has no watermark</comment>
+  </data>
   <data name="WatermarkDialogTitle" xml:space="preserve">
     <value>Watermark</value>
   </data>
@@ -4302,10 +4775,12 @@ This might take a while.</value>
   </data>
   <data name="WatsonMainIntroBoldFormat" xml:space="preserve">
     <value>{0} has encountered a problem: {1}.</value>
-  <comment>{0} - Open Live Writer, {1} - error message</comment></data>
+    <comment>{0} - Open Live Writer, {1} - error message</comment>
+  </data>
   <data name="WatsonMainIntroRegFormat" xml:space="preserve">
     <value>{0} {1}</value>
-  <comment>{0} - error title, {1} - error message</comment></data>
+    <comment>{0} - error title, {1} - error message</comment>
+  </data>
   <data name="WatsonMainPleaBold" xml:space="preserve">
     <value>Please tell Microsoft about this problem.</value>
   </data>
@@ -4314,10 +4789,12 @@ This might take a while.</value>
   </data>
   <data name="WatsonNoReportButton" xml:space="preserve">
     <value>Do Not Send Report</value>
-  <comment>The report in question is the error report from Watson.</comment></data>
+    <comment>The report in question is the error report from Watson.</comment>
+  </data>
   <data name="WatsonReportButton" xml:space="preserve">
     <value>Send Report</value>
-  <comment>The report in question is the error report from Watson.</comment></data>
+    <comment>The report in question is the error report from Watson.</comment>
+  </data>
   <data name="WebLayoutWarning1" xml:space="preserve">
     <value>You may have problems with editing content using the theme for the current blog (for example, incorrect post layout or problems selecting and resizing content).</value>
   </data>
@@ -4335,7 +4812,8 @@ This might take a while.</value>
   </data>
   <data name="WeblogCapabilitiesCaption" xml:space="preserve">
     <value>{0} has detected the following capabilities for your blog:</value>
-  <comment>{0} - Open Live Writer</comment></data>
+    <comment>{0} - Open Live Writer</comment>
+  </data>
   <data name="WeblogCapabilitiesTitle" xml:space="preserve">
     <value>Blog Capabilities</value>
   </data>
@@ -4353,7 +4831,8 @@ This might take a while.</value>
   </data>
   <data name="WeblogSettings" xml:space="preserve">
     <value>Blog Options - {0}</value>
-  <comment>{0} - Name of blog</comment></data>
+    <comment>{0} - Name of blog</comment>
+  </data>
   <data name="Width" xml:space="preserve">
     <value>Width</value>
   </data>
@@ -4365,16 +4844,19 @@ This might take a while.</value>
   </data>
   <data name="WindowTitleFormat" xml:space="preserve">
     <value>{0} - {1}</value>
-  <comment>{0} - post title, {1} - "Open Live Writer"</comment></data>
+    <comment>{0} - post title, {1} - "Open Live Writer"</comment>
+  </data>
   <data name="WithEllipses" xml:space="preserve">
     <value>{0}...</value>
-  <comment>{0} - a command name that needs to be followed with ellipses, in accordance with Windows UI guidelines</comment></data>
+    <comment>{0} - a command name that needs to be followed with ellipses, in accordance with Windows UI guidelines</comment>
+  </data>
   <data name="WizardBack" xml:space="preserve">
     <value>&lt; &amp;Back</value>
   </data>
   <data name="WizardBlogTypeConfigureTo" xml:space="preserve">
     <value>Configure {0} to publish to:</value>
-  <comment>{0} - Long product name, i.e. "Open Live Writer"; followed by a choice of two options: "SharePoint blog" or "Another blog service"</comment></data>
+    <comment>{0} - Long product name, i.e. "Open Live Writer"; followed by a choice of two options: "SharePoint blog" or "Another blog service"</comment>
+  </data>
   <data name="WizardBlogTypeGoogleBlogger" xml:space="preserve">
     <value>&amp;Google Blogger</value>
   </data>
@@ -4389,7 +4871,8 @@ This might take a while.</value>
   </data>
   <data name="WizardBlogTypeWelcome" xml:space="preserve">
     <value>Many popular blog services work with {0}.</value>
-  <comment>{0} - Long product name, i.e. "Open Live Writer"</comment></data>
+    <comment>{0} - Long product name, i.e. "Open Live Writer"</comment>
+  </data>
   <data name="WizardBlogTypeWhatBlogType" xml:space="preserve">
     <value>What blog service do you use?</value>
   </data>
@@ -4401,13 +4884,16 @@ This might take a while.</value>
   </data>
   <data name="WordCount" xml:space="preserve">
     <value>Words</value>
-  <comment>{0} - The number of words in any given text.</comment></data>
+    <comment>{0} - The number of words in any given text.</comment>
+  </data>
   <data name="WordCountTitle" xml:space="preserve">
     <value>Word Count</value>
-  <comment>The text shown on the dialog that gives word count</comment></data>
+    <comment>The text shown on the dialog that gives word count</comment>
+  </data>
   <data name="Words" xml:space="preserve">
     <value>Words: {0}</value>
-  <comment>{0} - number of words in the document</comment></data>
+    <comment>{0} - number of words in the document</comment>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
