@@ -103,6 +103,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
         public BuildPublishPanel() : base()
         {
             InitializeComponent();
+            LocalizeStrings();
             numericUpDownCmdTimeout.Maximum = int.MaxValue;
         }
 
@@ -110,7 +111,24 @@ namespace OpenLiveWriter.PostEditor.Configuration.StaticSiteAdvanced
             : base(controller)
         {
             InitializeComponent();
+            LocalizeStrings();
             numericUpDownCmdTimeout.Maximum = int.MaxValue;
+        }
+
+        private void LocalizeStrings()
+        {
+            groupBoxGeneral.Text = Res.Get(StringId.SSGConfigBuildPublishGeneralGroup);
+            checkBoxShowCommandWindows.Text = Res.Get(StringId.SSGConfigBuildPublishShowCmdWindows);
+            labelCmdTimeout.Text = Res.Get(StringId.SSGConfigBuildPublishCmdTimeout);
+            checkBoxEnableCmdTimeout.Text = Res.Get(StringId.SSGConfigBuildPublishEnableCmdTimeout);
+
+            groupBoxBuilding.Text = Res.Get(StringId.SSGConfigBuildPublishBuildingGroup);
+            labelBuildCommand.Text = Res.Get(StringId.SSGConfigBuildPublishBuildCommand);
+            checkBoxBuildingEnabled.Text = Res.Get(StringId.SSGConfigBuildPublishEnableBuilding);
+            labelOutputPath.Text = Res.Get(StringId.SSGConfigBuildPublishOutputPath);
+
+            groupBoxPublishing.Text = Res.Get(StringId.SSGConfigBuildPublishPublishingGroup);
+            labelPublishCommand.Text = Res.Get(StringId.SSGConfigBuildPublishPublishCommand);
         }
 
         public override void LoadConfig()
