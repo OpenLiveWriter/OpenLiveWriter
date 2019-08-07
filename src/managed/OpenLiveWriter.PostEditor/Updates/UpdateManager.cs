@@ -44,7 +44,9 @@ namespace OpenLiveWriter.PostEditor.Updates
                         {
                             var update = await manager.CheckForUpdate();
 
-                            if(update.FutureReleaseEntry.Version < update.CurrentlyInstalledVersion.Version)
+                            if(update != null && 
+                               update.ReleasesToApply.Count > 0 && 
+                               update.FutureReleaseEntry.Version < update.CurrentlyInstalledVersion.Version)
                             {
                                 Trace.WriteLine("Update is older than currently running version, not installing.");
                                 Trace.WriteLine($"Current: {update.CurrentlyInstalledVersion.Version} Update: {update.FutureReleaseEntry.Version}");
