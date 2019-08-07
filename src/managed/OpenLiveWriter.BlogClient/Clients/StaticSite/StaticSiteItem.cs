@@ -20,7 +20,7 @@ namespace OpenLiveWriter.BlogClient.Clients.StaticSite
         /// </summary>
         public static string PUBLISH_FILE_EXTENSION = ".html";
 
-        private static Regex POST_PARSE_REGEX = new Regex("^---\r?\n((?:.*\r?\n)*?)---\r?\n\r?\n((?:.*\r?\n)*)");
+        private static Regex POST_PARSE_REGEX = new Regex("^---\r?\n((?:.*\r?\n)*?)---\r?\n\r?\n((?:.*\r?\n?)*)");
 
         protected StaticSiteConfig SiteConfig;
         public BlogPost BlogPost { get; private set; }
