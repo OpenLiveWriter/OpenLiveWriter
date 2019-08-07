@@ -42,6 +42,15 @@ namespace OpenLiveWriter.PostEditor.Updates
                     {
                         using (var manager = new Squirrel.UpdateManager(downloadUrl))
                         {
+                            var update = await manager.CheckForUpdate();
+
+                            if(update.FutureReleaseEntry.Version < update.CurrentlyInstalledVersion.Version)
+                            {
+                                Trace.WriteLine("Update is older than currently running version, not installing.");
+                                Trace.WriteLine($"Current: {update.CurrentlyInstalledVersion.Version} Update: {update.FutureReleaseEntry.Version}");
+                                return;
+                            }
+
                             await manager.UpdateApp();
                         }
                     }
