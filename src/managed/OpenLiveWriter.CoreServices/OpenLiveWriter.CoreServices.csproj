@@ -134,6 +134,11 @@
     <Compile Include="DisposableCursor.cs" />
     <Compile Include="DragDropHelper.cs" />
     <Compile Include="EventCounter.cs" />
+    <Compile Include="Exceptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exceptions.resx</DependentUpon>
+    </Compile>
     <Compile Include="ExifMetadata.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="FileItem.cs" />
@@ -325,6 +330,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Exceptions.resx">
       <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Exceptions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Images\ApplicationIcon.ico" />
     <EmbeddedResource Include="Images\SplashScreen.png" />
@@ -343,6 +350,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Images\SplashScreenLogo.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\NetFoundationLogo.png" />
+    <EmbeddedResource Include="Images\SplashScreenLogo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />
   <PropertyGroup>
@@ -356,19 +367,14 @@
       <MarketsSourceFiles Include="$(MarketsSourceDataFolder)\**\*.xml" />
     </ItemGroup>
   </Target>
-
   <Target Name="GenerateMarketXml" DependsOnTargets="ResolveProjectReferences;GenerateMarketXmlDeps;GenerateMarketXmlCopyMaster;GenerateMarketXmlImpl" BeforeTargets="CoreCompile">
   </Target>
-  
   <Target Name="GenerateMarketXmlImpl" Inputs="@(MarketsSourceFiles)" Outputs="$(MarketsXmlPath)">
     <Exec Command="&quot;$(OutDir)MarketXmlGenerator.exe&quot; &quot;$(MarketsSourceDataFolder)&quot; &quot;$(MarketsXmlPath)&quot;" />
   </Target>
-
   <Target Name="GenerateMarketXmlCopyMaster" Inputs="$(MasterXmlPath)" Outputs="$(MasterXmlOutput)">
     <MakeDir Directories="$(MSBuildProjectDirectory)\Marketization" Condition="!Exists('$(MSBuildProjectDirectory)\Marketization')" />
     <Copy SourceFiles="$(MasterXmlPath)" DestinationFiles="$(MasterXmlOutput)" />
   </Target>
-
   <Target Name="_CopyFilesMarkedCopyLocal" />
-
 </Project>
