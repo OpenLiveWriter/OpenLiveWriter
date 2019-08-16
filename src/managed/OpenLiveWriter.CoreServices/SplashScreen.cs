@@ -63,8 +63,8 @@ namespace OpenLiveWriter.CoreServices
         private void LoadScaledImages()
         {
             const float scaleFactor = 2f; // Assume logos are already at 2x scaling
-            var fdnLogoBmp = new Bitmap(this.GetType(), "Images.NetFoundationLogo.png");
-            var logoBmp = new Bitmap(this.GetType(), "Images.SplashScreenLogo.png");
+            var fdnLogoBmp = new Bitmap(this.GetType(), "Images.NetFoundationLogo2x.png");
+            var logoBmp = new Bitmap(this.GetType(), "Images.SplashScreenLogo2x.png");
 
             var fdnLogoSize = new Size(
                 (int)Math.Ceiling(fdnLogoBmp.Width * (DisplayHelper.ScalingFactorX / scaleFactor)),

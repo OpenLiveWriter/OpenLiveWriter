@@ -351,8 +351,8 @@
     <EmbeddedResource Include="Images\SplashScreenLogo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\NetFoundationLogo.png" />
-    <EmbeddedResource Include="Images\SplashScreenLogo.png" />
+    <EmbeddedResource Include="Images\NetFoundationLogo2x.png" />
+    <EmbeddedResource Include="Images\SplashScreenLogo2x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />
