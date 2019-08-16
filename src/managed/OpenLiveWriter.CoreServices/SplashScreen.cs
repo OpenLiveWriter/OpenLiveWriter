@@ -11,6 +11,8 @@ using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
+using OpenLiveWriter.CoreServices.Layout;
 
 namespace OpenLiveWriter.CoreServices
 {
@@ -38,25 +40,17 @@ namespace OpenLiveWriter.CoreServices
             // Required for Windows Form Designer support
             //
             InitializeComponent();
+
+            // TODO Use Strings resources. Waiting on LocUtil changes and LocEdit to be merged into master before this can be done.
+
             DisplayHelper.Scale(this);
-
-            //	Turn on double buffered painting.
-            //SetStyle(ControlStyles.UserPaint, true);
-            //SetStyle(ControlStyles.DoubleBuffer, true);
-            //if (!BidiHelper.IsRightToLeft)
-            //    SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-
-            //if (SystemInformation.HighContrast)
-            //{
-            //    ImageHelper.ConvertToHighContrast(_backgroundImage);
-            //    ImageHelper.ConvertToHighContrast(_logoImage);
-            //}
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             LoadScaledImages();
+            FixLayout();
 
             // Create the timer
             timerAnimation = new System.Windows.Forms.Timer();
@@ -85,6 +79,11 @@ namespace OpenLiveWriter.CoreServices
             _logoBitmap = new Bitmap(logoBmp, logoBmpSize);
             pictureBoxLogo.Image = _logoBitmap;
             pictureBoxLogo.Size = _logoBitmap.Size;
+        }
+
+        private void FixLayout()
+        {
+            pictureBoxLogo.Top = Height / 2 - pictureBoxLogo.Height / 2;
         }
 
         public void ShowSplashScreen()
@@ -149,6 +148,7 @@ namespace OpenLiveWriter.CoreServices
             this.pictureBoxFdnLogo.Size = new System.Drawing.Size(20, 20);
             this.pictureBoxFdnLogo.TabIndex = 2;
             this.pictureBoxFdnLogo.TabStop = false;
+            this.pictureBoxFdnLogo.Visible = false;
             // 
             // pictureBoxLogo
             // 
@@ -194,25 +194,24 @@ namespace OpenLiveWriter.CoreServices
             const int fdnLogoAnimTarget = 20;
             pictureBoxFdnLogo.Left = (int)Math.Min(DisplayHelper.ScalingFactorX * _ticks * ((float)fdnLogoAnimTarget / fdnLogoAnimTicks), DisplayHelper.ScalingFactorX * fdnLogoAnimTarget);
             pictureBoxFdnLogo.Image = ChangeOpacity(_fdnLogoBitmap, (float)Math.Min((float)_ticks / fdnLogoAnimTicks, 1.0));
+            pictureBoxFdnLogo.Visible = true;
 
-            const int logoAnimStart = 10;
-            const int logoAnimEnd = logoAnimStart + 20;
+            // Open Live Writer logo non-linear slide animation
+            const int logoAnimStart = 4;
+            const int logoAnimTicks = 16;
+            int logoAnimTarget = Width / 2 - _logoBitmap.Width / 2;
+            const int logoAnimSlideWidth = 30;
 
-            int logoAnimBegin = (Width / 2) - (pictureBoxLogo.Width / 2) - (int)(40 * DisplayHelper.ScalingFactorX);
-            int logoAnimTarget = (Width / 2) - (pictureBoxLogo.Width / 2);
-            if(_ticks > logoAnimStart)
+            if (_ticks >= logoAnimStart)
             {
+                // Decimal animation curve from 0 to 1
+                double x = 1 - Math.Pow(Math.Max(1 - ((double)(_ticks - logoAnimStart) / logoAnimTicks), 0), 2);
+                pictureBoxLogo.Left = 
+                    (logoAnimTarget - (int)(logoAnimSlideWidth * DisplayHelper.ScalingFactorX)) + (int)Math.Ceiling(x * (logoAnimSlideWidth * DisplayHelper.ScalingFactorX));
+                pictureBoxLogo.Image = ChangeOpacity(_logoBitmap, (float)Math.Min((float)(_ticks - logoAnimStart) / logoAnimTicks, 1.0));
                 pictureBoxLogo.Visible = true;
-                double x = Math.Min((float)(_ticks - logoAnimStart) / (logoAnimEnd - logoAnimStart) +.1, 1.0);
-                pictureBoxLogo.Left = (int)Math.Min(logoAnimBegin + (Math.Pow(Math.Log10(x), 10) * (logoAnimTarget - logoAnimBegin) * DisplayHelper.ScalingFactorX), logoAnimTarget);
-                // Set logo transparency (float)Math.Min((float)(_ticks - logoAnimStart) / (logoAnimEnd - logoAnimStart), 1.0)
-                pictureBoxLogo.Image = ChangeOpacity(_logoBitmap, (float)x);
-                
-            } else
-            {
-                pictureBoxLogo.Visible = false;
             }
-
+            
             Update();
             _ticks++;
         }
