@@ -323,23 +323,6 @@ namespace OpenLiveWriter
                     ApplicationLauncher.LaunchBloggingForm(args, splashScreen, true);
                 }
 
-                //if (splashScreen != null)
-                //{
-                //    try
-                //    {
-                //        using (Form splashScreenForm = ((FormSplashScreen)splashScreen).Form)
-                //        {
-                //            if (splashScreenForm != null && !splashScreenForm.IsDisposed)
-                //            {
-                //                Application.Run(splashScreenForm);
-                //            }
-                //        }
-                //    }
-                //    catch (Exception e)
-                //    {
-                //        Debug.Fail("Failed to show splash screen: " + e);
-                //    }
-                //}
                 ManualKeepalive.Wait(true);
             }
             catch (DirectoryException ex)
