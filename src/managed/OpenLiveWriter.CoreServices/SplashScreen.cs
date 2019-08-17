@@ -182,11 +182,6 @@ namespace OpenLiveWriter.CoreServices
         }
         #endregion
 
-        private void Label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void AnimationTick(object sender, EventArgs e)
         {
             // .NET Foundation Logo linear slide animation
