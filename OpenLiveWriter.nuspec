@@ -62,7 +62,7 @@
         <file src="System.Net.Http.Primitives.dll" target="lib\net451\System.Net.Http.Primitives.dll" />
         <file src="template\default.htm" target="lib\net451\template\default.htm" />
         <file src="template\defaultstyle.css" target="lib\net451\template\defaultstyle.css" />
-		<file src="YamlDotNet.dll" target="lib\net451\YamlDotNet.dll" />
+        <file src="YamlDotNet.dll" target="lib\net451\YamlDotNet.dll" />
         <file src="Zlib.Portable.dll" target="lib\net451\Zlib.Portable.dll" />
     </files>
 </package>
