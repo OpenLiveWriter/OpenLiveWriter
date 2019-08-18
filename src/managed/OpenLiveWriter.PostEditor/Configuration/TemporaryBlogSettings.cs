@@ -36,6 +36,7 @@ namespace OpenLiveWriter.PostEditor.Configuration
                 tempSettings.IsSpacesBlog = blogSettings.IsSpacesBlog;
                 tempSettings.IsSharePointBlog = blogSettings.IsSharePointBlog;
                 tempSettings.IsGoogleBloggerBlog = blogSettings.IsGoogleBloggerBlog;
+                tempSettings.IsStaticSiteBlog = blogSettings.IsStaticSiteBlog;
                 tempSettings.HostBlogId = blogSettings.HostBlogId;
                 tempSettings.BlogName = blogSettings.BlogName;
                 tempSettings.HomepageUrl = blogSettings.HomepageUrl;
@@ -85,6 +86,7 @@ namespace OpenLiveWriter.PostEditor.Configuration
             settings.IsSpacesBlog = this.IsSpacesBlog;
             settings.IsSharePointBlog = this.IsSharePointBlog;
             settings.IsGoogleBloggerBlog = this.IsGoogleBloggerBlog;
+            settings.IsStaticSiteBlog = this.IsStaticSiteBlog;
             settings.BlogName = this.BlogName;
             settings.HomepageUrl = this.HomepageUrl;
             settings.ForceManualConfig = this.ForceManualConfig;
@@ -267,6 +269,19 @@ namespace OpenLiveWriter.PostEditor.Configuration
                 _isGoogleBloggerBlog = value;
             }
         }
+
+        public bool IsStaticSiteBlog
+        {
+            get
+            {
+                return _isStaticSiteBlog;
+            }
+            set
+            {
+                _isStaticSiteBlog = value;
+            }
+        }
+
 
         public string HostBlogId
         {
@@ -620,6 +635,7 @@ namespace OpenLiveWriter.PostEditor.Configuration
         private bool _isSpacesBlog = false;
         private bool _isSharePointBlog = false;
         private bool _isGoogleBloggerBlog = false;
+        private bool _isStaticSiteBlog = false;
         private string _hostBlogId = String.Empty;
         private string _blogName = String.Empty;
         private string _homePageUrl = String.Empty;
@@ -681,6 +697,7 @@ namespace OpenLiveWriter.PostEditor.Configuration
             _isSpacesBlog = sourceSettings._isSpacesBlog;
             _isSharePointBlog = sourceSettings._isSharePointBlog;
             _isGoogleBloggerBlog = sourceSettings._isGoogleBloggerBlog;
+            _isStaticSiteBlog = sourceSettings._isStaticSiteBlog;
             _hostBlogId = sourceSettings._hostBlogId;
             _blogName = sourceSettings._blogName;
             _homePageUrl = sourceSettings._homePageUrl;

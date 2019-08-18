@@ -17,6 +17,7 @@ namespace OpenLiveWriter.BlogClient
         bool IsSpacesBlog { get; }
         bool IsSharePointBlog { get; }
         bool IsGoogleBloggerBlog { get; }
+        bool IsStaticSiteBlog { get; }
 
         string HostBlogId { get; }
         string BlogName { get; }

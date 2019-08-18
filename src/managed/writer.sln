@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.CoreServices", "OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj", "{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}"
 EndProject
@@ -87,6 +87,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.SpellChecker", "OpenLiveWriter.SpellChecker\OpenLiveWriter.SpellChecker.csproj", "{2DB3A424-0F1E-44AC-AE01-5454586CE769}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Tests", "OpenLiveWriter.Tests\OpenLiveWriter.Tests.csproj", "{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocEdit", "LocEdit\LocEdit.csproj", "{3B04E986-B74C-4151-8327-57F6BA8DECBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -263,6 +265,12 @@ Global
 		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
 		{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

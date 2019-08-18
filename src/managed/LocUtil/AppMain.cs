@@ -81,79 +81,83 @@ namespace LocUtil
             string[] commandFiles = (string[])ArrayHelper.Narrow(clo.GetValues("c"), typeof(string));
             string[] dialogFiles = (string[])ArrayHelper.Narrow(clo.GetValues("d"), typeof(string));
             string[] ribbonFiles = (string[])ArrayHelper.Narrow(clo.GetValues("r"), typeof(string));
+            string[] stringFiles = (string[])ArrayHelper.Narrow(clo.GetValues("s"), typeof(string));
 
-            if (commandFiles.Length + dialogFiles.Length == 0)
+            if (commandFiles.Length + dialogFiles.Length + stringFiles.Length == 0)
             {
                 Console.Error.WriteLine("No input files were specified.");
                 return 1;
             }
 
-            HashSet ribbonIds;
-            Hashtable ribbonValues;
-            Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
-            if (!ParseRibbonXml(ribbonFiles, pairsLoc, pairsNonLoc, typeof(Command), "//ribbon:Command", "Command.{0}.{1}", out ribbonIds, out ribbonValues))
-                return 1;
-            HashSet commandIds;
-            Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
-
-            string[] transformedCommandFiles = commandFiles;
-            try
+            if(commandFiles.Length + dialogFiles.Length > 0)
             {
-                // Transform the files
-                XslCompiledTransform xslTransform = new XslCompiledTransform(true);
-                string xslFile = Path.GetFullPath("Commands.xsl");
+                HashSet ribbonIds;
+                Hashtable ribbonValues;
+                Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
+                if (!ParseRibbonXml(ribbonFiles, pairsLoc, pairsNonLoc, typeof(Command), "//ribbon:Command", "Command.{0}.{1}", out ribbonIds, out ribbonValues))
+                    return 1;
+                HashSet commandIds;
+                Console.WriteLine("Parsing commands from " + StringHelper.Join(commandFiles, ";"));
 
-                for (int i = 0; i < commandFiles.Length; i++)//string filename in commandFiles)
+                string[] transformedCommandFiles = commandFiles;
+                try
                 {
-                    string inputFile = Path.GetFullPath(commandFiles[i]);
-                    if (!File.Exists(inputFile))
-                        throw new ConfigurationErrorsException("File not found: " + inputFile);
+                    // Transform the files
+                    XslCompiledTransform xslTransform = new XslCompiledTransform(true);
+                    string xslFile = Path.GetFullPath("Commands.xsl");
 
-                    xslTransform.Load(xslFile);
+                    for (int i = 0; i < commandFiles.Length; i++)//string filename in commandFiles)
+                    {
+                        string inputFile = Path.GetFullPath(commandFiles[i]);
+                        if (!File.Exists(inputFile))
+                            throw new ConfigurationErrorsException("File not found: " + inputFile);
 
-                    string transformedFile = inputFile.Replace(".xml", ".transformed.xml");
-                    xslTransform.Transform(inputFile, transformedFile);
-                    transformedCommandFiles[i] = transformedFile;
+                        xslTransform.Load(xslFile);
+
+                        string transformedFile = inputFile.Replace(".xml", ".transformed.xml");
+                        xslTransform.Transform(inputFile, transformedFile);
+                        transformedCommandFiles[i] = transformedFile;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine("Failed to transform file: " + ex);
-                return 1;
-            }
-
-            if (!ParseCommandXml(transformedCommandFiles, pairsLoc, pairsNonLoc, typeof(Command), "/Commands/Command", "Command.{0}.{1}", out commandIds))
-                return 1;
-            HashSet dialogIds;
-            Console.WriteLine("Parsing messages from " + StringHelper.Join(dialogFiles, ";"));
-            if (!ParseCommandXml(dialogFiles, pairsLoc, pairsNonLoc, typeof(DisplayMessage), "/Messages/Message", "DisplayMessage.{0}.{1}", out dialogIds))
-                return 1;
-
-            string propsFile = (string)clo.GetValue("props", null);
-            Console.WriteLine("Writing localizable resources to " + propsFile);
-            WritePairs(pairsLoc, propsFile, true);
-
-            string propsNonLocFile = (string)clo.GetValue("propsnonloc", null);
-            Console.WriteLine("Writing non-localizable resources to " + propsNonLocFile);
-            WritePairs(pairsNonLoc, propsNonLocFile, false);
-
-            if (clo.IsArgPresent("cenum"))
-            {
-                string cenum = (string)clo.GetValue("cenum", null);
-                Console.WriteLine("Generating CommandId enum file " + cenum);
-
-                // commandId:    command name
-                // ribbonValues: command name --> resource id
-                commandIds.AddAll(ribbonIds);
-                if (!GenerateEnum(commandIds, "CommandId", cenum, null, ribbonValues))
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine("Failed to transform file: " + ex);
                     return 1;
-            }
-            if (clo.IsArgPresent("denum"))
-            {
-                string denum = (string)clo.GetValue("denum", null);
-                Console.WriteLine("Generating MessageId enum file " + denum);
-                if (!GenerateEnum(dialogIds, "MessageId", denum, null, null))
+                }
+
+                if (!ParseCommandXml(transformedCommandFiles, pairsLoc, pairsNonLoc, typeof(Command), "/Commands/Command", "Command.{0}.{1}", out commandIds))
                     return 1;
+                HashSet dialogIds;
+                Console.WriteLine("Parsing messages from " + StringHelper.Join(dialogFiles, ";"));
+                if (!ParseCommandXml(dialogFiles, pairsLoc, pairsNonLoc, typeof(DisplayMessage), "/Messages/Message", "DisplayMessage.{0}.{1}", out dialogIds))
+                    return 1;
+
+                string propsFile = (string)clo.GetValue("props", null);
+                Console.WriteLine("Writing localizable resources to " + propsFile);
+                WritePairs(pairsLoc, propsFile, true);
+
+                string propsNonLocFile = (string)clo.GetValue("propsnonloc", null);
+                Console.WriteLine("Writing non-localizable resources to " + propsNonLocFile);
+                WritePairs(pairsNonLoc, propsNonLocFile, false);
+
+                if (clo.IsArgPresent("cenum"))
+                {
+                    string cenum = (string)clo.GetValue("cenum", null);
+                    Console.WriteLine("Generating CommandId enum file " + cenum);
+
+                    // commandId:    command name
+                    // ribbonValues: command name --> resource id
+                    commandIds.AddAll(ribbonIds);
+                    if (!GenerateEnum(commandIds, "CommandId", cenum, null, ribbonValues))
+                        return 1;
+                }
+                if (clo.IsArgPresent("denum"))
+                {
+                    string denum = (string)clo.GetValue("denum", null);
+                    Console.WriteLine("Generating MessageId enum file " + denum);
+                    if (!GenerateEnum(dialogIds, "MessageId", denum, null, null))
+                        return 1;
+                }
             }
 
             if (clo.IsArgPresent("s"))
@@ -278,6 +282,13 @@ namespace LocUtil
 
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xmlBuffer.ToString());
+
+            // Add auto-generation note
+            xmlDoc.GetElementsByTagName("root")[0].PrependChild(xmlDoc.CreateComment(@"
+    This file is automatically generated. DO NOT edit it manually.
+    Edit the relevant XML or CSV files, and run LocUtil.
+    A Batch file is provided in the repository root for easy regeneration of the strings tables."));
+
             foreach (XmlElement dataNode in xmlDoc.SelectNodes("/root/data"))
             {
                 string name = dataNode.GetAttribute("name");
@@ -293,21 +304,37 @@ namespace LocUtil
                     }
                 }
             }
-            xmlDoc.Save(path);
+
+            // Correct the formatting as to not create needlessly large diffs
+            var sb = new StringBuilder();
+            var stringWriter = new Utf8StringWriter(sb);
+            xmlDoc.Save(stringWriter);
+            File.WriteAllText(path,
+                sb.ToString()
+                .Replace("  <comment>", "    <comment>") // Fix comment tag indent
+                .Replace("</comment></data>", "</comment>\r\n  </data>"), // Move data close following comment close onto own line
+                Encoding.UTF8);
         }
 
         // @RIBBON TODO: For now the union of the command in Commands.xml and Ribbon.xml will go into the CommandId enum.
         private static bool GenerateEnum(HashSet commandIds, string enumName, string enumPath, Hashtable descriptions, Hashtable values)
         {
-            const string TEMPLATE = @"namespace OpenLiveWriter.Localization
-                            {{
-                                public enum {0}
-                                {{
-                                    None,
-                                    {1}
-                                }}
-                            }}
-                            ";
+            const string TEMPLATE = @"// Copyright (c) .NET Foundation. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+//
+// This file is automatically generated. DO NOT edit it manually.
+// Edit the relevant XML or CSV files, and run LocUtil.
+// A Batch file is provided in the repository root for easy regeneration of the strings tables.
+
+namespace OpenLiveWriter.Localization
+{{
+    public enum {0}
+    {{
+        None,
+        {1}
+    }}
+}}
+";
 
             ArrayList commandList = commandIds.ToArrayList();
             commandList.Sort(new CaseInsensitiveComparer(CultureInfo.InvariantCulture));
@@ -362,22 +389,19 @@ namespace LocUtil
                         index++;
                     }
 
-                    sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(pairs.ToArray(), ",\r\n\t\t")));
+                    sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(pairs.ToArray(), ",\r\n        ")));
                 }
                 else if (values == null)
                 {
-                    const string DESC_TEMPLATE = @"/// <summary>
-                                                    /// {0}
-                                                    /// </summary>
-                                                    {1}";
+                    const string DESC_TEMPLATE = "/// <summary>\n        /// {0}\n        /// </summary>\n        {1}";
                     ArrayList descs = new ArrayList();
                     foreach (string command in commandList.ToArray())
                     {
                         string description = ((Values)descriptions[command]).Val as string;
-                        description = description.Replace("\n", "\n\t\t/// ");
+                        description = description.Replace("\n", "\n        /// ").Replace("/// \r\n", "///\r\n");
                         descs.Add(string.Format(CultureInfo.InvariantCulture, DESC_TEMPLATE, description, command));
                     }
-                    sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(descs.ToArray(), ",\r\n\t\t")));
+                    sw.Write(string.Format(CultureInfo.InvariantCulture, TEMPLATE, enumName, StringHelper.Join(descs.ToArray(), ",\r\n        ")));
                 }
                 else
                 {
@@ -679,5 +703,15 @@ namespace LocUtil
                     throw new ConfigurationErrorsException("Unexpected element " + childEl.Name);
             }
         }
+    }
+
+    internal sealed class Utf8StringWriter : StringWriter
+    {
+        public Utf8StringWriter(StringBuilder sb) : base(sb)
+        {
+
+        }
+
+        public override Encoding Encoding => Encoding.UTF8;
     }
 }

@@ -40,6 +40,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         protected IBlogCredentialsAccessor _credentials;
         protected string _blogHomepageUrl;
         protected PageDownloader _pageDownloader;
+
         public BlogPostRegionLocatorStrategy(IBlogClient blogClient, BlogAccount blogAccount, IBlogCredentialsAccessor credentials, string blogHomepageUrl, PageDownloader pageDownloader)
         {
             _blogClient = blogClient;
@@ -50,8 +51,11 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
 
         public abstract void PrepareRegions(IProgressHost progress);
-        public abstract BlogPostRegions LocateRegionsOnUIThread(IProgressHost progress);
+        public virtual void FetchTemporaryPostPage(IProgressHost progress, string url) { }
+        public abstract BlogPostRegions LocateRegionsOnUIThread(IProgressHost progress, string pageUrl);
         public abstract void CleanupRegions(IProgressHost progress);
+
+        public virtual bool CanRefetchPage => false;
 
         protected void CheckCancelRequested(IProgressHost progress)
         {
@@ -69,8 +73,10 @@ namespace OpenLiveWriter.BlogClient.Detection
     internal class TemporaryPostRegionLocatorStrategy : BlogPostRegionLocatorStrategy
     {
         BlogPost temporaryPost;
-        Stream blogHomepageContents;
+        Stream blogPageContents;
         BlogPostRegionLocatorBooleanCallback containsBlogPosts;
+
+        public override bool CanRefetchPage => true;
 
         private const string TEMPORARY_POST_STABLE_GUID = "3bfe001a-32de-4114-a6b4-4005b770f6d7";
         private string TEMPORARY_POST_BODY_GUID = Guid.NewGuid().ToString();
@@ -112,27 +118,36 @@ namespace OpenLiveWriter.BlogClient.Detection
             // Publish a temporary post so that we can examine HTML that will surround posts created with the editor
             temporaryPost = PostTemplate(new ProgressTick(progress, 25, 100));
             CheckCancelRequested(progress);
+            FetchTemporaryPostPage(progress, _blogHomepageUrl);
+        }
 
-            blogHomepageContents = new MemoryStream();
+        /// <summary>
+        /// Fetch a blog page from the URL specified and transfer it into blogPageContents
+        /// </summary>
+        /// <param name="progress"></param>
+        /// <param name="url"></param>
+        public override void FetchTemporaryPostPage(IProgressHost progress, string url)
+        {
+            blogPageContents = new MemoryStream();
 
             // Download the webpage that is contains the temporary blog post
             // WARNING, DownloadBlogPage uses an MSHTML Document on a non-UI thread...which is a no-no!
             //   its been this way through several betas without problem, so we'll keep it that way for now, but
             //   it needs to be fixed eventually.
-            Stream postHtmlContents = DownloadBlogPage(_blogHomepageUrl, progress);
+            Stream postHtmlContents = DownloadBlogPage(url, progress);
             CheckCancelRequested(progress);
 
             using (postHtmlContents)
             {
-                StreamHelper.Transfer(postHtmlContents, blogHomepageContents);
+                StreamHelper.Transfer(postHtmlContents, blogPageContents);
             }
             progress.UpdateProgress(100, 100);
         }
 
-        public override BlogPostRegions LocateRegionsOnUIThread(IProgressHost progress)
+        public override BlogPostRegions LocateRegionsOnUIThread(IProgressHost progress, string pageUrl)
         {
-            blogHomepageContents.Seek(0, SeekOrigin.Begin);
-            return ParseBlogPostIntoTemplate(blogHomepageContents, _blogHomepageUrl, progress);
+            blogPageContents.Seek(0, SeekOrigin.Begin);
+            return ParseBlogPostIntoTemplate(blogPageContents, pageUrl, progress);
         }
 
         public override void CleanupRegions(IProgressHost progress)
@@ -194,12 +209,12 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
 
         /// <summary>
-        /// Downloads a webpage from a blog.
+        /// Downloads a webpage from a blog and searches for TEMPORARY_POST_TITLE_GUID.
         /// </summary>
-        /// <param name="blogHomepageUrl"></param>
+        /// <param name="blogPageUrl"></param>
         /// <param name="progress"></param>
-        /// <returns></returns>
-        private Stream DownloadBlogPage(string blogHomepageUrl, IProgressHost progress)
+        /// <returns>Stream containing document which contains TEMPORARY_POST_TITLE_GUID.</returns>
+        private Stream DownloadBlogPage(string blogPageUrl, IProgressHost progress)
         {
             ProgressTick tick = new ProgressTick(progress, 50, 100);
             MemoryStream memStream = new MemoryStream();
@@ -218,14 +233,17 @@ namespace OpenLiveWriter.BlogClient.Detection
                 // This means we'll try for 5 minutes (10s + 290s = 300s) before we consider the operation timed out.
                 Thread.Sleep(i < 10 ? 1000 : 10000);
 
-                HttpWebResponse resp = _pageDownloader(blogHomepageUrl, 60000);
+                // Add random parameter to URL to bypass cache
+                var urlRandom = UrlHelper.AppendQueryParameters(blogPageUrl, new string[] { Guid.NewGuid().ToString() });
+
+                HttpWebResponse resp = _pageDownloader(urlRandom, 60000);
                 memStream = new MemoryStream();
                 using (Stream respStream = resp.GetResponseStream())
                     StreamHelper.Transfer(respStream, memStream);
 
                 //read in the HTML file and determine if it contains the title element
                 memStream.Seek(0, SeekOrigin.Begin);
-                doc2 = HTMLDocumentHelper.GetHTMLDocumentFromStream(memStream, blogHomepageUrl);
+                doc2 = HTMLDocumentHelper.GetHTMLDocumentFromStream(memStream, urlRandom);
                 if (HTMLDocumentHelper.FindElementContainingText(doc2, TEMPORARY_POST_TITLE_GUID) == null)
                     doc2 = null;
             }
@@ -302,7 +320,7 @@ namespace OpenLiveWriter.BlogClient.Detection
     {
         private string _titleText;
         private string _bodyText;
-        private MemoryStream blogHomepageContents;
+        private MemoryStream blogPageContents;
         BlogPost mostRecentPost;
         private int recentPostCount = -1;
         public RecentPostRegionLocatorStrategy(IBlogClient blogClient, BlogAccount blogAccount,
@@ -339,13 +357,13 @@ namespace OpenLiveWriter.BlogClient.Detection
             if (normalizedTitleText.IndexOf(normalizedBodyText, StringComparison.CurrentCulture) != -1) //body text is a subset of the title text
                 throw new ArgumentException("Content text is not unique enough to use for style detection");
 
-            blogHomepageContents = DownloadBlogPage(_blogHomepageUrl, progress);
+            blogPageContents = DownloadBlogPage(_blogHomepageUrl, progress);
         }
 
-        public override BlogPostRegions LocateRegionsOnUIThread(IProgressHost progress)
+        public override BlogPostRegions LocateRegionsOnUIThread(IProgressHost progress, string pageUrl)
         {
-            blogHomepageContents.Seek(0, SeekOrigin.Begin);
-            IHTMLDocument2 doc2 = HTMLDocumentHelper.GetHTMLDocumentFromStream(blogHomepageContents, _blogHomepageUrl);
+            blogPageContents.Seek(0, SeekOrigin.Begin);
+            IHTMLDocument2 doc2 = HTMLDocumentHelper.GetHTMLDocumentFromStream(blogPageContents, pageUrl);
 
             // Ensure that the document is fully loaded.
             // If it is not fully loaded, then viewing its current style is non-deterministic.
@@ -511,10 +529,10 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         public override void CleanupRegions(IProgressHost progress)
         {
-            if (blogHomepageContents != null)
+            if (blogPageContents != null)
             {
-                blogHomepageContents.Close();
-                blogHomepageContents = null;
+                blogPageContents.Close();
+                blogPageContents = null;
             }
 
             progress.UpdateProgress(100, 100);
