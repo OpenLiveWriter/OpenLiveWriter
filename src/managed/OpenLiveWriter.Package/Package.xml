@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
-  <Publisher>CN=3466D5D7-00EE-41FA-A7A4-6F7CA3E1C7F8</Publisher>
-  <PublisherDisplayName>Oren Novotny, LLC</PublisherDisplayName>
+  <Publisher>CN=59FB1262-434E-4693-9A1E-CD275B151706</Publisher>
+  <PublisherDisplayName>.NET Foundation</PublisherDisplayName>
   <DeveloperAccountType>AAD</DeveloperAccountType>
   <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
   <SupportedLocales>
@@ -359,10 +359,9 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>50582LuanNguyen.NuGetPackageExplorer</MainPackageIdentityName>
+    <MainPackageIdentityName>D5BA6BCD.OpenLiveWriter</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>NuGet Package Explorer</ReservedName>
+      <ReservedName>Open Live Writer</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9WZDNCRDMDM3" />
 </StoreAssociation>

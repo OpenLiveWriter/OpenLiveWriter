@@ -48,23 +48,15 @@
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" Condition="'$(ReleaseChannel)' == 'Store'" >
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <AppxManifest Include="Package-Nightly.appxmanifest" Condition="'$(ReleaseChannel)' == 'Nightly'" >
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <AppxManifest Include="Package-Local.appxmanifest" Condition="'$(ReleaseChannel)' != 'Store' and '$(ReleaseChannel)' != 'Nightly'" >
+    <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="*.appxmanifest" />
     <None Include="*.appinstaller" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\*.png" Condition="'$(ReleaseChannel)' == 'Store'" />
-    <Content Include="NightlyAssets\*.png" Condition="'$(ReleaseChannel)' != 'Store'" />
+    <Content Include="Assets\*.png" />
     <None Include="Package.xml" />
-    <None Include="Assets\*.png" Condition="'$(ReleaseChannel)' != 'Store'"  />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter\OpenLiveWriter.csproj">

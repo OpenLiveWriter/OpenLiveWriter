@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp rescap uap3 desktop">
-  <Identity Name="50582LuanNguyen.NuGetPackageExplorer" Publisher="CN=3466D5D7-00EE-41FA-A7A4-6F7CA3E1C7F8" Version="3.25.0.0" />
+  <Identity Publisher="CN=59FB1262-434E-4693-9A1E-CD275B151706" Version="0.7.0"  Name="D5BA6BCD.OpenLiveWriter"/>
   <Properties>
-    <DisplayName>NuGet Package Explorer</DisplayName>
-    <PublisherDisplayName>Oren Novotny, LLC</PublisherDisplayName>
+    <DisplayName>Open Live Writer</DisplayName>
+    <PublisherDisplayName>.NET Foundation</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -55,49 +55,24 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
-      <uap:VisualElements DisplayName="NuGet Package Explorer" Description="NuGet Package Explorer" BackgroundColor="transparent" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Square310x310Logo="Assets\Square310x310Logo.png" Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="NuGet Package Explorer" Square71x71Logo="Assets\SmallTile.png">
+      <uap:VisualElements DisplayName="Open Live Writer" Description="Open Live Writer" BackgroundColor="#a25da2" Square150x150Logo="Assets\Writer150x150.png" Square44x44Logo="Assets\Writer44x44.png">
+        <uap:DefaultTile>
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
-            <uap:ShowOn Tile="wide310x150Logo" />
-            <uap:ShowOn Tile="square310x310Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap3:Extension Category="windows.appExecutionAlias" Executable="NuGetPackageExplorer\NuGetPackageExplorer.exe" EntryPoint="Windows.FullTrustApplication">
-          <uap3:AppExecutionAlias>
-            <desktop:ExecutionAlias Alias="NuGetPackageExplorer.exe" />
-          </uap3:AppExecutionAlias>
+        <uap3:Extension Category="windows.fileTypeAssociation">
+          <uap3:FileTypeAssociation Name="openLiveWriter" Parameters="&quot;%1&quot;">
+            <uap:SupportedFileTypes>
+              <uap:FileType>.wpost</uap:FileType>					
+            </uap:SupportedFileTypes>
+            <uap3:SupportedVerbs>
+              <uap3:Verb Id="Edit" Parameters="&quot;%1&quot;">Edit</uap3:Verb>
+            </uap3:SupportedVerbs>
+          </uap3:FileTypeAssociation>			
         </uap3:Extension>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="package">
-            <uap:DisplayName>NuGet package file</uap:DisplayName>
-            <uap:Logo>Assets\nupkg.png</uap:Logo>
-            <uap:SupportedFileTypes>
-              <uap:FileType>.nupkg</uap:FileType>
-            </uap:SupportedFileTypes>
-          </uap:FileTypeAssociation>
-        </uap:Extension>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="symbolspackage">
-            <uap:DisplayName>NuGet Symbols package file</uap:DisplayName>
-            <uap:Logo>Assets\nupkg.png</uap:Logo>
-            <uap:SupportedFileTypes>
-              <uap:FileType>.snupkg</uap:FileType>
-            </uap:SupportedFileTypes>
-          </uap:FileTypeAssociation>
-        </uap:Extension>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="spec">
-            <uap:DisplayName>NuGet spec file</uap:DisplayName>
-            <uap:Logo>Assets\nuspec.png</uap:Logo>
-            <uap:SupportedFileTypes>
-              <uap:FileType>.nuspec</uap:FileType>
-            </uap:SupportedFileTypes>
-          </uap:FileTypeAssociation>
-        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
