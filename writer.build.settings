@@ -1,13 +1,14 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
     <PropertyGroup>
-      <Project>Writer</Project>
-      <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-      <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
-      <SrcManagedRoot>$(RepoRoot)\src\managed</SrcManagedRoot>
-      <SolutionDir Condition="'$(SolutionDir)'==''">$(SrcManagedRoot)</SolutionDir>
+        <Project>Writer</Project>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion.TrimStart('vV'))</_TargetFrameworkVersionWithoutV>
+        <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+        <SrcManagedRoot>$(RepoRoot)\src\managed</SrcManagedRoot>
+        <SolutionDir Condition="'$(SolutionDir)'==''">$(SrcManagedRoot)</SolutionDir>
     </PropertyGroup>
-    
+
     <!-- ********************************************************************************************* -->
     <!-- * Build Environment settings  -->
     <!-- ********************************************************************************************* -->
@@ -21,12 +22,14 @@
              and is different from the path in the command window -->
         <Path>$(ManagedToolPathEnvironment);$(BuildPathEnvironment);</Path>
 
-        <!-- Prevent accidental pickup of local-machine scripts -->
+        <!-- msix: Altering the MSBuildExtensionsPath breaks the OpenLiveWriter.Package project build.
+                   I'm not exactly sure what the purpose of rewriting this path is. Should be safe to
+                   leave commented out for now as everything builds fine. -nvella
+            Prevent accidental pickup of local-machine scripts
         <MSBuildExtensionsPath>$(MSBuildToolsPath)\MsBuildExtensions</MSBuildExtensionsPath>
-        <MSBuildExtensionsPath32>$(MsBuildExtensionsPath)</MSBuildExtensionsPath32>
+        <MSBuildExtensionsPath32>$(MsBuildExtensionsPath)</MSBuildExtensionsPath32> -->
 
         <DirectorySuffix Condition="'$(BUILD_ALT_DIR)'!=''">$(BUILD_ALT_DIR)</DirectorySuffix>
-
     </PropertyGroup>
     
     <!-- ********************************************************************************************* -->
