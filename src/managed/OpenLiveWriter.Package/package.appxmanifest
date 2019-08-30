@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp rescap uap3 desktop">
-  <Identity Publisher="CN=59FB1262-434E-4693-9A1E-CD275B151706" Version="0.7.0"  Name="D5BA6BCD.OpenLiveWriter"/>
+  <Identity Publisher="CN=59FB1262-434E-4693-9A1E-CD275B151706" Version="0.7.0.0"  Name="D5BA6BCD.OpenLiveWriter"/>
   <Properties>
     <DisplayName>Open Live Writer</DisplayName>
     <PublisherDisplayName>.NET Foundation</PublisherDisplayName>
