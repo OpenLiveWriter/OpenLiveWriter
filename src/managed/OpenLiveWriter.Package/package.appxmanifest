@@ -64,13 +64,10 @@
       </uap:VisualElements>
       <Extensions>
         <uap3:Extension Category="windows.fileTypeAssociation">
-          <uap3:FileTypeAssociation Name="openLiveWriter" Parameters="&quot;%1&quot;">
+          <uap3:FileTypeAssociation Name="open_live_writer" Parameters="&quot;%1&quot;">
             <uap:SupportedFileTypes>
               <uap:FileType>.wpost</uap:FileType>					
             </uap:SupportedFileTypes>
-            <uap3:SupportedVerbs>
-              <uap3:Verb Id="Edit" Parameters="&quot;%1&quot;">Edit</uap3:Verb>
-            </uap3:SupportedVerbs>
           </uap3:FileTypeAssociation>			
         </uap3:Extension>
       </Extensions>

@@ -211,8 +211,14 @@
     <EmbeddedResource Include="Clients\GoogleBloggerv3Secrets.json" />
     <EmbeddedResource Include="Images\WordPressFav.ico" />
     <EmbeddedResource Include="Providers\BlogProvidersB5.xml" />
-    <Content Include="Detection\default.htm" />
-    <Content Include="Detection\defaultstyle.css" />
+    <Content Include="Detection\default.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>template\%(Filename)%(Extension)</Link>
+    </Content>
+    <Content Include="Detection\defaultstyle.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>template\%(Filename)%(Extension)</Link>
+    </Content>
     <EmbeddedResource Include="ImageViewers\DhtmlImageViewers.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -221,10 +227,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />
-  <Target Name="BeforeBuild">
-    <Copy SourceFiles="$(ProjectDir)Detection\default.htm" DestinationFiles="$(OutputPath)\template\default.htm" />
-    <Copy SourceFiles="$(ProjectDir)Detection\defaultstyle.css" DestinationFiles="$(OutputPath)\template\defaultstyle.css" />
-  </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
