@@ -189,6 +189,10 @@
       <Project>{699FB638-CE02-48D7-8078-30A7939C5BCB}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
+    <ProjectReference Include="..\..\unmanaged\OpenLiveWriter.Ribbon\OpenLiveWriter.Ribbon.vcxproj">
+      <Project>{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}</Project>
+      <Name>OpenLiveWriter.Ribbon</Name>
+    </ProjectReference>
     <Reference Include="Zlib.Portable, Version=1.11.0.0, Culture=neutral, PublicKeyToken=431cba815f6a8b5b, processorArchitecture=MSIL">
       <HintPath>..\packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
       <Private>True</Private>
@@ -1728,6 +1732,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="OpenPost\Images\BlogAccount.png" />
+    <Content Include="..\bin\Debug\i386\Writer\OpenLiveWriter.Ribbon.dll">
+      <Link>OpenLiveWriter.Ribbon.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="PostHtmlEditing\Images\loading.png" />
   </ItemGroup>
   <ItemGroup>
