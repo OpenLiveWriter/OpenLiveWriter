@@ -243,6 +243,11 @@ namespace OpenLiveWriter.CoreServices
         }
         private static string _installationDirectory;
 
+        public static bool IsMsixInstalledApp
+        {
+            get => InstallationDirectory.Contains("WindowsApps");
+        }
+
         public static string MainExecutableName
         {
             get
