@@ -171,6 +171,9 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
+                // Plugins are not supported on MSIX for now.
+                if (ApplicationEnvironment.IsMsixInstalledApp) return null;
+
                 string pluginDirectory = Path.Combine(ApplicationEnvironment.InstallationDirectory, "Plugins");
 #if DEBUG
                 if (!Directory.Exists(pluginDirectory))
