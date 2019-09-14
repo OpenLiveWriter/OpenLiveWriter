@@ -5,6 +5,8 @@
     <AssemblyName>OpenLiveWriter.HtmlParser</AssemblyName>
     <RootNamespace>OpenLiveWriter.HtmlParser</RootNamespace>
     <ProjectGuid>{8B905D4B-EE76-4EEE-83CC-C9028B2F16AE}</ProjectGuid>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
