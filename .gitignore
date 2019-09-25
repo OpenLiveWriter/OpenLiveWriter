@@ -205,3 +205,4 @@ FakesAssemblies/
 *.VC.opendb
 *.VC.db
 src/managed/OpenLiveWriter.Package/BundleArtifacts/
+_pkginfo.txt
