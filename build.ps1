@@ -104,6 +104,7 @@ if (-Not (Test-Path env:OLW_CONFIG))
 =======================================================
 "@
 Get-Date
-$buildCommand = "`"$msBuildExe`" $solutionFile /nologo /maxcpucount /verbosity:minimal /p:Configuration=$env:OLW_CONFIG /p:AppxPackageDir=Packages /p:UapAppxPackageBuildMode=StoreUpload /p:AppxBundlePlatforms=x86 /p:AppxBundle=Always $ARGS"
+New-Item -ItemType Directory -Force -Path ReleasesUap
+$buildCommand = "`"$msBuildExe`" $solutionFile /nologo /maxcpucount /verbosity:minimal /p:Configuration=$env:OLW_CONFIG /p:AppxPackageDir=ReleasesUap /p:UapAppxPackageBuildMode=StoreUpload /p:AppxBundlePlatforms=x86 /p:AppxBundle=Always $ARGS"
 "Running build command '$buildCommand'"
 Invoke-Expression "& $buildCommand"
