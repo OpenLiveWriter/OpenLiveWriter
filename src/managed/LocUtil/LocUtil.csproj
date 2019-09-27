@@ -8,6 +8,8 @@
     <OutputType>Exe</OutputType>
     <SignAssembly>false</SignAssembly>
     <CoverageDisabled>true</CoverageDisabled>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -49,6 +51,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RibbonMarkup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />

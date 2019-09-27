@@ -6,6 +6,8 @@
     <RootNamespace>OpenLiveWriter.CoreServices</RootNamespace>
     <ProjectGuid>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</ProjectGuid>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

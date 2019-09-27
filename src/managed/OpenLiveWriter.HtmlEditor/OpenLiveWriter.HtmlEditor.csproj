@@ -5,6 +5,8 @@
     <AssemblyName>OpenLiveWriter.HtmlEditor</AssemblyName>
     <RootNamespace>OpenLiveWriter.HtmlEditor</RootNamespace>
     <ProjectGuid>{6A6872BC-67EF-4A42-A21A-30ECED376923}</ProjectGuid>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.SpellChecker\OpenLiveWriter.SpellChecker.csproj">

@@ -5,6 +5,8 @@
     <AssemblyName>OpenLiveWriter.ApplicationFramework</AssemblyName>
     <RootNamespace>OpenLiveWriter.ApplicationFramework</RootNamespace>
     <ProjectGuid>{EEEE653A-90CE-44E2-B40E-22F747880CC0}</ProjectGuid>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -289,7 +291,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorDialogLauncherControl.resx">
-      <DependentUpon>ColorDialogLauncherControl.cs</DependentUpon>  
+      <DependentUpon>ColorDialogLauncherControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorPickerForm.resx">

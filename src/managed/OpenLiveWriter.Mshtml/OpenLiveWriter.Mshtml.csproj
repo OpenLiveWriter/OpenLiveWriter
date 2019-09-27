@@ -5,6 +5,8 @@
     <ProjectGuid>{906BA039-467B-41AE-B805-BA1B837AB763}</ProjectGuid>
     <AssemblyName>OpenLiveWriter.Mshtml</AssemblyName>
     <RootNamespace>OpenLiveWriter.Mshtml</RootNamespace>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
