@@ -111,7 +111,7 @@
     </urlFormat>
     <urlPattern>
       <![CDATA[
-      (http://www.youtube.com/user/[^#]*[^\n]*/(?<id>[^&]*)|^http://(.+\.)?youtube.com/watch(\?|\#!)v=(?<id>[^&]*))    
+      ((http|https)://www.youtube.com/user/[^#]*[^\n]*/(?<id>[^&]*)|^(http|https)://(.+\.)?youtube.com/watch(\?|\#!)v=(?<id>[^&]*)|^(http|https)://youtu.be/(?<id>[^&]*))    
 		]]>
     </urlPattern>
     <size xpp:if="version lt 15.4.3104.0816">
