@@ -79,28 +79,28 @@
     <serviceName>YouTube</serviceName>
     <editorFormat xpp:if="version lt 15.4.3104.0816">
       <![CDATA[
-		<embed src="http://www.youtube.com/v/{videoId}" type="application/x-shockwave-flash" wmode="transparent" width="{width}" height="{height}"></embed>
+		<embed src="http://www.youtube.com/embed/{videoId}" wmode="transparent" width="{width}" height="{height}"></embed>
 		]]>
     </editorFormat>
     <editorFormat xpp:if="version gte 15.4.3104.0816">
       <![CDATA[
-		<embed src="http://www.youtube.com/v/{videoId}?hd=1" type="application/x-shockwave-flash" wmode="transparent" width="{width}" height="{height}"></embed>
+		<embed src="http://www.youtube.com/embed/{videoId}?hd=1" wmode="transparent" width="{width}" height="{height}"></embed>
 		]]>
     </editorFormat>
     <embedFormat xpp:if="version lt 15.4.3104.0816">
       <![CDATA[
-      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/v/{videoId}&hl=en"></param><embed src="http://www.youtube.com/v/{videoId}&hl=en" type="application/x-shockwave-flash" width="{width}" height="{height}"></embed></object>
+      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/embed/{videoId}&hl=en"></param><embed src="http://www.youtube.com/embed/{videoId}&hl=en" width="{width}" height="{height}"></embed></object>
 		]]>
     </embedFormat>
     <embedFormat xpp:if="version gte 15.4.3104.0816">
       <![CDATA[
-      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/v/{videoId}?hl=en&hd=1"></param><embed src="http://www.youtube.com/v/{videoId}?hl=en&hd=1" type="application/x-shockwave-flash" width="{width}" height="{height}"></embed></object>
+      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/embed/{videoId}?hl=en&hd=1"></param><embed src="http://www.youtube.com/embed/{videoId}?hl=en&hd=1" width="{width}" height="{height}"></embed></object>
 		]]>
     </embedFormat>
     <embedPatterns>
       <pattern name="src">
         <![CDATA[
-			http://www.youtube.com/v/(?<id>[^&\?]*)
+			http://www.youtube.com/embed/(?<id>[^&\?]*)
 			]]>
       </pattern>
     </embedPatterns>
