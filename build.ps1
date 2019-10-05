@@ -11,8 +11,8 @@ $ErrorActionPreference = "Stop";
 $solutionFile = "$PSSCRIPTROOT\src\managed\writer.sln"
 if (-Not (Test-Path "$solutionFile" -PathType Leaf))
 {
-	"Unable to find solution file at $solutionFile"
-	exit 100
+    "Unable to find solution file at $solutionFile"
+    exit 100
 }
 "Solution found at '$solutionFile'"
 
@@ -28,16 +28,16 @@ if (-Not (Test-Path "$solutionFile" -PathType Leaf))
 Install-Module VSSetup -Scope CurrentUser
 
 $visualStudioLocation = (Get-VSSetupInstance `
-  | Select-VSSetupInstance -Version '[15.0,16.0)' -Latest).InstallationPath
+  | Select-VSSetupInstance -Version '[16.0)' -Latest).InstallationPath
 
-$msBuildExe = $visualStudioLocation + "\MSBuild\15.0\Bin\msbuild.exe"
+$msBuildExe = $visualStudioLocation + "\MSBuild\16.0\Bin\msbuild.exe"
 IF (-Not (Test-Path -LiteralPath "$msBuildExe" -PathType Leaf))
 {
-	"MSBuild not found at '$msBuildExe'"
-	"In order to build OpenLiveWriter either Visual Studio 2017 (any edition) or Build "
-	"Tools for Visual Studio 2017 must be installed."
-	"These can be downloadd from https://visualstudio.microsoft.com/downloads/"
-	exit 101
+    "MSBuild not found at '$msBuildExe'"
+    "In order to build OpenLiveWriter either Visual Studio 2019 (any edition) or Build "
+    "Tools for Visual Studio 2019 must be installed."
+    "These can be downloadd from https://visualstudio.microsoft.com/downloads/"
+    exit 101
 }
 
 "MSBuild.exe found at: '$msBuildExe'"
@@ -53,13 +53,13 @@ $nugetPath = "$env:LocalAppData\NuGet"
 $nugetExe = "$nugetPath\NuGet.exe"
 if (-Not (Test-Path -LiteralPath "$nugetExe" -PathType Leaf))
 {
-	if (-Not (Test-Path -LiteralPath "$nugetPath" -PathType Container))
-	{
-		"Creating Directory '$nugetPath'"
-		New-Item "$nugetPath" -Type Directory
-	}
-	"Downloading nuget.exe"
-	Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile "$nugetExe"
+    if (-Not (Test-Path -LiteralPath "$nugetPath" -PathType Container))
+    {
+        "Creating Directory '$nugetPath'"
+        New-Item "$nugetPath" -Type Directory
+    }
+    "Downloading nuget.exe"
+    Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile "$nugetExe"
 }
 
 "Nuget.exe found at: '$nugetExe'"
@@ -78,8 +78,8 @@ if (Test-Path -LiteralPath $packageFolder)
 }
 else
 {
-	"Running nuget restore"
-	& $nugetExe restore $solutionFile
+    "Running nuget restore"
+    & $nugetExe restore $solutionFile
 }
 
 @"
@@ -92,7 +92,7 @@ else
 if (-Not (Test-Path env:OLW_CONFIG))
 {
     "Environment variable OWL_CONFIG not set, setting to 'Debug'"
-	$env:OLW_CONFIG = 'Debug'
+    $env:OLW_CONFIG = 'Debug'
 }
 
 "Using build '$env:OLW_CONFIG'"
