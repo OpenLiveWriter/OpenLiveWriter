@@ -28,7 +28,7 @@ if (-Not (Test-Path "$solutionFile" -PathType Leaf))
 Install-Module VSSetup -Scope CurrentUser
 
 $visualStudioLocation = (Get-VSSetupInstance `
-  | Select-VSSetupInstance -Version '[16.0)' -Latest).InstallationPath
+  | Select-VSSetupInstance -Version '[15.0,16.0)' -Latest).InstallationPath
 
 $msBuildExe = $visualStudioLocation + "\MSBuild\Current\Bin\msbuild.exe"
 IF (-Not (Test-Path -LiteralPath "$msBuildExe" -PathType Leaf))
