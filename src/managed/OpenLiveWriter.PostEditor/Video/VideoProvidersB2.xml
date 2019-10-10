@@ -77,24 +77,14 @@
   <provider>
     <id>56744E0A-1892-4b56-B7FF-3A2568EE2D27</id>
     <serviceName>YouTube</serviceName>
-    <editorFormat xpp:if="version lt 15.4.3104.0816">
+    <editorFormat>
       <![CDATA[
-		<embed src="http://www.youtube.com/embed/{videoId}" wmode="transparent" width="{width}" height="{height}"></embed>
+		<iframe src="http://www.youtube.com/embed/{videoId}" width="{width}" height="{height}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		]]>
     </editorFormat>
-    <editorFormat xpp:if="version gte 15.4.3104.0816">
+    <embedFormat>
       <![CDATA[
-		<embed src="http://www.youtube.com/embed/{videoId}?hd=1" wmode="transparent" width="{width}" height="{height}"></embed>
-		]]>
-    </editorFormat>
-    <embedFormat xpp:if="version lt 15.4.3104.0816">
-      <![CDATA[
-      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/embed/{videoId}&hl=en"></param><embed src="http://www.youtube.com/embed/{videoId}&hl=en" width="{width}" height="{height}"></embed></object>
-		]]>
-    </embedFormat>
-    <embedFormat xpp:if="version gte 15.4.3104.0816">
-      <![CDATA[
-      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/embed/{videoId}?hl=en&hd=1"></param><embed src="http://www.youtube.com/embed/{videoId}?hl=en&hd=1" width="{width}" height="{height}"></embed></object>
+      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/embed/{videoId}&hl=en"></param><iframe src="http://www.youtube.com/embed/{videoId}&hl=en" width="{width}" height="{height}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></object>
 		]]>
     </embedFormat>
     <embedPatterns>
