@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\*.png" />
+    <Content Include="WeblogPost.png" />
     <None Include="Package.xml" />
   </ItemGroup>
   <ItemGroup>
