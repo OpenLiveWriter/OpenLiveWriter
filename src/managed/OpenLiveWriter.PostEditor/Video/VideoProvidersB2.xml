@@ -84,7 +84,7 @@
     </editorFormat>
     <embedFormat>
       <![CDATA[
-      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/embed/{videoId}&hl=en"></param><iframe src="http://www.youtube.com/embed/{videoId}&hl=en" width="{width}" height="{height}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></object>
+      <iframe src="http://www.youtube.com/embed/{videoId}&hl=en" width="{width}" height="{height}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		]]>
     </embedFormat>
     <embedPatterns>
