@@ -20,6 +20,7 @@ src/managed/OpenLiveWriter.BlogClient/Clients/GoogleBloggerv3Secrets.json
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+[Rr]eleases[Uu]ap/
 x64/
 x86/
 build/
@@ -204,3 +205,4 @@ FakesAssemblies/
 *.VC.opendb
 *.VC.db
 src/managed/OpenLiveWriter.Package/BundleArtifacts/
+_pkginfo.txt
