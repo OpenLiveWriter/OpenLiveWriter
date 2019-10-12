@@ -376,7 +376,7 @@ namespace OpenLiveWriter.PostEditor.Video
 
         private static string CreateHtml(string html, string color)
         {
-            return String.Format(CultureInfo.InvariantCulture, "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"><body style='margin: 0; padding: 0;background-color: #{1}'>{0}</body></html>", html, color);
+            return String.Format(CultureInfo.InvariantCulture, "<!DOCTYPE html><html><head><meta content='IE=Edge' http-equiv='X-UA-Compatible'/></head><body style='margin: 0; padding: 0;background-color: #{1}'>{0}</body></html>", html, color);
         }
 
         private void lblService_SizeChanged(object sender, EventArgs e)
