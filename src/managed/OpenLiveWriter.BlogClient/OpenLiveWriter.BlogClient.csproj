@@ -9,6 +9,9 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.Apis, Version=1.39.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.39.0\lib\net45\Google.Apis.dll</HintPath>
@@ -159,6 +162,8 @@
     <Compile Include="Clients\GenericAtomClient.cs" />
     <Compile Include="Clients\LineBreakInputFormatters.cs" />
     <Compile Include="Clients\LiveJournalClient.cs" />
+    <Compile Include="Clients\MediumClient.cs" />
+    <Compile Include="Clients\MediumEntry.cs" />
     <Compile Include="Clients\MetaweblogClient.cs" />
     <Compile Include="Clients\MovableTypeClient.cs" />
     <Compile Include="Clients\RedirectHelper.cs" />
