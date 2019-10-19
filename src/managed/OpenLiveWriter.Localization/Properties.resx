@@ -1218,6 +1218,15 @@
   <data name="Command.InsertClearBreak.TooltipDescription" xml:space="preserve">
     <value>Insert a break after a picture to prevent text wrapping.</value>
   <comment>Button to insert a break after an aligned image to prevent text wrapping.</comment></data>
+  <data name="Command.InsertCode.Keytip" xml:space="preserve">
+    <value>IC</value>
+  </data>
+  <data name="Command.InsertCode.LabelTitle" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Command.InsertCode.TooltipDescription" xml:space="preserve">
+    <value>Transform to code with syntax highlighting.</value>
+  </data>
   <data name="Command.InsertColumnLeft.Keytip" xml:space="preserve">
     <value>IL</value>
   </data>

@@ -4551,6 +4551,37 @@ namespace OpenLiveWriter.HtmlEditor
             ExecuteBlockCommand(new CommandExecutor(GetMshtmlCommand(IDM.OUTDENT).Execute));
         }
 
+        bool IHtmlEditorCommandSource.CanInsertCode
+        {
+            get
+            {
+                return Editable;
+            }
+        }
+
+        void IHtmlEditorCommandSource.InsertCode()
+        {
+            using (new WaitCursor())
+            {
+                var range = SelectedMarkupRange;
+                string htmlText = range?.HtmlText;
+                if (htmlText != null)
+                {
+                    IUndoUnit undoUnit = CreateUndoUnit();
+                    using (undoUnit)
+                    {
+                        IHTMLDocument2 document = HTMLDocument;
+                        var styledHtml = CodeHighlighter.StyledHtml(htmlText, document.body.innerHTML);
+
+                        InsertHtml(range.Start, range.End, styledHtml);
+                        
+                        // commit the change
+                        undoUnit.Commit();
+                    }
+                }
+            }
+        }
+
         bool IHtmlEditorCommandSource.CanInsertLink
         {
             get

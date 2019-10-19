@@ -98,6 +98,7 @@
       <Command Name="cmdFormatImageSaveSettings" Keytip="DS" LabelTitle="Set to default" TooltipTitle="Set to default" TooltipDescription="Set the alignment, margin, picture style, and properties of this picture as the default for other pictures." Symbol="cmdFormatImageSaveSettings" Id="1100" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSettingsGroup-FormatImageSaveSettings"/>
       <Command Name="cmdFormatImageRevertSettings" Keytip="DR" LabelTitle="Revert to original" TooltipTitle="Revert to original" TooltipDescription="Revert to the original version of this picture." Symbol="cmdFormatImageRevertSettings" Id="1101" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSettingsGroup-FormatImageRevertSettings"/>
       <Command Name="cmdInsertEmoticon" LabelTitle="Emoticon" TooltipTitle="Emoticon" TooltipDescription="Insert an emoticon." Symbol="cmdInsertEmoticon" Id="1102" Comment="InsertTab-MediaGroup-InsertEmoticon"/>
+      <Command Name="cmdInsertCode" LabelTitle="Code" TooltipTitle="Code" TooltipDescription="Insert code snippet." Symbol="cmdInsertCode" Id="1041" Comment="InsertTab-MediaGroup-InsertCode"/>
       <Command Name="cmdCustomSizeSmall" LabelTitle="&amp;Small" TooltipTitle="Small" Symbol="cmdCustomSizeSmall" Id="1103" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery-CustomSizeSmall"/>
       <Command Name="cmdCustomSizeMedium" LabelTitle="&amp;Medium" TooltipTitle="Medium" Symbol="cmdCustomSizeMedium" Id="1104" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery-CustomSizeMedium"/>
       <Command Name="cmdCustomSizeLarge" LabelTitle="&amp;Large" TooltipTitle="Large" Symbol="cmdCustomSizeLarge" Id="1105" Comment="ImageContextTabGroup-FormatImageTab-FormatImageSizeGroup-CustomSizeGallery-CustomSizeLarge"/>
@@ -576,7 +577,7 @@
           <Group CommandName="cmdTablesGroup" SizeDefinition="OneButton" ApplicationModes="0">
             <Button CommandName="cmdInsertTable"/>
           </Group>
-          <Group CommandName="cmdMediaGroup" SizeDefinition="SixButtons" ApplicationModes="0">
+          <Group CommandName="cmdMediaGroup" SizeDefinition="SevenButtons" ApplicationModes="0">
             <Button CommandName="cmdInsertLink"/>
             <DropDownButton CommandName="cmdInsertImageSplit">
               <MenuGroup>
@@ -598,6 +599,7 @@
                 <FlowMenuLayout Columns="10" Gripper="None"/>
               </DropDownGallery.MenuLayout>
             </DropDownGallery>
+            <Button CommandName="cmdInsertCode"/>
           </Group>
           <Group CommandName="cmdPluginsGroup" SizeDefinition="TwoButtons" ApplicationModes="4">                        
             <!-- No plugins gallery if there are no installed plugins. -->

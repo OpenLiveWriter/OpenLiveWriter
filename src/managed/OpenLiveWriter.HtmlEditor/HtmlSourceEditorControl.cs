@@ -613,6 +613,20 @@ namespace OpenLiveWriter.HtmlEditor
             // not supported
         }
 
+        bool IHtmlEditorCommandSource.CanInsertCode
+        {
+            get
+            {
+                // not suppported
+                return false;
+            }
+        }
+
+        void IHtmlEditorCommandSource.InsertCode()
+        {
+            // not supported
+        }
+
         bool IHtmlEditorCommandSource.CanInsertLink
         {
             get

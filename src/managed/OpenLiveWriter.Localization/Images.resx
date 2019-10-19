@@ -4986,4 +4986,10 @@
   <data name="VideoAspectRatioGroup_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>commandbitmaps\videostandardaspectratio_smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="InsertCode_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>CommandBitmaps\InsertCode.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertCode_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>CommandBitmaps\InsertCode.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -2113,6 +2113,26 @@ namespace OpenLiveWriter.Localization {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap InsertCode_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertCode_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertCode_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertCode_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap InsertColumnLeft {
             get {
                 object obj = ResourceManager.GetObject("InsertColumnLeft", resourceCulture);

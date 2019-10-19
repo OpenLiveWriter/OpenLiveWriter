@@ -98,6 +98,9 @@
   <ItemGroup>
     <ResourceCompile Include="OpenLiveWriter.Ribbon.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Ribbon.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />
   <ImportGroup Label="ExtensionTargets">

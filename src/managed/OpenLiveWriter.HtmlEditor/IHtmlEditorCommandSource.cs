@@ -71,6 +71,9 @@ namespace OpenLiveWriter.HtmlEditor
         void ApplyBlockquote();
         bool SelectionBlockquoted { get; }
 
+        bool CanInsertCode { get; }
+        void InsertCode();
+        
         bool CanInsertLink { get; }
         void InsertLink();
 

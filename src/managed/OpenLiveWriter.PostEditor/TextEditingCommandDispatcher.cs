@@ -603,6 +603,7 @@ namespace OpenLiveWriter.PostEditor
             InitializeCommand(new SuperscriptCommand());
             InitializeCommand(new SubscriptCommand());
             InitializeCommand(new ClearFormattingCommand());
+            InitializeCommand(new InsertCodeCommand());
 
             commandFontSize = new FontSizeCommand();
             CommandManager.Add(commandFontSize);
@@ -1415,6 +1416,21 @@ namespace OpenLiveWriter.PostEditor
                 Latched = PostEditor.SelectionBlockquoted;
                 Enabled = PostEditor.CanApplyFormatting(CommandId);
                 PostEditor.CommandManager.Invalidate(CommandId);
+            }
+        }
+
+        private class InsertCodeCommand : TextEditingCommand
+        {
+            public override CommandId CommandId { get { return CommandId.InsertCode; } }
+
+            protected override void Execute()
+            {
+                PostEditor.InsertCode();
+            }
+
+            public override void Manage()
+            {
+                Enabled = PostEditor.CanInsertCode;
             }
         }
 

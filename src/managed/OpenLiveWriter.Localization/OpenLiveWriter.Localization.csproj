@@ -67,6 +67,8 @@
     <None Include="CommandBitmaps\AddTagProvider.LargeImage.png" />
     <None Include="CommandBitmaps\AddTagProvider.SmallImage.png" />
     <None Include="CommandBitmaps\AddWeblog.SmallImage.png" />
+    <None Include="CommandBitmaps\InsertCode.LargeImage.png" />
+    <None Include="CommandBitmaps\InsertCode.SmallImage.png" />
     <Content Include="CommandBitmaps\CustomSizeGallery_LargeImage.png" />
     <Content Include="CommandBitmaps\CustomSizeGallery_SmallImage.png" />
     <Content Include="CommandBitmaps\Effects_Black_and_White.png" />
