@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Tags Options box works correctly
+### Test Plan for Ensuring Tags Options box works correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Live Writer | | | 

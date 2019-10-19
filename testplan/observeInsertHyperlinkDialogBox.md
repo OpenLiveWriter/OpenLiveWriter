@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Insert Hyperlink displays correctly
+### Test Plan for Ensuring Insert Hyperlink displays correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Live Writer  |   |  |
@@ -39,7 +39,7 @@ Enter text to be displayed | | |
 Check box on Open Link in Other Window | | |
 Check box on Automatically link to this text | | |
 Click on Insert | Observe that a correct hyperlink has been created | | 
-*Advanced*
+*Advanced* |
 Click on Hyperlink on Home Tab | | |
 Click on Advanced | Diaglog box expands - ensure matches second image  | |
 Enter a valid web address | | |

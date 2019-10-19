@@ -1,4 +1,4 @@
-###Test Plan for Ensuring File Tab displays correctly
+### Test Plan for Ensuring File Tab displays correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Open Live Writer  |  |  |

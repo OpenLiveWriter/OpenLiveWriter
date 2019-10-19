@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Options Preferences dialog box displays correctly
+### Test Plan for Ensuring Options Preferences dialog box displays correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Open Live Writer  |  |  |

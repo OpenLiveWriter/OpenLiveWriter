@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Video Dialog Boxes work correctly
+### Test Plan for Ensuring Video Dialog Boxes work correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Live Writer |  |  |
@@ -12,7 +12,7 @@ Click on From Video Service | Ensure Insert Video Dialog box opens | |
 | Ensure Video 1 to 10 (of x) is displayed with navigation buttons |  | 
 Click on Nagivation Buttons | Ensure that videos can scroll | |
 Click on Please Respect Copyright | Ensure that browser opens to correct web page | |
-Click on a video
+Click on a video |
 Click on Insert | Ensure that video is posted in blog | |
 | Ensure that video can be resized in post | |
 | Ensure that correct html is rendered | | 

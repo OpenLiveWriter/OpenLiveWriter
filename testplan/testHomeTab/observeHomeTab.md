@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Home Tab displays correctly
+### Test Plan for Ensuring Home Tab displays correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Live Writer  | Open Live Writer Opens at Home Tab with last blog used selected in Publish area  |  |

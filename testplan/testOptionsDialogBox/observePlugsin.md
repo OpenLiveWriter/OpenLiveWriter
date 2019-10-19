@@ -1,4 +1,4 @@
-###Test Plan for Ensuring Plug-ins tab works correctly
+### Test Plan for Ensuring Plug-ins tab works correctly
 Steps                  | Desired Results                | Complete | Comments
 --------------------------|--------------------------------------------|----------| --------
 Open Open Live Writer  |  |  |

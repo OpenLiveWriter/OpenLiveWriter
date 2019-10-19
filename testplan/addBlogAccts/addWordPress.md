@@ -1,4 +1,4 @@
-#Test Plan for Ensuring that adding a WordPress account works properly
+### Test Plan for Ensuring that adding a WordPress account works properly
 Steps                 | Desired Results                | Complete | Comments
 ----------------------|--------------------------------|----------| --------
 Click Home | | |
