@@ -3,13 +3,14 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 
 namespace LocUtil
 {
-    public class CsvParser : IEnumerable, IDisposable
+    public class CsvParser : IEnumerable<string[]>, IDisposable
     {
         private readonly TextReader _input;
         private bool _atLineEnd = false;
@@ -147,7 +148,7 @@ namespace LocUtil
             _input.Close();
         }
 
-        private class LineEnumerator : IEnumerator
+        private class LineEnumerator : IEnumerator<string[]>
         {
             CsvParser parent;
             string[] line;
@@ -181,15 +182,29 @@ namespace LocUtil
                 throw new NotSupportedException();
             }
 
-            public object Current
+            public void Dispose()
+            {
+            }
+
+            public string[] Current
+            {
+                get { return line; }
+            }
+
+            object IEnumerator.Current
             {
                 get { return line; }
             }
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<string[]> GetEnumerator()
         {
             return new LineEnumerator(this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }
