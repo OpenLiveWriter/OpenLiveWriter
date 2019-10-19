@@ -5,6 +5,8 @@
     <AssemblyName>OpenLiveWriter.FileDestinations</AssemblyName>
     <RootNamespace>OpenLiveWriter.FileDestinations</RootNamespace>
     <ProjectGuid>{217B1333-654D-4901-807D-6E1A98FF3A4D}</ProjectGuid>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

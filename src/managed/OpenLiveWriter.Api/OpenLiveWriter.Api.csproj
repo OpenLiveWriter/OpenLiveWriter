@@ -6,6 +6,8 @@
     <RootNamespace>OpenLiveWriter.Api</RootNamespace>
     <ProjectGuid>{B6D10B42-F173-4086-BB81-96B724BA5594}</ProjectGuid>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

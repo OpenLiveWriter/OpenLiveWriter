@@ -5,6 +5,8 @@
     <AssemblyName>OpenLiveWriter.BrowserControl</AssemblyName>
     <RootNamespace>OpenLiveWriter.BrowserControl</RootNamespace>
     <ProjectGuid>{A5C213F6-F0C6-4FD6-B496-61FE434621A6}</ProjectGuid>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -8,6 +8,8 @@
     <CoverageDisabled>true</CoverageDisabled>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <!-- // TODO:OLW -->

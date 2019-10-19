@@ -6,6 +6,8 @@
     <RootNamespace>OpenLiveWriter.SpellChecker</RootNamespace>
     <ProjectGuid>{2DB3A424-0F1E-44AC-AE01-5454586CE769}</ProjectGuid>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PlatformSpellCheck, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

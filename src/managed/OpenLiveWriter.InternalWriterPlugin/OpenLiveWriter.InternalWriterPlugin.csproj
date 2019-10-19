@@ -5,6 +5,8 @@
     <AssemblyName>OpenLiveWriter.InternalWriterPlugin</AssemblyName>
     <RootNamespace>OpenLiveWriter.InternalWriterPlugin</RootNamespace>
     <ProjectGuid>{699FB638-CE02-48D7-8078-30A7939C5BCB}</ProjectGuid>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

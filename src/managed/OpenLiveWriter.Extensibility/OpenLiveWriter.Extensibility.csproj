@@ -5,6 +5,8 @@
     <AssemblyName>OpenLiveWriter.Extensibility</AssemblyName>
     <RootNamespace>OpenLiveWriter.Extensibility</RootNamespace>
     <ProjectGuid>{A803C16E-6619-4017-883C-EA73EB947F34}</ProjectGuid>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
