@@ -647,7 +647,7 @@ namespace OpenLiveWriter.PostEditor
 
         public void ViewPost()
         {
-            if (BlogPost.IsPage && BlogPost.Permalink != String.Empty)
+            if (BlogPost.Permalink != String.Empty)
                 ShellHelper.LaunchUrl(BlogPost.Permalink);
             else
                 ShellHelper.LaunchUrl(Blog.HomepageUrl);
