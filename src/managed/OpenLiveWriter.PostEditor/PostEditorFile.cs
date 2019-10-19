@@ -1985,7 +1985,7 @@ namespace OpenLiveWriter.PostEditor
 
         private DirectoryInfo _targetDirectory = null;
 
-        internal const string Extension = ".wpost";
+        internal const string Extension = ".olwpost";
         private static readonly Guid Version1FormatCLSID = new Guid("20EBD150-5362-417a-8221-84331F79D41D");
         private static readonly Guid Version2FormatCLSID = new Guid("23F4998B-67EB-450b-A41B-C978F5B4AE25");
 

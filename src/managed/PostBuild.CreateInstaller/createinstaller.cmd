@@ -16,15 +16,20 @@ IF EXIST "%LocalAppData%\Nuget\Nuget.exe" (GOTO package) ELSE (
 
 :package
 "%LocalAppData%\Nuget\Nuget.exe" pack .\OpenLiveWriter.nuspec -version %dottedVersion% -basepath src\managed\bin\%OLW_CONFIG%\i386\Writer
+if %errorlevel% neq 0 exit /b %errorlevel%
 ECHO Created Writer NuGet package.
 
 .\src\managed\packages\squirrel.windows.1.4.4\tools\SyncReleases.exe -url=https://olw.blob.core.windows.net/stable/Releases/ -r=.\Releases
+if %errorlevel% neq 0 exit /b %errorlevel%
 .\src\managed\packages\squirrel.windows.1.4.4\tools\Squirrel.exe -i .\src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico %OLW_SIGN% --no-msi --releasify .\OpenLiveWriter.%dottedVersion%.nupkg 
+if %errorlevel% neq 0 exit /b %errorlevel%
 MOVE .\Releases\Setup.exe .\Releases\OpenLiveWriterSetup.exe
+if %errorlevel% neq 0 exit /b %errorlevel%
 ECHO Created Open Live Writer setup file.
 
 ::Build Chocolatey package. Suppress package analysis since Chocolatey powershell generates verbose warnings.
 "%LocalAppData%\Nuget\Nuget.exe" pack .\OpenLiveWriter.Install.nuspec -version %dottedVersion% -basepath Releases -nopackageanalysis
+if %errorlevel% neq 0 exit /b %errorlevel%
 ECHO Created Writer Chocolatey Package
 
 :end
