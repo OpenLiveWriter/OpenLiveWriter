@@ -274,6 +274,7 @@ namespace OpenLiveWriter.CoreServices
             request.UserAgent = ApplicationEnvironment.UserAgent;
 
             ApplyProxyOverride(request);
+            ServicePointManager.ServerCertificateValidationCallback = AcceptAllCerts;
 
             //For robustness, we turn off keep alive and pipelining by default.
             //If the caller wants to override, the filter parameter can be used to adjust these settings.
@@ -283,6 +284,11 @@ namespace OpenLiveWriter.CoreServices
             // Bypass cache entirely - some blogs, specifically static blogs on GH pages, have very aggressive caching policies
             request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
             return request;
+        }
+
+        private static bool AcceptAllCerts(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslpolicyerrors)
+        {
+            return true;
         }
 
         public static string DumpResponse(HttpWebResponse resp)
