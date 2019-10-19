@@ -143,10 +143,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             MarkupRange stagingRange = MarkupServices.CreateMarkupRange(sc1, sc2);
             stagingRange.MoveToElement(doc.body, false);
 
-            //IE7 hack: fixes bug 305512.  Note that this will destroy the inner content of the element,
-            //so make sure it is called before the refreshed content is inserted.
-            BeforeInsertInvalidateHackForIE7(element);
-
             //move the content from the staging area into the actual insertion point.
             MarkupServices.Move(stagingRange.Start, stagingRange.End, htmlRange.End);
 
@@ -283,21 +279,6 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             if (sb.Length > 0)
                 sb.Append(" ");
             sb.AppendFormat("{0}:{1};", name, val);
-        }
-
-        /// <summary>
-        /// Forces IE 7 to redraw the new contents of the element.
-        /// </summary>
-        /// <param name="e"></param>
-        private static void BeforeInsertInvalidateHackForIE7(IHTMLElement e)
-        {
-            //Fixes bug 305512.
-            //IE 7 (beta3) has a bad habit of not redrawing the updated HTML if the width
-            //of the content box has increased while the editor is not focused. Investigation
-            //has found that setting the innerText is at least one way to force the editor
-            //to refresh the painting of the element.
-            //TODO: after IE7 goes final, check to see if this hack is still necessary.
-            e.innerText = "";
         }
 
         // Warning: Does not deal with escaping properly. This is fine as long as
