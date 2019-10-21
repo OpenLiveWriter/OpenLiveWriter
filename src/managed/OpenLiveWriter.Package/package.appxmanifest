@@ -51,12 +51,12 @@
     <Resource Language="VI" />
     <Resource Language="ZH-CN" />
     <Resource Language="ZH-HANS" />
-    <Resource Language="ZH-HANT" />
+    <Resource Language="ZH-HANT" /> 
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
       <uap:VisualElements DisplayName="Open Live Writer" Description="Open Live Writer" BackgroundColor="#a25da2" Square150x150Logo="Assets\Writer150x150.png" Square44x44Logo="Assets\AppIcon.png">
-        <uap:DefaultTile Square71x71Logo="Assets\SmallTile.png" >
+        <uap:DefaultTile Square71x71Logo="Assets\SmallTile.png"  ShortName="Live Writer">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo"/>
           </uap:ShowNameOnTiles>
