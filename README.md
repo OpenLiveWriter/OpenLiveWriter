@@ -6,7 +6,10 @@ For more information see http://www.OpenLiveWriter.org/.
 
 ### Installation
 You can install the latest version of Open Live Writer alongside an [older version of Windows Live Writer](http://windows.microsoft.com/en-us/windows-live/essentials). Visit
-http://www.OpenLiveWriter.org to download and install the latest release.
+http://www.OpenLiveWriter.org to download and install the latest stable release.
+
+Development releases from the automatic build server:
+https://ci.appveyor.com/project/dotnetfoundation/openlivewriter/build/artifacts
 
 ### Latest News
 The current version of Open Live Writer is our first open source version.
