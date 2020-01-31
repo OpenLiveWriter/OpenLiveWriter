@@ -1,0 +1,10 @@
+VERIFICATION
+Verification is intended to assist the Chocolatey moderators and community in verifying that this package's contents are trustworthy.
+
+This package is owned and updated by the members of the OpenLiveWriter Organisation on GitHub:
+
+https://github.com/OpenLiveWriter
+
+If you have any concerns about the contents of this package, please raise an issue here:
+
+https://github.com/OpenLiveWriter/OpenLiveWriter/issues

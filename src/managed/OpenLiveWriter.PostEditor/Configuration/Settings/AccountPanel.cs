@@ -122,13 +122,21 @@ namespace OpenLiveWriter.PostEditor.Configuration.Settings
             TemporaryBlogSettingsModified = true;
         }
 
+        private delegate bool EditTemporarySettingsDelegate(IWin32Window window, TemporaryBlogSettings settings);
+
         private void buttonEditConfiguration_Click(object sender, EventArgs e)
         {
             // make a copy of the temporary settings to edit
             TemporaryBlogSettings blogSettings = TemporaryBlogSettings.Clone() as TemporaryBlogSettings;
 
-            // edit account info
-            if (WeblogConfigurationWizardController.EditTemporarySettings(FindForm(), blogSettings))
+            // Edit account info
+            // For static sites, the advanced configuration panel will be displayed
+            // Otherwise, display the wizard
+            bool settingsModified = blogSettings.IsStaticSiteBlog
+                ? StaticSiteAdvanced.StaticSitePreferencesController.EditTemporarySettings(FindForm(), blogSettings)
+                : WeblogConfigurationWizardController.EditTemporarySettings(FindForm(), blogSettings);
+
+            if (settingsModified)
             {
                 // go ahead and save the settings back
                 TemporaryBlogSettings.CopyFrom(blogSettings);

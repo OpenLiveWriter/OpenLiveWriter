@@ -20,6 +20,13 @@ namespace OpenLiveWriter.PostEditor
 
     public class PostEditorSettings
     {
+        public static bool FormatHTML
+        {
+            get { return SettingsKey.GetBoolean(FORMAT_HTML, true); }
+            set { SettingsKey.SetBoolean(FORMAT_HTML, value); }
+        }
+        private const string FORMAT_HTML = "FormatHTML";
+
         public static bool ViewPostAfterPublish
         {
             get { return SettingsKey.GetBoolean(VIEW_POST_AFTER_PUBLISH, true); }

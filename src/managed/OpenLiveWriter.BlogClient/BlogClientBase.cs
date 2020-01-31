@@ -169,5 +169,11 @@ namespace OpenLiveWriter.BlogClient
         /// </summary>
         /// <param name="tc"></param>
         protected abstract void VerifyCredentials(TransientCredentials tc);
+
+        /// <summary>
+        /// Almost all blogs supported are remote blogs, with few exceptions.
+        /// eg. local static sites
+        /// </summary>
+        public virtual bool RemoteDetectionPossible { get; } = true;
     }
 }

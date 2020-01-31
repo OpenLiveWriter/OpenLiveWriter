@@ -107,6 +107,12 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         /// Returns false if credentials are sent in the clear
         /// </summary>
         bool IsSecure { get; }
+
+        /// <summary>
+        /// Returns false if it is not possible to download manifests or templates for detection
+        /// eg. for local static sites
+        /// </summary>
+        bool RemoteDetectionPossible { get; }
     }
 
     public interface INewCategoryContext

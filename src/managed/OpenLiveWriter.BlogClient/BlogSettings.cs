@@ -175,6 +175,13 @@ namespace OpenLiveWriter.BlogClient
         }
         private const string IS_GOOGLE_BLOGGER_BLOG = "IsGoogleBloggerBlog";
 
+        public bool IsStaticSiteBlog
+        {
+            get { return Settings.GetBoolean(IS_STATIC_SITE_BLOG, false);  }
+            set { Settings.SetBoolean(IS_STATIC_SITE_BLOG, value);  }
+        }
+        private const string IS_STATIC_SITE_BLOG = "IsStaticSiteBlog";
+
         /// <summary>
         /// Id of the weblog on the host service
         /// </summary>

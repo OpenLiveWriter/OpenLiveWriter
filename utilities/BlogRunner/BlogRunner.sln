@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogRunner.Core", "BlogRunner.Core\BlogRunner.Core.csproj", "{1F76020F-DBB5-4F43-B530-C85EF9461A61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogRunner", "BlogRunner\BlogRunner.csproj", "{57644357-B52B-4C64-ACEA-89E7831EF479}"
@@ -34,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {336B01DD-464D-43AC-A2B6-C07D1B1A9349}
 	EndGlobalSection
 EndGlobal

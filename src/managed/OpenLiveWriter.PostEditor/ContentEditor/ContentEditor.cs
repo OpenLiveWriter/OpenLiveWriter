@@ -985,7 +985,8 @@ namespace OpenLiveWriter.PostEditor
 
         private string GetBodyCore(bool preferWellFormed)
         {
-            string html = _currentEditor != null ? _currentEditor.GetEditedHtml(preferWellFormed) : "";
+            bool formatHTML = PostEditorPreferences.Instance.FormatHTML;
+            string html = _currentEditor != null ? _currentEditor.GetEditedHtml(formatHTML) : "";
 
             html = StripPluginHeadersAndFooters(html);
 

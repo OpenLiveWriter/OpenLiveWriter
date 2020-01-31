@@ -33,7 +33,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         /// <summary>
         /// The PreferencesPanel list.
         /// </summary>
-        private ArrayList preferencesPanelList = new ArrayList();
+        protected ArrayList preferencesPanelList = new ArrayList();
 
         /// <summary>
         /// A value which indicates whether the form is initialized.
@@ -391,7 +391,7 @@ namespace OpenLiveWriter.ApplicationFramework.Preferences
         /// Helper method to save Preferences.
         /// Returns true if saved successfully.
         /// </summary>
-        private bool SavePreferences()
+        protected virtual bool SavePreferences()
         {
             TabSwitcher tabSwitcher = new TabSwitcher(sideBarControl);
 

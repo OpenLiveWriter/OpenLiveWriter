@@ -170,7 +170,7 @@ namespace OpenLiveWriter.ApplicationFramework
             BitmapButton bitmapButton = new BitmapButton();
             bitmapButton.Tag = index;
             bitmapButton.Click += new EventHandler(bitmapButton_Click);
-            bitmapButton.AutoSizeHeight = true;
+            bitmapButton.AutoSizeHeight = false;
             bitmapButton.AutoSizeWidth = false;
             bitmapButton.ButtonStyle = ButtonStyle.Flat;
             bitmapButton.TextAlignment = TextAlignment.Right;
@@ -178,7 +178,7 @@ namespace OpenLiveWriter.ApplicationFramework
             bitmapButton.BitmapEnabled = bitmap;
             bitmapButton.BitmapSelected = bitmap;
             bitmapButton.ClickSetsFocus = true;
-            bitmapButton.Size = new Size(Control.Width - (PAD * 2), 0);
+            bitmapButton.Size = new Size(Control.Width - (PAD * 2), 52);
             bitmapButton.TabStop = false;
             bitmapButton.AccessibleName = text;
             bitmapButton.Name = name;
@@ -216,18 +216,24 @@ namespace OpenLiveWriter.ApplicationFramework
             foreach (BitmapButton button in bitmapButtonList)
             {
                 button.AutoSizeWidth = true;
+                button.AutoSizeHeight = true;
                 // HACK: AutoSizeWidth doesn't quite work right; it doesn't
                 // take effect until SetBoundsCore gets called, so I have
                 // to "change" the width to force the SetBoundsCore call.
                 // Yuck!!
                 button.Width = button.Width + 1;
+                button.Height = button.Height + 1;
                 maxWidth = Math.Max(maxWidth, button.Width);
             }
 
             foreach (BitmapButton button in bitmapButtonList)
             {
                 button.AutoSizeWidth = false;
+                button.AutoSizeHeight = false;
                 button.Width = maxWidth;
+                button.Height = 
+                    (int)Math.Ceiling(button.Height / (DisplayHelper.PixelsPerLogicalInchY / 96f))
+                  + (button.BitmapEnabled == null ? DisplayHelper.ScaleYCeil(10) : 0); // Add a 10 pixel vertical padding when text-only
             }
 
             Width = maxWidth + PAD * 2;

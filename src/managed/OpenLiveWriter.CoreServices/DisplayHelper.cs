@@ -1,17 +1,15 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using OpenLiveWriter.Interop.Windows;
+using OpenLiveWriter.Localization;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using OpenLiveWriter.CoreServices.Layout;
-using OpenLiveWriter.Interop.Windows;
-using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.CoreServices
 {
@@ -83,22 +81,69 @@ namespace OpenLiveWriter.CoreServices
             }
         }
 
-        public static float ScaleX(float x)
+        public static float ScalingFactorX
         {
-            return x * (((float)PixelsPerLogicalInchX) / ((float)DEFAULT_DPI));
+            get
+            {
+                return (float)PixelsPerLogicalInchX / (float)DEFAULT_DPI;
+            }
         }
 
-        public static float ScaleY(float y)
+        public static float ScalingFactorY
         {
-            return y * (((float)PixelsPerLogicalInchY) / ((float)DEFAULT_DPI));
+            get
+            {
+                return (float)PixelsPerLogicalInchY / (float)DEFAULT_DPI;
+            }
         }
+
+        public static SizeF ScalingFactor
+        {
+            get
+            {
+                return new SizeF(ScalingFactorX, ScalingFactorY);
+            }
+        }
+
+        public static float ScaleX(float x) => x * ScalingFactorX;
+        public static float ScaleY(float y) => y * ScalingFactorY;
+
+        public static int ScaleXCeil(float x) => (int)Math.Ceiling(x * ScalingFactorX);
+        public static int ScaleYCeil(float y) => (int)Math.Ceiling(y * ScalingFactorY);
 
         /// <summary>
         /// Scales a control from 96dpi to the actual screen dpi.
         /// </summary>
         public static void Scale(Control c)
         {
-            c.Scale(new SizeF((float)PixelsPerLogicalInchX / DEFAULT_DPI, (float)PixelsPerLogicalInchY / DEFAULT_DPI));
+            c.Scale(ScalingFactor);
+        }
+
+        /// <summary>
+        /// Scales a bitmap from 96dpi to the actual screen dpi.
+        /// </summary>
+        public static Bitmap ScaleBitmap(Bitmap original)
+        {
+            return new Bitmap(original, ScaleSize(original.Size));
+        }
+
+        /// <summary>
+        /// Scales up a 96-dpi Size object to the actual screen DPI.
+        /// </summary>
+        public static Size ScaleSize(Size original)
+        {
+            return new Size(ScaleXCeil(original.Width), ScaleYCeil(original.Height));
+        }
+
+        /// <summary>
+        /// Scales down a screen-dpi size to 96-dpi.
+        /// </summary>
+        public static Size UnscaleSize(Size original)
+        {
+            return new Size(
+                (int)Math.Ceiling(original.Width / ScalingFactorX),
+                (int)Math.Ceiling(original.Height / ScalingFactorY)
+                );
         }
 
         /// <summary>

@@ -49,17 +49,18 @@ MapPushpinTip,Tip: Right-click the map to add a pin,
 MapRoad,Road,
 MapAerial,Aerial,
 MapBirdseye,Bird's eye,
-SemanticHtmlPreviewText,AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz, Sample text rendered to give the user an idea what each style in the HTML styles gallery looks like,
+SemanticHtmlPreviewText,AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz,Sample text rendered to give the user an idea what each style in the HTML styles gallery looks like
 AddButton,A&dd...,"Add new blog, add to link glossary, etc."
 EditButton,&Edit...,"Edit blog, glossary entry, etc."
 DeleteButton,Re&move...,"Delete blog, glossary entry, etc."
 ViewButton,&View,View blog
 ConfigureProduct,Configure {0},"{0} - Product name, i.e. ""Open Live Writer"""
-WizardBlogTypeWelcome,"Many popular blog services work with {0}.","{0} - Long product name, i.e. ""Open Live Writer"""
+WizardBlogTypeWelcome,Many popular blog services work with {0}.,"{0} - Long product name, i.e. ""Open Live Writer"""
 WizardBlogTypeWhatBlogType,What blog service do you use?,
 WizardBlogTypeConfigureTo,Configure {0} to publish to:,"{0} - Long product name, i.e. ""Open Live Writer""; followed by a choice of two options: ""SharePoint blog"" or ""Another blog service"""
 WizardBlogTypeSharePoint,&SharePoint,
 WizardBlogTypeGoogleBlogger,&Google Blogger,
+WizardBlogTypeStaticSite,Static Site G&enerator,
 WizardBlogTypeOther,&Other services,
 Options,Options,
 AllowAutoUpdate,"Automatically &update account information (categories, links, capabilities, and provider extensions)",
@@ -71,7 +72,7 @@ PostEditorPrefPublishing,Publishing,
 PostEditorPrefRemind,Remind me to add &tags before publishing,
 PostEditorPrefRemindCat,Remind me to add &categories before publishing,
 PostEditorPrefClose,Close &window after publishing,
-PostEditorPrefView,&View blog after publishing,
+PostEditorPrefView,&View blog after publishing,Modified on 2/19/2016 by @kathweaver to resolve Issue #377
 PostEditorPrefAuto,Save A&utoRecover information periodically,
 PostEditorPrefSide,S&how taskpane when editable items are inserted,
 PostEditorPrefUnsave,Open a new window &only when there are unsaved changes to the current post,
@@ -80,10 +81,10 @@ PostEditorPrefNew,Open a new window for &each post,
 PostEditorPrefTitle,&Remind me to type a title before publishing,
 PostEditorPrefName,Preferences,
 PostEditorPrefGeneral,General options,
+PostEditorPrefPostLocation,Local drafts and recent posts folder,
+PostEditorPrefBrowseFolder,Browse,
 SpellingPrefOptions,General options,
 SpellingPrefReal,Use &real-time spell checking (squiggles),
-SpellingPrefNum,Ignore words with &numbers,
-SpellingPrefUpper,Ignore words in &UPPERCASE,
 SpellingPrefAuto,Automatically &correct common capitalization and spelling mistakes,
 SpellingPrefGroup,Spelling form options,
 SpellingPrefPub,Check spelling before &publishing,
@@ -127,20 +128,20 @@ FtpUsername,&User name:,
 FtpPassword,&Password:,
 ImagesPanel,Pictures,
 EditingStyle,Blog theme,
-EditingText,After you make changes to your theme online, click Update theme to see the latest.,
+EditingText,After you make changes to your theme online,click Update theme to see the latest.
 EditingUsing,Use your blog theme to see what your post will look like online while you are editing it.,{0} - Open Live Writer
 EditingUpdate,&Update theme,
 EditingName,Editing,
 EditingRTLName,Text direction,
 EditingRTLYes,Right to Left,
 EditingRTLNo,Left to Right,
-EditingRTLDefault,Default ({0}), {0} - EditingRTLYes or EditingRTLNo
+EditingRTLDefault,Default ({0}),{0} - EditingRTLYes or EditingRTLNo
 EditingRTLExplanation,Change the reading direction of your blog posts.,Explanation for the right-to-left setting
-EditingRTLUse,&Enter text Right to Left in Edit view.
+EditingRTLUse,&Enter text Right to Left in Edit view.,
 AdvancedTransport,Character set,
 AdvancedText,"Select another encoding type for your blog posts. By default, it's UTF-8.",
 AdvancedName,Advanced,
-AdvancedDefault,Default ({0}),"{0} - default encoding web name (e.g. ""UTF-8"")"
+AdvancedDefault,Default ({0}),{0} - default encoding web name (e.g. "UTF-8")
 AdvancedXHTMLGroupName,Markup language,
 AdvancedXHTMLLabel,"Select HTML or XHTML for your markup language type. By default, it's HTML.",
 AdvancedXHTMLDefault,Default ({0}),{0} - yes or no
@@ -151,7 +152,7 @@ FtpHostname,&Host name:,
 FtpText,FTP Settings,
 FtpLoginDomain,FTP,
 SpellNotInDict,&Not in dictionary:,
-SpellAdd,A&dd,"Add misspelled word to dictionary"
+SpellAdd,A&dd,Add misspelled word to dictionary
 SpellChange,C&hange to:,
 SpellOptions,S&uggestions:,
 SpellIgnore,I&gnore,
@@ -181,10 +182,10 @@ InsertPictureTooltip,Insert a picture into the current document,
 InsertTableDotDotDot,Table...,
 InsertTable,Insert Table,
 InsertTableTooltip,Insert a table into the current document,
-EmoticonsGalleryRecent,Recent,This is a category header that appears above the last 10 recently used emoticons,
-EmoticonsGalleryPopular,All,This is a category header that appears above all the available emoticons,
-EmoticonsTooltipOneAutoReplace,{0}  {1}, "{0} - description of emoticon, {1} - text form of emoticon e.g. :-)"
-EmoticonsTooltipTwoAutoReplace,{0}  {1} or {2}, "{0} - description of emoticon, {1} - 1st text form of emoticon e.g. :-), {2} - 2nd text form of emoticon e.g. :)"
+EmoticonsGalleryRecent,Recent,This is a category header that appears above the last 10 recently used emoticons
+EmoticonsGalleryPopular,All,This is a category header that appears above all the available emoticons
+EmoticonsTooltipOneAutoReplace,{0}  {1},"{0} - description of emoticon, {1} - text form of emoticon e.g. :-)"
+EmoticonsTooltipTwoAutoReplace,{0}  {1} or {2},"{0} - description of emoticon, {1} - 1st text form of emoticon e.g. :-), {2} - 2nd text form of emoticon e.g. :)"
 EmoticonSmile,Smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonSurprisedSmile,Surprised smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonWinkingSmile,Winking smile,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
@@ -267,7 +268,6 @@ EmoticonDogFace,Dog face,Alternate text for the emoticon. The emoticon is from M
 EmoticonLightBulb,Light bulb,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonSleepingHalfMoon,Sleeping half-moon,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonEmail,Email,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
-EmoticonMessenger,Messenger,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonBlackSheep,Black Sheep,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonBowl,Bowl,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonSoccerBall,Soccer ball,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
@@ -288,7 +288,6 @@ EmoticonBunny,Bunny,Alternate text for the emoticon. The emoticon is from Messen
 EmoticonSchoolBus,School bus,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonPeace,Peace,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 EmoticonSchool,School,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
-EmoticonXbox,Xbox,Alternate text for the emoticon. The emoticon is from Messenger so use Messenger's localization to avoid duplicate work.
 PublishDatePrompt,Set post date,No apostrophes (') allowed in this message
 PublishDateTooltip,Post date,
 PropertiesPanel,Post Properties,This is an accessibility name and should be localized.
@@ -321,7 +320,7 @@ CategoryControlCategories,Categories: {0},{0} - comma-delimited list of categori
 CategoryControlCategory,Category: {0},{0} - the single category that is selected
 CategoryControlNoCategories,(none),
 CategoryControlNoCategories2,(No categories),
-DynamicCommandMenuMore,Mo&re...,If all the options can't be shown in one menu then this is the last option in a menu and it launches a form that shows all the options,
+DynamicCommandMenuMore,Mo&re...,If all the options can't be shown in one menu then this is the last option in a menu and it launches a form that shows all the options
 DynamicCommandMenuInsert,Insert,
 TagControlSetTags,Set tags (comma separated),
 AlignMenuItem,&Align,From the context menu when right-clicking on text in the editor.
@@ -355,11 +354,11 @@ CWSelectBlogText,More than one blog was detected. Please select the blog that yo
 CWSelectImageEndpointText,Please select the collection that you'd like images to be uploaded to:,
 PasswordChar,0x25CF,The hex value of the single character that will be used to represent each character in a password field.
 ViewWeblog,View Blog,
-CWSpacesUsername,&Microsoft Account ID:,
-CWLiveIDCreateAccount,"If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account ID.",
+CWSpacesUsername,&Microsoft Account:,
+CWLiveIDCreateAccount,"If you use Hotmail, Messenger, or Xbox LIVE, you have a Microsoft Account.",
 RememberPassword,&Remember my password,
-CWSpacesUsernameExample,(example555@hotmail.com),Example of Microsoft Account ID
-CWLiveIDCreateAccount2,Don't have a Microsoft Account ID?,
+CWSpacesUsernameExample,(example555@hotmail.com),Example of Microsoft Account
+CWLiveIDCreateAccount2,Don't have a Microsoft Account?,
 CWSharePointText,To use {0} you must have a SharePoint blog.,{0} - Open Live Writer
 CWSharePointHomepageUrl,Share&Point blog web address:,
 CWSharePointTitle,Configure {0} for a SharePoint blog,{0} - Writer
@@ -369,6 +368,50 @@ CWSharePointUseSystemLogin,Use my &Windows user name and password,
 CWGoogleBloggerTitle,Provide Google Blogger Login,
 CWGoogleBloggerDescription,To configure Google Blogger please sign in.,
 CWGoogleBloggerSignInSuccess,Successfully signed in,
+CWStaticSiteInitialTitle,Provide static site configuration,
+CWStaticSiteInitialSubtitle,{0} will attempt to automatically detect your static site configuration based on files present in your site project folder. Please select the project folder of your static site (eg. Git repository),{0} - Product name
+CWStaticSiteInitialSubtitleAlreadyDetected,"{0} has already attempted configuration detection on your site. You can change the path to your site here if you wish. Otherwise, you can re-run configuration detection from Settings.",{0} - Product name
+CWStaticSiteFeaturesTitle,Define static site features,
+CWStaticSiteFeaturesSubtitle,Use the checkboxes below to define which features your static site supports. You can configure Open Live Writer for these features on the following pages.,
+CWStaticSiteFeaturesPages,Enable Pages,
+CWStaticSiteFeaturesDrafts,Enable Remote Drafts,
+CWStaticSiteFeaturesImages,Enable Image Upload,
+CWStaticSiteFeaturesBuilding,Enable Local Site Building,
+CWStaticSitePathsTitle,Provide site URL and paths,
+CWStaticSitePathsSiteUrl,Public site URL:,
+CWStaticSitePathsPostsPath,Posts path: (relative),
+CWStaticSitePathsPagesPath,"Pages path: (relative, required if pages enabled)",
+CWStaticSitePathsPagesInRoot,Pages stored in site root,
+CWStaticSitePathsDraftsPath,"Drafts path: (relative, required if drafts enabled)",
+CWStaticSitePathsImagesPath,"Images path: (relative, required if images enabled)",
+CWStaticSitePathsOutputPath,"Build output path: (relative, required if building enabled)",
+CWStaticSiteCommandsTitle,Provide site authoring commands,
+CWStaticSiteCommandsSubtitle,{0} will run the commands you specify below and alert you if an error occurs. Commands are ran using the system command interpreter with a working directory of your local site.,{0} - Product name
+CWStaticSiteCommandsBuildCommand,Build command:,
+CWStaticSiteCommandsBuildCommandSubtitle,"Command that builds your site and stores the output locally, ready to be published. Required if Local Site Building enabled.",
+CWStaticSiteCommandsPublishCommand,Publish command:,
+CWStaticSiteCommandsPublishCommandSubtitle,"Command that uploads your site to your hosting provider. If Local Site Building is enabled, this command would typically upload the output from the build command.",
+CWStaticSiteConfigDetection,"{0} was able to automatically determine a partial configuration for your site. Please confirm that the pre-filled details on the next pages are correct, and complete the other missing fields.",{0} - Product name
+CWStaticSiteLocalSitePath,Path to local static site:,
+CWStaticSiteLocalSiteFolderPicker,Please select the project folder of your static site (eg. Git repository),
+SSGBuildErrorTitle,Static site build failed,
+SSGBuildErrorText,"{0} has failed to build your site. Please ensure your site builds manually, check your build command and try again.
+
+Build command exit code: {1}
+Command STDOUT:
+{2}
+Command STDERR:
+{3}
+","{0} - Product name, {1} - Build command exit code"
+SSGPublishErrorTitle,Static site publish failed,
+SSGPublishErrorText,"{0} has failed to publish your site. Please check your site publish command.
+
+Publish command exit code: {1}
+Command STDOUT:
+{2}
+Command STDERR:
+{3}
+","{0} - Product name, {1} - Publish command exit code"
 CWTitle,Add Blog Wizard,Caption of the Add Blog Wizard window.
 CWProgressHeader,Setting up your blog account,
 ProgressDownloadingEditingTemplate,Downloading editing template...,
@@ -379,6 +422,7 @@ ProgressDetectingWeblogCategories,Detecting blog categories...,
 ProgressDetectingWeblogIcon,Detecting blog icon...,
 ProgressCompletedSettingsDetection,Completed settings detection,
 ProgressDownloadingWeblogEditingStyle,Downloading blog editing theme...,
+ProgressDownloadingWeblogEditingStyleDeep,"Post contents not present on homepage, checking post...",Used when downloading template from a post page is required
 ProgressSaving,Saving {0}...,{0} - a filename
 ProgressDownloadFinished,Download finished,
 ProgressDownloading,Downloading {0}...,{0} - a URL
@@ -399,7 +443,7 @@ CWConfirmWeblogName,Blog Name,
 CWConfirmSwitchToWeblog,&Switch to this blog now,
 CWConfirmFTPServer,FTP Server,
 CWConfirmUploadSettings,Upload Pictures To:,
-CWConfirmText,"Please confirm that you would like to save this blog.",
+CWConfirmText,Please confirm that you would like to save this blog.,
 CWConfirmText2,"Writer will periodically check for, and download, new configuration information for your blog.",
 WeblogNameColon,Blog &nickname:,
 CWConfirmThanks,Your blog has been set up,
@@ -408,8 +452,8 @@ CWWelcomeClickNext,Click Next to continue.,
 CWWelcomeCaption,Welcome to the world of blogging!,
 CWWelcomeAlreadyHave,I &already have a blog set up,
 CWWelcomeText,"Use {0} to blog about whatever interests you. Add photos and videos, and then publish to popular blogging services, including WordPress, Blogger, and TypePad.",{0} - Open Live Writer
-CWWelcomeCreate,"&Create a new blog",
-CWWelcomeWP,"&WordPress",
+CWWelcomeCreate,&Create a new blog,
+CWWelcomeWP,&WordPress,
 OpenPostOpenFrom,&Open from:,
 OpenPostItems,items,
 OpenPostRefresh,&Refresh,
@@ -425,8 +469,8 @@ PagesLower,pages,
 PostsLower,posts,
 AboutAbout,Abou&t {0},{0} - Open Live Writer Beta
 AboutVersion,{0},"{0} - version number, e.g. 2.0.1"
-AboutCopyright,© 2015 .NET Foundation. All rights reserved.,
-AboutConfigurationVersion,Configuration Version: {0},Displays the version of Writer's configuration file in the about dialog,
+AboutCopyright,Copyright © .NET Foundation. All rights reserved.,
+AboutConfigurationVersion,Configuration Version: {0},Displays the version of Writer's configuration file in the about dialog
 ProductDisplayVersion,Build {0},{0}- the build number like 12.00.1234.1234.
 ProductNameVersioned,Open Live Writer,Versioned product name for about dialog.
 LinkEditHyperlink,Edit Hyperlink,
@@ -451,13 +495,13 @@ ImgSBLocalImage,Local: {0},"{0} - a file size (e.g. localized equivalents of ""1
 ImgSBLocalImage2,Local: {0}/{1},"{0}, {1} - file size (e.g. localized equivalents of ""10.2MB"", ""108 bytes"", etc.). The {0} value will be for the inline image, the {1} value will be for the ""View Larger"" image."
 Post,Post,
 Posts,&Posts,
-RecentPosts,Recent posts, Category description for recent posts that appears in Writer's taskbar jumplist.
-RecentDrafts,Recent drafts, Category description for recent drafts that appears in Writer's taskbar jumplist.
+RecentPosts,Recent posts,Category description for recent posts that appears in Writer's taskbar jumplist.
+RecentDrafts,Recent drafts,Category description for recent drafts that appears in Writer's taskbar jumplist.
 Page,Page,
 Pages,P&ages,
 Blog,Blog,
 Date,Date,
-OpenPostNoDraftsAvailable, No drafts available.,
+OpenPostNoDraftsAvailable,No drafts available.,
 OpenPostNoPostsAvailable,No posts available.,
 OpenPostNoPagesAvailable,No pages available.,
 ShowAllPosts,All,
@@ -466,14 +510,14 @@ InsertImageInsertFromFile,From File,
 InsertImageInsertFromWeb,From Web,
 InsertImageLinkTo,&Link to:,
 InsertImageOpenInNewWindow,&Open in new window,
-LinkToSource,Source picture,Navigate to the source picture when the selected image is clicked.,
-LinkToSourceLabelTitle,Link to: Source picture,Shows the user that the selected image links to the original image,
+LinkToSource,Source picture,Navigate to the source picture when the selected image is clicked.
+LinkToSourceLabelTitle,Link to: Source picture,Shows the user that the selected image links to the original image
 LinkToSourceDescription,Navigate to the source picture when the selected image is clicked.,
-LinkToURL,Web address,Choose the location to go to when the selected image is clicked.,
-LinkToURLLabelTitle,Link to: Web address,Shows the user that the selected image links to a URL,
+LinkToURL,Web address,Choose the location to go to when the selected image is clicked.
+LinkToURLLabelTitle,Link to: Web address,Shows the user that the selected image links to a URL
 LinkToURLDescription,Choose the location to go to when the selected image is clicked.,
-LinkToNone,None,Make the selected image not be a link.,
-LinkToNoneLabelTitle,Link to: None,Shows the user that the selected image is not a link,
+LinkToNone,None,Make the selected image not be a link.
+LinkToNoneLabelTitle,Link to: None,Shows the user that the selected image is not a link
 LinkToNoneDescription,Make the image not be a link.,
 ImagesFilterString,"All pictures (*.gif, *.jpg, *.jpeg, *.png)",
 AllFilesFilterString,All files (*.*),
@@ -491,7 +535,8 @@ Size,Size,
 TableRowsLabel,&Rows:,
 TableColumnsLabel,&Columns:,
 Appearance,Appearance,
-pixels,pixels,
+Pixels,pixels,
+Percent,percent,
 TableShowBorderLabel,Show table &border:,
 TableCellSpacingLabel,&Space between cells:,
 TableCellPaddingLabel,&Pad cell contents:,
@@ -551,7 +596,7 @@ ImageEffectsNoRecolorCategory,No recolor,
 ImageEffectsColorModesCategory,Color modes,
 ImageEffectsColorTemperatureCategory,Color temperature,
 ImageEffectsNoSharpenCategory,No sharpen,
-ImageEffectsSharpenCategory,Sharpen
+ImageEffectsSharpenCategory,Sharpen,
 ImageEffectsNoBlurCategory,No blur,
 ImageEffectsGaussianCategory,Gaussian blur,
 ImageEffectsNoEmbossCategory,No emboss,
@@ -568,30 +613,30 @@ DecoratorNoBorder,None,
 DecoratorGroupOverlays,Overlays,
 DecoratorWatermark,Watermark...,
 DecoratorGroupTransformations,Transformations,
-DecoratorNoRecolorLabel,No recolor,Remove any black and white or sepia applied on the selected image.,
+DecoratorNoRecolorLabel,No recolor,Remove any black and white or sepia applied on the selected image.
 DecoratorNoRecolorDescription,Remove recolor effects applied on the selected image.,
-DecoratorBWLabel,Black and white,Apply a black and white filter on the selected image.,
+DecoratorBWLabel,Black and white,Apply a black and white filter on the selected image.
 DecoratorBWDescription,Black and white,
-DecoratorSepiaLabel,Sepia tone,Apply a sepia filter on the selected image.,
+DecoratorSepiaLabel,Sepia tone,Apply a sepia filter on the selected image.
 DecoratorSepiaDescription,Sepia,
 DecoratorCoolestTemperatureLabel,Coolest,Dark blue temperature effect available to apply to the selected image.
 DecoratorCoolTemperatureLabel,Cool,Blue temperature effect available to apply to the selected image.
 DecoratorWarmTemperatureLabel,Warm,Yellow temperature effect available to apply to the selected image.
 DecoratorWarmestTemperatureLabel,Warmest,Orange temperature effect available to apply to the selected image.
 DecoratorTemperatureDescription,Change the warmth of the colors in the selected image.,
-DecoratorSaturationLabel,Color pop,Make the colors in the selected image vivid.,
+DecoratorSaturationLabel,Color pop,Make the colors in the selected image vivid.
 DecoratorSaturationDescription,Make the colors in the selected image vivid.,
-DecoratorSharpenLabel,Sharpen,Apply a sharpening filter on the selected image.,
+DecoratorSharpenLabel,Sharpen,Apply a sharpening filter on the selected image.
 DecoratorSharpenDescription,Apply a sharpening filter on the selected image.,
-DecoratorNoSharpenLabel,No sharpen,Remove the sharpening filter on the selected image.,
+DecoratorNoSharpenLabel,No sharpen,Remove the sharpening filter on the selected image.
 DecoratorNoSharpenDescription,Remove the sharpening filter on the selected image.,
-DecoratorGaussianBlurLabel,Gaussian blur,Apply a Gaussian blur filter on the selected image.,
+DecoratorGaussianBlurLabel,Gaussian blur,Apply a Gaussian blur filter on the selected image.
 DecoratorGaussianBlurDescription,Apply a Gaussian blur filter on the selected image.,
-DecoratorNoBlurLabel,No blur,Remove the blur filter on the selected image.,
+DecoratorNoBlurLabel,No blur,Remove the blur filter on the selected image.
 DecoratorNoBlurDescription,Remove the blur filter on the selected image.,
-DecoratorEmbossLabel,Emboss,Apply an emboss effect on the selected image.,
+DecoratorEmbossLabel,Emboss,Apply an emboss effect on the selected image.
 DecoratorEmbossDescription,Apply an emboss effect on the selected image.,
-DecoratorNoEmbossLabel,No emboss,Remove the emboss effect on the selected image.,
+DecoratorNoEmbossLabel,No emboss,Remove the emboss effect on the selected image.
 DecoratorNoEmbossDescription,Remove the emboss effect on the selected image.,
 ImgSBMaximumWidthLabel1,Maximum &Width:,
 ImgSBMaximumHeightLabel1,Maximum &Height:,
@@ -641,7 +686,7 @@ TagsHtmlDelimiterHelpString,The separator that should appear between tag HTML. T
 TagsProviderNameLabel,&Provider name:,
 TagsProviderNameHelpString,The name of the tag provider. This name will be displayed in the tag provider list when inserting tags.,
 TagsHtmlCaptionLabel,HTML &caption for tag list:,
-TagsHtmlCaptionHelpString,The HTML caption that will appear with the HTML generated for the tags. Use {0} where you'd like the HTML generated from the HTML tag template to be placed.,"{0} - ""{tag-group}"""
+TagsHtmlCaptionHelpString,The HTML caption that will appear with the HTML generated for the tags. Use {0} where you'd like the HTML generated from the HTML tag template to be placed.,{0} - "{tag-group}"
 TagsHtmlPreviewLabel,HTML preview:,
 TagsHtmlPreviewHelpString,A preview of the literal HTML that will be generated for a set of tags.,
 TagsCreateNew,Create New Tag Provider,
@@ -649,8 +694,8 @@ TagsProviderDefaultCaption,{0} Tags: {1},"{0} - the name of a tag provider, {1} 
 TagsCaptionFormat,{0} Tags: {{tag-group}},{0} - the name of a tag provider. {{tag-group}} must NOT be translated!
 Tags,Tags,
 TitleDefaultText,Enter a {0} title,{0} - Post or Page
-SpinnerPixelRepresentativeString,999 px,The Ribbon uses the width of this string to decide how wide the spinner should be displayed,
-SpinnerPixelFormatString," px",Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners,
+SpinnerPixelRepresentativeString,999 px,The Ribbon uses the width of this string to decide how wide the spinner should be displayed
+SpinnerPixelFormatString,px,Unit of measurement (pixels) that is appended to the width and height of an image (e.g. 400 px) in the ribbon spinners
 MapSBCaption,Caption:,
 MapSBMapHeader,Map,
 MapSBMargins,Margins:,
@@ -664,7 +709,6 @@ MapSBViewMap,View Map on Live.com,
 MapSBCustomize,Customize Map...,
 MapSBCustomizeTooltip,"Edit the map location, style, and pins",
 DownloadingWeblogStyle,Downloading Blog Theme,
-
 PasteSpecialPlaintextLabel,&Remove Formatting,
 PasteSpecialPlaintextDesc,Removes all formatting except for line breaks. Preserves links and pictures. Use to copy content only.,
 PasteSpecialThinnedLabel,&Thinned HTML,
@@ -728,7 +772,7 @@ CategoryNoParent,(No parent),Indicates that a category does not have a parent ca
 AddButton2,&Add,
 CategoryRefreshList,Refresh List,
 CategoryRefreshListTooltip,Refreshes the list of categories.,
-CategoryCategoryName,Category Name,The 'cue banner' for the textbox in the category popup, where you type in a new category name.
+CategoryCategoryName,Category Name,The 'cue banner' for the textbox in the category popup
 ColorPickerDefaultColor,&Default Color,
 ColorPickerMoreColors,&More Colors...,
 ColorWhite,White,
@@ -760,12 +804,12 @@ ColorPastelOrange,Pastel orange,
 ColorPastelYellow,Pastel yellow,
 ColorPastelGreen,Pastel green,
 ColorPastelBlue,Pastel blue,
-ColorPastelPurple,Pastel purple,                                       
+ColorPastelPurple,Pastel purple,
 Untitled,Untitled,
 WindowTitleFormat,{0} - {1},"{0} - post title, {1} - ""Open Live Writer"""
 StatusDraftUnsaved,Draft - Unsaved,
 StatusDraftSaved,Draft - Saved {0},{0} - saved date
-StatusAutoSaving,Autosaving...,This message is shown in the status bar while Writer saves the current post in the background,
+StatusAutoSaving,Autosaving...,This message is shown in the status bar while Writer saves the current post in the background
 StatusPublished,Published: {0},{0} - publish date
 StatusWeblogNameFormatter,{0} ({1}),"{0} - status message, {1} - blog name"
 ChangeLiveClipboardHandlerComponent,Component,
@@ -837,7 +881,7 @@ PostEditorStorageExceptionTitle,Error Accessing Local Post,
 PostEditorStorageExceptionMessage,"Unexpected error occurred while accessing local post ({0})
 
 {1}","{0} - error code, {1} - error message"
-PostEditorDiskSpaceExceptionMessage,"No more space is available on disk."
+PostEditorDiskSpaceExceptionMessage,No more space is available on disk.,
 PostEditorStorageExceptionTitle2,Error Accessing Local Post,
 PostEditorStorageExceptionMessage2,"Unexpected disk access error occurred while accessing local post ({0})
 
@@ -849,6 +893,7 @@ UnexpectedErrorContinue,&Continue,
 UnexpectedErrorClickHere,Click here to see error details,
 UnexpectedErrorDescription,We have created an error summary that you can view.,
 UnexpectedErrorTitle,Unexpected Error,
+UnexpectedErrorSendError,&Send Error,
 UnexpectedErrorPluginTitle,Plug-in Error Occurred,
 UnexpectedErrorPluginDescription,"An error occurred in the {0} plug-in:
 
@@ -857,8 +902,8 @@ UnhandledExceptionErrorMessage,An unexpected error has occurred within the appli
 UnhandledExceptionErrorTitle,Unexpected Error Occurred,
 PassportLoginSignIn,Sign in,
 PassportLoginTitle,Sign in to Microsoft Account,
-PassportLoginNoUserPass,Please enter a Microsoft Account ID and password to continue.,
-PassportLoginNoUserPassTitle,Microsoft Account ID and Password Required
+PassportLoginNoUserPass,Please enter a Microsoft Account and password to continue.,
+PassportLoginNoUserPassTitle,Microsoft Account and Password Required,
 MinimizeButtonTooltip,Minimize,
 MaximizeButtonTooltip,Maximize,
 CloseButtonTooltip,Close,In the sense of closing a window.
@@ -945,13 +990,13 @@ Today,Today,
 SidebarPanel,Taskpane,This is an accessibility name and should be localized.
 PluginSidebarNotEditable,Selected item cannot be edited.,
 PluginSidebarDisabled,Selected item plug-in is disabled.,
-PublishNow,"Publish now",
-FuturePostWarningDialogTitle,"Open Live Writer",
+PublishNow,Publish now,
+FuturePostWarningDialogTitle,Open Live Writer,
 FuturePostWarningDontShowAgain,&Always publish immediately without asking again,
-FuturePostWarningExplanation,"This blog service can't delay publishing for the date that you set. Would you like to publish it now?",
+FuturePostWarningExplanation,This blog service can't delay publishing for the date that you set. Would you like to publish it now?,
 FuturePostWarningTitle,Can't set a future date for publishing,
 LinkToolTip,CTRL + click to follow link: {0},Used when hovering over a link in the editor. {0} - the hyperlink to follow
-SplashScreenCopyrightNotice,© 2015 .NET Foundation. All rights reserved.,
+SplashScreenCopyrightNotice,Copyright © .NET Foundation. All rights reserved.,
 BlogCategoryNone,None,Allows the user to specify that the blog post has no categories assigned to it.
 CWSelectProviderWeblogProvider,Blog Provider,
 CWSelectProviderApiUrl,Server API web address,
@@ -965,7 +1010,7 @@ PostLinkTooltipFormat,"{0}
 {1} ({2})","{0} - title of post, {1} - title of blog, {2} - date/time of post"
 PostLinkTooltipFormatNoBlogTitle,"{0}
 ({1})","{0} - title of post, {1} - date/time of post"
-DraftNameFormat,Draft {0},"{0} - Post or Page. ""Draft"" is an adjective in this context"
+DraftNameFormat,Draft {0},{0} - Post or Page. "Draft" is an adjective in this context
 PublishedNameFormat,Published {0},{0} - Post or Page
 PostPublishFileUploadErrorTitle,Error Uploading Supporting Files,
 PostPublishFileUploadErrorCaption1,The {0} was successfully published however an error occurred while uploading supporting files:,{0} - Post or Page
@@ -1014,9 +1059,9 @@ CapabilityTemplateIsRTL,Template is Right-to-Left,This is used in the Blog Optio
 CapabilityCategoryNameLimit,Category Name Limit,This is used in the Blog Options | Blog Capabilities dialog.
 CapabilityPostTitleLengthLimit,Title Length Limit,This is used in the Blog Options | Blog Capabilities dialog.
 CapabilityAutoUpdate,Auto-Update,This is used in the Blog Options | Blog Capabilities dialog.
-CapabilityValueNormal,Normal,"This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for ""Default View""."
-CapabilityValueWebLayout,Web Layout,"This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for ""Default View""."
-CapabilityValueWebPreview,Web Preview,"This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for ""Default View""."
+CapabilityValueNormal,Normal,This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".
+CapabilityValueWebLayout,Web Layout,This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".
+CapabilityValueWebPreview,Web Preview,This is used in the Blog Options | Blog Capabilities dialog. It is one of the possible values for "Default View".
 CapabilityValueNoLimit,(No Limit),Specifies that there is no limit to the number of characters in a category name.
 SelectWeblogProvider,(Select Blog Provider),"This appears in the drop-down list with blog providers, hence the parentheses."
 Comma,",","The comma character for this language. (e.g., U+FF0C for Chinese)"
@@ -1032,7 +1077,7 @@ BetaExpiredDownloadNow,&Download Now,Text displayed on download button of beta e
 BetaExpiredAskLater,&Ask Me Later,Text displayed on ask me later button of beta expiration warning dialog
 UpdatesAvailableMessage,Required updates will be applied next time you start Open Live Writer.,Message shown to user when updates are found.
 UpdatesBandClose,Close,Used to hide the updates available message
-UpdatesPreparing,Preparing to update Open Live Writer…,Message to user while updates are getting downloaded.
+UpdatesPreparing,Preparing to update Open Live Writer...,Message to user while updates are getting downloaded.
 UpdatesInstalling,Downloading and installing {0} update(s). Please wait...,{0} is number of updates
 UpdatesStartingWriter,Starting updated Open Live Writer...,Message after updates are installed and before writer starts.
 BloggerImageAlbumDescription,This album is used to store pictures from blog posts published by Open Live Writer.,
@@ -1098,18 +1143,18 @@ Plugin_Video_Soapbox_Soap_Error,The Soapbox service returned an error.,Message w
 Plugin_Video_Soapbox_Thumbnail_Downloading,Downloading Preview...,Message shown for each video while thumbnail is getting generated.
 Plugin_Video_Soapbox_Thumbnail_None,No Preview Available,Message shown for each video that doesn't have a thumbnail.
 YouTubeInvalidResult,An unexpected response from YouTube was received.,
-YouTubecopyright,The video commits a copyright infringement.
-YouTubeinappropriate,The video contains inappropriate content.
-YouTubeduplicate,The video is a duplicate of another uploaded video.
-YouTubetermsOfUse,The video commits a terms of use violation.
-YouTubesuspended,The account associated with the video has been suspended.
-YouTubetooLong,The video exceeds the maximum duration of 10 minutes.
-YouTubeblocked,The video has been blocked by the content owner.
-YouTubecantProcess,YouTube is unable to convert the video file.
-YouTubeinvalidFormat,The uploaded video is in an invalid file format.
-YouTubeunsupportedCodec,The video uses an unsupported codec.
-YouTubeempty,The uploaded file is empty.
-YouTubetooSmall,The uploaded file is too small.
+YouTubecopyright,The video commits a copyright infringement.,
+YouTubeinappropriate,The video contains inappropriate content.,
+YouTubeduplicate,The video is a duplicate of another uploaded video.,
+YouTubetermsOfUse,The video commits a terms of use violation.,
+YouTubesuspended,The account associated with the video has been suspended.,
+YouTubetooLong,The video exceeds the maximum duration of 10 minutes.,
+YouTubeblocked,The video has been blocked by the content owner.,
+YouTubecantProcess,YouTube is unable to convert the video file.,
+YouTubeinvalidFormat,The uploaded video is in an invalid file format.,
+YouTubeunsupportedCodec,The video uses an unsupported codec.,
+YouTubeempty,The uploaded file is empty.,
+YouTubetooSmall,The uploaded file is too small.,
 YouTubeVideoError,There was an unexpected error while uploading the video.,
 VideoGetVideosError,There was an error getting the list of videos.,
 VideoNetworkError,There was an error with the network connection.,
@@ -1119,7 +1164,7 @@ VideoRemoteProcessing,"{0} is processing your uploaded video.
 This might take a while.",{0} - Soapbox or Youtube
 VideoUrlConvertError,This video does not contain the video ID.  Please enter the embed for the video.,
 InsertImageDimensionsFormat,{0}x{1},"{0} - width, {1} - height.  Example: 800x600"
-InsertImageDimensionsFormatScaled,{0} (resized for preview in this window),"{0} - original dimensions"
+InsertImageDimensionsFormatScaled,{0} (resized for preview in this window),{0} - original dimensions
 TemporaryPostTitle,Temporary Post Used For Theme Detection ({0} - {1}),"{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E"
 TemporaryPostBody,This is a temporary post that was not deleted. Please delete this manually. ({0} - {1}),"{0} and {1} - a machine-readable value, for example, B8E2D78C-CD8C-4235-A77E-45F51248128E"
 Plugin_Video_Soapbox_Not_Logged_In,Not signed in,Shown when user is not currently logged in to Passport.
@@ -1135,7 +1180,7 @@ ToolbarFontStyleFontFamily,,The typeface that should be used to render the Bold
 Plugin_Video_Publish_Message,Waiting for videos to finish publishing,
 VideoError,Error Publishing Video,
 VideoErrorTryAgain,Please remove the video and try to publish again.,
-Plugin_Video_Publish_Filename_Seperator,_,In English people often use _ to separate words in a file name.  For example I might name a video file My_Birthday_Party.wmv.  We will use this string to replace the char with a space.  If this can't be applied to a certain language, then simple make it an empty string and it will be ignored.
+Plugin_Video_Publish_Filename_Seperator,_,In English people often use _ to separate words in a file name.  For example I might name a video file My_Birthday_Party.wmv.  We will use this string to replace the char with a space.  If this can't be applied to a certain language
 Plugin_Video_Soapbox_Publish_Video_Open_File,Open Video File,
 Plugin_Video_Soapbox_Publish_Video_File,Video &File:,
 Plugin_Video_Soapbox_Publish_Title,&Title:,
@@ -1184,51 +1229,13 @@ ShowLogFile,Show log file,Appears in Help | About dialog
 ChangeTextStyle,Change Text Style,Tooltip for style switcher in editing toolbar
 Plugin_Video_Soapbox_LoggingIn,Signing in...,Status message shown during login process
 Plugin_Video_Alt_Text,Video,Alt text in image tag when inserting a video
-Plugin_Video_Soapbox_Total_Videos,(of {0}),"used in pagination ie ""Videos 1 - 10 (of 12)"" this is the part in the paren. With the {0} being the number of videos."
+Plugin_Video_Soapbox_Total_Videos,(of {0}),used in pagination ie "Videos 1 - 10 (of 12)" this is the part in the paren. With the {0} being the number of videos.
 Plugin_Video_Editor_Caption,Caption:,Caption for video
 Plugin_Video_Caption_Size,.8em,"The size of the font used for the video caption feature. Only localize if the font size must be changed. Use format number.em (i.e. 1em, .9em, etc..)"
 SplitterMore,More...,
 Plugin_Video_Provider_Select,Select Video Provider,Accessible name for video provider service (Soapbox or YouTube Videos)
 DictionaryLanguageLabel,Dictionary &language:,
 DictionaryLanguageNone,(None),
-DictionaryLanguageEnglishUS,English (United States),
-DictionaryLanguageEnglishUK,English (United Kingdom),
-DictionaryLanguageEnglishCanada,English (Canada),
-DictionaryLanguageEnglishAustralia,English (Australia),
-DictionaryLanguageSpanish,Spanish,
-DictionaryLanguageGerman,German,
-DictionaryLanguageGermanReform,German (Reform),
-DictionaryLanguageFrench,French,
-DictionaryLanguageKorean,Korean,
-DictionaryLanguageItalian,Italian,
-DictionaryLanguageDutch,Dutch,
-DictionaryLanguagePortugueseBrazil,Portuguese (Brazil),
-DictionaryLanguageTurkish,Turkish,
-DictionaryLanguageArabic,Arabic,
-DictionaryLanguageBulgarian,Bulgarian,
-DictionaryLanguageCatalan,Catalan,
-DictionaryLanguageCzech,Czech,
-DictionaryLanguageGreek,Greek,
-DictionaryLanguageEstonian,Estonian,
-DictionaryLanguageBasque,Basque,
-DictionaryLanguageFinnish,Finnish,
-DictionaryLanguageHebrew,Hebrew,
-DictionaryLanguageCroatian,Croatian,
-DictionaryLanguageHungarian,Hungarian,
-DictionaryLanguageIndonesian,Indonesian,
-DictionaryLanguageLithuanian,Lithuanian,
-DictionaryLanguageLatvian,Latvian,
-DictionaryLanguageMalay,Malay,
-DictionaryLanguagePolish,Polish,
-DictionaryLanguagePortuguese,Portuguese,
-DictionaryLanguageRomanian,Romanian,
-DictionaryLanguageRussian,Russian,
-DictionaryLanguageSlovak,Slovak,
-DictionaryLanguageSlovenian,Slovenian,
-DictionaryLanguageSerbianLatin,Serbian (Latin),
-DictionaryLanguageSerbianCyrillic,Serbian (Cyrillic),
-DictionaryLanguageSwedish,Swedish,
-DictionaryLanguageUkrainian,Ukrainian,
 CapabilityCategoryScheme,Category Scheme,
 Plugin_Video_Copyright_Notice,Please respect copyright,"Text shown on insert video dialog to remind users of copyright responsibilities. For some markets, will be linked."
 SwitchWeblogs,Switch to Blog,
@@ -1243,14 +1250,14 @@ SendingPing,Sending ping,
 SendingPings,Sending pings,
 GlossaryAutomaticallyLink,A&utomatically link matched terms,
 GlossaryAutomaticallyLinkFirstTime,Li&nk to each term only once per post,
-GlossaryAutomaticLinkOptions,"Automatic linking options",
-GlossaryExampleTitle,"Open Live Writer site",This is used in the link glossary as the title of our example link- may not need to be localized
+GlossaryAutomaticLinkOptions,Automatic linking options,
+GlossaryExampleTitle,Open Live Writer site,This is used in the link glossary as the title of our example link- may not need to be localized
 AutoreplaceTypographic,Replace h&yphens (--) with dash (—),
-AutoreplacePrefererencesPanel,Auto Replace,"Currently not in use- do not localize"
+AutoreplacePrefererencesPanel,Auto Replace,Currently not in use- do not localize
 AutoreplaceSmartQuotes,Replace "straight quotes" with “smart &quotes”,
 AutoreplaceOtherChars,Re&place other special characters,
-AutoreplaceFormTitle,Auto Replace,"Currently not in use- do not localize"
-AutoreplaceWordorPhrase,Word or phrase:,"Currently not in use- do not localize"
+AutoreplaceFormTitle,Auto Replace,Currently not in use- do not localize
+AutoreplaceWordorPhrase,Word or phrase:,Currently not in use- do not localize
 AutoreplaceReplacementValue,Replacement value:,'"Currently not in use- do not localize"
 AutoreplaceEmoticons,Replace text &emoticons with emoticon graphics,
 WordCount,Words,{0} - The number of words in any given text.
@@ -1274,40 +1281,40 @@ CropAspect35x5,3.5x5,
 CropAspectSquare,Square,
 CropDialogTitle,Crop,
 WatermarkDialogTitle,Watermark,
-AltTextEditorTitle,Alt-text,Title of the HTML image alternate text dialog,
+AltTextEditorTitle,Alt-text,Title of the HTML image alternate text dialog
 CropAspectRatioLabel,&Proportion:,
 CropRotateFrame,Rotate &Frame,Command to rotate by 90 degrees the frame that indicates the cropping area
 CropRemoveCrop,&Remove Crop,Remove the crop that is currently applied to the image
 CropShowGridlines,Show &Grid,Checkbox to show two horizontal and two vertical lines within the cropping rectangle
-ImageViewerDisplayFormatSingle,Using {0},"{0} - the name of the image viewer (e.g. Lightbox)"
+ImageViewerDisplayFormatSingle,Using {0},{0} - the name of the image viewer (e.g. Lightbox)
 ImageViewerDisplayFormatGroup,Using {0} [{1}],"{0} - the name of the image viewer (e.g. Lightbox), {1} - the name of the group. For example, ""Lightbox [Ski Trip]""."
 ImageViewerLabel,&Enable {0},{0} - the name of the image viewer (e.g. Lightbox)
 ImageViewerGroupLabel,&Group (optional):,A Group is a label that allows multiple images to be grouped into a set
 PrivacyPreferencesPanelName,Trust Center,
-PrivacyPreferencesPrivacyExplanation,"Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:","Three links follow the colon: Microsoft Privacy statement, Microsoft service agreement and Code of Conduct",
-PrivacyPreferencesPrivacyStatement,".NET Foundation Privacy Policy",
-PrivacyPreferencesCodeOfConduct,".NET Foundation Contributor Code of Conduct",
-TiltEditorTitle,"Tilt",
-TiltEditorLabel,"&Tilt:",
-MethodNotImplemented,"Method Not Implemented",Title of plug-in error dialog
+PrivacyPreferencesPrivacyExplanation,"Your privacy is important. For more information about how Open Live Writer helps to protect it, see the:","Three links follow the colon: Privacy statement, service agreement and Code of Conduct"
+PrivacyPreferencesPrivacyStatement,.NET Foundation Privacy Policy,
+PrivacyPreferencesCodeOfConduct,.NET Foundation Contributor Code of Conduct,
+TiltEditorTitle,Tilt,
+TiltEditorLabel,&Tilt:,
+MethodNotImplemented,Method Not Implemented,Title of plug-in error dialog
 MethodNotImplementedDetail,"An installed plugin is incorrectly implemented and has caused an error. You may be able to contact the plugin's publisher below to resolve this issue. Alternatively, you may avoid this error in the future by uninstalling the plugin mentioned below.
 Name: {0}
 
 Publisher: {1}
 
 Unimplemented Method: {2}",More detailed header in plug-in error dialog
-UpdatesAvailableTitle,"New Version Available",
-UpdatesAvailableTitlePrerelease,"New Pre-Release Version Available",
-UpdatesAvailableMessagePrerelease,"A new pre-release version of {0} is now available. Click the download now button to download and install the update.",{0} will be replaced with the product name (i.e. Open Live Writer)
-UpdatesAvailableMessageFull,"A new version of {0} is now available. Click the download now button to download and install the update.",{0} will be replaced with the product name (i.e. Open Live Writer)
-UpdatesAvailableLink,"More information",
-UpdatesAvailableNotify,"&Automatically check for updates",
-UpdatesAvailableNofifyBeta,"Also check for pre-release (beta) &versions",
+UpdatesAvailableTitle,New Version Available,
+UpdatesAvailableTitlePrerelease,New Pre-Release Version Available,
+UpdatesAvailableMessagePrerelease,A new pre-release version of {0} is now available. Click the download now button to download and install the update.,{0} will be replaced with the product name (i.e. Open Live Writer)
+UpdatesAvailableMessageFull,A new version of {0} is now available. Click the download now button to download and install the update.,{0} will be replaced with the product name (i.e. Open Live Writer)
+UpdatesAvailableLink,More information,
+UpdatesAvailableNotify,&Automatically check for updates,
+UpdatesAvailableNofifyBeta,Also check for pre-release (beta) &versions,
 UpdatesAvailableDownloadButton,&Download Now,Text displayed on download button
 UpdatesAvailableAskLaterButton,A&sk Me Later,Text displayed on ask me later button
 UpdatesAvailableNoUpdateTitle,No Updates Available,
 UpdatesAvailableChecking,Checking for updates,Displayed in progress dialog while user manually checks for updates
-UpdatesAvailableNoUpdateText,There are no updates available. You are running the latest version of {0}.,"{0} will be replaced with the product name"
+UpdatesAvailableNoUpdateText,There are no updates available. You are running the latest version of {0}.,{0} will be replaced with the product name
 BlogPluginsDescription,"Select which plug-ins you want to use, and change the order in which they start.",From the Weblog | Edit Weblog Settings | Plugins preferences panel
 MoveUp,Move &Up,From the Weblog | Edit Blog Settings | Plugins preferences panel
 MoveDown,Move &Down,From the Weblog | Edit Blog Settings | Plugins preferences panel
@@ -1319,9 +1326,9 @@ PPCRL_REQUEST_E_PASSWORD_LOCKED_OUT,The user account has been blocked.,
 PPCRL_REQUEST_E_CLIENT_DEPRECATED,The client issuing this request is no longer supported by the login server. Please upgrade to a newer version.,
 PPCRL_REQUEST_E_CANCELLED,The request was cancelled.,
 PPCRL_REQUEST_E_FORCE_SIGNIN,The authentication token has expired.,
-WatermarkDefaultFont,Arial,"The default font that should be selected in the watermark editor"
-DefaultTemplateBodyFont,"Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif",The font used for the post body when editing using no theme. Should be a comma separated list of HTML supported font names, e.g. Tahoma, Arial, Times New Roman.
-DefaultTemplateTitleFont,"Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif",The font used for the post title when editing using no theme. Should be a comma separated list of HTML supported font names, e.g. Tahoma, Arial, Times New Roman.
+WatermarkDefaultFont,Arial,The default font that should be selected in the watermark editor
+DefaultTemplateBodyFont,"Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif",The font used for the post body when editing using no theme. Should be a comma separated list of HTML supported font names
+DefaultTemplateTitleFont,"Calibri, Trebuchet MS, Helvetica, Arial, Sans-Serif",The font used for the post title when editing using no theme. Should be a comma separated list of HTML supported font names
 VideoFromVideoService,From Video Service,The name of the tab in the insert video dialog that allows users to insert soapbox or youtube videos.
 VideoCaptionMaxCharactersAccepted,245,The maximum number of characters allowed in the video caption edit field - Cannot be greater than 245
 VideoCaptionDefaultText,Enter video caption here,
@@ -1329,17 +1336,17 @@ MyVideos,My Videos,Videos uploaded by current user
 MyFavorites,My Favorites,Videos marked as favorites by current user
 ManageWeblog,Manage Blog,Displayed in the header of the default sidebar
 PhotoPreview,Inline Photo Previewer,
-PostPageFilter,Filter {0}, {0} - Posts or Pages
+PostPageFilter,Filter {0},{0} - Posts or Pages
 LiveIDPrivacy,Privacy policy,
 ForgotMyPassword,Forgot my password,
-BrowseForFile,Browse for file,Tooltip over the button in the insert video from file dialog that opens an Open File Dialog when clicked,
-BlogServiceNames,"TypePad and more",
+BrowseForFile,Browse for file,Tooltip over the button in the insert video from file dialog that opens an Open File Dialog when clicked
+BlogServiceNames,TypePad and more,
 FindCategory,Find category,
-Alignment,Alignment,Tooltip for image alignment dropdown,
+Alignment,Alignment,Tooltip for image alignment dropdown
 CropPane,Image crop pane,
-PostCountAccessible,Number of posts,Accessible name for a combo box in the Open Post form that lets the user filter how many posts they want to show up in the search,
+PostCountAccessible,Number of posts,Accessible name for a combo box in the Open Post form that lets the user filter how many posts they want to show up in the search
 ColorPickerColor,Color,
-CategoryParentAccessible,Category parent,Accessible name for a combo box that lets you choose the parent category for a new blog category,
+CategoryParentAccessible,Category parent,Accessible name for a combo box that lets you choose the parent category for a new blog category
 MaxSmHeight,Maximum small height,
 MaxMdHeight,Maximum medium height,
 MaxLgHeight,Maximum large height,
@@ -1348,7 +1355,7 @@ MaxMdWidth,Maximum medium width,
 MaxLgWidth,Maximum large width,
 WatermarkDefaultText,© {0:yyyy},{0} - Year.  This string can be blank.  THis is the default text in the watermark textbox when the image has no watermark
 AutoRecoverDialogInstruction,Recover unsaved changes?,
-AutoRecoverDialogContent,"{0} did not shut down properly the last time you used it. Unsaved changes are available for recovery. Would you like to recover these changes now?",{0} - Open Live Writer
+AutoRecoverDialogContent,{0} did not shut down properly the last time you used it. Unsaved changes are available for recovery. Would you like to recover these changes now?,{0} - Open Live Writer
 AutoRecoverDialogButtonRecover,&Recover changes now (recommended),
 AutoRecoverDialogButtonDiscard,&Discard changes permanently,
 AutoRecoverDialogButtonAskLater,&Ask me later,
@@ -1356,7 +1363,78 @@ Selected,Selected,Used for the Accessible Value of the currently selected view s
 CopyrightInformation,Copyright Information,This is the string that will be read by screen reader to announce the copyright legal information on the about dialog.
 ViewAll,View all,shows the full list of options
 SeeSolutionOnline,See the solution online,Dialog box that gives an error while signing in to Live ID. This string prompts user to go online to resolve the problem.
-CantSignIn,Can't sign in because an error occurred
-TheErrorOccuredBecause,The error occurred for the following reason:
-RetrySignin,"After you go through the solution, try signing in again."
-GenericLoginError,Unable to login to Live ID.
+CantSignIn,Can't sign in because an error occurred,
+TheErrorOccuredBecause,The error occurred for the following reason:,
+RetrySignin,"After you go through the solution, try signing in again.",
+GenericLoginError,Unable to login to Live ID.,
+SSGErrorPostDoesNotExistTitle,Post does not exist,
+SSGErrorPostDoesNotExistText,Could not find post with specified ID.,
+SSGErrorPageDoesNotExistTitle,Page does not exist,
+SSGErrorPageDoesNotExistText,Could not find page with specified ID.,
+SSGErrorCommandTimeoutTitle,Command execution timeout,
+SSGErrorCommandTimeoutText,"Blog command timed out. Please check your commands, or lengthen the command timeout.",
+SSGErrorPathFolderNotFound,Folder not found,
+SSGErrorPathLocalSitePathNotFound,Local site path '{0}' does not exist.,{0} - attempted local site path
+SSGErrorPathPostsEmpty,Posts path is empty.,
+SSGErrorPathPostsNotFound,Posts path '{0}' does not exist.,{0} - attempted posts path
+SSGErrorPathPagesEmpty,Pages path is empty.,
+SSGErrorPathPagesNotFound,Pages path '{0}' does not exist.,{0} - attempted pages path
+SSGErrorPathDraftsEmpty,Drafts path is empty.,
+SSGErrorPathDraftsNotFound,Drafts path '{0}' does not exist.,{0} - attempted drafts path
+SSGErrorPathImagesEmpty,Images path is empty.,
+SSGErrorPathImagesNotFound,Images path '{0}' does not exist.,{0} - attempted images path
+SSGErrorPathOutputEmpty,Output path is empty.,
+SSGErrorPathOutputNotFound,Output path '{0}' does not exist.,{0} - attempted output path
+SSGErrorBuildCommandEmptyTitle,Build command empty,
+SSGErrorBuildCommandEmptyText,A build command is required when local site building is enabled.,
+SSGErrorPublishCommandEmptyTitle,Publish command empty,
+SSGErrorPublishCommandEmptyText,A publish command is required.,
+SSGErrorItemLoadTitle,Item load error,
+SSGErrorItemLoadTextFM,Could not read item front matter.,
+SSGErrorItemLoadTextId,Item does not have an ID.,
+SSGFrontMatterId,ID,
+SSGFrontMatterTitle,Title,
+SSGFrontMatterDate,Date,
+SSGFrontMatterLayout,Layout,
+SSGFrontMatterTags,Tags,
+SSGFrontMatterPermalink,Permalink,
+SSGFrontMatterParentId,Parent ID,
+SSGConfigTitle,Static Site Configuration for '{0}',{0} - title of blog
+SSGConfigGeneralTitle,General,
+SSGConfigGeneralSetupGroup,Setup,
+SSGConfigGeneralSiteTitle,Site &Title:,
+SSGConfigGeneralSiteUrl,Site &URL:,
+SSGConfigGeneralLocalSitePath,&Local Site Path:,
+SSGConfigGeneralOptionsGroup,Options,
+SSGConfigGeneralWizardLabel,You can choose to run the Account Wizard again if you wish to be guided through the core static site configuration options interactively.,
+SSGConfigGeneralWizardButton,Run Account &Wizard,
+SSGConfigGeneralDetectLabel,"Open Live Writer can also reattempt to detect relevant configuration options for your static site. This may not result in a complete configuration, so please use the fields on the following pages to ensure all settings are set correctly.",
+SSGConfigGeneralDetectButton,Run Auto-&Detect,
+SSGConfigAuthoringTitle,Authoring,
+SSGConfigAuthoringPostsDraftsGroup,Posts and Drafts,
+SSGConfigAuthoringPostsPath,&Posts Path: (relative),
+SSGConfigAuthoringEnableDrafts,Enable &Drafts,
+SSGConfigAuthoringDraftsPath,Drafts Path: (relative),
+SSGConfigAuthoringPagesGroup,Pages,
+SSGConfigAuthoringEnablePages,Enable P&ages,
+SSGConfigAuthoringPagesPath,Pages Path: (relative),
+SSGConfigAuthoringPagesInRoot,Pages Stored In Project Root,
+SSGConfigAuthoringImagesGroup,Images,
+SSGConfigAuthoringEnableImages,Enable &Images,
+SSGConfigAuthoringImagesPath,Images Path: (relative),
+SSGConfigFrontMatterTitle,Front Matter,
+SSGConfigFrontMatterSubtitle,Below you can adjust the post front matter keys used to match your static site generator.,
+SSGConfigFrontMatterPropertyCol,Property,
+SSGConfigFrontMatterKeyCol,Front Matter Key,
+SSGConfigFrontMatterReset,&Reset to Defaults,
+SSGConfigBuildPublishTitle,Building and Publishing,
+SSGConfigBuildPublishGeneralGroup,General,
+SSGConfigBuildPublishShowCmdWindows,&Show Command Windows,
+SSGConfigBuildPublishEnableCmdTimeout,&Enable Command Timeout,
+SSGConfigBuildPublishCmdTimeout,&Command Timeout (ms):,
+SSGConfigBuildPublishBuildingGroup,Building,
+SSGConfigBuildPublishEnableBuilding,Enable &Building,
+SSGConfigBuildPublishBuildCommand,Build Command:,
+SSGConfigBuildPublishOutputPath,Site Output Path: (relative),
+SSGConfigBuildPublishPublishingGroup,Publishing,
+SSGConfigBuildPublishPublishCommand,&Publish Command:,

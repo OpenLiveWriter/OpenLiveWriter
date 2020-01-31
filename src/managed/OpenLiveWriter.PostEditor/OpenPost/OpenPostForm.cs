@@ -73,12 +73,25 @@ namespace OpenLiveWriter.PostEditor.OpenPost
             textBoxFilter.KeyDown += new KeyEventHandler(textBoxFilter_KeyDown);
             textBoxFilter.EnabledChanged += new EventHandler(textBoxFilter_EnabledChanged);
 
+            KeyPreview = true;
+            KeyDown += new KeyEventHandler(openPostForm_KeyDown);
+
             filterPictureBox.Image = ResourceHelper.LoadAssemblyResourceBitmap("PostPropertyEditing.CategoryControl.Images.Search.png");
             filterPictureBox.BackColor = SystemColors.Window;
             filterPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             filterPictureBox.BringToFront();
 
             comboBoxPosts.AccessibleName = Res.Get(StringId.PostCountAccessible);
+        }
+
+        void openPostForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Control.ModifierKeys & Keys.Alt) == Keys.Alt && e.KeyCode == Keys.S)
+            {
+                ActiveControl = comboBoxPosts;
+                comboBoxPosts.DroppedDown = true;
+                e.SuppressKeyPress = true;
+            }
         }
 
         void textBoxFilter_EnabledChanged(object sender, EventArgs e)

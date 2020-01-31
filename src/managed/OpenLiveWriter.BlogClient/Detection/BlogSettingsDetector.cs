@@ -166,9 +166,11 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         public object DetectSettings(IProgressHost progressHost)
         {
+            var canRemoteDetect = CreateBlogClient().RemoteDetectionPossible;
+
             using (_silentMode ? new BlogClientUIContextSilentMode() : null)
             {
-                if (IncludeButtons || IncludeOptionOverrides || IncludeImages)
+                if ((IncludeButtons || IncludeOptionOverrides || IncludeImages) && canRemoteDetect)
                 {
                     using (new ProgressContext(progressHost, 40, Res.Get(StringId.ProgressDetectingWeblogSettings)))
                     {
@@ -212,7 +214,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
                 using (new ProgressContext(progressHost, 40, Res.Get(StringId.ProgressDetectingWeblogCharSet)))
                 {
-                    if (IncludeOptionOverrides && IncludeHomePageSettings)
+                    if (IncludeOptionOverrides && IncludeHomePageSettings && canRemoteDetect)
                     {
                         DetectHomePageSettings();
                     }
@@ -245,7 +247,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
                     // detect favicon (only if requested AND we don't have a PNG already
                     // for the small image size)
-                    if (IncludeFavIcon)
+                    if (IncludeFavIcon && canRemoteDetect)
                     {
                         using (new ProgressContext(progressHost, 10, Res.Get(StringId.ProgressDetectingWeblogIcon)))
                         {

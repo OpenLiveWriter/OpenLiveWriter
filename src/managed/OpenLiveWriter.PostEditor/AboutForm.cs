@@ -51,6 +51,7 @@ namespace OpenLiveWriter.PostEditor
             "Splat (MIT) Copyright © 2013 Paul Betts \nhttps://github.com/paulcbetts/splat/",
             "Squirrel.Windows (MIT) Copyright © 2012 GitHub, Inc. \nhttps://github.com/squirrel/squirrel.windows",
             "zlib-1.1.3 Copyright (C) 1995-2004 Jean-loup Gailly and Mark Adler",
+            "YamlDotNet (MIT) Copyright © 2008-2014 Antoine Aubry and contributors. \nhttps://github.com/aaubry/YamlDotNet/",
         };
 
         public AboutForm()

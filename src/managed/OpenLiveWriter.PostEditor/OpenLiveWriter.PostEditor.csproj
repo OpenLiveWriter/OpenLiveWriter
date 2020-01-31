@@ -28,23 +28,23 @@
       <HintPath>..\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.PatchApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Google.Apis, Version=1.21.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.21.0\lib\net45\Google.Apis.dll</HintPath>
+    <Reference Include="Google.Apis, Version=1.39.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.39.0\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.21.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.21.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+    <Reference Include="Google.Apis.Auth, Version=1.39.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.39.0\lib\net45\Google.Apis.Auth.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.21.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.21.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.39.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.39.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis.Blogger.v3, Version=1.21.0.111, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.Blogger.v3.1.21.0.111\lib\net45\Google.Apis.Blogger.v3.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.21.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Core.1.21.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    <Reference Include="Google.Apis.Core, Version=1.39.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.39.0\lib\net45\Google.Apis.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.PlatformServices, Version=1.21.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.21.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.39.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.39.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\squirrel.windows.1.4.4\lib\Net45\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -78,9 +78,8 @@
       <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NuGet.Squirrel, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\squirrel.windows.1.4.4\lib\Net45\NuGet.Squirrel.dll</HintPath>
@@ -290,6 +289,25 @@
     <Compile Include="Configuration\Settings\WeblogSettingsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Configuration\StaticSiteAdvanced\FrontMatterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\StaticSiteAdvanced\AuthoringPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\StaticSiteAdvanced\BuildPublishPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\StaticSiteAdvanced\GeneralPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\StaticSiteAdvanced\StaticSitePreferencesController.cs" />
+    <Compile Include="Configuration\StaticSiteAdvanced\StaticSitePreferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration\StaticSiteAdvanced\StaticSitePreferencesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Configuration\TemporaryBlogSettings.cs" />
     <Compile Include="Configuration\Wizard\BlogProviderAccountWizard.cs" />
     <Compile Include="Configuration\Wizard\WeblogConfigurationWizard.cs">
@@ -303,6 +321,21 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelAutoDetection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteFeatures.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteCommands.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSitePaths2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSitePaths1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteInitial.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Configuration\Wizard\WeblogConfigurationWizardPanelBasicInfo.cs">
@@ -465,6 +498,11 @@
     </Compile>
     <Compile Include="ContentSources\IPublishTimeWorker.cs" />
     <Compile Include="ContentSources\SmartContentWorker.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SmartContentPersistedFileList.cs" />
     <Compile Include="PingPreferencesPanel.cs">
       <SubType>UserControl</SubType>
@@ -1019,6 +1057,22 @@
       <DependentUpon>WeblogSettingsPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\StaticSiteAdvanced\FrontMatterPanel.resx">
+      <DependentUpon>FrontMatterPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\StaticSiteAdvanced\AuthoringPanel.resx">
+      <DependentUpon>AuthoringPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\StaticSiteAdvanced\BuildPublishPanel.resx">
+      <DependentUpon>BuildPublishPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\StaticSiteAdvanced\GeneralPanel.resx">
+      <DependentUpon>GeneralPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Wizard\Images\LiveID16.gif" />
     <EmbeddedResource Include="Configuration\Wizard\Images\WeblogWizardHeader.png" />
     <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizard.resx">
@@ -1035,6 +1089,26 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelAutoDetection.resx">
       <DependentUpon>WeblogConfigurationWizardPanelAutoDetection.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteFeatures.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelStaticSiteFeatures.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteCommands.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelStaticSiteCommands.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSitePaths2.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelStaticSitePaths2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSitePaths1.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelStaticSitePaths1.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelStaticSiteInitial.resx">
+      <DependentUpon>WeblogConfigurationWizardPanelStaticSiteInitial.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuration\Wizard\WeblogConfigurationWizardPanelBasicInfo.resx">
@@ -1447,6 +1521,10 @@
     <EmbeddedResource Include="PrivacyPreferencesPanel.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PrivacyPreferencesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="RecentPostNotSynchronizedWarningForm.resx">
       <DependentUpon>RecentPostNotSynchronizedWarningForm.cs</DependentUpon>

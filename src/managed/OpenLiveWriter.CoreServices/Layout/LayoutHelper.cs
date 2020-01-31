@@ -37,6 +37,16 @@ namespace OpenLiveWriter.CoreServices.Layout
             groupBox.Height = ((Control)childControls[childControls.Count - 1]).Bottom + 12;
         }
 
+
+        /// <summary>
+        /// Naturalizes height, then distributes vertically ACCORDING TO THE ORDER YOU PASSED THEM IN, with no DPI scaling
+        /// </summary>
+        public static void NaturalizeHeightAndDistributeNoScale(int pixelsBetween, params object[] controls)
+        {
+            NaturalizeHeight(controls);
+            DistributeVertically(pixelsBetween, false, false, controls);
+        }
+
         /// <summary>
         /// Naturalizes height, then distributes vertically ACCORDING TO THEIR Y COORDINATE
         /// </summary>
@@ -54,6 +64,15 @@ namespace OpenLiveWriter.CoreServices.Layout
         {
             NaturalizeHeight(controls);
             DistributeVertically(pixelsBetween, false, controls);
+        }
+
+        /// <summary>
+        /// Naturalizes height, then distributes vertically ACCORDING TO THE ORDER YOU PASSED THEM IN
+        /// </summary>
+        public static void NaturalizeHeightAndDistribute(int pixelsBetween, bool scaleForDisplay, params object[] controls)
+        {
+            NaturalizeHeight(controls);
+            DistributeVertically(pixelsBetween, false, scaleForDisplay, controls);
         }
 
         /// <param name="controls">Objects of type Control or ControlGroup</param>
@@ -122,12 +141,56 @@ namespace OpenLiveWriter.CoreServices.Layout
             }
         }
 
+        /// <summary>
+        /// Space out a set of controls down the Y axis with no DPI scaling
+        /// </summary>
+        /// <param name="pixelsBetween">Amount of pixels between each control</param>
+        /// <param name="controls">The controls to distribute</param>
+        public static void DistributeVerticallyNoScale(int pixelsBetween, params object[] controls)
+        {
+            DistributeVertically(pixelsBetween, false, false, controls);
+        }
+
+        /// <summary>
+        /// Space out a set of controls down the Y axis with no DPI scaling
+        /// </summary>
+        /// <param name="pixelsBetween">Amount of pixels between each control</param>
+        /// <param name="sortByVerticalPosition">If true, controls are sorted by their vertical position before distribution</param>
+        /// <param name="controls">The controls to distribute</param>
+        public static void DistributeVerticallyNoScale(int pixelsBetween, bool sortByVerticalPosition, params object[] controls)
+        {
+            DistributeVertically(pixelsBetween, sortByVerticalPosition, false, controls);
+        }
+
+        /// <summary>
+        /// Space out a set of controls down the Y axis
+        /// </summary>
+        /// <param name="pixelsBetween">Amount of pixels between each control</param>
+        /// <param name="controls">The controls to distribute</param>
         public static void DistributeVertically(int pixelsBetween, params object[] controls)
         {
             DistributeVertically(pixelsBetween, false, controls);
         }
 
+        /// <summary>
+        /// Space out a set of controls down the Y axis
+        /// </summary>
+        /// <param name="pixelsBetween">Amount of pixels between each control</param>
+        /// <param name="sortByVerticalPosition">If true, controls are sorted by their vertical position before distribution</param>
+        /// <param name="controls">The controls to distribute</param>
         public static void DistributeVertically(int pixelsBetween, bool sortByVerticalPosition, params object[] controls)
+        {
+            DistributeVertically(pixelsBetween, sortByVerticalPosition, true, controls);
+        }
+
+        /// <summary>
+        /// Space out a set of controls down the Y axis
+        /// </summary>
+        /// <param name="pixelsBetween">Amount of pixels between each control</param>
+        /// <param name="sortByVerticalPosition">If true, controls are sorted by their vertical position before distribution</param>
+        /// <param name="scaleForDisplay">If true, spacing is scaled to match display scaling factor</param>
+        /// <param name="controls">The controls to distribute</param>
+        public static void DistributeVertically(int pixelsBetween, bool sortByVerticalPosition, bool scaleForDisplay, params object[] controls)
         {
             if (controls.Length < 2)
                 return;
@@ -140,7 +203,8 @@ namespace OpenLiveWriter.CoreServices.Layout
             #endif
             */
 
-            pixelsBetween = Ceil(DisplayHelper.ScaleY(pixelsBetween));
+            if(scaleForDisplay) pixelsBetween = Ceil(DisplayHelper.ScaleY(pixelsBetween));
+
             if (sortByVerticalPosition)
                 Array.Sort(controls, new SortByVerticalPosition());
             int pos = ControlAdapter.Create(controls[0]).Bottom + pixelsBetween;
@@ -155,7 +219,33 @@ namespace OpenLiveWriter.CoreServices.Layout
             }
         }
 
+        /// <summary>
+        /// Space out a set of controls down the X axis with no DPI scaling
+        /// </summary>
+        /// <param name="pixelsBetween">Amount of pixels between each control</param>
+        /// <param name="controls">The controls to distribute</param>
+        public static void DistributeHorizontallyNoScale(int pixelsBetween, params object[] controls)
+        {
+            DistributeHorizontally(pixelsBetween, false, controls);
+        }
+
+        /// <summary>
+        /// Space out a set of controls down the X axis
+        /// </summary>
+        /// <param name="pixelsBetween">Amount of pixels between each control</param>
+        /// <param name="controls">The controls to distribute</param>
         public static void DistributeHorizontally(int pixelsBetween, params object[] controls)
+        {
+            DistributeHorizontally(pixelsBetween, true, controls);
+        }
+
+        /// <summary>
+        /// Space out a set of controls down the X axis
+        /// </summary>
+        /// <param name="pixelsBetween">Amount of pixels between each control</param>
+        /// <param name="scaleForDisplay">If true, spacing is scaled to match display scaling factor</param>
+        /// <param name="controls">The controls to distribute</param>
+        public static void DistributeHorizontally(int pixelsBetween, bool scaleForDisplay, params object[] controls)
         {
             if (controls.Length < 2)
                 return;
@@ -168,7 +258,7 @@ namespace OpenLiveWriter.CoreServices.Layout
             #endif
             */
 
-            pixelsBetween = Ceil(DisplayHelper.ScaleX(pixelsBetween));
+            if(scaleForDisplay) pixelsBetween = Ceil(DisplayHelper.ScaleX(pixelsBetween));
             Array.Sort(controls, new SortByHorizontalPosition());
             int pos = ControlAdapter.Create(controls[0]).Right + pixelsBetween;
             for (int i = 1; i < controls.Length; i++)

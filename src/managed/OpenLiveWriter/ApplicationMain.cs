@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -16,6 +17,8 @@ using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.PostEditor.JumpList;
+using OpenLiveWriter.PostEditor.Updates;
+using Squirrel;
 
 namespace OpenLiveWriter
 {
@@ -137,6 +140,9 @@ namespace OpenLiveWriter
 
                 InitializeApplicationEnvironment();
 
+                string downloadUrl = UpdateSettings.CheckForBetaUpdates ? UpdateSettings.BetaUpdateDownloadUrl : UpdateSettings.UpdateDownloadUrl;
+                RegisterSquirrelEventHandlers(downloadUrl);
+                
                 try
                 {
                     // TODO:OLW
@@ -162,8 +168,7 @@ namespace OpenLiveWriter
                         IDisposable splashScreen = null;
                         //	Show the splash screen.
                         SplashScreen splashScreenForm = new SplashScreen();
-                        splashScreenForm.Show();
-                        splashScreenForm.Update();
+                        splashScreenForm.ShowSplashScreen();
                         splashScreen = new FormSplashScreen(splashScreenForm);
 
                         LaunchFirstInstance(splashScreen, args);
@@ -189,6 +194,90 @@ namespace OpenLiveWriter
                 return LaunchAdditionalInstance(args);
             }
         }
+
+        /// <summary>
+        /// Registers functions to handle Squirrel's events.
+        /// </summary>
+        /// <param name="downloadUrl">The Url to use for downloading payloads.</param>
+        private static void RegisterSquirrelEventHandlers(string downloadUrl)
+        {
+            try
+            {
+                using (var mgr = new Squirrel.UpdateManager(downloadUrl))
+                {
+                    SquirrelAwareApp.HandleEvents(
+                        onInitialInstall: v => InitialInstall(mgr),
+                        onFirstRun: () => FirstRun(mgr),
+                        onAppUpdate: v => OnAppUpdate(mgr),
+                        onAppUninstall: v => OnAppUninstall(mgr));
+                }
+            }
+            catch (Exception)
+            {
+                // Ignore, chances are this is being run locally on a dev's machine
+            }
+        }
+
+        /// <summary>
+        /// Removes registry keys under HKCU/SOFTWARE/OpenLiveWriter and deletes the AppData and Roaming profiles.
+        /// </summary>
+        /// <param name="mgr">An instance of Squirrel.UpdateManager to be used as helper class.</param>
+        private static async void OnAppUninstall(IUpdateManager mgr)
+        {
+            await mgr.FullUninstall();
+            string OLWRegKey = @"SOFTWARE\OpenLiveWriter";
+            Registry.CurrentUser.DeleteSubKeyTree(OLWRegKey);
+            mgr.RemoveShortcutForThisExe();
+            mgr.RemoveUninstallerRegistryEntry();
+            Directory.Delete(ApplicationEnvironment.LocalApplicationDataDirectory, true);
+            Directory.Delete(ApplicationEnvironment.ApplicationDataDirectory, true);
+        }
+
+        private static async void OnAppUpdate(IUpdateManager mgr)
+        {
+            await mgr.UpdateApp();
+        }
+
+        private static void FirstRun(IUpdateManager mgr)
+        {
+            mgr.CreateShortcutForThisExe();
+        }
+
+        private static async void InitialInstall(Squirrel.UpdateManager mgr)
+        {
+            mgr.CreateShortcutForThisExe();
+            await mgr.CreateUninstallerRegistryEntry();
+            await mgr.FullInstall();
+
+            SetAssociation(".wpost", "OPEN_LIVE_WRITER", Application.ExecutablePath, "Open Live Writer post");
+        }
+
+        public static void SetAssociation(string extension, string keyName, string openWith, string fileDescription)
+        {
+            var baseKey = Registry.ClassesRoot.CreateSubKey(extension);
+            baseKey?.SetValue("", keyName);
+
+            var openMethod = Registry.ClassesRoot.CreateSubKey(keyName);
+            openMethod?.SetValue("", fileDescription);
+            openMethod?.CreateSubKey("DefaultIcon")?.SetValue("", "\"" + openWith + "\",0");
+            var shell = openMethod?.CreateSubKey("Shell");
+            shell?.CreateSubKey("edit")?.CreateSubKey("command")?.SetValue("", "\"" + openWith + "\"" + " \"%1\"");
+            shell?.CreateSubKey("open")?.CreateSubKey("command")?.SetValue("", "\"" + openWith + "\"" + " \"%1\"");
+            baseKey?.Close();
+            openMethod?.Close();
+            shell?.Close();
+
+            // Delete the key instead of trying to change it
+            var currentUser = Registry.CurrentUser.OpenSubKey($"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\{extension}", true);
+            currentUser?.DeleteSubKey("UserChoice", false);
+            currentUser?.Close();
+
+            // Tell explorer the file association has been changed
+            SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero);
+        }
+
+        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
         private static void InitializeApplicationEnvironment()
         {
@@ -234,23 +323,6 @@ namespace OpenLiveWriter
                     ApplicationLauncher.LaunchBloggingForm(args, splashScreen, true);
                 }
 
-                if (splashScreen != null)
-                {
-                    try
-                    {
-                        using (Form splashScreenForm = ((FormSplashScreen)splashScreen).Form)
-                        {
-                            if (splashScreenForm != null && !splashScreenForm.IsDisposed)
-                            {
-                                Application.Run(splashScreenForm);
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.Fail("Failed to show splash screen: " + e);
-                    }
-                }
                 ManualKeepalive.Wait(true);
             }
             catch (DirectoryException ex)

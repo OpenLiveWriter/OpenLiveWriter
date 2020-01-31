@@ -297,5 +297,13 @@ namespace OpenLiveWriter.CoreServices
             }
             return false;
         }
+
+        /// <summary>
+        /// Removes leading and trailing slashes on a path, if they exist.
+        /// </summary>
+        /// <param name="path">The path to process</param>
+        /// <returns></returns>
+        public static string RemoveLeadingAndTrailingSlash(string path)
+            => path.Trim(new char[] {'/', '\\'});
     }
 }

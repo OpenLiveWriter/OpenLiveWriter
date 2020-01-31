@@ -120,7 +120,6 @@ namespace OpenLiveWriter.CoreServices
             try
             {
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
                 //hack: For some reason, disabling auto-redirects also disables throwing WebExceptions for 300 status codes,
                 //so if we detect a non-2xx error code here, throw a web exception.
                 int statusCode = (int)response.StatusCode;
@@ -255,6 +254,13 @@ namespace OpenLiveWriter.CoreServices
             request.Accept = "*/*";
             ApplyLanguage(request);
 
+            // Temporary fix for Blogger photos issue
+            // Remove after March 15, 2019 as it will no longer be effective
+            if (request.RequestUri.Host.Contains("picasaweb.google.com"))
+            {
+                request.Headers["deprecation-extension"] = "true";
+            }
+
             int timeout = WebProxySettings.HttpRequestTimeout;
             request.Timeout = timeout;
             request.ReadWriteTimeout = timeout * 5;
@@ -274,7 +280,8 @@ namespace OpenLiveWriter.CoreServices
             //Warning: NTLM authentication requires keep-alive, so without adjusting this, NTLM-secured requests will always fail.
             request.KeepAlive = false;
             request.Pipelined = false;
-            request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.Reload);
+            // Bypass cache entirely - some blogs, specifically static blogs on GH pages, have very aggressive caching policies
+            request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
             return request;
         }
 

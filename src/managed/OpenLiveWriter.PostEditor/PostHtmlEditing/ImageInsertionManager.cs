@@ -416,7 +416,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                                 Trace.WriteLine("There is a problem with the image file: " + imagePath);
 
                                 // Insert anyway, MSHTML will show a red X in place of the image.
-                                htmlBuilder.AppendFormat(CultureInfo.InvariantCulture, "<img src=\"{0}\" />", HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(imgUri)));
+                                htmlBuilder.AppendFormat(CultureInfo.InvariantCulture, "<img src=\"{0}\" /><p>&nbsp;</p>", HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(imgUri)));
 
                                 continue;
                             }
@@ -436,7 +436,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                         //insert the default image html
                         String imageElementAttrs = String.Format(CultureInfo.InvariantCulture, " width=\"{0}\" height=\"{1}\"", imageSize.Width, imageSize.Height);
 
-                        htmlBuilder.AppendFormat(CultureInfo.InvariantCulture, "<img src=\"{0}\" srcDelay=\"{1}\" {2} />", HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(imageFileEmbeddedThumbnail.FileUri)), HtmlUtils.EscapeEntities(imgUri.ToString()), imageElementAttrs);
+                        htmlBuilder.AppendFormat(CultureInfo.InvariantCulture, "<img src=\"{0}\" srcDelay=\"{1}\" {2} /><p>&nbsp;</p>", HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(imageFileEmbeddedThumbnail.FileUri)), HtmlUtils.EscapeEntities(imgUri.ToString()), imageElementAttrs);
                     }
                     else if (currentEditor is BlogPostHtmlEditorControl && (imagePaths.Length > DELAYED_IMAGE_THRESHOLD || imageSize.Width * imageSize.Height > 16777216/*4096 X 4096*/))
                     {
@@ -449,7 +449,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                         //insert the default image html
                         String imageElementAttrs = imgUri.IsFile ? String.Format(CultureInfo.InvariantCulture, " width=\"{0}\" height=\"{1}\"", imageSize.Width, imageSize.Height) : String.Empty;
 
-                        htmlBuilder.AppendFormat(CultureInfo.InvariantCulture, "<img src=\"{0}\" {1} />", HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(imgUri)), imageElementAttrs);
+                        htmlBuilder.AppendFormat(CultureInfo.InvariantCulture, "<img src=\"{0}\" {1} /><p>&nbsp;</p>", HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(imgUri)), imageElementAttrs);
                     }
                 }
 
@@ -489,7 +489,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         public static string MakeHtmlForImageSourceDelay(string path)
         {
             return
-                String.Format(CultureInfo.InvariantCulture, "<img src=\"{1}\" srcDelay=\"{0}\" />", HtmlUtils.EscapeEntities(path), HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(LoadingImagePath)));
+                String.Format(CultureInfo.InvariantCulture, "<img src=\"{1}\" srcDelay=\"{0}\" /><p>&nbsp;</p>", HtmlUtils.EscapeEntities(path), HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(LoadingImagePath)));
         }
 
         internal static string ReferenceFixer(BeginTag tag, string reference, ISupportingFileService _fileService, OpenLiveWriter.PostEditor.ContentEditor editor)

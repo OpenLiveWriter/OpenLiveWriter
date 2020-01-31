@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Forms;
 using OpenLiveWriter.BlogClient;
+using OpenLiveWriter.BlogClient.Clients.StaticSite;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Controls.Wizard;
@@ -172,9 +173,15 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         {
             // first step conditional on blog type
             if (_temporarySettings.IsSharePointBlog)
+            {
                 AddSharePointBasicInfoSubStep(true);
-            else
+            } else if (_temporarySettings.IsStaticSiteBlog)
+            {
+                AddStaticSiteInitialSubStep();
+            } else
+            {
                 AddBasicInfoSubStep();
+            }
 
             AddConfirmationStep();
 
@@ -337,6 +344,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             // set the user's choice
             _temporarySettings.IsSharePointBlog = panelBlogType.IsSharePointBlog;
             _temporarySettings.IsGoogleBloggerBlog = panelBlogType.IsGoogleBloggerBlog;
+            _temporarySettings.IsStaticSiteBlog = panelBlogType.IsStaticSiteBlog;
 
             // did this bootstrap a custom account wizard?
             _providerAccountWizard = panelBlogType.ProviderAccountWizard;
@@ -349,6 +357,10 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
             else if (_temporarySettings.IsGoogleBloggerBlog)
             {
                 AddGoogleBloggerOAuthSubStep();
+            }
+            else if (_temporarySettings.IsStaticSiteBlog)
+            {
+                AddStaticSiteInitialSubStep();
             }
             else
             {
@@ -458,6 +470,217 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
                                                    new WizardController.BackCallback(OnSharePointAuthenticationBack)));
                 _authenticationStepAdded = true;
             }
+        }
+
+        #endregion
+
+        #region Static Site Generator support
+        private StaticSiteConfig staticSiteConfig;
+
+        private void AddStaticSiteInitialSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteInitial(),
+                null,
+                new DisplayCallback(OnStaticSiteInitialDisplayed),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
+                new NextCallback(OnStaticSiteInitialCompleted),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSiteInitialDisplayed(Object stepControl)
+        {
+            // Populate data
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteInitial);
+            // Load static config from credentials provided
+            staticSiteConfig = StaticSiteConfig.LoadConfigFromBlogSettings( _temporarySettings);
+            panel.LoadFromConfig(staticSiteConfig);
+        }
+
+        private void OnStaticSiteInitialCompleted(Object stepControl)
+        {
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteInitial);
+
+            // Fill blog settings
+            _temporarySettings.SetProvider(
+                StaticSiteClient.PROVIDER_ID, 
+                StaticSiteClient.SERVICE_NAME,
+                StaticSiteClient.POST_API_URL,
+                StaticSiteClient.CLIENT_TYPE
+                );
+
+            // Save config
+            panel.SaveToConfig(staticSiteConfig);
+
+            if(!staticSiteConfig.Initialised)
+            {
+                // Set initialised flag so detection isn't undertaken again
+                staticSiteConfig.Initialised = true;
+                // Attempt parameter detection
+                var detectionResult = StaticSiteConfigDetector.AttmeptAutoDetect(staticSiteConfig);
+                if (detectionResult)
+                {
+                    // Successful detection of parameters
+                    MessageBox.Show(
+                        string.Format(Res.Get(StringId.CWStaticSiteConfigDetection), Res.Get(StringId.ProductNameVersioned)),
+                        Res.Get(StringId.ProductNameVersioned),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+
+            // Go to next step
+            AddStaticSiteFeaturesSubStep();
+        }
+
+        private void AddStaticSitePaths1SubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths1(),
+                null,
+                new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
+                new NextCallback(OnStaticSitePaths1Completed),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSitePaths1Completed(Object stepControl)
+        {
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths1);
+
+            // Save panel values into config
+            panel.SaveToConfig(staticSiteConfig);
+
+            // Go to next step
+            AddStaticSitePaths2SubStep();
+        }
+
+        private void AddStaticSitePaths2SubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSitePaths2(),
+                null,
+                new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
+                new NextCallback(OnStaticSitePaths2Completed),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSitePaths2Completed(Object stepControl)
+        {
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSitePaths2);
+
+            // Save panel values into config
+            panel.SaveToConfig(staticSiteConfig);
+
+            // Go to next step
+            AddStaticSiteCommandsSubStep();
+        }
+
+        private void AddStaticSiteFeaturesSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteFeatures(),
+                null,
+                new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
+                new NextCallback(OnStaticSiteFeaturesCompleted),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSiteFeaturesCompleted(Object stepControl)
+        {
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteFeatures);
+
+            // Save panel values into config
+            panel.SaveToConfig(staticSiteConfig);
+
+            // Go to next step
+            AddStaticSitePaths1SubStep();
+        }
+
+        private void AddStaticSiteCommandsSubStep()
+        {
+            addWizardSubStep(
+                new WizardSubStep(new WeblogConfigurationWizardPanelStaticSiteCommands(),
+                null,
+                new DisplayCallback(OnStaticSiteConfigProviderDisplayed),
+                new VerifyStepCallback(OnStaticSiteValidatePanel),
+                new NextCallback(OnStaticSiteCommandsCompleted),
+                null,
+                new BackCallback(OnStaticSiteBack)));
+        }
+
+        private void OnStaticSiteCommandsCompleted(Object stepControl)
+        {
+            var panel = (stepControl as WeblogConfigurationWizardPanelStaticSiteCommands);
+
+            // Save panel values into config
+            panel.SaveToConfig(staticSiteConfig);
+
+            // Go to next step
+            PerformStaticSiteWizardCompletion();
+        }
+
+        private void OnStaticSiteBack(object step)
+        {
+            // Save panel values before going back
+            (step as IWizardPanelStaticSite).SaveToConfig(staticSiteConfig);
+        }
+
+        private bool OnStaticSiteValidatePanel(object step)
+        {
+            var newConfig = staticSiteConfig.Clone();
+            IWizardPanelStaticSite panel = step as IWizardPanelStaticSite;
+            panel.SaveToConfig(newConfig);
+
+            try
+            {
+                panel.ValidateWithConfig(newConfig);
+            } catch(StaticSiteConfigValidationException ex)
+            {
+                MessageBox.Show(ex.Text, ex.Title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void PerformStaticSiteWizardCompletion()
+        {
+            // Fill blog settings
+            _temporarySettings.SetProvider(
+                StaticSiteClient.PROVIDER_ID,
+                StaticSiteClient.SERVICE_NAME,
+                StaticSiteClient.POST_API_URL,
+                StaticSiteClient.CLIENT_TYPE
+                );
+
+            _temporarySettings.HomepageUrl = staticSiteConfig.SiteUrl;
+            _temporarySettings.BlogName = staticSiteConfig.SiteTitle;
+
+            // Fill config into credentials
+            staticSiteConfig.SaveToCredentials(_temporarySettings.Credentials);
+
+            // Perform auto-detection
+            addWizardSubStep(new WizardAutoDetectionStep(
+                (IBlogClientUIContext)this,
+                _temporarySettings, 
+                null,
+                new WizardSettingsAutoDetectionOperation(_editWithStyleStep)));
+        }
+
+        private void OnStaticSiteConfigProviderDisplayed(Object stepControl)
+        {
+            // Populate data
+            var panel = (stepControl as IWizardPanelStaticSite);
+
+            // Load panel values from config
+            panel.LoadFromConfig(staticSiteConfig);
         }
 
         #endregion
@@ -810,6 +1033,27 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         #endregion
 
+    }
+
+    internal interface IWizardPanelStaticSite
+    {
+        /// <summary>
+        /// Validate the relevant parts of the Static Site Config, raising an exception if the configuration is invalid.
+        /// </summary>
+        /// <param name="config">a StaticSiteConfig instance</param>
+        void ValidateWithConfig(StaticSiteConfig config);
+
+        /// <summary>
+        /// Saves panel form fields into a StaticSiteConfig
+        /// </summary>
+        /// <param name="config">a StaticSiteConfig instance</param>
+        void SaveToConfig(StaticSiteConfig config);
+
+        /// <summary>
+        /// Loads panel form fields from a StaticSiteConfig
+        /// </summary>
+        /// <param name="config">a StaticSiteConfig instance</param>
+        void LoadFromConfig(StaticSiteConfig config);
     }
 
     internal interface IAccountBasicInfoProvider

@@ -1,0 +1,2 @@
+@echo Building Strings resource and StringId enum from Strings.csv
+src\managed\bin\Debug\i386\Writer\locutil.exe /s:src\managed\OpenLiveWriter.Localization\Strings.csv /senum:src\managed\OpenLiveWriter.Localization\StringId.cs /strings:src\managed\OpenLiveWriter.Localization\Strings.resx /props:src\managed\OpenLiveWriter.Localization\Properties.resx /propsnonloc:src\managed\OpenLiveWriter.Localization\PropertiesNonLoc.resx

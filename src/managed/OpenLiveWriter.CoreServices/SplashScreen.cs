@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
+using System.Diagnostics;
+using System.Drawing.Drawing2D;
+using OpenLiveWriter.CoreServices.Layout;
 
 namespace OpenLiveWriter.CoreServices
 {
@@ -22,12 +25,14 @@ namespace OpenLiveWriter.CoreServices
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
+        private Label labelStatus;
+        private Bitmap _logoBitmap;
+        private PictureBox pictureBoxLogo;
+        private Bitmap _fdnLogoBitmap;
+        private PictureBox pictureBoxFdnLogo;
+        private System.Windows.Forms.Timer timerAnimation;
 
-        /// <summary>
-        /// Background image
-        /// </summary>
-        private Bitmap _backgroundImage;
-        private Bitmap _logoImage;
+        private int _ticks = 0;
 
         public SplashScreen()
         {
@@ -36,164 +41,61 @@ namespace OpenLiveWriter.CoreServices
             //
             InitializeComponent();
 
-            //	Turn off CS_CLIPCHILDREN.
-            User32.SetWindowLong(Handle, GWL.STYLE, User32.GetWindowLong(Handle, GWL.STYLE) & ~WS.CLIPCHILDREN);
+            // TODO Use Strings resources. Waiting on LocUtil changes and LocEdit to be merged into master before this can be done.
 
-            //	Turn on double buffered painting.
-            SetStyle(ControlStyles.UserPaint, true);
-            SetStyle(ControlStyles.DoubleBuffer, true);
-            if (!BidiHelper.IsRightToLeft)
-                SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-
-            _backgroundImage = new Bitmap(this.GetType(), "Images.SplashScreen.png");
-            _logoImage = new Bitmap(this.GetType(), "Images.SplashScreenLogo.jpg");
-
-            if (SystemInformation.HighContrast)
-            {
-                ImageHelper.ConvertToHighContrast(_backgroundImage);
-                ImageHelper.ConvertToHighContrast(_logoImage);
-            }
-        }
-
-        private const int WS_EX_TOOLWINDOW = 0x00000080;
-        private const int WS_EX_APPWINDOW = 0x00040000;
-        private const int WS_EX_LAYERED = 0x00080000;
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle &= ~WS_EX_APPWINDOW;
-                cp.ExStyle |= WS_EX_TOOLWINDOW;
-                cp.ExStyle |= WS_EX_LAYERED;
-                return cp;
-            }
+            DisplayHelper.Scale(this);
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            UpdateBitmap();
+            LoadScaledImages();
+            FixLayout();
+
+            // Create the timer
+            timerAnimation = new System.Windows.Forms.Timer();
+            timerAnimation.Interval = 17; // 60 FPS rounded up
+            timerAnimation.Tick += new EventHandler(AnimationTick);
+            timerAnimation.Enabled = true;
+            timerAnimation.Start();
         }
 
-        private void UpdateBitmap()
+        private void LoadScaledImages()
         {
-            using (Bitmap bitmap = CreateBitmap())
-            {
-                IntPtr screenDC = User32.GetDC(IntPtr.Zero);
-                try
-                {
-                    IntPtr memDC = Gdi32.CreateCompatibleDC(screenDC);
-                    try
-                    {
-                        IntPtr hBitmap = bitmap.GetHbitmap(Color.FromArgb(0));
-                        try
-                        {
-                            IntPtr hOrigBitmap = Gdi32.SelectObject(memDC, hBitmap);
-                            try
-                            {
-                                POINT dst = new POINT();
-                                dst.x = Left;
-                                dst.y = Top;
+            const float scaleFactor = 2f; // Assume logos are already at 2x scaling
+            var fdnLogoBmp = new Bitmap(this.GetType(), "Images.NetFoundationLogo2x.png");
+            var logoBmp = new Bitmap(this.GetType(), "Images.SplashScreenLogo2x.png");
 
-                                SIZE size = new SIZE();
-                                size.cx = bitmap.Width;
-                                size.cy = bitmap.Height;
+            var fdnLogoSize = new Size(
+                (int)Math.Ceiling(fdnLogoBmp.Width * (DisplayHelper.ScalingFactorX / scaleFactor)),
+                (int)Math.Ceiling(fdnLogoBmp.Height * (DisplayHelper.ScalingFactorY / scaleFactor)));
+            _fdnLogoBitmap = new Bitmap(fdnLogoBmp, fdnLogoSize);
+            pictureBoxFdnLogo.Image = _fdnLogoBitmap;
+            pictureBoxFdnLogo.Size = _fdnLogoBitmap.Size;
 
-                                POINT src = new POINT();
-                                src.x = 0;
-                                src.y = 0;
-
-                                User32.BLENDFUNCTION blendFunction = new User32.BLENDFUNCTION();
-                                blendFunction.BlendOp = 0; // AC_SRC_OVER
-                                blendFunction.BlendFlags = 0;
-                                blendFunction.SourceConstantAlpha = 255;
-                                blendFunction.AlphaFormat = 1; // AC_SRC_ALPHA
-
-                                User32.UpdateLayeredWindow(Handle, screenDC, ref dst, ref size, memDC, ref src, 0, ref blendFunction, 2);
-                            }
-                            finally
-                            {
-                                Gdi32.SelectObject(memDC, hOrigBitmap);
-                            }
-                        }
-                        finally
-                        {
-                            Gdi32.DeleteObject(hBitmap);
-                        }
-                    }
-                    finally
-                    {
-                        Gdi32.DeleteDC(memDC);
-                    }
-                }
-                finally
-                {
-                    User32.ReleaseDC(IntPtr.Zero, screenDC);
-                }
-            }
+            var logoBmpSize = new Size(
+                (int)Math.Ceiling(logoBmp.Width * (DisplayHelper.ScalingFactorX / scaleFactor)),
+                (int)Math.Ceiling(logoBmp.Height * (DisplayHelper.ScalingFactorY / scaleFactor)));
+            _logoBitmap = new Bitmap(logoBmp, logoBmpSize);
+            pictureBoxLogo.Image = _logoBitmap;
+            pictureBoxLogo.Size = _logoBitmap.Size;
         }
 
-        private Bitmap CreateBitmap()
+        private void FixLayout()
         {
-            Bitmap bitmap = new Bitmap(_backgroundImage.Width, _backgroundImage.Height, PixelFormat.Format32bppArgb);
-            using (Graphics graphics = Graphics.FromImage(bitmap))
+            pictureBoxLogo.Top = Height / 2 - pictureBoxLogo.Height / 2;
+        }
+
+        public void ShowSplashScreen()
+        {
+            Thread thread = new Thread(() =>
             {
-                BidiGraphics g = new BidiGraphics(graphics, bitmap.Size);
-
-                // draw transparent background image
-                g.DrawImage(false, _backgroundImage,
-                            new Rectangle(0, 0, _backgroundImage.Width, _backgroundImage.Height));
-
-                // draw logo image
-                g.DrawImage(false, _logoImage, new Rectangle(
-                    (ClientSize.Width - _logoImage.Width) / 2,
-                    120 - _logoImage.Height,
-                    _logoImage.Width,
-                    _logoImage.Height));
-
-                // draw copyright notice
-                string splashText = Res.Get(StringId.SplashScreenCopyrightNotice);
-                using (Font font = new Font(Font.FontFamily, 7.5f))
-                {
-                    const int TEXT_PADDING_H = 36;
-                    const int TEXT_PADDING_V = 26;
-                    int textWidth = Size.Width - 2 * TEXT_PADDING_H;
-                    int textHeight =
-                        Convert.ToInt32(
-                            g.MeasureText(splashText, font, new Size(textWidth, 0), TextFormatFlags.WordBreak).Height,
-                            CultureInfo.InvariantCulture);
-
-                    // GDI text can't be drawn on an alpha-blended surface. So we render a black-on-white
-                    // bitmap, then use a ColorMatrix to effectively turn it into an alpha mask.
-
-                    using (Bitmap textBitmap = new Bitmap(textWidth, textHeight, PixelFormat.Format32bppRgb))
-                    {
-                        using (Graphics tbG = Graphics.FromImage(textBitmap))
-                        {
-                            tbG.FillRectangle(Brushes.Black, 0, 0, textWidth, textHeight);
-                            new BidiGraphics(tbG, textBitmap.Size).
-                                DrawText(splashText, font, new Rectangle(0, 0, textWidth, textHeight), Color.White, Color.Black, TextFormatFlags.WordBreak);
-                        }
-
-                        Rectangle textRect = new Rectangle(TEXT_PADDING_H, ClientSize.Height - TEXT_PADDING_V - textHeight, textWidth, textHeight);
-                        using (ImageAttributes ia = new ImageAttributes())
-                        {
-                            ColorMatrix cm = new ColorMatrix(new float[][]
-                                                                 {
-                                                                     new float[] {0, 0, 0, 1f/3f, 0},
-                                                                     new float[] {0, 0, 0, 1f/3f, 0},
-                                                                     new float[] {0, 0, 0, 1f/3f, 0},
-                                                                     new float[] {0, 0, 0, 0, 0},
-                                                                     new float[] {0.9372f, 0.9372f, 0.9372f, 0, 0},
-                                                                 });
-                            ia.SetColorMatrix(cm);
-                            g.DrawImage(false, textBitmap, textRect, 0, 0, textWidth, textHeight, GraphicsUnit.Pixel, ia);
-                        }
-                    }
-                }
-            }
-            return bitmap;
+                ShowDialog();
+            });
+            thread.Name = "Splash Screen Animation Thread";
+            thread.IsBackground = true;
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
         /// <summary>
@@ -218,21 +120,111 @@ namespace OpenLiveWriter.CoreServices
         /// </summary>
         private void InitializeComponent()
         {
-            //
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.pictureBoxFdnLogo = new System.Windows.Forms.PictureBox();
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFdnLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.ForeColor = System.Drawing.Color.White;
+            this.labelStatus.Location = new System.Drawing.Point(19, 214);
+            this.labelStatus.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(57, 15);
+            this.labelStatus.TabIndex = 1;
+            this.labelStatus.Text = "Starting...";
+            // 
+            // pictureBoxFdnLogo
+            // 
+            this.pictureBoxFdnLogo.ErrorImage = null;
+            this.pictureBoxFdnLogo.InitialImage = null;
+            this.pictureBoxFdnLogo.Location = new System.Drawing.Point(20, 20);
+            this.pictureBoxFdnLogo.Name = "pictureBoxFdnLogo";
+            this.pictureBoxFdnLogo.Size = new System.Drawing.Size(20, 20);
+            this.pictureBoxFdnLogo.TabIndex = 2;
+            this.pictureBoxFdnLogo.TabStop = false;
+            this.pictureBoxFdnLogo.Visible = false;
+            // 
+            // pictureBoxLogo
+            // 
+            this.pictureBoxLogo.ErrorImage = null;
+            this.pictureBoxLogo.InitialImage = null;
+            this.pictureBoxLogo.Location = new System.Drawing.Point(20, 92);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(20, 20);
+            this.pictureBoxLogo.TabIndex = 3;
+            this.pictureBoxLogo.TabStop = false;
+            this.pictureBoxLogo.Visible = false;
+            // 
             // SplashScreen
-            //
-            this.AutoScaleMode = AutoScaleMode.None;
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
-            this.ClientSize = new System.Drawing.Size(380, 235);
-            this.Cursor = Cursors.AppStarting;
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(162)))), ((int)(((byte)(93)))), ((int)(((byte)(162)))));
+            this.ClientSize = new System.Drawing.Size(439, 248);
+            this.Controls.Add(this.pictureBoxLogo);
+            this.Controls.Add(this.pictureBoxFdnLogo);
+            this.Controls.Add(this.labelStatus);
+            this.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SplashScreen";
-            //if this inherits Yes from the parent the screenshot of the background is reversed
-            this.RightToLeftLayout = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFdnLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
         #endregion
+
+        private void AnimationTick(object sender, EventArgs e)
+        {
+            // .NET Foundation Logo linear slide animation
+            const int fdnLogoAnimTicks = 10;
+            const int fdnLogoAnimTarget = 20;
+            pictureBoxFdnLogo.Left = (int)Math.Min(DisplayHelper.ScalingFactorX * _ticks * ((float)fdnLogoAnimTarget / fdnLogoAnimTicks), DisplayHelper.ScalingFactorX * fdnLogoAnimTarget);
+            pictureBoxFdnLogo.Image = ChangeOpacity(_fdnLogoBitmap, (float)Math.Min((float)_ticks / fdnLogoAnimTicks, 1.0));
+            pictureBoxFdnLogo.Visible = true;
+
+            // Open Live Writer logo non-linear slide animation
+            const int logoAnimStart = 4;
+            const int logoAnimTicks = 16;
+            int logoAnimTarget = Width / 2 - _logoBitmap.Width / 2;
+            const int logoAnimSlideWidth = 30;
+
+            if (_ticks >= logoAnimStart)
+            {
+                // Decimal animation curve from 0 to 1
+                double x = 1 - Math.Pow(Math.Max(1 - ((double)(_ticks - logoAnimStart) / logoAnimTicks), 0), 2);
+                pictureBoxLogo.Left = 
+                    (logoAnimTarget - (int)(logoAnimSlideWidth * DisplayHelper.ScalingFactorX)) + (int)Math.Ceiling(x * (logoAnimSlideWidth * DisplayHelper.ScalingFactorX));
+                pictureBoxLogo.Image = ChangeOpacity(_logoBitmap, (float)Math.Min((float)(_ticks - logoAnimStart) / logoAnimTicks, 1.0));
+                pictureBoxLogo.Visible = true;
+            }
+            
+            Update();
+            _ticks++;
+        }
+
+        private static Bitmap ChangeOpacity(Image img, float opacityvalue)
+        {
+            // Example from https://www.codeproject.com/Tips/201129/Change-Opacity-of-Image-in-C
+
+            Bitmap bmp = new Bitmap(img.Width, img.Height); // Determining Width and Height of Source Image
+            Graphics graphics = Graphics.FromImage(bmp);
+            ColorMatrix colormatrix = new ColorMatrix();
+            colormatrix.Matrix33 = opacityvalue;
+            ImageAttributes imgAttribute = new ImageAttributes();
+            imgAttribute.SetColorMatrix(colormatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+            graphics.DrawImage(img, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, imgAttribute);
+            graphics.Dispose();   // Releasing all resource used by graphics 
+            return bmp;
+        }
     }
 
     /// <summary>
