@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29001.49
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.CoreServices", "OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj", "{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}"
 EndProject

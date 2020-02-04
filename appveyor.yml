@@ -7,9 +7,9 @@ branches:
 image: Visual Studio 2017
 environment:
   OLW_CONFIG: Release
-  OlwBloggerClientId: 597389294595-271ukaucs8ghmc6c6cnhrbef2c02g5qa.apps.googleusercontent.com
+  OlwBloggerClientId: 831778163304-4o2gh6hcqio2a09054blfbu33qdtdg4t.apps.googleusercontent.com
   OlwBloggerClientSecret:
-    secure: ym7cbPINJz58iEgVlQCDbRz2W1CTYnxWsvMpMvxHFY4=
+    secure: 3aRZ2HcWHrtR5sLGj1Tj7sr_
   SignClientSecret:
     secure: Ks35w5ZOk78Bla9953hrhvDm2+t2NY83VgI+IcW92L0=
   SignClientUser:

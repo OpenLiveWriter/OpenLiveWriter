@@ -8,9 +8,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PlatformSpellCheck, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PlatformSpellCheck.1.0.0\lib\net45\PlatformSpellCheck.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="PlatformSpellCheck, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PlatformSpellCheck.1.1.0\lib\net40\PlatformSpellCheck.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
