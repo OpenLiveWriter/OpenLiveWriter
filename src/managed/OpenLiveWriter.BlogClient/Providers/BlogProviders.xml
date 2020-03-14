@@ -35,7 +35,7 @@
 		<clientType>MovableType</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://<username>.wordpress.com/xmlrpc.php
+		https://<username>.wordpress.com/xmlrpc.php
 		]]>
 		</postApiUrl>						
 		<homepageUrlPattern>\.wordpress\.com</homepageUrlPattern>
@@ -58,7 +58,7 @@
 		<clientType>MovableType</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://www.typepad.com/t/api
+		https://www.typepad.com/t/api
 		]]>
 		</postApiUrl>				
 		<homepageUrlPattern>\.typepad\.com</homepageUrlPattern>
@@ -79,7 +79,7 @@
 	    <clientType>Blogger2</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://api.blogger.com/api
+		https://api.blogger.com/api
 		]]>
 		</postApiUrl>
 		<homepageUrlPattern>\.blogspot\.com</homepageUrlPattern>
@@ -102,7 +102,7 @@
 		<clientType>LiveJournal</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://www.livejournal.com/interface/blogger
+		https://www.livejournal.com/interface/blogger
 		]]>
 		</postApiUrl>
 		<homepageUrlPattern>\.livejournal\.com</homepageUrlPattern>
@@ -118,7 +118,7 @@
 		<clientType>MovableType</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://<hostname>/<mt_path>/mt-xmlrpc.cgi
+		https://<hostname>/<mt_path>/mt-xmlrpc.cgi
 		]]>
 		</postApiUrl>
 		<rsdEngineNamePattern>Movable Type</rsdEngineNamePattern>
@@ -133,7 +133,7 @@
 		<clientType>MovableType</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://<hostname>/<wp_path>/xmlrpc.php
+		https://<hostname>/<wp_path>/xmlrpc.php
 		]]>
 		</postApiUrl>
 		<postDateFormat>yyyyMMdd'T'HH':'mm':'ss</postDateFormat>
@@ -162,7 +162,7 @@
 		<clientType>Metaweblog</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://<hostname>/blogs/metablog.ashx
+		https://<hostname>/blogs/metablog.ashx
 		]]>
 		</postApiUrl>
 		<useLocalTime>Yes</useLocalTime>
@@ -178,7 +178,7 @@
 		<clientType>Metaweblog</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://<hostname>/blog/blogger.aspx
+		https://<hostname>/blog/blogger.aspx
 		]]>
 		</postApiUrl>			
 		<reportingKey>zi</reportingKey>		
@@ -191,7 +191,7 @@
 		<clientType>Metaweblog</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://<hostname>/<mw-script>
+		https://<hostname>/<mw-script>
 		]]>
 		</postApiUrl>			
 		<postDateFormat>yyyyMMdd'T'HH':'mm':'ss</postDateFormat>
@@ -204,7 +204,7 @@
 		<clientType>MovableType</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://<hostname>/<mt-script>
+		https://<hostname>/<mt-script>
 		]]>
 		</postApiUrl>					
 		<reportingKey>zm</reportingKey>				
@@ -217,7 +217,7 @@
 		<clientType>Metaweblog</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://blogs.msdn.com/metablog.ashx
+		https://blogs.msdn.com/metablog.ashx
 		]]>
 		</postApiUrl>
 		<homepageUrlPattern>blogs\.msdn\.com</homepageUrlPattern>
@@ -235,7 +235,7 @@
 		<clientType>Metaweblog</clientType>
 		<postApiUrl>
 		<![CDATA[
-		http://blogs.technet.com/metablog.ashx
+		https://blogs.technet.com/metablog.ashx
 		]]>
 		</postApiUrl>
 		<homepageUrlPattern>blogs\.technet\.com</homepageUrlPattern>
