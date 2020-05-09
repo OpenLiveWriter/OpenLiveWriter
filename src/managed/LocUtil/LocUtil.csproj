@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <AssemblyName>locutil</AssemblyName>
@@ -8,6 +8,9 @@
     <OutputType>Exe</OutputType>
     <SignAssembly>false</SignAssembly>
     <CoverageDisabled>true</CoverageDisabled>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,13 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
-    <Compile Include="AppMain.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CsvParser.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RibbonMarkup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RepoRoot)\writer.build.targets" />
