@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\writer.build.settings" />
   <PropertyGroup>
     <ProjectGuid>{1F76020F-DBB5-4F43-B530-C85EF9461A61}</ProjectGuid>
     <RootNamespace>BlogRunner.Core</RootNamespace>
     <AssemblyName>BlogRunner.Core</AssemblyName>
     <CoverageDisabled>true</CoverageDisabled>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -36,25 +37,6 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BlogUtil.cs" />
-    <Compile Include="Config\Blog.cs" />
-    <Compile Include="Config\Config.cs" />
-    <Compile Include="Config\CoreCommandLineOptions.cs" />
-    <Compile Include="Config\Provider.cs" />
-    <Compile Include="Log.cs" />
-    <Compile Include="Test.cs" />
-    <Compile Include="ITestResult.cs" />
-    <Compile Include="TestRunner.cs" />
-    <Compile Include="Tests\CompositePostTest.cs" />
-    <Compile Include="Tests\SupportsEmbedsTest.cs" />
-    <Compile Include="Tests\SupportsEmptyTitlesTest.cs" />
-    <Compile Include="Tests\SupportsFuturePostTest.cs" />
-    <Compile Include="Tests\SupportsMultipleCategoriesTest.cs" />
-    <Compile Include="Tests\SupportsPostAsDraftTest.cs" />
-    <Compile Include="Tests\SupportsScriptsTest.cs" />
-    <Compile Include="Tests\TitleEncodingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj">
