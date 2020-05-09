@@ -716,7 +716,10 @@ namespace OpenLiveWriter.PostEditor
             // as well as the contents of the property tray changing.
             if (currentPostIsEmptyAndUnsaved && isNewPost && !editingContext.BlogPost.IsPage)
             {
-                PostEditorForm.Launch(editingContext);
+                if (PostEditorSettings.PostWindowBehavior == PostWindowBehavior.UseSameWindow)
+                    EditPostWithPostCloseEvent(editingContext);
+                else
+                    PostEditorForm.Launch(editingContext);
                 return;
             }
 
