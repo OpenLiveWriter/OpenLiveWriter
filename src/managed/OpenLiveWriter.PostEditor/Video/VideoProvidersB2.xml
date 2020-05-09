@@ -77,30 +77,20 @@
   <provider>
     <id>56744E0A-1892-4b56-B7FF-3A2568EE2D27</id>
     <serviceName>YouTube</serviceName>
-    <editorFormat xpp:if="version lt 15.4.3104.0816">
+    <editorFormat>
       <![CDATA[
-		<embed src="http://www.youtube.com/v/{videoId}" type="application/x-shockwave-flash" wmode="transparent" width="{width}" height="{height}"></embed>
+		<iframe src="http://www.youtube.com/embed/{videoId}" width="{width}" height="{height}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		]]>
     </editorFormat>
-    <editorFormat xpp:if="version gte 15.4.3104.0816">
+    <embedFormat>
       <![CDATA[
-		<embed src="http://www.youtube.com/v/{videoId}?hd=1" type="application/x-shockwave-flash" wmode="transparent" width="{width}" height="{height}"></embed>
-		]]>
-    </editorFormat>
-    <embedFormat xpp:if="version lt 15.4.3104.0816">
-      <![CDATA[
-      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/v/{videoId}&hl=en"></param><embed src="http://www.youtube.com/v/{videoId}&hl=en" type="application/x-shockwave-flash" width="{width}" height="{height}"></embed></object>
-		]]>
-    </embedFormat>
-    <embedFormat xpp:if="version gte 15.4.3104.0816">
-      <![CDATA[
-      <object width="{width}" height="{height}"><param name="movie" value="http://www.youtube.com/v/{videoId}?hl=en&hd=1"></param><embed src="http://www.youtube.com/v/{videoId}?hl=en&hd=1" type="application/x-shockwave-flash" width="{width}" height="{height}"></embed></object>
+      <iframe src="http://www.youtube.com/embed/{videoId}" width="{width}" height="{height}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		]]>
     </embedFormat>
     <embedPatterns>
       <pattern name="src">
         <![CDATA[
-			http://www.youtube.com/v/(?<id>[^&\?]*)
+			http://www.youtube.com/embed/(?<id>[^&\?]*)
 			]]>
       </pattern>
     </embedPatterns>
@@ -111,7 +101,7 @@
     </urlFormat>
     <urlPattern>
       <![CDATA[
-      (http://www.youtube.com/user/[^#]*[^\n]*/(?<id>[^&]*)|^http://(.+\.)?youtube.com/watch(\?|\#!)v=(?<id>[^&]*))    
+      ((http|https)://www.youtube.com/user/[^#]*[^\n]*/(?<id>[^&]*)|^(http|https)://(.+\.)?youtube.com/watch(\?|\#!)v=(?<id>[^&]*)|^(http|https)://youtu.be/(?<id>[^&]*))    
 		]]>
     </urlPattern>
     <size xpp:if="version lt 15.4.3104.0816">
