@@ -248,7 +248,7 @@ namespace OpenLiveWriter.PostEditor
             this.labelWebsiteLink.Size = new System.Drawing.Size(173, 15);
             this.labelWebsiteLink.TabIndex = 13;
             this.labelWebsiteLink.TabStop = true;
-            this.labelWebsiteLink.Text = "http://www.openlivewriter.org/";
+            this.labelWebsiteLink.Text = "http://www.openlivewriter.com/";
             this.labelWebsiteLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelWebsiteLink_LinkClicked);
             // 
             // AboutForm

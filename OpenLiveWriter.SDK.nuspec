@@ -6,7 +6,7 @@
         <authors>Open Live Writer</authors>
         <owners>OpenLiveWriter</owners>
         <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt?raw=true</licenseUrl>
-        <projectUrl>http://openlivewriter.org</projectUrl>
+        <projectUrl>http://openlivewriter.com</projectUrl>
         <iconUrl>http://openlivewriter.github.io/favicon.ico</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>The SDK required to create plug-ins for Open Live Writer.</description>

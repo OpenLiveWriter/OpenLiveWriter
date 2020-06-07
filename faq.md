@@ -14,7 +14,7 @@ A: We focused on Windows 10 for the v0.5 release.  We hope to support Windows 7 
 A: Since .NET runs on Mac OS and Linux, it is possible to port some of the code to run on Mac OS or Linux. But significant portions of the code use Windows-specific APIs. You are welcome to find the code on GitHub and fork it to run under Mono - that would be awesome.
 
 ##### Q: Is this really free?
-A: Yes! Open Live Writer is licensed under the open source [MIT license](https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt). If someone made you pay for your copy of Open Live Writer then ask for your money back and go download from http://openlivewriter.org
+A: Yes! Open Live Writer is licensed under the open source [MIT license](https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt). If someone made you pay for your copy of Open Live Writer then ask for your money back and go download from http://openlivewriter.com
 
 ##### Q: I found a bug, what do I do?
 A: Add to an existing issue or create a new issue via GitHub: https://github.com/OpenLiveWriter/OpenLiveWriter/issues/new

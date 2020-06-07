@@ -13,13 +13,13 @@
             <parameter name="aerial" value="true" />
         </feature>
         <feature name="Soapbox Video" enabled="false">
-            <parameter name="SoapboxTOU" value="http://openlivewriter.org/WriterRedirect/SoapboxTOU" />
-            <parameter name="SoapboxSafety" value="http://openlivewriter.org/WriterRedirect/SoapboxSafety" />
+            <parameter name="SoapboxTOU" value="http://openlivewriter.com/WriterRedirect/SoapboxTOU" />
+            <parameter name="SoapboxSafety" value="http://openlivewriter.com/WriterRedirect/SoapboxSafety" />
         </feature>
         <feature name="YouTube Video" enabled="true">
-            <parameter name="YouTubeTOU" value="http://openlivewriter.org/WriterRedirect/YouTubeTOU" />
-            <parameter name="YouTubeSafety" value="http://openlivewriter.org/WriterRedirect/YouTubeSafety" />
-            <parameter name="YouTubeRegister" value="http://openlivewriter.org/WriterRedirect/YouTubeRegister" />
+            <parameter name="YouTubeTOU" value="http://openlivewriter.com/WriterRedirect/YouTubeTOU" />
+            <parameter name="YouTubeSafety" value="http://openlivewriter.com/WriterRedirect/YouTubeSafety" />
+            <parameter name="YouTubeRegister" value="http://openlivewriter.com/WriterRedirect/YouTubeRegister" />
         </feature>
         <feature name="Insert Video" enabled="true">
             <parameter name="supported" value="56744E0A-1892-4b56-B7FF-3A2568EE2D27;A64F0391-DC63-46cc-B106-D1E6B4EFA9EB;6A08E9D2-7CEC-4079-9E2C-DF55290D549E;24BA2B58-5604-4d34-87CE-4F21F0D08DBD;39C04FEF-3837-4ba2-ABA4-A52C69B58061;13C0A225-9842-441b-AE4D-103A23C70EA5;864523DB-EE73-48e8-9DFE-56C60F42C673;F28A9EB8-8245-43a3-A5AB-59200D4439F1;E8DD1B09-EB13-4ac0-BCD5-7898279B5716;A1FE1C5C-CE00-49ab-8B5F-B12160F07901;&gt;AD4F0C55-FE0A-4d5b-A519-1488AEBD659C;8D8C9213-08EE-4e1e-BCAF-75D00C36D313;0C8C65A2-9167-45cc-9BF4-D3C5343D7A73;E2DBCF43-E9FB-4dec-B2FD-6F5AEDF2CA4D;B6D96B90-7B09-4dc9-833E-A368913B0E98;939FFF66-C87C-4571-A6F1-035900650472;D0402B9A-7ADC-4dcf-A029-4D3FD0B11362;7A023A25-097C-4cbe-BF69-7BED05ED212B;DE24FF93-CFA5-4a21-938D-DC0F67220C97;D3F06205-6A8C-44e1-9493-E37C1448ED14;53068704-D203-4067-A2B7-1172E4E9E43E" />
@@ -32,50 +32,50 @@
             <parameter name="supported" value="63DA9645-F182-4da7-88BC-B430ECA1AD75" />
         </feature>
         <feature name="Writer Blog" enabled="false">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterBlog" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterBlog" />
         </feature>
         <feature name="Forums" enabled="false">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterForum" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterForum" />
         </feature>
         <feature name="Terms of Use" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterTOU" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterTOU" />
         </feature>
         <feature name="Privacy" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/Privacy" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/Privacy" />
         </feature>
         <feature name="Help" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterHelpV3" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterHelpV3" />
         </feature>
         <feature name="Feedback" enabled="false">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterFeedbackURL" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterFeedbackURL" />
         </feature>
         <feature name="Support" enabled="false">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterSupport" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterSupport" />
         </feature>
         <feature name="Developer Community" enabled="false">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterDevelopers" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterDevelopers" />
         </feature>
         <feature name="Create Space" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterCreateSpacesAccount" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterCreateSpacesAccount" />
         </feature>
         <feature name="FTP Help" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterFTPHelpV3" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterFTPHelpV3" />
         </feature>
         <feature name="Gallery" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterDownloadPluginsURL" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterDownloadPluginsURL" />
         </feature>
         <feature name="Dot Net 20" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/WriterDotNet20Download?displayLang=fr" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/WriterDotNet20Download?displayLang=fr" />
         </feature>
         <feature name="Live Clipboard" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/LiveClipboard" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/LiveClipboard" />
         </feature>
         <feature name="Video Copyright Link" enabled="true">
-            <parameter name="Glink" value="http://openlivewriter.org/WriterRedirect/Copyright" />
+            <parameter name="Glink" value="http://openlivewriter.com/WriterRedirect/Copyright" />
         </feature>
         <feature name="Create Space Address" enabled="true">
 
-            <parameter name="url" value="http://openlivewriter.org/WriterRedirect/CreateSpaceAddress" />
+            <parameter name="url" value="http://openlivewriter.com/WriterRedirect/CreateSpaceAddress" />
         </feature>
     </market>
 </features>
