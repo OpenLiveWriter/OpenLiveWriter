@@ -61,7 +61,7 @@ namespace OpenLiveWriter.HtmlEditor.Linking
                 {
                     if (entryNodes == null || entryNodes.Count == 0)
                     {
-                        AddEntry(Res.Get(StringId.GlossaryExampleTitle), "http://www.OpenLiveWriter.org", "", "", false);
+                        AddEntry(Res.Get(StringId.GlossaryExampleTitle), "http://www.OpenLiveWriter.com", "", "", false);
                     }
                 }
             }

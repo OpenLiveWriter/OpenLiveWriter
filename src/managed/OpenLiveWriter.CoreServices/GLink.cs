@@ -208,7 +208,7 @@ namespace OpenLiveWriter.CoreServices
                 return url;
             }
 
-            string glink = string.Format(CultureInfo.InvariantCulture, "http://openlivewriter.org/WriterRedirect/{0}", id);
+            string glink = string.Format(CultureInfo.InvariantCulture, "http://openlivewriter.com/WriterRedirect/{0}", id);
             return FixUpGLink(glink, null);
         }
 

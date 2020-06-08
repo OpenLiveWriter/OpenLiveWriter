@@ -29,7 +29,7 @@ information is recommended:
 There are three main types of documentation for Open Live Writer and we'd love your help with
 all of them.
  1. End user documentation: Showing how to get the best out of Open Live Writer. End user
-    documentation is best provided on the http://openlivewriter.org site, and the source
+    documentation is best provided on the http://openlivewriter.com site, and the source
     code for it is over in the [OpenLiveWriter.github.io](https://github.com/OpenLiveWriter/OpenLiveWriter.Github.io) repo.
  2. Plugin Developer documentation: Details and examples about how to write plugins for 
     Open Live Writer.

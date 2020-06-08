@@ -17,7 +17,7 @@ $releases = ls $currentDirectory\..\Releases\*.exe | Select -ExpandProperty Full
 foreach ($release in $releases){
 	Write-Host "Submitting $release for signing"
 
-	dotnet $appPath 'sign' -c $appSettings -i $release -r $env:SignClientUser -s $env:SignClientSecret -n 'Open Live Writer' -d 'Open Live Writer' -u 'http://openlivewriter.org' 
+	dotnet $appPath 'sign' -c $appSettings -i $release -r $env:SignClientUser -s $env:SignClientSecret -n 'Open Live Writer' -d 'Open Live Writer' -u 'http://openlivewriter.com' 
 
 	Write-Host "Finished signing $release"
 }
