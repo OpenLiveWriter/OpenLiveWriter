@@ -19,7 +19,9 @@ namespace OpenLiveWriter.CoreServices
         /// <returns>The ImageData, null if no ImageData could be created</returns>
         public static ImageData Create(IDataObject iDataObject)
         {
-            if (!OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormats.Dib) && !OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormats.EnhancedMetafile))
+            if (!OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormats.Dib) 
+                && !OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormats.Bitmap)
+                && !OleDataObjectHelper.GetDataPresentSafe(iDataObject, DataFormats.EnhancedMetafile))
                 return null;
             else
                 return new ImageData(iDataObject);
