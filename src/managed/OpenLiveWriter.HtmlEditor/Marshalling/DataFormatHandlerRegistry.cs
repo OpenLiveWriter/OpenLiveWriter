@@ -112,10 +112,16 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling
                     // create a data format handler and return it
                     DataFormatHandler dataFormatHandler = handlerFactory.CreateFrom(dataMeister, handlerContext);
 					// prefer picture data over img url from images copied in webbrowsers
-                    if (dataMeister.haveAttemptedImageCreate)
-                        return dataFormatHandler;
+                    if (handlerContext == DataFormatHandlerContext.ClipboardPaste)
+                    {
+                        if (dataMeister.haveAttemptedImageCreate)
+                            return dataFormatHandler;
+                        else
+                            dataFormatHandler.Dispose();
+                    }
                     else
-                        dataFormatHandler.Dispose();
+                        return dataFormatHandler;
+
                 }
             }
 
