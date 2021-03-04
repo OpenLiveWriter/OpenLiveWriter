@@ -145,7 +145,7 @@ namespace OpenLiveWriter.CoreServices
             }
         }
         private ImageData m_imageData;
-        private bool haveAttemptedImageCreate = false;
+        public bool haveAttemptedImageCreate = false;
 
         public HTMLMetaData GetMetaDataFromCache(string url)
         {
