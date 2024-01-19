@@ -4,10 +4,10 @@
     <id>openlivewriter</id>
     <version>0.5.0.0</version>
     <title>OpenLiveWriter (Install)</title>
-    <authors>See list of authors at http://openlivewriter.org/</authors>
+    <authors>See list of authors at http://openlivewriter.com/</authors>
     <owners>Darwin Sanoy, OpenLiveWriter</owners>
     <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt</licenseUrl>
-    <projectUrl>http://openlivewriter.org/</projectUrl>
+    <projectUrl>http://openlivewriter.com/</projectUrl>
     <iconUrl>https://cdn.rawgit.com/csi-windowschocolatey/openlivewriter/master/app.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Open Live Writer is an open source application enabling users to author, edit, and publish blog posts.
