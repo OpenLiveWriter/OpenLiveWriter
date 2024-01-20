@@ -91,7 +91,7 @@ namespace OpenLiveWriter
                 return false;
 
             string autoSaveDir = PostEditorSettings.AutoSaveDirectory;
-            string[] autoSavedPostFiles = Directory.GetFiles(autoSaveDir, "*.wpost");
+            string[] autoSavedPostFiles = Directory.GetFiles(autoSaveDir, "*.olwpost");
             if (autoSavedPostFiles.Length > 0)
             {
                 if (splashScreen != null)
