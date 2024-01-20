@@ -3382,6 +3382,22 @@ namespace OpenLiveWriter.PostEditor
             _currentEditor.CommandSource.ApplyOutdent();
         }
 
+        public bool CanInsertCode
+        {
+            get
+            {
+                return CurrentEditingMode != EditingMode.PlainText 
+                    && !IsEditFieldSelected 
+                    && _currentEditor != null 
+                    && _currentEditor.CommandSource.CanInsertCode;
+            }
+        }
+
+        public void InsertCode()
+        {
+            _currentEditor.CommandSource.InsertCode();
+        }
+
         public bool CanInsertLink
         {
             get

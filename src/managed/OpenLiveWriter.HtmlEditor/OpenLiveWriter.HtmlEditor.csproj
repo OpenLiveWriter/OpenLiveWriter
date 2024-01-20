@@ -64,6 +64,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="BasicHtmlGenerationService.cs" />
     <Compile Include="BoldApplier.cs" />
+    <Compile Include="CodeHighlighter.cs" />
     <Compile Include="Controls\HtmlStylePicker.cs">
       <SubType>UserControl</SubType>
     </Compile>
