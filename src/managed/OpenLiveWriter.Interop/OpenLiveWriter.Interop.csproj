@@ -6,6 +6,8 @@
     <AssemblyName>OpenLiveWriter.Interop</AssemblyName>
     <RootNamespace>OpenLiveWriter.Interop</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

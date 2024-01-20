@@ -6,6 +6,8 @@
     <AssemblyName>OpenLiveWriter.Interop.Mshtml</AssemblyName>
     <RootNamespace>OpenLiveWriter.Interop.Mshtml</RootNamespace>
     <ProjectGuid>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</ProjectGuid>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomMarshalers" />

@@ -57,7 +57,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketXmlGenerator", "Marke
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1B7A217A-FC20-4B0B-9C07-97209453DDB1}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\appveyor.yml = ..\..\appveyor.yml
 		..\..\build.cmd = ..\..\build.cmd
+		..\..\build.ps1 = ..\..\build.ps1
 		..\..\version.txt = ..\..\version.txt
 		..\..\writer.build.targets = ..\..\writer.build.targets
 	EndProjectSection

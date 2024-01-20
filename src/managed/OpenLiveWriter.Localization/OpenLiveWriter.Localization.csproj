@@ -5,6 +5,8 @@
     <AssemblyName>OpenLiveWriter.Localization</AssemblyName>
     <RootNamespace>OpenLiveWriter.Localization</RootNamespace>
     <ProjectGuid>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</ProjectGuid>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

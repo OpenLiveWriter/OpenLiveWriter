@@ -9,6 +9,8 @@
     <AssemblyName>MarketXmlGenerator</AssemblyName>
     <OutputType>Exe</OutputType>
     <RootNamespace>MarketXmlGenerator</RootNamespace>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
