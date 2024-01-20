@@ -50,7 +50,7 @@ To contribute code to the project simply:
   2. Create a specific topic branch, add a nice feature or fix your bug
   3. Send a Pull Request to spread the fun!
 
-If you haven't already, please sign the [.NET Foundation CLA](http://cla2.dotnetfoundation.org) to give us 
+If you haven't already, please sign the [.NET Foundation CLA](https://cla.dotnetfoundation.org/SignalR/java-client?pullRequest=53) to give us 
 permission to include your contributions in the next release of Open Live Writer.
 
 If you would like to discuss a change you are thinking of doing before you start work on it then feel free to raise an
