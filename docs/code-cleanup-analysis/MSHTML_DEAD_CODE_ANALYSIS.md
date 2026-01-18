@@ -13,7 +13,7 @@ This document identifies MSHTML-dependent code that would need to be replaced, a
 ### Key Findings
 
 - **~60,000 lines** of MSHTML interop code
-- **~1,500+ references** to MSHTML APIs across the codebase
+- **~1,500+ usages** of MSHTML APIs across the codebase (based on grep analysis)
 - **No abstraction layer** currently exists for browser engine switching
 - **High migration effort** estimated at several months of work
 
@@ -356,7 +356,7 @@ The following would become dead code:
 - ⚠️ **~90 files** (~15,000 lines) - Significant refactoring  
 - ⚠️ **~50 files** (~5,000 lines) - Minor updates
 
-**Total Impact:** ~140 files, ~88,500 lines (nearly 60% of managed codebase)
+**Total Impact:** ~913 files affected, ~88,500 lines (nearly 60% of managed codebase)
 
 ---
 

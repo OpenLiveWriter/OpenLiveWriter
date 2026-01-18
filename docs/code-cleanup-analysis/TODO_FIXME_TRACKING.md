@@ -214,7 +214,7 @@ Standard Visual Studio designer-generated comments: "TODO: Add any constructor c
 
 1. `SmartContentInsertionHelper.cs:142` - Document handling
 2. `ContentSourceManager.cs:659` - Consolidated dialog instead of prompting for each
-3. `PluginHttpRequest.cs:75-77` - Fix for Flickr4Writer WebProxy casting (see Pragma Audit #5)
+3. `PluginHttpRequest.cs:75-77` - Fix for Flickr4Writer WebProxy casting (see Pragma Warning Audit, item #5)
 4. `MapContentSource.cs` - Related to pragma warning
 
 ### Content Editor (5)

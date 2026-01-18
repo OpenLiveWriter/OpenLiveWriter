@@ -34,7 +34,7 @@ This directory contains comprehensive analysis documents for code cleanup effort
 - 26 Ribbon UI migration TODOs (MEDIUM priority)
 - 10 OLW migration TODOs (MEDIUM priority)
 - 45 generated designer comments (LOW priority)
-- 77 general implementation TODOs (VARIES)
+- 75 general implementation TODOs (VARIES)
 
 **Priority Breakdown:**
 | Priority | Count | Category |
