@@ -192,9 +192,13 @@ public static extern bool SetProcessWorkingSetSize(
 
 ### 🔵 LOW: GetKeyboardLayout
 
-**Location:** `/src/managed/OpenLiveWriter.Interop/Windows/User32.cs:18` (approximate)
+**Location:** `/src/managed/OpenLiveWriter.Interop/Windows/User32.cs:18`
 
-**Issue:** If GetKeyboardLayout exists with `int` parameter, it should technically be HKL (handle to keyboard layout).
+```csharp
+public static extern int GetKeyboardLayout(int dwLayout);
+```
+
+**Issue:** GetKeyboardLayout has `int` parameter, but it should technically be HKL (handle to keyboard layout).
 
 **Impact:** Minor, HKL values are typically small.
 
@@ -449,9 +453,9 @@ Create tests for:
 
 ### Microsoft Documentation:
 
-- [Porting 32-bit Code to 64-bit](https://docs.microsoft.com/en-us/windows/win32/winprog64/porting-32-bit-code-to-64-bit-windows)
-- [GetWindowLongPtr function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getwindowlongptrw)
-- [Registry Redirector](https://docs.microsoft.com/en-us/windows/win32/winprog64/registry-redirector)
+- [Porting 32-bit Code to 64-bit](https://learn.microsoft.com/en-us/windows/win32/winprog64/porting-32-bit-code-to-64-bit-windows)
+- [GetWindowLongPtr function](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getwindowlongptrw)
+- [Registry Redirector](https://learn.microsoft.com/en-us/windows/win32/winprog64/registry-redirector)
 
 ### Common x64 Pitfalls:
 
@@ -487,6 +491,6 @@ OpenLiveWriter has **good foundational interop practices** but requires **critic
 
 ---
 
-*Analysis Date: 2026-01-18*
-*Analyst: GitHub Copilot*
+*Document Created: January 18, 2024*
+*Analysis Tool: GitHub Copilot*
 *Codebase Version: Current HEAD*
