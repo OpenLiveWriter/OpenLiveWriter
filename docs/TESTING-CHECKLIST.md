@@ -4,6 +4,8 @@
 
 This comprehensive testing checklist covers WebView2 editor migration, x64 builds, and general application functionality. Use this document to validate changes before release.
 
+**Note:** For testing the WebView2 implementation, see the [feature/webview2 branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2) which contains a working WebView2 editor and build scripts (`build-complete.ps1`, `run-webview2.cmd`).
+
 ---
 
 ## Test Environment Setup

@@ -47,9 +47,12 @@ This directory contains technical documentation for Open Live Writer development
 3. Use [TESTING-CHECKLIST.md](TESTING-CHECKLIST.md) section "x64-Specific Testing" for validation
 
 ### If you're working on WebView2 migration:
-1. Read [MSHTML-INTERFACES-DOCUMENTATION.md](MSHTML-INTERFACES-DOCUMENTATION.md) - Understand what MSHTML interfaces need replacement
-2. Check the "WebView2 Migration Strategy" section for interface mappings
-3. Use [TESTING-CHECKLIST.md](TESTING-CHECKLIST.md) section "WebView2 Editor Testing" for validation
+1. See the **[feature/webview2 branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2)** for active work
+2. Read that branch's `docs/WEBVIEW2-BRANCH-REPORT.md` for current status
+3. Read that branch's `docs/WEBVIEW2-EDITOR-MIGRATION-PLAN.md` for implementation details
+4. Read [MSHTML-INTERFACES-DOCUMENTATION.md](MSHTML-INTERFACES-DOCUMENTATION.md) - Understand what MSHTML interfaces need replacement
+5. Check the "WebView2 Migration Strategy" section for interface mappings
+6. Use [TESTING-CHECKLIST.md](TESTING-CHECKLIST.md) section "WebView2 Editor Testing" for validation
 
 ### If you're testing a build:
 1. Use [TESTING-CHECKLIST.md](TESTING-CHECKLIST.md) as your primary guide
@@ -70,6 +73,7 @@ This directory contains technical documentation for Open Live Writer development
    - COM vtable layouts differ between x86 and x64
    - MSHTML.dll is not reliably available or functional as 64-bit
    - **Solution**: Complete WebView2 migration BEFORE attempting x64
+   - **Active Work**: See [feature/webview2 branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2)
 
 2. **Native Code Dependency**
    - OpenLiveWriter.Ribbon.vcxproj (C++) is only unmanaged component
@@ -83,7 +87,7 @@ This directory contains technical documentation for Open Live Writer development
 
 ### Migration Timeline Estimate
 
-- **Prerequisites**: WebView2 migration (assumed complete in feature/webview2 branch)
+- **Prerequisites**: WebView2 migration (active in [feature/webview2 branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2))
 - **Phase 1**: Build infrastructure (1 week)
 - **Phase 2**: Native code migration (1 week)
 - **Phase 3**: Managed code migration (1-2 weeks)

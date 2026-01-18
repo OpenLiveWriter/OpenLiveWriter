@@ -6,6 +6,11 @@ Open Live Writer historically used Microsoft's MSHTML (Trident) rendering engine
 
 This document catalogs all MSHTML interfaces that were shimmed/implemented in the codebase, explains their purpose, and provides context for the WebView2 migration strategy.
 
+**Note:** Active WebView2 migration work is happening in the [`feature/webview2` branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2). See that branch for:
+- `docs/WEBVIEW2-BRANCH-REPORT.md` - Current implementation status
+- `docs/WEBVIEW2-EDITOR-MIGRATION-PLAN.md` - Detailed migration plan
+- Working WebView2 editor implementation
+
 ## Why Interface Shimming Was Necessary
 
 The standard MSHTML COM interfaces exposed through the Primary Interop Assemblies (PIAs) were insufficient for building a professional HTML editor because:
@@ -592,6 +597,7 @@ All shimmed interfaces are located in: `/src/managed/OpenLiveWriter.Mshtml/Mshtm
 
 ## References
 
+- [feature/webview2 branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2) - Active WebView2 migration work (34+ commits)
 - [MSHTML Reference (archived)](https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/)
 - [WebView2 Documentation](https://docs.microsoft.com/en-us/microsoft-edge/webview2/)
 - OpenLiveWriter source: `/src/managed/OpenLiveWriter.Mshtml/`

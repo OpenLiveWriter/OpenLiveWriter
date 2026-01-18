@@ -4,6 +4,8 @@
 
 This document outlines the specific considerations, challenges, and steps required to migrate Open Live Writer from x86 (Win32) to x64 (64-bit) architecture. The migration is complicated by dependencies on unmanaged C++ components, COM interop, and legacy MSHTML interfaces.
 
+**Note:** WebView2 migration work is actively being done in the [`feature/webview2` branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2). See that branch for detailed documentation on the MSHTML → WebView2 replacement, which is a **prerequisite** for x64 migration.
+
 ## Current State
 
 ### Architecture Overview
@@ -278,12 +280,17 @@ find . -name "packages.config" -exec grep -H "x86\|x64" {} \;
 ### Phase 0: Prerequisites (BLOCKER)
 **Timeline:** Complete before any x64 work
 
-- [x] Complete WebView2 migration (`feature/webview2` branch)
+- [x] Complete WebView2 migration (see [`feature/webview2` branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2))
 - [ ] Merge WebView2 branch to main
 - [ ] Validate WebView2 editor in x86 build
 - [ ] Remove or isolate remaining MSHTML dependencies
 
 **Why:** MSHTML is the primary x64 blocker. Must be replaced first.
+
+**Current Status:** The `feature/webview2` branch has a fully functional WebView2 editor with 34+ commits and comprehensive documentation. See:
+- `docs/WEBVIEW2-BRANCH-REPORT.md` - Feature status and accomplishments
+- `docs/WEBVIEW2-EDITOR-MIGRATION-PLAN.md` - Detailed migration plan
+- `docs/NET10-MIGRATION-PLAN.md` - .NET 10 migration strategy
 
 ---
 
@@ -618,6 +625,7 @@ The x64 migration is **feasible but BLOCKED by MSHTML**. The recommended path is
 
 ## References
 
+- [feature/webview2 branch](https://github.com/OpenLiveWriter/OpenLiveWriter/tree/feature/webview2) - Active WebView2 migration work
 - [Windows SDK for x64 Development](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
 - [.NET Framework x64 Support](https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/)
 - [Visual Studio C++ x64 Development](https://docs.microsoft.com/en-us/cpp/build/configuring-programs-for-64-bit-visual-cpp)
