@@ -141,49 +141,27 @@ namespace OpenLiveWriter
 
         private static AutoRecoverPromptResult AutoRecoverPrompt(IWin32Window window, int count)
         {
-            const int ID_RECOVER = 100,
-                ID_DISCARD = 101,
-                ID_ASKLATER = 2; // same as ID_CANCEL
-
+            // .NET 10: TaskDialog has struct marshaling issues, use MessageBox instead
             while (true)
             {
-                var td = new OpenLiveWriter.Interop.Windows.TaskDialog.TaskDialog();
+                var mbResult = System.Windows.Forms.MessageBox.Show(
+                    string.Format(CultureInfo.CurrentCulture,
+                        "{0} found {1} unsaved post(s). Would you like to recover them?\n\nYes = Recover\nNo = Discard\nCancel = Ask Later",
+                        ApplicationEnvironment.ProductNameQualified, count),
+                    ApplicationEnvironment.ProductNameQualified,
+                    System.Windows.Forms.MessageBoxButtons.YesNoCancel,
+                    System.Windows.Forms.MessageBoxIcon.Question);
 
-                td.WindowTitle = ApplicationEnvironment.ProductNameQualified;
-                td.MainInstruction = string.Format(CultureInfo.CurrentCulture,
-                                                   Res.Get(StringId.AutoRecoverDialogInstruction),
-                                                   ApplicationEnvironment.ProductNameQualified);
-                td.Content = string.Format(CultureInfo.CurrentCulture,
-                                           Res.Get(StringId.AutoRecoverDialogContent),
-                                           ApplicationEnvironment.ProductNameQualified);
-                //            td.MainIcon = TaskDialogIcon.Warning;
-
-                td.AllowDialogCancellation = true;
-
-                td.UseCommandLinks = true;
-                td.Buttons.Add(new OpenLiveWriter.Interop.Windows.TaskDialog.TaskDialogButton(ID_RECOVER, Res.Get(StringId.AutoRecoverDialogButtonRecover)));
-                td.Buttons.Add(new OpenLiveWriter.Interop.Windows.TaskDialog.TaskDialogButton(ID_DISCARD, Res.Get(StringId.AutoRecoverDialogButtonDiscard)));
-                td.Buttons.Add(new OpenLiveWriter.Interop.Windows.TaskDialog.TaskDialogButton(ID_ASKLATER, Res.Get(StringId.AutoRecoverDialogButtonAskLater)));
-
-                int result, radioResult;
-                bool flag;
-                td.Show(window, out result, out radioResult, out flag);
-                switch (result)
+                switch (mbResult)
                 {
-                    case ID_RECOVER:
+                    case System.Windows.Forms.DialogResult.Yes:
                         return AutoRecoverPromptResult.Recover;
-                    case ID_DISCARD:
-                        // WinLive 225110 - Pass ActiveWin32Window here as owner instead of default ForegroundWin32Window
-                        // ForegroundWin32Window could return a window of an app that is in admin mode and if we are running
-                        // non-admin then trying to use that as parent for MessageBox would cause it to return 'No' without showing
-                        // the dialog.
+                    case System.Windows.Forms.DialogResult.No:
+                        // Confirm discard
                         if (DialogResult.Yes == DisplayMessage.Show(MessageId.AutoRecoverPromptDiscardConfirm, Win32WindowImpl.ActiveWin32Window))
                             return AutoRecoverPromptResult.Discard;
-                        continue;
-                    case ID_ASKLATER:
-                        return AutoRecoverPromptResult.AskLater;
+                        continue; // Ask again
                     default:
-                        Debug.Fail("Unknown ID " + result);
                         return AutoRecoverPromptResult.AskLater;
                 }
             }
