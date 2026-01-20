@@ -63,6 +63,17 @@
         getTitle: (id) => getElementById(id)?.title,
         getLang: (id) => getElementById(id)?.lang,
         
+        // Generic property getter - for any DOM property
+        getProperty: (id, prop) => {
+            const el = getElementById(id);
+            if (!el) return null;
+            const val = el[prop];
+            // Return primitives directly, convert objects to string
+            if (val === null || val === undefined) return null;
+            if (typeof val === 'object') return String(val);
+            return val;
+        },
+        
         // Set properties
         setInnerHTML: (id, value) => { const el = getElementById(id); if (el) el.innerHTML = value; },
         setInnerText: (id, value) => { const el = getElementById(id); if (el) el.innerText = value; },
@@ -165,10 +176,71 @@
         writeln: (html) => document.writeln(html)
     };
     
+    // ===== Control Selection (for images, tables, etc.) =====
+    // MSHTML had a "Control" selection type for things like images
+    // We simulate this with a tracked selectedControl element
+    
+    let selectedControl = null;
+    const CONTROL_CLASS = 'olw-control-selected';
+    
+    // Add CSS for control selection if not present
+    function ensureControlSelectionStyles() {
+        if (document.getElementById('olw-control-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'olw-control-styles';
+        // Keep it simple - images are replaced elements and don't support ::before/::after
+        style.textContent = `
+            .${CONTROL_CLASS} {
+                outline: 2px solid #0078d7 !important;
+                outline-offset: 2px !important;
+                box-shadow: 0 0 0 4px rgba(0, 120, 215, 0.2) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    function selectControl(element) {
+        console.log('[OLW-JS] selectControl called with:', element?.tagName);
+        clearControlSelection();
+        if (element) {
+            selectedControl = element;
+            element.classList.add(CONTROL_CLASS);
+            ensureControlSelectionStyles();
+            console.log('[OLW-JS] Control selected, posting message');
+            // Notify C# about control selection - use setTimeout to avoid blocking the click event
+            if (window.chrome?.webview?.postMessage) {
+                setTimeout(() => {
+                    window.chrome.webview.postMessage(JSON.stringify({ 
+                        type: 'controlSelected', 
+                        tagName: element.tagName,
+                        id: getElementId(element)
+                    }));
+                }, 0);
+            } else {
+                console.log('[OLW-JS] No postMessage available');
+            }
+        }
+    }
+    
+    function clearControlSelection() {
+        if (selectedControl) {
+            selectedControl.classList.remove(CONTROL_CLASS);
+            selectedControl = null;
+            // Notify C# that control selection cleared - use setTimeout to avoid blocking
+            if (window.chrome?.webview?.postMessage) {
+                setTimeout(() => {
+                    window.chrome.webview.postMessage(JSON.stringify({ type: 'controlCleared' }));
+                }, 0);
+            }
+        }
+    }
+    
     // ===== Selection Operations =====
     
     OLW.selection = {
         getType: () => {
+            // Check for control selection first (images, tables)
+            if (selectedControl) return 'Control';
             const sel = window.getSelection();
             if (!sel || sel.rangeCount === 0) return 'None';
             if (sel.isCollapsed) return 'Caret';
@@ -210,7 +282,10 @@
         
         selectAll: () => document.execCommand('selectAll'),
         
-        clear: () => window.getSelection()?.removeAllRanges(),
+        clear: () => {
+            clearControlSelection();
+            window.getSelection()?.removeAllRanges();
+        },
         
         // Select an element's contents
         selectElement: (id) => {
@@ -221,7 +296,112 @@
             const sel = window.getSelection();
             sel.removeAllRanges();
             sel.addRange(range);
+        },
+        
+        // Control selection API (for images, tables, etc.)
+        selectControl: (id) => {
+            const el = getElementById(id);
+            if (el) selectControl(el);
+        },
+        
+        clearControl: () => clearControlSelection(),
+        
+        getSelectedControl: () => wrapElement(selectedControl),
+        
+        hasControlSelection: () => selectedControl !== null,
+        
+        // Get detailed info about the currently selected control
+        getSelectedControlInfo: () => {
+            if (!selectedControl) return null;
+            return {
+                tagName: selectedControl.tagName,
+                editorId: getElementId(selectedControl),
+                id: selectedControl.id || null,
+                src: selectedControl.src || null,
+                alt: selectedControl.alt || null,
+                width: selectedControl.width || selectedControl.offsetWidth || 0,
+                height: selectedControl.height || selectedControl.offsetHeight || 0
+            };
         }
+    };
+    
+    // ===== Control Selection Event Setup =====
+    // Set up click handlers to select images/controls when clicked
+    
+    let controlSelectionSetup = false;
+    
+    OLW.setupControlSelection = () => {
+        // Only setup once to avoid duplicate listeners
+        if (controlSelectionSetup) return 'already setup';
+        
+        ensureControlSelectionStyles();
+        
+        const bodyEl = document.getElementById('olw-body');
+        if (!bodyEl) return 'no body element';
+        
+        controlSelectionSetup = true;
+        
+        // Click handler for images
+        bodyEl.addEventListener('click', (e) => {
+            const target = e.target;
+            console.log('[OLW-JS] Body click, target:', target.tagName, target);
+            
+            // Check if clicking on an image
+            if (target.tagName === 'IMG') {
+                console.log('[OLW-JS] IMG clicked, selecting control');
+                e.preventDefault();
+                e.stopPropagation();
+                selectControl(target);
+                return;
+            }
+            
+            // Check if clicking on a table (directly on TD/TH/TABLE)
+            if (target.tagName === 'TABLE' || target.tagName === 'TD' || target.tagName === 'TH') {
+                // For tables, only select on border/edge clicks - let editing happen inside cells
+                // This is complex, so for now just allow text editing in tables
+            }
+            
+            // Clicking elsewhere clears control selection
+            if (selectedControl && target !== selectedControl) {
+                clearControlSelection();
+            }
+        });
+        
+        // Double-click on image opens properties
+        bodyEl.addEventListener('dblclick', (e) => {
+            console.log('[OLW-JS] Double-click on:', e.target.tagName, 'selectedControl:', selectedControl?.tagName);
+            if (e.target.tagName === 'IMG') {
+                // Select the image first if not already selected
+                if (selectedControl !== e.target) {
+                    selectControl(e.target);
+                }
+                console.log('[OLW-JS] Posting controlDoubleClick');
+                if (window.chrome?.webview?.postMessage) {
+                    setTimeout(() => {
+                        window.chrome.webview.postMessage(JSON.stringify({ 
+                            type: 'controlDoubleClick',
+                            tagName: e.target.tagName,
+                            id: getElementId(e.target)
+                        }));
+                    }, 0);
+                }
+            }
+        });
+        
+        // Delete key removes selected control
+        document.addEventListener('keydown', (e) => {
+            if (selectedControl && (e.key === 'Delete' || e.key === 'Backspace')) {
+                e.preventDefault();
+                selectedControl.remove();
+                clearControlSelection();
+                // Mark dirty
+                if (window.chrome?.webview?.hostObjects?.sync?.olw) {
+                    window.chrome.webview.hostObjects.sync.olw.MarkDirty();
+                }
+            }
+        });
+        
+        return 'control selection setup ok';
     };
     
     // ===== TextRange-like Operations =====
