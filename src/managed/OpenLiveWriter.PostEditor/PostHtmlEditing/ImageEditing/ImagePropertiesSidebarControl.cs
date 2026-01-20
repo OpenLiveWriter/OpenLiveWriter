@@ -18,6 +18,7 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.Commands;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
+using OpenLiveWriter.WebView2Shim;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
@@ -33,6 +34,22 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private IBlogPostImageEditingContext _imageEditingContext;
         private ImageEditingPropertyHandler _imagePropertyHandler;
         private bool _alignmentMarginCommandsHooked;
+        
+        /// <summary>
+        /// When true, we're using WebView2 for editing and should skip MSHTML calls.
+        /// Set when we receive an IEditorSelection.
+        /// </summary>
+        private bool _useWebView2Selection;
+        
+        /// <summary>
+        /// Current WebView2 editor selection (when in WebView2 mode).
+        /// </summary>
+        private IEditorSelection _webView2Selection;
+        
+        /// <summary>
+        /// Current WebView2 selected image (when in WebView2 mode).
+        /// </summary>
+        private ISelectedImage _webView2SelectedImage;
 
         // Picture related commands.
         private AlignmentCommand _alignmentCommand;
@@ -168,6 +185,51 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// </summary>
         public void UpdateView(object htmlSelection)
         {
+            // Track if we're in WebView2 mode
+            if (htmlSelection is IEditorSelection editorSelection)
+            {
+                _useWebView2Selection = true;
+                _webView2Selection = editorSelection;
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] PictureEditingManager.UpdateView: WebView2 selection");
+                
+                if (editorSelection.SelectionType == SelectionType.Image)
+                {
+                    _webView2SelectedImage = editorSelection.SelectedImage;
+                    
+                    // Image selected - enable basic commands and populate values
+                    HookAlignmentMarginCommands();
+                    EnableBasicImageCommands(true);
+                    PopulateWebView2ImageCommands();
+                    
+                    // Create ImagePropertiesInfo for the full decorator pipeline
+                    CreateWebView2ImagePropertiesInfo();
+                    
+                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] PictureEditingManager: Enabled basic image commands for WebView2");
+                }
+                else
+                {
+                    _webView2SelectedImage = null;
+                    _imagePropertiesInfo = null;
+                    // Not an image
+                    UnhookAlignmentMarginCommands();
+                    EnableBasicImageCommands(false);
+                }
+                return;
+            }
+            
+            // If we're in WebView2 mode and selection is null (switching away from image),
+            // skip MSHTML calls but still unhook commands
+            if (_useWebView2Selection && htmlSelection == null)
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] PictureEditingManager.UpdateView: WebView2 mode, null selection - unhooking commands only");
+                _webView2Selection = null;
+                _webView2SelectedImage = null;
+                _imagePropertiesInfo = null;
+                UnhookAlignmentMarginCommands();
+                EnableBasicImageCommands(false);
+                return;
+            }
+            
             if (htmlSelection != null)
             {
                 // Image selected.
@@ -180,6 +242,109 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
 
             ImagePropertyHandler.RefreshView();
+        }
+        
+        /// <summary>
+        /// Create ImagePropertiesInfo from WebView2 selected image for the decorator pipeline.
+        /// </summary>
+        private void CreateWebView2ImagePropertiesInfo()
+        {
+            if (_webView2SelectedImage == null)
+            {
+                _imagePropertiesInfo = null;
+                return;
+            }
+
+            try
+            {
+                // Cast to WebView2SelectedImage to get the bridge and adapter
+                var wv2Image = _webView2SelectedImage as WebView2SelectedImage;
+                if (wv2Image == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] CreateWebView2ImagePropertiesInfo: Not a WebView2SelectedImage");
+                    return;
+                }
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CreateWebView2ImagePropertiesInfo: wv2Image cast ok, EditorId={wv2Image.EditorId}");
+
+                // Get the IHtmlImageElement wrapper for decorator pipeline
+                var htmlImageElement = wv2Image.AsHtmlImageElement();
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CreateWebView2ImagePropertiesInfo: htmlImageElement created, IsValid={htmlImageElement?.IsValid}");
+                
+                // Create ImagePropertiesInfo using the new WebView2 method
+                _imagePropertiesInfo = ImageEditingPropertyHandler.GetImagePropertiesInfoFromWebView2(
+                    _webView2SelectedImage,
+                    htmlImageElement,
+                    _imageEditingContext);
+
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CreateWebView2ImagePropertiesInfo: Created ImagePropertiesInfo, src={_webView2SelectedImage.Src}");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CreateWebView2ImagePropertiesInfo error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CreateWebView2ImagePropertiesInfo stack: {ex.StackTrace}");
+                _imagePropertiesInfo = null;
+            }
+        }
+        
+        /// <summary>
+        /// Populate ribbon commands with values from WebView2 selected image.
+        /// </summary>
+        private void PopulateWebView2ImageCommands()
+        {
+            if (_webView2SelectedImage == null) return;
+            
+            try
+            {
+                // Get current image dimensions
+                int width = _webView2SelectedImage.Width;
+                int height = _webView2SelectedImage.Height;
+                
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] PopulateWebView2ImageCommands: width={width}, height={height}");
+                
+                // Set spinner values
+                if (_imageWidthCommand != null && width > 0)
+                {
+                    _imageWidthCommand.Value = width;
+                }
+                if (_imageHeightCommand != null && height > 0)
+                {
+                    _imageHeightCommand.Value = height;
+                }
+                
+                // Default aspect ratio lock to true for new selections
+                if (_aspectRatioLockedCommand != null)
+                {
+                    _aspectRatioLockedCommand.Latched = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] PopulateWebView2ImageCommands error: {ex.Message}");
+            }
+        }
+        
+        /// <summary>
+        /// Enable/disable basic image commands for WebView2 mode.
+        /// This is a simplified version that doesn't require MSHTML access.
+        /// Full image property support will be added later.
+        /// </summary>
+        private void EnableBasicImageCommands(bool enabled)
+        {
+            // Size commands
+            if (_imageWidthCommand != null) _imageWidthCommand.Enabled = enabled;
+            if (_imageHeightCommand != null) _imageHeightCommand.Enabled = enabled;
+            if (_customSizeDropDownCommand != null) _customSizeDropDownCommand.Enabled = enabled;
+            if (_aspectRatioLockedCommand != null) _aspectRatioLockedCommand.Enabled = enabled;
+            
+            // Alt text (important for accessibility)
+            if (_imageAltTextCommand != null) _imageAltTextCommand.Enabled = enabled;
+            
+            // Link options
+            if (_imageLinkTargetDropDownCommand != null) _imageLinkTargetDropDownCommand.Enabled = enabled;
+            if (_imageLinkOptionsCommand != null) _imageLinkOptionsCommand.Enabled = enabled;
+            
+            // Border (basic styling)
+            if (_imageBorderGalleryCommand != null) _imageBorderGalleryCommand.Enabled = enabled;
         }
 
         /// <summary>
@@ -615,8 +780,68 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         void imageSizeCommand_ExecuteWithArgs(object sender, ExecuteEventHandlerArgs args)
         {
             SpinnerCommand command = (SpinnerCommand)sender;
-            int newValue = Convert.ToInt32(args.GetDecimal(command.CommandId.ToString()));
+            
+            // Get the new value from args - the PropVariant x64 bug has been fixed
+            int newValue;
+            try
+            {
+                decimal decValue = args.GetDecimal(command.CommandId.ToString());
+                if (decValue < 1) decValue = 1;
+                if (decValue > 10000) decValue = 10000;
+                newValue = Convert.ToInt32(decValue);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageSizeCommand: Failed to get decimal from args: {ex.Message}");
+                return;
+            }
+            
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageSizeCommand: command={command.CommandId}, newValue={newValue}");
+            
+            // WebView2 mode
+            if (_useWebView2Selection && _webView2SelectedImage != null)
+            {
+                int currentWidth = _webView2SelectedImage.Width;
+                int currentHeight = _webView2SelectedImage.Height;
+                int naturalWidth = _webView2SelectedImage.NaturalWidth;
+                int naturalHeight = _webView2SelectedImage.NaturalHeight;
+                
+                int newWidth = currentWidth;
+                int newHeight = currentHeight;
+                
+                // Calculate aspect ratio from natural dimensions
+                double aspectRatio = naturalHeight > 0 ? (double)naturalWidth / naturalHeight : 1.0;
+                bool lockAspectRatio = _aspectRatioLockedCommand?.Latched ?? true;
+                
+                if (command.CommandId == CommandId.FormatImageAdjustWidth && newValue != currentWidth)
+                {
+                    newWidth = newValue;
+                    if (lockAspectRatio && aspectRatio > 0)
+                    {
+                        newHeight = (int)Math.Round(newValue / aspectRatio);
+                    }
+                }
+                else if (command.CommandId == CommandId.FormatImageAdjustHeight && newValue != currentHeight)
+                {
+                    newHeight = newValue;
+                    if (lockAspectRatio && aspectRatio > 0)
+                    {
+                        newWidth = (int)Math.Round(newValue * aspectRatio);
+                    }
+                }
+                
+                // Update via JS bridge asynchronously
+                _ = _webView2SelectedImage.SetDimensionsAsync(newWidth, newHeight);
+                
+                // Update spinner values to reflect the change
+                if (_imageWidthCommand != null) _imageWidthCommand.Value = newWidth;
+                if (_imageHeightCommand != null) _imageHeightCommand.Value = newHeight;
+                
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageSizeCommand: Set dimensions to {newWidth}x{newHeight}");
+                return;
+            }
 
+            // MSHTML mode - use standard ImagePropertiesInfo path
             using (IUndoUnit undo = _editorContext.CreateUndoUnit())
             {
                 if (command.CommandId == CommandId.FormatImageAdjustWidth && newValue != ImagePropertiesInfo.InlineImageWidth)
@@ -637,6 +862,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private void customSizeCommand_Execute(object sender, EventArgs args)
         {
             Command selectedCommand = (Command)sender;
+            
+            // WebView2 mode - custom sizes not yet supported (requires decorator infrastructure)
+            if (_useWebView2Selection)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] customSizeCommand: WebView2 mode - preset sizes not yet implemented");
+                // TODO: Implement preset sizes for WebView2
+                // For now, just skip - the width/height spinners work
+                return;
+            }
 
             using (IUndoUnit undo = _editorContext.CreateUndoUnit())
             {
@@ -648,6 +882,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         private void customSizeDefaultsCommand_Execute(object sender, EventArgs e)
         {
+            // WebView2 mode - custom size defaults not yet supported
+            if (_useWebView2Selection)
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] customSizeDefaultsCommand: WebView2 mode - not yet implemented");
+                return;
+            }
+            
             using (new WaitCursor())
             using (EditImageSizesDialog dialog = new EditImageSizesDialog())
             {
@@ -665,6 +906,14 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         {
             Command command = (Command)sender;
             command.Latched = !command.Latched;
+            
+            // WebView2 mode - just toggle the latched state (used by size commands)
+            if (_useWebView2Selection)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] aspectRatioLockedCommand: WebView2 mode, latched={command.Latched}");
+                return;
+            }
+            
             ImagePropertiesInfo.InlineImageAspectRatioLocked = command.Latched;
             ImagePropertiesInfo.TargetAspectRatioSize = ImagePropertiesInfo.InlineImageSize;
             ApplyImageDecorations();
@@ -756,6 +1005,54 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // If user cancels then we need to restore previous dropdown selection.
             Command selectedCommand = (Command)sender;
             LinkTargetType newLinkTargetType = (LinkTargetType)selectedCommand.Tag;
+
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageTargetSelectGalleryCommand_Execute: newLinkTargetType={newLinkTargetType}, ImagePropertiesInfo null={ImagePropertiesInfo == null}, _webView2SelectedImage null={_webView2SelectedImage == null}");
+
+            // WebView2 mode - handle link to source
+            if (_useWebView2Selection && _webView2SelectedImage != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageTargetSelectGalleryCommand_Execute: WebView2 mode, applying link target");
+                
+                if (newLinkTargetType == LinkTargetType.IMAGE)
+                {
+                    // Link to source image
+                    var srcUrl = _webView2SelectedImage.Src;
+                    // Convert back to file:// URL if it's a local mapped URL
+                    if (srcUrl?.StartsWith("https://olw-local-") == true)
+                    {
+                        // https://olw-local-c/path -> file:///C:/path
+                        var match = System.Text.RegularExpressions.Regex.Match(srcUrl, @"https://olw-local-([a-z])/(.*)");
+                        if (match.Success)
+                        {
+                            srcUrl = $"file:///{match.Groups[1].Value.ToUpper()}:/{match.Groups[2].Value}";
+                        }
+                    }
+                    
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageTargetSelectGalleryCommand_Execute: Wrapping image with link to {srcUrl}");
+                    
+                    // Wrap the image in an anchor tag using proper DOM manipulation
+                    var wv2Image = _webView2SelectedImage as WebView2SelectedImage;
+                    if (wv2Image != null)
+                    {
+                        wv2Image.WrapWithAnchor(srcUrl);
+                        System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] imageTargetSelectGalleryCommand_Execute: Image wrapped with anchor");
+                    }
+                }
+                else if (newLinkTargetType == LinkTargetType.NONE)
+                {
+                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] imageTargetSelectGalleryCommand_Execute: Removing link");
+                    var wv2Image = _webView2SelectedImage as WebView2SelectedImage;
+                    wv2Image?.UnwrapFromAnchor();
+                }
+                return;
+            }
+
+            // MSHTML mode - use ImagePropertiesInfo
+            if (ImagePropertiesInfo == null)
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] imageTargetSelectGalleryCommand_Execute: No ImagePropertiesInfo available");
+                return;
+            }
 
             using (new WaitCursor())
             using (IUndoUnit undo = _editorContext.CreateUndoUnit())

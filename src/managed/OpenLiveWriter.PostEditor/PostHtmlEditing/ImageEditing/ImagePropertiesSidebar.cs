@@ -24,7 +24,19 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         public bool AppliesToSelection(object htmlSelection)
         {
-            return HTMLSelectionHelper.SelectionIsImage(((IHtmlEditorSelection)htmlSelection).HTMLSelectionObject);
+            // Support new WebView2 selection model
+            if (htmlSelection is IEditorSelection editorSelection)
+            {
+                return SelectionHelper.SelectionIsImage(editorSelection);
+            }
+            
+            // Fall back to old MSHTML selection model
+            if (htmlSelection is IHtmlEditorSelection msHtmlSelection)
+            {
+                return HTMLSelectionHelper.SelectionIsImage(msHtmlSelection.HTMLSelectionObject);
+            }
+            
+            return false;
         }
 
         public SidebarControl CreateSidebarControl(ISidebarContext sidebarContext)

@@ -10,6 +10,7 @@ using mshtml;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.HtmlEditor;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
 
@@ -131,6 +132,91 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
 
             //transfer image data properties
+            if (imageData != null)
+            {
+                info.UploadSettings = imageData.UploadInfo.Settings;
+                info.UploadServiceId = imageData.UploadInfo.ImageServiceId;
+                if (info.UploadServiceId == null)
+                {
+                    info.UploadServiceId = editorContext.ImageServiceId;
+                }
+            }
+
+            return info;
+        }
+
+        /// <summary>
+        /// Create ImagePropertiesInfo from a WebView2 selected image.
+        /// </summary>
+        public static ImagePropertiesInfo GetImagePropertiesInfoFromWebView2(
+            ISelectedImage selectedImage, 
+            IHtmlImageElement htmlImageElement,
+            IBlogPostImageEditingContext editorContext)
+        {
+            if (selectedImage == null || htmlImageElement == null)
+                return null;
+
+            string imgSrc = selectedImage.Src;
+            
+            // Normalize file:// URLs to proper format
+            if (imgSrc != null && imgSrc.StartsWith("https://olw-local-"))
+            {
+                // Convert back from our custom scheme to file://
+                // https://olw-local-c/path -> file:///C:/path
+                string driveLetter = imgSrc.Substring("https://olw-local-".Length, 1);
+                string path = imgSrc.Substring("https://olw-local-".Length + 1);
+                imgSrc = $"file:///{driveLetter}:{path}";
+            }
+            
+            BlogPostImageData imageData = null;
+            try
+            {
+                if (!string.IsNullOrEmpty(imgSrc))
+                    imageData = BlogPostImageDataList.LookupImageDataByInlineUri(editorContext.ImageList, new Uri(imgSrc));
+            }
+            catch (UriFormatException)
+            {
+                // URI format error - treat as remote image
+            }
+
+            ImagePropertiesInfo info;
+            if (imageData != null && imageData.GetImageSourceFile() != null)
+            {
+                // Clone the image data so sidebar doesn't change it (preserves undo/redo state)
+                imageData = (BlogPostImageData)imageData.Clone();
+                // This is an attached local image
+                info = new BlogPostImagePropertiesInfo(imageData, new ImageDecoratorsList(editorContext.DecoratorsManager, imageData.ImageDecoratorSettings));
+                info.HtmlImageElement = htmlImageElement;
+            }
+            else
+            {
+                // This is not an attached local image, so treat as a web image
+                ImageDecoratorsList remoteImageDecoratorsList = new ImageDecoratorsList(editorContext.DecoratorsManager, new BlogPostSettingsBag());
+                remoteImageDecoratorsList.AddDecorator(editorContext.DecoratorsManager.GetDefaultRemoteImageDecorators());
+
+                // For WebView2, we can get natural dimensions directly
+                int width = selectedImage.NaturalWidth > 0 ? selectedImage.NaturalWidth : selectedImage.Width;
+                int height = selectedImage.NaturalHeight > 0 ? selectedImage.NaturalHeight : selectedImage.Height;
+
+                Uri infoUri;
+                if (Uri.TryCreate(imgSrc, UriKind.Absolute, out infoUri))
+                {
+                    info = new ImagePropertiesInfo(infoUri, new Size(width, height), remoteImageDecoratorsList);
+                }
+                else
+                {
+                    info = new ImagePropertiesInfo(new Uri("http://www.example.com"), new Size(width, height), remoteImageDecoratorsList);
+                }
+                info.HtmlImageElement = htmlImageElement;
+
+                // Set the correct inline image size
+                if (selectedImage.Width > 0 && selectedImage.Height > 0)
+                {
+                    info.InlineImageSize = new Size(selectedImage.Width, selectedImage.Height);
+                }
+            }
+
+            // Transfer image data properties
             if (imageData != null)
             {
                 info.UploadSettings = imageData.UploadInfo.Settings;

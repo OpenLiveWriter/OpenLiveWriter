@@ -11,6 +11,7 @@ using mshtml;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.HtmlEditor;
 using OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing
@@ -511,7 +512,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 if (targetDecoratorSettings == null)
                 {
-                    targetDecoratorSettings = new HtmlImageTargetDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageTargetDecorator.Id), _imgElement);
+                    targetDecoratorSettings = new HtmlImageTargetDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageTargetDecorator.Id), ImgElement);
                 }
                 return targetDecoratorSettings;
             }
@@ -524,7 +525,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 if (_inlineImageSettings == null)
                 {
-                    _inlineImageSettings = new HtmlImageResizeDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageResizeDecorator.Id), _imgElement);
+                    // Use WebView2 abstraction if MSHTML element is not available
+                    if (ImgElement == null && HtmlImageElement != null)
+                    {
+                        _inlineImageSettings = new HtmlImageResizeDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageResizeDecorator.Id), HtmlImageElement);
+                    }
+                    else
+                    {
+                        _inlineImageSettings = new HtmlImageResizeDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageResizeDecorator.Id), ImgElement);
+                    }
                 }
                 return _inlineImageSettings;
             }
@@ -537,7 +546,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 if (_inlineAlignmentSettings == null)
                 {
-                    _inlineAlignmentSettings = new HtmlAlignDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlAlignDecorator.Id), _imgElement);
+                    // Use WebView2 abstraction if MSHTML element is not available
+                    if (ImgElement == null && HtmlImageElement != null)
+                    {
+                        _inlineAlignmentSettings = new HtmlAlignDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlAlignDecorator.Id), HtmlImageElement);
+                    }
+                    else
+                    {
+                        _inlineAlignmentSettings = new HtmlAlignDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlAlignDecorator.Id), ImgElement);
+                    }
                 }
                 return _inlineAlignmentSettings;
             }
@@ -550,19 +567,51 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 if (_inlineMarginSettings == null)
                 {
-                    _inlineMarginSettings = new HtmlMarginDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlMarginDecorator.Id), _imgElement);
+                    // Use WebView2 abstraction if MSHTML element is not available
+                    if (ImgElement == null && HtmlImageElement != null)
+                    {
+                        _inlineMarginSettings = new HtmlMarginDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlMarginDecorator.Id), HtmlImageElement);
+                    }
+                    else
+                    {
+                        _inlineMarginSettings = new HtmlMarginDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlMarginDecorator.Id), ImgElement);
+                    }
                 }
                 return _inlineMarginSettings;
             }
         }
         private HtmlMarginDecoratorSettings _inlineMarginSettings;
 
+        /// <summary>
+        /// The HTML image element (MSHTML interface). 
+        /// For WebView2, use HtmlImageElement property instead.
+        /// </summary>
         public IHTMLElement ImgElement
         {
-            get { return _imgElement; }
-            set { _imgElement = value; }
+            get 
+            { 
+                // If we have a WebView2 element, return null - caller should use HtmlImageElement
+                if (_htmlImageElement != null && !(_htmlImageElement is MshtmlImageElementAdapter))
+                    return null;
+                return (_htmlImageElement as MshtmlImageElementAdapter)?.Element;
+            }
+            set { _htmlImageElement = value != null ? new MshtmlImageElementAdapter(value) : null; }
         }
-        private IHTMLElement _imgElement;
+
+        /// <summary>
+        /// The abstracted HTML image element - works with both MSHTML and WebView2.
+        /// </summary>
+        public IHtmlImageElement HtmlImageElement
+        {
+            get { return _htmlImageElement; }
+            set { _htmlImageElement = value; }
+        }
+        private IHtmlImageElement _htmlImageElement;
+
+        /// <summary>
+        /// Check if we have a valid image element (MSHTML or WebView2).
+        /// </summary>
+        public bool HasImageElement => _htmlImageElement != null && _htmlImageElement.IsValid;
 
         public RotateFlipType ImageRotation
         {
