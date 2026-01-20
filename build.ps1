@@ -9,6 +9,35 @@ $ErrorActionPreference = "Stop";
 @"
 
 =======================================================
+ Checking .NET 10 SDK
+=======================================================
+"@
+
+$dotnetVersion = $null
+try {
+    $dotnetVersion = & dotnet --version 2>$null
+} catch {
+    # dotnet command not found
+}
+
+if (-Not $dotnetVersion) {
+    "ERROR: .NET SDK not found. Please install .NET 10 SDK from https://dotnet.microsoft.com/download/dotnet/10.0"
+    exit 99
+}
+
+$majorVersion = [int]($dotnetVersion.Split('.')[0])
+if ($majorVersion -lt 10) {
+    "ERROR: .NET 10 SDK required. Found: $dotnetVersion"
+    "Please install .NET 10 SDK from https://dotnet.microsoft.com/download/dotnet/10.0"
+    "Visual Studio 2026 includes .NET 10 SDK by default."
+    exit 99
+}
+
+".NET SDK found: $dotnetVersion"
+
+@"
+
+=======================================================
  Checking solution exists
 =======================================================
 "@

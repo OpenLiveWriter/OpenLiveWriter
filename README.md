@@ -56,10 +56,13 @@ to the .NET Foundation and this passionate group of volunteer engineers rapidly 
 version.
 
 ### Building
-Open Live Writer can be built by running build.cmd found in this directory.   
-It can be opened in Visual Studio.  The solution is in src/managed/writer.sln -- if you see errors in Visual Studio run build.cmd from the command prompt and it should be resolved.
-The main program is src/managed/OpenLiveWriter/ApplicationMain.cs .
-To run from Visual Studio, set the startup project to OpenLiveWriter.
+Open Live Writer requires:
+- **Visual Studio 2026** (or later) - includes all required components via `.vsconfig`
+- **.NET 10 SDK** - included with VS2026, or download from https://dotnet.microsoft.com/download/dotnet/10.0
+
+To build, run `build.cmd` from the repository root. The solution can also be opened in Visual Studio at `src/managed/writer.sln`.
+
+The main program is `src/managed/OpenLiveWriter/ApplicationMain.cs`. To run from Visual Studio, set the startup project to OpenLiveWriter.
 
 **Architecture:** The build targets x64 (64-bit) only. x86/32-bit is no longer supported.
 
