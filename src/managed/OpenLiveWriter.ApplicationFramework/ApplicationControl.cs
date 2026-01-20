@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// Application control.
@@ -133,6 +133,77 @@ namespace Project31.ApplicationFramework
         /// <param name="selectableObject">The array of ISelectableObject values to select.</param>
         public void SetSelection(ISelectableObject[] selectableObjects)
         {
+        }
+
+        ///	<interface>ISelectionManager</interface>
+        /// <summary>
+        /// Selects the specified object.
+        /// </summary>
+        public void SelectObject(ISelectableObject selectableObject)
+        {
+            if (selectableObject != null && !selectionList.Contains(selectableObject))
+            {
+                selectionList.Add(selectableObject);
+                selectableObject.Selected = true;
+                OnSelectionChanged(EventArgs.Empty);
+            }
+        }
+
+        ///	<interface>ISelectionManager</interface>
+        /// <summary>
+        /// Unselects the specified object.
+        /// </summary>
+        public void UnselectObject(ISelectableObject selectableObject)
+        {
+            if (selectableObject != null && selectionList.Contains(selectableObject))
+            {
+                selectionList.Remove(selectableObject);
+                selectableObject.Selected = false;
+                OnSelectionChanged(EventArgs.Empty);
+            }
+        }
+
+        ///	<interface>ICommandManager</interface>
+        /// <summary>
+        /// Activates the specified command.
+        /// </summary>
+        public void ActivateCommand(Command command)
+        {
+            if (command != null && !commandTable.ContainsKey(command.Identifier))
+                commandTable.Add(command.Identifier, command);
+        }
+
+        ///	<interface>ICommandManager</interface>
+        /// <summary>
+        /// Deactivates the specified command.
+        /// </summary>
+        public void DeactivateCommand(Command command)
+        {
+            if (command != null)
+                commandTable.Remove(command.Identifier);
+        }
+
+        ///	<interface>ICommandManager</interface>
+        /// <summary>
+        /// Gets the command with the specified identifier.
+        /// </summary>
+        public Command GetCommand(string commandIdentifier)
+        {
+            return commandTable[commandIdentifier] as Command;
+        }
+
+        ///	<interface>ICommandManager</interface>
+        /// <summary>
+        /// Gets the command with the specified shortcut.
+        /// </summary>
+        public Command GetCommand(Shortcut shortcut)
+        {
+            foreach (Command command in commandTable.Values)
+            {
+                if (command.Shortcut == shortcut)
+                    return command;
+            }
+            return null;
         }
     }
 }

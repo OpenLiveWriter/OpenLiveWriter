@@ -56,7 +56,7 @@ namespace OpenLiveWriter.ApplicationFramework
         string Keytip { get; set; }
     }
 
-    public class Command : ICommandTextDisplayProperties, IComparable
+    public class Command : Component, ICommandTextDisplayProperties, IComparable
     {
         #region Private Member Variables
 
@@ -461,7 +461,51 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
+        /// <summary>
+        /// The EnabledChanged event key.
+        /// </summary>
+        private static readonly object EnabledChangedEventKey = new object();
+
+        /// <summary>
+        /// Occurs when the Enabled property changes.
+        /// </summary>
+        public event EventHandler EnabledChanged
+        {
+            add
+            {
+                Events.AddHandler(EnabledChangedEventKey, value);
+            }
+            remove
+            {
+                Events.RemoveHandler(EnabledChangedEventKey, value);
+            }
+        }
+
         #endregion Public Events
+
+        #region Public Properties - Added
+
+        private string contextMenuPath;
+        /// <summary>
+        /// Gets or sets the context menu path for this command.
+        /// </summary>
+        public string ContextMenuPath
+        {
+            get { return contextMenuPath; }
+            set { contextMenuPath = value; }
+        }
+
+        private string description;
+        /// <summary>
+        /// Gets or sets the description for this command.
+        /// </summary>
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+
+        #endregion Public Properties - Added
 
         #region Class Initialization & Termination
 
@@ -483,11 +527,17 @@ namespace OpenLiveWriter.ApplicationFramework
 
         public Command(CommandId commandId)
         {
+            // Verbose logging commented out - uncomment for debugging command initialization
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Command ctor: {commandId} - UpdateInvalidationState");
             UpdateInvalidationState(PropertyKeys.Enabled, InvalidationState.Pending);
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Command ctor: {commandId} - setting Identifier");
             this.Identifier = commandId.ToString();
             this.CommandId = commandId;
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Command ctor: {commandId} - InitializeImageLoaders");
             InitializeImageLoaders();
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Command ctor: {commandId} - LoadResources");
             LoadResources();
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Command ctor: {commandId} - done");
         }
 
         #endregion Class Initialization & Termination

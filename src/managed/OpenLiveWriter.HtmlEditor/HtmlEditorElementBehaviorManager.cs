@@ -4,11 +4,11 @@
 using System;
 using System.Diagnostics;
 using System.Collections;
-using Project31.Interop.Com;
-using Project31.MshtmlEditor;
+using OpenLiveWriter.Interop.Com;
+using OpenLiveWriter.Mshtml;
 using mshtml;
 
-namespace Onfolio.Core.HtmlEditor
+namespace OpenLiveWriter.HtmlEditor
 {
     public class HtmlEditorElementBehaviorManager : IDisposable
     {

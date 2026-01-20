@@ -8,12 +8,12 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using Project31.CoreServices;
-using Project31.Interop.Windows;
-using Project31.ApplicationFramework;
-using Project31.Controls;
+using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Interop.Windows;
+using OpenLiveWriter.ApplicationFramework;
+using OpenLiveWriter.Controls;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// Specifies type of merge menu to build.

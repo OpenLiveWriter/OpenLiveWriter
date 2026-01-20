@@ -455,6 +455,37 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
             }
         }
 
+        private BorderPaint _appBodyFrameBorder;
+        public BorderPaint AppBodyFrameBorder
+        {
+            get { return _appBodyFrameBorder ?? AppOutlineBorder; }
+        }
+
+        private Bitmap _gripperImage;
+        public Bitmap GripperImage
+        {
+            get 
+            { 
+                if (_gripperImage == null)
+                {
+                    // Create a simple gripper image (3x5 pixels, dots pattern)
+                    _gripperImage = new Bitmap(3, 5);
+                    using (Graphics g = Graphics.FromImage(_gripperImage))
+                    {
+                        g.Clear(Color.Transparent);
+                        Color dotColor = BorderDarkColor;
+                        _gripperImage.SetPixel(0, 0, dotColor);
+                        _gripperImage.SetPixel(2, 0, dotColor);
+                        _gripperImage.SetPixel(0, 2, dotColor);
+                        _gripperImage.SetPixel(2, 2, dotColor);
+                        _gripperImage.SetPixel(0, 4, dotColor);
+                        _gripperImage.SetPixel(2, 4, dotColor);
+                    }
+                }
+                return _gripperImage;
+            }
+        }
+
         public Color Colorize(Color color)
         {
             return Colorizer.ColorizeARGB(color, _colorizeColor, _colorizeScale);

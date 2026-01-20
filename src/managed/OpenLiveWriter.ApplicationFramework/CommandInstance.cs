@@ -8,12 +8,12 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Project31.MindShare.CoreServices;
+using OpenLiveWriter.CoreServices;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
-    /// Represents a command in the Project31.ApplicationFramework.
+    /// Represents a command in the OpenLiveWriter.ApplicationFramework.
     /// </summary>
     [
     DesignTimeVisible(false),
@@ -26,10 +26,12 @@ namespace Project31.ApplicationFramework
         /// </summary>
         private System.ComponentModel.Container components = null;
 
+        // NOTE: CommandDefinition type was never implemented - dead field removed
+
         /// <summary>
         /// Menu bitmap for the enabled state.
         /// </summary>
-        private CommandDefinition commandDefinition;
+        private Bitmap menuBitmapEnabled;
 
         /// <summary>
         /// Gets or sets the menu bitmap for the enabled state.
@@ -370,7 +372,7 @@ namespace Project31.ApplicationFramework
         /// Initializes a new instance of the Command class.
         /// </summary>
         /// <param name="container"></param>
-        public CommandDefinition(System.ComponentModel.IContainer container)
+        public CommandInstance(System.ComponentModel.IContainer container)
         {
             /// <summary>
             /// Required for Windows.Forms Class Composition Designer support
@@ -382,7 +384,7 @@ namespace Project31.ApplicationFramework
         /// <summary>
         /// Initializes a new instance of the Command class.
         /// </summary>
-        public CommandDefinition()
+        public CommandInstance()
         {
             /// <summary>
             /// Required for Windows.Forms Class Composition Designer support
@@ -417,8 +419,7 @@ namespace Project31.ApplicationFramework
         {
             if (Execute != null)
                 Execute(this, e);
-            else
-                UnderConstructionForm.Show();
+            // NOTE: UnderConstructionForm was a debug placeholder that was never implemented
         }
 
         /// <summary>

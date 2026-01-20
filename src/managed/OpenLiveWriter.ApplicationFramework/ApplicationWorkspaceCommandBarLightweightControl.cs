@@ -9,7 +9,7 @@ using System.Drawing.Drawing2D;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// ApplicationCommandBar lightweight control.  Provides the CommandBarLightweightControl for
@@ -69,6 +69,22 @@ namespace Project31.ApplicationFramework
             components = new System.ComponentModel.Container();
         }
         #endregion
+
+        private Size layoutMargin = new Size(2, 2);
+
+        /// <summary>
+        /// Gets or sets the layout margin as a Size (Width = horizontal, Height = vertical).
+        /// </summary>
+        public Size LayoutMargin
+        {
+            get { return layoutMargin; }
+            set { layoutMargin = value; }
+        }
+
+        public override int TopLayoutMargin => layoutMargin.Height;
+        public override int BottomLayoutMargin => layoutMargin.Height;
+        public override int LeftLayoutMargin => layoutMargin.Width;
+        public override int RightLayoutMargin => layoutMargin.Width;
 
         /// <summary>
         /// Raises the Paint event.

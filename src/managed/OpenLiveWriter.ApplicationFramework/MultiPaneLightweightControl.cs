@@ -8,10 +8,10 @@ using System.ComponentModel;
 using System.Collections;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Project31.Controls;
-using Project31.CoreServices;
+using OpenLiveWriter.Controls;
+using OpenLiveWriter.CoreServices;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// Multipane lightweight control.
@@ -57,32 +57,32 @@ namespace Project31.ApplicationFramework
         /// <summary>
         ///
         /// </summary>
-        private Project31.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlLeft;
+        private OpenLiveWriter.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlLeft;
 
         /// <summary>
         ///
         /// </summary>
-        private Project31.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlCenter;
+        private OpenLiveWriter.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlCenter;
 
         /// <summary>
         ///
         /// </summary>
-        private Project31.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlRight;
+        private OpenLiveWriter.ApplicationFramework.WorkPaneLightweightControl workPaneLightweightControlRight;
 
         /// <summary>
         /// The left splitter lightweight control.
         /// </summary>
-        private Project31.ApplicationFramework.SplitterLightweightControl leftSplitter;
+        private OpenLiveWriter.ApplicationFramework.SplitterLightweightControl leftSplitter;
 
         /// <summary>
         /// The right splitter lightweight control.
         /// </summary>
-        private Project31.ApplicationFramework.SplitterLightweightControl rightSplitter;
+        private OpenLiveWriter.ApplicationFramework.SplitterLightweightControl rightSplitter;
 
         /// <summary>
         /// The gutter lightweight control.
         /// </summary>
-        private Project31.Controls.GutterLightweightControl gutter;
+        private OpenLiveWriter.Controls.GutterLightweightControl gutter;
 
         /// <summary>
         /// Gets or sets the left pane control.
@@ -185,26 +185,26 @@ namespace Project31.ApplicationFramework
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.leftSplitter = new Project31.ApplicationFramework.SplitterLightweightControl(this.components);
-            this.rightSplitter = new Project31.ApplicationFramework.SplitterLightweightControl(this.components);
-            this.gutter = new Project31.Controls.GutterLightweightControl(this.components);
-            this.workPaneLightweightControlLeft = new Project31.ApplicationFramework.WorkPaneLightweightControl(this.components);
-            this.workPaneLightweightControlCenter = new Project31.ApplicationFramework.WorkPaneLightweightControl(this.components);
-            this.workPaneLightweightControlRight = new Project31.ApplicationFramework.WorkPaneLightweightControl(this.components);
+            this.leftSplitter = new OpenLiveWriter.ApplicationFramework.SplitterLightweightControl(this.components);
+            this.rightSplitter = new OpenLiveWriter.ApplicationFramework.SplitterLightweightControl(this.components);
+            this.gutter = new OpenLiveWriter.Controls.GutterLightweightControl(this.components);
+            this.workPaneLightweightControlLeft = new OpenLiveWriter.ApplicationFramework.WorkPaneLightweightControl(this.components);
+            this.workPaneLightweightControlCenter = new OpenLiveWriter.ApplicationFramework.WorkPaneLightweightControl(this.components);
+            this.workPaneLightweightControlRight = new OpenLiveWriter.ApplicationFramework.WorkPaneLightweightControl(this.components);
             //
             // leftSplitter
             //
             this.leftSplitter.LightweightControlContainerControl = this;
-            this.leftSplitter.SplitterEndMove += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.leftSplitter_SplitterEndMove);
+            this.leftSplitter.SplitterEndMove += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.leftSplitter_SplitterEndMove);
             this.leftSplitter.SplitterBeginMove += new System.EventHandler(this.leftSplitter_SplitterBeginMove);
-            this.leftSplitter.SplitterMoving += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.leftSplitter_SplitterMoving);
+            this.leftSplitter.SplitterMoving += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.leftSplitter_SplitterMoving);
             //
             // rightSplitter
             //
             this.rightSplitter.LightweightControlContainerControl = this;
-            this.rightSplitter.SplitterEndMove += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.rightSplitter_SplitterEndMove);
+            this.rightSplitter.SplitterEndMove += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.rightSplitter_SplitterEndMove);
             this.rightSplitter.SplitterBeginMove += new System.EventHandler(this.rightSplitter_SplitterBeginMove);
-            this.rightSplitter.SplitterMoving += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.rightSplitter_SplitterMoving);
+            this.rightSplitter.SplitterMoving += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.rightSplitter_SplitterMoving);
             //
             // gutter
             //
@@ -452,7 +452,7 @@ namespace Project31.ApplicationFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void leftSplitter_SplitterEndMove(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
+        private void leftSplitter_SplitterEndMove(object sender, OpenLiveWriter.ApplicationFramework.LightweightSplitterEventArgs e)
         {
             verticalTrackingIdicator.End();
             leftSplitterPosition = newLeftSplitterPosition;
@@ -465,7 +465,7 @@ namespace Project31.ApplicationFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void leftSplitter_SplitterMoving(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
+        private void leftSplitter_SplitterMoving(object sender, OpenLiveWriter.ApplicationFramework.LightweightSplitterEventArgs e)
         {
             //	Obtain the minimum and maximum left splitter positions.
             int minimumLeftSplitterPosition = MinimumLeftSplitterPosition();
@@ -505,7 +505,7 @@ namespace Project31.ApplicationFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void rightSplitter_SplitterEndMove(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
+        private void rightSplitter_SplitterEndMove(object sender, OpenLiveWriter.ApplicationFramework.LightweightSplitterEventArgs e)
         {
             verticalTrackingIdicator.End();
             rightSplitterPosition = newRightSplitterPosition;
@@ -518,7 +518,7 @@ namespace Project31.ApplicationFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void rightSplitter_SplitterMoving(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
+        private void rightSplitter_SplitterMoving(object sender, OpenLiveWriter.ApplicationFramework.LightweightSplitterEventArgs e)
         {
             //	Obtain the minimum and maximum right splitter positions.
             int minimumRightSplitterPosition = MinimumRightSplitterPosition();

@@ -8,15 +8,15 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Project31.Controls;
-using Project31.CoreServices;
+using OpenLiveWriter.Controls;
+using OpenLiveWriter.CoreServices;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// The ApplicationWorkspace control provides a multi-pane workspace.
     /// </summary>
-    public class ApplicationWorkspace : Project31.Controls.LightweightControlContainerControl
+    public class ApplicationWorkspace : OpenLiveWriter.Controls.LightweightControlContainerControl
     {
         /// <summary>
         /// The default left column preferred width.
@@ -98,12 +98,12 @@ namespace Project31.ApplicationFramework
         /// <summary>
         /// The application workspace command bar lightweight control.
         /// </summary>
-        private Project31.ApplicationFramework.ApplicationWorkspaceCommandBarLightweightControl applicationCommandBarLightweightControl;
+        private OpenLiveWriter.ApplicationFramework.ApplicationWorkspaceCommandBarLightweightControl applicationCommandBarLightweightControl;
 
         /// <summary>
         /// The left ApplicationWorkspaceColumnLightweightControl.
         /// </summary>
-        private Project31.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl leftColumn;
+        private OpenLiveWriter.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl leftColumn;
 
         /// <summary>
         /// Gets the left ApplicationWorkspaceColumnLightweightControl.
@@ -119,7 +119,7 @@ namespace Project31.ApplicationFramework
         /// <summary>
         /// The center ApplicationWorkspaceColumnLightweightControl.
         /// </summary>
-        private Project31.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl centerColumn;
+        private OpenLiveWriter.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl centerColumn;
 
         /// <summary>
         /// Gets the center ApplicationWorkspaceColumnLightweightControl.
@@ -135,7 +135,7 @@ namespace Project31.ApplicationFramework
         /// <summary>
         /// The right ApplicationWorkspaceColumnLightweightControl.
         /// </summary>
-        private Project31.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl rightColumn;
+        private OpenLiveWriter.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl rightColumn;
 
         /// <summary>
         /// Gets the right ApplicationWorkspaceColumnLightweightControl.
@@ -185,10 +185,10 @@ namespace Project31.ApplicationFramework
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.applicationCommandBarLightweightControl = new Project31.ApplicationFramework.ApplicationWorkspaceCommandBarLightweightControl(this.components);
-            this.leftColumn = new Project31.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl();
-            this.centerColumn = new Project31.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl();
-            this.rightColumn = new Project31.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl();
+            this.applicationCommandBarLightweightControl = new OpenLiveWriter.ApplicationFramework.ApplicationWorkspaceCommandBarLightweightControl(this.components);
+            this.leftColumn = new OpenLiveWriter.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl();
+            this.centerColumn = new OpenLiveWriter.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl();
+            this.rightColumn = new OpenLiveWriter.ApplicationFramework.ApplicationWorkspaceColumnLightweightControl();
             ((System.ComponentModel.ISupportInitialize)(this.applicationCommandBarLightweightControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.leftColumn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.centerColumn)).BeginInit();

@@ -178,6 +178,7 @@ namespace OpenLiveWriter.Localization
         InsertTable2 = 23457,
         InsertTags = 23274,
         InsertVideoFromFile = 23276,
+        Menu = 23500,
         InsertVideoFromService = 23277,
         InsertVideoFromWeb = 23275,
         InsertVideoSplit = 23053,

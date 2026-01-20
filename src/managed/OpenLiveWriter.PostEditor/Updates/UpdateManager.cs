@@ -3,14 +3,12 @@
 
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.ResourceDownloading;
-using Squirrel;
+using Velopack;
+using Velopack.Sources;
 using System;
-using System.Collections;
 using System.Diagnostics;
-using System.Globalization;
-using System.Reflection;
 using System.Threading;
-using System.Xml;
+using System.Threading.Tasks;
 
 namespace OpenLiveWriter.PostEditor.Updates
 {
@@ -21,7 +19,7 @@ namespace OpenLiveWriter.PostEditor.Updates
         public static void CheckforUpdates(bool forceCheck = false)
         {
 #if !DesktopUWP
-            // Update using Squirrel if not a Desktop UWP package
+            // Update using Velopack if not a Desktop UWP package
             var checkNow = forceCheck || UpdateSettings.AutoUpdate;
             var downloadUrl = UpdateSettings.CheckForBetaUpdates ?
                 UpdateSettings.BetaUpdateDownloadUrl : UpdateSettings.UpdateDownloadUrl;
@@ -40,21 +38,30 @@ namespace OpenLiveWriter.PostEditor.Updates
                 {
                     try
                     {
-                        using (var manager = new Squirrel.UpdateManager(downloadUrl))
+                        var source = new SimpleWebSource(downloadUrl);
+                        var manager = new Velopack.UpdateManager(source);
+                        
+                        if (!manager.IsInstalled)
                         {
-                            var update = await manager.CheckForUpdate();
-
-                            if(update != null && 
-                               update.ReleasesToApply.Count > 0 && 
-                               update.FutureReleaseEntry.Version < update.CurrentlyInstalledVersion.Version)
-                            {
-                                Trace.WriteLine("Update is older than currently running version, not installing.");
-                                Trace.WriteLine($"Current: {update.CurrentlyInstalledVersion.Version} Update: {update.FutureReleaseEntry.Version}");
-                                return;
-                            }
-
-                            await manager.UpdateApp();
+                            Trace.WriteLine("Application is not installed via Velopack, skipping update check.");
+                            return;
                         }
+
+                        var updateInfo = await manager.CheckForUpdatesAsync();
+                        
+                        if (updateInfo == null)
+                        {
+                            Trace.WriteLine("No updates available.");
+                            return;
+                        }
+
+                        Trace.WriteLine($"Update available: {updateInfo.TargetFullRelease.Version}");
+                        
+                        // Download and apply the update
+                        await manager.DownloadUpdatesAsync(updateInfo);
+                        
+                        // The update will be applied on next restart
+                        Trace.WriteLine("Update downloaded and will be applied on next restart.");
                     }
                     catch (Exception ex)
                     {

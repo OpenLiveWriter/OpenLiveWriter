@@ -6,7 +6,7 @@ using System.Collections;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// Provides command table management.

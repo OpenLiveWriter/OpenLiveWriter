@@ -50,10 +50,12 @@ using OpenLiveWriter.PostEditor.Commands;
 
 namespace OpenLiveWriter.PostEditor
 {
-    internal class ContentEditor : IBlogPostContentEditor, IContentSourceSite, IDisposable, IHtmlEditorCommandSource, IHtmlEditorHost, IBlogPostImageEditingContext, IBlogPostSidebarContext, IContentSourceSidebarContext, IBlogPostSpellCheckingContext, ICommandManagerHost, IEditingMode, IInternalSmartContentContextSource
+    internal class ContentEditor : IBlogPostContentEditor, IContentSourceSite, IDisposable, IHtmlEditorCommandSource, IHtmlEditorHost, IBlogPostImageEditingContext, IBlogPostSidebarContext, IContentSourceSidebarContext, PostHtmlEditing.IBlogPostSpellCheckingContext, ICommandManagerHost, IEditingMode, IInternalSmartContentContextSource
     {
         public ContentEditor(IMainFrameWindow mainFrameWindow, Control editorContainer, IBlogPostEditingSite postEditingSite, IInternetSecurityManager internetSecurityManager, BlogPostHtmlEditorControl.TemplateStrategy templateStrategy, int dlControlFlags)
         {
+            Debug.WriteLine("[OLW-DEBUG] ContentEditor constructor starting");
+            
             // create a docked panel to host the editor
             Panel panel = new Panel();
             panel.Dock = DockStyle.Fill;
@@ -89,15 +91,30 @@ namespace OpenLiveWriter.PostEditor
             _emoticonsManager = new EmoticonsManager(this, this);
 
             // initialize commands
-            InitializeCommands();
+            Debug.WriteLine("[OLW-DEBUG] ContentEditor: InitializeCommands");
+            try
+            {
+                InitializeCommands();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[OLW-DEBUG] InitializeCommands EXCEPTION: {ex.GetType().Name}: {ex.Message}");
+                throw;
+            }
 
             // initialize normal editor
+            Debug.WriteLine("[OLW-DEBUG] ContentEditor: InitializeNormalEditor");
             InitializeNormalEditor(postEditingSite, internetSecurityManager, templateStrategy, dlControlFlags);
 
             // initialize source editor
+            Debug.WriteLine("[OLW-DEBUG] ContentEditor: checking SourceEditor feature");
             if (GlobalEditorOptions.SupportsFeature(ContentEditorFeature.SourceEditor))
+            {
+                Debug.WriteLine("[OLW-DEBUG] ContentEditor: InitializeSourceEditor");
                 InitializeSourceEditor();
+            }
 
+            Debug.WriteLine("[OLW-DEBUG] ContentEditor: InitializeViewCommands");
             InitializeViewCommands();
 
             // initialize custom content
@@ -257,8 +274,10 @@ namespace OpenLiveWriter.PostEditor
         // Shared group commands need to be here.
         protected virtual void InitializeCommands()
         {
+            Debug.WriteLine("[OLW-DEBUG] InitializeCommands: BeginUpdate");
             CommandManager.BeginUpdate();
 
+            Debug.WriteLine("[OLW-DEBUG] InitializeCommands: Adding FontGroup");
             CommandManager.Add(new Command(CommandId.FontGroup)); // Has it's own icon.
             CommandManager.Add(new Command(CommandId.SemanticHtmlGroup));
 
@@ -2464,6 +2483,8 @@ namespace OpenLiveWriter.PostEditor
         }
 
         public event EventHandler SpellingOptionsChanged;
+
+        public string PostSpellingContextDirectory => _supportingFileStorage?.StoragePath;
 
         #endregion
 

@@ -208,9 +208,9 @@ namespace OpenLiveWriter.ApplicationFramework
         {
             string query = txtQuery.Text.Trim();
             if (query == "")
-                Process.Start("http://search.live.com/");
+                ShellHelper.LaunchUrl("http://search.live.com/");
             else
-                Process.Start(
+                ShellHelper.LaunchUrl(
                     string.Format(CultureInfo.InvariantCulture, "http://search.live.com/results.aspx?q={0}&mkt={1}&FORM=LVSP",
                         HttpUtility.UrlEncode(query),
                         HttpUtility.UrlEncode(CultureInfo.CurrentCulture.Name)));

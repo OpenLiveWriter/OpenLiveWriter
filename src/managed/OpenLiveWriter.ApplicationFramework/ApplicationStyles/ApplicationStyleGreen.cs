@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework.ApplicationStyles
+namespace OpenLiveWriter.ApplicationFramework.ApplicationStyles
 {
     public class ApplicationStyleGreen : ApplicationStyle
     {

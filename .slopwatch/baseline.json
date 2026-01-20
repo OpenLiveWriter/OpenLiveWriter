@@ -1,0 +1,899 @@
+{
+  "version": 1,
+  "createdAt": "2026-01-19T22:59:38.3760429+00:00",
+  "updatedAt": "2026-01-19T23:00:03.7117213+00:00",
+  "description": "Initial baseline created by \u0027slopwatch init\u0027 on 2026-01-19 22:59:38 UTC",
+  "entries": [
+    {
+      "hash": "b7ae86b2d0711d42",
+      "ruleId": "SW004",
+      "filePath": "src/managed/BlogRunner.Core/Test.cs",
+      "lineNumber": 127,
+      "codeSnippet": "Thread.Sleep(1000)",
+      "message": "Test uses Thread.Sleep(1000) which may indicate a timing-dependent test",
+      "baselinedAt": "2026-01-19T22:59:38.3777251+00:00"
+    },
+    {
+      "hash": "e33d0ec3029bd6e2",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter/ApplicationMain.cs",
+      "lineNumber": 217,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                // Ignore, chances are this is being run locally on a dev\u0027s machine\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3777968+00:00"
+    },
+    {
+      "hash": "834dbc642a1fc093",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter/ApplicationMain.cs",
+      "lineNumber": 233,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778008+00:00"
+    },
+    {
+      "hash": "0672b45f6ce86448",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Blog.cs",
+      "lineNumber": 402,
+      "codeSnippet": "catch (BlogClientOperationCancelledException)\r\n            {\r\n\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778123+00:00"
+    },
+    {
+      "hash": "be906b4aba42074a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Blog.cs",
+      "lineNumber": 715,
+      "codeSnippet": "catch\r\n                {\r\n                    // url combine can throw exceptions, ignore these\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778194+00:00"
+    },
+    {
+      "hash": "b3c35498b4778d8a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/AtomMediaUploader.cs",
+      "lineNumber": 99,
+      "codeSnippet": "catch\r\n                    {\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778238+00:00"
+    },
+    {
+      "hash": "839b8408e32c87c0",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/AtomMediaUploader.cs",
+      "lineNumber": 121,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778265+00:00"
+    },
+    {
+      "hash": "f98bf3b596b6ccc3",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/BlogClientLoginControl.cs",
+      "lineNumber": 267,
+      "codeSnippet": "catch (Exception)\r\n                    {\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.377829+00:00"
+    },
+    {
+      "hash": "ac6838d05ad035e4",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/BloggerAtomClient.cs",
+      "lineNumber": 119,
+      "codeSnippet": "catch\r\n                    {\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778314+00:00"
+    },
+    {
+      "hash": "c22f2fbaa1be9586",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/SharePointClient.cs",
+      "lineNumber": 234,
+      "codeSnippet": "catch (Exception) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778343+00:00"
+    },
+    {
+      "hash": "68a6eb2d794b6bd3",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/StaticSite/StaticSiteClient.cs",
+      "lineNumber": 553,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778387+00:00"
+    },
+    {
+      "hash": "c9d79a5e9f35ecf2",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/StaticSite/StaticSiteConfigDetector.cs",
+      "lineNumber": 105,
+      "codeSnippet": "catch(Exception)\r\n            {\r\n                // YAML may be malformed, defaults are still set from above so return true\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778416+00:00"
+    },
+    {
+      "hash": "007b065983253d5a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/StaticSite/StaticSiteItemFrontMatter.cs",
+      "lineNumber": 114,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778443+00:00"
+    },
+    {
+      "hash": "fca98587c576a344",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/StaticSite/StaticSitePage.cs",
+      "lineNumber": 63,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778463+00:00"
+    },
+    {
+      "hash": "5e22ea445a0b8fea",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Clients/StaticSite/StaticSitePost.cs",
+      "lineNumber": 49,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778481+00:00"
+    },
+    {
+      "hash": "da2bf5ad01df6408",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Detection/BlogEditingTemplateDetector.cs",
+      "lineNumber": 314,
+      "codeSnippet": "catch\r\n            {\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778506+00:00"
+    },
+    {
+      "hash": "0c81350a80a0d58d",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Detection/BlogEditingTemplateStrategy.cs",
+      "lineNumber": 423,
+      "codeSnippet": "catch (Exception) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778527+00:00"
+    },
+    {
+      "hash": "cf806a2a03e4e487",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Detection/BlogServiceDetector.cs",
+      "lineNumber": 103,
+      "codeSnippet": "catch (OperationCancelledException)\r\n                {\r\n                    // WasCancelled == true\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778561+00:00"
+    },
+    {
+      "hash": "988f2d2f33cab424",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Detection/BlogServiceDetector.cs",
+      "lineNumber": 551,
+      "codeSnippet": "catch (BlogAccountDetectorException)\r\n                {\r\n                    // ErrorOccurred == true\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778609+00:00"
+    },
+    {
+      "hash": "b30a14278a98fc80",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Detection/BlogSettingsDetector.cs",
+      "lineNumber": 316,
+      "codeSnippet": "catch (NotSupportedException)\r\n                {\r\n                    //not an actual encoding\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778653+00:00"
+    },
+    {
+      "hash": "849027b2d997f28a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Detection/LazyHomepageDownloader.cs",
+      "lineNumber": 105,
+      "codeSnippet": "catch (NotSupportedException)\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778676+00:00"
+    },
+    {
+      "hash": "d0768a7fd09417b1",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/Detection/WriterEditingManifest.cs",
+      "lineNumber": 497,
+      "codeSnippet": "catch (BlogClientOperationCancelledException)\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778714+00:00"
+    },
+    {
+      "hash": "22db24b1829afc85",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BlogClient/ImageViewers/DhtmlImageViewers.cs",
+      "lineNumber": 72,
+      "codeSnippet": "catch (UriFormatException)\r\n                {\r\n                    // We\u0027ll just use the regex on the raw attribute value.\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778746+00:00"
+    },
+    {
+      "hash": "281fc5a075fb958a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.BrowserControl/AxWebBrowser.cs",
+      "lineNumber": 928,
+      "codeSnippet": "catch (System.Exception)\r\n            {\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778805+00:00"
+    },
+    {
+      "hash": "66b0641672411edc",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.Controls/Wizard/WizardController.cs",
+      "lineNumber": 96,
+      "codeSnippet": "catch (CancelNextException)\r\n            {\r\n                //next was cancelled.\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778877+00:00"
+    },
+    {
+      "hash": "fb2495aec46575c5",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/AsyncOperation.cs",
+      "lineNumber": 367,
+      "codeSnippet": "catch\r\n                { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.37789+00:00"
+    },
+    {
+      "hash": "feda777a0bc50c7a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/FileHelper.cs",
+      "lineNumber": 821,
+      "codeSnippet": "catch\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778925+00:00"
+    },
+    {
+      "hash": "06467bae71f94b39",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/HtmlScreenCaptureCore.cs",
+      "lineNumber": 318,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3778991+00:00"
+    },
+    {
+      "hash": "9243784f6f4f3426",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/ImageHelper2.cs",
+      "lineNumber": 154,
+      "codeSnippet": "catch (OutOfMemoryException)\r\n            {\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779054+00:00"
+    },
+    {
+      "hash": "1921c99ac3ba2a63",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/ProcessHelper.cs",
+      "lineNumber": 63,
+      "codeSnippet": "catch\r\n                    {\r\n                        // Certain processes, like Idle, cause security exceptions when we\r\n                        // try to access them.  Maybe processes in other sessions too?\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779084+00:00"
+    },
+    {
+      "hash": "7c8045e85f3ffb24",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/ProcessHelper.cs",
+      "lineNumber": 79,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779102+00:00"
+    },
+    {
+      "hash": "f43a204f69aa1de0",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/RegistryHelper.cs",
+      "lineNumber": 49,
+      "codeSnippet": "catch (ArgumentException) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779123+00:00"
+    },
+    {
+      "hash": "862abcb33bad4bed",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/RegistryMonitor.cs",
+      "lineNumber": 189,
+      "codeSnippet": "catch (ObjectDisposedException)\r\n                        {\r\n                            //occurs when removing change listeners while shutting down.\r\n                        }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779154+00:00"
+    },
+    {
+      "hash": "27d110eaef645e4f",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/ResourceFileDownloader.cs",
+      "lineNumber": 310,
+      "codeSnippet": "catch\r\n            {\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779199+00:00"
+    },
+    {
+      "hash": "fedafb1dfba5605b",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/TempFileManager.cs",
+      "lineNumber": 110,
+      "codeSnippet": "catch\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779229+00:00"
+    },
+    {
+      "hash": "54e28df138998df2",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/XmlHelper.cs",
+      "lineNumber": 62,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779253+00:00"
+    },
+    {
+      "hash": "0e3080224e851e4b",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/Diagnostics/FileLogger.cs",
+      "lineNumber": 143,
+      "codeSnippet": "catch\r\n                {\r\n                    // no big deal... maybe we\u0027ll have better luck next time.\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779278+00:00"
+    },
+    {
+      "hash": "aac855fe7702b069",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/Diagnostics/UnexpectedErrorDialog.cs",
+      "lineNumber": 343,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779299+00:00"
+    },
+    {
+      "hash": "3a28805f519bde9a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/HTML/HTMLColorHelper.cs",
+      "lineNumber": 42,
+      "codeSnippet": "catch (Exception) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779327+00:00"
+    },
+    {
+      "hash": "b6c4dbcdbd145a2a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/HTML/HTMLDocumentHelper.cs",
+      "lineNumber": 402,
+      "codeSnippet": "catch (NotSupportedException)\r\n                    {\r\n                        // The encoding isn\u0027t supported on this system\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779353+00:00"
+    },
+    {
+      "hash": "9f34853bcdfeb1ef",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/HTML/HTMLDocumentHelper.cs",
+      "lineNumber": 406,
+      "codeSnippet": "catch (ArgumentException)\r\n                    {\r\n                        // The encoding isn\u0027t an encoding that the OS even knows about (its probably\r\n                        // not well formatted or misspelled or something)\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779386+00:00"
+    },
+    {
+      "hash": "e08f4f3d2f562013",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/HTML/HTMLDocumentHelper.cs",
+      "lineNumber": 663,
+      "codeSnippet": "catch (ArgumentException)\r\n                    {\r\n                        // The encoding isn\u0027t an encoding that the OS even knows about\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779476+00:00"
+    },
+    {
+      "hash": "b2783988268cf5d6",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/HTML/HTMLDocumentHelper.cs",
+      "lineNumber": 1235,
+      "codeSnippet": "catch (UnauthorizedAccessException)\r\n            {\r\n                // We weren\u0027t permitted to access the style sheets, try manual parse\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.37795+00:00"
+    },
+    {
+      "hash": "f0f2672a696e223e",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/HTML/LightWeightHTMLDocument.cs",
+      "lineNumber": 167,
+      "codeSnippet": "catch (NotSupportedException)\r\n                        {\r\n                            // The encoding isn\u0027t supported on this system\r\n                        }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779531+00:00"
+    },
+    {
+      "hash": "8b3b1b5530c0b891",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/HTML/LightWeightHTMLDocument.cs",
+      "lineNumber": 171,
+      "codeSnippet": "catch (ArgumentException)\r\n                        {\r\n                            // The encoding isn\u0027t an encoding that the OS even knows about (its probably\r\n                            // not well formatted or misspelled or something)\r\n                        }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779556+00:00"
+    },
+    {
+      "hash": "8a09267bffc4af53",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/Settings/RegistryCodec.cs",
+      "lineNumber": 553,
+      "codeSnippet": "catch\r\n                {\r\n                    // If JSON deserialization fails, the data may be in old BinaryFormatter format\r\n                    // which we can no longer read in .NET 10\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779604+00:00"
+    },
+    {
+      "hash": "f98aa25f5560bb7e",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/WebRequest/HTMLDocumentDownloader.cs",
+      "lineNumber": 206,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                //may occur if the URL is malformed\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779631+00:00"
+    },
+    {
+      "hash": "ba01502895678551",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/WebRequest/HttpRequestHelper.cs",
+      "lineNumber": 362,
+      "codeSnippet": "catch\r\n                    {\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779654+00:00"
+    },
+    {
+      "hash": "9447da6c46c9060d",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/WebRequest/UrlDownloadToFile.cs",
+      "lineNumber": 34,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                //may occur if the URL is malformed\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779685+00:00"
+    },
+    {
+      "hash": "49e29fbd1f21e404",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/WebRequest/UrlHelper.cs",
+      "lineNumber": 372,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                //may occur if the URL is malformed\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779709+00:00"
+    },
+    {
+      "hash": "33ca9bf59284cfbd",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/WebRequest/WebRequestWithCache.cs",
+      "lineNumber": 137,
+      "codeSnippet": "catch (WebException)\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779733+00:00"
+    },
+    {
+      "hash": "5810035aaced784e",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.CoreServices/WebRequest/WebRequestWithCache.cs",
+      "lineNumber": 160,
+      "codeSnippet": "catch (NotSupportedException)\r\n                        {\r\n                        }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779754+00:00"
+    },
+    {
+      "hash": "15027b47c26caaf8",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.FileDestinations/FileDestination.cs",
+      "lineNumber": 249,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779783+00:00"
+    },
+    {
+      "hash": "2a5a2034ffdc88c2",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.FileDestinations/PublishFolderPicker.cs",
+      "lineNumber": 107,
+      "codeSnippet": "catch (Exception)\r\n                    {\r\n                        //eat it since we\u0027ve already reported the error and this error\r\n                        //is probably because no valid connection was ever established\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779814+00:00"
+    },
+    {
+      "hash": "ad5bd0b1a9ca9d40",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.HtmlEditor/HtmlEditorControl.cs",
+      "lineNumber": 1932,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779834+00:00"
+    },
+    {
+      "hash": "005a799b7b7d5608",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.HtmlEditor/HtmlEditorControl.cs",
+      "lineNumber": 4087,
+      "codeSnippet": "catch (Exception)\r\n                    {\r\n                        //avoids MSHTML error reported while getting stylename (bug 287515)\r\n                        //Debug.Fail(\u0022Error getting stylename\u0022, e.ToString());\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779864+00:00"
+    },
+    {
+      "hash": "d86ba5f298c8948f",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.HtmlEditor/Linking/HyperlinkForm.cs",
+      "lineNumber": 183,
+      "codeSnippet": "catch (ExternalException)\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779891+00:00"
+    },
+    {
+      "hash": "61fa99d2d7aeb2d0",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.HtmlEditor/Linking/HyperlinkForm.cs",
+      "lineNumber": 186,
+      "codeSnippet": "catch (ThreadStateException)\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779911+00:00"
+    },
+    {
+      "hash": "97b8c7fdc5250e40",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.HtmlParser/Parser/HtmlUtils.cs",
+      "lineNumber": 487,
+      "codeSnippet": "catch (FormatException) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779934+00:00"
+    },
+    {
+      "hash": "347aa5d0565c7cec",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.HtmlParser/Parser/HtmlUtils.cs",
+      "lineNumber": 488,
+      "codeSnippet": "catch (OverflowException) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3779959+00:00"
+    },
+    {
+      "hash": "4823ddf5c1f82d5e",
+      "ruleId": "SW002",
+      "filePath": "src/managed/OpenLiveWriter.Interop/Com/IconReference.cs",
+      "lineNumber": 94,
+      "codeSnippet": "System.Diagnostics.CodeAnalysis.SuppressMessage(\u0022Microsoft.Globalization\u0022, \u0022CA1305:SpecifyIFormatProvider\u0022, MessageId = \u0022System.Int32.Parse(System.String)\u0022, Justification = \u0022We are not currently handling globalization or localization\u0022)",
+      "message": "SuppressMessage attribute suppressing Microsoft.Globalization:CA1305:SpecifyIFormatProvider",
+      "baselinedAt": "2026-01-19T22:59:38.3780107+00:00"
+    },
+    {
+      "hash": "7ddf3cfcb5b95dfd",
+      "ruleId": "SW002",
+      "filePath": "src/managed/OpenLiveWriter.Interop/Com/PropertyKey.cs",
+      "lineNumber": 150,
+      "codeSnippet": "System.Diagnostics.CodeAnalysis.SuppressMessage(\u0022Microsoft.Globalization\u0022, \u0022CA1305:SpecifyIFormatProvider\u0022, MessageId = \u0022System.String.Format(System.String,System.Object,System.Object)\u0022)",
+      "message": "SuppressMessage attribute suppressing Microsoft.Globalization:CA1305:SpecifyIFormatProvider",
+      "baselinedAt": "2026-01-19T22:59:38.3780135+00:00"
+    },
+    {
+      "hash": "28ffed94d1f7c64c",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.Localization/CultureHelper.cs",
+      "lineNumber": 95,
+      "codeSnippet": "catch (ArgumentException)\r\n                    {\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780166+00:00"
+    },
+    {
+      "hash": "caa092241af21b92",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.Mshtml/MshtmlCommands.cs",
+      "lineNumber": 352,
+      "codeSnippet": "catch\r\n            {\r\n                // this can throw exceptions at unexpected times such as managing\r\n                // command-state when a flash-player is in the editor\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780196+00:00"
+    },
+    {
+      "hash": "7c163b26fa31a438",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.Mshtml/MshtmlElementBehavior.cs",
+      "lineNumber": 146,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                //TODO: An exception gets thrown here when dragging or deleting images\r\n                //and causes the image behavior to completely break. Is this exception OK to ignore, or\r\n                //is there some protection logic we can put here?\r\n    // ...",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780234+00:00"
+    },
+    {
+      "hash": "9e62106bd1d2da82",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostEditorFile.cs",
+      "lineNumber": 367,
+      "codeSnippet": "catch (StorageFileNotFoundException) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780258+00:00"
+    },
+    {
+      "hash": "999dbbc3f3e5ebb6",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostEditorFile.cs",
+      "lineNumber": 561,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780313+00:00"
+    },
+    {
+      "hash": "5606d01c305fb285",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHelper.cs",
+      "lineNumber": 74,
+      "codeSnippet": "catch\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780342+00:00"
+    },
+    {
+      "hash": "a152641efb28471b",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/ServiceUpdateChecker.cs",
+      "lineNumber": 85,
+      "codeSnippet": "catch (ManualKeepaliveOperationException)\r\n            {\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780367+00:00"
+    },
+    {
+      "hash": "40123affc50c1aa8",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/BlogProviderButtons/BlogProviderButton.cs",
+      "lineNumber": 299,
+      "codeSnippet": "catch (BlogClientOperationCancelledException)\r\n                    {\r\n                    }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780393+00:00"
+    },
+    {
+      "hash": "30a5851f97927b3f",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/Configuration/Settings/AdvancedPanel.cs",
+      "lineNumber": 252,
+      "codeSnippet": "catch (NotSupportedException) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780414+00:00"
+    },
+    {
+      "hash": "4a42bbe87d451ec4",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/Configuration/Settings/AdvancedPanel.cs",
+      "lineNumber": 253,
+      "codeSnippet": "catch (ArgumentException) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780439+00:00"
+    },
+    {
+      "hash": "66c02b8b00458e97",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/Configuration/Wizard/WizardAutoDetectionOperations.cs",
+      "lineNumber": 268,
+      "codeSnippet": "catch (OperationCancelledException)\r\n                {\r\n                    // WasCancelled == true\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780467+00:00"
+    },
+    {
+      "hash": "671117a411035d4d",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/ContentEditor/ContentEditor.cs",
+      "lineNumber": 1563,
+      "codeSnippet": "catch (Exception)\r\n                {\r\n\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780492+00:00"
+    },
+    {
+      "hash": "55a588d9953ee660",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/ContentEditor/ContentEditorProxy.cs",
+      "lineNumber": 185,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                // TODO: Explore our options here.\r\n                // IContentEditorLogger should not be throwing exceptions, but in the case that it does we do not want\r\n                // to make another Debug or Trace call because it could cause an infinite loop/stack overflow.\r\n    // ...",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780539+00:00"
+    },
+    {
+      "hash": "e54027a8efbb8a18",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/ContentSources/ContentSourceManager.cs",
+      "lineNumber": 807,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780563+00:00"
+    },
+    {
+      "hash": "e1a44eb2a1ddab90",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/ContentSources/ContentSourceManager.cs",
+      "lineNumber": 998,
+      "codeSnippet": "catch (WriterContentPluginAttributeMissingException)\r\n            {\r\n                // this exception is OK (allows for ContentSource base-class which doesn\u0027t implement an actual plugin)\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780588+00:00"
+    },
+    {
+      "hash": "2dc280d559714429",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/ContentSources/UrlContentRetreivalWithProgress.cs",
+      "lineNumber": 197,
+      "codeSnippet": "catch (OperationCancelledException)\r\n            {\r\n                // WasCancelled = true\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780618+00:00"
+    },
+    {
+      "hash": "440e923703ffc52f",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/ImageInsertion/InsertImageDialog.cs",
+      "lineNumber": 478,
+      "codeSnippet": "catch\r\n                        {\r\n                        }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780644+00:00"
+    },
+    {
+      "hash": "9696caac754abe4a",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/BlogPostHtmlEditorSettingsEditorControl.cs",
+      "lineNumber": 163,
+      "codeSnippet": "catch(OperationCancelledException)\r\n            {\r\n                //user cancelled call.\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780672+00:00"
+    },
+    {
+      "hash": "fdd17d48ef63624b",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/Behaviors/ExtendedEntrySplitterElementBehavior.cs",
+      "lineNumber": 94,
+      "codeSnippet": "catch (Exception) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780701+00:00"
+    },
+    {
+      "hash": "965dc0e31e697200",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/ImageEditing/ImageEditingPropertyHandler.cs",
+      "lineNumber": 185,
+      "codeSnippet": "catch (UriFormatException) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780725+00:00"
+    },
+    {
+      "hash": "4300689e8fbdeb55",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/ImageEditing/ImageInsertHandler.cs",
+      "lineNumber": 185,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                //image.PropertyItems will throw an exception if the image does not contain any exif data\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780753+00:00"
+    },
+    {
+      "hash": "0b606e62c47eea6f",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/ImageEditing/ImageUtils.cs",
+      "lineNumber": 164,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                //image.PropertyItems will throw an exception if the image does not contain any exif data\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780787+00:00"
+    },
+    {
+      "hash": "a88b21f8876d04d3",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/ImageEditing/Decorators/BrightnessEditor.cs",
+      "lineNumber": 313,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                //illegal int value detected, assume the user is still typing.\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780816+00:00"
+    },
+    {
+      "hash": "88cf7873b2288115",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/ImageEditing/Decorators/CropDecorator.cs",
+      "lineNumber": 57,
+      "codeSnippet": "catch (ArgumentException)\r\n                {\r\n                    // orientation data was not present\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780841+00:00"
+    },
+    {
+      "hash": "2f836045d1d712ba",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/ImageEditing/Decorators/HtmlImageTargetEditor.cs",
+      "lineNumber": 253,
+      "codeSnippet": "catch (Exception) { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780871+00:00"
+    },
+    {
+      "hash": "93ac59b33766c351",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostHtmlEditing/ImageEditing/Decorators/TiltDecoratorEditor.cs",
+      "lineNumber": 121,
+      "codeSnippet": "catch (Exception)\r\n            {\r\n                //illegal int value detected, assume the user is still typing.\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780897+00:00"
+    },
+    {
+      "hash": "9081cb29e4b24c75",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/PostPropertyEditing/SharedPropertiesController.cs",
+      "lineNumber": 593,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780921+00:00"
+    },
+    {
+      "hash": "f0dab6cb0f666323",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/Video/VideoProviderManager.cs",
+      "lineNumber": 76,
+      "codeSnippet": "catch\r\n                {\r\n                }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780944+00:00"
+    },
+    {
+      "hash": "958a6276a74cd17b",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/Video/VideoListBox/VideoThumbnailManager.cs",
+      "lineNumber": 131,
+      "codeSnippet": "catch (ThreadSafeQueueTerminatedException)\r\n            {\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3780996+00:00"
+    },
+    {
+      "hash": "12184728cd1a5840",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.PostEditor/Video/Youtube/YoutubeVideoPublisher.cs",
+      "lineNumber": 288,
+      "codeSnippet": "catch (NullReferenceException)\r\n            {\r\n\r\n            }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3781029+00:00"
+    },
+    {
+      "hash": "98b3244336bd37d3",
+      "ruleId": "SW002",
+      "filePath": "src/managed/OpenLiveWriter.Tests/PostEditor/Tables/TestHtmlEditor.cs",
+      "lineNumber": 55,
+      "codeSnippet": "#pragma warning disable CS0067",
+      "message": "#pragma warning disable for warnings CS0067 without matching restore in same scope",
+      "baselinedAt": "2026-01-19T22:59:38.3781051+00:00"
+    },
+    {
+      "hash": "dcc90494545b73bf",
+      "ruleId": "SW003",
+      "filePath": "src/managed/OpenLiveWriter.WebView2Shim/WebView2HtmlEditorControl.cs",
+      "lineNumber": 511,
+      "codeSnippet": "catch { }",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3781074+00:00"
+    },
+    {
+      "hash": "bae59cf0bb55ae62",
+      "ruleId": "SW004",
+      "filePath": "utilities/BlogRunner/BlogRunner.Core/Test.cs",
+      "lineNumber": 117,
+      "codeSnippet": "Thread.Sleep(1000)",
+      "message": "Test uses Thread.Sleep(1000) which may indicate a timing-dependent test",
+      "baselinedAt": "2026-01-19T22:59:38.3781095+00:00"
+    },
+    {
+      "hash": "9a3eba0fdbafb82f",
+      "ruleId": "SW003",
+      "filePath": "utilities/BlogServer/WebServer/HttpHeaders.cs",
+      "lineNumber": 81,
+      "codeSnippet": "catch\r\n\t\t\t\t{\r\n\t\t\t\t}",
+      "message": "Empty catch block swallows exceptions without handling",
+      "baselinedAt": "2026-01-19T22:59:38.3781129+00:00"
+    },
+    {
+      "hash": "29a66de34d96afcc",
+      "ruleId": "SW005",
+      "filePath": "utilities/FauxLocalizationResourceGenerator/FauxLocalizationResourceGenerator.csproj",
+      "lineNumber": 55,
+      "codeSnippet": "\u003CTreatWarningsAsErrors xmlns=\u0022http://schemas.microsoft.com/developer/msbuild/2003\u0022\u003Efalse\u003C/TreatWarningsAsErrors\u003E",
+      "message": "TreatWarningsAsErrors is disabled - warnings will not fail the build",
+      "baselinedAt": "2026-01-19T22:59:38.3781154+00:00"
+    },
+    {
+      "hash": "d4b0501cf4a7410a",
+      "ruleId": "SW005",
+      "filePath": "src/managed/Directory.Build.props",
+      "lineNumber": 16,
+      "codeSnippet": "\u003CNoWarn\u003E$(NoWarn);WFO1000\u003C/NoWarn\u003E",
+      "message": "Adding warnings to NoWarn: WFO1000",
+      "baselinedAt": "2026-01-19T23:00:03.7114661+00:00"
+    },
+    {
+      "hash": "131c34583a09c5be",
+      "ruleId": "SW005",
+      "filePath": "src/managed/Directory.Build.props",
+      "lineNumber": 9,
+      "codeSnippet": "\u003CTreatWarningsAsErrors\u003Efalse\u003C/TreatWarningsAsErrors\u003E",
+      "message": "TreatWarningsAsErrors is disabled - warnings will not fail the build",
+      "baselinedAt": "2026-01-19T23:00:03.7117209+00:00"
+    }
+  ]
+}

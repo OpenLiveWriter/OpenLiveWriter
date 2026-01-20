@@ -8,11 +8,11 @@ using System.Drawing.Drawing2D;
 using System.ComponentModel;
 using System.Collections;
 using System.Windows.Forms;
-using Project31.Controls;
+using OpenLiveWriter.Controls;
 using System.Diagnostics;
-using Project31.CoreServices;
+using OpenLiveWriter.CoreServices;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     ///

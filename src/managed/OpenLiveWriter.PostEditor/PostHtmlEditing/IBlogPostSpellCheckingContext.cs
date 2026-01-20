@@ -7,8 +7,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
     /// <summary>
     /// Spelling checking services for the HTML Editor.
+    /// Extends the base SpellChecker interface with post-specific context.
     /// </summary>
-    public interface IBlogPostSpellCheckingContext
+    public interface IBlogPostSpellCheckingContext : SpellChecker.IBlogPostSpellCheckingContext
     {
         string PostSpellingContextDirectory { get; }
     }

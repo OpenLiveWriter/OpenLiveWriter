@@ -1,0 +1,47 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- WebView2 -->
+    <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+
+    <!-- JSON -->
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+
+    <!-- Google APIs - use compatible versions -->
+    <PackageVersion Include="Google.Apis" Version="1.69.0" />
+    <PackageVersion Include="Google.Apis.Auth" Version="1.69.0" />
+    <PackageVersion Include="Google.Apis.Core" Version="1.69.0" />
+    <PackageVersion Include="Google.Apis.Blogger.v3" Version="1.69.0.3796" />
+    <PackageVersion Include="Google.Apis.Drive.v3" Version="1.68.0.3533" />
+
+    <!-- YAML -->
+    <PackageVersion Include="YamlDotNet" Version="16.3.0" />
+
+    <!-- Spell Check -->
+    <PackageVersion Include="PlatformSpellCheck" Version="1.0.0" />
+
+    <!-- Compression - use System.IO.Compression instead of Zlib.Portable -->
+    <!-- Zlib.Portable.Signed not .NET 10 compatible, will use built-in compression -->
+
+    <!-- Installer/Updates - Velopack replaces Squirrel -->
+    <PackageVersion Include="Velopack" Version="0.0.1298" />
+
+    <!-- Registry (needed for .NET 10) -->
+    <PackageVersion Include="Microsoft.Win32.Registry" Version="5.0.0" />
+
+    <!-- System.Drawing.Common (needed for .NET 10) -->
+    <PackageVersion Include="System.Drawing.Common" Version="9.0.0" />
+
+    <!-- SOAP Web Services compatibility for SharePoint -->
+    <PackageVersion Include="System.Web.Services.Description" Version="4.9.0" />
+
+    <!-- Testing -->
+    <PackageVersion Include="NUnit" Version="4.3.2" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageVersion Include="ApprovalTests" Version="6.0.0" />
+  </ItemGroup>
+</Project>

@@ -43,7 +43,24 @@ namespace OpenLiveWriter.ApplicationFramework
 
             //	Set the command.
             this.command = command;
+            InitializeFromCommand(menuType);
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the CommandOwnerDrawMenuItem class with command's menu text.
+        /// </summary>
+        public CommandOwnerDrawMenuItem(MenuType menuType, Command command) : base(menuType, command?.MenuText ?? string.Empty)
+        {
+            Debug.Assert(command != null, "CommandOwnerDrawMenuItem - Command was null.");
+            if (command == null)
+                return;
+
+            this.command = command;
+            InitializeFromCommand(menuType);
+        }
+
+        private void InitializeFromCommand(MenuType menuType)
+        {
             //	Initialize the menu item.
             if (menuType == MenuType.Main)
             {

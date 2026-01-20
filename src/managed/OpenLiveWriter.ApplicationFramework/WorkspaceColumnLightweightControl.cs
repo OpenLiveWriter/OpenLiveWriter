@@ -9,19 +9,7 @@ using OpenLiveWriter.Controls;
 
 namespace OpenLiveWriter.ApplicationFramework
 {
-    #region Public Enumeration Declarations
-
-    /// <summary>
-    /// The vertical splitter style.
-    /// </summary>
-    internal enum VerticalSplitterStyle
-    {
-        None,   //	No vertical splitter.
-        Left,   //	Vertical splitter on the left edge of the column.
-        Right   //	Vertical splitter on the right edge of the column.
-    }
-
-    #endregion Public Enumeration Declarations
+    // NOTE: VerticalSplitterStyle enum is defined in ApplicationWorkspaceColumnLightweightControl.cs
 
     /// <summary>
     /// Provides the workspace column control.

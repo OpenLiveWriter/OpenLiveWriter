@@ -392,6 +392,13 @@ namespace OpenLiveWriter.BlogClient.Providers
             set { _supportsEmptyTitles = value; }
         }
 
+        public bool UnescapedTitles
+        {
+            get { return _unescapedTitles; }
+            set { _unescapedTitles = value; }
+        }
+        private bool _unescapedTitles;
+
         public int MaxRecentPosts
         {
             get { return _maxRecentPosts; }

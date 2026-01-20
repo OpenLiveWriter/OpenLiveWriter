@@ -4,7 +4,7 @@
 using System;
 using System.Drawing;
 
-namespace Project31.CoreServices
+namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Bitmap operation helper.

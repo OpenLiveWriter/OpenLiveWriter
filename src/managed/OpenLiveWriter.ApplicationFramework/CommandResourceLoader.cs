@@ -17,22 +17,51 @@ namespace OpenLiveWriter.ApplicationFramework
 {
     public class CommandResourceLoader
     {
-        private static readonly ResourcedPropertyLoader _resourcedPropertyLoader = new ResourcedPropertyLoader(
-            typeof(Command),
-            new ResourceManager("OpenLiveWriter.Localization.Properties", typeof(CommandId).Assembly),
-            new ResourceManager("OpenLiveWriter.Localization.PropertiesNonLoc", typeof(CommandId).Assembly)
-            );
+        private static readonly ResourcedPropertyLoader _resourcedPropertyLoader;
         private static readonly IDictionary _commandMainMenuPaths;
 
         static CommandResourceLoader()
         {
-            using (new QuickTimer("Parse main menu structure"))
-                _commandMainMenuPaths = new MainMenuParser(_resourcedPropertyLoader.LocalizedResources, _resourcedPropertyLoader.NonLocalizedResources).Parse();
+            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] CommandResourceLoader static ctor starting");
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Creating ResourcedPropertyLoader");
+                _resourcedPropertyLoader = new ResourcedPropertyLoader(
+                    typeof(Command),
+                    new ResourceManager("OpenLiveWriter.Localization.Properties", typeof(CommandId).Assembly),
+                    new ResourceManager("OpenLiveWriter.Localization.PropertiesNonLoc", typeof(CommandId).Assembly)
+                );
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] ResourcedPropertyLoader created");
+                
+                using (new QuickTimer("Parse main menu structure"))
+                {
+                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Creating MainMenuParser");
+                    _commandMainMenuPaths = new MainMenuParser(_resourcedPropertyLoader.LocalizedResources, _resourcedPropertyLoader.NonLocalizedResources).Parse();
+                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] MainMenuParser done");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CommandResourceLoader static ctor EXCEPTION: {ex.GetType().Name}: {ex.Message}");
+                throw;
+            }
+            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] CommandResourceLoader static ctor done");
         }
 
         public static void ApplyResources(Command command)
         {
-            _resourcedPropertyLoader.ApplyResources(command, command.Identifier);
+            // Verbose logging commented out - uncomment for debugging resource loading
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyResources: {command.Identifier}");
+            try
+            {
+                _resourcedPropertyLoader.ApplyResources(command, command.Identifier);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyResources EXCEPTION: {ex.GetType().Name}: {ex.Message}");
+                throw;
+            }
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyResources done: {command.Identifier}");
         }
 
         public static Bitmap MissingLarge

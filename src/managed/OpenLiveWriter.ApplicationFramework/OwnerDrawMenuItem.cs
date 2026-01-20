@@ -177,6 +177,20 @@ namespace OpenLiveWriter.ApplicationFramework
         }
 
         /// <summary>
+        ///	Initializes a new instance of the OwnerDrawMenuItem class with empty text.
+        /// </summary>
+        public OwnerDrawMenuItem(MenuType menuType) : this(menuType, string.Empty)
+        {
+        }
+
+        /// <summary>
+        ///	Initializes a new instance of the OwnerDrawMenuItem class with default context menu type.
+        /// </summary>
+        public OwnerDrawMenuItem() : this(MenuType.Context, string.Empty)
+        {
+        }
+
+        /// <summary>
         /// Gets the menu type.
         /// </summary>
         public MenuType MenuType

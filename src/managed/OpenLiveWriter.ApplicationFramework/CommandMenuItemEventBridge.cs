@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Collections;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// Provides "event bridging" between MenuItem objects and Command objects.

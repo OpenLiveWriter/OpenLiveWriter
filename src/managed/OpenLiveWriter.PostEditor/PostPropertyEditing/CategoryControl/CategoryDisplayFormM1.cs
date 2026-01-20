@@ -25,7 +25,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
     /// <summary>
     /// Summary description for CategoryDisplayForm.
     /// </summary>
-    internal class CategoryDisplayFormM1 : MiniForm
+    internal class CategoryDisplayFormM1 : CategoryDisplayFormBase
     {
         public CategoryDisplayFormM1(Control parentControl, CategoryContext categoryContext)
         {

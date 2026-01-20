@@ -6,13 +6,13 @@ using System;
 using System.Collections;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using Project31.CoreServices;
-using Project31.Interop.Windows;
+using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Interop.Windows;
 
 // NOTE: This code removed from the CoreServices project because it is obsoleted by
 // ShellHelper.GetSmallIconForExtension and ShellHelper.GetLargeIconForExtension
 
-namespace Project31.CoreServices
+namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// A utility that loads and caches Icons

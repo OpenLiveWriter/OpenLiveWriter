@@ -381,51 +381,35 @@ namespace OpenLiveWriter.BlogClient.Clients
     }
 
     /// <summary>
-    /// SOAP Wrapper for Sharepoint List webservice based on auto-generated VS Web Service Reference code.
+    /// Stub for SharePoint SOAP web service - not available in .NET Core/.NET 10.
+    /// SharePoint Online now uses Microsoft Graph API or SharePoint REST API.
     /// </summary>
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name = "ListsSoap", Namespace = "http://schemas.microsoft.com/sharepoint/soap/")]
-    public class SharePointListsService : System.Web.Services.Protocols.SoapHttpClientProtocol
+    public class SharePointListsService : IDisposable
     {
-
-        /// <remarks/>
         public SharePointListsService(string url)
         {
-            this.Url = url;
-            this.UserAgent = SharePointClient.USER_AGENT;
+            Url = url;
         }
 
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://schemas.microsoft.com/sharepoint/soap/AddAttachment", RequestNamespace = "http://schemas.microsoft.com/sharepoint/soap/", ResponseNamespace = "http://schemas.microsoft.com/sharepoint/soap/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string Url { get; set; }
+        public string UserAgent { get; set; }
+        public ICredentials Credentials { get; set; }
+
         public string AddAttachment(string listName, string listItemID, string fileName, string attachment)
         {
-            object[] results = this.Invoke("AddAttachment", new object[] {
-                                                                             listName,
-                                                                             listItemID,
-                                                                             fileName,
-                                                                             attachment});
-            return ((string)(results[0]));
+            throw new NotSupportedException("SharePoint SOAP web services are not available in .NET 10. Use Microsoft Graph API instead.");
         }
 
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://schemas.microsoft.com/sharepoint/soap/DeleteAttachment", RequestNamespace = "http://schemas.microsoft.com/sharepoint/soap/", ResponseNamespace = "http://schemas.microsoft.com/sharepoint/soap/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void DeleteAttachment(string listName, string listItemID, string url)
         {
-            this.Invoke("DeleteAttachment", new object[] {
-                                                             listName,
-                                                             listItemID,
-                                                             url});
+            throw new NotSupportedException("SharePoint SOAP web services are not available in .NET 10. Use Microsoft Graph API instead.");
         }
 
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://schemas.microsoft.com/sharepoint/soap/GetAttachmentCollection", RequestNamespace = "http://schemas.microsoft.com/sharepoint/soap/", ResponseNamespace = "http://schemas.microsoft.com/sharepoint/soap/", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public System.Xml.XmlNode GetAttachmentCollection(string listName, string listItemID)
         {
-            object[] results = this.Invoke("GetAttachmentCollection", new object[] {
-                                                                                       listName,
-                                                                                       listItemID});
-            return ((System.Xml.XmlNode)(results[0]));
+            throw new NotSupportedException("SharePoint SOAP web services are not available in .NET 10. Use Microsoft Graph API instead.");
         }
+
+        public void Dispose() { }
     }
 }

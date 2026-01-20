@@ -6,7 +6,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// MenuBuilderEntry is an internal class used to build Command-based menus.
@@ -174,10 +174,10 @@ namespace Project31.ApplicationFramework
                 {
                     //	Determine whether a separator before and a separator after the menu item
                     //	should be inserted.
-                    separatorBefore = text.StartsWith(SEPARATOR_TEXT);
-                    separatorAfter = text.EndsWith(SEPARATOR_TEXT);
+                    separatorBefore = text.StartsWith(MergeMenuEntry.SEPARATOR_TEXT);
+                    separatorAfter = text.EndsWith(MergeMenuEntry.SEPARATOR_TEXT);
                     if (separatorBefore || separatorAfter)
-                        text = text.Replace(SEPARATOR_TEXT, string.Empty);
+                        text = text.Replace(MergeMenuEntry.SEPARATOR_TEXT, string.Empty);
 
                     //	Instantiate the menu item.
                     if (mergeMenuEntry.Command == null)
@@ -219,7 +219,7 @@ namespace Project31.ApplicationFramework
         {
             //	Instantiate the separator menu item.
             MenuItem separatorMenuItem = new OwnerDrawMenuItem(menuType);
-            separatorMenuItem.Text = SEPARATOR_TEXT;
+            separatorMenuItem.Text = MergeMenuEntry.SEPARATOR_TEXT;
             return separatorMenuItem;
         }
     }

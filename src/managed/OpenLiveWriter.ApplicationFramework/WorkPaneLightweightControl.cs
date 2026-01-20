@@ -7,11 +7,11 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Project31.Controls;
+using OpenLiveWriter.Controls;
 using System.Diagnostics;
-using Project31.CoreServices;
+using OpenLiveWriter.CoreServices;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// Lightweight work pane control.
@@ -61,7 +61,7 @@ namespace Project31.ApplicationFramework
         /// <summary>
         /// The command bar lightweight control.
         /// </summary>
-        private Project31.ApplicationFramework.CommandBarLightweightControl commandBarLightweightControl;
+        private OpenLiveWriter.ApplicationFramework.CommandBarLightweightControl commandBarLightweightControl;
 
         /// <summary>
         /// Required designer variable.
@@ -122,7 +122,7 @@ namespace Project31.ApplicationFramework
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.commandBarLightweightControl = new Project31.ApplicationFramework.CommandBarLightweightControl(this.components);
+            this.commandBarLightweightControl = new OpenLiveWriter.ApplicationFramework.CommandBarLightweightControl(this.components);
             //
             // commandBarLightweightControl
             //

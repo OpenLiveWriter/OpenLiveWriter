@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// Interface for command providers.

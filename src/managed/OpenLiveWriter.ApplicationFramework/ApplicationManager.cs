@@ -20,6 +20,12 @@ namespace OpenLiveWriter.ApplicationFramework
         private static ApplicationStyle applicationStyle;
 
         /// <summary>
+        /// The CommandManager object.
+        /// </summary>
+        [ThreadStatic]
+        private static CommandManager commandManager;
+
+        /// <summary>
         /// Gets or sets the ApplicationStyle object
         /// </summary>
         public static ApplicationStyle ApplicationStyle
@@ -33,6 +39,32 @@ namespace OpenLiveWriter.ApplicationFramework
             set
             {
                 applicationStyle = value;
+                OnApplicationStyleChanged();
+            }
+        }
+
+        /// <summary>
+        /// Event raised when ApplicationStyle changes
+        /// </summary>
+        public static event EventHandler ApplicationStyleChanged;
+
+        private static void OnApplicationStyleChanged()
+        {
+            ApplicationStyleChanged?.Invoke(null, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Gets or sets the CommandManager object
+        /// </summary>
+        public static CommandManager CommandManager
+        {
+            get
+            {
+                return commandManager;
+            }
+            set
+            {
+                commandManager = value;
             }
         }
 

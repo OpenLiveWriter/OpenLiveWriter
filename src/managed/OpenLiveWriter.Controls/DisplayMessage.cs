@@ -17,7 +17,7 @@ namespace OpenLiveWriter.Controls
     /// <summary>
     /// DisplayMessage component.
     /// </summary>
-    public sealed class DisplayMessage : Component
+    public class DisplayMessage : Component
     {
         /// <summary>
         /// The display message type.
@@ -160,6 +160,14 @@ namespace OpenLiveWriter.Controls
         /// </summary>
         private Container components = null;
 
+        /// <summary>
+        /// Parameterless constructor for derived classes.
+        /// </summary>
+        public DisplayMessage()
+        {
+            InitializeComponent();
+        }
+
         public DisplayMessage(MessageId messageId)
         {
             InitializeComponent();
@@ -278,5 +286,16 @@ namespace OpenLiveWriter.Controls
                                     BidiHelper.RTLMBOptions);
 
         }
+    }
+
+    /// <summary>
+    /// Compatibility alias for MessageBoxIcon used by designer-generated code.
+    /// </summary>
+    public static class DisplayMessageType
+    {
+        public static readonly MessageBoxIcon Information = MessageBoxIcon.Information;
+        public static readonly MessageBoxIcon Warning = MessageBoxIcon.Warning;
+        public static readonly MessageBoxIcon Error = MessageBoxIcon.Error;
+        public static readonly MessageBoxIcon Question = MessageBoxIcon.Question;
     }
 }

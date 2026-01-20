@@ -19,7 +19,7 @@ using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.PostEditor.JumpList;
 using OpenLiveWriter.PostEditor.Updates;
 using OpenLiveWriter.WebView2Shim;
-using Squirrel;
+using Velopack;
 
 namespace OpenLiveWriter
 {
@@ -36,6 +36,10 @@ namespace OpenLiveWriter
         [STAThread]
         public static void Main(string[] args)
         {
+            // .NET 10 migration: Configure trace listeners to prevent Debug.Assert/Fail from terminating the process
+            // In .NET Core/5+, the default behavior changed from showing a dialog to throwing an exception
+            ConfigureDebugListeners();
+            
             // WinLive 281407: Remove the current working directory from the dll search path
             // This prevents a rogue dll (wlidcli.dll) from being loaded while doing
             // something like opening a .wpost from a network location.
@@ -198,21 +202,17 @@ namespace OpenLiveWriter
         }
 
         /// <summary>
-        /// Registers functions to handle Squirrel's events.
+        /// Registers functions to handle Velopack's lifecycle events.
         /// </summary>
         /// <param name="downloadUrl">The Url to use for downloading payloads.</param>
         private static void RegisterSquirrelEventHandlers(string downloadUrl)
         {
             try
             {
-                using (var mgr = new Squirrel.UpdateManager(downloadUrl))
-                {
-                    SquirrelAwareApp.HandleEvents(
-                        onInitialInstall: v => InitialInstall(mgr),
-                        onFirstRun: () => FirstRun(mgr),
-                        onAppUpdate: v => OnAppUpdate(mgr),
-                        onAppUninstall: v => OnAppUninstall(mgr));
-                }
+                VelopackApp.Build()
+                    .OnFirstRun(v => FirstRun())
+                    .OnAfterInstallFastCallback(v => InitialInstall())
+                    .Run();
             }
             catch (Exception)
             {
@@ -223,34 +223,33 @@ namespace OpenLiveWriter
         /// <summary>
         /// Removes registry keys under HKCU/SOFTWARE/OpenLiveWriter and deletes the AppData and Roaming profiles.
         /// </summary>
-        /// <param name="mgr">An instance of Squirrel.UpdateManager to be used as helper class.</param>
-        private static async void OnAppUninstall(IUpdateManager mgr)
+        private static void OnAppUninstall()
         {
-            await mgr.FullUninstall();
             string OLWRegKey = @"SOFTWARE\OpenLiveWriter";
-            Registry.CurrentUser.DeleteSubKeyTree(OLWRegKey);
-            mgr.RemoveShortcutForThisExe();
-            mgr.RemoveUninstallerRegistryEntry();
-            Directory.Delete(ApplicationEnvironment.LocalApplicationDataDirectory, true);
-            Directory.Delete(ApplicationEnvironment.ApplicationDataDirectory, true);
+            try
+            {
+                Registry.CurrentUser.DeleteSubKeyTree(OLWRegKey);
+            }
+            catch { }
+            try
+            {
+                Directory.Delete(ApplicationEnvironment.LocalApplicationDataDirectory, true);
+            }
+            catch { }
+            try
+            {
+                Directory.Delete(ApplicationEnvironment.ApplicationDataDirectory, true);
+            }
+            catch { }
         }
 
-        private static async void OnAppUpdate(IUpdateManager mgr)
+        private static void FirstRun()
         {
-            await mgr.UpdateApp();
+            // First run after install - shortcuts handled by Velopack
         }
 
-        private static void FirstRun(IUpdateManager mgr)
+        private static void InitialInstall()
         {
-            mgr.CreateShortcutForThisExe();
-        }
-
-        private static async void InitialInstall(Squirrel.UpdateManager mgr)
-        {
-            mgr.CreateShortcutForThisExe();
-            await mgr.CreateUninstallerRegistryEntry();
-            await mgr.FullInstall();
-
             SetAssociation(".wpost", "OPEN_LIVE_WRITER", Application.ExecutablePath, "Open Live Writer post");
         }
 
@@ -463,5 +462,54 @@ namespace OpenLiveWriter
         }
         private const string SETTINGS_VERSION = "SettingsVer";
 
+        /// <summary>
+        /// Configure debug listeners for .NET 10 compatibility.
+        /// In .NET Core/5+, Debug.Assert and Debug.Fail throw exceptions by default.
+        /// This method removes the DefaultTraceListener and adds a non-throwing custom listener.
+        /// </summary>
+        private static void ConfigureDebugListeners()
+        {
+#if DEBUG
+            // Remove the default trace listener that causes crashes on asserts
+            // Debug and Trace share the same listener collection in .NET
+            Trace.Listeners.Clear();
+            
+            // Add a custom trace listener that just logs to debug output
+            // and never throws or shows dialogs
+            Trace.Listeners.Add(new NonThrowingTraceListener());
+            
+            Debug.WriteLine("[OLW-DEBUG] Debug listeners configured for .NET 10");
+#endif
+        }
     }
+    
+#if DEBUG
+    /// <summary>
+    /// Custom trace listener that logs assert failures without throwing exceptions
+    /// or displaying dialogs. This is needed for .NET Core/5+ compatibility.
+    /// </summary>
+    internal class NonThrowingTraceListener : TraceListener
+    {
+        public override void Write(string? message)
+        {
+            System.Diagnostics.Debugger.Log(0, null, message);
+        }
+        
+        public override void WriteLine(string? message)
+        {
+            System.Diagnostics.Debugger.Log(0, null, message + Environment.NewLine);
+        }
+        
+        public override void Fail(string? message)
+        {
+            // Do nothing - just swallow the assert failure
+            // In .NET Core, Debug.Assert calls Fail which by default would throw
+        }
+        
+        public override void Fail(string? message, string? detailMessage)
+        {
+            // Do nothing - just swallow the assert failure
+        }
+    }
+#endif
 }

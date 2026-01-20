@@ -55,12 +55,166 @@ namespace OpenLiveWriter.ApplicationFramework
             }
         }
 
+        private Font normalApplicationFont;
         public virtual Font NormalApplicationFont
         {
             get
             {
-                return Res.DefaultFont;
+                return normalApplicationFont ?? Res.DefaultFont;
             }
+            set
+            {
+                normalApplicationFont = value;
+            }
+        }
+
+        private Font boldApplicationFont;
+        public virtual Font BoldApplicationFont
+        {
+            get
+            {
+                return boldApplicationFont ?? new Font(NormalApplicationFont, FontStyle.Bold);
+            }
+            set
+            {
+                boldApplicationFont = value;
+            }
+        }
+
+        private Font italicApplicationFont;
+        public virtual Font ItalicApplicationFont
+        {
+            get
+            {
+                return italicApplicationFont ?? new Font(NormalApplicationFont, FontStyle.Italic);
+            }
+            set
+            {
+                italicApplicationFont = value;
+            }
+        }
+
+        private Font linkApplicationFont;
+        public virtual Font LinkApplicationFont
+        {
+            get
+            {
+                return linkApplicationFont ?? new Font(NormalApplicationFont, FontStyle.Underline);
+            }
+            set
+            {
+                linkApplicationFont = value;
+            }
+        }
+
+        private Font smallApplicationFont;
+        public virtual Font SmallApplicationFont
+        {
+            get
+            {
+                return smallApplicationFont ?? new Font(NormalApplicationFont.FontFamily, NormalApplicationFont.Size - 1.5f);
+            }
+            set
+            {
+                smallApplicationFont = value;
+            }
+        }
+
+        private Font toolWindowTitleBarFont;
+        public virtual Font ToolWindowTitleBarFont
+        {
+            get
+            {
+                return toolWindowTitleBarFont ?? BoldApplicationFont;
+            }
+            set
+            {
+                toolWindowTitleBarFont = value;
+            }
+        }
+
+        private Color applicationWorkspaceTopColor = SystemColors.AppWorkspace;
+        public virtual Color ApplicationWorkspaceTopColor
+        {
+            get { return applicationWorkspaceTopColor; }
+            set { applicationWorkspaceTopColor = value; }
+        }
+
+        private Color applicationWorkspaceBottomColor = SystemColors.AppWorkspace;
+        public virtual Color ApplicationWorkspaceBottomColor
+        {
+            get { return applicationWorkspaceBottomColor; }
+            set { applicationWorkspaceBottomColor = value; }
+        }
+
+        private Color applicationWorkspaceCommandBarTopColor = SystemColors.Control;
+        public virtual Color ApplicationWorkspaceCommandBarTopColor
+        {
+            get { return applicationWorkspaceCommandBarTopColor; }
+            set { applicationWorkspaceCommandBarTopColor = value; }
+        }
+
+        private Color applicationWorkspaceCommandBarBottomColor = SystemColors.Control;
+        public virtual Color ApplicationWorkspaceCommandBarBottomColor
+        {
+            get { return applicationWorkspaceCommandBarBottomColor; }
+            set { applicationWorkspaceCommandBarBottomColor = value; }
+        }
+
+        private Color applicationWorkspaceCommandBarTopBevelFirstLineColor = Color.Transparent;
+        public virtual Color ApplicationWorkspaceCommandBarTopBevelFirstLineColor
+        {
+            get { return applicationWorkspaceCommandBarTopBevelFirstLineColor; }
+            set { applicationWorkspaceCommandBarTopBevelFirstLineColor = value; }
+        }
+
+        private Color applicationWorkspaceCommandBarTopBevelSecondLineColor = Color.Transparent;
+        public virtual Color ApplicationWorkspaceCommandBarTopBevelSecondLineColor
+        {
+            get { return applicationWorkspaceCommandBarTopBevelSecondLineColor; }
+            set { applicationWorkspaceCommandBarTopBevelSecondLineColor = value; }
+        }
+
+        private Color applicationWorkspaceCommandBarBottomBevelFirstLineColor = Color.Transparent;
+        public virtual Color ApplicationWorkspaceCommandBarBottomBevelFirstLineColor
+        {
+            get { return applicationWorkspaceCommandBarBottomBevelFirstLineColor; }
+            set { applicationWorkspaceCommandBarBottomBevelFirstLineColor = value; }
+        }
+
+        private Color applicationWorkspaceCommandBarBottomBevelSecondLineColor = Color.Transparent;
+        public virtual Color ApplicationWorkspaceCommandBarBottomBevelSecondLineColor
+        {
+            get { return applicationWorkspaceCommandBarBottomBevelSecondLineColor; }
+            set { applicationWorkspaceCommandBarBottomBevelSecondLineColor = value; }
+        }
+
+        private Color tabPageCommandBarTopColor = SystemColors.Control;
+        public virtual Color TabPageCommandBarTopColor
+        {
+            get { return tabPageCommandBarTopColor; }
+            set { tabPageCommandBarTopColor = value; }
+        }
+
+        private Color tabPageCommandBarBottomColor = SystemColors.Control;
+        public virtual Color TabPageCommandBarBottomColor
+        {
+            get { return tabPageCommandBarBottomColor; }
+            set { tabPageCommandBarBottomColor = value; }
+        }
+
+        private Color tabPageCommandBarHighlightColor = SystemColors.ControlLight;
+        public virtual Color TabPageCommandBarHighlightColor
+        {
+            get { return tabPageCommandBarHighlightColor; }
+            set { tabPageCommandBarHighlightColor = value; }
+        }
+
+        private Color tabPageCommandBarLowlightColor = SystemColors.ControlDark;
+        public virtual Color TabPageCommandBarLowlightColor
+        {
+            get { return tabPageCommandBarLowlightColor; }
+            set { tabPageCommandBarLowlightColor = value; }
         }
 
         /// <summary>

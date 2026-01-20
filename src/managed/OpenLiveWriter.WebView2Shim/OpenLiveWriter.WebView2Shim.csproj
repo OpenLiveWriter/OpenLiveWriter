@@ -1,131 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8E5C2A3D-F9B4-4C1E-A7D5-6B3E9F8A2C1D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OpenLiveWriter.WebView2Shim</RootNamespace>
     <AssemblyName>OpenLiveWriter.WebView2Shim</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <RootNamespace>OpenLiveWriter.WebView2Shim</RootNamespace>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Microsoft.Web.WebView2.Core">
-      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.2903.40\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms">
-      <HintPath>..\packages\Microsoft.Web.WebView2.1.0.2903.40\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
+    <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
+    <Compile Include="**\*.cs" Exclude="obj\**" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="WebView2Bridge.cs" />
-    <Compile Include="WebView2Document.cs" />
-    <Compile Include="WebView2Element.cs" />
-    <Compile Include="WebView2ElementCollection.cs" />
-    <Compile Include="WebView2EnvironmentManager.cs" />
-    <Compile Include="WebView2HtmlEditorControl.cs" />
-    <Compile Include="WebView2Selection.cs" />
-    <Compile Include="WebView2SourceEditorControl.cs" />
-    <Compile Include="WebView2Style.cs" />
-    <Compile Include="WebView2TextRange.cs" />
+    <EmbeddedResource Include="Resources\**\*" />
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="Resources\olw-dom-bridge.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\codemirror.min.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\codemirror.min.css" />
-    <EmbeddedResource Include="Resources\CodeMirror\xml.min.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\javascript.min.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\css.min.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\htmlmixed.min.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\foldcode.min.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\foldgutter.min.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\xml-fold.min.js" />
-    <EmbeddedResource Include="Resources\CodeMirror\foldgutter.min.css" />
+    <PackageReference Include="Microsoft.Web.WebView2" />
+    <PackageReference Include="Newtonsoft.Json" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.HtmlEditor\OpenLiveWriter.HtmlEditor.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj">
-      <Project>{0ae37842-33af-4a3c-b405-e57a1dd78e9f}</Project>
-      <Name>OpenLiveWriter.Interop.Mshtml</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj">
-      <Project>{67C6BC3B-9CB3-44C1-AACC-B7AB19A85B65}</Project>
-      <Name>OpenLiveWriter.Interop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj">
-      <Project>{71b6a7f7-ac05-4a07-9426-64c15ea8bb56}</Project>
-      <Name>OpenLiveWriter.ApplicationFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj">
-      <Project>{9511f965-531a-440c-8c7a-d9f382ed70c7}</Project>
-      <Name>OpenLiveWriter.CoreServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj">
-      <Project>{38fe0a0e-afbb-4c11-a24b-5f972a0c939e}</Project>
-      <Name>OpenLiveWriter.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenLiveWriter.HtmlEditor\OpenLiveWriter.HtmlEditor.csproj">
-      <Project>{7658f706-8a4f-4bba-8e33-a29edf6b6ade}</Project>
-      <Name>OpenLiveWriter.HtmlEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj">
-      <Project>{61b56cc5-cfcb-485d-8e82-79a6c79f9274}</Project>
-      <Name>OpenLiveWriter.Mshtml</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj">
-      <Project>{04f6a3d5-a1ab-4c35-9da8-0e64d7a49c04}</Project>
-      <Name>OpenLiveWriter.Localization</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

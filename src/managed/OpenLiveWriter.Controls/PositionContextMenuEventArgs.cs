@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Project31.Controls
+namespace OpenLiveWriter.Controls
 {
     /// <summary>
     /// Provides data for the PositionContextMenu events.

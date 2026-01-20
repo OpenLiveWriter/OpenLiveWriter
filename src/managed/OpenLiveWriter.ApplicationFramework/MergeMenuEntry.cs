@@ -6,7 +6,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// MergeMenuEntry is an internal class used to build Command-based menus.
@@ -16,7 +16,7 @@ namespace Project31.ApplicationFramework
         /// <summary>
         /// Used to indicate that the menu item should include a separator.  Example: -File@0
         /// </summary>
-        private static string SEPARATOR_TEXT = "-";
+        public static string SEPARATOR_TEXT = "-";
 
         /// <summary>
         ///	Merge menu entry position.
@@ -136,6 +136,16 @@ namespace Project31.ApplicationFramework
 
         /// <summary>
         /// Creates and returns a set of menu items from the child merge menu entries in this merge
+        /// menu entry. Defaults to main menu style.
+        /// </summary>
+        /// <returns>Array of menu items.</returns>
+        public MenuItem[] CreateMenuItems()
+        {
+            return CreateMenuItems(true);
+        }
+
+        /// <summary>
+        /// Creates and returns a set of menu items from the child merge menu entries in this merge
         /// menu entry.
         /// </summary>
         /// <param name="mainMenu">The level at which the MenuItems will appear.</param>
@@ -148,6 +158,7 @@ namespace Project31.ApplicationFramework
 
             //	Construct an array list to hold the menu items being created.
             ArrayList menuItemArrayList = new ArrayList();
+            MenuType menuType = mainMenu ? MenuType.Main : MenuType.Context;
 
             //	Enumerate the child merge menu entries of this merge menu entry.
             foreach (MergeMenuEntry mergeMenuEntry in childMergeMenuEntries.Values)
@@ -158,7 +169,7 @@ namespace Project31.ApplicationFramework
                 //	Create the menu item for this child merge menu entry.
                 MenuItem menuItem;
                 if (mainMenu)
-                    menuItem = new OwnerDrawMenuItem();
+                    menuItem = new OwnerDrawMenuItem(MenuType.Main);
                 else
                 {
                     //	If the text of the merge menu entry specifies that a separator menu item
@@ -169,7 +180,7 @@ namespace Project31.ApplicationFramework
                         text = text.Substring(1);
 
                         //	Instantiate the separator menu item.
-                        MenuItem separatorMenuItem = new OwnerDrawMenuItem();
+                        MenuItem separatorMenuItem = new OwnerDrawMenuItem(menuType);
                         separatorMenuItem.Text = SEPARATOR_TEXT;
 
                         //	Add the separator menu item to the array of menu items being returned.
@@ -178,9 +189,9 @@ namespace Project31.ApplicationFramework
 
                     //	Instantiate the menu item.
                     if (mergeMenuEntry.Command == null)
-                        menuItem = new OwnerDrawMenuItem();
+                        menuItem = new OwnerDrawMenuItem(menuType);
                     else
-                        menuItem = new CommandOwnerDrawMenuItem(mergeMenuEntry.Command);
+                        menuItem = new CommandOwnerDrawMenuItem(menuType, mergeMenuEntry.Command);
                 }
 
                 //	Set the menu item text.

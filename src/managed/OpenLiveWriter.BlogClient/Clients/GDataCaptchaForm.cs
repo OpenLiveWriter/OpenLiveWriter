@@ -181,7 +181,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://www.google.com/accounts/DisplayUnlockCaptcha?service=blogger");
+            ShellHelper.LaunchUrl("https://www.google.com/accounts/DisplayUnlockCaptcha?service=blogger");
             DialogResult = DialogResult.Cancel;
         }
     }

@@ -9,7 +9,7 @@ using System.Drawing.Drawing2D;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// ApplicationCommandBar lightweight control.  Provides the CommandBarLightweightControl for

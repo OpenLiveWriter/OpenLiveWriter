@@ -1791,6 +1791,14 @@ namespace OpenLiveWriter.HtmlEditor
             }
         }
 
+        /// <summary>
+        /// Gets the currently selected markup range (IHtmlEditorComponentContext implementation).
+        /// </summary>
+        public MarkupRange GetSelectedMarkupRange()
+        {
+            return SelectedMarkupRange;
+        }
+
         #endregion
 
         #region Undo Management (UndoUnit and InvisibleUndoUnit)

@@ -24,14 +24,14 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
     {
         #region IBlogPostEditor Members
 
-        void IBlogPostEditor.Initialize(IBlogPostEditingContext editingContext)
+        void IBlogPostEditor.Initialize(IBlogPostEditingContext editingContext, IBlogClientOptions clientOptions)
         {
             CategoryContext.SelectedCategories = editingContext.BlogPost.Categories ;
             toolTipCategories.SetToolTip(this, CategoryContext.FormattedCategoryList);
             _isDirty = false ;
         }
 
-        void IBlogPostEditor.SaveChanges(BlogPost post)
+        void IBlogPostEditor.SaveChanges(BlogPost post, BlogPostSaveOptions options)
         {
             post.Categories = CategoryContext.SelectedCategories;
             _isDirty = false ;
@@ -46,7 +46,8 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             {
                 if ( PostEditorSettings.CategoryReminder && (CategoryContext.Categories.Length > 0) && (CategoryContext.SelectedCategories.Length == 0) )
                 {
-                    if ( DisplayMessage.Show(typeof(CategoryReminderDisplayMessage), FindForm(), "\r\n\r\n") == DialogResult.No )
+                    var categoryReminder = new CategoryReminderDisplayMessage();
+                    if ( categoryReminder.Show(FindForm(), "\r\n\r\n") == DialogResult.No )
                     {
                         Focus() ;
                         return false ;
@@ -92,6 +93,11 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             // make sure we have the latest categories (in case the underlying target blog changed)
             CategoryContext.SetBlogCategories(_targetBlog.Categories) ;
         }
+
+        void IBlogPostEditor.OnClosing(CancelEventArgs e) { }
+        void IBlogPostEditor.OnPostClosing(CancelEventArgs e) { }
+        void IBlogPostEditor.OnClosed() { }
+        void IBlogPostEditor.OnPostClosed() { }
 
         #endregion
 

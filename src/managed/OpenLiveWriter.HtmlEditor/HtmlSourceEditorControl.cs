@@ -58,7 +58,7 @@ namespace OpenLiveWriter.HtmlEditor
             _textBox.Dock = DockStyle.Fill;
             _textBox.MaxLength = 0;
             _textBox.AcceptsTab = true;
-            _textBox.ContextMenu = new ContextMenu();
+            _textBox.ContextMenuStrip = new ContextMenuStrip();
             _textBox.TextChanged += new EventHandler(_textBox_TextChanged);
             _textBox.ModifiedChanged += new EventHandler(_textBox_ModifiedChanged);
             _textBox.ContextMenuTriggered += new TextBoxEditorControl.ContextMenuTriggeredEventHandler(_textBox_ContextMenuTriggered);

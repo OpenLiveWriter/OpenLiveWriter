@@ -7,10 +7,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
-using Project31.CoreServices;
-using Project31.Controls;
+using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Controls;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
 	/// <summary>
 	/// The vertical splitter style.
@@ -25,7 +25,7 @@ namespace Project31.ApplicationFramework
 	/// <summary>
 	///
 	/// </summary>
-	public class ApplicationWorkspaceColumnLightweightControl : Project31.Controls.LightweightControl
+	public class ApplicationWorkspaceColumnLightweightControl : OpenLiveWriter.Controls.LightweightControl
 	{
 		/// <summary>
 		/// The minimum horizontal splitter position.
@@ -45,12 +45,12 @@ namespace Project31.ApplicationFramework
 		/// <summary>
 		/// The vertical splitter lightweight control.
 		/// </summary>
-		private Project31.ApplicationFramework.SplitterLightweightControl splitterLightweightControlVertical;
+		private OpenLiveWriter.ApplicationFramework.SplitterLightweightControl splitterLightweightControlVertical;
 
 		/// <summary>
 		/// The horizontal splitter lightweight control.
 		/// </summary>
-		private Project31.ApplicationFramework.SplitterLightweightControl splitterLightweightControlHorizontal;
+		private OpenLiveWriter.ApplicationFramework.SplitterLightweightControl splitterLightweightControlHorizontal;
 
 		/// <summary>
 		/// The upper pane lightweight control.
@@ -428,22 +428,22 @@ namespace Project31.ApplicationFramework
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.splitterLightweightControlVertical = new Project31.ApplicationFramework.SplitterLightweightControl(this.components);
-			this.splitterLightweightControlHorizontal = new Project31.ApplicationFramework.SplitterLightweightControl(this.components);
+			this.splitterLightweightControlVertical = new OpenLiveWriter.ApplicationFramework.SplitterLightweightControl(this.components);
+			this.splitterLightweightControlHorizontal = new OpenLiveWriter.ApplicationFramework.SplitterLightweightControl(this.components);
 			//
 			// splitterLightweightControlVertical
 			//
 			this.splitterLightweightControlVertical.LightweightControlContainerControl = this;
-			this.splitterLightweightControlVertical.Orientation = Project31.ApplicationFramework.SplitterLightweightControl.SplitterOrientation.Vertical;
-			this.splitterLightweightControlVertical.SplitterEndMove += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlVertical_SplitterEndMove);
-			this.splitterLightweightControlVertical.SplitterMoving += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlVertical_SplitterMoving);
+			this.splitterLightweightControlVertical.Orientation = OpenLiveWriter.ApplicationFramework.SplitterLightweightControl.SplitterOrientation.Vertical;
+			this.splitterLightweightControlVertical.SplitterEndMove += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlVertical_SplitterEndMove);
+			this.splitterLightweightControlVertical.SplitterMoving += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlVertical_SplitterMoving);
 			//
 			// splitterLightweightControlHorizontal
 			//
 			this.splitterLightweightControlHorizontal.LightweightControlContainerControl = this;
-			this.splitterLightweightControlHorizontal.Orientation = Project31.ApplicationFramework.SplitterLightweightControl.SplitterOrientation.Horizontal;
-			this.splitterLightweightControlHorizontal.SplitterEndMove += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlHorizontal_SplitterEndMove);
-			this.splitterLightweightControlHorizontal.SplitterMoving += new Project31.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlHorizontal_SplitterMoving);
+			this.splitterLightweightControlHorizontal.Orientation = OpenLiveWriter.ApplicationFramework.SplitterLightweightControl.SplitterOrientation.Horizontal;
+			this.splitterLightweightControlHorizontal.SplitterEndMove += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlHorizontal_SplitterEndMove);
+			this.splitterLightweightControlHorizontal.SplitterMoving += new OpenLiveWriter.ApplicationFramework.LightweightSplitterEventHandler(this.splitterLightweightControlHorizontal_SplitterMoving);
 		}
 		#endregion
 
@@ -743,7 +743,7 @@ namespace Project31.ApplicationFramework
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void splitterLightweightControlVertical_SplitterEndMove(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
+		private void splitterLightweightControlVertical_SplitterEndMove(object sender, OpenLiveWriter.ApplicationFramework.LightweightSplitterEventArgs e)
 		{
 			//	If the splitter has moved.
 			if (e.Position != 0)
@@ -764,7 +764,7 @@ namespace Project31.ApplicationFramework
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void splitterLightweightControlVertical_SplitterMoving(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
+		private void splitterLightweightControlVertical_SplitterMoving(object sender, OpenLiveWriter.ApplicationFramework.LightweightSplitterEventArgs e)
 		{
 			//	If the splitter has moved.
 			if (e.Position != 0)
@@ -788,7 +788,7 @@ namespace Project31.ApplicationFramework
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void splitterLightweightControlHorizontal_SplitterEndMove(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
+		private void splitterLightweightControlHorizontal_SplitterEndMove(object sender, OpenLiveWriter.ApplicationFramework.LightweightSplitterEventArgs e)
 		{
 			//	If the splitter has moved.
 			if (e.Position != 0)
@@ -810,7 +810,7 @@ namespace Project31.ApplicationFramework
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void splitterLightweightControlHorizontal_SplitterMoving(object sender, Project31.ApplicationFramework.LightweightSplitterEventArgs e)
+		private void splitterLightweightControlHorizontal_SplitterMoving(object sender, OpenLiveWriter.ApplicationFramework.LightweightSplitterEventArgs e)
 		{
 			//	If the splitter has moved.
 			if (e.Position != 0)

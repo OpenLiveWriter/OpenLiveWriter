@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
 
 namespace OpenLiveWriter.CoreServices.Settings
 {
@@ -510,6 +510,8 @@ namespace OpenLiveWriter.CoreServices.Settings
             /// <summary>
             /// Unlike the other codecs, Serializable can handle a variety
             /// of types--anything that can be serialized.
+            /// NOTE: In .NET 10, BinaryFormatter is removed. Using JSON serialization instead.
+            /// This may not be backwards compatible with data serialized by older versions.
             /// </summary>
             public override bool CanHandle(Type type)
             {
@@ -518,14 +520,14 @@ namespace OpenLiveWriter.CoreServices.Settings
 
             public override object Encode(object val)
             {
-                byte[] data;
-                using (MemoryStream ms = new MemoryStream(1000))
+                // Store type info along with the data for deserialization
+                var wrapper = new SerializedWrapper
                 {
-                    BinaryFormatter formatter = new BinaryFormatter();  // not threadsafe, so must create locally
-                    formatter.Serialize(ms, val);
-                    data = ms.ToArray();
-                }
-                return data;
+                    TypeName = val.GetType().AssemblyQualifiedName,
+                    JsonData = JsonSerializer.Serialize(val, val.GetType())
+                };
+                string json = JsonSerializer.Serialize(wrapper);
+                return System.Text.Encoding.UTF8.GetBytes(json);
             }
 
             public override object Decode(object val)
@@ -535,11 +537,31 @@ namespace OpenLiveWriter.CoreServices.Settings
 
             public static object Deserialize(byte[] data)
             {
-                using (MemoryStream ms = new MemoryStream(data))
+                try
                 {
-                    BinaryFormatter formatter = new BinaryFormatter();  // not threadsafe, so must create locally
-                    return formatter.Deserialize(ms);
+                    string json = System.Text.Encoding.UTF8.GetString(data);
+                    var wrapper = JsonSerializer.Deserialize<SerializedWrapper>(json);
+                    if (wrapper?.TypeName != null && wrapper.JsonData != null)
+                    {
+                        System.Type type = System.Type.GetType(wrapper.TypeName);
+                        if (type != null)
+                        {
+                            return JsonSerializer.Deserialize(wrapper.JsonData, type);
+                        }
+                    }
                 }
+                catch
+                {
+                    // If JSON deserialization fails, the data may be in old BinaryFormatter format
+                    // which we can no longer read in .NET 10
+                }
+                return null;
+            }
+
+            private class SerializedWrapper
+            {
+                public string TypeName { get; set; }
+                public string JsonData { get; set; }
             }
         }
 

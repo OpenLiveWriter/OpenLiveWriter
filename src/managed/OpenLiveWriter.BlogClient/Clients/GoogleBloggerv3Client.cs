@@ -86,7 +86,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Id = page.Id,
                 Permalink = page.Url,
                 Contents = page.Content,
-                DatePublished = page.Published.Value,
+                DatePublished = ParseRfc3339Date(page.Published),
             };
         }
 
@@ -98,7 +98,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 Id = post.Id,
                 Permalink = post.Url,
                 Contents = post.Content,
-                DatePublished = post.Published.Value,
+                DatePublished = ParseRfc3339Date(post.Published),
                 Categories = post.Labels?.Select(x => new BlogPostCategory(x)).ToArray() ?? new BlogPostCategory[0]
             };
         }
@@ -108,7 +108,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new Page()
             {
                 Content = page.Contents,
-                Published = GetDatePublishedOverride(page, clientOptions),
+                Published = FormatRfc3339Date(GetDatePublishedOverride(page, clientOptions)),
                 Title = page.Title,
             };
         }
@@ -122,7 +122,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 Content = post.Contents,
                 Labels = labels ?? new List<string>(),
-                Published = GetDatePublishedOverride(post, clientOptions),
+                Published = FormatRfc3339Date(GetDatePublishedOverride(post, clientOptions)),
                 Title = post.Title,
             };
         }
@@ -141,7 +141,38 @@ namespace OpenLiveWriter.BlogClient.Clients
         private static PageInfo ConvertToPageInfo(Page page)
         {
             // Google Blogger doesn't support parent/child pages, so we pass string.Empty.
-            return new PageInfo(page.Id, page.Title, page.Published.GetValueOrDefault(DateTime.Now), string.Empty);
+            return new PageInfo(page.Id, page.Title, ParseRfc3339Date(page.Published), string.Empty);
+        }
+
+        private static DateTime ParseRfc3339Date(string rfc3339Date)
+        {
+            if (string.IsNullOrEmpty(rfc3339Date))
+                return DateTime.MinValue;
+            return DateTime.Parse(rfc3339Date, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
+        }
+
+        private static string FormatRfc3339Date(DateTime? date)
+        {
+            if (!date.HasValue)
+                return null;
+            return date.Value.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
+        }
+
+        private static string GetMimeType(string filename)
+        {
+            var extension = Path.GetExtension(filename)?.ToLowerInvariant();
+            return extension switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                ".gif" => "image/gif",
+                ".bmp" => "image/bmp",
+                ".webp" => "image/webp",
+                ".svg" => "image/svg+xml",
+                ".ico" => "image/x-icon",
+                ".tiff" or ".tif" => "image/tiff",
+                _ => "application/octet-stream"
+            };
         }
 
         private const int MaxRetries = 5;
@@ -381,11 +412,11 @@ namespace OpenLiveWriter.BlogClient.Clients
             var recentPostsRequest = GetService().Posts.List(blogId);
             if (now.HasValue)
             {
-                recentPostsRequest.EndDate = now.Value;
+                recentPostsRequest.EndDate = FormatRfc3339Date(now.Value);
             }
             recentPostsRequest.FetchImages = false;
             recentPostsRequest.MaxResults = maxPosts;
-            recentPostsRequest.OrderBy = PostsResource.ListRequest.OrderByEnum.Published;
+            recentPostsRequest.OrderBy = PostsResource.ListRequest.OrderByEnum.PUBLISHED;
             recentPostsRequest.Status = status;
             recentPostsRequest.PageToken = previousPage?.NextPageToken;
 
@@ -416,9 +447,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             //       calls to ListRecentPosts() will return 0 results and we need to stop making requests.
             do
             {
-                draftRecentPostsList = ListRecentPosts(blogId, maxResultsPerRequest, now, PostsResource.ListRequest.StatusEnum.Draft, draftRecentPostsList);
-                liveRecentPostsList = ListRecentPosts(blogId, maxResultsPerRequest, now, PostsResource.ListRequest.StatusEnum.Live, liveRecentPostsList);
-                scheduledRecentPostsList = ListRecentPosts(blogId, maxResultsPerRequest, now, PostsResource.ListRequest.StatusEnum.Scheduled, scheduledRecentPostsList);
+                draftRecentPostsList = ListRecentPosts(blogId, maxResultsPerRequest, now, PostsResource.ListRequest.StatusEnum.DRAFT, draftRecentPostsList);
+                liveRecentPostsList = ListRecentPosts(blogId, maxResultsPerRequest, now, PostsResource.ListRequest.StatusEnum.LIVE, liveRecentPostsList);
+                scheduledRecentPostsList = ListRecentPosts(blogId, maxResultsPerRequest, now, PostsResource.ListRequest.StatusEnum.SCHEDULED, scheduledRecentPostsList);
 
                 draftRecentPosts = draftRecentPostsList?.Items ?? new List<Post>();
                 liveRecentPosts = liveRecentPostsList?.Items ?? new List<Post>();
@@ -531,8 +562,8 @@ namespace OpenLiveWriter.BlogClient.Clients
             //       calls to ListPages() will return 0 results and we need to stop making requests.
             do
             {
-                draftPagesList = ListPages(blogId, maxPages, PagesResource.ListRequest.StatusEnum.Draft, draftPagesList);
-                livePagesList = ListPages(blogId, maxPages, PagesResource.ListRequest.StatusEnum.Live, livePagesList);
+                draftPagesList = ListPages(blogId, maxPages, PagesResource.ListRequest.StatusEnum.DRAFT, draftPagesList);
+                livePagesList = ListPages(blogId, maxPages, PagesResource.ListRequest.StatusEnum.LIVE, livePagesList);
 
                 draftPages = draftPagesList?.Items ?? new List<Page>();
                 livePages = livePagesList?.Items ?? new List<Page>();
@@ -701,7 +732,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             // Create a FileStream for the image to upload
             using (var imageFileStream = new System.IO.FileStream(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read)) {
                 // Detect mime type for file based on extension
-                var imageMime = MimeMapping.GetMimeMapping(filename);
+                var imageMime = GetMimeType(filename);
                 // Upload the image to the images folder, naming it with a GUID to prevent clashes
                 uploadReq = drive.Files.Create(new GoogleDriveData.File()
                 {

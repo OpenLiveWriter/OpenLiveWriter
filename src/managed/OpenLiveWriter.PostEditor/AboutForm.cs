@@ -28,6 +28,7 @@ namespace OpenLiveWriter.PostEditor
         private PictureBox pictureBoxLogo;
         private Label labelProduct;
         private Label labelVersion;
+        private Label labelRuntime;
         private System.Windows.Forms.LinkLabel lnkShowLogFile;
         private Label labelConfigVersion;
         private TextBox copyrightTextbox;
@@ -41,17 +42,15 @@ namespace OpenLiveWriter.PostEditor
         // Copyright notices are not to be localized.
         string[] credits = {
             /* Brian Lambert */ "Portions Copyright © 2003 Brian Lambert, used with permission of the author under the MIT License.",
-            "DeltaCompressionDotNet (MS-PL) Copyright © Todd Aspeotis 2013 \nhttps://github.com/taspeotis/DeltaCompressionDotNet",
-            "DotNetZip (MS-PL) Copyright (c) 2011 Dino Chiesa.\nhttp://dotnetzip.codeplex.com/",
             "Google API Client Library for .NET (Apache 2.0) (C) Copyright Google Inc.\nhttps://developers.google.com/api-client-library/dotnet/",
-            "Ionic Zlib Copyright (c) 2000,2001,2002,2003 ymnk, JCraft",
-            "Mono.Cecil (MIT) Copyright © 2008 - 2015 Jb Evain Copyright © 2008 - 2011 Novell, Inc \nhttps://github.com/jbevain/cecil",
+            "Microsoft.Web.WebView2 (BSD-3-Clause) Copyright © Microsoft Corporation\nhttps://www.nuget.org/packages/Microsoft.Web.WebView2",
+            "NHunspell (LGPL/MPL) Copyright © 2013 Maierhofer Software\nhttps://www.nuget.org/packages/NHunspell",
             "PlatformSpellCheck (MIT) Copyright © 2015 Bruce Bowyer-Smyth \nhttps://github.com/bbowyersmyth/spellcheck/",
             /* XmpMetadata.cs */ "Portions Copyright © 2011 Omar Shahine, licensed under Creative Commons Attribution 3.0 Unported License.",
-            "Splat (MIT) Copyright © 2013 Paul Betts \nhttps://github.com/paulcbetts/splat/",
-            "Squirrel.Windows (MIT) Copyright © 2012 GitHub, Inc. \nhttps://github.com/squirrel/squirrel.windows",
+            "System.Drawing.Common (MIT) Copyright © .NET Foundation\nhttps://www.nuget.org/packages/System.Drawing.Common",
+            "System.Windows.Forms (MIT) Copyright © .NET Foundation\nhttps://github.com/dotnet/winforms",
+            "Velopack (MIT) Copyright © 2024 Caelan Sayler\nhttps://github.com/velopack/velopack",
             "zlib-1.1.3 Copyright (C) 1995-2004 Jean-loup Gailly and Mark Adler",
-            "YamlDotNet (MIT) Copyright © 2008-2014 Antoine Aubry and contributors. \nhttps://github.com/aaubry/YamlDotNet/",
         };
 
         public AboutForm()
@@ -88,6 +87,9 @@ namespace OpenLiveWriter.PostEditor
 
             labelProduct.Text = ApplicationEnvironment.ProductNameVersioned;
             labelVersion.Text = String.Format(CultureInfo.CurrentCulture, labelVersion.Text, displayVersion);
+
+            // Show .NET runtime version
+            labelRuntime.Text = $"Runtime: {System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription}";
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             labelConfigVersion.Text = String.Format(CultureInfo.CurrentCulture, Res.Get(StringId.AboutConfigurationVersion), version);
@@ -153,6 +155,7 @@ namespace OpenLiveWriter.PostEditor
             this.labelCopyright = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.labelRuntime = new System.Windows.Forms.Label();
             this.lnkShowLogFile = new System.Windows.Forms.LinkLabel();
             this.labelConfigVersion = new System.Windows.Forms.Label();
             this.copyrightTextbox = new System.Windows.Forms.TextBox();
@@ -203,6 +206,16 @@ namespace OpenLiveWriter.PostEditor
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Build xxx.xxxx.xxxx";
             // 
+            // labelRuntime
+            // 
+            this.labelRuntime.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelRuntime.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelRuntime.Location = new System.Drawing.Point(22, 75);
+            this.labelRuntime.Name = "labelRuntime";
+            this.labelRuntime.Size = new System.Drawing.Size(350, 20);
+            this.labelRuntime.TabIndex = 14;
+            this.labelRuntime.Text = "Runtime: .NET 10.0";
+            // 
             // lnkShowLogFile
             // 
             this.lnkShowLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -223,7 +236,7 @@ namespace OpenLiveWriter.PostEditor
             // 
             this.labelConfigVersion.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelConfigVersion.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelConfigVersion.Location = new System.Drawing.Point(22, 75);
+            this.labelConfigVersion.Location = new System.Drawing.Point(22, 95);
             this.labelConfigVersion.Name = "labelConfigVersion";
             this.labelConfigVersion.Size = new System.Drawing.Size(284, 18);
             this.labelConfigVersion.TabIndex = 9;
@@ -260,6 +273,7 @@ namespace OpenLiveWriter.PostEditor
             this.Controls.Add(this.labelWebsiteLink);
             this.Controls.Add(this.copyrightTextbox);
             this.Controls.Add(this.labelConfigVersion);
+            this.Controls.Add(this.labelRuntime);
             this.Controls.Add(this.lnkShowLogFile);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labelVersion);
@@ -306,7 +320,7 @@ namespace OpenLiveWriter.PostEditor
 
         private void labelWebsiteLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(labelWebsiteLink.Text);
+            ShellHelper.LaunchUrl(labelWebsiteLink.Text);
         }
     }
 }

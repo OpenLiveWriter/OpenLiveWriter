@@ -7,10 +7,10 @@ using System.Drawing.Drawing2D;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Project31.CoreServices;
-using Project31.Controls;
-using Project31.Interop.Windows;
-using Project31.ApplicationFramework;
+using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Controls;
+using OpenLiveWriter.Interop.Windows;
+using OpenLiveWriter.ApplicationFramework;
 
 namespace Onfolio.Core.HtmlEditor
 {
@@ -27,7 +27,7 @@ namespace Onfolio.Core.HtmlEditor
         private Bitmap _closeButtonEnabled = ResourceHelper.LoadAssemblyResourceBitmap("Images.CloseEnabled.png") ;
         private Bitmap _closeButtonSelected = ResourceHelper.LoadAssemblyResourceBitmap("Images.CloseSelected.png") ;
         private Bitmap _closeButtonPushed = ResourceHelper.LoadAssemblyResourceBitmap("Images.ClosePushed.png") ;
-        private Bitmap _closeButtonDisabled = ResourceHelper.LoadAssemblyResourceBitmap(Images.CloseInactive.png") ;
+        private Bitmap _closeButtonDisabled = ResourceHelper.LoadAssemblyResourceBitmap("Images.CloseInactive.png") ;
 
         public PropertyEditingMiniForm()
             : this(new DesignModeMainFrameWindow())

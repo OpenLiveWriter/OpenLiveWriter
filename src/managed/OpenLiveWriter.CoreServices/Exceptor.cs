@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Collections;
 using System.Diagnostics;
 
-namespace Project31.CoreServices
+namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Represents errors that occur during application execution.

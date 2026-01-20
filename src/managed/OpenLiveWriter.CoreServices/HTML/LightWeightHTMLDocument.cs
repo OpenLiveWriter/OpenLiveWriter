@@ -260,7 +260,7 @@ namespace OpenLiveWriter.CoreServices
             // Get the IOleContainer for the for the html document (this requires that
             // the document is the root document in the browser)
             IOleContainer oleContainer = (IOleContainer)htmlDocument;
-            IEnumUnknown enumUnknown;
+            OpenLiveWriter.Interop.Com.IEnumUnknown enumUnknown;
 
             // Enumerate the controls in the browser
             oleContainer.EnumObjects(OLECONTF.EMBEDDINGS, out enumUnknown);

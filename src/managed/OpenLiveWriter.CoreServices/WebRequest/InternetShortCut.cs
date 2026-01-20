@@ -2,10 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using Project31.Interop.Com;
-using Project31.Interop.Com.SHDocVw ;
+using OpenLiveWriter.Interop.Com;
+using OpenLiveWriter.Interop.SHDocVw;
 
-namespace Project31.CoreServices
+namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// InternetShortcut is a class for generating and manipulating internet shortcut files

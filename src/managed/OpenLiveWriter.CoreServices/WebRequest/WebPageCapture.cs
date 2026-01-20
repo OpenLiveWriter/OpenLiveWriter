@@ -95,7 +95,7 @@ namespace OpenLiveWriter.CoreServices
         {
             try
             {
-                return HttpRequestHelper.SendRequest(targetUrl, timeoutMs);
+                return HttpRequestHelper.SendRequest(targetUrl, request => request.Timeout = timeoutMs);
             }
             catch(WebResponseTimeoutException)
             {

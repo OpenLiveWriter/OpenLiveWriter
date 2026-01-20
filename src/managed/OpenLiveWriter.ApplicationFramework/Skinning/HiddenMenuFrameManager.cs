@@ -277,5 +277,10 @@ namespace OpenLiveWriter.ApplicationFramework.Skinning
         {
         }
 
+        /// <summary>
+        /// Whether the frame is displayed as frameless (no title bar/border).
+        /// </summary>
+        public bool Frameless => false;
+
     }
 }

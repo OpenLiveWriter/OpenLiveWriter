@@ -12,10 +12,16 @@ namespace OpenLiveWriter.ApplicationFramework
     public sealed class MenuBuilder
     {
         /// <summary>
+        /// The menu type for this builder.
+        /// </summary>
+        public MenuType MenuType { get; }
+
+        /// <summary>
         /// Initializes a new instance of the MenuBuilder class.
         /// </summary>
-        private MenuBuilder()
+        public MenuBuilder(MenuType menuType)
         {
+            MenuType = menuType;
         }
 
         public static MenuItem[] CreateMenuItems(CommandManager commandManager, CommandContextMenuDefinition commandContextMenuDefinition)

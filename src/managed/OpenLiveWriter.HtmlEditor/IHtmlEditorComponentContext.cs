@@ -194,6 +194,11 @@ namespace OpenLiveWriter.HtmlEditor
         void ForceDirty();
 
         CommandManager CommandManager { get; }
+
+        /// <summary>
+        /// Gets the currently selected markup range.
+        /// </summary>
+        MarkupRange GetSelectedMarkupRange();
     }
 
     public delegate void TemporaryFixupHandler(TemporaryFixupArgs args);

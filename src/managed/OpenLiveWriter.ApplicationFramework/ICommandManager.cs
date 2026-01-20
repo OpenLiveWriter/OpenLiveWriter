@@ -4,7 +4,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// The interface of a selection manager.

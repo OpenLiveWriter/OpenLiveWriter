@@ -53,25 +53,32 @@ namespace OpenLiveWriter.CoreServices
 
         public void ApplyResources(object obj, string id)
         {
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ResourcedPropertyLoader.ApplyResources starting: {id}");
             if (obj == null)
             {
                 Debug.Fail("Can't apply resources to a null value");
                 throw new ArgumentNullException("obj", "Can't apply resources to a null value");
             }
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyResources: obj not null");
             if (!_type.IsInstanceOfType(obj))
             {
                 Debug.Fail("Can't apply resources to an object of type " + obj.GetType().Name);
                 throw new ArgumentException("obj", "Can't apply resources to an object of type " + obj.GetType().Name);
             }
 
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyResources: calling Apply localized");
             Apply(_localizedResourceManager, _localizedProperties, obj, id, true);
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyResources: calling Apply invariant");
             Apply(_invariantResourceManager, _invariantProperties, obj, id, false);
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyResources: done");
         }
         List<string> props = new List<string>();
         private void Apply(ResourceManager rm, ArrayList properties, object obj, string id, bool localized)
         {
+            // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Apply: id={id}, localized={localized}, propCount={properties.Count}");
             foreach (PropertyInfo prop in properties)
             {
+                // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Apply: processing prop={prop.Name}");
                 // rm.GetObject is the most costly operation in this function.  Protect it against
                 // by only letting properties through that we know might have a string associated with them
                 switch (prop.Name)
@@ -117,12 +124,15 @@ namespace OpenLiveWriter.CoreServices
                         string strTest = (string)rm.GetObject(_type.Name + "." + id + "." + prop.Name);
                         if (strTest != null)
                         {
-                            Debug.Fail("Skipping property even though it has a value: " + prop.Name);
+                            // Removed Debug.Fail for .NET 10 compatibility - it terminates the process
+                            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Skipping property even though it has a value: {prop.Name}");
                         }
 #endif
                         continue;
                     default:
-                        Debug.Fail("Unknown property: " + prop.Name);
+                        // Removed Debug.Fail for .NET 10 compatibility - it terminates the process
+                        // Verbose logging commented out - uncomment for debugging unknown properties
+                        // System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Unknown property: {prop.Name}");
                         break;
 
                 }

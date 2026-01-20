@@ -7,10 +7,10 @@ using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections;
 using System.Diagnostics;
-using Project31.CoreServices;
-using Project31.Controls;
+using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Controls;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
     /// <summary>
     /// ApplicationWorkspaceColumnPaneLightweightControl.  Internal helper class used by

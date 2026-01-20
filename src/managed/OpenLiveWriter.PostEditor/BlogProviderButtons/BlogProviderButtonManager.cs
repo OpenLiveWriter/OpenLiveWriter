@@ -44,11 +44,7 @@ using OpenLiveWriter.PostEditor.Commands;
 
 namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 {
-    internal sealed class BlogProviderButtonCommandBarInfo
-    {
-        public const int MaximumProviderCommands = 4;
-        public const string ProviderCommandFormat = "BlogProviderButtonsProviderCommand{0}";
-    }
+    // BlogProviderButtonCommandBarInfo is defined in BlogProviderButtonCommandBar.cs
 
     internal class BlogProviderButtonManager : GalleryCommand<Command>, IDisposable
     {

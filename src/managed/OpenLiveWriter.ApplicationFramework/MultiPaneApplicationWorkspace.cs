@@ -7,9 +7,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Project31.ApplicationFramework
+namespace OpenLiveWriter.ApplicationFramework
 {
-    public class MultiPaneApplicationWorkspace : Project31.Controls.LightweightControlContainerControl
+    public class MultiPaneApplicationWorkspace : OpenLiveWriter.Controls.LightweightControlContainerControl
     {
         private System.ComponentModel.IContainer components = null;
 

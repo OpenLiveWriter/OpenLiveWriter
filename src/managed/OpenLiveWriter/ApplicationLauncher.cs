@@ -147,7 +147,7 @@ namespace OpenLiveWriter
 
             while (true)
             {
-                TaskDialog td = new TaskDialog();
+                var td = new OpenLiveWriter.Interop.Windows.TaskDialog.TaskDialog();
 
                 td.WindowTitle = ApplicationEnvironment.ProductNameQualified;
                 td.MainInstruction = string.Format(CultureInfo.CurrentCulture,
@@ -161,9 +161,9 @@ namespace OpenLiveWriter
                 td.AllowDialogCancellation = true;
 
                 td.UseCommandLinks = true;
-                td.Buttons.Add(new TaskDialogButton(ID_RECOVER, Res.Get(StringId.AutoRecoverDialogButtonRecover)));
-                td.Buttons.Add(new TaskDialogButton(ID_DISCARD, Res.Get(StringId.AutoRecoverDialogButtonDiscard)));
-                td.Buttons.Add(new TaskDialogButton(ID_ASKLATER, Res.Get(StringId.AutoRecoverDialogButtonAskLater)));
+                td.Buttons.Add(new OpenLiveWriter.Interop.Windows.TaskDialog.TaskDialogButton(ID_RECOVER, Res.Get(StringId.AutoRecoverDialogButtonRecover)));
+                td.Buttons.Add(new OpenLiveWriter.Interop.Windows.TaskDialog.TaskDialogButton(ID_DISCARD, Res.Get(StringId.AutoRecoverDialogButtonDiscard)));
+                td.Buttons.Add(new OpenLiveWriter.Interop.Windows.TaskDialog.TaskDialogButton(ID_ASKLATER, Res.Get(StringId.AutoRecoverDialogButtonAskLater)));
 
                 int result, radioResult;
                 bool flag;

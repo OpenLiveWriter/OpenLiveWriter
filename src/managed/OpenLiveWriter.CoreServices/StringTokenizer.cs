@@ -6,7 +6,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Text;
 
-namespace Project31.CoreServices
+namespace OpenLiveWriter.CoreServices
 {
     /// <summary>
     /// Breaks a string into tokens according to one or more delimiters.

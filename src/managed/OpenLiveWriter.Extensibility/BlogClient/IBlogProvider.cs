@@ -147,6 +147,7 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         /// </summary>
         SupportsFeature ReturnsHtmlTitlesOnGet { get; }
         bool SupportsEmptyTitles { get; }
+        bool UnescapedTitles { get; }
         string ContentFilter { get; }
         string PermalinkFormat { get; }
         int MaxRecentPosts { get; }

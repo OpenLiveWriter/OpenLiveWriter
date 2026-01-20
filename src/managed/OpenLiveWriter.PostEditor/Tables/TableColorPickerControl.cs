@@ -77,7 +77,7 @@ namespace OpenLiveWriter.PostEditor.Tables
             }
 
             // draw border
-            using ( Pen pen = new Pen(ColorHelper.GetThemeBorderColor()) )
+            using ( Pen pen = new Pen(ColorHelper.GetThemeBorderColor(SystemColors.ControlDark)) )
                 g.DrawRectangle(pen, rectColorDisplay) ;
         }
 

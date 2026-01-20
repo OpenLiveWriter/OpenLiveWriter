@@ -5,16 +5,15 @@ using System;
 using System.Drawing;
 using System.Diagnostics;
 using System.ComponentModel;
-using Onfolio.Core.HtmlEditor;
-using Onfolio.Writer.Api.ImageEditing;
-using Onfolio.Writer.PostEditor.PostHtmlEditing;
-using Onfolio.Writer.PostEditor.PostHtmlEditing.Commands;
+using OpenLiveWriter.HtmlEditor;
+using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.PostEditor.PostHtmlEditing;
 using mshtml ;
-using Project31.ApplicationFramework;
+using OpenLiveWriter.ApplicationFramework;
 
-namespace Onfolio.Writer.PostEditor.PostHtmlEditing
+namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 {
-    public class ImageEditingPropertyForm : MainFrameSatelliteWindow, IImagePropertyEditingContext
+    public class ImageEditingPropertyForm : MiniForm, IImagePropertyEditingContext
     {
         /// <summary>
         /// Required designer variable.
@@ -23,8 +22,8 @@ namespace Onfolio.Writer.PostEditor.PostHtmlEditing
 
         private IHtmlEditorComponentContext _editorContext ;
         private IBlogPostImageDataContext _imageDataContext;
-        private Onfolio.Writer.PostEditor.PostHtmlEditing.ImagePropertyEditorControl imagePropertyEditorControl1;
-        private Onfolio.Writer.PostEditor.PostHtmlEditing.ImageEditingPropertyStatusbar imageEditingPropertyStatusbar1;
+        private OpenLiveWriter.PostEditor.PostHtmlEditing.ImagePropertyEditorControl imagePropertyEditorControl1;
+        private OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditingPropertyStatusbar imageEditingPropertyStatusbar1;
         private CreateFileCallback _createFileCallback ;
 
         #region Initialization/Singleton

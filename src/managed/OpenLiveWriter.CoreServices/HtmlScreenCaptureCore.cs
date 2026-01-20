@@ -576,7 +576,7 @@ namespace OpenLiveWriter.CoreServices
             // check for embeds that are not ready
             foreach (object embedObject in document.embeds)
             {
-                DispHTMLEmbed dispEmbed = embedObject as DispHTMLEmbed;
+                mshtml.DispHTMLEmbed dispEmbed = embedObject as mshtml.DispHTMLEmbed;
                 if (dispEmbed.readyState.ToString() != "complete")
                     return false;
             }

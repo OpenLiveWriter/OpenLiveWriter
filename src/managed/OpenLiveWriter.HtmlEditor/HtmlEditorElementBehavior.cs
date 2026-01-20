@@ -176,6 +176,14 @@ namespace OpenLiveWriter.HtmlEditor
             UpdateSelectionState();
         }
 
+        /// <summary>
+        /// Called when the selection changes to notify behavior of the new selection range.
+        /// </summary>
+        public virtual void SelectionChanged(MarkupRange selectedRange)
+        {
+            UpdateSelectionState();
+        }
+
         private void UpdateSelectionState()
         {
             if (ElementExists && EditorContext.Selection != null)

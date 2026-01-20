@@ -69,7 +69,10 @@ namespace OpenLiveWriter.ApplicationFramework
             public void Add(Command command)
             {
                 //	Ensure that the command instance has not already been added.
-                Debug.Assert(!commandInstanceCollection.Contains(command), String.Format(CultureInfo.InvariantCulture, "Command instance {0} already added.", command.Identifier));
+                // Note: Changed from Debug.Assert to Debug.WriteLineIf for .NET 10 compatibility
+                // Debug.Assert terminates the process in .NET Core/5+ instead of showing a dialog
+                if (commandInstanceCollection.Contains(command))
+                    Debug.WriteLine($"[OLW-DEBUG] WARNING: Command instance {command.Identifier} already added.");
 
                 //	Add the command instance.
                 if (!commandInstanceCollection.Contains(command))

@@ -234,7 +234,8 @@ namespace OpenLiveWriter.CoreServices
         {
             try
             {
-                Process.Start(url);
+                // UseShellExecute is required for opening URLs in .NET Core/.NET 5+
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
             }
             catch (Win32Exception w32e)
             {

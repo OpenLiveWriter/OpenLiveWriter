@@ -59,7 +59,7 @@ namespace BlogRunner
                 {
 
                     if (options.GetFlagValue(BlogRunnerCommandLineOptions.OPTION_VERBOSE, false))
-                        Debug.Listeners.Add(new ConsoleTraceListener(true));
+                        Trace.Listeners.Add(new ConsoleTraceListener(true));
 
                     string providersPath = Path.GetFullPath((string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_PROVIDERS, null));
                     string configPath = Path.GetFullPath((string)options.GetValue(BlogRunnerCommandLineOptions.OPTION_CONFIG, null));
