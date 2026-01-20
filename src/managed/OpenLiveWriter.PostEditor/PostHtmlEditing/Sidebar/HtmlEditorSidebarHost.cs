@@ -42,6 +42,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
         private SidebarControl _defaultSidebarControl;
         private ControlUITheme _uiTheme;
+        
+        /// <summary>
+        /// When true, indicates we're using WebView2 for editing and should skip MSHTML selection paths.
+        /// Set by ContentEditor when it wires up WebView2 selection events.
+        /// </summary>
+        internal bool UseWebView2Selection { get; set; }
 
         public HtmlEditorSidebarHost(IHtmlEditorComponentContext editorContext)
         {
@@ -122,11 +128,20 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
         private void _editorContext_SelectionChanged(object sender, EventArgs e)
         {
+            // When using WebView2, selection changes are handled by UpdateSidebarStateForSelection
+            // which is called directly from the WebView2 SelectionChanged event in ContentEditor.
+            // Skip the MSHTML path to avoid deadlocks.
+            if (UseWebView2Selection)
+                return;
             UpdateSidebarState();
         }
 
         private void DocumentEvents_Click(object o, OpenLiveWriter.Mshtml.HtmlEventArgs e)
         {
+            // When using WebView2, we handle clicks via the WebView2 message system
+            if (UseWebView2Selection)
+                return;
+                
             //fix bug 306300 - if the editor is clicked in the body outside of the editor's main
             //editable regions, we may not receive a selection change event (even though the selection
             //will be changed to none), so we also update the sidebar state on click.
@@ -176,6 +191,67 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
         internal void ForceUpdateSidebarState()
         {
             UpdateSidebarState(true);
+        }
+        
+        /// <summary>
+        /// Update the sidebar state using a WebView2 editor selection.
+        /// This bypasses the MSHTML editor context when using WebView2.
+        /// </summary>
+        internal void UpdateSidebarStateForSelection(IEditorSelection selection)
+        {
+            if (selection == null)
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] HtmlEditorSidebarHost.UpdateSidebarStateForSelection: null selection");
+                return;
+            }
+            
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] HtmlEditorSidebarHost.UpdateSidebarStateForSelection: type={selection.SelectionType}");
+            
+            // Find the appropriate sidebar for this selection
+            SidebarControl sidebarControl = GetSidebarForWebView2Selection(selection);
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] GetSidebarForWebView2Selection returned: {sidebarControl?.GetType().Name ?? "null"}");
+            
+            // Update active sidebar
+            ActiveSidebarControl = sidebarControl;
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ActiveSidebarControl set, controls count: {_activeSidebarControl?.Controls.Count ?? -1}");
+            
+            // Update the view
+            if (_activeSidebarControl != null)
+            {
+                _activeSidebarControl.UpdateView(selection, true);
+            }
+            
+            UpdateVisibility(false);
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] After UpdateVisibility: host Visible={Visible}, sidebar Visible={_activeSidebarControl?.Visible}");
+        }
+        
+        /// <summary>
+        /// Get the sidebar that applies to the given WebView2 selection.
+        /// </summary>
+        private SidebarControl GetSidebarForWebView2Selection(IEditorSelection selection)
+        {
+            if (selection == null || !selection.IsValid)
+                return _defaultSidebarControl;
+            
+            foreach (SidebarEntry sidebarEntry in _sidebars)
+            {
+                ISidebar sidebar = sidebarEntry.Sidebar;
+                // Pass the IEditorSelection directly - sidebars that support it will handle it
+                if (sidebar.AppliesToSelection(selection))
+                {
+                    SidebarControl sidebarControl = sidebarEntry.SidebarControl;
+                    if (sidebarControl == null)
+                    {
+                        // demand-create sidebar
+                        sidebarEntry.SidebarControl = CreateAndInitializeSidebar(sidebar);
+                        sidebarEntry.SidebarControl.Visible = sidebarEntry.SidebarControl.Controls.Count > 0;
+                    }
+                    return sidebarEntry.SidebarControl;
+                }
+            }
+            
+            // got this far so no active sidebar for current selection
+            return _defaultSidebarControl;
         }
 
         private void UpdateActiveSidebarControl()

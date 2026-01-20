@@ -31,6 +31,21 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 #pragma warning disable CS0067 // Event not used yet
         public event EventHandler IsDirtyEvent;
 #pragma warning restore CS0067
+        
+        /// <summary>
+        /// Fired when a control (image) is selected.
+        /// </summary>
+        public event EventHandler ControlSelected;
+        
+        /// <summary>
+        /// Fired when a control (image) is double-clicked.
+        /// </summary>
+        public event EventHandler ControlDoubleClick;
+        
+        /// <summary>
+        /// Fired when selection changes in the editor.
+        /// </summary>
+        public event EventHandler<EditorSelectionChangedEventArgs> SelectionChanged;
 
         public WebView2BlogPostHtmlEditorControl()
         {
@@ -57,8 +72,33 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 OnEditableRegionFocusChanged(true);
             };
             
+            // Wire up control selection events from the WebView2 editor
+            _editor.OnControlSelected += (s, e) =>
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl: Control selected, firing ControlSelected");
+                ControlSelected?.Invoke(this, EventArgs.Empty);
+            };
+            
+            _editor.OnControlDoubleClick += (s, e) =>
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl: Control double-clicked, firing ControlDoubleClick");
+                ControlDoubleClick?.Invoke(this, EventArgs.Empty);
+            };
+            
+            // Wire up selection changed event
+            _editor.SelectionChanged += (s, e) =>
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl: SelectionChanged, forwarding event");
+                SelectionChanged?.Invoke(this, e);
+            };
+            
             System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl created");
         }
+        
+        /// <summary>
+        /// Gets the current editor selection.
+        /// </summary>
+        public IEditorSelection EditorSelection => _editor.EditorSelection;
         
         private void OnEditableRegionFocusChanged(bool isFullyEditable)
         {

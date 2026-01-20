@@ -5,6 +5,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Web.WebView2.Core;
@@ -98,11 +99,17 @@ namespace OpenLiveWriter.WebView2Shim
         private string _pendingFilePath;
         private WebView2HtmlEditorCommandSource _commandSource;
         private EditorContentBridge _contentBridge;
+        private WebView2EditorSelection _editorSelection;
         
         /// <summary>
         /// Fired when the editor has finished loading and is ready for editing.
         /// </summary>
         public event EventHandler ReadyForEditing;
+        
+        /// <summary>
+        /// Fired when the selection changes in the editor.
+        /// </summary>
+        public event EventHandler<EditorSelectionChangedEventArgs> SelectionChanged;
         
         protected override void Dispose(bool disposing)
         {
@@ -127,6 +134,11 @@ namespace OpenLiveWriter.WebView2Shim
             
             InitializeWebView();
         }
+        
+        /// <summary>
+        /// Gets the current editor selection.
+        /// </summary>
+        public IEditorSelection EditorSelection => _editorSelection;
         
         private async void OnUseParagraphTagsChanged(object sender, EventArgs e)
         {
@@ -221,6 +233,9 @@ namespace OpenLiveWriter.WebView2Shim
                     System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} NavigationCompleted - IsSuccess: {e.IsSuccess}, URL: {_webView.CoreWebView2.Source}");
                     if (e.IsSuccess)
                     {
+                        // Initialize the DOM bridge - must happen after each navigation
+                        InitializeBridge();
+                        
                         // Inject host object sync listeners after navigation completes
                         await SetupHostObjectListeners();
                         
@@ -472,50 +487,180 @@ namespace OpenLiveWriter.WebView2Shim
             }
         }
 
-        private void InitializeBridge()
+        private async void InitializeBridge()
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} InitializeBridge starting");
+                
+                // Create the bridge but DON'T call Initialize() - it uses sync message pump that deadlocks
                 _bridge = new WebView2Bridge(_webView);
-                _bridge.Initialize();
+                
+                // Instead, inject the bridge script directly using async API
+                var bridgeScript = _bridge.GetBridgeScript();
+                if (!string.IsNullOrEmpty(bridgeScript))
+                {
+                    await _webView.CoreWebView2.ExecuteScriptAsync(bridgeScript);
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} Bridge script injected");
+                }
+                
                 _document = new WebView2Document(_bridge, _webView);
                 _commandSource.SetDocument(_document);
                 
+                // Initialize the editor selection tracker
+                _editorSelection = new WebView2EditorSelection(_bridge, async () => 
+                {
+                    return await _webView.CoreWebView2.ExecuteScriptAsync("");
+                });
+                
                 // Set up content change monitoring for olw-body element
-                _bridge.ExecuteScript(@"
+                await _webView.CoreWebView2.ExecuteScriptAsync(@"
                     var body = document.getElementById('olw-body');
                     if (body) {
                         body.addEventListener('input', function() {
                             window.chrome.webview.postMessage(JSON.stringify({ type: 'contentChanged' }));
                         });
                     }
+                    console.log('[OLW] Content change monitoring setup');
                 ");
                 
-                _webView.CoreWebView2.WebMessageReceived += (s, e) =>
+                // Set up control selection (images, tables)
+                var result = await _webView.CoreWebView2.ExecuteScriptAsync("typeof OLW");
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} typeof OLW = {result}");
+                
+                var setupResult = await _webView.CoreWebView2.ExecuteScriptAsync("OLW.setupControlSelection ? OLW.setupControlSelection() : 'not available'");
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} Control selection setup: {setupResult}");
+                
+                // Register message handler (only once)
+                if (!_messageHandlerRegistered)
                 {
-                    try
+                    _messageHandlerRegistered = true;
+                    _webView.CoreWebView2.WebMessageReceived += (s, e) =>
                     {
-                        var json = e.WebMessageAsJson;
-                        // Handle contentChanged message
-                        if (json?.Contains("contentChanged") == true)
+                        try
                         {
-                            IsDirty = true;
+                            var json = e.WebMessageAsJson;
+                            // Handle contentChanged message
+                            if (json?.Contains("contentChanged") == true)
+                            {
+                                IsDirty = true;
+                            }
+                            // Handle insertLink (Ctrl+K) message
+                            else if (json?.Contains("insertLink") == true)
+                            {
+                                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Received insertLink message from JS (Ctrl+K)");
+                                // Use BeginInvoke to avoid blocking WebView2
+                                BeginInvoke(new Action(() => _commandSource.InsertLink()));
+                            }
+                            // Handle control selection (image clicked)
+                            else if (json?.Contains("controlSelected") == true)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Control selected: {json}");
+                                // Parse the message to get tagName and editorId
+                                var parsed = ParseControlSelectionMessage(json);
+                                // Create explicit local copies for closure capture
+                                string capturedTagName = parsed.TagName;
+                                string capturedEditorId = parsed.EditorId;
+                                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Parsed: tagName={capturedTagName}, editorId={capturedEditorId}");
+                                // Use BeginInvoke to avoid deadlock with WebView2
+                                BeginInvoke(new Action(() => 
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] In BeginInvoke: tagName={capturedTagName}, editorId={capturedEditorId}");
+                                    _editorSelection?.UpdateFromControlSelection(capturedTagName, capturedEditorId);
+                                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] After UpdateFromControlSelection: type={_editorSelection?.SelectionType}");
+                                    OnControlSelected?.Invoke(this, EventArgs.Empty);
+                                    SelectionChanged?.Invoke(this, new EditorSelectionChangedEventArgs(_editorSelection));
+                                }));
+                            }
+                            // Handle control cleared
+                            else if (json?.Contains("controlCleared") == true)
+                            {
+                                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Control selection cleared");
+                                BeginInvoke(new Action(() => 
+                                {
+                                    // NOTE: We no longer sync body here - SetElementAttributes already syncs
+                                    // after DOM changes. Syncing here caused race conditions where old body
+                                    // would overwrite new values from resize commands.
+                                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Selection cleared - skipping body sync, current length: {_contentBridge.Body?.Length ?? 0}");
+                                    
+                                    _editorSelection?.ClearSelection();
+                                    OnControlCleared?.Invoke(this, EventArgs.Empty);
+                                    SelectionChanged?.Invoke(this, new EditorSelectionChangedEventArgs(_editorSelection));
+                                }));
+                            }
+                            // Handle double-click on control (open properties)
+                            else if (json?.Contains("controlDoubleClick") == true)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Control double-clicked: {json}");
+                                BeginInvoke(new Action(() => OnControlDoubleClick?.Invoke(this, EventArgs.Empty)));
+                            }
                         }
-                        // Handle insertLink (Ctrl+K) message
-                        else if (json?.Contains("insertLink") == true)
-                        {
-                            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] Received insertLink message from JS (Ctrl+K)");
-                            _commandSource.InsertLink();
-                        }
-                    }
-                    catch { }
-                };
+                        catch { }
+                    };
+                }
+                
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} InitializeBridge complete");
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] Bridge init error: {ex.Message}");
             }
         }
+        
+        private bool _messageHandlerRegistered = false;
+        
+        /// <summary>
+        /// Parse a control selection message to extract tagName and editorId.
+        /// JSON format: {"type":"controlSelected","tagName":"IMG","id":"olw-1"}
+        /// Note: WebView2's WebMessageAsJson wraps the message as a JSON string, so we need to unwrap it first.
+        /// </summary>
+        private (string TagName, string EditorId) ParseControlSelectionMessage(string json)
+        {
+            try
+            {
+                // WebView2 wraps the message in quotes, so we first need to parse it as a string
+                // Input: "{\"type\":\"controlSelected\",...}" (a JSON string containing JSON)
+                // First parse extracts the inner JSON string
+                using var outerDoc = JsonDocument.Parse(json);
+                var innerJson = outerDoc.RootElement.GetString();
+                
+                if (string.IsNullOrEmpty(innerJson))
+                {
+                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] ParseControlSelectionMessage: inner JSON is null/empty");
+                    return (null, null);
+                }
+                
+                // Now parse the actual JSON object
+                using var doc = JsonDocument.Parse(innerJson);
+                var root = doc.RootElement;
+                var hasTagName = root.TryGetProperty("tagName", out var tagProp);
+                var hasId = root.TryGetProperty("id", out var idProp);
+                var tagName = hasTagName ? tagProp.GetString() : null;
+                var editorId = hasId ? idProp.GetString() : null;
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ParseControlSelectionMessage: tagName={tagName}, editorId={editorId}");
+                return (tagName, editorId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ParseControlSelectionMessage EXCEPTION: {ex.Message}");
+                return (null, null);
+            }
+        }
+        
+        /// <summary>
+        /// Fired when a control (image, table) is selected via click.
+        /// </summary>
+        public event EventHandler OnControlSelected;
+        
+        /// <summary>
+        /// Fired when control selection is cleared.
+        /// </summary>
+        public event EventHandler OnControlCleared;
+        
+        /// <summary>
+        /// Fired when a control is double-clicked (typically to open properties).
+        /// </summary>
+        public event EventHandler OnControlDoubleClick;
 
         private string GetEditorTemplate()
         {
@@ -678,6 +823,11 @@ namespace OpenLiveWriter.WebView2Shim
                         
                         console.log('OLW: Host object sync setup');
                     }}
+                    
+                    // Setup control selection (images, tables) after content is loaded
+                    if (typeof OLW !== 'undefined' && OLW.setupControlSelection) {{
+                        OLW.setupControlSelection();
+                    }}
                     'done';
                 ";
                 
@@ -692,7 +842,25 @@ namespace OpenLiveWriter.WebView2Shim
 
         public string GetEditedHtml(bool preferWellFormed)
         {
-            // Read directly from the content bridge - JS syncs on every input event
+            // Sync body from DOM before returning - ensures any programmatic changes are captured
+            // This is safe here because GetEditedHtml is called during view switch, not during ribbon commands
+            if (_isInitialized && _bridge != null)
+            {
+                try
+                {
+                    var syncScript = "(() => { var b = document.getElementById('olw-body'); " +
+                        "if (b && window.chrome && window.chrome.webview && window.chrome.webview.hostObjects) { " +
+                        "  window.chrome.webview.hostObjects.sync.olw.Body = b.innerHTML; return 'synced'; " +
+                        "} return 'no-sync'; })()";
+                    var result = _bridge.ExecuteScript(syncScript);
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} GetEditedHtml - sync result: {result}");
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} GetEditedHtml - sync failed: {ex.Message}");
+                }
+            }
+            
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] #{_instanceId} GetEditedHtml - bridge body length: {_contentBridge.Body?.Length ?? 0}");
             return _contentBridge.Body ?? "";
         }
