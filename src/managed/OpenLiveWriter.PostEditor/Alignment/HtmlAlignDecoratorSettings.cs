@@ -7,6 +7,7 @@ using System.Globalization;
 using mshtml;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.HtmlEditor;
 using OpenLiveWriter.Mshtml;
 
 namespace OpenLiveWriter.PostEditor
@@ -18,6 +19,7 @@ namespace OpenLiveWriter.PostEditor
     {
         private static readonly string DEFAULT_ALIGNMENT = "DefaultAlignment";
         private IHTMLElement _element;
+        private IHtmlImageElement _htmlImageElement;
         IProperties Settings;
         private ImageDecoratorInvocationSource _invocationSource = ImageDecoratorInvocationSource.Unknown;
 
@@ -39,6 +41,17 @@ namespace OpenLiveWriter.PostEditor
             Settings = settings;
             _invocationSource = invocationSource;
         }
+        
+        /// <summary>
+        /// Constructor for WebView2 mode - uses abstracted HTML image element.
+        /// </summary>
+        public HtmlAlignDecoratorSettings(IProperties settings, IHtmlImageElement htmlImageElement)
+        {
+            _htmlImageElement = htmlImageElement;
+            Settings = settings;
+        }
+        
+        private bool IsWebView2Mode => _htmlImageElement != null && _element == null;
 
         public ImgAlignment DefaultAlignment
         {
@@ -64,11 +77,91 @@ namespace OpenLiveWriter.PostEditor
         {
             get
             {
+                if (IsWebView2Mode)
+                    return GetAlignmentFromHtmlWebView2();
                 return GetAlignmentFromHtml();
             }
             set
             {
-                SetImageHtmlFromAlignment(value);
+                if (IsWebView2Mode)
+                    SetImageHtmlFromAlignmentWebView2(value);
+                else
+                    SetImageHtmlFromAlignment(value);
+            }
+        }
+        
+        /// <summary>
+        /// Get alignment from WebView2 element (simplified - just reads float style).
+        /// </summary>
+        private ImgAlignment GetAlignmentFromHtmlWebView2()
+        {
+            // Check align attribute
+            string align = _htmlImageElement.GetAttribute("align");
+            if (!string.IsNullOrEmpty(align))
+            {
+                switch (align.ToLower(CultureInfo.InvariantCulture).Trim())
+                {
+                    case "left": return ImgAlignment.LEFT;
+                    case "right": return ImgAlignment.RIGHT;
+                    case "top": return ImgAlignment.TOP;
+                    case "bottom": return ImgAlignment.BOTTOM;
+                    case "middle": return ImgAlignment.MIDDLE;
+                    case "absmiddle": return ImgAlignment.ABSMIDDLE;
+                    case "baseline": return ImgAlignment.BASELINE;
+                    case "texttop": return ImgAlignment.TEXTTOP;
+                }
+            }
+            
+            // Check float style
+            string styleFloat = _htmlImageElement.GetStyleProperty("float");
+            if (styleFloat == "right") return ImgAlignment.RIGHT;
+            if (styleFloat == "left") return ImgAlignment.LEFT;
+            
+            // Check for centering
+            string display = _htmlImageElement.GetStyleProperty("display");
+            string marginLeft = _htmlImageElement.GetStyleProperty("margin-left");
+            string marginRight = _htmlImageElement.GetStyleProperty("margin-right");
+            if ((styleFloat == "none" || string.IsNullOrEmpty(styleFloat)) && 
+                display == "block" && marginLeft == "auto" && marginRight == "auto")
+            {
+                return ImgAlignment.CENTER;
+            }
+            
+            return ImgAlignment.NONE;
+        }
+        
+        /// <summary>
+        /// Set alignment on WebView2 element (simplified - just sets float/margin styles).
+        /// </summary>
+        private void SetImageHtmlFromAlignmentWebView2(ImgAlignment value)
+        {
+            switch (value)
+            {
+                case ImgAlignment.NONE:
+                    _htmlImageElement.RemoveAttribute("align");
+                    _htmlImageElement.SetStyleProperty("display", "inline");
+                    _htmlImageElement.SetStyleProperty("float", null);
+                    _htmlImageElement.SetStyleProperty("margin-left", null);
+                    _htmlImageElement.SetStyleProperty("margin-right", null);
+                    break;
+                case ImgAlignment.LEFT:
+                case ImgAlignment.RIGHT:
+                    _htmlImageElement.SetStyleProperty("display", "inline");
+                    _htmlImageElement.SetStyleProperty("float", value.ToString().ToLower(CultureInfo.InvariantCulture));
+                    _htmlImageElement.SetAttribute("align", value.ToString().ToLower(CultureInfo.InvariantCulture));
+                    _htmlImageElement.SetStyleProperty("margin-left", null);
+                    _htmlImageElement.SetStyleProperty("margin-right", null);
+                    break;
+                case ImgAlignment.CENTER:
+                    _htmlImageElement.RemoveAttribute("align");
+                    _htmlImageElement.SetStyleProperty("float", "none");
+                    _htmlImageElement.SetStyleProperty("display", "block");
+                    _htmlImageElement.SetStyleProperty("margin-left", "auto");
+                    _htmlImageElement.SetStyleProperty("margin-right", "auto");
+                    break;
+                default:
+                    Trace.Fail("Unknown image alignment: " + value.ToString());
+                    break;
             }
         }
 

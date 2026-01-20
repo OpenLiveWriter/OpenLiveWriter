@@ -8,6 +8,7 @@ using mshtml;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.HtmlEditor;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
@@ -61,11 +62,24 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         private readonly IProperties Settings;
         private readonly IHTMLElement ImgElement;
+        private readonly IHtmlImageElement HtmlImageElement;
+        
         public HtmlMarginDecoratorSettings(IProperties settings, IHTMLElement imgElement)
         {
             Settings = settings;
             ImgElement = imgElement;
         }
+        
+        /// <summary>
+        /// Constructor for WebView2 mode - uses abstracted HTML image element.
+        /// </summary>
+        public HtmlMarginDecoratorSettings(IProperties settings, IHtmlImageElement htmlImageElement)
+        {
+            Settings = settings;
+            HtmlImageElement = htmlImageElement;
+        }
+        
+        private bool IsWebView2Mode => HtmlImageElement != null && ImgElement == null;
 
         public bool UseUserCustomMargin
         {
@@ -110,11 +124,22 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             get
             {
-                string margin = ImgElement.style.margin;
-                if (margin != null && margin != "auto")
-                    return true;
+                if (IsWebView2Mode)
+                {
+                    string margin = HtmlImageElement.GetStyleProperty("margin");
+                    if (margin != null && margin != "auto")
+                        return true;
+                    else
+                        return Margin != WriterDefaultMargin;
+                }
                 else
-                    return Margin != WriterDefaultMargin;
+                {
+                    string margin = ImgElement.style.margin;
+                    if (margin != null && margin != "auto")
+                        return true;
+                    else
+                        return Margin != WriterDefaultMargin;
+                }
             }
         }
 
@@ -141,16 +166,64 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             get
             {
+                if (IsWebView2Mode)
+                    return GetMarginStyleFromHtmlWebView2();
                 return GetMarginStyleFromHtml(ImgElement);
             }
             set
             {
-                if (value != null)
-                    ImgElement.style.margin = GetHtmlMarginFromMarginStyle(value, ImgElement);
+                if (IsWebView2Mode)
+                {
+                    if (value != null)
+                        SetMarginWebView2(value);
+                    else
+                        HtmlImageElement.SetStyleProperty("margin", null);
+                }
                 else
-                    //unset any explicit margin style info so that the default is inherited.
-                    ImgElement.style.margin = null;
+                {
+                    if (value != null)
+                        ImgElement.style.margin = GetHtmlMarginFromMarginStyle(value, ImgElement);
+                    else
+                        //unset any explicit margin style info so that the default is inherited.
+                        ImgElement.style.margin = null;
+                }
             }
+        }
+        
+        private MarginStyle GetMarginStyleFromHtmlWebView2()
+        {
+            int marginTop = GetPixels(HtmlImageElement.GetCurrentStyleProperty("margin-top"));
+            int marginRight = GetPixels(HtmlImageElement.GetCurrentStyleProperty("margin-right"));
+            int marginBottom = GetPixels(HtmlImageElement.GetCurrentStyleProperty("margin-bottom"));
+            int marginLeft = GetPixels(HtmlImageElement.GetCurrentStyleProperty("margin-left"));
+            return new MarginStyle(marginTop, marginRight, marginBottom, marginLeft, StyleSizeUnit.PX);
+        }
+        
+        private void SetMarginWebView2(MarginStyle margin)
+        {
+            string unitSize = margin.SizeUnit.ToString().ToLower(CultureInfo.InvariantCulture);
+            string marginRight = margin.Right.ToString(CultureInfo.InvariantCulture) + unitSize;
+            string marginLeft = margin.Left.ToString(CultureInfo.InvariantCulture) + unitSize;
+
+            string currentRightMargin = HtmlImageElement.GetStyleProperty("margin-right") ?? "";
+            string currentLeftMargin = HtmlImageElement.GetStyleProperty("margin-left") ?? "";
+
+            // This is because margins and centering images can conflict with eachother
+            if (margin.Right == 0 && currentRightMargin == "auto" &&
+                margin.Left == 0 && currentLeftMargin == "auto")
+            {
+                marginRight = "auto";
+                marginLeft = "auto";
+            }
+            else if ((margin.Right != 0 || margin.Left != 0) && currentRightMargin == "auto" && currentLeftMargin == "auto")
+            {
+                // The user is breaking their centered image by setting a L/R margin
+                HtmlImageElement.SetStyleProperty("display", "inline");
+            }
+
+            string marginString = String.Format(CultureInfo.InvariantCulture, "{0}{4} {1} {2}{4} {3}",
+                margin.Top, marginRight, margin.Bottom, marginLeft, unitSize);
+            HtmlImageElement.SetStyleProperty("margin", marginString);
         }
 
         private static string GetHtmlMarginFromMarginStyle(MarginStyle margin, IHTMLElement element)

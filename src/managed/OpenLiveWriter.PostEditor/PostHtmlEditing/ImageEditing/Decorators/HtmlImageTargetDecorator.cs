@@ -9,6 +9,7 @@ using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.BlogClient;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.HtmlEditor;
 using OpenLiveWriter.Mshtml;
 using OpenLiveWriter.Api;
 
@@ -127,19 +128,41 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         private readonly IProperties Settings;
         private readonly IHTMLElement ImgElement;
+        private readonly IHtmlImageElement HtmlImageElement;
+        
         public HtmlImageTargetDecoratorSettings(IProperties settings, IHTMLElement imgElement)
         {
             Settings = settings;
             ImgElement = imgElement;
         }
+        
+        /// <summary>
+        /// Constructor for WebView2 mode - uses abstracted HTML image element.
+        /// </summary>
+        public HtmlImageTargetDecoratorSettings(IProperties settings, IHtmlImageElement htmlImageElement)
+        {
+            Settings = settings;
+            HtmlImageElement = htmlImageElement;
+        }
+        
+        private bool IsWebView2Mode => HtmlImageElement != null && ImgElement == null;
 
         public Size ImageSize
         {
             get
             {
-                IHTMLImgElement imgElement = (IHTMLImgElement)ImgElement;
-                int width = Settings.GetInt(WIDTH, imgElement.width);
-                int height = Settings.GetInt(HEIGHT, imgElement.height);
+                int width, height;
+                if (IsWebView2Mode)
+                {
+                    width = Settings.GetInt(WIDTH, HtmlImageElement.Width);
+                    height = Settings.GetInt(HEIGHT, HtmlImageElement.Height);
+                }
+                else
+                {
+                    IHTMLImgElement imgElement = (IHTMLImgElement)ImgElement;
+                    width = Settings.GetInt(WIDTH, imgElement.width);
+                    height = Settings.GetInt(HEIGHT, imgElement.height);
+                }
                 return new Size(width, height);
             }
             set
@@ -283,14 +306,31 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             get
             {
-                IHTMLElement anchorElement = GetAnchorElement();
-                if (anchorElement != null)
-                    return (string)anchorElement.getAttribute("href", 2);
-                return null;
+                if (IsWebView2Mode)
+                {
+                    var parentElement = HtmlImageElement.ParentElement;
+                    if (parentElement != null && parentElement.TagName?.ToUpperInvariant() == "A")
+                        return parentElement.Href;
+                    return null;
+                }
+                else
+                {
+                    IHTMLElement anchorElement = GetAnchorElement();
+                    if (anchorElement != null)
+                        return (string)anchorElement.getAttribute("href", 2);
+                    return null;
+                }
             }
             set
             {
-                UpdateImageLink(value, ImgElement, DefaultLinkOptions);
+                if (IsWebView2Mode)
+                {
+                    UpdateImageLinkWebView2(value, DefaultLinkOptions);
+                }
+                else
+                {
+                    UpdateImageLink(value, ImgElement, DefaultLinkOptions);
+                }
             }
         }
 
@@ -494,6 +534,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         internal IHTMLElement GetAnchorElement()
         {
+            if (IsWebView2Mode)
+                return null; // WebView2 uses IHtmlElement instead
+                
             IHTMLElement parentElement = ImgElement.parentElement;
             while (parentElement != null)
             {
@@ -530,13 +573,58 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
             parentElement.setAttribute("href", href, 0);
         }
+        
+        /// <summary>
+        /// WebView2 version: wrap image in anchor tag using InsertAdjacentHtml.
+        /// </summary>
+        private void UpdateImageLinkWebView2(string href, ILinkOptions defaultOptions)
+        {
+            if (HtmlImageElement == null) return;
+            
+            var parentElement = HtmlImageElement.ParentElement;
+            bool needsAnchor = parentElement == null || parentElement.TagName?.ToUpperInvariant() != "A";
+            
+            if (needsAnchor)
+            {
+                // Wrap the image in an anchor tag
+                // Build the anchor attributes
+                string targetAttr = defaultOptions.ShowInNewWindow ? " target=\"_blank\"" : "";
+                string escapedHref = System.Web.HttpUtility.HtmlAttributeEncode(href ?? "");
+                
+                // Insert anchor before the image
+                string anchorOpenTag = $"<a href=\"{escapedHref}\"{targetAttr}>";
+                HtmlImageElement.InsertAdjacentHtml("beforebegin", anchorOpenTag);
+                HtmlImageElement.InsertAdjacentHtml("afterend", "</a>");
+                
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] UpdateImageLinkWebView2: Wrapped image in anchor with href={href}");
+            }
+            else
+            {
+                // Just update the existing anchor's href
+                parentElement.Href = href;
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] UpdateImageLinkWebView2: Updated existing anchor href={href}");
+            }
+        }
 
         public void RemoveImageLink()
         {
-            IHTMLElement parentElement = ImgElement.parentElement;
-            if (parentElement is IHTMLAnchorElement)
+            if (IsWebView2Mode)
             {
-                ((IHTMLDOMNode)parentElement).removeNode(false);
+                // WebView2: unwrap the image from its anchor
+                var parentElement = HtmlImageElement?.ParentElement;
+                if (parentElement != null && parentElement.TagName?.ToUpperInvariant() == "A")
+                {
+                    // TODO: Implement unwrap - for now just log
+                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] RemoveImageLink: WebView2 anchor removal not yet implemented");
+                }
+            }
+            else
+            {
+                IHTMLElement parentElement = ImgElement.parentElement;
+                if (parentElement is IHTMLAnchorElement)
+                {
+                    ((IHTMLDOMNode)parentElement).removeNode(false);
+                }
             }
         }
     }

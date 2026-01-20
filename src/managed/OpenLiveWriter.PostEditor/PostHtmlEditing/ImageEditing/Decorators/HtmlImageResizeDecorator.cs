@@ -10,6 +10,7 @@ using OpenLiveWriter.Api;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.ImageEditing;
+using OpenLiveWriter.HtmlEditor;
 
 namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 {
@@ -291,6 +292,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
     {
         private readonly IProperties Settings;
         private readonly IHTMLElement ImgElement;
+        private readonly IHtmlImageElement HtmlImageElement;
         private const string ROTATION = "Rotation";
         private const string SIZE_NAME = "ImageSizeName";
         private const string ASPECT_RATIO_LOCKED = "AspectRatioLocked";
@@ -312,11 +314,23 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         private const string BORDER_RIGHT = "BorderRight";
         private const string BORDER_BOTTOM = "BorderBottom";
         private const string BORDER_LEFT = "BorderLeft";
+        
         public HtmlImageResizeDecoratorSettings(IProperties settings, IHTMLElement imgElement)
         {
             Settings = settings;
             ImgElement = imgElement;
         }
+        
+        /// <summary>
+        /// Constructor for WebView2 mode - uses abstracted HTML image element.
+        /// </summary>
+        public HtmlImageResizeDecoratorSettings(IProperties settings, IHtmlImageElement htmlImageElement)
+        {
+            Settings = settings;
+            HtmlImageElement = htmlImageElement;
+        }
+
+        private bool IsWebView2Mode => HtmlImageElement != null && ImgElement == null;
 
         public Size ImageSize
         {
@@ -339,11 +353,20 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             get
             {
-                IHTMLImgElement imgElement = (IHTMLImgElement)ImgElement;
-
-                //get the true size of the image by removing size offsets that may be applied to the image by the CSS margin/padding
-                int width = imgElement.width - Settings.GetInt(IMAGE_WIDTH_OFFSET, 0);
-                int height = imgElement.height - Settings.GetInt(IMAGE_HEIGHT_OFFSET, 0);
+                int width, height;
+                if (IsWebView2Mode)
+                {
+                    // WebView2 mode - use abstraction
+                    width = HtmlImageElement.Width - Settings.GetInt(IMAGE_WIDTH_OFFSET, 0);
+                    height = HtmlImageElement.Height - Settings.GetInt(IMAGE_HEIGHT_OFFSET, 0);
+                }
+                else
+                {
+                    // MSHTML mode
+                    IHTMLImgElement imgElement = (IHTMLImgElement)ImgElement;
+                    width = imgElement.width - Settings.GetInt(IMAGE_WIDTH_OFFSET, 0);
+                    height = imgElement.height - Settings.GetInt(IMAGE_HEIGHT_OFFSET, 0);
+                }
                 return new Size(width, height);
             }
         }
@@ -355,8 +378,6 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         /// <param name="sizeName"></param>
         public void SetImageSize(Size size, ImageSizeName? sizeName)
         {
-            IHTMLImgElement imgElement = (IHTMLImgElement)ImgElement;
-
             ImageBorderMargin borderMargin = BorderMargin;
             // The next line is a little bit tortured, but
             // I'm trying to introduce the concept of "calculated image size"
@@ -365,15 +386,40 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             Size sizeWithBorder = ImageSize.Equals(size)
                 ? ImageSizeWithBorder : borderMargin.CalculateImageSize(size);
 
-            if (imgElement.width != sizeWithBorder.Width || imgElement.height != sizeWithBorder.Height)
+            int currentWidth, currentHeight;
+            if (IsWebView2Mode)
             {
-                imgElement.width = sizeWithBorder.Width;
-                imgElement.height = sizeWithBorder.Height;
+                // WebView2 mode
+                currentWidth = HtmlImageElement.Width;
+                currentHeight = HtmlImageElement.Height;
+                if (currentWidth != sizeWithBorder.Width || currentHeight != sizeWithBorder.Height)
+                {
+                    HtmlImageElement.Width = sizeWithBorder.Width;
+                    HtmlImageElement.Height = sizeWithBorder.Height;
+                }
+                // Get updated values after set
+                currentWidth = HtmlImageElement.Width;
+                currentHeight = HtmlImageElement.Height;
+            }
+            else
+            {
+                // MSHTML mode
+                IHTMLImgElement imgElement = (IHTMLImgElement)ImgElement;
+                currentWidth = imgElement.width;
+                currentHeight = imgElement.height;
+                if (currentWidth != sizeWithBorder.Width || currentHeight != sizeWithBorder.Height)
+                {
+                    imgElement.width = sizeWithBorder.Width;
+                    imgElement.height = sizeWithBorder.Height;
+                }
+                // Get updated values after set
+                currentWidth = imgElement.width;
+                currentHeight = imgElement.height;
             }
 
             //remember the size offsets which are added by CSS margins/padding
-            Settings.SetInt(IMAGE_WIDTH_OFFSET, imgElement.width - sizeWithBorder.Width);
-            Settings.SetInt(IMAGE_HEIGHT_OFFSET, imgElement.height - sizeWithBorder.Height);
+            Settings.SetInt(IMAGE_WIDTH_OFFSET, currentWidth - sizeWithBorder.Width);
+            Settings.SetInt(IMAGE_HEIGHT_OFFSET, currentHeight - sizeWithBorder.Height);
 
             if (sizeName != null)
                 ImageSizeName = sizeName.Value;
