@@ -85,9 +85,17 @@ namespace OpenLiveWriter.PostEditor
             catch (ManualKeepaliveOperationException)
             {
             }
+            catch (BlogClientInvalidServerResponseException ex)
+            {
+                // Server response errors are expected during service updates (e.g., API changes, server issues)
+                // Log without triggering assertion dialogs since this is a background check
+                Trace.WriteLine("ServiceUpdateChecker: Server response error (non-fatal): " + ex.Message);
+            }
             catch (Exception ex)
             {
-                Trace.Fail("Unexpected exception during ServiceUpdateChecker.Main: " + ex.ToString());
+                // Log other unexpected exceptions without showing assertion dialogs
+                // since this is a background service update check that should not interrupt the user
+                Trace.WriteLine("ServiceUpdateChecker: Unexpected exception (non-fatal): " + ex.ToString());
             }
         }
 

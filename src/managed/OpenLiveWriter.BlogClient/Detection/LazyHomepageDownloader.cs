@@ -44,7 +44,9 @@ namespace OpenLiveWriter.BlogClient.Detection
                     }
                     catch (Exception e)
                     {
-                        Trace.Fail(e.ToString());
+                        // Log parsing errors without assertion dialogs since this is
+                        // a background operation that should not interrupt the user
+                        Trace.WriteLine("LazyHomepageDownloader: Error parsing homepage HTML (non-fatal): " + e.ToString());
                     }
                 }
                 return _htmlDocument;
@@ -69,16 +71,17 @@ namespace OpenLiveWriter.BlogClient.Detection
                     {
                         HttpRequestHelper.LogException(e);
                     }
+                    catch (BlogClientException e)
+                    {
+                        // Blog client exceptions (auth errors, invalid responses, etc.) are expected
+                        // during homepage download attempts - log without assertion dialog
+                        Trace.WriteLine("LazyHomepageDownloader: Blog client error during homepage download (non-fatal): " + e.Message);
+                    }
                     catch (Exception e)
                     {
-                        if (e is BlogClientAuthenticationException)
-                        {
-                            Trace.WriteLine(e.ToString());
-                        }
-                        else
-                        {
-                            Trace.Fail(e.ToString());
-                        }
+                        // Log other unexpected exceptions without assertion dialogs since this
+                        // is a background operation that should not interrupt the user
+                        Trace.WriteLine("LazyHomepageDownloader: Unexpected error during homepage download (non-fatal): " + e.ToString());
                     }
                     finally
                     {

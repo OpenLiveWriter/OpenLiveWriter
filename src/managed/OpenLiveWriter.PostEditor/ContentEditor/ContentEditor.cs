@@ -1704,6 +1704,24 @@ namespace OpenLiveWriter.PostEditor
                             _webView2HtmlContentEditor = new WebView2BlogPostHtmlEditorControl();
                             _webView2HtmlContentEditor.EditorControl.Dock = System.Windows.Forms.DockStyle.Fill;
                             _editorContainer.Controls.Add(_webView2HtmlContentEditor.EditorControl);
+                            
+                            // Tell the sidebar host to use WebView2 selection instead of MSHTML selection
+                            _htmlEditorSidebarHost.UseWebView2Selection = true;
+                            
+                            // Wire up selection changed events to update sidebar
+                            _webView2HtmlContentEditor.SelectionChanged += (s, e) =>
+                            {
+                                Debug.WriteLine($"[OLW-DEBUG] WebView2 selection changed - type: {e.Selection?.SelectionType}");
+                                // Update the sidebar with the new selection
+                                UpdateSidebarForWebView2Selection(e.Selection);
+                            };
+                            
+                            // Wire up image selection/double-click events to show sidebar
+                            _webView2HtmlContentEditor.ControlDoubleClick += (s, e) =>
+                            {
+                                Debug.WriteLine("[OLW-DEBUG] WebView2 image double-clicked - showing sidebar");
+                                _htmlEditorSidebarHost.Visible = true;
+                            };
                         }
                         contentEditor = _webView2HtmlContentEditor;
                         Debug.WriteLine("[OLW-DEBUG] Using WebView2 editor");
@@ -3804,6 +3822,29 @@ namespace OpenLiveWriter.PostEditor
                 }
 
                 ControlHelper.FocusControl(_htmlEditorSidebarHost, true);
+            }
+        }
+        
+        /// <summary>
+        /// Update the sidebar for a WebView2 selection.
+        /// </summary>
+        private void UpdateSidebarForWebView2Selection(HtmlEditor.IEditorSelection selection)
+        {
+            // Use the new method on sidebar host that accepts IEditorSelection
+            _htmlEditorSidebarHost.UpdateSidebarStateForSelection(selection);
+            
+            // Update Picture contextual tab based on selection type
+            if (selection?.SelectionType == HtmlEditor.SelectionType.Image)
+            {
+                Debug.WriteLine("[OLW-DEBUG] Setting Picture tab to Active for WebView2 image selection");
+                commandImageContextTabGroup.ContextAvailability = ContextAvailability.Active;
+                commandFormatImageTab.ContextAvailability = ContextAvailability.Active;
+            }
+            else
+            {
+                Debug.WriteLine($"[OLW-DEBUG] Setting Picture tab to NotAvailable (selection type: {selection?.SelectionType})");
+                commandImageContextTabGroup.ContextAvailability = ContextAvailability.NotAvailable;
+                commandFormatImageTab.ContextAvailability = ContextAvailability.NotAvailable;
             }
         }
 

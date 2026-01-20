@@ -206,7 +206,7 @@ namespace OpenLiveWriter.PostEditor.JumpList
                             if (String.IsNullOrEmpty(progId))
                             {
                                 error = true;
-                                Trace.Fail("ERROR: ProgId missing for extension: " + extension);
+                                Trace.WriteLine("ERROR: ProgId missing for extension: " + extension);
                             }
                             else
                             {
@@ -217,12 +217,12 @@ namespace OpenLiveWriter.PostEditor.JumpList
                                 if (String.IsNullOrEmpty(appUserModelID))
                                 {
                                     error = true;
-                                    Trace.Fail("ERROR: Missing AppUserModelID for " + progId);
+                                    Trace.WriteLine("ERROR: Missing AppUserModelID for " + progId);
                                 }
                                 else if (!appUserModelID.Equals(TaskbarManager.Instance.ApplicationId, StringComparison.Ordinal))
                                 {
                                     error = true;
-                                    Trace.Fail("ERROR: Incorrect AppUserModelID for " + progId + ": " + appUserModelID);
+                                    Trace.WriteLine("ERROR: Incorrect AppUserModelID for " + progId + ": " + appUserModelID);
                                 }
                             }
                         }

@@ -194,7 +194,7 @@ namespace OpenLiveWriter.PostEditor
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexpected exception testing PostEditorFile format: " + ex.ToString());
+                Trace.WriteLine("Unexpected exception testing PostEditorFile format: " + ex.ToString());
                 return false;
             }
         }
@@ -405,7 +405,7 @@ namespace OpenLiveWriter.PostEditor
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexpected exception type in PostEditorFile.Load. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exeption and see if there is a way to behave more robustly!\r\n"
+                Trace.WriteLine("Unexpected exception type in PostEditorFile.Load. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exeption and see if there is a way to behave more robustly!\r\n"
                     + ex.ToString());
                 throw PostEditorStorageException.Create(ex);
             }
@@ -547,7 +547,7 @@ namespace OpenLiveWriter.PostEditor
                 }
                 catch (Exception ex)
                 {
-                    Trace.Fail("Unexpected exception type in PostEditorFile.Save. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exeption and see if there is a way to behave more robustly!\r\n"
+                    Trace.WriteLine("Unexpected exception type in PostEditorFile.Save. It is critical that only IO exceptions occur at this level of the system so please check the code which threw the exeption and see if there is a way to behave more robustly!\r\n"
                         + ex.ToString());
                     throw PostEditorStorageException.Create(ex);
                 }
@@ -692,7 +692,7 @@ namespace OpenLiveWriter.PostEditor
                 // an existing file of the same name -- alternative would be to throw an exception
                 // we don't expect it to ever fail (and we will log it if it does) so for now just
                 // let it fail with a silent overwrite
-                Trace.Fail( "Unexpected error attempting to manage uniqueness for file: " + targetFilePath +
+                Trace.WriteLine( "Unexpected error attempting to manage uniqueness for file: " + targetFilePath +
                     "\r\nError: " + Kernel32.GetLastError().ToString());
 
                 return targetFilePath ;
@@ -1222,7 +1222,7 @@ namespace OpenLiveWriter.PostEditor
                             writer.WriteEndElement();
                         }
                         else
-                            Trace.Fail("Invalid reference to supporting plugin file detected");
+                            Trace.WriteLine("Invalid reference to supporting plugin file detected");
                     }
 
                     writer.WriteEndElement();
@@ -1444,13 +1444,15 @@ namespace OpenLiveWriter.PostEditor
                 }
                 catch (Exception e)
                 {
-                    Trace.Fail(e.ToString());
+                    // Log without assertion dialog - attached file read errors are non-critical
+                    Trace.WriteLine("ReadAttachedFileList: Error reading attached file (non-fatal): " + e.ToString());
                     if (extensionErrors == null)
                         extensionErrors = new ArrayList();
                     extensionErrors.Add(e);
                 }
 
-                Trace.Assert(extensionErrors == null, "Failure(s) while reading attached file data");
+                if (extensionErrors != null)
+                    Trace.WriteLine("ReadAttachedFileList: Failure(s) while reading attached file data");
                 return null;
             }
 
