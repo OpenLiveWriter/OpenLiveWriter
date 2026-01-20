@@ -82,40 +82,46 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         UINT cxWidth;
     } TASKDIALOGCONFIG;
      */
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-    internal unsafe struct TASKDIALOGCONFIG
+    // Use explicit layout with correct x64 offsets
+    // Native struct is 176 bytes on x64 with specific alignment requirements
+    [StructLayout(LayoutKind.Explicit, CharSet = CharSet.Unicode, Size = 176)]
+    internal struct TASKDIALOGCONFIG
     {
-        public int cbSize;
-        public IntPtr hwndParent;
-        public IntPtr hInstance;
-        public TASKDIALOG_FLAGS dwFlags;
-        public TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons;
-        public string pszWindowTitle;
-        public IntPtr hMainIcon;
-        public string pszMainInstruction;
-        public string pszContent;
-        public uint cButtons;
-        public IntPtr pButtons; // TASKDIALOG_BUTTON*
-        public int nDefaultButton;
-        public uint cRadioButtons;
-        public IntPtr pRadioButtons; // TASKDIALOG_BUTTON*
-        public int nDefaultRadioButton;
-        public string pszVerificationText;
-        public string pszExpandedInformation;
-        public string pszExpandedControlText;
-        public string pszCollapsedControlText;
-        public IntPtr hFooterIcon;
-        public string pszFooter;
-        public PFTASKDIALOGCALLBACK pfCallback;
-        public IntPtr lpCallbackData;
-        public uint cxWidth;
+        [FieldOffset(0)] public uint cbSize;
+        [FieldOffset(8)] public IntPtr hwndParent;
+        [FieldOffset(16)] public IntPtr hInstance;
+        [FieldOffset(24)] public TASKDIALOG_FLAGS dwFlags;
+        [FieldOffset(28)] public TASKDIALOG_COMMON_BUTTON_FLAGS dwCommonButtons;
+        [FieldOffset(32)] public IntPtr pszWindowTitle;        // PCWSTR - must marshal manually
+        [FieldOffset(40)] public IntPtr hMainIcon;             // union: HICON or PCWSTR
+        [FieldOffset(48)] public IntPtr pszMainInstruction;    // PCWSTR
+        [FieldOffset(56)] public IntPtr pszContent;            // PCWSTR
+        [FieldOffset(64)] public uint cButtons;
+        // 4 bytes padding at offset 68
+        [FieldOffset(72)] public IntPtr pButtons;              // TASKDIALOG_BUTTON*
+        [FieldOffset(80)] public int nDefaultButton;
+        [FieldOffset(84)] public uint cRadioButtons;
+        [FieldOffset(88)] public IntPtr pRadioButtons;         // TASKDIALOG_BUTTON*
+        [FieldOffset(96)] public int nDefaultRadioButton;
+        // 4 bytes padding at offset 100
+        [FieldOffset(104)] public IntPtr pszVerificationText;  // PCWSTR
+        [FieldOffset(112)] public IntPtr pszExpandedInformation; // PCWSTR
+        [FieldOffset(120)] public IntPtr pszExpandedControlText; // PCWSTR
+        [FieldOffset(128)] public IntPtr pszCollapsedControlText; // PCWSTR
+        [FieldOffset(136)] public IntPtr hFooterIcon;          // union: HICON or PCWSTR
+        [FieldOffset(144)] public IntPtr pszFooter;            // PCWSTR
+        [FieldOffset(152)] public IntPtr pfCallback;           // PFTASKDIALOGCALLBACK
+        [FieldOffset(160)] public IntPtr lpCallbackData;       // LONG_PTR
+        [FieldOffset(168)] public uint cxWidth;
     }
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    // TASKDIALOG_BUTTON needs explicit layout on x64:
+    // int (4 bytes) + padding (4 bytes) + pointer (8 bytes) = 16 bytes
+    [StructLayout(LayoutKind.Explicit, CharSet = CharSet.Unicode, Size = 16)]
     internal struct TASKDIALOG_BUTTON
     {
-        public int nButtonID;
-        public string pszButtonText;
+        [FieldOffset(0)] public int nButtonID;
+        [FieldOffset(8)] public IntPtr pszButtonText; // PCWSTR - must be marshaled pointer
     }
 
     [Flags]

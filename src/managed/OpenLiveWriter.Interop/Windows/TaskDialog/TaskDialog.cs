@@ -23,11 +23,25 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         private TaskDialogIcon mainIcon;
         private TaskDialogIcon footerIcon;
 
+        // String fields (stored separately since TASKDIALOGCONFIG now uses IntPtr)
+        private string _windowTitle;
+        private string _mainInstruction;
+        private string _content;
+        private string _verificationText;
+        private string _expandedInformation;
+        private string _expandedControlText;
+        private string _collapsedControlText;
+        private string _footer;
+
+        // Keep callback delegate alive to prevent GC
+        private PFTASKDIALOGCALLBACK _callbackDelegate;
+
         public TaskDialog()
         {
             config = new TASKDIALOGCONFIG();
-            config.cbSize = Marshal.SizeOf(config);
-            config.pfCallback = Callback;
+            config.cbSize = (uint)Marshal.SizeOf(config);
+            _callbackDelegate = Callback;
+            config.pfCallback = Marshal.GetFunctionPointerForDelegate(_callbackDelegate);
 
             buttons = new List<TaskDialogButton>();
             radioButtons = new List<TaskDialogButton>();
@@ -295,11 +309,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public string WindowTitle
         {
-            get { return config.pszWindowTitle; }
+            get { return _windowTitle; }
             set
             {
                 EnsureNotShowing();
-                config.pszWindowTitle = value;
+                _windowTitle = value;
             }
         }
 
@@ -321,11 +335,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public string MainInstruction
         {
-            get { return config.pszMainInstruction; }
+            get { return _mainInstruction; }
             set
             {
                 EnsureNotShowing();
-                config.pszMainInstruction = value;
+                _mainInstruction = value;
             }
         }
 
@@ -337,11 +351,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public string Content
         {
-            get { return config.pszContent; }
+            get { return _content; }
             set
             {
                 EnsureNotShowing();
-                config.pszContent = value;
+                _content = value;
             }
         }
 
@@ -411,11 +425,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public string VerificationText
         {
-            get { return config.pszVerificationText; }
+            get { return _verificationText; }
             set
             {
                 EnsureNotShowing();
-                config.pszVerificationText = value;
+                _verificationText = value;
             }
         }
 
@@ -430,11 +444,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public string ExpandedInformation
         {
-            get { return config.pszExpandedInformation; }
+            get { return _expandedInformation; }
             set
             {
                 EnsureNotShowing();
-                config.pszExpandedInformation = value;
+                _expandedInformation = value;
             }
         }
 
@@ -446,11 +460,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public string ExpandedControlText
         {
-            get { return config.pszExpandedControlText; }
+            get { return _expandedControlText; }
             set
             {
                 EnsureNotShowing();
-                config.pszExpandedControlText = value;
+                _expandedControlText = value;
             }
         }
 
@@ -462,11 +476,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public string CollapsedControlText
         {
-            get { return config.pszCollapsedControlText; }
+            get { return _collapsedControlText; }
             set
             {
                 EnsureNotShowing();
-                config.pszCollapsedControlText = value;
+                _collapsedControlText = value;
             }
         }
 
@@ -492,11 +506,11 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
         /// </summary>
         public string Footer
         {
-            get { return config.pszFooter; }
+            get { return _footer; }
             set
             {
                 EnsureNotShowing();
-                config.pszFooter = value;
+                _footer = value;
             }
         }
 
@@ -527,25 +541,57 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
             config.hFooterIcon = footerIconToUse.Value;
             SetFlag(TASKDIALOG_FLAGS.TDF_USE_HICON_FOOTER, footerIconToUse.UseIcon);
 
-            using (StructArrayMarshaller<TASKDIALOG_BUTTON> samButtons = MarshalButtons(buttons))
+            // Marshal string fields to unmanaged memory
+            var stringPtrs = new List<IntPtr>();
+            try
             {
-                using (StructArrayMarshaller<TASKDIALOG_BUTTON> samRadioButtons = MarshalButtons(radioButtons))
+                config.pszWindowTitle = MarshalString(_windowTitle, stringPtrs);
+                config.pszMainInstruction = MarshalString(_mainInstruction, stringPtrs);
+                config.pszContent = MarshalString(_content, stringPtrs);
+                config.pszVerificationText = MarshalString(_verificationText, stringPtrs);
+                config.pszExpandedInformation = MarshalString(_expandedInformation, stringPtrs);
+                config.pszExpandedControlText = MarshalString(_expandedControlText, stringPtrs);
+                config.pszCollapsedControlText = MarshalString(_collapsedControlText, stringPtrs);
+                config.pszFooter = MarshalString(_footer, stringPtrs);
+
+                using (var samButtons = new ButtonArrayMarshaller(buttons))
                 {
-                    config.cButtons = (uint)buttons.Count;
-                    config.pButtons = samButtons.Buffer;
+                    using (var samRadioButtons = new ButtonArrayMarshaller(radioButtons))
+                    {
+                        config.cButtons = (uint)buttons.Count;
+                        config.pButtons = samButtons.Buffer;
 
-                    config.cRadioButtons = (uint)radioButtons.Count;
-                    config.pRadioButtons = samRadioButtons.Buffer;
+                        config.cRadioButtons = (uint)radioButtons.Count;
+                        config.pRadioButtons = samRadioButtons.Buffer;
 
-                    int hr = TaskDialogNative.TaskDialogIndirect(
-                        ref config,
-                        out buttonResult,
-                        out radioButtonResult,
-                        out verificationFlagResult);
+                        int hr = TaskDialogNative.TaskDialogIndirect(
+                            ref config,
+                            out buttonResult,
+                            out radioButtonResult,
+                            out verificationFlagResult);
 
-                    Marshal.ThrowExceptionForHR(hr);
+                        Marshal.ThrowExceptionForHR(hr);
+                    }
                 }
             }
+            finally
+            {
+                // Free all marshaled strings
+                foreach (var ptr in stringPtrs)
+                {
+                    if (ptr != IntPtr.Zero)
+                        Marshal.FreeHGlobal(ptr);
+                }
+            }
+        }
+
+        private static IntPtr MarshalString(string s, List<IntPtr> ptrs)
+        {
+            if (s == null)
+                return IntPtr.Zero;
+            var ptr = Marshal.StringToHGlobalUni(s);
+            ptrs.Add(ptr);
+            return ptr;
         }
 
         private IntPtr Callback(IntPtr hwnd, uint msg, IntPtr wParam, IntPtr lParam, IntPtr lpRefData)
@@ -608,20 +654,65 @@ namespace OpenLiveWriter.Interop.Windows.TaskDialog
             return IntPtr.Zero;
         }
 
-        private StructArrayMarshaller<TASKDIALOG_BUTTON> MarshalButtons(List<TaskDialogButton> buttons)
+        // Marshaler for button arrays that handles string->IntPtr conversion
+        private class ButtonArrayMarshaller : IDisposable
         {
-            if (buttons.Count == 0)
-                return new StructArrayMarshaller<TASKDIALOG_BUTTON>();
+            private IntPtr _buffer;
+            private IntPtr[] _stringPtrs;
+            private int _count;
 
-            TASKDIALOG_BUTTON[] results = new TASKDIALOG_BUTTON[buttons.Count];
-            for (int i = 0; i < results.Length; i++)
+            public ButtonArrayMarshaller(List<TaskDialogButton> buttons)
             {
-                results[i] = new TASKDIALOG_BUTTON();
-                results[i].nButtonID = buttons[i].Id;
-                results[i].pszButtonText = buttons[i].Text;
+                if (buttons == null || buttons.Count == 0)
+                {
+                    _buffer = IntPtr.Zero;
+                    _stringPtrs = Array.Empty<IntPtr>();
+                    _count = 0;
+                    return;
+                }
+
+                _count = buttons.Count;
+                int structSize = Marshal.SizeOf<TASKDIALOG_BUTTON>();
+                _buffer = Marshal.AllocHGlobal(structSize * _count);
+                _stringPtrs = new IntPtr[_count];
+
+                for (int i = 0; i < _count; i++)
+                {
+                    var btn = new TASKDIALOG_BUTTON();
+                    btn.nButtonID = buttons[i].Id;
+                    _stringPtrs[i] = buttons[i].Text != null 
+                        ? Marshal.StringToHGlobalUni(buttons[i].Text) 
+                        : IntPtr.Zero;
+                    btn.pszButtonText = _stringPtrs[i];
+
+                    IntPtr dest = new IntPtr(_buffer.ToInt64() + i * structSize);
+                    Marshal.StructureToPtr(btn, dest, false);
+                }
             }
 
-            return new StructArrayMarshaller<TASKDIALOG_BUTTON>(results);
+            public IntPtr Buffer => _buffer;
+
+            public void Dispose()
+            {
+                if (_buffer != IntPtr.Zero)
+                {
+                    int structSize = Marshal.SizeOf<TASKDIALOG_BUTTON>();
+                    for (int i = 0; i < _count; i++)
+                    {
+                        Marshal.DestroyStructure<TASKDIALOG_BUTTON>(
+                            new IntPtr(_buffer.ToInt64() + i * structSize));
+                    }
+                    Marshal.FreeHGlobal(_buffer);
+                    _buffer = IntPtr.Zero;
+                }
+
+                foreach (var ptr in _stringPtrs)
+                {
+                    if (ptr != IntPtr.Zero)
+                        Marshal.FreeHGlobal(ptr);
+                }
+                _stringPtrs = Array.Empty<IntPtr>();
+            }
         }
 
         private void EnsureNotShowing()

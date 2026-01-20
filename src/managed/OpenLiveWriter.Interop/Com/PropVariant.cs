@@ -805,11 +805,20 @@ namespace OpenLiveWriter.Interop.Com
         {
             get
             {
+                // On x64, the DECIMAL structure in PROPVARIANT uses:
+                // - wReserved1: scale (low byte) and sign (high byte)
+                // - wReserved2 + wReserved3: Hi32 (4 bytes)
+                // - valueData: Lo64 (8 bytes) containing both Lo32 and Mid32
+                // valueDataExt is NOT used for DECIMAL (it's beyond the 16-byte DECIMAL structure)
                 int[] bits = new int[4];
-                bits[0] = (int)valueData;
-                bits[1] = (int)valueDataExt;
-                bits[2] = (wReserved3 << 16) | wReserved2;
-                bits[3] = (wReserved1 << 16);
+                long lo64 = valueData.ToInt64();
+                unchecked
+                {
+                    bits[0] = (int)(lo64 & 0xFFFFFFFF);          // Lo32 (low 4 bytes of Lo64)
+                    bits[1] = (int)((lo64 >> 32) & 0xFFFFFFFF);  // Mid32 (high 4 bytes of Lo64)
+                }
+                bits[2] = (wReserved3 << 16) | wReserved2;  // Hi32
+                bits[3] = (wReserved1 << 16);  // flags (scale/sign)
                 return new decimal(bits);
             }
         }
