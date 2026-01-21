@@ -2,11 +2,51 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.Ribbon.Managed.Commands
 {
+    /// <summary>
+    /// Represents an item in a gallery or combobox.
+    /// </summary>
+    public class CommandGalleryItem
+    {
+        public string Label { get; set; }
+        public Image Image { get; set; }
+        public object Tag { get; set; }
+
+        public CommandGalleryItem() { }
+        public CommandGalleryItem(string label, Image image = null, object tag = null)
+        {
+            Label = label;
+            Image = image;
+            Tag = tag;
+        }
+    }
+
+    /// <summary>
+    /// Interface for commands that provide gallery items (for galleries and comboboxes).
+    /// </summary>
+    public interface IGalleryCommand : IRibbonCommand
+    {
+        /// <summary>
+        /// Gets the gallery items.
+        /// </summary>
+        IReadOnlyList<CommandGalleryItem> GalleryItems { get; }
+
+        /// <summary>
+        /// Gets or sets the selected index.
+        /// </summary>
+        int SelectedIndex { get; set; }
+
+        /// <summary>
+        /// Occurs when gallery items have changed.
+        /// </summary>
+        event EventHandler ItemsChanged;
+    }
+
     /// <summary>
     /// Interface for ribbon commands that can be bound to ribbon controls.
     /// </summary>
