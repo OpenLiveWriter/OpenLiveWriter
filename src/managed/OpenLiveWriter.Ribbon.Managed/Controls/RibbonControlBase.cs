@@ -90,7 +90,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         /// <summary>
         /// Gets the label text from the associated command.
         /// </summary>
-        protected string CommandLabel
+        public string CommandLabel
         {
             get
             {

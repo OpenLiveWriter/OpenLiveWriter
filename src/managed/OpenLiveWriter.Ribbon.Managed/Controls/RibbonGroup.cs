@@ -257,7 +257,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     }
                     x = Math.Max(x, smallColumnStart + smallButtonSize + 2);
                 }
-                else if (control is RibbonButton && controlSize == RibbonGroupSize.Medium)
+                else if (control is RibbonButton btn && controlSize == RibbonGroupSize.Medium)
                 {
                     if (smallColumnStart >= 0)
                     {
@@ -265,7 +265,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         smallColumnStart = -1;
                         smallRow = 0;
                     }
-                    x += 82; // medium button width + spacing
+                    // Calculate width based on text content
+                    var buttonWidth = 22;
+                    var label = btn.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        using (var g = CreateGraphics())
+                        {
+                            var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
+                            buttonWidth = Math.Max(buttonWidth, 22 + textWidth + 12);
+                        }
+                    }
+                    x += buttonWidth + 2;
                 }
                 else if (control is RibbonButton)
                 {
@@ -446,7 +457,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         smallColumnStart = -1;
                         smallRow = 0;
                     }
-                    control.Size = new Size(80, mediumButtonHeight);
+                    // Calculate width based on text content
+                    var buttonWidth = 22; // minimum for icon
+                    var label = btn2.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        using (var g = CreateGraphics())
+                        {
+                            var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
+                            buttonWidth = Math.Max(buttonWidth, 22 + textWidth + 12); // icon + text + padding
+                        }
+                    }
+                    control.Size = new Size(buttonWidth, mediumButtonHeight);
                     control.Location = new Point(x, y + (availableHeight - mediumButtonHeight) / 2);
                     x += control.Width + 2;
                 }
