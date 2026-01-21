@@ -45,6 +45,10 @@ using OpenLiveWriter.Controls;
 using OpenLiveWriter.PostEditor.SupportingFiles;
 using OpenLiveWriter.PostEditor.Updates;
 using OpenLiveWriter.SpellChecker;
+using OpenLiveWriter.Ribbon.Managed;
+using OpenLiveWriter.Ribbon.Managed.Controls;
+using OpenLiveWriter.Ribbon.Managed.Commands;
+using OpenLiveWriter.Ribbon.Managed.Configuration;
 using Timer = System.Windows.Forms.Timer;
 
 // @RIBBON TODO: Cleanly remove obsolete code
@@ -429,6 +433,10 @@ namespace OpenLiveWriter.PostEditor
                 mode &= ~ToAppMode(ApplicationMode.HasPlugins);
             }
 
+            // Update managed ribbon mode
+            UpdateManagedRibbonMode();
+
+            // Legacy framework support
             if (_framework != null)
             {
                 _framework.SetModes(mode);
@@ -464,52 +472,50 @@ namespace OpenLiveWriter.PostEditor
         }
 
         private RibbonControl ribbonControl;
+        private RibbonPanel _managedRibbon;
+        private CommandManagerBridge _commandManagerBridge;
+
+        // Legacy IUIFramework support - kept for backwards compatibility but no longer used
+#pragma warning disable CS0649 // Field is never assigned to
         private IUIFramework _framework;
         private IUIRibbon ribbon;
+#pragma warning restore CS0649
+
         private void InitializeRibbon()
         {
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Creating Framework");
-            IUIFramework framework = (IUIFramework)Activator.CreateInstance<Framework>();
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Starting managed ribbon initialization");
 
-            Trace.Assert(framework != null, "Failed to create IUIFramework.");
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Framework created");
-
+            // Initialize the RibbonControl for command management
             ribbonControl = new RibbonControl(_htmlEditor.IHtmlEditorComponentContext, _htmlEditor);
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonControl created");
 
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Calling framework.Initialize");
-            int initializeResult = framework.Initialize(_mainFrameWindow.Handle, this);
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - framework.Initialize returned {initializeResult}");
-            Trace.Assert(initializeResult == HRESULT.S_OK, "Ribbon framework failed to initialize: " + initializeResult);
+            // Create the managed ribbon panel
+            _managedRibbon = new RibbonPanel();
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - RibbonPanel created");
 
-            _framework = framework;
+            // Create the command manager bridge to connect with existing CommandManager
+            _commandManagerBridge = new CommandManagerBridge(_htmlEditor.CommandManager);
+            _managedRibbon.CommandManager = _commandManagerBridge.RibbonCommandManager;
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - CommandManager bridge created");
 
-            string nativeResourceDLL = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\OpenLiveWriter.Ribbon.dll";
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Loading {nativeResourceDLL}");
-            IntPtr hMod = Kernel32.LoadLibrary(nativeResourceDLL);
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - LoadLibrary returned {hMod}");
+            // Build the ribbon from the default configuration
+            var config = DefaultRibbonConfiguration.Create();
+            _managedRibbon.BuildFromConfiguration(config);
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon built from configuration");
 
-            if (hMod == IntPtr.Zero)
+            // Add the ribbon to the form
+            Controls.Add(_managedRibbon);
+            _managedRibbon.BringToFront();
+
+            // Update editor panel padding to account for ribbon height
+            if (_mainEditorPanel != null)
             {
-                // Ribbon DLL not found - this is a C++ native DLL that needs to be built separately
-                Trace.TraceWarning("OpenLiveWriter.Ribbon.dll not found. The ribbon UI will not be available. Build the C++ Ribbon project to enable the ribbon.");
-                return;
+                _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
             }
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Ribbon added to form");
 
-            using (new QuickTimer("IUIRibbonFramework::LoadUI"))
-            {
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Calling LoadUI");
-                int loadResult = _framework.LoadUI(hMod, "RIBBON_RIBBON");
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - LoadUI returned {loadResult}");
-                if (loadResult != HRESULT.S_OK)
-                {
-                    Trace.TraceWarning("Ribbon failed to load: " + loadResult + ". The ribbon UI will not be available.");
-                    return;
-                }
-            }
-
-            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Calling SetModes");
-            _framework.SetModes(mode);
+            // Set initial mode
+            UpdateManagedRibbonMode();
 
             CommandManager.Invalidate(CommandId.MRUList);
             CommandManager.Invalidate(CommandId.OpenDraftSplit);
@@ -520,18 +526,32 @@ namespace OpenLiveWriter.PostEditor
             System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] {DateTime.Now:HH:mm:ss.fff} InitializeRibbon - Complete");
         }
 
+        private void UpdateManagedRibbonMode()
+        {
+            if (_managedRibbon == null) return;
+
+            var ribbonMode = RibbonApplicationMode.Normal;
+
+            // Map existing mode flags to RibbonApplicationMode
+            if ((mode & ToAppMode(ApplicationMode.Preview)) != 0)
+                ribbonMode |= RibbonApplicationMode.Preview;
+            if ((mode & ToAppMode(ApplicationMode.LTR)) != 0)
+                ribbonMode |= RibbonApplicationMode.LTR;
+            if ((mode & ToAppMode(ApplicationMode.RTL)) != 0)
+                ribbonMode |= RibbonApplicationMode.RTL;
+            if ((mode & ToAppMode(ApplicationMode.HasPlugins)) != 0)
+                ribbonMode |= RibbonApplicationMode.WithPlugins;
+
+            _managedRibbon.CurrentMode = ribbonMode;
+        }
+
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
 
-            if (_mainEditorPanel != null && ribbon != null)
+            if (_mainEditorPanel != null && _managedRibbon != null)
             {
-                uint ribbonHeight = 0;
-                if (ribbon != null)
-                {
-                    ribbon.GetHeight(out ribbonHeight);
-                }
-                _mainEditorPanel.DockPadding.Top = (int)ribbonHeight;
+                _mainEditorPanel.DockPadding.Top = _managedRibbon.RibbonHeight;
             }
 
             Invalidate(false);
@@ -641,7 +661,15 @@ namespace OpenLiveWriter.PostEditor
                     components.Dispose();
                 }
 
-                _framework.Destroy();
+                // Dispose managed ribbon
+                if (_managedRibbon != null)
+                {
+                    _managedRibbon.Dispose();
+                    _managedRibbon = null;
+                }
+
+                // Legacy framework disposal - only if framework was created
+                _framework?.Destroy();
 
                 BlogSettings.BlogSettingsDeleted -= new BlogSettings.BlogSettingsListener(HandleBlogDeleted);
                 commandPluginsGallery.StateChanged -= new EventHandler(commandPluginsGallery_StateChanged);
