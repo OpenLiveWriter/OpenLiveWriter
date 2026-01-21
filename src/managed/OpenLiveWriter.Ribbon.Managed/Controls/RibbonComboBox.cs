@@ -21,6 +21,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private string _label;
         private bool _isEditable = true;
         private bool _isAutoCompleteEnabled = true;
+        private bool _isLoading; // Flag to prevent command execution during initialization
 
         /// <summary>
         /// Gets or sets the label displayed above the combobox.
@@ -137,7 +138,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _innerComboBox.SelectedIndexChanged += (s, e) =>
             {
                 SelectedIndexChanged?.Invoke(this, e);
-                ExecuteCommand();
+                // Don't execute command during loading/initialization
+                if (!_isLoading)
+                {
+                    ExecuteCommand();
+                }
             };
 
             _innerComboBox.TextChanged += (s, e) => TextChanged?.Invoke(this, e);
@@ -165,27 +170,36 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             var command = CommandManager?.GetCommand(CommandId);
             if (command is IGalleryCommand galleryCommand)
             {
-                // Subscribe to items changed if not already
-                galleryCommand.ItemsChanged -= OnGalleryItemsChanged;
-                galleryCommand.ItemsChanged += OnGalleryItemsChanged;
-
-                // Load items
-                _innerComboBox.Items.Clear();
-                foreach (var item in galleryCommand.GalleryItems)
+                // Set loading flag to prevent command execution during initialization
+                _isLoading = true;
+                try
                 {
-                    _innerComboBox.Items.Add(item.Label ?? item.Tag?.ToString() ?? "");
+                    // Subscribe to items changed if not already
+                    galleryCommand.ItemsChanged -= OnGalleryItemsChanged;
+                    galleryCommand.ItemsChanged += OnGalleryItemsChanged;
+
+                    // Load items
+                    _innerComboBox.Items.Clear();
+                    foreach (var item in galleryCommand.GalleryItems)
+                    {
+                        _innerComboBox.Items.Add(item.Label ?? item.Tag?.ToString() ?? "");
+                    }
+
+                    // Set selected index
+                    if (galleryCommand.SelectedIndex >= 0 && galleryCommand.SelectedIndex < _innerComboBox.Items.Count)
+                    {
+                        _innerComboBox.SelectedIndex = galleryCommand.SelectedIndex;
+                    }
+
+                    // Set label from command
+                    if (string.IsNullOrEmpty(_label))
+                    {
+                        Label = command.Label;
+                    }
                 }
-
-                // Set selected index
-                if (galleryCommand.SelectedIndex >= 0 && galleryCommand.SelectedIndex < _innerComboBox.Items.Count)
+                finally
                 {
-                    _innerComboBox.SelectedIndex = galleryCommand.SelectedIndex;
-                }
-
-                // Set label from command
-                if (string.IsNullOrEmpty(_label))
-                {
-                    Label = command.Label;
+                    _isLoading = false;
                 }
             }
         }
