@@ -104,11 +104,19 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             get => _selectedTab;
             set
             {
-                if (_selectedTab != value && value != null && value.Visible)
+                if (_selectedTab != value && value != null)
                 {
-                    _selectedTab = value;
-                    UpdateSelectedTab();
-                    SelectedTabChanged?.Invoke(this, EventArgs.Empty);
+                    // Check if tab is valid for current mode (don't check Visible - that's set by UpdateSelectedTab)
+                    var isValidForMode = (value.VisibleModes & _currentMode) != 0;
+                    var isContextualVisible = value.ContextualGroup == RibbonContextualTabGroup.None ||
+                                              _visibleContextualGroups.Contains(value.ContextualGroup);
+
+                    if (isValidForMode && isContextualVisible)
+                    {
+                        _selectedTab = value;
+                        UpdateSelectedTab();
+                        SelectedTabChanged?.Invoke(this, EventArgs.Empty);
+                    }
                 }
             }
         }
@@ -257,6 +265,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     {
                         CommandId = buttonConfig.CommandId,
                         ButtonType = buttonConfig.ButtonType,
+                        CurrentSize = buttonConfig.PreferredSize,
                         CommandManager = _commandManager
                     };
                     break;

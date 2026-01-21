@@ -85,6 +85,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             // Publish Group
             var publishGroup = CreateGroup(CommandId.PublishGroup, "Publish", "PB");
             publishGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.PostAndPublish, ButtonType = RibbonButtonType.SplitButton });
+            publishGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.SelectBlog, IsEditable = false });
+            publishGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.PostAsDraft, ButtonType = RibbonButtonType.Button });
             tab.Groups.Add(publishGroup);
 
             // Paragraph Group
@@ -118,10 +120,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             fontGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ClearFormatting });
             tab.Groups.Add(fontGroup);
 
-            // Insert Group
+            // Insert Group (medium-sized buttons)
             var insertGroup = CreateGroup(CommandId.InsertGroup, "Insert", "I");
-            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertPictureFromFile, ButtonType = RibbonButtonType.SplitButton });
-            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertLink });
+            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertLink, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
+            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertPictureFromFile, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
+            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertVideoFromWeb, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
             tab.Groups.Add(insertGroup);
 
             return tab;
