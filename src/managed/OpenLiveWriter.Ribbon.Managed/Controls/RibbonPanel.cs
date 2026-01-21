@@ -699,7 +699,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            _tabHeaderPanel.Invalidate();
+            _tabHeaderPanel?.Invalidate();
         }
     }
 }
