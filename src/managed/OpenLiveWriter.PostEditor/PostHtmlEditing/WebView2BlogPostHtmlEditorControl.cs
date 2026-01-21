@@ -46,6 +46,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// Fired when selection changes in the editor.
         /// </summary>
         public event EventHandler<EditorSelectionChangedEventArgs> SelectionChanged;
+        
+        /// <summary>
+        /// Fired when HTML is inserted into the editor.
+        /// </summary>
+        public event EventHandler HtmlInserted;
 
         public WebView2BlogPostHtmlEditorControl()
         {
@@ -90,6 +95,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl: SelectionChanged, forwarding event");
                 SelectionChanged?.Invoke(this, e);
+            };
+            
+            // Wire up HtmlInserted event
+            _editor.HtmlInserted += (s, e) =>
+            {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl: HtmlInserted, forwarding event");
+                HtmlInserted?.Invoke(this, EventArgs.Empty);
             };
             
             System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WebView2BlogPostHtmlEditorControl created");

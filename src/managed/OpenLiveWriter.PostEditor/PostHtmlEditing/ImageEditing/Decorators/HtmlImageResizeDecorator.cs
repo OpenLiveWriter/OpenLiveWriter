@@ -27,6 +27,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         public void Decorate(ImageDecoratorContext context)
         {
             bool useOriginalImage = true;
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] HtmlImageResizeDecorator.Decorate: ImgElement={context.ImgElement != null}");
             HtmlImageResizeDecoratorSettings settings = new HtmlImageResizeDecoratorSettings(context.Settings, context.ImgElement);
             if (context.InvocationSource == ImageDecoratorInvocationSource.InitialInsert ||
                 context.InvocationSource == ImageDecoratorInvocationSource.Reset)
@@ -308,6 +309,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         private const string BASE_WIDTH = "BaseWidth";
         private const string BASE_HEIGHT = "BaseHeight";
         private const string PREV_ROTATION = "PrevRotation";
+        
+        // Target size for filter mode - stored when SetImageSize is called from WebView2 mode
+        private const string TARGET_WIDTH = "TargetWidth";
+        private const string TARGET_HEIGHT = "TargetHeight";
 
         private const string BORDER_INFO = "BorderInfo";
         private const string BORDER_TOP = "BorderTop";
@@ -331,6 +336,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         }
 
         private bool IsWebView2Mode => HtmlImageElement != null && ImgElement == null;
+        
+        /// <summary>
+        /// True when running in filter pipeline mode where no DOM element is available.
+        /// In this mode, size must come from settings or the bitmap being processed.
+        /// </summary>
+        private bool IsFilterMode => HtmlImageElement == null && ImgElement == null;
 
         public Size ImageSize
         {
@@ -354,7 +365,27 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             get
             {
                 int width, height;
-                if (IsWebView2Mode)
+                if (IsFilterMode)
+                {
+                    // Filter mode - no DOM element available
+                    // First try TARGET_WIDTH/HEIGHT which was stored by WebView2 mode's SetImageSize
+                    int targetWidth = Settings.GetInt(TARGET_WIDTH, 0);
+                    int targetHeight = Settings.GetInt(TARGET_HEIGHT, 0);
+                    if (targetWidth > 0 && targetHeight > 0)
+                    {
+                        width = targetWidth;
+                        height = targetHeight;
+                        System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ImageSizeWithBorder: Filter mode, using target={width}x{height}");
+                    }
+                    else
+                    {
+                        // Fall back to base size minus offsets (original behavior)
+                        width = Settings.GetInt(BASE_WIDTH, 0) - Settings.GetInt(IMAGE_WIDTH_OFFSET, 0);
+                        height = Settings.GetInt(BASE_HEIGHT, 0) - Settings.GetInt(IMAGE_HEIGHT_OFFSET, 0);
+                        System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ImageSizeWithBorder: Filter mode, fallback base={width}x{height}");
+                    }
+                }
+                else if (IsWebView2Mode)
                 {
                     // WebView2 mode - use abstraction
                     width = HtmlImageElement.Width - Settings.GetInt(IMAGE_WIDTH_OFFSET, 0);
@@ -387,9 +418,20 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 ? ImageSizeWithBorder : borderMargin.CalculateImageSize(size);
 
             int currentWidth, currentHeight;
-            if (IsWebView2Mode)
+            if (IsFilterMode)
             {
-                // WebView2 mode
+                // Filter mode - no DOM to update, just track the size in settings
+                currentWidth = sizeWithBorder.Width;
+                currentHeight = sizeWithBorder.Height;
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] SetImageSize: Filter mode, size={currentWidth}x{currentHeight}");
+            }
+            else if (IsWebView2Mode)
+            {
+                // WebView2 mode - store target size for filter pipeline to use later
+                Settings.SetInt(TARGET_WIDTH, sizeWithBorder.Width);
+                Settings.SetInt(TARGET_HEIGHT, sizeWithBorder.Height);
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] SetImageSize: WebView2 mode, storing target={sizeWithBorder.Width}x{sizeWithBorder.Height}");
+                
                 currentWidth = HtmlImageElement.Width;
                 currentHeight = HtmlImageElement.Height;
                 if (currentWidth != sizeWithBorder.Width || currentHeight != sizeWithBorder.Height)
@@ -578,11 +620,21 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             get
             {
-                return (string)ImgElement.getAttribute("src", 2);
+                if (IsWebView2Mode)
+                    return HtmlImageElement?.Src;
+                return (string)ImgElement?.getAttribute("src", 2);
             }
             set
             {
-                ImgElement.setAttribute("src", value, 0);
+                if (IsWebView2Mode)
+                {
+                    if (HtmlImageElement != null)
+                        HtmlImageElement.Src = value;
+                }
+                else if (ImgElement != null)
+                {
+                    ImgElement.setAttribute("src", value, 0);
+                }
             }
         }
 

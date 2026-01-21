@@ -21,6 +21,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         protected void HideHtmlBorder(ImageDecoratorContext context)
         {
+            // Skip if no DOM element available (filter mode)
+            if (context.ImgElement == null)
+                return;
+                
             //remove any image style borders
             context.ImgElement.style.border = "0px;";
             context.ImgElement.setAttribute("border", "0", 0);

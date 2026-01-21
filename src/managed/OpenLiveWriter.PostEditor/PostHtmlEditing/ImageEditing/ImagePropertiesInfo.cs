@@ -512,7 +512,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 if (targetDecoratorSettings == null)
                 {
-                    targetDecoratorSettings = new HtmlImageTargetDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageTargetDecorator.Id), ImgElement);
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ImageTargetSettings: ImgElement null={ImgElement == null}, HtmlImageElement null={HtmlImageElement == null}");
+                    // Use WebView2 abstraction if MSHTML element is not available
+                    if (ImgElement == null && HtmlImageElement != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] ImageTargetSettings: Using WebView2 constructor");
+                        targetDecoratorSettings = new HtmlImageTargetDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageTargetDecorator.Id), HtmlImageElement);
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] ImageTargetSettings: Using MSHTML constructor");
+                        targetDecoratorSettings = new HtmlImageTargetDecoratorSettings(ImageDecorators.GetImageDecoratorSettings(HtmlImageTargetDecorator.Id), ImgElement);
+                    }
                 }
                 return targetDecoratorSettings;
             }

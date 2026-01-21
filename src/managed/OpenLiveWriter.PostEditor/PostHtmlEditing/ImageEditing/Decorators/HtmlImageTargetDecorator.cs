@@ -536,6 +536,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             if (IsWebView2Mode)
                 return null; // WebView2 uses IHtmlElement instead
+            
+            // ImgElement can be null during decorator pipeline when running file resize
+            if (ImgElement == null)
+                return null;
                 
             IHTMLElement parentElement = ImgElement.parentElement;
             while (parentElement != null)

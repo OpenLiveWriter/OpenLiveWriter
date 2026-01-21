@@ -21,8 +21,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
 
         public override void Decorate(ImageDecoratorContext context)
         {
-            HtmlBorderDecoratorSettings settings = new HtmlBorderDecoratorSettings(context.ImgElement);
-            settings.InheritBorder = true;
+            // Skip DOM manipulation if ImgElement is null (WebView2 mode)
+            if (context.ImgElement != null)
+            {
+                HtmlBorderDecoratorSettings settings = new HtmlBorderDecoratorSettings(context.ImgElement);
+                settings.InheritBorder = true;
+            }
 
             if (context.ImageEmbedType == ImageEmbedType.Embedded)
             {
@@ -53,11 +57,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
             get
             {
+                if (ImgElement == null) return true;
                 return (ImgElement.getAttribute("border", 0) ?? "").ToString() == "";
             }
             set
             {
-                if (value)
+                if (value && ImgElement != null)
                 {
                     ImgElement.removeAttribute("border", 2);
                     ImgElement.style.border = null;

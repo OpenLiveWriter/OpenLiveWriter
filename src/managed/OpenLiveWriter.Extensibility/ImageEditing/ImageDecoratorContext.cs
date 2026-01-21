@@ -46,7 +46,7 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
         ImageEmbedType ImageEmbedType { get; }
 
         /// <summary>
-        /// The img HTML element associated with the image being decorated.
+        /// The img HTML element associated with the image being decorated (MSHTML).
         /// </summary>
         IHTMLElement ImgElement { get; }
 

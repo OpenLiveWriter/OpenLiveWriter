@@ -39,6 +39,18 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             _editorContext = imageEditingContext;
         }
 
+        /// <summary>
+        /// Ensure subscription to ImagePropertyChanged for WebView2 mode.
+        /// Unlike RefreshView(), this doesn't try to get ImagePropertiesInfo from MSHTML element.
+        /// </summary>
+        public void EnsureWebView2Subscription()
+        {
+            // Unsubscribe first to avoid duplicate subscriptions
+            _propertyEditingContext.ImagePropertyChanged -= new ImagePropertyEventHandler(imageProperties_ImagePropertyChanged);
+            _propertyEditingContext.ImagePropertyChanged += new ImagePropertyEventHandler(imageProperties_ImagePropertyChanged);
+            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] ImageEditingPropertyHandler: WebView2 subscription ensured");
+        }
+
         public void RefreshView()
         {
             _propertyEditingContext.ImagePropertyChanged -= new ImagePropertyEventHandler(imageProperties_ImagePropertyChanged);
@@ -157,6 +169,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 return null;
 
             string imgSrc = selectedImage.Src;
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] GetImagePropertiesInfoFromWebView2: Original src={imgSrc}");
             
             // Normalize file:// URLs to proper format
             if (imgSrc != null && imgSrc.StartsWith("https://olw-local-"))
@@ -166,17 +179,23 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 string driveLetter = imgSrc.Substring("https://olw-local-".Length, 1);
                 string path = imgSrc.Substring("https://olw-local-".Length + 1);
                 imgSrc = $"file:///{driveLetter}:{path}";
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] GetImagePropertiesInfoFromWebView2: Converted to={imgSrc}");
             }
             
             BlogPostImageData imageData = null;
             try
             {
                 if (!string.IsNullOrEmpty(imgSrc))
+                {
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] GetImagePropertiesInfoFromWebView2: Looking up URI={new Uri(imgSrc)}");
                     imageData = BlogPostImageDataList.LookupImageDataByInlineUri(editorContext.ImageList, new Uri(imgSrc));
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] GetImagePropertiesInfoFromWebView2: Lookup result={(imageData != null ? "FOUND" : "NOT FOUND")}");
+                }
             }
-            catch (UriFormatException)
+            catch (UriFormatException ex)
             {
                 // URI format error - treat as remote image
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] GetImagePropertiesInfoFromWebView2: URI format error: {ex.Message}");
             }
 
             ImagePropertiesInfo info;
@@ -240,6 +259,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
         private void imageProperties_ImagePropertyChanged(object source, ImagePropertyEvent evt)
         {
+            // MSHTML path
             if (ImgElement != null)
             {
                 switch (evt.PropertyType)
@@ -251,6 +271,22 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                         break;
                     default:
                         Debug.Fail("Unsupported image property type update: " + evt.PropertyType);
+                        break;
+                }
+            }
+            // WebView2 path - use HtmlImageElement abstraction
+            else if (evt.ImageProperties?.HtmlImageElement != null)
+            {
+                Debug.WriteLine($"[OLW-DEBUG] imageProperties_ImagePropertyChanged: WebView2 path, propertyType={evt.PropertyType}");
+                switch (evt.PropertyType)
+                {
+                    case ImagePropertyType.Source:
+                    case ImagePropertyType.InlineSize:
+                    case ImagePropertyType.Decorators:
+                        UpdateImageSourceWebView2(evt.ImageProperties, _editorContext, _imageInsertHandler, evt.InvocationSource);
+                        break;
+                    default:
+                        Debug.WriteLine($"[OLW-DEBUG] Unsupported image property type for WebView2: {evt.PropertyType}");
                         break;
                 }
             }
@@ -320,6 +356,140 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     else
                         Debug.Fail("imageData could not be located");
                 }
+            }
+
+            if (imgProperties.LinkTarget == LinkTargetType.NONE)
+            {
+                imgProperties.RemoveLinkTarget();
+            }
+        }
+
+        /// <summary>
+        /// WebView2 version of UpdateImageSource that uses IHtmlImageElement abstraction.
+        /// </summary>
+        internal static void UpdateImageSourceWebView2(ImagePropertiesInfo imgProperties, IBlogPostImageEditingContext editorContext, ImageInsertHandler imageInsertHandler, ImageDecoratorInvocationSource invocationSource)
+        {
+            var htmlImageElement = imgProperties.HtmlImageElement;
+            if (htmlImageElement == null)
+            {
+                Debug.WriteLine("[OLW-DEBUG] UpdateImageSourceWebView2: No HtmlImageElement");
+                return;
+            }
+
+            // Get current src and normalize from virtual host URL to file:// URL
+            string imgSrc = htmlImageElement.Src;
+            Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: Original src={imgSrc}");
+            
+            if (imgSrc != null && imgSrc.StartsWith("https://olw-local-"))
+            {
+                string driveLetter = imgSrc.Substring("https://olw-local-".Length, 1);
+                string path = imgSrc.Substring("https://olw-local-".Length + 1);
+                imgSrc = $"file:///{driveLetter}:{path}";
+                Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: Normalized src={imgSrc}");
+            }
+
+            ISupportingFile oldImageFile = null;
+            try
+            {
+                oldImageFile = editorContext.SupportingFileService.GetFileByUri(new Uri(imgSrc));
+            }
+            catch (UriFormatException) { }
+
+            if (oldImageFile != null)
+            {
+                using (new WaitCursor())
+                {
+                    BlogPostImageData imageData = BlogPostImageDataList.LookupImageDataByInlineUri(editorContext.ImageList, oldImageFile.FileUri);
+                    if (imageData != null)
+                    {
+                        Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: Found imageData, processing resize");
+                        
+                        // Ensure the inline size is properly set in decorator settings before WriteImages
+                        // This ensures filter mode uses the correct target size (from DOM) not the source size
+                        Size currentInlineSize = imgProperties.InlineImageSize;
+                        Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: Setting target size to current inline={currentInlineSize}");
+                        imgProperties.InlineImageSize = currentInlineSize; // This calls SetImageSize which stores TARGET_WIDTH/HEIGHT
+                        
+                        BlogPostImageData newImageData = (BlogPostImageData)imageData.Clone();
+
+                        CreateImageFileHandler inlineFileCreator = new CreateImageFileHandler(editorContext.SupportingFileService,
+                            newImageData.InlineImageFile != null ? newImageData.InlineImageFile.SupportingFile : null);
+                        CreateImageFileHandler linkedFileCreator = new CreateImageFileHandler(editorContext.SupportingFileService,
+                            newImageData.LinkedImageFile != null ? newImageData.LinkedImageFile.SupportingFile : null);
+
+                        try
+                        {
+                            // Re-write the image files on disk using the latest settings (runs decorators)
+                            imageInsertHandler.WriteImages(imgProperties, true, invocationSource, 
+                                new CreateFileCallback(inlineFileCreator.CreateFileCallback), 
+                                new CreateFileCallback(linkedFileCreator.CreateFileCallback), 
+                                editorContext.EditorOptions);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: WriteImages EXCEPTION: {ex.GetType().Name}: {ex.Message}");
+                            Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: Stack: {ex.StackTrace}");
+                            throw;
+                        }
+
+                        Size imageSizeWithBorder = imgProperties.InlineImageSizeWithBorder;
+                        Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: New size={imageSizeWithBorder}");
+
+                        // Update DOM via IHtmlImageElement abstraction
+                        string newSrcUri = UrlHelper.SafeToAbsoluteUri(inlineFileCreator.ImageSupportingFile.FileUri);
+                        Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: New src URI (before conversion)={newSrcUri}");
+                        
+                        // Convert file:// URL to virtual host URL for WebView2
+                        // file:///C:/path -> https://olw-local-c/path
+                        if (newSrcUri != null && newSrcUri.StartsWith("file:///", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var match = System.Text.RegularExpressions.Regex.Match(newSrcUri, @"file:///([A-Za-z]):/(.*)");
+                            if (match.Success)
+                            {
+                                var driveLetter = match.Groups[1].Value.ToLowerInvariant();
+                                var path = match.Groups[2].Value;
+                                newSrcUri = $"https://olw-local-{driveLetter}/{path}";
+                                Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: Converted to={newSrcUri}");
+                            }
+                        }
+                        
+                        // Update src to new resized image file
+                        // NOTE: We do NOT update width/height here - the DOM should keep the user's 
+                        // requested size, even if the actual file is larger (e.g., due to drop shadow).
+                        // This prevents feedback loops where reading the new DOM size triggers another resize.
+                        htmlImageElement.Src = newSrcUri;
+                        Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: DOM src updated, NOT updating dimensions");
+
+                        // Update ImageData file references
+                        newImageData.InlineImageFile.SupportingFile = inlineFileCreator.ImageSupportingFile;
+                        newImageData.InlineImageFile.Height = imageSizeWithBorder.Height;
+                        newImageData.InlineImageFile.Width = imageSizeWithBorder.Width;
+                        
+                        if (imgProperties.LinkTarget == LinkTargetType.IMAGE)
+                        {
+                            newImageData.LinkedImageFile = new ImageFileData(linkedFileCreator.ImageSupportingFile, 
+                                imgProperties.LinkTargetImageSize.Width, imgProperties.LinkTargetImageSize.Height, ImageFileRelationship.Linked);
+                        }
+                        else
+                        {
+                            newImageData.LinkedImageFile = null;
+                        }
+
+                        newImageData.ImageDecoratorSettings = (BlogPostSettingsBag)imgProperties.ImageDecorators.SettingsBag.Clone();
+                        newImageData.UploadInfo.ImageServiceId = imgProperties.UploadServiceId;
+                        editorContext.ImageList.AddImage(newImageData);
+                        
+                        Debug.WriteLine($"[OLW-DEBUG] UpdateImageSourceWebView2: Complete, updated ImageList");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("[OLW-DEBUG] UpdateImageSourceWebView2: imageData could not be located");
+                    }
+                }
+            }
+            else
+            {
+                Debug.WriteLine("[OLW-DEBUG] UpdateImageSourceWebView2: oldImageFile is null (not a supporting file)");
             }
 
             if (imgProperties.LinkTarget == LinkTargetType.NONE)

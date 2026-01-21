@@ -111,6 +111,11 @@ namespace OpenLiveWriter.WebView2Shim
         /// </summary>
         public event EventHandler<EditorSelectionChangedEventArgs> SelectionChanged;
         
+        /// <summary>
+        /// Fired when HTML is inserted into the editor.
+        /// </summary>
+        public event EventHandler HtmlInserted;
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -1039,6 +1044,9 @@ namespace OpenLiveWriter.WebView2Shim
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] InsertHtml: {content.Substring(0, Math.Min(100, content.Length))}...");
                 _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
                 IsDirty = true;
+                
+                // Fire HtmlInserted event so images can be processed
+                HtmlInserted?.Invoke(this, EventArgs.Empty);
             }
         }
 

@@ -312,6 +312,9 @@ namespace OpenLiveWriter.PostEditor
 
         public static BlogPostImageData LookupImageDataByInlineUri(BlogPostImageDataList imageDataList, Uri inlineUri)
         {
+            Debug.WriteLine($"[OLW-DEBUG] LookupImageDataByInlineUri: Looking for URI={inlineUri}");
+            Debug.WriteLine($"[OLW-DEBUG] LookupImageDataByInlineUri: ImageDataList count={imageDataList?.Count ?? 0}");
+            
             foreach (BlogPostImageData imageData in imageDataList)
             {
                 ImageFileData fileData = imageData.InlineImageFile;
@@ -319,9 +322,17 @@ namespace OpenLiveWriter.PostEditor
                 //Check for condition that caused bug 483278, but we couldn't repro, investigate how we get into this state.
                 Debug.Assert(fileData != null && fileData.Uri != null, "Illegal state for filedata detected!");
 
-                if (fileData != null && fileData.Uri != null && fileData.Uri.Equals(inlineUri))
-                    return imageData;
+                if (fileData != null && fileData.Uri != null)
+                {
+                    Debug.WriteLine($"[OLW-DEBUG] LookupImageDataByInlineUri: Comparing stored={fileData.Uri} vs query={inlineUri}");
+                    if (fileData.Uri.Equals(inlineUri))
+                    {
+                        Debug.WriteLine($"[OLW-DEBUG] LookupImageDataByInlineUri: MATCH FOUND!");
+                        return imageData;
+                    }
+                }
             }
+            Debug.WriteLine($"[OLW-DEBUG] LookupImageDataByInlineUri: No match found");
             return null;
         }
 

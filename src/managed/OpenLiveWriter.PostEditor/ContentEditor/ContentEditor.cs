@@ -1722,6 +1722,13 @@ namespace OpenLiveWriter.PostEditor
                                 Debug.WriteLine("[OLW-DEBUG] WebView2 image double-clicked - showing sidebar");
                                 _htmlEditorSidebarHost.Visible = true;
                             };
+                            
+                            // Wire up HtmlInserted event to scan for new images
+                            _webView2HtmlContentEditor.HtmlInserted += (s, e) =>
+                            {
+                                Debug.WriteLine("[OLW-DEBUG] WebView2 HtmlInserted - scanning for new images");
+                                ImageInsertionManager.ScanAndInitializeNewImages(_currentEditor, _fileService, _currentEditorAccount, this, _editorContainer, true, true);
+                            };
                         }
                         contentEditor = _webView2HtmlContentEditor;
                         Debug.WriteLine("[OLW-DEBUG] Using WebView2 editor");

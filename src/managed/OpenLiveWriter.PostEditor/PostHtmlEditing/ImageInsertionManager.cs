@@ -443,6 +443,31 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                         // If we are using a delayed loading tactic then we insert using the srcdelay
                         htmlBuilder.Append(MakeHtmlForImageSourceDelay(imgUri.ToString()));
                     }
+                    else if (currentEditor is WebView2BlogPostHtmlEditorControl && imgUri.IsFile)
+                    {
+                        // WebView2 path: Create BlogPostImageData synchronously and use inline file URL
+                        // This ensures the image is tracked in ImageList immediately
+                        try
+                        {
+                            Size sourceSize = imageSize;
+                            Size inlineSize = ImageUtils.GetScaledImageSize(defaultImageSize.Width, defaultImageSize.Height, sourceSize);
+                            
+                            BlogPostImageData imageData = CreateAndRegisterImageData(imgUri, sourceSize, inlineSize, fileService, editor);
+                            
+                            // Use the inline file URL so lookup will succeed when image is selected
+                            String imageElementAttrs = String.Format(CultureInfo.InvariantCulture, " width=\"{0}\" height=\"{1}\"", inlineSize.Width, inlineSize.Height);
+                            htmlBuilder.AppendFormat(CultureInfo.InvariantCulture, "<img src=\"{0}\" {1} /><p>&nbsp;</p>", 
+                                HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(imageData.InlineImageFile.Uri)), imageElementAttrs);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"[OLW-DEBUG] WebView2 image registration failed: {ex.Message}");
+                            // Fall back to inserting with source URL
+                            imageSize = ImageUtils.GetScaledImageSize(defaultImageSize.Width, defaultImageSize.Height, imageSize);
+                            String imageElementAttrs = String.Format(CultureInfo.InvariantCulture, " width=\"{0}\" height=\"{1}\"", imageSize.Width, imageSize.Height);
+                            htmlBuilder.AppendFormat(CultureInfo.InvariantCulture, "<img src=\"{0}\" {1} /><p>&nbsp;</p>", HtmlUtils.EscapeEntities(UrlHelper.SafeToAbsoluteUri(imgUri)), imageElementAttrs);
+                        }
+                    }
                     else
                     {
                         imageSize = ImageUtils.GetScaledImageSize(defaultImageSize.Width, defaultImageSize.Height, imageSize);
@@ -510,6 +535,82 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
 
             return imageData.ImageSourceFile.Uri.AbsoluteUri;
+        }
+
+        /// <summary>
+        /// Creates and registers a BlogPostImageData for a local image file (WebView2 path).
+        /// Unlike the MSHTML path which uses async DOM scanning, this creates the image data synchronously.
+        /// </summary>
+        internal static BlogPostImageData CreateAndRegisterImageData(
+            Uri imageSourceUri,
+            Size sourceSize,
+            Size inlineSize,
+            ISupportingFileService fileService,
+            ContentEditor editor)
+        {
+            Debug.WriteLine($"[OLW-DEBUG] CreateAndRegisterImageData: source={imageSourceUri}, size={sourceSize}, inline={inlineSize}");
+            
+            // Create source file reference
+            ISupportingFile sourceFile = fileService.AddLinkedSupportingFileReference(imageSourceUri);
+            var imageData = new BlogPostImageData(new ImageFileData(sourceFile, sourceSize.Width, sourceSize.Height, ImageFileRelationship.Source));
+            
+            // Create shadow file if needed
+            if (GlobalEditorOptions.SupportsFeature(ContentEditorFeature.ShadowImageForDrafts))
+            {
+                imageData.InitShadowFile(fileService);
+            }
+            
+            // Create inline image (resized version)
+            using (var inlineImageStream = new MemoryStream())
+            using (var sourceBitmap = new System.Drawing.Bitmap(imageSourceUri.LocalPath))
+            {
+                string extension;
+                System.Drawing.Imaging.ImageFormat imageFormat;
+                ImageHelper2.GetImageFormat(imageSourceUri.LocalPath, out extension, out imageFormat);
+                
+                using (var resizedBitmap = ImageHelper2.CreateResizedBitmap(sourceBitmap, inlineSize.Width, inlineSize.Height, imageFormat))
+                {
+                    ImageHelper2.SaveImage(resizedBitmap, imageFormat, inlineImageStream);
+                }
+                
+                inlineImageStream.Seek(0, SeekOrigin.Begin);
+                
+                // Create inline supporting file
+                ISupportingFile inlineFile = fileService.CreateSupportingFile(
+                    Path.GetFileName(imageSourceUri.LocalPath), 
+                    Guid.NewGuid().ToString(), 
+                    inlineImageStream);
+                imageData.InlineImageFile = new ImageFileData(inlineFile, inlineSize.Width, inlineSize.Height, ImageFileRelationship.Inline);
+            }
+            
+            // Set up default image decorators for resize, border, etc.
+            var decoratorsList = new ImageDecoratorsList(editor.DecoratorsManager, new BlogPostSettingsBag());
+            // Add the core decorators needed for image resizing and editing
+            string[] defaultDecoratorIds = new string[] {
+                CropDecorator.Id,
+                HtmlImageResizeDecorator.Id,
+                HtmlImageTargetDecorator.Id,
+                HtmlMarginDecorator.Id,
+                HtmlAlignDecorator.Id,
+                DropShadowBorderDecorator.Id,
+                NoRecolorDecorator.Id,
+                NoSharpenDecorator.Id,
+                NoBlurDecorator.Id,
+                NoEmbossDecorator.Id
+            };
+            foreach (string decoratorId in defaultDecoratorIds)
+            {
+                decoratorsList.AddDecorator(decoratorId);
+            }
+            
+            imageData.ImageDecoratorSettings = decoratorsList.SettingsBag;
+            Debug.WriteLine($"[OLW-DEBUG] CreateAndRegisterImageData: Set up decorators, count={defaultDecoratorIds.Length}");
+            
+            // Add to image list
+            editor.ImageList.AddImage(imageData);
+            Debug.WriteLine($"[OLW-DEBUG] CreateAndRegisterImageData: Added to ImageList, inlineUri={imageData.InlineImageFile.Uri}");
+            
+            return imageData;
         }
 
         private static void blogPostEditor_SelectionChanged(object sender, EventArgs e)

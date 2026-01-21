@@ -84,6 +84,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private Command _imageWatermarkCommand;
         private SpinnerCommand _imageWidthCommand;
         private MarginCommand _marginCommand;
+        
+        // Reentrancy guard for WebView2 resize operations
+        private bool _isResizing = false;
 
         public PictureEditingManager(
             IHtmlEditorComponentContext editorContext,
@@ -109,6 +112,23 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 }
                 return _imagePropertyHandler;
             }
+        }
+        
+        /// <summary>
+        /// Ensure property handler exists and is subscribed to ImagePropertyChanged for WebView2 mode.
+        /// Unlike ImagePropertyHandler getter, this doesn't require SelectedImage (MSHTML).
+        /// </summary>
+        private void EnsureWebView2PropertyHandler()
+        {
+            if (_imagePropertyHandler == null)
+            {
+                _imagePropertyHandler = new ImageEditingPropertyHandler(
+                    this, _createFileCallback, _imageEditingContext);
+            }
+            // Handler subscribes to ImagePropertyChanged in RefreshView(), but for WebView2
+            // we need to manually ensure subscription since we don't call RefreshView().
+            // The handler will wire up via its RefreshView, so let's call a WebView2 version.
+            _imagePropertyHandler.EnsureWebView2Subscription();
         }
 
         #region IImagePropertyEditingContext Members
@@ -176,6 +196,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// </summary>
         private void ApplyImageDecorations(ImagePropertyType propertyType, ImageDecoratorInvocationSource source)
         {
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyImageDecorations: propertyType={propertyType}, hasHandler={ImagePropertyChanged != null}, ImagePropertiesInfo null={ImagePropertiesInfo == null}");
             if (ImagePropertyChanged != null)
                 OnImagePropertyChanged(new ImagePropertyEvent(propertyType, ImagePropertiesInfo, source));
         }
@@ -204,12 +225,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     // Create ImagePropertiesInfo for the full decorator pipeline
                     CreateWebView2ImagePropertiesInfo();
                     
+                    // Ensure property handler is subscribed to ImagePropertyChanged event
+                    EnsureWebView2PropertyHandler();
+                    
                     System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] PictureEditingManager: Enabled basic image commands for WebView2");
                 }
                 else
                 {
                     _webView2SelectedImage = null;
-                    _imagePropertiesInfo = null;
+                    ImagePropertiesInfo = null;  // Use property setter to trigger ManageCommands
                     // Not an image
                     UnhookAlignmentMarginCommands();
                     EnableBasicImageCommands(false);
@@ -224,7 +248,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] PictureEditingManager.UpdateView: WebView2 mode, null selection - unhooking commands only");
                 _webView2Selection = null;
                 _webView2SelectedImage = null;
-                _imagePropertiesInfo = null;
+                ImagePropertiesInfo = null;  // Use property setter to trigger ManageCommands
                 UnhookAlignmentMarginCommands();
                 EnableBasicImageCommands(false);
                 return;
@@ -251,7 +275,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         {
             if (_webView2SelectedImage == null)
             {
-                _imagePropertiesInfo = null;
+                ImagePropertiesInfo = null;  // Use property setter to trigger ManageCommands
                 return;
             }
 
@@ -271,7 +295,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CreateWebView2ImagePropertiesInfo: htmlImageElement created, IsValid={htmlImageElement?.IsValid}");
                 
                 // Create ImagePropertiesInfo using the new WebView2 method
-                _imagePropertiesInfo = ImageEditingPropertyHandler.GetImagePropertiesInfoFromWebView2(
+                // Use property setter to trigger ManageCommands() which enables the galleries
+                ImagePropertiesInfo = ImageEditingPropertyHandler.GetImagePropertiesInfoFromWebView2(
                     _webView2SelectedImage,
                     htmlImageElement,
                     _imageEditingContext);
@@ -282,7 +307,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             {
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CreateWebView2ImagePropertiesInfo error: {ex.Message}");
                 System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] CreateWebView2ImagePropertiesInfo stack: {ex.StackTrace}");
-                _imagePropertiesInfo = null;
+                ImagePropertiesInfo = null;  // Use property setter
             }
         }
         
@@ -593,7 +618,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private void ResetAlignmentChunkCommands(bool isImageSelected, bool isEditableEmbeddedImage)
         {
             // The alignment command is shared among different contextual tabs, so we don't set the enabled state here.
-            if (_alignmentCommand.Enabled)
+            if (_alignmentCommand.Enabled && ImagePropertiesInfo != null)
                 _alignmentCommand.SetSelectedItem(ImagePropertiesInfo.InlineImageAlignment);
         }
 
@@ -603,7 +628,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private void ResetMarginsChunkCommands(bool isImageSelected, bool isEditableEmbeddedImage)
         {
             // The margins command is shared among different contextual tabs, so we don't set the enabled state here.
-            if (_marginCommand.Enabled)
+            if (_marginCommand.Enabled && ImagePropertiesInfo != null)
             {
                 MarginStyle marginStyle = ImagePropertiesInfo.InlineImageMargin;
                 _marginCommand.Value = new Padding(marginStyle.Left, marginStyle.Top, marginStyle.Right, marginStyle.Bottom);
@@ -801,6 +826,13 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // WebView2 mode
             if (_useWebView2Selection && _webView2SelectedImage != null)
             {
+                // Reentrancy guard - skip if we're already processing a resize
+                if (_isResizing)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageSizeCommand WebView2: SKIPPING (already resizing)");
+                    return;
+                }
+                
                 int currentWidth = _webView2SelectedImage.Width;
                 int currentHeight = _webView2SelectedImage.Height;
                 int naturalWidth = _webView2SelectedImage.NaturalWidth;
@@ -830,14 +862,40 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     }
                 }
                 
-                // Update via JS bridge asynchronously
-                _ = _webView2SelectedImage.SetDimensionsAsync(newWidth, newHeight);
-                
                 // Update spinner values to reflect the change
                 if (_imageWidthCommand != null) _imageWidthCommand.Value = newWidth;
                 if (_imageHeightCommand != null) _imageHeightCommand.Value = newHeight;
                 
-                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageSizeCommand: Set dimensions to {newWidth}x{newHeight}");
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageSizeCommand WebView2: newWidth={newWidth}, newHeight={newHeight}");
+                
+                // If we have ImagePropertiesInfo, trigger the full decorator pipeline for actual file resize
+                if (_imagePropertiesInfo != null && _imagePropertiesInfo is BlogPostImagePropertiesInfo)
+                {
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageSizeCommand WebView2: Triggering decorator pipeline");
+                    
+                    try
+                    {
+                        _isResizing = true;
+                        
+                        // Update ImagePropertiesInfo with new dimensions
+                        _imagePropertiesInfo.InlineImageWidth = newWidth;
+                        _imagePropertiesInfo.InlineImageHeight = newHeight;
+                        
+                        // Trigger decorator pipeline - this resizes the actual file
+                        ApplyImageDecorations(ImagePropertyType.InlineSize, ImageDecoratorInvocationSource.Command);
+                    }
+                    finally
+                    {
+                        _isResizing = false;
+                    }
+                }
+                else
+                {
+                    // No ImagePropertiesInfo - just update DOM attributes (fallback for web images)
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] imageSizeCommand WebView2: No ImagePropertiesInfo, updating DOM only");
+                    _ = _webView2SelectedImage.SetDimensionsAsync(newWidth, newHeight);
+                }
+                
                 return;
             }
 

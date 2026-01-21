@@ -99,6 +99,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             try
             {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyImageDecorator: Starting {decorator.DecoratorName} (id={decorator.Id})");
                 using (ApplicationPerformance.LogEvent("ApplyDecorator: " + decorator.DecoratorName))
                 using (new WaitCursor())
                 {
@@ -106,9 +107,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     _currSettings = _decoratorsList.GetImageDecoratorSettings(decorator);
                     decorator.Decorate(this);
                 }
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyImageDecorator: Completed {decorator.DecoratorName}");
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyImageDecorator: EXCEPTION in {decorator.DecoratorName}: {e.GetType().Name}: {e.Message}");
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] ApplyImageDecorator: Stack: {e.StackTrace}");
                 Trace.Fail(String.Format(CultureInfo.InvariantCulture, "Failed to apply image decorator [{0}]: {1}", decorator.DecoratorName, e.ToString()));
             }
         }

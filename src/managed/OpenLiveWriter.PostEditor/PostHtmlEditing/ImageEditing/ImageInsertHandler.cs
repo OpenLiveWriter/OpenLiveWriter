@@ -51,16 +51,25 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// <param name="allowEnlargement">if true, generated images will be scaled larger than the source image (if the imageInfo sizes are larger) </param>
         public void WriteImages(ImagePropertiesInfo imageInfo, bool allowEnlargement, ImageDecoratorInvocationSource invocationSource, CreateFileCallback inlineFileCreator, CreateFileCallback linkedFileCreator, IEditorOptions clientOptions)
         {
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] WriteImages: Starting, source={imageInfo.ImageSourceUri}");
+            
             string inlinePrefix = imageInfo.LinkTarget == LinkTargetType.IMAGE ? "_thumb" : "";
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] WriteImages: LinkTarget={imageInfo.LinkTarget}, inlinePrefix='{inlinePrefix}'");
 
             ImageFilter inlineFilter = ImageFilterDecoratorAdapter.CreateImageDecoratorsFilter(imageInfo, ImageEmbedType.Embedded, invocationSource, clientOptions);
+            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WriteImages: Created inlineFilter");
             ImageFilter targetFilter = ImageFilterDecoratorAdapter.CreateImageDecoratorsFilter(imageInfo, ImageEmbedType.Linked, invocationSource, clientOptions);
+            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WriteImages: Created targetFilter");
 
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] WriteImages: Loading bitmap from {imageInfo.ImageSourceUri.LocalPath}");
             using (Bitmap inlineBitmap = new Bitmap(imageInfo.ImageSourceUri.LocalPath))
             {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] WriteImages: Bitmap loaded, size={inlineBitmap.Size}");
                 string imgPath = writeImage(inlineBitmap, imageInfo.ImageSourceUri.LocalPath, inlinePrefix, inlineFilter, inlineFileCreator);
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] WriteImages: writeImage returned {imgPath}");
                 string inlineImgPath = new Uri(UrlHelper.CreateUrlFromPath(imgPath)).ToString();
                 imageInfo.InlineImageUrl = inlineImgPath;
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] WriteImages: InlineImageUrl set to {inlineImgPath}");
             }
 
             //Generate the link image
@@ -70,6 +79,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             //imageInfo.LinkTarget = origLinkTarget;
             if (imageInfo.LinkTarget == LinkTargetType.IMAGE && !ImageDecoratorDirective.ShouldSuppressLinked)
             {
+                System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WriteImages: Generating linked image");
                 using (Bitmap targetBitmap = new Bitmap(imageInfo.ImageSourceUri.LocalPath))
                 {
                     string anchorPath = writeImage(targetBitmap, imageInfo.ImageSourceUri.LocalPath, "", targetFilter, linkedFileCreator);
@@ -77,10 +87,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                     imageInfo.LinkTargetUrl = targetUrl;
                 }
             }
+            System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] WriteImages: Complete");
         }
 
         private string writeImage(Bitmap image, string srcFileName, string suffix, ImageFilter filter, CreateFileCallback createFileCallback)
         {
+            System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] writeImage: Starting, srcFileName={srcFileName}, suffix='{suffix}'");
             string extension = Path.GetExtension(srcFileName).ToLower(CultureInfo.InvariantCulture);
             srcFileName = Path.GetFileNameWithoutExtension(srcFileName) + suffix + extension;
             try
@@ -88,20 +100,29 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 //save the thumbnail to disk
                 ImageFormat imageFormat;
                 ImageHelper2.GetImageFormat(srcFileName, out extension, out imageFormat);
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] writeImage: Calling createFileCallback");
                 string filename = createFileCallback(Path.GetFileNameWithoutExtension(srcFileName) + extension);
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] writeImage: filename={filename}");
                 try
                 {
                     if (filter != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] writeImage: Applying filter (decorators)");
                         image = filter(image);
+                        System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] writeImage: Filter applied, new size={image?.Size}");
+                    }
 
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] writeImage: Saving to {filename}");
                     using (FileStream fs = new FileStream(filename, FileMode.Create))
                     {
                         ImageHelper2.SaveImage(image, imageFormat, fs);
                     }
+                    System.Diagnostics.Debug.WriteLine("[OLW-DEBUG] writeImage: Complete");
                     return filename;
                 }
                 catch (Exception e)
                 {
+                    System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] writeImage: Inner exception: {e.GetType().Name}: {e.Message}");
                     Trace.Fail("Failed to save image as format " + imageFormat.Guid + ": " + e.ToString());
 
                     //try to fall back to generating a PNG version of the image
@@ -118,6 +139,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine($"[OLW-DEBUG] writeImage: Outer exception: {e.GetType().Name}: {e.Message}");
                 Trace.Fail("Error while trying to create thumbnail: " + e.Message, e.StackTrace);
                 throw;
             }
