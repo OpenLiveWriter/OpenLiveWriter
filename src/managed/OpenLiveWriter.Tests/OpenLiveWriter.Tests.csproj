@@ -28,6 +28,7 @@
     <ProjectReference Include="..\OpenLiveWriter.HtmlEditor\OpenLiveWriter.HtmlEditor.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.PostEditor\OpenLiveWriter.PostEditor.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Ribbon.Managed\OpenLiveWriter.Ribbon.Managed.csproj" />
   </ItemGroup>
 
 </Project>

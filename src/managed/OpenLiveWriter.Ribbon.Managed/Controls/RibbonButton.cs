@@ -96,16 +96,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             base.UpdateSize();
 
+            // Size will be set by the parent group's layout
+            // These are just default/minimum sizes
             switch (CurrentSize)
             {
                 case RibbonGroupSize.Large:
-                    Size = new Size(56, 66);
+                    MinimumSize = new Size(40, 60);
                     break;
                 case RibbonGroupSize.Medium:
-                    Size = new Size(80, 22);
+                    MinimumSize = new Size(22, 20);
                     break;
                 case RibbonGroupSize.Small:
-                    Size = new Size(24, 24);
+                    MinimumSize = new Size(22, 22);
                     break;
             }
         }
@@ -315,16 +317,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         protected override void OnClick(EventArgs e)
         {
-            base.OnClick(e);
+            // Don't call base.OnClick - we handle everything in OnMouseUp for proper split button support
+            // base.OnClick(e);
 
-            // Handle dropdown-only buttons
+            // Only handle non-split button types here (for keyboard/accessibility support)
             if (_buttonType == RibbonButtonType.DropDownButton)
             {
                 ShowDropDown();
             }
             else if (_buttonType == RibbonButtonType.Button || _buttonType == RibbonButtonType.ToggleButton)
             {
-                OnButtonClick();
+                // This is only called for keyboard activation (Enter/Space)
+                // Mouse clicks are handled in OnMouseUp
             }
         }
 
@@ -391,8 +395,30 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
             {
-                OnButtonClick();
+                if (_buttonType == RibbonButtonType.DropDownButton)
+                {
+                    ShowDropDown();
+                }
+                else
+                {
+                    OnButtonClick();
+                }
                 e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Simulates a click on the button.
+        /// </summary>
+        public override void PerformClick()
+        {
+            if (_buttonType == RibbonButtonType.DropDownButton)
+            {
+                ShowDropDown();
+            }
+            else
+            {
+                OnButtonClick();
             }
         }
 

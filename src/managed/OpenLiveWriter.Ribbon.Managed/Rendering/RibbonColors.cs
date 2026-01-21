@@ -23,14 +23,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
             set => _current = value;
         }
 
-        // Tab colors
+        // Tab colors - matches Windows Ribbon Framework
         public Color TabBackground { get; set; } = Color.FromArgb(245, 246, 247);
-        public Color TabBackgroundHover { get; set; } = Color.FromArgb(232, 239, 247);
-        public Color TabBackgroundSelected { get; set; } = Color.White;
-        public Color TabBorder { get; set; } = Color.FromArgb(198, 198, 198);
+        public Color TabBackgroundHover { get; set; } = Color.FromArgb(253, 253, 255);
+        public Color TabBackgroundSelected { get; set; } = Color.FromArgb(255, 255, 255);
+        public Color TabBorder { get; set; } = Color.FromArgb(217, 217, 217);
         public Color TabText { get; set; } = Color.FromArgb(68, 68, 68);
         public Color TabTextHover { get; set; } = Color.FromArgb(38, 38, 38);
-        public Color TabTextSelected { get; set; } = Color.FromArgb(0, 102, 204);
+        public Color TabTextSelected { get; set; } = Color.FromArgb(68, 68, 68);
 
         // Contextual tab colors
         public Color ContextualTabImageTools { get; set; } = Color.FromArgb(149, 89, 178);

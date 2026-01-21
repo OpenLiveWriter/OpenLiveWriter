@@ -48,7 +48,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         /// <summary>
         /// Gets a command by its ID.
         /// </summary>
-        public IRibbonCommand GetCommand(CommandId id)
+        public virtual IRibbonCommand GetCommand(CommandId id)
         {
             _commands.TryGetValue(id, out var command);
             return command;
@@ -98,9 +98,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         /// <summary>
         /// Executes a command.
         /// </summary>
-        public void Execute(CommandId id)
+        public virtual void Execute(CommandId id)
         {
-            if (_commands.TryGetValue(id, out var command))
+            var command = GetCommand(id);
+            if (command != null)
             {
                 command.PerformExecute();
             }

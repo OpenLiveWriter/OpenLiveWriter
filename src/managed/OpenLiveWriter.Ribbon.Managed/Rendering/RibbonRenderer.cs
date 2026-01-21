@@ -25,6 +25,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
         /// </summary>
         public RibbonColors Colors { get; set; } = RibbonColors.Current;
 
+        /// <summary>
+        /// Strips ampersand accelerator characters from text for display.
+        /// </summary>
+        public static string StripAccelerator(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            // Replace && with a placeholder, remove single &, restore &&
+            return text.Replace("&&", "\x00").Replace("&", "").Replace("\x00", "&");
+        }
+
         #region Tab Rendering
 
         /// <summary>
@@ -88,7 +100,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
 
             using (var brush = new SolidBrush(textColor))
             {
-                g.DrawString(text, SystemFonts.MenuFont, brush, bounds, textFormat);
+                g.DrawString(StripAccelerator(text), SystemFonts.MenuFont, brush, bounds, textFormat);
             }
         }
 
@@ -127,7 +139,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
                 using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
                 using (var brush = new SolidBrush(Colors.GroupLabelText))
                 {
-                    g.DrawString(label, font, brush, labelBounds, textFormat);
+                    g.DrawString(StripAccelerator(label), font, brush, labelBounds, textFormat);
                 }
             }
         }
@@ -240,7 +252,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
                 using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
                 using (var brush = new SolidBrush(textColor))
                 {
-                    g.DrawString(text, font, brush, textBounds, textFormat);
+                    g.DrawString(StripAccelerator(text), font, brush, textBounds, textFormat);
                 }
             }
         }
@@ -278,7 +290,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
                 var textColor = isEnabled ? Colors.ButtonText : Colors.ButtonTextDisabled;
                 using (var brush = new SolidBrush(textColor))
                 {
-                    g.DrawString(text, SystemFonts.MenuFont, brush, textBounds, textFormat);
+                    g.DrawString(StripAccelerator(text), SystemFonts.MenuFont, brush, textBounds, textFormat);
                 }
             }
         }

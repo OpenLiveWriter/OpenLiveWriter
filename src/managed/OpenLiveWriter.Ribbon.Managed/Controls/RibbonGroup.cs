@@ -17,9 +17,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
     /// </summary>
     public class RibbonGroup : UserControl
     {
-        private const int MIN_WIDTH = 60;
-        private const int LABEL_HEIGHT = 16;
-        private const int PADDING = 4;
+        private const int MIN_WIDTH = 52;
+        private const int LABEL_HEIGHT = 18;
+        private const int PADDING = 3;
         private const int SEPARATOR_WIDTH = 1;
 
         private RibbonCommandManager _commandManager;
@@ -215,28 +215,28 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
 
             var width = PADDING * 2;
-            var maxControlWidth = 0;
 
-            foreach (var control in _controls)
+            if (_currentSize == RibbonGroupSize.Large)
             {
-                if (!control.Visible) continue;
-
-                var controlWidth = GetControlWidth(control);
-                if (_currentSize == RibbonGroupSize.Large)
+                // Large: controls side by side
+                foreach (var control in _controls)
                 {
-                    width += controlWidth + PADDING;
-                }
-                else
-                {
-                    maxControlWidth = Math.Max(maxControlWidth, controlWidth);
+                    if (!control.Visible) continue;
+                    var controlWidth = GetControlWidth(control);
+                    width += controlWidth + 2;
                 }
             }
-
-            if (_currentSize != RibbonGroupSize.Large && _controls.Count > 0)
+            else
             {
-                // For medium/small, controls are stacked
-                var columns = _currentSize == RibbonGroupSize.Medium ? 1 : 2;
-                width = maxControlWidth * columns + PADDING * (columns + 1);
+                // Medium/Small: controls stacked in columns of 3
+                var controlCount = 0;
+                foreach (var control in _controls)
+                {
+                    if (control.Visible) controlCount++;
+                }
+                var columns = (controlCount + 2) / 3; // ceiling division
+                var controlWidth = _currentSize == RibbonGroupSize.Medium ? 22 : 22;
+                width = columns * (controlWidth + 2) + PADDING * 2;
             }
 
             // Ensure label fits
@@ -254,11 +254,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             switch (_currentSize)
             {
                 case RibbonGroupSize.Large:
-                    return control is RibbonButton ? 56 : control.Width;
+                    return control is RibbonButton ? 50 : (control is RibbonSeparator ? 6 : control.Width);
                 case RibbonGroupSize.Medium:
-                    return control is RibbonButton ? 80 : control.Width;
+                    return 22;
                 case RibbonGroupSize.Small:
-                    return 24;
+                    return 22;
                 default:
                     return control.Width;
             }
@@ -300,57 +300,72 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private void LayoutControls()
         {
+            if (_contentPanel == null) return;
+
             var x = PADDING;
             var y = PADDING;
             var contentHeight = _contentPanel.Height;
+            var availableHeight = Math.Max(contentHeight - PADDING * 2, 60);
 
             switch (_currentSize)
             {
                 case RibbonGroupSize.Large:
-                    // Horizontal layout, large buttons
+                    // Horizontal layout, large buttons with icon above text
                     foreach (var control in _controls)
                     {
                         if (!control.Visible) continue;
 
-                        control.Location = new Point(x, y);
-                        if (control is RibbonButton btn)
+                        if (control is RibbonButton)
                         {
-                            control.Size = new Size(56, contentHeight - PADDING * 2);
+                            control.Size = new Size(50, availableHeight);
+                            control.Location = new Point(x, y);
+                            x += control.Width + 2;
                         }
-                        x += control.Width + PADDING;
+                        else if (control is RibbonSeparator)
+                        {
+                            control.Size = new Size(6, availableHeight);
+                            control.Location = new Point(x, y);
+                            x += control.Width;
+                        }
+                        else
+                        {
+                            control.Size = new Size(control.Width, availableHeight);
+                            control.Location = new Point(x, y);
+                            x += control.Width + 2;
+                        }
                     }
                     break;
 
                 case RibbonGroupSize.Medium:
-                    // Vertical stack of medium buttons
-                    var buttonHeight = (contentHeight - PADDING * 4) / 3;
+                    // Vertical stack of medium buttons (3 rows)
+                    var buttonHeight = Math.Max((availableHeight - 4) / 3, 20);
                     var row = 0;
                     foreach (var control in _controls)
                     {
                         if (!control.Visible) continue;
 
-                        control.Location = new Point(x, y + row * (buttonHeight + PADDING));
-                        control.Size = new Size(80, buttonHeight);
+                        control.Location = new Point(x, y + row * (buttonHeight + 2));
+                        control.Size = new Size(22, buttonHeight);
 
                         row++;
                         if (row >= 3)
                         {
                             row = 0;
-                            x += 84;
+                            x += 24;
                         }
                     }
                     break;
 
                 case RibbonGroupSize.Small:
-                    // Grid of small icon buttons
-                    var smallSize = 24;
+                    // Grid of small icon buttons (3 rows)
+                    var smallSize = 22;
                     row = 0;
                     var col = 0;
                     foreach (var control in _controls)
                     {
                         if (!control.Visible) continue;
 
-                        control.Location = new Point(x + col * (smallSize + 2), y + row * (smallSize + 2));
+                        control.Location = new Point(x + col * (smallSize + 1), y + row * (smallSize + 1));
                         control.Size = new Size(smallSize, smallSize);
 
                         row++;

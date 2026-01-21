@@ -18,10 +18,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
     /// </summary>
     public class RibbonPanel : UserControl
     {
-        private const int TAB_HEIGHT = 24;
-        private const int CONTENT_HEIGHT = 92;
-        private const int APP_BUTTON_WIDTH = 56;
-        private const int TAB_PADDING = 12;
+        private const int TAB_HEIGHT = 25;
+        private const int CONTENT_HEIGHT = 94;
+        private const int APP_BUTTON_WIDTH = 48;
+        private const int TAB_PADDING = 10;
 
         private RibbonCommandManager _commandManager;
         private RibbonConfiguration _configuration;
@@ -134,7 +134,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             Dock = DockStyle.Top;
             BackColor = RibbonColors.Current.RibbonBackground;
 
-            // Tab header panel
+            // Content panel - add first so it's docked after tab header
+            _contentPanel = new Panel
+            {
+                Location = new Point(0, TAB_HEIGHT),
+                Height = CONTENT_HEIGHT,
+                Dock = DockStyle.Fill,
+                BackColor = RibbonColors.Current.TabBackgroundSelected
+            };
+            Controls.Add(_contentPanel);
+
+            // Tab header panel - add second so it's docked first (top)
             _tabHeaderPanel = new Panel
             {
                 Location = new Point(0, 0),
@@ -147,16 +157,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _tabHeaderPanel.MouseLeave += TabHeaderPanel_MouseLeave;
             _tabHeaderPanel.MouseClick += TabHeaderPanel_MouseClick;
             Controls.Add(_tabHeaderPanel);
-
-            // Content panel
-            _contentPanel = new Panel
-            {
-                Location = new Point(0, TAB_HEIGHT),
-                Height = CONTENT_HEIGHT,
-                Dock = DockStyle.Fill,
-                BackColor = RibbonColors.Current.TabBackgroundSelected
-            };
-            Controls.Add(_contentPanel);
 
             ResumeLayout(false);
         }

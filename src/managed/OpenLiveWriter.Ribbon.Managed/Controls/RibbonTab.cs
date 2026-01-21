@@ -19,7 +19,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
     {
         private const int GROUP_SPACING = 2;
         private const int GROUP_LABEL_HEIGHT = 18;
-        private const int CONTENT_PADDING = 4;
+        private const int CONTENT_PADDING = 2;
 
         private RibbonCommandManager _commandManager;
         private CommandId _commandId;
@@ -29,7 +29,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private RibbonContextualTabGroup _contextualGroup = RibbonContextualTabGroup.None;
 
         private readonly List<RibbonGroup> _groups = new List<RibbonGroup>();
-        private readonly FlowLayoutPanel _contentPanel;
+        private readonly Panel _contentPanel;
 
         /// <summary>
         /// Gets or sets the command ID for this tab.
@@ -113,14 +113,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             BackColor = RibbonColors.Current.TabBackgroundSelected;
 
-            _contentPanel = new FlowLayoutPanel
+            _contentPanel = new Panel
             {
                 Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = false,
                 AutoScroll = false,
-                BackColor = Color.Transparent,
-                Padding = new Padding(CONTENT_PADDING, CONTENT_PADDING, CONTENT_PADDING, 0)
+                BackColor = Color.Transparent
             };
 
             Controls.Add(_contentPanel);
@@ -203,6 +200,26 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                             break;
                     }
                 }
+            }
+
+            // Layout groups manually with correct height
+            LayoutGroups();
+        }
+
+        private void LayoutGroups()
+        {
+            var x = CONTENT_PADDING;
+            var groupHeight = _contentPanel.Height - 2; // Full height minus border
+
+            foreach (var group in _groups)
+            {
+                if (!group.Visible) continue;
+
+                var groupWidth = group.GetPreferredWidth();
+                group.Location = new Point(x, 0);
+                group.Size = new Size(groupWidth, groupHeight);
+
+                x += groupWidth + GROUP_SPACING;
             }
         }
 
