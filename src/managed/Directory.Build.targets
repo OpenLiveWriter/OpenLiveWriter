@@ -1,3 +1,13 @@
 <Project>
   <Import Project="$(RepoRoot)writer.build.targets" />
+
+  <!-- Copy marketization XML files from intl folder before build -->
+  <Target Name="CopyMarketizationFiles" BeforeTargets="BeforeBuild">
+    <Copy SourceFiles="$(RepoRoot)intl\markets\master.xml" 
+          DestinationFiles="$(SrcManagedRoot)OpenLiveWriter.CoreServices\Marketization\Master.xml" 
+          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(RepoRoot)intl\markets\en-US\market.xml" 
+          DestinationFiles="$(SrcManagedRoot)OpenLiveWriter.CoreServices\Marketization\Markets.xml" 
+          SkipUnchangedFiles="true" />
+  </Target>
 </Project>

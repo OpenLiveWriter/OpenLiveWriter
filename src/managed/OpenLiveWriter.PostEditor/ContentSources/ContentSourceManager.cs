@@ -414,9 +414,10 @@ namespace OpenLiveWriter.PostEditor.ContentSources
 
         public static void Initialize(bool? enablePlugins)
         {
+            Debug.WriteLine("[OLW-DEBUG] ContentSourceManager.Initialize starting");
             if (_loaded)
             {
-                Debug.Fail("ContentSourceManager should not be initialized more then once per process.");
+                Debug.WriteLine("[OLW-DEBUG] ContentSourceManager already loaded, returning");
                 return;
             }
 
@@ -441,10 +442,11 @@ namespace OpenLiveWriter.PostEditor.ContentSources
             }
             catch (Exception ex)
             {
-                Trace.Fail("Unexptected exception initializing content-sources: " + ex.ToString());
+                Debug.WriteLine("[OLW-DEBUG] ContentSourceManager exception: " + ex.ToString());
             }
 
             ContentSourceInfo[] contentSources = PluginContentSources;
+            Debug.WriteLine("[OLW-DEBUG] ContentSourceManager.Initialize done");
         }
 
         internal static event EventHandler GlobalContentSourceListChanged;
