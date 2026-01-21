@@ -102,25 +102,25 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             fontGroup.Controls.Add(new ColorPickerConfig { CommandId = CommandId.FontColor, ColorTemplate = RibbonColorTemplate.StandardColors });
             tab.Groups.Add(fontGroup);
 
-            // HTML Styles Group - Paragraph dropdown and style gallery
-            var htmlStylesGroup = CreateGroup(CommandId.None, "HTML styles", "HS");
-            htmlStylesGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.SemanticHtmlGallery, ButtonType = RibbonButtonType.DropDownButton, PreferredSize = RibbonGroupSize.Medium });
+            // HTML Styles Group - Paragraph button and style gallery
+            var htmlStylesGroup = CreateGroup(CommandId.SemanticHtmlGroup, "HTML styles", "HS");
+            htmlStylesGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ParagraphGroup, ButtonType = RibbonButtonType.DropDownButton });
             htmlStylesGroup.Controls.Add(new GalleryConfig 
             { 
                 CommandId = CommandId.SemanticHtmlGallery, 
                 GalleryType = RibbonGalleryType.InRibbon,
                 ItemWidth = 72,
-                ItemHeight = 40,
+                ItemHeight = 48,
                 Columns = 1,
                 MaxRows = 1
             });
             tab.Groups.Add(htmlStylesGroup);
 
-            // Insert Group - Medium-sized buttons with text labels
+            // Insert Group - Medium-sized buttons with text labels (using split commands with short labels)
             var insertGroup = CreateGroup(CommandId.InsertGroup, "Insert", "I");
             insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertLink, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
-            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertPictureFromFile, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
-            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertVideoFromWeb, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
+            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertImageSplit, ButtonType = RibbonButtonType.DropDownButton, PreferredSize = RibbonGroupSize.Medium });
+            insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertVideoSplit, ButtonType = RibbonButtonType.DropDownButton, PreferredSize = RibbonGroupSize.Medium });
             tab.Groups.Add(insertGroup);
 
             // Editing Group - Spell check

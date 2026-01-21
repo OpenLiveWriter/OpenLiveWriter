@@ -245,7 +245,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
                 {
                     Alignment = StringAlignment.Center,
                     LineAlignment = StringAlignment.Near,
-                    Trimming = StringTrimming.EllipsisCharacter
+                    Trimming = StringTrimming.EllipsisCharacter,
+                    FormatFlags = StringFormatFlags.NoWrap
                 };
 
                 var textColor = isEnabled ? Colors.ButtonText : Colors.ButtonTextDisabled;
@@ -284,7 +285,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
                 {
                     Alignment = StringAlignment.Near,
                     LineAlignment = StringAlignment.Center,
-                    Trimming = StringTrimming.EllipsisCharacter
+                    Trimming = StringTrimming.EllipsisCharacter,
+                    FormatFlags = StringFormatFlags.NoWrap
                 };
 
                 var textColor = isEnabled ? Colors.ButtonText : Colors.ButtonTextDisabled;
