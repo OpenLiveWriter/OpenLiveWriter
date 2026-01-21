@@ -49,11 +49,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.InternalWriterPlugin", "OpenLiveWriter.InternalWriterPlugin\OpenLiveWriter.InternalWriterPlugin.csproj", "{699FB638-CE02-48D7-8078-30A7939C5BCB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter", "OpenLiveWriter\OpenLiveWriter.csproj", "{4C45353C-8B67-4E88-BCCC-94FECE0FEA46}"
-	ProjectSection(ProjectDependencies) = postProject
-		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0} = {195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenLiveWriter.Ribbon", "..\unmanaged\OpenLiveWriter.Ribbon\OpenLiveWriter.Ribbon.vcxproj", "{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketXmlGenerator", "MarketXmlGenerator\MarketXmlGenerator.csproj", "{D286C651-2AE7-447E-BBD8-B82F1C542667}"
 EndProject
@@ -82,7 +77,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostBuild.CreateInstaller",
 		{D6C9A393-E0B8-4548-B84B-F8B6FE2A5645} = {D6C9A393-E0B8-4548-B84B-F8B6FE2A5645}
 		{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE} = {9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}
 		{6A6872BC-67EF-4A42-A21A-30ECED376923} = {6A6872BC-67EF-4A42-A21A-30ECED376923}
-		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0} = {195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}
 		{A5C213F6-F0C6-4FD6-B496-61FE434621A6} = {A5C213F6-F0C6-4FD6-B496-61FE434621A6}
 	EndProjectSection
 EndProject
@@ -91,6 +85,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Tests", "OpenLiveWriter.Tests\OpenLiveWriter.Tests.csproj", "{B3E5F002-AFD0-427A-BCBB-B1E4FB6FC92E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocEdit", "LocEdit\LocEdit.csproj", "{3B04E986-B74C-4151-8327-57F6BA8DECBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Ribbon.Managed", "OpenLiveWriter.Ribbon.Managed\OpenLiveWriter.Ribbon.Managed.csproj", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -243,12 +239,6 @@ Global
 		{4C45353C-8B67-4E88-BCCC-94FECE0FEA46}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C45353C-8B67-4E88-BCCC-94FECE0FEA46}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
 		{4C45353C-8B67-4E88-BCCC-94FECE0FEA46}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
-		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}.Debug|Any CPU.Build.0 = Debug|x64
-		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}.Release|Any CPU.ActiveCfg = Release|x64
-		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}.Release|Any CPU.Build.0 = Release|x64
-		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}.ReleaseSigned|Any CPU.ActiveCfg = Release|x64
-		{195A60BF-7A4D-42E6-B5F4-FEBC679E19F0}.ReleaseSigned|Any CPU.Build.0 = Release|x64
 		{D286C651-2AE7-447E-BBD8-B82F1C542667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D286C651-2AE7-447E-BBD8-B82F1C542667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D286C651-2AE7-447E-BBD8-B82F1C542667}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -279,6 +269,12 @@ Global
 		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
 		{3B04E986-B74C-4151-8327-57F6BA8DECBC}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.ReleaseSigned|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}.ReleaseSigned|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
