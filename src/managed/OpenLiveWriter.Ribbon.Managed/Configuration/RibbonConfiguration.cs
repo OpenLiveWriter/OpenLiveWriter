@@ -145,6 +145,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
         public RibbonButtonType ButtonType { get; set; } = RibbonButtonType.Button;
 
         /// <summary>
+        /// Gets or sets the preferred size for this button.
+        /// </summary>
+        public RibbonGroupSize PreferredSize { get; set; } = RibbonGroupSize.Large;
+
+        /// <summary>
         /// Gets the list of menu items for dropdown/split buttons.
         /// </summary>
         public List<MenuItemConfig> MenuItems { get; } = new List<MenuItemConfig>();

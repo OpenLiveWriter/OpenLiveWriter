@@ -444,20 +444,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
         /// </summary>
         public void DrawAppMenuButton(Graphics g, Rectangle bounds, bool isHovered, bool isPressed)
         {
-            // Blue pill-shaped button
+            // Blue rectangular button (Office 2010 style)
             var fillColor = isPressed ? Color.FromArgb(0, 82, 164) :
                            isHovered ? Color.FromArgb(41, 122, 204) :
                            Color.FromArgb(0, 102, 204);
 
-            using (var path = CreateRoundedRectanglePath(bounds, 3))
+            // Draw solid rectangle (not rounded)
             using (var brush = new SolidBrush(fillColor))
             {
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.FillPath(brush, path);
-                g.SmoothingMode = SmoothingMode.Default;
+                g.FillRectangle(brush, bounds);
             }
 
-            // "File" or logo text
+            // "File" text
             var textFormat = new StringFormat
             {
                 Alignment = StringAlignment.Center,
