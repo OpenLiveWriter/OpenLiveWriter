@@ -202,6 +202,40 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     _isLoading = false;
                 }
             }
+            else
+            {
+                // If not a gallery command, check for default font values
+                SetDefaultFontValues();
+            }
+        }
+
+        private void SetDefaultFontValues()
+        {
+            // Set default display values for Font comboboxes for visual matching
+            _isLoading = true;
+            try
+            {
+                if (CommandId == OpenLiveWriter.Localization.CommandId.FontFamily)
+                {
+                    if (_innerComboBox.Items.Count == 0)
+                    {
+                        _innerComboBox.Items.Add("Calibri");
+                        _innerComboBox.SelectedIndex = 0;
+                    }
+                }
+                else if (CommandId == OpenLiveWriter.Localization.CommandId.FontSize)
+                {
+                    if (_innerComboBox.Items.Count == 0)
+                    {
+                        _innerComboBox.Items.Add("11");
+                        _innerComboBox.SelectedIndex = 0;
+                    }
+                }
+            }
+            finally
+            {
+                _isLoading = false;
+            }
         }
 
         private void OnGalleryItemsChanged(object sender, EventArgs e)

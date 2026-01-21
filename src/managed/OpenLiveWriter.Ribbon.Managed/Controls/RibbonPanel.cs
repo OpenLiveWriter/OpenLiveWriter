@@ -40,9 +40,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 #pragma warning restore CS0649
 
         private ApplicationMenu _applicationMenu;
-#pragma warning disable CS0169 // Field is never used
         private QuickAccessToolbar _quickAccessToolbar;
-#pragma warning restore CS0169
 
         private Panel _tabHeaderPanel;
         private Panel _contentPanel;
@@ -166,6 +164,15 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _tabHeaderPanel.MouseClick += TabHeaderPanel_MouseClick;
             Controls.Add(_tabHeaderPanel);
 
+            // Quick Access Toolbar - positioned above tabs
+            _quickAccessToolbar = new QuickAccessToolbar
+            {
+                Location = new Point(60, 2),
+                BackColor = Color.Transparent
+            };
+            Controls.Add(_quickAccessToolbar);
+            _quickAccessToolbar.BringToFront();
+
             ResumeLayout(false);
         }
 
@@ -205,6 +212,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     SelectedTab = tab;
                     break;
                 }
+            }
+
+            // Configure Quick Access Toolbar
+            if (_quickAccessToolbar != null && config.QuickAccessToolbar != null)
+            {
+                _quickAccessToolbar.CommandManager = _commandManager;
+                _quickAccessToolbar.SetCommands(config.QuickAccessToolbar.DefaultCommands);
             }
 
             ResumeLayout(true);

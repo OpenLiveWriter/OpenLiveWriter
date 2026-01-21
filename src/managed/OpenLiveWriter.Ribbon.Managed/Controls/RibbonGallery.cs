@@ -288,23 +288,31 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             // Clip to content area
             g.SetClip(_contentBounds);
 
-            // Draw visible items
-            var visibleColumns = _contentBounds.Width / _itemWidth;
-            var visibleRows = _contentBounds.Height / _itemHeight;
-
-            for (int row = 0; row < visibleRows; row++)
+            // If no items, draw default style preview
+            if (_items.Count == 0)
             {
-                for (int col = 0; col < visibleColumns; col++)
+                DrawDefaultStylePreview(g, _contentBounds);
+            }
+            else
+            {
+                // Draw visible items
+                var visibleColumns = _contentBounds.Width / _itemWidth;
+                var visibleRows = _contentBounds.Height / _itemHeight;
+
+                for (int row = 0; row < visibleRows; row++)
                 {
-                    var index = (_scrollOffset + row) * visibleColumns + col;
-                    if (index >= _items.Count) break;
+                    for (int col = 0; col < visibleColumns; col++)
+                    {
+                        var index = (_scrollOffset + row) * visibleColumns + col;
+                        if (index >= _items.Count) break;
 
-                    var itemBounds = new Rectangle(
-                        _contentBounds.X + col * _itemWidth,
-                        _contentBounds.Y + row * _itemHeight,
-                        _itemWidth, _itemHeight);
+                        var itemBounds = new Rectangle(
+                            _contentBounds.X + col * _itemWidth,
+                            _contentBounds.Y + row * _itemHeight,
+                            _itemWidth, _itemHeight);
 
-                    DrawGalleryItem(g, itemBounds, _items[index], index == _selectedIndex, index == _hoveredIndex);
+                        DrawGalleryItem(g, itemBounds, _items[index], index == _selectedIndex, index == _hoveredIndex);
+                    }
                 }
             }
 
@@ -314,6 +322,41 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             DrawScrollButton(g, _upScrollBounds, true, _scrollOffset > 0);
             DrawScrollButton(g, _downScrollBounds, false, CanScrollDown());
             DrawExpandButton(g, _expandBounds);
+        }
+
+        private void DrawDefaultStylePreview(Graphics g, Rectangle bounds)
+        {
+            // Draw a default style preview like the original ribbon
+            var previewText = "AaBbCcDdI";
+            var labelText = "Paragraph";
+
+            // Preview text (larger font)
+            using (var previewFont = new Font("Calibri", 12f))
+            using (var textBrush = new SolidBrush(Color.FromArgb(68, 68, 68)))
+            {
+                var previewBounds = new Rectangle(bounds.X + 4, bounds.Y + 2, bounds.Width - 8, bounds.Height / 2);
+                var format = new StringFormat
+                {
+                    Alignment = StringAlignment.Near,
+                    LineAlignment = StringAlignment.Center,
+                    FormatFlags = StringFormatFlags.NoWrap
+                };
+                g.DrawString(previewText, previewFont, textBrush, previewBounds, format);
+            }
+
+            // Label text (smaller)
+            using (var labelFont = new Font(SystemFonts.MenuFont.FontFamily, 7.5f))
+            using (var labelBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
+            {
+                var labelBounds = new Rectangle(bounds.X + 4, bounds.Y + bounds.Height / 2 - 2, bounds.Width - 8, bounds.Height / 2);
+                var format = new StringFormat
+                {
+                    Alignment = StringAlignment.Near,
+                    LineAlignment = StringAlignment.Near,
+                    FormatFlags = StringFormatFlags.NoWrap
+                };
+                g.DrawString(labelText, labelFont, labelBrush, labelBounds, format);
+            }
         }
 
         private void DrawDropDownButton(Graphics g)
