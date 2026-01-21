@@ -90,8 +90,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
 
             // Font Group - Dropdowns at top, small formatting buttons below
             var fontGroup = CreateGroup(CommandId.None, "Font", "FN");
-            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontFamily, PreferredWidth = 120 });
-            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 45 });
+            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontFamily, PreferredWidth = 100 });
+            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 40 });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Bold, PreferredSize = RibbonGroupSize.Small });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Italic, PreferredSize = RibbonGroupSize.Small });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Underline, PreferredSize = RibbonGroupSize.Small });
@@ -104,13 +104,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
 
             // HTML Styles Group - Paragraph button and style gallery
             var htmlStylesGroup = CreateGroup(CommandId.SemanticHtmlGroup, "HTML styles", "HS");
-            htmlStylesGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ParagraphGroup, ButtonType = RibbonButtonType.DropDownButton });
+            htmlStylesGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ParagraphGroup, ButtonType = RibbonButtonType.DropDownButton, PreferredSize = RibbonGroupSize.Medium });
             htmlStylesGroup.Controls.Add(new GalleryConfig 
             { 
                 CommandId = CommandId.SemanticHtmlGallery, 
                 GalleryType = RibbonGalleryType.InRibbon,
-                ItemWidth = 72,
-                ItemHeight = 48,
+                ItemWidth = 80,
+                ItemHeight = 56,
                 Columns = 1,
                 MaxRows = 1
             });

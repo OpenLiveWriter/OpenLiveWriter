@@ -266,19 +266,21 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         smallRow = 0;
                     }
                     // Calculate width based on text content
-                    var buttonWidth = 22;
+                    var buttonWidth = 60;
                     var label = btn.CommandLabel;
                     if (!string.IsNullOrEmpty(label))
                     {
                         using (var g = CreateGraphics())
                         {
                             var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
-                            buttonWidth = Math.Max(buttonWidth, 22 + textWidth + 12);
+                            var dropdownSpace = (btn.ButtonType == RibbonButtonType.DropDownButton || 
+                                                 btn.ButtonType == RibbonButtonType.SplitButton) ? 16 : 0;
+                            buttonWidth = Math.Max(buttonWidth, 24 + textWidth + 8 + dropdownSpace);
                         }
                     }
                     x += buttonWidth + 2;
                 }
-                else if (control is RibbonButton)
+                else if (control is RibbonButton btn2)
                 {
                     if (smallColumnStart >= 0)
                     {
@@ -286,7 +288,21 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         smallColumnStart = -1;
                         smallRow = 0;
                     }
-                    x += 52; // large button width + spacing
+                    // Calculate width based on text content
+                    var buttonWidth = 50;
+                    var label = btn2.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        using (var g = CreateGraphics())
+                        {
+                            using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
+                            {
+                                var textWidth = (int)g.MeasureString(label, font).Width;
+                                buttonWidth = Math.Max(buttonWidth, textWidth + 10);
+                            }
+                        }
+                    }
+                    x += buttonWidth + 2;
                 }
                 else if (control is RibbonComboBox || control is RibbonSpinner)
                 {
@@ -402,7 +418,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             var x = PADDING;
             var y = PADDING;
             var smallButtonSize = 22;
-            var mediumButtonHeight = 22;
+            var mediumButtonHeight = 24;
             var smallColumnStart = -1; // Track where small button column starts
             var smallRow = 0;
             var maxSmallRows = 3;
@@ -458,30 +474,47 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         smallRow = 0;
                     }
                     // Calculate width based on text content
-                    var buttonWidth = 22; // minimum for icon
+                    var buttonWidth = 60; // reasonable minimum
                     var label = btn2.CommandLabel;
                     if (!string.IsNullOrEmpty(label))
                     {
                         using (var g = CreateGraphics())
                         {
                             var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
-                            buttonWidth = Math.Max(buttonWidth, 22 + textWidth + 12); // icon + text + padding
+                            // icon (16) + padding (8) + text + padding (8) + dropdown arrow space (16)
+                            var dropdownSpace = (btn2.ButtonType == RibbonButtonType.DropDownButton || 
+                                                 btn2.ButtonType == RibbonButtonType.SplitButton) ? 16 : 0;
+                            buttonWidth = Math.Max(buttonWidth, 24 + textWidth + 8 + dropdownSpace);
                         }
                     }
                     control.Size = new Size(buttonWidth, mediumButtonHeight);
                     control.Location = new Point(x, y + (availableHeight - mediumButtonHeight) / 2);
                     x += control.Width + 2;
                 }
-                else if (control is RibbonButton)
+                else if (control is RibbonButton btn3)
                 {
-                    // Large buttons
+                    // Large buttons - calculate width based on text content
                     if (smallColumnStart >= 0)
                     {
                         x = smallColumnStart + smallButtonSize + 2;
                         smallColumnStart = -1;
                         smallRow = 0;
                     }
-                    control.Size = new Size(50, availableHeight);
+                    // Calculate width based on text content
+                    var buttonWidth = 50; // minimum width
+                    var label = btn3.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        using (var g = CreateGraphics())
+                        {
+                            using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
+                            {
+                                var textWidth = (int)g.MeasureString(label, font).Width;
+                                buttonWidth = Math.Max(buttonWidth, textWidth + 10); // text + padding
+                            }
+                        }
+                    }
+                    control.Size = new Size(buttonWidth, availableHeight);
                     control.Location = new Point(x, y);
                     x += control.Width + 2;
                 }
