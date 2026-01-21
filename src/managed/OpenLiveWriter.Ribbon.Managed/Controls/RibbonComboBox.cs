@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenLiveWriter.Ribbon.Managed.Commands;
 using OpenLiveWriter.Ribbon.Managed.Rendering;
 
 namespace OpenLiveWriter.Ribbon.Managed.Controls
@@ -144,6 +145,56 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             Controls.Add(_innerComboBox);
         }
 
+        /// <summary>
+        /// Called when the command is updated.
+        /// </summary>
+        protected override void UpdateFromCommand()
+        {
+            base.UpdateFromCommand();
+            
+            if (_innerComboBox != null)
+            {
+                _innerComboBox.Enabled = CommandEnabled;
+            }
+            
+            LoadItemsFromCommand();
+        }
+
+        private void LoadItemsFromCommand()
+        {
+            var command = CommandManager?.GetCommand(CommandId);
+            if (command is IGalleryCommand galleryCommand)
+            {
+                // Subscribe to items changed if not already
+                galleryCommand.ItemsChanged -= OnGalleryItemsChanged;
+                galleryCommand.ItemsChanged += OnGalleryItemsChanged;
+
+                // Load items
+                _innerComboBox.Items.Clear();
+                foreach (var item in galleryCommand.GalleryItems)
+                {
+                    _innerComboBox.Items.Add(item.Label ?? item.Tag?.ToString() ?? "");
+                }
+
+                // Set selected index
+                if (galleryCommand.SelectedIndex >= 0 && galleryCommand.SelectedIndex < _innerComboBox.Items.Count)
+                {
+                    _innerComboBox.SelectedIndex = galleryCommand.SelectedIndex;
+                }
+
+                // Set label from command
+                if (string.IsNullOrEmpty(_label))
+                {
+                    Label = command.Label;
+                }
+            }
+        }
+
+        private void OnGalleryItemsChanged(object sender, EventArgs e)
+        {
+            LoadItemsFromCommand();
+        }
+
         protected override void UpdateSize()
         {
             base.UpdateSize();
@@ -176,16 +227,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (_innerComboBox != null)
             {
                 _innerComboBox.Width = Width;
-            }
-        }
-
-        protected override void UpdateFromCommand()
-        {
-            base.UpdateFromCommand();
-
-            if (_innerComboBox != null)
-            {
-                _innerComboBox.Enabled = CommandEnabled;
             }
         }
 

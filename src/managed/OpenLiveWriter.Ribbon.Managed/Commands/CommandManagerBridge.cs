@@ -102,7 +102,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
     /// <summary>
     /// A bridged command that wraps an existing Command object.
     /// </summary>
-    public class BridgedCommand : IRibbonCommand
+    public class BridgedCommand : IGalleryCommand
     {
         private readonly CommandId _commandId;
         private readonly object _existingCommandManager;
@@ -116,6 +116,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         private string _keytip = string.Empty;
         private Image _largeImage;
         private Image _smallImage;
+        private List<CommandGalleryItem> _galleryItems = new List<CommandGalleryItem>();
+        private int _selectedIndex = -1;
 
         public CommandId Id => _commandId;
         public string Label => _label ?? _commandId.ToString();
@@ -123,6 +125,20 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         public string Keytip => _keytip;
         public Image LargeImage => _largeImage;
         public Image SmallImage => _smallImage;
+        public IReadOnlyList<CommandGalleryItem> GalleryItems => _galleryItems.AsReadOnly();
+        
+        public int SelectedIndex
+        {
+            get => _selectedIndex;
+            set
+            {
+                if (_selectedIndex != value)
+                {
+                    _selectedIndex = value;
+                    OnStateChanged();
+                }
+            }
+        }
 
         public bool Enabled
         {
@@ -165,6 +181,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
 
         public event EventHandler Execute;
         public event EventHandler StateChanged;
+        public event EventHandler ItemsChanged;
 
         public BridgedCommand(CommandId commandId, object existingCommandManager)
         {
@@ -267,6 +284,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 {
                     _smallImage = smallImageProp.GetValue(source) as Image;
                 }
+
+                // Get gallery items (for SelectGalleryCommand derived classes)
+                var itemsChanged = LoadGalleryItems(source, sourceType);
+                if (itemsChanged)
+                {
+                    ItemsChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
             catch
             {
@@ -274,6 +298,59 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             }
 
             OnStateChanged();
+        }
+
+        private bool LoadGalleryItems(object source, Type sourceType)
+        {
+            var oldCount = _galleryItems.Count;
+            
+            try
+            {
+                // Check if source has Items property (for gallery commands)
+                var itemsProp = sourceType.GetProperty("Items");
+                if (itemsProp != null)
+                {
+                    var items = itemsProp.GetValue(source) as System.Collections.IList;
+                    if (items != null)
+                    {
+                        _galleryItems.Clear();
+                        foreach (var item in items)
+                        {
+                            if (item == null) continue;
+                            
+                            var itemType = item.GetType();
+                            var labelProp = itemType.GetProperty("Label");
+                            var imageProp = itemType.GetProperty("Image");
+                            var cookieProp = itemType.GetProperty("Cookie");
+                            
+                            var galleryItem = new CommandGalleryItem
+                            {
+                                Label = labelProp?.GetValue(item) as string ?? item.ToString(),
+                                Image = imageProp?.GetValue(item) as Image,
+                                Tag = cookieProp?.GetValue(item)
+                            };
+                            _galleryItems.Add(galleryItem);
+                        }
+                    }
+                }
+
+                // Get selected index
+                var selectedIndexProp = sourceType.GetProperty("SelectedIndex") ?? sourceType.GetProperty("selectedIndex");
+                if (selectedIndexProp != null)
+                {
+                    var value = selectedIndexProp.GetValue(source);
+                    if (value is int idx)
+                    {
+                        _selectedIndex = idx;
+                    }
+                }
+            }
+            catch
+            {
+                // If gallery loading fails, continue
+            }
+
+            return _galleryItems.Count != oldCount || oldCount > 0;
         }
 
         public void PerformExecute()

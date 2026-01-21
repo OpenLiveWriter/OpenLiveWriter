@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenLiveWriter.Ribbon.Managed.Commands;
 using OpenLiveWriter.Ribbon.Managed.Rendering;
 
 namespace OpenLiveWriter.Ribbon.Managed.Controls
@@ -179,6 +180,40 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             SetStyle(ControlStyles.Selectable, true);
             TabStop = true;
             UpdateSize();
+        }
+
+        /// <summary>
+        /// Called when the command is updated.
+        /// </summary>
+        protected override void UpdateFromCommand()
+        {
+            base.UpdateFromCommand();
+            LoadItemsFromCommand();
+        }
+
+        private void LoadItemsFromCommand()
+        {
+            var command = CommandManager?.GetCommand(CommandId);
+            if (command is IGalleryCommand galleryCommand)
+            {
+                // Subscribe to items changed if not already
+                galleryCommand.ItemsChanged -= OnGalleryItemsChanged;
+                galleryCommand.ItemsChanged += OnGalleryItemsChanged;
+
+                // Load items
+                _items.Clear();
+                foreach (var item in galleryCommand.GalleryItems)
+                {
+                    _items.Add(new RibbonGalleryItem(item.Label, item.Image) { Tag = item.Tag });
+                }
+                _selectedIndex = galleryCommand.SelectedIndex;
+                Invalidate();
+            }
+        }
+
+        private void OnGalleryItemsChanged(object sender, EventArgs e)
+        {
+            LoadItemsFromCommand();
         }
 
         protected override void UpdateSize()
