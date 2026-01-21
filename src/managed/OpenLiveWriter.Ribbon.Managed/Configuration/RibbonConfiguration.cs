@@ -161,6 +161,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
     public class ToggleButtonConfig : ControlConfig
     {
         public override string ControlType => "ToggleButton";
+
+        /// <summary>
+        /// Gets or sets the preferred size for this button.
+        /// </summary>
+        public RibbonGroupSize PreferredSize { get; set; } = RibbonGroupSize.Large;
     }
 
     /// <summary>
@@ -179,6 +184,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
         /// Gets or sets whether the combobox is editable.
         /// </summary>
         public bool IsEditable { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the preferred width for this combobox.
+        /// </summary>
+        public int PreferredWidth { get; set; } = 120;
     }
 
     /// <summary>

@@ -76,56 +76,57 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 VisibleModes = RibbonApplicationMode.Normal | RibbonApplicationMode.LTR | RibbonApplicationMode.RTL
             };
 
-            // Clipboard Group
+            // Clipboard Group - Large Paste button only (Cut/Copy are in context menu)
             var clipboardGroup = CreateGroup(CommandId.ClipboardGroup, "Clipboard", "X");
             clipboardGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.Paste, ButtonType = RibbonButtonType.SplitButton });
-            clipboardGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.Cut });
             tab.Groups.Add(clipboardGroup);
 
-            // Publish Group
+            // Publish Group - Globe icon, blog dropdown, post draft button
             var publishGroup = CreateGroup(CommandId.PublishGroup, "Publish", "PB");
             publishGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.PostAndPublish, ButtonType = RibbonButtonType.SplitButton });
-            publishGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.SelectBlog, IsEditable = false });
-            publishGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.PostAsDraft, ButtonType = RibbonButtonType.Button });
+            publishGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.SelectBlog, IsEditable = false, PreferredWidth = 140 });
+            publishGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.PostAsDraft, ButtonType = RibbonButtonType.Button, PreferredSize = RibbonGroupSize.Medium });
             tab.Groups.Add(publishGroup);
 
-            // Paragraph Group
-            var paragraphGroup = CreateGroup(CommandId.ParagraphGroup, "Paragraph", "P");
-            paragraphGroup.Controls.Add(new GalleryConfig { CommandId = CommandId.SemanticHtmlGallery, GalleryType = RibbonGalleryType.InRibbon });
-            paragraphGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.Bullets });
-            paragraphGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.Numbers });
-            paragraphGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.Blockquote });
-            paragraphGroup.Controls.Add(new SeparatorConfig());
-            paragraphGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.AlignLeft });
-            paragraphGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.AlignCenter });
-            paragraphGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.AlignRight });
-            paragraphGroup.Controls.Add(new SeparatorConfig());
-            paragraphGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.Indent });
-            paragraphGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.Outdent });
-            tab.Groups.Add(paragraphGroup);
-
-            // Font Group
+            // Font Group - Dropdowns at top, small formatting buttons below
             var fontGroup = CreateGroup(CommandId.None, "Font", "FN");
-            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontFamily });
-            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize });
-            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Bold });
-            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Italic });
-            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Underline });
-            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Strikethrough });
-            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Subscript });
-            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Superscript });
-            fontGroup.Controls.Add(new SeparatorConfig());
+            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontFamily, PreferredWidth = 120 });
+            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 45 });
+            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Bold, PreferredSize = RibbonGroupSize.Small });
+            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Italic, PreferredSize = RibbonGroupSize.Small });
+            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Underline, PreferredSize = RibbonGroupSize.Small });
+            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Strikethrough, PreferredSize = RibbonGroupSize.Small });
+            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Subscript, PreferredSize = RibbonGroupSize.Small });
+            fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Superscript, PreferredSize = RibbonGroupSize.Small });
+            fontGroup.Controls.Add(new ColorPickerConfig { CommandId = CommandId.FontBackgroundColor, ColorTemplate = RibbonColorTemplate.HighlightColors });
             fontGroup.Controls.Add(new ColorPickerConfig { CommandId = CommandId.FontColor, ColorTemplate = RibbonColorTemplate.StandardColors });
-            fontGroup.Controls.Add(new SeparatorConfig());
-            fontGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ClearFormatting });
             tab.Groups.Add(fontGroup);
 
-            // Insert Group (medium-sized buttons)
+            // HTML Styles Group - Paragraph dropdown and style gallery
+            var htmlStylesGroup = CreateGroup(CommandId.None, "HTML styles", "HS");
+            htmlStylesGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.SemanticHtmlGallery, ButtonType = RibbonButtonType.DropDownButton, PreferredSize = RibbonGroupSize.Medium });
+            htmlStylesGroup.Controls.Add(new GalleryConfig 
+            { 
+                CommandId = CommandId.SemanticHtmlGallery, 
+                GalleryType = RibbonGalleryType.InRibbon,
+                ItemWidth = 72,
+                ItemHeight = 40,
+                Columns = 1,
+                MaxRows = 1
+            });
+            tab.Groups.Add(htmlStylesGroup);
+
+            // Insert Group - Medium-sized buttons with text labels
             var insertGroup = CreateGroup(CommandId.InsertGroup, "Insert", "I");
             insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertLink, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
             insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertPictureFromFile, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
             insertGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertVideoFromWeb, ButtonType = RibbonButtonType.SplitButton, PreferredSize = RibbonGroupSize.Medium });
             tab.Groups.Add(insertGroup);
+
+            // Editing Group - Spell check
+            var editingGroup = CreateGroup(CommandId.None, "Editing", "E");
+            editingGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.CheckSpelling });
+            tab.Groups.Add(editingGroup);
 
             return tab;
         }

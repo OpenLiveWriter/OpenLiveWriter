@@ -165,7 +165,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (control == null) throw new ArgumentNullException(nameof(control));
 
             control.CommandManager = _commandManager;
-            control.CurrentSize = _currentSize;
+            // Don't overwrite the control's CurrentSize if it was explicitly configured
+            // (non-Large means it was explicitly set)
+            if (control.CurrentSize == RibbonGroupSize.Large)
+            {
+                control.CurrentSize = _currentSize;
+            }
             _controls.Add(control);
 
             if (!_isPopupMode)
@@ -214,30 +219,102 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 return 48; // Collapsed popup button width
             }
 
-            var width = PADDING * 2;
+            // Calculate width by simulating the layout
+            var x = PADDING;
+            var smallButtonSize = 22;
+            var smallColumnStart = -1;
+            var smallRow = 0;
+            var maxSmallRows = 3;
 
-            if (_currentSize == RibbonGroupSize.Large)
+            foreach (var control in _controls)
             {
-                // Large: controls side by side
-                foreach (var control in _controls)
+                if (!control.Visible) continue;
+
+                var controlSize = control.CurrentSize;
+
+                if (control is RibbonSeparator)
                 {
-                    if (!control.Visible) continue;
-                    var controlWidth = GetControlWidth(control);
-                    width += controlWidth + 2;
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    x += 8; // separator width + spacing
+                }
+                else if (control is RibbonButton && controlSize == RibbonGroupSize.Small)
+                {
+                    if (smallColumnStart < 0)
+                    {
+                        smallColumnStart = x;
+                        smallRow = 0;
+                    }
+                    smallRow++;
+                    if (smallRow >= maxSmallRows)
+                    {
+                        smallColumnStart += smallButtonSize + 1;
+                        smallRow = 0;
+                    }
+                    x = Math.Max(x, smallColumnStart + smallButtonSize + 2);
+                }
+                else if (control is RibbonButton && controlSize == RibbonGroupSize.Medium)
+                {
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    x += 82; // medium button width + spacing
+                }
+                else if (control is RibbonButton)
+                {
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    x += 52; // large button width + spacing
+                }
+                else if (control is RibbonComboBox || control is RibbonSpinner)
+                {
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    x += control.Width + 4;
+                }
+                else if (control is RibbonColorPicker)
+                {
+                    if (smallColumnStart < 0)
+                    {
+                        smallColumnStart = x;
+                        smallRow = 0;
+                    }
+                    smallRow++;
+                    if (smallRow >= maxSmallRows)
+                    {
+                        smallColumnStart += smallButtonSize + 1;
+                        smallRow = 0;
+                    }
+                    x = Math.Max(x, smallColumnStart + smallButtonSize + 2);
+                }
+                else
+                {
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    x += control.Width + 2;
                 }
             }
-            else
-            {
-                // Medium/Small: controls stacked in columns of 3
-                var controlCount = 0;
-                foreach (var control in _controls)
-                {
-                    if (control.Visible) controlCount++;
-                }
-                var columns = (controlCount + 2) / 3; // ceiling division
-                var controlWidth = _currentSize == RibbonGroupSize.Medium ? 22 : 22;
-                width = columns * (controlWidth + 2) + PADDING * 2;
-            }
+
+            var width = x + PADDING;
 
             // Ensure label fits
             using (var g = CreateGraphics())
@@ -282,10 +359,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 _contentPanel.Visible = true;
                 _isPopupMode = false;
 
-                // Update control sizes
+                // Update control sizes (preserve explicitly configured sizes)
                 foreach (var control in _controls)
                 {
-                    control.CurrentSize = _currentSize;
+                    // Only update size if control uses default (Large) size
+                    if (control.CurrentSize == RibbonGroupSize.Large)
+                    {
+                        control.CurrentSize = _currentSize;
+                    }
                     control.Visible = true;
                 }
 
@@ -302,80 +383,144 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             if (_contentPanel == null) return;
 
-            var x = PADDING;
-            var y = PADDING;
             var contentHeight = _contentPanel.Height;
             var availableHeight = Math.Max(contentHeight - PADDING * 2, 60);
 
-            switch (_currentSize)
+            // Use a smarter layout that respects individual control sizes
+            // Layout controls left-to-right, stacking small controls in columns
+            var x = PADDING;
+            var y = PADDING;
+            var smallButtonSize = 22;
+            var mediumButtonHeight = 22;
+            var smallColumnStart = -1; // Track where small button column starts
+            var smallRow = 0;
+            var maxSmallRows = 3;
+
+            foreach (var control in _controls)
             {
-                case RibbonGroupSize.Large:
-                    // Horizontal layout, large buttons with icon above text
-                    foreach (var control in _controls)
+                if (!control.Visible) continue;
+
+                // Use the control's own CurrentSize for layout decisions
+                var controlSize = control.CurrentSize;
+
+                if (control is RibbonSeparator sep)
+                {
+                    // If we were in a small button column, close it
+                    if (smallColumnStart >= 0)
                     {
-                        if (!control.Visible) continue;
-
-                        if (control is RibbonButton)
-                        {
-                            control.Size = new Size(50, availableHeight);
-                            control.Location = new Point(x, y);
-                            x += control.Width + 2;
-                        }
-                        else if (control is RibbonSeparator)
-                        {
-                            control.Size = new Size(6, availableHeight);
-                            control.Location = new Point(x, y);
-                            x += control.Width;
-                        }
-                        else
-                        {
-                            control.Size = new Size(control.Width, availableHeight);
-                            control.Location = new Point(x, y);
-                            x += control.Width + 2;
-                        }
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
                     }
-                    break;
-
-                case RibbonGroupSize.Medium:
-                    // Vertical stack of medium buttons (3 rows)
-                    var buttonHeight = Math.Max((availableHeight - 4) / 3, 20);
-                    var row = 0;
-                    foreach (var control in _controls)
+                    sep.IsVertical = true;
+                    control.Size = new Size(6, availableHeight);
+                    control.Location = new Point(x, y);
+                    x += control.Width + 2;
+                }
+                else if (control is RibbonButton btn && controlSize == RibbonGroupSize.Small)
+                {
+                    // Small buttons stack vertically in columns
+                    if (smallColumnStart < 0)
                     {
-                        if (!control.Visible) continue;
-
-                        control.Location = new Point(x, y + row * (buttonHeight + 2));
-                        control.Size = new Size(22, buttonHeight);
-
-                        row++;
-                        if (row >= 3)
-                        {
-                            row = 0;
-                            x += 24;
-                        }
+                        smallColumnStart = x;
+                        smallRow = 0;
                     }
-                    break;
 
-                case RibbonGroupSize.Small:
-                    // Grid of small icon buttons (3 rows)
-                    var smallSize = 22;
-                    row = 0;
-                    var col = 0;
-                    foreach (var control in _controls)
+                    control.Size = new Size(smallButtonSize, smallButtonSize);
+                    control.Location = new Point(smallColumnStart, y + smallRow * (smallButtonSize + 1));
+
+                    smallRow++;
+                    if (smallRow >= maxSmallRows)
                     {
-                        if (!control.Visible) continue;
-
-                        control.Location = new Point(x + col * (smallSize + 1), y + row * (smallSize + 1));
-                        control.Size = new Size(smallSize, smallSize);
-
-                        row++;
-                        if (row >= 3)
-                        {
-                            row = 0;
-                            col++;
-                        }
+                        smallColumnStart += smallButtonSize + 1;
+                        smallRow = 0;
                     }
-                    break;
+                    x = Math.Max(x, smallColumnStart + smallButtonSize + 2);
+                }
+                else if (control is RibbonButton btn2 && controlSize == RibbonGroupSize.Medium)
+                {
+                    // Medium buttons are horizontal with icon and text
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    control.Size = new Size(80, mediumButtonHeight);
+                    control.Location = new Point(x, y + (availableHeight - mediumButtonHeight) / 2);
+                    x += control.Width + 2;
+                }
+                else if (control is RibbonButton)
+                {
+                    // Large buttons
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    control.Size = new Size(50, availableHeight);
+                    control.Location = new Point(x, y);
+                    x += control.Width + 2;
+                }
+                else if (control is RibbonComboBox || control is RibbonSpinner)
+                {
+                    // Comboboxes and spinners take their natural width
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    var comboHeight = 44;
+                    control.Size = new Size(control.Width, Math.Min(comboHeight, availableHeight));
+                    control.Location = new Point(x, y);
+                    x += control.Width + 4;
+                }
+                else if (control is RibbonGallery gallery)
+                {
+                    // Galleries
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    control.Location = new Point(x, y);
+                    x += control.Width + 2;
+                }
+                else if (control is RibbonColorPicker)
+                {
+                    // Color pickers - small size
+                    if (smallColumnStart < 0)
+                    {
+                        smallColumnStart = x;
+                        smallRow = 0;
+                    }
+
+                    control.Size = new Size(smallButtonSize, smallButtonSize);
+                    control.Location = new Point(smallColumnStart, y + smallRow * (smallButtonSize + 1));
+
+                    smallRow++;
+                    if (smallRow >= maxSmallRows)
+                    {
+                        smallColumnStart += smallButtonSize + 1;
+                        smallRow = 0;
+                    }
+                    x = Math.Max(x, smallColumnStart + smallButtonSize + 2);
+                }
+                else
+                {
+                    // Other controls
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    control.Location = new Point(x, y);
+                    x += control.Width + 2;
+                }
             }
         }
 
