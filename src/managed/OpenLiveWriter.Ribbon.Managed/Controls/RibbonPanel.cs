@@ -275,18 +275,24 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     {
                         CommandId = toggleConfig.CommandId,
                         ButtonType = RibbonButtonType.ToggleButton,
+                        CurrentSize = toggleConfig.PreferredSize,
                         CommandManager = _commandManager
                     };
                     break;
 
                 case ComboBoxConfig comboConfig:
-                    control = new RibbonComboBox
+                    var comboBox = new RibbonComboBox
                     {
                         CommandId = comboConfig.CommandId,
                         IsAutoCompleteEnabled = comboConfig.IsAutoCompleteEnabled,
                         IsEditable = comboConfig.IsEditable,
                         CommandManager = _commandManager
                     };
+                    if (comboConfig.PreferredWidth > 0)
+                    {
+                        comboBox.Width = comboConfig.PreferredWidth;
+                    }
+                    control = comboBox;
                     break;
 
                 case GalleryConfig galleryConfig:
