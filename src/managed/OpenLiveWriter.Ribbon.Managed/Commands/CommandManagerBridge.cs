@@ -16,7 +16,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
     public class CommandManagerBridge
     {
         private readonly object _existingCommandManager;
-        private readonly RibbonCommandManager _ribbonCommandManager;
+        private readonly LazyRibbonCommandManager _ribbonCommandManager;
         private readonly Dictionary<CommandId, BridgedCommand> _bridgedCommands = new Dictionary<CommandId, BridgedCommand>();
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         public CommandManagerBridge(object existingCommandManager)
         {
             _existingCommandManager = existingCommandManager ?? throw new ArgumentNullException(nameof(existingCommandManager));
-            _ribbonCommandManager = new RibbonCommandManager();
+            _ribbonCommandManager = new LazyRibbonCommandManager(this);
         }
 
         /// <summary>
@@ -46,16 +46,25 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         }
 
         /// <summary>
-        /// Registers a single command.
+        /// Registers a single command (or gets existing one).
         /// </summary>
-        public void RegisterCommand(CommandId commandId)
+        public BridgedCommand RegisterCommand(CommandId commandId)
         {
-            if (_bridgedCommands.ContainsKey(commandId))
-                return;
+            if (_bridgedCommands.TryGetValue(commandId, out var existing))
+                return existing;
 
             var bridgedCommand = new BridgedCommand(commandId, _existingCommandManager);
             _bridgedCommands[commandId] = bridgedCommand;
-            _ribbonCommandManager.RegisterCommand(bridgedCommand);
+            _ribbonCommandManager.RegisterCommandInternal(bridgedCommand);
+            return bridgedCommand;
+        }
+
+        /// <summary>
+        /// Gets or creates the bridged command for a command ID.
+        /// </summary>
+        public BridgedCommand GetOrCreateBridgedCommand(CommandId commandId)
+        {
+            return RegisterCommand(commandId);
         }
 
         /// <summary>
@@ -97,7 +106,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
     {
         private readonly CommandId _commandId;
         private readonly object _existingCommandManager;
-        private readonly dynamic _sourceCommand;
+        private object _sourceCommand;
 
         private bool _enabled = true;
         private bool _visible = true;
@@ -162,14 +171,25 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             _commandId = commandId;
             _existingCommandManager = existingCommandManager;
 
+            RefreshFromSource();
+        }
+
+        /// <summary>
+        /// Gets the source command, refreshing if not yet available.
+        /// </summary>
+        private object GetSourceCommand()
+        {
+            if (_sourceCommand != null)
+                return _sourceCommand;
+
             // Try to get source command
             try
             {
-                var type = existingCommandManager.GetType();
+                var type = _existingCommandManager.GetType();
                 var getMethod = type.GetMethod("Get", new[] { typeof(CommandId) });
                 if (getMethod != null)
                 {
-                    _sourceCommand = getMethod.Invoke(existingCommandManager, new object[] { commandId });
+                    _sourceCommand = getMethod.Invoke(_existingCommandManager, new object[] { _commandId });
                 }
             }
             catch
@@ -177,7 +197,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 // If reflection fails, we'll use defaults
             }
 
-            RefreshFromSource();
+            return _sourceCommand;
         }
 
         /// <summary>
@@ -185,7 +205,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         /// </summary>
         public void RefreshFromSource()
         {
-            if (_sourceCommand == null)
+            var source = GetSourceCommand();
+            if (source == null)
             {
                 // Use command ID as fallback label
                 _label = _commandId.ToString();
@@ -196,55 +217,55 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             try
             {
                 // Read properties from source command using reflection
-                var sourceType = ((object)_sourceCommand).GetType();
+                var sourceType = source.GetType();
 
                 // Get enabled state
                 var enabledProp = sourceType.GetProperty("Enabled");
                 if (enabledProp != null)
                 {
-                    _enabled = (bool)enabledProp.GetValue(_sourceCommand);
+                    _enabled = (bool)enabledProp.GetValue(source);
                 }
 
                 // Get visible state
                 var visibleProp = sourceType.GetProperty("On") ?? sourceType.GetProperty("Visible");
                 if (visibleProp != null)
                 {
-                    _visible = (bool)visibleProp.GetValue(_sourceCommand);
+                    _visible = (bool)visibleProp.GetValue(source);
                 }
 
                 // Get checked/latched state
                 var latchedProp = sourceType.GetProperty("Latched") ?? sourceType.GetProperty("Checked");
                 if (latchedProp != null)
                 {
-                    _isChecked = (bool)latchedProp.GetValue(_sourceCommand);
+                    _isChecked = (bool)latchedProp.GetValue(source);
                 }
 
                 // Get label
                 var labelProp = sourceType.GetProperty("LabelTitle") ?? sourceType.GetProperty("Text");
                 if (labelProp != null)
                 {
-                    _label = (string)labelProp.GetValue(_sourceCommand);
+                    _label = (string)labelProp.GetValue(source);
                 }
 
                 // Get tooltip
                 var tooltipProp = sourceType.GetProperty("TooltipTitle") ?? sourceType.GetProperty("ToolTip");
                 if (tooltipProp != null)
                 {
-                    _tooltip = (string)tooltipProp.GetValue(_sourceCommand);
+                    _tooltip = (string)tooltipProp.GetValue(source);
                 }
 
                 // Get large image
                 var largeImageProp = sourceType.GetProperty("LargeImage") ?? sourceType.GetProperty("CommandBarButtonBitmapLarge");
                 if (largeImageProp != null)
                 {
-                    _largeImage = largeImageProp.GetValue(_sourceCommand) as Image;
+                    _largeImage = largeImageProp.GetValue(source) as Image;
                 }
 
                 // Get small image
                 var smallImageProp = sourceType.GetProperty("SmallImage") ?? sourceType.GetProperty("CommandBarButtonBitmapSmall");
                 if (smallImageProp != null)
                 {
-                    _smallImage = smallImageProp.GetValue(_sourceCommand) as Image;
+                    _smallImage = smallImageProp.GetValue(source) as Image;
                 }
             }
             catch
@@ -257,28 +278,30 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
 
         public void PerformExecute()
         {
+            // Refresh to ensure we have the latest source command
+            var source = GetSourceCommand();
+
             if (!Enabled)
                 return;
 
             Execute?.Invoke(this, EventArgs.Empty);
 
             // Execute the source command
-            if (_sourceCommand != null)
+            if (source != null)
             {
                 try
                 {
-                    var sourceType = ((object)_sourceCommand).GetType();
-                    var executeMethod = sourceType.GetMethod("PerformExecute") ??
-                                       sourceType.GetMethod("Execute");
+                    var sourceType = source.GetType();
+                    var executeMethod = sourceType.GetMethod("PerformExecute", Type.EmptyTypes);
 
                     if (executeMethod != null)
                     {
-                        executeMethod.Invoke(_sourceCommand, null);
+                        executeMethod.Invoke(source, null);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // Execution failed
+                    System.Diagnostics.Debug.WriteLine($"Command execution failed for {_commandId}: {ex.Message}");
                 }
             }
         }
@@ -291,6 +314,41 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         private void OnStateChanged()
         {
             StateChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    /// <summary>
+    /// A RibbonCommandManager that lazily creates commands via the bridge.
+    /// </summary>
+    internal class LazyRibbonCommandManager : RibbonCommandManager
+    {
+        private readonly CommandManagerBridge _bridge;
+
+        public LazyRibbonCommandManager(CommandManagerBridge bridge)
+        {
+            _bridge = bridge;
+        }
+
+        /// <summary>
+        /// Gets a command by ID, auto-creating it if needed.
+        /// </summary>
+        public override IRibbonCommand GetCommand(CommandId id)
+        {
+            var command = base.GetCommand(id);
+            if (command == null && id != CommandId.None)
+            {
+                // Auto-create the bridged command
+                command = _bridge.GetOrCreateBridgedCommand(id);
+            }
+            return command;
+        }
+
+        /// <summary>
+        /// Internal registration that doesn't trigger lazy creation.
+        /// </summary>
+        internal void RegisterCommandInternal(IRibbonCommand command)
+        {
+            base.RegisterCommand(command);
         }
     }
 }

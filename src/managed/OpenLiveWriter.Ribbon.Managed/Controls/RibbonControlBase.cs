@@ -214,6 +214,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _commandManager?.Execute(_commandId);
         }
 
+        /// <summary>
+        /// Simulates a click on the control.
+        /// </summary>
+        public virtual void PerformClick()
+        {
+            OnClick(EventArgs.Empty);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
