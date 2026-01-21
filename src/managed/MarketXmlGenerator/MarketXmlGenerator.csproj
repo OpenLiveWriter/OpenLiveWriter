@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
-    <Compile Include="..\GlobalAssemblyVersionInfo.cs" Link="GlobalAssemblyVersionInfo.cs" />
     <Compile Include="*.cs" Exclude="obj\**" />
   </ItemGroup>
 
