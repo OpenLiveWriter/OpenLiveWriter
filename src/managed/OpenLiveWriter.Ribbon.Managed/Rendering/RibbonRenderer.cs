@@ -3,7 +3,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace OpenLiveWriter.Ribbon.Managed.Rendering
@@ -545,22 +544,5 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
 
         #endregion
 
-        #region Helper Methods
-
-        private GraphicsPath CreateRoundedRectanglePath(Rectangle bounds, int radius)
-        {
-            var path = new GraphicsPath();
-            var diameter = radius * 2;
-
-            path.AddArc(bounds.X, bounds.Y, diameter, diameter, 180, 90);
-            path.AddArc(bounds.Right - diameter, bounds.Y, diameter, diameter, 270, 90);
-            path.AddArc(bounds.Right - diameter, bounds.Bottom - diameter, diameter, diameter, 0, 90);
-            path.AddArc(bounds.X, bounds.Bottom - diameter, diameter, diameter, 90, 90);
-            path.CloseFigure();
-
-            return path;
-        }
-
-        #endregion
     }
 }

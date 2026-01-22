@@ -19,6 +19,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private CommandId _commandId;
         private RibbonApplicationMode _visibleModes = RibbonApplicationMode.All;
         private RibbonGroupSize _currentSize = RibbonGroupSize.Large;
+        private static ToolTip _sharedToolTip;
+        private string _currentTooltipText;
 
         /// <summary>
         /// Gets or sets the command ID for this control.
@@ -165,6 +167,44 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
 
             BackColor = Color.Transparent;
+
+            // Initialize shared tooltip if needed
+            if (_sharedToolTip == null)
+            {
+                _sharedToolTip = new ToolTip
+                {
+                    AutoPopDelay = 5000,
+                    InitialDelay = 500,
+                    ReshowDelay = 200,
+                    ShowAlways = true
+                };
+            }
+        }
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+            UpdateTooltip();
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            _sharedToolTip?.SetToolTip(this, null);
+            _currentTooltipText = null;
+        }
+
+        /// <summary>
+        /// Updates the tooltip text from the associated command.
+        /// </summary>
+        protected virtual void UpdateTooltip()
+        {
+            var tooltip = CommandTooltip;
+            if (!string.IsNullOrEmpty(tooltip) && tooltip != _currentTooltipText)
+            {
+                _currentTooltipText = tooltip;
+                _sharedToolTip?.SetToolTip(this, tooltip);
+            }
         }
 
         /// <summary>

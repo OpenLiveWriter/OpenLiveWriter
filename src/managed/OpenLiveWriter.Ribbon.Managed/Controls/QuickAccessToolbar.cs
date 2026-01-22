@@ -33,6 +33,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private ContextMenuStrip _customizeMenu;
 
         /// <summary>
+        /// Gets the number of commands on the QAT.
+        /// </summary>
+        public int CommandCount => _commands.Count;
+
+        /// <summary>
         /// Gets or sets the command manager.
         /// </summary>
         [Browsable(false)]
@@ -137,11 +142,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             var g = e.Graphics;
 
-            // Background
-            using (var brush = new SolidBrush(RibbonColors.Current.QatBackground))
-            {
-                g.FillRectangle(brush, ClientRectangle);
-            }
+            // Don't paint background - let parent show through
+            // (QAT sits on top of tab header panel which already has the correct background)
 
             // Buttons
             for (int i = 0; i < _commands.Count; i++)

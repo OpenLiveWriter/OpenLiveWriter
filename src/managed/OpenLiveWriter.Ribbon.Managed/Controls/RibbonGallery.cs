@@ -182,6 +182,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             UpdateSize();
         }
 
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            // Ensure items are populated when the control is ready
+            EnsureItemsPopulated();
+        }
+
         /// <summary>
         /// Called when the command is updated.
         /// </summary>
@@ -189,6 +196,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             base.UpdateFromCommand();
             LoadItemsFromCommand();
+        }
+
+        private void EnsureItemsPopulated()
+        {
+            // Only for SemanticHtmlGallery - ensure items are populated before first paint
+            if (_items.Count == 0 && CommandId == OpenLiveWriter.Localization.CommandId.SemanticHtmlGallery)
+            {
+                EnsureSemanticHtmlItems();
+                Invalidate();
+            }
         }
 
         private void LoadItemsFromCommand()
@@ -209,11 +226,34 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 _selectedIndex = galleryCommand.SelectedIndex;
                 Invalidate();
             }
+            else
+            {
+                // If no gallery command, check for semantic HTML gallery
+                EnsureItemsPopulated();
+            }
         }
 
         private void OnGalleryItemsChanged(object sender, EventArgs e)
         {
             LoadItemsFromCommand();
+        }
+
+        /// <summary>
+        /// Gets the preferred width for this gallery.
+        /// </summary>
+        public int GetPreferredWidth()
+        {
+            if (_galleryType == RibbonGalleryType.InRibbon)
+            {
+                // Use configured columns, not maxColumns
+                return _columns * _itemWidth + SCROLL_BUTTON_WIDTH + BORDER_WIDTH * 2;
+            }
+            else
+            {
+                // Dropdown galleries use button sizing
+                return CurrentSize == RibbonGroupSize.Large ? 56 : 
+                       CurrentSize == RibbonGroupSize.Medium ? 80 : 24;
+            }
         }
 
         protected override void UpdateSize()
@@ -222,15 +262,30 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (_galleryType == RibbonGalleryType.InRibbon)
             {
-                // Calculate size for in-ribbon gallery
-                var itemsWidth = _columns * _itemWidth;
-                var width = itemsWidth + SCROLL_BUTTON_WIDTH + BORDER_WIDTH * 2;
-                var height = _maxRows * _itemHeight + BORDER_WIDTH * 2;
-                Size = new Size(width, Math.Min(height, 66));
+                // Calculate preferred size for in-ribbon gallery
+                var width = GetPreferredWidth();
+                System.Diagnostics.Debug.WriteLine($"RibbonGallery.UpdateSize: CommandId={CommandId}, Columns={_columns}, Width={Width}, PreferredWidth={width}");
+                
+                // Don't clamp height - let parent layout control it
+                // Only set minimum height to show at least 1 row
+                var minHeight = _itemHeight + BORDER_WIDTH * 2;
+                if (Height < minHeight)
+                {
+                    Height = minHeight;
+                }
+                // Always respect the configured width for in-ribbon galleries
+                Width = width;
+            }
+            else if (_galleryType == RibbonGalleryType.CompactDropDown)
+            {
+                // Compact dropdown - used for blog selector
+                // Size based on text content
+                var minWidth = 140; // Minimum width for blog names
+                Size = new Size(minWidth, 22);
             }
             else
             {
-                // Dropdown gallery uses button size
+                // Standard dropdown gallery uses button size
                 switch (CurrentSize)
                 {
                     case RibbonGroupSize.Large:
@@ -264,26 +319,26 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private void DrawInRibbonGallery(Graphics g)
         {
-            // Background and border
+            // Ensure items are populated before drawing
+            if (_items.Count == 0 && CommandId == OpenLiveWriter.Localization.CommandId.SemanticHtmlGallery)
+            {
+                EnsureSemanticHtmlItems();
+            }
+
+            // Background
             using (var brush = new SolidBrush(RibbonColors.Current.GalleryBackground))
             {
                 g.FillRectangle(brush, ClientRectangle);
             }
 
+            // Border
             using (var pen = new Pen(RibbonColors.Current.GalleryBorder))
             {
                 g.DrawRectangle(pen, 0, 0, Width - 1, Height - 1);
             }
 
-            // Calculate bounds
-            _contentBounds = new Rectangle(BORDER_WIDTH, BORDER_WIDTH,
-                Width - SCROLL_BUTTON_WIDTH - BORDER_WIDTH * 2, Height - BORDER_WIDTH * 2);
-
-            var scrollX = Width - SCROLL_BUTTON_WIDTH - BORDER_WIDTH;
-            var scrollButtonHeight = (Height - BORDER_WIDTH * 2) / 3;
-            _upScrollBounds = new Rectangle(scrollX, BORDER_WIDTH, SCROLL_BUTTON_WIDTH, scrollButtonHeight);
-            _downScrollBounds = new Rectangle(scrollX, BORDER_WIDTH + scrollButtonHeight, SCROLL_BUTTON_WIDTH, scrollButtonHeight);
-            _expandBounds = new Rectangle(scrollX, BORDER_WIDTH + scrollButtonHeight * 2, SCROLL_BUTTON_WIDTH, scrollButtonHeight);
+            // Calculate bounds - always calculate these for mouse hit testing
+            CalculateBounds();
 
             // Clip to content area
             g.SetClip(_contentBounds);
@@ -295,9 +350,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
             else
             {
-                // Draw visible items
-                var visibleColumns = _contentBounds.Width / _itemWidth;
-                var visibleRows = _contentBounds.Height / _itemHeight;
+                // Draw visible items - limit to configured columns
+                var visibleColumns = Math.Min(_columns, Math.Max(1, _contentBounds.Width / _itemWidth));
+                var visibleRows = Math.Max(1, _contentBounds.Height / _itemHeight);
 
                 for (int row = 0; row < visibleRows; row++)
                 {
@@ -324,8 +379,33 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             DrawExpandButton(g, _expandBounds);
         }
 
+        private void CalculateBounds()
+        {
+            var contentWidth = Math.Max(1, Width - SCROLL_BUTTON_WIDTH - BORDER_WIDTH * 2);
+            var contentHeight = Math.Max(1, Height - BORDER_WIDTH * 2);
+            _contentBounds = new Rectangle(BORDER_WIDTH, BORDER_WIDTH, contentWidth, contentHeight);
+
+            var scrollX = Width - SCROLL_BUTTON_WIDTH - BORDER_WIDTH;
+            var scrollButtonHeight = Math.Max(1, contentHeight / 3);
+            _upScrollBounds = new Rectangle(scrollX, BORDER_WIDTH, SCROLL_BUTTON_WIDTH, scrollButtonHeight);
+            _downScrollBounds = new Rectangle(scrollX, BORDER_WIDTH + scrollButtonHeight, SCROLL_BUTTON_WIDTH, scrollButtonHeight);
+            _expandBounds = new Rectangle(scrollX, BORDER_WIDTH + scrollButtonHeight * 2, SCROLL_BUTTON_WIDTH, scrollButtonHeight);
+            
+            var visibleCols = Math.Min(_columns, Math.Max(1, contentWidth / _itemWidth));
+            System.Diagnostics.Debug.WriteLine($"RibbonGallery.CalculateBounds: CommandId={CommandId}, Width={Width}, Columns={_columns}, ItemWidth={_itemWidth}, ContentWidth={contentWidth}, VisibleCols={visibleCols}, Items={_items.Count}");
+        }
+
         private void DrawDefaultStylePreview(Graphics g, Rectangle bounds)
         {
+            // Check if this is the SemanticHtmlGallery - if so, ensure items are populated
+            if (CommandId == OpenLiveWriter.Localization.CommandId.SemanticHtmlGallery)
+            {
+                EnsureSemanticHtmlItems();
+            }
+
+            // If we have items now, don't draw default preview - items will be drawn normally
+            if (_items.Count > 0) return;
+
             // Draw a default style preview like the original ribbon
             var previewText = "AaBbCcDdI";
             var labelText = "Paragraph";
@@ -359,8 +439,29 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
         }
 
+        private void EnsureSemanticHtmlItems()
+        {
+            if (_items.Count > 0) return;
+
+            // Add the semantic HTML style items with their corresponding command IDs
+            _items.Add(new RibbonGalleryItem("Paragraph") { Tag = OpenLiveWriter.Localization.CommandId.ApplySemanticParagraph });
+            _items.Add(new RibbonGalleryItem("Heading 1") { Tag = OpenLiveWriter.Localization.CommandId.ApplySemanticHeader1 });
+            _items.Add(new RibbonGalleryItem("Heading 2") { Tag = OpenLiveWriter.Localization.CommandId.ApplySemanticHeader2 });
+            _items.Add(new RibbonGalleryItem("Heading 3") { Tag = OpenLiveWriter.Localization.CommandId.ApplySemanticHeader3 });
+            _items.Add(new RibbonGalleryItem("Heading 4") { Tag = OpenLiveWriter.Localization.CommandId.ApplySemanticHeader4 });
+            _items.Add(new RibbonGalleryItem("Heading 5") { Tag = OpenLiveWriter.Localization.CommandId.ApplySemanticHeader5 });
+            _items.Add(new RibbonGalleryItem("Heading 6") { Tag = OpenLiveWriter.Localization.CommandId.ApplySemanticHeader6 });
+        }
+
         private void DrawDropDownButton(Graphics g)
         {
+            // For compact dropdown galleries (like blog selector), draw as a combobox-style control
+            if (_galleryType == RibbonGalleryType.CompactDropDown)
+            {
+                DrawCompactDropDown(g);
+                return;
+            }
+
             var image = CommandLargeImage ?? (CurrentSize == RibbonGroupSize.Large ? CommandLargeImage : CommandSmallImage);
 
             RibbonRenderer.Instance.DrawButton(g, ClientRectangle, CommandLabel, image,
@@ -368,11 +469,193 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 RibbonButtonType.DropDownButton, CurrentSize);
         }
 
+        private void DrawCompactDropDown(Graphics g)
+        {
+            // Draw background
+            var bgColor = _hoveredIndex >= 0 ? RibbonColors.Current.ButtonBackgroundHover : Color.White;
+            using (var brush = new SolidBrush(bgColor))
+            {
+                g.FillRectangle(brush, ClientRectangle);
+            }
+
+            // Draw border
+            using (var pen = new Pen(Color.FromArgb(171, 171, 171)))
+            {
+                g.DrawRectangle(pen, 0, 0, Width - 1, Height - 1);
+            }
+
+            // Get the selected item info (for blog selector, show current blog)
+            Image itemImage = null;
+            string itemText = CommandLabel;
+
+            if (_selectedIndex >= 0 && _selectedIndex < _items.Count)
+            {
+                var selectedItem = _items[_selectedIndex];
+                itemImage = selectedItem.Image;
+                itemText = selectedItem.Label ?? CommandLabel;
+            }
+            else
+            {
+                // Try to get image from command
+                itemImage = CommandSmallImage;
+            }
+
+            var x = 4;
+            var textColor = Enabled && CommandEnabled ? Color.FromArgb(68, 68, 68) : Color.Gray;
+
+            // Draw icon
+            if (itemImage != null)
+            {
+                var iconBounds = new Rectangle(x, (Height - 16) / 2, 16, 16);
+                if (Enabled && CommandEnabled)
+                {
+                    g.DrawImage(itemImage, iconBounds);
+                }
+                else
+                {
+                    using (var attributes = new System.Drawing.Imaging.ImageAttributes())
+                    {
+                        var matrix = new System.Drawing.Imaging.ColorMatrix { Matrix33 = 0.5f };
+                        attributes.SetColorMatrix(matrix);
+                        g.DrawImage(itemImage, iconBounds, 0, 0, itemImage.Width, itemImage.Height,
+                            GraphicsUnit.Pixel, attributes);
+                    }
+                }
+                x += 20;
+            }
+
+            // Draw text
+            if (!string.IsNullOrEmpty(itemText))
+            {
+                var textBounds = new Rectangle(x, 0, Width - x - 18, Height);
+                var format = new StringFormat
+                {
+                    Alignment = StringAlignment.Near,
+                    LineAlignment = StringAlignment.Center,
+                    FormatFlags = StringFormatFlags.NoWrap,
+                    Trimming = StringTrimming.EllipsisCharacter
+                };
+                using (var brush = new SolidBrush(textColor))
+                {
+                    g.DrawString(RibbonRenderer.StripAccelerator(itemText), SystemFonts.MenuFont, brush, textBounds, format);
+                }
+            }
+
+            // Draw dropdown arrow
+            var arrowX = Width - 14;
+            var arrowY = (Height - 4) / 2;
+            using (var brush = new SolidBrush(textColor))
+            {
+                var points = new Point[]
+                {
+                    new Point(arrowX, arrowY),
+                    new Point(arrowX + 8, arrowY),
+                    new Point(arrowX + 4, arrowY + 4)
+                };
+                g.FillPolygon(brush, points);
+            }
+        }
+
         private void DrawGalleryItem(Graphics g, Rectangle bounds, RibbonGalleryItem item,
             bool isSelected, bool isHovered)
         {
+            // Special rendering for semantic HTML styles
+            if (CommandId == OpenLiveWriter.Localization.CommandId.SemanticHtmlGallery)
+            {
+                DrawSemanticHtmlItem(g, bounds, item, isSelected, isHovered);
+                return;
+            }
+
             var text = _textPosition == RibbonTextPosition.Hide ? null : item.Label;
             RibbonRenderer.Instance.DrawGalleryItem(g, bounds, text, item.Image, isSelected, isHovered);
+        }
+
+        private void DrawSemanticHtmlItem(Graphics g, Rectangle bounds, RibbonGalleryItem item,
+            bool isSelected, bool isHovered)
+        {
+            // Determine styling based on the label - larger font sizes for better visibility
+            float fontSize = 11f;
+            bool isBold = false;
+            string displayLabel = item.Label;
+
+            switch (item.Label)
+            {
+                case "Heading 1":
+                    fontSize = 14f;
+                    isBold = true;
+                    displayLabel = "Heading 1";
+                    break;
+                case "Heading 2":
+                    fontSize = 13f;
+                    isBold = true;
+                    displayLabel = "Heading 2";
+                    break;
+                case "Heading 3":
+                    fontSize = 12f;
+                    isBold = true;
+                    displayLabel = "Heading 3";
+                    break;
+                case "Heading 4":
+                    fontSize = 11f;
+                    isBold = true;
+                    displayLabel = "Heading 4";
+                    break;
+                case "Heading 5":
+                    fontSize = 10.5f;
+                    isBold = true;
+                    displayLabel = "Heading 5";
+                    break;
+                case "Heading 6":
+                    fontSize = 10f;
+                    isBold = true;
+                    displayLabel = "Heading 6";
+                    break;
+                case "Paragraph":
+                default:
+                    fontSize = 11f;
+                    isBold = false;
+                    displayLabel = "Paragraph";
+                    break;
+            }
+
+            // Draw background with clear hover/selection states
+            if (isSelected)
+            {
+                using (var brush = new SolidBrush(Color.FromArgb(201, 222, 245)))
+                    g.FillRectangle(brush, bounds);
+                using (var pen = new Pen(Color.FromArgb(98, 163, 229), 1))
+                    g.DrawRectangle(pen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+            }
+            else if (isHovered)
+            {
+                using (var brush = new SolidBrush(Color.FromArgb(229, 243, 255)))
+                    g.FillRectangle(brush, bounds);
+                using (var pen = new Pen(Color.FromArgb(168, 198, 230), 1))
+                    g.DrawRectangle(pen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+            }
+            else
+            {
+                // Light background for unselected items
+                using (var brush = new SolidBrush(Color.White))
+                    g.FillRectangle(brush, bounds);
+            }
+
+            // Draw display label with appropriate font style
+            var fontStyle = isBold ? FontStyle.Bold : FontStyle.Regular;
+            using (var font = new Font("Calibri", fontSize, fontStyle))
+            using (var textBrush = new SolidBrush(Color.FromArgb(51, 51, 51)))
+            {
+                var textBounds = new Rectangle(bounds.X + 4, bounds.Y + 2,
+                    bounds.Width - 8, bounds.Height - 4);
+                var format = new StringFormat
+                {
+                    Alignment = StringAlignment.Near,
+                    LineAlignment = StringAlignment.Center,
+                    FormatFlags = StringFormatFlags.NoWrap,
+                    Trimming = StringTrimming.EllipsisCharacter
+                };
+                g.DrawString(displayLabel, font, textBrush, textBounds, format);
+            }
         }
 
         private void DrawScrollButton(Graphics g, Rectangle bounds, bool isUp, bool isEnabled)
@@ -457,8 +740,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             if (_galleryType != RibbonGalleryType.InRibbon) return false;
 
-            var visibleColumns = _contentBounds.Width / _itemWidth;
-            var visibleRows = _contentBounds.Height / _itemHeight;
+            // Use configured columns
+            var visibleColumns = Math.Min(_columns, Math.Max(1, _contentBounds.Width / _itemWidth));
+            var visibleRows = Math.Max(1, _contentBounds.Height / _itemHeight);
             var totalRows = (_items.Count + visibleColumns - 1) / visibleColumns;
 
             return _scrollOffset + visibleRows < totalRows;
@@ -470,6 +754,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (_galleryType == RibbonGalleryType.InRibbon)
             {
+                // Ensure bounds are calculated
+                if (_contentBounds.IsEmpty)
+                {
+                    CalculateBounds();
+                }
+
                 // Find hovered item
                 var newHovered = GetItemIndexAtPoint(e.Location);
                 if (newHovered != _hoveredIndex)
@@ -480,10 +770,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
             else
             {
-                var wasHovered = _hoveredIndex >= 0;
-                _hoveredIndex = ClientRectangle.Contains(e.Location) ? 0 : -1;
-                if ((wasHovered && _hoveredIndex < 0) || (!wasHovered && _hoveredIndex >= 0))
+                // Dropdown mode - hover the whole control
+                var newHovered = ClientRectangle.Contains(e.Location) ? 0 : -1;
+                if (newHovered != _hoveredIndex)
                 {
+                    _hoveredIndex = newHovered;
                     Invalidate();
                 }
             }
@@ -508,6 +799,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (_galleryType == RibbonGalleryType.InRibbon)
             {
+                // Ensure bounds are calculated
+                if (_contentBounds.IsEmpty)
+                {
+                    CalculateBounds();
+                }
+
                 // Check scroll buttons
                 if (_upScrollBounds.Contains(e.Location) && _scrollOffset > 0)
                 {
@@ -533,9 +830,23 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 var index = GetItemIndexAtPoint(e.Location);
                 if (index >= 0 && index < _items.Count)
                 {
-                    SelectedIndex = index;
-                    ItemClick?.Invoke(this, new GalleryItemClickEventArgs(_items[index], index));
-                    ExecuteCommand();
+                    var item = _items[index];
+                    
+                    // Update selected index
+                    _selectedIndex = index;
+                    SelectedIndexChanged?.Invoke(this, EventArgs.Empty);
+                    
+                    // Fire item click event
+                    ItemClick?.Invoke(this, new GalleryItemClickEventArgs(item, index));
+                    
+                    // If the item has a command ID in its Tag, execute that command
+                    if (item.Tag is OpenLiveWriter.Localization.CommandId itemCommandId)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Executing SemanticHtml command: {itemCommandId}");
+                        CommandManager?.Execute(itemCommandId);
+                    }
+                    
+                    Invalidate();
                 }
             }
             else
@@ -546,18 +857,27 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private int GetItemIndexAtPoint(Point pt)
         {
-            if (!_contentBounds.Contains(pt)) return -1;
+            if (_contentBounds.IsEmpty || !_contentBounds.Contains(pt)) return -1;
 
+            // Limit to configured columns
+            var visibleColumns = Math.Min(_columns, Math.Max(1, _contentBounds.Width / _itemWidth));
             var col = (pt.X - _contentBounds.X) / _itemWidth;
             var row = (pt.Y - _contentBounds.Y) / _itemHeight;
-            var visibleColumns = _contentBounds.Width / _itemWidth;
+
+            if (col < 0 || col >= visibleColumns || row < 0) return -1;
 
             var index = (_scrollOffset + row) * visibleColumns + col;
-            return index < _items.Count ? index : -1;
+            return (index >= 0 && index < _items.Count) ? index : -1;
         }
 
         private void ShowExpandedDropDown()
         {
+            // Ensure items are populated before showing dropdown
+            if (_items.Count == 0 && CommandId == OpenLiveWriter.Localization.CommandId.SemanticHtmlGallery)
+            {
+                EnsureSemanticHtmlItems();
+            }
+
             if (_dropDown == null)
             {
                 _dropDownPanel = new RibbonGalleryDropDownPanel(this);
@@ -579,6 +899,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _dropDown.Size = _dropDownPanel.Size;
             _dropDown.Items[0].Size = _dropDownPanel.Size;
 
+            System.Diagnostics.Debug.WriteLine($"ShowExpandedDropDown: Items.Count={_items.Count}, DropDownSize={_dropDown.Size}");
             _dropDown.Show(this, new Point(0, Height));
             _isExpanded = true;
         }
@@ -686,9 +1007,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         public void UpdateLayout()
         {
             var columns = _gallery.MaxColumns;
-            var rows = (_gallery.Items.Count + columns - 1) / columns;
+            var itemCount = Math.Max(1, _gallery.Items.Count);
+            var rows = (itemCount + columns - 1) / columns;
             var width = columns * _gallery.ItemWidth + 4;
-            var height = Math.Min(rows * _gallery.ItemHeight + 4, _gallery.MaxRows * _gallery.ItemHeight + 4);
+            var height = Math.Min(rows * _gallery.ItemHeight + 4, 
+                Math.Max(_gallery.MaxRows, rows) * _gallery.ItemHeight + 4);
 
             Size = new Size(width, height);
         }
@@ -699,6 +1022,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             var g = e.Graphics;
             var columns = _gallery.MaxColumns;
+            var isSemanticHtmlGallery = _gallery.CommandId == OpenLiveWriter.Localization.CommandId.SemanticHtmlGallery;
 
             for (int i = 0; i < _gallery.Items.Count; i++)
             {
@@ -712,10 +1036,116 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
                 var isSelected = i == _gallery.SelectedIndex;
                 var isHovered = i == _hoveredIndex;
+                var item = _gallery.Items[i];
 
-                var text = _gallery.TextPosition == RibbonTextPosition.Hide ? null : _gallery.Items[i].Label;
-                RibbonRenderer.Instance.DrawGalleryItem(g, itemBounds, text,
-                    _gallery.Items[i].Image, isSelected, isHovered);
+                if (isSemanticHtmlGallery)
+                {
+                    // Use special rendering for semantic HTML items
+                    DrawSemanticHtmlDropdownItem(g, itemBounds, item, isSelected, isHovered);
+                }
+                else
+                {
+                    var text = _gallery.TextPosition == RibbonTextPosition.Hide ? null : item.Label;
+                    RibbonRenderer.Instance.DrawGalleryItem(g, itemBounds, text, item.Image, isSelected, isHovered);
+                }
+            }
+        }
+
+        private void DrawSemanticHtmlDropdownItem(Graphics g, Rectangle bounds, RibbonGalleryItem item, bool isSelected, bool isHovered)
+        {
+            // Determine styling based on the label
+            float fontSize = 10f;
+            bool isBold = false;
+            string previewText = "AaBbCcDdI";
+
+            switch (item.Label)
+            {
+                case "Heading 1":
+                    fontSize = 16f;
+                    isBold = true;
+                    previewText = "AaBb";
+                    break;
+                case "Heading 2":
+                    fontSize = 14f;
+                    isBold = true;
+                    previewText = "AaBbCc";
+                    break;
+                case "Heading 3":
+                    fontSize = 12f;
+                    isBold = true;
+                    previewText = "AaBbCcDd";
+                    break;
+                case "Heading 4":
+                    fontSize = 11f;
+                    isBold = true;
+                    previewText = "AaBbCcDdI";
+                    break;
+                case "Heading 5":
+                    fontSize = 10f;
+                    isBold = true;
+                    previewText = "AaBbCcDdE";
+                    break;
+                case "Heading 6":
+                    fontSize = 9f;
+                    isBold = true;
+                    previewText = "AaBbCcDdEe";
+                    break;
+                case "Paragraph":
+                default:
+                    fontSize = 10f;
+                    isBold = false;
+                    previewText = "AaBbCcDdI";
+                    break;
+            }
+
+            // Draw background
+            if (isSelected)
+            {
+                using (var brush = new SolidBrush(Color.FromArgb(201, 222, 245)))
+                    g.FillRectangle(brush, bounds);
+                using (var pen = new Pen(Color.FromArgb(168, 198, 230)))
+                    g.DrawRectangle(pen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+            }
+            else if (isHovered)
+            {
+                using (var brush = new SolidBrush(Color.FromArgb(232, 239, 247)))
+                    g.FillRectangle(brush, bounds);
+                using (var pen = new Pen(Color.FromArgb(168, 198, 230)))
+                    g.DrawRectangle(pen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+            }
+
+            // Draw preview text
+            var fontStyle = isBold ? FontStyle.Bold : FontStyle.Regular;
+            var actualFontSize = Math.Min(fontSize, bounds.Height * 0.35f);
+            using (var previewFont = new Font("Calibri", actualFontSize, fontStyle))
+            using (var textBrush = new SolidBrush(Color.FromArgb(68, 68, 68)))
+            {
+                var previewBounds = new Rectangle(bounds.X + 2, bounds.Y + 2,
+                    bounds.Width - 4, (int)(bounds.Height * 0.55f));
+                var format = new StringFormat
+                {
+                    Alignment = StringAlignment.Near,
+                    LineAlignment = StringAlignment.Center,
+                    FormatFlags = StringFormatFlags.NoWrap,
+                    Trimming = StringTrimming.EllipsisCharacter
+                };
+                g.DrawString(previewText, previewFont, textBrush, previewBounds, format);
+            }
+
+            // Draw label
+            using (var labelFont = new Font(SystemFonts.MenuFont.FontFamily, 7f))
+            using (var labelBrush = new SolidBrush(Color.FromArgb(100, 100, 100)))
+            {
+                var labelBounds = new Rectangle(bounds.X + 2, bounds.Y + (int)(bounds.Height * 0.55f),
+                    bounds.Width - 4, (int)(bounds.Height * 0.4f));
+                var format = new StringFormat
+                {
+                    Alignment = StringAlignment.Near,
+                    LineAlignment = StringAlignment.Near,
+                    FormatFlags = StringFormatFlags.NoWrap,
+                    Trimming = StringTrimming.EllipsisCharacter
+                };
+                g.DrawString(item.Label, labelFont, labelBrush, labelBounds, format);
             }
         }
 
@@ -747,7 +1177,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             var index = GetIndexAtPoint(e.Location);
             if (index >= 0 && index < _gallery.Items.Count)
             {
+                var item = _gallery.Items[index];
+                
+                // Update selection
                 _gallery.SelectedIndex = index;
+
+                // Execute the item's command if it has one
+                if (item.Tag is OpenLiveWriter.Localization.CommandId itemCommandId)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Dropdown executing SemanticHtml command: {itemCommandId}");
+                    _gallery.CommandManager?.Execute(itemCommandId);
+                }
 
                 // Close dropdown
                 var dropDown = Parent?.Parent as ToolStripDropDown;
