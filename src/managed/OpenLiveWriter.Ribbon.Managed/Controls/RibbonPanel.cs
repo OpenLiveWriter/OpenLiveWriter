@@ -18,9 +18,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
     /// </summary>
     public class RibbonPanel : UserControl
     {
-        private const int TAB_HEIGHT = 25;
-        private const int CONTENT_HEIGHT = 94;
-        private const int APP_BUTTON_WIDTH = 48;
+        // Use shared layout constants where applicable
+        private const int TAB_HEIGHT = LayoutConstants.TabHeight;
+        private const int CONTENT_HEIGHT = LayoutConstants.ContentHeight;
+        private const int APP_BUTTON_WIDTH = LayoutConstants.PopupWidth;
         private const int TAB_PADDING = 10;
 
         private RibbonCommandManager _commandManager;
@@ -41,6 +42,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private ApplicationMenu _applicationMenu;
         private QuickAccessToolbar _quickAccessToolbar;
+        private bool _qatInTitleBar = false; // QAT is in tab header panel by default
 
         private Panel _tabHeaderPanel;
         private Panel _contentPanel;
@@ -88,6 +90,42 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     _currentMode = value;
                     UpdateVisibility();
                     Invalidate();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the Quick Access Toolbar control.
+        /// This can be repositioned by the parent form to place it in the title bar.
+        /// </summary>
+        /// <remarks>
+        /// On Windows, the QAT should ideally be placed in the window's title bar area.
+        /// The parent form can detach this control and add it to its own Controls collection
+        /// at the appropriate position in the title bar.
+        /// </remarks>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public QuickAccessToolbar QuickAccessToolbar => _quickAccessToolbar;
+
+        /// <summary>
+        /// Gets or sets whether the QAT should be displayed in the title bar area.
+        /// When true (default), the QAT is positioned at the top of the ribbon next to the app button.
+        /// When false, the QAT is hidden from the ribbon panel (parent form should handle it).
+        /// </summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool QatInTitleBar
+        {
+            get => _qatInTitleBar;
+            set
+            {
+                if (_qatInTitleBar != value)
+                {
+                    _qatInTitleBar = value;
+                    if (_quickAccessToolbar != null)
+                    {
+                        _quickAccessToolbar.Visible = !value; // Hide if parent will handle title bar placement
+                    }
                 }
             }
         }
@@ -164,10 +202,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _tabHeaderPanel.MouseClick += TabHeaderPanel_MouseClick;
             Controls.Add(_tabHeaderPanel);
 
-            // Quick Access Toolbar - positioned above tabs
+            // Quick Access Toolbar - positioned at RibbonPanel level (above tab header panel)
+            // This avoids the child control clipping issue
             _quickAccessToolbar = new QuickAccessToolbar
             {
-                Location = new Point(60, 2),
+                Location = new Point(APP_BUTTON_WIDTH + 8, 2), // Right after File button
                 BackColor = Color.Transparent
             };
             Controls.Add(_quickAccessToolbar);
@@ -214,14 +253,20 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 }
             }
 
-            // Configure Quick Access Toolbar
+            // Configure Quick Access Toolbar BEFORE creating tabs so positioning is correct
             if (_quickAccessToolbar != null && config.QuickAccessToolbar != null)
             {
                 _quickAccessToolbar.CommandManager = _commandManager;
                 _quickAccessToolbar.SetCommands(config.QuickAccessToolbar.DefaultCommands);
+                // Force layout update
+                _quickAccessToolbar.Refresh();
             }
 
             ResumeLayout(true);
+            PerformLayout();
+            
+            // Force repaint of tab header after QAT is configured
+            _tabHeaderPanel?.Refresh();
             Invalidate();
         }
 
@@ -275,13 +320,26 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             switch (config)
             {
                 case ButtonConfig buttonConfig:
-                    control = new RibbonButton
+                    var button = new RibbonButton
                     {
                         CommandId = buttonConfig.CommandId,
                         ButtonType = buttonConfig.ButtonType,
                         CurrentSize = buttonConfig.PreferredSize,
                         CommandManager = _commandManager
                     };
+                    // Populate menu items for dropdown/split buttons
+                    if (buttonConfig.MenuItems != null && buttonConfig.MenuItems.Count > 0)
+                    {
+                        foreach (var menuItemConfig in buttonConfig.MenuItems)
+                        {
+                            button.MenuItems.Add(new RibbonMenuItem
+                            {
+                                CommandId = menuItemConfig.CommandId,
+                                IsSeparator = menuItemConfig.IsSeparator
+                            });
+                        }
+                    }
+                    control = button;
                     break;
 
                 case ToggleButtonConfig toggleConfig:
@@ -314,9 +372,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     {
                         CommandId = galleryConfig.CommandId,
                         GalleryType = galleryConfig.GalleryType,
+                        TextPosition = galleryConfig.TextPosition,
                         ItemHeight = galleryConfig.ItemHeight,
                         ItemWidth = galleryConfig.ItemWidth,
                         Columns = galleryConfig.Columns,
+                        MaxColumns = galleryConfig.MaxColumns,
+                        MaxRows = galleryConfig.MaxRows,
+                        Layout = galleryConfig.Layout,
                         CommandManager = _commandManager
                     };
                     break;
@@ -521,8 +583,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             RibbonRenderer.Instance.DrawAppMenuButton(g, _appMenuButtonBounds,
                 _appMenuButtonHovered, _appMenuButtonPressed);
 
-            // Draw tab headers
-            var x = _appMenuButtonBounds.Right + 8;
+            // Draw tab headers - start after QAT
+            // QAT is positioned at x=56 with typical width ~82 (3 buttons + dropdown)
+            // Ensure tabs never overlap with QAT by using a reliable minimum
+            var qatEndX = APP_BUTTON_WIDTH + 8; // Start after File button by default
+            if (_quickAccessToolbar != null && _quickAccessToolbar.Visible)
+            {
+                // QAT.Right gives Location.X + Width
+                qatEndX = Math.Max(qatEndX, _quickAccessToolbar.Right + 4);
+            }
+            // Minimum start position to avoid any overlap
+            var tabStartX = Math.Max(150, qatEndX);
+            var x = tabStartX;
 
             // Regular tabs
             foreach (var tab in _tabs)

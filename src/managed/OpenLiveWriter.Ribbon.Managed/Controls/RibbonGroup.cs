@@ -17,15 +17,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
     /// </summary>
     public class RibbonGroup : UserControl
     {
-        private const int MIN_WIDTH = 52;
-        private const int LABEL_HEIGHT = 18;
-        private const int PADDING = 3;
-        private const int SEPARATOR_WIDTH = 1;
+        // Use shared layout constants
+        private const int MIN_WIDTH = LayoutConstants.GroupMinWidth;
+        private const int LABEL_HEIGHT = LayoutConstants.GroupLabelHeight;
+        private const int PADDING = LayoutConstants.GroupPadding;
 
         private RibbonCommandManager _commandManager;
         private CommandId _commandId;
         private string _label;
         private string _keytip;
+        private string _sizeDefinition;
         private RibbonApplicationMode _visibleModes = RibbonApplicationMode.All;
         private RibbonGroupSize _currentSize = RibbonGroupSize.Large;
         private RibbonGroupSize _idealSize = RibbonGroupSize.Large;
@@ -86,6 +87,20 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             get => _idealSize;
             set => _idealSize = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the size definition for this group.
+        /// Controls the layout of controls within the group.
+        /// </summary>
+        public string SizeDefinition
+        {
+            get => _sizeDefinition;
+            set
+            {
+                _sizeDefinition = value;
+                UpdateLayout();
+            }
         }
 
         /// <summary>
@@ -216,15 +231,26 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             if (_currentSize == RibbonGroupSize.Popup)
             {
-                return 48; // Collapsed popup button width
+                return LayoutConstants.PopupWidth;
+            }
+
+            // Handle specific SizeDefinition layouts
+            if (SizeDefinition == "OneLargeComboSmall" && _controls.Count >= 3)
+            {
+                return GetOneLargeComboSmallWidth();
+            }
+
+            if (SizeDefinition == "FourButtons" && _controls.Count >= 4)
+            {
+                return GetFourButtonsWidth();
             }
 
             // Calculate width by simulating the layout
             var x = PADDING;
-            var smallButtonSize = 22;
+            var smallButtonSize = LayoutConstants.SmallButtonSize;
             var smallColumnStart = -1;
             var smallRow = 0;
-            var maxSmallRows = 3;
+            var maxSmallRows = LayoutConstants.MaxSmallButtonRows;
 
             foreach (var control in _controls)
             {
@@ -329,6 +355,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     }
                     x = Math.Max(x, smallColumnStart + smallButtonSize + 2);
                 }
+                else if (control is RibbonGallery gallery)
+                {
+                    if (smallColumnStart >= 0)
+                    {
+                        x = smallColumnStart + smallButtonSize + 2;
+                        smallColumnStart = -1;
+                        smallRow = 0;
+                    }
+                    x += gallery.GetPreferredWidth() + 2;
+                }
                 else
                 {
                     if (smallColumnStart >= 0)
@@ -353,19 +389,95 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             return Math.Max(width, MIN_WIDTH);
         }
 
-        private int GetControlWidth(RibbonControlBase control)
+        /// <summary>
+        /// Calculate the preferred width for the "OneLargeComboSmall" SizeDefinition.
+        /// </summary>
+        private int GetOneLargeComboSmallWidth()
         {
-            switch (_currentSize)
+            var x = PADDING;
+            
+            // Large button width
+            if (_controls.Count > 0)
             {
-                case RibbonGroupSize.Large:
-                    return control is RibbonButton ? 50 : (control is RibbonSeparator ? 6 : control.Width);
-                case RibbonGroupSize.Medium:
-                    return 22;
-                case RibbonGroupSize.Small:
-                    return 22;
-                default:
-                    return control.Width;
+                var largeButton = _controls[0];
+                var buttonWidth = 56;
+                var label = largeButton.CommandLabel;
+                if (!string.IsNullOrEmpty(label))
+                {
+                    using (var g = CreateGraphics())
+                    {
+                        using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
+                        {
+                            var textWidth = (int)g.MeasureString(label, font).Width;
+                            buttonWidth = Math.Max(buttonWidth, textWidth + 10);
+                        }
+                    }
+                }
+                x += buttonWidth + 4;
             }
+            
+            // Right column width (max of dropdown and button)
+            var rightColumnWidth = 140; // default for compact dropdown
+            if (_controls.Count > 2)
+            {
+                var mediumButton = _controls[2] as RibbonButton;
+                if (mediumButton != null)
+                {
+                    var label = mediumButton.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        using (var g = CreateGraphics())
+                        {
+                            var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
+                            var dropdownSpace = (mediumButton.ButtonType == RibbonButtonType.DropDownButton || 
+                                                 mediumButton.ButtonType == RibbonButtonType.SplitButton) ? 16 : 0;
+                            rightColumnWidth = Math.Max(rightColumnWidth, 24 + textWidth + 8 + dropdownSpace);
+                        }
+                    }
+                }
+            }
+            x += rightColumnWidth + PADDING;
+            
+            // Ensure label fits
+            using (var g = CreateGraphics())
+            {
+                var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
+                x = Math.Max(x, labelWidth);
+            }
+            
+            return Math.Max(x, MIN_WIDTH);
+        }
+
+        /// <summary>
+        /// Calculate the preferred width for the "FourButtons" SizeDefinition.
+        /// </summary>
+        private int GetFourButtonsWidth()
+        {
+            var buttonWidth = 70; // minimum width
+            using (var g = CreateGraphics())
+            {
+                foreach (var control in _controls)
+                {
+                    var label = control.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
+                        // icon (16) + padding (6) + text + padding (4)
+                        buttonWidth = Math.Max(buttonWidth, 16 + 6 + textWidth + 4);
+                    }
+                }
+            }
+            
+            var width = buttonWidth + PADDING * 2;
+            
+            // Ensure label fits
+            using (var g = CreateGraphics())
+            {
+                var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
+                width = Math.Max(width, labelWidth);
+            }
+            
+            return Math.Max(width, MIN_WIDTH);
         }
 
         private void UpdateLayout()
@@ -413,15 +525,30 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             var contentHeight = _contentPanel.Height;
             var availableHeight = Math.Max(contentHeight - PADDING * 2, 60);
 
+            // Handle specific SizeDefinition layouts
+            if (SizeDefinition == "OneLargeComboSmall" && _controls.Count >= 3)
+            {
+                // Layout: Large button on left, dropdown and medium button stacked on right
+                LayoutOneLargeComboSmall(availableHeight);
+                return;
+            }
+
+            if (SizeDefinition == "FourButtons" && _controls.Count >= 4)
+            {
+                // Layout: 4 medium buttons stacked vertically (2 rows of 2 or 4 rows of 1)
+                LayoutFourButtons(availableHeight);
+                return;
+            }
+
             // Use a smarter layout that respects individual control sizes
             // Layout controls left-to-right, stacking small controls in columns
             var x = PADDING;
             var y = PADDING;
-            var smallButtonSize = 22;
-            var mediumButtonHeight = 24;
+            var smallButtonSize = LayoutConstants.SmallButtonSize;
+            var mediumButtonHeight = LayoutConstants.MediumButtonHeight;
             var smallColumnStart = -1; // Track where small button column starts
             var smallRow = 0;
-            var maxSmallRows = 3;
+            var maxSmallRows = LayoutConstants.MaxSmallButtonRows;
 
             foreach (var control in _controls)
             {
@@ -534,15 +661,20 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 }
                 else if (control is RibbonGallery gallery)
                 {
-                    // Galleries
+                    // Galleries - set height to available space
                     if (smallColumnStart >= 0)
                     {
                         x = smallColumnStart + smallButtonSize + 2;
                         smallColumnStart = -1;
                         smallRow = 0;
                     }
+                    
+                    // Use gallery's preferred width (respects Columns property)
+                    var galleryWidth = gallery.GetPreferredWidth();
+                    System.Diagnostics.Debug.WriteLine($"RibbonGroup.LayoutControls: Gallery CommandId={gallery.CommandId}, Columns={gallery.Columns}, ItemWidth={gallery.ItemWidth}, PreferredWidth={galleryWidth}");
+                    gallery.Size = new Size(galleryWidth, availableHeight);
                     control.Location = new Point(x, y);
-                    x += control.Width + 2;
+                    x += galleryWidth + 2;  // Use the calculated width, not control.Width
                 }
                 else if (control is RibbonColorPicker)
                 {
@@ -576,6 +708,128 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     control.Location = new Point(x, y);
                     x += control.Width + 2;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Layout for the "OneLargeComboSmall" SizeDefinition:
+        /// One large button on the left, a compact dropdown and a medium button stacked on the right.
+        /// </summary>
+        private void LayoutOneLargeComboSmall(int availableHeight)
+        {
+            var x = PADDING;
+            var y = PADDING;
+            
+            // Control 0: Large button (full height)
+            if (_controls.Count > 0)
+            {
+                var largeButton = _controls[0];
+                largeButton.CurrentSize = RibbonGroupSize.Large;
+                
+                // Calculate width based on text content
+                var buttonWidth = 56; // default minimum width for large button
+                var label = largeButton.CommandLabel;
+                if (!string.IsNullOrEmpty(label))
+                {
+                    using (var g = CreateGraphics())
+                    {
+                        using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
+                        {
+                            var textWidth = (int)g.MeasureString(label, font).Width;
+                            buttonWidth = Math.Max(buttonWidth, textWidth + 10);
+                        }
+                    }
+                }
+                
+                largeButton.Size = new Size(buttonWidth, availableHeight);
+                largeButton.Location = new Point(x, y);
+                x += largeButton.Width + 4;
+            }
+            
+            // Controls 1 and 2: Stacked vertically on the right
+            var rightColumnX = x;
+            var topRowY = y;
+            var topRowHeight = availableHeight / 2 - 1;
+            var bottomRowY = y + topRowHeight + 2;
+            var bottomRowHeight = availableHeight - topRowHeight - 2;
+            
+            // Calculate right column width based on both controls
+            var rightColumnWidth = 140; // default for blog selector
+            if (_controls.Count > 2)
+            {
+                // Check the medium button's width requirement
+                var mediumButton = _controls[2] as RibbonButton;
+                if (mediumButton != null)
+                {
+                    var label = mediumButton.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        using (var g = CreateGraphics())
+                        {
+                            var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
+                            var dropdownSpace = (mediumButton.ButtonType == RibbonButtonType.DropDownButton || 
+                                                 mediumButton.ButtonType == RibbonButtonType.SplitButton) ? 16 : 0;
+                            rightColumnWidth = Math.Max(rightColumnWidth, 24 + textWidth + 8 + dropdownSpace);
+                        }
+                    }
+                }
+            }
+            
+            // Control 1: Compact dropdown (top of right column)
+            if (_controls.Count > 1)
+            {
+                var dropdown = _controls[1];
+                dropdown.Size = new Size(rightColumnWidth, topRowHeight);
+                dropdown.Location = new Point(rightColumnX, topRowY);
+            }
+            
+            // Control 2: Medium button (bottom of right column)
+            if (_controls.Count > 2)
+            {
+                var mediumButton = _controls[2];
+                mediumButton.CurrentSize = RibbonGroupSize.Medium;
+                mediumButton.Size = new Size(rightColumnWidth, bottomRowHeight);
+                mediumButton.Location = new Point(rightColumnX, bottomRowY);
+            }
+        }
+
+        /// <summary>
+        /// Layout for the "FourButtons" SizeDefinition:
+        /// Four medium buttons arranged in a vertical stack (3 rows max height).
+        /// </summary>
+        private void LayoutFourButtons(int availableHeight)
+        {
+            var x = PADDING;
+            var y = PADDING;
+            
+            // Calculate button width based on longest text
+            var buttonWidth = 70; // minimum width
+            using (var g = CreateGraphics())
+            {
+                foreach (var control in _controls)
+                {
+                    var label = control.CommandLabel;
+                    if (!string.IsNullOrEmpty(label))
+                    {
+                        var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
+                        // icon (16) + padding (6) + text + padding (4)
+                        buttonWidth = Math.Max(buttonWidth, 16 + 6 + textWidth + 4);
+                    }
+                }
+            }
+            
+            // Stack 3 buttons vertically, remaining space for 4th
+            var rowHeight = (availableHeight - 4) / 3; // 3 rows with spacing
+            var row = 0;
+            
+            foreach (var control in _controls)
+            {
+                if (!control.Visible) continue;
+                
+                control.CurrentSize = RibbonGroupSize.Medium;
+                control.Size = new Size(buttonWidth, Math.Min(rowHeight - 2, 22));
+                control.Location = new Point(x, y + row * rowHeight);
+                row++;
             }
         }
 

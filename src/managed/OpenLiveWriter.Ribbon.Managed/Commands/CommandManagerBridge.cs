@@ -355,11 +355,36 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
 
         public void PerformExecute()
         {
-            // Refresh to ensure we have the latest source command
+            System.Diagnostics.Debug.WriteLine($"BridgedCommand.PerformExecute for {_commandId}, Enabled={Enabled}");
+            
+            // Refresh to ensure we have the latest source command and state
             var source = GetSourceCommand();
+            
+            // For semantic HTML commands, they should generally be enabled
+            // Check the source command's enabled state directly
+            bool sourceEnabled = true;
+            if (source != null)
+            {
+                try
+                {
+                    var sourceType = source.GetType();
+                    var enabledProp = sourceType.GetProperty("Enabled");
+                    var onProp = sourceType.GetProperty("On");
+                    if (enabledProp != null)
+                    {
+                        sourceEnabled = (bool)enabledProp.GetValue(source);
+                    }
+                    bool sourceOn = onProp != null ? (bool)onProp.GetValue(source) : true;
+                    System.Diagnostics.Debug.WriteLine($"  Source: Type={sourceType.Name}, Enabled={sourceEnabled}, On={sourceOn}");
+                }
+                catch { }
+            }
 
-            if (!Enabled)
+            if (!sourceEnabled)
+            {
+                System.Diagnostics.Debug.WriteLine($"  Skipping execution - source command disabled");
                 return;
+            }
 
             Execute?.Invoke(this, EventArgs.Empty);
 
@@ -373,13 +398,27 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
 
                     if (executeMethod != null)
                     {
+                        System.Diagnostics.Debug.WriteLine($"  Calling PerformExecute on source");
                         executeMethod.Invoke(source, null);
+                        System.Diagnostics.Debug.WriteLine($"  PerformExecute completed");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"  No PerformExecute method found on source");
                     }
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine($"Command execution failed for {_commandId}: {ex.Message}");
+                    if (ex.InnerException != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"  Inner exception: {ex.InnerException.Message}");
+                    }
                 }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"  No source command found");
             }
         }
 

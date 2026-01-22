@@ -144,7 +144,12 @@ namespace OpenLiveWriter.Ribbon.Managed
         /// <summary>
         /// Split button gallery.
         /// </summary>
-        SplitButton
+        SplitButton,
+
+        /// <summary>
+        /// Compact dropdown (icon + text + dropdown arrow, like blog selector).
+        /// </summary>
+        CompactDropDown
     }
 
     /// <summary>
