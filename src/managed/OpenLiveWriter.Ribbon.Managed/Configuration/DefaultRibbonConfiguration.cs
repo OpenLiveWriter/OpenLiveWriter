@@ -112,6 +112,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             tab.Groups.Add(clipboardGroup);
 
             // Publish Group - SizeDefinition="OneBigButtonOneComboboxAndOneSmallButton"
+            // Layout: [Large Publish Button] | [Blog Selector Dropdown (stacked above)]
+            //                                | [Post Draft Button (stacked below)]
             var publishGroup = CreateGroup(CommandId.PublishGroup, "Publish", "PB");
             publishGroup.SizeDefinition = "OneLargeComboSmall";
             publishGroup.Controls.Add(new ButtonConfig 
@@ -125,8 +127,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.SelectBlog, 
                 GalleryType = RibbonGalleryType.CompactDropDown,
                 TextPosition = RibbonTextPosition.Right,
-                ItemHeight = 16,
-                ItemWidth = 16
+                ItemHeight = 24,   // Taller items for readability
+                ItemWidth = 200,   // Wider dropdown to show full blog names
+                MaxColumns = 1,    // Single column for blog list
+                MaxRows = 10       // Show up to 10 blogs
             };
             var selectBlogMenuGroup = new MenuGroupConfig { Class = "StandardItems" };
             selectBlogMenuGroup.Items.Add(new MenuItemConfig { CommandId = CommandId.AddWeblog });
@@ -405,8 +409,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.SelectBlog, 
                 GalleryType = RibbonGalleryType.CompactDropDown,
                 TextPosition = RibbonTextPosition.Right,
-                ItemHeight = 16,
-                ItemWidth = 16
+                ItemHeight = 24,   // Taller items for readability
+                ItemWidth = 200,   // Wider dropdown to show full blog names
+                MaxColumns = 1,    // Single column for blog list
+                MaxRows = 10       // Show up to 10 blogs
             };
             var previewSelectBlogMenuGroup = new MenuGroupConfig { Class = "StandardItems" };
             previewSelectBlogMenuGroup.Items.Add(new MenuItemConfig { CommandId = CommandId.AddWeblog });
