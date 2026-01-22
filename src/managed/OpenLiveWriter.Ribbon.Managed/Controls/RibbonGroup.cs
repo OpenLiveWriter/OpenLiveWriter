@@ -417,22 +417,26 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
             
             // Right column width (max of dropdown and button)
-            var rightColumnWidth = 140; // default for compact dropdown
-            if (_controls.Count > 2)
+            var rightColumnWidth = 130; // default minimum
+            
+            // Check dropdown's configured width
+            if (_controls.Count > 1 && _controls[1] is RibbonGallery gallery)
             {
-                var mediumButton = _controls[2] as RibbonButton;
-                if (mediumButton != null)
+                rightColumnWidth = Math.Max(rightColumnWidth, gallery.Width);
+            }
+            
+            if (_controls.Count > 2 && _controls[2] is RibbonButton mediumButton)
+            {
+                var label = mediumButton.CommandLabel;
+                if (!string.IsNullOrEmpty(label))
                 {
-                    var label = mediumButton.CommandLabel;
-                    if (!string.IsNullOrEmpty(label))
+                    using (var g = CreateGraphics())
                     {
-                        using (var g = CreateGraphics())
-                        {
-                            var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
-                            var dropdownSpace = (mediumButton.ButtonType == RibbonButtonType.DropDownButton || 
-                                                 mediumButton.ButtonType == RibbonButtonType.SplitButton) ? 16 : 0;
-                            rightColumnWidth = Math.Max(rightColumnWidth, 24 + textWidth + 8 + dropdownSpace);
-                        }
+                        var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
+                        var dropdownSpace = (mediumButton.ButtonType == RibbonButtonType.DropDownButton || 
+                                             mediumButton.ButtonType == RibbonButtonType.SplitButton) ? 16 : 0;
+                        // 16px icon + 6px gap + text + 8px padding + dropdown arrow
+                        rightColumnWidth = Math.Max(rightColumnWidth, 16 + 6 + textWidth + 8 + dropdownSpace);
                     }
                 }
             }
@@ -747,30 +751,34 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
             
             // Controls 1 and 2: Stacked vertically on the right
+            // Top: Blog selector dropdown, Bottom: Post draft button
             var rightColumnX = x;
             var topRowY = y;
-            var topRowHeight = availableHeight / 2 - 1;
-            var bottomRowY = y + topRowHeight + 2;
-            var bottomRowHeight = availableHeight - topRowHeight - 2;
+            var rowHeight = (availableHeight - 4) / 2; // Split height evenly with gap
+            var bottomRowY = y + rowHeight + 4;
             
             // Calculate right column width based on both controls
-            var rightColumnWidth = 140; // default for blog selector
-            if (_controls.Count > 2)
+            var rightColumnWidth = 130; // Minimum for blog selector
+            
+            // Check dropdown's preferred width (from its configuration)
+            if (_controls.Count > 1 && _controls[1] is RibbonGallery gallery)
             {
-                // Check the medium button's width requirement
-                var mediumButton = _controls[2] as RibbonButton;
-                if (mediumButton != null)
+                rightColumnWidth = Math.Max(rightColumnWidth, gallery.Width);
+            }
+            
+            // Also check the medium button's width requirement
+            if (_controls.Count > 2 && _controls[2] is RibbonButton mediumButton)
+            {
+                var label = mediumButton.CommandLabel;
+                if (!string.IsNullOrEmpty(label))
                 {
-                    var label = mediumButton.CommandLabel;
-                    if (!string.IsNullOrEmpty(label))
+                    using (var g = CreateGraphics())
                     {
-                        using (var g = CreateGraphics())
-                        {
-                            var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
-                            var dropdownSpace = (mediumButton.ButtonType == RibbonButtonType.DropDownButton || 
-                                                 mediumButton.ButtonType == RibbonButtonType.SplitButton) ? 16 : 0;
-                            rightColumnWidth = Math.Max(rightColumnWidth, 24 + textWidth + 8 + dropdownSpace);
-                        }
+                        var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
+                        var dropdownSpace = (mediumButton.ButtonType == RibbonButtonType.DropDownButton || 
+                                             mediumButton.ButtonType == RibbonButtonType.SplitButton) ? 16 : 0;
+                        // 16px icon + 6px gap + text + 8px padding + dropdown arrow
+                        rightColumnWidth = Math.Max(rightColumnWidth, 16 + 6 + textWidth + 8 + dropdownSpace);
                     }
                 }
             }
@@ -779,17 +787,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (_controls.Count > 1)
             {
                 var dropdown = _controls[1];
-                dropdown.Size = new Size(rightColumnWidth, topRowHeight);
+                dropdown.Size = new Size(rightColumnWidth, rowHeight);
                 dropdown.Location = new Point(rightColumnX, topRowY);
             }
             
             // Control 2: Medium button (bottom of right column)
             if (_controls.Count > 2)
             {
-                var mediumButton = _controls[2];
-                mediumButton.CurrentSize = RibbonGroupSize.Medium;
-                mediumButton.Size = new Size(rightColumnWidth, bottomRowHeight);
-                mediumButton.Location = new Point(rightColumnX, bottomRowY);
+                var bottomButton = _controls[2];
+                bottomButton.CurrentSize = RibbonGroupSize.Medium;
+                bottomButton.Size = new Size(rightColumnWidth, rowHeight);
+                bottomButton.Location = new Point(rightColumnX, bottomRowY);
             }
         }
 

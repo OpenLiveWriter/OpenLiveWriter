@@ -279,9 +279,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             else if (_galleryType == RibbonGalleryType.CompactDropDown)
             {
                 // Compact dropdown - used for blog selector
-                // Size based on text content
-                var minWidth = 140; // Minimum width for blog names
-                Size = new Size(minWidth, 22);
+                // Use configured ItemWidth or default minimum
+                var dropdownWidth = Math.Max(140, _itemWidth);
+                Size = new Size(dropdownWidth, 24);
             }
             else
             {
