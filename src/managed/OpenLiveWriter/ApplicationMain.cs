@@ -45,6 +45,9 @@ namespace OpenLiveWriter
             // something like opening a .wpost from a network location.
             Kernel32.SetDllDirectory("");
 
+            // Enable Per-Monitor V2 DPI awareness for proper scaling when moving between monitors
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            
             // Enable custom visual styles for Writer.
             Application.EnableVisualStyles();
 
