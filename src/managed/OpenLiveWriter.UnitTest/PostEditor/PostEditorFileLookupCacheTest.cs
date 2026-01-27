@@ -50,29 +50,29 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         [Test]
         public void ExistingPost()
         {
-            Assert.AreEqual(Lookup(blogId1, "1").Name, "foo.wpost");
-            Assert.AreEqual(Lookup(blogId1, "1").Name, "foo.wpost");
-            Assert.AreEqual(Lookup(blogId1, "1").Name, "foo.wpost");
-            Assert.AreEqual(Lookup(blogId1, "2").Name, "bar.wpost");
-            Assert.AreEqual(Lookup(blogId2, "1").Name, "baz.wpost");
+            Assert.That(Lookup(blogId1, "1").Name, Is.EqualTo("foo.wpost"));
+            Assert.That(Lookup(blogId1, "1").Name, Is.EqualTo("foo.wpost"));
+            Assert.That(Lookup(blogId1, "1").Name, Is.EqualTo("foo.wpost"));
+            Assert.That(Lookup(blogId1, "2").Name, Is.EqualTo("bar.wpost"));
+            Assert.That(Lookup(blogId2, "1").Name, Is.EqualTo("baz.wpost"));
         }
 
         [Test]
         public void NonExistentPost()
         {
-            Assert.IsNull(Lookup(blogId1, "99999"));
+            Assert.That(Lookup(blogId1, "99999"), Is.Null);
         }
 
         [Test]
         public void PostLifeCycle()
         {
-            Assert.IsNull(Lookup(blogId1, "501"));
+            Assert.That(Lookup(blogId1, "501"), Is.Null);
 
             CreateBlogPost(blogId1, "501", "newPost");
-            Assert.AreEqual(Lookup(blogId1, "501").Name, "newPost.wpost");
+            Assert.That(Lookup(blogId1, "501").Name, Is.EqualTo("newPost.wpost"));
 
             File.Delete(Path.Combine(tempDir.FullName, "newPost.wpost"));
-            Assert.IsNull(Lookup(blogId1, "501"));
+            Assert.That(Lookup(blogId1, "501"), Is.Null);
         }
 
         [Test]

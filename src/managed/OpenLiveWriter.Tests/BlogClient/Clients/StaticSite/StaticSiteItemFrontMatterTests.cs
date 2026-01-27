@@ -29,10 +29,10 @@ tags:
   - .net");
 
             // Assert
-            Assert.AreEqual(fm.Title, expected.Title);
-            Assert.AreEqual(fm.Date, expected.Date);
-            Assert.AreEqual(fm.Layout, expected.Layout);
-            Assert.IsTrue(Enumerable.SequenceEqual(fm.Tags, expected.Tags));
+            Assert.That(fm.Title, Is.EqualTo(expected.Title));
+            Assert.That(fm.Date, Is.EqualTo(expected.Date));
+            Assert.That(fm.Layout, Is.EqualTo(expected.Layout));
+            Assert.That(fm.Tags, Is.EqualTo(expected.Tags));
         }
 
         [Test]
@@ -52,10 +52,10 @@ tags:
 date: 2019-01-01 00:00:00");
 
             // Assert
-            Assert.AreEqual(fm.Title, expected.Title);
-            Assert.AreEqual(fm.Date, expected.Date);
-            Assert.AreEqual(fm.Layout, expected.Layout);
-            Assert.IsTrue(Enumerable.SequenceEqual(fm.Tags, expected.Tags));
+            Assert.That(fm.Title, Is.EqualTo(expected.Title));
+            Assert.That(fm.Date, Is.EqualTo(expected.Date));
+            Assert.That(fm.Layout, Is.EqualTo(expected.Layout));
+            Assert.That(fm.Tags, Is.EqualTo(expected.Tags));
         }
 
         [Test]
@@ -76,7 +76,7 @@ layout: post
             };
 
             // Assert
-            Assert.AreEqual(expected, fm.Serialize());
+            Assert.That(fm.Serialize(), Is.EqualTo(expected));
         }
 
 
@@ -102,7 +102,7 @@ tags:
             };
 
             // Assert
-            Assert.AreEqual(expected, fm.Serialize());
+            Assert.That(fm.Serialize(), Is.EqualTo(expected));
         }
     }
 }

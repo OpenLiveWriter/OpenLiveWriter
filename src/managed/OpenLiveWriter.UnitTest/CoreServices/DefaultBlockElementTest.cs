@@ -39,23 +39,24 @@ line 6
 
 line 7";
 
-            string html = TextHelper.GetHTMLFromText(plainText, false, paragraphDefaultBlockElement);
+                        string html = TextHelper.GetHTMLFromText(plainText, false, paragraphDefaultBlockElement);
 
-            Assert.AreEqual(
-@"<p>line 1<br />
-line 2</p>
-<p>line 3</p>
-<p><br />
-line 4</p>
-<p></p>
-<p>line 5</p>
-<p></p>
-<p><br />
-line 6</p>
-<p></p>
-<p></p>
-<p>line 7</p>", html);
-        }
+                        Assert.That(html,
+                            Is.EqualTo(
+            @"<p>line 1<br />
+            line 2</p>
+            <p>line 3</p>
+            <p><br />
+            line 4</p>
+            <p></p>
+            <p>line 5</p>
+            <p></p>
+            <p><br />
+            line 6</p>
+            <p></p>
+            <p></p>
+            <p>line 7</p>"));
+                    }
 
         [Test]
         public void DivDefaultBlockElementTest()
@@ -86,31 +87,32 @@ line 6
 
 line 7";
 
-            string html = TextHelper.GetHTMLFromText(plainText, false, divDefaultBlockElement);
+                        string html = TextHelper.GetHTMLFromText(plainText, false, divDefaultBlockElement);
 
-            Assert.AreEqual(
-@"<div>line 1</div>
-<div>line 2</div>
-<div></div>
-<div>line 3</div>
-<div></div>
-<div></div>
-<div>line 4</div>
-<div></div>
-<div></div>
-<div></div>
-<div>line 5</div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div>line 6</div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div>line 7</div>", html);
-        }
+                        Assert.That(html,
+                            Is.EqualTo(
+            @"<div>line 1</div>
+            <div>line 2</div>
+            <div></div>
+            <div>line 3</div>
+            <div></div>
+            <div></div>
+            <div>line 4</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>line 5</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>line 6</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>line 7</div>"));
+                    }
     }
 }

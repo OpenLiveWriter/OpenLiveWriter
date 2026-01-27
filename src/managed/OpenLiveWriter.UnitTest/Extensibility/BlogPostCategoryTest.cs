@@ -75,31 +75,31 @@ namespace OpenLiveWriter.UnitTest.Extensibility
             AreEqual(new BlogPostCategory("foo", "bar", "baz"), new BlogPostCategory("foo", "bar", ""));
             AreEqual(new BlogPostCategory("foo", "bar", "baz"), new BlogPostCategory("foo", "bar", null));
 
-            Assert.IsTrue(BlogPostCategory.Equals(new BlogPostCategory("foo&bar"), new BlogPostCategory("foo&bar"), true));
-            Assert.IsTrue(BlogPostCategory.Equals(new BlogPostCategory("foo&bar"), new BlogPostCategory("foo&amp;bar"), true));
-            Assert.IsTrue(BlogPostCategory.Equals(new BlogPostCategory("foo&amp;bar"), new BlogPostCategory("foo&bar"), true));
-            Assert.IsTrue(BlogPostCategory.Equals(new BlogPostCategory("foo&amp;bar"), new BlogPostCategory("foo&amp;bar"), true));
-        }
+                Assert.That(BlogPostCategory.Equals(new BlogPostCategory("foo&bar"), new BlogPostCategory("foo&bar"), true), Is.True);
+                Assert.That(BlogPostCategory.Equals(new BlogPostCategory("foo&bar"), new BlogPostCategory("foo&amp;bar"), true), Is.True);
+                Assert.That(BlogPostCategory.Equals(new BlogPostCategory("foo&amp;bar"), new BlogPostCategory("foo&bar"), true), Is.True);
+                Assert.That(BlogPostCategory.Equals(new BlogPostCategory("foo&amp;bar"), new BlogPostCategory("foo&amp;bar"), true), Is.True);
+            }
 
-        private static void AreEqual(BlogPostCategory a, BlogPostCategory b)
-        {
-            Assert.AreEqual(a, b);
-            Assert.AreEqual(b, a);
-            Assert.AreEqual(a.GetHashCode(), b.GetHashCode());
-            Assert.IsTrue(BlogPostCategory.Equals(a, b, true));
-            Assert.IsTrue(BlogPostCategory.Equals(a, b, false));
-            Assert.IsTrue(BlogPostCategory.Equals(b, a, true));
-            Assert.IsTrue(BlogPostCategory.Equals(b, a, false));
-        }
+            private static void AreEqual(BlogPostCategory a, BlogPostCategory b)
+            {
+                Assert.That(a, Is.EqualTo(b));
+                Assert.That(b, Is.EqualTo(a));
+                Assert.That(a.GetHashCode(), Is.EqualTo(b.GetHashCode()));
+                Assert.That(BlogPostCategory.Equals(a, b, true), Is.True);
+                Assert.That(BlogPostCategory.Equals(a, b, false), Is.True);
+                Assert.That(BlogPostCategory.Equals(b, a, true), Is.True);
+                Assert.That(BlogPostCategory.Equals(b, a, false), Is.True);
+            }
 
-        private static void AreNotEqual(BlogPostCategory a, BlogPostCategory b)
-        {
-            Assert.AreNotEqual(a, b);
-            Assert.AreNotEqual(b, a);
-            Assert.IsFalse(BlogPostCategory.Equals(a, b, true));
-            Assert.IsFalse(BlogPostCategory.Equals(a, b, false));
-            Assert.IsFalse(BlogPostCategory.Equals(b, a, true));
-            Assert.IsFalse(BlogPostCategory.Equals(b, a, false));
-        }
+            private static void AreNotEqual(BlogPostCategory a, BlogPostCategory b)
+            {
+                Assert.That(a, Is.Not.EqualTo(b));
+                Assert.That(b, Is.Not.EqualTo(a));
+                Assert.That(BlogPostCategory.Equals(a, b, true), Is.False);
+                Assert.That(BlogPostCategory.Equals(a, b, false), Is.False);
+                Assert.That(BlogPostCategory.Equals(b, a, true), Is.False);
+                Assert.That(BlogPostCategory.Equals(b, a, false), Is.False);
+            }
     }
 }

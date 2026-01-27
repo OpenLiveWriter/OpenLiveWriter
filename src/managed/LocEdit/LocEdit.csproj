@@ -3,6 +3,7 @@
     <AssemblyName>LocEdit</AssemblyName>
     <RootNamespace>LocEdit</RootNamespace>
     <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>

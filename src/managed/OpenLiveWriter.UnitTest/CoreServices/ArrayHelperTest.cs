@@ -43,7 +43,7 @@ namespace OpenLiveWriter.UnitTest.CoreServices
 
         private static void VerifyInsertionSort<T>(T[] unsorted, Comparison<T> comparison, T[] expected)
         {
-            Assert.AreEqual(unsorted.Length, expected.Length, "Error in test: inputs are different lengths");
+            Assert.That(unsorted.Length, Is.EqualTo(expected.Length), "Error in test: inputs are different lengths");
 
             List<T> list = new List<T>(unsorted);
             ArrayHelper.InsertionSort(list, comparison);
@@ -53,7 +53,7 @@ namespace OpenLiveWriter.UnitTest.CoreServices
             {
                 same &= list[i].Equals(expected[i]);
             }
-            Assert.IsTrue(same, "Orders were different");
+            Assert.That(same, Is.True, "Orders were different");
         }
     }
 }
