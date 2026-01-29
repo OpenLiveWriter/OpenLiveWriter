@@ -24,6 +24,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
         public QuickAccessToolbarConfig QuickAccessToolbar { get; set; } = new QuickAccessToolbarConfig();
 
         /// <summary>
+        /// Gets or sets the help button configuration (null to hide help button).
+        /// </summary>
+        public HelpButtonConfig HelpButton { get; set; }
+
+        /// <summary>
         /// Gets the list of tab configurations.
         /// </summary>
         public List<TabConfig> Tabs { get; } = new List<TabConfig>();
@@ -148,6 +153,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
         /// Gets or sets the preferred size for this button.
         /// </summary>
         public RibbonGroupSize PreferredSize { get; set; } = RibbonGroupSize.Large;
+
+        /// <summary>
+        /// Gets or sets the label override for this button (overrides command label).
+        /// </summary>
+        public string Label { get; set; }
 
         /// <summary>
         /// Gets the list of menu items for dropdown/split buttons.
@@ -416,6 +426,32 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
         /// Gets the list of default commands on the QAT.
         /// </summary>
         public List<CommandId> DefaultCommands { get; } = new List<CommandId>();
+    }
+
+    /// <summary>
+    /// Configuration for the help button in the upper right corner of the ribbon.
+    /// </summary>
+    public class HelpButtonConfig
+    {
+        /// <summary>
+        /// Gets or sets the command ID for the help button.
+        /// </summary>
+        public CommandId CommandId { get; set; } = CommandId.Help;
+
+        /// <summary>
+        /// Gets or sets the tooltip text for the help button.
+        /// </summary>
+        public string TooltipTitle { get; set; } = "Online help (F1)";
+
+        /// <summary>
+        /// Gets or sets the tooltip description.
+        /// </summary>
+        public string TooltipDescription { get; set; } = "Get help on using Open Live Writer.";
+
+        /// <summary>
+        /// Gets or sets the keytip for keyboard navigation.
+        /// </summary>
+        public string Keytip { get; set; } = "H";
     }
 
     /// <summary>

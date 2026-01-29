@@ -25,11 +25,15 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             // Quick Access Toolbar
             ConfigureQuickAccessToolbar(config);
 
+            // Help Button
+            ConfigureHelpButton(config);
+
             // Main Tabs
             config.Tabs.Add(CreateHomeTab());
             config.Tabs.Add(CreateInsertTab());
             config.Tabs.Add(CreateBlogProviderTab());
             config.Tabs.Add(CreatePreviewTab());
+            config.Tabs.Add(CreateDebugTab());
 
             // Contextual Tab Groups
             config.ContextualTabGroups.Add(CreateImageToolsGroup());
@@ -74,6 +78,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             config.QuickAccessToolbar.DefaultCommands.Add(CommandId.Redo);
         }
 
+        private static void ConfigureHelpButton(RibbonConfiguration config)
+        {
+            config.HelpButton = new HelpButtonConfig
+            {
+                CommandId = CommandId.Help,
+                TooltipTitle = "Online help (F1)",
+                TooltipDescription = "Get help on using Open Live Writer.",
+                Keytip = "H"
+            };
+        }
+
         #region Home Tab
 
         private static TabConfig CreateHomeTab()
@@ -87,14 +102,15 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             };
 
             // Clipboard Group - SizeDefinition="OneBigControlAndTwoSmallControls"
-            // Paste (large) + Cut/Copy (small stacked)
+            // Paste (large with "Clipboard" label to match native) + Cut/Copy (small stacked)
             var clipboardGroup = CreateGroup(CommandId.ClipboardGroup, "Clipboard", "X");
             clipboardGroup.SizeDefinition = "OneLargeAndTwoSmall";
             var pasteButton = new ButtonConfig 
             { 
                 CommandId = CommandId.Paste, 
                 ButtonType = RibbonButtonType.SplitButton,
-                PreferredSize = RibbonGroupSize.Large
+                PreferredSize = RibbonGroupSize.Large,
+                Label = "Clipboard"  // Display "Clipboard" instead of "Paste" to match native ribbon
             };
             pasteButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.Paste });
             pasteButton.MenuItems.Add(new MenuItemConfig { CommandId = CommandId.PasteSpecial });
@@ -127,8 +143,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.SelectBlog, 
                 GalleryType = RibbonGalleryType.CompactDropDown,
                 TextPosition = RibbonTextPosition.Right,
-                ItemHeight = 24,   // Taller items for readability
-                ItemWidth = 200,   // Wider dropdown to show full blog names
+                ItemHeight = 16,   // Match native ribbon: ItemHeight="16"
+                ItemWidth = 16,    // Match native ribbon: ItemWidth="16"
                 MaxColumns = 1,    // Single column for blog list
                 MaxRows = 10       // Show up to 10 blogs
             };
@@ -147,8 +163,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             // Font Group - SizeDefinition="CustomFontControl"
             var fontGroup = CreateGroup(CommandId.FontGroup, "Font", "FN");
             fontGroup.SizeDefinition = "FontGroup";
-            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontFamily, PreferredWidth = 115, IsEditable = true, IsAutoCompleteEnabled = true });
-            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 40, IsEditable = true, IsAutoCompleteEnabled = true });
+            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontFamily, PreferredWidth = 95, IsEditable = true, IsAutoCompleteEnabled = true });
+            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 45, IsEditable = true, IsAutoCompleteEnabled = true });
             fontGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ClearFormatting, PreferredSize = RibbonGroupSize.Small });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Bold, PreferredSize = RibbonGroupSize.Small });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Italic, PreferredSize = RibbonGroupSize.Small });
@@ -174,18 +190,19 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             tab.Groups.Add(paragraphGroup);
 
             // HTML Styles Group - SizeDefinition="OneInRibbonGallery"
+            // Match native ribbon: MaxColumns="7", ItemHeight="36", ItemWidth="64", MaxRows="3"
             var htmlStylesGroup = CreateGroup(CommandId.SemanticHtmlGroup, "HTML styles", "HS");
             htmlStylesGroup.SizeDefinition = "OneInRibbonGallery";
             htmlStylesGroup.Controls.Add(new GalleryConfig 
             { 
                 CommandId = CommandId.SemanticHtmlGallery, 
                 GalleryType = RibbonGalleryType.InRibbon,
-                TextPosition = RibbonTextPosition.Right,
-                ItemHeight = 24,  // Compact height
-                ItemWidth = 72,   // Width for "Heading X" text
-                MaxColumns = 2,
-                MaxRows = 3,      // 3 rows visible
-                Columns = 2       // 2 columns
+                TextPosition = RibbonTextPosition.Bottom,
+                ItemHeight = 36,  // Match native ribbon: ItemHeight="36"
+                ItemWidth = 64,   // Match native ribbon: ItemWidth="64"
+                MaxColumns = 7,   // Match native ribbon: MaxColumns="7"
+                MaxRows = 3,      // Match native ribbon: MaxRows="3"
+                Columns = 2       // 2 columns in collapsed view
             });
             tab.Groups.Add(htmlStylesGroup);
 
@@ -218,10 +235,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             insertGroup.Controls.Add(insertVideoButton);
             tab.Groups.Add(insertGroup);
 
-            // Editing Group - SizeDefinition="FourButtons" - Ideal size is Medium per original
+            // Spelling Group - Single large button
+            var spellingGroup = CreateGroup(CommandId.TextEditingGroup, "Spelling", "S");
+            spellingGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.CheckSpelling, PreferredSize = RibbonGroupSize.Large });
+            tab.Groups.Add(spellingGroup);
+
+            // Editing Group - 3 medium buttons stacked vertically (Word count, Find, Select all)
             var editingGroup = CreateGroup(CommandId.TextEditingGroup, "Editing", "E");
-            editingGroup.SizeDefinition = "FourButtons";
-            editingGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.CheckSpelling, PreferredSize = RibbonGroupSize.Medium });
+            editingGroup.SizeDefinition = "ThreeMediumButtons";
             editingGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.WordCount, PreferredSize = RibbonGroupSize.Medium });
             editingGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.FindButton, PreferredSize = RibbonGroupSize.Medium });
             editingGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.SelectAll, PreferredSize = RibbonGroupSize.Medium });
@@ -288,11 +309,15 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             mediaGroup.Controls.Add(mediaInsertVideoButton);
             mediaGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertMap, PreferredSize = RibbonGroupSize.Large });
             mediaGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertTags, PreferredSize = RibbonGroupSize.Large });
-            mediaGroup.Controls.Add(new ButtonConfig 
+            mediaGroup.Controls.Add(new GalleryConfig 
             { 
                 CommandId = CommandId.InsertEmoticon, 
-                ButtonType = RibbonButtonType.DropDownButton,
-                PreferredSize = RibbonGroupSize.Large 
+                GalleryType = RibbonGalleryType.DropDown,
+                TextPosition = RibbonTextPosition.Hide,
+                ItemHeight = 22,
+                ItemWidth = 22,
+                MaxColumns = 10,
+                MaxRows = 5
             });
             tab.Groups.Add(mediaGroup);
 
@@ -359,6 +384,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 TextPosition = RibbonTextPosition.Right,
                 ItemHeight = 16,
                 ItemWidth = 16,
+                Columns = 1,  // Single column for list-style layout
                 MaxColumns = 1,
                 MaxRows = 3
             });
@@ -409,8 +435,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.SelectBlog, 
                 GalleryType = RibbonGalleryType.CompactDropDown,
                 TextPosition = RibbonTextPosition.Right,
-                ItemHeight = 24,   // Taller items for readability
-                ItemWidth = 200,   // Wider dropdown to show full blog names
+                ItemHeight = 16,   // Match native ribbon: ItemHeight="16"
+                ItemWidth = 16,    // Match native ribbon: ItemWidth="16"
                 MaxColumns = 1,    // Single column for blog list
                 MaxRows = 10       // Show up to 10 blogs
             };
@@ -445,6 +471,64 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 PreferredSize = RibbonGroupSize.Large 
             });
             tab.Groups.Add(previewGroup);
+
+            return tab;
+        }
+
+        #endregion
+
+        #region Debug Tab
+
+        private static TabConfig CreateDebugTab()
+        {
+            var tab = new TabConfig
+            {
+                CommandId = CommandId.DebugTab,
+                Label = "Debug",
+                Keytip = "D",
+                VisibleModes = RibbonApplicationMode.Debug
+            };
+
+            // General Debug Group - SizeDefinition="FiveButtons"
+            var generalGroup = CreateGroup(CommandId.GeneralDebugGroup, "General", "G");
+            generalGroup.SizeDefinition = "FiveButtons";
+            generalGroup.VisibleModes = RibbonApplicationMode.Debug;
+            generalGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.TerminateProcess, PreferredSize = RibbonGroupSize.Medium });
+            generalGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.RaiseAssertion, PreferredSize = RibbonGroupSize.Medium });
+            generalGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.DiagnosticsConsole, PreferredSize = RibbonGroupSize.Medium });
+            generalGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.BlogClientOptions, PreferredSize = RibbonGroupSize.Medium });
+            generalGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ViewSource, PreferredSize = RibbonGroupSize.Medium });
+            tab.Groups.Add(generalGroup);
+
+            // Dialog Debug Group - SizeDefinition="EightButtons"
+            var dialogGroup = CreateGroup(CommandId.DialogDebugGroup, "Dialog", "DL");
+            dialogGroup.SizeDefinition = "EightButtons";
+            dialogGroup.VisibleModes = RibbonApplicationMode.Debug;
+            dialogGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ShowBetaExpiredDialogs, PreferredSize = RibbonGroupSize.Medium });
+            dialogGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ShowUpdateMessage, PreferredSize = RibbonGroupSize.Medium });
+            dialogGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ShowWebLayoutWarning, PreferredSize = RibbonGroupSize.Medium });
+            dialogGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ShowErrorDialog, PreferredSize = RibbonGroupSize.Medium });
+            dialogGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ShowDisplayMessageTestForm, PreferredSize = RibbonGroupSize.Medium });
+            dialogGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ShowSupportingFilesForm, PreferredSize = RibbonGroupSize.Medium });
+            dialogGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ShowAtomImageEndpointSelector, PreferredSize = RibbonGroupSize.Medium });
+            dialogGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ShowGoogleCaptcha, PreferredSize = RibbonGroupSize.Medium });
+            tab.Groups.Add(dialogGroup);
+
+            // Text Debug Group - SizeDefinition="OneButton"
+            var textGroup = CreateGroup(CommandId.TextDebugGroup, "Text", "T");
+            textGroup.SizeDefinition = "OneButton";
+            textGroup.VisibleModes = RibbonApplicationMode.Debug;
+            textGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.InsertLoremIpsum, PreferredSize = RibbonGroupSize.Large });
+            tab.Groups.Add(textGroup);
+
+            // Validate Debug Group - SizeDefinition="ThreeButtons"
+            var validateGroup = CreateGroup(CommandId.ValidateDebugGroup, "Validate", "V");
+            validateGroup.SizeDefinition = "ThreeButtons";
+            validateGroup.VisibleModes = RibbonApplicationMode.Debug;
+            validateGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ValidateHtml, PreferredSize = RibbonGroupSize.Medium });
+            validateGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ValidateXhtml, PreferredSize = RibbonGroupSize.Medium });
+            validateGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ValidateLocalizedResources, PreferredSize = RibbonGroupSize.Medium });
+            tab.Groups.Add(validateGroup);
 
             return tab;
         }

@@ -94,6 +94,7 @@ namespace OpenLiveWriter.Ribbon.Managed
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
 
+            AutoScaleMode = AutoScaleMode.Dpi;
             Dock = DockStyle.Top;
             Height = DEFAULT_HEIGHT;
             BackColor = RibbonColors.Current.RibbonBackground;
@@ -179,6 +180,12 @@ namespace OpenLiveWriter.Ribbon.Managed
             {
                 commandIds.Add(ctg.CommandId);
                 CollectCommandIds(ctg.Tabs, commandIds);
+            }
+
+            // Register Help button command
+            if (config.HelpButton != null && config.HelpButton.CommandId != CommandId.None)
+            {
+                commandIds.Add(config.HelpButton.CommandId);
             }
 
             // Register with bridge

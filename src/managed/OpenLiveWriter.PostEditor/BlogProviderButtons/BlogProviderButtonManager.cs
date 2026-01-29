@@ -349,12 +349,34 @@ namespace OpenLiveWriter.PostEditor.BlogProviderButtons
 
         private void commandViewWeblog_Execute(object sender, EventArgs e)
         {
-            ShellHelper.LaunchUrl(_editingManager.BlogHomepageUrl);
+            try
+            {
+                var url = _editingManager?.Blog?.HomepageUrl;
+                if (!string.IsNullOrEmpty(url))
+                {
+                    ShellHelper.LaunchUrl(url);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"commandViewWeblog_Execute failed: {ex.Message}");
+            }
         }
 
         private void commandViewWeblogAdmin_Execute(object sender, EventArgs e)
         {
-            ShellHelper.LaunchUrl(_editingManager.BlogAdminUrl);
+            try
+            {
+                var url = _editingManager?.Blog?.AdminUrl;
+                if (!string.IsNullOrEmpty(url))
+                {
+                    ShellHelper.LaunchUrl(url);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"commandViewWeblogAdmin_Execute failed: {ex.Message}");
+            }
         }
 
         public void Dispose()

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
 
@@ -125,7 +126,24 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         public string Keytip => _keytip;
         public Image LargeImage => _largeImage;
         public Image SmallImage => _smallImage;
-        public IReadOnlyList<CommandGalleryItem> GalleryItems => _galleryItems.AsReadOnly();
+        
+        /// <summary>
+        /// Gets the gallery items. If items are empty, tries to refresh from source command.
+        /// </summary>
+        public IReadOnlyList<CommandGalleryItem> GalleryItems
+        {
+            get
+            {
+                // If we don't have items yet, try to refresh from source
+                // This handles the case where the source command wasn't available at construction time
+                if (_galleryItems.Count == 0 && _sourceCommand == null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: GalleryItems accessed with no items, attempting refresh");
+                    RefreshFromSource();
+                }
+                return _galleryItems.AsReadOnly();
+            }
+        }
         
         public int SelectedIndex
         {
@@ -192,29 +210,73 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         }
 
         /// <summary>
-        /// Gets the source command, refreshing if not yet available.
+        /// Gets the source command, attempting to find it if not yet available.
+        /// Will retry looking for the command if it wasn't found previously.
         /// </summary>
         private object GetSourceCommand()
         {
+            // If we already have the source command, return it
             if (_sourceCommand != null)
                 return _sourceCommand;
 
-            // Try to get source command
+            // Try to get source command (this may be called multiple times if source wasn't available initially)
             try
             {
                 var type = _existingCommandManager.GetType();
                 var getMethod = type.GetMethod("Get", new[] { typeof(CommandId) });
                 if (getMethod != null)
                 {
-                    _sourceCommand = getMethod.Invoke(_existingCommandManager, new object[] { _commandId });
+                    var source = getMethod.Invoke(_existingCommandManager, new object[] { _commandId });
+                    
+                    // If we found the source command
+                    if (source != null)
+                    {
+                        _sourceCommand = source;
+                        
+                        // Subscribe to source command's StateChanged event
+                        SubscribeToSourceStateChanged(_sourceCommand);
+                        
+                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Found source command (type: {source.GetType().Name})");
+                    }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // If reflection fails, we'll use defaults
+                System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: GetSourceCommand exception: {ex.Message}");
             }
 
             return _sourceCommand;
+        }
+
+        /// <summary>
+        /// Subscribes to the source command's StateChanged event using reflection.
+        /// </summary>
+        private void SubscribeToSourceStateChanged(object source)
+        {
+            try
+            {
+                var sourceType = source.GetType();
+                var stateChangedEvent = sourceType.GetEvent("StateChanged");
+                if (stateChangedEvent != null)
+                {
+                    var handler = new EventHandler(OnSourceStateChanged);
+                    stateChangedEvent.AddEventHandler(source, handler);
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Subscribed to source StateChanged");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Failed to subscribe to StateChanged: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Handler for when the source command's state changes.
+        /// </summary>
+        private void OnSourceStateChanged(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Source StateChanged, refreshing");
+            RefreshFromSource();
         }
 
         /// <summary>
@@ -271,18 +333,60 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     _tooltip = (string)tooltipProp.GetValue(source);
                 }
 
-                // Get large image
-                var largeImageProp = sourceType.GetProperty("LargeImage") ?? sourceType.GetProperty("CommandBarButtonBitmapLarge");
+                // Get large image (32x32)
+                // Try LargeImage first (the standard ribbon property)
+                var largeImageProp = sourceType.GetProperty("LargeImage");
                 if (largeImageProp != null)
                 {
-                    _largeImage = largeImageProp.GetValue(source) as Image;
+                    _largeImage = ExtractBitmapFromProperty(largeImageProp, source);
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: LargeImage = {(_largeImage != null ? $"{_largeImage.Width}x{_largeImage.Height}" : "null")}");
                 }
 
-                // Get small image
-                var smallImageProp = sourceType.GetProperty("SmallImage") ?? sourceType.GetProperty("CommandBarButtonBitmapSmall");
+                // Get small image (16x16)
+                // Try SmallImage first
+                var smallImageProp = sourceType.GetProperty("SmallImage");
                 if (smallImageProp != null)
                 {
-                    _smallImage = smallImageProp.GetValue(source) as Image;
+                    _smallImage = ExtractBitmapFromProperty(smallImageProp, source);
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: SmallImage = {(_smallImage != null ? $"{_smallImage.Width}x{_smallImage.Height}" : "null")}");
+                }
+
+                // If SmallImage is null, try CommandBarButtonBitmapEnabled (legacy command bar property)
+                if (_smallImage == null)
+                {
+                    var cmdBarBitmapProp = sourceType.GetProperty("CommandBarButtonBitmapEnabled");
+                    if (cmdBarBitmapProp != null)
+                    {
+                        _smallImage = ExtractBitmapFromProperty(cmdBarBitmapProp, source);
+                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: CommandBarButtonBitmapEnabled fallback = {(_smallImage != null ? $"{_smallImage.Width}x{_smallImage.Height}" : "null")}");
+                    }
+                }
+
+                // If LargeImage is null, try CommandBarButtonBitmapEnabled as fallback
+                if (_largeImage == null)
+                {
+                    var cmdBarBitmapProp = sourceType.GetProperty("CommandBarButtonBitmapEnabled");
+                    if (cmdBarBitmapProp != null)
+                    {
+                        _largeImage = ExtractBitmapFromProperty(cmdBarBitmapProp, source);
+                        if (_largeImage != null)
+                        {
+                            System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: CommandBarButtonBitmapEnabled fallback for LargeImage = {_largeImage.Width}x{_largeImage.Height}");
+                        }
+                    }
+                }
+
+                // If LargeImage is null but SmallImage exists, scale up the small image
+                if (_largeImage == null && _smallImage != null)
+                {
+                    _largeImage = ScaleImage(_smallImage, 32, 32);
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Scaled SmallImage up to LargeImage (32x32)");
+                }
+                // If SmallImage is null but LargeImage exists, scale down the large image
+                else if (_smallImage == null && _largeImage != null)
+                {
+                    _smallImage = ScaleImage(_largeImage, 16, 16);
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Scaled LargeImage down to SmallImage (16x16)");
                 }
 
                 // Get gallery items (for SelectGalleryCommand derived classes)
@@ -307,12 +411,30 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             try
             {
                 // Check if source has Items property (for gallery commands)
+                // Try to find Items property in the type hierarchy
                 var itemsProp = sourceType.GetProperty("Items");
+                if (itemsProp == null)
+                {
+                    // Try to find it in base types
+                    var baseType = sourceType.BaseType;
+                    while (baseType != null && itemsProp == null)
+                    {
+                        itemsProp = baseType.GetProperty("Items");
+                        baseType = baseType.BaseType;
+                    }
+                }
+                
+                System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: LoadGalleryItems - ItemsProp found: {itemsProp != null}, SourceType: {sourceType.Name}");
+                
                 if (itemsProp != null)
                 {
-                    var items = itemsProp.GetValue(source) as System.Collections.IList;
+                    var itemsValue = itemsProp.GetValue(source);
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Items value type: {itemsValue?.GetType().Name ?? "null"}");
+                    
+                    var items = itemsValue as System.Collections.IList;
                     if (items != null)
                     {
+                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Items count from source: {items.Count}");
                         _galleryItems.Clear();
                         foreach (var item in items)
                         {
@@ -323,14 +445,25 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                             var imageProp = itemType.GetProperty("Image");
                             var cookieProp = itemType.GetProperty("Cookie");
                             
+                            var label = labelProp?.GetValue(item) as string ?? item.ToString();
+                            var image = imageProp?.GetValue(item) as Image;
+                            var cookie = cookieProp?.GetValue(item);
+                            
+                            System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Gallery item - Label: '{label}', HasImage: {image != null}");
+                            
                             var galleryItem = new CommandGalleryItem
                             {
-                                Label = labelProp?.GetValue(item) as string ?? item.ToString(),
-                                Image = imageProp?.GetValue(item) as Image,
-                                Tag = cookieProp?.GetValue(item)
+                                Label = label,
+                                Image = image,
+                                Tag = cookie
                             };
                             _galleryItems.Add(galleryItem);
                         }
+                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Loaded {_galleryItems.Count} gallery items");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Items is not IList");
                     }
                 }
 
@@ -345,9 +478,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // If gallery loading fails, continue
+                System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: LoadGalleryItems exception: {ex.Message}");
             }
 
             return _galleryItems.Count != oldCount || oldCount > 0;
@@ -355,70 +488,100 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
 
         public void PerformExecute()
         {
-            System.Diagnostics.Debug.WriteLine($"BridgedCommand.PerformExecute for {_commandId}, Enabled={Enabled}");
+            System.Diagnostics.Debug.WriteLine($"BridgedCommand.PerformExecute for {_commandId}, Enabled={Enabled}, SelectedIndex={_selectedIndex}");
             
             // Refresh to ensure we have the latest source command and state
             var source = GetSourceCommand();
             
-            // For semantic HTML commands, they should generally be enabled
-            // Check the source command's enabled state directly
-            bool sourceEnabled = true;
-            if (source != null)
+            // If no source command exists, we can't execute - fail early
+            if (source == null)
             {
-                try
-                {
-                    var sourceType = source.GetType();
-                    var enabledProp = sourceType.GetProperty("Enabled");
-                    var onProp = sourceType.GetProperty("On");
-                    if (enabledProp != null)
-                    {
-                        sourceEnabled = (bool)enabledProp.GetValue(source);
-                    }
-                    bool sourceOn = onProp != null ? (bool)onProp.GetValue(source) : true;
-                    System.Diagnostics.Debug.WriteLine($"  Source: Type={sourceType.Name}, Enabled={sourceEnabled}, On={sourceOn}");
-                }
-                catch { }
+                System.Diagnostics.Debug.WriteLine($"  No source command found for {_commandId} - command handler may not be registered");
+                return;
             }
-
-            if (!sourceEnabled)
+            
+            // Check the source command's enabled and on state directly
+            // The underlying Command.PerformExecute() requires both On && Enabled to be true
+            bool sourceEnabled = true;
+            bool sourceOn = true;
+            try
             {
-                System.Diagnostics.Debug.WriteLine($"  Skipping execution - source command disabled");
+                var sourceType = source.GetType();
+                var enabledProp = sourceType.GetProperty("Enabled");
+                var onProp = sourceType.GetProperty("On");
+                if (enabledProp != null)
+                {
+                    sourceEnabled = (bool)enabledProp.GetValue(source);
+                }
+                if (onProp != null)
+                {
+                    sourceOn = (bool)onProp.GetValue(source);
+                }
+                System.Diagnostics.Debug.WriteLine($"  Source: Type={sourceType.Name}, Enabled={sourceEnabled}, On={sourceOn}");
+            }
+            catch { }
+
+            if (!sourceEnabled || !sourceOn)
+            {
+                System.Diagnostics.Debug.WriteLine($"  Skipping execution - source command not available (Enabled={sourceEnabled}, On={sourceOn})");
                 return;
             }
 
             Execute?.Invoke(this, EventArgs.Empty);
 
             // Execute the source command
-            if (source != null)
+            try
             {
-                try
+                var sourceType = source.GetType();
+                
+                // For gallery commands, set the SelectedIndex on the source before executing
+                var selectedIndexProp = sourceType.GetProperty("SelectedIndex");
+                bool isGalleryCommand = selectedIndexProp != null && selectedIndexProp.CanWrite;
+                
+                if (isGalleryCommand)
                 {
-                    var sourceType = source.GetType();
-                    var executeMethod = sourceType.GetMethod("PerformExecute", Type.EmptyTypes);
-
-                    if (executeMethod != null)
+                    System.Diagnostics.Debug.WriteLine($"  Setting SelectedIndex={_selectedIndex} on source");
+                    selectedIndexProp.SetValue(source, _selectedIndex);
+                    
+                    // Gallery commands use PerformExecuteWithArgs with ExecuteEventHandlerArgs
+                    // Look for the ExecuteEventHandlerArgs type and PerformExecuteWithArgs method
+                    var argsType = sourceType.Assembly.GetType("OpenLiveWriter.ApplicationFramework.ExecuteEventHandlerArgs");
+                    if (argsType != null)
                     {
-                        System.Diagnostics.Debug.WriteLine($"  Calling PerformExecute on source");
-                        executeMethod.Invoke(source, null);
-                        System.Diagnostics.Debug.WriteLine($"  PerformExecute completed");
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine($"  No PerformExecute method found on source");
+                        var executeWithArgsMethod = sourceType.GetMethod("PerformExecuteWithArgs", new[] { argsType });
+                        if (executeWithArgsMethod != null)
+                        {
+                            // Create ExecuteEventHandlerArgs with the command ID and selected index
+                            var args = Activator.CreateInstance(argsType, _commandId.ToString(), _selectedIndex);
+                            System.Diagnostics.Debug.WriteLine($"  Calling PerformExecuteWithArgs on source with index={_selectedIndex}");
+                            executeWithArgsMethod.Invoke(source, new[] { args });
+                            System.Diagnostics.Debug.WriteLine($"  PerformExecuteWithArgs completed");
+                            return;
+                        }
                     }
                 }
-                catch (Exception ex)
+                
+                // Fall back to PerformExecute for non-gallery commands
+                var executeMethod = sourceType.GetMethod("PerformExecute", Type.EmptyTypes);
+
+                if (executeMethod != null)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Command execution failed for {_commandId}: {ex.Message}");
-                    if (ex.InnerException != null)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"  Inner exception: {ex.InnerException.Message}");
-                    }
+                    System.Diagnostics.Debug.WriteLine($"  Calling PerformExecute on source");
+                    executeMethod.Invoke(source, null);
+                    System.Diagnostics.Debug.WriteLine($"  PerformExecute completed");
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"  No PerformExecute method found on source");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"  No source command found");
+                System.Diagnostics.Debug.WriteLine($"Command execution failed for {_commandId}: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    System.Diagnostics.Debug.WriteLine($"  Inner exception: {ex.InnerException.Message}");
+                }
             }
         }
 
@@ -427,9 +590,159 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             RefreshFromSource();
         }
 
+        /// <summary>
+        /// Forces loading of gallery items by calling LoadItems() on the source command.
+        /// This should be called before showing a dropdown to ensure items are populated.
+        /// </summary>
+        public void ForceLoadGalleryItems()
+        {
+            var source = GetSourceCommand();
+            if (source == null) return;
+            
+            var sourceType = source.GetType();
+            var loadItemsMethod = sourceType.GetMethod("LoadItems");
+            if (loadItemsMethod != null)
+            {
+                try
+                {
+                    loadItemsMethod.Invoke(source, null);
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Called LoadItems() on source");
+                    
+                    // Reload gallery items after LoadItems() call
+                    LoadGalleryItems(source, sourceType);
+                    ItemsChanged?.Invoke(this, EventArgs.Empty);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: ForceLoadGalleryItems failed: {ex.Message}");
+                }
+            }
+        }
+
         private void OnStateChanged()
         {
             StateChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Extracts a Bitmap from a property that may return either LazyLoader&lt;Bitmap&gt; or Bitmap directly.
+        /// Also filters out placeholder images (MissingLarge/MissingSmall).
+        /// </summary>
+        private static Image ExtractBitmapFromProperty(PropertyInfo property, object source)
+        {
+            try
+            {
+                var propertyValue = property.GetValue(source);
+                if (propertyValue == null)
+                    return null;
+
+                // Check if it's already a Bitmap/Image
+                if (propertyValue is Image directImage)
+                {
+                    // Check if it's a placeholder image - skip those
+                    if (IsPlaceholderImage(directImage))
+                        return null;
+                    return directImage;
+                }
+
+                // Check if it's a LazyLoader<Bitmap>
+                var propertyType = propertyValue.GetType();
+                if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition().Name == "LazyLoader`1")
+                {
+                    // Get the Value property from LazyLoader
+                    var valueProperty = propertyType.GetProperty("Value");
+                    if (valueProperty != null)
+                    {
+                        var bitmap = valueProperty.GetValue(propertyValue) as Image;
+                        // Check if it's a placeholder image - skip those
+                        if (bitmap != null && IsPlaceholderImage(bitmap))
+                            return null;
+                        return bitmap;
+                    }
+                }
+
+                // Try direct cast as fallback
+                return propertyValue as Image;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ExtractBitmapFromProperty failed for {property.Name}: {ex.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Checks if an image is a placeholder image (MissingLarge or MissingSmall).
+        /// Only filters if we can confirm it's the actual placeholder by reference comparison.
+        /// </summary>
+        private static bool IsPlaceholderImage(Image image)
+        {
+            if (image == null)
+                return true;
+
+            // Try to get the MissingLarge and MissingSmall images for comparison
+            try
+            {
+                var commandResourceLoaderType = Type.GetType("OpenLiveWriter.ApplicationFramework.CommandResourceLoader, OpenLiveWriter.ApplicationFramework");
+                if (commandResourceLoaderType != null)
+                {
+                    var missingLargeProp = commandResourceLoaderType.GetProperty("MissingLarge", BindingFlags.Static | BindingFlags.Public);
+                    var missingSmallProp = commandResourceLoaderType.GetProperty("MissingSmall", BindingFlags.Static | BindingFlags.Public);
+
+                    if (missingLargeProp != null)
+                    {
+                        var missingLarge = missingLargeProp.GetValue(null) as Image;
+                        // Only filter if it's the exact same reference (most reliable check)
+                        if (missingLarge != null && ReferenceEquals(image, missingLarge))
+                            return true;
+                    }
+
+                    if (missingSmallProp != null)
+                    {
+                        var missingSmall = missingSmallProp.GetValue(null) as Image;
+                        // Only filter if it's the exact same reference (most reliable check)
+                        if (missingSmall != null && ReferenceEquals(image, missingSmall))
+                            return true;
+                    }
+                }
+            }
+            catch
+            {
+                // If we can't check, assume it's not a placeholder to avoid false positives
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Scales an image to the specified size with high quality interpolation.
+        /// </summary>
+        private static Image ScaleImage(Image source, int width, int height)
+        {
+            if (source == null) return null;
+            if (source.Width == width && source.Height == height) return source;
+
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            destImage.SetResolution(source.HorizontalResolution, source.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new System.Drawing.Imaging.ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
+                    graphics.DrawImage(source, destRect, 0, 0, source.Width, source.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
     }
 

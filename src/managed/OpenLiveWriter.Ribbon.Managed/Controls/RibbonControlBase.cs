@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Ribbon.Managed.Commands;
+using OpenLiveWriter.Ribbon.Managed.Rendering;
 
 namespace OpenLiveWriter.Ribbon.Managed.Controls
 {
@@ -166,6 +167,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
 
+            // Note: AutoScaleMode is handled by the parent container (RibbonPanel/RibbonGroup)
             BackColor = Color.Transparent;
 
             // Initialize shared tooltip if needed
@@ -179,6 +181,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     ShowAlways = true
                 };
             }
+        }
+
+        /// <summary>
+        /// Override to initialize the double buffer with a proper background color.
+        /// With OptimizedDoubleBuffer, an empty OnPaintBackground leaves the buffer
+        /// uninitialized (black). We fill with the group background color to ensure
+        /// no black shows through gaps in OnPaint rendering.
+        /// </summary>
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            // Fill with opaque group background to initialize the double buffer
+            e.Graphics.Clear(RibbonColors.Current.GetOpaqueGroupBackground());
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -227,8 +241,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             var command = _commandManager?.GetCommand(_commandId);
             if (command != null)
             {
+                // For ribbon controls, use command.Enabled for both enabled and disabled states
+                // We keep controls visible in the ribbon - they should be disabled, not hidden
+                // This matches standard Windows Ribbon behavior
                 Enabled = command.Enabled;
-                Visible = command.Visible;
+                // Don't hide ribbon controls based on command visibility
+                // Visibility is controlled by VisibleModes/ApplicationMode instead
 
                 // Set tooltip
                 if (!string.IsNullOrEmpty(command.Tooltip))

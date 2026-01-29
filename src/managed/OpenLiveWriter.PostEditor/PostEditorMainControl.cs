@@ -541,6 +541,11 @@ namespace OpenLiveWriter.PostEditor
                 ribbonMode |= RibbonApplicationMode.RTL;
             if ((mode & ToAppMode(ApplicationMode.HasPlugins)) != 0)
                 ribbonMode |= RibbonApplicationMode.WithPlugins;
+            if ((mode & ToAppMode(ApplicationMode.NoPlugins)) != 0)
+                ribbonMode |= RibbonApplicationMode.WithoutPlugins;
+            // Map Test mode to Debug mode - enables the Debug tab
+            if ((mode & ToAppMode(ApplicationMode.Test)) != 0)
+                ribbonMode |= RibbonApplicationMode.Debug;
 
             _managedRibbon.CurrentMode = ribbonMode;
         }
