@@ -154,6 +154,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             Controls.Add(_innerSpinner);
         }
 
+        /// <summary>
+        /// Override to fill entire bounds before child controls render.
+        /// This prevents black showing through gaps between label and spinner.
+        /// </summary>
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            // Fill entire bounds with opaque background to prevent black in gaps
+            e.Graphics.Clear(RibbonColors.Current.GetOpaqueGroupBackground());
+            base.OnPaint(e);
+        }
+
         protected override void UpdateSize()
         {
             base.UpdateSize();

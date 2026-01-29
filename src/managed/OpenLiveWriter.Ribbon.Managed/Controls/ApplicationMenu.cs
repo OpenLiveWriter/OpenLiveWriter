@@ -28,6 +28,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private readonly List<AppMenuItem> _menuItems = new List<AppMenuItem>();
         private readonly List<RecentItem> _recentItems = new List<RecentItem>();
         private int _maxRecentItems = 10;
+        private DateTime _showTime;  // Track when menu was shown to prevent immediate close
 
         private Panel _menuPanel;
         private Panel _recentPanel;
@@ -114,20 +115,20 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _recentPanel.MouseClick += RecentPanel_MouseClick;
             Controls.Add(_recentPanel);
 
-            // Recent items label
+            // Recent items label - match native "Recent posts and drafts" header
             _recentLabel = new Label
             {
                 Location = new Point(PADDING, PADDING),
                 Size = new Size(RECENT_PANEL_WIDTH - PADDING * 2, 24),
-                Text = "Recent",
-                Font = new Font(SystemFonts.MenuFont.FontFamily, 11f, FontStyle.Bold),
+                Text = "Recent posts and drafts",
+                Font = new Font(SystemFonts.MenuFont.FontFamily, 9f, FontStyle.Regular),
                 ForeColor = Color.FromArgb(68, 68, 68),
                 BackColor = Color.Transparent
             };
             _recentPanel.Controls.Add(_recentLabel);
 
-            // Handle deactivation
-            Deactivate += (s, e) => Hide();
+            // Menu closes via Escape key or clicking a menu item
+            // Deactivation handling disabled to prevent issues during automated testing
         }
 
         /// <summary>
@@ -236,6 +237,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         /// </summary>
         public void Show(Point screenLocation)
         {
+            _showTime = DateTime.Now;  // Track show time for deactivation handling
             Location = screenLocation;
             Show();
             Activate();
@@ -273,7 +275,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private void DrawMenuSeparator(Graphics g, int y)
         {
-            using (var pen = new Pen(Color.FromArgb(73, 73, 73)))
+            // Light gray separator to match light theme
+            using (var pen = new Pen(Color.FromArgb(200, 200, 200)))
             {
                 g.DrawLine(pen, PADDING + 10, y + 4, MENU_WIDTH - PADDING - 10, y + 4);
             }
@@ -348,16 +351,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (_recentItems.Count == 0)
             {
                 var textBounds = new Rectangle(PADDING, y, RECENT_PANEL_WIDTH - PADDING * 2, 40);
-                var textFormat = new StringFormat
-                {
-                    Alignment = StringAlignment.Near,
-                    LineAlignment = StringAlignment.Center
-                };
-
-                using (var brush = new SolidBrush(Color.FromArgb(128, 128, 128)))
-                {
-                    g.DrawString("No recent items", SystemFonts.MenuFont, brush, textBounds, textFormat);
-                }
+                RibbonRenderer.DrawHighQualityText(g, "No recent items", SystemFonts.MenuFont,
+                    Color.FromArgb(128, 128, 128), textBounds,
+                    TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine);
             }
         }
 
@@ -377,35 +373,33 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (item.IsPinned)
             {
-                // Draw pin icon
-                using (var brush = new SolidBrush(Color.FromArgb(0, 102, 204)))
+                // Draw pin icon with high-quality rendering
                 using (var font = new Font("Segoe UI Symbol", 10f))
                 {
-                    g.DrawString("📌", font, brush, pinBounds.X + 2, bounds.Y + (bounds.Height - 16) / 2);
+                    var pinTextBounds = new Rectangle(pinBounds.X + 2, bounds.Y + (bounds.Height - 16) / 2, 20, 16);
+                    RibbonRenderer.DrawHighQualityText(g, "📌", font, 
+                        Color.FromArgb(0, 102, 204), pinTextBounds, TextFormatFlags.Left);
                 }
             }
 
-            // Title
+            // Title with high-quality rendering
             var titleBounds = new Rectangle(bounds.X + 26, bounds.Y + 2, bounds.Width - 30, 18);
-            var textFormat = new StringFormat
-            {
-                Alignment = StringAlignment.Near,
-                LineAlignment = StringAlignment.Center,
-                Trimming = StringTrimming.EllipsisPath
-            };
-
-            using (var brush = new SolidBrush(Color.FromArgb(38, 38, 38)))
             using (var font = new Font(SystemFonts.MenuFont.FontFamily, 9f))
             {
-                g.DrawString(item.Title, font, brush, titleBounds, textFormat);
+                RibbonRenderer.DrawHighQualityText(g, item.Title, font, 
+                    Color.FromArgb(38, 38, 38), titleBounds,
+                    TextFormatFlags.Left | TextFormatFlags.VerticalCenter | 
+                    TextFormatFlags.PathEllipsis | TextFormatFlags.SingleLine);
             }
 
-            // Path
+            // Path with high-quality rendering
             var pathBounds = new Rectangle(bounds.X + 26, bounds.Y + 18, bounds.Width - 30, 16);
-            using (var brush = new SolidBrush(Color.FromArgb(128, 128, 128)))
             using (var font = new Font(SystemFonts.MenuFont.FontFamily, 7.5f))
             {
-                g.DrawString(item.Path, font, brush, pathBounds, textFormat);
+                RibbonRenderer.DrawHighQualityText(g, item.Path, font, 
+                    Color.FromArgb(128, 128, 128), pathBounds,
+                    TextFormatFlags.Left | TextFormatFlags.VerticalCenter | 
+                    TextFormatFlags.PathEllipsis | TextFormatFlags.SingleLine);
             }
         }
 

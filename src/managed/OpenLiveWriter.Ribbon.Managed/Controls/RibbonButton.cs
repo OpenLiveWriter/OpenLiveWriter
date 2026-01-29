@@ -62,14 +62,34 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private string DisplayLabel => Label ?? CommandLabel;
 
         /// <summary>
-        /// Gets the large image to display.
+        /// Gets the large image to display (32x32).
+        /// Uses button-specific override, then command's large image, then scaled small image.
         /// </summary>
-        internal new Image CommandLargeImage => LargeImage ?? base.CommandLargeImage;
+        public Image DisplayLargeImage
+        {
+            get
+            {
+                // Priority: 1) Button-specific override, 2) Command's large image, 3) Command's small image (scaled)
+                var image = LargeImage ?? base.CommandLargeImage ?? base.CommandSmallImage;
+                System.Diagnostics.Debug.WriteLineIf(image == null, $"RibbonButton [{CommandId}]: DisplayLargeImage is null");
+                return image;
+            }
+        }
 
         /// <summary>
-        /// Gets the small image to display.
+        /// Gets the small image to display (16x16).
+        /// Uses button-specific override, then command's small image, then scaled large image.
         /// </summary>
-        private Image DisplaySmallImage => SmallImage ?? base.CommandSmallImage;
+        public Image DisplaySmallImage
+        {
+            get
+            {
+                // Priority: 1) Button-specific override, 2) Command's small image, 3) Command's large image (scaled)
+                var image = SmallImage ?? base.CommandSmallImage ?? base.CommandLargeImage;
+                System.Diagnostics.Debug.WriteLineIf(image == null, $"RibbonButton [{CommandId}]: DisplaySmallImage is null");
+                return image;
+            }
+        }
 
         /// <summary>
         /// Gets the menu items for split/dropdown buttons.
@@ -90,6 +110,30 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             SetStyle(ControlStyles.Selectable, true);
             TabStop = true;
+            
+            // Enable accessibility for UI Automation
+            AccessibleRole = AccessibleRole.PushButton;
+            AccessibleDefaultActionDescription = "Click";
+        }
+
+        /// <summary>
+        /// Updates accessibility properties when command changes.
+        /// </summary>
+        protected override void UpdateFromCommand()
+        {
+            base.UpdateFromCommand();
+            
+            // Update AccessibleName to match the button label for UI Automation
+            // Strip accelerator characters (&) for clean accessible names
+            var label = DisplayLabel;
+            if (!string.IsNullOrEmpty(label))
+            {
+                AccessibleName = RibbonRenderer.StripAccelerator(label);
+            }
+            else if (CommandId != Localization.CommandId.None)
+            {
+                AccessibleName = CommandId.ToString();
+            }
         }
 
         protected override void UpdateSize()
@@ -97,17 +141,24 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             base.UpdateSize();
 
             // Size will be set by the parent group's layout
-            // These are just default/minimum sizes
+            // These are minimum sizes based on Windows Ribbon specifications:
+            // - Large: 32x32 icon + padding + 2 lines of text (~24px) = ~66px height minimum
+            // - Medium: 16x16 icon + text on right, typically 22-24px height
+            // - Small: 16x16 icon only, 22x22 minimum
             switch (CurrentSize)
             {
                 case RibbonGroupSize.Large:
-                    MinimumSize = new Size(40, 60);
+                    // Width needs to fit icon (32) + margins, and 2-line text
+                    // Height: 3px top padding + 32px icon + 2px gap + ~26px for 2 lines of 8pt text + 3px bottom
+                    MinimumSize = new Size(LayoutConstants.LargeButtonMinWidth, LayoutConstants.LargeButtonMinHeight);
                     break;
                 case RibbonGroupSize.Medium:
-                    MinimumSize = new Size(22, 20);
+                    // Height matches LayoutConstants.MediumButtonHeight (24)
+                    MinimumSize = new Size(LayoutConstants.MediumButtonMinWidth, LayoutConstants.MediumButtonHeight);
                     break;
                 case RibbonGroupSize.Small:
-                    MinimumSize = new Size(22, 22);
+                    // 16x16 icon + 3px padding each side
+                    MinimumSize = new Size(LayoutConstants.SmallButtonSize, LayoutConstants.SmallButtonSize);
                     break;
             }
         }
@@ -117,7 +168,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             base.OnPaint(e);
 
             var g = e.Graphics;
-            var image = CurrentSize == RibbonGroupSize.Large ? CommandLargeImage : DisplaySmallImage;
+            var image = CurrentSize == RibbonGroupSize.Large ? DisplayLargeImage : DisplaySmallImage;
 
             // Calculate bounds
             CalculateBounds();
@@ -145,17 +196,24 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 if (CurrentSize == RibbonGroupSize.Large)
                 {
-                    _buttonBounds = new Rectangle(0, 0, Width, Height - 18);
-                    _dropDownBounds = new Rectangle(0, Height - 18, Width, 18);
+                    // For large split buttons, the dropdown area is below the icon+text
+                    // Split at roughly where the text ends: icon (32) + gap + text area
+                    // The split line should be below the 2-line text area
+                    // Top portion: icon + text (~55px), bottom: dropdown arrow (~11px)
+                    var splitY = Height - 14;
+                    _buttonBounds = new Rectangle(0, 0, Width, splitY);
+                    _dropDownBounds = new Rectangle(0, splitY, Width, Height - splitY);
                 }
                 else if (CurrentSize == RibbonGroupSize.Medium)
                 {
-                    _buttonBounds = new Rectangle(0, 0, Width - 16, Height);
-                    _dropDownBounds = new Rectangle(Width - 16, 0, 16, Height);
+                    // For medium split buttons, dropdown is on the right side
+                    var dropdownWidth = 14;
+                    _buttonBounds = new Rectangle(0, 0, Width - dropdownWidth, Height);
+                    _dropDownBounds = new Rectangle(Width - dropdownWidth, 0, dropdownWidth, Height);
                 }
                 else
                 {
-                    // Small - no split
+                    // Small - no split capability
                     _buttonBounds = ClientRectangle;
                     _dropDownBounds = Rectangle.Empty;
                 }
@@ -175,15 +233,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 if (CurrentSize == RibbonGroupSize.Large)
                 {
-                    // Horizontal separator
-                    g.DrawLine(pen, _dropDownBounds.Left + 4, _dropDownBounds.Top,
-                        _dropDownBounds.Right - 4, _dropDownBounds.Top);
+                    // Horizontal separator line above dropdown arrow area
+                    var margin = 6;
+                    g.DrawLine(pen, _dropDownBounds.Left + margin, _dropDownBounds.Top,
+                        _dropDownBounds.Right - margin, _dropDownBounds.Top);
                 }
                 else
                 {
-                    // Vertical separator
-                    g.DrawLine(pen, _dropDownBounds.Left, _dropDownBounds.Top + 4,
-                        _dropDownBounds.Left, _dropDownBounds.Bottom - 4);
+                    // Vertical separator line between button and dropdown
+                    var margin = 4;
+                    g.DrawLine(pen, _dropDownBounds.Left, _dropDownBounds.Top + margin,
+                        _dropDownBounds.Left, _dropDownBounds.Bottom - margin);
                 }
             }
         }
@@ -192,13 +252,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             if (_dropDownBounds.IsEmpty) return;
 
-            // Background
+            // Background - draw highlight when hovered/pressed
             Color backColor = Color.Transparent;
             Color borderColor = Color.Transparent;
 
             if (!Enabled || !CommandEnabled)
             {
-                // Disabled
+                // Disabled - no highlight
             }
             else if (_isDropDownPressed)
             {
@@ -211,29 +271,32 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 borderColor = RibbonColors.Current.ButtonBorderHover;
             }
 
-            if (backColor != Color.Transparent)
+            // ALWAYS fill the dropdown area to prevent black from showing
+            // When backColor is Transparent (normal state), use the group background
+            var fillColor = backColor.A < 255
+                ? RibbonColors.Current.GetOpaqueGroupBackground()
+                : backColor;
+            using (var brush = new SolidBrush(fillColor))
             {
-                using (var brush = new SolidBrush(backColor))
-                {
-                    g.FillRectangle(brush, _dropDownBounds);
-                }
+                g.FillRectangle(brush, _dropDownBounds);
             }
 
-            // Arrow
+            // Draw dropdown arrow centered in the dropdown bounds
             var arrowColor = Enabled && CommandEnabled ?
                 RibbonColors.Current.ButtonText : RibbonColors.Current.ButtonTextDisabled;
 
-            var arrowSize = 5;
-            var arrowX = _dropDownBounds.X + (_dropDownBounds.Width - arrowSize) / 2;
-            var arrowY = _dropDownBounds.Y + (_dropDownBounds.Height - arrowSize / 2) / 2;
+            var arrowWidth = 5;
+            var arrowHeight = 3;
+            var arrowX = _dropDownBounds.X + (_dropDownBounds.Width - arrowWidth) / 2;
+            var arrowY = _dropDownBounds.Y + (_dropDownBounds.Height - arrowHeight) / 2;
 
             using (var brush = new SolidBrush(arrowColor))
             {
                 var points = new Point[]
                 {
                     new Point(arrowX, arrowY),
-                    new Point(arrowX + arrowSize, arrowY),
-                    new Point(arrowX + arrowSize / 2, arrowY + arrowSize / 2 + 1)
+                    new Point(arrowX + arrowWidth, arrowY),
+                    new Point(arrowX + arrowWidth / 2, arrowY + arrowHeight)
                 };
                 g.FillPolygon(brush, points);
             }

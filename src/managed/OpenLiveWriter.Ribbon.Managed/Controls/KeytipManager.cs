@@ -362,18 +362,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 g.DrawRectangle(pen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
             }
 
-            // Text
+            // Text with high-quality rendering
             var textColor = isExactMatch ? Color.White : Color.Black;
-            var format = new StringFormat
-            {
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-
             using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f, FontStyle.Bold))
-            using (var brush = new SolidBrush(textColor))
             {
-                g.DrawString(keytip.Keytip, font, brush, bounds, format);
+                RibbonRenderer.DrawHighQualityText(g, keytip.Keytip, font, textColor, bounds,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine);
             }
         }
 

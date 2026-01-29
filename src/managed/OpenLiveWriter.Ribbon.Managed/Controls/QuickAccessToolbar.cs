@@ -18,9 +18,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
     /// </summary>
     public class QuickAccessToolbar : UserControl
     {
+        // QAT button size: 20x20 pixels (16x16 icon + 2px padding on each side)
+        // This matches native Windows Ribbon Framework QAT button size
         private const int BUTTON_SIZE = 20;
         private const int BUTTON_PADDING = 2;
+        // Dropdown button width matches Office-style QAT
         private const int DROPDOWN_BUTTON_WIDTH = 12;
+        // Icon size for QAT (matches Windows Ribbon Framework specification)
+        private const int ICON_SIZE = 16;
 
         private RibbonCommandManager _commandManager;
         private readonly List<CommandId> _commands = new List<CommandId>();
@@ -67,11 +72,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
 
-            Height = BUTTON_SIZE + BUTTON_PADDING * 2;
+            // QAT height matches tab header height for proper alignment
+            // Tab header is 23px, so we use 20px button + 2px top + 1px bottom = 23px total
+            Height = LayoutConstants.TabHeight;
             BackColor = Color.Transparent;
 
             // Add default commands
             AddDefaultCommands();
+            
+            // Initialize layout after adding default commands
+            UpdateLayout();
         }
 
         private void AddDefaultCommands()
@@ -125,15 +135,30 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _buttonBounds.Clear();
             var x = BUTTON_PADDING;
 
+            // Vertically center buttons in the tab header area
+            var buttonTop = (Height - BUTTON_SIZE) / 2;
+
             foreach (var cmd in _commands)
             {
-                _buttonBounds.Add(new Rectangle(x, BUTTON_PADDING, BUTTON_SIZE, BUTTON_SIZE));
+                _buttonBounds.Add(new Rectangle(x, buttonTop, BUTTON_SIZE, BUTTON_SIZE));
                 x += BUTTON_SIZE + BUTTON_PADDING;
             }
 
-            _dropDownBounds = new Rectangle(x, BUTTON_PADDING, DROPDOWN_BUTTON_WIDTH, BUTTON_SIZE);
+            // Dropdown button aligned with command buttons
+            _dropDownBounds = new Rectangle(x, buttonTop, DROPDOWN_BUTTON_WIDTH, BUTTON_SIZE);
 
             Width = x + DROPDOWN_BUTTON_WIDTH + BUTTON_PADDING;
+        }
+
+        /// <summary>
+        /// Override to initialize the double buffer with a proper background color.
+        /// With OptimizedDoubleBuffer and transparent background, we need to fill
+        /// the buffer to prevent black showing through.
+        /// </summary>
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            // Fill with tab background color to prevent black shadows
+            e.Graphics.Clear(RibbonColors.Current.TabBackground);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -141,9 +166,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             base.OnPaint(e);
 
             var g = e.Graphics;
-
-            // Don't paint background - let parent show through
-            // (QAT sits on top of tab header panel which already has the correct background)
 
             // Buttons
             for (int i = 0; i < _commands.Count; i++)
@@ -165,45 +187,61 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             var command = _commandManager?.GetCommand(commandId);
             var isEnabled = command?.Enabled ?? true;
 
-            // Background
-            if (isPressed)
+            // Background and border
+            if (isPressed && isEnabled)
             {
-                using (var brush = new SolidBrush(Color.FromArgb(60, 255, 255, 255)))
+                // Pressed state - darker background with border (Office-style)
+                using (var brush = new SolidBrush(RibbonColors.Current.QatButtonBackgroundPressed))
                 {
                     g.FillRectangle(brush, bounds);
                 }
+                using (var pen = new Pen(RibbonColors.Current.QatButtonBorderPressed))
+                {
+                    g.DrawRectangle(pen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+                }
             }
-            else if (isHovered)
+            else if (isHovered && isEnabled)
             {
+                // Hover state - light background with border
                 using (var brush = new SolidBrush(RibbonColors.Current.QatButtonBackgroundHover))
                 {
                     g.FillRectangle(brush, bounds);
                 }
+                using (var pen = new Pen(RibbonColors.Current.QatButtonBorderHover))
+                {
+                    g.DrawRectangle(pen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+                }
             }
 
-            // Icon
+            // Icon - always render at 16x16 for QAT (matches native ribbon)
             var image = command?.SmallImage;
             if (image != null)
             {
+                // Center the 16x16 icon in the button bounds
                 var imageBounds = new Rectangle(
-                    bounds.X + (bounds.Width - 16) / 2,
-                    bounds.Y + (bounds.Height - 16) / 2,
-                    16, 16);
+                    bounds.X + (bounds.Width - ICON_SIZE) / 2,
+                    bounds.Y + (bounds.Height - ICON_SIZE) / 2,
+                    ICON_SIZE, ICON_SIZE);
 
                 if (isEnabled)
                 {
+                    // Use high-quality rendering for small icons
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                     g.DrawImage(image, imageBounds);
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
                 }
                 else
                 {
-                    // Draw grayed out
+                    // Draw grayed out (50% opacity)
                     using (var attributes = new System.Drawing.Imaging.ImageAttributes())
                     {
                         var matrix = new System.Drawing.Imaging.ColorMatrix();
-                        matrix.Matrix33 = 0.5f;
+                        matrix.Matrix33 = 0.5f; // Alpha = 50%
                         attributes.SetColorMatrix(matrix);
+                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                         g.DrawImage(image, imageBounds, 0, 0, image.Width, image.Height,
                             GraphicsUnit.Pixel, attributes);
+                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
                     }
                 }
             }
@@ -211,27 +249,33 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private void DrawDropDownButton(Graphics g, Rectangle bounds, bool isHovered)
         {
-            // Background
+            // Background and border
             if (isHovered)
             {
                 using (var brush = new SolidBrush(RibbonColors.Current.QatButtonBackgroundHover))
                 {
                     g.FillRectangle(brush, bounds);
                 }
+                using (var pen = new Pen(RibbonColors.Current.QatButtonBorderHover))
+                {
+                    g.DrawRectangle(pen, bounds.X, bounds.Y, bounds.Width - 1, bounds.Height - 1);
+                }
             }
 
-            // Arrow
+            // Draw dropdown arrow (downward-pointing triangle)
+            // Arrow size: 4x4 pixels, centered vertically and horizontally
             var arrowSize = 4;
             var arrowX = bounds.X + (bounds.Width - arrowSize) / 2;
-            var arrowY = bounds.Y + (bounds.Height - arrowSize / 2) / 2;
+            var arrowY = bounds.Y + (bounds.Height - arrowSize) / 2 + 1; // Slight offset for visual centering
 
-            using (var brush = new SolidBrush(Color.White))
+            using (var brush = new SolidBrush(RibbonColors.Current.QatDropdownArrow))
             {
+                // Draw downward-pointing triangle
                 var points = new Point[]
                 {
-                    new Point(arrowX, arrowY),
-                    new Point(arrowX + arrowSize, arrowY),
-                    new Point(arrowX + arrowSize / 2, arrowY + arrowSize / 2 + 1)
+                    new Point(arrowX, arrowY),                           // Top-left
+                    new Point(arrowX + arrowSize, arrowY),               // Top-right
+                    new Point(arrowX + arrowSize / 2, arrowY + arrowSize) // Bottom center
                 };
                 g.FillPolygon(brush, points);
             }

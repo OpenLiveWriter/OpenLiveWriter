@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Ribbon.Managed.Commands;
 using OpenLiveWriter.Ribbon.Managed.Configuration;
@@ -18,11 +19,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
     /// </summary>
     public class RibbonPanel : UserControl
     {
-        // Use shared layout constants where applicable
-        private const int TAB_HEIGHT = LayoutConstants.TabHeight;
-        private const int CONTENT_HEIGHT = LayoutConstants.ContentHeight;
-        private const int APP_BUTTON_WIDTH = LayoutConstants.PopupWidth;
-        private const int TAB_PADDING = 10;
+        // Use shared layout constants where applicable (these are now DPI-aware properties)
+        private int TAB_HEIGHT => LayoutConstants.TabHeight;
+        private int CONTENT_HEIGHT => LayoutConstants.ContentHeight;
+        private int APP_BUTTON_WIDTH => LayoutConstants.PopupWidth;
+        private int TAB_PADDING => DisplayHelper.ScaleXCeil(12);  // Horizontal padding on each side of tab text - DPI-scaled
+        private int TAB_SPACING => LayoutConstants.TabSpacing;
 
         private RibbonCommandManager _commandManager;
         private RibbonConfiguration _configuration;
@@ -43,9 +45,20 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private ApplicationMenu _applicationMenu;
         private QuickAccessToolbar _quickAccessToolbar;
         private bool _qatInTitleBar = false; // QAT is in tab header panel by default
+        private Label _fileButton; // Accessible File button overlay for UI Automation (Label supports transparency better)
+        
+        // Help button state
+        private Rectangle _helpButtonBounds;
+        private bool _helpButtonHovered;
+        private CommandId _helpButtonCommandId;
+        private string _helpButtonTooltip;
+        private ToolTip _helpButtonToolTip;
 
         private Panel _tabHeaderPanel;
         private Panel _contentPanel;
+        
+        // Tab accessibility overlays - transparent Labels for UI Automation
+        private readonly Dictionary<RibbonTab, Label> _tabAccessibilityOverlays = new Dictionary<RibbonTab, Label>();
 
         /// <summary>
         /// Occurs when the selected tab changes.
@@ -56,6 +69,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         /// Occurs when the application menu button is clicked.
         /// </summary>
         public event EventHandler ApplicationMenuClicked;
+
+        /// <summary>
+        /// Occurs when the help button is clicked.
+        /// </summary>
+        public event EventHandler HelpButtonClicked;
 
         /// <summary>
         /// Gets or sets the command manager for this ribbon.
@@ -89,6 +107,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 {
                     _currentMode = value;
                     UpdateVisibility();
+                    // Invalidate both the main panel and the tab header panel
+                    // The tab header panel needs to be invalidated to redraw tabs
+                    // when mode changes (e.g., showing/hiding Debug tab)
+                    _tabHeaderPanel?.Invalidate();
                     Invalidate();
                 }
             }
@@ -160,13 +182,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         /// <summary>
         /// Gets the height of the ribbon.
         /// </summary>
-        public int RibbonHeight => TAB_HEIGHT + CONTENT_HEIGHT + 2;
+        public int RibbonHeight => TAB_HEIGHT + CONTENT_HEIGHT + DisplayHelper.ScaleYCeil(2);
 
         public RibbonPanel()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
                      ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
 
+            AutoScaleMode = AutoScaleMode.Dpi;
             InitializeComponents();
         }
 
@@ -178,11 +201,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             Dock = DockStyle.Top;
             BackColor = RibbonColors.Current.RibbonBackground;
 
-            // Content panel - add first so it's docked after tab header
+            // Content panel - uses Dock=Fill to take remaining space after tab header
+            // Tab header panel (added second) will dock to Top first, leaving remaining space for content
             _contentPanel = new Panel
             {
-                Location = new Point(0, TAB_HEIGHT),
-                Height = CONTENT_HEIGHT,
                 Dock = DockStyle.Fill,
                 BackColor = RibbonColors.Current.TabBackgroundSelected
             };
@@ -202,11 +224,49 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _tabHeaderPanel.MouseClick += TabHeaderPanel_MouseClick;
             Controls.Add(_tabHeaderPanel);
 
+            // File button - transparent label overlay for accessibility and click handling
+            // Label supports true transparency better than Button in WinForms - DPI-scaled
+            var fileButtonMarginX = DisplayHelper.ScaleXCeil(2);
+            var fileButtonMarginY = DisplayHelper.ScaleYCeil(1);
+            _fileButton = new Label
+            {
+                Name = "FileButton",
+                Text = "",
+                Location = new Point(fileButtonMarginX, fileButtonMarginY),
+                Size = new Size(APP_BUTTON_WIDTH, TAB_HEIGHT - fileButtonMarginY * 2),
+                BackColor = Color.Transparent,
+                Cursor = Cursors.Hand,
+                // Accessibility properties for UI Automation
+                AccessibleName = "File",
+                AccessibleRole = AccessibleRole.PushButton,
+                AccessibleDescription = "Opens the File menu"
+            };
+            _fileButton.Click += (s, e) =>
+            {
+                ApplicationMenuClicked?.Invoke(this, EventArgs.Empty);
+                ShowApplicationMenu();
+            };
+            _fileButton.MouseEnter += (s, e) =>
+            {
+                _appMenuButtonHovered = true;
+                // Update bounds when hovering (they're recalculated in paint)
+                _tabHeaderPanel.Invalidate();
+            };
+            _fileButton.MouseLeave += (s, e) =>
+            {
+                _appMenuButtonHovered = false;
+                // Update bounds when leaving (they're recalculated in paint)
+                _tabHeaderPanel.Invalidate();
+            };
+            _tabHeaderPanel.Controls.Add(_fileButton);
+
             // Quick Access Toolbar - positioned at RibbonPanel level (above tab header panel)
             // This avoids the child control clipping issue
+            // QAT is positioned right after the File button, vertically centered in tab header - DPI-scaled
+            var qatGap = DisplayHelper.ScaleXCeil(4);
             _quickAccessToolbar = new QuickAccessToolbar
             {
-                Location = new Point(APP_BUTTON_WIDTH + 8, 2), // Right after File button
+                Location = new Point(APP_BUTTON_WIDTH + qatGap, 0), // Right after File button with scaled gap, aligned to top
                 BackColor = Color.Transparent
             };
             Controls.Add(_quickAccessToolbar);
@@ -243,10 +303,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 }
             }
 
-            // Select first visible tab
+            // Select first tab that is valid for current mode
+            // (tabs start with Visible=false until one is selected)
             foreach (var tab in _tabs)
             {
-                if (tab.Visible)
+                if ((tab.VisibleModes & _currentMode) != 0)
                 {
                     SelectedTab = tab;
                     break;
@@ -260,6 +321,23 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 _quickAccessToolbar.SetCommands(config.QuickAccessToolbar.DefaultCommands);
                 // Force layout update
                 _quickAccessToolbar.Refresh();
+            }
+
+            // Configure Help Button
+            if (config.HelpButton != null)
+            {
+                _helpButtonCommandId = config.HelpButton.CommandId;
+                _helpButtonTooltip = config.HelpButton.TooltipTitle;
+                
+                // Create tooltip for help button
+                if (_helpButtonToolTip == null)
+                {
+                    _helpButtonToolTip = new ToolTip();
+                }
+            }
+            else
+            {
+                _helpButtonCommandId = CommandId.None;
             }
 
             ResumeLayout(true);
@@ -297,6 +375,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 CommandId = config.CommandId,
                 Label = config.Label,
                 Keytip = config.Keytip,
+                SizeDefinition = config.SizeDefinition,
                 VisibleModes = config.VisibleModes,
                 CommandManager = _commandManager
             };
@@ -325,6 +404,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         CommandId = buttonConfig.CommandId,
                         ButtonType = buttonConfig.ButtonType,
                         CurrentSize = buttonConfig.PreferredSize,
+                        Label = buttonConfig.Label,  // Use label override if specified
                         CommandManager = _commandManager
                     };
                     // Populate menu items for dropdown/split buttons
@@ -332,10 +412,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     {
                         foreach (var menuItemConfig in buttonConfig.MenuItems)
                         {
+                            // Get label and image from the command
+                            var menuCommand = _commandManager?.GetCommand(menuItemConfig.CommandId);
                             button.MenuItems.Add(new RibbonMenuItem
                             {
                                 CommandId = menuItemConfig.CommandId,
-                                IsSeparator = menuItemConfig.IsSeparator
+                                IsSeparator = menuItemConfig.IsSeparator,
+                                Label = menuCommand?.Label ?? menuItemConfig.CommandId.ToString(),
+                                Image = menuCommand?.SmallImage
                             });
                         }
                     }
@@ -431,6 +515,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             tab.Dock = DockStyle.Fill;
             tab.Visible = false;
 
+            // Create accessibility overlay for UI Automation
+            CreateTabAccessibilityOverlay(tab);
+
             UpdateVisibility();
         }
 
@@ -450,6 +537,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _contentPanel.Controls.Add(tab);
             tab.Dock = DockStyle.Fill;
             tab.Visible = false;
+
+            // Create accessibility overlay for UI Automation
+            CreateTabAccessibilityOverlay(tab);
         }
 
         /// <summary>
@@ -498,6 +588,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private void ClearTabs()
         {
+            // Remove accessibility overlays
+            foreach (var overlay in _tabAccessibilityOverlays.Values)
+            {
+                if (overlay != null && !overlay.IsDisposed)
+                {
+                    _tabHeaderPanel.Controls.Remove(overlay);
+                    overlay.Dispose();
+                }
+            }
+            _tabAccessibilityOverlays.Clear();
+
             foreach (var tab in _tabs)
             {
                 _contentPanel.Controls.Remove(tab);
@@ -526,6 +627,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 var isVisibleForMode = (tab.VisibleModes & _currentMode) != 0;
                 tab.Visible = isVisibleForMode && tab == _selectedTab;
+                
+                // Update group visibility within the tab based on current mode
+                tab.UpdateGroupVisibility(_currentMode);
             }
 
             foreach (var group in _contextualTabs.Values)
@@ -535,6 +639,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     var isContextVisible = _visibleContextualGroups.Contains(tab.ContextualGroup);
                     var isVisibleForMode = (tab.VisibleModes & _currentMode) != 0;
                     tab.Visible = isContextVisible && isVisibleForMode && tab == _selectedTab;
+                    
+                    // Update group visibility within the tab based on current mode
+                    tab.UpdateGroupVisibility(_currentMode);
                 }
             }
 
@@ -578,23 +685,35 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             var g = e.Graphics;
             g.Clear(RibbonColors.Current.TabBackground);
 
-            // Draw app menu button
-            _appMenuButtonBounds = new Rectangle(4, 2, APP_BUTTON_WIDTH, TAB_HEIGHT - 4);
+            // Draw app menu button (File button) - full height minus small top margin - DPI-scaled
+            var appButtonMarginX = DisplayHelper.ScaleXCeil(2);
+            var appButtonMarginY = DisplayHelper.ScaleYCeil(1);
+            _appMenuButtonBounds = new Rectangle(appButtonMarginX, appButtonMarginY, APP_BUTTON_WIDTH, TAB_HEIGHT - appButtonMarginY * 2);
+            
+            // Sync file button overlay bounds with painted bounds
+            if (_fileButton != null && _fileButton.Bounds != _appMenuButtonBounds)
+            {
+                _fileButton.Bounds = _appMenuButtonBounds;
+            }
+            
             RibbonRenderer.Instance.DrawAppMenuButton(g, _appMenuButtonBounds,
                 _appMenuButtonHovered, _appMenuButtonPressed);
 
-            // Draw tab headers - start after QAT
-            // QAT is positioned at x=56 with typical width ~82 (3 buttons + dropdown)
-            // Ensure tabs never overlap with QAT by using a reliable minimum
-            var qatEndX = APP_BUTTON_WIDTH + 8; // Start after File button by default
+            // Draw tab headers - start after QAT - DPI-scaled spacing
+            // QAT is positioned after File button (APP_BUTTON_WIDTH + 4px gap)
+            var qatGap = DisplayHelper.ScaleXCeil(4);
+            var qatEndX = APP_BUTTON_WIDTH + qatGap; // Start after File button by default
             if (_quickAccessToolbar != null && _quickAccessToolbar.Visible)
             {
-                // QAT.Right gives Location.X + Width
-                qatEndX = Math.Max(qatEndX, _quickAccessToolbar.Right + 4);
+                // QAT.Right gives Location.X + Width, add spacing before tabs
+                qatEndX = _quickAccessToolbar.Right + qatGap;
             }
-            // Minimum start position to avoid any overlap
-            var tabStartX = Math.Max(150, qatEndX);
+            // Minimum start position to avoid any overlap with File button
+            var tabStartX = Math.Max(APP_BUTTON_WIDTH + qatGap, qatEndX);
             var x = tabStartX;
+
+            // Track selected tab bounds for border drawing
+            Rectangle? selectedTabBounds = null;
 
             // Regular tabs
             foreach (var tab in _tabs)
@@ -602,13 +721,22 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 if ((tab.VisibleModes & _currentMode) == 0) continue;
 
                 var tabWidth = MeasureTabWidth(g, tab.Label);
+                // Selected tab extends to full height to blend with content area
                 var tabBounds = new Rectangle(x, 0, tabWidth, TAB_HEIGHT);
                 tab.HeaderBounds = tabBounds;
+
+                // Update accessibility overlay position
+                UpdateTabAccessibilityOverlay(tab, tabBounds);
+
+                if (tab == _selectedTab)
+                {
+                    selectedTabBounds = tabBounds;
+                }
 
                 RibbonRenderer.Instance.DrawTabHeader(g, tabBounds, tab.Label,
                     tab == _selectedTab, tab == _hoveredTab, tab.ContextualGroup);
 
-                x += tabWidth + 2;
+                x += tabWidth + TAB_SPACING;
             }
 
             // Contextual tabs
@@ -616,7 +744,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 if (!_contextualTabs.TryGetValue(group, out var tabs)) continue;
 
-                // Draw contextual group header background
+                // Calculate contextual group header bounds
                 var groupStartX = x;
                 var groupWidth = 0;
 
@@ -624,12 +752,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 {
                     if ((tab.VisibleModes & _currentMode) == 0) continue;
                     var tabWidth = MeasureTabWidth(g, tab.Label);
-                    groupWidth += tabWidth + 2;
+                    groupWidth += tabWidth + TAB_SPACING;
                 }
 
                 if (groupWidth > 0)
                 {
-                    // Draw colored header bar
+                    // Draw colored header bar for contextual group
                     var groupColor = RibbonColors.Current.GetContextualTabColor(group);
                     var headerBounds = new Rectangle(groupStartX, 0, groupWidth, 3);
                     using (var brush = new SolidBrush(groupColor))
@@ -638,7 +766,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     }
                 }
 
-                // Draw tabs
+                // Draw contextual tabs
                 foreach (var tab in tabs)
                 {
                     if ((tab.VisibleModes & _currentMode) == 0) continue;
@@ -647,24 +775,185 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     var tabBounds = new Rectangle(x, 0, tabWidth, TAB_HEIGHT);
                     tab.HeaderBounds = tabBounds;
 
+                    // Update accessibility overlay position
+                    UpdateTabAccessibilityOverlay(tab, tabBounds);
+
+                    if (tab == _selectedTab)
+                    {
+                        selectedTabBounds = tabBounds;
+                    }
+
                     RibbonRenderer.Instance.DrawTabHeader(g, tabBounds, tab.Label,
                         tab == _selectedTab, tab == _hoveredTab, tab.ContextualGroup);
 
-                    x += tabWidth + 2;
+                    x += tabWidth + TAB_SPACING;
                 }
             }
 
-            // Bottom border
+            // Draw help button on the right side (if configured)
+            if (_helpButtonCommandId != CommandId.None)
+            {
+                DrawHelpButton(g);
+            }
+
+            // Draw bottom border AFTER tabs, excluding the selected tab's area
+            // This avoids z-order issues with drawing-then-erasing
             using (var pen = new Pen(RibbonColors.Current.TabBorder))
             {
-                g.DrawLine(pen, 0, TAB_HEIGHT - 1, Width, TAB_HEIGHT - 1);
+                var borderY = TAB_HEIGHT - 1;
+                if (selectedTabBounds.HasValue)
+                {
+                    var sel = selectedTabBounds.Value;
+                    // Draw left segment (from 0 to selected tab start)
+                    if (sel.Left > 0)
+                    {
+                        g.DrawLine(pen, 0, borderY, sel.Left, borderY);
+                    }
+                    // Draw right segment (from selected tab end to panel width)
+                    if (sel.Right < Width)
+                    {
+                        g.DrawLine(pen, sel.Right - 1, borderY, Width, borderY);
+                    }
+                }
+                else
+                {
+                    // No selected tab - draw full border
+                    g.DrawLine(pen, 0, borderY, Width, borderY);
+                }
+            }
+        }
+
+        private void DrawHelpButton(Graphics g)
+        {
+            // Help button size and margin - DPI-scaled
+            var helpButtonSize = DisplayHelper.ScaleXCeil(20);
+            var helpButtonMargin = DisplayHelper.ScaleXCeil(8);
+            
+            // Position help button on the right side of the tab header
+            var helpX = _tabHeaderPanel.Width - helpButtonSize - helpButtonMargin;
+            var helpY = (TAB_HEIGHT - helpButtonSize) / 2;
+            _helpButtonBounds = new Rectangle(helpX, helpY, helpButtonSize, helpButtonSize);
+
+            // Get command info for the help button image
+            var helpCommand = _commandManager?.GetCommand(_helpButtonCommandId);
+            var helpImage = helpCommand?.SmallImage;
+
+            // Draw hover background
+            if (_helpButtonHovered)
+            {
+                using (var brush = new SolidBrush(RibbonColors.Current.ButtonBackgroundHover))
+                {
+                    g.FillRectangle(brush, _helpButtonBounds);
+                }
+                using (var pen = new Pen(RibbonColors.Current.ButtonBorderHover))
+                {
+                    g.DrawRectangle(pen, _helpButtonBounds.X, _helpButtonBounds.Y, 
+                        _helpButtonBounds.Width - 1, _helpButtonBounds.Height - 1);
+                }
+            }
+
+            // Draw the help icon or fallback "?" text
+            if (helpImage != null)
+            {
+                // Center the image in the button bounds
+                var imageX = _helpButtonBounds.X + (_helpButtonBounds.Width - helpImage.Width) / 2;
+                var imageY = _helpButtonBounds.Y + (_helpButtonBounds.Height - helpImage.Height) / 2;
+                g.DrawImage(helpImage, imageX, imageY, helpImage.Width, helpImage.Height);
+            }
+            else
+            {
+                // Fallback: draw "?" text
+                using (var font = new Font("Segoe UI", 11f, FontStyle.Bold))
+                using (var brush = new SolidBrush(RibbonColors.Current.TabText))
+                {
+                    var textSize = g.MeasureString("?", font);
+                    var textX = _helpButtonBounds.X + (_helpButtonBounds.Width - textSize.Width) / 2;
+                    var textY = _helpButtonBounds.Y + (_helpButtonBounds.Height - textSize.Height) / 2;
+                    g.DrawString("?", font, brush, textX, textY);
+                }
             }
         }
 
         private int MeasureTabWidth(Graphics g, string text)
         {
-            var size = g.MeasureString(text, SystemFonts.MenuFont);
-            return (int)size.Width + TAB_PADDING * 2;
+            // Use TextRenderer for accurate DPI-aware measurement
+            var textSize = TextRenderer.MeasureText(g, text, SystemFonts.MenuFont, 
+                new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoPadding);
+            return textSize.Width + TAB_PADDING * 2;
+        }
+
+        /// <summary>
+        /// Creates a transparent Label overlay for a tab to enable UI Automation discovery.
+        /// </summary>
+        private void CreateTabAccessibilityOverlay(RibbonTab tab)
+        {
+            if (_tabHeaderPanel == null || tab == null) return;
+
+            // Don't create duplicate overlays
+            if (_tabAccessibilityOverlays.ContainsKey(tab)) return;
+
+            var overlay = new Label
+            {
+                Name = $"TabOverlay_{tab.Label}",
+                Text = "",
+                BackColor = Color.Transparent,
+                Cursor = Cursors.Hand,
+                // Accessibility properties for UI Automation
+                AccessibleName = tab.Label,
+                AccessibleRole = AccessibleRole.PageTab,
+                AccessibleDescription = $"Ribbon tab: {tab.Label}"
+            };
+
+            // Wire up click handler to select the tab
+            overlay.Click += (s, e) =>
+            {
+                SelectedTab = tab;
+            };
+
+            // Wire up mouse enter/leave to sync hover state
+            overlay.MouseEnter += (s, e) =>
+            {
+                if (_hoveredTab != tab)
+                {
+                    if (_hoveredTab != null)
+                        _tabHeaderPanel.Invalidate(_hoveredTab.HeaderBounds);
+                    _hoveredTab = tab;
+                    _tabHeaderPanel.Invalidate(tab.HeaderBounds);
+                }
+            };
+
+            overlay.MouseLeave += (s, e) =>
+            {
+                if (_hoveredTab == tab)
+                {
+                    _hoveredTab = null;
+                    _tabHeaderPanel.Invalidate(tab.HeaderBounds);
+                }
+            };
+
+            _tabHeaderPanel.Controls.Add(overlay);
+            _tabAccessibilityOverlays[tab] = overlay;
+
+            // Initial position will be set during paint
+            overlay.Visible = false;
+        }
+
+        /// <summary>
+        /// Updates the position and visibility of a tab's accessibility overlay.
+        /// </summary>
+        private void UpdateTabAccessibilityOverlay(RibbonTab tab, Rectangle tabBounds)
+        {
+            if (!_tabAccessibilityOverlays.TryGetValue(tab, out var overlay)) return;
+            if (overlay == null || overlay.IsDisposed) return;
+
+            // Update overlay bounds to match painted tab bounds
+            overlay.Bounds = tabBounds;
+            
+            // Show overlay only if tab is visible for current mode
+            var isVisibleForMode = (tab.VisibleModes & _currentMode) != 0;
+            var isContextualVisible = tab.ContextualGroup == RibbonContextualTabGroup.None ||
+                                      _visibleContextualGroups.Contains(tab.ContextualGroup);
+            overlay.Visible = isVisibleForMode && isContextualVisible;
         }
 
         private void TabHeaderPanel_MouseMove(object sender, MouseEventArgs e)
@@ -675,6 +964,29 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             if (wasHovered != _appMenuButtonHovered)
             {
                 _tabHeaderPanel.Invalidate(_appMenuButtonBounds);
+            }
+
+            // Check help button hover
+            if (_helpButtonCommandId != CommandId.None)
+            {
+                var wasHelpHovered = _helpButtonHovered;
+                _helpButtonHovered = _helpButtonBounds.Contains(e.Location);
+                if (wasHelpHovered != _helpButtonHovered)
+                {
+                    _tabHeaderPanel.Invalidate(_helpButtonBounds);
+                    
+                    // Show/hide tooltip
+                    if (_helpButtonHovered && _helpButtonToolTip != null && !string.IsNullOrEmpty(_helpButtonTooltip))
+                    {
+                        var screenPos = _tabHeaderPanel.PointToScreen(new Point(_helpButtonBounds.Left, _helpButtonBounds.Bottom));
+                        _helpButtonToolTip.Show(_helpButtonTooltip, _tabHeaderPanel, 
+                            _helpButtonBounds.Left, _helpButtonBounds.Bottom + 2, 3000);
+                    }
+                    else if (!_helpButtonHovered && _helpButtonToolTip != null)
+                    {
+                        _helpButtonToolTip.Hide(_tabHeaderPanel);
+                    }
+                }
             }
 
             // Check tab hover
@@ -726,6 +1038,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 _tabHeaderPanel.Invalidate(_appMenuButtonBounds);
             }
 
+            if (_helpButtonHovered)
+            {
+                _helpButtonHovered = false;
+                _tabHeaderPanel.Invalidate(_helpButtonBounds);
+                _helpButtonToolTip?.Hide(_tabHeaderPanel);
+            }
+
             if (_hoveredTab != null)
             {
                 var bounds = _hoveredTab.HeaderBounds;
@@ -743,6 +1062,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 ApplicationMenuClicked?.Invoke(this, EventArgs.Empty);
                 ShowApplicationMenu();
+                return;
+            }
+
+            // Check help button click
+            if (_helpButtonCommandId != CommandId.None && _helpButtonBounds.Contains(e.Location))
+            {
+                HelpButtonClicked?.Invoke(this, EventArgs.Empty);
+                ExecuteHelpCommand();
                 return;
             }
 
@@ -769,6 +1096,21 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         return;
                     }
                 }
+            }
+        }
+
+        #endregion
+
+        #region Help Button
+
+        private void ExecuteHelpCommand()
+        {
+            if (_helpButtonCommandId == CommandId.None) return;
+
+            var command = _commandManager?.GetCommand(_helpButtonCommandId);
+            if (command != null && command.Enabled)
+            {
+                command.PerformExecute();
             }
         }
 
@@ -802,5 +1144,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             base.OnResize(e);
             _tabHeaderPanel?.Invalidate();
         }
+
     }
 }

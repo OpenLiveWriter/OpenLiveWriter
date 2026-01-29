@@ -97,6 +97,30 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
+        /// Updates visibility of groups based on the current application mode.
+        /// </summary>
+        /// <param name="currentMode">The current application mode.</param>
+        public void UpdateGroupVisibility(RibbonApplicationMode currentMode)
+        {
+            bool anyChanged = false;
+            foreach (var group in _groups)
+            {
+                var shouldBeVisible = (group.VisibleModes & currentMode) != 0;
+                if (group.Visible != shouldBeVisible)
+                {
+                    group.Visible = shouldBeVisible;
+                    anyChanged = true;
+                }
+            }
+
+            // Re-layout if any group visibility changed
+            if (anyChanged)
+            {
+                UpdateScaling();
+            }
+        }
+
+        /// <summary>
         /// Gets the header bounds (for hit testing in RibbonPanel).
         /// </summary>
         internal Rectangle HeaderBounds { get; set; }
@@ -109,11 +133,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         public RibbonTab()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
-                     ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
+                     ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw |
+                     ControlStyles.SupportsTransparentBackColor, true);
 
             BackColor = RibbonColors.Current.TabBackgroundSelected;
 
-            _contentPanel = new Panel
+            // Use a TransparentPanel for proper transparent background support
+            _contentPanel = new TransparentPanel
             {
                 Dock = DockStyle.Fill,
                 AutoScroll = false,
@@ -121,6 +147,31 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             };
 
             Controls.Add(_contentPanel);
+        }
+
+        /// <summary>
+        /// A Panel that properly supports transparent background.
+        /// Standard Panel doesn't have SupportsTransparentBackColor style set,
+        /// which can cause rendering issues with transparent backgrounds.
+        /// </summary>
+        private class TransparentPanel : Panel
+        {
+            public TransparentPanel()
+            {
+                // Use AllPaintingInWmPaint to ensure background paints before child controls
+                // This prevents black areas on first render
+                SetStyle(ControlStyles.UserPaint |
+                         ControlStyles.OptimizedDoubleBuffer |
+                         ControlStyles.SupportsTransparentBackColor |
+                         ControlStyles.AllPaintingInWmPaint, true);
+                BackColor = Color.Transparent;
+            }
+
+            protected override void OnPaintBackground(PaintEventArgs e)
+            {
+                // Fill with opaque group background to initialize buffer
+                e.Graphics.Clear(RibbonColors.Current.GetOpaqueGroupBackground());
+            }
         }
 
         /// <summary>
@@ -167,38 +218,99 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         public void UpdateScaling()
         {
             var availableWidth = Width - CONTENT_PADDING * 2;
-            var totalWidth = 0;
-
+            
             // Calculate total width needed at current sizes
-            foreach (var group in _groups)
+            int CalculateTotalWidth()
             {
-                if (!group.Visible) continue;
-                totalWidth += group.GetPreferredWidth() + GROUP_SPACING;
-            }
-
-            // If we need to scale down, reduce group sizes
-            if (totalWidth > availableWidth)
-            {
-                // Apply scaling steps - reduce largest groups first
+                var total = 0;
                 foreach (var group in _groups)
                 {
                     if (!group.Visible) continue;
+                    total += group.GetPreferredWidth() + GROUP_SPACING;
+                }
+                return total;
+            }
 
-                    if (group.CurrentSize > RibbonGroupSize.Small)
+            var totalWidth = CalculateTotalWidth();
+
+            // If we need to scale down, reduce group sizes iteratively until they all fit
+            if (totalWidth > availableWidth)
+            {
+                // Phase 1: Scale down groups from Large -> Medium -> Small
+                bool anyGroupScaled;
+                do
+                {
+                    anyGroupScaled = false;
+                    
+                    // Scale down groups that are larger than Small, prioritizing larger groups first
+                    // Sort groups by current size (largest first) to scale down largest groups first
+                    var groupsToScale = new List<RibbonGroup>();
+                    foreach (var group in _groups)
                     {
-                        group.CurrentSize = (RibbonGroupSize)((int)group.CurrentSize + 1);
-
-                        // Recalculate total width
-                        totalWidth = 0;
-                        foreach (var g in _groups)
+                        if (!group.Visible) continue;
+                        if (group.CurrentSize > RibbonGroupSize.Small)
                         {
-                            if (!g.Visible) continue;
-                            totalWidth += g.GetPreferredWidth() + GROUP_SPACING;
+                            groupsToScale.Add(group);
                         }
-
-                        if (totalWidth <= availableWidth)
-                            break;
                     }
+                    
+                    // Sort by size descending: Large (0) -> Medium (1) -> Small (2)
+                    // This ensures we scale down the largest groups first for better visual consistency
+                    groupsToScale.Sort((a, b) => b.CurrentSize.CompareTo(a.CurrentSize));
+                    
+                    // Scale down each group that can be scaled
+                    foreach (var group in groupsToScale)
+                    {
+                        if (group.CurrentSize > RibbonGroupSize.Small)
+                        {
+                            group.CurrentSize = (RibbonGroupSize)((int)group.CurrentSize + 1);
+                            anyGroupScaled = true;
+                            
+                            // Recalculate total width after each scaling step
+                            totalWidth = CalculateTotalWidth();
+                            
+                            // If we've achieved the target width, stop scaling
+                            if (totalWidth <= availableWidth)
+                                break;
+                        }
+                    }
+                    
+                    // Continue scaling until no more groups can be scaled or we've achieved the target width
+                } while (anyGroupScaled && totalWidth > availableWidth);
+
+                // Phase 2: If groups still don't fit at Small size, scale some to Popup mode
+                // Scale groups to Popup one at a time, prioritizing wider groups first
+                while (totalWidth > availableWidth)
+                {
+                    // Find groups that are still at Small size (not already Popup)
+                    var groupsAtSmall = new List<RibbonGroup>();
+                    foreach (var group in _groups)
+                    {
+                        if (!group.Visible) continue;
+                        if (group.CurrentSize == RibbonGroupSize.Small)
+                        {
+                            groupsAtSmall.Add(group);
+                        }
+                    }
+
+                    // If no groups can be scaled to Popup, we're done (all are already Popup or smaller)
+                    if (groupsAtSmall.Count == 0)
+                        break;
+
+                    // Sort by width descending to scale the widest groups to Popup first
+                    // This maximizes space savings per group scaled
+                    groupsAtSmall.Sort((a, b) => b.GetPreferredWidth().CompareTo(a.GetPreferredWidth()));
+
+                    // Scale the widest group to Popup
+                    var groupToScale = groupsAtSmall[0];
+                    groupToScale.CurrentSize = RibbonGroupSize.Popup;
+                    
+                    // Recalculate total width
+                    totalWidth = CalculateTotalWidth();
+                    
+                    // If we've achieved the target width, stop scaling
+                    if (totalWidth <= availableWidth)
+                        break;
                 }
             }
 

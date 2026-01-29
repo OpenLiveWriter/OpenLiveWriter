@@ -209,7 +209,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         public RibbonColorPicker()
         {
-            Size = new Size(56, 66);
+            Size = new Size(56, LayoutConstants.LargeButtonMinHeight);
         }
 
         protected override void UpdateSize()
@@ -219,7 +219,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             switch (CurrentSize)
             {
                 case RibbonGroupSize.Large:
-                    Size = new Size(56, 66);
+                    Size = new Size(56, LayoutConstants.LargeButtonMinHeight);
                     break;
                 case RibbonGroupSize.Medium:
                     Size = new Size(80, 22);
@@ -541,18 +541,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 }
             }
 
-            // Text
+            // Text with high-quality rendering
             var textBounds = new Rectangle(bounds.X + 24, bounds.Y, bounds.Width - 28, bounds.Height);
-            var textFormat = new StringFormat
-            {
-                Alignment = StringAlignment.Near,
-                LineAlignment = StringAlignment.Center
-            };
-
-            using (var brush = new SolidBrush(RibbonColors.Current.ButtonText))
-            {
-                g.DrawString(text, SystemFonts.MenuFont, brush, textBounds, textFormat);
-            }
+            RibbonRenderer.DrawHighQualityText(g, text, SystemFonts.MenuFont, 
+                RibbonColors.Current.ButtonText, textBounds,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine);
         }
 
         private void DrawMoreColorsButton(Graphics g, Rectangle bounds, bool isHovered)
@@ -565,16 +558,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 }
             }
 
-            var textFormat = new StringFormat
-            {
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-
-            using (var brush = new SolidBrush(RibbonColors.Current.ButtonText))
-            {
-                g.DrawString("More Colors...", SystemFonts.MenuFont, brush, bounds, textFormat);
-            }
+            // High-quality text rendering for "More Colors..."
+            RibbonRenderer.DrawHighQualityText(g, "More Colors...", SystemFonts.MenuFont, 
+                RibbonColors.Current.ButtonText, bounds,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine);
         }
 
         protected override void OnMouseMove(MouseEventArgs e)

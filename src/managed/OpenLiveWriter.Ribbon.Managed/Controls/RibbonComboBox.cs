@@ -22,6 +22,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private bool _isEditable = true;
         private bool _isAutoCompleteEnabled = true;
         private bool _isLoading; // Flag to prevent command execution during initialization
+        private bool _showLabel = true;
 
         /// <summary>
         /// Gets or sets the label displayed above the combobox.
@@ -63,6 +64,24 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 _isAutoCompleteEnabled = value;
                 _innerComboBox.AutoCompleteMode = value ? AutoCompleteMode.SuggestAppend : AutoCompleteMode.None;
                 _innerComboBox.AutoCompleteSource = value ? AutoCompleteSource.ListItems : AutoCompleteSource.None;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether the label is shown above the combobox.
+        /// When false, the combobox is positioned at the top without a label.
+        /// </summary>
+        public bool ShowLabel
+        {
+            get => _showLabel;
+            set
+            {
+                _showLabel = value;
+                if (_labelControl != null)
+                {
+                    _labelControl.Visible = value;
+                    _innerComboBox.Location = value ? new Point(0, 16) : new Point(0, 0);
+                }
             }
         }
 
@@ -123,17 +142,20 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             };
             Controls.Add(_labelControl);
 
-            // ComboBox
+            // ComboBox - use owner-draw for proper hover colors
             _innerComboBox = new ComboBox
             {
                 Location = new Point(0, 16),
                 Size = new Size(Width, 23),
                 Font = SystemFonts.MenuFont,
-                FlatStyle = FlatStyle.System,
+                FlatStyle = FlatStyle.Flat,
                 DropDownStyle = ComboBoxStyle.DropDown,
+                DrawMode = DrawMode.OwnerDrawFixed,
                 AutoCompleteMode = AutoCompleteMode.SuggestAppend,
                 AutoCompleteSource = AutoCompleteSource.ListItems
             };
+
+            _innerComboBox.DrawItem += InnerComboBox_DrawItem;
 
             _innerComboBox.SelectedIndexChanged += (s, e) =>
             {
@@ -148,6 +170,27 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             _innerComboBox.TextChanged += (s, e) => TextChanged?.Invoke(this, e);
 
             Controls.Add(_innerComboBox);
+        }
+
+        /// <summary>
+        /// Custom drawing for combobox items to ensure readable text on hover.
+        /// </summary>
+        private void InnerComboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            var isSelected = (e.State & DrawItemState.Selected) != 0;
+            var bgColor = isSelected ? RibbonColors.Current.ButtonBackgroundHover : Color.White;
+            var textColor = RibbonColors.Current.ButtonText;
+
+            using (var brush = new SolidBrush(bgColor))
+            {
+                e.Graphics.FillRectangle(brush, e.Bounds);
+            }
+
+            var text = _innerComboBox.Items[e.Index]?.ToString() ?? string.Empty;
+            TextRenderer.DrawText(e.Graphics, text, e.Font ?? SystemFonts.MenuFont,
+                e.Bounds, textColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
         }
 
         /// <summary>
@@ -243,6 +286,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             LoadItemsFromCommand();
         }
 
+        /// <summary>
+        /// Override to fill entire bounds before child controls render.
+        /// This prevents black showing through gaps between label and combobox.
+        /// </summary>
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            // Fill entire bounds with opaque background to prevent black in gaps
+            e.Graphics.Clear(RibbonColors.Current.GetOpaqueGroupBackground());
+            base.OnPaint(e);
+        }
+
         protected override void UpdateSize()
         {
             base.UpdateSize();
@@ -251,9 +305,19 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 case RibbonGroupSize.Large:
                 case RibbonGroupSize.Medium:
-                    Size = new Size(120, 44);
-                    _labelControl.Visible = true;
-                    _innerComboBox.Location = new Point(0, 16);
+                    if (_showLabel)
+                    {
+                        Size = new Size(Width, 44);
+                        _labelControl.Visible = true;
+                        _innerComboBox.Location = new Point(0, 16);
+                    }
+                    else
+                    {
+                        // No label mode - compact height for font group layout
+                        Size = new Size(Width, 23);
+                        _labelControl.Visible = false;
+                        _innerComboBox.Location = new Point(0, 0);
+                    }
                     break;
                 case RibbonGroupSize.Small:
                     Size = new Size(80, 24);
