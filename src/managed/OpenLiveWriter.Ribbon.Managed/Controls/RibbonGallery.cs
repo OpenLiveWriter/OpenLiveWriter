@@ -26,6 +26,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private int _columns = 5;
         private int _maxColumns = 7;
         private int _maxRows = 3;
+        private int _minColumnsLarge = 0;
         private RibbonGalleryLayout _layout = RibbonGalleryLayout.Flow;
 
         private readonly List<RibbonGalleryItem> _items = new List<RibbonGalleryItem>();
@@ -124,6 +125,21 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             set
             {
                 _maxRows = Math.Max(1, value);
+                UpdateSize();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the minimum columns for large ribbon mode.
+        /// When set to a positive value, this controls the gallery width.
+        /// Use 0 for auto-calculation based on Columns property.
+        /// </summary>
+        public int MinColumnsLarge
+        {
+            get => _minColumnsLarge;
+            set
+            {
+                _minColumnsLarge = Math.Max(0, value);
                 UpdateSize();
             }
         }
@@ -398,14 +414,18 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             if (_galleryType == RibbonGalleryType.InRibbon)
             {
+                // Use MinColumnsLarge for explicit width control if set
+                var effectiveColumns = _minColumnsLarge > 0 ? _minColumnsLarge : _columns;
+                
                 // For TextPosition.Right, use a fixed width for icon + text
                 var effectiveItemWidth = _itemWidth;
                 if (_textPosition == RibbonTextPosition.Right)
                 {
-                    // Icon (16px) + padding (4px) + text space (~100px) = ~120-140px
-                    effectiveItemWidth = 140;
+                    // Icon (16px) + padding (4px) + text space
+                    // Use a narrower width (110px) for compact list-style galleries
+                    effectiveItemWidth = 110;
                 }
-                return _columns * effectiveItemWidth + SCROLL_BUTTON_WIDTH + BORDER_WIDTH * 2;
+                return effectiveColumns * effectiveItemWidth + SCROLL_BUTTON_WIDTH + BORDER_WIDTH * 2;
             }
             else if (_galleryType == RibbonGalleryType.CompactDropDown)
             {

@@ -462,6 +462,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         Columns = galleryConfig.Columns,
                         MaxColumns = galleryConfig.MaxColumns,
                         MaxRows = galleryConfig.MaxRows,
+                        MinColumnsLarge = galleryConfig.MinColumnsLarge,
                         Layout = galleryConfig.Layout,
                         CommandManager = _commandManager
                     };

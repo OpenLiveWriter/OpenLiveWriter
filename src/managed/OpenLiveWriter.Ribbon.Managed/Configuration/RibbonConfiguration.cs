@@ -249,6 +249,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
         public RibbonGalleryLayout Layout { get; set; } = RibbonGalleryLayout.Flow;
 
         /// <summary>
+        /// Gets or sets the minimum columns to display when in large ribbon mode.
+        /// This controls the width of in-ribbon galleries. Use 0 for auto-calculation.
+        /// </summary>
+        public int MinColumnsLarge { get; set; } = 0;
+
+        /// <summary>
         /// Gets the list of menu groups below the gallery.
         /// </summary>
         public List<MenuGroupConfig> MenuGroups { get; } = new List<MenuGroupConfig>();

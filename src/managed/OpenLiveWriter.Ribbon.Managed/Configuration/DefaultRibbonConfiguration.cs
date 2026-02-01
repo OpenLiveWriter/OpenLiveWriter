@@ -375,6 +375,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             tab.Groups.Add(blogGroup);
 
             // Shortcuts Group - SizeDefinition="OneInRibbonGallery"
+            // Use MinColumnsLarge=1 to ensure compact width for this list-style gallery
             var shortcutsGroup = CreateGroup(CommandId.BlogProviderShortcutsGroup, "Shortcuts", "S");
             shortcutsGroup.SizeDefinition = "OneInRibbonGallery";
             shortcutsGroup.Controls.Add(new GalleryConfig 
@@ -386,7 +387,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 ItemWidth = 16,
                 Columns = 1,  // Single column for list-style layout
                 MaxColumns = 1,
-                MaxRows = 3
+                MaxRows = 3,
+                MinColumnsLarge = 1  // Enforce compact width
             });
             tab.Groups.Add(shortcutsGroup);
 
