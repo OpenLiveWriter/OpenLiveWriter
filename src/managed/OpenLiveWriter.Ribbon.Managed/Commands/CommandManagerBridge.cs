@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
+using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
 
@@ -532,56 +533,40 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
             // Execute the source command
             try
             {
-                var sourceType = source.GetType();
-                
-                // For gallery commands, set the SelectedIndex on the source before executing
-                var selectedIndexProp = sourceType.GetProperty("SelectedIndex");
-                bool isGalleryCommand = selectedIndexProp != null && selectedIndexProp.CanWrite;
-                
-                if (isGalleryCommand)
+                // Cast to Command to use direct method calls instead of reflection
+                if (source is Command command)
                 {
-                    System.Diagnostics.Debug.WriteLine($"  Setting SelectedIndex={_selectedIndex} on source");
-                    selectedIndexProp.SetValue(source, _selectedIndex);
+                    // Check if this is a gallery command (has SelectedIndex property)
+                    var sourceType = source.GetType();
+                    var selectedIndexProp = sourceType.GetProperty("SelectedIndex");
+                    bool isGalleryCommand = selectedIndexProp != null && selectedIndexProp.CanWrite;
                     
-                    // Gallery commands use PerformExecuteWithArgs with ExecuteEventHandlerArgs
-                    // Look for the ExecuteEventHandlerArgs type and PerformExecuteWithArgs method
-                    var argsType = sourceType.Assembly.GetType("OpenLiveWriter.ApplicationFramework.ExecuteEventHandlerArgs");
-                    if (argsType != null)
+                    if (isGalleryCommand)
                     {
-                        var executeWithArgsMethod = sourceType.GetMethod("PerformExecuteWithArgs", new[] { argsType });
-                        if (executeWithArgsMethod != null)
-                        {
-                            // Create ExecuteEventHandlerArgs with the command ID and selected index
-                            var args = Activator.CreateInstance(argsType, _commandId.ToString(), _selectedIndex);
-                            System.Diagnostics.Debug.WriteLine($"  Calling PerformExecuteWithArgs on source with index={_selectedIndex}");
-                            executeWithArgsMethod.Invoke(source, new[] { args });
-                            System.Diagnostics.Debug.WriteLine($"  PerformExecuteWithArgs completed");
-                            return;
-                        }
+                        // Set the selected index on the source command
+                        selectedIndexProp.SetValue(source, _selectedIndex);
+                        
+                        // Gallery commands use PerformExecuteWithArgs with ExecuteEventHandlerArgs
+                        var args = new ExecuteEventHandlerArgs(_commandId.ToString(), _selectedIndex);
+                        command.PerformExecuteWithArgs(args);
+                        return;
+                    }
+                    else
+                    {
+                        // Non-gallery command - use regular PerformExecute
+                        command.PerformExecute();
+                        return;
                     }
                 }
                 
-                // Fall back to PerformExecute for non-gallery commands
-                var executeMethod = sourceType.GetMethod("PerformExecute", Type.EmptyTypes);
-
-                if (executeMethod != null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"  Calling PerformExecute on source");
-                    executeMethod.Invoke(source, null);
-                    System.Diagnostics.Debug.WriteLine($"  PerformExecute completed");
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine($"  No PerformExecute method found on source");
-                }
+                // Fallback for non-Command types (shouldn't happen but just in case)
+                var sourceType2 = source.GetType();
+                var executeMethod = sourceType2.GetMethod("PerformExecute", Type.EmptyTypes);
+                executeMethod?.Invoke(source, null);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Command execution failed for {_commandId}: {ex.Message}");
-                if (ex.InnerException != null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"  Inner exception: {ex.InnerException.Message}");
-                }
             }
         }
 

@@ -143,8 +143,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.SelectBlog, 
                 GalleryType = RibbonGalleryType.CompactDropDown,
                 TextPosition = RibbonTextPosition.Right,
-                ItemHeight = 16,   // Match native ribbon: ItemHeight="16"
-                ItemWidth = 16,    // Match native ribbon: ItemWidth="16"
+                ItemHeight = 24,   // Match closed dropdown height (24px)
+                ItemWidth = 16,    // Icon width for blog images
                 MaxColumns = 1,    // Single column for blog list
                 MaxRows = 10       // Show up to 10 blogs
             };

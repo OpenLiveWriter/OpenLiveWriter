@@ -18,6 +18,7 @@
 
   <!-- Project References -->
   <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
   </ItemGroup>
