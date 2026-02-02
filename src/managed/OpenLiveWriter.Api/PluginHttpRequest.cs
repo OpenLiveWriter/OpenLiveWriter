@@ -195,7 +195,7 @@ namespace OpenLiveWriter.Api
                     request.Content = content;
                 }
 
-                var response = HttpClientService.DefaultClient.SendAsync(request, cts.Token).GetAwaiter().GetResult();
+                using var response = HttpClientService.DefaultClient.SendAsync(request, cts.Token).GetAwaiter().GetResult();
                 response.EnsureSuccessStatusCode();
 
                 Stream responseStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
