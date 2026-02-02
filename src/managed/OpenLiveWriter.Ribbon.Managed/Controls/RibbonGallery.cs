@@ -44,10 +44,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private ToolStripDropDown _dropDown;
         private RibbonGalleryDropDownPanel _dropDownPanel;
-        private DropDownMessageFilter _messageFilter;
+        private DropDownMouseHook _mouseHook;
 
         /// <summary>
-        /// Gets the dropdown control for external access (used by message filter).
+        /// Gets the dropdown control for external access.
         /// </summary>
         internal ToolStripDropDown DropDown => _dropDown;
 
@@ -571,6 +571,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                 var visibleColumns = Math.Min(_columns, Math.Max(1, _contentBounds.Width / effectiveItemWidth));
                 var visibleRows = Math.Max(1, _contentBounds.Height / _itemHeight);
 
+                // Calculate effective item height to fill the available space
+                // This ensures items fill the full gallery height like the native ribbon
+                var effectiveItemHeight = _contentBounds.Height / visibleRows;
+
                 for (int row = 0; row < visibleRows; row++)
                 {
                     for (int col = 0; col < visibleColumns; col++)
@@ -580,8 +584,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
                         var itemBounds = new Rectangle(
                             _contentBounds.X + col * effectiveItemWidth,
-                            _contentBounds.Y + row * _itemHeight,
-                            effectiveItemWidth, _itemHeight);
+                            _contentBounds.Y + row * effectiveItemHeight,
+                            effectiveItemWidth, effectiveItemHeight);
 
                         DrawGalleryItem(g, itemBounds, _items[index], index == _selectedIndex, index == _hoveredIndex);
                     }
@@ -1208,8 +1212,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             // Limit to configured columns
             var visibleColumns = Math.Min(_columns, Math.Max(1, _contentBounds.Width / effectiveItemWidth));
+            
+            // Calculate effective item height (same as in DrawInRibbonGallery for consistent hit testing)
+            var visibleRows = Math.Max(1, _contentBounds.Height / _itemHeight);
+            var effectiveItemHeight = _contentBounds.Height / visibleRows;
+            
             var col = (pt.X - _contentBounds.X) / effectiveItemWidth;
-            var row = (pt.Y - _contentBounds.Y) / _itemHeight;
+            var row = (pt.Y - _contentBounds.Y) / effectiveItemHeight;
 
             if (col < 0 || col >= visibleColumns || row < 0) return -1;
 
@@ -1326,153 +1335,37 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
-        /// Adds the message filter to detect clicks outside the dropdown.
+        /// Adds the mouse hook to detect clicks outside the dropdown.
         /// </summary>
         private void AddMessageFilter()
         {
-            if (_messageFilter == null)
+            if (_mouseHook == null)
             {
-                _messageFilter = new DropDownMessageFilter(this);
+                _mouseHook = new DropDownMouseHook(
+                    this,
+                    () => _dropDown,
+                    () => CloseDropDown()
+                );
             }
-            _messageFilter.InstallHook();
+            _mouseHook.Install();
         }
 
         /// <summary>
-        /// Removes the message filter.
+        /// Removes the mouse hook.
         /// </summary>
         private void RemoveMessageFilter()
         {
-            if (_messageFilter != null)
-            {
-                _messageFilter.RemoveHook();
-            }
+            _mouseHook?.Remove();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                RemoveMessageFilter();
+                _mouseHook?.Dispose();
                 _dropDown?.Dispose();
             }
             base.Dispose(disposing);
-        }
-    }
-
-    /// <summary>
-    /// Low-level mouse hook to detect mouse clicks outside a dropdown and close it.
-    /// This is needed because native controls (WebView2/MSHTML) don't trigger
-    /// the standard ToolStripDropDown auto-close behavior or WinForms message filters.
-    /// </summary>
-    internal class DropDownMessageFilter : IMessageFilter
-    {
-        private const int WM_LBUTTONDOWN = 0x0201;
-        private const int WM_RBUTTONDOWN = 0x0204;
-        private const int WM_MBUTTONDOWN = 0x0207;
-        private const int WM_NCLBUTTONDOWN = 0x00A1;
-        private const int WH_MOUSE_LL = 14;
-
-        private readonly RibbonGallery _gallery;
-        private IntPtr _hookId = IntPtr.Zero;
-        private LowLevelMouseProc _hookProc;
-
-        // P/Invoke declarations
-        private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
-
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelMouseProc lpfn, IntPtr hMod, uint dwThreadId);
-
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
-        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
-        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-
-        [System.Runtime.InteropServices.DllImport("kernel32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-        private struct POINT
-        {
-            public int x;
-            public int y;
-        }
-
-        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
-        private struct MSLLHOOKSTRUCT
-        {
-            public POINT pt;
-            public uint mouseData;
-            public uint flags;
-            public uint time;
-            public IntPtr dwExtraInfo;
-        }
-
-        public DropDownMessageFilter(RibbonGallery gallery)
-        {
-            _gallery = gallery;
-            // Keep a reference to prevent GC
-            _hookProc = HookCallback;
-        }
-
-        public void InstallHook()
-        {
-            if (_hookId == IntPtr.Zero)
-            {
-                using (var curProcess = System.Diagnostics.Process.GetCurrentProcess())
-                using (var curModule = curProcess.MainModule)
-                {
-                    _hookId = SetWindowsHookEx(WH_MOUSE_LL, _hookProc, 
-                        GetModuleHandle(curModule.ModuleName), 0);
-                }
-            }
-        }
-
-        public void RemoveHook()
-        {
-            if (_hookId != IntPtr.Zero)
-            {
-                UnhookWindowsHookEx(_hookId);
-                _hookId = IntPtr.Zero;
-            }
-        }
-
-        private IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
-        {
-            if (nCode >= 0)
-            {
-                int msg = wParam.ToInt32();
-                if (msg == WM_LBUTTONDOWN || msg == WM_RBUTTONDOWN || msg == WM_MBUTTONDOWN)
-                {
-                    var dropDown = _gallery.DropDown;
-                    if (dropDown != null && dropDown.Visible)
-                    {
-                        var hookStruct = System.Runtime.InteropServices.Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
-                        var clickPoint = new Point(hookStruct.pt.x, hookStruct.pt.y);
-
-                        // Check if the click is inside the dropdown bounds
-                        var dropDownBounds = dropDown.Bounds;
-                        if (!dropDownBounds.Contains(clickPoint))
-                        {
-                            // Also check if click is on the gallery control itself
-                            var galleryScreenBounds = _gallery.RectangleToScreen(_gallery.ClientRectangle);
-                            if (!galleryScreenBounds.Contains(clickPoint))
-                            {
-                                // Use BeginInvoke to close on the UI thread
-                                _gallery.BeginInvoke(new Action(() => _gallery.CloseDropDown()));
-                            }
-                        }
-                    }
-                }
-            }
-            return CallNextHookEx(_hookId, nCode, wParam, lParam);
-        }
-
-        // IMessageFilter implementation (kept for compatibility but hook does the real work)
-        public bool PreFilterMessage(ref Message m)
-        {
-            return false;
         }
     }
 

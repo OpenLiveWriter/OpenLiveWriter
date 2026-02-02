@@ -30,6 +30,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private ToolStripDropDown _dropDown;
         private ColorPickerPanel _pickerPanel;
+        private DropDownMouseHook _mouseHook;
 
         // Standard colors palette
         private static readonly Color[] StandardColors = new Color[]
@@ -331,11 +332,25 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     Margin = Padding.Empty,
                     Padding = Padding.Empty
                 });
+                
+                // Remove mouse hook when dropdown closes
+                _dropDown.Closing += (s, e) => _mouseHook?.Remove();
             }
 
             _pickerPanel.UpdateLayout();
             _dropDown.Size = _pickerPanel.Size;
             _dropDown.Items[0].Size = _pickerPanel.Size;
+
+            // Install mouse hook to detect clicks on native controls (WebView2/MSHTML)
+            if (_mouseHook == null)
+            {
+                _mouseHook = new DropDownMouseHook(
+                    this,
+                    () => _dropDown,
+                    () => _dropDown?.Close()
+                );
+            }
+            _mouseHook.Install();
 
             _dropDown.Show(this, new Point(0, Height));
         }
@@ -358,6 +373,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             if (disposing)
             {
+                _mouseHook?.Dispose();
                 _dropDown?.Dispose();
             }
             base.Dispose(disposing);

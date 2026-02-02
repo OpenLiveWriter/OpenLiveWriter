@@ -23,6 +23,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
         private readonly List<RibbonMenuItem> _menuItems = new List<RibbonMenuItem>();
         private ContextMenuStrip _dropDownMenu;
+        private DropDownMouseHook _mouseHook;
 
         private Rectangle _buttonBounds;
         private Rectangle _dropDownBounds;
@@ -421,7 +422,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             {
                 _dropDownMenu = new ContextMenuStrip();
                 _dropDownMenu.Opening += (s, e) => { _isDropDownPressed = true; Invalidate(); };
-                _dropDownMenu.Closed += (s, e) => { _isDropDownPressed = false; Invalidate(); };
+                _dropDownMenu.Closed += (s, e) => 
+                { 
+                    _isDropDownPressed = false; 
+                    Invalidate();
+                    // Remove mouse hook when dropdown closes
+                    _mouseHook?.Remove();
+                };
 
                 foreach (var item in _menuItems)
                 {
@@ -448,6 +455,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     }
                 }
             }
+
+            // Install mouse hook to detect clicks on native controls (WebView2/MSHTML)
+            if (_mouseHook == null)
+            {
+                _mouseHook = new DropDownMouseHook(
+                    this,
+                    () => _dropDownMenu,
+                    () => _dropDownMenu?.Close()
+                );
+            }
+            _mouseHook.Install();
 
             _dropDownMenu.Show(this, new Point(0, Height));
         }
@@ -489,6 +507,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         {
             if (disposing)
             {
+                _mouseHook?.Dispose();
                 _dropDownMenu?.Dispose();
             }
             base.Dispose(disposing);
