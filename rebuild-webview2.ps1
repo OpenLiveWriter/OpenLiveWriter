@@ -22,7 +22,6 @@ Copy-Item $outputDll $targetDir -Force
 Write-Host "Done!" -ForegroundColor Green
 
 if ($Run) {
-    Write-Host "Starting OpenLiveWriter with WebView2 enabled..." -ForegroundColor Cyan
-    $env:OLW_USE_WEBVIEW2_EDITOR = "1"
+    Write-Host "Starting OpenLiveWriter (WebView2 is default)..." -ForegroundColor Cyan
     Start-Process $exePath
 }
