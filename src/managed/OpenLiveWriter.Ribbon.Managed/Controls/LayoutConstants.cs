@@ -45,9 +45,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         public static int LargeButtonMinHeight => DisplayHelper.ScaleYCeil(BASE_LargeButtonMinHeight);
         public static int LargeButtonTextPadding => DisplayHelper.ScaleXCeil(BASE_LargeButtonTextPadding);
 
-        // Image sizes (Windows Ribbon standard sizes) - DPI-scaled
+        // Image sizes (Windows Ribbon standard sizes) - DPI-scaled for layout
         public static int SmallImageSize => DisplayHelper.ScaleXCeil(BASE_SmallImageSize);
         public static int LargeImageSize => DisplayHelper.ScaleXCeil(BASE_LargeImageSize);
+
+        // Unscaled image sizes for rendering icons at native pixel size (prevents blurry scaling)
+        public const int SmallImageSizeUnscaled = BASE_SmallImageSize;  // 16px
+        public const int LargeImageSizeUnscaled = BASE_LargeImageSize;  // 32px
 
         // Large button layout - DPI-scaled
         public static int LargeButtonIconTopPadding => DisplayHelper.ScaleYCeil(BASE_LargeButtonIconTopPadding);

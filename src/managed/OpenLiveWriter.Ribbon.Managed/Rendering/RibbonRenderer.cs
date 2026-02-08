@@ -365,10 +365,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
         private void DrawLargeButtonContent(Graphics g, Rectangle bounds, string text, Image image, bool isEnabled)
         {
             // Large button: 32x32 icon centered at top, text centered below (may wrap to 2 lines)
-            // Uses LayoutConstants for consistent sizing
-            var imageSize = LayoutConstants.LargeImageSize;  // 32
-            var topPadding = LayoutConstants.LargeButtonIconTopPadding;  // 3
-            var iconTextGap = LayoutConstants.LargeButtonIconTextGap;  // 2
+            // Use unscaled 32px target size for icons to prevent blurry DPI scaling
+            const int imageSize = LayoutConstants.LargeImageSizeUnscaled;  // 32px
+            var topPadding = LayoutConstants.LargeButtonIconTopPadding;
+            var iconTextGap = LayoutConstants.LargeButtonIconTextGap;
             
             var imageBounds = new Rectangle(
                 bounds.X + (bounds.Width - imageSize) / 2,
@@ -421,8 +421,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
 
         private void DrawMediumButtonContent(Graphics g, Rectangle bounds, string text, Image image, bool isEnabled)
         {
-            // Medium button: 16x16 icon on left, text vertically centered on right - DPI-scaled
-            var imageSize = LayoutConstants.SmallImageSize;
+            // Medium button: 16x16 icon on left, text vertically centered on right
+            // Use unscaled 16px target size for icons to prevent blurry DPI scaling
+            const int imageSize = LayoutConstants.SmallImageSizeUnscaled;  // 16px
             var leftPadding = LayoutConstants.GroupPadding;
             var iconTextGap = LayoutConstants.GroupPadding;
             var rightPadding = LayoutConstants.GroupPadding;
@@ -456,22 +457,20 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
 
         private void DrawSmallButtonContent(Graphics g, Rectangle bounds, Image image, bool isEnabled)
         {
-            // Small button: 16x16 icon only, centered - DPI-scaled
-            var imageSize = LayoutConstants.SmallImageSize;
+            // Small button: 16x16 icon only, centered
+            // Use unscaled 16px target size for icons to prevent blurry DPI scaling
+            if (image == null) return;
+
+            const int imageSize = LayoutConstants.SmallImageSizeUnscaled;  // 16px
             var imageBounds = new Rectangle(
                 bounds.X + (bounds.Width - imageSize) / 2,
                 bounds.Y + (bounds.Height - imageSize) / 2,
                 imageSize, imageSize);
 
-            if (image != null)
-            {
-                if (isEnabled)
-                    DrawScaledImage(g, image, imageBounds);
-                else
-                    DrawDisabledImage(g, image, imageBounds);
-            }
-            // If no image is available, don't draw anything (button will show as blank)
-            // This is preferable to drawing placeholder rectangles which create visual noise
+            if (isEnabled)
+                DrawScaledImage(g, image, imageBounds);
+            else
+                DrawDisabledImage(g, image, imageBounds);
         }
 
         /// <summary>
@@ -482,46 +481,48 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
         {
             if (image == null) return;
 
-            // If image is already the correct size, draw directly for best performance and sharpness
+            // CRITICAL: Always use explicit source/destination rectangles with GraphicsUnit.Pixel.
+            // NEVER use g.DrawImage(image, Point) — GDI+ applies DPI-based scaling with that overload:
+            //   renderSize = pixelSize * (graphicsDPI / imageDPI)
+            // For example, a 16x16 image at 96 DPI drawn on a 144 DPI surface (150% scaling)
+            // would render at 24x24 pixels, overflowing the intended bounds and appearing
+            // blurry and bold. Using explicit pixel rectangles bypasses this DPI scaling entirely.
+
             if (image.Width == bounds.Width && image.Height == bounds.Height)
             {
-                g.DrawImage(image, bounds.Location);
+                // 1:1 pixel mapping — draw with explicit pixel-level source/dest rectangles
+                // to avoid GDI+'s DPI-aware scaling that g.DrawImage(image, Point) applies
+                g.DrawImage(image, bounds, new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
                 return;
             }
 
-            // Save original graphics settings
+            // Scaling needed — use high quality settings
             var oldInterpolationMode = g.InterpolationMode;
             var oldPixelOffsetMode = g.PixelOffsetMode;
             var oldSmoothingMode = g.SmoothingMode;
             var oldCompositingQuality = g.CompositingQuality;
-            var oldCompositingMode = g.CompositingMode;
 
             try
             {
-                // Use highest quality settings for scaling icons
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
 
-                // Use ImageAttributes for best alpha handling
                 using (var attributes = new System.Drawing.Imaging.ImageAttributes())
                 {
                     // Prevent edge artifacts when scaling
                     attributes.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
-                    
+
                     g.DrawImage(image, bounds, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
                 }
             }
             finally
             {
-                // Restore original settings
                 g.InterpolationMode = oldInterpolationMode;
                 g.PixelOffsetMode = oldPixelOffsetMode;
                 g.SmoothingMode = oldSmoothingMode;
                 g.CompositingQuality = oldCompositingQuality;
-                g.CompositingMode = oldCompositingMode;
             }
         }
 
@@ -559,13 +560,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Rendering
 
         private void DrawDisabledImage(Graphics g, Image image, Rectangle bounds)
         {
-            // Draw image with reduced opacity for disabled state
+            // Draw image with reduced opacity and desaturation for disabled state.
+            // No pre-clearing needed — DrawButton already fills the entire button area
+            // with an opaque background before calling this method.
             using (var attributes = new System.Drawing.Imaging.ImageAttributes())
             {
                 var matrix = new System.Drawing.Imaging.ColorMatrix();
                 matrix.Matrix33 = 0.4f; // 40% opacity
-                matrix.Matrix00 = matrix.Matrix11 = matrix.Matrix22 = 1.0f;
-                // Desaturate
+                // Desaturate by averaging RGB channels
                 matrix.Matrix00 = matrix.Matrix01 = matrix.Matrix02 = 0.33f;
                 matrix.Matrix10 = matrix.Matrix11 = matrix.Matrix12 = 0.33f;
                 matrix.Matrix20 = matrix.Matrix21 = matrix.Matrix22 = 0.33f;

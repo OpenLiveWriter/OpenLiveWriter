@@ -165,10 +165,15 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         protected RibbonControlBase()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint |
-                     ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
+                     ControlStyles.OptimizedDoubleBuffer, true);
 
-            // Note: AutoScaleMode is handled by the parent container (RibbonPanel/RibbonGroup)
-            BackColor = Color.Transparent;
+            // NOTE: We intentionally do NOT set SupportsTransparentBackColor or BackColor = Transparent.
+            // Those flags cause WinForms to set WS_EX_TRANSPARENT on the window, which forces
+            // the parent to repaint its area (including this control's region) every time this
+            // control repaints. Combined with multiple layers of transparent controls (RibbonGroup
+            // → TransparentPanel → RibbonButton), this creates a cascade of unnecessary repaints.
+            // Since OnPaintBackground always fills with an opaque color, transparency simulation
+            // is not needed and only causes overhead and potential rendering artifacts.
 
             // Initialize shared tooltip if needed
             if (_sharedToolTip == null)
