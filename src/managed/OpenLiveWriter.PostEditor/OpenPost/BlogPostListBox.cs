@@ -836,6 +836,8 @@ namespace OpenLiveWriter.PostEditor.OpenPost
 
             public override AccessibleObject GetChild(int index)
             {
+                if (index < 0 || index >= _listbox.Items.Count)
+                    return null;
                 return _listbox.Items[index] as AccessibleObject;
             }
 
