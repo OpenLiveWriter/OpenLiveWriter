@@ -38,9 +38,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         private RibbonTab _hoveredTab;
         private Rectangle _appMenuButtonBounds;
         private bool _appMenuButtonHovered;
-#pragma warning disable CS0649 // Field is never assigned
-        private bool _appMenuButtonPressed;
-#pragma warning restore CS0649
 
         private ApplicationMenu _applicationMenu;
         private QuickAccessToolbar _quickAccessToolbar;
@@ -698,7 +695,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
             
             RibbonRenderer.Instance.DrawAppMenuButton(g, _appMenuButtonBounds,
-                _appMenuButtonHovered, _appMenuButtonPressed);
+                _appMenuButtonHovered, isPressed: false);
 
             // Draw tab headers - start after QAT - DPI-scaled spacing
             // QAT is positioned after File button (APP_BUTTON_WIDTH + 4px gap)

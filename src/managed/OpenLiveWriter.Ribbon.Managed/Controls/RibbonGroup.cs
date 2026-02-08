@@ -254,7 +254,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (SizeDefinition == "FourButtons" && _controls.Count >= 4)
             {
-                return GetFourButtonsWidth();
+                return GetStackedMediumButtonsWidth();
             }
 
             if (SizeDefinition == "SevenSmallButtons" && _controls.Count >= 7)
@@ -264,17 +264,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (SizeDefinition == "ThreeLargeButtons" && _controls.Count >= 3)
             {
-                return GetThreeLargeButtonsWidth();
+                return GetNLargeButtonsWidth(3);
             }
 
             if (SizeDefinition == "TwoLargeButtons" && _controls.Count >= 2)
             {
-                return GetTwoLargeButtonsWidth();
+                return GetNLargeButtonsWidth(2);
             }
 
             if (SizeDefinition == "ThreeMediumButtons" && _controls.Count >= 3)
             {
-                return GetThreeMediumButtonsWidth();
+                return GetStackedMediumButtonsWidth();
             }
 
             if (SizeDefinition == "FontGroup")
@@ -501,91 +501,44 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
-        /// Calculate the preferred width for the "FourButtons" SizeDefinition.
-        /// Layout: 4 medium buttons stacked vertically with 16x16 icon on left and text on right.
-        /// Used by the Editing group (Spelling, Word Count, Find, Select All).
+        /// Calculate the preferred width for stacked medium buttons (FourButtons or ThreeMediumButtons).
+        /// Layout: N medium buttons stacked vertically with 16x16 icon on left and text on right.
         /// </summary>
-        private int GetFourButtonsWidth()
+        private int GetStackedMediumButtonsWidth()
         {
             var buttonWidth = 70; // minimum width for medium buttons with text
             using (var g = CreateGraphics())
             {
-                // Find the widest button text to determine group width
                 foreach (var control in _controls)
                 {
                     var label = control.CommandLabel;
                     if (!string.IsNullOrEmpty(label))
                     {
                         var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
-                        // Medium button layout: left padding (4) + icon (16) + gap (4) + text + right padding (4)
                         buttonWidth = Math.Max(buttonWidth, 4 + 16 + 4 + textWidth + 4);
                     }
                 }
-            }
-            
-            var width = buttonWidth + PADDING * 2;
-            
-            // Ensure group label fits
-            using (var g = CreateGraphics())
-            {
+                
+                var width = buttonWidth + PADDING * 2;
                 var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
                 width = Math.Max(width, labelWidth);
+                return Math.Max(width, MIN_WIDTH);
             }
-            
-            return Math.Max(width, MIN_WIDTH);
         }
 
         /// <summary>
-        /// Calculate the preferred width for the "ThreeMediumButtons" SizeDefinition.
-        /// Layout: 3 medium buttons stacked vertically with 16x16 icon on left and text on right.
-        /// Used by the Breaks group (Horizontal line, Clear break, Split post).
+        /// Calculate the preferred width for N large buttons arranged horizontally.
+        /// Used by ThreeLargeButtons (Insert group) and TwoLargeButtons (Plugins group).
         /// </summary>
-        private int GetThreeMediumButtonsWidth()
-        {
-            var buttonWidth = 70; // minimum width for medium buttons with text
-            using (var g = CreateGraphics())
-            {
-                // Find the widest button text to determine group width
-                foreach (var control in _controls)
-                {
-                    var label = control.CommandLabel;
-                    if (!string.IsNullOrEmpty(label))
-                    {
-                        var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
-                        // Medium button layout: left padding (4) + icon (16) + gap (4) + text + right padding (4)
-                        buttonWidth = Math.Max(buttonWidth, 4 + 16 + 4 + textWidth + 4);
-                    }
-                }
-            }
-            
-            var width = buttonWidth + PADDING * 2;
-            
-            // Ensure group label fits
-            using (var g = CreateGraphics())
-            {
-                var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
-                width = Math.Max(width, labelWidth);
-            }
-            
-            return Math.Max(width, MIN_WIDTH);
-        }
-
-        /// <summary>
-        /// Calculate the preferred width for the "ThreeLargeButtons" SizeDefinition.
-        /// Layout: Three large buttons horizontally side by side with equal spacing.
-        /// Used by the Insert group (Hyperlink, Picture, Video).
-        /// </summary>
-        private int GetThreeLargeButtonsWidth()
+        private int GetNLargeButtonsWidth(int maxButtons)
         {
             var x = PADDING;
-            var buttonSpacing = 1; // Spacing between buttons
+            var buttonSpacing = 1;
             
-            // Create a single Graphics object for text measurement (more efficient)
             using (var g = CreateGraphics())
             using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
             {
-                // Calculate width for each of the 3 large buttons
-                var numButtons = Math.Min(3, _controls.Count);
+                var numButtons = Math.Min(maxButtons, _controls.Count);
                 for (int i = 0; i < numButtons; i++)
                 {
                     var control = _controls[i];
@@ -595,7 +548,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     {
                         var textWidth = (int)g.MeasureString(label, font).Width;
                         var textBasedWidth = textWidth + LayoutConstants.LargeButtonTextPadding * 2;
-                        // For long text, assume it wraps to 2 lines (half width each)
                         if (textBasedWidth > 70)
                         {
                             textBasedWidth = Math.Max(LayoutConstants.LargeButtonMinWidth, 
@@ -604,7 +556,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         buttonWidth = Math.Max(buttonWidth, textBasedWidth);
                     }
                     
-                    // For dropdown buttons, ensure minimum width for dropdown arrow
                     if (control is RibbonButton btn && 
                         (btn.ButtonType == RibbonButtonType.DropDownButton || btn.ButtonType == RibbonButtonType.SplitButton))
                     {
@@ -612,66 +563,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     }
                     
                     x += buttonWidth;
-                    if (i < numButtons - 1) // Add spacing between buttons (not after the last one)
-                    {
+                    if (i < numButtons - 1)
                         x += buttonSpacing;
-                    }
                 }
                 
                 x += PADDING;
                 
-                // Ensure group label fits
-                var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
-                x = Math.Max(x, labelWidth);
-            }
-            
-            return Math.Max(x, MIN_WIDTH);
-        }
-
-        /// <summary>
-        /// Calculate the preferred width for the "TwoLargeButtons" SizeDefinition.
-        /// Layout: Two large buttons horizontally side by side.
-        /// Used by the Plugins group (Add Plugin, Plugin Options).
-        /// </summary>
-        private int GetTwoLargeButtonsWidth()
-        {
-            var x = PADDING;
-            var buttonSpacing = 1; // Spacing between buttons
-            
-            // Create a single Graphics object for text measurement (more efficient)
-            using (var g = CreateGraphics())
-            using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
-            {
-                // Calculate width for each of the 2 large buttons
-                var numButtons = Math.Min(2, _controls.Count);
-                for (int i = 0; i < numButtons; i++)
-                {
-                    var control = _controls[i];
-                    var buttonWidth = LayoutConstants.LargeButtonMinWidth;
-                    var label = control.CommandLabel;
-                    if (!string.IsNullOrEmpty(label))
-                    {
-                        var textWidth = (int)g.MeasureString(label, font).Width;
-                        var textBasedWidth = textWidth + LayoutConstants.LargeButtonTextPadding * 2;
-                        // For long text, assume it wraps to 2 lines (half width each)
-                        if (textBasedWidth > 70)
-                        {
-                            textBasedWidth = Math.Max(LayoutConstants.LargeButtonMinWidth, 
-                                (textWidth / 2) + LayoutConstants.LargeButtonTextPadding * 2);
-                        }
-                        buttonWidth = Math.Max(buttonWidth, textBasedWidth);
-                    }
-                    
-                    x += buttonWidth;
-                    if (i < numButtons - 1) // Add spacing between buttons (not after the last one)
-                    {
-                        x += buttonSpacing;
-                    }
-                }
-                
-                x += PADDING;
-                
-                // Ensure group label fits
                 var labelWidth = (int)g.MeasureString(_label ?? "", _labelControl.Font).Width + PADDING * 2;
                 x = Math.Max(x, labelWidth);
             }
@@ -867,36 +764,31 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
 
             if (SizeDefinition == "FourButtons" && _controls.Count >= 4)
             {
-                // Layout: 4 medium buttons stacked vertically (2 rows of 2 or 4 rows of 1)
-                LayoutFourButtons(availableHeight);
+                LayoutStackedMediumButtons(availableHeight, 4, maxButtonHeight: 20);
                 return;
             }
 
             if (SizeDefinition == "SevenSmallButtons" && _controls.Count >= 7)
             {
-                // Layout: 7 small icon-only buttons in 3 columns
                 LayoutSevenSmallButtons(availableHeight);
                 return;
             }
 
             if (SizeDefinition == "ThreeLargeButtons" && _controls.Count >= 3)
             {
-                // Layout: 3 large buttons horizontally side by side (e.g., Hyperlink, Picture, Video)
-                LayoutThreeLargeButtons(availableHeight);
+                LayoutNLargeButtons(availableHeight, 3);
                 return;
             }
 
             if (SizeDefinition == "TwoLargeButtons" && _controls.Count >= 2)
             {
-                // Layout: 2 large buttons horizontally side by side (e.g., Add Plugins, Plugin Options)
-                LayoutTwoLargeButtons(availableHeight);
+                LayoutNLargeButtons(availableHeight, 2);
                 return;
             }
 
             if (SizeDefinition == "ThreeMediumButtons" && _controls.Count >= 3)
             {
-                // Layout: 3 medium buttons stacked vertically (e.g., Horizontal line, Clear break, Split post)
-                LayoutThreeMediumButtons(availableHeight);
+                LayoutStackedMediumButtons(availableHeight, 3);
                 return;
             }
 
@@ -1055,7 +947,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     
                     // Use gallery's preferred width (respects Columns property)
                     var galleryWidth = gallery.GetPreferredWidth();
-                    System.Diagnostics.Debug.WriteLine($"RibbonGroup.LayoutControls: Gallery CommandId={gallery.CommandId}, Columns={gallery.Columns}, ItemWidth={gallery.ItemWidth}, PreferredWidth={galleryWidth}");
                     gallery.Size = new Size(galleryWidth, availableHeight);
                     control.Location = new Point(x, y);
                     x += galleryWidth + 2;  // Use the calculated width, not control.Width
@@ -1243,30 +1134,17 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
-        /// Layout for the "FourButtons" SizeDefinition:
-        /// Four medium buttons stacked vertically in a single column.
+        /// Layout for stacked medium buttons (FourButtons or ThreeMediumButtons).
+        /// N medium buttons stacked vertically in a single column.
         /// Each button has a 16x16 icon on the left and text on the right.
-        /// Used by the Editing group (Spelling, Word Count, Find, Select All).
-        /// 
-        /// Layout:
-        /// +---------------------------+
-        /// | [icon] Spelling           |
-        /// +---------------------------+
-        /// | [icon] Word Count         |
-        /// +---------------------------+
-        /// | [icon] Find               |
-        /// +---------------------------+
-        /// | [icon] Select All         |
-        /// +---------------------------+
         /// </summary>
-        private void LayoutFourButtons(int availableHeight)
+        private void LayoutStackedMediumButtons(int availableHeight, int maxButtons, int maxButtonHeight = 22)
         {
-            // Account for content panel padding
             var x = PADDING;
             var y = PADDING;
             
             // Calculate button width based on longest text
-            var buttonWidth = 70; // minimum width for medium buttons with text
+            var buttonWidth = 70;
             using (var g = CreateGraphics())
             {
                 foreach (var control in _controls)
@@ -1275,28 +1153,21 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                     if (!string.IsNullOrEmpty(label))
                     {
                         var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
-                        // Medium button layout: left padding (4) + icon (16) + gap (4) + text + right padding (4)
                         buttonWidth = Math.Max(buttonWidth, 4 + 16 + 4 + textWidth + 4);
                     }
                 }
             }
             
-            // Stack 4 buttons vertically with equal spacing
-            // Available height is divided among 4 buttons
-            var buttonCount = Math.Min(_controls.Count, 4);
-            var buttonGap = 1; // Small gap between buttons
-            var totalGaps = buttonCount - 1;
-            var totalButtonHeight = availableHeight - (totalGaps * buttonGap);
-            var buttonHeight = totalButtonHeight / buttonCount;
-            
-            // Ensure reasonable button height (between 14 and 20 pixels)
-            buttonHeight = Math.Max(14, Math.Min(buttonHeight, 20));
+            var buttonCount = Math.Min(_controls.Count, maxButtons);
+            var buttonGap = 1;
+            var totalButtonHeight = availableHeight - ((buttonCount - 1) * buttonGap);
+            var buttonHeight = Math.Max(14, Math.Min(totalButtonHeight / buttonCount, maxButtonHeight));
             
             var row = 0;
             foreach (var control in _controls)
             {
                 if (!control.Visible) continue;
-                if (row >= 4) break; // Only layout first 4 buttons
+                if (row >= maxButtons) break;
                 
                 control.CurrentSize = RibbonGroupSize.Medium;
                 control.Size = new Size(buttonWidth, buttonHeight);
@@ -1306,108 +1177,35 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
-        /// Layout for the "ThreeMediumButtons" SizeDefinition:
-        /// Three medium buttons stacked vertically in a single column.
-        /// Each button has a 16x16 icon on the left and text on the right.
-        /// Used by the Breaks group (Horizontal line, Clear break, Split post).
-        /// 
-        /// Layout:
-        /// +---------------------------+
-        /// | [icon] Horizontal line    |
-        /// +---------------------------+
-        /// | [icon] Clear break        |
-        /// +---------------------------+
-        /// | [icon] Split post         |
-        /// +---------------------------+
-        /// </summary>
-        private void LayoutThreeMediumButtons(int availableHeight)
-        {
-            // Account for content panel padding
-            var x = PADDING;
-            var y = PADDING;
-            
-            // Calculate button width based on longest text
-            var buttonWidth = 70; // minimum width for medium buttons with text
-            using (var g = CreateGraphics())
-            {
-                foreach (var control in _controls)
-                {
-                    var label = control.CommandLabel;
-                    if (!string.IsNullOrEmpty(label))
-                    {
-                        var textWidth = (int)g.MeasureString(label, SystemFonts.MenuFont).Width;
-                        // Medium button layout: left padding (4) + icon (16) + gap (4) + text + right padding (4)
-                        buttonWidth = Math.Max(buttonWidth, 4 + 16 + 4 + textWidth + 4);
-                    }
-                }
-            }
-            
-            // Stack 3 buttons vertically with equal spacing
-            // Available height is divided among 3 buttons
-            var buttonCount = Math.Min(_controls.Count, 3);
-            var buttonGap = 1; // Small gap between buttons
-            var totalGaps = buttonCount - 1;
-            var totalButtonHeight = availableHeight - (totalGaps * buttonGap);
-            var buttonHeight = totalButtonHeight / buttonCount;
-            
-            // Ensure reasonable button height (between 14 and 22 pixels)
-            buttonHeight = Math.Max(14, Math.Min(buttonHeight, 22));
-            
-            var row = 0;
-            foreach (var control in _controls)
-            {
-                if (!control.Visible) continue;
-                if (row >= 3) break; // Only layout first 3 buttons
-                
-                control.CurrentSize = RibbonGroupSize.Medium;
-                control.Size = new Size(buttonWidth, buttonHeight);
-                control.Location = new Point(x, y + row * (buttonHeight + buttonGap));
-                row++;
-            }
-        }
-
-        /// <summary>
-        /// Layout for the "ThreeLargeButtons" SizeDefinition:
-        /// Three large buttons arranged horizontally side by side.
+        /// Layout for N large buttons arranged horizontally side by side.
         /// Each button has full height with a 32x32 icon at top and text below.
-        /// Used by the Insert group (Hyperlink, Picture, Video buttons).
-        /// Picture and Video buttons are dropdown buttons with small arrow indicators.
+        /// Used by ThreeLargeButtons (Insert) and TwoLargeButtons (Plugins).
         /// </summary>
-        private void LayoutThreeLargeButtons(int availableHeight)
+        private void LayoutNLargeButtons(int availableHeight, int maxButtons)
         {
-            // Account for content panel padding
             var x = PADDING;
             var y = PADDING;
-            var buttonSpacing = 1; // Spacing between buttons
-            
-            // Ensure minimum height for proper large button rendering (32px icon + gap + 2 lines text)
+            var buttonSpacing = 1;
             var contentHeight = Math.Max(availableHeight, LayoutConstants.LargeButtonMinHeight);
             
-            // Create a single Graphics object for text measurement (more efficient)
             using (var g = CreateGraphics())
             using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
             {
-                // Layout each of the 3 large buttons horizontally
-                for (int i = 0; i < Math.Min(3, _controls.Count); i++)
+                for (int i = 0; i < Math.Min(maxButtons, _controls.Count); i++)
                 {
                     var control = _controls[i];
                     
-                    // Ensure control is visible
                     if (!control.Visible)
                         control.Visible = true;
                     
-                    // Set to large size for proper rendering with 32x32 icon
                     control.CurrentSize = RibbonGroupSize.Large;
                     
-                    // Calculate width based on text content
-                    // Large buttons: 32x32 icon centered at top, text below (may wrap to 2 lines)
                     var buttonWidth = LayoutConstants.LargeButtonMinWidth;
                     var label = control.CommandLabel;
                     if (!string.IsNullOrEmpty(label))
                     {
                         var textWidth = (int)g.MeasureString(label, font).Width;
                         var textBasedWidth = textWidth + LayoutConstants.LargeButtonTextPadding * 2;
-                        // For long text, assume it wraps to 2 lines (half width each)
                         if (textBasedWidth > 70)
                         {
                             textBasedWidth = Math.Max(LayoutConstants.LargeButtonMinWidth, 
@@ -1416,85 +1214,16 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
                         buttonWidth = Math.Max(buttonWidth, textBasedWidth);
                     }
                     
-                    // For dropdown buttons (Picture, Video), ensure minimum width
-                    // The dropdown arrow is drawn at bottom center by RibbonRenderer, so width should accommodate it
                     if (control is RibbonButton btn && 
                         (btn.ButtonType == RibbonButtonType.DropDownButton || btn.ButtonType == RibbonButtonType.SplitButton))
                     {
-                        // Ensure button is wide enough for icon (32px) + padding + dropdown arrow space
                         buttonWidth = Math.Max(buttonWidth, LayoutConstants.LargeButtonMinWidth);
                     }
                     
-                    // Set size to full height with calculated width
                     control.Size = new Size(buttonWidth, contentHeight);
                     control.Location = new Point(x, y);
-                    
-                    // Ensure proper z-order (bring to front for visibility)
                     control.BringToFront();
                     
-                    // Move x position for next button
-                    x += buttonWidth + buttonSpacing;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Layout for the "TwoLargeButtons" SizeDefinition:
-        /// Two large buttons arranged horizontally side by side.
-        /// Each button has full height with a 32x32 icon at top and text below.
-        /// Used by the Plugins group (Add Plugin, Plugin Options).
-        /// </summary>
-        private void LayoutTwoLargeButtons(int availableHeight)
-        {
-            // Account for content panel padding
-            var x = PADDING;
-            var y = PADDING;
-            var buttonSpacing = 1; // Spacing between buttons
-            
-            // Ensure minimum height for proper large button rendering (32px icon + gap + 2 lines text)
-            var contentHeight = Math.Max(availableHeight, LayoutConstants.LargeButtonMinHeight);
-            
-            // Create a single Graphics object for text measurement (more efficient)
-            using (var g = CreateGraphics())
-            using (var font = new Font(SystemFonts.MenuFont.FontFamily, 8f))
-            {
-                // Layout each of the 2 large buttons horizontally
-                for (int i = 0; i < Math.Min(2, _controls.Count); i++)
-                {
-                    var control = _controls[i];
-                    
-                    // Ensure control is visible
-                    if (!control.Visible)
-                        control.Visible = true;
-                    
-                    // Set to large size for proper rendering with 32x32 icon
-                    control.CurrentSize = RibbonGroupSize.Large;
-                    
-                    // Calculate width based on text content
-                    // Large buttons: 32x32 icon centered at top, text below (may wrap to 2 lines)
-                    var buttonWidth = LayoutConstants.LargeButtonMinWidth;
-                    var label = control.CommandLabel;
-                    if (!string.IsNullOrEmpty(label))
-                    {
-                        var textWidth = (int)g.MeasureString(label, font).Width;
-                        var textBasedWidth = textWidth + LayoutConstants.LargeButtonTextPadding * 2;
-                        // For long text, assume it wraps to 2 lines (half width each)
-                        if (textBasedWidth > 70)
-                        {
-                            textBasedWidth = Math.Max(LayoutConstants.LargeButtonMinWidth, 
-                                (textWidth / 2) + LayoutConstants.LargeButtonTextPadding * 2);
-                        }
-                        buttonWidth = Math.Max(buttonWidth, textBasedWidth);
-                    }
-                    
-                    // Set size to full height with calculated width
-                    control.Size = new Size(buttonWidth, contentHeight);
-                    control.Location = new Point(x, y);
-                    
-                    // Ensure proper z-order (bring to front for visibility)
-                    control.BringToFront();
-                    
-                    // Move x position for next button
                     x += buttonWidth + buttonSpacing;
                 }
             }
@@ -1840,62 +1569,5 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             }
         }
 
-        /// <summary>
-        /// A transparent spacer control that doesn't paint anything.
-        /// Used to reserve space at the bottom of RibbonGroup for the label area
-        /// without interfering with the custom painting done by RibbonRenderer.DrawGroup.
-        /// </summary>
-        private class TransparentSpacer : Control
-        {
-            public TransparentSpacer()
-            {
-                // SupportsTransparentBackColor allows true transparency
-                // Use UserPaint to prevent default background painting, but NOT AllPaintingInWmPaint
-                // AllPaintingInWmPaint can block parent painting even when we don't paint anything
-                SetStyle(ControlStyles.UserPaint |
-                         ControlStyles.SupportsTransparentBackColor, true);
-                SetStyle(ControlStyles.Opaque, false);
-                SetStyle(ControlStyles.AllPaintingInWmPaint, false); // Explicitly disable to allow parent painting
-                BackColor = Color.Transparent;
-                TabStop = false;
-            }
-
-            protected override void OnPaint(PaintEventArgs e)
-            {
-                // Don't paint anything - parent's OnPaint draws the label
-                // Don't call base to avoid default painting
-            }
-
-            protected override void OnPaintBackground(PaintEventArgs e)
-            {
-                // Fill with opaque group background to prevent black on first render
-                e.Graphics.Clear(RibbonColors.Current.GetOpaqueGroupBackground());
-            }
-        }
-
-        /// <summary>
-        /// A Panel that properly supports transparent background.
-        /// Standard Panel doesn't have SupportsTransparentBackColor style set,
-        /// which can cause rendering issues with transparent backgrounds.
-        /// </summary>
-        private class TransparentPanel : Panel
-        {
-            public TransparentPanel()
-            {
-                // Use AllPaintingInWmPaint to ensure background paints before child controls
-                // This prevents black areas on first render
-                SetStyle(ControlStyles.UserPaint |
-                         ControlStyles.OptimizedDoubleBuffer |
-                         ControlStyles.SupportsTransparentBackColor |
-                         ControlStyles.AllPaintingInWmPaint, true);
-                BackColor = Color.Transparent;
-            }
-
-            protected override void OnPaintBackground(PaintEventArgs e)
-            {
-                // Fill with opaque group background to initialize buffer
-                e.Graphics.Clear(RibbonColors.Current.GetOpaqueGroupBackground());
-            }
-        }
     }
 }

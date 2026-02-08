@@ -150,31 +150,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
         }
 
         /// <summary>
-        /// A Panel that properly supports transparent background.
-        /// Standard Panel doesn't have SupportsTransparentBackColor style set,
-        /// which can cause rendering issues with transparent backgrounds.
-        /// </summary>
-        private class TransparentPanel : Panel
-        {
-            public TransparentPanel()
-            {
-                // Use AllPaintingInWmPaint to ensure background paints before child controls
-                // This prevents black areas on first render
-                SetStyle(ControlStyles.UserPaint |
-                         ControlStyles.OptimizedDoubleBuffer |
-                         ControlStyles.SupportsTransparentBackColor |
-                         ControlStyles.AllPaintingInWmPaint, true);
-                BackColor = Color.Transparent;
-            }
-
-            protected override void OnPaintBackground(PaintEventArgs e)
-            {
-                // Fill with opaque group background to initialize buffer
-                e.Graphics.Clear(RibbonColors.Current.GetOpaqueGroupBackground());
-            }
-        }
-
-        /// <summary>
         /// Adds a group to this tab.
         /// </summary>
         public void AddGroup(RibbonGroup group)

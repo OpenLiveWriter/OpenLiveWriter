@@ -139,7 +139,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 // This handles the case where the source command wasn't available at construction time
                 if (_galleryItems.Count == 0 && _sourceCommand == null)
                 {
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: GalleryItems accessed with no items, attempting refresh");
                     RefreshFromSource();
                 }
                 return _galleryItems.AsReadOnly();
@@ -236,14 +235,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                         
                         // Subscribe to source command's StateChanged event
                         SubscribeToSourceStateChanged(_sourceCommand);
-                        
-                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Found source command (type: {source.GetType().Name})");
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: GetSourceCommand exception: {ex.Message}");
+                // If source command lookup fails, continue with null
             }
 
             return _sourceCommand;
@@ -262,12 +259,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 {
                     var handler = new EventHandler(OnSourceStateChanged);
                     stateChangedEvent.AddEventHandler(source, handler);
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Subscribed to source StateChanged");
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Failed to subscribe to StateChanged: {ex.Message}");
+                // If event subscription fails, state changes won't be tracked
             }
         }
 
@@ -276,7 +272,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
         /// </summary>
         private void OnSourceStateChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Source StateChanged, refreshing");
             RefreshFromSource();
         }
 
@@ -340,7 +335,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 if (largeImageProp != null)
                 {
                     _largeImage = ExtractBitmapFromProperty(largeImageProp, source);
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: LargeImage = {(_largeImage != null ? $"{_largeImage.Width}x{_largeImage.Height}" : "null")}");
                 }
 
                 // Get small image (16x16)
@@ -349,7 +343,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 if (smallImageProp != null)
                 {
                     _smallImage = ExtractBitmapFromProperty(smallImageProp, source);
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: SmallImage = {(_smallImage != null ? $"{_smallImage.Width}x{_smallImage.Height}" : "null")}");
                 }
 
                 // If SmallImage is null, try CommandBarButtonBitmapEnabled (legacy command bar property)
@@ -359,7 +352,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     if (cmdBarBitmapProp != null)
                     {
                         _smallImage = ExtractBitmapFromProperty(cmdBarBitmapProp, source);
-                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: CommandBarButtonBitmapEnabled fallback = {(_smallImage != null ? $"{_smallImage.Width}x{_smallImage.Height}" : "null")}");
                     }
                 }
 
@@ -370,10 +362,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     if (cmdBarBitmapProp != null)
                     {
                         _largeImage = ExtractBitmapFromProperty(cmdBarBitmapProp, source);
-                        if (_largeImage != null)
-                        {
-                            System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: CommandBarButtonBitmapEnabled fallback for LargeImage = {_largeImage.Width}x{_largeImage.Height}");
-                        }
                     }
                 }
 
@@ -381,13 +369,10 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 if (_largeImage == null && _smallImage != null)
                 {
                     _largeImage = ScaleImage(_smallImage, 32, 32);
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Scaled SmallImage up to LargeImage (32x32)");
                 }
-                // If SmallImage is null but LargeImage exists, scale down the large image
                 else if (_smallImage == null && _largeImage != null)
                 {
                     _smallImage = ScaleImage(_largeImage, 16, 16);
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Scaled LargeImage down to SmallImage (16x16)");
                 }
 
                 // Get gallery items (for SelectGalleryCommand derived classes)
@@ -425,17 +410,13 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     }
                 }
                 
-                System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: LoadGalleryItems - ItemsProp found: {itemsProp != null}, SourceType: {sourceType.Name}");
-                
                 if (itemsProp != null)
                 {
                     var itemsValue = itemsProp.GetValue(source);
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Items value type: {itemsValue?.GetType().Name ?? "null"}");
                     
                     var items = itemsValue as System.Collections.IList;
                     if (items != null)
                     {
-                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Items count from source: {items.Count}");
                         _galleryItems.Clear();
                         foreach (var item in items)
                         {
@@ -450,8 +431,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                             var image = imageProp?.GetValue(item) as Image;
                             var cookie = cookieProp?.GetValue(item);
                             
-                            System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Gallery item - Label: '{label}', HasImage: {image != null}");
-                            
                             var galleryItem = new CommandGalleryItem
                             {
                                 Label = label,
@@ -460,11 +439,6 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                             };
                             _galleryItems.Add(galleryItem);
                         }
-                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Loaded {_galleryItems.Count} gallery items");
-                    }
-                    else
-                    {
-                        System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Items is not IList");
                     }
                 }
 
@@ -479,9 +453,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: LoadGalleryItems exception: {ex.Message}");
+                // If gallery item loading fails, continue with existing items
             }
 
             return _galleryItems.Count != oldCount || oldCount > 0;
@@ -489,17 +463,12 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
 
         public void PerformExecute()
         {
-            System.Diagnostics.Debug.WriteLine($"BridgedCommand.PerformExecute for {_commandId}, Enabled={Enabled}, SelectedIndex={_selectedIndex}");
-            
             // Refresh to ensure we have the latest source command and state
             var source = GetSourceCommand();
             
             // If no source command exists, we can't execute - fail early
             if (source == null)
-            {
-                System.Diagnostics.Debug.WriteLine($"  No source command found for {_commandId} - command handler may not be registered");
                 return;
-            }
             
             // Check the source command's enabled and on state directly
             // The underlying Command.PerformExecute() requires both On && Enabled to be true
@@ -518,15 +487,11 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 {
                     sourceOn = (bool)onProp.GetValue(source);
                 }
-                System.Diagnostics.Debug.WriteLine($"  Source: Type={sourceType.Name}, Enabled={sourceEnabled}, On={sourceOn}");
             }
             catch { }
 
             if (!sourceEnabled || !sourceOn)
-            {
-                System.Diagnostics.Debug.WriteLine($"  Skipping execution - source command not available (Enabled={sourceEnabled}, On={sourceOn})");
                 return;
-            }
 
             Execute?.Invoke(this, EventArgs.Empty);
 
@@ -564,9 +529,9 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 var executeMethod = sourceType2.GetMethod("PerformExecute", Type.EmptyTypes);
                 executeMethod?.Invoke(source, null);
             }
-            catch (Exception ex)
+            catch
             {
-                System.Diagnostics.Debug.WriteLine($"Command execution failed for {_commandId}: {ex.Message}");
+                // If command execution fails, swallow the exception
             }
         }
 
@@ -591,15 +556,14 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 try
                 {
                     loadItemsMethod.Invoke(source, null);
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: Called LoadItems() on source");
                     
                     // Reload gallery items after LoadItems() call
                     LoadGalleryItems(source, sourceType);
                     ItemsChanged?.Invoke(this, EventArgs.Empty);
                 }
-                catch (Exception ex)
+                catch
                 {
-                    System.Diagnostics.Debug.WriteLine($"BridgedCommand [{_commandId}]: ForceLoadGalleryItems failed: {ex.Message}");
+                    // If forced gallery item loading fails, continue with existing items
                 }
             }
         }
@@ -649,9 +613,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Commands
                 // Try direct cast as fallback
                 return propertyValue as Image;
             }
-            catch (Exception ex)
+            catch
             {
-                System.Diagnostics.Debug.WriteLine($"ExtractBitmapFromProperty failed for {property.Name}: {ex.Message}");
                 return null;
             }
         }

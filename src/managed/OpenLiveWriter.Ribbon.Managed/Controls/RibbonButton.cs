@@ -71,9 +71,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             get
             {
                 // Priority: 1) Button-specific override, 2) Command's large image, 3) Command's small image (scaled)
-                var image = LargeImage ?? base.CommandLargeImage ?? base.CommandSmallImage;
-                System.Diagnostics.Debug.WriteLineIf(image == null, $"RibbonButton [{CommandId}]: DisplayLargeImage is null");
-                return image;
+                return LargeImage ?? base.CommandLargeImage ?? base.CommandSmallImage;
             }
         }
 
@@ -86,9 +84,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Controls
             get
             {
                 // Priority: 1) Button-specific override, 2) Command's small image, 3) Command's large image (scaled)
-                var image = SmallImage ?? base.CommandSmallImage ?? base.CommandLargeImage;
-                System.Diagnostics.Debug.WriteLineIf(image == null, $"RibbonButton [{CommandId}]: DisplaySmallImage is null");
-                return image;
+                return SmallImage ?? base.CommandSmallImage ?? base.CommandLargeImage;
             }
         }
 
