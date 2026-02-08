@@ -182,25 +182,25 @@ Write-Host "=======================================================" -Foreground
 
 if ($Run) {
     Write-Host ""
-    Write-Host "[5/5] Starting OpenLiveWriter with WebView2 editor..." -ForegroundColor Yellow
-    
-    $env:OLW_USE_WEBVIEW2_EDITOR = "1"
+    Write-Host "[5/5] Starting OpenLiveWriter (WebView2 is default)..." -ForegroundColor Yellow
     
     if (Test-Path $exePath) {
         Start-Process $exePath
-        Write-Host "  Started! (WebView2 editor enabled)" -ForegroundColor Green
+        Write-Host "  Started! (WebView2 is the default engine)" -ForegroundColor Green
     } else {
         Write-Host "ERROR: Executable not found at $exePath" -ForegroundColor Red
         exit 1
     }
 } else {
     Write-Host ""
-    Write-Host "To run with WebView2 editor:" -ForegroundColor Cyan
-    Write-Host '  $env:OLW_USE_WEBVIEW2_EDITOR = "1"' -ForegroundColor White
+    Write-Host "To run (WebView2 is the default engine):" -ForegroundColor Cyan
     Write-Host "  $exePath" -ForegroundColor White
     Write-Host ""
     Write-Host "Or just run:" -ForegroundColor Cyan
     Write-Host "  .\build-complete.ps1 -Run" -ForegroundColor White
+    Write-Host ""
+    Write-Host "To fall back to legacy MSHTML/IE engine:" -ForegroundColor Gray
+    Write-Host '  $env:OLW_USE_MSHTML = "1"' -ForegroundColor Gray
 }
 
 Write-Host ""

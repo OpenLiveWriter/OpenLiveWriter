@@ -32,7 +32,7 @@ MSHTML (Internet Explorer's HTML engine) is deeply embedded throughout the codeb
 ### Completed ✅
 1. **WebView2 NuGet Package Added** - `Microsoft.Web.WebView2.1.0.2903.40`
 2. **WebView2BrowserControl.cs** - Implements `IBrowserControl` interface
-3. **BrowserControlFactory.cs** - Toggle via `OLW_USE_WEBVIEW2=1` env var
+3. **BrowserControlFactory.cs** - WebView2 is default; opt out via `OLW_USE_MSHTML=1` env var
 4. **BrowserMiniForm.cs** - Updated to use factory pattern
 5. **MapControl.cs** - Updated to use factory pattern
 6. **TLS 1.2 Support** - Fixed HTTPS connectivity for modern servers
@@ -76,9 +76,9 @@ MSHTML (Internet Explorer's HTML engine) is deeply embedded throughout the codeb
 # Run with IE (default)
 .\src\managed\bin\Debug\i386\Writer\OpenLiveWriter.exe
 
-# Run with WebView2
-$env:OLW_USE_WEBVIEW2 = "1"
-.\src\managed\bin\Debug\i386\Writer\OpenLiveWriter.exe
+# WebView2 is the default engine; to fall back to MSHTML/IE:
+$env:OLW_USE_MSHTML = "1"
+.\src\managed\bin\Debug\x64\Writer\OpenLiveWriter.exe
 ```
 
 ---
