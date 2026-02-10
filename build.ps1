@@ -60,7 +60,7 @@ if (-Not (Test-Path "$solutionFile" -PathType Leaf))
 # Use vswhere to find the latest Visual Studio installation
 $vswherePath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
 if (Test-Path $vswherePath) {
-    $visualStudioLocation = & $vswherePath -latest -property installationPath
+    $visualStudioLocation = & $vswherePath -prerelease -latest -property installationPath
 } else {
     # Fallback: try VSSetup module
     Install-Module VSSetup -Scope CurrentUser -Force

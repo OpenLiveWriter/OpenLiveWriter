@@ -27,4 +27,8 @@
     <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.PostEditor\OpenLiveWriter.PostEditor.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interop\" />
+  </ItemGroup>
 </Project>

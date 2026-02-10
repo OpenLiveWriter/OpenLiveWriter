@@ -24,24 +24,24 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         {
             HtmlPreserver hp = new HtmlPreserver();
             string scanned = hp.ScanAndPreserve(OBJECT_WITH_EMBED);
-            Assert.AreNotEqual(OBJECT_WITH_EMBED, scanned);
-            Assert.AreEqual(
-                OBJECT_WITH_EMBED,
-                hp.RestorePreserved(scanned.Replace(OBJECT_WITH_EMBED, "<object></object>")));
+            Assert.That(scanned, Is.Not.EqualTo(OBJECT_WITH_EMBED));
+            Assert.That(
+                hp.RestorePreserved(scanned.Replace(OBJECT_WITH_EMBED, "<object></object>")),
+                Is.EqualTo(OBJECT_WITH_EMBED));
         }
 
         [Test]
         public void IgnoreSmartContent()
         {
             HtmlPreserver hp = new HtmlPreserver();
-            Assert.AreEqual(
-                OBJECT_WITH_EMBED_IN_SMART_CONTENT,
-                hp.ScanAndPreserve(OBJECT_WITH_EMBED_IN_SMART_CONTENT));
+            Assert.That(
+                hp.ScanAndPreserve(OBJECT_WITH_EMBED_IN_SMART_CONTENT),
+                Is.EqualTo(OBJECT_WITH_EMBED_IN_SMART_CONTENT));
 
             hp.Reset();
-            Assert.AreEqual(
-                OBJECT_WITH_EMBED_IN_SMART_CONTENT,
-                hp.RestorePreserved(hp.ScanAndPreserve(OBJECT_WITH_EMBED_IN_SMART_CONTENT)));
+            Assert.That(
+                hp.RestorePreserved(hp.ScanAndPreserve(OBJECT_WITH_EMBED_IN_SMART_CONTENT)),
+                Is.EqualTo(OBJECT_WITH_EMBED_IN_SMART_CONTENT));
         }
 
         [Test]
@@ -50,9 +50,9 @@ namespace OpenLiveWriter.UnitTest.PostEditor
             HtmlPreserver hp = new HtmlPreserver();
             string working = hp.ScanAndPreserve(SCRIPT);
             working = working.Replace(SCRIPT, SCRIPT + "foo");
-            Assert.AreEqual(
-                SCRIPT,
-                hp.RestorePreserved(working));
+            Assert.That(
+                hp.RestorePreserved(working),
+                Is.EqualTo(SCRIPT));
         }
     }
 }

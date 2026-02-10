@@ -17,8 +17,8 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
             var sut = new PixelPercent();
 
             // Assert
-            Assert.AreEqual(0, sut.Value);
-            Assert.AreEqual(PixelPercentUnits.Undefined, sut.Units);
+            Assert.That(sut.Value, Is.EqualTo(0));
+            Assert.That(sut.Units, Is.EqualTo(PixelPercentUnits.Undefined));
         }
 
         [Test]
@@ -32,8 +32,8 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
             var sut = new PixelPercent(value, units);
 
             // Assert
-            Assert.AreEqual(value, sut.Value);
-            Assert.AreEqual(units, sut.Units);
+            Assert.That(sut.Value, Is.EqualTo(value));
+            Assert.That(sut.Units, Is.EqualTo(units));
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
             var sut = new PixelPercent(text, CultureInfo.InvariantCulture);
 
             // Assert
-            Assert.AreEqual(PixelPercentUnits.Undefined, sut.Units);
+            Assert.That(sut.Units, Is.EqualTo(PixelPercentUnits.Undefined));
         }
 
         [Test]
@@ -67,8 +67,8 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
             var sut = new PixelPercent(text, CultureInfo.InvariantCulture);
 
             // Assert
-            Assert.AreEqual(expectedUnits, sut.Units);
-            Assert.AreEqual(expectedValue, sut.Value);
+            Assert.That(sut.Units, Is.EqualTo(expectedUnits));
+            Assert.That(sut.Value, Is.EqualTo(expectedValue));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
             var sut = new PixelPercent(text, CultureInfo.InvariantCulture, units);
 
             // Assert
-            Assert.AreEqual(expectedValue, sut.Value);
+            Assert.That(sut.Value, Is.EqualTo(expectedValue));
         }
 
         [Test]
@@ -93,8 +93,8 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
             var sut = new PixelPercent(text, CultureInfo.InvariantCulture, units);
 
             // Assert
-            Assert.AreEqual(0, sut.Value);
-            Assert.AreEqual(PixelPercentUnits.Undefined, sut.Units);
+            Assert.That(sut.Value, Is.EqualTo(0));
+            Assert.That(sut.Units, Is.EqualTo(PixelPercentUnits.Undefined));
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace OpenLiveWriter.Tests.PostEditor.Tables
             var result = PixelPercent.IsAcceptableWidth(text);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }

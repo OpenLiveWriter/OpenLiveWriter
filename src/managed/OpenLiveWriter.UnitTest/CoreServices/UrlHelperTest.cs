@@ -40,11 +40,11 @@ namespace OpenLiveWriter.UnitTest.CoreServices
                     string urlToCheck = _urlsToCheck[i];
                     string result = UrlHelper.CreateUrlFromPath(urlToCheck);
                     string uriLocalPath = new Uri(result).LocalPath;
-                    //Assert.AreEqual(uriLocalPath, urlToCheck);
+                    //Assert.That(urlToCheck, Is.EqualTo(uriLocalPath));
 
                     string simpleUriLocalPath = new Uri(UrlHelper.SafeToAbsoluteUri(new Uri(urlToCheck))).LocalPath;
-                    Assert.AreEqual(simpleUriLocalPath, urlToCheck);
-                    Assert.AreEqual(simpleUriLocalPath, uriLocalPath);
+                    Assert.That(urlToCheck, Is.EqualTo(simpleUriLocalPath));
+                    Assert.That(uriLocalPath, Is.EqualTo(simpleUriLocalPath));
                 }
                 catch(Exception ex)
                 {
@@ -74,9 +74,9 @@ namespace OpenLiveWriter.UnitTest.CoreServices
 
         private void VerifyPathToUri(string path, string uri)
         {
-            Assert.AreEqual(
+            Assert.That(
                 UrlHelper.SafeToAbsoluteUri(new Uri(path)),
-                uri);
+                Is.EqualTo(uri));
         }
     }
 }
