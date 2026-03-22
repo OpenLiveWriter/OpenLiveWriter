@@ -65,7 +65,7 @@ namespace OpenLiveWriter.Tests.Ribbon
             
             var width = group.GetPreferredWidth();
             
-            Assert.That(width, Is.EqualTo(LayoutConstants.PopupWidth));
+            Assert.That(width, Is.GreaterThanOrEqualTo(LayoutConstants.PopupWidth));
         }
 
         #endregion

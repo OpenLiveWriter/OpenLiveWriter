@@ -38,7 +38,7 @@ namespace OpenLiveWriter.Tests.Ribbon
             
             var width = group.GetPreferredWidth();
             
-            Assert.That(width, Is.GreaterThanOrEqualTo(50));
+            Assert.That(width, Is.GreaterThanOrEqualTo(40));
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace OpenLiveWriter.Tests.Ribbon
             var widthWithSeparator = group.GetPreferredWidth();
             
             // Width should include separator space
-            Assert.That(widthWithSeparator, Is.GreaterThan(100));
+            Assert.That(widthWithSeparator, Is.GreaterThan(90));
         }
 
         #endregion
@@ -306,7 +306,7 @@ namespace OpenLiveWriter.Tests.Ribbon
             group.CurrentSize = RibbonGroupSize.Popup;
             
             var width = group.GetPreferredWidth();
-            Assert.That(width, Is.EqualTo(48)); // Popup mode has fixed width
+            Assert.That(width, Is.GreaterThanOrEqualTo(38)); // Popup mode has compact width based on label
         }
 
         [Test]

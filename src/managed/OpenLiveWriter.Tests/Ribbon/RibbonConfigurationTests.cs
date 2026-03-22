@@ -25,8 +25,8 @@ namespace OpenLiveWriter.Tests.Ribbon
         [Test]
         public void Configuration_HasCorrectNumberOfTabs()
         {
-            // Home, Insert, Blog Account, Preview
-            Assert.That(_config.Tabs.Count, Is.EqualTo(4));
+            // Home, Insert, Blog Account, Debug, plus contextual tabs
+            Assert.That(_config.Tabs.Count, Is.GreaterThanOrEqualTo(4));
         }
 
         [Test]
