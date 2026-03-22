@@ -13,6 +13,7 @@ on:
 env:
   SOLUTION_PATH: src/managed/writer.Windows.slnf
   OLW_CONFIG: Release
+  DOTNET_VERSION: '10.0.x'
 
 jobs:
   build:
@@ -26,12 +27,18 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install Velopack CLI
+        run: dotnet tool install -g vpk
+
+      - name: Install SignClient
+        run: nuget install SignClient -Version 0.9.0 -SolutionDir ${{ github.workspace }} -Verbosity quiet -ExcludeVersion
 
       - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed — the build
-        # fails without it on a fresh checkout. getversion.cmd is a dead
-        # truncated stub, so generate the file directly from version.txt.
+        # GlobalAssemblyVersionInfo.cs is generated, not committed; the build
+        # fails without it on a fresh checkout. getversion.cmd only sets cmd
+        # variables, so generate the file directly from version.txt.
         run: |
           $v = (Get-Content version.txt -Raw).Trim()
           Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
@@ -82,11 +89,60 @@ jobs:
             /p:Configuration=${{ env.OLW_CONFIG }} `
             /p:PlatformToolset=v143
 
+      - name: Package with Velopack (signed)
+        # vpk signs the app binaries and the Setup.exe via SignClient when the
+        # secrets are available (not the case for fork PRs).
+        if: env.SIGN_CLIENT_SECRET != ''
+        shell: cmd
+        env:
+          SIGN_CLIENT_SECRET: ${{ secrets.SignClientSecret }}
+          SIGN_CLIENT_USER: ${{ secrets.SignClientUser }}
+        run: |
+          call getversion.cmd
+          vpk pack ^
+            --packId OpenLiveWriter ^
+            --packVersion %dottedVersion% ^
+            --packTitle "Open Live Writer" ^
+            --packDir src\managed\OpenLiveWriter\bin\%OLW_CONFIG% ^
+            --mainExe OpenLiveWriter.exe ^
+            --icon src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico ^
+            --channel stable ^
+            --outputDir Releases ^
+            --shortcuts Desktop,StartMenuRoot ^
+            --skipVeloAppCheck ^
+            --signTemplate "dotnet %GITHUB_WORKSPACE%\packages\SignClient\tools\netcoreapp2.0\SignClient.dll sign -c %GITHUB_WORKSPACE%\SignClient\appsettings.json -i {{file}} -r %SIGN_CLIENT_USER% -s %SIGN_CLIENT_SECRET% -n ""Open Live Writer"" -d ""Open Live Writer"" -u ""http://openlivewriter.com"""
+
+      - name: Package with Velopack (unsigned)
+        if: env.SIGN_CLIENT_SECRET == ''
+        shell: cmd
+        env:
+          SIGN_CLIENT_SECRET: ${{ secrets.SignClientSecret }}
+        run: |
+          call getversion.cmd
+          vpk pack ^
+            --packId OpenLiveWriter ^
+            --packVersion %dottedVersion% ^
+            --packTitle "Open Live Writer" ^
+            --packDir src\managed\OpenLiveWriter\bin\%OLW_CONFIG% ^
+            --mainExe OpenLiveWriter.exe ^
+            --icon src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico ^
+            --channel stable ^
+            --outputDir Releases ^
+            --shortcuts Desktop,StartMenuRoot ^
+            --skipVeloAppCheck
+
+      - name: Upload installer artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenLiveWriter-Installer-${{ github.run_number }}
+          path: Releases/
+          if-no-files-found: warn
+
       - name: Upload binaries
         uses: actions/upload-artifact@v4
         with:
           name: OpenLiveWriter-Binaries-${{ github.run_number }}
-          path: src/managed/bin/${{ env.OLW_CONFIG }}/x64/Writer/
+          path: src/managed/OpenLiveWriter/bin/${{ env.OLW_CONFIG }}/
           if-no-files-found: warn
 
   build-debug:
@@ -100,12 +156,12 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Generate version info
-        # GlobalAssemblyVersionInfo.cs is generated, not committed — the build
-        # fails without it on a fresh checkout. getversion.cmd is a dead
-        # truncated stub, so generate the file directly from version.txt.
+        # GlobalAssemblyVersionInfo.cs is generated, not committed; the build
+        # fails without it on a fresh checkout. getversion.cmd only sets cmd
+        # variables, so generate the file directly from version.txt.
         run: |
           $v = (Get-Content version.txt -Raw).Trim()
           Set-Content src/managed/GlobalAssemblyVersionInfo.cs `
