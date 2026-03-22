@@ -64,10 +64,7 @@
 
   <!-- NuGet Package References -->
   <ItemGroup>
-    <PackageReference Include="DeltaCompressionDotNet" />
-    <PackageReference Include="Mono.Cecil" />
-    <PackageReference Include="Splat" />
-    <PackageReference Include="squirrel.windows" />
+    <PackageReference Include="Velopack" />
   </ItemGroup>
 
   <!-- Project References -->

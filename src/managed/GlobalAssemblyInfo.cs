@@ -6,4 +6,3 @@ using System.Reflection;
 [assembly: AssemblyCompany("Open Live Writer")]
 [assembly: AssemblyCopyright("Copyright (c) .NET Foundation. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyMetadata("SquirrelAwareVersion", "1")]
