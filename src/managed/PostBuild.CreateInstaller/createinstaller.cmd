@@ -9,24 +9,21 @@ IF "%OLW_CONFIG%" == "" (
   set OLW_CONFIG=Debug
 )
 
-IF EXIST "%LocalAppData%\Nuget\Nuget.exe" (GOTO package) ELSE (
-   echo Nuget.exe missing from %LocalAppData%\Nuget\Nuget.exe
-   GOTO end
-)
+SET PUBLISH_DIR=src\managed\bin\%OLW_CONFIG%\i386\Writer
+SET ICON_PATH=src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico
 
-:package
-"%LocalAppData%\Nuget\Nuget.exe" pack .\OpenLiveWriter.nuspec -version %dottedVersion% -basepath src\managed\bin\%OLW_CONFIG%\x64\Writer
-ECHO Created Writer NuGet package.
+vpk pack ^
+  --packId OpenLiveWriter ^
+  --packVersion %dottedVersion% ^
+  --packTitle "Open Live Writer" ^
+  --packDir %PUBLISH_DIR% ^
+  --mainExe OpenLiveWriter.exe ^
+  --icon %ICON_PATH% ^
+  --channel stable ^
+  --outputDir Releases ^
+  --shortcuts Desktop,StartMenuRoot ^
+  --skipVeloAppCheck
 
-.\src\managed\packages\squirrel.windows.1.4.4\tools\SyncReleases.exe -url=https://olw.blob.core.windows.net/stable/Releases/ -r=.\Releases
-.\src\managed\packages\squirrel.windows.1.4.4\tools\Squirrel.exe -i .\src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico %OLW_SIGN% --no-msi --releasify .\OpenLiveWriter.%dottedVersion%.nupkg 
-MOVE .\Releases\Setup.exe .\Releases\OpenLiveWriterSetup.exe
-ECHO Created Open Live Writer setup file.
-
-::Build Chocolatey package. Suppress package analysis since Chocolatey powershell generates verbose warnings.
-"%LocalAppData%\Nuget\Nuget.exe" pack .\OpenLiveWriter.Install.nuspec -version %dottedVersion% -basepath Releases -nopackageanalysis
-ECHO Created Writer Chocolatey Package
-
-:end
+ECHO Created Open Live Writer Velopack installer.
 
 POPD
