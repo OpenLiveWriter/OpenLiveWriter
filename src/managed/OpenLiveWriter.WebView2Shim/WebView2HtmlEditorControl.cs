@@ -232,6 +232,9 @@ namespace OpenLiveWriter.WebView2Shim
                         
                         // Fire ReadyForEditing event - editor is now fully operational
                         ReadyForEditing?.Invoke(this, EventArgs.Empty);
+                        
+                        // Fire CommandStateChanged to update command enablement (e.g., Find button)
+                        _commandSource.OnCommandStateChanged();
                     }
                 };
                 
@@ -1233,8 +1236,68 @@ namespace OpenLiveWriter.WebView2Shim
         public bool AllowPasteSpecial => false;
         public void PasteSpecial() { /* TODO */ }
 
-        public bool CanFind => false;
-        public void Find() { /* TODO */ }
+        public bool CanFind => _editor?.IsInitialized == true && _webView?.CoreWebView2 != null;
+        
+        public void Find()
+        {
+            if (!CanFind) return;
+            
+            // Show a simple Find dialog
+            using (var dialog = new FindTextForm())
+            {
+                var parentForm = _editor?.FindForm();
+                if (dialog.ShowDialog(parentForm) == DialogResult.OK && !string.IsNullOrEmpty(dialog.SearchText))
+                {
+                    FindText(dialog.SearchText, dialog.MatchCase, dialog.SearchBackward);
+                }
+            }
+        }
+        
+        private string _lastSearchText;
+        private bool _lastMatchCase;
+        private bool _lastSearchBackward;
+        
+        /// <summary>
+        /// Find text in the document using JavaScript window.find()
+        /// </summary>
+        private void FindText(string searchText, bool matchCase, bool searchBackward)
+        {
+            if (string.IsNullOrEmpty(searchText) || _webView?.CoreWebView2 == null)
+                return;
+            
+            _lastSearchText = searchText;
+            _lastMatchCase = matchCase;
+            _lastSearchBackward = searchBackward;
+            
+            // Use window.find() - works in Chromium-based browsers
+            // Parameters: searchText, caseSensitive, backwards, wrapAround, wholeWord, searchInFrames, showDialog
+            var escapedText = searchText.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\n", "\\n").Replace("\r", "\\r");
+            var script = $"window.find('{escapedText}', {matchCase.ToString().ToLower()}, {searchBackward.ToString().ToLower()}, true, false, false, false);";
+            
+            _ = _webView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+        
+        /// <summary>
+        /// Find next occurrence of the last search text
+        /// </summary>
+        public void FindNext()
+        {
+            if (!string.IsNullOrEmpty(_lastSearchText))
+            {
+                FindText(_lastSearchText, _lastMatchCase, false);
+            }
+        }
+        
+        /// <summary>
+        /// Find previous occurrence of the last search text
+        /// </summary>
+        public void FindPrevious()
+        {
+            if (!string.IsNullOrEmpty(_lastSearchText))
+            {
+                FindText(_lastSearchText, _lastMatchCase, true);
+            }
+        }
 
         public bool CanPrint => false;
         public void Print() { /* TODO */ }
@@ -1270,7 +1333,7 @@ namespace OpenLiveWriter.WebView2Shim
 
         public CommandManager CommandManager => null; // TODO
 
-        protected void OnCommandStateChanged()
+        public void OnCommandStateChanged()
         {
             CommandStateChanged?.Invoke(this, EventArgs.Empty);
         }

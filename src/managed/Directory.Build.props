@@ -11,8 +11,8 @@
     <!-- Enable Windows Forms -->
     <UseWindowsForms>true</UseWindowsForms>
     
-    <!-- x86 platform required for COM interop with MSHTML -->
-    <PlatformTarget>x86</PlatformTarget>
+    <!-- x64 platform for .NET 10 and WebView2 compatibility -->
+    <PlatformTarget>x64</PlatformTarget>
     
     <!-- Disable nullable reference types initially to avoid breaking changes -->
     <Nullable>disable</Nullable>

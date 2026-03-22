@@ -43,7 +43,7 @@ namespace OpenLiveWriter
             // This restores the .NET Framework behavior for debug assertions.
             ConfigureDebugAssertBehavior();
 
-            // WinLive 281407: Remove the current working directory from the dll search path
+// WinLive 281407: Remove the current working directory from the dll search path
             // This prevents a rogue dll (wlidcli.dll) from being loaded while doing
             // something like opening a .wpost from a network location.
             Kernel32.SetDllDirectory("");

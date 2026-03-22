@@ -947,7 +947,9 @@ namespace OpenLiveWriter.PostEditor
         {
             FixCommands((e as EditableRegionFocusChangedEventArgs).IsFullyEditable);
 
-            Debug.Assert(_textEditingCommandDispatcher != null, "ContentEditor was not setup correctly, an editor got focus before command were created.");
+            // Guard against early focus events from WebView2 during initialization
+            if (_textEditingCommandDispatcher == null)
+                return;
 
             _textEditingCommandDispatcher.TitleFocusChanged();
             if (TitleFocusChanged != null)
