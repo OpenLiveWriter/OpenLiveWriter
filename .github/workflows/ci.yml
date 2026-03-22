@@ -11,7 +11,6 @@ on:
   workflow_dispatch:
 
 env:
-  SOLUTION_PATH: src/managed/writer.sln
   OLW_CONFIG: Release
   DOTNET_VERSION: '10.0.x'
 
@@ -35,21 +34,16 @@ jobs:
       - name: Install SignClient
         run: nuget install SignClient -Version 0.9.0 -SolutionDir ${{ github.workspace }} -Verbosity quiet -ExcludeVersion
 
-      - name: Restore packages
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
+      - name: Build application
+        run: >
+          dotnet build src/managed/OpenLiveWriter/OpenLiveWriter.csproj
+          --configuration ${{ env.OLW_CONFIG }}
+          --verbosity minimal
 
-      - name: Build solution
+      - name: Build and run tests
         run: |
-          dotnet msbuild ${{ env.SOLUTION_PATH }} `
-            /nologo `
-            /maxcpucount `
-            /verbosity:minimal `
-            /p:Configuration=${{ env.OLW_CONFIG }}
-
-      - name: Run tests
-        run: |
-          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj --no-build --configuration ${{ env.OLW_CONFIG }} --logger "trx;LogFileName=testresults.trx"
-          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj --no-build --configuration ${{ env.OLW_CONFIG }} --logger "trx;LogFileName=unittestresults.trx" || true
+          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj --configuration ${{ env.OLW_CONFIG }} --logger "trx;LogFileName=testresults.trx"
+          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj --configuration ${{ env.OLW_CONFIG }} --logger "trx;LogFileName=unittestresults.trx" || true
 
       - name: Get version
         id: version
@@ -126,13 +120,8 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Restore packages
-        run: dotnet restore ${{ env.SOLUTION_PATH }}
-
-      - name: Build solution (Debug)
-        run: |
-          dotnet msbuild ${{ env.SOLUTION_PATH }} `
-            /nologo `
-            /maxcpucount `
-            /verbosity:minimal `
-            /p:Configuration=Debug
+      - name: Build application (Debug)
+        run: >
+          dotnet build src/managed/OpenLiveWriter/OpenLiveWriter.csproj
+          --configuration Debug
+          --verbosity minimal
