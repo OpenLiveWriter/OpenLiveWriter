@@ -12,7 +12,6 @@ using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace OpenLiveWriter.Localization
 {
@@ -369,9 +368,15 @@ namespace OpenLiveWriter.Localization
                 {
                     if (key.EndsWith(".Shortcut", StringComparison.OrdinalIgnoreCase))
                     {
+                        // Validate shortcut values using System.Windows.Forms.Shortcut enum
+                        // via reflection to avoid a compile-time WinForms dependency.
                         try
                         {
-                            Enum.Parse(typeof(Shortcut), val, true);
+                            Type shortcutType = Type.GetType("System.Windows.Forms.Shortcut, System.Windows.Forms");
+                            if (shortcutType != null)
+                            {
+                                Enum.Parse(shortcutType, val, true);
+                            }
                         }
                         catch
                         {

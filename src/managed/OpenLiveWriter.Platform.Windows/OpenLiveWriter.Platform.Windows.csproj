@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
   </ItemGroup>
 
 </Project>

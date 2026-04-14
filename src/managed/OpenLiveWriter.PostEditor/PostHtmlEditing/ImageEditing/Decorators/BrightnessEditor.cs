@@ -43,8 +43,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             Text = Res.Get(StringId.BrightnessAdjust);
             _originalSize = Size;
 
-            CultureHelper.FixupTextboxForNumber(textBoxBrightness);
-            CultureHelper.FixupTextboxForNumber(textBoxContrast);
+            CultureHelperWindows.FixupTextboxForNumber(textBoxBrightness);
+            CultureHelperWindows.FixupTextboxForNumber(textBoxContrast);
 
             textBoxBrightness.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.BrightnessBrightness));
             textBoxContrast.AccessibleName = ControlHelper.ToAccessibleName(Res.Get(StringId.BrightnessContrast));

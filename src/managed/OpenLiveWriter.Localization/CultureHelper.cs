@@ -5,16 +5,12 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace OpenLiveWriter.Localization
 {
-    [SupportedOSPlatform("windows")]
     public class CultureHelper
     {
         public static bool GdiPlusLineCenteringBroken
@@ -103,15 +99,6 @@ namespace OpenLiveWriter.Localization
             }
         }
 
-        public static void FixupTextboxForNumber(TextBox textBox)
-        {
-            if (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToUpperInvariant() == "HE")
-            {
-                textBox.RightToLeft = RightToLeft.No;
-                textBox.TextAlign = HorizontalAlignment.Right;
-            }
-        }
-
         public static string GetDateTimeCombinedPattern(string date, string time)
         {
             // Simple way to control what comes first, date or time when displaying to the user
@@ -139,50 +126,6 @@ namespace OpenLiveWriter.Localization
                 return CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern;
             }
 
-        }
-
-        [Obsolete("NOT FULLY TESTED")]
-        public static bool IsImeActive(IntPtr windowHandle)
-        {
-            bool isActive = false;
-
-            try
-            {
-                IntPtr handle = Imm32.ImmGetContext(windowHandle);
-
-                if (handle == IntPtr.Zero)
-                    return false;
-
-                try
-                {
-                    isActive = Imm32.ImmGetOpenStatus(handle);
-                }
-                finally
-                {
-                    Imm32.ImmReleaseContext(windowHandle, handle);
-                }
-
-                return isActive;
-            }
-            catch (Exception ex)
-            {
-                Trace.Fail("Failed to check if IME is active: " + ex);
-                return isActive;
-            }
-
-        }
-
-        [Obsolete("NOT FULLY TESTED")]
-        public static class Imm32
-        {
-            [DllImport("imm32.dll")]
-            public static extern IntPtr ImmGetContext(IntPtr hWnd);
-
-            [DllImport("imm32.dll")]
-            public static extern bool ImmGetOpenStatus(IntPtr hIMC);
-
-            [DllImport("imm32.dll")]
-            public static extern bool ImmReleaseContext(IntPtr hWnd, IntPtr hIMC);
         }
 
         public static bool IsRtlCodepage(uint codepage)

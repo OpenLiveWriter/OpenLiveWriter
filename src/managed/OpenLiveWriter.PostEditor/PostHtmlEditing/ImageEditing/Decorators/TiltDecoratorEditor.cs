@@ -24,7 +24,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             InitializeComponent();
             _originalSize = Size;
             Text = Res.Get(StringId.TiltEditorTitle);
-            CultureHelper.FixupTextboxForNumber(textBoxTilt);
+            CultureHelperWindows.FixupTextboxForNumber(textBoxTilt);
         }
 
         protected override void OnLoad(EventArgs e)
