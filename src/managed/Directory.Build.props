@@ -10,6 +10,9 @@
 
     <!-- Enable Windows Forms by default; core projects set false -->
     <UseWindowsForms Condition="'$(UseWindowsForms)' == ''">true</UseWindowsForms>
+
+    <!-- Allow building Windows-targeted projects on non-Windows platforms (e.g. macOS CI) -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     
     <!-- x64 platform for .NET 10 and WebView2 compatibility -->
     <PlatformTarget>x64</PlatformTarget>
