@@ -95,6 +95,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Platform.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Platform.Windows", "OpenLiveWriter.Platform.Windows\OpenLiveWriter.Platform.Windows.csproj", "{8C5EE89F-911A-45DB-9244-1BF5AF91CFB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Platform.Windows.Tests", "OpenLiveWriter.Platform.Windows.Tests\OpenLiveWriter.Platform.Windows.Tests.csproj", "{20320BD2-C26E-4697-A70D-608E9A0D229F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -702,6 +704,24 @@ Global
 		{8C5EE89F-911A-45DB-9244-1BF5AF91CFB2}.ReleaseSigned|x64.Build.0 = Debug|Any CPU
 		{8C5EE89F-911A-45DB-9244-1BF5AF91CFB2}.ReleaseSigned|x86.ActiveCfg = Debug|Any CPU
 		{8C5EE89F-911A-45DB-9244-1BF5AF91CFB2}.ReleaseSigned|x86.Build.0 = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Debug|x64.Build.0 = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Debug|x86.Build.0 = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Release|x64.ActiveCfg = Release|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Release|x64.Build.0 = Release|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Release|x86.ActiveCfg = Release|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.Release|x86.Build.0 = Release|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.ReleaseSigned|Any CPU.ActiveCfg = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.ReleaseSigned|Any CPU.Build.0 = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.ReleaseSigned|x64.ActiveCfg = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.ReleaseSigned|x64.Build.0 = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.ReleaseSigned|x86.ActiveCfg = Debug|Any CPU
+		{20320BD2-C26E-4697-A70D-608E9A0D229F}.ReleaseSigned|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

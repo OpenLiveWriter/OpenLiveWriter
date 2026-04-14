@@ -4,3 +4,4 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("OpenLiveWriter.Platform.Tests")]
+[assembly: InternalsVisibleTo("OpenLiveWriter.Platform.Windows.Tests")]
