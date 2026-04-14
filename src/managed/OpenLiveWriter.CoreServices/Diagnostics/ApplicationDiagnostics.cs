@@ -8,6 +8,9 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
 {
     /// <summary>
     /// ApplicationDiagnostics provides services for monitoring the health of an application.
+    /// Cross-platform base: provides static diagnostic flags and basic trace initialization.
+    /// Platform-specific features (LogFileTraceListener, DiagnosticsConsole, BufferingTraceListener)
+    /// are in Platform.Windows.
     /// </summary>
     public class ApplicationDiagnostics
     {
@@ -101,86 +104,27 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
             set { intServerOverride = value; }
         }
 
-        #region Private Member Variables
-
-        /// <summary>
-        /// The LogFileTraceListener.
-        /// </summary>
-        private LogFileTraceListener logFileTraceListener;
-
-        /// <summary>
-        /// The BufferingTraceListener we attach as a listener to Trace and Debug.
-        /// </summary>
-        private BufferingTraceListener bufferingTraceListener;
-
-        #endregion Private Member Variables
-
-        #region Class Initialization & Termination
-
         /// <summary>
         /// Initializes a new instance of the ApplicationDiagnostics class.
+        /// Platform-specific trace listeners should be added by the platform initializer.
         /// </summary>
         public ApplicationDiagnostics(string logFilePath, string logFileFacility)
         {
             Trace.Listeners.Clear();
 
-            //	Instantiate the BufferingTraceListener.
-            bufferingTraceListener = new BufferingTraceListener();
-
-            //	Connect the BufferingTraceListener to the Trace event streams.
-            Trace.Listeners.Add(bufferingTraceListener);
-
-            //	Instantiate the LogFileTraceListener.
-            logFileTraceListener = new LogFileTraceListener(logFilePath, logFileFacility);
-
-            //	Add our LogFileTraceListener to the Trace event stream.
-            Trace.Listeners.Add(logFileTraceListener);
-
-            //	Don't include the default Trace listeners in release builds, so that we will not display
-            //	trace assertions in the default way.
             if (ApplicationDiagnostics.TestMode)
             {
                 Trace.Listeners.Add(new DefaultTraceListener());
             }
         }
 
-        #endregion Class Initialization & Termination
-
-        #region Public Methods
-
         /// <summary>
-        /// Shows the DiagnosticsConsole form.
+        /// Shows the DiagnosticsConsole form (Windows-only, via Platform.Windows).
+        /// Override in platform-specific subclass to provide UI.
         /// </summary>
-        /// <param name="title">The title of the DiagnosticsConsole.</param>
-        public void ShowDiagnosticsConsole(string title)
+        public virtual void ShowDiagnosticsConsole(string title)
         {
-#if DEBUG
-            lock (this)
-            {
-                DiagnosticsConsole diagnosticsConsole = new DiagnosticsConsole(bufferingTraceListener, title);
-                diagnosticsConsole.Run();
-            }
-#endif
+            // No-op in cross-platform base
         }
-
-        public BufferingTraceListenerEntry[] GetLogBuffer()
-        {
-            int count = 0;
-            return bufferingTraceListener.GetEntries(ref count);
-        }
-
-        public DiagnosticsConsole GetDiagnosticsConsole(string title)
-        {
-            lock (this)
-            {
-#if DEBUG
-                return new DiagnosticsConsole(bufferingTraceListener, title);
-#else
-                throw new NotSupportedException("Diagnostic console is only available in debug mode");
-#endif
-            }
-        }
-
-        #endregion Public Methods
     }
 }

@@ -1,16 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.CoreServices</AssemblyName>
     <RootNamespace>OpenLiveWriter.CoreServices</RootNamespace>
     <ProjectGuid>{9154B6B4-F2C3-4FB4-BE38-A26A6C9409EE}</ProjectGuid>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFramework>net10.0</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
   </PropertyGroup>
 
-  <!-- Expose internals to unit test project -->
+  <!-- Expose internals to unit test project and Platform.Windows -->
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>OpenLiveWriter.UnitTest</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>OpenLiveWriter.Platform.Windows</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
@@ -18,13 +23,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
-  <!-- Exclude legacy/obsolete files that use unavailable .NET Framework APIs -->
+  <!-- Exclude legacy/obsolete files -->
   <ItemGroup>
-    <Compile Remove="HTML\WebPageDownloader.cs" />
-    <Compile Remove="HTML\AsyncPageDownload.cs" />
-    <!-- InternetShortCut.cs re-enabled - simple COM interop -->
-    <!-- MultiThreadedPageDownloader.cs re-enabled - namespace updated from Project31 to OpenLiveWriter -->
-    <!-- CloseTrackingHttpWebRequest.cs re-enabled - rewritten without RealProxy for .NET 10 -->
     <Compile Remove="DataObject\SearchReferrerChain.cs" />
     <Compile Remove="ComponentRootDesigner.cs" />
     <Compile Remove="Diagnostics\UnexpectedErrorMessageDesigner.cs" />
@@ -35,8 +35,8 @@
     <EmbeddedResource Include="Images\*.ico" />
     <EmbeddedResource Include="Images\*.png" />
     <EmbeddedResource Include="Images\*.jpg" />
-    <EmbeddedResource Include="Marketization\Markets.xml" />
-    <EmbeddedResource Include="Marketization\Master.xml" />
+    <EmbeddedResource Include="Marketization\Markets.xml" Condition="Exists('Marketization\Markets.xml')" />
+    <EmbeddedResource Include="Marketization\Master.xml" Condition="Exists('Marketization\Master.xml')" />
   </ItemGroup>
 
   <!-- Designer-generated files -->
@@ -55,22 +55,15 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <!-- Reference to interop DLL -->
+  <!-- NuGet packages -->
   <ItemGroup>
-    <Reference Include="OpenLiveWriter.Interop.SHDocVw">
-      <HintPath>..\OpenLiveWriter.Interop\Com\OpenLiveWriter.Interop.SHDocVw.dll</HintPath>
-    </Reference>
+    <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
 
-  <!-- Project References -->
+  <!-- Project References - cross-platform only -->
   <ItemGroup>
-    <ProjectReference Include="..\MarketXmlGenerator\MarketXmlGenerator.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Platform.Windows\OpenLiveWriter.Platform.Windows.csproj" />
   </ItemGroup>
 
   <!-- Market XML generation target (will be updated in build system phase) -->
