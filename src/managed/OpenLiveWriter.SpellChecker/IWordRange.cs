@@ -2,8 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Runtime.InteropServices;
-using OpenLiveWriter.Mshtml;
 
 namespace OpenLiveWriter.SpellChecker
 {
@@ -11,9 +9,6 @@ namespace OpenLiveWriter.SpellChecker
     /// <summary>
     /// Interface representing a word-range to be spell checked
     /// </summary>
-    [Guid("F4FB57BC-5DB2-484A-8CDC-1EA270BE3821")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [ComVisible(true)]
     public interface IWordRange
     {
         /// <summary>

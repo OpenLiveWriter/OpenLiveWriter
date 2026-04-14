@@ -1,10 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.SpellChecker</AssemblyName>
     <RootNamespace>OpenLiveWriter.SpellChecker</RootNamespace>
     <ProjectGuid>{2DB3A424-0F1E-44AC-AE01-5454586CE769}</ProjectGuid>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFramework>net10.0</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
+    <!-- Cross-platform project: override x64 from Directory.Build.props -->
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <!-- Suppress warnings during migration -->
     <NoWarn>$(NoWarn);CS0414;CS0672</NoWarn>
   </PropertyGroup>
@@ -13,26 +16,9 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
-  <!-- Embedded Resources - images -->
+  <!-- Project References - cross-platform only -->
   <ItemGroup>
-    <EmbeddedResource Include="Images\*.png" />
-  </ItemGroup>
-
-  <!-- NuGet Package References -->
-  <ItemGroup>
-    <PackageReference Include="PlatformSpellCheck" />
-  </ItemGroup>
-
-  <!-- Project References -->
-  <ItemGroup>
-    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
   </ItemGroup>
 
 </Project>

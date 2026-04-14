@@ -171,7 +171,7 @@ namespace OpenLiveWriter.SpellChecker
             base.Dispose(disposing);
         }
 
-        private const string SPELLING_IMAGE_PATH = "Images.";
+        private const string SPELLING_IMAGE_PATH = "SpellChecker.Images.";
         //private Bitmap spellingDictionariesBitmap = ResourceHelper.LoadAssemblyResourceBitmap( SPELLING_IMAGE_PATH + "SpellingDictionaries.png") ;
         private readonly Bitmap _spellingPanelBitmap = ResourceHelper.LoadAssemblyResourceBitmap(SPELLING_IMAGE_PATH + "SpellingPanelBitmapSmall.png");
 

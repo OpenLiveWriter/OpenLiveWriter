@@ -6,14 +6,36 @@
     <TargetFramework>net10.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- Suppress warnings during migration -->
+    <NoWarn>$(NoWarn);CS0414;CS0672</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
+  <!-- Embedded Resources - SpellChecker images -->
+  <ItemGroup>
+    <EmbeddedResource Include="SpellChecker\Images\*.png" />
+  </ItemGroup>
+
+  <!-- NuGet Package References -->
+  <ItemGroup>
+    <PackageReference Include="PlatformSpellCheck" />
+  </ItemGroup>
+
+  <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.SpellChecker\OpenLiveWriter.SpellChecker.csproj" />
   </ItemGroup>
 
 </Project>
