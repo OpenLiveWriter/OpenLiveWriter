@@ -53,6 +53,22 @@ if (-Not ($sdks -match "10\.")) {
 @"
 
 =======================================================
+ Ensure Velopack CLI (vpk) is installed
+=======================================================
+"@
+
+# Install vpk global tool if not already installed
+$vpkInstalled = & dotnet tool list -g 2>&1 | Select-String "vpk"
+if (-Not $vpkInstalled) {
+    "Installing vpk (Velopack CLI) as a global .NET tool..."
+    & dotnet tool install -g vpk
+} else {
+    "vpk (Velopack CLI) is already installed."
+}
+
+@"
+
+=======================================================
  Check build type
 =======================================================
 "@

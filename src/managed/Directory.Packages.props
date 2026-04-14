@@ -28,13 +28,9 @@
     
     <!-- Compression -->
     <PackageVersion Include="Zlib.Portable.Signed" Version="1.11.0" />
-    <PackageVersion Include="DeltaCompressionDotNet" Version="1.1.0" />
-    
-    <!-- Deployment - Velopack is the successor to squirrel.windows for .NET Core+ -->
-    <!-- Note: squirrel.windows 1.x doesn't support .NET 10, consider migrating to Velopack -->
-    <PackageVersion Include="squirrel.windows" Version="1.4.4" />
-    <PackageVersion Include="Splat" Version="2.0.0" />
-    <PackageVersion Include="Mono.Cecil" Version="0.11.5" />
+
+    <!-- Deployment - Velopack is the modern successor to Squirrel.Windows for .NET 6+ -->
+    <PackageVersion Include="Velopack" Version="0.0.1251" />
     
     <!-- Spell checking -->
     <PackageVersion Include="PlatformSpellCheck" Version="1.0.0" />

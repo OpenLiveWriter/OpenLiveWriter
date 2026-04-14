@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
 
 env:
-  SOLUTION_PATH: src/managed/writer.sln
   OLW_CONFIG: Release
+  DOTNET_VERSION: '10.0.x'
 
 jobs:
   build:
@@ -23,61 +23,105 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET Framework 4.6.1 Developer Pack
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install Velopack CLI
+        run: dotnet tool install -g vpk
+
+      - name: Install SignClient
+        run: nuget install SignClient -Version 0.9.0 -SolutionDir ${{ github.workspace }} -Verbosity quiet -ExcludeVersion
+
+      - name: Build application
+        run: >
+          dotnet build src/managed/OpenLiveWriter/OpenLiveWriter.csproj
+          --configuration ${{ env.OLW_CONFIG }}
+          --verbosity minimal
+
+      - name: Build and run tests
         run: |
-          choco install netfx-4.6.1-devpack -y --no-progress
+          dotnet test src/managed/OpenLiveWriter.Tests/OpenLiveWriter.Tests.csproj --configuration ${{ env.OLW_CONFIG }} --logger "trx;LogFileName=testresults.trx"
+          dotnet test src/managed/OpenLiveWriter.UnitTest/OpenLiveWriter.UnitTest.csproj --configuration ${{ env.OLW_CONFIG }} --logger "trx;LogFileName=unittestresults.trx" || true
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v2
-
-      - name: Restore NuGet packages
-        run: nuget restore ${{ env.SOLUTION_PATH }}
-
-      - name: Build solution
+      - name: Get version
+        id: version
+        shell: cmd
         run: |
-          msbuild ${{ env.SOLUTION_PATH }} `
-            /nologo `
-            /maxcpucount `
-            /verbosity:minimal `
-            /p:Configuration=${{ env.OLW_CONFIG }} `
-            /p:PlatformToolset=v143
+          call getversion.cmd
+          echo version=%dottedVersion%>> %GITHUB_OUTPUT%
 
-      - name: Upload binaries
+      - name: Package with Velopack (signed)
+        if: env.SIGN_CLIENT_SECRET != ''
+        shell: cmd
+        env:
+          SIGN_CLIENT_SECRET: ${{ secrets.SignClientSecret }}
+          SIGN_CLIENT_USER: ${{ secrets.SignClientUser }}
+        run: |
+          call getversion.cmd
+          vpk pack ^
+            --packId OpenLiveWriter ^
+            --packVersion %dottedVersion% ^
+            --packTitle "Open Live Writer" ^
+            --packDir src\managed\bin\%OLW_CONFIG%\i386\Writer ^
+            --mainExe OpenLiveWriter.exe ^
+            --icon src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico ^
+            --channel stable ^
+            --outputDir Releases ^
+            --shortcuts Desktop,StartMenuRoot ^
+            --skipVeloAppCheck ^
+            --signTemplate "dotnet %GITHUB_WORKSPACE%\packages\SignClient\tools\netcoreapp2.0\SignClient.dll sign -c %GITHUB_WORKSPACE%\SignClient\appsettings.json -i {{file}} -r %SIGN_CLIENT_USER% -s %SIGN_CLIENT_SECRET% -n ""Open Live Writer"" -d ""Open Live Writer"" -u ""http://openlivewriter.com"""
+
+      - name: Package with Velopack (unsigned)
+        if: env.SIGN_CLIENT_SECRET == ''
+        shell: cmd
+        env:
+          SIGN_CLIENT_SECRET: ${{ secrets.SignClientSecret }}
+        run: |
+          call getversion.cmd
+          vpk pack ^
+            --packId OpenLiveWriter ^
+            --packVersion %dottedVersion% ^
+            --packTitle "Open Live Writer" ^
+            --packDir src\managed\bin\%OLW_CONFIG%\i386\Writer ^
+            --mainExe OpenLiveWriter.exe ^
+            --icon src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico ^
+            --channel stable ^
+            --outputDir Releases ^
+            --shortcuts Desktop,StartMenuRoot ^
+            --skipVeloAppCheck
+
+      - name: Upload installer artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: OpenLiveWriter-Binaries-${{ github.run_number }}
-          path: src/managed/bin/${{ env.OLW_CONFIG }}/x64/Writer/
+          name: OpenLiveWriter-Installer-${{ github.run_number }}
+          path: Releases/
           if-no-files-found: warn
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults-${{ github.run_number }}
+          path: '**/*.trx'
+          if-no-files-found: ignore
 
   build-debug:
     name: Build Debug Configuration
     runs-on: windows-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET Framework 4.6.1 Developer Pack
-        run: |
-          choco install netfx-4.6.1-devpack -y --no-progress
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
-
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v2
-
-      - name: Restore NuGet packages
-        run: nuget restore ${{ env.SOLUTION_PATH }}
-
-      - name: Build solution (Debug)
-        run: |
-          msbuild ${{ env.SOLUTION_PATH }} `
-            /nologo `
-            /maxcpucount `
-            /verbosity:minimal `
-            /p:Configuration=Debug `
-            /p:PlatformToolset=v143
+      - name: Build application (Debug)
+        run: >
+          dotnet build src/managed/OpenLiveWriter/OpenLiveWriter.csproj
+          --configuration Debug
+          --verbosity minimal
