@@ -27,7 +27,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             context.Image = AdjustBrightness(bsettings.Brightness, bsettings.Contrast, context.Image);
         }
 
-        public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public IImageDecoratorEditor CreateEditor(object commandManager)
         {
             return new BrightnessEditor();
         }

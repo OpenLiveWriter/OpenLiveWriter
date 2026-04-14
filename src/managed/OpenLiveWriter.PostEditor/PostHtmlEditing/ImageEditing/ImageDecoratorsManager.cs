@@ -313,7 +313,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             RawImageDecorator.Decorate(context);
         }
 
-        public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public IImageDecoratorEditor CreateEditor(object commandManager)
         {
             return RawImageDecorator.CreateEditor(commandManager);
         }

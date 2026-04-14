@@ -104,7 +104,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         }
 
         private CommandManager _commandManager;
-        public CommandManager CommandManager
+        public object CommandManager
         {
             get
             {

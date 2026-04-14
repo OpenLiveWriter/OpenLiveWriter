@@ -13,6 +13,7 @@ using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.HtmlEditor;
 using OpenLiveWriter.HtmlEditor.Linking;
+using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.ImageEditing;
 using OpenLiveWriter.Localization;
@@ -433,7 +434,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 }
                 else if (SelectedLinkTarget == LinkTargetType.URL)
                 {
-                    using (HyperlinkForm hyperlinkForm = new HyperlinkForm(EditorContext.CommandManager, GlobalEditorOptions.SupportsFeature(ContentEditorFeature.ShowAllLinkOptions)))
+                    using (HyperlinkForm hyperlinkForm = new HyperlinkForm((CommandManager)EditorContext.CommandManager, GlobalEditorOptions.SupportsFeature(ContentEditorFeature.ShowAllLinkOptions)))
                     {
                         hyperlinkForm.ContainsImage = true;
                         hyperlinkForm.EditStyle = HtmlImageTargetSettings.LinkTargetUrl != null && HtmlImageTargetSettings.LinkTargetUrl != String.Empty;

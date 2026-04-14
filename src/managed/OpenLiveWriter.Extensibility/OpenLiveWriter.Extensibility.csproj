@@ -4,21 +4,33 @@
     <AssemblyName>OpenLiveWriter.Extensibility</AssemblyName>
     <RootNamespace>OpenLiveWriter.Extensibility</RootNamespace>
     <ProjectGuid>{A803C16E-6619-4017-883C-EA73EB947F34}</ProjectGuid>
+    <!-- Target net10.0-windows temporarily: this project itself contains no Windows-specific code
+         (WinForms editors moved to Platform.Windows), but its dependencies (Api, CoreServices, etc.)
+         still target net10.0-windows. Switch to net10.0 once those dependencies are retargeted. -->
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
+    <!-- Cross-platform project: override x64 from Directory.Build.props -->
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
+  <!-- NuGet packages -->
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" />
+  </ItemGroup>
+
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
+    <!-- Interop.Mshtml is retained for IHTMLElement interface definitions (no WinForms dependency) -->
     <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
   </ItemGroup>
 
 </Project>

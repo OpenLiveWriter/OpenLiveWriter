@@ -76,7 +76,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             }
         }
 
-        public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public IImageDecoratorEditor CreateEditor(object commandManager)
         {
             return new HtmlImageTargetEditor();
         }

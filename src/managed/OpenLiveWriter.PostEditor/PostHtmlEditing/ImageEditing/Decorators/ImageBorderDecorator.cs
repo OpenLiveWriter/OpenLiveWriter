@@ -17,7 +17,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
         {
         }
         public abstract void Decorate(ImageDecoratorContext context);
-        public abstract ImageDecoratorEditor CreateEditor(CommandManager commandManager);
+        public abstract IImageDecoratorEditor CreateEditor(object commandManager);
 
         protected void HideHtmlBorder(ImageDecoratorContext context)
         {

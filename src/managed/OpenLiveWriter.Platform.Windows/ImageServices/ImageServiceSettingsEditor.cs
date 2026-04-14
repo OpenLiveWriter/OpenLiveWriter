@@ -1,33 +1,26 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using OpenLiveWriter.ApplicationFramework;
-using OpenLiveWriter.ApplicationFramework.ApplicationStyles;
-using OpenLiveWriter.Extensibility.ImageServices;
+using OpenLiveWriter.Api;
 
 namespace OpenLiveWriter.Extensibility.ImageServices
 {
     /// <summary>
-    /// Base editor control for editing file upload settings for an individual image file.
+    /// Summary description for ImageServiceImageSettingsEditor.
     /// </summary>
-    public class ImageFileUploadSettingsEditor : UserControl
+    public class ImageServiceSettingsEditor: UserControl, IImageServiceSettingsEditor
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private Container components = null;
 
-        public ImageFileUploadSettingsEditor()
+        public ImageServiceSettingsEditor()
         {
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
-
-            // set the background color
-            BackColor = ApplicationManager.ApplicationStyle.ActiveTabBottomColor ;
-            ApplicationStyleManager.ApplicationStyleChanged += new EventHandler(ApplicationManager_ApplicationStyleChanged);
         }
 
         /// <summary>
@@ -41,7 +34,6 @@ namespace OpenLiveWriter.Extensibility.ImageServices
                 {
                     components.Dispose();
                 }
-                ApplicationStyleManager.ApplicationStyleChanged -= new EventHandler(ApplicationManager_ApplicationStyleChanged);
             }
             base.Dispose( disposing );
         }
@@ -57,21 +49,6 @@ namespace OpenLiveWriter.Extensibility.ImageServices
         }
         #endregion
 
-        /// <summary>
-        /// Hook that allows subclasses to refresh their cached appearance settings.
-        /// </summary>
-        protected virtual void LoadAppearanceSettings()
-        {
-            BackColor = ApplicationManager.ApplicationStyle.ActiveTabBottomColor ;
-        }
-
-        private void ApplicationManager_ApplicationStyleChanged(object sender, EventArgs e)
-        {
-            LoadAppearanceSettings();
-            PerformLayout();
-            Invalidate();
-        }
-
         protected enum ControlState { Uninitialized, Loading, Loaded };
         protected ControlState EditorState
         {
@@ -79,10 +56,10 @@ namespace OpenLiveWriter.Extensibility.ImageServices
         }
         private ControlState _loadedState = ControlState.Uninitialized;
 
-        public void LoadEditor(IImageUploadSettingsEditorContext context)
+        public void LoadEditor(IProperties imageServiceSettings)
         {
             _loadedState = ControlState.Loading;
-            _context = context;
+            _imageServiceSettings = imageServiceSettings;
             LoadEditor();
             _loadedState = ControlState.Loaded;
         }
@@ -95,13 +72,13 @@ namespace OpenLiveWriter.Extensibility.ImageServices
 
         }
 
-        internal protected IImageUploadSettingsEditorContext EditorContext
+        internal protected IProperties ImageServiceSettings
         {
             get
             {
-                return _context;
+                return _imageServiceSettings;
             }
         }
-        private IImageUploadSettingsEditorContext _context;
+        private IProperties _imageServiceSettings;
     }
 }

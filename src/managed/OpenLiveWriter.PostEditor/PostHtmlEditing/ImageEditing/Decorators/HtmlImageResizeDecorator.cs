@@ -245,9 +245,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             return bitmap;
         }
 
-        public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public IImageDecoratorEditor CreateEditor(object commandManager)
         {
-            return new HtmlImageResizeEditor(commandManager);
+            return new HtmlImageResizeEditor((CommandManager)commandManager);
         }
 
         void IImageDecoratorDefaultSettingsCustomizer.CustomizeDefaultSettingsBeforeSave(ImageDecoratorEditorContext context, IProperties defaultSettings)

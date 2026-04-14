@@ -29,9 +29,9 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             //Note: all other times, this decorator is applied directly by the editor.
         }
 
-        public ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public IImageDecoratorEditor CreateEditor(object commandManager)
         {
-            return new HtmlAlignEditor(commandManager);
+            return new HtmlAlignEditor((CommandManager)commandManager);
         }
 
         void IImageDecoratorDefaultSettingsCustomizer.CustomizeDefaultSettingsBeforeSave(ImageDecoratorEditorContext context, IProperties defaultSettings)

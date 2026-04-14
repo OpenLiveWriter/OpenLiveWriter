@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
     /// <summary>
     /// The base class for building an editor for an image decorator.
     /// </summary>
-    public class ImageDecoratorEditor : UserControl
+    public class ImageDecoratorEditor : UserControl, IImageDecoratorEditor
     {
         /// <summary>
         /// Required designer variable.

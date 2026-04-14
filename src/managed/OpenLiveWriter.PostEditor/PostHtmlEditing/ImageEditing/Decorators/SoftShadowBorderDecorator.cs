@@ -33,7 +33,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             return new Rectangle(22, 14, 102 - 58, 98 - 54);
         }
 
-        public override ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public override IImageDecoratorEditor CreateEditor(object commandManager)
         {
             return null;
         }

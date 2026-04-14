@@ -42,7 +42,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             HideHtmlBorder(context);
         }
 
-        public override ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public override IImageDecoratorEditor CreateEditor(object commandManager)
         {
             return null;
         }

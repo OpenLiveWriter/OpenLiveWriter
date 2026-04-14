@@ -69,6 +69,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             }
         }
 
+        // Explicit interface implementation to match ImageDecoratorEditorContext.CommandManager (object return type)
+        object ImageDecoratorEditorContext.CommandManager
+        {
+            get
+            {
+                return _decoratorsManager.CommandManager;
+            }
+        }
+
         public ImageDecoratorsManager DecoratorsManager
         {
             get

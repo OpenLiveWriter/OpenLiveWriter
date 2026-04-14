@@ -38,7 +38,8 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// <param name="owner"></param>
         internal static DialogResult ShowImageDecoratorEditorDialog(ImageDecorator imageDecorator, ImagePropertiesInfo ImageInfo, ApplyDecoratorCallback applyCallback, IUndoUnitFactory undoUnitFactory, object state, IImageTargetEditor targetEditor, CommandManager commandManager)
         {
-            ImageDecoratorEditor editor = imageDecorator.CreateEditor(commandManager);
+            var editorInterface = imageDecorator.CreateEditor(commandManager);
+            var editor = editorInterface as ImageDecoratorEditor;
             if (editor != null)
             {
                 IProperties settings = ImageInfo.ImageDecorators.GetImageDecoratorSettings(imageDecorator);

@@ -5,7 +5,6 @@ using System;
 using System.Drawing;
 using mshtml;
 using OpenLiveWriter.Api;
-using OpenLiveWriter.ApplicationFramework;
 
 namespace OpenLiveWriter.Extensibility.ImageEditing
 {
@@ -52,6 +51,10 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
         /// <returns></returns>
         IImageDecoratorUndoUnit CreateUndoUnit();
 
-        CommandManager CommandManager { get; }
+        /// <summary>
+        /// The command manager for the editor.
+        /// Typed as object to avoid platform dependency on ApplicationFramework; cast to CommandManager on Windows.
+        /// </summary>
+        object CommandManager { get; }
     }
 }

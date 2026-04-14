@@ -47,13 +47,13 @@ namespace OpenLiveWriter.Extensibility.ImageServices
         /// Create an editor for customizing the image service settings.
         /// </summary>
         /// <returns></returns>
-        ImageServiceSettingsEditor CreateImageServiceSettingsEditor();
+        IImageServiceSettingsEditor CreateImageServiceSettingsEditor();
 
         /// <summary>
         /// Create an editor for customizing the upload settings for an individual image file.
         /// </summary>
         /// <returns></returns>
-        ImageFileUploadSettingsEditor CreateImageFileUploadSettingsEditor();
+        IImageFileUploadSettingsEditor CreateImageFileUploadSettingsEditor();
     }
 }
 

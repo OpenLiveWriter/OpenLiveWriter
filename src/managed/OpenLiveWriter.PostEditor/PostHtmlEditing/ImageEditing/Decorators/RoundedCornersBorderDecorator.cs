@@ -69,7 +69,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                     new Point(x3, y3)
                 };
         }
-        public override ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public override IImageDecoratorEditor CreateEditor(object commandManager)
         {
             return null;
         }

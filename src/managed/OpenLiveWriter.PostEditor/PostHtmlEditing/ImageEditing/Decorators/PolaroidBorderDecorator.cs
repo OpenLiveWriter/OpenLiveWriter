@@ -22,7 +22,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
             get { return PORTAL_RECT.Width / (float)PORTAL_RECT.Height; }
         }
 
-        public override ImageDecoratorEditor CreateEditor(CommandManager commandManager)
+        public override IImageDecoratorEditor CreateEditor(object commandManager)
         {
             return null;
         }

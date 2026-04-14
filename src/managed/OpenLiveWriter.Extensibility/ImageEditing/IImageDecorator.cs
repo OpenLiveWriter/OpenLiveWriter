@@ -4,7 +4,6 @@
 using System;
 using System.Drawing;
 using OpenLiveWriter.Api;
-using OpenLiveWriter.ApplicationFramework;
 
 namespace OpenLiveWriter.Extensibility.ImageEditing
 {
@@ -87,9 +86,11 @@ namespace OpenLiveWriter.Extensibility.ImageEditing
 
         /// <summary>
         /// Create an editor for customizing the decorator settings.
+        /// The commandManager parameter is typed as object to avoid platform dependency;
+        /// cast to CommandManager on Windows.
         /// </summary>
         /// <returns></returns>
-        ImageDecoratorEditor CreateEditor(CommandManager commandManager);
+        IImageDecoratorEditor CreateEditor(object commandManager);
     }
 
     public interface IImageDecoratorOriginalSizeAdjuster : IImageDecorator
