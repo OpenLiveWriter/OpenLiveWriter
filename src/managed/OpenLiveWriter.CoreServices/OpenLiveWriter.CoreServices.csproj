@@ -74,12 +74,38 @@
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
   </ItemGroup>
 
-  <!-- Market XML generation target (will be updated in build system phase) -->
+  <!-- Market XML generation targets (restored from legacy .csproj) -->
   <PropertyGroup>
     <MasterXmlPath>$(MSBuildProjectDirectory)\..\..\..\intl\markets\Master.xml</MasterXmlPath>
     <MasterXmlOutput>$(MSBuildProjectDirectory)\Marketization\Master.xml</MasterXmlOutput>
     <MarketsXmlPath>$(MSBuildProjectDirectory)\Marketization\Markets.xml</MarketsXmlPath>
     <MarketsSourceDataFolder>$(MSBuildProjectDirectory)\..\..\..\intl\markets</MarketsSourceDataFolder>
   </PropertyGroup>
+
+  <Target Name="GenerateMarketXmlDeps">
+    <ItemGroup>
+      <MarketsSourceFiles Include="$(MarketsSourceDataFolder)\**\*.xml" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="GenerateMarketXml"
+          DependsOnTargets="ResolveProjectReferences;GenerateMarketXmlDeps;GenerateMarketXmlCopyMaster;GenerateMarketXmlImpl"
+          BeforeTargets="CoreCompile" />
+
+  <Target Name="GenerateMarketXmlImpl"
+          Inputs="@(MarketsSourceFiles)"
+          Outputs="$(MarketsXmlPath)">
+    <PropertyGroup>
+      <MarketXmlGeneratorDir>$(MSBuildProjectDirectory)\..\MarketXmlGenerator\bin\$(Configuration)\</MarketXmlGeneratorDir>
+    </PropertyGroup>
+    <Exec Command="dotnet &quot;$(MarketXmlGeneratorDir)MarketXmlGenerator.dll&quot; &quot;$(MarketsSourceDataFolder)&quot; &quot;$(MarketsXmlPath)&quot;" />
+  </Target>
+
+  <Target Name="GenerateMarketXmlCopyMaster"
+          Inputs="$(MasterXmlPath)"
+          Outputs="$(MasterXmlOutput)">
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Marketization" Condition="!Exists('$(MSBuildProjectDirectory)\Marketization')" />
+    <Copy SourceFiles="$(MasterXmlPath)" DestinationFiles="$(MasterXmlOutput)" />
+  </Target>
 
 </Project>

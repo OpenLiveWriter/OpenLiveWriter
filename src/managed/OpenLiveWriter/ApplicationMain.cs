@@ -40,9 +40,9 @@ namespace OpenLiveWriter
         public static void Main(string[] args)
         {
             VelopackApp.Build()
-                .WithAfterInstallFastCallback(v => OnInstall())
-                .WithAfterUpdateFastCallback(v => OnAfterUpdate())
-                .WithBeforeUninstallFastCallback(v => OnUninstall())
+                .OnAfterInstallFastCallback(v => OnInstall())
+                .OnAfterUpdateFastCallback(v => OnAfterUpdate())
+                .OnBeforeUninstallFastCallback(v => OnUninstall())
                 .Run();
 
             // In .NET 10, Debug.Fail and Trace.Fail call Environment.FailFast by default.
@@ -214,13 +214,13 @@ namespace OpenLiveWriter
         private static void OnInstall()
         {
             SetAssociation(".wpost", "OPEN_LIVE_WRITER",
-                VelopackRuntimeInfo.EntryExePath, "Open Live Writer post");
+                Environment.ProcessPath, "Open Live Writer post");
         }
 
         private static void OnAfterUpdate()
         {
             SetAssociation(".wpost", "OPEN_LIVE_WRITER",
-                VelopackRuntimeInfo.EntryExePath, "Open Live Writer post");
+                Environment.ProcessPath, "Open Live Writer post");
         }
 
         private static void OnUninstall()

@@ -30,7 +30,7 @@
     <PackageVersion Include="Zlib.Portable.Signed" Version="1.11.0" />
 
     <!-- Deployment - Velopack is the modern successor to Squirrel.Windows for .NET 6+ -->
-    <PackageVersion Include="Velopack" Version="0.0.1083" />
+    <PackageVersion Include="Velopack" Version="0.0.1251" />
     
     <!-- Spell checking -->
     <PackageVersion Include="PlatformSpellCheck" Version="1.0.0" />
