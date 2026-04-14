@@ -52,6 +52,9 @@
     
     <!-- Security fix: Override vulnerable transitive dependency -->
     <PackageVersion Include="System.Data.SqlClient" Version="4.8.6" />
+
+    <!-- System.Drawing.Common - required for cross-platform drawing types in Platform interfaces -->
+    <PackageVersion Include="System.Drawing.Common" Version="9.0.0" />
     
     <!-- 
       NOTE: The following packages are NOT included because they are built into .NET 10:
