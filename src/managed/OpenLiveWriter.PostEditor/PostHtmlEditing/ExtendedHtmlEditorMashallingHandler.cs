@@ -373,7 +373,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
 
             // create the content
             string content = String.Empty;
-            if (lcContentSource.CreateContentFromLiveClipboard(EditorContext.FrameWindow, lcDocument, ref content) == DialogResult.OK)
+            if (lcContentSource.CreateContentFromLiveClipboard(new BlogClientUIContextAdapter(EditorContext.FrameWindow), lcDocument, ref content) == OpenLiveWriter.Api.DialogResult.OK)
             {
                 _contentSourceSite.InsertContent(content, false);
                 return true;
@@ -396,7 +396,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
             // create the smart content
             IExtensionData extensionData = _contentSourceSite.CreateExtensionData(Guid.NewGuid().ToString());
             ISmartContent smartContent = new SmartContent(extensionData);
-            if (smartSource.CreateContentFromLiveClipboard(EditorContext.FrameWindow, lcDocument, smartContent) == DialogResult.OK)
+            if (smartSource.CreateContentFromLiveClipboard(new BlogClientUIContextAdapter(EditorContext.FrameWindow), lcDocument, smartContent) == OpenLiveWriter.Api.DialogResult.OK)
             {
                 // generate html and insert it
                 string content = smartSource.GenerateEditorHtml(smartContent, _contentSourceSite);

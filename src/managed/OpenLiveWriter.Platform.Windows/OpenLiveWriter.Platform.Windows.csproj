@@ -12,7 +12,30 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
+  <!-- Windows-dependent files from OpenLiveWriter.Api (keeping original namespaces) -->
   <ItemGroup>
+    <Compile Include="..\OpenLiveWriter.Api\SmartContentEditor.cs" Link="Api\SmartContentEditor.cs" />
+    <Compile Include="..\OpenLiveWriter.Api\PluginDiagnostics.cs" Link="Api\PluginDiagnostics.cs" />
+    <Compile Include="..\OpenLiveWriter.Api\HtmlScreenCapture.cs" Link="Api\HtmlScreenCapture.cs" />
+    <Compile Include="..\OpenLiveWriter.Api\PluginHttpRequest.cs" Link="Api\PluginHttpRequest.cs" />
+    <Compile Include="..\OpenLiveWriter.Api\TaskServices.cs" Link="Api\TaskServices.cs" />
+    <Compile Include="..\OpenLiveWriter.Api\HtmlServices.cs" Link="Api\HtmlServices.cs" />
+    <Compile Include="..\OpenLiveWriter.Api\AdaptiveHtmlObject.cs" Link="Api\AdaptiveHtmlObject.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\OpenLiveWriter.Api\SmartContentEditor.resx" Link="Api\SmartContentEditor.resx">
+      <DependentUpon>SmartContentEditor.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
   </ItemGroup>
 

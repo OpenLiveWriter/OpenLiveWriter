@@ -1056,7 +1056,7 @@ namespace OpenLiveWriter.PostEditor
                 string html;
                 try
                 {
-                    html = plugin.GeneratePublishHtml(form, smartContent, _publishingContext, args.Publish, out position);
+                    html = plugin.GeneratePublishHtml(new BlogClientUIContextAdapter(form), smartContent, _publishingContext, args.Publish, out position);
                 }
                 catch (Exception e)
                 {
@@ -1199,7 +1199,7 @@ namespace OpenLiveWriter.PostEditor
 
                 try
                 {
-                    if (!((PublishNotificationHook)csi.Instance).OnPrePublish(form, properties, _publishingContext, publish))
+                    if (!((PublishNotificationHook)csi.Instance).OnPrePublish(new BlogClientUIContextAdapter(form), properties, _publishingContext, publish))
                     {
                         args.Cancel = true;
                         args.CancelReason = csi.Name;
@@ -1239,7 +1239,7 @@ namespace OpenLiveWriter.PostEditor
 
                 try
                 {
-                    ((PublishNotificationHook)csi.Instance).OnPostPublish(form, properties, _publishingContext, publish);
+                    ((PublishNotificationHook)csi.Instance).OnPostPublish(new BlogClientUIContextAdapter(form), properties, _publishingContext, publish);
                 }
                 catch (Exception ex)
                 {

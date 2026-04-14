@@ -114,7 +114,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
 
                     if (editor == null)
                     {
-                        editor = _contentSource.CreateEditor(this);
+                        editor = (SmartContentEditor)_contentSource.CreateEditor(this);
 
                         if (editor is IActiveSmartContentEditor)
                             ((IActiveSmartContentEditor)editor).ForceContentEdited += new EventHandler(ContentSourceSidebarControl_ForceContentEdited);
@@ -303,7 +303,7 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
             if (contentSource != null && contentSource.Instance is SmartContentSource)
             {
                 _contentSource = (SmartContentSource)contentSource.Instance;
-                smartContentEditor = _contentSource.CreateEditor(this);
+                smartContentEditor = (SmartContentEditor)_contentSource.CreateEditor(this);
                 _contentSourceControls[contentSourceId] = smartContentEditor;
 
                 if (smartContentEditor is IActiveSmartContentEditor)

@@ -15,7 +15,7 @@ namespace OpenLiveWriter.Api
     /// post editor window. The implementation of SmartContentEditor objects must therefore be
     /// stateless and assume that they will be the editor for multiple distince SmartContent objects.</para>
     /// </summary>
-    public class SmartContentEditor : UserControl
+    public class SmartContentEditor : UserControl, ISmartContentEditor
     {
         private bool _layedOut = false;
         /// <summary>

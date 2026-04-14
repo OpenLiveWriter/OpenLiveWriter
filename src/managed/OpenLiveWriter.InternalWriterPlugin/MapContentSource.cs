@@ -13,7 +13,8 @@ using OpenLiveWriter.Api;
 using OpenLiveWriter.ApplicationFramework;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
-using HtmlScreenCapture = OpenLiveWriter.Api.HtmlScreenCapture;
+using OpenLiveWriter.Platform;
+using DialogResult = OpenLiveWriter.Api.DialogResult;
 
 namespace OpenLiveWriter.InternalWriterPlugin
 {
@@ -29,21 +30,22 @@ namespace OpenLiveWriter.InternalWriterPlugin
     {
         public const string ID = "C62021F8-9D77-4E84-BD14-18CE70F02159";
 
-        public override DialogResult CreateContent(IWin32Window dialogOwner, ISmartContent content)
+        public override DialogResult CreateContent(IBlogClientUIContext dialogOwner, ISmartContent content)
         {
+            var ownerWindow = new Win32WindowImpl(dialogOwner.NativeWindowHandle);
             MessageBox.Show(
-                dialogOwner,
+                ownerWindow,
                 "The Map feature is no longer available.\n\n" +
                 "The Bing Maps/Virtual Earth API that this feature relied on has been deprecated.\n\n" +
                 "Consider using a web-based map service and inserting it as HTML or an image.",
                 "Map Feature Deprecated",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-            
+
             return DialogResult.Cancel;
         }
 
-        public override SmartContentEditor CreateEditor(ISmartContentEditorSite contentEditorSite)
+        public override ISmartContentEditor CreateEditor(ISmartContentEditorSite contentEditorSite)
         {
             return null;
         }
@@ -59,8 +61,8 @@ namespace OpenLiveWriter.InternalWriterPlugin
             MapSettings settings = new MapSettings(content.Properties);
             if (!string.IsNullOrEmpty(settings.LiveMapUrl))
             {
-                return string.Format(CultureInfo.InvariantCulture, 
-                    "<p><a href=\"{0}\">View Map</a></p>", 
+                return string.Format(CultureInfo.InvariantCulture,
+                    "<p><a href=\"{0}\">View Map</a></p>",
                     HtmlServices.HtmlEncode(settings.LiveMapUrl));
             }
             return "<p><em>[Map content no longer supported]</em></p>";

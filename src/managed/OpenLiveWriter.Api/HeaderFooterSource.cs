@@ -1,7 +1,7 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using System.Windows.Forms;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.Api
 {
@@ -75,14 +75,14 @@ namespace OpenLiveWriter.Api
         /// whose float and margins can be controlled by the <c>Layout</c>
         /// property on the <c>ISmartContent</c> parameter.
         /// </remarks>
-        /// <param name="dialogOwner">Owner for any dialog boxes shown.</param>
+        /// <param name="dialogOwner">Owner context for any dialog boxes shown.</param>
         /// <param name="smartContent">Can be used to get/set properties for this post, add files for upload, and control the layout of the containing <c>div</c>.</param>
         /// <param name="publishingContext">Publishing context for HTML generation.</param>
         /// <param name="publish">If false, the post is being posted as a draft.</param>
         /// <param name="position">The position where the generated HTML should be inserted.</param>
         /// <returns>The HTML that should appear at the end of the blog post.</returns>
         public abstract string GeneratePublishHtml(
-            IWin32Window dialogOwner,
+            IBlogClientUIContext dialogOwner,
             ISmartContent smartContent,
             IPublishingContext publishingContext,
             bool publish,

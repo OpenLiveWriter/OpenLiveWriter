@@ -4,9 +4,9 @@
 using System;
 using System.Globalization;
 using System.Web;
-using System.Windows.Forms;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.Localization;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
 {
@@ -22,16 +22,16 @@ namespace OpenLiveWriter.PostEditor.ImageInsertion.WebImages
     {
         public const string ID = "78047914-B039-4B15-B2FA-90D4DBDF7C51";
 
-        public override System.Windows.Forms.DialogResult CreateContent(System.Windows.Forms.IWin32Window dialogOwner, ref string content)
+        public override OpenLiveWriter.Api.DialogResult CreateContent(IBlogClientUIContext dialogOwner, ref string content)
         {
             using (WebImageForm form = new WebImageForm())
             {
-                if (form.ShowDialog() == DialogResult.OK && !String.IsNullOrEmpty(form.ImageUrl))
+                if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK && !String.IsNullOrEmpty(form.ImageUrl))
                 {
                     content = String.Format(CultureInfo.InvariantCulture, @"<img wlApplyDefaultMargins=""true"" src=""{0}"" />", HttpUtility.HtmlEncode(form.ImageUrl));
                 }
 
-                return form.DialogResult;
+                return form.DialogResult == System.Windows.Forms.DialogResult.OK ? OpenLiveWriter.Api.DialogResult.OK : OpenLiveWriter.Api.DialogResult.Cancel;
             }
 
         }

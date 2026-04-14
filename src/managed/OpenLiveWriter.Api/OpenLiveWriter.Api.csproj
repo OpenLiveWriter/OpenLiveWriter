@@ -1,31 +1,40 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.Api</AssemblyName>
     <RootNamespace>OpenLiveWriter.Api</RootNamespace>
     <ProjectGuid>{B6D10B42-F173-4086-BB81-96B724BA5594}</ProjectGuid>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <!-- Cross-platform API project: target net10.0 (not windows-specific) -->
+    <TargetFramework>net10.0</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
+    <!-- Cross-platform project: override x64 from Directory.Build.props -->
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
-  <!-- Designer files for UserControls -->
+  <!-- Windows-dependent files moved to Platform.Windows -->
   <ItemGroup>
-    <EmbeddedResource Include="SmartContentEditor.resx">
-      <DependentUpon>SmartContentEditor.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Remove="SmartContentEditor.cs" />
+    <Compile Remove="PluginDiagnostics.cs" />
+    <Compile Remove="HtmlScreenCapture.cs" />
+    <Compile Remove="PluginHttpRequest.cs" />
+    <Compile Remove="TaskServices.cs" />
+    <Compile Remove="HtmlServices.cs" />
+    <Compile Remove="AdaptiveHtmlObject.cs" />
+    <EmbeddedResource Remove="SmartContentEditor.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
 
   <!-- Project References -->
   <ItemGroup>
-    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
   </ItemGroup>
 
 </Project>

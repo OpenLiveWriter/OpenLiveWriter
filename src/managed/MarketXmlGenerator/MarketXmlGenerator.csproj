@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
-    <Compile Include="..\GlobalAssemblyVersionInfo.cs" Link="GlobalAssemblyVersionInfo.cs" />
+    <Compile Include="..\GlobalAssemblyVersionInfo.cs" Link="GlobalAssemblyVersionInfo.cs" Condition="Exists('..\GlobalAssemblyVersionInfo.cs')" />
   </ItemGroup>
 
   <ItemGroup>

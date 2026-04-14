@@ -210,7 +210,7 @@ namespace OpenLiveWriter.PostEditor
                 {
                     try
                     {
-                        selectedContentSource.Instance.EditOptions(FindForm());
+                        selectedContentSource.Instance.EditOptions(new CoreServices.BlogClientUIContextAdapter(FindForm()));
                     }
                     catch (NotImplementedException ex)
                     {

@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Windows.Forms;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.Api
 {
@@ -26,8 +26,8 @@ namespace OpenLiveWriter.Api
         /// Edit the plugins global options. This method can be called if the value of the
         /// HasEditableOptions property WriterPluginAttribute is true (default is false).
         /// </summary>
-        /// <param name="dialogOwner">Owner for the options dialog.</param>
-        public virtual void EditOptions(IWin32Window dialogOwner)
+        /// <param name="dialogOwner">Owner context for the options dialog.</param>
+        public virtual void EditOptions(IBlogClientUIContext dialogOwner)
         {
             throw new NotImplementedException("WriterPlugin.EditOptions");
         }

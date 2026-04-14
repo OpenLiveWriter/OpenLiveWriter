@@ -15,6 +15,7 @@ using OpenLiveWriter.CoreServices.Diagnostics;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Settings;
 using OpenLiveWriter.Interop.Windows;
+using RegistrySettingsPersister = OpenLiveWriter.CoreServices.Settings.RegistrySettingsPersister;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.PostEditor.JumpList;

@@ -189,7 +189,7 @@ namespace OpenLiveWriter.PostEditor.LiveClipboard
             {
                 if (formatHandler.ContentSource.WriterPluginHasEditableOptions)
                 {
-                    formatHandler.ContentSource.Instance.EditOptions(FindForm());
+                    formatHandler.ContentSource.Instance.EditOptions(new CoreServices.BlogClientUIContextAdapter(FindForm()));
                 }
             }
         }

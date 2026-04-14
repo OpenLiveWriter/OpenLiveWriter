@@ -4,7 +4,7 @@
 using System;
 using System.Drawing;
 using System.Xml;
-using System.Windows.Forms;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.Api
 {
@@ -26,12 +26,12 @@ namespace OpenLiveWriter.Api
         /// Create content using an Insert dialog. Plugin classes which override this method must
         /// also be declared with the InsertableContentSourceAttribute.
         /// </summary>
-        /// <param name="dialogOwner">Owner for any dialogs shown.</param>
+        /// <param name="dialogOwner">Owner context for any dialogs shown.</param>
         /// <param name="newContent">SmartContent object which is populated with initial values by this method.</param>
         /// <returns>DialogResult.OK if content was successfully created, DialogResult.Cancel
         /// if the user cancels the Insert dialog.</returns>
         /// <exception cref="ContentCreationException">Thrown if an error occurs during the creation of content.</exception>
-        public virtual DialogResult CreateContent(IWin32Window dialogOwner, ISmartContent newContent)
+        public virtual DialogResult CreateContent(IBlogClientUIContext dialogOwner, ISmartContent newContent)
         {
             throw new NotImplementedException("SmartContentSource.CreateContent");
         }
@@ -40,13 +40,13 @@ namespace OpenLiveWriter.Api
         /// Create content using the contents of a LiveClipboard Xml document. Plugin classes which override
         /// this method must also be declared with the LiveClipboardContentSourceAttribute.
         /// </summary>
-        /// <param name="dialogOwner">Owner for any dialogs shown.</param>
+        /// <param name="dialogOwner">Owner context for any dialogs shown.</param>
         /// <param name="lcDocument">LiveClipboard Xml document</param>
         /// <param name="newContent">SmartContent object which is populated with initial values by this method.</param>
         /// <returns>DialogResult.OK if content was successfully created, DialogResult.Cancel
         /// if the user cancels the Insert dialog.</returns>
         /// <exception cref="ContentCreationException">Thrown if an error occurs during the creation of content.</exception>
-        public virtual DialogResult CreateContentFromLiveClipboard(IWin32Window dialogOwner, XmlDocument lcDocument, ISmartContent newContent)
+        public virtual DialogResult CreateContentFromLiveClipboard(IBlogClientUIContext dialogOwner, XmlDocument lcDocument, ISmartContent newContent)
         {
             throw new NotImplementedException("SmartContentSource.CreateContentFromLiveClipboard");
         }
@@ -93,8 +93,8 @@ namespace OpenLiveWriter.Api
         /// is selected within the PostEditor. This method must be overridden by all subclasses of SmartContentSource.
         /// </summary>
         /// <param name="editorSite">Interface to the SmartContentEditor's site.</param>
-        /// <returns>A new instance of a class derived from SmartContentEditor.</returns>
-        public abstract SmartContentEditor CreateEditor(ISmartContentEditorSite editorSite);
+        /// <returns>A new instance of a class implementing ISmartContentEditor.</returns>
+        public abstract ISmartContentEditor CreateEditor(ISmartContentEditorSite editorSite);
 
         /// <summary>
         /// Resize capabilities for this SmartContentSource (defaults to ResizeCapabilities.None).

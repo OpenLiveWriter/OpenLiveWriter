@@ -3,7 +3,9 @@
 
 using System.Windows.Forms;
 using OpenLiveWriter.Api;
+using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.PostEditor.Video
 {
@@ -27,10 +29,11 @@ namespace OpenLiveWriter.PostEditor.Video
             Service
         }
 
-        public override DialogResult CreateContent(IWin32Window dialogOwner, ISmartContent content)
+        public override OpenLiveWriter.Api.DialogResult CreateContent(IBlogClientUIContext dialogOwner, ISmartContent content)
         {
+            var ownerWindow = new Win32WindowImpl(dialogOwner.NativeWindowHandle);
             MessageBox.Show(
-                dialogOwner,
+                ownerWindow,
                 "The Video embed feature is no longer available.\n\n" +
                 "This feature relied on Flash-based video embeds (YouTube, Google Video, etc.) " +
                 "which are no longer supported by browsers since Flash was discontinued in 2020.\n\n" +
@@ -40,10 +43,10 @@ namespace OpenLiveWriter.PostEditor.Video
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
-            return DialogResult.Cancel;
+            return OpenLiveWriter.Api.DialogResult.Cancel;
         }
 
-        public override SmartContentEditor CreateEditor(ISmartContentEditorSite contentEditorSite)
+        public override ISmartContentEditor CreateEditor(ISmartContentEditorSite contentEditorSite)
         {
             return null;
         }

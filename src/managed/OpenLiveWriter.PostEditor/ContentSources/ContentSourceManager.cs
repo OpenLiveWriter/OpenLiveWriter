@@ -786,7 +786,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                         sContent = new SmartContent(extensionData);
                     }
 
-                    if (scSource.CreateContent(sourceSite.DialogOwner, sContent) == DialogResult.OK)
+                    if (scSource.CreateContent(new BlogClientUIContextAdapter(sourceSite.DialogOwner), sContent) == OpenLiveWriter.Api.DialogResult.OK)
                     {
                         string content = scSource.GenerateEditorHtml(sContent, sourceSite);
                         if (content != null)
@@ -805,7 +805,7 @@ namespace OpenLiveWriter.PostEditor.ContentSources
                     string newContent = String.Empty; // default
                     try { if (sourceSite.SelectedHtml != null) newContent = sourceSite.SelectedHtml; }
                     catch { } // safely try to provide selected html
-                    if (sSource.CreateContent(sourceSite.DialogOwner, ref newContent) == DialogResult.OK)
+                    if (sSource.CreateContent(new BlogClientUIContextAdapter(sourceSite.DialogOwner), ref newContent) == OpenLiveWriter.Api.DialogResult.OK)
                     {
                         sourceSite.InsertContent(newContent, contentSource.Id == WebImageContentSource.ID);
                         sourceSite.Focus();

@@ -42,6 +42,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Extensibility\OpenLiveWriter.Extensibility.csproj" />

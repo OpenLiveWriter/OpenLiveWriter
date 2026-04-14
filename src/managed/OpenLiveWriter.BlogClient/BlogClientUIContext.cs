@@ -18,8 +18,9 @@ namespace OpenLiveWriter.BlogClient
     /// Required capabilities for a blog client ui context:
     ///		- IWin32Window for dialog ownership/parenting
     ///		- ISynchronizeInvoke for showing dialogs back on the UI thread
+    ///		- OpenLiveWriter.Platform.IBlogClientUIContext for cross-platform API compatibility
     /// </summary>
-    public interface IBlogClientUIContext : IWin32Window, ISynchronizeInvoke
+    public interface IBlogClientUIContext : IWin32Window, ISynchronizeInvoke, OpenLiveWriter.Platform.IBlogClientUIContext
     {
     }
 
@@ -31,6 +32,7 @@ namespace OpenLiveWriter.BlogClient
         public BlogClientUIContextImpl(Form form) { _dialogOwner = form; _invokeTarget = form; }
         public BlogClientUIContextImpl(IWin32Window dialogOwner, ISynchronizeInvoke invokeContext) { _dialogOwner = dialogOwner; _invokeTarget = invokeContext; }
         public IntPtr Handle { get { return _dialogOwner.Handle; } }
+        public IntPtr NativeWindowHandle { get { return Handle; } }
         public bool InvokeRequired { get { return _invokeTarget.InvokeRequired; } }
         public IAsyncResult BeginInvoke(Delegate method, object[] args) { return _invokeTarget.BeginInvoke(method, args); }
         public object EndInvoke(IAsyncResult result) { return _invokeTarget.EndInvoke(result); }

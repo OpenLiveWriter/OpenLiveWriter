@@ -2,7 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Windows.Forms;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.Api
 {
@@ -24,13 +24,13 @@ namespace OpenLiveWriter.Api
         /// unless this plugin or another publishing notification plugin cancels the
         /// attempt.
         /// </summary>
-        /// <param name="dialogOwner">Owner for any dialog boxes shown.</param>
+        /// <param name="dialogOwner">Owner context for any dialog boxes shown.</param>
         /// <param name="properties">Property-set that the plugin can use to get and set properties for this post.</param>
         /// <param name="publishingContext">Publishing context for HTML generation.</param>
         /// <param name="publish">If false, the post is being posted as a draft.</param>
         /// <returns>False to cancel the publish operation, otherwise true.</returns>
         public virtual bool OnPrePublish(
-            IWin32Window dialogOwner,
+            IBlogClientUIContext dialogOwner,
             IProperties properties,
             IPublishingContext publishingContext,
             bool publish)
@@ -41,12 +41,12 @@ namespace OpenLiveWriter.Api
         /// <summary>
         /// Notifies the plugin that a blog post was successfully published.
         /// </summary>
-        /// <param name="dialogOwner">Owner for any dialog boxes shown.</param>
+        /// <param name="dialogOwner">Owner context for any dialog boxes shown.</param>
         /// <param name="properties">Property-set that the plugin can use to get and set properties for this post.</param>
         /// <param name="publishingContext">Publishing context for HTML generation.</param>
         /// <param name="publish">If false, the post was posted as a draft.</param>
         public virtual void OnPostPublish(
-            IWin32Window dialogOwner,
+            IBlogClientUIContext dialogOwner,
             IProperties properties,
             IPublishingContext publishingContext,
             bool publish)

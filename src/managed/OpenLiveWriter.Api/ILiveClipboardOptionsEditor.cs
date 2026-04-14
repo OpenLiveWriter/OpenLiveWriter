@@ -2,12 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Windows.Forms;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.Api
 {
     public interface ILiveClipboardOptionsEditor
     {
-        void EditLiveClipboardOptions(IWin32Window dialogOwner) ;
+        void EditLiveClipboardOptions(IBlogClientUIContext dialogOwner) ;
     }
 }

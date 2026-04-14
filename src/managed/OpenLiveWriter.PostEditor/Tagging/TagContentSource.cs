@@ -3,7 +3,9 @@
 
 using System.Windows.Forms;
 using OpenLiveWriter.Api;
+using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.PostEditor.Tagging
 {
@@ -32,29 +34,30 @@ namespace OpenLiveWriter.PostEditor.Tagging
             return FormTagLinks(content);
         }
 
-        public override DialogResult CreateContent(IWin32Window dialogOwner, ISmartContent newContent)
+        public override OpenLiveWriter.Api.DialogResult CreateContent(IBlogClientUIContext dialogOwner, ISmartContent newContent)
         {
             IBlogContext blogContext = dialogOwner as IBlogContext;
             if (blogContext != null)
                 _currentBlogId = blogContext.CurrentAccountId;
 
+            var ownerWindow = new Win32WindowImpl(dialogOwner.NativeWindowHandle);
             TagContext context = new TagContext(newContent, Options, _currentBlogId);
             using (TagForm form = new TagForm(context))
             {
-                DialogResult result = form.ShowDialog(dialogOwner);
-                if (result == DialogResult.OK)
+                System.Windows.Forms.DialogResult result = form.ShowDialog(ownerWindow);
+                if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     context.Tags = form.Tags;
                     context.CurrentProvider = form.TagProvider;
                     context.AddTagsToHistory(form.Tags);
                 }
-                return result;
+                return result == System.Windows.Forms.DialogResult.OK ? OpenLiveWriter.Api.DialogResult.OK : OpenLiveWriter.Api.DialogResult.Cancel;
             }
         }
 
         private string _currentBlogId = null;
 
-        public override SmartContentEditor CreateEditor(ISmartContentEditorSite editorSite)
+        public override ISmartContentEditor CreateEditor(ISmartContentEditorSite editorSite)
         {
             return new TagSmartContentEditor(Options, new CurrentBlogId(GetCurrentBlogId));
         }
@@ -80,11 +83,12 @@ namespace OpenLiveWriter.PostEditor.Tagging
             return context.CurrentProvider.GenerateHtmlForTags(context.Tags);
         }
 
-        public override void EditOptions(IWin32Window dialogOwner)
+        public override void EditOptions(IBlogClientUIContext dialogOwner)
         {
+            var ownerWindow = new Win32WindowImpl(dialogOwner.NativeWindowHandle);
             TagOptions options = new TagOptions();
             options.Initialize(new TagProviderManager(Options));
-            options.ShowDialog(dialogOwner);
+            options.ShowDialog(ownerWindow);
         }
 
     }

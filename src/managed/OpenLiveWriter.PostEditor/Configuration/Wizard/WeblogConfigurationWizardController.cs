@@ -1027,6 +1027,7 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
         #region IBlogClientUIContext Members
 
         IntPtr IWin32Window.Handle { get { return _wizardForm.Handle; } }
+        IntPtr OpenLiveWriter.Platform.IBlogClientUIContext.NativeWindowHandle { get { return _wizardForm.Handle; } }
         bool ISynchronizeInvoke.InvokeRequired { get { return _wizardForm.InvokeRequired; } }
         IAsyncResult ISynchronizeInvoke.BeginInvoke(Delegate method, object[] args) { return _wizardForm.BeginInvoke(method, args); }
         object ISynchronizeInvoke.EndInvoke(IAsyncResult result) { return _wizardForm.EndInvoke(result); }

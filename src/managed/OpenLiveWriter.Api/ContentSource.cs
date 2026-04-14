@@ -3,7 +3,7 @@
 
 using System;
 using System.Xml;
-using System.Windows.Forms;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.Api
 {
@@ -25,12 +25,12 @@ namespace OpenLiveWriter.Api
         /// Create content using an Insert dialog. Plugin classes which override this method must
         /// also be declared with the InsertableContentSourceAttribute.
         /// </summary>
-        /// <param name="dialogOwner">Owner for any dialogs shown.</param>
+        /// <param name="dialogOwner">Owner context for any dialogs shown.</param>
         /// <param name="content">Newly created content.</param>
         /// <returns>DialogResult.OK if content was successfully created, DialogResult.Cancel
         /// if the user cancels the Insert dialog.</returns>
         /// <exception cref="ContentCreationException">Thrown if an error occurs during the creation of content.</exception>
-        public virtual DialogResult CreateContent(IWin32Window dialogOwner, ref string content)
+        public virtual DialogResult CreateContent(IBlogClientUIContext dialogOwner, ref string content)
         {
             throw new NotImplementedException("ContentSource.CreateContent");
         }
@@ -39,13 +39,13 @@ namespace OpenLiveWriter.Api
         /// Create content using the contents of a LiveClipboard Xml document. Plugin classes which override
         /// this method must also be declared with the LiveClipboardContentSourceAttribute.
         /// </summary>
-        /// <param name="dialogOwner">Owner for any dialogs shown.</param>
+        /// <param name="dialogOwner">Owner context for any dialogs shown.</param>
         /// <param name="lcDocument">LiveClipboard Xml document</param>
         /// <param name="newContent">Newly created content.</param>
         /// <returns>DialogResult.OK if content was successfully created, DialogResult.Cancel
         /// if the user cancels the Insert dialog.</returns>
         /// <exception cref="ContentCreationException">Thrown if an error occurs during the creation of content.</exception>
-        public virtual DialogResult CreateContentFromLiveClipboard(IWin32Window dialogOwner, XmlDocument lcDocument, ref string newContent)
+        public virtual DialogResult CreateContentFromLiveClipboard(IBlogClientUIContext dialogOwner, XmlDocument lcDocument, ref string newContent)
         {
             throw new NotImplementedException("ContentSource.CreateContentFromLiveClipboard");
         }

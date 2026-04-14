@@ -12,6 +12,7 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Controls;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.Localization;
+using DialogResult = System.Windows.Forms.DialogResult;
 
 namespace OpenLiveWriter.InternalWriterPlugin
 {
