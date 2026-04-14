@@ -71,6 +71,7 @@
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform.Windows\OpenLiveWriter.Platform.Windows.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.ApplicationFramework\OpenLiveWriter.ApplicationFramework.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.BlogClient\OpenLiveWriter.BlogClient.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj" />

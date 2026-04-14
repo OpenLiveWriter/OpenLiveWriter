@@ -19,6 +19,7 @@ using OpenLiveWriter.Localization;
 using OpenLiveWriter.PostEditor;
 using OpenLiveWriter.PostEditor.JumpList;
 using OpenLiveWriter.PostEditor.Updates;
+using OpenLiveWriter.Platform.Windows;
 using OpenLiveWriter.WebView2Shim;
 using Squirrel;
 
@@ -42,6 +43,9 @@ namespace OpenLiveWriter
             // Configure the DefaultTraceListener to show a dialog instead of terminating the process.
             // This restores the .NET Framework behavior for debug assertions.
             ConfigureDebugAssertBehavior();
+
+            // Initialize platform-specific services for Windows
+            WindowsPlatformInitializer.Initialize();
 
 // WinLive 281407: Remove the current working directory from the dll search path
             // This prevents a rogue dll (wlidcli.dll) from being loaded while doing
