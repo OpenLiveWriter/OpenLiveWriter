@@ -61,6 +61,7 @@
     <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.InternalWriterPlugin\OpenLiveWriter.InternalWriterPlugin.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform.Windows\OpenLiveWriter.Platform.Windows.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.SpellChecker\OpenLiveWriter.SpellChecker.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.WebView2Shim\OpenLiveWriter.WebView2Shim.csproj" />

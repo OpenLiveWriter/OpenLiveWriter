@@ -48,6 +48,7 @@
     <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform.Windows\OpenLiveWriter.Platform.Windows.csproj" />
   </ItemGroup>
 
 </Project>
