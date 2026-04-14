@@ -12,9 +12,33 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
   </ItemGroup>
 
+  <!-- Exclude legacy/obsolete files moved from CoreServices -->
   <ItemGroup>
-    <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
+    <Compile Remove="CoreServices\HTML\WebPageDownloader.cs" />
+    <Compile Remove="CoreServices\HTML\AsyncPageDownload.cs" />
+  </ItemGroup>
+
+  <!-- Embedded resources from moved CoreServices files -->
+  <ItemGroup>
+    <EmbeddedResource Include="CoreServices\Diagnostics\Images\ErrorLogoSmall.png" />
+  </ItemGroup>
+
+  <!-- Reference to interop DLL -->
+  <ItemGroup>
+    <Reference Include="OpenLiveWriter.Interop.SHDocVw">
+      <HintPath>..\OpenLiveWriter.Interop\Com\OpenLiveWriter.Interop.SHDocVw.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Project References -->
+  <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Interop.Mshtml\OpenLiveWriter.Interop.Mshtml.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
   </ItemGroup>
 
 </Project>

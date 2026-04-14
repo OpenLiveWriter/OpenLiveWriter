@@ -35,7 +35,7 @@ namespace OpenLiveWriter.CoreServices.Diagnostics
         /// the message that should be shown, or null if no message
         /// should be shown to the user.
         /// </summary>
-        internal bool GetMessage(out ExceptionMessage message, Exception e)
+        public bool GetMessage(out ExceptionMessage message, Exception e)
         {
             Type t = e.GetType();
             for (int i = 0; i < handlers.Count; i++)

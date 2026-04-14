@@ -39,7 +39,7 @@ namespace OpenLiveWriter.CoreServices
     /// // Stream disposal automatically marks the response as closed
     /// </code>
     /// </summary>
-    internal static class CloseTrackingHttpWebRequest
+    public static class CloseTrackingHttpWebRequest
     {
         // Track responses that haven't been closed yet
         private static readonly ConcurrentDictionary<int, ResponseTracker> _trackedResponses = new();
