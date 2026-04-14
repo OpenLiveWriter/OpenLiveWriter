@@ -1,13 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.Localization</AssemblyName>
     <RootNamespace>OpenLiveWriter.Localization</RootNamespace>
     <ProjectGuid>{DF928A2F-38E3-4B1F-83CE-1FDFDE836D84}</ProjectGuid>
+    <TargetFramework>net10.0</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <!-- NuGet packages for cross-platform drawing support -->
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="System.Resources.Extensions" />
   </ItemGroup>
 
   <!-- Embedded Resources - use Update for auto-included .resx files -->
@@ -38,11 +46,6 @@
   <!-- None items (not copied to output) -->
   <ItemGroup>
     <None Include="Strings.csv" />
-  </ItemGroup>
-
-  <!-- Project References -->
-  <ItemGroup>
-    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
   </ItemGroup>
 
 </Project>

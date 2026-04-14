@@ -8,8 +8,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
-using System.Windows.Forms;
-using OpenLiveWriter.Interop.Windows;
 using Timer = System.Timers.Timer;
 
 namespace OpenLiveWriter.CoreServices
@@ -225,7 +223,8 @@ namespace OpenLiveWriter.CoreServices
             string fileExt = Path.GetExtension(pattern);
 
             // Fix 597390: Watson: System.IO.PathTooLongException: The specified path, file name, or both are too long
-            if ((tempPath.Length + fileName.Length + fileExt.Length + 20 > Kernel32.MAX_PATH) && fileName.Length > 30)
+            // MAX_PATH = 260 (Windows path length limit, used as a practical default)
+            if ((tempPath.Length + fileName.Length + fileExt.Length + 20 > 260) && fileName.Length > 30)
             {
                 fileName = StringHelper.RestrictLength(fileName, 30);
             }
