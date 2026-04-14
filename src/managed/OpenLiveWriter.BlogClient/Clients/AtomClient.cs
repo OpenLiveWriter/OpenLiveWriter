@@ -9,9 +9,9 @@ using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using System.Xml;
 using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Platform;
 using OpenLiveWriter.CoreServices.Diagnostics;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.BlogClient.Providers;
@@ -530,7 +530,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         public static bool ConfirmOverwrite()
         {
-            return DialogResult.Yes == BlogClientUIContext.ShowDisplayMessageOnUIThread(MessageId.ConfirmOverwrite);
+            return DialogResultValue.Yes == BlogClientUIContext.ShowDisplayMessageOnUIThread(nameof(MessageId.ConfirmOverwrite));
         }
 
         protected virtual bool AttemptEditPostRecover(Exception e, string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)

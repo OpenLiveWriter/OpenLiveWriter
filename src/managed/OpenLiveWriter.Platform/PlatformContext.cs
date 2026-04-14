@@ -18,19 +18,28 @@ namespace OpenLiveWriter.Platform
         public static ICredentialStorage Credentials { get; private set; }
         public static IBidiSupport Bidi { get; private set; }
         public static ISpellCheckProvider SpellCheck { get; private set; }
+        public static IDialogService DialogService { get; private set; }
+        public static ICredentialsPrompter CredentialsPrompter { get; private set; }
+        public static ICaptchaHelper CaptchaHelper { get; private set; }
 
         public static void Initialize(
             IPlatformServices services,
             IDisplayHelper display,
             ICredentialStorage credentials,
             IBidiSupport bidi,
-            ISpellCheckProvider spellCheck)
+            ISpellCheckProvider spellCheck,
+            IDialogService dialogService = null,
+            ICredentialsPrompter credentialsPrompter = null,
+            ICaptchaHelper captchaHelper = null)
         {
             Services = services ?? throw new ArgumentNullException(nameof(services));
             Display = display ?? throw new ArgumentNullException(nameof(display));
             Credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
             Bidi = bidi ?? throw new ArgumentNullException(nameof(bidi));
             SpellCheck = spellCheck ?? throw new ArgumentNullException(nameof(spellCheck));
+            DialogService = dialogService;
+            CredentialsPrompter = credentialsPrompter;
+            CaptchaHelper = captchaHelper;
             _initialized = true;
         }
 
@@ -50,6 +59,9 @@ namespace OpenLiveWriter.Platform
             Credentials = null;
             Bidi = null;
             SpellCheck = null;
+            DialogService = null;
+            CredentialsPrompter = null;
+            CaptchaHelper = null;
             _initialized = false;
         }
     }

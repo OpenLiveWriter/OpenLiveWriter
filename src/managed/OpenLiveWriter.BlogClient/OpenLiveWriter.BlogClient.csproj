@@ -1,15 +1,32 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <AssemblyName>OpenLiveWriter.BlogClient</AssemblyName>
     <RootNamespace>OpenLiveWriter.BlogClient</RootNamespace>
     <ProjectGuid>{FE2EA529-26E6-42C3-9F6A-E58966995FFE}</ProjectGuid>
+    <!-- Retargeted: WinForms disabled, all WinForms UI moved to Platform.Windows.
+         Uses net10.0-windows to remain compatible with dependent projects (Api, CoreServices, etc.)
+         that still target net10.0-windows. Will retarget to net10.0 when dependencies are also migrated. -->
+    <UseWindowsForms>false</UseWindowsForms>
     <!-- Suppress obsolete warnings during migration -->
     <NoWarn>$(NoWarn);CS0618</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <!-- Exclude Windows-specific files that depend on mshtml COM interop, Platform.Windows
+       (HTMLDocumentHelper, PageToDownloadFactory), and OpenLiveWriter.Mshtml (MshtmlMarkupServices).
+       These files will be compiled as part of a Windows-specific build or Platform.Windows. -->
+  <ItemGroup>
+    <Compile Remove="Detection\BlogEditingTemplateDetector.cs" />
+    <Compile Remove="Detection\BlogEditingTemplateStrategy.cs" />
+    <Compile Remove="Detection\BlogPostRegionLocatorStrategy.cs" />
+    <Compile Remove="Detection\BlogServiceDetector.cs" />
+    <Compile Remove="Detection\RsdServiceDetector.cs" />
+    <Compile Remove="Detection\WriterEditingManifest.cs" />
+    <Compile Remove="ImageViewers\DhtmlImageViewers.cs" />
   </ItemGroup>
 
   <!-- Embedded Resources - images -->
@@ -41,13 +58,11 @@
   <!-- Project References -->
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.Api\OpenLiveWriter.Api.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.BrowserControl\OpenLiveWriter.BrowserControl.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Controls\OpenLiveWriter.Controls.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.CoreServices\OpenLiveWriter.CoreServices.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Extensibility\OpenLiveWriter.Extensibility.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj" />
-    <ProjectReference Include="..\OpenLiveWriter.Interop\OpenLiveWriter.Interop.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Localization\OpenLiveWriter.Localization.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform\OpenLiveWriter.Platform.csproj" />
   </ItemGroup>
 
 </Project>

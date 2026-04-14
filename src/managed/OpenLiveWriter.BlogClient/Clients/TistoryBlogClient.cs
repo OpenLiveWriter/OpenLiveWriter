@@ -17,7 +17,6 @@ using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.HtmlParser.Parser;
 using System.Web;
 using OpenLiveWriter.HtmlParser.Parser.FormAgent;
-using System.Windows.Forms;
 using System.Collections.Specialized;
 
 namespace OpenLiveWriter.BlogClient.Clients

@@ -4,8 +4,11 @@
     <AssemblyName>OpenLiveWriter.Interop.Mshtml</AssemblyName>
     <RootNamespace>OpenLiveWriter.Interop.Mshtml</RootNamespace>
     <ProjectGuid>{102B4586-3CDB-4DC2-A918-8377B6915BB4}</ProjectGuid>
-    <!-- This project does not use Windows Forms -->
+    <!-- COM interface declarations only - cross-platform compatible -->
+    <TargetFramework>net10.0</TargetFramework>
     <UseWindowsForms>false</UseWindowsForms>
+    <!-- Cross-platform project: override x64 from Directory.Build.props -->
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

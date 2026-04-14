@@ -9,17 +9,18 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
+using OpenLiveWriter.Platform;
 
-namespace OpenLiveWriter.BlogClient.Clients
+namespace OpenLiveWriter.Platform.Windows.BlogClient
 {
     /// <summary>
-    /// Summary description for BlogClientLoginDialog.
+    /// WinForms login dialog for blog client credential prompting.
     /// </summary>
     public class BlogClientLoginDialog : BaseForm
     {
         private Button buttonCancel;
         private Button buttonOK;
-        private OpenLiveWriter.BlogClient.Clients.BlogClientLoginControl blogClientLoginControl;
+        private BlogClientLoginControl blogClientLoginControl;
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -62,7 +63,7 @@ namespace OpenLiveWriter.BlogClient.Clients
         {
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.blogClientLoginControl = new OpenLiveWriter.BlogClient.Clients.BlogClientLoginControl();
+            this.blogClientLoginControl = new BlogClientLoginControl();
             this.SuspendLayout();
             //
             // buttonOK
@@ -160,7 +161,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
         }
 
-        public ICredentialsDomain Domain
+        public ICredentialsDomainInfo Domain
         {
             get { return blogClientLoginControl.Domain; }
             set { blogClientLoginControl.Domain = value; }

@@ -12,13 +12,11 @@ using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Forms;
 using System.Xml;
 using OpenLiveWriter.Api;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Progress;
 using OpenLiveWriter.Extensibility.BlogClient;
-using OpenLiveWriter.Interop.Windows;
 
 namespace OpenLiveWriter.BlogClient.Clients
 {

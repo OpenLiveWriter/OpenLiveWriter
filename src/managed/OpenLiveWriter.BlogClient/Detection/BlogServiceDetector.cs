@@ -10,13 +10,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using System.Threading;
 using mshtml;
 using OpenLiveWriter.BlogClient.Clients;
 using OpenLiveWriter.BlogClient.Providers;
-using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Platform;
 using OpenLiveWriter.CoreServices.Diagnostics;
 using OpenLiveWriter.CoreServices.Progress;
 using OpenLiveWriter.Extensibility.BlogClient;
@@ -804,11 +803,11 @@ namespace OpenLiveWriter.BlogClient.Detection
             set { availableImageEndpoints = value; }
         }
 
-        public void ShowLastError(IWin32Window owner)
+        public void ShowLastError(IntPtr ownerHandle)
         {
             if (ErrorOccurred)
             {
-                DisplayMessage.Show(_errorMessageType, owner, _errorMessageParams);
+                PlatformContext.DialogService?.ShowMessage(_errorMessageType.ToString(), ownerHandle, _errorMessageParams);
             }
             else
             {

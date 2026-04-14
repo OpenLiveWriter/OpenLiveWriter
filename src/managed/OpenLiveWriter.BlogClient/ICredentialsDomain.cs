@@ -2,21 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
+using OpenLiveWriter.Platform;
 
 namespace OpenLiveWriter.BlogClient
 {
-    public interface ICredentialsDomain
+    public interface ICredentialsDomain : ICredentialsDomainInfo
     {
-        string Name { get; }
-        string Description { get; }
-        byte[] Icon { get; }
-        byte[] Image { get; }
-        bool AllowsSavePassword { get; }
     }
 
     public class CredentialsDomain : ICredentialsDomain

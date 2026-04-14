@@ -14,10 +14,10 @@ using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Layout;
 using OpenLiveWriter.Localization;
 
-namespace OpenLiveWriter.BlogClient.Clients
+namespace OpenLiveWriter.Platform.Windows.BlogClient
 {
     /// <summary>
-    /// Summary description for GDataCaptchaForm.
+    /// WinForms captcha dialog for GData authentication.
     /// </summary>
     public class GDataCaptchaForm : BaseForm
     {

@@ -9,14 +9,15 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
 using System.Xml;
 using mshtml;
-using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Progress;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Localization;
+using OpenLiveWriter.Platform;
+
+using IBlogClientUIContext = OpenLiveWriter.Platform.IBlogClientUIContext;
 
 namespace OpenLiveWriter.BlogClient.Detection
 {
@@ -99,11 +100,10 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         public override void PrepareRegions(IProgressHost progress)
         {
-            TempPostWarningHelper helper = new TempPostWarningHelper(BlogClientUIContext.ContextForCurrentThread);
+            var result = BlogClientUIContext.ShowDisplayMessageOnUIThread(
+                nameof(MessageId.TempPostPermission), ApplicationEnvironment.ProductName_Short);
 
-            BlogClientUIContext.ContextForCurrentThread.Invoke(new ThreadStart(helper.ShowWarningDialog), null);
-
-            if (helper.DialogResult == DialogResult.Yes)
+            if (result == DialogResultValue.Yes)
             {
                 PrepareRegionsUsingTemporaryPost(progress);
             }
@@ -159,23 +159,8 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
         }
 
-        internal class TempPostWarningHelper
-        {
-            private readonly IWin32Window _owner;
-            private DialogResult _dialogResult;
-
-            public TempPostWarningHelper(IWin32Window owner)
-            {
-                _owner = owner;
-            }
-
-            public DialogResult DialogResult { get { return _dialogResult; } }
-
-            public void ShowWarningDialog()
-            {
-                _dialogResult = DisplayMessage.Show(MessageId.TempPostPermission, _owner, ApplicationEnvironment.ProductName_Short);
-            }
-        }
+        // TempPostWarningHelper removed; replaced with direct call to
+        // BlogClientUIContext.ShowDisplayMessageOnUIThread in PrepareRegions.
 
         private BlogPost PostTemplate(IProgressHost progress)
         {
@@ -271,7 +256,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             {
                 Trace.Fail("Unexpected exception occurred while deleting temporary post: " + ex.ToString());
                 //show a message that user needs to delete their post
-                DisplayMessage.Show(MessageId.TempPostDeleteFailed);
+                BlogClientUIContext.ShowDisplayMessageOnUIThread(nameof(MessageId.TempPostDeleteFailed));
             }
         }
 

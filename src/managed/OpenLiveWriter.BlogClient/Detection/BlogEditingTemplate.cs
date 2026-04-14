@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
 
@@ -45,7 +46,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             }
 
             //sandbox the template in the Internet Security zone
-            template = HTMLDocumentHelper.AddMarkOfTheWeb(template, "about:internet");
+            template = HtmlTemplateHelper.AddMarkOfTheWeb(template, "about:internet");
             Template = template;
         }
         public readonly string Template;
@@ -110,5 +111,45 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         private static string defaultDocType = "";
 
+    }
+
+    /// <summary>
+    /// Cross-platform helper for HTML template manipulation.
+    /// Replaces direct usage of HTMLDocumentHelper which lives in Platform.Windows.
+    /// </summary>
+    internal static class HtmlTemplateHelper
+    {
+        private const string DEFAULT_MOTW_DOCTYPE = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
+
+        public static string AddMarkOfTheWeb(string html, string webUrl)
+        {
+            Regex docType = new Regex("<!DOCTYPE[^>]*>");
+            Regex savedFrom = new Regex("<!-- saved from url.* -->");
+
+            // Remove the existing savedFrom
+            Match m = savedFrom.Match(html);
+            if (m.Success)
+            {
+                html = html.Remove(m.Index, m.Length);
+            }
+
+            int markOffset = 0;
+            m = docType.Match(html);
+            if (m.Success && html.Substring(0, m.Index).Trim() == String.Empty)
+            {
+                markOffset = m.Index + m.Length;
+            }
+
+            string markOfTheWeb = string.Format(CultureInfo.InvariantCulture, "<!-- saved from url=({0:0000}){1} -->\r\n", webUrl.Length, webUrl);
+            html = html.Insert(markOffset, markOfTheWeb);
+
+            if (markOffset == 0)
+            {
+                // Prepend a default docType declaration
+                html = DEFAULT_MOTW_DOCTYPE + "\r\n" + html;
+            }
+
+            return html;
+        }
     }
 }

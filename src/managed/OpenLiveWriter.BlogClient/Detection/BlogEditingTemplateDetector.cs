@@ -1,9 +1,9 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using System.ComponentModel;
 using mshtml;
 using OpenLiveWriter.BlogClient.Clients;
-using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Progress;
 using OpenLiveWriter.Extensibility.BlogClient;
@@ -19,7 +19,9 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
+using OpenLiveWriter.Platform;
+
+using IBlogClientUIContext = OpenLiveWriter.Platform.IBlogClientUIContext;
 
 namespace OpenLiveWriter.BlogClient.Detection
 {
@@ -43,7 +45,7 @@ namespace OpenLiveWriter.BlogClient.Detection
     public class BlogEditingTemplateDetector
     {
 
-        public static BlogEditingTemplateFile[] DetectTemplate(IBlogClientUIContext uiContext, Control parentControl, IBlogSettingsAccessor blogSettings, bool probeForManifest, out Color? postBodyBackgroundColor)
+        public static BlogEditingTemplateFile[] DetectTemplate(IBlogClientUIContext uiContext, ISynchronizeInvoke parentControl, IBlogSettingsAccessor blogSettings, bool probeForManifest, out Color? postBodyBackgroundColor)
         {
             postBodyBackgroundColor = null;
 
@@ -79,7 +81,7 @@ namespace OpenLiveWriter.BlogClient.Detection
             catch (Exception e)
             {
                 Trace.Fail("Error occurred while downloading weblog style" + e.ToString());
-                DisplayMessage.Show(MessageId.TemplateDownloadFailed);
+                BlogClientUIContext.ShowDisplayMessageOnUIThread(nameof(MessageId.TemplateDownloadFailed));
                 return new BlogEditingTemplateFile[0];
             }
 
@@ -87,7 +89,7 @@ namespace OpenLiveWriter.BlogClient.Detection
 
         private IBlogClientUIContext _uiContext;
 
-        public BlogEditingTemplateDetector(IBlogClientUIContext uiContext, Control parentControl, IBlogSettingsAccessor blogSettings, bool probeForManifest)
+        public BlogEditingTemplateDetector(IBlogClientUIContext uiContext, ISynchronizeInvoke parentControl, IBlogSettingsAccessor blogSettings, bool probeForManifest)
             : this(uiContext, parentControl)
         {
             BlogAccount blogAccount = new BlogAccount(blogSettings.ServiceName, blogSettings.ClientType, blogSettings.PostApiUrl, blogSettings.HostBlogId);
@@ -101,7 +103,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// BlogTemplateDetector will be a no-op that does not detect and download the template)
         /// </summary>
         /// <param name="parentControl"></param>
-        public BlogEditingTemplateDetector(IBlogClientUIContext uiContext, Control parentControl)
+        public BlogEditingTemplateDetector(IBlogClientUIContext uiContext, ISynchronizeInvoke parentControl)
         {
             _uiContext = uiContext;
             _parentControl = parentControl;
@@ -559,10 +561,10 @@ namespace OpenLiveWriter.BlogClient.Detection
         /// <param name="uiContext"></param>
         /// <param name="progress"></param>
         /// <returns></returns>
-        private string ParseWebpageIntoEditingTemplate_OnUIThread(Control uiContext, BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress, string postUrl)
+        private string ParseWebpageIntoEditingTemplate_OnUIThread(ISynchronizeInvoke uiContext, BlogPostRegionLocatorStrategy regionLocator, IProgressHost progress, string postUrl)
         {
             BlogEditingTemplate blogEditingTemplate = (BlogEditingTemplate)uiContext.Invoke(
-                new TemplateParser(ParseBlogPostIntoTemplate), 
+                new TemplateParser(ParseBlogPostIntoTemplate),
                 new object[] {
                     regionLocator,
                     new ProgressTick(progress, 1, 100),
@@ -679,7 +681,9 @@ namespace OpenLiveWriter.BlogClient.Detection
 
             PageDownloadContext downloadContext = new PageDownloadContext(0);
             ApplyCredentials(downloadContext, templateUrl);
-            using (PageToDownloadFactory downloadFactory = new PageToDownloadFactory(ldoc, downloadContext, _parentControl))
+            // PageToDownloadFactory requires a Control parameter for WinForms UI thread marshalling.
+            // Cast _parentControl (ISynchronizeInvoke) to dynamic to satisfy the Control parameter at runtime.
+            using (PageToDownloadFactory downloadFactory = new PageToDownloadFactory(ldoc, downloadContext, (dynamic)_parentControl))
             {
                 //calculate the dependent styles and resources
                 ProgressTick tick = new ProgressTick(progress, 50, 100);
@@ -733,7 +737,7 @@ namespace OpenLiveWriter.BlogClient.Detection
         BlogEditingTemplateStrategy templateStrategy = BlogEditingTemplateStrategies.GetTemplateStrategy(BlogEditingTemplateStrategies.StrategyType.FramedWysiwyg);
 
         // execution context
-        private Control _parentControl;
+        private ISynchronizeInvoke _parentControl;
         private bool _contextSet = false;
         private BlogAccount _blogAccount;
         private IBlogClient _blogClient;

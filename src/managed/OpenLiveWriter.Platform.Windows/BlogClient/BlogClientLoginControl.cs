@@ -2,21 +2,20 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Localization.Bidi;
 using OpenLiveWriter.CoreServices.Layout;
+using OpenLiveWriter.Platform;
 
-namespace OpenLiveWriter.BlogClient.Clients
+namespace OpenLiveWriter.Platform.Windows.BlogClient
 {
     /// <summary>
-    /// Summary description for PassportLoginControl.
+    /// WinForms login control for blog client credential prompting.
     /// </summary>
     public class BlogClientLoginControl : System.Windows.Forms.UserControl
     {
@@ -211,7 +210,7 @@ namespace OpenLiveWriter.BlogClient.Clients
             set { checkBoxSavePassword.Checked = value; }
         }
 
-        public ICredentialsDomain Domain
+        public ICredentialsDomainInfo Domain
         {
             get { return _domain; }
             set
@@ -232,7 +231,7 @@ namespace OpenLiveWriter.BlogClient.Clients
                 }
             }
         }
-        private ICredentialsDomain _domain;
+        private ICredentialsDomainInfo _domain;
         private Icon _domainIcon;
         private Image _domainImage;
 

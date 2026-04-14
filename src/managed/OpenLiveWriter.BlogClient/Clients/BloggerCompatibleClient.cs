@@ -5,13 +5,12 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Threading;
-using System.Windows.Forms;
 using System.Xml;
 using System.Web;
 using System.Net;
 using OpenLiveWriter.Api;
-using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Platform;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.Localization;
 
@@ -48,32 +47,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private void ShowError(string error)
         {
-            ShowErrorHelper helper =
-                new ShowErrorHelper(BlogClientUIContext.ContextForCurrentThread, MessageId.UnexpectedErrorLogin,
-                                    new object[] { error });
-            if (BlogClientUIContext.ContextForCurrentThread != null)
-                BlogClientUIContext.ContextForCurrentThread.Invoke(new ThreadStart(helper.Show), null);
-            else
-                helper.Show();
-        }
-
-        private class ShowErrorHelper
-        {
-            private readonly IWin32Window _owner;
-            private readonly MessageId _messageId;
-            private readonly object[] _args;
-
-            public ShowErrorHelper(IWin32Window owner, MessageId messageId, object[] args)
-            {
-                _owner = owner;
-                _messageId = messageId;
-                _args = args;
-            }
-
-            public void Show()
-            {
-                DisplayMessage.Show(_messageId, _owner, _args);
-            }
+            BlogClientUIContext.ShowDisplayMessageOnUIThread(nameof(MessageId.UnexpectedErrorLogin), error);
         }
 
         public override BlogInfo[] GetUsersBlogs()

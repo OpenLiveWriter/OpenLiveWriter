@@ -12,7 +12,6 @@ using OpenLiveWriter.BlogClient.Clients;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.CoreServices.Settings;
 using OpenLiveWriter.Extensibility.BlogClient;
-using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.BlogClient.Detection;
 

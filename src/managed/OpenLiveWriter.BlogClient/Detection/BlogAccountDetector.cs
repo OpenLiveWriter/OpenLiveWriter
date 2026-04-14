@@ -4,10 +4,9 @@
 using System;
 using System.Net;
 using System.Diagnostics;
-using System.Windows.Forms;
 using OpenLiveWriter.BlogClient.Providers;
-using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Platform;
 using OpenLiveWriter.BlogClient.Clients;
 using OpenLiveWriter.CoreServices.Diagnostics;
 using OpenLiveWriter.Extensibility.BlogClient;
@@ -159,11 +158,11 @@ namespace OpenLiveWriter.BlogClient.Detection
         }
         private Exception _exception;
 
-        public void ShowLastError(IWin32Window owner)
+        public void ShowLastError(IntPtr ownerHandle)
         {
             if (_errorMessageType != MessageId.None)
             {
-                DisplayMessage.Show(_errorMessageType, owner, _errorMessageParams);
+                PlatformContext.DialogService?.ShowMessage(_errorMessageType.ToString(), ownerHandle, _errorMessageParams);
             }
             else
             {

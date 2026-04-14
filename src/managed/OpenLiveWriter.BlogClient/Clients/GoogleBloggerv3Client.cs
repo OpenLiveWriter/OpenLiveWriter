@@ -27,8 +27,6 @@ using Google.Apis.Util;
 using System.Globalization;
 using System.Diagnostics;
 using Google.Apis.Blogger.v3.Data;
-using OpenLiveWriter.Controls;
-using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace OpenLiveWriter.BlogClient.Clients

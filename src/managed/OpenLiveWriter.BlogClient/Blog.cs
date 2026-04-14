@@ -9,10 +9,9 @@ using System.Collections;
 using System.Net;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using System.Xml;
-using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Platform;
 using OpenLiveWriter.BlogClient.Clients;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.Extensibility.BlogClient;
@@ -294,8 +293,10 @@ namespace OpenLiveWriter.BlogClient
             }
         }
 
-        public void DisplayException(IWin32Window owner, Exception ex)
+        public void DisplayException(IntPtr ownerHandle, Exception ex)
         {
+            var dialogService = PlatformContext.DialogService;
+
             // display a custom display message for exceptions that have one
             // registered, otherwise display the generic error form
             if (ex is BlogClientProviderException)
@@ -307,7 +308,7 @@ namespace OpenLiveWriter.BlogClient
                     MessageId messageId = provider.DisplayMessageForProviderError(pe.ErrorCode, pe.ErrorString);
                     if (messageId != MessageId.None)
                     {
-                        DisplayMessage.Show(messageId, owner);
+                        dialogService?.ShowMessage(messageId.ToString(), ownerHandle);
                         return;
                     }
                 }
@@ -327,14 +328,15 @@ namespace OpenLiveWriter.BlogClient
                 }
                 else
                 {
-                    DisplayMessage msg = new DisplayMessage(MessageId.ErrorConnecting);
-                    ex = new BlogClientException(msg.Title, msg.Text);
+                    // Show the ErrorConnecting message and wrap the exception
+                    dialogService?.ShowMessage(nameof(MessageId.ErrorConnecting), ownerHandle);
+                    return;
                 }
                 HttpRequestHelper.LogException(we);
             }
 
             // no custom message, use default UI
-            DisplayableExceptionDisplayForm.Show(owner, ex);
+            dialogService?.ShowException(ownerHandle, ex);
         }
 
         public bool IsSpacesBlog

@@ -14,10 +14,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Xml;
-using OpenLiveWriter.Controls;
 using OpenLiveWriter.CoreServices;
+using OpenLiveWriter.Platform;
 using OpenLiveWriter.Extensibility.BlogClient;
 using OpenLiveWriter.BlogClient.Providers;
 using OpenLiveWriter.HtmlParser.Parser;
@@ -543,7 +542,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private void ShowPicasaSignupPrompt(object sender, EventArgs e)
         {
-            if (DisplayMessage.Show(MessageId.PicasawebSignup) == DialogResult.Yes)
+            if (BlogClientUIContext.ShowDisplayMessageOnUIThread(nameof(MessageId.PicasawebSignup)) == DialogResultValue.Yes)
             {
                 ShellHelper.LaunchUrl("http://picasaweb.google.com");
             }
@@ -947,28 +946,25 @@ namespace OpenLiveWriter.BlogClient.Clients
                                 captchaToken = (string)ht["CaptchaToken"];
                                 string captchaUrl = (string)ht["CaptchaUrl"];
 
-                                GDataCaptchaHelper helper = new GDataCaptchaHelper(
-                                    new Win32WindowImpl(BlogClientUIContext.ContextForCurrentThread.Handle),
-                                    captchaUrl);
-
-                                BlogClientUIContext.ContextForCurrentThread.Invoke(new ThreadStart(helper.ShowCaptcha), null);
-
-                                if (helper.DialogResult == DialogResult.OK)
+                                var captchaHelper = PlatformContext.CaptchaHelper;
+                                if (captchaHelper != null)
                                 {
-                                    captchaValue = helper.Reply;
-                                    continue;
+                                    var captchaResult = captchaHelper.ShowCaptcha(
+                                        BlogClientUIContext.ContextForCurrentThread, captchaUrl);
+                                    if (captchaResult != null && captchaResult.Accepted)
+                                    {
+                                        captchaValue = captchaResult.Reply;
+                                        continue;
+                                    }
                                 }
-                                else
-                                {
-                                    throw new BlogClientOperationCancelledException();
-                                }
+                                throw new BlogClientOperationCancelledException();
                             }
 
                             if (showUi)
                             {
                                 if (error == "NoLinkedYouTubeAccount")
                                 {
-                                    if (DisplayMessage.Show(MessageId.YouTubeSignup, username) == DialogResult.Yes)
+                                    if (BlogClientUIContext.ShowDisplayMessageOnUIThread(nameof(MessageId.YouTubeSignup), username) == DialogResultValue.Yes)
                                     {
                                         ShellHelper.LaunchUrl(GLink.Instance.YouTubeRegister);
                                     }
@@ -1045,30 +1041,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private void ShowError(MessageId messageId, params object[] args)
         {
-            ShowErrorHelper helper = new ShowErrorHelper(BlogClientUIContext.ContextForCurrentThread, messageId, args);
-            if (BlogClientUIContext.ContextForCurrentThread != null)
-                BlogClientUIContext.ContextForCurrentThread.Invoke(new ThreadStart(helper.Show), null);
-            else
-                helper.Show();
-        }
-
-        private class ShowErrorHelper
-        {
-            private readonly IWin32Window _owner;
-            private readonly MessageId _messageId;
-            private readonly object[] _args;
-
-            public ShowErrorHelper(IWin32Window owner, MessageId messageId, object[] args)
-            {
-                _owner = owner;
-                _messageId = messageId;
-                _args = args;
-            }
-
-            public void Show()
-            {
-                DisplayMessage.Show(_messageId, _owner, _args);
-            }
+            BlogClientUIContext.ShowDisplayMessageOnUIThread(messageId.ToString(), args);
         }
 
         private string TranslateError(string error)
