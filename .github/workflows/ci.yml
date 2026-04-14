@@ -84,32 +84,59 @@ jobs:
         run: |
           $nupkgFile = "OpenLiveWriter.${{ steps.version.outputs.NUGET_VERSION }}.nupkg"
           Write-Host "Using package: $nupkgFile"
-          
+
           # Verify package exists
           if (-not (Test-Path $nupkgFile)) {
             Write-Error "Package not found: $nupkgFile"
             Get-ChildItem -Filter "*.nupkg"
             exit 1
           }
-          
+
           # Sync releases (creates Releases folder if needed)
           & src/managed/packages/squirrel.windows.1.4.4/tools/SyncReleases.exe `
             -url=https://olw.blob.core.windows.net/stable/Releases/ `
             -r=Releases
-          
+
           # Create installer using Squirrel
-          & src/managed/packages/squirrel.windows.1.4.4/tools/Squirrel.exe `
-            -i src/managed/OpenLiveWriter.PostEditor/Images/Writer.ico `
-            --no-msi `
-            --releasify $nupkgFile
-          
+          # Squirrel.exe spawns Update.exe as a detached child process and exits
+          # immediately. Use Start-Process -Wait to wait for Squirrel.exe itself,
+          # then wait for any lingering Update.exe processes to finish.
+          $squirrelExe = "src/managed/packages/squirrel.windows.1.4.4/tools/Squirrel.exe"
+          $squirrelArgs = @(
+            "-i", "src/managed/OpenLiveWriter.PostEditor/Images/Writer.ico",
+            "--no-msi",
+            "--releasify", $nupkgFile,
+            "--releaseDir", "Releases"
+          )
+          Write-Host "Running: $squirrelExe $($squirrelArgs -join ' ')"
+          $proc = Start-Process -FilePath $squirrelExe -ArgumentList $squirrelArgs `
+            -NoNewWindow -PassThru
+          $proc.WaitForExit()
+          Write-Host "Squirrel.exe exited with code $($proc.ExitCode)"
+
+          # Squirrel 1.4.4 delegates work to Update.exe which may still be running
+          $timeout = 300  # 5 minute timeout
+          $elapsed = 0
+          while ($elapsed -lt $timeout) {
+            $updateProcs = Get-Process -Name "Update" -ErrorAction SilentlyContinue
+            if (-not $updateProcs) { break }
+            Write-Host "Waiting for Update.exe to finish... ($elapsed seconds elapsed)"
+            Start-Sleep -Seconds 5
+            $elapsed += 5
+          }
+
+          # List Releases directory contents for debugging
+          Write-Host "Releases directory contents:"
+          Get-ChildItem -Path Releases -ErrorAction SilentlyContinue | ForEach-Object {
+            Write-Host "  $($_.Name) ($($_.Length) bytes)"
+          }
+
           # Verify Setup.exe was created
           if (-not (Test-Path "Releases/Setup.exe")) {
-            Write-Error "Setup.exe was not created"
-            Get-ChildItem -Path Releases -ErrorAction SilentlyContinue
+            Write-Error "Setup.exe was not created by Squirrel"
             exit 1
           }
-          
+
           # Rename Setup.exe to OpenLiveWriterSetup.exe
           Move-Item -Path Releases/Setup.exe -Destination Releases/OpenLiveWriterSetup.exe -Force
           Write-Host "Installer created: Releases/OpenLiveWriterSetup.exe"
