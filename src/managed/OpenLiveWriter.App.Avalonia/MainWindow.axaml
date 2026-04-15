@@ -1,5 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:editor="clr-namespace:OpenLiveWriter.App.Avalonia.Editor"
         x:Class="OpenLiveWriter.App.Avalonia.MainWindow"
         Title="Open Live Writer"
         Width="1200"
@@ -19,35 +20,21 @@
             <TextBlock x:Name="StatusText" Text="Ready" FontSize="12" Foreground="#666666" />
         </Border>
 
-        <!-- Main content area - editor placeholder -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <!-- Main content area -->
+        <DockPanel>
+            <!-- Title bar -->
+            <Border DockPanel.Dock="Top" Padding="12,8" Background="White"
+                    BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+                <TextBox x:Name="TitleEditor"
+                         PlaceholderText="Post Title"
+                         FontSize="24"
+                         FontWeight="Light"
+                         BorderThickness="0"
+                         Background="Transparent" />
+            </Border>
 
-            <!-- Editor area -->
-            <DockPanel>
-                <!-- Title bar -->
-                <Border DockPanel.Dock="Top" Padding="12,8" Background="White">
-                    <TextBox PlaceholderText="Post Title"
-                             FontSize="24"
-                             FontWeight="Light"
-                             BorderThickness="0"
-                             Background="Transparent" />
-                </Border>
-
-                <!-- Editor content (placeholder for WebView) -->
-                <Border Background="White" Padding="12">
-                    <TextBox AcceptsReturn="True"
-                             AcceptsTab="True"
-                             TextWrapping="Wrap"
-                             PlaceholderText="Start writing your blog post..."
-                             FontSize="16"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             VerticalContentAlignment="Top" />
-                </Border>
-            </DockPanel>
-        </Grid>
+            <!-- Editor panel with formatting toolbar and content area -->
+            <editor:EditorPanel x:Name="EditorPanel" />
+        </DockPanel>
     </DockPanel>
 </Window>

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using global::Avalonia.Controls;
+using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.Ribbon.Avalonia.Controls;
 using OpenLiveWriter.Ribbon.Managed.Configuration;
 
@@ -13,6 +14,7 @@ namespace OpenLiveWriter.App.Avalonia
         {
             InitializeComponent();
             InitializeRibbon();
+            InitializeEditor();
         }
 
         private void InitializeRibbon()
@@ -24,18 +26,41 @@ namespace OpenLiveWriter.App.Avalonia
             var ribbon = new AvaloniaRibbonControl();
             ribbon.LoadConfiguration(config);
 
-            // Wire up command execution for status bar feedback
-            ribbon.CommandExecuted += (s, commandId) =>
+            // Wire up command execution: try the editor's command bridge first,
+            // then fall back to status bar feedback for unhandled commands
+            ribbon.CommandExecuted += (sender, commandId) =>
             {
-                var statusText = this.FindControl<TextBlock>("StatusText");
-                if (statusText != null)
-                    statusText.Text = $"Command: {commandId}";
+                var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
+                if (editorPanel != null && editorPanel.CommandBridge.Execute(commandId))
+                    return; // Editor handled it
+
+                // Handle non-editor commands with status bar feedback
+                UpdateStatus($"Command: {commandId}");
             };
 
             // Insert the ribbon into the host border
             var ribbonHost = this.FindControl<Border>("RibbonHost");
             if (ribbonHost != null)
                 ribbonHost.Child = ribbon;
+        }
+
+        private void InitializeEditor()
+        {
+            var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
+            if (editorPanel != null)
+            {
+                editorPanel.StatusChanged += (sender, message) =>
+                {
+                    UpdateStatus(message);
+                };
+            }
+        }
+
+        private void UpdateStatus(string message)
+        {
+            var statusText = this.FindControl<TextBlock>("StatusText");
+            if (statusText != null)
+                statusText.Text = message;
         }
     }
 }
