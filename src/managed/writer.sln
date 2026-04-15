@@ -101,6 +101,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Platform.Mac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.App.Avalonia", "OpenLiveWriter.App.Avalonia\OpenLiveWriter.App.Avalonia.csproj", "{42EED3C0-3151-47E9-9668-835C32EAFC30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Ribbon.Avalonia", "OpenLiveWriter.Ribbon.Avalonia\OpenLiveWriter.Ribbon.Avalonia.csproj", "{F646FE47-70C1-4D85-A018-D7151E5D2B0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -762,6 +764,24 @@ Global
 		{42EED3C0-3151-47E9-9668-835C32EAFC30}.ReleaseSigned|x64.Build.0 = Debug|Any CPU
 		{42EED3C0-3151-47E9-9668-835C32EAFC30}.ReleaseSigned|x86.ActiveCfg = Debug|Any CPU
 		{42EED3C0-3151-47E9-9668-835C32EAFC30}.ReleaseSigned|x86.Build.0 = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Debug|x64.Build.0 = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Debug|x86.Build.0 = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Release|x64.ActiveCfg = Release|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Release|x64.Build.0 = Release|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Release|x86.ActiveCfg = Release|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.Release|x86.Build.0 = Release|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|Any CPU.ActiveCfg = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|Any CPU.Build.0 = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|x64.ActiveCfg = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|x64.Build.0 = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|x86.ActiveCfg = Debug|Any CPU
+		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
