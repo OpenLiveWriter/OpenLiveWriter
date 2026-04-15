@@ -19,35 +19,30 @@ namespace OpenLiveWriter.App.Avalonia
 
         private void InitializeRibbon()
         {
-            // Create the ribbon configuration from the data model
             var config = DefaultRibbonConfiguration.Create();
-
-            // Create and configure the Avalonia ribbon control
             var ribbon = new AvaloniaRibbonControl();
             ribbon.LoadConfiguration(config);
 
-            // Wire up command execution: try the WebViewEditor first via
-            // HandleCommand, then try the editor's command bridge, then
-            // fall back to status bar feedback for unhandled commands
-            ribbon.CommandExecuted += (sender, commandId) =>
+            // Wire ribbon commands — use async handler for proper await chain
+            ribbon.CommandExecuted += async (sender, commandId) =>
             {
                 var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
-                if (editorPanel != null)
+                if (editorPanel?.WebViewEditor != null)
                 {
-                    // Try direct WebView command handling
-                    if (editorPanel.WebViewEditor != null && editorPanel.WebViewEditor.HandleCommand(commandId))
+                    bool handled = await editorPanel.WebViewEditor.HandleCommandAsync(commandId);
+                    if (handled)
+                    {
+                        UpdateStatus($"Applied: {commandId}");
                         return;
-
-                    // Try the command bridge (handles non-formatting commands like Undo/Redo)
-                    if (editorPanel.CommandBridge.Execute(commandId))
-                        return;
+                    }
                 }
 
-                // Handle non-editor commands with status bar feedback
+                if (editorPanel?.CommandBridge.Execute(commandId) == true)
+                    return;
+
                 UpdateStatus($"Command: {commandId}");
             };
 
-            // Insert the ribbon into the host border
             var ribbonHost = this.FindControl<Border>("RibbonHost");
             if (ribbonHost != null)
                 ribbonHost.Child = ribbon;
@@ -58,10 +53,7 @@ namespace OpenLiveWriter.App.Avalonia
             var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
             if (editorPanel != null)
             {
-                editorPanel.StatusChanged += (sender, message) =>
-                {
-                    UpdateStatus(message);
-                };
+                editorPanel.StatusChanged += (sender, message) => UpdateStatus(message);
             }
         }
 

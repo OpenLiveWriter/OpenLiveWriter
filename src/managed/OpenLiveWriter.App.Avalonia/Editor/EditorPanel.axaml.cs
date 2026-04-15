@@ -51,7 +51,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 PreviewViewButton.Click += (s, e) => SwitchView("preview");
         }
 
-        private void SwitchView(string view)
+        private async void SwitchView(string view)
         {
             _currentView = view;
 
@@ -71,23 +71,21 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (view == "source")
             {
                 // Get HTML from WebView and show in source editor
-                _webViewEditor?.GetContent(html =>
+                if (_webViewEditor != null)
                 {
-                    global::Avalonia.Threading.Dispatcher.UIThread.Post(() =>
-                    {
-                        if (sourceEditor != null)
-                            sourceEditor.Text = FormatHtml(html ?? "");
-                    });
-                });
+                    var html = await _webViewEditor.GetContentAsync();
+                    if (sourceEditor != null)
+                        sourceEditor.Text = FormatHtml(html ?? "");
+                }
                 StatusChanged?.Invoke(this, "Source view");
             }
             else if (view == "edit")
             {
                 // If coming from source view, push HTML back to WebView
                 var source = this.FindControl<TextBox>("SourceEditor");
-                if (source != null && !string.IsNullOrEmpty(source.Text))
+                if (source != null && !string.IsNullOrEmpty(source.Text) && _webViewEditor != null)
                 {
-                    _webViewEditor?.SetContent(source.Text);
+                    await _webViewEditor.SetContentAsync(source.Text);
                 }
                 StatusChanged?.Invoke(this, "Edit view");
             }
@@ -110,14 +108,14 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         private void SetupToolbarButtons()
         {
-            if (BoldButton != null) BoldButton.Click += (s, e) => ExecuteFormatCommand("bold");
-            if (ItalicButton != null) ItalicButton.Click += (s, e) => ExecuteFormatCommand("italic");
-            if (UnderlineButton != null) UnderlineButton.Click += (s, e) => ExecuteFormatCommand("underline");
-            if (StrikethroughButton != null) StrikethroughButton.Click += (s, e) => ExecuteFormatCommand("strikethrough");
+            if (BoldButton != null) BoldButton.Click += async (s, e) => await ExecuteFormatCommandAsync("bold");
+            if (ItalicButton != null) ItalicButton.Click += async (s, e) => await ExecuteFormatCommandAsync("italic");
+            if (UnderlineButton != null) UnderlineButton.Click += async (s, e) => await ExecuteFormatCommandAsync("underline");
+            if (StrikethroughButton != null) StrikethroughButton.Click += async (s, e) => await ExecuteFormatCommandAsync("strikethrough");
             if (LinkButton != null) LinkButton.Click += (s, e) => StatusChanged?.Invoke(this, "Insert Link: Not yet implemented");
             if (ImageButton != null) ImageButton.Click += (s, e) => StatusChanged?.Invoke(this, "Insert Image: Not yet implemented");
-            if (BulletListButton != null) BulletListButton.Click += (s, e) => ExecuteFormatCommand("bulletlist");
-            if (NumberListButton != null) NumberListButton.Click += (s, e) => ExecuteFormatCommand("numberlist");
+            if (BulletListButton != null) BulletListButton.Click += async (s, e) => await ExecuteFormatCommandAsync("bulletlist");
+            if (NumberListButton != null) NumberListButton.Click += async (s, e) => await ExecuteFormatCommandAsync("numberlist");
 
             if (HeadingCombo != null)
             {
@@ -139,13 +137,13 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         private void RegisterCommandBridgeHandlers()
         {
-            _commandBridge.RegisterHandler(CommandId.Bold, () => ExecuteFormatCommand("bold"));
-            _commandBridge.RegisterHandler(CommandId.Italic, () => ExecuteFormatCommand("italic"));
-            _commandBridge.RegisterHandler(CommandId.Underline, () => ExecuteFormatCommand("underline"));
-            _commandBridge.RegisterHandler(CommandId.Strikethrough, () => ExecuteFormatCommand("strikethrough"));
+            _commandBridge.RegisterHandler(CommandId.Bold, () => _ = ExecuteFormatCommandAsync("bold"));
+            _commandBridge.RegisterHandler(CommandId.Italic, () => _ = ExecuteFormatCommandAsync("italic"));
+            _commandBridge.RegisterHandler(CommandId.Underline, () => _ = ExecuteFormatCommandAsync("underline"));
+            _commandBridge.RegisterHandler(CommandId.Strikethrough, () => _ = ExecuteFormatCommandAsync("strikethrough"));
             _commandBridge.RegisterHandler(CommandId.InsertLink, () => StatusChanged?.Invoke(this, "Insert Link: Not yet implemented"));
-            _commandBridge.RegisterHandler(CommandId.Bullets, () => ExecuteFormatCommand("bulletlist"));
-            _commandBridge.RegisterHandler(CommandId.Numbers, () => ExecuteFormatCommand("numberlist"));
+            _commandBridge.RegisterHandler(CommandId.Bullets, () => _ = ExecuteFormatCommandAsync("bulletlist"));
+            _commandBridge.RegisterHandler(CommandId.Numbers, () => _ = ExecuteFormatCommandAsync("numberlist"));
             _commandBridge.RegisterHandler(CommandId.Undo, () => StatusChanged?.Invoke(this, "Undo"));
             _commandBridge.RegisterHandler(CommandId.Redo, () => StatusChanged?.Invoke(this, "Redo"));
         }
@@ -159,15 +157,15 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                     switch (e.Key)
                     {
                         case Key.B:
-                            ExecuteFormatCommand("bold");
+                            _ = ExecuteFormatCommandAsync("bold");
                             e.Handled = true;
                             break;
                         case Key.I:
-                            ExecuteFormatCommand("italic");
+                            _ = ExecuteFormatCommandAsync("italic");
                             e.Handled = true;
                             break;
                         case Key.U:
-                            ExecuteFormatCommand("underline");
+                            _ = ExecuteFormatCommandAsync("underline");
                             e.Handled = true;
                             break;
                         case Key.K:
@@ -179,18 +177,18 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             };
         }
 
-        private void ExecuteFormatCommand(string format)
+        private async System.Threading.Tasks.Task ExecuteFormatCommandAsync(string format)
         {
             if (_webViewEditor == null) return;
 
             switch (format)
             {
-                case "bold": _webViewEditor.ExecuteBold(); break;
-                case "italic": _webViewEditor.ExecuteItalic(); break;
-                case "underline": _webViewEditor.ExecuteUnderline(); break;
-                case "strikethrough": _webViewEditor.ExecuteStrikethrough(); break;
-                case "bulletlist": _webViewEditor.ExecuteUnorderedList(); break;
-                case "numberlist": _webViewEditor.ExecuteOrderedList(); break;
+                case "bold": await _webViewEditor.ExecuteBoldAsync(); break;
+                case "italic": await _webViewEditor.ExecuteItalicAsync(); break;
+                case "underline": await _webViewEditor.ExecuteUnderlineAsync(); break;
+                case "strikethrough": await _webViewEditor.ExecuteStrikethroughAsync(); break;
+                case "bulletlist": await _webViewEditor.ExecuteUnorderedListAsync(); break;
+                case "numberlist": await _webViewEditor.ExecuteOrderedListAsync(); break;
             }
 
             StatusChanged?.Invoke(this, $"Applied {format} formatting");

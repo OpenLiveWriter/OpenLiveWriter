@@ -26,6 +26,9 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public event EventHandler ContentChanged;
 #pragma warning restore CS0067
 
+        public NativeWebView WebView => _webView;
+        public bool IsReady => _isReady;
+
         public WebViewEditor()
         {
             LoadEditorHtmlResource();
@@ -53,56 +56,65 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             try
             {
                 _webView = new NativeWebView();
-
-                // Wait for the adapter to be created before navigating
                 _webView.AdapterCreated += OnAdapterCreated;
                 _webView.NavigationCompleted += OnNavigationCompleted;
-
                 Content = _webView;
-                Trace.WriteLine("[OLW-WebView] NativeWebView created, waiting for adapter...");
+
+                // Fallback: if AdapterCreated doesn't fire, try loading after delay
+                _ = FallbackLoadAsync();
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"[OLW-WebView] Failed to create NativeWebView: {ex.Message}");
+                Console.WriteLine($"[OLW-WebView] FAILED: {ex.Message}");
                 Content = CreateFallbackEditor();
+            }
+        }
+
+        private async Task FallbackLoadAsync()
+        {
+            await Task.Delay(3000);
+            if (!_isReady)
+            {
+                Console.WriteLine("[OLW-WebView] Fallback: loading editor directly");
+                await LoadEditorViaFile();
             }
         }
 
         private async void OnAdapterCreated(object sender, EventArgs e)
         {
-            Trace.WriteLine("[OLW-WebView] Adapter created, navigating to editor HTML...");
+            Console.WriteLine("[OLW-WebView] AdapterCreated");
+            await LoadEditorViaFile();
+        }
+
+        private async Task LoadEditorViaFile()
+        {
+            if (_editorHtml == null) return;
             try
             {
-                if (_editorHtml != null)
-                {
-                    // Write HTML to a temp file and navigate to it (more reliable than NavigateToString)
-                    string tempDir = Path.Combine(Path.GetTempPath(), "OpenLiveWriter", "editor");
-                    Directory.CreateDirectory(tempDir);
-                    string tempFile = Path.Combine(tempDir, "editor.html");
-                    await File.WriteAllTextAsync(tempFile, _editorHtml);
+                string tempDir = Path.Combine(Path.GetTempPath(), "OpenLiveWriter", "editor");
+                Directory.CreateDirectory(tempDir);
+                string tempFile = Path.Combine(tempDir, "editor.html");
+                await File.WriteAllTextAsync(tempFile, _editorHtml);
 
-                    await Dispatcher.UIThread.InvokeAsync(() =>
-                    {
-                        _webView.Navigate(new Uri("file://" + tempFile));
-                        Trace.WriteLine($"[OLW-WebView] Navigating to: file://{tempFile}");
-                    });
-                }
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    _webView.Navigate(new Uri("file://" + tempFile));
+                });
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"[OLW-WebView] Navigation failed: {ex.Message}");
+                Console.WriteLine($"[OLW-WebView] Load failed: {ex.Message}");
             }
         }
 
         private void OnNavigationCompleted(object sender, EventArgs e)
         {
             _isReady = true;
-            Trace.WriteLine("[OLW-WebView] Navigation completed, editor is ready");
+            Console.WriteLine("[OLW-WebView] Ready");
 
-            // Apply any pending content
             if (_pendingHtml != null)
             {
-                SetContent(_pendingHtml);
+                _ = RunJS($"OLWBridge.setContent('{EscapeJs(_pendingHtml)}')");
                 _pendingHtml = null;
             }
         }
@@ -110,7 +122,6 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         private Control CreateFallbackEditor()
         {
             var panel = new DockPanel();
-
             var notice = new Border
             {
                 Background = global::Avalonia.Media.Brushes.LightYellow,
@@ -124,106 +135,116 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             };
             DockPanel.SetDock(notice, Dock.Top);
             panel.Children.Add(notice);
-
             var textBox = new TextBox
             {
-                AcceptsReturn = true,
-                AcceptsTab = true,
+                AcceptsReturn = true, AcceptsTab = true,
                 TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
-                FontSize = 16,
-                FontFamily = new global::Avalonia.Media.FontFamily("Georgia, Times New Roman, serif"),
-                Padding = new Thickness(16),
+                FontSize = 16, Padding = new Thickness(16),
                 BorderThickness = new Thickness(0),
                 Background = global::Avalonia.Media.Brushes.White,
                 VerticalContentAlignment = VerticalAlignment.Top
             };
             panel.Children.Add(textBox);
-
             return panel;
         }
 
-        private async Task InvokeScriptSafe(string script)
+        // ---- Public async API matching the working test app pattern ----
+
+        public async Task ExecCommandAsync(string command, string value = null)
         {
             if (_webView == null || !_isReady) return;
+            _webView.Focus();
+            await Task.Delay(50); // Let focus settle
+            string js = $"OLWBridge.execCommand('{command}', {(value != null ? $"'{value}'" : "null")})";
+            await RunJS(js);
+        }
+
+        public Task ExecuteBoldAsync() => ExecCommandAsync("bold");
+        public Task ExecuteItalicAsync() => ExecCommandAsync("italic");
+        public Task ExecuteUnderlineAsync() => ExecCommandAsync("underline");
+        public Task ExecuteStrikethroughAsync() => ExecCommandAsync("strikeThrough");
+        public Task ExecuteOrderedListAsync() => ExecCommandAsync("insertOrderedList");
+        public Task ExecuteUnorderedListAsync() => ExecCommandAsync("insertUnorderedList");
+        public Task ExecuteIndentAsync() => ExecCommandAsync("indent");
+        public Task ExecuteOutdentAsync() => ExecCommandAsync("outdent");
+        public Task SetBlockFormatAsync(string tag) => ExecCommandAsync("formatBlock", tag);
+
+        public async Task InsertHtmlAsync(string html)
+        {
+            if (_webView == null || !_isReady) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.insertHtml('{EscapeJs(html)}')");
+        }
+
+        public async Task SetContentAsync(string html)
+        {
+            if (_webView == null || !_isReady) { _pendingHtml = html; return; }
+            await RunJS($"OLWBridge.setContent('{EscapeJs(html)}')");
+        }
+
+        public async Task<string> GetContentAsync()
+        {
+            if (_webView == null || !_isReady) return null;
+            return await RunJSReturn("OLWBridge.getContent()");
+        }
+
+        public async Task<bool> HandleCommandAsync(CommandId commandId)
+        {
+            switch (commandId)
+            {
+                case CommandId.Bold: await ExecuteBoldAsync(); return true;
+                case CommandId.Italic: await ExecuteItalicAsync(); return true;
+                case CommandId.Underline: await ExecuteUnderlineAsync(); return true;
+                case CommandId.Strikethrough: await ExecuteStrikethroughAsync(); return true;
+                case CommandId.Bullets: await ExecuteUnorderedListAsync(); return true;
+                case CommandId.Numbers: await ExecuteOrderedListAsync(); return true;
+                case CommandId.Indent: await ExecuteIndentAsync(); return true;
+                case CommandId.Outdent: await ExecuteOutdentAsync(); return true;
+                default: return false;
+            }
+        }
+
+        // Sync wrappers for backward compat
+        public void ExecCommand(string command, string value = null) => _ = ExecCommandAsync(command, value);
+        public void ExecuteBold() => _ = ExecuteBoldAsync();
+        public void ExecuteItalic() => _ = ExecuteItalicAsync();
+        public void ExecuteUnderline() => _ = ExecuteUnderlineAsync();
+        public void ExecuteStrikethrough() => _ = ExecuteStrikethroughAsync();
+        public void ExecuteOrderedList() => _ = ExecuteOrderedListAsync();
+        public void ExecuteUnorderedList() => _ = ExecuteUnorderedListAsync();
+        public void SetBlockFormat(string tag) => _ = SetBlockFormatAsync(tag);
+        public void SetContent(string html) => _ = SetContentAsync(html);
+        public void GetContent(Action<string> callback) => _ = GetContentAsync().ContinueWith(t => callback?.Invoke(t.Result));
+        public bool HandleCommand(CommandId commandId) { _ = HandleCommandAsync(commandId); return true; }
+
+        private async Task RunJS(string script)
+        {
             try
             {
                 await _webView.InvokeScript(script);
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"[OLW-WebView] InvokeScript failed: {ex.Message}");
+                Console.WriteLine($"[OLW-WebView] JS error: {ex.Message}");
             }
         }
 
-        public void ExecCommand(string command, string value = null)
+        private async Task<string> RunJSReturn(string script)
         {
-            if (_webView == null || !_isReady) return;
-            // OLWBridge.execCommand restores selection and focus on the JS side,
-            // but we also focus the native control to ensure WKWebView is active
-            _webView.Focus();
-            string js = $"OLWBridge.execCommand('{command}', {(value != null ? $"'{value}'" : "null")})";
-            _ = InvokeScriptSafe(js);
-        }
-
-        public void ExecuteBold() => ExecCommand("bold");
-        public void ExecuteItalic() => ExecCommand("italic");
-        public void ExecuteUnderline() => ExecCommand("underline");
-        public void ExecuteStrikethrough() => ExecCommand("strikeThrough");
-        public void ExecuteOrderedList() => ExecCommand("insertOrderedList");
-        public void ExecuteUnorderedList() => ExecCommand("insertUnorderedList");
-        public void ExecuteIndent() => ExecCommand("indent");
-        public void ExecuteOutdent() => ExecCommand("outdent");
-
-        public void SetBlockFormat(string tag) => ExecCommand("formatBlock", tag);
-
-        public void InsertHtml(string html)
-        {
-            if (_webView == null || !_isReady) return;
-            string escaped = html.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\n", "\\n");
-            _ = InvokeScriptSafe($"OLWBridge.insertHtml('{escaped}')");
-        }
-
-        public void SetContent(string html)
-        {
-            if (_webView == null || !_isReady)
-            {
-                _pendingHtml = html;
-                return;
-            }
-            string escaped = html.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\n", "\\n");
-            _ = InvokeScriptSafe($"OLWBridge.setContent('{escaped}')");
-        }
-
-        public async void GetContent(Action<string> callback)
-        {
-            if (_webView == null || !_isReady) { callback?.Invoke(null); return; }
             try
             {
-                var result = await _webView.InvokeScript("OLWBridge.getContent()");
-                callback?.Invoke(result);
+                return await _webView.InvokeScript(script);
             }
             catch (Exception ex)
             {
-                Trace.WriteLine($"[OLW-WebView] GetContent failed: {ex.Message}");
-                callback?.Invoke(null);
+                Console.WriteLine($"[OLW-WebView] JS error: {ex.Message}");
+                return null;
             }
         }
 
-        public bool HandleCommand(CommandId commandId)
-        {
-            switch (commandId)
-            {
-                case CommandId.Bold: ExecuteBold(); return true;
-                case CommandId.Italic: ExecuteItalic(); return true;
-                case CommandId.Underline: ExecuteUnderline(); return true;
-                case CommandId.Strikethrough: ExecuteStrikethrough(); return true;
-                case CommandId.Bullets: ExecuteUnorderedList(); return true;
-                case CommandId.Numbers: ExecuteOrderedList(); return true;
-                case CommandId.Indent: ExecuteIndent(); return true;
-                case CommandId.Outdent: ExecuteOutdent(); return true;
-                default: return false;
-            }
-        }
+        private static string EscapeJs(string s) =>
+            s?.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\n", "\\n") ?? "";
     }
 
     public class FormatState
