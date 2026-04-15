@@ -2,11 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using global::Avalonia;
 using global::Avalonia.Controls;
 using global::Avalonia.Layout;
+using global::Avalonia.Threading;
 using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.App.Avalonia.Editor
@@ -15,6 +18,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
     {
         private NativeWebView _webView;
         private bool _isReady;
+        private string _pendingHtml;
+        private string _editorHtml;
 
 #pragma warning disable CS0067
         public event EventHandler<FormatState> FormatStateChanged;
@@ -23,7 +28,24 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         public WebViewEditor()
         {
+            LoadEditorHtmlResource();
             InitializeWebView();
+        }
+
+        private void LoadEditorHtmlResource()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "OpenLiveWriter.App.Avalonia.Editor.Resources.editor.html";
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (stream != null)
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        _editorHtml = reader.ReadToEnd();
+                    }
+                }
+            }
         }
 
         private void InitializeWebView()
@@ -31,20 +53,58 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             try
             {
                 _webView = new NativeWebView();
+
+                // Wait for the adapter to be created before navigating
+                _webView.AdapterCreated += OnAdapterCreated;
                 _webView.NavigationCompleted += OnNavigationCompleted;
+
                 Content = _webView;
-                LoadEditorHtml();
+                Trace.WriteLine("[OLW-WebView] NativeWebView created, waiting for adapter...");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.WriteLine($"WebView init failed: {ex.Message}");
+                Trace.WriteLine($"[OLW-WebView] Failed to create NativeWebView: {ex.Message}");
                 Content = CreateFallbackEditor();
+            }
+        }
+
+        private async void OnAdapterCreated(object sender, EventArgs e)
+        {
+            Trace.WriteLine("[OLW-WebView] Adapter created, navigating to editor HTML...");
+            try
+            {
+                if (_editorHtml != null)
+                {
+                    // Write HTML to a temp file and navigate to it (more reliable than NavigateToString)
+                    string tempDir = Path.Combine(Path.GetTempPath(), "OpenLiveWriter", "editor");
+                    Directory.CreateDirectory(tempDir);
+                    string tempFile = Path.Combine(tempDir, "editor.html");
+                    await File.WriteAllTextAsync(tempFile, _editorHtml);
+
+                    await Dispatcher.UIThread.InvokeAsync(() =>
+                    {
+                        _webView.Navigate(new Uri("file://" + tempFile));
+                        Trace.WriteLine($"[OLW-WebView] Navigating to: file://{tempFile}");
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"[OLW-WebView] Navigation failed: {ex.Message}");
             }
         }
 
         private void OnNavigationCompleted(object sender, EventArgs e)
         {
             _isReady = true;
+            Trace.WriteLine("[OLW-WebView] Navigation completed, editor is ready");
+
+            // Apply any pending content
+            if (_pendingHtml != null)
+            {
+                SetContent(_pendingHtml);
+                _pendingHtml = null;
+            }
         }
 
         private Control CreateFallbackEditor()
@@ -82,21 +142,16 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             return panel;
         }
 
-        private void LoadEditorHtml()
+        private async Task InvokeScriptSafe(string script)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "OpenLiveWriter.App.Avalonia.Editor.Resources.editor.html";
-
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            if (_webView == null || !_isReady) return;
+            try
             {
-                if (stream != null)
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        string html = reader.ReadToEnd();
-                        _webView.NavigateToString(html, new Uri("about:blank"));
-                    }
-                }
+                await _webView.InvokeScript(script);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"[OLW-WebView] InvokeScript failed: {ex.Message}");
             }
         }
 
@@ -104,7 +159,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             if (_webView == null || !_isReady) return;
             string js = $"OLWBridge.execCommand('{command}', {(value != null ? $"'{value}'" : "null")})";
-            _ = _webView.InvokeScript(js);
+            _ = InvokeScriptSafe(js);
         }
 
         public void ExecuteBold() => ExecCommand("bold");
@@ -122,21 +177,33 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             if (_webView == null || !_isReady) return;
             string escaped = html.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\n", "\\n");
-            _ = _webView.InvokeScript($"OLWBridge.insertHtml('{escaped}')");
+            _ = InvokeScriptSafe($"OLWBridge.insertHtml('{escaped}')");
         }
 
         public void SetContent(string html)
         {
-            if (_webView == null || !_isReady) return;
+            if (_webView == null || !_isReady)
+            {
+                _pendingHtml = html;
+                return;
+            }
             string escaped = html.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\n", "\\n");
-            _ = _webView.InvokeScript($"OLWBridge.setContent('{escaped}')");
+            _ = InvokeScriptSafe($"OLWBridge.setContent('{escaped}')");
         }
 
         public async void GetContent(Action<string> callback)
         {
             if (_webView == null || !_isReady) { callback?.Invoke(null); return; }
-            var result = await _webView.InvokeScript("OLWBridge.getContent()");
-            callback?.Invoke(result);
+            try
+            {
+                var result = await _webView.InvokeScript("OLWBridge.getContent()");
+                callback?.Invoke(result);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"[OLW-WebView] GetContent failed: {ex.Message}");
+                callback?.Invoke(null);
+            }
         }
 
         public bool HandleCommand(CommandId commandId)
