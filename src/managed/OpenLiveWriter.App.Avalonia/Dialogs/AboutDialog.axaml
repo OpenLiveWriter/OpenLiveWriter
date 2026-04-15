@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="OpenLiveWriter.App.Avalonia.Dialogs.AboutDialog"
+        Title="About Open Live Writer"
+        Width="400"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False">
+    <StackPanel Margin="32" Spacing="12" HorizontalAlignment="Center">
+        <TextBlock Text="Open Live Writer" FontSize="24" FontWeight="Light" HorizontalAlignment="Center" />
+        <TextBlock x:Name="VersionText" FontSize="14" Foreground="#666666" HorizontalAlignment="Center" />
+        <TextBlock Text="An open source blog editor" FontSize="14" Foreground="#888888" HorizontalAlignment="Center" Margin="0,8,0,0" />
+        <TextBlock Text="Copyright &#169; .NET Foundation" FontSize="12" Foreground="#999999" HorizontalAlignment="Center" />
+        <TextBlock Text="Licensed under the MIT License" FontSize="12" Foreground="#999999" HorizontalAlignment="Center" />
+        <Button Content="OK" IsDefault="True" IsCancel="True"
+                Width="88" Height="32" HorizontalContentAlignment="Center"
+                HorizontalAlignment="Center" Margin="0,12,0,0" />
+    </StackPanel>
+</Window>

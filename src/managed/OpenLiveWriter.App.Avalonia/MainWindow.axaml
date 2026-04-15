@@ -19,6 +19,10 @@
                 <ToggleButton Content="Insert" Classes="RibbonTab" />
                 <ToggleButton Content="Blog Account" Classes="RibbonTab" />
                 <ToggleButton Content="Preview" Classes="RibbonTab" />
+                <!-- Spacer pushes About to the right -->
+                <Border Width="1" />
+                <Button x:Name="AboutButton" Content="About" Classes="RibbonTab"
+                        VerticalAlignment="Center" Padding="8,4" />
             </StackPanel>
         </Border>
 

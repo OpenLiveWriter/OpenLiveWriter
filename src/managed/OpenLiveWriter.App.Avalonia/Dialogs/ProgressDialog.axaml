@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="OpenLiveWriter.App.Avalonia.Dialogs.ProgressDialog"
+        Title="Open Live Writer"
+        Width="420"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False">
+    <StackPanel Margin="24" Spacing="12">
+        <TextBlock x:Name="MessageText" FontSize="14" TextWrapping="Wrap" />
+        <ProgressBar x:Name="ProgressBar" Height="20" Minimum="0" Maximum="100" />
+        <TextBlock x:Name="DetailText" FontSize="12" Foreground="#666666" TextWrapping="Wrap" />
+        <Button x:Name="CancelButton" Content="Cancel"
+                HorizontalAlignment="Right"
+                Width="88" Height="32"
+                HorizontalContentAlignment="Center"
+                Margin="0,8,0,0" />
+    </StackPanel>
+</Window>
