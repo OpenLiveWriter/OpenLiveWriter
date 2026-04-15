@@ -103,6 +103,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.App.Avalonia
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.Ribbon.Avalonia", "OpenLiveWriter.Ribbon.Avalonia\OpenLiveWriter.Ribbon.Avalonia.csproj", "{F646FE47-70C1-4D85-A018-D7151E5D2B0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenLiveWriter.EditorTests", "OpenLiveWriter.EditorTests\OpenLiveWriter.EditorTests.csproj", "{EB318AD0-B676-4BF9-9EF9-524E02827886}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -782,6 +784,24 @@ Global
 		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|x64.Build.0 = Debug|Any CPU
 		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|x86.ActiveCfg = Debug|Any CPU
 		{F646FE47-70C1-4D85-A018-D7151E5D2B0F}.ReleaseSigned|x86.Build.0 = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Debug|x64.Build.0 = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Debug|x86.Build.0 = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Release|x64.ActiveCfg = Release|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Release|x64.Build.0 = Release|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.Release|x86.Build.0 = Release|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.ReleaseSigned|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.ReleaseSigned|Any CPU.Build.0 = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.ReleaseSigned|x64.ActiveCfg = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.ReleaseSigned|x64.Build.0 = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.ReleaseSigned|x86.ActiveCfg = Debug|Any CPU
+		{EB318AD0-B676-4BF9-9EF9-524E02827886}.ReleaseSigned|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
