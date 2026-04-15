@@ -6,6 +6,9 @@
     <UseWindowsForms>false</UseWindowsForms>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputType>Exe</OutputType>
+    <!-- App display name for macOS menu bar and dock -->
+    <Product>Open Live Writer</Product>
+    <AssemblyTitle>Open Live Writer</AssemblyTitle>
     <!-- Avalonia needs this for XAML compilation -->
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
   </PropertyGroup>
