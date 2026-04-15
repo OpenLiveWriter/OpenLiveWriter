@@ -3,7 +3,6 @@
 
 using global::Avalonia.Controls;
 using global::Avalonia.Input;
-using global::Avalonia.Interactivity;
 using System;
 using OpenLiveWriter.App.Avalonia.Commands;
 using OpenLiveWriter.Localization;
@@ -14,6 +13,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
     {
         private readonly CommandBridge _commandBridge;
         private WebViewEditor _webViewEditor;
+        private string _currentView = "edit"; // "edit", "source", "preview"
 
         public event EventHandler<string> StatusChanged;
 
@@ -23,32 +23,13 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             _commandBridge = new CommandBridge();
             InitializeWebViewEditor();
             SetupToolbarButtons();
+            SetupViewToggle();
             SetupKeyboardShortcuts();
             RegisterCommandBridgeHandlers();
         }
 
         public CommandBridge CommandBridge => _commandBridge;
-
         public WebViewEditor WebViewEditor => _webViewEditor;
-
-        public string Title
-        {
-            get => ""; // Will be bound to title field later
-            set { }
-        }
-
-        public string EditorContent
-        {
-            get
-            {
-                // For async content retrieval, callers should use GetContentAsync
-                return "";
-            }
-            set
-            {
-                _webViewEditor?.SetContent(value ?? "");
-            }
-        }
 
         private void InitializeWebViewEditor()
         {
@@ -58,16 +39,73 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             {
                 editorHost.Content = _webViewEditor;
             }
+        }
 
-            _webViewEditor.FormatStateChanged += (sender, state) =>
-            {
-                // Future: update toolbar toggle states based on cursor position
-            };
+        private void SetupViewToggle()
+        {
+            if (EditViewButton != null)
+                EditViewButton.Click += (s, e) => SwitchView("edit");
+            if (SourceViewButton != null)
+                SourceViewButton.Click += (s, e) => SwitchView("source");
+            if (PreviewViewButton != null)
+                PreviewViewButton.Click += (s, e) => SwitchView("preview");
+        }
 
-            _webViewEditor.ContentChanged += (sender, e) =>
+        private void SwitchView(string view)
+        {
+            _currentView = view;
+
+            // Update toggle states
+            if (EditViewButton != null) EditViewButton.IsChecked = (view == "edit");
+            if (SourceViewButton != null) SourceViewButton.IsChecked = (view == "source");
+            if (PreviewViewButton != null) PreviewViewButton.IsChecked = (view == "preview");
+
+            var editorHost = this.FindControl<ContentControl>("EditorHost");
+            var sourceEditor = this.FindControl<TextBox>("SourceEditor");
+            var previewHost = this.FindControl<ContentControl>("PreviewHost");
+
+            if (editorHost != null) editorHost.IsVisible = (view == "edit");
+            if (sourceEditor != null) sourceEditor.IsVisible = (view == "source");
+            if (previewHost != null) previewHost.IsVisible = (view == "preview");
+
+            if (view == "source")
             {
-                // Future: mark document as dirty, update word count, etc.
-            };
+                // Get HTML from WebView and show in source editor
+                _webViewEditor?.GetContent(html =>
+                {
+                    global::Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                    {
+                        if (sourceEditor != null)
+                            sourceEditor.Text = FormatHtml(html ?? "");
+                    });
+                });
+                StatusChanged?.Invoke(this, "Source view");
+            }
+            else if (view == "edit")
+            {
+                // If coming from source view, push HTML back to WebView
+                var source = this.FindControl<TextBox>("SourceEditor");
+                if (source != null && !string.IsNullOrEmpty(source.Text))
+                {
+                    _webViewEditor?.SetContent(source.Text);
+                }
+                StatusChanged?.Invoke(this, "Edit view");
+            }
+            else if (view == "preview")
+            {
+                StatusChanged?.Invoke(this, "Preview view");
+            }
+        }
+
+        private static string FormatHtml(string html)
+        {
+            // Basic HTML formatting for readability in source view
+            if (string.IsNullOrEmpty(html)) return html;
+            return html
+                .Replace("><", ">\n<")
+                .Replace("<br>", "<br>\n")
+                .Replace("<br/>", "<br/>\n")
+                .Replace("<br />", "<br />\n");
         }
 
         private void SetupToolbarButtons()
@@ -101,7 +139,6 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         private void RegisterCommandBridgeHandlers()
         {
-            // Route ribbon commands through the WebViewEditor
             _commandBridge.RegisterHandler(CommandId.Bold, () => ExecuteFormatCommand("bold"));
             _commandBridge.RegisterHandler(CommandId.Italic, () => ExecuteFormatCommand("italic"));
             _commandBridge.RegisterHandler(CommandId.Underline, () => ExecuteFormatCommand("underline"));
@@ -142,33 +179,18 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             };
         }
 
-        /// <summary>
-        /// Dispatch a formatting command to the WebViewEditor via execCommand.
-        /// </summary>
         private void ExecuteFormatCommand(string format)
         {
             if (_webViewEditor == null) return;
 
             switch (format)
             {
-                case "bold":
-                    _webViewEditor.ExecuteBold();
-                    break;
-                case "italic":
-                    _webViewEditor.ExecuteItalic();
-                    break;
-                case "underline":
-                    _webViewEditor.ExecuteUnderline();
-                    break;
-                case "strikethrough":
-                    _webViewEditor.ExecuteStrikethrough();
-                    break;
-                case "bulletlist":
-                    _webViewEditor.ExecuteUnorderedList();
-                    break;
-                case "numberlist":
-                    _webViewEditor.ExecuteOrderedList();
-                    break;
+                case "bold": _webViewEditor.ExecuteBold(); break;
+                case "italic": _webViewEditor.ExecuteItalic(); break;
+                case "underline": _webViewEditor.ExecuteUnderline(); break;
+                case "strikethrough": _webViewEditor.ExecuteStrikethrough(); break;
+                case "bulletlist": _webViewEditor.ExecuteUnorderedList(); break;
+                case "numberlist": _webViewEditor.ExecuteOrderedList(); break;
             }
 
             StatusChanged?.Invoke(this, $"Applied {format} formatting");
