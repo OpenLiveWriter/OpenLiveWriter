@@ -11,7 +11,7 @@ namespace OpenLiveWriter.Platform
     /// </summary>
     public static class PlatformContext
     {
-        private static bool _initialized;
+        private static readonly object _initLock = new object();
 
         public static IPlatformServices Services { get; private set; }
         public static IDisplayHelper Display { get; private set; }
@@ -32,37 +32,41 @@ namespace OpenLiveWriter.Platform
             ICredentialsPrompter credentialsPrompter = null,
             ICaptchaHelper captchaHelper = null)
         {
-            Services = services ?? throw new ArgumentNullException(nameof(services));
-            Display = display ?? throw new ArgumentNullException(nameof(display));
-            Credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
-            Bidi = bidi ?? throw new ArgumentNullException(nameof(bidi));
-            SpellCheck = spellCheck ?? throw new ArgumentNullException(nameof(spellCheck));
-            DialogService = dialogService;
-            CredentialsPrompter = credentialsPrompter;
-            CaptchaHelper = captchaHelper;
-            _initialized = true;
+            lock (_initLock)
+            {
+                Services = services ?? throw new ArgumentNullException(nameof(services));
+                Display = display ?? throw new ArgumentNullException(nameof(display));
+                Credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
+                Bidi = bidi ?? throw new ArgumentNullException(nameof(bidi));
+                SpellCheck = spellCheck ?? throw new ArgumentNullException(nameof(spellCheck));
+                DialogService = dialogService;
+                CredentialsPrompter = credentialsPrompter;
+                CaptchaHelper = captchaHelper;
+            }
         }
 
-        public static bool IsInitialized => _initialized;
+        public static bool IsInitialized => Services != null;
 
         public static void EnsureInitialized()
         {
-            if (!_initialized)
+            if (Services == null)
                 throw new InvalidOperationException(
                     "PlatformContext has not been initialized. Call PlatformContext.Initialize() at application startup.");
         }
 
         internal static void Reset()
         {
-            Services = null;
-            Display = null;
-            Credentials = null;
-            Bidi = null;
-            SpellCheck = null;
-            DialogService = null;
-            CredentialsPrompter = null;
-            CaptchaHelper = null;
-            _initialized = false;
+            lock (_initLock)
+            {
+                Services = null;
+                Display = null;
+                Credentials = null;
+                Bidi = null;
+                SpellCheck = null;
+                DialogService = null;
+                CredentialsPrompter = null;
+                CaptchaHelper = null;
+            }
         }
     }
 }

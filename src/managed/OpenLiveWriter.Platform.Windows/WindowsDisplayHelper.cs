@@ -13,29 +13,34 @@ namespace OpenLiveWriter.Platform.Windows
     {
         private const int DEFAULT_DPI = 96;
         private const int TWIPS_PER_INCH = 1440;
+        private float _cachedDpiX;
+        private float _cachedDpiY;
         private bool? _compositionEnabled;
 
         public int DefaultDpi => DEFAULT_DPI;
 
+        private void EnsureDpiCached()
+        {
+            if (_cachedDpiX == 0)
+            {
+                using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
+                {
+                    _cachedDpiX = g.DpiX;
+                    _cachedDpiY = g.DpiY;
+                }
+            }
+        }
+
         public float TwipsToPixelsX(int twips)
         {
-            using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
-            {
-                return TwipsToPixels(twips, (int)g.DpiX);
-            }
+            EnsureDpiCached();
+            return (float)twips * _cachedDpiX / TWIPS_PER_INCH;
         }
 
         public float TwipsToPixelsY(int twips)
         {
-            using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
-            {
-                return TwipsToPixels(twips, (int)g.DpiY);
-            }
-        }
-
-        private static float TwipsToPixels(int twips, int pixelsPerInch)
-        {
-            return (float)twips * pixelsPerInch / TWIPS_PER_INCH;
+            EnsureDpiCached();
+            return (float)twips * _cachedDpiY / TWIPS_PER_INCH;
         }
 
         public bool IsCompositionEnabled()
@@ -48,7 +53,7 @@ namespace OpenLiveWriter.Platform.Windows
                 int result = DwmIsCompositionEnabled(out bool enabled);
                 _compositionEnabled = result == 0 && enabled;
             }
-            catch
+            catch (DllNotFoundException)
             {
                 _compositionEnabled = false;
             }

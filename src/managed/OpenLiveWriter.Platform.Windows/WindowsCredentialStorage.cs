@@ -22,8 +22,8 @@ namespace OpenLiveWriter.Platform.Windows
 
             using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey($@"{CREDENTIAL_REGISTRY_PATH}\{key}"))
             {
-                regKey.SetValue("Username", username);
-                regKey.SetValue("Password", encryptedBase64);
+                regKey.SetValue(USERNAME_VALUE, username);
+                regKey.SetValue(PASSWORD_VALUE, encryptedBase64);
             }
         }
 
@@ -34,8 +34,8 @@ namespace OpenLiveWriter.Platform.Windows
                 if (regKey == null)
                     return null;
 
-                string username = regKey.GetValue("Username") as string;
-                string encryptedBase64 = regKey.GetValue("Password") as string;
+                string username = regKey.GetValue(USERNAME_VALUE) as string;
+                string encryptedBase64 = regKey.GetValue(PASSWORD_VALUE) as string;
 
                 if (username == null || encryptedBase64 == null)
                     return null;
@@ -54,15 +54,19 @@ namespace OpenLiveWriter.Platform.Windows
             }
         }
 
+        private const string USERNAME_VALUE = "Username";
+        private const string PASSWORD_VALUE = "Password";
+
         public void DeleteCredential(string key)
         {
             try
             {
                 Registry.CurrentUser.DeleteSubKeyTree($@"{CREDENTIAL_REGISTRY_PATH}\{key}", false);
             }
-            catch
+            catch (ArgumentException)
             {
-                // Key doesn't exist
+                // Key doesn't exist — DeleteSubKeyTree with throwOnMissing=false
+                // still throws ArgumentException if the parent key doesn't exist
             }
         }
 

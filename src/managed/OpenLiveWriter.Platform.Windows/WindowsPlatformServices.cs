@@ -14,23 +14,31 @@ namespace OpenLiveWriter.Platform.Windows
     public class WindowsPlatformServices : IPlatformServices
     {
         private const string APP_NAME = "OpenLiveWriter";
+        private string _appDataDir;
+        private string _localAppDataDir;
 
         public string GetApplicationDataDirectory()
         {
-            string path = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                APP_NAME);
-            Directory.CreateDirectory(path);
-            return path;
+            if (_appDataDir == null)
+            {
+                _appDataDir = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    APP_NAME);
+                Directory.CreateDirectory(_appDataDir);
+            }
+            return _appDataDir;
         }
 
         public string GetLocalApplicationDataDirectory()
         {
-            string path = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                APP_NAME);
-            Directory.CreateDirectory(path);
-            return path;
+            if (_localAppDataDir == null)
+            {
+                _localAppDataDir = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    APP_NAME);
+                Directory.CreateDirectory(_localAppDataDir);
+            }
+            return _localAppDataDir;
         }
 
         public string GetShortPathName(string path)
@@ -63,7 +71,7 @@ namespace OpenLiveWriter.Platform.Windows
                     return key != null;
                 }
             }
-            catch
+            catch (Exception ex) when (ex is UnauthorizedAccessException || ex is System.Security.SecurityException)
             {
                 return false;
             }
