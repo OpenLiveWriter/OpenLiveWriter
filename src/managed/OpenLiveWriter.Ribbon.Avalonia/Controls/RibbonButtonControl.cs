@@ -30,6 +30,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             _preferredSize = config.PreferredSize;
             _buttonType = config.ButtonType;
             _label = config.Label ?? CommandLabelHelper.GetLabel(config.CommandId);
+            Focusable = false; // Prevent stealing focus from WebView editor
             BuildContent();
         }
 
@@ -39,6 +40,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             _preferredSize = config.PreferredSize;
             _buttonType = RibbonButtonType.ToggleButton;
             _label = CommandLabelHelper.GetLabel(config.CommandId);
+            Focusable = false;
             BuildContent();
         }
 
@@ -51,6 +53,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             _preferredSize = size;
             _buttonType = RibbonButtonType.Button;
             _label = label;
+            Focusable = false;
             BuildContent();
         }
 
