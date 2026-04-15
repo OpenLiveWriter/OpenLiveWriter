@@ -13,6 +13,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
     public partial class EditorPanel : UserControl
     {
         private readonly CommandBridge _commandBridge;
+        private WebViewEditor _webViewEditor;
 
         public event EventHandler<string> StatusChanged;
 
@@ -20,6 +21,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             InitializeComponent();
             _commandBridge = new CommandBridge();
+            InitializeWebViewEditor();
             SetupToolbarButtons();
             SetupKeyboardShortcuts();
             RegisterCommandBridgeHandlers();
@@ -27,39 +29,86 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         public CommandBridge CommandBridge => _commandBridge;
 
+        public WebViewEditor WebViewEditor => _webViewEditor;
+
         public string Title
         {
-            get => ""; // Will be bound to title field in M4
+            get => ""; // Will be bound to title field later
             set { }
         }
 
         public string EditorContent
         {
-            get => ContentEditor?.Text ?? "";
-            set { if (ContentEditor != null) ContentEditor.Text = value; }
+            get
+            {
+                // For async content retrieval, callers should use GetContentAsync
+                return "";
+            }
+            set
+            {
+                _webViewEditor?.SetContent(value ?? "");
+            }
+        }
+
+        private void InitializeWebViewEditor()
+        {
+            _webViewEditor = new WebViewEditor();
+            var editorHost = this.FindControl<ContentControl>("EditorHost");
+            if (editorHost != null)
+            {
+                editorHost.Content = _webViewEditor;
+            }
+
+            _webViewEditor.FormatStateChanged += (sender, state) =>
+            {
+                // Future: update toolbar toggle states based on cursor position
+            };
+
+            _webViewEditor.ContentChanged += (sender, e) =>
+            {
+                // Future: mark document as dirty, update word count, etc.
+            };
         }
 
         private void SetupToolbarButtons()
         {
-            if (BoldButton != null) BoldButton.Click += (s, e) => ApplyFormatting("bold");
-            if (ItalicButton != null) ItalicButton.Click += (s, e) => ApplyFormatting("italic");
-            if (UnderlineButton != null) UnderlineButton.Click += (s, e) => ApplyFormatting("underline");
-            if (StrikethroughButton != null) StrikethroughButton.Click += (s, e) => ApplyFormatting("strikethrough");
-            if (LinkButton != null) LinkButton.Click += (s, e) => ApplyFormatting("link");
-            if (ImageButton != null) ImageButton.Click += (s, e) => StatusChanged?.Invoke(this, "Insert Image: Not yet implemented (coming in M4)");
-            if (BulletListButton != null) BulletListButton.Click += (s, e) => ApplyFormatting("bulletlist");
-            if (NumberListButton != null) NumberListButton.Click += (s, e) => ApplyFormatting("numberlist");
+            if (BoldButton != null) BoldButton.Click += (s, e) => ExecuteFormatCommand("bold");
+            if (ItalicButton != null) ItalicButton.Click += (s, e) => ExecuteFormatCommand("italic");
+            if (UnderlineButton != null) UnderlineButton.Click += (s, e) => ExecuteFormatCommand("underline");
+            if (StrikethroughButton != null) StrikethroughButton.Click += (s, e) => ExecuteFormatCommand("strikethrough");
+            if (LinkButton != null) LinkButton.Click += (s, e) => StatusChanged?.Invoke(this, "Insert Link: Not yet implemented");
+            if (ImageButton != null) ImageButton.Click += (s, e) => StatusChanged?.Invoke(this, "Insert Image: Not yet implemented");
+            if (BulletListButton != null) BulletListButton.Click += (s, e) => ExecuteFormatCommand("bulletlist");
+            if (NumberListButton != null) NumberListButton.Click += (s, e) => ExecuteFormatCommand("numberlist");
+
+            if (HeadingCombo != null)
+            {
+                HeadingCombo.SelectionChanged += (s, e) =>
+                {
+                    if (HeadingCombo.SelectedIndex <= 0) return;
+                    var tag = HeadingCombo.SelectedIndex switch
+                    {
+                        1 => "h1",
+                        2 => "h2",
+                        3 => "h3",
+                        _ => "p"
+                    };
+                    _webViewEditor?.SetBlockFormat(tag);
+                    StatusChanged?.Invoke(this, $"Applied {tag} formatting");
+                };
+            }
         }
 
         private void RegisterCommandBridgeHandlers()
         {
-            _commandBridge.RegisterHandler(CommandId.Bold, () => ApplyFormatting("bold"));
-            _commandBridge.RegisterHandler(CommandId.Italic, () => ApplyFormatting("italic"));
-            _commandBridge.RegisterHandler(CommandId.Underline, () => ApplyFormatting("underline"));
-            _commandBridge.RegisterHandler(CommandId.Strikethrough, () => ApplyFormatting("strikethrough"));
-            _commandBridge.RegisterHandler(CommandId.InsertLink, () => ApplyFormatting("link"));
-            _commandBridge.RegisterHandler(CommandId.Bullets, () => ApplyFormatting("bulletlist"));
-            _commandBridge.RegisterHandler(CommandId.Numbers, () => ApplyFormatting("numberlist"));
+            // Route ribbon commands through the WebViewEditor
+            _commandBridge.RegisterHandler(CommandId.Bold, () => ExecuteFormatCommand("bold"));
+            _commandBridge.RegisterHandler(CommandId.Italic, () => ExecuteFormatCommand("italic"));
+            _commandBridge.RegisterHandler(CommandId.Underline, () => ExecuteFormatCommand("underline"));
+            _commandBridge.RegisterHandler(CommandId.Strikethrough, () => ExecuteFormatCommand("strikethrough"));
+            _commandBridge.RegisterHandler(CommandId.InsertLink, () => StatusChanged?.Invoke(this, "Insert Link: Not yet implemented"));
+            _commandBridge.RegisterHandler(CommandId.Bullets, () => ExecuteFormatCommand("bulletlist"));
+            _commandBridge.RegisterHandler(CommandId.Numbers, () => ExecuteFormatCommand("numberlist"));
             _commandBridge.RegisterHandler(CommandId.Undo, () => StatusChanged?.Invoke(this, "Undo"));
             _commandBridge.RegisterHandler(CommandId.Redo, () => StatusChanged?.Invoke(this, "Redo"));
         }
@@ -73,19 +122,19 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                     switch (e.Key)
                     {
                         case Key.B:
-                            ApplyFormatting("bold");
+                            ExecuteFormatCommand("bold");
                             e.Handled = true;
                             break;
                         case Key.I:
-                            ApplyFormatting("italic");
+                            ExecuteFormatCommand("italic");
                             e.Handled = true;
                             break;
                         case Key.U:
-                            ApplyFormatting("underline");
+                            ExecuteFormatCommand("underline");
                             e.Handled = true;
                             break;
                         case Key.K:
-                            ApplyFormatting("link");
+                            StatusChanged?.Invoke(this, "Insert Link: Not yet implemented");
                             e.Handled = true;
                             break;
                     }
@@ -93,36 +142,33 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             };
         }
 
-        private void ApplyFormatting(string format)
+        /// <summary>
+        /// Dispatch a formatting command to the WebViewEditor via execCommand.
+        /// </summary>
+        private void ExecuteFormatCommand(string format)
         {
-            if (ContentEditor == null) return;
+            if (_webViewEditor == null) return;
 
-            int selStart = ContentEditor.SelectionStart;
-            int selEnd = ContentEditor.SelectionEnd;
-            string selectedText = "";
-
-            if (selEnd > selStart && ContentEditor.Text != null)
+            switch (format)
             {
-                selectedText = ContentEditor.Text.Substring(selStart, selEnd - selStart);
-            }
-
-            string wrapped = format switch
-            {
-                "bold" => $"**{selectedText}**",
-                "italic" => $"*{selectedText}*",
-                "underline" => $"__{selectedText}__",
-                "strikethrough" => $"~~{selectedText}~~",
-                "link" => $"[{selectedText}](url)",
-                "bulletlist" => $"* {selectedText}",
-                "numberlist" => $"1. {selectedText}",
-                _ => selectedText
-            };
-
-            if (selEnd > selStart && ContentEditor.Text != null)
-            {
-                ContentEditor.Text = ContentEditor.Text.Remove(selStart, selEnd - selStart).Insert(selStart, wrapped);
-                ContentEditor.SelectionStart = selStart;
-                ContentEditor.SelectionEnd = selStart + wrapped.Length;
+                case "bold":
+                    _webViewEditor.ExecuteBold();
+                    break;
+                case "italic":
+                    _webViewEditor.ExecuteItalic();
+                    break;
+                case "underline":
+                    _webViewEditor.ExecuteUnderline();
+                    break;
+                case "strikethrough":
+                    _webViewEditor.ExecuteStrikethrough();
+                    break;
+                case "bulletlist":
+                    _webViewEditor.ExecuteUnorderedList();
+                    break;
+                case "numberlist":
+                    _webViewEditor.ExecuteOrderedList();
+                    break;
             }
 
             StatusChanged?.Invoke(this, $"Applied {format} formatting");

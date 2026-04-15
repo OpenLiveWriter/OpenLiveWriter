@@ -50,18 +50,7 @@
             </StackPanel>
         </Border>
 
-        <!-- Content area -->
-        <TextBox x:Name="ContentEditor"
-                 AcceptsReturn="True"
-                 AcceptsTab="True"
-                 TextWrapping="Wrap"
-                 FontSize="16"
-                 FontFamily="Georgia, Times New Roman, serif"
-                 LineHeight="24"
-                 Padding="16"
-                 BorderThickness="0"
-                 Background="White"
-                 PlaceholderText="Start writing your blog post..."
-                 VerticalContentAlignment="Top" />
+        <!-- WebView editor content area -->
+        <ContentControl x:Name="EditorHost" />
     </DockPanel>
 </UserControl>

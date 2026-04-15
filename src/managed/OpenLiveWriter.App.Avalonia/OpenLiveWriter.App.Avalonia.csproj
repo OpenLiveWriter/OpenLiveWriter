@@ -20,6 +20,11 @@
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="Avalonia.Controls.WebView" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Editor\Resources\editor.html" />
   </ItemGroup>
 
   <ItemGroup>

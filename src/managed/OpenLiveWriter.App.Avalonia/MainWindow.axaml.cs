@@ -26,13 +26,22 @@ namespace OpenLiveWriter.App.Avalonia
             var ribbon = new AvaloniaRibbonControl();
             ribbon.LoadConfiguration(config);
 
-            // Wire up command execution: try the editor's command bridge first,
-            // then fall back to status bar feedback for unhandled commands
+            // Wire up command execution: try the WebViewEditor first via
+            // HandleCommand, then try the editor's command bridge, then
+            // fall back to status bar feedback for unhandled commands
             ribbon.CommandExecuted += (sender, commandId) =>
             {
                 var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
-                if (editorPanel != null && editorPanel.CommandBridge.Execute(commandId))
-                    return; // Editor handled it
+                if (editorPanel != null)
+                {
+                    // Try direct WebView command handling
+                    if (editorPanel.WebViewEditor != null && editorPanel.WebViewEditor.HandleCommand(commandId))
+                        return;
+
+                    // Try the command bridge (handles non-formatting commands like Undo/Redo)
+                    if (editorPanel.CommandBridge.Execute(commandId))
+                        return;
+                }
 
                 // Handle non-editor commands with status bar feedback
                 UpdateStatus($"Command: {commandId}");
