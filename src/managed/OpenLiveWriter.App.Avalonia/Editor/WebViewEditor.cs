@@ -158,6 +158,9 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public void ExecCommand(string command, string value = null)
         {
             if (_webView == null || !_isReady) return;
+            // OLWBridge.execCommand restores selection and focus on the JS side,
+            // but we also focus the native control to ensure WKWebView is active
+            _webView.Focus();
             string js = $"OLWBridge.execCommand('{command}', {(value != null ? $"'{value}'" : "null")})";
             _ = InvokeScriptSafe(js);
         }

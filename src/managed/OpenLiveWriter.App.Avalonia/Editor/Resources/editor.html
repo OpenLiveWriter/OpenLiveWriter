@@ -52,16 +52,36 @@
     th { background: #f5f5f5; font-weight: 600; }
     hr { border: none; border-top: 1px solid #ddd; margin: 1.5em 0; }
 </style>
-</head>
-<body contenteditable="true" spellcheck="true">
-</body>
 <script>
 // OLW Editor Bridge - communicates between WebView and Avalonia app
+// IMPORTANT: Script is in <head> so it doesn't contaminate body.innerHTML
+
+var _savedSelection = null;
 
 const OLWBridge = {
-    // Execute a formatting command
+    // Save the current selection (call before focus leaves the editor)
+    saveSelection: function() {
+        var sel = window.getSelection();
+        if (sel.rangeCount > 0) {
+            _savedSelection = sel.getRangeAt(0).cloneRange();
+        }
+    },
+
+    // Restore the saved selection and focus the editor
+    restoreSelection: function() {
+        document.body.focus();
+        if (_savedSelection) {
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(_savedSelection);
+        }
+    },
+
+    // Execute a formatting command (restores focus/selection first)
     execCommand: function(command, value) {
+        this.restoreSelection();
         document.execCommand(command, false, value || null);
+        this.saveSelection();
         this.reportState();
     },
 
@@ -85,11 +105,9 @@ const OLWBridge = {
                 type: 'stateChanged',
                 state: JSON.parse(this.getState())
             });
-            // Avalonia WebView message passing (WebView2/Chromium)
             if (window.chrome && window.chrome.webview) {
                 window.chrome.webview.postMessage(stateMsg);
             }
-            // WebKit message handler (macOS WKWebView)
             if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.olwBridge) {
                 window.webkit.messageHandlers.olwBridge.postMessage(stateMsg);
             }
@@ -113,7 +131,9 @@ const OLWBridge = {
 
     // Insert HTML at the current cursor position
     insertHtml: function(html) {
+        this.restoreSelection();
         document.execCommand('insertHTML', false, html);
+        this.saveSelection();
         this.reportState();
     },
 
@@ -123,27 +143,30 @@ const OLWBridge = {
     }
 };
 
-// Report state on selection change and input
+// Save selection whenever it changes (so we always have the latest)
 document.addEventListener('selectionchange', function() {
+    if (document.activeElement === document.body) {
+        OLWBridge.saveSelection();
+    }
     OLWBridge.reportState();
 });
 
-document.body.addEventListener('input', function() {
-    try {
-        var msg = JSON.stringify({ type: 'contentChanged', html: document.body.innerHTML });
-        if (window.chrome && window.chrome.webview) {
-            window.chrome.webview.postMessage(msg);
-        }
-        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.olwBridge) {
-            window.webkit.messageHandlers.olwBridge.postMessage(msg);
-        }
-    } catch(e) { /* silent */ }
-});
-
-// Handle paste - clean up pasted HTML
-document.body.addEventListener('paste', function(e) {
-    // Let the browser handle paste normally for now
-    // Future: sanitize pasted HTML
+// Track content changes
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('input', function() {
+        try {
+            var msg = JSON.stringify({ type: 'contentChanged', html: document.body.innerHTML });
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage(msg);
+            }
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.olwBridge) {
+                window.webkit.messageHandlers.olwBridge.postMessage(msg);
+            }
+        } catch(e) { /* silent */ }
+    });
 });
 </script>
+</head>
+<body contenteditable="true" spellcheck="true">
+</body>
 </html>
