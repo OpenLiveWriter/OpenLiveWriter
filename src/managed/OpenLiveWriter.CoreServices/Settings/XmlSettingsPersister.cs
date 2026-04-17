@@ -166,14 +166,19 @@ namespace OpenLiveWriter.CoreServices.Settings
 
     public class XmlFileSettingsPersister : XmlSettingsPersister
     {
-        private readonly Stream stream;
+        /// <summary>
+        /// Path to the backing XML file, or null when operating in memory-only mode.
+        /// The file is opened only for the duration of each read/write operation
+        /// so that multiple processes can coexist without "file in use" crashes.
+        /// </summary>
+        private readonly string filename;
         private readonly object syncRoot = new object();
         private int batchUpdateRefCount = 0;
 
-        private XmlFileSettingsPersister(Stream stream, Hashtable values, Hashtable subsettings)
+        private XmlFileSettingsPersister(string filename, Hashtable values, Hashtable subsettings)
             : base(values, subsettings)
         {
-            this.stream = stream;
+            this.filename = filename;
         }
 
         protected internal override object SyncRoot
@@ -183,20 +188,15 @@ namespace OpenLiveWriter.CoreServices.Settings
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                stream.Dispose();
-            }
+            // No long-lived stream to dispose; kept for interface compatibility
             base.Dispose(false);
-
         }
 
         public static XmlFileSettingsPersister Open(string filename)
         {
-            Stream s;
             try
             {
-                s = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+                return ReadSettingsFromFile(filename);
             }
             catch (IOException)
             {
@@ -204,25 +204,31 @@ namespace OpenLiveWriter.CoreServices.Settings
                 try
                 {
                     Thread.Sleep(100);
-                    s = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+                    return ReadSettingsFromFile(filename);
                 }
                 catch (IOException ex)
                 {
                     // Still locked — fall back to empty in-memory settings so the app can start
                     Trace.WriteLine("Unable to open settings file, using empty settings: " + ex.Message);
-                    return new XmlFileSettingsPersister(new MemoryStream(), new Hashtable(), new Hashtable());
+                    return new XmlFileSettingsPersister(null, new Hashtable(), new Hashtable());
                 }
             }
+        }
 
-            if (s.Length == 0)
+        private static XmlFileSettingsPersister ReadSettingsFromFile(string filename)
+        {
+            using (FileStream s = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
             {
-                return new XmlFileSettingsPersister(s, new Hashtable(), new Hashtable());
-            }
-            else
-            {
-                Hashtable values, subsettings;
-                Parse(s, out values, out subsettings);
-                return new XmlFileSettingsPersister(s, values, subsettings);
+                if (s.Length == 0)
+                {
+                    return new XmlFileSettingsPersister(filename, new Hashtable(), new Hashtable());
+                }
+                else
+                {
+                    Hashtable values, subsettings;
+                    Parse(s, out values, out subsettings);
+                    return new XmlFileSettingsPersister(filename, values, subsettings);
+                }
             }
         }
 
@@ -557,15 +563,28 @@ namespace OpenLiveWriter.CoreServices.Settings
                 if (batchUpdateRefCount > 0)
                     return;
 
+                // In memory-only mode (fallback from failed file open), skip writing
+                if (filename == null)
+                    return;
+
                 XmlDocument xmlDoc = new XmlDocument();
                 System.Xml.XmlElement settings = xmlDoc.CreateElement("settings");
                 xmlDoc.AppendChild(settings);
                 ToXml(settings, values, subsettings);
 
-                stream.Position = 0;
-                stream.SetLength(0);
-                xmlDoc.Save(stream);
-                stream.Flush();
+                try
+                {
+                    using (FileStream s = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.Read))
+                    {
+                        xmlDoc.Save(s);
+                        s.Flush();
+                    }
+                }
+                catch (IOException ex)
+                {
+                    // If another process has the file locked, log but don't crash
+                    Trace.WriteLine("Unable to persist settings: " + ex.Message);
+                }
             }
         }
 
