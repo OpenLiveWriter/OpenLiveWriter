@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using Google.Apis.Auth.OAuth2;
@@ -46,35 +47,43 @@ namespace OpenLiveWriter.PostEditor.Configuration.Wizard
 
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
-            buttonLogin.Enabled = false;
-
             try
             {
-                _cancellationTokenSource = new CancellationTokenSource();
-                _userCredentials = await GoogleBloggerv3Client.GetOAuth2AuthorizationAsync(_blogId, _cancellationTokenSource.Token);
-                _cancellationTokenSource = null;
+                buttonLogin.Enabled = false;
 
-                if (_userCredentials?.Token != null)
+                try
                 {
-                    // Leave the button disabled but let the user know they are signed in.
-                    buttonLogin.Text = Res.Get(StringId.CWGoogleBloggerSignInSuccess);
+                    _cancellationTokenSource = new CancellationTokenSource();
+                    _userCredentials = await GoogleBloggerv3Client.GetOAuth2AuthorizationAsync(_blogId, _cancellationTokenSource.Token);
+                    _cancellationTokenSource = null;
 
-                    // If this is the first time through the login flow, automatically click the 'Next' button on 
-                    // behalf of the user.
-                    if (_wizardController != null)
+                    if (_userCredentials?.Token != null)
                     {
-                        _wizardController.next();
-                        _wizardController = null;
+                        // Leave the button disabled but let the user know they are signed in.
+                        buttonLogin.Text = Res.Get(StringId.CWGoogleBloggerSignInSuccess);
+
+                        // If this is the first time through the login flow, automatically click the 'Next' button on
+                        // behalf of the user.
+                        if (_wizardController != null)
+                        {
+                            _wizardController.next();
+                            _wizardController = null;
+                        }
+                    }
+                }
+                finally
+                {
+                    if (_userCredentials?.Token == null)
+                    {
+                        // Let the user try again.
+                        buttonLogin.Enabled = true;
                     }
                 }
             }
-            finally
+            catch (Exception ex)
             {
-                if (_userCredentials?.Token == null)
-                {
-                    // Let the user try again.
-                    buttonLogin.Enabled = true;
-                }
+                Trace.Fail("Unexpected exception in Google Blogger login: " + ex.ToString());
+                buttonLogin.Enabled = true;
             }
         }
         
