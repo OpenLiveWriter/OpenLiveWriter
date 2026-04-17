@@ -193,7 +193,27 @@ namespace OpenLiveWriter.CoreServices.Settings
 
         public static XmlFileSettingsPersister Open(string filename)
         {
-            Stream s = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+            Stream s;
+            try
+            {
+                s = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+            }
+            catch (IOException)
+            {
+                // File may be transiently locked by another process; retry once after a short delay
+                try
+                {
+                    Thread.Sleep(100);
+                    s = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+                }
+                catch (IOException ex)
+                {
+                    // Still locked — fall back to empty in-memory settings so the app can start
+                    Trace.WriteLine("Unable to open settings file, using empty settings: " + ex.Message);
+                    return new XmlFileSettingsPersister(new MemoryStream(), new Hashtable(), new Hashtable());
+                }
+            }
+
             if (s.Length == 0)
             {
                 return new XmlFileSettingsPersister(s, new Hashtable(), new Hashtable());
