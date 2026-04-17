@@ -296,7 +296,14 @@ namespace OpenLiveWriter.BlogClient.Clients
                 });
 
                 var loadTokenTask = flow.LoadTokenAsync(tc.Username, CancellationToken.None);
-                loadTokenTask.Wait();
+                try
+                {
+                    loadTokenTask.Wait();
+                }
+                catch (AggregateException ex)
+                {
+                    throw ex.InnerException ?? ex;
+                }
                 if (loadTokenTask.IsCompleted)
                 {
                     // We were able re-create the user credentials from the cache.
@@ -316,7 +323,14 @@ namespace OpenLiveWriter.BlogClient.Clients
 
                 // Start an OAuth flow to renew the credentials.
                 var authorizationTask = GetOAuth2AuthorizationAsync(tc.Username, CancellationToken.None);
-                authorizationTask.Wait();
+                try
+                {
+                    authorizationTask.Wait();
+                }
+                catch (AggregateException ex)
+                {
+                    throw ex.InnerException ?? ex;
+                }
                 if (authorizationTask.IsCompleted)
                 {
                     userCredential = authorizationTask.Result;
@@ -340,7 +354,14 @@ namespace OpenLiveWriter.BlogClient.Clients
             // Using the BloggerService automatically refreshes the access token, but we call the Picasa endpoint 
             // directly and therefore need to force refresh the access token on occasion.
             var userCredential = transientCredentials.Token as UserCredential;
-            userCredential?.RefreshTokenAsync(CancellationToken.None).Wait();
+            try
+            {
+                userCredential?.RefreshTokenAsync(CancellationToken.None).Wait();
+            }
+            catch (AggregateException ex)
+            {
+                throw ex.InnerException ?? ex;
+            }
         }
 
         private HttpRequestFilter CreateAuthorizationFilter()
