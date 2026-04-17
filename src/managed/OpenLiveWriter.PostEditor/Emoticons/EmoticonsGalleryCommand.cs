@@ -43,7 +43,18 @@ namespace OpenLiveWriter.PostEditor.Emoticons
                     Items.Add(new GalleryItem(emoticon.Label, emoticon.Bitmap, emoticon, PopularIndex));
 
                     // WinLive 122017: Build up a cache of gallery items we can use to represent recently used emoticons.
-                    recentEmoticonsGalleryItems.Add(new GalleryItem(emoticon.Label, (Bitmap)emoticon.Bitmap.Clone(), emoticon, RecentIndex));
+                    // Bitmap.Clone() can throw InvalidOperationException when the source bitmap
+                    // is in use on another thread. Fall back to the original bitmap reference.
+                    Bitmap recentBitmap;
+                    try
+                    {
+                        recentBitmap = (Bitmap)emoticon.Bitmap.Clone();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        recentBitmap = emoticon.Bitmap;
+                    }
+                    recentEmoticonsGalleryItems.Add(new GalleryItem(emoticon.Label, recentBitmap, emoticon, RecentIndex));
                 }
             }
 
