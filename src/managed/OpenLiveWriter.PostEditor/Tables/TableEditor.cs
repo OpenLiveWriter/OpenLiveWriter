@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Collections;
 using System.Windows.Forms;
@@ -1284,7 +1285,20 @@ namespace OpenLiveWriter.PostEditor.Tables
 
             public void Dispose()
             {
-                _preservedMarkupRange.ToTextRange().select();
+                try
+                {
+                    _preservedMarkupRange.ToTextRange().select();
+                }
+                catch (COMException)
+                {
+                    // Suppress COM errors during selection restoration.
+                    // The underlying COM object may no longer be valid after
+                    // table row operations. Dispose should never throw.
+                }
+                catch (InvalidOperationException)
+                {
+                    // Suppress in case the markup range is in an invalid state.
+                }
             }
 
             private MarkupRange _preservedMarkupRange = null;
