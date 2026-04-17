@@ -1427,7 +1427,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 IHTMLElement[] editableElements = EditableElements;
                 for (int i = 0; i < editableElements.Length; i++)
                 {
-                    bounds.MoveToElement(editableElements[i], false);
+                    try
+                    {
+                        bounds.MoveToElement(editableElements[i], false);
+                    }
+                    catch (ArgumentException)
+                    {
+                        // MoveAdjacentToElement throws ArgumentException when the
+                        // target element is invalid or detached from the DOM.
+                        // Skip this element — the insertion point is not valid here.
+                        continue;
+                    }
                     if (bounds.InRange(target))
                         return IsValidEditRegion(target);
                 }
