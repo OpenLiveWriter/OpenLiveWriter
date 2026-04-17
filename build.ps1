@@ -23,21 +23,39 @@ if (-Not (Test-Path "$solutionFile" -PathType Leaf))
 =======================================================
 "@
 
-# Install module to allow us to find MSBuild
-# See https://github.com/Microsoft/vssetup.powershell
-Install-Module VSSetup -Scope CurrentUser
-
-$visualStudioLocation = (Get-VSSetupInstance `
-  | Select-VSSetupInstance -Version '[15.0,16.0)' -Latest).InstallationPath
-
-$msBuildExe = $visualStudioLocation + "\MSBuild\15.0\Bin\msbuild.exe"
-IF (-Not (Test-Path -LiteralPath "$msBuildExe" -PathType Leaf))
+# If MSBuild is already on PATH (e.g. on CI where an action has added it),
+# use that directly and skip the VSSetup lookup.
+$msBuildOnPath = Get-Command msbuild.exe -ErrorAction SilentlyContinue
+if ($msBuildOnPath)
 {
-	"MSBuild not found at '$msBuildExe'"
-	"In order to build OpenLiveWriter either Visual Studio 2017 (any edition) or Build "
-	"Tools for Visual Studio 2017 must be installed."
-	"These can be downloadd from https://visualstudio.microsoft.com/downloads/"
-	exit 101
+	$msBuildExe = $msBuildOnPath.Source
+}
+else
+{
+	# Install module to allow us to find MSBuild
+	# See https://github.com/Microsoft/vssetup.powershell
+	Install-Module VSSetup -Scope CurrentUser -Force
+
+	$visualStudioLocation = (Get-VSSetupInstance `
+	  | Select-VSSetupInstance -Version '[15.0,18.0)' -Latest).InstallationPath
+
+	# VS2019+ places MSBuild under MSBuild\Current\Bin; VS2017 uses MSBuild\15.0\Bin.
+	# Prefer Current, fall back to the legacy path so local VS2017 builds keep working.
+	$msBuildCandidates = @(
+		(Join-Path $visualStudioLocation "MSBuild\Current\Bin\msbuild.exe"),
+		(Join-Path $visualStudioLocation "MSBuild\15.0\Bin\msbuild.exe")
+	)
+	$msBuildExe = $msBuildCandidates | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
+
+	IF (-Not $msBuildExe)
+	{
+		"MSBuild not found. Checked:"
+		$msBuildCandidates | ForEach-Object { "  $_" }
+		"In order to build OpenLiveWriter, Visual Studio 2017, 2019, or 2022 (any edition) or"
+		"the matching Build Tools must be installed."
+		"These can be downloaded from https://visualstudio.microsoft.com/downloads/"
+		exit 101
+	}
 }
 
 "MSBuild.exe found at: '$msBuildExe'"
