@@ -559,6 +559,8 @@ namespace OpenLiveWriter.BlogClient
             // determine the date-published based on whether there was an override
             if (post.HasDatePublishedOverride)
                 result.DatePublished = post.DatePublishedOverride;
+            else if (post.DatePublished != DateTime.MinValue && post.DatePublished != DateTime.MaxValue)
+                result.DatePublished = post.DatePublished;
             else
                 result.DatePublished = DateTimeHelper.UtcNow;
 
