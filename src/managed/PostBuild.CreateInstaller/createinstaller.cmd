@@ -14,6 +14,7 @@ REM so the app and all its dependencies land in the project's own bin folder.
 SET PUBLISH_DIR=src\managed\OpenLiveWriter\bin\%OLW_CONFIG%
 SET ICON_PATH=src\managed\OpenLiveWriter.PostEditor\Images\Writer.ico
 
+:: Create Velopack installer package
 vpk pack ^
   --packId OpenLiveWriter ^
   --packVersion %dottedVersion% ^
@@ -26,6 +27,26 @@ vpk pack ^
   --shortcuts Desktop,StartMenuRoot ^
   --skipVeloAppCheck
 
+IF %ERRORLEVEL% NEQ 0 (
+   echo Velopack packaging failed.
+   GOTO end
+)
+
+MOVE .\Releases\OpenLiveWriter-Setup.exe .\Releases\OpenLiveWriterSetup.exe
+IF %ERRORLEVEL% NEQ 0 (
+   echo Failed to rename OpenLiveWriter-Setup.exe. The file may not have been created by Velopack.
+   GOTO end
+)
 ECHO Created Open Live Writer Velopack installer.
+
+:: Build Chocolatey package
+IF EXIST "%LocalAppData%\Nuget\Nuget.exe" (
+  "%LocalAppData%\Nuget\Nuget.exe" pack .\OpenLiveWriter.Install.nuspec -version %dottedVersion% -basepath Releases -nopackageanalysis
+  ECHO Created Writer Chocolatey Package
+) ELSE (
+  echo Nuget.exe missing from %LocalAppData%\Nuget\Nuget.exe - skipping Chocolatey package
+)
+
+:end
 
 POPD

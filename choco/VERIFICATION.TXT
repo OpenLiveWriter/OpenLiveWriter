@@ -1,10 +1,14 @@
 VERIFICATION
 Verification is intended to assist the Chocolatey moderators and community in verifying that this package's contents are trustworthy.
 
-This package is owned and updated by the members of the OpenLiveWriter Organisation on GitHub:
+This package is published by the OpenLiveWriter project maintainers.
 
-https://github.com/OpenLiveWriter
+Repository: https://github.com/OpenLiveWriter/OpenLiveWriter
+Releases:   https://github.com/OpenLiveWriter/OpenLiveWriter/releases
 
-If you have any concerns about the contents of this package, please raise an issue here:
+The embedded OpenLiveWriterSetup.exe is built from the source code in the repository above
+using Velopack (https://velopack.io) and can be verified against the release artifacts
+published on the GitHub Releases page.
 
+If you have any concerns about the contents of this package, please raise an issue at:
 https://github.com/OpenLiveWriter/OpenLiveWriter/issues
