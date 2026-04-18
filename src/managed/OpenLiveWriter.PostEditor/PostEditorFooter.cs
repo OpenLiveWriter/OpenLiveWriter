@@ -25,6 +25,22 @@ namespace OpenLiveWriter.PostEditor
         private string defaultStatus;
         private readonly Image imgBg;
 
+        // Cached GDI+ objects for OnPaintBackground to avoid per-paint allocations
+        private SolidBrush _bgFillBrush;
+        private Pen _leftPen;
+        private Pen _rightPen;
+        private LinearGradientBrush _gradientBrush;
+        private Pen _gradientPen;
+
+        // Tracked parameters to know when cached gradient objects must be rebuilt
+        private Color _cachedLeftColor;
+        private Color _cachedRightColor;
+        private int _cachedLeft;
+        private int _cachedTop;
+        private int _cachedRight;
+        private int _cachedStartGradient;
+        private int _cachedEndGradient;
+
         public PostEditorFooter()
         {
             imgBg = ResourceHelper.LoadAssemblyResourceBitmap("Images.StatusBackground.png");
@@ -46,8 +62,14 @@ namespace OpenLiveWriter.PostEditor
             {
                 Rectangle fadeRect = new Rectangle(0, tableLayoutPanel1.Top + 1, ClientSize.Width, imgBg.Height);
                 GraphicsHelper.TileFillUnscaledImageHorizontally(e.Graphics, imgBg, fadeRect);
-                using (Brush b = new SolidBrush(new HCColor(229, 238, 248, SystemColors.Window)))
-                    e.Graphics.FillRectangle(b, 0, fadeRect.Bottom, ClientSize.Width, ClientSize.Height - fadeRect.Bottom);
+
+                Color bgColor = new HCColor(229, 238, 248, SystemColors.Window);
+                if (_bgFillBrush == null || _bgFillBrush.Color != bgColor)
+                {
+                    _bgFillBrush?.Dispose();
+                    _bgFillBrush = new SolidBrush(bgColor);
+                }
+                e.Graphics.FillRectangle(_bgFillBrush, 0, fadeRect.Bottom, ClientSize.Width, ClientSize.Height - fadeRect.Bottom);
             }
             else
             {
@@ -65,28 +87,60 @@ namespace OpenLiveWriter.PostEditor
             DrawGradientLine(e.Graphics, startColor, endColor, 0, tableLayoutPanel1.Top, ClientSize.Width, gradientStart, gradientEnd);
         }
 
-        private static void DrawGradientLine(Graphics g, Color leftColor, Color rightColor, int left, int top, int right, int startGradient, int endGradient)
+        private void DrawGradientLine(Graphics g, Color leftColor, Color rightColor, int left, int top, int right, int startGradient, int endGradient)
         {
-            if (startGradient > left)
-                using (Pen p = new Pen(leftColor))
-                    g.DrawLine(p, left, top, startGradient, top);
+            bool paramsChanged = leftColor != _cachedLeftColor
+                || rightColor != _cachedRightColor
+                || left != _cachedLeft
+                || top != _cachedTop
+                || right != _cachedRight
+                || startGradient != _cachedStartGradient
+                || endGradient != _cachedEndGradient;
 
-            if (endGradient < right)
-                using (Pen p = new Pen(rightColor))
-                    g.DrawLine(p, endGradient, top, right, top);
-
-            if (startGradient < right && endGradient > left)
+            if (paramsChanged)
             {
-                using (Brush b = new LinearGradientBrush(
-                    new Rectangle(startGradient, top, endGradient - startGradient, 1),
-                    leftColor, rightColor, LinearGradientMode.Horizontal))
+                InvalidateGradientCache();
+
+                _cachedLeftColor = leftColor;
+                _cachedRightColor = rightColor;
+                _cachedLeft = left;
+                _cachedTop = top;
+                _cachedRight = right;
+                _cachedStartGradient = startGradient;
+                _cachedEndGradient = endGradient;
+
+                _leftPen = new Pen(leftColor);
+                _rightPen = new Pen(rightColor);
+
+                if (startGradient < right && endGradient > left && endGradient > startGradient)
                 {
-                    using (Pen p = new Pen(b))
-                    {
-                        g.DrawLine(p, startGradient, top, endGradient, top);
-                    }
+                    _gradientBrush = new LinearGradientBrush(
+                        new Rectangle(startGradient, top, endGradient - startGradient, 1),
+                        leftColor, rightColor, LinearGradientMode.Horizontal);
+                    _gradientPen = new Pen(_gradientBrush);
                 }
             }
+
+            if (startGradient > left)
+                g.DrawLine(_leftPen, left, top, startGradient, top);
+
+            if (endGradient < right)
+                g.DrawLine(_rightPen, endGradient, top, right, top);
+
+            if (_gradientPen != null && startGradient < right && endGradient > left)
+                g.DrawLine(_gradientPen, startGradient, top, endGradient, top);
+        }
+
+        private void InvalidateGradientCache()
+        {
+            _leftPen?.Dispose();
+            _leftPen = null;
+            _rightPen?.Dispose();
+            _rightPen = null;
+            _gradientPen?.Dispose();
+            _gradientPen = null;
+            _gradientBrush?.Dispose();
+            _gradientBrush = null;
         }
 
         private static void Swap<T>(ref T a, ref T b)
