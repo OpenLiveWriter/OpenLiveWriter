@@ -109,7 +109,7 @@ else
 
 if (-Not (Test-Path env:OLW_CONFIG))
 {
-    "Environment variable OWL_CONFIG not set, setting to 'Debug'"
+    "Environment variable OLW_CONFIG not set, setting to 'Debug'"
 	$env:OLW_CONFIG = 'Debug'
 }
 
