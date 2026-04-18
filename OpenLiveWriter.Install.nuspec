@@ -1,22 +1,23 @@
-﻿<?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>openlivewriter</id>
-    <version>0.5.0.0</version>
-    <title>OpenLiveWriter (Install)</title>
-    <authors>See list of authors at http://openlivewriter.com/</authors>
-    <owners>Darwin Sanoy, OpenLiveWriter</owners>
-    <licenseUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/blob/master/license.txt</licenseUrl>
-    <projectUrl>http://openlivewriter.com/</projectUrl>
-    <iconUrl>https://cdn.rawgit.com/csi-windowschocolatey/openlivewriter/master/app.png</iconUrl>
+    <version>0.6.3</version>
+    <title>Open Live Writer</title>
+    <authors>Open Live Writer Contributors</authors>
+    <owners>OpenLiveWriter</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://openlivewriter.com/</projectUrl>
+    <projectSourceUrl>https://github.com/OpenLiveWriter/OpenLiveWriter</projectSourceUrl>
+    <bugTrackerUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/issues</bugTrackerUrl>
+    <docsUrl>https://github.com/OpenLiveWriter/OpenLiveWriter/wiki</docsUrl>
+    <iconUrl>https://cdn.rawgit.com/OpenLiveWriter/OpenLiveWriter/master/src/managed/OpenLiveWriter.PostEditor/Images/Writer.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Open Live Writer is an open source application enabling users to author, edit, and publish blog posts.
-      It is based on a fork of the well-loved but not actively developed Windows Live Writer code.</description>
+    <description>Open Live Writer is an open source application enabling users to author, edit, and publish blog posts. It is based on a fork of the well-loved but not actively developed Windows Live Writer code.</description>
     <summary>Open Live Writer makes it easy to write, preview, and post to your blog.</summary>
-    <copyright>.NET Foundation</copyright>
-    <tags>Blog WindowsLiveWriter OpenLiveWriter</tags>
+    <copyright>Open Live Writer Contributors</copyright>
+    <tags>blog blogging windows-live-writer open-live-writer writing publishing</tags>
     <releaseNotes>https://github.com/OpenLiveWriter/OpenLiveWriter/releases</releaseNotes>
-    <!--<projectSourceUrl>https://github.com/OpenLiveWriter</projectSourceUrl>-->
   </metadata>
   <files>
     <file src="OpenLiveWriterSetup.exe" target="tools" />

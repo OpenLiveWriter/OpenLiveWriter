@@ -35,9 +35,7 @@
 
   <!-- NuGet Package References -->
   <ItemGroup>
-    <!-- Removed DeltaCompressionDotNet, Mono.Cecil - only used by Squirrel -->
-    <!-- Removed Splat, squirrel.windows - causes type conflicts with System.Drawing -->
-    <!-- TODO: Migrate to Velopack for auto-update functionality -->
+    <PackageReference Include="Velopack" />
     <PackageReference Include="Google.Apis" />
     <PackageReference Include="Google.Apis.Auth" />
     <PackageReference Include="Google.Apis.Blogger.v3" />

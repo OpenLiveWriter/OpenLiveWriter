@@ -86,6 +86,10 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <!-- Shared output directory matching the layout expected by createinstaller.cmd and CI.
+         The old writer.build.settings used: src/managed/bin/{Config}/{Arch}/Writer/
+         We preserve this so all project outputs land in one deployable folder. -->
+    <OutputPath>$(MSBuildThisFileDirectory)bin\$(Configuration)\i386\Writer\</OutputPath>
   </PropertyGroup>
 
 
