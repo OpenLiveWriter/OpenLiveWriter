@@ -84,11 +84,27 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private BlogInfo[] GetUsersBlogs(string username, string password)
         {
-            // call method
-            XmlNode result = CallMethod("blogger.getUsersBlogs",
-                new XmlRpcString(APP_KEY),
-                new XmlRpcString(username),
-                new XmlRpcString(password, true));
+            // call method -- try blogger.getUsersBlogs first, but fall back to
+            // wp.getUsersBlogs if authentication fails. WordPress routes
+            // blogger.getUsersBlogs to wp_getUsersBlogs which only expects
+            // 2 parameters (username, password). The extra appKey parameter
+            // shifts the argument positions, causing WordPress to use appKey
+            // as the username and username as the password.
+            XmlNode result;
+            try
+            {
+                result = CallMethod("blogger.getUsersBlogs",
+                    new XmlRpcString(APP_KEY),
+                    new XmlRpcString(username),
+                    new XmlRpcString(password, true));
+            }
+            catch (BlogClientAuthenticationException)
+            {
+                // Retry with wp.getUsersBlogs (2 params, no appKey)
+                result = CallMethod("wp.getUsersBlogs",
+                    new XmlRpcString(username),
+                    new XmlRpcString(password, true));
+            }
 
             try
             {

@@ -104,7 +104,14 @@ namespace OpenLiveWriter
                     case AutoRecoverPromptResult.Recover:
                         foreach (string autoSavedPost in autoSavedPostFiles)
                         {
-                            ExecutePostEditorFile(autoSavedPost, splashScreen);
+                            try
+                            {
+                                ExecutePostEditorFile(autoSavedPost, splashScreen);
+                            }
+                            catch (Exception ex)
+                            {
+                                Trace.WriteLine("Failed to recover post: " + autoSavedPost + " - " + ex.Message);
+                            }
                         }
                         return true;
                     case AutoRecoverPromptResult.Discard:

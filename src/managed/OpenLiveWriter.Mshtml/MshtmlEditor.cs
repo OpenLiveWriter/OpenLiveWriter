@@ -569,6 +569,87 @@ editingOption.Key, editingOption.Value, ex.ToString()));
                 CommandKeyEventHandler(this, e);
         }
 
+        #region Zoom Handling
+
+        /// <summary>
+        /// Default zoom percentage.
+        /// </summary>
+        private const int DefaultZoomPercent = 100;
+
+        /// <summary>
+        /// Handles Ctrl+=, Ctrl+-, and Ctrl+0 zoom keyboard shortcuts by
+        /// getting the current zoom level and adjusting it accordingly.
+        /// </summary>
+        private void HandleZoomKeyboardShortcut(Keys key)
+        {
+            try
+            {
+                int currentZoom = GetCurrentZoomPercent();
+
+                int newZoom;
+                if (key == Keys.D0)
+                {
+                    // Ctrl+0: Reset zoom to 100%
+                    newZoom = DefaultZoomPercent;
+                }
+                else if (key == Keys.Oemplus)
+                {
+                    // Ctrl+=: Zoom in (next higher zoom level)
+                    newZoom = ZoomHelper.GetNextZoomLevel(currentZoom, zoomIn: true);
+                }
+                else
+                {
+                    // Ctrl+-: Zoom out (next lower zoom level)
+                    newZoom = ZoomHelper.GetNextZoomLevel(currentZoom, zoomIn: false);
+                }
+
+                if (newZoom != currentZoom)
+                {
+                    SetZoomPercent(newZoom);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Fail("Zoom operation failed: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the current zoom percentage from MSHTML.
+        /// </summary>
+        private int GetCurrentZoomPercent()
+        {
+            try
+            {
+                if (Commands.ContainsKey(IDM.ZOOMPERCENT))
+                {
+                    object value = Commands[IDM.ZOOMPERCENT].GetValue();
+                    if (value is IConvertible && !(value is DBNull))
+                    {
+                        return Convert.ToInt32(value, CultureInfo.InvariantCulture);
+                    }
+                }
+            }
+            catch (COMException)
+            {
+                // MSHTML may not support this command in all states
+            }
+            return DefaultZoomPercent;
+        }
+
+        /// <summary>
+        /// Sets the zoom percentage in MSHTML.
+        /// </summary>
+        private void SetZoomPercent(int zoomPercent)
+        {
+            if (Commands.ContainsKey(IDM.ZOOMPERCENT))
+            {
+                Commands[IDM.ZOOMPERCENT].Execute(zoomPercent);
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Provide the ability to filter editor events
         /// </summary>
@@ -888,6 +969,20 @@ editingOption.Key, editingOption.Value, ex.ToString()));
             // Convert the wParam into a .Net Keys value and combine it with
             // any currently pressed modifier keys
             Keys keyData = key | ModifierKeys;
+
+            // Handle zoom keyboard shortcuts: Ctrl+= (zoom in), Ctrl+- (zoom out),
+            // and Ctrl+0 (reset zoom to 100%). Without this, Ctrl+= is consumed by
+            // the Subscript command and never reaches the zoom handler. We handle all
+            // three shortcuts here for consistency. Only plain Ctrl (no Shift) to
+            // avoid conflicts with Ctrl+Shift+= (Superscript).
+            if (ModifierKeys == Keys.Control)
+            {
+                if (key == Keys.Oemplus || key == Keys.OemMinus || key == Keys.D0)
+                {
+                    HandleZoomKeyboardShortcut(key);
+                    return HRESULT.S_OK;
+                }
+            }
 
             //	Instantiate the KeyEventArgs.
             KeyEventArgs keyEventArgs = new KeyEventArgs(keyData);

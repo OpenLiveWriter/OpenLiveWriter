@@ -21,6 +21,427 @@ namespace OpenLiveWriter.HtmlParser.Parser
             return Regex.Replace(html, @"\s+", " ");
         }
 
+        /// <summary>
+        /// Normalizes HTML by ensuring elements with optional end tags have explicit closing tags.
+        /// This fixes issues where MSHTML serializes HTML without closing tags for elements like &lt;p&gt;.
+        /// </summary>
+        /// <param name="html">The HTML string to normalize.</param>
+        /// <returns>HTML with explicit closing tags added for elements with optional end tags.</returns>
+        public static string NormalizeHtmlClosingTags(string html)
+        {
+            if (string.IsNullOrEmpty(html))
+                return html;
+
+            StringBuilder result = new StringBuilder(html.Length + 100);
+            ArrayList openTags = new ArrayList(); // Stack of tag names (optional end tags + containers)
+            SimpleHtmlParser parser = new SimpleHtmlParser(html);
+
+            Element el;
+            while ((el = parser.Next()) != null)
+            {
+                if (el is BeginTag)
+                {
+                    BeginTag beginTag = (BeginTag)el;
+                    string tagName = beginTag.Name;
+
+                    // Close any implicitly closed tags before adding this new tag
+                    CloseImplicitlyClosedTags(result, openTags, tagName);
+
+                    result.Append(el.RawText);
+
+                    // Track tags with optional end tags and container elements (but not self-closing)
+                    if ((HasOptionalEndTag(tagName) || IsContainerElement(tagName)) && !beginTag.Complete)
+                    {
+                        openTags.Add(tagName);
+                    }
+                }
+                else if (el is EndTag)
+                {
+                    EndTag endTag = (EndTag)el;
+                    CloseTagsUntilMatch(result, openTags, endTag.Name);
+                    result.Append(el.RawText);
+                }
+                else
+                {
+                    result.Append(el.RawText);
+                }
+            }
+
+            // Close any remaining open tags at end of input (only optional-end-tag elements)
+            for (int i = openTags.Count - 1; i >= 0; i--)
+            {
+                string tag = (string)openTags[i];
+                if (HasOptionalEndTag(tag))
+                {
+                    result.Append("</").Append(tag).Append(">");
+                }
+            }
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// Returns true if the element has an optional end tag per HTML spec.
+        /// </summary>
+        private static bool HasOptionalEndTag(string tagName)
+        {
+            switch (tagName.ToUpper(CultureInfo.InvariantCulture))
+            {
+                case "P":
+                case "LI":
+                case "DT":
+                case "DD":
+                case "TR":
+                case "TH":
+                case "TD":
+                case "THEAD":
+                case "TBODY":
+                case "TFOOT":
+                case "COLGROUP":
+                case "OPTION":
+                case "OPTGROUP":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the new tag implicitly closes the open tag.
+        /// Based on HTML5 optional tag omission rules.
+        /// </summary>
+        private static bool ImplicitlyCloses(string newTag, string openTag)
+        {
+            string newUpper = newTag.ToUpper(CultureInfo.InvariantCulture);
+            string openUpper = openTag.ToUpper(CultureInfo.InvariantCulture);
+
+            // Block-level elements implicitly close an open P tag per HTML5 spec
+            if (openUpper == "P" && IsBlockElement(newUpper))
+            {
+                return true;
+            }
+
+            switch (newUpper)
+            {
+                case "P":
+                    return openUpper == "P";
+                case "LI":
+                    return openUpper == "LI";
+                case "DT":
+                case "DD":
+                    return openUpper == "DT" || openUpper == "DD";
+                case "TR":
+                    return openUpper == "TR" || openUpper == "TH" || openUpper == "TD";
+                case "TH":
+                case "TD":
+                    return openUpper == "TH" || openUpper == "TD";
+                case "THEAD":
+                case "TBODY":
+                case "TFOOT":
+                    return openUpper == "THEAD" || openUpper == "TBODY" || openUpper == "TFOOT";
+                case "OPTION":
+                    return openUpper == "OPTION";
+                case "OPTGROUP":
+                    return openUpper == "OPTGROUP" || openUpper == "OPTION";
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the element is a block-level element that closes an open P tag.
+        /// Per HTML5, a P element's end tag can be omitted if immediately followed by these elements.
+        /// </summary>
+        private static bool IsBlockElement(string tagNameUpper)
+        {
+            switch (tagNameUpper)
+            {
+                case "ADDRESS":
+                case "ARTICLE":
+                case "ASIDE":
+                case "BLOCKQUOTE":
+                case "DIV":
+                case "DL":
+                case "FIELDSET":
+                case "FIGCAPTION":
+                case "FIGURE":
+                case "FOOTER":
+                case "FORM":
+                case "H1":
+                case "H2":
+                case "H3":
+                case "H4":
+                case "H5":
+                case "H6":
+                case "HEADER":
+                case "HR":
+                case "MAIN":
+                case "NAV":
+                case "OL":
+                case "P":
+                case "PRE":
+                case "SECTION":
+                case "TABLE":
+                case "UL":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the element is a container that closes all inner optional-end-tag elements.
+        /// </summary>
+        private static bool IsContainerElement(string tagName)
+        {
+            switch (tagName.ToUpper(CultureInfo.InvariantCulture))
+            {
+                case "TABLE":
+                case "UL":
+                case "OL":
+                case "DL":
+                case "SELECT":
+                case "BODY":
+                case "HTML":
+                case "DIV":
+                case "FORM":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Closes tags that are implicitly closed when a new tag opens.
+        /// </summary>
+        private static void CloseImplicitlyClosedTags(StringBuilder result, ArrayList openTags, string newTagName)
+        {
+            // Close all matching tags from the top of the stack
+            while (openTags.Count > 0)
+            {
+                string openTag = (string)openTags[openTags.Count - 1];
+                if (ImplicitlyCloses(newTagName, openTag))
+                {
+                    openTags.RemoveAt(openTags.Count - 1);
+                    result.Append("</").Append(openTag).Append(">");
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Closes tags until we find a matching open tag for the given end tag.
+        /// </summary>
+        private static void CloseTagsUntilMatch(StringBuilder result, ArrayList openTags, string endTagName)
+        {
+            string endUpper = endTagName.ToUpper(CultureInfo.InvariantCulture);
+
+            // Container elements close their inner optional-end-tag elements until the matching container
+            if (IsContainerElement(endTagName))
+            {
+                while (openTags.Count > 0)
+                {
+                    string openTag = (string)openTags[openTags.Count - 1];
+                    string openUpper = openTag.ToUpper(CultureInfo.InvariantCulture);
+
+                    if (openUpper == endUpper)
+                    {
+                        // Found the matching container - remove it from stack
+                        openTags.RemoveAt(openTags.Count - 1);
+                        break;
+                    }
+                    else if (HasOptionalEndTag(openTag))
+                    {
+                        // Close this optional-end-tag element
+                        openTags.RemoveAt(openTags.Count - 1);
+                        result.Append("</").Append(openTag).Append(">");
+                    }
+                    else
+                    {
+                        // Hit another container - stop here (malformed HTML)
+                        break;
+                    }
+                }
+                return;
+            }
+
+            // For optional end tag elements, close until we find a match
+            if (HasOptionalEndTag(endTagName))
+            {
+                while (openTags.Count > 0)
+                {
+                    string openTag = (string)openTags[openTags.Count - 1];
+                    string openUpper = openTag.ToUpper(CultureInfo.InvariantCulture);
+
+                    if (openUpper == endUpper)
+                    {
+                        // Found the match - remove from stack, source end tag will close it
+                        openTags.RemoveAt(openTags.Count - 1);
+                        break;
+                    }
+                    else if (HasOptionalEndTag(openTag))
+                    {
+                        // Close this tag implicitly
+                        openTags.RemoveAt(openTags.Count - 1);
+                        result.Append("</").Append(openTag).Append(">");
+                    }
+                    else
+                    {
+                        // Hit a container element - stop here
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Fixes invalid nested list HTML where MSHTML places nested &lt;ul&gt;/&lt;ol&gt; elements
+        /// as siblings of &lt;li&gt; rather than inside the preceding &lt;li&gt;.
+        /// For example, converts:
+        ///   &lt;ul&gt;&lt;li&gt;item&lt;/li&gt;&lt;ul&gt;&lt;li&gt;nested&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;
+        /// To:
+        ///   &lt;ul&gt;&lt;li&gt;item&lt;ul&gt;&lt;li&gt;nested&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;
+        /// </summary>
+        public static string FixNestedListHtml(string html)
+        {
+            if (string.IsNullOrEmpty(html))
+                return html;
+
+            StringBuilder result = new StringBuilder(html.Length + 50);
+            SimpleHtmlParser parser = new SimpleHtmlParser(html);
+            ArrayList tokenBuffer = new ArrayList();
+
+            // Buffer all tokens first so we can look ahead
+            Element el;
+            while ((el = parser.Next()) != null)
+            {
+                tokenBuffer.Add(el);
+            }
+
+            // Track whether we're inside a list context using a stack
+            // Each entry is the tag name of the list element (UL or OL)
+            ArrayList listStack = new ArrayList();
+            // Track whether the last meaningful event was a </li> close tag
+            // If so, and the next thing is a <ul>/<ol>, we need to reopen that <li>
+            bool lastWasLiClose = false;
+            string pendingLiCloseTag = null;
+
+            for (int i = 0; i < tokenBuffer.Count; i++)
+            {
+                Element token = (Element)tokenBuffer[i];
+
+                if (token is BeginTag)
+                {
+                    BeginTag bt = (BeginTag)token;
+                    string nameUpper = bt.Name.ToUpper(CultureInfo.InvariantCulture);
+
+                    if (nameUpper == "UL" || nameUpper == "OL")
+                    {
+                        if (lastWasLiClose && listStack.Count > 0 && pendingLiCloseTag != null)
+                        {
+                            // Remove the </li> we already wrote - the nested list should be inside the <li>
+                            // We need to remove the trailing </li> from the result
+                            string closeLi = "</" + pendingLiCloseTag + ">";
+                            string resultStr = result.ToString();
+                            int lastIndex = resultStr.LastIndexOf(closeLi, StringComparison.OrdinalIgnoreCase);
+                            if (lastIndex >= 0)
+                            {
+                                result.Remove(lastIndex, closeLi.Length);
+                            }
+                            // We'll need to re-close the <li> after the nested list closes
+                            listStack.Add(nameUpper + "|" + pendingLiCloseTag);
+                        }
+                        else
+                        {
+                            listStack.Add(nameUpper);
+                        }
+                        result.Append(token.RawText);
+                        lastWasLiClose = false;
+                        pendingLiCloseTag = null;
+                    }
+                    else if (nameUpper == "LI")
+                    {
+                        result.Append(token.RawText);
+                        lastWasLiClose = false;
+                        pendingLiCloseTag = null;
+                    }
+                    else
+                    {
+                        result.Append(token.RawText);
+                        lastWasLiClose = false;
+                        pendingLiCloseTag = null;
+                    }
+                }
+                else if (token is EndTag)
+                {
+                    EndTag et = (EndTag)token;
+                    string nameUpper = et.Name.ToUpper(CultureInfo.InvariantCulture);
+
+                    if (nameUpper == "LI")
+                    {
+                        result.Append(token.RawText);
+                        lastWasLiClose = true;
+                        pendingLiCloseTag = et.Name;
+                    }
+                    else if (nameUpper == "UL" || nameUpper == "OL")
+                    {
+                        result.Append(token.RawText);
+
+                        // Check if we need to re-close an <li> that was opened for nesting
+                        if (listStack.Count > 0)
+                        {
+                            string stackEntry = (string)listStack[listStack.Count - 1];
+                            listStack.RemoveAt(listStack.Count - 1);
+                            int pipeIndex = stackEntry.IndexOf('|');
+                            if (pipeIndex >= 0)
+                            {
+                                // This list was nested inside an <li> - re-close the <li>
+                                string liTagName = stackEntry.Substring(pipeIndex + 1);
+                                result.Append("</").Append(liTagName).Append(">");
+                                lastWasLiClose = true;
+                                pendingLiCloseTag = liTagName;
+                            }
+                            else
+                            {
+                                lastWasLiClose = false;
+                                pendingLiCloseTag = null;
+                            }
+                        }
+                        else
+                        {
+                            lastWasLiClose = false;
+                            pendingLiCloseTag = null;
+                        }
+                    }
+                    else
+                    {
+                        result.Append(token.RawText);
+                        lastWasLiClose = false;
+                        pendingLiCloseTag = null;
+                    }
+                }
+                else
+                {
+                    result.Append(token.RawText);
+                    // Don't reset lastWasLiClose for whitespace-only text nodes
+                    if (token is Text)
+                    {
+                        string text = token.RawText;
+                        if (!string.IsNullOrEmpty(text) && text.Trim().Length > 0)
+                        {
+                            lastWasLiClose = false;
+                            pendingLiCloseTag = null;
+                        }
+                    }
+                }
+            }
+
+            return result.ToString();
+        }
+
         public static string HTMLToPlainText(string html)
         {
             return HTMLToPlainText(html, false);

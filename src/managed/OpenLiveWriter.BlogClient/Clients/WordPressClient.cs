@@ -46,6 +46,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
             // add support for wp-api features
             clientOptions.SupportsKeywords = true;
+            clientOptions.SupportsGetKeywords = true;
             clientOptions.SupportsPages = true;
             clientOptions.SupportsPageParent = true;
             clientOptions.SupportsPageOrder = true;

@@ -92,6 +92,10 @@
       <Project>{D6C9A393-E0B8-4548-B84B-F8B6FE2A5645}</Project>
       <Name>OpenLiveWriter.PostEditor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.Mshtml\OpenLiveWriter.Mshtml.csproj">
+      <Project>{906BA039-467B-41AE-B805-BA1B837AB763}</Project>
+      <Name>OpenLiveWriter.Mshtml</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CoreServices\ResourceDownloading\SupportingCabs\Unsigned_1529.0310.cab">
@@ -104,7 +108,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreServices\XmlFileSettingsPersisterTest.cs" />
     <Compile Include="HtmlEditor\WordCounterTests\HebrewTextWordCount.cs" />
+    <Compile Include="PostEditor\Tables\TableEditorDisposeTest.cs" />
+    <Compile Include="PostEditor\MalformedUrlHandlingTest.cs" />
+    <Compile Include="Mshtml\ZoomHelperTests.cs" />
+    <Compile Include="PostEditor\PostEditorStorageExceptionTests.cs" />
+    <Compile Include="SpellChecker\SpellingLanguageFallbackTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

@@ -125,6 +125,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BlogClient\Clients\StaticSite\StaticSiteItemFrontMatterTests.cs" />
+    <Compile Include="HtmlParser\HtmlNormalizationTests.cs" />
+    <Compile Include="HtmlParser\NestedListFixTests.cs" />
     <Compile Include="PostEditor\Tables\PixelPercentTests.cs" />
     <Compile Include="PostEditor\Tables\TestHtmlEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +148,10 @@
     <ProjectReference Include="..\OpenLiveWriter.HtmlEditor\OpenLiveWriter.HtmlEditor.csproj">
       <Project>{6A6872BC-67EF-4A42-A21A-30ECED376923}</Project>
       <Name>OpenLiveWriter.HtmlEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLiveWriter.HtmlParser\OpenLiveWriter.HtmlParser.csproj">
+      <Project>{4dd9e7e4-cb94-4289-a3fc-d66c67a6d55d}</Project>
+      <Name>OpenLiveWriter.HtmlParser</Name>
     </ProjectReference>
     <ProjectReference Include="..\OpenLiveWriter.PostEditor\OpenLiveWriter.PostEditor.csproj">
       <Project>{d6c9a393-e0b8-4548-b84b-f8b6fe2a5645}</Project>

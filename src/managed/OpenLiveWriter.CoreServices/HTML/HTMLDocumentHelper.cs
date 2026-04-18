@@ -983,8 +983,15 @@ namespace OpenLiveWriter.CoreServices
                     if (relativePath == string.Empty)
                         relativePath = "\"\"";
 
-                    param.outerHTML =
-                        param.outerHTML.Replace(relativePath, UrlHelper.EscapeRelativeURL(baseUrl, relativePath));
+                    try
+                    {
+                        param.outerHTML =
+                            param.outerHTML.Replace(relativePath, UrlHelper.EscapeRelativeURL(baseUrl, relativePath));
+                    }
+                    catch (COMException)
+                    {
+                        // Element may not support outerHTML assignment; skip it
+                    }
                 }
             }
 

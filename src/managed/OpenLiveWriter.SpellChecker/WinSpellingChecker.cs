@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace OpenLiveWriter.SpellChecker
 {
@@ -45,7 +46,20 @@ namespace OpenLiveWriter.SpellChecker
                 return SpellCheckResult.Correct;
             }
 
-            PlatformSpellCheck.SpellingError spellerStatus = _speller.Check(word).FirstOrDefault();
+            PlatformSpellCheck.SpellingError spellerStatus;
+            try
+            {
+                spellerStatus = _speller.Check(word).FirstOrDefault();
+            }
+            catch (COMException)
+            {
+                // The Windows spell-check COM API can throw COMException when
+                // the document is being modified during background spell-checking.
+                // Treat as correct rather than crashing.
+                offset = 0;
+                length = 0;
+                return SpellCheckResult.Correct;
+            }
 
             if (spellerStatus == null)
             {
@@ -120,9 +134,18 @@ namespace OpenLiveWriter.SpellChecker
             CheckInitialized();
             List<SpellingSuggestion> list = new List<SpellingSuggestion>();
 
-            foreach (string suggestion in _speller.Suggestions(word).Take(maxSuggestions))
+            try
             {
-                list.Add(new SpellingSuggestion(suggestion, 1));
+                foreach (string suggestion in _speller.Suggestions(word).Take(maxSuggestions))
+                {
+                    list.Add(new SpellingSuggestion(suggestion, 1));
+                }
+            }
+            catch (COMException)
+            {
+                // The Windows spell-check COM API can throw COMException when
+                // the document is being modified during background spell-checking.
+                // Return whatever suggestions we have so far rather than crashing.
             }
 
             return list.ToArray();

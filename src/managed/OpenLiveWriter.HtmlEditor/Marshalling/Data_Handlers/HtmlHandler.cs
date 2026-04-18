@@ -104,7 +104,10 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                                 }
                                 else
                                 {
-                                    html = sourceRange.HtmlText;
+                                    // Normalize the HTML to ensure elements with optional end tags have explicit closing tags.
+                                    // MSHTML may serialize HTML without closing tags for elements like <p>, which can cause
+                                    // issues when the HTML is processed further or displayed in other contexts.
+                                    html = HtmlUtils.NormalizeHtmlClosingTags(sourceRange.HtmlText);
                                 }
                             }
 
@@ -319,7 +322,10 @@ namespace OpenLiveWriter.HtmlEditor.Marshalling.Data_Handlers
                         MarkupRange inlinedRange = new KeepSourceFormatting(sourceRange, temporaryDestinationRange).Execute();
                         if (inlinedRange != null)
                         {
-                            return inlinedRange.HtmlText;
+                            // Normalize the HTML to ensure elements with optional end tags have explicit closing tags.
+                            // MSHTML may serialize HTML without closing tags for elements like <p>, which can cause
+                            // issues when the HTML is processed further or displayed in other contexts.
+                            return HtmlUtils.NormalizeHtmlClosingTags(inlinedRange.HtmlText);
                         }
                     }
                 }

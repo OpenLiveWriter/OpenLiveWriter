@@ -61,7 +61,24 @@ namespace OpenLiveWriter.SpellChecker
         {
             List<SpellingLanguageEntry> list = new List<SpellingLanguageEntry>();
 
-            foreach (string entry in WinSpellingChecker.GetInstalledLanguages())
+            string[] installedLanguages = WinSpellingChecker.GetInstalledLanguages();
+
+            if (installedLanguages.Length == 0)
+            {
+                // When the platform API reports no installed languages (common on Windows 10+
+                // systems without explicit language packs), add the current system culture and
+                // en-US as fallback options. The Windows spell check API typically still works
+                // for these languages even when they aren't enumerated.
+                HashSet<string> fallbackCodes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                string systemLanguage = CultureInfo.CurrentCulture.Name;
+                if (!string.IsNullOrEmpty(systemLanguage))
+                    fallbackCodes.Add(systemLanguage);
+                fallbackCodes.Add("en-US");
+                installedLanguages = new string[fallbackCodes.Count];
+                fallbackCodes.CopyTo(installedLanguages);
+            }
+
+            foreach (string entry in installedLanguages)
             {
                 try
                 {
@@ -159,7 +176,7 @@ namespace OpenLiveWriter.SpellChecker
                 Trace.WriteLine("Dictionary language specified in registry is not installed. Using fallback");
 
                 if (WinSpellingChecker.IsLanguageSupported(defaultLanguage))
-                { 
+                {
                     Language = defaultLanguage;
                     return defaultLanguage;
                 }
@@ -170,7 +187,18 @@ namespace OpenLiveWriter.SpellChecker
                     return "en-US";
                 }
 
-                return string.Empty;
+                // On Windows 10+ the spell check API may work for the system language even
+                // when IsLanguageSupported returns false (no explicit language pack installed).
+                // Return the system culture as a best-effort default so the UI does not show
+                // "(None)" and grey out the spell check button.
+                if (!string.IsNullOrEmpty(defaultLanguage))
+                {
+                    Language = defaultLanguage;
+                    return defaultLanguage;
+                }
+
+                Language = "en-US";
+                return "en-US";
             }
             set { SpellingKey.SetString(LANGUAGE, value); }
         }

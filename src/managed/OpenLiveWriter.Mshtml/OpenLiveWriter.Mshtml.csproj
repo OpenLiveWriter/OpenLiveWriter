@@ -50,6 +50,7 @@
     <Compile Include="MshtmlFontWrapper.cs" />
     <Compile Include="MshtmlKeyboardHook.cs" />
     <Compile Include="MshtmlMarkupServices.cs" />
+    <Compile Include="ZoomHelper.cs" />
     <Compile Include="Mshtml_Interop\ElementBehaviorFactoryForExistingBehavior.cs" />
     <Compile Include="Mshtml_Interop\HtmlElementEvents2DispIds.cs" />
     <Compile Include="Mshtml_Interop\ICustomDoc.cs" />

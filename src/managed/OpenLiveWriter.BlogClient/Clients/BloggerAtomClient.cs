@@ -662,9 +662,9 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private bool AuthorizeRequest(HttpWebRequest request, string serviceName)
         {
-            // This line is required to avoid Error 500 from non-beta Blogger blogs.
-            // According to Pete Hopkins it is "something with .NET".
-            request.Accept = "*/*";
+            // Use the proper Atom content type for content negotiation.
+            // AtomPub endpoints may serve different formats based on Accept header.
+            request.Accept = "application/atom+xml";
 
             TransientCredentials transientCredentials = Login();
             GDataCredentials cred = GDataCredentials.FromCredentials(transientCredentials);

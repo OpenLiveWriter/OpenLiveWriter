@@ -369,11 +369,24 @@ namespace OpenLiveWriter.PostEditor
             }
             public void ReferenceFixedCallback(string oldReference, string newReference)
             {
-                ISupportingFile file = _editingContext.SupportingFileService.GetFileByUri(new Uri(newReference));
+                Uri newUri;
+                try
+                {
+                    newUri = new Uri(newReference);
+                }
+                catch (UriFormatException)
+                {
+                    return;
+                }
+
+                ISupportingFile file = _editingContext.SupportingFileService.GetFileByUri(newUri);
                 if (file != null)
                 {
                     foreach (BlogPostImageData imageData in _editingContext.ImageDataList)
                     {
+                        if (imageData.InlineImageFile == null || imageData.InlineImageFile.SupportingFile == null)
+                            continue;
+
                         // We can no longer trust the target settings for this file, so we must remove them
                         // this means the first time the object is clicked it will read the settings from the DOM
                         if (file.FileId == imageData.InlineImageFile.SupportingFile.FileId)

@@ -75,8 +75,8 @@ layout: post
                 Layout = "post"
             };
 
-            // Assert
-            Assert.AreEqual(expected, fm.Serialize());
+            // Assert — normalize line endings for cross-platform compatibility
+            Assert.AreEqual(expected.Replace("\r\n", "\n"), fm.Serialize().Replace("\r\n", "\n"));
         }
 
 
@@ -101,8 +101,8 @@ tags:
                 Tags = new string[] {"hello", "world"}
             };
 
-            // Assert
-            Assert.AreEqual(expected, fm.Serialize());
+            // Assert — normalize line endings for cross-platform compatibility
+            Assert.AreEqual(expected.Replace("\r\n", "\n"), fm.Serialize().Replace("\r\n", "\n"));
         }
     }
 }

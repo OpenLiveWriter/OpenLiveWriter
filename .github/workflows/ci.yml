@@ -1,26 +1,36 @@
-name: CI
+name: CI Build
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+      - develop/**
   pull_request:
-    branches: [master]
+    branches:
+      - master
+  workflow_dispatch:
 
 env:
+  SOLUTION_PATH: src/managed/writer.sln
   OLW_CONFIG: Release
   OlwBloggerClientId: 597389294595-271ukaucs8ghmc6c6cnhrbef2c02g5qa.apps.googleusercontent.com
 
 jobs:
   build:
-    name: Build, Test, and Deploy
-    runs-on: windows-2022
+    name: Build Open Live Writer
+    runs-on: windows-latest
     env:
       OlwBloggerClientSecret: ${{ secrets.OLW_BLOGGER_CLIENT_SECRET }}
       SignClientSecret: ${{ secrets.SIGN_CLIENT_SECRET }}
       SignClientUser: ${{ secrets.SIGN_CLIENT_USER }}
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Setup .NET Framework 4.6.1 Developer Pack
+        run: |
+          choco install netfx-4.6.1-devpack -y --no-progress
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
@@ -28,9 +38,30 @@ jobs:
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
 
+      # The PostBuild.CreateInstaller post-build step looks for nuget.exe at
+      # %LocalAppData%\Nuget\Nuget.exe; if it's missing the step no-ops. For
+      # master pushes (where we need the installer output to sign and deploy)
+      # we prime it here. PRs skip this so their builds stay fast and don't
+      # depend on the prior-release blob the installer script pulls from.
+      - name: Prepare nuget.exe for installer (master only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        shell: pwsh
+        run: |
+          $nugetDir = Join-Path $env:LocalAppData 'NuGet'
+          New-Item -ItemType Directory -Force -Path $nugetDir | Out-Null
+          Invoke-WebRequest 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile (Join-Path $nugetDir 'NuGet.exe')
+
+      - name: Restore NuGet packages
+        run: nuget restore ${{ env.SOLUTION_PATH }}
+
       - name: Build solution
-        shell: cmd
-        run: .\build.cmd
+        run: |
+          msbuild ${{ env.SOLUTION_PATH }} `
+            /nologo `
+            /maxcpucount `
+            /verbosity:minimal `
+            /p:Configuration=${{ env.OLW_CONFIG }} `
+            /p:PlatformToolset=v143
 
       - name: Locate VSTest
         id: vstest
@@ -67,6 +98,13 @@ jobs:
           path: TestResults/*.trx
           if-no-files-found: ignore
 
+      - name: Upload binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenLiveWriter-Binaries-${{ github.run_number }}
+          path: src/managed/bin/${{ env.OLW_CONFIG }}/i386/Writer/
+          if-no-files-found: warn
+
       # The following steps replicate AppVeyor's sign + deploy pipeline and
       # only run on pushes to master (equivalent to AppVeyor's
       # `disable_publish_on_pr: true` and `branches: only: master`).
@@ -100,3 +138,33 @@ jobs:
             --destination nightly `
             --source Releases `
             --overwrite
+
+  build-debug:
+    name: Build Debug Configuration
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET Framework 4.6.1 Developer Pack
+        run: |
+          choco install netfx-4.6.1-devpack -y --no-progress
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore ${{ env.SOLUTION_PATH }}
+
+      - name: Build solution (Debug)
+        run: |
+          msbuild ${{ env.SOLUTION_PATH }} `
+            /nologo `
+            /maxcpucount `
+            /verbosity:minimal `
+            /p:Configuration=Debug `
+            /p:PlatformToolset=v143

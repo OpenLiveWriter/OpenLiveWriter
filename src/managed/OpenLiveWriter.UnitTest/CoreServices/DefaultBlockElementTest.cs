@@ -41,8 +41,9 @@ line 7";
 
             string html = TextHelper.GetHTMLFromText(plainText, false, paragraphDefaultBlockElement);
 
+            // Normalize line endings for cross-platform compatibility
             Assert.AreEqual(
-@"<p>line 1<br />
+(@"<p>line 1<br />
 line 2</p>
 <p>line 3</p>
 <p><br />
@@ -54,7 +55,7 @@ line 4</p>
 line 6</p>
 <p></p>
 <p></p>
-<p>line 7</p>", html);
+<p>line 7</p>").Replace("\r\n", "\n"), html.Replace("\r\n", "\n"));
         }
 
         [Test]
@@ -88,8 +89,9 @@ line 7";
 
             string html = TextHelper.GetHTMLFromText(plainText, false, divDefaultBlockElement);
 
+            // Normalize line endings for cross-platform compatibility
             Assert.AreEqual(
-@"<div>line 1</div>
+(@"<div>line 1</div>
 <div>line 2</div>
 <div></div>
 <div>line 3</div>
@@ -110,7 +112,7 @@ line 7";
 <div></div>
 <div></div>
 <div></div>
-<div>line 7</div>", html);
+<div>line 7</div>").Replace("\r\n", "\n"), html.Replace("\r\n", "\n"));
         }
     }
 }

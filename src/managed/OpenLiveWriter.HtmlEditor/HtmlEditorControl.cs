@@ -3223,8 +3223,15 @@ namespace OpenLiveWriter.HtmlEditor
 
         public virtual void EmptySelection()
         {
-            if (HTMLDocument.readyState == "complete" && HTMLDocument.selection != null)
-                HTMLDocument.selection.empty();
+            try
+            {
+                if (HTMLDocument.readyState == "complete" && HTMLDocument.selection != null)
+                    HTMLDocument.selection.empty();
+            }
+            catch (COMException ex)
+            {
+                Trace.WriteLine("COMException emptying selection (the DOM may be in a transitional state): " + ex.Message);
+            }
         }
 
         public void InsertHtml(string html, bool moveSelectionRight)

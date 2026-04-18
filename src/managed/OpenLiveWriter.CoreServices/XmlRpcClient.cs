@@ -65,7 +65,7 @@ namespace OpenLiveWriter.CoreServices
                 response = HttpRequestHelper.SendRequest(_hostname, delegate (HttpWebRequest request)
                 {
                     request.Method = "POST";
-                    request.AllowAutoRedirect = false;
+                    request.AllowAutoRedirect = true;
                     request.ContentType = String.Format(CultureInfo.InvariantCulture, "{0};charset={1}", MimeHelper.TEXT_XML, encodingToUse.WebName);
                     if (_requestFilter != null)
                         _requestFilter(request);

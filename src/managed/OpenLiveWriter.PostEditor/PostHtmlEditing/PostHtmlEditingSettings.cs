@@ -108,7 +108,16 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                 {
                     string origPath = File.ReadAllText(templateHtmlFile + ".path");
                     string newPath = Path.Combine(Path.GetDirectoryName(templateHtmlFile), Path.GetFileName(origPath));
-                    string newUri = UrlHelper.SafeToAbsoluteUri(new Uri(newPath));
+                    Uri pathUri;
+                    string newUri;
+                    if (Uri.TryCreate(newPath, UriKind.Absolute, out pathUri))
+                    {
+                        newUri = UrlHelper.SafeToAbsoluteUri(pathUri);
+                    }
+                    else
+                    {
+                        newUri = newPath;
+                    }
                     templateHtml = templateHtml.Replace(origPath, newUri);
                 }
 

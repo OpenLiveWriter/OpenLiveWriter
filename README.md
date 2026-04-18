@@ -2,8 +2,6 @@
 Open Live Writer makes it easy to write, preview, and post to your blog.
 For more information see http://www.OpenLiveWriter.com/.
 
-[![Build status](https://ci.appveyor.com/api/projects/status/8xpga2y53sgwo24g?svg=true)](https://ci.appveyor.com/project/dotnetfoundation/openlivewriter)
-
 ### Installation
 You can install the latest version of Open Live Writer alongside an [older version of Windows Live Writer](http://windows.microsoft.com/en-us/windows-live/essentials). Visit
 http://www.OpenLiveWriter.com to download and install the latest release.

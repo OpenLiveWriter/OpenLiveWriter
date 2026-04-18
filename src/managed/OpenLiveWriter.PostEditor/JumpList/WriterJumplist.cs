@@ -1,9 +1,8 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
+// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.PostEditor.JumpList
@@ -76,11 +75,9 @@ namespace OpenLiveWriter.PostEditor.JumpList
             }
             catch (Exception e)
             {
-                Trace.Fail(e.ToString());
-                if (e is InvalidOperationException || e is UnauthorizedAccessException || e is COMException)
-                    return;
-
-                throw;
+                Trace.WriteLine("JumpList update failed: " + e.ToString());
+                // Jump List is non-critical; swallow all errors so they never
+                // block the user after a successful publish.
             }
         }
 

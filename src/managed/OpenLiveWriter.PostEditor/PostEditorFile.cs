@@ -515,23 +515,21 @@ namespace OpenLiveWriter.PostEditor
                         WriteString(postStorage, POST_CONTENTS_VERSION_SIGNATURE, blogPost.ContentsVersionSignature);
 
                         // contents (with fixups for local files)
-                        SupportingFilePersister supportingFilePersister = new SupportingFilePersister(postStorage.OpenStorage(POST_SUPPORTING_FILES, StorageMode.Create, true));
-                        //BlogPostReferenceFixedHandler fixedReferenceHandler = new BlogPostReferenceFixedHandler(editingContext.ImageDataList);
-                        //string fixedUpPostContents = supportingFilePersister.SaveFilesAndFixupReferences(blogPost.Contents, new ReferenceFixedCallback(fixedReferenceHandler.HandleReferenceFixed)) ;
+                        using (SupportingFilePersister supportingFilePersister = new SupportingFilePersister(postStorage.OpenStorage(POST_SUPPORTING_FILES, StorageMode.Create, true)))
+                        {
+                            //write the attached file data
+                            SupportingFileReferenceList referenceList = SupportingFileReferenceList.CalculateReferencesForSave(editingContext);
+                            WriteXml(postStorage, POST_ATTACHED_FILES, null, new XmlWriteHandler(new AttachedFileListWriter(supportingFilePersister, editingContext, referenceList).WriteAttachedFileList));
 
-                        //write the attached file data
-                        //supportingFilePersister.
-                        SupportingFileReferenceList referenceList = SupportingFileReferenceList.CalculateReferencesForSave(editingContext);
-                        WriteXml(postStorage, POST_ATTACHED_FILES, null, new XmlWriteHandler(new AttachedFileListWriter(supportingFilePersister, editingContext, referenceList).WriteAttachedFileList));
+                            WriteXml(postStorage, POST_IMAGE_FILES, editingContext.ImageDataList, new XmlWriteHandler(new AttachedImageListWriter(referenceList).WriteImageFiles));
 
-                        WriteXml(postStorage, POST_IMAGE_FILES, editingContext.ImageDataList, new XmlWriteHandler(new AttachedImageListWriter(referenceList).WriteImageFiles));
+                            //write the extension data
+                            WriteXml(postStorage, POST_EXTENSION_DATA_LIST, editingContext.ExtensionDataList, new XmlWriteHandler(new ExtensionDataListWriter(supportingFilePersister, blogPost.Contents).WriteExtensionDataList));
 
-                        //write the extension data
-                        WriteXml(postStorage, POST_EXTENSION_DATA_LIST, editingContext.ExtensionDataList, new XmlWriteHandler(new ExtensionDataListWriter(supportingFilePersister, blogPost.Contents).WriteExtensionDataList));
-
-                        //Convert file references in the HTML contents to the new storage path
-                        string fixedUpPostContents = supportingFilePersister.FixupHtmlReferences(blogPost.Contents);
-                        WriteStringUtf8(postStorage, POST_CONTENTS, fixedUpPostContents);
+                            //Convert file references in the HTML contents to the new storage path
+                            string fixedUpPostContents = supportingFilePersister.FixupHtmlReferences(blogPost.Contents);
+                            WriteStringUtf8(postStorage, POST_CONTENTS, fixedUpPostContents);
+                        }
 
                         string originalSourcePath = autoSaveSourceFile == null ? ""
                             : autoSaveSourceFile.IsSaved ? autoSaveSourceFile.TargetFile.FullName
@@ -1819,7 +1817,7 @@ namespace OpenLiveWriter.PostEditor
         /// <summary>
         /// Utility class for saving and loading supporting files into structured storage
         /// </summary>
-        private class SupportingFilePersister
+        private class SupportingFilePersister : IDisposable
         {
             Hashtable referencesTable = new Hashtable();
             public SupportingFilePersister(Storage fileSubStorage)
@@ -1831,6 +1829,15 @@ namespace OpenLiveWriter.PostEditor
                 : this(fileSubStorage)
             {
                 _supportingFileStorage = supportingFileStorage;
+            }
+
+            public void Dispose()
+            {
+                if (_fileSubStorage != null)
+                {
+                    _fileSubStorage.Dispose();
+                    _fileSubStorage = null;
+                }
             }
 
             /// <summary>

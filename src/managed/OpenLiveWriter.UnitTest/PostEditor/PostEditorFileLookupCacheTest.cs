@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using NUnit.Framework;
 using OpenLiveWriter.CoreServices;
@@ -16,13 +17,24 @@ namespace OpenLiveWriter.UnitTest.PostEditor
     public class PostEditorFileLookupCacheTest
     {
         private DirectoryInfo tempDir;
+        private string _installDir;
         private string blogId1 = Guid.NewGuid().ToString();
         private string blogId2 = Guid.NewGuid().ToString();
 
         [SetUp]
         public void SetUp()
         {
-            ApplicationEnvironment.Initialize();
+            var installDir = Path.Combine(Path.GetTempPath(), "OLWTest_" + Guid.NewGuid().ToString());
+            Directory.CreateDirectory(installDir);
+            var userData = Path.Combine(installDir, "UserData");
+            Directory.CreateDirectory(userData);
+            Directory.CreateDirectory(Path.Combine(userData, "AppData", "Roaming"));
+            Directory.CreateDirectory(Path.Combine(userData, "AppData", "Local"));
+            _installDir = installDir;
+
+            ApplicationEnvironment.Initialize(
+                Assembly.GetExecutingAssembly(),
+                installDir);
 
             tempDir = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
             CreateBlogPost(blogId1, "1", "foo");
@@ -87,7 +99,19 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         [TearDown]
         public void TearDown()
         {
-            Directory.Delete(tempDir.FullName, true);
+            try { Directory.Delete(tempDir.FullName, true); }
+            catch (IOException) { }
+
+            try
+            {
+                if (_installDir != null && Directory.Exists(_installDir))
+                    Directory.Delete(_installDir, true);
+            }
+            catch (IOException)
+            {
+                // XmlFileSettingsPersister may still hold file handles; temp dirs
+                // will be cleaned up by the OS.
+            }
         }
 
     }

@@ -122,7 +122,7 @@ namespace OpenLiveWriter.CoreServices.HTML
             _tagSpecsStrict.Add("h5", P);
             _tagSpecsStrict.Add("h6", P);
 
-            _tagSpecsStrict.Add("br", BR);
+            _tagSpecsStrict.Add("br", new TagDesc(TagType.Empty, "clear"));
 
             _tagSpecsStrict.Add("blockquote", P);
 

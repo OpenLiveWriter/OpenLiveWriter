@@ -603,7 +603,11 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         /// <returns></returns>
         private string createUniqueVarNameForFileUrl(string url)
         {
-            string localPath = new Uri(url).LocalPath;
+            Uri uri;
+            if (!Uri.TryCreate(url, UriKind.Absolute, out uri))
+                return url;
+
+            string localPath = uri.LocalPath;
             string fileName = Path.GetFileNameWithoutExtension(localPath);
             string ext = Path.GetExtension(localPath);
             string varName = String.Format(CultureInfo.InvariantCulture, "${0}{1}", fileName, ext);

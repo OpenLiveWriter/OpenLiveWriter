@@ -374,6 +374,16 @@ namespace OpenLiveWriter.CoreServices
                     noExt = TrimFileAndReplaceWithGuidIfEmpty(noExt, null);
             }
 
+            // Sanitize Windows reserved device names (e.g. CON, PRN, AUX, NUL, COM1-9, LPT1-9)
+            // which cause ArgumentException when used with FileStream.
+            string[] reservedNames = { "CON", "PRN", "AUX", "NUL",
+                "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+                "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
+            if (Array.Exists(reservedNames, n => string.Equals(n, noExt, StringComparison.OrdinalIgnoreCase)))
+            {
+                noExt = "_" + noExt;
+            }
+
             return noExt + Path.GetExtension(fileName);
         }
 
