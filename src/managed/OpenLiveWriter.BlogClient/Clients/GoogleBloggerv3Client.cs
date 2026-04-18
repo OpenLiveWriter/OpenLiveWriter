@@ -501,9 +501,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             var newPostRequest = GetService().Posts.Insert(bloggerPost, blogId);
             newPostRequest.IsDraft = !publish;
 
-            var newPost = newPostRequest.Execute();
-            etag = newPost.ETag;
-            return newPost.Id;
+            try
+            {
+                var newPost = newPostRequest.Execute();
+                etag = newPost.ETag;
+                return newPost.Id;
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new BlogClientException(
+                    "Post Too Large",
+                    "The post content is too large to publish. Try reducing the size of images or splitting the post into multiple parts.");
+            }
         }
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -521,9 +530,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             var updatePostRequest = GetService().Posts.Update(bloggerPost, blogId, post.Id);
             updatePostRequest.Publish = publish;
 
-            var updatedPost = updatePostRequest.Execute();
-            etag = updatedPost.ETag;
-            return true;
+            try
+            {
+                var updatedPost = updatePostRequest.Execute();
+                etag = updatedPost.ETag;
+                return true;
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new BlogClientException(
+                    "Post Too Large",
+                    "The post content is too large to publish. Try reducing the size of images or splitting the post into multiple parts.");
+            }
         }
 
         public BlogPost GetPost(string blogId, string postId)
@@ -627,9 +645,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             var newPageRequest = GetService().Pages.Insert(bloggerPage, blogId);
             newPageRequest.IsDraft = !publish;
 
-            var newPage = newPageRequest.Execute();
-            etag = newPage.ETag;
-            return newPage.Id;
+            try
+            {
+                var newPage = newPageRequest.Execute();
+                etag = newPage.ETag;
+                return newPage.Id;
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new BlogClientException(
+                    "Post Too Large",
+                    "The post content is too large to publish. Try reducing the size of images or splitting the post into multiple parts.");
+            }
         }
 
         public bool EditPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
@@ -647,9 +674,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             var updatePostRequest = GetService().Pages.Update(bloggerPage, blogId, page.Id);
             updatePostRequest.Publish = publish;
 
-            var updatedPage = updatePostRequest.Execute();
-            etag = updatedPage.ETag;
-            return true;
+            try
+            {
+                var updatedPage = updatePostRequest.Execute();
+                etag = updatedPage.ETag;
+                return true;
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new BlogClientException(
+                    "Post Too Large",
+                    "The post content is too large to publish. Try reducing the size of images or splitting the post into multiple parts.");
+            }
         }
 
         public void DeletePage(string blogId, string pageId)
