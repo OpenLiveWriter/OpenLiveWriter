@@ -7,9 +7,12 @@ using System.Globalization;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using OpenLiveWriter.CoreServices.Diagnostics;
+
+[assembly: InternalsVisibleTo("OpenLiveWriter.UnitTest")]
 
 namespace OpenLiveWriter.CoreServices
 {
@@ -507,7 +510,16 @@ namespace OpenLiveWriter.CoreServices
                 // analyze the response text to determine the content of the response
                 XmlDocument document = new XmlDocument();
                 if (responseText != null)
-                    responseText = responseText.TrimStart(' ', '\t', '\r', '\n');
+                    responseText = responseText.Trim();
+
+                if (string.IsNullOrEmpty(responseText))
+                    throw new ArgumentException("XML-RPC response was null or empty");
+
+                Trace.WriteLine(string.Format("XmlRpc response length: {0}", responseText.Length));
+
+                if (!responseText.EndsWith(">"))
+                    Trace.WriteLine("WARNING: XML-RPC response may be truncated (does not end with '>')");
+
                 document.LoadXml(responseText);
                 XmlNode responseValue = document.SelectSingleNode("/methodResponse/params/param/value");
                 if (responseValue != null)
@@ -526,6 +538,16 @@ namespace OpenLiveWriter.CoreServices
                     _faultString = errorString.InnerText;
                 }
 
+            }
+            catch (XmlException ex)
+            {
+                string truncationWarning = responseText != null && !responseText.EndsWith(">")
+                    ? " Response may be truncated." : "";
+                string message = string.Format(
+                    "Invalid XML-RPC response document (length: {0}).{1}",
+                    responseText != null ? responseText.Length.ToString() : "null",
+                    truncationWarning);
+                throw new XmlRpcClientInvalidResponseException(message, responseText, ex);
             }
             catch (Exception ex)
             {
@@ -575,6 +597,12 @@ namespace OpenLiveWriter.CoreServices
     {
         public XmlRpcClientInvalidResponseException(string response, Exception innerException)
             : base("Invalid response document returned from XmlRpc server", innerException)
+        {
+            Response = response;
+        }
+
+        public XmlRpcClientInvalidResponseException(string message, string response, Exception innerException)
+            : base(message, innerException)
         {
             Response = response;
         }
