@@ -6,6 +6,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using OpenLiveWriter.BlogClient;
@@ -16,6 +17,8 @@ using OpenLiveWriter.HtmlParser.Parser;
 using OpenLiveWriter.Interop.Com.StructuredStorage;
 using OpenLiveWriter.Interop.Windows;
 using OpenLiveWriter.PostEditor.SupportingFiles;
+
+[assembly: InternalsVisibleTo("OpenLiveWriter.UnitTest")]
 
 namespace OpenLiveWriter.PostEditor
 {
@@ -632,7 +635,8 @@ namespace OpenLiveWriter.PostEditor
         private string ManagePostFilePath(bool isPage, string postTitle)
         {
             // ideally what should the filename be for this post?
-            string targetFilePath = Path.Combine(TargetDirectory.FullName, FileNameForTitle(isPage, postTitle));
+            string targetFileName = FileNameForTitle(isPage, postTitle);
+            string targetFilePath = Path.Combine(TargetDirectory.FullName, targetFileName);
 
             // if this is a new unsaved post then make sure it has a unique name
             // within the target directory
@@ -641,9 +645,26 @@ namespace OpenLiveWriter.PostEditor
                 return GetUniqueFileName(targetFilePath);
             }
 
+            // Check whether the title-based filename differs from the current filename.
+            // Also detect when the current file was saved with an untitled default name
+            // (possibly with a uniqueness suffix) and the user has now provided a real title.
+            // Use case-insensitive comparison since Windows file paths are case-insensitive.
+            string currentFileName = TargetFile.Name;
+            string untitledPostName = FileNameForTitle(isPage, String.Empty);
+            bool currentFileIsUntitled =
+                currentFileName.Equals(untitledPostName, StringComparison.OrdinalIgnoreCase) ||
+                currentFileName.StartsWith(
+                    Path.GetFileNameWithoutExtension(untitledPostName),
+                    StringComparison.OrdinalIgnoreCase);
+            bool titleIsUntitled =
+                String.IsNullOrEmpty(postTitle) || postTitle.Trim().Length == 0;
+            bool needsRename =
+                !targetFilePath.Equals(TargetFile.FullName, StringComparison.OrdinalIgnoreCase) ||
+                (currentFileIsUntitled && !titleIsUntitled);
+
             // if the post is already saved but needs to be saved under a new title
             // then manage uniqueness then rename the file
-            else if (targetFilePath != TargetFile.FullName)
+            if (needsRename)
             {
                 // first manage uniqueness
                 targetFilePath = GetUniqueFileName(targetFilePath);
@@ -659,7 +680,7 @@ namespace OpenLiveWriter.PostEditor
             // post already saved with the correct title, just return the name
             else
             {
-                return targetFilePath;
+                return TargetFile.FullName;
             }
         }
 
@@ -698,10 +719,10 @@ namespace OpenLiveWriter.PostEditor
             */
         }
 
-        private string FileNameForTitle(bool isPage, string postTitle)
+        internal string FileNameForTitle(bool isPage, string postTitle)
         {
             // default name for untitled posts
-            if (postTitle == String.Empty)
+            if (String.IsNullOrEmpty(postTitle) || postTitle.Trim().Length == 0)
                 postTitle = isPage ? PostInfo.UntitledPage : PostInfo.UntitledPost;
 
             return Path.ChangeExtension(FileHelper.GetValidFileName(postTitle), Extension);
