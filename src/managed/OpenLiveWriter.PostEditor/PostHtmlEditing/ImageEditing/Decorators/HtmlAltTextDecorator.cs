@@ -35,6 +35,12 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 )
             {
                 HtmlAltTextDecoratorSettings settings = new HtmlAltTextDecoratorSettings(context.ImgElement);
+
+                // Don't overwrite existing non-default alt text (e.g., from clipboard paste)
+                string existingAlt = settings.AltText;
+                if (ShouldPreserveAltText(existingAlt))
+                    return;
+
                 Uri uri = context.SourceImageUri;
 
                 //set the default AltText value
@@ -42,6 +48,17 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.ImageEditing.Decorators
                 settings.AltText = altText;
                 settings.Title = altText;
             }
+        }
+
+        /// <summary>
+        /// Determines whether existing alt text should be preserved rather than
+        /// replaced with a default value. Alt text is preserved when it is
+        /// non-empty and not the generic default "image".
+        /// </summary>
+        internal static bool ShouldPreserveAltText(string altText)
+        {
+            return !string.IsNullOrEmpty(altText)
+                && !string.Equals(altText, "image", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
