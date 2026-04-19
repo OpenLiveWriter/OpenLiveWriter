@@ -329,6 +329,15 @@
   <data name="BCEInvalidServerResponseTitle" xml:space="preserve">
     <value>Invalid Server Response</value>
   </data>
+  <data name="BCEInvalidPostIdMessage" xml:space="preserve">
+    <value>The blog server did not recognize the post ID. The post may have been deleted from the server, or the post ID may be missing. Try creating a new post instead.
+
+{0} {1}</value>
+    <comment>{0} - error code, {1} - error message</comment>
+  </data>
+  <data name="BCEInvalidPostIdTitle" xml:space="preserve">
+    <value>Invalid Post ID</value>
+  </data>
   <data name="BCEMethodUnsupportedMessage" xml:space="preserve">
     <value>The {0} method is not supported by the blog service.</value>
     <comment>{0} - an XML-RPC method name, e.g. "metaWeblog.deletePost"</comment>

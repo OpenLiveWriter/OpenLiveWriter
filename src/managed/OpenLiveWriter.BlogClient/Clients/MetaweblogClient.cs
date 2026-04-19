@@ -401,6 +401,14 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private bool MetaweblogEditPost(string blogId, BlogPost post, bool publish)
         {
+            // Validate that the post has a valid ID before sending the edit request.
+            // An empty or null post ID will cause the server to return fault code 17
+            // ("Invalid Post ID"), so catch it early with a descriptive error.
+            if (string.IsNullOrEmpty(post.Id))
+            {
+                throw new BlogClientInvalidPostIdException(post.Id);
+            }
+
             // call the method
             XmlNode result = CallMethod("metaWeblog.editPost",
                                          new XmlRpcString(post.Id),
@@ -952,6 +960,8 @@ namespace OpenLiveWriter.BlogClient.Clients
                 return new BlogClientAuthenticationException(faultCode, faultString);
             else if (faultCode.IndexOf("3001", StringComparison.OrdinalIgnoreCase) != -1)
                 return new BlogClientAccessDeniedException(faultCode, faultString);
+            else if (faultCode == "17")
+                return new BlogClientInvalidPostIdException(faultCode, faultString);
             else
                 return null;
         }
