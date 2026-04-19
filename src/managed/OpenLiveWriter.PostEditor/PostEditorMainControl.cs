@@ -1012,7 +1012,8 @@ namespace OpenLiveWriter.PostEditor
         private void htmlEditor_TitleFocusChanged(object sender, EventArgs e)
         {
             UpdateFrameUI();
-            ribbonControl.ManageCommands();
+            if (ribbonControl != null)
+                ribbonControl.ManageCommands();
         }
 
         void IFormClosingHandler.OnClosing(CancelEventArgs e)
