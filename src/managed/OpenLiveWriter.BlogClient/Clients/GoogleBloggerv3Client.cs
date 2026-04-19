@@ -78,6 +78,12 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new FileDataStore(folderPath, true);
         }
 
+        /// <summary>
+        /// The anchor tag that Blogger uses to represent the extended entry break ("read more" split).
+        /// The Blogger v3 API returns this instead of the standard &lt;!--more--&gt; comment.
+        /// </summary>
+        private const string BloggerExtendedEntryBreakAnchor = "<a name=\"more\"></a>";
+
         private static BlogPost ConvertToBlogPost(Page page)
         {
             return new BlogPost()
@@ -92,7 +98,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private static BlogPost ConvertToBlogPost(Post post)
         {
-            return new BlogPost()
+            var blogPost = new BlogPost()
             {
                 Title = post.Title,
                 Id = post.Id,
@@ -101,6 +107,14 @@ namespace OpenLiveWriter.BlogClient.Clients
                 DatePublished = ParseRfc3339Date(post.Published),
                 Categories = post.Labels?.Select(x => new BlogPostCategory(x)).ToArray() ?? new BlogPostCategory[0]
             };
+
+            // Convert Blogger's anchor-based extended entry break to the standard comment format
+            if (blogPost.Contents != null)
+            {
+                blogPost.Contents = blogPost.Contents.Replace(BloggerExtendedEntryBreakAnchor, BlogPost.ExtendedEntryBreak);
+            }
+
+            return blogPost;
         }
 
         private static Page ConvertToGoogleBloggerPage(BlogPost page, IBlogClientOptions clientOptions)
@@ -118,9 +132,16 @@ namespace OpenLiveWriter.BlogClient.Clients
             var labels = post.Categories?.Select(x => x.Name).ToList();
             labels?.AddRange(post.NewCategories?.Select(x => x.Name) ?? new List<string>());
 
+            // Convert the standard extended entry break back to Blogger's anchor format
+            var content = post.Contents;
+            if (content != null)
+            {
+                content = content.Replace(BlogPost.ExtendedEntryBreak, BloggerExtendedEntryBreakAnchor);
+            }
+
             return new Post()
             {
-                Content = post.Contents,
+                Content = content,
                 Labels = labels ?? new List<string>(),
                 Published = FormatRfc3339Date(GetDatePublishedOverride(post, clientOptions)),
                 Title = post.Title,
