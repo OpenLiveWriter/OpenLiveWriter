@@ -29,6 +29,44 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
         private static bool selectionChanged;
 
         /// <summary>
+        /// The minimum width or height (in pixels) for a pasted or inserted image.
+        /// Prevents images from being inserted at degenerate sizes like 1x1 when
+        /// the clipboard bitmap has no inherent size metadata.
+        /// </summary>
+        internal const int MINIMUM_IMAGE_DIMENSION = 16;
+
+        /// <summary>
+        /// Ensures that the given image size meets a minimum dimension threshold.
+        /// If either dimension is below the minimum, the size is replaced with
+        /// the actual image file dimensions (if available) or clamped to the minimum.
+        /// </summary>
+        internal static Size EnsureMinimumImageSize(Size imageSize, string imagePath)
+        {
+            if (imageSize.Width >= MINIMUM_IMAGE_DIMENSION && imageSize.Height >= MINIMUM_IMAGE_DIMENSION)
+                return imageSize;
+
+            // Try to read the actual image dimensions from the file
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+            {
+                try
+                {
+                    Size actualSize = ImageUtils.GetImageSize(imagePath);
+                    if (actualSize.Width >= MINIMUM_IMAGE_DIMENSION && actualSize.Height >= MINIMUM_IMAGE_DIMENSION)
+                        return actualSize;
+                }
+                catch (Exception)
+                {
+                    // Fall through to clamping
+                }
+            }
+
+            // Clamp to minimum dimensions while preserving aspect ratio
+            int width = Math.Max(imageSize.Width, MINIMUM_IMAGE_DIMENSION);
+            int height = Math.Max(imageSize.Height, MINIMUM_IMAGE_DIMENSION);
+            return new Size(width, height);
+        }
+
+        /// <summary>
         /// Scans the DOM for images that have not yet been properly initialized by the editor.
         /// As part of the initialization, the default image settings and effects will be applied to the image.
         /// </summary>
@@ -422,6 +460,10 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing
                             }
                         }
                     }
+
+                    // Ensure pasted/inserted images are never displayed at a degenerate size
+                    // (e.g. 1x1) which can happen when clipboard bitmap data lacks size metadata.
+                    imageSize = EnsureMinimumImageSize(imageSize, imgUri.IsFile ? imgUri.LocalPath : null);
 
                     // If the image has an embedded thumbnail, we'll use it as a place holder for the <img src="...">
                     // until we generate an inline image and apply decorators.
