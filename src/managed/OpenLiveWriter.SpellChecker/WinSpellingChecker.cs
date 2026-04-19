@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace OpenLiveWriter.SpellChecker
 {
@@ -118,7 +119,17 @@ namespace OpenLiveWriter.SpellChecker
                 return;
             }
 
-            _speller = new PlatformSpellCheck.SpellChecker(_bcp47Code);
+            try
+            {
+                _speller = new PlatformSpellCheck.SpellChecker(_bcp47Code);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // COM spell checker access can be blocked by OS permissions or
+                // group policy. Fall back gracefully — the app continues without
+                // spell checking rather than crashing.
+                _speller = null;
+            }
         }
 
         public void StopChecking()
@@ -160,7 +171,14 @@ namespace OpenLiveWriter.SpellChecker
         {
             if (PlatformSpellCheck.SpellChecker.IsPlatformSupported())
             {
-                return PlatformSpellCheck.SpellChecker.SupportedLanguages.ToArray();
+                try
+                {
+                    return PlatformSpellCheck.SpellChecker.SupportedLanguages.ToArray();
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // COM spell checker access blocked by permissions or group policy.
+                }
             }
 
             return new string[0];
@@ -175,7 +193,14 @@ namespace OpenLiveWriter.SpellChecker
 
             if (PlatformSpellCheck.SpellChecker.IsPlatformSupported())
             {
-                return PlatformSpellCheck.SpellChecker.IsLanguageSupported(bcp47Code);
+                try
+                {
+                    return PlatformSpellCheck.SpellChecker.IsLanguageSupported(bcp47Code);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // COM spell checker access blocked by permissions or group policy.
+                }
             }
 
             return false;
