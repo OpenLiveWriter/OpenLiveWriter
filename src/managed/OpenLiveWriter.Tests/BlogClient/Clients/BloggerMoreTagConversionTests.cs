@@ -1,12 +1,13 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenLiveWriter.Extensibility.BlogClient;
 
 namespace OpenLiveWriter.Tests.BlogClient.Clients
 {
-    [TestClass]
+    [TestFixture]
     public class BloggerMoreTagConversionTests
     {
         /// <summary>
@@ -14,7 +15,7 @@ namespace OpenLiveWriter.Tests.BlogClient.Clients
         /// </summary>
         private const string BloggerAnchorTag = "<a name=\"more\"></a>";
 
-        [TestMethod]
+        [Test]
         public void ConvertFromBlogger_AnchorTagIsConvertedToMoreComment()
         {
             string bloggerContent = "<p>First part</p>" + BloggerAnchorTag + "<p>Second part</p>";
@@ -22,20 +23,20 @@ namespace OpenLiveWriter.Tests.BlogClient.Clients
 
             string result = bloggerContent.Replace(BloggerAnchorTag, BlogPost.ExtendedEntryBreak);
 
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertFromBlogger_ContentWithoutAnchorTagIsUnchanged()
         {
             string content = "<p>Some content without the anchor tag</p>";
 
             string result = content.Replace(BloggerAnchorTag, BlogPost.ExtendedEntryBreak);
 
-            Assert.AreEqual(content, result);
+            ClassicAssert.AreEqual(content, result);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertFromBlogger_MultipleAnchorTagsAreAllConverted()
         {
             string bloggerContent = "<p>Part 1</p>" + BloggerAnchorTag + "<p>Part 2</p>" + BloggerAnchorTag + "<p>Part 3</p>";
@@ -43,10 +44,10 @@ namespace OpenLiveWriter.Tests.BlogClient.Clients
 
             string result = bloggerContent.Replace(BloggerAnchorTag, BlogPost.ExtendedEntryBreak);
 
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertToBlogger_MoreCommentIsConvertedToAnchorTag()
         {
             string localContent = "<p>First part</p>" + BlogPost.ExtendedEntryBreak + "<p>Second part</p>";
@@ -54,10 +55,10 @@ namespace OpenLiveWriter.Tests.BlogClient.Clients
 
             string result = localContent.Replace(BlogPost.ExtendedEntryBreak, BloggerAnchorTag);
 
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertFromBlogger_NullContentIsHandled()
         {
             string content = null;
@@ -69,7 +70,9 @@ namespace OpenLiveWriter.Tests.BlogClient.Clients
                 result = result.Replace(BloggerAnchorTag, BlogPost.ExtendedEntryBreak);
             }
 
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
     }
 }
+
+

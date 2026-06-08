@@ -2,67 +2,68 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.Extensibility.BlogClient;
 
 namespace OpenLiveWriter.UnitTest.BlogClient
 {
-    [TestClass]
+    [TestFixture]
     public class MetaweblogEditPostTests
     {
-        [TestMethod]
+        [Test]
         public void InvalidPostIdException_WithEmptyPostId_CanBeCreated()
         {
             var exception = new BlogClientInvalidPostIdException(string.Empty);
 
-            Assert.IsNotNull(exception);
-            Assert.IsInstanceOfType(exception, typeof(BlogClientProviderException));
-            Assert.AreEqual(string.Empty, exception.PostId);
+            ClassicAssert.IsNotNull(exception);
+            Assert.That(exception, Is.InstanceOf<BlogClientProviderException>());
+            ClassicAssert.AreEqual(string.Empty, exception.PostId);
         }
 
-        [TestMethod]
+        [Test]
         public void InvalidPostIdException_WithNullPostId_CanBeCreated()
         {
             var exception = new BlogClientInvalidPostIdException((string)null);
 
-            Assert.IsNotNull(exception);
-            Assert.IsInstanceOfType(exception, typeof(BlogClientProviderException));
-            Assert.IsNull(exception.PostId);
+            ClassicAssert.IsNotNull(exception);
+            Assert.That(exception, Is.InstanceOf<BlogClientProviderException>());
+            ClassicAssert.IsNull(exception.PostId);
         }
 
-        [TestMethod]
+        [Test]
         public void InvalidPostIdException_WithFaultCodeAndString_CanBeCreated()
         {
             var exception = new BlogClientInvalidPostIdException("17", "Invalid post ID");
 
-            Assert.IsNotNull(exception);
-            Assert.IsInstanceOfType(exception, typeof(BlogClientProviderException));
-            Assert.AreEqual("17", exception.ErrorCode);
-            Assert.AreEqual("Invalid post ID", exception.ErrorString);
+            ClassicAssert.IsNotNull(exception);
+            Assert.That(exception, Is.InstanceOf<BlogClientProviderException>());
+            ClassicAssert.AreEqual("17", exception.ErrorCode);
+            ClassicAssert.AreEqual("Invalid post ID", exception.ErrorString);
         }
 
-        [TestMethod]
+        [Test]
         public void InvalidPostIdException_IsBlogClientException()
         {
             var exception = new BlogClientInvalidPostIdException("17", "Invalid post ID");
 
-            Assert.IsInstanceOfType(exception, typeof(BlogClientException));
+            Assert.That(exception, Is.InstanceOf<BlogClientException>());
         }
 
-        [TestMethod]
+        [Test]
         public void InvalidPostIdException_ContainsDescriptiveMessage()
         {
             var exception = new BlogClientInvalidPostIdException("17", "Invalid post ID");
 
             // The exception should contain information about the invalid post ID
             string message = exception.ToString();
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(
                 message.Contains("Invalid Post ID") || message.Contains("post ID") || message.Contains("post id"),
                 "Exception message should contain information about the invalid post ID");
         }
 
-        [TestMethod]
+        [Test]
         public void XmlRpcMethodResponse_ParsesFaultCode17()
         {
             // Simulate a server response with fault code 17
@@ -87,12 +88,12 @@ namespace OpenLiveWriter.UnitTest.BlogClient
 
             var response = new XmlRpcMethodResponse(faultResponse);
 
-            Assert.IsTrue(response.FaultOccurred, "Fault should be detected");
-            Assert.AreEqual("17", response.FaultCode, "Fault code should be 17");
-            Assert.AreEqual("Invalid post ID", response.FaultString, "Fault string should match");
+            ClassicAssert.IsTrue(response.FaultOccurred, "Fault should be detected");
+            ClassicAssert.AreEqual("17", response.FaultCode, "Fault code should be 17");
+            ClassicAssert.AreEqual("Invalid post ID", response.FaultString, "Fault string should match");
         }
 
-        [TestMethod]
+        [Test]
         public void XmlRpcMethodResponse_SuccessfulResponse_NoFault()
         {
             string successResponse =
@@ -107,30 +108,30 @@ namespace OpenLiveWriter.UnitTest.BlogClient
 
             var response = new XmlRpcMethodResponse(successResponse);
 
-            Assert.IsFalse(response.FaultOccurred, "No fault should be detected for successful response");
-            Assert.AreEqual(string.Empty, response.FaultCode, "Fault code should be empty");
+            ClassicAssert.IsFalse(response.FaultOccurred, "No fault should be detected for successful response");
+            ClassicAssert.AreEqual(string.Empty, response.FaultCode, "Fault code should be empty");
         }
 
-        [TestMethod]
+        [Test]
         public void BlogPost_NewPost_HasEmptyId()
         {
             var post = new BlogPost();
 
-            Assert.AreEqual(string.Empty, post.Id, "New BlogPost should have empty ID");
-            Assert.IsTrue(post.IsNew, "New BlogPost should report IsNew as true");
+            ClassicAssert.AreEqual(string.Empty, post.Id, "New BlogPost should have empty ID");
+            ClassicAssert.IsTrue(post.IsNew, "New BlogPost should report IsNew as true");
         }
 
-        [TestMethod]
+        [Test]
         public void BlogPost_WithId_IsNotNew()
         {
             var post = new BlogPost();
             post.Id = "123";
 
-            Assert.AreEqual("123", post.Id);
-            Assert.IsFalse(post.IsNew, "BlogPost with ID should report IsNew as false");
+            ClassicAssert.AreEqual("123", post.Id);
+            ClassicAssert.IsFalse(post.IsNew, "BlogPost with ID should report IsNew as false");
         }
 
-        [TestMethod]
+        [Test]
         public void EmptyPostId_ShouldBeDetectedBeforeServerCall()
         {
             // This verifies the pattern: string.IsNullOrEmpty should catch
@@ -138,15 +139,18 @@ namespace OpenLiveWriter.UnitTest.BlogClient
             string emptyId = string.Empty;
             string nullId = null;
 
-            Assert.IsTrue(string.IsNullOrEmpty(emptyId),
+            ClassicAssert.IsTrue(string.IsNullOrEmpty(emptyId),
                 "Empty string post ID should be detected by IsNullOrEmpty");
-            Assert.IsTrue(string.IsNullOrEmpty(nullId),
+            ClassicAssert.IsTrue(string.IsNullOrEmpty(nullId),
                 "Null post ID should be detected by IsNullOrEmpty");
 
             // A valid post ID should not be caught
             string validId = "42";
-            Assert.IsFalse(string.IsNullOrEmpty(validId),
+            ClassicAssert.IsFalse(string.IsNullOrEmpty(validId),
                 "Valid post ID should not be caught by IsNullOrEmpty");
         }
     }
 }
+
+
+

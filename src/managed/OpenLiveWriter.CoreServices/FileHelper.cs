@@ -142,7 +142,7 @@ namespace OpenLiveWriter.CoreServices
                     char[] invalidPathChars = Path.GetInvalidPathChars();
                     int endInvalidPathChars = invalidPathChars.Length;
                     // our list of illegal characters
-                    char[] notedChars = new char[] { (char)9, (char)10, (char)11, (char)12, (char)13, (char)42, (char)47, (char)58, (char)63, (char)92, (char)160 };
+                    char[] notedChars = new char[] { (char)9, (char)10, (char)11, (char)12, (char)13, (char)34, (char)42, (char)47, (char)58, (char)60, (char)62, (char)63, (char)92, (char)124, (char)160 };
 
                     // system provided illegal characters
                     char[] illegalChars = new char[endInvalidPathChars + notedChars.Length];

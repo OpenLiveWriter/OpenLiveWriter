@@ -4,16 +4,17 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenLiveWriter.Interop.Com.StructuredStorage;
 using OpenLiveWriter.PostEditor;
 
 namespace OpenLiveWriter.UnitTest.PostEditor
 {
-    [TestClass]
+    [TestFixture]
     public class PostEditorStorageExceptionTests
     {
-        [TestMethod]
+        [Test]
         public void Create_WithStorageNoDiskSpaceException_ReturnsStorageException()
         {
             // STG_E_MEDIUMFULL = 0x80030070
@@ -22,22 +23,22 @@ namespace OpenLiveWriter.UnitTest.PostEditor
 
             var result = PostEditorStorageException.Create(storageEx);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(PostEditorStorageException));
+            ClassicAssert.IsNotNull(result);
+            Assert.That(result, Is.InstanceOf<PostEditorStorageException>());
         }
 
-        [TestMethod]
+        [Test]
         public void Create_WithIOException_ReturnsStorageException()
         {
             var ioEx = new IOException("Disk error");
 
             var result = PostEditorStorageException.Create(ioEx);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(PostEditorStorageException));
+            ClassicAssert.IsNotNull(result);
+            Assert.That(result, Is.InstanceOf<PostEditorStorageException>());
         }
 
-        [TestMethod]
+        [Test]
         public void Create_WithStorageException_ReturnsStorageException()
         {
             // STG_E_INSUFFICIENTMEMORY = 0x80030008
@@ -46,11 +47,11 @@ namespace OpenLiveWriter.UnitTest.PostEditor
 
             var result = PostEditorStorageException.Create(storageEx);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(PostEditorStorageException));
+            ClassicAssert.IsNotNull(result);
+            Assert.That(result, Is.InstanceOf<PostEditorStorageException>());
         }
 
-        [TestMethod]
+        [Test]
         public void Create_WithGenericException_ReturnsStorageException()
         {
             // 0x80070008 = ERROR_NOT_ENOUGH_MEMORY (-2147024888)
@@ -59,21 +60,21 @@ namespace OpenLiveWriter.UnitTest.PostEditor
 
             var result = PostEditorStorageException.Create(ex);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(PostEditorStorageException));
+            ClassicAssert.IsNotNull(result);
+            Assert.That(result, Is.InstanceOf<PostEditorStorageException>());
         }
 
-        [TestMethod]
+        [Test]
         public void Create_WithNullMessageException_DoesNotThrow()
         {
             var ex = new Exception();
 
             var result = PostEditorStorageException.Create(ex);
 
-            Assert.IsNotNull(result);
+            ClassicAssert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void StorageDispose_IsIdempotent()
         {
             // Verify that Storage.Dispose can be called multiple times without error.
@@ -100,3 +101,6 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         }
     }
 }
+
+
+

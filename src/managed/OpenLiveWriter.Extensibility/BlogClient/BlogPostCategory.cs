@@ -64,14 +64,16 @@ namespace OpenLiveWriter.Extensibility.BlogClient
             if ((x.HasParent || y.HasParent) && x.Parent != y.Parent)
                 return false;
 
-            string selfNameUpper = x.Name.ToUpperInvariant();
-            string otherNameUpper = y.Name.ToUpperInvariant();
-            if (selfNameUpper == otherNameUpper)
+            string selfName = x.Name;
+            string otherName = y.Name;
+            if (String.Equals(selfName, otherName, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             if (lenientNameComparison
-                    && HtmlUtils.UnEscapeEntities(selfNameUpper, HtmlUtils.UnEscapeMode.Default)
-                        == HtmlUtils.UnEscapeEntities(otherNameUpper, HtmlUtils.UnEscapeMode.Default))
+                    && String.Equals(
+                        HtmlUtils.UnEscapeEntities(selfName, HtmlUtils.UnEscapeMode.Default),
+                        HtmlUtils.UnEscapeEntities(otherName, HtmlUtils.UnEscapeMode.Default),
+                        StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }

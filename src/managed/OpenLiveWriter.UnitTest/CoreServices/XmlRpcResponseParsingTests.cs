@@ -2,12 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.UnitTest.CoreServices
 {
-    [TestClass]
+    [TestFixture]
     public class XmlRpcResponseParsingTests
     {
         private const string ValidXmlRpcResponse =
@@ -16,40 +17,41 @@ namespace OpenLiveWriter.UnitTest.CoreServices
             "<params><param><value><string>Hello</string></value></param></params>" +
             "</methodResponse>";
 
-        [TestMethod]
+        [Test]
         public void ValidXmlRpcResponse_ParsesSuccessfully()
         {
             var response = new XmlRpcMethodResponse(ValidXmlRpcResponse);
-            Assert.IsFalse(response.FaultOccurred);
-            Assert.IsNotNull(response.Response);
+            ClassicAssert.IsFalse(response.FaultOccurred);
+            ClassicAssert.IsNotNull(response.Response);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlRpcClientInvalidResponseException))]
+        [Test]
         public void MalformedXml_ThrowsInvalidResponseException()
         {
-            new XmlRpcMethodResponse("<methodResponse><params><param><value>unclosed");
+            Assert.Throws<XmlRpcClientInvalidResponseException>(() =>
+                new XmlRpcMethodResponse("<methodResponse><params><param><value>unclosed"));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlRpcClientInvalidResponseException))]
+        [Test]
         public void NullResponse_ThrowsInvalidResponseException()
         {
-            new XmlRpcMethodResponse((string)null);
+            Assert.Throws<XmlRpcClientInvalidResponseException>(() =>
+                new XmlRpcMethodResponse((string)null));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlRpcClientInvalidResponseException))]
+        [Test]
         public void EmptyResponse_ThrowsInvalidResponseException()
         {
-            new XmlRpcMethodResponse(string.Empty);
+            Assert.Throws<XmlRpcClientInvalidResponseException>(() =>
+                new XmlRpcMethodResponse(string.Empty));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(XmlRpcClientInvalidResponseException))]
+        [Test]
         public void WhitespaceOnlyResponse_ThrowsInvalidResponseException()
         {
-            new XmlRpcMethodResponse("   \t\r\n   ");
+            Assert.Throws<XmlRpcClientInvalidResponseException>(() =>
+                new XmlRpcMethodResponse("   \t\r\n   "));
         }
     }
 }
+

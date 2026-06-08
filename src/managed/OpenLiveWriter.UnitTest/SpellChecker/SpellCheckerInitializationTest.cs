@@ -2,7 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenLiveWriter.SpellChecker;
 
 namespace OpenLiveWriter.UnitTest.SpellChecker
@@ -13,10 +14,10 @@ namespace OpenLiveWriter.UnitTest.SpellChecker
     /// blocked by OS permissions or group policy.
     /// See: https://github.com/OpenLiveWriter/OpenLiveWriter/issues/435
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SpellCheckerInitializationTest
     {
-        [TestMethod]
+        [Test]
         public void UnauthorizedAccessException_IsCatchableWithoutCrash()
         {
             // Verify that UnauthorizedAccessException can be caught in the same
@@ -35,11 +36,11 @@ namespace OpenLiveWriter.UnitTest.SpellChecker
                 result = null;
             }
 
-            Assert.IsTrue(exceptionCaught, "UnauthorizedAccessException should be catchable");
-            Assert.IsNull(result, "Result should be null after catching the exception");
+            ClassicAssert.IsTrue(exceptionCaught, "UnauthorizedAccessException should be catchable");
+            ClassicAssert.IsNull(result, "Result should be null after catching the exception");
         }
 
-        [TestMethod]
+        [Test]
         public void NullSpeller_MeansNoSpellChecking()
         {
             // When StartChecking fails (e.g. due to UnauthorizedAccessException),
@@ -48,11 +49,11 @@ namespace OpenLiveWriter.UnitTest.SpellChecker
             var checker = new WinSpellingChecker();
 
             // Without calling StartChecking or SetOptions, the checker is uninitialized
-            Assert.IsFalse(checker.IsInitialized,
+            ClassicAssert.IsFalse(checker.IsInitialized,
                 "Checker should not be initialized when no speller is available");
         }
 
-        [TestMethod]
+        [Test]
         public void StartChecking_WithEmptyLanguage_DoesNotThrow()
         {
             // When language code is empty, StartChecking should return gracefully
@@ -62,11 +63,11 @@ namespace OpenLiveWriter.UnitTest.SpellChecker
 
             checker.StartChecking();
 
-            Assert.IsFalse(checker.IsInitialized,
+            ClassicAssert.IsFalse(checker.IsInitialized,
                 "Checker should not be initialized with an empty language code");
         }
 
-        [TestMethod]
+        [Test]
         public void StartChecking_WithNullLanguage_DoesNotThrow()
         {
             // When language code is null, StartChecking should return gracefully
@@ -76,11 +77,11 @@ namespace OpenLiveWriter.UnitTest.SpellChecker
 
             checker.StartChecking();
 
-            Assert.IsFalse(checker.IsInitialized,
+            ClassicAssert.IsFalse(checker.IsInitialized,
                 "Checker should not be initialized with a null language code");
         }
 
-        [TestMethod]
+        [Test]
         public void StopChecking_AfterFailedInit_DoesNotThrow()
         {
             // If initialization failed and _speller is null, StopChecking
@@ -90,7 +91,9 @@ namespace OpenLiveWriter.UnitTest.SpellChecker
             checker.StopChecking(); // should not throw
             checker.Dispose();     // should not throw
 
-            Assert.IsFalse(checker.IsInitialized);
+            ClassicAssert.IsFalse(checker.IsInitialized);
         }
     }
 }
+
+

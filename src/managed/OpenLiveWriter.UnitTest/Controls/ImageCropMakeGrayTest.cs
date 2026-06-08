@@ -3,26 +3,27 @@
 
 using System.Drawing;
 using System.Drawing.Imaging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace OpenLiveWriter.UnitTest.Controls
 {
-    [TestClass]
+    [TestFixture]
     public class ImageCropMakeGrayTest
     {
         /// <summary>
         /// Verifies that the ColorMatrix grayscale approach produces an image
         /// with the same dimensions as the input.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void MakeGray_PreservesDimensions()
         {
             using (Bitmap input = new Bitmap(200, 100, PixelFormat.Format32bppArgb))
             {
                 using (Bitmap result = MakeGray(input))
                 {
-                    Assert.AreEqual(input.Width, result.Width);
-                    Assert.AreEqual(input.Height, result.Height);
+                    ClassicAssert.AreEqual(input.Width, result.Width);
+                    ClassicAssert.AreEqual(input.Height, result.Height);
                 }
             }
         }
@@ -31,7 +32,7 @@ namespace OpenLiveWriter.UnitTest.Controls
         /// Verifies that the ColorMatrix grayscale conversion produces
         /// pixels where the color channels are equal (i.e. a gray pixel).
         /// </summary>
-        [TestMethod]
+        [Test]
         public void MakeGray_ProducesGrayscalePixels()
         {
             using (Bitmap input = new Bitmap(10, 10, PixelFormat.Format32bppArgb))
@@ -47,14 +48,14 @@ namespace OpenLiveWriter.UnitTest.Controls
                     Color pixel = result.GetPixel(5, 5);
 
                     // For a grayscale image the R, G, B channels should be equal
-                    Assert.AreEqual(pixel.R, pixel.G,
+                    ClassicAssert.AreEqual(pixel.R, pixel.G,
                         "Red and Green channels should be equal for grayscale output.");
-                    Assert.AreEqual(pixel.G, pixel.B,
+                    ClassicAssert.AreEqual(pixel.G, pixel.B,
                         "Green and Blue channels should be equal for grayscale output.");
 
                     // Expected luminance: 0.3*200 + 0.59*100 + 0.11*50 = 60+59+5.5 = 124.5
                     // Allow small rounding tolerance
-                    Assert.IsTrue(pixel.R >= 120 && pixel.R <= 130,
+                    ClassicAssert.IsTrue(pixel.R >= 120 && pixel.R <= 130,
                         string.Format("Expected grayscale value near 125, got {0}.", pixel.R));
                 }
             }
@@ -87,3 +88,5 @@ namespace OpenLiveWriter.UnitTest.Controls
         }
     }
 }
+
+

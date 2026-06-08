@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenLiveWriter.HtmlParser.Parser;
 
 namespace OpenLiveWriter.Tests.HtmlParser
@@ -17,8 +18,8 @@ namespace OpenLiveWriter.Tests.HtmlParser
         [Test]
         public void NullAndEmptyInput()
         {
-            Assert.IsNull(HtmlUtils.FixNestedListHtml(null));
-            Assert.AreEqual("", HtmlUtils.FixNestedListHtml(""));
+            ClassicAssert.IsNull(HtmlUtils.FixNestedListHtml(null));
+            ClassicAssert.AreEqual("", HtmlUtils.FixNestedListHtml(""));
         }
 
         [Test]
@@ -26,7 +27,7 @@ namespace OpenLiveWriter.Tests.HtmlParser
         {
             // Already valid nested list should be unchanged
             string valid = "<ul><li>item 1</li><li>item 2<ul><li>nested</li></ul></li></ul>";
-            Assert.AreEqual(valid, HtmlUtils.FixNestedListHtml(valid));
+            ClassicAssert.AreEqual(valid, HtmlUtils.FixNestedListHtml(valid));
         }
 
         [Test]
@@ -34,7 +35,7 @@ namespace OpenLiveWriter.Tests.HtmlParser
         {
             // Simple flat list should be unchanged
             string flat = "<ul><li>item 1</li><li>item 2</li><li>item 3</li></ul>";
-            Assert.AreEqual(flat, HtmlUtils.FixNestedListHtml(flat));
+            ClassicAssert.AreEqual(flat, HtmlUtils.FixNestedListHtml(flat));
         }
 
         [Test]
@@ -43,7 +44,7 @@ namespace OpenLiveWriter.Tests.HtmlParser
             // MSHTML-style invalid nesting: <ul> as sibling of <li>
             string input = "<ul><li>item 1</li><li>item 2</li><ul><li>nested</li></ul></ul>";
             string expected = "<ul><li>item 1</li><li>item 2<ul><li>nested</li></ul></li></ul>";
-            Assert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
+            ClassicAssert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
         }
 
         [Test]
@@ -52,7 +53,7 @@ namespace OpenLiveWriter.Tests.HtmlParser
             // Same issue with ordered lists
             string input = "<ol><li>item 1</li><li>item 2</li><ol><li>nested</li></ol></ol>";
             string expected = "<ol><li>item 1</li><li>item 2<ol><li>nested</li></ol></li></ol>";
-            Assert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
+            ClassicAssert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
         }
 
         [Test]
@@ -61,7 +62,7 @@ namespace OpenLiveWriter.Tests.HtmlParser
             // UL nested inside OL
             string input = "<ol><li>item 1</li><li>item 2</li><ul><li>nested</li></ul></ol>";
             string expected = "<ol><li>item 1</li><li>item 2<ul><li>nested</li></ul></li></ol>";
-            Assert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
+            ClassicAssert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
         }
 
         [Test]
@@ -70,7 +71,7 @@ namespace OpenLiveWriter.Tests.HtmlParser
             // Three levels of nesting
             string input = "<ul><li>item 1</li><ul><li>nested 1</li><ul><li>deep nested</li></ul></ul></ul>";
             string expected = "<ul><li>item 1<ul><li>nested 1<ul><li>deep nested</li></ul></li></ul></li></ul>";
-            Assert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
+            ClassicAssert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
         }
 
         [Test]
@@ -79,7 +80,7 @@ namespace OpenLiveWriter.Tests.HtmlParser
             // Multiple items with nested sublists
             string input = "<ul><li>item 1</li><ul><li>sub 1</li></ul><li>item 2</li><ul><li>sub 2</li></ul></ul>";
             string expected = "<ul><li>item 1<ul><li>sub 1</li></ul></li><li>item 2<ul><li>sub 2</li></ul></li></ul>";
-            Assert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
+            ClassicAssert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
         }
 
         [Test]
@@ -87,7 +88,7 @@ namespace OpenLiveWriter.Tests.HtmlParser
         {
             // Non-list content should pass through unchanged
             string noList = "<div><p>Hello</p><p>World</p></div>";
-            Assert.AreEqual(noList, HtmlUtils.FixNestedListHtml(noList));
+            ClassicAssert.AreEqual(noList, HtmlUtils.FixNestedListHtml(noList));
         }
 
         [Test]
@@ -96,7 +97,8 @@ namespace OpenLiveWriter.Tests.HtmlParser
             // Lists with attributes should be handled correctly
             string input = "<ul class=\"main\"><li>item</li><ul class=\"sub\"><li>nested</li></ul></ul>";
             string expected = "<ul class=\"main\"><li>item<ul class=\"sub\"><li>nested</li></ul></li></ul>";
-            Assert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
+            ClassicAssert.AreEqual(expected, HtmlUtils.FixNestedListHtml(input));
         }
     }
 }
+

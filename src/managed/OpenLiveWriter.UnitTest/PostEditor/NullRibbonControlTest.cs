@@ -1,14 +1,15 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace OpenLiveWriter.UnitTest.PostEditor
 {
-    [TestClass]
+    [TestFixture]
     public class NullRibbonControlTest
     {
-        [TestMethod]
+        [Test]
         public void NullCheck_PreventsNullReferenceException()
         {
             object ribbonControl = null;
@@ -16,7 +17,9 @@ namespace OpenLiveWriter.UnitTest.PostEditor
             bool called = false;
             if (ribbonControl != null)
                 called = true;
-            Assert.IsFalse(called, "Should not invoke methods on null ribbonControl");
+            ClassicAssert.IsFalse(called, "Should not invoke methods on null ribbonControl");
         }
     }
 }
+
+

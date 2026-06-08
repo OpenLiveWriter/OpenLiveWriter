@@ -4,7 +4,8 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenLiveWriter.CoreServices;
 using OpenLiveWriter.PostEditor;
 
@@ -15,7 +16,7 @@ namespace OpenLiveWriter.UnitTest.PostEditor
     /// covering issue #677: filename should update when a title is
     /// added to a previously untitled post.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class PostTitleFilenameTest
     {
         private const string WpostExtension = ".wpost";
@@ -58,14 +59,14 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         /// <summary>
         /// Verify that an empty title produces a default untitled filename.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void EmptyTitle_ProducesDefaultFilename()
         {
             string fileName = InvokeFileNameForTitle(false, String.Empty);
 
-            Assert.IsTrue(fileName.EndsWith(WpostExtension),
+            ClassicAssert.IsTrue(fileName.EndsWith(WpostExtension),
                 "Filename should have .wpost extension");
-            Assert.IsFalse(String.IsNullOrEmpty(Path.GetFileNameWithoutExtension(fileName)),
+            ClassicAssert.IsFalse(String.IsNullOrEmpty(Path.GetFileNameWithoutExtension(fileName)),
                 "Filename should not be empty before extension");
         }
 
@@ -73,28 +74,28 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         /// Verify that a null title produces a default untitled filename
         /// (same as empty title) rather than throwing or producing a GUID-based name.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void NullTitle_ProducesDefaultFilename()
         {
             string fileNameEmpty = InvokeFileNameForTitle(false, String.Empty);
             string fileNameNull = InvokeFileNameForTitle(false, null);
 
-            Assert.AreEqual(fileNameEmpty, fileNameNull,
+            ClassicAssert.AreEqual(fileNameEmpty, fileNameNull,
                 "Null title should produce the same filename as empty title");
         }
 
         /// <summary>
         /// Verify that a real title produces a filename based on that title.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void RealTitle_ProducesMatchingFilename()
         {
             string fileName = InvokeFileNameForTitle(false, "My Great Blog Post");
 
-            Assert.IsTrue(fileName.EndsWith(WpostExtension),
+            ClassicAssert.IsTrue(fileName.EndsWith(WpostExtension),
                 "Filename should have .wpost extension");
             string nameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-            Assert.IsTrue(nameWithoutExtension.Contains("My Great Blog Post"),
+            ClassicAssert.IsTrue(nameWithoutExtension.Contains("My Great Blog Post"),
                 "Filename should contain the post title");
         }
 
@@ -102,26 +103,26 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         /// Verify that changing from an empty title to a real title produces
         /// a different filename (the core scenario for issue #677).
         /// </summary>
-        [TestMethod]
+        [Test]
         public void ChangingFromEmptyToTitled_ProducesDifferentFilename()
         {
             string untitledFileName = InvokeFileNameForTitle(false, String.Empty);
             string titledFileName = InvokeFileNameForTitle(false, "Hello World");
 
-            Assert.AreNotEqual(untitledFileName, titledFileName,
+            ClassicAssert.AreNotEqual(untitledFileName, titledFileName,
                 "A titled post should have a different filename than an untitled post");
         }
 
         /// <summary>
         /// Verify that a whitespace-only title is treated the same as an empty title.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void WhitespaceOnlyTitle_ProducesDefaultFilename()
         {
             string fileNameEmpty = InvokeFileNameForTitle(false, String.Empty);
             string fileNameWhitespace = InvokeFileNameForTitle(false, "   ");
 
-            Assert.AreEqual(fileNameEmpty, fileNameWhitespace,
+            ClassicAssert.AreEqual(fileNameEmpty, fileNameWhitespace,
                 "Whitespace-only title should produce the same filename as empty title");
         }
 
@@ -129,13 +130,13 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         /// Verify that the page flag changes the default filename
         /// (untitled page vs untitled post).
         /// </summary>
-        [TestMethod]
+        [Test]
         public void PageFlag_ChangesDefaultFilename()
         {
             string postFileName = InvokeFileNameForTitle(false, String.Empty);
             string pageFileName = InvokeFileNameForTitle(true, String.Empty);
 
-            Assert.AreNotEqual(postFileName, pageFileName,
+            ClassicAssert.AreNotEqual(postFileName, pageFileName,
                 "Untitled page and untitled post should have different default filenames");
         }
 
@@ -143,25 +144,28 @@ namespace OpenLiveWriter.UnitTest.PostEditor
         /// Verify that FileHelper.GetValidFileName returns a usable filename
         /// for a normal blog post title.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void GetValidFileName_WithNormalTitle_ReturnsUsableFilename()
         {
             string result = FileHelper.GetValidFileName("My First Post");
-            Assert.IsFalse(String.IsNullOrEmpty(result));
-            Assert.AreEqual("My First Post", result);
+            ClassicAssert.IsFalse(String.IsNullOrEmpty(result));
+            ClassicAssert.AreEqual("My First Post", result);
         }
 
         /// <summary>
         /// Verify that FileHelper.GetValidFileName strips invalid characters.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void GetValidFileName_WithInvalidChars_StripsInvalidChars()
         {
             string result = FileHelper.GetValidFileName("Post: A <Test> Title");
-            Assert.IsFalse(String.IsNullOrEmpty(result));
-            Assert.IsFalse(result.Contains(":"), "Colon should be removed");
-            Assert.IsFalse(result.Contains("<"), "Angle bracket should be removed");
-            Assert.IsFalse(result.Contains(">"), "Angle bracket should be removed");
+            ClassicAssert.IsFalse(String.IsNullOrEmpty(result));
+            ClassicAssert.IsFalse(result.Contains(":"), "Colon should be removed");
+            ClassicAssert.IsFalse(result.Contains("<"), "Angle bracket should be removed");
+            ClassicAssert.IsFalse(result.Contains(">"), "Angle bracket should be removed");
         }
     }
 }
+
+
+
