@@ -846,7 +846,7 @@ namespace OpenLiveWriter.CoreServices
             try
             {
                 // @RIBBON TODO: Do we need to remove spaces also?
-                cssUnits.Trim();
+                cssUnits = cssUnits.Trim();
                 cssUnits = cssUnits.ToUpperInvariant();
 
                 // PERCENTAGE
@@ -978,6 +978,52 @@ namespace OpenLiveWriter.CoreServices
         public static float CSSUnitStringToPixelSize(CSSUnitStringDelegate cssUnitStringDelegate, IHTMLElement element, LastChanceDelegate lastChanceDelegate, bool vertical)
         {
             return PointSizeToPixels(CSSUnitStringToPointSize(cssUnitStringDelegate, element, lastChanceDelegate, vertical), vertical);
+        }
+
+        /// <summary>
+        /// Parses a CSS absolute unit string (e.g. "12pt", "1.5em", "16px") into its
+        /// numeric value and unit suffix. Returns true if parsing succeeded.
+        /// This handles trimming and is safe to call with whitespace-padded values.
+        /// Only supports absolute/non-relative units: pt, pc, in, cm, mm, px, em, rem, ex, %.
+        /// </summary>
+        internal static bool TryParseCssLength(string cssValue, out float number, out string unit)
+        {
+            number = 0;
+            unit = string.Empty;
+
+            if (string.IsNullOrEmpty(cssValue))
+                return false;
+
+            cssValue = cssValue.Trim();
+            if (cssValue.Length == 0)
+                return false;
+
+            string upper = cssValue.ToUpperInvariant();
+
+            // Try known unit suffixes in order (longest first to avoid REM matching EM prematurely).
+            string[] knownUnits = { "REM", "EM", "EX", "PX", "PT", "PC", "IN", "CM", "MM", "%" };
+            foreach (string u in knownUnits)
+            {
+                int idx = upper.IndexOf(u, StringComparison.Ordinal);
+                if (idx > 0)
+                {
+                    string numStr = cssValue.Substring(0, idx);
+                    if (float.TryParse(numStr, NumberStyles.Float, CultureInfo.InvariantCulture, out number))
+                    {
+                        unit = u.ToLowerInvariant();
+                        return true;
+                    }
+                }
+            }
+
+            // Try bare number (no unit).
+            if (float.TryParse(cssValue, NumberStyles.Float, CultureInfo.InvariantCulture, out number))
+            {
+                unit = string.Empty;
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>

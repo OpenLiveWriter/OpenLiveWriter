@@ -43,19 +43,19 @@ line 7";
 
                         Assert.That(html,
                             Is.EqualTo(
-            @"<p>line 1<br />
-            line 2</p>
-            <p>line 3</p>
-            <p><br />
-            line 4</p>
-            <p></p>
-            <p>line 5</p>
-            <p></p>
-            <p><br />
-            line 6</p>
-            <p></p>
-            <p></p>
-            <p>line 7</p>"));
+@"<p>line 1<br />
+line 2</p>
+<p>line 3</p>
+<p><br />
+line 4</p>
+<p>&nbsp;</p>
+<p>line 5</p>
+<p>&nbsp;</p>
+<p><br />
+line 6</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>line 7</p>"));
                     }
 
         [Test]
@@ -91,28 +91,28 @@ line 7";
 
                         Assert.That(html,
                             Is.EqualTo(
-            @"<div>line 1</div>
-            <div>line 2</div>
-            <div></div>
-            <div>line 3</div>
-            <div></div>
-            <div></div>
-            <div>line 4</div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div>line 5</div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div>line 6</div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div>line 7</div>"));
+@"<div>line 1</div>
+<div>line 2</div>
+<div>&nbsp;</div>
+<div>line 3</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>line 4</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>line 5</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>line 6</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>line 7</div>"));
                     }
     }
 }

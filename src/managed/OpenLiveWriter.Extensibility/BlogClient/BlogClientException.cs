@@ -219,6 +219,28 @@ namespace OpenLiveWriter.Extensibility.BlogClient
         }
     }
 
+    public class BlogClientInvalidPostIdException : BlogClientProviderException
+    {
+        /// <summary>
+        /// Constructor for server-returned fault code 17 (Invalid Post ID)
+        /// </summary>
+        public BlogClientInvalidPostIdException(string faultCode, string faultString)
+            : base(StringId.BCEInvalidPostIdTitle, StringId.BCEInvalidPostIdMessage, faultCode, faultString)
+        {
+        }
+
+        /// <summary>
+        /// Constructor for client-side validation when the post ID is missing
+        /// </summary>
+        public BlogClientInvalidPostIdException(string postId)
+            : base(StringId.BCEInvalidPostIdTitle, StringId.BCEInvalidPostIdMessage, string.Empty, string.Empty)
+        {
+            PostId = postId;
+        }
+
+        public readonly string PostId;
+    }
+
     public class BlogClientException : DisplayableException
     {
         public BlogClientException(StringId titleFormat, StringId textFormat, params object[] textFormatArgs)

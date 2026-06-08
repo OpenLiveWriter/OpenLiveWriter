@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using OpenLiveWriter.Controls;
@@ -315,7 +316,26 @@ namespace OpenLiveWriter.PostEditor
 
         private void lnkShowLogFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("explorer.exe", string.Format(CultureInfo.InvariantCulture, "/select,\"{0}\"", ApplicationEnvironment.LogFilePath));
+            string logPath = ApplicationEnvironment.LogFilePath;
+            if (File.Exists(logPath))
+            {
+                Process.Start("explorer.exe", string.Format(CultureInfo.InvariantCulture,
+                    "/select,\"{0}\"", logPath));
+            }
+            else
+            {
+                string dir = Path.GetDirectoryName(logPath);
+                if (Directory.Exists(dir))
+                {
+                    Process.Start("explorer.exe", string.Format(CultureInfo.InvariantCulture,
+                        "\"{0}\"", dir));
+                }
+                else
+                {
+                    Process.Start("explorer.exe", string.Format(CultureInfo.InvariantCulture,
+                        "\"{0}\"", ApplicationEnvironment.LocalApplicationDataDirectory));
+                }
+            }
         }
 
         private void labelWebsiteLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

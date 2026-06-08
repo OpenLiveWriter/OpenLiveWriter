@@ -247,6 +247,17 @@ namespace OpenLiveWriter.Localization
         /// </summary>
         BCEInvalidServerResponseTitle,
         /// <summary>
+        /// The blog server did not recognize the post ID. The post may have been deleted
+        /// from the server, or the post ID may be missing. Try creating a new post instead.
+        ///
+        /// {0} {1}
+        /// </summary>
+        BCEInvalidPostIdMessage,
+        /// <summary>
+        /// Invalid Post ID
+        /// </summary>
+        BCEInvalidPostIdTitle,
+        /// <summary>
         /// The {0} method is not supported by the blog service.
         /// </summary>
         BCEMethodUnsupportedMessage,

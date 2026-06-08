@@ -493,9 +493,9 @@ namespace OpenLiveWriter.CoreServices
             string userAgent;
             if (browserBased)
             {
-                // e.g. "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 7.0; Open Live Writer 1.0)"
+                // e.g. "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 7.0; Open Live Writer 1.0)"
                 userAgent = String.Format(CultureInfo.InvariantCulture,
-                                          "Mozilla/4.0 (compatible; MSIE {0}.{1}; Windows NT {2}.{3}; {4} 1.0)",
+                                          "Mozilla/5.0 (compatible; MSIE {0}.{1}; Windows NT {2}.{3}; {4} 1.0)",
                                           majorBrowserVersion,
                                           minorBrowserVersion,
                                           osVersion.Major,

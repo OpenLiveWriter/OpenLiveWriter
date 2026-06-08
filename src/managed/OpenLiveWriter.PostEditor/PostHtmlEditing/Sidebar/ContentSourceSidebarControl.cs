@@ -100,7 +100,15 @@ namespace OpenLiveWriter.PostEditor.PostHtmlEditing.Sidebar
                     }
                 }
 
-                ContentSourceManager.ParseContainingElementId(_selectedElement.id, out _contentSourceId, out _contentItemId);
+                try
+                {
+                    ContentSourceManager.ParseContainingElementId(_selectedElement.id, out _contentSourceId, out _contentItemId);
+                }
+                catch (ArgumentException)
+                {
+                    Trace.Fail("Malformed smart content element id: " + _selectedElement.id);
+                    return;
+                }
 
                 SmartContentEditor editor = (SmartContentEditor)_contentSourceControls[_contentSourceId];
                 ContentSourceInfo contentSource = _contentSourceContext.FindContentSource(_contentSourceId);

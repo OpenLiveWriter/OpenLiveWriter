@@ -68,7 +68,14 @@ namespace OpenLiveWriter.BlogClient.Clients
             }
 
             RedirectHelper.SimpleRequest simpleRequest = new RedirectHelper.SimpleRequest(method, filter);
-            HttpWebResponse response = RedirectHelper.GetResponse(absUri, new RedirectHelper.RequestFactory(simpleRequest.Create));
+            HttpWebResponse response = RedirectHelper.GetResponse(absUri, new RedirectHelper.RequestFactory((requestUri) =>
+            {
+                var req = simpleRequest.Create(requestUri);
+                // Override the default */* Accept header for XML REST requests.
+                // AtomPub endpoints require application/atom+xml for content negotiation.
+                req.Accept = "application/atom+xml";
+                return req;
+            }));
             try
             {
                 uri = response.ResponseUri;
@@ -196,6 +203,9 @@ namespace OpenLiveWriter.BlogClient.Clients
             {
                 HttpWebRequest request = HttpRequestHelper.CreateHttpWebRequest(uri, true);
                 request.Method = _method;
+                // Override the default */* Accept header for XML REST requests.
+                // AtomPub endpoints require application/atom+xml for content negotiation.
+                request.Accept = "application/atom+xml";
                 //			    request.KeepAlive = true;
                 //			    request.Pipelined = true;
                 if (_etag != null && _etag != "")

@@ -40,6 +40,7 @@
     <PackageVersion Include="System.Web.Services.Description" Version="4.9.0" />
 
     <!-- Testing -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.6.0" />
     <PackageVersion Include="NUnit" Version="4.3.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="4.6.0" />
     <PackageVersion Include="ApprovalTests" Version="6.0.0" />

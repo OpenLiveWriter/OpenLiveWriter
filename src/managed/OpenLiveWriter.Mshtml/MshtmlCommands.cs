@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using OpenLiveWriter.Interop.Com;
 
 namespace OpenLiveWriter.Mshtml
@@ -310,15 +311,19 @@ namespace OpenLiveWriter.Mshtml
         /// <param name="output">output parameter</param>
         public virtual void Execute(OLECMDEXECOPT execOption, object input, ref object output)
         {
-            if (UseNullOutputParam)
+            try
             {
-                ((IOleCommandTargetNullOutputParam)commandTarget).Exec(CGID.MSHTML, commandID, execOption, ref input, IntPtr.Zero);
+                if (UseNullOutputParam)
+                {
+                    ((IOleCommandTargetNullOutputParam)commandTarget).Exec(CGID.MSHTML, commandID, execOption, ref input, IntPtr.Zero);
+                }
+                else
+                {
+                    commandTarget.Exec(CGID.MSHTML, commandID, execOption, ref input, ref output);
+                }
             }
-            else
-            {
-                commandTarget.Exec(CGID.MSHTML, commandID, execOption, ref input, ref output);
-            }
-
+            catch (COMException) { }
+            catch (ArgumentException) { }
         }
 
         /// <summary>
@@ -328,9 +333,14 @@ namespace OpenLiveWriter.Mshtml
         public object GetValue()
         {
             object output = new object();
-            getValueCommandTarget.Exec(
-                CGID.MSHTML, commandID, OLECMDEXECOPT.DODEFAULT,
-                IntPtr.Zero, ref output);
+            try
+            {
+                getValueCommandTarget.Exec(
+                    CGID.MSHTML, commandID, OLECMDEXECOPT.DODEFAULT,
+                    IntPtr.Zero, ref output);
+            }
+            catch (COMException) { }
+            catch (ArgumentException) { }
             return output;
         }
 

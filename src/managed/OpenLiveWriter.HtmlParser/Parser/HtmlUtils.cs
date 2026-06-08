@@ -297,6 +297,151 @@ namespace OpenLiveWriter.HtmlParser.Parser
             }
         }
 
+        /// <summary>
+        /// Fixes invalid nested list HTML where MSHTML places nested &lt;ul&gt;/&lt;ol&gt; elements
+        /// as siblings of &lt;li&gt; rather than inside the preceding &lt;li&gt;.
+        /// For example, converts:
+        ///   &lt;ul&gt;&lt;li&gt;item&lt;/li&gt;&lt;ul&gt;&lt;li&gt;nested&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;
+        /// To:
+        ///   &lt;ul&gt;&lt;li&gt;item&lt;ul&gt;&lt;li&gt;nested&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;
+        /// </summary>
+        public static string FixNestedListHtml(string html)
+        {
+            if (string.IsNullOrEmpty(html))
+                return html;
+
+            StringBuilder result = new StringBuilder(html.Length + 50);
+            SimpleHtmlParser parser = new SimpleHtmlParser(html);
+            ArrayList tokenBuffer = new ArrayList();
+
+            // Buffer all tokens first so we can look ahead
+            Element el;
+            while ((el = parser.Next()) != null)
+            {
+                tokenBuffer.Add(el);
+            }
+
+            // Track whether we're inside a list context using a stack
+            // Each entry is the tag name of the list element (UL or OL)
+            ArrayList listStack = new ArrayList();
+            // Track whether the last meaningful event was a </li> close tag
+            // If so, and the next thing is a <ul>/<ol>, we need to reopen that <li>
+            bool lastWasLiClose = false;
+            string pendingLiCloseTag = null;
+
+            for (int i = 0; i < tokenBuffer.Count; i++)
+            {
+                Element token = (Element)tokenBuffer[i];
+
+                if (token is BeginTag)
+                {
+                    BeginTag bt = (BeginTag)token;
+                    string nameUpper = bt.Name.ToUpper(CultureInfo.InvariantCulture);
+
+                    if (nameUpper == "UL" || nameUpper == "OL")
+                    {
+                        if (lastWasLiClose && listStack.Count > 0 && pendingLiCloseTag != null)
+                        {
+                            // Remove the </li> we already wrote - the nested list should be inside the <li>
+                            // We need to remove the trailing </li> from the result
+                            string closeLi = "</" + pendingLiCloseTag + ">";
+                            string resultStr = result.ToString();
+                            int lastIndex = resultStr.LastIndexOf(closeLi, StringComparison.OrdinalIgnoreCase);
+                            if (lastIndex >= 0)
+                            {
+                                result.Remove(lastIndex, closeLi.Length);
+                            }
+                            // We'll need to re-close the <li> after the nested list closes
+                            listStack.Add(nameUpper + "|" + pendingLiCloseTag);
+                        }
+                        else
+                        {
+                            listStack.Add(nameUpper);
+                        }
+                        result.Append(token.RawText);
+                        lastWasLiClose = false;
+                        pendingLiCloseTag = null;
+                    }
+                    else if (nameUpper == "LI")
+                    {
+                        result.Append(token.RawText);
+                        lastWasLiClose = false;
+                        pendingLiCloseTag = null;
+                    }
+                    else
+                    {
+                        result.Append(token.RawText);
+                        lastWasLiClose = false;
+                        pendingLiCloseTag = null;
+                    }
+                }
+                else if (token is EndTag)
+                {
+                    EndTag et = (EndTag)token;
+                    string nameUpper = et.Name.ToUpper(CultureInfo.InvariantCulture);
+
+                    if (nameUpper == "LI")
+                    {
+                        result.Append(token.RawText);
+                        lastWasLiClose = true;
+                        pendingLiCloseTag = et.Name;
+                    }
+                    else if (nameUpper == "UL" || nameUpper == "OL")
+                    {
+                        result.Append(token.RawText);
+
+                        // Check if we need to re-close an <li> that was opened for nesting
+                        if (listStack.Count > 0)
+                        {
+                            string stackEntry = (string)listStack[listStack.Count - 1];
+                            listStack.RemoveAt(listStack.Count - 1);
+                            int pipeIndex = stackEntry.IndexOf('|');
+                            if (pipeIndex >= 0)
+                            {
+                                // This list was nested inside an <li> - re-close the <li>
+                                string liTagName = stackEntry.Substring(pipeIndex + 1);
+                                result.Append("</").Append(liTagName).Append(">");
+                                lastWasLiClose = true;
+                                pendingLiCloseTag = liTagName;
+                            }
+                            else
+                            {
+                                lastWasLiClose = false;
+                                pendingLiCloseTag = null;
+                            }
+                        }
+                        else
+                        {
+                            lastWasLiClose = false;
+                            pendingLiCloseTag = null;
+                        }
+                    }
+                    else
+                    {
+                        result.Append(token.RawText);
+                        lastWasLiClose = false;
+                        pendingLiCloseTag = null;
+                    }
+                }
+                else
+                {
+                    result.Append(token.RawText);
+                    // Don't reset lastWasLiClose for whitespace-only text nodes
+                    if (token is Text)
+                    {
+                        string text = token.RawText;
+                        if (!string.IsNullOrEmpty(text) && text.Trim().Length > 0)
+                        {
+                            lastWasLiClose = false;
+                            pendingLiCloseTag = null;
+                        }
+                    }
+                }
+            }
+
+            return result.ToString();
+        }
+
         public static string HTMLToPlainText(string html)
         {
             return HTMLToPlainText(html, false);

@@ -620,7 +620,7 @@ namespace OpenLiveWriter.PostEditor.PostPropertyEditing.CategoryControl
             this.comboBoxParent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxParent.DropDownWidth = 200;
             this.comboBoxParent.IntegralHeight = false;
-            this.comboBoxParent.ItemHeight = 15;
+            this.comboBoxParent.ItemHeight = Math.Max(15, this.comboBoxParent.Font.Height + 2);
             this.comboBoxParent.Location = new System.Drawing.Point(42, 1);
             this.comboBoxParent.MaxDropDownItems = 20;
             this.comboBoxParent.Name = "comboBoxParent";

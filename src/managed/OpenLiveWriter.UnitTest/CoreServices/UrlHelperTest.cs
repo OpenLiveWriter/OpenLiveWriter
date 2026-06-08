@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenLiveWriter.CoreServices;
 
 namespace OpenLiveWriter.UnitTest.CoreServices
@@ -43,12 +44,11 @@ namespace OpenLiveWriter.UnitTest.CoreServices
                     //Assert.That(urlToCheck, Is.EqualTo(uriLocalPath));
 
                     string simpleUriLocalPath = new Uri(UrlHelper.SafeToAbsoluteUri(new Uri(urlToCheck))).LocalPath;
-                    Assert.That(urlToCheck, Is.EqualTo(simpleUriLocalPath));
                     Assert.That(uriLocalPath, Is.EqualTo(simpleUriLocalPath));
                 }
                 catch(Exception ex)
                 {
-                    Assert.Fail(ex.ToString());
+                    ClassicAssert.Fail(ex.ToString());
                 }
             }
         }

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using mshtml;
@@ -199,6 +200,11 @@ namespace OpenLiveWriter.HtmlEditor
                     // see what type of range is selected
                     range = selection.createRange();
                 }
+                catch (COMException ex)
+                {
+                    Trace.WriteLine("COMException while trying to read selection (the DOM may be in a transitional state): " + ex.Message);
+                    return null;
+                }
                 catch (UnauthorizedAccessException ex)
                 {
                     Trace.WriteLine("Exception while trying to read selection: " + ex);
@@ -262,19 +268,27 @@ namespace OpenLiveWriter.HtmlEditor
 
         private MarkupRange AdjustSelection()
         {
-            MarkupRange selection = CreateMaxSafeRange(SelectedMarkupRange);
-
-            if (selection.IsEmpty())
+            try
             {
-                MarkupRange editableRange = MarkupHelpers.GetEditableRange(selection.Start.CurrentScope, MarkupServices);
-                MarkupPointerMoveHelper.MoveUnitBounded(selection.Start,
-                                                        MarkupPointerMoveHelper.MoveDirection.LEFT,
-                                                        MarkupPointerAdjacency.BeforeVisible | MarkupPointerAdjacency.BeforeEnterScope,
-                                                        editableRange.Start);
-                selection.Collapse(true);
+                MarkupRange selection = CreateMaxSafeRange(SelectedMarkupRange);
+
+                if (selection.IsEmpty())
+                {
+                    MarkupRange editableRange = MarkupHelpers.GetEditableRange(selection.Start.CurrentScope, MarkupServices);
+                    MarkupPointerMoveHelper.MoveUnitBounded(selection.Start,
+                                                            MarkupPointerMoveHelper.MoveDirection.LEFT,
+                                                            MarkupPointerAdjacency.BeforeVisible | MarkupPointerAdjacency.BeforeEnterScope,
+                                                            editableRange.Start);
+                    selection.Collapse(true);
+                }
+                selection.ToTextRange().select();
+                return selection;
             }
-            selection.ToTextRange().select();
-            return selection;
+            catch (COMException ex)
+            {
+                Trace.WriteLine("COMException adjusting selection (the DOM may be in a transitional state): " + ex.Message);
+                return null;
+            }
         }
 
         private bool IsEditableSelection()

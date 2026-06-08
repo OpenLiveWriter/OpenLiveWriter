@@ -1010,6 +1010,8 @@ namespace OpenLiveWriter.BlogClient.Clients
                 return new BlogClientAuthenticationException(faultCode, faultString);
             else if (faultCode.IndexOf("3001", StringComparison.OrdinalIgnoreCase) != -1)
                 return new BlogClientAccessDeniedException(faultCode, faultString);
+            else if (faultCode == "17")
+                return new BlogClientInvalidPostIdException(faultCode, faultString);
             else
                 return null;
         }

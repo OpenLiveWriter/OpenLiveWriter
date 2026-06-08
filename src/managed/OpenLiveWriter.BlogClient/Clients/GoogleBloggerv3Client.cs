@@ -78,6 +78,12 @@ namespace OpenLiveWriter.BlogClient.Clients
             return new FileDataStore(folderPath, true);
         }
 
+        /// <summary>
+        /// The anchor tag that Blogger uses to represent the extended entry break ("read more" split).
+        /// The Blogger v3 API returns this instead of the standard &lt;!--more--&gt; comment.
+        /// </summary>
+        private const string BloggerExtendedEntryBreakAnchor = "<a name=\"more\"></a>";
+
         private static BlogPost ConvertToBlogPost(Page page)
         {
             return new BlogPost()
@@ -92,7 +98,7 @@ namespace OpenLiveWriter.BlogClient.Clients
 
         private static BlogPost ConvertToBlogPost(Post post)
         {
-            return new BlogPost()
+            var blogPost = new BlogPost()
             {
                 Title = post.Title,
                 Id = post.Id,
@@ -101,6 +107,14 @@ namespace OpenLiveWriter.BlogClient.Clients
                 DatePublished = ParseRfc3339Date(post.Published),
                 Categories = post.Labels?.Select(x => new BlogPostCategory(x)).ToArray() ?? new BlogPostCategory[0]
             };
+
+            // Convert Blogger's anchor-based extended entry break to the standard comment format
+            if (blogPost.Contents != null)
+            {
+                blogPost.Contents = blogPost.Contents.Replace(BloggerExtendedEntryBreakAnchor, BlogPost.ExtendedEntryBreak);
+            }
+
+            return blogPost;
         }
 
         private static Page ConvertToGoogleBloggerPage(BlogPost page, IBlogClientOptions clientOptions)
@@ -118,9 +132,16 @@ namespace OpenLiveWriter.BlogClient.Clients
             var labels = post.Categories?.Select(x => x.Name).ToList();
             labels?.AddRange(post.NewCategories?.Select(x => x.Name) ?? new List<string>());
 
+            // Convert the standard extended entry break back to Blogger's anchor format
+            var content = post.Contents;
+            if (content != null)
+            {
+                content = content.Replace(BlogPost.ExtendedEntryBreak, BloggerExtendedEntryBreakAnchor);
+            }
+
             return new Post()
             {
-                Content = post.Contents,
+                Content = content,
                 Labels = labels ?? new List<string>(),
                 Published = FormatRfc3339Date(GetDatePublishedOverride(post, clientOptions)),
                 Title = post.Title,
@@ -296,7 +317,14 @@ namespace OpenLiveWriter.BlogClient.Clients
                 });
 
                 var loadTokenTask = flow.LoadTokenAsync(tc.Username, CancellationToken.None);
-                loadTokenTask.Wait();
+                try
+                {
+                    loadTokenTask.Wait();
+                }
+                catch (AggregateException ex)
+                {
+                    throw ex.InnerException ?? ex;
+                }
                 if (loadTokenTask.IsCompleted)
                 {
                     // We were able re-create the user credentials from the cache.
@@ -316,7 +344,14 @@ namespace OpenLiveWriter.BlogClient.Clients
 
                 // Start an OAuth flow to renew the credentials.
                 var authorizationTask = GetOAuth2AuthorizationAsync(tc.Username, CancellationToken.None);
-                authorizationTask.Wait();
+                try
+                {
+                    authorizationTask.Wait();
+                }
+                catch (AggregateException ex)
+                {
+                    throw ex.InnerException ?? ex;
+                }
                 if (authorizationTask.IsCompleted)
                 {
                     userCredential = authorizationTask.Result;
@@ -340,7 +375,14 @@ namespace OpenLiveWriter.BlogClient.Clients
             // Using the BloggerService automatically refreshes the access token, but we call the Picasa endpoint 
             // directly and therefore need to force refresh the access token on occasion.
             var userCredential = transientCredentials.Token as UserCredential;
-            userCredential?.RefreshTokenAsync(CancellationToken.None).Wait();
+            try
+            {
+                userCredential?.RefreshTokenAsync(CancellationToken.None).Wait();
+            }
+            catch (AggregateException ex)
+            {
+                throw ex.InnerException ?? ex;
+            }
         }
 
         private HttpRequestFilter CreateAuthorizationFilter()
@@ -480,9 +522,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             var newPostRequest = GetService().Posts.Insert(bloggerPost, blogId);
             newPostRequest.IsDraft = !publish;
 
-            var newPost = newPostRequest.Execute();
-            etag = newPost.ETag;
-            return newPost.Id;
+            try
+            {
+                var newPost = newPostRequest.Execute();
+                etag = newPost.ETag;
+                return newPost.Id;
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new BlogClientException(
+                    "Post Too Large",
+                    "The post content is too large to publish. Try reducing the size of images or splitting the post into multiple parts.");
+            }
         }
 
         public bool EditPost(string blogId, BlogPost post, INewCategoryContext newCategoryContext, bool publish, out string etag, out XmlDocument remotePost)
@@ -500,9 +551,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             var updatePostRequest = GetService().Posts.Update(bloggerPost, blogId, post.Id);
             updatePostRequest.Publish = publish;
 
-            var updatedPost = updatePostRequest.Execute();
-            etag = updatedPost.ETag;
-            return true;
+            try
+            {
+                var updatedPost = updatePostRequest.Execute();
+                etag = updatedPost.ETag;
+                return true;
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new BlogClientException(
+                    "Post Too Large",
+                    "The post content is too large to publish. Try reducing the size of images or splitting the post into multiple parts.");
+            }
         }
 
         public BlogPost GetPost(string blogId, string postId)
@@ -606,9 +666,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             var newPageRequest = GetService().Pages.Insert(bloggerPage, blogId);
             newPageRequest.IsDraft = !publish;
 
-            var newPage = newPageRequest.Execute();
-            etag = newPage.ETag;
-            return newPage.Id;
+            try
+            {
+                var newPage = newPageRequest.Execute();
+                etag = newPage.ETag;
+                return newPage.Id;
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new BlogClientException(
+                    "Post Too Large",
+                    "The post content is too large to publish. Try reducing the size of images or splitting the post into multiple parts.");
+            }
         }
 
         public bool EditPage(string blogId, BlogPost page, bool publish, out string etag, out XmlDocument remotePost)
@@ -626,9 +695,18 @@ namespace OpenLiveWriter.BlogClient.Clients
             var updatePostRequest = GetService().Pages.Update(bloggerPage, blogId, page.Id);
             updatePostRequest.Publish = publish;
 
-            var updatedPage = updatePostRequest.Execute();
-            etag = updatedPage.ETag;
-            return true;
+            try
+            {
+                var updatedPage = updatePostRequest.Execute();
+                etag = updatedPage.ETag;
+                return true;
+            }
+            catch (OutOfMemoryException)
+            {
+                throw new BlogClientException(
+                    "Post Too Large",
+                    "The post content is too large to publish. Try reducing the size of images or splitting the post into multiple parts.");
+            }
         }
 
         public void DeletePage(string blogId, string pageId)

@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
@@ -172,15 +173,34 @@ namespace OpenLiveWriter.Controls
             }
         }
 
-        private Bitmap MakeGray(Bitmap orig)
+        private static Bitmap MakeGray(Bitmap orig)
         {
-            Bitmap grayed = new Bitmap(orig);
-            using (Graphics g = Graphics.FromImage(grayed))
+            try
             {
-                using (Brush b = new SolidBrush(Color.FromArgb(128, Color.Gray)))
-                    g.FillRectangle(b, 0, 0, grayed.Width, grayed.Height);
+                Bitmap grayed = new Bitmap(orig.Width, orig.Height, orig.PixelFormat);
+                using (Graphics g = Graphics.FromImage(grayed))
+                {
+                    ColorMatrix colorMatrix = new ColorMatrix(new float[][] {
+                        new float[] {0.3f, 0.3f, 0.3f, 0, 0},
+                        new float[] {0.59f, 0.59f, 0.59f, 0, 0},
+                        new float[] {0.11f, 0.11f, 0.11f, 0, 0},
+                        new float[] {0, 0, 0, 1, 0},
+                        new float[] {0, 0, 0, 0, 1}
+                    });
+                    using (ImageAttributes attrs = new ImageAttributes())
+                    {
+                        attrs.SetColorMatrix(colorMatrix);
+                        g.DrawImage(orig, new Rectangle(0, 0, orig.Width, orig.Height),
+                            0, 0, orig.Width, orig.Height, GraphicsUnit.Pixel, attrs);
+                    }
+                }
+                return grayed;
             }
-            return grayed;
+            catch (OutOfMemoryException)
+            {
+                // If the image is too large even for ColorMatrix, return the original
+                return new Bitmap(orig);
+            }
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
