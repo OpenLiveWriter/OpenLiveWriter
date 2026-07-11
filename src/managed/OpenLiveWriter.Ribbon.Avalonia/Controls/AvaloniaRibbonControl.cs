@@ -29,8 +29,14 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         // Buttons currently rendered for the active tab, keyed by command.
         private readonly Dictionary<CommandId, List<RibbonButtonControl>> _buttonsByCommand = new();
+        // Host-populated compact dropdowns rendered for the active tab, keyed by command.
+        private readonly Dictionary<CommandId, List<ComboBox>> _dropDownsByCommand = new();
         // Last-known toggle states, re-applied when the active tab changes.
         private readonly Dictionary<CommandId, bool> _toggleStates = new();
+        // Last-known dropdown item data, re-applied when the active tab changes.
+        private readonly Dictionary<CommandId, (IReadOnlyList<RibbonGalleryItem> Items, string SelectedId)> _dropDownData = new();
+        // Guards against re-entrant ComboSelectionChanged while we populate items.
+        private bool _populatingDropDowns;
 
         /// <summary>
         /// The active application modes. Controls which tabs and groups are visible.
@@ -54,6 +60,48 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         public AvaloniaRibbonControl()
         {
+        }
+
+        /// <summary>
+        /// Populates a host-driven compact dropdown (e.g. the blog selector) with items
+        /// and selects the given id. Item data is remembered so it survives tab switches.
+        /// Programmatic population does not raise <see cref="ComboSelectionChanged"/>.
+        /// </summary>
+        public void SetDropDownItems(CommandId commandId, IReadOnlyList<RibbonGalleryItem> items, string selectedId)
+        {
+            _dropDownData[commandId] = (items ?? new List<RibbonGalleryItem>(), selectedId);
+            ApplyDropDownData(commandId);
+        }
+
+        private void ApplyDropDownData(CommandId commandId)
+        {
+            if (!_dropDownsByCommand.TryGetValue(commandId, out var combos))
+                return;
+            if (!_dropDownData.TryGetValue(commandId, out var data))
+                return;
+
+            bool previous = _populatingDropDowns;
+            _populatingDropDowns = true;
+            try
+            {
+                foreach (var combo in combos)
+                {
+                    combo.Items.Clear();
+                    ComboBoxItem selectedItem = null;
+                    foreach (var item in data.Items)
+                    {
+                        var boxItem = new ComboBoxItem { Content = item.Label, Tag = item.Id };
+                        combo.Items.Add(boxItem);
+                        if (string.Equals(item.Id, data.SelectedId, StringComparison.Ordinal))
+                            selectedItem = boxItem;
+                    }
+                    combo.SelectedItem = selectedItem;
+                }
+            }
+            finally
+            {
+                _populatingDropDowns = previous;
+            }
         }
 
         /// <summary>
@@ -126,6 +174,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         {
             _groupsPanel.Children.Clear();
             _buttonsByCommand.Clear();
+            _dropDownsByCommand.Clear();
 
             foreach (var group in tab.Groups)
             {
@@ -135,7 +184,13 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
                 var groupPanel = new RibbonGroupPanel(group);
                 groupPanel.CommandExecuted += (s, cmd) => CommandExecuted?.Invoke(this, cmd);
-                groupPanel.ComboSelectionChanged += (s, args) => ComboSelectionChanged?.Invoke(this, args);
+                groupPanel.ComboSelectionChanged += (s, args) =>
+                {
+                    // Ignore selection events raised while we programmatically fill items.
+                    if (_populatingDropDowns)
+                        return;
+                    ComboSelectionChanged?.Invoke(this, args);
+                };
                 _groupsPanel.Children.Add(groupPanel);
 
                 foreach (var button in groupPanel.Buttons)
@@ -147,11 +202,25 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     }
                     list.Add(button);
                 }
+
+                foreach (var (commandId, comboBox) in groupPanel.DropDowns)
+                {
+                    if (!_dropDownsByCommand.TryGetValue(commandId, out var comboList))
+                    {
+                        comboList = new List<ComboBox>();
+                        _dropDownsByCommand[commandId] = comboList;
+                    }
+                    comboList.Add(comboBox);
+                }
             }
 
             // Re-apply any known toggle states to the freshly built buttons.
             foreach (var kvp in _toggleStates)
                 ApplyToggleState(kvp.Key, kvp.Value);
+
+            // Re-apply any known dropdown item data to the freshly built dropdowns.
+            foreach (var commandId in _dropDownData.Keys)
+                ApplyDropDownData(commandId);
         }
 
         /// <summary>

@@ -21,6 +21,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
     {
         private readonly GroupConfig _config;
         private readonly List<RibbonButtonControl> _buttons = new();
+        private readonly List<(CommandId CommandId, ComboBox ComboBox)> _dropDowns = new();
 
         /// <summary>
         /// Event raised when a command button within this group is clicked.
@@ -37,6 +38,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// Used by the ribbon control to sync toggle state from the editor.
         /// </summary>
         public IReadOnlyList<RibbonButtonControl> Buttons => _buttons;
+
+        /// <summary>
+        /// Host-populated compact dropdowns (e.g. the blog selector) created in this
+        /// group, keyed by command. The ribbon control fills these from application data.
+        /// </summary>
+        public IReadOnlyList<(CommandId CommandId, ComboBox ComboBox)> DropDowns => _dropDowns;
 
         public RibbonGroupPanel(GroupConfig config)
         {
@@ -463,14 +470,26 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             }
             else if (gallery.GalleryType == RibbonGalleryType.CompactDropDown)
             {
-                // Compact dropdown (like blog selector)
-                return new global::Avalonia.Controls.ComboBox
+                // Compact dropdown (like the blog selector). Items are supplied by the
+                // host (e.g. stored blog accounts); selecting one raises
+                // ComboSelectionChanged with the item's id so the shell can act on it.
+                var comboBox = new global::Avalonia.Controls.ComboBox
                 {
                     Width = 140,
                     Height = 24,
                     PlaceholderText = label,
                     VerticalAlignment = VerticalAlignment.Center
                 };
+
+                var commandId = gallery.CommandId;
+                comboBox.SelectionChanged += (s, e) =>
+                {
+                    if (comboBox.SelectedItem is ComboBoxItem item && item.Tag is string id)
+                        ComboSelectionChanged?.Invoke(this, new RibbonComboSelectionEventArgs(commandId, id));
+                };
+
+                _dropDowns.Add((commandId, comboBox));
+                return comboBox;
             }
             else
             {
@@ -654,5 +673,22 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         public CommandId CommandId { get; }
         public string Value { get; }
+    }
+
+    /// <summary>
+    /// A host-supplied item for a compact-dropdown gallery (e.g. a blog account in the
+    /// blog selector). <see cref="Id"/> is the opaque value raised on selection;
+    /// <see cref="Label"/> is the display text.
+    /// </summary>
+    public sealed class RibbonGalleryItem
+    {
+        public RibbonGalleryItem(string id, string label)
+        {
+            Id = id;
+            Label = label;
+        }
+
+        public string Id { get; }
+        public string Label { get; }
     }
 }
