@@ -99,10 +99,63 @@ namespace OpenLiveWriter.EditorTests.Automated
             Assert.That(Dom.Has(again, "b"), Is.True);
         }
 
+        // B4: Preview render — the preview document is composed by the pure
+        // PreviewRenderer (separated from the live WebView display). The composed
+        // document must be a well-formed article that contains the post body,
+        // applies the neutral preview style, and joins main + extended content.
+
         [Test]
-        [Explicit("PreviewHost is not populated yet (P3 visual parity)")]
+        public void B4_PreviewRender_ComposesArticleWithBody()
+        {
+            var editorHtml = "<h2>My Post</h2><p>Hello <b>world</b>.</p><ul><li>one</li><li>two</li></ul>";
+            var document = PreviewRenderer.BuildPreviewDocument(editorHtml, "My Post");
+
+            var doc = Dom.Parse(document);
+            Assert.Multiple(() =>
+            {
+                // Wrapped in a neutral article container.
+                Assert.That(doc.QuerySelector("article"), Is.Not.Null, "expected an <article> wrapper");
+                // Body content survives verbatim.
+                Assert.That(doc.QuerySelector("article h2")?.TextContent, Is.EqualTo("My Post"));
+                Assert.That(doc.QuerySelector("article b"), Is.Not.Null);
+                Assert.That(doc.QuerySelectorAll("article ul > li"), Has.Length.EqualTo(2));
+                // Neutral preview style is applied.
+                Assert.That(doc.QuerySelector("style"), Is.Not.Null);
+            });
+        }
+
+        [Test]
+        public void B4_PreviewRender_JoinsExtendedContent_StripsMoreMarker()
+        {
+            var editorHtml = "<p>Intro</p><!--more--><p>Rest of the story</p>";
+            var document = PreviewRenderer.BuildPreviewDocument(editorHtml);
+
+            Assert.That(document, Does.Not.Contain("<!--more-->"), "the extended-entry marker must not render");
+            var doc = Dom.Parse(document);
+            Assert.That(doc.QuerySelectorAll("article p"), Has.Length.EqualTo(2));
+        }
+
+        [Test]
+        public void B4_PreviewRender_EmptyBody_StillWellFormed()
+        {
+            var document = PreviewRenderer.BuildPreviewDocument(null);
+            var doc = Dom.Parse(document);
+            Assert.That(doc.QuerySelector("article"), Is.Not.Null);
+            Assert.That(doc.QuerySelector("html"), Is.Not.Null);
+        }
+
+        // --- Live preview render (needs a live WKWebView backend to display) ---
+
+        [Test]
+        [Explicit("Requires a live WKWebView backend to display the composed preview")]
         [Category(WebViewCategories.WebView)]
-        public void Live_PreviewRender_ShowsContent()
-            => Assert.Fail("Preview rendering (PreviewHost) not implemented on macOS.");
+        public async Task Live_PreviewRender_ShowsContent()
+        {
+            await using var harness = await EditorTestHarness.CreateAsync();
+            await harness.SetContentAsync("<h2>Preview me</h2>");
+            var html = await harness.GetContentAsync();
+            var document = PreviewRenderer.BuildPreviewDocument(html);
+            Assert.That(Dom.Has(document, "article h2"), Is.True);
+        }
     }
 }

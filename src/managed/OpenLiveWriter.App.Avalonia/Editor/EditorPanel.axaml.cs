@@ -110,9 +110,52 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             }
             else if (view == "preview")
             {
+                await PopulatePreviewAsync(previewHost);
                 StatusChanged?.Invoke(this, "Preview view");
             }
         }
+
+        // Lazily created read-only WebView used to render the Preview surface.
+        private NativeWebView _previewWebView;
+
+        /// <summary>
+        /// Renders the current editor body into the Preview host as it would look
+        /// published, using <see cref="PreviewRenderer"/> to compose a neutral article
+        /// document. The composition is pure/testable; the on-screen display uses a
+        /// lightweight read-only WebView (navigated to a temp file, mirroring the
+        /// editor's own file-load path). Failure to create/navigate the WebView is
+        /// non-fatal — the source composition is still available for tests.
+        /// </summary>
+        private async Task PopulatePreviewAsync(ContentControl previewHost)
+        {
+            if (previewHost == null || _webViewEditor == null)
+                return;
+
+            string body = await _webViewEditor.GetContentAsync() ?? string.Empty;
+            string document = PreviewRenderer.BuildPreviewDocument(body, PreviewTitle);
+
+            try
+            {
+                if (_previewWebView == null)
+                {
+                    _previewWebView = new NativeWebView();
+                    previewHost.Content = _previewWebView;
+                }
+
+                string tempDir = Path.Combine(Path.GetTempPath(), "OpenLiveWriter", "preview");
+                Directory.CreateDirectory(tempDir);
+                string tempFile = Path.Combine(tempDir, "preview.html");
+                await File.WriteAllTextAsync(tempFile, document);
+                _previewWebView.Navigate(new Uri("file://" + tempFile));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[OLW-Preview] Render failed: {ex.Message}");
+            }
+        }
+
+        /// <summary>Optional post title surfaced in the preview heading (set by the host).</summary>
+        public string PreviewTitle { get; set; }
 
         internal static string FormatHtml(string html)
         {
