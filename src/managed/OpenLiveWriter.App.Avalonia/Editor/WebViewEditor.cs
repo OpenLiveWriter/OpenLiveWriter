@@ -322,6 +322,19 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             return await RunJSReturn("OLWBridge.getContent()");
         }
 
+        /// <summary>
+        /// Publish entry point: pulls the current editor HTML and pushes it through
+        /// the cross-platform publish pipeline (trim/scrub/split → <see cref="Publishing.BlogPost"/>
+        /// → MetaWeblog XML-RPC) via the supplied transport. Returns the new post id.
+        /// </summary>
+        public async Task<string> PublishAsync(Publishing.IBlogClient client, string blogId, string title,
+            bool publish, params string[] categories)
+        {
+            if (client == null) throw new ArgumentNullException(nameof(client));
+            string html = await GetContentAsync() ?? string.Empty;
+            return Publishing.EditorContentPublisher.Publish(client, blogId, title, html, publish, categories);
+        }
+
         public async Task<bool> HandleCommandAsync(CommandId commandId)
         {
             switch (commandId)
