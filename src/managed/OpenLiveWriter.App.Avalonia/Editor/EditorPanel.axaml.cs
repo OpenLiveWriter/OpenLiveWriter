@@ -3,7 +3,10 @@
 
 using global::Avalonia.Controls;
 using global::Avalonia.Input;
+using global::Avalonia.Platform.Storage;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using OpenLiveWriter.App.Avalonia.Commands;
 using OpenLiveWriter.App.Avalonia.Dialogs;
@@ -129,7 +132,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (UnderlineButton != null) UnderlineButton.Click += async (s, e) => await ExecuteFormatCommandAsync("underline");
             if (StrikethroughButton != null) StrikethroughButton.Click += async (s, e) => await ExecuteFormatCommandAsync("strikethrough");
             if (LinkButton != null) LinkButton.Click += async (s, e) => await ShowInsertLinkDialogAsync();
-            if (ImageButton != null) ImageButton.Click += (s, e) => StatusChanged?.Invoke(this, "Insert Image: Not yet implemented");
+            if (ImageButton != null) ImageButton.Click += async (s, e) => await ShowInsertImageDialogAsync();
             if (BulletListButton != null) BulletListButton.Click += async (s, e) => await ExecuteFormatCommandAsync("bulletlist");
             if (NumberListButton != null) NumberListButton.Click += async (s, e) => await ExecuteFormatCommandAsync("numberlist");
 
@@ -190,6 +193,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             _commandBridge.RegisterHandler(CommandId.Underline, () => _ = ExecuteFormatCommandAsync("underline"));
             _commandBridge.RegisterHandler(CommandId.Strikethrough, () => _ = ExecuteFormatCommandAsync("strikethrough"));
             _commandBridge.RegisterHandler(CommandId.InsertLink, () => _ = ShowInsertLinkDialogAsync());
+            _commandBridge.RegisterHandler(CommandId.InsertPictureFromFile, () => _ = ShowInsertImageDialogAsync());
+            _commandBridge.RegisterHandler(CommandId.InsertImageSplit, () => _ = ShowInsertImageDialogAsync());
             _commandBridge.RegisterHandler(CommandId.Bullets, () => _ = ExecuteFormatCommandAsync("bulletlist"));
             _commandBridge.RegisterHandler(CommandId.Numbers, () => _ = ExecuteFormatCommandAsync("numberlist"));
             _commandBridge.RegisterHandler(CommandId.Undo, () => StatusChanged?.Invoke(this, "Undo"));
@@ -236,6 +241,59 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
             await _webViewEditor.InsertLinkAsync(result.Url, result.Text, result.Title, result.OpenInNewWindow);
             StatusChanged?.Invoke(this, $"Inserted link: {result.Url}");
+        }
+
+        // Image file types offered by the Insert Picture file dialog.
+        private static readonly FilePickerFileType ImageFileType = new("Images")
+        {
+            Patterns = new[] { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp", "*.webp", "*.svg" },
+            AppleUniformTypeIdentifiers = new[] { "public.image" },
+            MimeTypes = new[] { "image/*" }
+        };
+
+        /// <summary>
+        /// Opens a file picker (via the Avalonia storage provider) to choose an
+        /// image and inserts it into the editor as an inline data-URI <c>&lt;img&gt;</c>.
+        /// </summary>
+        private async Task ShowInsertImageDialogAsync()
+        {
+            if (_webViewEditor == null) return;
+
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel?.StorageProvider == null)
+            {
+                StatusChanged?.Invoke(this, "Insert Image: file picker unavailable.");
+                return;
+            }
+
+            IReadOnlyList<IStorageFile> files;
+            try
+            {
+                files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+                {
+                    Title = "Insert Picture",
+                    AllowMultiple = false,
+                    FileTypeFilter = new[] { ImageFileType }
+                });
+            }
+            catch (Exception ex)
+            {
+                StatusChanged?.Invoke(this, $"Insert Image failed: {ex.Message}");
+                return;
+            }
+
+            if (files == null || files.Count == 0)
+                return;
+
+            string path = files[0].TryGetLocalPath();
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            {
+                StatusChanged?.Invoke(this, "Insert Image: could not resolve file path.");
+                return;
+            }
+
+            await _webViewEditor.InsertImageFromFileAsync(path);
+            StatusChanged?.Invoke(this, $"Inserted image: {Path.GetFileName(path)}");
         }
 
         private async Task ExecuteFormatCommandAsync(string format)

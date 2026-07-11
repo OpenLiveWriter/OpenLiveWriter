@@ -360,6 +360,70 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         internal static string EscapeHtmlText(string s) =>
             s?.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;") ?? "";
 
+        /// <summary>
+        /// Inserts an image loaded from a local file at the caret. The image bytes
+        /// are embedded inline as a base64 <c>data:</c> URI so the editor is fully
+        /// self-contained (no external file references or upload step required).
+        /// TODO(P2): when the BlogClient/image-upload path is ported, offer an
+        /// upload-on-publish strategy that rewrites these data URIs to hosted URLs.
+        /// </summary>
+        public async Task InsertImageFromFileAsync(string filePath, string altText = null)
+        {
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
+            string html = BuildImageHtmlFromFile(filePath, altText);
+            await InsertHtmlAsync(html);
+        }
+
+        /// <summary>Inserts an <c>&lt;img&gt;</c> element for the given source.</summary>
+        public Task InsertImageAsync(string src, string altText = null) =>
+            InsertHtmlAsync(BuildImageHtml(src, altText));
+
+        /// <summary>
+        /// Reads an image file and builds a self-contained <c>&lt;img&gt;</c> whose
+        /// <c>src</c> is an inline base64 data URI. Pure enough to unit-test against
+        /// a known file without a live WebView. Alt text defaults to the file name.
+        /// </summary>
+        internal static string BuildImageHtmlFromFile(string filePath, string altText = null)
+        {
+            byte[] bytes = File.ReadAllBytes(filePath);
+            string mimeType = GuessImageMimeType(filePath);
+            string dataUri = BuildDataUri(mimeType, bytes);
+            string alt = altText ?? Path.GetFileNameWithoutExtension(filePath);
+            return BuildImageHtml(dataUri, alt);
+        }
+
+        /// <summary>Builds a well-formed, attribute-escaped <c>&lt;img&gt;</c> element.</summary>
+        internal static string BuildImageHtml(string src, string altText)
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.Append("<img src=\"").Append(EscapeHtmlAttr(src)).Append('"');
+            if (!string.IsNullOrEmpty(altText))
+                sb.Append(" alt=\"").Append(EscapeHtmlAttr(altText)).Append('"');
+            sb.Append(" />");
+            return sb.ToString();
+        }
+
+        /// <summary>Builds an inline base64 <c>data:</c> URI for the given bytes.</summary>
+        internal static string BuildDataUri(string mimeType, byte[] bytes) =>
+            $"data:{mimeType};base64,{Convert.ToBase64String(bytes ?? Array.Empty<byte>())}";
+
+        /// <summary>Maps a file extension to an image MIME type (defaults to PNG).</summary>
+        internal static string GuessImageMimeType(string filePath)
+        {
+            string ext = Path.GetExtension(filePath)?.ToLowerInvariant();
+            return ext switch
+            {
+                ".png" => "image/png",
+                ".jpg" => "image/jpeg",
+                ".jpeg" => "image/jpeg",
+                ".gif" => "image/gif",
+                ".bmp" => "image/bmp",
+                ".webp" => "image/webp",
+                ".svg" => "image/svg+xml",
+                _ => "image/png"
+            };
+        }
+
         public Task ExecuteBlockquoteAsync() => ToggleBlockAsync("blockquote");
 
         public async Task InsertHtmlAsync(string html)

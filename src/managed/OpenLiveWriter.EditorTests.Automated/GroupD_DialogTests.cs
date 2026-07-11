@@ -1,12 +1,15 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using System;
+using System.IO;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Headless.NUnit;
 using Avalonia.LogicalTree;
 using NUnit.Framework;
 using OpenLiveWriter.App.Avalonia.Dialogs;
+using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
 
 namespace OpenLiveWriter.EditorTests.Automated
@@ -71,10 +74,75 @@ namespace OpenLiveWriter.EditorTests.Automated
         // Run with:  dotnet test --filter "Category=GroupD & Explicit"
         // ---------------------------------------------------------------------
 
+        // --- D2: Image insert from file (P1-7) — pure build logic, headless ---
+        // The file picker + WebView insertion are exercised live; here we verify the
+        // <img> HTML built from a known file is well-formed with an inline data URI.
+
         [Test]
-        [Explicit("Image insert from file not implemented (P1-7)")]
-        public void ImageInsertDialog_InsertsImgTag()
-            => Assert.Fail("Image insert (InsertPictureFromFile) not implemented on macOS.");
+        public void ImageInsert_BuildsWellFormedImgWithDataUri()
+        {
+            // Minimal 1x1 transparent PNG.
+            byte[] png = Convert.FromBase64String(
+                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==");
+            string tmp = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".png");
+            File.WriteAllBytes(tmp, png);
+            try
+            {
+                string html = WebViewEditor.BuildImageHtmlFromFile(tmp, "My Alt");
+                var img = Dom.Parse(html).QuerySelector("img");
+
+                Assert.That(img, Is.Not.Null, "expected an <img> element");
+                Assert.That(img.GetAttribute("src"), Does.StartWith("data:image/png;base64,"));
+                Assert.That(img.GetAttribute("alt"), Is.EqualTo("My Alt"));
+            }
+            finally
+            {
+                File.Delete(tmp);
+            }
+        }
+
+        [Test]
+        public void ImageInsert_DefaultsAltToFileName_AndGuessesMime()
+        {
+            byte[] jpg = { 0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10 };
+            string tmp = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".jpg");
+            File.WriteAllBytes(tmp, jpg);
+            try
+            {
+                string name = Path.GetFileNameWithoutExtension(tmp);
+                string html = WebViewEditor.BuildImageHtmlFromFile(tmp);
+                var img = Dom.Parse(html).QuerySelector("img");
+
+                Assert.That(img.GetAttribute("src"), Does.StartWith("data:image/jpeg;base64,"));
+                Assert.That(img.GetAttribute("alt"), Is.EqualTo(name));
+            }
+            finally
+            {
+                File.Delete(tmp);
+            }
+        }
+
+        [Test]
+        public void ImageInsert_EscapesAltText()
+        {
+            string html = WebViewEditor.BuildImageHtml("https://x/y.png", "Tom & \"Jerry\" <x>");
+            var img = Dom.Parse(html).QuerySelector("img");
+
+            Assert.That(img, Is.Not.Null);
+            Assert.That(img.GetAttribute("src"), Is.EqualTo("https://x/y.png"));
+            Assert.That(img.GetAttribute("alt"), Is.EqualTo("Tom & \"Jerry\" <x>"));
+        }
+
+        [TestCase(".png", "image/png")]
+        [TestCase(".jpg", "image/jpeg")]
+        [TestCase(".jpeg", "image/jpeg")]
+        [TestCase(".gif", "image/gif")]
+        [TestCase(".webp", "image/webp")]
+        [TestCase(".unknown", "image/png")]
+        public void ImageInsert_GuessMimeType(string ext, string expected)
+        {
+            Assert.That(WebViewEditor.GuessImageMimeType("photo" + ext), Is.EqualTo(expected));
+        }
 
         [Test]
         [Explicit("Account setup / blog config UI not implemented (P2-9)")]
