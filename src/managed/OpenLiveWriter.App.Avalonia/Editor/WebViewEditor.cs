@@ -163,11 +163,40 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public Task ExecuteItalicAsync() => ExecCommandAsync("italic");
         public Task ExecuteUnderlineAsync() => ExecCommandAsync("underline");
         public Task ExecuteStrikethroughAsync() => ExecCommandAsync("strikeThrough");
+        public Task ExecuteSubscriptAsync() => ExecCommandAsync("subscript");
+        public Task ExecuteSuperscriptAsync() => ExecCommandAsync("superscript");
         public Task ExecuteOrderedListAsync() => ExecCommandAsync("insertOrderedList");
         public Task ExecuteUnorderedListAsync() => ExecCommandAsync("insertUnorderedList");
         public Task ExecuteIndentAsync() => ExecCommandAsync("indent");
         public Task ExecuteOutdentAsync() => ExecCommandAsync("outdent");
+        public Task ExecuteAlignLeftAsync() => ExecCommandAsync("justifyLeft");
+        public Task ExecuteAlignCenterAsync() => ExecCommandAsync("justifyCenter");
+        public Task ExecuteAlignRightAsync() => ExecCommandAsync("justifyRight");
+        public Task ExecuteJustifyAsync() => ExecCommandAsync("justifyFull");
+        public Task ExecuteUndoAsync() => ExecCommandAsync("undo");
+        public Task ExecuteRedoAsync() => ExecCommandAsync("redo");
+        public Task ExecuteSelectAllAsync() => ExecCommandAsync("selectAll");
+        public Task ExecuteClearFormattingAsync() => ExecCommandAsync("removeFormat");
+        public Task InsertHorizontalLineAsync() => ExecCommandAsync("insertHorizontalRule");
         public Task SetBlockFormatAsync(string tag) => ExecCommandAsync("formatBlock", tag);
+
+        public async Task ToggleBlockAsync(string tag)
+        {
+            if (_webView == null || !_isReady) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.toggleBlock('{EscapeJs(tag)}')");
+        }
+
+        public async Task CreateLinkAsync(string url)
+        {
+            if (_webView == null || !_isReady || string.IsNullOrEmpty(url)) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.createLink('{EscapeJs(url)}')");
+        }
+
+        public Task ExecuteBlockquoteAsync() => ToggleBlockAsync("blockquote");
 
         public async Task InsertHtmlAsync(string html)
         {
@@ -193,14 +222,36 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             switch (commandId)
             {
+                // Character formatting
                 case CommandId.Bold: await ExecuteBoldAsync(); return true;
                 case CommandId.Italic: await ExecuteItalicAsync(); return true;
                 case CommandId.Underline: await ExecuteUnderlineAsync(); return true;
                 case CommandId.Strikethrough: await ExecuteStrikethroughAsync(); return true;
+                case CommandId.Subscript: await ExecuteSubscriptAsync(); return true;
+                case CommandId.Superscript: await ExecuteSuperscriptAsync(); return true;
+                case CommandId.ClearFormatting: await ExecuteClearFormattingAsync(); return true;
+
+                // Lists and indentation
                 case CommandId.Bullets: await ExecuteUnorderedListAsync(); return true;
                 case CommandId.Numbers: await ExecuteOrderedListAsync(); return true;
                 case CommandId.Indent: await ExecuteIndentAsync(); return true;
                 case CommandId.Outdent: await ExecuteOutdentAsync(); return true;
+
+                // Paragraph alignment
+                case CommandId.AlignLeft: await ExecuteAlignLeftAsync(); return true;
+                case CommandId.AlignCenter: await ExecuteAlignCenterAsync(); return true;
+                case CommandId.AlignRight: await ExecuteAlignRightAsync(); return true;
+                case CommandId.Justify: await ExecuteJustifyAsync(); return true;
+                case CommandId.Blockquote: await ExecuteBlockquoteAsync(); return true;
+
+                // Editing
+                case CommandId.Undo: await ExecuteUndoAsync(); return true;
+                case CommandId.Redo: await ExecuteRedoAsync(); return true;
+                case CommandId.SelectAll: await ExecuteSelectAllAsync(); return true;
+
+                // Insert
+                case CommandId.InsertHorizontalLine: await InsertHorizontalLineAsync(); return true;
+
                 default: return false;
             }
         }
@@ -253,8 +304,14 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public bool Italic { get; set; }
         public bool Underline { get; set; }
         public bool Strikethrough { get; set; }
+        public bool Subscript { get; set; }
+        public bool Superscript { get; set; }
         public bool OrderedList { get; set; }
         public bool UnorderedList { get; set; }
+        public bool AlignLeft { get; set; }
+        public bool AlignCenter { get; set; }
+        public bool AlignRight { get; set; }
+        public bool AlignFull { get; set; }
         public string BlockTag { get; set; } = "p";
     }
 }

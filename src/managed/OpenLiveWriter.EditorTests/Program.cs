@@ -128,6 +128,21 @@ class TestWindow : Window
         Log($"  HTML now: {html}");
     }
 
+    // Set editor content, focus, and select all text — the common setup for
+    // exercising a formatting command against a full-paragraph selection.
+    async Task SelectAllAnd(string html)
+    {
+        var escaped = html.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\n", "\\n").Replace("\r", "");
+        await JS($"OLWBridge.setContent('{escaped}')");
+        await Task.Delay(200);
+        _wv.Focus();
+        await Task.Delay(100);
+        await JS("document.execCommand('selectAll')");
+        await Task.Delay(100);
+        await JS("OLWBridge.saveSelection()");
+        await Task.Delay(50);
+    }
+
     async Task ToggleSource()
     {
         if (_sourceView.IsVisible)
@@ -266,6 +281,91 @@ class TestWindow : Window
             Pass("Partial selection bold (partial match)");
         else Fail("Partial selection bold", "<b>only part</b>", c);
 
+        // Test: strikethrough via execCommand
+        Log("\n--- Strikethrough ---");
+        await SelectAllAnd("<p>Strike test</p>");
+        await ExecFormat("strikeThrough");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        if (c != null && (c.Contains("<strike") || c.Contains("text-decoration") || c.Contains("<s>")))
+            Pass("Strikethrough");
+        else Fail("Strikethrough", "<strike>", c);
+
+        // Test: subscript
+        Log("\n--- Subscript ---");
+        await SelectAllAnd("<p>Sub test</p>");
+        await ExecFormat("subscript");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        if (c != null && c.Contains("<sub"))
+            Pass("Subscript");
+        else Fail("Subscript", "<sub>", c);
+
+        // Test: superscript
+        Log("\n--- Superscript ---");
+        await SelectAllAnd("<p>Sup test</p>");
+        await ExecFormat("superscript");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        if (c != null && c.Contains("<sup"))
+            Pass("Superscript");
+        else Fail("Superscript", "<sup>", c);
+
+        // Test: center alignment
+        Log("\n--- Center alignment ---");
+        await SelectAllAnd("<p>Align test</p>");
+        await ExecFormat("justifyCenter");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        if (c != null && (c.Contains("center") || c.Contains("text-align")))
+            Pass("Center alignment");
+        else Fail("Center alignment", "text-align:center", c);
+
+        // Test: unordered list
+        Log("\n--- Unordered list ---");
+        await SelectAllAnd("<p>List item</p>");
+        await ExecFormat("insertUnorderedList");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        if (c != null && c.Contains("<ul"))
+            Pass("Unordered list");
+        else Fail("Unordered list", "<ul>", c);
+
+        // Test: horizontal rule insertion
+        Log("\n--- Insert horizontal rule ---");
+        await SelectAllAnd("<p>Before rule</p>");
+        await ExecFormat("insertHorizontalRule");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        if (c != null && c.Contains("<hr"))
+            Pass("Insert horizontal rule");
+        else Fail("Insert horizontal rule", "<hr>", c);
+
+        // Test: blockquote toggle on/off
+        Log("\n--- Blockquote toggle ---");
+        await SelectAllAnd("<p>Quote test</p>");
+        await JS("OLWBridge.toggleBlock('blockquote')");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        bool quoteOn = c != null && c.Contains("<blockquote");
+        await JS("document.execCommand('selectAll')"); await Task.Delay(50);
+        await JS("OLWBridge.toggleBlock('blockquote')");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        bool quoteOff = c != null && !c.Contains("<blockquote");
+        if (quoteOn && quoteOff) Pass("Blockquote toggle on and off");
+        else Fail("Blockquote toggle", "on then off", $"on={quoteOn}, off={quoteOff}");
+
+        // Test: createLink
+        Log("\n--- Create link ---");
+        await SelectAllAnd("<p>Link me</p>");
+        await JS("OLWBridge.createLink('https://example.com')");
+        await Task.Delay(300);
+        c = await JS("document.body.innerHTML");
+        if (c != null && c.Contains("href=\"https://example.com\""))
+            Pass("Create link");
+        else Fail("Create link", "href=\"https://example.com\"", c);
+
         Log($"\n=== RESULTS: {_pass} PASS, {_fail} FAIL ===");
         if (_fail == 0) Log("ALL INTEGRATION TESTS PASSED!");
     }
@@ -285,7 +385,8 @@ var OLWBridge={
     saveSelection:function(){var s=window.getSelection();if(s.rangeCount>0)_savedSel=s.getRangeAt(0).cloneRange();},
     restoreSelection:function(){document.body.focus();if(_savedSel){var s=window.getSelection();s.removeAllRanges();s.addRange(_savedSel);}},
     execCommand:function(cmd,val){this.restoreSelection();var r=document.execCommand(cmd,false,val||null);this.saveSelection();return r;},
-    getState:function(){return JSON.stringify({bold:document.queryCommandState('bold'),italic:document.queryCommandState('italic'),underline:document.queryCommandState('underline'),strikethrough:document.queryCommandState('strikeThrough'),orderedList:document.queryCommandState('insertOrderedList'),unorderedList:document.queryCommandState('insertUnorderedList'),blockTag:document.queryCommandValue('formatBlock')||'p'});},
+    toggleBlock:function(tag){this.restoreSelection();var c=(document.queryCommandValue('formatBlock')||'').toLowerCase();var t=tag.toLowerCase();document.execCommand('formatBlock',false,c===t?'p':t);this.saveSelection();},
+    getState:function(){return JSON.stringify({bold:document.queryCommandState('bold'),italic:document.queryCommandState('italic'),underline:document.queryCommandState('underline'),strikethrough:document.queryCommandState('strikeThrough'),subscript:document.queryCommandState('subscript'),superscript:document.queryCommandState('superscript'),orderedList:document.queryCommandState('insertOrderedList'),unorderedList:document.queryCommandState('insertUnorderedList'),alignCenter:document.queryCommandState('justifyCenter'),blockTag:(document.queryCommandValue('formatBlock')||'p').toLowerCase()});},
     getContent:function(){return document.body.innerHTML;},
     setContent:function(h){document.body.innerHTML=h;},
     getPlainText:function(){return document.body.innerText;},

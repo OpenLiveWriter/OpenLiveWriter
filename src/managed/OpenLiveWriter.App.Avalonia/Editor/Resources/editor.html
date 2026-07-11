@@ -92,10 +92,37 @@ const OLWBridge = {
             italic: document.queryCommandState('italic'),
             underline: document.queryCommandState('underline'),
             strikethrough: document.queryCommandState('strikeThrough'),
+            subscript: document.queryCommandState('subscript'),
+            superscript: document.queryCommandState('superscript'),
             orderedList: document.queryCommandState('insertOrderedList'),
             unorderedList: document.queryCommandState('insertUnorderedList'),
-            blockTag: document.queryCommandValue('formatBlock') || 'p'
+            alignLeft: document.queryCommandState('justifyLeft'),
+            alignCenter: document.queryCommandState('justifyCenter'),
+            alignRight: document.queryCommandState('justifyRight'),
+            alignFull: document.queryCommandState('justifyFull'),
+            blockTag: (document.queryCommandValue('formatBlock') || 'p').toLowerCase()
         });
+    },
+
+    // Toggle a block-level format (e.g. blockquote). Applying the same
+    // tag again reverts the block back to a normal paragraph, matching the
+    // toggle-button behavior of the native ribbon.
+    toggleBlock: function(tag) {
+        this.restoreSelection();
+        var current = (document.queryCommandValue('formatBlock') || '').toLowerCase();
+        var target = tag.toLowerCase();
+        document.execCommand('formatBlock', false, current === target ? 'p' : target);
+        this.saveSelection();
+        this.reportState();
+    },
+
+    // Insert a hyperlink around the current selection.
+    createLink: function(url) {
+        if (!url) return;
+        this.restoreSelection();
+        document.execCommand('createLink', false, url);
+        this.saveSelection();
+        this.reportState();
     },
 
     // Report state to native app via message passing
