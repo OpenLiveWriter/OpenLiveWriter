@@ -434,6 +434,13 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             if (gallery.GalleryType == RibbonGalleryType.InRibbon)
             {
+                // The semantic HTML styles gallery is interactive: clicking it opens
+                // a flyout of block styles (Normal/Heading 1-6/Preformatted); the
+                // chosen tag is raised via ComboSelectionChanged so the host applies
+                // it through the editor's formatBlock bridge.
+                if (gallery.CommandId == CommandId.SemanticHtmlGallery)
+                    return CreateSemanticHtmlGallery(gallery, label);
+
                 // In-ribbon gallery: show a bordered area with the gallery name
                 var columns = gallery.MinColumnsLarge > 0 ? gallery.MinColumnsLarge : gallery.Columns;
                 var itemWidth = gallery.ItemWidth > 0 ? gallery.ItemWidth : 48;
@@ -480,6 +487,68 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 btn.CommandExecuted += (s, cmd) => CommandExecuted?.Invoke(this, cmd);
                 return btn;
             }
+        }
+
+        // The semantic block styles offered by the SemanticHtmlGallery flyout.
+        // Values are the formatBlock tags applied by the editor bridge.
+        private static readonly (string Label, string Tag)[] SemanticHtmlStyleItems =
+        {
+            ("Normal", "p"),
+            ("Heading 1", "h1"),
+            ("Heading 2", "h2"),
+            ("Heading 3", "h3"),
+            ("Heading 4", "h4"),
+            ("Heading 5", "h5"),
+            ("Heading 6", "h6"),
+            ("Preformatted", "pre"),
+        };
+
+        /// <summary>
+        /// Builds the interactive "HTML styles" gallery: a bordered button that
+        /// opens a flyout of semantic block styles. Selecting a style raises
+        /// <see cref="ComboSelectionChanged"/> with the formatBlock tag as the value.
+        /// </summary>
+        private Control CreateSemanticHtmlGallery(GalleryConfig gallery, string label)
+        {
+            var columns = gallery.MinColumnsLarge > 0 ? gallery.MinColumnsLarge : gallery.Columns;
+            var itemWidth = gallery.ItemWidth > 0 ? gallery.ItemWidth : 48;
+            var width = Math.Max(columns * itemWidth + 16, 80);
+
+            var flyout = new MenuFlyout();
+            foreach (var (styleLabel, tag) in SemanticHtmlStyleItems)
+            {
+                var item = new MenuItem { Header = styleLabel };
+                var capturedTag = tag;
+                item.Click += (s, e) => ComboSelectionChanged?.Invoke(
+                    this, new RibbonComboSelectionEventArgs(CommandId.SemanticHtmlGallery, capturedTag));
+                flyout.Items.Add(item);
+            }
+
+            var button = new Button
+            {
+                Width = width,
+                MinHeight = 58,
+                Focusable = false,
+                Background = new SolidColorBrush(Color.FromRgb(0xF5, 0xF5, 0xF5)),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC)),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(3),
+                Padding = new Thickness(4),
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Flyout = flyout,
+                Content = new TextBlock
+                {
+                    Text = label + " \u25BE",
+                    FontSize = 11,
+                    Foreground = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88)),
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    TextWrapping = TextWrapping.Wrap
+                }
+            };
+
+            return button;
         }
 
         private static RibbonGroupSize GetControlPreferredSize(ControlConfig config)

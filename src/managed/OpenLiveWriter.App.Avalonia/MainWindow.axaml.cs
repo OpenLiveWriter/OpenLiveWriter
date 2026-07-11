@@ -76,6 +76,10 @@ namespace OpenLiveWriter.App.Avalonia
                         await editor.SetFontSizeAsync(args.Value);
                         UpdateStatus($"Font size: {args.Value}");
                         break;
+                    case CommandId.SemanticHtmlGallery:
+                        if (editorPanel != null)
+                            await editorPanel.ApplySemanticStyleAsync(args.Value);
+                        break;
                 }
             };
 

@@ -137,17 +137,49 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             {
                 HeadingCombo.SelectionChanged += (s, e) =>
                 {
-                    if (HeadingCombo.SelectedIndex <= 0) return;
-                    var tag = HeadingCombo.SelectedIndex switch
-                    {
-                        1 => "h1",
-                        2 => "h2",
-                        3 => "h3",
-                        _ => "p"
-                    };
+                    if (HeadingCombo.SelectedIndex < 0) return;
+                    var tag = MapHeadingIndexToTag(HeadingCombo.SelectedIndex);
                     _webViewEditor?.SetBlockFormat(tag);
                     StatusChanged?.Invoke(this, $"Applied {tag} formatting");
                 };
+            }
+        }
+
+        /// <summary>
+        /// Maps the <c>HeadingCombo</c> selection index to the <c>formatBlock</c>
+        /// tag. Delegates to <see cref="SemanticHtmlStyles"/> so the toolbar combo
+        /// and the ribbon SemanticHtmlGallery stay in sync and the mapping is
+        /// unit-testable without a live WebView. Index 0 (Normal) maps to a plain
+        /// paragraph; 1-6 to h1-h6; 7 to preformatted.
+        /// </summary>
+        internal static string MapHeadingIndexToTag(int index) =>
+            SemanticHtmlStyles.TagForIndex(index);
+
+        /// <summary>
+        /// Applies a semantic block style by tag (e.g. from the ribbon
+        /// SemanticHtmlGallery). Ignores unknown tags.
+        /// </summary>
+        internal async Task ApplySemanticStyleAsync(string tag)
+        {
+            if (_webViewEditor == null || !SemanticHtmlStyles.IsKnownTag(tag))
+                return;
+            await _webViewEditor.SetBlockFormatAsync(tag);
+            SyncHeadingComboToTag(tag);
+            StatusChanged?.Invoke(this, $"Applied {tag} formatting");
+        }
+
+        // Reflects an applied block tag back onto the toolbar combo selection.
+        private void SyncHeadingComboToTag(string tag)
+        {
+            if (HeadingCombo == null) return;
+            for (int i = 0; i < SemanticHtmlStyles.Styles.Count; i++)
+            {
+                if (string.Equals(SemanticHtmlStyles.Styles[i].Tag, tag,
+                        System.StringComparison.OrdinalIgnoreCase))
+                {
+                    HeadingCombo.SelectedIndex = i;
+                    return;
+                }
             }
         }
 

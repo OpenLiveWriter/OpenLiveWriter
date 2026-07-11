@@ -54,6 +54,10 @@
                         <ComboBoxItem Content="Heading 1" />
                         <ComboBoxItem Content="Heading 2" />
                         <ComboBoxItem Content="Heading 3" />
+                        <ComboBoxItem Content="Heading 4" />
+                        <ComboBoxItem Content="Heading 5" />
+                        <ComboBoxItem Content="Heading 6" />
+                        <ComboBoxItem Content="Preformatted" />
                     </ComboBox>
 
                     <Border Width="1" Background="#D0D0D0" Margin="4,2" />
