@@ -20,11 +20,23 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
     public class RibbonGroupPanel : Border
     {
         private readonly GroupConfig _config;
+        private readonly List<RibbonButtonControl> _buttons = new();
 
         /// <summary>
         /// Event raised when a command button within this group is clicked.
         /// </summary>
         public event EventHandler<CommandId> CommandExecuted;
+
+        /// <summary>
+        /// Event raised when a combo box selection changes within this group.
+        /// </summary>
+        public event EventHandler<RibbonComboSelectionEventArgs> ComboSelectionChanged;
+
+        /// <summary>
+        /// All ribbon buttons created within this group, in creation order.
+        /// Used by the ribbon control to sync toggle state from the editor.
+        /// </summary>
+        public IReadOnlyList<RibbonButtonControl> Buttons => _buttons;
 
         public RibbonGroupPanel(GroupConfig config)
         {
@@ -184,14 +196,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             {
                 if (control is ComboBoxConfig combo)
                 {
-                    var comboBox = new global::Avalonia.Controls.ComboBox
-                    {
-                        Width = combo.PreferredWidth,
-                        Height = 24,
-                        PlaceholderText = CommandLabelHelper.GetLabel(combo.CommandId),
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
-                    comboRow.Children.Add(comboBox);
+                    comboRow.Children.Add(CreateEditorComboBox(combo));
                 }
                 else
                 {
@@ -274,6 +279,64 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     panel.Children.Add(CreateControl(control, size));
                 }
             }
+        }
+
+        // Common font families offered by the Font Family combo.
+        private static readonly string[] FontFamilies =
+        {
+            "Segoe UI", "Arial", "Calibri", "Cambria", "Comic Sans MS",
+            "Courier New", "Georgia", "Helvetica", "Tahoma", "Times New Roman",
+            "Trebuchet MS", "Verdana"
+        };
+
+        // HTML font sizes (execCommand fontSize uses the 1-7 scale). Labels show the
+        // approximate point size for familiarity.
+        private static readonly (string Label, string Value)[] FontSizes =
+        {
+            ("8", "1"), ("10", "2"), ("12", "3"), ("14", "4"),
+            ("18", "5"), ("24", "6"), ("36", "7")
+        };
+
+        /// <summary>
+        /// Creates a Font group combo box (font family or size) populated with
+        /// choices and wired to raise <see cref="ComboSelectionChanged"/>.
+        /// </summary>
+        private Control CreateEditorComboBox(ComboBoxConfig combo)
+        {
+            var comboBox = new global::Avalonia.Controls.ComboBox
+            {
+                Width = combo.PreferredWidth,
+                Height = 24,
+                PlaceholderText = CommandLabelHelper.GetLabel(combo.CommandId),
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            var commandId = combo.CommandId;
+            if (commandId == CommandId.FontFamily)
+            {
+                foreach (var family in FontFamilies)
+                    comboBox.Items.Add(new ComboBoxItem { Content = family });
+
+                comboBox.SelectionChanged += (s, e) =>
+                {
+                    if (comboBox.SelectedItem is ComboBoxItem item && item.Content is string family)
+                        ComboSelectionChanged?.Invoke(this, new RibbonComboSelectionEventArgs(commandId, family));
+                };
+            }
+            else if (commandId == CommandId.FontSize)
+            {
+                foreach (var (label, _) in FontSizes)
+                    comboBox.Items.Add(new ComboBoxItem { Content = label });
+
+                comboBox.SelectionChanged += (s, e) =>
+                {
+                    if (comboBox.SelectedIndex >= 0 && comboBox.SelectedIndex < FontSizes.Length)
+                        ComboSelectionChanged?.Invoke(this,
+                            new RibbonComboSelectionEventArgs(commandId, FontSizes[comboBox.SelectedIndex].Value));
+                };
+            }
+
+            return comboBox;
         }
 
         private Control CreateControl(ControlConfig config, RibbonGroupSize sizeOverride)
@@ -359,6 +422,9 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     break;
             }
 
+            if (control is RibbonButtonControl createdButton)
+                _buttons.Add(createdButton);
+
             return control;
         }
 
@@ -425,5 +491,20 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 default: return RibbonGroupSize.Small;
             }
         }
+    }
+
+    /// <summary>
+    /// Carries a ribbon combo box selection (command + chosen value) to the host.
+    /// </summary>
+    public class RibbonComboSelectionEventArgs : EventArgs
+    {
+        public RibbonComboSelectionEventArgs(CommandId commandId, string value)
+        {
+            CommandId = commandId;
+            Value = value;
+        }
+
+        public CommandId CommandId { get; }
+        public string Value { get; }
     }
 }

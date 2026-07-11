@@ -60,6 +60,41 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         public CommandId CommandId => _commandId;
 
         /// <summary>
+        /// True when this control represents a toggle button (e.g. Bold, Italic),
+        /// which can reflect an on/off state from the editor's current selection.
+        /// </summary>
+        public bool IsToggleButton => _buttonType == RibbonButtonType.ToggleButton;
+
+        private bool _isChecked;
+
+        /// <summary>
+        /// Sets the visual pressed/checked state for a toggle button. No-op for
+        /// non-toggle buttons.
+        /// </summary>
+        public void SetChecked(bool isChecked)
+        {
+            if (!IsToggleButton || _isChecked == isChecked)
+                return;
+
+            _isChecked = isChecked;
+            UpdateCheckedVisual();
+        }
+
+        private void UpdateCheckedVisual()
+        {
+            if (_isChecked)
+            {
+                Background = new SolidColorBrush(Color.FromArgb(0x66, 0x5B, 0x9B, 0xD5));
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0x5B, 0x9B, 0xD5));
+            }
+            else
+            {
+                Background = Brushes.Transparent;
+                BorderBrush = Brushes.Transparent;
+            }
+        }
+
+        /// <summary>
         /// Event raised when this ribbon button is clicked.
         /// </summary>
         public event EventHandler<CommandId> CommandExecuted;

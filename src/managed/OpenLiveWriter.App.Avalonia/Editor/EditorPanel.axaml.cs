@@ -4,7 +4,9 @@
 using global::Avalonia.Controls;
 using global::Avalonia.Input;
 using System;
+using System.Threading.Tasks;
 using OpenLiveWriter.App.Avalonia.Commands;
+using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.Localization;
 
 namespace OpenLiveWriter.App.Avalonia.Editor
@@ -34,11 +36,25 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         private void InitializeWebViewEditor()
         {
             _webViewEditor = new WebViewEditor();
+            _webViewEditor.FormatStateChanged += OnFormatStateChanged;
             var editorHost = this.FindControl<ContentControl>("EditorHost");
             if (editorHost != null)
             {
                 editorHost.Content = _webViewEditor;
             }
+        }
+
+        // Reflects the editor's current selection formatting on the toolbar
+        // toggle buttons as the caret moves.
+        private void OnFormatStateChanged(object sender, FormatState state)
+        {
+            if (state == null) return;
+            if (BoldButton != null) BoldButton.IsChecked = state.Bold;
+            if (ItalicButton != null) ItalicButton.IsChecked = state.Italic;
+            if (UnderlineButton != null) UnderlineButton.IsChecked = state.Underline;
+            if (StrikethroughButton != null) StrikethroughButton.IsChecked = state.Strikethrough;
+            if (BulletListButton != null) BulletListButton.IsChecked = state.UnorderedList;
+            if (NumberListButton != null) NumberListButton.IsChecked = state.OrderedList;
         }
 
         private void SetupViewToggle()
@@ -112,7 +128,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (ItalicButton != null) ItalicButton.Click += async (s, e) => await ExecuteFormatCommandAsync("italic");
             if (UnderlineButton != null) UnderlineButton.Click += async (s, e) => await ExecuteFormatCommandAsync("underline");
             if (StrikethroughButton != null) StrikethroughButton.Click += async (s, e) => await ExecuteFormatCommandAsync("strikethrough");
-            if (LinkButton != null) LinkButton.Click += (s, e) => StatusChanged?.Invoke(this, "Insert Link: Not yet implemented");
+            if (LinkButton != null) LinkButton.Click += async (s, e) => await ShowInsertLinkDialogAsync();
             if (ImageButton != null) ImageButton.Click += (s, e) => StatusChanged?.Invoke(this, "Insert Image: Not yet implemented");
             if (BulletListButton != null) BulletListButton.Click += async (s, e) => await ExecuteFormatCommandAsync("bulletlist");
             if (NumberListButton != null) NumberListButton.Click += async (s, e) => await ExecuteFormatCommandAsync("numberlist");
@@ -141,7 +157,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             _commandBridge.RegisterHandler(CommandId.Italic, () => _ = ExecuteFormatCommandAsync("italic"));
             _commandBridge.RegisterHandler(CommandId.Underline, () => _ = ExecuteFormatCommandAsync("underline"));
             _commandBridge.RegisterHandler(CommandId.Strikethrough, () => _ = ExecuteFormatCommandAsync("strikethrough"));
-            _commandBridge.RegisterHandler(CommandId.InsertLink, () => StatusChanged?.Invoke(this, "Insert Link: Not yet implemented"));
+            _commandBridge.RegisterHandler(CommandId.InsertLink, () => _ = ShowInsertLinkDialogAsync());
             _commandBridge.RegisterHandler(CommandId.Bullets, () => _ = ExecuteFormatCommandAsync("bulletlist"));
             _commandBridge.RegisterHandler(CommandId.Numbers, () => _ = ExecuteFormatCommandAsync("numberlist"));
             _commandBridge.RegisterHandler(CommandId.Undo, () => StatusChanged?.Invoke(this, "Undo"));
@@ -169,7 +185,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                             e.Handled = true;
                             break;
                         case Key.K:
-                            StatusChanged?.Invoke(this, "Insert Link: Not yet implemented");
+                            _ = ShowInsertLinkDialogAsync();
                             e.Handled = true;
                             break;
                     }
@@ -177,7 +193,20 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             };
         }
 
-        private async System.Threading.Tasks.Task ExecuteFormatCommandAsync(string format)
+        private async Task ShowInsertLinkDialogAsync()
+        {
+            if (_webViewEditor == null) return;
+
+            var owner = TopLevel.GetTopLevel(this) as Window;
+            var result = await LinkDialog.ShowAsync(owner);
+            if (result == null || string.IsNullOrWhiteSpace(result.Url))
+                return;
+
+            await _webViewEditor.InsertLinkAsync(result.Url, result.Text, result.Title, result.OpenInNewWindow);
+            StatusChanged?.Invoke(this, $"Inserted link: {result.Url}");
+        }
+
+        private async Task ExecuteFormatCommandAsync(string format)
         {
             if (_webViewEditor == null) return;
 

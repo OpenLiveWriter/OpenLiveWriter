@@ -366,6 +366,25 @@ class TestWindow : Window
             Pass("Create link");
         else Fail("Create link", "href=\"https://example.com\"", c);
 
+        // Test: getState reflects applied formatting (drives ribbon toggle sync)
+        Log("\n--- getState reflects bold selection ---");
+        await SelectAllAnd("<p>State test</p>");
+        await ExecFormat("bold");
+        await Task.Delay(300);
+        var state = await JS("OLWBridge.getState()");
+        if (state != null && state.Contains("\"bold\":true"))
+            Pass("getState reports bold=true after bold");
+        else Fail("getState bold", "\"bold\":true", state);
+
+        // Test: getState clears when formatting removed
+        await JS("document.execCommand('selectAll')"); await Task.Delay(50);
+        await ExecFormat("bold");
+        await Task.Delay(300);
+        state = await JS("OLWBridge.getState()");
+        if (state != null && state.Contains("\"bold\":false"))
+            Pass("getState reports bold=false after un-bold");
+        else Fail("getState bold off", "\"bold\":false", state);
+
         Log($"\n=== RESULTS: {_pass} PASS, {_fail} FAIL ===");
         if (_fail == 0) Log("ALL INTEGRATION TESTS PASSED!");
     }

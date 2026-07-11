@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 using global::Avalonia;
 using global::Avalonia.Controls;
@@ -21,10 +22,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         private string _pendingHtml;
         private string _editorHtml;
 
-#pragma warning disable CS0067
         public event EventHandler<FormatState> FormatStateChanged;
-        public event EventHandler ContentChanged;
-#pragma warning restore CS0067
+        public event EventHandler<string> ContentChanged;
 
         public NativeWebView WebView => _webView;
         public bool IsReady => _isReady;
@@ -58,6 +57,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 _webView = new NativeWebView();
                 _webView.AdapterCreated += OnAdapterCreated;
                 _webView.NavigationCompleted += OnNavigationCompleted;
+                _webView.WebMessageReceived += OnWebMessageReceived;
                 Content = _webView;
 
                 // Fallback: if AdapterCreated doesn't fire, try loading after delay
@@ -117,6 +117,67 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 _ = RunJS($"OLWBridge.setContent('{EscapeJs(_pendingHtml)}')");
                 _pendingHtml = null;
             }
+
+            // Push the initial formatting state so toggle buttons start in sync.
+            _ = RunJS("OLWBridge.reportState()");
+        }
+
+        // Handles JSON messages posted from editor.html via the WebView bridge.
+        // Two message types are used: 'stateChanged' (formatting state as the caret
+        // moves) and 'contentChanged' (body HTML after an edit).
+        private void OnWebMessageReceived(object sender, WebMessageReceivedEventArgs e)
+        {
+            var body = e?.Body;
+            if (string.IsNullOrEmpty(body))
+                return;
+
+            try
+            {
+                using var doc = JsonDocument.Parse(body);
+                var root = doc.RootElement;
+                if (!root.TryGetProperty("type", out var typeProp))
+                    return;
+
+                var type = typeProp.GetString();
+                if (type == "stateChanged" && root.TryGetProperty("state", out var stateEl))
+                {
+                    var state = ParseFormatState(stateEl);
+                    Dispatcher.UIThread.Post(() => FormatStateChanged?.Invoke(this, state));
+                }
+                else if (type == "contentChanged" && root.TryGetProperty("html", out var htmlEl))
+                {
+                    var html = htmlEl.GetString();
+                    Dispatcher.UIThread.Post(() => ContentChanged?.Invoke(this, html));
+                }
+            }
+            catch (JsonException)
+            {
+                // Non-JSON or malformed message — ignore.
+            }
+        }
+
+        private static FormatState ParseFormatState(JsonElement el)
+        {
+            bool B(string name) => el.TryGetProperty(name, out var p) &&
+                                   p.ValueKind == JsonValueKind.True;
+            string S(string name) => el.TryGetProperty(name, out var p) ? p.GetString() : null;
+
+            return new FormatState
+            {
+                Bold = B("bold"),
+                Italic = B("italic"),
+                Underline = B("underline"),
+                Strikethrough = B("strikethrough"),
+                Subscript = B("subscript"),
+                Superscript = B("superscript"),
+                OrderedList = B("orderedList"),
+                UnorderedList = B("unorderedList"),
+                AlignLeft = B("alignLeft"),
+                AlignCenter = B("alignCenter"),
+                AlignRight = B("alignRight"),
+                AlignFull = B("alignFull"),
+                BlockTag = S("blockTag") ?? "p"
+            };
         }
 
         private Control CreateFallbackEditor()
@@ -179,6 +240,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public Task ExecuteClearFormattingAsync() => ExecCommandAsync("removeFormat");
         public Task InsertHorizontalLineAsync() => ExecCommandAsync("insertHorizontalRule");
         public Task SetBlockFormatAsync(string tag) => ExecCommandAsync("formatBlock", tag);
+        public Task SetFontFamilyAsync(string family) => ExecCommandAsync("fontName", family);
+        public Task SetFontSizeAsync(string htmlSize) => ExecCommandAsync("fontSize", htmlSize);
 
         public async Task ToggleBlockAsync(string tag)
         {
@@ -195,6 +258,38 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             await Task.Delay(50);
             await RunJS($"OLWBridge.createLink('{EscapeJs(url)}')");
         }
+
+        /// <summary>
+        /// Inserts a hyperlink. When <paramref name="text"/> is provided a full
+        /// anchor element is inserted; otherwise the current selection is wrapped
+        /// via createLink.
+        /// </summary>
+        public async Task InsertLinkAsync(string url, string text, string title, bool openInNewWindow)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return;
+
+            if (string.IsNullOrEmpty(text))
+            {
+                await CreateLinkAsync(url);
+                return;
+            }
+
+            var sb = new System.Text.StringBuilder();
+            sb.Append("<a href=\"").Append(EscapeHtmlAttr(url)).Append('"');
+            if (!string.IsNullOrEmpty(title))
+                sb.Append(" title=\"").Append(EscapeHtmlAttr(title)).Append('"');
+            if (openInNewWindow)
+                sb.Append(" target=\"_blank\" rel=\"noopener\"");
+            sb.Append('>').Append(EscapeHtmlText(text)).Append("</a>");
+
+            await InsertHtmlAsync(sb.ToString());
+        }
+
+        private static string EscapeHtmlAttr(string s) =>
+            s?.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace(">", "&gt;") ?? "";
+
+        private static string EscapeHtmlText(string s) =>
+            s?.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;") ?? "";
 
         public Task ExecuteBlockquoteAsync() => ToggleBlockAsync("blockquote");
 

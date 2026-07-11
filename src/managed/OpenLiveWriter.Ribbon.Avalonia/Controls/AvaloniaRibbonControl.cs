@@ -27,6 +27,11 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private StackPanel _groupsPanel;
         private List<TabConfig> _visibleTabs;
 
+        // Buttons currently rendered for the active tab, keyed by command.
+        private readonly Dictionary<CommandId, List<RibbonButtonControl>> _buttonsByCommand = new();
+        // Last-known toggle states, re-applied when the active tab changes.
+        private readonly Dictionary<CommandId, bool> _toggleStates = new();
+
         /// <summary>
         /// The active application modes. Controls which tabs and groups are visible.
         /// Defaults to Normal + LTR + WithoutPlugins + Debug for development.
@@ -41,6 +46,11 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// Event raised when a command button in the ribbon is clicked.
         /// </summary>
         public event EventHandler<CommandId> CommandExecuted;
+
+        /// <summary>
+        /// Event raised when a ribbon combo box selection changes (e.g. Font family/size).
+        /// </summary>
+        public event EventHandler<RibbonComboSelectionEventArgs> ComboSelectionChanged;
 
         public AvaloniaRibbonControl()
         {
@@ -115,6 +125,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private void ShowTab(TabConfig tab)
         {
             _groupsPanel.Children.Clear();
+            _buttonsByCommand.Clear();
 
             foreach (var group in tab.Groups)
             {
@@ -124,7 +135,41 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
                 var groupPanel = new RibbonGroupPanel(group);
                 groupPanel.CommandExecuted += (s, cmd) => CommandExecuted?.Invoke(this, cmd);
+                groupPanel.ComboSelectionChanged += (s, args) => ComboSelectionChanged?.Invoke(this, args);
                 _groupsPanel.Children.Add(groupPanel);
+
+                foreach (var button in groupPanel.Buttons)
+                {
+                    if (!_buttonsByCommand.TryGetValue(button.CommandId, out var list))
+                    {
+                        list = new List<RibbonButtonControl>();
+                        _buttonsByCommand[button.CommandId] = list;
+                    }
+                    list.Add(button);
+                }
+            }
+
+            // Re-apply any known toggle states to the freshly built buttons.
+            foreach (var kvp in _toggleStates)
+                ApplyToggleState(kvp.Key, kvp.Value);
+        }
+
+        /// <summary>
+        /// Sets the on/off state of a toggle command's button(s) (e.g. Bold,
+        /// Italic, AlignCenter). State is remembered across tab switches.
+        /// </summary>
+        public void SetToggleState(CommandId commandId, bool isChecked)
+        {
+            _toggleStates[commandId] = isChecked;
+            ApplyToggleState(commandId, isChecked);
+        }
+
+        private void ApplyToggleState(CommandId commandId, bool isChecked)
+        {
+            if (_buttonsByCommand.TryGetValue(commandId, out var buttons))
+            {
+                foreach (var button in buttons)
+                    button.SetChecked(isChecked);
             }
         }
     }

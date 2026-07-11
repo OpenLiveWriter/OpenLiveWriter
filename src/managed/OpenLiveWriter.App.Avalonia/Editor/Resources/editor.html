@@ -125,20 +125,33 @@ const OLWBridge = {
         this.reportState();
     },
 
-    // Report state to native app via message passing
-    reportState: function() {
+    // Post a message string to the native host. Supports the Avalonia WebView
+    // bridge (window.invokeCSharpAction / postAvWebViewMessage) as well as the
+    // WebView2 (window.chrome.webview) convention.
+    postToHost: function(message) {
         try {
-            var stateMsg = JSON.stringify({
-                type: 'stateChanged',
-                state: JSON.parse(this.getState())
-            });
-            if (window.chrome && window.chrome.webview) {
-                window.chrome.webview.postMessage(stateMsg);
+            if (typeof window.invokeCSharpAction === 'function') {
+                window.invokeCSharpAction(message);
+                return;
             }
-            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.olwBridge) {
-                window.webkit.messageHandlers.olwBridge.postMessage(stateMsg);
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage(message);
+                return;
+            }
+            if (window.webkit && window.webkit.messageHandlers &&
+                window.webkit.messageHandlers.postAvWebViewMessage) {
+                window.webkit.messageHandlers.postAvWebViewMessage.postMessage(message);
             }
         } catch(e) { /* silent */ }
+    },
+
+    // Report state to native app via message passing
+    reportState: function() {
+        var stateMsg = JSON.stringify({
+            type: 'stateChanged',
+            state: JSON.parse(this.getState())
+        });
+        this.postToHost(stateMsg);
     },
 
     // Get HTML content from the editor body
@@ -181,15 +194,8 @@ document.addEventListener('selectionchange', function() {
 // Track content changes
 document.addEventListener('DOMContentLoaded', function() {
     document.body.addEventListener('input', function() {
-        try {
-            var msg = JSON.stringify({ type: 'contentChanged', html: document.body.innerHTML });
-            if (window.chrome && window.chrome.webview) {
-                window.chrome.webview.postMessage(msg);
-            }
-            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.olwBridge) {
-                window.webkit.messageHandlers.olwBridge.postMessage(msg);
-            }
-        } catch(e) { /* silent */ }
+        var msg = JSON.stringify({ type: 'contentChanged', html: document.body.innerHTML });
+        OLWBridge.postToHost(msg);
     });
 });
 </script>
