@@ -80,10 +80,8 @@ namespace OpenLiveWriter.EditorTests.Automated
         public void AccountSetup_StoresCredentials()
             => Assert.Fail("Account setup UI + MacCredentialStorage wiring not implemented.");
 
-        [Test]
-        [Explicit("Draft save/open not implemented (P1-6)")]
-        public void DraftSaveOpen_RoundTripsPost()
-            => Assert.Fail("Local draft persistence / post model not implemented on macOS.");
+        // D4 (draft save/open) is now implemented — full lifecycle coverage lives in
+        // GroupD_DraftLifecycleTests (round-trip, overwrite, MRU, delete, corrupt/missing).
 
         [Test]
         [Explicit("Word count not implemented (P1-8)")]
