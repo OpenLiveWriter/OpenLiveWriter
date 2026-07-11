@@ -11,6 +11,8 @@ using NUnit.Framework;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
+using OpenLiveWriter.Publishing;
+using OpenLiveWriter.Publishing.Accounts;
 
 namespace OpenLiveWriter.EditorTests.Automated
 {
@@ -144,10 +146,73 @@ namespace OpenLiveWriter.EditorTests.Automated
             Assert.That(WebViewEditor.GuessImageMimeType("photo" + ext), Is.EqualTo(expected));
         }
 
+        // --- D3: Account setup stores credentials (P2-9) — implemented ---
+        // The account setup dialog captures blog metadata + a password. On save the
+        // metadata is persisted to the account store while the PASSWORD is stored in the
+        // separate credential store (macOS Keychain in the app; an in-memory fake here so
+        // no real `security` CLI runs). This verifies that separation end-to-end.
+
         [Test]
-        [Explicit("Account setup / blog config UI not implemented (P2-9)")]
         public void AccountSetup_StoresCredentials()
-            => Assert.Fail("Account setup UI + MacCredentialStorage wiring not implemented.");
+        {
+            string dir = Path.Combine(Path.GetTempPath(), "OLWAccountD3", Guid.NewGuid().ToString("N"));
+            try
+            {
+                var store = new FileAccountStore(dir);
+                var creds = new InMemoryCredentialStore();
+                var service = new BlogAccountService(store, creds);
+
+                // The result the AccountDialog produces when the user clicks Save.
+                var result = new AccountDialogResult
+                {
+                    Account = new BlogAccount
+                    {
+                        DisplayName = "My Blog",
+                        ApiEndpointUrl = "https://blog.example.com/xmlrpc.php",
+                        BlogId = "blog-1",
+                        Username = "author"
+                    },
+                    Password = "s3cret"
+                };
+
+                BlogAccount saved = service.SaveAccount(result.Account, result.Password);
+
+                // Password lands in the credential store, NOT the account JSON.
+                Assert.That(creds.Retrieve(saved.Id)?.Password, Is.EqualTo("s3cret"));
+                string json = File.ReadAllText(Path.Combine(dir, saved.Id + ".olaccount.json"));
+                Assert.That(json, Does.Not.Contain("s3cret"), "secret must not be written to account metadata");
+
+                // Metadata round-trips from the store.
+                BlogAccount loaded = store.Load(saved.Id);
+                Assert.That(loaded.Username, Is.EqualTo("author"));
+                Assert.That(loaded.ApiEndpointUrl, Is.EqualTo("https://blog.example.com/xmlrpc.php"));
+            }
+            finally
+            {
+                try { if (Directory.Exists(dir)) Directory.Delete(dir, recursive: true); }
+                catch { /* best effort */ }
+            }
+        }
+
+        [TestCase("https://x/xmlrpc.php", "user", "pw", false, true)]   // new: all present
+        [TestCase("https://x/xmlrpc.php", "user", "", false, false)]    // new: no password
+        [TestCase("https://x/xmlrpc.php", "", "pw", false, false)]      // new: no username
+        [TestCase("https://", "user", "pw", false, false)]             // trivial endpoint
+        [TestCase("", "user", "pw", false, false)]                     // no endpoint
+        [TestCase("https://x/xmlrpc.php", "user", "", true, true)]      // edit: blank pw ok
+        public void AccountDialog_SaveEnableRule(string endpoint, string user, string pw, bool isEdit, bool expected)
+        {
+            Assert.That(AccountDialog.CanSave(endpoint, user, pw, isEdit), Is.EqualTo(expected));
+        }
+
+        [AvaloniaTest]
+        public void AccountDialog_SaveButton_DisabledWithEmptyFields()
+        {
+            var dialog = new AccountDialog();
+            var save = FindButton(dialog, "Save");
+            Assert.That(save, Is.Not.Null);
+            Assert.That(save.IsEnabled, Is.False, "Save should be disabled until required fields are entered");
+        }
 
         // D4 (draft save/open) is now implemented — full lifecycle coverage lives in
         // GroupD_DraftLifecycleTests (round-trip, overwrite, MRU, delete, corrupt/missing).

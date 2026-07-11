@@ -116,5 +116,8 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
 
         /// <summary>TDD targets blocked on the BlogClient/PostEditor port.</summary>
         public const string PublishTdd = "PublishTdd";
+
+        /// <summary>Tests that publish to a real, live blog endpoint (opt-in only).</summary>
+        public const string LiveBlog = "LiveBlog";
     }
 }
