@@ -152,9 +152,14 @@ namespace OpenLiveWriter.EditorTests.Automated
         // D4 (draft save/open) is now implemented — full lifecycle coverage lives in
         // GroupD_DraftLifecycleTests (round-trip, overwrite, MRU, delete, corrupt/missing).
 
+        // --- D5: Word count (P1-8) — implemented; see GroupD_WordCountTests for
+        // full coverage. Sanity check the counter here on a simple document.
+
         [Test]
-        [Explicit("Word count not implemented (P1-8)")]
         public void WordCount_CountsWords()
-            => Assert.Fail("Word count feature not implemented on macOS.");
+        {
+            var counter = new WordCounter("<p>The quick brown fox</p>");
+            Assert.That(counter.Words, Is.EqualTo(4));
+        }
     }
 }

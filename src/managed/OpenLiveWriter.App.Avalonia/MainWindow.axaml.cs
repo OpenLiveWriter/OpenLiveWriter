@@ -42,6 +42,13 @@ namespace OpenLiveWriter.App.Avalonia
                 if (await TryHandleFileCommandAsync(commandId))
                     return;
 
+                // Editor utility commands surfaced by the shell (dialogs/status).
+                if (commandId == CommandId.WordCount)
+                {
+                    await ShowWordCountAsync();
+                    return;
+                }
+
                 var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
                 if (editorPanel?.WebViewEditor != null)
                 {
@@ -354,6 +361,17 @@ namespace OpenLiveWriter.App.Avalonia
             _ribbon.SetToggleState(CommandId.Justify, state.AlignFull);
             _ribbon.SetToggleState(CommandId.Blockquote,
                 string.Equals(state.BlockTag, "blockquote", StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Computes word/character/paragraph stats from the current editor body and
+        // shows them in a modal (parity with the Windows Word Count dialog).
+        private async Task ShowWordCountAsync()
+        {
+            var editor = GetEditor();
+            string html = editor != null ? await editor.GetContentAsync() : null;
+            var counter = new WordCounter(html ?? string.Empty);
+            UpdateStatus($"Word count: {counter.Words} words, {counter.Chars} characters");
+            await WordCountDialog.ShowAsync(this, counter);
         }
 
         private void UpdateStatus(string message)
