@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.EditorTests.Automated</AssemblyName>
+    <RootNamespace>OpenLiveWriter.EditorTests.Automated</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
+    <OutputType>Library</OutputType>
+    <IsPackable>false</IsPackable>
+    <!-- Test host must match the runtime architecture, not the x64 default -->
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <!-- Test code should not fail the build on analyzer/style warnings -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <!-- Avalonia.Headless.NUnit 12.0.1 is built against NUnit 4.5.x; override the
+         centrally-pinned 4.2.2 for this project only to avoid an assembly conflict. -->
+    <PackageReference Include="NUnit" VersionOverride="4.5.1" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="AngleSharp" />
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Headless.NUnit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenLiveWriter.App.Avalonia\OpenLiveWriter.App.Avalonia.csproj" />
+  </ItemGroup>
+
+</Project>
