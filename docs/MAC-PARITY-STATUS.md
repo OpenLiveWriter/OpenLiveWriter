@@ -5,6 +5,24 @@ parity with Open Live Writer for Windows.** Update this file as work lands.
 
 Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07
 
+## Official milestone plan
+
+Tracked in the org project *"Cross-Platform Migration (macOS + Windows)"*
+(`github.com/orgs/OpenLiveWriter/projects/1`) via milestone issues in
+`OpenLiveWriter/OpenLiveWriter`:
+
+| Milestone | Scope | Status |
+| --- | --- | --- |
+| M1 (#998) | Platform Abstraction Layer | ✅ Complete |
+| M2 (#999) | Retarget core libs to net10.0 (+ macOS console PoC) | ✅ Complete |
+| M3 (#1000) | Avalonia UI shell + Platform.Mac (ribbon, toolbar, Keychain, dialogs) | ✅ Complete |
+| M4 (#1001) | WebView editor (WKWebView) with JS bridge | ✅ Complete |
+| M5 (#1002) | Packaging + Store submission (.app/DMG, sign/notarize, CI matrix, App Store) | ⬜ Not started |
+
+M1–M4 landed the buildable Avalonia stack described below. The backlog in §3 is
+**M4 editor polish / parity** work (finishing the editor + ribbon to true feature
+parity) plus the **M5 packaging** track; each item is tagged accordingly.
+
 ---
 
 ## 1. Build status (macOS, Apple Silicon, `dotnet build`)
@@ -52,57 +70,75 @@ thread-safety/caching fixes).
   - Block format: `formatBlock` (headings via toolbar combo)
 - **Format-state reporting:** `OLWBridge.getState()` reports bold/italic/underline/
   strike/sub/super/lists/alignment/blockTag (consumed by `FormatState`).
+- **Live toggle-state sync:** editor posts `stateChanged` messages (via the Avalonia
+  WebView `window.invokeCSharpAction` bridge) → `WebViewEditor.FormatStateChanged` →
+  ribbon + toolbar toggle buttons reflect the caret's current formatting.
+- **Insert Link:** modal `LinkDialog` (URL + text + title + open-in-new-window),
+  wired to the Link toolbar button, `Ctrl+K`, and the `InsertLink` ribbon command.
+- **Font family / size:** ribbon Font group combos populated and wired to the editor
+  (`fontName` / `fontSize`). *Note: size uses the HTML 1–7 scale; refine to px later.*
 
 ---
 
 ## 3. Parity gap — prioritized backlog
 
-### P0 — core editing correctness (highest value)
-1. **Ribbon toggle-button state sync.** `getState()` reports format state but the
-   ribbon/toolbar toggle buttons do not yet reflect it (Bold stays un-pressed when
-   the caret is inside bold text). Wire the WebView `stateChanged` message →
-   `FormatStateChanged` → ribbon button `IsChecked`.
-2. **Insert Link dialog.** `createLink` bridge exists but there is no URL/text input
-   dialog; toolbar/ribbon Link is still "not implemented".
-3. **Font family / size combos.** Ribbon `FontFamily`/`FontSize` combos are not wired
-   to `fontName`/`fontSize` execCommand.
+All P0–P2 items below are **M4 editor polish / parity** (finishing the shipped
+editor to feature parity). P3 packaging/distribution is the **M5** track. Publishing
+(P2) additionally depends on porting `BlogClient`/`PostEditor` off WinForms.
+
+### P0 — core editing correctness (highest value) · M4 parity
+1. ✅ **Ribbon toggle-button state sync.** Done — `stateChanged` message →
+   `FormatStateChanged` → ribbon + toolbar toggle `IsChecked`.
+2. ✅ **Insert Link dialog.** Done — `LinkDialog` wired to toolbar / `Ctrl+K` /
+   `InsertLink` command via `InsertLinkAsync`.
+3. ✅ **Font family / size combos.** Done — ribbon Font combos wired to
+   `fontName` / `fontSize`. *Follow-up:* font size uses the HTML 1–7 scale; move to
+   explicit px sizing and reflect the current selection's font back into the combos.
 4. **Font/highlight color pickers.** `FontColorPicker`/`FontBackgroundColor` need a
    color picker UI wired to `foreColor`/`hiliteColor`.
 5. **Semantic HTML gallery.** `SemanticHtmlGallery` (h1–h6/p/pre styles) not wired to
    `formatBlock`.
 
-### P1 — document lifecycle
+### P1 — document lifecycle · M4 parity
 6. **New/Open/Save draft, post model.** No post/document model on the Mac side
    (`EditorModel` is a stub). No local draft persistence.
 7. **Image insert from file.** `InsertPictureFromFile` → file picker + `<img>` insert.
 8. **Word count, Find.** `WordCount`, `FindButton` unimplemented.
 
-### P2 — accounts & publishing
+### P2 — accounts & publishing · M4 parity (blocked on BlogClient/PostEditor WinForms port)
 9. **Account setup / blog config.** `AddWeblog`, `ConfigureWeblog`, `Accounts` — no UI;
    `MacCredentialStorage` exists but is not exercised.
 10. **Publish pipeline.** `PostAndPublish`, `PostAsDraft`, `SelectBlog` gallery — depend
     on porting `BlogClient`/`PostEditor` off WinForms.
 
-### P3 — visual parity & advanced
+### P3 — visual parity & advanced · M4 parity + M5 packaging
 11. **Ribbon visual fidelity** vs. the Windows Fluent ribbon (spacing, icons, group
-    chrome, contextual tabs actually appearing on selection).
-12. Tables, video, maps, tags, plugins, spellcheck UI, print/preview.
+    chrome, contextual tabs actually appearing on selection). *(M4)*
+12. Tables, video, maps, tags, plugins, spellcheck UI, print/preview. *(M4)*
+13. **M5 packaging:** `.app` bundle + DMG, code signing / notarization
+    (`xcrun notarytool`), cross-platform GitHub Actions build matrix, App Store
+    submission. Start once editor + ribbon parity (P0–P1) is solid.
 
 ---
 
 ## 4. Recommended next steps (for the following session)
 
-1. **Ribbon toggle-state sync (P0-1).** Highest leverage, self-contained: consume the
-   WebView `stateChanged` postMessage in `WebViewEditor`, surface via
-   `FormatStateChanged`, and update ribbon toggle buttons + toolbar toggles. Verify in
-   the EditorTests bench (extend it to assert `getState()` after a command).
-2. **Insert Link dialog (P0-2)** and **Font family/size combos (P0-3)** — both small,
-   both use bridge methods that now exist.
+1. **Font/highlight color pickers (P0-4)** and **Semantic HTML gallery (P0-5)** —
+   finish the remaining Home-tab editing controls. Color pickers need a small
+   Avalonia flyout wired to `foreColor`/`hiliteColor`; the gallery maps to
+   `formatBlock` (h1–h6/p/pre) and can reuse the existing block-format bridge.
+2. **Font combo refinement:** switch font size from the HTML 1–7 scale to explicit px
+   and push the current selection's font family/size back into the ribbon combos
+   (extend `FormatState` + `getState()`), same pattern as toggle sync.
 3. Begin **document/post model + draft save/open (P1-6)** to unlock the File menu.
+4. Once P0–P1 editor parity is solid, start the **M5 packaging** track (`.app`/DMG,
+   notarization, CI matrix).
 
 ## 5. Verification
 
-- Build gate: `dotnet build` for each project in §1.
+- Build gate: `dotnet build` for each project in §1 (all green).
+- Message bridge: app smoke-launch logs `[OLW-WebView] Ready` and delivers an initial
+  `stateChanged` message through `window.invokeCSharpAction` (verified).
 - Editor behavior: `OpenLiveWriter.EditorTests` GUI bench ("Run Auto Tests" button)
   exercises bold/italic/underline/strike/sub/super/alignment/list/HR/blockquote/link
-  round-trips against the live WebView.
+  round-trips plus `getState()` assertions against the live WebView.
