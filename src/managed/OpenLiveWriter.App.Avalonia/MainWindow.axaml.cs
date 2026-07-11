@@ -48,6 +48,11 @@ namespace OpenLiveWriter.App.Avalonia
                     await ShowWordCountAsync();
                     return;
                 }
+                if (commandId == CommandId.FindButton || commandId == CommandId.FindAndReplace)
+                {
+                    ShowFindReplace(showReplace: commandId == CommandId.FindAndReplace);
+                    return;
+                }
 
                 var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
                 if (editorPanel?.WebViewEditor != null)
@@ -361,6 +366,38 @@ namespace OpenLiveWriter.App.Avalonia
             _ribbon.SetToggleState(CommandId.Justify, state.AlignFull);
             _ribbon.SetToggleState(CommandId.Blockquote,
                 string.Equals(state.BlockTag, "blockquote", StringComparison.OrdinalIgnoreCase));
+        }
+
+        private FindReplaceDialog _findDialog;
+
+        // Opens (or re-focuses) the non-modal Find / Find & Replace panel, wiring its
+        // actions to the editor's find-next and replace-all.
+        private void ShowFindReplace(bool showReplace)
+        {
+            if (_findDialog != null)
+            {
+                try { _findDialog.Activate(); return; }
+                catch { _findDialog = null; }
+            }
+
+            _findDialog = new FindReplaceDialog(
+                onFindNext: async req =>
+                {
+                    var editor = GetEditor();
+                    if (editor != null)
+                        await editor.FindNextAsync(req.Query, req.MatchCase);
+                },
+                onReplaceAll: async req =>
+                {
+                    var editor = GetEditor();
+                    if (editor == null) return;
+                    int n = await editor.ReplaceAllAsync(req.Query, req.Replacement, req.MatchCase, req.WholeWord);
+                    UpdateStatus($"Replaced {n} occurrence(s).");
+                },
+                showReplace: showReplace);
+
+            _findDialog.Closed += (s, e) => _findDialog = null;
+            _findDialog.Show(this);
         }
 
         // Computes word/character/paragraph stats from the current editor body and

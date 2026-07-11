@@ -424,6 +424,35 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             };
         }
 
+        /// <summary>
+        /// Highlights the next occurrence of <paramref name="query"/> in the editor
+        /// using the browser's native find (visual selection runs inside the WebView).
+        /// </summary>
+        public async Task FindNextAsync(string query, bool matchCase)
+        {
+            if (_webView == null || !_isReady || string.IsNullOrEmpty(query)) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.findNext('{EscapeJs(query)}', {(matchCase ? "true" : "false")})");
+        }
+
+        /// <summary>
+        /// Replaces every occurrence of <paramref name="query"/> in the editor body
+        /// (text content only, tags preserved) and returns the number replaced. The
+        /// matching/replacement is done by the pure <see cref="TextFinder"/> so the
+        /// behavior is deterministic and testable independent of the WebView.
+        /// </summary>
+        public async Task<int> ReplaceAllAsync(string query, string replacement, bool matchCase, bool wholeWord)
+        {
+            if (string.IsNullOrEmpty(query) || _webView == null || !_isReady) return 0;
+            string html = await GetContentAsync() ?? string.Empty;
+            string updated = TextFinder.ReplaceAllInHtml(html, query, replacement ?? string.Empty,
+                matchCase, wholeWord, out int count);
+            if (count > 0)
+                await SetContentAsync(updated);
+            return count;
+        }
+
         public Task ExecuteBlockquoteAsync() => ToggleBlockAsync("blockquote");
 
         public async Task InsertHtmlAsync(string html)

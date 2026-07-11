@@ -191,6 +191,17 @@ const OLWBridge = {
         this.reportState();
     },
 
+    // Find and highlight the next occurrence of query using the browser's
+    // native find. Returns true when a match is selected.
+    findNext: function(query, matchCase) {
+        if (!query) return false;
+        try {
+            return window.find(query, !!matchCase, false, true, false, false, false);
+        } catch (e) {
+            return false;
+        }
+    },
+
     // Focus the editor
     focus: function() {
         document.body.focus();
