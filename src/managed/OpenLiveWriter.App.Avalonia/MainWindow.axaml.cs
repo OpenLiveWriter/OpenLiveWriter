@@ -17,6 +17,7 @@ namespace OpenLiveWriter.App.Avalonia
     {
         private AvaloniaRibbonControl _ribbon;
         private DraftSession _draftSession;
+        private OpenLiveWriter.Publishing.Accounts.BlogAccountService _accountService;
         private TextBox _titleEditor;
         private bool _suppressDirty;
 
@@ -26,6 +27,7 @@ namespace OpenLiveWriter.App.Avalonia
             InitializeRibbon();
             InitializeEditor();
             InitializeDraftSession();
+            InitializeAccounts();
         }
 
         private void InitializeRibbon()
@@ -40,6 +42,10 @@ namespace OpenLiveWriter.App.Avalonia
             {
                 // File / document-lifecycle commands are handled by the shell.
                 if (await TryHandleFileCommandAsync(commandId))
+                    return;
+
+                // Account setup / publish commands are handled by the shell.
+                if (await TryHandlePublishCommandAsync(commandId))
                     return;
 
                 // Editor utility commands surfaced by the shell (dialogs/status).
@@ -73,6 +79,13 @@ namespace OpenLiveWriter.App.Avalonia
 
             ribbon.ComboSelectionChanged += async (sender, args) =>
             {
+                // Blog selector is independent of the editor — handle it first.
+                if (args.CommandId == CommandId.SelectBlog)
+                {
+                    OnBlogSelectorChanged(args.Value);
+                    return;
+                }
+
                 var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
                 var editor = editorPanel?.WebViewEditor;
                 if (editor == null || string.IsNullOrEmpty(args.Value))
