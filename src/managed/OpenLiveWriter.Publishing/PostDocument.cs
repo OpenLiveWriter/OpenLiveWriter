@@ -30,6 +30,13 @@ namespace OpenLiveWriter.Publishing
         /// <summary>Server-side blog identifier this post targets (empty = unassigned).</summary>
         public string BlogId { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Server-side post identifier returned by the blog after a successful publish
+        /// (empty until first published). Distinct from <see cref="Id"/>, which is the
+        /// local draft id; recorded so a later edit could target the same server post.
+        /// </summary>
+        public string PublishedPostId { get; set; } = string.Empty;
+
         /// <summary>Post title (shown in the shell's title field).</summary>
         public string Title { get; set; } = string.Empty;
 
