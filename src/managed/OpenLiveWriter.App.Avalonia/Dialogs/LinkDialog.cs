@@ -129,7 +129,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             grid.Children.Add(field);
         }
 
-        private static bool IsValidUrl(string url)
+        internal static bool IsValidUrl(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
                 return false;

@@ -274,6 +274,16 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 return;
             }
 
+            await InsertHtmlAsync(BuildAnchorHtml(url, text, title, openInNewWindow));
+        }
+
+        /// <summary>
+        /// Builds a well-formed, HTML-escaped anchor element for the given link
+        /// parameters. Pure/deterministic so it can be unit-tested without a live
+        /// WebView backend.
+        /// </summary>
+        internal static string BuildAnchorHtml(string url, string text, string title, bool openInNewWindow)
+        {
             var sb = new System.Text.StringBuilder();
             sb.Append("<a href=\"").Append(EscapeHtmlAttr(url)).Append('"');
             if (!string.IsNullOrEmpty(title))
@@ -281,14 +291,13 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (openInNewWindow)
                 sb.Append(" target=\"_blank\" rel=\"noopener\"");
             sb.Append('>').Append(EscapeHtmlText(text)).Append("</a>");
-
-            await InsertHtmlAsync(sb.ToString());
+            return sb.ToString();
         }
 
-        private static string EscapeHtmlAttr(string s) =>
+        internal static string EscapeHtmlAttr(string s) =>
             s?.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace(">", "&gt;") ?? "";
 
-        private static string EscapeHtmlText(string s) =>
+        internal static string EscapeHtmlText(string s) =>
             s?.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;") ?? "";
 
         public Task ExecuteBlockquoteAsync() => ToggleBlockAsync("blockquote");

@@ -111,7 +111,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             }
         }
 
-        private static string FormatHtml(string html)
+        internal static string FormatHtml(string html)
         {
             // Basic HTML formatting for readability in source view
             if (string.IsNullOrEmpty(html)) return html;
