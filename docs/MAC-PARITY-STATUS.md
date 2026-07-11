@@ -3,7 +3,7 @@
 Single source of truth for the Mac (Avalonia) port. Goal: **feature and visual
 parity with Open Live Writer for Windows.** Update this file as work lands.
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (publish slice ported)
 
 ## Official milestone plan
 
@@ -34,7 +34,8 @@ Verified building cleanly on macOS:
 | `OpenLiveWriter.Platform` | ✅ builds | Abstraction interfaces |
 | `OpenLiveWriter.Platform.Mac` | ✅ builds | Credential/spellcheck/display/bidi services |
 | `OpenLiveWriter.Ribbon.Avalonia` | ✅ builds | Config-driven ribbon |
-| `OpenLiveWriter.App.Avalonia` | ✅ builds + launches | Avalonia shell; WebView editor reaches Ready |
+| `OpenLiveWriter.App.Avalonia` | ✅ builds + launches | Avalonia shell; WebView editor reaches Ready; references `OpenLiveWriter.Publishing` |
+| `OpenLiveWriter.Publishing` | ✅ builds | **New** — cross-platform publish slice (BlogPost, editor-HTML cleanup, MetaWeblog XML-RPC), no WinForms/MSHTML |
 | `OpenLiveWriter.EditorTests` | ✅ builds | GUI E2E bench for the WebView editor |
 | `OpenLiveWriter.Localization` | ✅ builds | Shared |
 | `OpenLiveWriter.HtmlParser` | ✅ builds | Shared |
@@ -47,9 +48,11 @@ launches the shell; console logs `[OLW-WebView] Ready` once the editor loads.
 (`net10.0-windows`) — e.g. `OpenLiveWriter.ApplicationFramework`,
 `OpenLiveWriter.PostEditor`, `OpenLiveWriter.Controls`, `OpenLiveWriter.Mshtml`,
 `OpenLiveWriter` (main app). These depend on `System.Windows.Forms` / MSHTML and
-must be ported or abstracted (some cross-platform prep exists on the unmerged
-`feature/macbuild` branch: BlogClient WinForms removal, platform nuget path fix,
-thread-safety/caching fixes).
+must be ported or abstracted. The first **publish** slice has been carved out into
+the cross-platform `OpenLiveWriter.Publishing` (see §7); the remaining BlogClient/
+PostEditor surface is still Windows-only. Cross-platform prep also exists on the
+unmerged `feature/macbuild` branch (BlogClient WinForms removal, platform nuget
+path fix, thread-safety/caching fixes) — assessed in §7.2.
 
 ---
 
@@ -105,11 +108,16 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 7. **Image insert from file.** `InsertPictureFromFile` → file picker + `<img>` insert.
 8. **Word count, Find.** `WordCount`, `FindButton` unimplemented.
 
-### P2 — accounts & publishing · M4 parity (blocked on BlogClient/PostEditor WinForms port)
+### P2 — accounts & publishing · M4 parity (publish pipeline slice ported; accounts/UI remain)
 9. **Account setup / blog config.** `AddWeblog`, `ConfigureWeblog`, `Accounts` — no UI;
-   `MacCredentialStorage` exists but is not exercised.
-10. **Publish pipeline.** `PostAndPublish`, `PostAsDraft`, `SelectBlog` gallery — depend
-    on porting `BlogClient`/`PostEditor` off WinForms.
+   `MacCredentialStorage` exists but is not exercised. Still needs blog-account model +
+   detection wiring (see §7).
+10. **Publish pipeline.** ✅ *First slice ported* — `OpenLiveWriter.Publishing`
+    (net10.0) now builds the `editor HTML → BlogPost → MetaWeblog XML-RPC` payload
+    cross-platform and is referenced by the Avalonia app via
+    `WebViewEditor.PublishAsync`. Remaining: account/credentials wiring, live
+    round-trip against a real blog, additional providers (Atom/WordPress/Blogger),
+    draft persistence, and `PostAndPublish`/`PostAsDraft`/`SelectBlog` UI. See §7.
 
 ### P3 — visual parity & advanced · M4 parity + M5 packaging
 11. **Ribbon visual fidelity** vs. the Windows Fluent ribbon (spacing, icons, group
@@ -160,9 +168,10 @@ Run:
   `dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --filter "Category=WebView"`
 - Publish TDD targets: `dotnet test ... --filter "Category=PublishTdd"`
 
-Default run status: **44 passed / 0 failed / 0 skipped.** WebView-category and
-publish TDD tests are `[Explicit]` (excluded from the default run) so the headless
-gate stays green.
+Default run status: **46 passed / 0 failed / 0 skipped.** WebView-category tests
+are `[Explicit]` (excluded from the default run) so the headless gate stays green.
+The two Group C `RealPipeline_*` probes are no longer `[Explicit]` (the publish
+slice is ported) and run in the default suite, lifting the count 44 → 46.
 
 ### Why some tests are `[Explicit]`
 
@@ -172,10 +181,12 @@ gate stays green.
   guidance rather than failing. They are structured/ready and re-use
   `EditorTestHarness` — run them on a real macOS desktop session, or rely on the
   manual bench for live verification.
-- **Publish TDD:** the Windows publish pipeline (`BlogClient`/`PostEditor`) is
-  `net10.0-windows` and not yet ported, so Group C drives a cross-platform
-  *contract* (test-side `BlogPost`/`IBlogClient`/`FakeBlogClient`) that runs and
-  passes today; reflection probes for the real ported pipeline are `[Explicit]`.
+- **Publish TDD:** the first publish slice is now ported to
+  `OpenLiveWriter.Publishing` (net10.0), so Group C exercises the **real** ported
+  types (`BlogPost`, `EditorContentPublisher`, `MetaWeblogXmlRpcClient`,
+  `XmlCharacterHelper`) and the reflection probes pass in the default run.
+  Remaining publish work (accounts, transport against a live blog, more providers)
+  is tracked in §7, not as `[Explicit]` tests.
 
 ### Scenario map
 
@@ -194,9 +205,9 @@ gate stays green.
 | A18: getState sync (bold on→true, off→false; blockTag) | `GroupA18_GetStateTests` | ⏭ WebView |
 | B1–B3: source/preview round-trip (WYSIWYG↔source, hand-edited h2+ul) | `GroupB_RoundtripTests` (via `EditorPanel.FormatHtml`) | ✅ pass |
 | B: live round-trip + preview render | `GroupB_RoundtripTests` | ⏭ WebView / preview `[Explicit]` |
-| C: post model, MetaWeblog payload (description=MainContents, publish flag), draft, extended split | `GroupC_PublishTests` (FakeBlogClient) | ✅ pass (contract) |
-| C: XmlCharacterHelper-style XML-char scrub | `GroupC_PublishTests` | ✅ pass |
-| C: real ported pipeline present | `GroupC_PublishTests` (reflection probes) | ⏭ PublishTdd |
+| C: post model, MetaWeblog payload (description=MainContents, publish flag), draft, extended split | `GroupC_PublishTests` (real `OpenLiveWriter.Publishing` + `FakeBlogClient`) | ✅ pass (real types) |
+| C: `XmlCharacterHelper` XML-char scrub | `GroupC_PublishTests` (real ported helper) | ✅ pass |
+| C: real ported pipeline present (app refs `Publishing`, `WebViewEditor.PublishAsync`) | `GroupC_PublishTests` (reflection probes) | ✅ pass |
 | D1: LinkDialog validation (Insert disabled for empty/`https://`) | `GroupD_DialogTests` (logic + headless UI) | ✅ pass |
 | D: image insert / account setup / draft save-open / word count | `GroupD_DialogTests` | ⏭ `[Explicit]` |
 
@@ -206,10 +217,75 @@ Small, behavior-preserving `internal` seams in `App.Avalonia` (exposed via
 `InternalsVisibleTo`): `WebViewEditor.BuildAnchorHtml`/`EscapeHtml*` (link build +
 escaping), `EditorPanel.FormatHtml` (source view formatter), `LinkDialog.IsValidUrl`.
 
-### Publish tests are TDD targets
+### Publish tests target the real pipeline
 
-Group C is **blocked on porting `BlogClient`/`PostEditor` off WinForms** to a
-cross-platform assembly referenceable from the Avalonia app. Until then the tests
-pin the contract (`BlogPost` main/extended split, MetaWeblog payload shape, XML
-scrubbing) against `FakeBlogClient`; the `[Explicit]` reflection probes flip green
-once the real pipeline is wired into the editor.
+Group C now drives the ported `OpenLiveWriter.Publishing` types directly
+(`BlogPost` main/extended split, real `MetaWeblogXmlRpcClient` payload assertions,
+`XmlCharacterHelper` scrub) with `FakeBlogClient` only standing in for the network
+transport. The reflection probes (`app references Publishing`,
+`WebViewEditor.PublishAsync` exists) pass in the default run.
+
+---
+
+## 7. Publish pipeline port (macOS)
+
+### 7.1 What is ported (this slice)
+
+`OpenLiveWriter.Publishing` (net10.0, no WinForms/MSHTML) — the smallest set of
+types for a real MetaWeblog/XML-RPC publish of a simple post:
+
+| Type | Ported from | Notes |
+| --- | --- | --- |
+| `BlogPost` | `Extensibility.BlogClient.BlogPost` | Title/Contents XML-scrub, main/extended split at `<!--more-->`, string categories, `IsPublished` |
+| `ExtendedEntry` | `BlogPost.ExtendedEntryBreak` split | `BreakMarker` + `Split()` |
+| `XmlCharacterHelper` | `CoreServices.XmlCharacterHelper` | Verbatim valid-XML-char ranges + scrub |
+| `Xml/XmlRpc*` | `CoreServices.XmlRpcClient` value classes | `XmlRpcString/Int/Boolean/Array/Struct/Member`, method-response parser |
+| `IBlogClient` / `IBlogClientOptions` | `Extensibility.BlogClient.IBlogClient` | Minimal `NewPost`/`EditPost` + `SupportsExtendedEntries`/`SupportsCategoriesInline` |
+| `MetaWeblogXmlRpcClient` | `BlogClient.Clients.MetaweblogClient` | `GeneratePostStruct` (title, description=MainContents, mt_text_more=ExtendedContents, categories) + `BuildNewPostXml`/`BuildEditPostXml` (offline) + HttpClient transmit |
+| `EditorContentPublisher` | `PostEditor` GetEditedHtml step | Trim/linebreak strip → scrub → split → `BlogPost`; `Publish()` orchestration |
+
+Referenced by `OpenLiveWriter.App.Avalonia`; entry point
+`WebViewEditor.PublishAsync(client, blogId, title, publish, categories)` feeds
+`GetContentAsync()` output through `EditorContentPublisher`.
+
+**UI-coupled pieces intentionally left out** (stay behind `OpenLiveWriter.Platform`
+abstractions for the full port): credential prompts (`ICredentialsPrompter`),
+dialogs (`IDialogService`), captcha, MSHTML-based blog/template detection, image
+upload, and the full `IBlogClient` surface (categories/keywords/pages/authors).
+
+### 7.2 `feature/macbuild` prep assessment
+
+The unmerged `feature/macbuild` branch has 4 commits ahead of this branch's
+merge-base (`e6ab7f6b`): `.claude` gitignore, an SDK nuspec path fix, Platform
+thread-safety/caching fixes, and **`a6f571b4 refactor(blogclient): Remove WinForms
+dependencies`** (47 files: retargets the *whole* BlogClient, moves login/captcha
+dialogs to `Platform.Windows`, adds `ICredentialsPrompter`/`IDialogService`,
+excludes MSHTML detection).
+
+**Recommendation: do not cherry-pick for this slice; re-derive a focused assembly
+(done).** Rationale: `a6f571b4` is a large in-place refactor of the entire
+BlogClient and only pays off once BlogClient's full dependency chain
+(Extensibility, CoreServices, Api, MSHTML detection) builds cross-platform — a
+multi-session effort. It yields no compiling macOS artifact on its own, so folding
+it in now would add risk without a verifiable slice. It remains the reference for
+the **full** BlogClient port (§7.3); its `ICredentialsPrompter`/`IDialogService`
+abstractions and dialog relocation should be adopted then. (The Platform
+thread-safety fixes in `a1ab901f` are a good low-risk standalone cherry-pick
+candidate for a later pass.)
+
+### 7.3 Remaining publish backlog
+
+1. **Accounts/credentials wiring.** Blog-account model + `MacCredentialStorage`
+   (Keychain) → construct `MetaWeblogXmlRpcClient` with real endpoint/user/pass;
+   `ICredentialsPrompter` for interactive auth.
+2. **Live transport validation.** Exercise `NewPost`/`EditPost` against a real
+   MetaWeblog endpoint (self-hosted WordPress / `utilities/BlogServer`); handle
+   redirects, encoding, and auth headers via the existing `HttpClient` path.
+3. **Additional providers.** Port Atom (AtomPub), WordPress, and Blogger v3 clients
+   (larger; some depend on MSHTML detection that must be abstracted first).
+4. **Draft persistence + document model.** Cross-platform post/draft store to back
+   `PostAsDraft`, New/Open/Save (P1-6).
+5. **Publish UI.** `PostAndPublish`/`PostAsDraft` commands, `SelectBlog` gallery,
+   category picker, progress/errors surfaced via `IDialogService`.
+6. **Fold in `feature/macbuild` abstractions** (`ICredentialsPrompter`,
+   `IDialogService`, dialog relocation) during the full BlogClient port.
