@@ -14,8 +14,9 @@ namespace OpenLiveWriter.EditorTests.Automated
     /// <summary>
     /// Group D — dialogs / lifecycle. D1 (LinkDialog validation) runs headlessly:
     /// the Insert button must stay disabled for an empty or "https://"-only URL and
-    /// enable once a real address is typed. Image-insert / account-setup / draft /
-    /// word-count are [Explicit] TDD targets (features not yet built).
+    /// enable once a real address is typed. Draft save/open (D4) is implemented and
+    /// covered by GroupD_DraftLifecycleTests. Image-insert / account-setup /
+    /// word-count remain [Explicit] TDD targets (features not yet built).
     /// </summary>
     [TestFixture]
     [Category("GroupD")]

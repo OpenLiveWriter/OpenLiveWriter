@@ -3,7 +3,7 @@
 Single source of truth for the Mac (Avalonia) port. Goal: **feature and visual
 parity with Open Live Writer for Windows.** Update this file as work lands.
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (publish slice ported)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (document/draft lifecycle + File menu)
 
 ## Official milestone plan
 
@@ -80,6 +80,13 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
   wired to the Link toolbar button, `Ctrl+K`, and the `InsertLink` ribbon command.
 - **Font family / size:** ribbon Font group combos populated and wired to the editor
   (`fontName` / `fontSize`). *Note: size uses the HTML 1–7 scale; refine to px later.*
+- **Document / draft lifecycle (File menu):** cross-platform `PostDocument` model
+  (id/title/body/blog/categories/timestamps + dirty flag, interoperable with
+  `Publishing.BlogPost`), an `IDraftStore` abstraction with a JSON file-per-draft
+  `FileDraftStore`, and a UI-agnostic `DraftSession` controller. New Post/Page, Save
+  (Save Draft), Open Draft (picker), Delete Draft, and `OpenDraftMRU0-9` File-menu
+  commands are wired in the shell, with Save/Discard/Cancel unsaved-changes prompts
+  on New/Open driven by the dirty flag. See §8.
 
 ---
 
@@ -103,8 +110,11 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
    `formatBlock`.
 
 ### P1 — document lifecycle · M4 parity
-6. **New/Open/Save draft, post model.** No post/document model on the Mac side
-   (`EditorModel` is a stub). No local draft persistence.
+6. ✅ **New/Open/Save draft, post model.** Done — cross-platform `PostDocument`
+   model + `IDraftStore`/`FileDraftStore` (JSON, one file per draft under the
+   platform-resolved app-data `Drafts` folder) + `DraftSession` controller, with
+   New/Save/Open/Delete/MRU File-menu commands wired and unsaved-changes prompts.
+   Replaced the `EditorModel` stub. See §8.
 7. **Image insert from file.** `InsertPictureFromFile` → file picker + `<img>` insert.
 8. **Word count, Find.** `WordCount`, `FindButton` unimplemented.
 
@@ -138,8 +148,12 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 2. **Font combo refinement:** switch font size from the HTML 1–7 scale to explicit px
    and push the current selection's font family/size back into the ribbon combos
    (extend `FormatState` + `getState()`), same pattern as toggle sync.
-3. Begin **document/post model + draft save/open (P1-6)** to unlock the File menu.
-4. Once P0–P1 editor parity is solid, start the **M5 packaging** track (`.app`/DMG,
+3. ✅ **Document/post model + draft save/open (P1-6)** — done (see §8). Follow-ups:
+   surface a real Open Drafts list in the ribbon backstage (not just the modal
+   picker), populate the `OpenDraftMRU*` menu labels from the store, and prompt on
+   window-close when dirty.
+4. **Image insert (P1-7)** and **word count (P1-8)** to finish the P1 lifecycle band.
+5. Once P0–P1 editor parity is solid, start the **M5 packaging** track (`.app`/DMG,
    notarization, CI matrix).
 
 ## 5. Verification
@@ -168,10 +182,14 @@ Run:
   `dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --filter "Category=WebView"`
 - Publish TDD targets: `dotnet test ... --filter "Category=PublishTdd"`
 
-Default run status: **46 passed / 0 failed / 0 skipped.** WebView-category tests
+Default run status: **63 passed / 0 failed / 0 skipped.** WebView-category tests
 are `[Explicit]` (excluded from the default run) so the headless gate stays green.
 The two Group C `RealPipeline_*` probes are no longer `[Explicit]` (the publish
-slice is ported) and run in the default suite, lifting the count 44 → 46.
+slice is ported) and run in the default suite, lifting the count 44 → 46. The new
+`GroupD_DraftLifecycleTests` (real `FileDraftStore`/`PostDocument`/`DraftSession`
+against a temp dir — no WebView needed) added 17 more, lifting 46 → 63; the
+previously `[Explicit]` D4 "draft save/open" target is now implemented and folded
+into that fixture.
 
 ### Why some tests are `[Explicit]`
 
@@ -209,7 +227,8 @@ slice is ported) and run in the default suite, lifting the count 44 → 46.
 | C: `XmlCharacterHelper` XML-char scrub | `GroupC_PublishTests` (real ported helper) | ✅ pass |
 | C: real ported pipeline present (app refs `Publishing`, `WebViewEditor.PublishAsync`) | `GroupC_PublishTests` (reflection probes) | ✅ pass |
 | D1: LinkDialog validation (Insert disabled for empty/`https://`) | `GroupD_DialogTests` (logic + headless UI) | ✅ pass |
-| D: image insert / account setup / draft save-open / word count | `GroupD_DialogTests` | ⏭ `[Explicit]` |
+| D4: draft save/load round-trip (DOM equiv), overwrite, MRU order, delete, corrupt/missing, BlogPost interop, DraftSession dirty tracking | `GroupD_DraftLifecycleTests` (real `FileDraftStore`/`PostDocument`/`DraftSession`, temp dir) | ✅ pass |
+| D: image insert / account setup / word count | `GroupD_DialogTests` | ⏭ `[Explicit]` |
 
 ### Production seams added for testability
 
@@ -283,9 +302,56 @@ candidate for a later pass.)
    redirects, encoding, and auth headers via the existing `HttpClient` path.
 3. **Additional providers.** Port Atom (AtomPub), WordPress, and Blogger v3 clients
    (larger; some depend on MSHTML detection that must be abstracted first).
-4. **Draft persistence + document model.** Cross-platform post/draft store to back
-   `PostAsDraft`, New/Open/Save (P1-6).
+4. ✅ **Draft persistence + document model.** Done — see §8. The publish path can
+   now build a `BlogPost` directly from the edited `PostDocument`
+   (`PostDocument.ToBlogPost()`), so `PostAsDraft` maps to a local draft save while
+   `PostAndPublish` reuses the same document for the transport.
 5. **Publish UI.** `PostAndPublish`/`PostAsDraft` commands, `SelectBlog` gallery,
    category picker, progress/errors surfaced via `IDialogService`.
 6. **Fold in `feature/macbuild` abstractions** (`ICredentialsPrompter`,
    `IDialogService`, dialog relocation) during the full BlogClient port.
+
+---
+
+## 8. Document / draft lifecycle (macOS)
+
+Reproduces the Windows File-menu behavior (New/Save/Open/Delete draft) with a
+Mac-friendly store, replacing the Windows `.wpost` OLE structured storage that is
+impractical cross-platform.
+
+### 8.1 Model + store (cross-platform, in `OpenLiveWriter.Publishing`)
+
+| Type | Role |
+| --- | --- |
+| `PostDocument` | Editable unit: `Id`, `BlogId`, `Title`, `BodyHtml` (full body incl. `<!--more-->`), `Categories`, `IsPage`, `IsPublished`, `DateCreatedUtc`/`DateModifiedUtc`, transient `IsDirty`. `ToBlogPost()`/`FromBlogPost()` convert to/from the transport `BlogPost` so the *same* document is saved as a draft and published — no competing model. |
+| `IDraftStore` | Persistence seam: `Save` (new + overwrite), `Load`, `List`, `Delete`, `Exists`. Hides the on-disk format so it can change without touching callers. |
+| `FileDraftStore` | JSON, one file per draft (`{id}.oldraft.json`, `Guid.NewGuid("N")` ids). Writes via temp-file-then-move (no truncated files on crash). **Robust:** missing dir ⇒ empty store (created lazily on save); corrupt file ⇒ `Load` throws `DraftStoreException` but `List` skips it. `List()` is ordered most-recently-modified first (drives Open Drafts + MRU). |
+| `DraftInfo` | Lightweight list entry (id/title/modified) for the picker + MRU without loading bodies. |
+
+### 8.2 File location (platform-resolved, never hardcoded)
+
+`DraftStoreFactory.CreateDefault()` (in `App.Avalonia`) resolves the folder via
+`PlatformContext.Services.GetApplicationDataDirectory()` + `"Drafts"` — i.e.
+`~/Library/Application Support/OpenLiveWriter/Drafts` on macOS, resolved through
+`OpenLiveWriter.Platform`, not a literal path.
+
+### 8.3 Command wiring + unsaved-changes handling (`App.Avalonia`)
+
+- **`DraftSession`** (UI-agnostic controller): owns the current `PostDocument`,
+  tracks dirty (title/body edits mark dirty only on real change; save clears it),
+  and drives `IDraftStore` for New/Save/Open/Delete/List. Testable headlessly.
+- **`MainWindow`** routes File-menu `CommandId`s through `TryHandleFileCommandAsync`
+  *before* editor formatting: `NewPost`/`NewPage`, `SavePost` (Save Draft),
+  `OpenDrafts`/`OpenPost` (modal `DraftPickerDialog`), `DeleteDraft` (confirm), and
+  `OpenDraftMRU0-9` (nth of the MRU-ordered list). The shell's existing `TitleEditor`
+  supplies the title; body comes from `WebViewEditor.GetContentAsync()`.
+- **Unsaved changes:** New/Open (and MRU) call `ConfirmDialog.ShowUnsavedChangesAsync`
+  when dirty — Save proceeds after saving, Don't Save discards, Cancel aborts. A null
+  owner (headless) defaults to the safe/cancel path so logic stays testable.
+
+### 8.4 Tests
+
+`GroupD_DraftLifecycleTests` (default headless suite, temp dir, no WebView):
+save/load round-trip with **DOM equivalence**, new-doc timestamps, in-place
+overwrite (same id, single file), MRU ordering, delete, missing/corrupt-file
+handling, `BlogPost` interop, and `DraftSession` dirty tracking + New/Open/Delete.
