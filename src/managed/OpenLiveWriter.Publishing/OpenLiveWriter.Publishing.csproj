@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    OpenLiveWriter.Publishing — cross-platform (net10.0) slice of the publish
+    pipeline. Contains the transport/model/serialization logic (BlogPost model,
+    editor-HTML cleanup, XML-RPC MetaWeblog client) with NO WinForms / MSHTML
+    dependencies, so it can be referenced from the Avalonia app on macOS.
+
+    This is the first slice of the larger BlogClient/PostEditor port; UI-coupled
+    concerns (credential prompts, dialogs) stay behind OpenLiveWriter.Platform
+    abstractions and are not pulled in here.
+  -->
+
+  <PropertyGroup>
+    <AssemblyName>OpenLiveWriter.Publishing</AssemblyName>
+    <RootNamespace>OpenLiveWriter.Publishing</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
+  </ItemGroup>
+
+</Project>
