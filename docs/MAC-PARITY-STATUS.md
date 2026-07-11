@@ -3,7 +3,7 @@
 Single source of truth for the Mac (Avalonia) port. Goal: **feature and visual
 parity with Open Live Writer for Windows.** Update this file as work lands.
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (document/draft lifecycle + File menu)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (editor-content parity band: semantic styles, color, image, word count, find)
 
 ## Official milestone plan
 
@@ -70,7 +70,13 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
   - Paragraph: Align Left/Center/Right, Justify, Blockquote (toggle)
   - Editing: Undo, Redo, Select All
   - Insert: Horizontal line; `createLink`/`insertHtml` bridge methods exist
-  - Block format: `formatBlock` (headings via toolbar combo)
+  - Block format: `formatBlock` — full semantic range (Normal/p, Heading 1-6,
+    Preformatted) via the toolbar combo **and** the ribbon SemanticHtmlGallery flyout
+  - Color: text color (`foreColor`) + highlight (`hiliteColor`, backColor fallback)
+    via ribbon color-swatch flyouts (standard + highlight palettes)
+  - Insert: image from file — file picker → inline base64 data-URI `<img>`
+  - Editing: Word Count (statistics dialog) + Find / Find & Replace (native
+    in-page highlight + HTML-aware Replace All)
 - **Format-state reporting:** `OLWBridge.getState()` reports bold/italic/underline/
   strike/sub/super/lists/alignment/blockTag (consumed by `FormatState`).
 - **Live toggle-state sync:** editor posts `stateChanged` messages (via the Avalonia
@@ -104,10 +110,13 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 3. ✅ **Font family / size combos.** Done — ribbon Font combos wired to
    `fontName` / `fontSize`. *Follow-up:* font size uses the HTML 1–7 scale; move to
    explicit px sizing and reflect the current selection's font back into the combos.
-4. **Font/highlight color pickers.** `FontColorPicker`/`FontBackgroundColor` need a
-   color picker UI wired to `foreColor`/`hiliteColor`.
-5. **Semantic HTML gallery.** `SemanticHtmlGallery` (h1–h6/p/pre styles) not wired to
-   `formatBlock`.
+4. ✅ **Font/highlight color pickers.** Done — `FontColorPicker`/`FontBackgroundColor`
+   render color-swatch flyouts (standard + highlight palettes) that serialize the
+   choice to `#RRGGBB` and drive `foreColor`/`hiliteColor` (with a `backColor`
+   fallback for highlight). Pure command→execCommand mapping + hex normalizer tested.
+5. ✅ **Semantic HTML gallery.** Done — `SemanticHtmlGallery` opens a style flyout and
+   the toolbar `HeadingCombo` now exposes the full range (Normal/p, Heading 1-6,
+   Preformatted), both routed through the shared `SemanticHtmlStyles` → `formatBlock`.
 
 ### P1 — document lifecycle · M4 parity
 6. ✅ **New/Open/Save draft, post model.** Done — cross-platform `PostDocument`
@@ -115,8 +124,14 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
    platform-resolved app-data `Drafts` folder) + `DraftSession` controller, with
    New/Save/Open/Delete/MRU File-menu commands wired and unsaved-changes prompts.
    Replaced the `EditorModel` stub. See §8.
-7. **Image insert from file.** `InsertPictureFromFile` → file picker + `<img>` insert.
-8. **Word count, Find.** `WordCount`, `FindButton` unimplemented.
+7. ✅ **Image insert from file.** Done — `InsertPictureFromFile` (toolbar + ribbon)
+   opens the Avalonia storage-provider file picker and inserts the chosen image as a
+   self-contained inline base64 data-URI `<img>`. *Follow-up (P2):* upload-on-publish
+   rewrite of data URIs to hosted URLs once the BlogClient image path is ported.
+8. ✅ **Word count, Find.** Done — cross-platform `WordCounter` (HTML→plain text +
+   word/char/paragraph counts) surfaced via a `WordCount` statistics dialog; Find /
+   Find & Replace via `FindButton`/`FindAndReplace` (native in-page highlight +
+   pure `TextFinder` HTML-aware Replace All that leaves tags untouched).
 
 ### P2 — accounts & publishing · M4 parity (publish pipeline slice ported; accounts/UI remain)
 9. **Account setup / blog config.** `AddWeblog`, `ConfigureWeblog`, `Accounts` — no UI;
@@ -141,18 +156,18 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 
 ## 4. Recommended next steps (for the following session)
 
-1. **Font/highlight color pickers (P0-4)** and **Semantic HTML gallery (P0-5)** —
-   finish the remaining Home-tab editing controls. Color pickers need a small
-   Avalonia flyout wired to `foreColor`/`hiliteColor`; the gallery maps to
-   `formatBlock` (h1–h6/p/pre) and can reuse the existing block-format bridge.
+1. ✅ **Font/highlight color pickers (P0-4)**, **Semantic HTML gallery (P0-5)**,
+   **image insert (P1-7)**, **word count + find (P1-8)** — all done this session (the
+   editor-content parity band). The Home/Insert-tab editing controls are now wired.
 2. **Font combo refinement:** switch font size from the HTML 1–7 scale to explicit px
-   and push the current selection's font family/size back into the ribbon combos
-   (extend `FormatState` + `getState()`), same pattern as toggle sync.
-3. ✅ **Document/post model + draft save/open (P1-6)** — done (see §8). Follow-ups:
-   surface a real Open Drafts list in the ribbon backstage (not just the modal
-   picker), populate the `OpenDraftMRU*` menu labels from the store, and prompt on
-   window-close when dirty.
-4. **Image insert (P1-7)** and **word count (P1-8)** to finish the P1 lifecycle band.
+   and push the current selection's font family/size + color back into the ribbon
+   combos/pickers (extend `FormatState` + `getState()`), same pattern as toggle sync.
+3. **Find polish:** add Find Previous / match-count readout / Replace (single) and a
+   live match-highlight-count; wire an in-editor find bar (currently a non-modal
+   dialog). Image: alt-text/size prompt and the P2 upload-on-publish rewrite.
+4. **Account setup / publish UI (P2-9/10):** blog-account model + `MacCredentialStorage`
+   wiring, `PostAndPublish`/`PostAsDraft`/`SelectBlog` UI (the publish pipeline slice
+   is already ported — see §7).
 5. Once P0–P1 editor parity is solid, start the **M5 packaging** track (`.app`/DMG,
    notarization, CI matrix).
 
@@ -182,14 +197,26 @@ Run:
   `dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --filter "Category=WebView"`
 - Publish TDD targets: `dotnet test ... --filter "Category=PublishTdd"`
 
-Default run status: **63 passed / 0 failed / 0 skipped.** WebView-category tests
+Default run status: **133 passed / 0 failed / 0 skipped.** WebView-category tests
 are `[Explicit]` (excluded from the default run) so the headless gate stays green.
-The two Group C `RealPipeline_*` probes are no longer `[Explicit]` (the publish
-slice is ported) and run in the default suite, lifting the count 44 → 46. The new
-`GroupD_DraftLifecycleTests` (real `FileDraftStore`/`PostDocument`/`DraftSession`
-against a temp dir — no WebView needed) added 17 more, lifting 46 → 63; the
-previously `[Explicit]` D4 "draft save/open" target is now implemented and folded
-into that fixture.
+The editor-content parity band lifted the count 63 → 133 with pure/headless
+coverage of the newly wired features:
+
+- **Semantic styles (P0-5):** `GroupA_ToolbarGapTests` was flipped from documenting
+  the h4-h6/pre *gap* to asserting the now-reachable full range via
+  `EditorPanel.MapHeadingIndexToTag` / `SemanticHtmlStyles`.
+- **Color (P0-4):** `GroupA_ColorCommandTests` — command→`execCommand` mapping and
+  `#RRGGBB` hex normalization.
+- **Image (P1-7):** the previously `[Explicit]` Group D `ImageInsertDialog_InsertsImgTag`
+  is implemented as `ImageInsert_*` (data-URI `<img>` build, MIME guess, alt escaping).
+- **Word count (P1-8):** the previously `[Explicit]` `WordCount_CountsWords` is
+  implemented; full coverage in `GroupD_WordCountTests`.
+- **Find (P1):** `GroupD_FindReplaceTests` — `TextFinder` case/whole-word/wrap +
+  HTML-aware Replace All (tags preserved) + dialog field capture (headless UI).
+
+The only remaining `[Explicit]` non-WebView target is `AccountSetup_StoresCredentials`
+(P2). Earlier milestones: the two Group C `RealPipeline_*` probes (publish slice
+ported) and `GroupD_DraftLifecycleTests` (draft lifecycle) remain green.
 
 ### Why some tests are `[Explicit]`
 
@@ -215,7 +242,8 @@ into that fixture.
 | A: align L/C/R/justify | `GroupA_EditorCommandTests` | ⏭ WebView |
 | A: blockquote toggle (present → reverts to `<p>`) | `GroupA_EditorCommandTests` | ⏭ WebView |
 | A: headings h1–h6 + p + pre (via bridge `formatBlock`) | `GroupA_EditorCommandTests` | ⏭ WebView |
-| A: toolbar HeadingCombo only reaches h1–h3 (gap) | `GroupA_ToolbarGapTests` | ✅ pass |
+| A10: toolbar HeadingCombo + SemanticHtmlGallery reach Normal/h1–h6/pre | `GroupA_ToolbarGapTests` (real `MapHeadingIndexToTag`/`SemanticHtmlStyles`) | ✅ pass |
+| A: font color / highlight — command→execCommand map + `#RRGGBB` serialization | `GroupA_ColorCommandTests` | ✅ pass |
 | A: createLink / link text+title+new-window + escaping | `GroupA_EditorCommandTests` (live) + `GroupA_LinkHtmlTests` (pure) | ✅ pass (pure) / ⏭ WebView (live) |
 | A: horizontal rule, clear formatting, partial-selection bold | `GroupA_EditorCommandTests` | ⏭ WebView |
 | A: font family / size | `GroupA_EditorCommandTests` | ⏭ WebView |
@@ -228,13 +256,20 @@ into that fixture.
 | C: real ported pipeline present (app refs `Publishing`, `WebViewEditor.PublishAsync`) | `GroupC_PublishTests` (reflection probes) | ✅ pass |
 | D1: LinkDialog validation (Insert disabled for empty/`https://`) | `GroupD_DialogTests` (logic + headless UI) | ✅ pass |
 | D4: draft save/load round-trip (DOM equiv), overwrite, MRU order, delete, corrupt/missing, BlogPost interop, DraftSession dirty tracking | `GroupD_DraftLifecycleTests` (real `FileDraftStore`/`PostDocument`/`DraftSession`, temp dir) | ✅ pass |
-| D: image insert / account setup / word count | `GroupD_DialogTests` | ⏭ `[Explicit]` |
+| D2: image insert from file — data-URI `<img>` build, MIME guess, alt escaping | `GroupD_DialogTests` (`ImageInsert_*`) | ✅ pass |
+| D5: word count — words/chars/paragraphs from HTML, entity decode | `GroupD_WordCountTests` + `GroupD_DialogTests` | ✅ pass |
+| D: find / replace — case, whole-word, wrap, HTML-aware Replace All, dialog capture | `GroupD_FindReplaceTests` (pure `TextFinder` + headless UI) | ✅ pass |
+| D: account setup | `GroupD_DialogTests` | ⏭ `[Explicit]` (P2) |
 
 ### Production seams added for testability
 
-Small, behavior-preserving `internal` seams in `App.Avalonia` (exposed via
+Small, behavior-preserving `internal`/`public` seams in `App.Avalonia` (exposed via
 `InternalsVisibleTo`): `WebViewEditor.BuildAnchorHtml`/`EscapeHtml*` (link build +
-escaping), `EditorPanel.FormatHtml` (source view formatter), `LinkDialog.IsValidUrl`.
+escaping), `EditorPanel.FormatHtml` (source view formatter), `LinkDialog.IsValidUrl`,
+`EditorPanel.MapHeadingIndexToTag` + `SemanticHtmlStyles` (block-style mapping),
+`WebViewEditor.ColorCommandFor`/`NormalizeColor` (color command + hex serialization),
+`WebViewEditor.BuildImageHtml*`/`GuessImageMimeType` (image build), `WordCounter`
+(HTML→plain-text counts), and `TextFinder` (find/replace incl. HTML-aware Replace All).
 
 ### Publish tests target the real pipeline
 
