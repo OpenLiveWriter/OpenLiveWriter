@@ -3,7 +3,7 @@
 Single source of truth for the Mac (Avalonia) port. Goal: **feature and visual
 parity with Open Live Writer for Windows.** Update this file as work lands.
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (editor-content parity band: semantic styles, color, image, word count, find)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (accounts + publishing UI: blog account model/store, Keychain credentials, add/configure/select-blog dialogs, PostAndPublish/PostAsDraft wired)
 
 ## Official milestone plan
 
@@ -93,6 +93,14 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
   (Save Draft), Open Draft (picker), Delete Draft, and `OpenDraftMRU0-9` File-menu
   commands are wired in the shell, with Save/Discard/Cancel unsaved-changes prompts
   on New/Open driven by the dirty flag. See §8.
+- **Blog accounts + publishing (Home / Blog Account tabs):** cross-platform
+  `BlogAccount` model + `IAccountStore`/`FileAccountStore` (JSON per account, current
+  selection persisted) with passwords in the macOS Keychain via an `ICredentialStore`
+  seam over `MacCredentialStorage`. Add/Configure/Manage-accounts dialogs, a Select-Blog
+  picker, a host-populated ribbon blog-selector dropdown, and `PostAndPublish`
+  (publish) / `PostAsDraft` (server draft) wired through `BlogAccountService` →
+  `MetaWeblogXmlRpcClient` → `WebViewEditor.PublishAsync` (body from the live editor).
+  See §9. *Live-endpoint validation is a documented manual step.*
 
 ---
 
@@ -133,16 +141,23 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
    Find & Replace via `FindButton`/`FindAndReplace` (native in-page highlight +
    pure `TextFinder` HTML-aware Replace All that leaves tags untouched).
 
-### P2 — accounts & publishing · M4 parity (publish pipeline slice ported; accounts/UI remain)
-9. **Account setup / blog config.** `AddWeblog`, `ConfigureWeblog`, `Accounts` — no UI;
-   `MacCredentialStorage` exists but is not exercised. Still needs blog-account model +
-   detection wiring (see §7).
-10. **Publish pipeline.** ✅ *First slice ported* — `OpenLiveWriter.Publishing`
-    (net10.0) now builds the `editor HTML → BlogPost → MetaWeblog XML-RPC` payload
-    cross-platform and is referenced by the Avalonia app via
-    `WebViewEditor.PublishAsync`. Remaining: account/credentials wiring, live
-    round-trip against a real blog, additional providers (Atom/WordPress/Blogger),
-    draft persistence, and `PostAndPublish`/`PostAsDraft`/`SelectBlog` UI. See §7.
+### P2 — accounts & publishing · M4 parity (publish pipeline + accounts/UI landed; live validation pending)
+9. ✅ **Account setup / blog config.** Done — cross-platform `BlogAccount` +
+   `IAccountStore`/`FileAccountStore` (JSON metadata, no secret) + an `ICredentialStore`
+   seam wired to the macOS Keychain (`MacCredentialStorage`) via a thin adapter, plus an
+   in-memory fake for tests. `AddWeblog`/`ConfigureWeblog`/`Accounts` open Add / Manage
+   dialogs; the password never touches the account JSON. *Simplification:* the MetaWeblog
+   API endpoint is entered manually — full provider auto-detection needs the Windows
+   MSHTML detection stack (TODO in `AccountDialog`). See §9.
+10. **Publish pipeline + UI.** ✅ *Ported + wired* — `OpenLiveWriter.Publishing`
+    (net10.0) builds the `editor HTML → BlogPost → MetaWeblog XML-RPC` payload
+    cross-platform; `BlogAccountService` resolves the current account + Keychain password,
+    builds a `MetaWeblogXmlRpcClient`, and the shell's `PostAndPublish` (publish=true) /
+    `PostAsDraft`(+EditOnline) (publish=false) commands publish the live editor content via
+    `WebViewEditor.PublishAsync`, recording the returned post id on the document.
+    `SelectBlog` tracks/persists the current blog. **Remaining:** a live round-trip against
+    a real blog (covered by the `[Explicit]`/`[Category(LiveBlog)]` test), additional
+    providers (Atom/WordPress/Blogger), and image upload-on-publish. See §7 / §9.
 
 ### P3 — visual parity & advanced · M4 parity + M5 packaging
 11. **Ribbon visual fidelity** vs. the Windows Fluent ribbon (spacing, icons, group
@@ -196,11 +211,16 @@ Run:
 - Live editor tests (real macOS desktop session with a WKWebView backend):
   `dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --filter "Category=WebView"`
 - Publish TDD targets: `dotnet test ... --filter "Category=PublishTdd"`
+- Live blog publish (opt-in; posts to a real endpoint): set `OLW_LIVEBLOG_ENDPOINT`,
+  `OLW_LIVEBLOG_BLOGID`, `OLW_LIVEBLOG_USER`, `OLW_LIVEBLOG_PASS` (optionally
+  `OLW_LIVEBLOG_PUBLISH=true`; defaults to posting an unpublished draft) then
+  `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **133 passed / 0 failed / 0 skipped.** WebView-category tests
-are `[Explicit]` (excluded from the default run) so the headless gate stays green.
-The editor-content parity band lifted the count 63 → 133 with pure/headless
-coverage of the newly wired features:
+Default run status: **160 passed / 0 failed.** WebView-category, `PublishTdd`, and
+`LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
+stays green. The accounts/publishing band lifted the count 133 → 160 (new
+`GroupE_AccountTests` + the flipped Group D D3 + `AccountDialog` validation), on top of
+the editor-content parity band that had lifted it 63 → 133 with pure/headless coverage:
 
 - **Semantic styles (P0-5):** `GroupA_ToolbarGapTests` was flipped from documenting
   the h4-h6/pre *gap* to asserting the now-reachable full range via
@@ -214,9 +234,11 @@ coverage of the newly wired features:
 - **Find (P1):** `GroupD_FindReplaceTests` — `TextFinder` case/whole-word/wrap +
   HTML-aware Replace All (tags preserved) + dialog field capture (headless UI).
 
-The only remaining `[Explicit]` non-WebView target is `AccountSetup_StoresCredentials`
-(P2). Earlier milestones: the two Group C `RealPipeline_*` probes (publish slice
-ported) and `GroupD_DraftLifecycleTests` (draft lifecycle) remain green.
+There are no remaining `[Explicit]` non-WebView TDD stubs: `AccountSetup_StoresCredentials`
+(Group D D3) is now implemented and green. The only opt-in target left is the new
+`LiveBlogPublishTests` (`[Category(LiveBlog)]`), which performs a real `metaWeblog.newPost`
+against an endpoint supplied via `OLW_LIVEBLOG_*` env vars (see below). Earlier milestones:
+the two Group C `RealPipeline_*` probes and `GroupD_DraftLifecycleTests` remain green.
 
 ### Why some tests are `[Explicit]`
 
@@ -259,7 +281,13 @@ ported) and `GroupD_DraftLifecycleTests` (draft lifecycle) remain green.
 | D2: image insert from file — data-URI `<img>` build, MIME guess, alt escaping | `GroupD_DialogTests` (`ImageInsert_*`) | ✅ pass |
 | D5: word count — words/chars/paragraphs from HTML, entity decode | `GroupD_WordCountTests` + `GroupD_DialogTests` | ✅ pass |
 | D: find / replace — case, whole-word, wrap, HTML-aware Replace All, dialog capture | `GroupD_FindReplaceTests` (pure `TextFinder` + headless UI) | ✅ pass |
-| D: account setup | `GroupD_DialogTests` | ⏭ `[Explicit]` (P2) |
+| D3: account setup stores credentials (metadata→store, password→credential store, not JSON) | `GroupD_DialogTests` (`AccountSetup_StoresCredentials`) + `AccountDialog` save-enable rule | ✅ pass |
+| E: account store round-trip (save/load/list/delete, overwrite single-file, missing dir, corrupt-file skip + Load throws) | `GroupE_AccountTests` (real `FileAccountStore`, temp dir) | ✅ pass |
+| E: current-blog selection persists across store instances; corrupt pointer ⇒ none | `GroupE_AccountTests` | ✅ pass |
+| E: credential seam (store/retrieve/overwrite/delete) | `GroupE_AccountTests` (`InMemoryCredentialStore` fake) | ✅ pass |
+| E: full publish flow — NewPost payload (title/MainContents/mt_text_more/categories) + publish flag for Publish and Post-as-draft; returned id recorded; no-account/no-credential graceful | `GroupE_AccountTests` (`BlogAccountService` + `FakeBlogClient`) | ✅ pass |
+| E: BlogClientFactory builds MetaWeblog client with account options; unsupported provider throws | `GroupE_AccountTests` | ✅ pass |
+| Live: real `metaWeblog.newPost` against a blog endpoint from `OLW_LIVEBLOG_*` | `LiveBlogPublishTests` | ⏭ `[Explicit]` / `[Category(LiveBlog)]` |
 
 ### Production seams added for testability
 
@@ -329,21 +357,30 @@ candidate for a later pass.)
 
 ### 7.3 Remaining publish backlog
 
-1. **Accounts/credentials wiring.** Blog-account model + `MacCredentialStorage`
-   (Keychain) → construct `MetaWeblogXmlRpcClient` with real endpoint/user/pass;
-   `ICredentialsPrompter` for interactive auth.
-2. **Live transport validation.** Exercise `NewPost`/`EditPost` against a real
-   MetaWeblog endpoint (self-hosted WordPress / `utilities/BlogServer`); handle
-   redirects, encoding, and auth headers via the existing `HttpClient` path.
+1. ✅ **Accounts/credentials wiring.** Done — see §9. `BlogAccount` +
+   `FileAccountStore` + an `ICredentialStore` seam over `MacCredentialStorage`
+   (Keychain) construct a `MetaWeblogXmlRpcClient` with real endpoint/user/pass.
+   *(Interactive `ICredentialsPrompter`-style re-auth is still a follow-up.)*
+2. **Live transport validation.** *(pending — manual step)* Exercise `NewPost`/`EditPost`
+   against a real MetaWeblog endpoint (self-hosted WordPress / `utilities/BlogServer`) via
+   the opt-in `LiveBlogPublishTests` (`OLW_LIVEBLOG_*`). Handle redirects, encoding, and
+   auth headers via the existing `HttpClient` path.
 3. **Additional providers.** Port Atom (AtomPub), WordPress, and Blogger v3 clients
    (larger; some depend on MSHTML detection that must be abstracted first).
+   `BlogClientFactory` currently supports only `MetaWeblog` and throws for others.
 4. ✅ **Draft persistence + document model.** Done — see §8. The publish path can
    now build a `BlogPost` directly from the edited `PostDocument`
    (`PostDocument.ToBlogPost()`), so `PostAsDraft` maps to a local draft save while
    `PostAndPublish` reuses the same document for the transport.
-5. **Publish UI.** `PostAndPublish`/`PostAsDraft` commands, `SelectBlog` gallery,
-   category picker, progress/errors surfaced via `IDialogService`.
-6. **Fold in `feature/macbuild` abstractions** (`ICredentialsPrompter`,
+5. ✅ **Publish UI.** Done — see §9. `PostAndPublish`/`PostAsDraft`(+EditOnline) commands,
+   `SelectBlog` (host-populated ribbon dropdown + picker), and progress/errors surfaced via
+   a `MessageDialog` + status bar. *Category picker and provider auto-detection remain.*
+6. **Provider auto-detection.** Manual API-endpoint entry today; auto-detecting the
+   endpoint/provider from the blog homepage needs the Windows MSHTML/RSD detection stack
+   ported/abstracted (TODO in `AccountDialog`).
+7. **Image upload-on-publish.** Inline data-URI `<img>`s (P1-7) are not yet rewritten to
+   hosted URLs on publish; needs the BlogClient image endpoint (`newMediaObject`).
+8. **Fold in `feature/macbuild` abstractions** (`ICredentialsPrompter`,
    `IDialogService`, dialog relocation) during the full BlogClient port.
 
 ---
@@ -390,3 +427,71 @@ impractical cross-platform.
 save/load round-trip with **DOM equivalence**, new-doc timestamps, in-place
 overwrite (same id, single file), MRU ordering, delete, missing/corrupt-file
 handling, `BlogPost` interop, and `DraftSession` dirty tracking + New/Open/Delete.
+
+---
+
+## 9. Blog accounts + publishing UI (macOS)
+
+Reproduces the Windows add-account / select-blog / publish flow against the ported
+transport (§7), keeping all account logic cross-platform and testable with fakes.
+
+### 9.1 Account / credential design (cross-platform, in `OpenLiveWriter.Publishing.Accounts`)
+
+| Type | Role |
+| --- | --- |
+| `BlogAccount` | Account metadata: `Id`, `DisplayName`, `HomepageUrl`, `ApiEndpointUrl` (MetaWeblog XML-RPC), `BlogId`, `Username`, `ProviderType` (default `MetaWeblog`), `SupportsPages`/`SupportsCategories`/`SupportsExtendedEntries`. **Carries no secret** — the password is never serialized here. |
+| `IAccountStore` / `FileAccountStore` | Persistence seam + JSON-file-per-account impl (`{id}.olaccount.json`, temp-file-then-move). Robust: missing dir ⇒ empty store; corrupt account ⇒ `Load` throws `AccountStoreException` but `List` skips it; the current-selection pointer (`current.json`) resolves to "none" if corrupt. Also persists `CurrentAccountId` (last-selected blog). |
+| `ICredentialStore` / `InMemoryCredentialStore` | Secret-storage seam (`Store`/`Retrieve`/`Delete`/`Exists`) + in-memory fake for tests. Mirrors `Platform.ICredentialStorage` but lives in the publishing assembly so account logic has no Platform dependency. |
+| `BlogClientFactory` | Builds a `MetaWeblogXmlRpcClient` from a `BlogAccount` + password (throws `NotSupportedException` for non-MetaWeblog providers). |
+| `BlogAccountService` | UI-agnostic orchestrator: `SaveAccount(account, password)` (metadata→store, password→credential store; makes first account current), `ListAccounts`, `DeleteAccount` (removes credential too), `CurrentAccount`/`SetCurrentAccount`, `CreateClient`, and the account-aware `Publish(document, editorHtml, publish)` returning a `PublishOutcome` (Success / NoAccountConfigured / NoCredential). Client factory is injectable for tests. |
+
+**What lives where:** account metadata → JSON on disk; **password → credential store
+(macOS Keychain)**, keyed by the account id. Verified by a test asserting the secret is
+absent from the account JSON.
+
+### 9.2 File location + Keychain wiring (platform-resolved, never hardcoded)
+
+`AccountServiceFactory.CreateDefault()` (in `App.Avalonia`) resolves the folder via
+`PlatformContext.Services.GetApplicationDataDirectory()` + `"Accounts"` — i.e.
+`~/Library/Application Support/OpenLiveWriter/Accounts` on macOS. The credential store is
+`PlatformCredentialStore` (an `App.Avalonia` adapter that implements the publishing-layer
+`ICredentialStore` over `Platform.ICredentialStorage` = `MacCredentialStorage`, the
+Keychain via the `security` CLI). **Tests never touch the Keychain** — they inject
+`InMemoryCredentialStore`.
+
+### 9.3 Dialogs + command wiring (`App.Avalonia`)
+
+- **`AccountDialog`** — add/configure a blog account (name, blog URL, MetaWeblog API
+  endpoint, blog id, username, password); Save enables only with a non-trivial endpoint +
+  username (+ password for new accounts; blank on edit keeps the stored secret). Endpoint
+  is entered manually (auto-detection TODO).
+- **`AccountManagerDialog`** / **`SelectBlogDialog`** / **`MessageDialog`** — manage
+  (add/edit/delete/set-current), quick blog pick, and OK-only info/error surface.
+- **`MainWindow`** routes publish/account `CommandId`s through `TryHandlePublishCommandAsync`:
+  `AddWeblog` → Add; `ConfigureWeblog`/`Accounts` → Manager; `SelectBlog` → picker;
+  `PostAndPublish` → publish (publish=true); `PostAsDraft`/`PostAsDraftAndEditOnline` →
+  server draft (publish=false). The ribbon blog-selector `CompactDropDown` is host-populated
+  from stored accounts and raises the current-blog change (persisted). Publish pulls the
+  live body via `WebViewEditor.PublishAsync`, records the returned server post id on the
+  document, and surfaces "no account" / "no blog" / "missing password" / transport errors
+  gracefully.
+
+### 9.4 Tests
+
+`GroupE_AccountTests` (default headless suite, temp dir, in-memory credential fake):
+account store round-trip + overwrite/list/delete + missing/corrupt handling, current-blog
+selection persistence across store instances, credential seam, `BlogAccountService`
+save/update/delete/current, the **full publish flow** through a `FakeBlogClient` (asserts
+NewPost gets the right title/MainContents/`mt_text_more`/categories + publish flag for both
+Publish and Post-as-draft and records the returned post id), and `BlogClientFactory`.
+Group D **D3** (`AccountSetup_StoresCredentials`) is implemented + green. The opt-in
+`LiveBlogPublishTests` (`[Explicit]`/`[Category(LiveBlog)]`) performs a real
+`metaWeblog.newPost` from `OLW_LIVEBLOG_*` env vars — the manual live-validation step.
+
+### 9.5 What still needs live validation / follow-up
+
+- **Real endpoint round-trip** (the one manual step): run `LiveBlogPublishTests` against a
+  self-hosted WordPress/MetaWeblog endpoint to confirm auth, encoding, and redirects.
+- **Provider auto-detection** (MSHTML/RSD), **additional providers** (Atom/WordPress/
+  Blogger), **image upload-on-publish** (`newMediaObject`), a **category picker**, and
+  interactive credential re-prompt.
