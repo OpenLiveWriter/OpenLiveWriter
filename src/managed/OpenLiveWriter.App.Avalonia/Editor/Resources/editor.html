@@ -116,6 +116,20 @@ const OLWBridge = {
         this.reportState();
     },
 
+    // Apply a highlight (background) color to the selection. Prefers CSS-backed
+    // hiliteColor (honored by WebKit) and falls back to backColor.
+    setHighlight: function(color) {
+        if (!color) return;
+        this.restoreSelection();
+        document.execCommand('styleWithCSS', false, true);
+        if (!document.execCommand('hiliteColor', false, color)) {
+            document.execCommand('backColor', false, color);
+        }
+        document.execCommand('styleWithCSS', false, false);
+        this.saveSelection();
+        this.reportState();
+    },
+
     // Insert a hyperlink around the current selection.
     createLink: function(url) {
         if (!url) return;

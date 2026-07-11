@@ -243,6 +243,66 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public Task SetFontFamilyAsync(string family) => ExecCommandAsync("fontName", family);
         public Task SetFontSizeAsync(string htmlSize) => ExecCommandAsync("fontSize", htmlSize);
 
+        /// <summary>
+        /// Applies a text (foreground) color to the current selection. The color is
+        /// normalized to <c>#RRGGBB</c> before dispatch; invalid values are ignored.
+        /// </summary>
+        public Task SetFontColorAsync(string color)
+        {
+            string hex = NormalizeColor(color);
+            return hex == null ? Task.CompletedTask : ExecCommandAsync("foreColor", hex);
+        }
+
+        /// <summary>
+        /// Applies a highlight (background) color to the current selection. Uses the
+        /// <c>setHighlight</c> bridge helper which prefers <c>hiliteColor</c> with a
+        /// <c>backColor</c> fallback for engines that don't honor it.
+        /// </summary>
+        public async Task SetHighlightColorAsync(string color)
+        {
+            string hex = NormalizeColor(color);
+            if (hex == null || _webView == null || !_isReady) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.setHighlight('{EscapeJs(hex)}')");
+        }
+
+        /// <summary>
+        /// Maps a color-picker command to the <c>document.execCommand</c> name it
+        /// drives. Pure/deterministic for headless testing. Returns null for
+        /// commands that are not color pickers.
+        /// </summary>
+        internal static string ColorCommandFor(CommandId commandId) => commandId switch
+        {
+            CommandId.FontColorPicker => "foreColor",
+            CommandId.FontColor => "foreColor",
+            CommandId.FontBackgroundColor => "hiliteColor",
+            _ => null
+        };
+
+        /// <summary>
+        /// Normalizes a color string to canonical <c>#RRGGBB</c> (uppercase),
+        /// expanding 3-digit shorthand and tolerating a missing leading '#'.
+        /// Returns null when the input is not a valid hex color. Pure so the
+        /// serialization is unit-testable without a live WebView.
+        /// </summary>
+        internal static string NormalizeColor(string color)
+        {
+            if (string.IsNullOrWhiteSpace(color)) return null;
+            string s = color.Trim();
+            if (s.StartsWith("#")) s = s.Substring(1);
+
+            if (s.Length == 3)
+                s = new string(new[] { s[0], s[0], s[1], s[1], s[2], s[2] });
+
+            if (s.Length != 6) return null;
+            foreach (char c in s)
+            {
+                if (!Uri.IsHexDigit(c)) return null;
+            }
+            return "#" + s.ToUpperInvariant();
+        }
+
         public async Task ToggleBlockAsync(string tag)
         {
             if (_webView == null || !_isReady) return;

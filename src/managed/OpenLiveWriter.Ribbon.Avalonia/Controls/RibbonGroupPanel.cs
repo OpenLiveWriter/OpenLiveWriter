@@ -394,12 +394,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     break;
 
                 case ColorPickerConfig color:
-                    var colorBtn = new RibbonButtonControl(
-                        color.CommandId,
-                        CommandLabelHelper.GetLabel(color.CommandId),
-                        RibbonGroupSize.Small);
-                    colorBtn.CommandExecuted += (s, cmd) => CommandExecuted?.Invoke(this, cmd);
-                    control = colorBtn;
+                    control = CreateColorPicker(color);
                     break;
 
                 case SeparatorConfig _:
@@ -545,6 +540,90 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     TextWrapping = TextWrapping.Wrap
+                }
+            };
+
+            return button;
+        }
+
+        // Standard text-color palette (Office-like). Values are #RRGGBB hex.
+        private static readonly string[] StandardColorPalette =
+        {
+            "#000000", "#444444", "#666666", "#999999", "#CCCCCC", "#FFFFFF",
+            "#FF0000", "#FF9900", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF",
+            "#9900FF", "#FF00FF", "#990000", "#B45F06", "#BF9000", "#38761D",
+            "#134F5C", "#0B5394", "#351C75", "#741B47",
+        };
+
+        // Highlight palette — brighter background swatches.
+        private static readonly string[] HighlightColorPalette =
+        {
+            "#FFFF00", "#00FF00", "#00FFFF", "#FF00FF", "#0000FF", "#FF0000",
+            "#000080", "#008080", "#008000", "#800080", "#800000", "#808000",
+            "#808080", "#C0C0C0", "#FFFFFF", "#000000",
+        };
+
+        /// <summary>
+        /// Builds a color-picker button: a small labelled button that opens a
+        /// flyout of color swatches. Selecting a swatch raises
+        /// <see cref="ComboSelectionChanged"/> with the chosen <c>#RRGGBB</c> value.
+        /// </summary>
+        private Control CreateColorPicker(ColorPickerConfig config)
+        {
+            var palette = config.ColorTemplate == RibbonColorTemplate.HighlightColors
+                ? HighlightColorPalette
+                : StandardColorPalette;
+
+            var swatchPanel = new WrapPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Width = 6 * 22 + 8,
+                Margin = new Thickness(4)
+            };
+
+            var flyout = new Flyout { Content = swatchPanel };
+            var commandId = config.CommandId;
+
+            foreach (var hex in palette)
+            {
+                var color = Color.Parse(hex);
+                var swatch = new Button
+                {
+                    Width = 20,
+                    Height = 20,
+                    Margin = new Thickness(1),
+                    Padding = new Thickness(0),
+                    Focusable = false,
+                    Background = new SolidColorBrush(color),
+                    BorderBrush = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88)),
+                    BorderThickness = new Thickness(1),
+                    [ToolTip.TipProperty] = hex
+                };
+                var capturedHex = hex;
+                swatch.Click += (s, e) =>
+                {
+                    ComboSelectionChanged?.Invoke(this,
+                        new RibbonComboSelectionEventArgs(commandId, capturedHex));
+                    flyout.Hide();
+                };
+                swatchPanel.Children.Add(swatch);
+            }
+
+            var button = new Button
+            {
+                Focusable = false,
+                MinHeight = 22,
+                Padding = new Thickness(4, 1),
+                Background = Brushes.Transparent,
+                BorderThickness = new Thickness(1),
+                BorderBrush = Brushes.Transparent,
+                CornerRadius = new CornerRadius(3),
+                Flyout = flyout,
+                Content = new TextBlock
+                {
+                    Text = CommandLabelHelper.GetLabel(commandId) + " \u25BE",
+                    FontSize = 11,
+                    VerticalAlignment = VerticalAlignment.Center
                 }
             };
 

@@ -80,6 +80,15 @@ namespace OpenLiveWriter.App.Avalonia
                         if (editorPanel != null)
                             await editorPanel.ApplySemanticStyleAsync(args.Value);
                         break;
+                    case CommandId.FontColorPicker:
+                    case CommandId.FontColor:
+                        await editor.SetFontColorAsync(args.Value);
+                        UpdateStatus($"Font color: {args.Value}");
+                        break;
+                    case CommandId.FontBackgroundColor:
+                        await editor.SetHighlightColorAsync(args.Value);
+                        UpdateStatus($"Highlight: {args.Value}");
+                        break;
                 }
             };
 
