@@ -142,3 +142,74 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 - Editor behavior: `OpenLiveWriter.EditorTests` GUI bench ("Run Auto Tests" button)
   exercises bold/italic/underline/strike/sub/super/alignment/list/HR/blockquote/link
   round-trips plus `getState()` assertions against the live WebView.
+- Automated suite: `OpenLiveWriter.EditorTests.Automated` (see §6).
+
+---
+
+## 6. Test coverage
+
+Automated suite: **`OpenLiveWriter.EditorTests.Automated`** (NUnit +
+`Avalonia.Headless.NUnit` + AngleSharp). DOM assertions use AngleSharp (parsed
+tags/attributes, not substring matching). The manual GUI bench
+(`OpenLiveWriter.EditorTests`) is retained for live, eyes-on verification.
+
+Run:
+
+- Default (headless, no WebView backend needed): `dotnet test src/managed/OpenLiveWriter.EditorTests.Automated`
+- Live editor tests (real macOS desktop session with a WKWebView backend):
+  `dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --filter "Category=WebView"`
+- Publish TDD targets: `dotnet test ... --filter "Category=PublishTdd"`
+
+Default run status: **44 passed / 0 failed / 0 skipped.** WebView-category and
+publish TDD tests are `[Explicit]` (excluded from the default run) so the headless
+gate stays green.
+
+### Why some tests are `[Explicit]`
+
+- **WebView category:** `document.execCommand` formatting runs *inside* WKWebView.
+  A live WebView needs a real windowing backend and does not initialize under a
+  headless `dotnet test`; those tests report *skipped* (via `Assert.Ignore`) with
+  guidance rather than failing. They are structured/ready and re-use
+  `EditorTestHarness` — run them on a real macOS desktop session, or rely on the
+  manual bench for live verification.
+- **Publish TDD:** the Windows publish pipeline (`BlogClient`/`PostEditor`) is
+  `net10.0-windows` and not yet ported, so Group C drives a cross-platform
+  *contract* (test-side `BlogPost`/`IBlogClient`/`FakeBlogClient`) that runs and
+  passes today; reflection probes for the real ported pipeline are `[Explicit]`.
+
+### Scenario map
+
+| Scenario | Coverage | Default run |
+| --- | --- | --- |
+| A: bold / italic / underline / strike / sub / sup | `GroupA_EditorCommandTests` | ⏭ WebView |
+| A: un/ordered lists, indent/outdent (idempotent) | `GroupA_EditorCommandTests` | ⏭ WebView |
+| A: align L/C/R/justify | `GroupA_EditorCommandTests` | ⏭ WebView |
+| A: blockquote toggle (present → reverts to `<p>`) | `GroupA_EditorCommandTests` | ⏭ WebView |
+| A: headings h1–h6 + p + pre (via bridge `formatBlock`) | `GroupA_EditorCommandTests` | ⏭ WebView |
+| A: toolbar HeadingCombo only reaches h1–h3 (gap) | `GroupA_ToolbarGapTests` | ✅ pass |
+| A: createLink / link text+title+new-window + escaping | `GroupA_EditorCommandTests` (live) + `GroupA_LinkHtmlTests` (pure) | ✅ pass (pure) / ⏭ WebView (live) |
+| A: horizontal rule, clear formatting, partial-selection bold | `GroupA_EditorCommandTests` | ⏭ WebView |
+| A: font family / size | `GroupA_EditorCommandTests` | ⏭ WebView |
+| A16: well-formedness / publish-readiness gate | `GroupA_WellFormednessTests` (samples) + `GroupA_EditorCommandTests` (live) | ✅ pass (samples) / ⏭ WebView (live) |
+| A18: getState sync (bold on→true, off→false; blockTag) | `GroupA18_GetStateTests` | ⏭ WebView |
+| B1–B3: source/preview round-trip (WYSIWYG↔source, hand-edited h2+ul) | `GroupB_RoundtripTests` (via `EditorPanel.FormatHtml`) | ✅ pass |
+| B: live round-trip + preview render | `GroupB_RoundtripTests` | ⏭ WebView / preview `[Explicit]` |
+| C: post model, MetaWeblog payload (description=MainContents, publish flag), draft, extended split | `GroupC_PublishTests` (FakeBlogClient) | ✅ pass (contract) |
+| C: XmlCharacterHelper-style XML-char scrub | `GroupC_PublishTests` | ✅ pass |
+| C: real ported pipeline present | `GroupC_PublishTests` (reflection probes) | ⏭ PublishTdd |
+| D1: LinkDialog validation (Insert disabled for empty/`https://`) | `GroupD_DialogTests` (logic + headless UI) | ✅ pass |
+| D: image insert / account setup / draft save-open / word count | `GroupD_DialogTests` | ⏭ `[Explicit]` |
+
+### Production seams added for testability
+
+Small, behavior-preserving `internal` seams in `App.Avalonia` (exposed via
+`InternalsVisibleTo`): `WebViewEditor.BuildAnchorHtml`/`EscapeHtml*` (link build +
+escaping), `EditorPanel.FormatHtml` (source view formatter), `LinkDialog.IsValidUrl`.
+
+### Publish tests are TDD targets
+
+Group C is **blocked on porting `BlogClient`/`PostEditor` off WinForms** to a
+cross-platform assembly referenceable from the Avalonia app. Until then the tests
+pin the contract (`BlogPost` main/extended split, MetaWeblog payload shape, XML
+scrubbing) against `FakeBlogClient`; the `[Explicit]` reflection probes flip green
+once the real pipeline is wired into the editor.
