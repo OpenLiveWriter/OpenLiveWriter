@@ -229,64 +229,83 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         private (string Glyph, FontWeight Weight, FontStyle Style, TextDecorationCollection Decorations) GetGlyphStyle()
         {
+            string glyph = GlyphForCommand(_commandId);
             switch (_commandId)
             {
                 case CommandId.Bold:
-                    return ("B", FontWeight.Bold, FontStyle.Normal, null);
+                    return (glyph, FontWeight.Bold, FontStyle.Normal, null);
                 case CommandId.Italic:
-                    return ("I", FontWeight.Normal, FontStyle.Italic, null);
+                    return (glyph, FontWeight.Normal, FontStyle.Italic, null);
                 case CommandId.Underline:
-                    return ("U", FontWeight.Normal, FontStyle.Normal, TextDecorations.Underline);
+                    return (glyph, FontWeight.Normal, FontStyle.Normal, TextDecorations.Underline);
                 case CommandId.Strikethrough:
-                    return ("S", FontWeight.Normal, FontStyle.Normal, TextDecorations.Strikethrough);
-                case CommandId.Subscript:
-                    return ("X\u2082", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.Superscript:
-                    return ("X\u00B2", FontWeight.Normal, FontStyle.Normal, null);
+                    return (glyph, FontWeight.Normal, FontStyle.Normal, TextDecorations.Strikethrough);
                 case CommandId.Bullets:
-                    return ("\u2022", FontWeight.Bold, FontStyle.Normal, null);
+                case CommandId.Blockquote:
+                    return (glyph, FontWeight.Bold, FontStyle.Normal, null);
                 case CommandId.Numbers:
-                    return ("1.", FontWeight.SemiBold, FontStyle.Normal, null);
-                case CommandId.AlignLeft:
-                    return ("\u2630", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.AlignCenter:
-                    return ("\u2630", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.AlignRight:
-                    return ("\u2630", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.Justify:
-                    return ("\u2630", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.Paste:
-                    return ("\u2398", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.Cut:
-                    return ("\u2702", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.CopyCommand:
-                    return ("\u2398", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.Undo:
-                    return ("\u21B6", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.Redo:
-                    return ("\u21B7", FontWeight.Normal, FontStyle.Normal, null);
-                case CommandId.InsertLink:
-                    return ("\u29C9", FontWeight.Normal, FontStyle.Normal, null); // ⧉ link-ish
-                case CommandId.FindButton:
-                case CommandId.FindAndReplace:
-                    return ("\u2315", FontWeight.Normal, FontStyle.Normal, null); // ⌕
-                case CommandId.PostAndPublish:
-                    return ("\u2191", FontWeight.Bold, FontStyle.Normal, null);
                 case CommandId.SavePost:
-                    return ("S", FontWeight.SemiBold, FontStyle.Normal, null);
+                    return (glyph, FontWeight.SemiBold, FontStyle.Normal, null);
+                case CommandId.PostAndPublish:
+                    return (glyph, FontWeight.Bold, FontStyle.Normal, null);
                 default:
-                    // First letter of the label — readable without fake icon art.
-                    string initial = string.IsNullOrEmpty(_label) ? "?" : _label.Trim()[0].ToString().ToUpperInvariant();
-                    return (initial, FontWeight.SemiBold, FontStyle.Normal, null);
+                    return (glyph, FontWeight.SemiBold, FontStyle.Normal, null);
             }
         }
 
         private static bool IsFormattingGlyphCommand(CommandId id) =>
             id is CommandId.Bold or CommandId.Italic or CommandId.Underline
                 or CommandId.Strikethrough or CommandId.Subscript or CommandId.Superscript
-                or CommandId.Bullets or CommandId.Numbers
+                or CommandId.Bullets or CommandId.Numbers or CommandId.Blockquote
                 or CommandId.AlignLeft or CommandId.AlignCenter
                 or CommandId.AlignRight or CommandId.Justify;
+
+        /// <summary>
+        /// Readable glyph text used for the given command (testable without a visual tree).
+        /// </summary>
+        public static string GlyphForCommand(CommandId commandId)
+        {
+            switch (commandId)
+            {
+                case CommandId.Bold: return "B";
+                case CommandId.Italic: return "I";
+                case CommandId.Underline: return "U";
+                case CommandId.Strikethrough: return "S";
+                case CommandId.Subscript: return "X\u2082";
+                case CommandId.Superscript: return "X\u00B2";
+                case CommandId.Bullets: return "\u2022";
+                case CommandId.Numbers: return "1.";
+                case CommandId.Blockquote: return "\u201C";
+                case CommandId.AlignLeft:
+                case CommandId.AlignCenter:
+                case CommandId.AlignRight:
+                case CommandId.Justify:
+                    return "\u2630";
+                case CommandId.Paste:
+                case CommandId.CopyCommand:
+                    return "\u2398";
+                case CommandId.Cut:
+                    return "\u2702";
+                case CommandId.Undo:
+                    return "\u21B6";
+                case CommandId.Redo:
+                    return "\u21B7";
+                case CommandId.InsertLink:
+                    return "\u29C9";
+                case CommandId.FindButton:
+                case CommandId.FindAndReplace:
+                    return "\u2315";
+                case CommandId.PostAndPublish:
+                    return "\u2191";
+                case CommandId.SavePost:
+                    return "S";
+                default:
+                    var label = CommandLabelHelper.GetLabel(commandId);
+                    return string.IsNullOrEmpty(label)
+                        ? "?"
+                        : label.Trim()[0].ToString().ToUpperInvariant();
+            }
+        }
 
         /// <summary>Shortens long ribbon captions so Large buttons stay readable.</summary>
         private static string ShortLabel(string label)

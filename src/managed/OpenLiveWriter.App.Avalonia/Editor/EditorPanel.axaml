@@ -20,11 +20,14 @@
                             Spacing="2"
                             VerticalAlignment="Center">
                     <ToggleButton x:Name="EditViewButton" Content="Edit" IsChecked="True"
-                                  Height="26" MinHeight="24" MinWidth="48" Padding="8,2" FontSize="12" />
+                                  Height="26" MinHeight="24" MinWidth="64" Padding="10,2" FontSize="12"
+                                  HorizontalContentAlignment="Center" />
                     <ToggleButton x:Name="SourceViewButton" Content="Source"
-                                  Height="26" MinHeight="24" MinWidth="56" Padding="8,2" FontSize="12" />
+                                  Height="26" MinHeight="24" MinWidth="64" Padding="10,2" FontSize="12"
+                                  HorizontalContentAlignment="Center" />
                     <ToggleButton x:Name="PreviewViewButton" Content="Preview"
-                                  Height="26" MinHeight="24" MinWidth="56" Padding="8,2" FontSize="12" />
+                                  Height="26" MinHeight="24" MinWidth="64" Padding="10,2" FontSize="12"
+                                  HorizontalContentAlignment="Center" />
                 </StackPanel>
                 <TextBlock Text="Editing"
                            FontSize="11"

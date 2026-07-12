@@ -410,6 +410,10 @@ namespace OpenLiveWriter.App.Avalonia
             _ribbon.SetComboSelection(CommandId.FontFamily, state.FontFamily);
             _ribbon.SetComboSelection(CommandId.FontSize, state.FontSize);
 
+            // Reflect the caret's block style (p/h1-h6/pre) in the Styles combo.
+            // Unknown tags (e.g. blockquote) clear the selection via SetComboSelection.
+            _ribbon.SetComboSelection(CommandId.SemanticHtmlGallery, state.BlockTag);
+
             // Show/hide the contextual ribbon tab (Table/Picture/Video/Map/Tag Tools)
             // that matches the caret's current selection context.
             _ribbon.ActivateContextualTabGroup(ContextualTabResolver.Resolve(state));

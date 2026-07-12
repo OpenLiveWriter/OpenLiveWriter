@@ -40,6 +40,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private readonly Dictionary<CommandId, List<ComboBox>> _dropDownsByCommand = new();
         // Last-known toggle states, re-applied when the active tab changes.
         private readonly Dictionary<CommandId, bool> _toggleStates = new();
+        // Last-known editor combo selections (font/size/style), re-applied on rebuild.
+        private readonly Dictionary<CommandId, string> _comboSelections = new();
         // Last-known dropdown item data, re-applied when the active tab changes.
         private readonly Dictionary<CommandId, (IReadOnlyList<RibbonGalleryItem> Items, string SelectedId)> _dropDownData = new();
         // Guards against re-entrant ComboSelectionChanged while we populate items.
@@ -109,6 +111,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// raise <see cref="ComboSelectionChanged"/>.
         /// </summary>
         public void SetComboSelection(CommandId commandId, string value)
+        {
+            _comboSelections[commandId] = value;
+            ApplyComboSelection(commandId, value);
+        }
+
+        private void ApplyComboSelection(CommandId commandId, string value)
         {
             if (!_dropDownsByCommand.TryGetValue(commandId, out var combos))
                 return;
@@ -368,6 +376,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Re-apply any known toggle states to the freshly built buttons.
             foreach (var kvp in _toggleStates)
                 ApplyToggleState(kvp.Key, kvp.Value);
+
+            // Re-apply remembered editor combo selections (font/size/style).
+            foreach (var kvp in _comboSelections)
+                ApplyComboSelection(kvp.Key, kvp.Value);
 
             // Re-apply any known dropdown item data to the freshly built dropdowns.
             foreach (var commandId in _dropDownData.Keys)

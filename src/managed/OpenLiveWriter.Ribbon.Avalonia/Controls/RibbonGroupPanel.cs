@@ -375,9 +375,17 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// </summary>
         private Control CreateEditorComboBox(ComboBoxConfig combo)
         {
+            double width = combo.PreferredWidth > 0 ? combo.PreferredWidth : 120;
+            // Font size needs room for the selected label ("12", "14", "36") plus
+            // the Avalonia combo chrome/arrow; Prefer Width == MinWidth so layout
+            // cannot shrink below the configured preferred size.
+            if (combo.CommandId == CommandId.FontSize)
+                width = Math.Max(width, 56);
+
             var comboBox = new global::Avalonia.Controls.ComboBox
             {
-                Width = combo.PreferredWidth,
+                Width = width,
+                MinWidth = width,
                 Height = 26,
                 MinHeight = 24,
                 PlaceholderText = CommandLabelHelper.GetLabel(combo.CommandId),
@@ -508,10 +516,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             if (gallery.GalleryType == RibbonGalleryType.InRibbon)
             {
-                // The semantic HTML styles gallery is interactive: clicking it opens
-                // a flyout of block styles (Normal/Heading 1-6/Preformatted); the
-                // chosen tag is raised via ComboSelectionChanged so the host applies
-                // it through the editor's formatBlock bridge.
+                // The semantic HTML styles gallery is a Style ComboBox (current
+                // selection + dropdown), not an always-visible in-ribbon list.
                 if (gallery.CommandId == CommandId.SemanticHtmlGallery)
                     return CreateSemanticHtmlGallery(gallery, label);
 
@@ -591,51 +597,35 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         };
 
         /// <summary>
-        /// Builds the interactive "HTML styles" gallery: a bordered button that
-        /// opens a flyout of semantic block styles. Selecting a style raises
-        /// <see cref="ComboSelectionChanged"/> with the formatBlock tag as the value.
+        /// Builds the interactive "HTML styles" selector as a ComboBox (Windows OLW
+        /// Style dropdown UX): shows the current block style and opens to pick
+        /// Normal / Heading 1-6 / Preformatted. Registered in <see cref="_dropDowns"/>
+        /// so the host can reflect <c>FormatState.BlockTag</c> via SetComboSelection.
         /// </summary>
         private Control CreateSemanticHtmlGallery(GalleryConfig gallery, string label)
         {
-            var columns = gallery.MinColumnsLarge > 0 ? gallery.MinColumnsLarge : gallery.Columns;
-            var itemWidth = gallery.ItemWidth > 0 ? gallery.ItemWidth : 48;
-            var width = Math.Max(columns * itemWidth + 16, 80);
-
-            var flyout = new MenuFlyout();
-            foreach (var (styleLabel, tag) in SemanticHtmlStyleItems)
+            var comboBox = new global::Avalonia.Controls.ComboBox
             {
-                var item = new MenuItem { Header = styleLabel };
-                var capturedTag = tag;
-                item.Click += (s, e) => ComboSelectionChanged?.Invoke(
-                    this, new RibbonComboSelectionEventArgs(CommandId.SemanticHtmlGallery, capturedTag));
-                flyout.Items.Add(item);
-            }
-
-            var button = new Button
-            {
-                Width = width,
-                MinHeight = 58,
-                Focusable = false,
-                Background = new SolidColorBrush(Color.FromRgb(0xF5, 0xF5, 0xF5)),
-                BorderBrush = new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC)),
-                BorderThickness = new Thickness(1),
-                CornerRadius = new CornerRadius(3),
-                Padding = new Thickness(4),
-                HorizontalContentAlignment = HorizontalAlignment.Center,
-                VerticalContentAlignment = VerticalAlignment.Center,
-                Flyout = flyout,
-                Content = new TextBlock
-                {
-                    Text = label + " \u25BE",
-                    FontSize = 11,
-                    Foreground = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88)),
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    TextWrapping = TextWrapping.Wrap
-                }
+                Width = 140,
+                MinWidth = 120,
+                Height = 26,
+                MinHeight = 24,
+                PlaceholderText = label,
+                VerticalAlignment = VerticalAlignment.Center
             };
 
-            return button;
+            foreach (var (styleLabel, tag) in SemanticHtmlStyleItems)
+                comboBox.Items.Add(new ComboBoxItem { Content = styleLabel, Tag = tag });
+
+            comboBox.SelectionChanged += (s, e) =>
+            {
+                if (comboBox.SelectedItem is ComboBoxItem item && item.Tag is string tag)
+                    ComboSelectionChanged?.Invoke(
+                        this, new RibbonComboSelectionEventArgs(CommandId.SemanticHtmlGallery, tag));
+            };
+
+            _dropDowns.Add((CommandId.SemanticHtmlGallery, comboBox));
+            return comboBox;
         }
 
         // Standard text-color palette (Office-like). Values are #RRGGBB hex.

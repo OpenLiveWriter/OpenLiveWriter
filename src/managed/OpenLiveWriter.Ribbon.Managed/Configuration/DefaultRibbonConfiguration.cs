@@ -164,7 +164,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             var fontGroup = CreateGroup(CommandId.FontGroup, "Font", "FN");
             fontGroup.SizeDefinition = "FontGroup";
             fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontFamily, PreferredWidth = 120, IsEditable = true, IsAutoCompleteEnabled = true });
-            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 40, IsEditable = true, IsAutoCompleteEnabled = true });
+            // Wide enough to show selected size labels ("12", "14", "36") without clipping.
+            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 56, IsEditable = true, IsAutoCompleteEnabled = true });
             fontGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ClearFormatting, PreferredSize = RibbonGroupSize.Small });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Bold, PreferredSize = RibbonGroupSize.Small });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Italic, PreferredSize = RibbonGroupSize.Small });

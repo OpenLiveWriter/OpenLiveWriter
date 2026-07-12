@@ -57,5 +57,21 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             }
             return false;
         }
+
+        /// <summary>
+        /// Display label for a formatBlock tag (e.g. "h2" → "Heading 2"), or null
+        /// when the tag is not a known semantic style.
+        /// </summary>
+        public static string LabelForTag(string tag)
+        {
+            if (string.IsNullOrEmpty(tag))
+                return null;
+            foreach (var (label, t) in Styles)
+            {
+                if (string.Equals(t, tag, StringComparison.OrdinalIgnoreCase))
+                    return label;
+            }
+            return null;
+        }
     }
 }
