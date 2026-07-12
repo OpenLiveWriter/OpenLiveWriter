@@ -72,5 +72,27 @@ chmod +x "$MACOS/$EXE_NAME"
 echo "==> Published bundle: $BUNDLE_DIR"
 echo "==> Run headless tests: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated"
 
-# TODO(M5): codesign --deep --force --sign "Developer ID Application: ..." "$BUNDLE_DIR"
-# TODO(M5): xcrun notarytool submit ... --wait
+# Optional DMG creation (set OLW_CREATE_DMG=1 to enable).
+if [[ "${OLW_CREATE_DMG:-}" == "1" ]]; then
+  DMG_PATH="$OUT/$APP_NAME.dmg"
+  DMG_STAGE="$OUT/dmg-stage"
+  rm -rf "$DMG_STAGE" "$DMG_PATH"
+  mkdir -p "$DMG_STAGE"
+  cp -R "$BUNDLE_DIR" "$DMG_STAGE/"
+  ln -s /Applications "$DMG_STAGE/Applications"
+  hdiutil create -volname "$APP_NAME" -srcfolder "$DMG_STAGE" -ov -format UDZO "$DMG_PATH"
+  rm -rf "$DMG_STAGE"
+  echo "==> Created DMG: $DMG_PATH"
+fi
+
+# Optional code signing / notarization (requires certificates; not run in default CI).
+# Set these env vars locally when you have Apple Developer credentials:
+#   OLW_CODESIGN_IDENTITY   — "Developer ID Application: Your Name (TEAMID)"
+#   OLW_NOTARY_PROFILE      — notarytool keychain profile name (from xcrun notarytool store-credentials)
+# Example local signing (not executed automatically):
+#   codesign --deep --force --options runtime --sign "$OLW_CODESIGN_IDENTITY" "$BUNDLE_DIR"
+#   ditto -c -k --keepParent "$BUNDLE_DIR" "$OUT/$APP_NAME.zip"
+#   xcrun notarytool submit "$OUT/$APP_NAME.zip" --keychain-profile "$OLW_NOTARY_PROFILE" --wait
+#   xcrun stapler staple "$BUNDLE_DIR"
+
+# TODO(M5): wire OLW_CODESIGN_IDENTITY / OLW_NOTARY_PROFILE when certs are available in CI.
