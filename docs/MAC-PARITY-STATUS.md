@@ -60,9 +60,13 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
 
 - **Shell:** Avalonia MainWindow with a config-driven ribbon (`DefaultRibbonConfiguration`)
   and a status bar. **UI layout (2026-07):** window is freely resizable with
-  `MinWidth`/`MinHeight` 800×600; ribbon + title + editor + status bar reflow so the
-  WebView fills remaining space; formatting toolbar and ribbon tabs/groups scroll
-  horizontally instead of clipping; status bar stays pinned at a fixed height.
+  `MinWidth`/`MinHeight` 800×600; last size/position persisted via
+  `AppPreferencesStore` WindowBounds (clamped to screen working area); ribbon + title +
+  editor + status bar reflow so the WebView fills remaining space; ribbon tabs/groups
+  scroll horizontally; secondary format strip removed (ribbon is primary — editor chrome
+  keeps Edit/Source/Preview only); in-editor find bar (Cmd/Ctrl+F); status bar stays
+  pinned at a fixed height; system window decorations (no client-area extend under
+  traffic lights).
 - **Editor:** WebView (WKWebView) `contenteditable` surface (`editor.html`) with a
   JS bridge (`OLWBridge`) for `execCommand`, selection save/restore, get/set content.
 - **View toggle:** Edit / Source / Preview. Source shows formatted HTML round-tripped
@@ -76,29 +80,29 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
   paths); Insert Emoticon (Unicode emoji picker); Paste Special (clean paste:
   plain-text / safe-HTML via `PasteCleaner`); Insert Clear Break + Insert Extended
   Entry (`<!--more-->`, shared with the publish split).
-- **Caret-state reflection:** the toolbar heading combo and the ribbon Font
-  family/size combos follow the caret's actual block tag / font / size (and the state
-  also carries fore/highlight color), via the `stateChanged` → `FormatState` pipeline.
-- **Editor commands wired to the ribbon + toolbar** (via `WebViewEditor.HandleCommandAsync`):
+- **Caret-state reflection:** the ribbon Font family/size combos follow the caret's
+  actual block tag / font / size (and the state also carries fore/highlight color),
+  via the `stateChanged` → `FormatState` pipeline.
+- **Editor commands wired to the ribbon** (via `WebViewEditor.HandleCommandAsync`):
   - Character: Bold, Italic, Underline, Strikethrough, Subscript, Superscript, Clear Formatting
   - Lists/indent: Bullets, Numbers, Indent, Outdent
   - Paragraph: Align Left/Center/Right, Justify, Blockquote (toggle)
   - Editing: Undo, Redo, Select All
   - Insert: Horizontal line; `createLink`/`insertHtml` bridge methods exist
   - Block format: `formatBlock` — full semantic range (Normal/p, Heading 1-6,
-    Preformatted) via the toolbar combo **and** the ribbon SemanticHtmlGallery flyout
+    Preformatted) via the ribbon SemanticHtmlGallery flyout
   - Color: text color (`foreColor`) + highlight (`hiliteColor`, backColor fallback)
     via ribbon color-swatch flyouts (standard + highlight palettes)
   - Insert: image from file — file picker → inline base64 data-URI `<img>`
-  - Editing: Word Count (statistics dialog) + Find / Find & Replace (native
-    in-page highlight + HTML-aware Replace All)
+  - Editing: Word Count (statistics dialog) + Find (in-editor bar) / Find & Replace
+    (dialog fallback for Replace All; native in-page highlight + HTML-aware Replace All)
 - **Format-state reporting:** `OLWBridge.getState()` reports bold/italic/underline/
   strike/sub/super/lists/alignment/blockTag (consumed by `FormatState`).
 - **Live toggle-state sync:** editor posts `stateChanged` messages (via the Avalonia
   WebView `window.invokeCSharpAction` bridge) → `WebViewEditor.FormatStateChanged` →
-  ribbon + toolbar toggle buttons reflect the caret's current formatting.
+  ribbon toggle buttons reflect the caret's current formatting.
 - **Insert Link:** modal `LinkDialog` (URL + text + title + open-in-new-window),
-  wired to the Link toolbar button, `Ctrl+K`, and the `InsertLink` ribbon command.
+  wired to `Ctrl+K` and the `InsertLink` ribbon command.
 - **Font family / size:** ribbon Font group combos populated and wired to the editor
   (`fontName` / `fontSize`). *Note: size uses the HTML 1–7 scale; refine to px later.*
 - **Document / draft lifecycle (File menu):** cross-platform `PostDocument` model
@@ -208,12 +212,14 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
     chrome, contextual tabs actually appearing on selection). *(M4)* — *incremental:*
     group-label weight/spacing polish + status bar blog name / word-count panes landed;
     **UI layout pass:** MainWindow min size + WebView stretch on resize, ribbon tab/
-    group horizontal scroll (no overflow clip), scrollable editor format toolbar,
-    pinned status bar, dialog MinWidth/resizable list dialogs.
-    **Remaining visual/usability debt:** real ribbon icons (still placeholders);
-    collapse dual chrome (ribbon + format toolbar redundancy); adaptive ribbon
-    Large→Small group sizing at narrow widths; macOS title-bar / traffic-light
-    inset polish; in-editor find bar; print UI.
+    group horizontal scroll (no overflow clip), pinned status bar, dialog MinWidth/
+    resizable list dialogs.
+    **UI polish pass (this band):** dual-toolbar collapse (ribbon primary; slim view-
+    toggle chrome); adaptive compact ribbon below ~960px; readable glyph buttons
+    (styled B/I/U instead of gray squares); window size/position persistence; system
+    chrome (no extend-into-decorations); in-editor find bar.
+    **Remaining visual/usability debt:** real Fluent/SVG ribbon icons; Find Previous /
+    match-count; print UI; further title-bar polish if custom chrome is ever needed.
 12. ✅ **Tables, video, emoticons, preview, paste-special, breaks, maps, tags, spellcheck UI, contextual tabs.** Done across recent bands.
     **Remaining:** print; full plug-in host (stub dialog only). *(M4)*
 13. **M5 packaging:** `.app` bundle foundation (`build-mac.sh` + `mac-build.yml` CI
@@ -229,12 +235,15 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 
 | Area | Fixed | Remaining |
 | --- | --- | --- |
-| MainWindow resize | `CanResize`, `MinWidth` 800 / `MinHeight` 600, DockPanel fill chain | Remember last size/position |
+| MainWindow resize | `CanResize`, `MinWidth` 800 / `MinHeight` 600, DockPanel fill chain; WindowBounds persist + screen clamp | — |
 | Editor WebView | ContentControl Stretch + NativeWebView Stretch so WKWebView tracks resize | Native control edge cases on extreme DPI |
-| Format toolbar | Horizontal `ScrollViewer` so buttons don't clip; view toggles stay visible | Merge/dedupe with ribbon Home tab |
-| Ribbon | Tab strip + groups scroll horizontally; content `MaxHeight` caps chrome | Adaptive Large→Small; real icons |
+| Editor chrome | Slim view toggles only (Edit/Source/Preview); format commands on ribbon | — |
+| Find | In-editor find bar (Cmd/Ctrl+F); Replace dialog for Replace All | Find Previous / match-count readout |
+| Ribbon | Tab/group horizontal scroll; compact Small layout below ~960px; glyph buttons | Real Fluent/SVG icons |
+| macOS chrome | `WindowDecorations=Full`, `ExtendClientAreaToDecorationsHint=false` | Custom title-bar inset only if extending client area later |
 | Status bar | Pinned bottom, fixed height, ellipsis on long blog/status text | — |
 | Dialogs | Min sizes; Preferences/Accounts/Drafts/Categories/SelectBlog resizable | Visual polish vs Windows options UI |
+
 ## 4. Recommended next steps (for the following session)
 
 1. ✅ **Font/highlight color pickers (P0-4)**, **Semantic HTML gallery (P0-5)**,
@@ -243,12 +252,10 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 2. **Font combo refinement:** switch font size from the HTML 1–7 scale to explicit px
    and push the current selection's font family/size + color back into the ribbon
    combos/pickers (extend `FormatState` + `getState()`), same pattern as toggle sync.
-3. **Find polish:** add Find Previous / match-count readout / Replace (single) and a
-   live match-highlight-count; wire an in-editor find bar (currently a non-modal
-   dialog). Image: alt-text/size prompt and the P2 upload-on-publish rewrite.
-4. **Account setup / publish UI (P2-9/10):** blog-account model + `MacCredentialStorage`
-   wiring, `PostAndPublish`/`PostAsDraft`/`SelectBlog` UI (the publish pipeline slice
-   is already ported — see §7).
+3. **Find polish:** Find bar landed (Cmd/Ctrl+F); still want Find Previous /
+   match-count readout / single Replace and live match-highlight-count. Image:
+   alt-text/size prompt (upload-on-publish already done).
+4. **Account setup / publish UI (P2-9/10):** ✅ Done (live validation remaining).
 5. Once P0–P1 editor parity is solid, start the **M5 packaging** track (`.app`/DMG,
    notarization, CI matrix).
 
