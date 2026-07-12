@@ -28,6 +28,8 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             Title = "Open Draft";
             Width = 480;
             Height = 360;
+            MinWidth = 360;
+            MinHeight = 280;
             CanResize = true;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 

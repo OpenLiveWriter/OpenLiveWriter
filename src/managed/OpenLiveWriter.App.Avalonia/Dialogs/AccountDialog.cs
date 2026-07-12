@@ -52,6 +52,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
             Title = _isEdit ? "Blog Account Settings" : "Add a Blog Account";
             Width = 480;
+            MinWidth = 420;
             SizeToContent = SizeToContent.Height;
             CanResize = false;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -131,7 +132,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             var grid = new Grid
             {
                 Margin = new global::Avalonia.Thickness(16),
-                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
+                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
                 ColumnDefinitions = new ColumnDefinitions("Auto,*")
             };
 

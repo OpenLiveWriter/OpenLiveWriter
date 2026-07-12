@@ -39,6 +39,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         {
             Title = "Insert Hyperlink";
             Width = 440;
+            MinWidth = 360;
             SizeToContent = SizeToContent.Height;
             CanResize = false;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;

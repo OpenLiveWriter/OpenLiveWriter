@@ -63,7 +63,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             Title = "Preferences";
             Width = 520;
             Height = 480;
-            CanResize = false;
+            MinWidth = 480;
+            MinHeight = 400;
+            CanResize = true;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             var tabs = new TabControl { Margin = new global::Avalonia.Thickness(16, 16, 16, 0) };

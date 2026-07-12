@@ -33,7 +33,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             Title = "Blog Accounts";
             Width = 460;
             Height = 340;
-            CanResize = false;
+            MinWidth = 400;
+            MinHeight = 280;
+            CanResize = true;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             _list = new ListBox { Margin = new global::Avalonia.Thickness(0, 0, 0, 8) };

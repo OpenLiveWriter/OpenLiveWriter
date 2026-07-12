@@ -32,7 +32,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             Title = "Categories";
             Width = 360;
             Height = 420;
-            CanResize = false;
+            MinWidth = 320;
+            MinHeight = 300;
+            CanResize = true;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             var selected = new HashSet<string>(

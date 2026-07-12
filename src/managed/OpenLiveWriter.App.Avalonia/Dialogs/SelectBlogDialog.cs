@@ -25,7 +25,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             Title = "Select Blog";
             Width = 400;
             Height = 300;
-            CanResize = false;
+            MinWidth = 320;
+            MinHeight = 240;
+            CanResize = true;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             _list = new ListBox();

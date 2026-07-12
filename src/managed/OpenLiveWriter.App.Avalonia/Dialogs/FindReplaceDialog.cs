@@ -44,6 +44,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
             Title = showReplace ? "Find and Replace" : "Find";
             Width = 420;
+            MinWidth = 360;
             SizeToContent = SizeToContent.Height;
             CanResize = false;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
