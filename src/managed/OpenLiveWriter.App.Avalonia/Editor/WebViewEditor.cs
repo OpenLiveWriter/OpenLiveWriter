@@ -180,8 +180,21 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 FontFamily = NormalizeFontName(S("fontName")),
                 FontSize = S("fontSize"),
                 ForeColor = NormalizeReportedColor(S("foreColor")),
-                HighlightColor = NormalizeReportedColor(S("backColor"))
+                HighlightColor = NormalizeReportedColor(S("backColor")),
+                InTable = B("inTable"),
+                SelectedElementType = NormalizeElementType(S("selectedElementType"))
             };
+        }
+
+        /// <summary>
+        /// Normalizes the reported selected-element type to a lower-case canonical
+        /// token (image/video/map/tag) or null when nothing rich is selected.
+        /// </summary>
+        internal static string NormalizeElementType(string type)
+        {
+            if (string.IsNullOrWhiteSpace(type)) return null;
+            string s = type.Trim().ToLowerInvariant();
+            return s.Length == 0 ? null : s;
         }
 
         /// <summary>
@@ -729,5 +742,14 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         /// <summary>The selection's highlight/background color as <c>#RRGGBB</c>, or null.</summary>
         public string HighlightColor { get; set; }
+
+        /// <summary>True when the caret is inside a table cell (drives Table Tools).</summary>
+        public bool InTable { get; set; }
+
+        /// <summary>
+        /// The kind of rich element the selection sits within (image/video/map/tag),
+        /// or null. Drives contextual-tab activation.
+        /// </summary>
+        public string SelectedElementType { get; set; }
     }
 }

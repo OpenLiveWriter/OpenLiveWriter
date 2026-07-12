@@ -387,6 +387,10 @@ namespace OpenLiveWriter.App.Avalonia
             // Reflect the caret's font family/size in the ribbon Font combos.
             _ribbon.SetComboSelection(CommandId.FontFamily, state.FontFamily);
             _ribbon.SetComboSelection(CommandId.FontSize, state.FontSize);
+
+            // Show/hide the contextual ribbon tab (Table/Picture/Video/Map/Tag Tools)
+            // that matches the caret's current selection context.
+            _ribbon.ActivateContextualTabGroup(ContextualTabResolver.Resolve(state));
         }
 
         private FindReplaceDialog _findDialog;

@@ -87,6 +87,7 @@ const OLWBridge = {
 
     // Get current formatting state
     getState: function() {
+        var ctx = this._selectionContext();
         return JSON.stringify({
             bold: document.queryCommandState('bold'),
             italic: document.queryCommandState('italic'),
@@ -104,8 +105,48 @@ const OLWBridge = {
             fontName: (document.queryCommandValue('fontName') || '').toString(),
             fontSize: (document.queryCommandValue('fontSize') || '').toString(),
             foreColor: (document.queryCommandValue('foreColor') || '').toString(),
-            backColor: (document.queryCommandValue('backColor') || document.queryCommandValue('hiliteColor') || '').toString()
+            backColor: (document.queryCommandValue('backColor') || document.queryCommandValue('hiliteColor') || '').toString(),
+            inTable: ctx.inTable,
+            selectedElementType: ctx.selectedElementType
         });
+    },
+
+    // Inspect the current selection and report the contextual editing context:
+    // whether the caret is inside a table cell, and whether it sits within a
+    // recognized rich element (image, video embed, map embed, or tag anchor).
+    // Drives the ribbon's contextual-tab activation. Returns a plain object.
+    _selectionContext: function() {
+        var ctx = { inTable: false, selectedElementType: null };
+        var sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return ctx;
+
+        var range = sel.getRangeAt(0);
+
+        // An image selected as a unit: the range wraps a single IMG node.
+        if (!range.collapsed) {
+            var frag = range.cloneContents();
+            if (frag && frag.childNodes.length === 1 &&
+                frag.childNodes[0].nodeType === 1 && frag.childNodes[0].tagName === 'IMG') {
+                ctx.selectedElementType = 'image';
+            }
+        }
+
+        var node = range.startContainer;
+        var el = node.nodeType === 1 ? node : node.parentNode;
+        while (el && el !== document.body) {
+            var tag = el.tagName;
+            if (tag === 'TD' || tag === 'TH') ctx.inTable = true;
+            if (!ctx.selectedElementType) {
+                var cls = el.classList;
+                if (tag === 'IMG') ctx.selectedElementType = 'image';
+                else if (cls && cls.contains('olw-video')) ctx.selectedElementType = 'video';
+                else if (cls && cls.contains('olw-map')) ctx.selectedElementType = 'map';
+                else if (tag === 'A' && (el.getAttribute('rel') || '').indexOf('tag') >= 0)
+                    ctx.selectedElementType = 'tag';
+            }
+            el = el.parentNode;
+        }
+        return ctx;
     },
 
     // Toggle a block-level format (e.g. blockquote). Applying the same

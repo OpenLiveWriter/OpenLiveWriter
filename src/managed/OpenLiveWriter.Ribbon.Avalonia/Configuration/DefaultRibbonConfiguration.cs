@@ -573,6 +573,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.FormatImageTab,
                 Label = "Format",
                 Keytip = "JP",
+                ContextualGroup = RibbonContextualTabGroup.ImageTools,
                 VisibleModes = RibbonApplicationMode.Normal | RibbonApplicationMode.LTR | RibbonApplicationMode.RTL
             };
 
@@ -671,6 +672,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.FormatVideoTab,
                 Label = "Format",
                 Keytip = "V",
+                ContextualGroup = RibbonContextualTabGroup.VideoTools,
                 VisibleModes = RibbonApplicationMode.Normal | RibbonApplicationMode.LTR | RibbonApplicationMode.RTL
             };
 
@@ -703,6 +705,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.FormatTableTab,
                 Label = "Layout",
                 Keytip = "T",
+                ContextualGroup = RibbonContextualTabGroup.TableTools,
                 VisibleModes = RibbonApplicationMode.Normal | RibbonApplicationMode.LTR | RibbonApplicationMode.RTL
             };
 
@@ -763,6 +766,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.FormatTagTab,
                 Label = "Format",
                 Keytip = "T",
+                ContextualGroup = RibbonContextualTabGroup.TagTools,
                 VisibleModes = RibbonApplicationMode.Normal | RibbonApplicationMode.LTR | RibbonApplicationMode.RTL
             };
 
@@ -795,6 +799,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
                 CommandId = CommandId.FormatMapTab,
                 Label = "Format",
                 Keytip = "M",
+                ContextualGroup = RibbonContextualTabGroup.MapTools,
                 VisibleModes = RibbonApplicationMode.Normal | RibbonApplicationMode.LTR | RibbonApplicationMode.RTL
             };
 

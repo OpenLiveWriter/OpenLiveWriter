@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
@@ -26,6 +27,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private ScrollViewer _contentScrollViewer;
         private StackPanel _groupsPanel;
         private List<TabConfig> _visibleTabs;
+        // The base (non-contextual) tabs, filtered by active modes.
+        private List<TabConfig> _baseTabs;
+        // The contextual tab group currently shown (None when the caret is in body text).
+        private RibbonContextualTabGroup _activeContextualGroup = RibbonContextualTabGroup.None;
 
         // Buttons currently rendered for the active tab, keyed by command.
         private readonly Dictionary<CommandId, List<RibbonButtonControl>> _buttonsByCommand = new();
@@ -165,6 +170,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 if ((tab.VisibleModes & ActiveModes) != 0)
                     _visibleTabs.Add(tab);
             }
+            _baseTabs = new List<TabConfig>(_visibleTabs);
 
             var rootPanel = new DockPanel();
 
@@ -283,6 +289,54 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 foreach (var button in buttons)
                     button.SetChecked(isChecked);
             }
+        }
+
+        /// <summary>
+        /// The contextual tab group currently shown in the tab strip
+        /// (<see cref="RibbonContextualTabGroup.None"/> when none is active).
+        /// </summary>
+        public RibbonContextualTabGroup ActiveContextualGroup => _activeContextualGroup;
+
+        /// <summary>
+        /// Shows (and auto-selects) the contextual tab group appropriate for the
+        /// current editor selection, or hides all contextual tabs when
+        /// <paramref name="group"/> is <see cref="RibbonContextualTabGroup.None"/>.
+        /// Idempotent: re-requesting the already-active group does nothing, so the
+        /// user isn't yanked back to the contextual tab on every caret move.
+        /// </summary>
+        public void ActivateContextualTabGroup(RibbonContextualTabGroup group)
+        {
+            if (group == _activeContextualGroup)
+                return;
+            if (_tabStrip == null)
+                return;
+
+            _activeContextualGroup = group;
+
+            var tabs = new List<TabConfig>(_baseTabs);
+            TabConfig toSelect = null;
+
+            if (group != RibbonContextualTabGroup.None && _configuration != null)
+            {
+                var groupConfig = _configuration.ContextualTabGroups
+                    .FirstOrDefault(g => g.GroupType == group);
+                if (groupConfig != null)
+                {
+                    foreach (var tab in groupConfig.Tabs)
+                    {
+                        if ((tab.VisibleModes & ActiveModes) == 0)
+                            continue;
+                        tabs.Add(tab);
+                        toSelect ??= tab;
+                    }
+                }
+            }
+
+            _visibleTabs = tabs;
+            _tabStrip.SetTabs(tabs);
+
+            if (toSelect != null)
+                _tabStrip.SelectTab(toSelect);
         }
     }
 }

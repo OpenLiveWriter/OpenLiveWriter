@@ -8,6 +8,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
+using OpenLiveWriter.Ribbon.Managed;
 using OpenLiveWriter.Ribbon.Managed.Configuration;
 
 namespace OpenLiveWriter.Ribbon.Avalonia.Controls
@@ -18,10 +19,14 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
     /// </summary>
     public class RibbonTabStrip : Border
     {
-        private readonly List<TabConfig> _tabs;
+        private List<TabConfig> _tabs;
         private readonly StackPanel _tabPanel;
         private readonly List<ToggleButton> _tabButtons = new List<ToggleButton>();
         private int _selectedIndex = -1;
+
+        // Contextual tabs get a distinct accent (mimics the Windows contextual-tab
+        // coloring) so it's obvious they appeared in response to a selection.
+        private static readonly IBrush ContextualBrush = new SolidColorBrush(Color.FromRgb(0x6B, 0x3F, 0xA0));
 
         /// <summary>
         /// Event raised when the active tab changes.
@@ -48,6 +53,9 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             Child = _tabPanel;
         }
 
+        /// <summary>The tab configs currently rendered, in order.</summary>
+        public IReadOnlyList<TabConfig> Tabs => _tabs;
+
         /// <summary>
         /// Gets or sets the currently selected tab index.
         /// </summary>
@@ -70,19 +78,52 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             }
         }
 
+        /// <summary>
+        /// Replaces the rendered tabs (e.g. to add/remove contextual tabs). Preserves
+        /// the current selection by reference when the previously selected tab is still
+        /// present; otherwise selects the first tab. Always raises <see cref="TabChanged"/>
+        /// for the resulting selection so the content area rebuilds.
+        /// </summary>
+        public void SetTabs(List<TabConfig> tabs)
+        {
+            TabConfig previouslySelected =
+                (_selectedIndex >= 0 && _selectedIndex < _tabs.Count) ? _tabs[_selectedIndex] : null;
+
+            _tabs = tabs ?? throw new ArgumentNullException(nameof(tabs));
+            _tabButtons.Clear();
+            _tabPanel.Children.Clear();
+            _selectedIndex = -1;
+
+            BuildTabs();
+
+            int restore = previouslySelected != null ? _tabs.IndexOf(previouslySelected) : -1;
+            SelectedIndex = restore >= 0 ? restore : (_tabs.Count > 0 ? 0 : -1);
+        }
+
+        /// <summary>Selects the given tab config (no-op when it isn't present).</summary>
+        public void SelectTab(TabConfig tab)
+        {
+            int index = _tabs.IndexOf(tab);
+            if (index >= 0)
+                SelectedIndex = index;
+        }
+
         private void BuildTabs()
         {
             for (int i = 0; i < _tabs.Count; i++)
             {
                 var tab = _tabs[i];
+                bool contextual = tab.ContextualGroup != RibbonContextualTabGroup.None;
                 var button = new ToggleButton
                 {
                     Content = tab.Label,
                     Padding = new Thickness(12, 6),
                     FontSize = 12,
+                    FontWeight = contextual ? FontWeight.SemiBold : FontWeight.Normal,
+                    Foreground = contextual ? ContextualBrush : Brushes.Black,
                     Background = Brushes.Transparent,
-                    BorderThickness = new Thickness(1, 1, 1, 0),
-                    BorderBrush = Brushes.Transparent,
+                    BorderThickness = new Thickness(1, contextual ? 2 : 1, 1, 0),
+                    BorderBrush = contextual ? ContextualBrush : Brushes.Transparent,
                     CornerRadius = new CornerRadius(4, 4, 0, 0),
                     Tag = i
                 };
