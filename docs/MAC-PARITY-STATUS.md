@@ -3,7 +3,7 @@
 Single source of truth for the Mac (Avalonia) port. Goal: **feature and visual
 parity with Open Live Writer for Windows.** Update this file as work lands.
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (Insert-tab + preview + selection-state band: real Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, and **re-publish → `editPost`**; on top of the Insert-tab + preview + selection-state band: real Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
 
 ## Official milestone plan
 
@@ -113,6 +113,21 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
   (publish) / `PostAsDraft` (server draft) wired through `BlogAccountService` →
   `MetaWeblogXmlRpcClient` → `WebViewEditor.PublishAsync` (body from the live editor).
   See §9. *Live-endpoint validation is a documented manual step.*
+- **Image upload-on-publish:** inline base64 data-URI `<img>`s are now uploaded to the
+  blog via `metaWeblog.newMediaObject` and rewritten to the returned hosted URLs before
+  the post is sent (dedup identical images, no-op when none, upload-failure aborts the
+  publish). Cross-platform `ImagePublisher`; runs on both new and edit paths. See §10.
+- **Categories:** `metaWeblog.getCategories` fetch (`BlogPostCategory` + tolerant parser)
+  with a category **checklist dialog** (pre-checked selection, free-text entry, graceful
+  when the provider returns none), wired to `ShowCategoryPopup`; chosen categories flow
+  into the inline `newPost` categories array. See §10.
+- **Provider endpoint auto-detection (RSD):** MSHTML-free `RsdServiceDetector` discovers
+  the MetaWeblog endpoint from the blog homepage (`EditURI` link → `rsd.xml` → MetaWeblog
+  `apiLink`/`blogID`); a **Detect** button in the Add/Configure Account dialog auto-fills
+  the endpoint (manual override retained). HTTP behind an `IRsdHttpFetcher` seam. See §10.
+- **Re-publish:** a second publish of an already-published document (same blog) edits the
+  same server post via `metaWeblog.editPost` (matched on recorded `PublishedPostId`)
+  instead of creating a duplicate.
 
 ---
 
@@ -158,18 +173,20 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
    `IAccountStore`/`FileAccountStore` (JSON metadata, no secret) + an `ICredentialStore`
    seam wired to the macOS Keychain (`MacCredentialStorage`) via a thin adapter, plus an
    in-memory fake for tests. `AddWeblog`/`ConfigureWeblog`/`Accounts` open Add / Manage
-   dialogs; the password never touches the account JSON. *Simplification:* the MetaWeblog
-   API endpoint is entered manually — full provider auto-detection needs the Windows
-   MSHTML detection stack (TODO in `AccountDialog`). See §9.
+   dialogs; the password never touches the account JSON. The MetaWeblog API endpoint can
+   now be **auto-detected** from the blog homepage via RSD (a **Detect** button), with
+   manual override retained. See §9 / §10.
 10. **Publish pipeline + UI.** ✅ *Ported + wired* — `OpenLiveWriter.Publishing`
     (net10.0) builds the `editor HTML → BlogPost → MetaWeblog XML-RPC` payload
     cross-platform; `BlogAccountService` resolves the current account + Keychain password,
     builds a `MetaWeblogXmlRpcClient`, and the shell's `PostAndPublish` (publish=true) /
     `PostAsDraft`(+EditOnline) (publish=false) commands publish the live editor content via
     `WebViewEditor.PublishAsync`, recording the returned post id on the document.
-    `SelectBlog` tracks/persists the current blog. **Remaining:** a live round-trip against
-    a real blog (covered by the `[Explicit]`/`[Category(LiveBlog)]` test), additional
-    providers (Atom/WordPress/Blogger), and image upload-on-publish. See §7 / §9.
+    `SelectBlog` tracks/persists the current blog. **Image upload-on-publish**
+    (`newMediaObject`), **categories** (`getCategories` + picker), **RSD endpoint
+    auto-detection**, and **re-publish → `editPost`** are now done (see §10). **Remaining:**
+    a live round-trip against a real blog (covered by the `[Explicit]`/`[Category(LiveBlog)]`
+    tests) and additional providers (Atom/WordPress/Blogger). See §7 / §9 / §10.
 
 ### P3 — visual parity & advanced · M4 parity + M5 packaging
 11. **Ribbon visual fidelity** vs. the Windows Fluent ribbon (spacing, icons, group
@@ -232,9 +249,27 @@ Run:
   `OLW_LIVEBLOG_PUBLISH=true`; defaults to posting an unpublished draft) then
   `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **235 passed / 0 failed.** WebView-category, `PublishTdd`, and
+Default run status: **270 passed / 0 failed.** WebView-category, `PublishTdd`, and
 `LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
-stays green. The Insert-tab + preview + selection-state band lifted the count 160 → 235
+stays green. The publishing-completion band lifted the count 235 → 270 with pure/headless
+coverage (all offline via `FakeBlogClient` / a fake RSD fetcher):
+
+- **Image upload (Group G):** `GroupG_ImageUploadTests` — `ImagePublisher` scan (mime +
+  byte decode, dedup, jpeg→jpg), rewrite/upload (no-op, single/duplicate/multiple images,
+  numbered filenames, upload-failure aborts), integration through
+  `EditorContentPublisher`/`BlogAccountService`, and the real `newMediaObject` struct shape.
+- **Categories (Group H):** `GroupH_CategoryTests` — `getCategories` response parsing
+  (title/description/categoryName + categoryId permutations, parent, indented XML, empty),
+  `FakeBlogClient.GetCategories`, selected categories reaching the `newPost` struct, and
+  `CategoryDialog.MergeSelection` (checked + custom, dedup/trim).
+- **RSD detection (Group I):** `GroupI_RsdDetectionTests` — `FindRsdUrl` (EditURI rel,
+  rsd+xml type, relative/absolute resolution, none), `ParseRsd` (engine + apis, relative
+  apiLink, no-apis), `SelectMetaWeblogApi`, and the full `Detect` flow via a fake fetcher
+  (success, no-link, fetch-failure). A live detection test is `[Explicit]`.
+- **Re-publish (Group J):** `GroupJ_RepublishTests` — `PublishOrEdit` new-vs-edit and the
+  `BlogAccountService` republish-edits-same-post (no duplicate `NewPost`) flow.
+
+Earlier, the Insert-tab + preview + selection-state band lifted the count 160 → 235
 with pure/headless coverage:
 
 - **Preview (B4):** `GroupB_RoundtripTests` — the previously `[Explicit]` failing
@@ -421,14 +456,16 @@ candidate for a later pass.)
    now build a `BlogPost` directly from the edited `PostDocument`
    (`PostDocument.ToBlogPost()`), so `PostAsDraft` maps to a local draft save while
    `PostAndPublish` reuses the same document for the transport.
-5. ✅ **Publish UI.** Done — see §9. `PostAndPublish`/`PostAsDraft`(+EditOnline) commands,
-   `SelectBlog` (host-populated ribbon dropdown + picker), and progress/errors surfaced via
-   a `MessageDialog` + status bar. *Category picker and provider auto-detection remain.*
-6. **Provider auto-detection.** Manual API-endpoint entry today; auto-detecting the
-   endpoint/provider from the blog homepage needs the Windows MSHTML/RSD detection stack
-   ported/abstracted (TODO in `AccountDialog`).
-7. **Image upload-on-publish.** Inline data-URI `<img>`s (P1-7) are not yet rewritten to
-   hosted URLs on publish; needs the BlogClient image endpoint (`newMediaObject`).
+5. ✅ **Publish UI.** Done — see §9/§10. `PostAndPublish`/`PostAsDraft`(+EditOnline)
+   commands, `SelectBlog` (host-populated ribbon dropdown + picker), a **category picker**
+   (`ShowCategoryPopup`), and progress/errors surfaced via a `MessageDialog` + status bar.
+6. ✅ **Provider auto-detection.** Done — MSHTML-free `RsdServiceDetector` (homepage
+   `EditURI` link → `rsd.xml` → MetaWeblog `apiLink`) with a **Detect** button in the
+   Account dialog; HTTP behind an `IRsdHttpFetcher` seam. See §10. *Follow-up: broaden
+   heuristics (WordPress `/xmlrpc.php` guess, `<meta>` generator hints) and more engines.*
+7. ✅ **Image upload-on-publish.** Done — `ImagePublisher` uploads inline data-URI `<img>`s
+   via `metaWeblog.newMediaObject` and rewrites them to hosted URLs before the post is
+   sent (dedup, no-op, upload-failure aborts). See §10.
 8. **Fold in `feature/macbuild` abstractions** (`ICredentialsPrompter`,
    `IDialogService`, dialog relocation) during the full BlogClient port.
 
@@ -540,7 +577,62 @@ Group D **D3** (`AccountSetup_StoresCredentials`) is implemented + green. The op
 ### 9.5 What still needs live validation / follow-up
 
 - **Real endpoint round-trip** (the one manual step): run `LiveBlogPublishTests` against a
-  self-hosted WordPress/MetaWeblog endpoint to confirm auth, encoding, and redirects.
-- **Provider auto-detection** (MSHTML/RSD), **additional providers** (Atom/WordPress/
-  Blogger), **image upload-on-publish** (`newMediaObject`), a **category picker**, and
-  interactive credential re-prompt.
+  self-hosted WordPress/MetaWeblog endpoint to confirm auth, encoding, and redirects —
+  including a real `newMediaObject` image upload and `getCategories` fetch.
+- **Live RSD detection**: run the `[Explicit]` `LiveDetect_FromHomepage_FindsEndpoint`
+  (`OLW_RSD_HOMEPAGE`) against a real blog.
+- **Remaining**: **additional providers** (Atom/WordPress/Blogger — `BlogClientFactory`
+  still only builds MetaWeblog), broader **auto-detection heuristics** (WordPress
+  `/xmlrpc.php` guess, `<meta name="generator">` hints, WLW manifest), interactive
+  credential re-prompt, and image alt-text/resize on insert.
+
+---
+
+## 10. Publishing completion band (macOS) — images, categories, RSD, re-publish
+
+Completes the publishing story so real posts (images + categories) publish correctly,
+and re-publishing edits the same server post. All logic is cross-platform and offline-
+testable with fakes; only true live round-trips remain manual (`[Explicit]`).
+
+### 10.1 Image upload-on-publish (`OpenLiveWriter.Publishing.ImagePublisher`)
+
+The editor embeds inserted images as base64 `data:` URIs. Before a post is transmitted,
+`ImagePublisher` scans the body for those data-URI `<img>`s, uploads each **unique** image
+via `IBlogClient.NewMediaObject` (`metaWeblog.newMediaObject`, faithful `name`/`type`/`bits`
+struct + new `XmlRpcBase64`), and rewrites every `src` to the returned hosted URL. No-ops
+when there are no images; identical images upload once and share the URL; an upload failure
+raises `BlogClientPublishException` so the publish aborts rather than sending broken HTML.
+Runs on both the new-post and edit paths (`EditorContentPublisher` /
+`WebViewEditor.PublishAsync` / `BlogAccountService.Publish`).
+
+### 10.2 Categories
+
+`BlogPostCategory` model + `IBlogClient.GetCategories(blogId)` (`metaWeblog.getCategories`)
+with a pure, fixture-tested `MetaWeblogXmlRpcClient.ParseCategories` tolerant of the common
+member permutations (description/title/categoryName; categoryid/categoryId; parentId) and
+indentation. The shell's `ShowCategoryPopup` command opens `CategoryDialog` — a checklist
+pre-checked with the current selection, a free-text field for categories the provider
+didn't list, and a graceful "none reported" fallback — storing the chosen names on the
+draft so they flow into the inline `newPost` `categories` array.
+
+### 10.3 Provider endpoint auto-detection (RSD)
+
+`RsdServiceDetector` (in `OpenLiveWriter.Publishing.Accounts`) is a cross-platform,
+MSHTML-free port: pure `FindRsdUrl` (homepage `<link rel="EditURI">` / `application/rsd+xml`
+→ resolved RSD URL), `ParseRsd` (engine name/link, `<api>` name/apiLink/blogID, relative-URL
+resolution, tolerant of trailing junk), and `SelectMetaWeblogApi`. The full `Detect` flow is
+orchestrated behind an `IRsdHttpFetcher` seam (`HttpRsdFetcher` default) so unit tests run
+offline; a **Detect** button in `AccountDialog` auto-fills the endpoint + blog id from the
+Blog URL, with manual override retained. The real-network test is `[Explicit]`.
+
+### 10.4 Re-publish → `editPost`
+
+`EditorContentPublisher.PublishOrEdit` and the publish path record the server
+`PublishedPostId`; a subsequent publish of the same document to the same blog edits that
+post via `metaWeblog.editPost` (no duplicate). The shell reflects publish-vs-update in its
+progress/result messages.
+
+### 10.5 Tests
+
+Groups **G** (image upload), **H** (categories), **I** (RSD detection), **J** (re-publish)
+— see §6. `FakeBlogClient` now records `newMediaObject` uploads + serves `getCategories`.
