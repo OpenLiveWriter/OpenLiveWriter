@@ -37,7 +37,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             { CommandId.InsertVideoFromService, "From Service..." },
             { CommandId.CheckSpelling, "Spelling" },
             { CommandId.FindButton, "Find" },
-            { CommandId.WordCount, "Word Count" },
+            { CommandId.WordCount, "Count" },
             { CommandId.SelectAll, "Select All" },
             { CommandId.FontFamily, "Font" },
             { CommandId.FontSize, "Size" },

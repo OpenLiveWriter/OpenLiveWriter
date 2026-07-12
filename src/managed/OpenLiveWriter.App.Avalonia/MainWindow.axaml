@@ -21,17 +21,17 @@
         <!-- Status bar — pinned; does not consume editor space -->
         <Border x:Name="StatusBar"
                 DockPanel.Dock="Bottom"
-                Background="#F0F0F0"
-                BorderBrush="#D0D0D0"
+                Background="#F3F3F3"
+                BorderBrush="#C8C8C8"
                 BorderThickness="0,1,0,0"
-                Padding="10,4"
-                MinHeight="28"
+                Padding="12,5"
+                MinHeight="30"
                 MaxHeight="36">
             <Grid ColumnDefinitions="Auto,*,Auto" MinHeight="20">
                 <TextBlock x:Name="BlogStatusText"
                            Grid.Column="0"
                            FontSize="12"
-                           Foreground="#444444"
+                           Foreground="#3A3A3A"
                            Margin="0,0,16,0"
                            VerticalAlignment="Center"
                            TextTrimming="CharacterEllipsis"
@@ -41,13 +41,13 @@
                            Grid.Column="1"
                            Text="Ready"
                            FontSize="12"
-                           Foreground="#666666"
+                           Foreground="#555555"
                            VerticalAlignment="Center"
                            TextTrimming="CharacterEllipsis" />
                 <TextBlock x:Name="WordCountStatusText"
                            Grid.Column="2"
                            FontSize="12"
-                           Foreground="#444444"
+                           Foreground="#3A3A3A"
                            Margin="16,0,0,0"
                            VerticalAlignment="Center"
                            TextTrimming="CharacterEllipsis"
@@ -59,18 +59,18 @@
         <DockPanel LastChildFill="True">
             <!-- Title bar -->
             <Border DockPanel.Dock="Top"
-                    Padding="12,6"
+                    Padding="14,8"
                     Background="White"
-                    BorderBrush="#E0E0E0"
+                    BorderBrush="#E2E2E2"
                     BorderThickness="0,0,0,1"
-                    MinHeight="44">
+                    MinHeight="48">
                 <TextBox x:Name="TitleEditor"
                          PlaceholderText="Post Title"
-                         FontSize="22"
-                         FontWeight="Light"
+                         FontSize="24"
+                         FontWeight="Normal"
                          BorderThickness="0"
                          Background="Transparent"
-                         MinHeight="32"
+                         MinHeight="34"
                          VerticalAlignment="Center"
                          TextWrapping="NoWrap" />
             </Border>

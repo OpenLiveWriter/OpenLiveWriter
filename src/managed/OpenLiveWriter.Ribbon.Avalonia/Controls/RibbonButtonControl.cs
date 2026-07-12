@@ -164,8 +164,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Formatting toggles are icon-only — give them a square hit target.
             if (IsFormattingGlyphCommand(_commandId))
             {
-                MinWidth = 28;
-                Padding = new Thickness(5, 2);
+                MinWidth = 30;
+                Padding = new Thickness(4, 2);
             }
             else
             {
@@ -193,7 +193,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 {
                     Text = labelText,
                     FontSize = 11,
-                    VerticalAlignment = VerticalAlignment.Center
+                    VerticalAlignment = VerticalAlignment.Center,
+                    TextTrimming = TextTrimming.None
                 });
             }
 
@@ -206,8 +207,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private Control CreateGlyphVisual(bool large)
         {
             var (glyph, fontWeight, fontStyle, decorations) = GetGlyphStyle();
-            double size = large ? 18 : 13;
-            double box = large ? 32 : 18;
+            bool multiChar = glyph != null && glyph.Length > 1;
+            double size = large ? 18 : (multiChar ? 11 : 14);
+            double boxW = large ? 32 : (multiChar ? 28 : 22);
+            double boxH = large ? 32 : 22;
 
             var text = new TextBlock
             {
@@ -216,7 +219,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 FontWeight = fontWeight,
                 FontStyle = fontStyle,
                 TextDecorations = decorations,
-                Foreground = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)),
+                Foreground = new SolidColorBrush(Color.FromRgb(0x2B, 0x2B, 0x2B)),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -225,13 +228,14 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // missing-image placeholder.
             return new Border
             {
-                Width = box,
-                Height = box,
+                Width = boxW,
+                Height = boxH,
                 Background = Brushes.Transparent,
-                BorderBrush = new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC)),
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xD4, 0xD4, 0xD4)),
                 BorderThickness = new Thickness(large ? 1 : 0),
                 CornerRadius = new CornerRadius(3),
                 HorizontalAlignment = HorizontalAlignment.Center,
+                ClipToBounds = true,
                 Child = text
             };
         }
@@ -275,7 +279,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 or CommandId.Strikethrough or CommandId.Subscript or CommandId.Superscript
                 or CommandId.Bullets or CommandId.Numbers or CommandId.Blockquote
                 or CommandId.AlignLeft or CommandId.AlignCenter
-                or CommandId.AlignRight or CommandId.Justify;
+                or CommandId.AlignRight or CommandId.Justify
+                or CommandId.ClearFormatting;
 
         /// <summary>
         /// Readable glyph text used for the given command (testable without a visual tree).
@@ -298,21 +303,21 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 case CommandId.AlignRight: return "\u25E8";  // ◨ right-filled
                 case CommandId.Justify: return "\u2630";     // ☰ justified lines
                 case CommandId.Paste:
-                    return "\u2398";
+                    return "\u2398"; // ⎘
                 case CommandId.CopyCommand:
-                    return "\u2398";
+                    return "\u2750"; // ❐ copy pages
                 case CommandId.Cut:
-                    return "\u2702";
+                    return "\u2702"; // ✂
                 case CommandId.Undo:
                     return "\u21B6";
                 case CommandId.Redo:
                     return "\u21B7";
                 case CommandId.InsertLink:
-                    return "\u29C9";
+                    return "\u29C9"; // ⧉
                 case CommandId.InsertImageSplit:
                 case CommandId.InsertPictureFromFile:
                 case CommandId.WebImage:
-                    return "\u25A6"; // ▦ image-like grid
+                    return "\u25EB"; // ◫ framed picture-like
                 case CommandId.InsertVideoSplit:
                 case CommandId.InsertVideoFromFile:
                 case CommandId.InsertVideoFromWeb:
@@ -324,9 +329,11 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     return "Abc";
                 case CommandId.WordCount:
                     return "#";
+                case CommandId.SelectAll:
+                    return "\u25A3";
                 case CommandId.FindButton:
                 case CommandId.FindAndReplace:
-                    return "\u2315";
+                    return "\u2315"; // ⌕
                 case CommandId.PostAndPublish:
                     return "\u2191";
                 case CommandId.SavePost:

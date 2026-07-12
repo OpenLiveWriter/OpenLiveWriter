@@ -58,33 +58,49 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             Classes.Add("ribbon-group");
 
             // Group border styling - subtle right separator
-            BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0));
+            BorderBrush = new SolidColorBrush(Color.FromRgb(0xC8, 0xC8, 0xC8));
             BorderThickness = new Thickness(0, 0, 1, 0);
-            Padding = _compact ? new Thickness(4, 2, 4, 0) : new Thickness(6, 4, 6, 0);
-            Margin = new Thickness(0, 0, 4, 0);
+            Padding = _compact ? new Thickness(6, 2, 6, 2) : new Thickness(8, 4, 8, 2);
+            Margin = new Thickness(0);
             VerticalAlignment = VerticalAlignment.Stretch;
+            Background = Brushes.Transparent;
 
             var outerStack = new DockPanel();
 
-            // Group label at bottom (smaller in compact mode)
-            var label = new TextBlock
+            // Group label band: reserved height so descenders never clip.
+            var labelBand = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                MinHeight = _compact ? 18 : 22,
+                Margin = _compact ? new Thickness(0, 2, 0, 2) : new Thickness(0, 2, 0, 2)
+            };
+            labelBand.Children.Add(new Border
+            {
+                Height = 1,
+                Background = new SolidColorBrush(Color.FromRgb(0xDD, 0xDD, 0xDD)),
+                Margin = new Thickness(2, 0, 2, 2),
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            });
+            labelBand.Children.Add(new TextBlock
             {
                 Text = _config.Label,
                 FontSize = _compact ? 10 : 11,
                 FontWeight = FontWeight.SemiBold,
-                Foreground = new SolidColorBrush(Color.FromRgb(0x55, 0x55, 0x55)),
+                LineHeight = _compact ? 14 : 15,
+                Foreground = new SolidColorBrush(Color.FromRgb(0x5A, 0x5A, 0x5A)),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                // Extra bottom margin so labels are not clipped by the content band.
-                Margin = _compact ? new Thickness(0, 2, 0, 4) : new Thickness(0, 4, 0, 6)
-            };
-            DockPanel.SetDock(label, Dock.Bottom);
-            outerStack.Children.Add(label);
+                TextTrimming = TextTrimming.None,
+                TextWrapping = TextWrapping.NoWrap
+            });
+            DockPanel.SetDock(labelBand, Dock.Bottom);
+            outerStack.Children.Add(labelBand);
 
             // Controls area
             var controlsPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
-                VerticalAlignment = VerticalAlignment.Top,
+                VerticalAlignment = VerticalAlignment.Center,
                 Spacing = 2,
                 MinHeight = _compact ? 40 : 58
             };
@@ -116,6 +132,14 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 {
                     BuildFontGroupLayout(controlsPanel, controls);
                 }
+                else if (sizeDefinition == "SevenSmallButtons")
+                {
+                    BuildParagraphLayout(controlsPanel, controls);
+                }
+                else if (sizeDefinition == "FourButtons")
+                {
+                    BuildFourButtonGrid(controlsPanel, controls);
+                }
                 else if (sizeDefinition.Contains("Gallery") && !sizeDefinition.Contains("Large"))
                 {
                     BuildGalleryLayout(controlsPanel, controls);
@@ -132,11 +156,44 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         }
 
         /// <summary>
-        /// Compact layout: all Small controls in columns of 2 (shorter than the
-        /// normal 3-high stacks) so the ribbon content band can shrink.
+        /// Compact layout: preserve known group structures (large+small, font, etc.)
+        /// so narrow windows stay readable instead of reshuffling into broken columns.
         /// </summary>
         private void BuildCompactLayout(StackPanel panel, List<ControlConfig> controls)
         {
+            var sizeDefinition = _config.SizeDefinition ?? "";
+
+            if (sizeDefinition.Contains("OneLarge") &&
+                (sizeDefinition.Contains("TwoSmall") || sizeDefinition == "OneLargeAndTwoSmall"))
+            {
+                BuildOneLargeAndSmallLayout(panel, controls);
+                return;
+            }
+
+            if (sizeDefinition == "OneLargeComboSmall")
+            {
+                BuildOneLargeComboSmallLayout(panel, controls);
+                return;
+            }
+
+            if (sizeDefinition == "FontGroup")
+            {
+                BuildFontGroupLayout(panel, controls);
+                return;
+            }
+
+            if (sizeDefinition == "SevenSmallButtons")
+            {
+                BuildParagraphLayout(panel, controls);
+                return;
+            }
+
+            if (sizeDefinition == "FourButtons")
+            {
+                BuildFourButtonGrid(panel, controls);
+                return;
+            }
+
             var currentStack = new StackPanel
             {
                 Orientation = Orientation.Vertical,
@@ -241,45 +298,115 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         }
 
         /// <summary>
-        /// Layout for the Font group: two combo boxes on top row,
-        /// formatting buttons on rows below.
+        /// Layout for the Font group: font/size combos on top, formatting toggles
+        /// and compact color pickers on a single aligned row below.
         /// </summary>
         private void BuildFontGroupLayout(StackPanel panel, List<ControlConfig> controls)
         {
             var outerStack = new StackPanel
             {
                 Orientation = Orientation.Vertical,
-                Spacing = 2
+                VerticalAlignment = VerticalAlignment.Center,
+                Spacing = 3
             };
 
-            // First row: combo boxes
             var comboRow = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
-                Spacing = 4
+                Spacing = 4,
+                VerticalAlignment = VerticalAlignment.Center
             };
 
-            // Second row: toggle buttons
-            var buttonRow = new WrapPanel
+            var buttonRow = new StackPanel
             {
-                Orientation = Orientation.Horizontal
+                Orientation = Orientation.Horizontal,
+                Spacing = 1,
+                VerticalAlignment = VerticalAlignment.Center
             };
 
             foreach (var control in controls)
             {
                 if (control is ComboBoxConfig combo)
-                {
                     comboRow.Children.Add(CreateEditorComboBox(combo));
-                }
                 else
-                {
                     buttonRow.Children.Add(CreateControl(control, RibbonGroupSize.Small));
-                }
             }
 
             outerStack.Children.Add(comboRow);
             outerStack.Children.Add(buttonRow);
             panel.Children.Add(outerStack);
+        }
+
+        /// <summary>
+        /// Paragraph group: lists column + alignment column (Office-like 2-stack).
+        /// </summary>
+        private void BuildParagraphLayout(StackPanel panel, List<ControlConfig> controls)
+        {
+            var lists = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                VerticalAlignment = VerticalAlignment.Center,
+                Spacing = 2
+            };
+            var aligns = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                VerticalAlignment = VerticalAlignment.Center,
+                Spacing = 2
+            };
+
+            // First three controls are list/quote; remainder are alignment.
+            for (int i = 0; i < controls.Count; i++)
+            {
+                var host = i < 3 ? lists : aligns;
+                host.Children.Add(CreateControl(controls[i], RibbonGroupSize.Small));
+            }
+
+            panel.Children.Add(lists);
+            panel.Children.Add(new Border
+            {
+                Width = 1,
+                Background = new SolidColorBrush(Color.FromRgb(0xE0, 0xE0, 0xE0)),
+                Margin = new Thickness(3, 2),
+                VerticalAlignment = VerticalAlignment.Stretch
+            });
+            panel.Children.Add(aligns);
+        }
+
+        /// <summary>
+        /// Editing group: 2×2 grid of medium-style small buttons (avoids a lonely
+        /// fourth button in a 3-high column).
+        /// </summary>
+        private void BuildFourButtonGrid(StackPanel panel, List<ControlConfig> controls)
+        {
+            var currentStack = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                VerticalAlignment = VerticalAlignment.Center,
+                Spacing = 2
+            };
+
+            int count = 0;
+            foreach (var control in controls)
+            {
+                currentStack.Children.Add(CreateControl(control, RibbonGroupSize.Small));
+                count++;
+
+                if (count >= 2)
+                {
+                    panel.Children.Add(currentStack);
+                    currentStack = new StackPanel
+                    {
+                        Orientation = Orientation.Vertical,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Spacing = 2
+                    };
+                    count = 0;
+                }
+            }
+
+            if (count > 0)
+                panel.Children.Add(currentStack);
         }
 
         /// <summary>
@@ -290,7 +417,11 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             foreach (var control in controls)
             {
                 var size = GetControlPreferredSize(control);
-                panel.Children.Add(CreateControl(control, size));
+                var created = CreateControl(control, size);
+                // Single-control galleries (Style) look less sparse when centered.
+                if (controls.Count == 1)
+                    created.VerticalAlignment = VerticalAlignment.Center;
+                panel.Children.Add(created);
             }
         }
 
@@ -563,7 +694,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 // ComboSelectionChanged with the item's id so the shell can act on it.
                 var comboBox = new global::Avalonia.Controls.ComboBox
                 {
-                    Width = 140,
+                    Width = 128,
+                    MinWidth = 120,
                     Height = 26,
                     MinHeight = 24,
                     PlaceholderText = label,
@@ -618,8 +750,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Sized for "Preformatted" without leaving a huge empty combo.
             var comboBox = new global::Avalonia.Controls.ComboBox
             {
-                Width = 132,
-                MinWidth = 132,
+                Width = 118,
+                MinWidth = 118,
                 Height = 26,
                 MinHeight = 24,
                 PlaceholderText = label,
@@ -659,9 +791,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         };
 
         /// <summary>
-        /// Builds a color-picker button: a small labelled button that opens a
-        /// flyout of color swatches. Selecting a swatch raises
-        /// <see cref="ComboSelectionChanged"/> with the chosen <c>#RRGGBB</c> value.
+        /// Builds a compact color-picker: glyph + color bar + chevron (not a long
+        /// text label), so the Font row stays within typical Home-tab widths.
         /// </summary>
         private Control CreateColorPicker(ColorPickerConfig config)
         {
@@ -678,6 +809,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             var flyout = new Flyout { Content = swatchPanel };
             var commandId = config.CommandId;
+            bool isHighlight = config.ColorTemplate == RibbonColorTemplate.HighlightColors;
+            var accent = isHighlight
+                ? Color.FromRgb(0xFF, 0xEB, 0x3B)
+                : Color.FromRgb(0xC6, 0x28, 0x28);
 
             foreach (var hex in palette)
             {
@@ -704,25 +839,59 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 swatchPanel.Children.Add(swatch);
             }
 
-            string shortLabel = CommandLabelHelper.GetLabel(commandId);
+            string tip = CommandLabelHelper.GetLabel(commandId);
+            var glyphStack = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                Spacing = 1,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            glyphStack.Children.Add(new TextBlock
+            {
+                Text = isHighlight ? "ab" : "A",
+                FontSize = isHighlight ? 11 : 12,
+                FontWeight = FontWeight.SemiBold,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Foreground = new SolidColorBrush(Color.FromRgb(0x2B, 0x2B, 0x2B))
+            });
+            glyphStack.Children.Add(new Border
+            {
+                Width = isHighlight ? 14 : 12,
+                Height = 3,
+                CornerRadius = new CornerRadius(1),
+                Background = new SolidColorBrush(accent),
+                HorizontalAlignment = HorizontalAlignment.Center
+            });
+
+            var content = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 2,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            content.Children.Add(glyphStack);
+            content.Children.Add(new TextBlock
+            {
+                Text = "\u25BE",
+                FontSize = 9,
+                VerticalAlignment = VerticalAlignment.Center,
+                Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66))
+            });
+
             var button = new Button
             {
                 Focusable = false,
-                MinHeight = 24,
-                MinWidth = shortLabel.Length >= 8 ? 84 : 72,
-                Padding = new Thickness(6, 1),
+                MinHeight = 26,
+                MinWidth = 34,
+                Padding = new Thickness(4, 1),
                 Background = Brushes.Transparent,
                 BorderThickness = new Thickness(1),
                 BorderBrush = Brushes.Transparent,
                 CornerRadius = new CornerRadius(3),
                 Flyout = flyout,
-                Content = new TextBlock
-                {
-                    Text = shortLabel + " \u25BE",
-                    FontSize = 11,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    TextTrimming = TextTrimming.None
-                }
+                Content = content,
+                [ToolTip.TipProperty] = tip
             };
 
             return button;

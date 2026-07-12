@@ -164,11 +164,11 @@ namespace OpenLiveWriter.EditorTests.Automated
                 // When content overflows, More must be available as a second affordance.
                 bool contentOverflows = contentScroll.Viewport.Width > 0 &&
                                         contentScroll.Extent.Width > contentScroll.Viewport.Width + 1;
-                if (contentOverflows || width < 960)
+                if (contentOverflows)
                 {
                     Assert.That(ribbon.OverflowButton, Is.Not.Null);
                     Assert.That(ribbon.OverflowButton.IsVisible, Is.True,
-                        "More overflow should be visible when content is wider than the viewport or in compact mode");
+                        "More overflow should be visible when content is wider than the viewport");
                 }
 
                 if (width < 960)

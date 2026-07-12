@@ -63,8 +63,12 @@ namespace OpenLiveWriter.EditorTests.Automated
                 Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.AlignCenter), Is.EqualTo("\u25A3"));
                 Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.AlignRight), Is.EqualTo("\u25E8"));
                 Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.Justify), Is.EqualTo("\u2630"));
-                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.InsertImageSplit), Is.EqualTo("\u25A6"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.InsertImageSplit), Is.EqualTo("\u25EB"));
                 Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.InsertVideoSplit), Is.EqualTo("\u25B6"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.CopyCommand), Is.EqualTo("\u2750"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.Paste), Is.EqualTo("\u2398"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.CopyCommand),
+                    Is.Not.EqualTo(RibbonButtonControl.GlyphForCommand(CommandId.Paste)));
             });
         }
 

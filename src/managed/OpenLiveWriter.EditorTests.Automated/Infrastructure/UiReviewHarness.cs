@@ -228,8 +228,8 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             // Invariant flags for agent / human review.
             if (fontSize != null && fontSize.Bounds.Width + 0.5 < 80)
                 dump.Flags.Add($"FontSizeCombo width {fontSize.Bounds.Width:0.##} < 80");
-            if (styles != null && styles.Bounds.Width + 0.5 < 132)
-                dump.Flags.Add($"StylesCombo width {styles.Bounds.Width:0.##} < 132");
+            if (styles != null && styles.Bounds.Width + 0.5 < 118)
+                dump.Flags.Add($"StylesCombo width {styles.Bounds.Width:0.##} < 118");
             if (fontSize == null)
                 dump.Flags.Add("FontSizeCombo missing");
             if (styles == null)

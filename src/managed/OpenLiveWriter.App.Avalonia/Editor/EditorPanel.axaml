@@ -8,16 +8,16 @@
         <!-- Slim chrome: view toggles only. Formatting lives on the ribbon Home tab
              so this secondary strip no longer duplicates Bold/Italic/etc. -->
         <Border DockPanel.Dock="Top"
-                Background="#FAFAFA"
+                Background="#F7F7F7"
                 BorderBrush="#E0E0E0"
                 BorderThickness="0,0,0,1"
-                Padding="8,2"
-                MinHeight="32"
-                MaxHeight="36">
+                Padding="10,3"
+                MinHeight="34"
+                MaxHeight="38">
             <DockPanel LastChildFill="True">
                 <StackPanel DockPanel.Dock="Right"
                             Orientation="Horizontal"
-                            Spacing="2"
+                            Spacing="0"
                             VerticalAlignment="Center">
                     <ToggleButton x:Name="EditViewButton" Content="Edit" IsChecked="True"
                                   Height="26" Width="68" MinHeight="24" MinWidth="68" Padding="10,2" FontSize="12"

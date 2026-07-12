@@ -229,6 +229,9 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 HorizontalScrollBarVisibility = global::Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
                 VerticalScrollBarVisibility = global::Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                // Allow group label descenders; horizontal scroll still clips sides.
+                ClipToBounds = false,
                 Content = _groupsPanel
             };
 
@@ -236,12 +239,18 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             _overflowButton = new Button
             {
                 Content = "More \u25BE",
-                MinWidth = 56,
-                MinHeight = 28,
-                Padding = new Thickness(8, 4),
-                FontSize = 12,
-                Margin = new Thickness(4, 0, 0, 0),
+                MinWidth = 52,
+                MinHeight = 26,
+                Padding = new Thickness(8, 3),
+                FontSize = 11,
+                FontWeight = FontWeight.SemiBold,
+                Margin = new Thickness(6, 0, 2, 0),
                 VerticalAlignment = VerticalAlignment.Center,
+                Background = Brushes.Transparent,
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xC8, 0xC8, 0xC8)),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(3),
+                Foreground = new SolidColorBrush(Color.FromRgb(0x44, 0x44, 0x44)),
                 Flyout = _overflowFlyout,
                 IsVisible = false
             };
@@ -255,12 +264,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             _contentArea = new Border
             {
-                Background = new SolidColorBrush(Color.FromRgb(0xFA, 0xFA, 0xFA)),
+                Background = new SolidColorBrush(Color.FromRgb(0xF7, 0xF7, 0xF7)),
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0)),
                 BorderThickness = new Thickness(0, 0, 0, 1),
-                MinHeight = 112,
+                MinHeight = 124,
                 // No MaxHeight — group labels must remain fully visible.
-                Padding = new Thickness(4, 4, 4, 8),
+                Padding = new Thickness(2, 6, 2, 8),
                 ClipToBounds = false,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Child = contentDock
@@ -311,16 +320,16 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             if (_compactMode)
             {
-                _contentArea.MinHeight = 64;
+                _contentArea.MinHeight = 72;
                 _contentArea.MaxHeight = double.PositiveInfinity;
-                _contentArea.Padding = new Thickness(4, 2, 4, 6);
+                _contentArea.Padding = new Thickness(2, 4, 2, 6);
                 _contentArea.ClipToBounds = false;
             }
             else
             {
-                _contentArea.MinHeight = 112;
+                _contentArea.MinHeight = 124;
                 _contentArea.MaxHeight = double.PositiveInfinity;
-                _contentArea.Padding = new Thickness(4, 4, 4, 8);
+                _contentArea.Padding = new Thickness(2, 6, 2, 8);
                 _contentArea.ClipToBounds = false;
             }
         }
@@ -416,15 +425,14 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             if (_overflowButton == null || _contentScrollViewer == null || _groupsPanel == null)
                 return;
 
-            // Show More whenever content is wider than the viewport (or still measuring
-            // a wide DesiredSize into a narrow host) so clipped commands stay reachable.
+            // Show More only when content is actually wider than the viewport so
+            // clipped commands stay reachable (avoid a permanent More chrome blob).
             double extent = _contentScrollViewer.Extent.Width;
             double viewport = _contentScrollViewer.Viewport.Width;
             double desired = _groupsPanel.DesiredSize.Width;
             bool needsOverflow =
                 (viewport > 0 && extent > viewport + 1) ||
-                (viewport > 0 && desired > viewport + 1) ||
-                (_overflowFlyout != null && _overflowFlyout.Items.Count > 0 && Bounds.Width > 0 && Bounds.Width < CompactWidthThreshold);
+                (viewport > 0 && desired > viewport + 1);
 
             _overflowButton.IsVisible = needsOverflow;
         }
