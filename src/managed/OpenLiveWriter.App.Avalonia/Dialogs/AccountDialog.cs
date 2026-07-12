@@ -23,13 +23,10 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
     /// <summary>
     /// Add / Configure blog account dialog: blog URL, username, password, and the
-    /// MetaWeblog API endpoint. Endpoint entry is manual for now — full provider
-    /// auto-detection needs the Windows MSHTML detection stack (see TODO). Mirrors the
+    /// MetaWeblog API endpoint. A "Detect" button auto-fills the endpoint (and blog id)
+    /// from the blog homepage via RSD discovery; manual override is retained. Mirrors the
     /// modal <c>ShowAsync(owner)</c> pattern used by the other shell dialogs.
     /// </summary>
-    // TODO(P2): auto-detect the API endpoint / provider from the blog homepage. That
-    // requires porting the Windows MSHTML-based blog/RSD detection stack; until then the
-    // user supplies the MetaWeblog XML-RPC endpoint directly.
     public class AccountDialog : Window
     {
         private readonly TextBox _displayNameBox;
@@ -39,13 +36,17 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private readonly TextBox _usernameBox;
         private readonly TextBox _passwordBox;
         private readonly Button _saveButton;
+        private readonly Button _detectButton;
+        private readonly TextBlock _detectStatus;
+        private readonly IRsdHttpFetcher _fetcher;
         private readonly string _existingId;
         private readonly bool _isEdit;
 
         public AccountDialogResult Result { get; private set; }
 
-        public AccountDialog(BlogAccount existing = null)
+        public AccountDialog(BlogAccount existing = null, IRsdHttpFetcher fetcher = null)
         {
+            _fetcher = fetcher ?? new HttpRsdFetcher();
             _isEdit = existing != null;
             _existingId = existing?.Id ?? string.Empty;
 
@@ -82,6 +83,18 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                 IsEnabled = false
             };
             var cancelButton = new Button { Content = "Cancel", IsCancel = true, MinWidth = 80 };
+
+            _detectButton = new Button { Content = "Detect", MinWidth = 80 };
+            _detectStatus = new TextBlock
+            {
+                Text = string.Empty,
+                VerticalAlignment = VerticalAlignment.Center,
+                FontSize = 11,
+                TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
+                Foreground = new global::Avalonia.Media.SolidColorBrush(
+                    global::Avalonia.Media.Color.FromRgb(0x66, 0x66, 0x66))
+            };
+            _detectButton.Click += async (s, e) => await DetectAsync();
 
             _saveButton.Click += (s, e) =>
             {
@@ -129,17 +142,31 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             AddRow(grid, 4, "Username:", _usernameBox);
             AddRow(grid, 5, "Password:", _passwordBox);
 
+            // Detect row: pull the endpoint/blog id from the Blog URL via RSD discovery.
+            var detectRow = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 8,
+                Margin = new global::Avalonia.Thickness(0, 8, 0, 0)
+            };
+            detectRow.Children.Add(_detectButton);
+            detectRow.Children.Add(_detectStatus);
+            Grid.SetRow(detectRow, 6);
+            Grid.SetColumn(detectRow, 0);
+            Grid.SetColumnSpan(detectRow, 2);
+            grid.Children.Add(detectRow);
+
             var hint = new TextBlock
             {
-                Text = "Enter your blog's MetaWeblog XML-RPC endpoint (e.g. .../xmlrpc.php). "
-                     + "Automatic provider detection is not yet available on macOS.",
+                Text = "Enter your blog's MetaWeblog XML-RPC endpoint (e.g. .../xmlrpc.php), "
+                     + "or click Detect to discover it from the Blog URL.",
                 FontSize = 11,
                 TextWrapping = global::Avalonia.Media.TextWrapping.Wrap,
                 Foreground = new global::Avalonia.Media.SolidColorBrush(
                     global::Avalonia.Media.Color.FromRgb(0x66, 0x66, 0x66)),
                 Margin = new global::Avalonia.Thickness(0, 8, 0, 0)
             };
-            Grid.SetRow(hint, 6);
+            Grid.SetRow(hint, 7);
             Grid.SetColumn(hint, 0);
             Grid.SetColumnSpan(hint, 2);
             grid.Children.Add(hint);
@@ -153,12 +180,56 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             };
             buttonRow.Children.Add(cancelButton);
             buttonRow.Children.Add(_saveButton);
-            Grid.SetRow(buttonRow, 7);
+            Grid.SetRow(buttonRow, 8);
             Grid.SetColumn(buttonRow, 0);
             Grid.SetColumnSpan(buttonRow, 2);
             grid.Children.Add(buttonRow);
 
             Content = grid;
+        }
+
+        // Runs RSD auto-detection off the Blog URL and fills in the endpoint (and blog id,
+        // when the RSD provides one). The network fetch runs on a background thread via the
+        // injected fetcher; the endpoint field stays editable so the user can override.
+        private async Task DetectAsync()
+        {
+            string homepage = _homepageBox.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(homepage))
+            {
+                _detectStatus.Text = "Enter your Blog URL first.";
+                return;
+            }
+
+            _detectButton.IsEnabled = false;
+            _detectStatus.Text = "Detecting\u2026";
+            try
+            {
+                RsdDetectionResult result = await Task.Run(
+                    () => RsdServiceDetector.Detect(homepage, _fetcher));
+
+                if (result.Found)
+                {
+                    _endpointBox.Text = result.EndpointUrl;
+                    if (!string.IsNullOrEmpty(result.BlogId) && string.IsNullOrWhiteSpace(_blogIdBox.Text))
+                        _blogIdBox.Text = result.BlogId;
+                    _detectStatus.Text = string.IsNullOrEmpty(result.EngineName)
+                        ? "Found the API endpoint."
+                        : $"Detected {result.EngineName}.";
+                    _saveButton.IsEnabled = CanSave();
+                }
+                else
+                {
+                    _detectStatus.Text = "Couldn't detect the endpoint. Enter it manually.";
+                }
+            }
+            catch (Exception ex)
+            {
+                _detectStatus.Text = $"Detection failed: {ex.Message}";
+            }
+            finally
+            {
+                _detectButton.IsEnabled = true;
+            }
         }
 
         private bool CanSave() => CanSave(
