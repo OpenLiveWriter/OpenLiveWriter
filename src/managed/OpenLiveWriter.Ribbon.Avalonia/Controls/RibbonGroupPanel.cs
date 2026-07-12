@@ -58,8 +58,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Group border styling - subtle right separator
             BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0));
             BorderThickness = new Thickness(0, 0, 1, 0);
-            Padding = new Thickness(4, 2, 4, 0);
-            Margin = new Thickness(0, 0, 2, 0);
+            Padding = new Thickness(6, 4, 6, 0);
+            Margin = new Thickness(0, 0, 4, 0);
 
             var outerStack = new DockPanel();
 
@@ -68,9 +68,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             {
                 Text = _config.Label,
                 FontSize = 11,
-                Foreground = new SolidColorBrush(Color.FromRgb(0x66, 0x66, 0x66)),
+                FontWeight = FontWeight.SemiBold,
+                Foreground = new SolidColorBrush(Color.FromRgb(0x55, 0x55, 0x55)),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new Thickness(0, 2, 0, 2)
+                Margin = new Thickness(0, 4, 0, 3)
             };
             DockPanel.SetDock(label, Dock.Bottom);
             outerStack.Children.Add(label);
