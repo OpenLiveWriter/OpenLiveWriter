@@ -453,6 +453,31 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             return count;
         }
 
+        /// <summary>
+        /// Inserts a table built from the given dimensions at the caret. The table
+        /// HTML is produced by the pure <see cref="TableBuilder"/> (well-formed
+        /// thead/tbody/th/td) so the markup is testable independent of the WebView.
+        /// </summary>
+        public Task InsertTableAsync(int rows, int columns, bool headerRow, string width) =>
+            InsertHtmlAsync(TableBuilder.BuildTableHtml(rows, columns, headerRow, width));
+
+        /// <summary>Invokes a table-editing bridge helper (insert/delete row/column, delete table).</summary>
+        private async Task RunTableOpAsync(string js)
+        {
+            if (_webView == null || !_isReady) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS(js);
+        }
+
+        public Task InsertTableRowAboveAsync() => RunTableOpAsync("OLWBridge.insertTableRow(false)");
+        public Task InsertTableRowBelowAsync() => RunTableOpAsync("OLWBridge.insertTableRow(true)");
+        public Task InsertTableColumnLeftAsync() => RunTableOpAsync("OLWBridge.insertTableColumn(false)");
+        public Task InsertTableColumnRightAsync() => RunTableOpAsync("OLWBridge.insertTableColumn(true)");
+        public Task DeleteTableRowAsync() => RunTableOpAsync("OLWBridge.deleteTableRow()");
+        public Task DeleteTableColumnAsync() => RunTableOpAsync("OLWBridge.deleteTableColumn()");
+        public Task DeleteTableAsync() => RunTableOpAsync("OLWBridge.deleteTable()");
+
         public Task ExecuteBlockquoteAsync() => ToggleBlockAsync("blockquote");
 
         public async Task InsertHtmlAsync(string html)
@@ -521,6 +546,15 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
                 // Insert
                 case CommandId.InsertHorizontalLine: await InsertHorizontalLineAsync(); return true;
+
+                // Table Tools (contextual) — operate on the table containing the caret
+                case CommandId.InsertRowAbove: await InsertTableRowAboveAsync(); return true;
+                case CommandId.InsertRowBelow: await InsertTableRowBelowAsync(); return true;
+                case CommandId.InsertColumnLeft: await InsertTableColumnLeftAsync(); return true;
+                case CommandId.InsertColumnRight: await InsertTableColumnRightAsync(); return true;
+                case CommandId.DeleteRow: await DeleteTableRowAsync(); return true;
+                case CommandId.DeleteColumn: await DeleteTableColumnAsync(); return true;
+                case CommandId.DeleteTable: await DeleteTableAsync(); return true;
 
                 default: return false;
             }

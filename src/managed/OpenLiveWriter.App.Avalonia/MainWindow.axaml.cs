@@ -48,6 +48,10 @@ namespace OpenLiveWriter.App.Avalonia
                 if (await TryHandlePublishCommandAsync(commandId))
                     return;
 
+                // Insert-tab commands that need a dialog (table/video/emoticon/paste).
+                if (await TryHandleInsertCommandAsync(commandId))
+                    return;
+
                 // Editor utility commands surfaced by the shell (dialogs/status).
                 if (commandId == CommandId.WordCount)
                 {

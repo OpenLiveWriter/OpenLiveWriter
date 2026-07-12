@@ -191,6 +191,93 @@ const OLWBridge = {
         this.reportState();
     },
 
+    // ---- Table operations (operate on the table containing the caret) ----
+
+    // Returns the <td>/<th> cell containing the current selection, or null.
+    _currentCell: function() {
+        var sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return null;
+        var node = sel.getRangeAt(0).startContainer;
+        while (node && node !== document.body) {
+            if (node.nodeType === 1 && (node.tagName === 'TD' || node.tagName === 'TH'))
+                return node;
+            node = node.parentNode;
+        }
+        return null;
+    },
+
+    // Inserts a row above/below the row containing the caret. Returns true on success.
+    insertTableRow: function(below) {
+        this.restoreSelection();
+        var cell = this._currentCell();
+        if (!cell) return false;
+        var row = cell.parentNode;
+        var newRow = row.cloneNode(true);
+        for (var i = 0; i < newRow.cells.length; i++) newRow.cells[i].innerHTML = '';
+        if (below) row.parentNode.insertBefore(newRow, row.nextSibling);
+        else row.parentNode.insertBefore(newRow, row);
+        this.reportState();
+        return true;
+    },
+
+    // Deletes the row containing the caret. Returns true on success.
+    deleteTableRow: function() {
+        this.restoreSelection();
+        var cell = this._currentCell();
+        if (!cell) return false;
+        var row = cell.parentNode;
+        row.parentNode.removeChild(row);
+        this.reportState();
+        return true;
+    },
+
+    // Inserts a column left/right of the column containing the caret.
+    insertTableColumn: function(right) {
+        this.restoreSelection();
+        var cell = this._currentCell();
+        if (!cell) return false;
+        var index = cell.cellIndex;
+        var table = cell.closest('table');
+        if (!table) return false;
+        var rows = table.rows;
+        for (var i = 0; i < rows.length; i++) {
+            var ref = rows[i].cells[index];
+            var isHeader = ref && ref.tagName === 'TH';
+            var newCell = document.createElement(isHeader ? 'th' : 'td');
+            rows[i].insertBefore(newCell, right ? (ref ? ref.nextSibling : null) : ref);
+        }
+        this.reportState();
+        return true;
+    },
+
+    // Deletes the column containing the caret.
+    deleteTableColumn: function() {
+        this.restoreSelection();
+        var cell = this._currentCell();
+        if (!cell) return false;
+        var index = cell.cellIndex;
+        var table = cell.closest('table');
+        if (!table) return false;
+        var rows = table.rows;
+        for (var i = 0; i < rows.length; i++) {
+            if (rows[i].cells[index]) rows[i].deleteCell(index);
+        }
+        this.reportState();
+        return true;
+    },
+
+    // Deletes the entire table containing the caret.
+    deleteTable: function() {
+        this.restoreSelection();
+        var cell = this._currentCell();
+        if (!cell) return false;
+        var table = cell.closest('table');
+        if (!table) return false;
+        table.parentNode.removeChild(table);
+        this.reportState();
+        return true;
+    },
+
     // Find and highlight the next occurrence of query using the browser's
     // native find. Returns true when a match is selected.
     findNext: function(query, matchCase) {
