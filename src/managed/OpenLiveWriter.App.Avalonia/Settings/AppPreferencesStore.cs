@@ -131,6 +131,62 @@ namespace OpenLiveWriter.App.Avalonia.Settings
             }
         }
 
+        /// <summary>Loads persisted main-window geometry (defaults when missing).</summary>
+        public WindowLayout LoadWindowLayout()
+        {
+            using ISettingsPersister root = _createRoot();
+            var layout = WindowLayout.CreateDefault();
+
+            using ISettingsPersister bounds = root.GetSubSettings("WindowBounds");
+            layout.Width = ReadDouble(bounds, "Width", layout.Width);
+            layout.Height = ReadDouble(bounds, "Height", layout.Height);
+            layout.X = (int)bounds.Get("X", typeof(int), layout.X);
+            layout.Y = (int)bounds.Get("Y", typeof(int), layout.Y);
+            layout.Maximized = (bool)bounds.Get("Maximized", typeof(bool), layout.Maximized);
+
+            // Clamp to sensible minimums even if a corrupt value was stored.
+            if (layout.Width < WindowLayout.MinWidth)
+                layout.Width = WindowLayout.MinWidth;
+            if (layout.Height < WindowLayout.MinHeight)
+                layout.Height = WindowLayout.MinHeight;
+
+            return layout;
+        }
+
+        /// <summary>Persists main-window geometry under the Preferences settings root.</summary>
+        public void SaveWindowLayout(WindowLayout layout)
+        {
+            if (layout == null)
+                throw new ArgumentNullException(nameof(layout));
+
+            using ISettingsPersister root = _createRoot();
+            using (root.BatchUpdate())
+            {
+                using ISettingsPersister bounds = root.GetSubSettings("WindowBounds");
+                bounds.Set("Width", layout.Width);
+                bounds.Set("Height", layout.Height);
+                bounds.Set("X", layout.X);
+                bounds.Set("Y", layout.Y);
+                bounds.Set("Maximized", layout.Maximized);
+            }
+        }
+
+        private static double ReadDouble(ISettingsPersister persister, string key, double defaultValue)
+        {
+            object raw = persister.Get(key, typeof(double), defaultValue);
+            if (raw is double d)
+                return d;
+            if (raw is int i)
+                return i;
+            if (raw is long l)
+                return l;
+            if (raw is float f)
+                return f;
+            if (raw is string s && double.TryParse(s, out double parsed))
+                return parsed;
+            return defaultValue;
+        }
+
         private static PostWindowBehavior ReadEnum(
             ISettingsPersister persister, string key, PostWindowBehavior defaultValue)
         {

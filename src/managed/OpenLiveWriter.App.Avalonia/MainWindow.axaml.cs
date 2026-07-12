@@ -30,6 +30,7 @@ namespace OpenLiveWriter.App.Avalonia
             InitializeAccounts();
             InitializeSpelling();
             InitializePreferences();
+            InitializeWindowLayout();
         }
 
         private void InitializeRibbon()

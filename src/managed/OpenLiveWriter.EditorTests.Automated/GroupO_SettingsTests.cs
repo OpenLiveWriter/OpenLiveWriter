@@ -187,6 +187,45 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
+        public void WindowLayout_RoundTrip_Persister()
+        {
+            var root = new MemorySettingsPersister();
+            var store = AppPreferencesStore.ForPersisterFactory(() => root);
+            var original = new WindowLayout
+            {
+                Width = 1100,
+                Height = 720,
+                X = 120,
+                Y = 80,
+                Maximized = true
+            };
+
+            store.SaveWindowLayout(original);
+            WindowLayout loaded = store.LoadWindowLayout();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(loaded.Width, Is.EqualTo(1100));
+                Assert.That(loaded.Height, Is.EqualTo(720));
+                Assert.That(loaded.X, Is.EqualTo(120));
+                Assert.That(loaded.Y, Is.EqualTo(80));
+                Assert.That(loaded.Maximized, Is.True);
+                Assert.That(loaded.HasSavedPosition, Is.True);
+            });
+        }
+
+        [Test]
+        public void WindowLayout_ClampsCorruptMinimums()
+        {
+            var root = new MemorySettingsPersister();
+            var store = AppPreferencesStore.ForPersisterFactory(() => root);
+            store.SaveWindowLayout(new WindowLayout { Width = 100, Height = 50 });
+            WindowLayout loaded = store.LoadWindowLayout();
+            Assert.That(loaded.Width, Is.GreaterThanOrEqualTo(WindowLayout.MinWidth));
+            Assert.That(loaded.Height, Is.GreaterThanOrEqualTo(WindowLayout.MinHeight));
+        }
+
+        [Test]
         public void PublishingHttpClientFactory_ProxyDisabled_DoesNotSetCustomProxy()
         {
             using var handler = PublishingHttpClientFactory.CreateHandler(new WebProxyConfiguration());
