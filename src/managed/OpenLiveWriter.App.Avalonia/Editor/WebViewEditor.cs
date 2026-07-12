@@ -176,9 +176,75 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 AlignCenter = B("alignCenter"),
                 AlignRight = B("alignRight"),
                 AlignFull = B("alignFull"),
-                BlockTag = S("blockTag") ?? "p"
+                BlockTag = S("blockTag") ?? "p",
+                FontFamily = NormalizeFontName(S("fontName")),
+                FontSize = S("fontSize"),
+                ForeColor = NormalizeReportedColor(S("foreColor")),
+                HighlightColor = NormalizeReportedColor(S("backColor"))
             };
         }
+
+        /// <summary>
+        /// Parses a <c>getState()</c> JSON payload into a <see cref="FormatState"/>.
+        /// Pure/deterministic so the caret-state → ribbon mapping (block tag, font
+        /// family/size, colors) is unit-testable without a live WebView.
+        /// </summary>
+        internal static FormatState ParseFormatStateJson(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+                return new FormatState();
+            using var doc = JsonDocument.Parse(json);
+            return ParseFormatState(doc.RootElement);
+        }
+
+        /// <summary>
+        /// Cleans a reported <c>fontName</c>: strips surrounding quotes and takes the
+        /// first family in a CSS font stack (WebKit reports the resolved stack). Null
+        /// or empty input yields null.
+        /// </summary>
+        internal static string NormalizeFontName(string fontName)
+        {
+            if (string.IsNullOrWhiteSpace(fontName))
+                return null;
+            string first = fontName.Split(',')[0].Trim();
+            first = first.Trim('\'', '"').Trim();
+            return first.Length == 0 ? null : first;
+        }
+
+        /// <summary>
+        /// Normalizes a reported color to canonical <c>#RRGGBB</c>. Accepts
+        /// <c>rgb(r, g, b)</c> (as WebKit reports queryCommandValue colors) and hex
+        /// forms. Returns null when the input is empty or unparseable.
+        /// </summary>
+        internal static string NormalizeReportedColor(string color)
+        {
+            if (string.IsNullOrWhiteSpace(color))
+                return null;
+
+            string s = color.Trim();
+            if (s.StartsWith("rgb", StringComparison.OrdinalIgnoreCase))
+            {
+                int open = s.IndexOf('(');
+                int close = s.IndexOf(')');
+                if (open >= 0 && close > open)
+                {
+                    string[] parts = s.Substring(open + 1, close - open - 1).Split(',');
+                    if (parts.Length >= 3 &&
+                        int.TryParse(parts[0].Trim(), out int r) &&
+                        int.TryParse(parts[1].Trim(), out int g) &&
+                        int.TryParse(parts[2].Trim(), out int b) &&
+                        InByte(r) && InByte(g) && InByte(b))
+                    {
+                        return $"#{r:X2}{g:X2}{b:X2}";
+                    }
+                }
+                return null;
+            }
+
+            return NormalizeColor(s);
+        }
+
+        private static bool InByte(int v) => v >= 0 && v <= 255;
 
         private Control CreateFallbackEditor()
         {
@@ -617,5 +683,17 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public bool AlignRight { get; set; }
         public bool AlignFull { get; set; }
         public string BlockTag { get; set; } = "p";
+
+        /// <summary>The selection's font family (first family in the stack), or null.</summary>
+        public string FontFamily { get; set; }
+
+        /// <summary>The selection's font size on the HTML 1-7 scale as reported, or null.</summary>
+        public string FontSize { get; set; }
+
+        /// <summary>The selection's foreground color as <c>#RRGGBB</c>, or null.</summary>
+        public string ForeColor { get; set; }
+
+        /// <summary>The selection's highlight/background color as <c>#RRGGBB</c>, or null.</summary>
+        public string HighlightColor { get; set; }
     }
 }

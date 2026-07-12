@@ -58,7 +58,15 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (StrikethroughButton != null) StrikethroughButton.IsChecked = state.Strikethrough;
             if (BulletListButton != null) BulletListButton.IsChecked = state.UnorderedList;
             if (NumberListButton != null) NumberListButton.IsChecked = state.OrderedList;
+
+            // Reflect the caret's current block style in the heading combo without
+            // re-dispatching a formatBlock command.
+            _suppressHeadingCombo = true;
+            try { SyncHeadingComboToTag(state.BlockTag ?? "p"); }
+            finally { _suppressHeadingCombo = false; }
         }
+
+        private bool _suppressHeadingCombo;
 
         private void SetupViewToggle()
         {
@@ -183,6 +191,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             {
                 HeadingCombo.SelectionChanged += (s, e) =>
                 {
+                    if (_suppressHeadingCombo) return;
                     if (HeadingCombo.SelectedIndex < 0) return;
                     var tag = MapHeadingIndexToTag(HeadingCombo.SelectedIndex);
                     _webViewEditor?.SetBlockFormat(tag);

@@ -73,6 +73,49 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             ApplyDropDownData(commandId);
         }
 
+        /// <summary>
+        /// Reflects the caret's current value in a ribbon editor combo (e.g. Font
+        /// family/size) by selecting the item whose <c>Tag</c> (or, failing that,
+        /// <c>Content</c>) matches <paramref name="value"/> case-insensitively. A null
+        /// or unmatched value clears the selection. Programmatic selection does not
+        /// raise <see cref="ComboSelectionChanged"/>.
+        /// </summary>
+        public void SetComboSelection(CommandId commandId, string value)
+        {
+            if (!_dropDownsByCommand.TryGetValue(commandId, out var combos))
+                return;
+
+            bool previous = _populatingDropDowns;
+            _populatingDropDowns = true;
+            try
+            {
+                foreach (var combo in combos)
+                {
+                    ComboBoxItem match = null;
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        foreach (var obj in combo.Items)
+                        {
+                            if (obj is ComboBoxItem item &&
+                                (Matches(item.Tag as string, value) || Matches(item.Content as string, value)))
+                            {
+                                match = item;
+                                break;
+                            }
+                        }
+                    }
+                    combo.SelectedItem = match;
+                }
+            }
+            finally
+            {
+                _populatingDropDowns = previous;
+            }
+        }
+
+        private static bool Matches(string candidate, string value) =>
+            candidate != null && string.Equals(candidate, value, StringComparison.OrdinalIgnoreCase);
+
         private void ApplyDropDownData(CommandId commandId)
         {
             if (!_dropDownsByCommand.TryGetValue(commandId, out var combos))

@@ -322,25 +322,29 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             if (commandId == CommandId.FontFamily)
             {
                 foreach (var family in FontFamilies)
-                    comboBox.Items.Add(new ComboBoxItem { Content = family });
+                    comboBox.Items.Add(new ComboBoxItem { Content = family, Tag = family });
 
                 comboBox.SelectionChanged += (s, e) =>
                 {
                     if (comboBox.SelectedItem is ComboBoxItem item && item.Content is string family)
                         ComboSelectionChanged?.Invoke(this, new RibbonComboSelectionEventArgs(commandId, family));
                 };
+                // Registered so the host can reflect the caret's current font family.
+                _dropDowns.Add((commandId, comboBox));
             }
             else if (commandId == CommandId.FontSize)
             {
-                foreach (var (label, _) in FontSizes)
-                    comboBox.Items.Add(new ComboBoxItem { Content = label });
+                // Tag carries the HTML 1-7 value so the host can select by the value
+                // reported from the editor's getState().
+                foreach (var (label, value) in FontSizes)
+                    comboBox.Items.Add(new ComboBoxItem { Content = label, Tag = value });
 
                 comboBox.SelectionChanged += (s, e) =>
                 {
-                    if (comboBox.SelectedIndex >= 0 && comboBox.SelectedIndex < FontSizes.Length)
-                        ComboSelectionChanged?.Invoke(this,
-                            new RibbonComboSelectionEventArgs(commandId, FontSizes[comboBox.SelectedIndex].Value));
+                    if (comboBox.SelectedItem is ComboBoxItem item && item.Tag is string value)
+                        ComboSelectionChanged?.Invoke(this, new RibbonComboSelectionEventArgs(commandId, value));
                 };
+                _dropDowns.Add((commandId, comboBox));
             }
 
             return comboBox;

@@ -383,6 +383,10 @@ namespace OpenLiveWriter.App.Avalonia
             _ribbon.SetToggleState(CommandId.Justify, state.AlignFull);
             _ribbon.SetToggleState(CommandId.Blockquote,
                 string.Equals(state.BlockTag, "blockquote", StringComparison.OrdinalIgnoreCase));
+
+            // Reflect the caret's font family/size in the ribbon Font combos.
+            _ribbon.SetComboSelection(CommandId.FontFamily, state.FontFamily);
+            _ribbon.SetComboSelection(CommandId.FontSize, state.FontSize);
         }
 
         private FindReplaceDialog _findDialog;

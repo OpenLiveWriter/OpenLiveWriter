@@ -100,7 +100,11 @@ const OLWBridge = {
             alignCenter: document.queryCommandState('justifyCenter'),
             alignRight: document.queryCommandState('justifyRight'),
             alignFull: document.queryCommandState('justifyFull'),
-            blockTag: (document.queryCommandValue('formatBlock') || 'p').toLowerCase()
+            blockTag: (document.queryCommandValue('formatBlock') || 'p').toLowerCase(),
+            fontName: (document.queryCommandValue('fontName') || '').toString(),
+            fontSize: (document.queryCommandValue('fontSize') || '').toString(),
+            foreColor: (document.queryCommandValue('foreColor') || '').toString(),
+            backColor: (document.queryCommandValue('backColor') || document.queryCommandValue('hiliteColor') || '').toString()
         });
     },
 
