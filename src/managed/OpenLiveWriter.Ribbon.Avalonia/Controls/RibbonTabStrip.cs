@@ -41,6 +41,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0));
             BorderThickness = new Thickness(0, 0, 0, 1);
             Padding = new Thickness(8, 4, 8, 0);
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            ClipToBounds = true;
 
             _tabPanel = new StackPanel
             {
@@ -50,7 +52,14 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             BuildTabs();
 
-            Child = _tabPanel;
+            // Horizontal scroll when many tabs (or contextual tabs) won't fit —
+            // StackPanel alone would clip or overflow the window edge.
+            Child = new ScrollViewer
+            {
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
+                Content = _tabPanel
+            };
         }
 
         /// <summary>The tab configs currently rendered, in order.</summary>
@@ -118,6 +127,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 {
                     Content = tab.Label,
                     Padding = new Thickness(12, 6),
+                    MinHeight = 28,
+                    MinWidth = 48,
                     FontSize = 12,
                     FontWeight = contextual ? FontWeight.SemiBold : FontWeight.Normal,
                     Foreground = contextual ? ContextualBrush : Brushes.Black,

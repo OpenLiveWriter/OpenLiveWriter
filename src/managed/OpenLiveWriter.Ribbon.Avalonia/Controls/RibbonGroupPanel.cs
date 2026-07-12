@@ -60,6 +60,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             BorderThickness = new Thickness(0, 0, 1, 0);
             Padding = new Thickness(6, 4, 6, 0);
             Margin = new Thickness(0, 0, 4, 0);
+            VerticalAlignment = VerticalAlignment.Stretch;
 
             var outerStack = new DockPanel();
 

@@ -172,7 +172,11 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             }
             _baseTabs = new List<TabConfig>(_visibleTabs);
 
-            var rootPanel = new DockPanel();
+            var rootPanel = new DockPanel
+            {
+                LastChildFill = true,
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
 
             // Tab strip
             _tabStrip = new RibbonTabStrip(_visibleTabs);
@@ -180,7 +184,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             DockPanel.SetDock(_tabStrip, Dock.Top);
             rootPanel.Children.Add(_tabStrip);
 
-            // Content area (groups for the active tab)
+            // Content area (groups for the active tab) — horizontal scroll when
+            // groups exceed the window width so they don't clip or force overflow.
             _groupsPanel = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -192,6 +197,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             {
                 HorizontalScrollBarVisibility = global::Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
                 VerticalScrollBarVisibility = global::Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
                 Content = _groupsPanel
             };
 
@@ -201,12 +207,16 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0)),
                 BorderThickness = new Thickness(0, 0, 0, 1),
                 MinHeight = 95,
+                MaxHeight = 120,
                 Padding = new Thickness(4, 4, 4, 0),
+                ClipToBounds = true,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
                 Child = _contentScrollViewer
             };
 
             rootPanel.Children.Add(_contentArea);
 
+            HorizontalAlignment = HorizontalAlignment.Stretch;
             Content = rootPanel;
 
             // Select first tab
