@@ -275,9 +275,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         /// Shows the dialog modally over <paramref name="owner"/> and returns the saved
         /// account + password, or null if cancelled / headless (null owner).
         /// </summary>
-        public static async Task<AccountDialogResult> ShowAsync(Window owner, BlogAccount existing = null)
+        public static async Task<AccountDialogResult> ShowAsync(
+            Window owner,
+            BlogAccount existing = null,
+            IRsdHttpFetcher fetcher = null)
         {
-            var dialog = new AccountDialog(existing);
+            var dialog = new AccountDialog(existing, fetcher);
             if (owner != null)
                 return await dialog.ShowDialog<AccountDialogResult>(owner);
 

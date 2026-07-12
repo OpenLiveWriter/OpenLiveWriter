@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 
 namespace OpenLiveWriter.Publishing.Accounts
 {
@@ -20,20 +21,28 @@ namespace OpenLiveWriter.Publishing.Accounts
         private readonly IAccountStore _accounts;
         private readonly ICredentialStore _credentials;
         private readonly Func<BlogAccount, string, IBlogClient> _clientFactory;
+        private readonly Func<HttpClient> _httpClientFactory;
 
         /// <param name="clientFactory">
         /// Builds an <see cref="IBlogClient"/> from an account + password. Defaults to
         /// <see cref="BlogClientFactory.CreateClient(BlogAccount, string, System.Net.Http.HttpClient)"/>;
         /// tests inject a factory returning a fake client.
         /// </param>
+        /// <param name="httpClientFactory">
+        /// Optional factory for proxy-aware <see cref="HttpClient"/> instances used by the
+        /// default client factory. When null, transports use their built-in shared client.
+        /// </param>
         public BlogAccountService(
             IAccountStore accounts,
             ICredentialStore credentials,
-            Func<BlogAccount, string, IBlogClient> clientFactory = null)
+            Func<BlogAccount, string, IBlogClient> clientFactory = null,
+            Func<HttpClient> httpClientFactory = null)
         {
             _accounts = accounts ?? throw new ArgumentNullException(nameof(accounts));
             _credentials = credentials ?? throw new ArgumentNullException(nameof(credentials));
-            _clientFactory = clientFactory ?? ((a, p) => BlogClientFactory.CreateClient(a, p));
+            _httpClientFactory = httpClientFactory;
+            _clientFactory = clientFactory ?? ((a, p) =>
+                BlogClientFactory.CreateClient(a, p, _httpClientFactory?.Invoke()));
         }
 
         /// <summary>Raised after the account list or current selection changes.</summary>

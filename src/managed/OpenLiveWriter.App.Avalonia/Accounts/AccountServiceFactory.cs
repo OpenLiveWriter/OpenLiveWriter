@@ -1,7 +1,9 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using System;
 using System.IO;
+using System.Net.Http;
 using OpenLiveWriter.Platform;
 using OpenLiveWriter.Publishing.Accounts;
 
@@ -26,11 +28,14 @@ namespace OpenLiveWriter.App.Avalonia.Accounts
         }
 
         /// <summary>Creates the account service backed by files + the platform Keychain.</summary>
-        public static BlogAccountService CreateDefault()
+        /// <param name="httpClientFactory">
+        /// Optional factory for proxy-aware HTTP clients passed to publish transports.
+        /// </param>
+        public static BlogAccountService CreateDefault(Func<HttpClient> httpClientFactory = null)
         {
             var store = new FileAccountStore(GetAccountsDirectory());
             var credentials = PlatformCredentialStore.CreateDefault();
-            return new BlogAccountService(store, credentials);
+            return new BlogAccountService(store, credentials, httpClientFactory: httpClientFactory);
         }
     }
 }
