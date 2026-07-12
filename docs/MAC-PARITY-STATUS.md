@@ -3,7 +3,7 @@
 Single source of truth for the Mac (Avalonia) port. Goal: **feature and visual
 parity with Open Live Writer for Windows.** Update this file as work lands.
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (accounts + publishing UI: blog account model/store, Keychain credentials, add/configure/select-blog dialogs, PostAndPublish/PostAsDraft wired)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (Insert-tab + preview + selection-state band: real Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
 
 ## Official milestone plan
 
@@ -62,8 +62,20 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
   and a status bar.
 - **Editor:** WebView (WKWebView) `contenteditable` surface (`editor.html`) with a
   JS bridge (`OLWBridge`) for `execCommand`, selection save/restore, get/set content.
-- **View toggle:** Edit / Source / Preview (source shows formatted HTML round-tripped
-  from the WebView).
+- **View toggle:** Edit / Source / Preview. Source shows formatted HTML round-tripped
+  from the WebView; **Preview now renders** the post body as it would look published
+  (a neutral "article" layout composed by `PreviewRenderer` and shown in a read-only
+  WebView, extended-entry marker joined).
+- **Insert tab:** Insert Table (rows×columns + header row + width via `TableBuilder`)
+  with basic Table Tools row/column insert-delete + delete-table bridge ops; Insert
+  Video as a modern responsive `<iframe>` web embed (YouTube/Vimeo/generic URL or
+  pasted embed normalized by `VideoEmbedBuilder` — replaces the dead Flash/service
+  paths); Insert Emoticon (Unicode emoji picker); Paste Special (clean paste:
+  plain-text / safe-HTML via `PasteCleaner`); Insert Clear Break + Insert Extended
+  Entry (`<!--more-->`, shared with the publish split).
+- **Caret-state reflection:** the toolbar heading combo and the ribbon Font
+  family/size combos follow the caret's actual block tag / font / size (and the state
+  also carries fore/highlight color), via the `stateChanged` → `FormatState` pipeline.
 - **Editor commands wired to the ribbon + toolbar** (via `WebViewEditor.HandleCommandAsync`):
   - Character: Bold, Italic, Underline, Strikethrough, Subscript, Superscript, Clear Formatting
   - Lists/indent: Bullets, Numbers, Indent, Outdent
@@ -162,7 +174,11 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 ### P3 — visual parity & advanced · M4 parity + M5 packaging
 11. **Ribbon visual fidelity** vs. the Windows Fluent ribbon (spacing, icons, group
     chrome, contextual tabs actually appearing on selection). *(M4)*
-12. Tables, video, maps, tags, plugins, spellcheck UI, print/preview. *(M4)*
+12. ✅ **Tables, video, emoticons, preview, paste-special, breaks.** Done this band —
+    Insert Table (+ table-tools ops), web-video embeds, emoticon picker, real Preview
+    render, clean paste, and clear-break/extended-entry. **Remaining:** maps, tags,
+    plugins, spellcheck UI, print, and *contextual-tab activation* (the Table Tools
+    ops are wired but the contextual tab does not yet auto-appear on selection). *(M4)*
 13. **M5 packaging:** `.app` bundle + DMG, code signing / notarization
     (`xcrun notarytool`), cross-platform GitHub Actions build matrix, App Store
     submission. Start once editor + ribbon parity (P0–P1) is solid.
@@ -216,9 +232,28 @@ Run:
   `OLW_LIVEBLOG_PUBLISH=true`; defaults to posting an unpublished draft) then
   `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **160 passed / 0 failed.** WebView-category, `PublishTdd`, and
+Default run status: **235 passed / 0 failed.** WebView-category, `PublishTdd`, and
 `LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
-stays green. The accounts/publishing band lifted the count 133 → 160 (new
+stays green. The Insert-tab + preview + selection-state band lifted the count 160 → 235
+with pure/headless coverage:
+
+- **Preview (B4):** `GroupB_RoundtripTests` — the previously `[Explicit]` failing
+  preview stub is replaced by headless `PreviewRenderer` composition tests (article
+  wrapper + body survival + more-marker join + empty-body safety); a live display
+  test stays `[Explicit]`.
+- **Insert Table:** `GroupF_TableTests` — `TableBuilder` dimensions, header/body
+  split, well-formedness, width normalization, clamping + a dialog-defaults UI test.
+- **Insert Video:** `GroupF_VideoTests` — `VideoEmbedBuilder` URL normalization
+  (YouTube/Vimeo/shorts/embed), iframe-src extraction, protocol-relative + generic
+  URLs, rejection of unembeddable input, embed well-formedness.
+- **Emoticons:** `GroupF_EmoticonTests` — `EmoticonGallery` catalog + insertion payload.
+- **Selection state:** `GroupA_SelectionStateTests` — `ParseFormatStateJson` +
+  `NormalizeFontName`/`NormalizeReportedColor` (rgb→hex).
+- **Paste / breaks:** `GroupF_PasteAndBreaksTests` — `PasteCleaner` plain-text +
+  clean-HTML sanitizers, clear-break, and that the inserted extended-entry marker is
+  still recognized by the publish split.
+
+Earlier bands: the accounts/publishing band lifted the count 133 → 160 (new
 `GroupE_AccountTests` + the flipped Group D D3 + `AccountDialog` validation), on top of
 the editor-content parity band that had lifted it 63 → 133 with pure/headless coverage:
 
@@ -272,7 +307,15 @@ the two Group C `RealPipeline_*` probes and `GroupD_DraftLifecycleTests` remain 
 | A16: well-formedness / publish-readiness gate | `GroupA_WellFormednessTests` (samples) + `GroupA_EditorCommandTests` (live) | ✅ pass (samples) / ⏭ WebView (live) |
 | A18: getState sync (bold on→true, off→false; blockTag) | `GroupA18_GetStateTests` | ⏭ WebView |
 | B1–B3: source/preview round-trip (WYSIWYG↔source, hand-edited h2+ul) | `GroupB_RoundtripTests` (via `EditorPanel.FormatHtml`) | ✅ pass |
-| B: live round-trip + preview render | `GroupB_RoundtripTests` | ⏭ WebView / preview `[Explicit]` |
+| B4: preview render — article wrapper + body survival + more-marker join + empty-body | `GroupB_RoundtripTests` (real `PreviewRenderer`) | ✅ pass |
+| B: live round-trip + live preview display | `GroupB_RoundtripTests` | ⏭ WebView |
+| F: Insert Table — dimensions, header/body split, width, well-formed, clamp, dialog | `GroupF_TableTests` (real `TableBuilder`) | ✅ pass |
+| F: table-tools ops (insert/delete row+column, delete table) | editor.html bridge + `WebViewEditor.HandleCommandAsync` | ⏭ WebView |
+| F: Insert Video — URL→embed normalization, iframe extract, generic, reject, well-formed | `GroupF_VideoTests` (real `VideoEmbedBuilder`) | ✅ pass |
+| F: Insert Emoticon — catalog + Unicode insertion payload | `GroupF_EmoticonTests` (real `EmoticonGallery`) | ✅ pass |
+| F: Paste Special — plain-text + clean-HTML sanitizers (drop scripts/attrs/js: URLs) | `GroupF_PasteAndBreaksTests` (real `PasteCleaner`) | ✅ pass |
+| F: Insert Clear Break + Extended Entry marker recognized by publish split | `GroupF_PasteAndBreaksTests` (real `EditorMarkup`/`ExtendedEntry`) | ✅ pass |
+| A: selection-state parse + font/color normalization (rgb→hex, font-stack) | `GroupA_SelectionStateTests` (real `WebViewEditor.ParseFormatStateJson`) | ✅ pass |
 | C: post model, MetaWeblog payload (description=MainContents, publish flag), draft, extended split | `GroupC_PublishTests` (real `OpenLiveWriter.Publishing` + `FakeBlogClient`) | ✅ pass (real types) |
 | C: `XmlCharacterHelper` XML-char scrub | `GroupC_PublishTests` (real ported helper) | ✅ pass |
 | C: real ported pipeline present (app refs `Publishing`, `WebViewEditor.PublishAsync`) | `GroupC_PublishTests` (reflection probes) | ✅ pass |
@@ -297,7 +340,13 @@ escaping), `EditorPanel.FormatHtml` (source view formatter), `LinkDialog.IsValid
 `EditorPanel.MapHeadingIndexToTag` + `SemanticHtmlStyles` (block-style mapping),
 `WebViewEditor.ColorCommandFor`/`NormalizeColor` (color command + hex serialization),
 `WebViewEditor.BuildImageHtml*`/`GuessImageMimeType` (image build), `WordCounter`
-(HTML→plain-text counts), and `TextFinder` (find/replace incl. HTML-aware Replace All).
+(HTML→plain-text counts), `TextFinder` (find/replace incl. HTML-aware Replace All),
+`PreviewRenderer` (preview article composition), `TableBuilder` (table HTML +
+width normalization), `VideoEmbedBuilder` (URL→embed normalization + responsive
+iframe), `EmoticonGallery` (emoji catalog + payload), `PasteCleaner` (plain-text +
+clean-HTML sanitizers), `EditorMarkup` (clear-break + extended-entry marker), and
+`WebViewEditor.ParseFormatStateJson`/`NormalizeFontName`/`NormalizeReportedColor`
+(caret-state parsing for the ribbon combos).
 
 ### Publish tests target the real pipeline
 
