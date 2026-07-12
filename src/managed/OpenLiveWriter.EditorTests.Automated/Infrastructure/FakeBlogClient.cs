@@ -49,6 +49,11 @@ namespace OpenLiveWriter.EditorTests.Automated.Publish
         public List<MediaUpload> MediaUploads { get; } = new List<MediaUpload>();
         public int NewMediaObjectCount => MediaUploads.Count;
 
+        /// <summary>Categories the fake returns from <see cref="GetCategories"/>.</summary>
+        public List<BlogPostCategory> AvailableCategories { get; } = new List<BlogPostCategory>();
+        public int GetCategoriesCount { get; private set; }
+        public string LastGetCategoriesBlogId { get; private set; }
+
         /// <summary>
         /// When set, <see cref="NewMediaObject"/> throws for the matching file name so
         /// tests can exercise the upload-failure path.
@@ -88,6 +93,13 @@ namespace OpenLiveWriter.EditorTests.Automated.Publish
                 ReturnedUrl = url
             });
             return url;
+        }
+
+        public IReadOnlyList<BlogPostCategory> GetCategories(string blogId)
+        {
+            GetCategoriesCount++;
+            LastGetCategoriesBlogId = blogId;
+            return AvailableCategories.AsReadOnly();
         }
 
         private void Capture(string blogId, BlogPost post, bool publish)

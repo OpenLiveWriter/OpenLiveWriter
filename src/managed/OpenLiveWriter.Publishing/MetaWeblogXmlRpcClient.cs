@@ -233,6 +233,87 @@ namespace OpenLiveWriter.Publishing
         private static string CleanUploadFilename(string filename) =>
             (filename ?? string.Empty).Replace("#", "_");
 
+        /// <summary>
+        /// Fetches the blog's categories via <c>metaWeblog.getCategories</c> and parses the
+        /// returned array of category structs. Faithful to the Windows
+        /// <c>MetaweblogGetCategories</c>/<c>ParseCategory</c> path.
+        /// </summary>
+        public IReadOnlyList<BlogPostCategory> GetCategories(string blogId)
+        {
+            XmlRpcMethodResponse response = CallMethod("metaWeblog.getCategories",
+                new XmlRpcString(blogId),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true));
+
+            return ParseCategories(response.Response);
+        }
+
+        /// <summary>
+        /// Parses a <c>metaWeblog.getCategories</c> response value node into categories.
+        /// Pure/offline so it can be fixture-tested against sample XML. Tolerant of the
+        /// common member permutations (description/title/categoryName for the name;
+        /// categoryid/categoryId for the id) exactly like the Windows client.
+        /// </summary>
+        public static IReadOnlyList<BlogPostCategory> ParseCategories(XmlNode responseValue)
+        {
+            var categories = new List<BlogPostCategory>();
+            if (responseValue == null)
+                return categories;
+
+            XmlNodeList categoryNodes = responseValue.SelectNodes("array/data/value/struct");
+            if (categoryNodes == null)
+                return categories;
+
+            foreach (XmlNode node in categoryNodes)
+            {
+                string name = GetNodeValue(node, "member[name='description']/value");
+
+                string title = GetNodeValue(node, "member[name='title']/value");
+                if (!string.IsNullOrEmpty(title))
+                    name = title;
+
+                if (string.IsNullOrEmpty(name))
+                    name = GetNodeValue(node, "member[name='categoryName']/value");
+
+                string id = GetNodeValue(node, "member[name='categoryid']/value")
+                    ?? GetNodeValue(node, "member[name='categoryId']/value");
+                if (string.IsNullOrEmpty(id))
+                    id = name;
+
+                string parent = GetNodeValue(node, "member[name='parentId']/value") ?? string.Empty;
+
+                if (string.IsNullOrEmpty(name))
+                    continue; // malformed entry — skip rather than surface a null name
+
+                categories.Add(new BlogPostCategory(id, name, parent));
+            }
+
+            return categories;
+        }
+
+        /// <summary>
+        /// Parses a <c>metaWeblog.getCategories</c> XML-RPC method-response document string
+        /// into categories. Convenience wrapper over <see cref="ParseCategories(XmlNode)"/>
+        /// for fixture-based tests.
+        /// </summary>
+        public static IReadOnlyList<BlogPostCategory> ParseCategoriesResponse(string responseXml)
+        {
+            var response = new XmlRpcMethodResponse(responseXml);
+            return ParseCategories(response.Response);
+        }
+
+        private static string GetNodeValue(XmlNode node, string xpath)
+        {
+            XmlNode found = node.SelectSingleNode(xpath);
+            // Prefer the typed child text so indentation whitespace between value/child
+            // elements is not folded into the returned value; fall back to InnerText.
+            XmlNode typed = found?.SelectSingleNode("string") ?? found?.FirstChild;
+            string text = (typed != null && typed.NodeType != XmlNodeType.Text)
+                ? typed.InnerText
+                : found?.InnerText;
+            return string.IsNullOrEmpty(text) ? text : text.Trim();
+        }
+
         private XmlRpcMethodResponse CallMethod(string methodName, params XmlRpcValue[] parameters)
         {
             if (string.IsNullOrEmpty(_endpointUrl))

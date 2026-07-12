@@ -1,6 +1,8 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using System.Collections.Generic;
+
 namespace OpenLiveWriter.Publishing
 {
     /// <summary>
@@ -29,6 +31,14 @@ namespace OpenLiveWriter.Publishing
         /// sent so the body references real URLs rather than embedded base64.
         /// </summary>
         string NewMediaObject(string blogId, string fileName, string mimeType, byte[] bits);
+
+        /// <summary>
+        /// Fetches the categories available on the blog (<c>metaWeblog.getCategories</c>).
+        /// The publish UI presents these for selection; the chosen category names are then
+        /// included inline in the post struct. Returns an empty list when the provider
+        /// exposes no categories.
+        /// </summary>
+        IReadOnlyList<BlogPostCategory> GetCategories(string blogId);
     }
 
     /// <summary>

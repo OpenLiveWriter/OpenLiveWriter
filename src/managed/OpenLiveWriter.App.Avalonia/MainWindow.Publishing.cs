@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using global::Avalonia.Controls;
@@ -88,6 +89,9 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.SelectBlog:
                     await SelectBlogAsync();
                     return true;
+                case CommandId.ShowCategoryPopup:
+                    await ChooseCategoriesAsync();
+                    return true;
                 case CommandId.PostAndPublish:
                     await PublishCurrentAsync(publish: true);
                     return true;
@@ -136,6 +140,46 @@ namespace OpenLiveWriter.App.Avalonia
             _accountService.SetCurrentAccount(id);
             RefreshBlogSelector();
             UpdateStatus($"Current blog: {_accountService.CurrentAccount?.DisplayLabel}");
+        }
+
+        // Fetches the current blog's categories (degrading gracefully to manual entry if
+        // the provider returns none or the fetch fails) and lets the user pick which apply
+        // to the current post. The selection is stored on the draft so it flows into the
+        // newPost struct on publish.
+        private async Task ChooseCategoriesAsync()
+        {
+            BlogAccount account = _accountService.CurrentAccount;
+            IReadOnlyList<BlogPostCategory> available = Array.Empty<BlogPostCategory>();
+
+            if (account != null && !string.IsNullOrEmpty(_accountService.GetPassword(account.Id)))
+            {
+                try
+                {
+                    IBlogClient client = _accountService.CreateClient(account);
+                    available = client.GetCategories(account.BlogId) ?? Array.Empty<BlogPostCategory>();
+                }
+                catch (Exception ex)
+                {
+                    // Never block category selection on a transport hiccup — fall back to
+                    // manual entry in the dialog.
+                    UpdateStatus($"Could not fetch categories: {ex.Message}");
+                }
+            }
+
+            IEnumerable<string> current = _draftSession?.Current.Categories ?? new List<string>();
+            List<string> chosen = await CategoryDialog.ShowAsync(this, available, current);
+            if (chosen == null)
+                return; // cancelled
+
+            if (_draftSession != null)
+            {
+                _draftSession.Current.Categories = chosen;
+                _draftSession.Current.IsDirty = true;
+            }
+
+            UpdateStatus(chosen.Count > 0
+                ? $"Categories: {string.Join(", ", chosen)}"
+                : "No categories selected.");
         }
 
         // Core publish flow. publish=true → PostAndPublish; publish=false → post as a
