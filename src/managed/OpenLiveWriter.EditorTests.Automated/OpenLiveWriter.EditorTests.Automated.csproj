@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OpenLiveWriter.App.Avalonia\OpenLiveWriter.App.Avalonia.csproj" />
     <ProjectReference Include="..\OpenLiveWriter.Publishing\OpenLiveWriter.Publishing.csproj" />
+    <ProjectReference Include="..\OpenLiveWriter.Platform.Mac\OpenLiveWriter.Platform.Mac.csproj" />
   </ItemGroup>
 
 </Project>

@@ -45,12 +45,8 @@ namespace OpenLiveWriter.Platform.Mac
 
         public ISettingsPersister CreateUserSettingsPersister(string subKey)
         {
-            // Use XML-based settings on macOS
             string settingsDir = Path.Combine(GetApplicationDataDirectory(), "Settings");
-            Directory.CreateDirectory(settingsDir);
-            // For now, return a simple memory persister. XmlSettingsPersister will be wired up
-            // when CoreServices is merged into the cross-platform build.
-            throw new NotImplementedException("XML settings persister will be wired up when CoreServices merge is complete.");
+            return FileSettingsPersister.Create(settingsDir, subKey);
         }
     }
 }

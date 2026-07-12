@@ -16,8 +16,30 @@
                 Background="#F0F0F0"
                 BorderBrush="#D0D0D0"
                 BorderThickness="0,1,0,0"
-                Padding="8,4">
-            <TextBlock x:Name="StatusText" Text="Ready" FontSize="12" Foreground="#666666" />
+                Padding="10,5">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <TextBlock x:Name="BlogStatusText"
+                           Grid.Column="0"
+                           FontSize="12"
+                           Foreground="#444444"
+                           Margin="0,0,16,0"
+                           VerticalAlignment="Center"
+                           Text="No blog selected" />
+                <TextBlock x:Name="StatusText"
+                           Grid.Column="1"
+                           Text="Ready"
+                           FontSize="12"
+                           Foreground="#666666"
+                           VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis" />
+                <TextBlock x:Name="WordCountStatusText"
+                           Grid.Column="2"
+                           FontSize="12"
+                           Foreground="#444444"
+                           Margin="16,0,0,0"
+                           VerticalAlignment="Center"
+                           IsVisible="False" />
+            </Grid>
         </Border>
 
         <!-- Main content area -->

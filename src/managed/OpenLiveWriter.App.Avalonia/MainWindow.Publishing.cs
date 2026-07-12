@@ -38,6 +38,7 @@ namespace OpenLiveWriter.App.Avalonia
             }
 
             RefreshBlogSelector();
+            UpdateStatusBarExtras();
         }
 
         // Fills the ribbon's blog-selector dropdown from the stored accounts and
@@ -69,7 +70,9 @@ namespace OpenLiveWriter.App.Avalonia
                 return;
 
             _accountService.SetCurrentAccount(accountId);
+            UpdateBlogStatusLabel();
             UpdateStatus($"Current blog: {_accountService.CurrentAccount?.DisplayLabel}");
+            UpdateStatusBarExtras();
         }
 
         private async Task<bool> TryHandlePublishCommandAsync(CommandId commandId)

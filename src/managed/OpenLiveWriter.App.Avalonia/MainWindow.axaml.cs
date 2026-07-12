@@ -29,6 +29,7 @@ namespace OpenLiveWriter.App.Avalonia
             InitializeDraftSession();
             InitializeAccounts();
             InitializeSpelling();
+            InitializePreferences();
         }
 
         private void InitializeRibbon()
@@ -41,6 +42,10 @@ namespace OpenLiveWriter.App.Avalonia
             // Wire ribbon commands — use async handler for proper await chain
             ribbon.CommandExecuted += async (sender, commandId) =>
             {
+                // Options / Preferences (does not require a draft session).
+                if (await TryHandleOptionsCommandAsync(commandId))
+                    return;
+
                 // File / document-lifecycle commands are handled by the shell.
                 if (await TryHandleFileCommandAsync(commandId))
                     return;
@@ -172,11 +177,11 @@ namespace OpenLiveWriter.App.Avalonia
             }
         }
 
-        // Body edits coming from the WebView editor flag the document dirty.
         private void OnEditorContentChanged(object sender, string html)
         {
             if (_suppressDirty || _draftSession == null) return;
             _draftSession.UpdateBody(html ?? string.Empty);
+            OnEditorContentChangedForWordCount();
         }
 
         // ---- File / document lifecycle ----
