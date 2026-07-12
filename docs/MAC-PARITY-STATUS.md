@@ -131,8 +131,15 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
 - **Options / Preferences:** JSON `FileSettingsPersister` on macOS (platform-resolved
   `~/Library/Application Support/OpenLiveWriter/Settings/`); tabbed **Preferences** dialog
   (General, Editing, Spelling, Web Proxy, Accounts) wired to the File menu **Options**
-  command. Spelling toggle drives `MainWindow.SetSpellcheckEnabledAsync`; status-bar word
-  count follows the General preference. See §11.
+  command. **Enforced:** spelling toggle → `SetSpellcheckEnabledAsync`; status-bar word
+  count → General preference; web proxy → MetaWeblog/RSD/image-upload HTTP via
+  `PublishingHttpClientFactory`; autoreplace (smart quotes on typing + paste transforms) →
+  `AutoreplaceController`/`AutoreplaceTransformer`; title/category publishing reminders →
+  publish flow. **Stored only (not yet enforced):** post-window behavior, view-after-publish,
+  close-on-publish, tag reminder, AutoRecover interval, paragraph-tag preference, emoticon
+  image autoreplace (text emoticons on paste only). See §11.
+- **Plug-ins (stub):** Add/Manage Plug-ins ribbon commands show an informational dialog —
+  `OpenLiveWriter.Extensibility` compiles on macOS but the WinForms plug-in host is not ported.
 
 ---
 
@@ -198,11 +205,13 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
     chrome, contextual tabs actually appearing on selection). *(M4)* — *incremental:*
     group-label weight/spacing polish + status bar blog name / word-count panes landed.
 12. ✅ **Tables, video, emoticons, preview, paste-special, breaks, maps, tags, spellcheck UI, contextual tabs.** Done across recent bands.
-    **Remaining:** plugins, print. *(M4)*
+    **Remaining:** print; full plug-in host (stub dialog only). *(M4)*
 13. **M5 packaging:** `.app` bundle foundation (`build-mac.sh` + `mac-build.yml` CI
     artifact), code signing / notarization (`xcrun notarytool`), DMG, App Store
     submission. *Started:* self-contained `osx-arm64` publish + `CFBundleName`
-    "Open Live Writer" `.app` assembly; sign/notarize remain TODOs.
+    "Open Live Writer" `.app` assembly; optional DMG via `OLW_CREATE_DMG=1`;
+    `scripts/validate-live-blog.sh` for opt-in live tests; sign/notarize env vars
+    documented (not required in CI).
 
 ---
 
@@ -251,14 +260,15 @@ Run:
 - Live blog publish (opt-in; posts to a real endpoint): set `OLW_LIVEBLOG_ENDPOINT`,
   `OLW_LIVEBLOG_BLOGID`, `OLW_LIVEBLOG_USER`, `OLW_LIVEBLOG_PASS` (optionally
   `OLW_LIVEBLOG_PUBLISH=true`; defaults to posting an unpublished draft) then
+  `scripts/validate-live-blog.sh` or
   `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **336 passed / 0 failed.** WebView-category, `PublishTdd`, and
+Default run status: **342 passed / 0 failed.** WebView-category, `PublishTdd`, and
 `LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
-stays green. The Options/Preferences band lifted the count 330 → 336 with pure/headless
-coverage (`GroupO_SettingsTests` — `FileSettingsPersister` on-disk round-trip,
-sub-settings nesting, `AppPreferencesStore` file round-trip, in-memory preference
-serialize/load, spell-check bridge mapping, proxy-password unset).
+stays green. The preference-enforcement band lifted the count 336 → 342 with pure/headless
+coverage (`GroupO_SettingsTests` — proxy `PublishingHttpClientFactory`/`WebProxyMapper`,
+`AutoreplaceTransformer`/`AutoreplaceController` bridge script, plus the earlier
+`FileSettingsPersister`/`AppPreferencesStore` round-trips).
 
 - **Image upload (Group G):** `GroupG_ImageUploadTests` — `ImagePublisher` scan (mime +
   byte decode, dedup, jpeg→jpg), rewrite/upload (no-op, single/duplicate/multiple images,
@@ -664,11 +674,25 @@ WinForms preferences stack for the Avalonia shell.
 | `AppPreferences` | Snapshot of General (post windows, publishing reminders, AutoRecover, word-count status bar), Editing (autoreplace toggles, paragraph tag), Spelling (`SpellcheckEnabled`), and Web Proxy fields — keyed to match Windows `PostEditorSettings` / `AutoreplaceSettings` / `WebProxySettings` layout. |
 | `AppPreferencesStore` | Load/save through `ISettingsPersister` (`Preferences` root → `PostEditor`/`WordCount`/`Autoreplace`/`Spelling`/`WebProxy` sub-trees). |
 | `PreferencesDialog` | Tabbed modal: General, Editing, Spelling, Web Proxy, Accounts (opens `AccountManagerDialog`). |
-| `MainWindow` | **Options** `CommandId` opens the dialog; apply path calls `SetSpellcheckEnabledAsync` and refreshes the status-bar word-count pane. |
+| `MainWindow` | **Options** `CommandId` opens the dialog; apply path calls `SetSpellcheckEnabledAsync`, refreshes the status-bar word-count pane, pushes autoreplace toggles to the editor bridge, and supplies proxy-aware `HttpClient` instances to publish transports via `CreatePublishingHttpClient()`. Publish commands honour **title** and **category** reminders when enabled. |
 
-### 11.3 Tests
+### 11.3 Preference enforcement matrix
+
+| Preference | Persisted | Enforced |
+| --- | --- | --- |
+| Spell-check enabled | ✅ | ✅ — `spellcheck` body attribute |
+| Show real-time word count | ✅ | ✅ — status bar pane |
+| Web proxy (host/port/user/pass) | ✅ | ✅ — `PublishingHttpClientFactory` → MetaWeblog, RSD Detect, image upload |
+| Replace smart quotes / hyphens / special chars / emoticons | ✅ | ✅ — paste via `AutoreplaceTransformer`; typing smart quotes via JS bridge |
+| Title reminder before publish | ✅ | ✅ — blocks publish when title empty |
+| Category reminder before publish | ✅ | ✅ — confirm when no categories |
+| Post window behavior, view-after-publish, close-on-publish | ✅ | stored only |
+| Tag reminder, AutoRecover, paragraph tags | ✅ | stored only |
+
+### 11.4 Tests
 
 `GroupO_SettingsTests` (default headless suite, temp dir + in-memory persister):
 `FileSettingsPersister` scalar/sub-settings round-trip, `AppPreferencesStore` file
 round-trip, preference field persistence, spell-check bridge script mapping, proxy-password
-unset when blank.
+unset when blank, `PublishingHttpClientFactory`/`WebProxyMapper`, and
+`AutoreplaceTransformer`/`AutoreplaceController`.
