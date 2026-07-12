@@ -152,8 +152,16 @@ namespace OpenLiveWriter.Publishing.Accounts
                 .Where(c => !string.IsNullOrEmpty(c))
                 .ToArray() ?? Array.Empty<string>();
 
-            string postId = EditorContentPublisher.Publish(
-                client, account.BlogId, document.Title ?? string.Empty,
+            // When the document was already published to this blog, edit the same server
+            // post rather than creating a duplicate. Republishing to a different blog
+            // creates a fresh post.
+            string existingPostId =
+                string.Equals(document.BlogId, account.BlogId, StringComparison.Ordinal)
+                    ? document.PublishedPostId
+                    : null;
+
+            string postId = EditorContentPublisher.PublishOrEdit(
+                client, account.BlogId, existingPostId, document.Title ?? string.Empty,
                 editorHtml ?? string.Empty, publish, categories);
 
             document.BlogId = account.BlogId;

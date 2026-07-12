@@ -1,6 +1,9 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace OpenLiveWriter.Publishing
 {
     /// <summary>
@@ -52,8 +55,31 @@ namespace OpenLiveWriter.Publishing
         public static string Publish(IBlogClient client, string blogId, string title, string editorHtml,
             bool publish, params string[] categories)
         {
+            return PublishOrEdit(client, blogId, existingPostId: null, title, editorHtml, publish, categories);
+        }
+
+        /// <summary>
+        /// Uploads inline images (rewriting the body to hosted URLs) and then either creates
+        /// a new post or, when <paramref name="existingPostId"/> is supplied, edits the
+        /// existing server post. Returns the server post id (the existing id on an edit).
+        /// This is the single entry point the shell uses so a re-publish of an
+        /// already-published document targets the same post via <c>metaWeblog.editPost</c>.
+        /// </summary>
+        public static string PublishOrEdit(IBlogClient client, string blogId, string existingPostId,
+            string title, string editorHtml, bool publish, IEnumerable<string> categories)
+        {
             string hosted = ImagePublisher.RewriteInlineImages(client, blogId, editorHtml ?? string.Empty);
-            BlogPost post = BuildPost(title, hosted, publish, categories);
+            string[] categoryArray = categories?.Where(c => !string.IsNullOrEmpty(c)).ToArray()
+                ?? System.Array.Empty<string>();
+            BlogPost post = BuildPost(title, hosted, publish, categoryArray);
+
+            if (!string.IsNullOrEmpty(existingPostId))
+            {
+                post.Id = existingPostId;
+                client.EditPost(blogId, post, publish);
+                return existingPostId;
+            }
+
             return client.NewPost(blogId, post, publish);
         }
 

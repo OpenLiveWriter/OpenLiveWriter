@@ -215,11 +215,26 @@ namespace OpenLiveWriter.App.Avalonia
             string title = _titleEditor?.Text ?? _draftSession?.Current.Title ?? string.Empty;
             string[] categories = _draftSession?.Current.Categories?.ToArray() ?? Array.Empty<string>();
 
-            UpdateStatus(publish ? "Publishing\u2026" : "Posting as draft\u2026");
+            // Re-publishing an already-published document (same blog) edits the same server
+            // post rather than creating a duplicate.
+            string existingPostId = null;
+            if (_draftSession != null &&
+                string.Equals(_draftSession.Current.BlogId, account.BlogId, StringComparison.Ordinal))
+            {
+                existingPostId = _draftSession.Current.PublishedPostId;
+                if (string.IsNullOrEmpty(existingPostId))
+                    existingPostId = null;
+            }
+
+            bool isEdit = !string.IsNullOrEmpty(existingPostId);
+            UpdateStatus(isEdit
+                ? (publish ? "Updating published post\u2026" : "Updating draft\u2026")
+                : (publish ? "Publishing\u2026" : "Posting as draft\u2026"));
             try
             {
                 IBlogClient client = _accountService.CreateClient(account);
-                string postId = await editor.PublishAsync(client, account.BlogId, title, publish, categories);
+                string postId = await editor.PublishAsync(
+                    client, account.BlogId, existingPostId, title, publish, categories);
 
                 if (_draftSession != null)
                 {
@@ -228,7 +243,9 @@ namespace OpenLiveWriter.App.Avalonia
                     _draftSession.Current.IsPublished = publish;
                 }
 
-                string verb = publish ? "Published" : "Posted as draft";
+                string verb = isEdit
+                    ? (publish ? "Updated" : "Updated draft")
+                    : (publish ? "Published" : "Posted as draft");
                 UpdateStatus($"{verb} to {account.DisplayLabel} (post id {postId}).");
                 await MessageDialog.ShowAsync(this, verb,
                     publish

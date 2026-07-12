@@ -594,9 +594,21 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public async Task<string> PublishAsync(Publishing.IBlogClient client, string blogId, string title,
             bool publish, params string[] categories)
         {
+            return await PublishAsync(client, blogId, existingPostId: null, title, publish, categories);
+        }
+
+        /// <summary>
+        /// Publish overload that edits an existing server post when
+        /// <paramref name="existingPostId"/> is supplied (re-publish of an already-published
+        /// document), otherwise creates a new post. Inline images are hosted first.
+        /// </summary>
+        public async Task<string> PublishAsync(Publishing.IBlogClient client, string blogId,
+            string existingPostId, string title, bool publish, params string[] categories)
+        {
             if (client == null) throw new ArgumentNullException(nameof(client));
             string html = await GetContentAsync() ?? string.Empty;
-            return Publishing.EditorContentPublisher.Publish(client, blogId, title, html, publish, categories);
+            return Publishing.EditorContentPublisher.PublishOrEdit(
+                client, blogId, existingPostId, title, html, publish, categories);
         }
 
         public async Task<bool> HandleCommandAsync(CommandId commandId)

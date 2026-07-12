@@ -181,9 +181,9 @@ namespace OpenLiveWriter.EditorTests.Automated
         public void RealPipeline_ExposesPublishCommandOnEditor()
         {
             var editorType = typeof(OpenLiveWriter.App.Avalonia.Editor.WebViewEditor);
-            var publishMethod = editorType.GetMethod("PublishAsync")
-                ?? editorType.GetMethod("PostAndPublishAsync");
-            Assert.That(publishMethod, Is.Not.Null,
+            bool hasPublishMethod = editorType.GetMethods()
+                .Any(m => m.Name == "PublishAsync" || m.Name == "PostAndPublishAsync");
+            Assert.That(hasPublishMethod, Is.True,
                 "WebViewEditor should expose a publish entry point once the pipeline is ported.");
         }
     }
