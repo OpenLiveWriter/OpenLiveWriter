@@ -30,6 +30,34 @@ dotnet test src/managed/OpenLiveWriter.EditorTests.Automated
 After resizing in a test: set `Width`/`Height`, call `UpdateLayout()`, and (when
 needed) pump a headless frame so `ActualWidth`/`Bounds` settle.
 
+## Visual review tooling (screenshots + layout dump)
+
+For agent/human visual iteration — not just unit bounds — capture real Skia PNGs
+and a JSON/Markdown dump of named chrome controls:
+
+```bash
+./scripts/ui-review.sh           # build, capture, print paths, open Finder (macOS)
+./scripts/ui-review.sh --no-open # skip opening the folder
+# equivalent:
+dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --filter "Category=UiReview"
+```
+
+Artifacts land in `artifacts/ui-review/` (gitignored):
+
+| File | Purpose |
+| --- | --- |
+| `main-{WxH}.png` | Full MainWindow at that client size |
+| `ribbon-home-{WxH}.png` | Home ribbon band crop |
+| `layout-{WxH}.json` / `.md` | Bounds/visibility for ribbon, Style/FontSize combos, Edit/Source/Preview, More, status, title |
+| `INDEX.md` | Manifest + flags |
+
+Implementation: `UiReviewHarness` + `GroupP_UiReviewCaptureTests` (`[Explicit]` /
+`Category=UiReview`). Headless uses `.UseSkia()` with `UseHeadlessDrawing=false`
+so `CaptureRenderedFrame` / `RenderTargetBitmap` write real pixels.
+
+Always-on golden checks (run with every `dotnet test`): `GroupP_RibbonChromeTests`
+(font-size min width, Styles ComboBox, equal view-toggle padding, list/quote glyphs).
+
 ## Analysis findings (file:line evidence)
 
 Inspected: `MainWindow.axaml`, `MainWindow.WindowLayout.cs`, `EditorPanel.axaml(+.cs)`,

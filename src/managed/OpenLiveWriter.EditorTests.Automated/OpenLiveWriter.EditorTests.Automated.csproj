@@ -23,6 +23,7 @@
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="AngleSharp" />
     <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Skia" />
     <PackageReference Include="Avalonia.Headless.NUnit" />
   </ItemGroup>
 

@@ -3,7 +3,6 @@
 
 using Avalonia;
 using Avalonia.Headless;
-using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Themes.Fluent;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
 
@@ -20,7 +19,13 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
     {
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<TestApp>()
-                .UseHeadless(new AvaloniaHeadlessPlatformOptions());
+                // Real Skia backend so UiReview can CaptureRenderedFrame / RenderTargetBitmap
+                // to PNG. UseHeadlessDrawing=false is required for IPlatformRenderInterface.
+                .UseSkia()
+                .UseHeadless(new AvaloniaHeadlessPlatformOptions
+                {
+                    UseHeadlessDrawing = false
+                });
     }
 
     /// <summary>
