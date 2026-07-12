@@ -624,6 +624,21 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 client, blogId, existingPostId, title, html, publish, categories);
         }
 
+        /// <summary>
+        /// Publish overload that also carries post keywords/tags (sent as
+        /// <c>mt_keywords</c>). Categories are passed as an enumerable to disambiguate
+        /// from the params overload.
+        /// </summary>
+        public async Task<string> PublishAsync(Publishing.IBlogClient client, string blogId,
+            string existingPostId, string title, bool publish,
+            System.Collections.Generic.IEnumerable<string> categories, string keywords)
+        {
+            if (client == null) throw new ArgumentNullException(nameof(client));
+            string html = await GetContentAsync() ?? string.Empty;
+            return Publishing.EditorContentPublisher.PublishOrEdit(
+                client, blogId, existingPostId, title, html, publish, categories, keywords);
+        }
+
         public async Task<bool> HandleCommandAsync(CommandId commandId)
         {
             switch (commandId)

@@ -1,6 +1,7 @@
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using global::Avalonia.Input;
 using OpenLiveWriter.App.Avalonia.Dialogs;
@@ -36,6 +37,10 @@ namespace OpenLiveWriter.App.Avalonia
                     return true;
                 case CommandId.InsertMap:
                     await ShowInsertMapAsync();
+                    return true;
+                case CommandId.InsertTags:
+                case CommandId.EditTags:
+                    await ShowInsertTagsAsync();
                     return true;
                 case CommandId.PasteSpecial:
                     await PasteSpecialAsync();
@@ -117,6 +122,36 @@ namespace OpenLiveWriter.App.Avalonia
 
             await editor.InsertHtmlAsync(html);
             UpdateStatus("Inserted map.");
+        }
+
+        // Insert Tags / keywords: manage the post's tag list, optionally inserting
+        // rel="tag" links into the body and/or carrying them as post keywords
+        // (mt_keywords) on the document so they flow through publish.
+        private async Task ShowInsertTagsAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null)
+                return;
+
+            IEnumerable<string> existing = _draftSession?.Current.Keywords;
+            TagDialogResult result = await TagDialog.ShowAsync(this, existing);
+            if (result == null || result.Tags.Count == 0)
+                return;
+
+            if (result.SetAsKeywords && _draftSession != null)
+            {
+                _draftSession.Current.Keywords = result.Tags;
+                _draftSession.Current.IsDirty = true;
+            }
+
+            if (result.InsertLinks)
+            {
+                string html = TagLinkBuilder.BuildTagLinksHtml(result.Tags);
+                if (html != null)
+                    await editor.InsertHtmlAsync(html);
+            }
+
+            UpdateStatus($"Tags: {string.Join(", ", result.Tags)}");
         }
 
         // Paste Special: insert the clipboard's text with formatting removed (clean

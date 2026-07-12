@@ -90,6 +90,9 @@ namespace OpenLiveWriter.Publishing
                     members.Add(new XmlRpcMember("categories", categories));
             }
 
+            if (!post.IsPage && Options.SupportsKeywords && !string.IsNullOrEmpty(post.Keywords))
+                members.Add(new XmlRpcMember("mt_keywords", new XmlRpcString(post.Keywords)));
+
             return new XmlRpcStruct(members.ToArray());
         }
 

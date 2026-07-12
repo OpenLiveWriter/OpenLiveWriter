@@ -55,14 +55,19 @@ namespace OpenLiveWriter.Publishing
 
         /// <summary>When true, categories are included inline in the post struct.</summary>
         bool SupportsCategoriesInline { get; }
+
+        /// <summary>When true, post keywords are sent as the <c>mt_keywords</c> member.</summary>
+        bool SupportsKeywords { get; }
     }
 
-    /// <summary>Default options: MetaWeblog with extended entries and inline categories.</summary>
+    /// <summary>Default options: MetaWeblog with extended entries, inline categories, keywords.</summary>
     public sealed class BlogClientOptions : IBlogClientOptions
     {
         public bool SupportsExtendedEntries { get; set; } = true;
 
         public bool SupportsCategoriesInline { get; set; } = true;
+
+        public bool SupportsKeywords { get; set; } = true;
 
         public static BlogClientOptions Default => new BlogClientOptions();
     }

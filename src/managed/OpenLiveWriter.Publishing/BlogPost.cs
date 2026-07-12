@@ -85,6 +85,18 @@ namespace OpenLiveWriter.Publishing
 
         public IList<string> Categories { get; } = new List<string>();
 
+        private string _keywords = string.Empty;
+
+        /// <summary>
+        /// Comma-separated post keywords/tags (sent as MetaWeblog <c>mt_keywords</c>).
+        /// Scrubbed of invalid XML characters like the title/contents.
+        /// </summary>
+        public string Keywords
+        {
+            get => _keywords;
+            set => _keywords = XmlCharacterHelper.RemoveInvalidXmlChars(value) ?? string.Empty;
+        }
+
         public bool IsPublished { get; set; } = true;
 
         /// <summary>Sets the main and extended contents of the post directly.</summary>

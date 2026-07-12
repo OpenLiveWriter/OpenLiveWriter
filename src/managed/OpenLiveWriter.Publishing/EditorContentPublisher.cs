@@ -66,12 +66,16 @@ namespace OpenLiveWriter.Publishing
         /// already-published document targets the same post via <c>metaWeblog.editPost</c>.
         /// </summary>
         public static string PublishOrEdit(IBlogClient client, string blogId, string existingPostId,
-            string title, string editorHtml, bool publish, IEnumerable<string> categories)
+            string title, string editorHtml, bool publish, IEnumerable<string> categories,
+            string keywords = null)
         {
             string hosted = ImagePublisher.RewriteInlineImages(client, blogId, editorHtml ?? string.Empty);
             string[] categoryArray = categories?.Where(c => !string.IsNullOrEmpty(c)).ToArray()
                 ?? System.Array.Empty<string>();
             BlogPost post = BuildPost(title, hosted, publish, categoryArray);
+
+            if (!string.IsNullOrEmpty(keywords))
+                post.Keywords = keywords;
 
             if (!string.IsNullOrEmpty(existingPostId))
             {

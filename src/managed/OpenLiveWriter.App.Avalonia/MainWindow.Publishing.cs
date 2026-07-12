@@ -214,6 +214,7 @@ namespace OpenLiveWriter.App.Avalonia
 
             string title = _titleEditor?.Text ?? _draftSession?.Current.Title ?? string.Empty;
             string[] categories = _draftSession?.Current.Categories?.ToArray() ?? Array.Empty<string>();
+            string keywords = PostDocument.JoinKeywords(_draftSession?.Current.Keywords);
 
             // Re-publishing an already-published document (same blog) edits the same server
             // post rather than creating a duplicate.
@@ -234,7 +235,7 @@ namespace OpenLiveWriter.App.Avalonia
             {
                 IBlogClient client = _accountService.CreateClient(account);
                 string postId = await editor.PublishAsync(
-                    client, account.BlogId, existingPostId, title, publish, categories);
+                    client, account.BlogId, existingPostId, title, publish, categories, keywords);
 
                 if (_draftSession != null)
                 {

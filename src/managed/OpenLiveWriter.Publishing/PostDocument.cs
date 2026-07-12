@@ -49,6 +49,12 @@ namespace OpenLiveWriter.Publishing
         /// <summary>Assigned categories (server category names).</summary>
         public List<string> Categories { get; set; } = new List<string>();
 
+        /// <summary>
+        /// Post keywords/tags carried to the blog as <c>mt_keywords</c>. Managed by the
+        /// Insert/Edit Tags dialog; persisted with the draft.
+        /// </summary>
+        public List<string> Keywords { get; set; } = new List<string>();
+
         /// <summary>True when this document represents a page rather than a post.</summary>
         public bool IsPage { get; set; }
 
@@ -97,7 +103,39 @@ namespace OpenLiveWriter.Publishing
                 }
             }
 
+            post.Keywords = JoinKeywords(Keywords);
+
             return post;
+        }
+
+        /// <summary>Joins keyword tokens into the comma-separated <c>mt_keywords</c> string.</summary>
+        public static string JoinKeywords(IEnumerable<string> keywords)
+        {
+            if (keywords == null)
+                return string.Empty;
+            var cleaned = new List<string>();
+            foreach (string k in keywords)
+            {
+                string t = k?.Trim();
+                if (!string.IsNullOrEmpty(t))
+                    cleaned.Add(t);
+            }
+            return string.Join(", ", cleaned);
+        }
+
+        /// <summary>Splits a comma-separated <c>mt_keywords</c> string into trimmed tokens.</summary>
+        public static List<string> SplitKeywords(string keywords)
+        {
+            var result = new List<string>();
+            if (string.IsNullOrWhiteSpace(keywords))
+                return result;
+            foreach (string part in keywords.Split(','))
+            {
+                string t = part.Trim();
+                if (t.Length > 0)
+                    result.Add(t);
+            }
+            return result;
         }
 
         /// <summary>
@@ -120,6 +158,8 @@ namespace OpenLiveWriter.Publishing
 
             foreach (string c in post.Categories)
                 doc.Categories.Add(c);
+
+            doc.Keywords = SplitKeywords(post.Keywords);
 
             return doc;
         }
