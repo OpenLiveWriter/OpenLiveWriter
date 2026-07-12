@@ -62,6 +62,10 @@ namespace OpenLiveWriter.App.Avalonia
                 if (await TryHandleSpellingCommandAsync(commandId))
                     return;
 
+                // Plug-in commands (informational stub on macOS).
+                if (await TryHandlePluginCommandAsync(commandId))
+                    return;
+
                 // Editor utility commands surfaced by the shell (dialogs/status).
                 if (commandId == CommandId.WordCount)
                 {
