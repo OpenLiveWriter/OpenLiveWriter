@@ -5,86 +5,79 @@
              VerticalAlignment="Stretch">
 
     <DockPanel LastChildFill="True">
-        <!-- Editor formatting toolbar
-             Focusable="False" on all buttons prevents them from stealing focus from the WebView.
-             This is critical: if focus moves to the button, the WebView loses its selection
-             and execCommand silently fails.
-             Format buttons scroll horizontally when the window is narrow so they don't clip. -->
+        <!-- Slim chrome: view toggles only. Formatting lives on the ribbon Home tab
+             so this secondary strip no longer duplicates Bold/Italic/etc. -->
         <Border DockPanel.Dock="Top"
                 Background="#FAFAFA"
                 BorderBrush="#E0E0E0"
                 BorderThickness="0,0,0,1"
-                Padding="4,2"
+                Padding="8,2"
+                MinHeight="32"
+                MaxHeight="36">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            Spacing="2"
+                            VerticalAlignment="Center">
+                    <ToggleButton x:Name="EditViewButton" Content="Edit" IsChecked="True"
+                                  Height="26" MinWidth="48" Padding="8,2" FontSize="12" />
+                    <ToggleButton x:Name="SourceViewButton" Content="Source"
+                                  Height="26" MinWidth="56" Padding="8,2" FontSize="12" />
+                    <ToggleButton x:Name="PreviewViewButton" Content="Preview"
+                                  Height="26" MinWidth="56" Padding="8,2" FontSize="12" />
+                </StackPanel>
+                <TextBlock Text="Editing"
+                           FontSize="11"
+                           Foreground="#888888"
+                           VerticalAlignment="Center"
+                           IsVisible="False" />
+            </DockPanel>
+        </Border>
+
+        <!-- In-editor find bar (Cmd/Ctrl+F). Hidden until opened; Replace All stays
+             on the Find & Replace dialog as a fallback. -->
+        <Border x:Name="FindBar"
+                DockPanel.Dock="Top"
+                Background="#FFF8E7"
+                BorderBrush="#E8D9A8"
+                BorderThickness="0,0,0,1"
+                Padding="8,4"
+                IsVisible="False"
                 MinHeight="36">
             <DockPanel LastChildFill="True">
-                <!-- View toggle (right side) — always visible -->
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="2" Margin="8,0,0,0">
-                    <Border Width="1" Background="#D0D0D0" Margin="4,2" />
-                    <ToggleButton x:Name="EditViewButton" Content="Edit" IsChecked="True"
-                                  Height="28" MinWidth="48" Padding="8,2" FontSize="12" />
-                    <ToggleButton x:Name="SourceViewButton" Content="Source"
-                                  Height="28" MinWidth="56" Padding="8,2" FontSize="12" />
-                    <ToggleButton x:Name="PreviewViewButton" Content="Preview"
-                                  Height="28" MinWidth="56" Padding="8,2" FontSize="12" />
+                <StackPanel DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            Spacing="4"
+                            VerticalAlignment="Center"
+                            Margin="8,0,0,0">
+                    <CheckBox x:Name="FindMatchCaseCheck" Content="Match case"
+                              FontSize="11" VerticalAlignment="Center" />
+                    <Button x:Name="FindPreviousButton" Content="Previous"
+                            Height="26" Padding="8,2" FontSize="12" MinWidth="70" />
+                    <Button x:Name="FindNextButton" Content="Next"
+                            Height="26" Padding="8,2" FontSize="12" MinWidth="56"
+                            IsDefault="True" />
+                    <Button x:Name="FindReplaceDialogButton" Content="Replace…"
+                            Height="26" Padding="8,2" FontSize="12" MinWidth="72"
+                            ToolTip.Tip="Open Find &amp; Replace dialog" />
+                    <Button x:Name="FindCloseButton" Content="✕"
+                            Height="26" Width="28" Padding="0"
+                            FontSize="12" ToolTip.Tip="Close (Esc)" />
                 </StackPanel>
-
-                <!-- Formatting buttons (left) — scroll when space is tight -->
-                <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                              VerticalScrollBarVisibility="Disabled"
-                              HorizontalAlignment="Stretch">
-                    <StackPanel Orientation="Horizontal" Spacing="2">
-                        <ToggleButton x:Name="BoldButton" Content="B" FontWeight="Bold"
-                                Focusable="False"
-                                Width="28" Height="28" FontSize="13"
-                                ToolTip.Tip="Bold (Ctrl+B)" />
-                        <ToggleButton x:Name="ItalicButton" Content="I" FontStyle="Italic"
-                                Focusable="False"
-                                Width="28" Height="28" FontSize="13"
-                                ToolTip.Tip="Italic (Ctrl+I)" />
-                        <ToggleButton x:Name="UnderlineButton" Focusable="False"
-                                Width="28" Height="28" FontSize="13"
-                                ToolTip.Tip="Underline (Ctrl+U)">
-                            <TextBlock Text="U" TextDecorations="Underline" />
-                        </ToggleButton>
-                        <ToggleButton x:Name="StrikethroughButton" Focusable="False"
-                                Width="28" Height="28" FontSize="13"
-                                ToolTip.Tip="Strikethrough">
-                            <TextBlock Text="S" TextDecorations="Strikethrough" />
-                        </ToggleButton>
-
-                        <Border Width="1" Background="#D0D0D0" Margin="4,2" />
-
-                        <ComboBox x:Name="HeadingCombo" Width="120" Height="28" SelectedIndex="0"
-                                  Focusable="False">
-                            <ComboBoxItem Content="Normal" />
-                            <ComboBoxItem Content="Heading 1" />
-                            <ComboBoxItem Content="Heading 2" />
-                            <ComboBoxItem Content="Heading 3" />
-                            <ComboBoxItem Content="Heading 4" />
-                            <ComboBoxItem Content="Heading 5" />
-                            <ComboBoxItem Content="Heading 6" />
-                            <ComboBoxItem Content="Preformatted" />
-                        </ComboBox>
-
-                        <Border Width="1" Background="#D0D0D0" Margin="4,2" />
-
-                        <ToggleButton x:Name="BulletListButton" Content="* List" Height="28" Padding="8,2"
-                                Focusable="False"
-                                ToolTip.Tip="Bullet List" />
-                        <ToggleButton x:Name="NumberListButton" Content="1. List" Height="28" Padding="8,2"
-                                Focusable="False"
-                                ToolTip.Tip="Numbered List" />
-
-                        <Border Width="1" Background="#D0D0D0" Margin="4,2" />
-
-                        <Button x:Name="LinkButton" Content="Link" Height="28" Padding="8,2"
-                                Focusable="False"
-                                ToolTip.Tip="Insert Hyperlink (Ctrl+K)" />
-                        <Button x:Name="ImageButton" Content="Image" Height="28" Padding="8,2"
-                                Focusable="False"
-                                ToolTip.Tip="Insert Image" />
-                    </StackPanel>
-                </ScrollViewer>
+                <DockPanel LastChildFill="True">
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="Find"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0,0,8,0"
+                               Foreground="#555555" />
+                    <TextBox x:Name="FindQueryBox"
+                             PlaceholderText="Find in post…"
+                             Height="26"
+                             FontSize="12"
+                             VerticalAlignment="Center"
+                             MinWidth="120" />
+                </DockPanel>
             </DockPanel>
         </Border>
 

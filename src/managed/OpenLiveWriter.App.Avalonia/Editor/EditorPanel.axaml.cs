@@ -22,13 +22,19 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         public event EventHandler<string> StatusChanged;
 
+        /// <summary>
+        /// Raised when the in-editor find bar's "Replace…" action should open the
+        /// full Find &amp; Replace dialog (owned by the shell).
+        /// </summary>
+        public event EventHandler OpenFindReplaceRequested;
+
         public EditorPanel()
         {
             InitializeComponent();
             _commandBridge = new CommandBridge();
             InitializeWebViewEditor();
-            SetupToolbarButtons();
             SetupViewToggle();
+            SetupFindBar();
             SetupKeyboardShortcuts();
             RegisterCommandBridgeHandlers();
         }
@@ -39,34 +45,15 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         private void InitializeWebViewEditor()
         {
             _webViewEditor = new WebViewEditor();
-            _webViewEditor.FormatStateChanged += OnFormatStateChanged;
+            // Format-state sync for toggle buttons lives on the ribbon (primary
+            // command surface). The secondary format toolbar was removed to avoid
+            // duplicating Home-tab chrome.
             var editorHost = this.FindControl<ContentControl>("EditorHost");
             if (editorHost != null)
             {
                 editorHost.Content = _webViewEditor;
             }
         }
-
-        // Reflects the editor's current selection formatting on the toolbar
-        // toggle buttons as the caret moves.
-        private void OnFormatStateChanged(object sender, FormatState state)
-        {
-            if (state == null) return;
-            if (BoldButton != null) BoldButton.IsChecked = state.Bold;
-            if (ItalicButton != null) ItalicButton.IsChecked = state.Italic;
-            if (UnderlineButton != null) UnderlineButton.IsChecked = state.Underline;
-            if (StrikethroughButton != null) StrikethroughButton.IsChecked = state.Strikethrough;
-            if (BulletListButton != null) BulletListButton.IsChecked = state.UnorderedList;
-            if (NumberListButton != null) NumberListButton.IsChecked = state.OrderedList;
-
-            // Reflect the caret's current block style in the heading combo without
-            // re-dispatching a formatBlock command.
-            _suppressHeadingCombo = true;
-            try { SyncHeadingComboToTag(state.BlockTag ?? "p"); }
-            finally { _suppressHeadingCombo = false; }
-        }
-
-        private bool _suppressHeadingCombo;
 
         private void SetupViewToggle()
         {
@@ -180,36 +167,10 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 .Replace("<br />", "<br />\n");
         }
 
-        private void SetupToolbarButtons()
-        {
-            if (BoldButton != null) BoldButton.Click += async (s, e) => await ExecuteFormatCommandAsync("bold");
-            if (ItalicButton != null) ItalicButton.Click += async (s, e) => await ExecuteFormatCommandAsync("italic");
-            if (UnderlineButton != null) UnderlineButton.Click += async (s, e) => await ExecuteFormatCommandAsync("underline");
-            if (StrikethroughButton != null) StrikethroughButton.Click += async (s, e) => await ExecuteFormatCommandAsync("strikethrough");
-            if (LinkButton != null) LinkButton.Click += async (s, e) => await ShowInsertLinkDialogAsync();
-            if (ImageButton != null) ImageButton.Click += async (s, e) => await ShowInsertImageDialogAsync();
-            if (BulletListButton != null) BulletListButton.Click += async (s, e) => await ExecuteFormatCommandAsync("bulletlist");
-            if (NumberListButton != null) NumberListButton.Click += async (s, e) => await ExecuteFormatCommandAsync("numberlist");
-
-            if (HeadingCombo != null)
-            {
-                HeadingCombo.SelectionChanged += (s, e) =>
-                {
-                    if (_suppressHeadingCombo) return;
-                    if (HeadingCombo.SelectedIndex < 0) return;
-                    var tag = MapHeadingIndexToTag(HeadingCombo.SelectedIndex);
-                    _webViewEditor?.SetBlockFormat(tag);
-                    StatusChanged?.Invoke(this, $"Applied {tag} formatting");
-                };
-            }
-        }
-
         /// <summary>
-        /// Maps the <c>HeadingCombo</c> selection index to the <c>formatBlock</c>
-        /// tag. Delegates to <see cref="SemanticHtmlStyles"/> so the toolbar combo
-        /// and the ribbon SemanticHtmlGallery stay in sync and the mapping is
-        /// unit-testable without a live WebView. Index 0 (Normal) maps to a plain
-        /// paragraph; 1-6 to h1-h6; 7 to preformatted.
+        /// Maps a heading-combo selection index to the <c>formatBlock</c> tag.
+        /// Kept for tests and ribbon SemanticHtmlGallery parity with
+        /// <see cref="SemanticHtmlStyles"/>.
         /// </summary>
         internal static string MapHeadingIndexToTag(int index) =>
             SemanticHtmlStyles.TagForIndex(index);
@@ -223,23 +184,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (_webViewEditor == null || !SemanticHtmlStyles.IsKnownTag(tag))
                 return;
             await _webViewEditor.SetBlockFormatAsync(tag);
-            SyncHeadingComboToTag(tag);
             StatusChanged?.Invoke(this, $"Applied {tag} formatting");
-        }
-
-        // Reflects an applied block tag back onto the toolbar combo selection.
-        private void SyncHeadingComboToTag(string tag)
-        {
-            if (HeadingCombo == null) return;
-            for (int i = 0; i < SemanticHtmlStyles.Styles.Count; i++)
-            {
-                if (string.Equals(SemanticHtmlStyles.Styles[i].Tag, tag,
-                        System.StringComparison.OrdinalIgnoreCase))
-                {
-                    HeadingCombo.SelectedIndex = i;
-                    return;
-                }
-            }
         }
 
         private void RegisterCommandBridgeHandlers()
@@ -257,31 +202,121 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             _commandBridge.RegisterHandler(CommandId.Redo, () => StatusChanged?.Invoke(this, "Redo"));
         }
 
+        private void SetupFindBar()
+        {
+            if (FindNextButton != null)
+                FindNextButton.Click += async (s, e) => await FindNextAsync(forward: true);
+            if (FindPreviousButton != null)
+                FindPreviousButton.Click += async (s, e) => await FindNextAsync(forward: false);
+            if (FindCloseButton != null)
+                FindCloseButton.Click += (s, e) => HideFindBar();
+            if (FindReplaceDialogButton != null)
+                FindReplaceDialogButton.Click += (s, e) => OpenFindReplaceRequested?.Invoke(this, EventArgs.Empty);
+            if (FindQueryBox != null)
+            {
+                FindQueryBox.KeyDown += async (s, e) =>
+                {
+                    if (e.Key == Key.Enter)
+                    {
+                        await FindNextAsync(forward: !e.KeyModifiers.HasFlag(KeyModifiers.Shift));
+                        e.Handled = true;
+                    }
+                    else if (e.Key == Key.Escape)
+                    {
+                        HideFindBar();
+                        e.Handled = true;
+                    }
+                };
+            }
+        }
+
+        /// <summary>Shows the in-editor find bar and focuses the query field.</summary>
+        public void ShowFindBar(string initialQuery = null)
+        {
+            if (FindBar == null) return;
+            FindBar.IsVisible = true;
+            if (FindQueryBox != null)
+            {
+                if (!string.IsNullOrEmpty(initialQuery))
+                    FindQueryBox.Text = initialQuery;
+                FindQueryBox.Focus();
+                FindQueryBox.SelectAll();
+            }
+        }
+
+        /// <summary>Hides the in-editor find bar.</summary>
+        public void HideFindBar()
+        {
+            if (FindBar != null)
+                FindBar.IsVisible = false;
+        }
+
+        /// <summary>True when the in-editor find bar is visible.</summary>
+        public bool IsFindBarVisible => FindBar?.IsVisible == true;
+
+        private async Task FindNextAsync(bool forward)
+        {
+            if (_webViewEditor == null || FindQueryBox == null) return;
+            string query = FindQueryBox.Text ?? string.Empty;
+            if (string.IsNullOrEmpty(query))
+            {
+                StatusChanged?.Invoke(this, "Enter text to find.");
+                return;
+            }
+
+            bool matchCase = FindMatchCaseCheck?.IsChecked == true;
+            // window.find does not support backwards search natively in all engines;
+            // forward find is the primary path. Previous reuses FindNext for now.
+            await _webViewEditor.FindNextAsync(query, matchCase);
+            StatusChanged?.Invoke(this, forward ? $"Find: {query}" : $"Find previous: {query}");
+        }
+
         private void SetupKeyboardShortcuts()
         {
             this.KeyDown += (s, e) =>
             {
-                if (e.KeyModifiers.HasFlag(KeyModifiers.Meta) || e.KeyModifiers.HasFlag(KeyModifiers.Control))
+                bool metaOrCtrl = e.KeyModifiers.HasFlag(KeyModifiers.Meta) ||
+                                  e.KeyModifiers.HasFlag(KeyModifiers.Control);
+                if (!metaOrCtrl)
                 {
-                    switch (e.Key)
+                    if (e.Key == Key.Escape && IsFindBarVisible)
                     {
-                        case Key.B:
-                            _ = ExecuteFormatCommandAsync("bold");
-                            e.Handled = true;
-                            break;
-                        case Key.I:
-                            _ = ExecuteFormatCommandAsync("italic");
-                            e.Handled = true;
-                            break;
-                        case Key.U:
-                            _ = ExecuteFormatCommandAsync("underline");
-                            e.Handled = true;
-                            break;
-                        case Key.K:
-                            _ = ShowInsertLinkDialogAsync();
-                            e.Handled = true;
-                            break;
+                        HideFindBar();
+                        e.Handled = true;
                     }
+                    return;
+                }
+
+                switch (e.Key)
+                {
+                    case Key.B:
+                        _ = ExecuteFormatCommandAsync("bold");
+                        e.Handled = true;
+                        break;
+                    case Key.I:
+                        _ = ExecuteFormatCommandAsync("italic");
+                        e.Handled = true;
+                        break;
+                    case Key.U:
+                        _ = ExecuteFormatCommandAsync("underline");
+                        e.Handled = true;
+                        break;
+                    case Key.K:
+                        _ = ShowInsertLinkDialogAsync();
+                        e.Handled = true;
+                        break;
+                    case Key.F:
+                        ShowFindBar();
+                        e.Handled = true;
+                        break;
+                    case Key.G:
+                        // Cmd+G / Ctrl+G → find next (common macOS / editor convention)
+                        if (IsFindBarVisible)
+                            _ = FindNextAsync(forward: !e.KeyModifiers.HasFlag(KeyModifiers.Shift));
+                        else
+                            ShowFindBar();
+                        e.Handled = true;
+                        break;
                 }
             };
         }

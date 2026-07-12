@@ -72,9 +72,14 @@ namespace OpenLiveWriter.App.Avalonia
                     await ShowWordCountAsync();
                     return;
                 }
-                if (commandId == CommandId.FindButton || commandId == CommandId.FindAndReplace)
+                if (commandId == CommandId.FindButton)
                 {
-                    ShowFindReplace(showReplace: commandId == CommandId.FindAndReplace);
+                    ShowInEditorFindBar();
+                    return;
+                }
+                if (commandId == CommandId.FindAndReplace)
+                {
+                    ShowFindReplace(showReplace: true);
                     return;
                 }
 
@@ -146,6 +151,8 @@ namespace OpenLiveWriter.App.Avalonia
             if (editorPanel != null)
             {
                 editorPanel.StatusChanged += (sender, message) => UpdateStatus(message);
+                editorPanel.OpenFindReplaceRequested += (sender, e) =>
+                    ShowFindReplace(showReplace: true);
 
                 if (editorPanel.WebViewEditor != null)
                 {
@@ -409,10 +416,23 @@ namespace OpenLiveWriter.App.Avalonia
 
         private FindReplaceDialog _findDialog;
 
-        // Opens (or re-focuses) the non-modal Find / Find & Replace panel, wiring its
-        // actions to the editor's find-next and replace-all.
+        /// <summary>Shows the thin in-editor find bar (Cmd/Ctrl+F / Find ribbon).</summary>
+        private void ShowInEditorFindBar()
+        {
+            var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
+            editorPanel?.ShowFindBar();
+        }
+
+        // Opens (or re-focuses) the Find & Replace dialog for Replace All / advanced find.
+        // Plain Find uses the in-editor bar instead so it does not obscure the post.
         private void ShowFindReplace(bool showReplace)
         {
+            if (!showReplace)
+            {
+                ShowInEditorFindBar();
+                return;
+            }
+
             if (_findDialog != null)
             {
                 try { _findDialog.Activate(); return; }
@@ -433,7 +453,7 @@ namespace OpenLiveWriter.App.Avalonia
                     int n = await editor.ReplaceAllAsync(req.Query, req.Replacement, req.MatchCase, req.WholeWord);
                     UpdateStatus($"Replaced {n} occurrence(s).");
                 },
-                showReplace: showReplace);
+                showReplace: true);
 
             _findDialog.Closed += (s, e) => _findDialog = null;
             _findDialog.Show(this);
