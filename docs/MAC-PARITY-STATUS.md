@@ -59,7 +59,10 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
 ## 2. What works today
 
 - **Shell:** Avalonia MainWindow with a config-driven ribbon (`DefaultRibbonConfiguration`)
-  and a status bar.
+  and a status bar. **UI layout (2026-07):** window is freely resizable with
+  `MinWidth`/`MinHeight` 800×600; ribbon + title + editor + status bar reflow so the
+  WebView fills remaining space; formatting toolbar and ribbon tabs/groups scroll
+  horizontally instead of clipping; status bar stays pinned at a fixed height.
 - **Editor:** WebView (WKWebView) `contenteditable` surface (`editor.html`) with a
   JS bridge (`OLWBridge`) for `execCommand`, selection save/restore, get/set content.
 - **View toggle:** Edit / Source / Preview. Source shows formatted HTML round-tripped
@@ -203,7 +206,14 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 ### P3 — visual parity & advanced · M4 parity + M5 packaging
 11. **Ribbon visual fidelity** vs. the Windows Fluent ribbon (spacing, icons, group
     chrome, contextual tabs actually appearing on selection). *(M4)* — *incremental:*
-    group-label weight/spacing polish + status bar blog name / word-count panes landed.
+    group-label weight/spacing polish + status bar blog name / word-count panes landed;
+    **UI layout pass:** MainWindow min size + WebView stretch on resize, ribbon tab/
+    group horizontal scroll (no overflow clip), scrollable editor format toolbar,
+    pinned status bar, dialog MinWidth/resizable list dialogs.
+    **Remaining visual/usability debt:** real ribbon icons (still placeholders);
+    collapse dual chrome (ribbon + format toolbar redundancy); adaptive ribbon
+    Large→Small group sizing at narrow widths; macOS title-bar / traffic-light
+    inset polish; in-editor find bar; print UI.
 12. ✅ **Tables, video, emoticons, preview, paste-special, breaks, maps, tags, spellcheck UI, contextual tabs.** Done across recent bands.
     **Remaining:** print; full plug-in host (stub dialog only). *(M4)*
 13. **M5 packaging:** `.app` bundle foundation (`build-mac.sh` + `mac-build.yml` CI
@@ -215,6 +225,16 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 
 ---
 
+### UI layout (shell)
+
+| Area | Fixed | Remaining |
+| --- | --- | --- |
+| MainWindow resize | `CanResize`, `MinWidth` 800 / `MinHeight` 600, DockPanel fill chain | Remember last size/position |
+| Editor WebView | ContentControl Stretch + NativeWebView Stretch so WKWebView tracks resize | Native control edge cases on extreme DPI |
+| Format toolbar | Horizontal `ScrollViewer` so buttons don't clip; view toggles stay visible | Merge/dedupe with ribbon Home tab |
+| Ribbon | Tab strip + groups scroll horizontally; content `MaxHeight` caps chrome | Adaptive Large→Small; real icons |
+| Status bar | Pinned bottom, fixed height, ellipsis on long blog/status text | — |
+| Dialogs | Min sizes; Preferences/Accounts/Drafts/Categories/SelectBlog resizable | Visual polish vs Windows options UI |
 ## 4. Recommended next steps (for the following session)
 
 1. ✅ **Font/highlight color pickers (P0-4)**, **Semantic HTML gallery (P0-5)**,
