@@ -3,7 +3,7 @@
 Single source of truth for the Mac (Avalonia) port. Goal: **feature and visual
 parity with Open Live Writer for Windows.** Update this file as work lands.
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, and **re-publish → `editPost`**; on top of the Insert-tab + preview + selection-state band: real Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; on top of Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, and **re-publish → `editPost`**; Insert-tab + preview + selection-state band: real Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
 
 ## Official milestone plan
 
@@ -17,7 +17,7 @@ Tracked in the org project *"Cross-Platform Migration (macOS + Windows)"*
 | M2 (#999) | Retarget core libs to net10.0 (+ macOS console PoC) | ✅ Complete |
 | M3 (#1000) | Avalonia UI shell + Platform.Mac (ribbon, toolbar, Keychain, dialogs) | ✅ Complete |
 | M4 (#1001) | WebView editor (WKWebView) with JS bridge | ✅ Complete |
-| M5 (#1002) | Packaging + Store submission (.app/DMG, sign/notarize, CI matrix, App Store) | ⬜ Not started |
+| M5 (#1002) | Packaging + Store submission (.app/DMG, sign/notarize, CI matrix, App Store) | 🟡 In progress |
 
 M1–M4 landed the buildable Avalonia stack described below. The backlog in §3 is
 **M4 editor polish / parity** work (finishing the editor + ribbon to true feature
@@ -128,6 +128,11 @@ path fix, thread-safety/caching fixes) — assessed in §7.2.
 - **Re-publish:** a second publish of an already-published document (same blog) edits the
   same server post via `metaWeblog.editPost` (matched on recorded `PublishedPostId`)
   instead of creating a duplicate.
+- **Options / Preferences:** JSON `FileSettingsPersister` on macOS (platform-resolved
+  `~/Library/Application Support/OpenLiveWriter/Settings/`); tabbed **Preferences** dialog
+  (General, Editing, Spelling, Web Proxy, Accounts) wired to the File menu **Options**
+  command. Spelling toggle drives `MainWindow.SetSpellcheckEnabledAsync`; status-bar word
+  count follows the General preference. See §11.
 
 ---
 
@@ -190,15 +195,14 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 
 ### P3 — visual parity & advanced · M4 parity + M5 packaging
 11. **Ribbon visual fidelity** vs. the Windows Fluent ribbon (spacing, icons, group
-    chrome, contextual tabs actually appearing on selection). *(M4)*
-12. ✅ **Tables, video, emoticons, preview, paste-special, breaks.** Done this band —
-    Insert Table (+ table-tools ops), web-video embeds, emoticon picker, real Preview
-    render, clean paste, and clear-break/extended-entry. **Remaining:** maps, tags,
-    plugins, spellcheck UI, print, and *contextual-tab activation* (the Table Tools
-    ops are wired but the contextual tab does not yet auto-appear on selection). *(M4)*
-13. **M5 packaging:** `.app` bundle + DMG, code signing / notarization
-    (`xcrun notarytool`), cross-platform GitHub Actions build matrix, App Store
-    submission. Start once editor + ribbon parity (P0–P1) is solid.
+    chrome, contextual tabs actually appearing on selection). *(M4)* — *incremental:*
+    group-label weight/spacing polish + status bar blog name / word-count panes landed.
+12. ✅ **Tables, video, emoticons, preview, paste-special, breaks, maps, tags, spellcheck UI, contextual tabs.** Done across recent bands.
+    **Remaining:** plugins, print. *(M4)*
+13. **M5 packaging:** `.app` bundle foundation (`build-mac.sh` + `mac-build.yml` CI
+    artifact), code signing / notarization (`xcrun notarytool`), DMG, App Store
+    submission. *Started:* self-contained `osx-arm64` publish + `CFBundleName`
+    "Open Live Writer" `.app` assembly; sign/notarize remain TODOs.
 
 ---
 
@@ -249,10 +253,12 @@ Run:
   `OLW_LIVEBLOG_PUBLISH=true`; defaults to posting an unpublished draft) then
   `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **270 passed / 0 failed.** WebView-category, `PublishTdd`, and
+Default run status: **336 passed / 0 failed.** WebView-category, `PublishTdd`, and
 `LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
-stays green. The publishing-completion band lifted the count 235 → 270 with pure/headless
-coverage (all offline via `FakeBlogClient` / a fake RSD fetcher):
+stays green. The Options/Preferences band lifted the count 330 → 336 with pure/headless
+coverage (`GroupO_SettingsTests` — `FileSettingsPersister` on-disk round-trip,
+sub-settings nesting, `AppPreferencesStore` file round-trip, in-memory preference
+serialize/load, spell-check bridge mapping, proxy-password unset).
 
 - **Image upload (Group G):** `GroupG_ImageUploadTests` — `ImagePublisher` scan (mime +
   byte decode, dedup, jpeg→jpg), rewrite/upload (no-op, single/duplicate/multiple images,
@@ -636,3 +642,33 @@ progress/result messages.
 
 Groups **G** (image upload), **H** (categories), **I** (RSD detection), **J** (re-publish)
 — see §6. `FakeBlogClient` now records `newMediaObject` uploads + serves `getCategories`.
+
+---
+
+## 11. Options / Preferences (macOS)
+
+Cross-platform preference model + macOS JSON persistence, replacing the Windows registry /
+WinForms preferences stack for the Avalonia shell.
+
+### 11.1 Settings persistence (`OpenLiveWriter.Platform.Mac`)
+
+| Type | Role |
+| --- | --- |
+| `FileSettingsPersister` | JSON `ISettingsPersister` — one `{subKey}.json` file under the platform-resolved `Settings/` folder (`CreateUserSettingsPersister` via `MacPlatformServices`). Supports nested `GetSubSettings`, `BatchUpdate`, and atomic temp-file writes. |
+| `MacPlatformServices.CreateUserSettingsPersister` | Resolves `~/Library/Application Support/OpenLiveWriter/Settings/` (never hardcoded). |
+
+### 11.2 Preference model + UI (`App.Avalonia`)
+
+| Type | Role |
+| --- | --- |
+| `AppPreferences` | Snapshot of General (post windows, publishing reminders, AutoRecover, word-count status bar), Editing (autoreplace toggles, paragraph tag), Spelling (`SpellcheckEnabled`), and Web Proxy fields — keyed to match Windows `PostEditorSettings` / `AutoreplaceSettings` / `WebProxySettings` layout. |
+| `AppPreferencesStore` | Load/save through `ISettingsPersister` (`Preferences` root → `PostEditor`/`WordCount`/`Autoreplace`/`Spelling`/`WebProxy` sub-trees). |
+| `PreferencesDialog` | Tabbed modal: General, Editing, Spelling, Web Proxy, Accounts (opens `AccountManagerDialog`). |
+| `MainWindow` | **Options** `CommandId` opens the dialog; apply path calls `SetSpellcheckEnabledAsync` and refreshes the status-bar word-count pane. |
+
+### 11.3 Tests
+
+`GroupO_SettingsTests` (default headless suite, temp dir + in-memory persister):
+`FileSettingsPersister` scalar/sub-settings round-trip, `AppPreferencesStore` file
+round-trip, preference field persistence, spell-check bridge script mapping, proxy-password
+unset when blank.
