@@ -160,7 +160,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         private void BuildSmallButton(bool hasDropdown)
         {
-            MinHeight = 22;
+            MinHeight = 24;
             Padding = new Thickness(4, 1);
 
             var stack = new StackPanel

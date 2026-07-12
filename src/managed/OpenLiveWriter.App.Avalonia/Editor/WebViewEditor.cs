@@ -31,6 +31,16 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public NativeWebView WebView => _webView;
         public bool IsReady => _isReady;
 
+        /// <summary>
+        /// When true, <see cref="InitializeWebView"/> hosts a stretch <see cref="Border"/>
+        /// instead of <see cref="NativeWebView"/>. Used by the headless layout harness so
+        /// editor-slot size can be asserted without a WKWebView backend.
+        /// </summary>
+        public static bool UseLayoutPlaceholder { get; set; }
+
+        /// <summary>Name of the layout-placeholder border (tests locate this control).</summary>
+        public const string LayoutPlaceholderName = "EditorLayoutPlaceholder";
+
         public WebViewEditor()
         {
             LoadEditorHtmlResource();
@@ -63,6 +73,12 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 HorizontalAlignment = HorizontalAlignment.Stretch;
                 VerticalAlignment = VerticalAlignment.Stretch;
 
+                if (UseLayoutPlaceholder)
+                {
+                    Content = CreateLayoutPlaceholder();
+                    return;
+                }
+
                 _webView = new NativeWebView
                 {
                     HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -81,6 +97,22 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 Console.WriteLine($"[OLW-WebView] FAILED: {ex.Message}");
                 Content = CreateFallbackEditor();
             }
+        }
+
+        /// <summary>
+        /// Stretch stand-in for the editor WebView slot (layout harness only).
+        /// </summary>
+        private static Control CreateLayoutPlaceholder()
+        {
+            return new Border
+            {
+                Name = LayoutPlaceholderName,
+                Background = global::Avalonia.Media.Brushes.White,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                MinWidth = 1,
+                MinHeight = 1
+            };
         }
 
         private async Task FallbackLoadAsync()

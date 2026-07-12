@@ -26,6 +26,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private Border _contentArea;
         private ScrollViewer _contentScrollViewer;
         private StackPanel _groupsPanel;
+        private Button _overflowButton;
+        private MenuFlyout _overflowFlyout;
         private List<TabConfig> _visibleTabs;
         // The base (non-contextual) tabs, filtered by active modes.
         private List<TabConfig> _baseTabs;
@@ -61,6 +63,18 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         /// <summary>True when the ribbon is in the narrow/compact layout.</summary>
         public bool IsCompactMode => _compactMode;
+
+        /// <summary>Horizontal scroller for the active tab's groups (layout harness).</summary>
+        public ScrollViewer ContentScrollViewer => _contentScrollViewer;
+
+        /// <summary>Tab strip (includes its own horizontal scroller).</summary>
+        public RibbonTabStrip TabStrip => _tabStrip;
+
+        /// <summary>Pinned overflow ("More") button listing active-tab commands.</summary>
+        public Button OverflowButton => _overflowButton;
+
+        /// <summary>Panel hosting <see cref="RibbonGroupPanel"/> children for the active tab.</summary>
+        public Panel GroupsPanel => _groupsPanel;
 
         /// <summary>
         /// Event raised when a command button in the ribbon is clicked.
@@ -210,6 +224,27 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Content = _groupsPanel
             };
 
+            _overflowFlyout = new MenuFlyout();
+            _overflowButton = new Button
+            {
+                Content = "More \u25BE",
+                MinWidth = 56,
+                MinHeight = 28,
+                Padding = new Thickness(8, 4),
+                FontSize = 12,
+                Margin = new Thickness(4, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Flyout = _overflowFlyout,
+                IsVisible = false
+            };
+            ToolTip.SetTip(_overflowButton,
+                "Commands that may be off-screen — also reachable via scroll");
+
+            var contentDock = new DockPanel { LastChildFill = true };
+            DockPanel.SetDock(_overflowButton, Dock.Right);
+            contentDock.Children.Add(_overflowButton);
+            contentDock.Children.Add(_contentScrollViewer);
+
             _contentArea = new Border
             {
                 Background = new SolidColorBrush(Color.FromRgb(0xFA, 0xFA, 0xFA)),
@@ -220,7 +255,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Padding = new Thickness(4, 4, 4, 0),
                 ClipToBounds = true,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Child = _contentScrollViewer
+                Child = contentDock
             };
 
             rootPanel.Children.Add(_contentArea);
@@ -229,6 +264,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             Content = rootPanel;
 
             SizeChanged += OnRibbonSizeChanged;
+            _contentScrollViewer.ScrollChanged += (s, e) => UpdateOverflowVisibility();
 
             // Select first tab
             if (_visibleTabs.Count > 0)
@@ -237,7 +273,20 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         private void OnRibbonSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            bool compact = e.NewSize.Width > 0 && e.NewSize.Width < CompactWidthThreshold;
+            ApplyCompactForWidth(e.NewSize.Width);
+            UpdateOverflowVisibility();
+        }
+
+        /// <summary>
+        /// Re-evaluates compact mode from the given width (also used after the first
+        /// measure so 800px windows start compact without waiting for a user resize).
+        /// </summary>
+        private void ApplyCompactForWidth(double width)
+        {
+            if (width <= 0)
+                return;
+
+            bool compact = width < CompactWidthThreshold;
             if (compact == _compactMode)
                 return;
 
@@ -323,6 +372,47 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Re-apply any known dropdown item data to the freshly built dropdowns.
             foreach (var commandId in _dropDownData.Keys)
                 ApplyDropDownData(commandId);
+
+            RebuildOverflowMenu();
+            UpdateOverflowVisibility();
+        }
+
+        private void RebuildOverflowMenu()
+        {
+            if (_overflowFlyout == null)
+                return;
+
+            _overflowFlyout.Items.Clear();
+            foreach (var kvp in _buttonsByCommand.OrderBy(k => k.Key.ToString(), StringComparer.Ordinal))
+            {
+                var commandId = kvp.Key;
+                var sample = kvp.Value.FirstOrDefault();
+                string label = sample != null
+                    ? (ToolTip.GetTip(sample) as string) ?? commandId.ToString()
+                    : commandId.ToString();
+
+                var item = new MenuItem { Header = label };
+                item.Click += (s, e) => CommandExecuted?.Invoke(this, commandId);
+                _overflowFlyout.Items.Add(item);
+            }
+        }
+
+        private void UpdateOverflowVisibility()
+        {
+            if (_overflowButton == null || _contentScrollViewer == null || _groupsPanel == null)
+                return;
+
+            // Show More whenever content is wider than the viewport (or still measuring
+            // a wide DesiredSize into a narrow host) so clipped commands stay reachable.
+            double extent = _contentScrollViewer.Extent.Width;
+            double viewport = _contentScrollViewer.Viewport.Width;
+            double desired = _groupsPanel.DesiredSize.Width;
+            bool needsOverflow =
+                (viewport > 0 && extent > viewport + 1) ||
+                (viewport > 0 && desired > viewport + 1) ||
+                (_overflowFlyout != null && _overflowFlyout.Items.Count > 0 && Bounds.Width > 0 && Bounds.Width < CompactWidthThreshold);
+
+            _overflowButton.IsVisible = needsOverflow;
         }
 
         /// <summary>

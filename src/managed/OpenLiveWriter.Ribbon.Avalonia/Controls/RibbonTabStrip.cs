@@ -21,6 +21,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
     {
         private List<TabConfig> _tabs;
         private readonly StackPanel _tabPanel;
+        private readonly ScrollViewer _tabScrollViewer;
         private readonly List<ToggleButton> _tabButtons = new List<ToggleButton>();
         private int _selectedIndex = -1;
 
@@ -32,6 +33,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// Event raised when the active tab changes.
         /// </summary>
         public event EventHandler<TabChangedEventArgs> TabChanged;
+
+        /// <summary>Horizontal scroller wrapping the tab buttons (layout harness).</summary>
+        public ScrollViewer TabScrollViewer => _tabScrollViewer;
+
+        /// <summary>Rendered tab toggle buttons, in strip order.</summary>
+        public IReadOnlyList<ToggleButton> TabButtons => _tabButtons;
 
         public RibbonTabStrip(List<TabConfig> tabs)
         {
@@ -54,12 +61,13 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             // Horizontal scroll when many tabs (or contextual tabs) won't fit —
             // StackPanel alone would clip or overflow the window edge.
-            Child = new ScrollViewer
+            _tabScrollViewer = new ScrollViewer
             {
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
                 Content = _tabPanel
             };
+            Child = _tabScrollViewer;
         }
 
         /// <summary>The tab configs currently rendered, in order.</summary>

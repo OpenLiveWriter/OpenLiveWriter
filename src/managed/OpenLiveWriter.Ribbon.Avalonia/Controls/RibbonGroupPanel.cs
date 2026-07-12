@@ -378,7 +378,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             var comboBox = new global::Avalonia.Controls.ComboBox
             {
                 Width = combo.PreferredWidth,
-                Height = 24,
+                Height = 26,
+                MinHeight = 24,
                 PlaceholderText = CommandLabelHelper.GetLabel(combo.CommandId),
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -451,7 +452,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     control = new global::Avalonia.Controls.ComboBox
                     {
                         Width = combo.PreferredWidth,
-                        Height = 24,
+                        Height = 26,
+                        MinHeight = 24,
                         PlaceholderText = CommandLabelHelper.GetLabel(combo.CommandId),
                         VerticalAlignment = VerticalAlignment.Center
                     };
@@ -464,7 +466,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                         Maximum = spinner.MaxValue,
                         Increment = spinner.Increment,
                         Width = 80,
-                        Height = 24,
+                        Height = 26,
+                        MinHeight = 24,
                         VerticalAlignment = VerticalAlignment.Center
                     };
                     break;
@@ -545,7 +548,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 var comboBox = new global::Avalonia.Controls.ComboBox
                 {
                     Width = 140,
-                    Height = 24,
+                    Height = 26,
+                    MinHeight = 24,
                     PlaceholderText = label,
                     VerticalAlignment = VerticalAlignment.Center
                 };
@@ -700,7 +704,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             var button = new Button
             {
                 Focusable = false,
-                MinHeight = 22,
+                MinHeight = 24,
                 Padding = new Thickness(4, 1),
                 Background = Brushes.Transparent,
                 BorderThickness = new Thickness(1),

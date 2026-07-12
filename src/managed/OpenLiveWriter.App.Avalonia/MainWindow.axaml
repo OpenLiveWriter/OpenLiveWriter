@@ -19,7 +19,8 @@
                 ClipToBounds="True" />
 
         <!-- Status bar — pinned; does not consume editor space -->
-        <Border DockPanel.Dock="Bottom"
+        <Border x:Name="StatusBar"
+                DockPanel.Dock="Bottom"
                 Background="#F0F0F0"
                 BorderBrush="#D0D0D0"
                 BorderThickness="0,1,0,0"

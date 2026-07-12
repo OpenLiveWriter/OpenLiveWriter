@@ -20,11 +20,11 @@
                             Spacing="2"
                             VerticalAlignment="Center">
                     <ToggleButton x:Name="EditViewButton" Content="Edit" IsChecked="True"
-                                  Height="26" MinWidth="48" Padding="8,2" FontSize="12" />
+                                  Height="26" MinHeight="24" MinWidth="48" Padding="8,2" FontSize="12" />
                     <ToggleButton x:Name="SourceViewButton" Content="Source"
-                                  Height="26" MinWidth="56" Padding="8,2" FontSize="12" />
+                                  Height="26" MinHeight="24" MinWidth="56" Padding="8,2" FontSize="12" />
                     <ToggleButton x:Name="PreviewViewButton" Content="Preview"
-                                  Height="26" MinWidth="56" Padding="8,2" FontSize="12" />
+                                  Height="26" MinHeight="24" MinWidth="56" Padding="8,2" FontSize="12" />
                 </StackPanel>
                 <TextBlock Text="Editing"
                            FontSize="11"
@@ -43,42 +43,50 @@
                 BorderThickness="0,0,0,1"
                 Padding="8,4"
                 IsVisible="False"
-                MinHeight="36">
-            <DockPanel LastChildFill="True">
-                <StackPanel DockPanel.Dock="Right"
-                            Orientation="Horizontal"
-                            Spacing="4"
-                            VerticalAlignment="Center"
-                            Margin="8,0,0,0">
-                    <CheckBox x:Name="FindMatchCaseCheck" Content="Match case"
-                              FontSize="11" VerticalAlignment="Center" />
-                    <Button x:Name="FindPreviousButton" Content="Previous"
-                            Height="26" Padding="8,2" FontSize="12" MinWidth="70" />
-                    <Button x:Name="FindNextButton" Content="Next"
-                            Height="26" Padding="8,2" FontSize="12" MinWidth="56"
-                            IsDefault="True" />
-                    <Button x:Name="FindReplaceDialogButton" Content="Replace…"
-                            Height="26" Padding="8,2" FontSize="12" MinWidth="72"
-                            ToolTip.Tip="Open Find &amp; Replace dialog" />
-                    <Button x:Name="FindCloseButton" Content="✕"
-                            Height="26" Width="28" Padding="0"
-                            FontSize="12" ToolTip.Tip="Close (Esc)" />
-                </StackPanel>
-                <DockPanel LastChildFill="True">
-                    <TextBlock DockPanel.Dock="Left"
-                               Text="Find"
-                               FontSize="12"
-                               VerticalAlignment="Center"
-                               Margin="0,0,8,0"
-                               Foreground="#555555" />
-                    <TextBox x:Name="FindQueryBox"
-                             PlaceholderText="Find in post…"
-                             Height="26"
-                             FontSize="12"
-                             VerticalAlignment="Center"
-                             MinWidth="120" />
+                MinHeight="36"
+                ClipToBounds="True">
+            <!-- Horizontal scroll so Match case / Next / Replace stay reachable at 800px -->
+            <ScrollViewer x:Name="FindBarScrollViewer"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Disabled">
+                <DockPanel LastChildFill="True" MinWidth="560">
+                    <StackPanel DockPanel.Dock="Right"
+                                Orientation="Horizontal"
+                                Spacing="4"
+                                VerticalAlignment="Center"
+                                Margin="8,0,0,0">
+                        <CheckBox x:Name="FindMatchCaseCheck" Content="Match case"
+                                  FontSize="11" VerticalAlignment="Center"
+                                  MinHeight="24" />
+                        <Button x:Name="FindPreviousButton" Content="Previous"
+                                Height="26" MinHeight="24" Padding="8,2" FontSize="12" MinWidth="70" />
+                        <Button x:Name="FindNextButton" Content="Next"
+                                Height="26" MinHeight="24" Padding="8,2" FontSize="12" MinWidth="56"
+                                IsDefault="True" />
+                        <Button x:Name="FindReplaceDialogButton" Content="Replace…"
+                                Height="26" MinHeight="24" Padding="8,2" FontSize="12" MinWidth="72"
+                                ToolTip.Tip="Open Find &amp; Replace dialog" />
+                        <Button x:Name="FindCloseButton" Content="✕"
+                                Height="26" MinHeight="24" Width="28" Padding="0"
+                                FontSize="12" ToolTip.Tip="Close (Esc)" />
+                    </StackPanel>
+                    <DockPanel LastChildFill="True">
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Find"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,8,0"
+                                   Foreground="#555555" />
+                        <TextBox x:Name="FindQueryBox"
+                                 PlaceholderText="Find in post…"
+                                 Height="26"
+                                 MinHeight="24"
+                                 FontSize="12"
+                                 VerticalAlignment="Center"
+                                 MinWidth="120" />
+                    </DockPanel>
                 </DockPanel>
-            </DockPanel>
+            </ScrollViewer>
         </Border>
 
         <!-- Editor content area (switches between Edit, Source, Preview).
