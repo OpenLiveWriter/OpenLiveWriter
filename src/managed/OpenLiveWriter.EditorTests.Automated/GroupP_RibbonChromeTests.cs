@@ -46,8 +46,8 @@ namespace OpenLiveWriter.EditorTests.Automated
                 .FirstOrDefault(c => c.CommandId == CommandId.FontSize);
 
             Assert.That(fontSize, Is.Not.Null);
-            Assert.That(fontSize.PreferredWidth, Is.GreaterThanOrEqualTo(56),
-                "Font size combo must be wide enough to show selected values like 12/14/36");
+            Assert.That(fontSize.PreferredWidth, Is.GreaterThanOrEqualTo(80),
+                "Font size combo must be wide enough to show selected values like 12/14/36 plus chrome");
         }
 
         [Test]
@@ -59,6 +59,12 @@ namespace OpenLiveWriter.EditorTests.Automated
                 Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.Numbers), Is.EqualTo("1."));
                 Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.Blockquote), Is.EqualTo("\u201C"));
                 Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.Bold), Is.EqualTo("B"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.AlignLeft), Is.EqualTo("\u25E7"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.AlignCenter), Is.EqualTo("\u25A3"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.AlignRight), Is.EqualTo("\u25E8"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.Justify), Is.EqualTo("\u2630"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.InsertImageSplit), Is.EqualTo("\u25A6"));
+                Assert.That(RibbonButtonControl.GlyphForCommand(CommandId.InsertVideoSplit), Is.EqualTo("\u25B6"));
             });
         }
 
@@ -109,8 +115,28 @@ namespace OpenLiveWriter.EditorTests.Automated
                 var ribbon = FindRibbon(window);
                 var combo = FindCombo(ribbon, CommandId.FontSize);
                 Assert.That(combo, Is.Not.Null);
-                Assert.That(combo.MinWidth, Is.GreaterThanOrEqualTo(56));
-                Assert.That(combo.Width, Is.GreaterThanOrEqualTo(56));
+                Assert.That(combo.MinWidth, Is.GreaterThanOrEqualTo(80));
+                Assert.That(combo.Width, Is.GreaterThanOrEqualTo(80));
+                Assert.That(combo.Bounds.Width, Is.GreaterThanOrEqualTo(80));
+            }
+            finally
+            {
+                window.Close();
+            }
+        }
+
+        [AvaloniaTest]
+        public void FontSizeCombo_PresentAndWideEnough_InCompactMode()
+        {
+            var window = CreateLaidOutWindow(800, 600);
+            try
+            {
+                var ribbon = FindRibbon(window);
+                Assert.That(ribbon.IsCompactMode, Is.True);
+                var combo = FindCombo(ribbon, CommandId.FontSize);
+                Assert.That(combo, Is.Not.Null, "Font size must remain a populated ComboBox in compact mode");
+                Assert.That(combo.MinWidth, Is.GreaterThanOrEqualTo(80));
+                Assert.That(combo.Items.Count, Is.GreaterThan(0));
             }
             finally
             {
@@ -135,11 +161,16 @@ namespace OpenLiveWriter.EditorTests.Automated
                     Assert.That(source.Padding, Is.EqualTo(preview.Padding));
                     Assert.That(edit.MinWidth, Is.EqualTo(source.MinWidth));
                     Assert.That(source.MinWidth, Is.EqualTo(preview.MinWidth));
-                    Assert.That(edit.MinWidth, Is.EqualTo(64));
+                    Assert.That(edit.MinWidth, Is.EqualTo(68));
+                    Assert.That(edit.Width, Is.EqualTo(68));
+                    Assert.That(source.Width, Is.EqualTo(68));
+                    Assert.That(preview.Width, Is.EqualTo(68));
                     Assert.That(edit.Padding.Left, Is.EqualTo(10));
                     Assert.That(edit.Padding.Right, Is.EqualTo(10));
                     Assert.That(edit.Height, Is.EqualTo(source.Height));
                     Assert.That(source.Height, Is.EqualTo(preview.Height));
+                    Assert.That(edit.Bounds.Width, Is.EqualTo(source.Bounds.Width).Within(0.5));
+                    Assert.That(source.Bounds.Width, Is.EqualTo(preview.Bounds.Width).Within(0.5));
                 });
             }
             finally

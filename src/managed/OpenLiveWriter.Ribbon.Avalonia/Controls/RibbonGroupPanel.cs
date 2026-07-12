@@ -74,7 +74,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 FontWeight = FontWeight.SemiBold,
                 Foreground = new SolidColorBrush(Color.FromRgb(0x55, 0x55, 0x55)),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = _compact ? new Thickness(0, 2, 0, 2) : new Thickness(0, 4, 0, 3)
+                // Extra bottom margin so labels are not clipped by the content band.
+                Margin = _compact ? new Thickness(0, 2, 0, 4) : new Thickness(0, 4, 0, 6)
             };
             DockPanel.SetDock(label, Dock.Bottom);
             outerStack.Children.Add(label);
@@ -85,7 +86,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Orientation = Orientation.Horizontal,
                 VerticalAlignment = VerticalAlignment.Top,
                 Spacing = 2,
-                MinHeight = _compact ? 40 : 66
+                MinHeight = _compact ? 40 : 58
             };
 
             var controls = _config.Controls;
@@ -317,7 +318,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 {
                     Orientation = Orientation.Vertical,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Spacing = 1
+                    Spacing = 2
                 };
 
                 int count = 0;
@@ -333,7 +334,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                         {
                             Orientation = Orientation.Vertical,
                             VerticalAlignment = VerticalAlignment.Center,
-                            Spacing = 1
+                            Spacing = 2
                         };
                         count = 0;
                     }
@@ -380,7 +381,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // the Avalonia combo chrome/arrow; Prefer Width == MinWidth so layout
             // cannot shrink below the configured preferred size.
             if (combo.CommandId == CommandId.FontSize)
-                width = Math.Max(width, 56);
+                width = Math.Max(width, 80);
 
             var comboBox = new global::Avalonia.Controls.ComboBox
             {
@@ -389,7 +390,8 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Height = 26,
                 MinHeight = 24,
                 PlaceholderText = CommandLabelHelper.GetLabel(combo.CommandId),
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Left
             };
 
             var commandId = combo.CommandId;
@@ -457,14 +459,22 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     break;
 
                 case ComboBoxConfig combo:
-                    control = new global::Avalonia.Controls.ComboBox
+                    // Font family/size must use the populated editor combo path even in
+                    // compact layout — a bare ComboBox only shows a truncated placeholder.
+                    if (combo.CommandId == CommandId.FontFamily || combo.CommandId == CommandId.FontSize)
+                        control = CreateEditorComboBox(combo);
+                    else
                     {
-                        Width = combo.PreferredWidth,
-                        Height = 26,
-                        MinHeight = 24,
-                        PlaceholderText = CommandLabelHelper.GetLabel(combo.CommandId),
-                        VerticalAlignment = VerticalAlignment.Center
-                    };
+                        control = new global::Avalonia.Controls.ComboBox
+                        {
+                            Width = combo.PreferredWidth > 0 ? combo.PreferredWidth : 120,
+                            MinWidth = combo.PreferredWidth > 0 ? combo.PreferredWidth : 80,
+                            Height = 26,
+                            MinHeight = 24,
+                            PlaceholderText = CommandLabelHelper.GetLabel(combo.CommandId),
+                            VerticalAlignment = VerticalAlignment.Center
+                        };
+                    }
                     break;
 
                 case SpinnerConfig spinner:
@@ -604,14 +614,17 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// </summary>
         private Control CreateSemanticHtmlGallery(GalleryConfig gallery, string label)
         {
+            // Style selector: show current block style (Normal / Heading N / …).
+            // Sized for "Preformatted" without leaving a huge empty combo.
             var comboBox = new global::Avalonia.Controls.ComboBox
             {
-                Width = 140,
-                MinWidth = 120,
+                Width = 132,
+                MinWidth = 132,
                 Height = 26,
                 MinHeight = 24,
                 PlaceholderText = label,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Left
             };
 
             foreach (var (styleLabel, tag) in SemanticHtmlStyleItems)
@@ -691,11 +704,13 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 swatchPanel.Children.Add(swatch);
             }
 
+            string shortLabel = CommandLabelHelper.GetLabel(commandId);
             var button = new Button
             {
                 Focusable = false,
                 MinHeight = 24,
-                Padding = new Thickness(4, 1),
+                MinWidth = shortLabel.Length >= 8 ? 84 : 72,
+                Padding = new Thickness(6, 1),
                 Background = Brushes.Transparent,
                 BorderThickness = new Thickness(1),
                 BorderBrush = Brushes.Transparent,
@@ -703,9 +718,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Flyout = flyout,
                 Content = new TextBlock
                 {
-                    Text = CommandLabelHelper.GetLabel(commandId) + " \u25BE",
+                    Text = shortLabel + " \u25BE",
                     FontSize = 11,
-                    VerticalAlignment = VerticalAlignment.Center
+                    VerticalAlignment = VerticalAlignment.Center,
+                    TextTrimming = TextTrimming.None
                 }
             };
 

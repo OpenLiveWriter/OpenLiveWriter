@@ -16,7 +16,7 @@
         <Border DockPanel.Dock="Top"
                 x:Name="RibbonHost"
                 HorizontalAlignment="Stretch"
-                ClipToBounds="True" />
+                ClipToBounds="False" />
 
         <!-- Status bar — pinned; does not consume editor space -->
         <Border x:Name="StatusBar"

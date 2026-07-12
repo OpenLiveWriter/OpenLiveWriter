@@ -128,7 +128,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private void BuildLargeButton(bool hasDropdown)
         {
             MinWidth = 48;
-            MinHeight = 66;
+            MinHeight = 58;
 
             var stack = new StackPanel
             {
@@ -161,7 +161,16 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         private void BuildSmallButton(bool hasDropdown)
         {
             MinHeight = 24;
-            Padding = new Thickness(4, 1);
+            // Formatting toggles are icon-only — give them a square hit target.
+            if (IsFormattingGlyphCommand(_commandId))
+            {
+                MinWidth = 28;
+                Padding = new Thickness(5, 2);
+            }
+            else
+            {
+                Padding = new Thickness(4, 1);
+            }
 
             var stack = new StackPanel
             {
@@ -242,9 +251,17 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     return (glyph, FontWeight.Normal, FontStyle.Normal, TextDecorations.Strikethrough);
                 case CommandId.Bullets:
                 case CommandId.Blockquote:
+                case CommandId.AlignLeft:
+                case CommandId.AlignCenter:
+                case CommandId.AlignRight:
+                case CommandId.Justify:
                     return (glyph, FontWeight.Bold, FontStyle.Normal, null);
                 case CommandId.Numbers:
                 case CommandId.SavePost:
+                case CommandId.PostAsDraft:
+                case CommandId.ClearFormatting:
+                case CommandId.CheckSpelling:
+                case CommandId.WordCount:
                     return (glyph, FontWeight.SemiBold, FontStyle.Normal, null);
                 case CommandId.PostAndPublish:
                     return (glyph, FontWeight.Bold, FontStyle.Normal, null);
@@ -276,12 +293,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 case CommandId.Bullets: return "\u2022";
                 case CommandId.Numbers: return "1.";
                 case CommandId.Blockquote: return "\u201C";
-                case CommandId.AlignLeft:
-                case CommandId.AlignCenter:
-                case CommandId.AlignRight:
-                case CommandId.Justify:
-                    return "\u2630";
+                case CommandId.AlignLeft: return "\u25E7";   // ◧ left-filled
+                case CommandId.AlignCenter: return "\u25A3"; // ▣ centered square
+                case CommandId.AlignRight: return "\u25E8";  // ◨ right-filled
+                case CommandId.Justify: return "\u2630";     // ☰ justified lines
                 case CommandId.Paste:
+                    return "\u2398";
                 case CommandId.CopyCommand:
                     return "\u2398";
                 case CommandId.Cut:
@@ -292,13 +309,29 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     return "\u21B7";
                 case CommandId.InsertLink:
                     return "\u29C9";
+                case CommandId.InsertImageSplit:
+                case CommandId.InsertPictureFromFile:
+                case CommandId.WebImage:
+                    return "\u25A6"; // ▦ image-like grid
+                case CommandId.InsertVideoSplit:
+                case CommandId.InsertVideoFromFile:
+                case CommandId.InsertVideoFromWeb:
+                case CommandId.InsertVideoFromService:
+                    return "\u25B6"; // ▶ play
+                case CommandId.ClearFormatting:
+                    return "Tx";
+                case CommandId.CheckSpelling:
+                    return "Abc";
+                case CommandId.WordCount:
+                    return "#";
                 case CommandId.FindButton:
                 case CommandId.FindAndReplace:
                     return "\u2315";
                 case CommandId.PostAndPublish:
                     return "\u2191";
                 case CommandId.SavePost:
-                    return "S";
+                case CommandId.PostAsDraft:
+                    return "\u2399"; // ⎙ save-ish
                 default:
                     var label = CommandLabelHelper.GetLabel(commandId);
                     return string.IsNullOrEmpty(label)

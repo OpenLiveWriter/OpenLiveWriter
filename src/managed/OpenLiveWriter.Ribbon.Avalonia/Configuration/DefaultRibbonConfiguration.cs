@@ -164,8 +164,8 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
             var fontGroup = CreateGroup(CommandId.FontGroup, "Font", "FN");
             fontGroup.SizeDefinition = "FontGroup";
             fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontFamily, PreferredWidth = 120, IsEditable = true, IsAutoCompleteEnabled = true });
-            // Wide enough to show selected size labels ("12", "14", "36") without clipping.
-            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 56, IsEditable = true, IsAutoCompleteEnabled = true });
+            // Wide enough for selected size ("12"/"36") plus Avalonia combo chrome/arrow.
+            fontGroup.Controls.Add(new ComboBoxConfig { CommandId = CommandId.FontSize, PreferredWidth = 80, IsEditable = true, IsAutoCompleteEnabled = true });
             fontGroup.Controls.Add(new ButtonConfig { CommandId = CommandId.ClearFormatting, PreferredSize = RibbonGroupSize.Small });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Bold, PreferredSize = RibbonGroupSize.Small });
             fontGroup.Controls.Add(new ToggleButtonConfig { CommandId = CommandId.Italic, PreferredSize = RibbonGroupSize.Small });
@@ -192,7 +192,7 @@ namespace OpenLiveWriter.Ribbon.Managed.Configuration
 
             // HTML Styles Group - SizeDefinition="OneInRibbonGallery"
             // Match native ribbon: MaxColumns="7", ItemHeight="36", ItemWidth="64", MaxRows="3"
-            var htmlStylesGroup = CreateGroup(CommandId.SemanticHtmlGroup, "HTML styles", "HS");
+            var htmlStylesGroup = CreateGroup(CommandId.SemanticHtmlGroup, "Style", "HS");
             htmlStylesGroup.SizeDefinition = "OneInRibbonGallery";
             htmlStylesGroup.Controls.Add(new GalleryConfig 
             { 

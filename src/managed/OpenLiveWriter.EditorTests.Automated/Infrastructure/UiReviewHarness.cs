@@ -226,10 +226,14 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             dump.Controls.Add(DescribeNamed("StylesCombo", styles));
 
             // Invariant flags for agent / human review.
-            if (fontSize != null && fontSize.Bounds.Width + 0.5 < 56)
-                dump.Flags.Add($"FontSizeCombo width {fontSize.Bounds.Width:0.##} < 56");
-            if (styles != null && styles.Bounds.Width + 0.5 < 120)
-                dump.Flags.Add($"StylesCombo width {styles.Bounds.Width:0.##} < 120");
+            if (fontSize != null && fontSize.Bounds.Width + 0.5 < 80)
+                dump.Flags.Add($"FontSizeCombo width {fontSize.Bounds.Width:0.##} < 80");
+            if (styles != null && styles.Bounds.Width + 0.5 < 132)
+                dump.Flags.Add($"StylesCombo width {styles.Bounds.Width:0.##} < 132");
+            if (fontSize == null)
+                dump.Flags.Add("FontSizeCombo missing");
+            if (styles == null)
+                dump.Flags.Add("StylesCombo missing");
 
             var edit = editorPanel?.FindControl<ToggleButton>("EditViewButton");
             var source = editorPanel?.FindControl<ToggleButton>("SourceViewButton");

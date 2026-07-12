@@ -258,10 +258,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Background = new SolidColorBrush(Color.FromRgb(0xFA, 0xFA, 0xFA)),
                 BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0)),
                 BorderThickness = new Thickness(0, 0, 0, 1),
-                MinHeight = 95,
-                MaxHeight = 120,
-                Padding = new Thickness(4, 4, 4, 0),
-                ClipToBounds = true,
+                MinHeight = 112,
+                // No MaxHeight — group labels must remain fully visible.
+                Padding = new Thickness(4, 4, 4, 8),
+                ClipToBounds = false,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 Child = contentDock
             };
@@ -311,15 +311,17 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
             if (_compactMode)
             {
-                _contentArea.MinHeight = 52;
-                _contentArea.MaxHeight = 72;
-                _contentArea.Padding = new Thickness(4, 2, 4, 0);
+                _contentArea.MinHeight = 64;
+                _contentArea.MaxHeight = double.PositiveInfinity;
+                _contentArea.Padding = new Thickness(4, 2, 4, 6);
+                _contentArea.ClipToBounds = false;
             }
             else
             {
-                _contentArea.MinHeight = 95;
-                _contentArea.MaxHeight = 120;
-                _contentArea.Padding = new Thickness(4, 4, 4, 0);
+                _contentArea.MinHeight = 112;
+                _contentArea.MaxHeight = double.PositiveInfinity;
+                _contentArea.Padding = new Thickness(4, 4, 4, 8);
+                _contentArea.ClipToBounds = false;
             }
         }
 
