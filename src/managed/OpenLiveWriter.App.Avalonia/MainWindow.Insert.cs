@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System.Threading.Tasks;
+using global::Avalonia.Input;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.Localization;
@@ -32,6 +33,9 @@ namespace OpenLiveWriter.App.Avalonia
                     return true;
                 case CommandId.InsertEmoticon:
                     await ShowInsertEmoticonAsync();
+                    return true;
+                case CommandId.PasteSpecial:
+                    await PasteSpecialAsync();
                     return true;
                 default:
                     return false;
@@ -88,6 +92,39 @@ namespace OpenLiveWriter.App.Avalonia
             string payload = EmoticonGallery.BuildInsertion(emoji) ?? emoji;
             await editor.InsertHtmlAsync(payload);
             UpdateStatus("Inserted emoticon.");
+        }
+
+        // Paste Special: insert the clipboard's text with formatting removed (clean
+        // paste). The plain-text/clean-HTML sanitizers are covered by GroupF tests.
+        private async Task PasteSpecialAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null)
+                return;
+
+            string clipboardText = null;
+            try
+            {
+                if (Clipboard != null)
+                {
+                    IAsyncDataTransfer data = await Clipboard.TryGetDataAsync();
+                    if (data != null)
+                        clipboardText = await data.TryGetTextAsync();
+                }
+            }
+            catch
+            {
+                // Clipboard access can fail on headless/unfocused windows — ignore.
+            }
+
+            if (string.IsNullOrEmpty(clipboardText))
+            {
+                UpdateStatus("Nothing to paste.");
+                return;
+            }
+
+            await editor.PastePlainTextAsync(clipboardText);
+            UpdateStatus("Pasted as plain text.");
         }
     }
 }

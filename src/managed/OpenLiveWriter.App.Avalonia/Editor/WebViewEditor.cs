@@ -544,6 +544,26 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public Task DeleteTableColumnAsync() => RunTableOpAsync("OLWBridge.deleteTableColumn()");
         public Task DeleteTableAsync() => RunTableOpAsync("OLWBridge.deleteTable()");
 
+        /// <summary>Inserts a clearing line break (clears floated content) at the caret.</summary>
+        public Task InsertClearBreakAsync() => InsertHtmlAsync(EditorMarkup.ClearBreakHtml);
+
+        /// <summary>
+        /// Inserts the extended-entry ("more") break marker at the caret. The publish
+        /// pipeline splits the post on this marker into main / extended contents.
+        /// </summary>
+        public Task InsertExtendedEntryAsync() => InsertHtmlAsync(EditorMarkup.ExtendedEntryBreakHtml);
+
+        /// <summary>Inserts pasted content as plain text (formatting removed) at the caret.</summary>
+        public Task PastePlainTextAsync(string clipboardHtmlOrText)
+        {
+            string text = PasteCleaner.ToPlainText(clipboardHtmlOrText);
+            return InsertHtmlAsync(PasteCleaner.BuildPlainTextInsertion(text));
+        }
+
+        /// <summary>Inserts pasted HTML after sanitizing it to a safe subset at the caret.</summary>
+        public Task PasteCleanHtmlAsync(string clipboardHtml) =>
+            InsertHtmlAsync(PasteCleaner.CleanHtml(clipboardHtml));
+
         public Task ExecuteBlockquoteAsync() => ToggleBlockAsync("blockquote");
 
         public async Task InsertHtmlAsync(string html)
@@ -612,6 +632,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
                 // Insert
                 case CommandId.InsertHorizontalLine: await InsertHorizontalLineAsync(); return true;
+                case CommandId.InsertClearBreak: await InsertClearBreakAsync(); return true;
+                case CommandId.InsertExtendedEntry: await InsertExtendedEntryAsync(); return true;
 
                 // Table Tools (contextual) — operate on the table containing the caret
                 case CommandId.InsertRowAbove: await InsertTableRowAboveAsync(); return true;
