@@ -25,6 +25,9 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public event EventHandler<FormatState> FormatStateChanged;
         public event EventHandler<string> ContentChanged;
 
+        /// <summary>Autoreplace toggles applied on paste and pushed to the JS bridge.</summary>
+        public AutoreplaceOptions AutoreplaceOptions { get; set; } = new AutoreplaceOptions();
+
         public NativeWebView WebView => _webView;
         public bool IsReady => _isReady;
 
@@ -120,6 +123,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
             // Push the initial formatting state so toggle buttons start in sync.
             _ = RunJS("OLWBridge.reportState()");
+            _ = SetAutoreplaceOptionsAsync(AutoreplaceOptions);
         }
 
         // Handles JSON messages posted from editor.html via the WebView bridge.
@@ -570,12 +574,28 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public Task PastePlainTextAsync(string clipboardHtmlOrText)
         {
             string text = PasteCleaner.ToPlainText(clipboardHtmlOrText);
+            text = AutoreplaceTransformer.TransformPlainText(text, AutoreplaceOptions);
             return InsertHtmlAsync(PasteCleaner.BuildPlainTextInsertion(text));
         }
 
         /// <summary>Inserts pasted HTML after sanitizing it to a safe subset at the caret.</summary>
-        public Task PasteCleanHtmlAsync(string clipboardHtml) =>
-            InsertHtmlAsync(PasteCleaner.CleanHtml(clipboardHtml));
+        public Task PasteCleanHtmlAsync(string clipboardHtml)
+        {
+            string cleaned = PasteCleaner.CleanHtml(clipboardHtml);
+            string plain = PasteCleaner.ToPlainText(cleaned);
+            plain = AutoreplaceTransformer.TransformPlainText(plain, AutoreplaceOptions);
+            return InsertHtmlAsync(PasteCleaner.BuildPlainTextInsertion(plain));
+        }
+
+        /// <summary>
+        /// Pushes autoreplace toggles to the editor bridge for live typing replacements.
+        /// </summary>
+        public async Task SetAutoreplaceOptionsAsync(AutoreplaceOptions options)
+        {
+            AutoreplaceOptions = options ?? new AutoreplaceOptions();
+            if (_webView == null || !_isReady) return;
+            await RunJS(AutoreplaceController.BuildSetAutoreplaceScript(AutoreplaceOptions));
+        }
 
         /// <summary>
         /// Enables/disables the editor body's native spell-check underlines by toggling

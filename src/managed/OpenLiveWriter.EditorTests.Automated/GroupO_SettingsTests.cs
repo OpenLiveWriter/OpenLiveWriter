@@ -3,11 +3,13 @@
 
 using System;
 using System.IO;
+using System.Net;
 using NUnit.Framework;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.App.Avalonia.Settings;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
 using OpenLiveWriter.Platform.Mac;
+using OpenLiveWriter.Publishing;
 
 namespace OpenLiveWriter.EditorTests.Automated
 {
@@ -162,6 +164,83 @@ namespace OpenLiveWriter.EditorTests.Automated
                 if (Directory.Exists(tempDir))
                     Directory.Delete(tempDir, recursive: true);
             }
+        }
+
+        [Test]
+        public void PublishingHttpClientFactory_ProxyEnabled_ConfiguresHandler()
+        {
+            var config = new WebProxyConfiguration
+            {
+                Enabled = true,
+                Hostname = "proxy.example",
+                Port = 3128,
+                Username = "user",
+                Password = "pass"
+            };
+
+            using var handler = PublishingHttpClientFactory.CreateHandler(config);
+            Assert.That(handler.UseProxy, Is.True);
+            var proxy = handler.Proxy as WebProxy;
+            Assert.That(proxy, Is.Not.Null);
+            Assert.That(proxy.Address.Host, Is.EqualTo("proxy.example"));
+            Assert.That(proxy.Address.Port, Is.EqualTo(3128));
+        }
+
+        [Test]
+        public void PublishingHttpClientFactory_ProxyDisabled_DoesNotSetCustomProxy()
+        {
+            using var handler = PublishingHttpClientFactory.CreateHandler(new WebProxyConfiguration());
+            Assert.That(handler.Proxy as WebProxy, Is.Null);
+        }
+
+        [Test]
+        public void WebProxyMapper_MapsPreferencesFields()
+        {
+            var prefs = new AppPreferences
+            {
+                ProxyEnabled = true,
+                ProxyHostname = "10.0.0.5",
+                ProxyPort = 8888,
+                ProxyUsername = "alice"
+            };
+            var config = WebProxyMapper.ToConfiguration(prefs);
+            Assert.Multiple(() =>
+            {
+                Assert.That(config.IsActive, Is.True);
+                Assert.That(config.Hostname, Is.EqualTo("10.0.0.5"));
+                Assert.That(config.Port, Is.EqualTo(8888));
+                Assert.That(config.Username, Is.EqualTo("alice"));
+            });
+        }
+
+        [Test]
+        public void AutoreplaceTransformer_SmartQuotes_ReplacesStraightQuotes()
+        {
+            var options = new AutoreplaceOptions { ReplaceSmartQuotes = true };
+            string result = AutoreplaceTransformer.TransformPlainText("\"Hello\" she said.", options);
+            Assert.That(result, Does.Contain("\u201C"));
+            Assert.That(result, Does.Contain("\u201D"));
+        }
+
+        [Test]
+        public void AutoreplaceTransformer_Disabled_LeavesTextUntouched()
+        {
+            var options = new AutoreplaceOptions { ReplaceSmartQuotes = false };
+            const string input = "\"plain\"";
+            Assert.That(AutoreplaceTransformer.TransformPlainText(input, options), Is.EqualTo(input));
+        }
+
+        [Test]
+        public void AutoreplaceController_BuildsBridgeScript()
+        {
+            var options = new AutoreplaceOptions
+            {
+                ReplaceSmartQuotes = true,
+                ReplaceHyphens = false
+            };
+            string script = AutoreplaceController.BuildSetAutoreplaceScript(options);
+            Assert.That(script, Does.Contain("smartQuotes:true"));
+            Assert.That(script, Does.Contain("hyphens:false"));
         }
     }
 }

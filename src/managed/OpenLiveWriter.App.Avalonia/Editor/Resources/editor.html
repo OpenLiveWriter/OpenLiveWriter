@@ -342,6 +342,47 @@ const OLWBridge = {
         return document.body.getAttribute('spellcheck');
     },
 
+    // Autoreplace toggles pushed from Preferences (Editing tab).
+    _autoreplace: { smartQuotes: true, hyphens: true, special: true, emoticons: true },
+
+    setAutoreplace: function(opts) {
+        this._autoreplace = opts || {};
+        return this._autoreplace;
+    },
+
+    _textBeforeCaret: function() {
+        var sel = window.getSelection();
+        if (!sel.rangeCount) return '';
+        var range = sel.getRangeAt(0).cloneRange();
+        range.collapse(true);
+        range.setStart(document.body, 0);
+        return range.toString();
+    },
+
+    _smartQuoteFor: function(plainQuote) {
+        var before = this._textBeforeCaret();
+        var isOpen = true;
+        if (before.length > 0) {
+            var prev = before[before.length - 1];
+            if (prev === '-' || prev === '{' || prev === '[' || prev === '(') isOpen = true;
+            else if (!/\s/.test(prev)) isOpen = false;
+        }
+        if (plainQuote === "'") return isOpen ? '\u2018' : '\u2019';
+        return isOpen ? '\u201C' : '\u201D';
+    },
+
+    _handleTypographicKey: function(e) {
+        var ar = this._autoreplace;
+        if (!ar) return false;
+        if ((e.key === '"' || e.key === "'") && ar.smartQuotes) {
+            e.preventDefault();
+            document.execCommand('insertText', false, this._smartQuoteFor(e.key));
+            this.reportState();
+            return true;
+        }
+        return false;
+    },
+
     // Focus the editor
     focus: function() {
         document.body.focus();
@@ -358,6 +399,9 @@ document.addEventListener('selectionchange', function() {
 
 // Track content changes
 document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('keydown', function(e) {
+        OLWBridge._handleTypographicKey(e);
+    });
     document.body.addEventListener('input', function() {
         var msg = JSON.stringify({ type: 'contentChanged', html: document.body.innerHTML });
         OLWBridge.postToHost(msg);

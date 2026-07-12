@@ -9,6 +9,7 @@ using global::Avalonia.Controls;
 using OpenLiveWriter.App.Avalonia.Accounts;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
+using OpenLiveWriter.App.Avalonia.Settings;
 using OpenLiveWriter.Localization;
 using OpenLiveWriter.Publishing;
 using OpenLiveWriter.Publishing.Accounts;
@@ -27,7 +28,7 @@ namespace OpenLiveWriter.App.Avalonia
         {
             try
             {
-                _accountService = AccountServiceFactory.CreateDefault();
+                _accountService = AccountServiceFactory.CreateDefault(CreatePublishingHttpClient);
             }
             catch (Exception ex)
             {
@@ -109,7 +110,8 @@ namespace OpenLiveWriter.App.Avalonia
 
         private async Task AddAccountAsync()
         {
-            AccountDialogResult result = await AccountDialog.ShowAsync(this);
+            var fetcher = new HttpRsdFetcher(CreatePublishingHttpClient());
+            AccountDialogResult result = await AccountDialog.ShowAsync(this, fetcher: fetcher);
             if (result?.Account == null)
                 return;
 
@@ -219,6 +221,9 @@ namespace OpenLiveWriter.App.Avalonia
             string[] categories = _draftSession?.Current.Categories?.ToArray() ?? Array.Empty<string>();
             string keywords = PostDocument.JoinKeywords(_draftSession?.Current.Keywords);
 
+            if (!await ConfirmPublishRemindersAsync(title, categories))
+                return;
+
             // Re-publishing an already-published document (same blog) edits the same server
             // post rather than creating a duplicate.
             string existingPostId = null;
@@ -262,6 +267,34 @@ namespace OpenLiveWriter.App.Avalonia
                 await MessageDialog.ShowAsync(this, "Publish Failed",
                     $"Could not publish to \u201c{account.DisplayLabel}\u201d:\n\n{ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Enforces General-tab publishing reminders before transmit. Returns false when
+        /// the user cancels.
+        /// </summary>
+        private async Task<bool> ConfirmPublishRemindersAsync(string title, string[] categories)
+        {
+            var prefs = _preferences ?? AppPreferences.CreateDefault();
+
+            if (prefs.TitleReminder && string.IsNullOrWhiteSpace(title))
+            {
+                await MessageDialog.ShowAsync(this, "Title Required",
+                    "Please enter a title for your post before publishing.");
+                return false;
+            }
+
+            if (prefs.CategoryReminder && (categories == null || categories.Length == 0))
+            {
+                bool proceed = await ConfirmDialog.ShowConfirmAsync(
+                    this,
+                    "Categories",
+                    "No categories are selected. Publish anyway?");
+                if (!proceed)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

@@ -2,11 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.App.Avalonia.Settings;
 using OpenLiveWriter.Localization;
+using OpenLiveWriter.Publishing;
 
 namespace OpenLiveWriter.App.Avalonia
 {
@@ -73,7 +75,16 @@ namespace OpenLiveWriter.App.Avalonia
             await SetSpellcheckEnabledAsync(prefs.SpellcheckEnabled);
             _showRealTimeWordCount = prefs.ShowRealTimeWordCount;
             UpdateStatusBarExtras();
+
+            var autoreplace = AutoreplaceOptions.FromPreferences(prefs);
+            WebViewEditor editor = GetEditor();
+            if (editor != null)
+                await editor.SetAutoreplaceOptionsAsync(autoreplace);
         }
+
+        /// <summary>Builds a proxy-aware HTTP client from the current preference snapshot.</summary>
+        internal HttpClient CreatePublishingHttpClient() =>
+            PublishingHttpClientFactory.Create(WebProxyMapper.ToConfiguration(_preferences));
 
         /// <summary>Current preference snapshot (for tests).</summary>
         public AppPreferences CurrentPreferences => _preferences ?? AppPreferences.CreateDefault();
