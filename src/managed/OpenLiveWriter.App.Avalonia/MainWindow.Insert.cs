@@ -30,6 +30,9 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.InsertVideoFromService:
                     await ShowInsertVideoAsync();
                     return true;
+                case CommandId.InsertEmoticon:
+                    await ShowInsertEmoticonAsync();
+                    return true;
                 default:
                     return false;
             }
@@ -69,6 +72,22 @@ namespace OpenLiveWriter.App.Avalonia
 
             await editor.InsertHtmlAsync(embed);
             UpdateStatus("Inserted video embed.");
+        }
+
+        private async Task ShowInsertEmoticonAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null)
+                return;
+
+            string emoji = await EmoticonDialog.ShowAsync(this);
+            if (string.IsNullOrEmpty(emoji))
+                return;
+
+            // Validate against the catalog, then insert the Unicode character.
+            string payload = EmoticonGallery.BuildInsertion(emoji) ?? emoji;
+            await editor.InsertHtmlAsync(payload);
+            UpdateStatus("Inserted emoticon.");
         }
     }
 }
