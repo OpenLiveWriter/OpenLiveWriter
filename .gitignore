@@ -203,3 +203,5 @@ FakesAssemblies/
 #Visual Studio specific files
 *.VC.opendb
 *.VC.db
+# macOS publish output
+artifacts/

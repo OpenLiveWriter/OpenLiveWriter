@@ -1,0 +1,50 @@
+name: macOS Build
+
+on:
+  push:
+    branches:
+      - master
+      - develop/**
+      - milestone4/**
+  pull_request:
+    branches:
+      - master
+      - milestone4/**
+  workflow_dispatch:
+
+env:
+  OLW_CONFIG: Release
+  OLW_RID: osx-arm64
+
+jobs:
+  mac-build:
+    name: Build and test (macOS)
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore src/managed/OpenLiveWriter.App.Avalonia/OpenLiveWriter.App.Avalonia.csproj
+
+      - name: Headless test suite
+        run: dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --no-restore
+
+      - name: Publish macOS app bundle
+        run: bash build-mac.sh
+
+      # TODO(M5): Import signing certificate and run codesign on the .app bundle.
+      # TODO(M5): Submit to Apple notarization via xcrun notarytool and staple the ticket.
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenLiveWriter-macOS-${{ github.run_number }}
+          path: artifacts/mac-arm64/Open Live Writer.app
+          if-no-files-found: error

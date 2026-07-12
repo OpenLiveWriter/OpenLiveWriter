@@ -9,6 +9,9 @@
     <!-- App display name for macOS menu bar and dock -->
     <Product>Open Live Writer</Product>
     <AssemblyTitle>Open Live Writer</AssemblyTitle>
+    <CFBundleName>Open Live Writer</CFBundleName>
+    <CFBundleDisplayName>Open Live Writer</CFBundleDisplayName>
+    <CFBundleIdentifier>org.openlivewriter.app</CFBundleIdentifier>
     <!-- Avalonia needs this for XAML compilation -->
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
   </PropertyGroup>
