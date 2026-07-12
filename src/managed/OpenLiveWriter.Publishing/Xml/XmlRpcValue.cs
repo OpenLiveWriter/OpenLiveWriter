@@ -100,6 +100,31 @@ namespace OpenLiveWriter.Publishing.Xml
         }
     }
 
+    public class XmlRpcBase64 : XmlRpcValue
+    {
+        public XmlRpcBase64(byte[] bytes)
+            : base(bytes)
+        {
+        }
+
+        protected override void WriteValue(XmlWriter writer, object value, bool logging)
+        {
+            byte[] bytes = (byte[])value;
+            using (new WriteXmlElement(writer, "base64"))
+            {
+                if (!logging)
+                    writer.WriteBase64(bytes, 0, bytes.Length);
+                else
+                    writer.WriteString(string.Format(CultureInfo.InvariantCulture, "[{0} bytes]", bytes.Length));
+            }
+        }
+
+        protected override void WriteValue(XmlWriter writer, object value)
+        {
+            throw new InvalidOperationException("This should never be called");
+        }
+    }
+
     public class XmlRpcArray : XmlRpcValue
     {
         public XmlRpcArray(XmlRpcValue[] values)

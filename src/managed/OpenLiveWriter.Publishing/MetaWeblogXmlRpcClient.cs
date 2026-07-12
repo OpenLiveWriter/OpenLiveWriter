@@ -200,6 +200,39 @@ namespace OpenLiveWriter.Publishing
                 new XmlRpcBoolean(publish));
         }
 
+        /// <summary>
+        /// Uploads a media object via <c>metaWeblog.newMediaObject</c> and returns the
+        /// hosted URL from the response struct's <c>url</c> member. Faithful to the
+        /// Windows <c>DoBeforePublishUploadWork</c> upload struct (name/type/bits).
+        /// </summary>
+        public string NewMediaObject(string blogId, string fileName, string mimeType, byte[] bits)
+        {
+            if (bits == null) throw new ArgumentNullException(nameof(bits));
+
+            XmlRpcMethodResponse response = CallMethod("metaWeblog.newMediaObject",
+                new XmlRpcString(blogId),
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true),
+                new XmlRpcStruct(new[]
+                {
+                    new XmlRpcMember("name", new XmlRpcString(CleanUploadFilename(fileName))),
+                    new XmlRpcMember("type", new XmlRpcString(mimeType ?? "application/octet-stream")),
+                    new XmlRpcMember("bits", new XmlRpcBase64(bits)),
+                }));
+
+            XmlNode urlNode = response.Response?.SelectSingleNode("struct/member[name='url']/value");
+            if (urlNode == null || string.IsNullOrEmpty(urlNode.InnerText))
+            {
+                throw new BlogClientPublishException(
+                    "metaWeblog.newMediaObject returned no URL for the uploaded media object.");
+            }
+            return urlNode.InnerText;
+        }
+
+        /// <summary>Sanitizes an upload filename (avoids a WordPress '#' bug; see Windows client).</summary>
+        private static string CleanUploadFilename(string filename) =>
+            (filename ?? string.Empty).Replace("#", "_");
+
         private XmlRpcMethodResponse CallMethod(string methodName, params XmlRpcValue[] parameters)
         {
             if (string.IsNullOrEmpty(_endpointUrl))

@@ -20,6 +20,15 @@ namespace OpenLiveWriter.Publishing
 
         /// <summary>Edits an existing post (identified by <see cref="BlogPost.Id"/>).</summary>
         void EditPost(string blogId, BlogPost post, bool publish);
+
+        /// <summary>
+        /// Uploads a binary media object (image/attachment) to the blog and returns the
+        /// hosted URL the server assigns. Mirrors <c>metaWeblog.newMediaObject</c>: the
+        /// <paramref name="bits"/> are the raw file bytes (base64-encoded on the wire).
+        /// Used by the publish path to host inline (data-URI) images before the post is
+        /// sent so the body references real URLs rather than embedded base64.
+        /// </summary>
+        string NewMediaObject(string blogId, string fileName, string mimeType, byte[] bits);
     }
 
     /// <summary>

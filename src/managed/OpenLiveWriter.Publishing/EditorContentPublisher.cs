@@ -43,11 +43,17 @@ namespace OpenLiveWriter.Publishing
             return post;
         }
 
-        /// <summary>Builds a post and submits it through the transport, returning the id.</summary>
+        /// <summary>
+        /// Uploads inline (data-URI) images and submits a new post, returning the id.
+        /// Images are hosted via <see cref="IBlogClient.NewMediaObject"/> and the body is
+        /// rewritten to reference the returned URLs before the post is built, so the
+        /// published HTML never carries embedded base64. No-op when there are no images.
+        /// </summary>
         public static string Publish(IBlogClient client, string blogId, string title, string editorHtml,
             bool publish, params string[] categories)
         {
-            BlogPost post = BuildPost(title, editorHtml, publish, categories);
+            string hosted = ImagePublisher.RewriteInlineImages(client, blogId, editorHtml ?? string.Empty);
+            BlogPost post = BuildPost(title, hosted, publish, categories);
             return client.NewPost(blogId, post, publish);
         }
 
