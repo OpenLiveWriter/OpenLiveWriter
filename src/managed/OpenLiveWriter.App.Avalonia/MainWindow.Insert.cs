@@ -24,6 +24,12 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.InsertTable2:
                     await ShowInsertTableAsync();
                     return true;
+                case CommandId.InsertVideoSplit:
+                case CommandId.InsertVideoFromWeb:
+                case CommandId.InsertVideoFromFile:
+                case CommandId.InsertVideoFromService:
+                    await ShowInsertVideoAsync();
+                    return true;
                 default:
                     return false;
             }
@@ -41,6 +47,28 @@ namespace OpenLiveWriter.App.Avalonia
 
             await editor.InsertTableAsync(result.Rows, result.Columns, result.HeaderRow, result.Width);
             UpdateStatus($"Inserted {result.Rows}\u00D7{result.Columns} table.");
+        }
+
+        private async Task ShowInsertVideoAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null)
+                return;
+
+            VideoDialogResult result = await VideoDialog.ShowAsync(this);
+            if (result == null)
+                return;
+
+            string embed = VideoEmbedBuilder.BuildEmbedHtml(result.UrlOrEmbed);
+            if (embed == null)
+            {
+                await MessageDialog.ShowAsync(this, "Insert Video",
+                    "Could not recognize that as a video URL or embed code. Paste a YouTube/Vimeo link or an <iframe> embed.");
+                return;
+            }
+
+            await editor.InsertHtmlAsync(embed);
+            UpdateStatus("Inserted video embed.");
         }
     }
 }
