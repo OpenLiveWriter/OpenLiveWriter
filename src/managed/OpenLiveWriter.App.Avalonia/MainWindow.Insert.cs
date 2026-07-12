@@ -34,6 +34,9 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.InsertEmoticon:
                     await ShowInsertEmoticonAsync();
                     return true;
+                case CommandId.InsertMap:
+                    await ShowInsertMapAsync();
+                    return true;
                 case CommandId.PasteSpecial:
                     await PasteSpecialAsync();
                     return true;
@@ -92,6 +95,28 @@ namespace OpenLiveWriter.App.Avalonia
             string payload = EmoticonGallery.BuildInsertion(emoji) ?? emoji;
             await editor.InsertHtmlAsync(payload);
             UpdateStatus("Inserted emoticon.");
+        }
+
+        private async Task ShowInsertMapAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null)
+                return;
+
+            MapDialogResult result = await MapDialog.ShowAsync(this);
+            if (result == null)
+                return;
+
+            string html = MapEmbedBuilder.BuildMapHtml(result.Label, result.Coordinates, result.Zoom);
+            if (html == null)
+            {
+                await MessageDialog.ShowAsync(this, "Insert Map",
+                    "Enter a place name or coordinates (latitude, longitude) to insert a map.");
+                return;
+            }
+
+            await editor.InsertHtmlAsync(html);
+            UpdateStatus("Inserted map.");
         }
 
         // Paste Special: insert the clipboard's text with formatting removed (clean
