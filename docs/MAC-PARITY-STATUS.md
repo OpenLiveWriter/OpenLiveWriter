@@ -218,8 +218,11 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
     toggle chrome); adaptive compact ribbon below ~960px; readable glyph buttons
     (styled B/I/U instead of gray squares); window size/position persistence; system
     chrome (no extend-into-decorations); in-editor find bar.
-    **Remaining visual/usability debt:** real Fluent/SVG ribbon icons; Find Previous /
-    match-count; print UI; further title-bar polish if custom chrome is ever needed.
+    **Layout quality pass:** hit targets ≥24px; find-bar horizontal scroll; ribbon
+    **More** overflow menu when compact/overflowing; headless `GroupP_LayoutHarnessTests`
+    across 800–1920 (see `docs/UI-LAYOUT-QA.md`).
+    **Remaining visual/usability debt:** real Fluent/SVG ribbon icons; Find match-count
+    readout; print UI; Fluent-level overflow gallery (More lists commands today).
 12. ✅ **Tables, video, emoticons, preview, paste-special, breaks, maps, tags, spellcheck UI, contextual tabs.** Done across recent bands.
     **Remaining:** print; full plug-in host (stub dialog only). *(M4)*
 13. **M5 packaging:** `.app` bundle foundation (`build-mac.sh` + `mac-build.yml` CI
@@ -236,12 +239,13 @@ editor to feature parity). P3 packaging/distribution is the **M5** track. Publis
 | Area | Fixed | Remaining |
 | --- | --- | --- |
 | MainWindow resize | `CanResize`, `MinWidth` 800 / `MinHeight` 600, DockPanel fill chain; WindowBounds persist + screen clamp | — |
-| Editor WebView | ContentControl Stretch + NativeWebView Stretch so WKWebView tracks resize | Native control edge cases on extreme DPI |
-| Editor chrome | Slim view toggles only (Edit/Source/Preview); format commands on ribbon | — |
-| Find | In-editor find bar (Cmd/Ctrl+F); Replace dialog for Replace All | Find Previous / match-count readout |
-| Ribbon | Tab/group horizontal scroll; compact Small layout below ~960px; glyph buttons | Real Fluent/SVG icons |
+| Editor WebView | ContentControl Stretch + NativeWebView Stretch so WKWebView tracks resize; headless layout placeholder for harness | Native control edge cases on extreme DPI |
+| Editor chrome | Slim view toggles only (Edit/Source/Preview); format commands on ribbon; MinHeight ≥24 | — |
+| Find | In-editor find bar (Cmd/Ctrl+F) with horizontal scroll at narrow widths; Replace dialog for Replace All | Match-count readout / true reverse-search polish |
+| Ribbon | Tab/group horizontal scroll; compact Small layout below ~960px; glyph buttons; **More** overflow menu | Real Fluent/SVG icons; richer overflow gallery |
+| Layout harness | `GroupP_LayoutHarnessTests` — sizes 800×600 … 1920×1080; status/editor/ribbon/find invariants | — |
 | macOS chrome | `WindowDecorations=Full`, `ExtendClientAreaToDecorationsHint=false` | Custom title-bar inset only if extending client area later |
-| Status bar | Pinned bottom, fixed height, ellipsis on long blog/status text | — |
+| Status bar | Pinned bottom, fixed height, ellipsis on long blog/status text; `x:Name=StatusBar` | — |
 | Dialogs | Min sizes; Preferences/Accounts/Drafts/Categories/SelectBlog resizable | Visual polish vs Windows options UI |
 
 ## 4. Recommended next steps (for the following session)
@@ -290,13 +294,15 @@ Run:
   `scripts/validate-live-blog.sh` or
   `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **342 passed / 0 failed.** WebView-category, `PublishTdd`, and
+Default run status: **359 passed / 0 failed** (includes **Group P** layout harness —
+15 cases across 800×600…1920×1080). WebView-category, `PublishTdd`, and
 `LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
-stays green. The preference-enforcement band lifted the count 336 → 342 with pure/headless
-coverage (`GroupO_SettingsTests` — proxy `PublishingHttpClientFactory`/`WebProxyMapper`,
-`AutoreplaceTransformer`/`AutoreplaceController` bridge script, plus the earlier
-`FileSettingsPersister`/`AppPreferencesStore` round-trips).
+stays green. Layout quality docs: `docs/UI-LAYOUT-QA.md`.
 
+- **Layout harness (Group P):** `GroupP_LayoutHarnessTests` — MainWindow min size;
+  status bar / editor placeholder / Edit·Source·Preview bounds; ribbon tab+content
+  scroll-or-fit; compact mode below 960px; More overflow; find-bar scroll; no
+  zero-sized effectively-presented buttons. Uses `WebViewEditor.UseLayoutPlaceholder`.
 - **Image upload (Group G):** `GroupG_ImageUploadTests` — `ImagePublisher` scan (mime +
   byte decode, dedup, jpeg→jpg), rewrite/upload (no-op, single/duplicate/multiple images,
   numbered filenames, upload-failure aborts), integration through
