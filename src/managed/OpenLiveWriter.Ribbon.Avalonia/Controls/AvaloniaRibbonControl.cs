@@ -43,6 +43,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         // Guards against re-entrant ComboSelectionChanged while we populate items.
         private bool _populatingDropDowns;
 
+        // When the ribbon host is narrow, groups rebuild with Small buttons and a
+        // shorter content band so chrome does not dominate the editor.
+        private bool _compactMode;
+        private TabConfig _activeTab;
+        private const double CompactWidthThreshold = 960;
+
         /// <summary>
         /// The active application modes. Controls which tabs and groups are visible.
         /// Defaults to Normal + LTR + WithoutPlugins + Debug for development.
@@ -52,6 +58,9 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             RibbonApplicationMode.LTR |
             RibbonApplicationMode.WithoutPlugins |
             RibbonApplicationMode.Debug;
+
+        /// <summary>True when the ribbon is in the narrow/compact layout.</summary>
+        public bool IsCompactMode => _compactMode;
 
         /// <summary>
         /// Event raised when a command button in the ribbon is clicked.
@@ -219,9 +228,42 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             HorizontalAlignment = HorizontalAlignment.Stretch;
             Content = rootPanel;
 
+            SizeChanged += OnRibbonSizeChanged;
+
             // Select first tab
             if (_visibleTabs.Count > 0)
                 _tabStrip.SelectedIndex = 0;
+        }
+
+        private void OnRibbonSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            bool compact = e.NewSize.Width > 0 && e.NewSize.Width < CompactWidthThreshold;
+            if (compact == _compactMode)
+                return;
+
+            _compactMode = compact;
+            ApplyContentAreaHeight();
+            if (_activeTab != null)
+                ShowTab(_activeTab);
+        }
+
+        private void ApplyContentAreaHeight()
+        {
+            if (_contentArea == null)
+                return;
+
+            if (_compactMode)
+            {
+                _contentArea.MinHeight = 52;
+                _contentArea.MaxHeight = 72;
+                _contentArea.Padding = new Thickness(4, 2, 4, 0);
+            }
+            else
+            {
+                _contentArea.MinHeight = 95;
+                _contentArea.MaxHeight = 120;
+                _contentArea.Padding = new Thickness(4, 4, 4, 0);
+            }
         }
 
         private void OnTabChanged(object sender, TabChangedEventArgs e)
@@ -231,6 +273,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         private void ShowTab(TabConfig tab)
         {
+            _activeTab = tab;
             _groupsPanel.Children.Clear();
             _buttonsByCommand.Clear();
             _dropDownsByCommand.Clear();
@@ -241,7 +284,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 if ((group.VisibleModes & ActiveModes) == 0)
                     continue;
 
-                var groupPanel = new RibbonGroupPanel(group);
+                var groupPanel = new RibbonGroupPanel(group, compact: _compactMode);
                 groupPanel.CommandExecuted += (s, cmd) => CommandExecuted?.Invoke(this, cmd);
                 groupPanel.ComboSelectionChanged += (s, args) =>
                 {

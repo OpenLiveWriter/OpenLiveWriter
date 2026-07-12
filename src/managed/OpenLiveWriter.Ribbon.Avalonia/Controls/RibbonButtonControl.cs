@@ -14,8 +14,9 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 {
     /// <summary>
     /// Renders a single ribbon button, supporting large and small modes.
-    /// Large mode: icon placeholder on top, label below (tall button).
-    /// Small mode: icon placeholder + label horizontally (compact button).
+    /// Large mode: glyph/label on top, caption below (tall button).
+    /// Small mode: glyph + label horizontally (compact button).
+    /// Prefer readable text/geometry over flat gray placeholder squares.
     /// </summary>
     public class RibbonButtonControl : Button
     {
@@ -107,6 +108,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             BorderBrush = Brushes.Transparent;
             Padding = new Thickness(4, 2);
             CornerRadius = new CornerRadius(3);
+            ToolTip.SetTip(this, _label);
 
             var hasDropdown = _buttonType == RibbonButtonType.DropDownButton ||
                               _buttonType == RibbonButtonType.SplitButton;
@@ -135,28 +137,12 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Spacing = 2
             };
 
-            // Icon placeholder
-            var iconBorder = new Border
-            {
-                Width = 32,
-                Height = 32,
-                Background = new SolidColorBrush(Color.FromRgb(0xE0, 0xE0, 0xE0)),
-                CornerRadius = new CornerRadius(4),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Child = new TextBlock
-                {
-                    Text = GetIconPlaceholder(),
-                    FontSize = 16,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
-                }
-            };
-            stack.Children.Add(iconBorder);
+            stack.Children.Add(CreateGlyphVisual(large: true));
 
             // Label (possibly with dropdown indicator)
-            var labelText = _label;
+            var labelText = ShortLabel(_label);
             if (hasDropdown)
-                labelText += " \u25BE"; // small down triangle
+                labelText += " \u25BE";
 
             var textBlock = new TextBlock
             {
@@ -184,60 +170,136 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Spacing = 4
             };
 
-            // Small icon placeholder
-            var iconBorder = new Border
-            {
-                Width = 16,
-                Height = 16,
-                Background = new SolidColorBrush(Color.FromRgb(0xE0, 0xE0, 0xE0)),
-                CornerRadius = new CornerRadius(2),
-                Child = new TextBlock
-                {
-                    Text = GetIconPlaceholder(),
-                    FontSize = 9,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
-                }
-            };
-            stack.Children.Add(iconBorder);
+            stack.Children.Add(CreateGlyphVisual(large: false));
 
-            // Label
-            var labelText = _label;
+            var labelText = ShortLabel(_label);
             if (hasDropdown)
                 labelText += " \u25BE";
 
-            stack.Children.Add(new TextBlock
+            // Formatting toggles are recognizable from the glyph alone — skip the
+            // redundant word label to keep small rows tight.
+            if (!IsFormattingGlyphCommand(_commandId))
             {
-                Text = labelText,
-                FontSize = 11,
-                VerticalAlignment = VerticalAlignment.Center
-            });
+                stack.Children.Add(new TextBlock
+                {
+                    Text = labelText,
+                    FontSize = 11,
+                    VerticalAlignment = VerticalAlignment.Center
+                });
+            }
 
             Content = stack;
         }
 
-        private string GetIconPlaceholder()
+        /// <summary>
+        /// Readable glyph (styled letter or unicode) instead of a flat gray square.
+        /// </summary>
+        private Control CreateGlyphVisual(bool large)
         {
-            // Return a single-char icon hint based on command type
+            var (glyph, fontWeight, fontStyle, decorations) = GetGlyphStyle();
+            double size = large ? 18 : 13;
+            double box = large ? 32 : 18;
+
+            var text = new TextBlock
+            {
+                Text = glyph,
+                FontSize = size,
+                FontWeight = fontWeight,
+                FontStyle = fontStyle,
+                TextDecorations = decorations,
+                Foreground = new SolidColorBrush(Color.FromRgb(0x33, 0x33, 0x33)),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            // Soft outline so the glyph reads as a control without looking like a
+            // missing-image placeholder.
+            return new Border
+            {
+                Width = box,
+                Height = box,
+                Background = Brushes.Transparent,
+                BorderBrush = new SolidColorBrush(Color.FromRgb(0xCC, 0xCC, 0xCC)),
+                BorderThickness = new Thickness(large ? 1 : 0),
+                CornerRadius = new CornerRadius(3),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Child = text
+            };
+        }
+
+        private (string Glyph, FontWeight Weight, FontStyle Style, TextDecorationCollection Decorations) GetGlyphStyle()
+        {
             switch (_commandId)
             {
-                case CommandId.Paste: return "\u2398";       // Clipboard
-                case CommandId.Cut: return "\u2702";          // Scissors
-                case CommandId.CopyCommand: return "\u2750";  // Copy
-                case CommandId.Bold: return "B";
-                case CommandId.Italic: return "I";
-                case CommandId.Underline: return "U";
-                case CommandId.Strikethrough: return "S";
-                case CommandId.Subscript: return "\u2082";
-                case CommandId.Superscript: return "\u00B2";
-                case CommandId.Bullets: return "\u2022";
-                case CommandId.Numbers: return "#";
-                case CommandId.AlignLeft: return "\u2261";
-                case CommandId.AlignCenter: return "\u2261";
-                case CommandId.AlignRight: return "\u2261";
-                case CommandId.Justify: return "\u2261";
-                default: return "\u2756";  // Diamond
+                case CommandId.Bold:
+                    return ("B", FontWeight.Bold, FontStyle.Normal, null);
+                case CommandId.Italic:
+                    return ("I", FontWeight.Normal, FontStyle.Italic, null);
+                case CommandId.Underline:
+                    return ("U", FontWeight.Normal, FontStyle.Normal, TextDecorations.Underline);
+                case CommandId.Strikethrough:
+                    return ("S", FontWeight.Normal, FontStyle.Normal, TextDecorations.Strikethrough);
+                case CommandId.Subscript:
+                    return ("X\u2082", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.Superscript:
+                    return ("X\u00B2", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.Bullets:
+                    return ("\u2022", FontWeight.Bold, FontStyle.Normal, null);
+                case CommandId.Numbers:
+                    return ("1.", FontWeight.SemiBold, FontStyle.Normal, null);
+                case CommandId.AlignLeft:
+                    return ("\u2630", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.AlignCenter:
+                    return ("\u2630", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.AlignRight:
+                    return ("\u2630", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.Justify:
+                    return ("\u2630", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.Paste:
+                    return ("\u2398", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.Cut:
+                    return ("\u2702", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.CopyCommand:
+                    return ("\u2398", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.Undo:
+                    return ("\u21B6", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.Redo:
+                    return ("\u21B7", FontWeight.Normal, FontStyle.Normal, null);
+                case CommandId.InsertLink:
+                    return ("\u29C9", FontWeight.Normal, FontStyle.Normal, null); // ⧉ link-ish
+                case CommandId.FindButton:
+                case CommandId.FindAndReplace:
+                    return ("\u2315", FontWeight.Normal, FontStyle.Normal, null); // ⌕
+                case CommandId.PostAndPublish:
+                    return ("\u2191", FontWeight.Bold, FontStyle.Normal, null);
+                case CommandId.SavePost:
+                    return ("S", FontWeight.SemiBold, FontStyle.Normal, null);
+                default:
+                    // First letter of the label — readable without fake icon art.
+                    string initial = string.IsNullOrEmpty(_label) ? "?" : _label.Trim()[0].ToString().ToUpperInvariant();
+                    return (initial, FontWeight.SemiBold, FontStyle.Normal, null);
             }
+        }
+
+        private static bool IsFormattingGlyphCommand(CommandId id) =>
+            id is CommandId.Bold or CommandId.Italic or CommandId.Underline
+                or CommandId.Strikethrough or CommandId.Subscript or CommandId.Superscript
+                or CommandId.Bullets or CommandId.Numbers
+                or CommandId.AlignLeft or CommandId.AlignCenter
+                or CommandId.AlignRight or CommandId.Justify;
+
+        /// <summary>Shortens long ribbon captions so Large buttons stay readable.</summary>
+        private static string ShortLabel(string label)
+        {
+            if (string.IsNullOrEmpty(label))
+                return label;
+            // Keep first line / word group under ~14 chars for wrap friendliness.
+            if (label.Length <= 14)
+                return label;
+            int space = label.IndexOf(' ');
+            if (space > 0 && space <= 14)
+                return label.Substring(0, space);
+            return label.Substring(0, 12) + "\u2026";
         }
     }
 }

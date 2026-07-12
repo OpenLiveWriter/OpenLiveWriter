@@ -20,6 +20,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
     public class RibbonGroupPanel : Border
     {
         private readonly GroupConfig _config;
+        private readonly bool _compact;
         private readonly List<RibbonButtonControl> _buttons = new();
         private readonly List<(CommandId CommandId, ComboBox ComboBox)> _dropDowns = new();
 
@@ -45,9 +46,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// </summary>
         public IReadOnlyList<(CommandId CommandId, ComboBox ComboBox)> DropDowns => _dropDowns;
 
-        public RibbonGroupPanel(GroupConfig config)
+        public RibbonGroupPanel(GroupConfig config, bool compact = false)
         {
             _config = config ?? throw new ArgumentNullException(nameof(config));
+            _compact = compact;
             BuildGroup();
         }
 
@@ -58,21 +60,21 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             // Group border styling - subtle right separator
             BorderBrush = new SolidColorBrush(Color.FromRgb(0xD0, 0xD0, 0xD0));
             BorderThickness = new Thickness(0, 0, 1, 0);
-            Padding = new Thickness(6, 4, 6, 0);
+            Padding = _compact ? new Thickness(4, 2, 4, 0) : new Thickness(6, 4, 6, 0);
             Margin = new Thickness(0, 0, 4, 0);
             VerticalAlignment = VerticalAlignment.Stretch;
 
             var outerStack = new DockPanel();
 
-            // Group label at bottom
+            // Group label at bottom (smaller in compact mode)
             var label = new TextBlock
             {
                 Text = _config.Label,
-                FontSize = 11,
+                FontSize = _compact ? 10 : 11,
                 FontWeight = FontWeight.SemiBold,
                 Foreground = new SolidColorBrush(Color.FromRgb(0x55, 0x55, 0x55)),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new Thickness(0, 4, 0, 3)
+                Margin = _compact ? new Thickness(0, 2, 0, 2) : new Thickness(0, 4, 0, 3)
             };
             DockPanel.SetDock(label, Dock.Bottom);
             outerStack.Children.Add(label);
@@ -83,41 +85,102 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 Orientation = Orientation.Horizontal,
                 VerticalAlignment = VerticalAlignment.Top,
                 Spacing = 2,
-                MinHeight = 66
+                MinHeight = _compact ? 40 : 66
             };
 
-            // Determine layout strategy based on SizeDefinition
             var controls = _config.Controls;
             var sizeDefinition = _config.SizeDefinition ?? "";
 
-            bool hasLargeAndSmall = sizeDefinition.Contains("OneLarge") &&
-                                    (sizeDefinition.Contains("TwoSmall") || sizeDefinition == "OneLargeAndTwoSmall");
-            bool hasFontGroup = sizeDefinition == "FontGroup";
-
-            if (hasLargeAndSmall)
+            if (_compact)
             {
-                BuildOneLargeAndSmallLayout(controlsPanel, controls);
-            }
-            else if (sizeDefinition == "OneLargeComboSmall")
-            {
-                BuildOneLargeComboSmallLayout(controlsPanel, controls);
-            }
-            else if (hasFontGroup)
-            {
-                BuildFontGroupLayout(controlsPanel, controls);
-            }
-            else if (sizeDefinition.Contains("Gallery") && !sizeDefinition.Contains("Large"))
-            {
-                BuildGalleryLayout(controlsPanel, controls);
+                // Narrow window: force Small buttons in short columns so groups
+                // wrap via horizontal scroll instead of leaving tall empty chrome.
+                BuildCompactLayout(controlsPanel, controls);
             }
             else
             {
-                BuildStandardLayout(controlsPanel, controls, sizeDefinition);
+                bool hasLargeAndSmall = sizeDefinition.Contains("OneLarge") &&
+                                        (sizeDefinition.Contains("TwoSmall") || sizeDefinition == "OneLargeAndTwoSmall");
+                bool hasFontGroup = sizeDefinition == "FontGroup";
+
+                if (hasLargeAndSmall)
+                {
+                    BuildOneLargeAndSmallLayout(controlsPanel, controls);
+                }
+                else if (sizeDefinition == "OneLargeComboSmall")
+                {
+                    BuildOneLargeComboSmallLayout(controlsPanel, controls);
+                }
+                else if (hasFontGroup)
+                {
+                    BuildFontGroupLayout(controlsPanel, controls);
+                }
+                else if (sizeDefinition.Contains("Gallery") && !sizeDefinition.Contains("Large"))
+                {
+                    BuildGalleryLayout(controlsPanel, controls);
+                }
+                else
+                {
+                    BuildStandardLayout(controlsPanel, controls, sizeDefinition);
+                }
             }
 
             outerStack.Children.Add(controlsPanel);
 
             Child = outerStack;
+        }
+
+        /// <summary>
+        /// Compact layout: all Small controls in columns of 2 (shorter than the
+        /// normal 3-high stacks) so the ribbon content band can shrink.
+        /// </summary>
+        private void BuildCompactLayout(StackPanel panel, List<ControlConfig> controls)
+        {
+            var currentStack = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                VerticalAlignment = VerticalAlignment.Center,
+                Spacing = 1
+            };
+
+            int count = 0;
+            foreach (var control in controls)
+            {
+                if (control is SeparatorConfig)
+                {
+                    if (count > 0)
+                    {
+                        panel.Children.Add(currentStack);
+                        currentStack = new StackPanel
+                        {
+                            Orientation = Orientation.Vertical,
+                            VerticalAlignment = VerticalAlignment.Center,
+                            Spacing = 1
+                        };
+                        count = 0;
+                    }
+                    panel.Children.Add(CreateControl(control, RibbonGroupSize.Small));
+                    continue;
+                }
+
+                currentStack.Children.Add(CreateControl(control, RibbonGroupSize.Small));
+                count++;
+
+                if (count >= 2)
+                {
+                    panel.Children.Add(currentStack);
+                    currentStack = new StackPanel
+                    {
+                        Orientation = Orientation.Vertical,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Spacing = 1
+                    };
+                    count = 0;
+                }
+            }
+
+            if (count > 0)
+                panel.Children.Add(currentStack);
         }
 
         /// <summary>
