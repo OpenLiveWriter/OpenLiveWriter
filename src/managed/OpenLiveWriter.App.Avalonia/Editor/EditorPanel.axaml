@@ -1,90 +1,104 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="OpenLiveWriter.App.Avalonia.Editor.EditorPanel">
+             x:Class="OpenLiveWriter.App.Avalonia.Editor.EditorPanel"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
 
-    <DockPanel>
+    <DockPanel LastChildFill="True">
         <!-- Editor formatting toolbar
              Focusable="False" on all buttons prevents them from stealing focus from the WebView.
              This is critical: if focus moves to the button, the WebView loses its selection
-             and execCommand silently fails. -->
+             and execCommand silently fails.
+             Format buttons scroll horizontally when the window is narrow so they don't clip. -->
         <Border DockPanel.Dock="Top"
                 Background="#FAFAFA"
                 BorderBrush="#E0E0E0"
                 BorderThickness="0,0,0,1"
-                Padding="4">
-            <DockPanel>
-                <!-- View toggle (right side) -->
+                Padding="4,2"
+                MinHeight="36">
+            <DockPanel LastChildFill="True">
+                <!-- View toggle (right side) — always visible -->
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="2" Margin="8,0,0,0">
                     <Border Width="1" Background="#D0D0D0" Margin="4,2" />
                     <ToggleButton x:Name="EditViewButton" Content="Edit" IsChecked="True"
-                                  Height="28" Padding="8,2" FontSize="12" />
+                                  Height="28" MinWidth="48" Padding="8,2" FontSize="12" />
                     <ToggleButton x:Name="SourceViewButton" Content="Source"
-                                  Height="28" Padding="8,2" FontSize="12" />
+                                  Height="28" MinWidth="56" Padding="8,2" FontSize="12" />
                     <ToggleButton x:Name="PreviewViewButton" Content="Preview"
-                                  Height="28" Padding="8,2" FontSize="12" />
+                                  Height="28" MinWidth="56" Padding="8,2" FontSize="12" />
                 </StackPanel>
 
-                <!-- Formatting buttons (left side) — all Focusable="False".
-                     Toggle buttons reflect the current selection's format state. -->
-                <StackPanel Orientation="Horizontal" Spacing="2">
-                    <ToggleButton x:Name="BoldButton" Content="B" FontWeight="Bold"
-                            Focusable="False"
-                            Width="28" Height="28" FontSize="13"
-                            ToolTip.Tip="Bold (Ctrl+B)" />
-                    <ToggleButton x:Name="ItalicButton" Content="I" FontStyle="Italic"
-                            Focusable="False"
-                            Width="28" Height="28" FontSize="13"
-                            ToolTip.Tip="Italic (Ctrl+I)" />
-                    <ToggleButton x:Name="UnderlineButton" Focusable="False"
-                            Width="28" Height="28" FontSize="13"
-                            ToolTip.Tip="Underline (Ctrl+U)">
-                        <TextBlock Text="U" TextDecorations="Underline" />
-                    </ToggleButton>
-                    <ToggleButton x:Name="StrikethroughButton" Focusable="False"
-                            Width="28" Height="28" FontSize="13"
-                            ToolTip.Tip="Strikethrough">
-                        <TextBlock Text="S" TextDecorations="Strikethrough" />
-                    </ToggleButton>
+                <!-- Formatting buttons (left) — scroll when space is tight -->
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Disabled"
+                              HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal" Spacing="2">
+                        <ToggleButton x:Name="BoldButton" Content="B" FontWeight="Bold"
+                                Focusable="False"
+                                Width="28" Height="28" FontSize="13"
+                                ToolTip.Tip="Bold (Ctrl+B)" />
+                        <ToggleButton x:Name="ItalicButton" Content="I" FontStyle="Italic"
+                                Focusable="False"
+                                Width="28" Height="28" FontSize="13"
+                                ToolTip.Tip="Italic (Ctrl+I)" />
+                        <ToggleButton x:Name="UnderlineButton" Focusable="False"
+                                Width="28" Height="28" FontSize="13"
+                                ToolTip.Tip="Underline (Ctrl+U)">
+                            <TextBlock Text="U" TextDecorations="Underline" />
+                        </ToggleButton>
+                        <ToggleButton x:Name="StrikethroughButton" Focusable="False"
+                                Width="28" Height="28" FontSize="13"
+                                ToolTip.Tip="Strikethrough">
+                            <TextBlock Text="S" TextDecorations="Strikethrough" />
+                        </ToggleButton>
 
-                    <Border Width="1" Background="#D0D0D0" Margin="4,2" />
+                        <Border Width="1" Background="#D0D0D0" Margin="4,2" />
 
-                    <ComboBox x:Name="HeadingCombo" Width="120" Height="28" SelectedIndex="0"
-                              Focusable="False">
-                        <ComboBoxItem Content="Normal" />
-                        <ComboBoxItem Content="Heading 1" />
-                        <ComboBoxItem Content="Heading 2" />
-                        <ComboBoxItem Content="Heading 3" />
-                        <ComboBoxItem Content="Heading 4" />
-                        <ComboBoxItem Content="Heading 5" />
-                        <ComboBoxItem Content="Heading 6" />
-                        <ComboBoxItem Content="Preformatted" />
-                    </ComboBox>
+                        <ComboBox x:Name="HeadingCombo" Width="120" Height="28" SelectedIndex="0"
+                                  Focusable="False">
+                            <ComboBoxItem Content="Normal" />
+                            <ComboBoxItem Content="Heading 1" />
+                            <ComboBoxItem Content="Heading 2" />
+                            <ComboBoxItem Content="Heading 3" />
+                            <ComboBoxItem Content="Heading 4" />
+                            <ComboBoxItem Content="Heading 5" />
+                            <ComboBoxItem Content="Heading 6" />
+                            <ComboBoxItem Content="Preformatted" />
+                        </ComboBox>
 
-                    <Border Width="1" Background="#D0D0D0" Margin="4,2" />
+                        <Border Width="1" Background="#D0D0D0" Margin="4,2" />
 
-                    <ToggleButton x:Name="BulletListButton" Content="* List" Height="28" Padding="8,2"
-                            Focusable="False"
-                            ToolTip.Tip="Bullet List" />
-                    <ToggleButton x:Name="NumberListButton" Content="1. List" Height="28" Padding="8,2"
-                            Focusable="False"
-                            ToolTip.Tip="Numbered List" />
+                        <ToggleButton x:Name="BulletListButton" Content="* List" Height="28" Padding="8,2"
+                                Focusable="False"
+                                ToolTip.Tip="Bullet List" />
+                        <ToggleButton x:Name="NumberListButton" Content="1. List" Height="28" Padding="8,2"
+                                Focusable="False"
+                                ToolTip.Tip="Numbered List" />
 
-                    <Border Width="1" Background="#D0D0D0" Margin="4,2" />
+                        <Border Width="1" Background="#D0D0D0" Margin="4,2" />
 
-                    <Button x:Name="LinkButton" Content="Link" Height="28" Padding="8,2"
-                            Focusable="False"
-                            ToolTip.Tip="Insert Hyperlink (Ctrl+K)" />
-                    <Button x:Name="ImageButton" Content="Image" Height="28" Padding="8,2"
-                            Focusable="False"
-                            ToolTip.Tip="Insert Image" />
-                </StackPanel>
+                        <Button x:Name="LinkButton" Content="Link" Height="28" Padding="8,2"
+                                Focusable="False"
+                                ToolTip.Tip="Insert Hyperlink (Ctrl+K)" />
+                        <Button x:Name="ImageButton" Content="Image" Height="28" Padding="8,2"
+                                Focusable="False"
+                                ToolTip.Tip="Insert Image" />
+                    </StackPanel>
+                </ScrollViewer>
             </DockPanel>
         </Border>
 
-        <!-- Editor content area (switches between Edit, Source, Preview) -->
-        <Grid>
+        <!-- Editor content area (switches between Edit, Source, Preview).
+             ContentControls default to Left/Top content alignment in Avalonia —
+             Stretch is required so the WebView fills the remaining client area on resize. -->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <!-- WYSIWYG Editor (WebView or fallback) -->
-            <ContentControl x:Name="EditorHost" IsVisible="True" />
+            <ContentControl x:Name="EditorHost"
+                            IsVisible="True"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch" />
 
             <!-- Source HTML view -->
             <TextBox x:Name="SourceEditor"
@@ -98,10 +112,17 @@
                      BorderThickness="0"
                      Background="#1E1E1E"
                      Foreground="#D4D4D4"
-                     VerticalContentAlignment="Top" />
+                     VerticalContentAlignment="Top"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch" />
 
             <!-- Preview (read-only WebView) -->
-            <ContentControl x:Name="PreviewHost" IsVisible="False" />
+            <ContentControl x:Name="PreviewHost"
+                            IsVisible="False"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch" />
         </Grid>
     </DockPanel>
 </UserControl>

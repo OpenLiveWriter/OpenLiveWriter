@@ -146,7 +146,11 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             {
                 if (_previewWebView == null)
                 {
-                    _previewWebView = new NativeWebView();
+                    _previewWebView = new NativeWebView
+                    {
+                        HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Stretch,
+                        VerticalAlignment = global::Avalonia.Layout.VerticalAlignment.Stretch
+                    };
                     previewHost.Content = _previewWebView;
                 }
 

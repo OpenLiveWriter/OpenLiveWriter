@@ -5,25 +5,35 @@
         Title="Open Live Writer"
         Width="1200"
         Height="800"
+        MinWidth="800"
+        MinHeight="600"
+        CanResize="True"
         WindowStartupLocation="CenterScreen">
 
-    <DockPanel>
+    <DockPanel LastChildFill="True">
         <!-- Ribbon control (dynamically populated from RibbonConfiguration) -->
-        <Border DockPanel.Dock="Top" x:Name="RibbonHost" />
+        <Border DockPanel.Dock="Top"
+                x:Name="RibbonHost"
+                HorizontalAlignment="Stretch"
+                ClipToBounds="True" />
 
-        <!-- Status bar -->
+        <!-- Status bar — pinned; does not consume editor space -->
         <Border DockPanel.Dock="Bottom"
                 Background="#F0F0F0"
                 BorderBrush="#D0D0D0"
                 BorderThickness="0,1,0,0"
-                Padding="10,5">
-            <Grid ColumnDefinitions="Auto,*,Auto">
+                Padding="10,4"
+                MinHeight="28"
+                MaxHeight="36">
+            <Grid ColumnDefinitions="Auto,*,Auto" MinHeight="20">
                 <TextBlock x:Name="BlogStatusText"
                            Grid.Column="0"
                            FontSize="12"
                            Foreground="#444444"
                            Margin="0,0,16,0"
                            VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"
+                           MaxWidth="220"
                            Text="No blog selected" />
                 <TextBlock x:Name="StatusText"
                            Grid.Column="1"
@@ -38,25 +48,35 @@
                            Foreground="#444444"
                            Margin="16,0,0,0"
                            VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"
                            IsVisible="False" />
             </Grid>
         </Border>
 
-        <!-- Main content area -->
-        <DockPanel>
+        <!-- Main content area: title + editor fill remaining height -->
+        <DockPanel LastChildFill="True">
             <!-- Title bar -->
-            <Border DockPanel.Dock="Top" Padding="12,8" Background="White"
-                    BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+            <Border DockPanel.Dock="Top"
+                    Padding="12,6"
+                    Background="White"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="0,0,0,1"
+                    MinHeight="44">
                 <TextBox x:Name="TitleEditor"
                          PlaceholderText="Post Title"
-                         FontSize="24"
+                         FontSize="22"
                          FontWeight="Light"
                          BorderThickness="0"
-                         Background="Transparent" />
+                         Background="Transparent"
+                         MinHeight="32"
+                         VerticalAlignment="Center"
+                         TextWrapping="NoWrap" />
             </Border>
 
             <!-- Editor panel with formatting toolbar and content area -->
-            <editor:EditorPanel x:Name="EditorPanel" />
+            <editor:EditorPanel x:Name="EditorPanel"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
         </DockPanel>
     </DockPanel>
 </Window>

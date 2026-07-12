@@ -57,7 +57,17 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             try
             {
-                _webView = new NativeWebView();
+                // Stretch so the native WKWebView tracks the editor panel on window resize.
+                // Avalonia ContentControl defaults to Left/Top content alignment; without
+                // explicit Stretch here the WebView can stay at its desired size (often 0).
+                HorizontalAlignment = HorizontalAlignment.Stretch;
+                VerticalAlignment = VerticalAlignment.Stretch;
+
+                _webView = new NativeWebView
+                {
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch
+                };
                 _webView.AdapterCreated += OnAdapterCreated;
                 _webView.NavigationCompleted += OnNavigationCompleted;
                 _webView.WebMessageReceived += OnWebMessageReceived;
@@ -265,7 +275,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         private Control CreateFallbackEditor()
         {
-            var panel = new DockPanel();
+            var panel = new DockPanel { LastChildFill = true };
             var notice = new Border
             {
                 Background = global::Avalonia.Media.Brushes.LightYellow,
@@ -286,7 +296,9 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 FontSize = 16, Padding = new Thickness(16),
                 BorderThickness = new Thickness(0),
                 Background = global::Avalonia.Media.Brushes.White,
-                VerticalContentAlignment = VerticalAlignment.Top
+                VerticalContentAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch
             };
             panel.Children.Add(textBox);
             return panel;
