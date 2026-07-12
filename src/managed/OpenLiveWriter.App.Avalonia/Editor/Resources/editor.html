@@ -334,6 +334,14 @@ const OLWBridge = {
         }
     },
 
+    // Enable/disable the browser's native spell-check underlines on the editor body.
+    // macOS/WebKit provides the actual checking and squiggly underlines; this just
+    // toggles the contenteditable body's spellcheck attribute.
+    setSpellcheck: function(enabled) {
+        document.body.setAttribute('spellcheck', enabled ? 'true' : 'false');
+        return document.body.getAttribute('spellcheck');
+    },
+
     // Focus the editor
     focus: function() {
         document.body.focus();

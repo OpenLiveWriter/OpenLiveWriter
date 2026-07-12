@@ -28,6 +28,7 @@ namespace OpenLiveWriter.App.Avalonia
             InitializeEditor();
             InitializeDraftSession();
             InitializeAccounts();
+            InitializeSpelling();
         }
 
         private void InitializeRibbon()
@@ -50,6 +51,10 @@ namespace OpenLiveWriter.App.Avalonia
 
                 // Insert-tab commands that need a dialog (table/video/emoticon/paste).
                 if (await TryHandleInsertCommandAsync(commandId))
+                    return;
+
+                // Spelling status command.
+                if (await TryHandleSpellingCommandAsync(commandId))
                     return;
 
                 // Editor utility commands surfaced by the shell (dialogs/status).

@@ -577,6 +577,17 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public Task PasteCleanHtmlAsync(string clipboardHtml) =>
             InsertHtmlAsync(PasteCleaner.CleanHtml(clipboardHtml));
 
+        /// <summary>
+        /// Enables/disables the editor body's native spell-check underlines by toggling
+        /// its <c>spellcheck</c> attribute via the bridge. The actual checking is done by
+        /// macOS/WebKit; this only flips the attribute.
+        /// </summary>
+        public async Task SetSpellcheckEnabledAsync(bool enabled)
+        {
+            if (_webView == null || !_isReady) return;
+            await RunJS(SpellCheckController.BuildSetSpellcheckScript(enabled));
+        }
+
         public Task ExecuteBlockquoteAsync() => ToggleBlockAsync("blockquote");
 
         public async Task InsertHtmlAsync(string html)
