@@ -78,7 +78,7 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             }
             PumpLayout(window);
             // Seed combos so screenshots show selected values rather than placeholders.
-            FindRibbon(window)?.SetComboSelection(CommandId.FontSize, "3");
+            FindRibbon(window)?.SetComboSelection(CommandId.FontSize, "12");
             FindRibbon(window)?.SetComboSelection(CommandId.FontFamily, "Arial");
             FindRibbon(window)?.SetComboSelection(CommandId.SemanticHtmlGallery, "p");
             PumpLayout(window);
@@ -157,9 +157,128 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             foreach (var (w, h, tag) in DefaultSizes)
                 results.Add(CaptureAtSize(w, h, tag, outputDir));
 
+            WriteIndex(outputDir, results);
+            return results;
+        }
+
+        /// <summary>
+        /// Selects the ribbon tab with the given label in the (already laid-out) window
+        /// and captures the ribbon band to <paramref name="fileName"/>. Returns the path
+        /// written, or null when the tab isn't present/selectable.
+        /// </summary>
+        public static string CaptureRibbonTabBand(MainWindow window, string tabLabel, string fileName, string outputDir = null)
+        {
+            outputDir ??= ResolveOutputDirectory();
+            Directory.CreateDirectory(outputDir);
+
+            var ribbon = FindRibbon(window);
+            var tabStrip = ribbon?.TabStrip;
+            if (tabStrip == null)
+                return null;
+
+            var tab = tabStrip.Tabs.FirstOrDefault(t =>
+                string.Equals(t.Label, tabLabel, StringComparison.OrdinalIgnoreCase));
+            if (tab == null)
+                return null;
+
+            tabStrip.SelectTab(tab);
+            PumpLayout(window);
+            PumpLayout(window);
+
+            string path = Path.Combine(outputDir, fileName);
+            int width = Math.Max(1, (int)Math.Ceiling(window.Bounds.Width > 0 ? window.Bounds.Width : window.Width));
+            int height = Math.Max(1, (int)Math.Ceiling(ribbon.Bounds.Height > 0 ? ribbon.Bounds.Height : 160));
+            return TrySaveControlScreenshot(ribbon, path, width, height) ? path : null;
+        }
+
+        /// <summary>
+        /// Shows a dialog headlessly, pumps layout a few times (some dialogs finish
+        /// sizing/content asynchronously), captures a PNG, and closes it. Returns the
+        /// path written, or null when the capture failed.
+        /// </summary>
+        public static string CaptureDialog(Window dialog, string fileName, string outputDir = null)
+        {
+            outputDir ??= ResolveOutputDirectory();
+            Directory.CreateDirectory(outputDir);
+
+            dialog.WindowStartupLocation = WindowStartupLocation.Manual;
+            try
+            {
+                dialog.Show();
+                for (int i = 0; i < 3; i++)
+                    PumpLayout(dialog);
+
+                string path = Path.Combine(outputDir, fileName);
+                return SaveWindowScreenshot(dialog, path) ? path : null;
+            }
+            finally
+            {
+                dialog.Close();
+            }
+        }
+
+        /// <summary>
+        /// Saves a PNG of any top-level window. Prefers <see cref="AvaloniaHeadlessPlatform"/>
+        /// frame capture; falls back to a <see cref="RenderTargetBitmap"/> sized from the
+        /// laid-out bounds (safe for <see cref="SizeToContent"/> windows whose Width/Height
+        /// are NaN).
+        /// </summary>
+        public static bool SaveWindowScreenshot(TopLevel window, string path)
+        {
+            try
+            {
+                using Bitmap frame = window.CaptureRenderedFrame();
+                if (frame != null)
+                {
+                    frame.Save(path);
+                    if (File.Exists(path) && new FileInfo(path).Length > 0)
+                        return true;
+                }
+            }
+            catch
+            {
+                // Fall through to the RenderTargetBitmap path.
+            }
+
+            return TrySaveControlScreenshot(window, path, PixelWidthOf(window), PixelHeightOf(window));
+        }
+
+        private static int PixelWidthOf(TopLevel window) =>
+            Math.Max(1, (int)Math.Ceiling(FirstPositive(window.Bounds.Width,
+                double.IsNaN(window.Width) ? 0 : window.Width, 400)));
+
+        private static int PixelHeightOf(TopLevel window) =>
+            Math.Max(1, (int)Math.Ceiling(FirstPositive(window.Bounds.Height,
+                double.IsNaN(window.Height) ? 0 : window.Height, 300)));
+
+        private static double FirstPositive(params double[] candidates) =>
+            candidates.FirstOrDefault(c => c > 0 && !double.IsNaN(c) && !double.IsInfinity(c));
+
+        /// <summary>
+        /// (Re)writes INDEX.md in <paramref name="outputDir"/>. When
+        /// <paramref name="results"/> is null the main-window rows are synthesized from
+        /// the <c>main-*.png</c> files already on disk, so any capture test can refresh
+        /// the index last and still produce a complete listing (including the
+        /// <c>tab-*.png</c> / <c>dialog-*.png</c> deep-capture artifacts).
+        /// </summary>
+        public static void WriteIndex(string outputDir = null, IReadOnlyList<CaptureResult> results = null)
+        {
+            outputDir ??= ResolveOutputDirectory();
+            Directory.CreateDirectory(outputDir);
+
+            if (results == null)
+            {
+                var synthesized = new List<CaptureResult>();
+                foreach (string main in Directory.EnumerateFiles(outputDir, "main-*.png").OrderBy(f => f, StringComparer.Ordinal))
+                {
+                    string tag = Path.GetFileNameWithoutExtension(main).Substring("main-".Length);
+                    synthesized.Add(new CaptureResult(tag, 0, 0, Array.Empty<string>(), Array.Empty<string>(), null));
+                }
+                results = synthesized;
+            }
+
             string indexPath = Path.Combine(outputDir, "INDEX.md");
             File.WriteAllText(indexPath, BuildIndex(results, outputDir));
-            return results;
         }
 
         private static bool TrySaveScreenshot(TopLevel window, string path)
@@ -339,6 +458,8 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             sb.AppendLine();
             sb.AppendLine($"Output directory: `{outputDir}`");
             sb.AppendLine();
+            sb.AppendLine("## Main window + Home ribbon (per size)");
+            sb.AppendLine();
             sb.AppendLine("| Size | Main PNG | Ribbon PNG | Layout | Flags |");
             sb.AppendLine("| --- | --- | --- | --- | --- |");
             foreach (var r in results)
@@ -346,6 +467,10 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
                 string flags = r.Flags.Count == 0 ? "ok" : string.Join("; ", r.Flags);
                 sb.AppendLine($"| {r.Tag} | `main-{r.Tag}.png` | `ribbon-home-{r.Tag}.png` | `layout-{r.Tag}.md` | {flags} |");
             }
+
+            AppendExtraCapturesSection(sb, outputDir, "Ribbon tabs", "tab-*.png");
+            AppendExtraCapturesSection(sb, outputDir, "Dialogs", "dialog-*.png");
+
             sb.AppendLine();
             sb.AppendLine("## How to regenerate");
             sb.AppendLine();
@@ -355,6 +480,21 @@ namespace OpenLiveWriter.EditorTests.Automated.Infrastructure
             sb.AppendLine("dotnet test src/managed/OpenLiveWriter.EditorTests.Automated --filter \"Category=UiReview\"");
             sb.AppendLine("```");
             return sb.ToString();
+        }
+
+        private static void AppendExtraCapturesSection(StringBuilder sb, string outputDir, string title, string pattern)
+        {
+            var files = Directory.Exists(outputDir)
+                ? Directory.EnumerateFiles(outputDir, pattern).OrderBy(f => f, StringComparer.Ordinal).ToList()
+                : new List<string>();
+            if (files.Count == 0)
+                return;
+
+            sb.AppendLine();
+            sb.AppendLine($"## {title}");
+            sb.AppendLine();
+            foreach (string file in files)
+                sb.AppendLine($"- `{Path.GetFileName(file)}`");
         }
 
         public sealed class CaptureResult
