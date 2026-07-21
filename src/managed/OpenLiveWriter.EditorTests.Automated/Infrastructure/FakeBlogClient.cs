@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using OpenLiveWriter.Publishing;
 
 // NOTE: This file lives under Infrastructure/ (not a Publish/ folder) on purpose — the
@@ -49,33 +50,34 @@ namespace OpenLiveWriter.EditorTests.Automated.Publish
         public List<MediaUpload> MediaUploads { get; } = new List<MediaUpload>();
         public int NewMediaObjectCount => MediaUploads.Count;
 
-        /// <summary>Categories the fake returns from <see cref="GetCategories"/>.</summary>
+        /// <summary>Categories the fake returns from <see cref="GetCategoriesAsync"/>.</summary>
         public List<BlogPostCategory> AvailableCategories { get; } = new List<BlogPostCategory>();
         public int GetCategoriesCount { get; private set; }
         public string LastGetCategoriesBlogId { get; private set; }
 
         /// <summary>
-        /// When set, <see cref="NewMediaObject"/> throws for the matching file name so
+        /// When set, <see cref="NewMediaObjectAsync"/> throws for the matching file name so
         /// tests can exercise the upload-failure path.
         /// </summary>
         public string FailUploadForFileName { get; set; }
 
-        public string NewPost(string blogId, BlogPost post, bool publish)
+        public Task<string> NewPostAsync(string blogId, BlogPost post, bool publish)
         {
             NewPostCount++;
             Capture(blogId, post, publish);
             if (string.IsNullOrEmpty(post.Id))
                 post.Id = "fake-post-1";
-            return post.Id;
+            return Task.FromResult(post.Id);
         }
 
-        public void EditPost(string blogId, BlogPost post, bool publish)
+        public Task EditPostAsync(string blogId, BlogPost post, bool publish)
         {
             EditPostCount++;
             Capture(blogId, post, publish);
+            return Task.CompletedTask;
         }
 
-        public string NewMediaObject(string blogId, string fileName, string mimeType, byte[] bits)
+        public Task<string> NewMediaObjectAsync(string blogId, string fileName, string mimeType, byte[] bits)
         {
             if (!string.IsNullOrEmpty(FailUploadForFileName) &&
                 string.Equals(FailUploadForFileName, fileName, StringComparison.Ordinal))
@@ -92,14 +94,14 @@ namespace OpenLiveWriter.EditorTests.Automated.Publish
                 Bits = bits,
                 ReturnedUrl = url
             });
-            return url;
+            return Task.FromResult(url);
         }
 
-        public IReadOnlyList<BlogPostCategory> GetCategories(string blogId)
+        public Task<IReadOnlyList<BlogPostCategory>> GetCategoriesAsync(string blogId)
         {
             GetCategoriesCount++;
             LastGetCategoriesBlogId = blogId;
-            return AvailableCategories.AsReadOnly();
+            return Task.FromResult<IReadOnlyList<BlogPostCategory>>(AvailableCategories.AsReadOnly());
         }
 
         private void Capture(string blogId, BlogPost post, bool publish)

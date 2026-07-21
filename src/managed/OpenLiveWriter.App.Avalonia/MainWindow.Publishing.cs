@@ -111,7 +111,8 @@ namespace OpenLiveWriter.App.Avalonia
         private async Task AddAccountAsync()
         {
             var fetcher = new HttpRsdFetcher(CreatePublishingHttpClient());
-            AccountDialogResult result = await AccountDialog.ShowAsync(this, fetcher: fetcher);
+            var verifier = new MetaWeblogConnectionVerifier(CreatePublishingHttpClient);
+            AccountDialogResult result = await AccountDialog.ShowAsync(this, fetcher: fetcher, verifier: verifier);
             if (result?.Account == null)
                 return;
 
@@ -161,7 +162,8 @@ namespace OpenLiveWriter.App.Avalonia
                 try
                 {
                     IBlogClient client = _accountService.CreateClient(account);
-                    available = client.GetCategories(account.BlogId) ?? Array.Empty<BlogPostCategory>();
+                    available = await client.GetCategoriesAsync(account.BlogId)
+                        ?? Array.Empty<BlogPostCategory>();
                 }
                 catch (Exception ex)
                 {
@@ -260,6 +262,8 @@ namespace OpenLiveWriter.App.Avalonia
                     publish
                         ? $"Your post was published to \u201c{account.DisplayLabel}\u201d."
                         : $"Your post was saved as a draft on \u201c{account.DisplayLabel}\u201d.");
+
+                ApplyPublishFollowUp(account, publish);
             }
             catch (Exception ex)
             {
@@ -268,6 +272,33 @@ namespace OpenLiveWriter.App.Avalonia
                     $"Could not publish to \u201c{account.DisplayLabel}\u201d:\n\n{ex.Message}");
             }
         }
+
+        // Post-publish follow-ups driven by the General-tab preferences:
+        // "View post after publishing" (publish only, never for server drafts) and
+        // "Close window after publishing". Split into predicates so the preference
+        // mapping is testable headlessly.
+        private void ApplyPublishFollowUp(BlogAccount account, bool publish)
+        {
+            var prefs = _preferences ?? AppPreferences.CreateDefault();
+
+            if (ShouldViewPostAfterPublish(prefs, publish, account))
+                BrowserLauncher.Open(account.HomepageUrl);
+
+            if (ShouldCloseAfterPublish(prefs))
+                Close(); // the normal unsaved-changes prompt still runs if the draft is dirty
+        }
+
+        // MetaWeblog newPost/editPost returns only a post id, so the honest behavior is
+        // opening the blog's homepage in the default browser.
+        internal static bool ShouldViewPostAfterPublish(AppPreferences prefs, bool publish, BlogAccount account)
+        {
+            return publish
+                && prefs?.ViewPostAfterPublish == true
+                && !string.IsNullOrWhiteSpace(account?.HomepageUrl);
+        }
+
+        internal static bool ShouldCloseAfterPublish(AppPreferences prefs) =>
+            prefs?.CloseWindowOnPublish == true;
 
         /// <summary>
         /// Enforces General-tab publishing reminders before transmit. Returns false when

@@ -2,9 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Platform;
+using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Settings;
 
 namespace OpenLiveWriter.App.Avalonia
@@ -29,6 +31,19 @@ namespace OpenLiveWriter.App.Avalonia
             ExtendClientAreaToDecorationsHint = false;
             WindowDecorations = WindowDecorations.Full;
 
+            // Event wiring must not depend on the preferences store being
+            // available — the unsaved-changes close guard matters even when
+            // layout persistence is unavailable.
+            PropertyChanged += OnWindowLayoutPropertyChanged;
+            PositionChanged += (s, e) =>
+            {
+                if (WindowState == WindowState.Normal)
+                    CaptureNormalGeometry();
+            };
+            Closing += OnMainWindowClosing;
+            // Re-clamp after the window is realized (screens are reliable then).
+            Opened += (s, e) => ClampToScreenWorkingArea();
+
             try
             {
                 if (_preferencesStore == null)
@@ -42,16 +57,64 @@ namespace OpenLiveWriter.App.Avalonia
                 Console.WriteLine($"[OLW-Window] Restore layout failed: {ex.Message}");
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
+        }
 
-            PropertyChanged += OnWindowLayoutPropertyChanged;
-            PositionChanged += (s, e) =>
+        // Set once the user has confirmed (Save / Don't Save) a dirty close so the
+        // re-issued Close() goes through without prompting again.
+        private bool _closeConfirmed;
+        // Guards against re-entrant close requests while the prompt dialog is up.
+        private bool _closePromptActive;
+
+        // Unsaved-changes guard: when the draft is dirty, cancel the close, prompt
+        // (Save / Don't Save / Cancel), and re-close only when the user proceeds.
+        private async void OnMainWindowClosing(object sender, WindowClosingEventArgs e)
+        {
+            if (_closeConfirmed || _draftSession == null || !_draftSession.IsDirty)
             {
-                if (WindowState == WindowState.Normal)
-                    CaptureNormalGeometry();
-            };
-            Closing += (s, e) => PersistWindowLayout();
-            // Re-clamp after the window is realized (screens are reliable then).
-            Opened += (s, e) => ClampToScreenWorkingArea();
+                PersistWindowLayout();
+                return;
+            }
+
+            e.Cancel = true;
+            if (_closePromptActive)
+                return;
+
+            _closePromptActive = true;
+            try
+            {
+                ConfirmResult choice = await PromptUnsavedChangesForCloseAsync(this);
+                switch (choice)
+                {
+                    case ConfirmResult.Save:
+                        await SaveCurrentAsync();
+                        CloseAfterConfirmation();
+                        break;
+                    case ConfirmResult.Discard:
+                        CloseAfterConfirmation();
+                        break;
+                    // Cancel: leave the window open.
+                }
+            }
+            finally
+            {
+                _closePromptActive = false;
+            }
+        }
+
+        // Prompts for unsaved changes before a close. A null owner (headless)
+        // resolves to the safe Cancel path — the same pattern New/Open use — so
+        // unsaved work is never discarded silently.
+        internal async Task<ConfirmResult> PromptUnsavedChangesForCloseAsync(Window owner)
+        {
+            if (_draftSession == null || !_draftSession.IsDirty)
+                return ConfirmResult.Discard; // nothing to lose — proceed
+            return await ConfirmDialog.ShowUnsavedChangesAsync(owner, DisplayTitle());
+        }
+
+        private void CloseAfterConfirmation()
+        {
+            _closeConfirmed = true;
+            Close();
         }
 
         private void OnWindowLayoutPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e)

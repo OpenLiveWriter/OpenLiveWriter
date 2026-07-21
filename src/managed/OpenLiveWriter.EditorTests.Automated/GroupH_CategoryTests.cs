@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml;
 using NUnit.Framework;
 using OpenLiveWriter.App.Avalonia.Dialogs;
@@ -98,13 +99,13 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void FakeClient_GetCategories_ReturnsConfigured()
+        public async Task FakeClient_GetCategories_ReturnsConfigured()
         {
             var fake = new FakeBlogClient();
             fake.AvailableCategories.Add(new BlogPostCategory("1", "Alpha"));
             fake.AvailableCategories.Add(new BlogPostCategory("2", "Beta"));
 
-            var cats = fake.GetCategories("blog-1");
+            var cats = await fake.GetCategoriesAsync("blog-1");
             Assert.That(fake.GetCategoriesCount, Is.EqualTo(1));
             Assert.That(fake.LastGetCategoriesBlogId, Is.EqualTo("blog-1"));
             Assert.That(cats.Select(c => c.Name), Is.EqualTo(new[] { "Alpha", "Beta" }));

@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenLiveWriter.EditorTests.Automated.Publish;
 using OpenLiveWriter.Publishing;
@@ -257,7 +258,7 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Publish_Publish_CallsNewPostWithCorrectPayloadAndPublishTrue()
+        public async Task Publish_Publish_CallsNewPostWithCorrectPayloadAndPublishTrue()
         {
             BlogAccountService service = ServiceWithFake(out FakeBlogClient fake, _dir);
             BlogAccount account = NewAccount();
@@ -270,7 +271,7 @@ namespace OpenLiveWriter.EditorTests.Automated
             doc.Categories.Add("Updates");
 
             string html = "<p>Intro</p>" + ExtendedEntry.BreakMarker + "<p>The rest</p>";
-            PublishOutcome outcome = service.Publish(doc, html, publish: true);
+            PublishOutcome outcome = await service.PublishAsync(doc, html, publish: true);
 
             Assert.That(outcome.Succeeded, Is.True);
             Assert.That(fake.NewPostCount, Is.EqualTo(1));
@@ -291,14 +292,14 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Publish_AsDraft_CallsNewPostWithPublishFalse()
+        public async Task Publish_AsDraft_CallsNewPostWithPublishFalse()
         {
             BlogAccountService service = ServiceWithFake(out FakeBlogClient fake, _dir);
             BlogAccount saved = service.SaveAccount(NewAccount(), "pw");
             service.SetCurrentAccount(saved.Id);
 
             var doc = new PostDocument { Title = "WIP" };
-            PublishOutcome outcome = service.Publish(doc, "<p>Draft body</p>", publish: false);
+            PublishOutcome outcome = await service.PublishAsync(doc, "<p>Draft body</p>", publish: false);
 
             Assert.That(outcome.Succeeded, Is.True);
             Assert.That(fake.LastPublish, Is.False);
@@ -308,17 +309,17 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Publish_NoAccountConfigured_ReturnsGracefully()
+        public async Task Publish_NoAccountConfigured_ReturnsGracefully()
         {
             var service = new BlogAccountService(NewStore(), new InMemoryCredentialStore());
-            PublishOutcome outcome = service.Publish(new PostDocument { Title = "x" }, "<p>y</p>", publish: true);
+            PublishOutcome outcome = await service.PublishAsync(new PostDocument { Title = "x" }, "<p>y</p>", publish: true);
 
             Assert.That(outcome.Succeeded, Is.False);
             Assert.That(outcome.Status, Is.EqualTo(PublishOutcome.ResultStatus.NoAccountConfigured));
         }
 
         [Test]
-        public void Publish_NoStoredCredential_ReturnsNoCredential()
+        public async Task Publish_NoStoredCredential_ReturnsNoCredential()
         {
             // Save account metadata but no password (password: null), then publish.
             var store = NewStore();
@@ -327,7 +328,7 @@ namespace OpenLiveWriter.EditorTests.Automated
             BlogAccount saved = service.SaveAccount(NewAccount(), password: null);
             service.SetCurrentAccount(saved.Id);
 
-            PublishOutcome outcome = service.Publish(new PostDocument { Title = "x" }, "<p>y</p>", publish: true);
+            PublishOutcome outcome = await service.PublishAsync(new PostDocument { Title = "x" }, "<p>y</p>", publish: true);
             Assert.That(outcome.Status, Is.EqualTo(PublishOutcome.ResultStatus.NoCredential));
         }
 

@@ -23,7 +23,12 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         private string _editorHtml;
 
         public event EventHandler<FormatState> FormatStateChanged;
-        public event EventHandler<string> ContentChanged;
+
+        /// <summary>
+        /// Raised (debounced, ~400ms) when the editor body changes. Carries no
+        /// content payload — pull the full HTML on demand via <see cref="GetContentAsync"/>.
+        /// </summary>
+        public event EventHandler ContentChanged;
 
         /// <summary>Autoreplace toggles applied on paste and pushed to the JS bridge.</summary>
         public AutoreplaceOptions AutoreplaceOptions { get; set; } = new AutoreplaceOptions();
@@ -159,7 +164,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
             if (_pendingHtml != null)
             {
-                _ = RunJS($"OLWBridge.setContent('{EscapeJs(_pendingHtml)}')");
+                _ = RunJS($"OLWBridge.setContent({EscapeJs(_pendingHtml)})");
                 _pendingHtml = null;
             }
 
@@ -170,7 +175,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
 
         // Handles JSON messages posted from editor.html via the WebView bridge.
         // Two message types are used: 'stateChanged' (formatting state as the caret
-        // moves) and 'contentChanged' (body HTML after an edit).
+        // moves) and 'contentChanged' (debounced edit signal — no HTML payload;
+        // pull content on demand via GetContentAsync).
         private void OnWebMessageReceived(object sender, WebMessageReceivedEventArgs e)
         {
             var body = e?.Body;
@@ -190,10 +196,9 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                     var state = ParseFormatState(stateEl);
                     Dispatcher.UIThread.Post(() => FormatStateChanged?.Invoke(this, state));
                 }
-                else if (type == "contentChanged" && root.TryGetProperty("html", out var htmlEl))
+                else if (type == "contentChanged")
                 {
-                    var html = htmlEl.GetString();
-                    Dispatcher.UIThread.Post(() => ContentChanged?.Invoke(this, html));
+                    Dispatcher.UIThread.Post(() => ContentChanged?.Invoke(this, EventArgs.Empty));
                 }
             }
             catch (JsonException)
@@ -343,7 +348,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (_webView == null || !_isReady) return;
             _webView.Focus();
             await Task.Delay(50); // Let focus settle
-            string js = $"OLWBridge.execCommand('{command}', {(value != null ? $"'{value}'" : "null")})";
+            string js = $"OLWBridge.execCommand({EscapeJs(command)}, {(value != null ? EscapeJs(value) : "null")})";
             await RunJS(js);
         }
 
@@ -364,11 +369,53 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         public Task ExecuteUndoAsync() => ExecCommandAsync("undo");
         public Task ExecuteRedoAsync() => ExecCommandAsync("redo");
         public Task ExecuteSelectAllAsync() => ExecCommandAsync("selectAll");
+        /// <summary>Cut via the execCommand bridge (WKWebView honors this inside contenteditable).</summary>
+        public Task ExecuteCutAsync() => ExecCommandAsync("cut");
+        /// <summary>Copy via the execCommand bridge.</summary>
+        public Task ExecuteCopyAsync() => ExecCommandAsync("copy");
         public Task ExecuteClearFormattingAsync() => ExecCommandAsync("removeFormat");
         public Task InsertHorizontalLineAsync() => ExecCommandAsync("insertHorizontalRule");
         public Task SetBlockFormatAsync(string tag) => ExecCommandAsync("formatBlock", tag);
         public Task SetFontFamilyAsync(string family) => ExecCommandAsync("fontName", family);
-        public Task SetFontSizeAsync(string htmlSize) => ExecCommandAsync("fontSize", htmlSize);
+
+        /// <summary>
+        /// Applies a pixel font size to the current selection via the bridge's
+        /// <c>setFontSizePx</c> helper. Unparseable/out-of-range values are ignored.
+        /// </summary>
+        public async Task SetFontSizeAsync(string pxSize)
+        {
+            string px = NormalizeFontSizePx(pxSize);
+            if (px == null || _webView == null || !_isReady) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.setFontSizePx({px})");
+        }
+
+        /// <summary>
+        /// Normalizes a user/combo font-size entry to a canonical integer px string.
+        /// Accepts plain numbers ("12", "12pt", " 14 "), rounds to the nearest
+        /// integer, and clamps to a sane 6–144px range. Returns null when the input
+        /// is not a parseable positive size. Pure so it is unit-testable headlessly.
+        /// </summary>
+        internal static string NormalizeFontSizePx(string size)
+        {
+            if (string.IsNullOrWhiteSpace(size))
+                return null;
+
+            string s = size.Trim();
+            if (s.EndsWith("px", StringComparison.OrdinalIgnoreCase) ||
+                s.EndsWith("pt", StringComparison.OrdinalIgnoreCase))
+                s = s.Substring(0, s.Length - 2).Trim();
+
+            if (!double.TryParse(s, System.Globalization.NumberStyles.Float,
+                    System.Globalization.CultureInfo.InvariantCulture, out double value) ||
+                value <= 0)
+                return null;
+
+            int px = (int)Math.Round(value);
+            px = Math.Max(6, Math.Min(144, px));
+            return px.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        }
 
         /// <summary>
         /// Applies a text (foreground) color to the current selection. The color is
@@ -391,7 +438,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (hex == null || _webView == null || !_isReady) return;
             _webView.Focus();
             await Task.Delay(50);
-            await RunJS($"OLWBridge.setHighlight('{EscapeJs(hex)}')");
+            await RunJS($"OLWBridge.setHighlight({EscapeJs(hex)})");
         }
 
         /// <summary>
@@ -435,7 +482,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (_webView == null || !_isReady) return;
             _webView.Focus();
             await Task.Delay(50);
-            await RunJS($"OLWBridge.toggleBlock('{EscapeJs(tag)}')");
+            await RunJS($"OLWBridge.toggleBlock({EscapeJs(tag)})");
         }
 
         public async Task CreateLinkAsync(string url)
@@ -443,7 +490,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (_webView == null || !_isReady || string.IsNullOrEmpty(url)) return;
             _webView.Focus();
             await Task.Delay(50);
-            await RunJS($"OLWBridge.createLink('{EscapeJs(url)}')");
+            await RunJS($"OLWBridge.createLink({EscapeJs(url)})");
         }
 
         /// <summary>
@@ -560,7 +607,65 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (_webView == null || !_isReady || string.IsNullOrEmpty(query)) return;
             _webView.Focus();
             await Task.Delay(50);
-            await RunJS($"OLWBridge.findNext('{EscapeJs(query)}', {(matchCase ? "true" : "false")})");
+            await RunJS($"OLWBridge.findNext({EscapeJs(query)}, {(matchCase ? "true" : "false")})");
+        }
+
+        /// <summary>Highlights the previous occurrence (backwards native find).</summary>
+        public async Task FindPreviousAsync(string query, bool matchCase)
+        {
+            if (_webView == null || !_isReady || string.IsNullOrEmpty(query)) return;
+            _webView.Focus();
+            await Task.Delay(50);
+            await RunJS($"OLWBridge.findPrevious({EscapeJs(query)}, {(matchCase ? "true" : "false")})");
+        }
+
+        /// <summary>
+        /// Returns the current-match position and total match count for
+        /// <paramref name="query"/> (drives the find bar's "n of m" readout).
+        /// Returns null when the editor is not ready.
+        /// </summary>
+        public async Task<FindStats> FindStatsAsync(string query, bool matchCase)
+        {
+            if (_webView == null || !_isReady || string.IsNullOrEmpty(query))
+                return null;
+            string result = await RunJSReturn(
+                $"OLWBridge.findStats({EscapeJs(query)}, {(matchCase ? "true" : "false")})");
+            return ParseFindStats(result);
+        }
+
+        /// <summary>
+        /// Parses a <c>findStats()</c> "current,total" payload. Pure/deterministic so
+        /// the mapping is unit-testable without a live WebView. Malformed input
+        /// yields a zeroed result.
+        /// </summary>
+        internal static FindStats ParseFindStats(string stats)
+        {
+            if (!string.IsNullOrWhiteSpace(stats))
+            {
+                string[] parts = stats.Split(',');
+                if (parts.Length == 2 &&
+                    int.TryParse(parts[0].Trim(), out int current) &&
+                    int.TryParse(parts[1].Trim(), out int total))
+                {
+                    return new FindStats(Math.Max(0, current), Math.Max(0, total));
+                }
+            }
+            return new FindStats(0, 0);
+        }
+
+        /// <summary>
+        /// Replaces the currently selected match (as highlighted by Find Next /
+        /// Find Previous) with <paramref name="replacement"/>, honoring the case
+        /// option. Returns true when a replacement was made.
+        /// </summary>
+        public async Task<bool> ReplaceCurrentAsync(string query, string replacement, bool matchCase)
+        {
+            if (_webView == null || !_isReady || string.IsNullOrEmpty(query)) return false;
+            _webView.Focus();
+            await Task.Delay(50);
+            string result = await RunJSReturn(
+                $"OLWBridge.replaceCurrent({EscapeJs(query)}, {EscapeJs(replacement)}, {(matchCase ? "true" : "false")})");
+            return string.Equals(result, "true", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -659,13 +764,13 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             if (_webView == null || !_isReady) return;
             _webView.Focus();
             await Task.Delay(50);
-            await RunJS($"OLWBridge.insertHtml('{EscapeJs(html)}')");
+            await RunJS($"OLWBridge.insertHtml({EscapeJs(html)})");
         }
 
         public async Task SetContentAsync(string html)
         {
             if (_webView == null || !_isReady) { _pendingHtml = html; return; }
-            await RunJS($"OLWBridge.setContent('{EscapeJs(html)}')");
+            await RunJS($"OLWBridge.setContent({EscapeJs(html)})");
         }
 
         public async Task<string> GetContentAsync()
@@ -695,7 +800,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
             string html = await GetContentAsync() ?? string.Empty;
-            return Publishing.EditorContentPublisher.PublishOrEdit(
+            return await Publishing.EditorContentPublisher.PublishOrEditAsync(
                 client, blogId, existingPostId, title, html, publish, categories);
         }
 
@@ -710,7 +815,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
             string html = await GetContentAsync() ?? string.Empty;
-            return Publishing.EditorContentPublisher.PublishOrEdit(
+            return await Publishing.EditorContentPublisher.PublishOrEditAsync(
                 client, blogId, existingPostId, title, html, publish, categories, keywords);
         }
 
@@ -744,6 +849,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 case CommandId.Undo: await ExecuteUndoAsync(); return true;
                 case CommandId.Redo: await ExecuteRedoAsync(); return true;
                 case CommandId.SelectAll: await ExecuteSelectAllAsync(); return true;
+                case CommandId.Cut: await ExecuteCutAsync(); return true;
+                case CommandId.CopyCommand: await ExecuteCopyAsync(); return true;
 
                 // Insert
                 case CommandId.InsertHorizontalLine: await InsertHorizontalLineAsync(); return true;
@@ -801,8 +908,15 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             }
         }
 
-        private static string EscapeJs(string s) =>
-            s?.Replace("\\", "\\\\").Replace("'", "\\'").Replace("\n", "\\n") ?? "";
+        /// <summary>
+        /// Encodes a string as a complete, self-delimited JavaScript string literal
+        /// (surrounding quotes included) via JSON encoding — a valid JS string-literal
+        /// subset. Control characters, quotes, backslashes, U+2028/U+2029, and
+        /// HTML-sensitive characters (<c>&lt;</c> <c>&gt;</c> <c>&amp;</c>) are all
+        /// escaped, so interpolated content cannot break out of the literal (e.g. a
+        /// <c>&lt;/script&gt;</c> payload). Null becomes <c>""</c>.
+        /// </summary>
+        internal static string EscapeJs(string s) => JsonSerializer.Serialize(s ?? string.Empty);
     }
 
     public class FormatState
@@ -824,7 +938,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         /// <summary>The selection's font family (first family in the stack), or null.</summary>
         public string FontFamily { get; set; }
 
-        /// <summary>The selection's font size on the HTML 1-7 scale as reported, or null.</summary>
+        /// <summary>The selection's font size in px (computed at the caret), or null.</summary>
         public string FontSize { get; set; }
 
         /// <summary>The selection's foreground color as <c>#RRGGBB</c>, or null.</summary>
@@ -841,5 +955,21 @@ namespace OpenLiveWriter.App.Avalonia.Editor
         /// or null. Drives contextual-tab activation.
         /// </summary>
         public string SelectedElementType { get; set; }
+    }
+
+    /// <summary>
+    /// Find-bar match statistics: the 1-based position of the currently selected
+    /// match (0 when none is selected) and the total number of matches.
+    /// </summary>
+    public sealed class FindStats
+    {
+        public FindStats(int current, int total)
+        {
+            Current = current;
+            Total = total;
+        }
+
+        public int Current { get; }
+        public int Total { get; }
     }
 }

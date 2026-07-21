@@ -21,6 +21,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
     {
         private readonly GroupConfig _config;
         private readonly bool _compact;
+        private readonly Func<CommandId, bool> _commandFilter;
         private readonly List<RibbonButtonControl> _buttons = new();
         private readonly List<(CommandId CommandId, ComboBox ComboBox)> _dropDowns = new();
 
@@ -46,10 +47,11 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
         /// </summary>
         public IReadOnlyList<(CommandId CommandId, ComboBox ComboBox)> DropDowns => _dropDowns;
 
-        public RibbonGroupPanel(GroupConfig config, bool compact = false)
+        public RibbonGroupPanel(GroupConfig config, bool compact = false, Func<CommandId, bool> commandFilter = null)
         {
             _config = config ?? throw new ArgumentNullException(nameof(config));
             _compact = compact;
+            _commandFilter = commandFilter;
             BuildGroup();
         }
 
@@ -493,12 +495,11 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             "Trebuchet MS", "Verdana"
         };
 
-        // HTML font sizes (execCommand fontSize uses the 1-7 scale). Labels show the
-        // approximate point size for familiarity.
-        private static readonly (string Label, string Value)[] FontSizes =
+        // Pixel font sizes offered by the Font Size combo (applied via the bridge's
+        // setFontSizePx; the editor reports the caret's computed px size back).
+        private static readonly string[] FontSizesPx =
         {
-            ("8", "1"), ("10", "2"), ("12", "3"), ("14", "4"),
-            ("18", "5"), ("24", "6"), ("36", "7")
+            "9", "10", "11", "12", "14", "16", "18", "24", "32", "36", "48"
         };
 
         /// <summary>
@@ -541,10 +542,10 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             }
             else if (commandId == CommandId.FontSize)
             {
-                // Tag carries the HTML 1-7 value so the host can select by the value
-                // reported from the editor's getState().
-                foreach (var (label, value) in FontSizes)
-                    comboBox.Items.Add(new ComboBoxItem { Content = label, Tag = value });
+                // Tag carries the px value so the host can select by the computed
+                // px size reported from the editor's getState().
+                foreach (string size in FontSizesPx)
+                    comboBox.Items.Add(new ComboBoxItem { Content = size, Tag = size });
 
                 comboBox.SelectionChanged += (s, e) =>
                 {
@@ -646,7 +647,18 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
             }
 
             if (control is RibbonButtonControl createdButton)
+            {
+                // Disable commands the host says are unhandled so the ribbon does
+                // not advertise dead commands (P0: "dead buttons that look alive").
+                if (_commandFilter != null && !_commandFilter(createdButton.CommandId))
+                {
+                    createdButton.IsEnabled = false;
+                    string tip = ToolTip.GetTip(createdButton) as string;
+                    ToolTip.SetTip(createdButton,
+                        string.IsNullOrEmpty(tip) ? "Not yet available" : tip + " (not yet available)");
+                }
                 _buttons.Add(createdButton);
+            }
 
             return control;
         }

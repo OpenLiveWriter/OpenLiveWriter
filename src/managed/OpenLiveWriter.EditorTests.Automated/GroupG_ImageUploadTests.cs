@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenLiveWriter.EditorTests.Automated.Publish;
 using OpenLiveWriter.Publishing;
@@ -70,23 +71,23 @@ namespace OpenLiveWriter.EditorTests.Automated
         // ---- Rewrite + upload ----
 
         [Test]
-        public void Rewrite_NoImages_IsNoOp_AndNoUploads()
+        public async Task Rewrite_NoImages_IsNoOp_AndNoUploads()
         {
             var fake = new FakeBlogClient();
             string html = "<p>No images here</p>";
-            string result = ImagePublisher.RewriteInlineImages(fake, "blog-1", html);
+            string result = await ImagePublisher.RewriteInlineImagesAsync(fake, "blog-1", html);
 
             Assert.That(result, Is.EqualTo(html));
             Assert.That(fake.NewMediaObjectCount, Is.EqualTo(0));
         }
 
         [Test]
-        public void Rewrite_UploadsAndReplacesDataUriWithHostedUrl()
+        public async Task Rewrite_UploadsAndReplacesDataUriWithHostedUrl()
         {
             var fake = new FakeBlogClient();
             string html = "<p>Pic:</p>" + ImgTag("image/png", PngBase64);
 
-            string result = ImagePublisher.RewriteInlineImages(fake, "blog-9", html);
+            string result = await ImagePublisher.RewriteInlineImagesAsync(fake, "blog-9", html);
 
             Assert.That(fake.NewMediaObjectCount, Is.EqualTo(1));
             Assert.That(result, Does.Not.Contain("data:image"), "the data URI must be gone");
@@ -100,12 +101,12 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Rewrite_DuplicateImage_UploadsOnce_ReplacesBothOccurrences()
+        public async Task Rewrite_DuplicateImage_UploadsOnce_ReplacesBothOccurrences()
         {
             var fake = new FakeBlogClient();
             string html = ImgTag("image/png", PngBase64) + "<hr>" + ImgTag("image/png", PngBase64);
 
-            string result = ImagePublisher.RewriteInlineImages(fake, "blog-1", html);
+            string result = await ImagePublisher.RewriteInlineImagesAsync(fake, "blog-1", html);
 
             Assert.That(fake.NewMediaObjectCount, Is.EqualTo(1), "identical images upload once");
             int occurrences = result.Split(new[] { "https://cdn.example.com/uploads/image1.png" }, StringSplitOptions.None).Length - 1;
@@ -114,12 +115,12 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Rewrite_MultipleDistinctImages_NumberedAndAllReplaced()
+        public async Task Rewrite_MultipleDistinctImages_NumberedAndAllReplaced()
         {
             var fake = new FakeBlogClient();
             string html = ImgTag("image/png", PngBase64) + ImgTag("image/gif", GifBase64);
 
-            string result = ImagePublisher.RewriteInlineImages(fake, "blog-1", html);
+            string result = await ImagePublisher.RewriteInlineImagesAsync(fake, "blog-1", html);
 
             Assert.That(fake.NewMediaObjectCount, Is.EqualTo(2));
             Assert.That(fake.MediaUploads.Select(u => u.FileName),
@@ -135,20 +136,20 @@ namespace OpenLiveWriter.EditorTests.Automated
             var fake = new FakeBlogClient { FailUploadForFileName = "image1.png" };
             string html = ImgTag("image/png", PngBase64);
 
-            var ex = Assert.Throws<BlogClientPublishException>(
-                () => ImagePublisher.RewriteInlineImages(fake, "blog-1", html));
+            var ex = Assert.ThrowsAsync<BlogClientPublishException>(
+                async () => await ImagePublisher.RewriteInlineImagesAsync(fake, "blog-1", html));
             Assert.That(ex.Message, Does.Contain("image1.png"));
         }
 
         // ---- Integration through the publish path ----
 
         [Test]
-        public void Publish_ThroughEditorContentPublisher_HostsImagesBeforeNewPost()
+        public async Task Publish_ThroughEditorContentPublisher_HostsImagesBeforeNewPost()
         {
             var fake = new FakeBlogClient();
             string html = "<p>Body</p>" + ImgTag("image/png", PngBase64);
 
-            EditorContentPublisher.Publish(fake, "blog-1", "Post", html, publish: true, "News");
+            await EditorContentPublisher.PublishAsync(fake, "blog-1", "Post", html, publish: true, "News");
 
             Assert.That(fake.NewMediaObjectCount, Is.EqualTo(1));
             Assert.That(fake.NewPostCount, Is.EqualTo(1));
@@ -158,7 +159,7 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Publish_ThroughBlogAccountService_HostsImagesBeforeNewPost()
+        public async Task Publish_ThroughBlogAccountService_HostsImagesBeforeNewPost()
         {
             string dir = Path.Combine(Path.GetTempPath(), "OLWImgTests", Guid.NewGuid().ToString("N"));
             try
@@ -179,7 +180,7 @@ namespace OpenLiveWriter.EditorTests.Automated
                 var doc = new PostDocument { Title = "With image" };
                 string html = "<p>Hello</p>" + ImgTag("image/png", PngBase64);
 
-                PublishOutcome outcome = service.Publish(doc, html, publish: true);
+                PublishOutcome outcome = await service.PublishAsync(doc, html, publish: true);
 
                 Assert.That(outcome.Succeeded, Is.True);
                 Assert.That(fake.NewMediaObjectCount, Is.EqualTo(1));

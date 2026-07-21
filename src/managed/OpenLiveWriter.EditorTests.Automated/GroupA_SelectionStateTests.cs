@@ -35,14 +35,15 @@ namespace OpenLiveWriter.EditorTests.Automated
         [Test]
         public void ParseState_ReadsFontFamilySizeAndColors()
         {
-            string json = "{\"blockTag\":\"p\",\"fontName\":\"Georgia\",\"fontSize\":\"4\"," +
+            // fontSize is the caret's computed px size (reported by getState()).
+            string json = "{\"blockTag\":\"p\",\"fontName\":\"Georgia\",\"fontSize\":\"14\"," +
                           "\"foreColor\":\"rgb(255, 0, 0)\",\"backColor\":\"rgb(255, 255, 0)\"}";
             FormatState state = WebViewEditor.ParseFormatStateJson(json);
 
             Assert.Multiple(() =>
             {
                 Assert.That(state.FontFamily, Is.EqualTo("Georgia"));
-                Assert.That(state.FontSize, Is.EqualTo("4"));
+                Assert.That(state.FontSize, Is.EqualTo("14"));
                 Assert.That(state.ForeColor, Is.EqualTo("#FF0000"));
                 Assert.That(state.HighlightColor, Is.EqualTo("#FFFF00"));
             });

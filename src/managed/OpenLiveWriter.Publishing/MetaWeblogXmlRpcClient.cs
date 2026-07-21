@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using OpenLiveWriter.Publishing.Xml;
 
@@ -176,26 +178,28 @@ namespace OpenLiveWriter.Publishing
         }
 
         // -----------------------------------------------------------------------
-        // Transport — transmits the payload over HTTP.
+        // Transport — transmits the payload over HTTP (async end-to-end).
         // -----------------------------------------------------------------------
 
-        public string NewPost(string blogId, BlogPost post, bool publish)
+        public async Task<string> NewPostAsync(string blogId, BlogPost post, bool publish)
         {
-            XmlRpcMethodResponse response = CallMethod("metaWeblog.newPost",
+            XmlRpcMethodResponse response = await CallMethodAsync("metaWeblog.newPost",
+                CancellationToken.None,
                 new XmlRpcString(blogId),
                 new XmlRpcString(_username),
                 new XmlRpcString(_password, true),
                 GeneratePostStruct(post, publish),
-                new XmlRpcBoolean(publish));
+                new XmlRpcBoolean(publish)).ConfigureAwait(false);
 
             string postId = response.Response?.InnerText ?? string.Empty;
             post.Id = postId;
             return postId;
         }
 
-        public void EditPost(string blogId, BlogPost post, bool publish)
+        public Task EditPostAsync(string blogId, BlogPost post, bool publish)
         {
-            CallMethod("metaWeblog.editPost",
+            return CallMethodAsync("metaWeblog.editPost",
+                CancellationToken.None,
                 new XmlRpcString(post.Id),
                 new XmlRpcString(_username),
                 new XmlRpcString(_password, true),
@@ -204,15 +208,32 @@ namespace OpenLiveWriter.Publishing
         }
 
         /// <summary>
+        /// Verifies the configured endpoint/credentials with a lightweight
+        /// <c>blogger.getUsersBlogs</c> call (supported by MetaWeblog-compatible
+        /// endpoints such as WordPress). Completes normally on success; throws
+        /// <see cref="BlogClientPublishException"/> on an XML-RPC fault (e.g. bad
+        /// credentials) and lets transport errors bubble up.
+        /// </summary>
+        public Task VerifyCredentialsAsync(CancellationToken cancellationToken = default)
+        {
+            return CallMethodAsync("blogger.getUsersBlogs",
+                cancellationToken,
+                new XmlRpcString(string.Empty), // appkey — unused by MetaWeblog providers
+                new XmlRpcString(_username),
+                new XmlRpcString(_password, true));
+        }
+
+        /// <summary>
         /// Uploads a media object via <c>metaWeblog.newMediaObject</c> and returns the
         /// hosted URL from the response struct's <c>url</c> member. Faithful to the
         /// Windows <c>DoBeforePublishUploadWork</c> upload struct (name/type/bits).
         /// </summary>
-        public string NewMediaObject(string blogId, string fileName, string mimeType, byte[] bits)
+        public async Task<string> NewMediaObjectAsync(string blogId, string fileName, string mimeType, byte[] bits)
         {
             if (bits == null) throw new ArgumentNullException(nameof(bits));
 
-            XmlRpcMethodResponse response = CallMethod("metaWeblog.newMediaObject",
+            XmlRpcMethodResponse response = await CallMethodAsync("metaWeblog.newMediaObject",
+                CancellationToken.None,
                 new XmlRpcString(blogId),
                 new XmlRpcString(_username),
                 new XmlRpcString(_password, true),
@@ -221,7 +242,7 @@ namespace OpenLiveWriter.Publishing
                     new XmlRpcMember("name", new XmlRpcString(CleanUploadFilename(fileName))),
                     new XmlRpcMember("type", new XmlRpcString(mimeType ?? "application/octet-stream")),
                     new XmlRpcMember("bits", new XmlRpcBase64(bits)),
-                }));
+                })).ConfigureAwait(false);
 
             XmlNode urlNode = response.Response?.SelectSingleNode("struct/member[name='url']/value");
             if (urlNode == null || string.IsNullOrEmpty(urlNode.InnerText))
@@ -241,12 +262,13 @@ namespace OpenLiveWriter.Publishing
         /// returned array of category structs. Faithful to the Windows
         /// <c>MetaweblogGetCategories</c>/<c>ParseCategory</c> path.
         /// </summary>
-        public IReadOnlyList<BlogPostCategory> GetCategories(string blogId)
+        public async Task<IReadOnlyList<BlogPostCategory>> GetCategoriesAsync(string blogId)
         {
-            XmlRpcMethodResponse response = CallMethod("metaWeblog.getCategories",
+            XmlRpcMethodResponse response = await CallMethodAsync("metaWeblog.getCategories",
+                CancellationToken.None,
                 new XmlRpcString(blogId),
                 new XmlRpcString(_username),
-                new XmlRpcString(_password, true));
+                new XmlRpcString(_password, true)).ConfigureAwait(false);
 
             return ParseCategories(response.Response);
         }
@@ -317,7 +339,8 @@ namespace OpenLiveWriter.Publishing
             return string.IsNullOrEmpty(text) ? text : text.Trim();
         }
 
-        private XmlRpcMethodResponse CallMethod(string methodName, params XmlRpcValue[] parameters)
+        private async Task<XmlRpcMethodResponse> CallMethodAsync(
+            string methodName, CancellationToken cancellationToken, params XmlRpcValue[] parameters)
         {
             if (string.IsNullOrEmpty(_endpointUrl))
                 throw new InvalidOperationException("No XML-RPC endpoint URL was configured for this client.");
@@ -333,12 +356,13 @@ namespace OpenLiveWriter.Publishing
             request.Content.Headers.ContentType =
                 new System.Net.Http.Headers.MediaTypeHeaderValue("text/xml") { CharSet = encoding.WebName };
 
-            HttpResponseMessage response = client.Send(request);
+            // Async end-to-end: the publish path must never block the caller's thread
+            // (the UI thread in the shell) on the network round-trip.
+            HttpResponseMessage response = await client.SendAsync(request, cancellationToken)
+                .ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
-            using var stream = response.Content.ReadAsStream();
-            using var reader = new StreamReader(stream, encoding);
-            string responseText = reader.ReadToEnd();
+            string responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             var xmlRpcResponse = new XmlRpcMethodResponse(responseText);
             if (xmlRpcResponse.FaultOccurred)

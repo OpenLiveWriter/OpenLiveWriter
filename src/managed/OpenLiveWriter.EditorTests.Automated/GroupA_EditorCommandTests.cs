@@ -4,6 +4,7 @@
 using System.Threading.Tasks;
 using AngleSharp.Dom;
 using NUnit.Framework;
+using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
 
 namespace OpenLiveWriter.EditorTests.Automated
@@ -261,6 +262,58 @@ namespace OpenLiveWriter.EditorTests.Automated
             var dom = await ApplyToParagraph("fontSize", "5");
             var el = dom.QuerySelector("font[size], [style*='font-size']");
             Assert.That(el, Is.Not.Null);
+        }
+
+        [Test]
+        public async Task FontSizePx_AppliesPixelSize()
+        {
+            await using var harness = await EditorTestHarness.CreateAsync();
+            await harness.SetContentAsync("<p>Size me</p>");
+            await harness.SelectAllAsync();
+            await harness.Editor.SetFontSizeAsync("18");
+            await Task.Delay(150);
+            var dom = await harness.GetContentDomAsync();
+            var el = dom.QuerySelector("[style*='font-size']");
+            Assert.That(el, Is.Not.Null, "expected an inline font-size style");
+            Assert.That(el.GetAttribute("style"), Does.Contain("18px"));
+        }
+
+        [Test]
+        public async Task FindStats_CountsMatchesAcrossTextNodes()
+        {
+            await using var harness = await EditorTestHarness.CreateAsync();
+            await harness.SetContentAsync("<p>cat and cat</p><p>dog</p><h2>cat</h2>");
+            await Task.Delay(100);
+            FindStats stats = await harness.Editor.FindStatsAsync("cat", matchCase: false);
+            Assert.That(stats, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(stats.Total, Is.EqualTo(3));
+                Assert.That(stats.Current, Is.EqualTo(0), "no match selected yet");
+            });
+        }
+
+        [Test]
+        public async Task ReplaceCurrent_ReplacesOnlySelectedMatch()
+        {
+            await using var harness = await EditorTestHarness.CreateAsync();
+            await harness.SetContentAsync("<p>brown fox brown dog</p>");
+            harness.Editor.WebView.Focus();
+            await Task.Delay(50);
+            // Select the first "brown" (chars 0-5).
+            await harness.Editor.WebView.InvokeScript(
+                "var tn=document.body.querySelector('p').firstChild;" +
+                "var r=document.createRange();r.setStart(tn,0);r.setEnd(tn,5);" +
+                "var s=window.getSelection();s.removeAllRanges();s.addRange(r);" +
+                "OLWBridge.saveSelection();");
+            await Task.Delay(50);
+
+            bool replaced = await harness.Editor.ReplaceCurrentAsync("brown", "black", matchCase: false);
+            await Task.Delay(150);
+
+            var dom = await harness.GetContentDomAsync();
+            Assert.That(replaced, Is.True);
+            Assert.That(dom.QuerySelector("p").TextContent, Is.EqualTo("black fox brown dog"));
         }
 
         // A16 — publish-readiness gate applied to LIVE editor output.

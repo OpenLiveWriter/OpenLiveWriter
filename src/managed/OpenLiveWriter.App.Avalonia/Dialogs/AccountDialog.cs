@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using global::Avalonia.Controls;
 using global::Avalonia.Layout;
@@ -24,8 +25,10 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
     /// <summary>
     /// Add / Configure blog account dialog: blog URL, username, password, and the
     /// MetaWeblog API endpoint. A "Detect" button auto-fills the endpoint (and blog id)
-    /// from the blog homepage via RSD discovery; manual override is retained. Mirrors the
-    /// modal <c>ShowAsync(owner)</c> pattern used by the other shell dialogs.
+    /// from the blog homepage via RSD discovery; manual override is retained. A
+    /// "Test Connection" button verifies the endpoint + credentials live (async,
+    /// cancellable, inline result) so bad settings surface before the first publish.
+    /// Mirrors the modal <c>ShowAsync(owner)</c> pattern used by the other shell dialogs.
     /// </summary>
     public class AccountDialog : Window
     {
@@ -37,16 +40,21 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private readonly TextBox _passwordBox;
         private readonly Button _saveButton;
         private readonly Button _detectButton;
+        private readonly Button _testButton;
         private readonly TextBlock _detectStatus;
         private readonly IRsdHttpFetcher _fetcher;
+        private readonly IBlogConnectionVerifier _verifier;
         private readonly string _existingId;
         private readonly bool _isEdit;
+        private CancellationTokenSource _testCts;
 
         public AccountDialogResult Result { get; private set; }
 
-        public AccountDialog(BlogAccount existing = null, IRsdHttpFetcher fetcher = null)
+        public AccountDialog(BlogAccount existing = null, IRsdHttpFetcher fetcher = null,
+            IBlogConnectionVerifier verifier = null)
         {
             _fetcher = fetcher ?? new HttpRsdFetcher();
+            _verifier = verifier ?? new MetaWeblogConnectionVerifier();
             _isEdit = existing != null;
             _existingId = existing?.Id ?? string.Empty;
 
@@ -97,6 +105,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             };
             _detectButton.Click += async (s, e) => await DetectAsync();
 
+            _testButton = new Button { Content = "Test Connection", MinWidth = 110, IsEnabled = false };
+            _testButton.Click += async (s, e) => await TestConnectionAsync();
+
             _saveButton.Click += (s, e) =>
             {
                 Result = new AccountDialogResult
@@ -123,11 +134,18 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             };
             cancelButton.Click += (s, e) => Close(null);
 
-            void Revalidate(object s, EventArgs e) => _saveButton.IsEnabled = CanSave();
+            void Revalidate(object s, EventArgs e)
+            {
+                _saveButton.IsEnabled = CanSave();
+                _testButton.IsEnabled = CanTestConnection(
+                    _endpointBox.Text, _usernameBox.Text, _passwordBox.Text);
+            }
             _endpointBox.PropertyChanged += (s, e) => { if (e.Property == TextBox.TextProperty) Revalidate(s, e); };
             _usernameBox.PropertyChanged += (s, e) => { if (e.Property == TextBox.TextProperty) Revalidate(s, e); };
             _passwordBox.PropertyChanged += (s, e) => { if (e.Property == TextBox.TextProperty) Revalidate(s, e); };
             _saveButton.IsEnabled = CanSave();
+            _testButton.IsEnabled = CanTestConnection(
+                _endpointBox.Text, _usernameBox.Text, _passwordBox.Text);
 
             var grid = new Grid
             {
@@ -143,7 +161,8 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             AddRow(grid, 4, "Username:", _usernameBox);
             AddRow(grid, 5, "Password:", _passwordBox);
 
-            // Detect row: pull the endpoint/blog id from the Blog URL via RSD discovery.
+            // Detect/Test row: pull the endpoint/blog id from the Blog URL via RSD
+            // discovery, or verify the entered endpoint + credentials live.
             var detectRow = new StackPanel
             {
                 Orientation = Orientation.Horizontal,
@@ -151,6 +170,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
                 Margin = new global::Avalonia.Thickness(0, 8, 0, 0)
             };
             detectRow.Children.Add(_detectButton);
+            detectRow.Children.Add(_testButton);
             detectRow.Children.Add(_detectStatus);
             Grid.SetRow(detectRow, 6);
             Grid.SetColumn(detectRow, 0);
@@ -203,6 +223,7 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
             _detectButton.IsEnabled = false;
             _detectStatus.Text = "Detecting\u2026";
+            SetStatusColor(0x66, 0x66, 0x66);
             try
             {
                 RsdDetectionResult result = await Task.Run(
@@ -231,6 +252,80 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             {
                 _detectButton.IsEnabled = true;
             }
+        }
+
+        // Verifies the entered endpoint + credentials with a lightweight live call
+        // (blogger.getUsersBlogs via the injected verifier) and reports the outcome
+        // inline — never a modal. A new click cancels any in-flight attempt; the
+        // pending attempt is also cancelled when the dialog closes. Network errors
+        // are caught and shown, never thrown.
+        private async Task TestConnectionAsync()
+        {
+            string endpoint = _endpointBox.Text?.Trim();
+            string username = _usernameBox.Text?.Trim();
+            string password = _passwordBox.Text ?? string.Empty;
+
+            if (!CanTestConnection(endpoint, username, password))
+                return;
+
+            _testCts?.Cancel();
+            _testCts?.Dispose();
+            var cts = new CancellationTokenSource();
+            _testCts = cts;
+
+            _testButton.IsEnabled = false;
+            _detectStatus.Text = "Testing connection\u2026";
+            SetStatusColor(0x66, 0x66, 0x66);
+            try
+            {
+                await _verifier.VerifyAsync(endpoint, username, password, cts.Token);
+                _detectStatus.Text = "Connection succeeded.";
+                SetStatusColor(0x2E, 0x7D, 0x32);
+            }
+            catch (OperationCanceledException)
+            {
+                _detectStatus.Text = "Connection test cancelled.";
+                SetStatusColor(0x66, 0x66, 0x66);
+            }
+            catch (Exception ex)
+            {
+                _detectStatus.Text = $"Connection failed: {ex.Message}";
+                SetStatusColor(0xC6, 0x28, 0x28);
+            }
+            finally
+            {
+                if (ReferenceEquals(_testCts, cts))
+                {
+                    _testCts = null;
+                    _testButton.IsEnabled = CanTestConnection(
+                        _endpointBox.Text, _usernameBox.Text, _passwordBox.Text);
+                }
+                cts.Dispose();
+            }
+        }
+
+        private void SetStatusColor(byte r, byte g, byte b)
+        {
+            _detectStatus.Foreground = new global::Avalonia.Media.SolidColorBrush(
+                global::Avalonia.Media.Color.FromRgb(r, g, b));
+        }
+
+        /// <summary>
+        /// Test Connection is enabled only when all three inputs are present — a blank
+        /// endpoint, username, or password could never succeed (on edit, a blank
+        /// password means "keep the existing one", which the test cannot use).
+        /// </summary>
+        internal static bool CanTestConnection(string endpoint, string username, string password)
+        {
+            return !string.IsNullOrWhiteSpace(endpoint)
+                && !string.IsNullOrWhiteSpace(username)
+                && !string.IsNullOrEmpty(password);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            _testCts?.Cancel();
+            base.OnClosed(e);
         }
 
         private bool CanSave() => CanSave(
@@ -279,9 +374,10 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         public static async Task<AccountDialogResult> ShowAsync(
             Window owner,
             BlogAccount existing = null,
-            IRsdHttpFetcher fetcher = null)
+            IRsdHttpFetcher fetcher = null,
+            IBlogConnectionVerifier verifier = null)
         {
-            var dialog = new AccountDialog(existing, fetcher);
+            var dialog = new AccountDialog(existing, fetcher, verifier);
             if (owner != null)
                 return await dialog.ShowDialog<AccountDialogResult>(owner);
 

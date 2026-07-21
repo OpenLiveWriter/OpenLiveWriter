@@ -42,6 +42,9 @@ namespace OpenLiveWriter.App.Avalonia
                 case CommandId.EditTags:
                     await ShowInsertTagsAsync();
                     return true;
+                case CommandId.Paste:
+                    await PasteAsync();
+                    return true;
                 case CommandId.PasteSpecial:
                     await PasteSpecialAsync();
                     return true;
@@ -154,6 +157,25 @@ namespace OpenLiveWriter.App.Avalonia
             UpdateStatus($"Tags: {string.Join(", ", result.Tags)}");
         }
 
+        // Paste: WKWebView blocks programmatic paste, so the clipboard is read in C#
+        // via the Avalonia clipboard and inserted at the caret through the bridge.
+        private async Task PasteAsync()
+        {
+            var editor = GetEditor();
+            if (editor == null)
+                return;
+
+            string clipboardText = await TryReadClipboardTextAsync();
+            if (string.IsNullOrEmpty(clipboardText))
+            {
+                UpdateStatus("Nothing to paste.");
+                return;
+            }
+
+            await editor.PastePlainTextAsync(clipboardText);
+            UpdateStatus("Pasted.");
+        }
+
         // Paste Special: insert the clipboard's text with formatting removed (clean
         // paste). The plain-text/clean-HTML sanitizers are covered by GroupF tests.
         private async Task PasteSpecialAsync()
@@ -162,21 +184,7 @@ namespace OpenLiveWriter.App.Avalonia
             if (editor == null)
                 return;
 
-            string clipboardText = null;
-            try
-            {
-                if (Clipboard != null)
-                {
-                    IAsyncDataTransfer data = await Clipboard.TryGetDataAsync();
-                    if (data != null)
-                        clipboardText = await data.TryGetTextAsync();
-                }
-            }
-            catch
-            {
-                // Clipboard access can fail on headless/unfocused windows — ignore.
-            }
-
+            string clipboardText = await TryReadClipboardTextAsync();
             if (string.IsNullOrEmpty(clipboardText))
             {
                 UpdateStatus("Nothing to paste.");
@@ -185,6 +193,25 @@ namespace OpenLiveWriter.App.Avalonia
 
             await editor.PastePlainTextAsync(clipboardText);
             UpdateStatus("Pasted as plain text.");
+        }
+
+        // Reads plain text from the Avalonia clipboard; null when unavailable/empty.
+        private async Task<string> TryReadClipboardTextAsync()
+        {
+            try
+            {
+                if (Clipboard != null)
+                {
+                    IAsyncDataTransfer data = await Clipboard.TryGetDataAsync();
+                    if (data != null)
+                        return await data.TryGetTextAsync();
+                }
+            }
+            catch
+            {
+                // Clipboard access can fail on headless/unfocused windows — ignore.
+            }
+            return null;
         }
     }
 }

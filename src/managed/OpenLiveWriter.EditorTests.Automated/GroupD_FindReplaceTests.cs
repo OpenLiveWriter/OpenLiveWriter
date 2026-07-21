@@ -127,5 +127,24 @@ namespace OpenLiveWriter.EditorTests.Automated
             Assert.That(request.MatchCase, Is.False);
             Assert.That(request.WholeWord, Is.False);
         }
+
+        [AvaloniaTest]
+        public void FindReplaceDialog_ReplaceButton_OnlyShownWithHandler()
+        {
+            var withReplace = new FindReplaceDialog(
+                _ => Task.CompletedTask, _ => Task.CompletedTask,
+                showReplace: true, onReplace: _ => Task.CompletedTask);
+            Assert.That(ButtonLabels(withReplace), Does.Contain("Replace"));
+
+            var withoutReplace = new FindReplaceDialog(_ => Task.CompletedTask, _ => Task.CompletedTask);
+            Assert.That(ButtonLabels(withoutReplace), Does.Not.Contain("Replace"));
+            Assert.That(ButtonLabels(withoutReplace), Does.Contain("Replace All"));
+        }
+
+        private static string[] ButtonLabels(FindReplaceDialog dialog) =>
+            dialog.GetLogicalDescendants().OfType<Button>()
+                .Select(b => b.Content as string)
+                .Where(s => s != null)
+                .ToArray();
     }
 }

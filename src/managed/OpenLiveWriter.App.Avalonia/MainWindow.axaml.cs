@@ -4,6 +4,7 @@
 using System;
 using System.Threading.Tasks;
 using global::Avalonia.Controls;
+using OpenLiveWriter.App.Avalonia.Commands;
 using OpenLiveWriter.App.Avalonia.Dialogs;
 using OpenLiveWriter.App.Avalonia.Editor;
 using OpenLiveWriter.Localization;
@@ -31,6 +32,8 @@ namespace OpenLiveWriter.App.Avalonia
             InitializeSpelling();
             InitializePreferences();
             InitializeWindowLayout();
+            InitializeMenuBar();
+            InitializeAutosave();
         }
 
         private void InitializeRibbon()
@@ -38,68 +41,12 @@ namespace OpenLiveWriter.App.Avalonia
             var config = DefaultRibbonConfiguration.Create();
             var ribbon = new AvaloniaRibbonControl();
             _ribbon = ribbon;
+            // Disable buttons for commands the shell does not route (set before load).
+            ribbon.CommandFilter = HandledCommands.IsHandled;
             ribbon.LoadConfiguration(config);
 
-            // Wire ribbon commands — use async handler for proper await chain
-            ribbon.CommandExecuted += async (sender, commandId) =>
-            {
-                // Options / Preferences (does not require a draft session).
-                if (await TryHandleOptionsCommandAsync(commandId))
-                    return;
-
-                // File / document-lifecycle commands are handled by the shell.
-                if (await TryHandleFileCommandAsync(commandId))
-                    return;
-
-                // Account setup / publish commands are handled by the shell.
-                if (await TryHandlePublishCommandAsync(commandId))
-                    return;
-
-                // Insert-tab commands that need a dialog (table/video/emoticon/paste).
-                if (await TryHandleInsertCommandAsync(commandId))
-                    return;
-
-                // Spelling status command.
-                if (await TryHandleSpellingCommandAsync(commandId))
-                    return;
-
-                // Plug-in commands (informational stub on macOS).
-                if (await TryHandlePluginCommandAsync(commandId))
-                    return;
-
-                // Editor utility commands surfaced by the shell (dialogs/status).
-                if (commandId == CommandId.WordCount)
-                {
-                    await ShowWordCountAsync();
-                    return;
-                }
-                if (commandId == CommandId.FindButton)
-                {
-                    ShowInEditorFindBar();
-                    return;
-                }
-                if (commandId == CommandId.FindAndReplace)
-                {
-                    ShowFindReplace(showReplace: true);
-                    return;
-                }
-
-                var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
-                if (editorPanel?.WebViewEditor != null)
-                {
-                    bool handled = await editorPanel.WebViewEditor.HandleCommandAsync(commandId);
-                    if (handled)
-                    {
-                        UpdateStatus($"Applied: {commandId}");
-                        return;
-                    }
-                }
-
-                if (editorPanel?.CommandBridge.Execute(commandId) == true)
-                    return;
-
-                UpdateStatus($"Command: {commandId}");
-            };
+            // Wire ribbon commands — the same entry point the macOS menu bar uses.
+            ribbon.CommandExecuted += async (sender, commandId) => await ExecuteCommandAsync(commandId);
 
             ribbon.ComboSelectionChanged += async (sender, args) =>
             {
@@ -146,6 +93,77 @@ namespace OpenLiveWriter.App.Avalonia
                 ribbonHost.Child = ribbon;
         }
 
+        /// <summary>
+        /// Routes a command through the shell's handler chain. This is the single
+        /// entry point shared by ribbon buttons and macOS menu-bar items — menus
+        /// never duplicate command logic.
+        /// </summary>
+        public async Task ExecuteCommandAsync(CommandId commandId)
+        {
+            // Options / Preferences (does not require a draft session).
+            if (await TryHandleOptionsCommandAsync(commandId))
+                return;
+
+            // File / document-lifecycle commands are handled by the shell.
+            if (await TryHandleFileCommandAsync(commandId))
+                return;
+
+            // Account setup / publish commands are handled by the shell.
+            if (await TryHandlePublishCommandAsync(commandId))
+                return;
+
+            // Insert-tab commands that need a dialog (table/video/emoticon/paste).
+            if (await TryHandleInsertCommandAsync(commandId))
+                return;
+
+            // Spelling status command.
+            if (await TryHandleSpellingCommandAsync(commandId))
+                return;
+
+            // Plug-in commands (informational stub on macOS).
+            if (await TryHandlePluginCommandAsync(commandId))
+                return;
+
+            // Menu-only commands (About / Close Window / view switching).
+            if (await TryHandleMenuCommandAsync(commandId))
+                return;
+
+            // Editor utility commands surfaced by the shell (dialogs/status).
+            if (commandId == CommandId.WordCount)
+            {
+                await ShowWordCountAsync();
+                return;
+            }
+            if (commandId == CommandId.FindButton)
+            {
+                ShowInEditorFindBar();
+                return;
+            }
+            if (commandId == CommandId.FindAndReplace)
+            {
+                ShowFindReplace(showReplace: true);
+                return;
+            }
+
+            var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
+            if (editorPanel?.WebViewEditor != null)
+            {
+                bool handled = await editorPanel.WebViewEditor.HandleCommandAsync(commandId);
+                if (handled)
+                {
+                    UpdateStatus($"Applied: {commandId}");
+                    return;
+                }
+            }
+
+            if (editorPanel?.CommandBridge.Execute(commandId) == true)
+                return;
+
+            UpdateStatus(HandledCommands.IsHandled(commandId)
+                ? $"Command: {commandId}"
+                : $"Not yet available: {commandId}");
+        }
+
         private void InitializeEditor()
         {
             var editorPanel = this.FindControl<EditorPanel>("EditorPanel");
@@ -189,10 +207,21 @@ namespace OpenLiveWriter.App.Avalonia
             }
         }
 
-        private void OnEditorContentChanged(object sender, string html)
+        // Test seam: lets headless tests substitute a temp-directory session and
+        // inspect dirty state (e.g. close-prompt and autosave coverage).
+        internal DraftSession DraftSession
+        {
+            get => _draftSession;
+            set => _draftSession = value;
+        }
+
+        // The editor's contentChanged signal is debounced and payload-free: mark the
+        // draft dirty and let save/autosave pull the full HTML via GetContentAsync.
+        private void OnEditorContentChanged(object sender, EventArgs e)
         {
             if (_suppressDirty || _draftSession == null) return;
-            _draftSession.UpdateBody(html ?? string.Empty);
+            _draftSession.MarkDirty();
+            UpdateWindowTitle();
             OnEditorContentChangedForWordCount();
         }
 
@@ -458,7 +487,17 @@ namespace OpenLiveWriter.App.Avalonia
                     int n = await editor.ReplaceAllAsync(req.Query, req.Replacement, req.MatchCase, req.WholeWord);
                     UpdateStatus($"Replaced {n} occurrence(s).");
                 },
-                showReplace: true);
+                showReplace: true,
+                onReplace: async req =>
+                {
+                    // Replace the currently selected match, then advance to the
+                    // next one (standard find-and-replace stepping).
+                    var editor = GetEditor();
+                    if (editor == null) return;
+                    bool replaced = await editor.ReplaceCurrentAsync(req.Query, req.Replacement, req.MatchCase);
+                    await editor.FindNextAsync(req.Query, req.MatchCase);
+                    UpdateStatus(replaced ? "Replaced 1 occurrence." : "No selected match to replace.");
+                });
 
             _findDialog.Closed += (s, e) => _findDialog = null;
             _findDialog.Show(this);

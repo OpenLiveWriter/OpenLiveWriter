@@ -65,6 +65,18 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 PreviewViewButton.Click += (s, e) => SwitchView("preview");
         }
 
+        /// <summary>
+        /// Switches the editor surface ("edit", "source", or "preview") — the same
+        /// path as the on-canvas view toggle buttons. Used by the View menu.
+        /// Unknown view names are ignored.
+        /// </summary>
+        public void SetView(string view)
+        {
+            if (view != "edit" && view != "source" && view != "preview")
+                return;
+            SwitchView(view);
+        }
+
         private async void SwitchView(string view)
         {
             _currentView = view;
@@ -212,6 +224,8 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                 FindCloseButton.Click += (s, e) => HideFindBar();
             if (FindReplaceDialogButton != null)
                 FindReplaceDialogButton.Click += (s, e) => OpenFindReplaceRequested?.Invoke(this, EventArgs.Empty);
+            if (FindMatchCaseCheck != null)
+                FindMatchCaseCheck.IsCheckedChanged += async (s, e) => await UpdateMatchCountAsync();
             if (FindQueryBox != null)
             {
                 FindQueryBox.KeyDown += async (s, e) =>
@@ -227,6 +241,7 @@ namespace OpenLiveWriter.App.Avalonia.Editor
                         e.Handled = true;
                     }
                 };
+                FindQueryBox.TextChanged += async (s, e) => await UpdateMatchCountAsync();
             }
         }
 
@@ -265,10 +280,43 @@ namespace OpenLiveWriter.App.Avalonia.Editor
             }
 
             bool matchCase = FindMatchCaseCheck?.IsChecked == true;
-            // window.find does not support backwards search natively in all engines;
-            // forward find is the primary path. Previous reuses FindNext for now.
-            await _webViewEditor.FindNextAsync(query, matchCase);
+            if (forward)
+                await _webViewEditor.FindNextAsync(query, matchCase);
+            else
+                await _webViewEditor.FindPreviousAsync(query, matchCase);
+            await UpdateMatchCountAsync();
             StatusChanged?.Invoke(this, forward ? $"Find: {query}" : $"Find previous: {query}");
+        }
+
+        // Refreshes the find bar's "n of m" readout from the live editor.
+        private async Task UpdateMatchCountAsync()
+        {
+            if (FindMatchCountText == null)
+                return;
+
+            string query = FindQueryBox?.Text ?? string.Empty;
+            if (_webViewEditor == null || string.IsNullOrEmpty(query))
+            {
+                FindMatchCountText.Text = string.Empty;
+                return;
+            }
+
+            FindStats stats = await _webViewEditor.FindStatsAsync(
+                query, FindMatchCaseCheck?.IsChecked == true);
+            FindMatchCountText.Text = stats == null
+                ? string.Empty
+                : FormatMatchCount(stats.Current, stats.Total);
+        }
+
+        /// <summary>
+        /// Formats the find bar's match-count readout: "n of m" when a match is
+        /// selected, "No matches" when there are none, and "m matches" when matches
+        /// exist but none is current. Pure/deterministic for headless testing.
+        /// </summary>
+        internal static string FormatMatchCount(int current, int total)
+        {
+            if (total <= 0) return "No matches";
+            return current > 0 ? $"{current} of {total}" : $"{total} matches";
         }
 
         private void SetupKeyboardShortcuts()

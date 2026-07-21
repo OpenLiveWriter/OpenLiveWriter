@@ -55,13 +55,43 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
 
         /// <summary>
         /// The active application modes. Controls which tabs and groups are visible.
-        /// Defaults to Normal + LTR + WithoutPlugins + Debug for development.
+        /// Defaults to Normal + LTR + WithoutPlugins; the Debug tab only appears
+        /// when the OLW_DEBUG_RIBBON environment variable is set (1/true).
         /// </summary>
-        public RibbonApplicationMode ActiveModes { get; set; } =
-            RibbonApplicationMode.Normal |
-            RibbonApplicationMode.LTR |
-            RibbonApplicationMode.WithoutPlugins |
-            RibbonApplicationMode.Debug;
+        public RibbonApplicationMode ActiveModes { get; set; } = DefaultActiveModes;
+
+        /// <summary>
+        /// The production default mode set. The Debug tab (Terminate Process, Raise
+        /// Assertion, etc.) is developer chrome — it is excluded unless
+        /// OLW_DEBUG_RIBBON is set to 1/true.
+        /// </summary>
+        public static RibbonApplicationMode DefaultActiveModes
+        {
+            get
+            {
+                var modes = RibbonApplicationMode.Normal |
+                            RibbonApplicationMode.LTR |
+                            RibbonApplicationMode.WithoutPlugins;
+                if (IsDebugRibbonEnabled())
+                    modes |= RibbonApplicationMode.Debug;
+                return modes;
+            }
+        }
+
+        private static bool IsDebugRibbonEnabled()
+        {
+            string value = Environment.GetEnvironmentVariable("OLW_DEBUG_RIBBON");
+            return string.Equals(value, "1", StringComparison.OrdinalIgnoreCase) ||
+                   string.Equals(value, "true", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Optional host-supplied predicate reporting whether a command is actually
+        /// handled. Buttons whose command returns false render disabled with a
+        /// "not yet available" tooltip so the ribbon never promises dead commands.
+        /// Set before <see cref="LoadConfiguration"/>.
+        /// </summary>
+        public Func<CommandId, bool> CommandFilter { get; set; }
 
         /// <summary>True when the ribbon is in the narrow/compact layout.</summary>
         public bool IsCompactMode => _compactMode;
@@ -352,7 +382,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                 if ((group.VisibleModes & ActiveModes) == 0)
                     continue;
 
-                var groupPanel = new RibbonGroupPanel(group, compact: _compactMode);
+                var groupPanel = new RibbonGroupPanel(group, compact: _compactMode, commandFilter: CommandFilter);
                 groupPanel.CommandExecuted += (s, cmd) => CommandExecuted?.Invoke(this, cmd);
                 groupPanel.ComboSelectionChanged += (s, args) =>
                 {
@@ -415,6 +445,7 @@ namespace OpenLiveWriter.Ribbon.Avalonia.Controls
                     : commandId.ToString();
 
                 var item = new MenuItem { Header = label };
+                item.IsEnabled = CommandFilter?.Invoke(commandId) ?? true;
                 item.Click += (s, e) => CommandExecuted?.Invoke(this, commandId);
                 _overflowFlyout.Items.Add(item);
             }

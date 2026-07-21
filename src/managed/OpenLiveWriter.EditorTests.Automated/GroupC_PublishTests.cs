@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml;
 using NUnit.Framework;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
@@ -65,11 +66,11 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Publish_MetaWeblogPayload_DescriptionEqualsMainContents_AndPublishFlagSet()
+        public async Task Publish_MetaWeblogPayload_DescriptionEqualsMainContents_AndPublishFlagSet()
         {
             // Round-trip through the transport returns the server post id.
             var fake = new FakeBlogClient();
-            string id = EditorContentPublisher.Publish(fake, "blog-1", "Post A", "<p>Body</p>", publish: true, "News");
+            string id = await EditorContentPublisher.PublishAsync(fake, "blog-1", "Post A", "<p>Body</p>", publish: true, "News");
             Assert.That(id, Is.EqualTo("fake-post-1"));
             Assert.That(fake.NewPostCount, Is.EqualTo(1));
 
@@ -85,10 +86,10 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Publish_AsDraft_SetsPublishFalse()
+        public async Task Publish_AsDraft_SetsPublishFalse()
         {
             var fake = new FakeBlogClient();
-            EditorContentPublisher.Publish(fake, "blog-1", "Draft", "<p>WIP</p>", publish: false);
+            await EditorContentPublisher.PublishAsync(fake, "blog-1", "Draft", "<p>WIP</p>", publish: false);
 
             Assert.That(fake.LastPublish, Is.False);
             Assert.That(fake.LastPost.IsPublished, Is.False);

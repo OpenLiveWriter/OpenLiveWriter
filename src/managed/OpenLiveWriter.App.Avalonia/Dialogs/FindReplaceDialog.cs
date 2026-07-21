@@ -19,10 +19,11 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
     /// <summary>
     /// A non-modal Find &amp; Replace panel: a search field, a replacement field,
-    /// match-case / whole-word options, and Find Next / Replace All actions. The
-    /// dialog owns no editor logic — it raises requests via callbacks so the host
-    /// can drive the editor (keeping search/replace logic in the testable
-    /// <c>TextFinder</c> / <c>WebViewEditor</c>).
+    /// match-case / whole-word options, and Find Next / Replace / Replace All
+    /// actions. The dialog owns no editor logic — it raises requests via callbacks
+    /// so the host can drive the editor (keeping search/replace logic in the
+    /// testable <c>TextFinder</c> / <c>WebViewEditor</c>). The single-Replace
+    /// button appears only when an <c>onReplace</c> callback is supplied.
     /// </summary>
     public class FindReplaceDialog : Window
     {
@@ -32,14 +33,17 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private readonly CheckBox _wholeWord;
 
         private readonly Func<FindReplaceRequest, Task> _onFindNext;
+        private readonly Func<FindReplaceRequest, Task> _onReplace;
         private readonly Func<FindReplaceRequest, Task> _onReplaceAll;
 
         public FindReplaceDialog(
             Func<FindReplaceRequest, Task> onFindNext,
             Func<FindReplaceRequest, Task> onReplaceAll,
-            bool showReplace = true)
+            bool showReplace = true,
+            Func<FindReplaceRequest, Task> onReplace = null)
         {
             _onFindNext = onFindNext;
+            _onReplace = onReplace;
             _onReplaceAll = onReplaceAll;
 
             Title = showReplace ? "Find and Replace" : "Find";
@@ -55,10 +59,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _wholeWord = new CheckBox { Content = "Whole word" };
 
             var findNextButton = new Button { Content = "Find Next", IsDefault = true, MinWidth = 90 };
+            var replaceButton = new Button { Content = "Replace", MinWidth = 90 };
             var replaceAllButton = new Button { Content = "Replace All", MinWidth = 90 };
             var closeButton = new Button { Content = "Close", IsCancel = true, MinWidth = 80 };
 
             findNextButton.Click += async (s, e) => await RaiseAsync(_onFindNext);
+            replaceButton.Click += async (s, e) => await RaiseAsync(_onReplace);
             replaceAllButton.Click += async (s, e) => await RaiseAsync(_onReplaceAll);
             closeButton.Click += (s, e) => Close();
 
@@ -94,7 +100,11 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             };
             buttonRow.Children.Add(findNextButton);
             if (showReplace)
+            {
+                if (_onReplace != null)
+                    buttonRow.Children.Add(replaceButton);
                 buttonRow.Children.Add(replaceAllButton);
+            }
             buttonRow.Children.Add(closeButton);
             Grid.SetRow(buttonRow, 3);
             Grid.SetColumn(buttonRow, 0);

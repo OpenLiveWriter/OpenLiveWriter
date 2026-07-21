@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenLiveWriter.EditorTests.Automated.Infrastructure;
 using OpenLiveWriter.Publishing;
@@ -38,7 +39,7 @@ namespace OpenLiveWriter.EditorTests.Automated
     public class LiveBlogPublishTests
     {
         [Test]
-        public void LivePublish_NewPost_ReturnsServerPostId()
+        public async Task LivePublish_NewPost_ReturnsServerPostId()
         {
             string endpoint = Environment.GetEnvironmentVariable("OLW_LIVEBLOG_ENDPOINT");
             string blogId = Environment.GetEnvironmentVariable("OLW_LIVEBLOG_BLOGID");
@@ -68,7 +69,7 @@ namespace OpenLiveWriter.EditorTests.Automated
             string title = "OLW macOS live test " + DateTime.UtcNow.ToString("O");
             string html = "<p>Automated live publish test from the macOS port.</p>";
 
-            string postId = EditorContentPublisher.Publish(
+            string postId = await EditorContentPublisher.PublishAsync(
                 client, blogId, title, html, publish, "Test");
 
             Assert.That(postId, Is.Not.Null.And.Not.Empty,

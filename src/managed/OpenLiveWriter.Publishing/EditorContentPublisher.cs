@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OpenLiveWriter.Publishing
 {
@@ -48,14 +49,14 @@ namespace OpenLiveWriter.Publishing
 
         /// <summary>
         /// Uploads inline (data-URI) images and submits a new post, returning the id.
-        /// Images are hosted via <see cref="IBlogClient.NewMediaObject"/> and the body is
+        /// Images are hosted via <see cref="IBlogClient.NewMediaObjectAsync"/> and the body is
         /// rewritten to reference the returned URLs before the post is built, so the
         /// published HTML never carries embedded base64. No-op when there are no images.
         /// </summary>
-        public static string Publish(IBlogClient client, string blogId, string title, string editorHtml,
+        public static Task<string> PublishAsync(IBlogClient client, string blogId, string title, string editorHtml,
             bool publish, params string[] categories)
         {
-            return PublishOrEdit(client, blogId, existingPostId: null, title, editorHtml, publish, categories);
+            return PublishOrEditAsync(client, blogId, existingPostId: null, title, editorHtml, publish, categories);
         }
 
         /// <summary>
@@ -65,11 +66,12 @@ namespace OpenLiveWriter.Publishing
         /// This is the single entry point the shell uses so a re-publish of an
         /// already-published document targets the same post via <c>metaWeblog.editPost</c>.
         /// </summary>
-        public static string PublishOrEdit(IBlogClient client, string blogId, string existingPostId,
+        public static async Task<string> PublishOrEditAsync(IBlogClient client, string blogId, string existingPostId,
             string title, string editorHtml, bool publish, IEnumerable<string> categories,
             string keywords = null)
         {
-            string hosted = ImagePublisher.RewriteInlineImages(client, blogId, editorHtml ?? string.Empty);
+            string hosted = await ImagePublisher.RewriteInlineImagesAsync(
+                client, blogId, editorHtml ?? string.Empty).ConfigureAwait(false);
             string[] categoryArray = categories?.Where(c => !string.IsNullOrEmpty(c)).ToArray()
                 ?? System.Array.Empty<string>();
             BlogPost post = BuildPost(title, hosted, publish, categoryArray);
@@ -80,11 +82,11 @@ namespace OpenLiveWriter.Publishing
             if (!string.IsNullOrEmpty(existingPostId))
             {
                 post.Id = existingPostId;
-                client.EditPost(blogId, post, publish);
+                await client.EditPostAsync(blogId, post, publish).ConfigureAwait(false);
                 return existingPostId;
             }
 
-            return client.NewPost(blogId, post, publish);
+            return await client.NewPostAsync(blogId, post, publish).ConfigureAwait(false);
         }
 
         /// <summary>

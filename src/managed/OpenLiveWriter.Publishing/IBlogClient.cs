@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for details.
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OpenLiveWriter.Publishing
 {
@@ -11,6 +12,9 @@ namespace OpenLiveWriter.Publishing
     /// <c>OpenLiveWriter.Extensibility.BlogClient.IBlogClient</c>, scoped to what
     /// the first publish slice needs. The Windows implementation is XML-RPC
     /// MetaWeblog; see <see cref="MetaWeblogXmlRpcClient"/>.
+    ///
+    /// All operations are genuinely async end-to-end (no sync-over-async) so the
+    /// publish path never blocks the UI thread while the network round-trip runs.
     /// </summary>
     public interface IBlogClient
     {
@@ -18,10 +22,10 @@ namespace OpenLiveWriter.Publishing
         IBlogClientOptions Options { get; }
 
         /// <summary>Creates a new post and returns the server-assigned post id.</summary>
-        string NewPost(string blogId, BlogPost post, bool publish);
+        Task<string> NewPostAsync(string blogId, BlogPost post, bool publish);
 
         /// <summary>Edits an existing post (identified by <see cref="BlogPost.Id"/>).</summary>
-        void EditPost(string blogId, BlogPost post, bool publish);
+        Task EditPostAsync(string blogId, BlogPost post, bool publish);
 
         /// <summary>
         /// Uploads a binary media object (image/attachment) to the blog and returns the
@@ -30,7 +34,7 @@ namespace OpenLiveWriter.Publishing
         /// Used by the publish path to host inline (data-URI) images before the post is
         /// sent so the body references real URLs rather than embedded base64.
         /// </summary>
-        string NewMediaObject(string blogId, string fileName, string mimeType, byte[] bits);
+        Task<string> NewMediaObjectAsync(string blogId, string fileName, string mimeType, byte[] bits);
 
         /// <summary>
         /// Fetches the categories available on the blog (<c>metaWeblog.getCategories</c>).
@@ -38,7 +42,7 @@ namespace OpenLiveWriter.Publishing
         /// included inline in the post struct. Returns an empty list when the provider
         /// exposes no categories.
         /// </summary>
-        IReadOnlyList<BlogPostCategory> GetCategories(string blogId);
+        Task<IReadOnlyList<BlogPostCategory>> GetCategoriesAsync(string blogId);
     }
 
     /// <summary>

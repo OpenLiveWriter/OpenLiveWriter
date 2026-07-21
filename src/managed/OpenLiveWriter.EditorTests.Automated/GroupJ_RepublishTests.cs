@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenLiveWriter.EditorTests.Automated.Publish;
 using OpenLiveWriter.Publishing;
@@ -22,10 +23,10 @@ namespace OpenLiveWriter.EditorTests.Automated
     public class GroupJ_RepublishTests
     {
         [Test]
-        public void PublishOrEdit_NoExistingId_CallsNewPost()
+        public async Task PublishOrEdit_NoExistingId_CallsNewPost()
         {
             var fake = new FakeBlogClient();
-            string id = EditorContentPublisher.PublishOrEdit(
+            string id = await EditorContentPublisher.PublishOrEditAsync(
                 fake, "blog-1", existingPostId: null, "Title", "<p>Body</p>", publish: true, categories: null);
 
             Assert.That(fake.NewPostCount, Is.EqualTo(1));
@@ -34,10 +35,10 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void PublishOrEdit_ExistingId_CallsEditPost_WithSameId()
+        public async Task PublishOrEdit_ExistingId_CallsEditPost_WithSameId()
         {
             var fake = new FakeBlogClient();
-            string id = EditorContentPublisher.PublishOrEdit(
+            string id = await EditorContentPublisher.PublishOrEditAsync(
                 fake, "blog-1", existingPostId: "server-77", "Title", "<p>Body</p>", publish: true, categories: null);
 
             Assert.That(fake.NewPostCount, Is.EqualTo(0));
@@ -47,7 +48,7 @@ namespace OpenLiveWriter.EditorTests.Automated
         }
 
         [Test]
-        public void Service_RepublishSameDocument_EditsInsteadOfCreatingDuplicate()
+        public async Task Service_RepublishSameDocument_EditsInsteadOfCreatingDuplicate()
         {
             string dir = Path.Combine(Path.GetTempPath(), "OLWRepublish", Guid.NewGuid().ToString("N"));
             try
@@ -68,14 +69,14 @@ namespace OpenLiveWriter.EditorTests.Automated
                 var doc = new PostDocument { Title = "Post" };
 
                 // First publish -> NewPost, records the server id.
-                PublishOutcome first = service.Publish(doc, "<p>v1</p>", publish: true);
+                PublishOutcome first = await service.PublishAsync(doc, "<p>v1</p>", publish: true);
                 Assert.That(first.Succeeded, Is.True);
                 Assert.That(fake.NewPostCount, Is.EqualTo(1));
                 Assert.That(doc.PublishedPostId, Is.EqualTo("fake-post-1"));
                 Assert.That(doc.BlogId, Is.EqualTo("blog-5"));
 
                 // Second publish of the SAME document -> EditPost (no new post).
-                PublishOutcome second = service.Publish(doc, "<p>v2</p>", publish: true);
+                PublishOutcome second = await service.PublishAsync(doc, "<p>v2</p>", publish: true);
                 Assert.That(second.Succeeded, Is.True);
                 Assert.That(fake.NewPostCount, Is.EqualTo(1), "no duplicate NewPost on republish");
                 Assert.That(fake.EditPostCount, Is.EqualTo(1));

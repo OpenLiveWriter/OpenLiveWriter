@@ -14,6 +14,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
     /// <summary>
     /// Tabbed Preferences dialog: General, Editing, Spelling, Web Proxy, and Accounts.
     /// Maps fields from the Windows options panels (see <c>testplan/testOptionsDialogBox</c>).
+    /// Only options the macOS shell actually enforces are shown — the Windows post-window
+    /// behavior, tag reminder, and paragraph-tag toggles are deliberately omitted (their
+    /// <see cref="AppPreferences"/> fields are kept for forward-compat).
     /// </summary>
     public sealed class PreferencesDialog : Window
     {
@@ -22,15 +25,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private readonly Func<AppPreferences, Task> _applyAsync;
 
         // General
-        private RadioButton _sameWindow;
-        private RadioButton _newWindow;
-        private RadioButton _newWindowIfDirty;
         private CheckBox _viewAfterPublish;
         private CheckBox _closeOnPublish;
         private CheckBox _titleReminder;
         private CheckBox _categoryReminder;
-        private CheckBox _tagReminder;
         private CheckBox _autoSave;
+        private NumericUpDown _autoSaveMinutes;
         private CheckBox _wordCount;
         private CheckBox _formatHtml;
 
@@ -39,7 +39,6 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
         private CheckBox _replaceQuotes;
         private CheckBox _replaceSpecial;
         private CheckBox _replaceEmoticons;
-        private CheckBox _useParagraphTags;
 
         // Spelling
         private CheckBox _spellcheck;
@@ -122,25 +121,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
         private void BindFromWorking()
         {
-            switch (_working.PostWindowBehavior)
-            {
-                case PostWindowBehavior.OpenNewWindow:
-                    _newWindow.IsChecked = true;
-                    break;
-                case PostWindowBehavior.OpenNewWindowIfDirty:
-                    _newWindowIfDirty.IsChecked = true;
-                    break;
-                default:
-                    _sameWindow.IsChecked = true;
-                    break;
-            }
-
             _viewAfterPublish.IsChecked = _working.ViewPostAfterPublish;
             _closeOnPublish.IsChecked = _working.CloseWindowOnPublish;
             _titleReminder.IsChecked = _working.TitleReminder;
             _categoryReminder.IsChecked = _working.CategoryReminder;
-            _tagReminder.IsChecked = _working.TagReminder;
             _autoSave.IsChecked = _working.AutoSaveDrafts;
+            _autoSaveMinutes.Value = _working.AutoSaveMinutes;
             _wordCount.IsChecked = _working.ShowRealTimeWordCount;
             _formatHtml.IsChecked = _working.FormatHtml;
 
@@ -148,7 +134,6 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _replaceQuotes.IsChecked = _working.ReplaceSmartQuotes;
             _replaceSpecial.IsChecked = _working.ReplaceSpecialCharacters;
             _replaceEmoticons.IsChecked = _working.ReplaceEmoticons;
-            _useParagraphTags.IsChecked = _working.UseParagraphTags;
 
             _spellcheck.IsChecked = _working.SpellcheckEnabled;
 
@@ -158,23 +143,18 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _proxyUser.Text = _working.ProxyUsername ?? string.Empty;
             _proxyPassword.Text = _working.ProxyPassword ?? string.Empty;
             UpdateProxyFieldsEnabled();
+            UpdateAutoSaveMinutesEnabled();
         }
 
         private void BindToWorking()
         {
-            if (_newWindow.IsChecked == true)
-                _working.PostWindowBehavior = PostWindowBehavior.OpenNewWindow;
-            else if (_newWindowIfDirty.IsChecked == true)
-                _working.PostWindowBehavior = PostWindowBehavior.OpenNewWindowIfDirty;
-            else
-                _working.PostWindowBehavior = PostWindowBehavior.UseSameWindow;
-
             _working.ViewPostAfterPublish = _viewAfterPublish.IsChecked == true;
             _working.CloseWindowOnPublish = _closeOnPublish.IsChecked == true;
             _working.TitleReminder = _titleReminder.IsChecked == true;
             _working.CategoryReminder = _categoryReminder.IsChecked == true;
-            _working.TagReminder = _tagReminder.IsChecked == true;
             _working.AutoSaveDrafts = _autoSave.IsChecked == true;
+            if (_autoSaveMinutes.Value.HasValue)
+                _working.AutoSaveMinutes = (int)_autoSaveMinutes.Value.Value;
             _working.ShowRealTimeWordCount = _wordCount.IsChecked == true;
             _working.FormatHtml = _formatHtml.IsChecked == true;
 
@@ -182,7 +162,6 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _working.ReplaceSmartQuotes = _replaceQuotes.IsChecked == true;
             _working.ReplaceSpecialCharacters = _replaceSpecial.IsChecked == true;
             _working.ReplaceEmoticons = _replaceEmoticons.IsChecked == true;
-            _working.UseParagraphTags = _useParagraphTags.IsChecked == true;
 
             _working.SpellcheckEnabled = _spellcheck.IsChecked == true;
 
@@ -196,35 +175,45 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
 
         private Control BuildGeneralTab()
         {
-            _sameWindow = new RadioButton { Content = "Use a single window for all posts" };
-            _newWindow = new RadioButton { Content = "Open a new window for each post" };
-            _newWindowIfDirty = new RadioButton
-            {
-                Content = "Open a new window when the current post has unsaved changes"
-            };
-
-            var postWindows = Group("Post Windows",
-                _sameWindow, _newWindow, _newWindowIfDirty);
-
             _viewAfterPublish = new CheckBox { Content = "View post after publishing" };
             _closeOnPublish = new CheckBox { Content = "Close window after publishing" };
             _titleReminder = new CheckBox { Content = "Remind me to type a title before publishing" };
             _categoryReminder = new CheckBox { Content = "Remind me to add categories before publishing" };
-            _tagReminder = new CheckBox { Content = "Remind me to add tags before publishing" };
 
             var publishing = Group("Publishing",
-                _viewAfterPublish, _closeOnPublish, _titleReminder, _categoryReminder, _tagReminder);
+                _viewAfterPublish, _closeOnPublish, _titleReminder, _categoryReminder);
 
-            _autoSave = new CheckBox { Content = "Save AutoRecover information periodically" };
+            _autoSave = new CheckBox { Content = "Save AutoRecover information every" };
+            _autoSave.IsCheckedChanged += (s, e) => UpdateAutoSaveMinutesEnabled();
+            _autoSaveMinutes = new NumericUpDown
+            {
+                Minimum = 1,
+                Maximum = 60,
+                Width = 70,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            var autoSaveRow = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 6,
+                Children =
+                {
+                    _autoSave,
+                    _autoSaveMinutes,
+                    new TextBlock { Text = "minutes", VerticalAlignment = VerticalAlignment.Center }
+                }
+            };
+
             _wordCount = new CheckBox { Content = "Show real-time word count in status bar" };
             _formatHtml = new CheckBox { Content = "Format HTML when switching to source view" };
 
-            var general = Group("General", _autoSave, _wordCount, _formatHtml);
+            var general = Group("General", autoSaveRow, _wordCount, _formatHtml);
 
             return Scroll(new StackPanel
             {
                 Spacing = 12,
-                Children = { postWindows, publishing, general }
+                Children = { publishing, general }
             });
         }
 
@@ -234,13 +223,9 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             _replaceQuotes = new CheckBox { Content = "Replace straight quotes with curly quotes" };
             _replaceSpecial = new CheckBox { Content = "Replace other special characters" };
             _replaceEmoticons = new CheckBox { Content = "Replace emoticons with emoji" };
-            _useParagraphTags = new CheckBox
-            {
-                Content = "Use <p> tags for paragraphs (uncheck for <div> tags)"
-            };
 
             return Scroll(Group("Editing Options",
-                _replaceHyphens, _replaceQuotes, _replaceSpecial, _replaceEmoticons, _useParagraphTags));
+                _replaceHyphens, _replaceQuotes, _replaceSpecial, _replaceEmoticons));
         }
 
         private Control BuildSpellingTab()
@@ -326,6 +311,12 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             if (_proxyPort != null) _proxyPort.IsEnabled = on;
             if (_proxyUser != null) _proxyUser.IsEnabled = on;
             if (_proxyPassword != null) _proxyPassword.IsEnabled = on;
+        }
+
+        private void UpdateAutoSaveMinutesEnabled()
+        {
+            if (_autoSaveMinutes != null)
+                _autoSaveMinutes.IsEnabled = _autoSave?.IsChecked == true;
         }
 
         private static Border Group(string title, params Control[] children)

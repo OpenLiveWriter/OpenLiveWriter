@@ -75,6 +75,7 @@ namespace OpenLiveWriter.App.Avalonia
             await SetSpellcheckEnabledAsync(prefs.SpellcheckEnabled);
             _showRealTimeWordCount = prefs.ShowRealTimeWordCount;
             UpdateStatusBarExtras();
+            RefreshAutosaveInterval();
 
             var autoreplace = AutoreplaceOptions.FromPreferences(prefs);
             WebViewEditor editor = GetEditor();

@@ -3,7 +3,11 @@
 Single source of truth for the Mac (Avalonia) port. Goal: **feature and visual
 parity with Open Live Writer for Windows.** Update this file as work lands.
 
-Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; on top of Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, and **re-publish → `editPost`**; Insert-tab + preview + selection-state band: real Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
+> See also `docs/MAC-VIABILITY-ASSESSMENT.md` (2026-07-20) — an independent,
+> user-facing gap review. This file tracks what has *landed*; the assessment
+> tracks what a Windows switcher would actually hit (P0 trust breakers first).
+
+Branch: `milestone4/webview-wysiwyg` · Runtime: .NET 10 / Avalonia · Last verified: 2026-07 (**Shell trust band:** macOS NativeMenu menu bar (File/Edit/View/Help + accelerators, Set Categories reachable), unsaved-changes close prompt, draft autosave (AutoRecover), handled-command registry with dead commands visibly disabled, Debug tab hidden unless `OLW_DEBUG_RIBBON=1`, real Cut/Copy/Paste routing; **Editor-bridge band:** debounced payload-free content sync, JSON-based JS escaping, px font sizes + caret reflection, find previous / "n of m" count / single-replace; **Publish band:** fully async XML-RPC transport (no UI freeze), view-post/close-window after publish, preferences dialog shows only enforced options, Account dialog Test Connection; on top of the Options/Preferences band: **JSON `FileSettingsPersister`**, tabbed **Preferences** dialog, **Options** command; Publishing-completion band: **image upload-on-publish** via `newMediaObject`, **blog categories** fetch + picker, **RSD endpoint auto-detection**, **re-publish → `editPost`**; Insert-tab band: Preview render, Insert Table + table-tools ops, web-video embeds, emoticons, paste-special/clean paste, clear-break/extended-entry, caret font/size/color/block reflection)
 
 ## Official milestone plan
 
@@ -294,7 +298,7 @@ Run:
   `scripts/validate-live-blog.sh` or
   `dotnet test ... --filter "Category=LiveBlog" -- NUnit.Explicit=true`
 
-Default run status: **359 passed / 0 failed** (includes **Group P** layout harness —
+Default run status: **489 passed / 0 failed** (includes **Group P** layout harness + UiReview captures, **Group Q** shell/menu/autosave/close-prompt/handled-commands, **Group R** editor bridge, **Group S** async transport + connection verifier —
 15 cases across 800×600…1920×1080). WebView-category, `PublishTdd`, and
 `LiveBlog` tests are `[Explicit]` (excluded from the default run) so the headless gate
 stays green. Layout quality docs: `docs/UI-LAYOUT-QA.md`.
@@ -706,8 +710,8 @@ WinForms preferences stack for the Avalonia shell.
 | --- | --- |
 | `AppPreferences` | Snapshot of General (post windows, publishing reminders, AutoRecover, word-count status bar), Editing (autoreplace toggles, paragraph tag), Spelling (`SpellcheckEnabled`), and Web Proxy fields — keyed to match Windows `PostEditorSettings` / `AutoreplaceSettings` / `WebProxySettings` layout. |
 | `AppPreferencesStore` | Load/save through `ISettingsPersister` (`Preferences` root → `PostEditor`/`WordCount`/`Autoreplace`/`Spelling`/`WebProxy` sub-trees). |
-| `PreferencesDialog` | Tabbed modal: General, Editing, Spelling, Web Proxy, Accounts (opens `AccountManagerDialog`). |
-| `MainWindow` | **Options** `CommandId` opens the dialog; apply path calls `SetSpellcheckEnabledAsync`, refreshes the status-bar word-count pane, pushes autoreplace toggles to the editor bridge, and supplies proxy-aware `HttpClient` instances to publish transports via `CreatePublishingHttpClient()`. Publish commands honour **title** and **category** reminders when enabled. |
+| `PreferencesDialog` | Tabbed modal: General, Editing, Spelling, Web Proxy, Accounts (opens `AccountManagerDialog`). Shows only options the shell actually enforces (see §11.3). |
+| `MainWindow` | **Options** `CommandId` opens the dialog; apply path calls `SetSpellcheckEnabledAsync`, refreshes the status-bar word-count pane, pushes autoreplace toggles to the editor bridge, and supplies proxy-aware `HttpClient` instances to publish transports via `CreatePublishingHttpClient()`. Publish commands honour **title** and **category** reminders when enabled, and the **view-after-publish** / **close-on-publish** follow-ups after a successful publish. |
 
 ### 11.3 Preference enforcement matrix
 
@@ -719,8 +723,10 @@ WinForms preferences stack for the Avalonia shell.
 | Replace smart quotes / hyphens / special chars / emoticons | ✅ | ✅ — paste via `AutoreplaceTransformer`; typing smart quotes via JS bridge |
 | Title reminder before publish | ✅ | ✅ — blocks publish when title empty |
 | Category reminder before publish | ✅ | ✅ — confirm when no categories |
-| Post window behavior, view-after-publish, close-on-publish | ✅ | stored only |
-| Tag reminder, AutoRecover, paragraph tags | ✅ | stored only |
+| AutoRecover (enabled + interval minutes) | ✅ | ✅ — `AutosaveController` on a `DispatcherTimer` at `AutoSaveMinutes` |
+| View post after publish | ✅ | ✅ — opens the account's `HomepageUrl` in the default browser (via `BrowserLauncher`) after a successful publish only, never for server drafts |
+| Close window after publish | ✅ | ✅ — `Close()` after a successful publish; the normal unsaved-changes prompt still guards a dirty draft |
+| Post window behavior, tag reminder, paragraph tags | ✅ | removed from the UI (single-window shell; keywords/paragraph tags aren't wired) — stored-only fields kept on `AppPreferences` for forward-compat |
 
 ### 11.4 Tests
 
@@ -729,3 +735,8 @@ WinForms preferences stack for the Avalonia shell.
 round-trip, preference field persistence, spell-check bridge script mapping, proxy-password
 unset when blank, `PublishingHttpClientFactory`/`WebProxyMapper`, and
 `AutoreplaceTransformer`/`AutoreplaceController`.
+
+`GroupS_ConnectionTests` covers the account-dialog **Test Connection** verifier
+(end-to-end through the real XML-RPC transport over a fake `HttpMessageHandler`),
+the button enable rule, the view-after-publish / close-on-publish preference mapping,
+and the `BrowserLauncher` seam; the live verification test is `[Explicit]`.

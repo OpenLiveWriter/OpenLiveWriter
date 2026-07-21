@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace OpenLiveWriter.Publishing
 {
@@ -11,7 +12,7 @@ namespace OpenLiveWriter.Publishing
     /// Upload-on-publish for inline images. The Avalonia editor embeds inserted images
     /// as base64 <c>data:</c> URIs (<c>&lt;img src="data:image/png;base64,..."&gt;</c>).
     /// Before a post is transmitted, this scans the body for those data-URI images,
-    /// uploads each unique one via <see cref="IBlogClient.NewMediaObject"/>, and rewrites
+    /// uploads each unique one via <see cref="IBlogClient.NewMediaObjectAsync"/>, and rewrites
     /// every <c>src</c> to the hosted URL the server returns — so the published HTML
     /// references real URLs instead of carrying multi-megabyte embedded payloads.
     ///
@@ -95,7 +96,7 @@ namespace OpenLiveWriter.Publishing
         /// there are no inline images the input is returned unchanged (no upload calls).
         /// </summary>
         /// <exception cref="BlogClientPublishException">An image upload failed.</exception>
-        public static string RewriteInlineImages(IBlogClient client, string blogId, string html)
+        public static async Task<string> RewriteInlineImagesAsync(IBlogClient client, string blogId, string html)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
             if (string.IsNullOrEmpty(html))
@@ -116,7 +117,8 @@ namespace OpenLiveWriter.Publishing
                 string hostedUrl;
                 try
                 {
-                    hostedUrl = client.NewMediaObject(blogId, fileName, image.MimeType, image.DecodedBytes);
+                    hostedUrl = await client.NewMediaObjectAsync(
+                        blogId, fileName, image.MimeType, image.DecodedBytes).ConfigureAwait(false);
                 }
                 catch (BlogClientPublishException)
                 {

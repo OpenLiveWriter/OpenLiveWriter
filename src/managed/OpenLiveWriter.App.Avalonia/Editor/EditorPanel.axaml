@@ -58,6 +58,10 @@
                                 Spacing="4"
                                 VerticalAlignment="Center"
                                 Margin="8,0,0,0">
+                        <TextBlock x:Name="FindMatchCountText" Text=""
+                                   FontSize="11" Foreground="#777777"
+                                   VerticalAlignment="Center" MinWidth="64"
+                                   TextAlignment="Right" Margin="0,0,4,0" />
                         <CheckBox x:Name="FindMatchCaseCheck" Content="Match case"
                                   FontSize="11" VerticalAlignment="Center"
                                   MinHeight="24" />

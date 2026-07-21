@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace OpenLiveWriter.Publishing.Accounts
 {
@@ -143,7 +144,7 @@ namespace OpenLiveWriter.Publishing.Accounts
         /// "not configured" cases so the UI can prompt gracefully. Transport errors from
         /// the client bubble up as exceptions for the caller to surface.
         /// </summary>
-        public PublishOutcome Publish(PostDocument document, string editorHtml, bool publish)
+        public async Task<PublishOutcome> PublishAsync(PostDocument document, string editorHtml, bool publish)
         {
             if (document == null) throw new ArgumentNullException(nameof(document));
 
@@ -169,9 +170,9 @@ namespace OpenLiveWriter.Publishing.Accounts
                     ? document.PublishedPostId
                     : null;
 
-            string postId = EditorContentPublisher.PublishOrEdit(
+            string postId = await EditorContentPublisher.PublishOrEditAsync(
                 client, account.BlogId, existingPostId, document.Title ?? string.Empty,
-                editorHtml ?? string.Empty, publish, categories);
+                editorHtml ?? string.Empty, publish, categories).ConfigureAwait(false);
 
             document.BlogId = account.BlogId;
             document.PublishedPostId = postId;
@@ -187,7 +188,7 @@ namespace OpenLiveWriter.Publishing.Accounts
         public BlogAccountException(string message) : base(message) { }
     }
 
-    /// <summary>Result of a publish attempt through <see cref="BlogAccountService.Publish"/>.</summary>
+    /// <summary>Result of a publish attempt through <see cref="BlogAccountService.PublishAsync"/>.</summary>
     public sealed class PublishOutcome
     {
         public enum ResultStatus { Success, NoAccountConfigured, NoCredential }

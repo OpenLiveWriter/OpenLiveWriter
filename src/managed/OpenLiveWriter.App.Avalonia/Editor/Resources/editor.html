@@ -103,12 +103,45 @@ const OLWBridge = {
             alignFull: document.queryCommandState('justifyFull'),
             blockTag: (document.queryCommandValue('formatBlock') || 'p').toLowerCase(),
             fontName: (document.queryCommandValue('fontName') || '').toString(),
-            fontSize: (document.queryCommandValue('fontSize') || '').toString(),
+            fontSize: this._caretFontSizePx(),
             foreColor: (document.queryCommandValue('foreColor') || '').toString(),
             backColor: (document.queryCommandValue('backColor') || document.queryCommandValue('hiliteColor') || '').toString(),
             inTable: ctx.inTable,
             selectedElementType: ctx.selectedElementType
         });
+    },
+
+    // Computed px font size at the caret (rounded), so the ribbon Font Size combo
+    // can follow the caret in real pixel units rather than the HTML 1-7 scale.
+    _caretFontSizePx: function() {
+        var sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return '';
+        var node = sel.anchorNode;
+        var el = node ? (node.nodeType === 1 ? node : node.parentElement) : null;
+        if (!el) return '';
+        var px = parseFloat(window.getComputedStyle(el).fontSize);
+        return isNaN(px) ? '' : String(Math.round(px));
+    },
+
+    // Apply a pixel font size to the selection. With styleWithCSS on, WebKit's
+    // execCommand('fontSize', 7) wraps the selection in a span whose inline
+    // font-size is the xxx-large keyword; rewriting just those spans to the
+    // requested px value yields a clean, predictable inline style.
+    setFontSizePx: function(px) {
+        px = parseInt(px, 10);
+        if (!px || px <= 0) return;
+        this.restoreSelection();
+        document.execCommand('styleWithCSS', false, true);
+        document.execCommand('fontSize', false, '7');
+        document.execCommand('styleWithCSS', false, false);
+        var spans = document.body.querySelectorAll('span');
+        for (var i = 0; i < spans.length; i++) {
+            var fs = spans[i].style.fontSize || '';
+            if (fs.indexOf('xxx-large') >= 0)
+                spans[i].style.fontSize = px + 'px';
+        }
+        this.saveSelection();
+        this.reportState();
     },
 
     // Inspect the current selection and report the contextual editing context:
@@ -334,6 +367,79 @@ const OLWBridge = {
         }
     },
 
+    // Find and highlight the previous occurrence (backwards native find).
+    findPrevious: function(query, matchCase) {
+        if (!query) return false;
+        try {
+            return window.find(query, !!matchCase, true, true, false, false, false);
+        } catch (e) {
+            return false;
+        }
+    },
+
+    // Counts case-folded occurrences of needle in haystack (non-overlapping).
+    _countInText: function(haystack, needle, matchCase) {
+        if (!needle) return 0;
+        var hay = matchCase ? haystack : haystack.toLowerCase();
+        var ndl = matchCase ? needle : needle.toLowerCase();
+        var count = 0, i = 0;
+        while ((i = hay.indexOf(ndl, i)) >= 0) {
+            count++;
+            i += ndl.length;
+        }
+        return count;
+    },
+
+    // Counts matches across the editor body's text nodes (markup excluded).
+    countMatches: function(query, matchCase) {
+        if (!query) return 0;
+        var count = 0;
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+        var node;
+        while ((node = walker.nextNode())) {
+            count += this._countInText(node.nodeValue || '', query, matchCase);
+        }
+        return count;
+    },
+
+    // Returns "current,total": the 1-based position of the selected match and the
+    // total match count, for the find bar's "n of m" readout. current is 0 when
+    // no match is currently selected.
+    findStats: function(query, matchCase) {
+        var total = this.countMatches(query, matchCase);
+        var current = 0;
+        var sel = window.getSelection();
+        if (query && sel && sel.rangeCount > 0 && !sel.isCollapsed) {
+            try {
+                var range = sel.getRangeAt(0);
+                var pre = document.createRange();
+                pre.selectNodeContents(document.body);
+                pre.setEnd(range.endContainer, range.endOffset);
+                current = this._countInText(pre.toString(), query, matchCase);
+            } catch (e) {
+                current = 0;
+            }
+        }
+        return current + ',' + total;
+    },
+
+    // Replaces the currently selected match (as highlighted by findNext/
+    // findPrevious) with the given text, honoring the case option. Returns true
+    // when a replacement was made; false when the selection is not a match.
+    replaceCurrent: function(query, replacement, matchCase) {
+        if (!query) return false;
+        var sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+        var text = sel.toString();
+        var isMatch = matchCase
+            ? text === query
+            : text.toLowerCase() === query.toLowerCase();
+        if (!isMatch) return false;
+        document.execCommand('insertText', false, replacement || '');
+        this.reportState();
+        return true;
+    },
+
     // Enable/disable the browser's native spell-check underlines on the editor body.
     // macOS/WebKit provides the actual checking and squiggly underlines; this just
     // toggles the contenteditable body's spellcheck attribute.
@@ -397,15 +503,28 @@ document.addEventListener('selectionchange', function() {
     OLWBridge.reportState();
 });
 
-// Track content changes
+// Track content changes. The host only needs to know THAT content changed (it
+// pulls full HTML on demand via getContent), so post a lightweight debounced
+// signal instead of the whole body innerHTML on every keystroke — with inline
+// base64 images the full payload can be megabytes per keystroke.
+var _contentChangedTimer = null;
+function postContentChanged() {
+    if (_contentChangedTimer) clearTimeout(_contentChangedTimer);
+    _contentChangedTimer = setTimeout(function() {
+        _contentChangedTimer = null;
+        var msg = JSON.stringify({
+            type: 'contentChanged',
+            textLength: (document.body.innerText || '').length
+        });
+        OLWBridge.postToHost(msg);
+    }, 400);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     document.body.addEventListener('keydown', function(e) {
         OLWBridge._handleTypographicKey(e);
     });
-    document.body.addEventListener('input', function() {
-        var msg = JSON.stringify({ type: 'contentChanged', html: document.body.innerHTML });
-        OLWBridge.postToHost(msg);
-    });
+    document.body.addEventListener('input', postContentChanged);
 });
 </script>
 </head>
