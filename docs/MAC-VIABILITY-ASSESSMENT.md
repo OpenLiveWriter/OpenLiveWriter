@@ -9,10 +9,23 @@
 > content sync, JSON-based JS escaping, px font sizes, find previous/count/
 > single-replace, preferences dialog shows only enforced options (+ working
 > view-after-publish / close-after-publish), Account dialog "Test Connection".
-> Suite: **489 passed / 0 failed** (+118 since this assessment). Remaining
-> open: P1-2…P1-7, P1-9…P1-11 (picture editing, theme preview, server posts,
-> pages, more providers, spelling dialog, post properties, print, web images)
-> and the §4 long tail.
+> **Status addendum 2 (2026-07-20, same branch):** P1-4, P1-5, P1-7, P1-9-lite,
+> P1-10, P1-11, and the WordPress part of P1-6 are **addressed**: Open from
+> Blog (metaWeblog.getRecentPosts/getPost + wp.getPages; opens server posts and
+> pages into the editor so re-publish edits in place), pages publish as pages
+> (`wp.newPage`/`wp.editPage`), WordPress provider + detection heuristics
+> (`/xmlrpc.php` probe, engine-aware RSD), a real spelling flow (Hunspell
+> engine, F7 dialog with suggestions/ignore/add-to-dictionary,
+> check-before-publish gate), publish date via Post Properties (F2 →
+> `dateCreated` on post+page structs), Print / Print Preview (print-styled
+> document → native WKWebView print panel, temp-PDF/browser handoffs), and
+> Picture from the Web (remote `<img>`, no base64).
+>
+> Suite: **630 passed / 0 failed** (+259 since this assessment). Still open:
+> P1-2 (picture editing — resize/border/alt/link), P1-3 (theme-based WYSIWYG /
+> themed preview), P1-6 remainder (Blogger OAuth, AtomPub, other providers),
+> P1-9 remainder (slug, excerpt, ping/trackback), and the §4 long tail
+> (plug-in host, glossary, real icons, localization).
 
 **Date:** 2026-07-20 · **Branch:** `milestone4/webview-wysiwyg` · **Audience:** engineering
 
