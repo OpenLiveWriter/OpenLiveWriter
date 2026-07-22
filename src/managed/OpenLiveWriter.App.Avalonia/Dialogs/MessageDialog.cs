@@ -25,10 +25,18 @@ namespace OpenLiveWriter.App.Avalonia.Dialogs
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             var panel = new StackPanel { Margin = new global::Avalonia.Thickness(16), Spacing = 12 };
-            panel.Children.Add(new TextBlock
+
+            // Long messages (e.g. a server error page snippet) must scroll instead of
+            // growing the window past the screen's height.
+            panel.Children.Add(new ScrollViewer
             {
-                Text = message ?? string.Empty,
-                TextWrapping = TextWrapping.Wrap
+                MaxHeight = 360,
+                VerticalScrollBarVisibility = global::Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+                Content = new TextBlock
+                {
+                    Text = message ?? string.Empty,
+                    TextWrapping = TextWrapping.Wrap
+                }
             });
 
             var okButton = new Button

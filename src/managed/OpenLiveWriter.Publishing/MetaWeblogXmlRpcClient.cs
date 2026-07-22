@@ -616,7 +616,9 @@ namespace OpenLiveWriter.Publishing
             // (the UI thread in the shell) on the network round-trip.
             HttpResponseMessage response = await client.SendAsync(request, cancellationToken)
                 .ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+                throw await BlogClientHttpException.CreateAsync(response, _endpointUrl)
+                    .ConfigureAwait(false);
 
             string responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -637,6 +639,69 @@ namespace OpenLiveWriter.Publishing
     {
         public BlogClientPublishException(string message) : base(message)
         {
+        }
+    }
+
+    /// <summary>
+    /// Raised when the XML-RPC endpoint answers with a non-success HTTP status (e.g.
+    /// 401/403 from a host-level auth rule, security plugin, or an application-password
+    /// requirement). Carries the status code and a bounded snippet of the response body
+    /// so the user can see *what* rejected the call (a Basic-auth realm, a WAF block
+    /// page, a WordPress error, …) instead of a bare "401 (Unauthorized)".
+    /// </summary>
+    public class BlogClientHttpException : BlogClientPublishException
+    {
+        private const int MaxBodySnippet = 300;
+
+        public BlogClientHttpException(int statusCode, string reason, string bodySnippet, string endpointUrl)
+            : base(BuildMessage(statusCode, reason, bodySnippet, endpointUrl))
+        {
+            StatusCode = statusCode;
+        }
+
+        public int StatusCode { get; }
+
+        public static async Task<BlogClientHttpException> CreateAsync(
+            HttpResponseMessage response, string endpointUrl)
+        {
+            string snippet = string.Empty;
+            try
+            {
+                string body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                // Collapse whitespace so an HTML error page reads as one tidy line.
+                snippet = System.Text.RegularExpressions.Regex.Replace(body ?? string.Empty, @"\s+", " ").Trim();
+                if (snippet.Length > MaxBodySnippet)
+                    snippet = snippet.Substring(0, MaxBodySnippet) + "\u2026";
+            }
+            catch
+            {
+                // A body that can't be read must never mask the status itself.
+            }
+
+            return new BlogClientHttpException(
+                (int)response.StatusCode, response.ReasonPhrase, snippet, endpointUrl);
+        }
+
+        private static string BuildMessage(int statusCode, string reason, string bodySnippet, string endpointUrl)
+        {
+            var sb = new System.Text.StringBuilder();
+            sb.Append("The blog server rejected the request (HTTP ").Append(statusCode);
+            if (!string.IsNullOrEmpty(reason))
+                sb.Append(' ').Append(reason);
+            sb.Append(").");
+
+            if (statusCode == 401 || statusCode == 403)
+            {
+                sb.Append(" The endpoint refused authentication. Check the username and password — ")
+                  .Append("many WordPress hosts now require an *application password* for XML-RPC ")
+                  .Append("instead of the account password — or whether a security plugin or host ")
+                  .Append("rule is blocking XML-RPC.");
+            }
+
+            if (!string.IsNullOrEmpty(bodySnippet))
+                sb.Append(" Server said: ").Append(bodySnippet);
+
+            return sb.ToString();
         }
     }
 }
